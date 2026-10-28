@@ -165,9 +165,11 @@ function chart(field) {
 function formula(v) {
   if (v.value == null) return "";
   const by = Object.fromEntries(v.sources.map((s) => [s.field, s]));
-  const calc = v.field === "opex" ? by.revenue.value - by.cost_of_revenue.value - by.operating_income.value : v.sources[0].value;
+  const lines = v.sources.filter((s) => s.field.startsWith("cost_of_revenue"));  // one total line, or the cost lines added up
+  const cor = lines.reduce((a, s) => a + s.value, 0);
+  const calc = v.field === "opex" ? by.revenue.value - cor - by.operating_income.value : v.sources[0].value;
   const body = v.field === "opex"
-    ? `${usd(v.value)} <span class="eq">=</span> ${usd(by.revenue.value)} <span class="eq">revenue −</span> ${usd(by.cost_of_revenue.value)} <span class="eq">cost of revenue −</span> ${usd(by.operating_income.value)} <span class="eq">operating income</span>`
+    ? `${usd(v.value)} <span class="eq">=</span> ${usd(by.revenue.value)} <span class="eq">revenue −</span> ${usd(cor)} <span class="eq">cost of revenue${lines.length > 1 ? ` (${lines.length} lines added)` : ""} −</span> ${usd(by.operating_income.value)} <span class="eq">operating income</span>`
     : `${usd(v.value)} <span class="eq">=</span> ${esc(v.sources[0].cell)} × ${v.sources[0].scale.toLocaleString("en-US")}`;
   return `<div class="formula">${body} ${calc === v.value ? `<span class="ok">✓ adds up</span>` : `<span style="color:var(--bad)">✗ arithmetic gives ${usd(calc)}</span>`}</div>`;
 }

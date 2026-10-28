@@ -10,6 +10,7 @@ AI agents read SEC 10-K filings and extract revenue, capex and opex, citing the 
 - 6 of stage 2's 10 XBRL disagreements had one known cause: XBRL draws cost of revenue differently (Oracle tags none; APLD's FY2026 tag covers one of two lines). Code now labels these `definition_gap` and shows both numbers. You confirm the cost lines once per company instead.
 - For restated or disputed values, the page quotes the 10-K's own explanation, with a link.
 - New [docs/INGESTION.md](docs/INGESTION.md): the flow, who decides what, and a learnings log; every finding must end as a definition, rule, code or prompt change, or a recorded decision.
+- Fixed: on the validation page, values for a company with added-up cost lines (ORCL, APLD) wouldn't expand.
 - Stage 2: 66 values: 56 agree, 6 definition gaps, 4 blocking. Faults 0 of 862 escaped. `v0.1.0` (NVDA) stays signed.
 
 **Next:**
