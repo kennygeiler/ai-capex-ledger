@@ -1,7 +1,7 @@
 """T72 decisions re-apply only on unchanged inputs; T91 gates refuse; T92 same inputs, same hash; T93 diff."""
 import unittest
 
-from ledger.release import build, content_hash, gates
+from ledger.release import build, content_hash, gates, to_check
 from ledger.review import apply, open_items
 
 EXC = {"exception_id": "sign|NVDA|capex|FY2026", "rule_id": "sign", "severity": "block", "ticker": "NVDA", "field": "capex", "period": "FY2026", "input_hash": "h1", "message": "m"}
@@ -30,6 +30,15 @@ class Gates(unittest.TestCase):
         hc = {"values": [{"ticker": "NVDA", "field": "capex", "period": "FY2026", "value": -5, "verified": True}]}
         self.assertFalse(any(gates([VAL], [], hc).values()))
         self.assertTrue(gates([{**VAL, "value": 6}], [], hc)["G5"])  # a check of an older value doesn't count
+
+
+    def test_only_values_xbrl_cant_vouch_for_and_a_sample_need_a_person(self):
+        vals = [{**VAL, "period": f"FY{2000 + i}", "value": i + 1} for i in range(30)] + [{**VAL, "period": "FY2099", "value": 7, "label": "unresolved"}]
+        c = to_check(vals)
+        self.assertEqual((len(c), c[("NVDA", "capex", "FY2099")]), (11, "xbrl_differs"))
+        self.assertEqual(c, to_check(vals))  # the same sample every run
+        hc = {"values": [{"ticker": t, "field": f, "period": p, "value": next(v["value"] for v in vals if v["period"] == p), "verified": True} for t, f, p in c]}
+        self.assertEqual(gates(vals, [], hc)["G5"], [])
 
 
 class Build(unittest.TestCase):

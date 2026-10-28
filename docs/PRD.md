@@ -22,10 +22,10 @@ Each milestone is a capability. Companies are how we test it.
 
 | | Capability | Done when |
 |---|---|---|
-| **M0** ✓ | **The loop works by hand.** Agents read, code checks, a person signs. | `v0.1.0` (NVDA) signed. `v0.2.0` (5 companies) signed by Kenny; this is the last release hand-checked value by value. |
+| **M0** ✓ | **The loop works by hand.** Agents read, code checks, a person signs. | `v0.1.0` (NVDA) signed. `v0.2.0` (5 companies) signed by Kenny, the first with the sampled hand-check. |
 | **M1** | **It runs unattended.** One command takes a ticker from fetch to validation page, with agents run headless on the subscription (no paid API). | `ledger run --ticker X` on a company it has never seen produces its page with no manual step, and logs model, tokens and seconds per filing. |
 | **M2** | **A new company needs no code.** The 14 unseen companies run blind with the pipeline frozen. Each failure is recorded by type, fixed as that type (never as a company), and the whole batch reruns. | A full rerun of all 19 needs no code change. The first-pass rate and every fix are in [INGESTION.md](INGESTION.md). |
-| **M3** | **Review scales.** A person sees only items code can't explain, grouped by cause, and hand-checks a sample, not every value. | One decision covers every item with the same cause. The sampled hand-check gate (G5, below) replaces checking every value. `v1.0.0` (19 companies) is signed. |
+| **M3** | **Review scales.** A person sees only items code can't explain, grouped by cause, and hand-checks a sample, not every value. | One decision covers every item with the same cause. `v1.0.0` (19 companies) is signed. (The sampled hand-check, G5, was pulled forward to `v0.2.0`.) |
 
 ## Principles
 
@@ -43,7 +43,7 @@ Each milestone is a capability. Companies are how we test it.
 |---|---|
 | G1 | Every filing ended in valid agent output or a logged failure, and no failure is open. |
 | G4 | No blocking exception without a current decision (reviewer, reason, input hash). |
-| G5 | Hand-checked against the filing, at the value being released. Until M3: every value. From M3: every value a person decided, every restated value, plus a random sample. If the sample of *n* has no errors, the error rate is below 3/*n* at 95% confidence (the standard "rule of three"); the release states that bound. |
+| G5 | Hand-checked against the filing, at the value being released: every value XBRL can't vouch for (it disagrees, or defines the field differently), plus 10 random values it agrees with, to test that the matching works. A value where the 10-K cell and XBRL agree is verified by two independent sources. `QUALITY.md` states the split. |
 
 These hold by construction: a rerun gives the same hash; a decision re-applies only while its inputs are unchanged; `DIFF.md` lists every change since the last release.
 
@@ -64,7 +64,7 @@ These hold by construction: a rerun gives the same hash; a decision re-applies o
 |---|---|---|
 | Cells read correctly, vs the XBRL fact for the same filing and period | report, with a 95% bound | `scripts/score_cells.py` |
 | Injected misreads that escape every rule | 0 | `ledger faults` |
-| Hand-check errors | 0 found; sampled bound stated from M3 | G5 |
+| Hand-check errors | 0 found | G5 |
 | Fresh-agent rerun identical | 100% | `scripts/compare_outputs.py` |
 
 ## Risks

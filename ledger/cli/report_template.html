@@ -92,6 +92,10 @@ tr.open .caret { transform: rotate(90deg); }
 .howto ol { margin: 6px 0 0; padding-left: 18px; }
 .foot { color: var(--muted); font-size: 12px; margin-top: 24px; }
 .queue { display: grid; gap: 8px; }
+.ask { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: grid; gap: 6px; font-size: 14px; overflow-wrap: anywhere; }
+.ask.yes { border-color: var(--ok); } .ask.no { border-color: var(--bad); }
+.ask .q { font-size: 15px; } .ask ul { margin: 0; padding-left: 18px; } .ask .why { color: var(--muted); font-size: 12px; }
+.ask .btns { display: flex; gap: 8px; flex-wrap: wrap; } .ask .btns button[aria-pressed=true] { outline: 2px solid currentColor; }
 .qi { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; gap: 4px; font-size: 13px; overflow-wrap: anywhere; }
 .qi .top { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 details summary { cursor: pointer; font-size: 13px; }
@@ -129,14 +133,14 @@ const blocked = D.exceptions.filter((e) => e.severity === "block").map((e) => e.
 const state = { company: blocked[0] || D.tickers[0], field: "all", show: "all", open: new Set() };
 
 function tiles() {
-  const c = D.counts, done = D.values.filter((v) => checks[key(v)]?.verified).length;
+  const c = D.counts, todo = D.values.filter((v) => v.check), done = todo.filter((v) => checks[key(v)]?.verified).length;
   return `<div class="tiles">
     <div class="tile"><div class="n">${c.filings}</div><div class="l">filings read by agents</div></div>
     <div class="tile"><div class="n">${c.extractions}</div><div class="l">cells cited (table, row, column, text)</div></div>
     <div class="tile"><div class="n">${c.values}</div><div class="l">fiscal-year values</div></div>
     <div class="tile ${c.agree === c.values ? "good" : ""}"><div class="n">${c.agree}/${c.values}</div><div class="l">agree with XBRL (SEC answer key)</div></div>
     <div class="tile"><div class="n">${c.open_exceptions}</div><div class="l">open exceptions (block or warn) · ${c.info_notes} info note${c.info_notes === 1 ? "" : "s"}</div></div>
-    <div class="tile ${done === c.values ? "good" : ""}"><div class="n" id="done-n">${done}/${c.values}</div><div class="l">hand-checked by you</div></div>
+    <div class="tile ${done === todo.length ? "good" : ""}"><div class="n" id="done-n">${done}/${todo.length}</div><div class="l">numbers checked by you (the rest: XBRL agrees)</div></div>
   </div>`;
 }
 
@@ -151,7 +155,7 @@ function chart(field) {
   vs.forEach((v, i) => {
     const x = L + i * bw, w = bw * 0.58;
     if (v) {
-      const bad = v.label === "unresolved";
+      const bad = v.label === "unresolved" && !v.decision;
       s += `<rect class="bar ${bad ? "bad" : ""}" x="${x + (bw - w) / 2}" y="${Math.min(y(v.value), y(0))}" width="${w}" height="${Math.max(1, Math.abs(y(v.value) - y(0)))}" rx="2"/>`;
       if (v.ref != null) s += `<circle class="mark" cx="${x + bw / 2}" cy="${y(v.ref)}" r="4"/>`;
       s += `<rect class="hit" data-k="${key(v)}" x="${x}" y="0" width="${bw}" height="${H}"/>`;
@@ -214,12 +218,12 @@ function rows() {
   return list.map((v) => {
     const k = key(v), c = checks[k] || {}, open = state.open.has(k);
     const basisPill = v.basis === "restated" ? ` <span class="pill na" title="A later 10-K changed this figure. As first reported: ${usd(v.first_reported)}">restated</span>` : "";
-    const pill = v.label === "not_reported" ? `<span class="pill na">not reported</span>` : v.label === "agree" ? `<span class="pill ok" title="agrees with XBRL"><span class="full">agree</span><span class="abbr">✓</span></span>` : v.label === "no_reference" ? `<span class="pill na">no XBRL</span>` : v.label === "definition_gap" ? `<span class="pill na" title="XBRL counts cost of revenue differently">XBRL defines differently</span>` : `<span class="pill bad">${v.label}</span>`;
+    const pill = v.decision ? `<span class="pill na" title="${esc(v.decision.reason)}">${{accept: "accepted", override: "overridden", reject: "rejected"}[v.decision.kind]} by ${esc(v.decision.reviewer)}</span>` : v.label === "not_reported" ? `<span class="pill na">not reported</span>` : v.label === "agree" ? `<span class="pill ok" title="agrees with XBRL"><span class="full">agree</span><span class="abbr">✓</span></span>` : v.label === "no_reference" ? `<span class="pill na">no XBRL</span>` : v.label === "definition_gap" ? `<span class="pill na" title="XBRL counts cost of revenue differently">XBRL defines differently</span>` : `<span class="pill bad">${v.label}</span>`;
     return `<tr class="main ${open ? "open" : ""} ${c.verified ? "done" : ""}" data-k="${k}">
       <td><span class="caret">▸</span> ${esc(v.period)}<div style="color:var(--muted);font-size:11px">ended ${esc(v.period_end)}</div></td><td>${esc(D.field_label[v.field])}</td>
       <td class="num"><span class="full">${usd(v.value)}</span><span class="abbr">${short(v.value)}</span></td><td class="num hide-sm">${usd(v.ref)}</td><td>${pill}${basisPill}</td>
       <td class="hide-sm" style="color:var(--muted);font-size:12px">${esc(D.method_label[v.method] || v.method)} · ${v.sources.length} cell${v.sources.length > 1 ? "s" : ""}</td>
-      <td><label class="check" onclick="event.stopPropagation()"><input type="checkbox" data-check="${k}" ${c.verified ? "checked" : ""} aria-label="Verified against filing"> verified</label></td>
+      <td>${v.check ? `<label class="check" onclick="event.stopPropagation()"><input type="checkbox" data-check="${k}" ${c.verified ? "checked" : ""} aria-label="Verified against filing"> verified</label>` : `<span style="color:var(--muted);font-size:12px">${v.value == null ? "–" : "XBRL agrees"}</span>`}</td>
       <td class="hide-sm" onclick="event.stopPropagation()"><input class="note" data-note="${k}" value="${esc(c.note || "")}" placeholder="note"></td>
     </tr>${open ? `<tr class="detail"><td colspan="8">${detail(v)}</td></tr>` : ""}`;
   }).join("") || `<tr><td colspan="8" style="color:var(--muted)">Nothing in this view.</td></tr>`;
@@ -237,7 +241,7 @@ function story() {
     <p><b>Your job.</b> The AI does the reading. A person decides what we stand behind. ${block ? `<b>${block} item${block > 1 ? "s" : ""} need${block > 1 ? "" : "s"} your decision</b> before this data can be released, plus ${warn} smaller warning${warn === 1 ? "" : "s"}.` : "Nothing is blocking."} Each item below says what happened and what to do. Your decision is recorded with your name and reason.</p>
     <ol class="steps">
       <li><b>Decide each item</b> in "Needs your decision": read the card, open the filing if needed, then accept, override or reject.</li>
-      <li><b>Spot-check the numbers</b> in "Every value": open a row, click "Open the filing at this row", confirm the number, and tick "verified".</li>
+      <li><b>Check the numbers</b> in "Check these numbers": each card asks one question. Open the filing, look at the cell it names, and answer yes or no. Numbers where the filing and XBRL already agree don't need you, except a few random spot-checks.</li>
       <li><b>Download the hand-check</b> and save it as <code>golden/stage${D.stage}-handcheck.json</code>.</li>
       <li><b>Release</b>: <code>python -m ledger release v0.${D.stage}.0 --stage ${D.stage}</code>. It refuses until steps 1–3 are done.</li>
     </ol>
@@ -270,28 +274,55 @@ function decisions() {
     <details style="margin-top:8px"><summary><b>${info.length} notes</b>: no decision needed</summary><div class="queue" style="margin-top:8px">${info.map(item).join("")}</div></details>`;
 }
 
+const WHY = {
+  spot_check: () => "Random spot-check. XBRL agrees with this number; checking a few by hand tests that the matching works.",
+  xbrl_differs: (v) => v.decision ? `XBRL disagrees and you ${{accept: "accepted", override: "overrode", reject: "rejected"}[v.decision.kind]} that. Now confirm the number itself is in the filing.`
+    : v.label === "definition_gap" ? "XBRL counts cost of revenue differently, so it can't vouch for this number." : "XBRL disagrees, so it can't vouch for this number.",
+};
+
+function ask(v) {
+  const k = key(v), c = checks[k] || {}, one = v.sources.length === 1, s0 = v.sources[0];
+  const line = (s) => `<b>“${esc(s.row)}”</b> under <b>“${esc(s.col)}”</b>: <b>${esc(s.cell)}</b> <a href="${esc(s.deep)}" target="_blank" rel="noopener">open ↗</a>`;
+  const q = one
+    ? `In the row ${line(s0)}. Does the filing show that number there? <span class="why">(${esc(s0.unit)} → ${usd(v.value)})</span>`
+    : `Does the filing show each of these?<ul>${v.sources.map((s) => `<li>${line(s)}</li>`).join("")}</ul><span class="why">Revenue − cost of revenue − operating income = ${usd(v.value)}</span>`;
+  const state = c.verified ? "yes" : c.problem ? "no" : "";
+  return `<div class="ask ${state}"><div class="top"><b>${esc(v.ticker)} · ${esc(D.field_label[v.field])} · ${esc(v.period)}</b></div>
+    <div class="q">${q}</div><div class="why">${WHY[v.check](v)}</div>
+    <div class="btns"><button class="btn" data-answer="yes" data-k="${k}" aria-pressed="${state === "yes"}">Yes, it matches</button><button class="btn" data-answer="no" data-k="${k}" aria-pressed="${state === "no"}">No</button>${c.problem && c.note ? `<span class="why">You wrote: ${esc(c.note)}</span>` : ""}</div></div>`;
+}
+
+function checkList() {
+  const todo = D.values.filter((v) => v.check), done = todo.filter((v) => checks[key(v)]?.verified || checks[key(v)]?.problem).length;
+  return `<h2 id="check">Check these numbers (${done}/${todo.length} answered)</h2>
+    <p class="foot">${D.values.filter((v) => v.label === "agree").length - todo.filter((v) => v.check === "spot_check").length} other numbers match XBRL, a separate copy the company files, so two sources already agree on them.</p>
+    <div class="queue">${todo.map(ask).join("")}</div>
+    <p><button class="btn primary" id="export">Download hand-check</button></p>`;
+}
+
 function render() {
   $("#app").innerHTML = `
     <h1>${esc(document.title)}</h1>
     ${story()}
     ${tiles()}
     ${decisions()}
+    ${checkList()}
     <h2>Company</h2>
     <div class="toolbar">${seg("company", Object.fromEntries(D.tickers.map((t) => [t, `${t}${blocked.includes(t) ? " · needs decisions" : ""}`])))}</div>
     <h2>Agent vs XBRL, by fiscal year · ${esc(state.company)}</h2>
     <div class="charts">${D.fields.map(chart).join("")}</div>
     <div class="legend"><span><span class="sw" style="background:var(--agent)"></span>Agent value (read from the filing)</span><span><span class="ring"></span>XBRL value (answer key)</span><span><span class="sw" style="background:var(--bad)"></span>Disagreement</span></div>
-    <h2>Every value</h2>
+    <h2>Every value (for reference)</h2>
     <div class="toolbar">${seg("field", { all: "All", ...D.field_label })}${seg("show", { all: "All", todo: "Not yet checked", bad: "Disagreements" })}
-      <span class="spacer"></span><button class="btn" id="expand">Expand all</button><button class="btn primary" id="export">Download hand-check</button></div>
+      <span class="spacer"></span><button class="btn" id="expand">Expand all</button></div>
     <table class="vals"><colgroup><col class="c-q"><col class="c-f"><col class="c-a"><col class="c-x hide-sm"><col class="c-m"><col class="c-h hide-sm"><col class="c-c"><col class="c-n hide-sm"></colgroup>
-      <thead><tr><th>Quarter</th><th>Field</th><th style="text-align:right">Agent</th><th class="hide-sm" style="text-align:right">XBRL</th><th>Match</th><th class="hide-sm">How it was built</th><th>Your check</th><th class="hide-sm">Note</th></tr></thead>
+      <thead><tr><th>Year</th><th>Field</th><th style="text-align:right">Agent</th><th class="hide-sm" style="text-align:right">XBRL</th><th>Match</th><th class="hide-sm">How it was built</th><th>Your check</th><th class="hide-sm">Note</th></tr></thead>
       <tbody id="rows">${rows()}</tbody></table>
     <p class="foot">Release candidate ${D.release} · generated ${D.generated} UTC by <code>python -m ledger report --stage ${D.stage}</code> · hand-check record saved in this browser under “${KEY}”.</p>`;
   document.querySelectorAll("tr.detail [data-cited]").forEach((r) => r.closest(".tbl").scrollTop = r.offsetTop - 40);
 }
 
-function updateTiles() { const n = D.values.filter((v) => checks[key(v)]?.verified).length; $("#done-n").textContent = `${n}/${D.values.length}`; }
+function updateTiles() { const t = D.values.filter((v) => v.check); $("#done-n").textContent = `${t.filter((v) => checks[key(v)]?.verified).length}/${t.length}`; }
 
 document.addEventListener("click", (e) => {
   const b = e.target.closest("[data-field],[data-show],[data-company]");
@@ -302,6 +333,12 @@ document.addEventListener("click", (e) => {
       values: D.values.map((v) => ({ ticker: v.ticker, field: v.field, period: v.period, value: v.value, input_hash: v.input_hash, ...(checks[key(v)] || { verified: false }) })) };
     const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 1)], { type: "application/json" }));
     a.download = `stage${D.stage}-handcheck.json`; a.click(); return;
+  }
+  const ans = e.target.closest("[data-answer]");
+  if (ans) {
+    const k = ans.dataset.k, yes = ans.dataset.answer === "yes";
+    const note = yes ? (checks[k]?.note || "") : (prompt("What does the filing show instead?", checks[k]?.note || "") ?? checks[k]?.note ?? "");
+    checks[k] = { ...(checks[k] || {}), verified: yes, problem: !yes, note, checked_at: new Date().toISOString() }; save(); return render();
   }
   const hit = e.target.closest(".hit");
   if (hit) { state.open.add(hit.dataset.k); state.field = "all"; state.show = "all"; render(); document.querySelector(`tr.main[data-k="${CSS.escape(hit.dataset.k)}"]`)?.scrollIntoView({ block: "center" }); return; }

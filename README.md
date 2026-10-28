@@ -6,17 +6,15 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** Stage 2 has no blocking items left.
-- **Kenny's decisions (recorded):**
-  - accepted APLD revenue and opex FY2024–FY2025: recast after the ChronoScale transaction, as the 10-K states
-  - confirmed the ORCL and APLD cost lines
-- **Code fix:** the row-switch rule no longer flags cost lines as noise. It now checks that each 10-K uses the same cost lines in every year. Skipping cost lines outright had let 10 planted misreads escape; with the new check, 0 of 862 escape.
-- **Plan:** pipeline-first milestones M1–M3, in [docs/PRD.md](docs/PRD.md).
+**Last done (28 Oct 2026):** The hand-check is now 20 yes/no questions instead of 66 open-ended checks (Kenny's call; G5 changed).
+- **Who checks what:** a person checks the values XBRL can't vouch for (the 4 APLD recast values and 6 Oracle/APLD definition gaps) plus 10 random values XBRL agrees with. The other 46 are verified by two independent sources, the 10-K cell and XBRL.
+- **The page:** shows a "Check these numbers" card for each, naming the row, column and number to find in the filing, with Yes/No buttons. Decided items now show "accepted by Kenny Geiler" instead of red.
+- **Earlier today:** Kenny's 6 stage 2 decisions recorded, and the cost-line check fixed (0 of 862 faults escape).
 
 **Next:**
-1. **Kenny (P2):** hand-check the 66 values on `reports/stage2-validation.html`, export the hand-check file, then say to release and sign `v0.2.0`. The 21 open warnings don't block the release.
+1. **Kenny (P2):** answer the 20 cards on `reports/stage2-validation.html`, click "Download hand-check", save it as `golden/stage2-handcheck.json`, then say to release and sign `v0.2.0`.
 2. **Kenny (M1.1):** run `claude login` once in a terminal.
-3. **Claude (M1.2–M1.4):** headless extraction, `ledger run --ticker X`, scorecard. The warnings with known causes (a year not yet ended, a year outside the fetched filings) become code labels in M2.
+3. **Claude (M1.2–M1.4):** headless extraction, `ledger run --ticker X`, scorecard.
 
 **Critical notes:**
 - **Dashes are zero.** APLD's newest 10-K shows "—" for its data-center cost line in FY2024 and FY2025; agents read these as 0.

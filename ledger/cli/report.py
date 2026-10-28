@@ -16,6 +16,8 @@ from urllib.parse import quote
 from .. import store
 from ..ingest.notes import restatement_note
 from ..config import MVP_YEARS, RELEASE_FIELDS, STAGES
+from ..release import to_check
+from ..review import decisions, latest, open_items
 from ..rules import load
 
 FIELD_LABEL = {"revenue": "Revenue", "capex": "Capex", "opex": "Opex", "cost_of_revenue": "Cost of revenue", "operating_income": "Operating income"}
@@ -57,6 +59,9 @@ def build(con, stage: int) -> dict:
             notes[accn] = n and {"text": n, "url": d["url"] + "#:~:text=" + quote(" ".join(n.split()[:8]))}
         return notes[accn]
 
+    check, cur = to_check(vals), latest(decisions())
+    decided = {(e["ticker"], e["field"], e["period"]): cur[e["exception_id"]] for e in excs
+               if e["period"] and cur.get(e["exception_id"], {}).get("input_hash") == e["input_hash"]}
     rows = []
     for v in vals:
         srcs = []
@@ -77,13 +82,15 @@ def build(con, stage: int) -> dict:
         rows.append({"ticker": v["ticker"], "field": v["field"], "period": v["period"], "period_end": v["period_end"], "value": v["value"], "method": v["method"],
                      "label": v["label"], "basis": v["basis"], "first_reported": v["first_reported"], "ref": r and r["value"], "ref_concept": r and r["concept"], "ref_accession": r and r["accession"],
                      "input_hash": v["input_hash"], "sources": srcs,
+                     "check": check.get((v["ticker"], v["field"], v["period"])),
+                     "decision": (d := decided.get((v["ticker"], v["field"], v["period"]))) and {k: d[k] for k in ("kind", "reviewer", "reason")},
                      "why": explain(srcs[0]["accession"]) if srcs and (v["basis"] == "restated" or v["label"] == "unresolved") else None})
     return {"stage": stage, "tickers": tickers, "release": STAGES[stage]["release"], "fields": RELEASE_FIELDS, "years": MVP_YEARS,
             "rules": {r["id"]: {k: r[k] for k in ("title", "plain", "action")} for r in load()},
-            "field_label": FIELD_LABEL, "method_label": METHOD_LABEL, "values": rows, "tables": tables, "exceptions": excs,
+            "field_label": FIELD_LABEL, "method_label": METHOD_LABEL, "values": rows, "tables": tables, "exceptions": open_items(excs, decisions()) + [e for e in excs if e["severity"] == "info"],
             "counts": {"filings": len(docs), "extractions": len(ext), "values": len(vals),
                        "agree": sum(v["label"] == "agree" for v in vals),
-                       "open_exceptions": sum(e["severity"] != "info" for e in excs), "info_notes": sum(e["severity"] == "info" for e in excs)},
+                       "open_exceptions": len(open_items(excs, decisions())), "info_notes": sum(e["severity"] == "info" for e in excs)},
             "generated": datetime.now(timezone.utc).isoformat(timespec="minutes")}
 
 

@@ -9,7 +9,7 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 | ID | Ticket | Done when |
 |---|---|---|
 | P1 | **you:** Decide stage 2's 4 blocking items: APLD revenue and opex FY2024–FY2025, recast after the ChronoScale transaction (the page quotes the note). Confirm the ORCL and APLD cost lines; decide the warnings. | `ledger review --stage 2` shows 0 open. |
-| P2 | **you:** Hand-check stage 2; release and sign `v0.2.0`. | Signed. |
+| P2 | **you:** Answer the 20 "Check these numbers" cards on the stage 2 page (yes/no), download the hand-check, then release and sign `v0.2.0`. | Signed. |
 
 ### M1: it runs unattended
 
@@ -32,7 +32,6 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 | ID | Ticket | Done when |
 |---|---|---|
 | M3.1 | Group open items by cause, so one decision (for example "APLD recast after ChronoScale") covers every item it explains. | `ledger review` lists causes, not rows. |
-| M3.2 | Sampled hand-check gate (G5): decided and restated values, plus a random sample; the release states the rule-of-three bound. | `release` refuses without the sample; QUALITY.md states the bound. |
 | M3.3 | **you:** review, hand-check the sample, and sign `v1.0.0` (19 companies). | Signed. |
 
 ### Later
@@ -44,6 +43,7 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Done
 
+- **Sampled hand-check (M3.2, pulled forward, 28 Oct):** a person checks only the values XBRL can't vouch for, plus 10 random agreeing ones. Each is one yes/no question on the page; decisions show as decided, not red. Stage 2: 20 checks instead of 66.
 - **M0, built by hand (to 28 Oct 2026):**
   - **Ingest:** 10-K list per company; documents cached with SHA-256; table parser (`tables@7`, fixture-tested); statement locator (176/177 correct); restatement-note finder.
   - **Extraction:** tasks with no XBRL in them; prompts `statements@v1` and `@v2` (cost lines classified when there is no total); citation resolver; outputs kept in git.
