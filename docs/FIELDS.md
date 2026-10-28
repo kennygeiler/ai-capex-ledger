@@ -18,3 +18,13 @@ What each released number means. The extraction prompt (`agents/prompts/`) and t
 For example, NVDA's quarter ended 26 Jul 2026 is `2026Q2` and `FY2027 Q2`.
 
 **Units.** Whole US dollars, unscaled.
+
+**Restatements.** When a company rewrites past numbers (for example after selling part of its business), it is restated. The release follows standard practice (Compustat keeps the same two series):
+- **`value` uses the restated basis:** the newest filing wins.
+- **`basis`** says which basis each value is on:
+  - `as_reported`: before any restatement, or the company never restated.
+  - `restated`: built from filings on or after the company's restatement.
+  - `mixed`: the inputs straddle the restatement, so no single basis exists. The value is left blank.
+- **`first_reported`** keeps the same quarter as originally reported.
+
+A restatement is a change of more than 1% (and more than rounding) to a number an earlier filing reported.

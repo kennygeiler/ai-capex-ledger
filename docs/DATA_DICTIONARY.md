@@ -1,6 +1,6 @@
 # Data dictionary
 
-Generated from `ledger/store.py` (schema version 2). Do not edit by hand: run `uv run python -m ledger.store`.
+Generated from `ledger/store.py` (schema version 3). Do not edit by hand: run `uv run python -m ledger.store`.
 
 Money is BIGINT US dollars, unscaled. Dates are `YYYY-MM-DD` strings; timestamps are UTC ISO 8601.
 
@@ -89,7 +89,9 @@ Key: `(ticker, field, cal_q)`
 | `value` | BIGINT | no |  | US dollars, unscaled. Null when source is missing. |
 | `source` | VARCHAR | yes | `agent`, `override`, `missing` | Where the shipped value comes from. |
 | `method` | VARCHAR | no |  | Quarter derivation: reported, ytd_diff, q4_derived, fy_minus_quarters. |
-| `label` | VARCHAR | yes | `agree`, `agent_wrong`, `xbrl_wrong`, `definition_gap`, `unresolved`, `no_reference` | Reconciliation against the reference. |
+| `label` | VARCHAR | yes | `agree`, `agent_wrong`, `xbrl_wrong`, `definition_gap`, `unresolved`, `no_reference`, `mixed_basis` | Reconciliation against the reference. |
+| `basis` | VARCHAR | yes | `as_reported`, `restated`, `mixed` | as_reported, restated (built from filings after the company's restatement), or mixed (no single basis; value left blank). |
+| `first_reported` | BIGINT | no |  | The same quarter built only from first-filed numbers (as first reported). |
 | `extraction_ids` | VARCHAR | no |  | Extractions used, comma-separated. |
 | `input_hash` | VARCHAR | yes |  | Hash of everything this value depends on; decisions re-apply only when it matches. |
 

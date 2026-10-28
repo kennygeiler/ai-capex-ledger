@@ -65,7 +65,7 @@ def build(con, stage: int) -> dict:
         srcs.sort(key=lambda s: -s["days"])
         r = ref.get((v["ticker"], v["field"], v["cal_q"]))
         rows.append({"ticker": v["ticker"], "field": v["field"], "cal_q": v["cal_q"], "fiscal_period": v["fiscal_period"], "value": v["value"], "method": v["method"],
-                     "label": v["label"], "ref": r and r["value"], "ref_concept": r and r["concept"], "ref_accession": r and r["accession"],
+                     "label": v["label"], "basis": v["basis"], "first_reported": v["first_reported"], "ref": r and r["value"], "ref_concept": r and r["concept"], "ref_accession": r and r["accession"],
                      "input_hash": v["input_hash"], "sources": srcs})
     return {"stage": stage, "tickers": tickers, "release": STAGES[stage]["release"], "fields": list(MVP_FIELDS), "quarters": MVP_QUARTERS,
             "rules": {r["id"]: {k: r[k] for k in ("title", "plain", "action")} for r in load()},

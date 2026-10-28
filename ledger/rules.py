@@ -161,7 +161,11 @@ def _ytd(ctx, p):
     """Q1 + Q2 + Q3 three-month cells must equal the nine-month cell (and Q1 + Q2 the six-month cell). Both sides are
     read from filings, so this is an independent test. (A quarters-sum-to-year test would be circular here, because
     Q4 is derived as the year minus nine months.)"""
-    out = []
+    from .basis import generation, restatement_dates
+    out, dates = [], {}
+    for e in ctx.extractions:
+        dates.setdefault(e["ticker"], []).append(e)
+    dates = {t: restatement_dates(es) for t, es in dates.items()}
     three = {}
     for e in ctx.extractions:
         if 80 <= _days(e) <= 100:
@@ -178,8 +182,8 @@ def _ytd(ctx, p):
                 break
             parts.append(q)
             s = date.fromisoformat(q["period_end"]) + timedelta(days=1)
-        if len(parts) != n:
-            continue
+        if len(parts) != n or len({generation(x, dates[e["ticker"]]) for x in parts + [e]}) > 1:
+            continue  # incomplete, or spans a restatement (the restated rule and the value's basis cover that)
         total = sum(x["value"] for x in parts)
         tol = n * e["scale"] // 2 + e["scale"] // 2
         if abs(total - e["value"]) > tol:

@@ -6,19 +6,23 @@ AI agents read SEC filings and extract revenue, cost of revenue, operating incom
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** stage 2 extraction is done, including the held-out run ([docs/QA-stage2.md](docs/QA-stage2.md)).
-- The validation pages now explain themselves in plain language: what the data is, how it's checked, the reviewer's task step by step, and for each item what happened and what to do. The wording lives with each rule in `rules/*.yaml` (`title`, `plain`, `action`, all required).
-- **Held out (ORCL, APLD):** 216/216 cells the agents read match XBRL. Error rate under 1.4% at 95% confidence.
-- **Fault injection:** 0 of 3,015 injected misreads escaped.
-- **Blocking:** 12 exceptions block `v0.2.0`, all on APLD. Its discontinued-operations restatement mixes two bases, and one quarter has a gain booked in operating expenses.
+**Last done (28 Oct 2026):** restatements now follow standard practice ([docs/FIELDS.md](docs/FIELDS.md)):
+- Values use the restated basis; the newest filing wins.
+- Each value carries `basis` (`as_reported`, `restated` or `mixed`) and its `first_reported` value.
+- A quarter whose inputs span a restatement ships blank.
+- **APLD:** 25 quarters on the restated basis agree with XBRL; 5 are blank because no single basis exists.
+- **Blocking items:** down from 12 to 4.
+- **Fault injection:** still 0 escaped.
+- **Validation pages:** they explain all of this in plain language.
 
 **Next (Kenny):**
-1. Pick APLD's basis. Use `python -m ledger review --stage 2` to see the 12 blocking items, then `review decide` each one:
-   - **reject:** ship the mixed quarters as missing, with the reason, or
-   - **override:** the continuing-operations figures.
-2. Decide the 18 warnings. Most are expected: Oracle has no cost-of-revenue line, CRWV and APLD renamed lines, and capex jumps.
-3. Settle the hand-check scope. The release gate (G5) wants every released value checked: 151 values, 119 not yet checked (MSFT, CRWV, ORCL, APLD). The PRD planned only the held-out values. Check all of them, or change G5.
-4. Then run `python -m ledger report --stage 2`, hand-check, release `v0.2.0`, and sign. Due 6 Nov.
+1. Decide the 4 blocking items on the stage 2 page:
+   - **APLD Q3 2025 cost of revenue:** $55.6M against XBRL's restated $58.8M. The later filing splits the line into parts, which we don't add together.
+   - **APLD Q3 2024:** a one-time gain inside operating expenses.
+   - **Two sub-1% recasts:** APLD fiscal-2024 nine-month operating income, outside the window.
+2. Decide the 16 warnings.
+3. Settle the hand-check scope: all 151 values, or only the held-out companies (G5).
+4. Hand-check, release `v0.2.0`, sign. Due 6 Nov.
 
 **Critical notes:**
 - **Stage 1 doesn't prove accuracy elsewhere.** It proves the system works on the company the prompt was written for. Accuracy on companies the agents haven't seen starts with stage 2.

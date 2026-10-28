@@ -196,7 +196,10 @@ function detail(v) {
       ${s.notes ? `<div class="cite" style="color:var(--muted)">Agent note: ${esc(s.notes)}</div>` : ""}
       ${miniTable(s)}
     </div>`).join("");
-  return `<div style="font-size:13px;margin-bottom:8px"><b>${esc(D.method_label[v.method] || v.method)}.</b> XBRL (SEC answer key): ${usd(v.ref)} from <code>${esc(v.ref_concept || "–")}</code>, ${v.ref_accession || ""}. Difference ${v.ref == null ? "–" : usd(v.value - v.ref)}.</div>
+  const basisNote = v.basis === "mixed" ? `<div style="font-size:13px;margin-bottom:8px"><b>Left blank.</b> This quarter would mix numbers from before and after the company restated its past results, so it has no single basis. Standard practice is to leave it blank rather than publish a number that belongs to neither. As first reported, it was ${usd(v.first_reported)}.</div>`
+    : v.basis === "restated" ? `<div style="font-size:13px;margin-bottom:8px"><b>Restated basis.</b> Built from filings after the company rewrote its past results. As first reported: ${usd(v.first_reported)}.</div>` : "";
+  if (v.basis === "mixed") return basisNote + `<div class="sources">${srcs}</div>`;
+  return basisNote + `<div style="font-size:13px;margin-bottom:8px"><b>${esc(D.method_label[v.method] || v.method)}.</b> XBRL (SEC answer key): ${usd(v.ref)} from <code>${esc(v.ref_concept || "–")}</code>, ${v.ref_accession || ""}. Difference ${v.ref == null ? "–" : usd(v.value - v.ref)}.</div>
     ${formula(v)}<div class="sources">${srcs}</div>`;
 }
 
@@ -206,10 +209,11 @@ function rows() {
     && (state.show === "all" || (state.show === "todo" ? !checks[key(v)]?.verified : v.label !== "agree")));
   return list.map((v) => {
     const k = key(v), c = checks[k] || {}, open = state.open.has(k);
-    const pill = v.label === "agree" ? `<span class="pill ok" title="agrees with XBRL"><span class="full">agree</span><span class="abbr">✓</span></span>` : v.label === "no_reference" ? `<span class="pill na">no XBRL</span>` : `<span class="pill bad">${v.label}</span>`;
+    const basisPill = v.basis === "restated" ? ` <span class="pill na" title="Built from filings after the company restated its past numbers. As first reported: ${usd(v.first_reported)}">restated</span>` : v.basis === "mixed" ? ` <span class="pill bad" title="No single basis: the inputs straddle the company's restatement">blank: mixed basis</span>` : "";
+    const pill = v.label === "mixed_basis" ? `<span class="pill na">no value</span>` : v.label === "agree" ? `<span class="pill ok" title="agrees with XBRL"><span class="full">agree</span><span class="abbr">✓</span></span>` : v.label === "no_reference" ? `<span class="pill na">no XBRL</span>` : `<span class="pill bad">${v.label}</span>`;
     return `<tr class="main ${open ? "open" : ""} ${c.verified ? "done" : ""}" data-k="${k}">
       <td><span class="caret">▸</span> ${qLabel(v.cal_q)}<div style="color:var(--muted);font-size:11px">${esc(v.fiscal_period)}</div></td><td>${esc(D.field_label[v.field])}</td>
-      <td class="num"><span class="full">${usd(v.value)}</span><span class="abbr">${short(v.value)}</span></td><td class="num hide-sm">${usd(v.ref)}</td><td>${pill}</td>
+      <td class="num"><span class="full">${usd(v.value)}</span><span class="abbr">${short(v.value)}</span></td><td class="num hide-sm">${usd(v.ref)}</td><td>${pill}${basisPill}</td>
       <td class="hide-sm" style="color:var(--muted);font-size:12px">${esc(D.method_label[v.method] || v.method)} · ${v.sources.length} cell${v.sources.length > 1 ? "s" : ""}</td>
       <td><label class="check" onclick="event.stopPropagation()"><input type="checkbox" data-check="${k}" ${c.verified ? "checked" : ""} aria-label="Verified against filing"> verified</label></td>
       <td class="hide-sm" onclick="event.stopPropagation()"><input class="note" data-note="${k}" value="${esc(c.note || "")}" placeholder="note"></td>

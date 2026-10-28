@@ -20,7 +20,7 @@ def parsed():
 
 
 def ext(field, start, end, value, cell, row, col, table="t0000", accession=ACC, unit_source="table"):
-    return {"extraction_id": f"{accession}|{field}|{start}|{end}", "accession": accession, "ticker": "NVDA", "field": field,
+    return {"extraction_id": f"{accession}|{field}|{start}|{end}", "accession": accession, "ticker": "NVDA", "field": field, "filed": "2026-08-26",
             "period_start": start, "period_end": end, "value": value, "unit_stated": "(In millions)", "unit_source": unit_source,
             "scale": 1_000_000, "table_id": table, "row_label": row, "column_label": col, "cell_text": cell}
 

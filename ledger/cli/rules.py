@@ -16,7 +16,7 @@ def context(con, tickers) -> Context:
     q = lambda sql: [dict(zip([c[0] for c in con.execute(sql, [tickers]).description], r)) for r in con.execute(sql, [tickers]).fetchall()]
     docs = q("select accession, tables_path from documents where ticker in (select unnest(?))")
     return Context(values=q('select * from "values" where ticker in (select unnest(?))'),
-                   extractions=q("select * from extractions where ticker in (select unnest(?))"),
+                   extractions=q("select e.*, d.filed from extractions e join documents d using(accession) where e.ticker in (select unnest(?))"),
                    reference={(r["ticker"], r["field"], r["cal_q"]): r for r in q("select * from reference_values where ticker in (select unnest(?))")},
                    parsed={d["accession"]: json.loads((store.ROOT / d["tables_path"]).read_text()) for d in docs},
                    quarters=MVP_QUARTERS)

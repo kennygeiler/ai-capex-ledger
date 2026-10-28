@@ -4,7 +4,7 @@ import unittest
 from ledger.store import SCHEMA, ContractError, data_dictionary, init, write
 
 GOOD_VALUE = {"ticker": "NVDA", "field": "revenue", "cal_q": "2026Q2", "fiscal_period": "FY2027 Q2", "value": 96221000000, "source": "agent",
-              "method": "reported", "label": "agree", "extraction_ids": "x", "input_hash": "h"}
+              "method": "reported", "label": "agree", "basis": "as_reported", "first_reported": 96221000000, "extraction_ids": "x", "input_hash": "h"}
 
 
 class Schema(unittest.TestCase):

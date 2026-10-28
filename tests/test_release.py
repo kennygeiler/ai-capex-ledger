@@ -5,7 +5,7 @@ from ledger.release import build, content_hash, gates
 from ledger.review import apply, open_items
 
 EXC = {"exception_id": "sign|NVDA|capex|2026Q2", "rule_id": "sign", "severity": "block", "ticker": "NVDA", "field": "capex", "cal_q": "2026Q2", "input_hash": "h1", "message": "m"}
-VAL = {"ticker": "NVDA", "field": "capex", "cal_q": "2026Q2", "fiscal_period": "FY2027 Q2", "value": -5, "source": "agent", "label": "agree", "extraction_ids": ""}
+VAL = {"ticker": "NVDA", "field": "capex", "cal_q": "2026Q2", "fiscal_period": "FY2027 Q2", "value": -5, "source": "agent", "label": "agree", "basis": "as_reported", "first_reported": -5, "extraction_ids": ""}
 DEC = {"exception_id": EXC["exception_id"], "kind": "override", "value": 5, "input_hash": "h1", "decision_id": "d1"}
 
 

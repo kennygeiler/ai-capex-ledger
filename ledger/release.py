@@ -29,16 +29,18 @@ def build(version, values, extractions, exceptions, previous) -> dict:
     rows = sorted(values, key=lambda v: (v["ticker"], v["field"], v["cal_q"]))
     buf = io.StringIO()
     w = csv.writer(buf, lineterminator="\n")
-    w.writerow(["ticker", "field", "cal_q", "fiscal_period", "value", "source", "xbrl", "citations"])
+    w.writerow(["ticker", "field", "cal_q", "fiscal_period", "value", "basis", "first_reported", "source", "xbrl", "citations"])
     for v in rows:
         cites = " ; ".join(f"{e['accession']} {e['table_id']} '{e['row_label']}' / '{e['column_label']}' = {e['cell_text']}"
                            for i in (v["extraction_ids"] or "").split(",") if (e := ext.get(i)))
-        w.writerow([v["ticker"], v["field"], v["cal_q"], v["fiscal_period"], "" if v["value"] is None else v["value"], v["source"], v["label"], cites])
+        w.writerow([v["ticker"], v["field"], v["cal_q"], v["fiscal_period"], "" if v["value"] is None else v["value"], v["basis"],
+                    "" if v["first_reported"] is None else v["first_reported"], v["source"], v["label"], cites])
     notes = [e for e in exceptions if e["severity"] == "info"]
     quality = "\n".join([f"# {version}", "",
                          f"{len(rows)} values · {sum(v['source'] == 'agent' for v in rows)} from agents · "
                          f"{sum(v['source'] == 'override' for v in rows)} overridden · {sum(v['source'] == 'missing' for v in rows)} missing · "
-                         f"{sum(v['label'] == 'agree' for v in rows)} agree with XBRL", "",
+                         f"{sum(v['label'] == 'agree' for v in rows)} agree with XBRL · {sum(v['basis'] == 'restated' for v in rows)} on a restated basis · "
+                         f"{sum(v['basis'] == 'mixed' for v in rows)} blank because no single basis exists", "",
                          "All gates passed: " + "; ".join(f"{g} {d}" for g, d in GATES.items()) + ".", "",
                          "## Notes", ""] + [f"- {e['ticker']} {e['field'] or ''}: {e['message']}" for e in notes] + [""])
     prev = {(r["ticker"], r["field"], r["cal_q"]): r["value"] for r in previous or []}

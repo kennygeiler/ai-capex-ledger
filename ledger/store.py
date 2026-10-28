@@ -18,7 +18,7 @@ import duckdb
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 
 FIELDS = ("revenue", "cost_of_revenue", "operating_income", "capex")
 QUARTER = re.compile(r"^\d{4}Q[1-4]$")
@@ -105,7 +105,9 @@ SCHEMA: tuple[Table, ...] = (
         _c("value", "BIGINT", "US dollars, unscaled. Null when source is missing.", nullable=True),
         _c("source", "VARCHAR", "Where the shipped value comes from.", enum=("agent", "override", "missing")),
         _c("method", "VARCHAR", "Quarter derivation: reported, ytd_diff, q4_derived, fy_minus_quarters.", nullable=True),
-        _c("label", "VARCHAR", "Reconciliation against the reference.", enum=("agree", "agent_wrong", "xbrl_wrong", "definition_gap", "unresolved", "no_reference")),
+        _c("label", "VARCHAR", "Reconciliation against the reference.", enum=("agree", "agent_wrong", "xbrl_wrong", "definition_gap", "unresolved", "no_reference", "mixed_basis")),
+        _c("basis", "VARCHAR", "as_reported, restated (built from filings after the company's restatement), or mixed (no single basis; value left blank).", enum=("as_reported", "restated", "mixed")),
+        _c("first_reported", "BIGINT", "The same quarter built only from first-filed numbers (as first reported).", nullable=True),
         _c("extraction_ids", "VARCHAR", "Extractions used, comma-separated.", nullable=True),
         _c("input_hash", "VARCHAR", "Hash of everything this value depends on; decisions re-apply only when it matches."),
     ), key=("ticker", "field", "cal_q")),
