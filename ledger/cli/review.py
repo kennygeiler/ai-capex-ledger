@@ -3,13 +3,13 @@ python -m ledger review --stage N decide <id> accept|override|reject --reason ".
 import argparse
 
 from .. import store
-from ..config import STAGES
+from ..config import add_scope, scope
 from ..review import decide, decisions, open_items
 
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m ledger review")
-    ap.add_argument("--stage", type=int, default=1, choices=sorted(STAGES))
+    add_scope(ap)
     ap.add_argument("--db", default=str(store.DEFAULT_DB))
     ap.add_argument("action", nargs="?", choices=["decide"])
     ap.add_argument("exception_id", nargs="?")
@@ -19,7 +19,7 @@ def main(argv=None) -> int:
     ap.add_argument("--value", type=int)
     a = ap.parse_args(argv)
     con = store.init(a.db)
-    cur = con.execute("select * from exceptions where ticker in (select unnest(?))", [STAGES[a.stage]["tickers"]])
+    cur = con.execute("select * from exceptions where ticker in (select unnest(?))", [scope(a)[0]])
     excs = [dict(zip([c[0] for c in cur.description], r)) for r in cur.fetchall()]
     if a.action == "decide":
         exc = next((e for e in excs if e["exception_id"] == a.exception_id), None)
@@ -29,7 +29,7 @@ def main(argv=None) -> int:
         print(f"recorded {d['kind']} on {exc['exception_id']} by {d['reviewer']}")
         return 0
     todo = open_items(excs, decisions())
-    print(f"stage {a.stage}: {len(todo)} open")
+    print(f"{scope(a)[1]}: {len(todo)} open")
     for e in todo:
         print(f"  [{e['severity']}] {e['exception_id']}\n      {e['message']}")
     return 0

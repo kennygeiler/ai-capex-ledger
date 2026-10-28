@@ -1,7 +1,9 @@
-"""python -m ledger extract --stage N --pack | --load   (T41–T44)
+"""python -m ledger extract --stage N | --ticker X …  --pack | --run | --load   (T41–T44, M1.2)
 
 --pack  writes one task file per filing to data/extract/tasks/ (statement tables only; no XBRL).
-        Agents (Claude Code subagents, in-session) answer each task into data/extract/outputs/<accession>.json.
+--run   packs, then runs the agent headless (`claude -p`, ledger/agent.py) on every filing with no output yet
+        (--rerun: all of them), writing data/extract/outputs/<accession>.json; a filing the agent can't answer
+        gets {"error": reason} there, so the failure is recorded, not guessed.
 --load  validates each output (schema, then citation), dates each period from the company's filing calendar, and
         writes `extractions`. A filing with no valid output, and each citation that doesn't resolve, becomes an
         `extraction_failed` exception: nothing is guessed.
@@ -10,10 +12,11 @@ import argparse
 import hashlib
 import json
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
-from .. import store
-from ..config import STAGES
+from .. import agent, store
+from ..config import add_scope, scope
 from ..extract import OUTPUTS, PROMPT_VERSION, Invalid, period_start, resolve, validate_output, write_tasks
 from ..ingest.filings import report_period_ends
 
@@ -33,19 +36,45 @@ def _exc(rule, ticker, subject, message):
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m ledger extract")
-    ap.add_argument("--stage", type=int, default=1, choices=sorted(STAGES))
+    add_scope(ap)
     ap.add_argument("--db", default=str(store.DEFAULT_DB))
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--pack", action="store_true")
+    g.add_argument("--run", action="store_true")
     g.add_argument("--load", action="store_true")
+    ap.add_argument("--rerun", action="store_true", help="with --run: also re-read filings that already have an output")
+    ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--find", action="store_true", help="with --pack: give agents every table, not the located statements")
     a = ap.parse_args(argv)
-    tickers = STAGES[a.stage]["tickers"]
+    tickers, name = scope(a)
     con = store.init(a.db)
     docs = _parsed(con, tickers)
-    if a.pack:
+    if a.pack or a.run:
         paths = write_tasks(docs, a.find)
         print(f"{len(paths)} tasks in {paths[0].parent.relative_to(store.ROOT)} ({PROMPT_VERSION})")
+    if a.pack:
+        return 0
+    if a.run:
+        todo = [(p, path) for p, path in zip(docs, paths) if a.rerun or not (OUTPUTS / f"{p['accession']}.json").exists()]
+
+        def one(item):
+            p, path = item
+            try:
+                obj = agent.extract(path.read_text(), p)
+                note = f"{len(obj['values'])} values, {obj['_run']['seconds']:.0f}s, {obj['_run']['attempts']} attempt(s)"
+            except Invalid as e:
+                obj, note = {"accession": p["accession"], "error": e.reason}, f"FAILED: {e.reason}"
+            (OUTPUTS / f"{p['accession']}.json").write_text(json.dumps(obj, indent=1))
+            return f"  {p['ticker']} {p['accession']}: {note}"
+
+        print(f"running the agent on {len(todo)} filing(s); {len(docs) - len(todo)} already have an output")
+        try:
+            with ThreadPoolExecutor(a.workers) as pool:
+                for line in pool.map(one, todo):
+                    print(line, flush=True)
+        except agent.AgentUnavailable as e:
+            print(f"stopped: {e}\n  If it says 'revoked' or 'not logged in', run `claude` in a terminal and type /login.")
+            return 2
         return 0
 
     run_id = f"extract-{datetime.now(timezone.utc).isoformat(timespec='seconds')}"
@@ -58,6 +87,8 @@ def main(argv=None) -> int:
             if not out.exists():
                 raise Invalid("no output (task not run)")
             obj = json.loads(out.read_text())
+            if "error" in obj:
+                raise Invalid(f"the agent couldn't answer: {obj['error']}")
             validate_output(obj, p["accession"])
         except (Invalid, json.JSONDecodeError) as e:
             excs.append(_exc("extraction_failed", p["ticker"], p["accession"], f"{p['form']} {p['period']}: {getattr(e, 'reason', e)}"))
@@ -98,7 +129,7 @@ def main(argv=None) -> int:
     store.write(con, "extractions", uniq)
     store.write(con, "exceptions", excs, replace=True)
     store.write(con, "runs", runs, replace=True)
-    print(f"stage {a.stage}: {len(uniq)} extractions loaded from {len(docs)} filings; {len(excs)} extraction_failed exceptions")
+    print(f"{scope(a)[1]}: {len(uniq)} extractions loaded from {len(docs)} filings; {len(excs)} extraction_failed exceptions")
     for e in excs:
         print("  FAILED", e["subject"], "-", e["message"])
     return 0

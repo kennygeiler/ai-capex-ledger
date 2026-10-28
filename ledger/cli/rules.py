@@ -8,7 +8,7 @@ import json
 from collections import Counter
 
 from .. import store
-from ..config import MVP_YEARS, STAGES
+from ..config import MVP_YEARS, add_scope, scope
 from ..rules import Context, load, run
 
 
@@ -24,11 +24,11 @@ def context(con, tickers) -> Context:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m ledger rules")
-    ap.add_argument("--stage", type=int, default=1, choices=sorted(STAGES))
+    add_scope(ap)
     ap.add_argument("--db", default=str(store.DEFAULT_DB))
     a = ap.parse_args(argv)
     con = store.init(a.db)
-    tickers = STAGES[a.stage]["tickers"]
+    tickers, name = scope(a)
     rules = load()
     excs = run(context(con, tickers), rules)
     con.execute("DELETE FROM rules")
@@ -37,7 +37,7 @@ def main(argv=None) -> int:
     con.execute("DELETE FROM exceptions WHERE rule_id <> 'extraction_failed' AND ticker IN (SELECT unnest(?))", [tickers])
     store.write(con, "exceptions", excs)
     by = Counter((e["severity"], e["rule_id"]) for e in excs)
-    print(f"stage {a.stage}: {len(rules)} rules, {len(excs)} exceptions "
+    print(f"{scope(a)[1]}: {len(rules)} rules, {len(excs)} exceptions "
           f"({sum(e['severity'] == 'block' for e in excs)} block, {sum(e['severity'] == 'warn' for e in excs)} warn, {sum(e['severity'] == 'info' for e in excs)} info)")
     for (sev, rid), n in sorted(by.items()):
         print(f"  {sev:5} {rid:24} {n}")

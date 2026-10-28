@@ -6,7 +6,7 @@ import argparse
 import json
 
 from .. import store
-from ..config import STAGES
+from ..config import add_scope, scope
 from ..evidence import read
 from ..release import to_check
 
@@ -15,11 +15,11 @@ OUT = store.ROOT / "reports" / "evidence"
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m ledger evidence")
-    ap.add_argument("--stage", type=int, default=1, choices=sorted(STAGES))
+    add_scope(ap)
     ap.add_argument("--faults", action="store_true")
     ap.add_argument("--db", default=str(store.DEFAULT_DB))
     a = ap.parse_args(argv)
-    con, tickers = store.init(a.db), STAGES[a.stage]["tickers"]
+    con, (tickers, name) = store.init(a.db), scope(a)
     q = lambda sql: [dict(zip([c[0] for c in con.execute(sql, [tickers]).description], r)) for r in con.execute(sql, [tickers]).fetchall()]
     exts = q("select e.*, d.cik from extractions e join documents d using(accession) where e.ticker in (select unnest(?))")
     vals = q('select * from "values" where ticker in (select unnest(?))')
@@ -41,10 +41,10 @@ def main(argv=None) -> int:
         else:
             res |= read(doc, es, shots, OUT)
     if a.faults:
-        print(f"stage {a.stage}: {caught} of {tried} citations moved to a neighbouring row or column were noticed by the re-read")
+        print(f"{name}: {caught} of {tried} citations moved to a neighbouring row or column were noticed by the re-read")
         return 0 if caught == tried else 1
-    (OUT / f"stage{a.stage}.json").write_text(json.dumps(res, indent=1, sort_keys=True))
+    (OUT / f"{name}.json").write_text(json.dumps(res, indent=1, sort_keys=True))
     miss = [k for k, v in res.items() if not v["match"]]
-    print(f"stage {a.stage}: {len(res) - len(miss)} of {len(res)} cited cells confirmed on the rendered 10-K; {len(shots & set(res))} screenshots"
+    print(f"{name}: {len(res) - len(miss)} of {len(res)} cited cells confirmed on the rendered 10-K; {len(shots & set(res))} screenshots"
           + "".join(f"\n  not confirmed: {k} (cited {res[k]['cell']!r}, page shows {res[k]['seen']!r})" for k in miss))
     return 0

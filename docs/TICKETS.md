@@ -8,10 +8,10 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 | ID | Ticket | Done when |
 |---|---|---|
-| M1.1 | **you:** run `claude login` once in a terminal, so agents can run headless on the subscription. | `claude -p "ok"` answers. |
-| M1.2 | Headless extraction: one `claude -p` call per filing with the frozen prompt; validate the output, retry once, log a failure otherwise. Record model, tokens and seconds in `runs`. | A filing is extracted with nobody in the chat. |
-| M1.3 | `ledger run --ticker X [X…]`: fetch, parse, extract, check, report in one command. Cached and safe to rerun. Ticker sets replace `--stage`. | A never-seen company gets its validation page with no manual step. |
-| M1.4 | Scorecard: per company, the code changes it needed, items that reached a person, person minutes, and agent tokens and seconds. One table in the validation page and in INGESTION.md. | Shows for the 5 stage 2 companies. |
+| M1.1 | **you:** in a terminal run `claude`, then type `/login` and finish in the browser. (`claude login` does not log in on v2.1.114: it sends "login" as a chat message.) | `ledger run --ticker AMD` gets past the agent step. |
+| M1.2 | Headless extraction: one `claude -p` call per filing with the frozen prompt; validate the output, retry once, log a failure otherwise. Record model, tokens and seconds in `runs`. | A filing is extracted with nobody in the chat. **Status:** Built (`ledger/agent.py`, `extract --run`), tested with a stand-in `claude`; awaiting a live run. |
+| M1.3 | `ledger run --ticker X [X…]`: fetch, parse, extract, check, report in one command. Cached and safe to rerun. Ticker sets replace `--stage`. | A never-seen company gets its validation page with no manual step. **Status:** Built (`ledger run`); every command takes `--ticker`. Runs on AMD up to the agent step. |
+| M1.4 | Scorecard: per company, the code changes it needed, items that reached a person, person minutes, and agent tokens and seconds. One table in the validation page and in INGESTION.md. | Shows for the 5 stage 2 companies. **Status:** Built (`ledger/scorecard.py`); printed by `ledger run` and shown on the page. |
 
 ### M2: a new company needs no code
 

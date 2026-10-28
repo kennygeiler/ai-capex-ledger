@@ -4,7 +4,7 @@ import json
 from collections import Counter
 
 from .. import store
-from ..config import STAGES
+from ..config import add_scope, scope
 from ..reconcile import fiscal_year_end
 from ..faults import inject
 from ..rules import load
@@ -13,19 +13,19 @@ from .rules import context
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m ledger faults")
-    ap.add_argument("--stage", type=int, default=1, choices=sorted(STAGES))
+    add_scope(ap)
     ap.add_argument("--db", default=str(store.DEFAULT_DB))
     a = ap.parse_args(argv)
     con = store.init(a.db)
     rules, docs = load(), {r[0]: (r[1], r[2]) for r in con.execute("select accession, sha256, parser_version from documents").fetchall()}
     rows = []
-    for t in STAGES[a.stage]["tickers"]:
+    for t in scope(a)[0]:
         ctx = context(con, [t])
         cur = con.execute("select e.*, d.form, d.filed from extractions e join documents d using(accession) where e.ticker = ? order by extraction_id", [t])
         xs = [dict(zip([c[0] for c in cur.description], r)) for r in cur.fetchall()]
         ref = {(k[1], k[2]): r["value"] for k, r in ctx.reference.items()}
         rows += inject(t, xs, ref, fiscal_year_end(t), docs, ctx, rules)
-    out = store.ROOT / "reports" / f"stage{a.stage}-faults.json"
+    out = store.ROOT / "reports" / f"{scope(a)[1]}-faults.json"
     out.write_text(json.dumps(rows, indent=1))
     by = Counter((r["fault"], r["outcome"]) for r in rows)
     print(f"{'fault':16} {'trials':>6} {'no effect':>9} {'rule':>5} {'xbrl only':>9} {'escaped':>7}")

@@ -6,18 +6,17 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** `v0.2.0` signed by Kenny Geiler, hash `a4319cfd12b5`. It covers 5 companies (NVDA, MSFT, CRWV, ORCL, APLD), FY2022–FY2026, with 66 values (revenue, capex, opex).
-- **How the values are verified:**
-  - 46 by two independent sources: the 10-K cell and XBRL agree.
-  - 20 confirmed on the rendered 10-K by the machine re-read: the 10 that XBRL can't vouch for, plus 10 random spot-checks.
-- **Restated:** 3 values are on a restated basis.
-- **Kenny's decisions:** the APLD recast years and the ORCL and APLD cost lines.
-- **M0 is complete.** `v0.1.0` (NVDA) stays signed.
+**Last done (28 Oct 2026):** M1 is built: one command now runs any company, from ticker to validation page, with no one in the loop.
+- **`ledger run --ticker X`** runs ingest, then the headless agent, then loads and checks citations, then reconcile, rules, the fault test, the rendered-10-K re-read, and the page, and ends with the scorecard.
+- **Every command** now takes `--ticker X Y` as well as `--stage N`.
+- **The headless agent** (`ledger/agent.py`, `extract --run`) runs `claude -p` with no tools, isolated from the desktop app's session and from personal hooks. It checks every citation before accepting an answer and retries once with the reason. It records model, tokens, seconds and attempts. Tested with a stand-in `claude`, but **not yet live**: the stored login token is revoked.
+- **The scorecard** (agent minutes, tokens, retries, values, agreement, cells confirmed, items for a person) is printed by `ledger run` and shown on the page.
+- **AMD** (never seen before) runs cleanly up to the agent step: 2 10-Ks, both statements located.
+- `v0.2.0` stays signed.
 
 **Next:**
-1. **Kenny (M1.1):** run `claude login` once in a terminal, so agents can run headless.
-2. **Claude (M1.2–M1.4):** headless extraction, `ledger run --ticker X` (fetch to evidence to page), and the per-company scorecard. Then M2: run the 14 unseen companies blind.
-3. **Small fix:** `DIFF.md` lists changed values but not newly added companies (v0.2.0 says "No values changed" although 4 companies were added). Fix it before the next release.
+1. **Kenny (M1.1):** in a terminal run `claude`, type `/login` and finish in the browser. Note that `claude login` doesn't log in on this version.
+2. **Claude:** run `uv run python -m ledger run --ticker AMD` live as the first unattended company, check its page and scorecard, then M2: the 14 unseen companies run blind.
 
 **Critical notes:**
 - **Dashes are zero.** APLD's newest 10-K shows "—" for its data-center cost line in FY2024 and FY2025; agents read these as 0.
@@ -32,6 +31,7 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 | Step | Command | Produces |
 |---|---|---|
+| Run | `run --ticker X` | All steps below for any tickers, agent included, then the scorecard |
 | Ingest | `ingest` | 10-Ks fetched and cached with SHA-256; tables parsed; statements located |
 | Extract | `extract --pack`, then agents, then `extract --load` | One task per 10-K (tables only, no XBRL); agent values with citations, each checked against the cell |
 | Reconcile | `reconcile` | Fiscal-year values with their basis and first-reported figure, compared with XBRL |
@@ -43,7 +43,7 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 | Release | `release <v>` | `releases/<v>/`; refuses while any gate fails, and the same inputs give the same hash |
 | Sign | `signoff <v> --by` | `SIGNOFF.json` |
 
-Every command runs as `uv run python -m ledger <command> --stage N`. `evidence` drives the installed Google Chrome through Playwright, with no browser download. The XBRL reference is pulled with `python -m ledger reference`.
+Every command runs as `uv run python -m ledger <command> --stage N` or `--ticker X Y`. `evidence` drives the installed Google Chrome through Playwright, with no browser download. The XBRL reference is pulled with `python -m ledger reference`.
 
 ## Repo
 

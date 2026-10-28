@@ -113,3 +113,17 @@ STAGES = {
     2: {"tickers": ["NVDA", "MSFT", "CRWV", "ORCL", "APLD"], "dev": ["NVDA", "MSFT", "CRWV"], "holdout": ["ORCL", "APLD"], "release": "v0.2.0"},
     3: {"tickers": MVP_TICKERS, "dev": DEV_SPLIT, "holdout": HOLDOUT, "release": "v1.0.0"},
 }
+
+
+def add_scope(ap) -> None:
+    """Every command runs on a stage or on any tickers (`--ticker X Y`)."""
+    ap.add_argument("--stage", type=int, choices=sorted(STAGES), help="a named company set (default 1)")
+    ap.add_argument("--ticker", nargs="+", help="any tickers, instead of a stage")
+
+
+def scope(a) -> tuple[list[str], str]:
+    """(tickers, name). The name labels output files: 'stage2', or the tickers joined, e.g. 'AMD'."""
+    if a.ticker:
+        ts = sorted({t.upper() for t in a.ticker})
+        return ts, "-".join(ts)
+    return STAGES[a.stage or 1]["tickers"], f"stage{a.stage or 1}"

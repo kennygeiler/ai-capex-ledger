@@ -3,17 +3,17 @@ import argparse
 from collections import Counter
 
 from .. import store
-from ..config import STAGES
+from ..config import add_scope, scope
 from ..reconcile import fiscal_year_end, values_for
 
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m ledger reconcile")
-    ap.add_argument("--stage", type=int, default=1, choices=sorted(STAGES))
+    add_scope(ap)
     ap.add_argument("--db", default=str(store.DEFAULT_DB))
     a = ap.parse_args(argv)
     con = store.init(a.db)
-    tickers = STAGES[a.stage]["tickers"]
+    tickers, name = scope(a)
     docs = {r[0]: (r[1], r[2]) for r in con.execute("select accession, sha256, parser_version from documents").fetchall()}
     values = []
     for t in tickers:
@@ -23,5 +23,5 @@ def main(argv=None) -> int:
         values += values_for(t, xs, ref, fiscal_year_end(t), docs)
     con.execute('DELETE FROM "values" WHERE ticker IN (SELECT unnest(?))', [tickers])
     store.write(con, "values", values)
-    print(f"stage {a.stage}: {len(values)} fiscal-year values; labels {dict(Counter(v['label'] for v in values))}")
+    print(f"{scope(a)[1]}: {len(values)} fiscal-year values; labels {dict(Counter(v['label'] for v in values))}")
     return 0

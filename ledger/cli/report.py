@@ -1,4 +1,4 @@
-"""python -m ledger report --stage N   ->  reports/stage<N>-validation.html
+"""python -m ledger report --stage N | --ticker X …   ->  reports/<name>-validation.html
 
 A self-contained page for checking a stage by eye and recording the hand-check (T80/T81):
   - summary tiles and, per field, a chart of agent vs XBRL by fiscal year,
@@ -15,10 +15,11 @@ from urllib.parse import quote
 
 from .. import store
 from ..ingest.notes import restatement_note
-from ..config import MVP_YEARS, RELEASE_FIELDS, STAGES
+from ..config import MVP_YEARS, RELEASE_FIELDS, STAGES, add_scope, scope
 from ..release import to_check
 from ..review import decisions, latest, open_items
 from ..rules import load
+from ..scorecard import scorecard
 
 FIELD_LABEL = {"revenue": "Revenue", "capex": "Capex", "opex": "Opex", "cost_of_revenue": "Cost of revenue", "operating_income": "Operating income"}
 METHOD_LABEL = {"reported": "As filed (one 10-K cell)", "computed": "Opex = revenue − cost of revenue − operating income, all from the same 10-K column"}
@@ -28,8 +29,8 @@ def _days(s, e):
     return (date.fromisoformat(e) - date.fromisoformat(s)).days + 1
 
 
-def build(con, stage: int) -> dict:
-    tickers = STAGES[stage]["tickers"]
+def build(con, tickers: list[str], name: str) -> dict:
+    stage = next((n for n, st in STAGES.items() if f"stage{n}" == name), None)
     q = lambda sql, *p: [dict(zip([c[0] for c in con.execute(sql, list(p)).description], r)) for r in con.execute(sql, list(p)).fetchall()]
     docs = {d["accession"]: d for d in q("select * from documents where ticker in (select unnest(?))", tickers)}
     ext = {x["extraction_id"]: x for x in q("select * from extractions where ticker in (select unnest(?))", tickers)}
@@ -59,7 +60,7 @@ def build(con, stage: int) -> dict:
             notes[accn] = n and {"text": n, "url": d["url"] + "#:~:text=" + quote(" ".join(n.split()[:8]))}
         return notes[accn]
 
-    ev_path = store.ROOT / "reports" / "evidence" / f"stage{stage}.json"
+    ev_path = store.ROOT / "reports" / "evidence" / f"{name}.json"
     ev = json.loads(ev_path.read_text()) if ev_path.exists() else {}
     check, cur = to_check(vals), latest(decisions())
     decided = {(e["ticker"], e["field"], e["period"]): cur[e["exception_id"]] for e in excs
@@ -88,9 +89,9 @@ def build(con, stage: int) -> dict:
                      "check": check.get((v["ticker"], v["field"], v["period"])),
                      "decision": (d := decided.get((v["ticker"], v["field"], v["period"]))) and {k: d[k] for k in ("kind", "reviewer", "reason")},
                      "why": explain(srcs[0]["accession"]) if srcs and (v["basis"] == "restated" or v["label"] == "unresolved") else None})
-    return {"stage": stage, "tickers": tickers, "release": STAGES[stage]["release"], "fields": RELEASE_FIELDS, "years": MVP_YEARS,
+    return {"stage": stage, "name": name, "tickers": tickers, "release": stage and STAGES[stage]["release"], "fields": RELEASE_FIELDS, "years": MVP_YEARS,
             "rules": {r["id"]: {k: r[k] for k in ("title", "plain", "action")} for r in load()},
-            "field_label": FIELD_LABEL, "method_label": METHOD_LABEL, "values": rows, "tables": tables, "exceptions": open_items(excs, decisions()) + [e for e in excs if e["severity"] == "info"],
+            "scorecard": scorecard(con, tickers, name), "field_label": FIELD_LABEL, "method_label": METHOD_LABEL, "values": rows, "tables": tables, "exceptions": open_items(excs, decisions()) + [e for e in excs if e["severity"] == "info"],
             "counts": {"filings": len(docs), "extractions": len(ext), "values": len(vals),
                        "agree": sum(v["label"] == "agree" for v in vals),
                        "open_exceptions": len(open_items(excs, decisions())), "info_notes": sum(e["severity"] == "info" for e in excs)},
@@ -99,15 +100,16 @@ def build(con, stage: int) -> dict:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m ledger report")
-    ap.add_argument("--stage", type=int, default=1, choices=sorted(STAGES))
+    add_scope(ap)
     ap.add_argument("--db", default=str(store.DEFAULT_DB))
     a = ap.parse_args(argv)
     con = store.init(a.db)
-    data = build(con, a.stage)
+    tickers, name = scope(a)
+    data = build(con, tickers, name)
     page = (store.ROOT / "ledger" / "cli" / "report_template.html").read_text()
-    title = f"Stage {a.stage} validation · {', '.join(data['tickers'])}"
+    title = f"{'Stage ' + str(data['stage']) if data['stage'] else 'Run'} validation · {', '.join(tickers)}"
     page = page.replace("__TITLE__", html.escape(title)).replace("__DATA__", json.dumps(data).replace("</", "<\\/"))
-    out = store.ROOT / "reports" / f"stage{a.stage}-validation.html"
+    out = store.ROOT / "reports" / f"{name}-validation.html"
     out.parent.mkdir(exist_ok=True)
     out.write_text(page)
     print(f"wrote {out.relative_to(store.ROOT)} ({len(page) // 1024} KB): {data['counts']}")

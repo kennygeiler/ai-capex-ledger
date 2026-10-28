@@ -11,7 +11,7 @@ import time
 from datetime import datetime, timezone
 
 from .. import store
-from ..config import MVP_YEARS, STAGES
+from ..config import MVP_YEARS, add_scope, scope
 from ..ingest.filings import fetch_documents, list_filings
 from ..ingest.statements import assemble, locate
 from ..ingest.tables import PARSER_VERSION, document_units, parse_tables
@@ -49,16 +49,16 @@ def load_reference(con, tickers: list[str]) -> int:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m ledger ingest")
-    ap.add_argument("--stage", type=int, default=1, choices=sorted(STAGES))
+    add_scope(ap)
     ap.add_argument("--db", default=str(store.DEFAULT_DB))
     a = ap.parse_args(argv)
-    tickers = STAGES[a.stage]["tickers"]
+    tickers, name = scope(a)
     con = store.init(a.db)
     run_id = f"ingest-{_now()}"
     t0 = time.monotonic()
     filings = list_filings(tickers)
     manifest = {m["accession"]: m for m in fetch_documents(filings)}
-    store.write(con, "runs", [{"run_id": run_id, "step": "ingest", "subject": f"stage {a.stage}", "started_at": _now(),
+    store.write(con, "runs", [{"run_id": run_id, "step": "ingest", "subject": scope(a)[1], "started_at": _now(),
                                "seconds": round(time.monotonic() - t0, 2), "outcome": "ok", "versions": json.dumps({}),
                                "detail": json.dumps({"filings": len(filings), "network": sum(m["cache"] == "miss" for m in manifest.values())})}], replace=True)
     doc_rows, run_rows, missing = [], [], []
@@ -83,7 +83,7 @@ def main(argv=None) -> int:
     store.write(con, "documents", doc_rows, replace=True)
     store.write(con, "runs", run_rows, replace=True)
     n_ref = load_reference(con, tickers)
-    print(f"stage {a.stage} ({', '.join(tickers)}): {len(filings)} filings parsed with {PARSER_VERSION}, "
+    print(f"{scope(a)[1]} ({', '.join(tickers)}): {len(filings)} filings parsed with {PARSER_VERSION}, "
           f"{len(missing)} statements not located, {n_ref} reference values loaded -> {a.db}")
     for m in missing:
         print("  not located:", m)

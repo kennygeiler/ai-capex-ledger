@@ -12,6 +12,7 @@ COMMANDS = {
     "reconcile": "Line up agent, XBRL and derived values and label every disagreement.",
     "rules": "Run the rule registry and write exceptions.",
     "faults": "Corrupt real extractions one at a time and report what catches each fault.",
+    "run": "One command from tickers to their validation page: ingest, agent, checks, evidence, report, scorecard.",
     "review": "Work the exception queue and record decisions.",
     "evidence": "Re-read every cited cell on the rendered 10-K and screenshot it, boxed.",
     "report": "Write the validation page for a stage (reports/stage<N>-validation.html).",

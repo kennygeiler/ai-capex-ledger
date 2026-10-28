@@ -92,6 +92,7 @@ tr.open .caret { transform: rotate(90deg); }
 .howto ol { margin: 6px 0 0; padding-left: 18px; }
 .foot { color: var(--muted); font-size: 12px; margin-top: 24px; }
 .queue { display: grid; gap: 8px; }
+.sc { border-collapse: collapse; font-size: 13px; } .sc th, .sc td { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
 .ask { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: grid; gap: 6px; font-size: 14px; overflow-wrap: anywhere; }
 .ask.yes { border-color: var(--ok); } .ask.no { border-color: var(--bad); }
 .ask .q { font-size: 15px; } .ask ul { margin: 0; padding-left: 18px; } .ask .why { color: var(--muted); font-size: 12px; }
@@ -125,7 +126,7 @@ const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<
 const usd = (v) => v == null ? "–" : (v < 0 ? "−$" : "$") + Math.abs(v).toLocaleString("en-US");
 const short = (v) => v == null ? "–" : (Math.abs(v) >= 1e9 ? `$${(v / 1e9).toFixed(2)}B` : `$${(v / 1e6).toFixed(0)}M`);
 const qLabel = (p) => p;  // fiscal year, e.g. FY2026
-const KEY = `ledger-handcheck-stage${D.stage}`;
+const KEY = `ledger-handcheck-${D.name}`;
 const key = (v) => `${v.ticker}|${v.field}|${v.period}`;
 let checks = {};
 try { checks = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
@@ -243,8 +244,8 @@ function story() {
     <ol class="steps">
       <li><b>Decide each item</b> in "Needs your decision": read the card, open the filing if needed, then accept, override or reject.</li>
       <li><b>Check the numbers</b> in "Check these numbers". The machine re-reads each cited cell from the real 10-K and shows it boxed. Green cards are done. A red card shows you exactly which cell to look at: answer yes or no.</li>
-      <li><b>Download the hand-check</b> and save it as <code>golden/stage${D.stage}-handcheck.json</code>.</li>
-      <li><b>Release</b>: <code>python -m ledger release v0.${D.stage}.0 --stage ${D.stage}</code>. It refuses until steps 1–3 are done.</li>
+      <li><b>Download the hand-check</b> and save it as <code>golden/${D.name}-handcheck.json</code>.</li>
+      ${D.stage ? `<li><b>Release</b>: <code>python -m ledger release ${D.release} --stage ${D.stage}</code>. It refuses until steps 1–3 are done.</li>` : ""}
     </ol>
     <details><summary>Words used on this page</summary><dl class="gloss">
       <dt>10-K</dt><dd>The annual report a company files with the SEC. It shows three fiscal years side by side.</dd>
@@ -270,7 +271,7 @@ function decisions() {
   const block = sev("block"), warn = sev("warn"), info = sev("info");
   return `<h2>Needs your decision (${block.length} blocking)</h2>
     ${block.length ? `<div class="queue">${block.map(item).join("")}</div>` : `<p class="foot">Nothing blocking.</p>`}
-    <p class="foot">Decide each with <code>python -m ledger review --stage ${D.stage} decide &lt;id&gt; accept|override|reject --reason "…" --by "Kenny Geiler"</code>.</p>
+    <p class="foot">Decide each with <code>python -m ledger review ${D.stage ? `--stage ${D.stage}` : `--ticker ${D.tickers.join(" ")}`} decide &lt;id&gt; accept|override|reject --reason "…" --by "Kenny Geiler"</code>.</p>
     <details><summary><b>${warn.length} warnings</b>: also need a decision, usually accept</summary><div class="queue" style="margin-top:8px">${warn.map(item).join("")}</div></details>
     <details style="margin-top:8px"><summary><b>${info.length} notes</b>: no decision needed</summary><div class="queue" style="margin-top:8px">${info.map(item).join("")}</div></details>`;
 }
@@ -310,11 +311,19 @@ function checkList() {
     ${you.length ? `<p><button class="btn primary" id="export">Download hand-check</button></p>` : ""}`;
 }
 
+const SC = { ticker: "Company", filings: "10-Ks", agent: "Read by", agent_minutes: "Agent minutes", tokens: "Tokens", retries: "Retries",
+  values: "Values", agree: "Agree with XBRL", explained_by_code: "Explained by code", cells_confirmed: "Cells confirmed on the 10-K", for_a_person: "Blocking, for you", warnings: "Warnings" };
+function scoreTable() {
+  return `<h2>What each company cost</h2><p class="foot">The pipeline's measure is what the next company costs: agent time, and what still needs a person. Code changes per company are logged in docs/INGESTION.md.</p>
+    <div class="tbl"><table class="sc"><tr>${Object.values(SC).map((l) => `<th>${l}</th>`).join("")}</tr>${D.scorecard.map((r) => `<tr>${Object.keys(SC).map((k) => `<td>${esc(String(k === "tokens" ? r[k].toLocaleString("en-US") : r[k]))}</td>`).join("")}</tr>`).join("")}</table></div>`;
+}
+
 function render() {
   $("#app").innerHTML = `
     <h1>${esc(document.title)}</h1>
     ${story()}
     ${tiles()}
+    ${scoreTable()}
     ${decisions()}
     ${checkList()}
     <h2>Company</h2>
@@ -328,7 +337,7 @@ function render() {
     <table class="vals"><colgroup><col class="c-q"><col class="c-f"><col class="c-a"><col class="c-x hide-sm"><col class="c-m"><col class="c-h hide-sm"><col class="c-c"><col class="c-n hide-sm"></colgroup>
       <thead><tr><th>Year</th><th>Field</th><th style="text-align:right">Agent</th><th class="hide-sm" style="text-align:right">XBRL</th><th>Match</th><th class="hide-sm">How it was built</th><th>Your check</th><th class="hide-sm">Note</th></tr></thead>
       <tbody id="rows">${rows()}</tbody></table>
-    <p class="foot">Release candidate ${D.release} · generated ${D.generated} UTC by <code>python -m ledger report --stage ${D.stage}</code> · hand-check record saved in this browser under “${KEY}”.</p>`;
+    <p class="foot">${D.release ? `Release candidate ${D.release} · ` : ""}generated ${D.generated} UTC by <code>python -m ledger report ${D.stage ? `--stage ${D.stage}` : `--ticker ${D.tickers.join(" ")}`}</code> · hand-check record saved in this browser under “${KEY}”.</p>`;
   document.querySelectorAll("tr.detail [data-cited]").forEach((r) => r.closest(".tbl").scrollTop = r.offsetTop - 40);
 }
 
@@ -342,7 +351,7 @@ document.addEventListener("click", (e) => {
     const out = { stage: D.stage, release: D.release, exported_at: new Date().toISOString(), checker: prompt("Your name, for the record:", "Kenny Geiler") || "",
       values: D.values.map((v) => ({ ticker: v.ticker, field: v.field, period: v.period, value: v.value, input_hash: v.input_hash, ...(checks[key(v)] || { verified: false }) })) };
     const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 1)], { type: "application/json" }));
-    a.download = `stage${D.stage}-handcheck.json`; a.click(); return;
+    a.download = `${D.name}-handcheck.json`; a.click(); return;
   }
   const ans = e.target.closest("[data-answer]");
   if (ans) {
