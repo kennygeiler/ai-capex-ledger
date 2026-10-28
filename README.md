@@ -6,14 +6,13 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** the `restated` rule compares cost lines (`cost_of_revenue_part`) line by line, so a company's separate cost lines no longer show as restatements. `v1.0.1` is built from it, **not signed yet**: same 234 values as `v1.0.0`, 10 false notes gone (7 ORCL, 3 APLD), hash 6d10c2b1990f. Its folder is uncommitted until signed.
+**Last done (28 Oct 2026):** `v1.0.1` released and signed by Kenny Geiler, hash 6d10c2b1990f. Same 234 values as `v1.0.0`; the `restated` rule now compares cost lines (`cost_of_revenue_part`) line by line, so 10 false restatement notes (7 ORCL, 3 APLD) are gone.
 - Earlier today: DATAHQ dashboard (https://claude.ai/artifact/Eap67fDB2Vs85qsGmY12tw, `scripts/datahq.py`); `v1.0.0` signed.
 
 **Next:**
-1. **Kenny:** read `releases/v1.0.1/QUALITY.md` and sign `v1.0.1`, or say what to change.
-2. **Claude:** new-filing watcher: check SEC daily for new 10-Ks, run `ledger run` on them, refresh DATAHQ.
-3. **Claude (M3):** group review items by cause, so that one decision covers all of them, and make the hand-check file name match `release` for ticker runs.
-4. **Later:** `DIFF.md` lists added values; prompt `statements@v3` (v2 still explains quarterly columns; needs an agent rerun).
+1. **Claude:** new-filing watcher: check SEC daily for new 10-Ks, run `ledger run` on them, refresh DATAHQ.
+2. **Claude (M3):** group review items by cause, so that one decision covers all of them, and make the hand-check file name match `release` for ticker runs.
+3. **Later:** `DIFF.md` lists added values; prompt `statements@v3` (v2 still explains quarterly columns; needs an agent rerun).
 
 **Critical notes:**
 - **Dashes are zero.** APLD's newest 10-K shows "—" for its data-center cost line in FY2024 and FY2025; agents read these as 0.

@@ -7,18 +7,18 @@
   "open": 28
  },
  {
-  "rule": "restated",
-  "severity": "info",
-  "description": "The same field and period read from two filings gives two different values.",
-  "raised": 24,
-  "open": 0
- },
- {
   "rule": "outlier_vs_own_history",
   "severity": "warn",
   "description": "Capex \u00f7 revenue stays within 2\u00d7 of the company's own median for the window.",
   "raised": 16,
   "open": 16
+ },
+ {
+  "rule": "restated",
+  "severity": "info",
+  "description": "The same field and period read from two filings gives two different values.",
+  "raised": 14,
+  "open": 0
  },
  {
   "rule": "row_label_switch",
