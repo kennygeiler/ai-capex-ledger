@@ -1,6 +1,6 @@
 import unittest
 
-from ledger.config import DEV_SPLIT, HOLDOUT, MVP_QUARTERS, MVP_TICKERS
+from ledger.config import DEV_SPLIT, HOLDOUT, MVP_TICKERS, MVP_YEARS
 
 
 class Split(unittest.TestCase):
@@ -9,9 +9,8 @@ class Split(unittest.TestCase):
         self.assertFalse(set(DEV_SPLIT) & set(HOLDOUT))
         self.assertEqual(set(DEV_SPLIT) | set(HOLDOUT), set(MVP_TICKERS))
 
-    def test_window_is_8_consecutive_quarters(self):
-        self.assertEqual(len(MVP_QUARTERS), 8)
-        self.assertEqual(MVP_QUARTERS, sorted(MVP_QUARTERS))
+    def test_window_is_5_consecutive_fiscal_years(self):
+        self.assertEqual([int(y[2:]) for y in MVP_YEARS], list(range(2022, 2027)))
 
 
 

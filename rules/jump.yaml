@@ -1,13 +1,13 @@
 id: jump
 severity: warn
-description: A field does not move more than 3× from one quarter to the next.
-rationale: Real businesses rarely triple or collapse in a quarter. Most such moves are a unit or column error; the
+description: A field does not move more than 3× from one fiscal year to the next.
+rationale: Real businesses rarely triple or collapse in a year. Most such moves are a unit or column error; the
   rest deserve a note.
 owner: Kenny Geiler
 check: jump
 params:
   ratio: 3
-title: A big jump from one quarter to the next.
-plain: The number more than tripled, or fell to under a third, in one quarter. Fast-growing companies do this, but
+title: A big jump from one year to the next.
+plain: The number more than tripled, or fell to under a third, in one year. Fast-growing companies do this, but
   it can also be a thousands/millions mix-up.
-action: Compare the two quarters in the filings. If both numbers are right, accept as real growth (or decline).
+action: Compare the two years in the filings. If both numbers are right, accept as real growth (or decline).

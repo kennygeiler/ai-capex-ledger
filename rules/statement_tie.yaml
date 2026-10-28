@@ -2,7 +2,8 @@ id: statement_tie
 severity: block
 description: 'In each income statement: revenue − cost of revenue − total operating expenses = operating income,
   in every column.'
-rationale: If the statement doesn't tie, we parsed the wrong table or misread a row, whatever the agent did.
+rationale: If the statement doesn't tie, we parsed the wrong table or misread a row, whatever the agent did. Opex
+  depends on all three lines.
 owner: Kenny Geiler
 check: statement_tie
 params:

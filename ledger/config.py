@@ -96,15 +96,15 @@ WINDOW_YEARS = 5
 WINDOW_COVERAGE = 0.6
 
 # ── MVP (docs/PRD.md) ──────────────────────────────────────────────────────────
-# The AI set, 8 calendar quarters, 4 agent-extracted fields.
+# The AI set, 5 fiscal years from 10-K filings only.
 MVP_TICKERS = [c["ticker"] for c in AI_SET]
-MVP_QUARTERS = ["2024Q3", "2024Q4", "2025Q1", "2025Q2", "2025Q3", "2025Q4", "2026Q1", "2026Q2"]
-MVP_FIELDS = ["revenue", "cost_of_revenue", "operating_income", "capex"]
+MVP_YEARS = ["FY2022", "FY2023", "FY2024", "FY2025", "FY2026"]
+MVP_FIELDS = ["revenue", "cost_of_revenue", "operating_income", "capex"]  # what agents read
+RELEASE_FIELDS = ["revenue", "capex", "opex"]  # what ships; opex = revenue − cost of revenue − operating income (docs/FIELDS.md)
 # Prompts are tuned only on the dev split. The golden set is drawn from the hold-out and never shown during tuning.
 # Dev covers a January fiscal year (NVDA), a June fiscal year (MSFT) and a young, capex-heavy filer (CRWV).
 DEV_SPLIT = ["NVDA", "MSFT", "CRWV"]
 HOLDOUT = [t for t in MVP_TICKERS if t not in DEV_SPLIT]
-GOLDEN_COMPANY_QUARTERS = 75  # x 4 fields = 300 values: zero errors supports "<1% error, 95% confidence" (rule of three)
 GOLDEN_SEED = 20261027
 
 # Delivery stages (PRD section 5): one company, then 5, then all 19. Each stage is a signed release.

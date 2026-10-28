@@ -18,10 +18,10 @@ import duckdb
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 
-FIELDS = ("revenue", "cost_of_revenue", "operating_income", "capex")
-QUARTER = re.compile(r"^\d{4}Q[1-4]$")
+FIELDS = ("revenue", "cost_of_revenue", "operating_income", "capex", "opex")
+YEAR = re.compile(r"^FY\d{4}$")
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 ACCESSION = re.compile(r"^\d{10}-\d{2}-\d{6}$")
 
@@ -50,15 +50,15 @@ def _c(name, type_, doc, **kw):
 
 
 TICKER = _c("ticker", "VARCHAR", "Company ticker, e.g. NVDA.", pattern=re.compile(r"^[A-Z][A-Z0-9.\-]{0,9}$"))
-FIELD = _c("field", "VARCHAR", "Line item: revenue, cost_of_revenue, operating_income or capex.", enum=FIELDS)
-CAL_Q = _c("cal_q", "VARCHAR", "Calendar quarter the value belongs to, e.g. 2026Q2 (majority of days).", pattern=QUARTER)
+FIELD = _c("field", "VARCHAR", "revenue, capex or opex (released); cost_of_revenue and operating_income (read to compute opex).", enum=FIELDS)
+PERIOD = _c("period", "VARCHAR", "The company's fiscal year, e.g. FY2026 (NVDA's ended 25 Jan 2026).", pattern=YEAR)
 ACCN = _c("accession", "VARCHAR", "SEC accession number of the filing, e.g. 0001045810-26-000075.", pattern=ACCESSION)
 
 SCHEMA: tuple[Table, ...] = (
     Table("documents", "One row per filing's primary document: what was fetched and how it was parsed.", (
         ACCN, TICKER,
         _c("cik", "INTEGER", "SEC Central Index Key."),
-        _c("form", "VARCHAR", "Form type.", enum=("10-Q", "10-K")),
+        _c("form", "VARCHAR", "Form type.", enum=("10-K",)),
         _c("period", "VARCHAR", "Report period end date (YYYY-MM-DD).", pattern=DATE),
         _c("filed", "VARCHAR", "Filing date (YYYY-MM-DD).", pattern=DATE),
         _c("url", "VARCHAR", "Primary document URL on sec.gov."),
@@ -71,17 +71,17 @@ SCHEMA: tuple[Table, ...] = (
         _c("cash_flow_tables", "VARCHAR", "Table IDs of the cash-flow statement, comma-separated.", nullable=True),
     ), key=("accession",)),
     Table("reference_values", "XBRL values from the reference pipeline (SEC companyfacts). Evidence for reconciliation, not truth.", (
-        TICKER, FIELD, CAL_Q,
+        TICKER, FIELD, PERIOD,
         _c("value", "BIGINT", "US dollars, unscaled."),
-        _c("method", "VARCHAR", "How the quarter was derived (reported, ytd_diff, q4_derived, ...)."),
+        _c("method", "VARCHAR", "reported, or derived (opex = revenue − cost of revenue − operating income)."),
         _c("concept", "VARCHAR", "XBRL concept, e.g. us-gaap:Revenues."),
         _c("period_start", "VARCHAR", "Fiscal period start.", pattern=DATE),
         _c("period_end", "VARCHAR", "Fiscal period end.", pattern=DATE),
         ACCN,
         _c("restated", "BOOLEAN", "True if a later filing changed the value."),
         _c("original_value", "BIGINT", "First-filed value when restated.", nullable=True),
-    ), key=("ticker", "field", "cal_q")),
-    Table("extractions", "One row per value an agent read from a filing, as stated (three months, year to date, or full year).", (
+    ), key=("ticker", "field", "period")),
+    Table("extractions", "One row per value an agent read from a 10-K column (one fiscal year).", (
         _c("extraction_id", "VARCHAR", "Stable ID: accession|field|period_start|period_end."),
         ACCN, TICKER, FIELD,
         _c("period_start", "VARCHAR", "Start of the period the column covers.", pattern=DATE),
@@ -99,18 +99,18 @@ SCHEMA: tuple[Table, ...] = (
         _c("prompt_version", "VARCHAR", "Prompt file and version, e.g. statements@v1."),
         _c("run_id", "VARCHAR", "Run that produced it."),
     ), key=("extraction_id",)),
-    Table("values", "One quarterly value per (ticker, field, quarter): what a release ships.", (
-        TICKER, FIELD, CAL_Q,
-        _c("fiscal_period", "VARCHAR", "The company's own label for the quarter, e.g. FY2027 Q2 (NVDA's quarter ended 26 Jul 2026).", pattern=re.compile(r"^FY\d{4} Q[1-4]$")),
+    Table("values", "One value per (ticker, field, fiscal year): what a release ships.", (
+        TICKER, FIELD, PERIOD,
+        _c("period_end", "VARCHAR", "Fiscal year end date.", pattern=DATE),
         _c("value", "BIGINT", "US dollars, unscaled. Null when source is missing.", nullable=True),
         _c("source", "VARCHAR", "Where the shipped value comes from.", enum=("agent", "override", "missing")),
-        _c("method", "VARCHAR", "Quarter derivation: reported, ytd_diff, q4_derived, fy_minus_quarters.", nullable=True),
-        _c("label", "VARCHAR", "Reconciliation against the reference.", enum=("agree", "agent_wrong", "xbrl_wrong", "definition_gap", "unresolved", "no_reference", "mixed_basis")),
-        _c("basis", "VARCHAR", "as_reported, restated (built from filings after the company's restatement), or mixed (no single basis; value left blank).", enum=("as_reported", "restated", "mixed")),
-        _c("first_reported", "BIGINT", "The same quarter built only from first-filed numbers (as first reported).", nullable=True),
+        _c("method", "VARCHAR", "reported (one cell), or computed (opex from three cells of the same 10-K column).", enum=("reported", "computed")),
+        _c("label", "VARCHAR", "Reconciliation against the reference; not_reported when the company has no such line.", enum=("agree", "agent_wrong", "xbrl_wrong", "definition_gap", "unresolved", "no_reference", "not_reported")),
+        _c("basis", "VARCHAR", "as_reported, or restated (a later 10-K changed the first-reported figure by more than 1%).", enum=("as_reported", "restated")),
+        _c("first_reported", "BIGINT", "The figure in the first 10-K that reported this fiscal year.", nullable=True),
         _c("extraction_ids", "VARCHAR", "Extractions used, comma-separated.", nullable=True),
         _c("input_hash", "VARCHAR", "Hash of everything this value depends on; decisions re-apply only when it matches."),
-    ), key=("ticker", "field", "cal_q")),
+    ), key=("ticker", "field", "period")),
     Table("rules", "The rule registry as loaded from rules/*.yaml.", (
         _c("rule_id", "VARCHAR", "Rule ID, e.g. unit_scale."),
         _c("severity", "VARCHAR", "block, warn or info.", enum=("block", "warn", "info")),
@@ -121,13 +121,13 @@ SCHEMA: tuple[Table, ...] = (
         _c("file_sha256", "VARCHAR", "Hash of the YAML file, so a rule change is visible in a release diff."),
     ), key=("rule_id",)),
     Table("exceptions", "One rule firing on one value.", (
-        _c("exception_id", "VARCHAR", "Stable ID: rule_id|ticker|field|cal_q (or the extraction/document it fired on)."),
+        _c("exception_id", "VARCHAR", "Stable ID: rule_id|ticker|field|period (or the extraction/document it fired on)."),
         _c("rule_id", "VARCHAR", "Rule that fired."),
         _c("severity", "VARCHAR", "Copied from the rule at run time.", enum=("block", "warn", "info")),
         TICKER,
         _c("field", "VARCHAR", "Line item, if the rule is field-level.", nullable=True, enum=FIELDS),
-        _c("cal_q", "VARCHAR", "Quarter, if quarter-level.", nullable=True, pattern=QUARTER),
-        _c("subject", "VARCHAR", "What it fired on when not a quarterly value: an accession or extraction ID.", nullable=True),
+        _c("period", "VARCHAR", "Fiscal year, if year-level.", nullable=True, pattern=YEAR),
+        _c("subject", "VARCHAR", "What it fired on when not a released value: an accession or extraction ID.", nullable=True),
         _c("message", "VARCHAR", "Plain-language explanation with the numbers."),
         _c("input_hash", "VARCHAR", "Hash of the inputs it was raised on."),
     ), key=("exception_id",)),

@@ -3,7 +3,7 @@ import unittest
 
 from ledger.store import SCHEMA, ContractError, data_dictionary, init, write
 
-GOOD_VALUE = {"ticker": "NVDA", "field": "revenue", "cal_q": "2026Q2", "fiscal_period": "FY2027 Q2", "value": 96221000000, "source": "agent",
+GOOD_VALUE = {"ticker": "NVDA", "field": "revenue", "period": "FY2026", "period_end": "2026-01-25", "value": 96221000000, "source": "agent",
               "method": "reported", "label": "agree", "basis": "as_reported", "first_reported": 96221000000, "extraction_ids": "x", "input_hash": "h"}
 
 
@@ -37,7 +37,7 @@ class Contracts(unittest.TestCase):
         self.bad("values", {**GOOD_VALUE, "label": "close_enough"}, "values.label must be one of")
 
     def test_pattern(self):
-        self.bad("values", {**GOOD_VALUE, "cal_q": "Q2 2026"}, "does not match")
+        self.bad("values", {**GOOD_VALUE, "period": "2026"}, "does not match")
 
     def test_unknown_column(self):
         self.bad("values", {**GOOD_VALUE, "colour": "red"}, "unknown column")
@@ -57,7 +57,7 @@ class Contracts(unittest.TestCase):
         con = init(":memory:")
         write(con, "values", [GOOD_VALUE])
         with self.assertRaises(ContractError):
-            write(con, "values", [{**GOOD_VALUE, "cal_q": "2026Q1"}, GOOD_VALUE])
+            write(con, "values", [{**GOOD_VALUE, "period": "FY2025"}, GOOD_VALUE])
         self.assertEqual(con.execute('select count(*) from "values"').fetchone()[0], 1)
 
 

@@ -26,7 +26,7 @@ class Finding:
     ticker: str
     message: str
     field: str | None = None
-    cal_q: str | None = None
+    period: str | None = None
     subject: str | None = None
 
 
@@ -35,9 +35,9 @@ class Context:
     """Everything a rule may look at, for the companies being checked."""
     values: list[dict]                       # rows of the `values` table
     extractions: list[dict]                  # rows of `extractions`
-    reference: dict = field(default_factory=dict)   # (ticker, field, cal_q) -> reference row
+    reference: dict = field(default_factory=dict)   # (ticker, field, period) -> reference row
     parsed: dict = field(default_factory=dict)      # accession -> parsed document (statements)
-    quarters: list[str] = field(default_factory=list)
+    years: list[str] = field(default_factory=list)
 
     def ext_by_id(self):
         return {e["extraction_id"]: e for e in self.extractions}
@@ -60,8 +60,7 @@ def check(name):
 # ── checks on what the agent read ──────────────────────────────────────────────────────────────────────────────────
 @check("citation_resolves")
 def _citation(ctx: Context, p: dict):
-    """Every extracted cell, whether or not it reaches a released value: a bad cell can still change which basis a
-    quarter is on, or blank it."""
+    """Every extracted cell, whether or not it reaches a released value."""
     from .extract import Invalid, resolve
     out = []
     for e in ctx.extractions:
@@ -84,12 +83,11 @@ def _unit_doc(ctx, p):
 
 @check("period_length")
 def _period(ctx, p):
-    ok = {3: (80, 100), 6: (170, 196), 9: (260, 287), 12: (350, 380)}
     out = []
     for e in ctx.extractions:
         d = _days(e)
-        if not any(lo <= d <= hi for lo, hi in ok.values()):
-            out.append(Finding(e["ticker"], f"period {e['period_start']}..{e['period_end']} is {d} days: not a quarter, half-year, nine months or year", e["field"], None, e["extraction_id"]))
+        if not 350 <= d <= 380:
+            out.append(Finding(e["ticker"], f"period {e['period_start']}..{e['period_end']} is {d} days, not a fiscal year", e["field"], None, e["extraction_id"]))
     return out
 
 
@@ -146,40 +144,6 @@ def _definition(ctx, p):
 
 
 # ── arithmetic checks, using independently read cells ──────────────────────────────────────────────────────────────
-@check("quarters_sum_to_ytd")
-def _ytd(ctx, p):
-    """Q1 + Q2 + Q3 three-month cells must equal the nine-month cell (and Q1 + Q2 the six-month cell). Both sides are
-    read from filings, so this is an independent test. (A quarters-sum-to-year test would be circular here, because
-    Q4 is derived as the year minus nine months.)"""
-    from .basis import generation, restatement_dates
-    out, dates = [], {}
-    for e in ctx.extractions:
-        dates.setdefault(e["ticker"], []).append(e)
-    dates = {t: restatement_dates(es) for t, es in dates.items()}
-    three = {}
-    for e in ctx.extractions:
-        if 80 <= _days(e) <= 100:
-            three.setdefault((e["ticker"], e["field"], e["period_start"]), e)
-    for e in ctx.extractions:
-        d = _days(e)
-        n = 3 if 260 <= d <= 287 else 2 if 170 <= d <= 196 else 0
-        if not n:
-            continue
-        s, parts = date.fromisoformat(e["period_start"]), []
-        for _ in range(n):
-            q = three.get((e["ticker"], e["field"], s.isoformat()))
-            if not q:
-                break
-            parts.append(q)
-            s = date.fromisoformat(q["period_end"]) + timedelta(days=1)
-        if len(parts) != n or len({generation(x, dates[e["ticker"]]) for x in parts + [e]}) > 1:
-            continue  # incomplete, or spans a restatement (the restated rule and the value's basis cover that)
-        total = sum(x["value"] for x in parts)
-        tol = n * e["scale"] // 2 + e["scale"] // 2
-        if abs(total - e["value"]) > tol:
-            out.append(Finding(e["ticker"], f"{n} quarters sum to {total:,} but the {d}-day cell ({e['cell_text']}) says {e['value']:,} (diff {total - e['value']:+,})",
-                               e["field"], None, e["extraction_id"]))
-    return out
 
 
 @check("statement_tie")
@@ -212,27 +176,12 @@ def _tie(ctx, p):
     return out
 
 
-# ── checks on the quarterly values ─────────────────────────────────────────────────────────────────────────────────
+# ── checks on the released values ─────────────────────────────────────────────────────────────────────────────────
 @check("sign")
 def _sign(ctx, p):
     nonneg = set(p["non_negative"])
-    return [Finding(v["ticker"], f"{v['field']} is {v['value']:,}; it should never be negative", v["field"], v["cal_q"])
+    return [Finding(v["ticker"], f"{v['field']} is {v['value']:,}; it should never be negative", v["field"], v["period"])
             for v in ctx.values if v["value"] is not None and v["field"] in nonneg and v["value"] < 0]
-
-
-@check("magnitude")
-def _magnitude(ctx, p):
-    V = {(v["ticker"], v["field"], v["cal_q"]): v["value"] for v in ctx.values if v["value"] is not None}
-    out = []
-    for (t, f, q), r in V.items():
-        if f != "revenue":
-            continue
-        c, oi = V.get((t, "cost_of_revenue", q)), V.get((t, "operating_income", q))
-        if c is not None and c > r:
-            out.append(Finding(t, f"cost of revenue {c:,} exceeds revenue {r:,}", "cost_of_revenue", q))
-        if c is not None and oi is not None and oi > r - c:
-            out.append(Finding(t, f"operating income {oi:,} exceeds gross profit {r - c:,}", "operating_income", q))
-    return out
 
 
 @check("jump")
@@ -241,7 +190,7 @@ def _jump(ctx, p):
     by = {}
     for v in ctx.values:
         if v["value"] is not None:
-            by.setdefault((v["ticker"], v["field"]), {})[v["cal_q"]] = v["value"]
+            by.setdefault((v["ticker"], v["field"]), {})[v["period"]] = v["value"]
     out = []
     for (t, f), s in by.items():
         qs = sorted(s)
@@ -254,9 +203,9 @@ def _jump(ctx, p):
 
 @check("coverage")
 def _coverage(ctx, p):
-    have = {(v["ticker"], v["field"], v["cal_q"]) for v in ctx.values}
+    have = {(v["ticker"], v["field"], v["period"]) for v in ctx.values}
     tickers = sorted({v["ticker"] for v in ctx.values} | {e["ticker"] for e in ctx.extractions})
-    return [Finding(t, f"no {f} value for {q}", f, q) for t in tickers for f in p["fields"] for q in ctx.quarters if (t, f, q) not in have]
+    return [Finding(t, f"no {f} value for {q}", f, q) for t in tickers for f in p["fields"] for q in ctx.years if (t, f, q) not in have]
 
 
 @check("restated")
@@ -280,9 +229,9 @@ def _xbrl(ctx, p):
     out = []
     for v in ctx.values:
         if v["label"] == "unresolved":
-            r = ctx.reference.get((v["ticker"], v["field"], v["cal_q"]))
+            r = ctx.reference.get((v["ticker"], v["field"], v["period"]))
             ref = f"{r['value']:,}" if r else "no XBRL value"
-            out.append(Finding(v["ticker"], f"agent {v['value']:,} vs XBRL {ref}", v["field"], v["cal_q"]))
+            out.append(Finding(v["ticker"], f"agent {v['value']:,} vs XBRL {ref}", v["field"], v["period"]))
     return out
 
 
@@ -290,7 +239,7 @@ def _xbrl(ctx, p):
 def _outlier(ctx, p):
     """capex ÷ revenue more than `factor`× away from the company's own median for the window."""
     factor = p.get("factor", 2)
-    V = {(v["ticker"], v["field"], v["cal_q"]): v["value"] for v in ctx.values if v["value"]}
+    V = {(v["ticker"], v["field"], v["period"]): v["value"] for v in ctx.values if v["value"]}
     out = []
     for t in sorted({k[0] for k in V}):
         ratios = {q: V[(t, "capex", q)] / V[(t, "revenue", q)] for (tt, f, q) in V if tt == t and f == "capex" and (t, "revenue", q) in V}
@@ -328,8 +277,8 @@ def run(ctx: Context, rules: list[dict]) -> list[dict]:
     rows = {}
     for r in rules:
         for fnd in CHECKS[r["check"]](ctx, r["params"]):
-            key = "|".join(str(x) for x in (r["id"], fnd.ticker, fnd.field, fnd.cal_q, fnd.subject))
+            key = "|".join(str(x) for x in (r["id"], fnd.ticker, fnd.field, fnd.period, fnd.subject))
             rows[key] = {"exception_id": key, "rule_id": r["id"], "severity": r["severity"], "ticker": fnd.ticker,
-                         "field": fnd.field, "cal_q": fnd.cal_q, "subject": fnd.subject, "message": fnd.message,
+                         "field": fnd.field, "period": fnd.period, "subject": fnd.subject, "message": fnd.message,
                          "input_hash": hashlib.sha256(json.dumps([fnd.message, r["file_sha256"]]).encode()).hexdigest()[:16]}
     return [rows[k] for k in sorted(rows)]

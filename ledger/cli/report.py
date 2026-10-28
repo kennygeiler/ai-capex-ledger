@@ -13,12 +13,11 @@ from datetime import date, datetime, timezone
 from urllib.parse import quote
 
 from .. import store
-from ..config import MVP_FIELDS, MVP_QUARTERS, STAGES
+from ..config import MVP_YEARS, RELEASE_FIELDS, STAGES
 from ..rules import load
 
-FIELD_LABEL = {"revenue": "Revenue", "cost_of_revenue": "Cost of revenue", "operating_income": "Operating income", "capex": "Capex"}
-METHOD_LABEL = {"reported": "As filed (three-month column)", "ytd_diff": "Year-to-date difference", "q4_derived": "Full year minus nine months",
-                "fy_minus_quarters": "Full year minus three quarters"}
+FIELD_LABEL = {"revenue": "Revenue", "capex": "Capex", "opex": "Opex", "cost_of_revenue": "Cost of revenue", "operating_income": "Operating income"}
+METHOD_LABEL = {"reported": "As filed (one 10-K cell)", "computed": "Opex = revenue − cost of revenue − operating income, all from the same 10-K column"}
 
 
 def _days(s, e):
@@ -30,8 +29,8 @@ def build(con, stage: int) -> dict:
     q = lambda sql, *p: [dict(zip([c[0] for c in con.execute(sql, list(p)).description], r)) for r in con.execute(sql, list(p)).fetchall()]
     docs = {d["accession"]: d for d in q("select * from documents where ticker in (select unnest(?))", tickers)}
     ext = {x["extraction_id"]: x for x in q("select * from extractions where ticker in (select unnest(?))", tickers)}
-    ref = {(r["ticker"], r["field"], r["cal_q"]): r for r in q("select * from reference_values where ticker in (select unnest(?))", tickers)}
-    vals = q('select * from "values" where ticker in (select unnest(?)) order by ticker, field, cal_q', tickers)
+    ref = {(r["ticker"], r["field"], r["period"]): r for r in q("select * from reference_values where ticker in (select unnest(?))", tickers)}
+    vals = q('select * from "values" where ticker in (select unnest(?)) order by ticker, field, period', tickers)
     excs = q("select * from exceptions where ticker in (select unnest(?)) order by severity, exception_id", tickers)
     parsed = {a: json.loads((store.ROOT / d["tables_path"]).read_text()) for a, d in docs.items()}
     tables = {}
@@ -56,18 +55,17 @@ def build(con, stage: int) -> dict:
             d = docs[x["accession"]]
             num = x["cell_text"].strip("()$ ").replace("—", "")
             frag = f"#:~:text={quote(x['row_label'])},{quote(num)}" if num else f"#:~:text={quote(x['row_label'])}"
-            srcs.append({"id": i, "accession": x["accession"], "form": d["form"], "doc_period": d["period"], "filed": d["filed"],
+            srcs.append({"id": i, "field": x["field"], "accession": x["accession"], "form": d["form"], "doc_period": d["period"], "filed": d["filed"],
                          "url": d["url"], "deep": d["url"] + frag, "start": x["period_start"], "end": x["period_end"],
                          "days": _days(x["period_start"], x["period_end"]), "value": x["value"], "table": table(x["accession"], x["table_id"]),
                          "table_id": x["table_id"], "row": x["row_label"], "col": x["column_label"], "cell": x["cell_text"],
                          "unit": x["unit_stated"], "unit_source": x["unit_source"], "scale": x["scale"], "confidence": x["confidence"],
                          "notes": x["notes"], "prompt": x["prompt_version"]})
-        srcs.sort(key=lambda s: -s["days"])
-        r = ref.get((v["ticker"], v["field"], v["cal_q"]))
-        rows.append({"ticker": v["ticker"], "field": v["field"], "cal_q": v["cal_q"], "fiscal_period": v["fiscal_period"], "value": v["value"], "method": v["method"],
+        r = ref.get((v["ticker"], v["field"], v["period"]))
+        rows.append({"ticker": v["ticker"], "field": v["field"], "period": v["period"], "period_end": v["period_end"], "value": v["value"], "method": v["method"],
                      "label": v["label"], "basis": v["basis"], "first_reported": v["first_reported"], "ref": r and r["value"], "ref_concept": r and r["concept"], "ref_accession": r and r["accession"],
                      "input_hash": v["input_hash"], "sources": srcs})
-    return {"stage": stage, "tickers": tickers, "release": STAGES[stage]["release"], "fields": list(MVP_FIELDS), "quarters": MVP_QUARTERS,
+    return {"stage": stage, "tickers": tickers, "release": STAGES[stage]["release"], "fields": RELEASE_FIELDS, "years": MVP_YEARS,
             "rules": {r["id"]: {k: r[k] for k in ("title", "plain", "action")} for r in load()},
             "field_label": FIELD_LABEL, "method_label": METHOD_LABEL, "values": rows, "tables": tables, "exceptions": excs,
             "counts": {"filings": len(docs), "extractions": len(ext), "values": len(vals),

@@ -13,39 +13,39 @@ GATES = {
 
 def gates(values, open_items, handcheck) -> dict:
     """{gate: [failing items]}; empty lists mean the gate passes."""
-    checked = {(h["ticker"], h["field"], h["cal_q"]): h for h in (handcheck or {}).get("values", [])}
+    checked = {(h["ticker"], h["field"], h["period"]): h for h in (handcheck or {}).get("values", [])}
     return {
         "G1": [e["exception_id"] for e in open_items if e["rule_id"] == "extraction_failed"],
         "G4": [e["exception_id"] for e in open_items if e["severity"] == "block"],
         "G5": ["no hand-check file"] if handcheck is None else
-              [f"{v['ticker']} {v['field']} {v['cal_q']}" for v in values
-               if not (h := checked.get((v["ticker"], v["field"], v["cal_q"]), {})).get("verified") or h.get("value") != v["value"]],
+              [f"{v['ticker']} {v['field']} {v['period']}" for v in values
+               if not (h := checked.get((v["ticker"], v["field"], v["period"]), {})).get("verified") or h.get("value") != v["value"]],
     }
 
 
 def build(version, values, extractions, exceptions, previous) -> dict:
     """Release files as {name: text}. No timestamps inside, so the same inputs give the same hash (G7)."""
     ext = {e["extraction_id"]: e for e in extractions}
-    rows = sorted(values, key=lambda v: (v["ticker"], v["field"], v["cal_q"]))
+    rows = sorted(values, key=lambda v: (v["ticker"], v["field"], v["period"]))
     buf = io.StringIO()
     w = csv.writer(buf, lineterminator="\n")
-    w.writerow(["ticker", "field", "cal_q", "fiscal_period", "value", "basis", "first_reported", "source", "xbrl", "citations"])
+    w.writerow(["ticker", "field", "period", "period_end", "value", "basis", "first_reported", "source", "xbrl", "citations"])
     for v in rows:
         cites = " ; ".join(f"{e['accession']} {e['table_id']} '{e['row_label']}' / '{e['column_label']}' = {e['cell_text']}"
                            for i in (v["extraction_ids"] or "").split(",") if (e := ext.get(i)))
-        w.writerow([v["ticker"], v["field"], v["cal_q"], v["fiscal_period"], "" if v["value"] is None else v["value"], v["basis"],
+        w.writerow([v["ticker"], v["field"], v["period"], v["period_end"], "" if v["value"] is None else v["value"], v["basis"],
                     "" if v["first_reported"] is None else v["first_reported"], v["source"], v["label"], cites])
     notes = [e for e in exceptions if e["severity"] == "info"]
     quality = "\n".join([f"# {version}", "",
                          f"{len(rows)} values · {sum(v['source'] == 'agent' for v in rows)} from agents · "
                          f"{sum(v['source'] == 'override' for v in rows)} overridden · {sum(v['source'] == 'missing' for v in rows)} missing · "
                          f"{sum(v['label'] == 'agree' for v in rows)} agree with XBRL · {sum(v['basis'] == 'restated' for v in rows)} on a restated basis · "
-                         f"{sum(v['basis'] == 'mixed' for v in rows)} blank because no single basis exists", "",
+                         f"{sum(v['label'] == 'not_reported' for v in rows)} blank because the company reports no such line", "",
                          "All gates passed: " + "; ".join(f"{g} {d}" for g, d in GATES.items()) + ".", "",
                          "## Notes", ""] + [f"- {e['ticker']} {e['field'] or ''}: {e['message']}" for e in notes] + [""])
-    prev = {(r["ticker"], r["field"], r["cal_q"]): r["value"] for r in previous or []}
-    changes = [f"- {v['ticker']} {v['field']} {v['cal_q']}: {prev[(v['ticker'], v['field'], v['cal_q'])] or 'missing'} → {v['value'] or 'missing'} ({v['source']})"
-               for v in rows if (v["ticker"], v["field"], v["cal_q"]) in prev and str(prev[(v["ticker"], v["field"], v["cal_q"])]) != str(v["value"] or "")]
+    prev = {(r["ticker"], r["field"], r["period"]): r["value"] for r in previous or []}
+    changes = [f"- {v['ticker']} {v['field']} {v['period']}: {prev[(v['ticker'], v['field'], v['period'])] or 'missing'} → {v['value'] or 'missing'} ({v['source']})"
+               for v in rows if (v["ticker"], v["field"], v["period"]) in prev and str(prev[(v["ticker"], v["field"], v["period"])]) != str(v["value"] or "")]
     diff = "\n".join([f"# Changes in {version}", ""] + (["First release."] if previous is None else changes or ["No values changed."]) + [""])
     return {"values.csv": buf.getvalue(), "QUALITY.md": quality, "DIFF.md": diff}
 

@@ -1,6 +1,6 @@
 id: sign
 severity: block
-description: Revenue, cost of revenue and capex are never negative.
+description: Revenue, capex and opex are never negative.
 rationale: A negative capex means a sign error or the wrong line (proceeds instead of purchases). Honeywell and
   Intuit showed this in the XBRL reference.
 owner: Kenny Geiler
@@ -8,9 +8,9 @@ check: sign
 params:
   non_negative:
   - revenue
-  - cost_of_revenue
   - capex
+  - opex
 title: A number is negative that should never be.
-plain: Revenue, cost and equipment spending can't be below zero. Usually a minus sign or the wrong line (money coming
-  in instead of going out).
+plain: Revenue, equipment spending and operating expenses can't be below zero. Usually a minus sign, or the wrong
+  line.
 action: Check the filing. Override with the correct number, or reject.

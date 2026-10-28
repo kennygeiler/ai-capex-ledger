@@ -1,6 +1,6 @@
 id: xbrl_reconcile
 severity: block
-description: The agent's quarterly value matches XBRL within the coarser rounding of the two sources.
+description: The value matches XBRL within the coarser rounding of the two sources.
 rationale: XBRL is a free answer key. A disagreement means the agent, the filer's tagging or the definition is off,
   and a person decides which.
 owner: Kenny Geiler

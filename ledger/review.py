@@ -25,7 +25,7 @@ def open_items(exceptions: list[dict], ds: list[dict]) -> list[dict]:
     """Block and warn exceptions without a current decision, blocking first, latest quarter first."""
     cur = latest(ds)
     todo = [e for e in exceptions if e["severity"] != "info" and cur.get(e["exception_id"], {}).get("input_hash") != e["input_hash"]]
-    return sorted(todo, key=lambda e: (e["severity"] != "block", -int((e["cal_q"] or "0000Q0").replace("Q", "")), e["ticker"], e["exception_id"]))
+    return sorted(todo, key=lambda e: (e["severity"] != "block", -int((e["period"] or "FY0000")[2:]), e["ticker"], e["exception_id"]))
 
 
 def decide(exc: dict, kind: str, reason: str, by: str, value: int | None = None) -> dict:
@@ -46,10 +46,10 @@ def apply(values: list[dict], exceptions: list[dict], ds: list[dict]) -> list[di
     cur, by_key = latest(ds), {}
     for e in exceptions:
         d = cur.get(e["exception_id"])
-        if d and d["input_hash"] == e["input_hash"] and d["kind"] != "accept" and e["cal_q"]:
-            by_key[(e["ticker"], e["field"], e["cal_q"])] = d
+        if d and d["input_hash"] == e["input_hash"] and d["kind"] != "accept" and e["period"]:
+            by_key[(e["ticker"], e["field"], e["period"])] = d
     out = []
     for v in values:
-        d = by_key.get((v["ticker"], v["field"], v["cal_q"]))
+        d = by_key.get((v["ticker"], v["field"], v["period"]))
         out.append(v if not d else {**v, "value": d["value"], "source": "override"} if d["kind"] == "override" else {**v, "value": None, "source": "missing"})
     return out

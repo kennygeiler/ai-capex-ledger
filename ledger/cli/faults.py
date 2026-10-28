@@ -5,7 +5,7 @@ from collections import Counter
 
 from .. import store
 from ..config import STAGES
-from ..derive import fiscal_year_end
+from ..reconcile import fiscal_year_end
 from ..faults import inject
 from ..rules import load
 from .rules import context

@@ -2,29 +2,20 @@
 
 What each released number means. The extraction prompt (`agents/prompts/`) and the rules (`rules/`) implement these definitions; when they disagree, this file wins.
 
-| Field | Definition | Read from | Sign |
-|---|---|---|---|
-| `revenue` | Total revenue, or total net sales, for the period. | The income statement's total line, never a component. | As reported |
-| `cost_of_revenue` | Total cost of revenue, or cost of sales. | The income statement. If there is no such line, the value is missing with that reason. | Positive |
-| `operating_income` | Operating income, or income (loss) from operations. | The income statement. | As reported; a loss is negative |
-| `capex` | Cash paid for property and equipment. | The investing section of the cash-flow statement, as one line. Lines are never added together. | Positive |
+**Source:** 10-K annual reports only, one value per company per fiscal year, FY2022–FY2026.
 
-**When a line differs from the definition,** the reported line is used as is and the `definition_note` rule records the difference on every release. For example, NVDA's capex line includes intangible assets.
+| Field | Definition | How it is built |
+|---|---|---|
+| `revenue` | Total revenue, or total net sales. | One cell: the income statement's total line, never a component. |
+| `capex` | Cash paid for property and equipment. Shown as a positive number. | One cell: one line in the investing section of the cash-flow statement. Lines are never added together. |
+| `opex` | Operating expenses: the costs below gross profit, such as R&D, sales, general and administrative, and depreciation. This is the standard analyst definition, and excludes cost of revenue. | Revenue − cost of revenue − operating income, all three from the same 10-K column. |
 
-**Periods.** Every value has two labels:
-- `cal_q`: the calendar quarter holding most of the fiscal quarter's days.
-- `fiscal_period`: the company's own label.
+**One filing per company-year.** Every field of a company-year comes from the newest 10-K that reports that year. A year never mixes filings.
+- If that 10-K has no such line, the value is blank, labelled `not_reported`. For example, Oracle reports no cost of revenue, so its opex is blank. Standard data tools fill this by adding up a company's cost lines; we don't add lines together.
 
-For example, NVDA's quarter ended 26 Jul 2026 is `2026Q2` and `FY2027 Q2`.
+**Restatements.** A later 10-K may show a different figure for a past year, for example after selling part of the business. The newest figure is used, and the first-filed one is kept in `first_reported`.
+- `basis` is `restated` when the two differ by more than 1% (and more than rounding); otherwise it is `as_reported`.
 
-**Units.** Whole US dollars, unscaled.
+**When a line differs from the definition,** it is used as reported, and the `definition_note` rule records the difference on every release. For example, NVDA's capex line includes intangible assets.
 
-**Restatements.** When a company rewrites past numbers (for example after selling part of its business), it is restated. The release follows standard practice (Compustat keeps the same two series):
-- **`value` uses the restated basis:** the newest filing wins.
-- **`basis`** says which basis each value is on:
-  - `as_reported`: before any restatement, or the company never restated.
-  - `restated`: built from filings on or after the company's restatement.
-  - `mixed`: the inputs straddle the restatement, so no single basis exists. The value is left blank.
-- **`first_reported`** keeps the same quarter as originally reported.
-
-A restatement is a change of more than 1% (and more than rounding) to a number an earlier filing reported.
+**Periods and units.** `period` is the company's own fiscal year (NVIDIA's FY2026 ended 25 Jan 2026), with its end date in `period_end`. Values are whole US dollars, unscaled.

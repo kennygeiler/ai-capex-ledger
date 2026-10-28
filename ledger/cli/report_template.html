@@ -119,9 +119,9 @@ const $ = (s, el = document) => el.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const usd = (v) => v == null ? "–" : (v < 0 ? "−$" : "$") + Math.abs(v).toLocaleString("en-US");
 const short = (v) => v == null ? "–" : (Math.abs(v) >= 1e9 ? `$${(v / 1e9).toFixed(2)}B` : `$${(v / 1e6).toFixed(0)}M`);
-const qLabel = (q) => `Q${q.slice(5)} ’${q.slice(2, 4)}`;
+const qLabel = (p) => p;  // fiscal year, e.g. FY2026
 const KEY = `ledger-handcheck-stage${D.stage}`;
-const key = (v) => `${v.ticker}|${v.field}|${v.cal_q}`;
+const key = (v) => `${v.ticker}|${v.field}|${v.period}`;
 let checks = {};
 try { checks = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(checks)); } catch (e) {} };
@@ -133,7 +133,7 @@ function tiles() {
   return `<div class="tiles">
     <div class="tile"><div class="n">${c.filings}</div><div class="l">filings read by agents</div></div>
     <div class="tile"><div class="n">${c.extractions}</div><div class="l">cells cited (table, row, column, text)</div></div>
-    <div class="tile"><div class="n">${c.values}</div><div class="l">quarterly values</div></div>
+    <div class="tile"><div class="n">${c.values}</div><div class="l">fiscal-year values</div></div>
     <div class="tile ${c.agree === c.values ? "good" : ""}"><div class="n">${c.agree}/${c.values}</div><div class="l">agree with XBRL (SEC answer key)</div></div>
     <div class="tile"><div class="n">${c.open_exceptions}</div><div class="l">open exceptions (block or warn) · ${c.info_notes} info note${c.info_notes === 1 ? "" : "s"}</div></div>
     <div class="tile ${done === c.values ? "good" : ""}"><div class="n" id="done-n">${done}/${c.values}</div><div class="l">hand-checked by you</div></div>
@@ -141,12 +141,12 @@ function tiles() {
 }
 
 function chart(field) {
-  const vs = D.quarters.map((q) => D.values.find((v) => v.ticker === state.company && v.field === field && v.cal_q === q));
+  const vs = D.years.map((y) => D.values.find((v) => v.ticker === state.company && v.field === field && v.period === y));
   const all = vs.flatMap((v) => v ? [v.value, v.ref] : []).filter((x) => x != null);
   const hi = Math.max(...all, 1), lo = Math.min(0, ...all);
   const W = 300, H = 150, L = 4, B = 18, T = 8, bw = (W - L) / vs.length;
   const y = (v) => T + (H - B - T) * (1 - (v - lo) / (hi - lo || 1));
-  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(D.field_label[field])}: agent vs XBRL by quarter">`;
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(D.field_label[field])}: agent vs XBRL by fiscal year">`;
   [0.5, 1].forEach((f) => s += `<line class="grid" x1="0" x2="${W}" y1="${y(hi * f)}" y2="${y(hi * f)}"/><text x="2" y="${y(hi * f) - 3}">${short(hi * f)}</text>`);
   vs.forEach((v, i) => {
     const x = L + i * bw, w = bw * 0.58;
@@ -156,20 +156,20 @@ function chart(field) {
       if (v.ref != null) s += `<circle class="mark" cx="${x + bw / 2}" cy="${y(v.ref)}" r="4"/>`;
       s += `<rect class="hit" data-k="${key(v)}" x="${x}" y="0" width="${bw}" height="${H}"/>`;
     }
-    if (i === 0 || i === vs.length - 1 || i % 2 === 1) s += `<text x="${x + bw / 2}" y="${H - 4}" text-anchor="middle">${qLabel(D.quarters[i])}</text>`;
+    if (i === 0 || i === vs.length - 1 || i % 2 === 1) s += `<text x="${x + bw / 2}" y="${H - 4}" text-anchor="middle">${qLabel(D.years[i])}</text>`;
   });
   const agree = vs.filter((v) => v && v.label === "agree").length;
   return `<div class="chart"><h3>${esc(D.field_label[field])} <span>${agree}/${vs.filter(Boolean).length} agree</span></h3>${s}</svg></div>`;
 }
 
 function formula(v) {
-  const s = v.sources, sum = (a) => a.reduce((x, y) => x + y.value, 0);
-  const term = (x) => `${usd(x.value)} <span class="eq">(${x.days > 300 ? "12" : Math.round(x.days / 30.4)} mo to ${x.end})</span>`;
-  let calc, body;
-  if (s.length === 1) { calc = s[0].value; body = `${usd(v.value)} <span class="eq">=</span> ${esc(s[0].cell)} × ${s[0].scale.toLocaleString("en-US")}`; }
-  else { calc = s[0].value - sum(s.slice(1)); body = `${usd(v.value)} <span class="eq">=</span> ${term(s[0])} ${s.slice(1).map((x) => `<span class="eq">−</span> ${term(x)}`).join(" ")}`; }
-  const ok = calc === v.value;
-  return `<div class="formula">${body} ${ok ? `<span class="ok">✓ adds up</span>` : `<span style="color:var(--bad)">✗ arithmetic gives ${usd(calc)}</span>`}</div>`;
+  if (v.value == null) return "";
+  const by = Object.fromEntries(v.sources.map((s) => [s.field, s]));
+  const calc = v.field === "opex" ? by.revenue.value - by.cost_of_revenue.value - by.operating_income.value : v.sources[0].value;
+  const body = v.field === "opex"
+    ? `${usd(v.value)} <span class="eq">=</span> ${usd(by.revenue.value)} <span class="eq">revenue −</span> ${usd(by.cost_of_revenue.value)} <span class="eq">cost of revenue −</span> ${usd(by.operating_income.value)} <span class="eq">operating income</span>`
+    : `${usd(v.value)} <span class="eq">=</span> ${esc(v.sources[0].cell)} × ${v.sources[0].scale.toLocaleString("en-US")}`;
+  return `<div class="formula">${body} ${calc === v.value ? `<span class="ok">✓ adds up</span>` : `<span style="color:var(--bad)">✗ arithmetic gives ${usd(calc)}</span>`}</div>`;
 }
 
 function miniTable(src) {
@@ -196,23 +196,23 @@ function detail(v) {
       ${s.notes ? `<div class="cite" style="color:var(--muted)">Agent note: ${esc(s.notes)}</div>` : ""}
       ${miniTable(s)}
     </div>`).join("");
-  const basisNote = v.basis === "mixed" ? `<div style="font-size:13px;margin-bottom:8px"><b>Left blank.</b> This quarter would mix numbers from before and after the company restated its past results, so it has no single basis. Standard practice is to leave it blank rather than publish a number that belongs to neither. As first reported, it was ${usd(v.first_reported)}.</div>`
-    : v.basis === "restated" ? `<div style="font-size:13px;margin-bottom:8px"><b>Restated basis.</b> Built from filings after the company rewrote its past results. As first reported: ${usd(v.first_reported)}.</div>` : "";
-  if (v.basis === "mixed") return basisNote + `<div class="sources">${srcs}</div>`;
+  const basisNote = v.label === "not_reported" ? `<div style="font-size:13px;margin-bottom:8px"><b>Left blank.</b> The company reports no cost-of-revenue line, so opex (revenue − cost of revenue − operating income) can't be computed. Standard tools fill this by adding up the company's cost lines; we don't add lines together.</div>`
+    : v.basis === "restated" ? `<div style="font-size:13px;margin-bottom:8px"><b>Restated.</b> A later 10-K changed this year's figure; the newest one is used. As first reported: ${usd(v.first_reported)}.</div>` : "";
+  if (v.value == null) return basisNote;
   return basisNote + `<div style="font-size:13px;margin-bottom:8px"><b>${esc(D.method_label[v.method] || v.method)}.</b> XBRL (SEC answer key): ${usd(v.ref)} from <code>${esc(v.ref_concept || "–")}</code>, ${v.ref_accession || ""}. Difference ${v.ref == null ? "–" : usd(v.value - v.ref)}.</div>
     ${formula(v)}<div class="sources">${srcs}</div>`;
 }
 
 function rows() {
-  const order = (v) => D.fields.indexOf(v.field) * 100 + D.quarters.indexOf(v.cal_q);
+  const order = (v) => D.fields.indexOf(v.field) * 100 + D.years.indexOf(v.period);
   const list = [...D.values].sort((a, b) => order(a) - order(b)).filter((v) => v.ticker === state.company && (state.field === "all" || v.field === state.field)
     && (state.show === "all" || (state.show === "todo" ? !checks[key(v)]?.verified : v.label !== "agree")));
   return list.map((v) => {
     const k = key(v), c = checks[k] || {}, open = state.open.has(k);
-    const basisPill = v.basis === "restated" ? ` <span class="pill na" title="Built from filings after the company restated its past numbers. As first reported: ${usd(v.first_reported)}">restated</span>` : v.basis === "mixed" ? ` <span class="pill bad" title="No single basis: the inputs straddle the company's restatement">blank: mixed basis</span>` : "";
-    const pill = v.label === "mixed_basis" ? `<span class="pill na">no value</span>` : v.label === "agree" ? `<span class="pill ok" title="agrees with XBRL"><span class="full">agree</span><span class="abbr">✓</span></span>` : v.label === "no_reference" ? `<span class="pill na">no XBRL</span>` : `<span class="pill bad">${v.label}</span>`;
+    const basisPill = v.basis === "restated" ? ` <span class="pill na" title="A later 10-K changed this figure. As first reported: ${usd(v.first_reported)}">restated</span>` : "";
+    const pill = v.label === "not_reported" ? `<span class="pill na">not reported</span>` : v.label === "agree" ? `<span class="pill ok" title="agrees with XBRL"><span class="full">agree</span><span class="abbr">✓</span></span>` : v.label === "no_reference" ? `<span class="pill na">no XBRL</span>` : `<span class="pill bad">${v.label}</span>`;
     return `<tr class="main ${open ? "open" : ""} ${c.verified ? "done" : ""}" data-k="${k}">
-      <td><span class="caret">▸</span> ${qLabel(v.cal_q)}<div style="color:var(--muted);font-size:11px">${esc(v.fiscal_period)}</div></td><td>${esc(D.field_label[v.field])}</td>
+      <td><span class="caret">▸</span> ${esc(v.period)}<div style="color:var(--muted);font-size:11px">ended ${esc(v.period_end)}</div></td><td>${esc(D.field_label[v.field])}</td>
       <td class="num"><span class="full">${usd(v.value)}</span><span class="abbr">${short(v.value)}</span></td><td class="num hide-sm">${usd(v.ref)}</td><td>${pill}${basisPill}</td>
       <td class="hide-sm" style="color:var(--muted);font-size:12px">${esc(D.method_label[v.method] || v.method)} · ${v.sources.length} cell${v.sources.length > 1 ? "s" : ""}</td>
       <td><label class="check" onclick="event.stopPropagation()"><input type="checkbox" data-check="${k}" ${c.verified ? "checked" : ""} aria-label="Verified against filing"> verified</label></td>
@@ -228,8 +228,8 @@ function seg(name, opts) {
 function story() {
   const c = D.counts, block = D.exceptions.filter((e) => e.severity === "block").length, warn = D.exceptions.filter((e) => e.severity === "warn").length;
   return `<div class="story">
-    <p><b>What this is.</b> Companies on the US stock market file quarterly reports (10-Q) and annual reports (10-K) with the SEC. AI readers opened ${c.filings} of these reports for ${D.tickers.join(", ")} and copied out four numbers per period: <b>revenue</b>, <b>cost of revenue</b>, <b>operating income</b> (profit from the business itself) and <b>capex</b> (money spent on buildings and equipment). For every number they wrote down exactly where they found it: the table, the row and the column.</p>
-    <p><b>How we check them.</b> Companies also file a machine-readable copy of the same numbers, called <b>XBRL</b>. The AI never sees it, so it works as an answer key: ${c.agree} of ${c.values} quarterly numbers match it. Automatic rules also look for problems a person would spot: totals that don't add up, impossible values, sudden jumps.</p>
+    <p><b>What this is.</b> Companies on the US stock market file an annual report (a <b>10-K</b>) with the SEC. AI readers opened ${c.filings} of these reports for ${D.tickers.join(", ")} and read, for each fiscal year, <b>revenue</b>, <b>capex</b> (money spent on buildings and equipment) and the two lines needed for <b>opex</b> (operating expenses: revenue − cost of revenue − operating income, all from the same report). For every number they wrote down exactly where they found it: the table, the row and the column.</p>
+    <p><b>How we check them.</b> Companies also file a machine-readable copy of the same numbers, called <b>XBRL</b>. The AI never sees it, so it works as an answer key: ${c.agree} of ${c.values} numbers match it. Automatic rules also look for problems a person would spot: totals that don't add up, impossible values, sudden jumps.</p>
     <p><b>Your job.</b> The AI does the reading. A person decides what we stand behind. ${block ? `<b>${block} item${block > 1 ? "s" : ""} need${block > 1 ? "" : "s"} your decision</b> before this data can be released, plus ${warn} smaller warning${warn === 1 ? "" : "s"}.` : "Nothing is blocking."} Each item below says what happened and what to do. Your decision is recorded with your name and reason.</p>
     <ol class="steps">
       <li><b>Decide each item</b> in "Needs your decision": read the card, open the filing if needed, then accept, override or reject.</li>
@@ -238,11 +238,12 @@ function story() {
       <li><b>Release</b>: <code>python -m ledger release v0.${D.stage}.0 --stage ${D.stage}</code>. It refuses until steps 1–3 are done.</li>
     </ol>
     <details><summary>Words used on this page</summary><dl class="gloss">
-      <dt>Filing</dt><dd>A report a company sends to the SEC. A 10-Q covers a quarter; a 10-K covers a year.</dd>
+      <dt>10-K</dt><dd>The annual report a company files with the SEC. It shows three fiscal years side by side.</dd>
       <dt>Cited cell</dt><dd>The exact table, row and column a number was copied from.</dd>
       <dt>XBRL</dt><dd>The machine-readable copy of a filing's numbers; our answer key.</dd>
-      <dt>Year-to-date</dt><dd>A running total since the start of the company's year (6 or 9 months). A single quarter is often worked out by subtracting one running total from the next.</dd>
-      <dt>Restatement</dt><dd>When a company rewrites past numbers, for example after selling part of its business. The old and new reports then disagree, and both are "correct" for their own basis.</dd>
+      <dt>Fiscal year</dt><dd>The company's own year. NVIDIA's FY2026 ended 25 Jan 2026; Microsoft's ended 30 Jun 2026.</dd>
+      <dt>Opex</dt><dd>Operating expenses: the costs below gross profit, such as R&amp;D and sales and admin. Revenue − cost of revenue − operating income.</dd>
+      <dt>Restatement</dt><dd>When a later 10-K shows a different figure for a past year, for example after selling part of the business. The newest figure is used, and the first one is kept.</dd>
       <dt>Accept / override / reject</dt><dd>Accept: the number is right as it is. Override: replace it with the right number. Reject: ship it blank, with your reason.</dd>
     </dl></details>
   </div>`;
@@ -253,7 +254,7 @@ function decisions() {
   const item = (e) => {
     const r = D.rules[e.rule_id] || { title: "The AI's answer for this filing could not be used", plain: "The output was missing or didn't follow the required format.", action: "Tell the data owner; the filing needs to be re-run." };
     return `<div class="qi"><div class="top"><span class="pill ${e.severity === "info" ? "na" : "bad"}">${e.severity}</span><b>${esc(r.title)}</b></div>
-      <div class="cap2">${esc(e.ticker)} · ${esc(D.field_label[e.field] || e.field || "")} ${e.cal_q ? "· " + qLabel(e.cal_q) : ""}</div>
+      <div class="cap2">${esc(e.ticker)} · ${esc(D.field_label[e.field] || e.field || "")} ${e.period ? "· " + e.period : ""}</div>
       <div><b>What happened:</b> ${esc(r.plain)}</div><div><b>The numbers:</b> ${esc(e.message)}</div><div><b>What to do:</b> ${esc(r.action)}</div>
       <details><summary class="cap2">Technical detail</summary><div class="cap2">Rule <code>${esc(e.rule_id)}</code> · id <code>${esc(e.exception_id)}</code></div></details></div>`;
   };
@@ -273,7 +274,7 @@ function render() {
     ${decisions()}
     <h2>Company</h2>
     <div class="toolbar">${seg("company", Object.fromEntries(D.tickers.map((t) => [t, `${t}${blocked.includes(t) ? " · needs decisions" : ""}`])))}</div>
-    <h2>Agent vs XBRL, by quarter · ${esc(state.company)}</h2>
+    <h2>Agent vs XBRL, by fiscal year · ${esc(state.company)}</h2>
     <div class="charts">${D.fields.map(chart).join("")}</div>
     <div class="legend"><span><span class="sw" style="background:var(--agent)"></span>Agent value (read from the filing)</span><span><span class="ring"></span>XBRL value (answer key)</span><span><span class="sw" style="background:var(--bad)"></span>Disagreement</span></div>
     <h2>Every value</h2>
@@ -294,7 +295,7 @@ document.addEventListener("click", (e) => {
   if (e.target.closest("#expand")) { const vis = [...document.querySelectorAll("tr.main")].map((r) => r.dataset.k); const all = vis.every((k) => state.open.has(k)); vis.forEach((k) => all ? state.open.delete(k) : state.open.add(k)); return render(); }
   if (e.target.closest("#export")) {
     const out = { stage: D.stage, release: D.release, exported_at: new Date().toISOString(), checker: prompt("Your name, for the record:", "Kenny Geiler") || "",
-      values: D.values.map((v) => ({ ticker: v.ticker, field: v.field, cal_q: v.cal_q, value: v.value, input_hash: v.input_hash, ...(checks[key(v)] || { verified: false }) })) };
+      values: D.values.map((v) => ({ ticker: v.ticker, field: v.field, period: v.period, value: v.value, input_hash: v.input_hash, ...(checks[key(v)] || { verified: false }) })) };
     const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 1)], { type: "application/json" }));
     a.download = `stage${D.stage}-handcheck.json`; a.click(); return;
   }
@@ -316,7 +317,7 @@ document.addEventListener("pointermove", (e) => {
   const h = e.target.closest(".hit");
   if (!h) return tip.classList.remove("on");
   const v = D.values.find((x) => key(x) === h.dataset.k);
-  tip.innerHTML = `<b>${esc(D.field_label[v.field])} ${qLabel(v.cal_q)}</b><br>Agent ${short(v.value)} · XBRL ${short(v.ref)}<br><span style="color:var(--muted)">click for evidence</span>`;
+  tip.innerHTML = `<b>${esc(D.field_label[v.field])} ${esc(v.period)}</b><br>Agent ${short(v.value)} · XBRL ${short(v.ref)}<br><span style="color:var(--muted)">click for evidence</span>`;
   tip.style.left = Math.min(e.clientX + 12, innerWidth - 180) + "px"; tip.style.top = e.clientY + 12 + "px"; tip.classList.add("on");
 });
 render();

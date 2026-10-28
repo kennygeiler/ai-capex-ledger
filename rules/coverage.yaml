@@ -1,17 +1,16 @@
 id: coverage
 severity: warn
-description: Every field has a value for every quarter in the window.
+description: Every released field has a value (or a stated reason) for every fiscal year in the window.
 rationale: A gap must carry a reason. It is never silently left out or filled.
 owner: Kenny Geiler
 check: coverage
 params:
   fields:
   - revenue
-  - cost_of_revenue
-  - operating_income
   - capex
+  - opex
 title: A number is missing.
-plain: There is no value for this quarter. Often the company doesn't report this line at all (Oracle has no cost-of-revenue
-  line), or the company didn't exist yet.
-action: If the company doesn't report this line, or wasn't public yet, accept with that reason. Otherwise tell the
+plain: There is no value for this fiscal year. Usually the company wasn't public yet, or hasn't filed that year's
+  10-K yet.
+action: If the company wasn't public yet or the year isn't filed yet, accept with that reason. Otherwise tell the
   data owner.

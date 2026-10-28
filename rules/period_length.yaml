@@ -1,10 +1,10 @@
 id: period_length
 severity: block
-description: Each value read from a filing covers a quarter, half-year, nine months or a year.
-rationale: A column read with the wrong dates turns every derived quarter after it into a wrong number.
+description: Each value read from a 10-K covers one fiscal year.
+rationale: A column read with the wrong dates puts a number in the wrong year.
 owner: Kenny Geiler
 check: period_length
 title: The time period looks wrong.
-plain: Each number should cover 3, 6 or 9 months, or a year. This one covers some other length, so the dates were
-  probably read wrong.
+plain: Each number should cover one fiscal year. This one covers some other length, so the dates were probably read
+  wrong.
 action: Check the column heading in the filing. Override with the right number, or reject if it can't be fixed.

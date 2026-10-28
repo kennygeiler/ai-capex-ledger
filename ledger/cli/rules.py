@@ -8,7 +8,7 @@ import json
 from collections import Counter
 
 from .. import store
-from ..config import MVP_QUARTERS, STAGES
+from ..config import MVP_YEARS, STAGES
 from ..rules import Context, load, run
 
 
@@ -17,9 +17,9 @@ def context(con, tickers) -> Context:
     docs = q("select accession, tables_path from documents where ticker in (select unnest(?))")
     return Context(values=q('select * from "values" where ticker in (select unnest(?))'),
                    extractions=q("select e.*, d.filed from extractions e join documents d using(accession) where e.ticker in (select unnest(?))"),
-                   reference={(r["ticker"], r["field"], r["cal_q"]): r for r in q("select * from reference_values where ticker in (select unnest(?))")},
+                   reference={(r["ticker"], r["field"], r["period"]): r for r in q("select * from reference_values where ticker in (select unnest(?))")},
                    parsed={d["accession"]: json.loads((store.ROOT / d["tables_path"]).read_text()) for d in docs},
-                   quarters=MVP_QUARTERS)
+                   years=MVP_YEARS)
 
 
 def main(argv=None) -> int:
@@ -42,5 +42,5 @@ def main(argv=None) -> int:
     for (sev, rid), n in sorted(by.items()):
         print(f"  {sev:5} {rid:24} {n}")
     for e in excs:
-        print(f"  - [{e['severity']}] {e['rule_id']}: {e['ticker']} {e['field'] or ''} {e['cal_q'] or ''} {e['message'][:140]}")
+        print(f"  - [{e['severity']}] {e['rule_id']}: {e['ticker']} {e['field'] or ''} {e['period'] or ''} {e['message'][:140]}")
     return 0

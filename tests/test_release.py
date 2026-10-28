@@ -4,8 +4,8 @@ import unittest
 from ledger.release import build, content_hash, gates
 from ledger.review import apply, open_items
 
-EXC = {"exception_id": "sign|NVDA|capex|2026Q2", "rule_id": "sign", "severity": "block", "ticker": "NVDA", "field": "capex", "cal_q": "2026Q2", "input_hash": "h1", "message": "m"}
-VAL = {"ticker": "NVDA", "field": "capex", "cal_q": "2026Q2", "fiscal_period": "FY2027 Q2", "value": -5, "source": "agent", "label": "agree", "basis": "as_reported", "first_reported": -5, "extraction_ids": ""}
+EXC = {"exception_id": "sign|NVDA|capex|FY2026", "rule_id": "sign", "severity": "block", "ticker": "NVDA", "field": "capex", "period": "FY2026", "input_hash": "h1", "message": "m"}
+VAL = {"ticker": "NVDA", "field": "capex", "period": "FY2026", "period_end": "2026-01-25", "value": -5, "source": "agent", "label": "agree", "basis": "as_reported", "first_reported": -5, "extraction_ids": ""}
 DEC = {"exception_id": EXC["exception_id"], "kind": "override", "value": 5, "input_hash": "h1", "decision_id": "d1"}
 
 
@@ -27,7 +27,7 @@ class Gates(unittest.TestCase):
         self.assertEqual(g["G4"], [EXC["exception_id"]])
 
     def test_passes_when_everything_is_decided_and_checked(self):
-        hc = {"values": [{"ticker": "NVDA", "field": "capex", "cal_q": "2026Q2", "value": -5, "verified": True}]}
+        hc = {"values": [{"ticker": "NVDA", "field": "capex", "period": "FY2026", "value": -5, "verified": True}]}
         self.assertFalse(any(gates([VAL], [], hc).values()))
         self.assertTrue(gates([{**VAL, "value": 6}], [], hc)["G5"])  # a check of an older value doesn't count
 
@@ -37,7 +37,7 @@ class Build(unittest.TestCase):
         a = build("v0.1.0", [VAL], [], [EXC], None)
         self.assertEqual(content_hash(a), content_hash(build("v0.1.0", [VAL], [], [EXC], None)))
         self.assertIn("First release.", a["DIFF.md"])
-        b = build("v0.1.1", [{**VAL, "value": 5}], [], [EXC], [{"ticker": "NVDA", "field": "capex", "cal_q": "2026Q2", "value": "-5"}])
+        b = build("v0.1.1", [{**VAL, "value": 5}], [], [EXC], [{"ticker": "NVDA", "field": "capex", "period": "FY2026", "value": "-5"}])
         self.assertIn("-5 → 5", b["DIFF.md"])
 
 

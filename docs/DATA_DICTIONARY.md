@@ -1,6 +1,6 @@
 # Data dictionary
 
-Generated from `ledger/store.py` (schema version 3). Do not edit by hand: run `uv run python -m ledger.store`.
+Generated from `ledger/store.py` (schema version 4). Do not edit by hand: run `uv run python -m ledger.store`.
 
 Money is BIGINT US dollars, unscaled. Dates are `YYYY-MM-DD` strings; timestamps are UTC ISO 8601.
 
@@ -15,7 +15,7 @@ Key: `(accession)`
 | `accession` | VARCHAR | yes | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession number of the filing, e.g. 0001045810-26-000075. |
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
 | `cik` | INTEGER | yes |  | SEC Central Index Key. |
-| `form` | VARCHAR | yes | `10-Q`, `10-K` | Form type. |
+| `form` | VARCHAR | yes | `10-K` | Form type. |
 | `period` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Report period end date (YYYY-MM-DD). |
 | `filed` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Filing date (YYYY-MM-DD). |
 | `url` | VARCHAR | yes |  | Primary document URL on sec.gov. |
@@ -31,15 +31,15 @@ Key: `(accession)`
 
 XBRL values from the reference pipeline (SEC companyfacts). Evidence for reconciliation, not truth.
 
-Key: `(ticker, field, cal_q)`
+Key: `(ticker, field, period)`
 
 | Column | Type | Required | Allowed values | Meaning |
 |---|---|---|---|---|
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
-| `field` | VARCHAR | yes | `revenue`, `cost_of_revenue`, `operating_income`, `capex` | Line item: revenue, cost_of_revenue, operating_income or capex. |
-| `cal_q` | VARCHAR | yes | pattern `^\d{4}Q[1-4]$` | Calendar quarter the value belongs to, e.g. 2026Q2 (majority of days). |
+| `field` | VARCHAR | yes | `revenue`, `cost_of_revenue`, `operating_income`, `capex`, `opex` | revenue, capex or opex (released); cost_of_revenue and operating_income (read to compute opex). |
+| `period` | VARCHAR | yes | pattern `^FY\d{4}$` | The company's fiscal year, e.g. FY2026 (NVDA's ended 25 Jan 2026). |
 | `value` | BIGINT | yes |  | US dollars, unscaled. |
-| `method` | VARCHAR | yes |  | How the quarter was derived (reported, ytd_diff, q4_derived, ...). |
+| `method` | VARCHAR | yes |  | reported, or derived (opex = revenue − cost of revenue − operating income). |
 | `concept` | VARCHAR | yes |  | XBRL concept, e.g. us-gaap:Revenues. |
 | `period_start` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Fiscal period start. |
 | `period_end` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Fiscal period end. |
@@ -49,7 +49,7 @@ Key: `(ticker, field, cal_q)`
 
 ## `extractions`
 
-One row per value an agent read from a filing, as stated (three months, year to date, or full year).
+One row per value an agent read from a 10-K column (one fiscal year).
 
 Key: `(extraction_id)`
 
@@ -58,7 +58,7 @@ Key: `(extraction_id)`
 | `extraction_id` | VARCHAR | yes |  | Stable ID: accession|field|period_start|period_end. |
 | `accession` | VARCHAR | yes | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession number of the filing, e.g. 0001045810-26-000075. |
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
-| `field` | VARCHAR | yes | `revenue`, `cost_of_revenue`, `operating_income`, `capex` | Line item: revenue, cost_of_revenue, operating_income or capex. |
+| `field` | VARCHAR | yes | `revenue`, `cost_of_revenue`, `operating_income`, `capex`, `opex` | revenue, capex or opex (released); cost_of_revenue and operating_income (read to compute opex). |
 | `period_start` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Start of the period the column covers. |
 | `period_end` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | End of the period the column covers. |
 | `value` | BIGINT | yes |  | US dollars, unscaled (cell value × scale; sign as the field defines it, capex positive). |
@@ -76,22 +76,22 @@ Key: `(extraction_id)`
 
 ## `values`
 
-One quarterly value per (ticker, field, quarter): what a release ships.
+One value per (ticker, field, fiscal year): what a release ships.
 
-Key: `(ticker, field, cal_q)`
+Key: `(ticker, field, period)`
 
 | Column | Type | Required | Allowed values | Meaning |
 |---|---|---|---|---|
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
-| `field` | VARCHAR | yes | `revenue`, `cost_of_revenue`, `operating_income`, `capex` | Line item: revenue, cost_of_revenue, operating_income or capex. |
-| `cal_q` | VARCHAR | yes | pattern `^\d{4}Q[1-4]$` | Calendar quarter the value belongs to, e.g. 2026Q2 (majority of days). |
-| `fiscal_period` | VARCHAR | yes | pattern `^FY\d{4} Q[1-4]$` | The company's own label for the quarter, e.g. FY2027 Q2 (NVDA's quarter ended 26 Jul 2026). |
+| `field` | VARCHAR | yes | `revenue`, `cost_of_revenue`, `operating_income`, `capex`, `opex` | revenue, capex or opex (released); cost_of_revenue and operating_income (read to compute opex). |
+| `period` | VARCHAR | yes | pattern `^FY\d{4}$` | The company's fiscal year, e.g. FY2026 (NVDA's ended 25 Jan 2026). |
+| `period_end` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Fiscal year end date. |
 | `value` | BIGINT | no |  | US dollars, unscaled. Null when source is missing. |
 | `source` | VARCHAR | yes | `agent`, `override`, `missing` | Where the shipped value comes from. |
-| `method` | VARCHAR | no |  | Quarter derivation: reported, ytd_diff, q4_derived, fy_minus_quarters. |
-| `label` | VARCHAR | yes | `agree`, `agent_wrong`, `xbrl_wrong`, `definition_gap`, `unresolved`, `no_reference`, `mixed_basis` | Reconciliation against the reference. |
-| `basis` | VARCHAR | yes | `as_reported`, `restated`, `mixed` | as_reported, restated (built from filings after the company's restatement), or mixed (no single basis; value left blank). |
-| `first_reported` | BIGINT | no |  | The same quarter built only from first-filed numbers (as first reported). |
+| `method` | VARCHAR | yes | `reported`, `computed` | reported (one cell), or computed (opex from three cells of the same 10-K column). |
+| `label` | VARCHAR | yes | `agree`, `agent_wrong`, `xbrl_wrong`, `definition_gap`, `unresolved`, `no_reference`, `not_reported` | Reconciliation against the reference; not_reported when the company has no such line. |
+| `basis` | VARCHAR | yes | `as_reported`, `restated` | as_reported, or restated (a later 10-K changed the first-reported figure by more than 1%). |
+| `first_reported` | BIGINT | no |  | The figure in the first 10-K that reported this fiscal year. |
 | `extraction_ids` | VARCHAR | no |  | Extractions used, comma-separated. |
 | `input_hash` | VARCHAR | yes |  | Hash of everything this value depends on; decisions re-apply only when it matches. |
 
@@ -119,13 +119,13 @@ Key: `(exception_id)`
 
 | Column | Type | Required | Allowed values | Meaning |
 |---|---|---|---|---|
-| `exception_id` | VARCHAR | yes |  | Stable ID: rule_id|ticker|field|cal_q (or the extraction/document it fired on). |
+| `exception_id` | VARCHAR | yes |  | Stable ID: rule_id|ticker|field|period (or the extraction/document it fired on). |
 | `rule_id` | VARCHAR | yes |  | Rule that fired. |
 | `severity` | VARCHAR | yes | `block`, `warn`, `info` | Copied from the rule at run time. |
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
-| `field` | VARCHAR | no | `revenue`, `cost_of_revenue`, `operating_income`, `capex` | Line item, if the rule is field-level. |
-| `cal_q` | VARCHAR | no | pattern `^\d{4}Q[1-4]$` | Quarter, if quarter-level. |
-| `subject` | VARCHAR | no |  | What it fired on when not a quarterly value: an accession or extraction ID. |
+| `field` | VARCHAR | no | `revenue`, `cost_of_revenue`, `operating_income`, `capex`, `opex` | Line item, if the rule is field-level. |
+| `period` | VARCHAR | no | pattern `^FY\d{4}$` | Fiscal year, if year-level. |
+| `subject` | VARCHAR | no |  | What it fired on when not a released value: an accession or extraction ID. |
 | `message` | VARCHAR | yes |  | Plain-language explanation with the numbers. |
 | `input_hash` | VARCHAR | yes |  | Hash of the inputs it was raised on. |
 

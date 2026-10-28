@@ -28,7 +28,7 @@ def _parsed(con, tickers):
 def _exc(rule, ticker, subject, message):
     h = hashlib.sha256(f"{subject}|{message}".encode()).hexdigest()[:16]
     return {"exception_id": f"{rule}|{subject}", "rule_id": rule, "severity": "block", "ticker": ticker, "field": None,
-            "cal_q": None, "subject": subject, "message": message, "input_hash": h}
+            "period": None, "subject": subject, "message": message, "input_hash": h}
 
 
 def main(argv=None) -> int:

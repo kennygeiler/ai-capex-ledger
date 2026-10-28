@@ -11,7 +11,7 @@ import time
 from datetime import datetime, timezone
 
 from .. import store
-from ..config import MVP_FIELDS, MVP_QUARTERS, STAGES
+from ..config import MVP_YEARS, STAGES
 from ..ingest.filings import fetch_documents, list_filings
 from ..ingest.statements import assemble, locate
 from ..ingest.tables import PARSER_VERSION, document_units, parse_tables
@@ -38,8 +38,8 @@ def parse_one(f) -> dict:
 def load_reference(con, tickers: list[str]) -> int:
     rows = []
     for r in csv.DictReader(open(store.ROOT / "data" / "clean" / "facts.csv")):
-        if r["ticker"] in tickers and r["metric"] in MVP_FIELDS and r["period_type"] == "quarter" and r["cal_q"] in MVP_QUARTERS:
-            rows.append({"ticker": r["ticker"], "field": r["metric"], "cal_q": r["cal_q"], "value": int(float(r["value"])),
+        if r["ticker"] in tickers and r["metric"] in ("revenue", "capex", "opex") and r["period_type"] == "year" and r["fy_key"] in MVP_YEARS:
+            rows.append({"ticker": r["ticker"], "field": r["metric"], "period": r["fy_key"], "value": int(float(r["value"])),
                          "method": r["method"], "concept": r["concept"], "period_start": r["period_start"], "period_end": r["period_end"],
                          "accession": r["accession"], "restated": r["restated"] == "True",
                          "original_value": int(float(r["original_value"])) if r["original_value"] else None})

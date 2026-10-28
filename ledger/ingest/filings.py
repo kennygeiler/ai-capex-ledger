@@ -1,8 +1,7 @@
 """T10/T11: the MVP filing list and the primary documents behind it.
 
-For each MVP company, every 10-Q and 10-K whose report period ends between FIRST_PERIOD and LAST_PERIOD.
-The range starts a year before the window so year-to-date cash-flow lines can be turned into single quarters
-(the Q3 2024 quarter of a December-year company needs its Q2 2024 10-Q) and Q4 can be derived from the 10-K.
+For each MVP company, every 10-K whose fiscal year ends between FIRST_PERIOD and LAST_PERIOD. Each 10-K shows three
+fiscal years, so the last three 10-Ks cover five years, with later ones restating earlier ones where the company did.
 """
 import json
 from dataclasses import asdict, dataclass
@@ -11,8 +10,8 @@ from ..config import MVP_TICKERS
 from .edgar import RAW, _cached, fetch_json, fetch_tickers
 
 FIRST_PERIOD = "2024-01-01"
-LAST_PERIOD = "2026-08-31"  # late fiscal calendars (Nvidia ends Q2 in late July) still map into 2026Q2
-FORMS = ("10-Q", "10-K")
+LAST_PERIOD = "2026-08-31"
+FORMS = ("10-K",)  # annual filings only: one cell per value, no quarterly arithmetic
 
 
 @dataclass(frozen=True)

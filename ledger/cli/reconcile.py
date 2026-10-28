@@ -4,8 +4,7 @@ from collections import Counter
 
 from .. import store
 from ..config import STAGES
-from ..derive import fiscal_year_end
-from ..reconcile import values_for
+from ..reconcile import fiscal_year_end, values_for
 
 
 def main(argv=None) -> int:
@@ -20,9 +19,9 @@ def main(argv=None) -> int:
     for t in tickers:
         cur = con.execute("select e.*, d.form, d.filed from extractions e join documents d using(accession) where e.ticker = ?", [t])
         xs = [dict(zip([c[0] for c in cur.description], r)) for r in cur.fetchall()]
-        ref = {(f, q): v for f, q, v in con.execute("select field, cal_q, value from reference_values where ticker = ?", [t]).fetchall()}
+        ref = {(f, p): v for f, p, v in con.execute("select field, period, value from reference_values where ticker = ?", [t]).fetchall()}
         values += values_for(t, xs, ref, fiscal_year_end(t), docs)
     con.execute('DELETE FROM "values" WHERE ticker IN (SELECT unnest(?))', [tickers])
     store.write(con, "values", values)
-    print(f"stage {a.stage}: {len(values)} quarterly values; labels {dict(Counter(v['label'] for v in values))}")
+    print(f"stage {a.stage}: {len(values)} fiscal-year values; labels {dict(Counter(v['label'] for v in values))}")
     return 0
