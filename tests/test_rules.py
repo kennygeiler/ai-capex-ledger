@@ -67,6 +67,7 @@ FAIL = {
     "citation_resolves": lambda c: c.extractions[0].update(cell_text="96,222"),
     "unit_from_document": lambda c: c.extractions[0].update(unit_source="document"),
     "period_length": lambda c: c.extractions[0].update(period_start="2026-05-27"),
+    "column_matches_period": lambda c: c.extractions[0].update(column_label="Three Months Ended | Jul 27, 2025"),
     "row_label_switch": lambda c: c.extractions[2].update(row_label="Income from operations"),
     "definition_note": lambda c: c.extractions.append(ext("capex", "2026-01-26", "2026-07-26", 4434000000, "(4,434)", "Purchases related to property and equipment and intangible assets", "Six Months Ended | Jul 26, 2026", "t0001")),
     "quarters_sum_to_ytd": lambda c: c.extractions[4].update(value=110),
@@ -83,7 +84,7 @@ FAIL = {
 
 class Registry(unittest.TestCase):
     def test_every_rule_loads_with_rationale_and_owner(self):
-        self.assertEqual(len(RULES), 14)
+        self.assertEqual(len(RULES), 15)
         for r in RULES.values():
             self.assertTrue(r["rationale"].strip() and r["owner"].strip(), r["id"])
 

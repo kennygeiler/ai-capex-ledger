@@ -78,3 +78,27 @@ The numbers are right on every check we can run. The caveats below are about wha
 - **T46:** record model, tokens, time and the tool calls each run made; keep agent transcripts as evidence.
 - **T47:** prompt v2 requires per-value judgement notes on any row choice. Confidence stays out of review routing until it's calibrated on stage 2.
 - **T48:** run the repeatability test on every prompt version, and on a sample of held-out filings at each stage.
+
+## Fault injection (`python -m ledger faults --stage 1`)
+
+Each of the 130 real extractions was corrupted one at a time, then derivation and every rule were rerun.
+
+| Fault | Trials | Caught by a rule | Escaped |
+|---|---|---|---|
+| Wrong column (a different period length) | 60 | 60 | 0 |
+| Stale column (same length, a year earlier) | 130 | 130 | 0 |
+| Wrong row (a neighbouring line) | 130 | 130 | 0 |
+| Wrong scale (thousands vs millions) | 130 | 87 (43 have no effect on a released value) | 0 |
+| Sign flip | 130 | 87 (43 no effect) | 0 |
+| Misread digits | 130 | 87 (43 no effect) | 0 |
+
+**The first run found a gap.** 8 stale-column faults were caught only by XBRL: a valid citation to a plausible prior-year number. With no answer key, those would ship. The new `column_matches_period` rule closed the gap, and nothing now depends on XBRL alone.
+
+**Known limit:** 47 wrong-row faults are caught only by `row_label_switch`, which compares a company's filings with each other. On a company's first filing it can't fire.
+
+## No-locator test (`extract --pack --find`)
+
+One agent got every table in three NVDA filings (45 in the latest 10-Q) and had to find the statements itself.
+- It picked the same income and cash-flow tables as the locator in 3 of 3 filings.
+- It named the decoys it skipped: MD&A summaries and segment tables.
+- Its 34 values and citations were identical to the original run.

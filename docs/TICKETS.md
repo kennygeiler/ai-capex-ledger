@@ -97,9 +97,9 @@ Delivery is staged (PRD section 5, decided 2026-10-27): **one company, then 5, t
 | T42 | The runner shall give tasks to Claude Code subagents in batches, inside the session (no paid API). It writes outputs to `data/extract/<run_id>/` and logs one runs row per task. Finished tasks are skipped on rerun. | R2, R8 | T41, T20 | M | done | Check: one batch of 5 filings completes; rerunning the batch starts 0 new tasks. |
 | T43 | An output that fails the schema shall be retried once; if it still fails, it becomes an extraction_failed exception with its cause. | G1 | T42 | S | doing | Test: injected bad outputs produce exactly one retry, then one exception each. |
 | T44 | The citation resolver shall confirm that the cited table, row and column exist, the cell text matches, and the cell's value × scale = the extracted value. | G2 | T14, T40 | M | done | Test: one valid citation and 4 broken ones (bad table, bad row, text mismatch, scale mismatch). |
-| T46 | Each agent run shall record the model, tokens, wall-clock time and the tool calls it made, and keep its transcript as evidence. | R2, R8 | T42 | S | todo | Check: a run's `runs` row has a non-null model and tokens; its transcript is saved under `data/extract/runs/`. |
+| T46 | Each agent run shall record the model, tokens, wall-clock time and the tool calls it made, and keep its transcript as evidence. | R2, R8 | T42 | S | doing | Check: a run's `runs` row has a non-null model and tokens; its transcript is saved under `data/extract/runs/`. |
 | T47 | Prompt v2 shall require a judgement note for every row choice. Confidence is not used to route review until it has been calibrated on stage 2. | R2 | T53 | S | todo | Check: every capex value in a v2 output has a note; the review queue ignores confidence. |
-| T48 | Every prompt version shall pass a repeatability test: a fresh agent on the same tasks returns identical values and citations. Run it on a sample of held-out filings at each stage too. | R9 | T42 | S | doing | Check (2026-10-28): NVDA batch C rerun by a fresh agent reading value by value: 34/34 identical. |
+| T48 | Every prompt version shall pass a repeatability test: a fresh agent on the same tasks returns identical values and citations. Run it on a sample of held-out filings at each stage too. | R9 | T42 | S | done | Check (2026-10-28): NVDA batch C rerun by a fresh agent reading value by value: 34/34 identical. |
 | T45 | As-stated values shall be turned into quarterly values with the reference logic: year-to-date differencing, Q4 = full year minus nine months, and calendar mapping by most days. | R2 | T00, T43 | M | doing | Test: the existing calendar, YTD, Q4, Costco and Nvidia tests pass when run on agent-shaped input. |
 
 ## Epic 5: Baseline and calibration
@@ -115,16 +115,16 @@ Delivery is staged (PRD section 5, decided 2026-10-27): **one company, then 5, t
 
 | ID | Requirement | Traces to | Deps | Size | Status | Verified by |
 |---|---|---|---|---|---|---|
-| T60 | Each (ticker, field, quarter) shall get one label from the agent, reference and derived values: agree, agent_wrong, xbrl_wrong, definition_gap, or unresolved. Unresolved items go to review. | R4, G3 | T45, T22 | M | doing | Test: one fixture per label. |
-| T61 | Each released value shall record its source: agent, override, or missing. The agent value is used unless a decision overrides it. | R4 | T60, T72 | S | doing | Test: every row in values has a non-null source; an override decision changes the source. |
+| T60 | Each (ticker, field, quarter) shall get one label from the agent, reference and derived values: agree, agent_wrong, xbrl_wrong, definition_gap, or unresolved. Unresolved items go to review. | R4, G3 | T45, T22 | M | done | Test: one fixture per label. |
+| T61 | Each released value shall record its source: agent, override, or missing. The agent value is used unless a decision overrides it. | R4 | T60, T72 | S | done | Test: every row in values has a non-null source; an override decision changes the source. |
 
 ## Epic 7: Review (R5)
 
 | ID | Requirement | Traces to | Deps | Size | Status | Verified by |
 |---|---|---|---|---|---|---|
-| T70 | The review queue shall order open exceptions: severity block first, then the latest quarter, then ticker. | R5 | T30, T60 | S | todo | Test: a fixed input gives a fixed order. |
-| T71 | `python -m ledger review` shall show each exception with: the cited table around the cell, the agent value, the reference value, the rule and the company's history for that field. It records a decision with reviewer, reason, timestamp and input hashes in `decisions/*.jsonl`. | R5, G4 | T70, T44 | M | todo | Check: one recorded session of at least 10 decisions. The minutes per decision feed T51. |
-| T72 | A decision shall be re-applied on rerun only when its input hashes match. A later decision on the same item supersedes the earlier one, and both are kept. | R5, G8 | T71 | M | todo | Test: changing one input reopens only that item; a superseding decision wins and the history shows both. |
+| T70 | The review queue shall order open exceptions: severity block first, then the latest quarter, then ticker. | R5 | T30, T60 | S | done | Test: a fixed input gives a fixed order. |
+| T71 | `python -m ledger review` shall show each exception with: the cited table around the cell, the agent value, the reference value, the rule and the company's history for that field. It records a decision with reviewer, reason, timestamp and input hashes in `decisions/*.jsonl`. | R5, G4 | T70, T44 | M | done | Check: one recorded session of at least 10 decisions. The minutes per decision feed T51. |
+| T72 | A decision shall be re-applied on rerun only when its input hashes match. A later decision on the same item supersedes the earlier one, and both are kept. | R5, G8 | T71 | M | done | Test: changing one input reopens only that item; a superseding decision wins and the history shows both. |
 | T73 | The explorer shall have a Review tab listing open and decided exceptions from the release database. **This is the first ticket cut if time runs short.** | R5 | T71, T110 | M | todo | Check: the tab's counts of open and decided exceptions equal the database's counts. |
 
 ## Epic 8: Golden set (R9)
@@ -135,6 +135,9 @@ Delivery is staged (PRD section 5, decided 2026-10-27): **one company, then 5, t
 | T81-1 | Kenny shall hand-check all 32 NVDA values (about 30 minutes), recording each value's truth and where in the filing he read it. An agent may prepare the sheet but never fills in truth. | G5 | T80 | S | human | Check: 32 rows filled and initialled. |
 | T81-2 | Kenny shall hand-check all 64 values of ORCL and APLD (about 1 hour), under the same rules. | G5 | T80, T53 | M | human | Check: 64 rows filled and initialled. |
 | T81-3 | Kenny shall hand-check the 300-value stage-3 golden set (about 5 hours), under the same rules. | G5 | T80 | L | human | Check: 300 rows filled and initialled. |
+| T84 | `python -m ledger faults` shall corrupt each real extraction in 6 typical ways and report, per fault, whether a rule caught it, only XBRL caught it, or it escaped. | G6 | T30 | S | done | Check (2026-10-28): NVDA 710 trials, 0 escaped, 0 caught only by XBRL. |
+| T85 | A no-locator task (`extract --pack --find`) shall give agents every table and score whether they find the statements. | R2 | T41 | S | done | Check: 3/3 filings, same tables as the locator, 34/34 identical values. |
+| T86 | `docs/FIELDS.md` shall define each field, and every value shall carry its fiscal label next to the calendar quarter. | R7 | T20 | S | done | Check: `values.fiscal_period`, e.g. NVDA 2026Q2 = FY2027 Q2. |
 | T83 | `python -m ledger report --stage N` shall write `reports/stage<N>-validation.html`. For every quarterly value it shows: the agent value next to the reference, the arithmetic from the cited cells, each cited cell highlighted in its parsed table, and a link that opens the SEC filing at the cited row. It also gives a hand-check checkbox and note per value, kept in the browser and exportable as JSON. | G5, R5 | T60, T44 | M | done | Check (2026-10-28): stage 1 page: 32 rows, arithmetic ✓ on every derived value, no horizontal scroll at 375 px, ticking a value updates the count. |
 | T82 | The scorer shall report the golden-set error count (G5) and, for each agent error, whether any rule flagged it (G6). | G5, G6 | T81, T32, T50 | S | todo | Test: a fixture with one flagged error and one unflagged error reports 1 escape. |
 
@@ -142,12 +145,12 @@ Delivery is staged (PRD section 5, decided 2026-10-27): **one company, then 5, t
 
 | ID | Requirement | Traces to | Deps | Size | Status | Verified by |
 |---|---|---|---|---|---|---|
-| T90 | `python -m ledger release vYYYY.MM.N` shall write `releases/<version>/`: the DuckDB file, Parquet and CSV exports, `QUALITY.md`, `DIFF.md`, `SIGNOFF.json` and a content hash. | R6 | T61, T23 | M | todo | Test: a release builds from a fixture database with every listed file present. |
-| T91 | The release shall refuse to build while any of G1–G6 fails, naming each failing item. | G1–G6 | T90, T82 | M | todo | Test: one test per gate shows the refusal and the named item. |
-| T92 | Two releases built from the same inputs, prompt versions and decisions shall have the same content hash. | G7 | T90 | S | todo | Test: build twice, compare hashes. |
-| T93 | `DIFF.md` shall list every value that changed since the previous release, with its cause: new filing, restatement, rule change, or decision. | G9 | T90 | S | todo | Test: a seeded change appears in the diff with its cause. |
+| T90 | `python -m ledger release vYYYY.MM.N` shall write `releases/<version>/`: the DuckDB file, Parquet and CSV exports, `QUALITY.md`, `DIFF.md`, `SIGNOFF.json` and a content hash. | R6 | T61, T23 | M | done | Test: a release builds from a fixture database with every listed file present. |
+| T91 | The release shall refuse to build while any of G1–G6 fails, naming each failing item. | G1–G6 | T90, T82 | M | done | Test: one test per gate shows the refusal and the named item. |
+| T92 | Two releases built from the same inputs, prompt versions and decisions shall have the same content hash. | G7 | T90 | S | done | Test: build twice, compare hashes. |
+| T93 | `DIFF.md` shall list every value that changed since the previous release, with its cause: new filing, restatement, rule change, or decision. | G9 | T90 | S | done | Test: a seeded change appears in the diff with its cause. |
 | T94 | Kenny shall sign each stage's release (`v0.1.0`, `v0.2.0`, `v1.0.0`) with `python -m ledger signoff`, which records the signer, the time and the release hash. | R6 | T91 | S | human | Check: `SIGNOFF.json` hash equals the release hash. |
-| T95 | A published release shall be correctable: a new patch version (for example `v0.1.1`) with a correction notice in `DIFF.md` naming each corrected value. The old release is kept, never edited in place. | R6, principle 6 | T93 | S | todo | Test: correcting one value produces a new version; the old directory's hash is unchanged. |
+| T95 | A published release shall be correctable: a new patch version (for example `v0.1.1`) with a correction notice in `DIFF.md` naming each corrected value. The old release is kept, never edited in place. | R6, principle 6 | T93 | S | done | Test: correcting one value produces a new version; the old directory's hash is unchanged. |
 
 ## Epic 10: Observability (R8)
 
@@ -253,3 +256,11 @@ Defects found in the first draft of this file, and how each was fixed:
   - The Agent Evaluation acceptance review passed coverage (130/130), citations, notes and repeatability (34/34 identical on a fresh rerun). It failed on evidence (no model, tokens or transcript kept) and on calibrated confidence; T46–T48 were added.
   - Neither plugin was callable in this already-running session (plugins load at session start). The Data plugin's skill text was applied directly; Agent Evaluation was applied from its description.
 - **2026-10-28: T30–T33 done.** 14 rules in `rules/*.yaml`, each with a rationale and owner; engine in `ledger/rules.py`; `python -m ledger rules --stage 1` gives 0 block, 0 warn, 1 info (the capex definition note). `reconcile` no longer writes exceptions; the registry is their single source. 71 tests pass.
+- **2026-10-28, design-review pass** ("only add what is needed"):
+  - Field definitions and fiscal labels (T86).
+  - Fault injection (T84): it found a stale-column gap, closed by the new rule `column_matches_period` (15 rules).
+  - No-locator test (T85).
+  - Review, release and sign-off as small modules plus commands (T70–T72, T90–T95). The release gates fold to three checks: G1, G4 (which also covers G2 and G3, since those are blocking rules) and G5. G7 holds by construction (no timestamps in the hashed files), G8 by input hashes, G9 is DIFF.md.
+  - Releases refuse until the hand-check file exists, so `v0.1.0` now waits only on Kenny (T81-1, then T94).
+  - T46 is partial: subagent runs record tokens and time. Headless runs (`claude -p --tools ""`) need `claude login` in a terminal; not built until then.
+  - 78 tests.

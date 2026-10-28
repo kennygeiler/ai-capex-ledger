@@ -197,7 +197,7 @@ function rows() {
     const k = key(v), c = checks[k] || {}, open = state.open.has(k);
     const pill = v.label === "agree" ? `<span class="pill ok" title="agrees with XBRL"><span class="full">agree</span><span class="abbr">✓</span></span>` : v.label === "no_reference" ? `<span class="pill na">no XBRL</span>` : `<span class="pill bad">${v.label}</span>`;
     return `<tr class="main ${open ? "open" : ""} ${c.verified ? "done" : ""}" data-k="${k}">
-      <td><span class="caret">▸</span> ${qLabel(v.cal_q)}</td><td>${esc(D.field_label[v.field])}</td>
+      <td><span class="caret">▸</span> ${qLabel(v.cal_q)}<div style="color:var(--muted);font-size:11px">${esc(v.fiscal_period)}</div></td><td>${esc(D.field_label[v.field])}</td>
       <td class="num"><span class="full">${usd(v.value)}</span><span class="abbr">${short(v.value)}</span></td><td class="num hide-sm">${usd(v.ref)}</td><td>${pill}</td>
       <td class="hide-sm" style="color:var(--muted);font-size:12px">${esc(D.method_label[v.method] || v.method)} · ${v.sources.length} cell${v.sources.length > 1 ? "s" : ""}</td>
       <td><label class="check" onclick="event.stopPropagation()"><input type="checkbox" data-check="${k}" ${c.verified ? "checked" : ""} aria-label="Verified against filing"> verified</label></td>
@@ -221,7 +221,7 @@ function render() {
     <div class="howto"><b>How to check a value (about a minute each).</b><ol>
       <li>Click the row: check the arithmetic, and see the cited cell highlighted in the parsed table.</li>
       <li>Click “Open the filing at this row”: Chrome opens the SEC document and highlights the row. Confirm the number and the column's period.</li>
-      <li>Tick “verified”, or write a note if anything is off. Progress is saved in this browser; “Download hand-check” saves the record for the release.</li></ol></div>
+      <li>Tick “verified”, or write a note if anything is off. Progress is saved in this browser; “Download hand-check” saves the record; put it at <code>golden/stage${D.stage}-handcheck.json</code> and run <code>python -m ledger release</code>.</li></ol></div>
     ${D.exceptions.length ? `<h2>Rule results</h2><div class="howto" style="margin-top:0">${D.exceptions.map((e) => `<div style="margin:4px 0"><span class="pill ${e.severity === "info" ? "na" : "bad"}">${e.severity}</span> <b>${esc(e.rule_id)}</b>: ${esc(e.message)}</div>`).join("")}<div style="color:var(--muted);margin-top:6px">14 rules ran (rules/*.yaml). Only rules that fired are listed.</div></div>` : ""}
     <h2>Every value</h2>
     <div class="toolbar">${seg("field", { all: "All", ...D.field_label })}${seg("show", { all: "All", todo: "Not yet checked", bad: "Disagreements" })}

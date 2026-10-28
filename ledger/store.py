@@ -18,7 +18,7 @@ import duckdb
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 FIELDS = ("revenue", "cost_of_revenue", "operating_income", "capex")
 QUARTER = re.compile(r"^\d{4}Q[1-4]$")
@@ -101,6 +101,7 @@ SCHEMA: tuple[Table, ...] = (
     ), key=("extraction_id",)),
     Table("values", "One quarterly value per (ticker, field, quarter): what a release ships.", (
         TICKER, FIELD, CAL_Q,
+        _c("fiscal_period", "VARCHAR", "The company's own label for the quarter, e.g. FY2027 Q2 (NVDA's quarter ended 26 Jul 2026).", pattern=re.compile(r"^FY\d{4} Q[1-4]$")),
         _c("value", "BIGINT", "US dollars, unscaled. Null when source is missing.", nullable=True),
         _c("source", "VARCHAR", "Where the shipped value comes from.", enum=("agent", "override", "missing")),
         _c("method", "VARCHAR", "Quarter derivation: reported, ytd_diff, q4_derived, fy_minus_quarters.", nullable=True),

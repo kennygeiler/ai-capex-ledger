@@ -143,7 +143,7 @@ footer { color: var(--muted); font-size: 12.5px; padding-block: 24px 48px; borde
 </div>
 
 <script>
-const TK = {"T46":"todo","T47":"todo","T48":"doing","T10":"done","T11":"done","T12":"done","T13":"done","T14":"done","T20":"done","T21":"done","T22":"done","T23":"done","T30":"done","T31":"done","T32":"done","T33":"done","T46":"todo","T47":"todo","T48":"doing","T40":"done","T41":"done","T42":"done","T43":"doing","T44":"done","T45":"doing","T50":"todo","T51":"todo","T52":"todo","T53":"todo","T60":"doing","T61":"doing","T70":"todo","T71":"todo","T72":"todo","T73":"todo","T80":"doing","T81-1":"human","T81-2":"human","T81-3":"human","T82":"todo","T83":"done","T90":"todo","T91":"todo","T92":"todo","T93":"todo","T94":"human","T95":"todo","T100":"todo","T101":"todo","T110":"todo","T121":"todo","T122":"todo","T130":"todo","T132":"todo"};
+const TK = {"T46":"todo","T47":"todo","T48":"done","T84":"done","T85":"done","T86":"done","T10":"done","T11":"done","T12":"done","T13":"done","T14":"done","T20":"done","T21":"done","T22":"done","T23":"done","T30":"done","T31":"done","T32":"done","T33":"done","T46":"todo","T47":"todo","T48":"done","T84":"done","T85":"done","T86":"done","T40":"done","T41":"done","T42":"done","T43":"doing","T44":"done","T45":"doing","T50":"todo","T51":"todo","T52":"todo","T53":"todo","T60":"done","T61":"done","T70":"done","T71":"done","T72":"done","T73":"todo","T80":"doing","T81-1":"human","T81-2":"human","T81-3":"human","T82":"todo","T83":"done","T90":"done","T91":"done","T92":"done","T93":"done","T94":"human","T95":"done","T100":"todo","T101":"todo","T110":"todo","T121":"todo","T122":"todo","T130":"todo","T132":"todo"};
 const MOD = { ing: "Ingestion", tra: "Transformation", val: "Validation" };
 const ST = { done: "Built", doing: "In progress", todo: "Not built", human: "Needs you" };
 const frame = (path, live, body) => `<div class="shot"><div class="bar"><span class="lights"><i></i><i></i><i></i></span><span class="path">${path}</span><span class="flag ${live ? "real" : "mock"}">${live ? "Live" : "Design mock"}</span></div><div class="body">${body}</div></div>`;
@@ -269,15 +269,14 @@ rules_s1: frame("rules/quarters_sum_to_ytd.yaml  ·  uv run python -m ledger rul
   <tr><td>xbrl_reconcile</td><td>block</td><td>0</td></tr><tr><td>row_label_switch</td><td>warn</td><td>0</td></tr><tr><td>definition_note</td><td>info</td><td>1: capex line includes intangible assets</td></tr><tr><td>… 8 more</td><td></td><td>0</td></tr></table></div>
   <div class="cap">Judgement written down as readable rules. A QA pass with the Data plugin's checklist reshaped two of them: the year-sum check became an independent nine-month check, and the capex definition note was added.</div>`),
 rules_full: null,
-review_s1: frame("python -m ledger review  ·  1 of 3 open", false,
-  `<div class="queue"><div class="qi">
-   <div class="top"><span class="st todo">block</span><b>ORCL · revenue · 2024Q2</b><span class="cap">rule xbrl_reconcile</span></div>
-   <div style="font-size:13px">Agent <b>$14,287,000,000</b> vs XBRL <b>$52,961,000,000</b> (XBRL "quarter" holds the full year)</div>
-   <div class="scroll"><table class="t"><tr><th>(in millions)</th><th>Three Months Ended | May 31, 2024</th></tr><tr class="hl"><td>Total revenues</td><td class="cell">14,287</td></tr></table></div>
-   <div class="field">Reason: XBRL fact is the full-year value tagged as Q4 (filer error, seen in 4 Oracle 10-Ks). Agent read the 3-month column correctly.</div>
-   <div class="btns"><span class="pri">Accept agent · label xbrl_wrong</span><span>Override value…</span><span>Reject (ship as missing)</span><span>Fix the rule</span></div>
-   <div class="cap">Recorded with your name, the time and the input hash. Re-applied on every rerun until the inputs change.</div>
-  </div></div>`),
+review_s1: frame("uv run python -m ledger review --stage 1", true,
+  `<div class="term"><span class="p">$</span> uv run python -m ledger review --stage 1
+stage 1: <span class="g">0 open</span>
+
+<span class="p">$</span> uv run python -m ledger review --stage 1 decide "xbrl_reconcile|ORCL|revenue|2024Q2" accept \
+    --reason "XBRL tags the full year as Q4; agent read the 3-month column" --by "Kenny Geiler"
+recorded accept on xbrl_reconcile|ORCL|revenue|2024Q2 by Kenny Geiler</div>
+  <div class="cap">Open items are block and warn exceptions without a current decision. Decisions are appended to <code>decisions/decisions.jsonl</code> (in git) and count only while the exception's input hash is unchanged, so a changed filing or reparse reopens the item. Override and reject change the released value. The ORCL line shows the stage 2 case it is built for.</div>`),
 review_full: null,
 hand_s1: frame("reports/stage1-validation.html", true,
   `<div class="big"><div><b>11</b><span>filings</span></div><div><b>130</b><span>cells cited</span></div><div><b class="ok">32/32</b><span>agree with XBRL</span></div><div><b>0/32</b><span>hand-checked by you</span></div></div>
@@ -289,15 +288,18 @@ hand_s1: frame("reports/stage1-validation.html", true,
 hand_full: frame("golden set · stage 3", false,
   `<div class="big"><div><b>300</b><span>held-out values, checked by you</span></div><div><b>0</b><span>errors allowed</span></div><div><b>&lt;1%</b><span>error rate, 95% confidence</span></div><div><b>~5 h</b><span>of your time</span></div></div>
   <div class="cap">Why 300: finding zero errors in <i>n</i> values bounds the error rate at about 3/<i>n</i> with 95% confidence (the rule of three). Stage 2 checks the 64 hold-out values (bound 4.7%), and stage 3 the 300 (bound 1%). Also measured: escapes, meaning agent errors that no rule flagged.</div>`),
-release_s1: frame("releases/v0.1.0/", false,
-  `<div class="tree">releases/v0.1.0/
-├── ledger.duckdb          <span class="cap">values, citations, exceptions, decisions, rules, runs</span>
-├── values.parquet · values.csv
-├── QUALITY.md             <span class="cap">gates, coverage, accuracy, every override</span>
-├── DIFF.md                <span class="cap">what changed since the last release, and why</span>
-└── SIGNOFF.json           <span class="cap">signed by Kenny Geiler · release hash</span></div>
-  <div class="gates">${["G1 no silent gaps","G2 100% cited","G3 every disagreement labelled","G4 no undecided blockers","G5 0 errors in hand-check","G6 0 escapes","G7 same inputs, same hash","G8 decisions re-apply","G9 diff explains changes"].map(g=>`<div><span class="cap">☐</span>${g}</div>`).join("")}</div>
-  <div class="cap">The release command refuses to build while any gate fails, and names the failing items.</div>`),
+release_s1: frame("uv run python -m ledger release v0.1.0 --stage 1", true,
+  `<div class="term"><span class="p">$</span> uv run python -m ledger release v0.1.0 --stage 1
+v0.1.0 not built. Failing gates:
+  <span class="w">G5 Every released value hand-checked against its filing, none marked wrong: no hand-check file</span>
+  (export the hand-check from reports/stage1-validation.html to golden/stage1-handcheck.json)</div>
+  <div class="tree">releases/v0.1.0/
+├── values.csv      <span class="cap">value, fiscal label, source, XBRL label, citation per value</span>
+├── QUALITY.md      <span class="cap">counts, gates, notes (e.g. capex includes intangibles)</span>
+├── DIFF.md         <span class="cap">every change since the last release</span>
+├── manifest.json   <span class="cap">content hash, prompt, parser, rule versions</span>
+└── SIGNOFF.json    <span class="cap">ledger signoff v0.1.0 --by "Kenny Geiler"</span></div>
+  <div class="cap">Gates: G1 no open extraction failures, G4 no undecided blocking exception (which covers citations and XBRL disagreements), G5 your hand-check. The same inputs give the same hash, and a shipped release is never rebuilt with different content. Right now it is waiting only on you.</div>`),
 release_full: null,
 client_s1: null,
 client_full: frame("explorer · released data only", false,
@@ -331,7 +333,7 @@ const STEPS = [
    s1: { st: "done", build: "Pick the income statement and cash-flow statement out of 30–60 tables per filing, including statements split across pages.", out: "Statement table IDs per filing", done: "Correct table in at least 95% of filings (now 99.4%)", screen: "locate_s1" } },
  { id: "task", mod: "tra", name: "Build the agent's task", t: ["T40","T41"],
    s1: { st: "done", build: "Write one task per filing that holds only the statement tables, plus a versioned prompt and an output contract. No XBRL, so no answer key.", out: "11 task files + prompt statements@v1", done: "A test proves no XBRL value or tag reaches a task", screen: "task_s1" } },
- { id: "agent", mod: "tra", name: "Agents read and cite", t: ["T42","T43","T46","T47","T48","T53"],
+ { id: "agent", mod: "tra", name: "Agents read and cite", t: ["T42","T43","T46","T47","T48","T85","T53"],
    s1: { st: "doing", build: "Claude Code subagents extract revenue, cost of revenue, operating income and capex for every column, citing the exact cell for each. This runs in-session, with no paid API.", out: "130 values, each with table, row, column and cell text", done: "Every filing returns a valid output or a logged failure, and a fresh rerun matches (34/34). Still to build: automatic retry and run evidence", screen: "agent_s1" },
    full: { st: "todo", build: "A prompt chain: an extractor agent, then a challenger agent that questions each row choice. Disagreements go to review. Prompts are tuned on dev companies only.", out: "Values with two agents' agreement, plus accuracy and cost per run", done: "Accuracy and disagreement are measured on held-out companies", screen: "agent_full" } },
  { id: "cite", mod: "val", name: "Check every citation", t: ["T44"],
@@ -341,15 +343,15 @@ const STEPS = [
  { id: "recon", mod: "val", name: "Compare with the answer key", t: ["T22","T60","T61"],
    s1: { st: "doing", build: "Line each quarter up with XBRL, the SEC's machine-readable copy, and label it: agree, or unresolved and sent to review.", out: "Labels on all 32 values", done: "No unresolved value in a release", screen: "recon_s1" },
    full: { st: "doing", build: "Every disagreement gets a cause: the agent was wrong, XBRL was wrong, or they measure different things. Values where everything agrees are auto-accepted.", out: "Labelled values; a review queue sized to reviewer time", done: "People only see disagreements", screen: "recon_full" } },
- { id: "rules", mod: "val", name: "Rules that encode judgement", t: ["T30","T31","T32","T33"],
-   s1: { st: "done", build: "14 readable YAML rules, each with a rationale, an owner, and passing and failing tests. Examples: three-month cells must add up to the filing's nine-month cell, the income statement must tie, signs and magnitudes must be plausible, and every citation must resolve.", out: "rules/*.yaml and an exceptions table. NVDA: 0 block, 0 warn, 1 info note (capex includes intangibles)", done: "All 14 tested (28 fixtures)", screen: "rules_s1" } },
+ { id: "rules", mod: "val", name: "Rules that encode judgement", t: ["T30","T31","T32","T33","T84"],
+   s1: { st: "done", build: "15 readable YAML rules, each with a rationale, an owner, and passing and failing tests. Fault injection corrupts every real extraction in 6 ways: 0 of 710 escaped. Examples: three-month cells must add up to the filing's nine-month cell, the income statement must tie, signs and magnitudes must be plausible, and every citation must resolve.", out: "rules/*.yaml and an exceptions table. NVDA: 0 block, 0 warn, 1 info note (capex includes intangibles)", done: "All 15 tested; 0 fault escapes", screen: "rules_s1" } },
  { id: "review", mod: "val", name: "Review queue", t: ["T70","T71","T72"], human: true,
-   s1: { st: "todo", build: "Each exception shows the cited cell, the agent value, XBRL and the rule. You accept, override or reject it, with a reason. Decisions re-apply on reruns.", out: "decisions/*.jsonl: who decided what, and why", done: "Changing one input reopens only that item", screen: "review_s1" } },
+   s1: { st: "done", build: "Each open exception shows its rule and message. You accept, override or reject it, with a reason. Decisions re-apply on reruns until the inputs change.", out: "decisions/decisions.jsonl: who decided what, and why", done: "Changing one input reopens only that item (tested)", screen: "review_s1" } },
  { id: "hand", mod: "val", name: "Your hand-check", t: ["T83","T80","T81-1","T81-2","T81-3"], human: true,
    s1: { st: "human", build: "A page showing all 32 values with their arithmetic, highlighted cells and links into the filings. You verify each one against the document.", out: "stage1-handcheck.json (32 rows, initialled)", done: "32 / 32 checked, zero errors", screen: "hand_s1" },
    full: { st: "human", build: "A held-out golden set sized by the claim it must support: 64 values at stage 2, 300 at stage 3.", out: "The golden set, plus error and escape rates with confidence bounds", done: "0 errors in 300 values: under 1% at 95% confidence", screen: "hand_full" } },
  { id: "release", mod: "val", name: "Release and sign-off", t: ["T90","T91","T92","T93","T94","T95"], human: true,
-   s1: { st: "todo", build: "Build a versioned release that refuses to ship while any gate fails. You sign it.", out: "releases/v0.1.0/ with QUALITY.md, DIFF.md and SIGNOFF.json", done: "G1–G9 pass, and Kenny signs", screen: "release_s1" },
+   s1: { st: "human", build: "A versioned release that refuses to build while any gate fails, then your signature on its content hash.", out: "releases/v0.1.0/: values.csv, QUALITY.md, DIFF.md, manifest.json, SIGNOFF.json", done: "Built and waiting on your hand-check, then your sign-off", screen: "release_s1" },
    full: { st: "todo", build: "Releases per stage (v0.2.0, v1.0.0), patch versions for corrections, and a scheduled refresh after each earnings season with an automatic diff.", out: "A release history clients can audit", done: "A correction never edits a shipped release", screen: "release_s1" } },
  { id: "client", mod: "val", name: "What the client sees", t: ["T110"],
    s1: null,

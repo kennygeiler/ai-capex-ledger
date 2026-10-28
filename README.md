@@ -38,11 +38,16 @@ uv run python -m ledger extract --stage 1 --pack  # one task per filing in data/
 #   ...agents answer each task into data/extract/outputs/<accession>.json (Claude Code subagents, prompt agents/prompts/statements@v1.md)
 uv run python -m ledger extract --stage 1 --load  # schema + citation checks; failures become exceptions
 uv run python -m ledger reconcile --stage 1     # quarterly values, compared with XBRL
+uv run python -m ledger rules --stage 1         # the 15 rules in rules/*.yaml -> exceptions
+uv run python -m ledger faults --stage 1        # corrupt each extraction; report what catches it
 uv run python -m ledger report --stage 1        # reports/stage1-validation.html: see and hand-check every value
+uv run python -m ledger review --stage 1        # open exceptions; `review decide <id> accept|override|reject --reason .. --by ..`
+uv run python -m ledger release v0.1.0 --stage 1  # refuses until every gate passes (needs golden/stage1-handcheck.json)
+uv run python -m ledger signoff v0.1.0 --by "Kenny Geiler"
 uv run python -m unittest discover -s tests -t .
 ```
 
-Plan and status: [docs/PRD.md](docs/PRD.md) and [docs/TICKETS.md](docs/TICKETS.md).
+Plan and status: [docs/PRD.md](docs/PRD.md), [docs/TICKETS.md](docs/TICKETS.md). Field definitions: [docs/FIELDS.md](docs/FIELDS.md).
 
 ### The original XBRL pipeline (the reference set)
 

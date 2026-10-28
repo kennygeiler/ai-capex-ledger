@@ -1,6 +1,6 @@
 # Data dictionary
 
-Generated from `ledger/store.py` (schema version 1). Do not edit by hand: run `uv run python -m ledger.store`.
+Generated from `ledger/store.py` (schema version 2). Do not edit by hand: run `uv run python -m ledger.store`.
 
 Money is BIGINT US dollars, unscaled. Dates are `YYYY-MM-DD` strings; timestamps are UTC ISO 8601.
 
@@ -85,6 +85,7 @@ Key: `(ticker, field, cal_q)`
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
 | `field` | VARCHAR | yes | `revenue`, `cost_of_revenue`, `operating_income`, `capex` | Line item: revenue, cost_of_revenue, operating_income or capex. |
 | `cal_q` | VARCHAR | yes | pattern `^\d{4}Q[1-4]$` | Calendar quarter the value belongs to, e.g. 2026Q2 (majority of days). |
+| `fiscal_period` | VARCHAR | yes | pattern `^FY\d{4} Q[1-4]$` | The company's own label for the quarter, e.g. FY2027 Q2 (NVDA's quarter ended 26 Jul 2026). |
 | `value` | BIGINT | no |  | US dollars, unscaled. Null when source is missing. |
 | `source` | VARCHAR | yes | `agent`, `override`, `missing` | Where the shipped value comes from. |
 | `method` | VARCHAR | no |  | Quarter derivation: reported, ytd_diff, q4_derived, fy_minus_quarters. |

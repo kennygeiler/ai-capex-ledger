@@ -103,6 +103,28 @@ def _period(ctx, p):
     return out
 
 
+@check("column_matches_period")
+def _column_period(ctx, p):
+    """The cited column's label agrees with the period the value claims: its end date (or year) and its length."""
+    spans = {"three": 3, "six": 6, "nine": 9, "twelve": 12, "year": 12}
+    out = []
+    for e in ctx.extractions:
+        label, end = e["column_label"], date.fromisoformat(e["period_end"])
+        m = re.search(r"([A-Z][a-z]{2})[a-z]*\.? (\d{1,2}), (\d{4})", label)
+        stated = date(int(m.group(3)), MONTHS.index(m.group(1)) + 1, int(m.group(2))) if m else None
+        years = [int(y) for y in re.findall(r"\b(20\d\d)\b", label)]
+        span = re.search(r"(three|six|nine|twelve) months|year", label, re.I)
+        months = round(_days(e) / 30.4)
+        if stated and stated != end or not stated and years and end.year not in years:
+            out.append(Finding(e["ticker"], f"column '{label}' does not match the claimed period end {end}", e["field"], None, e["extraction_id"]))
+        elif span and spans[span.group(1 if span.group(1) else 0).lower()] != months:
+            out.append(Finding(e["ticker"], f"column '{label}' does not match the claimed length of {months} months", e["field"], None, e["extraction_id"]))
+    return out
+
+
+MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+
 @check("row_label_switch")
 def _row_switch(ctx, p):
     """The row an agent cites for a field should be the same across a company's filings. A change may be a renamed

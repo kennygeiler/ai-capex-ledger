@@ -1,0 +1,7 @@
+id: column_matches_period
+severity: block
+description: The cited column's label agrees with the period the value claims (end date or year, and length).
+rationale: Reading the right row in the comparative column gives a plausible number that no sum catches. Fault injection
+  on NVDA found 8 such misreads that only XBRL caught; without an answer key they would ship.
+owner: Kenny Geiler
+check: column_matches_period

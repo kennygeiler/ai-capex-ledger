@@ -36,20 +36,27 @@ def render_statement(name: str, tables: list[dict]) -> str:
     return "\n".join(out)
 
 
-def make_task(parsed: dict) -> str:
+def make_task(parsed: dict, find: bool = False) -> str:
+    """find=True gives every table in the filing instead of the located statements: the agent must find them."""
     head = (f"# Task: {parsed['ticker']} {parsed['form']} for the period ended {parsed['period']}\n\n"
             f"Accession: {parsed['accession']}\nPrompt version: {PROMPT_VERSION}\n")
-    body = [render_statement("Income statement", parsed["statements"]["income"] or []),
-            render_statement("Cash-flow statement", parsed["statements"]["cash_flow"] or [])]
+    if find:
+        head += (f"\nThese are all {len(parsed['tables'])} tables in the filing, in order. First find the income statement and "
+                 "the cash-flow statement (not notes, segment tables or summaries), then extract from those only.\n")
+        body = [render_statement("Every table in the filing", parsed["tables"])]
+    else:
+        body = [render_statement("Income statement", parsed["statements"]["income"] or []),
+                render_statement("Cash-flow statement", parsed["statements"]["cash_flow"] or [])]
     return head + "\n" + "\n\n".join(body) + "\n"
 
 
-def write_tasks(parsed_docs: list[dict]) -> list[Path]:
-    TASKS.mkdir(parents=True, exist_ok=True)
+def write_tasks(parsed_docs: list[dict], find: bool = False) -> list[Path]:
+    d = TASKS.with_name("tasks-find") if find else TASKS
+    d.mkdir(parents=True, exist_ok=True)
     paths = []
     for p in parsed_docs:
-        path = TASKS / f"{p['accession']}.md"
-        path.write_text(make_task(p))
+        path = d / f"{p['accession']}.md"
+        path.write_text(make_task(p, find))
         paths.append(path)
     return paths
 
@@ -96,10 +103,10 @@ def validate_output(obj: dict, accession: str) -> None:
 # ── T44: citation resolution ───────────────────────────────────────────────────────────────────────────────────────
 def resolve(v: dict, parsed: dict) -> dict:
     """Check the citation against the parsed document. Returns the cited table's unit info, or raises Invalid."""
-    tables = {t["id"]: t for k in ("income", "cash_flow") for t in (parsed["statements"][k] or [])}
+    tables = {t["id"]: t for t in parsed.get("tables", [])} | {t["id"]: t for k in ("income", "cash_flow") for t in (parsed["statements"][k] or [])}
     t = tables.get(v["table_id"])
     if not t:
-        raise Invalid(f"table {v['table_id']} is not one of the statement tables {sorted(tables)}")
+        raise Invalid(f"table {v['table_id']} is not in the filing")
     if v["column_label"] not in t["columns"]:
         raise Invalid(f"column {v['column_label']!r} not in table {t['id']} columns {t['columns']}")
     col = t["columns"].index(v["column_label"])

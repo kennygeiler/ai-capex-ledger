@@ -138,6 +138,7 @@ The goal of stage 1 is to prove every part of the pipeline works once, not to fi
 - **Checks on what the agent read:**
   - `citation_resolves` (block): the cited cell exists, and cell × unit with the sign rule = value
   - `period_length` (block)
+  - `column_matches_period` (block): the cited column's date and length match the claimed period (added after fault injection)
   - `unit_from_document` (warn): the unit was stated elsewhere in the filing (decision 2026-10-27)
   - `row_label_switch` (warn): the agent-world version of today's tag-switch check
   - `definition_note` (info): the line covers more than the field, e.g. capex including intangibles
@@ -249,6 +250,7 @@ A target with no reason behind it invites gaming, or gets ignored. Every number 
 | Rule precision | For each rule: alerts that were real problems ÷ all alerts | **Reported per rule. No % target in the MVP.** Demotion rule: a blocking rule with zero true positives across baseline and golden set is demoted to `warn`. | Baseline. With ~590 values, most rules fire only a handful of times, so a % threshold would be noise. |
 | Citation coverage | Released values with a resolvable cell citation ÷ released values | 100% | Definition, see G2 |
 | Reproducibility | Identical release hash on rerun | 100% | Definition, see G7 |
+| Fault escapes | Injected misreads that change a released value and fire no rule | 0 | Definition (principle 1). Stage 1: 0 of 710 trials |
 | Agent repeatability | Share of values and citations identical when a fresh agent reruns the same tasks | 100% on the rerun sample | Definition (principle 5). Stage 1: 34/34 on one rerun batch |
 | Confidence calibration | Does a stated confidence of 0.9 mean 90% correct? | **No target.** Not used for routing until stage 2 data can test it | Baseline. Stage 1 showed the same choice scored 0.9 and 0.95 by different agents |
 | Pipeline time, filing to release candidate | Wall-clock from fetching a new filing to a release candidate, excluding time waiting for review | **Measured** | Baseline. The freshness clients need is an open question for Arctal; no target until it is answered. |
@@ -299,6 +301,7 @@ A target with no reason behind it invites gaming, or gets ignored. Every number 
 - **2026-10-27, rev 2:** Every target now names its source (definition, statistics, budget or baseline). Removed the unsupported thresholds (97% agent accuracy, 99% XBRL match, ≤5% exceptions, ≥50% rule precision, ≤24h freshness, 10 min per 100 values). The golden set grew from 160 to 300 values so that it supports a "<1% error" claim. Added a dev/hold-out split and a baseline-then-freeze step.
 - **2026-10-27, rev 3:** Delivery staged: 1 company (NVDA), then 5, then 19, each a full release. Hand-check sizes and claims scaled per stage (section 5).
 - **2026-10-28, rev 4:** After the stage 1 QA pass (`docs/QA-stage1.md`, using the Data and Agent Evaluation plugins), R3 is the 14-rule registry as built. The circular year-sum check was replaced by an independent nine-month check. R2 adds repeatability, run evidence and judgement notes, and keeps confidence out of routing. Two new risks and two new metrics.
+- **2026-10-28, rev 5:** Fault injection and a no-locator test added to stage 1. `column_matches_period` added. Field definitions now live in `docs/FIELDS.md`.
 
 ## Appendix: refactor map
 

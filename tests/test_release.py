@@ -1,0 +1,44 @@
+"""T72 decisions re-apply only on unchanged inputs; T91 gates refuse; T92 same inputs, same hash; T93 diff."""
+import unittest
+
+from ledger.release import build, content_hash, gates
+from ledger.review import apply, open_items
+
+EXC = {"exception_id": "sign|NVDA|capex|2026Q2", "rule_id": "sign", "severity": "block", "ticker": "NVDA", "field": "capex", "cal_q": "2026Q2", "input_hash": "h1", "message": "m"}
+VAL = {"ticker": "NVDA", "field": "capex", "cal_q": "2026Q2", "fiscal_period": "FY2027 Q2", "value": -5, "source": "agent", "label": "agree", "extraction_ids": ""}
+DEC = {"exception_id": EXC["exception_id"], "kind": "override", "value": 5, "input_hash": "h1", "decision_id": "d1"}
+
+
+class Decisions(unittest.TestCase):
+    def test_a_decision_closes_its_exception_until_the_input_changes(self):
+        self.assertEqual(open_items([EXC], [DEC]), [])
+        self.assertEqual(open_items([{**EXC, "input_hash": "h2"}], [DEC]), [{**EXC, "input_hash": "h2"}])
+
+    def test_the_latest_decision_wins(self):
+        later = {**DEC, "kind": "reject", "value": None, "decision_id": "d2"}
+        self.assertEqual(apply([VAL], [EXC], [DEC, later])[0]["source"], "missing")
+        self.assertEqual(apply([VAL], [EXC], [DEC])[0]["value"], 5)
+
+
+class Gates(unittest.TestCase):
+    def test_refuses_without_hand_check_or_with_an_open_blocker(self):
+        g = gates([VAL], [EXC], None)
+        self.assertEqual(g["G5"], ["no hand-check file"])
+        self.assertEqual(g["G4"], [EXC["exception_id"]])
+
+    def test_passes_when_everything_is_decided_and_checked(self):
+        hc = {"values": [{"ticker": "NVDA", "field": "capex", "cal_q": "2026Q2", "verified": True}]}
+        self.assertFalse(any(gates([VAL], [], hc).values()))
+
+
+class Build(unittest.TestCase):
+    def test_same_inputs_same_hash_and_diff_names_changes(self):
+        a = build("v0.1.0", [VAL], [], [EXC], None)
+        self.assertEqual(content_hash(a), content_hash(build("v0.1.0", [VAL], [], [EXC], None)))
+        self.assertIn("First release.", a["DIFF.md"])
+        b = build("v0.1.1", [{**VAL, "value": 5}], [], [EXC], [{"ticker": "NVDA", "field": "capex", "cal_q": "2026Q2", "value": "-5"}])
+        self.assertIn("-5 → 5", b["DIFF.md"])
+
+
+if __name__ == "__main__":
+    unittest.main()

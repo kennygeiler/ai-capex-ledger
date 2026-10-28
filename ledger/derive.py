@@ -38,7 +38,7 @@ def quarters(extractions: list[dict], fye: str | None) -> dict[str, dict[str, di
         rows = {}
         for cq, r in m.get(field, {}).items():
             ids = sorted({by_key.get((field, s["accn"], s["start"], s["end"])) for s in r["sources"]} - {None})
-            rows[cq] = {"value": r["value"], "method": r["method"], "period_start": r["period_start"], "period_end": r["period_end"],
+            rows[cq] = {"value": r["value"], "method": r["method"], "fiscal_period": f"FY{r['fiscal_year']} Q{r['fiscal_quarter']}", "period_start": r["period_start"], "period_end": r["period_end"],
                         "accession": r["accession"], "restated": r["restated"], "extraction_ids": ids}
         out[field] = rows
     return out

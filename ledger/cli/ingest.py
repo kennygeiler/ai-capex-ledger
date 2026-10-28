@@ -32,7 +32,7 @@ def parse_one(f) -> dict:
     statements = {k: assemble(tables, loc[k], units) if loc[k] else None for k in ("income", "cash_flow")}
     return {"accession": f.accession, "ticker": f.ticker, "form": f.form, "period": f.period, "url": f.url,
             "sha256": hashlib.sha256(doc).hexdigest(), "parser_version": PARSER_VERSION,
-            "statements": statements, "located": loc, "table_count": len(tables)}
+            "statements": statements, "located": loc, "table_count": len(tables), "tables": tables}
 
 
 def load_reference(con, tickers: list[str]) -> int:

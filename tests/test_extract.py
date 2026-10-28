@@ -67,7 +67,7 @@ class Citation(unittest.TestCase):
             resolve({**v, "value": -4434000000}, parsed())
 
     def test_broken_citations(self):
-        for bad, needle in [(value(table_id="t0099"), "table"), (value(row_label="Revenues"), "row"),
+        for bad, needle in [(value(table_id="t0099"), "not in the filing"), (value(row_label="Revenues"), "row"),
                             (value(column_label="Q2"), "column"), (value(cell_text="96,222"), "cell text"),
                             (value(value=96221000), "value")]:
             with self.assertRaises(Invalid) as e:

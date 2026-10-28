@@ -38,12 +38,13 @@ def main(argv=None) -> int:
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--pack", action="store_true")
     g.add_argument("--load", action="store_true")
+    ap.add_argument("--find", action="store_true", help="with --pack: give agents every table, not the located statements")
     a = ap.parse_args(argv)
     tickers = STAGES[a.stage]["tickers"]
     con = store.init(a.db)
     docs = _parsed(con, tickers)
     if a.pack:
-        paths = write_tasks(docs)
+        paths = write_tasks(docs, a.find)
         print(f"{len(paths)} tasks in {paths[0].parent.relative_to(store.ROOT)} ({PROMPT_VERSION})")
         return 0
 
