@@ -18,6 +18,8 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Done
 
+- **`v1.1.0` (28 Oct):** all 31 tracked companies, 384 values, signed by Kenny Geiler, hash 794fb2dfadae; 8 decisions by Kenny (cost lines ×4, XOM revenue definition ×4).
+
 - **Client packet (L1, L3, 28 Oct):** every release builds `README.md` (what the file is, every column, how to read a basis) next to `values.csv`, the dictionary and `QUALITY.md`; DATAHQ serves a signed release as one zip (`/packet/<version>.zip`); `DIFF.md` lists added values too.
 - **Scale run (28 Oct):** 12 companies added from DATAHQ (31 tracked); 8 new failure types (16–23) in `INGESTION.md`, 7 fixed in code; the Reader agent refused to guess three times, each with a usable reason.
 - **Audit (28 Oct):** prompt edits are saved as a version and switched on as a second step; one name field in the nav signs every decision; Insights page on signed data (who pays, who gets paid).

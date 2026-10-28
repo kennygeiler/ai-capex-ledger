@@ -6,13 +6,13 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026, evening):** audit, Insights, client packet, and the scale run to 31 companies.
+**Last done (28 Oct 2026, evening):** audit, Insights, client packet, the scale run to 31 companies, and `v1.1.0` signed.
 - **Audit fixes:** a prompt edit is saved as the next version and switched on as a second, logged step; the name you sign with lives once in the nav; the release tile shows the exact commands; every question says why code can't decide it.
 - **Insights** (`#insights`): on signed data only. Who pays (buyers' capex) and who gets paid (sellers' revenue), FY2022 → FY2025, and every company's capex, revenue and intensity. Each company in `config.AI_SET` and `data/companies.json` carries a role.
 - **Client packet:** every release now builds a `README.md` next to `values.csv`, `DATA_DICTIONARY.md` and `QUALITY.md`; DATAHQ serves a signed release as one zip at `/packet/<version>.zip` (Outputs page).
 - **Scale run:** 12 companies added from DATAHQ (AAPL, AVGO, INTC, QCOM, TXN, CSCO, IBM, WMT, XOM, JPM, ANET, and Compass by Kenny): 31 tracked. Full run on all 31 with parser `tables@9`: 132 filings, 384 values, 354 agree with the SEC's data, 26 more explained by code (16 the 10-K doesn't report, 10 definition gaps), 1,431 of 1,431 cited cells confirmed on the rendered 10-K, 0 of 7,075 planted faults through. Eight new failure types (16–23) in `docs/INGESTION.md`; seven fixed in code, one is a definition only a person can confirm.
 
-**Waiting on Kenny:** 8 blocking items in DATAHQ, then `v1.1.0`. Four are cost-line confirmations (APLD, COMP, ORCL, XOM: which lines count as cost of revenue). Four are ExxonMobil's revenue, FY2022–25: the SEC's `Revenues` tag is "total revenues and other income" (sales + equity-affiliate income + other income); the ledger's revenue is the sales line. One judgement, four items (ticket M3.1). Decide in the app or with `ledger review decide <id> accept --reason … --by "Kenny Geiler"`, then `ledger release v1.1.0 --stage 3`, review, `ledger signoff v1.1.0 --by "Kenny Geiler"`.
+**Released:** `v1.1.0`, all 31 tracked companies (30 with a 10-K), 384 values, signed by Kenny Geiler, hash 794fb2dfadae. 14 decisions applied: the 8 above (four cost-line confirmations, ExxonMobil's revenue definition for four years) plus six earlier. DATAHQ serves it as `/packet/v1.1.0.zip`.
 
 **Next:** the demo goal is met: a working pipeline with oversight. Optional, only if needed:
 1. M3.1: one question per cause (XOM shows why).
