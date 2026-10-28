@@ -1,22 +1,22 @@
 # Capex Ledger
 
-AI agents read SEC 10-K filings and extract revenue, capex and opex, citing the exact cell each number came from. Code checks every citation, rules encode the judgement, XBRL serves as a free answer key, and a person reviews and signs each release.
+A pipeline that takes a company's 10-K filings and returns revenue, capex and opex, each citing the exact cell it came from. AI agents read, code checks every citation, rules encode the judgement, XBRL serves as a free answer key, and a person reviews and signs each release. Success is measured by what the next company costs, not by how many are done.
 
 ## Status
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** Review now asks a person only what code can't explain.
-- 6 of stage 2's 10 XBRL disagreements had one known cause: XBRL draws cost of revenue differently (Oracle tags none; APLD's FY2026 tag covers one of two lines). Code now labels these `definition_gap` and shows both numbers. You confirm the cost lines once per company instead.
-- For restated or disputed values, the page quotes the 10-K's own explanation, with a link.
-- New [docs/INGESTION.md](docs/INGESTION.md): the flow, who decides what, and a learnings log; every finding must end as a definition, rule, code or prompt change, or a recorded decision.
-- Fixed: on the validation page, values for a company with added-up cost lines (ORCL, APLD) wouldn't expand.
-- Stage 2: 66 values: 56 agree, 6 definition gaps, 4 blocking. Faults 0 of 862 escaped. `v0.1.0` (NVDA) stays signed.
+**Last done (28 Oct 2026):** Plan reframed pipeline-first. The PRD now runs on capability milestones instead of company stages (1 → 5 → 19):
+- **M1:** runs unattended.
+- **M2:** a new company needs no code.
+- **M3:** review scales, with a sampled hand-check and decisions grouped by cause.
+
+The headline metric is the cost of the next company: code changes, items a person decides, and that person's minutes. Tickets are regrouped by milestone. No code changed in this commit. Before it: XBRL definition gaps labelled by code; the page quotes each filing's restatement sentence; the expand bug was fixed.
 
 **Next:**
-1. **Kenny (your turn):** on `reports/stage2-validation.html`, decide the 4 blocking APLD items (revenue and opex, FY2024–FY2025). Each card quotes APLD's note: prior years were recast after it moved its Cloud Services business to ChronoScale. Read it, then accept with that reason, or tell Claude to.
-2. **Kenny:** confirm the cost lines on the ORCL and APLD `cost_lines_summed` cards; decide the other warnings; hand-check; release and sign `v0.2.0` (due 6 Nov).
-3. The rest is in [docs/TICKETS.md](docs/TICKETS.md).
+1. **Kenny (P1, P2):** on `reports/stage2-validation.html`, decide the 4 APLD recast items, confirm the ORCL and APLD cost lines, decide the warnings, hand-check, and sign `v0.2.0`.
+2. **Kenny (M1.1):** run `claude login` once in a terminal, so agents can run headless.
+3. **Claude (M1.2–M1.4):** headless extraction, `ledger run --ticker X`, and the per-company scorecard. Then M2's blind run of the 14 unseen companies.
 
 **Critical notes:**
 - **Dashes are zero.** APLD's newest 10-K shows "—" for its data-center cost line in FY2024 and FY2025; agents read these as 0.

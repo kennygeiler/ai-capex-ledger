@@ -44,6 +44,6 @@ A person's attention is the scarcest input, so it goes only where code can't nam
 
 ## Open
 
-- **IREN:** the statement locator misses one filing (176/177). Fix before stage 3.
+- **IREN:** the statement locator misses one filing (176/177). First known failure type for M2.
 - **APLD opex FY2023:** restated with no explanatory sentence found by the cue list. Agrees with XBRL, so not blocking.
 - **First filings:** a wrong-row misread is caught by comparing filings, so a company's first 10-K is less protected.
