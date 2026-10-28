@@ -85,6 +85,7 @@ class Dating(unittest.TestCase):
 
     def test_falls_back_when_the_calendar_is_short(self):
         self.assertEqual(period_start("2024-12-31", 3, []), "2024-10-01")
+        self.assertEqual(period_start("2025-06-30", 6, []), "2025-01-01")  # CoreWeave: month-ends stay month-ends
 
 
 if __name__ == "__main__":

@@ -5,6 +5,7 @@ cell text, unit line). No XBRL values and no XBRL tag names, so the agent cannot
 """
 from __future__ import annotations
 
+import calendar
 import re
 from dataclasses import dataclass
 from datetime import date, timedelta
@@ -140,7 +141,8 @@ def period_start(end: str, months: int, calendar: list[str]) -> str:
 
 
 def _minus_months(d: date, m: int) -> date:
+    """d moved back m months; a month-end stays a month-end (30 Jun − 6 months = 31 Dec, not 30 Dec)."""
     y, mo = divmod(d.month - 1 - m, 12)
     year, month = d.year + y, mo + 1
-    import calendar as cal
-    return date(year, month, min(d.day, cal.monthrange(year, month)[1]))
+    last = calendar.monthrange(year, month)[1]
+    return date(year, month, last if d.day == calendar.monthrange(d.year, d.month)[1] else min(d.day, last))

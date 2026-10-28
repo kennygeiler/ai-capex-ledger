@@ -1,0 +1,12 @@
+{"accession": "0001193125-25-256321", "prompt_version": "statements@v1",
+ "values": [
+  {"field": "revenue", "table_id": "t0006", "row_label": "Total revenue", "column_label": "2025", "cell_text": "77,673", "period_end": "2025-09-30", "months": 3, "value": 77673000000, "confidence": 1.0, "notes": "Total line chosen over components. Column label gives only the year; this is a 10-Q for the period ended 2025-09-30, the first quarter of a June fiscal year, so the columns are three months ended Sep 30."},
+  {"field": "revenue", "table_id": "t0006", "row_label": "Total revenue", "column_label": "2024", "cell_text": "65,585", "period_end": "2024-09-30", "months": 3, "value": 65585000000, "confidence": 1.0, "notes": "Prior-year comparative quarter, three months ended Sep 30 (column label gives only the year)."},
+  {"field": "cost_of_revenue", "table_id": "t0006", "row_label": "Total cost of revenue", "column_label": "2025", "cell_text": "24,043", "period_end": "2025-09-30", "months": 3, "value": 24043000000, "confidence": 1.0, "notes": "Total line chosen over Product / Service and other components."},
+  {"field": "cost_of_revenue", "table_id": "t0006", "row_label": "Total cost of revenue", "column_label": "2024", "cell_text": "20,099", "period_end": "2024-09-30", "months": 3, "value": 20099000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0006", "row_label": "Operating income", "column_label": "2025", "cell_text": "37,961", "period_end": "2025-09-30", "months": 3, "value": 37961000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0006", "row_label": "Operating income", "column_label": "2024", "cell_text": "30,552", "period_end": "2024-09-30", "months": 3, "value": 30552000000, "confidence": 1.0},
+  {"field": "capex", "table_id": "t0009", "row_label": "Additions to property and equipment", "column_label": "2025", "cell_text": "(19,394)", "period_end": "2025-09-30", "months": 3, "value": 19394000000, "confidence": 1.0, "notes": "Investing line for property and equipment only; intangibles are on the separate acquisitions line, which is not added."},
+  {"field": "capex", "table_id": "t0009", "row_label": "Additions to property and equipment", "column_label": "2024", "cell_text": "(14,923)", "period_end": "2024-09-30", "months": 3, "value": 14923000000, "confidence": 1.0}
+ ],
+ "not_found": []}

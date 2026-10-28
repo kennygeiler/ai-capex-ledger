@@ -210,7 +210,8 @@ def _tie(ctx, p):
                 if None in vals:
                     continue
                 r, c, o, oi = vals
-                gap = r - abs(c) - abs(o) - oi
+                # Total operating expenses either excludes cost of revenue or includes it (CoreWeave); both layouts tie.
+                gap = min(r - abs(c) - abs(o) - oi, r - abs(o) - oi, key=abs)
                 if abs(gap) > p.get("tolerance_cells", 1):
                     out.append(Finding(ticker, f"{t['id']} column '{t['columns'][col]}': revenue {r:,} − cost {abs(c):,} − operating expenses {abs(o):,} ≠ operating income {oi:,} (gap {gap:+,} in table units)", None, None, acc))
     return out
@@ -272,8 +273,8 @@ def _restated(ctx, p):
         by.setdefault((e["ticker"], e["field"], e["period_start"], e["period_end"]), []).append(e)
     out = []
     for (t, f, s, en), es in by.items():
-        vals = {x["value"] for x in es}
-        if len(vals) > 1:
+        tol = max(x["scale"] for x in es) // 2  # one filing in thousands, a later one in millions is rounding, not a restatement
+        if max(x["value"] for x in es) - min(x["value"] for x in es) > tol:
             parts = ", ".join(f"{x['value']:,} ({x['accession']})" for x in sorted(es, key=lambda x: x["accession"]))
             out.append(Finding(t, f"{f} {s}..{en} differs between filings: {parts}", f, None, f"{s}..{en}"))
     return out

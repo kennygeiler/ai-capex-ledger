@@ -6,13 +6,18 @@ AI agents read SEC filings and extract revenue, cost of revenue, operating incom
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** `v0.1.0` signed by Kenny Geiler (hash `4ae33597b94b`). It covers NVDA's 32 quarterly values: all hand-checked, every gate passed. Stage 1 is complete.
+**Last done (28 Oct 2026):** stage 2 tuning is complete. MSFT and CRWV were extracted, and all 96 quarterly values for NVDA, MSFT and CRWV agree with XBRL.
+- **Fixed from tuning data:**
+  - a month-end dating bug that left 3 CRWV capex quarters blank
+  - two false alarms: CRWV includes cost of revenue in operating expenses, and its rounding changes between filings
+- **The prompt stays frozen at `statements@v1`.** This commit fixes the prompt and rules before the held-out run.
 
 **Next:**
-1. **Stage 2, due 6 Nov.**
-   - Add MSFT and CRWV to tuning, and run ORCL and APLD once as held-out companies.
-   - Hand-check their 64 values, then release `v0.2.0`.
-2. Build a client view of released values only (T110).
+1. Run ORCL and APLD once, held out, with no changes after seeing them.
+2. Kenny decides two open warnings:
+   - CRWV renamed its operating-income line between filings.
+   - CRWV's capex jumped about 3× in one quarter.
+3. Hand-check the held-out values, then release `v0.2.0` (due 6 Nov).
 
 **Critical notes:**
 - **Stage 1 doesn't prove accuracy elsewhere.** It proves the system works on the company the prompt was written for. Accuracy on companies the agents haven't seen starts with stage 2.
