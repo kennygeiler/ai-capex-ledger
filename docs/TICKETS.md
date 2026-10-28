@@ -6,7 +6,6 @@ The backlog for [PRD.md](PRD.md). Owner of every ticket: Kenny Geiler. Tickets m
 
 | ID | Ticket | Done when |
 |---|---|---|
-| A2 | **you:** Sign `v0.1.0` (built 28 Oct; 15 values hand-checked). | `releases/v0.1.0/SIGNOFF.json` exists. |
 | A3 | **you:** Decide stage 2's blocking items: APLD revenue FY2024 and FY2025, where XBRL reflects an older presentation than the newest 10-K. Then decide the warnings. | `ledger review --stage 2` shows 0 open. |
 | A4 | **you:** Hand-check stage 2's values; release and sign `v0.2.0`. | Signed before 11 Nov. |
 | A5 | Stage 3: run extraction on the remaining 14 companies' 10-Ks with the frozen prompt; fix the IREN locator miss first. | Release `v1.0.0`. |
@@ -16,6 +15,8 @@ The backlog for [PRD.md](PRD.md). Owner of every ticket: Kenny Geiler. Tickets m
 | A9 | **you:** Decide whether to standardize missing cost-of-revenue lines (as data vendors do for Oracle) or keep opex blank. | Decision recorded in FIELDS.md. |
 
 ## Done (28 Oct 2026)
+
+- **Stage 1:** `v0.1.0` (NVDA, 15 values) signed by Kenny Geiler, hash 2b15699badbe.
 
 - **Ingest:** 10-K list per company, documents cached with SHA-256, table parser (`tables@7`, fixture-tested), statement locator (176/177 correct).
 - **Store:** DuckDB schema, write contracts, generated data dictionary.

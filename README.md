@@ -6,15 +6,11 @@ AI agents read SEC 10-K filings and extract revenue, capex and opex, citing the 
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** stage 1 (NVDA) `v0.1.0` is built: 15 values for FY2022–FY2026 (revenue, capex, opex). All are hand-checked by Kenny and agree with XBRL. Every gate passed. Hash `2b15699badbe`.
-- The project is on 10-Ks only: one value per company per fiscal year ([docs/FIELDS.md](docs/FIELDS.md)). All 140 cells match XBRL, and 0 of 700 injected faults escaped.
+**Last done (28 Oct 2026):** `v0.1.0` (stage 1: NVDA, 10-K, FY2022–FY2026) is signed by Kenny Geiler, hash `2b15699badbe`. It holds 15 values (revenue, capex, opex), all hand-checked and all agreeing with XBRL. Stage 1 is complete.
 
 **Next:**
-1. **Kenny:** sign `v0.1.0`: `uv run python -m ledger signoff v0.1.0 --by "Kenny Geiler"`. Two non-blocking warnings ship with it, both real:
-   - NVDA's capex tripled from FY2024 to FY2025.
-   - FY2023 capex was high relative to revenue.
-2. **Kenny:** stage 2. Decide 2 blocking items: APLD's revenue for FY2024 and FY2025 differs from XBRL because the newest 10-K presents those years differently. Then decide the warnings, hand-check, and release `v0.2.0` (due 6 Nov).
-3. The rest is in [docs/TICKETS.md](docs/TICKETS.md).
+1. **Kenny:** stage 2. Decide 2 blocking items: APLD's revenue for FY2024 and FY2025 differs from XBRL because the newest 10-K presents those years differently. Decide the warnings, hand-check the values on `reports/stage2-validation.html`, then release and sign `v0.2.0` (due 6 Nov).
+2. The rest is in [docs/TICKETS.md](docs/TICKETS.md).
 
 **Critical notes:**
 - **Oracle's opex is blank.** Oracle reports no cost-of-revenue line. Data vendors fill this by adding up cost lines; whether we do is an open decision (A9).
