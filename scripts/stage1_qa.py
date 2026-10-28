@@ -2,7 +2,7 @@
 NVDA's released-candidate values. Each check prefers evidence independent of the path that produced the value."""
 import json
 import math
-import sys
+from datetime import date, timedelta
 from collections import defaultdict
 from pathlib import Path
 
@@ -29,11 +29,7 @@ out["completeness"] = {"values": len(vals), "expected": 32, "null_values": sum(v
 
 # 2. Independent sum check: Q1+Q2+Q3 three-month columns == nine-month YTD column, both read from filings
 # (income-statement fields; the Q4 = FY - 9M step makes a full-year tiling check circular, so this is the real test).
-by = defaultdict(dict)
-for e in ext:
-    by[(e["field"], e["period_start"])][(e["period_end"], (e["period_end"] > e["period_start"]))] = e
-ninem = [e for e in ext if e["field"] != "capex" and 260 <= (__import__("datetime").date.fromisoformat(e["period_end"]) - __import__("datetime").date.fromisoformat(e["period_start"])).days <= 280]
-from datetime import date, timedelta
+ninem = [e for e in ext if e["field"] != "capex" and 260 <= (date.fromisoformat(e["period_end"]) - date.fromisoformat(e["period_start"])).days <= 280]
 three = defaultdict(dict)
 for e in ext:
     d = (date.fromisoformat(e["period_end"]) - date.fromisoformat(e["period_start"])).days

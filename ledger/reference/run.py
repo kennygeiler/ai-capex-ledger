@@ -1,8 +1,8 @@
 """Run the pipeline: ingest -> normalize -> validate -> export.
 
-    python3 -m pipeline.run                # AI set + S&P 100, raw files cached for 24h
-    python3 -m pipeline.run --refresh      # re-download everything from SEC
-    python3 -m pipeline.run --only NVDA,MSFT
+    python -m ledger reference              # AI set + S&P 100, raw files cached for 24h
+    python -m ledger reference --refresh    # re-download everything from SEC
+    python -m ledger reference --only NVDA,MSFT
 """
 import argparse
 import csv
@@ -14,32 +14,12 @@ from datetime import datetime, timezone
 from .. import config
 from ..ingest import edgar
 from ..ingest.edgar import ROOT, fetch_json, fetch_tickers
-from .normalize import CONCEPTS, REJECTED, best_vintages, build_company, raw_facts
+from .normalize import REJECTED, best_vintages, build_company, raw_facts
 from .validate import check_company
 from .xbrl_instance import fill_gaps
 
 CLEAN = ROOT / "data" / "clean"
 EXPORT_METRICS = ["revenue", "capex", "opex", "total_costs", "cost_of_revenue", "operating_income"]
-METRIC_DEFS = {
-    "revenue": "Total revenue, as filed. Banks: revenue net of interest expense where that is the tag they use.",
-    "capex": "Cash paid for property, plant and equipment (cash-flow statement). Finance leases are not included.",
-    "opex": "Operating expenses excluding cost of revenue: revenue − cost of revenue − operating income. Comparable across companies, unlike the reported OperatingExpenses line (Amazon's includes cost of sales).",
-    "total_costs": "All operating costs including cost of revenue: revenue − operating income. Use it where a company has no cost-of-revenue line (Oracle).",
-    "cost_of_revenue": "Cost of revenue / cost of goods and services sold, as filed. Component of opex.",
-    "operating_income": "Operating income (loss), as filed. Component of opex.",
-}
-METHOD_DEFS = {
-    "reported": "Value taken straight from a filing (a three-month figure, or a 10-K full year in the annual view).",
-    "ytd_diff": "Cash-flow lines are year-to-date in 10-Qs: this quarter = YTD minus the previous YTD with the same start date.",
-    "q4_derived": "There is no 10-Q for Q4: this quarter = full year (10-K) minus the first nine months.",
-    "fy_minus_quarters": "Full year minus the three quarters already held (used when no nine-month figure exists, or when the nine-month figure is on an older basis than restated quarters).",
-    "derived": "Computed from other metrics of the same period (see the metric definition).",
-    "reported_costs_and_expenses": "The company's total CostsAndExpenses line, used as total costs when there is no operating-income line.",
-    "sga_plus_rnd": "Opex as SG&A plus R&D, used when the company reports neither operating income nor total costs (common in pharma).",
-    "noninterest_expense": "Banks: non-interest expense, the bank equivalent of operating expenses.",
-    "no_cost_of_revenue_line": "The company reports no cost-of-revenue line at all (e.g. railroads, payment networks, Oracle), so its total operating costs are its opex.",
-    "reported_operating_expenses": "The company's own OperatingExpenses line, used when cost of revenue is not tagged.",
-}
 SIC_DIVISIONS = [(100, 999, "Agriculture"), (1000, 1499, "Mining & energy"), (1500, 1799, "Construction"), (2000, 3999, "Manufacturing"),
                  (4000, 4999, "Transport, telecom & utilities"), (5000, 5199, "Wholesale"), (5200, 5999, "Retail"),
                  (6000, 6799, "Finance & real estate"), (7000, 8999, "Services"), (9100, 9999, "Public administration")]
@@ -60,14 +40,6 @@ NAME_OVERRIDES = {"T": "AT&T", "IBM": "IBM", "UPS": "UPS", "MMM": "3M", "JPM": "
                   "EMR": "Emerson", "UNP": "Union Pacific", "FDX": "FedEx", "F": "Ford", "GM": "General Motors", "DUK": "Duke Energy", "AMT": "American Tower",
                   "SPG": "Simon Property", "MO": "Altria", "PM": "Philip Morris", "MDLZ": "Mondelez", "CL": "Colgate-Palmolive", "AMGN": "Amgen",
                   "GILD": "Gilead", "PFE": "Pfizer"}
-
-
-def sector(sic) -> str:
-    try:
-        n = int(sic)
-    except (TypeError, ValueError):
-        return "Unclassified"
-    return next((name for lo, hi, name in SIC_DIVISIONS if lo <= n <= hi), "Unclassified")
 
 
 def universe() -> list[dict]:
@@ -192,23 +164,6 @@ def merge_facts(new: dict, old: dict) -> dict:
     return out
 
 
-def trace_for(b: dict, metric: str, cq: str) -> dict | None:
-    """Every raw XBRL fact (from every filing) behind one cleaned quarter: the parsing proof."""
-    r = b["metrics"][metric].get(cq)
-    if not r or r["method"] == "derived":
-        return None
-    node = b["cf"]["facts"]["us-gaap"].get(r["concept"], {})
-    raw = node.get("units", {}).get("USD", [])
-    steps = []
-    for s in r["sources"]:
-        rows = [{k: x.get(k) for k in ("start", "end", "val", "accn", "form", "filed", "fy", "fp", "frame")}
-                for x in raw if x.get("start") == s["start"] and x.get("end") == s["end"]]
-        for x in rows:
-            x["chosen"] = x["accn"] == s["accn"] and x["val"] == s["val"]
-        steps.append({"start": s["start"], "end": s["end"], "value": s["val"], "vintages": sorted(rows, key=lambda x: x["filed"])})
-    return {"concept": r["concept"], "label": node.get("label"), "description": (node.get("description") or "")[:400], "method": r["method"], "steps": steps}
-
-
 def export(built, window, years, issues, tiling, raw_manifest, pull):
     CLEAN.mkdir(parents=True, exist_ok=True)
     rows = []
@@ -231,106 +186,11 @@ def export(built, window, years, issues, tiling, raw_manifest, pull):
         w.writeheader()
         for r in rows:
             w.writerow(r | {"sources": json.dumps(r["sources"], separators=(",", ":"))})
-    with open(CLEAN / "quarterly_wide.csv", "w", newline="") as fh:
-        w = csv.writer(fh)
-        w.writerow(["ticker", "name", "cal_q", "revenue", "capex", "opex", "total_costs"])
-        for b in built:
-            for cq in window:
-                w.writerow([b["c"]["ticker"], b["name"], cq] + [b["metrics"][m].get(cq, {}).get("value", "") for m in ("revenue", "capex", "opex", "total_costs")])
-    with open(CLEAN / "annual_wide.csv", "w", newline="") as fh:
-        w = csv.writer(fh)
-        w.writerow(["ticker", "name", "fiscal_year", "period_end", "revenue", "capex", "opex", "total_costs"])
-        for b in built:
-            for k in years:
-                r = b["annual"]["revenue"].get(k, {})
-                w.writerow([b["c"]["ticker"], b["name"], k, r.get("period_end", "")] + [b["annual"][m].get(k, {}).get("value", "") for m in ("revenue", "capex", "opex", "total_costs")])
-
-    with open(CLEAN / "companies.csv", "w", newline="") as fh:
-        w = csv.writer(fh)
-        w.writerow(["ticker", "name", "cik", "sets", "group", "sector", "fiscal_year_end", "revenue_q", "capex_q", "opex_q", "revenue_fy", "capex_fy", "opex_fy", "revenue_tag", "capex_tag"])
-        for b in built:
-            c = b["c"]
-            w.writerow([c["ticker"], b["name"], c["cik"], "+".join(c["sets"]), c["group"], sector(b["sic"]), b["fye"]]
-                       + [sum(q in b["metrics"][m] for q in window) for m in ("revenue", "capex", "opex")]
-                       + [sum(k in b["annual"][m] for k in years) for m in ("revenue", "capex", "opex")]
-                       + [(b["notes"]["concepts"]["revenue"] or [""])[0], (b["notes"]["concepts"]["capex"] or [""])[0]])
     sev = Counter(i["severity"] for i in issues)
-    ai_tickers = {c["ticker"] for c in config.AI_SET}
-    companies = [{
-        "ticker": b["c"]["ticker"], "cik": b["c"]["cik"], "name": b["name"], "legal_name": b["legal_name"], "group": b["c"]["group"],
-        "sets": b["c"]["sets"], "note": b["c"].get("note"), "sector": sector(b["sic"]), "sic": b["sic_desc"], "fiscal_year_end": b["fye"],
-        "exchanges": b["exchanges"], "gap_fills": b["gap_fills"], "concepts": b["notes"]["concepts"], "n_concepts": b["n_concepts"], "recent_filings": b["filings"],
-        "discovery": b["notes"]["discovery"],
-        "coverage": {m: sum(cq in b["metrics"][m] for cq in window) for m in EXPORT_METRICS},
-        "coverage_annual": {m: sum(k in b["annual"][m] for k in years) for m in EXPORT_METRICS},
-    } for b in built]
-    traces = {}
-    for b in built:
-        if b["c"]["ticker"] not in ai_tickers:
-            continue
-        for metric in ("revenue", "capex", "cost_of_revenue", "operating_income"):
-            for cq in window:
-                tr = trace_for(b, metric, cq)
-                if tr:
-                    traces[f"{b['c']['ticker']}|{metric}|{cq}"] = tr
-    meta = {
-        "generated_at": pull["finished_at"],
-        "source": "SEC EDGAR XBRL company facts (data.sec.gov/api/xbrl/companyfacts) and submissions",
-        "window": window, "years": years,
-        "calendar_rule": "A fiscal quarter belongs to the calendar quarter that holds most of its days.",
-        "metrics": METRIC_DEFS, "methods": METHOD_DEFS, "concept_candidates": CONCEPTS, "discovery_patterns": config.DISCOVERY,
-        "excluded": config.EXCLUDED, "predecessors": config.PREDECESSORS,
-        "quality": {"errors": sev["error"], "warnings": sev["warn"], "info": sev["info"],
-                    "tiling_checks": tiling["tiling_checks"], "tiling_failures": tiling["tiling_failures"]},
-        "raw_files": raw_manifest,
-    }
-    dataset = {"meta": meta, "pull": pull, "companies": companies, "issues": issues, "traces": traces, "facts": rows}
-    (CLEAN / "dataset.json").write_text(json.dumps(dataset, separators=(",", ":")))
     (CLEAN / "pull_log.json").write_text(json.dumps(pull, indent=1))
-
-    # viz.json: what the explorer loads. Core metrics only, quarters from 4 before the window (so YoY works),
-    # fiscal years from 1 before; lineage sources only inside the windows; facts packed as rows of a column list.
-    VIZ_METRICS = {"revenue", "capex", "opex", "total_costs"}
-    q_from = sorted({r["cal_q"] for r in rows if r["cal_q"] and r["cal_q"] < window[0]})[-4:][:1] or window[:1]
-    y_from = sorted({r["fy_key"] for r in rows if r["fy_key"] and r["fy_key"] < years[0]})[-1:] or years[:1]
-    fact_cols = ["ticker", "period_type", "metric", "cal_q", "fy_key", "value", "method", "source_api", "concept", "period_start", "period_end",
-                 "days", "days_outside_cal_q", "fiscal_year", "fiscal_quarter", "form", "accession", "filed", "restated", "original_value",
-                 "vintages", "basis_conflict", "in_window", "sources"]
-    packed = []
-    for r in rows:
-        if r["metric"] not in VIZ_METRICS:
-            continue
-        if (r["period_type"] == "quarter" and r["cal_q"] >= q_from[0]) or (r["period_type"] == "year" and r["fy_key"] >= y_from[0]):
-            packed.append([r.get(c) if (c != "sources" or r["in_window"]) else None for c in fact_cols])
-    viz = {"meta": meta, "pull": pull, "companies": companies,
-           "issues": [i for i in issues if i["cal_q"] is None or i["cal_q"] >= q_from[0]], "traces": traces,
-           "fact_cols": fact_cols, "facts": packed}
-    (CLEAN / "viz.json").write_text(json.dumps(viz, separators=(",", ":")))
-    (CLEAN / "quality.json").write_text(json.dumps({"meta": meta["quality"], "issues": issues}, indent=1))
-    write_quality_md(meta, companies, issues, pull)
     print(f"\n{len(built)} companies  quarters {window[0]}..{window[-1]}  years {years[0]}..{years[-1]}  facts {len(rows)}  "
           f"errors {sev['error']}  warnings {sev['warn']}  info {sev['info']}  tiling {tiling['tiling_checks'] - tiling['tiling_failures']}/{tiling['tiling_checks']}  "
           f"network {pull['network_requests']} cache {pull['cache_reads']} failures {len(pull['failures'])}  {pull['seconds']}s")
-
-
-def write_quality_md(meta, companies, issues, pull):
-    L = ["# Data quality report\n", f"Generated {meta['generated_at']}. Quarters {meta['window'][0]} to {meta['window'][-1]}; fiscal years {meta['years'][0]} to {meta['years'][-1]}.\n",
-         f"- Companies: {len(companies)}; pull failures: {len(pull['failures'])}",
-         f"- Errors: {meta['quality']['errors']}, warnings: {meta['quality']['warnings']}, info: {meta['quality']['info']}",
-         f"- Tiling checks: {meta['quality']['tiling_checks'] - meta['quality']['tiling_failures']} of {meta['quality']['tiling_checks']} pass\n",
-         "## Coverage (quarters of 8 / fiscal years of 5)\n", "| Ticker | Sector | Revenue | Capex | Opex | Total costs | Revenue tag | Capex tag |", "|---|---|---|---|---|---|---|---|"]
-    for c in companies:
-        cv, ca, cn = c["coverage"], c["coverage_annual"], c["concepts"]
-        L.append(f"| {c['ticker']} | {c['sector']} | {cv['revenue']}/{ca['revenue']} | {cv['capex']}/{ca['capex']} | {cv['opex']}/{ca['opex']} | {cv['total_costs']}/{ca['total_costs']} | {(cn['revenue'] or ['–'])[0]} | {(cn['capex'] or ['–'])[0]} |")
-    if pull["failures"]:
-        L += ["\n## Pull failures\n"] + [f"- {f['ticker']} ({f['stage']}): {f['error']}" for f in pull["failures"]]
-    L += ["\n## Excluded\n"] + [f"- **{e['ticker']}** ({e['name']}): {e['reason']}" for e in meta["excluded"]]
-    for s in ("error", "warn", "info"):
-        sub = [i for i in issues if i["severity"] == s]
-        if sub:
-            L.append(f"\n## {s.title()} ({len(sub)})\n")
-            L += [f"- {i['ticker']} {i['metric']} {i['cal_q'] or ''} [{i['check']}]: {i['message']}" for i in sub]
-    (CLEAN / "quality.md").write_text("\n".join(L) + "\n")
 
 
 if __name__ == "__main__":

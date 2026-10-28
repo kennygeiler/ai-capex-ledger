@@ -1,0 +1,296 @@
+{
+ "stage": 1,
+ "release": "v0.1.0",
+ "exported_at": "2026-10-28T02:30:22.569Z",
+ "checker": "Kenny Geiler",
+ "values": [
+  {
+   "ticker": "NVDA",
+   "field": "capex",
+   "cal_q": "2024Q3",
+   "value": 813000000,
+   "input_hash": "8c9653e1f4c1e5ef",
+   "verified": true,
+   "checked_at": "2026-10-28T02:30:02.377Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "capex",
+   "cal_q": "2024Q4",
+   "value": 1077000000,
+   "input_hash": "e31243152cacc61d",
+   "verified": true,
+   "checked_at": "2026-10-28T02:30:02.011Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "capex",
+   "cal_q": "2025Q1",
+   "value": 1227000000,
+   "input_hash": "d3b9398fb664f6a1",
+   "verified": true,
+   "checked_at": "2026-10-28T02:30:07.261Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "capex",
+   "cal_q": "2025Q2",
+   "value": 1895000000,
+   "input_hash": "59bf63f9ad7feeea",
+   "verified": true,
+   "checked_at": "2026-10-28T02:30:07.819Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "capex",
+   "cal_q": "2025Q3",
+   "value": 1636000000,
+   "input_hash": "ecd518a31b0663f2",
+   "verified": true,
+   "checked_at": "2026-10-28T02:30:05.852Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "capex",
+   "cal_q": "2025Q4",
+   "value": 1284000000,
+   "input_hash": "45a7550dff704166",
+   "verified": true,
+   "checked_at": "2026-10-28T02:30:04.553Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "capex",
+   "cal_q": "2026Q1",
+   "value": 1757000000,
+   "input_hash": "a4fed0d9ea998c18",
+   "verified": true,
+   "checked_at": "2026-10-28T02:30:05.027Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "capex",
+   "cal_q": "2026Q2",
+   "value": 2677000000,
+   "input_hash": "cb64f2377be9a641",
+   "verified": true,
+   "checked_at": "2026-10-28T02:30:03.811Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "cost_of_revenue",
+   "cal_q": "2024Q3",
+   "value": 8926000000,
+   "input_hash": "bc7957ad5f4a0170",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:39.894Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "cost_of_revenue",
+   "cal_q": "2024Q4",
+   "value": 10608000000,
+   "input_hash": "dd4d490d07e245a0",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:49.794Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "cost_of_revenue",
+   "cal_q": "2025Q1",
+   "value": 17394000000,
+   "input_hash": "a5ea16d046bc6c9a",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:52.944Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "cost_of_revenue",
+   "cal_q": "2025Q2",
+   "value": 12890000000,
+   "input_hash": "650fc99778c564cc",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:53.397Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "cost_of_revenue",
+   "cal_q": "2025Q3",
+   "value": 15157000000,
+   "input_hash": "3f5533f7b70f0895",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:54.378Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "cost_of_revenue",
+   "cal_q": "2025Q4",
+   "value": 17034000000,
+   "input_hash": "51a6892e1d0bb8bd",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:54.711Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "cost_of_revenue",
+   "cal_q": "2026Q1",
+   "value": 20458000000,
+   "input_hash": "88f2c3a5c73e5ca3",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:55.086Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "cost_of_revenue",
+   "cal_q": "2026Q2",
+   "value": 24079000000,
+   "input_hash": "ee31df5a5cadb4fb",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:56.625Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "operating_income",
+   "cal_q": "2024Q3",
+   "value": 21869000000,
+   "input_hash": "6befdfce6e1c7fb8",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:57.244Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "operating_income",
+   "cal_q": "2024Q4",
+   "value": 24034000000,
+   "input_hash": "a0fa2d2ca810df0b",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:57.594Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "operating_income",
+   "cal_q": "2025Q1",
+   "value": 21638000000,
+   "input_hash": "a7960fbceb3afc5c",
+   "verified": true,
+   "checked_at": "2026-10-28T02:30:00.820Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "operating_income",
+   "cal_q": "2025Q2",
+   "value": 28440000000,
+   "input_hash": "b5f668dba08e9848",
+   "verified": true,
+   "checked_at": "2026-10-28T02:30:00.461Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "operating_income",
+   "cal_q": "2025Q3",
+   "value": 36010000000,
+   "input_hash": "f4d0428836ef8e7d",
+   "verified": true,
+   "checked_at": "2026-10-28T02:30:00.036Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "operating_income",
+   "cal_q": "2025Q4",
+   "value": 44299000000,
+   "input_hash": "a094d4211ff86adb",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:59.578Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "operating_income",
+   "cal_q": "2026Q1",
+   "value": 53536000000,
+   "input_hash": "6e3f933693da423a",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:59.186Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "operating_income",
+   "cal_q": "2026Q2",
+   "value": 63734000000,
+   "input_hash": "b2312f6f49c7e7a2",
+   "verified": true,
+   "checked_at": "2026-10-28T02:30:02.728Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "revenue",
+   "cal_q": "2024Q3",
+   "value": 35082000000,
+   "input_hash": "14408e8634f790f7",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:23.595Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "revenue",
+   "cal_q": "2024Q4",
+   "value": 39331000000,
+   "input_hash": "5c49692c5f4a94fe",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:33.503Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "revenue",
+   "cal_q": "2025Q1",
+   "value": 44062000000,
+   "input_hash": "e622f49bd9829a34",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:36.394Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "revenue",
+   "cal_q": "2025Q2",
+   "value": 46743000000,
+   "input_hash": "13acf5ad3d611484",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:36.827Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "revenue",
+   "cal_q": "2025Q3",
+   "value": 57006000000,
+   "input_hash": "712aed04e94f8ed4",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:37.219Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "revenue",
+   "cal_q": "2025Q4",
+   "value": 68127000000,
+   "input_hash": "99d242dd12bd37dd",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:37.795Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "revenue",
+   "cal_q": "2026Q1",
+   "value": 81615000000,
+   "input_hash": "9fd5ffac61c0c064",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:38.895Z"
+  },
+  {
+   "ticker": "NVDA",
+   "field": "revenue",
+   "cal_q": "2026Q2",
+   "value": 96221000000,
+   "input_hash": "adec498160e9e49b",
+   "verified": true,
+   "checked_at": "2026-10-28T02:29:39.311Z"
+  }
+ ]
+}

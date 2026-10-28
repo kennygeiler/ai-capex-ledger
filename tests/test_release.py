@@ -27,8 +27,9 @@ class Gates(unittest.TestCase):
         self.assertEqual(g["G4"], [EXC["exception_id"]])
 
     def test_passes_when_everything_is_decided_and_checked(self):
-        hc = {"values": [{"ticker": "NVDA", "field": "capex", "cal_q": "2026Q2", "verified": True}]}
+        hc = {"values": [{"ticker": "NVDA", "field": "capex", "cal_q": "2026Q2", "value": -5, "verified": True}]}
         self.assertFalse(any(gates([VAL], [], hc).values()))
+        self.assertTrue(gates([{**VAL, "value": 6}], [], hc)["G5"])  # a check of an older value doesn't count
 
 
 class Build(unittest.TestCase):

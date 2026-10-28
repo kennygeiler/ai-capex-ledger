@@ -7,7 +7,7 @@ import json
 GATES = {
     "G1": "Every filing ended in a valid output or a logged failure, and no failure is open",
     "G4": "No block exception without a current decision",
-    "G5": "Every released value hand-checked against its filing, none marked wrong",
+    "G5": "Every released value hand-checked against its filing, at the value being released",
 }
 
 
@@ -19,7 +19,7 @@ def gates(values, open_items, handcheck) -> dict:
         "G4": [e["exception_id"] for e in open_items if e["severity"] == "block"],
         "G5": ["no hand-check file"] if handcheck is None else
               [f"{v['ticker']} {v['field']} {v['cal_q']}" for v in values
-               if not checked.get((v["ticker"], v["field"], v["cal_q"]), {}).get("verified")],
+               if not (h := checked.get((v["ticker"], v["field"], v["cal_q"]), {})).get("verified") or h.get("value") != v["value"]],
     }
 
 

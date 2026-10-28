@@ -302,7 +302,7 @@ v0.1.0 not built. Failing gates:
   <div class="cap">Gates: G1 no open extraction failures, G4 no undecided blocking exception (which covers citations and XBRL disagreements), G5 your hand-check. The same inputs give the same hash, and a shipped release is never rebuilt with different content. Right now it is waiting only on you.</div>`),
 release_full: null,
 client_s1: null,
-client_full: frame("explorer · released data only", false,
+client_full: frame("client view · released data only", false,
   `<div class="scroll"><table class="t"><tr><th>Company</th><th>Q1 ’26</th><th>Q2 ’26</th></tr>
   <tr><td>MSFT capex</td><td class="mono">$34.9B <span class="st done">agent</span></td><td class="mono">$35.8B <span class="st done">agent</span></td></tr>
   <tr><td>ORCL revenue</td><td class="mono">$16.1B <span class="st human">override</span></td><td class="mono">$17.3B <span class="st done">agent</span></td></tr>
@@ -355,7 +355,7 @@ const STEPS = [
    full: { st: "todo", build: "Releases per stage (v0.2.0, v1.0.0), patch versions for corrections, and a scheduled refresh after each earnings season with an automatic diff.", out: "A release history clients can audit", done: "A correction never edits a shipped release", screen: "release_s1" } },
  { id: "client", mod: "val", name: "What the client sees", t: ["T110"],
    s1: null,
-   full: { st: "todo", build: "The explorer shows only released values. Each cell shows its version, its source (agent, override or missing) and a link to the cited cell.", out: "The client view", done: "10 random cells trace back to their filing", screen: "client_full" } },
+   full: { st: "todo", build: "A client view of released values only. Each cell shows its version, its source (agent, override or missing) and a link to the cited cell.", out: "The client view", done: "10 random cells trace back to their filing", screen: "client_full" } },
 ];
 
 let view = "s1";

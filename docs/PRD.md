@@ -31,9 +31,9 @@ EDGAR gives this project an advantage most extraction teams don't have: **XBRL i
 | Storage | JSON and CSV files | DuckDB with schema contracts (types, units, keys, allowed values), queryable in SQL. CSV and Parquet are exports. |
 | Proof of quality | Spot checks against known figures | A hand-verified golden set, plus scoring against XBRL on every run, with field-level accuracy per release. |
 | Observability | HTTP request log | Per-agent-step log: input document, prompt version, output, tokens, latency, retries, cost, validator results. |
-| UI | Explorer for analysts | A **review console** for the data owner, plus the explorer as the client view, which shows only released data. |
+| UI | An XBRL explorer for analysts (archived at tag `takehome-xbrl-explorer`) | A **validation page** for the data owner, then a client view of released data only. |
 
-What stays: the EDGAR ingest, caching with SHA-256, the calendar-alignment rules, the restatement handling, the lineage model, and the explorer. These become the reconciliation layer and the client view.
+What stays: the EDGAR ingest, caching with SHA-256, the calendar-alignment rules, the restatement handling, the lineage model. These become the reconciliation layer and the client view.
 
 ## 3. Users and jobs
 
@@ -86,13 +86,13 @@ The goal of stage 1 is to prove every part of the pipeline works once, not to fi
   - A match within the stated rounding passes.
   - A mismatch goes to review, labelled as agent error, XBRL error, or definition difference.
 - **Rule registry:** 14 rules in `rules/*.yaml`, each with a rationale and owner, adapted from today's checks plus new ones (listed in R3). Built 2026-10-28.
-- **Review queue:** a CLI first (`python -m ledger.review`), plus a review tab in the explorer.
+- **Review queue:** `python -m ledger review`.
 - **Decisions:** stored in `decisions/*.jsonl` in git.
 - **Release:**
   - `python -m ledger.release` builds `v2026.11.0`: a DuckDB file, Parquet and CSV exports, a quality report, a diff, and a sign-off record.
   - It refuses to build while any blocking issue is unresolved.
 - **Golden set:** 75 company-quarters × 4 fields (300 values), held out from prompt tuning and hand-checked against the filing documents, in `golden/`. The size comes from the claim it has to support (section 7). Estimated effort is about 5 hours at about 1 minute per value.
-- **Client view:** the explorer reads only the latest release and shows release version, review status and citation on every cell.
+- **Client view (stage 2):** reads only the latest release and shows release version, review status and citation on every cell.
 
 ### Phase 2
 
@@ -189,7 +189,7 @@ The goal of stage 1 is to prove every part of the pipeline works once, not to fi
 
 **R8. Observability**
 - A `runs` table records every pipeline and agent step: inputs, versions, cost, tokens, latency, outcome.
-- The Admin tab gains views for agent steps, failures by cause, and cost per filing.
+- The validation page shows agent runs, failures by cause, and time and tokens per filing.
 
 **R9. Evaluation**
 - **Golden set:** 75 company-quarters (300 values) from the 16 companies outside the dev split. It deliberately includes the known hard cases: Costco's 16-week quarter, Oracle's mistag, Applied Digital's restatement, Nvidia's January year-end, CoreWeave, Tesla.
@@ -228,7 +228,7 @@ A target with no reason behind it invites gaming, or gets ignored. Every number 
 ### Delivery criteria (checked once at MVP sign-off)
 
 - **D1. Rules are in the registry.** All 14 rules are YAML, each with a passing and a failing fixture test (done 2026-10-28). No check on agent data lives outside the registry.
-- **D2. The client view is honest.** The explorer shows only released data. Every cell shows its release version and links to the cited document location. Overridden or missing values are visibly marked.
+- **D2. The client view is honest.** It shows only released data. Every cell shows its release version and links to the cited document location. Overridden or missing values are visibly marked.
 - **D3. Known defects are closed:**
   - Honeywell 2025Q3 and Intuit 2025Q2 negative capex: decided and documented.
   - Current S&P 100 membership verified, with a source and date.
@@ -302,15 +302,4 @@ A target with no reason behind it invites gaming, or gets ignored. Every number 
 - **2026-10-27, rev 3:** Delivery staged: 1 company (NVDA), then 5, then 19, each a full release. Hand-check sizes and claims scaled per stage (section 5).
 - **2026-10-28, rev 4:** After the stage 1 QA pass (`docs/QA-stage1.md`, using the Data and Agent Evaluation plugins), R3 is the 14-rule registry as built. The circular year-sum check was replaced by an independent nine-month check. R2 adds repeatability, run evidence and judgement notes, and keeps confidence out of routing. Two new risks and two new metrics.
 - **2026-10-28, rev 5:** Fault injection and a no-locator test added to stage 1. `column_matches_period` added. Field definitions now live in `docs/FIELDS.md`.
-
-## Appendix: refactor map
-
-| Today | After |
-|---|---|
-| `pipeline/edgar.py` | `ledger/ingest/edgar.py` (unchanged logic) + `ledger/ingest/documents.py` (R1) |
-| `pipeline/xbrl_instance.py`, `normalize.py` | `ledger/reference/xbrl.py`: XBRL becomes the reference set used in R4 |
-| `pipeline/validate.py` | stays as `ledger/reference/validate.py` for the XBRL reference; agent-data checks are `rules/*.yaml` + `ledger/rules.py` (R3) |
-| `pipeline/run.py` export | `ledger/release.py` (R6) + `ledger/store.py` (DuckDB, R7) |
-| (new) | `agents/prompts/`, `ledger/extract.py` (R2), `ledger/reconcile.py` (R4), `ledger/review.py` (R5), `golden/` (R9) |
-| `web/` explorer | Client view on released data + Review tab; Admin gains agent-run views |
-| `tests/test_normalize.py` | Kept; plus rule fixtures, a determinism test, a release-gate test |
+- **2026-10-28, rev 6:** Staleness pass: the finished refactor map and the archived explorer are gone from this plan.

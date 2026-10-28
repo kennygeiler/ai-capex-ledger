@@ -56,7 +56,7 @@ Delivery is staged (PRD section 5, decided 2026-10-27): **one company, then 5, t
 
 | ID | Requirement | Traces to | Deps | Size | Status | Verified by |
 |---|---|---|---|---|---|---|
-| T00 | Today's pipeline code shall live in the `ledger/` package, with `python3 -m pipeline.run` still working and producing the same data. | Appendix (refactor map) | – | M | done | Check (2026-10-27): after a cache rerun, `facts.csv`, `quarterly_wide.csv`, `annual_wide.csv`, `companies.csv` and `quality.json` are byte-identical, and `dataset.json` is identical apart from pull timing. Test: the 7 existing tests pass. |
+| T00 | Today's pipeline code shall live in the `ledger/` package, run as `python -m ledger reference`, producing the same data. | Appendix (refactor map) | – | M | done | Check (2026-10-27): after a cache rerun, `facts.csv`, `quarterly_wide.csv`, `annual_wide.csv`, `companies.csv` and `quality.json` are byte-identical, and `dataset.json` is identical apart from pull timing. Test: the 7 existing tests pass. |
 | T01 | The project shall install from `pyproject.toml` with `uv` and expose `python -m ledger <command>` for: reference, ingest, extract, reconcile, rules, review, score, release, signoff. | NFR-4 | – | S | done | Check: `uv run python -m ledger --help` lists all 9; an unbuilt command exits with code 2 and names this file. |
 | T02 | `ledger/config.py` shall define the MVP universe: 19 tickers, quarters 2024Q3–2026Q2, 4 fields, the dev split (NVDA, MSFT, CRWV) and the hold-out (the other 16). | R9 | T01 | S | done | Test: `tests/test_config.py` (the splits are disjoint and cover all 19; 8 consecutive quarters). |
 
@@ -84,7 +84,7 @@ Delivery is staged (PRD section 5, decided 2026-10-27): **one company, then 5, t
 | ID | Requirement | Traces to | Deps | Size | Status | Verified by |
 |---|---|---|---|---|---|---|
 | T30 | The rule engine shall load `rules/*.yaml`, where each rule has id, description, rationale, severity, scope, and check (a named function plus parameters). It runs the rules over values and writes exceptions. | R3 | T20 | M | done | Test: two runs on the same values give the same exceptions; a rule naming an unknown check fails at load. |
-| T31 | Today's 8 checks shall run as registry rules on agent values: sign, period length, jump, coverage and restated carry over; tag switch becomes row_label_switch (the agent-world equivalent); tiling becomes quarters_sum_to_ytd (independent, not circular); basis conflict is handled by the shared derivation. | R3, D1 | T30 | M | done | Test: every migrated rule passes and fails its fixtures. (Revised 2026-10-28: `validate.py` stays for the XBRL reference pipeline, which still feeds the explorer and reconciliation; the agent pipeline's checks all live in the registry.) |
+| T31 | Today's 8 checks shall run as registry rules on agent values: sign, period length, jump, coverage and restated carry over; tag switch becomes row_label_switch (the agent-world equivalent); tiling becomes quarters_sum_to_ytd (independent, not circular); basis conflict is handled by the shared derivation. | R3, D1 | T30 | M | done | Test: every migrated rule passes and fails its fixtures. (Revised 2026-10-28: `validate.py` stays for the XBRL reference pipeline, which feeds reconciliation; the agent pipeline's checks all live in the registry.) |
 | T32 | New rules shall run: citation_resolves (covers unit and scale), statement_tie, quarters_sum_to_ytd, xbrl_reconcile (tolerance: the coarser rounding of the two sources), outlier_vs_own_history, unit_from_document (warn), magnitude, and definition_note (info; added from the QA pass). Each has its rationale written in its YAML. | R3, G2, G3 | T30, T44 | M | done | Test: covered by T33. |
 | T33 | Every rule shall have one fixture that passes and one that fails. | D1 | T31, T32 | M | done | Test: `tests/test_rules.py`, 14 rules × 2 fixtures + loader and engine tests (32 tests) pass. |
 
@@ -125,14 +125,14 @@ Delivery is staged (PRD section 5, decided 2026-10-27): **one company, then 5, t
 | T70 | The review queue shall order open exceptions: severity block first, then the latest quarter, then ticker. | R5 | T30, T60 | S | done | Test: a fixed input gives a fixed order. |
 | T71 | `python -m ledger review` shall show each exception with: the cited table around the cell, the agent value, the reference value, the rule and the company's history for that field. It records a decision with reviewer, reason, timestamp and input hashes in `decisions/*.jsonl`. | R5, G4 | T70, T44 | M | done | Check: one recorded session of at least 10 decisions. The minutes per decision feed T51. |
 | T72 | A decision shall be re-applied on rerun only when its input hashes match. A later decision on the same item supersedes the earlier one, and both are kept. | R5, G8 | T71 | M | done | Test: changing one input reopens only that item; a superseding decision wins and the history shows both. |
-| T73 | The explorer shall have a Review tab listing open and decided exceptions from the release database. **This is the first ticket cut if time runs short.** | R5 | T71, T110 | M | todo | Check: the tab's counts of open and decided exceptions equal the database's counts. |
+| T73 | The validation page shall list open and decided exceptions. **This is the first ticket cut if time runs short.** | R5 | T71, T110 | M | todo | Check: the tab's counts of open and decided exceptions equal the database's counts. |
 
 ## Epic 8: Golden set (R9)
 
 | ID | Requirement | Traces to | Deps | Size | Status | Verified by |
 |---|---|---|---|---|---|---|
 | T80 | The golden sampler shall produce each stage's checking sheet (for stages 1 and 2, the T83 validation page is the sheet): stage 1 is all 32 NVDA values; stage 2 is all 64 values of the 2 hold-out companies; stage 3 picks 75 hold-out company-quarters with a fixed seed. It must include the hard cases: Oracle's mistag quarter, Applied Digital's restated quarter, CoreWeave, Tesla, and a 13-week-calendar company. The output is a checking sheet with document links and empty truth columns. | R9, G5 | T02, T10 | S | doing | Test: 300 value slots; no dev-split company; every named hard case present. |
-| T81-1 | Kenny shall hand-check all 32 NVDA values (about 30 minutes), recording each value's truth and where in the filing he read it. An agent may prepare the sheet but never fills in truth. | G5 | T80 | S | human | Check: 32 rows filled and initialled. |
+| T81-1 | Kenny shall hand-check all 32 NVDA values (about 30 minutes), recording each value's truth and where in the filing he read it. An agent may prepare the sheet but never fills in truth. | G5 | T80 | S | done | Check: 32 rows filled and initialled. |
 | T81-2 | Kenny shall hand-check all 64 values of ORCL and APLD (about 1 hour), under the same rules. | G5 | T80, T53 | M | human | Check: 64 rows filled and initialled. |
 | T81-3 | Kenny shall hand-check the 300-value stage-3 golden set (about 5 hours), under the same rules. | G5 | T80 | L | human | Check: 300 rows filled and initialled. |
 | T84 | `python -m ledger faults` shall corrupt each real extraction in 6 typical ways and report, per fault, whether a rule caught it, only XBRL caught it, or it escaped. | G6 | T30 | S | done | Check (2026-10-28): NVDA 710 trials, 0 escaped, 0 caught only by XBRL. |
@@ -157,13 +157,13 @@ Delivery is staged (PRD section 5, decided 2026-10-27): **one company, then 5, t
 | ID | Requirement | Traces to | Deps | Size | Status | Verified by |
 |---|---|---|---|---|---|---|
 | T100 | The ingest, parse, extract, rules and release steps shall each write a runs row: inputs, versions, wall-clock, outcome. | R8 | T20 | S | todo | Test: a one-company end-to-end run writes at least one row per step. |
-| T101 | The Admin tab shall show agent steps, failures by cause, and time and cost per filing from the release database. | R8 | T100, T110 | M | todo | Check: the tab's totals equal SQL counts on the runs table. |
+| T101 | The validation page shall show agent runs, failures by cause, and time and tokens per filing. | R8 | T100, T110 | M | todo | Check: the tab's totals equal SQL counts on the runs table. |
 
 ## Epic 11: Client view
 
 | ID | Requirement | Traces to | Deps | Size | Status | Verified by |
 |---|---|---|---|---|---|---|
-| T110 | The explorer shall show only released values. Each cell shows its release version, its source (agent, override or missing) and a link to its cited document location. | D2 | T90 | M | todo | Check: on 10 random cells, the version, source and link match the database; an override cell and a missing cell are visibly marked. |
+| T110 | A client view shall show only released values. Each cell shows its release version, its source (agent, override or missing) and a link to its cited document location. | D2 | T90 | M | todo | Check: on 10 random cells, the version, source and link match the database; an override cell and a missing cell are visibly marked. |
 
 ## Epic 12: Known defects and handoff
 
@@ -179,7 +179,7 @@ Delivery is staged (PRD section 5, decided 2026-10-27): **one company, then 5, t
 | ID | Requirement | Traces to | Deps | Size | Status | Verified by |
 |---|---|---|---|---|---|---|
 | T130 | NFR-1: every SEC request shall carry a contact User-Agent and be spaced at least 0.15 s apart (under SEC's limit of 10 per second). | NFR-1 | – | S | todo | Test: a mocked clock confirms no two requests are closer than 0.15 s; a missing User-Agent stops the run. |
-| T131 | NFR-2: no file outside `.env` shall contain the SEC contact email, or any credential. | NFR-2 | – | S | todo | Test: scan the repo, `data/clean`, `releases/` and the built explorer for the email and for key patterns. |
+| T131 | NFR-2: no file outside `.env` shall contain the SEC contact email, or any credential. | NFR-2 | – | S | todo | Test: scan the repo, `data/clean`, `releases/` and `reports/` for the email and for key patterns. |
 | T132 | NFR-3: parsing all 177 MVP documents shall take under 60 s on Kenny's laptop. Today it takes about 20 s. | NFR-3 | T12 | S | todo | Check: timed run logged. |
 | T133 | NFR-4: the environment shall be reproducible from the lock file (`uv.lock`), with pinned dependency versions. | NFR-4 | T01 | S | todo | Check: `uv sync --frozen` succeeds in a fresh clone. |
 
@@ -264,3 +264,8 @@ Defects found in the first draft of this file, and how each was fixed:
   - Releases refuse until the hand-check file exists, so `v0.1.0` now waits only on Kenny (T81-1, then T94).
   - T46 is partial: subagent runs record tokens and time. Headless runs (`claude -p --tools ""`) need `claude login` in a terminal; not built until then.
   - 78 tests.
+- **2026-10-28: staleness pass and v0.1.0.**
+  - Removed from the tree: the XBRL explorer (`explorer/`, `web/`), `archive/`, the `pipeline/` shim, `docs/SUMMARY.md`, and the reference outputs that only the explorer used. All of it is recoverable from tag `takehome-xbrl-explorer`.
+  - T81-1 done: Kenny verified all 32 values (`golden/stage1-handcheck.json`).
+  - G5 now also requires that the hand-checked value equals the released value.
+  - `v0.1.0` built with hash 4ae33597b94b; it waits on Kenny's sign-off (T94).

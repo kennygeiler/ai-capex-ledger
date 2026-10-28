@@ -5,7 +5,6 @@ cell text, unit line). No XBRL values and no XBRL tag names, so the agent cannot
 """
 from __future__ import annotations
 
-import json
 import re
 from dataclasses import dataclass
 from datetime import date, timedelta
@@ -27,7 +26,7 @@ def render_statement(name: str, tables: list[dict]) -> str:
         unit = t["unit_text"] or "(no unit stated)"
         src = {"table": "stated with the table", "statement": "stated on the first page of this statement",
                "document": f"NOT stated with the table; found elsewhere in the filing: \"{t.get('unit_context', '')[:160]}\""}.get(t.get("unit_source"), "")
-        out += [f"", f"Table `{t['id']}`. Unit: {unit} ({src}).", "", "Columns:"]
+        out += ["", f"Table `{t['id']}`. Unit: {unit} ({src}).", "", "Columns:"]
         out += [f"  [{i}] {c}" for i, c in enumerate(t["columns"])]
         out += ["", "Rows (label | [column] cell text):"]
         for r in t["rows"]:
