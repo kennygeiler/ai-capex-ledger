@@ -149,7 +149,7 @@ Delivery is staged (PRD section 5, decided 2026-10-27): **one company, then 5, t
 | T91 | The release shall refuse to build while any of G1–G6 fails, naming each failing item. | G1–G6 | T90, T82 | M | done | Test: one test per gate shows the refusal and the named item. |
 | T92 | Two releases built from the same inputs, prompt versions and decisions shall have the same content hash. | G7 | T90 | S | done | Test: build twice, compare hashes. |
 | T93 | `DIFF.md` shall list every value that changed since the previous release, with its cause: new filing, restatement, rule change, or decision. | G9 | T90 | S | done | Test: a seeded change appears in the diff with its cause. |
-| T94 | Kenny shall sign each stage's release (`v0.1.0`, `v0.2.0`, `v1.0.0`) with `python -m ledger signoff`, which records the signer, the time and the release hash. | R6 | T91 | S | human | Check: `SIGNOFF.json` hash equals the release hash. |
+| T94 | Kenny shall sign each stage's release (`v0.1.0`, `v0.2.0`, `v1.0.0`) with `python -m ledger signoff`, which records the signer, the time and the release hash. | R6 | T91 | S | done | Check: `SIGNOFF.json` hash equals the release hash. |
 | T95 | A published release shall be correctable: a new patch version (for example `v0.1.1`) with a correction notice in `DIFF.md` naming each corrected value. The old release is kept, never edited in place. | R6, principle 6 | T93 | S | done | Test: correcting one value produces a new version; the old directory's hash is unchanged. |
 
 ## Epic 10: Observability (R8)
@@ -269,3 +269,4 @@ Defects found in the first draft of this file, and how each was fixed:
   - T81-1 done: Kenny verified all 32 values (`golden/stage1-handcheck.json`).
   - G5 now also requires that the hand-checked value equals the released value.
   - `v0.1.0` built with hash 4ae33597b94b; it waits on Kenny's sign-off (T94).
+- **2026-10-28: T94 done.** Kenny signed `v0.1.0` (hash 4ae33597b94b). Stage 1 is complete.

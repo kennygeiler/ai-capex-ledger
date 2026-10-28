@@ -6,19 +6,13 @@ AI agents read SEC filings and extract revenue, cost of revenue, operating incom
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):**
-- Removed everything stale from the repo.
-- Released `v0.1.0`, NVDA's 32 quarterly values:
-  - Kenny hand-checked all 32 against the filings
-  - every gate passes
-  - content hash `4ae33597b94b`
+**Last done (28 Oct 2026):** `v0.1.0` signed by Kenny Geiler (hash `4ae33597b94b`). It covers NVDA's 32 quarterly values: all hand-checked, every gate passed. Stage 1 is complete.
 
 **Next:**
-1. Kenny signs `v0.1.0`: `uv run python -m ledger signoff v0.1.0 --by "Kenny Geiler"`
-2. **Stage 2, due 6 Nov.**
+1. **Stage 2, due 6 Nov.**
    - Add MSFT and CRWV to tuning, and run ORCL and APLD once as held-out companies.
    - Hand-check their 64 values, then release `v0.2.0`.
-3. Build a client view of released values only (T110).
+2. Build a client view of released values only (T110).
 
 **Critical notes:**
 - **Stage 1 doesn't prove accuracy elsewhere.** It proves the system works on the company the prompt was written for. Accuracy on companies the agents haven't seen starts with stage 2.
@@ -48,7 +42,7 @@ All commands are `uv run python -m ledger <command> --stage N`. The XBRL referen
 
 | Stage | Companies | Hand-checked | Claim | Release |
 |---|---|---|---|---|
-| 1 | NVDA | all 32 | The system works end to end | `v0.1.0` (built) |
+| 1 | NVDA | all 32 | The system works end to end | `v0.1.0` (signed) |
 | 2 | + MSFT, CRWV (tuning); ORCL, APLD (held out) | 64 held-out values | Error rate under 4.7% at 95% confidence, if no errors | `v0.2.0` |
 | 3 | all 19 | 300 held-out values | Error rate under 1% at 95% confidence | `v1.0.0` |
 
