@@ -6,11 +6,12 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** audit fixes to keep DATAHQ actionable and simple.
-- **Warnings:** on a company's page, open warnings are grouped by check; one reason accepts a group (written to `decisions/decisions.jsonl`, signed with your name). Blocking items are still decided with `ledger review`.
-- **Evidence:** every reader (page, scorecard, app, release) now uses every re-read on record, not only the file named after the batch, so single-company runs show their confirmations. `v1.0.1` rebuilds unchanged.
-- **Outputs:** every blank says why (10-K not filed yet, before first 10-K, not in this release); metric definitions sit beside the picker; the CSV export adds the fiscal year end and the reason.
-- **Old DATAHQ artifact** is labelled a frozen snapshot; its exporter (`scripts/datahq.py`, `reports/datahq/`) is removed. The app is the live DATAHQ: `uv run python -m ledger app`, http://127.0.0.1:3610.
+**Last done (28 Oct 2026):** the DATAHQ dashboard shows only numbers that ask for an action or explain why the data can be trusted.
+- **Values accounted for:** 234 of 234 (224 match the SEC's data, 6 explained by code, 4 decided by Kenny, 0 waiting). A value waiting on a person turns it red.
+- **Release:** whether the latest signed release is still what the pipeline would ship (0 values changed since `v1.0.1`); red with a count when it isn't.
+- **Next 10-K** and **agent cost per company** (0.7 min, 28.7K tokens, average of 17 companies read headless).
+- Companies sorted by what needs attention; open warnings by check. Removed: cells-confirmed and fault-test tiles (still in the pipeline bars), the separate next-10-K table, and per-company cost columns (on the Agents page).
+- Earlier today: grouped warning review, evidence from every run, blank reasons in Outputs; `v1.0.1` signed.
 
 **Next:** the demo goal is met: a working pipeline with oversight (agents read, code checks, a person decides and signs, every step visible in DATAHQ). Optional, only if needed:
 1. New-filing watcher: check SEC daily for new 10-Ks and run `ledger run` on them.

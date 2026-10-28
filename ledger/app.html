@@ -165,37 +165,40 @@ function bars(list) {
 async function dashboard(view) {
   const d = await api('/api/hq');
   const H = d.health[0];
-  const next = d.companies.filter((c) => c.next_10k_expected).sort((a, b) => a.next_10k_expected.localeCompare(b.next_10k_expected));
-  const fired = d.rules.filter((r) => r.raised > 0), quiet = d.rules.length - fired.length, maxR = Math.max(1, ...fired.map((r) => r.raised));
+  const next = d.companies.filter((c) => c.next_10k_expected).sort((a, b) => a.next_10k_expected.localeCompare(b.next_10k_expected))[0];
+  const accounted = H.agree + H.explained + H.decided;
+  const openWarn = d.rules.filter((r) => r.severity !== 'info' && r.open > 0), maxW = Math.max(1, ...openWarn.map((r) => r.open));
+  const attention = [...d.companies].sort((a, b) => b.for_a_person - a.for_a_person || b.warnings - a.warnings || a.company.localeCompare(b.company));
+  const stale = H.changed_since_release > 0;
   view.append(h('div', {class: 'stack'},
     h('header', {}, h('h1', {}, 'Morning check'),
-      h('p', {class: 'lede'}, h('b', {class: H.for_a_person ? 'bad' : null}, int(H.for_a_person)), ' items need you. ', h('b', {}, int(H.warnings)), ' warnings to skim. Last run ',
-        h('b', {}, when(H.run_at)), '. Next 10-K: ', h('b', {}, next[0] ? `${next[0].company}, around ${day(next[0].next_10k_expected)}` : '—'), '.')),
+      h('p', {class: 'lede'},
+        H.for_a_person ? [h('b', {class: 'bad'}, int(H.for_a_person)), ' items block the next release. '] : [h('b', {}, 'Nothing blocks a release.'), ' '],
+        H.warnings ? [h('b', {}, int(H.warnings)), ` warnings in ${H.warning_groups} groups to review on the company pages. `] : '',
+        'Last run ', h('b', {}, when(H.run_at)), '.')),
     h('section', {class: 'figs'},
-      fig('Values released', int(H.values), H.latest_release),
-      fig("Match the SEC's data", (100 * H.agree / H.values).toFixed(1) + '%', `${int(H.agree)} of ${int(H.values)}`),
-      fig('Cells confirmed on filing', int(H.cells_confirmed), `of ${int(H.cells)}`),
-      fig('Planted faults escaped', int(H.faults_escaped), `of ${int(H.faults)}`, H.faults_escaped > 0),
-      fig('Agent time, last run', `${H.agent_minutes} min`, `${compact(H.tokens)} tokens`)),
-    h('div', {class: 'two'},
-      h('section', {}, h('h2', {}, 'Pipeline, last run'),
-        bars(d.pipeline.map((s) => ({name: s.step, pct: s.of ? 100 * s.done / s.of : 0, cls: s.ok ? null : 'bad', v: `${int(s.done)} / ${int(s.of)} ${s.unit}`})))),
-      h('section', {}, h('h2', {}, 'Next 10-Ks'), h('p', {class: 'muted small', style: 'margin-bottom:.5rem'}, "Year end plus the company's last filing lag."),
-        table([{t: 'Company', k: 'company'}, {t: 'Ticker', k: 'ticker'}, {t: 'Expected', k: 'next_10k_expected', n: 1, f: (r) => day(r.next_10k_expected)}], next.slice(0, 6), {onRow: (r) => go('company/' + r.ticker)}))),
+      fig('Values accounted for', `${int(accounted)} of ${int(H.values)}`,
+        h('span', {}, `${int(H.agree)} match the SEC's data, ${int(H.explained)} explained by code, ${int(H.decided)} decided by you, `,
+          h('span', {class: H.waiting ? 'bad' : null}, `${int(H.waiting)} waiting`)), H.waiting > 0),
+      fig('Release', H.latest_release || '—', stale ? h('span', {class: 'bad'}, `${int(H.changed_since_release)} values changed since; release again`) : `current, signed ${day(H.latest_release_at)}`, stale),
+      fig('Next 10-K', next ? next.company : '—', next ? `around ${day(next.next_10k_expected)}` : ''),
+      fig('Agent cost per company', H.per_company_minutes != null ? `${H.per_company_minutes} min` : '—', H.per_company_tokens ? `${compact(H.per_company_tokens)} tokens, average of ${H.measured_companies}` : '')),
+    h('section', {}, h('h2', {}, 'Pipeline, last run'),
+      bars(d.pipeline.map((s) => ({name: s.step, pct: s.of ? 100 * s.done / s.of : 0, cls: s.ok ? null : 'bad', v: `${int(s.done)} / ${int(s.of)} ${s.unit}`})))),
     h('section', {}, h('h2', {}, 'Companies'),
-      table([{t: 'Ticker', k: 'ticker'}, {t: 'Company', k: 'company', wide: 1}, {t: '10-Ks', k: 'filings', n: 1}, {t: 'Values', k: 'values', n: 1},
-        {t: 'Match SEC', k: 'agree', n: 1}, {t: 'Cells confirmed', k: 'cells_confirmed', n: 1, f: (r) => `${int(r.cells_confirmed)} / ${int(r.cells)}`},
-        {t: 'For you', k: 'for_a_person', n: 1, f: (r) => h('span', {class: r.for_a_person ? 'bad' : null}, int(r.for_a_person))}, {t: 'Warnings', k: 'warnings', n: 1},
-        {t: 'Agent min', k: 'agent_minutes', n: 1, wide: 1}, {t: 'Tokens', k: 'tokens', n: 1, wide: 1, f: (r) => int(r.tokens)},
-        {t: 'Last 10-K', k: 'last_10k_filed', n: 1, wide: 1, f: (r) => day(r.last_10k_filed)}], d.companies, {onRow: (r) => go('company/' + r.ticker)})),
+      table([{t: 'Company', k: 'company', f: (r) => [r.company, ' ', h('span', {class: 'muted small'}, r.ticker)]},
+        {t: 'Blocks', k: 'for_a_person', n: 1, f: (r) => h('span', {class: r.for_a_person ? 'bad' : 'muted'}, int(r.for_a_person))},
+        {t: 'Warnings', k: 'warnings', n: 1, f: (r) => h('span', {class: r.warnings ? null : 'muted'}, int(r.warnings))},
+        {t: 'Values', k: 'values', n: 1}, {t: '10-Ks', k: 'filings', n: 1, wide: 1},
+        {t: 'Last 10-K', k: 'last_10k_filed', n: 1, wide: 1, f: (r) => day(r.last_10k_filed)},
+        {t: 'Next 10-K', k: 'next_10k_expected', n: 1, f: (r) => day(r.next_10k_expected)}], attention, {onRow: (r) => go('company/' + r.ticker)})),
     h('div', {class: 'two'},
-      h('section', {}, h('h2', {}, 'Checks that fired'), h('p', {class: 'muted small', style: 'margin-bottom:.5rem'}, 'Red blocks a release, blue is a warning, grey is a note.'),
-        bars(fired.map((r) => ({name: r.rule.replaceAll('_', ' '), pct: 100 * r.raised / maxR, cls: r.severity === 'block' ? 'bad' : r.severity === 'info' ? 'note' : null,
-          v: r.severity === 'info' ? int(r.raised) : `${int(r.raised)}, ${int(r.open)} open`}))),
-        h('p', {class: 'muted small', style: 'margin-top:.6rem'}, `${quiet} more checks ran and found nothing.`)),
+      h('section', {}, h('h2', {}, 'Open warnings by check'),
+        openWarn.length ? [bars(openWarn.map((r) => ({name: r.rule.replaceAll('_', ' '), pct: 100 * r.open / maxW, cls: r.severity === 'block' ? 'bad' : null, v: int(r.open)}))),
+          h('p', {class: 'muted small', style: 'margin-top:.6rem'}, "Accept a group with one reason on the company's page.")] : h('p', {class: 'muted'}, 'None open.')),
       h('section', {}, h('h2', {}, 'Releases'),
-        table([{t: 'Version', k: 'version'}, {t: 'Companies', k: 'companies', n: 1}, {t: 'Values', k: 'values', n: 1}, {t: 'Signed by', k: 'signed_by'},
-          {t: 'Signed', k: 'signed_at', f: (r) => day(r.signed_at), wide: 1}, {t: 'Hash', k: 'hash', f: (r) => h('span', {class: 'mono muted'}, r.hash), wide: 1}], [...d.releases].reverse())))));
+        table([{t: 'Version', k: 'version'}, {t: 'Values', k: 'values', n: 1}, {t: 'Signed by', k: 'signed_by'},
+          {t: 'Signed', k: 'signed_at', f: (r) => day(r.signed_at), wide: 1}], [...d.releases].reverse())))));
 }
 const fig = (l, n, s, bad) => h('div', {class: 'fig'}, h('div', {class: 'l'}, l), h('div', {class: 'n' + (bad ? ' bad' : '')}, n), h('div', {class: 's'}, s));
 

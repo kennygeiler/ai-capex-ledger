@@ -2,13 +2,14 @@
 
 Read only from what the pipeline already wrote: the database, the evidence and fault reports, and releases/.
 Used by the app (`python -m ledger app`)."""
+import csv
 import json
 from collections import Counter
 from datetime import date, timedelta
 
 from . import store
 from .config import AI_SET, STAGES
-from .review import decisions, open_items
+from .review import apply, decisions, open_items
 from .scorecard import scorecard
 from .evidence import load_all
 
@@ -24,7 +25,7 @@ def snapshot(con, stage: int = 3) -> dict:
     t = [tickers]
     docs = rows(con, "select * from documents where ticker in (select unnest(?))", t)
     exts = rows(con, "select extraction_id from extractions where ticker in (select unnest(?))", t)
-    vals = rows(con, 'select label from "values" where ticker in (select unnest(?))', t)
+    vals = rows(con, 'select * from "values" where ticker in (select unnest(?))', t)
     excs = rows(con, "select * from exceptions where ticker in (select unnest(?))", t)
     todo = open_items(excs, decisions())
     ev = load_all()
@@ -71,7 +72,7 @@ def snapshot(con, stage: int = 3) -> dict:
              for r, m in sorted(rule_meta.items(), key=lambda kv: -hits[kv[0]])]
 
     releases = []
-    for d in sorted((store.ROOT / "releases").glob("v*")):
+    for d in sorted((store.ROOT / "releases").glob("v*"), key=lambda d: [int(x) for x in d.name[1:].split(".")]):
         m, s = json.loads((d / "manifest.json").read_text()), d / "SIGNOFF.json"
         sig = json.loads(s.read_text()) if s.exists() else {}
         vs = (d / "values.csv").read_text().splitlines()[1:]
@@ -79,11 +80,31 @@ def snapshot(con, stage: int = 3) -> dict:
                          "hash": m["hash"][:12], "signed_by": sig.get("signed_by"), "signed_at": sig.get("signed_at"),
                          "prompt": m["prompt"], "parser": m["parser"]})
 
+    # Where every value stands: agrees with XBRL, a difference code explains, one a person decided, or one waiting on a person.
+    waiting_keys = {(e["ticker"], e["field"], e["period"]) for e in todo if e["rule_id"] == "xbrl_reconcile"}
+    unresolved = [v for v in vals if v["label"] == "unresolved"]
+    waiting = sum((v["ticker"], v["field"], v["period"]) in waiting_keys for v in unresolved)
+    explained = sum(v["label"] in ("definition_gap", "not_reported") for v in vals)
+
+    # Is the latest release still what the pipeline would ship? Count values that differ from it.
+    changed = None
+    if releases:
+        d = store.ROOT / "releases" / releases[-1]["version"]
+        if json.loads((d / "manifest.json").read_text())["stage"] == stage:
+            shipped = {(r["ticker"], r["field"], r["period"]): r["value"] for r in csv.DictReader((d / "values.csv").open())}
+            now = {(v["ticker"], v["field"], v["period"]): "" if v["value"] is None else str(v["value"]) for v in apply(vals, excs, decisions())}
+            changed = sum(shipped.get(k) != now.get(k) for k in shipped.keys() | now.keys())
+
+    run = [c for c in companies if c["tokens"]]  # companies read headless, so their cost was measured
     health = [{"run_at": last_run, "companies": len(tickers), "filings": len(docs), "values": len(vals), "agree": labels["agree"],
                "cells_confirmed": confirmed, "cells": len(exts), "faults": len(faults), "faults_escaped": escaped,
                "for_a_person": sum(e["severity"] == "block" for e in todo), "warnings": sum(e["severity"] == "warn" for e in todo),
                "agent_minutes": round(sum(c["agent_minutes"] for c in companies), 1), "tokens": sum(c["tokens"] for c in companies),
                "latest_release": releases[-1]["version"] if releases else None,
-               "latest_release_signed": bool(releases and releases[-1]["signed_by"])}]
+               "latest_release_signed": bool(releases and releases[-1]["signed_by"]), "latest_release_at": releases[-1]["signed_at"] if releases else None,
+               "explained": explained, "decided": len(unresolved) - waiting, "waiting": waiting, "changed_since_release": changed,
+               "warning_groups": len({(e["ticker"], e["rule_id"]) for e in todo if e["severity"] == "warn"}),
+               "per_company_minutes": round(sum(c["agent_minutes"] for c in run) / len(run), 1) if run else None,
+               "per_company_tokens": round(sum(c["tokens"] for c in run) / len(run)) if run else None, "measured_companies": len(run)}]
 
     return {"health": health, "pipeline": pipeline, "companies": companies, "rules": rules, "releases": releases}
