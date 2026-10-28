@@ -7,27 +7,28 @@ import json
 from pathlib import Path
 
 
-# The brief's AI-trade set, plus Nasdaq-listed names outside the S&P 500.
+# The brief's AI-trade set, plus Nasdaq-listed names outside the S&P 500. role: a buyer spends capex on the AI buildout,
+# a seller supplies it (chips, networking, memory). The Insights page sums by role.
 AI_SET = [
-    {"ticker": "NVDA", "name": "Nvidia", "group": "AI trade"},
-    {"ticker": "MSFT", "name": "Microsoft", "group": "AI trade"},
-    {"ticker": "GOOGL", "name": "Alphabet", "group": "AI trade"},
-    {"ticker": "AMZN", "name": "Amazon", "group": "AI trade"},
-    {"ticker": "META", "name": "Meta", "group": "AI trade"},
-    {"ticker": "ORCL", "name": "Oracle", "group": "AI trade"},
-    {"ticker": "TSLA", "name": "Tesla", "group": "AI trade"},
-    {"ticker": "MU", "name": "Micron", "group": "AI trade"},
-    {"ticker": "AMD", "name": "AMD", "group": "AI trade"},
-    {"ticker": "SPCX", "name": "SpaceX", "group": "AI trade", "note": "Nasdaq IPO June 2026"},
-    {"ticker": "CRWV", "name": "CoreWeave", "group": "Nasdaq, not S&P 500", "note": "IPO March 2025"},
-    {"ticker": "MRVL", "name": "Marvell", "group": "Nasdaq, not S&P 500"},
-    {"ticker": "ALAB", "name": "Astera Labs", "group": "Nasdaq, not S&P 500", "note": "IPO March 2024"},
-    {"ticker": "CRDO", "name": "Credo", "group": "Nasdaq, not S&P 500"},
-    {"ticker": "IREN", "name": "IREN", "group": "Nasdaq, not S&P 500", "note": "Moved from 20-F to 10-K in 2025"},
-    {"ticker": "APLD", "name": "Applied Digital", "group": "Nasdaq, not S&P 500"},
-    {"ticker": "CIFR", "name": "Cipher Digital", "group": "Nasdaq, not S&P 500"},
-    {"ticker": "WULF", "name": "TeraWulf", "group": "Nasdaq, not S&P 500"},
-    {"ticker": "CORZ", "name": "Core Scientific", "group": "Nasdaq, not S&P 500"},
+    {"ticker": "NVDA", "name": "Nvidia", "group": "AI trade", "role": "seller"},
+    {"ticker": "MSFT", "name": "Microsoft", "group": "AI trade", "role": "buyer"},
+    {"ticker": "GOOGL", "name": "Alphabet", "group": "AI trade", "role": "buyer"},
+    {"ticker": "AMZN", "name": "Amazon", "group": "AI trade", "role": "buyer"},
+    {"ticker": "META", "name": "Meta", "group": "AI trade", "role": "buyer"},
+    {"ticker": "ORCL", "name": "Oracle", "group": "AI trade", "role": "buyer"},
+    {"ticker": "TSLA", "name": "Tesla", "group": "AI trade", "role": "buyer"},
+    {"ticker": "MU", "name": "Micron", "group": "AI trade", "role": "seller"},
+    {"ticker": "AMD", "name": "AMD", "group": "AI trade", "role": "seller"},
+    {"ticker": "SPCX", "name": "SpaceX", "group": "AI trade", "role": "buyer", "note": "Nasdaq IPO June 2026"},
+    {"ticker": "CRWV", "name": "CoreWeave", "group": "Nasdaq, not S&P 500", "role": "buyer", "note": "IPO March 2025"},
+    {"ticker": "MRVL", "name": "Marvell", "group": "Nasdaq, not S&P 500", "role": "seller"},
+    {"ticker": "ALAB", "name": "Astera Labs", "group": "Nasdaq, not S&P 500", "role": "seller", "note": "IPO March 2024"},
+    {"ticker": "CRDO", "name": "Credo", "group": "Nasdaq, not S&P 500", "role": "seller"},
+    {"ticker": "IREN", "name": "IREN", "group": "Nasdaq, not S&P 500", "role": "buyer", "note": "Moved from 20-F to 10-K in 2025"},
+    {"ticker": "APLD", "name": "Applied Digital", "group": "Nasdaq, not S&P 500", "role": "buyer"},
+    {"ticker": "CIFR", "name": "Cipher Digital", "group": "Nasdaq, not S&P 500", "role": "buyer"},
+    {"ticker": "WULF", "name": "TeraWulf", "group": "Nasdaq, not S&P 500", "role": "buyer"},
+    {"ticker": "CORZ", "name": "Core Scientific", "group": "Nasdaq, not S&P 500", "role": "buyer"},
 ]
 
 # Companies whose history sits under an older CIK (reorganizations). Facts from these CIKs are merged in.

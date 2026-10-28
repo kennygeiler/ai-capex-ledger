@@ -65,9 +65,8 @@ def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str |
         newest = fl[-1][1]  # every field of a company-year comes from the newest 10-K that reports it: one basis per year
         for f in RELEASE_FIELDS:
             parts = ("revenue", "cost_of_revenue", "operating_income") if f == "opex" else (f,)
-            if not all(p in newest for p in parts):
-                if any(p in newest for p in parts):  # the filing reports the year but not this line (e.g. no cost of revenue)
-                    out.append(_row(ticker, f, period, end, None, None, [], "not_reported", "as_reported", docs))
+            if not all(p in newest for p in parts):  # the 10-K reports the year but has no such line (a bank's capex)
+                out.append(_row(ticker, f, period, end, None, None, [], "not_reported", "as_reported", docs))
                 continue
             val = lambda fs: fs["revenue"]["value"] - fs["cost_of_revenue"]["value"] - fs["operating_income"]["value"] if f == "opex" else fs[f]["value"]
             day0 = next(d for d, fs in fl if all(p in fs for p in parts))  # filings on the same day are one vintage:

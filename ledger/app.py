@@ -6,6 +6,7 @@ attributed: agent changes (agents/agents.json, new prompt versions), a reviewer'
 (decisions/decisions.jsonl, the same log as `ledger review`), and a company added to data/companies.json, which starts
 `ledger run` for it in the background. Serves on 127.0.0.1 only."""
 import csv
+import io
 import json
 import mimetypes
 import os
@@ -16,6 +17,7 @@ from datetime import datetime, timezone
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+import zipfile
 from urllib.parse import parse_qs, urlparse
 
 import duckdb
@@ -108,18 +110,65 @@ def agents_view() -> dict:
     return out
 
 
+def latest_signed():
+    rel = sorted(RELEASES.glob("v*"), key=lambda p: [int(x) for x in p.name[1:].split(".")])
+    signed = [d for d in rel if (d / "SIGNOFF.json").exists()]
+    return signed[-1] if signed else None
+
+
+def insights() -> dict:
+    """What the signed numbers say about the AI buildout. Only a signed release feeds this page: the signature is the gate."""
+    d = latest_signed()
+    if not d:
+        return {"release": None}
+    roles = {c["ticker"]: c.get("role", "other") for c in tracked()}
+    names = {c["ticker"]: c["name"] for c in tracked()}
+    rows = [r for r in csv.DictReader((d / "values.csv").open()) if r["value"] != ""]
+    v = {(r["ticker"], r["field"], r["period"]): int(r["value"]) for r in rows}
+    years = sorted({r["period"] for r in rows})
+    tickers = sorted({r["ticker"] for r in rows})
+    sig = json.loads((d / "SIGNOFF.json").read_text())
+    companies = []
+    for t in tickers:
+        ys = [y for y in years if (t, "capex", y) in v and (t, "revenue", y) in v]
+        if not ys:
+            continue
+        first, last = ys[0], ys[-1]
+        companies.append({"ticker": t, "company": names.get(t, t), "role": roles.get(t, "other"), "first": first, "last": last,
+                          "capex_last": v[(t, "capex", last)], "revenue_last": v[(t, "revenue", last)], "intensity": v[(t, "capex", last)] / v[(t, "revenue", last)],
+                          "capex_growth": v[(t, "capex", last)] / v[(t, "capex", first)] if v[(t, "capex", first)] and first != last else None,
+                          "revenue_growth": v[(t, "revenue", last)] / v[(t, "revenue", first)] if v[(t, "revenue", first)] and first != last else None,
+                          "capex": {y: v.get((t, "capex", y)) for y in years}, "revenue": {y: v.get((t, "revenue", y)) for y in years}})
+    totals = {role: {y: {"capex": sum(c["capex"][y] or 0 for c in companies if c["role"] == role and c["capex"].get(y) is not None),
+                          "revenue": sum(c["revenue"][y] or 0 for c in companies if c["role"] == role and c["revenue"].get(y) is not None),
+                          "n": sum(1 for c in companies if c["role"] == role and c["capex"].get(y) is not None)} for y in years}
+              for role in ("buyer", "seller")}
+    return {"release": d.name, "signed_by": sig.get("signed_by"), "signed_at": sig.get("signed_at"), "years": years, "companies": companies, "totals": totals}
+
+
+def packet(version: str) -> bytes | None:
+    d = RELEASES / version
+    if not re.fullmatch(r"v\d+\.\d+\.\d+", version) or not (d / "SIGNOFF.json").exists():
+        return None
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        for f in sorted(d.iterdir()):
+            z.write(f, f"capex-ledger-{version}/{f.name}")
+    return buf.getvalue()
+
+
 def outputs() -> dict:
     rel = sorted(RELEASES.glob("v*"), key=lambda p: [int(x) for x in p.name[1:].split(".")])
     names = {c["ticker"]: c["name"] for c in tracked()}
     out = []
     for d in rel:
         sig = json.loads((d / "SIGNOFF.json").read_text()) if (d / "SIGNOFF.json").exists() else {}
-        out.append({"version": d.name, "signed_by": sig.get("signed_by"), "signed_at": sig.get("signed_at"),
+        out.append({"version": d.name, "signed_by": sig.get("signed_by"), "signed_at": sig.get("signed_at"), "packet": bool(sig) and (d / "README.md").exists(),
                     "rows": [{**r, "company": names.get(r["ticker"], r["ticker"])} for r in csv.DictReader((d / "values.csv").open())]})
     return {"releases": out}
 
 
-def accept_warnings(ids: list[str], reason: str, by: str) -> dict:
+def decide_items(ids: list[str], reason: str, by: str) -> dict:
     """One reason covers several items with the same cause."""
     if not ids or not reason.strip() or not by.strip():
         raise ValueError("pick warnings and give a reason and your name")
@@ -263,6 +312,17 @@ class Handler(BaseHTTPRequestHandler):
             return self._guard(lambda: self._json(agents_view()))
         if u.path == "/api/job":
             return self._json(job())
+        if u.path == "/api/insights":
+            return self._json(insights())
+        if u.path.startswith("/packet/") and u.path.endswith(".zip"):
+            z = packet(u.path[len("/packet/"):-4])
+            if z:
+                self.send_response(HTTPStatus.OK)
+                self.send_header("Content-Type", "application/zip")
+                self.send_header("Content-Disposition", f'attachment; filename="capex-ledger-{u.path[len("/packet/"):]}"')
+                self.send_header("Content-Length", str(len(z)))
+                self.end_headers()
+                return self.wfile.write(z)
         if u.path == "/api/outputs":
             return self._guard(lambda: self._json(outputs()))
         if u.path == "/api/output":  # the agent's raw answer for one filing, exactly as saved
@@ -291,7 +351,7 @@ class Handler(BaseHTTPRequestHandler):
         if u.path == "/api/companies":
             return self._guard(lambda: self._json(add_company(body.get("ticker", ""), body.get("by", ""))))
         if u.path == "/api/decide":
-            return self._guard(lambda: self._json(accept_warnings(body.get("ids", []), body.get("reason", ""), body.get("by", ""))))
+            return self._guard(lambda: self._json(decide_items(body.get("ids", []), body.get("reason", ""), body.get("by", ""))))
         parts = u.path.strip("/").split("/")  # api/agents/<id>/<prompt|use|model>
         if len(parts) != 4 or parts[:2] != ["api", "agents"] or parts[2] not in agents.load():
             return self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)

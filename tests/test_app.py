@@ -27,22 +27,22 @@ class Decide(unittest.TestCase):
 
     def test_needs_a_reason_and_a_name(self):
         with self.assertRaises(ValueError):
-            app.accept_warnings(["x"], " ", "Kenny Geiler")
+            app.decide_items(["x"], " ", "Kenny Geiler")
         with self.assertRaises(ValueError):
-            app.accept_warnings(["x"], "expected", "")
+            app.decide_items(["x"], "expected", "")
 
     def test_refuses_unknown_items_and_other_blocks(self):
         with self.assertRaises(ValueError):
-            app.accept_warnings(["no-such-exception"], "expected", "Kenny Geiler")
+            app.decide_items(["no-such-exception"], "expected", "Kenny Geiler")
         other = self._ids("severity = 'block' and rule_id <> 'cost_lines_summed'")
         if other:
             with self.assertRaises(ValueError):
-                app.accept_warnings(other, "expected", "Kenny Geiler")
+                app.decide_items(other, "expected", "Kenny Geiler")
 
     def test_writes_only_to_the_log_it_is_given(self):
         ids = self._ids("severity = 'warn'")
         if ids:
-            app.accept_warnings(ids, "test", "Test")
+            app.decide_items(ids, "test", "Test")
             self.assertEqual(len(self.log.read_text().splitlines()), 1)
 
 

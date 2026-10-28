@@ -22,16 +22,23 @@ def load_all() -> dict:
 _LOCATE = """([idx, row, col, cited]) => {
   const norm = (s) => (s || "").replace(/\\s+/g, "").toLowerCase();
   const tables = [...document.querySelectorAll("table")];
-  const want = norm(row), head = norm(col.split("|").pop());
+  const parts = col.split("|").map(norm), want = norm(row), head = parts[parts.length - 1];
   for (const t of [tables[idx], ...tables].filter(Boolean)) {
     const trs = [...t.querySelectorAll("tr")];
     const named = trs.filter((r) => { const c = [...r.cells].find((c) => c.textContent.trim()); return c && norm(c.textContent) === want; });
     if (!named.length) continue;
     // A label can repeat (Oracle lists "Services" under revenues and again under expenses): use the row that shows the cited text, else the first.
     const read = (tr) => {
-      const heads = trs.slice(0, trs.indexOf(tr)).flatMap((r) => [...r.cells]).filter((c) => norm(c.textContent).endsWith(head));
+      const above = trs.slice(0, trs.indexOf(tr)).flatMap((r) => [...r.cells]);
+      const heads = above.filter((c) => norm(c.textContent).endsWith(head));
       if (!heads.length) return null;
-      const h = heads[heads.length - 1].getBoundingClientRect();
+      let h = null;
+      if (heads.length > 1 && parts.length > 1) {  // the same sub-header under every year (Intel: "Amount"): take the one under the cited year
+        const cx = (r) => r.left + r.width / 2;
+        const tops = above.filter((c) => norm(c.textContent).endsWith(parts[parts.length - 2])).map((c) => cx(c.getBoundingClientRect()));
+        if (tops.length) h = heads.map((c) => c.getBoundingClientRect()).sort((a, b) => Math.min(...tops.map((x) => Math.abs(cx(a) - x))) - Math.min(...tops.map((x) => Math.abs(cx(b) - x))))[0];
+      }
+      h = h || heads[heads.length - 1].getBoundingClientRect();
       const cells = [...tr.cells].slice(1).filter((c) => { const r = c.getBoundingClientRect(); return c.textContent.trim() && r.right > h.left + 1 && r.left < h.right - 1; });
       const near = (c, step) => { for (let n = c && c[step]; n; n = n[step]) if (n.textContent.trim()) return n; };
       const nx = near(cells[cells.length - 1], "nextElementSibling"), pv = near(cells[0], "previousElementSibling");

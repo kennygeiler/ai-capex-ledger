@@ -1,0 +1,129 @@
+{
+ "accession": "0000051143-26-000010",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0074",
+   "row_label": "Total revenue",
+   "column_label": "2025",
+   "cell_text": "67,535",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 67535000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0074",
+   "row_label": "Total revenue",
+   "column_label": "2024",
+   "cell_text": "62,753",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 62753000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0074",
+   "row_label": "Total revenue",
+   "column_label": "2023",
+   "cell_text": "61,860",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 61860000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0074",
+   "row_label": "Total cost",
+   "column_label": "2025",
+   "cell_text": "28,239",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 28239000000,
+   "confidence": 0.95,
+   "notes": "'Total cost' under the 'Cost' section sums Services, Sales and Financing costs. These mirror the revenue lines, and gross profit is computed from this total."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0074",
+   "row_label": "Total cost",
+   "column_label": "2024",
+   "cell_text": "27,201",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 27201000000,
+   "confidence": 0.95,
+   "notes": "'Total cost' under the 'Cost' section sums Services, Sales and Financing costs. These mirror the revenue lines, and gross profit is computed from this total."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0074",
+   "row_label": "Total cost",
+   "column_label": "2023",
+   "cell_text": "27,560",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 27560000000,
+   "confidence": 0.95,
+   "notes": "'Total cost' under the 'Cost' section sums Services, Sales and Financing costs. These mirror the revenue lines, and gross profit is computed from this total."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0080",
+   "row_label": "Payments for property, plant and equipment",
+   "column_label": "2025",
+   "cell_text": "(1,091)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 1091000000,
+   "confidence": 1.0,
+   "notes": "'Investment in software' is a separate line and was not added."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0080",
+   "row_label": "Payments for property, plant and equipment",
+   "column_label": "2024",
+   "cell_text": "(1,048)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 1048000000,
+   "confidence": 1.0,
+   "notes": "'Investment in software' is a separate line and was not added."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0080",
+   "row_label": "Payments for property, plant and equipment",
+   "column_label": "2023",
+   "cell_text": "(1,245)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 1245000000,
+   "confidence": 1.0,
+   "notes": "'Investment in software' is a separate line and was not added."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "operating_income",
+   "reason": "IBM's income statement has no operating income or 'income from operations' line. It goes from gross profit through 'Total expense and other (income)', which includes interest expense and other income, straight to 'Income from continuing operations before income taxes'. Deriving operating income would take arithmetic, which the rules prohibit."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable. A total cost line ('Total cost') exists."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.4,
+  "input_tokens": 6488,
+  "output_tokens": 1512,
+  "attempts": 1,
+  "task_sha": "0e119eb5e8aa5004"
+ }
+}

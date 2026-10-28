@@ -1,0 +1,161 @@
+{
+ "accession": "0000034088-26-000045",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0173",
+   "row_label": "Sales and other operating revenue",
+   "column_label": "2025",
+   "cell_text": "323,905",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 323905000000,
+   "confidence": 0.9,
+   "notes": "Chose 'Sales and other operating revenue' over 'Total revenues and other income'; the latter adds income from equity affiliates and other income, which are not revenue from sales."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0173",
+   "row_label": "Sales and other operating revenue",
+   "column_label": "2024",
+   "cell_text": "339,247",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 339247000000,
+   "confidence": 0.9,
+   "notes": "Chose 'Sales and other operating revenue' over 'Total revenues and other income'; the latter adds income from equity affiliates and other income, which are not revenue from sales."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0173",
+   "row_label": "Sales and other operating revenue",
+   "column_label": "2023",
+   "cell_text": "334,697",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 334697000000,
+   "confidence": 0.9,
+   "notes": "Chose 'Sales and other operating revenue' over 'Total revenues and other income'; the latter adds income from equity affiliates and other income, which are not revenue from sales."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0173",
+   "row_label": "Crude oil and product purchases",
+   "column_label": "2025",
+   "cell_text": "184,248",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 184248000000,
+   "confidence": 0.85,
+   "notes": "No total cost-of-revenue line. Purchases of crude oil and products are the direct cost of the goods sold."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0173",
+   "row_label": "Crude oil and product purchases",
+   "column_label": "2024",
+   "cell_text": "199,454",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 199454000000,
+   "confidence": 0.85,
+   "notes": "No total cost-of-revenue line. Purchases of crude oil and products are the direct cost of the goods sold."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0173",
+   "row_label": "Crude oil and product purchases",
+   "column_label": "2023",
+   "cell_text": "193,029",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 193029000000,
+   "confidence": 0.85,
+   "notes": "No total cost-of-revenue line. Purchases of crude oil and products are the direct cost of the goods sold."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0173",
+   "row_label": "Production and manufacturing expenses",
+   "column_label": "2025",
+   "cell_text": "42,424",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 42424000000,
+   "confidence": 0.85,
+   "notes": "No total cost-of-revenue line. Production and manufacturing expenses are the cost of producing and refining the products sold. Excluded depreciation and depletion, exploration, SG&A, pension, interest and other taxes and duties."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0173",
+   "row_label": "Production and manufacturing expenses",
+   "column_label": "2024",
+   "cell_text": "39,609",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 39609000000,
+   "confidence": 0.85,
+   "notes": "No total cost-of-revenue line. Production and manufacturing expenses are the cost of producing and refining the products sold. Excluded depreciation and depletion, exploration, SG&A, pension, interest and other taxes and duties."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0173",
+   "row_label": "Production and manufacturing expenses",
+   "column_label": "2023",
+   "cell_text": "36,885",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 36885000000,
+   "confidence": 0.85,
+   "notes": "No total cost-of-revenue line. Production and manufacturing expenses are the cost of producing and refining the products sold. Excluded depreciation and depletion, exploration, SG&A, pension, interest and other taxes and duties."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0179",
+   "row_label": "Additions to property, plant, and equipment",
+   "column_label": "2025",
+   "cell_text": "(28,358)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 28358000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0179",
+   "row_label": "Additions to property, plant, and equipment",
+   "column_label": "2024",
+   "cell_text": "(24,306)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 24306000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0179",
+   "row_label": "Additions to property, plant, and equipment",
+   "column_label": "2023",
+   "cell_text": "(21,919)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 21919000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "operating_income",
+   "reason": "The income statement has no operating income or 'income (loss) from operations' line. It goes straight from 'Total costs and other deductions', which includes interest expense, to 'Income (loss) before income taxes'. No value was derived by arithmetic."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.4,
+  "input_tokens": 6744,
+  "output_tokens": 2228,
+  "attempts": 1,
+  "task_sha": "ff73e7e7de7c891b"
+ }
+}

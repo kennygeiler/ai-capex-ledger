@@ -31,8 +31,10 @@ class Versions(unittest.TestCase):
         self.assertNotIn("statements@v2", agents.prompt_text(new))
         self.assertEqual(agents.prompt_text("statements@v2"), "# statements@v2\nReturn prompt_version statements@v2.\n")
         a = agents.load()["reader"]
-        self.assertEqual(a["prompt"], "statements@v3")
+        self.assertEqual(a["prompt"], "statements@v2")  # saved, not switched on: that is a second, explicit step
         self.assertEqual(a["history"][-1]["by"], "Kenny Geiler")
+        agents.use_prompt("reader", new, "Kenny Geiler")
+        self.assertEqual(agents.load()["reader"]["prompt"], "statements@v3")
 
     def test_a_change_needs_who_and_why(self):
         with self.assertRaises(ValueError):

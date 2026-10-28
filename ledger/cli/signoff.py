@@ -13,8 +13,9 @@ def main(argv=None) -> int:
     ap.add_argument("--by", required=True)
     a = ap.parse_args(argv)
     d = RELEASES / a.version
-    files = {n: (d / n).read_text() for n in ("values.csv", "QUALITY.md", "DIFF.md")}
-    h = json.loads((d / "manifest.json").read_text())["hash"]
+    m = json.loads((d / "manifest.json").read_text())
+    files = {n: (d / n).read_text() for n in m.get("files", ["values.csv", "QUALITY.md", "DIFF.md"])}
+    h = m["hash"]
     if content_hash(files) != h:
         print(f"{a.version} files no longer match their hash; not signed.")
         return 1

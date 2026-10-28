@@ -1,7 +1,8 @@
 """The named agents: every place an LLM makes a decision, with its model and prompt, in agents/agents.json.
 
 A prompt is never edited in place: a change is saved as the next version (statements@v3), so every past output still
-points at the exact text that produced it. Every change is appended to the agent's history with who made it."""
+points at the exact text that produced it. Saving and switching on are two separate steps by a person, each logged
+with who did it; the model change is logged the same way."""
 import json
 import re
 from datetime import datetime, timezone
@@ -35,7 +36,7 @@ def prompt_text(version: str) -> str:
 
 
 def save_prompt(agent_id: str, text: str, by: str, note: str) -> str:
-    """Save `text` as the next version and make it the active one. Returns the new version."""
+    """Save `text` as the next version. It is not in use until `use_prompt`: a person switches it on, on purpose."""
     if not text.strip() or not by.strip() or not note.strip():
         raise ValueError("a prompt change needs the text, who made it and why")
     cfg = load()
@@ -45,8 +46,7 @@ def save_prompt(agent_id: str, text: str, by: str, note: str) -> str:
     # The prompt names its own version (the agent copies it into its output), so the copy carries the new name.
     text = re.sub(rf"\b{re.escape(family)}@v\d+\b", new, text)
     (PROMPTS / f"{new}.md").write_text(text if text.endswith("\n") else text + "\n")
-    a["prompt"] = new
-    a["history"].append({"at": _now(), "by": by, "change": f"{new}: {note}"})
+    a["history"].append({"at": _now(), "by": by, "change": f"{new} saved, not in use: {note}"})
     _save(cfg)
     return new
 

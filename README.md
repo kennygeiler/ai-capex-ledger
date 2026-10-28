@@ -6,24 +6,26 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** DATAHQ cleaned up, and companies can be added from it.
-- **Add company** (`#add`): type any ticker the SEC lists; the app adds it to `data/companies.json` and runs `ledger run` for it in the background, showing each step in one plain line. First real run: Arista Networks (ANET), 4 filings, 12 values, all matching the SEC's data, 0 planted mistakes through, under a minute of agent time. Added companies join the full set and the next release.
-- **Company page** now tells the cleaning story: the questions for you (cost-line confirmations show the lines and the opex gap per year, and can be confirmed in the app), a fields × years grid, and "How each number was cleaned": the cell as printed, unit, brackets to positive, dash to zero, cost lines summed, column to fiscal year, newest filing and first-reported value, then the checks.
-- **Dashboard:** the four numbers that matter on top, questions and "since last run" side by side as tables, findings as a table. No more walls of rule text.
-- Earlier today: the audit's change list (answer key, 10-K/As, cost-line sign-off, judgement vs findings, `ledger watch`).
+**Last done (28 Oct 2026, evening):** audit, Insights, client packet, and the scale run to 31 companies.
+- **Audit fixes:** a prompt edit is saved as the next version and switched on as a second, logged step; the name you sign with lives once in the nav; the release tile shows the exact commands; every question says why code can't decide it.
+- **Insights** (`#insights`): on signed data only. Who pays (buyers' capex) and who gets paid (sellers' revenue), FY2022 → FY2025, and every company's capex, revenue and intensity. Each company in `config.AI_SET` and `data/companies.json` carries a role.
+- **Client packet:** every release now builds a `README.md` next to `values.csv`, `DATA_DICTIONARY.md` and `QUALITY.md`; DATAHQ serves a signed release as one zip at `/packet/<version>.zip` (Outputs page).
+- **Scale run:** 12 companies added from DATAHQ (AAPL, AVGO, INTC, QCOM, TXN, CSCO, IBM, WMT, XOM, JPM, ANET, and Compass by Kenny): 31 tracked. Full run on all 31 with parser `tables@9`: 132 filings, 384 values, 354 agree with the SEC's data, 26 more explained by code (16 the 10-K doesn't report, 10 definition gaps), 1,431 of 1,431 cited cells confirmed on the rendered 10-K, 0 of 7,075 planted faults through. Eight new failure types (16–23) in `docs/INGESTION.md`; seven fixed in code, one is a definition only a person can confirm.
 
-**Waiting on Kenny:** answer the 3 questions in DATAHQ (ORCL cost lines, APLD cost lines, APLD FY2026 opex jump). The cost-line confirmations are blocking items, decided with `ledger review decide`. Then release `v1.0.2` (`v1.0.1` differs in 5 restated labels).
+**Waiting on Kenny:** 8 blocking items in DATAHQ, then `v1.1.0`. Four are cost-line confirmations (APLD, COMP, ORCL, XOM: which lines count as cost of revenue). Four are ExxonMobil's revenue, FY2022–25: the SEC's `Revenues` tag is "total revenues and other income" (sales + equity-affiliate income + other income); the ledger's revenue is the sales line. One judgement, four items (ticket M3.1). Decide in the app or with `ledger review decide <id> accept --reason … --by "Kenny Geiler"`, then `ledger release v1.1.0 --stage 3`, review, `ledger signoff v1.1.0 --by "Kenny Geiler"`.
 
-**Next:** the demo goal is met: a working pipeline with oversight (agents read, code checks, a person decides and signs, every step visible in DATAHQ). Optional, only if needed:
-1. Schedule `ledger watch --run` daily (cron or launchd).
-2. Make the hand-check file name match `release` for single-ticker runs.
-3. `DIFF.md` lists added values; prompt `statements@v3` (v2 still explains quarterly columns; needs an agent rerun).
+**Next:** the demo goal is met: a working pipeline with oversight. Optional, only if needed:
+1. M3.1: one question per cause (XOM shows why).
+2. Schedule `ledger watch --run` daily (cron or launchd).
+3. Prompt `statements@v3` (v2 still explains quarterly columns; needs an agent rerun).
 
 **Critical notes:**
 - **Dashes are zero.** APLD's newest 10-K shows "—" for its data-center cost line in FY2024 and FY2025; agents read these as 0.
 - **NVDA's capex line includes intangible assets.** Note it when comparing companies.
 - **Known blind spot:** a wrong-row misread is caught by comparing a company's filings with each other, so a company's first filing is less protected.
-- **Running agents:** `ledger run` runs the agent headless on Kenny's subscription (no paid API). It needs a logged-in `claude` (run `claude`, then `/login`) of version 2.1.280 or later for Opus 5.5. Until the installed one is upgraded, set `LEDGER_CLAUDE` to the desktop app's newer `claude`.
+- **Running agents:** `ledger run` and the app's Add company run the agent headless on Kenny's subscription (no paid API). It needs a logged-in `claude` (run `claude`, then `/login`) of version 2.1.280 or later for Opus 5.5. Until the installed one is upgraded, set `LEDGER_CLAUDE` to the desktop app's newer `claude` before `ledger run` and before `ledger app`.
+- **A parser bump re-opens decisions.** Every value's input hash includes the parser version, so after `tables@9` every earlier decision is superseded and the open list is rebuilt from the rules; that is why the APLD recast decisions are gone and the cost-line confirmations are back.
+- **Banks and oil majors come out partly blank on purpose.** JPMorgan has no capex or operating income line; IBM and ExxonMobil have no operating income line, so opex can't be computed. Those are `not_reported` rows with the reason, not errors.
 - **Old work is in tags:**
   - `takehome-xbrl-explorer`: the 113-company explorer
   - `quarterly-v0.1`: the quarterly pipeline

@@ -1,0 +1,150 @@
+{
+ "accession": "0000050863-26-000011",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0067",
+   "row_label": "Net revenue",
+   "column_label": "December 27, 2025 | Amount",
+   "cell_text": "52,853",
+   "period_end": "2025-12-27",
+   "months": 12,
+   "value": 52853000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0067",
+   "row_label": "Net revenue",
+   "column_label": "December 28, 2024 | Amount",
+   "cell_text": "53,101",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 53101000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0067",
+   "row_label": "Net revenue",
+   "column_label": "December 30, 2023 | Amount",
+   "cell_text": "54,228",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 54228000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0067",
+   "row_label": "Cost of sales",
+   "column_label": "December 27, 2025 | Amount",
+   "cell_text": "34,478",
+   "period_end": "2025-12-27",
+   "months": 12,
+   "value": 34478000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0067",
+   "row_label": "Cost of sales",
+   "column_label": "December 28, 2024 | Amount",
+   "cell_text": "35,756",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 35756000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0067",
+   "row_label": "Cost of sales",
+   "column_label": "December 30, 2023 | Amount",
+   "cell_text": "32,517",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 32517000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0067",
+   "row_label": "Operating income (loss)",
+   "column_label": "December 27, 2025 | Amount",
+   "cell_text": "(2,214)",
+   "period_end": "2025-12-27",
+   "months": 12,
+   "value": -2214000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0067",
+   "row_label": "Operating income (loss)",
+   "column_label": "December 28, 2024 | Amount",
+   "cell_text": "(11,678)",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": -11678000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0067",
+   "row_label": "Operating income (loss)",
+   "column_label": "December 30, 2023 | Amount",
+   "cell_text": "93",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 93000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0140",
+   "row_label": "Additions to property, plant and equipment",
+   "column_label": "Dec 27, 2025",
+   "cell_text": "(14,646)",
+   "period_end": "2025-12-27",
+   "months": 12,
+   "value": 14646000000,
+   "confidence": 0.9,
+   "notes": "Taken from the investing section. A second 'Additions to property, plant and equipment' line (3,026) appears in the financing section; it was not added, per the rule against combining lines."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0140",
+   "row_label": "Additions to property, plant and equipment",
+   "column_label": "Dec 28, 2024",
+   "cell_text": "(23,944)",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 23944000000,
+   "confidence": 0.9,
+   "notes": "Taken from the investing section. A second 'Additions to property, plant and equipment' line (1,178) appears in the financing section; it was not added, per the rule against combining lines."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0140",
+   "row_label": "Additions to property, plant and equipment",
+   "column_label": "Dec 30, 2023",
+   "cell_text": "(25,750)",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 25750000000,
+   "confidence": 1.0,
+   "notes": "Taken from the investing section. The financing-section line of the same name shows \u2014 for this year."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.8,
+  "input_tokens": 6858,
+  "output_tokens": 1714,
+  "attempts": 1,
+  "task_sha": "ff7baeffb7afe3a1"
+ }
+}

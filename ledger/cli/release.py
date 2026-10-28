@@ -5,6 +5,7 @@ import json
 
 from .. import store
 from ..config import STAGES
+from ..agent import MODEL
 from ..extract import PROMPT_VERSION
 from ..ingest.tables import PARSER_VERSION
 from ..release import GATES, build, content_hash, gates
@@ -55,7 +56,7 @@ def main(argv=None) -> int:
     out.mkdir(parents=True)
     for name, text in files.items():
         (out / name).write_text(text)
-    manifest = {"version": a.version, "stage": a.stage, "hash": h, "prompt": PROMPT_VERSION, "parser": PARSER_VERSION,
+    manifest = {"version": a.version, "stage": a.stage, "hash": h, "files": sorted(files), "prompt": PROMPT_VERSION, "parser": PARSER_VERSION, "model": MODEL,
                 "rules": {r["id"]: r["file_sha256"][:12] for r in load()}, "decisions": len(ds)}
     (out / "manifest.json").write_text(json.dumps(manifest, indent=1))
     print(f"built {a.version}: {len(values)} values, hash {h[:12]}. Sign with: python -m ledger signoff {a.version} --by \"<name>\"")

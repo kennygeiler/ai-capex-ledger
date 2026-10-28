@@ -1,0 +1,155 @@
+{
+ "accession": "0000858877-25-000111",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0055",
+   "row_label": "Total revenue",
+   "column_label": "July 26, 2025",
+   "cell_text": "56,654",
+   "period_end": "2025-07-26",
+   "months": 12,
+   "value": 56654000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0055",
+   "row_label": "Total revenue",
+   "column_label": "July 27, 2024",
+   "cell_text": "53,803",
+   "period_end": "2024-07-27",
+   "months": 12,
+   "value": 53803000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0055",
+   "row_label": "Total revenue",
+   "column_label": "July 29, 2023",
+   "cell_text": "56,998",
+   "period_end": "2023-07-29",
+   "months": 12,
+   "value": 56998000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0055",
+   "row_label": "Total cost of sales",
+   "column_label": "July 26, 2025",
+   "cell_text": "19,864",
+   "period_end": "2025-07-26",
+   "months": 12,
+   "value": 19864000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0055",
+   "row_label": "Total cost of sales",
+   "column_label": "July 27, 2024",
+   "cell_text": "18,975",
+   "period_end": "2024-07-27",
+   "months": 12,
+   "value": 18975000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0055",
+   "row_label": "Total cost of sales",
+   "column_label": "July 29, 2023",
+   "cell_text": "21,245",
+   "period_end": "2023-07-29",
+   "months": 12,
+   "value": 21245000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0055",
+   "row_label": "OPERATING INCOME",
+   "column_label": "July 26, 2025",
+   "cell_text": "11,760",
+   "period_end": "2025-07-26",
+   "months": 12,
+   "value": 11760000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0055",
+   "row_label": "OPERATING INCOME",
+   "column_label": "July 27, 2024",
+   "cell_text": "12,181",
+   "period_end": "2024-07-27",
+   "months": 12,
+   "value": 12181000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0055",
+   "row_label": "OPERATING INCOME",
+   "column_label": "July 29, 2023",
+   "cell_text": "15,031",
+   "period_end": "2023-07-29",
+   "months": 12,
+   "value": 15031000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0057",
+   "row_label": "Acquisition of property and equipment",
+   "column_label": "July 26, 2025",
+   "cell_text": "(905)",
+   "period_end": "2025-07-26",
+   "months": 12,
+   "value": 905000000,
+   "confidence": 1.0,
+   "notes": "Cisco labels capital expenditures 'Acquisition of property and equipment' in investing activities; distinct from business acquisitions line."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0057",
+   "row_label": "Acquisition of property and equipment",
+   "column_label": "July 27, 2024",
+   "cell_text": "(670)",
+   "period_end": "2024-07-27",
+   "months": 12,
+   "value": 670000000,
+   "confidence": 1.0,
+   "notes": "Cisco labels capital expenditures 'Acquisition of property and equipment' in investing activities; distinct from business acquisitions line."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0057",
+   "row_label": "Acquisition of property and equipment",
+   "column_label": "July 29, 2023",
+   "cell_text": "(849)",
+   "period_end": "2023-07-29",
+   "months": 12,
+   "value": 849000000,
+   "confidence": 1.0,
+   "notes": "Cisco labels capital expenditures 'Acquisition of property and equipment' in investing activities; distinct from business acquisitions line."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: statement has a 'Total cost of sales' line."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.6,
+  "input_tokens": 6592,
+  "output_tokens": 1451,
+  "attempts": 1,
+  "task_sha": "d01ec99f964b7073"
+ }
+}

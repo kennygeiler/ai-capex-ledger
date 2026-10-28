@@ -12,7 +12,7 @@ from datetime import datetime, timezone
 from .. import store
 from ..config import MVP_YEARS, add_scope, scope
 
-from ..ingest.filings import fetch_documents, list_filings
+from ..ingest.filings import fetch_documents, list_filings, with_statements
 from ..ingest.statements import assemble, locate
 from ..ingest.tables import PARSER_VERSION, document_units, parse_tables
 from ..reference.normalize import company_years
@@ -70,6 +70,9 @@ def main(argv=None) -> int:
     for f in filings:
         t1 = time.monotonic()
         parsed = parse_one(f)
+        if f.form == "10-K" and (alt := with_statements(f, parsed["located"], locate)):
+            f, parsed = alt, parse_one(alt)
+            manifest[f.accession] = manifest[f.accession] | {"bytes": len(f.path.read_bytes())}
         out = DOCS / f"{f.cik:010d}" / f"{f.accession}.tables.json"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(json.dumps(parsed, sort_keys=True, indent=1))

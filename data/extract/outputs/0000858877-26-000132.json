@@ -1,0 +1,155 @@
+{
+ "accession": "0000858877-26-000132",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0055",
+   "row_label": "Total revenue",
+   "column_label": "July 25, 2026",
+   "cell_text": "63,325",
+   "period_end": "2026-07-25",
+   "months": 12,
+   "value": 63325000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0055",
+   "row_label": "Total revenue",
+   "column_label": "July 26, 2025",
+   "cell_text": "56,654",
+   "period_end": "2025-07-26",
+   "months": 12,
+   "value": 56654000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0055",
+   "row_label": "Total revenue",
+   "column_label": "July 27, 2024",
+   "cell_text": "53,803",
+   "period_end": "2024-07-27",
+   "months": 12,
+   "value": 53803000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0055",
+   "row_label": "Total cost of sales",
+   "column_label": "July 25, 2026",
+   "cell_text": "22,465",
+   "period_end": "2026-07-25",
+   "months": 12,
+   "value": 22465000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0055",
+   "row_label": "Total cost of sales",
+   "column_label": "July 26, 2025",
+   "cell_text": "19,864",
+   "period_end": "2025-07-26",
+   "months": 12,
+   "value": 19864000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0055",
+   "row_label": "Total cost of sales",
+   "column_label": "July 27, 2024",
+   "cell_text": "18,975",
+   "period_end": "2024-07-27",
+   "months": 12,
+   "value": 18975000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0055",
+   "row_label": "OPERATING INCOME",
+   "column_label": "July 25, 2026",
+   "cell_text": "15,368",
+   "period_end": "2026-07-25",
+   "months": 12,
+   "value": 15368000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0055",
+   "row_label": "OPERATING INCOME",
+   "column_label": "July 26, 2025",
+   "cell_text": "11,760",
+   "period_end": "2025-07-26",
+   "months": 12,
+   "value": 11760000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0055",
+   "row_label": "OPERATING INCOME",
+   "column_label": "July 27, 2024",
+   "cell_text": "12,181",
+   "period_end": "2024-07-27",
+   "months": 12,
+   "value": 12181000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0057",
+   "row_label": "Acquisition of property and equipment",
+   "column_label": "July 25, 2026",
+   "cell_text": "(1,410)",
+   "period_end": "2026-07-25",
+   "months": 12,
+   "value": 1410000000,
+   "confidence": 0.95,
+   "notes": "Labelled 'Acquisition of property and equipment' rather than 'purchases'; it is the investing-section cash paid for property and equipment, distinct from the business-acquisitions line."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0057",
+   "row_label": "Acquisition of property and equipment",
+   "column_label": "July 26, 2025",
+   "cell_text": "(905)",
+   "period_end": "2025-07-26",
+   "months": 12,
+   "value": 905000000,
+   "confidence": 0.95,
+   "notes": "Labelled 'Acquisition of property and equipment' rather than 'purchases'; it is the investing-section cash paid for property and equipment, distinct from the business-acquisitions line."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0057",
+   "row_label": "Acquisition of property and equipment",
+   "column_label": "July 27, 2024",
+   "cell_text": "(670)",
+   "period_end": "2024-07-27",
+   "months": 12,
+   "value": 670000000,
+   "confidence": 0.95,
+   "notes": "Labelled 'Acquisition of property and equipment' rather than 'purchases'; it is the investing-section cash paid for property and equipment, distinct from the business-acquisitions line."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the statement has a 'Total cost of sales' line, so cost_of_revenue is used instead."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.8,
+  "input_tokens": 6535,
+  "output_tokens": 1517,
+  "attempts": 1,
+  "task_sha": "3e1534d4bd3a787b"
+ }
+}

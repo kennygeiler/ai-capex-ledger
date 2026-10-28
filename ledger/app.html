@@ -25,6 +25,8 @@
   nav .brand { font-weight: 600; letter-spacing: .06em; margin-right: auto; color: var(--fg); }
   nav a { color: var(--muted); }
   nav a.on { color: var(--fg); }
+  nav .me { margin-left: 1rem; }
+  nav .me input { width: 9rem; border: 0; border-bottom: 1px solid var(--faint); background: none; padding: .1rem 0; font-size: .82rem; }
   h1 { font-size: 1.6rem; font-weight: 500; margin: 0; }
   h2 { font-size: 1.05rem; font-weight: 600; margin: 0 0 .6rem; }
   p { margin: 0; }
@@ -101,9 +103,10 @@
     <a class="brand" href="#dashboard">DATAHQ</a>
     <a href="#dashboard" data-nav="dashboard">Dashboard</a>
     <a href="#company" data-nav="company">Companies</a>
-    <a href="#add" data-nav="add">Add company</a>
-    <a href="#agents" data-nav="agents">Agents</a>
+    <a href="#insights" data-nav="insights">Insights</a>
     <a href="#outputs" data-nav="outputs">Outputs</a>
+    <a href="#agents" data-nav="agents">Agents</a>
+    <span class="me muted small">signed as <input id="me" type="text" aria-label="Your name, used on every decision"></span>
   </nav>
   <main id="view"><p class="msg">Loading…</p></main>
 </div>
@@ -140,6 +143,8 @@ async function api(path, opts) {
 }
 let me = 'Kenny Geiler';
 try { me = localStorage.getItem('datahq-me') || me; } catch {}
+$('#me').value = me;
+$('#me').addEventListener('input', (e) => { me = e.target.value; try { localStorage.setItem('datahq-me', me); } catch {} });
 
 function table(cols, rows, {key, onRow, detail} = {}) {
   const tb = h('tbody');
@@ -230,7 +235,7 @@ async function dashboard(view) {
     h('section', {class: 'figs'},
       fig('Questions for you', int(groups.length), blocking ? `${blocking} block the next release` : 'none block a release'),
       fig('Values accounted for', `${int(H.agree + H.explained + H.decided)} / ${int(H.values)}`, `${int(H.agree)} match the SEC's data`, H.waiting > 0),
-      fig('Release', H.latest_release || '—', stale ? `${int(H.changed_since_release)} changes since; release again` : `current, signed ${day(H.latest_release_at)}`, stale),
+      fig('Release', H.latest_release || '—', stale ? `${int(H.changed_since_release)} changes since. Release again: ledger release vX.Y.Z --stage 3, then signoff.` : `current, signed ${day(H.latest_release_at)}`, stale),
       fig('Next 10-K', next ? next.company : '—', next ? `around ${day(next.next_10k_expected)}` : '')),
     h('div', {class: 'split'},
       h('section', {}, h('h2', {}, 'Your judgement'),
@@ -419,7 +424,6 @@ async function agentsPage(view) {
 }
 
 function agentCard(a) {
-  const byInput = h('input', {type: 'text', value: me, 'aria-label': 'Your name', oninput: (e) => { me = e.target.value; try { localStorage.setItem('datahq-me', me); } catch {} }});
   let shown = a.prompt;
   const text = h('textarea', {readonly: true, 'aria-label': 'Prompt text', spellcheck: 'false'});
   const verSel = h('select', {'aria-label': 'Prompt version', onchange: (e) => { shown = e.target.value; showPrompt(); }},
@@ -469,14 +473,14 @@ function agentCard(a) {
   const per = a.cost;
 
   const card = h('div', {class: 'stack'},
-    h('section', {}, h('h1', {}, a.name), h('p', {class: 'lede'}, a.job)),
+    h('section', {}, h('h2', {}, a.name), h('p', {class: 'lede'}, a.job)),
     h('div', {class: 'two'},
       h('section', {}, h('h2', {}, 'Decides'), h('ul', {class: 'plain'}, a.decides.map((d) => h('li', {}, d)))),
       h('section', {}, h('h2', {}, 'Checked by'), h('ul', {class: 'plain'}, a.checked_by.map((d) => h('li', {}, d))))),
     h('section', {}, h('h2', {}, 'Model'), h('p', {class: 'muted', style: 'margin-bottom:.6rem'}, a.llm.runs_on), h('div', {class: 'row'}, model, modelSave)),
-    h('section', {}, h('h2', {}, 'Prompt'), h('div', {class: 'row', style: 'margin-bottom:.8rem'}, verSel, editBtn, useBtn, h('span', {class: 'muted small'}, 'Changing the prompt or model makes the next run ask the agent again for every filing.')),
+    h('section', {}, h('h2', {}, 'Prompt'), h('div', {class: 'row', style: 'margin-bottom:.8rem'}, verSel, editBtn, useBtn, h('span', {class: 'muted small'}, 'A saved prompt is not used until a person switches it on here. Switching the prompt or model makes the next run ask the agent again for every filing.')),
       text, editRow),
-    h('section', {class: 'row'}, h('span', {class: 'muted small'}, 'Changes are signed as'), byInput, status),
+    h('section', {class: 'row'}, status),
     h('section', {}, h('h2', {}, 'History'), table([{t: 'When', k: 'at', f: (x) => when(x.at)}, {t: 'Who', k: 'by'}, {t: 'Change', k: 'change'}], [...a.history].reverse())),
     h('section', {}, h('h2', {}, 'Runs'), h('p', {class: 'muted', style: 'margin-bottom:.6rem'},
         `${int(latest.length)} filings read, ${compact(tokens)} tokens, ${failed} failed.`, per ? ` A new company costs about ${per.minutes} min and ${compact(per.tokens)} tokens (average of ${per.companies}).` : '', ' Failures first; click a run for its answer.'),
@@ -518,7 +522,8 @@ async function outputsPage(view, focus) {
           rels.map((r) => h('option', {value: r.version, selected: r.version === state.rel || null}, `${r.version}${r.signed_by ? ', signed ' + day(r.signed_at) : ', not signed'}`)))),
         h('label', {}, h('span', {class: 'muted small'}, 'Layout '), h('select', {onchange: (e) => { state.layout = e.target.value; render(); }},
           h('option', {value: 'wide', selected: state.layout === 'wide' || null}, 'Years across'), h('option', {value: 'long', selected: state.layout === 'long' || null}, 'One row per value'))),
-        h('button', {type: 'button', class: 'btn', onclick: exportCsv}, 'Export CSV')),
+        h('button', {type: 'button', class: 'btn', onclick: exportCsv}, 'Export CSV'),
+        relOf().packet ? h('a', {href: `/packet/${relOf().version}.zip`, class: 'small'}, 'Download the signed packet (zip)') : h('span', {class: 'muted small'}, 'Packet: only a signed release has one')),
       h('div', {}, h('div', {class: 'k'}, 'Companies ', h('button', {type: 'button', class: 'small', onclick: () => { state.tickers = all().map(([t]) => t); drawControls(); render(); }}, 'all'), ' ',
         h('button', {type: 'button', class: 'small', onclick: () => { state.tickers = []; drawControls(); render(); }}, 'none')),
         checks(all().map(([t, n]) => [t, `${n}`]), state.tickers, toggle('tickers'))),
@@ -643,17 +648,57 @@ function lineChart(rows, years, tickers, ratio) {
   return h('div', {}, svg);
 }
 
+// ── Insights: what the signed numbers say ────────────────────────────────────
+const ROLE = {buyer: 'AI buyers', seller: 'AI sellers', other: 'Other majors'};
+const x_ = (n) => `${n.toFixed(1)}×`;
+async function insightsPage(view) {
+  const d = await api('/api/insights');
+  if (!d.release) { view.append(h('p', {class: 'msg'}, 'No signed release yet. Insights only read signed numbers.')); return; }
+  const ys = d.years, B = d.totals.buyer, S = d.totals.seller;
+  const y0 = ys.find((y) => B[y].n > 0), y1 = [...ys].reverse().find((y) => B[y].n >= B[y0].n) || ys[ys.length - 1];
+  const bars_ = (list, key, fmt) => { const max = Math.max(...list.map(key)) || 1; return bars(list.map((c) => ({name: c.company, pct: 100 * key(c) / max, v: fmt(c), cls: c.role === 'seller' ? 'note' : null}))); };
+  const byRole = (role) => d.companies.filter((c) => c.role === role);
+  const intensity = [...d.companies].sort((a, b) => b.intensity - a.intensity);
+  const growth = d.companies.filter((c) => c.capex_growth).sort((a, b) => b.capex_growth - a.capex_growth);
+  const bc = B[y1].capex / B[y0].capex, sr = S[y1].revenue / S[y0].revenue;
+  const yrs = ys.filter((y) => B[y].n > 0 || S[y].n > 0);
+
+  view.append(h('div', {class: 'stack'},
+    h('header', {class: 'pagehead'}, h('h1', {}, 'The AI buildout, in the signed numbers'),
+      h('p', {class: 'muted small'}, `From release ${d.release}, signed by ${d.signed_by} on ${day(d.signed_at)}. ${byRole('buyer').length} buyers, ${byRole('seller').length} sellers, ${byRole('other').length} other majors. Fiscal years are each company's own.`)),
+    h('section', {}, h('h2', {}, 'Who pays, who gets paid'),
+      h('p', {class: 'lede', style: 'margin-bottom:1rem'}, `Buyers' capex went from ${usd(B[y0].capex)} in ${y0} to ${usd(B[y1].capex)} in ${y1} (${x_(bc)}). Sellers' revenue went from ${usd(S[y0].revenue)} to ${usd(S[y1].revenue)} (${x_(sr)}).`),
+      h('div', {class: 'scroll'}, table([{t: '', sort: false, f: (r) => r.name},
+        ...yrs.map((y) => ({t: y, n: 1, sort: false, f: (r) => (r.v[y] ? usd(r.v[y]) : h('span', {class: 'muted'}, '—'))}))],
+        [{name: "Buyers' capex", v: Object.fromEntries(yrs.map((y) => [y, B[y].capex]))}, {name: "Sellers' revenue", v: Object.fromEntries(yrs.map((y) => [y, S[y].revenue]))},
+         {name: "Buyers' revenue", v: Object.fromEntries(yrs.map((y) => [y, B[y].revenue]))}])),
+      h('p', {class: 'muted small', style: 'margin-top:.5rem'}, `Sums over the companies with a 10-K for the year (${yrs.map((y) => `${y}: ${B[y].n + S[y].n}`).join(', ')}). A company's first year is missing where its 10-Ks start later.`)),
+    h('div', {class: 'two'},
+      h('section', {}, h('h2', {}, 'Capex as a share of revenue, latest year'), h('p', {class: 'muted small', style: 'margin-bottom:.6rem'}, 'Grey bars are sellers.'),
+        bars_(intensity, (c) => c.intensity, (c) => `${pct(c.intensity)} · ${c.last}`)),
+      h('section', {}, h('h2', {}, 'Capex growth, first year to latest'), h('p', {class: 'muted small', style: 'margin-bottom:.6rem'}, 'How many times capex grew over the window.'),
+        bars_(growth, (c) => Math.log10(c.capex_growth) + 1, (c) => `${x_(c.capex_growth)} · ${c.first}→${c.last}`))),
+    h('section', {}, h('h2', {}, 'Every company'),
+      table([{t: 'Company', k: 'company'}, {t: 'Role', k: 'role', f: (c) => ROLE[c.role]}, {t: 'Years', sort: false, f: (c) => `${c.first.slice(2)}–${c.last.slice(2)}`},
+        {t: 'Revenue, latest', k: 'revenue_last', n: 1, f: (c) => usd(c.revenue_last)}, {t: 'Capex, latest', k: 'capex_last', n: 1, f: (c) => usd(c.capex_last)},
+        {t: 'Capex ÷ revenue', k: 'intensity', n: 1, f: (c) => pct(c.intensity)}, {t: 'Capex growth', k: 'capex_growth', n: 1, f: (c) => (c.capex_growth ? x_(c.capex_growth) : '—')},
+        {t: 'Revenue growth', k: 'revenue_growth', n: 1, f: (c) => (c.revenue_growth ? x_(c.revenue_growth) : '—')}],
+        [...d.companies].sort((a, b) => b.capex_last - a.capex_last), {onRow: (c) => go('company/' + c.ticker)})),
+    h('p', {class: 'muted small'}, 'Capex is cash paid for property and equipment as each company reports it; where a line includes more or less (Nvidia: intangibles; IREN: net of hardware prepayments), the release notes say so.')));
+}
+
 // ── Routing ─────────────────────────────────────────────────────────────────
 function go(hash) { location.hash = hash; }
 async function route() {
   const [page, arg] = (location.hash.slice(1) || 'dashboard').split('/');
-  document.querySelectorAll('nav [data-nav]').forEach((a) => a.classList.toggle('on', a.dataset.nav === page));
+  document.querySelectorAll('nav [data-nav]').forEach((a) => a.classList.toggle('on', a.dataset.nav === (page === 'add' ? 'company' : page)));
   const view = $('#view');
   view.replaceChildren();
   try {
     if (page === 'company') await companyPage(view, arg);
     else if (page === 'agents') await agentsPage(view);
     else if (page === 'add') await addPage(view);
+    else if (page === 'insights') await insightsPage(view);
     else if (page === 'outputs') await outputsPage(view, arg);
     else await dashboard(view);
   } catch (e) {

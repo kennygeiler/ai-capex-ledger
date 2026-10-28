@@ -105,6 +105,26 @@ wrong in places, and that a person was being asked questions code could settle. 
 Also: every step of `ledger run` is logged and the run saves a snapshot, so DATAHQ shows what changed since the last run;
 `ledger watch` asks the SEC for filings not yet read.
 
+## Scale run (28 Oct): 10 S&P majors added from DATAHQ, blind
+
+Apple, Broadcom, Intel, Qualcomm, Texas Instruments, Cisco, IBM, Walmart, ExxonMobil and JPMorgan: 38 filings, 7.5 agent-minutes, no code change
+before the run. Six were clean on the first pass (AAPL, AVGO, CSCO, QCOM, TXN, WMT: 78/78 values agree with XBRL, every cell confirmed). The
+other four found five new types, each fixed as a type:
+
+| # | Type | Where | Caught by | Fix |
+|---|---|---|---|---|
+| 16 | **Financial statements kept in an exhibit.** The primary 10-K document has 9 tables and no statements; the annual report to stockholders (Exhibit 13) has them. | IBM, all 4 years | `ingest` (statements not located); the agent then returned 0 values | `with_statements`: when the primary document lacks a statement, the filing's other HTML documents are tried, largest first, and the one that has it replaces the primary at the same cached path. |
+| 17 | **A company reorganized under a new CIK.** The ticker now maps to the new holding company, whose history sits under the old CIK. | ExxonMobil (0 filings found) | `no_10k_yet`, wrongly | `list_filings` also lists the predecessor CIK's filings (`PREDECESSORS` in config, until now only used by the answer key). |
+| 18 | **A line the 10-K doesn't have left a hole, not a blank.** A bank has no capex line and no operating income; the agent said so, but the year had no row at all, so `coverage` warned "no capex value". | JPMorgan (capex, opex), Intel (capex) | `coverage` (false alarm) | A field absent from a 10-K that reports the year is a `not_reported` row: blank, with the reason, and no coverage warning. |
+| 19 | **The locator picked an MD&A reconciliation.** Intel's "adjusted free cash flow" table has operating, investing and PP&E rows, so it scored like the cash-flow statement. The agent refused it: "not the investing section of the cash-flow statement; the gross additions line is not in the provided tables". | Intel, all years | the agent's `not_found` reason | Tables introduced as non-GAAP, adjusted or a reconciliation never win the locator (`_mdna`). |
+| 21 | **A sub-header repeated under every year.** Intel's income statement puts "Amount" under each year; the re-read matched the last "Amount" cell, so every cited cell "showed" the oldest year's value. The values still agreed with XBRL; only the second read failed. | Intel, 24 cells | `evidence` (not confirmed) | When a sub-header repeats, the re-read takes the one under the cited year (nearest by position to the year's header cell). |
+| 20 | **A unit phrased the other way round.** "(millions of dollars)" instead of "(in millions)"; the parser found no unit, and the agent refused to guess: "the filing as given does not say so and the value is not guessed". | ExxonMobil, all years | the agent's `not_found` reason | `_UNIT_PAREN` accepts "(thousands/millions/billions of [U.S.] dollars)". Parser `tables@8`. |
+| 22 | **The SEC's revenue tag is "total revenues and other income".** ExxonMobil tags only the total (sales + income from equity affiliates + other income) with `Revenues`; the sales line has no us-gaap tag since FY2022. The agent read "Sales and other operating revenue", which is what revenue means in this ledger. | ExxonMobil, all 4 years | `xbrl_reconcile` (block: 4% gap) | None in code: the ledger's definition is right and the SEC's tag is the wider one, so this is the "confirm a definition once per company" case. Kenny decides the 4 items with one reason. Next step (M3.1): one question per cause, not four per year. |
+| 23 | **A highlights table outscored the income statement.** Inside IBM's exhibit, the "Management Discussion Snapshot" (revenue, net income, EPS, then assets, liabilities, equity) comes first and scores like the income statement; the agent read it, found two years of revenue and no cost or operating lines, and said so. | IBM, 3 filings: FY2022–23 revenue blank, opex blank | the agent's `not_found` reasons ("a financial-highlights summary rather than the full consolidated income statement") | A table introduced as a snapshot, highlights or summary, or mixing income lines with balance-sheet totals, never wins the locator (`_summary`). Parser `tables@9`. |
+
+Three things worked exactly as designed: the agent's `not_found` reasons named type 23 in plain words before anyone looked at IBM's page; the Reader agent twice refused to produce a number it couldn't stand behind (types 19 and 20), with a
+reason a person could act on; and a bank came out as revenue only, with capex and opex blank for a stated reason, which is the right answer.
+
 ## Scorecard
 
 What each company cost. `ledger run` prints this, and each validation page shows it. Code changes are counted by hand from the log above.
@@ -117,8 +137,13 @@ What each company cost. `ledger run` prints this, and each validation page shows
 | ALAB, CIFR, CORZ, CRDO, IREN, WULF, SPCX | blind run 1 | 3.5 min (13 filings) | 120,630 | types 1–6 above | 15 blocks (types 2–4) | 68/70 |
 | ANET (Arista Networks) | added in DATAHQ, unattended | 0.8 min (4 filings) | 31,774 | 0 | 0 (2 warnings, both confirmed by XBRL, shown as findings) | 12/12 |
 | all 19 | run 2, after the fixes | 11.5 min of agent time (all headless filings) | 488,543 | 2 (types 7–8) | 0 | 224/234 (6 explained by code, 4 decided) |
+| AAPL, AVGO, CSCO, QCOM, TXN, WMT | added in DATAHQ, blind | 4.9 min (26 filings) | 201,818 | 0 | 0 | 78/78 |
+| COMP (Compass) | added by Kenny in DATAHQ, blind | 1.2 min (4 filings) | 42,090 | 0 | 1 (cost lines: commissions) | 8/12 (4 opex definition gaps, explained by code) |
+| IBM, INTC, JPM, XOM | added in DATAHQ, blind | 3.7 min (16 filings) | 122,877 | types 16–21, 23 | 5 (XOM: 4 revenue definition, 1 cost lines) | see below |
+| all 31 | full run, `tables@9` | 22.6 min (132 filings) | 907,507 | 1 (type 23) | 8 | 354/384 (26 explained by code: 16 not reported, 10 definition gaps); 1,431/1,431 cells confirmed |
 
 ## Open
 
+- **One question per cause (M3.1):** XOM's revenue definition is one judgement shown as four items. Cost lines already ask once per company; `xbrl_reconcile` should too when every year of a field disagrees by the same kind of gap.
 - **APLD opex FY2023:** restated with no explanatory sentence found by the cue list. Agrees with XBRL, so not blocking.
 - **First filings:** a wrong-row misread is caught by comparing filings, so a company's first 10-K is less protected.

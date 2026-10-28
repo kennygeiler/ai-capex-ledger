@@ -15,7 +15,7 @@ Key: `(accession)`
 | `accession` | VARCHAR | yes | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession number of the filing, e.g. 0001045810-26-000075. |
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
 | `cik` | INTEGER | yes |  | SEC Central Index Key. |
-| `form` | VARCHAR | yes | `10-K` | Form type. |
+| `form` | VARCHAR | yes | `10-K`, `10-K/A` | Form type: 10-K, or a 10-K/A that carries the financial statements. |
 | `period` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Report period end date (YYYY-MM-DD). |
 | `filed` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Filing date (YYYY-MM-DD). |
 | `url` | VARCHAR | yes |  | Primary document URL on sec.gov. |
@@ -156,7 +156,7 @@ Key: `(run_id, step, subject)`
 | Column | Type | Required | Allowed values | Meaning |
 |---|---|---|---|---|
 | `run_id` | VARCHAR | yes |  | Run ID. |
-| `step` | VARCHAR | yes | `ingest`, `parse`, `extract`, `reconcile`, `rules`, `review`, `score`, `release` | Step name. |
+| `step` | VARCHAR | yes | `run`, `ingest`, `parse`, `extract`, `reconcile`, `rules`, `faults`, `evidence`, `report`, `review`, `score`, `release` | Step name. |
 | `subject` | VARCHAR | no |  | What it ran on (accession, ticker, release). |
 | `started_at` | VARCHAR | yes |  | UTC timestamp. |
 | `seconds` | DOUBLE | yes |  | Wall-clock duration. |

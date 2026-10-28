@@ -1,0 +1,155 @@
+{
+ "accession": "0001563190-26-000057",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0033",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "6,961.6",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 6961600000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0033",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "5,629.1",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 5629100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0033",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "4,885.0",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 4885000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0033",
+   "row_label": "Commissions and other related expense",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "5,679.7",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 5679700000,
+   "confidence": 0.7,
+   "notes": "No total cost-of-revenue line. For a real estate brokerage, commissions paid to agents on closed transactions are the direct cost of earning the gross commission revenue. 'Operations and support' was excluded because it is a mixed overhead line covering agent support, technology and facilities, not a direct cost of delivering revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0033",
+   "row_label": "Commissions and other related expense",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "4,634.6",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 4634600000,
+   "confidence": 0.7,
+   "notes": "Agent commissions are the direct cost of brokerage revenue. There is no total cost-of-revenue line. 'Operations and support' was excluded."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0033",
+   "row_label": "Commissions and other related expense",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "4,007.0",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 4007000000,
+   "confidence": 0.7,
+   "notes": "Agent commissions are the direct cost of brokerage revenue. There is no total cost-of-revenue line. 'Operations and support' was excluded."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0033",
+   "row_label": "Loss from operations",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(63.4)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": -63400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0033",
+   "row_label": "Loss from operations",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(154.8)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": -154800000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0033",
+   "row_label": "Loss from operations",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(314.9)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": -314900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0035",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(13.4)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 13400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0035",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(15.7)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 15700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0035",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(11.2)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 11200000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "The income statement has no total cost of revenue or cost of sales line. Operating expenses are presented by function, so cost of revenue was captured through cost_of_revenue_part instead."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.2,
+  "input_tokens": 6590,
+  "output_tokens": 1958,
+  "attempts": 1,
+  "task_sha": "0b5769fd12bf29f3"
+ }
+}

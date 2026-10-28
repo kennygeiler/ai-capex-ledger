@@ -100,5 +100,23 @@ class Hygiene(unittest.TestCase):
         self.assertEqual(json.dumps(parse_tables(doc)), json.dumps(parse_tables(doc)))
 
 
+class Locator(unittest.TestCase):
+    def _t(self, id_, before, labels):
+        return {"id": id_, "before": before, "columns": ["2025", "2024"], "unit_text": "(in millions)", "scale": 1_000_000,
+                "rows": [{"label": l, "cells": [{"col": "2025", "text": "1"}, {"col": "2024", "text": "1"}]} for l in labels]}
+
+    def test_a_reconciliation_table_loses_to_the_statement(self):  # Intel: adjusted free cash flow scores like the cash-flow statement
+        rows = ["Net cash provided by operating activities", "Investing activities", "Additions to property, plant and equipment", "Financing activities"]
+        tables = [self._t("t0001", "Non-GAAP adjusted free cash flow reconciliation", rows), self._t("t0002", "Consolidated statements of cash flows", rows)]
+        self.assertEqual(locate(tables)["cash_flow"], ["t0002"])
+
+    def test_a_highlights_table_loses_to_the_statement(self):  # IBM: the snapshot comes first and scores like the income statement
+        rows = ["Revenue", "Net income", "Earnings per share", "Provision for income taxes"]
+        tables = [self._t("t0001", "MANAGEMENT DISCUSSION SNAPSHOT", rows + ["Assets", "Liabilities", "Equity"]), self._t("t0002", "", rows)]
+        self.assertEqual(locate(tables)["income"], ["t0002"])
+        tables = [self._t("t0001", "Selected data", rows + ["Total assets"]), self._t("t0002", "Consolidated Income Statement", rows)]
+        self.assertEqual(locate(tables)["income"], ["t0002"])
+
+
 if __name__ == "__main__":
     unittest.main()

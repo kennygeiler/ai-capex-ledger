@@ -8,17 +8,19 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 | ID | Ticket | Done when |
 |---|---|---|
-| M3.1 | Group open items by cause, so one decision (for example "APLD recast after ChronoScale") covers every item it explains. | `ledger review` lists causes, not rows. |
+| M3.1 | Group open items by cause, so one decision covers every item it explains (XOM's revenue definition is one judgement shown as four yearly items). | DATAHQ and `ledger review` list causes, not rows. |
 
 ### Later
 
 | ID | Ticket | Done when |
 |---|---|---|
-| L1 | Client view: released values only, each with its basis, source and citation link. | Built from a release folder. |
-| L3 | `DIFF.md` also lists values added since the last release (new companies or years), not only changed ones. | v0.2.0-style "No values changed" can't happen when companies were added. |
 | L2 | Non-functional checks as tests: SEC request spacing and contact header; no email or key in any output; parse under 60 s; `uv sync --frozen` works. | 4 tests. |
 
 ## Done
+
+- **Client packet (L1, L3, 28 Oct):** every release builds `README.md` (what the file is, every column, how to read a basis) next to `values.csv`, the dictionary and `QUALITY.md`; DATAHQ serves a signed release as one zip (`/packet/<version>.zip`); `DIFF.md` lists added values too.
+- **Scale run (28 Oct):** 12 companies added from DATAHQ (31 tracked); 8 new failure types (16–23) in `INGESTION.md`, 7 fixed in code; the Reader agent refused to guess three times, each with a usable reason.
+- **Audit (28 Oct):** prompt edits are saved as a version and switched on as a second step; one name field in the nav signs every decision; Insights page on signed data (who pays, who gets paid).
 
 - **DATAHQ app (28 Oct):** `ledger app`: dashboard, per-company pipeline, named agents with versioned prompts and every run, outputs explorer with CSV export.
 - **Restatement notes (L4, 28 Oct):** cost lines are compared line by line; v1.0.1 drops 10 false notes, values unchanged; signed by Kenny Geiler, hash 6d10c2b1990f.

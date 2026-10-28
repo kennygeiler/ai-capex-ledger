@@ -1,0 +1,290 @@
+{
+ "0001563190-23-000038|capex|2020-01-01|2020-12-31": {
+  "cell": "(43.3)",
+  "img": null,
+  "match": true,
+  "seen": "(43.3)"
+ },
+ "0001563190-23-000038|capex|2021-01-01|2021-12-31": {
+  "cell": "(50.1)",
+  "img": null,
+  "match": true,
+  "seen": "(50.1)"
+ },
+ "0001563190-23-000038|capex|2022-01-01|2022-12-31": {
+  "cell": "(70.1)",
+  "img": null,
+  "match": true,
+  "seen": "(70.1)"
+ },
+ "0001563190-23-000038|cost_of_revenue_part|2020-01-01|2020-12-31|Commissions and other related expense": {
+  "cell": "3,056.9",
+  "img": null,
+  "match": true,
+  "seen": "3,056.9"
+ },
+ "0001563190-23-000038|cost_of_revenue_part|2021-01-01|2021-12-31|Commissions and other related expense": {
+  "cell": "5,310.5",
+  "img": null,
+  "match": true,
+  "seen": "5,310.5"
+ },
+ "0001563190-23-000038|cost_of_revenue_part|2022-01-01|2022-12-31|Commissions and other related expense": {
+  "cell": "4,936.1",
+  "img": null,
+  "match": true,
+  "seen": "4,936.1"
+ },
+ "0001563190-23-000038|operating_income|2020-01-01|2020-12-31": {
+  "cell": "(273.3)",
+  "img": null,
+  "match": true,
+  "seen": "(273.3)"
+ },
+ "0001563190-23-000038|operating_income|2021-01-01|2021-12-31": {
+  "cell": "(493.0)",
+  "img": null,
+  "match": true,
+  "seen": "(493.0)"
+ },
+ "0001563190-23-000038|operating_income|2022-01-01|2022-12-31": {
+  "cell": "(589.4)",
+  "img": null,
+  "match": true,
+  "seen": "(589.4)"
+ },
+ "0001563190-23-000038|revenue|2020-01-01|2020-12-31": {
+  "cell": "3,720.8",
+  "img": null,
+  "match": true,
+  "seen": "$3,720.8"
+ },
+ "0001563190-23-000038|revenue|2021-01-01|2021-12-31": {
+  "cell": "6,421.0",
+  "img": null,
+  "match": true,
+  "seen": "$6,421.0"
+ },
+ "0001563190-23-000038|revenue|2022-01-01|2022-12-31": {
+  "cell": "6,018.0",
+  "img": null,
+  "match": true,
+  "seen": "$6,018.0"
+ },
+ "0001563190-24-000039|capex|2021-01-01|2021-12-31": {
+  "cell": "(50.1)",
+  "img": null,
+  "match": true,
+  "seen": "(50.1)"
+ },
+ "0001563190-24-000039|capex|2022-01-01|2022-12-31": {
+  "cell": "(70.1)",
+  "img": null,
+  "match": true,
+  "seen": "(70.1)"
+ },
+ "0001563190-24-000039|capex|2023-01-01|2023-12-31": {
+  "cell": "(11.2)",
+  "img": null,
+  "match": true,
+  "seen": "(11.2)"
+ },
+ "0001563190-24-000039|cost_of_revenue_part|2021-01-01|2021-12-31|Commissions and other related expense": {
+  "cell": "5,310.5",
+  "img": null,
+  "match": true,
+  "seen": "5,310.5"
+ },
+ "0001563190-24-000039|cost_of_revenue_part|2022-01-01|2022-12-31|Commissions and other related expense": {
+  "cell": "4,936.1",
+  "img": null,
+  "match": true,
+  "seen": "4,936.1"
+ },
+ "0001563190-24-000039|cost_of_revenue_part|2023-01-01|2023-12-31|Commissions and other related expense": {
+  "cell": "4,007.0",
+  "img": null,
+  "match": true,
+  "seen": "4,007.0"
+ },
+ "0001563190-24-000039|operating_income|2021-01-01|2021-12-31": {
+  "cell": "(493.0)",
+  "img": null,
+  "match": true,
+  "seen": "(493.0)"
+ },
+ "0001563190-24-000039|operating_income|2022-01-01|2022-12-31": {
+  "cell": "(589.4)",
+  "img": null,
+  "match": true,
+  "seen": "(589.4)"
+ },
+ "0001563190-24-000039|operating_income|2023-01-01|2023-12-31": {
+  "cell": "(314.9)",
+  "img": null,
+  "match": true,
+  "seen": "(314.9)"
+ },
+ "0001563190-24-000039|revenue|2021-01-01|2021-12-31": {
+  "cell": "6,421.0",
+  "img": null,
+  "match": true,
+  "seen": "$6,421.0"
+ },
+ "0001563190-24-000039|revenue|2022-01-01|2022-12-31": {
+  "cell": "6,018.0",
+  "img": null,
+  "match": true,
+  "seen": "$6,018.0"
+ },
+ "0001563190-24-000039|revenue|2023-01-01|2023-12-31": {
+  "cell": "4,885.0",
+  "img": null,
+  "match": true,
+  "seen": "$4,885.0"
+ },
+ "0001563190-25-000050|capex|2022-01-01|2022-12-31": {
+  "cell": "(70.1)",
+  "img": "8d1c98e186b7.png",
+  "match": true,
+  "seen": "(70.1)"
+ },
+ "0001563190-25-000050|capex|2023-01-01|2023-12-31": {
+  "cell": "(11.2)",
+  "img": null,
+  "match": true,
+  "seen": "(11.2)"
+ },
+ "0001563190-25-000050|capex|2024-01-01|2024-12-31": {
+  "cell": "(15.7)",
+  "img": null,
+  "match": true,
+  "seen": "(15.7)"
+ },
+ "0001563190-25-000050|cost_of_revenue_part|2022-01-01|2022-12-31|Commissions and other related expense": {
+  "cell": "4,936.1",
+  "img": "e03ea3add934.png",
+  "match": true,
+  "seen": "4,936.1"
+ },
+ "0001563190-25-000050|cost_of_revenue_part|2023-01-01|2023-12-31|Commissions and other related expense": {
+  "cell": "4,007.0",
+  "img": null,
+  "match": true,
+  "seen": "4,007.0"
+ },
+ "0001563190-25-000050|cost_of_revenue_part|2024-01-01|2024-12-31|Commissions and other related expense": {
+  "cell": "4,634.6",
+  "img": null,
+  "match": true,
+  "seen": "4,634.6"
+ },
+ "0001563190-25-000050|operating_income|2022-01-01|2022-12-31": {
+  "cell": "(589.4)",
+  "img": "7a344ebc56e3.png",
+  "match": true,
+  "seen": "(589.4)"
+ },
+ "0001563190-25-000050|operating_income|2023-01-01|2023-12-31": {
+  "cell": "(314.9)",
+  "img": null,
+  "match": true,
+  "seen": "(314.9)"
+ },
+ "0001563190-25-000050|operating_income|2024-01-01|2024-12-31": {
+  "cell": "(154.8)",
+  "img": null,
+  "match": true,
+  "seen": "(154.8)"
+ },
+ "0001563190-25-000050|revenue|2022-01-01|2022-12-31": {
+  "cell": "6,018.0",
+  "img": "4e243e676210.png",
+  "match": true,
+  "seen": "$6,018.0"
+ },
+ "0001563190-25-000050|revenue|2023-01-01|2023-12-31": {
+  "cell": "4,885.0",
+  "img": null,
+  "match": true,
+  "seen": "$4,885.0"
+ },
+ "0001563190-25-000050|revenue|2024-01-01|2024-12-31": {
+  "cell": "5,629.1",
+  "img": null,
+  "match": true,
+  "seen": "$5,629.1"
+ },
+ "0001563190-26-000057|capex|2023-01-01|2023-12-31": {
+  "cell": "(11.2)",
+  "img": "59c798d881dc.png",
+  "match": true,
+  "seen": "(11.2)"
+ },
+ "0001563190-26-000057|capex|2024-01-01|2024-12-31": {
+  "cell": "(15.7)",
+  "img": "2a067061d3fd.png",
+  "match": true,
+  "seen": "(15.7)"
+ },
+ "0001563190-26-000057|capex|2025-01-01|2025-12-31": {
+  "cell": "(13.4)",
+  "img": "4e07dc75dff7.png",
+  "match": true,
+  "seen": "(13.4)"
+ },
+ "0001563190-26-000057|cost_of_revenue_part|2023-01-01|2023-12-31|Commissions and other related expense": {
+  "cell": "4,007.0",
+  "img": "15b1c0d219b0.png",
+  "match": true,
+  "seen": "4,007.0"
+ },
+ "0001563190-26-000057|cost_of_revenue_part|2024-01-01|2024-12-31|Commissions and other related expense": {
+  "cell": "4,634.6",
+  "img": "f2d83b389768.png",
+  "match": true,
+  "seen": "4,634.6"
+ },
+ "0001563190-26-000057|cost_of_revenue_part|2025-01-01|2025-12-31|Commissions and other related expense": {
+  "cell": "5,679.7",
+  "img": "282dc6d62a60.png",
+  "match": true,
+  "seen": "5,679.7"
+ },
+ "0001563190-26-000057|operating_income|2023-01-01|2023-12-31": {
+  "cell": "(314.9)",
+  "img": "10636cb0985b.png",
+  "match": true,
+  "seen": "(314.9)"
+ },
+ "0001563190-26-000057|operating_income|2024-01-01|2024-12-31": {
+  "cell": "(154.8)",
+  "img": "bd74e4b990c4.png",
+  "match": true,
+  "seen": "(154.8)"
+ },
+ "0001563190-26-000057|operating_income|2025-01-01|2025-12-31": {
+  "cell": "(63.4)",
+  "img": "a806ad5bed48.png",
+  "match": true,
+  "seen": "(63.4)"
+ },
+ "0001563190-26-000057|revenue|2023-01-01|2023-12-31": {
+  "cell": "4,885.0",
+  "img": "b1d8fb7018b8.png",
+  "match": true,
+  "seen": "$4,885.0"
+ },
+ "0001563190-26-000057|revenue|2024-01-01|2024-12-31": {
+  "cell": "5,629.1",
+  "img": "b1520b86a1da.png",
+  "match": true,
+  "seen": "$5,629.1"
+ },
+ "0001563190-26-000057|revenue|2025-01-01|2025-12-31": {
+  "cell": "6,961.6",
+  "img": "599d8cde387d.png",
+  "match": true,
+  "seen": "$6,961.6"
+ }
+}

@@ -38,6 +38,27 @@ def _caption(tables: list[dict], kind: str) -> int:
     return 1 if CAPTIONS[kind].search(tables[0]["before"][-200:]) else 0
 
 
+MDNA = re.compile(r"non-gaap|reconcil|free cash flow|adjusted", re.I)
+
+
+def _mdna(tables: list[dict]) -> bool:
+    """Introduced as a non-GAAP measure or a reconciliation: an MD&A table, never the primary statement (Intel's
+    adjusted free cash flow table scores like the cash-flow statement)."""
+    return bool(MDNA.search(tables[0]["before"][-300:]))
+
+
+SUMMARY = re.compile(r"snapshot|highlights|selected financial|summary", re.I)
+BALANCE = re.compile(r"^(total )?(assets|liabilities|(stockholders'|shareholders'|total )?equity)\b", re.I)
+
+
+def _summary(tables: list[dict]) -> bool:
+    """A highlights table: introduced as a snapshot or summary, or income lines next to balance-sheet totals (IBM's
+    "Management Discussion Snapshot" has revenue, net income and EPS, then assets, liabilities, equity). Never the
+    primary statement, even when it scores like one and comes first."""
+    labels = [r["label"] for t in tables for r in t["rows"]]
+    return bool(SUMMARY.search(tables[0]["before"][-300:])) or (any(BALANCE.search(l) for l in labels) and any(INCOME_MARKERS["revenue"].search(l) for l in labels))
+
+
 def _quarterly(tables: list[dict]) -> bool:
     """Columns of three-month periods: an MD&A quarterly summary, never a 10-K's primary statement."""
     return any(re.search(r"three months|quarter|\bq[1-4]\b", c, re.I) for t in tables for c in t["columns"])
@@ -47,14 +68,14 @@ def locate(tables: list[dict]) -> dict:
     """{'income': [table_id, ...] | None, 'cash_flow': [...] | None, '<kind>_score': n}.
 
     A statement can break across a page into two adjacent tables, so pairs are scored too; a pair wins only if it
-    scores higher than either table alone. Among tables with enough markers, fiscal-year columns beat quarterly ones
-    (IREN's 10-K has a quarterly summary that scores like the income statement); then the higher score, a caption,
-    and the earliest table (primary statements come before the notes).
+    scores higher than either table alone. Among tables with enough markers, fiscal-year statement tables beat quarterly
+    summaries, MD&A reconciliations and highlights tables (IREN's quarterly summary, Intel's adjusted free cash flow
+    table and IBM's snapshot all score like a statement); then the higher score, a caption, and the earliest table (primary statements come before the notes).
     """
     out = {}
     for kind, markers, need in (("income", INCOME_MARKERS, 4), ("cash_flow", CASH_MARKERS, 4)):
-        cands = [(_score([t], markers), _caption([t], kind), -i, [t["id"]], _quarterly([t])) for i, t in enumerate(tables)]
-        cands += [(_score(tables[i:i + 2], markers), _caption(tables[i:i + 2], kind) - 1, -i, [tables[i]["id"], tables[i + 1]["id"]], _quarterly(tables[i:i + 2]))
+        cands = [(_score([t], markers), _caption([t], kind), -i, [t["id"]], _quarterly([t]) or _mdna([t]) or _summary([t])) for i, t in enumerate(tables)]
+        cands += [(_score(tables[i:i + 2], markers), _caption(tables[i:i + 2], kind) - 1, -i, [tables[i]["id"], tables[i + 1]["id"]], _quarterly(tables[i:i + 2]) or _mdna(tables[i:i + 2]) or _summary(tables[i:i + 2]))
                   for i in range(len(tables) - 1)
                   if _score(tables[i:i + 2], markers) > max(_score([tables[i]], markers), _score([tables[i + 1]], markers))]
         if kind == "income" and not any(c[0] >= need for c in cands):  # some issuers (miners, early-stage) have no EPS-style markers: accept 3

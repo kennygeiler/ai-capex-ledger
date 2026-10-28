@@ -4,6 +4,95 @@
   "name": "Arista Networks",
   "group": "Added in DATAHQ",
   "added_by": "Kenny Geiler",
-  "added_at": "2026-10-28T17:47:33+00:00"
+  "added_at": "2026-10-28T17:47:33+00:00",
+  "role": "seller"
+ },
+ {
+  "ticker": "COMP",
+  "name": "Compass",
+  "group": "Added in DATAHQ",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-28T18:45:07+00:00",
+  "role": "other"
+ },
+ {
+  "ticker": "AAPL",
+  "name": "Apple",
+  "group": "S&P 500 majors",
+  "role": "other",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "AVGO",
+  "name": "Broadcom",
+  "group": "S&P 500 majors",
+  "role": "seller",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "INTC",
+  "name": "Intel",
+  "group": "S&P 500 majors",
+  "role": "seller",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "QCOM",
+  "name": "Qualcomm",
+  "group": "S&P 500 majors",
+  "role": "seller",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "TXN",
+  "name": "Texas Instruments",
+  "group": "S&P 500 majors",
+  "role": "seller",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "CSCO",
+  "name": "Cisco Systems",
+  "group": "S&P 500 majors",
+  "role": "other",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "IBM",
+  "name": "IBM",
+  "group": "S&P 500 majors",
+  "role": "other",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "WMT",
+  "name": "Walmart",
+  "group": "S&P 500 majors",
+  "role": "other",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "XOM",
+  "name": "ExxonMobil",
+  "group": "S&P 500 majors",
+  "role": "other",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "JPM",
+  "name": "JPMorgan Chase",
+  "group": "S&P 500 majors",
+  "role": "other",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
  }
 ]

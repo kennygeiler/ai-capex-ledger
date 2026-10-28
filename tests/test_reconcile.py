@@ -57,7 +57,9 @@ class Annual(unittest.TestCase):
 
     def test_any_change_beyond_rounding_is_a_restatement(self):  # Meta capex moved 0.8%
         xs = [x("capex", "2025-05-31", 31_431_000_000, "a", "2025-07-01"), x("capex", "2025-05-31", 31_186_000_000, "b", "2026-07-01")]
-        self.assertEqual(values_for("META", xs, {}, "0531", DOCS)[0]["basis"], "restated")
+        v = {r["field"]: r for r in values_for("META", xs, {}, "0531", DOCS)}
+        self.assertEqual(v["capex"]["basis"], "restated")
+        self.assertEqual((v["revenue"]["value"], v["revenue"]["label"]), (None, "not_reported"))  # no such line in this 10-K: blank, with the reason
 
 
 if __name__ == "__main__":

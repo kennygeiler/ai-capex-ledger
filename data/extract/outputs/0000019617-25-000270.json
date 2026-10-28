@@ -1,0 +1,68 @@
+{
+ "accession": "0000019617-25-000270",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0336",
+   "row_label": "Total net revenue",
+   "column_label": "2024",
+   "cell_text": "177,556",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 177556000000,
+   "confidence": 0.9,
+   "notes": "Bank holding company: 'Total net revenue' is the company's total revenue line (noninterest revenue plus net interest income, i.e. net of interest expense). Taken as the total, not the 'Noninterest revenue' or 'Interest income' components."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0336",
+   "row_label": "Total net revenue",
+   "column_label": "2023",
+   "cell_text": "158,104",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 158104000000,
+   "confidence": 0.9,
+   "notes": "Bank holding company: 'Total net revenue' is the total revenue line, net of interest expense."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0336",
+   "row_label": "Total net revenue",
+   "column_label": "2022",
+   "cell_text": "128,695",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 128695000000,
+   "confidence": 0.9,
+   "notes": "Bank holding company: 'Total net revenue' is the total revenue line, net of interest expense."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "Bank income statement has no cost of revenue or cost of sales line. Interest expense is netted within revenue, and noninterest expense consists of operating expense categories (compensation, occupancy, technology, professional services, marketing, other), none of which is a cost of revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "No line is a cost of delivering revenue as defined. Interest expense is already deducted in arriving at 'Total net revenue', and the noninterest expense lines are general operating expenses."
+  },
+  {
+   "field": "operating_income",
+   "reason": "No 'Operating income' or 'Income (loss) from operations' line. The nearest line, 'Income before income tax expense', is pre-tax income and is not reported as operating income, so it was not substituted."
+  },
+  {
+   "field": "capex",
+   "reason": "The cash-flow statement section of the input contains no table or rows, so there is no capital expenditures cell to cite."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.5,
+  "input_tokens": 5070,
+  "output_tokens": 1013,
+  "attempts": 1,
+  "task_sha": "7d57d030469ceac7"
+ }
+}

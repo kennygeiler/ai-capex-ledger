@@ -1,0 +1,155 @@
+{
+ "accession": "0001730168-25-000121",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0021",
+   "row_label": "Total net revenue",
+   "column_label": "Fiscal Year Ended | November 2,2025",
+   "cell_text": "63,887",
+   "period_end": "2025-11-02",
+   "months": 12,
+   "value": 63887000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0021",
+   "row_label": "Total net revenue",
+   "column_label": "Fiscal Year Ended | November 3,2024",
+   "cell_text": "51,574",
+   "period_end": "2024-11-03",
+   "months": 12,
+   "value": 51574000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0021",
+   "row_label": "Total net revenue",
+   "column_label": "Fiscal Year Ended | October 29,2023",
+   "cell_text": "35,819",
+   "period_end": "2023-10-29",
+   "months": 12,
+   "value": 35819000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0021",
+   "row_label": "Total cost of revenue",
+   "column_label": "Fiscal Year Ended | November 2,2025",
+   "cell_text": "20,593",
+   "period_end": "2025-11-02",
+   "months": 12,
+   "value": 20593000000,
+   "confidence": 1.0,
+   "notes": "Total line as reported includes amortization of acquisition-related intangibles and restructuring charges."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0021",
+   "row_label": "Total cost of revenue",
+   "column_label": "Fiscal Year Ended | November 3,2024",
+   "cell_text": "19,065",
+   "period_end": "2024-11-03",
+   "months": 12,
+   "value": 19065000000,
+   "confidence": 1.0,
+   "notes": "Total line as reported includes amortization of acquisition-related intangibles and restructuring charges."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0021",
+   "row_label": "Total cost of revenue",
+   "column_label": "Fiscal Year Ended | October 29,2023",
+   "cell_text": "11,129",
+   "period_end": "2023-10-29",
+   "months": 12,
+   "value": 11129000000,
+   "confidence": 1.0,
+   "notes": "Total line as reported includes amortization of acquisition-related intangibles and restructuring charges."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0021",
+   "row_label": "Operating income",
+   "column_label": "Fiscal Year Ended | November 2,2025",
+   "cell_text": "25,484",
+   "period_end": "2025-11-02",
+   "months": 12,
+   "value": 25484000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0021",
+   "row_label": "Operating income",
+   "column_label": "Fiscal Year Ended | November 3,2024",
+   "cell_text": "13,463",
+   "period_end": "2024-11-03",
+   "months": 12,
+   "value": 13463000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0021",
+   "row_label": "Operating income",
+   "column_label": "Fiscal Year Ended | October 29,2023",
+   "cell_text": "16,207",
+   "period_end": "2023-10-29",
+   "months": 12,
+   "value": 16207000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0023",
+   "row_label": "Purchases of property, plant and equipment",
+   "column_label": "Fiscal Year Ended | November 2,2025",
+   "cell_text": "(623)",
+   "period_end": "2025-11-02",
+   "months": 12,
+   "value": 623000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0023",
+   "row_label": "Purchases of property, plant and equipment",
+   "column_label": "Fiscal Year Ended | November 3,2024",
+   "cell_text": "(548)",
+   "period_end": "2024-11-03",
+   "months": 12,
+   "value": 548000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0023",
+   "row_label": "Purchases of property, plant and equipment",
+   "column_label": "Fiscal Year Ended | October 29,2023",
+   "cell_text": "(452)",
+   "period_end": "2023-10-29",
+   "months": 12,
+   "value": 452000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the statement has a single 'Total cost of revenue' line."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.3,
+  "input_tokens": 6533,
+  "output_tokens": 1529,
+  "attempts": 1,
+  "task_sha": "2b1f69a81dd2a55d"
+ }
+}

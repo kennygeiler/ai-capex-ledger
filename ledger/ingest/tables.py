@@ -15,12 +15,13 @@ import html
 import re
 from html.parser import HTMLParser
 
-PARSER_VERSION = "tables@7"
+PARSER_VERSION = "tables@9"  # 8: unit stated as "(millions of dollars)"; 9: highlights tables never win the locator
 _NUM = re.compile(r"^\(?-?\$?\s*\(?([0-9][0-9,]*(?:\.[0-9]+)?)\s*\)?%?$")
 _DASHES = {"—", "–", "-", "— ", "−"}
 _CCY = r"(?:USD\s+|US\$\s*|U\.S\.\s+dollars\s+|dollars\s+)?"
 _UNIT = re.compile(r"\(\s*(?:in|dollars in|amounts in|\$ in|U\.S\. dollars in)\s+" + _CCY + r"(thousands|millions|billions)\b[^)]*\)", re.I)
-_UNIT_PAREN = re.compile(r"\(\s*(?:US)?\$\s*(thousands|millions|billions)\s*\)", re.I)
+# "($ millions)", and ExxonMobil's "(millions of dollars)": the unit word first, then the currency.
+_UNIT_PAREN = re.compile(r"\(\s*(?:(?:US)?\$\s*(thousands|millions|billions)|(thousands|millions|billions)\s+of\s+(?:U\.?S\.?\s+)?dollars)\s*\)", re.I)
 _UNIT_LOOSE = re.compile(r"\b(?:in|dollars in|amounts in)\s+" + _CCY + r"(thousands|millions|billions)\b", re.I)
 _YEAR = re.compile(r"^(19|20)\d\d$")
 SCALES = {"thousands": 1_000, "millions": 1_000_000, "billions": 1_000_000_000}

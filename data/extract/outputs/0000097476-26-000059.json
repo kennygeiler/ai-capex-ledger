@@ -1,0 +1,148 @@
+{
+ "accession": "0000097476-26-000059",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0018",
+   "row_label": "Revenue",
+   "column_label": "For Years Ended December 31, | 2025",
+   "cell_text": "17,682",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 17682000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0018",
+   "row_label": "Revenue",
+   "column_label": "For Years Ended December 31, | 2024",
+   "cell_text": "15,641",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 15641000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0018",
+   "row_label": "Revenue",
+   "column_label": "For Years Ended December 31, | 2023",
+   "cell_text": "17,519",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 17519000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0018",
+   "row_label": "Cost of revenue (COR)",
+   "column_label": "For Years Ended December 31, | 2025",
+   "cell_text": "7,599",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 7599000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0018",
+   "row_label": "Cost of revenue (COR)",
+   "column_label": "For Years Ended December 31, | 2024",
+   "cell_text": "6,547",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 6547000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0018",
+   "row_label": "Cost of revenue (COR)",
+   "column_label": "For Years Ended December 31, | 2023",
+   "cell_text": "6,500",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 6500000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0018",
+   "row_label": "Operating profit",
+   "column_label": "For Years Ended December 31, | 2025",
+   "cell_text": "6,023",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 6023000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0018",
+   "row_label": "Operating profit",
+   "column_label": "For Years Ended December 31, | 2024",
+   "cell_text": "5,465",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 5465000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0018",
+   "row_label": "Operating profit",
+   "column_label": "For Years Ended December 31, | 2023",
+   "cell_text": "7,331",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 7331000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0021",
+   "row_label": "Capital expenditures",
+   "column_label": "For Years Ended December 31, | 2025",
+   "cell_text": "(4,550)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 4550000000,
+   "confidence": 1.0,
+   "notes": "Gross capital expenditures; CHIPS Act incentive proceeds are a separate investing line and are not netted."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0021",
+   "row_label": "Capital expenditures",
+   "column_label": "For Years Ended December 31, | 2024",
+   "cell_text": "(4,820)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 4820000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0021",
+   "row_label": "Capital expenditures",
+   "column_label": "For Years Ended December 31, | 2023",
+   "cell_text": "(5,071)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 5071000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.6,
+  "input_tokens": 6089,
+  "output_tokens": 1459,
+  "attempts": 1,
+  "task_sha": "862b989cd9742a8e"
+ }
+}

@@ -1,0 +1,65 @@
+{
+ "accession": "0001628280-26-008131",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0328",
+   "row_label": "Total net revenue",
+   "column_label": "2025",
+   "cell_text": "182,447",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 182447000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0328",
+   "row_label": "Total net revenue",
+   "column_label": "2024",
+   "cell_text": "177,556",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 177556000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0328",
+   "row_label": "Total net revenue",
+   "column_label": "2023",
+   "cell_text": "158,104",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 158104000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "The bank income statement has no cost of revenue or cost of sales line. Interest expense is already netted into Total net revenue (via Net interest income). Noninterest expense lines are operating expenses, not costs of delivering revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "No line is a cost of delivering revenue as the prompt defines it. Interest expense is subtracted before Total net revenue, so counting it as a cost would deduct it twice. Compensation, occupancy, technology, professional services, marketing and other expense are operating expenses."
+  },
+  {
+   "field": "operating_income",
+   "reason": "There is no operating income or income from operations line. The nearest row is 'Income before income tax expense', which is pre-tax income, not operating income. It was not substituted."
+  },
+  {
+   "field": "capex",
+   "reason": "The filing provided no cash-flow statement table (the section is empty), so there is no cell to cite for purchases of property and equipment."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.5,
+  "input_tokens": 5064,
+  "output_tokens": 848,
+  "attempts": 1,
+  "task_sha": "011b06e6bda708d0"
+ }
+}
