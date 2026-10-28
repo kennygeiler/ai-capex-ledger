@@ -1,0 +1,149 @@
+{
+ "accession": "0000723125-25-000028",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0018",
+   "row_label": "Revenue",
+   "column_label": "August 28,2025",
+   "cell_text": "37,378",
+   "period_end": "2025-08-28",
+   "months": 12,
+   "value": 37378000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0018",
+   "row_label": "Revenue",
+   "column_label": "August 29,2024",
+   "cell_text": "25,111",
+   "period_end": "2024-08-29",
+   "months": 12,
+   "value": 25111000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0018",
+   "row_label": "Revenue",
+   "column_label": "August 31,2023",
+   "cell_text": "15,540",
+   "period_end": "2023-08-31",
+   "months": 12,
+   "value": 15540000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0018",
+   "row_label": "Cost of goods sold",
+   "column_label": "August 28,2025",
+   "cell_text": "22,505",
+   "period_end": "2025-08-28",
+   "months": 12,
+   "value": 22505000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0018",
+   "row_label": "Cost of goods sold",
+   "column_label": "August 29,2024",
+   "cell_text": "19,498",
+   "period_end": "2024-08-29",
+   "months": 12,
+   "value": 19498000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0018",
+   "row_label": "Cost of goods sold",
+   "column_label": "August 31,2023",
+   "cell_text": "16,956",
+   "period_end": "2023-08-31",
+   "months": 12,
+   "value": 16956000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0018",
+   "row_label": "Operating income (loss)",
+   "column_label": "August 28,2025",
+   "cell_text": "9,770",
+   "period_end": "2025-08-28",
+   "months": 12,
+   "value": 9770000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0018",
+   "row_label": "Operating income (loss)",
+   "column_label": "August 29,2024",
+   "cell_text": "1,304",
+   "period_end": "2024-08-29",
+   "months": 12,
+   "value": 1304000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0018",
+   "row_label": "Operating income (loss)",
+   "column_label": "August 31,2023",
+   "cell_text": "(5,745)",
+   "period_end": "2023-08-31",
+   "months": 12,
+   "value": -5745000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0022",
+   "row_label": "Expenditures for property, plant, and equipment",
+   "column_label": "August 28,2025",
+   "cell_text": "(15,857)",
+   "period_end": "2025-08-28",
+   "months": 12,
+   "value": 15857000000,
+   "confidence": 1.0,
+   "notes": "Gross capex; 'Proceeds from government incentives' is a separate line and was not netted."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0022",
+   "row_label": "Expenditures for property, plant, and equipment",
+   "column_label": "August 29,2024",
+   "cell_text": "(8,386)",
+   "period_end": "2024-08-29",
+   "months": 12,
+   "value": 8386000000,
+   "confidence": 1.0,
+   "notes": "Gross capex; government incentives and equipment purchase contract payments (financing) not added or netted."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0022",
+   "row_label": "Expenditures for property, plant, and equipment",
+   "column_label": "August 31,2023",
+   "cell_text": "(7,676)",
+   "period_end": "2023-08-31",
+   "months": 12,
+   "value": 7676000000,
+   "confidence": 1.0,
+   "notes": "Gross capex; government incentives and equipment purchase contract payments (financing) not added or netted."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.7,
+  "input_tokens": 5960,
+  "output_tokens": 1369,
+  "attempts": 1
+ }
+}

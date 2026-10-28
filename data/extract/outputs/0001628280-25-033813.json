@@ -1,0 +1,154 @@
+{
+ "accession": "0001628280-25-033813",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0025",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended | May 3, 2025",
+   "cell_text": "436,775",
+   "period_end": "2025-05-03",
+   "months": 12,
+   "value": 436775000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0025",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended | April 27, 2024",
+   "cell_text": "192,970",
+   "period_end": "2024-04-27",
+   "months": 12,
+   "value": 192970000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0025",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended | April 29, 2023",
+   "cell_text": "184,194",
+   "period_end": "2023-04-29",
+   "months": 12,
+   "value": 184194000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0025",
+   "row_label": "Total cost of revenue",
+   "column_label": "Year Ended | May 3, 2025",
+   "cell_text": "153,866",
+   "period_end": "2025-05-03",
+   "months": 12,
+   "value": 153866000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0025",
+   "row_label": "Total cost of revenue",
+   "column_label": "Year Ended | April 27, 2024",
+   "cell_text": "73,539",
+   "period_end": "2024-04-27",
+   "months": 12,
+   "value": 73539000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0025",
+   "row_label": "Total cost of revenue",
+   "column_label": "Year Ended | April 29, 2023",
+   "cell_text": "78,000",
+   "period_end": "2023-04-29",
+   "months": 12,
+   "value": 78000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0025",
+   "row_label": "Operating income (loss)",
+   "column_label": "Year Ended | May 3, 2025",
+   "cell_text": "37,124",
+   "period_end": "2025-05-03",
+   "months": 12,
+   "value": 37124000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0025",
+   "row_label": "Operating income (loss)",
+   "column_label": "Year Ended | April 27, 2024",
+   "cell_text": "(37,058)",
+   "period_end": "2024-04-27",
+   "months": 12,
+   "value": -37058000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0025",
+   "row_label": "Operating income (loss)",
+   "column_label": "Year Ended | April 29, 2023",
+   "cell_text": "(21,235)",
+   "period_end": "2023-04-29",
+   "months": 12,
+   "value": -21235000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0028",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | May 3, 2025",
+   "cell_text": "(36,061)",
+   "period_end": "2025-05-03",
+   "months": 12,
+   "value": 36061000,
+   "confidence": 1.0,
+   "notes": "Investing-section line; the supplemental non-cash 'Purchases of property and equipment included in accounts payable...' line was not used."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0028",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | April 27, 2024",
+   "cell_text": "(15,652)",
+   "period_end": "2024-04-27",
+   "months": 12,
+   "value": 15652000,
+   "confidence": 1.0,
+   "notes": "Investing-section line; the supplemental non-cash 'Purchases of property and equipment included in accounts payable...' line was not used."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0028",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | April 29, 2023",
+   "cell_text": "(21,713)",
+   "period_end": "2023-04-29",
+   "months": 12,
+   "value": 21713000,
+   "confidence": 1.0,
+   "notes": "Investing-section line; the supplemental non-cash 'Purchases of property and equipment included in accounts payable...' line was not used."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the statement has a 'Total cost of revenue' line, so component lines are not extracted."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.4,
+  "input_tokens": 6109,
+  "output_tokens": 1527,
+  "attempts": 1
+ }
+}

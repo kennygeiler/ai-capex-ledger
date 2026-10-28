@@ -15,20 +15,20 @@ _LOCATE = """([idx, row, col]) => {
   const want = norm(row), head = norm(col.split("|").pop());
   for (const t of [tables[idx], ...tables].filter(Boolean)) {
     const trs = [...t.querySelectorAll("tr")];
-    const tr = trs.find((r) => { const c = [...r.cells].find((c) => c.innerText.trim()); return c && norm(c.innerText) === want; });
+    const tr = trs.find((r) => { const c = [...r.cells].find((c) => c.textContent.trim()); return c && norm(c.textContent) === want; });
     if (!tr) continue;
-    const heads = trs.slice(0, trs.indexOf(tr)).flatMap((r) => [...r.cells]).filter((c) => norm(c.innerText).endsWith(head));
+    const heads = trs.slice(0, trs.indexOf(tr)).flatMap((r) => [...r.cells]).filter((c) => norm(c.textContent).endsWith(head));
     if (!heads.length) continue;
     const h = heads[heads.length - 1].getBoundingClientRect();
-    const cells = [...tr.cells].slice(1).filter((c) => { const r = c.getBoundingClientRect(); return c.innerText.trim() && r.right > h.left + 1 && r.left < h.right - 1; });
-    const near = (c, step) => { for (let n = c && c[step]; n; n = n[step]) if (n.innerText.trim()) return n; };
+    const cells = [...tr.cells].slice(1).filter((c) => { const r = c.getBoundingClientRect(); return c.textContent.trim() && r.right > h.left + 1 && r.left < h.right - 1; });
+    const near = (c, step) => { for (let n = c && c[step]; n; n = n[step]) if (n.textContent.trim()) return n; };
     const nx = near(cells[cells.length - 1], "nextElementSibling"), pv = near(cells[0], "previousElementSibling");
-    if (nx && /^[)]/.test(nx.innerText.trim())) cells.push(nx);  // a closing parenthesis in its own cell, past the header
-    if (pv && /^[(]$/.test(pv.innerText.trim())) cells.unshift(pv);
+    if (nx && /^[)]/.test(nx.textContent.trim())) cells.push(nx);  // a closing parenthesis in its own cell, past the header
+    if (pv && /^[(]$/.test(pv.textContent.trim())) cells.unshift(pv);
     const abs = (r) => ({ x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height });
     const rows = cells.map((c) => c.getBoundingClientRect()), tr_ = tr.getBoundingClientRect(), tb = t.getBoundingClientRect();
     const cell = cells.length ? { x: Math.min(...rows.map((r) => r.left)) + scrollX, y: tr_.top + scrollY, w: Math.max(...rows.map((r) => r.right)) - Math.min(...rows.map((r) => r.left)), h: tr_.height } : null;
-    return { seen: cells.map((c) => c.innerText.trim()).join(""), cell, row: abs(tr_), head: abs(h), table: abs(tb) };
+    return { seen: cells.map((c) => c.textContent.trim()).join(""), cell, row: abs(tr_), head: abs(h), table: abs(tb) };
   }
   return null;
 }"""

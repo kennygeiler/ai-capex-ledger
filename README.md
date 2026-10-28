@@ -6,16 +6,22 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** M1 is done. AMD, a company the pipeline had never seen, ran from ticker to finished validation page with nobody in the loop: `ledger run --ticker AMD`, 21 seconds end to end.
-- **Agent:** 2 10-Ks read by the headless agent (Opus 5.5, 0.5 agent-minutes, 16k tokens, 0 retries).
-- **Results:** 12/12 values agree with XBRL, and 24/24 cited cells were confirmed on the rendered 10-K. 0 of 120 injected faults escaped.
-- **Cost:** 0 code changes and 0 items for a person. There are 3 warnings, all FY2026 coverage: AMD's FY2026 hasn't ended yet.
-- **Scorecard:** in [docs/INGESTION.md](docs/INGESTION.md) and on `reports/AMD-validation.html`.
-- `v0.2.0` stays signed.
+**Last done (28 Oct 2026):** M2 blind run 1. The 13 unseen companies ran with one command and nobody in the loop, with the pipeline frozen at tag `m2-frozen`.
+- **Agent and values:** 26 10-Ks read headless (about 9 agent-minutes, 1 retry). 143 of 145 values agree with XBRL, and 0 of 1,555 planted faults escaped.
+- **Clean on the first pass:** 6 companies (AMZN, GOOGL, META, MRVL, MU, TSLA).
+- **Failures:** 6 types, listed in [docs/INGESTION.md](docs/INGESTION.md). Type 1, the rendered-page re-read on Workiva layouts, is fixed: 311 of 311 cells confirmed.
+- **Also:** the coverage rule no longer flags a fiscal year whose 10-K isn't due yet.
 
 **Next:**
-1. **Claude (M2):** label "the fiscal year hasn't ended" in code, then run the remaining 13 unseen companies blind with the pipeline frozen (`ledger run --ticker GOOGL AMZN META TSLA MU SPCX MRVL ALAB CRDO IREN CIFR WULF CORZ`). Record each failure by type and fix the type, then rerun everything.
-2. **Kenny (optional):** upgrade the installed Claude Code with `brew upgrade claude-code` (or your install method), so that `LEDGER_CLAUDE` isn't needed.
+1. **Claude (M2.2):** fix types 2–6, each as a type:
+   - the locator prefers fiscal-year statements
+   - the reference prefers total `Revenues`
+   - the statement tie counts operating lines outside the opex block
+   - fetch 10-Ks from 2022, and label years before a company's first 10-K
+   - name any company with no 10-K
+   
+   Then rerun all 19 companies until a full rerun needs no code change.
+2. **Kenny (optional):** upgrade the installed Claude Code, so that `LEDGER_CLAUDE` isn't needed.
 
 **Critical notes:**
 - **Dashes are zero.** APLD's newest 10-K shows "—" for its data-center cost line in FY2024 and FY2025; agents read these as 0.

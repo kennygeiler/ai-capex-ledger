@@ -1,0 +1,152 @@
+{
+ "accession": "0001819989-26-000009",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0026",
+   "row_label": "Revenue - bitcoin mining",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "223,942",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 223942000,
+   "confidence": 0.95,
+   "notes": "Only revenue line on the statement; power sales are presented within costs and operating expenses, not as revenue."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0026",
+   "row_label": "Revenue - bitcoin mining",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "151,270",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 151270000,
+   "confidence": 0.95,
+   "notes": "Only revenue line on the statement; power sales are presented within costs and operating expenses, not as revenue."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0026",
+   "row_label": "Revenue - bitcoin mining",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "126,842",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 126842000,
+   "confidence": 0.95,
+   "notes": "Only revenue line on the statement; power sales are presented within costs and operating expenses, not as revenue."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0026",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(81,216)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 81216000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0026",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(62,364)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 62364000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0026",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(50,309)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 50309000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0026",
+   "row_label": "Operating loss",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(421,563)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": -421563000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0026",
+   "row_label": "Operating loss",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(43,699)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": -43699000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0026",
+   "row_label": "Operating loss",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(20,115)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": -20115000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0030",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(487,921)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 487921000,
+   "confidence": 0.95,
+   "notes": "Separate 'Deposits on equipment' line not added per rules."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0030",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(139,495)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 139495000,
+   "confidence": 0.95,
+   "notes": "Separate 'Deposits on equipment' line not added per rules."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0030",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(20,480)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 20480000,
+   "confidence": 0.95,
+   "notes": "Separate 'Deposits on equipment' line not added per rules."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 35.5,
+  "input_tokens": 13776,
+  "output_tokens": 5047,
+  "attempts": 2
+ }
+}

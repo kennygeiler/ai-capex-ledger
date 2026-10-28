@@ -51,6 +51,27 @@ A person's attention is the scarcest input, so it goes only where code can't nam
 | earlier | Some tables state their unit elsewhere in the filing. | Allowed, flagged as a warning. | policy |
 | earlier | Misreads with a valid-looking citation escaped (140 in fault tests). | `citation_resolves` checks every extraction. | code |
 
+## M2 blind run 1 (28 Oct, pipeline frozen at tag `m2-frozen`)
+
+13 unseen companies, one command, nobody in the loop.
+- **Agent:** read 26 10-Ks in about 9 agent-minutes, with 1 retry.
+- **Values:** 143 of 145 agree with XBRL.
+- **Faults:** 0 of 1,555 planted faults escaped.
+- **Clean on the first pass:** AMZN, GOOGL, META, MRVL, MU and TSLA (no code change, nothing for a person).
+
+Every failure, by type:
+
+| # | Type | Where | Caught by | Fix |
+|---|---|---|---|---|
+| 1 | **Re-read can't see text in Workiva's positioned layout.** The browser reports the cell text as empty although it is on screen. | CORZ FY2025 10-K: 12 cells not confirmed | `evidence` | **Fixed:** read the cell's own text (`textContent`), not the browser's visible-text view. 311/311 confirmed. |
+| 2 | **Locator picks a quarterly table in a 10-K.** IREN's first 10-K has a quarterly summary that looked like the income statement. | IREN FY2025 10-K: 12 quarterly values | `period_length` (block) | Proposed: in a 10-K, prefer the statement whose columns are fiscal years. |
+| 3 | **The answer key picks a narrower revenue tag.** The XBRL reference chose contract revenue over the filed total `Revenues`, which leaves out lease revenue. | WULF FY2025 revenue and opex | `xbrl_reconcile` (block) | Proposed: the reference prefers the total `Revenues` tag when the company files one. |
+| 4 | **Statement tie assumes a layout.** Operating lines outside "total operating expenses" (impairments, gains on sales) break revenue − cost − opex = operating income. | CORZ FY2022 | `statement_tie` (block) | Proposed: count lines between cost of revenue and operating income that sit outside the operating-expenses block. |
+| 5 | **The fetch window doesn't reach the first year.** Smaller filers show 2 years, so 10-Ks from 2024 on miss FY2022. | CIFR FY2022 (also APLD, CRWV) | `coverage` (warn) | Proposed: fetch 10-Ks from 2022, and label a year before the company's first 10-K (pre-IPO, or a foreign filer before switching to 10-K, like IREN) in code. |
+| 6 | **A company with no 10-K is silent.** SpaceX (SPCX) has filed an S-1 and 10-Qs but no 10-K yet. The run produced nothing and said nothing. | SPCX | nothing (the gap) | Proposed: `coverage` names every requested company with no 10-K. |
+
+Not failures: 6 `row_label_switch` warnings are lines renamed between filings ("Revenue" → "Total revenue"), and 17 `jump` warnings are real growth. Both are working as intended.
+
 ## Scorecard
 
 What each company cost. `ledger run` prints this, and each validation page shows it. Code changes are counted by hand from the log above.
@@ -59,6 +80,8 @@ What each company cost. `ledger run` prints this, and each validation page shows
 |---|---|---|---|---|---|---|
 | NVDA, MSFT, CRWV, ORCL, APLD | by hand (in-session agents) | n/a | n/a | many (stage 1–2 built the pipeline) | 6 decisions | 56/66 |
 | AMD | `ledger run`, unattended | 0.5 min (2 filings) | 16,302 | 0 | 0 (3 warnings: FY2026 not yet ended) | 12/12 |
+| AMZN, GOOGL, META, MRVL, MU, TSLA | blind run 1 | 2.5 min (13 filings) | 99,666 | 0 | 0 | 75/75 |
+| ALAB, CIFR, CORZ, CRDO, IREN, WULF, SPCX | blind run 1 | 3.5 min (13 filings) | 120,630 | types 1–6 above | 15 blocks (types 2–4) | 68/70 |
 
 ## Open
 

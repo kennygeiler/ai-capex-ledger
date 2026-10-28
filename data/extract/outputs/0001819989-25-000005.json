@@ -1,0 +1,106 @@
+{
+ "accession": "0001819989-25-000005",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0024",
+   "row_label": "Revenue - bitcoin mining",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "151,270",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 151270000,
+   "confidence": 0.9,
+   "notes": "Only revenue line on the statement, so it is taken as total revenue. 'Power sales' (5,405) is presented within costs and operating (expenses) income, not as revenue, so it is not included."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0024",
+   "row_label": "Revenue - bitcoin mining",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "126,842",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 126842000,
+   "confidence": 0.9,
+   "notes": "Only revenue line on the statement, so it is taken as total revenue. 'Power sales' (9,941) is presented within costs and operating (expenses) income, not as revenue, so it is not included."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0024",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(62,364)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 62364000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0024",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(50,309)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 50309000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0024",
+   "row_label": "Operating loss",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(43,699)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": -43699000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0024",
+   "row_label": "Operating loss",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(20,115)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": -20115000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0027",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(139,495)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 139495000,
+   "confidence": 0.95,
+   "notes": "'Deposits on equipment' (162,958) and 'Purchases and development of software' (1,423) are separate lines and are not added, per the rule against combining lines."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0027",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(20,480)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 20480000,
+   "confidence": 0.95,
+   "notes": "'Deposits on equipment' (33,906) and 'Purchases and development of software' (634) are separate lines and are not added, per the rule against combining lines."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.0,
+  "input_tokens": 6176,
+  "output_tokens": 1318,
+  "attempts": 1
+ }
+}

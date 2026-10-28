@@ -1,0 +1,152 @@
+{
+ "accession": "0001878848-26-000052",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0018",
+   "row_label": "Total revenue",
+   "column_label": "Years ended June 30, | 2026",
+   "cell_text": "707,007",
+   "period_end": "2026-06-30",
+   "months": 12,
+   "value": 707007000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0018",
+   "row_label": "Total revenue",
+   "column_label": "Years ended June 30, | 2025",
+   "cell_text": "501,023",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 501023000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0018",
+   "row_label": "Total revenue",
+   "column_label": "Years ended June 30, | 2024",
+   "cell_text": "187,192",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 187192000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0018",
+   "row_label": "Total cost of revenue",
+   "column_label": "Years ended June 30, | 2026",
+   "cell_text": "(219,706)",
+   "period_end": "2026-06-30",
+   "months": 12,
+   "value": 219706000,
+   "confidence": 1.0,
+   "notes": "Cost of revenue is stated exclusive of depreciation and amortization, which is shown separately."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0018",
+   "row_label": "Total cost of revenue",
+   "column_label": "Years ended June 30, | 2025",
+   "cell_text": "(158,992)",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 158992000,
+   "confidence": 1.0,
+   "notes": "Cost of revenue is stated exclusive of depreciation and amortization, which is shown separately."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0018",
+   "row_label": "Total cost of revenue",
+   "column_label": "Years ended June 30, | 2024",
+   "cell_text": "(87,067)",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 87067000,
+   "confidence": 1.0,
+   "notes": "Cost of revenue is stated exclusive of depreciation and amortization, which is shown separately."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0018",
+   "row_label": "Operating (loss) income",
+   "column_label": "Years ended June 30, | 2026",
+   "cell_text": "(1,046,714)",
+   "period_end": "2026-06-30",
+   "months": 12,
+   "value": -1046714000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0018",
+   "row_label": "Operating (loss) income",
+   "column_label": "Years ended June 30, | 2025",
+   "cell_text": "17,327",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 17327000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0018",
+   "row_label": "Operating (loss) income",
+   "column_label": "Years ended June 30, | 2024",
+   "cell_text": "(27,234)",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": -27234000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0023",
+   "row_label": "Payments for property, plant and equipment, net of computer hardware",
+   "column_label": "Years ended June 30, | 2026",
+   "cell_text": "(2,998,006)",
+   "period_end": "2026-06-30",
+   "months": 12,
+   "value": 2998006000,
+   "confidence": 0.6,
+   "notes": "PP&E purchases are split across two lines: this one excludes computer hardware, which is reported separately on 'Payments for computer hardware' ((1,335,081)). Per the rules the lines were not added, so this value understates total PP&E spending. 'Payments for intangible assets' is a separate line and is not included."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0023",
+   "row_label": "Payments for property, plant and equipment, net of computer hardware",
+   "column_label": "Years ended June 30, | 2025",
+   "cell_text": "(573,456)",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 573456000,
+   "confidence": 0.6,
+   "notes": "PP&E purchases are split across two lines: this one excludes computer hardware, which is reported separately on 'Payments for computer hardware' ((799,171)). Per the rules the lines were not added, so this value understates total PP&E spending."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0023",
+   "row_label": "Payments for property, plant and equipment, net of computer hardware",
+   "column_label": "Years ended June 30, | 2024",
+   "cell_text": "(141,855)",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 141855000,
+   "confidence": 0.6,
+   "notes": "PP&E purchases are split across two lines: this one excludes computer hardware, which is reported separately on 'Payments for computer hardware' ((338,054)). Per the rules the lines were not added, so this value understates total PP&E spending."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.3,
+  "input_tokens": 7930,
+  "output_tokens": 2078,
+  "attempts": 1
+ }
+}
