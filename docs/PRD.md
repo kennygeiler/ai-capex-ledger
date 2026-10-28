@@ -85,7 +85,7 @@ The goal of stage 1 is to prove every part of the pipeline works once, not to fi
   - Each agent value is compared with the XBRL value for the same concept and period.
   - A match within the stated rounding passes.
   - A mismatch goes to review, labelled as agent error, XBRL error, or definition difference.
-- **Rule registry:** move today's 8 checks into `rules/*.yaml` and add 6 new rules (listed in R3).
+- **Rule registry:** 14 rules in `rules/*.yaml`, each with a rationale and owner, adapted from today's checks plus new ones (listed in R3). Built 2026-10-28.
 - **Review queue:** a CLI first (`python -m ledger.review`), plus a review tab in the explorer.
 - **Decisions:** stored in `decisions/*.jsonl` in git.
 - **Release:**
@@ -128,20 +128,31 @@ The goal of stage 1 is to prove every part of the pipeline works once, not to fi
   - `confidence`
   - `notes`
 - Instructions are versioned files (`agents/prompts/<field>@vN.md`).
-- Every run logs the prompt version, model, tokens, latency and retries.
+- Every run logs the prompt version, model, tokens, latency and retries, and keeps the agent's transcript as evidence. (The stage 1 QA found this missing: T46.)
 - A schema-invalid output is retried once, then becomes an `extraction_failed` exception. It never becomes a guess.
+- **Repeatability:** every prompt version passes a rerun test. A fresh agent on the same tasks must return identical values and citations. (Stage 1: 34/34 identical.)
+- **Judgement is written down:** every row choice that isn't the obvious total line carries a note. `confidence` is recorded but not used to route review until it has been calibrated. In stage 1, two agents gave the same choice 0.9 and 0.95.
 
-**R3. Validation rule registry**
-- Each rule declares: ID, description, rationale, severity (block, warn or info), scope, and a test fixture.
-- Today's 8 checks move over unchanged.
-- New rules for the MVP:
-  1. **unit_scale:** the agent's value equals the verbatim cell text × the stated scale.
-  2. **statement_tie:** revenue − cost of revenue − operating expenses = operating income, within rounding.
-  3. **ytd_consistency:** Q1 + Q2 + Q3 + Q4 = the 10-K full year (today's tiling check, now blocking).
-  4. **xbrl_reconcile:** the agent's value matches XBRL within the stated rounding.
-  5. **peer_outlier:** capex ÷ revenue is outside the company's own 8-quarter range by more than 2×.
-  6. **citation_present:** every value has a citation that resolves to a cell that exists.
-- Each rule has a unit test with a passing and a failing fixture.
+**R3. Validation rule registry** (built 2026-10-28)
+- Each rule declares: ID, description, rationale, severity (block, warn or info), owner, and its check function with parameters. Each has a passing and a failing test fixture.
+- **Checks on what the agent read:**
+  - `citation_resolves` (block): the cited cell exists, and cell × unit with the sign rule = value
+  - `period_length` (block)
+  - `unit_from_document` (warn): the unit was stated elsewhere in the filing (decision 2026-10-27)
+  - `row_label_switch` (warn): the agent-world version of today's tag-switch check
+  - `definition_note` (info): the line covers more than the field, e.g. capex including intangibles
+- **Arithmetic on independently read cells:**
+  - `quarters_sum_to_ytd` (block): three-month cells = the filing's six- and nine-month cells. This replaces "Q1–Q4 = full year", which is circular because Q4 is derived from the year (found in the stage 1 QA).
+  - `statement_tie` (block): revenue − cost of revenue − total operating expenses = operating income, read straight from the parsed table
+- **Checks on quarterly values:**
+  - `sign` (block)
+  - `magnitude` (block)
+  - `xbrl_reconcile` (block): tolerance is the coarser rounding of the two sources
+  - `jump` (warn)
+  - `outlier_vs_own_history` (warn)
+  - `coverage` (warn)
+  - `restated` (info)
+- `ledger/reference/validate.py` stays for the XBRL reference pipeline; every check on agent data lives in the registry.
 
 **R4. Reconciliation**
 - For each (company, field, period): line up the agent value, the XBRL value and the derived value (YTD difference or Q4 as full year minus nine months).
@@ -215,7 +226,7 @@ A target with no reason behind it invites gaming, or gets ignored. Every number 
 
 ### Delivery criteria (checked once at MVP sign-off)
 
-- **D1. Rules are in the registry.** All 14 rules are YAML, each with a passing and a failing fixture test, and the hard-coded checks are deleted.
+- **D1. Rules are in the registry.** All 14 rules are YAML, each with a passing and a failing fixture test (done 2026-10-28). No check on agent data lives outside the registry.
 - **D2. The client view is honest.** The explorer shows only released data. Every cell shows its release version and links to the cited document location. Overridden or missing values are visibly marked.
 - **D3. Known defects are closed:**
   - Honeywell 2025Q3 and Intuit 2025Q2 negative capex: decided and documented.
@@ -238,6 +249,8 @@ A target with no reason behind it invites gaming, or gets ignored. Every number 
 | Rule precision | For each rule: alerts that were real problems ÷ all alerts | **Reported per rule. No % target in the MVP.** Demotion rule: a blocking rule with zero true positives across baseline and golden set is demoted to `warn`. | Baseline. With ~590 values, most rules fire only a handful of times, so a % threshold would be noise. |
 | Citation coverage | Released values with a resolvable cell citation ÷ released values | 100% | Definition, see G2 |
 | Reproducibility | Identical release hash on rerun | 100% | Definition, see G7 |
+| Agent repeatability | Share of values and citations identical when a fresh agent reruns the same tasks | 100% on the rerun sample | Definition (principle 5). Stage 1: 34/34 on one rerun batch |
+| Confidence calibration | Does a stated confidence of 0.9 mean 90% correct? | **No target.** Not used for routing until stage 2 data can test it | Baseline. Stage 1 showed the same choice scored 0.9 and 0.95 by different agents |
 | Pipeline time, filing to release candidate | Wall-clock from fetching a new filing to a release candidate, excluding time waiting for review | **Measured** | Baseline. The freshness clients need is an open question for Arctal; no target until it is answered. |
 | Agent cost per filing | Tokens and $ (or subscription minutes) per filing | **Measured** | Baseline. Needed for unit economics at 100k documents. |
 
@@ -245,7 +258,7 @@ A target with no reason behind it invites gaming, or gets ignored. Every number 
 
 | Risk | Impact | Mitigation |
 |---|---|---|
-| Agents misread scale (thousands vs millions) or take the wrong column (three months vs year to date) | Plausible-looking numbers that are wrong by 1,000× or ~3× | `unit_scale` and `xbrl_reconcile` rules block release; the verbatim cell text is required; golden set includes YTD-only cash-flow statements |
+| Agents misread scale (thousands vs millions) or take the wrong column (three months vs year to date) | Plausible-looking numbers that are wrong by 1,000× or ~3× | `citation_resolves`, `quarters_sum_to_ytd` and `xbrl_reconcile` rules block release; the verbatim cell text is required; golden set includes YTD-only cash-flow statements |
 | XBRL treated as truth when it is wrong (Oracle files a full year as a quarter) | The answer key penalizes a correct agent | XBRL is evidence, not truth: mismatches get a label; `xbrl_wrong` is a valid outcome with a recorded decision |
 | Overfitting to SEC filings, which are cleaner than Arctal's documents | MVP looks better than the real job | Phase 2 adds press releases and N-CSR fund reports, which have no answer key; report accuracy separately for documents with and without an answer key |
 | Rules are too noisy and reviewers start rubber-stamping | The person in the loop stops adding value | Track precision per rule; demote blocking rules with zero true positives; the exception-rate budget caps queue size per release |
@@ -253,6 +266,8 @@ A target with no reason behind it invites gaming, or gets ignored. Every number 
 | Non-determinism from model updates | Same document, different value, no reason | Pin the model per release, record it on every value, keep cached agent outputs, rerun only on purpose |
 | Cost: no paid API credits (project constraint) | Agent extraction can't run in an automated pipeline | MVP runs extraction as Claude Code subagents in-session; batch by filing; a paid API run needs a cost estimate and Kenny's OK first |
 | Scope vs the 11/12 Nov call | Half-built overhaul shown at the call | MVP is 19 companies, 4 fields, CLI review; anything else is Phase 2; cut the review tab before cutting the release gate |
+| A check that can't fail (circular) | False comfort: a "quarters add up to the year" check always passes when Q4 is derived from the year | Every arithmetic rule compares independently read cells; each rule has a failing fixture that proves it can fire (found in the stage 1 QA) |
+| Agents automate their own reading (scripts) | One wrong row choice repeats across every filing, invisibly | Judgement notes on row choices, a repeatability rerun read value by value, and a challenger agent in v2 |
 | Small samples make numbers look more precise than they are | A reported "98.6%" from 96 values gets over-trusted | Report every rate with a 95% Wilson interval and its count; no % targets on rules that fire only a few times |
 | Prompts tuned on the golden set | The golden-set score measures memorization, and accuracy is overstated | A hold-out split: prompts are tuned only on the 3 dev companies; the golden set is never shown during tuning |
 | Primary documents vary (inline-XBRL HTML, older formats, exhibits) | Parser misses tables | Record parser version; `extraction_failed` is a first-class outcome with a count per cause |
@@ -283,6 +298,7 @@ A target with no reason behind it invites gaming, or gets ignored. Every number 
 - **2026-10-27:** First draft.
 - **2026-10-27, rev 2:** Every target now names its source (definition, statistics, budget or baseline). Removed the unsupported thresholds (97% agent accuracy, 99% XBRL match, ≤5% exceptions, ≥50% rule precision, ≤24h freshness, 10 min per 100 values). The golden set grew from 160 to 300 values so that it supports a "<1% error" claim. Added a dev/hold-out split and a baseline-then-freeze step.
 - **2026-10-27, rev 3:** Delivery staged: 1 company (NVDA), then 5, then 19, each a full release. Hand-check sizes and claims scaled per stage (section 5).
+- **2026-10-28, rev 4:** After the stage 1 QA pass (`docs/QA-stage1.md`, using the Data and Agent Evaluation plugins), R3 is the 14-rule registry as built. The circular year-sum check was replaced by an independent nine-month check. R2 adds repeatability, run evidence and judgement notes, and keeps confidence out of routing. Two new risks and two new metrics.
 
 ## Appendix: refactor map
 
@@ -290,7 +306,7 @@ A target with no reason behind it invites gaming, or gets ignored. Every number 
 |---|---|
 | `pipeline/edgar.py` | `ledger/ingest/edgar.py` (unchanged logic) + `ledger/ingest/documents.py` (R1) |
 | `pipeline/xbrl_instance.py`, `normalize.py` | `ledger/reference/xbrl.py`: XBRL becomes the reference set used in R4 |
-| `pipeline/validate.py` | `rules/*.yaml` + `ledger/rules/engine.py` (R3) |
+| `pipeline/validate.py` | stays as `ledger/reference/validate.py` for the XBRL reference; agent-data checks are `rules/*.yaml` + `ledger/rules.py` (R3) |
 | `pipeline/run.py` export | `ledger/release.py` (R6) + `ledger/store.py` (DuckDB, R7) |
 | (new) | `agents/prompts/`, `ledger/extract.py` (R2), `ledger/reconcile.py` (R4), `ledger/review.py` (R5), `golden/` (R9) |
 | `web/` explorer | Client view on released data + Review tab; Admin gains agent-run views |
