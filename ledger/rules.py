@@ -18,7 +18,7 @@ import yaml
 from .store import ROOT
 
 RULES_DIR = ROOT / "rules"
-REQUIRED = ("id", "description", "rationale", "severity", "check", "owner")
+REQUIRED = ("id", "description", "rationale", "severity", "check", "owner", "title", "plain", "action")
 
 
 @dataclass

@@ -5,3 +5,9 @@ rationale: XBRL is a free answer key. A disagreement means the agent, the filer'
   and a person decides which.
 owner: Kenny Geiler
 check: xbrl_reconcile
+title: Our number disagrees with the official answer key.
+plain: Companies also file a machine-readable copy of their numbers (XBRL), which we use as an answer key. This
+  number disagrees with it. Either we're wrong, the company's copy is wrong, or the two measure different things
+  (for example before and after a restatement).
+action: Open the filing and decide which is right. If ours mixes old and restated figures, reject it (it ships blank,
+  with your reason). If we're right and the answer key is wrong, accept and say why.

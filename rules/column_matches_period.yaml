@@ -5,3 +5,7 @@ rationale: Reading the right row in the comparative column gives a plausible num
   on NVDA found 8 such misreads that only XBRL caught; without an answer key they would ship.
 owner: Kenny Geiler
 check: column_matches_period
+title: The number came from the wrong column.
+plain: Reports show this year next to last year. The AI's number came from a column whose date or length doesn't
+  match the period it claims, for example last year's column used for this year.
+action: Open the filing, find the correct column, and override with that number.

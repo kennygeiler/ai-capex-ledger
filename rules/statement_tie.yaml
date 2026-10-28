@@ -12,3 +12,7 @@ params:
     total_opex: ^total operating expenses|^total costs and expenses
     operating_income: ^operating income|^income from operations|^operating (loss|\(loss\) income|income \(loss\))
   tolerance_cells: 1
+title: The income statement doesn't add up.
+plain: Revenue minus costs should equal operating income. In this table it doesn't, which usually means the wrong
+  table or row was used.
+action: Tell the data owner. This usually needs a fix to the system, not a decision.

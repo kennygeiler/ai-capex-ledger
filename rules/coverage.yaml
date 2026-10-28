@@ -10,3 +10,8 @@ params:
   - cost_of_revenue
   - operating_income
   - capex
+title: A number is missing.
+plain: There is no value for this quarter. Often the company doesn't report this line at all (Oracle has no cost-of-revenue
+  line), or the company didn't exist yet.
+action: If the company doesn't report this line, or wasn't public yet, accept with that reason. Otherwise tell the
+  data owner.

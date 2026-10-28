@@ -95,6 +95,12 @@ tr.open .caret { transform: rotate(90deg); }
 .qi { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; gap: 4px; font-size: 13px; overflow-wrap: anywhere; }
 .qi .top { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 details summary { cursor: pointer; font-size: 13px; }
+.story { display: grid; gap: 10px; max-width: 78ch; font-size: 14px; margin: 6px 0 4px; }
+.story p { margin: 0; }
+.steps { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; font-size: 13px; margin: 8px 0 0; }
+.gloss dt { font-weight: 600; } .gloss dd { margin: 0; color: var(--muted); }
+.cap2 { font-size: 12px; color: var(--muted); }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .c-q { width: 8%; } .c-f { width: 12%; } .c-a { width: 14%; } .c-x { width: 14%; } .c-m { width: 8%; } .c-h { width: 18%; } .c-c { width: 11%; } .c-n { width: 15%; }
 @media (max-width: 720px) {
@@ -215,9 +221,38 @@ function seg(name, opts) {
   return `<div class="seg">${Object.entries(opts).map(([k, l]) => `<button data-${name}="${k}" aria-pressed="${state[name] === k}">${l}</button>`).join("")}</div>`;
 }
 
+function story() {
+  const c = D.counts, block = D.exceptions.filter((e) => e.severity === "block").length, warn = D.exceptions.filter((e) => e.severity === "warn").length;
+  return `<div class="story">
+    <p><b>What this is.</b> Companies on the US stock market file quarterly reports (10-Q) and annual reports (10-K) with the SEC. AI readers opened ${c.filings} of these reports for ${D.tickers.join(", ")} and copied out four numbers per period: <b>revenue</b>, <b>cost of revenue</b>, <b>operating income</b> (profit from the business itself) and <b>capex</b> (money spent on buildings and equipment). For every number they wrote down exactly where they found it: the table, the row and the column.</p>
+    <p><b>How we check them.</b> Companies also file a machine-readable copy of the same numbers, called <b>XBRL</b>. The AI never sees it, so it works as an answer key: ${c.agree} of ${c.values} quarterly numbers match it. Automatic rules also look for problems a person would spot: totals that don't add up, impossible values, sudden jumps.</p>
+    <p><b>Your job.</b> The AI does the reading. A person decides what we stand behind. ${block ? `<b>${block} item${block > 1 ? "s" : ""} need${block > 1 ? "" : "s"} your decision</b> before this data can be released, plus ${warn} smaller warning${warn === 1 ? "" : "s"}.` : "Nothing is blocking."} Each item below says what happened and what to do. Your decision is recorded with your name and reason.</p>
+    <ol class="steps">
+      <li><b>Decide each item</b> in "Needs your decision": read the card, open the filing if needed, then accept, override or reject.</li>
+      <li><b>Spot-check the numbers</b> in "Every value": open a row, click "Open the filing at this row", confirm the number, and tick "verified".</li>
+      <li><b>Download the hand-check</b> and save it as <code>golden/stage${D.stage}-handcheck.json</code>.</li>
+      <li><b>Release</b>: <code>python -m ledger release v0.${D.stage}.0 --stage ${D.stage}</code>. It refuses until steps 1–3 are done.</li>
+    </ol>
+    <details><summary>Words used on this page</summary><dl class="gloss">
+      <dt>Filing</dt><dd>A report a company sends to the SEC. A 10-Q covers a quarter; a 10-K covers a year.</dd>
+      <dt>Cited cell</dt><dd>The exact table, row and column a number was copied from.</dd>
+      <dt>XBRL</dt><dd>The machine-readable copy of a filing's numbers; our answer key.</dd>
+      <dt>Year-to-date</dt><dd>A running total since the start of the company's year (6 or 9 months). A single quarter is often worked out by subtracting one running total from the next.</dd>
+      <dt>Restatement</dt><dd>When a company rewrites past numbers, for example after selling part of its business. The old and new reports then disagree, and both are "correct" for their own basis.</dd>
+      <dt>Accept / override / reject</dt><dd>Accept: the number is right as it is. Override: replace it with the right number. Reject: ship it blank, with your reason.</dd>
+    </dl></details>
+  </div>`;
+}
+
 function decisions() {
   const sev = (s) => D.exceptions.filter((e) => e.severity === s);
-  const item = (e) => `<div class="qi"><div class="top"><span class="pill ${e.severity === "info" ? "na" : "bad"}">${e.severity}</span><b>${esc(e.ticker)} ${esc(e.field || "")} ${e.cal_q ? qLabel(e.cal_q) : ""}</b><span style="color:var(--muted)">${esc(e.rule_id)}</span></div><div>${esc(e.message)}</div><code style="font-size:11px;color:var(--muted)">${esc(e.exception_id)}</code></div>`;
+  const item = (e) => {
+    const r = D.rules[e.rule_id] || { title: "The AI's answer for this filing could not be used", plain: "The output was missing or didn't follow the required format.", action: "Tell the data owner; the filing needs to be re-run." };
+    return `<div class="qi"><div class="top"><span class="pill ${e.severity === "info" ? "na" : "bad"}">${e.severity}</span><b>${esc(r.title)}</b></div>
+      <div class="cap2">${esc(e.ticker)} · ${esc(D.field_label[e.field] || e.field || "")} ${e.cal_q ? "· " + qLabel(e.cal_q) : ""}</div>
+      <div><b>What happened:</b> ${esc(r.plain)}</div><div><b>The numbers:</b> ${esc(e.message)}</div><div><b>What to do:</b> ${esc(r.action)}</div>
+      <details><summary class="cap2">Technical detail</summary><div class="cap2">Rule <code>${esc(e.rule_id)}</code> · id <code>${esc(e.exception_id)}</code></div></details></div>`;
+  };
   const block = sev("block"), warn = sev("warn"), info = sev("info");
   return `<h2>Needs your decision (${block.length} blocking)</h2>
     ${block.length ? `<div class="queue">${block.map(item).join("")}</div>` : `<p class="foot">Nothing blocking.</p>`}
@@ -229,7 +264,7 @@ function decisions() {
 function render() {
   $("#app").innerHTML = `
     <h1>${esc(document.title)}</h1>
-    <p class="sub">Agents read ${D.counts.filings} ${D.tickers.join(", ")} filings (statement tables only, never XBRL) and cited every number they took. Each quarterly value below is built from those cells and compared with XBRL, the SEC's machine-readable copy, which acts as the answer key. Open any row to see the arithmetic and the highlighted cells; open the filing to read the number yourself, then tick it.</p>
+    ${story()}
     ${tiles()}
     ${decisions()}
     <h2>Company</h2>
@@ -237,10 +272,6 @@ function render() {
     <h2>Agent vs XBRL, by quarter · ${esc(state.company)}</h2>
     <div class="charts">${D.fields.map(chart).join("")}</div>
     <div class="legend"><span><span class="sw" style="background:var(--agent)"></span>Agent value (read from the filing)</span><span><span class="ring"></span>XBRL value (answer key)</span><span><span class="sw" style="background:var(--bad)"></span>Disagreement</span></div>
-    <div class="howto"><b>How to check a value (about a minute each).</b><ol>
-      <li>Click the row: check the arithmetic, and see the cited cell highlighted in the parsed table.</li>
-      <li>Click “Open the filing at this row”: Chrome opens the SEC document and highlights the row. Confirm the number and the column's period.</li>
-      <li>Tick “verified”, or write a note if anything is off. Progress is saved in this browser; “Download hand-check” saves the record; put it at <code>golden/stage${D.stage}-handcheck.json</code> and run <code>python -m ledger release</code>.</li></ol></div>
     <h2>Every value</h2>
     <div class="toolbar">${seg("field", { all: "All", ...D.field_label })}${seg("show", { all: "All", todo: "Not yet checked", bad: "Disagreements" })}
       <span class="spacer"></span><button class="btn" id="expand">Expand all</button><button class="btn primary" id="export">Download hand-check</button></div>

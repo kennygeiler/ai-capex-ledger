@@ -121,7 +121,7 @@ class Engine(unittest.TestCase):
     def test_unknown_check_fails_at_load(self):
         import tempfile
         with tempfile.TemporaryDirectory() as d:
-            Path(d, "x.yaml").write_text("id: x\nseverity: block\ndescription: d\nrationale: r\nowner: o\ncheck: no_such_check\n")
+            Path(d, "x.yaml").write_text("id: x\nseverity: block\ndescription: d\nrationale: r\nowner: o\ntitle: t\nplain: p\naction: a\ncheck: no_such_check\n")
             with self.assertRaises(ValueError):
                 load(Path(d))
 

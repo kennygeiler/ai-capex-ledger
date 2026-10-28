@@ -5,3 +5,7 @@ rationale: Restatements are real and the latest filing wins. Keeping them visibl
   and catches misreads that look like restatements.
 owner: Kenny Geiler
 check: restated
+title: The company changed a past number.
+plain: Two reports give different numbers for the same period. The newer one wins. This note just keeps the change
+  visible.
+action: Nothing to decide.

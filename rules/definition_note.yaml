@@ -10,3 +10,7 @@ params:
     capex: intangible|software|including|and other
     revenue: net of|excluding
     cost_of_revenue: exclusive of|excluding
+title: The company's line includes a bit more than our definition.
+plain: Our definition of the field is narrower than what this company reports. For example, its equipment-spending
+  line also includes software or intangible assets. The number is used as reported.
+action: Nothing to decide. Remember it when comparing this company with others.

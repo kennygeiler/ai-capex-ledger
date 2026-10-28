@@ -6,3 +6,8 @@ rationale: A number we can't point to in the filing is a number we can't defend.
   time, so a reparse or a hand edit can't leave a stale citation behind.
 owner: Kenny Geiler
 check: citation_resolves
+title: The number doesn't match where the AI said it found it.
+plain: Every number must point to an exact spot in the report (table, row, column). This alert means that spot doesn't
+  exist, or shows a different number.
+action: Open the filing link and find the right number yourself. If the AI simply pointed to the wrong spot, override
+  with the correct number. If you can't find the number at all, reject it (it ships blank, with your reason).

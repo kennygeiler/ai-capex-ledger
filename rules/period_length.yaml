@@ -4,3 +4,7 @@ description: Each value read from a filing covers a quarter, half-year, nine mon
 rationale: A column read with the wrong dates turns every derived quarter after it into a wrong number.
 owner: Kenny Geiler
 check: period_length
+title: The time period looks wrong.
+plain: Each number should cover 3, 6 or 9 months, or a year. This one covers some other length, so the dates were
+  probably read wrong.
+action: Check the column heading in the filing. Override with the right number, or reject if it can't be fixed.

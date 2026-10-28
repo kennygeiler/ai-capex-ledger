@@ -10,3 +10,7 @@ params:
   - revenue
   - cost_of_revenue
   - capex
+title: A number is negative that should never be.
+plain: Revenue, cost and equipment spending can't be below zero. Usually a minus sign or the wrong line (money coming
+  in instead of going out).
+action: Check the filing. Override with the correct number, or reject.

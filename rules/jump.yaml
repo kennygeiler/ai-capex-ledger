@@ -7,3 +7,7 @@ owner: Kenny Geiler
 check: jump
 params:
   ratio: 3
+title: A big jump from one quarter to the next.
+plain: The number more than tripled, or fell to under a third, in one quarter. Fast-growing companies do this, but
+  it can also be a thousands/millions mix-up.
+action: Compare the two quarters in the filings. If both numbers are right, accept as real growth (or decline).

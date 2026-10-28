@@ -14,6 +14,7 @@ from urllib.parse import quote
 
 from .. import store
 from ..config import MVP_FIELDS, MVP_QUARTERS, STAGES
+from ..rules import load
 
 FIELD_LABEL = {"revenue": "Revenue", "cost_of_revenue": "Cost of revenue", "operating_income": "Operating income", "capex": "Capex"}
 METHOD_LABEL = {"reported": "As filed (three-month column)", "ytd_diff": "Year-to-date difference", "q4_derived": "Full year minus nine months",
@@ -67,6 +68,7 @@ def build(con, stage: int) -> dict:
                      "label": v["label"], "ref": r and r["value"], "ref_concept": r and r["concept"], "ref_accession": r and r["accession"],
                      "input_hash": v["input_hash"], "sources": srcs})
     return {"stage": stage, "tickers": tickers, "release": STAGES[stage]["release"], "fields": list(MVP_FIELDS), "quarters": MVP_QUARTERS,
+            "rules": {r["id"]: {k: r[k] for k in ("title", "plain", "action")} for r in load()},
             "field_label": FIELD_LABEL, "method_label": METHOD_LABEL, "values": rows, "tables": tables, "exceptions": excs,
             "counts": {"filings": len(docs), "extractions": len(ext), "values": len(vals),
                        "agree": sum(v["label"] == "agree" for v in vals),
