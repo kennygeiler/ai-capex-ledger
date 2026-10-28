@@ -15,6 +15,7 @@ COMMANDS = {
     "review": "List open items and record decisions.",
     "release": "Build a versioned release (refuses while any gate fails).",
     "signoff": "Record who signed a release.",
+    "app": "DATAHQ web app: dashboard, each company's pipeline, the agents, and an outputs explorer (http://127.0.0.1:3610).",
 }
 
 

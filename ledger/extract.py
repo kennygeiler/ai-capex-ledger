@@ -11,10 +11,11 @@ from dataclasses import dataclass
 from datetime import date, timedelta
 from pathlib import Path
 
+from . import agents
 from .store import ROOT
 
-PROMPT_VERSION = "statements@v2"  # new tasks; v1 outputs stay valid (v2 adds cost_of_revenue_part)
-PROMPT_VERSIONS = ("statements@v1", "statements@v2")
+PROMPT_VERSION = agents.load()["reader"]["prompt"]  # the active prompt, set in agents/agents.json (or the app)
+PROMPT_VERSIONS = tuple(agents.versions("reader"))  # outputs from any saved version stay valid
 PROMPT = ROOT / "agents" / "prompts" / f"{PROMPT_VERSION}.md"
 TASKS = ROOT / "data" / "extract" / "tasks"
 OUTPUTS = ROOT / "data" / "extract" / "outputs"

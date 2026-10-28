@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DATAHQ</title>
+<style>
+  /* Plain pages, whitespace instead of borders. One accent (ink blue); red only for a failure. */
+  :root {
+    --bg: #fbfbfa; --fg: #1c1d1f; --muted: #6b6e74; --faint: #e9e9e6; --accent: #2f5bd3; --bad: #c43d2f;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #141518; --fg: #e8e8e6; --muted: #9a9da3; --faint: #26282d; --accent: #7a9cff; --bad: #ff7a6b; color-scheme: dark; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 var(--font); }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { background: none; border: 0; padding: 0; cursor: pointer; color: var(--accent); }
+  button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .wrap { max-width: 76rem; margin: 0 auto; padding: 0 max(16px, 3vw) 6rem; }
+  nav { display: flex; gap: 1.75rem; align-items: baseline; padding-block: 1.25rem 2rem; flex-wrap: wrap; }
+  nav .brand { font-weight: 600; letter-spacing: .06em; margin-right: auto; color: var(--fg); }
+  nav a { color: var(--muted); }
+  nav a.on { color: var(--fg); }
+  h1 { font-size: 1.6rem; font-weight: 500; margin: 0; }
+  h2 { font-size: 1.05rem; font-weight: 600; margin: 0 0 .6rem; }
+  p { margin: 0; }
+  .lede { color: var(--muted); max-width: 62ch; margin-top: .35rem; }
+  .lede b { color: var(--fg); font-weight: 600; }
+  .muted { color: var(--muted); }
+  .bad { color: var(--bad); }
+  .small { font-size: .82rem; }
+  .mono { font-family: var(--mono); font-size: .82rem; }
+  .stack { display: grid; gap: 3rem; }
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 3rem; }
+  .two > *, .stack > * { min-width: 0; }
+  .figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: 1.5rem; }
+  .fig .n { font-size: 2.1rem; line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .fig .l, .fig .s { color: var(--muted); font-size: .82rem; }
+  .bars { display: grid; gap: .55rem; }
+  .bar { display: grid; grid-template-columns: minmax(8rem, 12rem) 1fr auto; gap: .75rem; align-items: center; }
+  .bar .v { color: var(--muted); font-size: .82rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .track { height: 8px; border-radius: 4px; background: var(--faint); overflow: hidden; }
+  .track i { display: block; height: 100%; border-radius: 4px; background: var(--accent); }
+  .track i.bad { background: var(--bad); }
+  .track i.note { background: var(--muted); opacity: .5; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th { text-align: left; font-weight: 400; color: var(--muted); font-size: .8rem; padding: 0 1rem .35rem 0; white-space: nowrap; }
+  td { padding: .4rem 1rem .4rem 0; vertical-align: top; }
+  td.n, th.n { text-align: right; }
+  tr.click { cursor: pointer; }
+  tr.click:hover td { color: var(--accent); }
+  tr.open td { color: var(--accent); }
+  .detail td { padding: .25rem 0 1.25rem; color: var(--fg); }
+  .src { display: grid; gap: .3rem; margin-bottom: .9rem; max-width: 60rem; }
+  .src img { max-width: min(100%, 40rem); border-radius: 4px; margin-top: .3rem; }
+  .step { display: grid; grid-template-columns: 11rem 1fr; gap: 1.5rem; }
+  .step > * { min-width: 0; }
+  .step .head .state { font-size: .82rem; color: var(--muted); margin-top: .15rem; }
+  @media (max-width: 44rem) { .step { grid-template-columns: 1fr; gap: .5rem; } .wide { display: none; } }
+  .row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+  select, input[type=text] { background: var(--bg); border: 1px solid var(--faint); border-radius: 6px; padding: .35rem .55rem; }
+  textarea { width: 100%; min-height: 28rem; background: var(--bg); border: 1px solid var(--faint); border-radius: 6px; padding: .75rem; font: .82rem/1.55 var(--mono); }
+  textarea[readonly] { border-color: transparent; padding-inline: 0; resize: none; }
+  .btn { background: var(--accent); color: var(--bg); border-radius: 6px; padding: .4rem .9rem; }
+  .btn[disabled] { opacity: .4; cursor: default; }
+  ul.plain { margin: .2rem 0 0; padding-left: 1.1rem; }
+  ul.plain li { margin: .15rem 0; }
+  .picks { display: flex; flex-wrap: wrap; gap: .3rem 1.1rem; }
+  .picks label { white-space: nowrap; cursor: pointer; }
+  .controls { display: grid; gap: 1.1rem; }
+  .controls .k { color: var(--muted); font-size: .8rem; margin-bottom: .2rem; }
+  svg text { fill: var(--muted); font-size: 11px; font-family: var(--font); }
+  .tip { position: fixed; pointer-events: none; background: var(--bg); box-shadow: 0 2px 12px rgba(0,0,0,.18); border-radius: 6px; padding: .35rem .6rem; font-size: .8rem; }
+  pre.raw { white-space: pre-wrap; word-break: break-word; font: .78rem/1.5 var(--mono); max-height: 30rem; overflow: auto; margin: .5rem 0 0; }
+  .msg { color: var(--muted); padding: 2rem 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="brand" href="#dashboard">DATAHQ</a>
+    <a href="#dashboard" data-nav="dashboard">Dashboard</a>
+    <a href="#company" data-nav="company">Companies</a>
+    <a href="#agents" data-nav="agents">Agents</a>
+    <a href="#outputs" data-nav="outputs">Outputs</a>
+  </nav>
+  <main id="view"><p class="msg">Loading…</p></main>
+</div>
+<div class="tip" id="tip" hidden></div>
+
+<script>
+const $ = (s, r = document) => r.querySelector(s);
+const h = (tag, attrs = {}, ...kids) => {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (v == null || v === false) continue;
+    if (k.startsWith('on')) el.addEventListener(k.slice(2), v); else if (k === 'class') el.className = v; else el.setAttribute(k, v === true ? '' : v);
+  }
+  for (const c of kids.flat()) if (c != null && c !== false) el.append(c instanceof Node ? c : String(c));
+  return el;
+};
+const int = (n) => (n == null || n === '' ? '—' : Number(n).toLocaleString('en-US'));
+const usd = (n) => {
+  if (n == null || n === '') return '—';
+  const m = Number(n) / 1e6;
+  return (m < 0 ? '−' : '') + '$' + Math.abs(m).toLocaleString('en-US', {maximumFractionDigits: Math.abs(m) >= 100 ? 0 : 1}) + 'M';
+};
+const day = (s) => (s ? new Date(String(s).slice(0, 10) + 'T00:00:00Z').toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'}) : '—');
+const when = (s) => (s ? new Date(s).toLocaleString('en-US', {month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'}) : '—');
+const compact = (n) => new Intl.NumberFormat('en', {notation: 'compact', maximumFractionDigits: 1}).format(n || 0);
+const LABEL = {revenue: 'Revenue', capex: 'Capex', opex: 'Opex', cost_of_revenue: 'Cost of revenue', cost_of_revenue_part: 'Cost line', operating_income: 'Operating income'};
+const XBRL = {agree: 'matches SEC data', definition_gap: 'differs from SEC data, explained by code', unresolved: 'differs from SEC data, decided by a person', not_reported: 'not reported'};
+
+async function api(path, opts) {
+  const r = await fetch(path, opts);
+  const d = await r.json();
+  if (!r.ok) throw new Error(d.error || r.statusText);
+  return d;
+}
+let me = 'Kenny Geiler';
+try { me = localStorage.getItem('datahq-me') || me; } catch {}
+
+function table(cols, rows, {key, onRow, detail} = {}) {
+  const tb = h('tbody');
+  const draw = (list) => {
+    tb.replaceChildren();
+    for (const r of list) {
+      const tr = h('tr', {class: onRow || detail ? 'click' : null}, cols.map((c) => h('td', {class: [c.n && 'n', c.wide && 'wide'].filter(Boolean).join(' ') || null}, c.f ? c.f(r) : r[c.k] ?? '—')));
+      tb.append(tr);
+      if (onRow) tr.addEventListener('click', () => onRow(r));
+      if (detail) tr.addEventListener('click', () => {
+        const next = tr.nextElementSibling;
+        if (next && next.classList.contains('detail')) { next.remove(); tr.classList.remove('open'); return; }
+        tr.classList.add('open');
+        tr.after(h('tr', {class: 'detail'}, h('td', {colspan: cols.length}, detail(r))));
+      });
+    }
+  };
+  let sort = null, dir = 1;
+  const head = h('tr', {}, cols.map((c) => {
+    const th = h('th', {class: [c.n && 'n', c.wide && 'wide'].filter(Boolean).join(' ') || null});
+    if (c.sort === false) th.append(c.t);
+    else th.append(h('button', {type: 'button', style: 'color:inherit', onclick: () => {
+      dir = sort === c ? -dir : (c.n ? -1 : 1); sort = c;
+      const v = c.s || ((r) => r[c.k]);
+      draw([...rows].sort((a, b) => { const x = v(a), y = v(b); if (x == null || x === '') return 1; if (y == null || y === '') return -1; return (typeof x === 'number' && typeof y === 'number' ? x - y : String(x).localeCompare(String(y))) * dir; }));
+    }}, c.t));
+    return th;
+  }));
+  draw(rows);
+  return h('div', {class: 'scroll'}, h('table', {}, h('thead', {}, head), tb));
+}
+
+function bars(list) {
+  return h('div', {class: 'bars'}, list.map((b) => h('div', {class: 'bar'}, h('span', {}, b.name),
+    h('div', {class: 'track'}, h('i', {class: b.cls || null, style: `width:${Math.max(0, Math.min(100, b.pct))}%`})), h('span', {class: 'v'}, b.v))));
+}
+
+// ── Dashboard ───────────────────────────────────────────────────────────────
+async function dashboard(view) {
+  const d = await api('/api/hq');
+  const H = d.health[0];
+  const next = d.companies.filter((c) => c.next_10k_expected).sort((a, b) => a.next_10k_expected.localeCompare(b.next_10k_expected));
+  const fired = d.rules.filter((r) => r.raised > 0), quiet = d.rules.length - fired.length, maxR = Math.max(1, ...fired.map((r) => r.raised));
+  view.append(h('div', {class: 'stack'},
+    h('header', {}, h('h1', {}, 'Morning check'),
+      h('p', {class: 'lede'}, h('b', {class: H.for_a_person ? 'bad' : null}, int(H.for_a_person)), ' items need you. ', h('b', {}, int(H.warnings)), ' warnings to skim. Last run ',
+        h('b', {}, when(H.run_at)), '. Next 10-K: ', h('b', {}, next[0] ? `${next[0].company}, around ${day(next[0].next_10k_expected)}` : '—'), '.')),
+    h('section', {class: 'figs'},
+      fig('Values released', int(H.values), H.latest_release),
+      fig("Match the SEC's data", (100 * H.agree / H.values).toFixed(1) + '%', `${int(H.agree)} of ${int(H.values)}`),
+      fig('Cells confirmed on filing', int(H.cells_confirmed), `of ${int(H.cells)}`),
+      fig('Planted faults escaped', int(H.faults_escaped), `of ${int(H.faults)}`, H.faults_escaped > 0),
+      fig('Agent time, last run', `${H.agent_minutes} min`, `${compact(H.tokens)} tokens`)),
+    h('div', {class: 'two'},
+      h('section', {}, h('h2', {}, 'Pipeline, last run'),
+        bars(d.pipeline.map((s) => ({name: s.step, pct: s.of ? 100 * s.done / s.of : 0, cls: s.ok ? null : 'bad', v: `${int(s.done)} / ${int(s.of)} ${s.unit}`})))),
+      h('section', {}, h('h2', {}, 'Next 10-Ks'), h('p', {class: 'muted small', style: 'margin-bottom:.5rem'}, "Year end plus the company's last filing lag."),
+        table([{t: 'Company', k: 'company'}, {t: 'Ticker', k: 'ticker'}, {t: 'Expected', k: 'next_10k_expected', n: 1, f: (r) => day(r.next_10k_expected)}], next.slice(0, 6), {onRow: (r) => go('company/' + r.ticker)}))),
+    h('section', {}, h('h2', {}, 'Companies'),
+      table([{t: 'Ticker', k: 'ticker'}, {t: 'Company', k: 'company', wide: 1}, {t: '10-Ks', k: 'filings', n: 1}, {t: 'Values', k: 'values', n: 1},
+        {t: 'Match SEC', k: 'agree', n: 1}, {t: 'Cells confirmed', k: 'cells_confirmed', n: 1, f: (r) => `${int(r.cells_confirmed)} / ${int(r.cells)}`},
+        {t: 'For you', k: 'for_a_person', n: 1, f: (r) => h('span', {class: r.for_a_person ? 'bad' : null}, int(r.for_a_person))}, {t: 'Warnings', k: 'warnings', n: 1},
+        {t: 'Agent min', k: 'agent_minutes', n: 1, wide: 1}, {t: 'Tokens', k: 'tokens', n: 1, wide: 1, f: (r) => int(r.tokens)},
+        {t: 'Last 10-K', k: 'last_10k_filed', n: 1, wide: 1, f: (r) => day(r.last_10k_filed)}], d.companies, {onRow: (r) => go('company/' + r.ticker)})),
+    h('div', {class: 'two'},
+      h('section', {}, h('h2', {}, 'Checks that fired'), h('p', {class: 'muted small', style: 'margin-bottom:.5rem'}, 'Red blocks a release, blue is a warning, grey is a note.'),
+        bars(fired.map((r) => ({name: r.rule.replaceAll('_', ' '), pct: 100 * r.raised / maxR, cls: r.severity === 'block' ? 'bad' : r.severity === 'info' ? 'note' : null,
+          v: r.severity === 'info' ? int(r.raised) : `${int(r.raised)}, ${int(r.open)} open`}))),
+        h('p', {class: 'muted small', style: 'margin-top:.6rem'}, `${quiet} more checks ran and found nothing.`)),
+      h('section', {}, h('h2', {}, 'Releases'),
+        table([{t: 'Version', k: 'version'}, {t: 'Companies', k: 'companies', n: 1}, {t: 'Values', k: 'values', n: 1}, {t: 'Signed by', k: 'signed_by'},
+          {t: 'Signed', k: 'signed_at', f: (r) => day(r.signed_at), wide: 1}, {t: 'Hash', k: 'hash', f: (r) => h('span', {class: 'mono muted'}, r.hash), wide: 1}], [...d.releases].reverse())))));
+}
+const fig = (l, n, s, bad) => h('div', {class: 'fig'}, h('div', {class: 'l'}, l), h('div', {class: 'n' + (bad ? ' bad' : '')}, n), h('div', {class: 's'}, s));
+
+// ── Company: every pipeline step ─────────────────────────────────────────────
+let companyList = null;
+async function companyPage(view, ticker) {
+  companyList ||= (await api('/api/hq')).companies;
+  ticker ||= companyList[0].ticker;
+  const pick = h('select', {'aria-label': 'Company', onchange: (e) => go('company/' + e.target.value)},
+    companyList.map((c) => h('option', {value: c.ticker, selected: c.ticker === ticker || null}, `${c.company} (${c.ticker})`)));
+  view.append(h('div', {class: 'row', style: 'margin-bottom:2.5rem'}, pick));
+  const c = await api('/api/company?t=' + encodeURIComponent(ticker));
+  const docs = c.documents, sc = c.scorecard;
+  const ids = c.values.flatMap((v) => v.sources);
+  const confirmed = ids.filter((s) => s.machine && s.machine.match).length;
+  const located = docs.filter((d) => d.income_tables && d.cash_flow_tables).length;
+  const answered = docs.filter((d) => d.agent && d.agent.outcome === 'ok').length;
+  const open = c.exceptions.filter((e) => e.status === 'open');
+  const step = (name, state, bad, body) => h('section', {class: 'step'}, h('div', {class: 'head'}, h('h2', {style: 'margin:0'}, name), h('div', {class: 'state' + (bad ? ' bad' : '')}, state)), h('div', {}, body));
+
+  view.append(h('div', {class: 'stack'},
+    h('header', {}, h('h1', {}, `${c.name}`), h('p', {class: 'lede'}, c.note ? c.note + '. ' : '',
+      docs.length ? [h('b', {}, int(sc.values)), ' values, ', h('b', {}, int(sc.agree)), ' match the SEC\'s data, ', h('b', {class: sc.for_a_person ? 'bad' : null}, int(sc.for_a_person)), ' need you.']
+        : 'No 10-K filed yet for any year from FY2022 on.')),
+    step('Find 10-Ks', `${docs.length} found`, false, docs.length ? table([
+      {t: 'Fiscal year end', k: 'period', f: (d) => day(d.period)}, {t: 'Filed', k: 'filed', f: (d) => day(d.filed)},
+      {t: 'Accession', k: 'accession', f: (d) => h('a', {href: d.url, target: '_blank', rel: 'noopener', class: 'mono'}, d.accession)},
+      {t: 'Size', k: 'bytes', n: 1, f: (d) => (d.bytes / 1e6).toFixed(1) + ' MB', wide: 1}, {t: 'SHA-256', k: 'sha256', f: (d) => h('span', {class: 'mono muted'}, d.sha256.slice(0, 12)), wide: 1}], docs)
+      : h('p', {class: 'muted'}, 'Nothing to process.')),
+    docs.length && step('Locate statements', `${located} of ${docs.length}`, located < docs.length, table([
+      {t: 'Fiscal year end', k: 'period', f: (d) => day(d.period)}, {t: 'Tables parsed', k: 'table_count', n: 1},
+      {t: 'Income statement', k: 'income_tables', f: (d) => h('span', {class: 'mono'}, d.income_tables || '—')},
+      {t: 'Cash flow', k: 'cash_flow_tables', f: (d) => h('span', {class: 'mono'}, d.cash_flow_tables || '—')},
+      {t: 'Parser', k: 'parser_version', wide: 1}], docs)),
+    docs.length && step('Reader reads', `${answered} of ${docs.length} accepted`, answered < docs.length, [
+      table([{t: 'Fiscal year end', k: 'period', f: (d) => day(d.period)},
+        {t: 'Model', s: (d) => d.agent?.versions.model, f: (d) => d.agent?.versions.model || h('span', {class: 'muted'}, 'in-session')},
+        {t: 'Prompt', s: (d) => d.agent?.versions.prompt, f: (d) => d.agent?.versions.prompt || '—'},
+        {t: 'Tokens', n: 1, s: (d) => tok(d), f: (d) => (tok(d) ? int(tok(d)) : '—')},
+        {t: 'Tries', n: 1, s: (d) => d.agent?.detail.attempts, f: (d) => d.agent?.detail.attempts ?? '—'},
+        {t: 'Seconds', n: 1, wide: 1, s: (d) => d.agent?.detail.seconds, f: (d) => d.agent?.detail.seconds ?? '—'},
+        {t: 'Outcome', s: (d) => d.agent?.outcome, f: (d) => h('span', {class: d.agent?.outcome === 'ok' ? null : 'bad'}, d.agent ? (d.agent.outcome === 'ok' ? 'accepted' : d.agent.detail.error || d.agent.outcome) : 'not run')}],
+        docs, {detail: (d) => rawAnswer(d.accession)}),
+      h('p', {class: 'muted small', style: 'margin-top:.4rem'}, 'Click a row for the agent\'s answer as saved.')]),
+    docs.length && step('Re-read on filing', `${confirmed} of ${ids.length} cells`, confirmed < ids.length,
+      h('p', {class: 'muted'}, 'Chrome opens each 10-K and checks that every cited cell shows the number the agent gave. Screenshots are kept for the values a person might check.')),
+    docs.length && step('Values', `${int(sc.agree)} of ${int(sc.values)} match`, false, [
+      table([{t: 'Field', k: 'field', f: (v) => LABEL[v.field] || v.field}, {t: 'Year', k: 'period'}, {t: 'Value', k: 'value', n: 1, f: (v) => usd(v.value)},
+        {t: 'SEC data', k: 'ref', n: 1, f: (v) => usd(v.ref), wide: 1},
+        {t: 'Result', k: 'label', f: (v) => h('span', {class: v.label === 'agree' ? 'muted' : null}, v.decision ? `decided: ${v.decision.kind}` : XBRL[v.label] || v.label)}],
+        c.values, {detail: (v) => sources(v)}),
+      h('p', {class: 'muted small', style: 'margin-top:.4rem'}, 'Click a value for where it came from.')]),
+    docs.length && step('Checks', open.length ? `${open.length} open` : 'nothing open', open.length > 0, c.exceptions.length ? table([
+      {t: 'Check', k: 'rule_id', f: (e) => e.rule_id.replaceAll('_', ' ')}, {t: 'Kind', k: 'severity', f: (e) => ({block: 'blocks release', warn: 'warning', info: 'note'})[e.severity]},
+      {t: 'Field', k: 'field', f: (e) => LABEL[e.field] || e.field || '—', wide: 1}, {t: 'Year', k: 'period', wide: 1},
+      {t: 'Status', k: 'status', f: (e) => h('span', {class: e.status === 'open' && e.severity === 'block' ? 'bad' : null}, e.status === 'decided' ? `decided by ${e.decision?.reviewer || '—'}` : e.status)}],
+      c.exceptions, {detail: (e) => h('div', {class: 'src'}, h('div', {}, e.message), e.decision && h('div', {class: 'muted'}, `${e.decision.reviewer}, ${day(e.decision.decided_at)}: ${e.decision.reason}`))})
+      : h('p', {class: 'muted'}, 'No check fired.')),
+    step('Release', c.release ? `${c.released} values in ${c.release}` : 'none', false,
+      h('p', {class: 'muted'}, c.released ? h('a', {href: '#outputs/' + c.ticker}, `Open ${c.ticker} in Outputs`) : 'Nothing released for this company.'))));
+}
+const tok = (d) => (d.agent && d.agent.detail.input_tokens != null ? d.agent.detail.input_tokens + d.agent.detail.output_tokens : null);
+
+function rawAnswer(accession) {
+  const pre = h('pre', {class: 'raw'}, 'Loading…');
+  fetch('/api/output?accession=' + encodeURIComponent(accession)).then((r) => (r.ok ? r.json() : Promise.reject(new Error('no saved answer'))))
+    .then((j) => { pre.textContent = JSON.stringify(j, null, 1); }).catch((e) => { pre.textContent = e.message; });
+  return pre;
+}
+
+function sources(v) {
+  const wrap = h('div', {});
+  if (v.decision) wrap.append(h('div', {class: 'src'}, h('div', {}, `${v.decision.reviewer} decided: ${v.decision.kind}`), h('div', {class: 'muted'}, v.decision.reason)));
+  if (v.why) wrap.append(h('div', {class: 'src'}, h('div', {class: 'muted'}, 'The 10-K says: ', v.why.text.slice(0, 400)), h('a', {href: v.why.url, target: '_blank', rel: 'noopener'}, 'Open that passage')));
+  for (const s of v.sources) {
+    wrap.append(h('div', {class: 'src'},
+      h('div', {}, `${LABEL[s.field] || s.field}: `, h('b', {}, s.cell), ` in row “${s.row}”, column “${s.col.replaceAll(' | ', ' ')}”`),
+      h('div', {class: 'muted small'}, `10-K filed ${day(s.filed)} · table ${s.table_id} · ${s.unit || 'unit from the document'} · prompt ${s.prompt}`, s.notes ? ` · ${s.notes}` : ''),
+      h('div', {class: 'small' + (s.machine && !s.machine.match ? ' bad' : ' muted')}, s.machine ? (s.machine.match ? 'Confirmed on the rendered 10-K' : `Rendered 10-K shows ${s.machine.seen}`) : 'Not re-read'),
+      s.machine?.img && h('img', {src: '/' + s.machine.img, alt: `Screenshot of the cited cell ${s.cell}`, loading: 'lazy'}),
+      h('a', {href: s.deep, target: '_blank', rel: 'noopener', class: 'small'}, 'Open the 10-K at this row')));
+  }
+  if (!v.sources.length) wrap.append(h('p', {class: 'muted'}, 'No citation.'));
+  return wrap;
+}
+
+// ── Agents ───────────────────────────────────────────────────────────────────
+async function agentsPage(view) {
+  const all = await api('/api/agents');
+  view.append(h('header', {style: 'margin-bottom:2.5rem'}, h('h1', {}, 'Agents'),
+    h('p', {class: 'lede'}, 'Every place an AI makes a decision in the pipeline. Each change is saved with who made it, and a prompt is never edited in place: a change becomes the next version, so every past answer still points at the exact text that produced it.')));
+  for (const a of Object.values(all)) view.append(agentCard(a));
+}
+
+function agentCard(a) {
+  const byInput = h('input', {type: 'text', value: me, 'aria-label': 'Your name', oninput: (e) => { me = e.target.value; try { localStorage.setItem('datahq-me', me); } catch {} }});
+  let shown = a.prompt;
+  const text = h('textarea', {readonly: true, 'aria-label': 'Prompt text', spellcheck: 'false'});
+  const verSel = h('select', {'aria-label': 'Prompt version', onchange: (e) => { shown = e.target.value; showPrompt(); }},
+    a.versions.map((v) => h('option', {value: v, selected: v === a.prompt || null}, v === a.prompt ? `${v} (in use)` : v)));
+  const note = h('input', {type: 'text', placeholder: 'What changed and why', 'aria-label': 'What changed and why', style: 'flex:1;min-width:14rem'});
+  const status = h('span', {class: 'muted small'});
+  const editBtn = h('button', {type: 'button', onclick: () => startEdit()}, 'Edit');
+  const useBtn = h('button', {type: 'button', onclick: () => post('use', {version: shown}, `Now using ${shown}.`)}, 'Use this version');
+  const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('prompt', {text: text.value, note: note.value}, (r) => `Saved as ${r.version} and in use.`)}, 'Save as new version');
+  const cancelBtn = h('button', {type: 'button', onclick: () => { showPrompt(); }}, 'Cancel');
+  const editRow = h('div', {class: 'row', hidden: true}, note, saveBtn, cancelBtn);
+  function showPrompt() {
+    text.value = a.prompts[shown]; text.readOnly = true; editRow.hidden = true; editBtn.hidden = false;
+    useBtn.hidden = shown === a.prompt; text.style.height = 'auto'; text.style.height = Math.min(900, text.scrollHeight + 4) + 'px';
+  }
+  function startEdit() { text.readOnly = false; editRow.hidden = false; editBtn.hidden = true; useBtn.hidden = true; text.focus(); }
+  async function post(what, body, done) {
+    status.textContent = 'Saving…';
+    try {
+      const r = await api(`/api/agents/${a.id}/${what}`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({...body, by: me})});
+      status.textContent = typeof done === 'function' ? done(r) : done;
+      setTimeout(route, 900);
+    } catch (e) { status.textContent = e.message; status.classList.add('bad'); }
+  }
+  const model = h('input', {type: 'text', value: a.llm.model, 'aria-label': 'Model id', style: 'width:14rem'});
+  const modelSave = h('button', {type: 'button', onclick: () => post('model', {model: model.value}, `Model set to ${model.value}.`)}, 'Save model');
+
+  const runs = a.runs;
+  const tickers = [...new Set(runs.map((r) => r.ticker).filter(Boolean))].sort();
+  const runBox = h('div');
+  const runFilter = h('select', {'aria-label': 'Filter runs by company', onchange: () => drawRuns()}, h('option', {value: ''}, 'All companies'), tickers.map((t) => h('option', {value: t}, t)));
+  function drawRuns() {
+    const list = runs.filter((r) => !runFilter.value || r.ticker === runFilter.value);
+    runBox.replaceChildren(table([{t: 'When', k: 'started_at', f: (r) => when(r.started_at)}, {t: 'Company', k: 'ticker'}, {t: 'Fiscal year end', k: 'period', f: (r) => day(r.period), wide: 1},
+      {t: 'Model', s: (r) => r.versions.model, f: (r) => r.versions.model || h('span', {class: 'muted'}, 'in-session')}, {t: 'Prompt', s: (r) => r.versions.prompt, f: (r) => r.versions.prompt},
+      {t: 'Tokens', n: 1, s: (r) => (r.detail.input_tokens ?? 0) + (r.detail.output_tokens ?? 0), f: (r) => (r.detail.input_tokens != null ? int(r.detail.input_tokens + r.detail.output_tokens) : '—')},
+      {t: 'Tries', n: 1, s: (r) => r.detail.attempts, f: (r) => r.detail.attempts ?? '—'},
+      {t: 'Outcome', k: 'outcome', f: (r) => h('span', {class: r.outcome === 'ok' ? null : 'bad'}, r.outcome === 'ok' ? `${r.detail.values ?? '—'} values` : r.detail.error || r.outcome)}],
+      list, {detail: (r) => rawAnswer(r.accession)}));
+  }
+  drawRuns();
+  const tokens = runs.reduce((s, r) => s + (r.detail.input_tokens ?? 0) + (r.detail.output_tokens ?? 0), 0);
+  const failed = runs.filter((r) => r.outcome !== 'ok').length;
+
+  const card = h('div', {class: 'stack'},
+    h('section', {}, h('h1', {}, a.name), h('p', {class: 'lede'}, a.job)),
+    h('div', {class: 'two'},
+      h('section', {}, h('h2', {}, 'Decides'), h('ul', {class: 'plain'}, a.decides.map((d) => h('li', {}, d)))),
+      h('section', {}, h('h2', {}, 'Checked by'), h('ul', {class: 'plain'}, a.checked_by.map((d) => h('li', {}, d))))),
+    h('section', {}, h('h2', {}, 'Model'), h('p', {class: 'muted', style: 'margin-bottom:.6rem'}, a.llm.runs_on), h('div', {class: 'row'}, model, modelSave)),
+    h('section', {}, h('h2', {}, 'Prompt'), h('div', {class: 'row', style: 'margin-bottom:.8rem'}, verSel, editBtn, useBtn, h('span', {class: 'muted small'}, 'Changing the prompt or model makes the next run ask the agent again for every filing.')),
+      text, editRow),
+    h('section', {class: 'row'}, h('span', {class: 'muted small'}, 'Changes are signed as'), byInput, status),
+    h('section', {}, h('h2', {}, 'History'), table([{t: 'When', k: 'at', f: (x) => when(x.at)}, {t: 'Who', k: 'by'}, {t: 'Change', k: 'change'}], [...a.history].reverse())),
+    h('section', {}, h('h2', {}, 'Every run'), h('p', {class: 'muted', style: 'margin-bottom:.6rem'}, `${int(runs.length)} runs, ${compact(tokens)} tokens, ${failed} failed. Click a run for its answer.`),
+      h('div', {class: 'row', style: 'margin-bottom:.6rem'}, runFilter), runBox));
+  queueMicrotask(showPrompt);
+  return card;
+}
+
+// ── Outputs: pick companies, metrics, years; table, chart, CSV ───────────────
+const METRICS = [{id: 'revenue', t: 'Revenue'}, {id: 'capex', t: 'Capex'}, {id: 'opex', t: 'Opex'}, {id: 'capex_share', t: 'Capex ÷ revenue', ratio: true}];
+const COLORS = ['#2f5bd3', '#d9822b', '#2a9d8f', '#c43d6b', '#7a5cc4', '#6b8e23', '#8c6d46', '#3d8fc4'];
+let outState = null;
+async function outputsPage(view, focus) {
+  const d = await api('/api/outputs');
+  const rels = d.releases;
+  const state = outState ||= {rel: rels[rels.length - 1].version, tickers: null, metrics: ['revenue', 'capex', 'opex'], years: null, layout: 'wide'};
+  const relOf = () => rels.find((r) => r.version === state.rel) || rels[rels.length - 1];
+  const all = () => [...new Map(relOf().rows.map((r) => [r.ticker, r.company])).entries()];
+  const yearsAll = () => [...new Set(relOf().rows.map((r) => r.period))].sort();
+  if (focus) state.tickers = [focus];
+  state.tickers ||= all().map(([t]) => t);
+  state.years ||= yearsAll();
+
+  const out = h('div', {class: 'stack'});
+  const controls = h('div', {class: 'controls'});
+  view.append(h('header', {style: 'margin-bottom:2rem'}, h('h1', {}, 'Outputs'), h('p', {class: 'lede'}, 'Signed release values. Pick companies, metrics and years; export what you see.')),
+    h('div', {class: 'stack'}, controls, out));
+
+  const checks = (items, chosen, onToggle) => h('div', {class: 'picks'}, items.map(([id, label]) => h('label', {}, h('input', {type: 'checkbox', checked: chosen.includes(id) || null, onchange: (e) => onToggle(id, e.target.checked)}), ' ', label)));
+  const toggle = (key) => (id, on) => { state[key] = on ? [...new Set([...state[key], id])] : state[key].filter((x) => x !== id); render(); };
+  function drawControls() {
+    controls.replaceChildren(
+      h('div', {class: 'row'},
+        h('label', {}, h('span', {class: 'muted small'}, 'Release '), h('select', {onchange: (e) => { state.rel = e.target.value; state.tickers = all().map(([t]) => t); state.years = yearsAll(); drawControls(); render(); }},
+          rels.map((r) => h('option', {value: r.version, selected: r.version === state.rel || null}, `${r.version}${r.signed_by ? ', signed ' + day(r.signed_at) : ', not signed'}`)))),
+        h('label', {}, h('span', {class: 'muted small'}, 'Layout '), h('select', {onchange: (e) => { state.layout = e.target.value; render(); }},
+          h('option', {value: 'wide', selected: state.layout === 'wide' || null}, 'Years across'), h('option', {value: 'long', selected: state.layout === 'long' || null}, 'One row per value'))),
+        h('button', {type: 'button', class: 'btn', onclick: exportCsv}, 'Export CSV')),
+      h('div', {}, h('div', {class: 'k'}, 'Companies ', h('button', {type: 'button', class: 'small', onclick: () => { state.tickers = all().map(([t]) => t); drawControls(); render(); }}, 'all'), ' ',
+        h('button', {type: 'button', class: 'small', onclick: () => { state.tickers = []; drawControls(); render(); }}, 'none')),
+        checks(all().map(([t, n]) => [t, `${n}`]), state.tickers, toggle('tickers'))),
+      h('div', {class: 'row', style: 'gap:3rem;align-items:flex-start'},
+        h('div', {}, h('div', {class: 'k'}, 'Metrics'), checks(METRICS.map((m) => [m.id, m.t]), state.metrics, toggle('metrics'))),
+        h('div', {}, h('div', {class: 'k'}, 'Fiscal years'), checks(yearsAll().map((y) => [y, y]), state.years, toggle('years')))));
+  }
+
+  function cells() {  // one row per company, metric and year, in the chosen order
+    const rel = relOf(), by = new Map(rel.rows.map((r) => [`${r.ticker}|${r.field}|${r.period}`, r]));
+    const names = new Map(all());
+    const out = [];
+    for (const t of all().map(([x]) => x).filter((x) => state.tickers.includes(x)))
+      for (const m of METRICS.filter((m) => state.metrics.includes(m.id)))
+        for (const y of state.years.slice().sort()) {
+          let value = null, basis = '', xbrl = '', citations = '';
+          if (m.ratio) {
+            const c = by.get(`${t}|capex|${y}`), r = by.get(`${t}|revenue|${y}`);
+            if (c && r && c.value !== '' && r.value !== '' && Number(r.value)) value = Number(c.value) / Number(r.value);
+          } else {
+            const r = by.get(`${t}|${m.id}|${y}`);
+            if (!r) continue;
+            value = r.value === '' ? null : Number(r.value); basis = r.basis; xbrl = r.xbrl; citations = r.citations;
+          }
+          if (value == null && m.ratio) continue;
+          out.push({ticker: t, company: names.get(t), metric: m.id, metric_label: m.t, ratio: !!m.ratio, period: y, value, basis, xbrl, citations});
+        }
+    return out;
+  }
+  const fmt = (c) => (c.value == null ? '—' : c.ratio ? (100 * c.value).toFixed(1) + '%' : usd(c.value));
+
+  function render() {
+    const rows = cells();
+    out.replaceChildren();
+    if (!rows.length) { out.append(h('p', {class: 'msg'}, 'Nothing selected.')); return; }
+    out.append(charts(rows));
+    if (state.layout === 'long') {
+      out.append(h('section', {}, h('h2', {}, `${int(rows.length)} values`), table([{t: 'Company', k: 'company'}, {t: 'Metric', k: 'metric_label'}, {t: 'Year', k: 'period'},
+        {t: 'Value', k: 'value', n: 1, f: fmt}, {t: 'Basis', k: 'basis', wide: 1}, {t: 'SEC data', k: 'xbrl', wide: 1}], rows,
+        {detail: (c) => h('div', {class: 'src mono'}, c.citations || 'Computed from the released revenue and capex.')})));
+    } else {
+      const years = state.years.slice().sort();
+      const groups = new Map();
+      for (const c of rows) { const k = `${c.ticker}|${c.metric}`; if (!groups.has(k)) groups.set(k, {company: c.company, metric_label: c.metric_label, ratio: c.ratio, y: {}}); groups.get(k).y[c.period] = c; }
+      out.append(h('section', {}, h('h2', {}, `${int(groups.size)} series`), table([{t: 'Company', k: 'company'}, {t: 'Metric', k: 'metric_label'},
+        ...years.map((y) => ({t: y, n: 1, s: (g) => g.y[y]?.value, f: (g) => (g.y[y] ? fmt(g.y[y]) : '—')}))], [...groups.values()])));
+    }
+  }
+
+  function charts(rows) {
+    const wrap = h('div', {class: 'two'});
+    const tick = [...new Set(rows.map((r) => r.ticker))];
+    if (tick.length > COLORS.length) { wrap.append(h('p', {class: 'muted'}, `Charts show up to ${COLORS.length} companies; ${tick.length} are selected. The table has them all.`)); return wrap; }
+    const years = state.years.slice().sort();
+    for (const m of METRICS.filter((m) => state.metrics.includes(m.id))) {
+      const mine = rows.filter((r) => r.metric === m.id && r.value != null);
+      if (!mine.length) continue;
+      wrap.append(h('section', {}, h('h2', {}, m.t), lineChart(mine, years, tick, m.ratio)));
+    }
+    return wrap;
+  }
+
+  function exportCsv() {
+    const rows = cells();
+    const cols = ['ticker', 'company', 'metric', 'period', 'value', 'basis', 'xbrl', 'citations'];
+    const esc = (v) => { const s = v == null ? '' : String(v); return /[",\n]/.test(s) ? '"' + s.replaceAll('"', '""') + '"' : s; };
+    const csv = [cols.join(','), ...rows.map((r) => cols.map((c) => esc(r[c])).join(','))].join('\n') + '\n';
+    const a = h('a', {href: URL.createObjectURL(new Blob([csv], {type: 'text/csv'})), download: `capex-ledger-${state.rel}.csv`});
+    document.body.append(a); a.click(); a.remove();
+  }
+
+  drawControls();
+  render();
+}
+
+function lineChart(rows, years, tickers, ratio) {
+  const W = 520, H = 240, L = 56, R = 64, T = 10, B = 26;
+  const vals = rows.map((r) => r.value);
+  let lo = Math.min(0, ...vals), hi = Math.max(0, ...vals);
+  if (hi === lo) hi = lo + 1;
+  const x = (y) => L + (years.length === 1 ? (W - L - R) / 2 : (years.indexOf(y) * (W - L - R)) / (years.length - 1));
+  const yv = (v) => T + (H - T - B) * (1 - (v - lo) / (hi - lo));
+  const ns = 'http://www.w3.org/2000/svg';
+  const s = (tag, attrs) => { const el = document.createElementNS(ns, tag); for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v); return el; };
+  const svg = s('svg', {viewBox: `0 0 ${W} ${H}`, width: '100%', role: 'img', 'aria-label': 'Line chart'});
+  const fmtAxis = (v) => {
+    if (ratio) return Math.round(v * 100) + '%';
+    const a = Math.abs(v), sign = v < 0 ? '−' : '';
+    return a >= 1e9 ? `${sign}$${+(a / 1e9).toFixed(a >= 1e10 ? 0 : 1)}B` : `${sign}$${+(a / 1e6).toFixed(a >= 1e7 ? 0 : 1)}M`;
+  };
+  for (let i = 0; i <= 4; i++) {
+    const v = lo + ((hi - lo) * i) / 4;
+    svg.append(s('line', {x1: L, x2: W - R, y1: yv(v), y2: yv(v), stroke: 'var(--faint)', 'stroke-width': 1}));
+    const t = s('text', {x: L - 6, y: yv(v) + 4, 'text-anchor': 'end'}); t.textContent = fmtAxis(v); svg.append(t);
+  }
+  years.forEach((y) => { const t = s('text', {x: x(y), y: H - 6, 'text-anchor': 'middle'}); t.textContent = y.replace('FY', ''); svg.append(t); });
+  const tip = $('#tip'), ends = [];
+  tickers.forEach((tk, i) => {
+    const pts = rows.filter((r) => r.ticker === tk).sort((a, b) => a.period.localeCompare(b.period));
+    if (!pts.length) return;
+    const color = COLORS[i % COLORS.length];
+    svg.append(s('polyline', {points: pts.map((p) => `${x(p.period)},${yv(p.value)}`).join(' '), fill: 'none', stroke: color, 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round'}));
+    for (const p of pts) {
+      const dot = s('circle', {cx: x(p.period), cy: yv(p.value), r: 3.5, fill: color});
+      const hit = s('circle', {cx: x(p.period), cy: yv(p.value), r: 10, fill: 'transparent'});
+      hit.addEventListener('mousemove', (e) => { tip.hidden = false; tip.textContent = `${p.company} ${p.period}: ${ratio ? (100 * p.value).toFixed(1) + '%' : usd(p.value)}`; tip.style.left = e.clientX + 12 + 'px'; tip.style.top = e.clientY + 12 + 'px'; });
+      hit.addEventListener('mouseleave', () => { tip.hidden = true; });
+      svg.append(dot, hit);
+    }
+    const last = pts[pts.length - 1];
+    ends.push({tk, color, x: x(last.period) + 7, y: yv(last.value) + 4});
+  });
+  ends.sort((a, b) => a.y - b.y);  // end labels: keep 12px apart so none overlap
+  for (let i = 1; i < ends.length; i++) if (ends[i].x === ends[i - 1].x && ends[i].y - ends[i - 1].y < 12) ends[i].y = ends[i - 1].y + 12;
+  for (const e of ends) { const lab = s('text', {x: e.x, y: e.y}); lab.textContent = e.tk; lab.style.fill = e.color; svg.append(lab); }
+  return h('div', {}, svg);
+}
+
+// ── Routing ─────────────────────────────────────────────────────────────────
+function go(hash) { location.hash = hash; }
+async function route() {
+  const [page, arg] = (location.hash.slice(1) || 'dashboard').split('/');
+  document.querySelectorAll('nav [data-nav]').forEach((a) => a.classList.toggle('on', a.dataset.nav === page));
+  const view = $('#view');
+  view.replaceChildren();
+  try {
+    if (page === 'company') await companyPage(view, arg);
+    else if (page === 'agents') await agentsPage(view);
+    else if (page === 'outputs') await outputsPage(view, arg);
+    else await dashboard(view);
+  } catch (e) {
+    view.replaceChildren(h('p', {class: 'msg bad'}, e.message));
+  }
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>

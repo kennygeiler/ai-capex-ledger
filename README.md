@@ -6,8 +6,12 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** `v1.0.1` released and signed by Kenny Geiler, hash 6d10c2b1990f. Same 234 values as `v1.0.0`; the `restated` rule now compares cost lines (`cost_of_revenue_part`) line by line, so 10 false restatement notes (7 ORCL, 3 APLD) are gone.
-- Earlier today: DATAHQ dashboard (https://claude.ai/artifact/Eap67fDB2Vs85qsGmY12tw, `scripts/datahq.py`); `v1.0.0` signed.
+**Last done (28 Oct 2026):** DATAHQ is now a web app: `uv run python -m ledger app`, then http://127.0.0.1:3610.
+- **Dashboard:** what needs you, pipeline pass rates, next expected 10-Ks, company scorecard, checks, releases.
+- **Companies:** each company through every step (10-Ks, statements located, the agent's runs and raw answers, re-read on the filing, values with citations and screenshots, checks and decisions, release).
+- **Agents:** the Reader agent's job, model, prompt versions and every run. The model and active prompt now live in `agents/agents.json`; editing a prompt in the app saves the next version (`statements@v3`), never overwrites, and logs who and why.
+- **Outputs:** pick release, companies, metrics (revenue, capex, opex, capex ÷ revenue) and years; table, charts, CSV export.
+- The app reads the database read-only on each request; its only writes are agent changes. `v1.0.1` signed earlier today.
 
 **Next:**
 1. **Claude:** new-filing watcher: check SEC daily for new 10-Ks, run `ledger run` on them, refresh DATAHQ.
@@ -38,6 +42,7 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 | Review | `review`, `review decide` | `decisions/decisions.jsonl`; a decision counts only while its inputs are unchanged |
 | Release | `release <v>` | `releases/<v>/`; refuses while any gate fails, and the same inputs give the same hash |
 | Sign | `signoff <v> --by` | `SIGNOFF.json` |
+| App | `app` | DATAHQ at http://127.0.0.1:3610: dashboard, each company through every step, the agents (model, prompt versions, every run), outputs explorer with CSV export |
 
 Every command runs as `uv run python -m ledger <command> --stage N` or `--ticker X Y` (release and signoff take a stage). `evidence` drives the installed Google Chrome through Playwright, with no browser download.
 
@@ -47,6 +52,8 @@ Every command runs as `uv run python -m ledger <command> --stage N` or `--ticker
 |---|---|
 | `ledger/ingest/` | SEC client, 10-K list, table parser, statement locator, restatement-note finder |
 | `ledger/agent.py`, `extract.py`, `reconcile.py` | Headless agent; tasks and citation checks; fiscal-year values |
+| `agents/agents.json`, `agents/prompts/`, `ledger/agents.py` | The named agents: model, active prompt, change history; a prompt change is saved as a new version |
+| `ledger/app.py`, `app.html`, `hq.py` | DATAHQ web app (read-only on the database) and its numbers |
 | `ledger/rules.py`, `rules/` | Rule engine and the 15 rules |
 | `ledger/evidence.py`, `scorecard.py` | Rendered-10-K re-read with boxed screenshots; what each company cost |
 | `ledger/faults.py`, `review.py`, `release.py` | Fault injection, decisions, releases |

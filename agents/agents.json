@@ -1,0 +1,38 @@
+{
+ "reader": {
+  "name": "Reader",
+  "job": "Reads each 10-K's income statement and cash-flow statement and returns revenue, cost of revenue (or its cost lines), operating income and capex for every year shown, each pointing at the cell it came from.",
+  "decides": [
+   "Which row of the statement is each field",
+   "Which lines are a cost of revenue when there is no total line",
+   "The period of each column, and the unit to apply"
+  ],
+  "checked_by": [
+   "Every citation must resolve to the exact cell in the parsed table, or the answer is rejected and asked again once",
+   "Chrome re-reads every cited cell on the rendered 10-K",
+   "15 rules, the SEC's XBRL answer key, and a fault test of planted mistakes"
+  ],
+  "llm": {
+   "model": "claude-opus-5-5",
+   "runs_on": "Claude Code on Kenny's subscription: claude -p, headless, no tools, no paid API"
+  },
+  "prompt": "statements@v2",
+  "history": [
+   {
+    "at": "2026-10-28T01:45:06+00:00",
+    "by": "Kenny Geiler",
+    "change": "statements@v1: first prompt (from git history)"
+   },
+   {
+    "at": "2026-10-28T03:26:48+00:00",
+    "by": "Kenny Geiler",
+    "change": "statements@v2: cost lines when there is no total cost of revenue (from git history)"
+   },
+   {
+    "at": "2026-10-28T04:23:02+00:00",
+    "by": "Kenny Geiler",
+    "change": "model claude-opus-5-5 pinned for headless runs (from git history)"
+   }
+  ]
+ }
+}

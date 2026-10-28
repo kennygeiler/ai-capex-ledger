@@ -20,6 +20,7 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Done
 
+- **DATAHQ app (28 Oct):** `ledger app`: dashboard, per-company pipeline, named agents with versioned prompts and every run, outputs explorer with CSV export.
 - **Restatement notes (L4, 28 Oct):** cost lines are compared line by line; v1.0.1 drops 10 false notes, values unchanged; signed by Kenny Geiler, hash 6d10c2b1990f.
 - **`v1.0.0` (28 Oct, M3.3):** all 19 companies, 234 values, signed by Kenny Geiler, hash 9f8014b3175f. Every value XBRL can't vouch for, plus 10 random ones, confirmed by the machine re-read; nothing needed a person.
 - **M2, a new company needs no code (28 Oct):** blind run 1 on the 13 unseen companies found 6 failure types. Each was fixed as a type, and a full rerun of all 19 needs nothing from a person: 857/857 cells confirmed, 224/234 values agree with XBRL, the rest explained by code or decided. Details in [INGESTION.md](INGESTION.md).

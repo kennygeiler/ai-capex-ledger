@@ -10,11 +10,12 @@ import subprocess
 import tempfile
 import time
 
+from . import agents
 from .extract import PROMPT_VERSION, Invalid, resolve, validate_output
 from .store import ROOT
 
 PROMPT = ROOT / "agents" / "prompts" / f"{PROMPT_VERSION}.md"
-MODEL = "claude-opus-5-5"  # pinned, so a rerun reads with the same model; needs Claude Code 2.1.280 or later
+MODEL = agents.load()["reader"]["llm"]["model"]  # pinned in agents/agents.json, so a rerun reads with the same model
 CLI = os.environ.get("LEDGER_CLAUDE", "claude")  # path to a newer claude when the installed one is too old
 # Only the basics: the desktop app's session variables route requests to its own token, not the user's login.
 ENV = {k: os.environ[k] for k in ("HOME", "PATH", "USER", "LANG") if k in os.environ}
