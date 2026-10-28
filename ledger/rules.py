@@ -116,9 +116,13 @@ MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", 
 @check("row_label_switch")
 def _row_switch(ctx, p):
     """The row an agent cites for a field should be the same across a company's filings. A change may be a renamed
-    line, or the agent picking a different line."""
-    out, seen = [], {}
+    line, or the agent picking a different line. Cost lines are several rows by design and may be renamed between
+    filings, so for them the check is that every year in one filing uses the same set of lines, each once."""
+    out, seen, lines = [], {}, {}
     for e in sorted(ctx.extractions, key=lambda e: (e["ticker"], e["field"], e["accession"])):
+        if e["field"] == "cost_of_revenue_part":
+            lines.setdefault((e["ticker"], e["accession"]), {}).setdefault(e["period_end"], []).append(e["row_label"])
+            continue
         k = (e["ticker"], e["field"])
         label = re.sub(r"\s+", " ", e["row_label"].strip().lower())
         seen.setdefault(k, {}).setdefault(label, []).append(e["accession"])
@@ -126,6 +130,11 @@ def _row_switch(ctx, p):
         if len(labels) > 1:
             desc = "; ".join(f"'{l}' in {len(a)} filing(s)" for l, a in sorted(labels.items(), key=lambda kv: -len(kv[1])))
             out.append(Finding(t, f"{f} is read from different rows across filings: {desc}", f))
+    for (t, accn), by_year in lines.items():
+        sets = {tuple(sorted(ls)) for ls in by_year.values()}
+        if len(sets) > 1 or any(len(set(ls)) < len(ls) for ls in by_year.values()):
+            desc = "; ".join(f"{end}: {', '.join(sorted(ls))}" for end, ls in sorted(by_year.items()))
+            out.append(Finding(t, f"cost lines differ between years of {accn}: {desc}", "cost_of_revenue_part", None, accn))
     return out
 
 

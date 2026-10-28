@@ -127,6 +127,18 @@ for _rid in sorted(RULES):
     setattr(EachRule, f"test_{_rid}_fails", _f)
 
 
+class CostLines(unittest.TestCase):
+    def test_row_switch_ignores_cost_lines(self):
+        lines = lambda c: c.extractions.extend(ext("cost_of_revenue_part", "2025-06-01", "2026-05-31", 1, "1", n, "x") for n in ("Hardware", "Services"))
+        self.assertEqual(findings("row_label_switch", bad(lines)), [])
+
+    def test_a_year_with_different_cost_lines_is_caught(self):
+        def lines(c):
+            for end, names in (("2025-05-31", ("Hardware", "Services")), ("2026-05-31", ("Services", "Services"))):
+                c.extractions.extend({**ext("cost_of_revenue_part", end[:4] + "-06-01", end, 1, "1", n, "x"), "extraction_id": f"{end}|{i}"} for i, n in enumerate(names))
+        self.assertTrue(findings("row_label_switch", bad(lines)))
+
+
 class Engine(unittest.TestCase):
     def test_run_is_deterministic_and_ids_are_stable(self):
         ctx = bad(FAIL["sign"])

@@ -6,17 +6,17 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** Plan reframed pipeline-first. The PRD now runs on capability milestones instead of company stages (1 → 5 → 19):
-- **M1:** runs unattended.
-- **M2:** a new company needs no code.
-- **M3:** review scales, with a sampled hand-check and decisions grouped by cause.
-
-The headline metric is the cost of the next company: code changes, items a person decides, and that person's minutes. Tickets are regrouped by milestone. No code changed in this commit. Before it: XBRL definition gaps labelled by code; the page quotes each filing's restatement sentence; the expand bug was fixed.
+**Last done (28 Oct 2026):** Stage 2 has no blocking items left.
+- **Kenny's decisions (recorded):**
+  - accepted APLD revenue and opex FY2024–FY2025: recast after the ChronoScale transaction, as the 10-K states
+  - confirmed the ORCL and APLD cost lines
+- **Code fix:** the row-switch rule no longer flags cost lines as noise. It now checks that each 10-K uses the same cost lines in every year. Skipping cost lines outright had let 10 planted misreads escape; with the new check, 0 of 862 escape.
+- **Plan:** pipeline-first milestones M1–M3, in [docs/PRD.md](docs/PRD.md).
 
 **Next:**
-1. **Kenny (P1, P2):** on `reports/stage2-validation.html`, decide the 4 APLD recast items, confirm the ORCL and APLD cost lines, decide the warnings, hand-check, and sign `v0.2.0`.
-2. **Kenny (M1.1):** run `claude login` once in a terminal, so agents can run headless.
-3. **Claude (M1.2–M1.4):** headless extraction, `ledger run --ticker X`, and the per-company scorecard. Then M2's blind run of the 14 unseen companies.
+1. **Kenny (P2):** hand-check the 66 values on `reports/stage2-validation.html`, export the hand-check file, then say to release and sign `v0.2.0`. The 21 open warnings don't block the release.
+2. **Kenny (M1.1):** run `claude login` once in a terminal.
+3. **Claude (M1.2–M1.4):** headless extraction, `ledger run --ticker X`, scorecard. The warnings with known causes (a year not yet ended, a year outside the fetched filings) become code labels in M2.
 
 **Critical notes:**
 - **Dashes are zero.** APLD's newest 10-K shows "—" for its data-center cost line in FY2024 and FY2025; agents read these as 0.
