@@ -4,13 +4,6 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Open
 
-### M0: finish the hand-run loop
-
-| ID | Ticket | Done when |
-|---|---|---|
-| P1 | **you:** Decide stage 2's 4 blocking items: APLD revenue and opex FY2024–FY2025, recast after the ChronoScale transaction (the page quotes the note). Confirm the ORCL and APLD cost lines; decide the warnings. | `ledger review --stage 2` shows 0 open. |
-| P2 | **you:** Look over the stage 2 page (all 20 checks are machine-confirmed, with boxed screenshots), then say to release and sign `v0.2.0`. | Signed. |
-
 ### M1: it runs unattended
 
 | ID | Ticket | Done when |
@@ -39,9 +32,12 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 | ID | Ticket | Done when |
 |---|---|---|
 | L1 | Client view: released values only, each with its basis, source and citation link. | Built from a release folder. |
+| L3 | `DIFF.md` also lists values added since the last release (new companies or years), not only changed ones. | v0.2.0-style "No values changed" can't happen when companies were added. |
 | L2 | Non-functional checks as tests: SEC request spacing and contact header; no email or key in any output; parse under 60 s; `uv sync --frozen` works. | 4 tests. |
 
 ## Done
+
+- **`v0.2.0` (28 Oct):** 5 companies, 66 values, signed by Kenny Geiler, hash a4319cfd12b5. M0 complete.
 
 - **Rendered-10-K re-read (28 Oct):** `ledger evidence` confirms each cited cell on the 10-K as rendered in Chrome and screenshots it boxed; G5 accepts a machine confirmation, and a person answers only cards it can't confirm.
 - **Sampled hand-check (M3.2, pulled forward, 28 Oct):** a person checks only the values XBRL can't vouch for, plus 10 random agreeing ones. Each is one yes/no question on the page; decisions show as decided, not red. Stage 2: 20 checks instead of 66.

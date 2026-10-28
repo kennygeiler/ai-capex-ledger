@@ -1,0 +1,24 @@
+{
+ "version": "v0.2.0",
+ "stage": 2,
+ "hash": "a4319cfd12b51fa41da4f7b16d1cdde7f480414d68ec598a161619ee9dbc3740",
+ "prompt": "statements@v2",
+ "parser": "tables@7",
+ "rules": {
+  "citation_resolves": "3a50d8d5efa3",
+  "column_matches_period": "86b02b433855",
+  "cost_lines_summed": "9e6188950da9",
+  "coverage": "4e27e108444c",
+  "definition_note": "a0fff2c1e58e",
+  "jump": "f87049d4f8df",
+  "outlier_vs_own_history": "ea92d830eba7",
+  "period_length": "ab99693112fa",
+  "restated": "b2994efcaa46",
+  "row_label_switch": "9b4fd4cd2bff",
+  "sign": "c03563f8de51",
+  "statement_tie": "b101d037b308",
+  "unit_from_document": "a176a5307c6b",
+  "xbrl_reconcile": "af1d42220d5e"
+ },
+ "decisions": 6
+}

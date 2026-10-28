@@ -6,15 +6,18 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** The machine now checks citations itself. `ledger evidence` opens each 10-K in headless Chrome as a person would see it, finds the cited row and column by position on the page (not through our parser), and compares the text. It also saves a screenshot with the cell boxed.
-- **Stage 2:** 173 of 173 cited cells confirmed, and 708 of 708 deliberately moved citations noticed. All 20 checks on the page are machine-confirmed, so none need Kenny. Each card can show the boxed screenshots.
-- **G5** now accepts a machine confirmation. A person answers only the cards the machine can't confirm, with the screenshot showing exactly where to look.
-- **All release gates pass for `v0.2.0`.** It is not built or signed yet.
+**Last done (28 Oct 2026):** `v0.2.0` signed by Kenny Geiler, hash `a4319cfd12b5`. It covers 5 companies (NVDA, MSFT, CRWV, ORCL, APLD), FY2022–FY2026, with 66 values (revenue, capex, opex).
+- **How the values are verified:**
+  - 46 by two independent sources: the 10-K cell and XBRL agree.
+  - 20 confirmed on the rendered 10-K by the machine re-read: the 10 that XBRL can't vouch for, plus 10 random spot-checks.
+- **Restated:** 3 values are on a restated basis.
+- **Kenny's decisions:** the APLD recast years and the ORCL and APLD cost lines.
+- **M0 is complete.** `v0.1.0` (NVDA) stays signed.
 
 **Next:**
-1. **Kenny:** skim `reports/stage2-validation.html` (open "Show where" on any card), then say "release and sign v0.2.0".
-2. **Kenny (M1.1):** run `claude login` once in a terminal.
-3. **Claude (M1.2–M1.4):** headless extraction, `ledger run --ticker X`, scorecard; `ledger run` will include `evidence`.
+1. **Kenny (M1.1):** run `claude login` once in a terminal, so agents can run headless.
+2. **Claude (M1.2–M1.4):** headless extraction, `ledger run --ticker X` (fetch to evidence to page), and the per-company scorecard. Then M2: run the 14 unseen companies blind.
+3. **Small fix:** `DIFF.md` lists changed values but not newly added companies (v0.2.0 says "No values changed" although 4 companies were added). Fix it before the next release.
 
 **Critical notes:**
 - **Dashes are zero.** APLD's newest 10-K shows "—" for its data-center cost line in FY2024 and FY2025; agents read these as 0.
