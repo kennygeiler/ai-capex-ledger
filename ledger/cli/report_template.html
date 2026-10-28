@@ -91,6 +91,10 @@ tr.open .caret { transform: rotate(90deg); }
 .howto { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; margin-top: 16px; font-size: 13px; }
 .howto ol { margin: 6px 0 0; padding-left: 18px; }
 .foot { color: var(--muted); font-size: 12px; margin-top: 24px; }
+.queue { display: grid; gap: 8px; }
+.qi { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; gap: 4px; font-size: 13px; overflow-wrap: anywhere; }
+.qi .top { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+details summary { cursor: pointer; font-size: 13px; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .c-q { width: 8%; } .c-f { width: 12%; } .c-a { width: 14%; } .c-x { width: 14%; } .c-m { width: 8%; } .c-h { width: 18%; } .c-c { width: 11%; } .c-n { width: 15%; }
 @media (max-width: 720px) {
@@ -115,7 +119,8 @@ const key = (v) => `${v.ticker}|${v.field}|${v.cal_q}`;
 let checks = {};
 try { checks = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(checks)); } catch (e) {} };
-const state = { field: "all", show: "all", open: new Set() };
+const blocked = D.exceptions.filter((e) => e.severity === "block").map((e) => e.ticker);
+const state = { company: blocked[0] || D.tickers[0], field: "all", show: "all", open: new Set() };
 
 function tiles() {
   const c = D.counts, done = D.values.filter((v) => checks[key(v)]?.verified).length;
@@ -130,7 +135,7 @@ function tiles() {
 }
 
 function chart(field) {
-  const vs = D.quarters.map((q) => D.values.find((v) => v.field === field && v.cal_q === q));
+  const vs = D.quarters.map((q) => D.values.find((v) => v.ticker === state.company && v.field === field && v.cal_q === q));
   const all = vs.flatMap((v) => v ? [v.value, v.ref] : []).filter((x) => x != null);
   const hi = Math.max(...all, 1), lo = Math.min(0, ...all);
   const W = 300, H = 150, L = 4, B = 18, T = 8, bw = (W - L) / vs.length;
@@ -140,7 +145,7 @@ function chart(field) {
   vs.forEach((v, i) => {
     const x = L + i * bw, w = bw * 0.58;
     if (v) {
-      const bad = v.label !== "agree";
+      const bad = v.label === "unresolved";
       s += `<rect class="bar ${bad ? "bad" : ""}" x="${x + (bw - w) / 2}" y="${Math.min(y(v.value), y(0))}" width="${w}" height="${Math.max(1, Math.abs(y(v.value) - y(0)))}" rx="2"/>`;
       if (v.ref != null) s += `<circle class="mark" cx="${x + bw / 2}" cy="${y(v.ref)}" r="4"/>`;
       s += `<rect class="hit" data-k="${key(v)}" x="${x}" y="0" width="${bw}" height="${H}"/>`;
@@ -191,7 +196,7 @@ function detail(v) {
 
 function rows() {
   const order = (v) => D.fields.indexOf(v.field) * 100 + D.quarters.indexOf(v.cal_q);
-  const list = [...D.values].sort((a, b) => order(a) - order(b)).filter((v) => (state.field === "all" || v.field === state.field)
+  const list = [...D.values].sort((a, b) => order(a) - order(b)).filter((v) => v.ticker === state.company && (state.field === "all" || v.field === state.field)
     && (state.show === "all" || (state.show === "todo" ? !checks[key(v)]?.verified : v.label !== "agree")));
   return list.map((v) => {
     const k = key(v), c = checks[k] || {}, open = state.open.has(k);
@@ -210,19 +215,32 @@ function seg(name, opts) {
   return `<div class="seg">${Object.entries(opts).map(([k, l]) => `<button data-${name}="${k}" aria-pressed="${state[name] === k}">${l}</button>`).join("")}</div>`;
 }
 
+function decisions() {
+  const sev = (s) => D.exceptions.filter((e) => e.severity === s);
+  const item = (e) => `<div class="qi"><div class="top"><span class="pill ${e.severity === "info" ? "na" : "bad"}">${e.severity}</span><b>${esc(e.ticker)} ${esc(e.field || "")} ${e.cal_q ? qLabel(e.cal_q) : ""}</b><span style="color:var(--muted)">${esc(e.rule_id)}</span></div><div>${esc(e.message)}</div><code style="font-size:11px;color:var(--muted)">${esc(e.exception_id)}</code></div>`;
+  const block = sev("block"), warn = sev("warn"), info = sev("info");
+  return `<h2>Needs your decision (${block.length} blocking)</h2>
+    ${block.length ? `<div class="queue">${block.map(item).join("")}</div>` : `<p class="foot">Nothing blocking.</p>`}
+    <p class="foot">Decide each with <code>python -m ledger review --stage ${D.stage} decide &lt;id&gt; accept|override|reject --reason "…" --by "Kenny Geiler"</code>.</p>
+    <details><summary><b>${warn.length} warnings</b>: also need a decision, usually accept</summary><div class="queue" style="margin-top:8px">${warn.map(item).join("")}</div></details>
+    <details style="margin-top:8px"><summary><b>${info.length} notes</b>: no decision needed</summary><div class="queue" style="margin-top:8px">${info.map(item).join("")}</div></details>`;
+}
+
 function render() {
   $("#app").innerHTML = `
     <h1>${esc(document.title)}</h1>
     <p class="sub">Agents read ${D.counts.filings} ${D.tickers.join(", ")} filings (statement tables only, never XBRL) and cited every number they took. Each quarterly value below is built from those cells and compared with XBRL, the SEC's machine-readable copy, which acts as the answer key. Open any row to see the arithmetic and the highlighted cells; open the filing to read the number yourself, then tick it.</p>
     ${tiles()}
-    <h2>Agent vs XBRL, by quarter</h2>
+    ${decisions()}
+    <h2>Company</h2>
+    <div class="toolbar">${seg("company", Object.fromEntries(D.tickers.map((t) => [t, `${t}${blocked.includes(t) ? " · needs decisions" : ""}`])))}</div>
+    <h2>Agent vs XBRL, by quarter · ${esc(state.company)}</h2>
     <div class="charts">${D.fields.map(chart).join("")}</div>
     <div class="legend"><span><span class="sw" style="background:var(--agent)"></span>Agent value (read from the filing)</span><span><span class="ring"></span>XBRL value (answer key)</span><span><span class="sw" style="background:var(--bad)"></span>Disagreement</span></div>
     <div class="howto"><b>How to check a value (about a minute each).</b><ol>
       <li>Click the row: check the arithmetic, and see the cited cell highlighted in the parsed table.</li>
       <li>Click “Open the filing at this row”: Chrome opens the SEC document and highlights the row. Confirm the number and the column's period.</li>
       <li>Tick “verified”, or write a note if anything is off. Progress is saved in this browser; “Download hand-check” saves the record; put it at <code>golden/stage${D.stage}-handcheck.json</code> and run <code>python -m ledger release</code>.</li></ol></div>
-    ${D.exceptions.length ? `<h2>Rule results</h2><div class="howto" style="margin-top:0">${D.exceptions.map((e) => `<div style="margin:4px 0"><span class="pill ${e.severity === "info" ? "na" : "bad"}">${e.severity}</span> <b>${esc(e.rule_id)}</b>: ${esc(e.message)}</div>`).join("")}<div style="color:var(--muted);margin-top:6px">14 rules ran (rules/*.yaml). Only rules that fired are listed.</div></div>` : ""}
     <h2>Every value</h2>
     <div class="toolbar">${seg("field", { all: "All", ...D.field_label })}${seg("show", { all: "All", todo: "Not yet checked", bad: "Disagreements" })}
       <span class="spacer"></span><button class="btn" id="expand">Expand all</button><button class="btn primary" id="export">Download hand-check</button></div>
@@ -236,8 +254,8 @@ function render() {
 function updateTiles() { const n = D.values.filter((v) => checks[key(v)]?.verified).length; $("#done-n").textContent = `${n}/${D.values.length}`; }
 
 document.addEventListener("click", (e) => {
-  const b = e.target.closest("[data-field],[data-show]");
-  if (b) { if (b.dataset.field) state.field = b.dataset.field; if (b.dataset.show) state.show = b.dataset.show; return render(); }
+  const b = e.target.closest("[data-field],[data-show],[data-company]");
+  if (b) { if (b.dataset.company) { state.company = b.dataset.company; state.open.clear(); } if (b.dataset.field) state.field = b.dataset.field; if (b.dataset.show) state.show = b.dataset.show; return render(); }
   if (e.target.closest("#expand")) { const vis = [...document.querySelectorAll("tr.main")].map((r) => r.dataset.k); const all = vis.every((k) => state.open.has(k)); vis.forEach((k) => all ? state.open.delete(k) : state.open.add(k)); return render(); }
   if (e.target.closest("#export")) {
     const out = { stage: D.stage, release: D.release, exported_at: new Date().toISOString(), checker: prompt("Your name, for the record:", "Kenny Geiler") || "",

@@ -7,6 +7,7 @@ AI agents read SEC filings and extract revenue, cost of revenue, operating incom
 *Updated with every commit.*
 
 **Last done (28 Oct 2026):** stage 2 extraction is done, including the held-out run ([docs/QA-stage2.md](docs/QA-stage2.md)).
+- The validation page now opens on "Needs your decision" (the 12 blocking items), with a company selector for the charts and values.
 - **Held out (ORCL, APLD):** 216/216 cells the agents read match XBRL. Error rate under 1.4% at 95% confidence.
 - **Fault injection:** 0 of 3,015 injected misreads escaped.
 - **Blocking:** 12 exceptions block `v0.2.0`, all on APLD. Its discontinued-operations restatement mixes two bases, and one quarter has a gain booked in operating expenses.
