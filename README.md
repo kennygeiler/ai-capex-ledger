@@ -6,20 +6,14 @@ AI agents read SEC 10-K filings and extract revenue, capex and opex, citing the 
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** the project now uses 10-Ks only: one value per company per fiscal year, no quarterly arithmetic.
-- **Fields:** revenue, capex and opex (revenue − cost of revenue − operating income, from one 10-K column). See [docs/FIELDS.md](docs/FIELDS.md).
-- **Reading:** all 140 10-K cells match XBRL, including 56/56 on the held-out ORCL and APLD.
-- **Fault injection:** 0 of 700 escaped.
-- **Restatements:** the newest 10-K wins and the first figure is kept. A year never mixes filings.
-- **Removed:** the quarterly work, including the earlier signed `v0.1.0`. It's preserved in tag `quarterly-v0.1`.
+**Last done (28 Oct 2026):** stage 1 (NVDA) `v0.1.0` is built: 15 values for FY2022–FY2026 (revenue, capex, opex). All are hand-checked by Kenny and agree with XBRL. Every gate passed. Hash `2b15699badbe`.
+- The project is on 10-Ks only: one value per company per fiscal year ([docs/FIELDS.md](docs/FIELDS.md)). All 140 cells match XBRL, and 0 of 700 injected faults escaped.
 
 **Next:**
-1. **Kenny:** hand-check NVDA's 15 values on `reports/stage1-validation.html` and save the export as `golden/stage1-handcheck.json`. Then:
-   ```bash
-   uv run python -m ledger release v0.1.0 --stage 1
-   uv run python -m ledger signoff v0.1.0 --by "Kenny Geiler"
-   ```
-2. **Kenny:** decide stage 2's 2 blocking items. APLD's revenue for FY2024 and FY2025 differs from XBRL because the newest 10-K presents those years differently. Then decide the warnings, hand-check, and release `v0.2.0` (due 6 Nov).
+1. **Kenny:** sign `v0.1.0`: `uv run python -m ledger signoff v0.1.0 --by "Kenny Geiler"`. Two non-blocking warnings ship with it, both real:
+   - NVDA's capex tripled from FY2024 to FY2025.
+   - FY2023 capex was high relative to revenue.
+2. **Kenny:** stage 2. Decide 2 blocking items: APLD's revenue for FY2024 and FY2025 differs from XBRL because the newest 10-K presents those years differently. Then decide the warnings, hand-check, and release `v0.2.0` (due 6 Nov).
 3. The rest is in [docs/TICKETS.md](docs/TICKETS.md).
 
 **Critical notes:**

@@ -6,8 +6,7 @@ The backlog for [PRD.md](PRD.md). Owner of every ticket: Kenny Geiler. Tickets m
 
 | ID | Ticket | Done when |
 |---|---|---|
-| A1 | **you:** Hand-check NVDA's 15 values on `reports/stage1-validation.html`; save the export as `golden/stage1-handcheck.json`. | All 15 verified. |
-| A2 | Release and sign `v0.1.0` (stage 1). | `releases/v0.1.0/SIGNOFF.json` exists. |
+| A2 | **you:** Sign `v0.1.0` (built 28 Oct; 15 values hand-checked). | `releases/v0.1.0/SIGNOFF.json` exists. |
 | A3 | **you:** Decide stage 2's blocking items: APLD revenue FY2024 and FY2025, where XBRL reflects an older presentation than the newest 10-K. Then decide the warnings. | `ledger review --stage 2` shows 0 open. |
 | A4 | **you:** Hand-check stage 2's values; release and sign `v0.2.0`. | Signed before 11 Nov. |
 | A5 | Stage 3: run extraction on the remaining 14 companies' 10-Ks with the frozen prompt; fix the IREN locator miss first. | Release `v1.0.0`. |
