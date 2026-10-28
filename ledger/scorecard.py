@@ -4,6 +4,7 @@ import json
 
 from .review import decisions, open_items
 from .store import ROOT
+from .evidence import load_all
 
 
 def scorecard(con, tickers: list[str], name: str) -> list[dict]:
@@ -15,8 +16,7 @@ def scorecard(con, tickers: list[str], name: str) -> list[dict]:
     vals = q('select ticker, label, value, extraction_ids from "values" where ticker in (select unnest(?))')
     excs = q("select * from exceptions where ticker in (select unnest(?))")
     todo = open_items(excs, decisions())
-    ev_path = ROOT / "reports" / "evidence" / f"{name}.json"
-    ev = json.loads(ev_path.read_text()) if ev_path.exists() else {}
+    ev = load_all()
     out = []
     for t in tickers:
         mine = [d["accession"] for d in docs if d["ticker"] == t]

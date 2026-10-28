@@ -6,12 +6,11 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** DATAHQ is now a web app: `uv run python -m ledger app`, then http://127.0.0.1:3610.
-- **Dashboard:** what needs you, pipeline pass rates, next expected 10-Ks, company scorecard, checks, releases.
-- **Companies:** each company through every step (10-Ks, statements located, the agent's runs and raw answers, re-read on the filing, values with citations and screenshots, checks and decisions, release).
-- **Agents:** the Reader agent's job, model, prompt versions and every run. The model and active prompt now live in `agents/agents.json`; editing a prompt in the app saves the next version (`statements@v3`), never overwrites, and logs who and why.
-- **Outputs:** pick release, companies, metrics (revenue, capex, opex, capex ÷ revenue) and years; table, charts, CSV export.
-- The app reads the database read-only on each request; its only writes are agent changes. `v1.0.1` signed earlier today.
+**Last done (28 Oct 2026):** audit fixes to keep DATAHQ actionable and simple.
+- **Warnings:** on a company's page, open warnings are grouped by check; one reason accepts a group (written to `decisions/decisions.jsonl`, signed with your name). Blocking items are still decided with `ledger review`.
+- **Evidence:** every reader (page, scorecard, app, release) now uses every re-read on record, not only the file named after the batch, so single-company runs show their confirmations. `v1.0.1` rebuilds unchanged.
+- **Outputs:** every blank says why (10-K not filed yet, before first 10-K, not in this release); metric definitions sit beside the picker; the CSV export adds the fiscal year end and the reason.
+- **Old DATAHQ artifact** is labelled a frozen snapshot; its exporter (`scripts/datahq.py`, `reports/datahq/`) is removed. The app is the live DATAHQ: `uv run python -m ledger app`, http://127.0.0.1:3610.
 
 **Next:**
 1. **Claude:** new-filing watcher: check SEC daily for new 10-Ks, run `ledger run` on them, refresh DATAHQ.

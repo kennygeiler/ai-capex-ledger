@@ -20,6 +20,7 @@ from ..release import to_check
 from ..review import decisions, latest, open_items
 from ..rules import load
 from ..scorecard import scorecard
+from ..evidence import load_all
 
 FIELD_LABEL = {"revenue": "Revenue", "capex": "Capex", "opex": "Opex", "cost_of_revenue": "Cost of revenue", "operating_income": "Operating income"}
 METHOD_LABEL = {"reported": "As filed (one 10-K cell)", "computed": "Opex = revenue − cost of revenue − operating income, all from the same 10-K column"}
@@ -60,8 +61,7 @@ def build(con, tickers: list[str], name: str) -> dict:
             notes[accn] = n and {"text": n, "url": d["url"] + "#:~:text=" + quote(" ".join(n.split()[:8]))}
         return notes[accn]
 
-    ev_path = store.ROOT / "reports" / "evidence" / f"{name}.json"
-    ev = json.loads(ev_path.read_text()) if ev_path.exists() else {}
+    ev = load_all()
     check, cur = to_check(vals), latest(decisions())
     decided = {(e["ticker"], e["field"], e["period"]): cur[e["exception_id"]] for e in excs
                if e["period"] and cur.get(e["exception_id"], {}).get("input_hash") == e["input_hash"]}

@@ -10,6 +10,7 @@ from ..ingest.tables import PARSER_VERSION
 from ..release import GATES, build, content_hash, gates
 from ..review import apply, decisions, open_items
 from ..rules import load
+from ..evidence import load_all
 
 RELEASES = store.ROOT / "releases"
 
@@ -31,9 +32,8 @@ def main(argv=None) -> int:
     exts = _rows(con, "select * from extractions where ticker in (select unnest(?))", tickers)
     ds = decisions()
     hc_path = store.ROOT / "golden" / f"stage{a.stage}-handcheck.json"
-    ev_path = store.ROOT / "reports" / "evidence" / f"stage{a.stage}.json"
     cells = {e["extraction_id"]: e["cell_text"] for e in exts}
-    confirmed = {i for i, r in (json.loads(ev_path.read_text()) if ev_path.exists() else {}).items() if r["match"] and cells.get(i) == r["cell"]}
+    confirmed = {i for i, r in load_all().items() if r["match"] and cells.get(i) == r["cell"]}
     failing = gates(values, open_items(excs, ds), json.loads(hc_path.read_text()) if hc_path.exists() else None, confirmed)
     if any(failing.values()):
         print(f"{a.version} not built. Failing gates:")

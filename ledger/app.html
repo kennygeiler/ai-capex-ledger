@@ -248,14 +248,35 @@ async function companyPage(view, ticker) {
         {t: 'Result', k: 'label', f: (v) => h('span', {class: v.label === 'agree' ? 'muted' : null}, v.decision ? `decided: ${v.decision.kind}` : XBRL[v.label] || v.label)}],
         c.values, {detail: (v) => sources(v)}),
       h('p', {class: 'muted small', style: 'margin-top:.4rem'}, 'Click a value for where it came from.')]),
-    docs.length && step('Checks', open.length ? `${open.length} open` : 'nothing open', open.length > 0, c.exceptions.length ? table([
+    docs.length && step('Checks', open.length ? `${open.length} open` : 'nothing open', open.some((e) => e.severity === 'block'), c.exceptions.length ? [acceptGroups(open), table([
       {t: 'Check', k: 'rule_id', f: (e) => e.rule_id.replaceAll('_', ' ')}, {t: 'Kind', k: 'severity', f: (e) => ({block: 'blocks release', warn: 'warning', info: 'note'})[e.severity]},
       {t: 'Field', k: 'field', f: (e) => LABEL[e.field] || e.field || '—', wide: 1}, {t: 'Year', k: 'period', wide: 1},
       {t: 'Status', k: 'status', f: (e) => h('span', {class: e.status === 'open' && e.severity === 'block' ? 'bad' : null}, e.status === 'decided' ? `decided by ${e.decision?.reviewer || '—'}` : e.status)}],
-      c.exceptions, {detail: (e) => h('div', {class: 'src'}, h('div', {}, e.message), e.decision && h('div', {class: 'muted'}, `${e.decision.reviewer}, ${day(e.decision.decided_at)}: ${e.decision.reason}`))})
+      c.exceptions, {detail: (e) => h('div', {class: 'src'}, h('div', {}, e.message), e.decision && h('div', {class: 'muted'}, `${e.decision.reviewer}, ${day(e.decision.decided_at)}: ${e.decision.reason}`))})]
       : h('p', {class: 'muted'}, 'No check fired.')),
     step('Release', c.release ? `${c.released} values in ${c.release}` : 'none', false,
       h('p', {class: 'muted'}, c.released ? h('a', {href: '#outputs/' + c.ticker}, `Open ${c.ticker} in Outputs`) : 'Nothing released for this company.'))));
+}
+// Open warnings grouped by check: one reason accepts the whole group. Blocking items are decided with `ledger review`.
+function acceptGroups(open) {
+  const groups = new Map();
+  for (const e of open.filter((e) => e.severity === 'warn')) { if (!groups.has(e.rule_id)) groups.set(e.rule_id, []); groups.get(e.rule_id).push(e); }
+  if (!groups.size) return null;
+  return h('div', {class: 'stack', style: 'gap:1.25rem;margin-bottom:2rem'}, [...groups].map(([rule, list]) => {
+    const reason = h('input', {type: 'text', placeholder: 'Why these are expected', 'aria-label': `Reason for accepting ${rule} warnings`, style: 'flex:1;min-width:14rem'});
+    const status = h('span', {class: 'muted small'});
+    const btn = h('button', {type: 'button', class: 'btn', onclick: async () => {
+      status.textContent = 'Saving…';
+      try {
+        const r = await api('/api/decide', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ids: list.map((e) => e.exception_id), reason: reason.value, by: me})});
+        status.textContent = `${r.accepted} accepted by ${me}.`; setTimeout(route, 900);
+      } catch (err) { status.textContent = err.message; status.classList.add('bad'); }
+    }}, `Accept ${list.length}`);
+    return h('div', {},
+      h('div', {}, h('b', {}, `${list.length} ${rule.replaceAll('_', ' ')}`), h('span', {class: 'muted'}, ` · ${list[0].rule_title}`)),
+      h('div', {class: 'muted small', style: 'margin:.15rem 0 .5rem'}, list.map((e) => [LABEL[e.field] || e.field, e.period].filter(Boolean).join(' ')).join(', ')),
+      h('div', {class: 'row'}, reason, btn, status));
+  }), h('p', {class: 'muted small'}, `Signed as ${me}. Change the name on the Agents page.`));
 }
 const tok = (d) => (d.agent && d.agent.detail.input_tokens != null ? d.agent.detail.input_tokens + d.agent.detail.output_tokens : null);
 
@@ -353,7 +374,11 @@ function agentCard(a) {
 }
 
 // ── Outputs: pick companies, metrics, years; table, chart, CSV ───────────────
-const METRICS = [{id: 'revenue', t: 'Revenue'}, {id: 'capex', t: 'Capex'}, {id: 'opex', t: 'Opex'}, {id: 'capex_share', t: 'Capex ÷ revenue', ratio: true}];
+const METRICS = [
+  {id: 'revenue', t: 'Revenue', def: 'Total revenue or net sales, one cell of the income statement.'},
+  {id: 'capex', t: 'Capex', def: 'Cash paid for property and equipment, one line of the cash-flow statement.'},
+  {id: 'opex', t: 'Opex', def: 'Revenue − cost of revenue − operating income, all from the same 10-K column.'},
+  {id: 'capex_share', t: 'Capex ÷ revenue', ratio: true, def: 'Released capex divided by released revenue for the same year.'}];
 const COLORS = ['#2f5bd3', '#d9822b', '#2a9d8f', '#c43d6b', '#7a5cc4', '#6b8e23', '#8c6d46', '#3d8fc4'];
 let outState = null;
 async function outputsPage(view, focus) {
@@ -386,32 +411,38 @@ async function outputsPage(view, focus) {
         h('button', {type: 'button', class: 'small', onclick: () => { state.tickers = []; drawControls(); render(); }}, 'none')),
         checks(all().map(([t, n]) => [t, `${n}`]), state.tickers, toggle('tickers'))),
       h('div', {class: 'row', style: 'gap:3rem;align-items:flex-start'},
-        h('div', {}, h('div', {class: 'k'}, 'Metrics'), checks(METRICS.map((m) => [m.id, m.t]), state.metrics, toggle('metrics'))),
+        h('div', {}, h('div', {class: 'k'}, 'Metrics'), checks(METRICS.map((m) => [m.id, m.t]), state.metrics, toggle('metrics')),
+          h('div', {class: 'muted small', style: 'margin-top:.5rem;max-width:34rem'}, METRICS.map((m) => h('div', {}, `${m.t}: ${m.def}`)),
+            h('div', {}, "Years are each company's own fiscal year; the year end is in the export."))),
         h('div', {}, h('div', {class: 'k'}, 'Fiscal years'), checks(yearsAll().map((y) => [y, y]), state.years, toggle('years')))));
   }
 
   function cells() {  // one row per company, metric and year, in the chosen order
     const rel = relOf(), by = new Map(rel.rows.map((r) => [`${r.ticker}|${r.field}|${r.period}`, r]));
     const names = new Map(all());
+    const span = new Map();  // each company's first and last released fiscal year, to say why a year is blank
+    for (const r of rel.rows) { const s = span.get(r.ticker) || [r.period, r.period]; span.set(r.ticker, [r.period < s[0] ? r.period : s[0], r.period > s[1] ? r.period : s[1]]); }
+    const why = (t, y) => { const [a, b] = span.get(t) || []; return !a ? 'no 10-K yet' : y > b ? '10-K not filed yet' : y < a ? 'before first 10-K' : 'not in this release'; };
     const out = [];
     for (const t of all().map(([x]) => x).filter((x) => state.tickers.includes(x)))
       for (const m of METRICS.filter((m) => state.metrics.includes(m.id)))
         for (const y of state.years.slice().sort()) {
-          let value = null, basis = '', xbrl = '', citations = '';
+          let value = null, basis = '', xbrl = '', citations = '', period_end = '', note = '';
           if (m.ratio) {
             const c = by.get(`${t}|capex|${y}`), r = by.get(`${t}|revenue|${y}`);
-            if (c && r && c.value !== '' && r.value !== '' && Number(r.value)) value = Number(c.value) / Number(r.value);
+            if (c && r && c.value !== '' && r.value !== '' && Number(r.value)) { value = Number(c.value) / Number(r.value); period_end = r.period_end; }
+            else note = c || r ? 'needs both revenue and capex' : why(t, y);
           } else {
             const r = by.get(`${t}|${m.id}|${y}`);
-            if (!r) continue;
-            value = r.value === '' ? null : Number(r.value); basis = r.basis; xbrl = r.xbrl; citations = r.citations;
+            if (r) { value = r.value === '' ? null : Number(r.value); basis = r.basis; xbrl = r.xbrl; citations = r.citations; period_end = r.period_end;
+              if (value == null) note = r.source === 'missing' ? 'rejected by a reviewer' : 'not reported in the 10-K'; }
+            else note = why(t, y);
           }
-          if (value == null && m.ratio) continue;
-          out.push({ticker: t, company: names.get(t), metric: m.id, metric_label: m.t, ratio: !!m.ratio, period: y, value, basis, xbrl, citations});
+          out.push({ticker: t, company: names.get(t), metric: m.id, metric_label: m.t, ratio: !!m.ratio, period: y, period_end, value, note, basis, xbrl, citations});
         }
     return out;
   }
-  const fmt = (c) => (c.value == null ? '—' : c.ratio ? (100 * c.value).toFixed(1) + '%' : usd(c.value));
+  const fmt = (c) => (c.value == null ? h('span', {class: 'muted small'}, c.note || '—') : c.ratio ? (100 * c.value).toFixed(1) + '%' : usd(c.value));
 
   function render() {
     const rows = cells();
@@ -446,7 +477,7 @@ async function outputsPage(view, focus) {
 
   function exportCsv() {
     const rows = cells();
-    const cols = ['ticker', 'company', 'metric', 'period', 'value', 'basis', 'xbrl', 'citations'];
+    const cols = ['ticker', 'company', 'metric', 'period', 'period_end', 'value', 'note', 'basis', 'xbrl', 'citations'];
     const esc = (v) => { const s = v == null ? '' : String(v); return /[",\n]/.test(s) ? '"' + s.replaceAll('"', '""') + '"' : s; };
     const csv = [cols.join(','), ...rows.map((r) => cols.map((c) => esc(r[c])).join(','))].join('\n') + '\n';
     const a = h('a', {href: URL.createObjectURL(new Blob([csv], {type: 'text/csv'})), download: `capex-ledger-${state.rel}.csv`});

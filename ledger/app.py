@@ -1,8 +1,9 @@
 """DATAHQ, the ledger's web app: the morning dashboard, each company through every pipeline step, the named agents
 (model, prompt, every run), and an outputs explorer over the signed releases.
 
-Reads the database read-only on every request, so it always shows the latest run. Its only writes are agent
-changes (agents/agents.json and new prompt versions). Serves on 127.0.0.1 only."""
+Reads the database read-only on every request, so it always shows the latest run. It writes only two things, both
+attributed and append-only: agent changes (agents/agents.json, new prompt versions) and a reviewer's decision to accept
+warnings (decisions/decisions.jsonl, the same log as `ledger review`). Serves on 127.0.0.1 only."""
 import csv
 import json
 import mimetypes
@@ -17,7 +18,7 @@ from .cli.report import build
 from .config import AI_SET, STAGES
 from .extract import OUTPUTS
 from .hq import snapshot
-from .review import decisions, latest, open_items
+from .review import decide, decisions, latest, open_items
 from .rules import load as load_rules
 
 PAGE = store.ROOT / "ledger" / "app.html"
@@ -102,6 +103,22 @@ def outputs() -> dict:
     return {"releases": out}
 
 
+def accept_warnings(ids: list[str], reason: str, by: str) -> dict:
+    """One reason covers several warnings with the same cause. Blocking items are decided with `ledger review`."""
+    if not ids or not reason.strip() or not by.strip():
+        raise ValueError("pick warnings and give a reason and your name")
+    con = _con()
+    try:
+        excs = _rows(con, "select * from exceptions where exception_id in (select unnest(?))", ids)
+    finally:
+        con.close()
+    if len(excs) != len(set(ids)) or any(e["severity"] != "warn" for e in excs):
+        raise ValueError("only current warnings can be accepted here")
+    for e in excs:
+        decide(e, "accept", reason, by)
+    return {"accepted": len(excs)}
+
+
 class Handler(BaseHTTPRequestHandler):
     def _send(self, code, body: bytes, kind="application/json"):
         self.send_response(code)
@@ -158,6 +175,8 @@ class Handler(BaseHTTPRequestHandler):
             body = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))) or b"{}")
         except json.JSONDecodeError:
             return self._json({"error": "send JSON"}, HTTPStatus.BAD_REQUEST)
+        if u.path == "/api/decide":
+            return self._guard(lambda: self._json(accept_warnings(body.get("ids", []), body.get("reason", ""), body.get("by", ""))))
         parts = u.path.strip("/").split("/")  # api/agents/<id>/<prompt|use|model>
         if len(parts) != 4 or parts[:2] != ["api", "agents"] or parts[2] not in agents.load():
             return self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)

@@ -3,10 +3,20 @@ by its row label and by the column header above it, by position on the rendered 
 page shows the cited text there, the citation is machine-confirmed; either way the cell is boxed in a screenshot, so a
 person who must look sees exactly where."""
 import hashlib
+import json
 import re
 from pathlib import Path
 
-from playwright.sync_api import sync_playwright
+DIR = Path(__file__).resolve().parents[1] / "reports" / "evidence"
+
+
+def load_all() -> dict:
+    """Every re-read on record, from every run (a stage or single tickers), newest file winning. Keyed by extraction id;
+    a caller trusts an entry only while its cited cell equals the extraction's current cell text."""
+    out = {}
+    for f in sorted(DIR.glob("*.json"), key=lambda f: f.stat().st_mtime):
+        out |= json.loads(f.read_text())
+    return out
 
 # Runs in the page. Returns what the rendered page shows at (row, column) and where, or null if the row or column isn't found.
 _LOCATE = """([idx, row, col, cited]) => {
@@ -51,6 +61,8 @@ def same(a: str, b: str) -> bool:
 
 def read(doc: Path, cites: list[dict], shots: set[str], out_dir: Path) -> dict:
     """cites: extractions of one filing. Returns {extraction_id: {cell, seen, match, img}}; screenshots only for ids in shots."""
+    from playwright.sync_api import sync_playwright  # only re-reading needs a browser
+
     res = {}
     with sync_playwright() as p:
         b = p.chromium.launch(channel="chrome")

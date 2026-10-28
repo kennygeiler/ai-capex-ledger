@@ -1,7 +1,7 @@
 """DATAHQ's numbers: pipeline health, steps, the company scorecard, rule findings and releases.
 
 Read only from what the pipeline already wrote: the database, the evidence and fault reports, and releases/.
-Used by the app (`python -m ledger app`) and by scripts/datahq.py, which exports them as files."""
+Used by the app (`python -m ledger app`)."""
 import json
 from collections import Counter
 from datetime import date, timedelta
@@ -10,6 +10,7 @@ from . import store
 from .config import AI_SET, STAGES
 from .review import decisions, open_items
 from .scorecard import scorecard
+from .evidence import load_all
 
 
 def rows(con, sql, p=()):
@@ -26,7 +27,7 @@ def snapshot(con, stage: int = 3) -> dict:
     vals = rows(con, 'select label from "values" where ticker in (select unnest(?))', t)
     excs = rows(con, "select * from exceptions where ticker in (select unnest(?))", t)
     todo = open_items(excs, decisions())
-    ev = json.loads((store.ROOT / "reports" / "evidence" / f"{name}.json").read_text())
+    ev = load_all()
     faults = json.loads((store.ROOT / "reports" / f"{name}-faults.json").read_text())
     last_run = con.execute("select max(started_at) from runs").fetchone()[0]
     names = {c["ticker"]: c["name"] for c in AI_SET}
