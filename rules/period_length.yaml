@@ -1,0 +1,6 @@
+id: period_length
+severity: block
+description: Each value read from a filing covers a quarter, half-year, nine months or a year.
+rationale: A column read with the wrong dates turns every derived quarter after it into a wrong number.
+owner: Kenny Geiler
+check: period_length

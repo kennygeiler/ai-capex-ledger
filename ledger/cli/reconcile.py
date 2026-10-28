@@ -5,7 +5,7 @@ and writes `values`. Labels decided here:
   agree         agent and reference within the coarser rounding of the two (a later filing may round to millions)
   no_reference  no XBRL value for that quarter
   unresolved    they differ: goes to review, where a person labels it agent_wrong / xbrl_wrong / definition_gap
-An `unresolved` value is also written as a blocking `xbrl_reconcile` exception.
+An `unresolved` value becomes a blocking `xbrl_reconcile` exception when `python -m ledger rules` runs.
 """
 import argparse
 import hashlib
@@ -52,8 +52,7 @@ def main(argv=None) -> int:
                                  "ticker": t, "field": f, "cal_q": cq, "subject": None, "input_hash": h,
                                  "message": f"agent {d['value']:,} vs XBRL {r[0]:,} (diff {d['value'] - r[0]:+,}; tolerance ±{tol:,})"})
     con.execute('DELETE FROM "values" WHERE ticker IN (SELECT unnest(?))', [tickers])
-    con.execute("DELETE FROM exceptions WHERE rule_id = 'xbrl_reconcile' AND ticker IN (SELECT unnest(?))", [tickers])
     store.write(con, "values", values)
-    store.write(con, "exceptions", excs)
-    print(f"stage {a.stage}: {len(values)} quarterly values; labels {counts}; {len(excs)} sent to review")
+    print(f"stage {a.stage}: {len(values)} quarterly values; labels {counts}; {len(excs)} unresolved "
+          f"(raised as exceptions by `python -m ledger rules`)")
     return 0

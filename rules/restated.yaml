@@ -1,0 +1,7 @@
+id: restated
+severity: info
+description: The same field and period read from two filings gives two different values.
+rationale: Restatements are real and the latest filing wins. Keeping them visible explains changes between releases
+  and catches misreads that look like restatements.
+owner: Kenny Geiler
+check: restated

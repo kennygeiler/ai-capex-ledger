@@ -1,0 +1,9 @@
+id: outlier_vs_own_history
+severity: warn
+description: Capex ÷ revenue stays within 2× of the company's own median for the window.
+rationale: A spike against the company's own history is the cheapest signal of a wrong row or a one-off that needs
+  a note.
+owner: Kenny Geiler
+check: outlier_vs_own_history
+params:
+  factor: 2

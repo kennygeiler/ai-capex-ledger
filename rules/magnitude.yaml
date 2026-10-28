@@ -1,0 +1,6 @@
+id: magnitude
+severity: block
+description: Cost of revenue does not exceed revenue, and operating income does not exceed gross profit.
+rationale: Basic accounting identities; breaking one means a misread.
+owner: Kenny Geiler
+check: magnitude

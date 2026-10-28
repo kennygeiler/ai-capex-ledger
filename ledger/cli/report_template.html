@@ -124,7 +124,7 @@ function tiles() {
     <div class="tile"><div class="n">${c.extractions}</div><div class="l">cells cited (table, row, column, text)</div></div>
     <div class="tile"><div class="n">${c.values}</div><div class="l">quarterly values</div></div>
     <div class="tile ${c.agree === c.values ? "good" : ""}"><div class="n">${c.agree}/${c.values}</div><div class="l">agree with XBRL (SEC answer key)</div></div>
-    <div class="tile"><div class="n">${c.open_exceptions}</div><div class="l">open exceptions</div></div>
+    <div class="tile"><div class="n">${c.open_exceptions}</div><div class="l">open exceptions (block or warn) · ${c.info_notes} info note${c.info_notes === 1 ? "" : "s"}</div></div>
     <div class="tile ${done === c.values ? "good" : ""}"><div class="n" id="done-n">${done}/${c.values}</div><div class="l">hand-checked by you</div></div>
   </div>`;
 }
@@ -222,6 +222,7 @@ function render() {
       <li>Click the row: check the arithmetic, and see the cited cell highlighted in the parsed table.</li>
       <li>Click “Open the filing at this row”: Chrome opens the SEC document and highlights the row. Confirm the number and the column's period.</li>
       <li>Tick “verified”, or write a note if anything is off. Progress is saved in this browser; “Download hand-check” saves the record for the release.</li></ol></div>
+    ${D.exceptions.length ? `<h2>Rule results</h2><div class="howto" style="margin-top:0">${D.exceptions.map((e) => `<div style="margin:4px 0"><span class="pill ${e.severity === "info" ? "na" : "bad"}">${e.severity}</span> <b>${esc(e.rule_id)}</b>: ${esc(e.message)}</div>`).join("")}<div style="color:var(--muted);margin-top:6px">14 rules ran (rules/*.yaml). Only rules that fired are listed.</div></div>` : ""}
     <h2>Every value</h2>
     <div class="toolbar">${seg("field", { all: "All", ...D.field_label })}${seg("show", { all: "All", todo: "Not yet checked", bad: "Disagreements" })}
       <span class="spacer"></span><button class="btn" id="expand">Expand all</button><button class="btn primary" id="export">Download hand-check</button></div>

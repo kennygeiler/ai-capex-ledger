@@ -1,0 +1,9 @@
+id: jump
+severity: warn
+description: A field does not move more than 3× from one quarter to the next.
+rationale: Real businesses rarely triple or collapse in a quarter. Most such moves are a unit or column error; the
+  rest deserve a note.
+owner: Kenny Geiler
+check: jump
+params:
+  ratio: 3

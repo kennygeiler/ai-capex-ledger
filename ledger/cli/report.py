@@ -69,7 +69,8 @@ def build(con, stage: int) -> dict:
     return {"stage": stage, "tickers": tickers, "release": STAGES[stage]["release"], "fields": list(MVP_FIELDS), "quarters": MVP_QUARTERS,
             "field_label": FIELD_LABEL, "method_label": METHOD_LABEL, "values": rows, "tables": tables, "exceptions": excs,
             "counts": {"filings": len(docs), "extractions": len(ext), "values": len(vals),
-                       "agree": sum(v["label"] == "agree" for v in vals), "open_exceptions": len(excs)},
+                       "agree": sum(v["label"] == "agree" for v in vals),
+                       "open_exceptions": sum(e["severity"] != "info" for e in excs), "info_notes": sum(e["severity"] == "info" for e in excs)},
             "generated": datetime.now(timezone.utc).isoformat(timespec="minutes")}
 
 

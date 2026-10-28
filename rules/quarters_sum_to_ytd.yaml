@@ -1,0 +1,7 @@
+id: quarters_sum_to_ytd
+severity: block
+description: Three-month cells add up to the filing's own six- and nine-month cells.
+rationale: Both sides are read from filings, so this independently catches a misread cell or a wrong column. A quarters-sum-to-year
+  check would be circular because Q4 is derived from the year (found in the 2026-10-28 QA pass).
+owner: Kenny Geiler
+check: quarters_sum_to_ytd

@@ -1,0 +1,46 @@
+"""python -m ledger rules --stage N   (T30–T32)
+
+Loads rules/*.yaml, builds the context for the stage's companies from the store, runs every rule, and replaces the
+stage's rule exceptions. (`extraction_failed` exceptions come from `extract --load` and are left alone.)
+"""
+import argparse
+import json
+from collections import Counter
+
+from .. import store
+from ..config import MVP_QUARTERS, STAGES
+from ..rules import Context, load, run
+
+
+def context(con, tickers) -> Context:
+    q = lambda sql: [dict(zip([c[0] for c in con.execute(sql, [tickers]).description], r)) for r in con.execute(sql, [tickers]).fetchall()]
+    docs = q("select accession, tables_path from documents where ticker in (select unnest(?))")
+    return Context(values=q('select * from "values" where ticker in (select unnest(?))'),
+                   extractions=q("select * from extractions where ticker in (select unnest(?))"),
+                   reference={(r["ticker"], r["field"], r["cal_q"]): r for r in q("select * from reference_values where ticker in (select unnest(?))")},
+                   parsed={d["accession"]: json.loads((store.ROOT / d["tables_path"]).read_text()) for d in docs},
+                   quarters=MVP_QUARTERS)
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(prog="python -m ledger rules")
+    ap.add_argument("--stage", type=int, default=1, choices=sorted(STAGES))
+    ap.add_argument("--db", default=str(store.DEFAULT_DB))
+    a = ap.parse_args(argv)
+    con = store.init(a.db)
+    tickers = STAGES[a.stage]["tickers"]
+    rules = load()
+    excs = run(context(con, tickers), rules)
+    con.execute("DELETE FROM rules")
+    store.write(con, "rules", [{"rule_id": r["id"], "severity": r["severity"], "description": r["description"], "rationale": r["rationale"],
+                                "check_name": r["check"], "params": json.dumps(r["params"], sort_keys=True), "file_sha256": r["file_sha256"]} for r in rules])
+    con.execute("DELETE FROM exceptions WHERE rule_id <> 'extraction_failed' AND ticker IN (SELECT unnest(?))", [tickers])
+    store.write(con, "exceptions", excs)
+    by = Counter((e["severity"], e["rule_id"]) for e in excs)
+    print(f"stage {a.stage}: {len(rules)} rules, {len(excs)} exceptions "
+          f"({sum(e['severity'] == 'block' for e in excs)} block, {sum(e['severity'] == 'warn' for e in excs)} warn, {sum(e['severity'] == 'info' for e in excs)} info)")
+    for (sev, rid), n in sorted(by.items()):
+        print(f"  {sev:5} {rid:24} {n}")
+    for e in excs:
+        print(f"  - [{e['severity']}] {e['rule_id']}: {e['ticker']} {e['field'] or ''} {e['cal_q'] or ''} {e['message'][:140]}")
+    return 0

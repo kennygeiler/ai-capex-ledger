@@ -1,0 +1,12 @@
+id: coverage
+severity: warn
+description: Every field has a value for every quarter in the window.
+rationale: A gap must carry a reason. It is never silently left out or filled.
+owner: Kenny Geiler
+check: coverage
+params:
+  fields:
+  - revenue
+  - cost_of_revenue
+  - operating_income
+  - capex

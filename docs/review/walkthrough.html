@@ -1,0 +1,391 @@
+<title>Capex Ledger Walkthrough</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a sticky pipeline strip on top; below it one row per step — what we build on the left, what it produces (a framed screen) on the right. */
+:root {
+  --bg: #fafafa; --card: #ffffff; --fg: #0a0a0a; --muted: #6b6b73; --line: #e6e6ea; --soft: #f3f3f5;
+  --ing: #2563c9; --ing-bg: #e8f0fc; --tra: #8a4fd6; --tra-bg: #f2eafc; --val: #0f8a5f; --val-bg: #e3f5ed;
+  --ok: #157f3c; --ok-bg: #dcf3e3; --wip: #a15c00; --wip-bg: #fbefd9; --todo: #6b6b73; --todo-bg: #efeff2; --hum: #2563c9; --hum-bg: #e3edfb;
+  --hl: #fde68a; --frame: #f1f1f4; --code-bg: #f6f6f8; --bad: #b42318;
+  --sans: "Geist", -apple-system, "Segoe UI", sans-serif; --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #09090b; --card: #121215; --fg: #f4f4f5; --muted: #a1a1aa; --line: #26262b; --soft: #1a1a1e;
+  --ing: #6ea2f0; --ing-bg: #15233b; --tra: #b48ef0; --tra-bg: #24183a; --val: #4fcf9a; --val-bg: #102a20;
+  --ok: #5fd38a; --ok-bg: #11301c; --wip: #f0b354; --wip-bg: #33240c; --todo: #a1a1aa; --todo-bg: #1f1f23; --hum: #6ea2f0; --hum-bg: #15233b;
+  --hl: #8a6a10; --frame: #1b1b1f; --code-bg: #17171a; --bad: #f87171; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #09090b; --card: #121215; --fg: #f4f4f5; --muted: #a1a1aa; --line: #26262b; --soft: #1a1a1e;
+  --ing: #6ea2f0; --ing-bg: #15233b; --tra: #b48ef0; --tra-bg: #24183a; --val: #4fcf9a; --val-bg: #102a20;
+  --ok: #5fd38a; --ok-bg: #11301c; --wip: #f0b354; --wip-bg: #33240c; --todo: #a1a1aa; --todo-bg: #1f1f23; --hum: #6ea2f0; --hum-bg: #15233b;
+  --hl: #8a6a10; --frame: #1b1b1f; --code-bg: #17171a; --bad: #f87171; color-scheme: dark }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 15px/1.55 var(--sans); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { padding-block: 32px 8px; display: grid; gap: 10px; }
+.eyebrow { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+h1 { font-size: clamp(26px, 4vw, 34px); line-height: 1.15; margin: 0; letter-spacing: -0.02em; text-wrap: balance; }
+.lede { color: var(--muted); max-width: 68ch; margin: 0; }
+.switch { display: inline-flex; padding: 3px; background: var(--soft); border: 1px solid var(--line); border-radius: 10px; gap: 2px; width: fit-content; }
+.switch button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--muted); padding: 7px 14px; border-radius: 7px; cursor: pointer; }
+.switch button[aria-pressed="true"] { background: var(--card); color: var(--fg); font-weight: 600; box-shadow: 0 1px 2px #0000001a; }
+.switch button:focus-visible, .chip:focus-visible { outline: 2px solid var(--ing); outline-offset: 2px; }
+.summary { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; color: var(--muted); }
+.summary b { color: var(--fg); font-variant-numeric: tabular-nums; }
+.strip { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in oklab, var(--bg) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); padding-block: 10px; margin-top: 16px; }
+.lanes { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: thin; }
+.chip { flex: none; display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--fg); text-decoration: none; white-space: nowrap; }
+.chip .n { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--muted); margin-top: 8px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.m-ing { background: var(--ing); } .m-tra { background: var(--tra); } .m-val { background: var(--val); }
+main { padding-block: 8px 80px; }
+.step { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 28px; padding-block: 34px; border-bottom: 1px solid var(--line); scroll-margin-top: 80px; }
+.step:last-child { border-bottom: 0; }
+.info { display: grid; gap: 12px; align-content: start; min-width: 0; }
+.tagrow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.mod { font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
+.mod.ing { color: var(--ing); background: var(--ing-bg); } .mod.tra { color: var(--tra); background: var(--tra-bg); } .mod.val { color: var(--val); background: var(--val-bg); }
+.st { font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
+.st.done { color: var(--ok); background: var(--ok-bg); } .st.doing { color: var(--wip); background: var(--wip-bg); } .st.todo { color: var(--todo); background: var(--todo-bg); } .st.human { color: var(--hum); background: var(--hum-bg); }
+.num { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+h2 { font-size: 21px; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+.info p { margin: 0; color: var(--fg); max-width: 60ch; }
+dl.kv { display: grid; grid-template-columns: 92px 1fr; gap: 6px 12px; margin: 0; font-size: 13.5px; }
+dl.kv dt { color: var(--muted); }
+dl.kv dd { margin: 0; min-width: 0; }
+.tix { display: flex; flex-wrap: wrap; gap: 5px; }
+.tk { font-family: var(--mono); font-size: 11px; padding: 1px 6px; border-radius: 5px; border: 1px solid var(--line); }
+.tk.done { color: var(--ok); border-color: color-mix(in oklab, var(--ok) 35%, transparent); }
+.tk.doing { color: var(--wip); border-color: color-mix(in oklab, var(--wip) 35%, transparent); }
+.tk.todo { color: var(--todo); }
+.tk.human { color: var(--hum); border-color: color-mix(in oklab, var(--hum) 35%, transparent); }
+.human-note { font-size: 13px; padding: 8px 10px; border-radius: 8px; background: var(--hum-bg); color: var(--fg); }
+/* the "screenshot" */
+.shot { min-width: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--card); overflow: hidden; box-shadow: 0 1px 0 #0000000a, 0 8px 24px -12px #00000026; align-self: start; }
+.bar { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--frame); border-bottom: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+.lights { display: flex; gap: 5px; } .lights i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); display: block; }
+.bar .path { font-family: var(--mono); font-size: 11.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; flex: 1; }
+.bar .flag { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; padding: 2px 7px; border-radius: 5px; }
+.flag.real { color: var(--ok); background: var(--ok-bg); } .flag.mock { color: var(--wip); background: var(--wip-bg); }
+.body { padding: 14px; display: grid; gap: 12px; min-width: 0; }
+.term { font-family: var(--mono); font-size: 12px; line-height: 1.6; background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; white-space: pre; color: var(--fg); }
+.term .p { color: var(--muted); } .term .g { color: var(--ok); } .term .w { color: var(--wip); } .term .k { color: var(--tra); } .term .s { color: var(--ing); }
+.scroll { overflow-x: auto; }
+table.t { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+.t th, .t td { padding: 6px 9px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.t th { color: var(--muted); font-weight: 500; background: var(--soft); font-size: 11.5px; }
+.t th:first-child, .t td:first-child { text-align: left; }
+.t td.mono { font-family: var(--mono); font-size: 12px; }
+.t tr.hl td { background: color-mix(in oklab, var(--hl) 35%, transparent); }
+.t td.cell { background: var(--hl); font-weight: 700; outline: 2px solid var(--fg); outline-offset: -2px; }
+.cap { font-size: 12px; color: var(--muted); }
+.ok { color: var(--ok); } .warn { color: var(--wip); } .bad { color: var(--bad); }
+.checks { display: grid; gap: 6px; font-size: 13px; }
+.checks div { display: grid; grid-template-columns: 20px 1fr auto; gap: 8px; align-items: baseline; }
+.checks code, .body code { font-family: var(--mono); font-size: 11.5px; background: var(--soft); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.formula { font-family: var(--mono); font-size: 13px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; overflow-x: auto; white-space: nowrap; }
+.big { display: flex; flex-wrap: wrap; gap: 10px; }
+.big > div { flex: 1 1 120px; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.big b { display: block; font-size: 22px; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.big span { font-size: 12px; color: var(--muted); }
+.timeline { display: grid; gap: 6px; font-size: 12px; }
+.tl-row { display: grid; grid-template-columns: 74px 1fr; gap: 8px; align-items: center; }
+.tl-track { position: relative; height: 18px; background: var(--soft); border-radius: 4px; }
+.tl-bar { position: absolute; top: 2px; bottom: 2px; border-radius: 3px; font-size: 10px; color: #fff; padding-left: 5px; line-height: 14px; overflow: hidden; white-space: nowrap; }
+.docmap { display: grid; grid-template-columns: repeat(auto-fill, minmax(18px, 1fr)); gap: 3px; }
+.docmap i { height: 26px; border-radius: 3px; background: var(--soft); border: 1px solid var(--line); }
+.docmap i.inc { background: var(--ing); border-color: var(--ing); } .docmap i.cf { background: var(--tra); border-color: var(--tra); }
+.queue { display: grid; gap: 10px; }
+.qi { border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: grid; gap: 8px; }
+.qi .top { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px; }
+.btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.btns span { font-size: 12px; padding: 5px 10px; border-radius: 7px; border: 1px solid var(--line); background: var(--card); }
+.btns span.pri { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.field { font-size: 12px; border: 1px solid var(--line); border-radius: 7px; padding: 6px 8px; color: var(--muted); }
+.tree { font-family: var(--mono); font-size: 12px; line-height: 1.7; white-space: pre; overflow-x: auto; }
+.gates { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; font-size: 12px; }
+.gates div { border: 1px solid var(--line); border-radius: 7px; padding: 6px 8px; display: flex; gap: 6px; align-items: baseline; }
+.svgchart { width: 100%; height: auto; display: block; }
+.svgchart text { fill: var(--muted); font: 10px var(--sans); }
+.flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 12.5px; }
+.flow .box { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: var(--card); }
+.flow .arr { color: var(--muted); }
+footer { color: var(--muted); font-size: 12.5px; padding-block: 24px 48px; border-top: 1px solid var(--line); }
+@media (max-width: 860px) { .step { grid-template-columns: minmax(0, 1fr); gap: 16px; } }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Capex Ledger · project review · 28 Oct 2026</div>
+    <h1>How a number gets from an SEC filing to a release you can stand behind</h1>
+    <p class="lede">Every step of the system, in order. For each one: what we are building, which module it belongs to, the tickets behind it, and what it produces. Real output is marked <b>Live</b>; anything not built yet is a <b>Design mock</b> of what it will produce.</p>
+    <div class="switch" role="group" aria-label="Version">
+      <button id="v-s1" aria-pressed="true">Stage 1 · NVDA (now)</button>
+      <button id="v-full" aria-pressed="false">Full vision</button>
+    </div>
+    <div class="summary" id="summary"></div>
+  </header>
+</div>
+<div class="strip"><div class="wrap">
+  <nav class="lanes" id="lanes" aria-label="Steps"></nav>
+  <div class="legend">
+    <span><i class="dot m-ing"></i>Ingestion</span><span><i class="dot m-tra"></i>Transformation</span><span><i class="dot m-val"></i>Validation</span>
+    <span><span class="st done">Built</span></span><span><span class="st doing">In progress</span></span><span><span class="st todo">Not built</span></span><span><span class="st human">Needs you</span></span>
+  </div>
+</div></div>
+<div class="wrap"><main id="steps"></main>
+  <footer>Source of truth: <code>docs/PRD.md</code> (what and why), <code>docs/TICKETS.md</code> (who, status, how it's verified). Ticket colors on this page match their status there on 28 Oct 2026. Live screens are taken from the stage 1 run on NVDA: 11 filings, 130 cited cells, 32 quarterly values.</footer>
+</div>
+
+<script>
+const TK = {"T10":"done","T11":"done","T12":"done","T13":"done","T14":"done","T20":"done","T21":"done","T22":"done","T23":"done","T30":"done","T31":"done","T32":"done","T33":"done","T46":"todo","T47":"todo","T48":"doing","T40":"done","T41":"done","T42":"done","T43":"doing","T44":"done","T45":"doing","T50":"todo","T51":"todo","T52":"todo","T53":"todo","T60":"doing","T61":"doing","T70":"todo","T71":"todo","T72":"todo","T73":"todo","T80":"doing","T81-1":"human","T81-2":"human","T81-3":"human","T82":"todo","T83":"done","T90":"todo","T91":"todo","T92":"todo","T93":"todo","T94":"human","T95":"todo","T100":"todo","T101":"todo","T110":"todo","T121":"todo","T122":"todo","T130":"todo","T132":"todo"};
+const MOD = { ing: "Ingestion", tra: "Transformation", val: "Validation" };
+const ST = { done: "Built", doing: "In progress", todo: "Not built", human: "Needs you" };
+const frame = (path, live, body) => `<div class="shot"><div class="bar"><span class="lights"><i></i><i></i><i></i></span><span class="path">${path}</span><span class="flag ${live ? "real" : "mock"}">${live ? "Live" : "Design mock"}</span></div><div class="body">${body}</div></div>`;
+
+/* ── screens ─────────────────────────────────────────────────────────────── */
+const filings = [["10-K","2024-01-28","2024-02-21","2.1"],["10-Q","2024-04-28","2024-05-29","1.2"],["10-Q","2024-07-28","2024-08-28","1.5"],["10-Q","2024-10-27","2024-11-20","1.4"],["10-K","2025-01-26","2025-02-26","2.1"],["10-Q","2025-04-27","2025-05-28","1.1"],["10-Q","2025-07-27","2025-08-27","1.3"],["10-Q","2025-10-26","2025-11-19","1.4"],["10-K","2026-01-25","2026-02-25","2.0"],["10-Q","2026-04-26","2026-05-20","1.2"],["10-Q","2026-07-26","2026-08-26","1.5"]];
+const S = {
+ingest_s1: frame("~/ai-capex-ledger $ uv run python -m ledger ingest --stage 1", true,
+  `<div class="term"><span class="p">$</span> uv run python -m ledger ingest --stage 1
+stage 1 (NVDA): <span class="g">11 filings</span> parsed with tables@7, <span class="g">0 statements not located</span>, 32 reference values loaded</div>
+  <div class="scroll"><table class="t"><tr><th>Form</th><th>Period end</th><th>Filed</th><th>Size</th><th>Cached</th></tr>
+  ${filings.map(f => `<tr><td>${f[0]}</td><td class="mono">${f[1]}</td><td class="mono">${f[2]}</td><td>${f[3]} MB</td><td class="ok">✓ SHA-256</td></tr>`).join("")}</table></div>
+  <div class="cap">The window starts a year early (Jan 2024) so year-to-date cash-flow lines can be turned into single quarters. A rerun makes 0 network calls.</div>`),
+ingest_full: frame("ledger ingest --stage 3  ·  sources", false,
+  `<div class="big"><div><b>19</b><span>companies (AI set)</span></div><div><b>177</b><span>10-Q / 10-K documents, 382 MB, cached</span></div><div><b>+113</b><span>S&amp;P 100 next</span></div><div><b>100k+</b><span>documents at Arctal scale</span></div></div>
+  <div class="scroll"><table class="t"><tr><th>Source</th><th>Format</th><th>Answer key?</th><th>Phase</th></tr>
+  <tr><td>10-Q / 10-K primary document</td><td>inline-XBRL HTML</td><td class="ok">Yes: XBRL</td><td>MVP</td></tr>
+  <tr><td>8-K exhibit 99.1 (earnings press release)</td><td>HTML</td><td class="warn">No</td><td>Phase 2</td></tr>
+  <tr><td>N-CSR fund shareholder reports</td><td>HTML / PDF</td><td class="warn">No</td><td>Phase 2</td></tr></table></div>
+  <div class="cap">Same fetch-and-cache layer for every source: rate-limited (under SEC's 10 requests a second), contact User-Agent, every call logged, raw bytes hashed.</div>`),
+parse_s1: frame("data/docs/0001045810/0001045810-26-000075.tables.json  ·  table t0007", true,
+  `<div class="cap">Parser <code>tables@7</code> turned the filing's HTML into tables a reader would see. Inline-XBRL tags are stripped, so the agent can't use them.</div>
+  <div class="scroll"><table class="t"><tr><th>(In millions, except per share data)</th><th>3 mo · Jul 26, 2026</th><th>3 mo · Jul 27, 2025</th><th>6 mo · Jul 26, 2026</th><th>6 mo · Jul 27, 2025</th></tr>
+  <tr><td>Revenue</td><td>96,221</td><td>46,743</td><td>177,837</td><td>90,805</td></tr>
+  <tr><td>Cost of revenue</td><td>24,079</td><td>12,890</td><td>44,538</td><td>30,284</td></tr>
+  <tr><td>Gross profit</td><td>72,142</td><td>33,853</td><td>133,299</td><td>60,521</td></tr>
+  <tr><td>Total operating expenses</td><td>8,408</td><td>5,413</td><td>16,029</td><td>10,443</td></tr>
+  <tr><td>Operating income</td><td>63,734</td><td>28,440</td><td>117,270</td><td>50,078</td></tr></table></div>
+  <div class="cap">Handles <code>(4,434)</code> as negative, <code>—</code> as zero, column groups, header rows shifted against the numbers, and footnote columns. Each fix is a parser version: tables@1 → @7.</div>`),
+parse_full: frame("parser health · all documents", false,
+  `<div class="big"><div><b>177</b><span>documents parsed</span></div><div><b>~20 s</b><span>all 177 (budget: 60 s)</span></div><div><b>3</b><span>statements whose unit is stated only elsewhere (warning)</span></div></div>
+  <div class="scroll"><table class="t"><tr><th>Layout seen in real filings</th><th>Example</th><th>Handled</th></tr>
+  <tr><td>Header spans shifted vs numbers</td><td>IREN 10-K</td><td class="ok">✓ tables@5</td></tr>
+  <tr><td>Group headers (3 months / 12 months)</td><td>AMZN 10-Q</td><td class="ok">✓ tables@6</td></tr>
+  <tr><td>Statement split across a page break</td><td>IREN, WULF</td><td class="ok">✓ joined</td></tr>
+  <tr><td>PDF statements (no HTML)</td><td>fund reports</td><td class="warn">Phase 2</td></tr></table></div>`),
+locate_s1: frame("statement locator  ·  NVDA 10-Q Jul 2026: 45 tables", true,
+  `<div class="docmap" aria-label="45 tables, two located">${Array.from({length:45},(_,i)=>`<i class="${i===7?"inc":i===12?"cf":""}" title="t${String(i).padStart(4,"0")}"></i>`).join("")}</div>
+  <div class="legend" style="margin:0"><span><i class="dot m-ing"></i>t0007 income statement</span><span><i class="dot m-tra"></i>t0012 cash-flow statement</span></div>
+  <div class="checks"><div><span class="ok">✓</span><span>Found both statements in <b>11 / 11</b> NVDA filings</span><span></span></div>
+  <div><span class="ok">✓</span><span>Correct table (it contains that period's XBRL revenue) in <b>176 / 177</b> filings across all 19 companies (99.4%)</span><span></span></div>
+  <div><span class="warn">!</span><span>The one miss: IREN 10-K picks a quarterly-results table from the management discussion. Logged for stage 3.</span><span></span></div></div>`),
+locate_full: null,
+task_s1: frame("data/extract/tasks/0001045810-26-000075.md", true,
+  `<div class="term"># Task: NVDA 10-Q for the period ended 2026-07-26
+Accession: 0001045810-26-000075
+Prompt version: <span class="k">statements@v1</span>
+
+### Income statement
+Table \`t0007\`. Unit: (In millions, except per share data) (stated with the table).
+Columns:
+  [0] Three Months Ended | Jul 26, 2026
+  [2] Six Months Ended | Jul 26, 2026
+Rows (label | [column] cell text):
+  Revenue | [0] 96,221  [1] 46,743  [2] 177,837  [3] 90,805
+  Cost of revenue | [0] 24,079  ...
+### Cash-flow statement
+  Purchases related to property and equipment and intangible assets | [0] (4,434)  [1] (3,122)</div>
+  <div class="cap">Only what a reader of the filing would see. A test checks that no XBRL value and no XBRL tag name ever reaches a task.</div>`),
+task_full: null,
+agent_s1: frame("data/extract/outputs/0001045810-26-000075.json", true,
+  `<div class="term">{ "accession": "0001045810-26-000075", "prompt_version": "<span class="k">statements@v1</span>",
+  "values": [
+    { "field": <span class="s">"capex"</span>, "table_id": "t0012",
+      "row_label": "Purchases related to property and equipment and intangible assets",
+      "column_label": "Six Months Ended | Jul 26, 2026",
+      "cell_text": <span class="s">"(4,434)"</span>, "period_end": "2026-07-26", "months": 6,
+      "value": <span class="g">4434000000</span>, "confidence": 0.95,
+      "notes": "Line also covers intangible assets" }, ... 14 values ],
+  "not_found": [] }</div>
+  <div class="big"><div><b>3</b><span>Claude Code subagents</span></div><div><b>11</b><span>tasks</span></div><div><b>130</b><span>values, each citing a cell</span></div><div><b>~30 s</b><span>per agent</span></div></div>
+  <div class="cap warn">Seen in this run: all three agents wrote a small script to copy the cells. That's exact, but the choice of row was made once in code. Prompt v2 needs a second agent to challenge each row choice.</div>`),
+agent_full: frame("extraction chain · prompt v2", false,
+  `<div class="flow"><span class="box">Task<br><span class="cap">tables only</span></span><span class="arr">→</span><span class="box"><b>Extractor agent</b><br><span class="cap">values + citations</span></span><span class="arr">→</span><span class="box"><b>Challenger agent</b><br><span class="cap">"is this the right row and column?"</span></span><span class="arr">→</span><span class="box">Agree → checks<br><span class="cap warn">Disagree → review</span></span></div>
+  <div class="scroll"><table class="t"><tr><th>Measured per run</th><th>Why</th></tr>
+  <tr><td>Agent accuracy against the answer key (95% interval)</td><td>Is the reading getting better or worse?</td></tr>
+  <tr><td>Extractor–challenger disagreement rate</td><td>The only accuracy signal where there's no answer key (press releases, fund reports)</td></tr>
+  <tr><td>Minutes and cost per filing</td><td>Unit economics at 100k documents</td></tr></table></div>
+  <div class="cap">Prompts are tuned only on the dev companies (NVDA, MSFT, CRWV) and never on the held-out set, so the scores aren't inflated by tuning.</div>`),
+cite_s1: frame("ledger extract --stage 1 --load  ·  citation check", true,
+  `<div class="checks">
+  <div><span class="ok">✓</span><span>Table <code>t0012</code> is one of this filing's statement tables</span><span></span></div>
+  <div><span class="ok">✓</span><span>Row <code>Purchases related to property and equipment…</code> exists</span><span></span></div>
+  <div><span class="ok">✓</span><span>Column <code>Six Months Ended | Jul 26, 2026</code> exists</span><span></span></div>
+  <div><span class="ok">✓</span><span>Cell text <code>(4,434)</code> matches the document</span><span></span></div>
+  <div><span class="ok">✓</span><span><code>(4,434)</code> × 1,000,000, sign flipped for capex = <b>4,434,000,000</b></span><span></span></div></div>
+  <div class="term"><span class="p">$</span> uv run python -m ledger extract --stage 1 --load
+stage 1: <span class="g">130 extractions loaded</span> from 11 filings; <span class="g">0 extraction_failed exceptions</span></div>
+  <div class="cap">If any check fails, the value is not stored. It becomes a blocking <code>extraction_failed</code> exception with the reason, e.g. <span class="bad">cell text '96,222' not found at row 'Revenue'</span>.</div>`),
+cite_full: null,
+derive_s1: frame("ledger reconcile --stage 1  ·  NVDA capex, Q2 2025", true,
+  `<div class="formula">$1,895,000,000 = $3,122,000,000 <span class="cap">(6 mo to Jul 27, 2025)</span> − $1,227,000,000 <span class="cap">(3 mo to Apr 27, 2025)</span> <span class="ok">✓</span></div>
+  <div class="timeline">
+   <div class="tl-row"><span class="cap">Fiscal</span><div class="tl-track"><span class="tl-bar" style="left:0;width:33%;background:var(--tra)">Q1 FY26 3 mo</span><span class="tl-bar" style="left:0;width:66%;top:2px;background:color-mix(in oklab,var(--tra) 45%,transparent);color:var(--fg)">&nbsp;</span></div></div>
+   <div class="tl-row"><span class="cap">6 mo YTD</span><div class="tl-track"><span class="tl-bar" style="left:0;width:66%;background:var(--tra)">Jan 27 → Jul 27, 2025 · 3,122</span></div></div>
+   <div class="tl-row"><span class="cap">Quarter</span><div class="tl-track"><span class="tl-bar" style="left:33%;width:33%;background:var(--ing)">Q2 = 1,895</span></div></div>
+   <div class="tl-row"><span class="cap">Calendar</span><div class="tl-track"><span class="tl-bar" style="left:33%;width:33%;background:var(--val)">2025Q2 (most days)</span></div></div>
+  </div>
+  <div class="cap">Uses the reference pipeline's own code (year-to-date differencing, Q4 = year minus nine months, restatements, calendar mapping), so agent and XBRL numbers go through identical arithmetic.</div>`),
+derive_full: null,
+recon_s1: frame("ledger reconcile --stage 1  ·  agent vs XBRL", true,
+  `${miniChart()}
+  <div class="big"><div><b class="ok">32 / 32</b><span>quarterly values agree with XBRL</span></div><div><b>0</b><span>sent to review</span></div></div>
+  <div class="cap">The tolerance is the coarser rounding of the two sources: a later filing may restate a quarter rounded to millions. NVDA is also the tuning company, so this proves the machinery works, not accuracy elsewhere.</div>`),
+recon_full: frame("reconciliation labels · every disagreement gets one", false,
+  `<div class="scroll"><table class="t"><tr><th>Label</th><th>Meaning</th><th>Who decides</th></tr>
+  <tr><td><span class="st done">agree</span></td><td>Agent and XBRL within rounding</td><td>Rule (auto-accept)</td></tr>
+  <tr><td><span class="st doing">agent_wrong</span></td><td>Agent misread (wrong row, column or scale)</td><td>Reviewer</td></tr>
+  <tr><td><span class="st doing">xbrl_wrong</span></td><td>The filer tagged XBRL wrongly (e.g. Oracle files a full year as a quarter)</td><td>Reviewer</td></tr>
+  <tr><td><span class="st todo">definition_gap</span></td><td>Both are right but measure different things (extension tags, leases)</td><td>Reviewer</td></tr></table></div>
+  <div class="cap">Risk routing: when the agent, XBRL and the arithmetic all agree, the value is auto-accepted. People only see disagreements. At 2 minutes each, one reviewer can clear about 2% of values a year at Arctal's volume, so this routing is what makes scale possible.</div>`),
+rules_s1: frame("rules/quarters_sum_to_ytd.yaml  ·  uv run python -m ledger rules --stage 1", true,
+  `<div class="term"><span class="k">id</span>: quarters_sum_to_ytd
+<span class="k">severity</span>: block
+<span class="k">description</span>: Three-month cells add up to the filing's own six- and nine-month cells.
+<span class="k">rationale</span>: Both sides are read from filings, so this independently catches a
+  misread cell or a wrong column. A quarters-sum-to-year check would be circular
+  because Q4 is derived from the year (found in the 2026-10-28 QA pass).
+<span class="k">owner</span>: Kenny Geiler
+<span class="k">check</span>: quarters_sum_to_ytd</div>
+  <div class="scroll"><table class="t"><tr><th>Rule</th><th>Severity</th><th>Fired on NVDA</th></tr>
+  <tr><td>citation_resolves</td><td>block</td><td>0</td></tr><tr><td>quarters_sum_to_ytd</td><td>block</td><td>0 (12 sums checked)</td></tr><tr><td>statement_tie</td><td>block</td><td>0 (35 columns)</td></tr>
+  <tr><td>xbrl_reconcile</td><td>block</td><td>0</td></tr><tr><td>row_label_switch</td><td>warn</td><td>0</td></tr><tr><td>definition_note</td><td>info</td><td>1: capex line includes intangible assets</td></tr><tr><td>… 8 more</td><td></td><td>0</td></tr></table></div>
+  <div class="cap">Judgement written down as readable rules. A QA pass with the Data plugin's checklist reshaped two of them: the year-sum check became an independent nine-month check, and the capex definition note was added.</div>`),
+rules_full: null,
+review_s1: frame("python -m ledger review  ·  1 of 3 open", false,
+  `<div class="queue"><div class="qi">
+   <div class="top"><span class="st todo">block</span><b>ORCL · revenue · 2024Q2</b><span class="cap">rule xbrl_reconcile</span></div>
+   <div style="font-size:13px">Agent <b>$14,287,000,000</b> vs XBRL <b>$52,961,000,000</b> (XBRL "quarter" holds the full year)</div>
+   <div class="scroll"><table class="t"><tr><th>(in millions)</th><th>Three Months Ended | May 31, 2024</th></tr><tr class="hl"><td>Total revenues</td><td class="cell">14,287</td></tr></table></div>
+   <div class="field">Reason: XBRL fact is the full-year value tagged as Q4 (filer error, seen in 4 Oracle 10-Ks). Agent read the 3-month column correctly.</div>
+   <div class="btns"><span class="pri">Accept agent · label xbrl_wrong</span><span>Override value…</span><span>Reject (ship as missing)</span><span>Fix the rule</span></div>
+   <div class="cap">Recorded with your name, the time and the input hash. Re-applied on every rerun until the inputs change.</div>
+  </div></div>`),
+review_full: null,
+hand_s1: frame("reports/stage1-validation.html", true,
+  `<div class="big"><div><b>11</b><span>filings</span></div><div><b>130</b><span>cells cited</span></div><div><b class="ok">32/32</b><span>agree with XBRL</span></div><div><b>0/32</b><span>hand-checked by you</span></div></div>
+  <div class="scroll"><table class="t"><tr><th>Quarter</th><th>Field</th><th>Agent</th><th>XBRL</th><th>Match</th><th>Your check</th></tr>
+  <tr><td>Q2 ’26</td><td>Revenue</td><td class="mono">$96,221,000,000</td><td class="mono">$96,221,000,000</td><td class="ok">agree</td><td>☐ verified</td></tr>
+  <tr><td>Q2 ’25</td><td>Capex</td><td class="mono">$1,895,000,000</td><td class="mono">$1,895,000,000</td><td class="ok">agree</td><td>☐ verified</td></tr>
+  <tr><td>Q4 ’24</td><td>Capex</td><td class="mono">$1,077,000,000</td><td class="mono">$1,077,000,000</td><td class="ok">agree</td><td>☐ verified</td></tr></table></div>
+  <div class="cap">Each row opens its arithmetic and highlighted cells, plus a link into the SEC filing at that row. You tick verified; the export becomes the stage 1 hand-check record.</div>`),
+hand_full: frame("golden set · stage 3", false,
+  `<div class="big"><div><b>300</b><span>held-out values, checked by you</span></div><div><b>0</b><span>errors allowed</span></div><div><b>&lt;1%</b><span>error rate, 95% confidence</span></div><div><b>~5 h</b><span>of your time</span></div></div>
+  <div class="cap">Why 300: finding zero errors in <i>n</i> values bounds the error rate at about 3/<i>n</i> with 95% confidence (the rule of three). Stage 2 checks the 64 hold-out values (bound 4.7%), and stage 3 the 300 (bound 1%). Also measured: escapes, meaning agent errors that no rule flagged.</div>`),
+release_s1: frame("releases/v0.1.0/", false,
+  `<div class="tree">releases/v0.1.0/
+├── ledger.duckdb          <span class="cap">values, citations, exceptions, decisions, rules, runs</span>
+├── values.parquet · values.csv
+├── QUALITY.md             <span class="cap">gates, coverage, accuracy, every override</span>
+├── DIFF.md                <span class="cap">what changed since the last release, and why</span>
+└── SIGNOFF.json           <span class="cap">signed by Kenny Geiler · release hash</span></div>
+  <div class="gates">${["G1 no silent gaps","G2 100% cited","G3 every disagreement labelled","G4 no undecided blockers","G5 0 errors in hand-check","G6 0 escapes","G7 same inputs, same hash","G8 decisions re-apply","G9 diff explains changes"].map(g=>`<div><span class="cap">☐</span>${g}</div>`).join("")}</div>
+  <div class="cap">The release command refuses to build while any gate fails, and names the failing items.</div>`),
+release_full: null,
+client_s1: null,
+client_full: frame("explorer · released data only", false,
+  `<div class="scroll"><table class="t"><tr><th>Company</th><th>Q1 ’26</th><th>Q2 ’26</th></tr>
+  <tr><td>MSFT capex</td><td class="mono">$34.9B <span class="st done">agent</span></td><td class="mono">$35.8B <span class="st done">agent</span></td></tr>
+  <tr><td>ORCL revenue</td><td class="mono">$16.1B <span class="st human">override</span></td><td class="mono">$17.3B <span class="st done">agent</span></td></tr>
+  <tr><td>BNY capex</td><td class="mono">– <span class="st todo">missing</span></td><td class="mono">– <span class="st todo">missing</span></td></tr></table></div>
+  <div class="cap">Each cell shows its release version (v1.0.0), its source, and a link to the cited cell in the filing. Overrides and gaps are visible; nothing is silently filled. Figures in this mock are illustrative.</div>`),
+};
+
+function miniChart() {
+  const rev = [35082,39331,44062,46743,57006,68127,81615,96221], q = ["Q3’24","Q4","Q1’25","Q2","Q3","Q4","Q1’26","Q2’26"];
+  const W = 560, H = 150, L = 34, B = 20, T = 10, max = 100000, bw = (W - L) / rev.length;
+  const y = v => T + (H - B - T) * (1 - v / max);
+  let s = `<svg class="svgchart" viewBox="0 0 ${W} ${H}" role="img" aria-label="NVDA revenue by quarter: agent bars with XBRL rings, all matching">`;
+  [50000, 100000].forEach(v => s += `<line x1="${L}" x2="${W}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="0" y="${y(v) + 3}">$${v / 1000}B</text>`);
+  rev.forEach((v, i) => { const x = L + i * bw + bw * 0.22, w = bw * 0.56;
+    s += `<rect x="${x}" y="${y(v)}" width="${w}" height="${y(0) - y(v)}" rx="3" fill="var(--ing)"/><circle cx="${x + w / 2}" cy="${y(v)}" r="4.5" fill="var(--card)" stroke="var(--fg)" stroke-width="1.6"/><text x="${x + w / 2}" y="${H - 5}" text-anchor="middle">${q[i]}</text>`; });
+  return s + `</svg><div class="legend" style="margin:0"><span><i class="dot m-ing"></i>Agent, read from the filing (revenue, $B)</span><span>○ XBRL answer key</span></div>`;
+}
+
+/* ── steps: same skeleton, two versions ──────────────────────────────────── */
+const STEPS = [
+ { id: "fetch", mod: "ing", name: "Fetch the filings", t: ["T10","T11","T130"],
+   s1: { st: "done", build: "List NVDA's 10-Qs and 10-Ks from Jan 2024 to Aug 2026, and download each primary document once.", out: "11 cached documents, each with a SHA-256", done: "A rerun makes 0 network calls", screen: "ingest_s1" },
+   full: { st: "doing", build: "The same layer for every company and source: 19 companies now, then the S&P 100, then press releases and fund reports.", out: "Every source document, cached and hashed, with every call logged", done: "New sources plug in without changing anything downstream", screen: "ingest_full" } },
+ { id: "parse", mod: "ing", name: "Parse tables", t: ["T12","T14","T132"],
+   s1: { st: "done", build: "Turn each filing's HTML into the tables a reader sees: row labels, column periods, exact cell text, and the unit.", out: "One parsed JSON per filing (data/docs/)", done: "Fixture tests on real filings; rerun is byte-identical", screen: "parse_s1" },
+   full: { st: "doing", build: "Keep a log of the layouts real filings throw at us, and handle each one with a parser version and a test. PDFs come in Phase 2.", out: "Parsed tables for every document, with a parser version on each", done: "All 177 parse in under 60 s; every new layout has a fixture test", screen: "parse_full" } },
+ { id: "locate", mod: "ing", name: "Find the statements", t: ["T13"],
+   s1: { st: "done", build: "Pick the income statement and cash-flow statement out of 30–60 tables per filing, including statements split across pages.", out: "Statement table IDs per filing", done: "Correct table in at least 95% of filings (now 99.4%)", screen: "locate_s1" } },
+ { id: "task", mod: "tra", name: "Build the agent's task", t: ["T40","T41"],
+   s1: { st: "done", build: "Write one task per filing that holds only the statement tables, plus a versioned prompt and an output contract. No XBRL, so no answer key.", out: "11 task files + prompt statements@v1", done: "A test proves no XBRL value or tag reaches a task", screen: "task_s1" } },
+ { id: "agent", mod: "tra", name: "Agents read and cite", t: ["T42","T43","T53"],
+   s1: { st: "doing", build: "Claude Code subagents extract revenue, cost of revenue, operating income and capex for every column, citing the exact cell for each. This runs in-session, with no paid API.", out: "130 values, each with table, row, column and cell text", done: "Every filing returns a valid output or a logged failure. Automatic retry still to build", screen: "agent_s1" },
+   full: { st: "todo", build: "A prompt chain: an extractor agent, then a challenger agent that questions each row choice. Disagreements go to review. Prompts are tuned on dev companies only.", out: "Values with two agents' agreement, plus accuracy and cost per run", done: "Accuracy and disagreement are measured on held-out companies", screen: "agent_full" } },
+ { id: "cite", mod: "val", name: "Check every citation", t: ["T44"],
+   s1: { st: "done", build: "Code confirms that each cited table, row, column and cell text exists, and that cell × unit with the sign rule equals the value. A failure becomes an exception, never a stored number.", out: "130 / 130 citations resolved", done: "No value is stored without a cell that matches", screen: "cite_s1" } },
+ { id: "derive", mod: "tra", name: "Turn into quarters", t: ["T45","T20","T21"],
+   s1: { st: "doing", build: "Convert three-month, year-to-date and annual columns into calendar quarters, using the same code as the XBRL pipeline. Store everything in DuckDB under contracts.", out: "32 quarterly values with their arithmetic", done: "Same tests as the reference logic pass on agent input (test still to write)", screen: "derive_s1" } },
+ { id: "recon", mod: "val", name: "Compare with the answer key", t: ["T22","T60","T61"],
+   s1: { st: "doing", build: "Line each quarter up with XBRL, the SEC's machine-readable copy, and label it: agree, or unresolved and sent to review.", out: "Labels on all 32 values", done: "No unresolved value in a release", screen: "recon_s1" },
+   full: { st: "doing", build: "Every disagreement gets a cause: the agent was wrong, XBRL was wrong, or they measure different things. Values where everything agrees are auto-accepted.", out: "Labelled values; a review queue sized to reviewer time", done: "People only see disagreements", screen: "recon_full" } },
+ { id: "rules", mod: "val", name: "Rules that encode judgement", t: ["T30","T31","T32","T33"],
+   s1: { st: "done", build: "14 readable YAML rules, each with a rationale, an owner, and passing and failing tests. Examples: three-month cells must add up to the filing's nine-month cell, the income statement must tie, signs and magnitudes must be plausible, and every citation must resolve.", out: "rules/*.yaml and an exceptions table. NVDA: 0 block, 0 warn, 1 info note (capex includes intangibles)", done: "All 14 tested (28 fixtures)", screen: "rules_s1" } },
+ { id: "review", mod: "val", name: "Review queue", t: ["T70","T71","T72"], human: true,
+   s1: { st: "todo", build: "Each exception shows the cited cell, the agent value, XBRL and the rule. You accept, override or reject it, with a reason. Decisions re-apply on reruns.", out: "decisions/*.jsonl: who decided what, and why", done: "Changing one input reopens only that item", screen: "review_s1" } },
+ { id: "hand", mod: "val", name: "Your hand-check", t: ["T83","T80","T81-1","T81-2","T81-3"], human: true,
+   s1: { st: "human", build: "A page showing all 32 values with their arithmetic, highlighted cells and links into the filings. You verify each one against the document.", out: "stage1-handcheck.json (32 rows, initialled)", done: "32 / 32 checked, zero errors", screen: "hand_s1" },
+   full: { st: "human", build: "A held-out golden set sized by the claim it must support: 64 values at stage 2, 300 at stage 3.", out: "The golden set, plus error and escape rates with confidence bounds", done: "0 errors in 300 values: under 1% at 95% confidence", screen: "hand_full" } },
+ { id: "release", mod: "val", name: "Release and sign-off", t: ["T90","T91","T92","T93","T94","T95"], human: true,
+   s1: { st: "todo", build: "Build a versioned release that refuses to ship while any gate fails. You sign it.", out: "releases/v0.1.0/ with QUALITY.md, DIFF.md and SIGNOFF.json", done: "G1–G9 pass, and Kenny signs", screen: "release_s1" },
+   full: { st: "todo", build: "Releases per stage (v0.2.0, v1.0.0), patch versions for corrections, and a scheduled refresh after each earnings season with an automatic diff.", out: "A release history clients can audit", done: "A correction never edits a shipped release", screen: "release_s1" } },
+ { id: "client", mod: "val", name: "What the client sees", t: ["T110"],
+   s1: null,
+   full: { st: "todo", build: "The explorer shows only released values. Each cell shows its version, its source (agent, override or missing) and a link to the cited cell.", out: "The client view", done: "10 random cells trace back to their filing", screen: "client_full" } },
+];
+
+let view = "s1";
+try { const h = location.hash.slice(1); if (h === "full" || h === "s1") view = h; } catch (e) {}
+
+function version(step) { return view === "full" ? (step.full === null ? null : (step.full || { ...step.s1 })) : step.s1; }
+function screen(step, v) { const k = v.screen || `${step.id}_s1`; return S[`${step.id}_${view}`] || S[k] || S[`${step.id}_s1`]; }
+
+function render() {
+  document.getElementById("v-s1").setAttribute("aria-pressed", view === "s1");
+  document.getElementById("v-full").setAttribute("aria-pressed", view === "full");
+  const list = STEPS.map(s => [s, version(s)]).filter(([, v]) => v);
+  const counts = list.reduce((a, [, v]) => (a[v.st] = (a[v.st] || 0) + 1, a), {});
+  document.getElementById("summary").innerHTML = view === "s1"
+    ? `<span><b>1</b> company (NVDA) · <b>11</b> filings · <b>32</b> values</span><span><b>${counts.done || 0}</b> steps built · <b>${counts.doing || 0}</b> in progress · <b>${counts.todo || 0}</b> not built · <b>${counts.human || 0}</b> waiting on you</span><span>Goal: release <b>v0.1.0</b>, signed, by 2 Nov</span>`
+    : `<span><b>19</b> companies → S&amp;P 100 → new sources · <b>~590</b> values at stage 3</span><span>Releases: <b>v0.1.0</b> (NVDA) → <b>v0.2.0</b> (5 companies, before the 11/12 Nov call) → <b>v1.0.0</b> (19)</span>`;
+  document.getElementById("lanes").innerHTML = list.map(([s, v], i) =>
+    `<a class="chip" href="#step-${s.id}"><i class="dot m-${s.mod}"></i><span class="n">${String(i + 1).padStart(2, "0")}</span>${s.name}${s.human ? `<span class="st human" style="padding:0 6px">you</span>` : ""}</a>`).join("");
+  document.getElementById("steps").innerHTML = list.map(([s, v], i) => `
+    <section class="step" id="step-${s.id}">
+      <div class="info">
+        <div class="tagrow"><span class="num">Step ${String(i + 1).padStart(2, "0")}</span><span class="mod ${s.mod}">${MOD[s.mod]}</span><span class="st ${v.st}">${ST[v.st]}</span></div>
+        <h2>${s.name}</h2>
+        <p>${v.build}</p>
+        <dl class="kv"><dt>Produces</dt><dd>${v.out}</dd><dt>Done when</dt><dd>${v.done}</dd>
+          <dt>Tickets</dt><dd><span class="tix">${s.t.map(t => `<span class="tk ${TK[t] || "todo"}" title="${ST[TK[t] || "todo"]}">${t}</span>`).join("")}</span></dd></dl>
+        ${s.human ? `<div class="human-note"><b>Human checkpoint.</b> agents do the reading, but you stand behind the result.</div>` : ""}
+      </div>
+      ${screen(s, v)}
+    </section>`).join("");
+}
+document.getElementById("v-s1").onclick = () => { view = "s1"; render(); };
+document.getElementById("v-full").onclick = () => { view = "full"; render(); };
+render();
+</script>

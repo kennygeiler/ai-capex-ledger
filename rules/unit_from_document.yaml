@@ -1,0 +1,7 @@
+id: unit_from_document
+severity: warn
+description: The unit (thousands, millions) was not stated with the table and was taken from elsewhere in the same
+  filing.
+rationale: 'Decision 2026-10-27 (Kenny): allowed, but a person should see it, because a wrong unit is a 1,000× error.'
+owner: Kenny Geiler
+check: unit_from_document

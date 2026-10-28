@@ -83,10 +83,10 @@ Delivery is staged (PRD section 5, decided 2026-10-27): **one company, then 5, t
 
 | ID | Requirement | Traces to | Deps | Size | Status | Verified by |
 |---|---|---|---|---|---|---|
-| T30 | The rule engine shall load `rules/*.yaml`, where each rule has id, description, rationale, severity, scope, and check (a named function plus parameters). It runs the rules over values and writes exceptions. | R3 | T20 | M | todo | Test: two runs on the same values give the same exceptions; a rule naming an unknown check fails at load. |
-| T31 | Today's 8 checks (sign, period length, jump, coverage, restated, basis conflict, tag switch, tiling) shall run as registry rules. | R3, D1 | T30 | M | todo | Test: on the reference values, the registry produces the same exceptions, count for count by check, as `ledger/reference/validate.py`. |
-| T32 | Seven new rules shall run: unit_scale, statement_tie, ytd_consistency (block), xbrl_reconcile (tolerance: the coarser rounding of the two sources), peer_outlier, citation_present, unit_from_document (warn). Each has its rationale written in its YAML. | R3, G2, G3 | T30, T44 | M | todo | Test: covered by T33. |
-| T33 | Every rule shall have one fixture that passes and one that fails, and `validate.py`'s hard-coded checks shall be deleted. | D1 | T31, T32 | M | todo | Test: 15 rules × 2 fixtures = 30 tests pass; a grep finds no check logic left in `validate.py`. |
+| T30 | The rule engine shall load `rules/*.yaml`, where each rule has id, description, rationale, severity, scope, and check (a named function plus parameters). It runs the rules over values and writes exceptions. | R3 | T20 | M | done | Test: two runs on the same values give the same exceptions; a rule naming an unknown check fails at load. |
+| T31 | Today's 8 checks shall run as registry rules on agent values: sign, period length, jump, coverage and restated carry over; tag switch becomes row_label_switch (the agent-world equivalent); tiling becomes quarters_sum_to_ytd (independent, not circular); basis conflict is handled by the shared derivation. | R3, D1 | T30 | M | done | Test: every migrated rule passes and fails its fixtures. (Revised 2026-10-28: `validate.py` stays for the XBRL reference pipeline, which still feeds the explorer and reconciliation; the agent pipeline's checks all live in the registry.) |
+| T32 | New rules shall run: citation_resolves (covers unit and scale), statement_tie, quarters_sum_to_ytd, xbrl_reconcile (tolerance: the coarser rounding of the two sources), outlier_vs_own_history, unit_from_document (warn), magnitude, and definition_note (info; added from the QA pass). Each has its rationale written in its YAML. | R3, G2, G3 | T30, T44 | M | done | Test: covered by T33. |
+| T33 | Every rule shall have one fixture that passes and one that fails. | D1 | T31, T32 | M | done | Test: `tests/test_rules.py`, 14 rules × 2 fixtures + loader and engine tests (32 tests) pass. |
 
 ## Epic 4: Agent extraction (R2)
 
@@ -97,6 +97,9 @@ Delivery is staged (PRD section 5, decided 2026-10-27): **one company, then 5, t
 | T42 | The runner shall give tasks to Claude Code subagents in batches, inside the session (no paid API). It writes outputs to `data/extract/<run_id>/` and logs one runs row per task. Finished tasks are skipped on rerun. | R2, R8 | T41, T20 | M | done | Check: one batch of 5 filings completes; rerunning the batch starts 0 new tasks. |
 | T43 | An output that fails the schema shall be retried once; if it still fails, it becomes an extraction_failed exception with its cause. | G1 | T42 | S | doing | Test: injected bad outputs produce exactly one retry, then one exception each. |
 | T44 | The citation resolver shall confirm that the cited table, row and column exist, the cell text matches, and the cell's value × scale = the extracted value. | G2 | T14, T40 | M | done | Test: one valid citation and 4 broken ones (bad table, bad row, text mismatch, scale mismatch). |
+| T46 | Each agent run shall record the model, tokens, wall-clock time and the tool calls it made, and keep its transcript as evidence. | R2, R8 | T42 | S | todo | Check: a run's `runs` row has a non-null model and tokens; its transcript is saved under `data/extract/runs/`. |
+| T47 | Prompt v2 shall require a judgement note for every row choice. Confidence is not used to route review until it has been calibrated on stage 2. | R2 | T53 | S | todo | Check: every capex value in a v2 output has a note; the review queue ignores confidence. |
+| T48 | Every prompt version shall pass a repeatability test: a fresh agent on the same tasks returns identical values and citations. Run it on a sample of held-out filings at each stage too. | R9 | T42 | S | doing | Check (2026-10-28): NVDA batch C rerun by a fresh agent reading value by value: 34/34 identical. |
 | T45 | As-stated values shall be turned into quarterly values with the reference logic: year-to-date differencing, Q4 = full year minus nine months, and calendar mapping by most days. | R2 | T00, T43 | M | doing | Test: the existing calendar, YTD, Q4, Costco and Nvidia tests pass when run on agent-shaped input. |
 
 ## Epic 5: Baseline and calibration
@@ -245,3 +248,8 @@ Defects found in the first draft of this file, and how each was fixed:
   - the hand-check checkboxes for T81-1, exported as `stage1-handcheck.json`
 
   The links use Chrome text fragments to jump to the cited row. They were not tested against sec.gov from here; if a fragment misses, the filing still opens at the top.
+- **2026-10-28: QA pass with the newly installed plugins** (see `docs/QA-stage1.md`).
+  - The Data plugin's `validate-data` checklist was applied to NVDA. Everything is correct; the verdict is "share with caveats": capex includes intangibles, and stage 1 is the tuning company. It also found that a quarters-sum-to-year check is circular, so the independent check is now three-month cells vs. the filing's nine-month cell (12/12 pass), plus an income-statement tie from the parsed tables (35/35).
+  - The Agent Evaluation acceptance review passed coverage (130/130), citations, notes and repeatability (34/34 identical on a fresh rerun). It failed on evidence (no model, tokens or transcript kept) and on calibrated confidence; T46–T48 were added.
+  - Neither plugin was callable in this already-running session (plugins load at session start). The Data plugin's skill text was applied directly; Agent Evaluation was applied from its description.
+- **2026-10-28: T30–T33 done.** 14 rules in `rules/*.yaml`, each with a rationale and owner; engine in `ledger/rules.py`; `python -m ledger rules --stage 1` gives 0 block, 0 warn, 1 info (the capex definition note). `reconcile` no longer writes exceptions; the registry is their single source. 71 tests pass.

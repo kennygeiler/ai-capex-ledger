@@ -1,0 +1,12 @@
+id: sign
+severity: block
+description: Revenue, cost of revenue and capex are never negative.
+rationale: A negative capex means a sign error or the wrong line (proceeds instead of purchases). Honeywell and
+  Intuit showed this in the XBRL reference.
+owner: Kenny Geiler
+check: sign
+params:
+  non_negative:
+  - revenue
+  - cost_of_revenue
+  - capex

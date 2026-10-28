@@ -1,0 +1,7 @@
+id: row_label_switch
+severity: warn
+description: The row a field is read from has the same label in every filing for a company.
+rationale: Agents choose the row. If the choice changes between filings, either the company renamed the line or
+  an agent picked a different one, and the series may not be comparable.
+owner: Kenny Geiler
+check: row_label_switch
