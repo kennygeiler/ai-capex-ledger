@@ -87,6 +87,24 @@ Two more types surfaced, both in the re-read:
 | 7 | A zero-width space inside a cell's text | one FY2022 10-K | Ignored when comparing numbers. |
 | 8 | A row label repeats in one table (Oracle lists "Services" under revenues and again under expenses) | ORCL FY2022 10-K | The re-read uses the row that shows the cited text. |
 
+## Audit fixes (28 Oct): human in the loop used wisely
+
+A Monday-morning audit of DATAHQ and the pipeline found that the answer key backing "values accounted for" was itself
+wrong in places, and that a person was being asked questions code could settle. Fixed by type:
+
+| # | Type | Where | Fix |
+|---|---|---|---|
+| 9 | **The answer key mixed filings within a year.** It ranked tags first and dates second, so a better-ranked tag in an older 10-K beat the newest 10-K's tag. Opex was then built from two filings (APLD FY2025 key opex: −$0.4M). | APLD FY2024–25 revenue and opex | The key takes the newest filing for the year first, then the best tag in it; opex only from one filing (`normalize.annual_series`, `derive_costs`). The 4 APLD items Kenny decided were raised by this bug; they now agree and need no decision. |
+| 10 | **10-K/As were ignored.** A full amendment (CORZ FY2024: operating income −$19.2M → −$142.1M) was only covered because a later 10-K repeated it. | AMD, APLD, CORZ, CRDO, TSLA, WULF | 10-K/As are read when they carry financial statements; Part III-only amendments are skipped with the reason logged. On the same day, the more complete filing wins and both count as one vintage (AMD's partial 10-K/A). |
+| 11 | **"Explained by code" had no size limit.** Opex from summed cost lines was excused whenever revenue and operating income agreed (ORCL 28–49% from the key, every year). | ORCL, APLD | `cost_lines_summed` now blocks release until a person confirms the lines, once per company, and its message shows the gap per year. |
+| 12 | **Small restatements were labelled as reported.** The restated label needed a 1% change. | META FY2022–23 capex (0.8%), TSLA | Any change beyond rounding is `restated`; the size shows beside it. |
+| 13 | **Capex lines narrower or broader than the definition weren't noted,** and XBRL agreed because the company tags the same line. | IREN (net of GPU prepayments), TSLA (excl. finance leases), WULF (deposits) | `definition_note` also matches "net of", "excluding", "deposit", "prepayment". |
+| 14 | **Business signals were shown as chores.** 44 of 57 open warnings were capex and opex jumps and outliers: the AI buildout itself. | all | A jump, outlier or renamed line on values that agree with XBRL can't be a misread (XBRL is an independent read), so DATAHQ shows it as a finding about the company, not a question. Questions for a person went from 57 to 3. |
+| 15 | **Opex can exceed revenue** because it includes impairments and other operating items. | CORZ FY2022, CIFR FY2025, 12 company-years | Stated in FIELDS.md, in Outputs, and beside each such year. |
+
+Also: every step of `ledger run` is logged and the run saves a snapshot, so DATAHQ shows what changed since the last run;
+`ledger watch` asks the SEC for filings not yet read.
+
 ## Scorecard
 
 What each company cost. `ledger run` prints this, and each validation page shows it. Code changes are counted by hand from the log above.

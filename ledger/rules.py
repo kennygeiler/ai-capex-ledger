@@ -144,7 +144,14 @@ def _cost_lines(ctx, p):
     for e in ctx.extractions:
         if e["field"] == "cost_of_revenue_part":
             lines.setdefault(e["ticker"], {}).setdefault(e["row_label"], set()).add(e["accession"])
-    return [Finding(t, "cost of revenue is the sum of: " + "; ".join(f"'{l}' ({len(a)} filing{'s' * (len(a) > 1)})" for l, a in sorted(ls.items())),
+    def gaps(t):  # how far opex built this way is from the SEC figure, so the size of the judgement is visible
+        out = []
+        for v in sorted(ctx.values, key=lambda v: v["period"]):
+            r = ctx.reference.get((t, "opex", v["period"]))
+            if v["ticker"] == t and v["field"] == "opex" and v["label"] == "definition_gap" and r and r["value"]:
+                out.append(f"{v['period']} {v['value'] / 1e6:,.1f}M vs {r['value'] / 1e6:,.1f}M ({(v['value'] - r['value']) / abs(r['value']):+.0%})")
+        return f". Opex vs SEC data: {', '.join(out)}" if out else ""
+    return [Finding(t, "cost of revenue is the sum of: " + "; ".join(f"'{l}' ({len(a)} filing{'s' * (len(a) > 1)})" for l, a in sorted(ls.items())) + gaps(t),
                     "cost_of_revenue") for t, ls in lines.items()]
 
 
@@ -268,7 +275,7 @@ def _restated(ctx, p):
     """The same field and period read from two filings with different values: a restatement (or a misread). The latest
     filing wins in derivation; this keeps the change visible. Cost lines (cost_of_revenue_part) are compared line by
     line: a company with several cost lines has several values for one period, which is not a restatement."""
-    by = {}
+    by, years = {}, {(v["ticker"], str(v.get("period_end"))): v["period"] for v in ctx.values}
     for e in ctx.extractions:
         line = e["row_label"] if e["field"] == "cost_of_revenue_part" else None
         by.setdefault((e["ticker"], e["field"], e["period_start"], e["period_end"], line), []).append(e)
@@ -278,7 +285,8 @@ def _restated(ctx, p):
         if max(x["value"] for x in es) - min(x["value"] for x in es) > tol:
             parts = ", ".join(f"{x['value']:,} ({x['accession']})" for x in sorted(es, key=lambda x: x["accession"]))
             what = f"{f} ({line})" if line else f
-            out.append(Finding(t, f"{what} {s}..{en} differs between filings: {parts}", f, None, f"{s}..{en}"))
+            fy = years.get((t, en))  # the fiscal year, so a person sees which year changed
+            out.append(Finding(t, f"{what} {fy or ''} {s}..{en} differs between filings: {parts}".replace("  ", " "), f, fy, f"{s}..{en}"))
     return out
 
 

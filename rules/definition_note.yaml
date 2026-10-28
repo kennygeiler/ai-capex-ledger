@@ -1,13 +1,14 @@
 id: definition_note
 severity: info
 description: The line read for a field says it covers more (or less) than the field's definition.
-rationale: Comparing companies requires the same definition. NVDA's capex line includes intangible assets; most
-  companies report property and equipment only.
+rationale: Comparing companies requires the same definition. NVDA's capex line includes intangible assets; IREN's is
+  net of computer-hardware prepayments; most companies report property and equipment only. XBRL usually tags the
+  same line, so agreement with it does not show the definition matches.
 owner: Kenny Geiler
 check: definition_note
 params:
   patterns:
-    capex: intangible|software|including|and other
+    capex: intangible|software|including|and other|net of|excluding|deposit|prepayment
     revenue: net of|excluding
     cost_of_revenue: exclusive of|excluding
 title: The company's line includes a bit more than our definition.

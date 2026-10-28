@@ -11149,7 +11149,8 @@
   "extraction_id": "0000950170-24-075605|cost_of_revenue_part|2021-06-01|2022-05-31|Cloud services and license support(1)",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11157,7 +11158,8 @@
   "extraction_id": "0000950170-24-075605|cost_of_revenue_part|2021-06-01|2022-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11165,7 +11167,8 @@
   "extraction_id": "0000950170-24-075605|cost_of_revenue_part|2021-06-01|2022-05-31|Services(1)",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11221,7 +11224,8 @@
   "extraction_id": "0000950170-24-075605|operating_income|2021-06-01|2022-05-31",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11246,6 +11250,7 @@
   "outcome": "rule",
   "caught_by": [
    "column_matches_period",
+   "cost_lines_summed",
    "outlier_vs_own_history"
   ]
  },
@@ -11296,7 +11301,8 @@
   "extraction_id": "0000950170-25-087926|cost_of_revenue_part|2022-06-01|2023-05-31|Cloud services and license support(1)",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11304,7 +11310,8 @@
   "extraction_id": "0000950170-25-087926|cost_of_revenue_part|2022-06-01|2023-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11312,7 +11319,8 @@
   "extraction_id": "0000950170-25-087926|cost_of_revenue_part|2022-06-01|2023-05-31|Services(1)",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11368,7 +11376,8 @@
   "extraction_id": "0000950170-25-087926|operating_income|2022-06-01|2023-05-31",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11393,6 +11402,7 @@
   "outcome": "rule",
   "caught_by": [
    "column_matches_period",
+   "cost_lines_summed",
    "outlier_vs_own_history"
   ]
  },
@@ -11445,7 +11455,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2023-06-01|2024-05-31|Cloud and software(1)",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11453,7 +11464,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2023-06-01|2024-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11461,7 +11473,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2023-06-01|2024-05-31|Services(1)",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11469,7 +11482,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2024-06-01|2025-05-31|Cloud and software(1)",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11477,7 +11491,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2024-06-01|2025-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11485,7 +11500,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2024-06-01|2025-05-31|Services(1)",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11493,7 +11509,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2025-06-01|2026-05-31|Cloud and software(1)",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11501,7 +11518,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2025-06-01|2026-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11509,7 +11527,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2025-06-01|2026-05-31|Services(1)",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11517,7 +11536,8 @@
   "extraction_id": "0001193125-26-277521|operating_income|2023-06-01|2024-05-31",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11525,7 +11545,8 @@
   "extraction_id": "0001193125-26-277521|operating_income|2024-06-01|2025-05-31",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11533,7 +11554,8 @@
   "extraction_id": "0001193125-26-277521|operating_income|2025-06-01|2026-05-31",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11541,7 +11563,8 @@
   "extraction_id": "0001193125-26-277521|revenue|2023-06-01|2024-05-31",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11549,7 +11572,8 @@
   "extraction_id": "0001193125-26-277521|revenue|2024-06-01|2025-05-31",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -11558,6 +11582,7 @@
   "outcome": "rule",
   "caught_by": [
    "column_matches_period",
+   "cost_lines_summed",
    "outlier_vs_own_history"
   ]
  },
@@ -11882,6 +11907,7 @@
   "extraction_id": "0000950170-24-075605|cost_of_revenue_part|2021-06-01|2022-05-31|Cloud services and license support(1)",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -11890,6 +11916,7 @@
   "extraction_id": "0000950170-24-075605|cost_of_revenue_part|2021-06-01|2022-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -11957,6 +11984,7 @@
   "extraction_id": "0000950170-24-075605|operating_income|2021-06-01|2022-05-31",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -11981,6 +12009,7 @@
   "extraction_id": "0000950170-24-075605|revenue|2021-06-01|2022-05-31",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "jump",
    "outlier_vs_own_history",
    "row_label_switch",
@@ -12034,6 +12063,7 @@
   "extraction_id": "0000950170-25-087926|cost_of_revenue_part|2022-06-01|2023-05-31|Cloud services and license support(1)",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -12042,6 +12072,7 @@
   "extraction_id": "0000950170-25-087926|cost_of_revenue_part|2022-06-01|2023-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -12109,6 +12140,7 @@
   "extraction_id": "0000950170-25-087926|operating_income|2022-06-01|2023-05-31",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -12133,6 +12165,7 @@
   "extraction_id": "0000950170-25-087926|revenue|2022-06-01|2023-05-31",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "jump",
    "outlier_vs_own_history",
    "row_label_switch",
@@ -12187,6 +12220,7 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2023-06-01|2024-05-31|Cloud and software(1)",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -12195,6 +12229,7 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2023-06-01|2024-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -12212,6 +12247,7 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2024-06-01|2025-05-31|Cloud and software(1)",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -12220,6 +12256,7 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2024-06-01|2025-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -12237,6 +12274,7 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2025-06-01|2026-05-31|Cloud and software(1)",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -12245,6 +12283,7 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2025-06-01|2026-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -12262,6 +12301,7 @@
   "extraction_id": "0001193125-26-277521|operating_income|2023-06-01|2024-05-31",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -12270,6 +12310,7 @@
   "extraction_id": "0001193125-26-277521|operating_income|2024-06-01|2025-05-31",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -12278,6 +12319,7 @@
   "extraction_id": "0001193125-26-277521|operating_income|2025-06-01|2026-05-31",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -12286,6 +12328,7 @@
   "extraction_id": "0001193125-26-277521|revenue|2023-06-01|2024-05-31",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "jump",
    "outlier_vs_own_history",
    "row_label_switch",
@@ -12297,6 +12340,7 @@
   "extraction_id": "0001193125-26-277521|revenue|2024-06-01|2025-05-31",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "jump",
    "outlier_vs_own_history",
    "row_label_switch",
@@ -12308,6 +12352,7 @@
   "extraction_id": "0001193125-26-277521|revenue|2025-06-01|2026-05-31",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "jump",
    "outlier_vs_own_history",
    "row_label_switch",
@@ -12637,6 +12682,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -12646,6 +12692,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -12655,6 +12702,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -12712,6 +12760,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -12737,6 +12786,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "jump",
    "outlier_vs_own_history"
   ]
@@ -12789,6 +12839,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -12798,6 +12849,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -12807,6 +12859,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -12864,6 +12917,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -12889,6 +12943,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "jump",
    "outlier_vs_own_history"
   ]
@@ -12945,6 +13000,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -12954,6 +13010,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -12963,6 +13020,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -12972,6 +13030,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -12981,6 +13040,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -12990,6 +13050,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -12999,6 +13060,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -13008,6 +13070,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -13017,6 +13080,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -13026,6 +13090,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -13035,6 +13100,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -13044,6 +13110,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -13053,6 +13120,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "jump",
    "outlier_vs_own_history"
   ]
@@ -13063,6 +13131,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "jump",
    "outlier_vs_own_history"
   ]
@@ -13073,6 +13142,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "jump",
    "outlier_vs_own_history"
   ]
@@ -13395,7 +13465,8 @@
   "extraction_id": "0000950170-24-075605|cost_of_revenue_part|2021-06-01|2022-05-31|Cloud services and license support(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13403,7 +13474,8 @@
   "extraction_id": "0000950170-24-075605|cost_of_revenue_part|2021-06-01|2022-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13411,7 +13483,8 @@
   "extraction_id": "0000950170-24-075605|cost_of_revenue_part|2021-06-01|2022-05-31|Services(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13467,7 +13540,8 @@
   "extraction_id": "0000950170-24-075605|operating_income|2021-06-01|2022-05-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13492,6 +13566,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -13542,7 +13617,8 @@
   "extraction_id": "0000950170-25-087926|cost_of_revenue_part|2022-06-01|2023-05-31|Cloud services and license support(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13550,7 +13626,8 @@
   "extraction_id": "0000950170-25-087926|cost_of_revenue_part|2022-06-01|2023-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13558,7 +13635,8 @@
   "extraction_id": "0000950170-25-087926|cost_of_revenue_part|2022-06-01|2023-05-31|Services(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13614,7 +13692,8 @@
   "extraction_id": "0000950170-25-087926|operating_income|2022-06-01|2023-05-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13639,6 +13718,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "outlier_vs_own_history",
    "sign"
   ]
@@ -13693,7 +13773,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2023-06-01|2024-05-31|Cloud and software(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13701,7 +13782,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2023-06-01|2024-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13709,7 +13791,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2023-06-01|2024-05-31|Services(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13717,7 +13800,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2024-06-01|2025-05-31|Cloud and software(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13725,7 +13809,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2024-06-01|2025-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13733,7 +13818,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2024-06-01|2025-05-31|Services(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13741,7 +13827,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2025-06-01|2026-05-31|Cloud and software(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13749,7 +13836,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2025-06-01|2026-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13757,7 +13845,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2025-06-01|2026-05-31|Services(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13765,7 +13854,8 @@
   "extraction_id": "0001193125-26-277521|operating_income|2023-06-01|2024-05-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13773,7 +13863,8 @@
   "extraction_id": "0001193125-26-277521|operating_income|2024-06-01|2025-05-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13781,7 +13872,8 @@
   "extraction_id": "0001193125-26-277521|operating_income|2025-06-01|2026-05-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -13790,6 +13882,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -13799,6 +13892,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "outlier_vs_own_history",
    "sign"
   ]
@@ -13809,6 +13903,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "outlier_vs_own_history",
    "sign"
   ]
@@ -14130,7 +14225,8 @@
   "extraction_id": "0000950170-24-075605|cost_of_revenue_part|2021-06-01|2022-05-31|Cloud services and license support(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14138,7 +14234,8 @@
   "extraction_id": "0000950170-24-075605|cost_of_revenue_part|2021-06-01|2022-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14146,7 +14243,8 @@
   "extraction_id": "0000950170-24-075605|cost_of_revenue_part|2021-06-01|2022-05-31|Services(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14202,7 +14300,8 @@
   "extraction_id": "0000950170-24-075605|operating_income|2021-06-01|2022-05-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14227,6 +14326,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "jump",
    "outlier_vs_own_history"
   ]
@@ -14277,7 +14377,8 @@
   "extraction_id": "0000950170-25-087926|cost_of_revenue_part|2022-06-01|2023-05-31|Cloud services and license support(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14285,7 +14386,8 @@
   "extraction_id": "0000950170-25-087926|cost_of_revenue_part|2022-06-01|2023-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14293,7 +14395,8 @@
   "extraction_id": "0000950170-25-087926|cost_of_revenue_part|2022-06-01|2023-05-31|Services(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14350,6 +14453,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "jump"
   ]
  },
@@ -14375,6 +14479,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "jump",
    "outlier_vs_own_history"
   ]
@@ -14426,7 +14531,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2023-06-01|2024-05-31|Cloud and software(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14434,7 +14540,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2023-06-01|2024-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14442,7 +14549,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2023-06-01|2024-05-31|Services(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14450,7 +14558,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2024-06-01|2025-05-31|Cloud and software(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14458,7 +14567,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2024-06-01|2025-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14466,7 +14576,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2024-06-01|2025-05-31|Services(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14475,6 +14586,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -14483,7 +14595,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2025-06-01|2026-05-31|Hardware(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14491,7 +14604,8 @@
   "extraction_id": "0001193125-26-277521|cost_of_revenue_part|2025-06-01|2026-05-31|Services(1)",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14500,6 +14614,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -14509,6 +14624,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -14517,7 +14633,8 @@
   "extraction_id": "0001193125-26-277521|operating_income|2025-06-01|2026-05-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14526,6 +14643,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "outlier_vs_own_history",
    "sign"
   ]
@@ -14535,7 +14653,8 @@
   "extraction_id": "0001193125-26-277521|revenue|2024-06-01|2025-05-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -14544,6 +14663,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "outlier_vs_own_history"
   ]
  },
@@ -19570,6 +19690,54 @@
   ]
  },
  {
+  "fault": "stale_column",
+  "extraction_id": "0000002488-26-000021|cost_of_revenue|2023-12-31|2024-12-28",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0000002488-26-000021|cost_of_revenue|2024-12-29|2025-12-27",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0000002488-26-000021|operating_income|2023-12-31|2024-12-28",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0000002488-26-000021|operating_income|2024-12-29|2025-12-27",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0000002488-26-000021|revenue|2023-12-31|2024-12-28",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0000002488-26-000021|revenue|2024-12-29|2025-12-27",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period"
+  ]
+ },
+ {
   "fault": "wrong_row",
   "extraction_id": "0000002488-23-000047|capex|2019-12-29|2020-12-26",
   "outcome": "rule",
@@ -19966,6 +20134,54 @@
   ]
  },
  {
+  "fault": "wrong_row",
+  "extraction_id": "0000002488-26-000021|cost_of_revenue|2023-12-31|2024-12-28",
+  "outcome": "rule",
+  "caught_by": [
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0000002488-26-000021|cost_of_revenue|2024-12-29|2025-12-27",
+  "outcome": "rule",
+  "caught_by": [
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0000002488-26-000021|operating_income|2023-12-31|2024-12-28",
+  "outcome": "rule",
+  "caught_by": [
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0000002488-26-000021|operating_income|2024-12-29|2025-12-27",
+  "outcome": "rule",
+  "caught_by": [
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0000002488-26-000021|revenue|2023-12-31|2024-12-28",
+  "outcome": "rule",
+  "caught_by": [
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0000002488-26-000021|revenue|2024-12-29|2025-12-27",
+  "outcome": "rule",
+  "caught_by": [
+   "row_label_switch"
+  ]
+ },
+ {
   "fault": "wrong_scale",
   "extraction_id": "0000002488-23-000047|capex|2019-12-29|2020-12-26",
   "outcome": "rule",
@@ -20374,6 +20590,54 @@
   ]
  },
  {
+  "fault": "wrong_scale",
+  "extraction_id": "0000002488-26-000021|cost_of_revenue|2023-12-31|2024-12-28",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0000002488-26-000021|cost_of_revenue|2024-12-29|2025-12-27",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0000002488-26-000021|operating_income|2023-12-31|2024-12-28",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0000002488-26-000021|operating_income|2024-12-29|2025-12-27",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0000002488-26-000021|revenue|2023-12-31|2024-12-28",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0000002488-26-000021|revenue|2024-12-29|2025-12-27",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
   "fault": "sign_flip",
   "extraction_id": "0000002488-23-000047|capex|2019-12-29|2020-12-26",
   "outcome": "rule",
@@ -20770,6 +21034,54 @@
   ]
  },
  {
+  "fault": "sign_flip",
+  "extraction_id": "0000002488-26-000021|cost_of_revenue|2023-12-31|2024-12-28",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0000002488-26-000021|cost_of_revenue|2024-12-29|2025-12-27",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0000002488-26-000021|operating_income|2023-12-31|2024-12-28",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0000002488-26-000021|operating_income|2024-12-29|2025-12-27",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0000002488-26-000021|revenue|2023-12-31|2024-12-28",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0000002488-26-000021|revenue|2024-12-29|2025-12-27",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
   "fault": "misread_digits",
   "extraction_id": "0000002488-23-000047|capex|2019-12-29|2020-12-26",
   "outcome": "rule",
@@ -21153,6 +21465,54 @@
  {
   "fault": "misread_digits",
   "extraction_id": "0000002488-26-000018|revenue|2024-12-29|2025-12-27",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0000002488-26-000021|cost_of_revenue|2023-12-31|2024-12-28",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0000002488-26-000021|cost_of_revenue|2024-12-29|2025-12-27",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0000002488-26-000021|operating_income|2023-12-31|2024-12-28",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0000002488-26-000021|operating_income|2024-12-29|2025-12-27",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0000002488-26-000021|revenue|2023-12-31|2024-12-28",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0000002488-26-000021|revenue|2024-12-29|2025-12-27",
   "outcome": "rule",
   "caught_by": [
    "citation_resolves"
@@ -29024,7 +29384,8 @@
   "extraction_id": "0001144879-26-000048|cost_of_revenue_part|2023-06-01|2024-05-31|Data center rental and other cost of revenue",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -29033,6 +29394,7 @@
   "outcome": "rule",
   "caught_by": [
    "column_matches_period",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -29042,6 +29404,7 @@
   "outcome": "rule",
   "caught_by": [
    "column_matches_period",
+   "cost_lines_summed",
    "jump"
   ]
  },
@@ -29051,6 +29414,7 @@
   "outcome": "rule",
   "caught_by": [
    "column_matches_period",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -29060,6 +29424,7 @@
   "outcome": "rule",
   "caught_by": [
    "column_matches_period",
+   "cost_lines_summed",
    "jump"
   ]
  },
@@ -29085,7 +29450,8 @@
   "extraction_id": "0001144879-26-000048|operating_income|2025-06-01|2026-05-31",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period"
+   "column_matches_period",
+   "cost_lines_summed"
   ]
  },
  {
@@ -29114,6 +29480,7 @@
   "outcome": "rule",
   "caught_by": [
    "column_matches_period",
+   "cost_lines_summed",
    "jump",
    "outlier_vs_own_history"
   ]
@@ -29478,6 +29845,7 @@
   "extraction_id": "0001144879-26-000048|cost_of_revenue_part|2025-06-01|2026-05-31|Services cost of revenue",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "jump",
    "row_label_switch"
   ]
@@ -29505,6 +29873,7 @@
   "extraction_id": "0001144879-26-000048|operating_income|2025-06-01|2026-05-31",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "row_label_switch"
   ]
  },
@@ -29532,6 +29901,7 @@
   "extraction_id": "0001144879-26-000048|revenue|2025-06-01|2026-05-31",
   "outcome": "rule",
   "caught_by": [
+   "cost_lines_summed",
    "outlier_vs_own_history",
    "row_label_switch"
   ]
@@ -29878,6 +30248,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -29893,6 +30264,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -29902,6 +30274,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -29911,6 +30284,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -29938,6 +30312,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "jump"
   ]
  },
@@ -29967,6 +30342,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "jump",
    "outlier_vs_own_history"
   ]
@@ -30306,6 +30682,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "jump"
   ]
  },
@@ -30321,6 +30698,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "jump"
   ]
  },
@@ -30330,6 +30708,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "jump"
   ]
  },
@@ -30339,6 +30718,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "jump"
   ]
  },
@@ -30366,6 +30746,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -30394,6 +30775,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "outlier_vs_own_history",
    "sign"
   ]
@@ -30723,6 +31105,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -30731,7 +31114,8 @@
   "extraction_id": "0001144879-26-000048|cost_of_revenue_part|2024-06-01|2025-05-31|Services cost of revenue",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves"
+   "citation_resolves",
+   "cost_lines_summed"
   ]
  },
  {
@@ -30740,6 +31124,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "jump"
   ]
  },
@@ -30749,6 +31134,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -30776,6 +31162,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "sign"
   ]
  },
@@ -30804,6 +31191,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "cost_lines_summed",
    "outlier_vs_own_history",
    "sign"
   ]
@@ -33922,9 +34310,7 @@
   "extraction_id": "0001628280-25-008302|capex|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "jump",
-   "outlier_vs_own_history"
+   "column_matches_period"
   ]
  },
  {
@@ -33948,8 +34334,7 @@
   "extraction_id": "0001628280-25-008302|cost_of_revenue|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "jump"
+   "column_matches_period"
   ]
  },
  {
@@ -33973,8 +34358,7 @@
   "extraction_id": "0001628280-25-008302|operating_income|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "jump"
+   "column_matches_period"
   ]
  },
  {
@@ -33998,9 +34382,7 @@
   "extraction_id": "0001628280-25-008302|revenue|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "jump",
-   "outlier_vs_own_history"
+   "column_matches_period"
   ]
  },
  {
@@ -34014,6 +34396,107 @@
  {
   "fault": "stale_column",
   "extraction_id": "0001628280-25-008302|revenue|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0001628280-26-013232|capex|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period",
+   "jump",
+   "outlier_vs_own_history"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0001628280-26-013232|capex|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0001628280-26-013232|capex|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0001628280-26-013232|cost_of_revenue|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period",
+   "jump"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0001628280-26-013232|cost_of_revenue|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0001628280-26-013232|cost_of_revenue|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0001628280-26-013232|operating_income|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0001628280-26-013232|operating_income|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0001628280-26-013232|operating_income|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0001628280-26-013232|revenue|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period",
+   "jump",
+   "outlier_vs_own_history"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0001628280-26-013232|revenue|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "column_matches_period"
+  ]
+ },
+ {
+  "fault": "stale_column",
+  "extraction_id": "0001628280-26-013232|revenue|2024-01-01|2024-12-31",
   "outcome": "rule",
   "caught_by": [
    "column_matches_period"
@@ -34326,8 +34809,6 @@
   "extraction_id": "0001628280-25-008302|capex|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "jump",
-   "outlier_vs_own_history",
    "row_label_switch"
   ]
  },
@@ -34352,7 +34833,6 @@
   "extraction_id": "0001628280-25-008302|cost_of_revenue|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "jump",
    "row_label_switch"
   ]
  },
@@ -34377,7 +34857,6 @@
   "extraction_id": "0001628280-25-008302|operating_income|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "jump",
    "row_label_switch"
   ]
  },
@@ -34402,8 +34881,6 @@
   "extraction_id": "0001628280-25-008302|revenue|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "jump",
-   "outlier_vs_own_history",
    "row_label_switch"
   ]
  },
@@ -34418,6 +34895,108 @@
  {
   "fault": "wrong_row",
   "extraction_id": "0001628280-25-008302|revenue|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0001628280-26-013232|capex|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "jump",
+   "outlier_vs_own_history",
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0001628280-26-013232|capex|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0001628280-26-013232|capex|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0001628280-26-013232|cost_of_revenue|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "jump",
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0001628280-26-013232|cost_of_revenue|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0001628280-26-013232|cost_of_revenue|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0001628280-26-013232|operating_income|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "jump",
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0001628280-26-013232|operating_income|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0001628280-26-013232|operating_income|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0001628280-26-013232|revenue|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "jump",
+   "outlier_vs_own_history",
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0001628280-26-013232|revenue|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "row_label_switch"
+  ]
+ },
+ {
+  "fault": "wrong_row",
+  "extraction_id": "0001628280-26-013232|revenue|2024-01-01|2024-12-31",
   "outcome": "rule",
   "caught_by": [
    "row_label_switch"
@@ -34726,9 +35305,7 @@
   "extraction_id": "0001628280-25-008302|capex|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "jump",
-   "outlier_vs_own_history"
+   "citation_resolves"
   ]
  },
  {
@@ -34752,8 +35329,7 @@
   "extraction_id": "0001628280-25-008302|cost_of_revenue|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "sign"
+   "citation_resolves"
   ]
  },
  {
@@ -34777,8 +35353,7 @@
   "extraction_id": "0001628280-25-008302|operating_income|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "jump"
+   "citation_resolves"
   ]
  },
  {
@@ -34802,9 +35377,7 @@
   "extraction_id": "0001628280-25-008302|revenue|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "jump",
-   "outlier_vs_own_history"
+   "citation_resolves"
   ]
  },
  {
@@ -34818,6 +35391,108 @@
  {
   "fault": "wrong_scale",
   "extraction_id": "0001628280-25-008302|revenue|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0001628280-26-013232|capex|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "jump",
+   "outlier_vs_own_history"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0001628280-26-013232|capex|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0001628280-26-013232|capex|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0001628280-26-013232|cost_of_revenue|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "sign"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0001628280-26-013232|cost_of_revenue|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0001628280-26-013232|cost_of_revenue|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0001628280-26-013232|operating_income|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "jump"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0001628280-26-013232|operating_income|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0001628280-26-013232|operating_income|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0001628280-26-013232|revenue|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "jump",
+   "outlier_vs_own_history"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0001628280-26-013232|revenue|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "wrong_scale",
+  "extraction_id": "0001628280-26-013232|revenue|2024-01-01|2024-12-31",
   "outcome": "rule",
   "caught_by": [
    "citation_resolves"
@@ -35128,9 +35803,7 @@
   "extraction_id": "0001628280-25-008302|capex|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "outlier_vs_own_history",
-   "sign"
+   "citation_resolves"
   ]
  },
  {
@@ -35154,8 +35827,7 @@
   "extraction_id": "0001628280-25-008302|cost_of_revenue|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "jump"
+   "citation_resolves"
   ]
  },
  {
@@ -35179,8 +35851,7 @@
   "extraction_id": "0001628280-25-008302|operating_income|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "sign"
+   "citation_resolves"
   ]
  },
  {
@@ -35204,10 +35875,7 @@
   "extraction_id": "0001628280-25-008302|revenue|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "jump",
-   "outlier_vs_own_history",
-   "sign"
+   "citation_resolves"
   ]
  },
  {
@@ -35221,6 +35889,109 @@
  {
   "fault": "sign_flip",
   "extraction_id": "0001628280-25-008302|revenue|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0001628280-26-013232|capex|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "outlier_vs_own_history",
+   "sign"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0001628280-26-013232|capex|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0001628280-26-013232|capex|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0001628280-26-013232|cost_of_revenue|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "jump"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0001628280-26-013232|cost_of_revenue|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0001628280-26-013232|cost_of_revenue|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0001628280-26-013232|operating_income|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "sign"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0001628280-26-013232|operating_income|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0001628280-26-013232|operating_income|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0001628280-26-013232|revenue|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "jump",
+   "outlier_vs_own_history",
+   "sign"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0001628280-26-013232|revenue|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "sign_flip",
+  "extraction_id": "0001628280-26-013232|revenue|2024-01-01|2024-12-31",
   "outcome": "rule",
   "caught_by": [
    "citation_resolves"
@@ -35509,9 +36280,7 @@
   "extraction_id": "0001628280-25-008302|capex|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "jump",
-   "outlier_vs_own_history"
+   "citation_resolves"
   ]
  },
  {
@@ -35535,8 +36304,7 @@
   "extraction_id": "0001628280-25-008302|cost_of_revenue|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "jump"
+   "citation_resolves"
   ]
  },
  {
@@ -35560,8 +36328,7 @@
   "extraction_id": "0001628280-25-008302|operating_income|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "sign"
+   "citation_resolves"
   ]
  },
  {
@@ -35585,9 +36352,7 @@
   "extraction_id": "0001628280-25-008302|revenue|2022-01-01|2022-12-31",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "jump",
-   "outlier_vs_own_history"
+   "citation_resolves"
   ]
  },
  {
@@ -35601,6 +36366,108 @@
  {
   "fault": "misread_digits",
   "extraction_id": "0001628280-25-008302|revenue|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001628280-26-013232|capex|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "jump",
+   "outlier_vs_own_history"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001628280-26-013232|capex|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001628280-26-013232|capex|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001628280-26-013232|cost_of_revenue|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "jump"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001628280-26-013232|cost_of_revenue|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001628280-26-013232|cost_of_revenue|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001628280-26-013232|operating_income|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "sign"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001628280-26-013232|operating_income|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001628280-26-013232|operating_income|2024-01-01|2024-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001628280-26-013232|revenue|2022-01-01|2022-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "jump",
+   "outlier_vs_own_history"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001628280-26-013232|revenue|2023-01-01|2023-12-31",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001628280-26-013232|revenue|2024-01-01|2024-12-31",
   "outcome": "rule",
   "caught_by": [
    "citation_resolves"

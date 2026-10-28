@@ -80,15 +80,21 @@ def agents_view() -> dict:
     con = _con()
     try:
         runs = _rows(con, "select r.subject as accession, d.ticker, d.period, r.started_at, r.outcome, r.versions, r.detail from runs r "
-                          "left join documents d on d.accession = r.subject where r.step = 'extract' order by r.started_at desc")
+                          "join documents d on d.accession = r.subject where r.step = 'extract' order by r.started_at desc")  # one row per filing read, not the step log
     finally:
         con.close()
     for r in runs:
         r["versions"], r["detail"] = json.loads(r["versions"] or "{}"), json.loads(r["detail"] or "{}")
+    con = _con()
+    try:
+        h = snapshot(con, STAGE)["health"][0]
+    finally:
+        con.close()
+    cost = h["per_company_minutes"] is not None and {"minutes": h["per_company_minutes"], "tokens": h["per_company_tokens"], "companies": h["measured_companies"]} or None
     out = {}
     for aid, a in cfg.items():
         vs = agents.versions(aid)
-        out[aid] = {**a, "id": aid, "versions": vs, "prompts": {v: agents.prompt_text(v) for v in vs}, "runs": runs}
+        out[aid] = {**a, "id": aid, "versions": vs, "prompts": {v: agents.prompt_text(v) for v in vs}, "runs": runs, "cost": cost}
     return out
 
 

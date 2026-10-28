@@ -13,7 +13,7 @@ from .edgar import RAW, _cached, fetch_json, fetch_tickers
 
 FIRST_PERIOD = "2022-01-01"
 LAST_PERIOD = date.today().isoformat()
-FORMS = ("10-K",)  # annual filings only: one cell per value, no quarterly arithmetic
+FORMS = ("10-K", "10-K/A")  # annual filings only; an amendment counts when it carries the financial statements
 
 
 @dataclass(frozen=True)
@@ -84,4 +84,4 @@ def report_period_ends(ticker: str) -> list[str]:
     for f in sub["filings"].get("files", []):
         body, _ = _cached(f"https://data.sec.gov/submissions/{f['name']}", RAW / f"{cik:010d}" / f["name"], False, 24 * 30)
         rows += list(_rows(json.loads(body)))
-    return sorted({r["reportDate"] for r in rows if r["form"] in FORMS + ("10-K/A", "10-KT") and r["reportDate"]})
+    return sorted({r["reportDate"] for r in rows if r["form"] in FORMS + ("10-KT",) and r["reportDate"]})

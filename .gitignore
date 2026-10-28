@@ -5,3 +5,5 @@ data/raw/
 data/ledger.duckdb*
 data/docs/
 data/extract/tasks/
+data/snapshots/
+data/watch.json

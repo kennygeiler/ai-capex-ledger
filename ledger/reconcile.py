@@ -29,7 +29,8 @@ def _rounding(v: int) -> int:
 
 
 def _restated(first: int, latest: int, scale: int) -> bool:
-    return abs(latest - first) > max(scale // 2, abs(first) // 100)
+    """Any change beyond rounding is a restatement (Meta's 0.8% capex change counts); how big it is shows beside it."""
+    return abs(latest - first) > scale // 2
 
 
 def _agrees(e: dict, r: int | None) -> bool:
@@ -57,7 +58,7 @@ def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str |
         filings.setdefault(end, []).append((next(v for v in fs.values() if isinstance(v, dict))["filed"], fs))
     out = []
     for end, fl in sorted(filings.items()):
-        fl.sort(key=lambda x: x[0])
+        fl.sort(key=lambda x: (x[0], len(x[1])))  # newest filing; on the same day, the more complete one (a 10-K over a partial 10-K/A)
         period = f"FY{fiscal_label(end, fye)[0]}"
         if period not in MVP_YEARS:
             continue
@@ -68,9 +69,10 @@ def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str |
                 if any(p in newest for p in parts):  # the filing reports the year but not this line (e.g. no cost of revenue)
                     out.append(_row(ticker, f, period, end, None, None, [], "not_reported", "as_reported", docs))
                 continue
-            have = [fs for _, fs in fl if all(p in fs for p in parts)]
             val = lambda fs: fs["revenue"]["value"] - fs["cost_of_revenue"]["value"] - fs["operating_income"]["value"] if f == "opex" else fs[f]["value"]
-            first, latest = have[0], newest
+            day0 = next(d for d, fs in fl if all(p in fs for p in parts))  # filings on the same day are one vintage:
+            first = [fs for d, fs in fl if d == day0 and all(p in fs for p in parts)][-1]  # the most complete of them
+            latest = newest
             used = [x for p in parts for x in latest[p].get("parts", [latest[p]])]
             v, r = val(latest), reference.get((f, period))
             tol = max([e["scale"] for e in used] + ([_rounding(r)] if r is not None else [])) // 2 * len(used)

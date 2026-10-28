@@ -49,6 +49,16 @@ class Annual(unittest.TestCase):
         v = {r["field"]: r for r in values_for("ORCL", xs, {}, "0531", DOCS)}
         self.assertEqual((v["opex"]["value"], v["opex"]["label"], v["opex"]["source"]), (None, "not_reported", "missing"))
 
+    def test_a_same_day_partial_amendment_is_not_a_restatement(self):  # AMD: a 10-K/A filed with the 10-K
+        xs = [x(f, "2025-05-31", v, "a", "2026-02-04") for f, v in (("revenue", 100_000_000), ("cost_of_revenue", 40_000_000), ("operating_income", 20_000_000), ("capex", 5_000_000))]
+        xs += [x(f, "2025-05-31", v, "b", "2026-02-04") for f, v in (("revenue", 100_000_000), ("cost_of_revenue", 45_000_000), ("operating_income", 20_000_000))]
+        v = {r["field"]: r for r in values_for("AMD", xs, {}, "0531", DOCS)}
+        self.assertEqual((v["opex"]["value"], v["opex"]["basis"], v["capex"]["value"]), (40_000_000, "as_reported", 5_000_000))
+
+    def test_any_change_beyond_rounding_is_a_restatement(self):  # Meta capex moved 0.8%
+        xs = [x("capex", "2025-05-31", 31_431_000_000, "a", "2025-07-01"), x("capex", "2025-05-31", 31_186_000_000, "b", "2026-07-01")]
+        self.assertEqual(values_for("META", xs, {}, "0531", DOCS)[0]["basis"], "restated")
+
 
 if __name__ == "__main__":
     unittest.main()

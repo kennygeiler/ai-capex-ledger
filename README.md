@@ -6,15 +6,17 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** the DATAHQ dashboard shows only numbers that ask for an action or explain why the data can be trusted.
-- **Values accounted for:** 234 of 234 (224 match the SEC's data, 6 explained by code, 4 decided by Kenny, 0 waiting). A value waiting on a person turns it red.
-- **Release:** whether the latest signed release is still what the pipeline would ship (0 values changed since `v1.0.1`); red with a count when it isn't.
-- **Next 10-K** and **agent cost per company** (0.7 min, 28.7K tokens, average of 17 companies read headless).
-- Companies sorted by what needs attention; open warnings by check. Removed: cells-confirmed and fault-test tiles (still in the pipeline bars), the separate next-10-K table, and per-company cost columns (on the Agents page).
-- Earlier today: grouped warning review, evidence from every run, blank reasons in Outputs; `v1.0.1` signed.
+**Last done (28 Oct 2026):** the Monday audit's change list, aimed at using a person's judgement only where code can't settle a question.
+- **Answer key fixed:** one filing per year (newest 10-K first, then the best tag in it), opex from one filing. The 4 APLD items Kenny decided were raised by the old key; they now agree with XBRL and need no decision.
+- **10-K/As read** when they carry financial statements (AMD, CORZ); Part III-only amendments are skipped with the reason logged. Same-day filings count as one vintage.
+- **Cost lines block release until confirmed once per company** (ORCL, APLD), with the opex gap to XBRL shown per year. Any change beyond rounding is now `restated` (META, TSLA). Capex wording "net of / excluding / deposit / prepayment" is noted (IREN, TSLA, WULF).
+- **DATAHQ:** "Your judgement" lists only questions code can't settle, each saying why it needs a person (57 open warnings → 3 questions). Jumps, outliers and renamed lines on values XBRL confirms are shown as findings about the companies, with restatements and opex-above-revenue years. "Since last run" compares run snapshots; every step of `ledger run` is logged; `ledger watch` checks the SEC for filings not yet read. Company page: values as a fields × years grid with marks.
+- Run of all 19: 74 filings, 234 values (228 agree, 6 wait on the cost-line confirmations), 875/875 cells confirmed, 0 planted faults escaped. Failure types 9–15 in [docs/INGESTION.md](docs/INGESTION.md).
+
+**Waiting on Kenny:** answer the 3 questions in DATAHQ (ORCL cost lines, APLD cost lines, APLD FY2026 opex jump). The cost-line confirmations are blocking items, decided with `ledger review decide`. Then release `v1.0.2` (`v1.0.1` differs in 5 restated labels).
 
 **Next:** the demo goal is met: a working pipeline with oversight (agents read, code checks, a person decides and signs, every step visible in DATAHQ). Optional, only if needed:
-1. New-filing watcher: check SEC daily for new 10-Ks and run `ledger run` on them.
+1. Schedule `ledger watch --run` daily (cron or launchd).
 2. Make the hand-check file name match `release` for single-ticker runs.
 3. `DIFF.md` lists added values; prompt `statements@v3` (v2 still explains quarterly columns; needs an agent rerun).
 
@@ -42,6 +44,7 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 | Review | `review`, `review decide` | `decisions/decisions.jsonl`; a decision counts only while its inputs are unchanged |
 | Release | `release <v>` | `releases/<v>/`; refuses while any gate fails, and the same inputs give the same hash |
 | Sign | `signoff <v> --by` | `SIGNOFF.json` |
+| Watch | `watch [--run]` | `data/watch.json`: 10-Ks and 10-K/As at the SEC the ledger hasn't read; `--run` reads them |
 | App | `app` | DATAHQ at http://127.0.0.1:3610: dashboard, each company through every step, the agents (model, prompt versions, every run), outputs explorer with CSV export |
 
 Every command runs as `uv run python -m ledger <command> --stage N` or `--ticker X Y` (release and signoff take a stage). `evidence` drives the installed Google Chrome through Playwright, with no browser download.

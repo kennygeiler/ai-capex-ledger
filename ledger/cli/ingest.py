@@ -74,8 +74,12 @@ def main(argv=None) -> int:
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(json.dumps(parsed, sort_keys=True, indent=1))
         loc = parsed["located"]
+        if f.form == "10-K/A" and not (loc["income"] or loc["cash_flow"]):  # a Part III amendment: no numbers to read
+            run_rows.append({"run_id": run_id, "step": "parse", "subject": f.accession, "started_at": _now(), "seconds": round(time.monotonic() - t1, 3),
+                             "outcome": "skipped", "versions": json.dumps({"parser": PARSER_VERSION}), "detail": json.dumps({"reason": "10-K/A without financial statements"})})
+            continue
         for k in ("income", "cash_flow"):
-            if not loc[k]:
+            if not loc[k] and f.form == "10-K":  # an amendment may repeat only some statements
                 missing.append(f"{f.ticker} {f.form} {f.period} {k}")
         doc_rows.append({"accession": f.accession, "ticker": f.ticker, "cik": f.cik, "form": f.form, "period": f.period,
                          "filed": f.filed, "url": f.url, "sha256": parsed["sha256"], "bytes": manifest[f.accession]["bytes"],

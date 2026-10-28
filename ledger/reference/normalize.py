@@ -6,9 +6,9 @@ The agent never sees it; reconcile compares the agent's numbers with it. Built o
 1. Collect full-year duration facts (USD) for each candidate concept, from 10-K filings.
 2. Vintages: the same year appears in several 10-Ks (as comparatives, sometimes restated). Keep the latest filed,
    and remember the original and how many filings carried it.
-3. Concept choice: per company, candidate tags are ranked by recent coverage; a total revenue tag beats a component
-   tag in the same 10-K.
-4. Opex: revenue − operating income − cost of revenue, with a written fallback chain (derive_costs).
+3. One filing per year: the newest 10-K (or 10-K/A) that reports the year, then the best-ranked tag within it; a
+   total revenue tag beats a component tag in the same 10-K.
+4. Opex: revenue − operating income − cost of revenue, all from that one filing (derive_costs).
 """
 import json
 from collections import defaultdict
@@ -95,7 +95,7 @@ def derive_costs(m: dict[str, dict[str, dict]]) -> tuple[dict, dict]:
     total, opex = {}, {}
     keep = ("fy_key", "period_start", "period_end", "days", "fiscal_year", "form", "accession", "filed")
     common = {"unit": "USD", "restated": False, "original_value": None, "vintages": None, "fallback_form": False}
-    same = lambda d, key, r: key in d and d[key]["period_end"] == r["period_end"]
+    same = lambda d, key, r: key in d and d[key]["period_end"] == r["period_end"] and d[key]["accession"] == r["accession"]  # one filing
     src = lambda name, x: {"metric": name, "concept": x["concept"], "accn": x["accession"], "val": x["value"]}
     for key, r in rev.items():
         base = {f: r.get(f) for f in keep}
@@ -145,13 +145,14 @@ def annual_series(companyfacts: dict, metric: str, fye: str | None) -> dict[str,
     recent_cut = f"FY{date.today().year - 4}"
     ranking = sorted(per_concept, key=lambda c: (-sum(k >= recent_cut for k in per_concept[c]), CONCEPTS[metric].index(c), -len(per_concept[c])))
     merged: dict[str, dict] = {}
-    for c in ranking:
-        for k, r in per_concept[c].items():
-            merged.setdefault(k, r)
-    if metric == "revenue":  # a total tag beats a component tag in the same 10-K (WULF: contract revenue leaves out lease revenue)
-        for k, r in merged.items():
-            same = [x[k] for x in per_concept.values() if k in x and x[k]["accession"] == r["accession"]]
-            merged[k] = max(same, key=lambda x: x["value"])
+    for k in sorted({k for rows in per_concept.values() for k in rows}):
+        # The newest filing that reports the year wins, as in reconcile: one filing per year, never a tag from an
+        # older 10-K next to one from a newer one. Within that filing, the best-ranked tag.
+        cands = [per_concept[c][k] for c in ranking if k in per_concept[c]]
+        newest = max((r["filed"], r["accession"]) for r in cands)
+        here = [r for r in cands if (r["filed"], r["accession"]) == newest]
+        # A total revenue tag beats a component tag in the same 10-K (WULF: contract revenue leaves out lease revenue).
+        merged[k] = max(here, key=lambda x: x["value"]) if metric == "revenue" else here[0]
     return merged
 
 

@@ -36,6 +36,13 @@ class AnswerKey(unittest.TestCase):
         years = {m: annual_series(cf, m, "1231") for m in ("revenue", "operating_income", "cost_of_revenue", "opex_reported", "costs_and_expenses", "sga", "rnd", "noninterest_expense")}
         self.assertEqual(derive_costs(years)[1]["FY2025"]["value"], 30)
 
+    def test_one_filing_per_year_the_newest_wins_over_a_better_ranked_tag(self):  # Applied Digital FY2025
+        u = lambda accn, filed, v: {"start": "2024-06-01", "end": "2025-05-31", "val": v, "accn": accn, "form": "10-K", "filed": filed}
+        cf = {"facts": {"us-gaap": {"RevenueFromContractWithCustomerExcludingAssessedTax": {"units": {"USD": [u("old", "2025-07-30", 144)]}},
+                                    "Revenues": {"units": {"USD": [u("new", "2026-07-29", 228)]}}}}}
+        r = annual_series(cf, "revenue", "0531")["FY2025"]
+        self.assertEqual((r["value"], r["accession"]), (228, "new"))
+
 
 if __name__ == "__main__":
     unittest.main()

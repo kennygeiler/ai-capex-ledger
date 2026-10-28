@@ -5,6 +5,7 @@ import sys
 
 COMMANDS = {
     "run": "One command from tickers to their validation page: every step below, then the scorecard.",
+    "watch": "Ask the SEC for 10-Ks the ledger hasn't read (data/watch.json); --run reads them.",
     "ingest": "List 10-Ks, fetch and parse them, locate the statements, load the XBRL answer key.",
     "extract": "Pack agent tasks, run the agent headless (--run), load and check its citations (--load).",
     "reconcile": "Build fiscal-year values and label each against the XBRL answer key.",

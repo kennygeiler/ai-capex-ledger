@@ -1,0 +1,90 @@
+{
+ "accession": "0000002488-26-000021",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0005",
+   "row_label": "Total net revenue",
+   "column_label": "Year Ended | December 27,2025",
+   "cell_text": "34,639",
+   "period_end": "2025-12-27",
+   "months": 12,
+   "value": 34639000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0005",
+   "row_label": "Total net revenue",
+   "column_label": "Year Ended | December 28,2024",
+   "cell_text": "25,785",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 25785000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0006",
+   "row_label": "Cost of sales",
+   "column_label": "December 27, 2025",
+   "cell_text": "16,456",
+   "period_end": "2025-12-27",
+   "months": 12,
+   "value": 16456000000,
+   "confidence": 0.85,
+   "notes": "Single 'Cost of sales' line; amortization of acquisition-related intangibles (1,031) is reported separately above gross profit and is not included. Column label shows only the date; the table is annual, so months = 12."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0006",
+   "row_label": "Cost of sales",
+   "column_label": "December 28, 2024",
+   "cell_text": "12,114",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 12114000000,
+   "confidence": 0.85,
+   "notes": "Single 'Cost of sales' line; amortization of acquisition-related intangibles (946) is reported separately above gross profit and is not included. Column label shows only the date; the table is annual, so months = 12."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0005",
+   "row_label": "Total operating income",
+   "column_label": "Year Ended | December 27,2025",
+   "cell_text": "3,694",
+   "period_end": "2025-12-27",
+   "months": 12,
+   "value": 3694000000,
+   "confidence": 0.95,
+   "notes": "Taken from the segment table's total row, which sums the segments plus 'All other'."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0005",
+   "row_label": "Total operating income",
+   "column_label": "Year Ended | December 28,2024",
+   "cell_text": "1,900",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 1900000000,
+   "confidence": 0.95,
+   "notes": "Taken from the segment table's total row, which sums the segments plus 'All other'."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "capex",
+   "reason": "The cash-flow statement section contains no tables, so there is no purchases of property and equipment line to cite."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.9,
+  "input_tokens": 7391,
+  "output_tokens": 1182,
+  "attempts": 1,
+  "task_sha": "6f406977dedaafa0"
+ }
+}

@@ -1,9 +1,11 @@
 id: cost_lines_summed
-severity: warn
+severity: block
 description: When a company reports no total cost-of-revenue line, the cost lines an agent classified as cost of revenue
   were added up; the rule lists them.
 rationale: Standard data tools build cost of revenue from a company's cost lines when it reports no total (Oracle). The
-  classification is a judgement, so a person confirms it once per company.
+  classification is a judgement, so a person confirms it once per company. It blocks release until confirmed, because for
+  these companies the SEC data draws cost of revenue differently, so opex is checked against nothing else (the
+  message shows how far opex is from the SEC figure, so the size of the judgement is visible).
 owner: Kenny Geiler
 check: cost_lines_summed
 title: Cost of revenue was built by adding up the company's cost lines.

@@ -57,7 +57,7 @@ SCHEMA: tuple[Table, ...] = (
     Table("documents", "One row per filing's primary document: what was fetched and how it was parsed.", (
         ACCN, TICKER,
         _c("cik", "INTEGER", "SEC Central Index Key."),
-        _c("form", "VARCHAR", "Form type.", enum=("10-K",)),
+        _c("form", "VARCHAR", "Form type: 10-K, or a 10-K/A that carries the financial statements.", enum=("10-K", "10-K/A")),
         _c("period", "VARCHAR", "Report period end date (YYYY-MM-DD).", pattern=DATE),
         _c("filed", "VARCHAR", "Filing date (YYYY-MM-DD).", pattern=DATE),
         _c("url", "VARCHAR", "Primary document URL on sec.gov."),
@@ -143,7 +143,7 @@ SCHEMA: tuple[Table, ...] = (
     ), key=("decision_id",)),
     Table("runs", "One row per pipeline or agent step: what ran, on what, with which versions, and how it went.", (
         _c("run_id", "VARCHAR", "Run ID."),
-        _c("step", "VARCHAR", "Step name.", enum=("ingest", "parse", "extract", "reconcile", "rules", "review", "score", "release")),
+        _c("step", "VARCHAR", "Step name.", enum=("run", "ingest", "parse", "extract", "reconcile", "rules", "faults", "evidence", "report", "review", "score", "release")),
         _c("subject", "VARCHAR", "What it ran on (accession, ticker, release).", nullable=True),
         _c("started_at", "VARCHAR", "UTC timestamp."),
         _c("seconds", "DOUBLE", "Wall-clock duration."),

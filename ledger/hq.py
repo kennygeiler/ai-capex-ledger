@@ -1,4 +1,5 @@
-"""DATAHQ's numbers: pipeline health, steps, the company scorecard, rule findings and releases.
+"""DATAHQ's numbers: what needs a person and why, what changed since the last run, what happened at the companies,
+pipeline health, the company scorecard and releases.
 
 Read only from what the pipeline already wrote: the database, the evidence and fault reports, and releases/.
 Used by the app (`python -m ledger app`)."""
@@ -10,8 +11,24 @@ from datetime import date, timedelta
 from . import store
 from .config import AI_SET, STAGES
 from .review import apply, decisions, open_items
+from .rules import load as load_rules
 from .scorecard import scorecard
 from .evidence import load_all
+from .snapshots import diff, last_two
+
+WATCH = store.ROOT / "data" / "watch.json"
+
+# Why each kind of open item needs a person: the cause code could not name. Shown with every question.
+WHY = {
+    "xbrl_reconcile": "The 10-K and the SEC's data disagree and code can't name why.",
+    "cost_lines_summed": "Which lines count as cost of revenue is a judgement. Confirm once per company.",
+    "row_label_switch": "The line read for this field changed name between filings: the same line, or a misread?",
+    "jump": "A big move the SEC's data can't confirm: real, or a reading error?",
+    "outlier_vs_own_history": "Far from this company's normal, and the SEC's data can't confirm it: real, or a reading error?",
+    "coverage": "A year that should be there is missing.",
+}
+CORROBORABLE = ("jump", "outlier_vs_own_history", "row_label_switch")  # a reading error would also disagree with XBRL; agreement rules it out
+
 
 
 def rows(con, sql, p=()):
@@ -51,7 +68,7 @@ def snapshot(con, stage: int = 3) -> dict:
 
     escaped = sum(f["outcome"] == "escaped" for f in faults)
     confirmed = sum(bool(ev.get(e["extraction_id"], {}).get("match")) for e in exts)
-    located = sum(bool(d["income_tables"]) and bool(d["cash_flow_tables"]) for d in docs)
+    located = sum(bool(d["income_tables"]) and bool(d["cash_flow_tables"]) or (d["form"] == "10-K/A" and bool(d["income_tables"] or d["cash_flow_tables"])) for d in docs)
     answered = len({e["extraction_id"].split("|")[0] for e in exts})
     labels = Counter(v["label"] for v in vals)
     pipeline = [
@@ -91,9 +108,68 @@ def snapshot(con, stage: int = 3) -> dict:
     if releases:
         d = store.ROOT / "releases" / releases[-1]["version"]
         if json.loads((d / "manifest.json").read_text())["stage"] == stage:
-            shipped = {(r["ticker"], r["field"], r["period"]): r["value"] for r in csv.DictReader((d / "values.csv").open())}
-            now = {(v["ticker"], v["field"], v["period"]): "" if v["value"] is None else str(v["value"]) for v in apply(vals, excs, decisions())}
+            shipped = {(r["ticker"], r["field"], r["period"]): (r["value"], r["basis"]) for r in csv.DictReader((d / "values.csv").open())}
+            now = {(v["ticker"], v["field"], v["period"]): ("" if v["value"] is None else str(v["value"]), v["basis"]) for v in apply(vals, excs, decisions())}
             changed = sum(shipped.get(k) != now.get(k) for k in shipped.keys() | now.keys())
+
+    # Use a person's time only where it's needed. A jump or outlier on values that agree with the SEC's data can't be a
+    # unit or column misread (XBRL is an independent read), so it's a finding about the company, not a question.
+    label = {(v["ticker"], v["field"], v["period"]): v["label"] for v in vals}
+    series = {}
+    for v in vals:
+        if v["value"] is not None:
+            series.setdefault((v["ticker"], v["field"]), {})[v["period"]] = v["value"]
+    def corroborated(e):
+        if e["rule_id"] == "row_label_switch":  # the name changed; if the SEC's data confirms every year, it wasn't a misread
+            f = "opex" if e["field"] in ("cost_of_revenue", "operating_income") else e["field"]
+            ls = [l for (t, ff, _), l in label.items() if t == e["ticker"] and ff == f]
+            return bool(ls) and all(l == "agree" for l in ls)
+        if e["rule_id"] == "jump":
+            s = sorted(series.get((e["ticker"], e["field"]), {}))
+            prev = s[s.index(e["period"]) - 1] if e["period"] in s and s.index(e["period"]) else None
+            keys = [(e["ticker"], e["field"], e["period"])] + ([(e["ticker"], e["field"], prev)] if prev else [])
+        else:
+            keys = [(e["ticker"], "capex", e["period"]), (e["ticker"], "revenue", e["period"])]
+        return all(label.get(k) == "agree" for k in keys)
+    rule_text = {r["id"]: r for r in load_rules()}
+    questions, moves = [], []
+    for e in todo:
+        if e["rule_id"] in CORROBORABLE and corroborated(e):
+            moves.append(e)
+            continue
+        questions.append({"exception_id": e["exception_id"], "ticker": e["ticker"], "company": names.get(e["ticker"], e["ticker"]), "rule": e["rule_id"], "severity": e["severity"],
+                          "title": rule_text.get(e["rule_id"], {}).get("title", e["rule_id"]), "why": WHY.get(e["rule_id"], "Code can't decide this."),
+                          "field": e["field"], "period": e["period"], "message": e["message"]})
+
+    # What happened at the companies: restatements, big moves the SEC's data confirms, opex above revenue.
+    findings = []
+    for v in vals:
+        if v["basis"] == "restated" and v["value"] is not None and v["first_reported"]:
+            pct = (v["value"] - v["first_reported"]) / abs(v["first_reported"])
+            findings.append({"kind": "restated", "ticker": v["ticker"], "company": names.get(v["ticker"]), "field": v["field"], "period": v["period"],
+                             "before": v["first_reported"], "after": v["value"], "size": abs(pct)})
+    for e in moves:
+        if e["rule_id"] == "jump":
+            s = series[(e["ticker"], e["field"])]; ks = sorted(s); prev = ks[ks.index(e["period"]) - 1]
+            findings.append({"kind": "jump", "ticker": e["ticker"], "company": names.get(e["ticker"]), "field": e["field"], "period": e["period"],
+                             "before": s[prev], "after": s[e["period"]], "from": prev, "size": max(s[e["period"]] / s[prev], s[prev] / s[e["period"]])})
+    for e in moves:
+        if e["rule_id"] == "outlier_vs_own_history":
+            c, r = series[(e["ticker"], "capex")][e["period"]], series[(e["ticker"], "revenue")][e["period"]]
+            findings.append({"kind": "capex_intensity", "ticker": e["ticker"], "company": names.get(e["ticker"]), "field": "capex", "period": e["period"],
+                             "before": r, "after": c, "size": c / r, "message": e["message"]})
+    for (t, f), s in series.items():
+        if f == "opex":
+            for q, v in s.items():
+                r = series.get((t, "revenue"), {}).get(q)
+                if r and v > r:
+                    findings.append({"kind": "opex_over_revenue", "ticker": t, "company": names.get(t), "field": "opex", "period": q,
+                                     "before": r, "after": v, "size": v / r})
+    order = {"restated": 0, "jump": 1, "capex_intensity": 2, "opex_over_revenue": 3}
+    findings.sort(key=lambda x: (order[x["kind"]], -x["size"]))
+
+    watch = json.loads(WATCH.read_text()) if WATCH.exists() else None
+    full = con.execute("select started_at, seconds, outcome, detail from runs where step = 'run' order by started_at desc limit 1").fetchone()
 
     run = [c for c in companies if c["tokens"]]  # companies read headless, so their cost was measured
     health = [{"run_at": last_run, "companies": len(tickers), "filings": len(docs), "values": len(vals), "agree": labels["agree"],
@@ -107,4 +183,12 @@ def snapshot(con, stage: int = 3) -> dict:
                "per_company_minutes": round(sum(c["agent_minutes"] for c in run) / len(run), 1) if run else None,
                "per_company_tokens": round(sum(c["tokens"] for c in run) / len(run)) if run else None, "measured_companies": len(run)}]
 
-    return {"health": health, "pipeline": pipeline, "companies": companies, "rules": rules, "releases": releases}
+    per_q = Counter(q["ticker"] for q in questions)
+    restated = Counter(f["ticker"] for f in findings if f["kind"] == "restated")
+    for c in companies:
+        c["questions"], c["restated"] = per_q[c["ticker"]], restated[c["ticker"]]
+        c["note"] = next((x.get("note") for x in AI_SET if x["ticker"] == c["ticker"]), None)
+    health[0] |= {"questions": len(questions), "findings": len(findings),
+                  "full_run": full and {"at": full[0], "seconds": full[1], "outcome": full[2]}}
+    return {"health": health, "pipeline": pipeline, "companies": companies, "rules": rules, "releases": releases,
+            "questions": questions, "findings": findings, "since": diff(*last_two()), "watch": watch}
