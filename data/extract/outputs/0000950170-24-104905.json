@@ -1,0 +1,10 @@
+{"accession": "0000950170-24-104905", "prompt_version": "statements@v1",
+ "values": [
+  {"field": "revenue", "table_id": "t0005", "row_label": "Total revenues", "column_label": "Three Months Ended August 31, | 2024", "cell_text": "13,307", "period_end": "2024-08-31", "months": 3, "value": 13307000000, "confidence": 1.0},
+  {"field": "revenue", "table_id": "t0005", "row_label": "Total revenues", "column_label": "Three Months Ended August 31, | 2023", "cell_text": "12,453", "period_end": "2023-08-31", "months": 3, "value": 12453000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0005", "row_label": "Operating income", "column_label": "Three Months Ended August 31, | 2024", "cell_text": "3,991", "period_end": "2024-08-31", "months": 3, "value": 3991000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0005", "row_label": "Operating income", "column_label": "Three Months Ended August 31, | 2023", "cell_text": "3,296", "period_end": "2023-08-31", "months": 3, "value": 3296000000, "confidence": 1.0},
+  {"field": "capex", "table_id": "t0008", "row_label": "Capital expenditures", "column_label": "Three Months Ended August 31, | 2024", "cell_text": "(2,303)", "period_end": "2024-08-31", "months": 3, "value": 2303000000, "confidence": 1.0},
+  {"field": "capex", "table_id": "t0008", "row_label": "Capital expenditures", "column_label": "Three Months Ended August 31, | 2023", "cell_text": "(1,314)", "period_end": "2023-08-31", "months": 3, "value": 1314000000, "confidence": 1.0}
+ ],
+ "not_found": [{"field": "cost_of_revenue", "reason": "No total cost of revenue line. Oracle lists cost lines (Cloud services and license support(1), Hardware(1), Services(1)) only as components under Operating expenses; summing them is not allowed."}]}

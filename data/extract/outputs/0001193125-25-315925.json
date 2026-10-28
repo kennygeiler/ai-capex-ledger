@@ -1,0 +1,16 @@
+{"accession": "0001193125-25-315925", "prompt_version": "statements@v1",
+ "values": [
+  {"field": "revenue", "table_id": "t0005", "row_label": "Total revenues", "column_label": "Three Months Ended November 30, | 2025", "cell_text": "16,058", "period_end": "2025-11-30", "months": 3, "value": 16058000000, "confidence": 1.0},
+  {"field": "revenue", "table_id": "t0005", "row_label": "Total revenues", "column_label": "Three Months Ended November 30, | 2024", "cell_text": "14,059", "period_end": "2024-11-30", "months": 3, "value": 14059000000, "confidence": 1.0},
+  {"field": "revenue", "table_id": "t0005", "row_label": "Total revenues", "column_label": "Six Months Ended November 30, | 2025", "cell_text": "30,983", "period_end": "2025-11-30", "months": 6, "value": 30983000000, "confidence": 1.0},
+  {"field": "revenue", "table_id": "t0005", "row_label": "Total revenues", "column_label": "Six Months Ended November 30, | 2024", "cell_text": "27,366", "period_end": "2024-11-30", "months": 6, "value": 27366000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0005", "row_label": "Operating income", "column_label": "Three Months Ended November 30, | 2025", "cell_text": "4,731", "period_end": "2025-11-30", "months": 3, "value": 4731000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0005", "row_label": "Operating income", "column_label": "Three Months Ended November 30, | 2024", "cell_text": "4,220", "period_end": "2024-11-30", "months": 3, "value": 4220000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0005", "row_label": "Operating income", "column_label": "Six Months Ended November 30, | 2025", "cell_text": "9,008", "period_end": "2025-11-30", "months": 6, "value": 9008000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0005", "row_label": "Operating income", "column_label": "Six Months Ended November 30, | 2024", "cell_text": "8,211", "period_end": "2024-11-30", "months": 6, "value": 8211000000, "confidence": 1.0},
+  {"field": "capex", "table_id": "t0008", "row_label": "Capital expenditures", "column_label": "Six Months Ended November 30, | 2025", "cell_text": "(20,535)", "period_end": "2025-11-30", "months": 6, "value": 20535000000, "confidence": 1.0, "notes": "Cash-flow statement gives six-month columns only; no three-month capex in this filing's statement."},
+  {"field": "capex", "table_id": "t0008", "row_label": "Capital expenditures", "column_label": "Six Months Ended November 30, | 2024", "cell_text": "(6,273)", "period_end": "2024-11-30", "months": 6, "value": 6273000000, "confidence": 1.0, "notes": "Cash-flow statement gives six-month columns only; no three-month capex in this filing's statement."}
+ ],
+ "not_found": [
+  {"field": "cost_of_revenue", "reason": "Income statement has no total cost of revenue / cost of sales line; Oracle reports only operating expenses (Cloud and software, Hardware, Services expense lines among them) and lines are not added together."}
+ ]}

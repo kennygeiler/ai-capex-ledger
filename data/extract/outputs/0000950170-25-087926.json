@@ -1,0 +1,13 @@
+{"accession": "0000950170-25-087926", "prompt_version": "statements@v1",
+ "values": [
+  {"field": "revenue", "table_id": "t0035", "row_label": "Total revenues", "column_label": "Year Ended May 31, | 2025", "cell_text": "57,399", "period_end": "2025-05-31", "months": 12, "value": 57399000000, "confidence": 1.0},
+  {"field": "revenue", "table_id": "t0035", "row_label": "Total revenues", "column_label": "Year Ended May 31, | 2024", "cell_text": "52,961", "period_end": "2024-05-31", "months": 12, "value": 52961000000, "confidence": 1.0},
+  {"field": "revenue", "table_id": "t0035", "row_label": "Total revenues", "column_label": "Year Ended May 31, | 2023", "cell_text": "49,954", "period_end": "2023-05-31", "months": 12, "value": 49954000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0035", "row_label": "Operating income", "column_label": "Year Ended May 31, | 2025", "cell_text": "17,678", "period_end": "2025-05-31", "months": 12, "value": 17678000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0035", "row_label": "Operating income", "column_label": "Year Ended May 31, | 2024", "cell_text": "15,353", "period_end": "2024-05-31", "months": 12, "value": 15353000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0035", "row_label": "Operating income", "column_label": "Year Ended May 31, | 2023", "cell_text": "13,093", "period_end": "2023-05-31", "months": 12, "value": 13093000000, "confidence": 1.0},
+  {"field": "capex", "table_id": "t0038", "row_label": "Capital expenditures", "column_label": "Year Ended May 31, | 2025", "cell_text": "(21,215)", "period_end": "2025-05-31", "months": 12, "value": 21215000000, "confidence": 1.0},
+  {"field": "capex", "table_id": "t0038", "row_label": "Capital expenditures", "column_label": "Year Ended May 31, | 2024", "cell_text": "(6,866)", "period_end": "2024-05-31", "months": 12, "value": 6866000000, "confidence": 1.0},
+  {"field": "capex", "table_id": "t0038", "row_label": "Capital expenditures", "column_label": "Year Ended May 31, | 2023", "cell_text": "(8,695)", "period_end": "2023-05-31", "months": 12, "value": 8695000000, "confidence": 1.0}
+ ],
+ "not_found": [{"field": "cost_of_revenue", "reason": "No total cost of revenue line. Oracle lists cost lines (Cloud services and license support(1), Hardware(1), Services(1)) only as components under Operating expenses; summing them is not allowed."}]}

@@ -201,7 +201,8 @@ def _tie(ctx, p):
             rows = {}
             for r in t["rows"]:
                 for k, pat in rx.items():
-                    if k not in rows and pat.search(r["label"]):
+                    # A "Total …" line replaces a component matched earlier (APLD lists "Revenue" above "Total revenue").
+                    if pat.search(r["label"]) and (k not in rows or r["label"].lower().startswith("total")):
                         rows[k] = {c["col"]: c["value"] for c in r["cells"]}
             if len(rows) < 4:
                 continue

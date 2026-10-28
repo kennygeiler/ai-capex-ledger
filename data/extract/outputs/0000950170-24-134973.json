@@ -1,0 +1,14 @@
+{"accession": "0000950170-24-134973", "prompt_version": "statements@v1",
+ "values": [
+  {"field": "revenue", "table_id": "t0005", "row_label": "Total revenues", "column_label": "Three Months Ended November 30, | 2024", "cell_text": "14,059", "period_end": "2024-11-30", "months": 3, "value": 14059000000, "confidence": 1.0},
+  {"field": "revenue", "table_id": "t0005", "row_label": "Total revenues", "column_label": "Three Months Ended November 30, | 2023", "cell_text": "12,941", "period_end": "2023-11-30", "months": 3, "value": 12941000000, "confidence": 1.0},
+  {"field": "revenue", "table_id": "t0005", "row_label": "Total revenues", "column_label": "Six Months Ended November 30, | 2024", "cell_text": "27,366", "period_end": "2024-11-30", "months": 6, "value": 27366000000, "confidence": 1.0},
+  {"field": "revenue", "table_id": "t0005", "row_label": "Total revenues", "column_label": "Six Months Ended November 30, | 2023", "cell_text": "25,394", "period_end": "2023-11-30", "months": 6, "value": 25394000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0005", "row_label": "Operating income", "column_label": "Three Months Ended November 30, | 2024", "cell_text": "4,220", "period_end": "2024-11-30", "months": 3, "value": 4220000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0005", "row_label": "Operating income", "column_label": "Three Months Ended November 30, | 2023", "cell_text": "3,622", "period_end": "2023-11-30", "months": 3, "value": 3622000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0005", "row_label": "Operating income", "column_label": "Six Months Ended November 30, | 2024", "cell_text": "8,211", "period_end": "2024-11-30", "months": 6, "value": 8211000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0005", "row_label": "Operating income", "column_label": "Six Months Ended November 30, | 2023", "cell_text": "6,918", "period_end": "2023-11-30", "months": 6, "value": 6918000000, "confidence": 1.0},
+  {"field": "capex", "table_id": "t0008", "row_label": "Capital expenditures", "column_label": "Six Months Ended November 30, | 2024", "cell_text": "(6,273)", "period_end": "2024-11-30", "months": 6, "value": 6273000000, "confidence": 1.0},
+  {"field": "capex", "table_id": "t0008", "row_label": "Capital expenditures", "column_label": "Six Months Ended November 30, | 2023", "cell_text": "(2,394)", "period_end": "2023-11-30", "months": 6, "value": 2394000000, "confidence": 1.0}
+ ],
+ "not_found": [{"field": "cost_of_revenue", "reason": "No total cost of revenue line. Oracle lists cost lines (Cloud services and license support(1), Hardware(1), Services(1)) only as components under Operating expenses; summing them is not allowed."}]}

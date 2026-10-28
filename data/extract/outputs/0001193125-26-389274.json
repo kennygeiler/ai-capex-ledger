@@ -1,0 +1,12 @@
+{"accession": "0001193125-26-389274", "prompt_version": "statements@v1",
+ "values": [
+  {"field": "revenue", "table_id": "t0005", "row_label": "Total revenues", "column_label": "Three Months Ended August 31, | 2026", "cell_text": "19,345", "period_end": "2026-08-31", "months": 3, "value": 19345000000, "confidence": 1.0},
+  {"field": "revenue", "table_id": "t0005", "row_label": "Total revenues", "column_label": "Three Months Ended August 31, | 2025", "cell_text": "14,926", "period_end": "2025-08-31", "months": 3, "value": 14926000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0005", "row_label": "Operating income", "column_label": "Three Months Ended August 31, | 2026", "cell_text": "6,728", "period_end": "2026-08-31", "months": 3, "value": 6728000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0005", "row_label": "Operating income", "column_label": "Three Months Ended August 31, | 2025", "cell_text": "4,277", "period_end": "2025-08-31", "months": 3, "value": 4277000000, "confidence": 1.0},
+  {"field": "capex", "table_id": "t0008", "row_label": "Capital expenditures", "column_label": "Three Months Ended August 31, | 2026", "cell_text": "(28,499)", "period_end": "2026-08-31", "months": 3, "value": 28499000000, "confidence": 1.0, "notes": "Investing-section line only; '(Repayments of) proceeds from short-term financing related to capital expenditures' (financing) and 'Unpaid capital expenditures' (non-cash) not used."},
+  {"field": "capex", "table_id": "t0008", "row_label": "Capital expenditures", "column_label": "Three Months Ended August 31, | 2025", "cell_text": "(8,502)", "period_end": "2025-08-31", "months": 3, "value": 8502000000, "confidence": 1.0, "notes": "Investing-section line only; '(Repayments of) proceeds from short-term financing related to capital expenditures' (financing) and 'Unpaid capital expenditures' (non-cash) not used."}
+ ],
+ "not_found": [
+  {"field": "cost_of_revenue", "reason": "Income statement has no total cost of revenue / cost of sales line; Oracle reports only operating expenses (Cloud and software, Hardware, Services expense lines among them) and lines are not added together."}
+ ]}

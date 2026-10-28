@@ -270,3 +270,8 @@ Defects found in the first draft of this file, and how each was fixed:
   - G5 now also requires that the hand-checked value equals the released value.
   - `v0.1.0` built with hash 4ae33597b94b; it waits on Kenny's sign-off (T94).
 - **2026-10-28: T94 done.** Kenny signed `v0.1.0` (hash 4ae33597b94b). Stage 1 is complete.
+- **2026-10-28: stage 2 extraction.**
+  - The prompt and rules were frozen before the held-out run (`664726e`).
+  - Held-out ORCL and APLD: 216/216 cells read correctly. Fault injection: 0 of 3,015 escaped.
+  - APLD's restatement mixes bases; 12 blocking items await Kenny's decisions.
+  - Fixes and where each was found: `docs/QA-stage2.md`. New script: `scripts/score_cells.py`, which scores cell-level reading (T50, partial).

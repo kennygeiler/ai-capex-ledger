@@ -1,0 +1,12 @@
+{"accession": "0001193125-25-200095", "prompt_version": "statements@v1",
+ "values": [
+  {"field": "revenue", "table_id": "t0005", "row_label": "Total revenues", "column_label": "Three Months Ended August 31, | 2025", "cell_text": "14,926", "period_end": "2025-08-31", "months": 3, "value": 14926000000, "confidence": 1.0},
+  {"field": "revenue", "table_id": "t0005", "row_label": "Total revenues", "column_label": "Three Months Ended August 31, | 2024", "cell_text": "13,307", "period_end": "2024-08-31", "months": 3, "value": 13307000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0005", "row_label": "Operating income", "column_label": "Three Months Ended August 31, | 2025", "cell_text": "4,277", "period_end": "2025-08-31", "months": 3, "value": 4277000000, "confidence": 1.0},
+  {"field": "operating_income", "table_id": "t0005", "row_label": "Operating income", "column_label": "Three Months Ended August 31, | 2024", "cell_text": "3,991", "period_end": "2024-08-31", "months": 3, "value": 3991000000, "confidence": 1.0},
+  {"field": "capex", "table_id": "t0008", "row_label": "Capital expenditures", "column_label": "Three Months Ended August 31, | 2025", "cell_text": "(8,502)", "period_end": "2025-08-31", "months": 3, "value": 8502000000, "confidence": 1.0, "notes": "Investing-section 'Capital expenditures' line; 'Unpaid capital expenditures' (non-cash) not used."},
+  {"field": "capex", "table_id": "t0008", "row_label": "Capital expenditures", "column_label": "Three Months Ended August 31, | 2024", "cell_text": "(2,303)", "period_end": "2024-08-31", "months": 3, "value": 2303000000, "confidence": 1.0, "notes": "Investing-section 'Capital expenditures' line; 'Unpaid capital expenditures' (non-cash) not used."}
+ ],
+ "not_found": [
+  {"field": "cost_of_revenue", "reason": "Income statement has no total cost of revenue / cost of sales line; Oracle reports only operating expenses (Cloud and software, Hardware, Services expense lines among them) and lines are not added together."}
+ ]}

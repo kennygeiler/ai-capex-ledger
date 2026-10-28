@@ -6,18 +6,18 @@ AI agents read SEC filings and extract revenue, cost of revenue, operating incom
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** stage 2 tuning is complete. MSFT and CRWV were extracted, and all 96 quarterly values for NVDA, MSFT and CRWV agree with XBRL.
-- **Fixed from tuning data:**
-  - a month-end dating bug that left 3 CRWV capex quarters blank
-  - two false alarms: CRWV includes cost of revenue in operating expenses, and its rounding changes between filings
-- **The prompt stays frozen at `statements@v1`.** This commit fixes the prompt and rules before the held-out run.
+**Last done (28 Oct 2026):** stage 2 extraction is done, including the held-out run ([docs/QA-stage2.md](docs/QA-stage2.md)).
+- **Held out (ORCL, APLD):** 216/216 cells the agents read match XBRL. Error rate under 1.4% at 95% confidence.
+- **Fault injection:** 0 of 3,015 injected misreads escaped.
+- **Blocking:** 12 exceptions block `v0.2.0`, all on APLD. Its discontinued-operations restatement mixes two bases, and one quarter has a gain booked in operating expenses.
 
-**Next:**
-1. Run ORCL and APLD once, held out, with no changes after seeing them.
-2. Kenny decides two open warnings:
-   - CRWV renamed its operating-income line between filings.
-   - CRWV's capex jumped about 3× in one quarter.
-3. Hand-check the held-out values, then release `v0.2.0` (due 6 Nov).
+**Next (Kenny):**
+1. Pick APLD's basis. Use `python -m ledger review --stage 2` to see the 12 blocking items, then `review decide` each one:
+   - **reject:** ship the mixed quarters as missing, with the reason, or
+   - **override:** the continuing-operations figures.
+2. Decide the 18 warnings. Most are expected: Oracle has no cost-of-revenue line, CRWV and APLD renamed lines, and capex jumps.
+3. Settle the hand-check scope. The release gate (G5) wants every released value checked: 151 values, 119 not yet checked (MSFT, CRWV, ORCL, APLD). The PRD planned only the held-out values. Check all of them, or change G5.
+4. Then run `python -m ledger report --stage 2`, hand-check, release `v0.2.0`, and sign. Due 6 Nov.
 
 **Critical notes:**
 - **Stage 1 doesn't prove accuracy elsewhere.** It proves the system works on the company the prompt was written for. Accuracy on companies the agents haven't seen starts with stage 2.
@@ -48,7 +48,7 @@ All commands are `uv run python -m ledger <command> --stage N`. The XBRL referen
 | Stage | Companies | Hand-checked | Claim | Release |
 |---|---|---|---|---|
 | 1 | NVDA | all 32 | The system works end to end | `v0.1.0` (signed) |
-| 2 | + MSFT, CRWV (tuning); ORCL, APLD (held out) | 64 held-out values | Error rate under 4.7% at 95% confidence, if no errors | `v0.2.0` |
+| 2 | + MSFT, CRWV (tuning); ORCL, APLD (held out) | held-out values | Reading: 216/216 held-out cells, error rate under 1.4% at 95% confidence | `v0.2.0` (awaiting decisions) |
 | 3 | all 19 | 300 held-out values | Error rate under 1% at 95% confidence | `v1.0.0` |
 
 ## Stage 1 evidence
