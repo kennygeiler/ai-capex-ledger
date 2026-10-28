@@ -3,6 +3,9 @@
 Every choice here is a data decision, so each one is written down rather than buried in code.
 Tickers are resolved to CIKs live from https://www.sec.gov/files/company_tickers.json.
 """
+import json
+from pathlib import Path
+
 
 # The brief's AI-trade set, plus Nasdaq-listed names outside the S&P 500.
 AI_SET = [
@@ -68,7 +71,22 @@ YEAR_DAYS = (350, 380)
 
 # ── MVP (docs/PRD.md) ──────────────────────────────────────────────────────────
 # The AI set, 5 fiscal years from 10-K filings only.
-MVP_TICKERS = [c["ticker"] for c in AI_SET]
+# Companies added in DATAHQ (or `ledger add`), kept in data/companies.json. They run through the same pipeline and
+# join the full set, so the next release includes them once a person signs it.
+ADDED = Path(__file__).resolve().parents[1] / "data" / "companies.json"
+
+
+def added() -> list[dict]:
+    return json.loads(ADDED.read_text()) if ADDED.exists() else []
+
+
+def tracked() -> list[dict]:
+    """Every company the ledger follows: the AI set plus any added since. Read fresh, so the app sees a new one."""
+    known = {c["ticker"] for c in AI_SET}
+    return AI_SET + [c for c in added() if c["ticker"] not in known]
+
+
+MVP_TICKERS = [c["ticker"] for c in tracked()]
 MVP_YEARS = ["FY2022", "FY2023", "FY2024", "FY2025", "FY2026"]
 RELEASE_FIELDS = ["revenue", "capex", "opex"]  # what ships; opex = revenue − cost of revenue − operating income (docs/FIELDS.md)
 GOLDEN_SEED = 20261027  # seeds the random spot-checks a person (or the rendered-10-K re-read) confirms

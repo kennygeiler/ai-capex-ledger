@@ -1,24 +1,49 @@
-"""The app's one review action accepts only current warnings, with a reason and a name."""
+"""The app's review action accepts only warnings and cost-line confirmations, with a reason and a name.
+Decisions go to a temporary log here, never to decisions/decisions.jsonl."""
+import tempfile
 import unittest
+from pathlib import Path
+from unittest import mock
 
-from ledger import app, store
+from ledger import app, review, store
 
 
 @unittest.skipUnless(store.DEFAULT_DB.exists(), "needs a built ledger database")
-class AcceptWarnings(unittest.TestCase):
+class Decide(unittest.TestCase):
+    def setUp(self):
+        self.log = Path(tempfile.mkdtemp()) / "decisions.jsonl"
+        self.patch = mock.patch.object(review, "LOG", self.log)
+        self.patch.start()
+
+    def tearDown(self):
+        self.patch.stop()
+
+    def _ids(self, where):
+        con = app._con()
+        try:
+            return [r[0] for r in con.execute(f"select exception_id from exceptions where {where} limit 1").fetchall()]
+        finally:
+            con.close()
+
     def test_needs_a_reason_and_a_name(self):
         with self.assertRaises(ValueError):
             app.accept_warnings(["x"], " ", "Kenny Geiler")
         with self.assertRaises(ValueError):
             app.accept_warnings(["x"], "expected", "")
 
-    def test_refuses_anything_but_a_current_warning(self):
-        con = app._con()
-        block = con.execute("select exception_id from exceptions where severity = 'block' limit 1").fetchone()
-        con.close()
-        for ids in (["no-such-exception"], [block[0]] if block else ["no-such-exception"]):
+    def test_refuses_unknown_items_and_other_blocks(self):
+        with self.assertRaises(ValueError):
+            app.accept_warnings(["no-such-exception"], "expected", "Kenny Geiler")
+        other = self._ids("severity = 'block' and rule_id <> 'cost_lines_summed'")
+        if other:
             with self.assertRaises(ValueError):
-                app.accept_warnings(ids, "expected", "Kenny Geiler")
+                app.accept_warnings(other, "expected", "Kenny Geiler")
+
+    def test_writes_only_to_the_log_it_is_given(self):
+        ids = self._ids("severity = 'warn'")
+        if ids:
+            app.accept_warnings(ids, "test", "Test")
+            self.assertEqual(len(self.log.read_text().splitlines()), 1)
 
 
 if __name__ == "__main__":

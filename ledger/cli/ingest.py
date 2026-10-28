@@ -76,7 +76,7 @@ def main(argv=None) -> int:
         loc = parsed["located"]
         if f.form == "10-K/A" and not (loc["income"] or loc["cash_flow"]):  # a Part III amendment: no numbers to read
             run_rows.append({"run_id": run_id, "step": "parse", "subject": f.accession, "started_at": _now(), "seconds": round(time.monotonic() - t1, 3),
-                             "outcome": "skipped", "versions": json.dumps({"parser": PARSER_VERSION}), "detail": json.dumps({"reason": "10-K/A without financial statements"})})
+                             "outcome": "skipped", "versions": json.dumps({"parser": PARSER_VERSION}), "detail": json.dumps({"reason": "10-K/A without financial statements", "ticker": f.ticker, "form": f.form, "period": f.period, "filed": f.filed})})
             continue
         for k in ("income", "cash_flow"):
             if not loc[k] and f.form == "10-K":  # an amendment may repeat only some statements

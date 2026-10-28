@@ -6,12 +6,11 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** the Monday audit's change list, aimed at using a person's judgement only where code can't settle a question.
-- **Answer key fixed:** one filing per year (newest 10-K first, then the best tag in it), opex from one filing. The 4 APLD items Kenny decided were raised by the old key; they now agree with XBRL and need no decision.
-- **10-K/As read** when they carry financial statements (AMD, CORZ); Part III-only amendments are skipped with the reason logged. Same-day filings count as one vintage.
-- **Cost lines block release until confirmed once per company** (ORCL, APLD), with the opex gap to XBRL shown per year. Any change beyond rounding is now `restated` (META, TSLA). Capex wording "net of / excluding / deposit / prepayment" is noted (IREN, TSLA, WULF).
-- **DATAHQ:** "Your judgement" lists only questions code can't settle, each saying why it needs a person (57 open warnings → 3 questions). Jumps, outliers and renamed lines on values XBRL confirms are shown as findings about the companies, with restatements and opex-above-revenue years. "Since last run" compares run snapshots; every step of `ledger run` is logged; `ledger watch` checks the SEC for filings not yet read. Company page: values as a fields × years grid with marks.
-- Run of all 19: 74 filings, 234 values (228 agree, 6 wait on the cost-line confirmations), 875/875 cells confirmed, 0 planted faults escaped. Failure types 9–15 in [docs/INGESTION.md](docs/INGESTION.md).
+**Last done (28 Oct 2026):** DATAHQ cleaned up, and companies can be added from it.
+- **Add company** (`#add`): type any ticker the SEC lists; the app adds it to `data/companies.json` and runs `ledger run` for it in the background, showing each step in one plain line. First real run: Arista Networks (ANET), 4 filings, 12 values, all matching the SEC's data, 0 planted mistakes through, under a minute of agent time. Added companies join the full set and the next release.
+- **Company page** now tells the cleaning story: the questions for you (cost-line confirmations show the lines and the opex gap per year, and can be confirmed in the app), a fields × years grid, and "How each number was cleaned": the cell as printed, unit, brackets to positive, dash to zero, cost lines summed, column to fiscal year, newest filing and first-reported value, then the checks.
+- **Dashboard:** the four numbers that matter on top, questions and "since last run" side by side as tables, findings as a table. No more walls of rule text.
+- Earlier today: the audit's change list (answer key, 10-K/As, cost-line sign-off, judgement vs findings, `ledger watch`).
 
 **Waiting on Kenny:** answer the 3 questions in DATAHQ (ORCL cost lines, APLD cost lines, APLD FY2026 opex jump). The cost-line confirmations are blocking items, decided with `ledger review decide`. Then release `v1.0.2` (`v1.0.1` differs in 5 restated labels).
 
@@ -45,7 +44,7 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 | Release | `release <v>` | `releases/<v>/`; refuses while any gate fails, and the same inputs give the same hash |
 | Sign | `signoff <v> --by` | `SIGNOFF.json` |
 | Watch | `watch [--run]` | `data/watch.json`: 10-Ks and 10-K/As at the SEC the ledger hasn't read; `--run` reads them |
-| App | `app` | DATAHQ at http://127.0.0.1:3610: dashboard, each company through every step, the agents (model, prompt versions, every run), outputs explorer with CSV export |
+| App | `app` | DATAHQ at http://127.0.0.1:3610 (start it with `LEDGER_CLAUDE` set, so Add company can run the agent): dashboard, each company through every step, the agents (model, prompt versions, every run), outputs explorer with CSV export |
 
 Every command runs as `uv run python -m ledger <command> --stage N` or `--ticker X Y` (release and signoff take a stage). `evidence` drives the installed Google Chrome through Playwright, with no browser download.
 

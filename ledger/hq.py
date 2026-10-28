@@ -9,7 +9,7 @@ from collections import Counter
 from datetime import date, timedelta
 
 from . import store
-from .config import AI_SET, STAGES
+from .config import STAGES, tracked
 from .review import apply, decisions, open_items
 from .rules import load as load_rules
 from .scorecard import scorecard
@@ -38,7 +38,8 @@ def rows(con, sql, p=()):
 
 def snapshot(con, stage: int = 3) -> dict:
     """Everything DATAHQ shows, from what the pipeline already wrote."""
-    tickers, name = STAGES[stage]["tickers"], f"stage{stage}"
+    companies_now = tracked()  # read fresh, so a company added in the app shows at once
+    tickers, name = [c["ticker"] for c in companies_now], f"stage{stage}"
     t = [tickers]
     docs = rows(con, "select * from documents where ticker in (select unnest(?))", t)
     exts = rows(con, "select extraction_id from extractions where ticker in (select unnest(?))", t)
@@ -48,7 +49,7 @@ def snapshot(con, stage: int = 3) -> dict:
     ev = load_all()
     faults = json.loads((store.ROOT / "reports" / f"{name}-faults.json").read_text())
     last_run = con.execute("select max(started_at) from runs").fetchone()[0]
-    names = {c["ticker"]: c["name"] for c in AI_SET}
+    names = {c["ticker"]: c["name"] for c in companies_now}
 
     companies = []
     for s in scorecard(con, tickers, name):
@@ -132,12 +133,23 @@ def snapshot(con, stage: int = 3) -> dict:
             keys = [(e["ticker"], "capex", e["period"]), (e["ticker"], "revenue", e["period"])]
         return all(label.get(k) == "agree" for k in keys)
     rule_text = {r["id"]: r for r in load_rules()}
+    parts = rows(con, "select ticker, accession, row_label from extractions where field = 'cost_of_revenue_part' and ticker in (select unnest(?))", t)
+    ref = {(r["ticker"], r["field"], r["period"]): r["value"] for r in rows(con, "select ticker, field, period, value from reference_values where ticker in (select unnest(?))", t)}
     questions, moves = [], []
     for e in todo:
         if e["rule_id"] in CORROBORABLE and corroborated(e):
             moves.append(e)
             continue
-        questions.append({"exception_id": e["exception_id"], "ticker": e["ticker"], "company": names.get(e["ticker"], e["ticker"]), "rule": e["rule_id"], "severity": e["severity"],
+        detail = None
+        if e["rule_id"] == "cost_lines_summed":  # the lines and the size of the gap, so the judgement is easy to make
+            ls = {}
+            for x in parts:
+                if x["ticker"] == e["ticker"]:
+                    ls.setdefault(x["row_label"], set()).add(x["accession"])
+            detail = {"lines": [{"label": k, "filings": len(v)} for k, v in sorted(ls.items(), key=lambda kv: -len(kv[1]))],
+                      "gaps": [{"period": v["period"], "ours": v["value"], "sec": ref.get((v["ticker"], "opex", v["period"]))}
+                               for v in sorted(vals, key=lambda v: v["period"]) if v["ticker"] == e["ticker"] and v["label"] == "definition_gap"]}
+        questions.append({"detail": detail, "exception_id": e["exception_id"], "ticker": e["ticker"], "company": names.get(e["ticker"], e["ticker"]), "rule": e["rule_id"], "severity": e["severity"],
                           "title": rule_text.get(e["rule_id"], {}).get("title", e["rule_id"]), "why": WHY.get(e["rule_id"], "Code can't decide this."),
                           "field": e["field"], "period": e["period"], "message": e["message"]})
 
@@ -187,7 +199,7 @@ def snapshot(con, stage: int = 3) -> dict:
     restated = Counter(f["ticker"] for f in findings if f["kind"] == "restated")
     for c in companies:
         c["questions"], c["restated"] = per_q[c["ticker"]], restated[c["ticker"]]
-        c["note"] = next((x.get("note") for x in AI_SET if x["ticker"] == c["ticker"]), None)
+        c["note"] = next((x.get("note") for x in companies_now if x["ticker"] == c["ticker"]), None)
     health[0] |= {"questions": len(questions), "findings": len(findings),
                   "full_run": full and {"at": full[0], "seconds": full[1], "outcome": full[2]}}
     return {"health": health, "pipeline": pipeline, "companies": companies, "rules": rules, "releases": releases,

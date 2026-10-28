@@ -115,6 +115,7 @@ What each company cost. `ledger run` prints this, and each validation page shows
 | AMD | `ledger run`, unattended | 0.5 min (2 filings) | 16,302 | 0 | 0 (3 warnings: FY2026 not yet ended) | 12/12 |
 | AMZN, GOOGL, META, MRVL, MU, TSLA | blind run 1 | 2.5 min (13 filings) | 99,666 | 0 | 0 | 75/75 |
 | ALAB, CIFR, CORZ, CRDO, IREN, WULF, SPCX | blind run 1 | 3.5 min (13 filings) | 120,630 | types 1–6 above | 15 blocks (types 2–4) | 68/70 |
+| ANET (Arista Networks) | added in DATAHQ, unattended | 0.8 min (4 filings) | 31,774 | 0 | 0 (2 warnings, both confirmed by XBRL, shown as findings) | 12/12 |
 | all 19 | run 2, after the fixes | 11.5 min of agent time (all headless filings) | 488,543 | 2 (types 7–8) | 0 | 224/234 (6 explained by code, 4 decided) |
 
 ## Open

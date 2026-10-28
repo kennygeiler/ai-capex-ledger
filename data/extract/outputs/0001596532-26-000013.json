@@ -1,0 +1,150 @@
+{
+ "accession": "0001596532-26-000013",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "9,005.7",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 9005700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "7,003.1",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 7003100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "5,860.2",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 5860200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Total cost of revenue",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "3,237.0",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 3237000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Total cost of revenue",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "2,511.8",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 2511800000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Total cost of revenue",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "2,229.9",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 2229900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0022",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "3,856.1",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 3856100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0022",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "2,944.6",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 2944600000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0022",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "2,257.3",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 2257300000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0025",
+   "row_label": "Purchases of property, equipment and intangible assets",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(119.5)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 119500000,
+   "confidence": 0.95,
+   "notes": "Line combines property and equipment with intangible assets; used as-is per instructions."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0025",
+   "row_label": "Purchases of property, equipment and intangible assets",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(32.0)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 32000000,
+   "confidence": 0.95,
+   "notes": "Line combines property and equipment with intangible assets; used as-is per instructions."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0025",
+   "row_label": "Purchases of property, equipment and intangible assets",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(34.4)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 34400000,
+   "confidence": 0.95,
+   "notes": "Line combines property and equipment with intangible assets; used as-is per instructions."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.2,
+  "input_tokens": 6235,
+  "output_tokens": 1647,
+  "attempts": 1,
+  "task_sha": "16e313f8141fb06c"
+ }
+}

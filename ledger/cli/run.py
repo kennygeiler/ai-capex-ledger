@@ -11,7 +11,7 @@ import time
 from datetime import datetime, timezone
 
 from .. import store
-from ..config import add_scope, scope
+from ..config import add_scope, scope, tracked
 from ..scorecard import scorecard, table
 from ..snapshots import save, take
 
@@ -43,7 +43,7 @@ def main(argv=None) -> int:
                 + [{"run_id": run_id, "step": "run", "subject": name, "started_at": steps[0]["started_at"], "seconds": round(time.monotonic() - t_run, 1),
                     "outcome": "ok" if all(s["code"] in (0, 1) for s in steps) else "failed", "versions": json.dumps({}),
                     "detail": json.dumps({"steps": [{k: s[k] for k in ("step", "subject", "seconds", "code")} for s in steps]})}], replace=True)
-    save(take(con, tickers))
+    save(take(con, [c["ticker"] for c in tracked()]))  # the whole ledger, so "since last run" compares like with like
     if any(s["code"] == 2 for s in steps):
         return 2
     print(f"\n== scorecard ({name})\n" + table(scorecard(con, tickers, name)))
