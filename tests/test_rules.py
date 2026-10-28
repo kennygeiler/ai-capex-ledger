@@ -114,6 +114,20 @@ class EachRule(unittest.TestCase):
     pass
 
 
+class Restated(unittest.TestCase):
+    PART = ("cost_of_revenue_part", "2024-06-01", "2025-05-31")
+
+    def test_separate_cost_lines_in_one_filing_are_not_a_restatement(self):
+        lines = lambda c: c.extractions.extend([ext(*self.PART, 11_569_000_000, "11,569", "Cloud and license", "2025"),
+                                                ext(*self.PART, 782_000_000, "782", "Hardware", "2025")])
+        self.assertEqual(findings("restated", bad(lines)), [])
+
+    def test_one_cost_line_changed_between_filings_is(self):
+        moved = lambda c: c.extractions.extend([ext(*self.PART, 782_000_000, "782", "Hardware", "2025"),
+                                                ext(*self.PART, 790_000_000, "790", "Hardware", "2025", accession="0001193125-26-000099")])
+        self.assertEqual(len(findings("restated", bad(moved))), 1)
+
+
 def _make(rule_id):
     def passes(self):
         self.assertEqual(findings(rule_id, GOOD), [], f"{rule_id} fired on the good fixture")

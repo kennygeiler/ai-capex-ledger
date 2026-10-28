@@ -266,16 +266,19 @@ def _no_10k(ctx, p):
 @check("restated")
 def _restated(ctx, p):
     """The same field and period read from two filings with different values: a restatement (or a misread). The latest
-    filing wins in derivation; this keeps the change visible."""
+    filing wins in derivation; this keeps the change visible. Cost lines (cost_of_revenue_part) are compared line by
+    line: a company with several cost lines has several values for one period, which is not a restatement."""
     by = {}
     for e in ctx.extractions:
-        by.setdefault((e["ticker"], e["field"], e["period_start"], e["period_end"]), []).append(e)
+        line = e["row_label"] if e["field"] == "cost_of_revenue_part" else None
+        by.setdefault((e["ticker"], e["field"], e["period_start"], e["period_end"], line), []).append(e)
     out = []
-    for (t, f, s, en), es in by.items():
+    for (t, f, s, en, line), es in by.items():
         tol = max(x["scale"] for x in es) // 2  # one filing in thousands, a later one in millions is rounding, not a restatement
         if max(x["value"] for x in es) - min(x["value"] for x in es) > tol:
             parts = ", ".join(f"{x['value']:,} ({x['accession']})" for x in sorted(es, key=lambda x: x["accession"]))
-            out.append(Finding(t, f"{f} {s}..{en} differs between filings: {parts}", f, None, f"{s}..{en}"))
+            what = f"{f} ({line})" if line else f
+            out.append(Finding(t, f"{what} {s}..{en} differs between filings: {parts}", f, None, f"{s}..{en}"))
     return out
 
 
