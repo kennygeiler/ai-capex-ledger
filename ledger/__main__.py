@@ -13,6 +13,7 @@ COMMANDS = {
     "rules": "Run the rule registry and write exceptions.",
     "faults": "Corrupt real extractions one at a time and report what catches each fault.",
     "review": "Work the exception queue and record decisions.",
+    "evidence": "Re-read every cited cell on the rendered 10-K and screenshot it, boxed.",
     "report": "Write the validation page for a stage (reports/stage<N>-validation.html).",
     "release": "Build a versioned release (refuses while any gate fails).",
     "signoff": "Record who signed a release.",

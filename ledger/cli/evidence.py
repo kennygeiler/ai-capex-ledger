@@ -1,0 +1,50 @@
+"""python -m ledger evidence --stage N   ->  reports/evidence/stage<N>.json and boxed screenshots
+
+Re-reads every cited cell from the 10-K as rendered in Chrome, and screenshots the cells of the values a person checks.
+--faults also points each citation at a neighbouring row or column and reports how often the re-read notices."""
+import argparse
+import json
+
+from .. import store
+from ..config import STAGES
+from ..evidence import read
+from ..release import to_check
+
+OUT = store.ROOT / "reports" / "evidence"
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(prog="python -m ledger evidence")
+    ap.add_argument("--stage", type=int, default=1, choices=sorted(STAGES))
+    ap.add_argument("--faults", action="store_true")
+    ap.add_argument("--db", default=str(store.DEFAULT_DB))
+    a = ap.parse_args(argv)
+    con, tickers = store.init(a.db), STAGES[a.stage]["tickers"]
+    q = lambda sql: [dict(zip([c[0] for c in con.execute(sql, [tickers]).description], r)) for r in con.execute(sql, [tickers]).fetchall()]
+    exts = q("select e.*, d.cik from extractions e join documents d using(accession) where e.ticker in (select unnest(?))")
+    vals = q('select * from "values" where ticker in (select unnest(?))')
+    want = to_check(vals)
+    shots = {i for v in vals if (v["ticker"], v["field"], v["period"]) in want for i in (v["extraction_ids"] or "").split(",")}
+    by_doc = {}
+    for e in exts:
+        by_doc.setdefault((e["cik"], e["accession"]), []).append(e)
+    OUT.mkdir(parents=True, exist_ok=True)
+    res, caught, tried = {}, 0, 0
+    for (cik, accn), es in sorted(by_doc.items()):
+        doc = store.ROOT / "data" / "raw" / f"{cik:010d}" / "docs" / f"{accn}.htm"
+        if a.faults:  # the same cell text, cited at a neighbouring column or row that shows something else
+            bad = [{**e, k: o[k], "extraction_id": f"{e['extraction_id']}>{k}>{o[k]}"} for e in es for o in es
+                   for k in ("column_label", "row_label") if o["table_id"] == e["table_id"] and o[k] != e[k] and o["cell_text"] != e["cell_text"]
+                   and o["column_label" if k == "row_label" else "row_label"] == e["column_label" if k == "row_label" else "row_label"]]
+            r = read(doc, bad, set(), OUT)
+            tried, caught = tried + len(r), caught + sum(not x["match"] for x in r.values())
+        else:
+            res |= read(doc, es, shots, OUT)
+    if a.faults:
+        print(f"stage {a.stage}: {caught} of {tried} citations moved to a neighbouring row or column were noticed by the re-read")
+        return 0 if caught == tried else 1
+    (OUT / f"stage{a.stage}.json").write_text(json.dumps(res, indent=1, sort_keys=True))
+    miss = [k for k, v in res.items() if not v["match"]]
+    print(f"stage {a.stage}: {len(res) - len(miss)} of {len(res)} cited cells confirmed on the rendered 10-K; {len(shots & set(res))} screenshots"
+          + "".join(f"\n  not confirmed: {k} (cited {res[k]['cell']!r}, page shows {res[k]['seen']!r})" for k in miss))
+    return 0

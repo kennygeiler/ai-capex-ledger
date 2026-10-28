@@ -41,6 +41,13 @@ class Gates(unittest.TestCase):
         self.assertEqual(gates(vals, [], hc)["G5"], [])
 
 
+    def test_a_machine_confirmed_cell_needs_no_person(self):
+        v = {**VAL, "label": "unresolved", "extraction_ids": "a,b"}
+        self.assertEqual(gates([v], [], None)["G5"], ["no hand-check file"])
+        self.assertEqual(gates([v], [], None, {"a"})["G5"], ["no hand-check file"])  # every cell of the value must be confirmed
+        self.assertEqual(gates([v], [], None, {"a", "b"})["G5"], [])
+
+
 class Build(unittest.TestCase):
     def test_same_inputs_same_hash_and_diff_names_changes(self):
         a = build("v0.1.0", [VAL], [], [EXC], None)

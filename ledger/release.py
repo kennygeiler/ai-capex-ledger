@@ -12,7 +12,7 @@ SPOT_CHECKS = 10  # random XBRL-agreeing values a person also checks, to test th
 GATES = {
     "G1": "Every filing ended in a valid output or a logged failure, and no failure is open",
     "G4": "No block exception without a current decision",
-    "G5": "Every value XBRL can't vouch for, plus a random sample of those it can, hand-checked at the value being released",
+    "G5": "Every value XBRL can't vouch for, plus a random sample of those it can, confirmed on the filing at the value being released: by the re-read of the rendered 10-K, or by a person where it can't",
 }
 
 
@@ -26,19 +26,22 @@ def to_check(values) -> dict:
             **{k(v): "spot_check" for v in random.Random(GOLDEN_SEED).sample(agree, min(SPOT_CHECKS, len(agree)))}}
 
 
-def gates(values, open_items, handcheck) -> dict:
-    """{gate: [failing items]}; empty lists mean the gate passes."""
+def gates(values, open_items, handcheck, confirmed=frozenset()) -> dict:
+    """{gate: [failing items]}; empty lists mean the gate passes. confirmed: extraction ids the rendered-10-K re-read
+    found at their current cell text."""
     checked = {(h["ticker"], h["field"], h["period"]): h for h in (handcheck or {}).get("values", [])}
+    machine = lambda v: bool(v["extraction_ids"]) and set(v["extraction_ids"].split(",")) <= set(confirmed)
+    need = [v for v in values if (v["ticker"], v["field"], v["period"]) in to_check(values) and not machine(v)]
     return {
         "G1": [e["exception_id"] for e in open_items if e["rule_id"] == "extraction_failed"],
         "G4": [e["exception_id"] for e in open_items if e["severity"] == "block"],
-        "G5": ["no hand-check file"] if handcheck is None else
-              [f"{v['ticker']} {v['field']} {v['period']}" for v in values if (v["ticker"], v["field"], v["period"]) in to_check(values)
-               and (not (h := checked.get((v["ticker"], v["field"], v["period"]), {})).get("verified") or h.get("value") != v["value"])],
+        "G5": ["no hand-check file"] if need and handcheck is None else
+              [f"{v['ticker']} {v['field']} {v['period']}" for v in need
+               if not (h := checked.get((v["ticker"], v["field"], v["period"]), {})).get("verified") or h.get("value") != v["value"]],
     }
 
 
-def build(version, values, extractions, exceptions, previous) -> dict:
+def build(version, values, extractions, exceptions, previous, confirmed=frozenset()) -> dict:
     """Release files as {name: text}. No timestamps inside, so the same inputs give the same hash (G7)."""
     ext = {e["extraction_id"]: e for e in extractions}
     rows = sorted(values, key=lambda v: (v["ticker"], v["field"], v["period"]))
@@ -56,7 +59,7 @@ def build(version, values, extractions, exceptions, previous) -> dict:
                          f"{sum(v['source'] == 'override' for v in rows)} overridden · {sum(v['source'] == 'missing' for v in rows)} missing · "
                          f"{sum(v['label'] == 'agree' for v in rows)} agree with XBRL · {sum(v['basis'] == 'restated' for v in rows)} on a restated basis · "
                          f"{sum(v['label'] == 'not_reported' for v in rows)} blank because the company reports no such line", "",
-                         check_line(rows), "",
+                         check_line(rows, confirmed), "",
                          "All gates passed: " + "; ".join(f"{g} {d}" for g, d in GATES.items()) + ".", "",
                          "## Notes", ""] + [f"- {e['ticker']} {e['field'] or ''}: {e['message']}" for e in notes] + [""])
     prev = {(r["ticker"], r["field"], r["period"]): r["value"] for r in previous or []}
@@ -66,12 +69,14 @@ def build(version, values, extractions, exceptions, previous) -> dict:
     return {"values.csv": buf.getvalue(), "QUALITY.md": quality, "DIFF.md": diff}
 
 
-def check_line(values) -> str:
+def check_line(values, confirmed=frozenset()) -> str:
     c = to_check(values)
     spot = sum(w == "spot_check" for w in c.values())
     agree = sum(v["label"] == "agree" and v["value"] is not None for v in values)
-    return (f"Verified: {agree - spot} values by two independent sources (the 10-K cell and XBRL agree); {len(c)} hand-checked by a person "
-            f"against the filing: {len(c) - spot} that XBRL can't vouch for and {spot} random spot-checks of the XBRL-agreeing values.")
+    ids = [i for v in values if v["extraction_ids"] for i in v["extraction_ids"].split(",")]
+    return (f"Verified: {agree - spot} values by two independent sources (the 10-K cell and XBRL agree). {len(c)} more confirmed on the filing "
+            f"({len(c) - spot} that XBRL can't vouch for, {spot} random spot-checks of the agreeing ones): by re-reading the rendered 10-K where "
+            f"it confirms the cited cell, by a person where it can't. Re-read confirmed {sum(i in confirmed for i in ids)} of {len(ids)} cited cells.")
 
 
 def content_hash(files: dict) -> str:

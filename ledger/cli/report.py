@@ -59,6 +59,8 @@ def build(con, stage: int) -> dict:
             notes[accn] = n and {"text": n, "url": d["url"] + "#:~:text=" + quote(" ".join(n.split()[:8]))}
         return notes[accn]
 
+    ev_path = store.ROOT / "reports" / "evidence" / f"stage{stage}.json"
+    ev = json.loads(ev_path.read_text()) if ev_path.exists() else {}
     check, cur = to_check(vals), latest(decisions())
     decided = {(e["ticker"], e["field"], e["period"]): cur[e["exception_id"]] for e in excs
                if e["period"] and cur.get(e["exception_id"], {}).get("input_hash") == e["input_hash"]}
@@ -77,7 +79,8 @@ def build(con, stage: int) -> dict:
                          "days": _days(x["period_start"], x["period_end"]), "value": x["value"], "table": table(x["accession"], x["table_id"]),
                          "table_id": x["table_id"], "row": x["row_label"], "col": x["column_label"], "cell": x["cell_text"],
                          "unit": x["unit_stated"], "unit_source": x["unit_source"], "scale": x["scale"], "confidence": x["confidence"],
-                         "notes": x["notes"], "prompt": x["prompt_version"]})
+                         "notes": x["notes"], "prompt": x["prompt_version"],
+                         "machine": (m := ev.get(i)) and m["cell"] == x["cell_text"] and {"match": m["match"], "seen": m["seen"], "img": m["img"] and f"evidence/{m['img']}"} or None})
         r = ref.get((v["ticker"], v["field"], v["period"]))
         rows.append({"ticker": v["ticker"], "field": v["field"], "period": v["period"], "period_end": v["period_end"], "value": v["value"], "method": v["method"],
                      "label": v["label"], "basis": v["basis"], "first_reported": v["first_reported"], "ref": r and r["value"], "ref_concept": r and r["concept"], "ref_accession": r and r["accession"],
