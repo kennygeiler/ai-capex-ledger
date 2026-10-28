@@ -9,7 +9,7 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 | ID | Ticket | Done when |
 |---|---|---|
 | P1 | **you:** Decide stage 2's 4 blocking items: APLD revenue and opex FY2024–FY2025, recast after the ChronoScale transaction (the page quotes the note). Confirm the ORCL and APLD cost lines; decide the warnings. | `ledger review --stage 2` shows 0 open. |
-| P2 | **you:** Answer the 20 "Check these numbers" cards on the stage 2 page (yes/no), download the hand-check, then release and sign `v0.2.0`. | Signed. |
+| P2 | **you:** Look over the stage 2 page (all 20 checks are machine-confirmed, with boxed screenshots), then say to release and sign `v0.2.0`. | Signed. |
 
 ### M1: it runs unattended
 
@@ -43,6 +43,7 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Done
 
+- **Rendered-10-K re-read (28 Oct):** `ledger evidence` confirms each cited cell on the 10-K as rendered in Chrome and screenshots it boxed; G5 accepts a machine confirmation, and a person answers only cards it can't confirm.
 - **Sampled hand-check (M3.2, pulled forward, 28 Oct):** a person checks only the values XBRL can't vouch for, plus 10 random agreeing ones. Each is one yes/no question on the page; decisions show as decided, not red. Stage 2: 20 checks instead of 66.
 - **M0, built by hand (to 28 Oct 2026):**
   - **Ingest:** 10-K list per company; documents cached with SHA-256; table parser (`tables@7`, fixture-tested); statement locator (176/177 correct); restatement-note finder.

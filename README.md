@@ -6,15 +6,15 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** The hand-check is now 20 yes/no questions instead of 66 open-ended checks (Kenny's call; G5 changed).
-- **Who checks what:** a person checks the values XBRL can't vouch for (the 4 APLD recast values and 6 Oracle/APLD definition gaps) plus 10 random values XBRL agrees with. The other 46 are verified by two independent sources, the 10-K cell and XBRL.
-- **The page:** shows a "Check these numbers" card for each, naming the row, column and number to find in the filing, with Yes/No buttons. Decided items now show "accepted by Kenny Geiler" instead of red.
-- **Earlier today:** Kenny's 6 stage 2 decisions recorded, and the cost-line check fixed (0 of 862 faults escape).
+**Last done (28 Oct 2026):** The machine now checks citations itself. `ledger evidence` opens each 10-K in headless Chrome as a person would see it, finds the cited row and column by position on the page (not through our parser), and compares the text. It also saves a screenshot with the cell boxed.
+- **Stage 2:** 173 of 173 cited cells confirmed, and 708 of 708 deliberately moved citations noticed. All 20 checks on the page are machine-confirmed, so none need Kenny. Each card can show the boxed screenshots.
+- **G5** now accepts a machine confirmation. A person answers only the cards the machine can't confirm, with the screenshot showing exactly where to look.
+- **All release gates pass for `v0.2.0`.** It is not built or signed yet.
 
 **Next:**
-1. **Kenny (P2):** answer the 20 cards on `reports/stage2-validation.html`, click "Download hand-check", save it as `golden/stage2-handcheck.json`, then say to release and sign `v0.2.0`.
+1. **Kenny:** skim `reports/stage2-validation.html` (open "Show where" on any card), then say "release and sign v0.2.0".
 2. **Kenny (M1.1):** run `claude login` once in a terminal.
-3. **Claude (M1.2–M1.4):** headless extraction, `ledger run --ticker X`, scorecard.
+3. **Claude (M1.2–M1.4):** headless extraction, `ledger run --ticker X`, scorecard; `ledger run` will include `evidence`.
 
 **Critical notes:**
 - **Dashes are zero.** APLD's newest 10-K shows "—" for its data-center cost line in FY2024 and FY2025; agents read these as 0.
@@ -34,12 +34,13 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 | Reconcile | `reconcile` | Fiscal-year values with their basis and first-reported figure, compared with XBRL |
 | Rules | `rules` | Exceptions from the 14 rules in `rules/*.yaml` |
 | Faults | `faults` | Every cell corrupted in typical ways, and what caught each |
+| Evidence | `evidence` | Every cited cell re-read on the 10-K rendered in Chrome; boxed screenshots in `reports/evidence/` (`--faults` proves it notices moved citations) |
 | Report | `report` | `reports/stage<N>-validation.html`: plain-language review page and hand-check |
 | Review | `review`, `review decide` | `decisions/decisions.jsonl`; a decision counts only while its inputs are unchanged |
 | Release | `release <v>` | `releases/<v>/`; refuses while any gate fails, and the same inputs give the same hash |
 | Sign | `signoff <v> --by` | `SIGNOFF.json` |
 
-Every command runs as `uv run python -m ledger <command> --stage N`. The XBRL reference is pulled with `python -m ledger reference`.
+Every command runs as `uv run python -m ledger <command> --stage N`. `evidence` drives the installed Google Chrome through Playwright, with no browser download. The XBRL reference is pulled with `python -m ledger reference`.
 
 ## Repo
 

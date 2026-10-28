@@ -43,7 +43,7 @@ Each milestone is a capability. Companies are how we test it.
 |---|---|
 | G1 | Every filing ended in valid agent output or a logged failure, and no failure is open. |
 | G4 | No blocking exception without a current decision (reviewer, reason, input hash). |
-| G5 | Hand-checked against the filing, at the value being released: every value XBRL can't vouch for (it disagrees, or defines the field differently), plus 10 random values it agrees with, to test that the matching works. A value where the 10-K cell and XBRL agree is verified by two independent sources. `QUALITY.md` states the split. |
+| G5 | Confirmed on the filing, at the value being released: every value XBRL can't vouch for (it disagrees, or defines the field differently), plus 10 random values it agrees with. Confirmed means the re-read of the 10-K rendered in Chrome finds the cited text in the cited row and column (`ledger evidence`), or, where it can't, a person looks at the boxed screenshot and answers yes. A value where the 10-K cell and XBRL agree is verified by two independent sources. `QUALITY.md` states the split. |
 
 These hold by construction: a rerun gives the same hash; a decision re-applies only while its inputs are unchanged; `DIFF.md` lists every change since the last release.
 
@@ -64,6 +64,7 @@ These hold by construction: a rerun gives the same hash; a decision re-applies o
 |---|---|---|
 | Cells read correctly, vs the XBRL fact for the same filing and period | report, with a 95% bound | `scripts/score_cells.py` |
 | Injected misreads that escape every rule | 0 | `ledger faults` |
+| Citations moved to a neighbouring row or column that the rendered-10-K re-read misses | 0 | `ledger evidence --faults` |
 | Hand-check errors | 0 found | G5 |
 | Fresh-agent rerun identical | 100% | `scripts/compare_outputs.py` |
 

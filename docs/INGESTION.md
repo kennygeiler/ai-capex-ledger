@@ -12,6 +12,7 @@ How a 10-K becomes a released number, who looks at what, and what each stage tau
 | 4. Check every citation against the cell | code | `extractions` |
 | 5. Build fiscal-year values: newest 10-K per year, opex from one column, first-reported kept | code | `values` |
 | 6. Compare with XBRL; run the rules; inject faults to prove the rules catch misreads | code | `exceptions`, `reports/` |
+| 6b. Re-read every cited cell on the 10-K rendered in Chrome (row label × column header, by position); screenshot the ones a person might check, boxed | code | `reports/evidence/` |
 | 7. Review what code could not explain; hand-check; sign | person | `decisions/`, `releases/` |
 
 ## Who decides what
@@ -41,6 +42,7 @@ A person's attention is the scarcest input, so it goes only where code can't nam
 | 28 Oct | `row_label_switch` flagged cost lines as "different rows", which is noise, because they are several rows by design and get renamed between filings. Simply skipping them let 10 planted misreads escape (a line counted twice, or a neighbour pulled in). | For cost lines the rule checks that every year in one filing uses the same set of lines, each once. Faults: 0 of 862 escaped. Lesson: before removing a check, rerun the faults. | code |
 | 28 Oct | Kenny reviewed stage 2: APLD's recast years and the ORCL and APLD cost lines. | 6 decisions recorded in `decisions/decisions.jsonl`. | decision |
 | 28 Oct | Hand-checking all 66 values was too hard, and pointless where XBRL already agrees. The page also still showed decided items in red and never said what to compare. | A person checks only what XBRL can't vouch for, plus 10 random agreeing values; each is one yes/no question naming the row, column and number; decided items show who decided (`release.to_check`, G5). | policy + code |
+| 28 Oct | Even 20 yes/no checks made a person hunt through a long filing for one cell. | `ledger evidence`: headless Chrome renders the real 10-K, finds the cited row and the column header above it by position (independent of our table parser), compares the text and screenshots it boxed. Stage 2: 173/173 cells confirmed; 708/708 citations moved to a neighbouring row or column noticed. A person sees only cells the machine can't confirm, with the box showing where. OCR (docling) wasn't needed: 10-Ks are born-digital HTML, so the rendered page's own text is exact. First version cut off cells past the right edge and missed a ")" in its own cell; both fixed. | code |
 | earlier | NVDA's capex line includes intangible assets. | Used as reported; `definition_note` records it on every release. | rule |
 | earlier | Some tables state their unit elsewhere in the filing. | Allowed, flagged as a warning. | policy |
 | earlier | Misreads with a valid-looking citation escaped (140 in fault tests). | `citation_resolves` checks every extraction. | code |
