@@ -60,29 +60,19 @@ def check(name):
 # ── checks on what the agent read ──────────────────────────────────────────────────────────────────────────────────
 @check("citation_resolves")
 def _citation(ctx: Context, p: dict):
+    """Every extracted cell, whether or not it reaches a released value: a bad cell can still change which basis a
+    quarter is on, or blank it."""
     from .extract import Invalid, resolve
     out = []
-    ids = ctx.ext_by_id()
-    for v in ctx.values:
-        if v["source"] != "agent":
-            continue
-        cited = [i for i in (v["extraction_ids"] or "").split(",") if i]
-        if not cited:
-            out.append(Finding(v["ticker"], "agent value has no citation", v["field"], v["cal_q"]))
-        for i in cited:
-            e = ids.get(i)
-            if e is None:
-                out.append(Finding(v["ticker"], f"value cites extraction {i!r}, which does not exist", v["field"], v["cal_q"]))
-                continue
-            doc = ctx.parsed.get(e["accession"])
+    for e in ctx.extractions:
+        doc = ctx.parsed.get(e["accession"])
+        try:
             if doc is None:
-                out.append(Finding(v["ticker"], f"cited filing {e['accession']} has no parsed document", v["field"], v["cal_q"]))
-                continue
-            try:
-                resolve({"field": e["field"], "table_id": e["table_id"], "row_label": e["row_label"], "column_label": e["column_label"],
-                         "cell_text": e["cell_text"], "value": e["value"]}, doc)
-            except Invalid as x:
-                out.append(Finding(v["ticker"], f"citation for {e['period_start']}..{e['period_end']} does not resolve: {x.reason}", v["field"], v["cal_q"], i))
+                raise Invalid(f"filing {e['accession']} has no parsed document")
+            resolve({"field": e["field"], "table_id": e["table_id"], "row_label": e["row_label"], "column_label": e["column_label"],
+                     "cell_text": e["cell_text"], "value": e["value"]}, doc)
+        except Invalid as x:
+            out.append(Finding(e["ticker"], f"citation for {e['period_start']}..{e['period_end']} does not resolve: {x.reason}", e["field"], None, e["extraction_id"]))
     return out
 
 

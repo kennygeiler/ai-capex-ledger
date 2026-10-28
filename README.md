@@ -12,7 +12,7 @@ AI agents read SEC filings and extract revenue, cost of revenue, operating incom
 - A quarter whose inputs span a restatement ships blank.
 - **APLD:** 25 quarters on the restated basis agree with XBRL; 5 are blank because no single basis exists.
 - **Blocking items:** down from 12 to 4.
-- **Fault injection:** still 0 escaped.
+- **Fault injection:** 0 of 3,014 escaped. The first rerun after the restatement change found 140 escapes: a corrupted cell could quietly turn a quarter blank, because only cells behind released values were checked. `citation_resolves` now checks every extracted cell.
 - **Validation pages:** they explain all of this in plain language.
 
 **Next (Kenny):**

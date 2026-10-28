@@ -220,8 +220,7 @@
   "extraction_id": "0001045810-25-000209|cost_of_revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -255,8 +254,7 @@
   "extraction_id": "0001045810-25-000209|operating_income|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -290,8 +288,7 @@
   "extraction_id": "0001045810-25-000209|revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -326,8 +323,7 @@
   "outcome": "rule",
   "caught_by": [
    "column_matches_period",
-   "magnitude",
-   "quarters_sum_to_ytd"
+   "magnitude"
   ]
  },
  {
@@ -368,8 +364,7 @@
   "outcome": "rule",
   "caught_by": [
    "column_matches_period",
-   "magnitude",
-   "quarters_sum_to_ytd"
+   "magnitude"
   ]
  },
  {
@@ -408,8 +403,7 @@
   "extraction_id": "0001045810-25-000230|revenue|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -448,8 +442,7 @@
   "extraction_id": "0001045810-26-000075|cost_of_revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -485,8 +478,7 @@
   "extraction_id": "0001045810-26-000075|operating_income|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -523,8 +515,7 @@
   "extraction_id": "0001045810-26-000075|revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -1154,8 +1145,7 @@
   "extraction_id": "0001045810-25-000209|cost_of_revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -1189,8 +1179,7 @@
   "extraction_id": "0001045810-25-000209|operating_income|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -1224,8 +1213,7 @@
   "extraction_id": "0001045810-25-000209|revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -1260,7 +1248,6 @@
   "outcome": "rule",
   "caught_by": [
    "column_matches_period",
-   "outlier_vs_own_history",
    "sign"
   ]
  },
@@ -1279,8 +1266,7 @@
   "extraction_id": "0001045810-25-000230|cost_of_revenue|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -1316,8 +1302,7 @@
   "extraction_id": "0001045810-25-000230|operating_income|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -1353,8 +1338,7 @@
   "extraction_id": "0001045810-25-000230|revenue|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -1398,9 +1382,7 @@
   "extraction_id": "0001045810-26-000021|capex|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "jump",
-   "outlier_vs_own_history"
+   "column_matches_period"
   ]
  },
  {
@@ -1425,9 +1407,7 @@
   "extraction_id": "0001045810-26-000021|cost_of_revenue|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "jump",
-   "magnitude"
+   "column_matches_period"
   ]
  },
  {
@@ -1452,9 +1432,7 @@
   "extraction_id": "0001045810-26-000021|operating_income|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "jump",
-   "magnitude"
+   "column_matches_period"
   ]
  },
  {
@@ -1478,9 +1456,7 @@
   "extraction_id": "0001045810-26-000021|revenue|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "jump",
-   "outlier_vs_own_history"
+   "column_matches_period"
   ]
  },
  {
@@ -1567,9 +1543,7 @@
   "extraction_id": "0001045810-26-000075|capex|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "jump",
-   "outlier_vs_own_history"
+   "column_matches_period"
   ]
  },
  {
@@ -1585,8 +1559,7 @@
   "extraction_id": "0001045810-26-000075|cost_of_revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -1621,8 +1594,7 @@
   "extraction_id": "0001045810-26-000075|operating_income|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -1657,8 +1629,7 @@
   "extraction_id": "0001045810-26-000075|revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "column_matches_period",
-   "quarters_sum_to_ytd"
+   "column_matches_period"
   ]
  },
  {
@@ -2287,7 +2258,6 @@
   "extraction_id": "0001045810-25-000209|cost_of_revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd",
    "row_label_switch"
   ]
  },
@@ -2322,7 +2292,6 @@
   "extraction_id": "0001045810-25-000209|operating_income|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd",
    "row_label_switch"
   ]
  },
@@ -2357,7 +2326,6 @@
   "extraction_id": "0001045810-25-000209|revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd",
    "row_label_switch"
   ]
  },
@@ -2393,8 +2361,7 @@
   "outcome": "rule",
   "caught_by": [
    "outlier_vs_own_history",
-   "row_label_switch",
-   "sign"
+   "row_label_switch"
   ]
  },
  {
@@ -2410,7 +2377,6 @@
   "extraction_id": "0001045810-25-000230|cost_of_revenue|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd",
    "row_label_switch"
   ]
  },
@@ -2450,7 +2416,6 @@
   "caught_by": [
    "jump",
    "magnitude",
-   "quarters_sum_to_ytd",
    "row_label_switch"
   ]
  },
@@ -2491,7 +2456,6 @@
   "caught_by": [
    "jump",
    "outlier_vs_own_history",
-   "quarters_sum_to_ytd",
    "row_label_switch"
   ]
  },
@@ -2541,8 +2505,7 @@
   "extraction_id": "0001045810-26-000021|capex|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
-   "row_label_switch",
-   "sign"
+   "row_label_switch"
   ]
  },
  {
@@ -2567,8 +2530,6 @@
   "extraction_id": "0001045810-26-000021|cost_of_revenue|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
-   "jump",
-   "magnitude",
    "row_label_switch"
   ]
  },
@@ -2619,9 +2580,7 @@
   "extraction_id": "0001045810-26-000021|revenue|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
-   "magnitude",
-   "row_label_switch",
-   "sign"
+   "row_label_switch"
   ]
  },
  {
@@ -2720,10 +2679,7 @@
   "extraction_id": "0001045810-26-000075|capex|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "jump",
-   "outlier_vs_own_history",
-   "row_label_switch",
-   "sign"
+   "row_label_switch"
   ]
  },
  {
@@ -2740,7 +2696,6 @@
   "extraction_id": "0001045810-26-000075|cost_of_revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd",
    "row_label_switch"
   ]
  },
@@ -2778,7 +2733,6 @@
   "extraction_id": "0001045810-26-000075|operating_income|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd",
    "row_label_switch"
   ]
  },
@@ -2815,7 +2769,6 @@
   "extraction_id": "0001045810-26-000075|revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd",
    "row_label_switch"
   ]
  },
@@ -2854,92 +2807,121 @@
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000029|capex|2021-02-01|2022-01-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000029|capex|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000029|capex|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000029|cost_of_revenue|2021-02-01|2022-01-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000029|cost_of_revenue|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000029|cost_of_revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000029|operating_income|2021-02-01|2022-01-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000029|operating_income|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000029|operating_income|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000029|revenue|2021-02-01|2022-01-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000029|revenue|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000029|revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000124|capex|2023-01-30|2023-04-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000124|capex|2024-01-29|2024-04-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000124|cost_of_revenue|2023-01-30|2023-04-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -2948,6 +2930,7 @@
   "extraction_id": "0001045810-24-000124|cost_of_revenue|2024-01-29|2024-04-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -2956,6 +2939,7 @@
   "extraction_id": "0001045810-24-000124|operating_income|2023-01-30|2023-04-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -2964,6 +2948,7 @@
   "extraction_id": "0001045810-24-000124|operating_income|2024-01-29|2024-04-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -2972,6 +2957,7 @@
   "extraction_id": "0001045810-24-000124|revenue|2023-01-30|2023-04-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -2980,26 +2966,32 @@
   "extraction_id": "0001045810-24-000124|revenue|2024-01-29|2024-04-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000264|capex|2023-01-30|2023-07-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000264|capex|2024-01-29|2024-07-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000264|cost_of_revenue|2023-01-30|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3008,6 +3000,7 @@
   "extraction_id": "0001045810-24-000264|cost_of_revenue|2023-05-01|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3016,6 +3009,7 @@
   "extraction_id": "0001045810-24-000264|cost_of_revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3024,6 +3018,7 @@
   "extraction_id": "0001045810-24-000264|cost_of_revenue|2024-04-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3032,6 +3027,7 @@
   "extraction_id": "0001045810-24-000264|operating_income|2023-01-30|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3040,6 +3036,7 @@
   "extraction_id": "0001045810-24-000264|operating_income|2023-05-01|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3048,6 +3045,7 @@
   "extraction_id": "0001045810-24-000264|operating_income|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3056,6 +3054,7 @@
   "extraction_id": "0001045810-24-000264|operating_income|2024-04-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3064,6 +3063,7 @@
   "extraction_id": "0001045810-24-000264|revenue|2023-01-30|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3072,6 +3072,7 @@
   "extraction_id": "0001045810-24-000264|revenue|2023-05-01|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3080,6 +3081,7 @@
   "extraction_id": "0001045810-24-000264|revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3088,26 +3090,32 @@
   "extraction_id": "0001045810-24-000264|revenue|2024-04-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000316|capex|2023-01-30|2023-10-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000316|capex|2024-01-29|2024-10-27",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-24-000316|cost_of_revenue|2023-01-30|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3116,6 +3124,7 @@
   "extraction_id": "0001045810-24-000316|cost_of_revenue|2023-07-31|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3124,6 +3133,7 @@
   "extraction_id": "0001045810-24-000316|cost_of_revenue|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3132,6 +3142,7 @@
   "extraction_id": "0001045810-24-000316|cost_of_revenue|2024-07-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3140,6 +3151,7 @@
   "extraction_id": "0001045810-24-000316|operating_income|2023-01-30|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3148,6 +3160,7 @@
   "extraction_id": "0001045810-24-000316|operating_income|2023-07-31|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3156,6 +3169,7 @@
   "extraction_id": "0001045810-24-000316|operating_income|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3164,6 +3178,7 @@
   "extraction_id": "0001045810-24-000316|operating_income|2024-07-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3172,6 +3187,7 @@
   "extraction_id": "0001045810-24-000316|revenue|2023-01-30|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3180,6 +3196,7 @@
   "extraction_id": "0001045810-24-000316|revenue|2023-07-31|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3188,6 +3205,7 @@
   "extraction_id": "0001045810-24-000316|revenue|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3196,132 +3214,170 @@
   "extraction_id": "0001045810-24-000316|revenue|2024-07-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000023|capex|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000023|capex|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000023|capex|2024-01-29|2025-01-26",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000023|cost_of_revenue|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000023|cost_of_revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000023|cost_of_revenue|2024-01-29|2025-01-26",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000023|operating_income|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000023|operating_income|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000023|operating_income|2024-01-29|2025-01-26",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000023|revenue|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000023|revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000023|revenue|2024-01-29|2025-01-26",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000116|capex|2024-01-29|2024-04-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000116|capex|2025-01-27|2025-04-27",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000116|cost_of_revenue|2024-01-29|2024-04-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000116|cost_of_revenue|2025-01-27|2025-04-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000116|operating_income|2024-01-29|2024-04-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000116|operating_income|2025-01-27|2025-04-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000116|revenue|2024-01-29|2024-04-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000116|revenue|2025-01-27|2025-04-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3337,28 +3393,33 @@
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000209|capex|2025-01-27|2025-07-27",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000209|cost_of_revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000209|cost_of_revenue|2024-04-29|2024-07-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000209|cost_of_revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3367,6 +3428,7 @@
   "extraction_id": "0001045810-25-000209|cost_of_revenue|2025-04-28|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3375,20 +3437,23 @@
   "extraction_id": "0001045810-25-000209|operating_income|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000209|operating_income|2024-04-29|2024-07-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000209|operating_income|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3397,6 +3462,7 @@
   "extraction_id": "0001045810-25-000209|operating_income|2025-04-28|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3405,20 +3471,23 @@
   "extraction_id": "0001045810-25-000209|revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000209|revenue|2024-04-29|2024-07-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-25-000209|revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3427,6 +3496,7 @@
   "extraction_id": "0001045810-25-000209|revenue|2025-04-28|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3436,7 +3506,6 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
-   "outlier_vs_own_history",
    "sign"
   ]
  },
@@ -3456,7 +3525,7 @@
   "extraction_id": "0001045810-25-000230|cost_of_revenue|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
@@ -3474,6 +3543,7 @@
   "extraction_id": "0001045810-25-000230|cost_of_revenue|2025-01-27|2025-10-26",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3493,7 +3563,7 @@
   "extraction_id": "0001045810-25-000230|operating_income|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
@@ -3511,6 +3581,7 @@
   "extraction_id": "0001045810-25-000230|operating_income|2025-01-27|2025-10-26",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3530,7 +3601,7 @@
   "extraction_id": "0001045810-25-000230|revenue|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
@@ -3548,6 +3619,7 @@
   "extraction_id": "0001045810-25-000230|revenue|2025-01-27|2025-10-26",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3565,17 +3637,17 @@
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-26-000021|capex|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-26-000021|capex|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "jump",
-   "outlier_vs_own_history"
+   "citation_resolves"
   ]
  },
  {
@@ -3591,17 +3663,17 @@
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-26-000021|cost_of_revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-26-000021|cost_of_revenue|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "jump",
-   "magnitude"
+   "citation_resolves"
   ]
  },
  {
@@ -3617,17 +3689,17 @@
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-26-000021|operating_income|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-26-000021|operating_income|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "jump",
-   "magnitude"
+   "citation_resolves"
   ]
  },
  {
@@ -3643,17 +3715,17 @@
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-26-000021|revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "wrong_scale",
   "extraction_id": "0001045810-26-000021|revenue|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "jump",
-   "outlier_vs_own_history"
+   "citation_resolves"
   ]
  },
  {
@@ -3756,10 +3828,7 @@
   "extraction_id": "0001045810-26-000075|capex|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "jump",
-   "outlier_vs_own_history",
-   "sign"
+   "citation_resolves"
   ]
  },
  {
@@ -3777,7 +3846,7 @@
   "extraction_id": "0001045810-26-000075|cost_of_revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
@@ -3795,6 +3864,7 @@
   "extraction_id": "0001045810-26-000075|cost_of_revenue|2026-01-26|2026-07-26",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3814,7 +3884,7 @@
   "extraction_id": "0001045810-26-000075|operating_income|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
@@ -3832,6 +3902,7 @@
   "extraction_id": "0001045810-26-000075|operating_income|2026-01-26|2026-07-26",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3851,7 +3922,7 @@
   "extraction_id": "0001045810-26-000075|revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
@@ -3869,6 +3940,7 @@
   "extraction_id": "0001045810-26-000075|revenue|2026-01-26|2026-07-26",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3886,92 +3958,121 @@
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000029|capex|2021-02-01|2022-01-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000029|capex|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000029|capex|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000029|cost_of_revenue|2021-02-01|2022-01-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000029|cost_of_revenue|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000029|cost_of_revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000029|operating_income|2021-02-01|2022-01-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000029|operating_income|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000029|operating_income|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000029|revenue|2021-02-01|2022-01-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000029|revenue|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000029|revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000124|capex|2023-01-30|2023-04-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000124|capex|2024-01-29|2024-04-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000124|cost_of_revenue|2023-01-30|2023-04-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3980,6 +4081,7 @@
   "extraction_id": "0001045810-24-000124|cost_of_revenue|2024-01-29|2024-04-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3988,6 +4090,7 @@
   "extraction_id": "0001045810-24-000124|operating_income|2023-01-30|2023-04-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -3996,6 +4099,7 @@
   "extraction_id": "0001045810-24-000124|operating_income|2024-01-29|2024-04-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4004,6 +4108,7 @@
   "extraction_id": "0001045810-24-000124|revenue|2023-01-30|2023-04-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4012,26 +4117,32 @@
   "extraction_id": "0001045810-24-000124|revenue|2024-01-29|2024-04-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000264|capex|2023-01-30|2023-07-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000264|capex|2024-01-29|2024-07-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000264|cost_of_revenue|2023-01-30|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4040,6 +4151,7 @@
   "extraction_id": "0001045810-24-000264|cost_of_revenue|2023-05-01|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4048,6 +4160,7 @@
   "extraction_id": "0001045810-24-000264|cost_of_revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4056,6 +4169,7 @@
   "extraction_id": "0001045810-24-000264|cost_of_revenue|2024-04-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4064,6 +4178,7 @@
   "extraction_id": "0001045810-24-000264|operating_income|2023-01-30|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4072,6 +4187,7 @@
   "extraction_id": "0001045810-24-000264|operating_income|2023-05-01|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4080,6 +4196,7 @@
   "extraction_id": "0001045810-24-000264|operating_income|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4088,6 +4205,7 @@
   "extraction_id": "0001045810-24-000264|operating_income|2024-04-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4096,6 +4214,7 @@
   "extraction_id": "0001045810-24-000264|revenue|2023-01-30|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4104,6 +4223,7 @@
   "extraction_id": "0001045810-24-000264|revenue|2023-05-01|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4112,6 +4232,7 @@
   "extraction_id": "0001045810-24-000264|revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4120,26 +4241,32 @@
   "extraction_id": "0001045810-24-000264|revenue|2024-04-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000316|capex|2023-01-30|2023-10-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000316|capex|2024-01-29|2024-10-27",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-24-000316|cost_of_revenue|2023-01-30|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4148,6 +4275,7 @@
   "extraction_id": "0001045810-24-000316|cost_of_revenue|2023-07-31|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4156,6 +4284,7 @@
   "extraction_id": "0001045810-24-000316|cost_of_revenue|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4164,6 +4293,7 @@
   "extraction_id": "0001045810-24-000316|cost_of_revenue|2024-07-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4172,6 +4302,7 @@
   "extraction_id": "0001045810-24-000316|operating_income|2023-01-30|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4180,6 +4311,7 @@
   "extraction_id": "0001045810-24-000316|operating_income|2023-07-31|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4188,6 +4320,7 @@
   "extraction_id": "0001045810-24-000316|operating_income|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4196,6 +4329,7 @@
   "extraction_id": "0001045810-24-000316|operating_income|2024-07-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4204,6 +4338,7 @@
   "extraction_id": "0001045810-24-000316|revenue|2023-01-30|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4212,6 +4347,7 @@
   "extraction_id": "0001045810-24-000316|revenue|2023-07-31|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4220,6 +4356,7 @@
   "extraction_id": "0001045810-24-000316|revenue|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4228,132 +4365,170 @@
   "extraction_id": "0001045810-24-000316|revenue|2024-07-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000023|capex|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000023|capex|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000023|capex|2024-01-29|2025-01-26",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000023|cost_of_revenue|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000023|cost_of_revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000023|cost_of_revenue|2024-01-29|2025-01-26",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000023|operating_income|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000023|operating_income|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000023|operating_income|2024-01-29|2025-01-26",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000023|revenue|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000023|revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000023|revenue|2024-01-29|2025-01-26",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000116|capex|2024-01-29|2024-04-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000116|capex|2025-01-27|2025-04-27",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000116|cost_of_revenue|2024-01-29|2024-04-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000116|cost_of_revenue|2025-01-27|2025-04-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000116|operating_income|2024-01-29|2024-04-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000116|operating_income|2025-01-27|2025-04-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000116|revenue|2024-01-29|2024-04-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000116|revenue|2025-01-27|2025-04-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4370,28 +4545,33 @@
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000209|capex|2025-01-27|2025-07-27",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000209|cost_of_revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000209|cost_of_revenue|2024-04-29|2024-07-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000209|cost_of_revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4400,6 +4580,7 @@
   "extraction_id": "0001045810-25-000209|cost_of_revenue|2025-04-28|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4408,20 +4589,23 @@
   "extraction_id": "0001045810-25-000209|operating_income|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000209|operating_income|2024-04-29|2024-07-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000209|operating_income|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4430,6 +4614,7 @@
   "extraction_id": "0001045810-25-000209|operating_income|2025-04-28|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4438,20 +4623,23 @@
   "extraction_id": "0001045810-25-000209|revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000209|revenue|2024-04-29|2024-07-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-25-000209|revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4460,6 +4648,7 @@
   "extraction_id": "0001045810-25-000209|revenue|2025-04-28|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4470,8 +4659,7 @@
   "caught_by": [
    "citation_resolves",
    "jump",
-   "outlier_vs_own_history",
-   "sign"
+   "outlier_vs_own_history"
   ]
  },
  {
@@ -4492,8 +4680,7 @@
   "caught_by": [
    "citation_resolves",
    "jump",
-   "magnitude",
-   "quarters_sum_to_ytd"
+   "magnitude"
   ]
  },
  {
@@ -4533,8 +4720,7 @@
   "caught_by": [
    "citation_resolves",
    "jump",
-   "magnitude",
-   "quarters_sum_to_ytd"
+   "magnitude"
   ]
  },
  {
@@ -4572,8 +4758,7 @@
   "caught_by": [
    "citation_resolves",
    "jump",
-   "outlier_vs_own_history",
-   "quarters_sum_to_ytd"
+   "outlier_vs_own_history"
   ]
  },
  {
@@ -4611,16 +4796,17 @@
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-26-000021|capex|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-26-000021|capex|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "sign"
+   "citation_resolves"
   ]
  },
  {
@@ -4635,16 +4821,17 @@
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-26-000021|cost_of_revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-26-000021|cost_of_revenue|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "sign"
+   "citation_resolves"
   ]
  },
  {
@@ -4659,8 +4846,10 @@
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-26-000021|operating_income|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
@@ -4681,17 +4870,17 @@
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-26-000021|revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "sign_flip",
   "extraction_id": "0001045810-26-000021|revenue|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "magnitude",
-   "sign"
+   "citation_resolves"
   ]
  },
  {
@@ -4710,6 +4899,7 @@
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
+   "jump",
    "outlier_vs_own_history",
    "sign"
   ]
@@ -4786,10 +4976,7 @@
   "extraction_id": "0001045810-26-000075|capex|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "jump",
-   "outlier_vs_own_history",
-   "sign"
+   "citation_resolves"
   ]
  },
  {
@@ -4806,7 +4993,7 @@
   "extraction_id": "0001045810-26-000075|cost_of_revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
@@ -4823,6 +5010,7 @@
   "extraction_id": "0001045810-26-000075|cost_of_revenue|2026-01-26|2026-07-26",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4841,7 +5029,7 @@
   "extraction_id": "0001045810-26-000075|operating_income|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
@@ -4857,6 +5045,7 @@
   "extraction_id": "0001045810-26-000075|operating_income|2026-01-26|2026-07-26",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4874,7 +5063,7 @@
   "extraction_id": "0001045810-26-000075|revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
@@ -4892,6 +5081,7 @@
   "extraction_id": "0001045810-26-000075|revenue|2026-01-26|2026-07-26",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -4909,92 +5099,121 @@
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000029|capex|2021-02-01|2022-01-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000029|capex|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000029|capex|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000029|cost_of_revenue|2021-02-01|2022-01-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000029|cost_of_revenue|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000029|cost_of_revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000029|operating_income|2021-02-01|2022-01-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000029|operating_income|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000029|operating_income|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000029|revenue|2021-02-01|2022-01-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000029|revenue|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000029|revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000124|capex|2023-01-30|2023-04-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000124|capex|2024-01-29|2024-04-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000124|cost_of_revenue|2023-01-30|2023-04-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5003,6 +5222,7 @@
   "extraction_id": "0001045810-24-000124|cost_of_revenue|2024-01-29|2024-04-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5011,6 +5231,7 @@
   "extraction_id": "0001045810-24-000124|operating_income|2023-01-30|2023-04-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5019,6 +5240,7 @@
   "extraction_id": "0001045810-24-000124|operating_income|2024-01-29|2024-04-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5027,6 +5249,7 @@
   "extraction_id": "0001045810-24-000124|revenue|2023-01-30|2023-04-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5035,26 +5258,32 @@
   "extraction_id": "0001045810-24-000124|revenue|2024-01-29|2024-04-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000264|capex|2023-01-30|2023-07-30",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000264|capex|2024-01-29|2024-07-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000264|cost_of_revenue|2023-01-30|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5063,6 +5292,7 @@
   "extraction_id": "0001045810-24-000264|cost_of_revenue|2023-05-01|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5071,6 +5301,7 @@
   "extraction_id": "0001045810-24-000264|cost_of_revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5079,6 +5310,7 @@
   "extraction_id": "0001045810-24-000264|cost_of_revenue|2024-04-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5087,6 +5319,7 @@
   "extraction_id": "0001045810-24-000264|operating_income|2023-01-30|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5095,6 +5328,7 @@
   "extraction_id": "0001045810-24-000264|operating_income|2023-05-01|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5103,6 +5337,7 @@
   "extraction_id": "0001045810-24-000264|operating_income|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5111,6 +5346,7 @@
   "extraction_id": "0001045810-24-000264|operating_income|2024-04-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5119,6 +5355,7 @@
   "extraction_id": "0001045810-24-000264|revenue|2023-01-30|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5127,6 +5364,7 @@
   "extraction_id": "0001045810-24-000264|revenue|2023-05-01|2023-07-30",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5135,6 +5373,7 @@
   "extraction_id": "0001045810-24-000264|revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5143,26 +5382,32 @@
   "extraction_id": "0001045810-24-000264|revenue|2024-04-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000316|capex|2023-01-30|2023-10-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000316|capex|2024-01-29|2024-10-27",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-24-000316|cost_of_revenue|2023-01-30|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5171,6 +5416,7 @@
   "extraction_id": "0001045810-24-000316|cost_of_revenue|2023-07-31|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5179,6 +5425,7 @@
   "extraction_id": "0001045810-24-000316|cost_of_revenue|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5187,6 +5434,7 @@
   "extraction_id": "0001045810-24-000316|cost_of_revenue|2024-07-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5195,6 +5443,7 @@
   "extraction_id": "0001045810-24-000316|operating_income|2023-01-30|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5203,6 +5452,7 @@
   "extraction_id": "0001045810-24-000316|operating_income|2023-07-31|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5211,6 +5461,7 @@
   "extraction_id": "0001045810-24-000316|operating_income|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5219,6 +5470,7 @@
   "extraction_id": "0001045810-24-000316|operating_income|2024-07-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5227,6 +5479,7 @@
   "extraction_id": "0001045810-24-000316|revenue|2023-01-30|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5235,6 +5488,7 @@
   "extraction_id": "0001045810-24-000316|revenue|2023-07-31|2023-10-29",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5243,6 +5497,7 @@
   "extraction_id": "0001045810-24-000316|revenue|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5251,132 +5506,170 @@
   "extraction_id": "0001045810-24-000316|revenue|2024-07-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000023|capex|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000023|capex|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000023|capex|2024-01-29|2025-01-26",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000023|cost_of_revenue|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000023|cost_of_revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000023|cost_of_revenue|2024-01-29|2025-01-26",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000023|operating_income|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000023|operating_income|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000023|operating_income|2024-01-29|2025-01-26",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000023|revenue|2022-01-31|2023-01-29",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000023|revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000023|revenue|2024-01-29|2025-01-26",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000116|capex|2024-01-29|2024-04-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000116|capex|2025-01-27|2025-04-27",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000116|cost_of_revenue|2024-01-29|2024-04-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000116|cost_of_revenue|2025-01-27|2025-04-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000116|operating_income|2024-01-29|2024-04-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000116|operating_income|2025-01-27|2025-04-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000116|revenue|2024-01-29|2024-04-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000116|revenue|2025-01-27|2025-04-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5391,28 +5684,33 @@
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000209|capex|2025-01-27|2025-07-27",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000209|cost_of_revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000209|cost_of_revenue|2024-04-29|2024-07-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000209|cost_of_revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5421,6 +5719,7 @@
   "extraction_id": "0001045810-25-000209|cost_of_revenue|2025-04-28|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5429,20 +5728,23 @@
   "extraction_id": "0001045810-25-000209|operating_income|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000209|operating_income|2024-04-29|2024-07-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000209|operating_income|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5451,6 +5753,7 @@
   "extraction_id": "0001045810-25-000209|operating_income|2025-04-28|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5459,20 +5762,23 @@
   "extraction_id": "0001045810-25-000209|revenue|2024-01-29|2024-07-28",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000209|revenue|2024-04-29|2024-07-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000209|revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5481,6 +5787,7 @@
   "extraction_id": "0001045810-25-000209|revenue|2025-04-28|2025-07-27",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5505,8 +5812,7 @@
   "extraction_id": "0001045810-25-000230|cost_of_revenue|2024-01-29|2024-10-27",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
@@ -5540,108 +5846,6 @@
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-25-000230|operating_income|2024-01-29|2024-10-27",
-  "outcome": "rule",
-  "caught_by": [
-   "citation_resolves",
-   "jump",
-   "quarters_sum_to_ytd"
-  ]
- },
- {
-  "fault": "misread_digits",
-  "extraction_id": "0001045810-25-000230|operating_income|2024-07-29|2024-10-27",
-  "outcome": "rule",
-  "caught_by": [
-   "citation_resolves"
-  ]
- },
- {
-  "fault": "misread_digits",
-  "extraction_id": "0001045810-25-000230|operating_income|2025-01-27|2025-10-26",
-  "outcome": "rule",
-  "caught_by": [
-   "citation_resolves",
-   "magnitude",
-   "quarters_sum_to_ytd"
-  ]
- },
- {
-  "fault": "misread_digits",
-  "extraction_id": "0001045810-25-000230|operating_income|2025-07-28|2025-10-26",
-  "outcome": "rule",
-  "caught_by": [
-   "citation_resolves",
-   "magnitude",
-   "quarters_sum_to_ytd"
-  ]
- },
- {
-  "fault": "misread_digits",
-  "extraction_id": "0001045810-25-000230|revenue|2024-01-29|2024-10-27",
-  "outcome": "rule",
-  "caught_by": [
-   "citation_resolves",
-   "jump",
-   "outlier_vs_own_history",
-   "quarters_sum_to_ytd"
-  ]
- },
- {
-  "fault": "misread_digits",
-  "extraction_id": "0001045810-25-000230|revenue|2024-07-29|2024-10-27",
-  "outcome": "rule",
-  "caught_by": [
-   "citation_resolves"
-  ]
- },
- {
-  "fault": "misread_digits",
-  "extraction_id": "0001045810-25-000230|revenue|2025-01-27|2025-10-26",
-  "outcome": "rule",
-  "caught_by": [
-   "quarters_sum_to_ytd"
-  ]
- },
- {
-  "fault": "misread_digits",
-  "extraction_id": "0001045810-25-000230|revenue|2025-07-28|2025-10-26",
-  "outcome": "rule",
-  "caught_by": [
-   "citation_resolves",
-   "quarters_sum_to_ytd"
-  ]
- },
- {
-  "fault": "misread_digits",
-  "extraction_id": "0001045810-26-000021|capex|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
- },
- {
-  "fault": "misread_digits",
-  "extraction_id": "0001045810-26-000021|capex|2024-01-29|2025-01-26",
-  "outcome": "rule",
-  "caught_by": [
-   "citation_resolves"
-  ]
- },
- {
-  "fault": "misread_digits",
-  "extraction_id": "0001045810-26-000021|capex|2025-01-27|2026-01-25",
-  "outcome": "rule",
-  "caught_by": [
-   "citation_resolves"
-  ]
- },
- {
-  "fault": "misread_digits",
-  "extraction_id": "0001045810-26-000021|cost_of_revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
- },
- {
-  "fault": "misread_digits",
-  "extraction_id": "0001045810-26-000021|cost_of_revenue|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
    "citation_resolves",
@@ -5650,6 +5854,110 @@
  },
  {
   "fault": "misread_digits",
+  "extraction_id": "0001045810-25-000230|operating_income|2024-07-29|2024-10-27",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001045810-25-000230|operating_income|2025-01-27|2025-10-26",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "magnitude",
+   "quarters_sum_to_ytd"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001045810-25-000230|operating_income|2025-07-28|2025-10-26",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "magnitude",
+   "quarters_sum_to_ytd"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001045810-25-000230|revenue|2024-01-29|2024-10-27",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "jump",
+   "outlier_vs_own_history"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001045810-25-000230|revenue|2024-07-29|2024-10-27",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001045810-25-000230|revenue|2025-01-27|2025-10-26",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "quarters_sum_to_ytd"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001045810-25-000230|revenue|2025-07-28|2025-10-26",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves",
+   "quarters_sum_to_ytd"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001045810-26-000021|capex|2023-01-30|2024-01-28",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001045810-26-000021|capex|2024-01-29|2025-01-26",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001045810-26-000021|capex|2025-01-27|2026-01-25",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001045810-26-000021|cost_of_revenue|2023-01-30|2024-01-28",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
+  "extraction_id": "0001045810-26-000021|cost_of_revenue|2024-01-29|2025-01-26",
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
+ },
+ {
+  "fault": "misread_digits",
   "extraction_id": "0001045810-26-000021|cost_of_revenue|2025-01-27|2026-01-25",
   "outcome": "rule",
   "caught_by": [
@@ -5660,8 +5968,10 @@
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-26-000021|operating_income|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
@@ -5684,17 +5994,17 @@
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-26-000021|revenue|2023-01-30|2024-01-28",
-  "outcome": "no_effect",
-  "caught_by": []
+  "outcome": "rule",
+  "caught_by": [
+   "citation_resolves"
+  ]
  },
  {
   "fault": "misread_digits",
   "extraction_id": "0001045810-26-000021|revenue|2024-01-29|2025-01-26",
   "outcome": "rule",
   "caught_by": [
-   "citation_resolves",
-   "jump",
-   "outlier_vs_own_history"
+   "citation_resolves"
   ]
  },
  {
@@ -5801,7 +6111,7 @@
   "extraction_id": "0001045810-26-000075|cost_of_revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
@@ -5818,6 +6128,7 @@
   "extraction_id": "0001045810-26-000075|cost_of_revenue|2026-01-26|2026-07-26",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5836,7 +6147,7 @@
   "extraction_id": "0001045810-26-000075|operating_income|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
@@ -5854,6 +6165,7 @@
   "extraction_id": "0001045810-26-000075|operating_income|2026-01-26|2026-07-26",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },
@@ -5871,7 +6183,7 @@
   "extraction_id": "0001045810-26-000075|revenue|2025-01-27|2025-07-27",
   "outcome": "rule",
   "caught_by": [
-   "quarters_sum_to_ytd"
+   "citation_resolves"
   ]
  },
  {
@@ -5887,6 +6199,7 @@
   "extraction_id": "0001045810-26-000075|revenue|2026-01-26|2026-07-26",
   "outcome": "rule",
   "caught_by": [
+   "citation_resolves",
    "quarters_sum_to_ytd"
   ]
  },

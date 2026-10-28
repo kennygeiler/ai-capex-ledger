@@ -52,8 +52,15 @@ GOOD.extractions[1]["scale"] = GOOD.extractions[2]["scale"] = GOOD.extractions[3
 PARAMS = {"coverage": {"fields": ["revenue"]}}
 
 
+# The fixture's sum-check cells are synthetic; the citation rule is checked on the one real cell (REV).
+ONLY_REAL_CELL = {"citation_resolves"}
+
+
 def findings(rule_id, ctx):
     r = RULES[rule_id]
+    if rule_id in ONLY_REAL_CELL:
+        ctx = copy.copy(ctx)
+        ctx.extractions = ctx.extractions[:1]
     return CHECKS[r["check"]](ctx, PARAMS.get(rule_id, r["params"]))
 
 
@@ -64,7 +71,7 @@ def bad(mutate):
 
 
 FAIL = {
-    "citation_resolves": lambda c: c.extractions[0].update(cell_text="96,222"),
+    "citation_resolves": lambda c: c.extractions[0].update(cell_text="96,222"),  # checked whether or not the cell ships
     "unit_from_document": lambda c: c.extractions[0].update(unit_source="document"),
     "period_length": lambda c: c.extractions[0].update(period_start="2026-05-27"),
     "column_matches_period": lambda c: c.extractions[0].update(column_label="Three Months Ended | Jul 27, 2025"),

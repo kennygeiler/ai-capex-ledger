@@ -32,3 +32,4 @@ The prompt (`statements@v1`) and rules were frozen and committed (`664726e`) bef
 | Fault classifier: a fault that changes an exception already open counts as caught | APLD (held out) |
 
 None of these changed an agent value or the prompt. The two held-out fixes affect rule and test bookkeeping only.
+| `citation_resolves` checks every extracted cell, not only cells behind released values (otherwise a bad cell could silently turn a quarter blank: 140 escapes on the first rerun) | fault injection, after the restatement change |
