@@ -14,10 +14,11 @@ from .extract import PROMPT_VERSION, Invalid, resolve, validate_output
 from .store import ROOT
 
 PROMPT = ROOT / "agents" / "prompts" / f"{PROMPT_VERSION}.md"
-MODEL = "opus"
+MODEL = "claude-opus-5-5"  # pinned, so a rerun reads with the same model; needs Claude Code 2.1.280 or later
+CLI = os.environ.get("LEDGER_CLAUDE", "claude")  # path to a newer claude when the installed one is too old
 # Only the basics: the desktop app's session variables route requests to its own token, not the user's login.
 ENV = {k: os.environ[k] for k in ("HOME", "PATH", "USER", "LANG") if k in os.environ}
-CMD = ["claude", "-p", "--output-format", "json", "--tools", "", "--model", MODEL, "--setting-sources", "project",
+CMD = [CLI, "-p", "--output-format", "json", "--tools", "", "--model", MODEL, "--setting-sources", "project",
        "--strict-mcp-config", "--disable-slash-commands", "--no-session-persistence"]
 
 
@@ -39,7 +40,8 @@ def _ask(text: str) -> tuple[str, dict]:
     if d.get("is_error"):
         raise AgentUnavailable(f"claude -p failed: {str(d.get('result'))[:300]}")
     u = d.get("usage", {})
-    return d.get("result", ""), {"model": ",".join(d.get("modelUsage", {})) or MODEL, "seconds": round(time.monotonic() - t0, 1),
+    used = d.get("modelUsage", {})
+    return d.get("result", ""), {"model": max(used, key=lambda k: used[k].get("outputTokens", 0)) if used else MODEL, "seconds": round(time.monotonic() - t0, 1),
                                  "input_tokens": u.get("input_tokens", 0) + u.get("cache_read_input_tokens", 0) + u.get("cache_creation_input_tokens", 0),
                                  "output_tokens": u.get("output_tokens", 0)}
 

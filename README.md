@@ -6,23 +6,22 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** M1 is built: one command now runs any company, from ticker to validation page, with no one in the loop.
-- **`ledger run --ticker X`** runs ingest, then the headless agent, then loads and checks citations, then reconcile, rules, the fault test, the rendered-10-K re-read, and the page, and ends with the scorecard.
-- **Every command** now takes `--ticker X Y` as well as `--stage N`.
-- **The headless agent** (`ledger/agent.py`, `extract --run`) runs `claude -p` with no tools, isolated from the desktop app's session and from personal hooks. It checks every citation before accepting an answer and retries once with the reason. It records model, tokens, seconds and attempts. Tested with a stand-in `claude`, but **not yet live**: the stored login token is revoked.
-- **The scorecard** (agent minutes, tokens, retries, values, agreement, cells confirmed, items for a person) is printed by `ledger run` and shown on the page.
-- **AMD** (never seen before) runs cleanly up to the agent step: 2 10-Ks, both statements located.
+**Last done (28 Oct 2026):** M1 is done. AMD, a company the pipeline had never seen, ran from ticker to finished validation page with nobody in the loop: `ledger run --ticker AMD`, 21 seconds end to end.
+- **Agent:** 2 10-Ks read by the headless agent (Opus 5.5, 0.5 agent-minutes, 16k tokens, 0 retries).
+- **Results:** 12/12 values agree with XBRL, and 24/24 cited cells were confirmed on the rendered 10-K. 0 of 120 injected faults escaped.
+- **Cost:** 0 code changes and 0 items for a person. There are 3 warnings, all FY2026 coverage: AMD's FY2026 hasn't ended yet.
+- **Scorecard:** in [docs/INGESTION.md](docs/INGESTION.md) and on `reports/AMD-validation.html`.
 - `v0.2.0` stays signed.
 
 **Next:**
-1. **Kenny (M1.1):** in a terminal run `claude`, type `/login` and finish in the browser. Note that `claude login` doesn't log in on this version.
-2. **Claude:** run `uv run python -m ledger run --ticker AMD` live as the first unattended company, check its page and scorecard, then M2: the 14 unseen companies run blind.
+1. **Claude (M2):** label "the fiscal year hasn't ended" in code, then run the remaining 13 unseen companies blind with the pipeline frozen (`ledger run --ticker GOOGL AMZN META TSLA MU SPCX MRVL ALAB CRDO IREN CIFR WULF CORZ`). Record each failure by type and fix the type, then rerun everything.
+2. **Kenny (optional):** upgrade the installed Claude Code with `brew upgrade claude-code` (or your install method), so that `LEDGER_CLAUDE` isn't needed.
 
 **Critical notes:**
 - **Dashes are zero.** APLD's newest 10-K shows "—" for its data-center cost line in FY2024 and FY2025; agents read these as 0.
 - **NVDA's capex line includes intangible assets.** Note it when comparing companies.
 - **Known blind spot:** a wrong-row misread is caught by comparing a company's filings with each other, so a company's first filing is less protected.
-- **Running agents:** extraction runs as Claude Code subagents inside the session (no paid API). Headless runs need `claude login`.
+- **Running agents:** `ledger run` runs the agent headless on Kenny's subscription (no paid API). It needs a logged-in `claude` (run `claude`, then `/login`) of version 2.1.280 or later for Opus 5.5. Until the installed one is upgraded, set `LEDGER_CLAUDE` to the desktop app's newer `claude`.
 - **Old work is in tags:**
   - `takehome-xbrl-explorer`: the 113-company explorer
   - `quarterly-v0.1`: the quarterly pipeline

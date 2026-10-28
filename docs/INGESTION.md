@@ -44,9 +44,20 @@ A person's attention is the scarcest input, so it goes only where code can't nam
 | 28 Oct | Hand-checking all 66 values was too hard, and pointless where XBRL already agrees. The page also still showed decided items in red and never said what to compare. | A person checks only what XBRL can't vouch for, plus 10 random agreeing values; each is one yes/no question naming the row, column and number; decided items show who decided (`release.to_check`, G5). | policy + code |
 | 28 Oct | Even 20 yes/no checks made a person hunt through a long filing for one cell. | `ledger evidence`: headless Chrome renders the real 10-K, finds the cited row and the column header above it by position (independent of our table parser), compares the text and screenshots it boxed. Stage 2: 173/173 cells confirmed; 708/708 citations moved to a neighbouring row or column noticed. A person sees only cells the machine can't confirm, with the box showing where. OCR (docling) wasn't needed: 10-Ks are born-digital HTML, so the rendered page's own text is exact. First version cut off cells past the right edge and missed a ")" in its own cell; both fixed. | code |
 | 28 Oct | Headless `claude -p` failed with "token revoked": inside the desktop app it inherits the app's session variables (its own proxy and token), and `claude login` on v2.1.114 sends "login" as a chat message instead of logging in. | The agent runs with only HOME, PATH, USER and LANG, in an empty folder, with no user settings, hooks or MCP servers (so none of the user's own plugins reach the prompt). Login is `claude`, then `/login`. | code + setup |
+| 28 Oct | The installed `claude` (2.1.119) can't run Opus 5.5, the model the in-session agents used. | The agent pins `claude-opus-5-5`; `LEDGER_CLAUDE` points at a newer `claude` until the installed one is upgraded. | setup |
+| 28 Oct | First unattended company (AMD): no code change needed. Its only warnings are FY2026 coverage, because AMD's FY2026 hasn't ended (December year-end). | Next type to label in code (M2): a fiscal year that hasn't ended isn't missing. | finding |
 | earlier | NVDA's capex line includes intangible assets. | Used as reported; `definition_note` records it on every release. | rule |
 | earlier | Some tables state their unit elsewhere in the filing. | Allowed, flagged as a warning. | policy |
 | earlier | Misreads with a valid-looking citation escaped (140 in fault tests). | `citation_resolves` checks every extraction. | code |
+
+## Scorecard
+
+What each company cost. `ledger run` prints this, and each validation page shows it. Code changes are counted by hand from the log above.
+
+| Company | How it ran | Agent time | Tokens | Code changes | For a person | Values agreeing with XBRL |
+|---|---|---|---|---|---|---|
+| NVDA, MSFT, CRWV, ORCL, APLD | by hand (in-session agents) | n/a | n/a | many (stage 1–2 built the pipeline) | 6 decisions | 56/66 |
+| AMD | `ledger run`, unattended | 0.5 min (2 filings) | 16,302 | 0 | 0 (3 warnings: FY2026 not yet ended) | 12/12 |
 
 ## Open
 

@@ -4,15 +4,6 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Open
 
-### M1: it runs unattended
-
-| ID | Ticket | Done when |
-|---|---|---|
-| M1.1 | **you:** in a terminal run `claude`, then type `/login` and finish in the browser. (`claude login` does not log in on v2.1.114: it sends "login" as a chat message.) | `ledger run --ticker AMD` gets past the agent step. |
-| M1.2 | Headless extraction: one `claude -p` call per filing with the frozen prompt; validate the output, retry once, log a failure otherwise. Record model, tokens and seconds in `runs`. | A filing is extracted with nobody in the chat. **Status:** Built (`ledger/agent.py`, `extract --run`), tested with a stand-in `claude`; awaiting a live run. |
-| M1.3 | `ledger run --ticker X [X…]`: fetch, parse, extract, check, report in one command. Cached and safe to rerun. Ticker sets replace `--stage`. | A never-seen company gets its validation page with no manual step. **Status:** Built (`ledger run`); every command takes `--ticker`. Runs on AMD up to the agent step. |
-| M1.4 | Scorecard: per company, the code changes it needed, items that reached a person, person minutes, and agent tokens and seconds. One table in the validation page and in INGESTION.md. | Shows for the 5 stage 2 companies. **Status:** Built (`ledger/scorecard.py`); printed by `ledger run` and shown on the page. |
-
 ### M2: a new company needs no code
 
 | ID | Ticket | Done when |
@@ -36,6 +27,8 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 | L2 | Non-functional checks as tests: SEC request spacing and contact header; no email or key in any output; parse under 60 s; `uv sync --frozen` works. | 4 tests. |
 
 ## Done
+
+- **M1, it runs unattended (28 Oct):** `ledger run --ticker X` takes any company from ticker to validation page and scorecard with nobody in the loop. Headless agent (`claude -p`, Opus 5.5 pinned, no tools, isolated from the desktop session and user hooks), every command takes `--ticker`, per-company scorecard. First unattended company: AMD, 21 s end to end, 12/12 values agree with XBRL, 24/24 cells confirmed on the rendered 10-K, 0 code changes, nothing for a person.
 
 - **`v0.2.0` (28 Oct):** 5 companies, 66 values, signed by Kenny Geiler, hash a4319cfd12b5. M0 complete.
 

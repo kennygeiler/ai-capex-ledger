@@ -19,8 +19,8 @@ BAD = {**GOOD, "values": [{**GOOD["values"][0], "cell_text": "99,999"}]}
 
 def fake_claude(d: str, first: dict, second: dict) -> None:
     """A stand-in `claude` that answers `first`, then `second` once told its answer was rejected."""
-    script = Path(d) / "claude"
-    reply = lambda o: json.dumps({"is_error": False, "result": "```json\n" + json.dumps(o) + "\n```", "modelUsage": {"claude-test": {}},
+    script = Path(d) / os.path.basename(agent.CLI)
+    reply = lambda o: json.dumps({"is_error": False, "result": "```json\n" + json.dumps(o) + "\n```", "modelUsage": {"claude-test": {"outputTokens": 5}, "claude-small": {"outputTokens": 1}},
                                   "usage": {"input_tokens": 10, "output_tokens": 5}})
     script.write_text(f"#!/usr/bin/env python3\nimport sys\nprint({reply(second)!r} if 'rejected' in sys.stdin.read() else {reply(first)!r})\n")
     script.chmod(script.stat().st_mode | stat.S_IEXEC)

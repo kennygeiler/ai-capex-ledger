@@ -1,0 +1,154 @@
+{
+ "accession": "0000002488-25-000012",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0012",
+   "row_label": "Net revenue",
+   "column_label": "Year Ended | December 28,2024",
+   "cell_text": "25,785",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 25785000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0012",
+   "row_label": "Net revenue",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "22,680",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 22680000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0012",
+   "row_label": "Net revenue",
+   "column_label": "Year Ended | December 31,2022",
+   "cell_text": "23,601",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 23601000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0012",
+   "row_label": "Total cost of sales",
+   "column_label": "Year Ended | December 28,2024",
+   "cell_text": "13,060",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 13060000000,
+   "confidence": 0.9,
+   "notes": "Took the 'Total cost of sales' line per the total-line rule. It includes the 'Amortization of acquisition-related intangibles' line within cost of sales. The 'Cost of sales' line (12,114) excludes that amortization."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0012",
+   "row_label": "Total cost of sales",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "12,220",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 12220000000,
+   "confidence": 0.9,
+   "notes": "Took the 'Total cost of sales' line per the total-line rule. It includes the 'Amortization of acquisition-related intangibles' line within cost of sales. The 'Cost of sales' line (11,278) excludes that amortization."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0012",
+   "row_label": "Total cost of sales",
+   "column_label": "Year Ended | December 31,2022",
+   "cell_text": "12,998",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 12998000000,
+   "confidence": 0.9,
+   "notes": "Took the 'Total cost of sales' line per the total-line rule. It includes the 'Amortization of acquisition-related intangibles' line within cost of sales. The 'Cost of sales' line (11,550) excludes that amortization."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0012",
+   "row_label": "Operating income",
+   "column_label": "Year Ended | December 28,2024",
+   "cell_text": "1,900",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 1900000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0012",
+   "row_label": "Operating income",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "401",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 401000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0012",
+   "row_label": "Operating income",
+   "column_label": "Year Ended | December 31,2022",
+   "cell_text": "1,264",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 1264000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0016",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | December 28,2024",
+   "cell_text": "(636)",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 636000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0016",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "(546)",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 546000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0016",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | December 31,2022",
+   "cell_text": "(450)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 450000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable. The statement has a 'Total cost of sales' line, so the total was used instead."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.0,
+  "input_tokens": 6189,
+  "output_tokens": 1724,
+  "attempts": 1
+ }
+}
