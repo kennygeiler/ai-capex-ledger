@@ -1,0 +1,44 @@
+[
+ {
+  "step": "Find 10-Ks",
+  "detail": "listed and fetched from SEC EDGAR",
+  "done": 72,
+  "of": 72,
+  "unit": "10-Ks"
+ },
+ {
+  "step": "Locate statements",
+  "detail": "income statement and cash-flow statement found",
+  "done": 72,
+  "of": 72,
+  "unit": "10-Ks"
+ },
+ {
+  "step": "Agent reads",
+  "detail": "answer accepted with every citation resolving",
+  "done": 72,
+  "of": 72,
+  "unit": "10-Ks"
+ },
+ {
+  "step": "Re-read on filing",
+  "detail": "cited cell found on the rendered 10-K",
+  "done": 857,
+  "of": 857,
+  "unit": "cells"
+ },
+ {
+  "step": "Match the SEC's data",
+  "detail": "fiscal-year value agrees with XBRL",
+  "done": 224,
+  "of": 234,
+  "unit": "values"
+ },
+ {
+  "step": "Fault test",
+  "detail": "planted mistakes caught",
+  "done": 4270,
+  "of": 4270,
+  "unit": "faults"
+ }
+]

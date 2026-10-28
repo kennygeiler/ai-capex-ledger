@@ -6,10 +6,10 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** `v1.0.0` released and signed by Kenny Geiler: all 19 companies, 234 values, hash 9f8014b3175f.
-- All gates passed. 224 values agree with XBRL; 20 more confirmed on the filing (10 XBRL can't vouch for, 10 random spot-checks), all by the machine re-read of the rendered 10-K. 403 of 403 cited cells confirmed.
-- Built from the M2 rerun of `ledger run --stage 3`, with Kenny's 6 decisions carried over. Prompt `statements@v2`, parser `tables@7`, 15 rules.
-- `v0.1.0` and `v0.2.0` stay signed.
+**Last done (28 Oct 2026):** DATAHQ, a morning dashboard for the pipeline: https://claude.ai/artifact/Eap67fDB2Vs85qsGmY12tw
+- Shows open items, last run, pipeline pass rates, the next expected 10-Ks, a per-company scorecard, rule findings and signed releases.
+- `uv run python -m scripts.datahq` exports its data to `reports/datahq/*.json`; the page source is `reports/datahq/index.html`. The dashboard reads uploaded copies, so after a run, re-export and ask Claude to upload the new files.
+- Before that: `v1.0.0` released and signed by Kenny Geiler (all 19 companies, 234 values, hash 9f8014b3175f).
 
 **Next:**
 1. **Claude:** fix the `QUALITY.md` notes for `cost_of_revenue_part`. They group a company's separate cost lines (ORCL, APLD) as if they were one value restated between filings. The values are right; the note is noise. Ships as `v1.0.1`.
