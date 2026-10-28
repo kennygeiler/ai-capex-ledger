@@ -29,6 +29,23 @@ The pipeline cleans the data and normalizes it to calendar quarters (and fiscal 
 
 ## Run
 
+### The new agent pipeline (PRD stages; stage 1 = NVDA)
+
+```bash
+uv sync                                         # duckdb + pyyaml, pinned in uv.lock
+uv run python -m ledger ingest --stage 1        # filings -> cached documents -> parsed statement tables -> data/ledger.duckdb
+uv run python -m ledger extract --stage 1 --pack  # one task per filing in data/extract/tasks/ (tables only, no XBRL)
+#   ...agents answer each task into data/extract/outputs/<accession>.json (Claude Code subagents, prompt agents/prompts/statements@v1.md)
+uv run python -m ledger extract --stage 1 --load  # schema + citation checks; failures become exceptions
+uv run python -m ledger reconcile --stage 1     # quarterly values, compared with XBRL
+uv run python -m ledger report --stage 1        # reports/stage1-validation.html: see and hand-check every value
+uv run python -m unittest discover -s tests -t .
+```
+
+Plan and status: [docs/PRD.md](docs/PRD.md) and [docs/TICKETS.md](docs/TICKETS.md).
+
+### The original XBRL pipeline (the reference set)
+
 ```bash
 python3 -m pipeline.run              # fetch (24h cache), clean, validate, export to data/clean/
 python3 -m pipeline.run --refresh    # re-download everything from SEC

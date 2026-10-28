@@ -13,6 +13,7 @@ COMMANDS = {
     "rules": "Run the rule registry and write exceptions.",
     "review": "Work the exception queue and record decisions.",
     "score": "Score against XBRL and the golden set, with 95%% intervals.",
+    "report": "Write the validation page for a stage (reports/stage<N>-validation.html).",
     "release": "Build a versioned release (refuses while any gate fails).",
     "signoff": "Record who signed a release.",
 }

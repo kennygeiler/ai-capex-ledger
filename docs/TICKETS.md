@@ -128,10 +128,11 @@ Delivery is staged (PRD section 5, decided 2026-10-27): **one company, then 5, t
 
 | ID | Requirement | Traces to | Deps | Size | Status | Verified by |
 |---|---|---|---|---|---|---|
-| T80 | The golden sampler shall produce each stage's checking sheet: stage 1 is all 32 NVDA values; stage 2 is all 64 values of the 2 hold-out companies; stage 3 picks 75 hold-out company-quarters with a fixed seed. It must include the hard cases: Oracle's mistag quarter, Applied Digital's restated quarter, CoreWeave, Tesla, and a 13-week-calendar company. The output is a checking sheet with document links and empty truth columns. | R9, G5 | T02, T10 | S | todo | Test: 300 value slots; no dev-split company; every named hard case present. |
+| T80 | The golden sampler shall produce each stage's checking sheet (for stages 1 and 2, the T83 validation page is the sheet): stage 1 is all 32 NVDA values; stage 2 is all 64 values of the 2 hold-out companies; stage 3 picks 75 hold-out company-quarters with a fixed seed. It must include the hard cases: Oracle's mistag quarter, Applied Digital's restated quarter, CoreWeave, Tesla, and a 13-week-calendar company. The output is a checking sheet with document links and empty truth columns. | R9, G5 | T02, T10 | S | doing | Test: 300 value slots; no dev-split company; every named hard case present. |
 | T81-1 | Kenny shall hand-check all 32 NVDA values (about 30 minutes), recording each value's truth and where in the filing he read it. An agent may prepare the sheet but never fills in truth. | G5 | T80 | S | human | Check: 32 rows filled and initialled. |
 | T81-2 | Kenny shall hand-check all 64 values of ORCL and APLD (about 1 hour), under the same rules. | G5 | T80, T53 | M | human | Check: 64 rows filled and initialled. |
 | T81-3 | Kenny shall hand-check the 300-value stage-3 golden set (about 5 hours), under the same rules. | G5 | T80 | L | human | Check: 300 rows filled and initialled. |
+| T83 | `python -m ledger report --stage N` shall write `reports/stage<N>-validation.html`. For every quarterly value it shows: the agent value next to the reference, the arithmetic from the cited cells, each cited cell highlighted in its parsed table, and a link that opens the SEC filing at the cited row. It also gives a hand-check checkbox and note per value, kept in the browser and exportable as JSON. | G5, R5 | T60, T44 | M | done | Check (2026-10-28): stage 1 page: 32 rows, arithmetic ✓ on every derived value, no horizontal scroll at 375 px, ticking a value updates the count. |
 | T82 | The scorer shall report the golden-set error count (G5) and, for each agent error, whether any rule flagged it (G6). | G5, G6 | T81, T32, T50 | S | todo | Test: a fixture with one flagged error and one unflagged error reports 1 escape. |
 
 ## Epic 9: Release (R6)
@@ -237,3 +238,10 @@ Defects found in the first draft of this file, and how each was fixed:
     - T60: the agent_wrong / xbrl_wrong / definition_gap labels only arise in review, and NVDA produced none.
   - **Finding for prompt v2 (T53):** all 3 agents wrote a small script to copy cells from the task tables instead of reading value by value. This is fine for exactness (no typing errors), but "which row is capex" was decided once per agent in code. On cleaner filings like NVDA that's invisible; on messy ones it could repeat one wrong choice across every value. Stage 2 should measure this; options are per-filing judgement notes, or a second agent that checks row choices.
   - **Agent accuracy so far:** 32 agree out of 32, on the tuning company. That is not a generalization claim (PRD section 5, stage 1).
+- **2026-10-28:** T83 added and done. Kenny asked for a visual way to validate the data, so `reports/stage1-validation.html` now exists:
+  - charts of agent vs XBRL for each field
+  - all 32 values with their arithmetic and highlighted source cells
+  - deep links into the SEC filings
+  - the hand-check checkboxes for T81-1, exported as `stage1-handcheck.json`
+
+  The links use Chrome text fragments to jump to the cited row. They were not tested against sec.gov from here; if a fragment misses, the filing still opens at the top.
