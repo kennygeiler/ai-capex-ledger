@@ -17,12 +17,11 @@ AI agents read SEC 10-K filings and extract revenue, capex and opex, citing the 
 | Stage | Companies | Prompt | Release |
 |---|---|---|---|
 | 1 | NVDA | tuned here | `v0.1.0` |
-| 2 | + MSFT, CRWV (tuning); ORCL, APLD (held out, run once with the prompt frozen) | frozen at `statements@v1` | `v0.2.0` |
+| 2 | + MSFT, CRWV (tuning); ORCL, APLD (held out, run once with the prompt frozen) | `statements@v1`; ORCL and APLD re-read with `v2` to classify cost lines (a definition change, not tuning) | `v0.2.0` |
 | 3 | all 19 | frozen | `v1.0.0` |
 
 **Not doing:**
 - quarterly data
-- adding a company's cost lines together
 - a hosted service
 
 ## Principles
@@ -60,7 +59,7 @@ These hold by construction:
 
 - **A misread with a valid citation.** For example, the right row in last year's column, or a neighbouring line. Rules catch it by comparing columns and filings. On a company's first filing, `row_label_switch` has nothing to compare against.
 - **XBRL is not truth.** Filers mis-tag, and APLD's XBRL reflects an older presentation than its newest 10-K. A disagreement is labelled and decided, never auto-resolved.
-- **Definitions differ by company.** NVDA's capex line includes intangibles, and Oracle has no cost-of-revenue line. `definition_note` records these; `not_reported` leaves the value blank.
+- **Definitions differ by company.** NVDA's capex line includes intangibles, and Oracle has no cost-of-revenue line, so its cost lines are classified and added, as standard tools do. `definition_note` and `cost_lines_summed` put these in front of a person.
 - **Agent cost.** Extraction runs as Claude Code subagents inside the session, with no paid API. Headless runs need `claude login`.
 
 ## History

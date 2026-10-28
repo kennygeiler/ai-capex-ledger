@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
 SCHEMA_VERSION = 4
 
-FIELDS = ("revenue", "cost_of_revenue", "operating_income", "capex", "opex")
+FIELDS = ("revenue", "cost_of_revenue", "cost_of_revenue_part", "operating_income", "capex", "opex")
 YEAR = re.compile(r"^FY\d{4}$")
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 ACCESSION = re.compile(r"^\d{10}-\d{2}-\d{6}$")

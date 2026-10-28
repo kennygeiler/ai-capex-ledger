@@ -82,6 +82,7 @@ def bad(mutate):
 
 FAIL = {
     "citation_resolves": lambda c: c.extractions[0].update(cell_text="67,358"),  # checked whether or not the cell ships
+    "cost_lines_summed": lambda c: c.extractions.append(ext("cost_of_revenue_part", "2025-06-01", "2026-05-31", 1, "1", "Hardware", "x")),
     "unit_from_document": lambda c: c.extractions[0].update(unit_source="document"),
     "period_length": lambda c: c.extractions[0].update(period_start="2025-12-01"),
     "column_matches_period": lambda c: c.extractions[0].update(column_label="Year Ended May 31, | 2025"),
@@ -99,7 +100,7 @@ FAIL = {
 
 class Registry(unittest.TestCase):
     def test_every_rule_loads_with_rationale_and_owner(self):
-        self.assertEqual(len(RULES), 13)
+        self.assertEqual(len(RULES), 14)
         for r in RULES.values():
             self.assertTrue(r["rationale"].strip() and r["owner"].strip(), r["id"])
 

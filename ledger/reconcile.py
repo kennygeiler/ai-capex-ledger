@@ -36,10 +36,19 @@ def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str |
     cells = {}  # (period_end, accession) -> {field: extraction}
     for e in extractions:
         if 350 <= (date.fromisoformat(e["period_end"]) - date.fromisoformat(e["period_start"])).days <= 380:
-            cells.setdefault((e["period_end"], e["accession"]), {})[e["field"]] = e
+            fs = cells.setdefault((e["period_end"], e["accession"]), {})
+            if e["field"] == "cost_of_revenue_part":
+                fs.setdefault("parts", []).append(e)
+            else:
+                fs[e["field"]] = e
+    for fs in cells.values():
+        # No total cost-of-revenue line: the cost lines the agent classified are added up (standard practice).
+        if "cost_of_revenue" not in fs and fs.get("parts"):
+            ps = fs["parts"]
+            fs["cost_of_revenue"] = {**ps[0], "value": sum(x["value"] for x in ps), "parts": ps}
     filings = {}  # period_end -> [(filed, fields)] oldest first
     for (end, _), fs in cells.items():
-        filings.setdefault(end, []).append((next(iter(fs.values()))["filed"], fs))
+        filings.setdefault(end, []).append((next(v for v in fs.values() if isinstance(v, dict))["filed"], fs))
     out = []
     for end, fl in sorted(filings.items()):
         fl.sort(key=lambda x: x[0])
@@ -56,9 +65,9 @@ def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str |
             have = [fs for _, fs in fl if all(p in fs for p in parts)]
             val = lambda fs: fs["revenue"]["value"] - fs["cost_of_revenue"]["value"] - fs["operating_income"]["value"] if f == "opex" else fs[f]["value"]
             first, latest = have[0], newest
-            used = [latest[p] for p in parts]
+            used = [x for p in parts for x in latest[p].get("parts", [latest[p]])]
             v, r = val(latest), reference.get((f, period))
-            tol = max([e["scale"] for e in used] + ([_rounding(r)] if r is not None else [])) // 2 * len(parts)
+            tol = max([e["scale"] for e in used] + ([_rounding(r)] if r is not None else [])) // 2 * len(used)
             label = "no_reference" if r is None else "agree" if abs(v - r) <= tol else "unresolved"
             basis = "restated" if _restated(val(first), v, max(e["scale"] for e in used)) else "as_reported"
             out.append(_row(ticker, f, period, end, v, val(first), used, label, basis, docs))

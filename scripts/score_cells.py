@@ -19,7 +19,7 @@ for t in sys.argv[1:]:
     cur = con.execute("select * from extractions where ticker=?", [t])
     for e in [dict(zip([c[0] for c in cur.description], r)) for r in cur.fetchall()]:
         facts = [abs(u["val"]) if e["field"] in ("capex", "cost_of_revenue") else u["val"]
-                 for c in CONCEPTS[e["field"]] for u in gaap.get(c, {}).get("units", {}).get("USD", [])
+                 for c in CONCEPTS.get(e["field"], ()) for u in gaap.get(c, {}).get("units", {}).get("USD", [])
                  if u.get("accn") == e["accession"] and u.get("end") == e["period_end"] and abs(
                      (__import__("datetime").date.fromisoformat(u["end"]) - __import__("datetime").date.fromisoformat(u.get("start", u["end"]))).days
                      - (__import__("datetime").date.fromisoformat(e["period_end"]) - __import__("datetime").date.fromisoformat(e["period_start"])).days) <= 7]

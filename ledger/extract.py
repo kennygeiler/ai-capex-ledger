@@ -13,11 +13,12 @@ from pathlib import Path
 
 from .store import ROOT
 
-PROMPT_VERSION = "statements@v1"
+PROMPT_VERSION = "statements@v2"  # new tasks; v1 outputs stay valid (v2 adds cost_of_revenue_part)
+PROMPT_VERSIONS = ("statements@v1", "statements@v2")
 PROMPT = ROOT / "agents" / "prompts" / f"{PROMPT_VERSION}.md"
 TASKS = ROOT / "data" / "extract" / "tasks"
 OUTPUTS = ROOT / "data" / "extract" / "outputs"
-FIELDS = ("revenue", "cost_of_revenue", "operating_income", "capex")
+FIELDS = ("revenue", "cost_of_revenue", "cost_of_revenue_part", "operating_income", "capex")
 
 
 # ── T41: tasks ─────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -76,8 +77,8 @@ def validate_output(obj: dict, accession: str) -> None:
             raise Invalid(f"missing '{k}'")
     if obj["accession"] != accession:
         raise Invalid(f"accession {obj['accession']!r} is not the task's {accession!r}")
-    if obj["prompt_version"] != PROMPT_VERSION:
-        raise Invalid(f"prompt_version {obj['prompt_version']!r}, expected {PROMPT_VERSION!r}")
+    if obj["prompt_version"] not in PROMPT_VERSIONS:
+        raise Invalid(f"prompt_version {obj['prompt_version']!r}, expected one of {PROMPT_VERSIONS}")
     if not isinstance(obj["values"], list) or not isinstance(obj["not_found"], list):
         raise Invalid("'values' and 'not_found' must be lists")
     req = ("field", "table_id", "row_label", "column_label", "cell_text", "period_end", "months", "value", "confidence")
@@ -122,7 +123,7 @@ def resolve(v: dict, parsed: dict) -> dict:
     shown = round(cell["value"] * t["scale"])
     # Sign conventions: capex is cash spent, shown in parentheses, stored positive (a positive cell is a mismatch to
     # review, not something to silently flip). Cost of revenue is stored positive however the table shows it.
-    expected = -shown if v["field"] == "capex" else abs(shown) if v["field"] == "cost_of_revenue" else shown
+    expected = -shown if v["field"] == "capex" else abs(shown) if v["field"].startswith("cost_of_revenue") else shown
     if v["value"] != expected:
         raise Invalid(f"value {v['value']} != cell {v['cell_text']} × {t['scale']:,} = {expected} ({v['field']} sign convention)")
     return {"unit_stated": t["unit_text"], "unit_source": t["unit_source"], "scale": t["scale"]}

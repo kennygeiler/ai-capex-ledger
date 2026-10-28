@@ -28,6 +28,14 @@ class Annual(unittest.TestCase):
         self.assertEqual((v["opex"]["value"], v["opex"]["first_reported"], v["opex"]["method"]), (30_000_000, 40_000_000, "computed"))
         self.assertEqual(v["opex"]["period"], "FY2025")
 
+    def test_cost_lines_are_added_when_there_is_no_total_line(self):
+        xs = [x(f, "2025-05-31", v, "a", "2025-07-01") for f, v in (("revenue", 100_000_000), ("operating_income", 20_000_000))]
+        xs += [{**x("cost_of_revenue_part", "2025-05-31", v, "a", "2025-07-01"), "extraction_id": f"a|part|{n}", "row_label": n}
+               for n, v in (("Cloud", 30_000_000), ("Hardware", 10_000_000))]
+        v = {r["field"]: r for r in values_for("ORCL", xs, {}, "0531", DOCS)}
+        self.assertEqual(v["opex"]["value"], 40_000_000)
+        self.assertEqual(len(v["opex"]["extraction_ids"].split(",")), 4)
+
     def test_no_cost_of_revenue_line_means_opex_not_reported(self):
         xs = [x(f, "2025-05-31", v, "a", "2025-07-01") for f, v in (("revenue", 100_000_000), ("operating_income", 20_000_000))]
         v = {r["field"]: r for r in values_for("ORCL", xs, {}, "0531", DOCS)}

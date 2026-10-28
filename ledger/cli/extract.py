@@ -73,12 +73,13 @@ def main(argv=None) -> int:
                 excs.append(_exc("extraction_failed", p["ticker"], f"{p['accession']}|values[{i}]", f"{v['field']} {v['column_label']}: citation does not resolve: {e.reason}"))
                 continue
             start = period_start(v["period_end"], v["months"], cals[p["ticker"]])
-            rows.append({"extraction_id": f"{p['accession']}|{v['field']}|{start}|{v['period_end']}", "accession": p["accession"],
+            part = f"|{v['row_label']}" if v["field"] == "cost_of_revenue_part" else ""  # several parts per column
+            rows.append({"extraction_id": f"{p['accession']}|{v['field']}|{start}|{v['period_end']}{part}", "accession": p["accession"],
                          "ticker": p["ticker"], "field": v["field"], "period_start": start, "period_end": v["period_end"],
                          "value": v["value"], "unit_stated": unit["unit_stated"], "unit_source": unit["unit_source"], "scale": unit["scale"],
                          "table_id": v["table_id"], "row_label": v["row_label"], "column_label": v["column_label"],
                          "cell_text": v["cell_text"], "confidence": float(v["confidence"]), "notes": v.get("notes"),
-                         "prompt_version": PROMPT_VERSION, "run_id": run_id})
+                         "prompt_version": obj["prompt_version"], "run_id": run_id})
         meta = obj.get("_run", {})
         runs.append({"run_id": run_id, "step": "extract", "subject": p["accession"], "started_at": run_id[8:],
                      "seconds": round(time.monotonic() - t0, 3), "outcome": "ok" if not bad else "failed",

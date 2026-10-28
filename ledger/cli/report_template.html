@@ -196,7 +196,7 @@ function detail(v) {
       ${s.notes ? `<div class="cite" style="color:var(--muted)">Agent note: ${esc(s.notes)}</div>` : ""}
       ${miniTable(s)}
     </div>`).join("");
-  const basisNote = v.label === "not_reported" ? `<div style="font-size:13px;margin-bottom:8px"><b>Left blank.</b> The company reports no cost-of-revenue line, so opex (revenue − cost of revenue − operating income) can't be computed. Standard tools fill this by adding up the company's cost lines; we don't add lines together.</div>`
+  const basisNote = v.label === "not_reported" ? `<div style="font-size:13px;margin-bottom:8px"><b>Left blank.</b> This 10-K shows neither a cost-of-revenue line nor cost lines to add up, so opex (revenue − cost of revenue − operating income) can't be computed.</div>`
     : v.basis === "restated" ? `<div style="font-size:13px;margin-bottom:8px"><b>Restated.</b> A later 10-K changed this year's figure; the newest one is used. As first reported: ${usd(v.first_reported)}.</div>` : "";
   if (v.value == null) return basisNote;
   return basisNote + `<div style="font-size:13px;margin-bottom:8px"><b>${esc(D.method_label[v.method] || v.method)}.</b> XBRL (SEC answer key): ${usd(v.ref)} from <code>${esc(v.ref_concept || "–")}</code>, ${v.ref_accession || ""}. Difference ${v.ref == null ? "–" : usd(v.value - v.ref)}.</div>

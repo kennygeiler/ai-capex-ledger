@@ -6,15 +6,16 @@ The backlog for [PRD.md](PRD.md). Owner of every ticket: Kenny Geiler. Tickets m
 
 | ID | Ticket | Done when |
 |---|---|---|
-| A3 | **you:** Decide stage 2's blocking items: APLD revenue FY2024 and FY2025, where XBRL reflects an older presentation than the newest 10-K. Then decide the warnings. | `ledger review --stage 2` shows 0 open. |
+| A3 | **you:** Decide stage 2's 10 blocking items, all where XBRL uses a different definition or presentation (Oracle opex FY2022–26; APLD opex FY2024–26 and revenue FY2024–25). Then confirm the `cost_lines_summed` lines and decide the warnings. | `ledger review --stage 2` shows 0 open. |
 | A4 | **you:** Hand-check stage 2's values; release and sign `v0.2.0`. | Signed before 11 Nov. |
 | A5 | Stage 3: run extraction on the remaining 14 companies' 10-Ks with the frozen prompt; fix the IREN locator miss first. | Release `v1.0.0`. |
 | A6 | Run evidence: headless agent runs (`claude -p --tools ""`) that record model, tokens and time per filing. **You** first need to run `claude login` in a terminal. | `runs` rows carry model and tokens. |
 | A7 | Client view: a page showing released values only, each with its basis, source and citation link. | Built from a release folder. |
 | A8 | Non-functional checks as tests: SEC request spacing and contact header; no email or key in any output; parse time under 60 s; `uv sync --frozen` works. | 4 tests. |
-| A9 | **you:** Decide whether to standardize missing cost-of-revenue lines (as data vendors do for Oracle) or keep opex blank. | Decision recorded in FIELDS.md. |
 
 ## Done (28 Oct 2026)
+
+- **Cost of revenue without a total line** is now built as standard tools do: an agent classifies and cites each cost line (prompt `statements@v2`), code adds them up, and `cost_lines_summed` lists them for review (Kenny's decision, 28 Oct).
 
 - **Stage 1:** `v0.1.0` (NVDA, 15 values) signed by Kenny Geiler, hash 2b15699badbe.
 
@@ -24,8 +25,8 @@ The backlog for [PRD.md](PRD.md). Owner of every ticket: Kenny Geiler. Tickets m
   - tasks with no XBRL in them; prompt `statements@v1`
   - citation resolver; outputs kept in git
 - **Values:** one filing per company-year; opex computed from one column; restated basis with `first_reported` kept; `not_reported` when a line is missing.
-- **Rules:** 13 in `rules/*.yaml`, each with a rationale, a plain-English explanation and an action, each tested to pass and fail.
-- **Fault injection:** 0 of 700 misreads escaped (stage 2).
+- **Rules:** 14 in `rules/*.yaml`, each with a rationale, a plain-English explanation and an action, each tested to pass and fail.
+- **Fault injection:** 0 of 862 misreads escaped (stage 2).
 - **Validation pages:**
   - plain-language story, task steps and decision cards
   - charts by company; links into each filing

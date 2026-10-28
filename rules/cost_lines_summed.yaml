@@ -1,0 +1,13 @@
+id: cost_lines_summed
+severity: warn
+description: When a company reports no total cost-of-revenue line, the cost lines an agent classified as cost of revenue
+  were added up; the rule lists them.
+rationale: Standard data tools build cost of revenue from a company's cost lines when it reports no total (Oracle). The
+  classification is a judgement, so a person confirms it once per company.
+owner: Kenny Geiler
+check: cost_lines_summed
+title: Cost of revenue was built by adding up the company's cost lines.
+plain: This company has no single "cost of revenue" line, so, as standard financial data tools do, the AI picked the lines that are
+  costs of delivering revenue and they were added together. Opex depends on that choice.
+action: Read the listed lines. If each one is a cost of delivering revenue (not sales, R&D or admin), accept. If one doesn't
+  belong, tell the data owner.

@@ -129,6 +129,17 @@ def _row_switch(ctx, p):
     return out
 
 
+@check("cost_lines_summed")
+def _cost_lines(ctx, p):
+    """No total cost-of-revenue line, so cost lines the agent classified were added up: list them for review."""
+    lines = {}
+    for e in ctx.extractions:
+        if e["field"] == "cost_of_revenue_part":
+            lines.setdefault(e["ticker"], {}).setdefault(e["row_label"], set()).add(e["accession"])
+    return [Finding(t, "cost of revenue is the sum of: " + "; ".join(f"'{l}' ({len(a)} filing{'s' * (len(a) > 1)})" for l, a in sorted(ls.items())),
+                    "cost_of_revenue") for t, ls in lines.items()]
+
+
 @check("definition_note")
 def _definition(ctx, p):
     """Lines whose wording shows they measure more or less than the field's definition (e.g. capex that includes intangibles)."""
