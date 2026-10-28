@@ -36,6 +36,14 @@ class Annual(unittest.TestCase):
         self.assertEqual(v["opex"]["value"], 40_000_000)
         self.assertEqual(len(v["opex"]["extraction_ids"].split(",")), 4)
 
+    def test_xbrl_drawing_cost_of_revenue_differently_is_explained_by_code(self):
+        xs = [x(f, "2025-05-31", v, "a", "2025-07-01") for f, v in (("revenue", 100_000_000), ("operating_income", 20_000_000))]
+        xs += [{**x("cost_of_revenue_part", "2025-05-31", 30_000_000, "a", "2025-07-01"), "extraction_id": "a|part|Cloud", "row_label": "Cloud"}]
+        ref = {("revenue", "FY2025"): 100_000_000, ("operating_income", "FY2025"): 20_000_000, ("opex", "FY2025"): 80_000_000}
+        self.assertEqual({r["field"]: r for r in values_for("ORCL", xs, ref, "0531", DOCS)}["opex"]["label"], "definition_gap")
+        ref[("revenue", "FY2025")] = 90_000_000  # revenue disagrees too: the cause is unknown, so a person decides
+        self.assertEqual({r["field"]: r for r in values_for("ORCL", xs, ref, "0531", DOCS)}["opex"]["label"], "unresolved")
+
     def test_no_cost_of_revenue_line_means_opex_not_reported(self):
         xs = [x(f, "2025-05-31", v, "a", "2025-07-01") for f, v in (("revenue", 100_000_000), ("operating_income", 20_000_000))]
         v = {r["field"]: r for r in values_for("ORCL", xs, {}, "0531", DOCS)}

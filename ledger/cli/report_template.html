@@ -197,9 +197,11 @@ function detail(v) {
       ${miniTable(s)}
     </div>`).join("");
   const basisNote = v.label === "not_reported" ? `<div style="font-size:13px;margin-bottom:8px"><b>Left blank.</b> This 10-K shows neither a cost-of-revenue line nor cost lines to add up, so opex (revenue − cost of revenue − operating income) can't be computed.</div>`
+    : v.label === "definition_gap" ? `<div style="font-size:13px;margin-bottom:8px"><b>XBRL counts cost of revenue differently.</b> Revenue and operating income both agree with XBRL, so the gap comes only from which lines count as cost of revenue. This 10-K has no total line; ours adds the delivery-cost lines below, as standard tools do. Confirm those lines once on the company's "cost lines" card; no decision is needed per year.</div>`
     : v.basis === "restated" ? `<div style="font-size:13px;margin-bottom:8px"><b>Restated.</b> A later 10-K changed this year's figure; the newest one is used. As first reported: ${usd(v.first_reported)}.</div>` : "";
+  const why = v.why ? `<div style="font-size:13px;margin-bottom:8px"><b>The filing explains:</b> “${esc(v.why.text)}” <a href="${esc(v.why.url)}" target="_blank" rel="noopener">Read it in the filing ↗</a></div>` : "";
   if (v.value == null) return basisNote;
-  return basisNote + `<div style="font-size:13px;margin-bottom:8px"><b>${esc(D.method_label[v.method] || v.method)}.</b> XBRL (SEC answer key): ${usd(v.ref)} from <code>${esc(v.ref_concept || "–")}</code>, ${v.ref_accession || ""}. Difference ${v.ref == null ? "–" : usd(v.value - v.ref)}.</div>
+  return basisNote + why + `<div style="font-size:13px;margin-bottom:8px"><b>${esc(D.method_label[v.method] || v.method)}.</b> XBRL (SEC answer key): ${usd(v.ref)} from <code>${esc(v.ref_concept || "–")}</code>, ${v.ref_accession || ""}. Difference ${v.ref == null ? "–" : usd(v.value - v.ref)}.</div>
     ${formula(v)}<div class="sources">${srcs}</div>`;
 }
 
@@ -210,7 +212,7 @@ function rows() {
   return list.map((v) => {
     const k = key(v), c = checks[k] || {}, open = state.open.has(k);
     const basisPill = v.basis === "restated" ? ` <span class="pill na" title="A later 10-K changed this figure. As first reported: ${usd(v.first_reported)}">restated</span>` : "";
-    const pill = v.label === "not_reported" ? `<span class="pill na">not reported</span>` : v.label === "agree" ? `<span class="pill ok" title="agrees with XBRL"><span class="full">agree</span><span class="abbr">✓</span></span>` : v.label === "no_reference" ? `<span class="pill na">no XBRL</span>` : `<span class="pill bad">${v.label}</span>`;
+    const pill = v.label === "not_reported" ? `<span class="pill na">not reported</span>` : v.label === "agree" ? `<span class="pill ok" title="agrees with XBRL"><span class="full">agree</span><span class="abbr">✓</span></span>` : v.label === "no_reference" ? `<span class="pill na">no XBRL</span>` : v.label === "definition_gap" ? `<span class="pill na" title="XBRL counts cost of revenue differently">XBRL defines differently</span>` : `<span class="pill bad">${v.label}</span>`;
     return `<tr class="main ${open ? "open" : ""} ${c.verified ? "done" : ""}" data-k="${k}">
       <td><span class="caret">▸</span> ${esc(v.period)}<div style="color:var(--muted);font-size:11px">ended ${esc(v.period_end)}</div></td><td>${esc(D.field_label[v.field])}</td>
       <td class="num"><span class="full">${usd(v.value)}</span><span class="abbr">${short(v.value)}</span></td><td class="num hide-sm">${usd(v.ref)}</td><td>${pill}${basisPill}</td>

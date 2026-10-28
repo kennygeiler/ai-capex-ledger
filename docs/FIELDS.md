@@ -16,6 +16,7 @@ What each released number means. The extraction prompt (`agents/prompts/`) and t
 **No total cost-of-revenue line** (Oracle; Applied Digital's newer 10-Ks). As standard data tools do, cost of revenue is the sum of the lines that are costs of delivering revenue: for example cloud services, hardware, services or data-center costs, but never sales, R&D, admin, amortization or restructuring.
 - The agent classifies and cites each line (`cost_of_revenue_part`), and code adds them up.
 - The `cost_lines_summed` rule lists the lines, so a person confirms the classification once per company.
+- XBRL often draws cost of revenue differently for these companies. When revenue and operating income agree with XBRL, an opex difference can only come from that, so it is labelled `definition_gap` and not raised for review.
 
 **Restatements.** A later 10-K may show a different figure for a past year, for example after selling part of the business. The newest figure is used, and the first-filed one is kept in `first_reported`.
 - `basis` is `restated` when the two differ by more than 1% (and more than rounding); otherwise it is `as_reported`.

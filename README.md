@@ -6,14 +6,15 @@ AI agents read SEC 10-K filings and extract revenue, capex and opex, citing the 
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** Cost of revenue without a total line is now built as standard tools do. Agents re-read Oracle's and Applied Digital's 10-Ks with prompt `statements@v2`, classifying and citing each delivery-cost line; code adds them up, and the new `cost_lines_summed` rule lists them for review. Oracle's opex is no longer blank: stage 2 has 66 values, 56 agreeing with XBRL and 10 disagreeing. Faults: 0 of 862 escaped. Cell reads: 140/140 match XBRL where XBRL has the cell. `v0.1.0` (NVDA) stays signed.
+**Last done (28 Oct 2026):** Review now asks a person only what code can't explain.
+- 6 of stage 2's 10 XBRL disagreements had one known cause: XBRL draws cost of revenue differently (Oracle tags none; APLD's FY2026 tag covers one of two lines). Code now labels these `definition_gap` and shows both numbers. You confirm the cost lines once per company instead.
+- For restated or disputed values, the page quotes the 10-K's own explanation, with a link.
+- New [docs/INGESTION.md](docs/INGESTION.md): the flow, who decides what, and a learnings log; every finding must end as a definition, rule, code or prompt change, or a recorded decision.
+- Stage 2: 66 values: 56 agree, 6 definition gaps, 4 blocking. Faults 0 of 862 escaped. `v0.1.0` (NVDA) stays signed.
 
 **Next:**
-1. **Kenny:** decide stage 2's 10 blocking items (A3). In every one, XBRL (the answer key) is the side that differs from the standard definition:
-   - **Oracle opex FY2022–FY2026 (5):** Oracle tags no cost of revenue in XBRL, so XBRL's "opex" is all costs. Ours subtracts the delivery costs, as standard tools do.
-   - **APLD opex FY2026:** XBRL counts only "services cost of revenue" and misses the $56.8M data-center line.
-   - **APLD revenue and opex FY2024–FY2025 (4):** the newest 10-K presents these years differently from XBRL, which mixes two filings (its FY2025 opex is −$0.4M).
-2. **Kenny:** confirm the cost lines on the `cost_lines_summed` cards, decide the other warnings, hand-check `reports/stage2-validation.html`, then release and sign `v0.2.0` (due 6 Nov).
+1. **Kenny (your turn):** on `reports/stage2-validation.html`, decide the 4 blocking APLD items (revenue and opex, FY2024–FY2025). Each card quotes APLD's note: prior years were recast after it moved its Cloud Services business to ChronoScale. Read it, then accept with that reason, or tell Claude to.
+2. **Kenny:** confirm the cost lines on the ORCL and APLD `cost_lines_summed` cards; decide the other warnings; hand-check; release and sign `v0.2.0` (due 6 Nov).
 3. The rest is in [docs/TICKETS.md](docs/TICKETS.md).
 
 **Critical notes:**
@@ -45,7 +46,7 @@ Every command runs as `uv run python -m ledger <command> --stage N`. The XBRL re
 
 | Path | What |
 |---|---|
-| `ledger/ingest/` | SEC client, 10-K list, table parser, statement locator |
+| `ledger/ingest/` | SEC client, 10-K list, table parser, statement locator, restatement-note finder |
 | `ledger/extract.py`, `reconcile.py` | Tasks and citation checks; fiscal-year values |
 | `ledger/rules.py`, `rules/` | Rule engine and the 14 rules |
 | `ledger/faults.py`, `review.py`, `release.py` | Fault injection, decisions, releases |
@@ -53,7 +54,7 @@ Every command runs as `uv run python -m ledger <command> --stage N`. The XBRL re
 | `ledger/reference/` | XBRL reference pipeline (output: `data/clean/facts.csv`) |
 | `agents/` | Prompt and output schema |
 | `data/extract/outputs/` | Agent outputs, kept as evidence |
-| `docs/` | [PRD](docs/PRD.md), [tickets](docs/TICKETS.md), [fields](docs/FIELDS.md) |
+| `docs/` | [PRD](docs/PRD.md), [tickets](docs/TICKETS.md), [fields](docs/FIELDS.md), [ingestion and learnings](docs/INGESTION.md) |
 
 ## Setup
 

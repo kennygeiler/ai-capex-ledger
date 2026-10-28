@@ -5,7 +5,9 @@ Every field of a company-year comes from the newest 10-K that reports that year,
 the first 10-K's figure is kept as first_reported.
 
 Labels: agree (within the coarser rounding of the two sources), unresolved (they differ: the xbrl_reconcile rule
-raises it), no_reference (no XBRL value), not_reported (the company has no such line, e.g. Oracle's cost of revenue).
+raises it for a person), definition_gap (opex built from summed cost lines differs only because XBRL draws cost of
+revenue differently: revenue and operating income both agree, so code explains it and no person is asked),
+no_reference (no XBRL value), not_reported (the 10-K has no line to build it from).
 """
 import hashlib
 import json
@@ -28,6 +30,10 @@ def _rounding(v: int) -> int:
 
 def _restated(first: int, latest: int, scale: int) -> bool:
     return abs(latest - first) > max(scale // 2, abs(first) // 100)
+
+
+def _agrees(e: dict, r: int | None) -> bool:
+    return r is not None and abs(e["value"] - r) <= max(e["scale"], _rounding(r)) // 2
 
 
 def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str | None, docs: dict) -> list[dict]:
@@ -69,6 +75,9 @@ def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str |
             v, r = val(latest), reference.get((f, period))
             tol = max([e["scale"] for e in used] + ([_rounding(r)] if r is not None else [])) // 2 * len(used)
             label = "no_reference" if r is None else "agree" if abs(v - r) <= tol else "unresolved"
+            if label == "unresolved" and f == "opex" and "parts" in latest["cost_of_revenue"] and all(
+                    _agrees(latest[p], reference.get((p, period))) for p in ("revenue", "operating_income")):
+                label = "definition_gap"  # the gap can only be which lines count as cost of revenue; a person confirms those once per company
             basis = "restated" if _restated(val(first), v, max(e["scale"] for e in used)) else "as_reported"
             out.append(_row(ticker, f, period, end, v, val(first), used, label, basis, docs))
     return out

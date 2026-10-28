@@ -29,9 +29,10 @@ AI agents read SEC 10-K filings and extract revenue, capex and opex, citing the 
 1. **An agent never has the last word.** A value ships only when it passes the rules or a person decides it.
 2. **No citation, no value.**
 3. **Judgement is written down.** Every rule and every decision has a reason a stranger can read.
-4. **Disagreement is a signal.** If the agent and XBRL disagree, the item goes to review; it is never averaged.
+4. **Disagreement is a signal.** If the agent and XBRL disagree, it is never averaged. Code labels a disagreement whose cause it can name; a person decides the rest.
 5. **Same inputs, same output.** The release hash is reproducible.
 6. **Measured, not claimed.**
+7. **Every finding changes the pipeline.** It ends as a definition, a rule, a code or prompt change, or a recorded decision, logged in [INGESTION.md](INGESTION.md). A decision made twice becomes code.
 
 ## Release gates (the release command refuses otherwise)
 
@@ -59,7 +60,8 @@ These hold by construction:
 
 - **A misread with a valid citation.** For example, the right row in last year's column, or a neighbouring line. Rules catch it by comparing columns and filings. On a company's first filing, `row_label_switch` has nothing to compare against.
 - **XBRL is not truth.** Filers mis-tag, and APLD's XBRL reflects an older presentation than its newest 10-K. A disagreement is labelled and decided, never auto-resolved.
-- **Definitions differ by company.** NVDA's capex line includes intangibles, and Oracle has no cost-of-revenue line, so its cost lines are classified and added, as standard tools do. `definition_note` and `cost_lines_summed` put these in front of a person.
+- **Definitions differ by company.** NVDA's capex line includes intangibles, and Oracle has no cost-of-revenue line, so its cost lines are classified and added, as standard tools do. `definition_note` and `cost_lines_summed` put these in front of a person, once per company.
+- **Review fatigue.** If a person sees items code could have explained, they start approving without looking. Only surprises and judgement calls reach a person ([INGESTION.md](INGESTION.md)).
 - **Agent cost.** Extraction runs as Claude Code subagents inside the session, with no paid API. Headless runs need `claude login`.
 
 ## History

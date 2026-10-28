@@ -1,8 +1,9 @@
 """python -m ledger report --stage N   ->  reports/stage<N>-validation.html
 
 A self-contained page for checking a stage by eye and recording the hand-check (T80/T81):
-  - summary tiles and, per field, a chart of agent vs XBRL by quarter,
-  - every quarterly value with its arithmetic, down to the cited statement cells (highlighted in the parsed table),
+  - summary tiles and, per field, a chart of agent vs XBRL by fiscal year,
+  - every fiscal-year value with its arithmetic, down to the cited statement cells (highlighted in the parsed table),
+  - for a restated or disputed value, the filing's own sentence explaining why past years changed,
   - a link per source that opens the SEC filing scrolled to the cited row (Chrome text fragments),
   - a Verified checkbox and note per value, kept in the browser, exportable as golden/<stage>-handcheck.json.
 """
@@ -13,6 +14,7 @@ from datetime import date, datetime, timezone
 from urllib.parse import quote
 
 from .. import store
+from ..ingest.notes import restatement_note
 from ..config import MVP_YEARS, RELEASE_FIELDS, STAGES
 from ..rules import load
 
@@ -45,6 +47,16 @@ def build(con, stage: int) -> dict:
                                      "rows": [{"l": r["label"], "c": [[c["col"], c["text"]] for c in r["cells"]]} for r in t["rows"]]}
         return k
 
+    notes = {}
+
+    def explain(accn):  # the 10-K's own reason for changing past years, with a link that scrolls to it
+        if accn not in notes:
+            d = docs[accn]
+            path = store.ROOT / "data" / "raw" / f"{d['cik']:010d}" / "docs" / f"{accn}.htm"
+            n = path.exists() and restatement_note(path.read_text(errors="ignore"))
+            notes[accn] = n and {"text": n, "url": d["url"] + "#:~:text=" + quote(" ".join(n.split()[:8]))}
+        return notes[accn]
+
     rows = []
     for v in vals:
         srcs = []
@@ -64,7 +76,8 @@ def build(con, stage: int) -> dict:
         r = ref.get((v["ticker"], v["field"], v["period"]))
         rows.append({"ticker": v["ticker"], "field": v["field"], "period": v["period"], "period_end": v["period_end"], "value": v["value"], "method": v["method"],
                      "label": v["label"], "basis": v["basis"], "first_reported": v["first_reported"], "ref": r and r["value"], "ref_concept": r and r["concept"], "ref_accession": r and r["accession"],
-                     "input_hash": v["input_hash"], "sources": srcs})
+                     "input_hash": v["input_hash"], "sources": srcs,
+                     "why": explain(srcs[0]["accession"]) if srcs and (v["basis"] == "restated" or v["label"] == "unresolved") else None})
     return {"stage": stage, "tickers": tickers, "release": STAGES[stage]["release"], "fields": RELEASE_FIELDS, "years": MVP_YEARS,
             "rules": {r["id"]: {k: r[k] for k in ("title", "plain", "action")} for r in load()},
             "field_label": FIELD_LABEL, "method_label": METHOD_LABEL, "values": rows, "tables": tables, "exceptions": excs,

@@ -38,7 +38,7 @@ def parse_one(f) -> dict:
 def load_reference(con, tickers: list[str]) -> int:
     rows = []
     for r in csv.DictReader(open(store.ROOT / "data" / "clean" / "facts.csv")):
-        if r["ticker"] in tickers and r["metric"] in ("revenue", "capex", "opex") and r["period_type"] == "year" and r["fy_key"] in MVP_YEARS:
+        if r["ticker"] in tickers and r["metric"] in ("revenue", "capex", "opex", "operating_income") and r["period_type"] == "year" and r["fy_key"] in MVP_YEARS:
             rows.append({"ticker": r["ticker"], "field": r["metric"], "period": r["fy_key"], "value": int(float(r["value"])),
                          "method": r["method"], "concept": r["concept"], "period_start": r["period_start"], "period_end": r["period_end"],
                          "accession": r["accession"], "restated": r["restated"] == "True",
