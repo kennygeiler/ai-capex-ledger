@@ -114,7 +114,7 @@
    "months": 12,
    "value": 2998006000,
    "confidence": 0.6,
-   "notes": "PP&E purchases are split across two lines: this one excludes computer hardware, which is reported separately on 'Payments for computer hardware' ((1,335,081)). Per the rules the lines were not added, so this value understates total PP&E spending. 'Payments for intangible assets' is a separate line and is not included."
+   "notes": "This line excludes computer hardware, which is reported separately as 'Payments for computer hardware' ((1,335,081)) and is also property and equipment. Total PP&E cash spend is therefore understated. The lines were not added, per the rules. Intangible asset payments are on a separate line and are not included."
   },
   {
    "field": "capex",
@@ -126,7 +126,7 @@
    "months": 12,
    "value": 573456000,
    "confidence": 0.6,
-   "notes": "PP&E purchases are split across two lines: this one excludes computer hardware, which is reported separately on 'Payments for computer hardware' ((799,171)). Per the rules the lines were not added, so this value understates total PP&E spending."
+   "notes": "This line excludes computer hardware, which is reported separately as 'Payments for computer hardware' ((799,171)) and is also property and equipment. Total PP&E cash spend is therefore understated. The lines were not added, per the rules."
   },
   {
    "field": "capex",
@@ -138,15 +138,21 @@
    "months": 12,
    "value": 141855000,
    "confidence": 0.6,
-   "notes": "PP&E purchases are split across two lines: this one excludes computer hardware, which is reported separately on 'Payments for computer hardware' ((338,054)). Per the rules the lines were not added, so this value understates total PP&E spending."
+   "notes": "This line excludes computer hardware, which is reported separately as 'Payments for computer hardware' ((338,054)) and is also property and equipment. Total PP&E cash spend is therefore understated. The lines were not added, per the rules."
   }
  ],
- "not_found": [],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the statement has a 'Total cost of revenue' line."
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 14.3,
+  "seconds": 16.2,
   "input_tokens": 7930,
-  "output_tokens": 2078,
-  "attempts": 1
+  "output_tokens": 2245,
+  "attempts": 1,
+  "task_sha": "8e5ed9d390db874f"
  }
 }

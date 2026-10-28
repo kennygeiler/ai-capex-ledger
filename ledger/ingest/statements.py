@@ -38,23 +38,31 @@ def _caption(tables: list[dict], kind: str) -> int:
     return 1 if CAPTIONS[kind].search(tables[0]["before"][-200:]) else 0
 
 
+def _quarterly(tables: list[dict]) -> bool:
+    """Columns of three-month periods: an MD&A quarterly summary, never a 10-K's primary statement."""
+    return any(re.search(r"three months|quarter|\bq[1-4]\b", c, re.I) for t in tables for c in t["columns"])
+
+
 def locate(tables: list[dict]) -> dict:
     """{'income': [table_id, ...] | None, 'cash_flow': [...] | None, '<kind>_score': n}.
 
     A statement can break across a page into two adjacent tables, so pairs are scored too; a pair wins only if it
-    scores higher than either table alone. Ties go to the earliest table (primary statements come before the notes).
+    scores higher than either table alone. Among tables with enough markers, fiscal-year columns beat quarterly ones
+    (IREN's 10-K has a quarterly summary that scores like the income statement); then the higher score, a caption,
+    and the earliest table (primary statements come before the notes).
     """
     out = {}
     for kind, markers, need in (("income", INCOME_MARKERS, 4), ("cash_flow", CASH_MARKERS, 4)):
-        cands = [(_score([t], markers), _caption([t], kind), -i, [t["id"]]) for i, t in enumerate(tables)]
-        cands += [(_score(tables[i:i + 2], markers), _caption(tables[i:i + 2], kind) - 1, -i, [tables[i]["id"], tables[i + 1]["id"]])
+        cands = [(_score([t], markers), _caption([t], kind), -i, [t["id"]], _quarterly([t])) for i, t in enumerate(tables)]
+        cands += [(_score(tables[i:i + 2], markers), _caption(tables[i:i + 2], kind) - 1, -i, [tables[i]["id"], tables[i + 1]["id"]], _quarterly(tables[i:i + 2]))
                   for i in range(len(tables) - 1)
                   if _score(tables[i:i + 2], markers) > max(_score([tables[i]], markers), _score([tables[i + 1]], markers))]
-        best = max(cands, default=(0, 0, 0, None))
-        if kind == "income" and best[0] < need:  # some issuers (miners, early-stage) have no EPS-style markers: accept 3
+        if kind == "income" and not any(c[0] >= need for c in cands):  # some issuers (miners, early-stage) have no EPS-style markers: accept 3
             need = 3
-        out[kind] = best[3] if best[0] >= need else None
-        out[f"{kind}_score"] = best[0]
+        ok = [c for c in cands if c[0] >= need]
+        best = max(ok, key=lambda c: (not c[4], c[0], c[1], c[2]), default=None)
+        out[kind] = best[3] if best else None
+        out[f"{kind}_score"] = max((c[0] for c in cands), default=0)
     return out
 
 

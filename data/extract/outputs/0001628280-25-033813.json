@@ -110,8 +110,7 @@
    "period_end": "2025-05-03",
    "months": 12,
    "value": 36061000,
-   "confidence": 1.0,
-   "notes": "Investing-section line; the supplemental non-cash 'Purchases of property and equipment included in accounts payable...' line was not used."
+   "confidence": 1.0
   },
   {
    "field": "capex",
@@ -122,8 +121,7 @@
    "period_end": "2024-04-27",
    "months": 12,
    "value": 15652000,
-   "confidence": 1.0,
-   "notes": "Investing-section line; the supplemental non-cash 'Purchases of property and equipment included in accounts payable...' line was not used."
+   "confidence": 1.0
   },
   {
    "field": "capex",
@@ -134,21 +132,16 @@
    "period_end": "2023-04-29",
    "months": 12,
    "value": 21713000,
-   "confidence": 1.0,
-   "notes": "Investing-section line; the supplemental non-cash 'Purchases of property and equipment included in accounts payable...' line was not used."
+   "confidence": 1.0
   }
  ],
- "not_found": [
-  {
-   "field": "cost_of_revenue_part",
-   "reason": "Not applicable: the statement has a 'Total cost of revenue' line, so component lines are not extracted."
-  }
- ],
+ "not_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 12.4,
+  "seconds": 11.7,
   "input_tokens": 6109,
-  "output_tokens": 1527,
-  "attempts": 1
+  "output_tokens": 1326,
+  "attempts": 1,
+  "task_sha": "29afd38459a51ad1"
  }
 }

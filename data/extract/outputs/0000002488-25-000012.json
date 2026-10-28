@@ -44,8 +44,8 @@
    "period_end": "2024-12-28",
    "months": 12,
    "value": 13060000000,
-   "confidence": 0.9,
-   "notes": "Took the 'Total cost of sales' line per the total-line rule. It includes the 'Amortization of acquisition-related intangibles' line within cost of sales. The 'Cost of sales' line (12,114) excludes that amortization."
+   "confidence": 0.95,
+   "notes": "Took the 'Total cost of sales' line (cost of sales 12,114 plus amortization of acquisition-related intangibles 946), per the rule to use the total line, not the 'Cost of sales' component."
   },
   {
    "field": "cost_of_revenue",
@@ -56,8 +56,8 @@
    "period_end": "2023-12-30",
    "months": 12,
    "value": 12220000000,
-   "confidence": 0.9,
-   "notes": "Took the 'Total cost of sales' line per the total-line rule. It includes the 'Amortization of acquisition-related intangibles' line within cost of sales. The 'Cost of sales' line (11,278) excludes that amortization."
+   "confidence": 0.95,
+   "notes": "Took the 'Total cost of sales' line, which includes 942 of amortization of acquisition-related intangibles, rather than the 'Cost of sales' component (11,278)."
   },
   {
    "field": "cost_of_revenue",
@@ -68,8 +68,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 12998000000,
-   "confidence": 0.9,
-   "notes": "Took the 'Total cost of sales' line per the total-line rule. It includes the 'Amortization of acquisition-related intangibles' line within cost of sales. The 'Cost of sales' line (11,550) excludes that amortization."
+   "confidence": 0.95,
+   "notes": "Took the 'Total cost of sales' line, which includes 1,448 of amortization of acquisition-related intangibles, rather than the 'Cost of sales' component (11,550)."
   },
   {
    "field": "operating_income",
@@ -138,17 +138,13 @@
    "confidence": 1.0
   }
  ],
- "not_found": [
-  {
-   "field": "cost_of_revenue_part",
-   "reason": "Not applicable. The statement has a 'Total cost of sales' line, so the total was used instead."
-  }
- ],
+ "not_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 14.0,
+  "seconds": 10.7,
   "input_tokens": 6189,
-  "output_tokens": 1724,
-  "attempts": 1
+  "output_tokens": 1543,
+  "attempts": 1,
+  "task_sha": "41f4a8db9ee40f06"
  }
 }

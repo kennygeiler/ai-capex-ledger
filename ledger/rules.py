@@ -38,6 +38,7 @@ class Context:
     reference: dict = field(default_factory=dict)   # (ticker, field, period) -> reference row
     parsed: dict = field(default_factory=dict)      # accession -> parsed document (statements)
     years: list[str] = field(default_factory=list)
+    tickers: list[str] = field(default_factory=list)  # every company asked for, including any with no 10-K
     today: date = field(default_factory=date.today)   # coverage: a year whose 10-K isn't due yet isn't missing
 
     def ext_by_id(self):
@@ -177,21 +178,28 @@ def _tie(ctx, p):
     for acc, doc in ctx.parsed.items():
         ticker = doc["ticker"]
         for t in doc["statements"]["income"] or []:
-            rows = {}
-            for r in t["rows"]:
+            rows, at, body = {}, {}, t["rows"]
+            for i, r in enumerate(body):
                 for k, pat in rx.items():
                     # A "Total …" line replaces a component matched earlier (APLD lists "Revenue" above "Total revenue").
                     if pat.search(r["label"]) and (k not in rows or r["label"].lower().startswith("total")):
-                        rows[k] = {c["col"]: c["value"] for c in r["cells"]}
+                        rows[k], at[k] = {c["col"]: c["value"] for c in r["cells"]}, i
             if len(rows) < 4:
                 continue
+            # Operating lines outside the operating-expenses block, as shown (impairments, gains on sales: Core Scientific):
+            # between cost of revenue and the block's heading, and between its total and operating income.
+            heads = [i for i in range(at["cost_of_revenue"] + 1, at["total_opex"]) if not body[i]["cells"]]
+            between = [body[i] for i in [*range(at["cost_of_revenue"] + 1, heads[-1] if heads else at["cost_of_revenue"] + 1),
+                                         *range(at["total_opex"] + 1, at["operating_income"])]
+                       if body[i]["cells"] and not re.search(r"gross (profit|margin)", body[i]["label"], re.I)]
             for col in rows["revenue"]:
                 vals = [rows[k].get(col) for k in ("revenue", "cost_of_revenue", "total_opex", "operating_income")]
                 if None in vals:
                     continue
                 r, c, o, oi = vals
+                x = sum(v for b in between for cc in b["cells"] if cc["col"] == col and (v := cc["value"]) is not None)
                 # Total operating expenses either excludes cost of revenue or includes it (CoreWeave); both layouts tie.
-                gap = min(r - abs(c) - abs(o) - oi, r - abs(o) - oi, key=abs)
+                gap = min(r - abs(c) - abs(o) + x - oi, r - abs(o) + x - oi, r - abs(c) - abs(o) - oi, r - abs(o) - oi, key=abs)
                 if abs(gap) > p.get("tolerance_cells", 1):
                     out.append(Finding(ticker, f"{t['id']} column '{t['columns'][col]}': revenue {r:,} − cost {abs(c):,} − operating expenses {abs(o):,} ≠ operating income {oi:,} (gap {gap:+,} in table units)", None, None, acc))
     return out
@@ -240,8 +248,22 @@ def _coverage(ctx, p):
         due = end.replace(year=end.year + int(q[2:]) - int(last[2:])) + timedelta(days=p.get("filing_days", 90))
         return due > ctx.today
 
+    first = {t: min(v["period"] for v in ctx.values if v["ticker"] == t) for t in {v["ticker"] for v in ctx.values}}
     return [Finding(t, f"no {f} value for {q}", f, q) for t in tickers for f in p["fields"] for q in ctx.years
-            if (t, f, q) not in have and not not_due(t, q)]
+            if (t, f, q) not in have and not not_due(t, q) and q >= first.get(t, q)]
+
+
+@check("no_10k_yet")
+def _no_10k(ctx, p):
+    """Years no 10-K can show, named by code: the company has filed no 10-K at all (newly public), or the year is
+    before its first 10-K (it wasn't public, or filed a different annual form, such as a foreign issuer's 20-F)."""
+    first = {}
+    for v in ctx.values:
+        first[v["ticker"]] = min(first.get(v["ticker"], v["period"]), v["period"])
+    out = [Finding(t, f"{t} has filed no 10-K for any year from {ctx.years[0]} on (it may be newly public)") for t in ctx.tickers if t not in first]
+    for t, f in sorted(first.items()):
+        out += [Finding(t, f"no 10-K shows {q}: the company's 10-Ks start at {f}", None, q) for q in ctx.years if q < f]
+    return out
 
 
 @check("restated")

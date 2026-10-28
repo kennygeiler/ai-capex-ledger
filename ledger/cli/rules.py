@@ -19,7 +19,7 @@ def context(con, tickers) -> Context:
                    extractions=q("select e.*, d.filed from extractions e join documents d using(accession) where e.ticker in (select unnest(?))"),
                    reference={(r["ticker"], r["field"], r["period"]): r for r in q("select * from reference_values where ticker in (select unnest(?))")},
                    parsed={d["accession"]: json.loads((store.ROOT / d["tables_path"]).read_text()) for d in docs},
-                   years=MVP_YEARS)
+                   years=MVP_YEARS, tickers=list(tickers))
 
 
 def main(argv=None) -> int:

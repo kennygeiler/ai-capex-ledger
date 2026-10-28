@@ -22,7 +22,8 @@
    "period_end": "2024-02-03",
    "months": 12,
    "value": 5507700000,
-   "confidence": 1.0
+   "confidence": 1.0,
+   "notes": "Fiscal year ended February 3, 2024 is a 53-week year; reported as 12 months."
   },
   {
    "field": "revenue",
@@ -111,7 +112,7 @@
    "months": 12,
    "value": 284600000,
    "confidence": 1.0,
-   "notes": "Purchases of technology licenses is a separate line and was not added."
+   "notes": "Excludes the separate 'Purchases of technology licenses' line, per the rule not to add lines together."
   },
   {
    "field": "capex",
@@ -122,8 +123,7 @@
    "period_end": "2024-02-03",
    "months": 12,
    "value": 336300000,
-   "confidence": 1.0,
-   "notes": "Purchases of technology licenses is a separate line and was not added."
+   "confidence": 1.0
   },
   {
    "field": "capex",
@@ -134,16 +134,16 @@
    "period_end": "2023-01-28",
    "months": 12,
    "value": 206200000,
-   "confidence": 1.0,
-   "notes": "Purchases of technology licenses is a separate line and was not added."
+   "confidence": 1.0
   }
  ],
  "not_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.4,
+  "seconds": 12.8,
   "input_tokens": 6160,
-  "output_tokens": 1538,
-  "attempts": 1
+  "output_tokens": 1638,
+  "attempts": 1,
+  "task_sha": "1a9793a839c69652"
  }
 }

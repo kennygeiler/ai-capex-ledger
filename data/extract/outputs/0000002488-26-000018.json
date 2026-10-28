@@ -45,7 +45,7 @@
    "months": 12,
    "value": 17487000000,
    "confidence": 0.95,
-   "notes": "Took the 'Total cost of sales' line, which includes amortization of acquisition-related intangibles in cost of sales. The 'Cost of sales' line (16,456) excludes that amortization."
+   "notes": "Chose 'Total cost of sales' (includes amortization of acquisition-related intangibles in cost of sales) over the 'Cost of sales' component line (16,456), per the rule to take the total line."
   },
   {
    "field": "cost_of_revenue",
@@ -57,7 +57,7 @@
    "months": 12,
    "value": 13060000000,
    "confidence": 0.95,
-   "notes": "Took the 'Total cost of sales' line, which includes amortization of acquisition-related intangibles in cost of sales. The 'Cost of sales' line (12,114) excludes that amortization."
+   "notes": "Chose 'Total cost of sales' over the 'Cost of sales' component line (12,114)."
   },
   {
    "field": "cost_of_revenue",
@@ -69,7 +69,7 @@
    "months": 12,
    "value": 12220000000,
    "confidence": 0.95,
-   "notes": "Took the 'Total cost of sales' line, which includes amortization of acquisition-related intangibles in cost of sales. The 'Cost of sales' line (11,278) excludes that amortization."
+   "notes": "Chose 'Total cost of sales' over the 'Cost of sales' component line (11,278)."
   },
   {
    "field": "operating_income",
@@ -114,7 +114,7 @@
    "months": 12,
    "value": 974000000,
    "confidence": 0.9,
-   "notes": "Two rows have this label. Took the first one, in investing activities of continuing operations. A second row, (38), sits under investing activities of discontinued operations. It was not added, per the rule against combining lines."
+   "notes": "Row label appears twice in the investing section; took the continuing-operations line (974). A separate discontinued-operations line shows (38); not added, per the rule against combining lines."
   },
   {
    "field": "capex",
@@ -126,7 +126,7 @@
    "months": 12,
    "value": 636000000,
    "confidence": 0.95,
-   "notes": "Took the continuing-operations row. The discontinued-operations row with the same label is \u2014 for this year."
+   "notes": "Continuing-operations line; the discontinued-operations line of the same label shows '\u2014' for this year."
   },
   {
    "field": "capex",
@@ -138,15 +138,16 @@
    "months": 12,
    "value": 546000000,
    "confidence": 0.95,
-   "notes": "Took the continuing-operations row. The discontinued-operations row with the same label is \u2014 for this year."
+   "notes": "Continuing-operations line; the discontinued-operations line of the same label shows '\u2014' for this year."
   }
  ],
  "not_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 15.7,
-  "input_tokens": 6600,
-  "output_tokens": 1789,
-  "attempts": 1
+  "seconds": 12.4,
+  "input_tokens": 6602,
+  "output_tokens": 1707,
+  "attempts": 1,
+  "task_sha": "1889f55143a2501f"
  }
 }

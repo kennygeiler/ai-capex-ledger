@@ -9,26 +9,31 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 # Runs in the page. Returns what the rendered page shows at (row, column) and where, or null if the row or column isn't found.
-_LOCATE = """([idx, row, col]) => {
+_LOCATE = """([idx, row, col, cited]) => {
   const norm = (s) => (s || "").replace(/\\s+/g, "").toLowerCase();
   const tables = [...document.querySelectorAll("table")];
   const want = norm(row), head = norm(col.split("|").pop());
   for (const t of [tables[idx], ...tables].filter(Boolean)) {
     const trs = [...t.querySelectorAll("tr")];
-    const tr = trs.find((r) => { const c = [...r.cells].find((c) => c.textContent.trim()); return c && norm(c.textContent) === want; });
-    if (!tr) continue;
-    const heads = trs.slice(0, trs.indexOf(tr)).flatMap((r) => [...r.cells]).filter((c) => norm(c.textContent).endsWith(head));
-    if (!heads.length) continue;
-    const h = heads[heads.length - 1].getBoundingClientRect();
-    const cells = [...tr.cells].slice(1).filter((c) => { const r = c.getBoundingClientRect(); return c.textContent.trim() && r.right > h.left + 1 && r.left < h.right - 1; });
-    const near = (c, step) => { for (let n = c && c[step]; n; n = n[step]) if (n.textContent.trim()) return n; };
-    const nx = near(cells[cells.length - 1], "nextElementSibling"), pv = near(cells[0], "previousElementSibling");
-    if (nx && /^[)]/.test(nx.textContent.trim())) cells.push(nx);  // a closing parenthesis in its own cell, past the header
-    if (pv && /^[(]$/.test(pv.textContent.trim())) cells.unshift(pv);
-    const abs = (r) => ({ x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height });
-    const rows = cells.map((c) => c.getBoundingClientRect()), tr_ = tr.getBoundingClientRect(), tb = t.getBoundingClientRect();
-    const cell = cells.length ? { x: Math.min(...rows.map((r) => r.left)) + scrollX, y: tr_.top + scrollY, w: Math.max(...rows.map((r) => r.right)) - Math.min(...rows.map((r) => r.left)), h: tr_.height } : null;
-    return { seen: cells.map((c) => c.textContent.trim()).join(""), cell, row: abs(tr_), head: abs(h), table: abs(tb) };
+    const named = trs.filter((r) => { const c = [...r.cells].find((c) => c.textContent.trim()); return c && norm(c.textContent) === want; });
+    if (!named.length) continue;
+    // A label can repeat (Oracle lists "Services" under revenues and again under expenses): use the row that shows the cited text, else the first.
+    const read = (tr) => {
+      const heads = trs.slice(0, trs.indexOf(tr)).flatMap((r) => [...r.cells]).filter((c) => norm(c.textContent).endsWith(head));
+      if (!heads.length) return null;
+      const h = heads[heads.length - 1].getBoundingClientRect();
+      const cells = [...tr.cells].slice(1).filter((c) => { const r = c.getBoundingClientRect(); return c.textContent.trim() && r.right > h.left + 1 && r.left < h.right - 1; });
+      const near = (c, step) => { for (let n = c && c[step]; n; n = n[step]) if (n.textContent.trim()) return n; };
+      const nx = near(cells[cells.length - 1], "nextElementSibling"), pv = near(cells[0], "previousElementSibling");
+      if (nx && /^[)]/.test(nx.textContent.trim())) cells.push(nx);  // a closing parenthesis in its own cell, past the header
+      if (pv && /^[(]$/.test(pv.textContent.trim())) cells.unshift(pv);
+      const abs = (r) => ({ x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height });
+      const rows = cells.map((c) => c.getBoundingClientRect()), tr_ = tr.getBoundingClientRect(), tb = t.getBoundingClientRect();
+      const cell = cells.length ? { x: Math.min(...rows.map((r) => r.left)) + scrollX, y: tr_.top + scrollY, w: Math.max(...rows.map((r) => r.right)) - Math.min(...rows.map((r) => r.left)), h: tr_.height } : null;
+      return { seen: cells.map((c) => c.textContent.trim()).join(""), cell, row: abs(tr_), head: abs(h), table: abs(tb) };
+    };
+    const found = named.map(read).filter(Boolean);
+    if (found.length) return found.find((f) => norm(f.seen).replace(/[$,]/g, "") === norm(cited).replace(/[$,]/g, "")) || found[0];
   }
   return null;
 }"""
@@ -40,7 +45,7 @@ _BOX = """([boxes]) => boxes.map(([b, css]) => { const d = document.createElemen
 
 def same(a: str, b: str) -> bool:
     """Same number as printed: ignores $, spaces and thousands separators; keeps digits, parentheses and dashes."""
-    n = lambda s: re.sub(r"[\s$,]", "", s).replace("–", "—").replace("-", "—")
+    n = lambda s: re.sub(r"[\s$,\u200b\ufeff]", "", s).replace("–", "—").replace("-", "—")  # \u200b: a zero-width space some filers put in cells
     return n(a) == n(b)
 
 
@@ -52,7 +57,7 @@ def read(doc: Path, cites: list[dict], shots: set[str], out_dir: Path) -> dict:
         page = b.new_page(viewport={"width": 1000, "height": 900}, device_scale_factor=1.5)
         page.goto(doc.resolve().as_uri(), wait_until="load")
         for e in cites:
-            r = page.evaluate(_LOCATE, [int(e["table_id"][1:]), e["row_label"], e["column_label"]])
+            r = page.evaluate(_LOCATE, [int(e["table_id"][1:]), e["row_label"], e["column_label"], e["cell_text"]])
             hit = bool(r and r["cell"] and same(r["seen"], e["cell_text"]))
             img = None
             if r and e["extraction_id"] in shots:

@@ -11,8 +11,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 223942000,
-   "confidence": 0.95,
-   "notes": "Only revenue line on the statement; power sales are presented within costs and operating expenses, not as revenue."
+   "confidence": 0.9,
+   "notes": "Only revenue line on the statement; 'Power sales' is presented within costs and operating (expenses) income, not as revenue, so it is not added."
   },
   {
    "field": "revenue",
@@ -23,8 +23,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 151270000,
-   "confidence": 0.95,
-   "notes": "Only revenue line on the statement; power sales are presented within costs and operating expenses, not as revenue."
+   "confidence": 0.9,
+   "notes": "Only revenue line on the statement; 'Power sales' is presented within costs and operating (expenses) income, not as revenue, so it is not added."
   },
   {
    "field": "revenue",
@@ -35,8 +35,8 @@
    "period_end": "2023-12-31",
    "months": 12,
    "value": 126842000,
-   "confidence": 0.95,
-   "notes": "Only revenue line on the statement; power sales are presented within costs and operating expenses, not as revenue."
+   "confidence": 0.9,
+   "notes": "Only revenue line on the statement; 'Power sales' is presented within costs and operating (expenses) income, not as revenue, so it is not added."
   },
   {
    "field": "cost_of_revenue",
@@ -113,8 +113,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 487921000,
-   "confidence": 0.95,
-   "notes": "Separate 'Deposits on equipment' line not added per rules."
+   "confidence": 1.0,
+   "notes": "Separate 'Deposits on equipment' and 'Purchases and development of software' lines are not added, per rules."
   },
   {
    "field": "capex",
@@ -125,8 +125,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 139495000,
-   "confidence": 0.95,
-   "notes": "Separate 'Deposits on equipment' line not added per rules."
+   "confidence": 1.0,
+   "notes": "Separate 'Deposits on equipment' and 'Purchases and development of software' lines are not added, per rules."
   },
   {
    "field": "capex",
@@ -137,16 +137,17 @@
    "period_end": "2023-12-31",
    "months": 12,
    "value": 20480000,
-   "confidence": 0.95,
-   "notes": "Separate 'Deposits on equipment' line not added per rules."
+   "confidence": 1.0,
+   "notes": "Separate 'Deposits on equipment' and 'Purchases and development of software' lines are not added, per rules."
   }
  ],
  "not_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 35.5,
-  "input_tokens": 13776,
-  "output_tokens": 5047,
-  "attempts": 2
+  "seconds": 13.1,
+  "input_tokens": 6861,
+  "output_tokens": 1837,
+  "attempts": 1,
+  "task_sha": "385267cff8a34399"
  }
 }

@@ -44,8 +44,7 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 288831000000,
-   "confidence": 0.9,
-   "notes": "Single 'Cost of sales' line used as the total cost-of-revenue line. Fulfillment and Technology and infrastructure are separate operating expense lines and are not included, per the statement's own presentation."
+   "confidence": 1.0
   },
   {
    "field": "cost_of_revenue",
@@ -56,8 +55,7 @@
    "period_end": "2023-12-31",
    "months": 12,
    "value": 304739000000,
-   "confidence": 0.9,
-   "notes": "Single 'Cost of sales' line used as the total cost-of-revenue line. Fulfillment and Technology and infrastructure are separate operating expense lines and are not included, per the statement's own presentation."
+   "confidence": 1.0
   },
   {
    "field": "cost_of_revenue",
@@ -68,8 +66,7 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 326288000000,
-   "confidence": 0.9,
-   "notes": "Single 'Cost of sales' line used as the total cost-of-revenue line. Fulfillment and Technology and infrastructure are separate operating expense lines and are not included, per the statement's own presentation."
+   "confidence": 1.0
   },
   {
    "field": "operating_income",
@@ -113,8 +110,7 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 63645000000,
-   "confidence": 1.0,
-   "notes": "Gross purchases; 'Proceeds from property and equipment sales and incentives' not netted, per rule against combining lines."
+   "confidence": 1.0
   },
   {
    "field": "capex",
@@ -125,8 +121,7 @@
    "period_end": "2023-12-31",
    "months": 12,
    "value": 52729000000,
-   "confidence": 1.0,
-   "notes": "Gross purchases; 'Proceeds from property and equipment sales and incentives' not netted, per rule against combining lines."
+   "confidence": 1.0
   },
   {
    "field": "capex",
@@ -137,16 +132,16 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 82999000000,
-   "confidence": 1.0,
-   "notes": "Gross purchases; 'Proceeds from property and equipment sales and incentives' not netted, per rule against combining lines."
+   "confidence": 1.0
   }
  ],
  "not_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 13.9,
-  "input_tokens": 6292,
-  "output_tokens": 1665,
-  "attempts": 1
+  "seconds": 9.2,
+  "input_tokens": 6294,
+  "output_tokens": 1311,
+  "attempts": 1,
+  "task_sha": "eb9e8137f9e68092"
  }
 }

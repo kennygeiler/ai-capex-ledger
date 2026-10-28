@@ -110,8 +110,7 @@
    "period_end": "2024-02-03",
    "months": 12,
    "value": 336300000,
-   "confidence": 1.0,
-   "notes": "Separate 'Purchases of technology licenses' line excluded; not added per rules."
+   "confidence": 1.0
   },
   {
    "field": "capex",
@@ -122,8 +121,7 @@
    "period_end": "2023-01-28",
    "months": 12,
    "value": 206200000,
-   "confidence": 1.0,
-   "notes": "Separate 'Purchases of technology licenses' line excluded; not added per rules."
+   "confidence": 1.0
   },
   {
    "field": "capex",
@@ -134,16 +132,16 @@
    "period_end": "2022-01-29",
    "months": 12,
    "value": 169200000,
-   "confidence": 1.0,
-   "notes": "Separate 'Purchases of technology licenses' line excluded; not added per rules."
+   "confidence": 1.0
   }
  ],
  "not_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.8,
+  "seconds": 10.5,
   "input_tokens": 6315,
-  "output_tokens": 1608,
-  "attempts": 1
+  "output_tokens": 1541,
+  "attempts": 1,
+  "task_sha": "23231fd4096796f1"
  }
 }

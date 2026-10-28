@@ -1,0 +1,12 @@
+id: no_10k_yet
+severity: info
+description: Names the years no 10-K can show, and any company with no 10-K at all, so a gap is never silent.
+rationale: A company that wasn't public yet, or filed a different annual form, has nothing to read. That is a reason, not
+  a missing value, and code can name it; a person shouldn't have to.
+owner: Kenny Geiler
+check: no_10k_yet
+params: {}
+title: No 10-K covers this.
+plain: The company had not filed a 10-K for this year (it wasn't public yet, or filed a different form), or has filed no
+  10-K at all yet. Nothing was skipped; there is nothing to read.
+action: No decision needed. It shows in the release notes.

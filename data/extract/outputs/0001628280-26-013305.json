@@ -110,7 +110,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 729000000,
-   "confidence": 1.0
+   "confidence": 1.0,
+   "notes": "Intangible asset investments are a separate line and were not added."
   },
   {
    "field": "capex",
@@ -121,8 +122,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 94961000,
-   "confidence": 0.9,
-   "notes": "Cash-flow table has two columns labeled 'Year Ended December 31, | 2024' (index 1 and 2); value taken from column index 1, which holds the full 2024 data; column index 2 is empty for this row. Separate 'Investments in intangible assets' line not added."
+   "confidence": 0.95,
+   "notes": "Cash-flow table has two columns labelled 2024 ([1] and [2]); column [2] holds only a single footnoted cell, so the 2024 value is taken from column [1]. Intangible asset investments are a separate line and were not added."
   },
   {
    "field": "capex",
@@ -133,15 +134,17 @@
    "period_end": "2023-12-31",
    "months": 12,
    "value": 16161000,
-   "confidence": 1.0
+   "confidence": 1.0,
+   "notes": "Intangible asset investments are a separate line and were not added."
   }
  ],
  "not_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.4,
-  "input_tokens": 7034,
-  "output_tokens": 1600,
-  "attempts": 1
+  "seconds": 12.3,
+  "input_tokens": 7030,
+  "output_tokens": 1701,
+  "attempts": 1,
+  "task_sha": "113a45ec05d5c176"
  }
 }

@@ -110,8 +110,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 8527000000,
-   "confidence": 0.95,
-   "notes": "Line is net of sales of property and equipment and excludes finance leases; it is the only capex line in the investing section."
+   "confidence": 0.9,
+   "notes": "Only purchases-of-property-and-equipment line in investing section; it is reported net of sales proceeds and excludes finance-lease acquisitions."
   },
   {
    "field": "capex",
@@ -122,8 +122,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 11342000000,
-   "confidence": 0.95,
-   "notes": "Line is net of sales of property and equipment and excludes finance leases; it is the only capex line in the investing section."
+   "confidence": 0.9,
+   "notes": "Only purchases-of-property-and-equipment line in investing section; it is reported net of sales proceeds and excludes finance-lease acquisitions."
   },
   {
    "field": "capex",
@@ -134,16 +134,22 @@
    "period_end": "2023-12-31",
    "months": 12,
    "value": 8899000000,
-   "confidence": 0.95,
-   "notes": "Line is net of sales of property and equipment and excludes finance leases; it is the only capex line in the investing section."
+   "confidence": 0.9,
+   "notes": "Only purchases-of-property-and-equipment line in investing section; it is reported net of sales proceeds and excludes finance-lease acquisitions."
   }
  ],
- "not_found": [],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the statement has a 'Total cost of revenues' line, used for cost_of_revenue."
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.3,
-  "input_tokens": 6752,
-  "output_tokens": 1479,
-  "attempts": 1
+  "seconds": 14.1,
+  "input_tokens": 6754,
+  "output_tokens": 1667,
+  "attempts": 1,
+  "task_sha": "da1002bfc2eb6ddb"
  }
 }

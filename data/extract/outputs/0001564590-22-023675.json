@@ -1,0 +1,227 @@
+{
+ "accession": "0001564590-22-023675",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0213",
+   "row_label": "Total revenues",
+   "column_label": "Year Ended May 31, | 2022",
+   "cell_text": "42,440",
+   "period_end": "2022-05-31",
+   "months": 12,
+   "value": 42440000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0213",
+   "row_label": "Total revenues",
+   "column_label": "Year Ended May 31, | 2021",
+   "cell_text": "40,479",
+   "period_end": "2021-05-31",
+   "months": 12,
+   "value": 40479000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0213",
+   "row_label": "Total revenues",
+   "column_label": "Year Ended May 31, | 2020",
+   "cell_text": "39,068",
+   "period_end": "2020-05-31",
+   "months": 12,
+   "value": 39068000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0213",
+   "row_label": "Cloud services and license support(1)",
+   "column_label": "Year Ended May 31, | 2022",
+   "cell_text": "5,213",
+   "period_end": "2022-05-31",
+   "months": 12,
+   "value": 5213000000,
+   "confidence": 0.9,
+   "notes": "No total cost-of-revenue line. This operating-expense row matches the 'Cloud services and license support' revenue line, so it is the cost of delivering that revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0213",
+   "row_label": "Cloud services and license support(1)",
+   "column_label": "Year Ended May 31, | 2021",
+   "cell_text": "4,353",
+   "period_end": "2021-05-31",
+   "months": 12,
+   "value": 4353000000,
+   "confidence": 0.9,
+   "notes": "No total cost-of-revenue line. This operating-expense row matches the 'Cloud services and license support' revenue line, so it is the cost of delivering that revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0213",
+   "row_label": "Cloud services and license support(1)",
+   "column_label": "Year Ended May 31, | 2020",
+   "cell_text": "4,006",
+   "period_end": "2020-05-31",
+   "months": 12,
+   "value": 4006000000,
+   "confidence": 0.9,
+   "notes": "No total cost-of-revenue line. This operating-expense row matches the 'Cloud services and license support' revenue line, so it is the cost of delivering that revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0213",
+   "row_label": "Hardware(1)",
+   "column_label": "Year Ended May 31, | 2022",
+   "cell_text": "972",
+   "period_end": "2022-05-31",
+   "months": 12,
+   "value": 972000000,
+   "confidence": 0.9,
+   "notes": "No total cost-of-revenue line. This operating-expense row matches the 'Hardware' revenue line, so it is the cost of hardware sold."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0213",
+   "row_label": "Hardware(1)",
+   "column_label": "Year Ended May 31, | 2021",
+   "cell_text": "972",
+   "period_end": "2021-05-31",
+   "months": 12,
+   "value": 972000000,
+   "confidence": 0.9,
+   "notes": "No total cost-of-revenue line. This operating-expense row matches the 'Hardware' revenue line, so it is the cost of hardware sold."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0213",
+   "row_label": "Hardware(1)",
+   "column_label": "Year Ended May 31, | 2020",
+   "cell_text": "1,116",
+   "period_end": "2020-05-31",
+   "months": 12,
+   "value": 1116000000,
+   "confidence": 0.9,
+   "notes": "No total cost-of-revenue line. This operating-expense row matches the 'Hardware' revenue line, so it is the cost of hardware sold."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0213",
+   "row_label": "Services",
+   "column_label": "Year Ended May 31, | 2022",
+   "cell_text": "2,692",
+   "period_end": "2022-05-31",
+   "months": 12,
+   "value": 2692000000,
+   "confidence": 0.85,
+   "notes": "No total cost-of-revenue line. This is the 'Services' row under 'Operating expenses:', not the 'Services' revenue row (3,205). It is the cost of delivering services revenue. The label appears twice in the table, so confidence is reduced."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0213",
+   "row_label": "Services",
+   "column_label": "Year Ended May 31, | 2021",
+   "cell_text": "2,530",
+   "period_end": "2021-05-31",
+   "months": 12,
+   "value": 2530000000,
+   "confidence": 0.85,
+   "notes": "No total cost-of-revenue line. This is the 'Services' row under 'Operating expenses:', not the 'Services' revenue row (3,021). It is the cost of delivering services revenue. The label appears twice in the table, so confidence is reduced."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0213",
+   "row_label": "Services",
+   "column_label": "Year Ended May 31, | 2020",
+   "cell_text": "2,816",
+   "period_end": "2020-05-31",
+   "months": 12,
+   "value": 2816000000,
+   "confidence": 0.85,
+   "notes": "No total cost-of-revenue line. This is the 'Services' row under 'Operating expenses:', not the 'Services' revenue row (3,106). It is the cost of delivering services revenue. The label appears twice in the table, so confidence is reduced."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0213",
+   "row_label": "Operating income",
+   "column_label": "Year Ended May 31, | 2022",
+   "cell_text": "10,926",
+   "period_end": "2022-05-31",
+   "months": 12,
+   "value": 10926000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0213",
+   "row_label": "Operating income",
+   "column_label": "Year Ended May 31, | 2021",
+   "cell_text": "15,213",
+   "period_end": "2021-05-31",
+   "months": 12,
+   "value": 15213000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0213",
+   "row_label": "Operating income",
+   "column_label": "Year Ended May 31, | 2020",
+   "cell_text": "13,896",
+   "period_end": "2020-05-31",
+   "months": 12,
+   "value": 13896000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0217",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended May 31, | 2022",
+   "cell_text": "(4,511)",
+   "period_end": "2022-05-31",
+   "months": 12,
+   "value": 4511000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0217",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended May 31, | 2021",
+   "cell_text": "(2,135)",
+   "period_end": "2021-05-31",
+   "months": 12,
+   "value": 2135000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0217",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended May 31, | 2020",
+   "cell_text": "(1,564)",
+   "period_end": "2020-05-31",
+   "months": 12,
+   "value": 1564000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "The income statement has no single total cost-of-revenue line. The costs are given as separate operating-expense rows, which are reported under cost_of_revenue_part."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.9,
+  "input_tokens": 6357,
+  "output_tokens": 2798,
+  "attempts": 1,
+  "task_sha": "3aa34f297d215d16"
+ }
+}

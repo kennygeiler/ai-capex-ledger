@@ -1,0 +1,155 @@
+{
+ "accession": "0001835632-22-000016",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0025",
+   "row_label": "Net revenue",
+   "column_label": "Year Ended | January 29,2022",
+   "cell_text": "4,462,383",
+   "period_end": "2022-01-29",
+   "months": 12,
+   "value": 4462383000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0025",
+   "row_label": "Net revenue",
+   "column_label": "Year Ended | January 30,2021",
+   "cell_text": "2,968,900",
+   "period_end": "2021-01-30",
+   "months": 12,
+   "value": 2968900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0025",
+   "row_label": "Net revenue",
+   "column_label": "Year Ended | February 1,2020",
+   "cell_text": "2,699,161",
+   "period_end": "2020-02-01",
+   "months": 12,
+   "value": 2699161000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0025",
+   "row_label": "Cost of goods sold",
+   "column_label": "Year Ended | January 29,2022",
+   "cell_text": "2,398,158",
+   "period_end": "2022-01-29",
+   "months": 12,
+   "value": 2398158000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0025",
+   "row_label": "Cost of goods sold",
+   "column_label": "Year Ended | January 30,2021",
+   "cell_text": "1,480,550",
+   "period_end": "2021-01-30",
+   "months": 12,
+   "value": 1480550000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0025",
+   "row_label": "Cost of goods sold",
+   "column_label": "Year Ended | February 1,2020",
+   "cell_text": "1,342,220",
+   "period_end": "2020-02-01",
+   "months": 12,
+   "value": 1342220000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0025",
+   "row_label": "Operating loss",
+   "column_label": "Year Ended | January 29,2022",
+   "cell_text": "(347,668)",
+   "period_end": "2022-01-29",
+   "months": 12,
+   "value": -347668000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0025",
+   "row_label": "Operating loss",
+   "column_label": "Year Ended | January 30,2021",
+   "cell_text": "(258,389)",
+   "period_end": "2021-01-30",
+   "months": 12,
+   "value": -258389000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0025",
+   "row_label": "Operating loss",
+   "column_label": "Year Ended | February 1,2020",
+   "cell_text": "(243,358)",
+   "period_end": "2020-02-01",
+   "months": 12,
+   "value": -243358000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0027",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | January 29,2022",
+   "cell_text": "(169,324)",
+   "period_end": "2022-01-29",
+   "months": 12,
+   "value": 169324000,
+   "confidence": 1.0,
+   "notes": "Purchases of technology licenses is a separate line and is not included."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0027",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | January 30,2021",
+   "cell_text": "(106,798)",
+   "period_end": "2021-01-30",
+   "months": 12,
+   "value": 106798000,
+   "confidence": 1.0,
+   "notes": "Purchases of technology licenses is a separate line and is not included."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0027",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | February 1,2020",
+   "cell_text": "(81,921)",
+   "period_end": "2020-02-01",
+   "months": 12,
+   "value": 81921000,
+   "confidence": 1.0,
+   "notes": "Purchases of technology licenses is a separate line and is not included."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the statement has a total cost line (Cost of goods sold)."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.3,
+  "input_tokens": 6508,
+  "output_tokens": 1625,
+  "attempts": 1,
+  "task_sha": "cada7a313c139725"
+ }
+}

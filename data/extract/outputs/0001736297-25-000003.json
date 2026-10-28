@@ -138,9 +138,10 @@
  "not_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.9,
-  "input_tokens": 6176,
+  "seconds": 9.8,
+  "input_tokens": 8736,
   "output_tokens": 1308,
-  "attempts": 1
+  "attempts": 1,
+  "task_sha": "d19041aac4501352"
  }
 }

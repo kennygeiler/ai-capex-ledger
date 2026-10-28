@@ -1,0 +1,80 @@
+{
+ "accession": "0000950170-23-007793",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0021",
+   "row_label": "Revenue - bitcoin mining",
+   "column_label": "Year Ended | December 31, 2022",
+   "cell_text": "3,037",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 3037000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0021",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended | December 31, 2022",
+   "cell_text": "748",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 748000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0021",
+   "row_label": "Operating loss",
+   "column_label": "Year Ended | December 31, 2022",
+   "cell_text": "(37,421)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": -37421000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0023",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | December 31, 2022",
+   "cell_text": "(39,815)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 39815000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "column_label": "Eleven Months Ended | December 31, 2021",
+   "reason": "Column covers an 11-month period (cell shows \"-\"), which cannot be expressed as months 3, 6, 9 or 12; omitted rather than mislabeled."
+  },
+  {
+   "field": "cost_of_revenue",
+   "column_label": "Eleven Months Ended | December 31, 2021",
+   "reason": "Column covers an 11-month period (cell shows \"-\"), which cannot be expressed as months 3, 6, 9 or 12; omitted rather than mislabeled."
+  },
+  {
+   "field": "operating_income",
+   "column_label": "Eleven Months Ended | December 31, 2021",
+   "reason": "Column covers an 11-month period (cell shows \"(72,152)\"), which cannot be expressed as months 3, 6, 9 or 12; omitted rather than mislabeled as 12 months."
+  },
+  {
+   "field": "capex",
+   "column_label": "Eleven Months Ended | December 31, 2021",
+   "reason": "Column covers an 11-month period (cell shows \"(5,110)\" for Purchases of property and equipment), which cannot be expressed as months 3, 6, 9 or 12; omitted rather than mislabeled as 12 months."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 21.4,
+  "input_tokens": 11534,
+  "output_tokens": 2528,
+  "attempts": 2,
+  "task_sha": "aaedefec407056af"
+ }
+}

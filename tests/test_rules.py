@@ -93,6 +93,7 @@ FAIL = {
     "sign": lambda c: c.values[1].update(value=-25000000000),
     "jump": lambda c: c.values[0].update(value=300000000000),
     "coverage": lambda c: c.values.pop(2),
+    "no_10k_yet": lambda c: c.tickers.append("SPCX"),
     "restated": lambda c: c.extractions.append({**c.extractions[2], "accession": "0001193125-26-000099", "value": 99999}),
     "xbrl_reconcile": lambda c: c.values[0].update(label="unresolved"),
     "outlier_vs_own_history": lambda c: c.values[1].update(value=150000000000),
@@ -101,7 +102,7 @@ FAIL = {
 
 class Registry(unittest.TestCase):
     def test_every_rule_loads_with_rationale_and_owner(self):
-        self.assertEqual(len(RULES), 14)
+        self.assertEqual(len(RULES), 15)
         for r in RULES.values():
             self.assertTrue(r["rationale"].strip() and r["owner"].strip(), r["id"])
 
@@ -134,6 +135,17 @@ class Coverage(unittest.TestCase):
         ctx = lambda today: Context(values=vals, extractions=[], years=["FY2025", "FY2026"], today=today)
         self.assertEqual(run(ctx(date(2026, 10, 28)), [RULES["coverage"] | {"params": {"fields": ["revenue"], "filing_days": 90}}]), [])
         self.assertTrue(run(ctx(date(2027, 4, 1)), [RULES["coverage"] | {"params": {"fields": ["revenue"], "filing_days": 90}}]))
+
+
+class StatementTie(unittest.TestCase):
+    def test_operating_lines_outside_the_opex_block_count(self):  # Core Scientific's layout
+        row = lambda label, v=None: {"label": label, "cells": [] if v is None else [{"col": 0, "value": v}]}
+        rows = [row("Total revenue", 640), row("Total cost of revenue", 632), row("Gross profit", 8), row("Impairment of goodwill", -1059),
+                row("Operating expenses:"), row("General and administrative", 213), row("Total operating expenses", 253), row("Operating (loss) income", -1304)]
+        doc = lambda rs: {"x": {"ticker": "CORZ", "statements": {"income": [{"id": "t0", "columns": ["2022"], "rows": rs}]}}}
+        tie = lambda rs: CHECKS["statement_tie"](Context(values=[], extractions=[], parsed=doc(rs)), RULES["statement_tie"]["params"])
+        self.assertEqual(tie(rows), [])
+        self.assertTrue(tie(rows[:-1] + [row("Operating (loss) income", -1300)]))
 
 
 class CostLines(unittest.TestCase):

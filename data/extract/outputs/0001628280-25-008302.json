@@ -122,7 +122,7 @@
    "months": 12,
    "value": 16161000,
    "confidence": 0.9,
-   "notes": "The cash-flow table has two columns labeled 'Year Ended December 31, | 2023' ([1] and [2]). Column [2] is empty on nearly every row (it holds only a '\u2014' on the footnoted proceeds row), so it looks like a parsing artifact. The value comes from column [1]."
+   "notes": "The cash-flow table has two columns labeled 'Year Ended December 31, | 2023' ([1] and [2]). Column [2] holds only a single '\u2014' cell (a parsing artifact from a footnote/spacer column); the value is taken from column [1], which carries all 2023 figures. 'Investments in internally developed software' is a separate line and was not added."
   },
   {
    "field": "capex",
@@ -134,15 +134,16 @@
    "months": 12,
    "value": 383980000,
    "confidence": 1.0,
-   "notes": "Excludes 'Deposits for self-mining equipment' (217,677). The prompt says not to add other lines to the capex line."
+   "notes": "'Deposits for self-mining equipment' (217,677) is a separate line and was not added, per the rule against summing lines."
   }
  ],
  "not_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 15.3,
+  "seconds": 12.5,
   "input_tokens": 7204,
-  "output_tokens": 1617,
-  "attempts": 1
+  "output_tokens": 1751,
+  "attempts": 1,
+  "task_sha": "68d3365e84b74631"
  }
 }

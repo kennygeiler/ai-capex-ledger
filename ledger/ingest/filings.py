@@ -1,16 +1,18 @@
 """T10/T11: the MVP filing list and the primary documents behind it.
 
-For each MVP company, every 10-K whose fiscal year ends between FIRST_PERIOD and LAST_PERIOD. Each 10-K shows three
-fiscal years, so the last three 10-Ks cover five years, with later ones restating earlier ones where the company did.
+For each company, every 10-K whose fiscal year ends between FIRST_PERIOD and today. A 10-K shows two or three fiscal
+years (smaller filers show two), so reaching back to the FY2022 10-K covers every year in the window; later 10-Ks
+restate earlier years where the company did, and the newest wins.
 """
 import json
+from datetime import date
 from dataclasses import asdict, dataclass
 
 from ..config import MVP_TICKERS
 from .edgar import RAW, _cached, fetch_json, fetch_tickers
 
-FIRST_PERIOD = "2024-01-01"
-LAST_PERIOD = "2026-08-31"
+FIRST_PERIOD = "2022-01-01"
+LAST_PERIOD = date.today().isoformat()
 FORMS = ("10-K",)  # annual filings only: one cell per value, no quarterly arithmetic
 
 

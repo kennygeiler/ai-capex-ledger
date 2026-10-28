@@ -1,0 +1,82 @@
+{
+ "accession": "0001558370-23-005301",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0095",
+   "row_label": "Revenue",
+   "column_label": "\u200b | Year Ended | December 31, 2022",
+   "cell_text": "15,033",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 15033000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0095",
+   "row_label": "Cost of revenue (exclusive of depreciation shown below)",
+   "column_label": "\u200b | Year Ended | December 31, 2022",
+   "cell_text": "11,083",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 11083000,
+   "confidence": 0.95,
+   "notes": "Total cost of revenue line; excludes depreciation, which is shown as a separate line under cost of operations."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0095",
+   "row_label": "Operating loss",
+   "column_label": "\u200b | Year Ended | December 31, 2022",
+   "cell_text": "(43,745)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": -43745000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0098",
+   "row_label": "Purchase of and deposits on plant and equipment",
+   "column_label": "\u200b | Year Ended | December 31, | 2022",
+   "cell_text": "(61,116)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 61116000,
+   "confidence": 0.9,
+   "notes": "Only purchases-of-property line in investing activities; it also includes deposits on plant and equipment. Joint-venture reimbursable deposit lines were not added."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "column_label": "\u200b | Period February 8, 2021 (date of | inception) to | December 31, 2021",
+   "reason": "Cell shows \u2014 (no revenue), and the period runs from February 8 to December 31, 2021, about 11 months, which is not a 3, 6, 9 or 12 month period."
+  },
+  {
+   "field": "cost_of_revenue",
+   "column_label": "\u200b | Period February 8, 2021 (date of | inception) to | December 31, 2021",
+   "reason": "Cell shows \u2014, and the inception-to-date period (about 11 months) is not a 3, 6, 9 or 12 month period."
+  },
+  {
+   "field": "operating_income",
+   "column_label": "\u200b | Period February 8, 2021 (date of | inception) to | December 31, 2021",
+   "reason": "Cell shows (43,399), but the inception-to-date period February 8 to December 31, 2021 (about 11 months) is not a 3, 6, 9 or 12 month period, so it cannot be reported under the allowed months values."
+  },
+  {
+   "field": "capex",
+   "column_label": "\u200b | Period February 8, 2021 (date of inception) to | December 31, | 2021",
+   "reason": "Cell shows (109,072), but the inception-to-date period February 8 to December 31, 2021 (about 11 months) is not a 3, 6, 9 or 12 month period, so it cannot be reported under the allowed months values."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 26.9,
+  "input_tokens": 13514,
+  "output_tokens": 2989,
+  "attempts": 2,
+  "task_sha": "37120dd35713ae35"
+ }
+}

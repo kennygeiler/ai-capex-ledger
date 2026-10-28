@@ -1,0 +1,155 @@
+{
+ "accession": "0001326801-23-000013",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0033",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "116,609",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 116609000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0033",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "117,929",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 117929000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0033",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "85,965",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 85965000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0033",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "25,249",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 25249000000,
+   "confidence": 1.0,
+   "notes": "Taken from the first 'Cost of revenue' row under 'Costs and expenses:'; a second row with the same label is the share-based compensation component (768) and was not used."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0033",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "22,649",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 22649000000,
+   "confidence": 1.0,
+   "notes": "First 'Cost of revenue' row under 'Costs and expenses:', not the share-based compensation row (577)."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0033",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "16,692",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 16692000000,
+   "confidence": 1.0,
+   "notes": "First 'Cost of revenue' row under 'Costs and expenses:', not the share-based compensation row (447)."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0033",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "28,944",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 28944000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0033",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "46,753",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 46753000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0033",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "32,671",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 32671000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0036",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "(31,431)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 31431000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0036",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "(18,690)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 18690000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0036",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "(15,163)",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 15163000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the income statement has a single total 'Cost of revenue' line."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.6,
+  "input_tokens": 6402,
+  "output_tokens": 1549,
+  "attempts": 1,
+  "task_sha": "4dda2b725048a3e7"
+ }
+}

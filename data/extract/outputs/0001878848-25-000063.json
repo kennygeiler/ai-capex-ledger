@@ -4,138 +4,104 @@
  "values": [
   {
    "field": "revenue",
-   "table_id": "t0009",
+   "table_id": "t0019",
    "row_label": "Total revenue",
-   "column_label": "Three Months Ended | June 30, 2025",
-   "cell_text": "187,293",
+   "column_label": "Years ended June 30, | 2025",
+   "cell_text": "501,023",
    "period_end": "2025-06-30",
-   "months": 3,
-   "value": 187293000,
+   "months": 12,
+   "value": 501023000,
    "confidence": 1.0
   },
   {
    "field": "revenue",
-   "table_id": "t0009",
+   "table_id": "t0019",
    "row_label": "Total revenue",
-   "column_label": "Three Months Ended | March 31, 2025",
-   "cell_text": "144,823",
-   "period_end": "2025-03-31",
-   "months": 3,
-   "value": 144823000,
+   "column_label": "Years ended June 30, | 2024",
+   "cell_text": "187,192",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 187192000,
    "confidence": 1.0
   },
   {
    "field": "revenue",
-   "table_id": "t0009",
+   "table_id": "t0019",
    "row_label": "Total revenue",
-   "column_label": "Three Months Ended | December 31, 2024",
-   "cell_text": "116,143",
-   "period_end": "2024-12-31",
-   "months": 3,
-   "value": 116143000,
-   "confidence": 1.0
-  },
-  {
-   "field": "revenue",
-   "table_id": "t0009",
-   "row_label": "Total revenue",
-   "column_label": "Three Months Ended | September 30, 2024",
-   "cell_text": "52,764",
-   "period_end": "2024-09-30",
-   "months": 3,
-   "value": 52764000,
+   "column_label": "Years ended June 30, | 2023",
+   "cell_text": "75,509",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 75509000,
    "confidence": 1.0
   },
   {
    "field": "cost_of_revenue",
-   "table_id": "t0009",
+   "table_id": "t0019",
    "row_label": "Total cost of revenue",
-   "column_label": "Three Months Ended | June 30, 2025",
-   "cell_text": "(52,887)",
+   "column_label": "Years ended June 30, | 2025",
+   "cell_text": "(158,992)",
    "period_end": "2025-06-30",
-   "months": 3,
-   "value": 52887000,
-   "confidence": 0.95,
-   "notes": "Cost of revenue is stated exclusive of depreciation and amortization, which is shown separately under operating expenses."
+   "months": 12,
+   "value": 158992000,
+   "confidence": 1.0,
+   "notes": "Cost of revenue is stated exclusive of depreciation and amortization, which is shown separately."
   },
   {
    "field": "cost_of_revenue",
-   "table_id": "t0009",
+   "table_id": "t0019",
    "row_label": "Total cost of revenue",
-   "column_label": "Three Months Ended | March 31, 2025",
-   "cell_text": "(41,950)",
-   "period_end": "2025-03-31",
-   "months": 3,
-   "value": 41950000,
-   "confidence": 0.95,
-   "notes": "Cost of revenue is stated exclusive of depreciation and amortization, which is shown separately under operating expenses."
+   "column_label": "Years ended June 30, | 2024",
+   "cell_text": "(87,067)",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 87067000,
+   "confidence": 1.0,
+   "notes": "Cost of revenue is stated exclusive of depreciation and amortization, which is shown separately."
   },
   {
    "field": "cost_of_revenue",
-   "table_id": "t0009",
+   "table_id": "t0019",
    "row_label": "Total cost of revenue",
-   "column_label": "Three Months Ended | December 31, 2024",
-   "cell_text": "(32,295)",
-   "period_end": "2024-12-31",
-   "months": 3,
-   "value": 32295000,
-   "confidence": 0.95,
-   "notes": "Cost of revenue is stated exclusive of depreciation and amortization, which is shown separately under operating expenses."
-  },
-  {
-   "field": "cost_of_revenue",
-   "table_id": "t0009",
-   "row_label": "Total cost of revenue",
-   "column_label": "Three Months Ended | September 30, 2024",
-   "cell_text": "(31,859)",
-   "period_end": "2024-09-30",
-   "months": 3,
-   "value": 31859000,
-   "confidence": 0.95,
-   "notes": "Cost of revenue is stated exclusive of depreciation and amortization, which is shown separately under operating expenses."
+   "column_label": "Years ended June 30, | 2023",
+   "cell_text": "(39,419)",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 39419000,
+   "confidence": 1.0,
+   "notes": "Cost of revenue is stated exclusive of depreciation and amortization, which is shown separately."
   },
   {
    "field": "operating_income",
-   "table_id": "t0009",
+   "table_id": "t0019",
    "row_label": "Operating (loss) income",
-   "column_label": "Three Months Ended | June 30, 2025",
-   "cell_text": "20,570",
+   "column_label": "Years ended June 30, | 2025",
+   "cell_text": "17,327",
    "period_end": "2025-06-30",
-   "months": 3,
-   "value": 20570000,
+   "months": 12,
+   "value": 17327000,
    "confidence": 1.0
   },
   {
    "field": "operating_income",
-   "table_id": "t0009",
+   "table_id": "t0019",
    "row_label": "Operating (loss) income",
-   "column_label": "Three Months Ended | March 31, 2025",
-   "cell_text": "29,118",
-   "period_end": "2025-03-31",
-   "months": 3,
-   "value": 29118000,
+   "column_label": "Years ended June 30, | 2024",
+   "cell_text": "(27,234)",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": -27234000,
    "confidence": 1.0
   },
   {
    "field": "operating_income",
-   "table_id": "t0009",
+   "table_id": "t0019",
    "row_label": "Operating (loss) income",
-   "column_label": "Three Months Ended | December 31, 2024",
-   "cell_text": "17,309",
-   "period_end": "2024-12-31",
-   "months": 3,
-   "value": 17309000,
-   "confidence": 1.0
-  },
-  {
-   "field": "operating_income",
-   "table_id": "t0009",
-   "row_label": "Operating (loss) income",
-   "column_label": "Three Months Ended | September 30, 2024",
-   "cell_text": "(49,667)",
-   "period_end": "2024-09-30",
-   "months": 3,
-   "value": -49667000,
+   "column_label": "Years ended June 30, | 2023",
+   "cell_text": "(157,241)",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": -157241000,
    "confidence": 1.0
   },
   {
@@ -147,8 +113,8 @@
    "period_end": "2025-06-30",
    "months": 12,
    "value": 573456000,
-   "confidence": 0.75,
-   "notes": "This PP&E payment line is stated net of hardware prepayments. A separate line, 'Payments for computer hardware prepayments' (799,171), is also arguably capex. Per the rules it is not added; review whether the capex definition should include it."
+   "confidence": 0.8,
+   "notes": "This is the property, plant and equipment line, but it is shown net of hardware prepayments. A separate line, 'Payments for computer hardware prepayments' (799,171), was not added per the rules. Total PP&E-related cash outflow is therefore understated by this line alone."
   },
   {
    "field": "capex",
@@ -159,8 +125,8 @@
    "period_end": "2024-06-30",
    "months": 12,
    "value": 141855000,
-   "confidence": 0.75,
-   "notes": "This PP&E payment line is stated net of hardware prepayments. A separate line, 'Payments for computer hardware prepayments' (338,054), is also arguably capex. Per the rules it is not added; review whether the capex definition should include it."
+   "confidence": 0.8,
+   "notes": "This is the property, plant and equipment line, but it is shown net of hardware prepayments. A separate line, 'Payments for computer hardware prepayments' (338,054), was not added per the rules."
   },
   {
    "field": "capex",
@@ -172,32 +138,16 @@
    "months": 12,
    "value": 116064000,
    "confidence": 0.85,
-   "notes": "This PP&E payment line is stated net of hardware prepayments. There were no hardware prepayment payments in FY2023 (\u2014)."
+   "notes": "This is the property, plant and equipment line, labelled net of hardware prepayments. The hardware prepayment line shows \u2014 for 2023."
   }
  ],
- "not_found": [
-  {
-   "field": "capex",
-   "reason": "There is no capex value for the quarterly periods. The cash-flow statement is annual only (FY2025, FY2024, FY2023)."
-  },
-  {
-   "field": "revenue",
-   "reason": "There are no annual (12-month) values. The income statement table provided shows quarterly columns only."
-  },
-  {
-   "field": "cost_of_revenue",
-   "reason": "There are no annual (12-month) values. The income statement table provided shows quarterly columns only."
-  },
-  {
-   "field": "operating_income",
-   "reason": "There are no annual (12-month) values. The income statement table provided shows quarterly columns only."
-  }
- ],
+ "not_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 19.5,
-  "input_tokens": 7598,
-  "output_tokens": 2640,
-  "attempts": 1
+  "seconds": 13.6,
+  "input_tokens": 7612,
+  "output_tokens": 1922,
+  "attempts": 1,
+  "task_sha": "87af4c427e73f7af"
  }
 }

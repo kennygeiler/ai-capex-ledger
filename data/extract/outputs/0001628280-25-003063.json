@@ -111,7 +111,7 @@
    "months": 12,
    "value": 11339000000,
    "confidence": 0.95,
-   "notes": "Line is reported net of sales of property and equipment and excludes finance leases; separate 'Purchases of solar energy systems, net of sales' line not added per rules."
+   "notes": "Line is stated net of sales of property and equipment and excludes finance leases. The separate 'Purchases of solar energy systems, net of sales' line was not added, per the no-summing rule."
   },
   {
    "field": "capex",
@@ -123,7 +123,7 @@
    "months": 12,
    "value": 8898000000,
    "confidence": 0.95,
-   "notes": "Line is reported net of sales of property and equipment and excludes finance leases; separate 'Purchases of solar energy systems, net of sales' line not added per rules."
+   "notes": "Line is stated net of sales of property and equipment and excludes finance leases. The separate 'Purchases of solar energy systems, net of sales' line was not added, per the no-summing rule."
   },
   {
    "field": "capex",
@@ -135,15 +135,21 @@
    "months": 12,
    "value": 7158000000,
    "confidence": 0.95,
-   "notes": "Line is reported net of sales of property and equipment and excludes finance leases; separate 'Purchases of solar energy systems, net of sales' and 'Purchase of intangible assets' lines not added per rules."
+   "notes": "Line is stated net of sales of property and equipment and excludes finance leases. The separate 'Purchases of solar energy systems, net of sales' and 'Purchase of intangible assets' lines were not added, per the no-summing rule."
   }
  ],
- "not_found": [],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the statement has a 'Total cost of revenues' line."
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.3,
-  "input_tokens": 6853,
-  "output_tokens": 1632,
-  "attempts": 1
+  "seconds": 13.9,
+  "input_tokens": 6855,
+  "output_tokens": 1806,
+  "attempts": 1,
+  "task_sha": "e895ac1c53aa11d5"
  }
 }

@@ -1,0 +1,150 @@
+{
+ "accession": "0000950170-23-001409",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0024",
+   "row_label": "Total revenues",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "81,462",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 81462000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0024",
+   "row_label": "Total revenues",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "53,823",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 53823000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0024",
+   "row_label": "Total revenues",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "31,536",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 31536000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0024",
+   "row_label": "Total cost of revenues",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "60,609",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 60609000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0024",
+   "row_label": "Total cost of revenues",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "40,217",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 40217000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0024",
+   "row_label": "Total cost of revenues",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "24,906",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 24906000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0024",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "13,656",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 13656000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0024",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "6,523",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 6523000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0024",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "1,994",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 1994000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0027",
+   "row_label": "Purchases of property and equipment excluding finance leases, net of sales",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "(7,158)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 7158000000,
+   "confidence": 0.9,
+   "notes": "Line is reported net of sales of property and equipment and excludes finance leases; it is the only property-and-equipment purchase line. Solar energy systems purchases are a separate line and were not added."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0027",
+   "row_label": "Purchases of property and equipment excluding finance leases, net of sales",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "(6,482)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 6482000000,
+   "confidence": 0.9,
+   "notes": "Line is reported net of sales of property and equipment and excludes finance leases; it is the only property-and-equipment purchase line. Solar energy systems purchases are a separate line and were not added."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0027",
+   "row_label": "Purchases of property and equipment excluding finance leases, net of sales",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "(3,157)",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 3157000000,
+   "confidence": 0.9,
+   "notes": "Line is reported net of sales of property and equipment and excludes finance leases; it is the only property-and-equipment purchase line. Solar energy systems purchases are a separate line and were not added."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.1,
+  "input_tokens": 7011,
+  "output_tokens": 1673,
+  "attempts": 1,
+  "task_sha": "208835be8130d255"
+ }
+}

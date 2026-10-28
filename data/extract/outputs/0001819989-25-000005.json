@@ -12,7 +12,7 @@
    "months": 12,
    "value": 151270000,
    "confidence": 0.9,
-   "notes": "Only revenue line on the statement, so it is taken as total revenue. 'Power sales' (5,405) is presented within costs and operating (expenses) income, not as revenue, so it is not included."
+   "notes": "This is the only revenue line on the statement, so it is the total. Power sales are presented within costs and operating (expenses) income rather than as revenue, so they are not added."
   },
   {
    "field": "revenue",
@@ -24,7 +24,7 @@
    "months": 12,
    "value": 126842000,
    "confidence": 0.9,
-   "notes": "Only revenue line on the statement, so it is taken as total revenue. 'Power sales' (9,941) is presented within costs and operating (expenses) income, not as revenue, so it is not included."
+   "notes": "This is the only revenue line on the statement, so it is the total. Power sales are presented within costs and operating (expenses) income rather than as revenue, so they are not added."
   },
   {
    "field": "cost_of_revenue",
@@ -80,7 +80,7 @@
    "months": 12,
    "value": 139495000,
    "confidence": 0.95,
-   "notes": "'Deposits on equipment' (162,958) and 'Purchases and development of software' (1,423) are separate lines and are not added, per the rule against combining lines."
+   "notes": "Only 'Purchases of property and equipment' is used. 'Deposits on equipment' and 'Purchases and development of software' are separate lines, so they are not added, as the rules require."
   },
   {
    "field": "capex",
@@ -92,15 +92,16 @@
    "months": 12,
    "value": 20480000,
    "confidence": 0.95,
-   "notes": "'Deposits on equipment' (33,906) and 'Purchases and development of software' (634) are separate lines and are not added, per the rule against combining lines."
+   "notes": "Only 'Purchases of property and equipment' is used. 'Deposits on equipment' and 'Purchases and development of software' are separate lines, so they are not added, as the rules require."
   }
  ],
  "not_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.0,
-  "input_tokens": 6176,
-  "output_tokens": 1318,
-  "attempts": 1
+  "seconds": 11.6,
+  "input_tokens": 6170,
+  "output_tokens": 1280,
+  "attempts": 1,
+  "task_sha": "7f4066488a9637a8"
  }
 }

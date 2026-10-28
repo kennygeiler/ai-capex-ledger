@@ -44,8 +44,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 62608000,
-   "confidence": 0.95,
-   "notes": "Single total cost-of-revenue line; excludes depreciation, which is reported separately."
+   "confidence": 0.9,
+   "notes": "Single cost-of-revenue line. It is stated exclusive of depreciation, which is reported separately."
   },
   {
    "field": "cost_of_revenue",
@@ -56,8 +56,8 @@
    "period_end": "2023-12-31",
    "months": 12,
    "value": 27315000,
-   "confidence": 0.95,
-   "notes": "Single total cost-of-revenue line; excludes depreciation, which is reported separately."
+   "confidence": 0.9,
+   "notes": "Single cost-of-revenue line. It is stated exclusive of depreciation, which is reported separately."
   },
   {
    "field": "cost_of_revenue",
@@ -68,8 +68,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 11083000,
-   "confidence": 0.95,
-   "notes": "Single total cost-of-revenue line; excludes depreciation, which is reported separately."
+   "confidence": 0.9,
+   "notes": "Single cost-of-revenue line. It is stated exclusive of depreciation, which is reported separately."
   },
   {
    "field": "operating_income",
@@ -114,7 +114,7 @@
    "months": 12,
    "value": 267940000,
    "confidence": 0.9,
-   "notes": "Only property/equipment purchase line in investing section; it also includes deposits on plant and equipment."
+   "notes": "This is the only property and equipment purchase line. It also includes deposits on plant and equipment."
   },
   {
    "field": "capex",
@@ -126,7 +126,7 @@
    "months": 12,
    "value": 75168000,
    "confidence": 0.9,
-   "notes": "Only property/equipment purchase line in investing section; it also includes deposits on plant and equipment."
+   "notes": "This is the only property and equipment purchase line. It also includes deposits on plant and equipment."
   },
   {
    "field": "capex",
@@ -138,15 +138,16 @@
    "months": 12,
    "value": 61116000,
    "confidence": 0.9,
-   "notes": "Only property/equipment purchase line in investing section; it also includes deposits on plant and equipment. Separate joint-venture deposit lines were not added."
+   "notes": "This is the only property and equipment purchase line. It also includes deposits on plant and equipment. Joint-venture deposit payments and reimbursements are separate lines and were not added."
   }
  ],
  "not_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 13.2,
+  "seconds": 14.2,
   "input_tokens": 7885,
-  "output_tokens": 1769,
-  "attempts": 1
+  "output_tokens": 1727,
+  "attempts": 1,
+  "task_sha": "35a4d7ee10792d12"
  }
 }

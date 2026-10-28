@@ -307,6 +307,10 @@ def annual_series(companyfacts: dict, metric: str, fye: str | None) -> dict[str,
     for c in ranking:
         for k, r in per_concept[c].items():
             merged.setdefault(k, r)
+    if metric == "revenue":  # a total tag beats a component tag in the same 10-K (WULF: contract revenue leaves out lease revenue)
+        for k, r in merged.items():
+            same = [x[k] for x in per_concept.values() if k in x and x[k]["accession"] == r["accession"]]
+            merged[k] = max(same, key=lambda x: x["value"])
     return merged
 
 

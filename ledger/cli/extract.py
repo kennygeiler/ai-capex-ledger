@@ -55,19 +55,27 @@ def main(argv=None) -> int:
     if a.pack:
         return 0
     if a.run:
-        todo = [(p, path) for p, path in zip(docs, paths) if a.rerun or not (OUTPUTS / f"{p['accession']}.json").exists()]
+        def stale(p, path):  # no output, or a headless output that answered a different task (e.g. the locator changed)
+            out = OUTPUTS / f"{p['accession']}.json"
+            if not out.exists():
+                return True
+            run = json.loads(out.read_text()).get("_run")
+            return bool(run) and run.get("task_sha") != hashlib.sha256(path.read_bytes()).hexdigest()[:16]
+
+        todo = [(p, path) for p, path in zip(docs, paths) if a.rerun or stale(p, path)]
 
         def one(item):
             p, path = item
             try:
                 obj = agent.extract(path.read_text(), p)
+                obj["_run"]["task_sha"] = hashlib.sha256(path.read_bytes()).hexdigest()[:16]
                 note = f"{len(obj['values'])} values, {obj['_run']['seconds']:.0f}s, {obj['_run']['attempts']} attempt(s)"
             except Invalid as e:
                 obj, note = {"accession": p["accession"], "error": e.reason}, f"FAILED: {e.reason}"
             (OUTPUTS / f"{p['accession']}.json").write_text(json.dumps(obj, indent=1))
             return f"  {p['ticker']} {p['accession']}: {note}"
 
-        print(f"running the agent on {len(todo)} filing(s); {len(docs) - len(todo)} already have an output")
+        print(f"running the agent on {len(todo)} filing(s); {len(docs) - len(todo)} already have an output for this exact task")
         try:
             with ThreadPoolExecutor(a.workers) as pool:
                 for line in pool.map(one, todo):
