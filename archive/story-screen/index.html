@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Capex Ledger</title>
+  <meta name="description" content="Who pays for the AI buildout and who gets paid, read from SEC filings, with the source of every number.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="sample-note"><div class="wrap">Sample data in the shape of the real EDGAR pipeline. None of these numbers is real yet.</div></div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <pattern id="hatch-buyer" patternUnits="userSpaceOnUse" width="5" height="5" patternTransform="rotate(45)">
+        <rect width="5" height="5" fill="var(--buyer-soft)"/><rect width="2" height="5" fill="var(--buyer)"/>
+      </pattern>
+      <pattern id="hatch-seller" patternUnits="userSpaceOnUse" width="5" height="5" patternTransform="rotate(45)">
+        <rect width="5" height="5" fill="var(--seller-soft)"/><rect width="2" height="5" fill="var(--seller)"/>
+      </pattern>
+    </defs>
+  </svg>
+  <div id="root"><noscript><div class="wrap" style="padding:40px 16px">This page needs JavaScript to draw its charts.</div></noscript></div>
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" tabindex="-1"></aside>
+  <div class="tip" id="tip" role="status" aria-live="polite"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,2326 @@
+{
+ "started_at": "2026-10-27T20:32:24+00:00",
+ "finished_at": "2026-10-27T20:34:03+00:00",
+ "seconds": 99.6,
+ "user_agent": "Set in .env (name and contact email, as SEC requires)",
+ "rate_limit": "6.7 requests per second at most",
+ "network_requests": 228,
+ "cache_reads": 26,
+ "bytes_downloaded": 495926648,
+ "http_errors": 0,
+ "failures": [],
+ "log": [
+  {
+   "url": "https://www.sec.gov/files/company_tickers.json",
+   "at": "2026-10-27T20:32:24+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 363,
+   "bytes": 798077
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001045810.json",
+   "at": "2026-10-27T20:32:24+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 454,
+   "bytes": 4092966
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001045810.json",
+   "at": "2026-10-27T20:32:24+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 211,
+   "bytes": 159761
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json",
+   "at": "2026-10-27T20:32:25+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 421,
+   "bytes": 4888108
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000789019.json",
+   "at": "2026-10-27T20:32:25+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 279,
+   "bytes": 185671
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
+   "at": "2026-10-27T20:32:25+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 474,
+   "bytes": 3164517
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001652044.json",
+   "at": "2026-10-27T20:32:26+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 194,
+   "bytes": 152401
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001018724.json",
+   "at": "2026-10-27T20:32:26+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 415,
+   "bytes": 4478611
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001018724.json",
+   "at": "2026-10-27T20:32:27+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 209,
+   "bytes": 159904
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001326801.json",
+   "at": "2026-10-27T20:32:27+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 475,
+   "bytes": 2802226
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001326801.json",
+   "at": "2026-10-27T20:32:27+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 310,
+   "bytes": 159268
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001341439.json",
+   "at": "2026-10-27T20:32:28+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 488,
+   "bytes": 3962105
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001341439.json",
+   "at": "2026-10-27T20:32:28+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 198,
+   "bytes": 158495
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001318605.json",
+   "at": "2026-10-27T20:32:28+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 436,
+   "bytes": 3700279
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001318605.json",
+   "at": "2026-10-27T20:32:29+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 484,
+   "bytes": 162058
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000723125.json",
+   "at": "2026-10-27T20:32:29+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 511,
+   "bytes": 4150366
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+   "at": "2026-10-27T20:32:30+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 250,
+   "bytes": 165204
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000002488.json",
+   "at": "2026-10-27T20:32:30+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 461,
+   "bytes": 3672449
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000002488.json",
+   "at": "2026-10-27T20:32:31+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 171,
+   "bytes": 162189
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001181412.json",
+   "at": "2026-10-27T20:32:31+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 296,
+   "bytes": 188229
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001181412.json",
+   "at": "2026-10-27T20:32:31+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 100,
+   "bytes": 15585
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001769628.json",
+   "at": "2026-10-27T20:32:31+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 332,
+   "bytes": 501063
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001769628.json",
+   "at": "2026-10-27T20:32:32+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 198,
+   "bytes": 157288
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001835632.json",
+   "at": "2026-10-27T20:32:32+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 336,
+   "bytes": 1329277
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001835632.json",
+   "at": "2026-10-27T20:32:32+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 173,
+   "bytes": 134471
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001736297.json",
+   "at": "2026-10-27T20:32:32+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 336,
+   "bytes": 528491
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001736297.json",
+   "at": "2026-10-27T20:32:33+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 234,
+   "bytes": 65979
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001807794.json",
+   "at": "2026-10-27T20:32:33+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 342,
+   "bytes": 920048
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001807794.json",
+   "at": "2026-10-27T20:32:33+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 191,
+   "bytes": 146370
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001878848.json",
+   "at": "2026-10-27T20:32:34+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 490,
+   "bytes": 1004828
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001878848.json",
+   "at": "2026-10-27T20:32:34+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 302,
+   "bytes": 54068
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001144879.json",
+   "at": "2026-10-27T20:32:34+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 270,
+   "bytes": 1006689
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001144879.json",
+   "at": "2026-10-27T20:32:35+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 263,
+   "bytes": 140389
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001819989.json",
+   "at": "2026-10-27T20:32:35+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 339,
+   "bytes": 994184
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001819989.json",
+   "at": "2026-10-27T20:32:35+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 312,
+   "bytes": 103808
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001083301.json",
+   "at": "2026-10-27T20:32:36+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 712,
+   "bytes": 2340019
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001083301.json",
+   "at": "2026-10-27T20:32:36+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 204,
+   "bytes": 165170
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001839341.json",
+   "at": "2026-10-27T20:32:37+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 417,
+   "bytes": 1365197
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001839341.json",
+   "at": "2026-10-27T20:32:37+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 181,
+   "bytes": 109390
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+   "at": "2026-10-27T20:32:37+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 413,
+   "bytes": 3789099
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000320193.json",
+   "at": "2026-10-27T20:32:38+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 293,
+   "bytes": 163917
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001551152.json",
+   "at": "2026-10-27T20:32:38+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 329,
+   "bytes": 3109380
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001551152.json",
+   "at": "2026-10-27T20:32:38+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 346,
+   "bytes": 156535
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000001800.json",
+   "at": "2026-10-27T20:32:39+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 524,
+   "bytes": 3386107
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000001800.json",
+   "at": "2026-10-27T20:32:39+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 572,
+   "bytes": 155599
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/1800/000162828026050134/index.json",
+   "at": "2026-10-27T20:32:40+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 7908,
+   "fetched_at": "2026-10-27T20:26:03+00:00"
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/1800/000162828026050134/abt-20260630_htm.xml",
+   "at": "2026-10-27T20:32:40+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 1850578,
+   "fetched_at": "2026-10-27T20:26:03+00:00"
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001467373.json",
+   "at": "2026-10-27T20:32:40+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 856,
+   "bytes": 4491185
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001467373.json",
+   "at": "2026-10-27T20:32:41+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 248,
+   "bytes": 159635
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000796343.json",
+   "at": "2026-10-27T20:32:41+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 419,
+   "bytes": 4334956
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000796343.json",
+   "at": "2026-10-27T20:32:42+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 337,
+   "bytes": 161886
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000005272.json",
+   "at": "2026-10-27T20:32:42+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 1298,
+   "bytes": 6911912
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000005272.json",
+   "at": "2026-10-27T20:32:43+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 273,
+   "bytes": 150390
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000318154.json",
+   "at": "2026-10-27T20:32:44+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 703,
+   "bytes": 3691898
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000318154.json",
+   "at": "2026-10-27T20:32:44+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 229,
+   "bytes": 158925
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001053507.json",
+   "at": "2026-10-27T20:32:45+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 381,
+   "bytes": 4977573
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001053507.json",
+   "at": "2026-10-27T20:32:45+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 323,
+   "bytes": 162518
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001730168.json",
+   "at": "2026-10-27T20:32:45+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 1478,
+   "bytes": 2351559
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001730168.json",
+   "at": "2026-10-27T20:32:47+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 305,
+   "bytes": 160094
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000004962.json",
+   "at": "2026-10-27T20:32:47+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 421,
+   "bytes": 4834135
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000004962.json",
+   "at": "2026-10-27T20:32:48+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 230,
+   "bytes": 159090
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000012927.json",
+   "at": "2026-10-27T20:32:48+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 348,
+   "bytes": 5248494
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000012927.json",
+   "at": "2026-10-27T20:32:48+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 220,
+   "bytes": 147212
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000070858.json",
+   "at": "2026-10-27T20:32:49+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 520,
+   "bytes": 6898457
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000070858.json",
+   "at": "2026-10-27T20:32:49+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 353,
+   "bytes": 1783961
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001390777.json",
+   "at": "2026-10-27T20:32:49+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 830,
+   "bytes": 7828604
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001390777.json",
+   "at": "2026-10-27T20:32:50+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 632,
+   "bytes": 156848
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001075531.json",
+   "at": "2026-10-27T20:32:51+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 508,
+   "bytes": 3354279
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001075531.json",
+   "at": "2026-10-27T20:32:52+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 213,
+   "bytes": 158226
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0002012383.json",
+   "at": "2026-10-27T20:32:52+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 292,
+   "bytes": 591729
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0002012383.json",
+   "at": "2026-10-27T20:32:52+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 235,
+   "bytes": 245013
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000014272.json",
+   "at": "2026-10-27T20:32:52+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 935,
+   "bytes": 5690382
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000014272.json",
+   "at": "2026-10-27T20:32:53+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 311,
+   "bytes": 164172
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001067983.json",
+   "at": "2026-10-27T20:32:54+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 446,
+   "bytes": 2798312
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001067983.json",
+   "at": "2026-10-27T20:32:54+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 256,
+   "bytes": 161233
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000831001.json",
+   "at": "2026-10-27T20:32:54+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 534,
+   "bytes": 8967144
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000831001.json",
+   "at": "2026-10-27T20:32:55+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 360,
+   "bytes": 2318320
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100126000045/index.json",
+   "at": "2026-10-27T20:32:55+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 16700,
+   "fetched_at": "2026-10-27T20:26:04+00:00"
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100126000045/c-20260630_htm.xml",
+   "at": "2026-10-27T20:32:55+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 17909580,
+   "fetched_at": "2026-10-27T20:26:05+00:00"
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100126000019/index.json",
+   "at": "2026-10-27T20:32:56+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 16598,
+   "fetched_at": "2026-10-27T20:26:06+00:00"
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/831001/000083100126000019/c-20260331_htm.xml",
+   "at": "2026-10-27T20:32:56+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 13734044,
+   "fetched_at": "2026-10-27T20:26:06+00:00"
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000018230.json",
+   "at": "2026-10-27T20:32:56+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 974,
+   "bytes": 5868239
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000018230.json",
+   "at": "2026-10-27T20:32:57+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 299,
+   "bytes": 168105
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001091667.json",
+   "at": "2026-10-27T20:32:57+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 1226,
+   "bytes": 3211294
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001091667.json",
+   "at": "2026-10-27T20:32:58+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 270,
+   "bytes": 163054
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000021665.json",
+   "at": "2026-10-27T20:32:59+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 515,
+   "bytes": 3582380
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000021665.json",
+   "at": "2026-10-27T20:32:59+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 314,
+   "bytes": 147238
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001166691.json",
+   "at": "2026-10-27T20:32:59+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 374,
+   "bytes": 3802770
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001166691.json",
+   "at": "2026-10-27T20:33:00+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 467,
+   "bytes": 148079
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000927628.json",
+   "at": "2026-10-27T20:33:00+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 877,
+   "bytes": 6637060
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000927628.json",
+   "at": "2026-10-27T20:33:01+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 295,
+   "bytes": 161628
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001163165.json",
+   "at": "2026-10-27T20:33:02+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 575,
+   "bytes": 4981846
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001163165.json",
+   "at": "2026-10-27T20:33:02+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 342,
+   "bytes": 156049
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000909832.json",
+   "at": "2026-10-27T20:33:03+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 335,
+   "bytes": 3694553
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000909832.json",
+   "at": "2026-10-27T20:33:03+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 238,
+   "bytes": 159569
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001108524.json",
+   "at": "2026-10-27T20:33:03+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 415,
+   "bytes": 4729214
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001108524.json",
+   "at": "2026-10-27T20:33:04+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 158,
+   "bytes": 156641
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000858877.json",
+   "at": "2026-10-27T20:33:04+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 861,
+   "bytes": 6172548
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000858877.json",
+   "at": "2026-10-27T20:33:05+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 418,
+   "bytes": 159072
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000064803.json",
+   "at": "2026-10-27T20:33:05+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 440,
+   "bytes": 4462140
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000064803.json",
+   "at": "2026-10-27T20:33:06+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 215,
+   "bytes": 158930
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000093410.json",
+   "at": "2026-10-27T20:33:06+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 609,
+   "bytes": 4810683
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000093410.json",
+   "at": "2026-10-27T20:33:07+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 344,
+   "bytes": 157436
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000315189.json",
+   "at": "2026-10-27T20:33:07+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 638,
+   "bytes": 5244762
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000315189.json",
+   "at": "2026-10-27T20:33:08+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 311,
+   "bytes": 163852
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000313616.json",
+   "at": "2026-10-27T20:33:08+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 661,
+   "bytes": 4625752
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000313616.json",
+   "at": "2026-10-27T20:33:09+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 212,
+   "bytes": 160273
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001744489.json",
+   "at": "2026-10-27T20:33:09+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 556,
+   "bytes": 2519871
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001744489.json",
+   "at": "2026-10-27T20:33:10+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 298,
+   "bytes": 165313
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001326160.json",
+   "at": "2026-10-27T20:33:10+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 538,
+   "bytes": 5349280
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001326160.json",
+   "at": "2026-10-27T20:33:11+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 187,
+   "bytes": 166381
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/1326160/000132616026000040/index.json",
+   "at": "2026-10-27T20:33:11+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 16813,
+   "fetched_at": "2026-10-27T20:26:07+00:00"
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/1326160/000132616026000040/duk-20260630_htm.xml",
+   "at": "2026-10-27T20:33:11+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 11529097,
+   "fetched_at": "2026-10-27T20:26:08+00:00"
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000032604.json",
+   "at": "2026-10-27T20:33:11+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 575,
+   "bytes": 3674500
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000032604.json",
+   "at": "2026-10-27T20:33:11+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 280,
+   "bytes": 163585
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000037996.json",
+   "at": "2026-10-27T20:33:12+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 946,
+   "bytes": 3672318
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000037996.json",
+   "at": "2026-10-27T20:33:13+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 233,
+   "bytes": 160039
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/37996/000003799626000156/index.json",
+   "at": "2026-10-27T20:33:13+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 8743,
+   "fetched_at": "2026-10-27T20:26:08+00:00"
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/37996/000003799626000156/f-20260630_htm.xml",
+   "at": "2026-10-27T20:33:13+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 3029393,
+   "fetched_at": "2026-10-27T20:26:09+00:00"
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001048911.json",
+   "at": "2026-10-27T20:33:13+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 449,
+   "bytes": 3514381
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001048911.json",
+   "at": "2026-10-27T20:33:13+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 366,
+   "bytes": 161061
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000040533.json",
+   "at": "2026-10-27T20:33:14+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 432,
+   "bytes": 3597489
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000040533.json",
+   "at": "2026-10-27T20:33:14+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 268,
+   "bytes": 155154
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053326000032/index.json",
+   "at": "2026-10-27T20:33:15+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 8282,
+   "fetched_at": "2026-10-27T20:26:09+00:00"
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/40533/000004053326000032/gd-20260705_htm.xml",
+   "at": "2026-10-27T20:33:15+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 1619289,
+   "fetched_at": "2026-10-27T20:26:10+00:00"
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000040545.json",
+   "at": "2026-10-27T20:33:15+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 592,
+   "bytes": 6167993
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000040545.json",
+   "at": "2026-10-27T20:33:15+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 238,
+   "bytes": 165753
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000882095.json",
+   "at": "2026-10-27T20:33:16+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 625,
+   "bytes": 4660662
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000882095.json",
+   "at": "2026-10-27T20:33:16+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 223,
+   "bytes": 160625
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001467858.json",
+   "at": "2026-10-27T20:33:16+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 417,
+   "bytes": 3661164
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001467858.json",
+   "at": "2026-10-27T20:33:17+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 202,
+   "bytes": 165169
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000886982.json",
+   "at": "2026-10-27T20:33:17+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 507,
+   "bytes": 6013539
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000886982.json",
+   "at": "2026-10-27T20:33:18+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 321,
+   "bytes": 2626229
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000354950.json",
+   "at": "2026-10-27T20:33:18+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 418,
+   "bytes": 3217710
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000354950.json",
+   "at": "2026-10-27T20:33:19+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 259,
+   "bytes": 161373
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000773840.json",
+   "at": "2026-10-27T20:33:20+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 444,
+   "bytes": 4625988
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000773840.json",
+   "at": "2026-10-27T20:33:20+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 229,
+   "bytes": 160665
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000051143.json",
+   "at": "2026-10-27T20:33:20+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 465,
+   "bytes": 5719403
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000051143.json",
+   "at": "2026-10-27T20:33:21+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 286,
+   "bytes": 167131
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000050863.json",
+   "at": "2026-10-27T20:33:21+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 526,
+   "bytes": 4311809
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000050863.json",
+   "at": "2026-10-27T20:33:22+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 157,
+   "bytes": 159311
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000896878.json",
+   "at": "2026-10-27T20:33:22+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 499,
+   "bytes": 4417219
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000896878.json",
+   "at": "2026-10-27T20:33:22+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 294,
+   "bytes": 170228
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001035267.json",
+   "at": "2026-10-27T20:33:23+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 485,
+   "bytes": 4205879
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001035267.json",
+   "at": "2026-10-27T20:33:23+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 163,
+   "bytes": 158149
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000200406.json",
+   "at": "2026-10-27T20:33:23+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 678,
+   "bytes": 4218885
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000200406.json",
+   "at": "2026-10-27T20:33:24+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 192,
+   "bytes": 154245
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000019617.json",
+   "at": "2026-10-27T20:33:24+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 555,
+   "bytes": 8000170
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000019617.json",
+   "at": "2026-10-27T20:33:25+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 546,
+   "bytes": 4673456
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000021344.json",
+   "at": "2026-10-27T20:33:26+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 821,
+   "bytes": 5028478
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000021344.json",
+   "at": "2026-10-27T20:33:27+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 220,
+   "bytes": 159266
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/21344/000162828026050503/index.json",
+   "at": "2026-10-27T20:33:27+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 9072,
+   "fetched_at": "2026-10-27T20:26:11+00:00"
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/21344/000162828026050503/ko-20260703_htm.xml",
+   "at": "2026-10-27T20:33:27+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 2921566,
+   "fetched_at": "2026-10-27T20:26:11+00:00"
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001707925.json",
+   "at": "2026-10-27T20:33:27+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 257,
+   "bytes": 2222619
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001707925.json",
+   "at": "2026-10-27T20:33:27+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 219,
+   "bytes": 125909
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000059478.json",
+   "at": "2026-10-27T20:33:27+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 346,
+   "bytes": 3523596
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000059478.json",
+   "at": "2026-10-27T20:33:28+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 265,
+   "bytes": 158705
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000936468.json",
+   "at": "2026-10-27T20:33:28+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 355,
+   "bytes": 3415864
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000936468.json",
+   "at": "2026-10-27T20:33:28+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 150,
+   "bytes": 149396
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000060667.json",
+   "at": "2026-10-27T20:33:28+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 438,
+   "bytes": 3714927
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000060667.json",
+   "at": "2026-10-27T20:33:29+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 222,
+   "bytes": 163748
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001141391.json",
+   "at": "2026-10-27T20:33:29+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 424,
+   "bytes": 4133615
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001141391.json",
+   "at": "2026-10-27T20:33:30+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 236,
+   "bytes": 159858
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000063908.json",
+   "at": "2026-10-27T20:33:30+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 618,
+   "bytes": 3579350
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000063908.json",
+   "at": "2026-10-27T20:33:31+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 345,
+   "bytes": 158470
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001103982.json",
+   "at": "2026-10-27T20:33:31+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 429,
+   "bytes": 4424102
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001103982.json",
+   "at": "2026-10-27T20:33:31+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 168,
+   "bytes": 161537
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/1103982/000162828026050179/index.json",
+   "at": "2026-10-27T20:33:32+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 9401,
+   "fetched_at": "2026-10-27T20:26:12+00:00"
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/1103982/000162828026050179/mdlz-20260630_htm.xml",
+   "at": "2026-10-27T20:33:32+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 2164172,
+   "fetched_at": "2026-10-27T20:26:12+00:00"
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001613103.json",
+   "at": "2026-10-27T20:33:32+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 372,
+   "bytes": 3233551
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001613103.json",
+   "at": "2026-10-27T20:33:32+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 180,
+   "bytes": 160277
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001099219.json",
+   "at": "2026-10-27T20:33:32+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 731,
+   "bytes": 9240150
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001099219.json",
+   "at": "2026-10-27T20:33:33+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 199,
+   "bytes": 163273
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000066740.json",
+   "at": "2026-10-27T20:33:33+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 418,
+   "bytes": 5302901
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000066740.json",
+   "at": "2026-10-27T20:33:34+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 278,
+   "bytes": 160188
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000764180.json",
+   "at": "2026-10-27T20:33:34+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 374,
+   "bytes": 3771084
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000764180.json",
+   "at": "2026-10-27T20:33:34+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 207,
+   "bytes": 160830
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000310158.json",
+   "at": "2026-10-27T20:33:35+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 565,
+   "bytes": 4487341
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000310158.json",
+   "at": "2026-10-27T20:33:35+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 974,
+   "bytes": 157425
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000895421.json",
+   "at": "2026-10-27T20:33:36+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 557,
+   "bytes": 7172987
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000895421.json",
+   "at": "2026-10-27T20:33:37+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 432,
+   "bytes": 3849603
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000753308.json",
+   "at": "2026-10-27T20:33:37+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 524,
+   "bytes": 3918900
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000753308.json",
+   "at": "2026-10-27T20:33:38+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 340,
+   "bytes": 172210
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/753308/000075330826000081/index.json",
+   "at": "2026-10-27T20:33:38+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 8756,
+   "fetched_at": "2026-10-27T20:26:13+00:00"
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/753308/000075330826000081/nee-20260930_htm.xml",
+   "at": "2026-10-27T20:33:38+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 3178539,
+   "fetched_at": "2026-10-27T20:26:13+00:00"
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/753308/000075330826000060/index.json",
+   "at": "2026-10-27T20:33:38+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 9559,
+   "fetched_at": "2026-10-27T20:26:13+00:00"
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/753308/000075330826000060/nee-20260630_htm.xml",
+   "at": "2026-10-27T20:33:38+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 3153306,
+   "fetched_at": "2026-10-27T20:26:14+00:00"
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001065280.json",
+   "at": "2026-10-27T20:33:38+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 409,
+   "bytes": 3648572
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001065280.json",
+   "at": "2026-10-27T20:33:39+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 167,
+   "bytes": 160943
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320187.json",
+   "at": "2026-10-27T20:33:39+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 437,
+   "bytes": 3051424
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000320187.json",
+   "at": "2026-10-27T20:33:39+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 174,
+   "bytes": 159211
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001373715.json",
+   "at": "2026-10-27T20:33:40+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 401,
+   "bytes": 3263700
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001373715.json",
+   "at": "2026-10-27T20:33:40+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 243,
+   "bytes": 159766
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000077476.json",
+   "at": "2026-10-27T20:33:40+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 445,
+   "bytes": 5006158
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000077476.json",
+   "at": "2026-10-27T20:33:41+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 297,
+   "bytes": 162402
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000078003.json",
+   "at": "2026-10-27T20:33:41+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 382,
+   "bytes": 5032767
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000078003.json",
+   "at": "2026-10-27T20:33:42+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 313,
+   "bytes": 145604
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000080424.json",
+   "at": "2026-10-27T20:33:42+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 325,
+   "bytes": 3950379
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000080424.json",
+   "at": "2026-10-27T20:33:42+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 264,
+   "bytes": 160429
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001321655.json",
+   "at": "2026-10-27T20:33:43+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 321,
+   "bytes": 1247305
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001321655.json",
+   "at": "2026-10-27T20:33:43+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 150,
+   "bytes": 159561
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001413329.json",
+   "at": "2026-10-27T20:33:43+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 588,
+   "bytes": 4194730
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001413329.json",
+   "at": "2026-10-27T20:33:44+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 263,
+   "bytes": 158515
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001633917.json",
+   "at": "2026-10-27T20:33:44+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 321,
+   "bytes": 3016984
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001633917.json",
+   "at": "2026-10-27T20:33:44+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 236,
+   "bytes": 159819
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000082/index.json",
+   "at": "2026-10-27T20:33:45+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 12034,
+   "fetched_at": "2026-10-27T20:26:14+00:00"
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000082/pypl-20260630_htm.xml",
+   "at": "2026-10-27T20:33:45+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 3741441,
+   "fetched_at": "2026-10-27T20:26:15+00:00"
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000804328.json",
+   "at": "2026-10-27T20:33:45+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 518,
+   "bytes": 4358520
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000804328.json",
+   "at": "2026-10-27T20:33:45+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 329,
+   "bytes": 159413
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000101829.json",
+   "at": "2026-10-27T20:33:46+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 503,
+   "bytes": 5188829
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000101829.json",
+   "at": "2026-10-27T20:33:46+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 213,
+   "bytes": 149791
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000829224.json",
+   "at": "2026-10-27T20:33:46+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 423,
+   "bytes": 4156876
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000829224.json",
+   "at": "2026-10-27T20:33:47+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 283,
+   "bytes": 160486
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000316709.json",
+   "at": "2026-10-27T20:33:47+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 331,
+   "bytes": 5194020
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000316709.json",
+   "at": "2026-10-27T20:33:48+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 218,
+   "bytes": 159242
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000092122.json",
+   "at": "2026-10-27T20:33:48+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 476,
+   "bytes": 4190929
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000092122.json",
+   "at": "2026-10-27T20:33:48+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 479,
+   "bytes": 156388
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/92122/000009212226000054/index.json",
+   "at": "2026-10-27T20:33:49+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 14382,
+   "fetched_at": "2026-10-27T20:26:15+00:00"
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/92122/000009212226000054/so-20260630_htm.xml",
+   "at": "2026-10-27T20:33:49+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 6160258,
+   "fetched_at": "2026-10-27T20:26:16+00:00"
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001063761.json",
+   "at": "2026-10-27T20:33:49+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 410,
+   "bytes": 3263155
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001063761.json",
+   "at": "2026-10-27T20:33:49+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 205,
+   "bytes": 157306
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000732717.json",
+   "at": "2026-10-27T20:33:50+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 407,
+   "bytes": 4800308
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000732717.json",
+   "at": "2026-10-27T20:33:50+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 194,
+   "bytes": 161493
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000027419.json",
+   "at": "2026-10-27T20:33:50+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 439,
+   "bytes": 3761536
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000027419.json",
+   "at": "2026-10-27T20:33:51+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 259,
+   "bytes": 149737
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000097745.json",
+   "at": "2026-10-27T20:33:51+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 498,
+   "bytes": 5170585
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000097745.json",
+   "at": "2026-10-27T20:33:51+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 1476,
+   "bytes": 158354
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001283699.json",
+   "at": "2026-10-27T20:33:53+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 423,
+   "bytes": 4489461
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001283699.json",
+   "at": "2026-10-27T20:33:53+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 179,
+   "bytes": 161779
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000097476.json",
+   "at": "2026-10-27T20:33:54+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 495,
+   "bytes": 3694470
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000097476.json",
+   "at": "2026-10-27T20:33:54+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 152,
+   "bytes": 159464
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001543151.json",
+   "at": "2026-10-27T20:33:54+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 344,
+   "bytes": 2127307
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001543151.json",
+   "at": "2026-10-27T20:33:55+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 273,
+   "bytes": 163722
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000731766.json",
+   "at": "2026-10-27T20:33:55+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 1198,
+   "bytes": 4384010
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000731766.json",
+   "at": "2026-10-27T20:33:56+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 171,
+   "bytes": 157722
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000100885.json",
+   "at": "2026-10-27T20:33:56+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 497,
+   "bytes": 3648879
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000100885.json",
+   "at": "2026-10-27T20:33:57+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 283,
+   "bytes": 156357
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001090727.json",
+   "at": "2026-10-27T20:33:57+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 487,
+   "bytes": 4010678
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001090727.json",
+   "at": "2026-10-27T20:33:58+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 175,
+   "bytes": 148603
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000036104.json",
+   "at": "2026-10-27T20:33:58+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 824,
+   "bytes": 6704829
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000036104.json",
+   "at": "2026-10-27T20:33:59+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 279,
+   "bytes": 160072
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001403161.json",
+   "at": "2026-10-27T20:33:59+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 498,
+   "bytes": 3564517
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0001403161.json",
+   "at": "2026-10-27T20:34:00+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 180,
+   "bytes": 159377
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000104/index.json",
+   "at": "2026-10-27T20:34:00+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 8352,
+   "fetched_at": "2026-10-27T20:26:16+00:00"
+  },
+  {
+   "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000104/v-20260630_htm.xml",
+   "at": "2026-10-27T20:34:00+00:00",
+   "attempt": 1,
+   "source": "cache",
+   "status": 200,
+   "ms": 0,
+   "bytes": 1566115,
+   "fetched_at": "2026-10-27T20:26:17+00:00"
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000732712.json",
+   "at": "2026-10-27T20:34:00+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 430,
+   "bytes": 4350682
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000732712.json",
+   "at": "2026-10-27T20:34:00+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 268,
+   "bytes": 175835
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000072971.json",
+   "at": "2026-10-27T20:34:01+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 482,
+   "bytes": 7814990
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000072971.json",
+   "at": "2026-10-27T20:34:01+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 215,
+   "bytes": 241198
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000104169.json",
+   "at": "2026-10-27T20:34:02+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 419,
+   "bytes": 3771831
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0000104169.json",
+   "at": "2026-10-27T20:34:02+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 202,
+   "bytes": 157324
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0002115436.json",
+   "at": "2026-10-27T20:34:02+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 237,
+   "bytes": 78880
+  },
+  {
+   "url": "https://data.sec.gov/submissions/CIK0002115436.json",
+   "at": "2026-10-27T20:34:02+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 120,
+   "bytes": 7270
+  },
+  {
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000034088.json",
+   "at": "2026-10-27T20:34:03+00:00",
+   "attempt": 1,
+   "source": "network",
+   "status": 200,
+   "ms": 381,
+   "bytes": 3122723
+  }
+ ]
+}

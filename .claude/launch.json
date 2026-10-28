@@ -4,8 +4,28 @@
     {
       "name": "capex-ledger",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "3600", "--bind", "127.0.0.1"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "3600",
+        "--bind",
+        "127.0.0.1"
+      ],
       "port": 3600
+    },
+    {
+      "name": "capex-web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--dir",
+        "web",
+        "exec",
+        "vite",
+        "--port",
+        "3601",
+        "--strictPort"
+      ],
+      "port": 3601
     }
   ]
 }

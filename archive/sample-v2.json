@@ -1,0 +1,6555 @@
+{
+ "meta": {
+  "contract": "v2",
+  "sample": true,
+  "note": "Invented placeholder values in contract v2 shape. Not real figures.",
+  "generated": "2026-10-27",
+  "unit": "USD (whole dollars)",
+  "quarters": [
+   "2024Q3",
+   "2024Q4",
+   "2025Q1",
+   "2025Q2",
+   "2025Q3",
+   "2025Q4",
+   "2026Q1",
+   "2026Q2"
+  ],
+  "calendarRule": "A fact belongs to the calendar quarter that contains its period-end date.",
+  "methods": {
+   "reported": "Taken as filed for that quarter.",
+   "ytd_diff": "Cash-flow lines are year-to-date in 10-Qs; this quarter = YTD minus the prior quarter's YTD.",
+   "q4_derived": "No 10-Q for Q4; this quarter = 10-K full year minus the first nine months."
+  },
+  "metrics": {
+   "revenue": "Total revenue.",
+   "revenue_dc": "Data-center segment revenue (sellers). Broadcom's is its whole semiconductor segment, which is wider than AI.",
+   "capex": "Cash paid for property and equipment.",
+   "lease_rou": "New finance-lease assets signed this quarter (non-cash). Shown as its own layer, never folded into capex silently.",
+   "ocf": "Cash from operations."
+  },
+  "notCovered": [
+   "Foundry (TSMC files no quarterly XBRL)",
+   "Networking",
+   "Power and cooling",
+   "Construction and land",
+   "Timing between order and delivery"
+  ]
+ },
+ "companies": [
+  {
+   "ticker": "MSFT",
+   "name": "Microsoft",
+   "cik": "0000789019",
+   "role": "buyer",
+   "fyEnd": 6,
+   "listedFrom": null,
+   "flags": []
+  },
+  {
+   "ticker": "GOOGL",
+   "name": "Alphabet",
+   "cik": "0001652044",
+   "role": "buyer",
+   "fyEnd": 12,
+   "listedFrom": null,
+   "flags": []
+  },
+  {
+   "ticker": "AMZN",
+   "name": "Amazon",
+   "cik": "0001018724",
+   "role": "buyer",
+   "fyEnd": 12,
+   "listedFrom": null,
+   "flags": []
+  },
+  {
+   "ticker": "META",
+   "name": "Meta",
+   "cik": "0001326801",
+   "role": "buyer",
+   "fyEnd": 12,
+   "listedFrom": null,
+   "flags": []
+  },
+  {
+   "ticker": "ORCL",
+   "name": "Oracle",
+   "cik": "0001341439",
+   "role": "buyer",
+   "fyEnd": 5,
+   "listedFrom": null,
+   "flags": []
+  },
+  {
+   "ticker": "CRWV",
+   "name": "CoreWeave",
+   "cik": "0001769628",
+   "role": "buyer",
+   "fyEnd": 12,
+   "listedFrom": "2025Q1",
+   "flags": []
+  },
+  {
+   "ticker": "TSLA",
+   "name": "Tesla",
+   "cik": "0001318605",
+   "role": "buyer",
+   "fyEnd": 12,
+   "listedFrom": null,
+   "flags": [
+    "not_ai_core"
+   ]
+  },
+  {
+   "ticker": "NVDA",
+   "name": "Nvidia",
+   "cik": "0001045810",
+   "role": "seller",
+   "fyEnd": 1,
+   "listedFrom": null,
+   "flags": []
+  },
+  {
+   "ticker": "AMD",
+   "name": "AMD",
+   "cik": "0000002488",
+   "role": "seller",
+   "fyEnd": 12,
+   "listedFrom": null,
+   "flags": []
+  },
+  {
+   "ticker": "MU",
+   "name": "Micron",
+   "cik": "0000723125",
+   "role": "seller",
+   "fyEnd": 8,
+   "listedFrom": null,
+   "flags": []
+  },
+  {
+   "ticker": "AVGO",
+   "name": "Broadcom",
+   "cik": "0001730168",
+   "role": "seller",
+   "fyEnd": 10,
+   "listedFrom": null,
+   "flags": [
+    "segment_not_ai"
+   ]
+  }
+ ],
+ "pending": [
+  {
+   "ticker": "SPACEX",
+   "name": "SpaceX",
+   "role": "buyer",
+   "reason": "No 10-Q or 10-K on EDGAR as of this stub. Plan step 2 checks again."
+  }
+ ],
+ "facts": [
+  {
+   "id": "f1",
+   "ticker": "MSFT",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 63050213660,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f2",
+   "ticker": "MSFT",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 20841529034,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f3",
+   "ticker": "MSFT",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 32566813336,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f4",
+   "ticker": "MSFT",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 4109243747,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f5",
+   "ticker": "MSFT",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-24-000101",
+   "filed": "2025-02-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 68066893238,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f6",
+   "ticker": "MSFT",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-24-000101",
+   "filed": "2025-02-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 21928646979,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-24-000101",
+     "span": "YTD to this quarter",
+     "value": 46050158656
+    },
+    {
+     "accession": "SAMPLE-0789019-24-000100",
+     "span": "YTD to prior quarter",
+     "value": 24121511677
+    }
+   ]
+  },
+  {
+   "id": "f7",
+   "ticker": "MSFT",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-24-000101",
+   "filed": "2025-02-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 34219127250,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-24-000101",
+     "span": "YTD to this quarter",
+     "value": 71860167225
+    },
+    {
+     "accession": "SAMPLE-0789019-24-000100",
+     "span": "YTD to prior quarter",
+     "value": 37641039975
+    }
+   ]
+  },
+  {
+   "id": "f8",
+   "ticker": "MSFT",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-24-000101",
+   "filed": "2025-02-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 5531738942,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-24-000101",
+     "span": "YTD to this quarter",
+     "value": 11616651778
+    },
+    {
+     "accession": "SAMPLE-0789019-24-000100",
+     "span": "YTD to prior quarter",
+     "value": 6084912836
+    }
+   ]
+  },
+  {
+   "id": "f9",
+   "ticker": "MSFT",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 70346096838,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f10",
+   "ticker": "MSFT",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 23815902073,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-25-000102",
+     "span": "YTD to this quarter",
+     "value": 50013394353
+    },
+    {
+     "accession": "SAMPLE-0789019-24-000101",
+     "span": "YTD to prior quarter",
+     "value": 26197492280
+    }
+   ]
+  },
+  {
+   "id": "f11",
+   "ticker": "MSFT",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 38217278627,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-25-000102",
+     "span": "YTD to this quarter",
+     "value": 80256285117
+    },
+    {
+     "accession": "SAMPLE-0789019-24-000101",
+     "span": "YTD to prior quarter",
+     "value": 42039006490
+    }
+   ]
+  },
+  {
+   "id": "f12",
+   "ticker": "MSFT",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 6021623206,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-25-000102",
+     "span": "YTD to this quarter",
+     "value": 12645408733
+    },
+    {
+     "accession": "SAMPLE-0789019-24-000101",
+     "span": "YTD to prior quarter",
+     "value": 6623785527
+    }
+   ]
+  },
+  {
+   "id": "f13",
+   "ticker": "MSFT",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0789019-25-000103",
+   "filed": "2025-08-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 72786103241,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-25-000103",
+     "span": "Full fiscal year (10-K)",
+     "value": 283865802640
+    },
+    {
+     "accession": "SAMPLE-0789019-25-000102",
+     "span": "Nine months (prior 10-Q)",
+     "value": 211079699399
+    }
+   ]
+  },
+  {
+   "id": "f14",
+   "ticker": "MSFT",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0789019-25-000103",
+   "filed": "2025-08-27",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 24911697921,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-25-000103",
+     "span": "Full fiscal year (10-K)",
+     "value": 97155621892
+    },
+    {
+     "accession": "SAMPLE-0789019-25-000102",
+     "span": "Nine months (prior 10-Q)",
+     "value": 72243923971
+    }
+   ]
+  },
+  {
+   "id": "f15",
+   "ticker": "MSFT",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0789019-25-000103",
+   "filed": "2025-08-27",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 37322686496,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-25-000103",
+     "span": "Full fiscal year (10-K)",
+     "value": 145558477334
+    },
+    {
+     "accession": "SAMPLE-0789019-25-000102",
+     "span": "Nine months (prior 10-Q)",
+     "value": 108235790838
+    }
+   ]
+  },
+  {
+   "id": "f16",
+   "ticker": "MSFT",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0789019-25-000103",
+   "filed": "2025-08-27",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 6829524039,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-25-000103",
+     "span": "Full fiscal year (10-K)",
+     "value": 26635143752
+    },
+    {
+     "accession": "SAMPLE-0789019-25-000102",
+     "span": "Nine months (prior 10-Q)",
+     "value": 19805619713
+    }
+   ]
+  },
+  {
+   "id": "f17",
+   "ticker": "MSFT",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 74445658825,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f18",
+   "ticker": "MSFT",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 26204948032,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f19",
+   "ticker": "MSFT",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 41175053039,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f20",
+   "ticker": "MSFT",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 7003321513,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f21",
+   "ticker": "MSFT",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-25-000105",
+   "filed": "2026-02-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 77633196845,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f22",
+   "ticker": "MSFT",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-25-000105",
+   "filed": "2026-02-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 30185983461,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-25-000105",
+     "span": "YTD to this quarter",
+     "value": 63390565268
+    },
+    {
+     "accession": "SAMPLE-0789019-25-000104",
+     "span": "YTD to prior quarter",
+     "value": 33204581807
+    }
+   ]
+  },
+  {
+   "id": "f23",
+   "ticker": "MSFT",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-25-000105",
+   "filed": "2026-02-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 38039340343,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-25-000105",
+     "span": "YTD to this quarter",
+     "value": 79882614720
+    },
+    {
+     "accession": "SAMPLE-0789019-25-000104",
+     "span": "YTD to prior quarter",
+     "value": 41843274377
+    }
+   ]
+  },
+  {
+   "id": "f24",
+   "ticker": "MSFT",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-25-000105",
+   "filed": "2026-02-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 7744499786,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-25-000105",
+     "span": "YTD to this quarter",
+     "value": 16263449551
+    },
+    {
+     "accession": "SAMPLE-0789019-25-000104",
+     "span": "YTD to prior quarter",
+     "value": 8518949765
+    }
+   ]
+  },
+  {
+   "id": "f25",
+   "ticker": "MSFT",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 79833943034,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f26",
+   "ticker": "MSFT",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 31729904494,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-26-000106",
+     "span": "YTD to this quarter",
+     "value": 66632799437
+    },
+    {
+     "accession": "SAMPLE-0789019-25-000105",
+     "span": "YTD to prior quarter",
+     "value": 34902894943
+    }
+   ]
+  },
+  {
+   "id": "f27",
+   "ticker": "MSFT",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 43795393203,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-26-000106",
+     "span": "YTD to this quarter",
+     "value": 91970325726
+    },
+    {
+     "accession": "SAMPLE-0789019-25-000105",
+     "span": "YTD to prior quarter",
+     "value": 48174932523
+    }
+   ]
+  },
+  {
+   "id": "f28",
+   "ticker": "MSFT",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0789019-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 8551277788,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-26-000106",
+     "span": "YTD to this quarter",
+     "value": 17957683355
+    },
+    {
+     "accession": "SAMPLE-0789019-25-000105",
+     "span": "YTD to prior quarter",
+     "value": 9406405567
+    }
+   ]
+  },
+  {
+   "id": "f29",
+   "ticker": "MSFT",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0789019-26-000107",
+   "filed": "2026-08-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 81977578390,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-26-000107",
+     "span": "Full fiscal year (10-K)",
+     "value": 319712555721
+    },
+    {
+     "accession": "SAMPLE-0789019-26-000106",
+     "span": "Nine months (prior 10-Q)",
+     "value": 237734977331
+    }
+   ]
+  },
+  {
+   "id": "f30",
+   "ticker": "MSFT",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0789019-26-000107",
+   "filed": "2026-08-27",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 34347502732,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-26-000107",
+     "span": "Full fiscal year (10-K)",
+     "value": 133955260655
+    },
+    {
+     "accession": "SAMPLE-0789019-26-000106",
+     "span": "Nine months (prior 10-Q)",
+     "value": 99607757923
+    }
+   ]
+  },
+  {
+   "id": "f31",
+   "ticker": "MSFT",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0789019-26-000107",
+   "filed": "2026-08-27",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 42875763158,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-26-000107",
+     "span": "Full fiscal year (10-K)",
+     "value": 167215476316
+    },
+    {
+     "accession": "SAMPLE-0789019-26-000106",
+     "span": "Nine months (prior 10-Q)",
+     "value": 124339713158
+    }
+   ]
+  },
+  {
+   "id": "f32",
+   "ticker": "MSFT",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0789019-26-000107",
+   "filed": "2026-08-27",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 8555542950,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0789019-26-000107",
+     "span": "Full fiscal year (10-K)",
+     "value": 33366617505
+    },
+    {
+     "accession": "SAMPLE-0789019-26-000106",
+     "span": "Nine months (prior 10-Q)",
+     "value": 24811074555
+    }
+   ]
+  },
+  {
+   "id": "f33",
+   "ticker": "GOOGL",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 89780262646,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f34",
+   "ticker": "GOOGL",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 12781927075,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1652044-24-000100",
+     "span": "YTD to this quarter",
+     "value": 26842046858
+    },
+    {
+     "accession": "SAMPLE-1652044-24-000099",
+     "span": "YTD to prior quarter",
+     "value": 14060119783
+    }
+   ]
+  },
+  {
+   "id": "f35",
+   "ticker": "GOOGL",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 27915439153,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1652044-24-000100",
+     "span": "YTD to this quarter",
+     "value": 58622422221
+    },
+    {
+     "accession": "SAMPLE-1652044-24-000099",
+     "span": "YTD to prior quarter",
+     "value": 30706983068
+    }
+   ]
+  },
+  {
+   "id": "f36",
+   "ticker": "GOOGL",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1652044-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 89189498998,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1652044-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 347839046092
+    },
+    {
+     "accession": "SAMPLE-1652044-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 258649547094
+    }
+   ]
+  },
+  {
+   "id": "f37",
+   "ticker": "GOOGL",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1652044-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 14750869677,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1652044-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 57528391740
+    },
+    {
+     "accession": "SAMPLE-1652044-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 42777522063
+    }
+   ]
+  },
+  {
+   "id": "f38",
+   "ticker": "GOOGL",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1652044-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 29865211473,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1652044-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 116474324745
+    },
+    {
+     "accession": "SAMPLE-1652044-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 86609113272
+    }
+   ]
+  },
+  {
+   "id": "f39",
+   "ticker": "GOOGL",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 95000104978,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f40",
+   "ticker": "GOOGL",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 16810176733,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f41",
+   "ticker": "GOOGL",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 33766157629,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f42",
+   "ticker": "GOOGL",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 97007660546,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f43",
+   "ticker": "GOOGL",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 17751728067,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1652044-25-000103",
+     "span": "YTD to this quarter",
+     "value": 37278628941
+    },
+    {
+     "accession": "SAMPLE-1652044-25-000102",
+     "span": "YTD to prior quarter",
+     "value": 19526900874
+    }
+   ]
+  },
+  {
+   "id": "f44",
+   "ticker": "GOOGL",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 31914195934,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1652044-25-000103",
+     "span": "YTD to this quarter",
+     "value": 67019811461
+    },
+    {
+     "accession": "SAMPLE-1652044-25-000102",
+     "span": "YTD to prior quarter",
+     "value": 35105615527
+    }
+   ]
+  },
+  {
+   "id": "f45",
+   "ticker": "GOOGL",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 97496243564,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f46",
+   "ticker": "GOOGL",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 20446550983,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1652044-25-000104",
+     "span": "YTD to this quarter",
+     "value": 42937757064
+    },
+    {
+     "accession": "SAMPLE-1652044-25-000103",
+     "span": "YTD to prior quarter",
+     "value": 22491206081
+    }
+   ]
+  },
+  {
+   "id": "f47",
+   "ticker": "GOOGL",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 34028263213,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1652044-25-000104",
+     "span": "YTD to this quarter",
+     "value": 71459352747
+    },
+    {
+     "accession": "SAMPLE-1652044-25-000103",
+     "span": "YTD to prior quarter",
+     "value": 37431089534
+    }
+   ]
+  },
+  {
+   "id": "f48",
+   "ticker": "GOOGL",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1652044-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 97596798261,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1652044-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 380627513218
+    },
+    {
+     "accession": "SAMPLE-1652044-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 283030714957
+    }
+   ]
+  },
+  {
+   "id": "f49",
+   "ticker": "GOOGL",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1652044-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 23197132624,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1652044-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 90468817234
+    },
+    {
+     "accession": "SAMPLE-1652044-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 67271684610
+    }
+   ]
+  },
+  {
+   "id": "f50",
+   "ticker": "GOOGL",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1652044-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 32534855997,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1652044-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 126885938388
+    },
+    {
+     "accession": "SAMPLE-1652044-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 94351082391
+    }
+   ]
+  },
+  {
+   "id": "f51",
+   "ticker": "GOOGL",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 100893228339,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f52",
+   "ticker": "GOOGL",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 23766523971,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f53",
+   "ticker": "GOOGL",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 38069160778,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f54",
+   "ticker": "GOOGL",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 106647930784,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f55",
+   "ticker": "GOOGL",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 26038622623,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1652044-26-000107",
+     "span": "YTD to this quarter",
+     "value": 54681107508
+    },
+    {
+     "accession": "SAMPLE-1652044-26-000106",
+     "span": "YTD to prior quarter",
+     "value": 28642484885
+    }
+   ]
+  },
+  {
+   "id": "f56",
+   "ticker": "GOOGL",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1652044-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 35458183062,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1652044-26-000107",
+     "span": "YTD to this quarter",
+     "value": 74462184430
+    },
+    {
+     "accession": "SAMPLE-1652044-26-000106",
+     "span": "YTD to prior quarter",
+     "value": 39004001368
+    }
+   ]
+  },
+  {
+   "id": "f57",
+   "ticker": "AMZN",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 157105293537,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f58",
+   "ticker": "AMZN",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 24458985015,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-24-000100",
+     "span": "YTD to this quarter",
+     "value": 51363868532
+    },
+    {
+     "accession": "SAMPLE-1018724-24-000099",
+     "span": "YTD to prior quarter",
+     "value": 26904883517
+    }
+   ]
+  },
+  {
+   "id": "f59",
+   "ticker": "AMZN",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 25295174900,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-24-000100",
+     "span": "YTD to this quarter",
+     "value": 53119867290
+    },
+    {
+     "accession": "SAMPLE-1018724-24-000099",
+     "span": "YTD to prior quarter",
+     "value": 27824692390
+    }
+   ]
+  },
+  {
+   "id": "f60",
+   "ticker": "AMZN",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 1465777632,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-24-000100",
+     "span": "YTD to this quarter",
+     "value": 3078133027
+    },
+    {
+     "accession": "SAMPLE-1018724-24-000099",
+     "span": "YTD to prior quarter",
+     "value": 1612355395
+    }
+   ]
+  },
+  {
+   "id": "f61",
+   "ticker": "AMZN",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1018724-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 160089752317,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 624350034036
+    },
+    {
+     "accession": "SAMPLE-1018724-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 464260281719
+    }
+   ]
+  },
+  {
+   "id": "f62",
+   "ticker": "AMZN",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1018724-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 26655554414,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 103956662215
+    },
+    {
+     "accession": "SAMPLE-1018724-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 77301107801
+    }
+   ]
+  },
+  {
+   "id": "f63",
+   "ticker": "AMZN",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1018724-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 27761951761,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 108271611868
+    },
+    {
+     "accession": "SAMPLE-1018724-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 80509660107
+    }
+   ]
+  },
+  {
+   "id": "f64",
+   "ticker": "AMZN",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1018724-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 1511377933,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 5894373939
+    },
+    {
+     "accession": "SAMPLE-1018724-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 4382996006
+    }
+   ]
+  },
+  {
+   "id": "f65",
+   "ticker": "AMZN",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 169463322514,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f66",
+   "ticker": "AMZN",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 28024197837,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f67",
+   "ticker": "AMZN",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 30339322486,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f68",
+   "ticker": "AMZN",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 1858105499,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f69",
+   "ticker": "AMZN",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 170506315174,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f70",
+   "ticker": "AMZN",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 29762552193,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-25-000103",
+     "span": "YTD to this quarter",
+     "value": 62501359605
+    },
+    {
+     "accession": "SAMPLE-1018724-25-000102",
+     "span": "YTD to prior quarter",
+     "value": 32738807412
+    }
+   ]
+  },
+  {
+   "id": "f71",
+   "ticker": "AMZN",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 29457703734,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-25-000103",
+     "span": "YTD to this quarter",
+     "value": 61861177841
+    },
+    {
+     "accession": "SAMPLE-1018724-25-000102",
+     "span": "YTD to prior quarter",
+     "value": 32403474107
+    }
+   ]
+  },
+  {
+   "id": "f72",
+   "ticker": "AMZN",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 2037918557,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-25-000103",
+     "span": "YTD to this quarter",
+     "value": 4279628970
+    },
+    {
+     "accession": "SAMPLE-1018724-25-000102",
+     "span": "YTD to prior quarter",
+     "value": 2241710413
+    }
+   ]
+  },
+  {
+   "id": "f73",
+   "ticker": "AMZN",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 177416138701,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f74",
+   "ticker": "AMZN",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 30962601979,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-25-000104",
+     "span": "YTD to this quarter",
+     "value": 65021464156
+    },
+    {
+     "accession": "SAMPLE-1018724-25-000103",
+     "span": "YTD to prior quarter",
+     "value": 34058862177
+    }
+   ]
+  },
+  {
+   "id": "f75",
+   "ticker": "AMZN",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 31844617022,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-25-000104",
+     "span": "YTD to this quarter",
+     "value": 66873695746
+    },
+    {
+     "accession": "SAMPLE-1018724-25-000103",
+     "span": "YTD to prior quarter",
+     "value": 35029078724
+    }
+   ]
+  },
+  {
+   "id": "f76",
+   "ticker": "AMZN",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 1916767910,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-25-000104",
+     "span": "YTD to this quarter",
+     "value": 4025212611
+    },
+    {
+     "accession": "SAMPLE-1018724-25-000103",
+     "span": "YTD to prior quarter",
+     "value": 2108444701
+    }
+   ]
+  },
+  {
+   "id": "f77",
+   "ticker": "AMZN",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1018724-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 177491644804,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 692217414736
+    },
+    {
+     "accession": "SAMPLE-1018724-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 514725769932
+    }
+   ]
+  },
+  {
+   "id": "f78",
+   "ticker": "AMZN",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1018724-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 29129595606,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 113605422863
+    },
+    {
+     "accession": "SAMPLE-1018724-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 84475827257
+    }
+   ]
+  },
+  {
+   "id": "f79",
+   "ticker": "AMZN",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1018724-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 30639804670,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 119495238213
+    },
+    {
+     "accession": "SAMPLE-1018724-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 88855433543
+    }
+   ]
+  },
+  {
+   "id": "f80",
+   "ticker": "AMZN",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1018724-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 2142165428,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 8354445169
+    },
+    {
+     "accession": "SAMPLE-1018724-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 6212279741
+    }
+   ]
+  },
+  {
+   "id": "f81",
+   "ticker": "AMZN",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 183473754547,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f82",
+   "ticker": "AMZN",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 35728448409,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f83",
+   "ticker": "AMZN",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 30301342830,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f84",
+   "ticker": "AMZN",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 2582853741,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f85",
+   "ticker": "AMZN",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 179338138342,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f86",
+   "ticker": "AMZN",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 35664494131,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-26-000107",
+     "span": "YTD to this quarter",
+     "value": 74895437675
+    },
+    {
+     "accession": "SAMPLE-1018724-26-000106",
+     "span": "YTD to prior quarter",
+     "value": 39230943544
+    }
+   ]
+  },
+  {
+   "id": "f87",
+   "ticker": "AMZN",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 31644286881,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-26-000107",
+     "span": "YTD to this quarter",
+     "value": 66453002450
+    },
+    {
+     "accession": "SAMPLE-1018724-26-000106",
+     "span": "YTD to prior quarter",
+     "value": 34808715569
+    }
+   ]
+  },
+  {
+   "id": "f88",
+   "ticker": "AMZN",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1018724-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 2183412992,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1018724-26-000107",
+     "span": "YTD to this quarter",
+     "value": 4585167283
+    },
+    {
+     "accession": "SAMPLE-1018724-26-000106",
+     "span": "YTD to prior quarter",
+     "value": 2401754291
+    }
+   ]
+  },
+  {
+   "id": "f89",
+   "ticker": "META",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 41190892367,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f90",
+   "ticker": "META",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 8748004946,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1326801-24-000100",
+     "span": "YTD to this quarter",
+     "value": 18370810387
+    },
+    {
+     "accession": "SAMPLE-1326801-24-000099",
+     "span": "YTD to prior quarter",
+     "value": 9622805441
+    }
+   ]
+  },
+  {
+   "id": "f91",
+   "ticker": "META",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 24635347915,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1326801-24-000100",
+     "span": "YTD to this quarter",
+     "value": 51734230622
+    },
+    {
+     "accession": "SAMPLE-1326801-24-000099",
+     "span": "YTD to prior quarter",
+     "value": 27098882707
+    }
+   ]
+  },
+  {
+   "id": "f92",
+   "ticker": "META",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1326801-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 40544285575,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1326801-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 158122713743
+    },
+    {
+     "accession": "SAMPLE-1326801-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 117578428168
+    }
+   ]
+  },
+  {
+   "id": "f93",
+   "ticker": "META",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1326801-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 10526084264,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1326801-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 41051728630
+    },
+    {
+     "accession": "SAMPLE-1326801-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 30525644366
+    }
+   ]
+  },
+  {
+   "id": "f94",
+   "ticker": "META",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1326801-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 25028043929,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1326801-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 97609371323
+    },
+    {
+     "accession": "SAMPLE-1326801-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 72581327394
+    }
+   ]
+  },
+  {
+   "id": "f95",
+   "ticker": "META",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 41925758771,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f96",
+   "ticker": "META",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 12655128975,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f97",
+   "ticker": "META",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 27076671695,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f98",
+   "ticker": "META",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 45323526465,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f99",
+   "ticker": "META",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 14242588671,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1326801-25-000103",
+     "span": "YTD to this quarter",
+     "value": 29909436209
+    },
+    {
+     "accession": "SAMPLE-1326801-25-000102",
+     "span": "YTD to prior quarter",
+     "value": 15666847538
+    }
+   ]
+  },
+  {
+   "id": "f100",
+   "ticker": "META",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 27811349018,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1326801-25-000103",
+     "span": "YTD to this quarter",
+     "value": 58403832938
+    },
+    {
+     "accession": "SAMPLE-1326801-25-000102",
+     "span": "YTD to prior quarter",
+     "value": 30592483920
+    }
+   ]
+  },
+  {
+   "id": "f101",
+   "ticker": "META",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 46430522045,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f102",
+   "ticker": "META",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 15689551635,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1326801-25-000104",
+     "span": "YTD to this quarter",
+     "value": 32948058434
+    },
+    {
+     "accession": "SAMPLE-1326801-25-000103",
+     "span": "YTD to prior quarter",
+     "value": 17258506799
+    }
+   ]
+  },
+  {
+   "id": "f103",
+   "ticker": "META",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 23712272414,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1326801-25-000104",
+     "span": "YTD to this quarter",
+     "value": 49795772069
+    },
+    {
+     "accession": "SAMPLE-1326801-25-000103",
+     "span": "YTD to prior quarter",
+     "value": 26083499655
+    }
+   ]
+  },
+  {
+   "id": "f104",
+   "ticker": "META",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1326801-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 46430888538,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1326801-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 181080465298
+    },
+    {
+     "accession": "SAMPLE-1326801-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 134649576760
+    }
+   ]
+  },
+  {
+   "id": "f105",
+   "ticker": "META",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1326801-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 17433864531,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1326801-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 67992071671
+    },
+    {
+     "accession": "SAMPLE-1326801-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 50558207140
+    }
+   ]
+  },
+  {
+   "id": "f106",
+   "ticker": "META",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1326801-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 24179935173,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1326801-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 94301747175
+    },
+    {
+     "accession": "SAMPLE-1326801-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 70121812002
+    }
+   ]
+  },
+  {
+   "id": "f107",
+   "ticker": "META",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 48911933974,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f108",
+   "ticker": "META",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 17933536289,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f109",
+   "ticker": "META",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 28751445329,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f110",
+   "ticker": "META",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 49968082500,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f111",
+   "ticker": "META",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 19152547601,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1326801-26-000107",
+     "span": "YTD to this quarter",
+     "value": 40220349962
+    },
+    {
+     "accession": "SAMPLE-1326801-26-000106",
+     "span": "YTD to prior quarter",
+     "value": 21067802361
+    }
+   ]
+  },
+  {
+   "id": "f112",
+   "ticker": "META",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1326801-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 26533071916,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1326801-26-000107",
+     "span": "YTD to this quarter",
+     "value": 55719451024
+    },
+    {
+     "accession": "SAMPLE-1326801-26-000106",
+     "span": "YTD to prior quarter",
+     "value": 29186379108
+    }
+   ]
+  },
+  {
+   "id": "f113",
+   "ticker": "ORCL",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 13604905376,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f114",
+   "ticker": "ORCL",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 2725845463,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-24-000100",
+     "span": "YTD to this quarter",
+     "value": 5724275472
+    },
+    {
+     "accession": "SAMPLE-1341439-24-000099",
+     "span": "YTD to prior quarter",
+     "value": 2998430009
+    }
+   ]
+  },
+  {
+   "id": "f115",
+   "ticker": "ORCL",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 4873945039,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-24-000100",
+     "span": "YTD to this quarter",
+     "value": 10235284582
+    },
+    {
+     "accession": "SAMPLE-1341439-24-000099",
+     "span": "YTD to prior quarter",
+     "value": 5361339543
+    }
+   ]
+  },
+  {
+   "id": "f116",
+   "ticker": "ORCL",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 335484956,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-24-000100",
+     "span": "YTD to this quarter",
+     "value": 704518408
+    },
+    {
+     "accession": "SAMPLE-1341439-24-000099",
+     "span": "YTD to prior quarter",
+     "value": 369033452
+    }
+   ]
+  },
+  {
+   "id": "f117",
+   "ticker": "ORCL",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-24-000101",
+   "filed": "2025-02-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 13511929771,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f118",
+   "ticker": "ORCL",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-24-000101",
+   "filed": "2025-02-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 3824459774,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-24-000101",
+     "span": "YTD to this quarter",
+     "value": 8031365525
+    },
+    {
+     "accession": "SAMPLE-1341439-24-000100",
+     "span": "YTD to prior quarter",
+     "value": 4206905751
+    }
+   ]
+  },
+  {
+   "id": "f119",
+   "ticker": "ORCL",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-24-000101",
+   "filed": "2025-02-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 4631626053,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-24-000101",
+     "span": "YTD to this quarter",
+     "value": 9726414711
+    },
+    {
+     "accession": "SAMPLE-1341439-24-000100",
+     "span": "YTD to prior quarter",
+     "value": 5094788658
+    }
+   ]
+  },
+  {
+   "id": "f120",
+   "ticker": "ORCL",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-24-000101",
+   "filed": "2025-02-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 578004300,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-24-000101",
+     "span": "YTD to this quarter",
+     "value": 1213809030
+    },
+    {
+     "accession": "SAMPLE-1341439-24-000100",
+     "span": "YTD to prior quarter",
+     "value": 635804730
+    }
+   ]
+  },
+  {
+   "id": "f121",
+   "ticker": "ORCL",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1341439-25-000102",
+   "filed": "2025-05-28",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 14475100301,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-25-000102",
+     "span": "Full fiscal year (10-K)",
+     "value": 56452891174
+    },
+    {
+     "accession": "SAMPLE-1341439-24-000101",
+     "span": "Nine months (prior 10-Q)",
+     "value": 41977790873
+    }
+   ]
+  },
+  {
+   "id": "f122",
+   "ticker": "ORCL",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1341439-25-000102",
+   "filed": "2025-05-28",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 5062171131,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-25-000102",
+     "span": "Full fiscal year (10-K)",
+     "value": 19742467411
+    },
+    {
+     "accession": "SAMPLE-1341439-24-000101",
+     "span": "Nine months (prior 10-Q)",
+     "value": 14680296280
+    }
+   ]
+  },
+  {
+   "id": "f123",
+   "ticker": "ORCL",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1341439-25-000102",
+   "filed": "2025-05-28",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 4779339904,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-25-000102",
+     "span": "Full fiscal year (10-K)",
+     "value": 18639425626
+    },
+    {
+     "accession": "SAMPLE-1341439-24-000101",
+     "span": "Nine months (prior 10-Q)",
+     "value": 13860085722
+    }
+   ]
+  },
+  {
+   "id": "f124",
+   "ticker": "ORCL",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1341439-25-000102",
+   "filed": "2025-05-28",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 816011550,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-25-000102",
+     "span": "Full fiscal year (10-K)",
+     "value": 3182445045
+    },
+    {
+     "accession": "SAMPLE-1341439-24-000101",
+     "span": "Nine months (prior 10-Q)",
+     "value": 2366433495
+    }
+   ]
+  },
+  {
+   "id": "f125",
+   "ticker": "ORCL",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 14607173427,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f126",
+   "ticker": "ORCL",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 6161599580,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f127",
+   "ticker": "ORCL",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 5499448047,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f128",
+   "ticker": "ORCL",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 993594822,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f129",
+   "ticker": "ORCL",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 15198120114,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f130",
+   "ticker": "ORCL",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 6722605643,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-25-000104",
+     "span": "YTD to this quarter",
+     "value": 14117471850
+    },
+    {
+     "accession": "SAMPLE-1341439-25-000103",
+     "span": "YTD to prior quarter",
+     "value": 7394866207
+    }
+   ]
+  },
+  {
+   "id": "f131",
+   "ticker": "ORCL",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 5247098593,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-25-000104",
+     "span": "YTD to this quarter",
+     "value": 11018907045
+    },
+    {
+     "accession": "SAMPLE-1341439-25-000103",
+     "span": "YTD to prior quarter",
+     "value": 5771808452
+    }
+   ]
+  },
+  {
+   "id": "f132",
+   "ticker": "ORCL",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 1179502607,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-25-000104",
+     "span": "YTD to this quarter",
+     "value": 2476955475
+    },
+    {
+     "accession": "SAMPLE-1341439-25-000103",
+     "span": "YTD to prior quarter",
+     "value": 1297452868
+    }
+   ]
+  },
+  {
+   "id": "f133",
+   "ticker": "ORCL",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2026,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-25-000105",
+   "filed": "2026-02-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 15514643559,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f134",
+   "ticker": "ORCL",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2026,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-25-000105",
+   "filed": "2026-02-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 8156856377,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-25-000105",
+     "span": "YTD to this quarter",
+     "value": 17129398392
+    },
+    {
+     "accession": "SAMPLE-1341439-25-000104",
+     "span": "YTD to prior quarter",
+     "value": 8972542015
+    }
+   ]
+  },
+  {
+   "id": "f135",
+   "ticker": "ORCL",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2026,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-25-000105",
+   "filed": "2026-02-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 5943660487,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-25-000105",
+     "span": "YTD to this quarter",
+     "value": 12481687023
+    },
+    {
+     "accession": "SAMPLE-1341439-25-000104",
+     "span": "YTD to prior quarter",
+     "value": 6538026536
+    }
+   ]
+  },
+  {
+   "id": "f136",
+   "ticker": "ORCL",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2026,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-25-000105",
+   "filed": "2026-02-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 1459506114,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-25-000105",
+     "span": "YTD to this quarter",
+     "value": 3064962839
+    },
+    {
+     "accession": "SAMPLE-1341439-25-000104",
+     "span": "YTD to prior quarter",
+     "value": 1605456725
+    }
+   ]
+  },
+  {
+   "id": "f137",
+   "ticker": "ORCL",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1341439-26-000106",
+   "filed": "2026-05-28",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 16469637034,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-26-000106",
+     "span": "Full fiscal year (10-K)",
+     "value": 64231584433
+    },
+    {
+     "accession": "SAMPLE-1341439-25-000105",
+     "span": "Nine months (prior 10-Q)",
+     "value": 47761947399
+    }
+   ]
+  },
+  {
+   "id": "f138",
+   "ticker": "ORCL",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1341439-26-000106",
+   "filed": "2026-05-28",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 8552221546,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-26-000106",
+     "span": "Full fiscal year (10-K)",
+     "value": 33353664029
+    },
+    {
+     "accession": "SAMPLE-1341439-25-000105",
+     "span": "Nine months (prior 10-Q)",
+     "value": 24801442483
+    }
+   ]
+  },
+  {
+   "id": "f139",
+   "ticker": "ORCL",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1341439-26-000106",
+   "filed": "2026-05-28",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 5400644596,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-26-000106",
+     "span": "Full fiscal year (10-K)",
+     "value": 21062513924
+    },
+    {
+     "accession": "SAMPLE-1341439-25-000105",
+     "span": "Nine months (prior 10-Q)",
+     "value": 15661869328
+    }
+   ]
+  },
+  {
+   "id": "f140",
+   "ticker": "ORCL",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1341439-26-000106",
+   "filed": "2026-05-28",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 1785052660,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1341439-26-000106",
+     "span": "Full fiscal year (10-K)",
+     "value": 6961705374
+    },
+    {
+     "accession": "SAMPLE-1341439-25-000105",
+     "span": "Nine months (prior 10-Q)",
+     "value": 5176652714
+    }
+   ]
+  },
+  {
+   "id": "f141",
+   "ticker": "ORCL",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2027,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 16623375476,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f142",
+   "ticker": "ORCL",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2027,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 10187861785,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f143",
+   "ticker": "ORCL",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2027,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 6471627564,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f144",
+   "ticker": "ORCL",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2027,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1341439-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 1550012905,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f145",
+   "ticker": "CRWV",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 1373726932,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f146",
+   "ticker": "CRWV",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 4144546742,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f147",
+   "ticker": "CRWV",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 847451067,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f148",
+   "ticker": "CRWV",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 616841639,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f149",
+   "ticker": "CRWV",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 1538352395,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f150",
+   "ticker": "CRWV",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 4463820830,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1769628-25-000103",
+     "span": "YTD to this quarter",
+     "value": 9374023743
+    },
+    {
+     "accession": "SAMPLE-1769628-25-000102",
+     "span": "YTD to prior quarter",
+     "value": 4910202913
+    }
+   ]
+  },
+  {
+   "id": "f151",
+   "ticker": "CRWV",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 813979492,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1769628-25-000103",
+     "span": "YTD to this quarter",
+     "value": 1709356933
+    },
+    {
+     "accession": "SAMPLE-1769628-25-000102",
+     "span": "YTD to prior quarter",
+     "value": 895377441
+    }
+   ]
+  },
+  {
+   "id": "f152",
+   "ticker": "CRWV",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 656241303,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1769628-25-000103",
+     "span": "YTD to this quarter",
+     "value": 1378106736
+    },
+    {
+     "accession": "SAMPLE-1769628-25-000102",
+     "span": "YTD to prior quarter",
+     "value": 721865433
+    }
+   ]
+  },
+  {
+   "id": "f153",
+   "ticker": "CRWV",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 1724372668,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f154",
+   "ticker": "CRWV",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 4949150198,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1769628-25-000104",
+     "span": "YTD to this quarter",
+     "value": 10393215416
+    },
+    {
+     "accession": "SAMPLE-1769628-25-000103",
+     "span": "YTD to prior quarter",
+     "value": 5444065218
+    }
+   ]
+  },
+  {
+   "id": "f155",
+   "ticker": "CRWV",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 892838141,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1769628-25-000104",
+     "span": "YTD to this quarter",
+     "value": 1874960096
+    },
+    {
+     "accession": "SAMPLE-1769628-25-000103",
+     "span": "YTD to prior quarter",
+     "value": 982121955
+    }
+   ]
+  },
+  {
+   "id": "f156",
+   "ticker": "CRWV",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 666147585,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1769628-25-000104",
+     "span": "YTD to this quarter",
+     "value": 1398909929
+    },
+    {
+     "accession": "SAMPLE-1769628-25-000103",
+     "span": "YTD to prior quarter",
+     "value": 732762344
+    }
+   ]
+  },
+  {
+   "id": "f157",
+   "ticker": "CRWV",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1769628-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 1900264055,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1769628-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 7411029815
+    },
+    {
+     "accession": "SAMPLE-1769628-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 5510765760
+    }
+   ]
+  },
+  {
+   "id": "f158",
+   "ticker": "CRWV",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1769628-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 5532326905,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1769628-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 21576074930
+    },
+    {
+     "accession": "SAMPLE-1769628-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 16043748025
+    }
+   ]
+  },
+  {
+   "id": "f159",
+   "ticker": "CRWV",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1769628-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 998010140,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1769628-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 3892239546
+    },
+    {
+     "accession": "SAMPLE-1769628-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 2894229406
+    }
+   ]
+  },
+  {
+   "id": "f160",
+   "ticker": "CRWV",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1769628-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 784743206,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1769628-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 3060498503
+    },
+    {
+     "accession": "SAMPLE-1769628-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 2275755297
+    }
+   ]
+  },
+  {
+   "id": "f161",
+   "ticker": "CRWV",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 2057161178,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f162",
+   "ticker": "CRWV",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 5901013573,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f163",
+   "ticker": "CRWV",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 1164472962,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f164",
+   "ticker": "CRWV",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 809369868,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f165",
+   "ticker": "CRWV",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 2160218668,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f166",
+   "ticker": "CRWV",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 6377614420,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1769628-26-000107",
+     "span": "YTD to this quarter",
+     "value": 13392990282
+    },
+    {
+     "accession": "SAMPLE-1769628-26-000106",
+     "span": "YTD to prior quarter",
+     "value": 7015375862
+    }
+   ]
+  },
+  {
+   "id": "f167",
+   "ticker": "CRWV",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 1316515654,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1769628-26-000107",
+     "span": "YTD to this quarter",
+     "value": 2764682873
+    },
+    {
+     "accession": "SAMPLE-1769628-26-000106",
+     "span": "YTD to prior quarter",
+     "value": 1448167219
+    }
+   ]
+  },
+  {
+   "id": "f168",
+   "ticker": "CRWV",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1769628-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "lease_rou",
+   "value": 1033419751,
+   "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1769628-26-000107",
+     "span": "YTD to this quarter",
+     "value": 2170181477
+    },
+    {
+     "accession": "SAMPLE-1769628-26-000106",
+     "span": "YTD to prior quarter",
+     "value": 1136761726
+    }
+   ]
+  },
+  {
+   "id": "f169",
+   "ticker": "TSLA",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 25198611191,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f170",
+   "ticker": "TSLA",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 2385603987,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1318605-24-000100",
+     "span": "YTD to this quarter",
+     "value": 5009768373
+    },
+    {
+     "accession": "SAMPLE-1318605-24-000099",
+     "span": "YTD to prior quarter",
+     "value": 2624164386
+    }
+   ]
+  },
+  {
+   "id": "f171",
+   "ticker": "TSLA",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 3250991832,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1318605-24-000100",
+     "span": "YTD to this quarter",
+     "value": 6827082847
+    },
+    {
+     "accession": "SAMPLE-1318605-24-000099",
+     "span": "YTD to prior quarter",
+     "value": 3576091015
+    }
+   ]
+  },
+  {
+   "id": "f172",
+   "ticker": "TSLA",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1318605-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 24409026137,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1318605-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 95195201934
+    },
+    {
+     "accession": "SAMPLE-1318605-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 70786175797
+    }
+   ]
+  },
+  {
+   "id": "f173",
+   "ticker": "TSLA",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1318605-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 2376879039,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1318605-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 9269828252
+    },
+    {
+     "accession": "SAMPLE-1318605-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 6892949213
+    }
+   ]
+  },
+  {
+   "id": "f174",
+   "ticker": "TSLA",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1318605-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 2807721861,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1318605-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 10950115258
+    },
+    {
+     "accession": "SAMPLE-1318605-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 8142393397
+    }
+   ]
+  },
+  {
+   "id": "f175",
+   "ticker": "TSLA",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 24710496949,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f176",
+   "ticker": "TSLA",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 2399401892,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f177",
+   "ticker": "TSLA",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 3223085516,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f178",
+   "ticker": "TSLA",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 25228614395,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f179",
+   "ticker": "TSLA",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 2424217530,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1318605-25-000103",
+     "span": "YTD to this quarter",
+     "value": 5090856813
+    },
+    {
+     "accession": "SAMPLE-1318605-25-000102",
+     "span": "YTD to prior quarter",
+     "value": 2666639283
+    }
+   ]
+  },
+  {
+   "id": "f180",
+   "ticker": "TSLA",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 2892641753,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1318605-25-000103",
+     "span": "YTD to this quarter",
+     "value": 6074547681
+    },
+    {
+     "accession": "SAMPLE-1318605-25-000102",
+     "span": "YTD to prior quarter",
+     "value": 3181905928
+    }
+   ]
+  },
+  {
+   "id": "f181",
+   "ticker": "TSLA",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 24350403439,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f182",
+   "ticker": "TSLA",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 2388907864,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1318605-25-000104",
+     "span": "YTD to this quarter",
+     "value": 5016706514
+    },
+    {
+     "accession": "SAMPLE-1318605-25-000103",
+     "span": "YTD to prior quarter",
+     "value": 2627798650
+    }
+   ]
+  },
+  {
+   "id": "f183",
+   "ticker": "TSLA",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 3215569828,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1318605-25-000104",
+     "span": "YTD to this quarter",
+     "value": 6752696639
+    },
+    {
+     "accession": "SAMPLE-1318605-25-000103",
+     "span": "YTD to prior quarter",
+     "value": 3537126811
+    }
+   ]
+  },
+  {
+   "id": "f184",
+   "ticker": "TSLA",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1318605-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 24317364597,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1318605-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 94837721928
+    },
+    {
+     "accession": "SAMPLE-1318605-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 70520357331
+    }
+   ]
+  },
+  {
+   "id": "f185",
+   "ticker": "TSLA",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1318605-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 2529754200,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1318605-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 9866041380
+    },
+    {
+     "accession": "SAMPLE-1318605-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 7336287180
+    }
+   ]
+  },
+  {
+   "id": "f186",
+   "ticker": "TSLA",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1318605-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 3147092890,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1318605-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 12273662271
+    },
+    {
+     "accession": "SAMPLE-1318605-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 9126569381
+    }
+   ]
+  },
+  {
+   "id": "f187",
+   "ticker": "TSLA",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 24515352322,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f188",
+   "ticker": "TSLA",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 2521970175,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f189",
+   "ticker": "TSLA",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 3330557638,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f190",
+   "ticker": "TSLA",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 23317467146,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f191",
+   "ticker": "TSLA",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "capex",
+   "value": 2547697438,
+   "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1318605-26-000107",
+     "span": "YTD to this quarter",
+     "value": 5350164620
+    },
+    {
+     "accession": "SAMPLE-1318605-26-000106",
+     "span": "YTD to prior quarter",
+     "value": 2802467182
+    }
+   ]
+  },
+  {
+   "id": "f192",
+   "ticker": "TSLA",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1318605-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "ocf",
+   "value": 3226682321,
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "dimension": null,
+   "method": "ytd_diff",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1318605-26-000107",
+     "span": "YTD to this quarter",
+     "value": 6776032874
+    },
+    {
+     "accession": "SAMPLE-1318605-26-000106",
+     "span": "YTD to prior quarter",
+     "value": 3549350553
+    }
+   ]
+  },
+  {
+   "id": "f193",
+   "ticker": "NVDA",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1045810-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 29464961104,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f194",
+   "ticker": "NVDA",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1045810-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 26463695191,
+   "tag": "Revenues",
+   "dimension": {
+    "axis": "srt:ProductOrServiceAxis",
+    "member": "nvda:DataCenterMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f195",
+   "ticker": "NVDA",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1045810-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 33573445639,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1045810-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 130936437992
+    },
+    {
+     "accession": "SAMPLE-1045810-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 97362992353
+    }
+   ]
+  },
+  {
+   "id": "f196",
+   "ticker": "NVDA",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1045810-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 28946205429,
+   "tag": "Revenues",
+   "dimension": {
+    "axis": "srt:ProductOrServiceAxis",
+    "member": "nvda:DataCenterMember"
+   },
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1045810-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 112890201173
+    },
+    {
+     "accession": "SAMPLE-1045810-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 83943995744
+    }
+   ]
+  },
+  {
+   "id": "f197",
+   "ticker": "NVDA",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1045810-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 38363824508,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f198",
+   "ticker": "NVDA",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1045810-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 32955058843,
+   "tag": "Revenues",
+   "dimension": {
+    "axis": "srt:ProductOrServiceAxis",
+    "member": "nvda:DataCenterMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f199",
+   "ticker": "NVDA",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1045810-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 40929786854,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f200",
+   "ticker": "NVDA",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1045810-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 37515778274,
+   "tag": "Revenues",
+   "dimension": {
+    "axis": "srt:ProductOrServiceAxis",
+    "member": "nvda:DataCenterMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f201",
+   "ticker": "NVDA",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2026,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1045810-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 46891111241,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f202",
+   "ticker": "NVDA",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2026,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1045810-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 41624639139,
+   "tag": "Revenues",
+   "dimension": {
+    "axis": "srt:ProductOrServiceAxis",
+    "member": "nvda:DataCenterMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f203",
+   "ticker": "NVDA",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2026,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1045810-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 51230055496,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1045810-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 199797216434
+    },
+    {
+     "accession": "SAMPLE-1045810-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 148567160938
+    }
+   ]
+  },
+  {
+   "id": "f204",
+   "ticker": "NVDA",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2026,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1045810-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 44491858582,
+   "tag": "Revenues",
+   "dimension": {
+    "axis": "srt:ProductOrServiceAxis",
+    "member": "nvda:DataCenterMember"
+   },
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1045810-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 173518248470
+    },
+    {
+     "accession": "SAMPLE-1045810-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 129026389888
+    }
+   ]
+  },
+  {
+   "id": "f205",
+   "ticker": "NVDA",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2027,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1045810-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 55486796079,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f206",
+   "ticker": "NVDA",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2027,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1045810-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 45627095498,
+   "tag": "Revenues",
+   "dimension": {
+    "axis": "srt:ProductOrServiceAxis",
+    "member": "nvda:DataCenterMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f207",
+   "ticker": "NVDA",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2027,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1045810-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 58911691059,
+   "tag": "Revenues",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f208",
+   "ticker": "NVDA",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2027,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1045810-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 51412254065,
+   "tag": "Revenues",
+   "dimension": {
+    "axis": "srt:ProductOrServiceAxis",
+    "member": "nvda:DataCenterMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f209",
+   "ticker": "AMD",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0002488-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 6891407298,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f210",
+   "ticker": "AMD",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0002488-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 3611495827,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "amd:DataCenterSegmentMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f211",
+   "ticker": "AMD",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0002488-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 6888880149,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0002488-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 26866632581
+    },
+    {
+     "accession": "SAMPLE-0002488-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 19977752432
+    }
+   ]
+  },
+  {
+   "id": "f212",
+   "ticker": "AMD",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0002488-24-000101",
+   "filed": "2025-02-27",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 3578374501,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "amd:DataCenterSegmentMember"
+   },
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0002488-24-000101",
+     "span": "Full fiscal year (10-K)",
+     "value": 13955660554
+    },
+    {
+     "accession": "SAMPLE-0002488-24-000100",
+     "span": "Nine months (prior 10-Q)",
+     "value": 10377286053
+    }
+   ]
+  },
+  {
+   "id": "f213",
+   "ticker": "AMD",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0002488-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 7185788261,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f214",
+   "ticker": "AMD",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0002488-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 3750092971,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "amd:DataCenterSegmentMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f215",
+   "ticker": "AMD",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0002488-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 7466409324,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f216",
+   "ticker": "AMD",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0002488-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 3897939385,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "amd:DataCenterSegmentMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f217",
+   "ticker": "AMD",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0002488-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 7992917297,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f218",
+   "ticker": "AMD",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0002488-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 4394156858,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "amd:DataCenterSegmentMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f219",
+   "ticker": "AMD",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0002488-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 8076513000,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0002488-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 31498400700
+    },
+    {
+     "accession": "SAMPLE-0002488-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 23421887700
+    }
+   ]
+  },
+  {
+   "id": "f220",
+   "ticker": "AMD",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0002488-25-000105",
+   "filed": "2026-02-27",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 4298777733,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "amd:DataCenterSegmentMember"
+   },
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0002488-25-000105",
+     "span": "Full fiscal year (10-K)",
+     "value": 16765233159
+    },
+    {
+     "accession": "SAMPLE-0002488-25-000104",
+     "span": "Nine months (prior 10-Q)",
+     "value": 12466455426
+    }
+   ]
+  },
+  {
+   "id": "f221",
+   "ticker": "AMD",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0002488-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 8362161561,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f222",
+   "ticker": "AMD",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0002488-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 4678853170,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "amd:DataCenterSegmentMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f223",
+   "ticker": "AMD",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0002488-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 8664440826,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f224",
+   "ticker": "AMD",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0002488-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 4783241130,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "amd:DataCenterSegmentMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f225",
+   "ticker": "MU",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0723125-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 7928207785,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f226",
+   "ticker": "MU",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0723125-24-000100",
+   "filed": "2024-11-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 2981424508,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "mu:CloudMemoryBusinessUnitMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f227",
+   "ticker": "MU",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0723125-24-000101",
+   "filed": "2025-02-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 8256617409,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f228",
+   "ticker": "MU",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0723125-24-000101",
+   "filed": "2025-02-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 3503820024,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "mu:CloudMemoryBusinessUnitMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f229",
+   "ticker": "MU",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0723125-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 8589383732,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f230",
+   "ticker": "MU",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0723125-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 3831357786,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "mu:CloudMemoryBusinessUnitMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f231",
+   "ticker": "MU",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0723125-25-000103",
+   "filed": "2025-08-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 8874313143,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0723125-25-000103",
+     "span": "Full fiscal year (10-K)",
+     "value": 34609821258
+    },
+    {
+     "accession": "SAMPLE-0723125-25-000102",
+     "span": "Nine months (prior 10-Q)",
+     "value": 25735508115
+    }
+   ]
+  },
+  {
+   "id": "f232",
+   "ticker": "MU",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0723125-25-000103",
+   "filed": "2025-08-27",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 4193187688,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "mu:CloudMemoryBusinessUnitMember"
+   },
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0723125-25-000103",
+     "span": "Full fiscal year (10-K)",
+     "value": 16353431983
+    },
+    {
+     "accession": "SAMPLE-0723125-25-000102",
+     "span": "Nine months (prior 10-Q)",
+     "value": 12160244295
+    }
+   ]
+  },
+  {
+   "id": "f233",
+   "ticker": "MU",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0723125-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 9762650170,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f234",
+   "ticker": "MU",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-0723125-25-000104",
+   "filed": "2025-11-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 4893189083,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "mu:CloudMemoryBusinessUnitMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f235",
+   "ticker": "MU",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0723125-25-000105",
+   "filed": "2026-02-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 9847410428,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f236",
+   "ticker": "MU",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-0723125-25-000105",
+   "filed": "2026-02-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 5317935428,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "mu:CloudMemoryBusinessUnitMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f237",
+   "ticker": "MU",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0723125-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 10534082425,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f238",
+   "ticker": "MU",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-0723125-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 5403021663,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "mu:CloudMemoryBusinessUnitMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f239",
+   "ticker": "MU",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0723125-26-000107",
+   "filed": "2026-08-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 10808683746,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0723125-26-000107",
+     "span": "Full fiscal year (10-K)",
+     "value": 42153866609
+    },
+    {
+     "accession": "SAMPLE-0723125-26-000106",
+     "span": "Nine months (prior 10-Q)",
+     "value": 31345182863
+    }
+   ]
+  },
+  {
+   "id": "f240",
+   "ticker": "MU",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-0723125-26-000107",
+   "filed": "2026-08-27",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 6049255778,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "mu:CloudMemoryBusinessUnitMember"
+   },
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-0723125-26-000107",
+     "span": "Full fiscal year (10-K)",
+     "value": 23592097534
+    },
+    {
+     "accession": "SAMPLE-0723125-26-000106",
+     "span": "Nine months (prior 10-Q)",
+     "value": 17542841756
+    }
+   ]
+  },
+  {
+   "id": "f241",
+   "ticker": "AVGO",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1730168-24-000100",
+   "filed": "2024-11-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 12743012489,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1730168-24-000100",
+     "span": "Full fiscal year (10-K)",
+     "value": 49697748707
+    },
+    {
+     "accession": "SAMPLE-1730168-24-000099",
+     "span": "Nine months (prior 10-Q)",
+     "value": 36954736218
+    }
+   ]
+  },
+  {
+   "id": "f242",
+   "ticker": "AVGO",
+   "calQ": "2024Q3",
+   "periodStart": "2024-07-01",
+   "periodEnd": "2024-09-30",
+   "fy": 2024,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1730168-24-000100",
+   "filed": "2024-11-27",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 7053598100,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "avgo:SemiconductorSolutionsMember"
+   },
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1730168-24-000100",
+     "span": "Full fiscal year (10-K)",
+     "value": 27509032590
+    },
+    {
+     "accession": "SAMPLE-1730168-24-000099",
+     "span": "Nine months (prior 10-Q)",
+     "value": 20455434490
+    }
+   ]
+  },
+  {
+   "id": "f243",
+   "ticker": "AVGO",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1730168-24-000101",
+   "filed": "2025-02-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 13386359725,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f244",
+   "ticker": "AVGO",
+   "calQ": "2024Q4",
+   "periodStart": "2024-10-01",
+   "periodEnd": "2024-12-31",
+   "fy": 2025,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1730168-24-000101",
+   "filed": "2025-02-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 7848087240,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "avgo:SemiconductorSolutionsMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f245",
+   "ticker": "AVGO",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1730168-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 14190467449,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f246",
+   "ticker": "AVGO",
+   "calQ": "2025Q1",
+   "periodStart": "2025-01-01",
+   "periodEnd": "2025-03-31",
+   "fy": 2025,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1730168-25-000102",
+   "filed": "2025-05-08",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 8201558633,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "avgo:SemiconductorSolutionsMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f247",
+   "ticker": "AVGO",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1730168-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 15150255208,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f248",
+   "ticker": "AVGO",
+   "calQ": "2025Q2",
+   "periodStart": "2025-04-01",
+   "periodEnd": "2025-06-30",
+   "fy": 2025,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1730168-25-000103",
+   "filed": "2025-08-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 8376760496,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "avgo:SemiconductorSolutionsMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f249",
+   "ticker": "AVGO",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1730168-25-000104",
+   "filed": "2025-11-27",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 15206306121,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1730168-25-000104",
+     "span": "Full fiscal year (10-K)",
+     "value": 59304593872
+    },
+    {
+     "accession": "SAMPLE-1730168-25-000103",
+     "span": "Nine months (prior 10-Q)",
+     "value": 44098287751
+    }
+   ]
+  },
+  {
+   "id": "f250",
+   "ticker": "AVGO",
+   "calQ": "2025Q3",
+   "periodStart": "2025-07-01",
+   "periodEnd": "2025-09-30",
+   "fy": 2025,
+   "fp": "Q4",
+   "form": "10-K",
+   "accession": "SAMPLE-1730168-25-000104",
+   "filed": "2025-11-27",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 8993068783,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "avgo:SemiconductorSolutionsMember"
+   },
+   "method": "q4_derived",
+   "derivedFrom": [
+    {
+     "accession": "SAMPLE-1730168-25-000104",
+     "span": "Full fiscal year (10-K)",
+     "value": 35072968254
+    },
+    {
+     "accession": "SAMPLE-1730168-25-000103",
+     "span": "Nine months (prior 10-Q)",
+     "value": 26079899471
+    }
+   ]
+  },
+  {
+   "id": "f251",
+   "ticker": "AVGO",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1730168-25-000105",
+   "filed": "2026-02-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 15385391554,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f252",
+   "ticker": "AVGO",
+   "calQ": "2025Q4",
+   "periodStart": "2025-10-01",
+   "periodEnd": "2025-12-31",
+   "fy": 2026,
+   "fp": "Q1",
+   "form": "10-Q",
+   "accession": "SAMPLE-1730168-25-000105",
+   "filed": "2026-02-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 9207004186,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "avgo:SemiconductorSolutionsMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f253",
+   "ticker": "AVGO",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1730168-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 16343271768,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f254",
+   "ticker": "AVGO",
+   "calQ": "2026Q1",
+   "periodStart": "2026-01-01",
+   "periodEnd": "2026-03-31",
+   "fy": 2026,
+   "fp": "Q2",
+   "form": "10-Q",
+   "accession": "SAMPLE-1730168-26-000106",
+   "filed": "2026-05-08",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 9714531984,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "avgo:SemiconductorSolutionsMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f255",
+   "ticker": "AVGO",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1730168-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "revenue",
+   "value": 16728927979,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": null,
+   "method": "reported",
+   "derivedFrom": []
+  },
+  {
+   "id": "f256",
+   "ticker": "AVGO",
+   "calQ": "2026Q2",
+   "periodStart": "2026-04-01",
+   "periodEnd": "2026-06-30",
+   "fy": 2026,
+   "fp": "Q3",
+   "form": "10-Q",
+   "accession": "SAMPLE-1730168-26-000107",
+   "filed": "2026-08-07",
+   "unit": "USD",
+   "metric": "revenue_dc",
+   "value": 10856215450,
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "dimension": {
+    "axis": "us-gaap:StatementBusinessSegmentsAxis",
+    "member": "avgo:SemiconductorSolutionsMember"
+   },
+   "method": "reported",
+   "derivedFrom": []
+  }
+ ]
+}
