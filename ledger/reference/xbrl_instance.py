@@ -8,7 +8,7 @@ dimensional segment (business-segment breakdowns) are skipped so only company to
 import json
 import xml.etree.ElementTree as ET
 
-from .edgar import RAW, _cached
+from ..ingest.edgar import RAW, _cached
 
 XBRLI = "{http://www.xbrl.org/2003/instance}"
 

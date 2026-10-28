@@ -1,0 +1,163 @@
+{
+ "accession": "0001045810-25-000209",
+ "prompt_version": "statements@v1",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0007",
+   "row_label": "Revenue",
+   "column_label": "Three Months Ended | Jul 27, 2025",
+   "cell_text": "46,743",
+   "period_end": "2025-07-27",
+   "months": 3,
+   "value": 46743000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0007",
+   "row_label": "Revenue",
+   "column_label": "Three Months Ended | Jul 28, 2024",
+   "cell_text": "30,040",
+   "period_end": "2024-07-28",
+   "months": 3,
+   "value": 30040000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0007",
+   "row_label": "Revenue",
+   "column_label": "Six Months Ended | Jul 27, 2025",
+   "cell_text": "90,805",
+   "period_end": "2025-07-27",
+   "months": 6,
+   "value": 90805000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0007",
+   "row_label": "Revenue",
+   "column_label": "Six Months Ended | Jul 28, 2024",
+   "cell_text": "56,084",
+   "period_end": "2024-07-28",
+   "months": 6,
+   "value": 56084000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0007",
+   "row_label": "Cost of revenue",
+   "column_label": "Three Months Ended | Jul 27, 2025",
+   "cell_text": "12,890",
+   "period_end": "2025-07-27",
+   "months": 3,
+   "value": 12890000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0007",
+   "row_label": "Cost of revenue",
+   "column_label": "Three Months Ended | Jul 28, 2024",
+   "cell_text": "7,466",
+   "period_end": "2024-07-28",
+   "months": 3,
+   "value": 7466000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0007",
+   "row_label": "Cost of revenue",
+   "column_label": "Six Months Ended | Jul 27, 2025",
+   "cell_text": "30,284",
+   "period_end": "2025-07-27",
+   "months": 6,
+   "value": 30284000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0007",
+   "row_label": "Cost of revenue",
+   "column_label": "Six Months Ended | Jul 28, 2024",
+   "cell_text": "13,105",
+   "period_end": "2024-07-28",
+   "months": 6,
+   "value": 13105000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0007",
+   "row_label": "Operating income",
+   "column_label": "Three Months Ended | Jul 27, 2025",
+   "cell_text": "28,440",
+   "period_end": "2025-07-27",
+   "months": 3,
+   "value": 28440000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0007",
+   "row_label": "Operating income",
+   "column_label": "Three Months Ended | Jul 28, 2024",
+   "cell_text": "18,642",
+   "period_end": "2024-07-28",
+   "months": 3,
+   "value": 18642000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0007",
+   "row_label": "Operating income",
+   "column_label": "Six Months Ended | Jul 27, 2025",
+   "cell_text": "50,078",
+   "period_end": "2025-07-27",
+   "months": 6,
+   "value": 50078000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0007",
+   "row_label": "Operating income",
+   "column_label": "Six Months Ended | Jul 28, 2024",
+   "cell_text": "35,551",
+   "period_end": "2024-07-28",
+   "months": 6,
+   "value": 35551000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0012",
+   "row_label": "Purchases related to property and equipment and intangible assets",
+   "column_label": "Six Months Ended | Jul 27, 2025",
+   "cell_text": "(3,122)",
+   "period_end": "2025-07-27",
+   "months": 6,
+   "value": 3122000000,
+   "confidence": 0.9,
+   "notes": "Only capex line in investing section; label also covers intangible assets. Sign flipped to positive cash spent."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0012",
+   "row_label": "Purchases related to property and equipment and intangible assets",
+   "column_label": "Six Months Ended | Jul 28, 2024",
+   "cell_text": "(1,346)",
+   "period_end": "2024-07-28",
+   "months": 6,
+   "value": 1346000000,
+   "confidence": 0.9,
+   "notes": "Only capex line in investing section; label also covers intangible assets. Sign flipped to positive cash spent."
+  }
+ ],
+ "not_found": []
+}

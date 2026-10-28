@@ -1,0 +1,254 @@
+"""T20/T21/T23: the DuckDB store, its contracts, and the data dictionary, all generated from one schema definition.
+
+Every table is declared once in SCHEMA. From it come:
+  - the DDL (`init`),
+  - the write-time contract checks (`write` rejects a bad row before it reaches the database, and says why),
+  - docs/DATA_DICTIONARY.md (`data_dictionary`).
+
+Money is stored as BIGINT US dollars, unscaled: $96,221 million is 96221000000. No floats for money.
+"""
+from __future__ import annotations
+
+import json
+import re
+from dataclasses import dataclass, field
+from pathlib import Path
+
+import duckdb
+
+ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
+SCHEMA_VERSION = 1
+
+FIELDS = ("revenue", "cost_of_revenue", "operating_income", "capex")
+QUARTER = re.compile(r"^\d{4}Q[1-4]$")
+DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+ACCESSION = re.compile(r"^\d{10}-\d{2}-\d{6}$")
+
+
+@dataclass(frozen=True)
+class Col:
+    name: str
+    type: str  # DuckDB type
+    doc: str
+    nullable: bool = False
+    enum: tuple[str, ...] | None = None
+    pattern: re.Pattern | None = None
+
+
+@dataclass(frozen=True)
+class Table:
+    name: str
+    doc: str
+    cols: tuple[Col, ...]
+    key: tuple[str, ...]
+    unique: tuple[tuple[str, ...], ...] = field(default=())
+
+
+def _c(name, type_, doc, **kw):
+    return Col(name, type_, doc, **kw)
+
+
+TICKER = _c("ticker", "VARCHAR", "Company ticker, e.g. NVDA.", pattern=re.compile(r"^[A-Z][A-Z0-9.\-]{0,9}$"))
+FIELD = _c("field", "VARCHAR", "Line item: revenue, cost_of_revenue, operating_income or capex.", enum=FIELDS)
+CAL_Q = _c("cal_q", "VARCHAR", "Calendar quarter the value belongs to, e.g. 2026Q2 (majority of days).", pattern=QUARTER)
+ACCN = _c("accession", "VARCHAR", "SEC accession number of the filing, e.g. 0001045810-26-000075.", pattern=ACCESSION)
+
+SCHEMA: tuple[Table, ...] = (
+    Table("documents", "One row per filing's primary document: what was fetched and how it was parsed.", (
+        ACCN, TICKER,
+        _c("cik", "INTEGER", "SEC Central Index Key."),
+        _c("form", "VARCHAR", "Form type.", enum=("10-Q", "10-K")),
+        _c("period", "VARCHAR", "Report period end date (YYYY-MM-DD).", pattern=DATE),
+        _c("filed", "VARCHAR", "Filing date (YYYY-MM-DD).", pattern=DATE),
+        _c("url", "VARCHAR", "Primary document URL on sec.gov."),
+        _c("sha256", "VARCHAR", "SHA-256 of the document bytes as fetched.", pattern=re.compile(r"^[0-9a-f]{64}$")),
+        _c("bytes", "BIGINT", "Size of the document."),
+        _c("parser_version", "VARCHAR", "Table parser version that produced tables_path."),
+        _c("table_count", "INTEGER", "Tables with at least one number."),
+        _c("tables_path", "VARCHAR", "Parsed tables JSON, relative to the repo root."),
+        _c("income_tables", "VARCHAR", "Table IDs of the income statement, comma-separated.", nullable=True),
+        _c("cash_flow_tables", "VARCHAR", "Table IDs of the cash-flow statement, comma-separated.", nullable=True),
+    ), key=("accession",)),
+    Table("reference_values", "XBRL values from the reference pipeline (SEC companyfacts). Evidence for reconciliation, not truth.", (
+        TICKER, FIELD, CAL_Q,
+        _c("value", "BIGINT", "US dollars, unscaled."),
+        _c("method", "VARCHAR", "How the quarter was derived (reported, ytd_diff, q4_derived, ...)."),
+        _c("concept", "VARCHAR", "XBRL concept, e.g. us-gaap:Revenues."),
+        _c("period_start", "VARCHAR", "Fiscal period start.", pattern=DATE),
+        _c("period_end", "VARCHAR", "Fiscal period end.", pattern=DATE),
+        ACCN,
+        _c("restated", "BOOLEAN", "True if a later filing changed the value."),
+        _c("original_value", "BIGINT", "First-filed value when restated.", nullable=True),
+    ), key=("ticker", "field", "cal_q")),
+    Table("extractions", "One row per value an agent read from a filing, as stated (three months, year to date, or full year).", (
+        _c("extraction_id", "VARCHAR", "Stable ID: accession|field|period_start|period_end."),
+        ACCN, TICKER, FIELD,
+        _c("period_start", "VARCHAR", "Start of the period the column covers.", pattern=DATE),
+        _c("period_end", "VARCHAR", "End of the period the column covers.", pattern=DATE),
+        _c("value", "BIGINT", "US dollars, unscaled (cell value × scale; sign as the field defines it, capex positive)."),
+        _c("unit_stated", "VARCHAR", "Unit text as written, e.g. '(In millions, except per share data)'."),
+        _c("unit_source", "VARCHAR", "Where the unit was stated.", enum=("table", "statement", "document")),
+        _c("scale", "BIGINT", "1000, 1000000 or 1000000000.", enum=None),
+        _c("table_id", "VARCHAR", "Cited table, e.g. t0007."),
+        _c("row_label", "VARCHAR", "Cited row label, verbatim."),
+        _c("column_label", "VARCHAR", "Cited column label, verbatim."),
+        _c("cell_text", "VARCHAR", "Cited cell text, verbatim, e.g. '(4,434)'."),
+        _c("confidence", "DOUBLE", "Agent's confidence, 0 to 1."),
+        _c("notes", "VARCHAR", "Agent's notes.", nullable=True),
+        _c("prompt_version", "VARCHAR", "Prompt file and version, e.g. statements@v1."),
+        _c("run_id", "VARCHAR", "Run that produced it."),
+    ), key=("extraction_id",)),
+    Table("values", "One quarterly value per (ticker, field, quarter): what a release ships.", (
+        TICKER, FIELD, CAL_Q,
+        _c("value", "BIGINT", "US dollars, unscaled. Null when source is missing.", nullable=True),
+        _c("source", "VARCHAR", "Where the shipped value comes from.", enum=("agent", "override", "missing")),
+        _c("method", "VARCHAR", "Quarter derivation: reported, ytd_diff, q4_derived, fy_minus_quarters.", nullable=True),
+        _c("label", "VARCHAR", "Reconciliation against the reference.", enum=("agree", "agent_wrong", "xbrl_wrong", "definition_gap", "unresolved", "no_reference")),
+        _c("extraction_ids", "VARCHAR", "Extractions used, comma-separated.", nullable=True),
+        _c("input_hash", "VARCHAR", "Hash of everything this value depends on; decisions re-apply only when it matches."),
+    ), key=("ticker", "field", "cal_q")),
+    Table("rules", "The rule registry as loaded from rules/*.yaml.", (
+        _c("rule_id", "VARCHAR", "Rule ID, e.g. unit_scale."),
+        _c("severity", "VARCHAR", "block, warn or info.", enum=("block", "warn", "info")),
+        _c("description", "VARCHAR", "What it checks."),
+        _c("rationale", "VARCHAR", "Why the check exists: the judgement it encodes."),
+        _c("check_name", "VARCHAR", "Python check function."),
+        _c("params", "VARCHAR", "Check parameters, JSON."),
+        _c("file_sha256", "VARCHAR", "Hash of the YAML file, so a rule change is visible in a release diff."),
+    ), key=("rule_id",)),
+    Table("exceptions", "One rule firing on one value.", (
+        _c("exception_id", "VARCHAR", "Stable ID: rule_id|ticker|field|cal_q (or the extraction/document it fired on)."),
+        _c("rule_id", "VARCHAR", "Rule that fired."),
+        _c("severity", "VARCHAR", "Copied from the rule at run time.", enum=("block", "warn", "info")),
+        TICKER,
+        _c("field", "VARCHAR", "Line item, if the rule is field-level.", nullable=True, enum=FIELDS),
+        _c("cal_q", "VARCHAR", "Quarter, if quarter-level.", nullable=True, pattern=QUARTER),
+        _c("subject", "VARCHAR", "What it fired on when not a quarterly value: an accession or extraction ID.", nullable=True),
+        _c("message", "VARCHAR", "Plain-language explanation with the numbers."),
+        _c("input_hash", "VARCHAR", "Hash of the inputs it was raised on."),
+    ), key=("exception_id",)),
+    Table("decisions", "A person's resolution of an exception. Append-only: a later decision supersedes, never edits.", (
+        _c("decision_id", "VARCHAR", "Unique ID."),
+        _c("exception_id", "VARCHAR", "Exception decided."),
+        _c("kind", "VARCHAR", "accept, override, reject or fix_rule.", enum=("accept", "override", "reject", "fix_rule")),
+        _c("value", "BIGINT", "Override value, US dollars, unscaled.", nullable=True),
+        _c("reason", "VARCHAR", "Why. Required for every kind."),
+        _c("reviewer", "VARCHAR", "Who decided."),
+        _c("decided_at", "VARCHAR", "UTC timestamp, ISO 8601."),
+        _c("input_hash", "VARCHAR", "Input hash of the exception when decided."),
+        _c("supersedes", "VARCHAR", "Earlier decision this replaces.", nullable=True),
+    ), key=("decision_id",)),
+    Table("runs", "One row per pipeline or agent step: what ran, on what, with which versions, and how it went.", (
+        _c("run_id", "VARCHAR", "Run ID."),
+        _c("step", "VARCHAR", "Step name.", enum=("ingest", "parse", "extract", "reconcile", "rules", "review", "score", "release")),
+        _c("subject", "VARCHAR", "What it ran on (accession, ticker, release).", nullable=True),
+        _c("started_at", "VARCHAR", "UTC timestamp."),
+        _c("seconds", "DOUBLE", "Wall-clock duration."),
+        _c("outcome", "VARCHAR", "ok, failed or skipped.", enum=("ok", "failed", "skipped")),
+        _c("versions", "VARCHAR", "Versions used (parser, prompt, model, rules), JSON."),
+        _c("detail", "VARCHAR", "Anything else worth keeping (tokens, cost, retries, error), JSON.", nullable=True),
+    ), key=("run_id", "step", "subject")),
+)
+TABLES = {t.name: t for t in SCHEMA}
+
+
+class ContractError(ValueError):
+    pass
+
+
+def _ddl(t: Table) -> str:
+    cols = [f'"{c.name}" {c.type}{"" if c.nullable else " NOT NULL"}' for c in t.cols]
+    cols.append(f"PRIMARY KEY ({', '.join(t.key)})")
+    return f'CREATE TABLE IF NOT EXISTS "{t.name}" (\n  ' + ",\n  ".join(cols) + "\n)"
+
+
+def init(path: Path | str = DEFAULT_DB) -> duckdb.DuckDBPyConnection:
+    """Open (creating if needed) the store with every table in SCHEMA."""
+    if str(path) != ":memory:":
+        Path(path).parent.mkdir(parents=True, exist_ok=True)
+    con = duckdb.connect(str(path))
+    for t in SCHEMA:
+        con.execute(_ddl(t))
+    con.execute("CREATE TABLE IF NOT EXISTS _meta (k VARCHAR PRIMARY KEY, v VARCHAR)")
+    con.execute("INSERT OR REPLACE INTO _meta VALUES ('schema_version', ?)", [str(SCHEMA_VERSION)])
+    return con
+
+
+_PY = {"VARCHAR": str, "BIGINT": int, "INTEGER": int, "DOUBLE": (int, float), "BOOLEAN": bool}
+
+
+def check(table: str, row: dict) -> None:
+    """Raise ContractError naming the row and the broken rule; return None when the row is valid."""
+    t = TABLES[table]
+    names = {c.name for c in t.cols}
+    extra = set(row) - names
+    if extra:
+        raise ContractError(f"{table}: unknown column(s) {sorted(extra)} in {row}")
+    for c in t.cols:
+        v = row.get(c.name)
+        if v is None:
+            if not c.nullable:
+                raise ContractError(f"{table}.{c.name} is required (null in {_short(row)})")
+            continue
+        want = _PY[c.type]
+        if isinstance(v, bool) and c.type != "BOOLEAN" or not isinstance(v, want):
+            raise ContractError(f"{table}.{c.name} must be {c.type}, got {type(v).__name__} {v!r} in {_short(row)}")
+        if c.enum and v not in c.enum:
+            raise ContractError(f"{table}.{c.name} must be one of {c.enum}, got {v!r} in {_short(row)}")
+        if c.pattern and not c.pattern.match(str(v)):
+            raise ContractError(f"{table}.{c.name} {v!r} does not match {c.pattern.pattern} in {_short(row)}")
+    if table == "extractions" and row.get("scale") not in (1, 1_000, 1_000_000, 1_000_000_000):
+        raise ContractError(f"extractions.scale must be 1, 1000, 1000000 or 1000000000, got {row.get('scale')!r} in {_short(row)}")
+    if table == "values" and (row.get("source") == "missing") != (row.get("value") is None):
+        raise ContractError(f"values: value must be null exactly when source is 'missing' ({_short(row)})")
+    if table == "decisions" and row.get("kind") == "override" and row.get("value") is None:
+        raise ContractError(f"decisions: an override needs a value ({_short(row)})")
+
+
+def _short(row: dict) -> str:
+    return json.dumps({k: row[k] for k in list(row)[:4]}, default=str)
+
+
+def write(con: duckdb.DuckDBPyConnection, table: str, rows: list[dict], replace: bool = False) -> int:
+    """Check every row against the contract, then insert them all (or none). A key collision is a contract error too."""
+    t = TABLES[table]
+    keys = set()
+    for r in rows:
+        check(table, r)
+        k = tuple(r.get(c) for c in t.key)
+        if k in keys:
+            raise ContractError(f"{table}: duplicate key {dict(zip(t.key, k))} in this write")
+        keys.add(k)
+    if not rows:
+        return 0
+    cols = [c.name for c in t.cols]
+    sql = f'INSERT {"OR REPLACE " if replace else ""}INTO "{table}" ({", ".join(chr(34) + c + chr(34) for c in cols)}) VALUES ({", ".join("?" * len(cols))})'
+    con.execute("BEGIN")
+    try:
+        con.executemany(sql, [[r.get(c) for c in cols] for r in rows])
+        con.execute("COMMIT")
+    except duckdb.ConstraintException as e:
+        con.execute("ROLLBACK")
+        raise ContractError(f"{table}: {e}") from e
+    return len(rows)
+
+
+def data_dictionary() -> str:
+    out = ["# Data dictionary", "",
+           f"Generated from `ledger/store.py` (schema version {SCHEMA_VERSION}). Do not edit by hand: run `uv run python -m ledger.store`.", "",
+           "Money is BIGINT US dollars, unscaled. Dates are `YYYY-MM-DD` strings; timestamps are UTC ISO 8601.", ""]
+    for t in SCHEMA:
+        out += [f"## `{t.name}`", "", t.doc, "", f"Key: `({', '.join(t.key)})`", "",
+                "| Column | Type | Required | Allowed values | Meaning |", "|---|---|---|---|---|"]
+        for c in t.cols:
+            allowed = ", ".join(f"`{e}`" for e in c.enum) if c.enum else (f"pattern `{c.pattern.pattern}`" if c.pattern else "")
+            out.append(f"| `{c.name}` | {c.type} | {'no' if c.nullable else 'yes'} | {allowed} | {c.doc} |")
+        out.append("")
+    return "\n".join(out)
+
+
+if __name__ == "__main__":
+    p = ROOT / "docs" / "DATA_DICTIONARY.md"
+    p.write_text(data_dictionary())
+    print(f"wrote {p.relative_to(ROOT)}")

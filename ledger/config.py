@@ -94,3 +94,22 @@ WINDOW_QUARTERS = 8
 WINDOW_YEARS = 5
 # The quarterly window ends at the latest calendar quarter where at least this share of companies has revenue.
 WINDOW_COVERAGE = 0.6
+
+# ── MVP (docs/PRD.md) ──────────────────────────────────────────────────────────
+# The AI set, 8 calendar quarters, 4 agent-extracted fields.
+MVP_TICKERS = [c["ticker"] for c in AI_SET]
+MVP_QUARTERS = ["2024Q3", "2024Q4", "2025Q1", "2025Q2", "2025Q3", "2025Q4", "2026Q1", "2026Q2"]
+MVP_FIELDS = ["revenue", "cost_of_revenue", "operating_income", "capex"]
+# Prompts are tuned only on the dev split. The golden set is drawn from the hold-out and never shown during tuning.
+# Dev covers a January fiscal year (NVDA), a June fiscal year (MSFT) and a young, capex-heavy filer (CRWV).
+DEV_SPLIT = ["NVDA", "MSFT", "CRWV"]
+HOLDOUT = [t for t in MVP_TICKERS if t not in DEV_SPLIT]
+GOLDEN_COMPANY_QUARTERS = 75  # x 4 fields = 300 values: zero errors supports "<1% error, 95% confidence" (rule of three)
+GOLDEN_SEED = 20261027
+
+# Delivery stages (PRD section 5): one company, then 5, then all 19. Each stage is a signed release.
+STAGES = {
+    1: {"tickers": ["NVDA"], "dev": ["NVDA"], "holdout": [], "release": "v0.1.0"},
+    2: {"tickers": ["NVDA", "MSFT", "CRWV", "ORCL", "APLD"], "dev": ["NVDA", "MSFT", "CRWV"], "holdout": ["ORCL", "APLD"], "release": "v0.2.0"},
+    3: {"tickers": MVP_TICKERS, "dev": DEV_SPLIT, "holdout": HOLDOUT, "release": "v1.0.0"},
+}

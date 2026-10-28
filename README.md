@@ -4,7 +4,7 @@ This project pulls revenue, capex and opex from SEC EDGAR for the AI-trade compa
 
 The pipeline cleans the data and normalizes it to calendar quarters (and fiscal years), then serves it to an explorer page. Every number links back to its filing.
 
-**Start here:** [docs/SUMMARY.md](docs/SUMMARY.md) is the one-page summary. `explorer/standalone.html` is the tool; open it in any browser.
+**Start here:** [docs/SUMMARY.md](docs/SUMMARY.md) is the one-page summary. [docs/PRD.md](docs/PRD.md) is the plan for the next version: agents read the filings, XBRL scores them, and a reviewed, signed-off release ships. `explorer/standalone.html` is the tool; open it in any browser.
 
 ## Status (2026-10-27)
 

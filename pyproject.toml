@@ -1,0 +1,9 @@
+[project]
+name = "capex-ledger"
+version = "0.2.0"
+description = "Agent-led extraction of revenue, capex and opex from SEC filings, reconciled against XBRL, reviewed and released."
+requires-python = ">=3.12"
+dependencies = ["duckdb>=1.1", "pyyaml>=6"]
+
+[tool.uv]
+package = false

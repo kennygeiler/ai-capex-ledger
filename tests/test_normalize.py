@@ -1,7 +1,7 @@
 """Unit tests for the normalization rules. Run: python3 -m unittest discover -s tests"""
 import unittest
 
-from pipeline.normalize import REJECTED, best_vintages, calendar_quarter, discrete_quarters, fiscal_label
+from ledger.reference.normalize import REJECTED, best_vintages, calendar_quarter, discrete_quarters, fiscal_label
 
 
 def fact(start, end, val, accn="a1", form="10-Q", filed="2025-01-01", concept="X"):
@@ -25,7 +25,7 @@ class Calendar(unittest.TestCase):
 
 class CostcoCalendar(unittest.TestCase):
     def test_16_week_q4_and_collision_shift(self):
-        from pipeline.normalize import build_company
+        from ledger.reference.normalize import build_company
         # Costco-like 12/12/12/16-week fiscal year ending ~Aug 31, revenue as filed each quarter.
         periods = [("2024-09-02", "2024-11-24", 62), ("2024-11-25", "2025-02-16", 63), ("2025-02-17", "2025-05-11", 63),
                    ("2025-05-12", "2025-08-31", 86), ("2025-09-01", "2025-11-23", 67)]
@@ -36,7 +36,7 @@ class CostcoCalendar(unittest.TestCase):
         self.assertEqual(got, {"2024Q4": "2024-11-24", "2025Q1": "2025-02-16", "2025Q2": "2025-05-11", "2025Q3": "2025-08-31", "2025Q4": "2025-11-23"})
 
     def test_no_cascade_for_13_week_calendar(self):
-        from pipeline.normalize import build_company
+        from ledger.reference.normalize import build_company
         # Nvidia-like quarters ending late in the first month of each calendar quarter.
         periods = [("2024-10-28", "2025-01-26"), ("2025-01-27", "2025-04-27"), ("2025-04-28", "2025-07-27"), ("2025-07-28", "2025-10-26")]
         units = [{"start": s, "end": e, "val": 10**9 * (i + 1), "accn": f"a{i}", "form": "10-Q", "filed": "2026-01-01"} for i, (s, e) in enumerate(periods)]

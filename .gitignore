@@ -1,3 +1,7 @@
 .env
 __pycache__/
 data/raw/
+.venv/
+data/ledger.duckdb*
+data/docs/
+data/extract/tasks/

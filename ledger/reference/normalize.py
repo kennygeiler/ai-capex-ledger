@@ -18,7 +18,7 @@ from datetime import date, timedelta
 
 REJECTED: list[dict] = []  # filled during a run; reported in the quality file
 
-from .config import CONCEPTS, FORMS_FALLBACK, FORMS_PRIMARY, QUARTER_DAYS, YEAR_DAYS
+from ..config import CONCEPTS, FORMS_FALLBACK, FORMS_PRIMARY, QUARTER_DAYS, YEAR_DAYS
 
 
 def _d(s: str) -> date:
@@ -317,7 +317,7 @@ def discovery_scan(companyfacts: dict) -> dict[str, list[dict]]:
     in the last three years, and whether it is in our candidate list. This is how a company's label is found.
     """
     import re
-    from .config import DISCOVERY
+    from ..config import DISCOVERY
     gaap = companyfacts.get("facts", {}).get("us-gaap", {})
     n_rejected = len(REJECTED)  # the scan re-runs quarter building; don't double-log rejections
     candidates = {c for cs in CONCEPTS.values() for c in cs}
