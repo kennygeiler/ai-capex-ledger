@@ -9,18 +9,19 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 | ID | Ticket | Done when |
 |---|---|---|
 | M3.1 | Group open items by cause, so one decision (for example "APLD recast after ChronoScale") covers every item it explains. | `ledger review` lists causes, not rows. |
-| M3.3 | **you:** review, hand-check the sample, and sign `v1.0.0` (19 companies). | Signed. |
 
 ### Later
 
 | ID | Ticket | Done when |
 |---|---|---|
 | L1 | Client view: released values only, each with its basis, source and citation link. | Built from a release folder. |
+| L4 | `QUALITY.md` notes compare `cost_of_revenue_part` line by line, so separate cost lines aren't reported as restatements. | ORCL and APLD notes show only true restatements; `v1.0.1`. |
 | L3 | `DIFF.md` also lists values added since the last release (new companies or years), not only changed ones. | v0.2.0-style "No values changed" can't happen when companies were added. |
 | L2 | Non-functional checks as tests: SEC request spacing and contact header; no email or key in any output; parse under 60 s; `uv sync --frozen` works. | 4 tests. |
 
 ## Done
 
+- **`v1.0.0` (28 Oct, M3.3):** all 19 companies, 234 values, signed by Kenny Geiler, hash 9f8014b3175f. Every value XBRL can't vouch for, plus 10 random ones, confirmed by the machine re-read; nothing needed a person.
 - **M2, a new company needs no code (28 Oct):** blind run 1 on the 13 unseen companies found 6 failure types. Each was fixed as a type, and a full rerun of all 19 needs nothing from a person: 857/857 cells confirmed, 224/234 values agree with XBRL, the rest explained by code or decided. Details in [INGESTION.md](INGESTION.md).
 - **Cleanup (28 Oct):** the XBRL answer key is built per company on demand (same 312 values). Removed the batch job, its quarterly code and `facts.csv`, the `--find` experiment, dead helpers and stale ticket numbers.
 

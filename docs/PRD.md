@@ -1,6 +1,6 @@
 # PRD: a pipeline that turns any company's 10-Ks into numbers someone stands behind
 
-**Owner:** Kenny Geiler · **Updated:** 28 Oct 2026 · **Target for the 11/12 Nov call:** `v0.2.0` signed, M1 and M2 done
+**Owner:** Kenny Geiler · **Updated:** 28 Oct 2026 · **Target for the 11/12 Nov call:** M1 and M2 done, `v1.0.0` (19 companies) signed — both reached 28 Oct
 
 ## Goal
 

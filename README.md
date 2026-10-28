@@ -6,20 +6,15 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026):** M2 is done. All 19 companies run with one command and need nothing from a person, and the repo was cleaned.
-- **Fixes by type** after blind run 1 (types 2–6 in [docs/INGESTION.md](docs/INGESTION.md)), then a full rerun of all 19 (`ledger run --stage 3`):
-  - 72 10-Ks; 234 values, 224 agree with XBRL, 6 explained by code, 4 already decided by Kenny.
-  - 857 of 857 cited cells confirmed on the rendered 10-K.
-  - 0 of 4,270 planted faults escaped; 3,104 of 3,104 moved citations noticed.
-  - 0 items open for a person. SpaceX is named as having no 10-K yet.
-  - The rerun surfaced 2 more types (a zero-width space in one filing, and Oracle repeating a row label), both fixed.
-- **Cleanup:** the XBRL answer key is now built per company, on demand, from cached SEC data, with the same 312 values. This removed the 113-company batch job, its quarterly code and the 19 MB `facts.csv`. Also removed: the unused `extract --find` experiment, dead helpers and old ticket numbers.
+**Last done (28 Oct 2026):** `v1.0.0` released and signed by Kenny Geiler: all 19 companies, 234 values, hash 9f8014b3175f.
+- All gates passed. 224 values agree with XBRL; 20 more confirmed on the filing (10 XBRL can't vouch for, 10 random spot-checks), all by the machine re-read of the rendered 10-K. 403 of 403 cited cells confirmed.
+- Built from the M2 rerun of `ledger run --stage 3`, with Kenny's 6 decisions carried over. Prompt `statements@v2`, parser `tables@7`, 15 rules.
 - `v0.1.0` and `v0.2.0` stay signed.
 
 **Next:**
-1. **Kenny:** decide whether to release `v1.0.0` (all 19), using the stage 3 page `reports/stage3-validation.html`. The 4 APLD decisions carry over; there are 57 warnings, no blocks.
+1. **Claude:** fix the `QUALITY.md` notes for `cost_of_revenue_part`. They group a company's separate cost lines (ORCL, APLD) as if they were one value restated between filings. The values are right; the note is noise. Ships as `v1.0.1`.
 2. **Claude (M3):** group review items by cause, so that one decision covers all of them, and make the hand-check file name match `release` for ticker runs.
-3. **Later:** prompt `statements@v3` (v2 still explains quarterly columns, which a 10-K-only pipeline doesn't need). Changing it means rerunning the agent.
+3. **Later:** `DIFF.md` lists added values (it says "No values changed" for v1.0.0 although 14 companies were added); prompt `statements@v3` (v2 still explains quarterly columns). Changing the prompt means rerunning the agent.
 
 **Critical notes:**
 - **Dashes are zero.** APLD's newest 10-K shows "—" for its data-center cost line in FY2024 and FY2025; agents read these as 0.
