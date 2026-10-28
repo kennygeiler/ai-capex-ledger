@@ -1,4 +1,4 @@
-"""python -m ledger reconcile --stage N   (T45, T60)"""
+"""python -m ledger reconcile --stage N | --ticker X …"""
 import argparse
 from collections import Counter
 

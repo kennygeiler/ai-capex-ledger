@@ -1,4 +1,4 @@
-"""T20/T21/T23: schema, contracts and data dictionary."""
+"""Schema, contracts and data dictionary."""
 import unittest
 
 from ledger.store import SCHEMA, ContractError, data_dictionary, init, write

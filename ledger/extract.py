@@ -1,4 +1,4 @@
-"""T41/T43/T44: pack extraction tasks, validate agent outputs, resolve citations, load extractions.
+"""Pack extraction tasks, validate agent outputs, resolve citations, load extractions.
 
 A task holds only what a reader of the filing would see: the located statement tables (row labels, column labels,
 cell text, unit line). No XBRL values and no XBRL tag names, so the agent cannot copy the answer key.
@@ -21,7 +21,7 @@ OUTPUTS = ROOT / "data" / "extract" / "outputs"
 FIELDS = ("revenue", "cost_of_revenue", "cost_of_revenue_part", "operating_income", "capex")
 
 
-# ── T41: tasks ─────────────────────────────────────────────────────────────────────────────────────────────────────
+# ── tasks ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 def render_statement(name: str, tables: list[dict]) -> str:
     out = [f"### {name}"]
     for t in tables:
@@ -37,39 +37,33 @@ def render_statement(name: str, tables: list[dict]) -> str:
     return "\n".join(out)
 
 
-def make_task(parsed: dict, find: bool = False) -> str:
-    """find=True gives every table in the filing instead of the located statements: the agent must find them."""
+def make_task(parsed: dict) -> str:
+    """The agent's task for one filing: its income and cash-flow statements, as a reader sees them, and nothing else."""
     head = (f"# Task: {parsed['ticker']} {parsed['form']} for the period ended {parsed['period']}\n\n"
             f"Accession: {parsed['accession']}\nPrompt version: {PROMPT_VERSION}\n")
-    if find:
-        head += (f"\nThese are all {len(parsed['tables'])} tables in the filing, in order. First find the income statement and "
-                 "the cash-flow statement (not notes, segment tables or summaries), then extract from those only.\n")
-        body = [render_statement("Every table in the filing", parsed["tables"])]
-    else:
-        body = [render_statement("Income statement", parsed["statements"]["income"] or []),
-                render_statement("Cash-flow statement", parsed["statements"]["cash_flow"] or [])]
+    body = [render_statement("Income statement", parsed["statements"]["income"] or []),
+            render_statement("Cash-flow statement", parsed["statements"]["cash_flow"] or [])]
     return head + "\n" + "\n\n".join(body) + "\n"
 
 
-def write_tasks(parsed_docs: list[dict], find: bool = False) -> list[Path]:
-    d = TASKS.with_name("tasks-find") if find else TASKS
-    d.mkdir(parents=True, exist_ok=True)
+def write_tasks(parsed_docs: list[dict]) -> list[Path]:
+    TASKS.mkdir(parents=True, exist_ok=True)
     paths = []
     for p in parsed_docs:
-        path = d / f"{p['accession']}.md"
-        path.write_text(make_task(p, find))
+        path = TASKS / f"{p['accession']}.md"
+        path.write_text(make_task(p))
         paths.append(path)
     return paths
 
 
-# ── T43: output validation ─────────────────────────────────────────────────────────────────────────────────────────
+# ── output validation ──────────────────────────────────────────────────────────────────────────────────────────────
 @dataclass
 class Invalid(Exception):
     reason: str
 
 
 def validate_output(obj: dict, accession: str) -> None:
-    """Check one agent output against agents/schemas/extraction@v1.json. Raises Invalid(reason)."""
+    """Check one agent output against the output contract (agents/schemas/extraction@v2.json; v1 outputs stay valid). Raises Invalid(reason)."""
     if not isinstance(obj, dict):
         raise Invalid("output is not a JSON object")
     for k in ("accession", "prompt_version", "values", "not_found"):
@@ -101,7 +95,7 @@ def validate_output(obj: dict, accession: str) -> None:
             raise Invalid(f"not_found[{i}] needs 'field' and 'reason'")
 
 
-# ── T44: citation resolution ───────────────────────────────────────────────────────────────────────────────────────
+# ── citation resolution ────────────────────────────────────────────────────────────────────────────────────────────
 def resolve(v: dict, parsed: dict) -> dict:
     """Check the citation against the parsed document. Returns the cited table's unit info, or raises Invalid."""
     tables = {t["id"]: t for t in parsed.get("tables", [])} | {t["id"]: t for k in ("income", "cash_flow") for t in (parsed["statements"][k] or [])}

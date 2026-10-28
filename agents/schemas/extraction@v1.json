@@ -1,5 +1,5 @@
 {
-  "$comment": "Output contract for one extraction task (T40). One JSON object per task.",
+  "$comment": "Output contract for one extraction task. One JSON object per task.",
   "type": "object",
   "required": ["accession", "prompt_version", "values", "not_found"],
   "properties": {

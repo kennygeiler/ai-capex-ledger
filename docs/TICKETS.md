@@ -4,13 +4,6 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Open
 
-### M2: a new company needs no code
-
-| ID | Ticket | Done when |
-|---|---|---|
-| M2.1 | Blind run: the 14 unseen companies, pipeline frozen. Record every failure by type (parsing, locating, reading, definition) in INGESTION.md, with the first-pass rate. | Every failure has a type. |
-| M2.2 | Fix by type, never by company; rerun the whole batch after each fix. The IREN locator miss is the first known type. | A full rerun of all 19 needs no code change. |
-
 ### M3: review scales
 
 | ID | Ticket | Done when |
@@ -28,6 +21,9 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Done
 
+- **M2, a new company needs no code (28 Oct):** blind run 1 on the 13 unseen companies found 6 failure types. Each was fixed as a type, and a full rerun of all 19 needs nothing from a person: 857/857 cells confirmed, 224/234 values agree with XBRL, the rest explained by code or decided. Details in [INGESTION.md](INGESTION.md).
+- **Cleanup (28 Oct):** the XBRL answer key is built per company on demand (same 312 values). Removed the batch job, its quarterly code and `facts.csv`, the `--find` experiment, dead helpers and stale ticket numbers.
+
 - **M1, it runs unattended (28 Oct):** `ledger run --ticker X` takes any company from ticker to validation page and scorecard with nobody in the loop. Headless agent (`claude -p`, Opus 5.5 pinned, no tools, isolated from the desktop session and user hooks), every command takes `--ticker`, per-company scorecard. First unattended company: AMD, 21 s end to end, 12/12 values agree with XBRL, 24/24 cells confirmed on the rendered 10-K, 0 code changes, nothing for a person.
 
 - **`v0.2.0` (28 Oct):** 5 companies, 66 values, signed by Kenny Geiler, hash a4319cfd12b5. M0 complete.
@@ -35,10 +31,10 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 - **Rendered-10-K re-read (28 Oct):** `ledger evidence` confirms each cited cell on the 10-K as rendered in Chrome and screenshots it boxed; G5 accepts a machine confirmation, and a person answers only cards it can't confirm.
 - **Sampled hand-check (M3.2, pulled forward, 28 Oct):** a person checks only the values XBRL can't vouch for, plus 10 random agreeing ones. Each is one yes/no question on the page; decisions show as decided, not red. Stage 2: 20 checks instead of 66.
 - **M0, built by hand (to 28 Oct 2026):**
-  - **Ingest:** 10-K list per company; documents cached with SHA-256; table parser (`tables@7`, fixture-tested); statement locator (176/177 correct); restatement-note finder.
+  - **Ingest:** 10-K list per company; documents cached with SHA-256; table parser (`tables@7`, fixture-tested); statement locator (72/72 10-Ks correct); restatement-note finder.
   - **Extraction:** tasks with no XBRL in them; prompts `statements@v1` and `@v2` (cost lines classified when there is no total); citation resolver; outputs kept in git.
   - **Values:** one filing per company-year; opex from one column; restated basis with `first_reported` kept; summed cost lines; `definition_gap` when only XBRL's cost-of-revenue definition differs.
-  - **Rules:** 14 in `rules/*.yaml`, each with a rationale, a plain-English explanation and an action, each tested to pass and fail.
+  - **Rules:** 15 in `rules/*.yaml`, each with a rationale, a plain-English explanation and an action, each tested to pass and fail.
   - **Fault injection:** 0 of 862 misreads escaped (stage 2).
   - **Validation pages:** plain-language story, decision cards, charts, links into each filing, the filing's own restatement sentence.
   - **Review, release, sign-off:** decisions re-apply only on unchanged inputs; gates G1, G4 and G5; deterministic hash.

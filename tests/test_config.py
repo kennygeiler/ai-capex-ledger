@@ -1,30 +1,19 @@
 import unittest
 
-from ledger.config import DEV_SPLIT, HOLDOUT, MVP_TICKERS, MVP_YEARS
+from ledger.config import MVP_TICKERS, MVP_YEARS, STAGES
 
 
-class Split(unittest.TestCase):
-    def test_dev_and_holdout_partition_the_mvp(self):
-        self.assertEqual(len(MVP_TICKERS), 19)
-        self.assertFalse(set(DEV_SPLIT) & set(HOLDOUT))
-        self.assertEqual(set(DEV_SPLIT) | set(HOLDOUT), set(MVP_TICKERS))
-
+class Config(unittest.TestCase):
     def test_window_is_5_consecutive_fiscal_years(self):
         self.assertEqual([int(y[2:]) for y in MVP_YEARS], list(range(2022, 2027)))
 
-
-
-class Stages(unittest.TestCase):
-    def test_stages_grow_and_keep_dev_and_holdout_apart(self):
-        from ledger.config import STAGES
+    def test_stages_grow_to_the_19_companies(self):
         prev = set()
         for n in sorted(STAGES):
-            s = STAGES[n]
-            self.assertTrue(prev <= set(s["tickers"]), f"stage {n} drops a company")
-            self.assertFalse(set(s["dev"]) & set(s["holdout"]))
-            self.assertEqual(set(s["dev"]) | set(s["holdout"]), set(s["tickers"]))
-            prev = set(s["tickers"])
+            self.assertTrue(prev <= set(STAGES[n]["tickers"]), f"stage {n} drops a company")
+            prev = set(STAGES[n]["tickers"])
         self.assertEqual([len(STAGES[n]["tickers"]) for n in (1, 2, 3)], [1, 5, 19])
+        self.assertEqual(set(STAGES[3]["tickers"]), set(MVP_TICKERS))
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-"""T33: every rule has a fixture it passes and a fixture it fails, and the registry loads cleanly."""
+"""Every rule has a fixture it passes and a fixture it fails, and the registry loads cleanly."""
 import copy
 from datetime import date
 import unittest

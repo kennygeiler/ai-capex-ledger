@@ -1,4 +1,4 @@
-"""T41/T43/T44: task packing, output validation, citation resolution, period dating."""
+"""Task packing, output validation, citation resolution, period dating."""
 import unittest
 from pathlib import Path
 

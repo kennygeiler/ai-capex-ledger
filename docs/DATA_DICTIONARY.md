@@ -36,7 +36,7 @@ Key: `(ticker, field, period)`
 | Column | Type | Required | Allowed values | Meaning |
 |---|---|---|---|---|
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
-| `field` | VARCHAR | yes | `revenue`, `cost_of_revenue`, `operating_income`, `capex`, `opex` | revenue, capex or opex (released); cost_of_revenue and operating_income (read to compute opex). |
+| `field` | VARCHAR | yes | `revenue`, `cost_of_revenue`, `cost_of_revenue_part`, `operating_income`, `capex`, `opex` | revenue, capex or opex (released); cost_of_revenue and operating_income (read to compute opex). |
 | `period` | VARCHAR | yes | pattern `^FY\d{4}$` | The company's fiscal year, e.g. FY2026 (NVDA's ended 25 Jan 2026). |
 | `value` | BIGINT | yes |  | US dollars, unscaled. |
 | `method` | VARCHAR | yes |  | reported, or derived (opex = revenue − cost of revenue − operating income). |
@@ -58,7 +58,7 @@ Key: `(extraction_id)`
 | `extraction_id` | VARCHAR | yes |  | Stable ID: accession|field|period_start|period_end. |
 | `accession` | VARCHAR | yes | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession number of the filing, e.g. 0001045810-26-000075. |
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
-| `field` | VARCHAR | yes | `revenue`, `cost_of_revenue`, `operating_income`, `capex`, `opex` | revenue, capex or opex (released); cost_of_revenue and operating_income (read to compute opex). |
+| `field` | VARCHAR | yes | `revenue`, `cost_of_revenue`, `cost_of_revenue_part`, `operating_income`, `capex`, `opex` | revenue, capex or opex (released); cost_of_revenue and operating_income (read to compute opex). |
 | `period_start` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Start of the period the column covers. |
 | `period_end` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | End of the period the column covers. |
 | `value` | BIGINT | yes |  | US dollars, unscaled (cell value × scale; sign as the field defines it, capex positive). |
@@ -83,7 +83,7 @@ Key: `(ticker, field, period)`
 | Column | Type | Required | Allowed values | Meaning |
 |---|---|---|---|---|
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
-| `field` | VARCHAR | yes | `revenue`, `cost_of_revenue`, `operating_income`, `capex`, `opex` | revenue, capex or opex (released); cost_of_revenue and operating_income (read to compute opex). |
+| `field` | VARCHAR | yes | `revenue`, `cost_of_revenue`, `cost_of_revenue_part`, `operating_income`, `capex`, `opex` | revenue, capex or opex (released); cost_of_revenue and operating_income (read to compute opex). |
 | `period` | VARCHAR | yes | pattern `^FY\d{4}$` | The company's fiscal year, e.g. FY2026 (NVDA's ended 25 Jan 2026). |
 | `period_end` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Fiscal year end date. |
 | `value` | BIGINT | no |  | US dollars, unscaled. Null when source is missing. |
@@ -123,7 +123,7 @@ Key: `(exception_id)`
 | `rule_id` | VARCHAR | yes |  | Rule that fired. |
 | `severity` | VARCHAR | yes | `block`, `warn`, `info` | Copied from the rule at run time. |
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
-| `field` | VARCHAR | no | `revenue`, `cost_of_revenue`, `operating_income`, `capex`, `opex` | Line item, if the rule is field-level. |
+| `field` | VARCHAR | no | `revenue`, `cost_of_revenue`, `cost_of_revenue_part`, `operating_income`, `capex`, `opex` | Line item, if the rule is field-level. |
 | `period` | VARCHAR | no | pattern `^FY\d{4}$` | Fiscal year, if year-level. |
 | `subject` | VARCHAR | no |  | What it fired on when not a released value: an accession or extraction ID. |
 | `message` | VARCHAR | yes |  | Plain-language explanation with the numbers. |

@@ -1,4 +1,4 @@
-"""python -m ledger run --ticker X [Y …] | --stage N   (M1.3)
+"""python -m ledger run --ticker X [Y …] | --stage N
 
 One command from a ticker to its validation page, with nobody in the loop: fetch and parse the 10-Ks, run the agent
 headless on any filing without an output, load and check every citation, build fiscal-year values, run the rules and

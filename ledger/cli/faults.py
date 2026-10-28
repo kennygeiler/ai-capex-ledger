@@ -1,4 +1,4 @@
-"""python -m ledger faults --stage N   ->  reports/stage<N>-faults.json"""
+"""python -m ledger faults --stage N | --ticker X …   ->  reports/<name>-faults.json"""
 import argparse
 import json
 from collections import Counter

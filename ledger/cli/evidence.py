@@ -1,4 +1,4 @@
-"""python -m ledger evidence --stage N   ->  reports/evidence/stage<N>.json and boxed screenshots
+"""python -m ledger evidence --stage N | --ticker X …   ->  reports/evidence/<name>.json and boxed screenshots
 
 Re-reads every cited cell from the 10-K as rendered in Chrome, and screenshots the cells of the values a person checks.
 --faults also points each citation at a neighbouring row or column and reports how often the re-read notices."""

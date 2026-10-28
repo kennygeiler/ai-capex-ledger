@@ -1,28 +1,25 @@
-"""Capex Ledger command line: python -m ledger <command>.
-
-Commands are filled in ticket by ticket (see docs/TICKETS.md); unfinished ones say so and exit non-zero.
-"""
+"""Capex Ledger command line: python -m ledger <command> (each takes --stage N or --ticker X Y; see --help)."""
 import argparse
+import importlib
 import sys
 
 COMMANDS = {
-    "reference": "Pull XBRL from EDGAR and build the reference set (today's pipeline).",
-    "ingest": "List MVP filings, fetch primary documents, parse statement tables.",
-    "extract": "Pack extraction tasks and collect agent outputs.",
-    "reconcile": "Line up agent, XBRL and derived values and label every disagreement.",
+    "run": "One command from tickers to their validation page: every step below, then the scorecard.",
+    "ingest": "List 10-Ks, fetch and parse them, locate the statements, load the XBRL answer key.",
+    "extract": "Pack agent tasks, run the agent headless (--run), load and check its citations (--load).",
+    "reconcile": "Build fiscal-year values and label each against the XBRL answer key.",
     "rules": "Run the rule registry and write exceptions.",
     "faults": "Corrupt real extractions one at a time and report what catches each fault.",
-    "run": "One command from tickers to their validation page: ingest, agent, checks, evidence, report, scorecard.",
-    "review": "Work the exception queue and record decisions.",
     "evidence": "Re-read every cited cell on the rendered 10-K and screenshot it, boxed.",
-    "report": "Write the validation page for a stage (reports/stage<N>-validation.html).",
+    "report": "Write the validation page (reports/<name>-validation.html).",
+    "review": "List open items and record decisions.",
     "release": "Build a versioned release (refuses while any gate fails).",
     "signoff": "Record who signed a release.",
 }
 
 
 def main(argv: list[str] | None = None) -> int:
-    p = argparse.ArgumentParser(prog="python -m ledger", description=__doc__.splitlines()[0])
+    p = argparse.ArgumentParser(prog="python -m ledger", description=__doc__)
     sub = p.add_subparsers(dest="cmd", metavar="command")
     for name, help_ in COMMANDS.items():
         sub.add_parser(name, help=help_, add_help=False)
@@ -30,18 +27,7 @@ def main(argv: list[str] | None = None) -> int:
     if not args.cmd:
         p.print_help()
         return 0
-    if args.cmd == "reference":
-        from .reference.run import main as run
-        sys.argv = ["ledger reference", *rest]
-        run()
-        return 0
-    import importlib
-    try:
-        mod = importlib.import_module(f".cli.{args.cmd}", __package__)
-    except ModuleNotFoundError:
-        print(f"'{args.cmd}' is not built yet. See docs/TICKETS.md.", file=sys.stderr)
-        return 2
-    return mod.main(rest) or 0
+    return importlib.import_module(f".cli.{args.cmd}", __package__).main(rest) or 0
 
 
 if __name__ == "__main__":

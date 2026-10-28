@@ -1,4 +1,4 @@
-"""T70–T72: decisions on exceptions. Append-only log in decisions/decisions.jsonl; the latest decision per exception
+"""Decisions on exceptions. Append-only log in decisions/decisions.jsonl; the latest decision per exception
 counts, and only while the exception's input hash is unchanged (a changed input reopens it)."""
 import json
 import uuid
@@ -22,7 +22,7 @@ def latest(ds: list[dict]) -> dict:
 
 
 def open_items(exceptions: list[dict], ds: list[dict]) -> list[dict]:
-    """Block and warn exceptions without a current decision, blocking first, latest quarter first."""
+    """Block and warn exceptions without a current decision, blocking first, latest fiscal year first."""
     cur = latest(ds)
     todo = [e for e in exceptions if e["severity"] != "info" and cur.get(e["exception_id"], {}).get("input_hash") != e["input_hash"]]
     return sorted(todo, key=lambda e: (e["severity"] != "block", -int((e["period"] or "FY0000")[2:]), e["ticker"], e["exception_id"]))

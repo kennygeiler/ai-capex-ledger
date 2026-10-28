@@ -1,4 +1,4 @@
-"""python -m ledger extract --stage N | --ticker X …  --pack | --run | --load   (T41–T44, M1.2)
+"""python -m ledger extract --stage N | --ticker X …  --pack | --run | --load
 
 --pack  writes one task file per filing to data/extract/tasks/ (statement tables only; no XBRL).
 --run   packs, then runs the agent headless (`claude -p`, ledger/agent.py) on every filing with no output yet
@@ -44,13 +44,12 @@ def main(argv=None) -> int:
     g.add_argument("--load", action="store_true")
     ap.add_argument("--rerun", action="store_true", help="with --run: also re-read filings that already have an output")
     ap.add_argument("--workers", type=int, default=4)
-    ap.add_argument("--find", action="store_true", help="with --pack: give agents every table, not the located statements")
     a = ap.parse_args(argv)
     tickers, name = scope(a)
     con = store.init(a.db)
     docs = _parsed(con, tickers)
     if a.pack or a.run:
-        paths = write_tasks(docs, a.find)
+        paths = write_tasks(docs)
         print(f"{len(paths)} tasks in {paths[0].parent.relative_to(store.ROOT)} ({PROMPT_VERSION})")
     if a.pack:
         return 0

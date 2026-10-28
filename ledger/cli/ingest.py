@@ -1,10 +1,9 @@
-"""python -m ledger ingest --stage N   (T10–T14, T22, T100)
+"""python -m ledger ingest --stage N | --ticker X …
 
-For the stage's companies: list filings, fetch primary documents (cached), parse tables, locate statements, write
+For the companies: list filings, fetch primary documents (cached), parse tables, locate statements, write
 data/docs/<cik>/<accession>.tables.json and a `documents` row each, load reference values, log a `runs` row per step.
 """
 import argparse
-import csv
 import hashlib
 import json
 import time
@@ -12,9 +11,11 @@ from datetime import datetime, timezone
 
 from .. import store
 from ..config import MVP_YEARS, add_scope, scope
+
 from ..ingest.filings import fetch_documents, list_filings
 from ..ingest.statements import assemble, locate
 from ..ingest.tables import PARSER_VERSION, document_units, parse_tables
+from ..reference.normalize import company_years
 
 DOCS = store.ROOT / "data" / "docs"
 
@@ -36,13 +37,17 @@ def parse_one(f) -> dict:
 
 
 def load_reference(con, tickers: list[str]) -> int:
+    """The XBRL answer key for these companies (ledger/reference), for the fiscal years in the window."""
     rows = []
-    for r in csv.DictReader(open(store.ROOT / "data" / "clean" / "facts.csv")):
-        if r["ticker"] in tickers and r["metric"] in ("revenue", "capex", "opex", "operating_income") and r["period_type"] == "year" and r["fy_key"] in MVP_YEARS:
-            rows.append({"ticker": r["ticker"], "field": r["metric"], "period": r["fy_key"], "value": int(float(r["value"])),
-                         "method": r["method"], "concept": r["concept"], "period_start": r["period_start"], "period_end": r["period_end"],
-                         "accession": r["accession"], "restated": r["restated"] == "True",
-                         "original_value": int(float(r["original_value"])) if r["original_value"] else None})
+    for t in tickers:
+        for metric, years in company_years(t).items():
+            if metric not in ("revenue", "capex", "opex", "operating_income"):
+                continue
+            for k, r in years.items():
+                if k in MVP_YEARS:
+                    rows.append({"ticker": t, "field": metric, "period": k, "value": int(r["value"]), "method": r["method"], "concept": r["concept"],
+                                 "period_start": r["period_start"], "period_end": r["period_end"], "accession": r["accession"],
+                                 "restated": bool(r["restated"]), "original_value": r["original_value"]})
     con.execute("DELETE FROM reference_values WHERE ticker IN (SELECT unnest(?))", [tickers])
     return store.write(con, "reference_values", rows)
 

@@ -1,4 +1,4 @@
-"""T20/T21/T23: the DuckDB store, its contracts, and the data dictionary, all generated from one schema definition.
+"""The DuckDB store, its contracts, and the data dictionary, all generated from one schema definition.
 
 Every table is declared once in SCHEMA. From it come:
   - the DDL (`init`),
@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 
 import duckdb
@@ -42,7 +42,6 @@ class Table:
     doc: str
     cols: tuple[Col, ...]
     key: tuple[str, ...]
-    unique: tuple[tuple[str, ...], ...] = field(default=())
 
 
 def _c(name, type_, doc, **kw):

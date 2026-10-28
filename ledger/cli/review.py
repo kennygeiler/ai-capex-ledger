@@ -1,5 +1,5 @@
-"""python -m ledger review --stage N                      list open exceptions
-python -m ledger review --stage N decide <id> accept|override|reject --reason "..." --by "..." [--value N]"""
+"""python -m ledger review --stage N | --ticker X …                      list open exceptions
+python -m ledger review --stage N | --ticker X … decide <id> accept|override|reject --reason "..." --by "..." [--value N]"""
 import argparse
 
 from .. import store

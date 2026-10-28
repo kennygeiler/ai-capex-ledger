@@ -1,4 +1,4 @@
-"""T90–T94: a release is a folder of plain files whose content hash a person signs. It is built only when every gate passes."""
+"""A release is a folder of plain files whose content hash a person signs. It is built only when every gate passes."""
 import csv
 import hashlib
 import io

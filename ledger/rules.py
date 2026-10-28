@@ -1,4 +1,4 @@
-"""T30: the rule registry. Each rule lives in rules/<id>.yaml (what it checks, why, how severe, which check function and
+"""The rule registry. Each rule lives in rules/<id>.yaml (what it checks, why, how severe, which check function and
 parameters). This module holds the check functions and the engine that runs them and writes `exceptions`.
 
 A check receives a Context (plain lists and dicts, so tests can build one by hand) and returns Findings. The engine
@@ -40,9 +40,6 @@ class Context:
     years: list[str] = field(default_factory=list)
     tickers: list[str] = field(default_factory=list)  # every company asked for, including any with no 10-K
     today: date = field(default_factory=date.today)   # coverage: a year whose 10-K isn't due yet isn't missing
-
-    def ext_by_id(self):
-        return {e["extraction_id"]: e for e in self.extractions}
 
 
 def _days(e: dict) -> int:

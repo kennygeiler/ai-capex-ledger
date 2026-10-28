@@ -72,6 +72,21 @@ Every failure, by type:
 
 Not failures: 6 `row_label_switch` warnings are lines renamed between filings ("Revenue" → "Total revenue"), and 17 `jump` warnings are real growth. Both are working as intended.
 
+## M2 run 2 (28 Oct, after fixing types 2–6): all 19 companies
+
+`ledger run --stage 3`: 72 10-Ks, 59 of them read fresh by the headless agent. Results:
+- 234 values: 224 agree with XBRL, 6 are labelled by code (`definition_gap`), and 4 are the APLD recast already decided.
+- 857/857 cited cells confirmed on the rendered 10-K, and 3,104/3,104 moved citations noticed.
+- 0 of 4,270 planted faults escaped.
+- 0 items for a person. `no_10k_yet` names SpaceX and the years before CRWV's and IREN's first 10-Ks.
+
+Two more types surfaced, both in the re-read:
+
+| # | Type | Where | Fix |
+|---|---|---|---|
+| 7 | A zero-width space inside a cell's text | one FY2022 10-K | Ignored when comparing numbers. |
+| 8 | A row label repeats in one table (Oracle lists "Services" under revenues and again under expenses) | ORCL FY2022 10-K | The re-read uses the row that shows the cited text. |
+
 ## Scorecard
 
 What each company cost. `ledger run` prints this, and each validation page shows it. Code changes are counted by hand from the log above.
@@ -82,9 +97,9 @@ What each company cost. `ledger run` prints this, and each validation page shows
 | AMD | `ledger run`, unattended | 0.5 min (2 filings) | 16,302 | 0 | 0 (3 warnings: FY2026 not yet ended) | 12/12 |
 | AMZN, GOOGL, META, MRVL, MU, TSLA | blind run 1 | 2.5 min (13 filings) | 99,666 | 0 | 0 | 75/75 |
 | ALAB, CIFR, CORZ, CRDO, IREN, WULF, SPCX | blind run 1 | 3.5 min (13 filings) | 120,630 | types 1–6 above | 15 blocks (types 2–4) | 68/70 |
+| all 19 | run 2, after the fixes | 11.5 min of agent time (all headless filings) | 488,543 | 2 (types 7–8) | 0 | 224/234 (6 explained by code, 4 decided) |
 
 ## Open
 
-- **IREN:** the statement locator misses one filing (176/177). First known failure type for M2.
 - **APLD opex FY2023:** restated with no explanatory sentence found by the cue list. Agrees with XBRL, so not blocking.
 - **First filings:** a wrong-row misread is caught by comparing filings, so a company's first 10-K is less protected.

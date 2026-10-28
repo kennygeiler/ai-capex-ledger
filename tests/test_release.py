@@ -1,4 +1,4 @@
-"""T72 decisions re-apply only on unchanged inputs; T91 gates refuse; T92 same inputs, same hash; T93 diff."""
+"""Decisions re-apply only on unchanged inputs; gates refuse; same inputs, same hash; the diff names changes."""
 import unittest
 
 from ledger.release import build, content_hash, gates, to_check

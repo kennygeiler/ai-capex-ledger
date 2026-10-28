@@ -1,4 +1,4 @@
-"""T10/T11: the MVP filing list and the primary documents behind it.
+"""The 10-K list for each company and the primary documents behind it.
 
 For each company, every 10-K whose fiscal year ends between FIRST_PERIOD and today. A 10-K shows two or three fiscal
 years (smaller filers show two), so reaching back to the FY2022 10-K covers every year in the window; later 10-Ks
@@ -75,7 +75,7 @@ def fetch_documents(filings: list[Filing], refresh: bool = False) -> list[dict]:
 
 
 def report_period_ends(ticker: str) -> list[str]:
-    """Every 10-Q/10-K report-period end the company has filed (submissions API, all pages). The company's fiscal
+    """Every 10-K report-period end the company has filed (submissions API, all pages). The company's fiscal
     calendar, used to date the start of a period without touching XBRL values."""
     tmap, _ = fetch_tickers()
     cik = tmap[ticker]["cik"]
@@ -84,4 +84,4 @@ def report_period_ends(ticker: str) -> list[str]:
     for f in sub["filings"].get("files", []):
         body, _ = _cached(f"https://data.sec.gov/submissions/{f['name']}", RAW / f"{cik:010d}" / f["name"], False, 24 * 30)
         rows += list(_rows(json.loads(body)))
-    return sorted({r["reportDate"] for r in rows if r["form"] in FORMS + ("10-K/A", "10-Q/A", "10-KT") and r["reportDate"]})
+    return sorted({r["reportDate"] for r in rows if r["form"] in FORMS + ("10-K/A", "10-KT") and r["reportDate"]})

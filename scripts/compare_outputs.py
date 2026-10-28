@@ -1,5 +1,5 @@
 """Compare an agent run with the reference run: schema and citation validity, and identical values and citations.
-Used for repeatability (T48) and the no-locator test. Run: uv run python scripts/compare_outputs.py data/extract/find"""
+Used to check that a fresh agent rerun reads the same cells. Run: uv run python scripts/compare_outputs.py <other outputs dir>"""
 import json
 import sys
 from pathlib import Path

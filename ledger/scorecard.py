@@ -1,4 +1,4 @@
-"""What each company cost the pipeline (M1.4): agent time and tokens, what came out, and what still needs a person.
+"""What each company cost the pipeline: agent time and tokens, what came out, and what still needs a person.
 Code changes per company aren't measurable here; they are logged by hand in docs/INGESTION.md."""
 import json
 

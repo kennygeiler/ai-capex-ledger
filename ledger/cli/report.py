@@ -1,6 +1,6 @@
 """python -m ledger report --stage N | --ticker X …   ->  reports/<name>-validation.html
 
-A self-contained page for checking a stage by eye and recording the hand-check (T80/T81):
+A self-contained page for checking a run by eye and recording any hand-check:
   - summary tiles and, per field, a chart of agent vs XBRL by fiscal year,
   - every fiscal-year value with its arithmetic, down to the cited statement cells (highlighted in the parsed table),
   - for a restated or disputed value, the filing's own sentence explaining why past years changed,

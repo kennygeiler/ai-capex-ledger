@@ -1,4 +1,4 @@
-"""python -m ledger rules --stage N   (T30–T32)
+"""python -m ledger rules --stage N | --ticker X …
 
 Loads rules/*.yaml, builds the context for the stage's companies from the store, runs every rule, and replaces the
 stage's rule exceptions. (`extraction_failed` exceptions come from `extract --load` and are left alone.)

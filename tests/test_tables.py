@@ -1,4 +1,4 @@
-"""T12: the table parser and statement locator on real filing excerpts (tests/fixtures/filings/)."""
+"""The table parser and statement locator on real filing excerpts (tests/fixtures/filings/)."""
 import json
 import unittest
 from pathlib import Path

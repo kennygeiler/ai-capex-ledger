@@ -1,4 +1,4 @@
-"""T13: find the income statement and the cash-flow statement among a filing's tables.
+"""Find the income statement and the cash-flow statement among a filing's tables.
 
 Scored on row labels, not captions (captions are often outside the table or missing). The primary statements are
 the tables that carry the whole statement: revenue down to earnings per share, or all three cash-flow sections.

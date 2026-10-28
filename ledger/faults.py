@@ -20,7 +20,7 @@ def _span(label):
     return m.group(0).lower() if m else ""
 
 
-def _move(e, t, row, col, value_sign=1):
+def _move(e, t, row, col):
     cell = next((c for c in row["cells"] if c["col"] == col), None)
     if not cell or not cell["value"]:
         return None

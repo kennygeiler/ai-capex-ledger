@@ -1,4 +1,4 @@
-"""T12: parse the tables out of a filing's HTML, keeping only what a reader sees.
+"""Parse the tables out of a filing's HTML, keeping only what a reader sees.
 
 Inline-XBRL tags (ix:nonFraction and friends) are unwrapped to their visible text and their attributes dropped:
 the agent must find "capex" the way it would in a PDF, from row labels and headings, not from a us-gaap tag name.
@@ -11,7 +11,6 @@ For each table the parser keeps:
 
 Table IDs are positional ("t0042") and stable for an unchanged document and parser version.
 """
-import hashlib
 import html
 import re
 from html.parser import HTMLParser
@@ -103,14 +102,6 @@ class _Collector(HTMLParser):
             self._cell.append(data)
         elif not self._depth:
             self.text_since_table.append(data)
-
-
-def _expand(row: list[tuple[str, int]]) -> list[str]:
-    """Colspans expanded: a cell spanning 3 slots fills all 3 with its text."""
-    out = []
-    for text, span in row:
-        out.extend([text] * span)
-    return out
 
 
 def _cells(row: list[tuple[str, int]]) -> list[tuple[int, str]]:
@@ -244,10 +235,3 @@ def document_units(doc: bytes | str) -> list[dict]:
                         "context": text[max(0, m.start() - 120):m.end() + 40].strip()})
     return sorted(out, key=lambda u: u["offset"])
 
-
-def doc_hash(doc: bytes) -> str:
-    return hashlib.sha256(doc).hexdigest()
-
-
-def unescape(s: str) -> str:
-    return html.unescape(s)
