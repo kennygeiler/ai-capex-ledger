@@ -12,10 +12,10 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 - **Outputs:** every blank says why (10-K not filed yet, before first 10-K, not in this release); metric definitions sit beside the picker; the CSV export adds the fiscal year end and the reason.
 - **Old DATAHQ artifact** is labelled a frozen snapshot; its exporter (`scripts/datahq.py`, `reports/datahq/`) is removed. The app is the live DATAHQ: `uv run python -m ledger app`, http://127.0.0.1:3610.
 
-**Next:**
-1. **Claude:** new-filing watcher: check SEC daily for new 10-Ks, run `ledger run` on them, refresh DATAHQ.
-2. **Claude (M3):** group review items by cause, so that one decision covers all of them, and make the hand-check file name match `release` for ticker runs.
-3. **Later:** `DIFF.md` lists added values; prompt `statements@v3` (v2 still explains quarterly columns; needs an agent rerun).
+**Next:** the demo goal is met: a working pipeline with oversight (agents read, code checks, a person decides and signs, every step visible in DATAHQ). Optional, only if needed:
+1. New-filing watcher: check SEC daily for new 10-Ks and run `ledger run` on them.
+2. Make the hand-check file name match `release` for single-ticker runs.
+3. `DIFF.md` lists added values; prompt `statements@v3` (v2 still explains quarterly columns; needs an agent rerun).
 
 **Critical notes:**
 - **Dashes are zero.** APLD's newest 10-K shows "—" for its data-center cost line in FY2024 and FY2025; agents read these as 0.
