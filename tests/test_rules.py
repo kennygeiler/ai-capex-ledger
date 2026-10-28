@@ -1,5 +1,6 @@
 """T33: every rule has a fixture it passes and a fixture it fails, and the registry loads cleanly."""
 import copy
+from datetime import date
 import unittest
 from pathlib import Path
 
@@ -125,6 +126,14 @@ for _rid in sorted(RULES):
     _p, _f = _make(_rid)
     setattr(EachRule, f"test_{_rid}_passes", _p)
     setattr(EachRule, f"test_{_rid}_fails", _f)
+
+
+class Coverage(unittest.TestCase):
+    def test_a_year_whose_10k_isnt_due_is_not_missing(self):
+        vals = [{**val("revenue", "FY2025", 1), "period_end": "2025-12-31"}]
+        ctx = lambda today: Context(values=vals, extractions=[], years=["FY2025", "FY2026"], today=today)
+        self.assertEqual(run(ctx(date(2026, 10, 28)), [RULES["coverage"] | {"params": {"fields": ["revenue"], "filing_days": 90}}]), [])
+        self.assertTrue(run(ctx(date(2027, 4, 1)), [RULES["coverage"] | {"params": {"fields": ["revenue"], "filing_days": 90}}]))
 
 
 class CostLines(unittest.TestCase):

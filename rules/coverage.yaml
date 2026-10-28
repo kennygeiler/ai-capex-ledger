@@ -1,6 +1,6 @@
 id: coverage
 severity: warn
-description: Every released field has a value (or a stated reason) for every fiscal year in the window.
+description: Every released field has a value (or a stated reason) for every fiscal year in the window. A year after the newest 10-K is not missing until that year's 10-K is due (90 days after the year ends).
 rationale: A gap must carry a reason. It is never silently left out or filled.
 owner: Kenny Geiler
 check: coverage
@@ -9,6 +9,7 @@ params:
   - revenue
   - capex
   - opex
+  filing_days: 90
 title: A number is missing.
 plain: There is no value for this fiscal year. Usually the company wasn't public yet, or hasn't filed that year's
   10-K yet.

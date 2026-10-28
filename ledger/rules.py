@@ -10,7 +10,7 @@ import hashlib
 import json
 import re
 from dataclasses import dataclass, field
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 import yaml
@@ -38,6 +38,7 @@ class Context:
     reference: dict = field(default_factory=dict)   # (ticker, field, period) -> reference row
     parsed: dict = field(default_factory=dict)      # accession -> parsed document (statements)
     years: list[str] = field(default_factory=list)
+    today: date = field(default_factory=date.today)   # coverage: a year whose 10-K isn't due yet isn't missing
 
     def ext_by_id(self):
         return {e["extraction_id"]: e for e in self.extractions}
@@ -223,9 +224,24 @@ def _jump(ctx, p):
 
 @check("coverage")
 def _coverage(ctx, p):
+    """A year after the company's newest 10-K is not missing while that 10-K isn't due yet: the fiscal year hasn't
+    ended, or ended less than `filing_days` ago."""
     have = {(v["ticker"], v["field"], v["period"]) for v in ctx.values}
     tickers = sorted({v["ticker"] for v in ctx.values} | {e["ticker"] for e in ctx.extractions})
-    return [Finding(t, f"no {f} value for {q}", f, q) for t in tickers for f in p["fields"] for q in ctx.years if (t, f, q) not in have]
+    newest = {}
+    for v in ctx.values:
+        if v.get("period_end") and v["period"] > newest.get(v["ticker"], ("",))[0]:
+            newest[v["ticker"]] = (v["period"], date.fromisoformat(v["period_end"]))
+
+    def not_due(t, q):
+        if t not in newest or q <= newest[t][0]:
+            return False
+        last, end = newest[t]
+        due = end.replace(year=end.year + int(q[2:]) - int(last[2:])) + timedelta(days=p.get("filing_days", 90))
+        return due > ctx.today
+
+    return [Finding(t, f"no {f} value for {q}", f, q) for t in tickers for f in p["fields"] for q in ctx.years
+            if (t, f, q) not in have and not not_due(t, q)]
 
 
 @check("restated")
