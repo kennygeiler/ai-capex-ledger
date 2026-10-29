@@ -1,0 +1,84 @@
+{
+ "ticker": "MU",
+ "prompt_version": "attribution@v1",
+ "model": "component_supplier@v1",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The May 29, 2025 earnings release says Micron is making 'disciplined investments' in technology and manufacturing 'to satisfy growing AI-driven memory demand'. It is a company-wide qualitative statement with no HBM/AI share or amount of capex, so no number is attributable. Seller-side signal, not in ai_amount: Cloud Memory (CMBU) revenue was 13,524M in FY2025, up from 3,792M in FY2024.",
+   "confidence": 0.35
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "FY2025 capex was 15,857M in total. The only statement, an in-year outlook, ties the investment to AI-driven memory demand in words only, with no stated HBM/AI share or amount, so the AI part cannot be quantified. Seller-side signal, not in ai_amount: CMBU revenue was 13,524M.",
+   "confidence": 0.3
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no statement attributes FY2022 capex (12,067M) to AI or HBM, and the model allows no segment or ppe_category method for Micron"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no statement attributes FY2023 capex (7,676M) to AI or HBM"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "no statement attributes FY2024 capex (8,386M) to AI or HBM. Seller-side signal only: CMBU revenue 3,792M"
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "capex nearly doubled to 30,712M and CMBU revenue rose to 43,085M, but no FY2026 statement gives an HBM/AI share, amount, or AI rationale for capex, and growth alone is not attributable (memory upcycle trap)"
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "no segment cost line and no statement attributes opex to AI; the FY2025 statement concerns investment and manufacturing, not operating expenses"
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.6,
+  "input_tokens": 8324,
+  "output_tokens": 1782,
+  "attempts": 1,
+  "task_sha": "68c92a13a025d6e3"
+ }
+}

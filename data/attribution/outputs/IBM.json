@@ -1,0 +1,63 @@
+{
+ "ticker": "IBM",
+ "prompt_version": "attribution@v1",
+ "model": "other@v1",
+ "rows": [
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "IBM said cash generation let it increase R&D and acquisition investment, 'strengthening our future AI and hybrid cloud capabilities'. That is total R&D and acquisition spend tied to AI and hybrid cloud together, not an AI part, and no amount is stated. The pack also has no opex value for IBM.",
+   "confidence": 0.3
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no statement scoped to AI capex. Segment capex (e.g. Infrastructure, Software) and PP&E categories (e.g. Information technology equipment) are technology spend, not AI spend, and the other@v1 model forbids estimating from them."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no statement scoped to AI capex. Segment and PP&E category estimates are not allowed under other@v1."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "no statement scoped to AI capex. Segment and PP&E category estimates are not allowed under other@v1."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "no statement scoped to AI capex, and no segment capex in the pack for this year. PP&E category estimates are not allowed under other@v1."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no opex value in the pack and no statement linking opex to AI for this year"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "no opex value in the pack and no statement linking opex to AI for this year"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "no opex value in the pack and no statement linking opex to AI for this year"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.3,
+  "input_tokens": 8234,
+  "output_tokens": 1251,
+  "attempts": 1,
+  "task_sha": "f17e84aff441461d"
+ }
+}

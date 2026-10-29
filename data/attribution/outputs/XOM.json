@@ -1,0 +1,101 @@
+{
+ "ticker": "XOM",
+ "prompt_version": "attribution@v1",
+ "model": "other@v1",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement that names an AI amount or share, or ties capex to AI in words. Segment capex (Upstream, Energy, Chemical, Specialty Products) is oil, gas and chemicals spend, and other@v1 does not allow segment estimates.",
+   "confidence": 0.9
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement that names an AI amount or share, or ties capex to AI in words. Segment capex covers hydrocarbon and chemical operations, and other@v1 does not allow segment estimates.",
+   "confidence": 0.9
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement that names an AI amount or share, or ties capex to AI in words. Pack note: Upstream Non-U.S. segment capex of 94.649B is larger than total capex of 24.306B and looks like an extraction error. It does not affect this row.",
+   "confidence": 0.9
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement that names an AI amount or share, or ties capex to AI in words. Segment capex covers hydrocarbon and chemical operations, and other@v1 does not allow segment estimates.",
+   "confidence": 0.9
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no statement attributes any capex to AI; segments are oil, gas and chemicals, and other@v1 does not allow segment or PP&E estimates"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no statement attributes any capex to AI; segments are oil, gas and chemicals, and other@v1 does not allow segment or PP&E estimates"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "no statement attributes any capex to AI; segments are oil, gas and chemicals, and other@v1 does not allow segment or PP&E estimates"
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "no statement attributes any capex to AI; segments are oil, gas and chemicals, and other@v1 does not allow segment or PP&E estimates"
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "the pack has no opex value and no statement attributing opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "the pack has no opex value and no statement attributing opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "the pack has no opex value and no statement attributing opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "the pack has no opex value and no statement attributing opex to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.2,
+  "input_tokens": 9459,
+  "output_tokens": 1502,
+  "attempts": 1,
+  "task_sha": "321a6e230eb25270"
+ }
+}

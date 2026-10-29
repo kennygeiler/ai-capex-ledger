@@ -1,0 +1,29 @@
+{
+  "$comment": "Output contract for one attribution task: AI's part of a company's capex and opex per fiscal year, with the inputs code recomputes from.",
+  "type": "object",
+  "required": ["ticker", "prompt_version", "model", "rows", "none_found"],
+  "properties": {
+    "ticker": {"type": "string"},
+    "prompt_version": {"type": "string", "const": "attribution@v1"},
+    "model": {"type": "string"},
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["field", "period", "kind", "method", "ai_amount", "ai_share", "inputs", "basis", "confidence"],
+        "properties": {
+          "field": {"enum": ["capex", "opex"]},
+          "period": {"type": "string", "pattern": "^FY\\d{4}$"},
+          "kind": {"enum": ["actual", "outlook"]},
+          "method": {"enum": ["stated_share", "stated_amount", "segment", "ppe_category", "whole_business", "qualitative", "none"]},
+          "ai_amount": {"type": ["integer", "null"]},
+          "ai_share": {"type": ["number", "null"]},
+          "inputs": {"type": "array", "items": {"type": "object", "required": ["id", "value"], "properties": {"id": {"type": "string"}, "value": {"type": "number"}}}},
+          "basis": {"type": "string"},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+        }
+      }
+    },
+    "none_found": {"type": "array", "items": {"type": "object", "required": ["field", "reason"]}}
+  }
+}

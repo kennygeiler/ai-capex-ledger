@@ -1,0 +1,155 @@
+{
+ "ticker": "AVGO",
+ "prompt_version": "attribution@v1",
+ "model": "chip_seller@v1",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of capex (424M, value:AVGO|capex|FY2022) to AI; a chip seller's capex funds fabs, test and R&D equipment, not AI infrastructure. Seller-side signal: Semiconductor solutions segment revenue 25,818M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2022), which includes non-AI products. No AI semiconductor revenue figure is in the pack.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of capex (452M, value:AVGO|capex|FY2023) to AI; a chip seller's capex funds fabs, test and R&D equipment, not AI infrastructure. Seller-side signal: Semiconductor solutions segment revenue 28,182M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2023), which includes non-AI products. No AI semiconductor revenue figure is in the pack.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of capex (548M, value:AVGO|capex|FY2024) to AI; a chip seller's capex funds fabs, test and R&D equipment, not AI infrastructure. Seller-side signal: Semiconductor solutions segment revenue 30,096M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2024), which includes non-AI products. No AI semiconductor revenue figure is in the pack.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of capex (623M, value:AVGO|capex|FY2025) to AI; a chip seller's capex funds fabs, test and R&D equipment, not AI infrastructure. Seller-side signal: Semiconductor solutions segment revenue 36,858M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2025), which includes non-AI products. No AI semiconductor revenue figure is in the pack.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack contains no company statements, so there is no stated AI amount or share of opex (7,870M, value:AVGO|opex|FY2022) and no claim that R&D is AI-driven. Seller-side signal: Semiconductor solutions revenue 25,818M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2022).",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack contains no company statements, so there is no stated AI amount or share of opex (8,483M, value:AVGO|opex|FY2023) and no claim that R&D is AI-driven. Seller-side signal: Semiconductor solutions revenue 28,182M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2023).",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack contains no company statements, so there is no stated AI amount or share of opex (19,046M, value:AVGO|opex|FY2024) and no claim that R&D is AI-driven. The jump from FY2023 coincides with Infrastructure software revenue rising from 7,637M to 21,478M (fact:AVGO|segment_revenue|Infrastructure software|FY2024). Seller-side signal: Semiconductor solutions revenue 30,096M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2024).",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack contains no company statements, so there is no stated AI amount or share of opex (17,810M, value:AVGO|opex|FY2025) and no claim that R&D is AI-driven. Seller-side signal: Semiconductor solutions revenue 36,858M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2025).",
+   "confidence": 0.8
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "chip seller; no stated AI amount or share of its own capex, and the pack has no statements"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "chip seller; no stated AI amount or share of its own capex, and the pack has no statements"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "chip seller; no stated AI amount or share of its own capex, and the pack has no statements"
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "chip seller; no stated AI amount or share of its own capex, and the pack has no statements"
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no statements"
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no statements"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no statements"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no statements"
+  },
+  {
+   "field": "capex",
+   "period": "outlook",
+   "reason": "no statements with kind: outlook in the pack"
+  },
+  {
+   "field": "opex",
+   "period": "outlook",
+   "reason": "no statements with kind: outlook in the pack"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.3,
+  "input_tokens": 6836,
+  "output_tokens": 2502,
+  "attempts": 1,
+  "task_sha": "36a169b988d5a308"
+ }
+}

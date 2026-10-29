@@ -1,0 +1,127 @@
+{
+ "ticker": "CORZ",
+ "prompt_version": "attribution@v1",
+ "model": "miner_to_hpc@v1",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no Colocation/HPC segment capex and no GPU/HPC PP&E category. MD&A (Dec 31, 2024) describes converting a significant portion of the data centers to HPC hosting, and Colocation/HPC hosting revenue of $24.4M began in FY2024. The FY2024 AI share of the $95.0M capex cannot be quantified. Construction in progress is not HPC-specific, so it is not used.",
+   "confidence": 0.3
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no Colocation segment capex and no HPC-specific PP&E category. Construction in progress rose to $911.1M, but the note does not separate HPC from other work. Statements describe roughly $750M of CoreWeave-funded build-out plus $104M of company-funded powered shell for HPC. These are outlooks, not reported FY2025 spend, so FY2025 actual AI capex (of $729M total) is not quantified. The GPUs are the tenant's.",
+   "confidence": 0.3
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "stated_amount",
+   "ai_amount": 750000000,
+   "ai_share": 1.0288,
+   "inputs": [
+    {
+     "id": "stmt:CORZ|earnings_release|2024-09-30|55293aba|capex|FY2025|outlook|0",
+     "value": 750000000
+    }
+   ],
+   "basis": "Up to $1.5M per HPC MW, about $750M, of data-center build-out for CoreWeave. CoreWeave funds it and it is credited against hosting payments. This is shell and fit-out; the GPUs are the tenant's. The separate $104M company-funded 70 MW expansion is not added. The $1.14B commitment is excluded because it is a company total. The share exceeds 1 against FY2025 actual capex of $729M because the build-out spans more than one year.",
+   "confidence": 0.5
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "stated_amount",
+   "ai_amount": 104000000,
+   "ai_share": null,
+   "inputs": [
+    {
+     "id": "stmt:CORZ|earnings_release|2025-12-31|d6cb4394|capex|FY2026|outlook|0",
+     "value": 104000000
+    }
+   ],
+   "basis": "Core Scientific funds $104M ($1.5M/MW) of powered core and shell for the additional 70 MW CoreWeave expansion, with no capex credit. The same sentence is repeated across several releases, so the timing is uncertain. The pack has no FY2026 capex value.",
+   "confidence": 0.4
+  },
+  {
+   "field": "capex",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "stated_amount",
+   "ai_amount": 104000000,
+   "ai_share": null,
+   "inputs": [
+    {
+     "id": "stmt:CORZ|earnings_release|2026-03-31|3a57a46a|capex|FY2027|outlook|0",
+     "value": 104000000
+    }
+   ],
+   "basis": "This is the same $104M company-funded 70 MW powered-shell commitment, repeated in the Q1 2026 release. It likely overlaps the FY2026 outlook rather than adding to it. The pack has no FY2027 capex value.",
+   "confidence": 0.3
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "Before the pivot: mining and hosting-for-miners only, with no HPC segment or statement."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "Before the pivot: no HPC/colocation segment, revenue or statement."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "No segment capex, HPC PP&E category or stated FY2024 AI amount; qualitative only."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "No segment capex or HPC-specific PP&E category; the statements are outlooks; qualitative only."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "No AI segment cost line and no statement attributes opex to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "No AI segment cost line and no statement attributes opex to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "Colocation revenue exists, but the pack has no Colocation cost of revenue."
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "Colocation revenue exists, but the pack has no Colocation cost of revenue."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 25.0,
+  "input_tokens": 9280,
+  "output_tokens": 3031,
+  "attempts": 1,
+  "task_sha": "c3a1a0d17043b184"
+ }
+}

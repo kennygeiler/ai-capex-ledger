@@ -6,7 +6,13 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (30 Oct 2026):** step three of the plan: more sources for AI spend.
+**Last done (30 Oct 2026, later):** step four of the plan: the attribution layer.
+- **Money-flow models**, one per industry in `agents/models/` (hyperscaler, neocloud, miner-to-HPC, chip seller, component supplier, other), each saying where AI money shows up for that kind of business, which methods are allowed in order of hardness, and the traps. Versioned like prompts; `agents.json` names the version in use per industry; `config.INDUSTRIES` maps companies to models.
+- **The attributor** (`ledger attribution`, in `ledger run` after `notes`): one task per company (the model plus the data pack: values, facts, what the company said). Output rows carry the method, the amount, every input by id and a basis in words; code looks the inputs up and recomputes the amount (a stated share × capex, a sum of segment capex, a category's year-on-year growth, the whole business). Editing a model reruns only that industry; `--load` writes `data/attribution/diff.json`.
+- **Numbers:** all 31 companies (29 with values): 223 rows, 38 with an AI dollar amount (9 companies: the five hyperscalers by server-category growth, CoreWeave whole-business, Applied Digital and Core Scientific by segment, IREN by stated amounts); by method 118 none, 67 words only, 22 server-category growth, 6 whole business, 6 stated amount, 4 segment; 0 failed, 0 retries, 9.4 agent minutes, 330k tokens. Microsoft FY2026: 83.0B of 115.9B capex (72%) by that method; Meta FY2025 29.6B (43%); Amazon FY2025 59.3B (45%). Three warnings where segment capex (accrual) exceeds cash capex, explained in the basis. Types 41–43 in `docs/INGESTION.md`.
+- **Shipped with it:** `attribution.csv` in every release with a README section; the company page section "AI attribution" (method, amount, share, confidence; click for the basis and inputs); `ai_amount_within_capex` also checks attributed amounts.
+
+**Before that (30 Oct):** step three of the plan: more sources for AI spend.
 - **`ledger texts`** (in `ledger run`, before `aispend`): one registry of every text the AI spend reader reads, with the fiscal period each speaks to. Three kinds beyond the 10-K MD&A: 8-K earnings releases (Exhibit 99.1, every Item 2.02 8-K since FY2022, through `edgartools`), earnings-call transcripts and CFO commentary from the company's investor page (`sources/ir.yaml`: Meta's 19 transcripts, Nvidia's current year so far; add a company by listing its PDF links). Investor pages sit behind a bot check; code does not render them, a person lists the links from their own browser, and the PDFs download directly and are read with `pypdf`. No paid transcript source.
 - **`aispend` reads every text**, not just the MD&A; `ai_statements` and `ai_spend` carry `text_id` and `source`; the most specific statement wins across sources, newest text breaks ties. `ai_spend.csv` has a `source` column.
 - **Numbers:** all 31 companies, 702 texts (124 MD&A, 555 earnings releases, 21 transcripts, 2 CFO commentaries); 543 asked, 159 had no passage; 244 statements (105 from releases, 82 MD&A, 57 transcripts), 83 AI-spend rows for 17 companies, 8 with an AI dollar amount (IREN, Core Scientific, Applied Digital, Tesla), 21 explicit totals, 62 words only; 0 failed, 0 retries; 65 agent minutes, 4.1M tokens. Transcripts added words, not numbers: Meta's calls give total-capex guidance, not an AI share. Types 35–40 in `docs/INGESTION.md`.
@@ -43,9 +49,8 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 **Released:** `v1.1.0`, all 31 tracked companies (30 with a 10-K), 384 values, signed by Kenny Geiler, hash 794fb2dfadae. 14 decisions applied: the 8 above (four cost-line confirmations, ExxonMobil's revenue definition for four years) plus six earlier. DATAHQ serves it as `/packet/v1.1.0.zip`.
 
 **Next (the plan agreed 29 Oct, in order):**
-1. Money-flow model per industry (hyperscaler, neocloud, miner-to-HPC, chip seller, memory, networking) as versioned documents, and an attribution agent that reads the model plus the facts and emits AI-spend rows with method, confidence, citation. Edit the model, rerun only the agent, see the diff.
-2. DATAHQ in three tabs: Pipeline, Attribution, Insights (money flow buyers to sellers, AI share of capex over time, hard vs stated vs words).
-3. Sign `v1.2.0` (or build `v1.3.0` with `facts.csv` and sign that) (`ledger signoff v1.2.0 --by "Kenny Geiler"`), then DATAHQ serves it as a packet.
+1. DATAHQ in three tabs: Pipeline, Attribution, Insights (money flow buyers to sellers, AI share of capex over time, hard vs stated vs words).
+2. Sign `v1.2.0` (or build `v1.3.0` with `facts.csv` and sign that) (`ledger signoff v1.2.0 --by "Kenny Geiler"`), then DATAHQ serves it as a packet.
 2. L4: 8-K earnings releases through the AI spend reader, where the explicit AI amounts are.
 3. M3.1: one question per cause (XOM shows why).
 
@@ -73,6 +78,7 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 | Notes | `notes --run`, then `notes --load` | Facts from the notes for attribution: capex and revenue per segment, PP&E by category, finance lease liabilities, purchase commitments; a third agent over candidate note tables, every cell resolved; table A `note_extractions`, table B `facts`, checked against the filing's own XBRL instance where the member is tagged |
 | Texts | `texts` | Every text the AI spend reader reads, in the `texts` table with the fiscal period each speaks to: each 10-K's MD&A (Item 7 via `edgartools`), each 8-K earnings release (Exhibit 99.1), and the transcripts and CFO commentary a company's investor page offers, from PDF links a person lists in `sources/ir.yaml` (free; the pages sit behind a bot check that code does not get around, the PDFs download directly) |
 | AI spend | `aispend --run`, then `aispend --load` | What every text says about AI's part of capex and opex: the AI spend reader over the passages that mention AI next to spending, every statement a verbatim quote checked against its passage; table A `ai_statements`, table B `ai_spend` (most specific statement wins, newest text breaks ties, `source` says where it came from) |
+| Attribution | `attribution --run`, then `attribution --load` | AI's part of capex and opex per company and fiscal year: the attributor reads the industry's money-flow model (`agents/models/`) and the company's data pack, names every input, and code recomputes each number by the method's arithmetic; table `attribution`, `attribution.csv` in releases, a diff on every load |
 | Rules | `rules` | Exceptions from the 16 rules in `rules/*.yaml` |
 | Faults | `faults` | Every cell corrupted in typical ways, and what caught each |
 | Evidence | `evidence` | Every cited cell re-read on the 10-K rendered in Chrome; boxed screenshots in `reports/evidence/` (`--faults` proves it notices moved citations) |
@@ -93,6 +99,7 @@ Every command runs as `uv run python -m ledger <command> --stage N` or `--ticker
 | `ledger/agent.py`, `extract.py`, `reconcile.py` | Headless agent; tasks and citation checks; fiscal-year values |
 | `ledger/texts.py`, `sources/ir.yaml` | The text registry: MD&A, 8-K releases, investor-page PDFs; the links a person listed |
 | `ledger/guidance.py` | AI spend from the texts: passages, the quote contract, table B |
+| `ledger/attribution.py`, `agents/models/` | The attributor's data pack, contract and arithmetic; the six money-flow models, versioned |
 | `ledger/notes.py`, `reference/dimensions.py` | Facts from the notes: candidate tables, the cell contract, table B; the filing's XBRL instance with segment and category members as the answer key |
 | `ledger/steps.py`, `ledger/progress.py` | The pipeline's step list; what a run is doing, for DATAHQ's Add page |
 | `airflow/dags/capex_ledger.py` | The same steps as an Airflow DAG (one `BashOperator` each); Airflow is not a dependency, point one at this folder |

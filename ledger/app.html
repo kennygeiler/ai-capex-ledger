@@ -287,6 +287,7 @@ async function companyPage(view, ticker) {
     groups.length > 0 && sect('Your judgement', null, h('div', {class: 'stack', style: 'gap:1.75rem'}, groups.map((g) => questionCard(g)))),
     docs.length > 0 && sect('The numbers', `${int(sc.agree)} of ${int(sc.values)} match the SEC's data`, valueGrid(c.values, questions.some((q) => q.rule === 'cost_lines_summed'))),
     docs.length > 0 && sect('How each number was cleaned', 'from the cell in the 10-K to the released value', cleaningTable(c.values)),
+    c.attribution.length > 0 && sect('AI attribution', `${c.attribution.filter((a) => a.ai_amount != null).length} of ${c.attribution.length} rows carry an AI amount · model ${c.attribution[0].model}`, attributionTable(c.attribution)),
     c.facts.length > 0 && sect('Facts from the notes', `${c.facts.filter((f) => f.label === 'agree').length} of ${c.facts.length} agree with the filing's own XBRL`, factsTable(c.facts)),
     c.ai_spend.length > 0 && sect('What the filing says about AI spend', `${c.ai_spend.filter((a) => a.ai_amount != null).length} of ${c.ai_spend.length} give an AI dollar amount`, aiTable(c.ai_spend)),
     findings.length > 0 && sect('What happened', "a finding the SEC's data can't confirm is worth a look, not a decision", table([{t: 'Year', k: 'period', f: (f) => f.period || '—'}, {t: 'What', k: 'kind', f: (f) => `${KIND[f.kind]}, ${(LABEL[f.field] || f.field || '').toLowerCase()}`}, {t: 'Change', sort: false, f: change}, {t: 'SEC data', k: 'confirmed', f: confirmedCell}], findings)),
@@ -302,6 +303,13 @@ async function companyPage(view, ticker) {
         c.exceptions, {detail: (e) => h('div', {class: 'src'}, h('div', {}, e.message), e.decision && h('div', {class: 'muted'}, `${e.decision.reviewer}, ${day(e.decision.decided_at)}: ${e.decision.reason}`))}))));
 }
 
+const METHOD = {stated_share: 'stated share', stated_amount: 'stated amount', segment: 'segment capex', ppe_category: 'server category growth', whole_business: 'whole business', qualitative: 'words only', none: 'none'};
+function attributionTable(rows) {
+  return table([{t: 'Field', k: 'field', f: (a) => LABEL[a.field] || a.field}, {t: 'Year', k: 'period'}, {t: 'Kind', k: 'kind'}, {t: 'Method', k: 'method', f: (a) => METHOD[a.method] || a.method},
+    {t: 'AI amount', n: 1, k: 'ai_amount', f: (a) => (a.ai_amount != null ? usd(a.ai_amount) : h('span', {class: 'muted'}, '—'))},
+    {t: 'Share', n: 1, k: 'ai_share', f: (a) => (a.ai_share != null ? pct(a.ai_share) : '—')}, {t: 'Confidence', n: 1, k: 'confidence', f: (a) => pct(a.confidence)}],
+    rows, {detail: (a) => h('div', {class: 'src'}, h('div', {}, a.basis), h('div', {class: 'muted small mono'}, a.inputs || '—'))});
+}
 const FACT = {segment_capex: 'Segment capex', segment_revenue: 'Segment revenue', ppe_category: 'PP&E by category', finance_lease_liability: 'Finance lease liabilities', purchase_commitments: 'Purchase commitments'};
 function factsTable(rows) {
   return table([{t: 'Fact', k: 'field', f: (f) => FACT[f.field] || f.field}, {t: 'Segment / category', k: 'dimension', f: (f) => f.dimension || h('span', {class: 'muted'}, 'company')},

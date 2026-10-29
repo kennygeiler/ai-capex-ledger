@@ -1,0 +1,177 @@
+{
+ "ticker": "MRVL",
+ "prompt_version": "attribution@v1",
+ "model": "chip_seller@v1",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any amount or share of Marvell's own capex (169.2M) to AI. A chip seller's capex funds test, R&D equipment and facilities, not AI infrastructure. No data-center end-market revenue fact is in the pack, so the seller-side signal cannot be cited.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any amount or share of Marvell's own capex (206.2M) to AI. A chip seller's capex funds test, R&D equipment and facilities, not AI infrastructure. No data-center end-market revenue fact is in the pack, so the seller-side signal cannot be cited.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any amount or share of Marvell's own capex (336.3M) to AI. A chip seller's capex funds test, R&D equipment and facilities, not AI infrastructure. No data-center end-market revenue fact is in the pack, so the seller-side signal cannot be cited.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any amount or share of Marvell's own capex (284.6M) to AI. A chip seller's capex funds test, R&D equipment and facilities, not AI infrastructure. No data-center end-market revenue fact is in the pack, so the seller-side signal cannot be cited.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any amount or share of Marvell's own capex (354.1M) to AI. A chip seller's capex funds test, R&D equipment and facilities, not AI infrastructure. No data-center end-market revenue fact is in the pack, so the seller-side signal cannot be cited.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement in the pack gives an AI amount or share of opex (2,411.9M), and none describes R&D as AI-driven. Data-center revenue, which would show buyers' AI spend arriving, is not in the pack.",
+   "confidence": 0.7
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement in the pack gives an AI amount or share of opex (2,749.5M), and none describes R&D as AI-driven. Data-center revenue, which would show buyers' AI spend arriving, is not in the pack.",
+   "confidence": 0.7
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement in the pack gives an AI amount or share of opex (2,861.3M), and none describes R&D as AI-driven. Data-center revenue, which would show buyers' AI spend arriving, is not in the pack.",
+   "confidence": 0.7
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement in the pack gives an AI amount or share of opex (3,102.5M), and none describes R&D as AI-driven. Data-center revenue, which would show buyers' AI spend arriving, is not in the pack.",
+   "confidence": 0.7
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement in the pack gives an AI amount or share of opex (2,857.8M), and none describes R&D as AI-driven. Data-center revenue, which would show buyers' AI spend arriving, is not in the pack.",
+   "confidence": 0.7
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "chip seller; no stated AI amount or share of own capex; the pack has no company statements"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "chip seller; no stated AI amount or share of own capex; the pack has no company statements"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "chip seller; no stated AI amount or share of own capex; the pack has no company statements"
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "chip seller; no stated AI amount or share of own capex; the pack has no company statements"
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "chip seller; no stated AI amount or share of own capex; the pack has no company statements"
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no company statements"
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no company statements"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no company statements"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no company statements"
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no company statements"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.2,
+  "input_tokens": 6771,
+  "output_tokens": 2403,
+  "attempts": 1,
+  "task_sha": "fe48f76a91a5c215"
+ }
+}

@@ -1,0 +1,155 @@
+{
+ "ticker": "JPM",
+ "prompt_version": "attribution@v1",
+ "model": "other@v1",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement linking capex to AI and no capex value. Segment and PP&E estimates are not allowed under other@v1.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement linking capex to AI and no capex value. Segment and PP&E estimates are not allowed under other@v1.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement linking capex to AI and no capex value. Segment and PP&E estimates are not allowed under other@v1.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement linking capex to AI and no capex value. Segment and PP&E estimates are not allowed under other@v1.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement quantifying or describing AI opex, such as AI headcount, model costs, or an AI part of the technology budget. It also has no opex value.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement quantifying or describing AI opex, such as AI headcount, model costs, or an AI part of the technology budget. It also has no opex value.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement quantifying or describing AI opex, such as AI headcount, model costs, or an AI part of the technology budget. It also has no opex value.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement quantifying or describing AI opex, such as AI headcount, model costs, or an AI part of the technology budget. It also has no opex value.",
+   "confidence": 0.8
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "The statements section is empty and there is no capex value in the pack. Segment data covers revenue only, and other@v1 forbids segment or PP&E estimates."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "The statements section is empty and there is no capex value in the pack. Segment data covers revenue only, and other@v1 forbids segment or PP&E estimates."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "The statements section is empty and there is no capex value in the pack. Segment data covers revenue only, and other@v1 forbids segment or PP&E estimates."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "The statements section is empty and there is no capex value in the pack. Segment data covers revenue only, and other@v1 forbids segment or PP&E estimates."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "No statement attributes opex to AI, and there is no opex value in the pack. A technology budget would not count as AI opex in any case."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "No statement attributes opex to AI, and there is no opex value in the pack. A technology budget would not count as AI opex in any case."
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "No statement attributes opex to AI, and there is no opex value in the pack. A technology budget would not count as AI opex in any case."
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "No statement attributes opex to AI, and there is no opex value in the pack. A technology budget would not count as AI opex in any case."
+  },
+  {
+   "field": "capex",
+   "period": "outlook",
+   "reason": "There are no statements with kind: outlook in the pack."
+  },
+  {
+   "field": "opex",
+   "period": "outlook",
+   "reason": "There are no statements with kind: outlook in the pack."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.8,
+  "input_tokens": 5917,
+  "output_tokens": 1995,
+  "attempts": 1,
+  "task_sha": "1f037bf8ea220256"
+ }
+}

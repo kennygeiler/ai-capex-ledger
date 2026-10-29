@@ -1,0 +1,187 @@
+{
+ "ticker": "WMT",
+ "prompt_version": "attribution@v1",
+ "model": "other@v1",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement linking FY2022 capex to AI. Segment capex (Walmart U.S., International, Sam's Club) and PP&E categories are retail store, fulfillment and equipment lines, and the other@v1 model does not allow estimating from them.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement linking FY2023 capex to AI. Segment and PP&E category facts exist, but other@v1 does not allow estimating from them, and technology or fixtures spend is not AI capex.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement linking FY2024 capex to AI. Segment and PP&E category facts exist, but other@v1 does not allow estimating from them.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement linking FY2025 capex to AI. Segment and PP&E category facts exist, but other@v1 does not allow estimating from them.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement linking FY2026 capex to AI. Segment and PP&E category facts exist, but other@v1 does not allow estimating from them.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no statement or cost line attributing FY2022 operating expenses to AI.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no statement or cost line attributing FY2023 operating expenses to AI.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no statement or cost line attributing FY2024 operating expenses to AI.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no statement or cost line attributing FY2025 operating expenses to AI.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no statement or cost line attributing FY2026 operating expenses to AI.",
+   "confidence": 0.8
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no AI-scoped statement in the pack; other@v1 forbids segment or PP&E-category estimates"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no AI-scoped statement in the pack; other@v1 forbids segment or PP&E-category estimates"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "no AI-scoped statement in the pack; other@v1 forbids segment or PP&E-category estimates"
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "no AI-scoped statement in the pack; other@v1 forbids segment or PP&E-category estimates"
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "no AI-scoped statement in the pack; other@v1 forbids segment or PP&E-category estimates"
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no statement or cost line attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "no statement or cost line attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "no statement or cost line attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "no statement or cost line attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "reason": "no statement or cost line attributes opex to AI"
+  },
+  {
+   "field": "capex",
+   "period": "outlook",
+   "reason": "no statements with kind: outlook in the pack"
+  },
+  {
+   "field": "opex",
+   "period": "outlook",
+   "reason": "no statements with kind: outlook in the pack"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.4,
+  "input_tokens": 8424,
+  "output_tokens": 2023,
+  "attempts": 1,
+  "task_sha": "8bcb2bfda9cb9d2e"
+ }
+}

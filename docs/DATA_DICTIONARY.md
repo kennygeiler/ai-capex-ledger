@@ -1,6 +1,6 @@
 # Data dictionary
 
-Generated from `ledger/store.py` (schema version 6). Do not edit by hand: run `uv run python -m ledger.store`.
+Generated from `ledger/store.py` (schema version 8). Do not edit by hand: run `uv run python -m ledger.store`.
 
 Money is BIGINT US dollars, unscaled. Dates are `YYYY-MM-DD` strings; timestamps are UTC ISO 8601.
 
@@ -95,16 +95,38 @@ Key: `(ticker, field, period)`
 | `extraction_ids` | VARCHAR | no |  | Extractions used, comma-separated. |
 | `input_hash` | VARCHAR | yes |  | Hash of everything this value depends on; decisions re-apply only when it matches. |
 
+## `texts`
+
+Every text the AI spend reader reads: 10-K MD&A, 8-K earnings releases, investor-page transcripts and CFO commentary, with the fiscal period each speaks to.
+
+Key: `(text_id)`
+
+| Column | Type | Required | Allowed values | Meaning |
+|---|---|---|---|---|
+| `text_id` | VARCHAR | yes |  | Stable ID: ticker|kind|period_end|url hash. |
+| `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
+| `kind` | VARCHAR | yes | `mdna`, `earnings_release`, `transcript`, `cfo_commentary` | mdna, earnings_release, transcript or cfo_commentary. |
+| `accession` | VARCHAR | no | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession when the text is a filing exhibit or section. |
+| `url` | VARCHAR | yes |  | Where it came from. |
+| `date` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Filing or quarter-end date. |
+| `period_end` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | The fiscal period end the text speaks to (year end for MD&A, quarter end otherwise). |
+| `fiscal_year` | INTEGER | yes |  | The company's fiscal year of that period. |
+| `path` | VARCHAR | yes |  | Plain text on disk, relative to the repo root. |
+| `sha256` | VARCHAR | yes | pattern `^[0-9a-f]{64}$` | SHA-256 of the text. |
+| `chars` | INTEGER | yes |  | Length of the text. |
+
 ## `ai_statements`
 
-Table A for AI spend: every statement an agent read in a 10-K's MD&A about AI's part of capex or opex, verbatim.
+Table A for AI spend: every statement an agent read in a text about AI's part of capex or opex, verbatim.
 
 Key: `(statement_id)`
 
 | Column | Type | Required | Allowed values | Meaning |
 |---|---|---|---|---|
-| `statement_id` | VARCHAR | yes |  | Stable ID: accession|field|period|kind|n. |
-| `accession` | VARCHAR | yes | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession number of the filing, e.g. 0001045810-26-000075. |
+| `statement_id` | VARCHAR | yes |  | Stable ID: text_id|field|period|kind|n. |
+| `text_id` | VARCHAR | yes |  | The text it was read from (texts). |
+| `source` | VARCHAR | yes | `mdna`, `earnings_release`, `transcript`, `cfo_commentary` | mdna, earnings_release, transcript or cfo_commentary. |
+| `accession` | VARCHAR | no | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession when the text is a filing. |
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
 | `field` | VARCHAR | yes | `capex`, `opex` | capex or opex. |
 | `period` | VARCHAR | yes | pattern `^FY\d{4}$` | The company's fiscal year, e.g. FY2026 (NVDA's ended 25 Jan 2026). |
@@ -140,7 +162,9 @@ Key: `(ticker, field, period, kind)`
 | `share` | DOUBLE | no |  | As stated. |
 | `ai_amount` | BIGINT | no |  | AI dollars: the midpoint of an explicit AI amount, or an explicit AI share × our value for that year. Null when the filing gives only words or only a total. |
 | `quote` | VARCHAR | yes |  | The sentence behind the row. |
-| `accession` | VARCHAR | yes | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession number of the filing, e.g. 0001045810-26-000075. |
+| `text_id` | VARCHAR | yes |  | The text the quote comes from (texts). |
+| `source` | VARCHAR | yes | `mdna`, `earnings_release`, `transcript`, `cfo_commentary` | mdna, earnings_release, transcript or cfo_commentary. |
+| `accession` | VARCHAR | no | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession when the text is a filing. |
 | `statement_ids` | VARCHAR | yes |  | Statements considered, comma-separated. |
 | `input_hash` | VARCHAR | yes |  | Hash of everything this row depends on. |
 
@@ -193,6 +217,30 @@ Key: `(ticker, field, dimension, period)`
 | `accession` | VARCHAR | yes | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession number of the filing, e.g. 0001045810-26-000075. |
 | `extraction_ids` | VARCHAR | yes |  | Extractions used, comma-separated. |
 | `input_hash` | VARCHAR | yes |  | Hash of everything this row depends on. |
+
+## `attribution`
+
+AI's part of capex and opex per company and fiscal year, attributed by the attributor from the money-flow model and the data pack; every number recomputed by code from its inputs.
+
+Key: `(ticker, field, period, kind)`
+
+| Column | Type | Required | Allowed values | Meaning |
+|---|---|---|---|---|
+| `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
+| `field` | VARCHAR | yes | `capex`, `opex` | capex or opex. |
+| `period` | VARCHAR | yes | pattern `^FY\d{4}$` | The company's fiscal year, e.g. FY2026 (NVDA's ended 25 Jan 2026). |
+| `kind` | VARCHAR | yes | `actual`, `outlook` | actual or outlook. |
+| `method` | VARCHAR | yes | `stated_share`, `stated_amount`, `segment`, `ppe_category`, `whole_business`, `qualitative`, `none` | stated_share, stated_amount, segment, ppe_category, whole_business, qualitative or none. |
+| `ai_amount` | BIGINT | no |  | AI dollars; null for qualitative and none. |
+| `ai_share` | DOUBLE | no |  | ai_amount ÷ the company's value for the field and year. |
+| `confidence` | DOUBLE | yes |  | Agent's confidence, within the model's ceiling for the method. |
+| `basis` | VARCHAR | yes |  | The arithmetic and what the number does and does not include, for a reader. |
+| `inputs` | VARCHAR | yes |  | Pack item ids the number rests on, comma-separated (value:…, fact:…, stmt:…). |
+| `model` | VARCHAR | yes |  | Money-flow model version used, e.g. hyperscaler@v1. |
+| `model_sha256` | VARCHAR | yes |  | Hash of the model text, so a model edit shows in the diff. |
+| `prompt_version` | VARCHAR | yes |  | Prompt version. |
+| `run_id` | VARCHAR | yes |  | Run that produced it. |
+| `input_hash` | VARCHAR | yes |  | Hash of method, amount, inputs and model. |
 
 ## `rules`
 
@@ -255,7 +303,7 @@ Key: `(run_id, step, subject)`
 | Column | Type | Required | Allowed values | Meaning |
 |---|---|---|---|---|
 | `run_id` | VARCHAR | yes |  | Run ID. |
-| `step` | VARCHAR | yes | `run`, `ingest`, `parse`, `extract`, `reconcile`, `aispend`, `notes`, `rules`, `faults`, `evidence`, `report`, `review`, `score`, `release` | Step name. |
+| `step` | VARCHAR | yes | `run`, `ingest`, `parse`, `extract`, `reconcile`, `texts`, `aispend`, `notes`, `attribution`, `rules`, `faults`, `evidence`, `report`, `review`, `score`, `release` | Step name. |
 | `subject` | VARCHAR | no |  | What it ran on (accession, ticker, release). |
 | `started_at` | VARCHAR | yes |  | UTC timestamp. |
 | `seconds` | DOUBLE | yes |  | Wall-clock duration. |

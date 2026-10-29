@@ -71,6 +71,7 @@ def company(ticker: str) -> dict:
                    if json.loads(r["detail"] or "{}").get("ticker") == ticker]
         report = build(con, [ticker], f"stage{STAGE}")
         ai = _rows(con, "select * from ai_spend where ticker = ? order by field, period, kind", ticker)
+        attribution = _rows(con, "select * from attribution where ticker = ? order by field, period, kind", ticker)
         facts = _rows(con, "select f.*, e.table_id, e.row_label, e.column_label, e.cell_text from facts f left join note_extractions e on e.extraction_id = split_part(f.extraction_ids, ',', -1) "
                            "where f.ticker = ? order by f.field, f.dimension, f.period", ticker)
     finally:
@@ -87,7 +88,7 @@ def company(ticker: str) -> dict:
     info = next(c for c in tracked() if c["ticker"] == ticker)
     return {"ticker": ticker, "name": info["name"], "note": info.get("note"), "documents": docs, "skipped": skipped, "exceptions": excs,
             "values": report["values"], "tables": report["tables"], "scorecard": report["scorecard"][0],
-            "release": rel[-1].name if rel else None, "released": len(released), "ai_spend": ai, "facts": facts}
+            "release": rel[-1].name if rel else None, "released": len(released), "ai_spend": ai, "facts": facts, "attribution": attribution}
 
 
 def agents_view() -> dict:

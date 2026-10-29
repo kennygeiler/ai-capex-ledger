@@ -21,6 +21,7 @@ def context(con, tickers) -> Context:
                    reference={(r["ticker"], r["field"], r["period"]): r for r in q("select * from reference_values where ticker in (select unnest(?))")},
                    parsed={d["accession"]: json.loads((store.ROOT / d["tables_path"]).read_text()) for d in docs},
                    ai_spend=q("select * from ai_spend where ticker in (select unnest(?))"),
+                   attribution=q("select * from attribution where ticker in (select unnest(?))"),
                    years=MVP_YEARS, tickers=list(tickers), definitions=load_definitions())
 
 

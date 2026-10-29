@@ -1,0 +1,56 @@
+{
+ "ticker": "COMP",
+ "prompt_version": "attribution@v1",
+ "model": "other@v1",
+ "rows": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "No company statement attributes any capex to AI (the pack has no quotes). The other@v1 model forbids estimating from PP&E categories, and computer equipment and software are technology spend, not AI spend."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "No company statement attributes any capex to AI. The other@v1 model forbids PP&E-category or segment estimates."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "No company statement attributes any capex to AI. The other@v1 model forbids PP&E-category or segment estimates."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "No company statement attributes any capex to AI. The other@v1 model forbids PP&E-category or segment estimates."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "No company statement quantifies or describes AI-related operating expense. Purchase commitments are not tied to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "No company statement quantifies or describes AI-related operating expense. Purchase commitments are not tied to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "No company statement quantifies or describes AI-related operating expense. Purchase commitments are not tied to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "No company statement quantifies or describes AI-related operating expense. Purchase commitments are not tied to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 6015,
+  "output_tokens": 705,
+  "attempts": 1,
+  "task_sha": "3efa82cb53d2ca31"
+ }
+}

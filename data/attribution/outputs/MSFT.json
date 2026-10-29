@@ -1,0 +1,247 @@
+{
+ "ticker": "MSFT",
+ "prompt_version": "attribution@v1",
+ "model": "hyperscaler@v1",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "ppe_category",
+   "ai_amount": 9381000000,
+   "ai_share": 0.3927,
+   "inputs": [
+    {
+     "id": "fact:MSFT|ppe_category|Computer equipment and software|FY2022",
+     "value": 60631000000
+    },
+    {
+     "id": "fact:MSFT|ppe_category|Computer equipment and software|FY2021",
+     "value": 51250000000
+    }
+   ],
+   "basis": "Gross 'Computer equipment and software' 60,631M \u2212 51,250M = 9,381M. This is the predecessor name of 'Servers, network equipment, and software' (FY2025 balances are identical, 132,836M). It counts all server, network and software growth, not only AI, nets out disposals, and includes finance-lease assets; buildings and land are excluded.",
+   "confidence": 0.5
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "ppe_category",
+   "ai_amount": 14330000000,
+   "ai_share": 0.5098,
+   "inputs": [
+    {
+     "id": "fact:MSFT|ppe_category|Computer equipment and software|FY2023",
+     "value": 74961000000
+    },
+    {
+     "id": "fact:MSFT|ppe_category|Computer equipment and software|FY2022",
+     "value": 60631000000
+    }
+   ],
+   "basis": "Gross 'Computer equipment and software' 74,961M \u2212 60,631M = 14,330M. This is the predecessor of the servers and network category. It counts all server and software growth, not only AI, and includes finance-lease assets; buildings and land are excluded.",
+   "confidence": 0.5
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "ppe_category",
+   "ai_amount": 18819000000,
+   "ai_share": 0.4231,
+   "inputs": [
+    {
+     "id": "fact:MSFT|ppe_category|Computer equipment and software|FY2024",
+     "value": 93780000000
+    },
+    {
+     "id": "fact:MSFT|ppe_category|Computer equipment and software|FY2023",
+     "value": 74961000000
+    }
+   ],
+   "basis": "Gross 'Computer equipment and software' 93,780M \u2212 74,961M = 18,819M. It counts all server and software growth, not only AI, and includes finance-lease assets (the finance lease liability grew from 17.1B to 27.1B); buildings and land are excluded.",
+   "confidence": 0.5
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "ppe_category",
+   "ai_amount": 39056000000,
+   "ai_share": 0.605,
+   "inputs": [
+    {
+     "id": "fact:MSFT|ppe_category|Computer equipment and software|FY2025",
+     "value": 132836000000
+    },
+    {
+     "id": "fact:MSFT|ppe_category|Computer equipment and software|FY2024",
+     "value": 93780000000
+    }
+   ],
+   "basis": "Gross 'Computer equipment and software' 132,836M \u2212 93,780M = 39,056M. This is the same balance later reported as 'Servers, network equipment, and software'. It counts all server growth, not only AI, and includes finance-lease assets; buildings and land are excluded.",
+   "confidence": 0.5
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "ppe_category",
+   "ai_amount": 83038000000,
+   "ai_share": 0.7162,
+   "inputs": [
+    {
+     "id": "fact:MSFT|ppe_category|Servers, network equipment, and software|FY2026",
+     "value": 215874000000
+    },
+    {
+     "id": "fact:MSFT|ppe_category|Servers, network equipment, and software|FY2025",
+     "value": 132836000000
+    }
+   ],
+   "basis": "Gross 'Servers, network equipment, and software' 215,874M \u2212 132,836M = 83,038M. It counts all server and network growth, not only AI, and includes finance-lease assets (the finance lease liability grew from 46.2B to 66.6B); buildings (+44.8B) and land are excluded.",
+   "confidence": 0.6
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "FY2023 MD&A: capex expected to increase 'to support growth in our cloud offerings and our investments in AI infrastructure.' This describes total capex and gives no AI amount or share.",
+   "confidence": 0.2
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "FY2024 MD&A: capex expected to increase to support cloud 'and our investments in AI infrastructure and training.' This describes total capex and gives no AI amount or share.",
+   "confidence": 0.2
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "FY2025 MD&A: 'We will continue to invest in capital expenditures to support growth in our cloud offerings and our investments in AI infrastructure and training.' This describes total capex and gives no AI split.",
+   "confidence": 0.2
+  },
+  {
+   "field": "capex",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "FY2026 MD&A: continued capex to support cloud 'and our investments in AI training and other infrastructure.' This describes total capex and gives no AI amount or share. Purchase commitments rose from 110.0B to 194.1B, which points to higher forward spend.",
+   "confidence": 0.2
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "MD&A attributes operating expense and R&D increases to 'investments in cloud and AI engineering' (for example, R&D +3.0B or 10%, alongside Gaming/Activision). The AI part is not separated from cloud or Gaming.",
+   "confidence": 0.25
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "MD&A attributes increases to 'research and development compute capacity, AI talent, and data' (for example, R&D +3.1B or 9%, which includes XBOX impairment). The cost-of-revenue increases tied to AI infrastructure sit outside opex. No AI amount is given.",
+   "confidence": 0.25
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "FY2023 MD&A: investments 'in cloud and AI infrastructure and devices will continue to increase our operating costs.' No amount is given.",
+   "confidence": 0.15
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "FY2024 MD&A: the same boilerplate, that cloud and AI infrastructure investments will increase operating costs. No amount is given.",
+   "confidence": 0.15
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "FY2025 MD&A: the same boilerplate, that cloud and AI infrastructure investments will increase operating costs. No amount is given.",
+   "confidence": 0.15
+  },
+  {
+   "field": "opex",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "FY2026 MD&A: the same boilerplate, that cloud and AI infrastructure investments will increase operating costs. No amount is given.",
+   "confidence": 0.15
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no statement in the pack links FY2022 opex to AI, and there is no segment cost line"
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "no statement in the pack links FY2023 opex to AI, and there is no segment cost line"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "only an outlook statement exists; no actual-year statement or segment cost attributes FY2024 opex to AI"
+  },
+  {
+   "field": "capex",
+   "period": "FY2022\u2013FY2026",
+   "reason": "no stated AI share or AI dollar amount for capex. Rows use server-category PP&E growth, which also includes non-AI servers, software and finance-lease assets"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 30.6,
+  "input_tokens": 10985,
+  "output_tokens": 4257,
+  "attempts": 1,
+  "task_sha": "86a0949d7ca05979"
+ }
+}

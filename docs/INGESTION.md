@@ -147,6 +147,29 @@ our AI efforts" and give totals; the only numbers are total-capex outlooks (Meta
 | 26 | **Scope is loose for words-only statements.** The same kind of sentence gets `scope: ai` in one filing and `total` in the next; scope only has meaning for an amount or share. | GOOGL, META opex | by eye | Open: ignore scope for `qualitative` rows when reading them; or drop it from the contract for that class. |
 | 27 | **The numbers live elsewhere.** Explicit AI amounts and shares appear in earnings-call prepared remarks and 8-K earnings releases (Exhibit 99.1), not in 10-K MD&A. | every hyperscaler | by design | Next: feed Exhibit 99.1 of the 8-K filed with each 10-K (edgartools gives it) through the same agent and contract. |
 
+## Attribution (30 Oct): money-flow models and the attributor
+
+The question, finally answered per company and year: how much of the capex and opex is AI. Six money-flow models
+(`agents/models/<industry>@v1.md`: hyperscaler, neocloud, miner-to-HPC, chip seller, component supplier, other) say
+where AI money shows up for that kind of business and which methods are allowed, hardest first. The attributor
+(`attribution@v1`) reads the model and the company's data pack (values, facts from the notes, what the company said)
+and returns one row per field, fiscal year and kind with the method, the amount, every input by id, and a basis a
+reader can check. Code looks every input up in the pack and recomputes the amount by the method's arithmetic; a
+mismatch is rejected and asked again. Editing a model reruns only that industry; `--load` writes a diff.
+
+Five companies first: 47 rows, 15 with an AI amount, 0 failed, 1 attempt each. All 31: 223 rows for 29 companies, 38
+with an AI amount, 0 failed, 0 retries, 9.4 agent minutes, 330k tokens. Microsoft from growth in the
+server-and-network PP&E category (FY2026: 83.0B of 115.9B capex, 72%); Applied Digital from segment capex; CoreWeave
+whole-business; Nvidia `none` with data-center revenue named in the basis; Tesla words only, correctly declining to add
+two quarterly AI-capex figures into a year.
+
+| # | Type | Where | Caught by | Fix |
+|---|---|---|---|---|
+| 41 | **Segment capex above cash capex.** Applied Digital's HPC segment capex (accrual, ASC 280) exceeds the cash-flow capex: FY2024 287M vs 142M, FY2025 977M vs 682M. The attributor said so in `basis`. | APLD | the attributor; `ai_amount_within_capex` now checks attribution rows too | None in code: the segment number is the right AI number; the warning carries the explanation. A model note could ask for a cash-basis adjustment where the note gives one. |
+| 42 | **Quarterly AI figures not summed.** Tesla states AI-infrastructure capex per quarter in releases ($1.0B Q1, $0.6B Q2 2024) but never the year; the contract forbids the agent to add them. | TSLA FY2024 | by design | Open: a `stated_sum` method over statements that cover the whole year's quarters, checked by code. |
+| 44 | **Alphabet stops at FY2023.** Server-category growth needs two consecutive year-end facts of the same category; Alphabet's "Information technology assets" is in the pack for FY2022–23 only, so FY2024–25 are `none`. | GOOGL | counts | Open: check the notes reader's output for Alphabet's FY2024–25 PP&E note (the category may be worded differently, or the table missed by the locator). |
+| 43 | **Category renamed across years.** Microsoft's server category was "Computer equipment and software" until FY2025 and "Servers, network equipment, and software" after; the agent bridged the rename in `basis` and the arithmetic check passed because both facts are in the pack. | MSFT | none | None; worth a model sentence so every attributor does the same. |
+
 ## More sources for AI spend (30 Oct): releases, transcripts, CFO commentary
 
 `ledger texts` gathers every text the AI spend reader reads into one registry with the fiscal period each speaks to:
@@ -208,6 +231,7 @@ What each company cost. `ledger run` prints this, and each validation page shows
 | AAPL, AVGO, CSCO, QCOM, TXN, WMT | added in DATAHQ, blind | 4.9 min (26 filings) | 201,818 | 0 | 0 | 78/78 |
 | COMP (Compass) | added by Kenny in DATAHQ, blind | 1.2 min (4 filings) | 42,090 | 0 | 1 (cost lines: commissions) | 8/12 (4 opex definition gaps, explained by code) |
 | IBM, INTC, JPM, XOM | added in DATAHQ, blind | 3.7 min (16 filings) | 122,877 | types 16–21, 23 | 5 (XOM: 4 revenue definition, 1 cost lines) | see below |
+| all 31, attribution | `attribution`, `attribution@v1`, six models @v1 | 9.4 min (29 companies) | 330,402 | 0 | 0 (3 warnings: accrual segment capex above cash capex, explained) | 223 rows: 38 AI dollar amounts by server-category growth (22), whole business (6), stated amount (6), segment (4); 67 words only, 118 none |
 | all 31, texts + AI spend | `texts` + `aispend`, `aispend@v3` | 65.5 min (702 texts, 543 asked) | 4,120,870 | 1 (type 35) | 0 | 244 statements → 83 rows: 8 AI dollar amounts, 21 explicit totals, 62 words only; releases gave the most statements, transcripts the most words |
 | all 31, notes | `notes`, blind, `notes@v2` | 70.1 min (124 filings) | 1,879,685 | 4 (types 28–31, 33) | 0 | 1,436 facts: 522 agree with the filing's tags, 27 differ (purchase-commitment definitions, type 34), 887 untagged |
 | all 31, AI spend | `aispend`, blind, `aispend@v2` | 11.6 min (124 filings with an Item 7; 87 asked, 37 had no passage) | 643,212 | 1 (type 24) | 0 | 79 statements → 54 company-year rows: 3 AI dollar amounts (all IREN), 9 company totals with AI as driver (Meta, Tesla, Core Scientific, IREN), 42 words only; IBM, Intel, ExxonMobil, JPMorgan: no passage mentions AI next to spending |

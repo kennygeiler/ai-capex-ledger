@@ -31,6 +31,21 @@ AI_SET = [
     {"ticker": "CORZ", "name": "Core Scientific", "group": "Nasdaq, not S&P 500", "role": "buyer"},
 ]
 
+# How money flows to AI in each company's business: which money-flow model (agents/models/<industry>@vN.md) the
+# attributor reads. A company not listed here gets "other" (no AI attribution beyond what it states).
+INDUSTRIES = {
+    "hyperscaler": ["MSFT", "GOOGL", "AMZN", "META", "ORCL"],
+    "neocloud": ["CRWV"],
+    "miner_to_hpc": ["IREN", "APLD", "CIFR", "WULF", "CORZ"],
+    "chip_seller": ["NVDA", "AMD", "AVGO", "MRVL", "ALAB", "CRDO", "INTC", "QCOM", "TXN"],
+    "component_supplier": ["MU", "ANET", "CSCO"],
+}
+
+
+def industry(ticker: str) -> str:
+    return next((k for k, ts in INDUSTRIES.items() if ticker in ts), "other")
+
+
 # Companies whose history sits under an older CIK (reorganizations). Facts from these CIKs are merged in.
 PREDECESSORS = {
     "XOM": [{"cik": 34088, "name": "Exxon Mobil Corp", "note": "Reorganized under ExxonMobil Holdings Corp (new CIK) in 2026."}],

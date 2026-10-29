@@ -1,0 +1,168 @@
+{
+ "ticker": "APLD",
+ "prompt_version": "attribution@v1",
+ "model": "miner_to_hpc@v1",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 10203000,
+   "ai_share": 0.0777,
+   "inputs": [
+    {
+     "id": "fact:APLD|segment_capex|HPC Hosting Business|FY2023",
+     "value": 9813000
+    },
+    {
+     "id": "fact:APLD|segment_capex|Cloud Services Business|FY2023",
+     "value": 390000
+    }
+   ],
+   "basis": "HPC Hosting Business 9.813M + Cloud Services Business (GPU cloud) 0.390M = 10.203M. The Data Center Hosting (bitcoin) segment's 135.9M is excluded. Segment capex is unverified against XBRL (no_reference).",
+   "confidence": 0.75
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 287381000,
+   "ai_share": 2.0265,
+   "inputs": [
+    {
+     "id": "fact:APLD|segment_capex|HPC Hosting Business|FY2024",
+     "value": 207299000
+    },
+    {
+     "id": "fact:APLD|segment_capex|Cloud Services Business|FY2024",
+     "value": 80082000
+    }
+   ],
+   "basis": "HPC Hosting Business 207.3M + Cloud Services Business 80.1M = 287.4M. Data Center Hosting (bitcoin) 38.3M is excluded. The total exceeds cash capex of 141.8M. The segment figures likely include accrued and finance-lease-funded additions, so the share above 1 is not a fraction of cash capex. The GPUs in the cloud segment are lease-funded.",
+   "confidence": 0.7
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 976506000,
+   "ai_share": 1.4327,
+   "inputs": [
+    {
+     "id": "fact:APLD|segment_capex|HPC Hosting Business|FY2025",
+     "value": 976506000
+    }
+   ],
+   "basis": "HPC Hosting Business segment capex of 976.5M. Data Center Hosting (bitcoin) 9.3M is excluded. This exceeds cash capex of 681.6M, likely because of accrued and non-cash additions. The GPUs are the tenant's; this is the shell and fit-out. HPC segment revenue was 0 in FY2025.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 2988712000,
+   "ai_share": 1.0429,
+   "inputs": [
+    {
+     "id": "fact:APLD|segment_capex|HPC Hosting Business|FY2026",
+     "value": 2988712000
+    }
+   ],
+   "basis": "HPC Hosting Business segment capex of 2,988.7M. Data Center Hosting (bitcoin) 1.2M is excluded. This exceeds cash capex of 2,865.8M, likely because of accrued and non-cash additions. The GPUs are the tenant's; this is the shell and fit-out. The seller-side signal is HPC segment revenue of 385.3M in FY2026, the first year it earned.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2023 10-K MD&A says significant property and equipment investment continues in calendar 2023 to grow the AI cloud services business. This is a qualitative statement about total capex with no amount.",
+   "confidence": 0.4
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2024 MD&A expects significant property and equipment investment through FY2025 for HPC hosting construction and Cloud Services assets. It is total-scope and words only.",
+   "confidence": 0.4
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2025 MD&A expects significant property and equipment investment through FY2026 as HPC hosting construction continues. It is total-scope and words only.",
+   "confidence": 0.4
+  },
+  {
+   "field": "capex",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2026 MD&A expects significant property and equipment investment through FY2027 as HPC hosting construction continues. It is total-scope and words only.",
+   "confidence": 0.4
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "No segment capex facts exist for FY2022, and no PP&E category is AI-specific. This is the year before the pivot, so it is none, not zero."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "There is no AI segment cost line and no statement attributing opex to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "There is no AI segment cost line and no statement attributing opex to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "There is no AI segment cost line and no statement attributing opex to AI. Cloud Services segment revenue exists, but its cost does not."
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "There is no AI segment cost line and no statement attributing opex to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "reason": "There is no AI segment cost line and no statement attributing opex to AI. The pack value also has a definition_gap against SEC data."
+  },
+  {
+   "field": "opex",
+   "period": "FY2027",
+   "reason": "The 2026-08-31 earnings release gives 22.4M of D&A on the Polaris Forge 1 AI Factories, but it is a single quarter's component, not a fiscal-year amount. FY2027 also has no opex value in the pack, so no actual row is allowed."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 26.9,
+  "input_tokens": 9178,
+  "output_tokens": 3460,
+  "attempts": 1,
+  "task_sha": "093e9a3c327e9868"
+ }
+}

@@ -1,0 +1,129 @@
+{
+ "ticker": "CRWV",
+ "prompt_version": "attribution@v1",
+ "model": "neocloud@v1",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "whole_business",
+   "ai_amount": 2943000000,
+   "ai_share": 1.0,
+   "inputs": [
+    {
+     "id": "value:CRWV|capex|FY2023",
+     "value": 2943000000
+    }
+   ],
+   "basis": "A single-segment AI cloud, so all capex is AI infrastructure: ai_amount = capex of 2,943M. This excludes GPU capacity financed through finance leases, which are not added.",
+   "confidence": 0.9
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "whole_business",
+   "ai_amount": 8702000000,
+   "ai_share": 1.0,
+   "inputs": [
+    {
+     "id": "value:CRWV|capex|FY2024",
+     "value": 8702000000
+    }
+   ],
+   "basis": "A single-segment AI cloud, so all capex is AI infrastructure: ai_amount = capex of 8,702M. The finance lease liability of 92M at year end is excluded and not added.",
+   "confidence": 0.9
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "whole_business",
+   "ai_amount": 10309000000,
+   "ai_share": 1.0,
+   "inputs": [
+    {
+     "id": "value:CRWV|capex|FY2025",
+     "value": 10309000000
+    }
+   ],
+   "basis": "A single-segment AI cloud, so all capex is AI infrastructure: ai_amount = capex of 10,309M. The MD&A says investments are primarily servers and network equipment enabling AI models. The finance lease liability of 254M is excluded and not added.",
+   "confidence": 0.9
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "whole_business",
+   "ai_amount": 174000000,
+   "ai_share": 1.0,
+   "inputs": [
+    {
+     "id": "value:CRWV|opex|FY2023",
+     "value": 174000000
+    }
+   ],
+   "basis": "The whole business is renting AI compute, so all opex of 174M is attributed to AI. No segment or stated split exists, so this is a whole-business assumption at lower confidence.",
+   "confidence": 0.7
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "whole_business",
+   "ai_amount": 1098000000,
+   "ai_share": 1.0,
+   "inputs": [
+    {
+     "id": "value:CRWV|opex|FY2024",
+     "value": 1098000000
+    }
+   ],
+   "basis": "The whole business is renting AI compute, so all opex of 1,098M is attributed to AI. No segment or stated split exists, so this is a whole-business assumption at lower confidence.",
+   "confidence": 0.7
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "whole_business",
+   "ai_amount": 3724000000,
+   "ai_share": 1.0,
+   "inputs": [
+    {
+     "id": "value:CRWV|opex|FY2025",
+     "value": 3724000000
+    }
+   ],
+   "basis": "The whole business is renting AI compute, so all opex of 3,724M is attributed to AI. No segment or stated split exists, so this is a whole-business assumption at lower confidence.",
+   "confidence": 0.7
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A says the company plans to keep prioritizing investment in engineering and product teams to extend its technology leadership in AI infrastructure. It gives no amount or share.",
+   "confidence": 0.5
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "no outlook statement on capex in the pack"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.3,
+  "input_tokens": 5877,
+  "output_tokens": 1598,
+  "attempts": 1,
+  "task_sha": "aef238e258ba4af8"
+ }
+}

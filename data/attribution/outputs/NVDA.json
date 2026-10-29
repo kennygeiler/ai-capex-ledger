@@ -1,0 +1,161 @@
+{
+ "ticker": "NVDA",
+ "prompt_version": "attribution@v1",
+ "model": "chip_seller@v1",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement gives an AI amount or share of Nvidia's own capex (976M); a chip seller's capex funds facilities, test and R&D equipment, not AI infrastructure in the ledger's sense. Seller-side signal: Data Center market revenue was 10,613,000,000 (fact:NVDA|segment_revenue|Data Center|FY2022), which is buyers' spend arriving, not Nvidia's AI spend.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement gives an AI amount or share of the 1,833M capex. The FY2023 MD&A mentions multi-year cloud service agreements for AI offerings, but those are purchased cloud capacity, not capex, and no amount is given. Seller-side signal: Data Center revenue 15,005,000,000 (fact:NVDA|segment_revenue|Data Center|FY2023).",
+   "confidence": 0.75
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement gives an AI amount or share of the 1,069M capex; a chip seller's capex funds facilities and engineering equipment, not AI infrastructure. Seller-side signal: Data Center revenue 47,525,000,000 (fact:NVDA|segment_revenue|Data Center|FY2024).",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement gives an AI amount or share of the 3,236M capex. The PP&E growth in Equipment, compute hardware, and software is not labeled AI, so it is not used. Seller-side signal: Data Center revenue 115,186,000,000 (fact:NVDA|segment_revenue|Data Center|FY2025).",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement gives an AI amount or share of the 6,042M capex. The rise in Equipment, compute hardware, and software gross PP&E is not attributed to AI by the company, so it is not used. Seller-side signal: Data Center revenue 193,737,000,000 (fact:NVDA|segment_revenue|Data Center|FY2026).",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A says Nvidia entered multi-year cloud service agreements in 2H FY2023 for its AI cloud offerings and R&D (stmt:NVDA|mdna|2023-01-29|0ad29605|opex|FY2023|actual|0); no amount or share of the 11,132M opex is given. Seller-side signal: Data Center revenue 15,005,000,000.",
+   "confidence": 0.4
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The earnings release says the contracted cloud capacity will be used for NVIDIA AI cloud service offerings and R&D (stmt:NVDA|earnings_release|2023-01-29|af5f726b|opex|FY2024|outlook|0); no amount is stated.",
+   "confidence": 0.35
+  },
+  {
+   "field": "opex",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Guidance raised total FY2027 opex growth from the upper-40s% to the low-50s% year over year, driven by higher R&D, a broader product portfolio and more use of AI tools (stmt:NVDA|transcript|2026-04-26|2ee4a07c|opex|FY2027|outlook|0, stmt:NVDA|transcript|2026-07-26|3c80bdad|opex|FY2027|outlook|0). This is the total opex outlook, not an AI part, and no AI amount is stated.",
+   "confidence": 0.3
+  },
+  {
+   "field": "opex",
+   "period": "FY2028",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Management says Nvidia will make the investments necessary to deliver the lowest cost per token and the highest token throughput (stmt:NVDA|transcript|2026-04-26|2ee4a07c|opex|FY2028|outlook|1). The statement is generic and gives no amount, share or opex line.",
+   "confidence": 0.2
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no stated AI amount or share of own capex; chip-seller capex is facilities and equipment, not AI infrastructure"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no stated AI amount or share of own capex; the cloud service agreements are not capex"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "no stated AI amount or share of own capex"
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "no stated AI amount or share of own capex; the PP&E category growth is not labeled AI"
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "no stated AI amount or share of own capex; the PP&E category growth is not labeled AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no statement attributes opex or R&D to AI and no stated amount or share"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "only an outlook statement from the prior year; no actual-year statement, stated amount or share"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "no statement attributes opex to AI and no stated amount or share"
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "reason": "no statement attributes opex to AI and no stated amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 23.8,
+  "input_tokens": 9771,
+  "output_tokens": 2881,
+  "attempts": 1,
+  "task_sha": "911cb7d89e8e90ad"
+ }
+}

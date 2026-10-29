@@ -12,6 +12,7 @@ COMMANDS = {
     "texts": "Gather every text the AI spend reader reads: 10-K MD&A, 8-K earnings releases, investor-page transcripts and CFO commentary (sources/ir.yaml).",
     "notes": "Read segment capex and revenue, PP&E by category, finance leases and purchase commitments from the notes (--run), check every cell and load (--load).",
     "aispend": "Read what each 10-K's MD&A says about AI's part of capex and opex (--run), check every quote and load it (--load).",
+    "attribution": "Attribute capex and opex to AI per company from the industry's money-flow model and the data (--run), recompute and load (--load).",
     "rules": "Run the rule registry and write exceptions.",
     "faults": "Corrupt real extractions one at a time and report what catches each fault.",
     "evidence": "Re-read every cited cell on the rendered 10-K and screenshot it, boxed.",

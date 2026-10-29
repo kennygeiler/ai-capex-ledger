@@ -1,0 +1,144 @@
+{
+ "ticker": "CSCO",
+ "prompt_version": "attribution@v1",
+ "model": "component_supplier@v1",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Cisco's capex (477M) is small and not AI-driven per the component_supplier model; no segment capex, stated share, or statement ties it to AI. Seller-side AI signal would be Networking segment revenue, which is not in the pack.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Cisco's capex (849M) is small and not AI-driven per the component_supplier model; no segment capex, stated share, or statement ties it to AI.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Cisco's capex (670M) is small and not AI-driven per the component_supplier model; no segment capex, stated share, or statement ties it to AI.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Cisco's capex (905M) is small and not AI-driven per the component_supplier model; no segment capex, stated share, or statement ties it to AI.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Cisco's capex (1.41B) rose but no statement or segment ties it to AI; PP&E categories (production/engineering equipment, buildings) are general and not AI-specific, so ppe_category is not used.",
+   "confidence": 0.75
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "MD&A says R&D expenses increased partly due to 'higher headcount-related expenses reflecting our investments in AI', alongside share-based comp, acquisition cash comp and discretionary spending; no amount or share of opex is given.",
+   "confidence": 0.3
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "MD&A says R&D expenses increased partly due to 'higher headcount-related expenses reflecting our investments in AI', alongside discretionary spending and share-based comp; no amount or share of opex is given.",
+   "confidence": 0.3
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no segment capex, stated AI share or amount; model treats Cisco capex as not AI"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no segment capex, stated AI share or amount; model treats Cisco capex as not AI"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "no segment capex, stated AI share or amount; model treats Cisco capex as not AI"
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "no segment capex, stated AI share or amount; model treats Cisco capex as not AI"
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "no segment capex, stated AI share or amount; model treats Cisco capex as not AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "AI cited only qualitatively as one driver of the R&D increase; no amount or share"
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "reason": "AI cited only qualitatively as one driver of the R&D increase; no amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.0,
+  "input_tokens": 7272,
+  "output_tokens": 1953,
+  "attempts": 1,
+  "task_sha": "a82400004eb744a8"
+ }
+}

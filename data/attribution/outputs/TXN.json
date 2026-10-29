@@ -1,0 +1,155 @@
+{
+ "ticker": "TXN",
+ "prompt_version": "attribution@v1",
+ "model": "chip_seller@v1",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of TXN's FY2022 capex (2.797B) to AI. A chip seller's capex funds fabs, test and equipment, not AI infrastructure. Seller-side signal: TXN reports no data-center or AI segment; its segments are Analog (15.359B), Embedded Processing (3.261B) and Other (1.408B), so AI buyer revenue cannot be isolated.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of TXN's FY2023 capex (5.071B) to AI. A chip seller's capex funds fabs, test and equipment, not AI infrastructure. Seller-side signal: TXN reports no data-center or AI segment; its segments are Analog (13.040B), Embedded Processing (3.368B) and Other (1.111B).",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of TXN's FY2024 capex (4.820B) to AI. A chip seller's capex funds fabs, test and equipment, not AI infrastructure. Seller-side signal: TXN reports no data-center or AI segment; its segments are Analog (12.161B), Embedded Processing (2.533B) and Other (0.947B).",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of TXN's FY2025 capex (4.550B) to AI. A chip seller's capex funds fabs, test and equipment, not AI infrastructure. Seller-side signal: TXN reports no data-center or AI segment; its segments are Analog (14.006B), Embedded Processing (2.697B) and Other (0.979B).",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack contains no statement giving an AI amount or share of FY2022 opex (3.631B). It also contains no statement that R&D is AI-driven.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack contains no statement giving an AI amount or share of FY2023 opex (3.688B). It also contains no statement that R&D is AI-driven.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack contains no statement giving an AI amount or share of FY2024 opex (3.629B). It also contains no statement that R&D is AI-driven.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack contains no statement giving an AI amount or share of FY2025 opex (4.060B). It also contains no statement that R&D is AI-driven.",
+   "confidence": 0.8
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "No AI statement. Chip-seller capex is fabs and test, not AI infrastructure. No data-center segment."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "No AI statement. Chip-seller capex is fabs and test, not AI infrastructure. No data-center segment."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "No AI statement. Chip-seller capex is fabs and test, not AI infrastructure. No data-center segment."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "No AI statement. Chip-seller capex is fabs and test, not AI infrastructure. No data-center segment."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "No stated AI amount or share of opex, and no statement that R&D is AI-driven."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "No stated AI amount or share of opex, and no statement that R&D is AI-driven."
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "No stated AI amount or share of opex, and no statement that R&D is AI-driven."
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "No stated AI amount or share of opex, and no statement that R&D is AI-driven."
+  },
+  {
+   "field": "capex",
+   "period": "outlook",
+   "reason": "The pack has no statements with kind outlook."
+  },
+  {
+   "field": "opex",
+   "period": "outlook",
+   "reason": "The pack has no statements with kind outlook."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.0,
+  "input_tokens": 6912,
+  "output_tokens": 2060,
+  "attempts": 1,
+  "task_sha": "f5258d289c4d6130"
+ }
+}

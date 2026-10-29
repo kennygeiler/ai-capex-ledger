@@ -1,0 +1,155 @@
+{
+ "ticker": "INTC",
+ "prompt_version": "attribution@v1",
+ "model": "chip_seller@v1",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Intel states no AI amount or share of its own capex (24.844B), which funds fabs, test and process equipment, not AI infrastructure. Seller-side signal: DCAI segment revenue was 16.856B (fact:INTC|segment_revenue|DCAI|FY2022; 19.445B under the prior 'Data Center and AI' segmentation). That is buyers' spend arriving and mostly server CPUs, not Intel's AI spend.",
+   "confidence": 0.85
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of the 25.750B capex to AI; it funds fabs and process equipment. Seller-side signal: DCAI revenue was 15.980B (fact:INTC|segment_revenue|DCAI|FY2023; 15.521B under the prior segmentation). This is not in ai_amount.",
+   "confidence": 0.85
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of the 23.944B capex to AI; it funds fabs and process equipment. Seller-side signal: DCAI revenue was 16.125B (fact:INTC|segment_revenue|DCAI|FY2024). This is not in ai_amount.",
+   "confidence": 0.85
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of the 14.646B capex to AI; it funds fabs and process equipment. Seller-side signal: DCAI revenue was 16.919B (fact:INTC|segment_revenue|DCAI|FY2025). This is not in ai_amount.",
+   "confidence": 0.85
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack contains no statement giving an AI amount or share of opex (24.532B) or calling R&D AI-driven. Seller-side signal: DCAI revenue was 16.856B (fact:INTC|segment_revenue|DCAI|FY2022). This is not in ai_amount.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack contains no statement attributing any of the 21.618B opex to AI. Seller-side signal: DCAI revenue was 15.980B (fact:INTC|segment_revenue|DCAI|FY2023). This is not in ai_amount.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack contains no statement attributing any of the 29.023B opex to AI. Seller-side signal: DCAI revenue was 16.125B (fact:INTC|segment_revenue|DCAI|FY2024). This is not in ai_amount.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack contains no statement attributing any of the 20.589B opex to AI. Seller-side signal: DCAI revenue was 16.919B (fact:INTC|segment_revenue|DCAI|FY2025). This is not in ai_amount.",
+   "confidence": 0.8
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "No company statement of an AI amount or share of capex. Under chip_seller@v1, PP&E growth (fabs, construction in progress) is not AI spend."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "No company statement of an AI amount or share of capex. Under chip_seller@v1, PP&E growth (fabs, construction in progress) is not AI spend."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "No company statement of an AI amount or share of capex. Under chip_seller@v1, PP&E growth (fabs, construction in progress) is not AI spend."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "No company statement of an AI amount or share of capex. Under chip_seller@v1, PP&E growth (fabs, construction in progress) is not AI spend."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "The pack has no statements: no stated AI share or amount of opex and no claim that R&D is AI-driven."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "The pack has no statements: no stated AI share or amount of opex and no claim that R&D is AI-driven."
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "The pack has no statements: no stated AI share or amount of opex and no claim that R&D is AI-driven."
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "The pack has no statements: no stated AI share or amount of opex and no claim that R&D is AI-driven."
+  },
+  {
+   "field": "capex",
+   "period": "outlook",
+   "reason": "No statements with kind: outlook in the pack."
+  },
+  {
+   "field": "opex",
+   "period": "outlook",
+   "reason": "No statements with kind: outlook in the pack."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 19.0,
+  "input_tokens": 8409,
+  "output_tokens": 2387,
+  "attempts": 1,
+  "task_sha": "62d773a0e6350785"
+ }
+}

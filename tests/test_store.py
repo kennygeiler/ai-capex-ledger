@@ -12,7 +12,7 @@ class Schema(unittest.TestCase):
         con = init(":memory:")
         names = {r[0] for r in con.execute("select table_name from information_schema.tables").fetchall()}
         self.assertTrue({t.name for t in SCHEMA} <= names)
-        self.assertEqual(len(SCHEMA), 13)
+        self.assertEqual(len(SCHEMA), 14)
 
     def test_a_valid_row_round_trips(self):
         con = init(":memory:")

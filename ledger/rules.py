@@ -41,6 +41,7 @@ class Context:
     tickers: list[str] = field(default_factory=list)  # every company asked for, including any with no 10-K
     ai_spend: list[dict] = field(default_factory=list)  # rows of `ai_spend` (what the MD&A says about AI's part)
     definitions: dict = field(default_factory=dict)   # per-company definitions (definitions/companies.yaml)
+    attribution: list[dict] = field(default_factory=list)  # rows of `attribution` (AI's part, by the attributor)
     today: date = field(default_factory=date.today)   # coverage: a year whose 10-K isn't due yet isn't missing
 
 
@@ -326,8 +327,11 @@ def _outlier(ctx, p):
 @check("ai_amount_within_capex")
 def _ai_within(ctx, p):
     whole = {(v["ticker"], v["field"], v["period"]): v["value"] for v in ctx.values if v["value"] is not None}
-    return [Finding(a["ticker"], f"the filing's AI {a['field']} of {a['ai_amount']:,} for {a['period']} is more than the whole {a['field']} of {whole[k]:,}: \"{a['quote'][:160]}\"", a["field"], a["period"])
-            for a in ctx.ai_spend if a["kind"] == "actual" and a["ai_amount"] is not None and (k := (a["ticker"], a["field"], a["period"])) in whole and a["ai_amount"] > whole[k]]
+    out = [Finding(a["ticker"], f"the filing's AI {a['field']} of {a['ai_amount']:,} for {a['period']} is more than the whole {a['field']} of {whole[k]:,}: \"{a['quote'][:160]}\"", a["field"], a["period"])
+           for a in ctx.ai_spend if a["kind"] == "actual" and a["ai_amount"] is not None and (k := (a["ticker"], a["field"], a["period"])) in whole and a["ai_amount"] > whole[k]]
+    out += [Finding(a["ticker"], f"attributed AI {a['field']} of {a['ai_amount']:,} for {a['period']} ({a['method']}) is more than the whole {a['field']} of {whole[k]:,}: {a['basis'][:160]}", a["field"], a["period"], f"attribution|{a['method']}")
+            for a in ctx.attribution if a["kind"] == "actual" and a["ai_amount"] is not None and (k := (a["ticker"], a["field"], a["period"])) in whole and a["ai_amount"] > whole[k]]
+    return out
 
 
 # ── engine ─────────────────────────────────────────────────────────────────────────────────────────────────────────

@@ -1,0 +1,187 @@
+{
+ "ticker": "CRDO",
+ "prompt_version": "attribution@v1",
+ "model": "chip_seller@v1",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of Credo's capex to AI. A chip seller's capex funds production, lab and test equipment, not AI infrastructure. The pack has no data-center segment revenue, so no seller-side signal can be cited.",
+   "confidence": 0.7
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of Credo's capex to AI. A chip seller's capex funds production, lab and test equipment, not AI infrastructure. The pack has no data-center segment revenue, so no seller-side signal can be cited.",
+   "confidence": 0.7
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of Credo's capex to AI. A chip seller's capex funds production, lab and test equipment, not AI infrastructure. The pack has no data-center segment revenue, so no seller-side signal can be cited.",
+   "confidence": 0.7
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of Credo's capex to AI. A chip seller's capex funds production, lab and test equipment, not AI infrastructure. The pack has no data-center segment revenue, so no seller-side signal can be cited.",
+   "confidence": 0.7
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement attributes any of Credo's capex to AI. A chip seller's capex funds production, lab and test equipment, not AI infrastructure. The pack has no data-center segment revenue, so no seller-side signal can be cited.",
+   "confidence": 0.7
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement that attributes R&D or other opex to AI, either as an amount or a share, or qualitatively. The pack has no data-center segment revenue.",
+   "confidence": 0.7
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement that attributes R&D or other opex to AI, either as an amount or a share, or qualitatively. The pack has no data-center segment revenue.",
+   "confidence": 0.7
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement that attributes R&D or other opex to AI, either as an amount or a share, or qualitatively. The pack has no data-center segment revenue.",
+   "confidence": 0.7
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement that attributes R&D or other opex to AI, either as an amount or a share, or qualitatively. The pack has no data-center segment revenue.",
+   "confidence": 0.7
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement that attributes R&D or other opex to AI, either as an amount or a share, or qualitatively. The pack has no data-center segment revenue.",
+   "confidence": 0.7
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "No stated AI amount or share of capex. The chip_seller model does not allow ppe_category for a seller's own equipment."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "No stated AI amount or share of capex. The chip_seller model does not allow ppe_category for a seller's own equipment."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "No stated AI amount or share of capex. The chip_seller model does not allow ppe_category for a seller's own equipment."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "No stated AI amount or share of capex. The chip_seller model does not allow ppe_category for a seller's own equipment."
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "No stated AI amount or share of capex. The chip_seller model does not allow ppe_category for a seller's own equipment."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "The pack has no statement that attributes opex or R&D to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "The pack has no statement that attributes opex or R&D to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "The pack has no statement that attributes opex or R&D to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "The pack has no statement that attributes opex or R&D to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "reason": "The pack has no statement that attributes opex or R&D to AI."
+  },
+  {
+   "field": "capex",
+   "period": "outlook",
+   "reason": "The pack has no statements of kind outlook."
+  },
+  {
+   "field": "opex",
+   "period": "outlook",
+   "reason": "The pack has no statements of kind outlook."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.1,
+  "input_tokens": 7060,
+  "output_tokens": 2355,
+  "attempts": 1,
+  "task_sha": "39a175eb9964a59d"
+ }
+}

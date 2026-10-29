@@ -18,7 +18,7 @@ import duckdb
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
-SCHEMA_VERSION = 7
+SCHEMA_VERSION = 8
 
 FIELDS = ("revenue", "cost_of_revenue", "cost_of_revenue_part", "operating_income", "capex", "opex")
 KINDS = ("accept", "override", "reject")  # what a person can decide about an exception
@@ -198,6 +198,23 @@ SCHEMA: tuple[Table, ...] = (
         _c("extraction_ids", "VARCHAR", "Extractions used, comma-separated."),
         _c("input_hash", "VARCHAR", "Hash of everything this row depends on."),
     ), key=("ticker", "field", "dimension", "period")),
+    Table("attribution", "AI's part of capex and opex per company and fiscal year, attributed by the attributor from the money-flow model and the data pack; every number recomputed by code from its inputs.", (
+        TICKER,
+        _c("field", "VARCHAR", "capex or opex.", enum=("capex", "opex")),
+        PERIOD,
+        _c("kind", "VARCHAR", "actual or outlook.", enum=("actual", "outlook")),
+        _c("method", "VARCHAR", "stated_share, stated_amount, segment, ppe_category, whole_business, qualitative or none.", enum=("stated_share", "stated_amount", "segment", "ppe_category", "whole_business", "qualitative", "none")),
+        _c("ai_amount", "BIGINT", "AI dollars; null for qualitative and none.", nullable=True),
+        _c("ai_share", "DOUBLE", "ai_amount ÷ the company's value for the field and year.", nullable=True),
+        _c("confidence", "DOUBLE", "Agent's confidence, within the model's ceiling for the method."),
+        _c("basis", "VARCHAR", "The arithmetic and what the number does and does not include, for a reader."),
+        _c("inputs", "VARCHAR", "Pack item ids the number rests on, comma-separated (value:…, fact:…, stmt:…)."),
+        _c("model", "VARCHAR", "Money-flow model version used, e.g. hyperscaler@v1."),
+        _c("model_sha256", "VARCHAR", "Hash of the model text, so a model edit shows in the diff."),
+        _c("prompt_version", "VARCHAR", "Prompt version."),
+        _c("run_id", "VARCHAR", "Run that produced it."),
+        _c("input_hash", "VARCHAR", "Hash of method, amount, inputs and model."),
+    ), key=("ticker", "field", "period", "kind")),
     Table("rules", "The rule registry as loaded from rules/*.yaml.", (
         _c("rule_id", "VARCHAR", "Rule ID, e.g. unit_scale."),
         _c("severity", "VARCHAR", "block, warn or info.", enum=("block", "warn", "info")),
@@ -231,7 +248,7 @@ SCHEMA: tuple[Table, ...] = (
     ), key=("decision_id",)),
     Table("runs", "One row per pipeline or agent step: what ran, on what, with which versions, and how it went.", (
         _c("run_id", "VARCHAR", "Run ID."),
-        _c("step", "VARCHAR", "Step name.", enum=("run", "ingest", "parse", "extract", "reconcile", "texts", "aispend", "notes", "rules", "faults", "evidence", "report", "review", "score", "release")),
+        _c("step", "VARCHAR", "Step name.", enum=("run", "ingest", "parse", "extract", "reconcile", "texts", "aispend", "notes", "attribution", "rules", "faults", "evidence", "report", "review", "score", "release")),
         _c("subject", "VARCHAR", "What it ran on (accession, ticker, release).", nullable=True),
         _c("started_at", "VARCHAR", "UTC timestamp."),
         _c("seconds", "DOUBLE", "Wall-clock duration."),

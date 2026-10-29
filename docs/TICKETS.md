@@ -8,7 +8,6 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 | ID | Ticket | Done when |
 |---|---|---|
-| M6 | Money-flow model per industry + attribution agent; edit model → rerun agent only → diff. | Attribution rows with method, confidence, citation; DATAHQ Attribution tab. |
 | M7 | DATAHQ: Pipeline / Attribution / Insights tabs; insights viz (money flow, AI share over time, hard vs stated vs words). | Three tabs; charts read from the signed release. |
 
 ### Later
@@ -20,6 +19,7 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Done
 
+- **Money-flow models + attributor (30 Oct, M6):** six models in `agents/models/`, agent `attributor` (`attribution@v1`) with an arithmetic contract, table `attribution`, `attribution.csv`, diff on load, company page section. The Attribution tab with model editing is M7.
 - **Sources (30 Oct, M5):** `ledger texts` registry (MD&A, 8-K Exhibit 99.1, investor-page transcripts and CFO commentary via `sources/ir.yaml`); `aispend` over every text with `source`. Meta and Nvidia pages wired; Alphabet and Microsoft are per-company additions.
 - **Facts from the notes (29 Oct, M4):** `ledger notes`, agent `notes_reader` (`notes@v2`), tables `note_extractions` / `facts`, XBRL-instance answer key with members, `facts.csv` in releases, company page section. Types 28–32.
 - **No questions (29 Oct):** `definitions/companies.yaml` + `ledger/definitions.py`; reconcile and `cost_lines_summed` read it; warnings are findings with an SEC-data flag. M3.1 closed by this (one definition per cause).

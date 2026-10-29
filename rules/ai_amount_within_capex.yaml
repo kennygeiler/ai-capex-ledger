@@ -1,12 +1,13 @@
 id: ai_amount_within_capex
 severity: warn
-description: An AI amount the filing states for capex or opex is not larger than the company's own value for that year.
+description: An AI amount, stated by the filing or attributed by the attributor, is not larger than the company's own capex or opex for that year.
 rationale: AI spend is a part of the whole. A stated AI amount above the released capex or opex for the same fiscal
   year means the sentence was read wrong (a total taken as the AI part, or the wrong year), or our value is wrong.
 owner: Kenny Geiler
 check: ai_amount_within_capex
 title: The AI amount is bigger than the whole.
-plain: The filing's sentence gives an AI dollar amount larger than the company's whole capex or opex for that year.
-  Either the sentence is about the total (not the AI part) or the year is wrong.
+plain: The AI dollar amount is larger than the company's whole capex or opex for that year. For a stated amount,
+  the sentence is about the total or the year is wrong. For an attributed one, segment capex in the notes is on an
+  accrual basis and can run ahead of cash capex (Applied Digital); the basis says so.
 action: Read the quoted sentence. If it states the company's total, the scope is total, not AI; if it really is the AI
   part, check the year.
