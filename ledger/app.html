@@ -32,7 +32,7 @@
   nav .me { margin-left: 1rem; flex: 0 0 auto; }
   nav .me input { width: 9rem; border: 0; border-bottom: 1px solid var(--faint); background: none; padding: .1rem 0; font-size: .82rem; }
   h1 { font-size: 1.25rem; font-weight: 600; margin: 0; }
-  h2 { font-size: .9rem; font-weight: 600; margin: 0 0 .5rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  h2 { font-size: .95rem; font-weight: 600; margin: 0 0 .5rem; }
   p { margin: 0; }
   .lede { color: var(--muted); max-width: 62ch; margin-top: .35rem; }
   .lede b { color: var(--fg); font-weight: 600; }
@@ -56,7 +56,7 @@
   .track i + i { margin-left: 0; }
   .scroll { overflow-x: auto; }
   table { border-collapse: separate; border-spacing: 0; width: 100%; font-variant-numeric: tabular-nums; font-size: .86rem; }
-  th { text-align: left; font-weight: 500; color: var(--muted); font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; padding: .35rem .75rem .35rem 0; white-space: nowrap; background: var(--bg); position: sticky; top: 0; z-index: 2; border-bottom: 1px solid var(--faint); }
+  th { text-align: left; font-weight: 500; color: var(--muted); font-size: .78rem; padding: .35rem .75rem .35rem 0; white-space: nowrap; background: var(--bg); position: sticky; top: 0; z-index: 2; border-bottom: 1px solid var(--faint); }
   td { padding: .3rem .75rem .3rem 0; vertical-align: top; border-bottom: 1px solid var(--faint); }
   tbody tr:hover td { background: var(--row); }
   table th:first-child, table td:first-child { position: sticky; left: 0; background: var(--bg); z-index: 1; }
@@ -98,7 +98,7 @@
   table.grid td.cell:hover { color: var(--accent); }
   table.grid .note { font-size: .74rem; color: var(--muted); white-space: normal; max-width: 9rem; margin-left: auto; }
   .brk { white-space: pre-wrap; word-break: break-word; }
-  table.heat td.c { background: color-mix(in srgb, var(--accent) calc(var(--i, 0) * 30%), transparent); padding-inline: .5rem; }
+  table.heat td.c { background: color-mix(in srgb, var(--accent) calc(var(--i, 0) * 18%), transparent); padding-inline: .5rem; }
   table.heat tbody tr:hover td.c { filter: brightness(.97); }
   table.heat td.c .note { font-size: .74rem; color: var(--muted); }
   table.heat th, table.heat td { padding-right: .5rem; }
@@ -114,9 +114,11 @@
   @media (max-width: 44rem) { .dotrow { grid-template-columns: 4.5rem 1fr; } .dotrow .v { grid-column: 1 / -1; text-align: left; } }
   .strip { background: var(--bar); margin: 0 calc(-1 * max(16px, 2vw)); padding: .9rem max(16px, 2vw); gap: 1rem 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr)); }
   .strip .fig .n { font-size: 1.25rem; white-space: nowrap; }
-  .panel { position: sticky; top: 1rem; background: var(--bar); padding: 1rem; border-radius: 6px; max-height: calc(100vh - 2rem); overflow: auto; }
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(100%, 30rem); background: var(--bg); box-shadow: -8px 0 30px rgba(0,0,0,.12); padding: 1.25rem 1.5rem 2rem; overflow: auto; z-index: 20; }
+  .drawer .close { position: absolute; top: .6rem; right: .9rem; font-size: 1.4rem; color: var(--muted); }
+  .drawer h3 { font-size: 1rem; margin: 0 1.5rem .6rem 0; }
   .panel h3 { font-size: .95rem; margin: 0 0 .5rem; }
-  table.heat td.moved { outline: 2px solid var(--accent); outline-offset: -2px; }
+  table.heat td.moved { box-shadow: inset 3px 0 0 var(--accent); }
   .badge { font: 600 .66rem/1 var(--mono); letter-spacing: .04em; color: var(--accent); padding: .1rem .3rem; border-radius: 3px; background: color-mix(in srgb, var(--accent) 12%, transparent); }
   .badge:hover { background: color-mix(in srgb, var(--accent) 24%, transparent); }
   .steps { display: grid; gap: .8rem; }
@@ -134,6 +136,7 @@
     <datalist id="tickers"></datalist>
     <a href="#data" data-nav="data">Data</a>
     <a href="#attribution" data-nav="attribution">Attribution</a>
+    <a href="#status" data-nav="status">Status</a>
     <a href="#releases" data-nav="releases">Releases</a>
     <a href="#agents" data-nav="agents">Agents</a>
     <span class="sp me muted small">signed as <input id="me" type="text" aria-label="Your name, logged on every model or prompt change"></span>
@@ -517,16 +520,21 @@ async function dataPage(view, qs) {
     f: (q.f || 'ai_capex').split(','), k: q.k ? q.k.split(',') : ['spent', 'committed', 'planned'], y: q.y ? q.y.split(',') : null, wide: !!q.wide, eval: !!q.eval};
   const setQ = () => { const p = new URLSearchParams(); p.set('t', sel.t.join(',')); p.set('f', sel.f.join(',')); if (sel.y) p.set('y', sel.y.join(',')); if (sel.k.length < 3) p.set('k', sel.k.join(',')); if (sel.wide) p.set('wide', 1); if (sel.eval) p.set('eval', 1); location.hash = 'data?' + p.toString(); };
 
-  // filter bar
-  const chips = (items, chosen, onToggle, label) => h('div', {class: 'picks'}, items.map(([id, text]) => h('label', {}, h('input', {type: 'checkbox', checked: chosen.includes(id) || null, onchange: (e) => onToggle(id, e.target.checked)}), ' ', text)));
+  // one line of controls: field, companies (a group or a custom list), kind, years hidden unless set
+  const GROUPS = [['all', 'All companies'], ['buyer', 'Buyers'], ['seller', 'Sellers'], ...Object.keys(INDUSTRY).map((k) => ['ind:' + k, INDUSTRY[k]]), ['custom', 'Custom…']];
+  const groupOf = () => { const set = new Set(sel.t); if (set.size === all.length) return 'all'; for (const r of ['buyer', 'seller']) if (all.filter((t) => meta.roles[t] === r).every((t) => set.has(t)) && [...set].every((t) => meta.roles[t] === r)) return r; for (const k of Object.keys(INDUSTRY)) if (all.filter((t) => meta.industries[t] === k).every((t) => set.has(t)) && [...set].every((t) => meta.industries[t] === k)) return 'ind:' + k; return 'custom'; };
+  const groupSel = h('select', {'aria-label': 'Companies', onchange: (e) => { const v = e.target.value; if (v === 'custom') { openPicker(); return; } sel.t = all.filter((t) => v === 'all' || meta.roles[t] === v || (v.startsWith('ind:') && meta.industries[t] === v.slice(4))); setQ(); }},
+    GROUPS.map(([k, v]) => h('option', {value: k, selected: groupOf() === k || null}, v)));
+  const fieldSel = h('select', {'aria-label': 'Field', onchange: (e) => { sel.f = [e.target.value]; setQ(); }}, Object.entries(FIELDS).map(([k, v]) => h('option', {value: k, selected: sel.f[0] === k || null}, v)));
+  const kindSel = h('select', {'aria-label': 'Kind', onchange: (e) => { sel.k = e.target.value === 'all' ? ['spent', 'committed', 'planned'] : [e.target.value]; setQ(); }},
+    [['all', 'Spent, committed, planned'], ['spent', 'Spent'], ['committed', 'Committed'], ['planned', 'Planned']].map(([k, v]) => h('option', {value: k, selected: (sel.k.length === 3 ? 'all' : sel.k[0]) === k || null}, v)));
+  function openPicker() {
+    drawer(h('h3', {}, 'Companies'), h('div', {class: 'controls'}, Object.entries(groups).map(([ind, ts]) => h('div', {}, h('div', {class: 'muted small', style: 'margin-bottom:.2rem'}, INDUSTRY[ind] || ind),
+      h('div', {class: 'picks'}, ts.map((t) => h('label', {}, h('input', {type: 'checkbox', checked: sel.t.includes(t) || null, onchange: (e) => { sel.t = e.target.checked ? [...sel.t, t] : sel.t.filter((x) => x !== t); }}), ' ', t)))))),
+      h('div', {class: 'row', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn', onclick: () => { closeDrawer(); setQ(); }}, 'Apply')));
+  }
   const groups = {};
   for (const t of all) (groups[meta.industries[t]] ||= []).push(t);
-  const entityBar = h('div', {class: 'controls'}, Object.entries(groups).map(([ind, ts]) => h('div', {class: 'row', style: 'gap:.4rem 1rem;align-items:baseline'},
-    h('button', {type: 'button', class: 'small muted', style: 'min-width:9rem;text-align:left', onclick: () => { const on = ts.every((t) => sel.t.includes(t)); sel.t = on ? sel.t.filter((t) => !ts.includes(t)) : [...new Set([...sel.t, ...ts])]; setQ(); }}, INDUSTRY[ind] || ind),
-    chips(ts.map((t) => [t, t]), sel.t, (id, on) => { sel.t = on ? [...sel.t, id] : sel.t.filter((x) => x !== id); setQ(); }))));
-  const fieldSel = h('select', {'aria-label': 'Field', onchange: (e) => { sel.f = [e.target.value]; sel.wide = false; setQ(); }}, Object.entries(FIELDS).map(([k, v]) => h('option', {value: k, selected: sel.f[0] === k || null}, v)));
-  const viewSel = h('select', {'aria-label': 'Saved view', onchange: (e) => { const v = VIEWS[e.target.value]; if (!v) return; location.hash = 'data?' + new URLSearchParams(v.q).toString(); }}, h('option', {value: ''}, 'Views'), VIEWS.map((v, i) => h('option', {value: i}, v.t)));
-  const kindBar = chips(Object.entries(KINDS), sel.k, (id, on) => { sel.k = on ? [...sel.k, id] : sel.k.filter((x) => x !== id); setQ(); });
 
   // data for the selection
   const d = await api('/api/data?' + new URLSearchParams({t: sel.t.join(','), f: sel.f.join(','), k: sel.k.join(',')}).toString());
@@ -540,7 +548,6 @@ async function dataPage(view, qs) {
   const maxV = Math.max(1, ...rows.map((r) => r.value));
 
   // panel
-  const panel = h('div', {class: 'panel'}, h('p', {class: 'muted'}, 'Click a cell for its provenance.'));
   async function showProv(r) {
     const p = r.prov;
     const bits = [h('h3', {style: 'margin:0 0 .4rem'}, `${d.names[r.ticker]} · ${FIELDS[r.field] || r.field}${r.dimension ? ' · ' + r.dimension : ''} · ${r.period}`),
@@ -551,11 +558,11 @@ async function dataPage(view, qs) {
       p.inputs ? h('p', {class: 'muted small mono', style: 'margin-bottom:.6rem'}, p.inputs) : '',
       p.xbrl != null ? h('p', {class: 'muted small'}, `XBRL: ${usd(p.xbrl)}`) : '',
       p.url ? h('p', {class: 'small'}, h('a', {href: p.url, target: '_blank', rel: 'noopener'}, 'Open the filing')) : ''];
-    panel.replaceChildren(...bits);
+    const box = drawer(...bits);
     if (p.table === 'values') {  // the cell, the cleaning and the screenshot, from the company's own data
       const c = await api('/api/company?t=' + r.ticker);
       const v = c.values.find((x) => x.field === r.field && x.period === r.period);
-      if (v) panel.append(sources(v));
+      if (v) box.append(sources(v));
     }
   }
 
@@ -587,26 +594,40 @@ async function dataPage(view, qs) {
     document.body.append(a); a.click(); a.remove();
   }
 
-  const blocked = hqd.questions.length;
-  view.append(h('div', {class: 'stack', style: 'gap:2rem'},
-    h('section', {class: 'figs strip'},
-      fig('Entities', int(H.companies), `${int(H.filings)} 10-Ks · ${int(H.texts)} texts`),
+  const chartBox = h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Chart'), h('div', {style: 'margin-top:.8rem'}, chart));
+  view.append(h('div', {class: 'stack', style: 'gap:1rem'},
+    h('div', {class: 'row'}, fieldSel, groupSel, kindSel, h('button', {type: 'button', class: 'btn', onclick: exportCsv}, 'Export CSV'),
+      h('span', {class: 'muted small'}, `${list.length} rows · USD · click a cell for its source`)),
+    grid,
+    sel.eval && ev ? h('div', {}, h('h2', {}, 'Reference check'), dotPlot(ev.rows.filter((r) => r.measure === 'share'))) : '',
+    chartBox));
+}
+
+// ── Status: the pipeline's numbers ───────────────────────────────────────────
+async function statusPage(view) {
+  const [hqd, ev] = await Promise.all([hq(true), api('/api/evaluation')]);
+  const H = hqd.health[0], blocked = hqd.questions.length;
+  view.append(h('div', {class: 'stack'}, h('section', {class: 'figs'},
+      fig('Companies', int(H.companies), `${int(H.filings)} 10-Ks · ${int(H.texts)} texts`),
       fig('Values agree', `${int(H.agree)} / ${int(H.values)}`, 'with SEC data', H.waiting > 0),
       fig('Facts', int(H.facts), `${int(H.attributed)} AI amounts`),
       fig('Cells confirmed', `${int(H.cells_confirmed)} / ${int(H.cells)}`, 'on the rendered 10-K', H.cells_confirmed < H.cells),
       fig('Faults through', `${int(H.faults_escaped)} / ${int(H.faults)}`, 'planted', H.faults_escaped > 0),
       fig('Reference', ev ? `${ev.agree} / ${ev.with_estimate}` : '—', ev ? `agree · ${ev.no_estimate} unestimated` : '', ev && ev.disagree > 0),
       fig('Blocked', int(blocked), blocked ? 'needs a definition' : `run ${day(H.full_run ? H.full_run.at : H.run_at)}`, blocked > 0)),
-    h('section', {class: 'controls'},
-      h('div', {class: 'row'}, viewSel, fieldSel, kindBar, h('button', {type: 'button', class: 'btn', onclick: exportCsv}, 'Export CSV'),
-        h('span', {class: 'muted small'}, `${rows.filter((r) => years.includes(r.period)).length} rows · ${list.length} series · cells that moved since the last run are outlined`)),
-      entityBar),
-    h('div', {class: 'split'},
-      h('section', {}, grid, sel.eval && ev ? h('div', {style: 'margin-top:1.5rem'}, h('h2', {}, 'Reference check'), dotPlot(ev.rows.filter((r) => r.measure === 'share'))) : ''),
-      h('section', {}, panel)),
-    h('section', {}, chart),
-    h('p', {class: 'muted small'}, h('a', {href: '#attribution'}, 'Models and reruns'), ' · ', h('a', {href: '#releases'}, 'Releases'), ' · ', h('a', {href: '#agents'}, 'Readers’ prompts'), ' · ', h('a', {href: '#run'}, 'Add a company'))));
+    h('div', {}, h('h2', {}, 'Findings'), table([{t: 'Company', k: 'company'}, {t: 'Year', k: 'period', f: (f) => f.period || '—'}, {t: 'What', k: 'kind', f: (f) => `${KIND[f.kind]}, ${(LABEL[f.field] || f.field || '').toLowerCase()}`}, {t: 'Change', sort: false, f: change}, {t: 'SEC data', k: 'confirmed', f: confirmedCell}], hqd.findings, {onRow: (f) => go('company/' + f.ticker)})),
+    ev ? h('div', {}, h('h2', {}, 'Reference check'), dotPlot(ev.rows.filter((r) => r.measure === 'share'))) : ''));
 }
+
+// A drawer on the right: one thing at a time, closed with Esc or the ×.
+function drawer(...kids) {
+  closeDrawer();
+  const box = h('div', {class: 'drawer', role: 'dialog'}, h('button', {type: 'button', class: 'close', 'aria-label': 'Close', onclick: closeDrawer}, '×'), ...kids);
+  document.body.append(box);
+  return box;
+}
+function closeDrawer() { document.querySelectorAll('.drawer').forEach((d) => d.remove()); }
+window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
 
 // ── Run: add a company ───────────────────────────────────────────────────────
 async function runPage(view) {
@@ -636,7 +657,6 @@ async function attributionPage(view) {
   const maxA = Math.max(...rows.map((r) => r.ai_amount || 0), 1);
   const counts = {};
   for (const r of rows) counts[r.method] = (counts[r.method] || 0) + 1;
-  const panel = h('div', {class: 'panel'}, h('p', {class: 'muted'}, 'Click a cell for its basis; click a method badge to open the industry’s model.'));
   const status = h('span', {class: 'muted small'}), progress = h('div');
 
   const rerun = (ind) => h('button', {type: 'button', class: 'btn', onclick: async () => {
@@ -646,7 +666,7 @@ async function attributionPage(view) {
   }}, ind ? `Rerun ${INDUSTRY[ind]}` : 'Rerun all');
 
   function showBasis(t, y, r) {
-    panel.replaceChildren(h('h3', {style: 'margin:0 0 .4rem'}, `${meta.names[t]} · ${y}`),
+    drawer(h('h3', {style: 'margin:0 0 .4rem'}, `${meta.names[t]} · ${y}`),
       h('div', {class: 'figs', style: 'margin-bottom:1rem'}, fig('AI capex', r.ai_amount != null ? usd(r.ai_amount) : '—', r.ai_share != null ? `${pct(r.ai_share)} of capex` : 'no amount'),
         fig('Method', METHOD[r.method], `confidence ${pct(r.confidence)}`), fig('Model', r.model, h('button', {type: 'button', class: 'small', onclick: () => showModel(meta.industries[t])}, 'open'))),
       h('p', {}, r.basis), h('p', {class: 'muted small mono', style: 'margin-top:.6rem'}, r.inputs || '—'));
@@ -668,7 +688,7 @@ async function attributionPage(view) {
       try { const r = await api(`/api/models/${ind}/${what}`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({...body, by: me})}); status.textContent = typeof done === 'function' ? done(r) : done; setTimeout(route, 1200); }
       catch (e) { status.textContent = e.message; status.classList.add('bad'); }
     }
-    panel.replaceChildren(h('h3', {style: 'margin:0 0 .4rem'}, `${INDUSTRY[ind]} model`), h('p', {class: 'muted small', style: 'margin-bottom:.6rem'}, m.companies.join(', ') || 'no company'),
+    drawer(h('h3', {style: 'margin:0 0 .4rem'}, `${INDUSTRY[ind]} model`), h('p', {class: 'muted small', style: 'margin-bottom:.6rem'}, m.companies.join(', ') || 'no company'),
       h('div', {class: 'row', style: 'margin-bottom:.6rem'}, verSel, editBtn, useBtn, rerun(ind), status), text, editRow);
     queueMicrotask(show);
   }
@@ -698,15 +718,11 @@ async function attributionPage(view) {
     {t: 'After', sort: false, f: (r) => `${METHOD[r.after[0]] || r.after[0]}${r.after[1] != null ? ' · ' + usd(r.after[1]) : ''}`}], diff.rows) : h('p', {class: 'muted small'}, diff ? 'No row changed in the last load.' : 'No load yet.');
   const history = table([{t: 'When', k: 'at', f: (x) => when(x.at)}, {t: 'Who', k: 'by'}, {t: 'Change', k: 'change', wide: 1}], [...d.history].reverse().slice(0, 12));
 
-  view.append(h('div', {class: 'stack', style: 'gap:2rem'},
-    h('section', {class: 'figs strip'},
-      fig('Company-years', int(rows.length), `${rows.filter((r) => r.ai_amount != null).length} with an AI amount`),
-      ...Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([m, n]) => fig(METHOD[m], int(n), BADGE[m])),
-      fig('Last load', diff ? day(diff.at) : '—', diff ? `${int(diff.changed)} changed · ${int(diff.new)} new · ${int(diff.removed)} removed` : '')),
-    h('div', {class: 'row'}, rerun(null), h('span', {class: 'muted small'}, `prompt ${d.prompt} · a model edit reruns only its industry; nothing is re-read from filings`), status),
-    progress,
-    h('div', {class: 'split'}, h('section', {}, grid), h('section', {}, panel)),
-    h('div', {class: 'two'}, sect('Changed in the last load', diff ? `${when(diff.at)} · ${diff.scope}` : null, diffTable), sect('Model and prompt changes', null, history))));
+  view.append(h('div', {class: 'stack', style: 'gap:1rem'},
+    h('div', {class: 'row'}, rerun(null), h('span', {class: 'muted small'}, `${rows.filter((r) => r.ai_amount != null).length} of ${rows.length} company-years with an AI amount · click a cell for its basis, a badge for the model`), status),
+    progress, grid,
+    h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, diff ? `Changed in the last load: ${int(diff.changed)} · ${day(diff.at)}` : 'No load yet'), h('div', {style: 'margin-top:.8rem'}, diffTable)),
+    h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Model and prompt changes'), h('div', {style: 'margin-top:.8rem'}, history))));
 }
 
 // ── Agents (the readers) and Releases ───────────────────────────────────────
@@ -741,6 +757,7 @@ async function route() {
     else if (page === 'agents') await agentsPage(view);
     else if (page === 'releases') await releasesPage(view);
     else if (page === 'run') await runPage(view);
+    else if (page === 'status') await statusPage(view);
     else await dataPage(view, qs);
   } catch (e) {
     view.replaceChildren(h('p', {class: 'msg bad'}, e.message));

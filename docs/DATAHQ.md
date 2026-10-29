@@ -49,6 +49,10 @@ One screen, default. A filter bar (entities by industry or role, field, years, k
 
 Same style. A strip of counts by method with the badge each uses (SH stated share, ST stated amount, SEG segment capex, PPE server-category growth, ALL whole business, Q words only). The grid grouped by industry, each group headed by its model version; every cell carries its amount, share and a method badge. A cell opens the basis and inputs in the panel; a badge opens the industry's model in the same panel, with the version list, edit, save as the next version, use, and rerun for that industry. Below: what changed in the last load as a before-and-after table, and the model and prompt change log as a table.
 
+## One thing at a time (29 Oct)
+
+Kenny: "way too visually confusing." The screen held a seven-number strip, two selects, three checkboxes, thirty-one company checkboxes in six rows, the grid, a permanent panel, a chart and a footer. Now: one line of controls (field, companies as a group or a custom list, kind, export) and the grid. Details open in a drawer only when a cell or a badge is clicked, and close with Esc. The chart is behind a disclosure. The pipeline's numbers, the findings and the reference check moved to a Status page. Shading is lighter, headings plain, changed cells marked with a thin left bar.
+
 ## Visual conventions of the data products (29 Oct)
 
 Daloopa, Calcbench and the terminals share a look their users already know: a top bar with the product name and a ticker search, a compact toolbar, dense tables at 13px with a sticky header and a sticky first column, right-aligned tabular numbers, row hover, a details drawer. DATAHQ now follows them: the bar is a band with a ticker-or-company search that jumps to the company's grid, the status strip sits in the same band colour, tables are dense with sticky header and first column, the provenance panel is a drawer in the band colour, headings are small uppercase labels. Light and dark from the same tokens.
