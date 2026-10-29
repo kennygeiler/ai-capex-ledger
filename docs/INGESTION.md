@@ -147,7 +147,7 @@ our AI efforts" and give totals; the only numbers are total-capex outlooks (Meta
 | 26 | **Scope is loose for words-only statements.** The same kind of sentence gets `scope: ai` in one filing and `total` in the next; scope only has meaning for an amount or share. | GOOGL, META opex | by eye | Open: ignore scope for `qualitative` rows when reading them; or drop it from the contract for that class. |
 | 27 | **The numbers live elsewhere.** Explicit AI amounts and shares appear in earnings-call prepared remarks and 8-K earnings releases (Exhibit 99.1), not in 10-K MD&A. | every hyperscaler | by design | Next: feed Exhibit 99.1 of the 8-K filed with each 10-K (edgartools gives it) through the same agent and contract. |
 
-## Evaluation (30 Oct): a reference set and an error band
+## Evaluation (29 Oct): a reference set and an error band
 
 A number other people act on needs a measured error, not an agent's confidence. `gold/ai_capex.yaml` is a reference
 set of sourced figures for AI's part of capex: what the company said on a call, or an independent estimate, each with
@@ -166,7 +166,7 @@ the point is that the number is now checkable and every new sourced figure tight
 | 45 | **A company renamed its PP&E categories.** From the FY2024 10-K Alphabet reports "Technical infrastructure", "Office space", "Corporate and other assets" and "in service / not yet in service" lines instead of land, buildings and information technology assets. None matched the candidate-table words, so the notes reader never saw the table; FY2024–25 attribution was `none`, and two reference entries had no estimate. | GOOGL FY2024–25 | the evaluation (no estimate) | The candidate words include the new names; a test keeps them. Hyperscaler model `@v2` names the rename so the attributor bridges it. |
 | 46 | **Server-category growth overstates the server share.** Microsoft's gross "Servers, network equipment, and software" grew 39.1B in FY2025 against 63.6B capex (61%); the company said short-lived assets were at most about half. The category includes finance-lease assets and software, which are not cash capex. | MSFT FY2025 | the evaluation (disagree) | None yet: the method's error is now measured and stated beside the number. Open: subtract finance-lease additions from the category growth when the lease note gives them. |
 
-## Attribution (30 Oct): money-flow models and the attributor
+## Attribution (29 Oct): money-flow models and the attributor
 
 The question, finally answered per company and year: how much of the capex and opex is AI. Six money-flow models
 (`agents/models/<industry>@v1.md`: hyperscaler, neocloud, miner-to-HPC, chip seller, component supplier, other) say
@@ -189,7 +189,7 @@ two quarterly AI-capex figures into a year.
 | 44 | **Alphabet stops at FY2023.** Server-category growth needs two consecutive year-end facts of the same category; Alphabet's "Information technology assets" is in the pack for FY2022–23 only, so FY2024–25 are `none`. | GOOGL | counts | Open: check the notes reader's output for Alphabet's FY2024–25 PP&E note (the category may be worded differently, or the table missed by the locator). |
 | 43 | **Category renamed across years.** Microsoft's server category was "Computer equipment and software" until FY2025 and "Servers, network equipment, and software" after; the agent bridged the rename in `basis` and the arithmetic check passed because both facts are in the pack. | MSFT | none | None; worth a model sentence so every attributor does the same. |
 
-## More sources for AI spend (30 Oct): releases, transcripts, CFO commentary
+## More sources for AI spend (29 Oct): releases, transcripts, CFO commentary
 
 `ledger texts` gathers every text the AI spend reader reads into one registry with the fiscal period each speaks to:
 10-K MD&A, 8-K earnings releases (Exhibit 99.1 of every Item 2.02 8-K since FY2022, through edgartools), and the

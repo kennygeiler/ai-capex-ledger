@@ -1,8 +1,8 @@
 # DATAHQ: design audit and the design it runs on now
 
-30 Oct 2026. The app is `ledger/app.py` (routes, read-only on the database) and `ledger/app.html` (one page, no build step).
+29 Oct 2026. The app is `ledger/app.py` (routes, read-only on the database) and `ledger/app.html` (one page, no build step).
 
-## Audit of the app as it was (28–30 Oct)
+## Audit of the app as it was (28–29 Oct)
 
 What the ledger does changed under the app. The pipeline no longer asks a person anything; it has three layers (ingest and clean, attribute, insight); the attribution method is the thing a person edits. The app still showed the world of two days ago.
 
@@ -29,7 +29,7 @@ Three tabs, in the order the data flows, plus the company page they all open.
 
 **Company**. Attribution first, then what the company said, then the facts from the notes, then the released numbers and how each was cleaned down to the cell, then the filings and every check that fired.
 
-## Data first (31 Oct)
+## Data first (29 Oct)
 
 Kenny's note after the first rebuild: the app explained in sentences what it should have shown in numbers and shapes. Second pass, same three tabs, every page now opens on data:
 

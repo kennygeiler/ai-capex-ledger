@@ -18,10 +18,10 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Done
 
-- **Evaluation (31 Oct):** `gold/ai_capex.yaml` reference set, `ledger eval`, `EVALUATION.md` in releases, Insights section; Alphabet's renamed PP&E categories fixed (type 45); server-category overstatement measured (type 46).
-- **DATAHQ three tabs (30 Oct, M7):** design audit and the new design in `docs/DATAHQ.md`; Pipeline, Attribution (model editor, rerun, diff, grid), Insights (live tables); company page attribution-first; dead question UI and Outputs removed.
-- **Money-flow models + attributor (30 Oct, M6):** six models in `agents/models/`, agent `attributor` (`attribution@v1`) with an arithmetic contract, table `attribution`, `attribution.csv`, diff on load, company page section. The Attribution tab with model editing is M7.
-- **Sources (30 Oct, M5):** `ledger texts` registry (MD&A, 8-K Exhibit 99.1, investor-page transcripts and CFO commentary via `sources/ir.yaml`); `aispend` over every text with `source`. Meta and Nvidia pages wired; Alphabet and Microsoft are per-company additions.
+- **Evaluation (29 Oct):** `gold/ai_capex.yaml` reference set, `ledger eval`, `EVALUATION.md` in releases, Insights section; Alphabet's renamed PP&E categories fixed (type 45); server-category overstatement measured (type 46).
+- **DATAHQ three tabs (29 Oct, M7):** design audit and the new design in `docs/DATAHQ.md`; Pipeline, Attribution (model editor, rerun, diff, grid), Insights (live tables); company page attribution-first; dead question UI and Outputs removed.
+- **Money-flow models + attributor (29 Oct, M6):** six models in `agents/models/`, agent `attributor` (`attribution@v1`) with an arithmetic contract, table `attribution`, `attribution.csv`, diff on load, company page section. The Attribution tab with model editing is M7.
+- **Sources (29 Oct, M5):** `ledger texts` registry (MD&A, 8-K Exhibit 99.1, investor-page transcripts and CFO commentary via `sources/ir.yaml`); `aispend` over every text with `source`. Meta and Nvidia pages wired; Alphabet and Microsoft are per-company additions.
 - **Facts from the notes (29 Oct, M4):** `ledger notes`, agent `notes_reader` (`notes@v2`), tables `note_extractions` / `facts`, XBRL-instance answer key with members, `facts.csv` in releases, company page section. Types 28–32.
 - **No questions (29 Oct):** `definitions/companies.yaml` + `ledger/definitions.py`; reconcile and `cost_lines_summed` read it; warnings are findings with an SEC-data flag. M3.1 closed by this (one definition per cause).
 - **Airflow DAG (29 Oct):** `airflow/dags/capex_ledger.py`, one task per step of `ledger/steps.py`; parsed and task-tested with Airflow 3.3.2 (L5).
