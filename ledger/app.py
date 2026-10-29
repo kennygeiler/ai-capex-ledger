@@ -24,12 +24,12 @@ import duckdb
 
 from . import agents, progress, store
 from .cli.report import build
-from .config import ADDED, STAGES, added, tracked
+from .config import ADDED, INDUSTRIES, added, industry, stage_tickers, tracked
 from .ingest.edgar import fetch_tickers
 from .extract import OUTPUTS
 from .hq import snapshot
 from .release import RELEASES, releases
-from .review import decide, decisions, latest, open_items
+from .review import decisions, latest, open_items
 from .rules import load as load_rules
 
 PAGE = store.ROOT / "ledger" / "app.html"
@@ -119,34 +119,71 @@ def latest_signed():
     return signed[-1] if signed else None
 
 
+def attribution_view() -> dict:
+    """The Attribution tab: every model with its versions, the attributor's prompt, every row, and the last load's diff."""
+    cfg = agents.load()["attributor"]
+    con = _con()
+    try:
+        rows = _rows(con, "select * from attribution order by ticker, field, period, kind")
+    finally:
+        con.close()
+    present = {c["ticker"] for c in tracked()}
+    models = {}
+    for ind, ver in cfg["models"].items():
+        vs = agents.model_versions(ind)
+        models[ind] = {"version": ver, "versions": vs, "texts": {v: agents.model_text(v) for v in vs},
+                       "companies": sorted(t for t in INDUSTRIES.get(ind, []) if t in present) if ind != "other" else sorted(t for t in present if industry(t) == "other")}
+    diff_path = store.ROOT / "data" / "attribution" / "diff.json"
+    return {"models": models, "prompt": cfg["prompt"], "history": cfg["history"], "rows": rows,
+            "diff": json.loads(diff_path.read_text()) if diff_path.exists() else None}
+
+
+DC = re.compile(r"data ?cent|ai cloud|cloud|compute", re.I)
+
+
 def insights() -> dict:
-    """What the signed numbers say about the AI buildout. Only a signed release feeds this page: the signature is the gate."""
-    d = latest_signed()
-    if not d:
-        return {"release": None}
+    """The Insights tab, from the live tables: buyers' AI capex against their total capex by year, sellers' data-center
+    revenue, every company's latest attribution, and the method mix. Labelled against the signed release."""
+    con = _con()
+    try:
+        vals = _rows(con, 'select ticker, field, period, value from "values" where value is not null')
+        attr = _rows(con, "select ticker, period, method, ai_amount, ai_share, confidence from attribution where field = 'capex' and kind = 'actual'")
+        segs = _rows(con, "select ticker, dimension, period, value from facts where field = 'segment_revenue'")
+    finally:
+        con.close()
     roles = {c["ticker"]: c.get("role", "other") for c in tracked()}
     names = {c["ticker"]: c["name"] for c in tracked()}
-    rows = [r for r in csv.DictReader((d / "values.csv").open()) if r["value"] != ""]
-    v = {(r["ticker"], r["field"], r["period"]): int(r["value"]) for r in rows}
-    years = sorted({r["period"] for r in rows})
-    tickers = sorted({r["ticker"] for r in rows})
-    sig = json.loads((d / "SIGNOFF.json").read_text())
-    companies = []
-    for t in tickers:
-        ys = [y for y in years if (t, "capex", y) in v and (t, "revenue", y) in v]
-        if not ys:
+    years = sorted({v["period"] for v in vals})
+    capex = {(v["ticker"], v["period"]): v["value"] for v in vals if v["field"] == "capex"}
+    ai = {(a["ticker"], a["period"]): a for a in attr}
+    by_year = []
+    for y in years:
+        buyers = [t for t in roles if roles[t] == "buyer" and (t, y) in capex]
+        total = sum(capex[(t, y)] for t in buyers)
+        attributed = sum(ai[(t, y)]["ai_amount"] for t in buyers if (t, y) in ai and ai[(t, y)]["ai_amount"] is not None)
+        covered = sum(capex[(t, y)] for t in buyers if (t, y) in ai and ai[(t, y)]["ai_amount"] is not None)
+        dc = {}
+        for s in segs:
+            if roles.get(s["ticker"]) == "seller" and s["period"] == y and DC.search(s["dimension"] or ""):
+                dc[s["ticker"]] = max(dc.get(s["ticker"], 0), s["value"])  # one line per seller: the biggest data-center-like line
+        by_year.append({"period": y, "buyers": len(buyers), "capex": total, "ai_capex": attributed, "capex_covered": covered, "sellers_dc": sum(dc.values()), "sellers": len(dc)})
+    latest = []
+    for t in sorted(roles):
+        mine = sorted((k[1] for k in ai if k[0] == t and ai[k]["ai_amount"] is not None))
+        if not mine:
             continue
-        first, last = ys[0], ys[-1]
-        companies.append({"ticker": t, "company": names.get(t, t), "role": roles.get(t, "other"), "first": first, "last": last,
-                          "capex_last": v[(t, "capex", last)], "revenue_last": v[(t, "revenue", last)], "intensity": v[(t, "capex", last)] / v[(t, "revenue", last)],
-                          "capex_growth": v[(t, "capex", last)] / v[(t, "capex", first)] if v[(t, "capex", first)] and first != last else None,
-                          "revenue_growth": v[(t, "revenue", last)] / v[(t, "revenue", first)] if v[(t, "revenue", first)] and first != last else None,
-                          "capex": {y: v.get((t, "capex", y)) for y in years}, "revenue": {y: v.get((t, "revenue", y)) for y in years}})
-    totals = {role: {y: {"capex": sum(c["capex"][y] or 0 for c in companies if c["role"] == role and c["capex"].get(y) is not None),
-                          "revenue": sum(c["revenue"][y] or 0 for c in companies if c["role"] == role and c["revenue"].get(y) is not None),
-                          "n": sum(1 for c in companies if c["role"] == role and c["capex"].get(y) is not None)} for y in years}
-              for role in ("buyer", "seller")}
-    return {"release": d.name, "signed_by": sig.get("signed_by"), "signed_at": sig.get("signed_at"), "years": years, "companies": companies, "totals": totals}
+        y = mine[-1]
+        a = ai[(t, y)]
+        latest.append({"ticker": t, "company": names[t], "role": roles[t], "industry": industry(t), "period": y, "ai_amount": a["ai_amount"], "capex": capex.get((t, y)),
+                       "share": a["ai_share"], "method": a["method"], "confidence": a["confidence"]})
+    methods = {}
+    for a in attr:
+        methods[a["method"]] = methods.get(a["method"], 0) + 1
+    rel = latest_signed()
+    sig = json.loads((rel / "SIGNOFF.json").read_text()) if rel else {}
+    return {"years": years, "by_year": by_year, "latest": sorted(latest, key=lambda x: -x["ai_amount"]), "methods": methods,
+            "release": rel.name if rel else None, "signed_by": sig.get("signed_by"), "signed_at": sig.get("signed_at"),
+            "release_has_attribution": bool(rel and (rel / "attribution.csv").exists())}
 
 
 def packet(version: str) -> bytes | None:
@@ -170,27 +207,28 @@ def outputs() -> dict:
     return {"releases": out}
 
 
-def decide_items(ids: list[str], reason: str, by: str) -> dict:
-    """One reason covers several items with the same cause."""
-    if not ids or not reason.strip() or not by.strip():
-        raise ValueError("pick warnings and give a reason and your name")
-    con = _con()
-    try:
-        excs = _rows(con, "select * from exceptions where exception_id in (select unnest(?))", ids)
-    finally:
-        con.close()
-    # Warnings, and the one-time cost-line judgement. Other blocking items (a value XBRL disagrees with) may need an
-    # override value, so they stay with `ledger review decide`.
-    if len(excs) != len(set(ids)) or any(e["severity"] != "warn" and e["rule_id"] != "cost_lines_summed" for e in excs):
-        raise ValueError("only current warnings and cost-line confirmations can be decided here")
-    for e in excs:
-        decide(e, "accept", reason, by)
-    return {"accepted": len(excs)}
-
-
 # ── Adding a company: one pipeline run at a time, in the background, its log read back as progress ───────────
 JOB = store.ROOT / "data" / "jobs" / "current.json"
 _proc = None
+
+
+def attribute(industry_: str | None, by: str) -> dict:
+    """Rerun the attributor (run, then load) for one industry or every company, in the background; nothing is re-read
+    from filings. The job page shows the log's last lines and the diff when it ends."""
+    global _proc
+    if _proc and _proc.poll() is None:
+        raise ValueError("a run is already going; wait for it to finish")
+    if industry_ and industry_ not in INDUSTRIES and industry_ != "other":
+        raise ValueError(f"no industry {industry_}")
+    tickers = [t for t in stage_tickers(3) if not industry_ or industry(t) == industry_]
+    if not tickers:
+        raise ValueError("no company in that industry")
+    log = JOB.parent / f"attribution-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S')}.log"
+    JOB.parent.mkdir(parents=True, exist_ok=True)
+    cmd = " && ".join(f"{sys.executable} -m ledger attribution --ticker {' '.join(tickers)} {step}" for step in ("--run", "--load"))
+    _proc = subprocess.Popen(["sh", "-c", cmd], cwd=store.ROOT, env=os.environ.copy(), stdout=log.open("w"), stderr=subprocess.STDOUT)
+    JOB.write_text(json.dumps({"kind": "attribution", "ticker": industry_ or "all", "by": by, "log": str(log), "started": datetime.now(timezone.utc).isoformat(timespec="seconds"), "pid": _proc.pid}))
+    return job()
 
 
 def add_company(ticker: str, by: str) -> dict:
@@ -213,7 +251,7 @@ def add_company(ticker: str, by: str) -> dict:
     JOB.parent.mkdir(parents=True, exist_ok=True)
     _proc = subprocess.Popen([sys.executable, "-m", "ledger", "run", "--ticker", t], cwd=store.ROOT, env=os.environ.copy(),
                              stdout=log.open("w"), stderr=subprocess.STDOUT)
-    JOB.write_text(json.dumps({"ticker": t, "log": str(log), "started": datetime.now(timezone.utc).isoformat(timespec="seconds"), "pid": _proc.pid}))
+    JOB.write_text(json.dumps({"kind": "run", "ticker": t, "log": str(log), "started": datetime.now(timezone.utc).isoformat(timespec="seconds"), "pid": _proc.pid}))
     return job()
 
 
@@ -232,7 +270,7 @@ def job() -> dict | None:
         return None
     meta = json.loads(JOB.read_text())
     p = progress.read()
-    mine = p if p and p.get("scope") == meta["ticker"] else None
+    mine = p if p and p.get("scope") == meta["ticker"] and meta.get("kind", "run") == "run" else None
     done = {(s["step"], tuple(s["extra"])): s for s in (mine or {}).get("steps", [])}
     ours = _proc is not None and _proc.pid == meta["pid"]
     running = _proc.poll() is None if ours else bool(mine and mine["running"] and _alive(meta["pid"]))
@@ -243,12 +281,16 @@ def job() -> dict | None:
     else:
         code = (2 if any(s["code"] == 2 for s in done.values()) else 0) if mine and not mine["running"] else None
     steps, next_up = [], True
-    for cmd, extra, label in progress.STEPS:
+    for cmd, extra, label in (progress.STEPS if meta.get("kind", "run") == "run" else [("attribution", ["--run"], "The Attributor reads the model and each company's data"), ("attribution", ["--load"], "Recompute every number from its inputs and write the diff")]):
         s = done.get((cmd, tuple(extra)))
         steps.append({"label": label, "state": "done" if s else "running" if running and next_up else "waiting", "summary": s["summary"] if s else ""})
         next_up = next_up and bool(s)
     lines = Path(meta["log"]).read_text(errors="ignore").splitlines() if Path(meta["log"]).exists() else []
-    return {**meta, "running": running, "exit": code, "steps": steps, "tail": lines[-3:]}
+    if meta.get("kind") == "attribution":  # two steps, read from the log's own headings
+        done_run, done_load = any(l.startswith("running the attributor") for l in lines) and any(": " in l and ("rows," in l or "FAILED" in l) for l in lines), any(" rows for " in l for l in lines)
+        steps = [{"label": steps[0]["label"], "state": "done" if (done_run and (done_load or not running)) else "running" if running else "waiting", "summary": next((l.strip() for l in lines if l.startswith("running the attributor")), "")},
+                 {"label": steps[1]["label"], "state": "done" if done_load else "running" if running and done_run else "waiting", "summary": next((l.strip() for l in lines if " rows for " in l), "")}]
+    return {**meta, "running": running, "exit": code, "steps": steps, "tail": lines[-4:]}
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -285,7 +327,9 @@ class Handler(BaseHTTPRequestHandler):
         if u.path == "/api/job":
             return self._json(job())
         if u.path == "/api/insights":
-            return self._json(insights())
+            return self._guard(lambda: self._json(insights()))
+        if u.path == "/api/attribution":
+            return self._guard(lambda: self._json(attribution_view()))
         if u.path.startswith("/packet/") and u.path.endswith(".zip"):
             z = packet(u.path[len("/packet/"):-4])
             if z:
@@ -322,9 +366,16 @@ class Handler(BaseHTTPRequestHandler):
             return self._json({"error": "send JSON"}, HTTPStatus.BAD_REQUEST)
         if u.path == "/api/companies":
             return self._guard(lambda: self._json(add_company(body.get("ticker", ""), body.get("by", ""))))
-        if u.path == "/api/decide":
-            return self._guard(lambda: self._json(decide_items(body.get("ids", []), body.get("reason", ""), body.get("by", ""))))
-        parts = u.path.strip("/").split("/")  # api/agents/<id>/<prompt|use|model>
+        if u.path == "/api/attribute":
+            return self._guard(lambda: self._json(attribute(body.get("industry") or None, body.get("by", ""))))
+        parts = u.path.strip("/").split("/")  # api/agents/<id>/<prompt|use|model>, api/models/<industry>/<save|use>
+        if len(parts) == 4 and parts[:2] == ["api", "models"]:
+            ind, what = parts[2], parts[3]
+            if what == "save":
+                return self._guard(lambda: self._json({"version": agents.save_model(ind, body.get("text", ""), body.get("by", ""), body.get("note", ""))}))
+            if what == "use":
+                return self._guard(lambda: self._json((agents.use_model(ind, body.get("version", ""), body.get("by", "")), {"ok": True})[1]))
+            return self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
         if len(parts) != 4 or parts[:2] != ["api", "agents"] or parts[2] not in agents.load():
             return self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
         aid, what = parts[2], parts[3]

@@ -6,7 +6,13 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (30 Oct 2026, later):** step four of the plan: the attribution layer.
+**Last done (30 Oct 2026, night):** step five: DATAHQ rebuilt around the three layers, after a design audit (`docs/DATAHQ.md`).
+- **Three tabs.** Pipeline (home): what was ingested and cleaned with nobody in the loop; figures for companies, texts, values, facts, cells confirmed, faults, blocked; a coverage-by-layer table per company; findings; add a company inline. Attribution: the six money-flow models with an editor (save as the next version, switch on, both logged), a "Rerun" per industry or for every company that runs the attributor in the background and shows the diff, and the AI-capex grid by company and year with the method under each number. Insights: from the live tables (labelled against the signed release): buyers' AI capex against their total capex by year, AI capex per company with the method named, sellers' data-center revenue beside buyers' AI capex, the method mix.
+- **Company page** reordered: the attribution first, then what the company said, the facts, the numbers and their cleaning, the filings, every check.
+- **Removed:** the dead question cards and accept control, the Outputs page (the packet download lives under Releases), the Dashboard. The readers' prompts stay under `#agents`.
+- API: `/api/attribution`, `/api/insights` (live), `POST /api/models/<industry>/save|use`, `POST /api/attribute`.
+
+**Before that (30 Oct, later):** step four of the plan: the attribution layer.
 - **Money-flow models**, one per industry in `agents/models/` (hyperscaler, neocloud, miner-to-HPC, chip seller, component supplier, other), each saying where AI money shows up for that kind of business, which methods are allowed in order of hardness, and the traps. Versioned like prompts; `agents.json` names the version in use per industry; `config.INDUSTRIES` maps companies to models.
 - **The attributor** (`ledger attribution`, in `ledger run` after `notes`): one task per company (the model plus the data pack: values, facts, what the company said). Output rows carry the method, the amount, every input by id and a basis in words; code looks the inputs up and recomputes the amount (a stated share × capex, a sum of segment capex, a category's year-on-year growth, the whole business). Editing a model reruns only that industry; `--load` writes `data/attribution/diff.json`.
 - **Numbers:** all 31 companies (29 with values): 223 rows, 38 with an AI dollar amount (9 companies: the five hyperscalers by server-category growth, CoreWeave whole-business, Applied Digital and Core Scientific by segment, IREN by stated amounts); by method 118 none, 67 words only, 22 server-category growth, 6 whole business, 6 stated amount, 4 segment; 0 failed, 0 retries, 9.4 agent minutes, 330k tokens. Microsoft FY2026: 83.0B of 115.9B capex (72%) by that method; Meta FY2025 29.6B (43%); Amazon FY2025 59.3B (45%). Three warnings where segment capex (accrual) exceeds cash capex, explained in the basis. Types 41–43 in `docs/INGESTION.md`.
@@ -49,8 +55,8 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 **Released:** `v1.1.0`, all 31 tracked companies (30 with a 10-K), 384 values, signed by Kenny Geiler, hash 794fb2dfadae. 14 decisions applied: the 8 above (four cost-line confirmations, ExxonMobil's revenue definition for four years) plus six earlier. DATAHQ serves it as `/packet/v1.1.0.zip`.
 
 **Next (the plan agreed 29 Oct, in order):**
-1. DATAHQ in three tabs: Pipeline, Attribution, Insights (money flow buyers to sellers, AI share of capex over time, hard vs stated vs words).
-2. Sign `v1.2.0` (or build `v1.3.0` with `facts.csv` and sign that) (`ledger signoff v1.2.0 --by "Kenny Geiler"`), then DATAHQ serves it as a packet.
+1. Build `v1.3.0` (values, facts, statements, attribution) and sign it; v1.2.0 stays unsigned.
+2. Open items: Alphabet's PP&E category after FY2023 (type 44), purchase-commitment definitions (type 34), Nvidia's older-year transcripts and Alphabet's and Microsoft's links in `sources/ir.yaml`, ExxonMobil's 8-Ks under the old CIK (type 40), a `stated_sum` method for quarterly AI figures (type 42). (`ledger signoff v1.2.0 --by "Kenny Geiler"`), then DATAHQ serves it as a packet.
 2. L4: 8-K earnings releases through the AI spend reader, where the explicit AI amounts are.
 3. M3.1: one question per cause (XOM shows why).
 
@@ -104,7 +110,7 @@ Every command runs as `uv run python -m ledger <command> --stage N` or `--ticker
 | `ledger/steps.py`, `ledger/progress.py` | The pipeline's step list; what a run is doing, for DATAHQ's Add page |
 | `airflow/dags/capex_ledger.py` | The same steps as an Airflow DAG (one `BashOperator` each); Airflow is not a dependency, point one at this folder |
 | `agents/agents.json`, `agents/prompts/`, `ledger/agents.py` | The named agents: model, active prompt, change history; a prompt change is saved as a new version |
-| `ledger/app.py`, `app.html`, `hq.py` | DATAHQ web app (read-only on the database) and its numbers |
+| `ledger/app.py`, `app.html`, `hq.py` | DATAHQ web app (three tabs: Pipeline, Attribution, Insights) and its numbers; design audit in [docs/DATAHQ.md](docs/DATAHQ.md) |
 | `ledger/rules.py`, `rules/` | Rule engine and the 16 rules |
 | `ledger/evidence.py`, `scorecard.py` | Rendered-10-K re-read with boxed screenshots; what each company cost |
 | `ledger/faults.py`, `review.py`, `release.py` | Fault injection, decisions, releases |

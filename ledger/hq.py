@@ -9,7 +9,7 @@ from collections import Counter
 from datetime import date, timedelta
 
 from . import store
-from .config import stage_tickers, tracked
+from .config import industry, stage_tickers, tracked
 from .release import releases as release_dirs
 from .review import apply, decisions, open_items
 from .rules import load as load_rules
@@ -49,6 +49,12 @@ def snapshot(con, stage: int = 3) -> dict:
     last_run = con.execute("select max(started_at) from runs").fetchone()[0]
     names = {c["ticker"]: c["name"] for c in companies_now}
     ai = Counter(r[0] for r in con.execute("select ticker from ai_spend where ticker in (select unnest(?))", t).fetchall())
+    nfacts = Counter(r[0] for r in con.execute("select ticker from facts where ticker in (select unnest(?))", t).fetchall())
+    ntexts = Counter(r[0] for r in con.execute("select ticker from texts where ticker in (select unnest(?))", t).fetchall())
+    attr = {}  # ticker -> latest actual capex attribution
+    for r in rows(con, "select ticker, period, method, ai_amount, ai_share from attribution where kind = 'actual' and field = 'capex' and ticker in (select unnest(?)) order by period", t):
+        if r["ai_amount"] is not None or r["ticker"] not in attr:
+            attr[r["ticker"]] = r
 
     companies = []
     for s in scorecard(con, tickers, name):
@@ -63,7 +69,8 @@ def snapshot(con, stage: int = 3) -> dict:
                           "decided": s["values"] - s["agree"] - s["explained_by_code"], "cells_confirmed": done, "cells": total,
                           "agent_minutes": s["agent_minutes"], "tokens": s["tokens"], "retries": s["retries"],
                           "for_a_person": s["for_a_person"], "warnings": s["warnings"],
-                          "ai_statements": ai[s["ticker"]],
+                          "ai_statements": ai[s["ticker"]], "facts": nfacts[s["ticker"]], "texts": ntexts[s["ticker"]],
+                          "industry": industry(s["ticker"]), "ai_capex": attr.get(s["ticker"]),
                           "last_10k_period": str(mine[-1]["period"]) if mine else None, "last_10k_filed": str(mine[-1]["filed"]) if mine else None,
                           "next_10k_expected": nxt})
 
@@ -186,7 +193,8 @@ def snapshot(con, stage: int = 3) -> dict:
     full = con.execute("select started_at, seconds, outcome, detail from runs where step = 'run' order by started_at desc limit 1").fetchone()
 
     run = [c for c in companies if c["tokens"]]  # companies read headless, so their cost was measured
-    health = [{"run_at": last_run, "companies": len(tickers), "filings": len(docs), "values": len(vals), "agree": labels["agree"],
+    nattr = con.execute("select count(*), count(*) filter (where ai_amount is not null) from attribution where ticker in (select unnest(?))", [tickers]).fetchone()
+    health = [{"run_at": last_run, "texts": sum(ntexts.values()), "facts": sum(nfacts.values()), "attributed": nattr[1], "attribution_rows": nattr[0], "companies": len(tickers), "filings": len(docs), "values": len(vals), "agree": labels["agree"],
                "cells_confirmed": confirmed, "cells": len(exts), "faults": len(faults), "faults_escaped": escaped,
                "for_a_person": sum(e["severity"] == "block" for e in todo), "warnings": sum(e["severity"] == "warn" for e in todo),
                "agent_minutes": round(sum(c["agent_minutes"] for c in companies), 1), "tokens": sum(c["tokens"] for c in companies),
