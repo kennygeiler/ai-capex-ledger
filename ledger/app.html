@@ -19,6 +19,7 @@
     :root { --bg: #15181a; --fg: #e6e9e4; --muted: #9aa39d; --faint: #2a2f2c; --accent: #5fbf95; --bad: #e07a64; --bar: #1b1f21; --row: #1a1e20; color-scheme: dark; }
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .skip { position: absolute; left: -999px; top: .5rem; background: var(--bg); padding: .4rem .7rem; z-index: 30; }
   .skip:focus { left: .5rem; }
@@ -655,19 +656,33 @@ async function openModel(ind) {
   const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('save', {text: text.value, note: note.value}, (r) => `Saved as ${r.version}; not in use until switched on.`)}, 'Save as New Version');
   const cancelBtn = h('button', {type: 'button', onclick: show}, 'Cancel');
   const editRow = h('div', {class: 'row', hidden: true}, note, saveBtn, cancelBtn);
+  const dryBox = h('div', {style: 'margin-top:.8rem'});
+  async function showDry() {
+    const r = await api('/api/dryrun?version=' + encodeURIComponent(shown));
+    dryBox.replaceChildren();
+    if (!r) return;
+    const rb = r.reference.before, ra = r.reference.after;
+    dryBox.append(h('p', {class: 'small'}, h('b', {style: 'font-weight:500'}, `Dry run of ${r.version}`), ` (${day(r.at)}, ${r.companies.length} companies): ${int(r.changed.length)} rows would change, ${int(r.new.length)} new, ${int(r.removed.length)} removed. Reference: ${rb.agree} of ${rb.n} agree now, ${ra.agree} of ${ra.n} with ${r.version}${ra.disagree !== rb.disagree ? ` (${ra.disagree} disagree vs ${rb.disagree})` : ''}.`),
+      r.changed.length ? table([{t: 'Row', sort: false, f: (c) => h('span', {class: 'mono small'}, c.key)}, {t: 'Now', sort: false, f: (c) => `${METHOD[c.before[0]] || c.before[0]}${c.before[1] != null ? ', ' + usd(c.before[1]) : ''}`}, {t: `With ${r.version}`, sort: false, f: (c) => `${METHOD[c.after[0]] || c.after[0]}${c.after[1] != null ? ', ' + usd(c.after[1]) : ''}`}], r.changed.slice(0, 20)) : '');
+  }
+  const dryBtn = h('button', {type: 'button', onclick: async () => {
+    status.textContent = 'Starting the dry run…';
+    try { await api('/api/dryrun', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({version: shown, by: me})}); status.textContent = 'Dry run running; reopen this model when it ends.'; dryBox.replaceChildren(jobBox(() => showDry(), 'dryrun')); }
+    catch (e) { status.textContent = e.message; status.classList.add('bad'); }
+  }}, 'Dry Run');
   const rerunBtn = h('button', {type: 'button', class: 'btn', onclick: async () => {
     status.textContent = 'Starting…';
     try { await api('/api/attribute', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({industry: ind, by: me})}); status.textContent = 'Running; the queue updates when it ends.'; setTimeout(route, 1500); }
     catch (e) { status.textContent = e.message; status.classList.add('bad'); }
   }}, `Rerun ${INDUSTRY[ind]}`);
-  function show() { text.value = m.texts[shown]; text.readOnly = true; editRow.hidden = true; editBtn.hidden = false; useBtn.hidden = shown === m.version; text.style.height = 'auto'; text.style.height = Math.min(520, text.scrollHeight + 4) + 'px'; }
+  function show() { text.value = m.texts[shown]; text.readOnly = true; editRow.hidden = true; editBtn.hidden = false; useBtn.hidden = shown === m.version; dryBtn.hidden = shown === m.version; text.style.height = 'auto'; text.style.height = Math.min(520, text.scrollHeight + 4) + 'px'; showDry(); }
   async function post(what, body, done) {
     status.textContent = 'Saving…';
     try { const r = await api(`/api/models/${ind}/${what}`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({...body, by: me})}); status.textContent = typeof done === 'function' ? done(r) : done; attrCache = null; setTimeout(route, 1200); }
     catch (e) { status.textContent = e.message; status.classList.add('bad'); }
   }
   drawer(h('h3', {}, `${INDUSTRY[ind]} model`), h('p', {class: 'muted small', style: 'margin-bottom:.6rem'}, m.companies.join(', ') || 'no company'),
-    h('div', {class: 'row', style: 'margin-bottom:.6rem'}, verSel, editBtn, useBtn, rerunBtn, status), text, editRow);
+    h('div', {class: 'row', style: 'margin-bottom:.6rem'}, verSel, editBtn, dryBtn, useBtn, rerunBtn, status), dryBox, text, editRow);
   queueMicrotask(show);
 }
 

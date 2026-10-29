@@ -16,7 +16,8 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
 from .. import agent, store
-from ..attribution import Invalid, OUTPUTS, TASKS, model_for, model_text, pack, prompt_version, rows_for, validate_output, write_task
+from ..attribution import DRYRUN, Invalid, OUTPUTS, TASKS, model_for, model_text, pack, prompt_version, rows_for, validate_output, write_task
+from ..evaluation import load as load_gold, score
 from ..config import add_scope, scope
 
 DIFF = store.ROOT / "data" / "attribution" / "diff.json"
@@ -37,36 +38,44 @@ def main(argv=None) -> int:
     g.add_argument("--load", action="store_true")
     ap.add_argument("--rerun", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--model-version", help="dry run: use this saved model version (same industry) instead of the one in use")
+    ap.add_argument("--dry-run", action="store_true", help="with --model-version: run and compare, write nothing to the table")
     a = ap.parse_args(argv)
+    ov = a.model_version
+    if ov and not a.dry_run:
+        ap.error("--model-version needs --dry-run")
+    out_dir = DRYRUN / ov if ov else OUTPUTS
     tickers, name = scope(a)
     con = store.init(a.db)
     packs = {t: pack(con, t) for t in tickers}
     packs = {t: p for t, p in packs.items() if any(v["kind"] == "value" for v in p.values())}  # a company with no values has nothing to attribute
     pv = prompt_version()
+    if ov:  # only the industry the version belongs to
+        packs = {t: p for t, p in packs.items() if model_for(t).split("@")[0] == ov.split("@")[0]}
     if a.pack or a.run:
         con.close()
-        paths = {t: write_task(t, p) for t, p in packs.items()}
-        print(f"{len(paths)} tasks in data/attribution/tasks ({pv}; models " + ", ".join(sorted({model_for(t) for t in paths})) + ")")
+        paths = {t: write_task(t, p, ov) for t, p in packs.items()}
+        print(f"{len(paths)} tasks in {paths[next(iter(paths))].parent.relative_to(store.ROOT) if paths else 'none'} ({pv}; models " + ", ".join(sorted({model_for(t, ov) for t in paths})) + ")")
     if a.pack:
         return 0
     if a.run:
         sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()[:16]
 
         def stale(t):
-            out = OUTPUTS / f"{t}.json"
+            out = out_dir / f"{t}.json"
             return not out.exists() or (json.loads(out.read_text()).get("_run") or {}).get("task_sha") != sha(paths[t])
 
         todo = [t for t in paths if a.rerun or stale(t)]
-        OUTPUTS.mkdir(parents=True, exist_ok=True)
+        out_dir.mkdir(parents=True, exist_ok=True)
 
         def one(t):
             try:
-                obj = agent.ask("attributor", paths[t].read_text(), lambda o: validate_output(o, t, packs[t]))
+                obj = agent.ask("attributor", paths[t].read_text(), lambda o: validate_output(o, t, packs[t], ov))
                 obj["_run"]["task_sha"] = sha(paths[t])
                 note = f"{len(obj['rows'])} rows, {sum(r['ai_amount'] is not None for r in obj['rows'])} with an amount, {obj['_run']['seconds']:.0f}s, {obj['_run']['attempts']} attempt(s)"
             except Invalid as e:
                 obj, note = {"ticker": t, "error": e.reason}, f"FAILED: {e.reason}"
-            (OUTPUTS / f"{t}.json").write_text(json.dumps(obj, indent=1))
+            (out_dir / f"{t}.json").write_text(json.dumps(obj, indent=1))
             return f"  {t}: {note}"
 
         print(f"running the attributor on {len(todo)} compan{'ies' if len(todo) != 1 else 'y'}; {len(paths) - len(todo)} already attributed for this model and data")
@@ -77,6 +86,31 @@ def main(argv=None) -> int:
         except agent.AgentUnavailable as e:
             print(f"stopped: {e}")
             return 2
+        if not ov:
+            return 0
+        # dry run: compare with the table, score against the reference set, write the result; the table is untouched
+        con = store.init(a.db)
+        cur_rows = [dict(zip([c[0] for c in con.execute("select * from attribution").description], r)) for r in con.execute("select * from attribution").fetchall()]
+        capex = {(t_, p_): v_ for t_, p_, v_ in con.execute('select ticker, period, value from "values" where field = \'capex\' and value is not null').fetchall()}
+        con.close()
+        new_rows = []
+        for t in packs:
+            f = out_dir / f"{t}.json"
+            if f.exists():
+                obj = json.loads(f.read_text())
+                if "error" not in obj:
+                    new_rows += rows_for(t, obj, ov, hashlib.sha256(model_text(ov).encode()).hexdigest()[:16], f"dryrun-{ov}")
+        mine = {t for t in packs}
+        before = {(r["ticker"], r["field"], r["period"], r["kind"]): r for r in cur_rows if r["ticker"] in mine}
+        after = {(r["ticker"], r["field"], r["period"], r["kind"]): r for r in new_rows}
+        changed = [{"key": "|".join(k), "before": [before[k]["method"], before[k]["ai_amount"]], "after": [after[k]["method"], after[k]["ai_amount"]]} for k in sorted(before.keys() & after.keys()) if (before[k]["method"], before[k]["ai_amount"]) != (after[k]["method"], after[k]["ai_amount"])]
+        gold = [g for g in load_gold() if g["ticker"] in mine]
+        ev_before, ev_after = score(gold, [r for r in cur_rows if r["ticker"] in mine], capex), score(gold, new_rows, capex)
+        result = {"version": ov, "in_use": model_for(next(iter(mine))), "companies": sorted(mine), "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                  "changed": changed, "new": sorted("|".join(k) for k in after.keys() - before.keys()), "removed": sorted("|".join(k) for k in before.keys() - after.keys()),
+                  "reference": {"before": {k: ev_before[k] for k in ("n", "agree", "disagree", "no_estimate")}, "after": {k: ev_after[k] for k in ("n", "agree", "disagree", "no_estimate")}}}
+        (out_dir / "result.json").write_text(json.dumps(result, indent=1, default=str))
+        print(f"dry run {ov}: {len(changed)} rows would change, {len(result['new'])} new, {len(result['removed'])} removed; reference {ev_before['agree']}/{ev_before['n']} agree now, {ev_after['agree']}/{ev_after['n']} with {ov}. Nothing written to the table.")
         return 0
 
     run_id = f"attribution-{datetime.now(timezone.utc).isoformat(timespec='seconds')}"

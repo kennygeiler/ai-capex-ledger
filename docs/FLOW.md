@@ -31,7 +31,7 @@ fix, blocks) are an append-only log in `data/resolutions.jsonl`, keyed by the it
 Release reads them: a blocking resolution blocks, accept and explain hide the item until its content changes, and the
 line says "gates pass, but N unresolved" rather than "nothing blocks"; the drawer shows ours, the tag, the delta, the
 cell and its filing, the attributions the fact feeds, the value in the last release, and the resolution controls.
-Not taken yet: a dry run of a definition or model edit showing what it would change.
+Then the dry run: a saved model version that is not in use can be run against its industry from the model drawer (`attribution --model-version X@vN --dry-run`); the result is which rows would change, before and after, and how the reference check would move; the table is untouched until a person clicks Use. A definition dry run is still open.
 
 ## The screen
 

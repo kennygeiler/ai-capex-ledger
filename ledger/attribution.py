@@ -32,8 +32,16 @@ def prompt_versions() -> tuple[str, ...]:
     return tuple(agents.versions("attributor"))
 
 
-def model_for(ticker: str) -> str:
-    """The model version in use for the company's industry, from agents/agents.json."""
+DRYRUN = ROOT / "data" / "attribution" / "dryrun"
+
+
+def model_for(ticker: str, override: str | None = None) -> str:
+    """The model version in use for the company's industry, from agents/agents.json; or an override of the same
+    family (a dry run of a saved version)."""
+    if override:
+        if override.split("@")[0] != industry(ticker):
+            raise ValueError(f"{override} is not a {industry(ticker)} model")
+        return override
     return agents.load()["attributor"]["models"][industry(ticker)]
 
 
@@ -78,10 +86,11 @@ def make_task(ticker: str, items: dict, model: str) -> str:
     return head + "# Money-flow model\n\n" + model_text(model) + "\n\n# Data pack\n\n" + render_pack(ticker, items) + "\n"
 
 
-def write_task(ticker: str, items: dict) -> Path:
-    TASKS.mkdir(parents=True, exist_ok=True)
-    p = TASKS / f"{ticker}.md"
-    p.write_text(make_task(ticker, items, model_for(ticker)))
+def write_task(ticker: str, items: dict, override: str | None = None) -> Path:
+    d = TASKS if not override else DRYRUN / override / "tasks"
+    d.mkdir(parents=True, exist_ok=True)
+    p = d / f"{ticker}.md"
+    p.write_text(make_task(ticker, items, model_for(ticker, override)))
     return p
 
 
@@ -96,7 +105,7 @@ def _tol(items: dict, inputs: list[dict]) -> int:
     return 500_000
 
 
-def validate_output(obj: dict, ticker: str, items: dict) -> None:
+def validate_output(obj: dict, ticker: str, items: dict, override: str | None = None) -> None:
     if not isinstance(obj, dict):
         raise Invalid("output is not a JSON object")
     for k in ("ticker", "prompt_version", "model", "rows", "none_found"):
@@ -106,8 +115,8 @@ def validate_output(obj: dict, ticker: str, items: dict) -> None:
         raise Invalid(f"ticker {obj['ticker']!r} is not the task's {ticker!r}")
     if obj["prompt_version"] not in (known := prompt_versions()):
         raise Invalid(f"prompt_version {obj['prompt_version']!r}, expected one of {known}")
-    if obj["model"] != model_for(ticker):
-        raise Invalid(f"model {obj['model']!r} is not the task's {model_for(ticker)!r}")
+    if obj["model"] != model_for(ticker, override):
+        raise Invalid(f"model {obj['model']!r} is not the task's {model_for(ticker, override)!r}")
     if not isinstance(obj["rows"], list) or not isinstance(obj["none_found"], list):
         raise Invalid("'rows' and 'none_found' must be lists")
     seen = set()

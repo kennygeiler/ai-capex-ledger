@@ -427,6 +427,22 @@ def attribute(industry_: str | None, by: str) -> dict:
     return job()
 
 
+def dryrun(version: str, by: str) -> dict:
+    """Run a saved model version against its industry in the background and compare; the table is untouched."""
+    global _proc
+    if _proc and _proc.poll() is None:
+        raise ValueError("a run is already going; wait for it to finish")
+    ind = version.split("@")[0]
+    if version not in agents.model_versions(ind):
+        raise ValueError(f"no model {version}")
+    tickers = [t for t in stage_tickers(3) if industry(t) == ind]
+    log = JOB.parent / f"dryrun-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S')}.log"
+    JOB.parent.mkdir(parents=True, exist_ok=True)
+    _proc = subprocess.Popen([sys.executable, "-m", "ledger", "attribution", "--ticker", *tickers, "--run", "--model-version", version, "--dry-run"], cwd=store.ROOT, env=os.environ.copy(), stdout=log.open("w"), stderr=subprocess.STDOUT)
+    JOB.write_text(json.dumps({"kind": "dryrun", "ticker": version, "by": by, "log": str(log), "started": datetime.now(timezone.utc).isoformat(timespec="seconds"), "pid": _proc.pid}))
+    return job()
+
+
 def add_company(ticker: str, by: str) -> dict:
     """Add a company the SEC knows and run the whole pipeline on it. Agent work runs on the subscription (claude -p)."""
     global _proc
@@ -477,15 +493,15 @@ def job() -> dict | None:
     else:
         code = (2 if any(s["code"] == 2 for s in done.values()) else 0) if mine and not mine["running"] else None
     steps, next_up = [], True
-    for cmd, extra, label in (progress.STEPS if meta.get("kind", "run") == "run" else [("attribution", ["--run"], "The Attributor reads the model and each company's data"), ("attribution", ["--load"], "Recompute every number from its inputs and write the diff")]):
+    for cmd, extra, label in (progress.STEPS if meta.get("kind", "run") == "run" else [("attribution", ["--run"], "The Attributor reads the model and each company's data")] + ([("attribution", ["--load"], "Recompute every number from its inputs and write the diff")] if meta.get("kind") == "attribution" else [("attribution", ["--dry-run"], "Compare with the table and score against the reference set; nothing written")])):
         s = done.get((cmd, tuple(extra)))
         steps.append({"label": label, "state": "done" if s else "running" if running and next_up else "waiting", "summary": s["summary"] if s else ""})
         next_up = next_up and bool(s)
     lines = Path(meta["log"]).read_text(errors="ignore").splitlines() if Path(meta["log"]).exists() else []
-    if meta.get("kind") == "attribution":  # two steps, read from the log's own headings
-        done_run, done_load = any(l.startswith("running the attributor") for l in lines) and any(": " in l and ("rows," in l or "FAILED" in l) for l in lines), any(" rows for " in l for l in lines)
+    if meta.get("kind") in ("attribution", "dryrun"):  # two steps, read from the log's own headings
+        done_run, done_load = any(l.startswith("running the attributor") for l in lines) and any(": " in l and ("rows," in l or "FAILED" in l) for l in lines), any(" rows for " in l or "dry run " in l for l in lines)
         steps = [{"label": steps[0]["label"], "state": "done" if (done_run and (done_load or not running)) else "running" if running else "waiting", "summary": next((l.strip() for l in lines if l.startswith("running the attributor")), "")},
-                 {"label": steps[1]["label"], "state": "done" if done_load else "running" if running and done_run else "waiting", "summary": next((l.strip() for l in lines if " rows for " in l), "")}]
+                 {"label": steps[1]["label"], "state": "done" if done_load else "running" if running and done_run else "waiting", "summary": next((l.strip() for l in lines if " rows for " in l or l.startswith("dry run ")), "")}]
     return {**meta, "running": running, "exit": code, "steps": steps, "tail": lines[-4:]}
 
 
@@ -531,6 +547,9 @@ class Handler(BaseHTTPRequestHandler):
         if u.path == "/api/evaluation":
             f = store.ROOT / "reports" / "evaluation.json"
             return self._json(json.loads(f.read_text()) if f.exists() else None)
+        if u.path == "/api/dryrun":
+            f = store.ROOT / "data" / "attribution" / "dryrun" / q.get("version", "") / "result.json"
+            return self._json(json.loads(f.read_text()) if f.exists() and re.fullmatch(r"[a-z_]+@v\d+", q.get("version", "")) else None)
         if u.path == "/api/attribution":
             return self._guard(lambda: self._json(attribution_view()))
         if u.path.startswith("/packet/") and u.path.endswith(".zip"):
@@ -571,6 +590,8 @@ class Handler(BaseHTTPRequestHandler):
             return self._guard(lambda: self._json(add_company(body.get("ticker", ""), body.get("by", ""))))
         if u.path == "/api/resolve":
             return self._guard(lambda: self._json(resolutions.resolve(body.get("key", ""), body.get("hash", ""), body.get("state", ""), body.get("reason", ""), body.get("by", ""))))
+        if u.path == "/api/dryrun":
+            return self._guard(lambda: self._json(dryrun(body.get("version", ""), body.get("by", ""))))
         if u.path == "/api/attribute":
             return self._guard(lambda: self._json(attribute(body.get("industry") or None, body.get("by", ""))))
         parts = u.path.strip("/").split("/")  # api/agents/<id>/<prompt|use|model>, api/models/<industry>/<save|use>
