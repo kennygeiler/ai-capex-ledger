@@ -1,8 +1,31 @@
 {
- "at": "2026-10-29T21:08:28+00:00",
+ "at": "2026-10-29T21:42:52+00:00",
  "scope": "stage3",
- "changed": 0,
- "new": 176,
- "removed": 0,
- "rows": []
+ "changed": 2,
+ "new": 0,
+ "removed": 6,
+ "rows": [
+  {
+   "key": "GOOGL|capex|FY2024|actual",
+   "before": [
+    "qualitative",
+    null
+   ],
+   "after": [
+    "ppe_category",
+    29348000000
+   ]
+  },
+  {
+   "key": "GOOGL|capex|FY2025|actual",
+   "before": [
+    "qualitative",
+    null
+   ],
+   "after": [
+    "ppe_category",
+    61827000000
+   ]
+  }
+ ]
 }

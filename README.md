@@ -6,7 +6,13 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (30 Oct 2026, night):** step five: DATAHQ rebuilt around the three layers, after a design audit (`docs/DATAHQ.md`).
+**Last done (31 Oct 2026):** a measured error. The role inside a firm owns a number others act on, so the number needs a reference set and an error band, not an agent's confidence.
+- **Reference set** `gold/ai_capex.yaml`: sourced figures for AI's part of capex (what the company said on a call, or an independent estimate), each with URL, quote, date and a line on what it measures. Six entries so far, all company statements; add one whenever a sourced figure turns up, never from memory.
+- **`ledger eval`** (in `ledger run` after attribution): scores every attribution row against the set: coverage, agreement within 10%, error on entries that state a figure, by method. `reports/EVALUATION.md`, `EVALUATION.md` in every release, a QUALITY line, and "How wrong is it" on the Insights tab.
+- **Result:** we have a number for 5 of 6; 2 agree (Oracle, Amazon), 3 disagree (Microsoft 61% vs at most half; Alphabet FY2025 68% vs 60% stated, FY2024 56% vs a ≥90% floor that measures all technical infrastructure); Tesla has no estimate. Server-category growth overstates the server share because the category includes finance-lease assets and software (type 46); the error is now stated beside the number.
+- **Alphabet fixed** (type 45): it renamed its PP&E categories in the FY2024 10-K and the notes reader never saw the table; the candidate words now include the new names, hyperscaler model `@v2` bridges the rename, and Alphabet has FY2024–25 attributions. 1,448 facts, 217 attribution rows, 40 with an AI amount.
+
+**Before that (30 Oct, night):** step five: DATAHQ rebuilt around the three layers, after a design audit (`docs/DATAHQ.md`).
 - **Three tabs.** Pipeline (home): what was ingested and cleaned with nobody in the loop; figures for companies, texts, values, facts, cells confirmed, faults, blocked; a coverage-by-layer table per company; findings; add a company inline. Attribution: the six money-flow models with an editor (save as the next version, switch on, both logged), a "Rerun" per industry or for every company that runs the attributor in the background and shows the diff, and the AI-capex grid by company and year with the method under each number. Insights: from the live tables (labelled against the signed release): buyers' AI capex against their total capex by year, AI capex per company with the method named, sellers' data-center revenue beside buyers' AI capex, the method mix.
 - **Company page** reordered: the attribution first, then what the company said, the facts, the numbers and their cleaning, the filings, every check.
 - **Removed:** the dead question cards and accept control, the Outputs page (the packet download lives under Releases), the Dashboard. The readers' prompts stay under `#agents`.
@@ -55,8 +61,10 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 **Released:** `v1.3.0`, signed by Kenny Geiler on 2026-10-29, hash 4029e202c594: the same 384 values as v1.1.0 (354 agree with XBRL), plus `facts.csv` (1,436), `ai_spend.csv` (83) and `attribution.csv` (223 rows, 38 AI dollar amounts). DATAHQ serves it as `/packet/v1.3.0.zip`; Insights now read a signed attribution. v1.2.0 (values and statements only) stays unsigned and superseded; v1.1.0 (hash 794fb2dfadae) is the previous signed release. 14 decisions applied: the 8 above (four cost-line confirmations, ExxonMobil's revenue definition for four years) plus six earlier. DATAHQ serves it as `/packet/v1.1.0.zip`.
 
 **Next (the plan agreed 29 Oct, in order):**
-1. Send to Arctal: the repo, `/packet/v1.3.0.zip`, and DATAHQ live.
-2. Open items: Alphabet's PP&E category after FY2023 (type 44), purchase-commitment definitions (type 34), Nvidia's older-year transcripts and Alphabet's and Microsoft's links in `sources/ir.yaml`, ExxonMobil's 8-Ks under the old CIK (type 40), a `stated_sum` method for quarterly AI figures (type 42). (`ledger signoff v1.2.0 --by "Kenny Geiler"`), then DATAHQ serves it as a packet.
+1. Build and sign `v1.4.0` (adds `EVALUATION.md` and Alphabet's FY2024–25 attributions); then send to Arctal: the repo, the packet, DATAHQ live.
+2. Grow the reference set: Meta and Microsoft server-share statements from calls, Micron's HBM capex share, independent estimates (Dell'Oro puts accelerators at about a third of data-center capex industry-wide).
+3. Subtract finance-lease additions from server-category growth where the lease note gives them (type 46).
+4. Open items: Alphabet's PP&E category after FY2023 (type 44), purchase-commitment definitions (type 34), Nvidia's older-year transcripts and Alphabet's and Microsoft's links in `sources/ir.yaml`, ExxonMobil's 8-Ks under the old CIK (type 40), a `stated_sum` method for quarterly AI figures (type 42). (`ledger signoff v1.2.0 --by "Kenny Geiler"`), then DATAHQ serves it as a packet.
 2. L4: 8-K earnings releases through the AI spend reader, where the explicit AI amounts are.
 3. M3.1: one question per cause (XOM shows why).
 
@@ -85,6 +93,7 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 | Texts | `texts` | Every text the AI spend reader reads, in the `texts` table with the fiscal period each speaks to: each 10-K's MD&A (Item 7 via `edgartools`), each 8-K earnings release (Exhibit 99.1), and the transcripts and CFO commentary a company's investor page offers, from PDF links a person lists in `sources/ir.yaml` (free; the pages sit behind a bot check that code does not get around, the PDFs download directly) |
 | AI spend | `aispend --run`, then `aispend --load` | What every text says about AI's part of capex and opex: the AI spend reader over the passages that mention AI next to spending, every statement a verbatim quote checked against its passage; table A `ai_statements`, table B `ai_spend` (most specific statement wins, newest text breaks ties, `source` says where it came from) |
 | Attribution | `attribution --run`, then `attribution --load` | AI's part of capex and opex per company and fiscal year: the attributor reads the industry's money-flow model (`agents/models/`) and the company's data pack, names every input, and code recomputes each number by the method's arithmetic; table `attribution`, `attribution.csv` in releases, a diff on every load |
+| Evaluate | `eval` | The attribution against the reference set `gold/ai_capex.yaml`: coverage, agreement, error band per method; `reports/EVALUATION.md` |
 | Rules | `rules` | Exceptions from the 16 rules in `rules/*.yaml` |
 | Faults | `faults` | Every cell corrupted in typical ways, and what caught each |
 | Evidence | `evidence` | Every cited cell re-read on the 10-K rendered in Chrome; boxed screenshots in `reports/evidence/` (`--faults` proves it notices moved citations) |
@@ -106,6 +115,7 @@ Every command runs as `uv run python -m ledger <command> --stage N` or `--ticker
 | `ledger/texts.py`, `sources/ir.yaml` | The text registry: MD&A, 8-K releases, investor-page PDFs; the links a person listed |
 | `ledger/guidance.py` | AI spend from the texts: passages, the quote contract, table B |
 | `ledger/attribution.py`, `agents/models/` | The attributor's data pack, contract and arithmetic; the six money-flow models, versioned |
+| `ledger/evaluation.py`, `gold/ai_capex.yaml` | The reference set of sourced AI-capex figures and the scoring against it |
 | `ledger/notes.py`, `reference/dimensions.py` | Facts from the notes: candidate tables, the cell contract, table B; the filing's XBRL instance with segment and category members as the answer key |
 | `ledger/steps.py`, `ledger/progress.py` | The pipeline's step list; what a run is doing, for DATAHQ's Add page |
 | `airflow/dags/capex_ledger.py` | The same steps as an Airflow DAG (one `BashOperator` each); Airflow is not a dependency, point one at this folder |

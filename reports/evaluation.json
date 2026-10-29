@@ -1,0 +1,138 @@
+{
+ "n": 6,
+ "with_estimate": 5,
+ "agree": 2,
+ "disagree": 3,
+ "no_estimate": 1,
+ "eq_entries": 1,
+ "bands": {
+  "ppe_category": {
+   "n": 5,
+   "agree": 2,
+   "median_abs_error": 0.12683333333333344,
+   "n_eq": 1
+  }
+ },
+ "rows": [
+  {
+   "ticker": "GOOGL",
+   "period": "FY2025",
+   "field": "capex",
+   "measure": "share",
+   "relation": "eq",
+   "reference": 0.6,
+   "basis": "Servers' share of 2025 capital expenditures (the rest data centers and networking), as stated by the CFO on the Q4 2025 call. Servers include CPUs, not only AI accelerators.",
+   "source": {
+    "kind": "company_statement",
+    "url": "https://nasdaq.com/articles/alphabet-spends-about-60-cents-every-technical-infrastructure-dollar-servers-nvidias",
+    "quote": "60 per cent of Alphabet's capex in 2025 was spent on servers",
+    "date": "2026-02-05"
+   },
+   "method": "ppe_category",
+   "confidence": 0.45,
+   "ours": 0.6761,
+   "outcome": "disagree",
+   "error": 0.12683333333333344
+  },
+  {
+   "ticker": "GOOGL",
+   "period": "FY2024",
+   "field": "capex",
+   "measure": "share",
+   "relation": "ge",
+   "reference": 0.9,
+   "basis": "Share of 2024 capex going to technical infrastructure (servers, data centers, networking), a planning statement on the Q4 2023 call. Wider than servers; a floor on the infrastructure share, not on AI.",
+   "source": {
+    "kind": "company_statement",
+    "url": "https://accelerationeconomy.com/?p=64061",
+    "quote": "at least 90% of 2024 spending would focus on technical infrastructure",
+    "date": "2024-01-30"
+   },
+   "method": "ppe_category",
+   "confidence": 0.45,
+   "ours": 0.5586,
+   "outcome": "disagree",
+   "error": -0.37933333333333336
+  },
+  {
+   "ticker": "MSFT",
+   "period": "FY2025",
+   "field": "capex",
+   "measure": "share",
+   "relation": "le",
+   "reference": 0.5,
+   "basis": "Short-lived assets (servers, CPUs and GPUs) were at most about half of cloud and AI spend through fiscal 2025; the CFO said \"roughly half\" long-lived in Q1 and \"more than half\" long-lived in Q2 and Q4. So the server share of the year is at most about 0.5.",
+   "source": {
+    "kind": "company_statement",
+    "url": "https://itpro.com/business/business-strategy/microsoft-promises-more-ai-spending-despite-cloud-cost-stumble",
+    "quote": "more than half of cloud and AI-related spending at the firm was directed toward long-lived assets ... the remaining spend was primarily for servers, both CPUs and GPUs",
+    "date": "2025-01-29"
+   },
+   "method": "ppe_category",
+   "confidence": 0.5,
+   "ours": 0.605,
+   "outcome": "disagree",
+   "error": 0.20999999999999996
+  },
+  {
+   "ticker": "AMZN",
+   "period": "FY2025",
+   "field": "capex",
+   "measure": "share",
+   "relation": "ge",
+   "reference": 0.5,
+   "basis": "The CEO said the vast majority of 2025 capex is AI for AWS; a floor of half on the AI share of total capex, which includes fulfillment and transportation.",
+   "source": {
+    "kind": "company_statement",
+    "url": "https://www.rcrwireless.com/20250207/business/amazon-100-billion-ai-infrastructure-spend-2025",
+    "quote": "The vast majority of that capex spend is on AI for AWS",
+    "date": "2025-02-06"
+   },
+   "method": "ppe_category",
+   "confidence": 0.55,
+   "ours": 0.4501,
+   "outcome": "agree",
+   "error": -0.0998
+  },
+  {
+   "ticker": "TSLA",
+   "period": "FY2024",
+   "field": "capex",
+   "measure": "amount",
+   "relation": "ge",
+   "reference": 5000000000,
+   "basis": "AI-related capex including infrastructure, as stated by the CFO on the Q4 2024 call; the wording leaves open whether it is the year or cumulative, so a floor.",
+   "source": {
+    "kind": "company_statement",
+    "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/elon-musk-spent-roughly-usd10-billion-on-ai-training-hardware-in-2024",
+    "quote": "total AI-related capex, including infrastructure, is now more than $5 billion",
+    "date": "2025-01-29"
+   },
+   "method": "qualitative",
+   "confidence": 0.6,
+   "ours": null,
+   "outcome": "no_estimate",
+   "error": null
+  },
+  {
+   "ticker": "ORCL",
+   "period": "FY2026",
+   "field": "capex",
+   "measure": "share",
+   "relation": "ge",
+   "reference": 0.5,
+   "basis": "The vast majority of fiscal 2026 capex is revenue-generating data center equipment, per the company's plan; a floor of half on the data-center share.",
+   "source": {
+    "kind": "company_statement",
+    "url": "https://datacentremagazine.com/news/oracles-data-centre-strategy-cloud-ai-and-more-capacity",
+    "quote": "vast majority of it dedicated to revenue-generating data center equipment",
+    "date": "2025-09-10"
+   },
+   "method": "ppe_category",
+   "confidence": 0.55,
+   "ours": 0.5262,
+   "outcome": "agree",
+   "error": 0.0524
+  }
+ ]
+}

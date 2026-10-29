@@ -560,6 +560,7 @@ async function attributionPage(view) {
 // ── Insights: the AI buildout in the live numbers ───────────────────────────
 async function insightsPage(view) {
   const d = await api('/api/insights');
+  const ev = await api('/api/evaluation');
   const yrs = d.by_year.filter((y) => y.buyers > 0);
   const latest = d.latest.filter((c) => c.role === 'buyer');
   const maxC = Math.max(...yrs.map((y) => y.capex), 1);
@@ -576,6 +577,13 @@ async function insightsPage(view) {
           {t: 'Buyers’ AI capex', n: 1, sort: false, f: (y) => usd(y.ai_capex)}, {t: 'Buyers’ capex', n: 1, sort: false, f: (y) => usd(y.capex)},
           {t: 'Sellers’ DC revenue', n: 1, sort: false, f: (y) => (y.sellers ? [usd(y.sellers_dc), h('div', {class: 'muted small'}, `${y.sellers} sellers`)] : h('span', {class: 'muted'}, '—'))}], yrs)),
         h('p', {class: 'muted small', style: 'margin-top:.6rem'}, 'Sellers’ data-center revenue counts only sellers whose segment note names a data-center line; Nvidia and AMD so far.'))),
+    ev && sect('How wrong is it', `${ev.n} sourced reference figures · we have a number for ${ev.with_estimate}: ${ev.agree} agree, ${ev.disagree} disagree · ${ev.no_estimate} without an estimate`,
+      table([{t: 'Company', k: 'ticker'}, {t: 'Year', k: 'period'}, {t: 'Reference', sort: false, f: (r) => `${({eq: '', ge: '≥ ', le: '≤ '})[r.relation]}${r.measure === 'share' ? pct(r.reference) : usd(r.reference)}`},
+        {t: 'Ours', sort: false, f: (r) => (r.ours == null ? h('span', {class: 'muted'}, 'no estimate') : r.measure === 'share' ? pct(r.ours) : usd(r.ours))},
+        {t: 'Method', k: 'method', f: (r) => (r.method ? METHOD[r.method] : '—')},
+        {t: 'Outcome', k: 'outcome', f: (r) => h('span', {class: r.outcome === 'disagree' ? 'bad' : r.outcome === 'agree' ? 'muted' : null}, r.outcome.replace('_', ' '))}],
+        ev.rows, {detail: (r) => h('div', {class: 'src'}, h('div', {}, r.basis), h('div', {class: 'muted small'}, `“${r.source.quote}” · `, h('a', {href: r.source.url, target: '_blank', rel: 'noopener'}, 'source'), ` · ${r.source.date || ''}`))}),
+      h('p', {class: 'muted small', style: 'margin-top:.6rem'}, 'Every reference entry names its source and what it measures; a server share includes CPUs, a "vast majority" is a floor. Add an entry to gold/ai_capex.yaml when you find a sourced figure. ', Object.entries(ev.bands).map(([m, b]) => `${METHOD[m]}: ${b.agree} of ${b.n} agree${b.median_abs_error != null ? `, median error ${pct(b.median_abs_error)} on ${b.n_eq}` : ''}`).join('; '), '.')),
     sect('Every attributed company', null,
       table([{t: 'Company', k: 'company'}, {t: 'Industry', k: 'industry', f: (c) => INDUSTRY[c.industry]}, {t: 'Year', k: 'period'},
         {t: 'AI capex', k: 'ai_amount', n: 1, f: (c) => usd(c.ai_amount)}, {t: 'Capex', k: 'capex', n: 1, f: (c) => usd(c.capex)}, {t: 'Share', k: 'share', n: 1, f: (c) => pct(c.share)},

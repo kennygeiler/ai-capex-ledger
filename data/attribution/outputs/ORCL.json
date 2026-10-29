@@ -1,7 +1,7 @@
 {
  "ticker": "ORCL",
  "prompt_version": "attribution@v1",
- "model": "hyperscaler@v1",
+ "model": "hyperscaler@v2",
  "rows": [
   {
    "field": "capex",
@@ -20,8 +20,8 @@
      "value": 9508000000
     }
    ],
-   "basis": "Growth in gross 'Computer, network, machinery and equipment': 12,844M \u2212 9,508M = 3,336M. This counts all server, network and machinery growth, net of disposals, not only AI. It predates the AI buildout and excludes buildings, land and construction in progress.",
-   "confidence": 0.3
+   "basis": "Growth in gross 'Computer, network, machinery and equipment': 12,844M \u2212 9,508M = 3,336M. This counts all server, network and machinery additions (net of disposals), not only AI, and predates Oracle's large AI build. It excludes buildings, land and construction in progress.",
+   "confidence": 0.35
   },
   {
    "field": "capex",
@@ -40,7 +40,7 @@
      "value": 12844000000
     }
    ],
-   "basis": "Growth in gross 'Computer, network, machinery and equipment': 17,258M \u2212 12,844M = 4,414M. This counts all server, network and machinery growth, not only AI, and excludes the 3.3B rise in construction in progress and building growth.",
+   "basis": "Growth in gross 'Computer, network, machinery and equipment': 17,258M \u2212 12,844M = 4,414M. This counts all server and network growth, not only AI. It excludes construction in progress (+3,334M), which includes future datacenter shells.",
    "confidence": 0.4
   },
   {
@@ -60,7 +60,7 @@
      "value": 17258000000
     }
    ],
-   "basis": "Growth in gross 'Computer, network, machinery and equipment': 20,989M \u2212 17,258M = 3,731M. This counts all server, network and machinery growth, not only AI. Shell, land and construction in progress are excluded.",
+   "basis": "Growth in gross 'Computer, network, machinery and equipment': 20,989M \u2212 17,258M = 3,731M. This counts all server and network growth, not only AI. It excludes buildings, land and construction in progress.",
    "confidence": 0.45
   },
   {
@@ -80,8 +80,8 @@
      "value": 20989000000
     }
    ],
-   "basis": "Growth in gross 'Computer, network, machinery and equipment': 30,345M \u2212 20,989M = 9,356M. This counts all server, network and machinery growth, not only AI. It excludes the 10.9B rise in construction in progress and finance-leased equipment (finance lease liability 2.9B at year end).",
-   "confidence": 0.55
+   "basis": "Growth in gross 'Computer, network, machinery and equipment': 30,345M \u2212 20,989M = 9,356M. This counts all server and network growth, not only AI. It excludes construction in progress (+10,876M) and buildings (+4,388M), and it misses finance-leased equipment (finance lease liability 2,934M at year end).",
+   "confidence": 0.5
   },
   {
    "field": "capex",
@@ -100,7 +100,7 @@
      "value": 30345000000
     }
    ],
-   "basis": "Growth in gross 'Computer, network, machinery and equipment': 59,634M \u2212 30,345M = 29,289M. This counts all server, network and machinery growth, not only AI. The company says the capex program supports 'AI Cloud Infrastructure' but gives total-scope words only, so the 55.7B total is not used as the AI part. Construction in progress (+23.5B) and finance leases (liability 2.9B to 7.7B) are excluded.",
+   "basis": "Growth in gross 'Computer, network, machinery and equipment': 59,634M \u2212 30,345M = 29,289M. This counts all server and network growth, not only AI. The company says the whole 55,663M capex program supports AI Cloud Infrastructure, but that is a total-scope statement and is not used as the AI amount. Excluded are construction in progress (+23,463M), buildings (+10,382M) and finance leases (liability up 4,767M to 7,701M), so this likely understates the AI buildout.",
    "confidence": 0.55
   },
   {
@@ -111,8 +111,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The earnings release says 'For years Oracle has been investing in AI and building autonomous cloud software.' It gives no amount or share of operating expense.",
-   "confidence": 0.2
+   "basis": "The Q2 FY2026 earnings release says only that 'For years Oracle has been investing in AI and building autonomous cloud software.' No amount or share of operating expense is attributed to AI.",
+   "confidence": 0.15
   }
  ],
  "none_found": [
@@ -139,20 +139,15 @@
   {
    "field": "capex",
    "period": "outlook",
-   "reason": "no statement with kind outlook in the pack; no forward capex guidance or AI split given"
-  },
-  {
-   "field": "opex",
-   "period": "outlook",
-   "reason": "no statement with kind outlook in the pack"
+   "reason": "no statement with kind outlook in the pack; the FY2026 capex statement is total-scope and qualitative"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 17.0,
-  "input_tokens": 8470,
-  "output_tokens": 2346,
+  "seconds": 18.3,
+  "input_tokens": 8495,
+  "output_tokens": 2505,
   "attempts": 1,
-  "task_sha": "dfad2957be5a2cef"
+  "task_sha": "b060136a778fd523"
  }
 }

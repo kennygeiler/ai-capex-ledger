@@ -135,7 +135,7 @@
   },
   "prompt": "attribution@v1",
   "models": {
-   "hyperscaler": "hyperscaler@v1",
+   "hyperscaler": "hyperscaler@v2",
    "neocloud": "neocloud@v1",
    "miner_to_hpc": "miner_to_hpc@v1",
    "chip_seller": "chip_seller@v1",
@@ -147,6 +147,16 @@
     "at": "2026-10-30T02:00:00+00:00",
     "by": "Kenny Geiler",
     "change": "attribution@v1 and six money-flow models @v1: first versions"
+   },
+   {
+    "at": "2026-10-29T21:41:33+00:00",
+    "by": "Kenny Geiler",
+    "change": "hyperscaler@v2 saved, not in use: Alphabet renamed its server category to Technical infrastructure in the FY2024 10-K; bridge the rename"
+   },
+   {
+    "at": "2026-10-29T21:41:33+00:00",
+    "by": "Kenny Geiler",
+    "change": "hyperscaler: switched to hyperscaler@v2"
    }
   ]
  }

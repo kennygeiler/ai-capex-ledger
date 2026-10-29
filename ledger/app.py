@@ -328,6 +328,9 @@ class Handler(BaseHTTPRequestHandler):
             return self._json(job())
         if u.path == "/api/insights":
             return self._guard(lambda: self._json(insights()))
+        if u.path == "/api/evaluation":
+            f = store.ROOT / "reports" / "evaluation.json"
+            return self._json(json.loads(f.read_text()) if f.exists() else None)
         if u.path == "/api/attribution":
             return self._guard(lambda: self._json(attribution_view()))
         if u.path.startswith("/packet/") and u.path.endswith(".zip"):

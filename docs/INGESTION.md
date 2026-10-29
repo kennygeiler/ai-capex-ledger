@@ -147,6 +147,25 @@ our AI efforts" and give totals; the only numbers are total-capex outlooks (Meta
 | 26 | **Scope is loose for words-only statements.** The same kind of sentence gets `scope: ai` in one filing and `total` in the next; scope only has meaning for an amount or share. | GOOGL, META opex | by eye | Open: ignore scope for `qualitative` rows when reading them; or drop it from the contract for that class. |
 | 27 | **The numbers live elsewhere.** Explicit AI amounts and shares appear in earnings-call prepared remarks and 8-K earnings releases (Exhibit 99.1), not in 10-K MD&A. | every hyperscaler | by design | Next: feed Exhibit 99.1 of the 8-K filed with each 10-K (edgartools gives it) through the same agent and contract. |
 
+## Evaluation (30 Oct): a reference set and an error band
+
+A number other people act on needs a measured error, not an agent's confidence. `gold/ai_capex.yaml` is a reference
+set of sourced figures for AI's part of capex: what the company said on a call, or an independent estimate, each with
+URL, quote, date, and a line saying what the figure measures (a server share includes CPUs; "vast majority" is a
+floor). `ledger eval` scores every attribution row against it: coverage, agreement within 10%, and the error on the
+entries that state a figure, by method. The report ships in every release as `EVALUATION.md` and on the Insights tab.
+
+First set, six entries, all company statements: we have a number for three. Oracle and Amazon agree with the floors
+the companies gave; Microsoft disagrees (our 61% by server-category growth against "at most about half" short-lived
+assets: the category's growth includes finance-lease assets and software, so it overstates the server share, a
+known limit of that method, now measured); Alphabet twice and Tesla have no estimate from us. Small, and said so;
+the point is that the number is now checkable and every new sourced figure tightens it.
+
+| # | Type | Where | Caught by | Fix |
+|---|---|---|---|---|
+| 45 | **A company renamed its PP&E categories.** From the FY2024 10-K Alphabet reports "Technical infrastructure", "Office space", "Corporate and other assets" and "in service / not yet in service" lines instead of land, buildings and information technology assets. None matched the candidate-table words, so the notes reader never saw the table; FY2024–25 attribution was `none`, and two reference entries had no estimate. | GOOGL FY2024–25 | the evaluation (no estimate) | The candidate words include the new names; a test keeps them. Hyperscaler model `@v2` names the rename so the attributor bridges it. |
+| 46 | **Server-category growth overstates the server share.** Microsoft's gross "Servers, network equipment, and software" grew 39.1B in FY2025 against 63.6B capex (61%); the company said short-lived assets were at most about half. The category includes finance-lease assets and software, which are not cash capex. | MSFT FY2025 | the evaluation (disagree) | None yet: the method's error is now measured and stated beside the number. Open: subtract finance-lease additions from the category growth when the lease note gives them. |
+
 ## Attribution (30 Oct): money-flow models and the attributor
 
 The question, finally answered per company and year: how much of the capex and opex is AI. Six money-flow models

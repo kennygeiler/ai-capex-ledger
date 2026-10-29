@@ -32,7 +32,7 @@ KINDS = {
     "segments": (re.compile(r"segment|by (specialized )?market|product and service offerings|by product", re.I),
                  re.compile(r"capital expenditure|purchases? of property|additions to property|^(total )?(net )?(revenues?|sales)|data center|operating (income|loss)", re.I)),
     "ppe": (re.compile(r"property(,| and) (plant and )?equipment", re.I),
-            re.compile(r"^(land|buildings?|servers?|computer|network|equipment|machinery|leasehold|construction in progress|furniture|data ?center equipment)", re.I)),
+            re.compile(r"^(land|buildings?|servers?|computer|network|equipment|machinery|leasehold|construction in progress|furniture|data ?center equipment|technical infrastructure|information technology|office space|corporate and other|property and equipment, (in service|gross)|assets not yet in service)", re.I)),
     "leases": (re.compile(r"lease", re.I), re.compile(r"finance lease", re.I)),
     "commitments": (re.compile(r"purchase (obligation|commitment)|contractual obligation|commitments", re.I),
                     re.compile(r"purchase (obligation|commitment)|contractual obligation|unconditional purchase", re.I)),

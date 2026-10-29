@@ -46,7 +46,8 @@ def main(argv=None) -> int:
     ai = _rows(con, "select * from ai_spend where ticker in (select unnest(?))", tickers)
     facts = _rows(con, "select * from facts where ticker in (select unnest(?))", tickers)
     attribution = _rows(con, "select * from attribution where ticker in (select unnest(?))", tickers)
-    files = build(a.version, apply(values, excs, ds), exts, excs, previous, confirmed, ai, facts, attribution)
+    ev_path = store.ROOT / "reports" / "evaluation.json"
+    files = build(a.version, apply(values, excs, ds), exts, excs, previous, confirmed, ai, facts, attribution, json.loads(ev_path.read_text()) if ev_path.exists() else None)
     h = content_hash(files)
     out = RELEASES / a.version
     if out.exists():

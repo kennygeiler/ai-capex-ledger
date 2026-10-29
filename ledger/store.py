@@ -248,7 +248,7 @@ SCHEMA: tuple[Table, ...] = (
     ), key=("decision_id",)),
     Table("runs", "One row per pipeline or agent step: what ran, on what, with which versions, and how it went.", (
         _c("run_id", "VARCHAR", "Run ID."),
-        _c("step", "VARCHAR", "Step name.", enum=("run", "ingest", "parse", "extract", "reconcile", "texts", "aispend", "notes", "attribution", "rules", "faults", "evidence", "report", "review", "score", "release")),
+        _c("step", "VARCHAR", "Step name.", enum=("run", "ingest", "parse", "extract", "reconcile", "texts", "aispend", "notes", "attribution", "eval", "rules", "faults", "evidence", "report", "review", "score", "release")),
         _c("subject", "VARCHAR", "What it ran on (accession, ticker, release).", nullable=True),
         _c("started_at", "VARCHAR", "UTC timestamp."),
         _c("seconds", "DOUBLE", "Wall-clock duration."),

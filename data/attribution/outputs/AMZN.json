@@ -1,7 +1,7 @@
 {
  "ticker": "AMZN",
  "prompt_version": "attribution@v1",
- "model": "hyperscaler@v1",
+ "model": "hyperscaler@v2",
  "rows": [
   {
    "field": "capex",
@@ -20,8 +20,8 @@
      "value": 113156000000
     }
    ],
-   "basis": "Growth in gross 'Servers and networking equipment': 172.492B \u2212 113.156B = 59.336B, or 45% of 131.819B capex. This counts all server and network growth, including non-AI AWS and retail compute, and it is net of retirements. It excludes datacenter shells (Land and buildings +32.1B) and construction in progress (+25.1B). The company says the capex increase 'primarily reflects investments in artificial intelligence' but gives no amount.",
-   "confidence": 0.5
+   "basis": "Growth in gross 'Servers and networking equipment' (172.492B \u2212 113.156B = 59.336B), about 45% of 131.819B capex. This counts all server and network growth, AI and non-AI, net of retirements. It may include finance-leased assets and excludes datacenter shells (Land and buildings) and construction in progress. The earnings release says the capex increase 'primarily reflects investments in artificial intelligence' but gives no amount.",
+   "confidence": 0.55
   },
   {
    "field": "capex",
@@ -40,7 +40,7 @@
      "value": 185039000000
     }
    ],
-   "basis": "Growth in gross 'Equipment': 218.893B \u2212 185.039B = 33.854B, or 41% of 82.999B capex. Before FY2025, Amazon reported a single Equipment category, which bundles servers and networking with heavy (fulfillment) and other equipment; its FY2024 balance equals the sum of the three FY2025 subcategories. The figure therefore overstates server growth, includes non-AI servers, and is net of retirements.",
+   "basis": "Growth in gross 'Equipment' (218.893B \u2212 185.039B = 33.854B). Equipment is broader than servers: FY2024 Equipment equals Servers and networking 113.156B + Heavy equipment 52.228B + Other equipment 53.509B, so this includes fulfillment and logistics equipment. It is an upper bound on server growth, not an AI amount.",
    "confidence": 0.35
   },
   {
@@ -60,7 +60,7 @@
      "value": 157458000000
     }
    ],
-   "basis": "Growth in gross 'Equipment': 185.039B \u2212 157.458B = 27.581B, or 52% of 52.729B capex. The category includes fulfillment and other equipment as well as servers, and the pack has no AI statement for this year. This is an upper bound on server growth, not an AI amount.",
+   "basis": "Growth in gross 'Equipment' (185.039B \u2212 157.458B = 27.581B). It includes heavy and other fulfillment equipment as well as servers, and largely predates the AI buildout. It is all equipment growth, not an AI amount.",
    "confidence": 0.25
   },
   {
@@ -80,7 +80,7 @@
      "value": 128683000000
     }
    ],
-   "basis": "Growth in gross 'Equipment': 157.458B \u2212 128.683B = 28.775B, or 45% of 63.645B capex. The category includes fulfillment and other equipment as well as servers, and FY2022 predates the generative-AI buildout with no AI statement in the pack. Read this as general equipment growth, not AI.",
+   "basis": "Growth in gross 'Equipment' (157.458B \u2212 128.683B = 28.775B). It includes heavy and other fulfillment equipment as well as servers, and the year predates the generative-AI buildout. It is all equipment growth; the true AI share is likely much lower.",
    "confidence": 0.2
   },
   {
@@ -91,8 +91,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "Amazon expects 'about $200 billion in capital expenditures across Amazon in 2026', citing AI, chips, robotics and low earth orbit satellites. That figure is total capex, not the AI part, and no AI share or amount is given.",
-   "confidence": 0.2
+   "basis": "Amazon expects 'about $200 billion in capital expenditures across Amazon in 2026', citing AI, chips, robotics and satellites. That is total capex, not the AI part, and no AI split is given. Purchase commitments rose from 50.4B (FY2024) to 84.8B (FY2025), which is consistent with a larger buildout.",
+   "confidence": 0.25
   },
   {
    "field": "opex",
@@ -102,7 +102,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The MD&A says spending in technology and infrastructure will increase as Amazon adds infrastructure and employees, 'including to support our artificial intelligence and machine learning initiatives'. No amount or share is given.",
+   "basis": "The MD&A expects technology and infrastructure spending to increase 'as we continue to add infrastructure and employees, including to support our artificial intelligence and machine learning initiatives'. There is no amount or share.",
    "confidence": 0.2
   }
  ],
@@ -110,35 +110,35 @@
   {
    "field": "opex",
    "period": "FY2022",
-   "reason": "No statement or segment cost line attributes opex to AI."
+   "reason": "no statement or segment cost line attributes opex to AI"
   },
   {
    "field": "opex",
    "period": "FY2023",
-   "reason": "No statement or segment cost line attributes opex to AI."
+   "reason": "no statement or segment cost line attributes opex to AI"
   },
   {
    "field": "opex",
    "period": "FY2024",
-   "reason": "No statement or segment cost line attributes opex to AI."
+   "reason": "no statement or segment cost line attributes opex to AI"
   },
   {
    "field": "opex",
    "period": "FY2025",
-   "reason": "No statement or segment cost line attributes opex to AI. AI cost sits in depreciation and in technology and infrastructure headcount, which are unquantified."
+   "reason": "no statement or segment cost line attributes opex to AI; the AI-related statements cover capex or the FY2026 outlook only"
   },
   {
    "field": "capex",
    "period": "FY2026",
-   "reason": "There is no actual row because the pack has no FY2026 capex value. Quarterly releases say only that the increase 'primarily reflects investments in artificial intelligence'."
+   "reason": "no released FY2026 capex value; the quarterly earnings releases say only that the increase 'primarily reflects investments in artificial intelligence', with no amount"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 25.1,
-  "input_tokens": 8642,
-  "output_tokens": 3219,
+  "seconds": 25.9,
+  "input_tokens": 8671,
+  "output_tokens": 3281,
   "attempts": 1,
-  "task_sha": "1f96b7b9fcd563ae"
+  "task_sha": "2c4ddb5998ce461e"
  }
 }

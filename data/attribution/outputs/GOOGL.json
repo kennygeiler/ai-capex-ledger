@@ -1,7 +1,7 @@
 {
  "ticker": "GOOGL",
  "prompt_version": "attribution@v1",
- "model": "hyperscaler@v1",
+ "model": "hyperscaler@v2",
  "rows": [
   {
    "field": "capex",
@@ -20,8 +20,8 @@
      "value": 55606000000
     }
    ],
-   "basis": "Growth in gross 'Information technology assets': 66,267M \u2212 55,606M = 10,661M, which is 33.9% of 31,485M capex. This counts all server and network growth, not only AI, is net of disposals, and excludes land, buildings and construction in progress; the category facts have no XBRL cross-check.",
-   "confidence": 0.45
+   "basis": "Growth in gross 'Information technology assets' (servers and network equipment): 66,267M \u2212 55,606M = 10,661M. This counts all server and network growth, not only AI, is net of any disposals, and excludes data center buildings and construction in progress.",
+   "confidence": 0.5
   },
   {
    "field": "capex",
@@ -40,30 +40,48 @@
      "value": 66267000000
     }
    ],
-   "basis": "Growth in gross 'Information technology assets': 80,594M \u2212 66,267M = 14,327M, which is 44.4% of 32,251M capex. This counts all server and network growth, not only AI, is net of disposals, and excludes shells, land and construction in progress; the category facts have no XBRL cross-check.",
-   "confidence": 0.45
+   "basis": "Growth in gross 'Information technology assets': 80,594M \u2212 66,267M = 14,327M. This counts all server and network growth, not only AI, and excludes buildings and construction in progress. The FY2024 10-K's 'Technical infrastructure' (112,504M at FY2023) is broader, so the two series are not mixed.",
+   "confidence": 0.5
   },
   {
    "field": "capex",
    "period": "FY2024",
    "kind": "actual",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no FY2024 PP&E category balances and no FY2024 actual statement. The only link to AI is the FY2023 10-K's forward-looking statement that infrastructure investment would increase 'in particular in support of AI products and services'.",
-   "confidence": 0.2
+   "method": "ppe_category",
+   "ai_amount": 29348000000,
+   "ai_share": 0.5586,
+   "inputs": [
+    {
+     "id": "fact:GOOGL|ppe_category|Technical infrastructure|FY2024",
+     "value": 141852000000
+    },
+    {
+     "id": "fact:GOOGL|ppe_category|Technical infrastructure|FY2023",
+     "value": 112504000000
+    }
+   ],
+   "basis": "Growth in gross 'Technical infrastructure': 141,852M \u2212 112,504M = 29,348M. The recast category totals tie to the old ones only if it also absorbs data center land and buildings, so this includes shells as well as servers and network gear (all of it, not only AI). Assets not yet in service are excluded. The FY2024 balance is unresolved against XBRL.",
+   "confidence": 0.45
   },
   {
    "field": "capex",
    "period": "FY2025",
    "kind": "actual",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The FY2025 MD&A says capex scales technical infrastructure 'in particular for AI' but gives no AI amount or share. The pack has no FY2024 or FY2025 PP&E category balances to compute a server-growth figure.",
-   "confidence": 0.3
+   "method": "ppe_category",
+   "ai_amount": 61827000000,
+   "ai_share": 0.6761,
+   "inputs": [
+    {
+     "id": "fact:GOOGL|ppe_category|Technical infrastructure|FY2025",
+     "value": 203679000000
+    },
+    {
+     "id": "fact:GOOGL|ppe_category|Technical infrastructure|FY2024",
+     "value": 141852000000
+    }
+   ],
+   "basis": "Growth in gross 'Technical infrastructure': 203,679M \u2212 141,852M = 61,827M. It includes data center buildings as well as servers and network equipment, not only AI. Assets not yet in service (78,592M at year end) are excluded. The MD&A says capex is 'in particular for AI' but gives no share.",
+   "confidence": 0.45
   },
   {
    "field": "capex",
@@ -73,7 +91,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The FY2022 MD&A expects continued investment in servers, network equipment and data centers 'in particular in support of AI'. It gives no amount.",
+   "basis": "FY2022 MD&A: continued investment in technical infrastructure 'in particular in support of AI'; total-capex language with no amount or share.",
    "confidence": 0.2
   },
   {
@@ -84,7 +102,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The FY2023 MD&A expects infrastructure investment to increase relative to 2023 'in particular in support of AI products and services'. It gives no amount.",
+   "basis": "FY2023 MD&A: technical infrastructure investment to increase versus 2023, 'in particular in support of AI products and services'; no amount or share.",
    "confidence": 0.2
   },
   {
@@ -95,7 +113,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "Guidance of ~$75B (Q4'24 release), later raised to ~$85B (Q2'25 release), is for total capex, not the AI part, so it is not used as an AI amount. The FY2024 MD&A says the increase is 'in particular in support of AI products and services'.",
+   "basis": "Guidance of ~$75B (Q4 2024 release), raised to ~$85B (Q2 2025 release), is total capex, not the AI part. The FY2024 MD&A says the increase is 'in particular in support of AI'. No AI share is given.",
    "confidence": 0.25
   },
   {
@@ -106,8 +124,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The June 2026 equity raise of $49.6B net is for general corporate purposes 'including capital expenditures to scale AI infrastructure and global compute'. These are financing proceeds, not an AI capex amount.",
-   "confidence": 0.15
+   "basis": "June 2026 equity issuance with $49.6B net proceeds is for general corporate purposes 'including capital expenditures to scale AI infrastructure'. These are financing proceeds, not an AI capex amount.",
+   "confidence": 0.2
   },
   {
    "field": "opex",
@@ -117,8 +135,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The FY2023 releases say unallocated corporate costs 'primarily include AI-focused shared R&D activities, including development costs of our general AI models'. No amount for that cost line is in the pack.",
-   "confidence": 0.3
+   "basis": "Unallocated corporate costs 'primarily include AI-focused shared R&D activities, including development costs of our general AI models', mixed with philanthropy and corporate shared costs; no amount isolated in the pack.",
+   "confidence": 0.25
   },
   {
    "field": "opex",
@@ -128,8 +146,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The FY2024 releases say unallocated corporate costs primarily include AI-focused shared R&D, including general AI model development. No amount for that cost line is in the pack.",
-   "confidence": 0.3
+   "basis": "Same disclosure: unallocated/Alphabet-level costs primarily AI-focused shared R&D including general AI model development; the pack has no amount for that line.",
+   "confidence": 0.25
   },
   {
    "field": "opex",
@@ -139,7 +157,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The FY2025 MD&A and releases say 'Alphabet-level activities primarily reflect expenses related to our shared AI research and development'. No Alphabet-level cost amount is in the pack.",
+   "basis": "'Alphabet-level activities primarily reflect expenses related to our shared AI research and development'; the pack does not contain the Alphabet-level cost amount.",
    "confidence": 0.3
   },
   {
@@ -150,48 +168,33 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The FY2025 MD&A expects technical infrastructure costs (depreciation, energy, equipment, network capacity) to 'significantly increase' because AI needs more compute. It gives no amount.",
+   "basis": "FY2025 MD&A: technical infrastructure operating costs (depreciation, energy, equipment, network) 'expected to significantly increase' because AI needs more compute; no amount.",
    "confidence": 0.2
   }
  ],
  "none_found": [
   {
-   "field": "capex",
-   "period": "FY2024",
-   "reason": "no FY2024 PP&E category balances in the pack (IT assets stop at FY2023) and no stated AI amount or share"
-  },
-  {
-   "field": "capex",
-   "period": "FY2025",
-   "reason": "no FY2024/FY2025 PP&E category balances; the $75B/$85B guidance is total capex, not AI"
-  },
-  {
-   "field": "capex",
-   "period": "FY2022-FY2025",
-   "reason": "no stated AI share or amount in any year; finance lease growth (1,677M to 2,500M in FY2025) sits outside capex and is not attributed"
-  },
-  {
    "field": "opex",
    "period": "FY2022",
-   "reason": "no statement links FY2022 opex to AI and there is no segment cost line"
-  },
-  {
-   "field": "opex",
-   "period": "FY2023-FY2025",
-   "reason": "Alphabet-level/unallocated cost amounts are not in the pack, so the stated AI-focused shared R&D cannot be quantified"
+   "reason": "no statement in the pack links FY2022 opex to AI and no segment cost line is available"
   },
   {
    "field": "opex",
    "period": "FY2026",
-   "reason": "FY2026 actual statements exist but FY2026 opex is not in the pack's values, so no actual row is produced"
+   "reason": "FY2026 actual statements exist (Alphabet-level costs are primarily shared AI R&D) but FY2026 is not among the released values, so no actual row"
+  },
+  {
+   "field": "capex",
+   "period": "FY2022\u2013FY2025",
+   "reason": "no stated AI share or AI dollar amount; all dollar guidance is total capex. Finance lease growth (1,677M\u21922,500M in FY2025) sits outside capex and is not attributed"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 29.0,
-  "input_tokens": 11356,
-  "output_tokens": 3639,
+  "seconds": 27.5,
+  "input_tokens": 11946,
+  "output_tokens": 3733,
   "attempts": 1,
-  "task_sha": "2f4a18c06a45576e"
+  "task_sha": "58343f8cd52e228d"
  }
 }

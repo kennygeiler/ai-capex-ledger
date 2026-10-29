@@ -18,6 +18,7 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Done
 
+- **Evaluation (31 Oct):** `gold/ai_capex.yaml` reference set, `ledger eval`, `EVALUATION.md` in releases, Insights section; Alphabet's renamed PP&E categories fixed (type 45); server-category overstatement measured (type 46).
 - **DATAHQ three tabs (30 Oct, M7):** design audit and the new design in `docs/DATAHQ.md`; Pipeline, Attribution (model editor, rerun, diff, grid), Insights (live tables); company page attribution-first; dead question UI and Outputs removed.
 - **Money-flow models + attributor (30 Oct, M6):** six models in `agents/models/`, agent `attributor` (`attribution@v1`) with an arithmetic contract, table `attribution`, `attribution.csv`, diff on load, company page section. The Attribution tab with model editing is M7.
 - **Sources (30 Oct, M5):** `ledger texts` registry (MD&A, 8-K Exhibit 99.1, investor-page transcripts and CFO commentary via `sources/ir.yaml`); `aispend` over every text with `source`. Meta and Nvidia pages wired; Alphabet and Microsoft are per-company additions.

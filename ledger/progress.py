@@ -75,6 +75,10 @@ def summary(con, cmd: str, extra: list[str], tickers: list[str], name: str, star
         d = store.ROOT / "data" / "attribution" / "diff.json"
         changed = json.loads(d.read_text()).get("changed") if d.exists() else None
         return f"{n} rows, {amt} with an AI amount" + (f"; {changed} changed since the last attribution" if changed is not None else "")
+    if cmd == "eval":
+        f = store.ROOT / "reports" / "evaluation.json"
+        ev = json.loads(f.read_text()) if f.exists() else None
+        return f"{ev['n']} reference entries: {ev['agree']} agree, {ev['disagree']} disagree, {ev['no_estimate']} without an estimate" if ev else "No reference set"
     if cmd == "rules":
         r, = con.execute("select count(*) from rules").fetchone()
         b, w, i = one(f"select count(*) filter (where severity = 'block'), count(*) filter (where severity = 'warn'), count(*) filter (where severity = 'info') from exceptions {t}")

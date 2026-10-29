@@ -111,6 +111,104 @@
    "confidence": 1.0
   },
   {
+   "field": "ppe_category",
+   "dimension": "Technical infrastructure",
+   "table_id": "t0133",
+   "row_label": "Technical infrastructure",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "112,504",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 112504000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Technical infrastructure",
+   "table_id": "t0133",
+   "row_label": "Technical infrastructure",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "139,596",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 139596000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office space",
+   "table_id": "t0133",
+   "row_label": "Office space",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "40,435",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 40435000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office space",
+   "table_id": "t0133",
+   "row_label": "Office space",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "43,714",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 43714000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Corporate and other assets",
+   "table_id": "t0133",
+   "row_label": "Corporate and other assets",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "13,728",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 13728000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Corporate and other assets",
+   "table_id": "t0133",
+   "row_label": "Corporate and other assets",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "16,519",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 16519000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Add: assets not yet in service",
+   "table_id": "t0133",
+   "row_label": "Add: assets not yet in service",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "35,136",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 35136000000,
+   "confidence": 0.8,
+   "notes": "Gross category equivalent to construction in progress; presented below accumulated depreciation as an add-back rather than within the in-service subtotal."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Add: assets not yet in service",
+   "table_id": "t0133",
+   "row_label": "Add: assets not yet in service",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "50,597",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 50597000000,
+   "confidence": 0.8,
+   "notes": "Gross category equivalent to construction in progress; presented below accumulated depreciation as an add-back rather than within the in-service subtotal."
+  },
+  {
    "field": "finance_lease_liability",
    "dimension": null,
    "table_id": "t0126",
@@ -120,7 +218,8 @@
    "period_end": "2023-12-31",
    "months": 0,
    "value": 1666000000,
-   "confidence": 0.9
+   "confidence": 0.95,
+   "notes": "Unit not stated with the table; filing-level unit is millions, consistent with the other lease tables."
   },
   {
    "field": "finance_lease_liability",
@@ -132,30 +231,26 @@
    "period_end": "2024-12-31",
    "months": 0,
    "value": 1677000000,
-   "confidence": 0.9
+   "confidence": 0.95,
+   "notes": "Unit not stated with the table; filing-level unit is millions, consistent with the other lease tables."
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment note (t0162) reports revenue, operating income and segment costs only; no capital expenditures by segment in the tables provided"
-  },
-  {
-   "field": "ppe_category",
-   "reason": "no property-and-equipment note table by category is among the tables provided; t0126 shows only finance-lease property and equipment at cost, which is not a PP&E category breakdown"
+   "reason": "The segment note (t0162) reports revenues, operating income and segment expenses only; no capital expenditures by segment are given in the tables provided."
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or purchase-commitments table is among the tables provided"
+   "reason": "No contractual-obligations or commitments table is among the tables provided."
   }
  ],
- "notes": "Segment revenue excludes 'Hedging gains (losses)' (not a segment, Alphabet-level) and the total. Geographic revenues in t0053 (United States, EMEA, APAC, Other Americas) are regions, not segments or markets/product lines, so they were not extracted. t0126's unit was not stated with the table (the 'found elsewhere' unit string is empty); millions was assumed, consistent with the adjacent lease tables (t0123, t0127) and with total finance lease liabilities = 283 + 1,442 = 1,725? no: 235 + 1,442 = 1,677 and 283 + 1,383 = 1,666, which tie internally; confidence 0.9 reflects the unstated unit.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 15.2,
-  "input_tokens": 6745,
-  "output_tokens": 2072,
+  "seconds": 19.7,
+  "input_tokens": 7018,
+  "output_tokens": 2964,
   "attempts": 1,
-  "task_sha": "170031cb9059ce2c"
+  "task_sha": "223aa78ee1ec3573"
  }
 }
