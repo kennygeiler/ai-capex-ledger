@@ -1,0 +1,23 @@
+{
+ "accession": "TXN|earnings_release|2022-09-30|71cede68",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 only defines free cash flow and p02 reports total capital expenditures in a cash flow table with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 5127,
+  "output_tokens": 183,
+  "attempts": 1,
+  "task_sha": "68cbdaa43cc144f1"
+ }
+}

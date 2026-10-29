@@ -1,0 +1,42 @@
+{
+ "accession": "NVDA|transcript|2026-04-26|2ee4a07c",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "For the full year, we now expect OpEx to grow somewhere in the upper-40s on a year-over-year basis, driven by higher R&D and acceleration in the usage of AI tools to enhance productivity.",
+   "passage": "p13",
+   "confidence": 0.85,
+   "notes": "The sentence states total OpEx growth (upper-40s % YoY), not an AI amount or share, and names AI tool usage as one driver, so it is qualitative with scope total. The growth rate is not an AI share. The sentence says 'For the full year' on a call for the first quarter of fiscal 2027, so the full year is fiscal 2027. A null year would default to 2028 for an outlook, so fiscal 2027 is set explicitly."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "As a key enabler of AI, we will make investments necessary to deliver the industry's lowest cost per token and the highest token throughput, which will help our customers and partners scale and expand the AI frontier.",
+   "passage": "p11",
+   "confidence": 0.5,
+   "notes": "The sentence is part of the capital allocation update that prioritizes R&D and strategic investment, and it links future 'investments' to AI. It does not say whether 'investments' means R&D opex, capex or equity investments. It is recorded as opex because the paragraph is about R&D, with low confidence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes NVIDIA's own capital expenditures to AI. The capex in p14 is the analyst's forecast for hyperscaler capex, and p04 describes ecosystem AI infrastructure spending, not NVIDIA's own."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.9,
+  "input_tokens": 7194,
+  "output_tokens": 1820,
+  "attempts": 1,
+  "task_sha": "14990a78571b09da"
+ }
+}

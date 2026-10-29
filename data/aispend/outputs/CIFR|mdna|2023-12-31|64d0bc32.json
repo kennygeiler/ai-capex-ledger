@@ -1,0 +1,23 @@
+{
+ "accession": "CIFR|mdna|2023-12-31|64d0bc32",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex is described as going to bitcoin mining machines and data center infrastructure (the 'HASH Super Computing Servers' in p08 are Antminer bitcoin miners, not AI hardware)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.4,
+  "input_tokens": 7404,
+  "output_tokens": 254,
+  "attempts": 1,
+  "task_sha": "d019ca35c5c6d381"
+ }
+}

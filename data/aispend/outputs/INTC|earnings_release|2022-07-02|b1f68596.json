@@ -1,0 +1,23 @@
+{
+ "accession": "INTC|earnings_release|2022-07-02|b1f68596",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; 'Datacenter and AI Group' references are segment names and revenue figures, and p04 forward-looking boilerplate mentions investment plans without AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p06 segment operating income/loss for DCAI and AXG is not an AI spend statement, and p07 is a product description"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 6723,
+  "output_tokens": 234,
+  "attempts": 1,
+  "task_sha": "4664b9284f61d96d"
+ }
+}

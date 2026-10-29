@@ -1,0 +1,23 @@
+{
+ "accession": "AMD|earnings_release|2024-03-30|6d62c294",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the cash flow table (p06) reports purchases of property and equipment ($142 million in Q1 2024) with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the CFO remark in p02 ('while investing in the large AI opportunities ahead') does not say whether the investment is R&D, other operating expense or capital spending, so assigning it to opex would be an inference; p05 and p08 are forward-looking-statement boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.0,
+  "input_tokens": 11280,
+  "output_tokens": 630,
+  "attempts": 1,
+  "task_sha": "aab37e789fb8149f"
+ }
+}

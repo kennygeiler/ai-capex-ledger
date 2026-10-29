@@ -1,12 +1,12 @@
 """python -m ledger aispend --stage N | --ticker X …  --pack | --run | --load
 
-What each 10-K's MD&A says about AI's part of capex and opex (ledger/guidance.py).
---pack  gets Item 7 through edgartools (cached in data/text/) and writes one task per filing to data/aispend/tasks/:
-        only the passages that mention AI next to capital or operating spending.
---run   packs, then runs the AI spend reader headless on every filing whose task changed (--rerun: all), writing
-        data/aispend/outputs/<accession>.json; a filing the agent can't answer gets {"error": reason}.
+What every gathered text (`texts`: 10-K MD&A, 8-K earnings releases, transcripts, CFO commentary) says about AI's
+part of capex and opex (ledger/guidance.py).
+--pack  writes one task per text to data/aispend/tasks/: only the passages that mention AI next to spending.
+--run   packs, then runs the AI spend reader headless on every text whose task changed (--rerun: all), writing
+        data/aispend/outputs/<text_id>.json; a text the agent can't answer gets {"error": reason}.
 --load  validates each output (schema, then every quote against its passage), writes `ai_statements` (table A) and
-        derives `ai_spend` (table B). A filing with no valid output becomes an `ai_extraction_failed` exception.
+        derives `ai_spend` (table B). A text with no valid output becomes an `ai_extraction_failed` exception.
 """
 import argparse
 import hashlib
@@ -18,8 +18,6 @@ from datetime import datetime, timezone
 from .. import agent, store
 from ..config import add_scope, scope
 from ..guidance import OUTPUTS, Invalid, period_of, prompt_version, spend_rows, task_passages, validate_output, write_tasks
-from ..reconcile import fiscal_year_end
-from ..reference.normalize import fiscal_label
 
 
 def _exc(ticker, subject, message):
@@ -40,8 +38,8 @@ def main(argv=None) -> int:
     a = ap.parse_args(argv)
     tickers, name = scope(a)
     con = store.init(a.db)
-    cur = con.execute("select accession, ticker, cik, form, period, filed from documents where ticker in (select unnest(?)) order by ticker, period", [tickers])
-    docs = [dict(zip([c[0] for c in cur.description], r)) for r in cur.fetchall()]
+    cur = con.execute("select * from texts where ticker in (select unnest(?)) order by ticker, kind, period_end", [tickers])
+    docs = [dict(zip([c[0] for c in cur.description], r)) for r in cur.fetchall()]  # one task per text
     pv = prompt_version()
     if a.pack or a.run:
         con.close()  # the agent run takes minutes; don't hold the database (DATAHQ reads it)
@@ -53,7 +51,7 @@ def main(argv=None) -> int:
         sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()[:16]
 
         def stale(d, path):
-            out = OUTPUTS / f"{d['accession']}.json"
+            out = OUTPUTS / f"{d['text_id']}.json"
             return not out.exists() or (json.loads(out.read_text()).get("_run") or {}).get("task_sha") != sha(path)
 
         todo = [(d, p) for d, p in zip(docs, paths) if a.rerun or stale(d, p)]
@@ -65,19 +63,19 @@ def main(argv=None) -> int:
             ps = task_passages(task)
             try:
                 if not ps:
-                    obj = {"accession": d["accession"], "prompt_version": pv, "statements": [], "none_found": [{"field": f, "reason": "no passage in the MD&A mentions AI next to spending"} for f in ("capex", "opex")],
+                    obj = {"accession": d["text_id"], "prompt_version": pv, "statements": [], "none_found": [{"field": f, "reason": "no passage in the text mentions AI next to spending"} for f in ("capex", "opex")],
                            "_run": {"model": None, "seconds": 0.0, "input_tokens": 0, "output_tokens": 0, "attempts": 0, "task_sha": sha(path)}}
                     note = "no passages; nothing asked"
                 else:
-                    obj = agent.ask("ai_reader", task, lambda o: validate_output(o, d["accession"], ps))
+                    obj = agent.ask("ai_reader", task, lambda o: validate_output(o, d["text_id"], ps))
                     obj["_run"]["task_sha"] = sha(path)
                     note = f"{len(obj['statements'])} statements, {obj['_run']['seconds']:.0f}s, {obj['_run']['attempts']} attempt(s)"
             except Invalid as e:
-                obj, note = {"accession": d["accession"], "error": e.reason}, f"FAILED: {e.reason}"
-            (OUTPUTS / f"{d['accession']}.json").write_text(json.dumps(obj, indent=1))
-            return f"  {d['ticker']} {d['accession']}: {note}"
+                obj, note = {"accession": d["text_id"], "error": e.reason}, f"FAILED: {e.reason}"
+            (OUTPUTS / f"{d['text_id']}.json").write_text(json.dumps(obj, indent=1))
+            return f"  {d['text_id']}: {note}"
 
-        print(f"running the AI spend reader on {len(todo)} filing(s); {len(docs) - len(todo)} already have an output for this exact task")
+        print(f"running the AI spend reader on {len(todo)} text(s); {len(docs) - len(todo)} already have an output for this exact task")
         try:
             with ThreadPoolExecutor(a.workers) as pool:
                 for line in pool.map(one, todo):
@@ -88,35 +86,34 @@ def main(argv=None) -> int:
         return 0
 
     run_id = f"aispend-{datetime.now(timezone.utc).isoformat(timespec='seconds')}"
-    filed = {d["accession"]: d["filed"] for d in docs}
-    fye = {t: fiscal_year_end(t) for t in tickers}
+    filed = {d["text_id"]: d["date"] for d in docs}
     rows, excs, runs = [], [], []
     for d in docs:
         t0 = time.monotonic()
-        out = OUTPUTS / f"{d['accession']}.json"
-        task = (store.ROOT / "data" / "aispend" / "tasks" / f"{d['accession']}.md")
+        out = OUTPUTS / f"{d['text_id']}.json"
+        task = (store.ROOT / "data" / "aispend" / "tasks" / f"{d['text_id']}.md")
         try:
             if not out.exists():
                 raise Invalid("no output (task not run)")
             obj = json.loads(out.read_text())
             if "error" in obj:
                 raise Invalid(f"the agent couldn't answer: {obj['error']}")
-            validate_output(obj, d["accession"], task_passages(task.read_text()) if task.exists() else {})
+            validate_output(obj, d["text_id"], task_passages(task.read_text()) if task.exists() else {})
         except (Invalid, json.JSONDecodeError) as e:
-            excs.append(_exc(d["ticker"], d["accession"], f"{d['form']} {d['period']}: {getattr(e, 'reason', e)}"))
-            runs.append({"run_id": run_id, "step": "aispend", "subject": d["accession"], "started_at": run_id[8:], "seconds": 0.0, "outcome": "failed",
+            excs.append(_exc(d["ticker"], d["text_id"], f"{d['kind']} {d['period_end']}: {getattr(e, 'reason', e)}"))
+            runs.append({"run_id": run_id, "step": "aispend", "subject": d["text_id"], "started_at": run_id[8:], "seconds": 0.0, "outcome": "failed",
                          "versions": json.dumps({"prompt": pv}), "detail": json.dumps({"error": str(getattr(e, "reason", e))})})
             continue
-        reported = fiscal_label(d["period"], fye[d["ticker"]])[0]
         for i, s in enumerate(obj["statements"]):
-            period, assigned = period_of(s, reported)
-            rows.append({"statement_id": f"{d['accession']}|{s['field']}|{period}|{s['kind']}|{i}", "accession": d["accession"], "ticker": d["ticker"],
+            period, assigned = period_of(s, d["fiscal_year"])
+            rows.append({"statement_id": f"{d['text_id']}|{s['field']}|{period}|{s['kind']}|{i}", "text_id": d["text_id"], "source": d["kind"],
+                         "accession": d["accession"], "ticker": d["ticker"],
                          "field": s["field"], "period": period, "kind": s["kind"], "scope": s["scope"], "class": s["class"],
                          "amount_low": s.get("amount_low"), "amount_high": s.get("amount_high"), "share": float(s["share"]) if s.get("share") is not None else None,
                          "quote": s["quote"], "passage": s["passage"], "confidence": float(s["confidence"]), "notes": "; ".join(x for x in (s.get("notes"), assigned) if x) or None,
                          "prompt_version": obj["prompt_version"], "run_id": run_id})
         meta = obj.get("_run", {})
-        runs.append({"run_id": run_id, "step": "aispend", "subject": d["accession"], "started_at": run_id[8:], "seconds": round(time.monotonic() - t0, 3),
+        runs.append({"run_id": run_id, "step": "aispend", "subject": d["text_id"], "started_at": run_id[8:], "seconds": round(time.monotonic() - t0, 3),
                      "outcome": "ok", "versions": json.dumps({"prompt": pv, "model": meta.get("model")}),
                      "detail": json.dumps({"statements": len(obj["statements"]), "none_found": obj["none_found"], **meta})})
     vals = {(t, f, p): v for t, f, p, v in con.execute('select ticker, field, period, value from "values" where ticker in (select unnest(?))', [tickers]).fetchall()}
@@ -131,7 +128,7 @@ def main(argv=None) -> int:
     store.write(con, "ai_spend", spend)
     store.write(con, "exceptions", excs, replace=True)
     store.write(con, "runs", runs, replace=True)
-    print(f"{name}: {len(rows)} statements from {len(docs)} filings; {len(spend)} AI-spend rows ({sum(r['ai_amount'] is not None for r in spend)} with an AI amount); {len(excs)} failed")
+    print(f"{name}: {len(rows)} statements from {len(docs)} texts; {len(spend)} AI-spend rows ({sum(r['ai_amount'] is not None for r in spend)} with an AI amount); {len(excs)} failed")
     for e in excs:
         print("  FAILED", e["subject"], "-", e["message"])
     return 0

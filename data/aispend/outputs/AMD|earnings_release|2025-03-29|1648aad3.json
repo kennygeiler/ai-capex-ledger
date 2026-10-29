@@ -1,0 +1,23 @@
+{
+ "accession": "AMD|earnings_release|2025-03-29|1648aad3",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the cash flow table (p07) reports purchases of property and equipment ($212 million) without attributing them to AI, and the ZT Systems acquisition (p02, p13) is an acquisition, not capital expenditure"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; AI mentions describe products, customers and market opportunity only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 11307,
+  "output_tokens": 308,
+  "attempts": 1,
+  "task_sha": "65352dea30b13d78"
+ }
+}

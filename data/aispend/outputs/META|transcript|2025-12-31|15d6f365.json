@@ -1,0 +1,50 @@
+{
+ "accession": "META|transcript|2025-12-31|15d6f365",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Growth in employee compensation expenses reflects the technical hires we\u2019ve added this year, particularly AI talent.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Headcount opex growth attributed partly to AI talent. 'This year' is not a named year, so fiscal_year is null and code uses the reported year, 2025. No amount is stated."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This includes 2026 hires to support our priority areas, particularly AI, as well as a full year of expenses from 2025 hires.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Expected growth in compensation expense is linked to 2026 hires, particularly AI. No amount or share of AI spend is stated."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 115000000000,
+   "amount_high": 135000000000,
+   "quote": "We anticipate 2026 capital expenditures, including principal payments on finance leases, to be in the range of $115-135 billion, with year-over-year growth driven by increased investment to support our Meta Superintelligence Labs efforts and core business.",
+   "passage": "p03",
+   "confidence": 0.95,
+   "notes": "This is total capex guidance. AI (Meta Superintelligence Labs) is named as a driver of the growth, not quantified as the AI portion. The figure includes principal payments on finance leases."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.4,
+  "input_tokens": 4815,
+  "output_tokens": 1180,
+  "attempts": 1,
+  "task_sha": "e719e250db5f3a63"
+ }
+}

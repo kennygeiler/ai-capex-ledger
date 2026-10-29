@@ -1,0 +1,23 @@
+{
+ "accession": "COMP|mdna|2023-12-31|061f4c06",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 mentions capital expenditure needs only in the context of liquidity sufficiency"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p01 describes depreciation and amortization without reference to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 4675,
+  "output_tokens": 187,
+  "attempts": 1,
+  "task_sha": "9453522f7ac3e725"
+ }
+}

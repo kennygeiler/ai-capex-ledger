@@ -1,0 +1,23 @@
+{
+ "accession": "AMD|earnings_release|2026-03-28|c3dff46e",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the cash flow statement (p08) reports purchases of property and equipment of $389 million with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; segment commentary (p14, p15) cites higher operating expenses without linking them to AI, and the AI mentions describe products, customer demand or partnerships, not spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 12137,
+  "output_tokens": 329,
+  "attempts": 1,
+  "task_sha": "d76ca26aa680e8d3"
+ }
+}

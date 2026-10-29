@@ -1,0 +1,23 @@
+{
+ "accession": "AMZN|mdna|2023-12-31|115bf5fe",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p03 attributes 2022-2023 cash capex ($58.3B, $48.1B) and the expected 2024 increase to technology infrastructure supporting AWS and fulfillment capacity without naming AI, and the Anthropic convertible-note investment is an investment activity, not capex"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p02 and p04 attribute technology and infrastructure spending to headcount and infrastructure generally, and p02's mentions of artificial intelligence and machine learning describe technology trends and AWS's service offerings, not spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 6276,
+  "output_tokens": 624,
+  "attempts": 1,
+  "task_sha": "6bdf442cdd1ebf19"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "accession": "CSCO|earnings_release|2022-01-29|27840eff",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is safe-harbor boilerplate; no sentence mentions AI or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is safe-harbor boilerplate; 'investments in innovation' and 'investments in sales, engineering...' are generic risk language with no reference to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.6,
+  "input_tokens": 5729,
+  "output_tokens": 181,
+  "attempts": 1,
+  "task_sha": "10dc9b85dcbcd54a"
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "accession": "APLD|mdna|2026-05-31|27fbc91a",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We believe that the significant investments in property and equipment will remain throughout fiscal year 2027 as we continue construction of our HPC hosting facilities.",
+   "passage": "p07",
+   "confidence": 0.6,
+   "notes": "The sentence attributes continued significant property and equipment investment to construction of HPC hosting facilities. It does not say AI; the AI link comes from p02, which describes these facilities as purpose-built for AI and other HPC workloads. No amount or share is stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "p07 says G&A and operating expenditures will increase with expanded operations but does not link operating expenses to AI or quantify any AI portion"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 6184,
+  "output_tokens": 638,
+  "attempts": 1,
+  "task_sha": "5b59b14bd57503d5"
+ }
+}

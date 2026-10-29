@@ -1,0 +1,31 @@
+{
+ "accession": "CSCO|mdna|2025-07-26|55b004c5",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "R&D expenses increased primarily due to higher headcount-related expenses reflecting our investments in AI, share-based compensation expense, cash compensation expenses from acquisitions, and discretionary spending.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Says the increase in total R&D expense was driven partly by AI-related headcount. AI is one of four listed drivers, and no AI amount or share is given. The sentence names no year, so fiscal_year is null and code will apply the reported year (fiscal 2025)."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 mentions capital expenditures only in generic liquidity boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.5,
+  "input_tokens": 4733,
+  "output_tokens": 500,
+  "attempts": 1,
+  "task_sha": "bc6be8009a2ccb84"
+ }
+}

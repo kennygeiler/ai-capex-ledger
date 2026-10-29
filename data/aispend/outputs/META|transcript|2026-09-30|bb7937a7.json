@@ -1,0 +1,23 @@
+{
+ "accession": "META|transcript|2026-09-30|bb7937a7",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "p01 gives a total 2026 capital expenditure outlook of $135-145 billion but does not link it to AI, so it is not recorded as a scope-total AI statement; no other sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p02 discusses inference and GPU-utilization efficiency initiatives, not spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.5,
+  "input_tokens": 4645,
+  "output_tokens": 489,
+  "attempts": 1,
+  "task_sha": "7695d3c5349d4e31"
+ }
+}

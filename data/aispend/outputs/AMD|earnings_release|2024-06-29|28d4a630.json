@@ -1,0 +1,31 @@
+{
+ "accession": "AMD|earnings_release|2024-06-29|28d4a630",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In addition, we expanded gross margin and delivered solid earnings growth, while increasing our strategic AI investments to build the foundation for future growth.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "CFO says strategic AI investments increased in the quarter. The sentence does not say whether these are operating expenses (e.g. R&D) or capital spending; recorded as opex because AMD's AI investment is mainly R&D, which is an inference. No year is named; the release covers Q2 fiscal 2024."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the release gives no capex figures or outlook"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.7,
+  "input_tokens": 9638,
+  "output_tokens": 649,
+  "attempts": 1,
+  "task_sha": "e6a86dbe79be599d"
+ }
+}

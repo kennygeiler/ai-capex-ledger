@@ -1,0 +1,31 @@
+{
+ "accession": "ALAB|earnings_release|2025-03-31|d9de0d96",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "These factors and new opportunities for scale-up interconnects boost our confidence in accelerating R&D development to further strengthen our connectivity platform and to deliver results that outpace industry growth.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Plans to accelerate R&D. The link to AI is indirect: 'These factors' refers to the preceding sentences on AI platform design wins and demand for AI rack connectivity. No amount or share is given and no year is named. The sentence comes from a CEO quote in an earnings release, not MD&A."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures or links them to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.0,
+  "input_tokens": 6635,
+  "output_tokens": 713,
+  "attempts": 1,
+  "task_sha": "a76af1e435ab82e7"
+ }
+}

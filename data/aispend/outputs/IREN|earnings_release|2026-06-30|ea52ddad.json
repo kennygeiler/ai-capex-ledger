@@ -1,0 +1,31 @@
+{
+ "accession": "IREN|earnings_release|2026-06-30|ea52ddad",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Adjusted EBITDA decreased in Q4 FY26 reflecting increased employee related costs and broader platform investment ahead of AI Cloud Services revenue ramp",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Bullet text without terminal punctuation. Links higher Q4 FY26 employee costs and platform investment to the AI Cloud ramp, but in terms of an Adjusted EBITDA decline rather than an explicit opex figure. No AI amount or share is stated, so it is recorded as total/qualitative."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "No sentence states capital expenditure for FY26 or any outlook year. The GPU capex percentages (90%, 96%, 45-55%) describe how much of GPU capex financing and prepayments cover, not an AI share of capex. Dollar figures ($2.8bn, $3.6bn, $2.4bn) are financing amounts, not capex. Deriving capex from them would be inference."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.8,
+  "input_tokens": 13016,
+  "output_tokens": 1135,
+  "attempts": 1,
+  "task_sha": "befff96dd4b10140"
+ }
+}

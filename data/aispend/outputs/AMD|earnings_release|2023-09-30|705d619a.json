@@ -1,0 +1,53 @@
+{
+ "accession": "AMD|earnings_release|2023-09-30|705d619a",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Non-GAAP operating income flat y/y due to stronger Client segment revenue and product mix, offset by increased R&D investments in AI",
+   "passage": "p12",
+   "confidence": 0.8,
+   "notes": "Slide bullet, not a full sentence. It refers to Q3 2023 (a quarter of fiscal 2023), not the full year. It states that R&D investment in AI increased but gives no amount."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "GAAP operating income driven by lower amortization of acquisition-related intangible assets, stronger Client segment revenue and product mix, partially offset by increased R&D investments in AI",
+   "passage": "p12",
+   "confidence": 0.8,
+   "notes": "Slide bullet for Q3 2023. It covers the same R&D increase as the non-GAAP bullet, stated on a GAAP basis. No amount is given."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Primarily due to increased R&D investments to support future AI revenue growth and product mix",
+   "passage": "p13",
+   "confidence": 0.7,
+   "notes": "Slide fragment explaining the decline in Data Center segment operating income in Q3 2023. It applies to that segment only and gives no amount."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI. The $400 million India investment in p06 is for R&D and engineering operations, is not tied to AI, and appears only in a forward-looking boilerplate list."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.3,
+  "input_tokens": 11354,
+  "output_tokens": 1148,
+  "attempts": 1,
+  "task_sha": "f7b13f0ecd083f4a"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "accession": "CIFR|earnings_release|2025-03-31|73072224",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only capex mention (p02) says redeploying idle bitcoin mining rigs at Black Pearl requires no additional capital expenditure, and HPC data center mentions (p01, p06) describe development plans without stating or attributing any spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.5,
+  "input_tokens": 7874,
+  "output_tokens": 294,
+  "attempts": 1,
+  "task_sha": "1c5f22647f7e28b3"
+ }
+}

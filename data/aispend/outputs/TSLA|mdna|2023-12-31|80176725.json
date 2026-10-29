@@ -1,0 +1,48 @@
+{
+ "accession": "TSLA|mdna|2023-12-31|80176725",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We continue to ramp production, build new manufacturing capacity and expand our operations to enable increased deliveries and deployments of our products, and invest in research and development to accelerate our AI, software and fleet-based profits for further revenue growth.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Present-tense statement that R&D investment goes partly toward AI; no amount or share. Ongoing activity, so recorded as actual with no year named."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We are simultaneously ramping new products, building or ramping manufacturing facilities on three continents, piloting the development and manufacture of new battery cell technologies, expanding our Supercharger network and investing in autonomy and other artificial intelligence enabled training and products, and the pace of our capital spend may vary depending on overall priority among projects, the pace at which we meet milestones, production adjustments to and among our various products, increased capital efficiencies and the addition of new projects.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Lists AI training and products among the capital projects that drive capital spend; no amount or share. The next sentence gives a total capex outlook (>$10.00B in 2024; $8.00-$10.00B in each of the following two years) 'owing and subject to the foregoing', but that sentence does not itself name AI, so it is not recorded as a scope: total statement."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The overall increase was primarily driven by additional costs in the current year related to the pre-production phase for Cybertruck, AI and other programs.",
+   "passage": "p04",
+   "confidence": 0.9,
+   "notes": "R&D increase ($894M, stated in the preceding sentence) attributed partly to AI programs; the AI part is not quantified. 'Current year' refers to the reported fiscal year 2023, but the sentence names no year."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.1,
+  "input_tokens": 6023,
+  "output_tokens": 1557,
+  "attempts": 1,
+  "task_sha": "c55d75f3ab2b9c63"
+ }
+}

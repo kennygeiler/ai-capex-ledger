@@ -1,0 +1,23 @@
+{
+ "accession": "ANET|mdna|2025-12-31|5b835d20",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's own capital expenditures to AI; the Santa Clara building capex (p08) is for office, lab and data center space with no AI attribution; AI-related capital expenditure references in p04-p05 describe customers' budgets, not Arista's; the AI-driven increase in purchase commitments (p06) concerns inventory and working capital, not capex"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the R&D investment sentence in p03 ties spending to the cloud networking platform and product offerings without naming AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.7,
+  "input_tokens": 6972,
+  "output_tokens": 546,
+  "attempts": 1,
+  "task_sha": "d768ebba50361858"
+ }
+}

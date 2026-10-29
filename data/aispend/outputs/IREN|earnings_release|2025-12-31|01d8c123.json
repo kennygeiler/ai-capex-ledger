@@ -1,0 +1,31 @@
+{
+ "accession": "IREN|earnings_release|2025-12-31|01d8c123",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Together with Microsoft prepayment ($1.9bn) covers 95% of GPU-related capex",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Bullet fragment, not a full sentence. It refers to GPU-related (AI Cloud) capex for the Microsoft contract but gives no capex amount. 95% is the share of that capex covered by financing, not a share of capex going to AI, so it is recorded as qualitative. The $3.6bn financing and $1.9bn prepayment are funding sources, not capex amounts, and are not used to derive one. No year is stated in the sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI. AI Cloud Services cost of revenue appears only as a quarterly table line item, not as a statement about AI spend."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.9,
+  "input_tokens": 11311,
+  "output_tokens": 1047,
+  "attempts": 1,
+  "task_sha": "3ddc6f67ab7ab6fb"
+ }
+}

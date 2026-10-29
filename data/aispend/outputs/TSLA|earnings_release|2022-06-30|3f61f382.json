@@ -1,0 +1,23 @@
+{
+ "accession": "TSLA|earnings_release|2022-06-30|3f61f382",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only capex mention is the definition of free cash flow"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; Autopilot and Full Self-Driving appear only in forward-looking-statement boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 6583,
+  "output_tokens": 175,
+  "attempts": 1,
+  "task_sha": "bc6593c17089ebaf"
+ }
+}

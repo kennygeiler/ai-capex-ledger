@@ -1,0 +1,31 @@
+{
+ "accession": "APLD|mdna|2023-05-31|fb84607e",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2023,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We believe that the significant investments in property and equipment continue during calendar 2023 as we continue to grow our AI cloud services business.",
+   "passage": "p08",
+   "confidence": 0.75,
+   "notes": "Sentence names 'calendar 2023', not a fiscal year; the company's fiscal year ends May 31, so calendar 2023 spans fiscal 2023 and fiscal 2024. Recorded 2023 as named. Scope is total property and equipment investment with AI cloud growth given as the driver; no AI-specific portion is stated. The B. Riley loan sentences (p06, p07) describe financing proceeds partly for the AI cloud buildout, not capex amounts, so they were not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; expected G&A and operating expense increases are attributed to general expansion and public-company costs"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.4,
+  "input_tokens": 6102,
+  "output_tokens": 1043,
+  "attempts": 1,
+  "task_sha": "3593dd2ebe717aa3"
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "accession": "AMD|earnings_release|2023-07-01|df76c86e",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 135000000,
+   "amount_high": 135000000,
+   "quote": "AMD announced plans to invest $135 million to expand adaptive computing research, development and engineering operations in Ireland to fund strategic R&D projects for next generation AI, data center, networking and 6G communications infrastructure.",
+   "passage": "p06",
+   "confidence": 0.6,
+   "notes": "Planned R&D investment in Ireland. AI is one of several stated purposes, alongside data center, networking and 6G, so the $135M is a total and not the AI portion. The sentence names no year and the investment likely spans several years. It may also include some capital spending; it is recorded as opex because it is described as research, development and engineering."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.6,
+  "input_tokens": 10830,
+  "output_tokens": 772,
+  "attempts": 1,
+  "task_sha": "83edb84508b27834"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "accession": "AVGO|mdna|2025-11-02|9ec697cb",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 says capital expenditures are expected to be higher in fiscal 2026 than fiscal 2025 but gives no amount and names no AI driver, and p01 mentions AI data centers only as a description of products sold (boilerplate)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes research and development, infrastructure or headcount expenses to AI; p02 lists research and development only as a general liquidity requirement"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 5168,
+  "output_tokens": 238,
+  "attempts": 1,
+  "task_sha": "86946c7b56479d53"
+ }
+}

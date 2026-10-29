@@ -1,0 +1,23 @@
+{
+ "accession": "AMD|earnings_release|2022-12-31|af0be8c5",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures, let alone links them to AI; AI references (p02, p04, p05, p07) are product descriptions or strategic slogans"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the Q1'23 opex outlook of ~$1.6 billion (p06) and the higher R&D investments 'to support growth' (p05) are not linked to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 6193,
+  "output_tokens": 347,
+  "attempts": 1,
+  "task_sha": "87ac222ca51191f7"
+ }
+}

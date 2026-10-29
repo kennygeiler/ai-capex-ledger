@@ -1,0 +1,23 @@
+{
+ "accession": "CRDO|mdna|2024-04-27|21592fd2",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 describes the market the company serves (including AI/ML infrastructure), which is business-description boilerplate, not spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p01 only describes end markets"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 4561,
+  "output_tokens": 188,
+  "attempts": 1,
+  "task_sha": "465c98a2899194b1"
+ }
+}

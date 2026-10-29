@@ -1,0 +1,23 @@
+{
+ "accession": "WMT|earnings_release|2026-07-31|2fcb12fd",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure guidance (approximately 4.0% of net sales for fiscal 2027, raised from 3.5%) is given as a share of net sales, and no sentence links capital expenditures to AI; the only AI mentions are in forward-looking-statement risk boilerplate (p01, p03)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses, R&D, infrastructure costs or headcount to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 9617,
+  "output_tokens": 257,
+  "attempts": 1,
+  "task_sha": "e277d06bbc43b2fb"
+ }
+}

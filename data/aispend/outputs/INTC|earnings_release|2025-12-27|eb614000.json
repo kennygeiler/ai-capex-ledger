@@ -1,0 +1,23 @@
+{
+ "accession": "INTC|earnings_release|2025-12-27|eb614000",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; p01 is a segment revenue table and p02 describes a product collaboration and an organizational change"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the 'Data Center and AI' references are a segment name and a reorganization, not spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 4902,
+  "output_tokens": 204,
+  "attempts": 1,
+  "task_sha": "0727e964dd6034ed"
+ }
+}

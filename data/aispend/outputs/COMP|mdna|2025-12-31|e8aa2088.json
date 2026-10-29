@@ -1,0 +1,23 @@
+{
+ "accession": "COMP|mdna|2025-12-31|e8aa2088",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only passage discusses depreciation and amortization expense increasing due to the Anywhere Merger"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.5,
+  "input_tokens": 4503,
+  "output_tokens": 171,
+  "attempts": 1,
+  "task_sha": "6776bb2bc4fa8f30"
+ }
+}

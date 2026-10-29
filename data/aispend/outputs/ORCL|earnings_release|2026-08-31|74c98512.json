@@ -1,0 +1,23 @@
+{
+ "accession": "ORCL|earnings_release|2026-08-31|74c98512",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states a capital expenditure amount, share or outlook linked to AI; the nearest sentences ('Free cash flow was negative $5 billion for Q1 as Oracle continued to execute on investments to support the growth of its Cloud Infrastructure business.' and the $20 billion ATM equity sale 'as part of its previously disclosed capital investment program') name neither capital expenditures nor AI as the purpose of spend, and p02 only defines the non-GAAP net cash outlay for capital expenditures measure"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes research and development, infrastructure or headcount operating expenses to AI; AI mentions are product descriptions (AI Data Platform, Agentic AI Health Care system) or risk-factor boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.9,
+  "input_tokens": 7830,
+  "output_tokens": 679,
+  "attempts": 1,
+  "task_sha": "cfd4508a046e521e"
+ }
+}

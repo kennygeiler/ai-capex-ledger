@@ -1,0 +1,23 @@
+{
+ "accession": "AMD|earnings_release|2022-09-24|564ced7f",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures or links them to AI; the release covers preliminary Q3 2022 revenue, gross margin and operating expenses only"
+  },
+  {
+   "field": "opex",
+   "reason": "operating expenses are stated (~$2.4 billion GAAP, ~$1.5 billion non-GAAP for Q3 2022) but no sentence attributes any of them to AI; the variance is attributed to lower variable compensation"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 8551,
+  "output_tokens": 216,
+  "attempts": 1,
+  "task_sha": "71c60097336621d2"
+ }
+}

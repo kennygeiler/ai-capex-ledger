@@ -309,13 +309,15 @@ function factsTable(rows) {
     {t: 'XBRL', k: 'label', f: (f) => (f.label === 'agree' ? h('span', {class: 'muted'}, 'agrees') : f.label === 'unresolved' ? h('span', {class: 'bad'}, `differs: ${usd(f.xbrl_value ?? f.reference)}`) : h('span', {class: 'muted'}, 'not tagged'))}],
     rows, {detail: (f) => h('div', {class: 'src'}, h('div', {class: 'mono small'}, `${f.accession} ${f.table_id} · "${f.row_label}" / "${f.column_label}" = ${f.cell_text}`))});
 }
+const SOURCE = {mdna: '10-K MD&A', earnings_release: 'earnings release', transcript: 'call transcript', cfo_commentary: 'CFO commentary'};
 const AI_CLASS = {explicit_amount: 'amount', explicit_share: 'share', qualitative: 'words only'};
 function aiTable(rows) {
   const stated = (a) => a.class === 'explicit_amount' ? (a.amount_low === a.amount_high ? usd(a.amount_low) : `${usd(a.amount_low)} – ${usd(a.amount_high)}`) : a.class === 'explicit_share' ? pct(a.share) : '—';
   return table([{t: 'Field', k: 'field', f: (a) => LABEL[a.field] || a.field}, {t: 'Year', k: 'period'}, {t: 'Kind', k: 'kind'},
     {t: 'Says', sort: false, f: (a) => `${AI_CLASS[a.class]}${a.class !== 'qualitative' ? (a.scope === 'ai' ? ', AI part' : ', company total') : ''}`},
-    {t: 'Stated', n: 1, sort: false, f: stated}, {t: 'AI amount', n: 1, k: 'ai_amount', f: (a) => (a.ai_amount != null ? usd(a.ai_amount) : h('span', {class: 'muted'}, '—'))}],
-    rows, {detail: (a) => h('div', {class: 'src'}, h('div', {}, `“${a.quote}”`), h('div', {class: 'muted small'}, a.accession))});
+    {t: 'Stated', n: 1, sort: false, f: stated}, {t: 'AI amount', n: 1, k: 'ai_amount', f: (a) => (a.ai_amount != null ? usd(a.ai_amount) : h('span', {class: 'muted'}, '—'))},
+    {t: 'Source', k: 'source', f: (a) => SOURCE[a.source] || a.source}],
+    rows, {detail: (a) => h('div', {class: 'src'}, h('div', {}, `“${a.quote}”`), h('div', {class: 'muted small'}, a.accession || a.text_id))});
 }
 
 function questionCard(g) {

@@ -1,0 +1,31 @@
+{
+ "accession": "TSLA|earnings_release|2025-09-30|bc9eab60",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "increase in operating expenses (excl. SBC and Restructuring and Other) driven by SG&A, AI and other R&D projects",
+   "passage": "p02",
+   "confidence": 0.75,
+   "notes": "Bullet fragment in a list, not a standalone sentence; quoted verbatim as the smallest self-contained unit. Refers to the Q3 2025 year-over-year increase in total operating expenses, with AI named as one of several drivers alongside SG&A and other R&D. No year is named in the text, so fiscal_year is null and resolves to the reported fiscal 2025."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the expansion of AI training compute (Cortex, 81k H100 equivalents) and the Samsung semiconductor deal are described as capacity and partnerships, not as spend, and capex appears only in the free cash flow definitions"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.4,
+  "input_tokens": 8851,
+  "output_tokens": 1026,
+  "attempts": 1,
+  "task_sha": "4eaddbbc478dabfc"
+ }
+}

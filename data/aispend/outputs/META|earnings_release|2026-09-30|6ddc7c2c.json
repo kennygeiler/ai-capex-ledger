@@ -1,0 +1,23 @@
+{
+ "accession": "META|earnings_release|2026-09-30|6ddc7c2c",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "p01 gives a 2026 total capital expenditure outlook of $135-145 billion but does not link it to AI; p02 is a non-GAAP free cash flow definition with no AI reference"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 4654,
+  "output_tokens": 240,
+  "attempts": 1,
+  "task_sha": "65a27867740e7ecd"
+ }
+}

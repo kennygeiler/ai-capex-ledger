@@ -1,0 +1,23 @@
+{
+ "accession": "INTC|earnings_release|2025-06-28|a58dd452",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the full-year 2025 gross capex outlook (~$18.0 billion) and the Q2 capex figures appear only in tables, with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the operating expense outlook for 2025 and 2026 appears only in a reconciliation table, with no AI attribution, and the AI mentions (DCAI segment revenue, Xeon 6 launches) describe products and revenue, not spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 6492,
+  "output_tokens": 302,
+  "attempts": 1,
+  "task_sha": "158dd90bbbcdbe52"
+ }
+}

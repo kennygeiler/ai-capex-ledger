@@ -1,0 +1,23 @@
+{
+ "accession": "ORCL|earnings_release|2025-02-28|3b0dd548",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; p01 mentions doubling data center capacity but states no spend, and 'GPU consumption for AI training' refers to customer usage, not company capex; p02 is safe-harbor boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 5227,
+  "output_tokens": 281,
+  "attempts": 1,
+  "task_sha": "7148826bd0696b6d"
+ }
+}

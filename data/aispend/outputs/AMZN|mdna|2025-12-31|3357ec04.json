@@ -1,0 +1,57 @@
+{
+ "accession": "AMZN|mdna|2025-12-31|3357ec04",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "amount_low": null,
+   "amount_high": null,
+   "share": null,
+   "quote": "We expect spending in technology and infrastructure to increase over time as we continue to add infrastructure and employees, including to support our artificial intelligence and machine learning initiatives.",
+   "passage": "p04",
+   "confidence": 0.9,
+   "notes": "Technology and infrastructure is an operating expense line; AI/ML is cited as one driver of the expected increase in total T&I spending, not quantified. No year named; code applies the year after the reported year."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "amount_low": null,
+   "amount_high": null,
+   "share": null,
+   "quote": "We expect spending in technology and infrastructure will increase over time, which can negatively impact short-term free cash flow, as we add infrastructure and employees, including to support our artificial intelligence and machine learning initiatives, to support long-term growth.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Same driver language as p04; AI/ML is one reason total technology and infrastructure spending will rise. No year named."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "amount_low": null,
+   "amount_high": null,
+   "share": null,
+   "quote": "We expect spending in technology and infrastructure will increase over time, which can negatively impact short-term free cash flow, as we add infrastructure and employees, including to support our artificial intelligence and machine learning initiatives, to support long-term growth.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "Ambiguous: the reference to free cash flow and adding infrastructure suggests capital spending, but 'spending in technology and infrastructure' is also the opex line name. Cash capex of $128.3B in 2025 (p03) is attributed to technology infrastructure and AWS growth, not explicitly to AI, so it is not recorded."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.6,
+  "input_tokens": 6307,
+  "output_tokens": 1586,
+  "attempts": 1,
+  "task_sha": "6f2063c5bcf2fde6"
+ }
+}

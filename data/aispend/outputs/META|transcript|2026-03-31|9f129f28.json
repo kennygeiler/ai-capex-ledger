@@ -1,0 +1,31 @@
+{
+ "accession": "META|transcript|2026-03-31|9f129f28",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The growth in employee compensation was driven by technical hires we\u2019ve added over the past year, particularly AI talent.",
+   "passage": "p01",
+   "confidence": 0.85,
+   "notes": "Headcount (employee compensation) growth is attributed partly to AI talent; no amount or share. Names no fiscal year ('over the past year')."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "p02 gives total 2026 capex guidance of $125-145 billion, but neither sentence links it to AI. It cites component pricing and data center costs for future capacity, so it is not recorded."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.0,
+  "input_tokens": 4536,
+  "output_tokens": 669,
+  "attempts": 1,
+  "task_sha": "bdcd3b05821f9590"
+ }
+}

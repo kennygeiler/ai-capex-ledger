@@ -1,0 +1,23 @@
+{
+ "accession": "ALAB|earnings_release|2026-06-30|a3881c3a",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 is forward-looking-statement boilerplate and p02 is a cash flow table (purchases of property and equipment) with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI; p01 only lists R&D among forward-looking topics and p02 contains no operating expense attribution"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 6275,
+  "output_tokens": 222,
+  "attempts": 1,
+  "task_sha": "038a3580381e2136"
+ }
+}

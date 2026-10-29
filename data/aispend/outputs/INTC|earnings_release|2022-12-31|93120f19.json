@@ -1,0 +1,23 @@
+{
+ "accession": "INTC|earnings_release|2022-12-31|93120f19",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; passages cover segment revenue, process roadmap, AXG product launches and reorganization, forward-looking-statement boilerplate, and a product description mentioning AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure, or headcount spending to AI; the only AI mentions are the DCAI segment name and a description of AXG's GPU target workloads (boilerplate)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 6695,
+  "output_tokens": 227,
+  "attempts": 1,
+  "task_sha": "cf7abf964f09d4ca"
+ }
+}

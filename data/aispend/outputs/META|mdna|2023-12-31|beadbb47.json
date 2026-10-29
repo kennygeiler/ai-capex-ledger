@@ -1,0 +1,31 @@
+{
+ "accession": "META|mdna|2023-12-31|beadbb47",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "These efforts include significant investments in AI initiatives, including to recommend relevant content across our products, enhance our advertising tools, develop new products, and develop new features for existing products using generative AI.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "'These efforts' refers to FoA investments described in the prior sentence as expenses (headcount, data centers, technical infrastructure), so recorded as opex. The sentence is in present tense and names no year, so fiscal_year is null. Classified as actual because it describes current spending rather than a forecast. Confidence is reduced because the field (opex vs. capex) is inferred from the surrounding sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p04 gives a 2024 total capex outlook of $30\u201337 billion but does not mention AI as a reason or driver"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.7,
+  "input_tokens": 5196,
+  "output_tokens": 785,
+  "attempts": 1,
+  "task_sha": "fb5e15719b28f7ac"
+ }
+}

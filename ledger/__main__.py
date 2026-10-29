@@ -9,6 +9,7 @@ COMMANDS = {
     "ingest": "List 10-Ks, fetch and parse them, locate the statements, load the XBRL answer key.",
     "extract": "Pack agent tasks, run the agent headless (--run), load and check its citations (--load).",
     "reconcile": "Build fiscal-year values and label each against the XBRL answer key.",
+    "texts": "Gather every text the AI spend reader reads: 10-K MD&A, 8-K earnings releases, investor-page transcripts and CFO commentary (sources/ir.yaml).",
     "notes": "Read segment capex and revenue, PP&E by category, finance leases and purchase commitments from the notes (--run), check every cell and load (--load).",
     "aispend": "Read what each 10-K's MD&A says about AI's part of capex and opex (--run), check every quote and load it (--load).",
     "rules": "Run the rule registry and write exceptions.",

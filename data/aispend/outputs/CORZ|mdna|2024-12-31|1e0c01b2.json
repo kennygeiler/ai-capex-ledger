@@ -1,0 +1,44 @@
+{
+ "accession": "CORZ|mdna|2024-12-31|1e0c01b2",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 1140000000,
+   "amount_high": 1140000000,
+   "quote": "As of December 31, 2024, the Company was contractually committed for approximately $1.14 billion of capital expenditures, primarily related to infrastructure modifications, equipment procurement, and labor associated with the conversion of a significant portion of its data centers to deliver hosting services for HPC.",
+   "passage": "p16",
+   "confidence": 0.6,
+   "notes": "Total contractually committed capex, 'primarily' for HPC data center conversion; the next sentence says it is expected over the next year, so this is an outlook with no named year. The sentence says HPC, not AI. The filing ties HPC hosting to machine learning and AI only in other passages (p03, p05), so treating this as AI-related spend is uncertain. $899.3 million of the amount is reimbursable by the customer (same passage)."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The planned growth of our HPC data center hosting operations business, through increased investment in conversion of several of our bitcoin mining sites to HPC data center hosting sites over the next several years, should gradually reduce our overall exposure to volatility in the spot price of bitcoin as HPC begins to account for a comparatively larger percentage of our financial results.",
+   "passage": "p07",
+   "confidence": 0.4,
+   "notes": "Planned investment in HPC conversion over the next several years; not quantified. The sentence says HPC, not AI (the AI link comes from p03/p05 only). The investment is implicitly capex but is not called capital expenditures."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; cost of HPC hosting services (p09) is described without any AI link or amount"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.8,
+  "input_tokens": 7854,
+  "output_tokens": 1366,
+  "attempts": 1,
+  "task_sha": "365c45c9802df29c"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "accession": "TXN|earnings_release|2022-03-31|1f6b8365",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex appears only as a cash-flow line item ($443 million for Q1 2022) and in the free cash flow definition, with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.1,
+  "input_tokens": 5158,
+  "output_tokens": 192,
+  "attempts": 1,
+  "task_sha": "e6e2ae663519c378"
+ }
+}

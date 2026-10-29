@@ -1,0 +1,23 @@
+{
+ "accession": "APLD|earnings_release|2026-05-31|11407f98",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes the company's capital expenditures to AI; the passages cover company description, CEO commentary on industry demand, contracted leases/revenue, forward-looking-statement boilerplate and non-GAAP definitions"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; mentions of HPC costs appear only in risk-factor boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 6753,
+  "output_tokens": 280,
+  "attempts": 1,
+  "task_sha": "e311a41654701c97"
+ }
+}

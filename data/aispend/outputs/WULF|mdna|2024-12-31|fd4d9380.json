@@ -1,0 +1,23 @@
+{
+ "accession": "WULF|mdna|2024-12-31|fd4d9380",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only capex sentence (p03) concerns miner acquisition costs, and the HPC data center development described in p02, p04 and p05 is not stated as capital expenditure or tied to an AI spend amount, share or attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; AI is mentioned only as a customer description (p04) and a strategic market (p05)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 5615,
+  "output_tokens": 524,
+  "attempts": 1,
+  "task_sha": "ea2f260d9977d601"
+ }
+}

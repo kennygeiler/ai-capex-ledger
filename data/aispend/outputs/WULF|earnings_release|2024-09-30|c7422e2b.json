@@ -1,0 +1,23 @@
+{
+ "accession": "WULF|earnings_release|2024-09-30|c7422e2b",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "No sentence links capital expenditures to AI. The capex mentions in p05 and p06 refer to HPC hosting facilities (CB-1, CB-2) and electrical expansion at Lake Mariner and do not mention AI. The p05 slide heading 'Growth in Bitcoin mining and HPC/AI is funded' says growth is funded but states no capital expenditure and no AI amount or share, so recording it would require inference."
+  },
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI. Cost of revenue is attributed to bitcoin network difficulty and the halving."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.3,
+  "input_tokens": 8215,
+  "output_tokens": 884,
+  "attempts": 1,
+  "task_sha": "a47a1d6ca767d066"
+ }
+}

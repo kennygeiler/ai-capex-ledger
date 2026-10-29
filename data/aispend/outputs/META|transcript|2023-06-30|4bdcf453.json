@@ -1,0 +1,42 @@
+{
+ "accession": "META|transcript|2023-06-30|4bdcf453",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Looking ahead, while we continue to refine our plans as we progress throughout the year, we currently expect total capital expenditures to grow in 2024, driven by our investments across both data centers and servers, particularly in support of our AI work.",
+   "passage": "p02",
+   "confidence": 1.0,
+   "notes": "Total 2024 capex expected to grow with AI named as a driver; no amount or AI share given."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "And then we certainly also expect to invest more in servers in 2024 for both AI workloads to support all of the AI work that we've talked about across the core AI ranking, recommendation work along with the next-gen AI efforts.",
+   "passage": "p06",
+   "confidence": 0.7,
+   "notes": "Expected increase in server investment for AI workloads in 2024. The following sentence adds non-AI workloads, so this is a directional statement about AI server capex, not a quantified AI portion."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.6,
+  "input_tokens": 5229,
+  "output_tokens": 1096,
+  "attempts": 1,
+  "task_sha": "eaab712e5effce8a"
+ }
+}

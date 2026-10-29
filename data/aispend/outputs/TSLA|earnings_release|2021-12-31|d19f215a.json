@@ -1,0 +1,23 @@
+{
+ "accession": "TSLA|earnings_release|2021-12-31|d19f215a",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only capex mention is the definition of free cash flow (p01), and Autopilot/Full Self-Driving appear only in forward-looking-statement boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the passage is webcast info, term definitions, non-GAAP explanation and forward-looking-statement boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 6561,
+  "output_tokens": 232,
+  "attempts": 1,
+  "task_sha": "44fe6a0c0be20eab"
+ }
+}

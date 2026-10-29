@@ -1,0 +1,23 @@
+{
+ "accession": "AVGO|earnings_release|2022-05-01|663e5c29",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capital expenditure sentence ($85 million in the second fiscal quarter) does not link the spend to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.3,
+  "input_tokens": 5226,
+  "output_tokens": 168,
+  "attempts": 1,
+  "task_sha": "fddcfc0f38d101f2"
+ }
+}

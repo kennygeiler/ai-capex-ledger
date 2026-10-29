@@ -1,0 +1,23 @@
+{
+ "accession": "CORZ|earnings_release|2024-03-31|0447c95e",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; the high-performance compute mentions (16 MW data center delivered for an HPC client, opportunity to repurpose owned infrastructure) describe business activity and market opportunity, not capital spend, and the depreciation increase is tied to bitcoin self-miners"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; cost of revenue discussion relates to bitcoin mining operations"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.2,
+  "input_tokens": 5509,
+  "output_tokens": 346,
+  "attempts": 1,
+  "task_sha": "099183592a95139f"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "accession": "IBM|earnings_release|2026-06-30|71ad10cf",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links IBM's own capital expenditures to AI; p01 discusses clients' capex shifting toward servers, storage and memory, and p02 defines free cash flow without mentioning AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.9,
+  "input_tokens": 5084,
+  "output_tokens": 195,
+  "attempts": 1,
+  "task_sha": "9ec1f81f14d5d3ce"
+ }
+}

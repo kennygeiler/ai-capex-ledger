@@ -1,0 +1,39 @@
+{
+ "accession": "GOOGL|earnings_release|2025-06-30|ab0f8819",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 85000000000,
+   "amount_high": 85000000000,
+   "quote": "With this strong and growing demand for our Cloud products and services, we are increasing our investment in capital expenditures in 2025 to approximately $85 billion and are excited by the opportunity ahead.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Total 2025 capex guidance ('approximately $85 billion'), not an AI amount. The sentence names Cloud demand as the driver and does not mention AI; the AI link comes only from the surrounding sentences in the CEO quote. Recorded as scope total so the figure is not read as AI spend."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "These costs primarily include certain AI-focused shared R&D activities, including development costs of our general AI models; corporate initiatives such as our philanthropic activities; corporate shared costs such as certain finance, human resource, and legal costs, including certain fines and settlements.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Segment-reporting description saying unallocated Alphabet-level costs 'primarily include' AI-focused shared R&D, including development of general AI models. No amount or share is given. The sentence reads partly as accounting-policy boilerplate, so confidence is lowered. fiscal_year is null, so code applies the reported year (2025)."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.5,
+  "input_tokens": 4845,
+  "output_tokens": 1374,
+  "attempts": 1,
+  "task_sha": "23d87cbf10e03347"
+ }
+}

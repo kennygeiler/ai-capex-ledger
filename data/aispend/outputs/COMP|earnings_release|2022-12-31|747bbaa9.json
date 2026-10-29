@@ -1,0 +1,23 @@
+{
+ "accession": "COMP|earnings_release|2022-12-31|747bbaa9",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only passage is a cash flow statement table reporting total capital expenditures of $70.1 million; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; passage contains only cash flow line items"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.4,
+  "input_tokens": 5250,
+  "output_tokens": 183,
+  "attempts": 1,
+  "task_sha": "2d6ad80dd7205752"
+ }
+}

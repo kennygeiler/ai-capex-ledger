@@ -1,0 +1,23 @@
+{
+ "accession": "MRVL|earnings_release|2024-02-03|3756a0e6",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; passages discuss AI-driven revenue growth and product end markets only"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; AI mentions concern revenue and product applications"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 5159,
+  "output_tokens": 184,
+  "attempts": 1,
+  "task_sha": "30f06bc435be85c8"
+ }
+}

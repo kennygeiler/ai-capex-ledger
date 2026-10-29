@@ -1,0 +1,39 @@
+{
+ "accession": "TSLA|earnings_release|2024-06-30|b7391e38",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 600000000,
+   "amount_high": 600000000,
+   "quote": "The sequential increase of $3.9B was a result of positive free cash flow of $1.3B, driven by an inventory decrease of $1.8B and partially offset by AI infrastructure capex of $0.6B in Q2.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "The amount is for Q2 2024 only, not the full fiscal year. The sentence names a quarter but no year, so fiscal_year is null. The same $0.6B figure appears parenthetically in p01."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "YoY, operating income was primarily impacted by the following items: - reduced S3XY vehicle ASP as noted above - restructuring charges - increase in operating expenses largely driven by AI projects - decline in S3XY vehicle deliveries + higher regulatory credit revenue + growth in Energy Generation and Storage gross profit + lower cost per vehicle, including lower raw material costs, freight and duties + lower cost of production ramp of 4680 cells and other related charges",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "The source is a bullet list without a terminal period; the quote is the verbatim span through the end of the list. It attributes the year-over-year increase in operating expenses (Q2) 'largely' to AI projects. No amount or share is given. It refers to the Q2 period, with no year named."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.6,
+  "input_tokens": 8500,
+  "output_tokens": 1643,
+  "attempts": 1,
+  "task_sha": "da3cf6cd999b7dc2"
+ }
+}

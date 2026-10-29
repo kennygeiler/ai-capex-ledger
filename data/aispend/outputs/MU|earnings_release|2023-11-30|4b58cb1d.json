@@ -1,0 +1,23 @@
+{
+ "accession": "MU|earnings_release|2023-11-30|4b58cb1d",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; passages discuss AI only as a market opportunity (HBM for data center AI) and in company boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 4817,
+  "output_tokens": 182,
+  "attempts": 1,
+  "task_sha": "99d5349541245b7a"
+ }
+}

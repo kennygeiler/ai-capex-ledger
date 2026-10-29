@@ -1,0 +1,61 @@
+{
+ "accession": "META|transcript|2026-06-30|b4aa865e",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "As AI usage in our products and businesses continues to ramp, we continue to invest aggressively in infrastructure to meet the demand.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Present tense with no year. Infrastructure investment is read as capex, and AI demand is given as the driver. The sentence could also cover infrastructure opex."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 130000000000,
+   "amount_high": 145000000000,
+   "quote": "We anticipate 2026 capital expenditures, including principal payments on finance leases, to be in the range of $130-145 billion, narrowed from our prior outlook of $125-145 billion.",
+   "passage": "p05",
+   "confidence": 0.6,
+   "notes": "This is total capex guidance, including finance lease principal, and is not AI spend. The sentence itself does not mention AI. The only link to AI is in p01. It is recorded as scope total so the total is not mistaken for the AI part."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Year-over-year growth was primarily driven by increases in employee compensation, infrastructure costs, legal-related costs, and third-party AI token costs.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "The period is Q2 2026, not the full year. AI (third-party AI token costs) is one of several drivers of growth in total expenses. The Q2 total of $42 billion appears in the preceding sentence, which does not mention AI, so it is not recorded."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Excluding the previously mentioned severance expense, growth in employee compensation was driven by technical hires we\u2019ve added over the past year, particularly AI talent.",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "This is headcount opex. The sentence attributes growth in employee compensation partly to AI hires, with no number given."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.2,
+  "input_tokens": 4931,
+  "output_tokens": 1807,
+  "attempts": 1,
+  "task_sha": "c033f306992b83fb"
+ }
+}

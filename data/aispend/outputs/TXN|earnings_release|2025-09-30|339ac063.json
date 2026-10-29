@@ -1,0 +1,23 @@
+{
+ "accession": "TXN|earnings_release|2025-09-30|339ac063",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only passage is a cash flow statement table listing total capital expenditures (-1,197 million for the quarter) with no sentence linking capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; passage contains only cash flow line items"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 5066,
+  "output_tokens": 172,
+  "attempts": 1,
+  "task_sha": "654c679eb138f0cd"
+ }
+}

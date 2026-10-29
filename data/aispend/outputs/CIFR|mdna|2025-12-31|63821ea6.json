@@ -1,0 +1,23 @@
+{
+ "accession": "CIFR|mdna|2025-12-31|63821ea6",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; passages describe the HPC data center strategy and AI demand (p01, p02) and investment in bitcoin mining equipment (p06), but give no capex amount, share, or AI-linked spend statement"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.0,
+  "input_tokens": 7505,
+  "output_tokens": 319,
+  "attempts": 1,
+  "task_sha": "3c0e43bcb7eadcf0"
+ }
+}

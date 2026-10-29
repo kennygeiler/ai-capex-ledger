@@ -1,0 +1,23 @@
+{
+ "accession": "AVGO|earnings_release|2023-10-29|a64431f6",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is forward-looking-statement risk boilerplate; no sentence mentions capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is forward-looking-statement risk boilerplate; no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 5459,
+  "output_tokens": 188,
+  "attempts": 1,
+  "task_sha": "d06f5d3b5c9862f2"
+ }
+}

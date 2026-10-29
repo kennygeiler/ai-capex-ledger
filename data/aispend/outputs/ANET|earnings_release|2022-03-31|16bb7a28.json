@@ -1,0 +1,23 @@
+{
+ "accession": "ANET|earnings_release|2022-03-31|16bb7a28",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is a cash flow statement table; it reports purchases of property and equipment but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is a cash flow statement table; no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 5241,
+  "output_tokens": 182,
+  "attempts": 1,
+  "task_sha": "5de37ad7674fd09c"
+ }
+}

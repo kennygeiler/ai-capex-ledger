@@ -1,0 +1,23 @@
+{
+ "accession": "MRVL|earnings_release|2022-10-29|f7e0c9db",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is an end-market table of customer products (including AI systems); no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is an end-market table of customer products (including AI systems); no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.9,
+  "input_tokens": 4844,
+  "output_tokens": 170,
+  "attempts": 1,
+  "task_sha": "d588daf80bcea4f9"
+ }
+}

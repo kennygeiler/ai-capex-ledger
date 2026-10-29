@@ -1,0 +1,23 @@
+{
+ "accession": "CORZ|earnings_release|2023-12-31|931f6047",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the CoreWeave contract mention describes a hosting revenue arrangement, not company capex"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the AI reference concerns customer demand and revenue model, not spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.9,
+  "input_tokens": 4988,
+  "output_tokens": 182,
+  "attempts": 1,
+  "task_sha": "0d23ad4c2d2d2759"
+ }
+}

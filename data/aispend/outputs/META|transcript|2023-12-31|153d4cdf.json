@@ -1,0 +1,88 @@
+{
+ "accession": "META|transcript|2023-12-31|153d4cdf",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 30000000000,
+   "amount_high": 37000000000,
+   "quote": "We anticipate our full-year 2024 capital expenditures will be in the range of $30-37 billion, a $2 billion increase of the high end of our prior range.",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "Total capex guidance, not AI spend. This sentence does not name AI itself. The AI link comes from the next sentences in p03, which say growth is driven by AI and non-AI servers and reflects AI capacity demands. Recorded as scope total so the total is not mistaken for the AI part."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect growth will be driven by investments in servers, including both AI and non-AI hardware, and data centers as we ramp up construction on sites with our previously announced new data center architecture.",
+   "passage": "p03",
+   "confidence": 0.9,
+   "notes": "Names AI hardware as one driver of capex growth alongside non-AI hardware and data centers. Gives no AI share. The context is the 2024 outlook, but the sentence names no year."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our updated outlook reflects our evolving understanding of our AI capacity demands as we anticipate what we may need for the next generations of foundational research and product development.",
+   "passage": "p03",
+   "confidence": 0.9,
+   "notes": "Says AI capacity demands drive the raised capex outlook. The context is 2024, but the sentence names no year."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "While we are not providing guidance for years beyond 2024, we expect our ambitious long-term AI research and product development efforts will require growing infrastructure investments beyond this year.",
+   "passage": "p03",
+   "confidence": 0.75,
+   "notes": "Refers to 'years beyond 2024', so it covers 2025 onward with no single year. Recorded as 2025, the first year it covers. Says 'infrastructure investments', which reads as capex in this capex-outlook context."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "But our expectation is, generally, that we will need to invest more to support our AI work in the years ahead, and we're seeing some of that reflected in 2024.",
+   "passage": "p04",
+   "confidence": 0.7,
+   "notes": "Says 'invest' without naming capex; read as capex from the data center and supply-chain discussion around it. 'Years ahead' also covers years after 2024."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "But overall, we're playing to win here and I expect us to continue investing aggressively in this area.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "'This area' is AI training compute and infrastructure, per the earlier sentences in p02. Read as capex, but the field is ambiguous and the sentence names neither AI nor a spend category."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, headcount, infrastructure costs) to AI; the AI spend remarks are about capital investment in servers, data centers and compute"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 19.0,
+  "input_tokens": 5158,
+  "output_tokens": 2423,
+  "attempts": 1,
+  "task_sha": "fe5b67fd6b6df71c"
+ }
+}

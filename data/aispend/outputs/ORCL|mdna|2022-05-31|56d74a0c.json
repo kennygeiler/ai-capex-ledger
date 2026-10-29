@@ -1,0 +1,23 @@
+{
+ "accession": "ORCL|mdna|2022-05-31|56d74a0c",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 and p03/p04 mention capex only in connection with data center capacity, customer demand, and working capital/cash uses, with no AI reference"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p01 mentions R&D investment in hardware products only, with no AI reference"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.0,
+  "input_tokens": 5509,
+  "output_tokens": 202,
+  "attempts": 1,
+  "task_sha": "bb56258f6c9bc120"
+ }
+}

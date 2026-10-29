@@ -1,0 +1,23 @@
+{
+ "accession": "ORCL|earnings_release|2023-05-31|22ad3249",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes Oracle's capital expenditures to AI; the $2 billion figure is customer contracts to purchase capacity in Oracle's Gen2 Cloud (bookings/revenue), not Oracle's spend, and NVIDIA's 'AI infrastructure' refers to NVIDIA's use of Oracle clusters"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; the passage describes product capabilities and customer contracts only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 4686,
+  "output_tokens": 346,
+  "attempts": 1,
+  "task_sha": "0d2a028f12d688b3"
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "accession": "GOOGL|earnings_release|2023-03-31|35697235",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "After the segment reporting changes noted in items (iii) and (iv) above, unallocated corporate costs primarily include AI-focused shared R&D activities; corporate initiatives such as our philanthropic activities; and corporate shared costs such as finance, certain human resource costs, and legal, including certain fines and settlements.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Describes the composition of the unallocated corporate costs bucket rather than reporting spend. 'Primarily' is a list of several items, so it does not say AI R&D is the majority. The sentence describes the reporting structure in present tense with no year; the year defaults to the reported year (2023)."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 covers a change in server useful life and its depreciation effect, with no reference to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.6,
+  "input_tokens": 4767,
+  "output_tokens": 787,
+  "attempts": 1,
+  "task_sha": "065ef80d829cb749"
+ }
+}

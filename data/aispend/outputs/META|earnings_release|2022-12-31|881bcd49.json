@@ -1,0 +1,31 @@
+{
+ "accession": "META|earnings_release|2022-12-31|881bcd49",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2023,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The reduced outlook reflects our updated plans for lower data center construction spend in 2023 as we shift to a new data center architecture that is more cost efficient and can support both AI and non-AI workloads.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Links the 2023 capex outlook to a data center architecture supporting both AI and non-AI workloads, so AI is a factor in total capex, not a quantified AI portion. The $30-33 billion total is in the preceding sentence, which names no year and does not mention AI, so it is not recorded as a separate statement."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.4,
+  "input_tokens": 4818,
+  "output_tokens": 801,
+  "attempts": 1,
+  "task_sha": "881a865e20f688ba"
+ }
+}

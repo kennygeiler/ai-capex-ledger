@@ -1,0 +1,23 @@
+{
+ "accession": "CORZ|earnings_release|2026-06-30|191065f6",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI. The cash flow table (p04) gives purchases of PP&E and land acquisitions with no AI attribution. The p09 sentence on funding $104 Million of capex for the 70 MW CoreWeave expansion's powered core and shell does not mention AI. p02 and p08 describe the AI colocation business, which is business description and not spend."
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI. p05 mentions colocation startup costs only as an Adjusted EBITDA adjustment definition, with no AI link or amount."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.9,
+  "input_tokens": 9922,
+  "output_tokens": 514,
+  "attempts": 1,
+  "task_sha": "9c8427b22fc25874"
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "accession": "META|transcript|2025-06-30|24fcd05d",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This was partially offset by continued hiring in priority areas of monetization, infrastructure, Reality Labs, AI, as well as regulation and compliance.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Headcount statement; AI is one of several priority hiring areas offsetting a headcount reduction. It does not directly attribute expense to AI. No year named, so code applies the reported year (2025)."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Within AI, we\u2019ve had a particular emphasis on recruiting leading talent within the industry as we build out Meta Superintelligence Labs to accelerate our AI model development and product initiatives.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Headcount investment in AI talent (Meta Superintelligence Labs), with no amount given. No year named, so code applies the reported year (2025)."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "And we also have some visibility into the compensation expense growth that we\u2019ll recognize from the AI talent that we\u2019re hiring this year.",
+   "passage": "p04",
+   "confidence": 0.7,
+   "notes": "Expected compensation expense growth from AI hires. The preceding sentence refers to 'next year' (2026), but this sentence names no year, so fiscal_year is null and code applies the year after the reported year."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "After that, employee compensation is the next largest driver of expense growth in \u201926, again, driven primarily in the investments that we\u2019re making in technical talent including recognizing a full year of compensation expense for the AI talent we hire this year.",
+   "passage": "p05",
+   "confidence": 0.8,
+   "notes": "2026 total expense growth is driven by compensation, which includes the full-year cost of AI talent. AI is one component of technical talent, so this is not an AI amount."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "So I mean the impact of the sort of increased compensation costs including SBC, of our AI hires this year is reflected in the revised 2025 expense outlook and in the comments I made about sort of the 2026, expense outlook.",
+   "passage": "p07",
+   "confidence": 0.8,
+   "notes": "Compensation costs of AI hires, including SBC, are reflected in the revised 2025 total expense outlook. No figure is stated in the passages."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "So I mean the impact of the sort of increased compensation costs including SBC, of our AI hires this year is reflected in the revised 2025 expense outlook and in the comments I made about sort of the 2026, expense outlook.",
+   "passage": "p07",
+   "confidence": 0.8,
+   "notes": "Same sentence, recorded for the 2026 expense outlook. No figure is stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "The p03 2025 capex guidance ($66-72 billion) does not mention AI in the sentence, so it is not recorded as an AI-linked total. The following 2026 capex-growth sentence is truncated and does not mention AI in the visible text. No sentence quantifies or attributes capital expenditures to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 22.5,
+  "input_tokens": 5151,
+  "output_tokens": 2736,
+  "attempts": 1,
+  "task_sha": "d163efcab54bcf9f"
+ }
+}

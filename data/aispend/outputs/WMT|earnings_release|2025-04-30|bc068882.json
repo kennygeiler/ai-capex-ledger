@@ -1,0 +1,23 @@
+{
+ "accession": "WMT|earnings_release|2025-04-30|bc068882",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures guidance (approximately 3.0% to 3.5% of net sales for fiscal 2026) appears only in a guidance table with no link to AI; no sentence quantifies or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.0,
+  "input_tokens": 5810,
+  "output_tokens": 204,
+  "attempts": 1,
+  "task_sha": "1f9059ca5c9d0752"
+ }
+}

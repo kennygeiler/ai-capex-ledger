@@ -1,0 +1,23 @@
+{
+ "accession": "NVDA|earnings_release|2026-07-26|08fa15d5",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; the data center leases (p03, p05) and the land, power and shell guarantees (p06, p07, capped at $3.5 billion and $105 billion) are lease commitments and credit guarantees, not capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p03 describes what the cloud service agreements and data center leases are used for (R&D, including open models such as Nemotron, Cosmos and GR00T) but states no spend amount, share, or spend driver"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.0,
+  "input_tokens": 5892,
+  "output_tokens": 754,
+  "attempts": 1,
+  "task_sha": "fb3b556770972747"
+ }
+}

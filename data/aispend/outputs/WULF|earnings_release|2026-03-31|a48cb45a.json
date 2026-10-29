@@ -1,0 +1,23 @@
+{
+ "accession": "WULF|earnings_release|2026-03-31|a48cb45a",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "passages contain only forward-looking-statement safe harbor boilerplate and slide formatting text; no sentence states or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "passages contain only forward-looking-statement safe harbor boilerplate and slide formatting text; no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.9,
+  "input_tokens": 6585,
+  "output_tokens": 190,
+  "attempts": 1,
+  "task_sha": "83e2151749f204d2"
+ }
+}

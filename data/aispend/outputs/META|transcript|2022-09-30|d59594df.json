@@ -1,0 +1,53 @@
+{
+ "accession": "META|transcript|2022-09-30|d59594df",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2023,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "An increase in AI capacity is driving substantially all of our capital expenditure growth in 2023.",
+   "passage": "p05",
+   "confidence": 0.9,
+   "notes": "Attributes substantially all of the year-over-year capex growth (not total capex) to AI capacity; the 2023 total guide of $34-39 billion in the preceding sentence does not itself mention AI, so it is not recorded."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2023,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "These investments are driving substantially all of our capital expenditure growth in 2023.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "'These investments' refers to expanding AI capacity in the preceding sentence; same claim as the p05 statement, so it may duplicate it. Applies to capex growth, not total capex."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "There is some increased capital intensity that comes with moving more of our infrastructure to AI.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Present tense with no year. The sentence links higher capital intensity to AI infrastructure but states no amount. Recorded as outlook because the context is forward-looking guidance; code will apply the year after the reported year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.8,
+  "input_tokens": 5043,
+  "output_tokens": 1513,
+  "attempts": 1,
+  "task_sha": "3e362dbc189b319e"
+ }
+}

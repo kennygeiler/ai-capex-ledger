@@ -1,0 +1,23 @@
+{
+ "accession": "CIFR|earnings_release|2024-03-31|33d32c5b",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the Black Pearl data center investment is described only in terms of bitcoin mining capacity (MW, EH/s)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; operating cost discussion covers electricity cost per BTC for bitcoin mining"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 6819,
+  "output_tokens": 197,
+  "attempts": 1,
+  "task_sha": "14b1d2e03593714b"
+ }
+}

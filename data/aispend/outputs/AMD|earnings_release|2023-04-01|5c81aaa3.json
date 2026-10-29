@@ -1,0 +1,23 @@
+{
+ "accession": "AMD|earnings_release|2023-04-01|5c81aaa3",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; capital expenditures are not discussed in any passage"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p07 attributes lower Data Center operating income partly to 'increased R&D investments' without linking them to AI, and p08 gives a ~$1.6 billion Q2'23 operating expense outlook with no AI link; AI mentions in p01, p04-p06 and p09 describe roadmap and products, not spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.0,
+  "input_tokens": 8130,
+  "output_tokens": 403,
+  "attempts": 1,
+  "task_sha": "e52ff9818b966007"
+ }
+}

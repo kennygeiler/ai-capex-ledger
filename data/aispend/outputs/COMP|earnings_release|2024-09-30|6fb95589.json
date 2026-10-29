@@ -1,0 +1,23 @@
+{
+ "accession": "COMP|earnings_release|2024-09-30|6fb95589",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is a cash flow table; it reports capital expenditures of $11.9 million for the nine months ended September 30, 2024, but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the passage is a cash flow table with no AI references"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 5262,
+  "output_tokens": 200,
+  "attempts": 1,
+  "task_sha": "d08181dc2840151f"
+ }
+}

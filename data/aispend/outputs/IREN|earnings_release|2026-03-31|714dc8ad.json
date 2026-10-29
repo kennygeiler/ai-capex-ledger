@@ -1,0 +1,53 @@
+{
+ "accession": "IREN|earnings_release|2026-03-31|714dc8ad",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect this, together with operating cash flows, GPU financing, and additional financing initiatives to support our near-term Capex program, which includes delivery of the Microsoft contract and deployment of air-cooled capacity across Mackenzie and Childress.",
+   "passage": "p07",
+   "confidence": 0.7,
+   "notes": "Near-term capex program is described as covering AI Cloud deliveries (the Microsoft GPU contract and air-cooled GPU capacity). No amount is given. Year not named, so code applies the outlook default."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "When you look at the GPU financing, which is the lion's share of that Capex, the Microsoft contract is a great template.",
+   "passage": "p12",
+   "confidence": 0.6,
+   "notes": "Says GPUs make up the 'lion's share' of capex for the build-out. The wording is spoken and ambiguous: it refers to GPU financing rather than GPU spend directly. No number is stated."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Yes, so the Capex involved for the retrofitting of the air-cooled data centers in Childress is pretty modest in the scheme of things.",
+   "passage": "p11",
+   "confidence": 0.6,
+   "notes": "Describes AI Cloud retrofit capex as modest. No number is stated, and the sentence says nothing on whether this capex is completed or planned."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount operating expenses to AI. The only cost figure, the cost of revenues decrease, relates to Bitcoin mining electricity."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.3,
+  "input_tokens": 18863,
+  "output_tokens": 1709,
+  "attempts": 1,
+  "task_sha": "f28a332f23f58309"
+ }
+}

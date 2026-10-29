@@ -1,0 +1,81 @@
+{
+ "accession": "TSLA|earnings_release|2025-12-31|7dd8170b",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We laid the foundation for the future of Tesla as we further advanced FSD (Supervised)4, launched our Robotaxi service, began installing production lines for Cybercab and fine-tuned our production-primed Optimus design while expanding our AI training infrastructure.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Expanding AI training infrastructure implies capital spend, but the sentence never says capex or spending. It names no year; the preceding sentence refers to 2025, so the default reported year (2025) applies."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "In 2026, we will further invest in the infrastructure needed to support clean energy and transport and autonomous robots, including the ramp of six new production lines across vehicle, robots, energy storage and battery manufacturing, while further leveraging our existing factory, charging and service center footprint to support future growth.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Broad infrastructure investment outlook. The AI link is only through 'autonomous robots', and AI is not named explicitly. No amount is given."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We are currently building Cortex 2 at Gigafactory Texas to further increase our AI training compute capacity.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "An ongoing construction of AI training compute, which is capital spend on AI. No amount is given. The sentence is present tense, so it is treated as actual with a null year."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In the first half of 2026, we plan to more than double the size of onsite compute in Texas (in terms of H100 equivalents).",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "Planned AI compute capacity expansion for H1 2026. It is stated in capacity terms (H100 equivalents), not dollars or a share of capex. 'More than double' refers to compute, not spend, so it is not recorded as a share."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We aim to maximize capital efficiency by scaling training compute judiciously, including when the training backlog gets too long or in anticipation of greater demand from our engineers to support our AI-related offerings.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Forward-looking capital approach to AI training compute. It names no amount and no year."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "YoY, operating income was primarily impacted by the following items(1): - increase in SBC and Restructuring and Other charges - increase in operating expenses (excl. SBC and Restructuring and Other) driven by AI and other R&D projects and SG&A",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "The quote is a verbatim leading fragment of a bulleted list, not a standalone sentence. It refers to the Q4 2025 year-over-year increase in operating expenses, driven partly by AI. It is a total-opex driver statement, not an AI amount, and the period is a quarter rather than the full fiscal year."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 22.7,
+  "input_tokens": 9142,
+  "output_tokens": 2627,
+  "attempts": 1,
+  "task_sha": "e400f5187262ff4c"
+ }
+}

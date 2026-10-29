@@ -1,0 +1,23 @@
+{
+ "accession": "MRVL|mdna|2026-01-31|3c6794d2",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; AI mentions concern revenue demand (p01, p05) and the Celestial AI acquisition (p02), which is acquisition consideration, not capital expenditure; capex mentions in p03 and p04 are generic valuation-estimate boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; IPR&D in p04 is business-combination accounting boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.8,
+  "input_tokens": 5730,
+  "output_tokens": 311,
+  "attempts": 1,
+  "task_sha": "b49bdabff3f1db6b"
+ }
+}

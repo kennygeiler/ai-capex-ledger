@@ -1,0 +1,23 @@
+{
+ "accession": "IBM|earnings_release|2024-03-31|a398976a",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 only defines free cash flow, which deducts net capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.4,
+  "input_tokens": 4716,
+  "output_tokens": 163,
+  "attempts": 1,
+  "task_sha": "d476f30eaf6dc1d1"
+ }
+}

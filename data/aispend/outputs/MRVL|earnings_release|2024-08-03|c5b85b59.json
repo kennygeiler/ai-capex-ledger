@@ -1,0 +1,23 @@
+{
+ "accession": "MRVL|earnings_release|2024-08-03|c5b85b59",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; p01 discusses revenue growth driven by AI demand and p02 is a product/end-market description"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the 'operating leverage' mention in p01 does not link opex to AI spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 5072,
+  "output_tokens": 186,
+  "attempts": 1,
+  "task_sha": "1f2167adc060bce3"
+ }
+}

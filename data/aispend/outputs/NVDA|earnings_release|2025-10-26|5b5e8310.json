@@ -1,0 +1,23 @@
+{
+ "accession": "NVDA|earnings_release|2025-10-26|5b5e8310",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes NVIDIA's own capital expenditures to AI; passages cover revenue, customer partnerships, gross margin and financing cash flows only"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes NVIDIA's operating expenses (R&D, infrastructure, headcount) to AI; AI mentions describe products sold and customer deployments"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.6,
+  "input_tokens": 5902,
+  "output_tokens": 211,
+  "attempts": 1,
+  "task_sha": "7b161ba3a933634a"
+ }
+}

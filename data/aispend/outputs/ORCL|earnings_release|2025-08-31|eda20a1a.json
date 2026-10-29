@@ -1,0 +1,23 @@
+{
+ "accession": "ORCL|earnings_release|2025-08-31|eda20a1a",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; the release gives revenue, RPO and OCI revenue forecasts only, and the GPU/datacenter mention is safe-harbor risk boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; AI references describe products and demand, not spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 7014,
+  "output_tokens": 271,
+  "attempts": 1,
+  "task_sha": "5e49ce38a5e5f7f5"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "accession": "AMD|earnings_release|2024-12-28|b30dad57",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no passage mentions capital expenditures; AI references describe products, customers and market opportunities only"
+  },
+  {
+   "field": "opex",
+   "reason": "operating expenses are mentioned only as higher segment operating expenses offsetting revenue (p07, p08) and as non-GAAP outlook items in the cautionary statement (p02), with no link to AI and no amount or share attributed to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.0,
+  "input_tokens": 9855,
+  "output_tokens": 258,
+  "attempts": 1,
+  "task_sha": "efa09bcd44a5246a"
+ }
+}

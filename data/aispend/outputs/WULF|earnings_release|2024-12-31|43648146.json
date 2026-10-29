@@ -1,0 +1,23 @@
+{
+ "accession": "WULF|earnings_release|2024-12-31|43648146",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; passages describe HPC lease revenue ($1 billion cumulative over 10-year terms), hosting capacity (72.5 MW, option for 135 MW) and planned capacity growth (100-150 MW annually), none of which is a capex amount, share or AI-driven capex statement"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 5738,
+  "output_tokens": 279,
+  "attempts": 1,
+  "task_sha": "55e56087caceb5e7"
+ }
+}

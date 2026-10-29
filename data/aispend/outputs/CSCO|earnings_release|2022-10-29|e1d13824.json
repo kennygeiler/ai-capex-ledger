@@ -1,0 +1,23 @@
+{
+ "accession": "CSCO|earnings_release|2022-10-29|e1d13824",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is safe-harbor boilerplate; no sentence mentions AI or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is safe-harbor boilerplate; no sentence mentions AI or links operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 5635,
+  "output_tokens": 180,
+  "attempts": 1,
+  "task_sha": "9efcccda5de8332d"
+ }
+}

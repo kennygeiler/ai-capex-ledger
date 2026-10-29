@@ -1,0 +1,37 @@
+{
+ "accession": "MSFT|mdna|2024-06-30|0ceebe28",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect capital expenditures to increase in coming years to support growth in our cloud offerings and our investments in AI infrastructure and training.",
+   "passage": "p05",
+   "confidence": 0.9,
+   "notes": "Names AI infrastructure and training as a driver of the expected increase in total capex, alongside cloud growth. It gives no amount and no specific year ('coming years')."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The investments we are making in cloud and AI infrastructure and devices will continue to increase our operating costs and may decrease our operating margins.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Ties expected increases in total operating costs to cloud, AI infrastructure and devices investments together. The AI share is not separated. Forward-looking ('will continue to increase'), with no year named."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.1,
+  "input_tokens": 5316,
+  "output_tokens": 761,
+  "attempts": 1,
+  "task_sha": "e7fce0259f18e291"
+ }
+}

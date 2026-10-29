@@ -1,0 +1,23 @@
+{
+ "accession": "CORZ|earnings_release|2024-06-30|581c07ec",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 describes HPC data center capex funded by the customer through escrow ($1.5M per HPC MW, or $575M), but the passage never mentions AI, and treating HPC as AI would be an inference"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; HPC data center operating costs in p02 are not described as AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.5,
+  "input_tokens": 5465,
+  "output_tokens": 469,
+  "attempts": 1,
+  "task_sha": "f0fbb655c440c656"
+ }
+}

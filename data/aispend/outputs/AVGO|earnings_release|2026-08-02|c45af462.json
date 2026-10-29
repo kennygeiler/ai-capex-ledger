@@ -1,0 +1,23 @@
+{
+ "accession": "AVGO|earnings_release|2026-08-02|c45af462",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage (p01) is forward-looking-statement risk boilerplate; no sentence states or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage (p01) is risk-factor boilerplate; its mention of AI and research and development investments is a generic risk list, not a statement of AI operating spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.1,
+  "input_tokens": 5350,
+  "output_tokens": 183,
+  "attempts": 1,
+  "task_sha": "b7f395b2ad9b16aa"
+ }
+}

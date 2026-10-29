@@ -1,0 +1,23 @@
+{
+ "accession": "INTC|earnings_release|2022-04-02|fe1a1a52",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; passages are segment revenue/operating income tables, product descriptions, competitive landscape, and forward-looking-statement boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; AI mentions are product and segment descriptions only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 8027,
+  "output_tokens": 208,
+  "attempts": 1,
+  "task_sha": "04f24217582000b8"
+ }
+}

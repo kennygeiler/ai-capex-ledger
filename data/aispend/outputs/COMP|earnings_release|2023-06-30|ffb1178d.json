@@ -1,0 +1,23 @@
+{
+ "accession": "COMP|earnings_release|2023-06-30|ffb1178d",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is a cash flow table listing capital expenditures of $6.1 million with no sentence linking capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the passage is a cash flow table only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.7,
+  "input_tokens": 5225,
+  "output_tokens": 181,
+  "attempts": 1,
+  "task_sha": "16d6f08a52758c03"
+ }
+}

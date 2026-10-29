@@ -1,0 +1,23 @@
+{
+ "accession": "CORZ|mdna|2025-12-31|0bb9d2cd",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "No complete sentence links capital expenditures to AI. p10 gives total 2025 capex of $729.0 million but does not mention AI. p02 (converting the data center portfolio for AI/HPC colocation) and p06/p07 are sentence fragments that state no capex amount, share or AI attribution. p03 concerns mining equipment capex only."
+  },
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI. p09 mentions operating expenditure requirements generically, with no AI link."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.9,
+  "input_tokens": 5314,
+  "output_tokens": 575,
+  "attempts": 1,
+  "task_sha": "8ef24e78d6e147f8"
+ }
+}

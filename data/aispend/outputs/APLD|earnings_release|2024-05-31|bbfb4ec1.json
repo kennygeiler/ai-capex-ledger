@@ -1,0 +1,23 @@
+{
+ "accession": "APLD|earnings_release|2024-05-31|bbfb4ec1",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no passage in the text mentions AI next to spending"
+  },
+  {
+   "field": "opex",
+   "reason": "no passage in the text mentions AI next to spending"
+  }
+ ],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "a1096a8eb7004faa"
+ }
+}

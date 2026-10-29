@@ -1,0 +1,31 @@
+{
+ "accession": "AMZN|earnings_release|2026-06-30|a371071e",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This increase primarily reflects investments in artificial intelligence.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Refers to the $66.1 billion year-over-year increase in purchases of property and equipment (net) for the trailing twelve months ended June 30, 2026, stated in the preceding sentence. That figure is an increase in capex, not an AI amount, so no AI amount is derived from it. The sentence names no year and the period is a trailing twelve months rather than a fiscal year. The preceding sentence is truncated at the start of the passage, so it is not quoted."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; p02 describes a product launch and says nothing about spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.3,
+  "input_tokens": 4577,
+  "output_tokens": 870,
+  "attempts": 1,
+  "task_sha": "a619e53c5ef1628d"
+ }
+}

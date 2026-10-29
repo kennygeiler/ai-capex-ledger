@@ -1,0 +1,23 @@
+{
+ "accession": "APLD|earnings_release|2026-02-28|1a3575d4",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states the company's capital expenditures for fiscal 2026 or an outlook year, or links them to AI; the ~$400 billion/~$700 billion figures (p06) are hyperscalers' capex, not the company's; the '$3 billion' Polaris Forge 2 (p10) is a total project value with no fiscal year and no capex or AI attribution in that sentence; the $2.15 billion notes and $100 million DevCo Facility (p02, p07) are financing, not spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 8435,
+  "output_tokens": 569,
+  "attempts": 1,
+  "task_sha": "9b6dfdb55e648677"
+ }
+}

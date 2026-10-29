@@ -1,0 +1,23 @@
+{
+ "accession": "AMD|earnings_release|2022-03-26|dddceb43",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; passages cover revenue, gross margin guidance, segment results and product highlights only"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; AI mentions in p03 and p04 describe products and strategy (ROCm 5 software, 'innovation in cloud, enterprise, AI') and are boilerplate, not spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 5996,
+  "output_tokens": 229,
+  "attempts": 1,
+  "task_sha": "0408f578530f2eb7"
+ }
+}

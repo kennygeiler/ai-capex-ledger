@@ -1,0 +1,23 @@
+{
+ "accession": "IREN|earnings_release|2025-09-30|d5378c41",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states an amount, share or AI attribution of capital expenditures; the only capex mention (p02, 'Near-term capex expected to be funded through combination of existing cash, operating cashflows, Microsoft prepayments and additional financing initiatives') describes funding sources, not AI spend, and the $400m GPU financing is a financing facility, not reported capex"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; the statement of operations (p06) reports AI Cloud Services cost of revenue and SG&A without any narrative linking opex to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.9,
+  "input_tokens": 9260,
+  "output_tokens": 533,
+  "attempts": 1,
+  "task_sha": "494a94611ddbbf3a"
+ }
+}

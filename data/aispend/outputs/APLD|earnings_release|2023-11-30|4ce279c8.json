@@ -1,0 +1,23 @@
+{
+ "accession": "APLD|earnings_release|2023-11-30|4ce279c8",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; p01 is a positioning statement about AI/HPC workloads and p02 discusses revenue and EBITDA run-rates and GPU networking component delays, not capital spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 4800,
+  "output_tokens": 257,
+  "attempts": 1,
+  "task_sha": "cd1f4db7cb325437"
+ }
+}

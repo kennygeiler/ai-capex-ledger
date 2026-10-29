@@ -1,0 +1,23 @@
+{
+ "accession": "INTC|earnings_release|2021-12-25|310be1ba",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is risk-factor boilerplate about demand variability; no sentence links the company's capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is risk-factor boilerplate about demand variability; no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 4605,
+  "output_tokens": 170,
+  "attempts": 1,
+  "task_sha": "20fbc75012ebe9cf"
+ }
+}

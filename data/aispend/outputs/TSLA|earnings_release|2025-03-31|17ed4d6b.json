@@ -1,0 +1,31 @@
+{
+ "accession": "TSLA|earnings_release|2025-03-31|17ed4d6b",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "increase in operating expenses driven by AI and other R&D projects partially offset by a decrease in SG&A",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "The quote is a bullet item in a list ('YoY, operating income was primarily impacted by the following items: ...'), not a punctuated sentence. It is copied verbatim as the smallest complete clause. It refers to Q1 2025 compared with Q1 2024, not a full fiscal year. It names AI as a driver of the opex increase but does not quantify the AI portion."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex appears only in the free cash flow definitions, and 'critical, high-value investments' is not tied to AI or to capex"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.5,
+  "input_tokens": 8000,
+  "output_tokens": 902,
+  "attempts": 1,
+  "task_sha": "827cffea172721cf"
+ }
+}

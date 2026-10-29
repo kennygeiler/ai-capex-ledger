@@ -1,0 +1,23 @@
+{
+ "accession": "CSCO|earnings_release|2024-10-26|8c781bdf",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only passage is safe-harbor boilerplate; no sentence states or attributes the company's capital expenditures to AI (references to customers' AI infrastructure investments and capital spending on Internet-based systems describe customer/industry spend, not Cisco's)"
+  },
+  {
+   "field": "opex",
+   "reason": "only passage is safe-harbor boilerplate; mentions of 'strategic investments to drive innovation' and 'our development and use of artificial intelligence' are risk-factor language and do not quantify or attribute operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 5639,
+  "output_tokens": 255,
+  "attempts": 1,
+  "task_sha": "0c1943ac7117f0de"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "accession": "TXN|mdna|2022-12-31|f4432c70",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 attributes higher capex to manufacturing and technology capacity planning, and p02 is a liquidity statement"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 4715,
+  "output_tokens": 176,
+  "attempts": 1,
+  "task_sha": "0496e1e62d36d95e"
+ }
+}

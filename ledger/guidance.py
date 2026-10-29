@@ -19,7 +19,6 @@ from pathlib import Path
 from . import agents
 from .store import ROOT
 
-TEXT = ROOT / "data" / "text"
 TASKS = ROOT / "data" / "aispend" / "tasks"
 OUTPUTS = ROOT / "data" / "aispend" / "outputs"
 FIELDS = ("capex", "opex")
@@ -43,27 +42,8 @@ def prompt_versions() -> tuple[str, ...]:
 
 
 # ── text ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-def mdna_path(cik: int, accession: str) -> Path:
-    return TEXT / f"{cik:010d}" / f"{accession}.mdna.txt"
-
-
-def mdna_text(doc: dict) -> str:
-    """Item 7 of the filing as plain text, through edgartools, cached on disk. Empty when the filing has no Item 7
-    (a 10-K/A that amends Part III only)."""
-    p = mdna_path(doc["cik"], doc["accession"])
-    if p.exists():
-        return p.read_text()
-    from edgar import Filing, set_identity  # only the text step needs edgartools
-    from .ingest.edgar import user_agent
-    set_identity(user_agent())
-    k = Filing(cik=doc["cik"], company=doc["ticker"], form=doc["form"], filing_date=doc["filed"], accession_no=doc["accession"]).obj()
-    try:
-        text = (k["Item 7"] if k is not None else "") or ""
-    except (KeyError, TypeError):
-        text = ""
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(text)
-    return text
+SOURCE_NAME = {"mdna": "Item 7 (MD&A) of the 10-K", "earnings_release": "the earnings release (8-K Exhibit 99.1)",
+               "transcript": "the earnings-call transcript", "cfo_commentary": "the CFO commentary"}
 
 
 def passages(text: str, limit: int = 30) -> list[str]:
@@ -85,20 +65,21 @@ def passages(text: str, limit: int = 30) -> list[str]:
     return [p for _, _, p in sorted(ranked[:limit], key=lambda x: x[1])]
 
 
-def make_task(doc: dict, ps: list[str]) -> str:
-    head = (f"# Task: {doc['ticker']} {doc['form']} for the fiscal year ended {doc['period']}\n\n"
-            f"Accession: {doc['accession']}\nPrompt version: {prompt_version()}\n\n"
-            f"The company's fiscal year that this filing reports ended {doc['period']}. Passages from Item 7 (MD&A), in filing order:\n")
-    body = "\n\n".join(f"[p{i:02d}] {p}" for i, p in enumerate(ps, 1)) or "(no passage in this filing mentions AI together with capital or operating spending)"
+def make_task(text: dict, ps: list[str]) -> str:
+    """text: a row of `texts`. The reported fiscal year is the one the text's period belongs to."""
+    head = (f"# Task: {text['ticker']}, {SOURCE_NAME[text['kind']]} for the period ended {text['period_end']} (fiscal year {text['fiscal_year']})\n\n"
+            f"Accession: {text['text_id']}\nPrompt version: {prompt_version()}\n\n"
+            f"The company's fiscal year this text reports on is fiscal {text['fiscal_year']}. Passages, in order:\n")
+    body = "\n\n".join(f"[p{i:02d}] {p}" for i, p in enumerate(ps, 1)) or "(no passage in this text mentions AI together with capital or operating spending)"
     return head + "\n" + body + "\n"
 
 
-def write_tasks(docs: list[dict]) -> list[Path]:
+def write_tasks(texts: list[dict]) -> list[Path]:
     TASKS.mkdir(parents=True, exist_ok=True)
     out = []
-    for d in docs:
-        path = TASKS / f"{d['accession']}.md"
-        path.write_text(make_task(d, passages(mdna_text(d))))
+    for t in texts:
+        path = TASKS / f"{t['text_id']}.md"
+        path.write_text(make_task(t, passages((ROOT / t["path"]).read_text())))
         out.append(path)
     return out
 
@@ -175,15 +156,14 @@ RANK = {("ai", "explicit_amount"): 0, ("ai", "explicit_share"): 1, ("total", "ex
 
 
 def spend_rows(ticker: str, statements: list[dict], values: dict, filed: dict) -> list[dict]:
-    """One row per (field, period, kind) from the newest filing that speaks to it, keeping the most specific statement.
-    values: (field, period) -> our released value, for turning a share into dollars. filed: accession -> filing date."""
+    """One row per (field, period, kind): the most specific statement across every text, the newest text breaking ties.
+    values: (field, period) -> our released value, for turning a share into dollars. filed: text_id -> date."""
     by = {}
     for s in statements:
         by.setdefault((s["field"], s["period"], s["kind"]), []).append(s)
     out = []
     for (f, period, kind), ss in sorted(by.items()):
-        newest = max(filed[s["accession"]] for s in ss)
-        ss = sorted((s for s in ss if filed[s["accession"]] == newest), key=lambda s: (RANK[(s["scope"], s["class"])], -s["confidence"]))
+        ss = sorted(ss, key=lambda s: (RANK[(s["scope"], s["class"])], -int(filed[s["text_id"]].replace("-", "")), -s["confidence"]))
         best = ss[0]
         amount = None
         if best["scope"] == "ai" and best["class"] == "explicit_amount":
@@ -194,5 +174,6 @@ def spend_rows(ticker: str, statements: list[dict], values: dict, filed: dict) -
         h = hashlib.sha256(json.dumps([best["quote"], best["scope"], best["class"], amount, ids]).encode()).hexdigest()[:16]
         out.append({"ticker": ticker, "field": f, "period": period, "kind": kind, "scope": best["scope"], "class": best["class"],
                     "amount_low": best.get("amount_low"), "amount_high": best.get("amount_high"), "share": best.get("share"),
-                    "ai_amount": amount, "quote": best["quote"], "accession": best["accession"], "statement_ids": ",".join(ids), "input_hash": h})
+                    "ai_amount": amount, "quote": best["quote"], "text_id": best["text_id"], "source": best["source"], "accession": best["accession"],
+                    "statement_ids": ",".join(ids), "input_hash": h})
     return out

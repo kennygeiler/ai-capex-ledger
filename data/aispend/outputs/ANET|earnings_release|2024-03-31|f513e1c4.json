@@ -1,0 +1,23 @@
+{
+ "accession": "ANET|earnings_release|2024-03-31|f513e1c4",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 and p02 are boilerplate company descriptions mentioning AI networking, and p03 is a cash flow table reporting purchases of property and equipment ($9,395 thousand) with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the passages contain only boilerplate descriptions and a cash flow table"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 5407,
+  "output_tokens": 242,
+  "attempts": 1,
+  "task_sha": "5786eb998d1313f6"
+ }
+}

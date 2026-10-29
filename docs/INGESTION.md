@@ -147,6 +147,25 @@ our AI efforts" and give totals; the only numbers are total-capex outlooks (Meta
 | 26 | **Scope is loose for words-only statements.** The same kind of sentence gets `scope: ai` in one filing and `total` in the next; scope only has meaning for an amount or share. | GOOGL, META opex | by eye | Open: ignore scope for `qualitative` rows when reading them; or drop it from the contract for that class. |
 | 27 | **The numbers live elsewhere.** Explicit AI amounts and shares appear in earnings-call prepared remarks and 8-K earnings releases (Exhibit 99.1), not in 10-K MD&A. | every hyperscaler | by design | Next: feed Exhibit 99.1 of the 8-K filed with each 10-K (edgartools gives it) through the same agent and contract. |
 
+## More sources for AI spend (30 Oct): releases, transcripts, CFO commentary
+
+`ledger texts` gathers every text the AI spend reader reads into one registry with the fiscal period each speaks to:
+10-K MD&A, 8-K earnings releases (Exhibit 99.1 of every Item 2.02 8-K since FY2022, through edgartools), and the
+transcripts and CFO commentary a company's investor page offers when `sources/ir.yaml` names it. The reader then runs
+over all of them; the most specific statement wins across sources, the newest text breaks ties. Meta and Nvidia first:
+72 texts, 88 statements, 20 rows, 0 AI dollar amounts; transcripts gave 7 explicit totals and 24 words-only AI
+statements, releases 6 totals. All 31 with `aispend@v3`: 702 texts, 244 statements, 83 rows, 8 AI dollar amounts,
+0 failed, 0 retries, 65 agent minutes, 4.1M tokens.
+
+| # | Type | Where | Caught by | Fix |
+|---|---|---|---|---|
+| 35 | **In-year guidance read as an actual.** "We anticipate full-year 2024 capital expenditures of $35–40 billion" in a mid-2024 release was `kind: actual` because the text's fiscal year is 2024. Spent and expected were conflated. | Meta releases, every year | by eye in `ai_spend` | Prompt `aispend@v3`: `actual` means spent; expected, anticipated, planned or guided is an `outlook` even for the current year. |
+| 36 | **Investor pages sit behind a bot check.** Nvidia's and Meta's pages answer headless Chrome with "Just a moment…" and no links. A headed Chrome gets past it, and that is exactly what code must not do. | NVDA, META (Q4 Inc pages) | 0 links found; then the permission check | No page rendering in code. A person lists the PDF links in `sources/ir.yaml` from their own browser; the PDFs download directly (no challenge on the CDN). Meta: 19 transcripts, Nvidia: 2 transcripts and 2 commentaries listed so far. |
+| 37 | **Only the current fiscal year is on the page.** Nvidia's page lists one year by default, so its list has 4 links, not 20. | NVDA | counts | A person lists older years' links (the page has a year selector). |
+| 38 | **Second click or no match.** Alphabet's earnings page links to event pages that hold the transcript; Microsoft's page has no obvious link. | GOOGL, MSFT | not listed | Per-company work in `sources/ir.yaml`, nothing in code. |
+| 40 | **Releases under the old CIK.** ExxonMobil reorganised under a new CIK in 2026; its 8-Ks before that sit under the predecessor CIK, which the release lister doesn't walk. 0 releases gathered. | XOM | counts (4 mdna, 0 releases) | Open: walk `config.PREDECESSORS` for 8-Ks as the 10-K lister does. |
+| 39 | **Multiple guidance for one year.** A company guides full-year capex each quarter and narrows the range; four rows for FY2024 from four releases. | Meta | `spend_rows` | The newest text wins among equally specific statements: the latest guidance ships, earlier ones stay in `ai_statements`. |
+
 ## Facts from the notes (29 Oct): the base for attribution
 
 AI-spend attribution needs numbers the primary statements don't carry: capex and revenue per segment (ASC 280), PP&E
@@ -189,6 +208,7 @@ What each company cost. `ledger run` prints this, and each validation page shows
 | AAPL, AVGO, CSCO, QCOM, TXN, WMT | added in DATAHQ, blind | 4.9 min (26 filings) | 201,818 | 0 | 0 | 78/78 |
 | COMP (Compass) | added by Kenny in DATAHQ, blind | 1.2 min (4 filings) | 42,090 | 0 | 1 (cost lines: commissions) | 8/12 (4 opex definition gaps, explained by code) |
 | IBM, INTC, JPM, XOM | added in DATAHQ, blind | 3.7 min (16 filings) | 122,877 | types 16–21, 23 | 5 (XOM: 4 revenue definition, 1 cost lines) | see below |
+| all 31, texts + AI spend | `texts` + `aispend`, `aispend@v3` | 65.5 min (702 texts, 543 asked) | 4,120,870 | 1 (type 35) | 0 | 244 statements → 83 rows: 8 AI dollar amounts, 21 explicit totals, 62 words only; releases gave the most statements, transcripts the most words |
 | all 31, notes | `notes`, blind, `notes@v2` | 70.1 min (124 filings) | 1,879,685 | 4 (types 28–31, 33) | 0 | 1,436 facts: 522 agree with the filing's tags, 27 differ (purchase-commitment definitions, type 34), 887 untagged |
 | all 31, AI spend | `aispend`, blind, `aispend@v2` | 11.6 min (124 filings with an Item 7; 87 asked, 37 had no passage) | 643,212 | 1 (type 24) | 0 | 79 statements → 54 company-year rows: 3 AI dollar amounts (all IREN), 9 company totals with AI as driver (Meta, Tesla, Core Scientific, IREN), 42 words only; IBM, Intel, ExxonMobil, JPMorgan: no passage mentions AI next to spending |
 | all 31 | full run, `tables@9` | 22.6 min (132 filings) | 907,507 | 1 (type 23) | 8 | 354/384 (26 explained by code: 16 not reported, 10 definition gaps); 1,431/1,431 cells confirmed |

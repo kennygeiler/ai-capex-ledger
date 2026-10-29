@@ -1,0 +1,23 @@
+{
+ "accession": "MRVL|mdna|2022-01-29|9c7adc24",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only as an input to impairment and acquisition valuation estimates in critical accounting policies; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D (IPR&D) and expenses appear only in business-combination accounting policy text; no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.8,
+  "input_tokens": 5148,
+  "output_tokens": 190,
+  "attempts": 1,
+  "task_sha": "691e9416bc0ac674"
+ }
+}

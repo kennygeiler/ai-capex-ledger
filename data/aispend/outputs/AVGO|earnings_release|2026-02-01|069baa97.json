@@ -1,0 +1,23 @@
+{
+ "accession": "AVGO|earnings_release|2026-02-01|069baa97",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; purchases of property, plant and equipment appear only as table figures with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; passages are forward-looking risk boilerplate and financial tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.9,
+  "input_tokens": 6919,
+  "output_tokens": 188,
+  "attempts": 1,
+  "task_sha": "81a5c1eaa4957ce7"
+ }
+}

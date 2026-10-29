@@ -1,0 +1,23 @@
+{
+ "accession": "INTC|earnings_release|2024-06-29|3208d772",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure figures are given (gross capex of $25-27B for 2024 and $20-23B for 2025, plus net capital spending), but no sentence links capital expenditures to AI as a component, share or driver; the AI mentions (Gaudi 3, AI NICs, DCAI segment) describe products and revenue, not spend"
+  },
+  {
+   "field": "opex",
+   "reason": "operating expense reductions and R&D/MG&A outlooks are stated (p01, p09), but no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.4,
+  "input_tokens": 7644,
+  "output_tokens": 368,
+  "attempts": 1,
+  "task_sha": "4daac747dec1ad7e"
+ }
+}

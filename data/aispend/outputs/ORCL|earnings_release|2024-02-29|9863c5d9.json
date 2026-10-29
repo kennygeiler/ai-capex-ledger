@@ -1,0 +1,23 @@
+{
+ "accession": "ORCL|earnings_release|2024-02-29|9863c5d9",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; p01 says Oracle is opening and expanding cloud datacenters 'very, very rapidly' because demand for Gen2 AI infrastructure exceeds supply, but it describes capacity build-out, not spend, so recording it as capex would be inference"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 4676,
+  "output_tokens": 420,
+  "attempts": 1,
+  "task_sha": "9d9bef1da47b16b7"
+ }
+}

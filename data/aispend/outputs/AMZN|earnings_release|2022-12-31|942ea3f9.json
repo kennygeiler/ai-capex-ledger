@@ -1,0 +1,23 @@
+{
+ "accession": "AMZN|earnings_release|2022-12-31|942ea3f9",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 mentions impairments of property and equipment but not AI, and p02 mentions datacenters and investments in streaming, healthcare and satellite connectivity, not AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; severance costs and other charges in p01 are not linked to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.0,
+  "input_tokens": 4920,
+  "output_tokens": 223,
+  "attempts": 1,
+  "task_sha": "e8cc9c8e93c9f2e5"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "accession": "MU|earnings_release|2023-06-01|a8b633e1",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only passage is company boilerplate describing products and AI applications; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "only passage is company boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 4636,
+  "output_tokens": 155,
+  "attempts": 1,
+  "task_sha": "1b474aa20fe69788"
+ }
+}

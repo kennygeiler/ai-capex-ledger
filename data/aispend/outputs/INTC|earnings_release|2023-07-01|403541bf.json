@@ -1,0 +1,23 @@
+{
+ "accession": "INTC|earnings_release|2023-07-01|403541bf",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no passage mentions capital expenditures; AI appears only in segment names (Data Center and AI), a product collaboration with Microsoft, and AI-enabled processor capabilities, which describe what the company sells rather than spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure, or headcount expenses to AI; the reorganization in p01 is described as reducing costs but is not linked to AI spend, and p04 reports segment revenue and operating income only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 5263,
+  "output_tokens": 238,
+  "attempts": 1,
+  "task_sha": "90f544e741fdbc38"
+ }
+}

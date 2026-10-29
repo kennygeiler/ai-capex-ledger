@@ -1,0 +1,23 @@
+{
+ "accession": "CSCO|earnings_release|2026-01-24|f06488f2",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is forward-looking-statement boilerplate; no sentence states or attributes capital expenditures to AI (the 'levels of capital spending on Internet-based systems' risk factor refers to customer spending, not Cisco's own capex)"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is forward-looking-statement boilerplate; references to 'our development and use of artificial intelligence' and 'investments in sales, engineering...' are risk factors that neither quantify nor attribute operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.0,
+  "input_tokens": 5719,
+  "output_tokens": 245,
+  "attempts": 1,
+  "task_sha": "d095d0734edd49b7"
+ }
+}

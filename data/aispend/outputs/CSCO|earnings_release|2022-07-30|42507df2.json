@@ -1,0 +1,23 @@
+{
+ "accession": "CSCO|earnings_release|2022-07-30|42507df2",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is forward-looking-statement safe-harbor boilerplate; no sentence links capital expenditures to AI (the mention of 'levels of capital spending on Internet-based systems' is a risk factor about customer spending, not the company's own capex)"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is safe-harbor boilerplate; no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI, and AI is not mentioned at all"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.8,
+  "input_tokens": 5759,
+  "output_tokens": 237,
+  "attempts": 1,
+  "task_sha": "95e6a8f07be4fc47"
+ }
+}

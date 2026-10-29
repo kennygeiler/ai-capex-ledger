@@ -44,11 +44,14 @@ def summary(con, cmd: str, extra: list[str], tickers: list[str], name: str, star
     if cmd == "reconcile":
         n, agree = one(f"select count(*), count(*) filter (where label = 'agree') from \"values\" {t}")
         return f"{n} yearly values; {agree} match the SEC's data"
+    if cmd == "texts":
+        n, kinds = one(f"select count(*), count(distinct kind) from texts {t}")
+        return f"{n} texts of {kinds} kind{'s' * (kinds != 1)}"
     if cmd == "aispend" and extra == ["--run"]:
         since = datetime.fromisoformat(started_at).timestamp()
-        outs = [AI_OUTPUTS / f"{a}.json" for (a,) in con.execute(f"select accession from documents {t}", [tickers]).fetchall()]
+        outs = [AI_OUTPUTS / f"{i}.json" for (i,) in con.execute(f"select text_id from texts {t}", [tickers]).fetchall()]
         fresh = [o for o in outs if o.exists() and o.stat().st_mtime >= since]
-        return f"Read {len(fresh)} filing{'s' * (len(fresh) != 1)}" if fresh else "Every filing was already read"
+        return f"Read {len(fresh)} text{'s' * (len(fresh) != 1)}" if fresh else "Every text was already read"
     if cmd == "aispend":
         n, = one(f"select count(*) from ai_statements {t}")
         rows, ai = one(f"select count(*), count(*) filter (where ai_amount is not null) from ai_spend {t}")

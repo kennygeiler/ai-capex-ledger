@@ -1,0 +1,23 @@
+{
+ "accession": "TXN|mdna|2023-12-31|bd2c0cc7",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex discussion cites manufacturing and technology capacity planning and the CHIPS Act, not AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.3,
+  "input_tokens": 4745,
+  "output_tokens": 180,
+  "attempts": 1,
+  "task_sha": "97c2eb4c16c4b1f7"
+ }
+}

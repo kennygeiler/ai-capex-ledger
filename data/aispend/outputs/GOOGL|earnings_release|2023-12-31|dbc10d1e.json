@@ -1,0 +1,31 @@
+{
+ "accession": "GOOGL|earnings_release|2023-12-31|dbc10d1e",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "These costs primarily include AI-focused shared R&D activities, including development costs of our general AI models; corporate initiatives such as our philanthropic activities; corporate shared costs such as certain finance, human resource, and legal costs, including certain fines and settlements.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "The sentence describes what the unallocated Alphabet-level costs contain, not a stated amount. It names AI-focused shared R&D, including general AI model development, as a component of a cost category that is part of opex. 'Primarily' covers a list that also includes philanthropy and corporate shared costs, so it does not say AI is the majority of these costs. This reads close to segment-reporting boilerplate. Scope 'ai' is tentative: the sentence names the AI component but does not give a total or a share."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 covers a change in server and network equipment useful life and depreciation, with no mention of AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.4,
+  "input_tokens": 4794,
+  "output_tokens": 920,
+  "attempts": 1,
+  "task_sha": "a4f51edd7bfa13a4"
+ }
+}

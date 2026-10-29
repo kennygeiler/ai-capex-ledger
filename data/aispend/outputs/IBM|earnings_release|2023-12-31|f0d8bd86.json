@@ -1,0 +1,23 @@
+{
+ "accession": "IBM|earnings_release|2023-12-31|f0d8bd86",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 mentions net capital expenditures only in the free cash flow definition"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p01 says 2023 strengths enabled increased investment in R&D and talent, but the AI purpose clause ('to bolster our hybrid cloud and AI capabilities') attaches to the nine acquisitions, which are neither capex nor opex"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.3,
+  "input_tokens": 4862,
+  "output_tokens": 531,
+  "attempts": 1,
+  "task_sha": "c601964717373190"
+ }
+}

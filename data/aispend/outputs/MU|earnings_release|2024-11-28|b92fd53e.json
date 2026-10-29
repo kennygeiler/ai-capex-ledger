@@ -1,0 +1,23 @@
+{
+ "accession": "MU|earnings_release|2024-11-28|b92fd53e",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; p01 mentions AI-driven growth only in terms of market positioning, not spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p02 is company-description boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 4817,
+  "output_tokens": 187,
+  "attempts": 1,
+  "task_sha": "80d07e765fbc52cc"
+ }
+}

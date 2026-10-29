@@ -1,0 +1,23 @@
+{
+ "accession": "QCOM|earnings_release|2026-06-28|4b2c21cd",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures; the passage discusses revenue results and non-handset revenue growth targets only"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; Data Center is mentioned only as a revenue line"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 4656,
+  "output_tokens": 183,
+  "attempts": 1,
+  "task_sha": "25305c328d78c5ad"
+ }
+}

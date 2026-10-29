@@ -1,0 +1,23 @@
+{
+ "accession": "AMZN|earnings_release|2025-09-30|1a59dfca",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only passage (p01) describes a product announcement (EC2 P6e-GB200 UltraServers), which is a description of what the company sells, not spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p01 is a product announcement only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.4,
+  "input_tokens": 4479,
+  "output_tokens": 192,
+  "attempts": 1,
+  "task_sha": "67a9b8bd4ad00991"
+ }
+}

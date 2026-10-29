@@ -1,0 +1,23 @@
+{
+ "accession": "CSCO|earnings_release|2025-07-26|11958ac9",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is forward-looking-statement boilerplate; no sentence states or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is forward-looking-statement boilerplate; references to 'strategic investments in innovation' and 'our development and use of artificial intelligence' are risk-factor language and do not quantify or attribute operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.8,
+  "input_tokens": 5702,
+  "output_tokens": 206,
+  "attempts": 1,
+  "task_sha": "70804877698428c0"
+ }
+}

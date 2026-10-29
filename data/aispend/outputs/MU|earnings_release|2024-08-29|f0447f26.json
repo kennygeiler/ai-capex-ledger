@@ -1,0 +1,23 @@
+{
+ "accession": "MU|earnings_release|2024-08-29|f0447f26",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures; AI references concern revenue demand (p01) and company description boilerplate (p02)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 4858,
+  "output_tokens": 165,
+  "attempts": 1,
+  "task_sha": "101ccd5b1bd89dc6"
+ }
+}

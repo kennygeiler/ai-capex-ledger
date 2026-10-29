@@ -1,0 +1,23 @@
+{
+ "accession": "COMP|mdna|2024-12-31|5f1ca69f",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only passage describes depreciation and amortization of property, equipment, capitalized software and intangibles without mentioning AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 4492,
+  "output_tokens": 179,
+  "attempts": 1,
+  "task_sha": "dcbe552e8a66bb40"
+ }
+}

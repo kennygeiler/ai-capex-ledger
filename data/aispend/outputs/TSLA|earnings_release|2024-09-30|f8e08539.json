@@ -1,0 +1,31 @@
+{
+ "accession": "TSLA|earnings_release|2024-09-30|f8e08539",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Despite sustained macroeconomic headwinds and others pulling back on EV investments, we remain focused on expanding our vehicle and energy product lineup, reducing costs and making critical investments in AI projects and production capacity.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "The sentence says 'critical investments in AI projects' but does not say capital expenditures. Mapped to capex because the investments are grouped with production capacity, which is capital-intensive. The wording is present tense with no year. The claims about AI training compute (+75% in Q3; a 29k H100 cluster, expected to reach 50k H100) describe capacity, not spend, so they were not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.0,
+  "input_tokens": 8082,
+  "output_tokens": 793,
+  "attempts": 1,
+  "task_sha": "5ba97a299443efa9"
+ }
+}

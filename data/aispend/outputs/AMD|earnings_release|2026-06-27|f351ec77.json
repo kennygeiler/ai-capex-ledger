@@ -1,0 +1,23 @@
+{
+ "accession": "AMD|earnings_release|2026-06-27|f351ec77",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no passage mentions capital expenditures at all, let alone links them to AI; the release describes AI products and customer demand, not AMD's own capital spend"
+  },
+  {
+   "field": "opex",
+   "reason": "operating expenses appear only as drivers of segment operating margin (p15, p16) and as non-GAAP outlook line items in the cautionary statement (p11), with no amount, share or wording attributing operating expenses or R&D to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 12021,
+  "output_tokens": 280,
+  "attempts": 1,
+  "task_sha": "a8b773dc53bba906"
+ }
+}

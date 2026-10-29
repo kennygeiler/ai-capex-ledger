@@ -1,0 +1,31 @@
+{
+ "accession": "TSLA|earnings_release|2026-06-30|c272b375",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "YoY, operating income was primarily impacted by the following items(1): + increase in vehicle deliveries + growth in Services and Other gross profit + lower average cost per vehicle primarily due to lower inbound duties + positive FX impact of $0.1B1 + higher automotive ancillary sales, primarily driven by an increase in FSD subscriptions - increase in operating expenses driven by AI and other R&D projects, SBC (including 2025 CEO Performance Award) and SG&A - lower regulatory credit revenue - lower vehicle average selling price (ASP) (excl. FX impact1), inclusive of mix impact - increase in energy warranty-related charges due to vendor cell issue Cash Quarter-end cash, cash equivalents and short-term investments was $43.5B.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Bullet list flattened into one run-on sentence with no period until '$43.5B.'. The relevant item says the YoY increase in operating expenses was driven by AI and other R&D projects, SBC and SG&A. It covers the quarter (Q2 2026 vs Q2 2025), not the full year. No amount or share is attributed to AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capex mention (sequential increase in capex of $3.3B driving negative free cash flow) does not link capital expenditures to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.2,
+  "input_tokens": 7320,
+  "output_tokens": 1306,
+  "attempts": 1,
+  "task_sha": "e835e58585fc8e89"
+ }
+}

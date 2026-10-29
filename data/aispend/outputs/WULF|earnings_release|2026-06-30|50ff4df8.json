@@ -1,0 +1,23 @@
+{
+ "accession": "WULF|earnings_release|2026-06-30|50ff4df8",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; p01 is a business description of HPC/AI infrastructure (boilerplate) and p02/p03 are safe-harbor risk language"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; passages contain only a company description and forward-looking-statement disclaimers"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 6907,
+  "output_tokens": 219,
+  "attempts": 1,
+  "task_sha": "ca4499cf6221ffa1"
+ }
+}

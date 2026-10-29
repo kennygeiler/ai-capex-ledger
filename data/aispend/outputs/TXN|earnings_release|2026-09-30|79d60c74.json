@@ -1,0 +1,23 @@
+{
+ "accession": "TXN|earnings_release|2026-09-30|79d60c74",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only passage is a cash flow statement table reporting total capital expenditures ($463 million) with no sentence linking capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; passage is a cash flow table only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 5071,
+  "output_tokens": 181,
+  "attempts": 1,
+  "task_sha": "c168f7aad3fdf6a4"
+ }
+}

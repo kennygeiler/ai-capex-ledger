@@ -1,0 +1,23 @@
+{
+ "accession": "AMZN|earnings_release|2023-06-30|e6963d2f",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 describes a product (EC2 P5 instances) the company sells, which is boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p02 describes GuardDuty product capabilities, not spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.8,
+  "input_tokens": 4634,
+  "output_tokens": 184,
+  "attempts": 1,
+  "task_sha": "92144f11c75c2fd8"
+ }
+}

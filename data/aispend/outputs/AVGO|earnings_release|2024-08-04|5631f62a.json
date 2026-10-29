@@ -1,0 +1,23 @@
+{
+ "accession": "AVGO|earnings_release|2024-08-04|5631f62a",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; p01's $12 billion figure is AI revenue, not spend, and p02 is forward-looking risk boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p01 discusses AI revenue and EBITDA margin only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 5587,
+  "output_tokens": 210,
+  "attempts": 1,
+  "task_sha": "efb0a4c86c2030fd"
+ }
+}

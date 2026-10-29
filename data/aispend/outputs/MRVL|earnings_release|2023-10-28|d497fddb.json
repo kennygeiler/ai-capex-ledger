@@ -1,0 +1,23 @@
+{
+ "accession": "MRVL|earnings_release|2023-10-28|d497fddb",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; p01 discusses AI and cloud revenue growth, not spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p02 is an end-market product list (boilerplate)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 5054,
+  "output_tokens": 189,
+  "attempts": 1,
+  "task_sha": "f58d3356c31e4c2d"
+ }
+}

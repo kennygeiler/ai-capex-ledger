@@ -1,0 +1,37 @@
+{
+ "accession": "TSLA|earnings_release|2026-09-30|ba661fbe",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We continue to invest in the future through R&D and Capex spend across our businesses, including SI, robotics and energy.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "SI (Super Intelligence) is the company's AI term. It is listed as one of several areas the capex supports, alongside robotics and energy, so AI is a driver of total capex, not a quantified part of it. The present tense 'continue to invest' is read as ongoing actual spend."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We continue to invest in the future through R&D and Capex spend across our businesses, including SI, robotics and energy.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Covers R&D opex. SI (Super Intelligence) is one of several areas listed, so this is a qualitative link to total R&D, not an AI-specific amount. The present tense is read as ongoing actual spend."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.9,
+  "input_tokens": 7634,
+  "output_tokens": 715,
+  "attempts": 1,
+  "task_sha": "89fb372e59666e9f"
+ }
+}

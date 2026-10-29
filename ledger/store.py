@@ -18,7 +18,7 @@ import duckdb
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
-SCHEMA_VERSION = 6
+SCHEMA_VERSION = 7
 
 FIELDS = ("revenue", "cost_of_revenue", "cost_of_revenue_part", "operating_income", "capex", "opex")
 KINDS = ("accept", "override", "reject")  # what a person can decide about an exception
@@ -111,9 +111,25 @@ SCHEMA: tuple[Table, ...] = (
         _c("extraction_ids", "VARCHAR", "Extractions used, comma-separated.", nullable=True),
         _c("input_hash", "VARCHAR", "Hash of everything this value depends on; decisions re-apply only when it matches."),
     ), key=("ticker", "field", "period")),
-    Table("ai_statements", "Table A for AI spend: every statement an agent read in a 10-K's MD&A about AI's part of capex or opex, verbatim.", (
-        _c("statement_id", "VARCHAR", "Stable ID: accession|field|period|kind|n."),
-        ACCN, TICKER,
+    Table("texts", "Every text the AI spend reader reads: 10-K MD&A, 8-K earnings releases, investor-page transcripts and CFO commentary, with the fiscal period each speaks to.", (
+        _c("text_id", "VARCHAR", "Stable ID: ticker|kind|period_end|url hash."),
+        TICKER,
+        _c("kind", "VARCHAR", "mdna, earnings_release, transcript or cfo_commentary.", enum=("mdna", "earnings_release", "transcript", "cfo_commentary")),
+        _c("accession", "VARCHAR", "SEC accession when the text is a filing exhibit or section.", nullable=True, pattern=ACCESSION),
+        _c("url", "VARCHAR", "Where it came from."),
+        _c("date", "VARCHAR", "Filing or quarter-end date.", pattern=DATE),
+        _c("period_end", "VARCHAR", "The fiscal period end the text speaks to (year end for MD&A, quarter end otherwise).", pattern=DATE),
+        _c("fiscal_year", "INTEGER", "The company's fiscal year of that period."),
+        _c("path", "VARCHAR", "Plain text on disk, relative to the repo root."),
+        _c("sha256", "VARCHAR", "SHA-256 of the text.", pattern=re.compile(r"^[0-9a-f]{64}$")),
+        _c("chars", "INTEGER", "Length of the text."),
+    ), key=("text_id",)),
+    Table("ai_statements", "Table A for AI spend: every statement an agent read in a text about AI's part of capex or opex, verbatim.", (
+        _c("statement_id", "VARCHAR", "Stable ID: text_id|field|period|kind|n."),
+        _c("text_id", "VARCHAR", "The text it was read from (texts)."),
+        _c("source", "VARCHAR", "mdna, earnings_release, transcript or cfo_commentary.", enum=("mdna", "earnings_release", "transcript", "cfo_commentary")),
+        _c("accession", "VARCHAR", "SEC accession when the text is a filing.", nullable=True, pattern=ACCESSION),
+        TICKER,
         _c("field", "VARCHAR", "capex or opex.", enum=("capex", "opex")),
         PERIOD,
         _c("kind", "VARCHAR", "actual: the fiscal year the filing reports. outlook: a later year.", enum=("actual", "outlook")),
@@ -141,7 +157,9 @@ SCHEMA: tuple[Table, ...] = (
         _c("share", "DOUBLE", "As stated.", nullable=True),
         _c("ai_amount", "BIGINT", "AI dollars: the midpoint of an explicit AI amount, or an explicit AI share × our value for that year. Null when the filing gives only words or only a total.", nullable=True),
         _c("quote", "VARCHAR", "The sentence behind the row."),
-        ACCN,
+        _c("text_id", "VARCHAR", "The text the quote comes from (texts)."),
+        _c("source", "VARCHAR", "mdna, earnings_release, transcript or cfo_commentary.", enum=("mdna", "earnings_release", "transcript", "cfo_commentary")),
+        _c("accession", "VARCHAR", "SEC accession when the text is a filing.", nullable=True, pattern=ACCESSION),
         _c("statement_ids", "VARCHAR", "Statements considered, comma-separated."),
         _c("input_hash", "VARCHAR", "Hash of everything this row depends on."),
     ), key=("ticker", "field", "period", "kind")),
@@ -213,7 +231,7 @@ SCHEMA: tuple[Table, ...] = (
     ), key=("decision_id",)),
     Table("runs", "One row per pipeline or agent step: what ran, on what, with which versions, and how it went.", (
         _c("run_id", "VARCHAR", "Run ID."),
-        _c("step", "VARCHAR", "Step name.", enum=("run", "ingest", "parse", "extract", "reconcile", "aispend", "notes", "rules", "faults", "evidence", "report", "review", "score", "release")),
+        _c("step", "VARCHAR", "Step name.", enum=("run", "ingest", "parse", "extract", "reconcile", "texts", "aispend", "notes", "rules", "faults", "evidence", "report", "review", "score", "release")),
         _c("subject", "VARCHAR", "What it ran on (accession, ticker, release).", nullable=True),
         _c("started_at", "VARCHAR", "UTC timestamp."),
         _c("seconds", "DOUBLE", "Wall-clock duration."),
@@ -240,6 +258,10 @@ def init(path: Path | str = DEFAULT_DB) -> duckdb.DuckDBPyConnection:
     if str(path) != ":memory:":
         Path(path).parent.mkdir(parents=True, exist_ok=True)
     con = duckdb.connect(str(path))
+    have = con.execute("select v from _meta where k = 'schema_version'").fetchone() if con.execute("select count(*) from information_schema.tables where table_name = '_meta'").fetchone()[0] else None
+    if have and int(have[0]) < 7:  # v7 reshaped the AI-spend tables (text_id, source); they are rebuilt by `ledger aispend --load`
+        for t in ("ai_statements", "ai_spend"):
+            con.execute(f'DROP TABLE IF EXISTS "{t}"')
     for t in SCHEMA:
         con.execute(_ddl(t))
     con.execute("CREATE TABLE IF NOT EXISTS _meta (k VARCHAR PRIMARY KEY, v VARCHAR)")

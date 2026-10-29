@@ -1,0 +1,23 @@
+{
+ "accession": "NVDA|cfo_commentary|2026-07-26|9ff917c7",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only capex figure is $8 billion of capital expenditure commitments in the future-commitments table (p02), which is not attributed to AI, and the AI-infrastructure language in p02-p03 concerns supply, lease, AI-cloud and guarantee commitments, not the company's own capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the p01 opex increase is attributed to 'higher compute infrastructure and compensation and benefits costs' without mentioning AI, the Q3 FY27 opex outlook of ~$9.2B GAAP / $9.0B non-GAAP (p04) gives no AI driver, and the p02 sentence on cloud service agreements and data center leases powering R&D (including open models such as Nemotron, Cosmos and GR00T) describes commitments, not operating expense amounts or shares tied to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.4,
+  "input_tokens": 8653,
+  "output_tokens": 817,
+  "attempts": 1,
+  "task_sha": "92ffbaaeaf4bd587"
+ }
+}

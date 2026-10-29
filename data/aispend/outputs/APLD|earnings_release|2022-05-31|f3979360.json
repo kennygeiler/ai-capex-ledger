@@ -1,0 +1,23 @@
+{
+ "accession": "APLD|earnings_release|2022-05-31|f3979360",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; passages describe blockchain/crypto-mining hosting datacenter construction with no AI reference and no capex amounts"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; only revenue and Adjusted EBITDA guidance are given"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 5205,
+  "output_tokens": 203,
+  "attempts": 1,
+  "task_sha": "d4ae3ba2f037f994"
+ }
+}

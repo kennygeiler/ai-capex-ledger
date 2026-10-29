@@ -1,0 +1,31 @@
+{
+ "accession": "AMD|mdna|2025-12-27|486e46b0",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The increase was primarily due to higher employee-related costs from an increase in headcount in support of our continued focus on our AI strategy.",
+   "passage": "p06",
+   "confidence": 0.8,
+   "notes": "This sentence links the year-over-year increase in R&D expenses (headcount costs) to the AI strategy. It names no year and no amount, so fiscal_year is null and the class is qualitative. The preceding sentence gives total R&D of $8.1 billion for 2025 and a $1.6 billion increase, but it does not mention AI. It was therefore not recorded as a scope 'total' statement, and no AI amount was derived from it. The scope 'ai' choice is somewhat ambiguous: the statement attributes the increase, not total opex, to AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI. The ZT Systems acquisition (p03) and the MI308 inventory charges (p04) are not capital expenditures."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.2,
+  "input_tokens": 6216,
+  "output_tokens": 980,
+  "attempts": 1,
+  "task_sha": "3bfa2f1fd1b9920b"
+ }
+}

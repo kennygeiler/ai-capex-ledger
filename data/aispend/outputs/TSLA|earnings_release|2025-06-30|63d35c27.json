@@ -1,0 +1,37 @@
+{
+ "accession": "TSLA|earnings_release|2025-06-30|63d35c27",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "YoY, operating income was primarily impacted by the following items: - lower regulatory credit revenue - increase in operating expenses (ex. restructuring and SBC) driven by AI and other R&D projects - decline in vehicle deliveries - increase in SBC + decrease in restructuring charges + lower cost per vehicle, due to mix and lower raw materials partially offset by lower fixed cost absorption and an increase in tariffs + growth in Energy Generation and Storage gross profit",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Bullet-list text with no terminal period; quoted the full run up to the next section header. Refers to the Q2 2025 year-over-year increase in operating expenses (excluding restructuring and SBC), attributed jointly to AI and other R&D projects. No amount is given."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We expanded AI training compute with an additional 16k H200 GPUs at Gigafactory Texas, bringing Cortex to a total of 67k H100 equivalents.",
+   "passage": "p03",
+   "confidence": 0.5,
+   "notes": "Describes AI compute buildout (GPU additions) in units, not dollars. The sentence does not say 'capital expenditures', so treating it as AI capex is an interpretation, hence the low confidence."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.6,
+  "input_tokens": 8839,
+  "output_tokens": 1531,
+  "attempts": 1,
+  "task_sha": "4087a47d9d5d5bd0"
+ }
+}

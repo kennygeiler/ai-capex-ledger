@@ -1,0 +1,23 @@
+{
+ "accession": "CORZ|earnings_release|2025-06-30|55e654d7",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 is forward-looking-statement boilerplate (mentions 'future capital expenditures' and conversion to high performance computing sites only as risk factors) and p02 is a cash flow table with purchases of property, plant and equipment not attributed to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; passages contain only risk-factor boilerplate and cash flow statement figures"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 6764,
+  "output_tokens": 238,
+  "attempts": 1,
+  "task_sha": "a3b212a70184589c"
+ }
+}

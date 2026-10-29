@@ -1,0 +1,23 @@
+{
+ "accession": "CIFR|earnings_release|2023-06-30|1ed3ab2e",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; passages are safe-harbor boilerplate and bitcoin mining growth updates (long lead time items for 30 MW expansions, JV data centers) with no AI reference"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the only headcount mention (32 employees) is unrelated to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 6413,
+  "output_tokens": 221,
+  "attempts": 1,
+  "task_sha": "93a54971af178939"
+ }
+}

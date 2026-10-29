@@ -1,0 +1,23 @@
+{
+ "accession": "IREN|earnings_release|2026-03-31|bc8a86fa",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; the only capex sentence (p02, 'Near term capex expected to be met through combination of existing cash...') describes funding sources, with no amount, share, or AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the AI Cloud Services cost-of-revenue line in p07 is a table figure, not a sentence, and is cost of revenue rather than opex"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.1,
+  "input_tokens": 11814,
+  "output_tokens": 579,
+  "attempts": 1,
+  "task_sha": "ddbe6ae05df374c9"
+ }
+}

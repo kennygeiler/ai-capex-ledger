@@ -1,0 +1,23 @@
+{
+ "accession": "TXN|earnings_release|2021-12-31|a4b4644d",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only mention of capital expenditures is the free cash flow definition"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the passage covers only revenue, EPS and tax rate outlook"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 4530,
+  "output_tokens": 169,
+  "attempts": 1,
+  "task_sha": "5b572ef54203e199"
+ }
+}

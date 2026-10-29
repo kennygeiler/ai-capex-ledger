@@ -1,0 +1,53 @@
+{
+ "accession": "WULF|earnings_release|2024-06-30|6fa63400",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "During the second quarter, the Company purchased a 128-GPU cluster from NVIDIA, financed by a leading OEM.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "GPU cluster purchase for the HPC/AI project. No dollar amount is stated. The sentence names no year, so the default reported year applies. It is financed by an OEM, so whether it counts as capex is slightly ambiguous."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "To support this project, the Company has upgraded the internet interconnection at the Lake Mariner Facility to meet the bandwidth requirements of AI, designed a closed- loop liquid cooling system, and ensured power supply redundancy for 100% reliability.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Infrastructure upgrades made for the AI/HPC project. No amount is stated. The sentence implies capital spend but does not say capital expenditures. '100%' refers to reliability, not a share of spend."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Reflects TeraWulf\u2019s 30% equity contribution for construction of CB-1, a liquid-cooled, redundant, and high- power density 20 MW (gross) HPC/AI infrastructure expected to be substantially complete by year-end.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "Footnote to a cash bridge chart. The 30% is TeraWulf's equity share in the CB-1 joint venture, not a share of capex going to AI, so this is recorded as qualitative. No dollar amount appears in the sentence. 'By year-end' names no year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 22.3,
+  "input_tokens": 7905,
+  "output_tokens": 1531,
+  "attempts": 1,
+  "task_sha": "c3c7a21ca34a6d49"
+ }
+}

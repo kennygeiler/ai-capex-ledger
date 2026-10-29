@@ -1,0 +1,23 @@
+{
+ "accession": "WULF|earnings_release|2023-12-31|5e7b2fd5",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 says only that the Company is 'actively exploring potential applications of HPC and AI', and p02 says TeraWulf 'dedicated a 2 MW block at Lake Mariner' to generative AI/ML compute loads, which allocates power capacity and states no capital expenditure"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; cost of operations growth is attributed to depreciation from bitcoin mining expansion"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 6759,
+  "output_tokens": 524,
+  "attempts": 1,
+  "task_sha": "d68e12765b3f5e03"
+ }
+}

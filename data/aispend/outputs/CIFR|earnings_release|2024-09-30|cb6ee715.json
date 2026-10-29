@@ -1,0 +1,23 @@
+{
+ "accession": "CIFR|earnings_release|2024-09-30|cb6ee715",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "No sentence states or attributes Cipher's capital expenditures to AI. The passages mention data center construction at Black Pearl (p01, p05) and readiness to finance HPC buildouts (p04), but give no capex amount, share, or spend-linked AI statement. The GPU-spend quotes in p06 are from third parties (Meta, NVIDIA, McKinsey), not about the company's own spend."
+  },
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 7539,
+  "output_tokens": 348,
+  "attempts": 1,
+  "task_sha": "568c9d54a94a7a4f"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "accession": "MSFT|earnings_release|2025-09-30|e995c486",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage describes Microsoft's IP rights to OpenAI research and models; no sentence states or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage describes IP rights terms; no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.3,
+  "input_tokens": 4559,
+  "output_tokens": 181,
+  "attempts": 1,
+  "task_sha": "0b33ac8b3be7cbd2"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "accession": "MRVL|earnings_release|2023-04-29|306efd65",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "p01 reports purchases of property and equipment only as a cash-flow table figure with no sentence linking capital expenditures to AI; p02 is a product/end-market list (boilerplate)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; AI appears only in p02's list of customer products and applications"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.6,
+  "input_tokens": 5326,
+  "output_tokens": 204,
+  "attempts": 1,
+  "task_sha": "a3896448d1c06a6b"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "accession": "WULF|earnings_release|2025-03-31|8a8e495a",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; HPC data center build cost figures (~$7 million per MW, ~30% of budget spent) are per-unit or project-progress figures for HPC colocation, not stated as AI capital expenditures, and AI appears only in customer (Core42/G42) background"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; cost of revenue is attributed to infrastructure utilization and power costs for bitcoin mining"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.5,
+  "input_tokens": 11491,
+  "output_tokens": 521,
+  "attempts": 1,
+  "task_sha": "6f248851a8d19505"
+ }
+}

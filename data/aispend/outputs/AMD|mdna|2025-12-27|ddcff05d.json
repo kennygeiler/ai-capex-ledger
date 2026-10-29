@@ -1,0 +1,44 @@
+{
+ "accession": "AMD|mdna|2025-12-27|ddcff05d",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 8100000000,
+   "amount_high": 8100000000,
+   "quote": "Research and development expenses of $8.1 billion in 2025 increased by $1.6 billion, or 25%, compared to $6.5 billion in 2024.",
+   "passage": "p06",
+   "confidence": 0.8,
+   "notes": "Total R&D expense, not an AI amount. The AI link is in the next sentence, which attributes the increase primarily to headcount supporting the AI strategy. This sentence does not mention AI itself, hence the lower confidence."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase was primarily due to higher employee-related costs from an increase in headcount in support of our continued focus on our AI strategy.",
+   "passage": "p06",
+   "confidence": 0.9,
+   "notes": "Attributes the R&D increase (headcount) primarily to the AI strategy. No AI amount or share is stated. The sentence names no year; by context it refers to the 2025 increase, and code will default to the reported year 2025."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "No sentence states or attributes capital expenditures to AI. The ZT Systems acquisition and divestiture and the MI308 inventory charges are not capital expenditures."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.1,
+  "input_tokens": 6215,
+  "output_tokens": 1031,
+  "attempts": 1,
+  "task_sha": "f13563b7f5d2044a"
+ }
+}

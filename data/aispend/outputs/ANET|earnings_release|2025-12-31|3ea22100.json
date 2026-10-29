@@ -1,0 +1,23 @@
+{
+ "accession": "ANET|earnings_release|2025-12-31|3ea22100",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the cash flow table reports purchases of property, equipment and intangible assets ($119.5 million in 2025) with no AI attribution, and the AI mentions in p01, p02 and p04 describe products and markets, not spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the only other AI mention is a risk-factor item in the forward-looking statements boilerplate (p03)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.3,
+  "input_tokens": 6703,
+  "output_tokens": 251,
+  "attempts": 1,
+  "task_sha": "8aa8dec8e39622bb"
+ }
+}

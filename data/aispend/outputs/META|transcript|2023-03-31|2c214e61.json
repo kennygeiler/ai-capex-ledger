@@ -1,0 +1,44 @@
+{
+ "accession": "META|transcript|2023-03-31|2c214e61",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 30000000000,
+   "amount_high": 33000000000,
+   "quote": "We expect capital expenditures to be in the range of $30-33 billion, unchanged from our prior estimate.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Total capex outlook; the AI link is in the next sentence of p01. The sentence names no year, so fiscal_year is null. From context (Q1 2023 call, 'unchanged from our prior estimate') this is full-year 2023 guidance. The default rule of using the reported year + 1 (2024) would likely be wrong here and needs review."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "This outlook reflects our ongoing build out of AI capacity to support ads, Feed and Reels, along with an increased investment in capacity for our Generative AI initiatives.",
+   "passage": "p01",
+   "confidence": 0.85,
+   "notes": "Attributes the capex outlook to AI capacity build-out in words only. It does not say what share is AI. The year comes from the preceding sentence (likely fiscal 2023), not this one, so fiscal_year is null."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.0,
+  "input_tokens": 4680,
+  "output_tokens": 1075,
+  "attempts": 1,
+  "task_sha": "bc4096fe9d4e1c8d"
+ }
+}

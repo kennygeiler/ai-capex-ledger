@@ -1,0 +1,23 @@
+{
+ "accession": "CORZ|mdna|2024-12-31|3d9b22c1",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the capex sentences (p14 PP&E purchases of $95.2 million; p15 and p16 contractual commitment of approximately $1.14 billion, $899.3 million reimbursable, for converting data centers to HPC hosting, expected over the next year) refer to HPC hosting, not AI. AI appears only in strategy and business descriptions (p03, p05, p09), so attributing the HPC capex to AI would be an inference."
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p10 describes the cost of HPC hosting services (facility operations, power fees, payroll) without linking it to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.0,
+  "input_tokens": 7724,
+  "output_tokens": 884,
+  "attempts": 1,
+  "task_sha": "67df22bd4a1bb44a"
+ }
+}

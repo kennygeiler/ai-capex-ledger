@@ -1,0 +1,23 @@
+{
+ "accession": "WMT|earnings_release|2022-07-31|3ce792b3",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "passages are safe-harbor boilerplate only; capital expenditures are mentioned as a guidance item but no sentence states an amount or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "passages are safe-harbor boilerplate only; no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.8,
+  "input_tokens": 7915,
+  "output_tokens": 186,
+  "attempts": 1,
+  "task_sha": "a690dfeae99fe0cb"
+ }
+}

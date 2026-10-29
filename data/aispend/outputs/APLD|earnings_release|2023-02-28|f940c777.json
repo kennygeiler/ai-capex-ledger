@@ -1,0 +1,23 @@
+{
+ "accession": "APLD|earnings_release|2023-02-28|f940c777",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the passage describes retrofitting part of the Jamestown facility for a GPU deployment and starting construction of a 5MW HPC facility, but no sentence states or attributes capital expenditures (an amount, a share, or spend in words) to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.8,
+  "input_tokens": 4708,
+  "output_tokens": 406,
+  "attempts": 1,
+  "task_sha": "953ebd163539900a"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "accession": "CSCO|earnings_release|2024-07-27|ba717d4c",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is safe-harbor boilerplate; no sentence states or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is safe-harbor boilerplate; its mention of investing in AI, cloud and cybersecurity describes the topics of forward-looking statements and gives no amount, share, or link to an operating expense line"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 5668,
+  "output_tokens": 273,
+  "attempts": 1,
+  "task_sha": "0f5766465a569866"
+ }
+}

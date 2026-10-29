@@ -1,0 +1,23 @@
+{
+ "accession": "AVGO|earnings_release|2023-07-30|6a069ec3",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the passage describes revenue drivers (customer demand for AI networking), not the company's own spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the passage concerns results and revenue outlook only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 4530,
+  "output_tokens": 188,
+  "attempts": 1,
+  "task_sha": "ff5d54ebd14a69f7"
+ }
+}

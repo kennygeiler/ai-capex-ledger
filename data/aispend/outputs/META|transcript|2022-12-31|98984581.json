@@ -1,0 +1,42 @@
+{
+ "accession": "META|transcript|2022-12-31|98984581",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2023,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The reduced outlook reflects our updated plans for lower data center construction spend in 2023 as we shift to a new data center architecture that is more cost efficient and can support both AI and non-AI workloads.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Links the 2023 total capex outlook to a data center architecture that supports AI and non-AI workloads. It does not say how much capex goes to AI. The $30-33 billion total is in the preceding sentence, which does not mention AI, so it is not recorded here."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We're still planning to grow AI capacity significantly, and that connects, I think, to a lot of the things that Mark was describing earlier in his question.",
+   "passage": "p04",
+   "confidence": 0.7,
+   "notes": "'Grow AI capacity' is read as AI infrastructure capex because the passage discusses data center capital outlay. The sentence does not say 'capital expenditures' outright. It names no year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the depreciation remark in p05 concerns non-AI servers' useful lives, not AI spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.9,
+  "input_tokens": 5126,
+  "output_tokens": 1266,
+  "attempts": 1,
+  "task_sha": "a62b0723bd5e1d65"
+ }
+}

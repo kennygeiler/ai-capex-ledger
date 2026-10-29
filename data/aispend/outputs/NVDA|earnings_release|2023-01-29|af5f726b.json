@@ -1,0 +1,31 @@
+{
+ "accession": "NVDA|earnings_release|2023-01-29|af5f726b",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We expect to use this capacity for our NVIDIA AI cloud service offerings and for research and development activities.",
+   "passage": "p06",
+   "confidence": 0.6,
+   "notes": "Refers to GPU capacity under multi-year cloud service agreements ($2.23 billion of purchase obligations, stated in the preceding sentence without any AI link, so no amount is recorded). Treated as opex (infrastructure/R&D) rather than capex, but the filing does not classify it. The capacity is shared between AI cloud service offerings and R&D, with no split given. No fiscal year is named in the sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure guidance for Q1 and full-year fiscal 2024 ($1.10\u2013$1.30 billion) is given in p08, but no sentence links capital expenditures to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.4,
+  "input_tokens": 6852,
+  "output_tokens": 899,
+  "attempts": 1,
+  "task_sha": "fd9f493cfff5620c"
+ }
+}

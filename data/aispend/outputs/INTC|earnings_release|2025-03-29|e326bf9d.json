@@ -1,0 +1,23 @@
+{
+ "accession": "INTC|earnings_release|2025-03-29|e326bf9d",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the 2025 gross capex target ($18 billion) and net capex outlook ($8\u201311 billion) are attributed to operational efficiencies and core-business investment, not AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, MG&A, headcount) to AI; 'Data Center and AI (DCAI)' appears only as a revenue segment name"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 6692,
+  "output_tokens": 229,
+  "attempts": 1,
+  "task_sha": "8aa9414367cbe765"
+ }
+}

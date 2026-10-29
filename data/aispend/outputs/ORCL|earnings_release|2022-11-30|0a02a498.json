@@ -1,0 +1,23 @@
+{
+ "accession": "ORCL|earnings_release|2022-11-30|0a02a498",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no passage in the text mentions AI next to spending"
+  },
+  {
+   "field": "opex",
+   "reason": "no passage in the text mentions AI next to spending"
+  }
+ ],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "4ba55e26ff0567fe"
+ }
+}

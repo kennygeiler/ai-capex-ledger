@@ -1,0 +1,23 @@
+{
+ "accession": "WULF|mdna|2023-12-31|0e235e3b",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex discussion (p01) concerns bitcoin miner purchases, and the 2 MW power block allocated to the GPU/HPC initiative (p02) is a power allocation, not a stated expenditure"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the WULF Compute innovation center (p02) is described without any spend linked to it"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 5517,
+  "output_tokens": 503,
+  "attempts": 1,
+  "task_sha": "a40f544522165cd7"
+ }
+}

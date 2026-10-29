@@ -1,0 +1,23 @@
+{
+ "accession": "TSLA|earnings_release|2023-03-31|a7179197",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only capex mention is the definition of free cash flow (operating cash flow less capital expenditures)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the only AI mention is boilerplate in the forward-looking statements list ('AI enabled products'), which says nothing about spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.9,
+  "input_tokens": 6531,
+  "output_tokens": 213,
+  "attempts": 1,
+  "task_sha": "d5eea0578d8bc2a3"
+ }
+}

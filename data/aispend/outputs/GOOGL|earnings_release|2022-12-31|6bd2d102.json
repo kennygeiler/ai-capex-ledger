@@ -1,0 +1,23 @@
+{
+ "accession": "GOOGL|earnings_release|2022-12-31|6bd2d102",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the passage covers office space exit costs and a change in server useful lives (depreciation), neither tied to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the R&D mention concerns where reduced depreciation is recorded, not AI spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 4660,
+  "output_tokens": 195,
+  "attempts": 1,
+  "task_sha": "ee4ba89a38fd035c"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "accession": "INTC|earnings_release|2026-03-28|bedfc54c",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 reports gross capital expenditures of $4,963 million for Q1 2026 in a reconciliation table with no AI attribution, and p01 only names the Data Center and AI segment in a revenue table"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; passages contain only segment revenue and EPS/cash-flow reconciliation tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 5144,
+  "output_tokens": 303,
+  "attempts": 1,
+  "task_sha": "6474411a6579fbe6"
+ }
+}

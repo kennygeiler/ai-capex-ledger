@@ -1,0 +1,23 @@
+{
+ "accession": "MRVL|earnings_release|2022-04-30|883939bc",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 reports purchases of property and equipment as a cash flow table line with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p03 mentions AI only as a customer end-market product category, which is boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.2,
+  "input_tokens": 5691,
+  "output_tokens": 202,
+  "attempts": 1,
+  "task_sha": "12693f3b0e58582f"
+ }
+}

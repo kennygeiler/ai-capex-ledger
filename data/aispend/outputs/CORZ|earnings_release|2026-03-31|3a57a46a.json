@@ -1,0 +1,33 @@
+{
+ "accession": "CORZ|earnings_release|2026-03-31|3a57a46a",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 104000000,
+   "amount_high": 104000000,
+   "quote": "For the additional 70 MW expansion, Core Scientific is responsible for funding $104 Million of capex ($1.5M per MW) for the powered core and shell with no capex credit associated with this new agreement.",
+   "passage": "p07",
+   "confidence": 0.5,
+   "notes": "The sentence itself does not say 'AI'. The AI link comes only from context: the expansion is under the CoreWeave high-density colocation contract, and p01 says the company's facilities serve AI workloads. The sentence names no year, and 'is responsible for funding' is a forward commitment, so kind is outlook. A reviewer may decide this should be excluded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; p04 mentions operating expenses only in describing Adjusted EBITDA, and p07 footnote 2 lists customer-contract expense categories without linking them to AI spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.1,
+  "input_tokens": 8981,
+  "output_tokens": 1240,
+  "attempts": 1,
+  "task_sha": "9547a7de722b0ec8"
+ }
+}

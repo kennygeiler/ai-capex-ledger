@@ -1,0 +1,23 @@
+{
+ "accession": "AMD|earnings_release|2025-06-28|56628400",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes AMD capital expenditures to AI; the ZT Systems sale (p07) is a divestiture and the HUMAIN 500 MW deployment (p15) is a customer/partner plan, not AMD capex"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes AMD operating expenses (R&D, infrastructure, headcount) to AI; operating expenses appear only in forward-looking/non-GAAP boilerplate (p10) without any AI link"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.0,
+  "input_tokens": 12244,
+  "output_tokens": 319,
+  "attempts": 1,
+  "task_sha": "bc92c1a3ffe23a2e"
+ }
+}

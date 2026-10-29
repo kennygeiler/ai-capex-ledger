@@ -1,0 +1,31 @@
+{
+ "accession": "META|earnings_release|2022-09-30|80a69ec8",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2023,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "An increase in AI capacity is driving substantially all of our capital expenditure growth in 2023.",
+   "passage": "p01",
+   "confidence": 0.85,
+   "notes": "Attributes 'substantially all' of the 2023 capex growth (not the capex level) to AI capacity. 'Substantially all' is a word, not a stated share, so it is recorded as qualitative. No AI amount is derived from the $34-39 billion 2023 range or the 2022 range. Those sentences do not mention AI, so they are not recorded as scope: total. The statement is about the growth increment, so the scope is ambiguous."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 4731,
+  "output_tokens": 676,
+  "attempts": 1,
+  "task_sha": "d951ad70a30ae914"
+ }
+}

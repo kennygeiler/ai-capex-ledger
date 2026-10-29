@@ -1,0 +1,44 @@
+{
+ "accession": "AMZN|earnings_release|2025-12-31|25d5f63b",
+ "prompt_version": "aispend@v3",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This increase primarily reflects investments in artificial intelligence.",
+   "passage": "p01",
+   "confidence": 0.85,
+   "notes": "Refers to the $50.7 billion year-over-year increase in purchases of property and equipment (trailing twelve months). That figure is in a sentence truncated at the start of the passage, so it is not quotable. The increase is in total capex, not the AI portion, so no AI amount is recorded. No year is named in the sentence; the filing's reported year (2025) applies."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 200000000000,
+   "amount_high": 200000000000,
+   "quote": "With such strong demand for our existing offerings and seminal opportunities like AI, chips, robotics, and low earth orbit satellites, we expect to invest about $200 billion in capital expenditures across Amazon in 2026, and anticipate strong long-term return on invested capital.",
+   "passage": "p02",
+   "confidence": 0.95,
+   "notes": "This is company-wide total capex ('about $200 billion'). AI is one of several drivers named (AI, chips, robotics, satellites), so the figure is not AI spend."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.3,
+  "input_tokens": 4822,
+  "output_tokens": 1218,
+  "attempts": 1,
+  "task_sha": "a5b8d1cdaa893ffc"
+ }
+}

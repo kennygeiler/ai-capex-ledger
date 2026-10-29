@@ -1,0 +1,23 @@
+{
+ "accession": "AMD|earnings_release|2025-12-27|88ccf70b",
+ "prompt_version": "aispend@v3",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; AI mentions are product descriptions, customer/partner announcements, or forward-looking boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p11 notes higher operating expenses in Client and Gaming without linking them to AI, and p06 references operating expense outlook only in cautionary boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 10895,
+  "output_tokens": 276,
+  "attempts": 1,
+  "task_sha": "6b3b017a26ca758f"
+ }
+}
