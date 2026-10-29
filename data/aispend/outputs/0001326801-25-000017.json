@@ -1,0 +1,60 @@
+{
+ "accession": "0001326801-25-000017",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 60000000000,
+   "amount_high": 65000000000,
+   "quote": "We anticipate making capital expenditures of approximately $60 billion to $65 billion in 2025 to support our core business and generative AI efforts.",
+   "passage": "p05",
+   "confidence": 1.0
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "These efforts include significant investments in AI initiatives, including to recommend relevant content across our products, enhance our advertising tools, develop new products, and develop new features for existing products using generative AI.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "\"These efforts\" refers to the prior sentence's FoA investments, which consist of expenses for headcount, data centers and technical infrastructure. The sentence names no year; the preceding sentences discuss 2024."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In particular, we expect our AI initiatives will require increased investment in infrastructure and headcount.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Headcount is opex; infrastructure costs also count as opex under the prompt definition. No year is stated."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In particular, we expect our AI initiatives will require increased investment in infrastructure and headcount.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "\"Investment in infrastructure\" plausibly includes capital expenditures, but the sentence does not say capex explicitly. No year is stated."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.5,
+  "input_tokens": 5350,
+  "output_tokens": 1173,
+  "attempts": 1,
+  "task_sha": "025baeaca352ee07"
+ }
+}

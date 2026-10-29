@@ -55,7 +55,18 @@ def gates(values, open_items, handcheck, confirmed=frozenset()) -> dict:
     }
 
 
-def build(version, values, extractions, exceptions, previous, confirmed=frozenset()) -> dict:
+def ai_spend_csv(rows: list[dict]) -> str:
+    """What each 10-K says about AI's part of capex and opex: one row per company, field, fiscal year and kind."""
+    buf = io.StringIO()
+    w = csv.writer(buf, lineterminator="\n")
+    w.writerow(["ticker", "field", "period", "kind", "scope", "class", "amount_low", "amount_high", "share", "ai_amount", "accession", "quote"])
+    for a in sorted(rows, key=lambda a: (a["ticker"], a["field"], a["period"], a["kind"])):
+        w.writerow([a["ticker"], a["field"], a["period"], a["kind"], a["scope"], a["class"], a["amount_low"] or "", a["amount_high"] or "",
+                    "" if a["share"] is None else a["share"], "" if a["ai_amount"] is None else a["ai_amount"], a["accession"], a["quote"]])
+    return buf.getvalue()
+
+
+def build(version, values, extractions, exceptions, previous, confirmed=frozenset(), ai_spend=()) -> dict:
     """Release files as {name: text}. No timestamps inside, so the same inputs give the same hash (G7)."""
     ext = {e["extraction_id"]: e for e in extractions}
     rows = sorted(values, key=lambda v: (v["ticker"], v["field"], v["period"]))
@@ -73,6 +84,7 @@ def build(version, values, extractions, exceptions, previous, confirmed=frozense
                          f"{sum(v['source'] == 'override' for v in rows)} overridden · {sum(v['source'] == 'missing' for v in rows)} missing · "
                          f"{sum(v['label'] == 'agree' for v in rows)} agree with XBRL · {sum(v['basis'] == 'restated' for v in rows)} on a restated basis · "
                          f"{sum(v['label'] == 'not_reported' for v in rows)} blank because the company reports no such line", "",
+                         ai_line(list(ai_spend)), "",
                          check_line(rows, confirmed), "",
                          "All gates passed: " + "; ".join(f"{g} {d}" for g, d in GATES.items()) + ".", "",
                          "## Notes", ""] + [f"- {e['ticker']} {e['field'] or ''}: {e['message']}" for e in notes] + [""])
@@ -86,10 +98,17 @@ def build(version, values, extractions, exceptions, previous, confirmed=frozense
     body = ["First release."] if previous is None else (changes or ["No values changed."]) + (
         ["", f"Added: {sum(added.values())} values for {', '.join(sorted(added))}."] if added else [])
     diff = "\n".join([f"# Changes in {version}", ""] + body + [""])
-    return {"values.csv": buf.getvalue(), "QUALITY.md": quality, "DIFF.md": diff, "README.md": readme(version, rows)}
+    return {"values.csv": buf.getvalue(), "ai_spend.csv": ai_spend_csv(list(ai_spend)), "QUALITY.md": quality, "DIFF.md": diff, "README.md": readme(version, rows, list(ai_spend))}
 
 
-def readme(version, rows) -> str:
+def ai_line(rows: list[dict]) -> str:
+    cos = {a["ticker"] for a in rows}
+    return (f"AI spend (ai_spend.csv): {len(rows)} statements for {len(cos)} companies on what the 10-K's MD&A says about AI's part of capex and opex; "
+            f"{sum(a['ai_amount'] is not None for a in rows)} give an AI dollar amount, {sum(a['class'] == 'explicit_amount' and a['scope'] == 'total' for a in rows)} give the company's total with AI as a driver, "
+            f"{sum(a['class'] == 'qualitative' for a in rows)} are words only. Every row quotes its sentence.")
+
+
+def readme(version, rows, ai_spend=()) -> str:
     """What a buyer gets: the files, what each column means, how every value was checked, and how to verify the packet."""
     companies, years = sorted({v["ticker"] for v in rows}), sorted({v["period"] for v in rows})
     return "\n".join([
@@ -99,6 +118,7 @@ def readme(version, rows) -> str:
         "A person reviewed what code could not settle and signed this release.", "",
         "## Files", "",
         "- `values.csv`: one row per company, field and fiscal year.",
+        "- `ai_spend.csv`: what each 10-K's MD&A says about AI's part of capex and opex, one row per company, field, fiscal year and kind, with the sentence quoted.",
         "- `QUALITY.md`: how many values agree with XBRL, what a person checked, and every note on definitions and restatements.",
         "- `DIFF.md`: what changed since the previous release.",
         "- `manifest.json`: the content hash, the prompt, parser and rule versions, and the number of decisions applied.",
@@ -112,6 +132,13 @@ def readme(version, rows) -> str:
         "| `source` | `agent`: read from the filing by the agent and checked. `override`: a reviewer replaced it, with a recorded reason. |",
         "| `xbrl` | `agree`: matches the company's XBRL data. `definition_gap`: differs only in which lines count as cost of revenue, confirmed by a reviewer. `unresolved`: differs; a reviewer decided. `not_reported`: no line to read. |",
         "| `citations` | The filing's accession number, table, row label, column label and the cell text, for every cell behind the value. |", "",
+        "## Columns of ai_spend.csv", "",
+        "| Column | Meaning |", "|---|---|",
+        "| `kind` | `actual`: the fiscal year the filing reports. `outlook`: a later year the filing speaks to. |",
+        "| `scope` | `ai`: the figure is the AI part. `total`: the company's whole capex or opex, with AI named as a driver; **not** AI spend. |",
+        "| `class` | `explicit_amount` (dollars in `amount_low`, `amount_high`), `explicit_share` (`share`, 0 to 1), or `qualitative` (words only). |",
+        "| `ai_amount` | AI dollars only where the filing supports one: the midpoint of an explicit AI amount, or an explicit AI share × the released value. Blank otherwise. |",
+        "| `quote` | The sentence, verbatim from the filing. |", "",
         "## Verify it yourself", "",
         "The hash in `manifest.json` is SHA-256 over the files it lists, so the packet can be checked against the signature. "
         "Each citation names a public filing on sec.gov; open the accession number, find the row and column, and the cell text should match.", "",

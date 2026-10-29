@@ -1,0 +1,23 @@
+{
+ "accession": "0001628280-25-008302",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the capex commitments in p15 and p16 (including approximately $1.14 billion contracted as of December 31, 2024, of which $899.3 million is reimbursable by the customer) are attributed to converting data centers for HPC hosting, and AI is mentioned only in general strategy and design sentences (p03, p05, p09) that say nothing about spend, so treating HPC capex as AI capex would be inference"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the cost of HPC hosting services in p10 is described as facility operations, power fees and payroll, with no link to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.5,
+  "input_tokens": 7623,
+  "output_tokens": 707,
+  "attempts": 1,
+  "task_sha": "acc9fd7189828394"
+ }
+}

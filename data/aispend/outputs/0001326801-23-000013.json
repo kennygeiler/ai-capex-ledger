@@ -1,0 +1,23 @@
+{
+ "accession": "0001326801-23-000013",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the 2023 capex outlook of $30 billion to $33 billion (p11) names no AI purpose or driver"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; expense growth is attributed to data centers, servers, network infrastructure, headcount, and metaverse/RL investments without mention of AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 6884,
+  "output_tokens": 246,
+  "attempts": 1,
+  "task_sha": "155db88bf58d0865"
+ }
+}

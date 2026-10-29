@@ -1,0 +1,23 @@
+{
+ "accession": "0001596532-25-000028",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's own capital expenditures to AI; the only capex amount (p07, $235.0-$260.0 million) is for a Santa Clara office/lab/data center building with no AI attribution, and the AI-related capital expenditure references (p03, p04) describe customers' spending, not Arista's"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the R&D investment sentence (p05) refers to the cloud networking platform generally, and the AI-driven purchase commitments (p06) are inventory/working capital, not opex"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.9,
+  "input_tokens": 6878,
+  "output_tokens": 367,
+  "attempts": 1,
+  "task_sha": "5b9a06b045d55e79"
+ }
+}

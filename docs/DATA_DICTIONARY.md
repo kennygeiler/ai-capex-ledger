@@ -1,6 +1,6 @@
 # Data dictionary
 
-Generated from `ledger/store.py` (schema version 4). Do not edit by hand: run `uv run python -m ledger.store`.
+Generated from `ledger/store.py` (schema version 5). Do not edit by hand: run `uv run python -m ledger.store`.
 
 Money is BIGINT US dollars, unscaled. Dates are `YYYY-MM-DD` strings; timestamps are UTC ISO 8601.
 
@@ -95,6 +95,55 @@ Key: `(ticker, field, period)`
 | `extraction_ids` | VARCHAR | no |  | Extractions used, comma-separated. |
 | `input_hash` | VARCHAR | yes |  | Hash of everything this value depends on; decisions re-apply only when it matches. |
 
+## `ai_statements`
+
+Table A for AI spend: every statement an agent read in a 10-K's MD&A about AI's part of capex or opex, verbatim.
+
+Key: `(statement_id)`
+
+| Column | Type | Required | Allowed values | Meaning |
+|---|---|---|---|---|
+| `statement_id` | VARCHAR | yes |  | Stable ID: accession|field|period|kind|n. |
+| `accession` | VARCHAR | yes | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession number of the filing, e.g. 0001045810-26-000075. |
+| `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
+| `field` | VARCHAR | yes | `capex`, `opex` | capex or opex. |
+| `period` | VARCHAR | yes | pattern `^FY\d{4}$` | The company's fiscal year, e.g. FY2026 (NVDA's ended 25 Jan 2026). |
+| `kind` | VARCHAR | yes | `actual`, `outlook` | actual: the fiscal year the filing reports. outlook: a later year. |
+| `scope` | VARCHAR | yes | `ai`, `total` | ai: the figure is the AI part. total: the company's total, with AI named as a driver. |
+| `class` | VARCHAR | yes | `explicit_amount`, `explicit_share`, `qualitative` | explicit_amount, explicit_share or qualitative. |
+| `amount_low` | BIGINT | no |  | Stated amount or low end of a range, US dollars. |
+| `amount_high` | BIGINT | no |  | Stated amount or high end of a range, US dollars. |
+| `share` | DOUBLE | no |  | Stated share, 0 to 1. |
+| `quote` | VARCHAR | yes |  | The sentence, verbatim from the filing. |
+| `passage` | VARCHAR | yes |  | Passage tag in the task, e.g. p03. |
+| `confidence` | DOUBLE | yes |  | Agent's confidence, 0 to 1. |
+| `notes` | VARCHAR | no |  | Agent's notes. |
+| `prompt_version` | VARCHAR | yes |  | Prompt file and version, e.g. aispend@v1. |
+| `run_id` | VARCHAR | yes |  | Run that produced it. |
+
+## `ai_spend`
+
+Table B for AI spend: per company, field, fiscal year and kind, the most specific statement from the newest filing, and an AI dollar amount only where the filing supports one.
+
+Key: `(ticker, field, period, kind)`
+
+| Column | Type | Required | Allowed values | Meaning |
+|---|---|---|---|---|
+| `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
+| `field` | VARCHAR | yes | `capex`, `opex` | capex or opex. |
+| `period` | VARCHAR | yes | pattern `^FY\d{4}$` | The company's fiscal year, e.g. FY2026 (NVDA's ended 25 Jan 2026). |
+| `kind` | VARCHAR | yes | `actual`, `outlook` | actual or outlook. |
+| `scope` | VARCHAR | yes | `ai`, `total` | ai or total (see ai_statements). |
+| `class` | VARCHAR | yes | `explicit_amount`, `explicit_share`, `qualitative` | explicit_amount, explicit_share or qualitative. |
+| `amount_low` | BIGINT | no |  | As stated. |
+| `amount_high` | BIGINT | no |  | As stated. |
+| `share` | DOUBLE | no |  | As stated. |
+| `ai_amount` | BIGINT | no |  | AI dollars: the midpoint of an explicit AI amount, or an explicit AI share × our value for that year. Null when the filing gives only words or only a total. |
+| `quote` | VARCHAR | yes |  | The sentence behind the row. |
+| `accession` | VARCHAR | yes | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession number of the filing, e.g. 0001045810-26-000075. |
+| `statement_ids` | VARCHAR | yes |  | Statements considered, comma-separated. |
+| `input_hash` | VARCHAR | yes |  | Hash of everything this row depends on. |
+
 ## `rules`
 
 The rule registry as loaded from rules/*.yaml.
@@ -156,7 +205,7 @@ Key: `(run_id, step, subject)`
 | Column | Type | Required | Allowed values | Meaning |
 |---|---|---|---|---|
 | `run_id` | VARCHAR | yes |  | Run ID. |
-| `step` | VARCHAR | yes | `run`, `ingest`, `parse`, `extract`, `reconcile`, `rules`, `faults`, `evidence`, `report`, `review`, `score`, `release` | Step name. |
+| `step` | VARCHAR | yes | `run`, `ingest`, `parse`, `extract`, `reconcile`, `aispend`, `rules`, `faults`, `evidence`, `report`, `review`, `score`, `release` | Step name. |
 | `subject` | VARCHAR | no |  | What it ran on (accession, ticker, release). |
 | `started_at` | VARCHAR | yes |  | UTC timestamp. |
 | `seconds` | DOUBLE | yes |  | Wall-clock duration. |

@@ -1,0 +1,31 @@
+{
+ "accession": "0000858877-26-000132",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "R&D expenses increased primarily due to higher headcount-related expenses reflecting our investments in AI, higher discretionary spending and higher share-based compensation expense, partially offset by lower acquisition-related costs and lower contracted services spending.",
+   "passage": "p03",
+   "confidence": 0.85,
+   "notes": "The sentence gives AI-related headcount as one driver of the R&D increase, alongside discretionary spending and share-based compensation. It does not quantify the AI part. No year is named; the comparison context implies fiscal 2026 vs. fiscal 2025. Scope is total because the subject is overall R&D expense."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p04 mentions capital expenditures only as a generic liquidity requirement, and p01/p02 refer to AI infrastructure revenue, not spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.5,
+  "input_tokens": 5067,
+  "output_tokens": 648,
+  "attempts": 1,
+  "task_sha": "5129afaaaf164d8b"
+ }
+}

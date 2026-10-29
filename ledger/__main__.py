@@ -9,6 +9,7 @@ COMMANDS = {
     "ingest": "List 10-Ks, fetch and parse them, locate the statements, load the XBRL answer key.",
     "extract": "Pack agent tasks, run the agent headless (--run), load and check its citations (--load).",
     "reconcile": "Build fiscal-year values and label each against the XBRL answer key.",
+    "aispend": "Read what each 10-K's MD&A says about AI's part of capex and opex (--run), check every quote and load it (--load).",
     "rules": "Run the rule registry and write exceptions.",
     "faults": "Corrupt real extractions one at a time and report what catches each fault.",
     "evidence": "Re-read every cited cell on the rendered 10-K and screenshot it, boxed.",

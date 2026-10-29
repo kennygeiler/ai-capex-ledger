@@ -1,0 +1,23 @@
+{
+ "accession": "0000858877-23-000023",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 mentions capital expenditures only as a generic liquidity requirement"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 4588,
+  "output_tokens": 152,
+  "attempts": 1,
+  "task_sha": "12ce3843a647ab2d"
+ }
+}

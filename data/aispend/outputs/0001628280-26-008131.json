@@ -1,0 +1,23 @@
+{
+ "accession": "0001628280-26-008131",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no passage in the MD&A mentions AI next to spending"
+  },
+  {
+   "field": "opex",
+   "reason": "no passage in the MD&A mentions AI next to spending"
+  }
+ ],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "40fe553d0db9f55c"
+ }
+}

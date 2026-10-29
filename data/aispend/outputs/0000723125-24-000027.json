@@ -1,0 +1,23 @@
+{
+ "accession": "0000723125-24-000027",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex figures (2024 actual $8.39 billion, 2025 outlook around mid-30% of revenue) are given without any AI attribution or AI driver"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.8,
+  "input_tokens": 5832,
+  "output_tokens": 254,
+  "attempts": 1,
+  "task_sha": "896ce062bdfe254e"
+ }
+}

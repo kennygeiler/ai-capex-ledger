@@ -6,7 +6,12 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026, night):** a code-slop pass after the audit. Four fixes, no behaviour change for a buyer:
+**Last done (29 Oct 2026):** AI spend from the MD&A, the question behind the ledger.
+- **`ledger aispend`** (in `ledger run`, after reconcile): a second agent (`ai_reader`, prompt `aispend@v2`) reads each 10-K's Item 7 passages that mention AI next to capital or operating spending and returns every statement as a verbatim quote; code checks the quote is in the passage. Table A `ai_statements`, table B `ai_spend` (per company, field, fiscal year and kind, the most specific statement from the newest filing). Item 7 comes through `edgartools` (`data/text/`); the table parser is untouched.
+- **The finding, honestly:** on all 31 companies, 79 statements, 54 company-year rows, 3 with an AI dollar amount (all IREN). Hyperscalers say "primarily" and "the majority"; the only numbers are total-capex outlooks (Meta $115–135B for 2026, Tesla >$20B), filed as `scope: total`, not AI spend. The explicit AI numbers live in earnings releases (8-K Exhibit 99.1), ticket L4. Types 24–27 in `docs/INGESTION.md`.
+- **Shipped with it:** rule `ai_amount_within_capex` (16 rules now), `ai_spend.csv` in every release with its own README section, a DATAHQ company section ("What the filing says about AI spend") and a dashboard column. Not yet in a signed release: `v1.2.0` needs Kenny's OK.
+
+**Before that (28 Oct, night):** a code-slop pass after the audit. Four fixes, no behaviour change for a buyer:
 - **Add-a-company progress reads data, not printed lines.** `ledger run` writes `data/jobs/progress.json` after every step (`ledger/progress.py`: which step, exit code, and a one-line summary counted from the store and the report files). DATAHQ's Add page reads that file; it no longer regex-parses the run's log. A run started before this change shows every step as waiting.
 - **One release-folder helper.** `release.releases()` and `version_key()` sort by version number everywhere; the old "previous release" lookup sorted by string, so `v1.10.0` would have diffed against the wrong release.
 - **No stale release label in config.** `STAGES` is the tuple `(1, 2, 3)` and `stage_tickers(n)` gives the companies; stage 3 is every tracked company, read fresh. The report page tells you to run `release <version>` instead of naming a version. Decision kinds live once, in `store.KINDS` (the unused `fix_rule` is gone).
@@ -20,10 +25,11 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 **Released:** `v1.1.0`, all 31 tracked companies (30 with a 10-K), 384 values, signed by Kenny Geiler, hash 794fb2dfadae. 14 decisions applied: the 8 above (four cost-line confirmations, ExxonMobil's revenue definition for four years) plus six earlier. DATAHQ serves it as `/packet/v1.1.0.zip`.
 
-**Next:** the demo goal is met: a working pipeline with oversight. Optional, only if needed:
-1. M3.1: one question per cause (XOM shows why).
-2. Schedule `ledger watch --run` daily (cron or launchd).
-3. Prompt `statements@v3` (v2 still explains quarterly columns; needs an agent rerun).
+**Next:**
+1. Release `v1.2.0` with `ai_spend.csv` (Kenny signs).
+2. L4: 8-K earnings releases through the AI spend reader, where the explicit AI amounts are.
+3. L5: Airflow DAG as a thin wrapper, if the Arctal conversation wants it.
+4. M3.1: one question per cause (XOM shows why).
 
 **Critical notes:**
 - **Dashes are zero.** APLD's newest 10-K shows "—" for its data-center cost line in FY2024 and FY2025; agents read these as 0.
@@ -31,6 +37,7 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 - **Known blind spot:** a wrong-row misread is caught by comparing a company's filings with each other, so a company's first filing is less protected.
 - **Running agents:** `ledger run` and the app's Add company run the agent headless on Kenny's subscription (no paid API). It needs a logged-in `claude` (run `claude`, then `/login`) of version 2.1.280 or later for Opus 5.5. Until the installed one is upgraded, set `LEDGER_CLAUDE` to the desktop app's newer `claude` before `ledger run` and before `ledger app`.
 - **A parser bump re-opens decisions.** Every value's input hash includes the parser version, so after `tables@9` every earlier decision is superseded and the open list is rebuilt from the rules; that is why the APLD recast decisions are gone and the cost-line confirmations are back.
+- **`aispend` needs the network once per filing** (edgartools fetches Item 7, cached in `data/text/`, git-ignored like the rest of `data/`). A 10-K/A with no Item 7 gets an empty task and no agent call.
 - **Banks and oil majors come out partly blank on purpose.** JPMorgan has no capex or operating income line; IBM and ExxonMobil have no operating income line, so opex can't be computed. Those are `not_reported` rows with the reason, not errors.
 - **Old work is in tags:**
   - `takehome-xbrl-explorer`: the 113-company explorer
@@ -44,7 +51,8 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 | Ingest | `ingest` | 10-Ks from FY2022 on, fetched and cached with SHA-256; tables parsed; statements located; the XBRL answer key built for each company |
 | Extract | `extract --run`, then `extract --load` | One task per 10-K (tables only, no XBRL); the headless agent's values with citations, each checked against the cell |
 | Reconcile | `reconcile` | Fiscal-year values with their basis and first-reported figure, compared with XBRL |
-| Rules | `rules` | Exceptions from the 15 rules in `rules/*.yaml` |
+| AI spend | `aispend --run`, then `aispend --load` | What each 10-K's MD&A says about AI's part of capex and opex: a second agent over the text (Item 7 via `edgartools`), every statement a verbatim quote checked against its passage; table A `ai_statements`, table B `ai_spend` |
+| Rules | `rules` | Exceptions from the 16 rules in `rules/*.yaml` |
 | Faults | `faults` | Every cell corrupted in typical ways, and what caught each |
 | Evidence | `evidence` | Every cited cell re-read on the 10-K rendered in Chrome; boxed screenshots in `reports/evidence/` (`--faults` proves it notices moved citations) |
 | Report | `report` | `reports/<name>-validation.html` (`stage2`, `AMD`): plain-language review page, scorecard and checks |
@@ -62,15 +70,17 @@ Every command runs as `uv run python -m ledger <command> --stage N` or `--ticker
 |---|---|
 | `ledger/ingest/` | SEC client, 10-K list, table parser, statement locator, restatement-note finder |
 | `ledger/agent.py`, `extract.py`, `reconcile.py` | Headless agent; tasks and citation checks; fiscal-year values |
+| `ledger/guidance.py` | AI spend from the MD&A: text, passages, the quote contract, table B |
+| `ledger/progress.py` | What a run is doing, for DATAHQ's Add page |
 | `agents/agents.json`, `agents/prompts/`, `ledger/agents.py` | The named agents: model, active prompt, change history; a prompt change is saved as a new version |
 | `ledger/app.py`, `app.html`, `hq.py` | DATAHQ web app (read-only on the database) and its numbers |
-| `ledger/rules.py`, `rules/` | Rule engine and the 15 rules |
+| `ledger/rules.py`, `rules/` | Rule engine and the 16 rules |
 | `ledger/evidence.py`, `scorecard.py` | Rendered-10-K re-read with boxed screenshots; what each company cost |
 | `ledger/faults.py`, `review.py`, `release.py` | Fault injection, decisions, releases |
 | `ledger/store.py` | DuckDB schema and write contracts ([docs/DATA_DICTIONARY.md](docs/DATA_DICTIONARY.md)) |
 | `ledger/reference/` | The XBRL answer key, built per company from cached SEC data |
 | `agents/` | Prompt and output schema |
-| `data/extract/outputs/` | Agent outputs, kept as evidence |
+| `data/extract/outputs/`, `data/aispend/outputs/` | Agent outputs, kept as evidence; `data/text/` holds each filing's MD&A |
 | `reports/`, `decisions/`, `golden/`, `releases/` | Validation pages and screenshots; review decisions; hand-checks; signed releases |
 | `scripts/` | Measurements: cell accuracy vs XBRL, rerun agreement, locator accuracy |
 | `docs/` | [PRD](docs/PRD.md), [tickets](docs/TICKETS.md), [fields](docs/FIELDS.md), [ingestion and learnings](docs/INGESTION.md) |

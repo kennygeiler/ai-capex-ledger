@@ -1,0 +1,23 @@
+{
+ "accession": "0001564590-22-026876",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the capex outlook in p04 attributes expected increases to growth in cloud offerings, not AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p04 mentions investment in 'existing and advanced areas of technology' without naming AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 5134,
+  "output_tokens": 193,
+  "attempts": 1,
+  "task_sha": "100248618aa9d1c6"
+ }
+}

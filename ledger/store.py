@@ -18,7 +18,7 @@ import duckdb
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
-SCHEMA_VERSION = 4
+SCHEMA_VERSION = 5
 
 FIELDS = ("revenue", "cost_of_revenue", "cost_of_revenue_part", "operating_income", "capex", "opex")
 KINDS = ("accept", "override", "reject")  # what a person can decide about an exception
@@ -111,6 +111,40 @@ SCHEMA: tuple[Table, ...] = (
         _c("extraction_ids", "VARCHAR", "Extractions used, comma-separated.", nullable=True),
         _c("input_hash", "VARCHAR", "Hash of everything this value depends on; decisions re-apply only when it matches."),
     ), key=("ticker", "field", "period")),
+    Table("ai_statements", "Table A for AI spend: every statement an agent read in a 10-K's MD&A about AI's part of capex or opex, verbatim.", (
+        _c("statement_id", "VARCHAR", "Stable ID: accession|field|period|kind|n."),
+        ACCN, TICKER,
+        _c("field", "VARCHAR", "capex or opex.", enum=("capex", "opex")),
+        PERIOD,
+        _c("kind", "VARCHAR", "actual: the fiscal year the filing reports. outlook: a later year.", enum=("actual", "outlook")),
+        _c("scope", "VARCHAR", "ai: the figure is the AI part. total: the company's total, with AI named as a driver.", enum=("ai", "total")),
+        _c("class", "VARCHAR", "explicit_amount, explicit_share or qualitative.", enum=("explicit_amount", "explicit_share", "qualitative")),
+        _c("amount_low", "BIGINT", "Stated amount or low end of a range, US dollars.", nullable=True),
+        _c("amount_high", "BIGINT", "Stated amount or high end of a range, US dollars.", nullable=True),
+        _c("share", "DOUBLE", "Stated share, 0 to 1.", nullable=True),
+        _c("quote", "VARCHAR", "The sentence, verbatim from the filing."),
+        _c("passage", "VARCHAR", "Passage tag in the task, e.g. p03."),
+        _c("confidence", "DOUBLE", "Agent's confidence, 0 to 1."),
+        _c("notes", "VARCHAR", "Agent's notes.", nullable=True),
+        _c("prompt_version", "VARCHAR", "Prompt file and version, e.g. aispend@v1."),
+        _c("run_id", "VARCHAR", "Run that produced it."),
+    ), key=("statement_id",)),
+    Table("ai_spend", "Table B for AI spend: per company, field, fiscal year and kind, the most specific statement from the newest filing, and an AI dollar amount only where the filing supports one.", (
+        TICKER,
+        _c("field", "VARCHAR", "capex or opex.", enum=("capex", "opex")),
+        PERIOD,
+        _c("kind", "VARCHAR", "actual or outlook.", enum=("actual", "outlook")),
+        _c("scope", "VARCHAR", "ai or total (see ai_statements).", enum=("ai", "total")),
+        _c("class", "VARCHAR", "explicit_amount, explicit_share or qualitative.", enum=("explicit_amount", "explicit_share", "qualitative")),
+        _c("amount_low", "BIGINT", "As stated.", nullable=True),
+        _c("amount_high", "BIGINT", "As stated.", nullable=True),
+        _c("share", "DOUBLE", "As stated.", nullable=True),
+        _c("ai_amount", "BIGINT", "AI dollars: the midpoint of an explicit AI amount, or an explicit AI share × our value for that year. Null when the filing gives only words or only a total.", nullable=True),
+        _c("quote", "VARCHAR", "The sentence behind the row."),
+        ACCN,
+        _c("statement_ids", "VARCHAR", "Statements considered, comma-separated."),
+        _c("input_hash", "VARCHAR", "Hash of everything this row depends on."),
+    ), key=("ticker", "field", "period", "kind")),
     Table("rules", "The rule registry as loaded from rules/*.yaml.", (
         _c("rule_id", "VARCHAR", "Rule ID, e.g. unit_scale."),
         _c("severity", "VARCHAR", "block, warn or info.", enum=("block", "warn", "info")),
@@ -144,7 +178,7 @@ SCHEMA: tuple[Table, ...] = (
     ), key=("decision_id",)),
     Table("runs", "One row per pipeline or agent step: what ran, on what, with which versions, and how it went.", (
         _c("run_id", "VARCHAR", "Run ID."),
-        _c("step", "VARCHAR", "Step name.", enum=("run", "ingest", "parse", "extract", "reconcile", "rules", "faults", "evidence", "report", "review", "score", "release")),
+        _c("step", "VARCHAR", "Step name.", enum=("run", "ingest", "parse", "extract", "reconcile", "aispend", "rules", "faults", "evidence", "report", "review", "score", "release")),
         _c("subject", "VARCHAR", "What it ran on (accession, ticker, release).", nullable=True),
         _c("started_at", "VARCHAR", "UTC timestamp."),
         _c("seconds", "DOUBLE", "Wall-clock duration."),

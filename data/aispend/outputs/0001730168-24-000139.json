@@ -1,0 +1,23 @@
+{
+ "accession": "0001730168-24-000139",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p04 says capex is expected to be higher in fiscal 2025 but gives no AI reason, and p02/p03 attribute revenue and operating income (not spend) to AI networking products"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes research and development, infrastructure, or headcount expenses to AI; AI mentions describe products (p01) or revenue/operating income drivers (p02, p03)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 5383,
+  "output_tokens": 269,
+  "attempts": 1,
+  "task_sha": "0f331c72ecbfcf5e"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "accession": "0001819989-25-000005",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; passages mention evaluating sites for bitcoin mining or HPC and general construction/equipment needs, but state no capex amount, share, or AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 5782,
+  "output_tokens": 214,
+  "attempts": 1,
+  "task_sha": "4af7e064b511cea5"
+ }
+}

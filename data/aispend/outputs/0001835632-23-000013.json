@@ -1,0 +1,23 @@
+{
+ "accession": "0001835632-23-000013",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capital expenditures appear only as an input to impairment and acquisition valuation estimates (p01, p02)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; research and development appears only as acquired IPR&D accounting (p02)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 5048,
+  "output_tokens": 175,
+  "attempts": 1,
+  "task_sha": "f1381e81b4b7f4d0"
+ }
+}

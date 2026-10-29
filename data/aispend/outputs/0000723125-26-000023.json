@@ -1,0 +1,23 @@
+{
+ "accession": "0000723125-26-000023",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p05 gives a 2027 capex outlook (~$11.5 billion in Q1 2027, ~$25 billion in the first six months of 2027) and p06 gives 2026 PP&E expenditures of $30.71 billion, but neither attributes the spend to AI, and AI-driven demand is discussed only as a driver of revenue, pricing and margins (p01-p04)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p04 notes that CMBU results were 'partially offset by higher R&D expenses' but does not link that R&D increase to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.1,
+  "input_tokens": 6431,
+  "output_tokens": 461,
+  "attempts": 1,
+  "task_sha": "71d1443d86351036"
+ }
+}

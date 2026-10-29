@@ -125,6 +125,28 @@ other four found five new types, each fixed as a type:
 Three things worked exactly as designed: the agent's `not_found` reasons named type 23 in plain words before anyone looked at IBM's page; the Reader agent twice refused to produce a number it couldn't stand behind (types 19 and 20), with a
 reason a person could act on; and a bank came out as revenue only, with capex and opex blank for a stated reason, which is the right answer.
 
+## AI spend from the MD&A (29 Oct): a second agent over text
+
+The question behind the ledger is how much of the capex is AI. Filings almost never book a line for it, so the
+answer is a graded statement, not a number: `ledger aispend` has a second agent (`ai_reader`, prompt `aispend@v2`)
+read the MD&A passages that mention AI next to capital or operating spending and return every statement with a
+verbatim quote. Code checks the quote is in the passage (the only citation a text can give), writes table A
+(`ai_statements`) and derives table B (`ai_spend`): per company, field, fiscal year and kind, the most specific
+statement from the newest filing, and an AI dollar amount only where the filing states the AI part. Item 7 text comes
+through `edgartools`; our own table parser is untouched.
+
+Blind pass on META, GOOGL, MSFT, NVDA, JPM (22 filings): 39 statements, 27 company-year rows, 0 with an AI dollar
+amount; then all 31 (scorecard below): 79 statements, 54 rows, 3 AI dollar amounts, all IREN's. That is the finding, not a failure: in 10-K MD&A the hyperscalers say "primarily", "the majority", "to support
+our AI efforts" and give totals; the only numbers are total-capex outlooks (Meta: $60–65B for 2025, $115–135B for
+2026) which the agent correctly files as `scope: total`, not AI spend.
+
+| # | Type | Where | Caught by | Fix |
+|---|---|---|---|---|
+| 24 | **No year in the sentence.** "We continue to invest…" names no fiscal year; the agent returned `fiscal_year: null` and the output contract rejected it, twice. | 6 of 22 filings (MSFT ×4, GOOGL, META) | contract (`ai_extraction_failed`) | The contract allows null; code assigns the filing's reported year (actual) or the year after (outlook) and records that it did so in `notes`. Prompt `aispend@v2` says so. 0 failures on the rerun. |
+| 25 | **A definition sentence read as a statement.** Alphabet's "technical infrastructure, which consists of our investments in servers and network equipment…" describes what the line is, not spend on AI. | GOOGL FY2022 capex | nothing yet (confidence 0.8) | Open: a prompt rule against defining sentences, or a check that a `qualitative` quote contains a spend verb. |
+| 26 | **Scope is loose for words-only statements.** The same kind of sentence gets `scope: ai` in one filing and `total` in the next; scope only has meaning for an amount or share. | GOOGL, META opex | by eye | Open: ignore scope for `qualitative` rows when reading them; or drop it from the contract for that class. |
+| 27 | **The numbers live elsewhere.** Explicit AI amounts and shares appear in earnings-call prepared remarks and 8-K earnings releases (Exhibit 99.1), not in 10-K MD&A. | every hyperscaler | by design | Next: feed Exhibit 99.1 of the 8-K filed with each 10-K (edgartools gives it) through the same agent and contract. |
+
 ## Scorecard
 
 What each company cost. `ledger run` prints this, and each validation page shows it. Code changes are counted by hand from the log above.
@@ -140,6 +162,7 @@ What each company cost. `ledger run` prints this, and each validation page shows
 | AAPL, AVGO, CSCO, QCOM, TXN, WMT | added in DATAHQ, blind | 4.9 min (26 filings) | 201,818 | 0 | 0 | 78/78 |
 | COMP (Compass) | added by Kenny in DATAHQ, blind | 1.2 min (4 filings) | 42,090 | 0 | 1 (cost lines: commissions) | 8/12 (4 opex definition gaps, explained by code) |
 | IBM, INTC, JPM, XOM | added in DATAHQ, blind | 3.7 min (16 filings) | 122,877 | types 16–21, 23 | 5 (XOM: 4 revenue definition, 1 cost lines) | see below |
+| all 31, AI spend | `aispend`, blind, `aispend@v2` | 11.6 min (124 filings with an Item 7; 87 asked, 37 had no passage) | 643,212 | 1 (type 24) | 0 | 79 statements → 54 company-year rows: 3 AI dollar amounts (all IREN), 9 company totals with AI as driver (Meta, Tesla, Core Scientific, IREN), 42 words only; IBM, Intel, ExxonMobil, JPMorgan: no passage mentions AI next to spending |
 | all 31 | full run, `tables@9` | 22.6 min (132 filings) | 907,507 | 1 (type 23) | 8 | 354/384 (26 explained by code: 16 not reported, 10 definition gaps); 1,431/1,431 cells confirmed |
 
 ## Open

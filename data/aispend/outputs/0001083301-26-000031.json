@@ -1,0 +1,31 @@
+{
+ "accession": "0001083301-26-000031",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "While TeraWulf historically operated bitcoin mining facilities and leveraged flexible compute loads to support early infrastructure development, going forward the Company\u2019s capital allocation, development activities, and operating focus are centered on HPC data center development, long-term hosting arrangements, and infrastructure supporting AI-driven compute workloads.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Says 'capital allocation' rather than 'capital expenditures', and links it to AI only through 'infrastructure supporting AI-driven compute workloads' alongside HPC data center development generally. The sentence gives no number. p02's shift of capital allocation toward HPC data center development is not recorded because it does not mention AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 5790,
+  "output_tokens": 747,
+  "attempts": 1,
+  "task_sha": "c220c7bc0404169d"
+ }
+}

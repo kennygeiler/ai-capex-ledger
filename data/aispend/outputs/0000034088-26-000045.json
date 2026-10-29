@@ -1,0 +1,23 @@
+{
+ "accession": "0000034088-26-000045",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the 2026 capex plan of $27-29 billion (p03) names no AI driver, and 'low-carbon data centers' appears only in forward-looking-statement and business-description boilerplate (p01, p06)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 6464,
+  "output_tokens": 266,
+  "attempts": 1,
+  "task_sha": "1ae2145f80aff938"
+ }
+}

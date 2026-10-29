@@ -1,0 +1,23 @@
+{
+ "accession": "0001018724-24-000008",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p03 attributes cash capex of $48.1 billion (2023) and the expected 2024 increase to technology infrastructure (majority supporting AWS business growth) and fulfillment capacity, without mentioning AI; the $1.25 billion Anthropic convertible note (and up to $2.75 billion additional) in p03 is an investment in another company, not capex"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p04 attributes the 2023 technology and infrastructure increase to infrastructure spending and technical-team payroll without mentioning AI, and p02 mentions artificial intelligence and machine learning only as general technology trends and as one of the AWS service offerings, which is a description of what the company sells"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.9,
+  "input_tokens": 6174,
+  "output_tokens": 608,
+  "attempts": 1,
+  "task_sha": "84d162123d9b6529"
+ }
+}

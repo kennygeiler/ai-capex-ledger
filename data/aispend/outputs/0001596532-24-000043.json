@@ -1,0 +1,23 @@
+{
+ "accession": "0001596532-24-000043",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's own capital expenditures to AI; p01 describes customers' AI infrastructure investment and capex, and p04's $80.0-$100.0 million outlook is for a Santa Clara office and lab building with no AI link"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes the company's operating expenses (R&D, infrastructure, headcount) to AI; p02's R&D investment statement makes no reference to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.2,
+  "input_tokens": 5648,
+  "output_tokens": 278,
+  "attempts": 1,
+  "task_sha": "11ab0038b3f36cbc"
+ }
+}

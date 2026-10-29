@@ -1,0 +1,31 @@
+{
+ "accession": "0001326801-24-000012",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "These efforts include significant investments in AI initiatives, including to recommend relevant content across our products, enhance our advertising tools, develop new products, and develop new features for existing products using generative AI.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "'These efforts' refers to FoA investments described in the prior sentence (expenses for headcount, data centers, and technical infrastructure), which may include capex-related items such as data centers. Recorded as opex because the sentence describes expenses. The sentence names no year, but the surrounding passage discusses 2023."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "The only capex statement (p04: $30 billion to $37 billion in 2024) does not mention AI, and no sentence links capital expenditures to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.5,
+  "input_tokens": 5102,
+  "output_tokens": 600,
+  "attempts": 1,
+  "task_sha": "abda094d92bb34ae"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "accession": "0001563190-26-000057",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only passage discusses depreciation and amortization tied to the Anywhere Merger"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the only passage discusses depreciation and amortization tied to the Anywhere Merger"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 4402,
+  "output_tokens": 168,
+  "attempts": 1,
+  "task_sha": "fef0fbd7a1f5caee"
+ }
+}

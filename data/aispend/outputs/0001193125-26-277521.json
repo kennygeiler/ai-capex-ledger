@@ -1,0 +1,23 @@
+{
+ "accession": "0001193125-26-277521",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p04 attributes the fiscal 2026 increase and the fiscal 2027 outlook to data center expansion and cloud customer demand, with no mention of AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p01 describes R&D for hardware products and p02 attributes cloud and software expense growth to data center capacity, neither mentioning AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.4,
+  "input_tokens": 5509,
+  "output_tokens": 265,
+  "attempts": 1,
+  "task_sha": "f34a3eb9021fa32a"
+ }
+}

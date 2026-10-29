@@ -70,6 +70,7 @@ def company(ticker: str) -> dict:
         skipped = [{**json.loads(r["detail"]), "accession": r["subject"]} for r in _rows(con, "select subject, detail from runs where step = 'parse' and outcome = 'skipped'")
                    if json.loads(r["detail"] or "{}").get("ticker") == ticker]
         report = build(con, [ticker], f"stage{STAGE}")
+        ai = _rows(con, "select * from ai_spend where ticker = ? order by field, period, kind", ticker)
     finally:
         con.close()
     cur, still = latest(decisions()), {e["exception_id"] for e in open_items(excs, decisions())}
@@ -84,7 +85,7 @@ def company(ticker: str) -> dict:
     info = next(c for c in tracked() if c["ticker"] == ticker)
     return {"ticker": ticker, "name": info["name"], "note": info.get("note"), "documents": docs, "skipped": skipped, "exceptions": excs,
             "values": report["values"], "tables": report["tables"], "scorecard": report["scorecard"][0],
-            "release": rel[-1].name if rel else None, "released": len(released)}
+            "release": rel[-1].name if rel else None, "released": len(released), "ai_spend": ai}
 
 
 def agents_view() -> dict:

@@ -1,0 +1,23 @@
+{
+ "accession": "0001045810-22-000036",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capital expenditure sentence (p09, approximately $1.4 billion for property and equipment in fiscal 2023) does not link the spend to AI; no sentence quantifies or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure, or headcount operating expenses to AI; AI mentions are product, revenue, or announcement descriptions (p01, p05, p06, p08), not spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.0,
+  "input_tokens": 6298,
+  "output_tokens": 303,
+  "attempts": 1,
+  "task_sha": "c7edd947284a0bfc"
+ }
+}

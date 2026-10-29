@@ -1,0 +1,37 @@
+{
+ "accession": "0001769628-26-000104",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Our capital investments in property and equipment consist primarily of technology and infrastructure, which consist of our investments in servers and network equipment for computing, storage, and networking requirements that collectively enable the development and deployment of AI models.",
+   "passage": "p08",
+   "confidence": 0.75,
+   "notes": "The sentence says capex goes primarily to servers and network equipment that enable AI models, but gives no amount or share. The quantified figure in p09 ($10.3 billion cash paid for property and equipment in 2025) is not recorded because that sentence does not mention AI."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We plan to maintain our prioritization of investments in our engineering and product teams to continue to extend our technology leadership in AI infrastructure.",
+   "passage": "p05",
+   "confidence": 0.6,
+   "notes": "Headcount/R&D investment is linked to AI infrastructure leadership. The sentence does not use the term operating expenses and gives no amount, so it is treated as forward-looking opex in qualitative terms only."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.7,
+  "input_tokens": 6192,
+  "output_tokens": 1056,
+  "attempts": 1,
+  "task_sha": "b79ec41e8ed88cb2"
+ }
+}

@@ -51,6 +51,7 @@ def snapshot(con, stage: int = 3) -> dict:
     faults = json.loads((store.ROOT / "reports" / f"{name}-faults.json").read_text())
     last_run = con.execute("select max(started_at) from runs").fetchone()[0]
     names = {c["ticker"]: c["name"] for c in companies_now}
+    ai = Counter(r[0] for r in con.execute("select ticker from ai_spend where ticker in (select unnest(?))", t).fetchall())
 
     companies = []
     for s in scorecard(con, tickers, name):
@@ -65,6 +66,7 @@ def snapshot(con, stage: int = 3) -> dict:
                           "decided": s["values"] - s["agree"] - s["explained_by_code"], "cells_confirmed": done, "cells": total,
                           "agent_minutes": s["agent_minutes"], "tokens": s["tokens"], "retries": s["retries"],
                           "for_a_person": s["for_a_person"], "warnings": s["warnings"],
+                          "ai_statements": ai[s["ticker"]],
                           "last_10k_period": str(mine[-1]["period"]) if mine else None, "last_10k_filed": str(mine[-1]["filed"]) if mine else None,
                           "next_10k_expected": nxt})
 

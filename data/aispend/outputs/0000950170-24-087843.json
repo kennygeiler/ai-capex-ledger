@@ -1,0 +1,37 @@
+{
+ "accession": "0000950170-24-087843",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect capital expenditures to increase in coming years to support growth in our cloud offerings and our investments in AI infrastructure and training.",
+   "passage": "p05",
+   "confidence": 0.9,
+   "notes": "Total capex is expected to rise, with AI infrastructure and training given as one driver alongside cloud growth. No amount or share is stated. The sentence says 'coming years' rather than naming a fiscal year."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The investments we are making in cloud and AI infrastructure and devices will continue to increase our operating costs and may decrease our operating margins.",
+   "passage": "p01",
+   "confidence": 0.75,
+   "notes": "The sentence links rising operating costs to investments in cloud, AI infrastructure and devices together, without separating the AI part. 'Will continue to increase' implies both current and future increases; this is recorded as an outlook because no year is named."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.4,
+  "input_tokens": 5212,
+  "output_tokens": 848,
+  "attempts": 1,
+  "task_sha": "1dda8eea37972ddc"
+ }
+}

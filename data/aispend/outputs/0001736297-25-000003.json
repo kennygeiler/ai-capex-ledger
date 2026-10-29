@@ -1,0 +1,23 @@
+{
+ "accession": "0001736297-25-000003",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 describes capitalization of fabrication mask costs with no AI attribution, and p01 is a product description (boilerplate)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p02 mentions expensing mask costs to research and development without any AI link"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.9,
+  "input_tokens": 4810,
+  "output_tokens": 177,
+  "attempts": 1,
+  "task_sha": "65afcd2b0a5b636e"
+ }
+}

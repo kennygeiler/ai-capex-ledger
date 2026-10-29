@@ -1,0 +1,31 @@
+{
+ "accession": "0000002488-26-000018",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase was primarily due to higher employee-related costs from an increase in headcount in support of our continued focus on our AI strategy.",
+   "passage": "p06",
+   "confidence": 0.9,
+   "notes": "Attributes the increase in total R&D expenses (headcount) primarily to AI strategy; no AI-specific amount or share is stated. The preceding sentence gives total R&D of $8.1 billion in 2025 (up $1.6 billion) but does not mention AI, so it is not recorded as an AI statement. The year is not named in this sentence, so fiscal_year is null and defaults to the reported year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the ZT Systems acquisition and divestiture in p03 are not capital expenditures"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.0,
+  "input_tokens": 6118,
+  "output_tokens": 637,
+  "attempts": 1,
+  "task_sha": "5af745306f06b4ae"
+ }
+}

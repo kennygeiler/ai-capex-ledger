@@ -11,16 +11,16 @@ import tempfile
 import time
 
 from . import agents
-from .extract import Invalid, prompt_version, resolve, validate_output
+from .extract import Invalid, resolve, validate_output
 
 CLI = os.environ.get("LEDGER_CLAUDE", "claude")  # path to a newer claude when the installed one is too old
 # Only the basics: the desktop app's session variables route requests to its own token, not the user's login.
 ENV = {k: os.environ[k] for k in ("HOME", "PATH", "USER", "LANG") if k in os.environ}
 
 
-def model() -> str:
+def model(agent_id: str = "reader") -> str:
     """Pinned in agents/agents.json, read at call time, so a rerun uses what the file says now."""
-    return agents.load()["reader"]["llm"]["model"]
+    return agents.load()[agent_id]["llm"]["model"]
 
 
 def _cmd(m: str) -> list[str]:
@@ -62,9 +62,10 @@ def _json(text: str) -> dict:
         raise Invalid(f"the JSON doesn't parse: {e}") from e
 
 
-def extract(task: str, parsed: dict) -> dict:
-    """Returns a valid output with `_run`, or raises Invalid with the last reason after one retry."""
-    pv, m = prompt_version(), model()
+def ask(agent_id: str, task: str, check) -> dict:
+    """Run one task on the named agent and return a valid output with `_run`, or raise Invalid with the last reason
+    after one retry. `check(obj)` raises Invalid when the answer breaks its contract."""
+    pv, m = agents.load()[agent_id]["prompt"], model(agent_id)
     base = f"{agents.prompt_text(pv)}\n\n---\n\n{task}\n\nReply with the JSON object only."
     run, reason = {"model": None, "seconds": 0.0, "input_tokens": 0, "output_tokens": 0, "attempts": 0}, None
     for _ in range(2):
@@ -72,16 +73,23 @@ def extract(task: str, parsed: dict) -> dict:
         run = {**run, "model": u["model"], "attempts": run["attempts"] + 1, **{k: round(run[k] + u[k], 1) for k in ("seconds", "input_tokens", "output_tokens")}}
         try:
             obj = _json(text)
-            validate_output(obj, parsed["accession"])
-            bad = []
-            for i, v in enumerate(obj["values"]):
-                try:
-                    resolve(v, parsed)
-                except Invalid as e:
-                    bad.append(f"values[{i}] ({v['field']} {v['column_label']}): {e.reason}")
-            if bad:
-                raise Invalid("these citations don't match the tables: " + "; ".join(bad[:10]))
+            check(obj)
             return {**obj, "_run": run}
         except Invalid as e:
             reason = e.reason
     raise Invalid(f"{reason} (after {run['attempts']} attempts)")
+
+
+def extract(task: str, parsed: dict) -> dict:
+    """The Reader: statement cells, every citation resolved against the parsed filing."""
+    def check(obj):
+        validate_output(obj, parsed["accession"])
+        bad = []
+        for i, v in enumerate(obj["values"]):
+            try:
+                resolve(v, parsed)
+            except Invalid as e:
+                bad.append(f"values[{i}] ({v['field']} {v['column_label']}): {e.reason}")
+        if bad:
+            raise Invalid("these citations don't match the tables: " + "; ".join(bad[:10]))
+    return ask("reader", task, check)

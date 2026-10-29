@@ -1,0 +1,23 @@
+{
+ "accession": "0001045810-24-000029",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the fiscal 2025 capital investment outlook of approximately $3.5 billion to $4.0 billion (p12) is not tied to AI in the sentence"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the AI-related percentages (e.g., ~40% of Data Center revenue for AI inference) describe revenue, not spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 6936,
+  "output_tokens": 318,
+  "attempts": 1,
+  "task_sha": "93b861611559ecf3"
+ }
+}

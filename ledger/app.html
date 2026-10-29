@@ -252,6 +252,7 @@ async function dashboard(view) {
       table([{t: 'Company', k: 'company', f: (r) => [r.company, ' ', h('span', {class: 'muted small'}, r.ticker)]},
         {t: 'Questions', k: 'questions', n: 1, f: (r) => h('span', {class: r.questions ? null : 'muted'}, int(r.questions))},
         {t: 'Restated', k: 'restated', n: 1, f: (r) => h('span', {class: r.restated ? null : 'muted'}, int(r.restated))},
+        {t: 'AI spend', k: 'ai_statements', n: 1, f: (r) => h('span', {class: r.ai_statements ? null : 'muted'}, r.ai_statements ? `${int(r.ai_statements)} stmt${r.ai_statements > 1 ? 's' : ''}` : 'none')},
         {t: 'Values', k: 'values', n: 1, f: (r) => (r.filings ? int(r.values) : h('span', {class: 'muted small'}, 'no 10-K yet'))},
         {t: 'Last 10-K', k: 'last_10k_filed', n: 1, wide: 1, f: (r) => day(r.last_10k_filed)},
         {t: 'Next 10-K', k: 'next_10k_expected', n: 1, f: (r) => day(r.next_10k_expected)}],
@@ -284,6 +285,7 @@ async function companyPage(view, ticker) {
     groups.length > 0 && sect('Your judgement', null, h('div', {class: 'stack', style: 'gap:1.75rem'}, groups.map((g) => questionCard(g)))),
     docs.length > 0 && sect('The numbers', `${int(sc.agree)} of ${int(sc.values)} match the SEC's data`, valueGrid(c.values, questions.some((q) => q.rule === 'cost_lines_summed'))),
     docs.length > 0 && sect('How each number was cleaned', 'from the cell in the 10-K to the released value', cleaningTable(c.values)),
+    c.ai_spend.length > 0 && sect('What the filing says about AI spend', `${c.ai_spend.filter((a) => a.ai_amount != null).length} of ${c.ai_spend.length} give an AI dollar amount`, aiTable(c.ai_spend)),
     findings.length > 0 && sect('What happened', null, table([{t: 'Year', k: 'period'}, {t: 'What', k: 'kind', f: (f) => `${KIND[f.kind]}, ${(LABEL[f.field] || f.field).toLowerCase()}`}, {t: 'Change', sort: false, f: change}], findings)),
     sect('Filings', `${read} of ${docs.length} read by the agent · ${confirmed} of ${cells.length} cited cells re-read on the filing`, [
       docs.length ? table([{t: 'Form', k: 'form'}, {t: 'Year end', k: 'period', f: (x) => day(x.period)}, {t: 'Filed', k: 'filed', f: (x) => day(x.filed)},
@@ -295,6 +297,15 @@ async function companyPage(view, ticker) {
       table([{t: 'Check', k: 'rule_id', f: (e) => e.rule_id.replaceAll('_', ' ')}, {t: 'Field', k: 'field', f: (e) => LABEL[e.field] || e.field || '—'}, {t: 'Year', k: 'period', f: (e) => e.period || '—'},
         {t: 'Status', k: 'status', f: (e) => (e.status === 'decided' ? `decided by ${e.decision?.reviewer || '—'}` : e.status)}],
         c.exceptions, {detail: (e) => h('div', {class: 'src'}, h('div', {}, e.message), e.decision && h('div', {class: 'muted'}, `${e.decision.reviewer}, ${day(e.decision.decided_at)}: ${e.decision.reason}`))}))));
+}
+
+const AI_CLASS = {explicit_amount: 'amount', explicit_share: 'share', qualitative: 'words only'};
+function aiTable(rows) {
+  const stated = (a) => a.class === 'explicit_amount' ? (a.amount_low === a.amount_high ? usd(a.amount_low) : `${usd(a.amount_low)} – ${usd(a.amount_high)}`) : a.class === 'explicit_share' ? pct(a.share) : '—';
+  return table([{t: 'Field', k: 'field', f: (a) => LABEL[a.field] || a.field}, {t: 'Year', k: 'period'}, {t: 'Kind', k: 'kind'},
+    {t: 'Says', sort: false, f: (a) => `${AI_CLASS[a.class]}${a.class !== 'qualitative' ? (a.scope === 'ai' ? ', AI part' : ', company total') : ''}`},
+    {t: 'Stated', n: 1, sort: false, f: stated}, {t: 'AI amount', n: 1, k: 'ai_amount', f: (a) => (a.ai_amount != null ? usd(a.ai_amount) : h('span', {class: 'muted'}, '—'))}],
+    rows, {detail: (a) => h('div', {class: 'src'}, h('div', {}, `“${a.quote}”`), h('div', {class: 'muted small'}, a.accession))});
 }
 
 function questionCard(g) {

@@ -1,0 +1,23 @@
+{
+ "accession": "0000950170-23-007793",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex discussed (mining machines, Odessa Facility infrastructure buildout) relates to bitcoin mining only"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; passages concern bitcoin mining, power costs, depreciation and AROs"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 7550,
+  "output_tokens": 196,
+  "attempts": 1,
+  "task_sha": "9eb2a29a502dcf56"
+ }
+}

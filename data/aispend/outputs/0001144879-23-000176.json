@@ -1,0 +1,31 @@
+{
+ "accession": "0001144879-23-000176",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2023,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We believe that the significant investments in property and equipment continue during calendar 2023 as we continue to grow our AI cloud services business.",
+   "passage": "p08",
+   "confidence": 0.7,
+   "notes": "The sentence links continued property and equipment investment (capex) to growing the AI cloud services business but gives no amount. The period is 'calendar 2023', not a fiscal year. The filing's fiscal year ended 2023-05-31, so calendar 2023 spans the end of FY2023 and the start of FY2024. It is recorded as an outlook because the filing came after fiscal year end and the sentence looks forward. fiscal_year is set to 2023 as named, but this conflicts with the reported FY2023, so it may need review. Scope is 'total' because the sentence describes overall property and equipment investment driven by AI, not a quantified AI portion. The B. Riley loan proceeds earmarked for the AI cloud buildout (p06, p07) are financing, not a stated capex amount, so they are not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; the p08 statement on rising G&A and operating expenditures cites operational expansion and public-company costs, not AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.7,
+  "input_tokens": 6006,
+  "output_tokens": 1199,
+  "attempts": 1,
+  "task_sha": "84ec4882f4973f31"
+ }
+}

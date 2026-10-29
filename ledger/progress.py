@@ -9,6 +9,7 @@ from pathlib import Path
 
 from . import store
 from .extract import OUTPUTS
+from .guidance import OUTPUTS as AI_OUTPUTS
 
 FILE = store.ROOT / "data" / "jobs" / "progress.json"
 
@@ -17,6 +18,8 @@ STEPS = [("ingest", [], "Find the 10-Ks at the SEC and locate the statements"),
          ("extract", ["--run"], "The Reader agent reads each filing and cites every cell"),
          ("extract", ["--load"], "Check every citation against the parsed table"),
          ("reconcile", [], "Clean: one value per year, units and signs, newest filing, compare with SEC data"),
+         ("aispend", ["--run"], "The AI spend reader reads what the MD&A says about AI's part of capex and opex"),
+         ("aispend", ["--load"], "Check every quote against the filing; one AI-spend row per company and year"),
          ("rules", [], "Run every check in the rule registry"),
          ("faults", [], "Plant mistakes and confirm the checks catch them"),
          ("evidence", [], "Re-read every cited cell on the rendered 10-K"),
@@ -52,6 +55,15 @@ def summary(con, cmd: str, extra: list[str], tickers: list[str], name: str, star
     if cmd == "reconcile":
         n, agree = one(f"select count(*), count(*) filter (where label = 'agree') from \"values\" {t}")
         return f"{n} yearly values; {agree} match the SEC's data"
+    if cmd == "aispend" and extra == ["--run"]:
+        since = datetime.fromisoformat(started_at).timestamp()
+        outs = [AI_OUTPUTS / f"{a}.json" for (a,) in con.execute(f"select accession from documents {t}", [tickers]).fetchall()]
+        fresh = [o for o in outs if o.exists() and o.stat().st_mtime >= since]
+        return f"Read {len(fresh)} filing{'s' * (len(fresh) != 1)}" if fresh else "Every filing was already read"
+    if cmd == "aispend":
+        n, = one(f"select count(*) from ai_statements {t}")
+        rows, ai = one(f"select count(*), count(*) filter (where ai_amount is not null) from ai_spend {t}")
+        return f"{n} statements quoted; {rows} company-years speak to AI spend, {ai} with an AI dollar amount"
     if cmd == "rules":
         r, = con.execute("select count(*) from rules").fetchone()
         b, w, i = one(f"select count(*) filter (where severity = 'block'), count(*) filter (where severity = 'warn'), count(*) filter (where severity = 'info') from exceptions {t}")

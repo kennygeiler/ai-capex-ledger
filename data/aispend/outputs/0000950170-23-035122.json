@@ -1,0 +1,48 @@
+{
+ "accession": "0000950170-23-035122",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The investments we are making in cloud and AI infrastructure and devices will continue to increase our operating costs and may decrease our operating margins.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Says AI infrastructure investments (alongside cloud and devices) will keep increasing total operating costs. AI is one of several drivers and the AI portion is not quantified. Forward-looking with no year named."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We continue to identify and evaluate opportunities to expand our datacenter locations and increase our server capacity to meet the evolving needs of our customers, particularly given the growing demand for AI services.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Links datacenter and server capacity expansion, which is capital spending, to AI demand. It does not use the words capital expenditures or state any spend, so it may be read as a description of business activity rather than a spend statement. Present tense with no year named."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect capital expenditures to increase in coming years to support growth in our cloud offerings and our investments in AI infrastructure.",
+   "passage": "p04",
+   "confidence": 0.95,
+   "notes": "Total capex is expected to rise and AI infrastructure is named as a driver alongside cloud. No amount or share is given. 'Coming years' names no specific fiscal year."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.1,
+  "input_tokens": 5233,
+  "output_tokens": 1128,
+  "attempts": 1,
+  "task_sha": "5f2c51aed2729d7a"
+ }
+}

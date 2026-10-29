@@ -1,0 +1,31 @@
+{
+ "accession": "0000002488-24-000012",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase was primarily due to higher employee-related costs due to an increase in headcount to support increased investment in AI.",
+   "passage": "p03",
+   "confidence": 0.85,
+   "notes": "Attributes the year-over-year R&D increase (headcount) to AI investment in words only. The R&D figures ($5.9 billion, up $867 million) are in the preceding sentence, which does not mention AI, so no amount is recorded. The sentence names no year; the context is 2023 actuals."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.5,
+  "input_tokens": 5396,
+  "output_tokens": 593,
+  "attempts": 1,
+  "task_sha": "8b3664be92fc5677"
+ }
+}

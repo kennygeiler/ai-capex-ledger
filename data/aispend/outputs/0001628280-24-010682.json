@@ -1,0 +1,23 @@
+{
+ "accession": "0001628280-24-010682",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex discussion concerns bitcoin mining facilities and equipment, reduced during Chapter 11"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 5577,
+  "output_tokens": 151,
+  "attempts": 1,
+  "task_sha": "e8d8b757df534508"
+ }
+}

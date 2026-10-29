@@ -1,0 +1,23 @@
+{
+ "accession": "0000034088-25-000010",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex statements (e.g., $25.6 billion in 2024, $27-29 billion planned for 2025) cite the investment program, low carbon, and environmental spending, not AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.4,
+  "input_tokens": 5862,
+  "output_tokens": 185,
+  "attempts": 1,
+  "task_sha": "3ef2c15ba51c31cb"
+ }
+}

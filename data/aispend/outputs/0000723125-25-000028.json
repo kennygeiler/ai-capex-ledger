@@ -1,0 +1,23 @@
+{
+ "accession": "0000723125-25-000028",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the capex figures ($15.86 billion of 2025 PP&E expenditures in p06, the approximately $4.5 billion first-quarter 2026 estimate in p05) are stated without any AI attribution, and the AI references in p01-p03 concern demand, revenue and margins, not spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p03 mentions higher R&D expenses but does not link them to AI in that sentence"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 6517,
+  "output_tokens": 378,
+  "attempts": 1,
+  "task_sha": "284056c88bb709eb"
+ }
+}

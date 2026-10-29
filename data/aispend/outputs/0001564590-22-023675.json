@@ -1,0 +1,23 @@
+{
+ "accession": "0001564590-22-023675",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex mentions (p02 data center capacity expansion for fiscal 2023, p03/p04 working capital and cash) give no amount, share, or AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the only R&D mention (p01) concerns hardware products and services, not AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.4,
+  "input_tokens": 5405,
+  "output_tokens": 224,
+  "attempts": 1,
+  "task_sha": "a0dda88ce0bd94de"
+ }
+}

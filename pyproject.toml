@@ -5,6 +5,7 @@ description = "Agent-led extraction of revenue, capex and opex from SEC filings,
 requires-python = ">=3.12"
 dependencies = [
     "duckdb>=1.1",
+    "edgartools>=5.62.1",
     "playwright>=1.64.1",
     "pyyaml>=6",
 ]

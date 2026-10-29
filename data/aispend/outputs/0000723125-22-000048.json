@@ -1,0 +1,23 @@
+{
+ "accession": "0000723125-22-000048",
+ "prompt_version": "aispend@v2",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the 2023 capex estimate (~$8 billion) and 2022 PP&E expenditures ($12.07 billion) are stated without any reference to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 5792,
+  "output_tokens": 234,
+  "attempts": 1,
+  "task_sha": "0a1a5c604b8a7311"
+ }
+}

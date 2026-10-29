@@ -1,0 +1,31 @@
+{
+ "accession": "0000858877-25-000111",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "R&D expenses increased primarily due to higher headcount-related expenses reflecting our investments in AI, share-based compensation expense, cash compensation expenses from acquisitions, and discretionary spending.",
+   "passage": "p01",
+   "confidence": 0.85,
+   "notes": "The sentence names no year; it is past tense and describes the reported fiscal year (ended 2025-07-26). AI-related headcount is one of several drivers of the R&D increase, and the sentence does not quantify the AI part."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 lists capital expenditures only as a general liquidity requirement"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.9,
+  "input_tokens": 4634,
+  "output_tokens": 498,
+  "attempts": 1,
+  "task_sha": "876cf141bd155e7f"
+ }
+}

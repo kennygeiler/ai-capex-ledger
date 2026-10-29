@@ -1,0 +1,31 @@
+{
+ "accession": "0001045810-23-000017",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We entered into multi-year cloud service agreements in the second half of fiscal year 2023 to these offerings and our research and development activities.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "The sentence appears truncated in the source ('to these offerings' likely means 'to support these offerings'). It refers back to NVIDIA AI cloud services. It says NVIDIA committed to multi-year cloud infrastructure agreements for its AI cloud offerings and R&D, but gives no amount. Treated as AI-related infrastructure opex; that classification is inferred, not stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "The only capex sentence (p09) gives a total fiscal 2024 outlook of approximately $1.10 to $1.30 billion for property and equipment but does not link it to AI, so it is not recorded, even with scope total."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.3,
+  "input_tokens": 5783,
+  "output_tokens": 850,
+  "attempts": 1,
+  "task_sha": "5429bef089128146"
+ }
+}

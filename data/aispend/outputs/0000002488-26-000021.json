@@ -1,0 +1,31 @@
+{
+ "accession": "0000002488-26-000021",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The increase was primarily due to higher employee-related costs from an increase in headcount in support of our continued focus on our AI strategy.",
+   "passage": "p06",
+   "confidence": 0.85,
+   "notes": "The sentence names no year; it explains the 2025 vs 2024 R&D increase described in the preceding sentence. It attributes the increase in R&D headcount costs to the AI strategy in words only. The preceding sentence gives the 2025 total R&D expense of $8.1 billion, up $1.6 billion, but does not mention AI. So that total is not recorded as a scope:total statement, and no AI amount is derived from it."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states, quantifies or attributes capital expenditures to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.8,
+  "input_tokens": 6120,
+  "output_tokens": 652,
+  "attempts": 1,
+  "task_sha": "734ce2ddda29dccc"
+ }
+}

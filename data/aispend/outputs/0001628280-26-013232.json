@@ -1,0 +1,44 @@
+{
+ "accession": "0001628280-26-013232",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 1140000000,
+   "amount_high": 1140000000,
+   "quote": "As of December 31, 2024, the Company was contractually committed for approximately $1.14 billion of capital expenditures, primarily related to infrastructure modifications, equipment procurement, and labor associated with the conversion of a significant portion of its data centers to deliver hosting services for HPC.",
+   "passage": "p16",
+   "confidence": 0.6,
+   "notes": "This is the total of contracted capex commitments, 'primarily' for converting sites to HPC hosting, so scope is total. The sentence says HPC, not AI. The AI link comes only from p03, which says AI and machine-learning demand drove the HPC hosting expansion. The year is not in this sentence; the next sentence says the spend is expected 'over the next year'. The next sentence also says $899.3 million is reimbursable by the customer."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The planned growth of our HPC data center hosting operations business, through increased investment in conversion of several of our bitcoin mining sites to HPC data center hosting sites over the next several years, should gradually reduce our overall exposure to volatility in the spot price of bitcoin as HPC begins to account for a comparatively larger percentage of our financial results.",
+   "passage": "p07",
+   "confidence": 0.4,
+   "notes": "This plans more investment in HPC conversion over several years. The sentence does not use the word capex or mention AI. The AI link depends on p03, which ties HPC hosting to AI and machine-learning demand."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; p09 describes cost of HPC hosting services without linking it to AI or giving an AI amount"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.0,
+  "input_tokens": 7751,
+  "output_tokens": 1669,
+  "attempts": 1,
+  "task_sha": "303c979ccbd79ae0"
+ }
+}

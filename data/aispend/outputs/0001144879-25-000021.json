@@ -1,0 +1,31 @@
+{
+ "accession": "0001144879-25-000021",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We believe that the significant investments in property and equipment will remain throughout fiscal year 2026 as we continue construction of our HPC hosting facilities.",
+   "passage": "p03",
+   "confidence": 0.5,
+   "notes": "The sentence ties continued significant property and equipment investment to construction of HPC hosting facilities, not to AI by name. The AI link comes only from p02, which describes the Ellendale HPC facilities as purpose-built for GPU and HPC workloads such as AI. Recorded as scope total because the sentence describes overall property and equipment investment and gives no AI-specific portion."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "The only opex sentence (p03) attributes rising G&A and operating expenditures to expanding operations generally. No sentence quantifies or attributes operating expenses, R&D, or headcount to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.1,
+  "input_tokens": 4915,
+  "output_tokens": 710,
+  "attempts": 1,
+  "task_sha": "6e785da4cf78f414"
+ }
+}

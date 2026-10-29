@@ -1,0 +1,42 @@
+{
+ "accession": "0001652044-23-000016",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We also expect to continue to invest in our technical infrastructure, including servers, network equipment, and data centers, to support the growth of our business and our long-term initiatives, in particular in support of AI.",
+   "passage": "p01",
+   "confidence": 0.85,
+   "notes": "Forward-looking ('expect to continue to invest') technical-infrastructure investment, i.e. capex, with AI named as a particular driver. No year is named, so fiscal_year is null; code will use the year after the reported year (2023). No amount or share is stated."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "technical infrastructure, which consists of our investments in servers and network equipment for computing, storage, and networking requirements for ongoing business activities, including AI, (collectively referred to as our information technology assets) and data center land and building construction; and",
+   "passage": "p03",
+   "confidence": 0.55,
+   "notes": "This is a bullet fragment, not a full sentence, from the description of capital expenditure categories. It lists AI among the uses of technical infrastructure capex. It reads as a definition and may count as boilerplate rather than a spend statement. No amount is attributed to AI. The FY2022 total capex of $31.5B (p04) is not recorded because that sentence does not link it to AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure operating costs, or headcount expense to AI; the R&D sentence in p01 cites 'areas of strategic focus' without naming AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.7,
+  "input_tokens": 5377,
+  "output_tokens": 1247,
+  "attempts": 1,
+  "task_sha": "193d44e16d989489"
+ }
+}

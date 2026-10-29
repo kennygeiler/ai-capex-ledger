@@ -1,0 +1,114 @@
+{
+ "accession": "0001193125-26-323660",
+ "prompt_version": "aispend@v2",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The investments we are making in cloud and AI infrastructure and devices will continue to increase our operating costs and may decrease our operating margins.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Forward-looking; AI infrastructure named alongside cloud and devices as a driver of rising operating costs, so AI is one reason among several and its part is not quantified. No year named."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Operating expenses increased $4.9 billion or 7% driven by continued investments in research and development compute capacity, AI talent, and data to support product development that benefits the entire portfolio, impairment and other related expenses in our XBOX business, investments in commercial sales, and higher Copilot advertising expenses.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Company-level. The $4.9 billion is the year-over-year increase in total operating expenses, not total opex and not the AI part, so it is not recorded as an amount. AI is one of several drivers."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Cost of revenue increased $2.6 billion or 12% driven by investments in AI infrastructure to support Microsoft 365 Copilot seat and usage growth.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "Appears to be a segment-level bullet; the segment is not named in the passage. This is cost of revenue, treated as AI infrastructure cost. The $2.6 billion is the increase, not an AI amount."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Operating expenses increased $2.5 billion or 9% driven by continued investments in research and development compute capacity, AI talent, and data to support product development that benefits the entire portfolio, as well as investments in commercial sales and higher Copilot advertising expenses.",
+   "passage": "p04",
+   "confidence": 0.6,
+   "notes": "Appears to be a segment-level bullet; the segment is not named in the passage. The $2.5 billion is the increase, not an AI amount. AI is one of several drivers."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Cost of revenue increased $17.7 billion or 44% driven by investments in AI infrastructure to support growing customer demand.",
+   "passage": "p05",
+   "confidence": 0.6,
+   "notes": "Appears to be a segment-level bullet; the segment is not named in the passage. This is cost of revenue, treated as AI infrastructure cost. The $17.7 billion is the increase, not an AI amount."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Operating expenses increased $1.4 billion or 7% driven by continued investments in research and development compute capacity, AI talent, and data to support product development that benefits the entire portfolio.",
+   "passage": "p06",
+   "confidence": 0.6,
+   "notes": "Appears to be a segment-level bullet; the segment is not named in the passage. The $1.4 billion is the increase, not an AI amount."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Operating expenses increased $940 million or 6% driven by impairment and other related expenses in our XBOX business and continued investments in research and development compute capacity, AI talent, and data to support product development that benefits the entire portfolio.",
+   "passage": "p07",
+   "confidence": 0.6,
+   "notes": "Appears to be a segment-level bullet; the segment is not named in the passage. The $940 million is the increase, not an AI amount. AI is one of several drivers."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Research and development expenses increased $3.1 billion or 9% driven by continued investments in compute capacity, AI talent, and data to support product development that benefits the entire portfolio, as well as impairment and other related expenses in our XBOX business.",
+   "passage": "p09",
+   "confidence": 0.8,
+   "notes": "R&D expense. The $3.1 billion is the year-over-year increase, not an AI amount. AI talent is one of several drivers."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We will continue to invest in capital expenditures to support growth in our cloud offerings and our investments in AI training and other infrastructure.",
+   "passage": "p11",
+   "confidence": 0.9,
+   "notes": "Forward-looking with no year and no amount. Capex is attributed to cloud growth and AI training and infrastructure."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 26.2,
+  "input_tokens": 5629,
+  "output_tokens": 3006,
+  "attempts": 1,
+  "task_sha": "060fdfd5d219485f"
+ }
+}
