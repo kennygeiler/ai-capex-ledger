@@ -107,6 +107,8 @@
   .strip .fig .n { font-size: 1.5rem; }
   .panel { position: sticky; top: 1rem; }
   table.heat td.moved { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .badge { font: 600 .66rem/1 var(--mono); letter-spacing: .04em; color: var(--accent); padding: .1rem .3rem; border-radius: 3px; background: color-mix(in srgb, var(--accent) 12%, transparent); }
+  .badge:hover { background: color-mix(in srgb, var(--accent) 24%, transparent); }
   .steps { display: grid; gap: .8rem; }
   .stp { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; color: var(--muted); }
   .stp.done, .stp.running { color: var(--fg); }
@@ -604,72 +606,90 @@ async function runPage(view) {
     h('div', {class: 'row'}, ticker, addBtn, status), progress));
 }
 
-// ── Attribution: the grid first, the method under it ────────────────────────
-let attrInd = 'hyperscaler';
+// ── Attribution: the grid with a method badge per cell; the badge opens the model ───────────────────────────────
+const BADGE = {stated_share: 'SH', stated_amount: 'ST', segment: 'SEG', ppe_category: 'PPE', whole_business: 'ALL', qualitative: 'Q', none: '·'};
 async function attributionPage(view) {
   const d = await api('/api/attribution');
+  const meta = await api('/api/data?t=&f=none');
   const inds = Object.keys(d.models);
-  if (!d.models[attrInd]) attrInd = inds[0];
   const rows = d.rows.filter((r) => r.field === 'capex' && r.kind === 'actual');
   const years = [...new Set(rows.map((r) => r.period))].sort();
   const by = new Map(rows.map((r) => [`${r.ticker}|${r.period}`, r]));
   const peak = (t) => Math.max(0, ...rows.filter((r) => r.ticker === t).map((r) => r.ai_amount || 0));
-  const tickers = [...new Set(rows.map((r) => r.ticker))].sort((a, b) => peak(b) - peak(a) || a.localeCompare(b));
   const maxA = Math.max(...rows.map((r) => r.ai_amount || 0), 1);
-  const panel = h('div', {style: 'margin-top:1rem'});
-  const grid = h('div', {class: 'scroll'}, h('table', {class: 'heat'},
-    h('thead', {}, h('tr', {}, h('th', {}, 'AI capex'), years.map((y) => h('th', {class: 'n'}, y.slice(2))))),
-    h('tbody', {}, tickers.map((t) => h('tr', {}, h('td', {}, h('a', {href: '#company/' + t}, t)), years.map((y) => {
-      const r = by.get(`${t}|${y}`);
-      if (!r) return h('td', {class: 'n muted'}, '');
-      const cell = r.ai_amount != null ? heat(r.ai_amount, maxA, [h('div', {}, usd(r.ai_amount)), h('div', {class: 'note'}, pct(r.ai_share))]) : h('td', {class: 'n c', style: '--i:0'}, h('span', {class: 'muted small'}, r.method === 'none' ? '·' : 'words'));
-      cell.classList.add('cell'); cell.tabIndex = 0;
-      cell.addEventListener('click', () => panel.replaceChildren(h('h3', {style: 'margin:0 0 .4rem'}, `${t} ${y}: ${r.ai_amount != null ? usd(r.ai_amount) : 'no AI amount'} · ${METHOD[r.method]} · confidence ${pct(r.confidence)}`),
-        h('p', {}, r.basis), h('p', {class: 'muted small mono', style: 'margin-top:.4rem'}, r.inputs || '—'), h('p', {class: 'muted small'}, `model ${r.model}`)));
-      return cell;
-    }))))));
-  const editor = h('div'), status = h('span', {class: 'muted small'}), progress = h('div');
-  const pick = h('select', {'aria-label': 'Industry', onchange: (e) => { attrInd = e.target.value; drawEditor(); }},
-    inds.map((i) => h('option', {value: i, selected: i === attrInd || null}, `${INDUSTRY[i] || i} · ${d.models[i].companies.join(', ') || 'no company'}`)));
+  const counts = {};
+  for (const r of rows) counts[r.method] = (counts[r.method] || 0) + 1;
+  const panel = h('div', {class: 'panel'}, h('p', {class: 'muted'}, 'Click a cell for its basis; click a method badge to open the industry’s model.'));
+  const status = h('span', {class: 'muted small'}), progress = h('div');
+
   const rerun = (ind) => h('button', {type: 'button', class: 'btn', onclick: async () => {
     status.textContent = 'Starting…'; status.classList.remove('bad');
     try { await api('/api/attribute', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({industry: ind, by: me})}); status.textContent = ''; progress.replaceChildren(jobBox(() => route(), 'attribution')); }
     catch (e) { status.textContent = e.message; status.classList.add('bad'); }
   }}, ind ? `Rerun ${INDUSTRY[ind]}` : 'Rerun all');
-  function drawEditor() {
-    const m = d.models[attrInd];
+
+  function showBasis(t, y, r) {
+    panel.replaceChildren(h('h3', {style: 'margin:0 0 .4rem'}, `${meta.names[t]} · ${y}`),
+      h('div', {class: 'figs', style: 'margin-bottom:1rem'}, fig('AI capex', r.ai_amount != null ? usd(r.ai_amount) : '—', r.ai_share != null ? `${pct(r.ai_share)} of capex` : 'no amount'),
+        fig('Method', METHOD[r.method], `confidence ${pct(r.confidence)}`), fig('Model', r.model, h('button', {type: 'button', class: 'small', onclick: () => showModel(meta.industries[t])}, 'open'))),
+      h('p', {}, r.basis), h('p', {class: 'muted small mono', style: 'margin-top:.6rem'}, r.inputs || '—'));
+  }
+  function showModel(ind) {
+    const m = d.models[ind];
     let shown = m.version;
-    const text = h('textarea', {readonly: true, 'aria-label': 'Model text', spellcheck: 'false'});
+    const text = h('textarea', {readonly: true, 'aria-label': 'Model text', spellcheck: 'false', style: 'min-height:18rem'});
     const verSel = h('select', {'aria-label': 'Model version', onchange: (e) => { shown = e.target.value; show(); }}, m.versions.map((v) => h('option', {value: v, selected: v === m.version || null}, v === m.version ? `${v} (in use)` : v)));
-    const note = h('input', {type: 'text', placeholder: 'What changed and why', 'aria-label': 'What changed and why', style: 'flex:1;min-width:14rem'});
+    const note = h('input', {type: 'text', placeholder: 'What changed and why', 'aria-label': 'What changed and why', style: 'flex:1;min-width:12rem'});
     const editBtn = h('button', {type: 'button', onclick: () => { text.readOnly = false; editRow.hidden = false; editBtn.hidden = true; useBtn.hidden = true; text.focus(); }}, 'Edit');
-    const useBtn = h('button', {type: 'button', onclick: () => post('use', {version: shown}, `Now using ${shown}. Rerun the industry to see the effect.`)}, 'Use this version');
-    const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('save', {text: text.value, note: note.value}, (r) => `Saved as ${r.version}; not in use until you switch it on.`)}, 'Save as new version');
+    const useBtn = h('button', {type: 'button', onclick: () => post('use', {version: shown}, `Now using ${shown}; rerun the industry.`)}, 'Use');
+    const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('save', {text: text.value, note: note.value}, (r) => `Saved as ${r.version}; not in use until switched on.`)}, 'Save as new version');
     const cancelBtn = h('button', {type: 'button', onclick: show}, 'Cancel');
     const editRow = h('div', {class: 'row', hidden: true}, note, saveBtn, cancelBtn);
-    function show() { text.value = m.texts[shown]; text.readOnly = true; editRow.hidden = true; editBtn.hidden = false; useBtn.hidden = shown === m.version; text.style.height = 'auto'; text.style.height = Math.min(600, text.scrollHeight + 4) + 'px'; }
+    function show() { text.value = m.texts[shown]; text.readOnly = true; editRow.hidden = true; editBtn.hidden = false; useBtn.hidden = shown === m.version; text.style.height = 'auto'; text.style.height = Math.min(520, text.scrollHeight + 4) + 'px'; }
     async function post(what, body, done) {
       status.textContent = 'Saving…';
-      try { const r = await api(`/api/models/${attrInd}/${what}`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({...body, by: me})}); status.textContent = typeof done === 'function' ? done(r) : done; setTimeout(route, 1200); }
+      try { const r = await api(`/api/models/${ind}/${what}`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({...body, by: me})}); status.textContent = typeof done === 'function' ? done(r) : done; setTimeout(route, 1200); }
       catch (e) { status.textContent = e.message; status.classList.add('bad'); }
     }
-    editor.replaceChildren(h('div', {class: 'row', style: 'margin-bottom:.8rem'}, pick, verSel, editBtn, useBtn, rerun(attrInd), rerun(null), status), text, editRow);
+    panel.replaceChildren(h('h3', {style: 'margin:0 0 .4rem'}, `${INDUSTRY[ind]} model`), h('p', {class: 'muted small', style: 'margin-bottom:.6rem'}, m.companies.join(', ') || 'no company'),
+      h('div', {class: 'row', style: 'margin-bottom:.6rem'}, verSel, editBtn, useBtn, rerun(ind), status), text, editRow);
     queueMicrotask(show);
   }
-  drawEditor();
-  progress.append(jobBox(null, 'attribution'));
-  const diff = d.diff, methods = {};
-  for (const r of d.rows) methods[r.method] = (methods[r.method] || 0) + 1;
-  view.append(h('div', {class: 'stack'},
-    h('header', {class: 'pagehead'}, h('h1', {}, 'How much of the capex is AI'),
-      h('p', {class: 'muted small'}, `${rows.filter((r) => r.ai_amount != null).length} of ${rows.length} company-years carry an amount · ${Object.entries(methods).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${v} ${METHOD[k]}`).join(' · ')}`)),
-    sect('AI capex by company and year', 'intensity is the amount; the small number is the share of capex; click a cell for the basis and inputs', grid, panel),
-    h('div', {class: 'split'},
-      sect('Money-flow models', `prompt ${d.prompt} · edit, save as the next version, switch on, rerun the industry`, editor),
-      sect('Last rerun', diff ? `${when(diff.at)} · ${diff.scope}` : null, progress,
-        diff ? h('div', {class: 'kv', style: 'margin-top:.8rem'}, [['Changed', diff.changed], ['New', diff.new], ['Removed', diff.removed]].flatMap(([k, v]) => [h('span', {class: 'muted'}, k), h('span', {}, int(v))]),
-          diff.rows && diff.rows.length ? h('div', {style: 'grid-column:1/-1;margin-top:.4rem'}, diff.rows.slice(0, 12).map((r) => h('div', {class: 'small'}, h('span', {class: 'mono'}, r.key), ` ${r.before[0]} ${r.before[1] != null ? usd(r.before[1]) : ''} → ${r.after[0]} ${r.after[1] != null ? usd(r.after[1]) : ''}`))) : '')
-          : h('p', {class: 'muted'}, 'No load yet.')))));
+
+  // grid, grouped by industry
+  const body = [];
+  for (const ind of inds) {
+    const ts = d.models[ind].companies.filter((t) => rows.some((r) => r.ticker === t)).sort((a, b) => peak(b) - peak(a));
+    if (!ts.length) continue;
+    body.push(h('tr', {}, h('td', {class: 'muted small', colspan: years.length + 1, style: 'padding-top:.9rem'}, INDUSTRY[ind], ' · ', h('button', {type: 'button', class: 'small', onclick: () => showModel(ind)}, d.models[ind].version))));
+    for (const t of ts) body.push(h('tr', {}, h('td', {}, h('a', {href: `#data?t=${t}&f=ai_capex,capex`}, meta.names[t]), ' ', h('span', {class: 'muted small'}, t)), years.map((y) => {
+      const r = by.get(`${t}|${y}`);
+      if (!r) return h('td', {class: 'n muted'}, '');
+      const badge = h('button', {type: 'button', class: 'badge', title: METHOD[r.method], onclick: (e) => { e.stopPropagation(); showModel(meta.industries[t]); }}, BADGE[r.method]);
+      const c = heat(r.ai_amount || 0, maxA, [h('div', {}, r.ai_amount != null ? usd(r.ai_amount) : h('span', {class: 'muted'}, '—')), h('div', {class: 'note'}, r.ai_share != null ? pct(r.ai_share) : '', ' ', badge)]);
+      c.classList.add('cell'); c.tabIndex = 0;
+      c.addEventListener('click', () => showBasis(t, y, r));
+      return c;
+    })));
+  }
+  const grid = h('div', {class: 'scroll'}, h('table', {class: 'heat'}, h('thead', {}, h('tr', {}, h('th', {}, 'AI capex'), years.map((y) => h('th', {class: 'n'}, y.slice(2))))), h('tbody', {}, body)));
+
+  // reruns and diff as tables
+  const diff = d.diff;
+  const diffTable = diff && diff.rows && diff.rows.length ? table([{t: 'Company · field · year · kind', sort: false, f: (r) => h('span', {class: 'mono small'}, r.key)},
+    {t: 'Before', sort: false, f: (r) => `${METHOD[r.before[0]] || r.before[0]}${r.before[1] != null ? ' · ' + usd(r.before[1]) : ''}`},
+    {t: 'After', sort: false, f: (r) => `${METHOD[r.after[0]] || r.after[0]}${r.after[1] != null ? ' · ' + usd(r.after[1]) : ''}`}], diff.rows) : h('p', {class: 'muted small'}, diff ? 'No row changed in the last load.' : 'No load yet.');
+  const history = table([{t: 'When', k: 'at', f: (x) => when(x.at)}, {t: 'Who', k: 'by'}, {t: 'Change', k: 'change', wide: 1}], [...d.history].reverse().slice(0, 12));
+
+  view.append(h('div', {class: 'stack', style: 'gap:2rem'},
+    h('section', {class: 'figs strip'},
+      fig('Company-years', int(rows.length), `${rows.filter((r) => r.ai_amount != null).length} with an AI amount`),
+      ...Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([m, n]) => fig(METHOD[m], int(n), BADGE[m])),
+      fig('Last load', diff ? when(diff.at) : '—', diff ? `${int(diff.changed)} changed · ${int(diff.new)} new · ${int(diff.removed)} removed` : '')),
+    h('div', {class: 'row'}, rerun(null), h('span', {class: 'muted small'}, `prompt ${d.prompt} · a model edit reruns only its industry; nothing is re-read from filings`), status),
+    progress,
+    h('div', {class: 'split'}, h('section', {}, grid), h('section', {}, panel)),
+    h('div', {class: 'two'}, sect('Changed in the last load', diff ? `${when(diff.at)} · ${diff.scope}` : null, diffTable), sect('Model and prompt changes', null, history))));
 }
 
 // ── Agents (the readers) and Releases ───────────────────────────────────────

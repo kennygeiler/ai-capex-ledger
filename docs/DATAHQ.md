@@ -45,6 +45,10 @@ So the user is not a reader of pages. It is a data team producing a dataset a di
 
 One screen, default. A filter bar (entities by industry or role, field, years, kind: spent, committed, planned), a status strip (companies, filings, texts, facts, cells confirmed, faults, blocked, reference agreement), the grid (entities down, years across, one field at a time, cells shaded, click for provenance), a chart of the selection (series per entity, or parts of a whole), export of the selection as CSV with provenance, and "changed since the last run" shading. Saved views are links: the URL carries the filter. The Attribution screen keeps the models and the rerun; Releases and the readers' prompts stay secondary. The company page is the grid filtered to one entity.
 
+## The attribution screen (29 Oct)
+
+Same style. A strip of counts by method with the badge each uses (SH stated share, ST stated amount, SEG segment capex, PPE server-category growth, ALL whole business, Q words only). The grid grouped by industry, each group headed by its model version; every cell carries its amount, share and a method badge. A cell opens the basis and inputs in the panel; a badge opens the industry's model in the same panel, with the version list, edit, save as the next version, use, and rerun for that industry. Below: what changed in the last load as a before-and-after table, and the model and prompt change log as a table.
+
 ## Data first (29 Oct)
 
 Kenny's note after the first rebuild: the app explained in sentences what it should have shown in numbers and shapes. Second pass, same three tabs, every page now opens on data:
