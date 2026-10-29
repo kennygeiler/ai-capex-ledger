@@ -3,17 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141518" media="(prefers-color-scheme: dark)">
 <title>DATAHQ</title>
 <style>
   /* Plain pages, whitespace instead of borders. One accent (ink blue); red only for a failure. */
   :root {
-    --bg: #ffffff; --fg: #17191c; --muted: #676b73; --faint: #e6e7ea; --accent: #1f4fb8; --bad: #c43d2f; --bar: #f4f5f7; --row: #f7f8fa;
-    --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --mono: ui-monospace, "SF Mono", Menlo, monospace;
+    --bg: #fafbf8; --fg: #1b1e1c; --muted: #5f6662; --faint: #d9ded8; --accent: #1e6b4e; --bad: #b5452e; --bar: #f1f3ef; --row: #f3f5f1;
+    --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --mono: ui-monospace, "SF Mono", Menlo, monospace;
   }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #141518; --fg: #e8e8e6; --muted: #9a9da3; --faint: #26282d; --accent: #7a9cff; --bad: #ff7a6b; --bar: #1b1d22; --row: #191b1f; color-scheme: dark; }
+    :root { --bg: #15181a; --fg: #e6e9e4; --muted: #9aa39d; --faint: #2a2f2c; --accent: #5fbf95; --bad: #e07a64; --bar: #1b1f21; --row: #1a1e20; color-scheme: dark; }
   }
   * { box-sizing: border-box; }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -71,6 +74,8 @@
   table th:first-child, table td:first-child { position: sticky; left: 0; background: var(--bg); z-index: 1; }
   tbody tr:hover td:first-child { background: var(--row); }
   td.n, th.n { text-align: right; }
+  td.n { font-weight: 500; }
+  td.n .note { font-weight: 400; }
   tr.click { cursor: pointer; }
   tr.click:hover td { color: var(--accent); }
   tr.open td { color: var(--accent); }
@@ -107,8 +112,11 @@
   table.grid td.cell:hover { color: var(--accent); }
   table.grid .note { font-size: .74rem; color: var(--muted); white-space: normal; max-width: 9rem; margin-left: auto; }
   .brk { white-space: pre-wrap; word-break: break-word; }
-  table.heat td.c { background: color-mix(in srgb, var(--accent) calc(var(--i, 0) * 18%), transparent); padding-inline: .5rem; }
-  table.heat tbody tr:hover td.c { filter: brightness(.97); }
+  table.heat td.c { padding-inline: .5rem; }
+  .mk { display: inline-block; width: 1.1em; text-align: center; margin-left: .25rem; font-weight: 600; }
+  .mk.t { color: var(--accent); }
+  .mk.u { color: var(--muted); opacity: .55; }
+  .mk.x { color: var(--bad); }
   table.heat td.c .note { font-size: .74rem; color: var(--muted); }
   table.heat th, table.heat td { padding-right: .5rem; }
   table.heat td.w { width: 9rem; }
@@ -128,7 +136,7 @@
   .drawer h3 { font-size: 1rem; margin: 0 1.5rem .6rem 0; }
   .panel h3 { font-size: .95rem; margin: 0 0 .5rem; }
   table.heat td.moved { box-shadow: inset 3px 0 0 var(--accent); }
-  .badge { font: 600 .66rem/1 var(--mono); letter-spacing: .04em; color: var(--accent); padding: .1rem .3rem; border-radius: 3px; background: color-mix(in srgb, var(--accent) 12%, transparent); }
+  .badge { font: 500 .7rem/1 var(--font); color: var(--muted); padding: .1rem .3rem; border-radius: 3px; background: var(--bar); }
   .badge:hover { background: color-mix(in srgb, var(--accent) 24%, transparent); }
   .steps { display: grid; gap: .8rem; }
   .stp { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; color: var(--muted); }
@@ -240,7 +248,7 @@ function factsTable(rows) {
   return table([{t: 'Fact', k: 'field', f: (f) => FACT[f.field] || f.field}, {t: 'Segment / category', k: 'dimension', f: (f) => f.dimension || h('span', {class: 'muted'}, 'company')},
     {t: 'Year', k: 'period'}, {t: 'Value', n: 1, k: 'value', f: (f) => usd(f.value)},
     {t: 'XBRL', k: 'label', f: (f) => (f.label === 'agree' ? h('span', {class: 'muted'}, 'agrees') : f.label === 'unresolved' ? h('span', {class: 'bad'}, `differs: ${usd(f.xbrl_value ?? f.reference)}`) : h('span', {class: 'muted'}, 'not tagged'))}],
-    rows, {detail: (f) => h('div', {class: 'src'}, h('div', {class: 'mono small'}, `${f.accession} ${f.table_id} · "${f.row_label}" / "${f.column_label}" = ${f.cell_text}`))});
+    rows, {detail: (f) => h('div', {class: 'src'}, h('div', {class: 'mono small'}, `${f.accession} ${f.table_id}, "${f.row_label}" / "${f.column_label}" = ${f.cell_text}`))});
 }
 const SOURCE = {mdna: '10-K MD&A', earnings_release: 'earnings release', transcript: 'call transcript', cfo_commentary: 'CFO commentary'};
 const AI_CLASS = {explicit_amount: 'amount', explicit_share: 'share', qualitative: 'words only'};
@@ -297,7 +305,7 @@ function cleaningTable(values) {
   });
   return table([{t: 'Value', k: 'field', s: (r) => r.field + r.period, f: (r) => [r.field, ' ', h('span', {class: 'muted'}, r.period)]},
     {t: 'In the 10-K', k: 'printed', f: (r) => [h('span', {class: 'mono brk'}, r.printed || '—'), r.row ? h('div', {class: 'muted small brk'}, r.row) : '']},
-    {t: 'Cleaning', sort: false, f: (r) => h('div', {class: 'small brk'}, r.steps.join(' · ')), wide: 1},
+    {t: 'Cleaning', sort: false, f: (r) => h('div', {class: 'small brk'}, r.steps.join(', ')), wide: 1},
     {t: 'Value', k: 'value', n: 1, f: (r) => usd(r.value)},
     {t: 'Checked', k: 'check', f: (r) => h('span', {class: r.check === 'matches SEC' ? 'muted' : null}, r.check, r.confirmed ? h('div', {class: 'muted small'}, 're-read on filing') : '')}],
     rows, {detail: (r) => sources(r.v)});
@@ -319,7 +327,7 @@ function sources(v) {
   for (const s of v.sources) {
     wrap.append(h('div', {class: 'src'},
       h('div', {}, `${LABEL[s.field] || s.field}: `, h('b', {}, s.cell), ` in row “${s.row}”, column “${s.col.replaceAll(' | ', ' ')}”`),
-      h('div', {class: 'muted small'}, `10-K filed ${day(s.filed)} · table ${s.table_id} · ${s.unit || 'unit from the document'} · prompt ${s.prompt}`, s.notes ? ` · ${s.notes}` : ''),
+      h('div', {class: 'muted small'}, `10-K filed ${day(s.filed)}, table ${s.table_id}, ${s.unit || 'unit from the document'}, prompt ${s.prompt}`, s.notes ? `, ${s.notes}` : ''),
       h('div', {class: 'small' + (s.machine && !s.machine.match ? ' bad' : ' muted')}, s.machine ? (s.machine.match ? 'Confirmed on the rendered 10-K' : `Rendered 10-K shows ${s.machine.seen}`) : 'Not re-read'),
       s.machine?.img && h('img', {src: '/' + s.machine.img, alt: `Screenshot of the cited cell ${s.cell}`, loading: 'lazy'}),
       h('a', {href: s.deep, target: '_blank', rel: 'noopener', class: 'small'}, 'Open the 10-K at This Row')));
@@ -484,7 +492,7 @@ const heat = (v, max, text, cls) => h('td', {class: 'n c ' + (cls || ''), role: 
 const mini = (share, text) => h('div', {class: 'mini'}, h('i', {style: `width:${Math.max(0, Math.min(100, 100 * (share || 0))).toFixed(1)}%`}), h('span', {}, text));
 // One row per year: a dark AI part inside a light whole, labelled with both.
 function yearBars(rows, max) {
-  return h('div', {class: 'bars'}, rows.map((r) => h('div', {class: 'bar'}, h('span', {}, r.label, r.sub ? h('span', {class: 'muted small'}, ` · ${r.sub}`) : ''),
+  return h('div', {class: 'bars'}, rows.map((r) => h('div', {class: 'bar'}, h('span', {}, r.label, r.sub ? h('span', {class: 'muted small'}, `, ${r.sub}`) : ''),
     h('div', {class: 'track'}, h('i', {class: 'rest', style: `width:${(100 * r.whole / max).toFixed(2)}%`}), h('i', {style: `width:${(100 * (r.part || 0) / max).toFixed(2)}%`})),
     h('span', {class: 'v'}, r.part != null ? `${usd(r.part)} of ${usd(r.whole)}` : usd(r.whole)))));
 }
@@ -560,7 +568,7 @@ async function dataPage(view, qs) {
   // panel
   async function showProv(r) {
     const p = r.prov;
-    const bits = [h('h3', {style: 'margin:0 0 .4rem'}, `${d.names[r.ticker]} · ${FIELDS[r.field] || r.field}${r.dimension ? ' · ' + r.dimension : ''} · ${r.period}`),
+    const bits = [h('h3', {style: 'margin:0 0 .4rem'}, `${d.names[r.ticker]}, ${FIELDS[r.field] || r.field}${r.dimension ? ', ' + r.dimension : ''}, ${r.period}`),
       h('div', {class: 'figs', style: 'margin-bottom:1rem'}, fig('Value', usd(r.value), r.range ? `${usd(r.range[0])} – ${usd(r.range[1])}` : KINDS[r.kind]),
         r.share != null ? fig('Share of capex', pct(r.share), `confidence ${pct(r.confidence)}`) : '',
         fig('Method', r.method === 'cell' ? 'cell' : METHOD[r.method] || r.method, r.check ? CHECK[r.check] || r.check : p.model ? `model ${p.model}` : p.source ? p.source.replace('_', ' ') : '')),
@@ -576,6 +584,17 @@ async function dataPage(view, qs) {
     }
   }
 
+  // the auditor's mark: traced (agrees with its source), untraced (checked, no source to agree with), disagrees
+  const evOut = Object.fromEntries((ev?.rows || []).map((e) => [`${e.ticker}|${e.period}`, e.outcome]));
+  function mark(r) {
+    let k = 'u', why = 'checked, no tagged counterpart to agree with';
+    if (r.check === 'agree') { k = 't'; why = 'agrees with the SEC’s XBRL'; }
+    else if (r.check === 'unresolved') { k = 'x'; why = 'differs from the SEC’s XBRL'; }
+    else if (r.check === 'definition_gap') { k = 't'; why = 'differs from the SEC’s tag by a definition on file'; }
+    else if (r.field === 'ai_capex') { const o = evOut[`${r.ticker}|${r.period}`]; if (o === 'agree') { k = 't'; why = 'agrees with what the company stated'; } else if (o === 'disagree') { k = 'x'; why = 'disagrees with what the company stated'; } else { why = 'recomputed from its inputs; no stated figure to compare'; } }
+    else if (r.method === 'stated') { k = 't'; why = 'quoted from the company, checked against the text'; }
+    return h('span', {class: 'mk ' + k, title: why, 'aria-label': why}, k === 'x' ? '✗' : '✓');
+  }
   // grid
   const grid = h('div', {class: 'scroll'}, h('table', {class: 'heat'},
     h('thead', {}, h('tr', {}, h('th', {}, 'Entity'), sel.f.length > 1 ? h('th', {}, 'Field') : '', list.some((s) => s.dimension) ? h('th', {}, 'Segment / category') : '', years.map((y) => h('th', {class: 'n'}, y.slice(2))))),
@@ -584,7 +603,7 @@ async function dataPage(view, qs) {
       years.map((y) => {
         const r = s.y[y];
         if (!r) return h('td', {class: 'n muted'}, '');
-        const c = heat(r.value, maxV, [h('div', {}, usd(r.value)), r.share != null ? h('div', {class: 'note'}, pct(r.share)) : r.check && r.check !== 'agree' ? h('div', {class: 'note'}, CHECK[r.check]) : '']);
+        const c = h('td', {class: 'n c', role: 'button'}, h('div', {}, usd(r.value), mark(r)), r.share != null ? h('div', {class: 'note'}, pct(r.share)) : '');
         c.classList.add('cell'); c.tabIndex = 0;
         if (changed.has(`${r.ticker}|${r.field}|${r.period}`)) c.classList.add('moved');
         c.addEventListener('click', () => showProv(r));
@@ -607,7 +626,7 @@ async function dataPage(view, qs) {
   const chartBox = h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Chart'), h('div', {style: 'margin-top:.8rem'}, chart));
   view.append(h('div', {class: 'stack', style: 'gap:1rem'},
     h('div', {class: 'row'}, fieldSel, groupSel, kindSel, h('button', {type: 'button', class: 'btn', onclick: exportCsv}, 'Export CSV'),
-      h('span', {class: 'muted small'}, `${list.length} rows · USD · click a cell for its source`)),
+      h('span', {class: 'muted small'}, `${list.length} rows in USD. ✓ traced to its source, ✗ disagrees with it.`)),
     grid,
     sel.eval && ev ? h('div', {}, h('h2', {}, 'Reference check'), dotPlot(ev.rows.filter((r) => r.measure === 'share'))) : '',
     chartBox));
@@ -618,12 +637,12 @@ async function statusPage(view) {
   const [hqd, ev] = await Promise.all([hq(true), api('/api/evaluation')]);
   const H = hqd.health[0], blocked = hqd.questions.length;
   view.append(h('div', {class: 'stack'}, h('section', {class: 'figs'},
-      fig('Companies', int(H.companies), `${int(H.filings)} 10-Ks · ${int(H.texts)} texts`),
+      fig('Companies', int(H.companies), `${int(H.filings)} 10-Ks, ${int(H.texts)} texts`),
       fig('Values agree', `${int(H.agree)} / ${int(H.values)}`, 'with SEC data', H.waiting > 0),
       fig('Facts', int(H.facts), `${int(H.attributed)} AI amounts`),
       fig('Cells confirmed', `${int(H.cells_confirmed)} / ${int(H.cells)}`, 'on the rendered 10-K', H.cells_confirmed < H.cells),
       fig('Faults through', `${int(H.faults_escaped)} / ${int(H.faults)}`, 'planted', H.faults_escaped > 0),
-      fig('Reference', ev ? `${ev.agree} / ${ev.with_estimate}` : '—', ev ? `agree · ${ev.no_estimate} unestimated` : '', ev && ev.disagree > 0),
+      fig('Reference', ev ? `${ev.agree} / ${ev.with_estimate}` : '—', ev ? `agree, ${ev.no_estimate} unestimated` : '', ev && ev.disagree > 0),
       fig('Blocked', int(blocked), blocked ? 'needs a definition' : `run ${day(H.full_run ? H.full_run.at : H.run_at)}`, blocked > 0)),
     h('div', {}, h('h2', {}, 'Findings'), table([{t: 'Company', k: 'company'}, {t: 'Year', k: 'period', f: (f) => f.period || '—'}, {t: 'What', k: 'kind', f: (f) => `${KIND[f.kind]}, ${(LABEL[f.field] || f.field || '').toLowerCase()}`}, {t: 'Change', sort: false, f: change}, {t: 'SEC data', k: 'confirmed', f: confirmedCell}], hqd.findings, {onRow: (f) => go('company/' + f.ticker)})),
     ev ? h('div', {}, h('h2', {}, 'Reference check'), dotPlot(ev.rows.filter((r) => r.measure === 'share'))) : ''));
@@ -651,7 +670,7 @@ async function runPage(view) {
   }}, 'Add and Run');
   ticker.addEventListener('keydown', (e) => { if (e.key === 'Enter') addBtn.click(); });
   progress.append(jobBox(null, 'run'));
-  view.append(h('div', {class: 'stack'}, h('header', {class: 'pagehead'}, h('h1', {}, 'Add a company'), h('p', {class: 'muted small'}, 'any ticker the SEC lists · every step runs · agents on the subscription')),
+  view.append(h('div', {class: 'stack'}, h('header', {class: 'pagehead'}, h('h1', {}, 'Add a company'), h('p', {class: 'muted small'}, 'any ticker the SEC lists, every step runs, agents on the subscription')),
     h('div', {class: 'row'}, ticker, addBtn, status), progress));
 }
 
@@ -677,7 +696,7 @@ async function attributionPage(view) {
   }}, ind ? `Rerun ${INDUSTRY[ind]}` : 'Rerun All');
 
   function showBasis(t, y, r) {
-    drawer(h('h3', {style: 'margin:0 0 .4rem'}, `${meta.names[t]} · ${y}`),
+    drawer(h('h3', {style: 'margin:0 0 .4rem'}, `${meta.names[t]}, ${y}`),
       h('div', {class: 'figs', style: 'margin-bottom:1rem'}, fig('AI capex', r.ai_amount != null ? usd(r.ai_amount) : '—', r.ai_share != null ? `${pct(r.ai_share)} of capex` : 'no amount'),
         fig('Method', METHOD[r.method], `confidence ${pct(r.confidence)}`), fig('Model', r.model, h('button', {type: 'button', class: 'small', onclick: () => showModel(meta.industries[t])}, 'open'))),
       h('p', {}, r.basis), h('p', {class: 'muted small mono', style: 'margin-top:.6rem'}, r.inputs || '—'));
@@ -709,7 +728,7 @@ async function attributionPage(view) {
   for (const ind of inds) {
     const ts = d.models[ind].companies.filter((t) => rows.some((r) => r.ticker === t)).sort((a, b) => peak(b) - peak(a));
     if (!ts.length) continue;
-    body.push(h('tr', {}, h('td', {class: 'muted small', colspan: years.length + 1, style: 'padding-top:.9rem'}, INDUSTRY[ind], ' · ', h('button', {type: 'button', class: 'small', onclick: () => showModel(ind)}, d.models[ind].version))));
+    body.push(h('tr', {}, h('td', {class: 'muted small', colspan: years.length + 1, style: 'padding-top:.9rem'}, INDUSTRY[ind], ', ', h('button', {type: 'button', class: 'small', onclick: () => showModel(ind)}, d.models[ind].version))));
     for (const t of ts) body.push(h('tr', {}, h('td', {}, h('a', {href: `#data?t=${t}&f=ai_capex,capex`}, meta.names[t]), ' ', h('span', {class: 'muted small'}, t)), years.map((y) => {
       const r = by.get(`${t}|${y}`);
       if (!r) return h('td', {class: 'n muted'}, '');
@@ -724,15 +743,15 @@ async function attributionPage(view) {
 
   // reruns and diff as tables
   const diff = d.diff;
-  const diffTable = diff && diff.rows && diff.rows.length ? table([{t: 'Company · field · year · kind', sort: false, f: (r) => h('span', {class: 'mono small'}, r.key)},
-    {t: 'Before', sort: false, f: (r) => `${METHOD[r.before[0]] || r.before[0]}${r.before[1] != null ? ' · ' + usd(r.before[1]) : ''}`},
-    {t: 'After', sort: false, f: (r) => `${METHOD[r.after[0]] || r.after[0]}${r.after[1] != null ? ' · ' + usd(r.after[1]) : ''}`}], diff.rows) : h('p', {class: 'muted small'}, diff ? 'No row changed in the last load.' : 'No load yet.');
+  const diffTable = diff && diff.rows && diff.rows.length ? table([{t: 'Company, field, year, kind', sort: false, f: (r) => h('span', {class: 'mono small'}, r.key)},
+    {t: 'Before', sort: false, f: (r) => `${METHOD[r.before[0]] || r.before[0]}${r.before[1] != null ? ', ' + usd(r.before[1]) : ''}`},
+    {t: 'After', sort: false, f: (r) => `${METHOD[r.after[0]] || r.after[0]}${r.after[1] != null ? ', ' + usd(r.after[1]) : ''}`}], diff.rows) : h('p', {class: 'muted small'}, diff ? 'No row changed in the last load.' : 'No load yet.');
   const history = table([{t: 'When', k: 'at', f: (x) => when(x.at)}, {t: 'Who', k: 'by'}, {t: 'Change', k: 'change', wide: 1}], [...d.history].reverse().slice(0, 12));
 
   view.append(h('div', {class: 'stack', style: 'gap:1rem'},
-    h('div', {class: 'row'}, rerun(null), h('span', {class: 'muted small'}, `${rows.filter((r) => r.ai_amount != null).length} of ${rows.length} company-years with an AI amount · click a cell for its basis, a badge for the model`), status),
+    h('div', {class: 'row'}, rerun(null), h('span', {class: 'muted small'}, `${rows.filter((r) => r.ai_amount != null).length} of ${rows.length} company-years with an AI amount, click a cell for its basis, a badge for the model`), status),
     progress, grid,
-    h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, diff ? `Changed in the last load: ${int(diff.changed)} · ${day(diff.at)}` : 'No load yet'), h('div', {style: 'margin-top:.8rem'}, diffTable)),
+    h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, diff ? `Changed in the last load: ${int(diff.changed)}, ${day(diff.at)}` : 'No load yet'), h('div', {style: 'margin-top:.8rem'}, diffTable)),
     h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Model and prompt changes'), h('div', {style: 'margin-top:.8rem'}, history))));
 }
 
@@ -748,7 +767,7 @@ async function releasesPage(view) {
   const d = await api('/api/outputs');
   view.append(h('div', {class: 'stack'}, h('header', {class: 'pagehead'}, h('h1', {}, 'Releases'), h('p', {class: 'lede'}, 'A release is a folder of plain files whose content hash a person signs. A signed one has a packet to send.')),
     ...[...d.releases].reverse().map((r) => sect(r.version, r.signed_by ? `signed by ${r.signed_by}, ${day(r.signed_at)}` : 'not signed',
-      h('p', {class: 'muted small', style: 'margin-bottom:.5rem'}, `${int(r.rows.length)} values`, r.packet ? [' · ', h('a', {href: `/packet/${r.version}.zip`}, 'Download the packet (zip)')] : ' · a packet needs a signature'),
+      h('p', {class: 'muted small', style: 'margin-bottom:.5rem'}, `${int(r.rows.length)} values`, r.packet ? [', ', h('a', {href: `/packet/${r.version}.zip`}, 'Download the packet (zip)')] : ', a packet needs a signature'),
       h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Values'), table([{t: 'Company', k: 'company'}, {t: 'Field', k: 'field'}, {t: 'Year', k: 'period'}, {t: 'Value', n: 1, k: 'value', f: (x) => (x.value === '' ? h('span', {class: 'muted'}, 'blank') : usd(Number(x.value)))}, {t: 'SEC data', k: 'xbrl'}], r.rows))))));
 }
 
@@ -761,7 +780,7 @@ async function route() {
   const tab = {company: 'data', run: 'data', pipeline: 'data', insights: 'data'}[page] || page;
   document.querySelectorAll('nav [data-nav]').forEach((a) => a.classList.toggle('on', a.dataset.nav === tab));
   const view = $('#view');
-  view.replaceChildren(h('h1', {class: 'sr'}, `DATAHQ · ${({data: 'Data', company: 'Company', attribution: 'Attribution', status: 'Status', releases: 'Releases', agents: 'Agents', run: 'Add a Company'})[page] || 'Data'}`));
+  view.replaceChildren(h('h1', {class: 'sr'}, `DATAHQ, ${({data: 'Data', company: 'Company', attribution: 'Attribution', status: 'Status', releases: 'Releases', agents: 'Agents', run: 'Add a Company'})[page] || 'Data'}`));
   try {
     if (page === 'company') await dataPage(view, `t=${arg || ''}&f=ai_capex,capex`);
     else if (page === 'attribution') await attributionPage(view);
