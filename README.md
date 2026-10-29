@@ -9,7 +9,7 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 **Last done (29 Oct 2026):** AI spend from the MD&A, the question behind the ledger.
 - **`ledger aispend`** (in `ledger run`, after reconcile): a second agent (`ai_reader`, prompt `aispend@v2`) reads each 10-K's Item 7 passages that mention AI next to capital or operating spending and returns every statement as a verbatim quote; code checks the quote is in the passage. Table A `ai_statements`, table B `ai_spend` (per company, field, fiscal year and kind, the most specific statement from the newest filing). Item 7 comes through `edgartools` (`data/text/`); the table parser is untouched.
 - **The finding, honestly:** on all 31 companies, 79 statements, 54 company-year rows, 3 with an AI dollar amount (all IREN). Hyperscalers say "primarily" and "the majority"; the only numbers are total-capex outlooks (Meta $115–135B for 2026, Tesla >$20B), filed as `scope: total`, not AI spend. The explicit AI numbers live in earnings releases (8-K Exhibit 99.1), ticket L4. Types 24–27 in `docs/INGESTION.md`.
-- **Shipped with it:** rule `ai_amount_within_capex` (16 rules now), `ai_spend.csv` in every release with its own README section, a DATAHQ company section ("What the filing says about AI spend") and a dashboard column. Not yet in a signed release: `v1.2.0` needs Kenny's OK.
+- **Shipped with it:** rule `ai_amount_within_capex` (16 rules now), `ai_spend.csv` in every release with its own README section, a DATAHQ company section ("What the filing says about AI spend") and a dashboard column. **`v1.2.0` is built, unsigned** (hash f4a2ded3fc78; no values changed from v1.1.0; 54 AI-spend rows). Signing is Kenny's call.
 
 **Before that (28 Oct, night):** a code-slop pass after the audit. Four fixes, no behaviour change for a buyer:
 - **Add-a-company progress reads data, not printed lines.** `ledger run` writes `data/jobs/progress.json` after every step (`ledger/progress.py`: which step, exit code, and a one-line summary counted from the store and the report files). DATAHQ's Add page reads that file; it no longer regex-parses the run's log. A run started before this change shows every step as waiting.
@@ -26,7 +26,7 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 **Released:** `v1.1.0`, all 31 tracked companies (30 with a 10-K), 384 values, signed by Kenny Geiler, hash 794fb2dfadae. 14 decisions applied: the 8 above (four cost-line confirmations, ExxonMobil's revenue definition for four years) plus six earlier. DATAHQ serves it as `/packet/v1.1.0.zip`.
 
 **Next:**
-1. Release `v1.2.0` with `ai_spend.csv` (Kenny signs).
+1. Sign `v1.2.0` (`ledger signoff v1.2.0 --by "Kenny Geiler"`), then DATAHQ serves it as a packet.
 2. L4: 8-K earnings releases through the AI spend reader, where the explicit AI amounts are.
 3. L5: Airflow DAG as a thin wrapper, if the Arctal conversation wants it.
 4. M3.1: one question per cause (XOM shows why).
