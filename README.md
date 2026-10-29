@@ -60,12 +60,10 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 - **Client packet:** every release now builds a `README.md` next to `values.csv`, `DATA_DICTIONARY.md` and `QUALITY.md`; DATAHQ serves a signed release as one zip at `/packet/<version>.zip` (Outputs page).
 - **Scale run:** 12 companies added from DATAHQ (AAPL, AVGO, INTC, QCOM, TXN, CSCO, IBM, WMT, XOM, JPM, ANET, and Compass by Kenny): 31 tracked. Full run on all 31 with parser `tables@9`: 132 filings, 384 values, 354 agree with the SEC's data, 26 more explained by code (16 the 10-K doesn't report, 10 definition gaps), 1,431 of 1,431 cited cells confirmed on the rendered 10-K, 0 of 7,075 planted faults through. Eight new failure types (16–23) in `docs/INGESTION.md`; seven fixed in code, one is a definition only a person can confirm.
 
-**Built, unsigned:** `v1.4.0`: v1.3.0 plus `EVALUATION.md`, 1,448 facts and Alphabet's FY2024–25 attributions (217 attribution rows, 40 AI amounts). Signing is Kenny's call.
-
-**Released:** `v1.3.0`, signed by Kenny Geiler on 2026-10-29, hash 4029e202c594: the same 384 values as v1.1.0 (354 agree with XBRL), plus `facts.csv` (1,436), `ai_spend.csv` (83) and `attribution.csv` (223 rows, 38 AI dollar amounts). DATAHQ serves it as `/packet/v1.3.0.zip`; Insights now read a signed attribution. v1.2.0 (values and statements only) stays unsigned and superseded; v1.1.0 (hash 794fb2dfadae) is the previous signed release. 14 decisions applied: the 8 above (four cost-line confirmations, ExxonMobil's revenue definition for four years) plus six earlier. DATAHQ serves it as `/packet/v1.1.0.zip`.
+**Released:** `v1.4.0`, signed by Kenny Geiler on 2026-10-29, hash f22c5092f4ef: the same 384 values as v1.1.0 (354 agree with XBRL), `facts.csv` (1,448), `ai_spend.csv` (83), `attribution.csv` (217 rows, 40 AI dollar amounts) and `EVALUATION.md` (5 of 6 reference entries estimated; 2 agree, 3 disagree). DATAHQ serves it as `/packet/v1.4.0.zip`. Earlier signed releases: v1.3.0 (4029e202c594), v1.1.0 (794fb2dfadae); v1.2.0 unsigned and superseded.
 
 **Next (the plan agreed 29 Oct, in order):**
-1. Sign `v1.4.0`; then send to Arctal: the repo, the packet, DATAHQ live.
+1. Send to Arctal: the repo, `/packet/v1.4.0.zip`, DATAHQ live.
 2. Grow the reference set: Meta and Microsoft server-share statements from calls, Micron's HBM capex share, independent estimates (Dell'Oro puts accelerators at about a third of data-center capex industry-wide).
 3. Subtract finance-lease additions from server-category growth where the lease note gives them (type 46).
 4. Open items: Alphabet's PP&E category after FY2023 (type 44), purchase-commitment definitions (type 34), Nvidia's older-year transcripts and Alphabet's and Microsoft's links in `sources/ir.yaml`, ExxonMobil's 8-Ks under the old CIK (type 40), a `stated_sum` method for quarterly AI figures (type 42). (`ledger signoff v1.2.0 --by "Kenny Geiler"`), then DATAHQ serves it as a packet.
