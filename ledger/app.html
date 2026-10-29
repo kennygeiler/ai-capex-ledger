@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141518" media="(prefers-color-scheme: dark)">
 <title>DATAHQ</title>
 <style>
   /* Plain pages, whitespace instead of borders. One accent (ink blue); red only for a failure. */
@@ -14,6 +16,13 @@
     :root { --bg: #141518; --fg: #e8e8e6; --muted: #9a9da3; --faint: #26282d; --accent: #7a9cff; --bad: #ff7a6b; --bar: #1b1d22; --row: #191b1f; color-scheme: dark; }
   }
   * { box-sizing: border-box; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .skip { position: absolute; left: -999px; top: .5rem; background: var(--bg); padding: .4rem .7rem; z-index: 30; }
+  .skip:focus { left: .5rem; }
+  h1, h2, h3 { text-wrap: balance; }
+  button, a, select, input, label { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  button:hover { opacity: .8; }
+  .btn:hover { opacity: .9; }
   body { margin: 0; background: var(--bg); color: var(--fg); font: 13.5px/1.45 var(--font); }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -114,7 +123,7 @@
   @media (max-width: 44rem) { .dotrow { grid-template-columns: 4.5rem 1fr; } .dotrow .v { grid-column: 1 / -1; text-align: left; } }
   .strip { background: var(--bar); margin: 0 calc(-1 * max(16px, 2vw)); padding: .9rem max(16px, 2vw); gap: 1rem 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr)); }
   .strip .fig .n { font-size: 1.25rem; white-space: nowrap; }
-  .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(100%, 30rem); background: var(--bg); box-shadow: -8px 0 30px rgba(0,0,0,.12); padding: 1.25rem 1.5rem 2rem; overflow: auto; z-index: 20; }
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(100%, 30rem); background: var(--bg); box-shadow: -8px 0 30px rgba(0,0,0,.12); padding: 1.25rem 1.5rem 2rem; overflow: auto; overscroll-behavior: contain; z-index: 20; }
   .drawer .close { position: absolute; top: .6rem; right: .9rem; font-size: 1.4rem; color: var(--muted); }
   .drawer h3 { font-size: 1rem; margin: 0 1.5rem .6rem 0; }
   .panel h3 { font-size: .95rem; margin: 0 0 .5rem; }
@@ -129,19 +138,20 @@
 </style>
 </head>
 <body>
+<a class="skip" href="#view">Skip to content</a>
 <div class="wrap">
   <div class="bar"><nav>
     <a class="brand" href="#data">DATAHQ</a>
-    <input class="search" id="jump" type="text" list="tickers" placeholder="Ticker or company" aria-label="Jump to a company">
+    <input class="search" id="jump" name="jump" type="text" list="tickers" placeholder="Ticker or company…" aria-label="Jump to a company" autocomplete="off" spellcheck="false">
     <datalist id="tickers"></datalist>
     <a href="#data" data-nav="data">Data</a>
     <a href="#attribution" data-nav="attribution">Attribution</a>
     <a href="#status" data-nav="status">Status</a>
     <a href="#releases" data-nav="releases">Releases</a>
     <a href="#agents" data-nav="agents">Agents</a>
-    <span class="sp me muted small">signed as <input id="me" type="text" aria-label="Your name, logged on every model or prompt change"></span>
+    <span class="sp me muted small">signed as <input id="me" name="signer" type="text" aria-label="Your name, logged on every model or prompt change" autocomplete="name"></span>
   </nav></div>
-  <main id="view"><p class="msg">Loading…</p></main>
+  <main id="view" tabindex="-1"><p class="msg">Loading…</p></main>
 </div>
 <div class="tip" id="tip" hidden></div>
 
@@ -187,7 +197,7 @@ function table(cols, rows, {key, onRow, detail} = {}) {
   const draw = (list) => {
     tb.replaceChildren();
     for (const r of list) {
-      const tr = h('tr', {class: onRow || detail ? 'click' : null}, cols.map((c) => h('td', {class: [c.n && 'n', c.wide && 'wide'].filter(Boolean).join(' ') || null}, c.f ? c.f(r) : r[c.k] ?? '—')));
+      const tr = h('tr', {class: onRow || detail ? 'click' : null, tabindex: onRow || detail ? 0 : null, role: onRow || detail ? 'button' : null, onkeydown: onRow || detail ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tr.click(); } } : null}, cols.map((c) => h('td', {class: [c.n && 'n', c.wide && 'wide'].filter(Boolean).join(' ') || null}, c.f ? c.f(r) : r[c.k] ?? '—')));
       tb.append(tr);
       if (onRow) tr.addEventListener('click', () => onRow(r));
       if (detail) tr.addEventListener('click', () => {
@@ -312,7 +322,7 @@ function sources(v) {
       h('div', {class: 'muted small'}, `10-K filed ${day(s.filed)} · table ${s.table_id} · ${s.unit || 'unit from the document'} · prompt ${s.prompt}`, s.notes ? ` · ${s.notes}` : ''),
       h('div', {class: 'small' + (s.machine && !s.machine.match ? ' bad' : ' muted')}, s.machine ? (s.machine.match ? 'Confirmed on the rendered 10-K' : `Rendered 10-K shows ${s.machine.seen}`) : 'Not re-read'),
       s.machine?.img && h('img', {src: '/' + s.machine.img, alt: `Screenshot of the cited cell ${s.cell}`, loading: 'lazy'}),
-      h('a', {href: s.deep, target: '_blank', rel: 'noopener', class: 'small'}, 'Open the 10-K at this row')));
+      h('a', {href: s.deep, target: '_blank', rel: 'noopener', class: 'small'}, 'Open the 10-K at This Row')));
   }
   if (!v.sources.length) wrap.append(h('p', {class: 'muted'}, 'No citation.'));
   return wrap;
@@ -323,11 +333,11 @@ function agentCard(a) {
   const text = h('textarea', {readonly: true, 'aria-label': 'Prompt text', spellcheck: 'false'});
   const verSel = h('select', {'aria-label': 'Prompt version', onchange: (e) => { shown = e.target.value; showPrompt(); }},
     a.versions.map((v) => h('option', {value: v, selected: v === a.prompt || null}, v === a.prompt ? `${v} (in use)` : v)));
-  const note = h('input', {type: 'text', placeholder: 'What changed and why', 'aria-label': 'What changed and why', style: 'flex:1;min-width:14rem'});
-  const status = h('span', {class: 'muted small'});
+  const note = h('input', {type: 'text', placeholder: 'What changed and why…', 'aria-label': 'What changed and why', style: 'flex:1;min-width:14rem'});
+  const status = h('span', {class: 'muted small', 'aria-live': 'polite'});
   const editBtn = h('button', {type: 'button', onclick: () => startEdit()}, 'Edit');
-  const useBtn = h('button', {type: 'button', onclick: () => post('use', {version: shown}, `Now using ${shown}.`)}, 'Use this version');
-  const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('prompt', {text: text.value, note: note.value}, (r) => `Saved as ${r.version} and in use.`)}, 'Save as new version');
+  const useBtn = h('button', {type: 'button', onclick: () => post('use', {version: shown}, `Now using ${shown}.`)}, 'Use This Version');
+  const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('prompt', {text: text.value, note: note.value}, (r) => `Saved as ${r.version} and in use.`)}, 'Save as New Version');
   const cancelBtn = h('button', {type: 'button', onclick: () => { showPrompt(); }}, 'Cancel');
   const editRow = h('div', {class: 'row', hidden: true}, note, saveBtn, cancelBtn);
   function showPrompt() {
@@ -344,7 +354,7 @@ function agentCard(a) {
     } catch (e) { status.textContent = e.message; status.classList.add('bad'); }
   }
   const model = h('input', {type: 'text', value: a.llm.model, 'aria-label': 'Model id', style: 'width:14rem'});
-  const modelSave = h('button', {type: 'button', onclick: () => post('model', {model: model.value}, `Model set to ${model.value}.`)}, 'Save model');
+  const modelSave = h('button', {type: 'button', onclick: () => post('model', {model: model.value}, `Model set to ${model.value}.`)}, 'Save Model');
 
   const allRuns = a.runs;  // newest first
   const latest = [...allRuns.reduce((m, r) => (m.has(r.accession) ? m : m.set(r.accession, r)), new Map()).values()];  // the newest run of each filing
@@ -470,7 +480,7 @@ function jobBox(onDone, kind) {
 }
 
 // ── Data-first pieces: a cell with intensity, a mini bar, year bars, a dot plot ──────────────────────────────────
-const heat = (v, max, text, cls) => h('td', {class: 'n c ' + (cls || ''), style: `--i:${Math.max(0, Math.min(1, max ? v / max : 0)).toFixed(3)}`}, text);
+const heat = (v, max, text, cls) => h('td', {class: 'n c ' + (cls || ''), role: 'button', style: `--i:${Math.max(0, Math.min(1, max ? v / max : 0)).toFixed(3)}`}, text);
 const mini = (share, text) => h('div', {class: 'mini'}, h('i', {style: `width:${Math.max(0, Math.min(100, 100 * (share || 0))).toFixed(1)}%`}), h('span', {}, text));
 // One row per year: a dark AI part inside a light whole, labelled with both.
 function yearBars(rows, max) {
@@ -557,7 +567,7 @@ async function dataPage(view, qs) {
       r.basis && r.method !== 'cell' ? h('p', {style: 'margin-bottom:.6rem'}, r.basis) : '',
       p.inputs ? h('p', {class: 'muted small mono', style: 'margin-bottom:.6rem'}, p.inputs) : '',
       p.xbrl != null ? h('p', {class: 'muted small'}, `XBRL: ${usd(p.xbrl)}`) : '',
-      p.url ? h('p', {class: 'small'}, h('a', {href: p.url, target: '_blank', rel: 'noopener'}, 'Open the filing')) : ''];
+      p.url ? h('p', {class: 'small'}, h('a', {href: p.url, target: '_blank', rel: 'noopener'}, 'Open the Filing')) : ''];
     const box = drawer(...bits);
     if (p.table === 'values') {  // the cell, the cleaning and the screenshot, from the company's own data
       const c = await api('/api/company?t=' + r.ticker);
@@ -622,22 +632,23 @@ async function statusPage(view) {
 // A drawer on the right: one thing at a time, closed with Esc or the ×.
 function drawer(...kids) {
   closeDrawer();
-  const box = h('div', {class: 'drawer', role: 'dialog'}, h('button', {type: 'button', class: 'close', 'aria-label': 'Close', onclick: closeDrawer}, '×'), ...kids);
+  const box = h('div', {class: 'drawer', role: 'dialog', 'aria-modal': 'false', 'aria-label': 'Details'}, h('button', {type: 'button', class: 'close', 'aria-label': 'Close', onclick: closeDrawer}, '×'), ...kids);
   document.body.append(box);
+  box.querySelector('.close').focus();
   return box;
 }
 function closeDrawer() { document.querySelectorAll('.drawer').forEach((d) => d.remove()); }
-window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
+window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('td.cell')) { e.preventDefault(); e.target.click(); } });
 
 // ── Run: add a company ───────────────────────────────────────────────────────
 async function runPage(view) {
-  const ticker = h('input', {type: 'text', placeholder: 'Ticker', 'aria-label': 'Ticker', style: 'width:8rem;text-transform:uppercase'});
-  const status = h('span', {class: 'muted small'}), progress = h('div');
+  const ticker = h('input', {type: 'text', placeholder: 'Ticker, e.g. AVGO…', 'aria-label': 'Ticker', style: 'width:8rem;text-transform:uppercase'});
+  const status = h('span', {class: 'muted small', 'aria-live': 'polite'}), progress = h('div');
   const addBtn = h('button', {type: 'button', class: 'btn', onclick: async () => {
     status.textContent = 'Starting…'; status.classList.remove('bad');
     try { await api('/api/companies', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ticker: ticker.value, by: me})}); status.textContent = ''; hqCache = null; progress.replaceChildren(jobBox(() => { hqCache = null; }, 'run')); }
     catch (e) { status.textContent = e.message; status.classList.add('bad'); }
-  }}, 'Add and run');
+  }}, 'Add and Run');
   ticker.addEventListener('keydown', (e) => { if (e.key === 'Enter') addBtn.click(); });
   progress.append(jobBox(null, 'run'));
   view.append(h('div', {class: 'stack'}, h('header', {class: 'pagehead'}, h('h1', {}, 'Add a company'), h('p', {class: 'muted small'}, 'any ticker the SEC lists · every step runs · agents on the subscription')),
@@ -657,13 +668,13 @@ async function attributionPage(view) {
   const maxA = Math.max(...rows.map((r) => r.ai_amount || 0), 1);
   const counts = {};
   for (const r of rows) counts[r.method] = (counts[r.method] || 0) + 1;
-  const status = h('span', {class: 'muted small'}), progress = h('div');
+  const status = h('span', {class: 'muted small', 'aria-live': 'polite'}), progress = h('div');
 
   const rerun = (ind) => h('button', {type: 'button', class: 'btn', onclick: async () => {
     status.textContent = 'Starting…'; status.classList.remove('bad');
     try { await api('/api/attribute', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({industry: ind, by: me})}); status.textContent = ''; progress.replaceChildren(jobBox(() => route(), 'attribution')); }
     catch (e) { status.textContent = e.message; status.classList.add('bad'); }
-  }}, ind ? `Rerun ${INDUSTRY[ind]}` : 'Rerun all');
+  }}, ind ? `Rerun ${INDUSTRY[ind]}` : 'Rerun All');
 
   function showBasis(t, y, r) {
     drawer(h('h3', {style: 'margin:0 0 .4rem'}, `${meta.names[t]} · ${y}`),
@@ -676,10 +687,10 @@ async function attributionPage(view) {
     let shown = m.version;
     const text = h('textarea', {readonly: true, 'aria-label': 'Model text', spellcheck: 'false', style: 'min-height:18rem'});
     const verSel = h('select', {'aria-label': 'Model version', onchange: (e) => { shown = e.target.value; show(); }}, m.versions.map((v) => h('option', {value: v, selected: v === m.version || null}, v === m.version ? `${v} (in use)` : v)));
-    const note = h('input', {type: 'text', placeholder: 'What changed and why', 'aria-label': 'What changed and why', style: 'flex:1;min-width:12rem'});
+    const note = h('input', {type: 'text', placeholder: 'What changed and why…', 'aria-label': 'What changed and why', style: 'flex:1;min-width:12rem'});
     const editBtn = h('button', {type: 'button', onclick: () => { text.readOnly = false; editRow.hidden = false; editBtn.hidden = true; useBtn.hidden = true; text.focus(); }}, 'Edit');
     const useBtn = h('button', {type: 'button', onclick: () => post('use', {version: shown}, `Now using ${shown}; rerun the industry.`)}, 'Use');
-    const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('save', {text: text.value, note: note.value}, (r) => `Saved as ${r.version}; not in use until switched on.`)}, 'Save as new version');
+    const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('save', {text: text.value, note: note.value}, (r) => `Saved as ${r.version}; not in use until switched on.`)}, 'Save as New Version');
     const cancelBtn = h('button', {type: 'button', onclick: show}, 'Cancel');
     const editRow = h('div', {class: 'row', hidden: true}, note, saveBtn, cancelBtn);
     function show() { text.value = m.texts[shown]; text.readOnly = true; editRow.hidden = true; editBtn.hidden = false; useBtn.hidden = shown === m.version; text.style.height = 'auto'; text.style.height = Math.min(520, text.scrollHeight + 4) + 'px'; }
@@ -750,7 +761,7 @@ async function route() {
   const tab = {company: 'data', run: 'data', pipeline: 'data', insights: 'data'}[page] || page;
   document.querySelectorAll('nav [data-nav]').forEach((a) => a.classList.toggle('on', a.dataset.nav === tab));
   const view = $('#view');
-  view.replaceChildren();
+  view.replaceChildren(h('h1', {class: 'sr'}, `DATAHQ · ${({data: 'Data', company: 'Company', attribution: 'Attribution', status: 'Status', releases: 'Releases', agents: 'Agents', run: 'Add a Company'})[page] || 'Data'}`));
   try {
     if (page === 'company') await dataPage(view, `t=${arg || ''}&f=ai_capex,capex`);
     else if (page === 'attribution') await attributionPage(view);
