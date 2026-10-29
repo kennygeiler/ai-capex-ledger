@@ -8,10 +8,10 @@ from pathlib import Path
 from unittest import mock
 
 from ledger import agent
-from ledger.extract import PROMPT_VERSION, Invalid
+from ledger.extract import Invalid, prompt_version
 from tests.test_rules import ACC, parsed
 
-GOOD = {"accession": ACC, "prompt_version": PROMPT_VERSION, "not_found": [],
+GOOD = {"accession": ACC, "prompt_version": prompt_version(), "not_found": [],
         "values": [{"field": "revenue", "table_id": "t0000", "row_label": "Total revenues", "column_label": "Year Ended May 31, | 2026",
                     "cell_text": "67,357", "period_end": "2026-05-31", "months": 12, "value": 67357000000, "confidence": 1}]}
 BAD = {**GOOD, "values": [{**GOOD["values"][0], "cell_text": "99,999"}]}

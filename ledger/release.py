@@ -4,8 +4,12 @@ import hashlib
 import io
 import json
 import random
+from pathlib import Path
 
 from .config import GOLDEN_SEED
+from .store import ROOT
+
+RELEASES = ROOT / "releases"
 
 SPOT_CHECKS = 10  # random XBRL-agreeing values a person also checks, to test that the agreement itself works
 
@@ -14,6 +18,16 @@ GATES = {
     "G4": "No block exception without a current decision",
     "G5": "Every value XBRL can't vouch for, plus a random sample of those it can, confirmed on the filing at the value being released: by the re-read of the rendered 10-K, or by a person where it can't",
 }
+
+
+def version_key(name: str) -> list[int]:
+    """v1.10.0 sorts after v1.9.0: by number, never by string."""
+    return [int(x) for x in name.lstrip("v").split(".")]
+
+
+def releases() -> list[Path]:
+    """Every release folder, oldest version first."""
+    return sorted(RELEASES.glob("v*"), key=lambda p: version_key(p.name))
 
 
 def to_check(values) -> dict:

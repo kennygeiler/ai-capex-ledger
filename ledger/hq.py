@@ -9,7 +9,8 @@ from collections import Counter
 from datetime import date, timedelta
 
 from . import store
-from .config import STAGES, tracked
+from .config import stage_tickers, tracked
+from .release import releases as release_dirs
 from .review import apply, decisions, open_items
 from .rules import load as load_rules
 from .scorecard import scorecard
@@ -90,11 +91,11 @@ def snapshot(con, stage: int = 3) -> dict:
              for r, m in sorted(rule_meta.items(), key=lambda kv: -hits[kv[0]])]
 
     releases = []
-    for d in sorted((store.ROOT / "releases").glob("v*"), key=lambda d: [int(x) for x in d.name[1:].split(".")]):
+    for d in release_dirs():
         m, s = json.loads((d / "manifest.json").read_text()), d / "SIGNOFF.json"
         sig = json.loads(s.read_text()) if s.exists() else {}
         vs = (d / "values.csv").read_text().splitlines()[1:]
-        releases.append({"version": m["version"], "companies": len(STAGES[m["stage"]]["tickers"]), "values": len(vs),
+        releases.append({"version": m["version"], "companies": len(stage_tickers(m["stage"])), "values": len(vs),
                          "hash": m["hash"][:12], "signed_by": sig.get("signed_by"), "signed_at": sig.get("signed_at"),
                          "prompt": m["prompt"], "parser": m["parser"]})
 
@@ -107,7 +108,7 @@ def snapshot(con, stage: int = 3) -> dict:
     # Is the latest release still what the pipeline would ship? Count values that differ from it.
     changed = None
     if releases:
-        d = store.ROOT / "releases" / releases[-1]["version"]
+        d = release_dirs()[-1]
         if json.loads((d / "manifest.json").read_text())["stage"] == stage:
             shipped = {(r["ticker"], r["field"], r["period"]): (r["value"], r["basis"]) for r in csv.DictReader((d / "values.csv").open())}
             now = {(v["ticker"], v["field"], v["period"]): ("" if v["value"] is None else str(v["value"]), v["basis"]) for v in apply(vals, excs, decisions())}

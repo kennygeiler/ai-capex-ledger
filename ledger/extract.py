@@ -14,12 +14,19 @@ from pathlib import Path
 from . import agents
 from .store import ROOT
 
-PROMPT_VERSION = agents.load()["reader"]["prompt"]  # the active prompt, set in agents/agents.json (or the app)
-PROMPT_VERSIONS = tuple(agents.versions("reader"))  # outputs from any saved version stay valid
-PROMPT = ROOT / "agents" / "prompts" / f"{PROMPT_VERSION}.md"
 TASKS = ROOT / "data" / "extract" / "tasks"
 OUTPUTS = ROOT / "data" / "extract" / "outputs"
 FIELDS = ("revenue", "cost_of_revenue", "cost_of_revenue_part", "operating_income", "capex")
+
+
+def prompt_version() -> str:
+    """The active prompt, as agents/agents.json says right now (the app can switch it while a server runs)."""
+    return agents.load()["reader"]["prompt"]
+
+
+def prompt_versions() -> tuple[str, ...]:
+    """Every saved version: an output from any of them stays valid."""
+    return tuple(agents.versions("reader"))
 
 
 # ── tasks ──────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -41,7 +48,7 @@ def render_statement(name: str, tables: list[dict]) -> str:
 def make_task(parsed: dict) -> str:
     """The agent's task for one filing: its income and cash-flow statements, as a reader sees them, and nothing else."""
     head = (f"# Task: {parsed['ticker']} {parsed['form']} for the period ended {parsed['period']}\n\n"
-            f"Accession: {parsed['accession']}\nPrompt version: {PROMPT_VERSION}\n")
+            f"Accession: {parsed['accession']}\nPrompt version: {prompt_version()}\n")
     body = [render_statement("Income statement", parsed["statements"]["income"] or []),
             render_statement("Cash-flow statement", parsed["statements"]["cash_flow"] or [])]
     return head + "\n" + "\n\n".join(body) + "\n"
@@ -72,8 +79,8 @@ def validate_output(obj: dict, accession: str) -> None:
             raise Invalid(f"missing '{k}'")
     if obj["accession"] != accession:
         raise Invalid(f"accession {obj['accession']!r} is not the task's {accession!r}")
-    if obj["prompt_version"] not in PROMPT_VERSIONS:
-        raise Invalid(f"prompt_version {obj['prompt_version']!r}, expected one of {PROMPT_VERSIONS}")
+    if obj["prompt_version"] not in (known := prompt_versions()):
+        raise Invalid(f"prompt_version {obj['prompt_version']!r}, expected one of {known}")
     if not isinstance(obj["values"], list) or not isinstance(obj["not_found"], list):
         raise Invalid("'values' and 'not_found' must be lists")
     req = ("field", "table_id", "row_label", "column_label", "cell_text", "period_end", "months", "value", "confidence")

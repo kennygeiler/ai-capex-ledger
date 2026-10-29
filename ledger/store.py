@@ -21,6 +21,7 @@ DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
 SCHEMA_VERSION = 4
 
 FIELDS = ("revenue", "cost_of_revenue", "cost_of_revenue_part", "operating_income", "capex", "opex")
+KINDS = ("accept", "override", "reject")  # what a person can decide about an exception
 YEAR = re.compile(r"^FY\d{4}$")
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 ACCESSION = re.compile(r"^\d{10}-\d{2}-\d{6}$")
@@ -133,7 +134,7 @@ SCHEMA: tuple[Table, ...] = (
     Table("decisions", "A person's resolution of an exception. Append-only: a later decision supersedes, never edits.", (
         _c("decision_id", "VARCHAR", "Unique ID."),
         _c("exception_id", "VARCHAR", "Exception decided."),
-        _c("kind", "VARCHAR", "accept, override, reject or fix_rule.", enum=("accept", "override", "reject", "fix_rule")),
+        _c("kind", "VARCHAR", "accept, override or reject.", enum=KINDS),
         _c("value", "BIGINT", "Override value, US dollars, unscaled.", nullable=True),
         _c("reason", "VARCHAR", "Why. Required for every kind."),
         _c("reviewer", "VARCHAR", "Who decided."),

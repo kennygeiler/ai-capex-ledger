@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 
 from .. import agent, store
 from ..config import add_scope, scope
-from ..extract import OUTPUTS, PROMPT_VERSION, Invalid, period_start, resolve, validate_output, write_tasks
+from ..extract import OUTPUTS, Invalid, period_start, prompt_version, resolve, validate_output, write_tasks
 from ..ingest.filings import report_period_ends
 
 DOCS = store.ROOT / "data" / "docs"
@@ -47,10 +47,10 @@ def main(argv=None) -> int:
     a = ap.parse_args(argv)
     tickers, name = scope(a)
     con = store.init(a.db)
-    docs = _parsed(con, tickers)
+    docs, pv = _parsed(con, tickers), prompt_version()
     if a.pack or a.run:
         paths = write_tasks(docs)
-        print(f"{len(paths)} tasks in {paths[0].parent.relative_to(store.ROOT)} ({PROMPT_VERSION})")
+        print(f"{len(paths)} tasks in {paths[0].parent.relative_to(store.ROOT)} ({pv})")
     if a.pack:
         return 0
     if a.run:
@@ -100,7 +100,7 @@ def main(argv=None) -> int:
         except (Invalid, json.JSONDecodeError) as e:
             excs.append(_exc("extraction_failed", p["ticker"], p["accession"], f"{p['form']} {p['period']}: {getattr(e, 'reason', e)}"))
             runs.append({"run_id": run_id, "step": "extract", "subject": p["accession"], "started_at": run_id[8:], "seconds": 0.0,
-                         "outcome": "failed", "versions": json.dumps({"prompt": PROMPT_VERSION}), "detail": json.dumps({"error": str(getattr(e, 'reason', e))})})
+                         "outcome": "failed", "versions": json.dumps({"prompt": pv}), "detail": json.dumps({"error": str(getattr(e, 'reason', e))})})
             continue
         bad = 0
         for i, v in enumerate(obj["values"]):
@@ -121,7 +121,7 @@ def main(argv=None) -> int:
         meta = obj.get("_run", {})
         runs.append({"run_id": run_id, "step": "extract", "subject": p["accession"], "started_at": run_id[8:],
                      "seconds": round(time.monotonic() - t0, 3), "outcome": "ok" if not bad else "failed",
-                     "versions": json.dumps({"prompt": PROMPT_VERSION, "model": meta.get("model")}),
+                     "versions": json.dumps({"prompt": pv, "model": meta.get("model")}),
                      "detail": json.dumps({"values": len(obj["values"]), "unresolved": bad, "not_found": obj["not_found"], **meta})})
     # Duplicate period/field within one filing (e.g. two columns read as the same period) is itself a failure.
     seen, uniq = {}, []

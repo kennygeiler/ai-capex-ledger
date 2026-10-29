@@ -87,22 +87,23 @@ def tracked() -> list[dict]:
     return AI_SET + [c for c in added() if c["ticker"] not in known]
 
 
-MVP_TICKERS = [c["ticker"] for c in tracked()]
 MVP_YEARS = ["FY2022", "FY2023", "FY2024", "FY2025", "FY2026"]
 RELEASE_FIELDS = ["revenue", "capex", "opex"]  # what ships; opex = revenue − cost of revenue − operating income (docs/FIELDS.md)
 GOLDEN_SEED = 20261027  # seeds the random spot-checks a person (or the rendered-10-K re-read) confirms
 
-# Named company sets, each released and signed: one company, then 5, then all 19.
-STAGES = {
-    1: {"tickers": ["NVDA"], "release": "v0.1.0"},
-    2: {"tickers": ["NVDA", "MSFT", "CRWV", "ORCL", "APLD"], "release": "v0.2.0"},
-    3: {"tickers": MVP_TICKERS, "release": "v1.0.0"},
-}
+# Named company sets: one company, then 5, then every tracked company. Stage 3 is read at call time, so a company
+# added in DATAHQ joins it without a restart.
+STAGES = (1, 2, 3)
+_FIXED = {1: ["NVDA"], 2: ["NVDA", "MSFT", "CRWV", "ORCL", "APLD"]}
+
+
+def stage_tickers(n: int) -> list[str]:
+    return list(_FIXED[n]) if n in _FIXED else [c["ticker"] for c in tracked()]
 
 
 def add_scope(ap) -> None:
     """Every command runs on a stage or on any tickers (`--ticker X Y`)."""
-    ap.add_argument("--stage", type=int, choices=sorted(STAGES), help="a named company set (default 1)")
+    ap.add_argument("--stage", type=int, choices=STAGES, help="a named company set (default 1)")
     ap.add_argument("--ticker", nargs="+", help="any tickers, instead of a stage")
 
 
@@ -111,4 +112,4 @@ def scope(a) -> tuple[list[str], str]:
     if a.ticker:
         ts = sorted({t.upper() for t in a.ticker})
         return ts, "-".join(ts)
-    return STAGES[a.stage or 1]["tickers"], f"stage{a.stage or 1}"
+    return stage_tickers(a.stage or 1), f"stage{a.stage or 1}"

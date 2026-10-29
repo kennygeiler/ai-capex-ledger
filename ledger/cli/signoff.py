@@ -3,8 +3,7 @@ import argparse
 import json
 from datetime import datetime, timezone
 
-from ..release import content_hash
-from .release import RELEASES
+from ..release import RELEASES, content_hash
 
 
 def main(argv=None) -> int:

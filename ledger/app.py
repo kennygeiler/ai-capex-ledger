@@ -22,18 +22,18 @@ from urllib.parse import parse_qs, urlparse
 
 import duckdb
 
-from . import agents, store
+from . import agents, progress, store
 from .cli.report import build
 from .config import ADDED, STAGES, added, tracked
 from .ingest.edgar import fetch_tickers
 from .extract import OUTPUTS
 from .hq import snapshot
+from .release import RELEASES, releases
 from .review import decide, decisions, latest, open_items
 from .rules import load as load_rules
 
 PAGE = store.ROOT / "ledger" / "app.html"
 EVIDENCE = store.ROOT / "reports" / "evidence"
-RELEASES = store.ROOT / "releases"
 STAGE = 3
 
 
@@ -79,7 +79,7 @@ def company(ticker: str) -> dict:
         e["status"] = "note" if e["severity"] == "info" else "open" if e["exception_id"] in still else "decided"
         e["decision"] = d and d.get("input_hash") == e["input_hash"] and {k: d[k] for k in ("kind", "reason", "reviewer", "decided_at")} or None
         e["rule_title"] = rules.get(e["rule_id"], {}).get("title", e["rule_id"])
-    rel = sorted(RELEASES.glob("v*"), key=lambda p: [int(x) for x in p.name[1:].split(".")])
+    rel = releases()
     released = [r for r in csv.DictReader((rel[-1] / "values.csv").open()) if r["ticker"] == ticker] if rel else []
     info = next(c for c in tracked() if c["ticker"] == ticker)
     return {"ticker": ticker, "name": info["name"], "note": info.get("note"), "documents": docs, "skipped": skipped, "exceptions": excs,
@@ -111,8 +111,7 @@ def agents_view() -> dict:
 
 
 def latest_signed():
-    rel = sorted(RELEASES.glob("v*"), key=lambda p: [int(x) for x in p.name[1:].split(".")])
-    signed = [d for d in rel if (d / "SIGNOFF.json").exists()]
+    signed = [d for d in releases() if (d / "SIGNOFF.json").exists()]
     return signed[-1] if signed else None
 
 
@@ -158,10 +157,9 @@ def packet(version: str) -> bytes | None:
 
 
 def outputs() -> dict:
-    rel = sorted(RELEASES.glob("v*"), key=lambda p: [int(x) for x in p.name[1:].split(".")])
     names = {c["ticker"]: c["name"] for c in tracked()}
     out = []
-    for d in rel:
+    for d in releases():
         sig = json.loads((d / "SIGNOFF.json").read_text()) if (d / "SIGNOFF.json").exists() else {}
         out.append({"version": d.name, "signed_by": sig.get("signed_by"), "signed_at": sig.get("signed_at"), "packet": bool(sig) and (d / "README.md").exists(),
                     "rows": [{**r, "company": names.get(r["ticker"], r["ticker"])} for r in csv.DictReader((d / "values.csv").open())]})
@@ -188,14 +186,6 @@ def decide_items(ids: list[str], reason: str, by: str) -> dict:
 
 # ── Adding a company: one pipeline run at a time, in the background, its log read back as progress ───────────
 JOB = store.ROOT / "data" / "jobs" / "current.json"
-STEPS = [("ingest", "", "Find the 10-Ks at the SEC and locate the statements"),
-         ("extract", "--run", "The Reader agent reads each filing and cites every cell"),
-         ("extract", "--load", "Check every citation against the parsed table"),
-         ("reconcile", "", "Clean: one value per year, units and signs, newest filing, compare with SEC data"),
-         ("rules", "", "Run the 15 checks"),
-         ("faults", "", "Plant mistakes and confirm the checks catch them"),
-         ("evidence", "", "Re-read every cited cell on the rendered 10-K"),
-         ("report", "", "Write the review page")]
 _proc = None
 
 
@@ -223,59 +213,37 @@ def add_company(ticker: str, by: str) -> dict:
     return job()
 
 
-def _summary(cmd: str, extra: str, lines: list[str]) -> str:
-    """One plain sentence for a step, from what it printed."""
-    text = "\n".join(lines)
-    num = lambda rx: (m := re.search(rx, text)) and m.groups()
-    if cmd == "ingest" and (g := num(r"(\d+) filings parsed.*?(\d+) statements not located")):
-        return f"{g[0]} filings found; " + ("statements located in every one" if g[1] == "0" else f"{g[1]} statements not located")
-    if cmd == "extract" and extra == "--run":
-        read = re.findall(r": (\d+) values, [\d.]+s, (\d+) attempt", text)
-        return f"Read {len(read)} filing{'s' * (len(read) != 1)}, {sum(int(a) - 1 for _, a in read)} retries" if read else "Every filing was already read"
-    if cmd == "extract" and (g := num(r"(\d+) extractions loaded from (\d+) filings; (\d+) extraction_failed")):
-        return f"{g[0]} cited cells checked against the tables; {g[2]} failed"
-    if cmd == "reconcile" and (g := num(r"(\d+) fiscal-year values; labels (\{.*\})")):
-        agree = re.search(r"'agree': (\d+)", g[1])
-        return f"{g[0]} yearly values; {agree.group(1) if agree else 0} match the SEC's data"
-    if cmd == "rules" and (g := num(r"(\d+) rules, \d+ exceptions \((\d+) block, (\d+) warn, (\d+) info\)")):
-        return f"{g[0]} checks: {g[1]} blocking, {g[2]} warnings, {g[3]} note{'s' * (g[3] != '1')}"
-    if cmd == "faults":
-        rows = re.findall(r"^\w+\s+(\d+)\s+\d+\s+\d+\s+\d+\s+(\d+)$", text, re.M)
-        if rows:
-            return f"{sum(int(a) for a, _ in rows):,} planted mistakes, {sum(int(b) for _, b in rows)} got through"
-    if cmd == "evidence" and (g := num(r"(\d+) of (\d+) cited cells confirmed")):
-        return f"{g[0]} of {g[1]} cited cells confirmed on the rendered 10-K"
-    if cmd == "report" and "wrote" in text:
-        return "Review page written"
-    return lines[0] if lines else ""
+def _alive(pid: int) -> bool:
+    try:
+        os.kill(pid, 0)
+        return True
+    except OSError:
+        return False
 
 
 def job() -> dict | None:
-    """The latest run started from the app, read from its log: which step it is on and what each step said."""
+    """The latest run started from the app: which step it is on and what each step left, from data/jobs/progress.json
+    (written by `ledger run` after every step), plus the log's last lines for anything that went wrong."""
     if not JOB.exists():
         return None
     meta = json.loads(JOB.read_text())
+    p = progress.read()
+    mine = p if p and p.get("scope") == meta["ticker"] else None
+    done = {(s["step"], tuple(s["extra"])): s for s in (mine or {}).get("steps", [])}
+    ours = _proc is not None and _proc.pid == meta["pid"]
+    running = _proc.poll() is None if ours else bool(mine and mine["running"] and _alive(meta["pid"]))
+    if running:
+        code = None
+    elif ours:
+        code = _proc.returncode
+    else:
+        code = (2 if any(s["code"] == 2 for s in done.values()) else 0) if mine and not mine["running"] else None
+    steps, next_up = [], True
+    for cmd, extra, label in progress.STEPS:
+        s = done.get((cmd, tuple(extra)))
+        steps.append({"label": label, "state": "done" if s else "running" if running and next_up else "waiting", "summary": s["summary"] if s else ""})
+        next_up = next_up and bool(s)
     lines = Path(meta["log"]).read_text(errors="ignore").splitlines() if Path(meta["log"]).exists() else []
-    out, cur = [], None
-    for line in lines:
-        m = re.match(r"^== (\w+)\s*(\S*)", line)
-        if m and m.group(1) != "scorecard":
-            cur = next((s for s in out if (s["cmd"], s["extra"]) == (m.group(1), m.group(2))), None)
-            if not cur:
-                cur = {"cmd": m.group(1), "extra": m.group(2), "lines": []}
-                out.append(cur)
-        elif m:
-            cur = None
-        elif cur is not None and line.strip():
-            cur["lines"].append(line.rstrip())
-    running = _proc is not None and _proc.pid == meta["pid"] and _proc.poll() is None
-    code = None if running else (_proc.returncode if _proc is not None and _proc.pid == meta["pid"] else (0 if any("scorecard" in l for l in lines) else None))
-    steps = []
-    for i, (cmd, extra, label) in enumerate(STEPS):
-        s = next((x for x in out if (x["cmd"], x["extra"]) == (cmd, extra)), None)
-        last = out and (out[-1]["cmd"], out[-1]["extra"]) == (cmd, extra)
-        state = "waiting" if not s else ("running" if running and last else "done")
-        steps.append({"label": label, "state": state, "summary": _summary(cmd, extra, (s or {}).get("lines", [])) if s else ""})
     return {**meta, "running": running, "exit": code, "steps": steps, "tail": lines[-3:]}
 
 

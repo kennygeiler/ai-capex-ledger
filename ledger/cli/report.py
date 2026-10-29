@@ -31,7 +31,7 @@ def _days(s, e):
 
 
 def build(con, tickers: list[str], name: str) -> dict:
-    stage = next((n for n, st in STAGES.items() if f"stage{n}" == name), None)
+    stage = next((n for n in STAGES if f"stage{n}" == name), None)
     q = lambda sql, *p: [dict(zip([c[0] for c in con.execute(sql, list(p)).description], r)) for r in con.execute(sql, list(p)).fetchall()]
     docs = {d["accession"]: d for d in q("select * from documents where ticker in (select unnest(?))", tickers)}
     ext = {x["extraction_id"]: x for x in q("select * from extractions where ticker in (select unnest(?))", tickers)}
@@ -89,7 +89,7 @@ def build(con, tickers: list[str], name: str) -> dict:
                      "check": check.get((v["ticker"], v["field"], v["period"])),
                      "decision": (d := decided.get((v["ticker"], v["field"], v["period"]))) and {k: d[k] for k in ("kind", "reviewer", "reason")},
                      "why": explain(srcs[0]["accession"]) if srcs and (v["basis"] == "restated" or v["label"] == "unresolved") else None})
-    return {"stage": stage, "name": name, "tickers": tickers, "release": stage and STAGES[stage]["release"], "fields": RELEASE_FIELDS, "years": MVP_YEARS,
+    return {"stage": stage, "name": name, "tickers": tickers, "fields": RELEASE_FIELDS, "years": MVP_YEARS,
             "rules": {r["id"]: {k: r[k] for k in ("title", "plain", "action")} for r in load()},
             "scorecard": scorecard(con, tickers, name), "field_label": FIELD_LABEL, "method_label": METHOD_LABEL, "values": rows, "tables": tables, "exceptions": open_items(excs, decisions()) + [e for e in excs if e["severity"] == "info"],
             "counts": {"filings": len(docs), "extractions": len(ext), "values": len(vals),

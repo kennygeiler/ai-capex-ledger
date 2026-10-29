@@ -1,6 +1,6 @@
 import unittest
 
-from ledger.config import AI_SET, MVP_TICKERS, MVP_YEARS, STAGES, added
+from ledger.config import AI_SET, MVP_YEARS, STAGES, added, stage_tickers, tracked
 
 
 class Config(unittest.TestCase):
@@ -9,12 +9,12 @@ class Config(unittest.TestCase):
 
     def test_stages_grow_to_the_19_companies_plus_any_added(self):
         prev = set()
-        for n in sorted(STAGES):
-            self.assertTrue(prev <= set(STAGES[n]["tickers"]), f"stage {n} drops a company")
-            prev = set(STAGES[n]["tickers"])
-        self.assertEqual([len(STAGES[n]["tickers"]) for n in (1, 2)] + [len(AI_SET)], [1, 5, 19])
-        self.assertEqual(len(STAGES[3]["tickers"]), 19 + len({c["ticker"] for c in added()} - {c["ticker"] for c in AI_SET}))
-        self.assertEqual(set(STAGES[3]["tickers"]), set(MVP_TICKERS))
+        for n in STAGES:
+            self.assertTrue(prev <= set(stage_tickers(n)), f"stage {n} drops a company")
+            prev = set(stage_tickers(n))
+        self.assertEqual([len(stage_tickers(n)) for n in (1, 2)] + [len(AI_SET)], [1, 5, 19])
+        self.assertEqual(len(stage_tickers(3)), 19 + len({c["ticker"] for c in added()} - {c["ticker"] for c in AI_SET}))
+        self.assertEqual(stage_tickers(3), [c["ticker"] for c in tracked()])
 
 
 if __name__ == "__main__":

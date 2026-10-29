@@ -10,7 +10,7 @@ import re
 from datetime import date
 from dataclasses import asdict, dataclass
 
-from ..config import MVP_TICKERS, PREDECESSORS
+from ..config import PREDECESSORS, stage_tickers
 from .edgar import RAW, _cached, fetch_json, fetch_tickers
 
 FIRST_PERIOD = "2022-01-01"
@@ -56,7 +56,7 @@ def _all_rows(sub: dict, cik: int, refresh: bool):
 def list_filings(tickers: list[str] | None = None, refresh: bool = False) -> list[Filing]:
     tmap, _ = fetch_tickers()
     out = []
-    for t in tickers or MVP_TICKERS:
+    for t in tickers or stage_tickers(3):
         seen = set()
         # A company that reorganized under a new CIK (ExxonMobil, 2026) keeps its history under the old one.
         for cik in [tmap[t]["cik"]] + [p["cik"] for p in PREDECESSORS.get(t, [])]:

@@ -6,7 +6,13 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (28 Oct 2026, evening):** audit, Insights, client packet, the scale run to 31 companies, and `v1.1.0` signed.
+**Last done (28 Oct 2026, night):** a code-slop pass after the audit. Four fixes, no behaviour change for a buyer:
+- **Add-a-company progress reads data, not printed lines.** `ledger run` writes `data/jobs/progress.json` after every step (`ledger/progress.py`: which step, exit code, and a one-line summary counted from the store and the report files). DATAHQ's Add page reads that file; it no longer regex-parses the run's log. A run started before this change shows every step as waiting.
+- **One release-folder helper.** `release.releases()` and `version_key()` sort by version number everywhere; the old "previous release" lookup sorted by string, so `v1.10.0` would have diffed against the wrong release.
+- **No stale release label in config.** `STAGES` is the tuple `(1, 2, 3)` and `stage_tickers(n)` gives the companies; stage 3 is every tracked company, read fresh. The report page tells you to run `release <version>` instead of naming a version. Decision kinds live once, in `store.KINDS` (the unused `fix_rule` is gone).
+- **Prompt, model and stage 3 are read at call time** (`extract.prompt_version()`, `agent.model()`, `config.stage_tickers(3)`), so switching a prompt or model in DATAHQ takes effect without restarting the server, and a company added in the app joins stage 3 at once.
+
+**Before that (28 Oct, evening):** audit, Insights, client packet, the scale run to 31 companies, and `v1.1.0` signed.
 - **Audit fixes:** a prompt edit is saved as the next version and switched on as a second, logged step; the name you sign with lives once in the nav; the release tile shows the exact commands; every question says why code can't decide it.
 - **Insights** (`#insights`): on signed data only. Who pays (buyers' capex) and who gets paid (sellers' revenue), FY2022 → FY2025, and every company's capex, revenue and intensity. Each company in `config.AI_SET` and `data/companies.json` carries a role.
 - **Client packet:** every release now builds a `README.md` next to `values.csv`, `DATA_DICTIONARY.md` and `QUALITY.md`; DATAHQ serves a signed release as one zip at `/packet/<version>.zip` (Outputs page).

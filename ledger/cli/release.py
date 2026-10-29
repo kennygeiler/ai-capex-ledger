@@ -4,17 +4,14 @@ import csv
 import json
 
 from .. import store
-from ..config import STAGES
-from ..agent import MODEL
-from ..extract import PROMPT_VERSION
+from ..agent import model
+from ..config import STAGES, stage_tickers
+from ..extract import prompt_version
 from ..ingest.tables import PARSER_VERSION
-from ..release import GATES, build, content_hash, gates
+from ..release import GATES, RELEASES, build, content_hash, gates, releases, version_key
 from ..review import apply, decisions, open_items
 from ..rules import load
 from ..evidence import load_all
-
-RELEASES = store.ROOT / "releases"
-
 
 def _rows(con, sql, p):
     cur = con.execute(sql, p)
@@ -24,10 +21,10 @@ def _rows(con, sql, p):
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m ledger release")
     ap.add_argument("version")
-    ap.add_argument("--stage", type=int, default=1, choices=sorted(STAGES))
+    ap.add_argument("--stage", type=int, default=1, choices=STAGES)
     ap.add_argument("--db", default=str(store.DEFAULT_DB))
     a = ap.parse_args(argv)
-    con, tickers = store.init(a.db), [STAGES[a.stage]["tickers"]]
+    con, tickers = store.init(a.db), [stage_tickers(a.stage)]
     values = _rows(con, 'select * from "values" where ticker in (select unnest(?))', tickers)
     excs = _rows(con, "select * from exceptions where ticker in (select unnest(?))", tickers)
     exts = _rows(con, "select * from extractions where ticker in (select unnest(?))", tickers)
@@ -44,7 +41,7 @@ def main(argv=None) -> int:
         if failing["G5"] == ["no hand-check file"]:
             print(f"  (export the hand-check from reports/stage{a.stage}-validation.html to {hc_path.relative_to(store.ROOT)})")
         return 1
-    prev_dir = max((p for p in RELEASES.glob("v*") if p.name < a.version), default=None, key=lambda p: p.name)
+    prev_dir = ([p for p in releases() if version_key(p.name) < version_key(a.version)] or [None])[-1]
     previous = list(csv.DictReader((prev_dir / "values.csv").open())) if prev_dir else None
     files = build(a.version, apply(values, excs, ds), exts, excs, previous, confirmed)
     h = content_hash(files)
@@ -56,7 +53,7 @@ def main(argv=None) -> int:
     out.mkdir(parents=True)
     for name, text in files.items():
         (out / name).write_text(text)
-    manifest = {"version": a.version, "stage": a.stage, "hash": h, "files": sorted(files), "prompt": PROMPT_VERSION, "parser": PARSER_VERSION, "model": MODEL,
+    manifest = {"version": a.version, "stage": a.stage, "hash": h, "files": sorted(files), "prompt": prompt_version(), "parser": PARSER_VERSION, "model": model(),
                 "rules": {r["id"]: r["file_sha256"][:12] for r in load()}, "decisions": len(ds)}
     (out / "manifest.json").write_text(json.dumps(manifest, indent=1))
     print(f"built {a.version}: {len(values)} values, hash {h[:12]}. Sign with: python -m ledger signoff {a.version} --by \"<name>\"")

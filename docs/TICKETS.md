@@ -18,6 +18,7 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Done
 
+- **Slop pass (28 Oct, night):** DATAHQ progress from `data/jobs/progress.json`, not log regexes; one release-sort helper (string sort would have broken at `v1.10.0`); stale `STAGES` release labels and the unused `fix_rule` kind removed; prompt, model and stage-3 tickers read at call time.
 - **`v1.1.0` (28 Oct):** all 31 tracked companies, 384 values, signed by Kenny Geiler, hash 794fb2dfadae; 8 decisions by Kenny (cost lines ×4, XOM revenue definition ×4).
 
 - **Client packet (L1, L3, 28 Oct):** every release builds `README.md` (what the file is, every column, how to read a basis) next to `values.csv`, the dictionary and `QUALITY.md`; DATAHQ serves a signed release as one zip (`/packet/<version>.zip`); `DIFF.md` lists added values too.

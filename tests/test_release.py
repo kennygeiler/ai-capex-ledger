@@ -1,7 +1,7 @@
 """Decisions re-apply only on unchanged inputs; gates refuse; same inputs, same hash; the diff names changes."""
 import unittest
 
-from ledger.release import build, content_hash, gates, to_check
+from ledger.release import build, content_hash, gates, to_check, version_key
 from ledger.review import apply, open_items
 
 EXC = {"exception_id": "sign|NVDA|capex|FY2026", "rule_id": "sign", "severity": "block", "ticker": "NVDA", "field": "capex", "period": "FY2026", "input_hash": "h1", "message": "m"}
@@ -18,6 +18,13 @@ class Decisions(unittest.TestCase):
         later = {**DEC, "kind": "reject", "value": None, "decision_id": "d2"}
         self.assertEqual(apply([VAL], [EXC], [DEC, later])[0]["source"], "missing")
         self.assertEqual(apply([VAL], [EXC], [DEC])[0]["value"], 5)
+
+
+class Versions(unittest.TestCase):
+    def test_versions_sort_by_number_not_by_string(self):
+        names = ["v1.10.0", "v1.9.0", "v0.2.0", "v1.1.0"]
+        self.assertEqual(sorted(names, key=version_key), ["v0.2.0", "v1.1.0", "v1.9.0", "v1.10.0"])
+        self.assertNotEqual(sorted(names), sorted(names, key=version_key))
 
 
 class Gates(unittest.TestCase):

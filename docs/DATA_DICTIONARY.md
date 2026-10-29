@@ -139,7 +139,7 @@ Key: `(decision_id)`
 |---|---|---|---|---|
 | `decision_id` | VARCHAR | yes |  | Unique ID. |
 | `exception_id` | VARCHAR | yes |  | Exception decided. |
-| `kind` | VARCHAR | yes | `accept`, `override`, `reject`, `fix_rule` | accept, override, reject or fix_rule. |
+| `kind` | VARCHAR | yes | `accept`, `override`, `reject` | accept, override or reject. |
 | `value` | BIGINT | no |  | Override value, US dollars, unscaled. |
 | `reason` | VARCHAR | yes |  | Why. Required for every kind. |
 | `reviewer` | VARCHAR | yes |  | Who decided. |

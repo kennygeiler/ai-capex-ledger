@@ -11,27 +11,32 @@ import tempfile
 import time
 
 from . import agents
-from .extract import PROMPT_VERSION, Invalid, resolve, validate_output
-from .store import ROOT
+from .extract import Invalid, prompt_version, resolve, validate_output
 
-PROMPT = ROOT / "agents" / "prompts" / f"{PROMPT_VERSION}.md"
-MODEL = agents.load()["reader"]["llm"]["model"]  # pinned in agents/agents.json, so a rerun reads with the same model
 CLI = os.environ.get("LEDGER_CLAUDE", "claude")  # path to a newer claude when the installed one is too old
 # Only the basics: the desktop app's session variables route requests to its own token, not the user's login.
 ENV = {k: os.environ[k] for k in ("HOME", "PATH", "USER", "LANG") if k in os.environ}
-CMD = [CLI, "-p", "--output-format", "json", "--tools", "", "--model", MODEL, "--setting-sources", "project",
-       "--strict-mcp-config", "--disable-slash-commands", "--no-session-persistence"]
+
+
+def model() -> str:
+    """Pinned in agents/agents.json, read at call time, so a rerun uses what the file says now."""
+    return agents.load()["reader"]["llm"]["model"]
+
+
+def _cmd(m: str) -> list[str]:
+    return [CLI, "-p", "--output-format", "json", "--tools", "", "--model", m, "--setting-sources", "project",
+            "--strict-mcp-config", "--disable-slash-commands", "--no-session-persistence"]
 
 
 class AgentUnavailable(RuntimeError):
     """claude -p can't run at all (not logged in, not installed): stop, don't record per-filing failures."""
 
 
-def _ask(text: str) -> tuple[str, dict]:
+def _ask(text: str, m: str) -> tuple[str, dict]:
     t0 = time.monotonic()
     with tempfile.TemporaryDirectory() as cwd:  # an empty folder: no project instructions leak into the prompt
         try:
-            p = subprocess.run(CMD, input=text, capture_output=True, text=True, env=ENV, cwd=cwd, timeout=1200)
+            p = subprocess.run(_cmd(m), input=text, capture_output=True, text=True, env=ENV, cwd=cwd, timeout=1200)
         except FileNotFoundError as e:
             raise AgentUnavailable("the claude command is not installed") from e
     try:
@@ -42,7 +47,7 @@ def _ask(text: str) -> tuple[str, dict]:
         raise AgentUnavailable(f"claude -p failed: {str(d.get('result'))[:300]}")
     u = d.get("usage", {})
     used = d.get("modelUsage", {})
-    return d.get("result", ""), {"model": max(used, key=lambda k: used[k].get("outputTokens", 0)) if used else MODEL, "seconds": round(time.monotonic() - t0, 1),
+    return d.get("result", ""), {"model": max(used, key=lambda k: used[k].get("outputTokens", 0)) if used else m, "seconds": round(time.monotonic() - t0, 1),
                                  "input_tokens": u.get("input_tokens", 0) + u.get("cache_read_input_tokens", 0) + u.get("cache_creation_input_tokens", 0),
                                  "output_tokens": u.get("output_tokens", 0)}
 
@@ -59,11 +64,12 @@ def _json(text: str) -> dict:
 
 def extract(task: str, parsed: dict) -> dict:
     """Returns a valid output with `_run`, or raises Invalid with the last reason after one retry."""
-    base = f"{PROMPT.read_text()}\n\n---\n\n{task}\n\nReply with the JSON object only."
+    pv, m = prompt_version(), model()
+    base = f"{agents.prompt_text(pv)}\n\n---\n\n{task}\n\nReply with the JSON object only."
     run, reason = {"model": None, "seconds": 0.0, "input_tokens": 0, "output_tokens": 0, "attempts": 0}, None
     for _ in range(2):
-        text, m = _ask(base if not reason else f"{base}\n\nYour previous answer was rejected: {reason}\nFix that and reply with the JSON object only.")
-        run = {**run, "model": m["model"], "attempts": run["attempts"] + 1, **{k: round(run[k] + m[k], 1) for k in ("seconds", "input_tokens", "output_tokens")}}
+        text, u = _ask(base if not reason else f"{base}\n\nYour previous answer was rejected: {reason}\nFix that and reply with the JSON object only.", m)
+        run = {**run, "model": u["model"], "attempts": run["attempts"] + 1, **{k: round(run[k] + u[k], 1) for k in ("seconds", "input_tokens", "output_tokens")}}
         try:
             obj = _json(text)
             validate_output(obj, parsed["accession"])

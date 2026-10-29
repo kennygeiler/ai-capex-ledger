@@ -4,10 +4,9 @@ import json
 import uuid
 from datetime import datetime, timezone
 
-from .store import ROOT
+from .store import KINDS, ROOT
 
 LOG = ROOT / "decisions" / "decisions.jsonl"
-KINDS = ("accept", "override", "reject")
 
 
 def decisions() -> list[dict]:
