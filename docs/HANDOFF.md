@@ -1,0 +1,119 @@
+# Start here
+
+For a person, or an AI agent, who has just cloned this repository. Read this, then the README's Status block, then
+the document for whatever you are about to touch.
+
+## What this is, in four sentences
+
+A pipeline reads a company's SEC 10-K filings and returns revenue, capex and opex, each citing the exact table cell it
+came from, checked against the SEC's own XBRL data and re-read on the rendered filing. A second set of agents reads the
+notes, the MD&A, earnings releases and call transcripts for facts and statements about AI. An attributor reads a
+money-flow model for the company's industry and the cleaned data and says how much of the capex is AI, naming every
+input so code recomputes the number. A person edits the models and definitions, reruns, checks against a reference
+set, and signs a release; nobody is asked anything else.
+
+Built by Kenny Geiler in late October 2026 as a working prototype for a data-science role at Arctal. 31 companies,
+annual, fiscal years 2022 to 2026. See `docs/DATAHQ.md` for who Arctal is and why the app looks the way it does.
+
+## What a clone contains, and what it does not
+
+Tracked, so you have it on clone:
+
+- Code (`ledger/`), tests (`tests/`), the rules (`rules/*.yaml`), the agents' prompts and money-flow models
+  (`agents/`), per-company definitions (`definitions/companies.yaml`), the reference set (`gold/ai_capex.yaml`),
+  the investor-page links (`sources/ir.yaml`), the hand-check (`golden/`).
+- Every agent output, kept as evidence: `data/extract/outputs/` (statement cells), `data/notes/outputs/` (note
+  facts), `data/aispend/outputs/` (AI statements), `data/attribution/outputs/` (attributions). A rebuild reuses them;
+  no agent runs unless a task changes.
+- Signed releases (`releases/v*/`), the decisions log (`decisions/`), the reports and evidence screenshots
+  (`reports/`), and every document in `docs/`.
+
+Not tracked, rebuilt by `ledger run` (needs the network and about 30 minutes for all 31):
+
+- The database `data/ledger.duckdb`, the raw filings `data/raw/`, parsed tables `data/docs/`, MD&A and release texts
+  `data/text/`, the task files, snapshots, `data/watch.json`, the jobs folder, `data/resolutions.jsonl`, dry runs.
+
+## Setup
+
+```bash
+uv sync                                                     # Python 3.12, DuckDB, edgartools, pypdf, playwright
+echo 'SEC_USER_AGENT="Your Name you@example.com"' > .env     # the SEC requires a contact; never commit it
+claude                                                      # then /login: the agents run on a Claude subscription, headless
+export LEDGER_CLAUDE="$(which claude)"                      # the claude binary the pipeline should use
+uv run python -m unittest -q                                # 114 tests, offline, seconds
+```
+
+The `evidence` step drives the installed Google Chrome through Playwright. The `texts` step downloads PDFs from the
+links in `sources/ir.yaml`; it never renders investor pages (they sit behind a bot check, and code must not get
+around it; a person lists the links).
+
+## The five-minute tour
+
+```bash
+uv run python -m ledger run --ticker NVDA        # every step for one company, agents included, then the scorecard
+uv run python -m ledger run --stage 3            # all 31 (about 30 minutes on a fresh clone, mostly fetching and Chrome)
+LEDGER_CLAUDE="$(which claude)" uv run python -m ledger app   # DATAHQ at http://127.0.0.1:3610
+uv run python -m ledger eval                     # the attribution against the reference set
+uv run python -m ledger release v1.5.0 --stage 3 # refuses while a gate fails; then signoff, by the owner only
+```
+
+Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `python -m ledger` lists them.
+
+## The objects, and where each lives
+
+| Object | What it is | File or table | Doc |
+|---|---|---|---|
+| values | revenue, capex, opex per company and fiscal year, from statement cells | table `values`, `releases/*/values.csv` | `docs/FIELDS.md` |
+| facts | segment capex and revenue, PP&E by category, finance leases, purchase commitments, from the notes | tables `note_extractions`, `facts`, `facts.csv` | `docs/DATA_DICTIONARY.md` |
+| texts, statements | MD&A, 8-K releases, transcripts; what each says about AI's part of spend, as verbatim quotes | tables `texts`, `ai_statements`, `ai_spend`, `ai_spend.csv` | `docs/INGESTION.md` |
+| attribution | AI's part of capex and opex per company-year, with method, inputs and basis | table `attribution`, `attribution.csv` | `docs/INGESTION.md` (Attribution) |
+| money-flow models | per industry, where AI money shows up and which methods are allowed; versioned, never edited in place | `agents/models/<industry>@vN.md`, in use per `agents/agents.json` | `docs/FLOW.md` |
+| prompts | one per agent, versioned the same way | `agents/prompts/`, `agents/schemas/` | `agents/agents.json` |
+| definitions | judgements made once per company and applied every run | `definitions/companies.yaml` | README Critical notes |
+| reference set | sourced figures for AI's part of capex, with URL and quote | `gold/ai_capex.yaml` | `docs/INGESTION.md` (Evaluation) |
+| rules | the 16 checks, each with its rationale and owner | `rules/*.yaml`, `ledger/rules.py` | `docs/PRD.md` |
+| resolutions | what a person decided about a queue item | `data/resolutions.jsonl` (not tracked) | `docs/FLOW.md` |
+| releases | plain files whose content hash a person signs | `releases/v*/` | release `README.md` |
+
+## How to do the common things
+
+- **Add a company**: DATAHQ, `#run`, type the ticker; or `ledger run --ticker X`. It joins stage 3. Give it an
+  industry in `ledger/config.py` `INDUSTRIES`, or it gets the `other` model.
+- **Change how AI spend is attributed**: open the model in DATAHQ (Flow, Method stage, or the Attribution tab),
+  Edit, Save as New Version, Dry Run, then Use and Rerun the industry. Or edit `agents/models/`, register the version
+  in `agents/agents.json`, run `ledger attribution --stage 3 --run` then `--load`.
+- **Settle a disagreement with the SEC's data**: add a definition for the company in `definitions/companies.yaml`
+  (who, why), rerun `reconcile` and `rules`. Never accept the same thing twice.
+- **Tighten the error band**: add a sourced figure to `gold/ai_capex.yaml`, run `ledger eval`.
+- **Release**: `ledger release vX.Y.Z --stage 3` (refuses while a gate fails), then `ledger signoff vX.Y.Z --by
+  "<name>"`. Signing is the one human act and belongs to the owner.
+- **Find why something is wrong**: `docs/INGESTION.md` logs every failure type found so far (46), where it showed,
+  what caught it, what fixed it. Add to it.
+
+## The rules of the house
+
+1. After every commit, update the README Status block: last done, next, critical notes (`CLAUDE.md`).
+2. Only add what is needed. Remove stale files; old work lives in git tags.
+3. Pipeline first: fix the failure type, not the instance, and log it in `docs/INGESTION.md`.
+4. A person sees only surprises and judgement calls, and each one says why code could not decide it.
+5. No paid API: the agents run on a Claude subscription through `claude -p`.
+6. Never sign a release without the owner's explicit approval for that release.
+7. The SEC contact lives only in `.env`. Never commit it, never print it.
+8. Never get around a bot check. Investor-page links are listed by a person.
+9. Prompts and models are never edited in place; a change is the next version, switched on as a second step.
+10. The design rules for DATAHQ are in `docs/DATAHQ.md`; one thing per screen; numbers before words.
+
+## If you are an AI agent
+
+Read in this order: this file, README Status, `docs/FLOW.md`, `docs/INGESTION.md` (skim the tables), then the
+module you will change. Run the tests before and after. The invariants that must hold:
+
+- Every value in `values` resolves to a cell in a parsed table; `extract --load` rejects anything else.
+- Every attribution amount equals its method's arithmetic over inputs that exist in the data pack;
+  `attribution --load` rejects anything else.
+- A release is reproducible from its inputs: same inputs, same hash. Never edit a file under `releases/`.
+- `decisions/`, `data/resolutions.jsonl` and the agents' history are append-only.
+
+Verify, don't assert: the pipeline writes `runs`, snapshots, `data/jobs/progress.json`, `reports/evaluation.json`
+and `data/attribution/diff.json`; read them rather than the log. `rtk` wraps shell commands in some sessions and
+truncates long output; use `rtk proxy <cmd>` or a Python one-liner to read a full file or an HTTP body.

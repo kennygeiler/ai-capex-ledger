@@ -2,6 +2,8 @@
 
 A pipeline that takes a company's 10-K filings and returns revenue, capex and opex, each citing the exact cell it came from. AI agents read, code checks every citation, rules encode the judgement, XBRL serves as a free answer key, and a person reviews and signs each release. Success is measured by what the next company costs, not by how many are done.
 
+New here, person or agent? Read [docs/HANDOFF.md](docs/HANDOFF.md) first: what a clone contains, setup, the objects and where each lives, how to do the common things, the rules of the house.
+
 ## Status
 
 *Updated with every commit.*
