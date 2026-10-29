@@ -29,4 +29,15 @@ Three tabs, in the order the data flows, plus the company page they all open.
 
 **Company**. Attribution first, then what the company said, then the facts from the notes, then the released numbers and how each was cleaned down to the cell, then the filings and every check that fired.
 
+## Data first (31 Oct)
+
+Kenny's note after the first rebuild: the app explained in sentences what it should have shown in numbers and shapes. Second pass, same three tabs, every page now opens on data:
+
+- **Pipeline**: the coverage table is a heat grid, intensity per layer (values agreeing, texts, facts, statements), the attributed AI amount and a bar for its share; findings are counts by kind as bars, the list behind a disclosure; add-a-company sits beside them.
+- **Attribution**: the grid comes first, cells shaded by amount with the share under each; the model editor and the rerun sit below it on one row.
+- **Insights**: four charts in two rows (AI inside total capex by year; AI share per buyer over time; buyers' capex and AI capex against sellers' data-center revenue; AI capex per buyer for the latest year), then the evaluation as a dot plot: a tick for the reference, a shaded range for a floor or ceiling, a dot for ours, red when it disagrees. Sources behind a disclosure.
+- **Company**: a strip of six numbers (AI capex, share, capex, values agreeing, cells confirmed, facts), then capex with its AI part by year as bars, then the tables.
+
+Captions are one line; the only paragraph left is the attribution basis, which is the number's explanation.
+
 Design rules kept: no tags, italics, dividers, bordered boxes, section numbers or gradient heroes; one accent, red only for a failure; tabular numbers; running text under 65 characters where it is prose; both themes from the same tokens; phone width with a 16px gutter.

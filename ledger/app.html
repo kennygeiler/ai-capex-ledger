@@ -91,6 +91,19 @@
   table.grid td.cell:hover { color: var(--accent); }
   table.grid .note { font-size: .74rem; color: var(--muted); white-space: normal; max-width: 9rem; margin-left: auto; }
   .brk { white-space: pre-wrap; word-break: break-word; }
+  table.heat td.c { background: color-mix(in srgb, var(--accent) calc(var(--i, 0) * 38%), transparent); border-radius: 4px; padding-inline: .5rem; }
+  table.heat td.c .note { font-size: .74rem; color: var(--muted); }
+  table.heat th, table.heat td { padding-right: .5rem; }
+  table.heat td.w { width: 9rem; }
+  .mini { display: grid; grid-template-columns: 5rem auto; gap: .5rem; align-items: center; font-size: .82rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .mini i { display: block; height: 6px; border-radius: 3px; background: var(--accent); }
+  .track { position: relative; }
+  .track i { position: absolute; left: 0; top: 0; }
+  .track i.rest { background: var(--faint); filter: brightness(.93); }
+  .dots { display: grid; gap: .35rem; }
+  .dotrow { display: grid; grid-template-columns: 6rem 1fr minmax(8rem, auto); gap: .75rem; align-items: center; font-size: .82rem; }
+  .dotrow .v { color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+  @media (max-width: 44rem) { .dotrow { grid-template-columns: 4.5rem 1fr; } .dotrow .v { grid-column: 1 / -1; text-align: left; } }
   .steps { display: grid; gap: .8rem; }
   .stp { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; color: var(--muted); }
   .stp.done, .stp.running { color: var(--fg); }
@@ -347,6 +360,7 @@ function agentCard(a) {
   return card;
 }
 
+const COLORS = ['#2f5bd3', '#d9822b', '#2a9d8f', '#c43d6b', '#7a5cc4', '#6b8e23', '#8c6d46', '#3d8fc4'];  // fixed order: a colour follows its entity
 function lineChart(rows, years, tickers, ratio) {
   const W = 520, H = 240, L = 56, R = 64, T = 10, B = 26;
   const vals = rows.map((r) => r.value);
@@ -431,24 +445,44 @@ function jobBox(onDone, kind) {
   return box;
 }
 
+// ── Data-first pieces: a cell with intensity, a mini bar, year bars, a dot plot ──────────────────────────────────
+const heat = (v, max, text, cls) => h('td', {class: 'n c ' + (cls || ''), style: `--i:${Math.max(0, Math.min(1, max ? v / max : 0)).toFixed(3)}`}, text);
+const mini = (share, text) => h('div', {class: 'mini'}, h('i', {style: `width:${Math.max(0, Math.min(100, 100 * (share || 0))).toFixed(1)}%`}), h('span', {}, text));
+// One row per year: a dark AI part inside a light whole, labelled with both.
+function yearBars(rows, max) {
+  return h('div', {class: 'bars'}, rows.map((r) => h('div', {class: 'bar'}, h('span', {}, r.label, r.sub ? h('span', {class: 'muted small'}, ` · ${r.sub}`) : ''),
+    h('div', {class: 'track'}, h('i', {class: 'rest', style: `width:${(100 * r.whole / max).toFixed(2)}%`}), h('i', {style: `width:${(100 * (r.part || 0) / max).toFixed(2)}%`})),
+    h('span', {class: 'v'}, r.part != null ? `${usd(r.part)} of ${usd(r.whole)}` : usd(r.whole)))));
+}
+// Reference vs ours on a 0–100% axis: a bar for a floor or ceiling, a tick for a stated figure, a dot for ours.
+function dotPlot(rows) {
+  const W = 360, H = 22, L = 4, R = 4;
+  const x = (v) => L + (W - L - R) * Math.max(0, Math.min(1, v));
+  const ns = 'http://www.w3.org/2000/svg', s = (tag, a) => { const el = document.createElementNS(ns, tag); for (const [k, v] of Object.entries(a)) el.setAttribute(k, v); return el; };
+  return h('div', {class: 'dots'}, rows.map((r) => {
+    const svg = s('svg', {viewBox: `0 0 ${W} ${H}`, width: '100%', height: H, role: 'img', 'aria-label': `${r.ticker} ${r.period}`});
+    svg.append(s('line', {x1: L, x2: W - R, y1: H / 2, y2: H / 2, stroke: 'var(--faint)', 'stroke-width': 2}));
+    if (r.relation === 'ge') svg.append(s('rect', {x: x(r.reference), y: H / 2 - 4, width: x(1) - x(r.reference), height: 8, fill: 'var(--faint)'}));
+    if (r.relation === 'le') svg.append(s('rect', {x: x(0), y: H / 2 - 4, width: x(r.reference) - x(0), height: 8, fill: 'var(--faint)'}));
+    svg.append(s('line', {x1: x(r.reference), x2: x(r.reference), y1: 2, y2: H - 2, stroke: 'var(--muted)', 'stroke-width': 2}));
+    if (r.ours != null) svg.append(s('circle', {cx: x(r.ours), cy: H / 2, r: 5, fill: r.outcome === 'agree' ? 'var(--accent)' : 'var(--bad)'}));
+    return h('div', {class: 'dotrow'}, h('span', {}, `${r.ticker} ${r.period.slice(2)}`), svg,
+      h('span', {class: 'v'}, r.ours == null ? h('span', {class: 'muted'}, 'no estimate') : `${pct(r.ours)} vs ${({eq: '', ge: '≥', le: '≤'})[r.relation]}${pct(r.reference)}`));
+  }));
+}
+
 // ── Pipeline: ingested and cleaned, nobody in the loop ──────────────────────
 async function pipelinePage(view) {
   const d = await hq(true);
   const H = d.health[0];
   const W = d.watch, unread = W ? W.new.length : 0, oldCheck = !W || (Date.now() - new Date(W.checked_at)) > 2 * 864e5;
-  const blocked = d.questions.length;
-  const escaped = H.faults_escaped;
-  let shown = 8;
-  const findBox = h('div');
-  const drawFindings = () => findBox.replaceChildren(
-    table([{t: 'Company', k: 'company'}, {t: 'Year', k: 'period', f: (f) => f.period || '—'}, {t: 'What', k: 'kind', f: (f) => `${KIND[f.kind]}, ${(LABEL[f.field] || f.field || '').toLowerCase()}`},
-      {t: 'Change', sort: false, f: change}, {t: 'SEC data', k: 'confirmed', f: confirmedCell}], d.findings.slice(0, shown), {onRow: (f) => go('company/' + f.ticker)}),
-    d.findings.length > shown ? h('button', {type: 'button', class: 'small', style: 'margin-top:.5rem', onclick: () => { shown = d.findings.length; drawFindings(); }}, `Show all ${d.findings.length}`) : '');
-  drawFindings();
-
-  const ticker = h('input', {type: 'text', placeholder: 'Ticker, e.g. AVGO', 'aria-label': 'Ticker', style: 'width:11rem;text-transform:uppercase'});
-  const status = h('span', {class: 'muted small'});
-  const progress = h('div');
+  const blocked = d.questions.length, escaped = H.faults_escaped;
+  const cos = [...d.companies].sort((a, b) => (b.ai_capex?.ai_amount ?? -1) - (a.ai_capex?.ai_amount ?? -1) || a.company.localeCompare(b.company));
+  const maxF = Math.max(...cos.map((c) => c.facts), 1), maxS = Math.max(...cos.map((c) => c.ai_statements), 1), maxT = Math.max(...cos.map((c) => c.texts), 1);
+  const kinds = {};
+  for (const f of d.findings) { const k = `${KIND[f.kind]}${f.confirmed ? '' : ', unconfirmed'}`; kinds[k] = (kinds[k] || 0) + 1; }
+  const ticker = h('input', {type: 'text', placeholder: 'Ticker', 'aria-label': 'Ticker', style: 'width:8rem;text-transform:uppercase'});
+  const status = h('span', {class: 'muted small'}), progress = h('div');
   const addBtn = h('button', {type: 'button', class: 'btn', onclick: async () => {
     status.textContent = 'Starting…'; status.classList.remove('bad');
     try { await api('/api/companies', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ticker: ticker.value, by: me})}); status.textContent = ''; hqCache = null; progress.replaceChildren(jobBox(() => { hqCache = null; }, 'run')); }
@@ -456,105 +490,109 @@ async function pipelinePage(view) {
   }}, 'Add and run');
   ticker.addEventListener('keydown', (e) => { if (e.key === 'Enter') addBtn.click(); });
   progress.append(jobBox(null, 'run'));
+  let shown = 8;
+  const findBox = h('div');
+  const drawFindings = () => findBox.replaceChildren(
+    table([{t: 'Company', k: 'company'}, {t: 'Year', k: 'period', f: (f) => f.period || '—'}, {t: 'What', k: 'kind', f: (f) => `${KIND[f.kind]}, ${(LABEL[f.field] || f.field || '').toLowerCase()}`},
+      {t: 'Change', sort: false, f: change}, {t: 'SEC data', k: 'confirmed', f: confirmedCell}], d.findings.slice(0, shown), {onRow: (f) => go('company/' + f.ticker)}),
+    d.findings.length > shown ? h('button', {type: 'button', class: 'small', style: 'margin-top:.5rem', onclick: () => { shown = d.findings.length; drawFindings(); }}, `All ${d.findings.length}`) : '');
+  drawFindings();
 
-  const cov = (r) => (r.filings ? `${int(r.agree)} / ${int(r.values)}` : h('span', {class: 'muted small'}, 'no 10-K yet'));
   view.append(h('div', {class: 'stack'},
     h('header', {class: 'pagehead'}, h('h1', {}, 'Pipeline'),
-      h('p', {class: 'muted small'}, `Last full run ${H.full_run ? when(H.full_run.at) : when(H.run_at)} · `,
-        W ? h('span', {class: oldCheck || unread ? 'bad' : null}, `SEC checked ${when(W.checked_at)}${unread ? `, ${unread} new filing${unread > 1 ? 's' : ''} not read` : ', nothing new'}`) : h('span', {class: 'bad'}, 'SEC not checked'),
-        ` · nobody in the loop: definitions replace decisions, warnings are findings`)),
+      h('p', {class: 'muted small'}, `run ${H.full_run ? when(H.full_run.at) : when(H.run_at)} · `, W ? h('span', {class: oldCheck || unread ? 'bad' : null}, `SEC ${when(W.checked_at)}${unread ? `, ${unread} new` : ''}`) : h('span', {class: 'bad'}, 'SEC not checked'))),
     h('section', {class: 'figs'},
-      fig('Companies', int(H.companies), `${int(H.filings)} 10-Ks read`),
-      fig('Texts', int(H.texts), 'MD&A, releases, transcripts'),
-      fig('Values', `${int(H.agree)} / ${int(H.values)}`, "match the SEC's data; the rest explained by code", H.waiting > 0),
-      fig('Facts', int(H.facts), 'segments, PP&E, leases, commitments'),
+      fig('Companies', int(H.companies), `${int(H.filings)} 10-Ks`),
+      fig('Texts', int(H.texts), 'MD&A · releases · calls'),
+      fig('Values agree', `${int(H.agree)} / ${int(H.values)}`, 'with SEC data', H.waiting > 0),
+      fig('Facts', int(H.facts), 'from the notes'),
       fig('Cells confirmed', `${int(H.cells_confirmed)} / ${int(H.cells)}`, 'on the rendered 10-K', H.cells_confirmed < H.cells),
-      fig('Faults', `${int(escaped)} / ${int(H.faults)}`, 'planted mistakes got through', escaped > 0),
-      fig('Blocked', int(blocked), blocked ? 'needs a definition' : 'nothing blocks a release', blocked > 0)),
-    sect('Coverage by layer', 'one row per company; a thin row is a company to look at',
-      table([{t: 'Company', k: 'company', f: (r) => [r.company, ' ', h('span', {class: 'muted small'}, r.ticker)]},
-        {t: 'Industry', k: 'industry', f: (r) => INDUSTRY[r.industry] || r.industry},
-        {t: 'Values', k: 'agree', n: 1, f: cov},
-        {t: 'Facts', k: 'facts', n: 1, f: (r) => h('span', {class: r.facts ? null : 'muted'}, int(r.facts))},
-        {t: 'Statements', k: 'ai_statements', n: 1, f: (r) => h('span', {class: r.ai_statements ? null : 'muted'}, int(r.ai_statements))},
-        {t: 'AI capex', n: 1, s: (r) => r.ai_capex?.ai_amount ?? -1, f: (r) => (r.ai_capex && r.ai_capex.ai_amount != null ? [usd(r.ai_capex.ai_amount), h('div', {class: 'muted small'}, `${r.ai_capex.period} · ${METHOD[r.ai_capex.method]}`)] : h('span', {class: 'muted'}, r.ai_capex ? METHOD[r.ai_capex.method] : '—'))},
-        {t: 'Restated', k: 'restated', n: 1, wide: 1, f: (r) => h('span', {class: r.restated ? null : 'muted'}, int(r.restated))},
-        {t: 'Next 10-K', k: 'next_10k_expected', n: 1, wide: 1, f: (r) => day(r.next_10k_expected)}],
-        [...d.companies].sort((a, b) => (b.ai_capex?.ai_amount ?? -1) - (a.ai_capex?.ai_amount ?? -1) || a.company.localeCompare(b.company)), {onRow: (r) => go('company/' + r.ticker)})),
-    sect('What happened at the companies', "a finding the SEC's data can't confirm is worth a look, not a decision", d.findings.length ? findBox : h('p', {class: 'muted'}, 'Nothing unusual.')),
-    sect('Add a company', 'any ticker the SEC lists; every step runs, the agents on the subscription',
-      h('div', {class: 'row', style: 'margin-bottom:1rem'}, ticker, addBtn, status), progress),
-    h('p', {class: 'muted small'}, h('a', {href: '#agents'}, 'The readers’ prompts'), ' · ', h('a', {href: '#releases'}, 'Releases and packets'), ' · ',
-      d.pipeline.every((s) => s.ok) || d.pipeline.filter((s) => !s.ok).every((s) => s.step === "Match the SEC's data") ? 'every pipeline step passed' : h('span', {class: 'bad'}, d.pipeline.filter((s) => !s.ok).map((s) => `${s.step} ${int(s.done)} / ${int(s.of)}`).join(', ')))));
+      fig('Faults through', `${int(escaped)} / ${int(H.faults)}`, 'planted mistakes', escaped > 0),
+      fig('Blocked', int(blocked), blocked ? 'needs a definition' : 'nothing', blocked > 0)),
+    sect('Coverage by layer', 'intensity is the row’s depth in that layer; the last column is the latest attributed AI share',
+      h('div', {class: 'scroll'}, h('table', {class: 'heat'},
+        h('thead', {}, h('tr', {}, h('th', {}, 'Company'), h('th', {class: 'n'}, 'Values'), h('th', {class: 'n'}, 'Texts'), h('th', {class: 'n'}, 'Facts'), h('th', {class: 'n'}, 'Statements'), h('th', {class: 'n'}, 'AI capex'), h('th', {}, 'Share'))),
+        h('tbody', {}, cos.map((c) => h('tr', {class: 'click', onclick: () => go('company/' + c.ticker)},
+          h('td', {}, c.company, ' ', h('span', {class: 'muted small'}, c.ticker)),
+          heat(c.values ? c.agree / c.values : 0, 1, c.filings ? `${int(c.agree)} / ${int(c.values)}` : '—'),
+          heat(c.texts, maxT, int(c.texts)), heat(c.facts, maxF, int(c.facts)), heat(c.ai_statements, maxS, c.ai_statements ? int(c.ai_statements) : '—'),
+          h('td', {class: 'n'}, c.ai_capex && c.ai_capex.ai_amount != null ? usd(c.ai_capex.ai_amount) : h('span', {class: 'muted'}, c.ai_capex ? METHOD[c.ai_capex.method] : '—')),
+          h('td', {class: 'w'}, c.ai_capex && c.ai_capex.ai_amount != null ? mini(c.ai_capex.ai_share, `${pct(c.ai_capex.ai_share)} ${c.ai_capex.period.slice(2)}`) : ''))))))),
+    h('div', {class: 'two'},
+      sect('Findings', `${d.findings.length} · SEC data agrees with ${d.findings.filter((f) => f.confirmed).length}`,
+        bars(Object.entries(kinds).sort((a, b) => b[1] - a[1]).map(([k, v]) => ({name: k, pct: 100 * v / Math.max(...Object.values(kinds)), v: int(v), cls: /unconfirmed/.test(k) ? 'bad' : null}))),
+        h('details', {style: 'margin-top:.8rem'}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Every finding'), findBox)),
+      sect('Add a company', 'every step runs; agents on the subscription', h('div', {class: 'row', style: 'margin-bottom:1rem'}, ticker, addBtn, status), progress)),
+    h('p', {class: 'muted small'}, h('a', {href: '#agents'}, 'Readers’ prompts'), ' · ', h('a', {href: '#releases'}, 'Releases'), ' · ',
+      d.pipeline.every((s) => s.ok) || d.pipeline.filter((s) => !s.ok).every((s) => s.step === "Match the SEC's data") ? 'every step passed' : h('span', {class: 'bad'}, d.pipeline.filter((s) => !s.ok).map((s) => `${s.step} ${int(s.done)} / ${int(s.of)}`).join(', ')))));
 }
 
-// ── Attribution: the method is the product ──────────────────────────────────
+// ── Attribution: the grid first, the method under it ────────────────────────
 let attrInd = 'hyperscaler';
 async function attributionPage(view) {
   const d = await api('/api/attribution');
   const inds = Object.keys(d.models);
   if (!d.models[attrInd]) attrInd = inds[0];
-  const editor = h('div');
+  const rows = d.rows.filter((r) => r.field === 'capex' && r.kind === 'actual');
+  const years = [...new Set(rows.map((r) => r.period))].sort();
+  const by = new Map(rows.map((r) => [`${r.ticker}|${r.period}`, r]));
+  const peak = (t) => Math.max(0, ...rows.filter((r) => r.ticker === t).map((r) => r.ai_amount || 0));
+  const tickers = [...new Set(rows.map((r) => r.ticker))].sort((a, b) => peak(b) - peak(a) || a.localeCompare(b));
+  const maxA = Math.max(...rows.map((r) => r.ai_amount || 0), 1);
+  const panel = h('div', {style: 'margin-top:1rem'});
+  const grid = h('div', {class: 'scroll'}, h('table', {class: 'heat'},
+    h('thead', {}, h('tr', {}, h('th', {}, 'AI capex'), years.map((y) => h('th', {class: 'n'}, y.slice(2))))),
+    h('tbody', {}, tickers.map((t) => h('tr', {}, h('td', {}, h('a', {href: '#company/' + t}, t)), years.map((y) => {
+      const r = by.get(`${t}|${y}`);
+      if (!r) return h('td', {class: 'n muted'}, '');
+      const cell = r.ai_amount != null ? heat(r.ai_amount, maxA, [h('div', {}, usd(r.ai_amount)), h('div', {class: 'note'}, pct(r.ai_share))]) : h('td', {class: 'n c', style: '--i:0'}, h('span', {class: 'muted small'}, r.method === 'none' ? '·' : 'words'));
+      cell.classList.add('cell'); cell.tabIndex = 0;
+      cell.addEventListener('click', () => panel.replaceChildren(h('h3', {style: 'margin:0 0 .4rem'}, `${t} ${y}: ${r.ai_amount != null ? usd(r.ai_amount) : 'no AI amount'} · ${METHOD[r.method]} · confidence ${pct(r.confidence)}`),
+        h('p', {}, r.basis), h('p', {class: 'muted small mono', style: 'margin-top:.4rem'}, r.inputs || '—'), h('p', {class: 'muted small'}, `model ${r.model}`)));
+      return cell;
+    }))))));
+  const editor = h('div'), status = h('span', {class: 'muted small'}), progress = h('div');
   const pick = h('select', {'aria-label': 'Industry', onchange: (e) => { attrInd = e.target.value; drawEditor(); }},
     inds.map((i) => h('option', {value: i, selected: i === attrInd || null}, `${INDUSTRY[i] || i} · ${d.models[i].companies.join(', ') || 'no company'}`)));
-  const status = h('span', {class: 'muted small'});
-  const progress = h('div');
   const rerun = (ind) => h('button', {type: 'button', class: 'btn', onclick: async () => {
     status.textContent = 'Starting…'; status.classList.remove('bad');
     try { await api('/api/attribute', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({industry: ind, by: me})}); status.textContent = ''; progress.replaceChildren(jobBox(() => route(), 'attribution')); }
     catch (e) { status.textContent = e.message; status.classList.add('bad'); }
-  }}, ind ? `Rerun ${INDUSTRY[ind]}` : 'Rerun every company');
+  }}, ind ? `Rerun ${INDUSTRY[ind]}` : 'Rerun all');
   function drawEditor() {
     const m = d.models[attrInd];
     let shown = m.version;
     const text = h('textarea', {readonly: true, 'aria-label': 'Model text', spellcheck: 'false'});
-    const verSel = h('select', {'aria-label': 'Model version', onchange: (e) => { shown = e.target.value; show(); }},
-      m.versions.map((v) => h('option', {value: v, selected: v === m.version || null}, v === m.version ? `${v} (in use)` : v)));
+    const verSel = h('select', {'aria-label': 'Model version', onchange: (e) => { shown = e.target.value; show(); }}, m.versions.map((v) => h('option', {value: v, selected: v === m.version || null}, v === m.version ? `${v} (in use)` : v)));
     const note = h('input', {type: 'text', placeholder: 'What changed and why', 'aria-label': 'What changed and why', style: 'flex:1;min-width:14rem'});
     const editBtn = h('button', {type: 'button', onclick: () => { text.readOnly = false; editRow.hidden = false; editBtn.hidden = true; useBtn.hidden = true; text.focus(); }}, 'Edit');
     const useBtn = h('button', {type: 'button', onclick: () => post('use', {version: shown}, `Now using ${shown}. Rerun the industry to see the effect.`)}, 'Use this version');
     const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('save', {text: text.value, note: note.value}, (r) => `Saved as ${r.version}; not in use until you switch it on.`)}, 'Save as new version');
     const cancelBtn = h('button', {type: 'button', onclick: show}, 'Cancel');
     const editRow = h('div', {class: 'row', hidden: true}, note, saveBtn, cancelBtn);
-    function show() { text.value = m.texts[shown]; text.readOnly = true; editRow.hidden = true; editBtn.hidden = false; useBtn.hidden = shown === m.version; text.style.height = 'auto'; text.style.height = Math.min(700, text.scrollHeight + 4) + 'px'; }
+    function show() { text.value = m.texts[shown]; text.readOnly = true; editRow.hidden = true; editBtn.hidden = false; useBtn.hidden = shown === m.version; text.style.height = 'auto'; text.style.height = Math.min(600, text.scrollHeight + 4) + 'px'; }
     async function post(what, body, done) {
       status.textContent = 'Saving…';
       try { const r = await api(`/api/models/${attrInd}/${what}`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({...body, by: me})}); status.textContent = typeof done === 'function' ? done(r) : done; setTimeout(route, 1200); }
       catch (e) { status.textContent = e.message; status.classList.add('bad'); }
     }
-    editor.replaceChildren(h('div', {class: 'row', style: 'margin-bottom:.8rem'}, verSel, editBtn, useBtn, rerun(attrInd)), text, editRow);
+    editor.replaceChildren(h('div', {class: 'row', style: 'margin-bottom:.8rem'}, pick, verSel, editBtn, useBtn, rerun(attrInd), rerun(null), status), text, editRow);
     queueMicrotask(show);
   }
   drawEditor();
   progress.append(jobBox(null, 'attribution'));
-
-  const rows = d.rows.filter((r) => r.field === 'capex' && r.kind === 'actual');
-  const years = [...new Set(rows.map((r) => r.period))].sort();
-  const by = new Map(rows.map((r) => [`${r.ticker}|${r.period}`, r]));
-  const tickers = [...new Set(rows.map((r) => r.ticker))].sort((a, b) => (Math.max(...rows.filter((r) => r.ticker === b).map((r) => r.ai_amount || 0)) - Math.max(...rows.filter((r) => r.ticker === a).map((r) => r.ai_amount || 0))) || a.localeCompare(b));
-  const panel = h('div', {style: 'margin-top:1rem'});
-  const grid = h('div', {class: 'scroll'}, h('table', {class: 'grid'},
-    h('thead', {}, h('tr', {}, h('th', {}, 'AI capex'), years.map((y) => h('th', {class: 'n'}, y)))),
-    h('tbody', {}, tickers.map((t) => h('tr', {}, h('td', {}, h('a', {href: '#company/' + t}, t)), years.map((y) => {
-      const r = by.get(`${t}|${y}`);
-      if (!r) return h('td', {class: 'n muted'}, '—');
-      return h('td', {class: 'n cell', tabindex: 0, onclick: () => panel.replaceChildren(h('h3', {style: 'margin:0 0 .4rem'}, `${t} ${y}: ${r.ai_amount != null ? usd(r.ai_amount) : 'no AI amount'} · ${METHOD[r.method]}`),
-          h('p', {}, r.basis), h('p', {class: 'muted small mono', style: 'margin-top:.4rem'}, r.inputs || '—'), h('p', {class: 'muted small'}, `confidence ${pct(r.confidence)} · model ${r.model}`))},
-        h('div', {}, r.ai_amount != null ? usd(r.ai_amount) : h('span', {class: 'muted'}, '—')), h('div', {class: 'note'}, r.ai_amount != null ? `${pct(r.ai_share)} · ${METHOD[r.method]}` : METHOD[r.method]));
-    }))))));
-  const diff = d.diff;
+  const diff = d.diff, methods = {};
+  for (const r of d.rows) methods[r.method] = (methods[r.method] || 0) + 1;
   view.append(h('div', {class: 'stack'},
     h('header', {class: 'pagehead'}, h('h1', {}, 'How much of the capex is AI'),
-      h('p', {class: 'lede'}, 'The attributor reads the money-flow model for the company’s industry and the company’s data, and names every input; code recomputes each number. Edit a model here, save it as the next version, switch it on, rerun the industry. Nothing is re-read from filings.')),
+      h('p', {class: 'muted small'}, `${rows.filter((r) => r.ai_amount != null).length} of ${rows.length} company-years carry an amount · ${Object.entries(methods).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${v} ${METHOD[k]}`).join(' · ')}`)),
+    sect('AI capex by company and year', 'intensity is the amount; the small number is the share of capex; click a cell for the basis and inputs', grid, panel),
     h('div', {class: 'split'},
-      sect('Money-flow models', `prompt ${d.prompt}`, h('div', {class: 'row', style: 'margin-bottom:.8rem'}, pick), editor, h('p', {class: 'row', style: 'margin-top:.6rem'}, status)),
-      sect('Last rerun', null, progress, diff ? h('div', {class: 'kv', style: 'margin-top:.8rem'},
-        [['Changed', diff.changed], ['New', diff.new], ['Removed', diff.removed]].flatMap(([k, v]) => [h('span', {class: 'muted'}, k), h('span', {}, int(v))]),
-        h('span', {class: 'muted small', style: 'grid-column:1/-1'}, `loaded ${when(diff.at)} for ${diff.scope}`),
-        diff.rows && diff.rows.length ? h('div', {style: 'grid-column:1/-1;margin-top:.4rem'}, diff.rows.slice(0, 12).map((r) => h('div', {class: 'small'}, h('span', {class: 'mono'}, r.key), ` ${r.before[0]} ${r.before[1] != null ? usd(r.before[1]) : ''} → ${r.after[0]} ${r.after[1] != null ? usd(r.after[1]) : ''}`))) : '')
-        : h('p', {class: 'muted'}, 'No load yet.'), h('div', {class: 'row', style: 'margin-top:1rem'}, rerun(null)))),
-    sect('AI capex by company and year', 'click a cell for the basis and the inputs', grid, panel),
-    h('p', {class: 'muted small'}, 'Methods, hardest first: ', Object.entries(METHOD_NOTE).map(([k, v], i) => [i ? ' · ' : '', h('b', {style: 'font-weight:500'}, METHOD[k]), `: ${v}`]))));
+      sect('Money-flow models', `prompt ${d.prompt} · edit, save as the next version, switch on, rerun the industry`, editor),
+      sect('Last rerun', diff ? `${when(diff.at)} · ${diff.scope}` : null, progress,
+        diff ? h('div', {class: 'kv', style: 'margin-top:.8rem'}, [['Changed', diff.changed], ['New', diff.new], ['Removed', diff.removed]].flatMap(([k, v]) => [h('span', {class: 'muted'}, k), h('span', {}, int(v))]),
+          diff.rows && diff.rows.length ? h('div', {style: 'grid-column:1/-1;margin-top:.4rem'}, diff.rows.slice(0, 12).map((r) => h('div', {class: 'small'}, h('span', {class: 'mono'}, r.key), ` ${r.before[0]} ${r.before[1] != null ? usd(r.before[1]) : ''} → ${r.after[0]} ${r.after[1] != null ? usd(r.after[1]) : ''}`))) : '')
+          : h('p', {class: 'muted'}, 'No load yet.')))));
 }
 
 // ── Insights: the AI buildout in the live numbers ───────────────────────────
@@ -564,44 +602,32 @@ async function insightsPage(view) {
   const yrs = d.by_year.filter((y) => y.buyers > 0);
   const latest = d.latest.filter((c) => c.role === 'buyer');
   const maxC = Math.max(...yrs.map((y) => y.capex), 1);
+  const tick = Object.keys(d.series).filter((t) => Object.values(d.series[t]).every((v) => v.share == null || v.share <= 1)).sort((a, b) => (Math.max(...Object.values(d.series[b]).map((v) => v.ai_amount || 0)) - Math.max(...Object.values(d.series[a]).map((v) => v.ai_amount || 0)))).slice(0, 8);
+  const shareRows = tick.flatMap((t) => Object.entries(d.series[t]).filter(([, v]) => v.share != null).map(([y, v]) => ({ticker: t, company: d.names[t], period: y, value: v.share})));
+  const years = d.years.filter((y) => yrs.some((r) => r.period === y));
+  const flowRows = yrs.flatMap((y) => [{ticker: 'Buyers’ AI capex', company: 'Buyers’ AI capex', period: y.period, value: y.ai_capex}, {ticker: 'Buyers’ capex', company: 'Buyers’ capex', period: y.period, value: y.capex}].concat(y.sellers ? [{ticker: 'Sellers’ DC revenue', company: 'Sellers’ DC revenue', period: y.period, value: y.sellers_dc}] : []));
   view.append(h('div', {class: 'stack'},
     h('header', {class: 'pagehead'}, h('h1', {}, 'The AI buildout'),
-      h('p', {class: 'muted small'}, `From the current run, not a signed release. ${d.release ? `The signed release ${d.release} carries ${d.release_has_attribution ? 'this attribution' : 'values and statements only'}.` : 'No signed release yet.'} Fiscal years are each company’s own.`)),
-    sect('Buyers’ AI capex against their total capex', 'dark: attributed to AI; light: the rest of capex at companies with an attribution; faint: companies with none',
-      stackedBars(yrs.map((y) => ({label: y.period.replace('FY', ''), parts: [y.ai_capex, y.capex_covered - y.ai_capex, y.capex - y.capex_covered], total: y.capex, n: y.buyers})), maxC)),
+      h('p', {class: 'muted small'}, `live tables · signed ${d.release || 'none'}${d.release && !d.release_has_attribution ? ' (values and statements only)' : ''} · fiscal years are each company’s own`)),
     h('div', {class: 'two'},
-      sect('AI capex, latest year', 'buyers; the method says what kind of number it is',
-        bars(latest.map((c) => ({name: `${c.company} ${c.period.slice(2)}`, pct: 100 * c.ai_amount / (latest[0]?.ai_amount || 1), v: `${usd(c.ai_amount)} · ${pct(c.share)} · ${METHOD[c.method]}`, cls: c.method === 'ppe_category' ? 'note' : null})))),
-      sect('Who gets paid', 'sellers’ data-center revenue, from the segment notes, beside buyers’ AI capex',
-        h('div', {class: 'scroll'}, table([{t: 'Year', k: 'period', sort: false, f: (y) => y.period.replace('FY', '')},
-          {t: 'Buyers’ AI capex', n: 1, sort: false, f: (y) => usd(y.ai_capex)}, {t: 'Buyers’ capex', n: 1, sort: false, f: (y) => usd(y.capex)},
-          {t: 'Sellers’ DC revenue', n: 1, sort: false, f: (y) => (y.sellers ? [usd(y.sellers_dc), h('div', {class: 'muted small'}, `${y.sellers} sellers`)] : h('span', {class: 'muted'}, '—'))}], yrs)),
-        h('p', {class: 'muted small', style: 'margin-top:.6rem'}, 'Sellers’ data-center revenue counts only sellers whose segment note names a data-center line; Nvidia and AMD so far.'))),
-    ev && sect('How wrong is it', `${ev.n} sourced reference figures · we have a number for ${ev.with_estimate}: ${ev.agree} agree, ${ev.disagree} disagree · ${ev.no_estimate} without an estimate`,
-      table([{t: 'Company', k: 'ticker'}, {t: 'Year', k: 'period'}, {t: 'Reference', sort: false, f: (r) => `${({eq: '', ge: '≥ ', le: '≤ '})[r.relation]}${r.measure === 'share' ? pct(r.reference) : usd(r.reference)}`},
-        {t: 'Ours', sort: false, f: (r) => (r.ours == null ? h('span', {class: 'muted'}, 'no estimate') : r.measure === 'share' ? pct(r.ours) : usd(r.ours))},
-        {t: 'Method', k: 'method', f: (r) => (r.method ? METHOD[r.method] : '—')},
-        {t: 'Outcome', k: 'outcome', f: (r) => h('span', {class: r.outcome === 'disagree' ? 'bad' : r.outcome === 'agree' ? 'muted' : null}, r.outcome.replace('_', ' '))}],
-        ev.rows, {detail: (r) => h('div', {class: 'src'}, h('div', {}, r.basis), h('div', {class: 'muted small'}, `“${r.source.quote}” · `, h('a', {href: r.source.url, target: '_blank', rel: 'noopener'}, 'source'), ` · ${r.source.date || ''}`))}),
-      h('p', {class: 'muted small', style: 'margin-top:.6rem'}, 'Every reference entry names its source and what it measures; a server share includes CPUs, a "vast majority" is a floor. Add an entry to gold/ai_capex.yaml when you find a sourced figure. ', Object.entries(ev.bands).map(([m, b]) => `${METHOD[m]}: ${b.agree} of ${b.n} agree${b.median_abs_error != null ? `, median error ${pct(b.median_abs_error)} on ${b.n_eq}` : ''}`).join('; '), '.')),
+      sect('Buyers’ AI capex inside their total capex', 'dark: attributed to AI · light: the rest', yearBars(yrs.map((y) => ({label: y.period.slice(2), sub: `${y.buyers} buyers`, part: y.ai_capex, whole: y.capex})), maxC)),
+      sect('AI share of capex, by buyer', 'companies whose share stays within capex; an accrual segment above 100% (Applied Digital) is on its own page', lineChart(shareRows, years, tick, true))),
+    h('div', {class: 'two'},
+      sect('Buyers’ spend and sellers’ data-center revenue', 'the money flow; sellers counted only where the segment note names a data-center line', lineChart(flowRows, years, ['Buyers’ capex', 'Buyers’ AI capex', 'Sellers’ DC revenue'], false)),
+      sect('AI capex, latest year', 'buyers · the method says what kind of number it is', bars(latest.map((c) => ({name: `${c.company} ${c.period.slice(2)}`, pct: 100 * c.ai_amount / (latest[0]?.ai_amount || 1), v: `${usd(c.ai_amount)} · ${pct(c.share)} · ${METHOD[c.method]}`, cls: c.method === 'ppe_category' ? 'note' : null}))))),
+    ev && sect('How wrong is it', `${ev.n} sourced reference figures · ${ev.agree} agree · ${ev.disagree} disagree · ${ev.no_estimate} without an estimate`,
+      dotPlot(ev.rows.filter((r) => r.measure === 'share')),
+      ev.rows.filter((r) => r.measure === 'amount').length ? h('p', {class: 'muted small', style: 'margin-top:.4rem'}, ev.rows.filter((r) => r.measure === 'amount').map((r) => `${r.ticker} ${r.period}: reference ${({eq: '', ge: '≥ ', le: '≤ '})[r.relation]}${usd(r.reference)}, ours ${r.ours == null ? 'no estimate' : usd(r.ours)}`).join(' · ')) : '',
+      h('details', {style: 'margin-top:.6rem'}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Sources and what each figure measures'),
+        table([{t: 'Company', k: 'ticker'}, {t: 'Year', k: 'period'}, {t: 'Measures', k: 'basis', wide: 1}, {t: 'Source', sort: false, f: (r) => h('a', {href: r.source.url, target: '_blank', rel: 'noopener'}, r.source.kind.replace('_', ' '))}], ev.rows)),
+      h('p', {class: 'muted small', style: 'margin-top:.6rem'}, Object.entries(ev.bands).map(([m, b]) => `${METHOD[m]}: ${b.agree} of ${b.n} agree${b.median_abs_error != null ? `, median error ${pct(b.median_abs_error)} (n=${b.n_eq})` : ''}`).join(' · '), ' · add a sourced figure to gold/ai_capex.yaml to tighten it')),
     sect('Every attributed company', null,
       table([{t: 'Company', k: 'company'}, {t: 'Industry', k: 'industry', f: (c) => INDUSTRY[c.industry]}, {t: 'Year', k: 'period'},
-        {t: 'AI capex', k: 'ai_amount', n: 1, f: (c) => usd(c.ai_amount)}, {t: 'Capex', k: 'capex', n: 1, f: (c) => usd(c.capex)}, {t: 'Share', k: 'share', n: 1, f: (c) => pct(c.share)},
-        {t: 'Method', k: 'method', f: (c) => METHOD[c.method]}, {t: 'Confidence', k: 'confidence', n: 1, f: (c) => pct(c.confidence)}], d.latest, {onRow: (c) => go('company/' + c.ticker)})),
-    h('p', {class: 'muted small'}, 'Method mix across every attributed company-year: ', Object.entries(d.methods).sort((a, b) => b[1] - a[1]).map(([k, v], i) => `${i ? ', ' : ''}${v} ${METHOD[k]}`), '. Server-category growth counts all server and network growth, not only AI; it is the hardest number a hyperscaler’s 10-K gives.')));
+        {t: 'AI capex', k: 'ai_amount', n: 1, f: (c) => usd(c.ai_amount)}, {t: 'Capex', k: 'capex', n: 1, f: (c) => usd(c.capex)}, {t: 'Share', k: 'share', f: (c) => mini(c.share, pct(c.share))},
+        {t: 'Method', k: 'method', f: (c) => METHOD[c.method]}, {t: 'Confidence', k: 'confidence', n: 1, f: (c) => pct(c.confidence)}], d.latest, {onRow: (c) => go('company/' + c.ticker)}))));
 }
 
-// Horizontal stacked bars: one row per year, three parts of one whole.
-function stackedBars(rows, max) {
-  return h('div', {class: 'bars'}, rows.map((r) => {
-    const w = (v) => `${Math.max(0, 100 * v / max)}%`;
-    return h('div', {class: 'bar'}, h('span', {}, r.label, h('span', {class: 'muted small'}, ` · ${r.n} buyers`)),
-      h('div', {class: 'track'}, h('i', {style: `width:${w(r.parts[0])};float:left`}), h('i', {class: 'note', style: `width:${w(r.parts[1])};float:left;opacity:.35`}), h('i', {class: 'note', style: `width:${w(r.parts[2])};float:left;opacity:.15`})),
-      h('span', {class: 'v'}, `${usd(r.parts[0])} of ${usd(r.total)}`));
-  }));
-}
-
-// ── Company: the attribution first, then down to the cells ──────────────────
+// ── Company: numbers first, then down to the cells ──────────────────────────
 async function companyPage(view, ticker) {
   const d = await hq();
   ticker ||= d.companies[0].ticker;
@@ -613,25 +639,36 @@ async function companyPage(view, ticker) {
   const findings = d.findings.filter((f) => f.ticker === ticker), questions = d.questions.filter((q) => q.ticker === ticker);
   const cells = c.values.flatMap((v) => v.sources), confirmed = cells.filter((s) => s.machine && s.machine.match).length;
   const read = docs.filter((x) => x.agent && x.agent.outcome === 'ok').length;
-  const best = c.attribution.filter((a) => a.field === 'capex' && a.kind === 'actual' && a.ai_amount != null).sort((a, b) => b.period.localeCompare(a.period))[0];
+  const capex = Object.fromEntries(c.values.filter((v) => v.field === 'capex' && v.value != null).map((v) => [v.period, v.value]));
+  const attr = Object.fromEntries(c.attribution.filter((a) => a.field === 'capex' && a.kind === 'actual').map((a) => [a.period, a]));
+  const years = Object.keys(capex).sort();
+  const best = years.map((y) => attr[y]).filter((a) => a && a.ai_amount != null).pop();
   view.append(h('div', {class: 'stack'},
     h('header', {class: 'pagehead'}, h('h1', {}, c.name),
-      h('p', {class: 'muted small'}, [c.ticker, INDUSTRY[info.industry] || '', docs.length ? `${docs.length} 10-Ks` : 'no 10-K yet', `${int(info.texts)} texts`, `${int(sc.values)} values`, `${int(info.facts)} facts`, c.note].filter(Boolean).join(' · ')),
-      best ? h('p', {class: 'lede'}, h('b', {}, `${usd(best.ai_amount)} of ${best.period} capex attributed to AI`), ` (${pct(best.ai_share)}, ${METHOD[best.method]}, confidence ${pct(best.confidence)}). ${best.basis}`) : h('p', {class: 'lede'}, 'No AI capex amount attributed: ', c.attribution.find((a) => a.field === 'capex')?.basis || 'nothing attributed yet.')),
+      h('p', {class: 'muted small'}, [c.ticker, INDUSTRY[info.industry] || '', docs.length ? `${docs.length} 10-Ks` : 'no 10-K yet', c.note].filter(Boolean).join(' · '))),
+    h('section', {class: 'figs'},
+      fig('AI capex', best ? usd(best.ai_amount) : '—', best ? `${best.period} · ${METHOD[best.method]}` : 'no amount attributed'),
+      fig('Share of capex', best ? pct(best.ai_share) : '—', best ? `confidence ${pct(best.confidence)}` : ''),
+      fig('Capex', years.length ? usd(capex[years[years.length - 1]]) : '—', years.length ? years[years.length - 1] : ''),
+      fig('Values agree', `${int(sc.agree)} / ${int(sc.values)}`, 'with SEC data'),
+      fig('Cells confirmed', `${confirmed} / ${cells.length}`, 'on the rendered 10-K', cells.length && confirmed < cells.length),
+      fig('Facts', int(info.facts), `${int(info.texts)} texts · ${int(info.ai_statements)} statements`)),
+    years.length > 0 && sect('Capex and its AI part, by year', best ? best.basis : (c.attribution.find((a) => a.field === 'capex')?.basis || ''),
+      yearBars(years.map((y) => ({label: y.slice(2), sub: attr[y] ? METHOD[attr[y].method] : '', part: attr[y]?.ai_amount ?? null, whole: capex[y]})), Math.max(...years.map((y) => capex[y])))),
     questions.length > 0 && sect('Blocked', 'needs a definition in definitions/companies.yaml', h('ul', {class: 'plain'}, questions.map((q) => h('li', {}, h('b', {}, q.title), ' ', h('span', {class: 'muted'}, q.message))))),
-    c.attribution.length > 0 && sect('AI attribution', `model ${c.attribution[0].model} · click a row for the basis and inputs`, attributionTable(c.attribution)),
-    c.ai_spend.length > 0 && sect('What the company said', `${c.ai_spend.filter((a) => a.ai_amount != null).length} of ${c.ai_spend.length} statements give an AI dollar amount`, aiTable(c.ai_spend)),
-    c.facts.length > 0 && sect('Facts from the notes', `${c.facts.filter((f) => f.label === 'agree').length} of ${c.facts.length} agree with the filing's own XBRL`, factsTable(c.facts)),
-    docs.length > 0 && sect('The numbers', `${int(sc.agree)} of ${int(sc.values)} match the SEC's data`, valueGrid(c.values, false)),
-    docs.length > 0 && sect('How each number was cleaned', 'from the cell in the 10-K to the released value', cleaningTable(c.values)),
-    findings.length > 0 && sect('What happened', "a finding the SEC's data can't confirm is worth a look, not a decision", table([{t: 'Year', k: 'period', f: (f) => f.period || '—'}, {t: 'What', k: 'kind', f: (f) => `${KIND[f.kind]}, ${(LABEL[f.field] || f.field || '').toLowerCase()}`}, {t: 'Change', sort: false, f: change}, {t: 'SEC data', k: 'confirmed', f: confirmedCell}], findings)),
-    sect('Filings', `${read} of ${docs.length} read by the agent · ${confirmed} of ${cells.length} cited cells re-read on the filing`,
+    c.attribution.length > 0 && sect('AI attribution', `model ${c.attribution[0].model}`, attributionTable(c.attribution)),
+    c.ai_spend.length > 0 && sect('What the company said', `${c.ai_spend.filter((a) => a.ai_amount != null).length} of ${c.ai_spend.length} with an AI dollar amount`, aiTable(c.ai_spend)),
+    c.facts.length > 0 && sect('Facts from the notes', `${c.facts.filter((f) => f.label === 'agree').length} of ${c.facts.length} agree with the filing’s XBRL`, factsTable(c.facts)),
+    docs.length > 0 && sect('The numbers', `${int(sc.agree)} of ${int(sc.values)} match SEC data`, valueGrid(c.values, false)),
+    docs.length > 0 && sect('How each number was cleaned', 'cell → value', cleaningTable(c.values)),
+    findings.length > 0 && sect('Findings', null, table([{t: 'Year', k: 'period', f: (f) => f.period || '—'}, {t: 'What', k: 'kind', f: (f) => `${KIND[f.kind]}, ${(LABEL[f.field] || f.field || '').toLowerCase()}`}, {t: 'Change', sort: false, f: change}, {t: 'SEC data', k: 'confirmed', f: confirmedCell}], findings)),
+    sect('Filings', `${read} of ${docs.length} read`,
       docs.length ? table([{t: 'Form', k: 'form'}, {t: 'Year end', k: 'period', f: (x) => day(x.period)}, {t: 'Filed', k: 'filed', f: (x) => day(x.filed)},
         {t: 'Accession', k: 'accession', f: (x) => h('a', {href: x.url, target: '_blank', rel: 'noopener', class: 'mono'}, x.accession)},
         {t: 'Agent', s: (x) => x.agent?.outcome, f: (x) => h('span', {class: x.agent?.outcome === 'ok' ? 'muted' : 'bad'}, x.agent ? (x.agent.outcome === 'ok' ? `read, ${x.agent.detail.attempts || 1} tr${(x.agent.detail.attempts || 1) > 1 ? 'ies' : 'y'}` : x.agent.detail.error || x.agent.outcome) : 'not read')},
         {t: 'Tokens', n: 1, wide: 1, s: (x) => tok(x), f: (x) => (tok(x) ? int(tok(x)) : '—')}], docs, {detail: (x) => rawAnswer(x.accession)}) : h('p', {class: 'muted'}, 'No 10-K yet.'),
       c.skipped.length ? h('p', {class: 'muted small', style: 'margin-top:.5rem'}, `Skipped: ${c.skipped.map((s) => `${s.form} for the year ended ${day(s.period)} (no financial statements)`).join('; ')}.`) : ''),
-    c.exceptions.length > 0 && h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, `Every check that fired (${c.exceptions.length}), including notes and decided items`),
+    c.exceptions.length > 0 && h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, `Every check that fired (${c.exceptions.length})`),
       table([{t: 'Check', k: 'rule_id', f: (e) => e.rule_id.replaceAll('_', ' ')}, {t: 'Field', k: 'field', f: (e) => LABEL[e.field] || e.field || '—'}, {t: 'Year', k: 'period', f: (e) => e.period || '—'},
         {t: 'Status', k: 'status', f: (e) => (e.status === 'decided' ? `decided by ${e.decision?.reviewer || '—'}` : e.status)}],
         c.exceptions, {detail: (e) => h('div', {class: 'src'}, h('div', {}, e.message), e.decision && h('div', {class: 'muted'}, `${e.decision.reviewer}, ${day(e.decision.decided_at)}: ${e.decision.reason}`))}))));

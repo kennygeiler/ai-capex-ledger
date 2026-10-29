@@ -179,9 +179,13 @@ def insights() -> dict:
     methods = {}
     for a in attr:
         methods[a["method"]] = methods.get(a["method"], 0) + 1
+    series = {}  # per buyer with any attributed amount: year -> capex, AI amount, method
+    for (t, y), a in ai.items():
+        if roles.get(t) == "buyer" and any(x["ai_amount"] is not None for (tt, _), x in ai.items() if tt == t):
+            series.setdefault(t, {})[y] = {"capex": capex.get((t, y)), "ai_amount": a["ai_amount"], "share": a["ai_share"], "method": a["method"]}
     rel = latest_signed()
     sig = json.loads((rel / "SIGNOFF.json").read_text()) if rel else {}
-    return {"years": years, "by_year": by_year, "latest": sorted(latest, key=lambda x: -x["ai_amount"]), "methods": methods,
+    return {"years": years, "by_year": by_year, "latest": sorted(latest, key=lambda x: -x["ai_amount"]), "methods": methods, "series": series, "names": names,
             "release": rel.name if rel else None, "signed_by": sig.get("signed_by"), "signed_at": sig.get("signed_at"),
             "release_has_attribution": bool(rel and (rel / "attribution.csv").exists())}
 

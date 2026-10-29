@@ -6,7 +6,9 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (31 Oct 2026):** a measured error. The role inside a firm owns a number others act on, so the number needs a reference set and an error band, not an agent's confidence.
+**Last done (31 Oct 2026, later):** DATAHQ data first. Every page opens on numbers and shapes: a coverage heat grid on Pipeline, the shaded AI-capex grid first on Attribution, four charts and an evaluation dot plot on Insights, a six-number strip and capex-with-AI-part bars on the company page. Prose cut to one-line captions (`docs/DATAHQ.md`, "Data first"). `v1.4.0` built, unsigned.
+
+**Before that (31 Oct):** a measured error. The role inside a firm owns a number others act on, so the number needs a reference set and an error band, not an agent's confidence.
 - **Reference set** `gold/ai_capex.yaml`: sourced figures for AI's part of capex (what the company said on a call, or an independent estimate), each with URL, quote, date and a line on what it measures. Six entries so far, all company statements; add one whenever a sourced figure turns up, never from memory.
 - **`ledger eval`** (in `ledger run` after attribution): scores every attribution row against the set: coverage, agreement within 10%, error on entries that state a figure, by method. `reports/EVALUATION.md`, `EVALUATION.md` in every release, a QUALITY line, and "How wrong is it" on the Insights tab.
 - **Result:** we have a number for 5 of 6; 2 agree (Oracle, Amazon), 3 disagree (Microsoft 61% vs at most half; Alphabet FY2025 68% vs 60% stated, FY2024 56% vs a ≥90% floor that measures all technical infrastructure); Tesla has no estimate. Server-category growth overstates the server share because the category includes finance-lease assets and software (type 46); the error is now stated beside the number.
