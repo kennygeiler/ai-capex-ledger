@@ -138,6 +138,9 @@
   table.heat td.moved { box-shadow: inset 3px 0 0 var(--accent); }
   .badge { font: 500 .7rem/1 var(--font); color: var(--muted); padding: .1rem .3rem; border-radius: 3px; background: var(--bar); }
   .badge:hover { background: color-mix(in srgb, var(--accent) 24%, transparent); }
+  .stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1.5rem 2rem; }
+  .stage ul.plain { padding-left: 0; list-style: none; }
+  .stage li { margin: .2rem 0; }
   .steps { display: grid; gap: .8rem; }
   .stp { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; color: var(--muted); }
   .stp.done, .stp.running { color: var(--fg); }
@@ -149,10 +152,11 @@
 <a class="skip" href="#view">Skip to content</a>
 <div class="wrap">
   <div class="bar"><nav>
-    <a class="brand" href="#data">DATAHQ</a>
+    <a class="brand" href="#flow">DATAHQ</a>
+    <a href="#flow" data-nav="flow">Flow</a>
     <input class="search" id="jump" name="jump" type="text" list="tickers" placeholder="Ticker or company…" aria-label="Jump to a company" autocomplete="off" spellcheck="false">
     <datalist id="tickers"></datalist>
-    <a href="#data" data-nav="data">Data</a>
+    <a href="#data" data-nav="data">Dataset</a>
     <a href="#attribution" data-nav="attribution">Attribution</a>
     <a href="#status" data-nav="status">Status</a>
     <a href="#releases" data-nav="releases">Releases</a>
@@ -171,7 +175,7 @@ const h = (tag, attrs = {}, ...kids) => {
     if (v == null || v === false) continue;
     if (k.startsWith('on')) el.addEventListener(k.slice(2), v); else if (k === 'class') el.className = v; else el.setAttribute(k, v === true ? '' : v);
   }
-  for (const c of kids.flat()) if (c != null && c !== false) el.append(c instanceof Node ? c : String(c));
+  for (const c of kids.flat(Infinity)) if (c != null && c !== false) el.append(c instanceof Node ? c : String(c));
   return el;
 };
 const int = (n) => (n == null || n === '' ? '—' : Number(n).toLocaleString('en-US'));
@@ -632,6 +636,119 @@ async function dataPage(view, qs) {
     chartBox));
 }
 
+// ── Flow: the job. A queue of issues, the four stages as context, ending at release ─────────────────────────────
+const STATE = {blocked: 'Blocked', disagrees: 'Disagrees', new: 'New', moved: 'Moved', look: 'Look'};
+const ACTION = {run: 'Run', definition: 'Add a definition', method: 'Open the model', release: 'Release', open: 'Open'};
+const QKIND = {new_filing: 'New filing at the SEC, not read', blocked: 'Blocked: needs a definition', reference_disagrees: 'Attribution disagrees with a stated reference',
+  fact_changed: 'Fact changed since the last release', fact_differs: 'Fact differs from the filing’s XBRL tag', attribution_moved: 'Attribution moved in the last load', finding_unconfirmed: 'Finding the SEC’s data can’t confirm'};
+let attrCache = null, showResolved = false;
+async function openModel(ind) {
+  attrCache ||= await api('/api/attribution');
+  const m = attrCache.models[ind];
+  let shown = m.version;
+  const status = h('span', {class: 'muted small', 'aria-live': 'polite'});
+  const text = h('textarea', {readonly: true, 'aria-label': 'Model text', spellcheck: 'false', style: 'min-height:18rem'});
+  const verSel = h('select', {'aria-label': 'Model version', onchange: (e) => { shown = e.target.value; show(); }}, m.versions.map((v) => h('option', {value: v, selected: v === m.version || null}, v === m.version ? `${v} (in use)` : v)));
+  const note = h('input', {type: 'text', placeholder: 'What changed and why…', 'aria-label': 'What changed and why', style: 'flex:1;min-width:12rem'});
+  const editBtn = h('button', {type: 'button', onclick: () => { text.readOnly = false; editRow.hidden = false; editBtn.hidden = true; useBtn.hidden = true; text.focus(); }}, 'Edit');
+  const useBtn = h('button', {type: 'button', onclick: () => post('use', {version: shown}, `Now using ${shown}. Rerun the industry.`)}, 'Use This Version');
+  const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('save', {text: text.value, note: note.value}, (r) => `Saved as ${r.version}; not in use until switched on.`)}, 'Save as New Version');
+  const cancelBtn = h('button', {type: 'button', onclick: show}, 'Cancel');
+  const editRow = h('div', {class: 'row', hidden: true}, note, saveBtn, cancelBtn);
+  const rerunBtn = h('button', {type: 'button', class: 'btn', onclick: async () => {
+    status.textContent = 'Starting…';
+    try { await api('/api/attribute', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({industry: ind, by: me})}); status.textContent = 'Running; the queue updates when it ends.'; setTimeout(route, 1500); }
+    catch (e) { status.textContent = e.message; status.classList.add('bad'); }
+  }}, `Rerun ${INDUSTRY[ind]}`);
+  function show() { text.value = m.texts[shown]; text.readOnly = true; editRow.hidden = true; editBtn.hidden = false; useBtn.hidden = shown === m.version; text.style.height = 'auto'; text.style.height = Math.min(520, text.scrollHeight + 4) + 'px'; }
+  async function post(what, body, done) {
+    status.textContent = 'Saving…';
+    try { const r = await api(`/api/models/${ind}/${what}`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({...body, by: me})}); status.textContent = typeof done === 'function' ? done(r) : done; attrCache = null; setTimeout(route, 1200); }
+    catch (e) { status.textContent = e.message; status.classList.add('bad'); }
+  }
+  drawer(h('h3', {}, `${INDUSTRY[ind]} model`), h('p', {class: 'muted small', style: 'margin-bottom:.6rem'}, m.companies.join(', ') || 'no company'),
+    h('div', {class: 'row', style: 'margin-bottom:.6rem'}, verSel, editBtn, useBtn, rerunBtn, status), text, editRow);
+  queueMicrotask(show);
+}
+
+async function flowPage(view, qs) {
+  const q = parseQ(qs || '');
+  const scope = q.scope || 'all';
+  const d = await api('/api/flow?scope=' + encodeURIComponent(scope));
+  const scopeSel = h('select', {'aria-label': 'Scope', onchange: (e) => go('flow?scope=' + e.target.value)},
+    h('option', {value: 'all', selected: scope === 'all' || null}, 'All companies'),
+    d.industries.map((i) => h('option', {value: i, selected: scope === i || null}, INDUSTRY[i] || i)),
+    Object.keys(d.names).sort().map((t) => h('option', {value: t, selected: scope === t || null}, `${d.names[t]} (${t})`)));
+  const X = d.extracted, A = d.attribution, R = d.release, E = d.insight.evaluation, C = d.changed;
+  const queue = d.queue.filter((x) => showResolved || !x.resolution || x.resolution.state === 'fix' || x.resolution.state === 'blocks');
+  const resolved = d.queue.length - queue.length;
+  const gaps = [];
+  if (X.values - X.values_agree - X.values_explained) gaps.push(`${X.values - X.values_agree - X.values_explained} values differ from the SEC’s data`);
+  if (X.facts_differ) gaps.push(`${X.facts_differ} facts differ from the filing’s tags`);
+  if (X.cells_confirmed < X.cells) gaps.push(`${X.cells - X.cells_confirmed} cited cells not confirmed on the rendered filing`);
+  if (C.new_filings.length) gaps.push(`${C.new_filings.length} filings at the SEC not read`);
+  const stage = (title, lines, actions) => h('div', {class: 'stage'}, h('h2', {}, title), h('ul', {class: 'plain'}, lines.map((l) => h('li', {}, l))), actions ? h('div', {class: 'row', style: 'margin-top:.5rem'}, actions) : '');
+  const kv = (n, l) => [h('b', {style: 'font-weight:500'}, int(n)), ' ', l];
+  const stages = h('div', {class: 'stages'},
+    stage('Extracted', gaps.length ? gaps : [`${int(X.filings)} filings, ${int(X.values)} values, ${int(X.facts)} facts, ${int(X.statements)} statements: no gaps`],
+      [h('a', {href: `#data?${scope !== 'all' && d.tickers.length === 1 ? 't=' + d.tickers[0] + '&' : ''}f=capex`, class: 'small'}, 'Open the dataset')]),
+    stage('Method', d.method.models.filter((m) => queue.some((x) => m.companies.includes(x.ticker)) || d.method.models.length === 1).map((m) => [`${INDUSTRY[m.industry]}: ${m.version}`, h('span', {class: 'muted small'}, ` (${m.companies.length} compan${m.companies.length === 1 ? 'y' : 'ies'}) `), h('button', {type: 'button', class: 'small', onclick: () => openModel(m.industry)}, 'edit or rerun')]).concat([h('span', {class: 'muted small'}, `prompt ${d.method.prompt}`)])),
+    stage('Attribution', [A.diff ? kv(A.diff.changed, `moved in the last load (${day(A.diff.at)})`) : 'no load yet',
+        E.n ? [kv(E.agree, `of ${int(E.n)} references agree`), E.disagree ? h('span', {class: 'bad'}, `, ${int(E.disagree)} disagree`) : '', E.no_estimate ? h('span', {class: 'muted'}, `, ${int(E.no_estimate)} without an estimate`) : ''] : 'no reference for this scope'],
+      [h('a', {href: `#data?${scope !== 'all' && d.tickers.length === 1 ? 't=' + d.tickers[0] + '&' : ''}f=ai_capex`, class: 'small'}, 'Open the grid'), h('a', {href: '#attribution', class: 'small'}, 'Every method')]),
+    stage('Release', [R.last ? `Last signed: ${R.last}` : 'Nothing signed yet', R.blocks ? h('span', {class: 'bad'}, `${int(R.blocks)} item${R.blocks > 1 ? 's' : ''} block the next release`) : R.unresolved ? h('span', {class: 'bad'}, `Gates pass, but ${int(R.unresolved)} item${R.unresolved > 1 ? 's' : ''} unresolved below`) : 'Nothing blocks the next release',
+        `Since ${R.last || 'the start'}: ${int(R.values_changed)} values, ${int(R.facts_changed)} facts, ${int(R.attribution_moved)} attributions changed`, h('span', {class: 'small'}, R.note)],
+      [h('a', {href: '#releases', class: 'small'}, 'Releases'), h('button', {type: 'button', class: 'small', onclick: () => drawer(h('h3', {}, 'Release the dataset'), h('p', {}, R.note), h('pre', {class: 'raw', style: 'margin-top:.8rem'}, R.commands.join('\n')), h('p', {class: 'muted small', style: 'margin-top:.6rem'}, 'A release refuses while a gate fails; signing is the one human act.'))}, 'Change note and commands')]));
+  const rowsBox = queue.length ? table([{t: 'State', k: 'state', f: (x) => [h('span', {class: x.state === 'blocked' || x.state === 'disagrees' ? 'bad' : x.state === 'look' ? 'muted' : null}, STATE[x.state]), x.new ? h('div', {class: 'muted small'}, 'new since ' + (R.last || 'start')) : '', x.resolution ? h('div', {class: 'muted small'}, `${x.resolution.state} by ${x.resolution.by}`) : '']},
+    {t: 'At stake', k: 'dollars', n: 1, f: (x) => (x.dollars ? usd(x.dollars) : h('span', {class: 'muted'}, '—'))},
+    {t: 'Company', k: 'ticker', f: (x) => d.names[x.ticker] || x.ticker}, {t: 'What', sort: false, f: (x) => [QKIND[x.kind], h('div', {class: 'muted small'}, x.where)]},
+    {t: 'Touches', sort: false, f: (x) => h('span', {class: 'small'}, x.impact), wide: 1},
+    {t: 'Action', sort: false, f: (x) => h('button', {type: 'button', class: 'small', onclick: (e) => { e.stopPropagation(); act(x); }}, ACTION[x.action])}], queue, {onRow: (x) => openItem(x)})
+    : h('p', {class: 'muted'}, 'Nothing to do for this scope: no new filings, nothing blocked, nothing disagrees, nothing moved.');
+  function act(x) {
+    if (x.action === 'method') return openModel(d.method.models.find((m) => m.companies.includes(x.ticker))?.industry || d.method.models[0].industry);
+    if (x.action === 'release') return drawer(h('h3', {}, 'Release'), h('p', {}, R.note), h('pre', {class: 'raw', style: 'margin-top:.8rem'}, R.commands.join('\n')));
+    if (x.action === 'run') return go('run');
+    if (x.action === 'definition') return drawer(h('h3', {}, 'Add a definition'), h('p', {}, 'A judgement made once per company, applied every run: which lines are cost of revenue, or which line is revenue when the SEC’s tag is wider. Add it with your name and why, then rerun reconcile and rules.'), h('pre', {class: 'raw', style: 'margin-top:.8rem'}, 'definitions/companies.yaml\n\n' + x.ticker + ':\n  cost_lines:\n    lines: [...]\n    why: ...\n    by: ' + me + '\n    at: ' + new Date().toISOString().slice(0, 10)));
+    openItem(x);
+  }
+  function openItem(x) {
+    const det = x.detail || {};
+    const trail = [h('a', {href: `#data?t=${x.ticker}&f=capex,ai_capex`}, `${d.names[x.ticker] || x.ticker}: the dataset`)];
+    const body = [h('h3', {}, QKIND[x.kind]), h('p', {class: 'muted small', style: 'margin-bottom:.8rem'}, `${d.names[x.ticker] || x.ticker}, ${x.where}`), h('p', {}, h('b', {style: 'font-weight:500'}, 'Touches: '), x.impact)];
+    if (x.kind === 'reference_disagrees') body.push(h('p', {style: 'margin-top:.6rem'}, `Ours ${det.measure === 'share' ? pct(det.ours) : usd(det.ours)} against ${({eq: '', ge: 'at least ', le: 'at most '})[det.relation]}${det.measure === 'share' ? pct(det.reference) : usd(det.reference)} (${det.method}).`), h('p', {class: 'muted small', style: 'margin-top:.4rem'}, det.basis), h('p', {class: 'small', style: 'margin-top:.4rem'}, `“${det.source.quote}” `, h('a', {href: det.source.url, target: '_blank', rel: 'noopener'}, 'source')));
+    if (x.kind === 'fact_differs') {
+      const delta = det.reference != null ? det.value - det.reference : null;
+      body.push(h('div', {class: 'figs', style: 'margin:.6rem 0'}, fig('Ours', usd(det.value), det.cite ? `${det.cite.table_id}, “${det.cite.row_label}”` : ''), fig('Tag', usd(det.reference), 'the filing’s XBRL'), fig('Delta', delta == null ? '—' : usd(delta), delta != null && det.reference ? pct(Math.abs(delta) / Math.abs(det.reference)) : '')));
+      if (det.cite) body.push(h('p', {class: 'small'}, `Cell “${det.cite.cell_text}” in row “${det.cite.row_label}”, column “${det.cite.column_label.replaceAll(' | ', ' ')}”. `, det.url ? h('a', {href: det.url, target: '_blank', rel: 'noopener'}, 'Open the filing') : ''));
+      if (det.used_by && det.used_by.length) body.push(h('p', {class: 'small', style: 'margin-top:.4rem'}, 'Feeds: ', det.used_by.map((u) => `${u.field} ${u.period} ${usd(u.ai_amount)} (${METHOD[u.method] || u.method})`).join('; ')));
+      if (det.release_value != null) body.push(h('p', {class: 'muted small', style: 'margin-top:.4rem'}, `In ${R.last}: ${usd(Number(det.release_value))}`));
+      body.push(h('p', {class: 'muted small', style: 'margin-top:.4rem'}, 'Usually a definition: which table or total the tag measures. A definition is applied every run.'));
+    }
+    if (x.kind === 'attribution_moved') body.push(h('p', {style: 'margin-top:.6rem'}, `${det.before[0]} ${det.before[1] != null ? usd(det.before[1]) : ''} → ${det.after[0]} ${det.after[1] != null ? usd(det.after[1]) : ''}`));
+    if (x.kind === 'finding_unconfirmed' || x.kind === 'blocked') body.push(h('p', {style: 'margin-top:.6rem'}, det.message || ''));
+    if (x.kind === 'new_filing') body.push(h('p', {style: 'margin-top:.6rem'}, `Filed ${day(det.filed)}. `, h('a', {href: det.url, target: '_blank', rel: 'noopener'}, 'Open at the SEC')));
+    const stateSel = h('select', {'aria-label': 'Resolution'}, [['accept', 'Accept: the number is right'], ['explain', 'Explain: right, reason below'], ['fix', 'Fix: will be fixed, stays open'], ['blocks', 'Blocks the release']].map(([k, v]) => h('option', {value: k}, v)));
+    const reason = h('input', {type: 'text', placeholder: 'Why…', 'aria-label': 'Reason', style: 'flex:1;min-width:12rem'});
+    const status = h('span', {class: 'muted small', 'aria-live': 'polite'});
+    const save = h('button', {type: 'button', class: 'btn', onclick: async () => {
+      status.textContent = 'Saving…';
+      try { await api('/api/resolve', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({key: x.key, hash: x.hash, state: stateSel.value, reason: reason.value, by: me})}); status.textContent = 'Saved.'; setTimeout(route, 700); }
+      catch (e) { status.textContent = e.message; status.classList.add('bad'); }
+    }}, 'Save Resolution');
+    if (x.resolution) body.push(h('p', {class: 'small', style: 'margin-top:.8rem'}, `${x.resolution.state} by ${x.resolution.by}, ${day(x.resolution.at)}: ${x.resolution.reason}`));
+    body.push(h('div', {class: 'row', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn', onclick: () => act(x)}, ACTION[x.action]), ...trail),
+      h('div', {class: 'row', style: 'margin-top:1rem'}, stateSel, reason, save, status));
+    drawer(...body);
+  }
+  view.append(h('div', {class: 'stack', style: 'gap:1.25rem'},
+    h('div', {class: 'row'}, scopeSel, h('span', {class: 'muted small'}, `${queue.length} item${queue.length === 1 ? '' : 's'} to look at. Last run ${day(C.last_run)}${R.last ? `, last signed ${R.last}` : ''}.`)),
+    stages,
+    h('div', {}, rowsBox,
+      h('p', {class: 'muted small', style: 'margin-top:.8rem'}, d.noise ? `${int(d.noise)} more facts differ from the filing’s tag but feed no attribution (mostly purchase commitments, a definition question). ` : '',
+        resolved ? h('button', {type: 'button', class: 'small', onclick: () => { showResolved = !showResolved; route(); }}, `${showResolved ? 'Hide' : 'Show'} ${int(resolved)} resolved`) : ''))));
+}
+
 // ── Status: the pipeline's numbers ───────────────────────────────────────────
 async function statusPage(view) {
   const [hqd, ev] = await Promise.all([hq(true), api('/api/evaluation')]);
@@ -774,21 +891,23 @@ async function releasesPage(view) {
 // ── Routing ─────────────────────────────────────────────────────────────────
 function go(hash) { location.hash = hash; }
 async function route() {
-  const raw = location.hash.slice(1) || 'data';
+  const raw = location.hash.slice(1) || 'flow';
   const [path, qs] = raw.split('?');
   const [page, arg] = path.split('/');
-  const tab = {company: 'data', run: 'data', pipeline: 'data', insights: 'data'}[page] || page;
+  const tab = {company: 'data', run: 'flow', pipeline: 'flow', insights: 'data'}[page] || page;
   document.querySelectorAll('nav [data-nav]').forEach((a) => a.classList.toggle('on', a.dataset.nav === tab));
   const view = $('#view');
-  view.replaceChildren(h('h1', {class: 'sr'}, `DATAHQ, ${({data: 'Data', company: 'Company', attribution: 'Attribution', status: 'Status', releases: 'Releases', agents: 'Agents', run: 'Add a Company'})[page] || 'Data'}`));
+  view.replaceChildren(h('h1', {class: 'sr'}, `DATAHQ, ${({flow: 'Flow', data: 'Dataset', company: 'Company', attribution: 'Attribution', status: 'Status', releases: 'Releases', agents: 'Agents', run: 'Add a Company'})[page] || 'Data'}`));
   try {
     if (page === 'company') await dataPage(view, `t=${arg || ''}&f=ai_capex,capex`);
+    else if (page === 'flow') await flowPage(view, qs);
     else if (page === 'attribution') await attributionPage(view);
     else if (page === 'agents') await agentsPage(view);
     else if (page === 'releases') await releasesPage(view);
     else if (page === 'run') await runPage(view);
     else if (page === 'status') await statusPage(view);
-    else await dataPage(view, qs);
+    else if (page === 'data' || page === 'insights') await dataPage(view, qs);
+    else await flowPage(view, qs);
   } catch (e) {
     view.replaceChildren(h('p', {class: 'msg bad'}, e.message));
   }
