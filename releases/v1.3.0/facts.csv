@@ -1,0 +1,1437 @@
+ticker,field,dimension,period,period_end,value,basis,first_reported,xbrl,xbrl_value,accession
+AAPL,ppe_category,Land and buildings,FY2021,2021-09-25,20041000000,as_reported,20041000000,no_reference,,0000320193-22-000108
+AAPL,ppe_category,Land and buildings,FY2022,2022-09-24,22126000000,as_reported,22126000000,no_reference,,0000320193-23-000106
+AAPL,ppe_category,Land and buildings,FY2023,2023-09-30,23446000000,as_reported,23446000000,no_reference,,0000320193-24-000123
+AAPL,ppe_category,Land and buildings,FY2024,2024-09-28,24690000000,as_reported,24690000000,no_reference,,0000320193-25-000079
+AAPL,ppe_category,Land and buildings,FY2025,2025-09-27,27337000000,as_reported,27337000000,no_reference,,0000320193-25-000079
+AAPL,ppe_category,Leasehold improvements,FY2021,2021-09-25,11023000000,as_reported,11023000000,agree,11023000000,0000320193-22-000108
+AAPL,ppe_category,Leasehold improvements,FY2022,2022-09-24,11271000000,as_reported,11271000000,agree,11271000000,0000320193-23-000106
+AAPL,ppe_category,Leasehold improvements,FY2023,2023-09-30,12839000000,as_reported,12839000000,agree,12839000000,0000320193-24-000123
+AAPL,ppe_category,Leasehold improvements,FY2024,2024-09-28,14233000000,as_reported,14233000000,agree,14233000000,0000320193-25-000079
+AAPL,ppe_category,Leasehold improvements,FY2025,2025-09-27,15091000000,as_reported,15091000000,agree,15091000000,0000320193-25-000079
+AAPL,ppe_category,"Machinery, equipment and internal-use software",FY2021,2021-09-25,78659000000,as_reported,78659000000,agree,78659000000,0000320193-22-000108
+AAPL,ppe_category,"Machinery, equipment and internal-use software",FY2022,2022-09-24,81060000000,as_reported,81060000000,agree,81060000000,0000320193-23-000106
+AAPL,ppe_category,"Machinery, equipment and internal-use software",FY2023,2023-09-30,78314000000,as_reported,78314000000,agree,78314000000,0000320193-24-000123
+AAPL,ppe_category,"Machinery, equipment and internal-use software",FY2024,2024-09-28,80205000000,as_reported,80205000000,agree,80205000000,0000320193-25-000079
+AAPL,ppe_category,"Machinery, equipment and internal-use software",FY2025,2025-09-27,83420000000,as_reported,83420000000,agree,83420000000,0000320193-25-000079
+AAPL,segment_revenue,Americas,FY2020,2020-09-26,124556000000,as_reported,124556000000,no_reference,,0000320193-22-000108
+AAPL,segment_revenue,Americas,FY2021,2021-09-25,153306000000,as_reported,153306000000,no_reference,,0000320193-23-000106
+AAPL,segment_revenue,Americas,FY2022,2022-09-24,169658000000,as_reported,169658000000,no_reference,,0000320193-24-000123
+AAPL,segment_revenue,Americas,FY2023,2023-09-30,162560000000,as_reported,162560000000,no_reference,,0000320193-25-000079
+AAPL,segment_revenue,Americas,FY2024,2024-09-28,167045000000,as_reported,167045000000,no_reference,,0000320193-25-000079
+AAPL,segment_revenue,Americas,FY2025,2025-09-27,178353000000,as_reported,178353000000,no_reference,,0000320193-25-000079
+AAPL,segment_revenue,Europe,FY2020,2020-09-26,68640000000,as_reported,68640000000,no_reference,,0000320193-22-000108
+AAPL,segment_revenue,Europe,FY2021,2021-09-25,89307000000,as_reported,89307000000,no_reference,,0000320193-23-000106
+AAPL,segment_revenue,Europe,FY2022,2022-09-24,95118000000,as_reported,95118000000,no_reference,,0000320193-24-000123
+AAPL,segment_revenue,Europe,FY2023,2023-09-30,94294000000,as_reported,94294000000,no_reference,,0000320193-25-000079
+AAPL,segment_revenue,Europe,FY2024,2024-09-28,101328000000,as_reported,101328000000,no_reference,,0000320193-25-000079
+AAPL,segment_revenue,Europe,FY2025,2025-09-27,111032000000,as_reported,111032000000,no_reference,,0000320193-25-000079
+AAPL,segment_revenue,Greater China,FY2020,2020-09-26,40308000000,as_reported,40308000000,no_reference,,0000320193-22-000108
+AAPL,segment_revenue,Greater China,FY2021,2021-09-25,68366000000,as_reported,68366000000,no_reference,,0000320193-23-000106
+AAPL,segment_revenue,Greater China,FY2022,2022-09-24,74200000000,as_reported,74200000000,no_reference,,0000320193-24-000123
+AAPL,segment_revenue,Greater China,FY2023,2023-09-30,72559000000,as_reported,72559000000,no_reference,,0000320193-25-000079
+AAPL,segment_revenue,Greater China,FY2024,2024-09-28,66952000000,as_reported,66952000000,no_reference,,0000320193-25-000079
+AAPL,segment_revenue,Greater China,FY2025,2025-09-27,64377000000,as_reported,64377000000,no_reference,,0000320193-25-000079
+AAPL,segment_revenue,Japan,FY2020,2020-09-26,21418000000,as_reported,21418000000,no_reference,,0000320193-22-000108
+AAPL,segment_revenue,Japan,FY2021,2021-09-25,28482000000,as_reported,28482000000,no_reference,,0000320193-23-000106
+AAPL,segment_revenue,Japan,FY2022,2022-09-24,25977000000,as_reported,25977000000,no_reference,,0000320193-24-000123
+AAPL,segment_revenue,Japan,FY2023,2023-09-30,24257000000,as_reported,24257000000,no_reference,,0000320193-25-000079
+AAPL,segment_revenue,Japan,FY2024,2024-09-28,25052000000,as_reported,25052000000,no_reference,,0000320193-25-000079
+AAPL,segment_revenue,Japan,FY2025,2025-09-27,28703000000,as_reported,28703000000,no_reference,,0000320193-25-000079
+AAPL,segment_revenue,Mac,FY2020,2020-09-26,28622000000,as_reported,28622000000,agree,28622000000,0000320193-22-000108
+AAPL,segment_revenue,Mac,FY2021,2021-09-25,35190000000,as_reported,35190000000,agree,35190000000,0000320193-22-000108
+AAPL,segment_revenue,Mac,FY2022,2022-09-24,40177000000,as_reported,40177000000,agree,40177000000,0000320193-22-000108
+AAPL,segment_revenue,Rest of Asia Pacific,FY2020,2020-09-26,19593000000,as_reported,19593000000,no_reference,,0000320193-22-000108
+AAPL,segment_revenue,Rest of Asia Pacific,FY2021,2021-09-25,26356000000,as_reported,26356000000,no_reference,,0000320193-23-000106
+AAPL,segment_revenue,Rest of Asia Pacific,FY2022,2022-09-24,29375000000,as_reported,29375000000,no_reference,,0000320193-24-000123
+AAPL,segment_revenue,Rest of Asia Pacific,FY2023,2023-09-30,29615000000,as_reported,29615000000,no_reference,,0000320193-25-000079
+AAPL,segment_revenue,Rest of Asia Pacific,FY2024,2024-09-28,30658000000,as_reported,30658000000,no_reference,,0000320193-25-000079
+AAPL,segment_revenue,Rest of Asia Pacific,FY2025,2025-09-27,33696000000,as_reported,33696000000,no_reference,,0000320193-25-000079
+AAPL,segment_revenue,Services,FY2020,2020-09-26,53768000000,as_reported,53768000000,no_reference,,0000320193-22-000108
+AAPL,segment_revenue,Services,FY2021,2021-09-25,68425000000,as_reported,68425000000,no_reference,,0000320193-22-000108
+AAPL,segment_revenue,Services,FY2022,2022-09-24,78129000000,as_reported,78129000000,no_reference,,0000320193-22-000108
+AAPL,segment_revenue,"Wearables, Home and Accessories",FY2020,2020-09-26,30620000000,as_reported,30620000000,agree,30620000000,0000320193-22-000108
+AAPL,segment_revenue,"Wearables, Home and Accessories",FY2021,2021-09-25,38367000000,as_reported,38367000000,agree,38367000000,0000320193-22-000108
+AAPL,segment_revenue,"Wearables, Home and Accessories",FY2022,2022-09-24,41241000000,as_reported,41241000000,agree,41241000000,0000320193-22-000108
+AAPL,segment_revenue,iPad,FY2020,2020-09-26,23724000000,as_reported,23724000000,agree,23724000000,0000320193-22-000108
+AAPL,segment_revenue,iPad,FY2021,2021-09-25,31862000000,as_reported,31862000000,agree,31862000000,0000320193-22-000108
+AAPL,segment_revenue,iPad,FY2022,2022-09-24,29292000000,as_reported,29292000000,agree,29292000000,0000320193-22-000108
+AAPL,segment_revenue,iPhone,FY2020,2020-09-26,137781000000,as_reported,137781000000,agree,137781000000,0000320193-22-000108
+AAPL,segment_revenue,iPhone,FY2021,2021-09-25,191973000000,as_reported,191973000000,agree,191973000000,0000320193-22-000108
+AAPL,segment_revenue,iPhone,FY2022,2022-09-24,205489000000,as_reported,205489000000,agree,205489000000,0000320193-22-000108
+ALAB,ppe_category,Construction in progress,FY2024,2024-12-31,29064000,as_reported,29064000,agree,29064000,0001736297-26-000010
+ALAB,ppe_category,Construction in progress,FY2025,2025-12-31,40510000,as_reported,40510000,agree,40510000,0001736297-26-000010
+ALAB,ppe_category,Laboratory equipment,FY2023,2023-12-31,6470000,as_reported,6470000,no_reference,,0001736297-25-000003
+ALAB,ppe_category,Laboratory equipment,FY2024,2024-12-31,10467000,as_reported,10467000,no_reference,,0001736297-26-000010
+ALAB,ppe_category,Laboratory equipment,FY2025,2025-12-31,21603000,as_reported,21603000,no_reference,,0001736297-26-000010
+ALAB,ppe_category,Leasehold improvements,FY2023,2023-12-31,437000,as_reported,437000,agree,437000,0001736297-25-000003
+ALAB,ppe_category,Leasehold improvements,FY2024,2024-12-31,1159000,as_reported,1159000,agree,1159000,0001736297-26-000010
+ALAB,ppe_category,Leasehold improvements,FY2025,2025-12-31,11439000,as_reported,11439000,agree,11439000,0001736297-26-000010
+ALAB,ppe_category,Office furniture,FY2023,2023-12-31,242000,as_reported,242000,no_reference,,0001736297-25-000003
+ALAB,ppe_category,Office furniture,FY2024,2024-12-31,353000,as_reported,353000,no_reference,,0001736297-25-000003
+ALAB,ppe_category,Other,FY2024,2024-12-31,794000,as_reported,794000,no_reference,,0001736297-26-000010
+ALAB,ppe_category,Other,FY2025,2025-12-31,2037000,as_reported,2037000,no_reference,,0001736297-26-000010
+ALAB,ppe_category,Production equipment,FY2025,2025-12-31,28171000,as_reported,28171000,agree,28171000,0001736297-26-000010
+ALAB,ppe_category,Servers and workstations,FY2023,2023-12-31,242000,as_reported,242000,agree,242000,0001736297-25-000003
+ALAB,ppe_category,Servers and workstations,FY2024,2024-12-31,441000,as_reported,441000,agree,441000,0001736297-25-000003
+ALAB,purchase_commitments,,FY2024,2024-12-31,27484000,as_reported,27484000,unresolved,36800000,0001736297-25-000003
+ALAB,purchase_commitments,,FY2025,2025-12-31,74909000,as_reported,74909000,no_reference,,0001736297-26-000010
+AMD,ppe_category,Building and leasehold improvements,FY2021,2021-12-25,206000000,as_reported,206000000,no_reference,,0000002488-23-000047
+AMD,ppe_category,Building and leasehold improvements,FY2022,2022-12-31,594000000,as_reported,594000000,no_reference,,0000002488-23-000047
+AMD,ppe_category,Construction in progress,FY2021,2021-12-25,96000000,as_reported,96000000,no_reference,,0000002488-23-000047
+AMD,ppe_category,Construction in progress,FY2022,2022-12-31,143000000,as_reported,143000000,no_reference,,0000002488-24-000012
+AMD,ppe_category,Construction in progress,FY2023,2023-12-30,209000000,as_reported,209000000,no_reference,,0000002488-25-000012
+AMD,ppe_category,Construction in progress,FY2024,2024-12-28,324000000,as_reported,324000000,no_reference,,0000002488-26-000018
+AMD,ppe_category,Construction in progress,FY2025,2025-12-27,508000000,as_reported,508000000,no_reference,,0000002488-26-000018
+AMD,ppe_category,Equipment,FY2021,2021-12-25,1534000000,as_reported,1534000000,no_reference,,0000002488-23-000047
+AMD,ppe_category,Equipment,FY2022,2022-12-31,2163000000,as_reported,2163000000,no_reference,,0000002488-24-000012
+AMD,ppe_category,Equipment,FY2023,2023-12-30,2346000000,as_reported,2346000000,no_reference,,0000002488-25-000012
+AMD,ppe_category,Equipment,FY2024,2024-12-28,2798000000,as_reported,2798000000,no_reference,,0000002488-26-000018
+AMD,ppe_category,Equipment,FY2025,2025-12-27,3453000000,as_reported,3453000000,no_reference,,0000002488-26-000018
+AMD,ppe_category,Land,FY2022,2022-12-31,120000000,as_reported,120000000,no_reference,,0000002488-23-000047
+AMD,ppe_category,"Land, building and leasehold improvements",FY2022,2022-12-31,714000000,as_reported,714000000,no_reference,,0000002488-24-000012
+AMD,ppe_category,"Land, building and leasehold improvements",FY2023,2023-12-30,821000000,as_reported,821000000,no_reference,,0000002488-25-000012
+AMD,ppe_category,"Land, building and leasehold improvements",FY2024,2024-12-28,853000000,as_reported,853000000,no_reference,,0000002488-26-000018
+AMD,ppe_category,"Land, building and leasehold improvements",FY2025,2025-12-27,967000000,as_reported,967000000,no_reference,,0000002488-26-000018
+AMD,purchase_commitments,,FY2022,2022-12-31,8610000000,as_reported,8610000000,agree,8610000000,0000002488-23-000047
+AMD,purchase_commitments,,FY2023,2023-12-30,4594000000,as_reported,4594000000,agree,4594000000,0000002488-24-000012
+AMD,purchase_commitments,,FY2024,2024-12-28,4968000000,as_reported,4968000000,agree,4968000000,0000002488-25-000012
+AMD,segment_revenue,Client,FY2020,2020-12-26,5189000000,as_reported,5189000000,agree,5189000000,0000002488-23-000047
+AMD,segment_revenue,Client,FY2021,2021-12-25,6887000000,as_reported,6887000000,agree,6887000000,0000002488-24-000012
+AMD,segment_revenue,Client,FY2022,2022-12-31,6201000000,as_reported,6201000000,agree,6201000000,0000002488-25-000012
+AMD,segment_revenue,Client,FY2023,2023-12-30,4651000000,as_reported,4651000000,agree,4651000000,0000002488-26-000018
+AMD,segment_revenue,Client,FY2024,2024-12-28,7054000000,as_reported,7054000000,agree,7054000000,0000002488-26-000018
+AMD,segment_revenue,Client,FY2025,2025-12-27,10640000000,as_reported,10640000000,no_reference,,0000002488-26-000018
+AMD,segment_revenue,Data Center,FY2020,2020-12-26,1685000000,as_reported,1685000000,agree,1685000000,0000002488-23-000047
+AMD,segment_revenue,Data Center,FY2021,2021-12-25,3694000000,as_reported,3694000000,agree,3694000000,0000002488-24-000012
+AMD,segment_revenue,Data Center,FY2022,2022-12-31,6043000000,as_reported,6043000000,agree,6043000000,0000002488-25-000012
+AMD,segment_revenue,Data Center,FY2023,2023-12-30,6496000000,as_reported,6496000000,agree,6496000000,0000002488-26-000018
+AMD,segment_revenue,Data Center,FY2024,2024-12-28,12579000000,as_reported,12579000000,agree,12579000000,0000002488-26-000018
+AMD,segment_revenue,Data Center,FY2025,2025-12-27,16635000000,as_reported,16635000000,no_reference,,0000002488-26-000018
+AMD,segment_revenue,Embedded,FY2020,2020-12-26,143000000,as_reported,143000000,agree,143000000,0000002488-23-000047
+AMD,segment_revenue,Embedded,FY2021,2021-12-25,246000000,as_reported,246000000,agree,246000000,0000002488-24-000012
+AMD,segment_revenue,Embedded,FY2022,2022-12-31,4552000000,as_reported,4552000000,agree,4552000000,0000002488-25-000012
+AMD,segment_revenue,Embedded,FY2023,2023-12-30,5321000000,as_reported,5321000000,agree,5321000000,0000002488-26-000018
+AMD,segment_revenue,Embedded,FY2024,2024-12-28,3557000000,as_reported,3557000000,agree,3557000000,0000002488-26-000018
+AMD,segment_revenue,Embedded,FY2025,2025-12-27,3454000000,as_reported,3454000000,no_reference,,0000002488-26-000018
+AMD,segment_revenue,Gaming,FY2020,2020-12-26,2746000000,as_reported,2746000000,agree,2746000000,0000002488-23-000047
+AMD,segment_revenue,Gaming,FY2021,2021-12-25,5607000000,as_reported,5607000000,agree,5607000000,0000002488-24-000012
+AMD,segment_revenue,Gaming,FY2022,2022-12-31,6805000000,as_reported,6805000000,agree,6805000000,0000002488-25-000012
+AMD,segment_revenue,Gaming,FY2023,2023-12-30,6212000000,as_reported,6212000000,agree,6212000000,0000002488-26-000018
+AMD,segment_revenue,Gaming,FY2024,2024-12-28,2595000000,as_reported,2595000000,agree,2595000000,0000002488-26-000018
+AMD,segment_revenue,Gaming,FY2025,2025-12-27,3910000000,as_reported,3910000000,no_reference,,0000002488-26-000018
+AMZN,ppe_category,Construction in progress,FY2021,2021-12-31,24895000000,as_reported,24895000000,agree,24895000000,0001018724-23-000004
+AMZN,ppe_category,Construction in progress,FY2022,2022-12-31,30020000000,as_reported,30020000000,agree,30020000000,0001018724-24-000008
+AMZN,ppe_category,Construction in progress,FY2023,2023-12-31,28840000000,as_reported,28840000000,agree,28840000000,0001018724-25-000004
+AMZN,ppe_category,Construction in progress,FY2024,2024-12-31,46636000000,as_reported,46636000000,agree,46636000000,0001018724-26-000004
+AMZN,ppe_category,Construction in progress,FY2025,2025-12-31,71745000000,as_reported,71745000000,agree,71745000000,0001018724-26-000004
+AMZN,ppe_category,Equipment,FY2021,2021-12-31,128683000000,as_reported,128683000000,no_reference,,0001018724-23-000004
+AMZN,ppe_category,Equipment,FY2022,2022-12-31,157458000000,as_reported,157458000000,no_reference,,0001018724-24-000008
+AMZN,ppe_category,Equipment,FY2023,2023-12-31,185039000000,as_reported,185039000000,no_reference,,0001018724-25-000004
+AMZN,ppe_category,Equipment,FY2024,2024-12-31,218893000000,as_reported,218893000000,unresolved,53509000000,0001018724-25-000004
+AMZN,ppe_category,Heavy equipment,FY2024,2024-12-31,52228000000,as_reported,52228000000,no_reference,,0001018724-26-000004
+AMZN,ppe_category,Heavy equipment,FY2025,2025-12-31,65545000000,as_reported,65545000000,no_reference,,0001018724-26-000004
+AMZN,ppe_category,Land and buildings,FY2021,2021-12-31,81104000000,as_reported,81104000000,no_reference,,0001018724-23-000004
+AMZN,ppe_category,Land and buildings,FY2022,2022-12-31,91650000000,as_reported,91650000000,no_reference,,0001018724-24-000008
+AMZN,ppe_category,Land and buildings,FY2023,2023-12-31,105293000000,as_reported,105293000000,no_reference,,0001018724-25-000004
+AMZN,ppe_category,Land and buildings,FY2024,2024-12-31,123039000000,as_reported,123039000000,no_reference,,0001018724-26-000004
+AMZN,ppe_category,Land and buildings,FY2025,2025-12-31,155121000000,as_reported,155121000000,no_reference,,0001018724-26-000004
+AMZN,ppe_category,Other assets,FY2021,2021-12-31,4118000000,as_reported,4118000000,no_reference,,0001018724-23-000004
+AMZN,ppe_category,Other assets,FY2022,2022-12-31,4602000000,as_reported,4602000000,no_reference,,0001018724-24-000008
+AMZN,ppe_category,Other assets,FY2023,2023-12-31,5116000000,as_reported,5116000000,no_reference,,0001018724-25-000004
+AMZN,ppe_category,Other assets,FY2024,2024-12-31,5487000000,as_reported,5487000000,no_reference,,0001018724-26-000004
+AMZN,ppe_category,Other assets,FY2025,2025-12-31,5819000000,as_reported,5819000000,no_reference,,0001018724-26-000004
+AMZN,ppe_category,Other equipment,FY2024,2024-12-31,53509000000,as_reported,53509000000,no_reference,,0001018724-26-000004
+AMZN,ppe_category,Other equipment,FY2025,2025-12-31,63376000000,as_reported,63376000000,no_reference,,0001018724-26-000004
+AMZN,ppe_category,Servers and networking equipment,FY2024,2024-12-31,113156000000,as_reported,113156000000,agree,113156000000,0001018724-26-000004
+AMZN,ppe_category,Servers and networking equipment,FY2025,2025-12-31,172492000000,as_reported,172492000000,agree,172492000000,0001018724-26-000004
+AMZN,purchase_commitments,,FY2022,2022-12-31,34776000000,as_reported,34776000000,agree,34776000000,0001018724-23-000004
+AMZN,purchase_commitments,,FY2023,2023-12-31,35484000000,as_reported,35484000000,agree,35484000000,0001018724-24-000008
+AMZN,purchase_commitments,,FY2024,2024-12-31,50375000000,as_reported,50375000000,unresolved,333001000000,0001018724-25-000004
+AMZN,purchase_commitments,,FY2025,2025-12-31,84772000000,as_reported,84772000000,unresolved,439661000000,0001018724-26-000004
+AMZN,segment_revenue,AWS,FY2020,2020-12-31,45370000000,as_reported,45370000000,no_reference,,0001018724-23-000004
+AMZN,segment_revenue,AWS,FY2021,2021-12-31,62202000000,as_reported,62202000000,no_reference,,0001018724-24-000008
+AMZN,segment_revenue,AWS,FY2022,2022-12-31,80096000000,as_reported,80096000000,no_reference,,0001018724-25-000004
+AMZN,segment_revenue,AWS,FY2023,2023-12-31,90757000000,as_reported,90757000000,no_reference,,0001018724-26-000004
+AMZN,segment_revenue,AWS,FY2024,2024-12-31,107556000000,as_reported,107556000000,no_reference,,0001018724-26-000004
+AMZN,segment_revenue,AWS,FY2025,2025-12-31,128725000000,as_reported,128725000000,no_reference,,0001018724-26-000004
+AMZN,segment_revenue,International,FY2020,2020-12-31,104412000000,as_reported,104412000000,no_reference,,0001018724-23-000004
+AMZN,segment_revenue,International,FY2021,2021-12-31,127787000000,as_reported,127787000000,no_reference,,0001018724-24-000008
+AMZN,segment_revenue,International,FY2022,2022-12-31,118007000000,as_reported,118007000000,no_reference,,0001018724-25-000004
+AMZN,segment_revenue,International,FY2023,2023-12-31,131200000000,as_reported,131200000000,no_reference,,0001018724-26-000004
+AMZN,segment_revenue,International,FY2024,2024-12-31,142906000000,as_reported,142906000000,no_reference,,0001018724-26-000004
+AMZN,segment_revenue,International,FY2025,2025-12-31,161894000000,as_reported,161894000000,no_reference,,0001018724-26-000004
+AMZN,segment_revenue,North America,FY2020,2020-12-31,236282000000,as_reported,236282000000,no_reference,,0001018724-23-000004
+AMZN,segment_revenue,North America,FY2021,2021-12-31,279833000000,as_reported,279833000000,no_reference,,0001018724-24-000008
+AMZN,segment_revenue,North America,FY2022,2022-12-31,315880000000,as_reported,315880000000,no_reference,,0001018724-25-000004
+AMZN,segment_revenue,North America,FY2023,2023-12-31,352828000000,as_reported,352828000000,no_reference,,0001018724-26-000004
+AMZN,segment_revenue,North America,FY2024,2024-12-31,387497000000,as_reported,387497000000,no_reference,,0001018724-26-000004
+AMZN,segment_revenue,North America,FY2025,2025-12-31,426305000000,as_reported,426305000000,no_reference,,0001018724-26-000004
+ANET,ppe_category,Computer hardware and software,FY2021,2021-12-31,44083000,as_reported,44083000,agree,44083000,0001596532-23-000016
+ANET,ppe_category,Computer hardware and software,FY2022,2022-12-31,52148000,as_reported,52148000,agree,52148000,0001596532-24-000043
+ANET,ppe_category,Computer hardware and software,FY2023,2023-12-31,57761000,as_reported,57761000,agree,57761000,0001596532-25-000028
+ANET,ppe_category,Computer hardware and software,FY2024,2024-12-31,63900000,as_reported,63941000,agree,63900000,0001596532-26-000013
+ANET,ppe_category,Computer hardware and software,FY2025,2025-12-31,66200000,as_reported,66200000,agree,66200000,0001596532-26-000013
+ANET,ppe_category,Construction-in-process,FY2021,2021-12-31,2378000,as_reported,2378000,no_reference,,0001596532-23-000016
+ANET,ppe_category,Construction-in-process,FY2022,2022-12-31,2124000,as_reported,2124000,no_reference,,0001596532-24-000043
+ANET,ppe_category,Construction-in-process,FY2023,2023-12-31,4242000,as_reported,4242000,no_reference,,0001596532-25-000028
+ANET,ppe_category,Construction-in-process,FY2024,2024-12-31,8200000,as_reported,8209000,no_reference,,0001596532-26-000013
+ANET,ppe_category,Construction-in-process,FY2025,2025-12-31,107900000,as_reported,107900000,no_reference,,0001596532-26-000013
+ANET,ppe_category,Equipment and machinery,FY2021,2021-12-31,90915000,as_reported,90915000,no_reference,,0001596532-23-000016
+ANET,ppe_category,Equipment and machinery,FY2022,2022-12-31,122407000,as_reported,122407000,no_reference,,0001596532-24-000043
+ANET,ppe_category,Equipment and machinery,FY2023,2023-12-31,144850000,as_reported,144850000,no_reference,,0001596532-25-000028
+ANET,ppe_category,Equipment and machinery,FY2024,2024-12-31,160700000,as_reported,160673000,no_reference,,0001596532-26-000013
+ANET,ppe_category,Equipment and machinery,FY2025,2025-12-31,188300000,as_reported,188300000,no_reference,,0001596532-26-000013
+ANET,ppe_category,Furniture and fixtures,FY2021,2021-12-31,3634000,as_reported,3634000,agree,3634000,0001596532-23-000016
+ANET,ppe_category,Furniture and fixtures,FY2022,2022-12-31,3575000,as_reported,3575000,agree,3575000,0001596532-24-000043
+ANET,ppe_category,Furniture and fixtures,FY2023,2023-12-31,3576000,as_reported,3576000,agree,3576000,0001596532-25-000028
+ANET,ppe_category,Furniture and fixtures,FY2024,2024-12-31,3500000,as_reported,3526000,agree,3500000,0001596532-26-000013
+ANET,ppe_category,Furniture and fixtures,FY2025,2025-12-31,3700000,as_reported,3700000,agree,3700000,0001596532-26-000013
+ANET,ppe_category,Land,FY2021,2021-12-31,40145000,as_reported,40145000,agree,40145000,0001596532-23-000016
+ANET,ppe_category,Land,FY2022,2022-12-31,41500000,as_reported,41500000,agree,41500000,0001596532-24-000043
+ANET,ppe_category,Land,FY2023,2023-12-31,44645000,as_reported,44645000,agree,44645000,0001596532-25-000028
+ANET,ppe_category,Land,FY2024,2024-12-31,47200000,as_reported,47189000,agree,47200000,0001596532-26-000013
+ANET,ppe_category,Land,FY2025,2025-12-31,47300000,as_reported,47300000,agree,47300000,0001596532-26-000013
+ANET,ppe_category,Leasehold improvements,FY2021,2021-12-31,30502000,as_reported,30502000,agree,30502000,0001596532-23-000016
+ANET,ppe_category,Leasehold improvements,FY2022,2022-12-31,30102000,as_reported,30102000,agree,30102000,0001596532-24-000043
+ANET,ppe_category,Leasehold improvements,FY2023,2023-12-31,34584000,as_reported,34584000,agree,34584000,0001596532-25-000028
+ANET,ppe_category,Leasehold improvements,FY2024,2024-12-31,34700000,as_reported,34712000,agree,34700000,0001596532-26-000013
+ANET,ppe_category,Leasehold improvements,FY2025,2025-12-31,38400000,as_reported,38400000,agree,38400000,0001596532-26-000013
+APLD,finance_lease_liability,,FY2022,2022-05-31,5187000,as_reported,5187000,agree,5187000,0001628280-22-023816
+APLD,ppe_category,Building,FY2022,2022-05-31,30176000,as_reported,30176000,agree,30176000,0001144879-23-000176
+APLD,ppe_category,Building,FY2023,2023-05-31,63350000,as_reported,63350000,agree,63350000,0001144879-24-000216
+APLD,ppe_category,Building,FY2024,2024-05-31,103990000,as_reported,103990000,agree,103990000,0001144879-25-000021
+APLD,ppe_category,Building,FY2025,2025-05-31,109672000,as_reported,109672000,agree,109672000,0001144879-26-000048
+APLD,ppe_category,Building,FY2026,2026-05-31,279308000,as_reported,279308000,agree,279308000,0001144879-26-000048
+APLD,ppe_category,Building improvements,FY2025,2025-05-31,0,as_reported,0,agree,0,0001144879-26-000048
+APLD,ppe_category,Building improvements,FY2026,2026-05-31,682348000,as_reported,682348000,agree,682348000,0001144879-26-000048
+APLD,ppe_category,Construction in Progress,FY2022,2022-05-31,18305000,as_reported,18305000,agree,18305000,0001144879-23-000176
+APLD,ppe_category,Construction in Progress,FY2023,2023-05-31,106226000,as_reported,106226000,unresolved,108784000,0001144879-23-000176
+APLD,ppe_category,Construction in progress,FY2023,2023-05-31,108784000,as_reported,108784000,agree,108784000,0001144879-24-000216
+APLD,ppe_category,Construction in progress,FY2024,2024-05-31,186869000,restated,190162000,agree,186869000,0001144879-25-000021
+APLD,ppe_category,Construction in progress,FY2025,2025-05-31,1090587000,restated,1123156000,agree,1090587000,0001144879-26-000048
+APLD,ppe_category,Construction in progress,FY2026,2026-05-31,2776232000,as_reported,2776232000,agree,2776232000,0001144879-26-000048
+APLD,ppe_category,Electric Generation and Transformers,FY2022,2022-05-31,4338000,as_reported,4338000,agree,4338000,0001144879-23-000176
+APLD,ppe_category,Electric Generation and Transformers,FY2023,2023-05-31,4655000,as_reported,4655000,agree,4655000,0001144879-23-000176
+APLD,ppe_category,Electric generation and transformers,FY2023,2023-05-31,4655000,as_reported,4655000,agree,4655000,0001144879-24-000216
+APLD,ppe_category,Electric generation and transformers,FY2024,2024-05-31,9933000,as_reported,9933000,agree,9933000,0001144879-25-000021
+APLD,ppe_category,Electric generation and transformers,FY2025,2025-05-31,9914000,as_reported,9914000,agree,9914000,0001144879-26-000048
+APLD,ppe_category,Electric generation and transformers,FY2026,2026-05-31,188110000,as_reported,188110000,agree,188110000,0001144879-26-000048
+APLD,ppe_category,Electrical infrastructure,FY2025,2025-05-31,0,as_reported,0,agree,0,0001144879-26-000048
+APLD,ppe_category,Electrical infrastructure,FY2026,2026-05-31,104491000,as_reported,104491000,agree,104491000,0001144879-26-000048
+APLD,ppe_category,Information Systems and Software,FY2022,2022-05-31,9608000,as_reported,9608000,no_reference,,0001144879-23-000176
+APLD,ppe_category,Information Systems and Software,FY2023,2023-05-31,21173000,as_reported,21173000,no_reference,,0001144879-23-000176
+APLD,ppe_category,Land,FY2022,2022-05-31,1074000,as_reported,1074000,agree,1074000,0001144879-23-000176
+APLD,ppe_category,Land,FY2023,2023-05-31,2152000,as_reported,2152000,agree,2152000,0001144879-24-000216
+APLD,ppe_category,Land,FY2024,2024-05-31,6205000,as_reported,6205000,agree,6205000,0001144879-25-000021
+APLD,ppe_category,Land,FY2025,2025-05-31,20047000,as_reported,20047000,agree,20047000,0001144879-26-000048
+APLD,ppe_category,Land,FY2026,2026-05-31,59713000,as_reported,59713000,agree,59713000,0001144879-26-000048
+APLD,ppe_category,Land Improvements,FY2022,2022-05-31,1180000,as_reported,1180000,agree,1180000,0001144879-23-000176
+APLD,ppe_category,Land Improvements,FY2023,2023-05-31,1293000,as_reported,1293000,agree,1293000,0001144879-23-000176
+APLD,ppe_category,Land improvements,FY2023,2023-05-31,1293000,as_reported,1293000,agree,1293000,0001144879-24-000216
+APLD,ppe_category,Land improvements,FY2024,2024-05-31,1380000,as_reported,1380000,agree,1380000,0001144879-25-000021
+APLD,ppe_category,Land improvements,FY2025,2025-05-31,1423000,as_reported,1423000,agree,1423000,0001144879-26-000048
+APLD,ppe_category,Land improvements,FY2026,2026-05-31,43786000,as_reported,43786000,agree,43786000,0001144879-26-000048
+APLD,ppe_category,Leasehold improvements,FY2024,2024-05-31,444000,restated,1051000,agree,444000,0001144879-25-000021
+APLD,ppe_category,Leasehold improvements,FY2025,2025-05-31,1142000,restated,444000,agree,1142000,0001144879-26-000048
+APLD,ppe_category,Leasehold improvements,FY2026,2026-05-31,1142000,as_reported,1142000,agree,1142000,0001144879-26-000048
+APLD,ppe_category,Mechanical infrastructure,FY2025,2025-05-31,0,as_reported,0,agree,0,0001144879-26-000048
+APLD,ppe_category,Mechanical infrastructure,FY2026,2026-05-31,71939000,as_reported,71939000,agree,71939000,0001144879-26-000048
+APLD,ppe_category,"Networking equipment, electrical equipment, and software",FY2023,2023-05-31,21173000,as_reported,21173000,no_reference,,0001144879-24-000216
+APLD,ppe_category,"Networking equipment, electrical equipment, and software",FY2024,2024-05-31,32185000,restated,32517000,no_reference,,0001144879-25-000021
+APLD,ppe_category,"Networking equipment, electrical equipment, and software",FY2025,2025-05-31,33611000,restated,32938000,no_reference,,0001144879-26-000048
+APLD,ppe_category,"Networking equipment, electrical equipment, and software",FY2026,2026-05-31,38669000,as_reported,38669000,no_reference,,0001144879-26-000048
+APLD,ppe_category,Other Equipment and Fixtures,FY2021,2021-05-31,21000,as_reported,21000,no_reference,,0001628280-22-023816
+APLD,ppe_category,Other Equipment and Fixtures,FY2022,2022-05-31,588000,as_reported,588000,no_reference,,0001144879-23-000176
+APLD,ppe_category,Other Equipment and Fixtures,FY2023,2023-05-31,1685000,as_reported,1685000,no_reference,,0001144879-23-000176
+APLD,ppe_category,Other equipment and fixtures,FY2023,2023-05-31,1684000,as_reported,1684000,no_reference,,0001144879-24-000216
+APLD,ppe_category,Other equipment and fixtures,FY2024,2024-05-31,1760000,restated,9552000,no_reference,,0001144879-25-000021
+APLD,ppe_category,Other equipment and fixtures,FY2025,2025-05-31,12447000,restated,2126000,no_reference,,0001144879-26-000048
+APLD,ppe_category,Other equipment and fixtures,FY2026,2026-05-31,68128000,as_reported,68128000,no_reference,,0001144879-26-000048
+APLD,segment_capex,Cloud Services Business,FY2023,2023-05-31,390000,as_reported,390000,no_reference,,0001144879-24-000216
+APLD,segment_capex,Cloud Services Business,FY2024,2024-05-31,80082000,as_reported,80082000,no_reference,,0001144879-24-000216
+APLD,segment_capex,Data Center Hosting Business,FY2023,2023-05-31,135946000,as_reported,135946000,no_reference,,0001144879-25-000021
+APLD,segment_capex,Data Center Hosting Business,FY2024,2024-05-31,38266000,as_reported,38266000,no_reference,,0001144879-26-000048
+APLD,segment_capex,Data Center Hosting Business,FY2025,2025-05-31,9320000,as_reported,9320000,no_reference,,0001144879-26-000048
+APLD,segment_capex,Data Center Hosting Business,FY2026,2026-05-31,1234000,as_reported,1234000,no_reference,,0001144879-26-000048
+APLD,segment_capex,HPC Hosting Business,FY2023,2023-05-31,9813000,as_reported,9813000,no_reference,,0001144879-25-000021
+APLD,segment_capex,HPC Hosting Business,FY2024,2024-05-31,207299000,as_reported,207299000,no_reference,,0001144879-26-000048
+APLD,segment_capex,HPC Hosting Business,FY2025,2025-05-31,976506000,as_reported,976506000,no_reference,,0001144879-26-000048
+APLD,segment_capex,HPC Hosting Business,FY2026,2026-05-31,2988712000,as_reported,2988712000,no_reference,,0001144879-26-000048
+APLD,segment_revenue,Cloud Services Business,FY2024,2024-05-31,28957000,as_reported,28957000,no_reference,,0001144879-24-000216
+APLD,segment_revenue,Data Center Hosting Business,FY2023,2023-05-31,55392000,as_reported,55392000,agree,55392000,0001144879-24-000216
+APLD,segment_revenue,Data Center Hosting Business,FY2024,2024-05-31,136618000,as_reported,136618000,agree,136618000,0001144879-26-000048
+APLD,segment_revenue,Data Center Hosting Business,FY2025,2025-05-31,144193000,as_reported,144193000,agree,144193000,0001144879-26-000048
+APLD,segment_revenue,Data Center Hosting Business,FY2026,2026-05-31,154403000,as_reported,154403000,agree,154403000,0001144879-26-000048
+APLD,segment_revenue,HPC Hosting Business,FY2024,2024-05-31,0,as_reported,0,agree,0,0001144879-26-000048
+APLD,segment_revenue,HPC Hosting Business,FY2025,2025-05-31,0,as_reported,0,agree,0,0001144879-26-000048
+APLD,segment_revenue,HPC Hosting Business,FY2026,2026-05-31,385304000,as_reported,385304000,agree,385304000,0001144879-26-000048
+AVGO,ppe_category,Buildings and leasehold improvements,FY2021,2021-10-31,1150000000,as_reported,1150000000,no_reference,,0001730168-22-000118
+AVGO,ppe_category,Buildings and leasehold improvements,FY2022,2022-10-30,1156000000,as_reported,1156000000,no_reference,,0001730168-23-000096
+AVGO,ppe_category,Buildings and leasehold improvements,FY2023,2023-10-29,1181000000,as_reported,1181000000,no_reference,,0001730168-24-000139
+AVGO,ppe_category,Buildings and leasehold improvements,FY2024,2024-11-03,1518000000,as_reported,1518000000,no_reference,,0001730168-25-000121
+AVGO,ppe_category,Buildings and leasehold improvements,FY2025,2025-11-02,1488000000,as_reported,1488000000,no_reference,,0001730168-25-000121
+AVGO,ppe_category,Construction in progress,FY2021,2021-10-31,38000000,as_reported,38000000,no_reference,,0001730168-22-000118
+AVGO,ppe_category,Construction in progress,FY2022,2022-10-30,63000000,as_reported,63000000,no_reference,,0001730168-23-000096
+AVGO,ppe_category,Construction in progress,FY2023,2023-10-29,63000000,as_reported,63000000,no_reference,,0001730168-24-000139
+AVGO,ppe_category,Construction in progress,FY2024,2024-11-03,57000000,as_reported,57000000,no_reference,,0001730168-25-000121
+AVGO,ppe_category,Construction in progress,FY2025,2025-11-02,78000000,as_reported,78000000,no_reference,,0001730168-25-000121
+AVGO,ppe_category,Land,FY2021,2021-10-31,195000000,as_reported,195000000,no_reference,,0001730168-22-000118
+AVGO,ppe_category,Land,FY2022,2022-10-30,195000000,as_reported,195000000,no_reference,,0001730168-23-000096
+AVGO,ppe_category,Land,FY2023,2023-10-29,195000000,as_reported,195000000,no_reference,,0001730168-24-000139
+AVGO,ppe_category,Land,FY2024,2024-11-03,204000000,as_reported,204000000,no_reference,,0001730168-25-000121
+AVGO,ppe_category,Land,FY2025,2025-11-02,204000000,as_reported,204000000,no_reference,,0001730168-25-000121
+AVGO,ppe_category,Machinery and equipment,FY2021,2021-10-31,4161000000,as_reported,4161000000,no_reference,,0001730168-22-000118
+AVGO,ppe_category,Machinery and equipment,FY2022,2022-10-30,4413000000,as_reported,4413000000,no_reference,,0001730168-23-000096
+AVGO,ppe_category,Machinery and equipment,FY2023,2023-10-29,4739000000,as_reported,4739000000,no_reference,,0001730168-24-000139
+AVGO,ppe_category,Machinery and equipment,FY2024,2024-11-03,5246000000,as_reported,5246000000,no_reference,,0001730168-25-000121
+AVGO,ppe_category,Machinery and equipment,FY2025,2025-11-02,5656000000,as_reported,5656000000,no_reference,,0001730168-25-000121
+AVGO,segment_revenue,Infrastructure software,FY2020,2020-11-01,6621000000,as_reported,6621000000,agree,6621000000,0001730168-22-000118
+AVGO,segment_revenue,Infrastructure software,FY2021,2021-10-31,7067000000,as_reported,7067000000,agree,7067000000,0001730168-23-000096
+AVGO,segment_revenue,Infrastructure software,FY2022,2022-10-30,7385000000,as_reported,7385000000,agree,7385000000,0001730168-24-000139
+AVGO,segment_revenue,Infrastructure software,FY2023,2023-10-29,7637000000,as_reported,7637000000,agree,7637000000,0001730168-25-000121
+AVGO,segment_revenue,Infrastructure software,FY2024,2024-11-03,21478000000,as_reported,21478000000,agree,21478000000,0001730168-25-000121
+AVGO,segment_revenue,Infrastructure software,FY2025,2025-11-02,27029000000,as_reported,27029000000,agree,27029000000,0001730168-25-000121
+AVGO,segment_revenue,Semiconductor solutions,FY2020,2020-11-01,17267000000,as_reported,17267000000,agree,17267000000,0001730168-22-000118
+AVGO,segment_revenue,Semiconductor solutions,FY2021,2021-10-31,20383000000,as_reported,20383000000,agree,20383000000,0001730168-23-000096
+AVGO,segment_revenue,Semiconductor solutions,FY2022,2022-10-30,25818000000,as_reported,25818000000,agree,25818000000,0001730168-24-000139
+AVGO,segment_revenue,Semiconductor solutions,FY2023,2023-10-29,28182000000,as_reported,28182000000,agree,28182000000,0001730168-25-000121
+AVGO,segment_revenue,Semiconductor solutions,FY2024,2024-11-03,30096000000,as_reported,30096000000,agree,30096000000,0001730168-25-000121
+AVGO,segment_revenue,Semiconductor solutions,FY2025,2025-11-02,36858000000,as_reported,36858000000,agree,36858000000,0001730168-25-000121
+CIFR,ppe_category,Autos,FY2022,2022-12-31,73000,as_reported,73000,agree,73000,0000950170-24-025442
+CIFR,ppe_category,Autos,FY2023,2023-12-31,73000,as_reported,73000,agree,73000,0000950170-24-025442
+CIFR,ppe_category,Buildings,FY2025,2025-12-31,66594000,as_reported,66594000,no_reference,,0001819989-26-000009
+CIFR,ppe_category,Construction-in-progress,FY2021,2021-12-31,5069000,as_reported,5069000,agree,5069000,0000950170-23-007793
+CIFR,ppe_category,Construction-in-progress,FY2022,2022-12-31,20437000,as_reported,20437000,agree,20437000,0000950170-24-025442
+CIFR,ppe_category,Construction-in-progress,FY2023,2023-12-31,49000,as_reported,49000,agree,49000,0001819989-25-000005
+CIFR,ppe_category,Construction-in-progress,FY2024,2024-12-31,82017000,as_reported,82017000,no_reference,,0001819989-26-000009
+CIFR,ppe_category,Construction-in-progress,FY2025,2025-12-31,276470000,as_reported,276470000,no_reference,,0001819989-26-000009
+CIFR,ppe_category,Furniture and fixtures,FY2022,2022-12-31,69000,as_reported,69000,agree,69000,0000950170-24-025442
+CIFR,ppe_category,Furniture and fixtures,FY2023,2023-12-31,88000,as_reported,88000,agree,88000,0000950170-24-025442
+CIFR,ppe_category,Infrastructure,FY2024,2024-12-31,28166000,as_reported,28166000,no_reference,,0001819989-26-000009
+CIFR,ppe_category,Infrastructure,FY2025,2025-12-31,108827000,as_reported,108827000,no_reference,,0001819989-26-000009
+CIFR,ppe_category,Land,FY2024,2024-12-31,49021000,as_reported,49021000,no_reference,,0001819989-26-000009
+CIFR,ppe_category,Land,FY2025,2025-12-31,79054000,as_reported,79054000,no_reference,,0001819989-26-000009
+CIFR,ppe_category,Leasehold improvements,FY2022,2022-12-31,94807000,as_reported,94807000,agree,94807000,0000950170-24-025442
+CIFR,ppe_category,Leasehold improvements,FY2023,2023-12-31,138883000,as_reported,138883000,agree,138883000,0001819989-25-000005
+CIFR,ppe_category,Leasehold improvements,FY2024,2024-12-31,137582000,as_reported,137582000,no_reference,,0001819989-26-000009
+CIFR,ppe_category,Leasehold improvements,FY2025,2025-12-31,134122000,as_reported,134122000,no_reference,,0001819989-26-000009
+CIFR,ppe_category,Miners and mining equipment,FY2022,2022-12-31,79909000,as_reported,79909000,agree,79909000,0000950170-24-025442
+CIFR,ppe_category,Miners and mining equipment,FY2023,2023-12-31,163523000,as_reported,163523000,agree,163523000,0001819989-25-000005
+CIFR,ppe_category,Miners and mining equipment,FY2024,2024-12-31,342111000,as_reported,342111000,no_reference,,0001819989-26-000009
+CIFR,ppe_category,Miners and mining equipment,FY2025,2025-12-31,289680000,as_reported,289680000,no_reference,,0001819989-26-000009
+CIFR,ppe_category,Office and computer equipment,FY2021,2021-12-31,60000,as_reported,60000,agree,60000,0000950170-23-007793
+CIFR,ppe_category,Office and computer equipment,FY2022,2022-12-31,88000,as_reported,88000,agree,88000,0000950170-24-025442
+CIFR,ppe_category,Office and computer equipment,FY2023,2023-12-31,279000,as_reported,279000,agree,279000,0000950170-24-025442
+CIFR,ppe_category,Other,FY2023,2023-12-31,440000,as_reported,440000,no_reference,,0001819989-25-000005
+CIFR,ppe_category,Other,FY2024,2024-12-31,606000,as_reported,606000,no_reference,,0001819989-26-000009
+CIFR,ppe_category,Other,FY2025,2025-12-31,1873000,as_reported,1873000,no_reference,,0001819989-26-000009
+CIFR,ppe_category,Software,FY2022,2022-12-31,596000,as_reported,596000,no_reference,,0000950170-23-007793
+CIFR,segment_revenue,Bitcoin Mining,FY2023,2023-12-31,126842000,as_reported,126842000,agree,126842000,0001819989-25-000005
+CIFR,segment_revenue,Bitcoin Mining,FY2024,2024-12-31,151270000,as_reported,151270000,agree,151270000,0001819989-25-000005
+CIFR,segment_revenue,Revenue - bitcoin mining,FY2022,2022-12-31,3037000,as_reported,3037000,no_reference,,0000950170-24-025442
+CIFR,segment_revenue,Revenue - bitcoin mining,FY2023,2023-12-31,126842000,as_reported,126842000,no_reference,,0000950170-24-025442
+COMP,ppe_category,Computer equipment,FY2021,2021-12-31,24200000,as_reported,24200000,agree,24200000,0001563190-23-000038
+COMP,ppe_category,Computer equipment,FY2022,2022-12-31,32300000,as_reported,32300000,agree,32300000,0001563190-24-000039
+COMP,ppe_category,Computer equipment,FY2023,2023-12-31,26700000,as_reported,26700000,agree,26700000,0001563190-25-000050
+COMP,ppe_category,Computer equipment,FY2024,2024-12-31,26100000,as_reported,26100000,agree,26100000,0001563190-26-000057
+COMP,ppe_category,Computer equipment,FY2025,2025-12-31,16400000,as_reported,16400000,agree,16400000,0001563190-26-000057
+COMP,ppe_category,Computer software and internally-developed software,FY2021,2021-12-31,28100000,as_reported,28100000,no_reference,,0001563190-23-000038
+COMP,ppe_category,Computer software and internally-developed software,FY2022,2022-12-31,37900000,as_reported,37900000,no_reference,,0001563190-24-000039
+COMP,ppe_category,Computer software and internally-developed software,FY2023,2023-12-31,42700000,as_reported,42700000,no_reference,,0001563190-25-000050
+COMP,ppe_category,Computer software and internally-developed software,FY2024,2024-12-31,49900000,as_reported,49900000,no_reference,,0001563190-26-000057
+COMP,ppe_category,Computer software and internally-developed software,FY2025,2025-12-31,56900000,as_reported,56900000,no_reference,,0001563190-26-000057
+COMP,ppe_category,Leasehold improvements,FY2021,2021-12-31,158200000,as_reported,158200000,agree,158200000,0001563190-23-000038
+COMP,ppe_category,Leasehold improvements,FY2022,2022-12-31,192300000,as_reported,192300000,agree,192300000,0001563190-24-000039
+COMP,ppe_category,Leasehold improvements,FY2023,2023-12-31,186700000,as_reported,186700000,agree,186700000,0001563190-25-000050
+COMP,ppe_category,Leasehold improvements,FY2024,2024-12-31,186200000,as_reported,186200000,agree,186200000,0001563190-26-000057
+COMP,ppe_category,Leasehold improvements,FY2025,2025-12-31,197500000,as_reported,197500000,agree,197500000,0001563190-26-000057
+COMP,ppe_category,Office furniture and equipment,FY2021,2021-12-31,31900000,as_reported,31900000,no_reference,,0001563190-23-000038
+COMP,ppe_category,Office furniture and equipment,FY2022,2022-12-31,37100000,as_reported,37100000,no_reference,,0001563190-24-000039
+COMP,ppe_category,Office furniture and equipment,FY2023,2023-12-31,36900000,as_reported,36900000,no_reference,,0001563190-25-000050
+COMP,ppe_category,Office furniture and equipment,FY2024,2024-12-31,37400000,as_reported,37400000,no_reference,,0001563190-26-000057
+COMP,ppe_category,Office furniture and equipment,FY2025,2025-12-31,39500000,as_reported,39500000,no_reference,,0001563190-26-000057
+COMP,purchase_commitments,,FY2022,2022-12-31,74600000,as_reported,74600000,no_reference,,0001563190-23-000038
+COMP,purchase_commitments,,FY2023,2023-12-31,88000000,as_reported,88000000,no_reference,,0001563190-24-000039
+COMP,purchase_commitments,,FY2024,2024-12-31,70200000,as_reported,70200000,unresolved,15300000,0001563190-25-000050
+COMP,purchase_commitments,,FY2025,2025-12-31,122600000,as_reported,122600000,unresolved,25800000,0001563190-26-000057
+CORZ,finance_lease_liability,,FY2025,2025-12-31,844000,as_reported,844000,agree,844000,0001628280-26-013305
+CORZ,ppe_category,Add: Construction in progress,FY2023,2023-12-31,183909000,as_reported,183909000,no_reference,,0001628280-26-013232
+CORZ,ppe_category,Add: Construction in progress,FY2024,2024-12-31,111966000,as_reported,111966000,no_reference,,0001628280-26-013305
+CORZ,ppe_category,Add: Construction in progress,FY2025,2025-12-31,911066000,as_reported,911066000,no_reference,,0001628280-26-013305
+CORZ,ppe_category,Building and improvements,FY2021,2021-12-31,93064000,as_reported,93064000,no_reference,,0001628280-23-010454
+CORZ,ppe_category,Building and improvements,FY2022,2022-12-31,166486000,restated,294480000,no_reference,,0001628280-24-010682
+CORZ,ppe_category,Building and improvements,FY2023,2023-12-31,164495000,as_reported,164495000,no_reference,,0001628280-26-013232
+CORZ,ppe_category,Building and improvements,FY2024,2024-12-31,186267000,restated,256086000,no_reference,,0001628280-26-013305
+CORZ,ppe_category,Building and improvements,FY2025,2025-12-31,278222000,as_reported,278222000,no_reference,,0001628280-26-013305
+CORZ,ppe_category,"Computer, mining and network equipment",FY2021,2021-12-31,475331000,as_reported,475331000,no_reference,,0001628280-23-010454
+CORZ,ppe_category,"Computer, mining and network equipment",FY2022,2022-12-31,464823000,as_reported,464823000,no_reference,,0001628280-23-010454
+CORZ,ppe_category,Construction in progress,FY2022,2022-12-31,254499000,as_reported,254499000,no_reference,,0001628280-24-010682
+CORZ,ppe_category,Construction in progress,FY2023,2023-12-31,183909000,as_reported,183909000,no_reference,,0001628280-25-008302
+CORZ,ppe_category,Construction in progress,FY2024,2024-12-31,162856000,as_reported,162856000,no_reference,,0001628280-25-008302
+CORZ,ppe_category,Electrical equipment,FY2021,2021-12-31,59253000,as_reported,59253000,no_reference,,0001628280-23-010454
+CORZ,ppe_category,Electrical equipment,FY2022,2022-12-31,64810000,restated,170793000,no_reference,,0001628280-24-010682
+CORZ,ppe_category,Electrical equipment,FY2023,2023-12-31,64810000,as_reported,64810000,no_reference,,0001628280-26-013232
+CORZ,ppe_category,Electrical equipment,FY2024,2024-12-31,74077000,restated,82598000,no_reference,,0001628280-26-013305
+CORZ,ppe_category,Electrical equipment,FY2025,2025-12-31,77348000,as_reported,77348000,no_reference,,0001628280-26-013305
+CORZ,ppe_category,Land and improvements,FY2021,2021-12-31,12995000,as_reported,12995000,no_reference,,0001628280-23-010454
+CORZ,ppe_category,Land and improvements,FY2022,2022-12-31,22309000,restated,27758000,no_reference,,0001628280-24-010682
+CORZ,ppe_category,Land and improvements,FY2023,2023-12-31,21852000,as_reported,21852000,no_reference,,0001628280-26-013232
+CORZ,ppe_category,Land and improvements,FY2024,2024-12-31,17215000,restated,23667000,no_reference,,0001628280-26-013305
+CORZ,ppe_category,Land and improvements,FY2025,2025-12-31,21769000,as_reported,21769000,no_reference,,0001628280-26-013305
+CORZ,ppe_category,Mining and network equipment,FY2022,2022-12-31,448346000,as_reported,448346000,no_reference,,0001628280-24-010682
+CORZ,ppe_category,Mining and network equipment,FY2023,2023-12-31,441404000,as_reported,441404000,no_reference,,0001628280-26-013232
+CORZ,ppe_category,Mining and network equipment,FY2024,2024-12-31,413296000,restated,414173000,no_reference,,0001628280-26-013305
+CORZ,ppe_category,Mining and network equipment,FY2025,2025-12-31,408777000,as_reported,408777000,no_reference,,0001628280-26-013305
+CORZ,ppe_category,"Other property, plant and equipment",FY2021,2021-12-31,1156000,as_reported,1156000,no_reference,,0001628280-23-010454
+CORZ,ppe_category,"Other property, plant and equipment",FY2022,2022-12-31,2917000,restated,1513000,no_reference,,0001628280-24-010682
+CORZ,ppe_category,"Other property, plant and equipment",FY2023,2023-12-31,2935000,as_reported,2935000,no_reference,,0001628280-26-013232
+CORZ,ppe_category,"Other property, plant and equipment",FY2024,2024-12-31,2764000,restated,2884000,no_reference,,0001628280-26-013305
+CORZ,ppe_category,"Other property, plant and equipment",FY2025,2025-12-31,3010000,as_reported,3010000,no_reference,,0001628280-26-013305
+CORZ,segment_revenue,Colocation revenue,FY2024,2024-12-31,24378000,as_reported,24378000,no_reference,,0001628280-26-013305
+CORZ,segment_revenue,Colocation revenue,FY2025,2025-12-31,65424000,as_reported,65424000,no_reference,,0001628280-26-013305
+CORZ,segment_revenue,Digital asset hosted mining revenue from customers,FY2023,2023-12-31,102005000,as_reported,102005000,no_reference,,0001628280-26-013232
+CORZ,segment_revenue,Digital asset hosted mining revenue from customers,FY2024,2024-12-31,77554000,as_reported,77554000,no_reference,,0001628280-26-013305
+CORZ,segment_revenue,Digital asset hosted mining revenue from customers,FY2025,2025-12-31,24388000,as_reported,24388000,no_reference,,0001628280-26-013305
+CORZ,segment_revenue,Digital asset hosted mining revenue from related parties,FY2023,2023-12-31,10062000,as_reported,10062000,no_reference,,0001628280-26-013232
+CORZ,segment_revenue,Digital asset mining income,FY2020,2020-12-31,6127000,as_reported,6127000,no_reference,,0001628280-23-010454
+CORZ,segment_revenue,Digital asset mining income,FY2021,2021-12-31,216925000,as_reported,216925000,no_reference,,0001628280-23-010454
+CORZ,segment_revenue,Digital asset mining income,FY2022,2022-12-31,397796000,as_reported,397796000,no_reference,,0001628280-23-010454
+CORZ,segment_revenue,Digital asset self-mining revenue,FY2023,2023-12-31,390333000,as_reported,390333000,no_reference,,0001628280-26-013232
+CORZ,segment_revenue,Digital asset self-mining revenue,FY2024,2024-12-31,408740000,as_reported,408740000,no_reference,,0001628280-26-013305
+CORZ,segment_revenue,Digital asset self-mining revenue,FY2025,2025-12-31,229207000,as_reported,229207000,no_reference,,0001628280-26-013305
+CORZ,segment_revenue,Equipment sales,FY2020,2020-12-31,12595000,as_reported,12595000,no_reference,,0001628280-23-010454
+CORZ,segment_revenue,Equipment sales,FY2021,2021-12-31,248235000,as_reported,248235000,no_reference,,0001628280-23-010454
+CORZ,segment_revenue,Equipment sales,FY2022,2022-12-31,82829000,as_reported,82829000,no_reference,,0001628280-23-010454
+CORZ,segment_revenue,HPC hosting revenue,FY2024,2024-12-31,24378000,as_reported,24378000,no_reference,,0001628280-26-013232
+CORZ,segment_revenue,Hosting,FY2021,2021-12-31,327558000,as_reported,327558000,no_reference,,0001628280-24-010682
+CORZ,segment_revenue,Hosting,FY2022,2022-12-31,242517000,as_reported,242517000,no_reference,,0001628280-24-010682
+CORZ,segment_revenue,Hosting,FY2023,2023-12-31,112067000,as_reported,112067000,no_reference,,0001628280-24-010682
+CORZ,segment_revenue,Hosting revenue,FY2020,2020-12-31,41598000,as_reported,41598000,no_reference,,0001628280-23-010454
+CORZ,segment_revenue,Hosting revenue,FY2021,2021-12-31,79323000,as_reported,79323000,no_reference,,0001628280-23-010454
+CORZ,segment_revenue,Hosting revenue,FY2022,2022-12-31,159688000,as_reported,159688000,no_reference,,0001628280-23-010454
+CORZ,segment_revenue,Mining,FY2021,2021-12-31,216925000,as_reported,216925000,no_reference,,0001628280-24-010682
+CORZ,segment_revenue,Mining,FY2022,2022-12-31,397796000,as_reported,397796000,no_reference,,0001628280-24-010682
+CORZ,segment_revenue,Mining,FY2023,2023-12-31,390333000,as_reported,390333000,no_reference,,0001628280-24-010682
+CRDO,ppe_category,Computer equipment and software,FY2021,2021-04-30,1606000,as_reported,1606000,agree,1606000,0001628280-22-016593
+CRDO,ppe_category,Computer equipment and software,FY2022,2022-04-30,1736000,as_reported,1736000,agree,1736000,0001628280-23-023187
+CRDO,ppe_category,Computer equipment and software,FY2023,2023-04-29,13942000,as_reported,13942000,agree,13942000,0001628280-24-029629
+CRDO,ppe_category,Computer equipment and software,FY2024,2024-04-27,18271000,as_reported,18271000,agree,18271000,0001628280-25-033813
+CRDO,ppe_category,Computer equipment and software,FY2025,2025-05-03,27901000,as_reported,27901000,agree,27901000,0001628280-26-043303
+CRDO,ppe_category,Computer equipment and software,FY2026,2026-05-02,48924000,as_reported,48924000,agree,48924000,0001628280-26-043303
+CRDO,ppe_category,Construction in progress,FY2021,2021-04-30,4698000,as_reported,4698000,agree,4698000,0001628280-22-016593
+CRDO,ppe_category,Construction in progress,FY2022,2022-04-30,2932000,as_reported,2932000,agree,2932000,0001628280-23-023187
+CRDO,ppe_category,Construction in progress,FY2023,2023-04-29,6300000,as_reported,6300000,agree,6300000,0001628280-24-029629
+CRDO,ppe_category,Construction in progress,FY2024,2024-04-27,3616000,as_reported,3616000,agree,3616000,0001628280-25-033813
+CRDO,ppe_category,Construction in progress,FY2025,2025-05-03,9687000,as_reported,9687000,agree,9687000,0001628280-26-043303
+CRDO,ppe_category,Construction in progress,FY2026,2026-05-02,27027000,as_reported,27027000,agree,27027000,0001628280-26-043303
+CRDO,ppe_category,Laboratory equipment,FY2021,2021-04-30,6603000,as_reported,6603000,agree,6603000,0001628280-22-016593
+CRDO,ppe_category,Laboratory equipment,FY2022,2022-04-30,9521000,as_reported,9521000,agree,9521000,0001628280-23-023187
+CRDO,ppe_category,Laboratory equipment,FY2023,2023-04-29,15577000,as_reported,15577000,agree,15577000,0001628280-24-029629
+CRDO,ppe_category,Laboratory equipment,FY2024,2024-04-27,19840000,as_reported,19840000,agree,19840000,0001628280-25-033813
+CRDO,ppe_category,Laboratory equipment,FY2025,2025-05-03,21944000,as_reported,21944000,agree,21944000,0001628280-26-043303
+CRDO,ppe_category,Laboratory equipment,FY2026,2026-05-02,36933000,as_reported,36933000,agree,36933000,0001628280-26-043303
+CRDO,ppe_category,Leasehold improvements,FY2021,2021-04-30,1349000,as_reported,1349000,agree,1349000,0001628280-22-016593
+CRDO,ppe_category,Leasehold improvements,FY2022,2022-04-30,1465000,as_reported,1465000,agree,1465000,0001628280-23-023187
+CRDO,ppe_category,Leasehold improvements,FY2023,2023-04-29,2005000,as_reported,2005000,agree,2005000,0001628280-24-029629
+CRDO,ppe_category,Leasehold improvements,FY2024,2024-04-27,2525000,as_reported,2525000,agree,2525000,0001628280-25-033813
+CRDO,ppe_category,Leasehold improvements,FY2025,2025-05-03,3513000,restated,3222000,agree,3513000,0001628280-26-043303
+CRDO,ppe_category,Leasehold improvements,FY2026,2026-05-02,4096000,as_reported,4096000,agree,4096000,0001628280-26-043303
+CRDO,ppe_category,Others,FY2021,2021-04-30,439000,as_reported,439000,no_reference,,0001628280-22-016593
+CRDO,ppe_category,Others,FY2022,2022-04-30,524000,as_reported,524000,no_reference,,0001628280-23-023187
+CRDO,ppe_category,Others,FY2023,2023-04-29,632000,as_reported,632000,no_reference,,0001628280-24-029629
+CRDO,ppe_category,Others,FY2024,2024-04-27,534000,as_reported,534000,no_reference,,0001628280-25-033813
+CRDO,ppe_category,Others,FY2025,2025-05-03,291000,as_reported,291000,no_reference,,0001628280-25-033813
+CRDO,ppe_category,Production equipment,FY2021,2021-04-30,5680000,as_reported,5680000,agree,5680000,0001628280-22-016593
+CRDO,ppe_category,Production equipment,FY2022,2022-04-30,15502000,as_reported,15502000,agree,15502000,0001628280-23-023187
+CRDO,ppe_category,Production equipment,FY2023,2023-04-29,19783000,as_reported,19783000,agree,19783000,0001628280-24-029629
+CRDO,ppe_category,Production equipment,FY2024,2024-04-27,27608000,as_reported,27608000,agree,27608000,0001628280-25-033813
+CRDO,ppe_category,Production equipment,FY2025,2025-05-03,44789000,as_reported,44789000,agree,44789000,0001628280-26-043303
+CRDO,ppe_category,Production equipment,FY2026,2026-05-02,63214000,as_reported,63214000,agree,63214000,0001628280-26-043303
+CRDO,purchase_commitments,,FY2023,2023-04-29,40629000,as_reported,40629000,unresolved,5100000,0001628280-23-023187
+CRDO,purchase_commitments,,FY2024,2024-04-27,91797000,as_reported,91797000,no_reference,,0001628280-24-029629
+CRDO,purchase_commitments,,FY2025,2025-05-03,64211000,as_reported,64211000,no_reference,,0001628280-25-033813
+CRDO,purchase_commitments,,FY2026,2026-05-02,359954000,as_reported,359954000,no_reference,,0001628280-26-043303
+CRWV,finance_lease_liability,,FY2024,2024-12-31,92000000,as_reported,92000000,agree,92000000,0001769628-26-000104
+CRWV,finance_lease_liability,,FY2025,2025-12-31,254000000,as_reported,254000000,agree,254000000,0001769628-26-000104
+CRWV,ppe_category,Construction in progress,FY2024,2024-12-31,3201000000,as_reported,3201000000,agree,3201000000,0001769628-26-000104
+CRWV,ppe_category,Construction in progress,FY2025,2025-12-31,9376000000,as_reported,9376000000,agree,9376000000,0001769628-26-000104
+CRWV,ppe_category,Data center equipment and leasehold improvements,FY2024,2024-12-31,384000000,as_reported,384000000,agree,384000000,0001769628-26-000104
+CRWV,ppe_category,Data center equipment and leasehold improvements,FY2025,2025-12-31,2842000000,as_reported,2842000000,agree,2842000000,0001769628-26-000104
+CRWV,ppe_category,"Furniture, fixtures, and other assets",FY2024,2024-12-31,9000000,as_reported,9000000,no_reference,,0001769628-26-000104
+CRWV,ppe_category,"Furniture, fixtures, and other assets",FY2025,2025-12-31,18000000,as_reported,18000000,no_reference,,0001769628-26-000104
+CRWV,ppe_category,Software,FY2024,2024-12-31,140000000,as_reported,140000000,no_reference,,0001769628-26-000104
+CRWV,ppe_category,Software,FY2025,2025-12-31,802000000,as_reported,802000000,no_reference,,0001769628-26-000104
+CRWV,ppe_category,Technology equipment,FY2024,2024-12-31,9146000000,as_reported,9146000000,agree,9146000000,0001769628-26-000104
+CRWV,ppe_category,Technology equipment,FY2025,2025-12-31,20903000000,as_reported,20903000000,agree,20903000000,0001769628-26-000104
+CSCO,ppe_category,Computer equipment and related software,FY2021,2021-07-31,858000000,as_reported,858000000,no_reference,,0000858877-22-000013
+CSCO,ppe_category,Computer equipment and related software,FY2022,2022-07-30,779000000,as_reported,779000000,no_reference,,0000858877-23-000023
+CSCO,ppe_category,Computer equipment and related software,FY2023,2023-07-29,744000000,as_reported,744000000,no_reference,,0000858877-23-000023
+CSCO,ppe_category,"Furniture, fixtures and other",FY2021,2021-07-31,377000000,as_reported,377000000,no_reference,,0000858877-22-000013
+CSCO,ppe_category,"Furniture, fixtures and other",FY2022,2022-07-30,335000000,as_reported,335000000,no_reference,,0000858877-23-000023
+CSCO,ppe_category,"Furniture, fixtures and other",FY2023,2023-07-29,339000000,as_reported,339000000,no_reference,,0000858877-24-000017
+CSCO,ppe_category,"Furniture, fixtures and other",FY2024,2024-07-27,351000000,as_reported,351000000,no_reference,,0000858877-25-000111
+CSCO,ppe_category,"Furniture, fixtures and other",FY2025,2025-07-26,316000000,as_reported,316000000,no_reference,,0000858877-26-000132
+CSCO,ppe_category,"Furniture, fixtures and other",FY2026,2026-07-25,287000000,as_reported,287000000,no_reference,,0000858877-26-000132
+CSCO,ppe_category,"Land, buildings, and building and leasehold improvements",FY2021,2021-07-31,4304000000,as_reported,4304000000,no_reference,,0000858877-22-000013
+CSCO,ppe_category,"Land, buildings, and building and leasehold improvements",FY2022,2022-07-30,4219000000,as_reported,4219000000,no_reference,,0000858877-23-000023
+CSCO,ppe_category,"Land, buildings, and building and leasehold improvements",FY2023,2023-07-29,4229000000,as_reported,4229000000,no_reference,,0000858877-24-000017
+CSCO,ppe_category,"Land, buildings, and building and leasehold improvements",FY2024,2024-07-27,4247000000,as_reported,4247000000,no_reference,,0000858877-25-000111
+CSCO,ppe_category,"Land, buildings, and building and leasehold improvements",FY2025,2025-07-26,4045000000,as_reported,4045000000,no_reference,,0000858877-26-000132
+CSCO,ppe_category,"Land, buildings, and building and leasehold improvements",FY2026,2026-07-25,4093000000,as_reported,4093000000,no_reference,,0000858877-26-000132
+CSCO,ppe_category,Operating lease assets,FY2021,2021-07-31,273000000,as_reported,273000000,no_reference,,0000858877-22-000013
+CSCO,ppe_category,Operating lease assets,FY2022,2022-07-30,185000000,as_reported,185000000,no_reference,,0000858877-23-000023
+CSCO,ppe_category,Operating lease assets,FY2023,2023-07-29,135000000,as_reported,135000000,no_reference,,0000858877-24-000017
+CSCO,ppe_category,Operating lease assets,FY2024,2024-07-27,115000000,as_reported,115000000,no_reference,,0000858877-25-000111
+CSCO,ppe_category,Operating lease assets,FY2025,2025-07-26,51000000,as_reported,51000000,no_reference,,0000858877-26-000132
+CSCO,ppe_category,Operating lease assets,FY2026,2026-07-25,51000000,as_reported,51000000,no_reference,,0000858877-26-000132
+CSCO,ppe_category,"Production, engineering, and other equipment",FY2021,2021-07-31,5106000000,as_reported,5106000000,no_reference,,0000858877-22-000013
+CSCO,ppe_category,"Production, engineering, and other equipment",FY2022,2022-07-30,4647000000,as_reported,4647000000,no_reference,,0000858877-23-000023
+CSCO,ppe_category,"Production, engineering, and other equipment",FY2023,2023-07-29,4611000000,as_reported,4611000000,no_reference,,0000858877-23-000023
+CSCO,ppe_category,"Production, engineering, computer and other equipment and related software",FY2023,2023-07-29,5355000000,as_reported,5355000000,no_reference,,0000858877-24-000017
+CSCO,ppe_category,"Production, engineering, computer and other equipment and related software",FY2024,2024-07-27,5160000000,as_reported,5160000000,no_reference,,0000858877-25-000111
+CSCO,ppe_category,"Production, engineering, computer and other equipment and related software",FY2025,2025-07-26,5178000000,as_reported,5178000000,no_reference,,0000858877-26-000132
+CSCO,ppe_category,"Production, engineering, computer and other equipment and related software",FY2026,2026-07-25,5441000000,as_reported,5441000000,no_reference,,0000858877-26-000132
+CSCO,purchase_commitments,,FY2020,2020-07-25,4406000000,as_reported,4406000000,no_reference,,0000858877-22-000013
+CSCO,purchase_commitments,,FY2021,2021-07-31,10254000000,as_reported,10254000000,no_reference,,0000858877-23-000023
+CSCO,purchase_commitments,,FY2022,2022-07-30,12964000000,as_reported,12964000000,no_reference,,0000858877-24-000017
+CSCO,purchase_commitments,,FY2023,2023-07-29,7253000000,as_reported,7253000000,no_reference,,0000858877-25-000111
+CSCO,purchase_commitments,,FY2024,2024-07-27,5158000000,as_reported,5158000000,no_reference,,0000858877-25-000111
+CSCO,purchase_commitments,,FY2025,2025-07-26,7599000000,as_reported,7599000000,no_reference,,0000858877-25-000111
+CSCO,purchase_commitments,,FY2026,2026-07-25,17165000000,as_reported,17165000000,no_reference,,0000858877-26-000132
+GOOGL,finance_lease_liability,,FY2022,2022-12-31,2142000000,as_reported,2142000000,agree,2142000000,0001652044-24-000022
+GOOGL,finance_lease_liability,,FY2023,2023-12-31,1666000000,restated,1746000000,agree,1666000000,0001652044-25-000014
+GOOGL,finance_lease_liability,,FY2024,2024-12-31,1677000000,as_reported,1677000000,agree,1677000000,0001652044-26-000018
+GOOGL,finance_lease_liability,,FY2025,2025-12-31,2500000000,as_reported,2500000000,agree,2500000000,0001652044-26-000018
+GOOGL,ppe_category,Construction in progress,FY2021,2021-12-31,23172000000,as_reported,23172000000,agree,23172000000,0001652044-23-000016
+GOOGL,ppe_category,Construction in progress,FY2022,2022-12-31,27657000000,as_reported,27657000000,agree,27657000000,0001652044-24-000022
+GOOGL,ppe_category,Construction in progress,FY2023,2023-12-31,35229000000,as_reported,35229000000,agree,35229000000,0001652044-24-000022
+GOOGL,ppe_category,Furniture and fixtures,FY2021,2021-12-31,208000000,as_reported,208000000,agree,208000000,0001652044-23-000016
+GOOGL,ppe_category,Furniture and fixtures,FY2022,2022-12-31,314000000,as_reported,314000000,agree,314000000,0001652044-24-000022
+GOOGL,ppe_category,Furniture and fixtures,FY2023,2023-12-31,472000000,as_reported,472000000,agree,472000000,0001652044-24-000022
+GOOGL,ppe_category,Information technology assets,FY2021,2021-12-31,55606000000,as_reported,55606000000,no_reference,,0001652044-23-000016
+GOOGL,ppe_category,Information technology assets,FY2022,2022-12-31,66267000000,as_reported,66267000000,no_reference,,0001652044-24-000022
+GOOGL,ppe_category,Information technology assets,FY2023,2023-12-31,80594000000,as_reported,80594000000,no_reference,,0001652044-24-000022
+GOOGL,ppe_category,Land and buildings,FY2021,2021-12-31,58881000000,as_reported,58881000000,no_reference,,0001652044-23-000016
+GOOGL,ppe_category,Land and buildings,FY2022,2022-12-31,66897000000,as_reported,66897000000,no_reference,,0001652044-24-000022
+GOOGL,ppe_category,Land and buildings,FY2023,2023-12-31,74083000000,as_reported,74083000000,no_reference,,0001652044-24-000022
+GOOGL,ppe_category,Leasehold improvements,FY2021,2021-12-31,9146000000,as_reported,9146000000,agree,9146000000,0001652044-23-000016
+GOOGL,ppe_category,Leasehold improvements,FY2022,2022-12-31,10575000000,as_reported,10575000000,agree,10575000000,0001652044-24-000022
+GOOGL,ppe_category,Leasehold improvements,FY2023,2023-12-31,11425000000,as_reported,11425000000,agree,11425000000,0001652044-24-000022
+GOOGL,segment_revenue,Google Cloud,FY2020,2020-12-31,13059000000,as_reported,13059000000,agree,13059000000,0001652044-23-000016
+GOOGL,segment_revenue,Google Cloud,FY2021,2021-12-31,19206000000,as_reported,19206000000,agree,19206000000,0001652044-24-000022
+GOOGL,segment_revenue,Google Cloud,FY2022,2022-12-31,26280000000,as_reported,26280000000,agree,26280000000,0001652044-25-000014
+GOOGL,segment_revenue,Google Cloud,FY2023,2023-12-31,33088000000,as_reported,33088000000,agree,33088000000,0001652044-26-000018
+GOOGL,segment_revenue,Google Cloud,FY2024,2024-12-31,43229000000,as_reported,43229000000,agree,43229000000,0001652044-26-000018
+GOOGL,segment_revenue,Google Cloud,FY2025,2025-12-31,58705000000,as_reported,58705000000,agree,58705000000,0001652044-26-000018
+GOOGL,segment_revenue,Google Services,FY2020,2020-12-31,168635000000,as_reported,168635000000,agree,168635000000,0001652044-23-000016
+GOOGL,segment_revenue,Google Services,FY2021,2021-12-31,237529000000,as_reported,237529000000,agree,237529000000,0001652044-24-000022
+GOOGL,segment_revenue,Google Services,FY2022,2022-12-31,253528000000,as_reported,253528000000,agree,253528000000,0001652044-25-000014
+GOOGL,segment_revenue,Google Services,FY2023,2023-12-31,272543000000,as_reported,272543000000,agree,272543000000,0001652044-26-000018
+GOOGL,segment_revenue,Google Services,FY2024,2024-12-31,304930000000,as_reported,304930000000,agree,304930000000,0001652044-26-000018
+GOOGL,segment_revenue,Google Services,FY2025,2025-12-31,342721000000,as_reported,342721000000,agree,342721000000,0001652044-26-000018
+GOOGL,segment_revenue,Other Bets,FY2020,2020-12-31,657000000,as_reported,657000000,no_reference,,0001652044-23-000016
+GOOGL,segment_revenue,Other Bets,FY2021,2021-12-31,753000000,as_reported,753000000,no_reference,,0001652044-24-000022
+GOOGL,segment_revenue,Other Bets,FY2022,2022-12-31,1068000000,as_reported,1068000000,no_reference,,0001652044-25-000014
+GOOGL,segment_revenue,Other Bets,FY2023,2023-12-31,1527000000,as_reported,1527000000,no_reference,,0001652044-26-000018
+GOOGL,segment_revenue,Other Bets,FY2024,2024-12-31,1648000000,as_reported,1648000000,no_reference,,0001652044-26-000018
+GOOGL,segment_revenue,Other Bets,FY2025,2025-12-31,1537000000,as_reported,1537000000,no_reference,,0001652044-26-000018
+IBM,finance_lease_liability,,FY2022,2022-12-31,239000000,as_reported,239000000,agree,239000000,0001558370-23-002376
+IBM,finance_lease_liability,,FY2023,2023-12-31,499000000,as_reported,499000000,agree,499000000,0000051143-24-000012
+IBM,finance_lease_liability,,FY2024,2024-12-31,1000000000,as_reported,1000000000,agree,1000000000,0000051143-25-000015
+IBM,finance_lease_liability,,FY2025,2025-12-31,1153000000,as_reported,1153000000,agree,1153000000,0000051143-26-000010
+IBM,ppe_category,Buildings and building and leasehold improvements,FY2021,2021-12-31,6049000000,as_reported,6049000000,no_reference,,0001558370-23-002376
+IBM,ppe_category,Buildings and building and leasehold improvements,FY2022,2022-12-31,5678000000,as_reported,5678000000,no_reference,,0000051143-24-000012
+IBM,ppe_category,Buildings and building and leasehold improvements,FY2023,2023-12-31,5333000000,as_reported,5333000000,no_reference,,0000051143-25-000015
+IBM,ppe_category,Buildings and building and leasehold improvements,FY2024,2024-12-31,4825000000,as_reported,4825000000,no_reference,,0000051143-26-000010
+IBM,ppe_category,Buildings and building and leasehold improvements,FY2025,2025-12-31,4807000000,as_reported,4807000000,no_reference,,0000051143-26-000010
+IBM,ppe_category,Information technology equipment,FY2021,2021-12-31,10589000000,as_reported,10589000000,no_reference,,0001558370-23-002376
+IBM,ppe_category,Information technology equipment,FY2022,2022-12-31,9643000000,as_reported,9643000000,no_reference,,0000051143-24-000012
+IBM,ppe_category,Information technology equipment,FY2023,2023-12-31,9223000000,as_reported,9223000000,no_reference,,0000051143-25-000015
+IBM,ppe_category,Information technology equipment,FY2024,2024-12-31,8895000000,as_reported,8895000000,no_reference,,0000051143-26-000010
+IBM,ppe_category,Information technology equipment,FY2025,2025-12-31,8885000000,as_reported,8885000000,no_reference,,0000051143-26-000010
+IBM,ppe_category,Land and land improvements,FY2021,2021-12-31,224000000,as_reported,224000000,agree,224000000,0001558370-23-002376
+IBM,ppe_category,Land and land improvements,FY2022,2022-12-31,213000000,as_reported,213000000,agree,213000000,0000051143-24-000012
+IBM,ppe_category,Land and land improvements,FY2023,2023-12-31,182000000,as_reported,182000000,no_reference,,0000051143-25-000015
+IBM,ppe_category,Land and land improvements,FY2024,2024-12-31,179000000,as_reported,179000000,no_reference,,0000051143-26-000010
+IBM,ppe_category,Land and land improvements,FY2025,2025-12-31,182000000,as_reported,182000000,no_reference,,0000051143-26-000010
+IBM,ppe_category,"Production, engineering, office and other equipment",FY2021,2021-12-31,3222000000,as_reported,3222000000,no_reference,,0001558370-23-002376
+IBM,ppe_category,"Production, engineering, office and other equipment",FY2022,2022-12-31,3161000000,as_reported,3161000000,no_reference,,0000051143-24-000012
+IBM,ppe_category,"Production, engineering, office and other equipment",FY2023,2023-12-31,3385000000,as_reported,3385000000,no_reference,,0000051143-25-000015
+IBM,ppe_category,"Production, engineering, office and other equipment",FY2024,2024-12-31,3792000000,as_reported,3792000000,no_reference,,0000051143-26-000010
+IBM,ppe_category,"Production, engineering, office and other equipment",FY2025,2025-12-31,4000000000,as_reported,4000000000,no_reference,,0000051143-26-000010
+IBM,purchase_commitments,,FY2022,2022-12-31,2771000000,as_reported,2771000000,no_reference,,0001558370-23-002376
+IBM,purchase_commitments,,FY2023,2023-12-31,3822000000,as_reported,3822000000,no_reference,,0000051143-24-000012
+IBM,purchase_commitments,,FY2024,2024-12-31,4892000000,as_reported,4892000000,unresolved,496000000,0000051143-25-000015
+IBM,purchase_commitments,,FY2025,2025-12-31,4817000000,as_reported,4817000000,unresolved,314000000,0000051143-26-000010
+IBM,segment_capex,Consulting,FY2020,2020-12-31,26000000,as_reported,26000000,no_reference,,0001558370-23-002376
+IBM,segment_capex,Consulting,FY2021,2021-12-31,55000000,as_reported,55000000,no_reference,,0000051143-24-000012
+IBM,segment_capex,Consulting,FY2022,2022-12-31,29000000,restated,33000000,no_reference,,0000051143-25-000015
+IBM,segment_capex,Consulting,FY2023,2023-12-31,21000000,restated,20000000,no_reference,,0000051143-25-000015
+IBM,segment_capex,Consulting,FY2024,2024-12-31,14000000,as_reported,14000000,no_reference,,0000051143-25-000015
+IBM,segment_capex,Financing,FY2020,2020-12-31,41000000,as_reported,41000000,no_reference,,0001558370-23-002376
+IBM,segment_capex,Financing,FY2021,2021-12-31,33000000,as_reported,33000000,no_reference,,0000051143-24-000012
+IBM,segment_capex,Financing,FY2022,2022-12-31,27000000,as_reported,27000000,no_reference,,0000051143-25-000015
+IBM,segment_capex,Financing,FY2023,2023-12-31,15000000,as_reported,15000000,no_reference,,0000051143-25-000015
+IBM,segment_capex,Financing,FY2024,2024-12-31,11000000,as_reported,11000000,no_reference,,0000051143-25-000015
+IBM,segment_capex,Infrastructure,FY2020,2020-12-31,1093000000,as_reported,1093000000,no_reference,,0001558370-23-002376
+IBM,segment_capex,Infrastructure,FY2021,2021-12-31,792000000,as_reported,792000000,no_reference,,0000051143-24-000012
+IBM,segment_capex,Infrastructure,FY2022,2022-12-31,853000000,as_reported,853000000,no_reference,,0000051143-25-000015
+IBM,segment_capex,Infrastructure,FY2023,2023-12-31,836000000,as_reported,836000000,no_reference,,0000051143-25-000015
+IBM,segment_capex,Infrastructure,FY2024,2024-12-31,684000000,as_reported,684000000,no_reference,,0000051143-25-000015
+IBM,segment_capex,Software,FY2020,2020-12-31,538000000,as_reported,538000000,no_reference,,0001558370-23-002376
+IBM,segment_capex,Software,FY2021,2021-12-31,559000000,as_reported,559000000,no_reference,,0000051143-24-000012
+IBM,segment_capex,Software,FY2022,2022-12-31,463000000,restated,446000000,no_reference,,0000051143-25-000015
+IBM,segment_capex,Software,FY2023,2023-12-31,369000000,restated,385000000,no_reference,,0000051143-25-000015
+IBM,segment_capex,Software,FY2024,2024-12-31,338000000,as_reported,338000000,no_reference,,0000051143-25-000015
+IBM,segment_revenue,Consulting,FY2020,2020-12-31,16257000000,as_reported,16257000000,no_reference,,0001558370-23-002376
+IBM,segment_revenue,Consulting,FY2021,2021-12-31,17844000000,as_reported,17844000000,no_reference,,0000051143-24-000012
+IBM,segment_revenue,Consulting,FY2022,2022-12-31,20058000000,restated,19107000000,no_reference,,0000051143-25-000015
+IBM,segment_revenue,Consulting,FY2023,2023-12-31,20884000000,restated,19985000000,no_reference,,0000051143-26-000010
+IBM,segment_revenue,Consulting,FY2024,2024-12-31,20692000000,as_reported,20692000000,no_reference,,0000051143-26-000010
+IBM,segment_revenue,Consulting,FY2025,2025-12-31,21055000000,as_reported,21055000000,no_reference,,0000051143-26-000010
+IBM,segment_revenue,Financing,FY2020,2020-12-31,975000000,as_reported,975000000,no_reference,,0001558370-23-002376
+IBM,segment_revenue,Financing,FY2021,2021-12-31,774000000,as_reported,774000000,no_reference,,0000051143-24-000012
+IBM,segment_revenue,Financing,FY2022,2022-12-31,645000000,as_reported,645000000,no_reference,,0000051143-25-000015
+IBM,segment_revenue,Financing,FY2023,2023-12-31,741000000,as_reported,741000000,no_reference,,0000051143-26-000010
+IBM,segment_revenue,Financing,FY2024,2024-12-31,713000000,as_reported,713000000,no_reference,,0000051143-26-000010
+IBM,segment_revenue,Financing,FY2025,2025-12-31,737000000,as_reported,737000000,no_reference,,0000051143-26-000010
+IBM,segment_revenue,Infrastructure,FY2020,2020-12-31,14533000000,as_reported,14533000000,no_reference,,0001558370-23-002376
+IBM,segment_revenue,Infrastructure,FY2021,2021-12-31,14188000000,as_reported,14188000000,no_reference,,0000051143-24-000012
+IBM,segment_revenue,Infrastructure,FY2022,2022-12-31,15288000000,as_reported,15288000000,no_reference,,0000051143-25-000015
+IBM,segment_revenue,Infrastructure,FY2023,2023-12-31,14593000000,as_reported,14593000000,no_reference,,0000051143-26-000010
+IBM,segment_revenue,Infrastructure,FY2024,2024-12-31,14020000000,as_reported,14020000000,no_reference,,0000051143-26-000010
+IBM,segment_revenue,Infrastructure,FY2025,2025-12-31,15718000000,as_reported,15718000000,no_reference,,0000051143-26-000010
+IBM,segment_revenue,Software,FY2020,2020-12-31,22124000000,as_reported,22124000000,no_reference,,0001558370-23-002376
+IBM,segment_revenue,Software,FY2021,2021-12-31,23426000000,as_reported,23426000000,no_reference,,0000051143-24-000012
+IBM,segment_revenue,Software,FY2022,2022-12-31,23629000000,restated,25037000000,no_reference,,0000051143-25-000015
+IBM,segment_revenue,Software,FY2023,2023-12-31,25011000000,restated,26308000000,no_reference,,0000051143-26-000010
+IBM,segment_revenue,Software,FY2024,2024-12-31,27085000000,as_reported,27085000000,no_reference,,0000051143-26-000010
+IBM,segment_revenue,Software,FY2025,2025-12-31,29962000000,as_reported,29962000000,no_reference,,0000051143-26-000010
+INTC,ppe_category,Construction in progress,FY2021,2021-12-25,21545000000,as_reported,21545000000,agree,21545000000,0000050863-23-000006
+INTC,ppe_category,Construction in progress,FY2022,2022-12-31,36727000000,as_reported,36727000000,agree,36727000000,0000050863-24-000010
+INTC,ppe_category,Construction in progress,FY2023,2023-12-30,43442000000,as_reported,43442000000,no_reference,,0000050863-25-000009
+INTC,ppe_category,Construction in progress,FY2024,2024-12-28,50418000000,as_reported,50418000000,no_reference,,0000050863-26-000011
+INTC,ppe_category,Construction in progress,FY2025,2025-12-27,34543000000,as_reported,34543000000,no_reference,,0000050863-26-000011
+INTC,ppe_category,Land and buildings,FY2021,2021-12-25,40039000000,as_reported,40039000000,no_reference,,0000050863-23-000006
+INTC,ppe_category,Land and buildings,FY2022,2022-12-31,44808000000,as_reported,44808000000,no_reference,,0000050863-24-000010
+INTC,ppe_category,Land and buildings,FY2023,2023-12-30,51182000000,as_reported,51182000000,no_reference,,0000050863-25-000009
+INTC,ppe_category,Land and buildings,FY2024,2024-12-28,56544000000,as_reported,56544000000,no_reference,,0000050863-26-000011
+INTC,ppe_category,Land and buildings,FY2025,2025-12-27,65395000000,as_reported,65395000000,no_reference,,0000050863-26-000011
+INTC,ppe_category,Machinery and equipment,FY2021,2021-12-25,86955000000,as_reported,86955000000,agree,86955000000,0000050863-23-000006
+INTC,ppe_category,Machinery and equipment,FY2022,2022-12-31,92711000000,as_reported,92711000000,agree,92711000000,0000050863-24-000010
+INTC,ppe_category,Machinery and equipment,FY2023,2023-12-30,100033000000,as_reported,100033000000,no_reference,,0000050863-25-000009
+INTC,ppe_category,Machinery and equipment,FY2024,2024-12-28,103150000000,as_reported,103150000000,no_reference,,0000050863-26-000011
+INTC,ppe_category,Machinery and equipment,FY2025,2025-12-27,111940000000,as_reported,111940000000,no_reference,,0000050863-26-000011
+INTC,segment_revenue,Accelerated Computing Systems and Graphics,FY2020,2020-12-26,651000000,as_reported,651000000,no_reference,,0000050863-23-000006
+INTC,segment_revenue,Accelerated Computing Systems and Graphics,FY2021,2021-12-25,774000000,as_reported,774000000,no_reference,,0000050863-23-000006
+INTC,segment_revenue,Accelerated Computing Systems and Graphics,FY2022,2022-12-31,837000000,as_reported,837000000,no_reference,,0000050863-23-000006
+INTC,segment_revenue,All Other,FY2022,2022-12-31,5530000000,as_reported,5530000000,no_reference,,0000050863-25-000009
+INTC,segment_revenue,All Other,FY2023,2023-12-30,5463000000,restated,5608000000,no_reference,,0000050863-26-000011
+INTC,segment_revenue,All Other,FY2024,2024-12-28,3601000000,restated,3824000000,no_reference,,0000050863-26-000011
+INTC,segment_revenue,All Other,FY2025,2025-12-27,3563000000,as_reported,3563000000,no_reference,,0000050863-26-000011
+INTC,segment_revenue,All other,FY2020,2020-12-26,5091000000,as_reported,5091000000,no_reference,,0000050863-23-000006
+INTC,segment_revenue,All other,FY2021,2021-12-25,5771000000,restated,5019000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,All other,FY2022,2022-12-31,1089000000,restated,196000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,All other,FY2023,2023-12-30,644000000,as_reported,644000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,CCG,FY2022,2022-12-31,31773000000,as_reported,31773000000,no_reference,,0000050863-25-000009
+INTC,segment_revenue,CCG,FY2023,2023-12-30,32305000000,restated,29258000000,no_reference,,0000050863-26-000011
+INTC,segment_revenue,CCG,FY2024,2024-12-28,33346000000,restated,30290000000,no_reference,,0000050863-26-000011
+INTC,segment_revenue,CCG,FY2025,2025-12-27,32228000000,as_reported,32228000000,no_reference,,0000050863-26-000011
+INTC,segment_revenue,DCAI,FY2022,2022-12-31,16856000000,as_reported,16856000000,no_reference,,0000050863-25-000009
+INTC,segment_revenue,DCAI,FY2023,2023-12-30,15980000000,restated,12635000000,no_reference,,0000050863-26-000011
+INTC,segment_revenue,DCAI,FY2024,2024-12-28,16125000000,restated,12817000000,no_reference,,0000050863-26-000011
+INTC,segment_revenue,DCAI,FY2025,2025-12-27,16919000000,as_reported,16919000000,no_reference,,0000050863-26-000011
+INTC,segment_revenue,Data Center and AI,FY2020,2020-12-26,23413000000,as_reported,23413000000,no_reference,,0000050863-23-000006
+INTC,segment_revenue,Data Center and AI,FY2021,2021-12-25,22774000000,restated,22691000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Data Center and AI,FY2022,2022-12-31,19445000000,restated,19196000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Data Center and AI,FY2023,2023-12-30,15521000000,as_reported,15521000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Desktop,FY2020,2020-12-26,11179000000,as_reported,11179000000,no_reference,,0000050863-23-000006
+INTC,segment_revenue,Desktop,FY2021,2021-12-25,12437000000,as_reported,12437000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Desktop,FY2022,2022-12-31,10661000000,as_reported,10661000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Desktop,FY2023,2023-12-30,10166000000,as_reported,10166000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Intel Foundry,FY2022,2022-12-31,27491000000,as_reported,27491000000,no_reference,,0000050863-25-000009
+INTC,segment_revenue,Intel Foundry,FY2023,2023-12-30,18504000000,restated,18910000000,no_reference,,0000050863-26-000011
+INTC,segment_revenue,Intel Foundry,FY2024,2024-12-28,17317000000,restated,17543000000,no_reference,,0000050863-26-000011
+INTC,segment_revenue,Intel Foundry,FY2025,2025-12-27,17826000000,as_reported,17826000000,no_reference,,0000050863-26-000011
+INTC,segment_revenue,Intel Foundry Services,FY2020,2020-12-26,715000000,as_reported,715000000,no_reference,,0000050863-23-000006
+INTC,segment_revenue,Intel Foundry Services,FY2021,2021-12-25,347000000,restated,786000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Intel Foundry Services,FY2022,2022-12-31,469000000,restated,895000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Intel Foundry Services,FY2023,2023-12-30,952000000,as_reported,952000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Mobileye,FY2020,2020-12-26,967000000,as_reported,967000000,no_reference,,0000050863-23-000006
+INTC,segment_revenue,Mobileye,FY2021,2021-12-25,1386000000,as_reported,1386000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Mobileye,FY2022,2022-12-31,1869000000,as_reported,1869000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Mobileye,FY2023,2023-12-30,2079000000,as_reported,2079000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,NEX,FY2022,2022-12-31,8409000000,as_reported,8409000000,no_reference,,0000050863-25-000009
+INTC,segment_revenue,NEX,FY2023,2023-12-30,5774000000,as_reported,5774000000,no_reference,,0000050863-25-000009
+INTC,segment_revenue,NEX,FY2024,2024-12-28,5842000000,as_reported,5842000000,no_reference,,0000050863-25-000009
+INTC,segment_revenue,Network and Edge,FY2020,2020-12-26,7132000000,as_reported,7132000000,no_reference,,0000050863-23-000006
+INTC,segment_revenue,Network and Edge,FY2021,2021-12-25,7665000000,restated,7976000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Network and Edge,FY2022,2022-12-31,8409000000,restated,8873000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Network and Edge,FY2023,2023-12-30,5774000000,as_reported,5774000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Notebook,FY2020,2020-12-26,24897000000,as_reported,24897000000,no_reference,,0000050863-23-000006
+INTC,segment_revenue,Notebook,FY2021,2021-12-25,25443000000,as_reported,25443000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Notebook,FY2022,2022-12-31,18781000000,restated,18783000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Notebook,FY2023,2023-12-30,16990000000,as_reported,16990000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Other,FY2020,2020-12-26,4459000000,as_reported,4459000000,no_reference,,0000050863-23-000006
+INTC,segment_revenue,Other,FY2021,2021-12-25,3201000000,restated,3187000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Other,FY2022,2022-12-31,2331000000,restated,2264000000,no_reference,,0000050863-24-000010
+INTC,segment_revenue,Other,FY2023,2023-12-30,2102000000,as_reported,2102000000,no_reference,,0000050863-24-000010
+IREN,finance_lease_liability,,FY2026,2026-06-30,243796000,as_reported,243796000,agree,243796000,0001878848-26-000052
+IREN,ppe_category,Buildings,FY2024,2024-06-30,215542000,as_reported,215542000,no_reference,,0001878848-25-000063
+IREN,ppe_category,Buildings,FY2025,2025-06-30,639750000,as_reported,639750000,no_reference,,0001878848-26-000052
+IREN,ppe_category,Buildings,FY2026,2026-06-30,864255000,as_reported,864255000,no_reference,,0001878848-26-000052
+IREN,ppe_category,Construction in progress,FY2024,2024-06-30,102946000,as_reported,102946000,agree,102946000,0001878848-25-000063
+IREN,ppe_category,Construction in progress,FY2025,2025-06-30,237734000,as_reported,237734000,agree,237734000,0001878848-26-000052
+IREN,ppe_category,Construction in progress,FY2026,2026-06-30,3657072000,as_reported,3657072000,agree,3657072000,0001878848-26-000052
+IREN,ppe_category,GPU Hardware,FY2025,2025-06-30,76001000,as_reported,76001000,agree,76001000,0001878848-26-000052
+IREN,ppe_category,GPU Hardware,FY2026,2026-06-30,2034811000,as_reported,2034811000,agree,2034811000,0001878848-26-000052
+IREN,ppe_category,HPC Hardware,FY2024,2024-06-30,33315000,as_reported,33315000,agree,33315000,0001878848-25-000063
+IREN,ppe_category,HPC Hardware,FY2025,2025-06-30,76001000,as_reported,76001000,agree,76001000,0001878848-25-000063
+IREN,ppe_category,Land,FY2024,2024-06-30,3601000,as_reported,3601000,agree,3601000,0001878848-25-000063
+IREN,ppe_category,Land,FY2025,2025-06-30,13086000,as_reported,13086000,agree,13086000,0001878848-26-000052
+IREN,ppe_category,Land,FY2026,2026-06-30,139074000,as_reported,139074000,agree,139074000,0001878848-26-000052
+IREN,ppe_category,Leasehold improvements,FY2025,2025-06-30,43000,as_reported,43000,agree,43000,0001878848-26-000052
+IREN,ppe_category,Leasehold improvements,FY2026,2026-06-30,32000,as_reported,32000,agree,32000,0001878848-26-000052
+IREN,ppe_category,Mining hardware,FY2024,2024-06-30,177766000,as_reported,177766000,agree,177766000,0001878848-25-000063
+IREN,ppe_category,Mining hardware,FY2025,2025-06-30,1135584000,as_reported,1135584000,agree,1135584000,0001878848-26-000052
+IREN,ppe_category,Mining hardware,FY2026,2026-06-30,596988000,as_reported,596988000,agree,596988000,0001878848-26-000052
+IREN,ppe_category,Other PPE,FY2025,2025-06-30,10002000,as_reported,10002000,no_reference,,0001878848-26-000052
+IREN,ppe_category,Other PPE,FY2026,2026-06-30,69237000,as_reported,69237000,no_reference,,0001878848-26-000052
+IREN,ppe_category,Plant and equipment,FY2024,2024-06-30,4856000,as_reported,4856000,agree,4856000,0001878848-25-000063
+IREN,ppe_category,Plant and equipment,FY2025,2025-06-30,10002000,as_reported,10002000,agree,10002000,0001878848-25-000063
+IREN,ppe_category,Right-of-use assets - Finance lease,FY2026,2026-06-30,301848000,as_reported,301848000,no_reference,,0001878848-26-000052
+IREN,segment_revenue,AI Cloud Services Revenue,FY2024,2024-06-30,3105000,as_reported,3105000,no_reference,,0001878848-25-000063
+IREN,segment_revenue,AI Cloud Services Revenue,FY2025,2025-06-30,16394000,as_reported,16394000,no_reference,,0001878848-25-000063
+IREN,segment_revenue,AI Cloud Services revenue,FY2024,2024-06-30,3105000,as_reported,3105000,no_reference,,0001878848-26-000052
+IREN,segment_revenue,AI Cloud Services revenue,FY2025,2025-06-30,16394000,as_reported,16394000,no_reference,,0001878848-26-000052
+IREN,segment_revenue,AI Cloud Services revenue,FY2026,2026-06-30,128795000,as_reported,128795000,no_reference,,0001878848-26-000052
+IREN,segment_revenue,Bitcoin Mining Revenue,FY2023,2023-06-30,75509000,as_reported,75509000,agree,75509000,0001878848-25-000063
+IREN,segment_revenue,Bitcoin Mining Revenue,FY2024,2024-06-30,184087000,as_reported,184087000,agree,184087000,0001878848-25-000063
+IREN,segment_revenue,Bitcoin Mining Revenue,FY2025,2025-06-30,484629000,as_reported,484629000,agree,484629000,0001878848-25-000063
+IREN,segment_revenue,Bitcoin mining revenue,FY2024,2024-06-30,184087000,as_reported,184087000,agree,184087000,0001878848-26-000052
+IREN,segment_revenue,Bitcoin mining revenue,FY2025,2025-06-30,484629000,as_reported,484629000,agree,484629000,0001878848-26-000052
+IREN,segment_revenue,Bitcoin mining revenue,FY2026,2026-06-30,578212000,as_reported,578212000,no_reference,,0001878848-26-000052
+JPM,segment_revenue,Asset & Wealth Management,FY2020,2020-12-31,14240000000,as_reported,14240000000,no_reference,,0000019617-23-000231
+JPM,segment_revenue,Asset & Wealth Management,FY2021,2021-12-31,16957000000,as_reported,16957000000,no_reference,,0000019617-24-000225
+JPM,segment_revenue,Asset & Wealth Management,FY2022,2022-12-31,17748000000,as_reported,17748000000,no_reference,,0000019617-25-000270
+JPM,segment_revenue,Asset & Wealth Management,FY2023,2023-12-31,19827000000,as_reported,19827000000,no_reference,,0001628280-26-008131
+JPM,segment_revenue,Asset & Wealth Management,FY2024,2024-12-31,21578000000,as_reported,21578000000,no_reference,,0001628280-26-008131
+JPM,segment_revenue,Asset & Wealth Management,FY2025,2025-12-31,24073000000,as_reported,24073000000,no_reference,,0001628280-26-008131
+JPM,segment_revenue,Commercial & Investment Bank,FY2022,2022-12-31,59635000000,as_reported,59635000000,no_reference,,0000019617-25-000270
+JPM,segment_revenue,Commercial & Investment Bank,FY2023,2023-12-31,64353000000,as_reported,64353000000,no_reference,,0001628280-26-008131
+JPM,segment_revenue,Commercial & Investment Bank,FY2024,2024-12-31,70114000000,as_reported,70114000000,no_reference,,0001628280-26-008131
+JPM,segment_revenue,Commercial & Investment Bank,FY2025,2025-12-31,78454000000,as_reported,78454000000,no_reference,,0001628280-26-008131
+JPM,segment_revenue,Commercial Banking,FY2020,2020-12-31,9313000000,as_reported,9313000000,no_reference,,0000019617-23-000231
+JPM,segment_revenue,Commercial Banking,FY2021,2021-12-31,10008000000,as_reported,10008000000,no_reference,,0000019617-24-000225
+JPM,segment_revenue,Commercial Banking,FY2022,2022-12-31,11533000000,as_reported,11533000000,no_reference,,0000019617-24-000225
+JPM,segment_revenue,Commercial Banking,FY2023,2023-12-31,15546000000,as_reported,15546000000,no_reference,,0000019617-24-000225
+JPM,segment_revenue,Consumer & Community Banking,FY2020,2020-12-31,51268000000,as_reported,51268000000,no_reference,,0000019617-23-000231
+JPM,segment_revenue,Consumer & Community Banking,FY2021,2021-12-31,49879000000,restated,50073000000,no_reference,,0000019617-24-000225
+JPM,segment_revenue,Consumer & Community Banking,FY2022,2022-12-31,54814000000,restated,55017000000,no_reference,,0000019617-25-000270
+JPM,segment_revenue,Consumer & Community Banking,FY2023,2023-12-31,70148000000,as_reported,70148000000,no_reference,,0001628280-26-008131
+JPM,segment_revenue,Consumer & Community Banking,FY2024,2024-12-31,71507000000,as_reported,71507000000,no_reference,,0001628280-26-008131
+JPM,segment_revenue,Consumer & Community Banking,FY2025,2025-12-31,76029000000,as_reported,76029000000,no_reference,,0001628280-26-008131
+JPM,segment_revenue,Corporate & Investment Bank,FY2020,2020-12-31,49284000000,as_reported,49284000000,no_reference,,0000019617-23-000231
+JPM,segment_revenue,Corporate & Investment Bank,FY2021,2021-12-31,51943000000,restated,51749000000,no_reference,,0000019617-24-000225
+JPM,segment_revenue,Corporate & Investment Bank,FY2022,2022-12-31,48102000000,restated,47899000000,no_reference,,0000019617-24-000225
+JPM,segment_revenue,Corporate & Investment Bank,FY2023,2023-12-31,48807000000,as_reported,48807000000,no_reference,,0000019617-24-000225
+META,ppe_category,Buildings,FY2021,2021-12-31,22531000000,as_reported,22531000000,no_reference,,0001326801-23-000013
+META,ppe_category,Buildings,FY2022,2022-12-31,27720000000,as_reported,27720000000,no_reference,,0001326801-24-000012
+META,ppe_category,Buildings,FY2023,2023-12-31,37961000000,as_reported,37961000000,no_reference,,0001326801-25-000017
+META,ppe_category,Buildings,FY2024,2024-12-31,47076000000,as_reported,47076000000,no_reference,,0001628280-26-003942
+META,ppe_category,Buildings,FY2025,2025-12-31,55568000000,as_reported,55568000000,no_reference,,0001628280-26-003942
+META,ppe_category,Construction in progress,FY2021,2021-12-31,14687000000,as_reported,14687000000,agree,14687000000,0001326801-23-000013
+META,ppe_category,Construction in progress,FY2022,2022-12-31,25052000000,as_reported,25052000000,agree,25052000000,0001326801-24-000012
+META,ppe_category,Construction in progress,FY2023,2023-12-31,24269000000,as_reported,24269000000,agree,24269000000,0001326801-25-000017
+META,ppe_category,Construction in progress,FY2024,2024-12-31,26802000000,as_reported,26802000000,agree,26802000000,0001628280-26-003942
+META,ppe_category,Construction in progress,FY2025,2025-12-31,50521000000,as_reported,50521000000,agree,50521000000,0001628280-26-003942
+META,ppe_category,Equipment and other,FY2021,2021-12-31,4764000000,as_reported,4764000000,agree,4764000000,0001326801-23-000013
+META,ppe_category,Equipment and other,FY2022,2022-12-31,5642000000,as_reported,5642000000,agree,5642000000,0001326801-24-000012
+META,ppe_category,Equipment and other,FY2023,2023-12-31,7416000000,as_reported,7416000000,agree,7416000000,0001326801-25-000017
+META,ppe_category,Equipment and other,FY2024,2024-12-31,7150000000,as_reported,7150000000,agree,7150000000,0001628280-26-003942
+META,ppe_category,Equipment and other,FY2025,2025-12-31,9377000000,as_reported,9377000000,agree,9377000000,0001628280-26-003942
+META,ppe_category,Finance lease right-of-use assets,FY2021,2021-12-31,2840000000,as_reported,2840000000,no_reference,,0001326801-23-000013
+META,ppe_category,Finance lease right-of-use assets,FY2022,2022-12-31,3353000000,as_reported,3353000000,no_reference,,0001326801-24-000012
+META,ppe_category,Finance lease right-of-use assets,FY2023,2023-12-31,4185000000,as_reported,4185000000,no_reference,,0001326801-25-000017
+META,ppe_category,Finance lease right-of-use assets,FY2024,2024-12-31,5384000000,as_reported,5384000000,no_reference,,0001628280-26-003942
+META,ppe_category,Finance lease right-of-use assets,FY2025,2025-12-31,8187000000,as_reported,8187000000,no_reference,,0001628280-26-003942
+META,ppe_category,Land,FY2021,2021-12-31,1688000000,as_reported,1688000000,agree,1688000000,0001326801-23-000013
+META,ppe_category,Land,FY2022,2022-12-31,1874000000,as_reported,1874000000,agree,1874000000,0001326801-24-000012
+META,ppe_category,Land,FY2023,2023-12-31,2080000000,as_reported,2080000000,agree,2080000000,0001326801-25-000017
+META,ppe_category,Land,FY2024,2024-12-31,2561000000,as_reported,2561000000,agree,2561000000,0001628280-26-003942
+META,ppe_category,Land,FY2025,2025-12-31,3687000000,as_reported,3687000000,agree,3687000000,0001628280-26-003942
+META,ppe_category,Leasehold improvements,FY2021,2021-12-31,5795000000,as_reported,5795000000,agree,5795000000,0001326801-23-000013
+META,ppe_category,Leasehold improvements,FY2022,2022-12-31,6522000000,as_reported,6522000000,agree,6522000000,0001326801-24-000012
+META,ppe_category,Leasehold improvements,FY2023,2023-12-31,6972000000,as_reported,6972000000,agree,6972000000,0001326801-25-000017
+META,ppe_category,Leasehold improvements,FY2024,2024-12-31,7293000000,as_reported,7293000000,agree,7293000000,0001628280-26-003942
+META,ppe_category,Leasehold improvements,FY2025,2025-12-31,8346000000,as_reported,8346000000,agree,8346000000,0001628280-26-003942
+META,ppe_category,Servers and network assets,FY2021,2021-12-31,25584000000,as_reported,25584000000,no_reference,,0001326801-23-000013
+META,ppe_category,Servers and network assets,FY2022,2022-12-31,34330000000,as_reported,34330000000,no_reference,,0001326801-24-000012
+META,ppe_category,Servers and network assets,FY2023,2023-12-31,46838000000,as_reported,46838000000,no_reference,,0001326801-25-000017
+META,ppe_category,Servers and network assets,FY2024,2024-12-31,68397000000,as_reported,68397000000,no_reference,,0001628280-26-003942
+META,ppe_category,Servers and network assets,FY2025,2025-12-31,98040000000,as_reported,98040000000,no_reference,,0001628280-26-003942
+META,segment_revenue,Family of Apps,FY2020,2020-12-31,84826000000,as_reported,84826000000,agree,84826000000,0001326801-23-000013
+META,segment_revenue,Family of Apps,FY2021,2021-12-31,115655000000,as_reported,115655000000,agree,115655000000,0001326801-24-000012
+META,segment_revenue,Family of Apps,FY2022,2022-12-31,114450000000,as_reported,114450000000,agree,114450000000,0001326801-25-000017
+META,segment_revenue,Family of Apps,FY2023,2023-12-31,133006000000,as_reported,133006000000,agree,133006000000,0001628280-26-003942
+META,segment_revenue,Family of Apps,FY2024,2024-12-31,162355000000,as_reported,162355000000,agree,162355000000,0001628280-26-003942
+META,segment_revenue,Family of Apps,FY2025,2025-12-31,198759000000,as_reported,198759000000,agree,198759000000,0001628280-26-003942
+META,segment_revenue,Reality Labs,FY2020,2020-12-31,1139000000,as_reported,1139000000,agree,1139000000,0001326801-23-000013
+META,segment_revenue,Reality Labs,FY2021,2021-12-31,2274000000,as_reported,2274000000,agree,2274000000,0001326801-24-000012
+META,segment_revenue,Reality Labs,FY2022,2022-12-31,2159000000,as_reported,2159000000,agree,2159000000,0001326801-25-000017
+META,segment_revenue,Reality Labs,FY2023,2023-12-31,1896000000,as_reported,1896000000,agree,1896000000,0001628280-26-003942
+META,segment_revenue,Reality Labs,FY2024,2024-12-31,2146000000,as_reported,2146000000,agree,2146000000,0001628280-26-003942
+META,segment_revenue,Reality Labs,FY2025,2025-12-31,2207000000,as_reported,2207000000,agree,2207000000,0001628280-26-003942
+MRVL,ppe_category,Computer software,FY2021,2021-01-30,103789000,as_reported,103789000,no_reference,,0001835632-22-000016
+MRVL,ppe_category,Computer software,FY2022,2022-01-29,109100000,as_reported,109135000,no_reference,,0001835632-23-000013
+MRVL,ppe_category,Computer software,FY2023,2023-01-28,114500000,as_reported,114500000,no_reference,,0001835632-24-000009
+MRVL,ppe_category,Computer software,FY2024,2024-02-03,116500000,as_reported,116500000,no_reference,,0001835632-25-000057
+MRVL,ppe_category,Computer software,FY2025,2025-02-01,126400000,as_reported,126400000,no_reference,,0001835632-26-000011
+MRVL,ppe_category,Computer software,FY2026,2026-01-31,137100000,as_reported,137100000,no_reference,,0001835632-26-000011
+MRVL,ppe_category,Furniture and fixtures,FY2021,2021-01-30,26990000,as_reported,26990000,agree,26990000,0001835632-22-000016
+MRVL,ppe_category,Furniture and fixtures,FY2022,2022-01-29,30100000,as_reported,30136000,agree,30100000,0001835632-23-000013
+MRVL,ppe_category,Furniture and fixtures,FY2023,2023-01-28,30900000,as_reported,30900000,agree,30900000,0001835632-24-000009
+MRVL,ppe_category,Furniture and fixtures,FY2024,2024-02-03,31700000,as_reported,31700000,agree,31700000,0001835632-25-000057
+MRVL,ppe_category,Furniture and fixtures,FY2025,2025-02-01,34300000,as_reported,34300000,agree,34300000,0001835632-26-000011
+MRVL,ppe_category,Furniture and fixtures,FY2026,2026-01-31,41500000,as_reported,41500000,agree,41500000,0001835632-26-000011
+MRVL,ppe_category,"Land, buildings, and leasehold improvements",FY2021,2021-01-30,284532000,as_reported,284532000,no_reference,,0001835632-22-000016
+MRVL,ppe_category,"Land, buildings, and leasehold improvements",FY2022,2022-01-29,293600000,as_reported,293579000,no_reference,,0001835632-23-000013
+MRVL,ppe_category,"Land, buildings, and leasehold improvements",FY2023,2023-01-28,306200000,as_reported,306200000,no_reference,,0001835632-24-000009
+MRVL,ppe_category,"Land, buildings, and leasehold improvements",FY2024,2024-02-03,312400000,as_reported,312400000,no_reference,,0001835632-25-000057
+MRVL,ppe_category,"Land, buildings, and leasehold improvements",FY2025,2025-02-01,306600000,as_reported,306600000,no_reference,,0001835632-26-000011
+MRVL,ppe_category,"Land, buildings, and leasehold improvements",FY2026,2026-01-31,338800000,as_reported,338800000,no_reference,,0001835632-26-000011
+MRVL,ppe_category,Machinery and equipment,FY2021,2021-01-30,693689000,as_reported,693689000,agree,693689000,0001835632-22-000016
+MRVL,ppe_category,Machinery and equipment,FY2022,2022-01-29,895400000,as_reported,895309000,agree,895400000,0001835632-23-000013
+MRVL,ppe_category,Machinery and equipment,FY2023,2023-01-28,1083900000,as_reported,1083900000,agree,1083900000,0001835632-24-000009
+MRVL,ppe_category,Machinery and equipment,FY2024,2024-02-03,1376200000,as_reported,1376200000,agree,1376200000,0001835632-25-000057
+MRVL,ppe_category,Machinery and equipment,FY2025,2025-02-01,1570200000,as_reported,1570200000,agree,1570200000,0001835632-26-000011
+MRVL,ppe_category,Machinery and equipment,FY2026,2026-01-31,1825200000,as_reported,1825200000,agree,1825200000,0001835632-26-000011
+MRVL,purchase_commitments,,FY2022,2022-01-29,3175088000,as_reported,3175088000,no_reference,,0001835632-22-000016
+MRVL,purchase_commitments,,FY2023,2023-01-28,3147100000,as_reported,3147100000,no_reference,,0001835632-23-000013
+MRVL,purchase_commitments,,FY2024,2024-02-03,2431100000,as_reported,2431100000,no_reference,,0001835632-24-000009
+MRVL,purchase_commitments,,FY2025,2025-02-01,1638400000,as_reported,1638400000,no_reference,,0001835632-25-000057
+MRVL,purchase_commitments,,FY2026,2026-01-31,2665800000,as_reported,2665800000,no_reference,,0001835632-26-000011
+MSFT,finance_lease_liability,,FY2021,2021-06-30,12541000000,as_reported,12541000000,agree,12541000000,0001564590-22-026876
+MSFT,finance_lease_liability,,FY2022,2022-06-30,14902000000,as_reported,14902000000,agree,14902000000,0000950170-23-035122
+MSFT,finance_lease_liability,,FY2023,2023-06-30,17067000000,as_reported,17067000000,agree,17067000000,0000950170-24-087843
+MSFT,finance_lease_liability,,FY2024,2024-06-30,27145000000,as_reported,27145000000,agree,27145000000,0000950170-25-100235
+MSFT,finance_lease_liability,,FY2025,2025-06-30,46172000000,as_reported,46172000000,agree,46172000000,0001193125-26-323660
+MSFT,finance_lease_liability,,FY2026,2026-06-30,66594000000,as_reported,66594000000,agree,66594000000,0001193125-26-323660
+MSFT,ppe_category,Buildings and improvements,FY2021,2021-06-30,43928000000,as_reported,43928000000,no_reference,,0001564590-22-026876
+MSFT,ppe_category,Buildings and improvements,FY2022,2022-06-30,55014000000,as_reported,55014000000,no_reference,,0000950170-23-035122
+MSFT,ppe_category,Buildings and improvements,FY2023,2023-06-30,68465000000,as_reported,68465000000,no_reference,,0000950170-24-087843
+MSFT,ppe_category,Buildings and improvements,FY2024,2024-06-30,93943000000,as_reported,93943000000,no_reference,,0000950170-25-100235
+MSFT,ppe_category,Buildings and improvements,FY2025,2025-06-30,137921000000,as_reported,137921000000,no_reference,,0001193125-26-323660
+MSFT,ppe_category,Buildings and improvements,FY2026,2026-06-30,182749000000,as_reported,182749000000,no_reference,,0001193125-26-323660
+MSFT,ppe_category,Computer equipment and software,FY2021,2021-06-30,51250000000,as_reported,51250000000,no_reference,,0001564590-22-026876
+MSFT,ppe_category,Computer equipment and software,FY2022,2022-06-30,60631000000,as_reported,60631000000,no_reference,,0000950170-23-035122
+MSFT,ppe_category,Computer equipment and software,FY2023,2023-06-30,74961000000,as_reported,74961000000,no_reference,,0000950170-24-087843
+MSFT,ppe_category,Computer equipment and software,FY2024,2024-06-30,93780000000,as_reported,93780000000,no_reference,,0000950170-25-100235
+MSFT,ppe_category,Computer equipment and software,FY2025,2025-06-30,132836000000,as_reported,132836000000,no_reference,,0000950170-25-100235
+MSFT,ppe_category,Furniture and equipment,FY2021,2021-06-30,5344000000,as_reported,5344000000,no_reference,,0001564590-22-026876
+MSFT,ppe_category,Furniture and equipment,FY2022,2022-06-30,5860000000,as_reported,5860000000,no_reference,,0000950170-23-035122
+MSFT,ppe_category,Furniture and equipment,FY2023,2023-06-30,6246000000,as_reported,6246000000,no_reference,,0000950170-24-087843
+MSFT,ppe_category,Furniture and equipment,FY2024,2024-06-30,6532000000,as_reported,6532000000,no_reference,,0000950170-25-100235
+MSFT,ppe_category,Furniture and equipment,FY2025,2025-06-30,6407000000,as_reported,6407000000,no_reference,,0001193125-26-323660
+MSFT,ppe_category,Furniture and equipment,FY2026,2026-06-30,6250000000,as_reported,6250000000,no_reference,,0001193125-26-323660
+MSFT,ppe_category,Land,FY2021,2021-06-30,3660000000,as_reported,3660000000,no_reference,,0001564590-22-026876
+MSFT,ppe_category,Land,FY2022,2022-06-30,4734000000,as_reported,4734000000,no_reference,,0000950170-23-035122
+MSFT,ppe_category,Land,FY2023,2023-06-30,5683000000,as_reported,5683000000,no_reference,,0000950170-24-087843
+MSFT,ppe_category,Land,FY2024,2024-06-30,8163000000,as_reported,8163000000,no_reference,,0000950170-25-100235
+MSFT,ppe_category,Land,FY2025,2025-06-30,9338000000,as_reported,9338000000,no_reference,,0001193125-26-323660
+MSFT,ppe_category,Land,FY2026,2026-06-30,10546000000,as_reported,10546000000,no_reference,,0001193125-26-323660
+MSFT,ppe_category,Leasehold improvements,FY2021,2021-06-30,6884000000,as_reported,6884000000,no_reference,,0001564590-22-026876
+MSFT,ppe_category,Leasehold improvements,FY2022,2022-06-30,7819000000,as_reported,7819000000,no_reference,,0000950170-23-035122
+MSFT,ppe_category,Leasehold improvements,FY2023,2023-06-30,8537000000,as_reported,8537000000,no_reference,,0000950170-24-087843
+MSFT,ppe_category,Leasehold improvements,FY2024,2024-06-30,9594000000,as_reported,9594000000,no_reference,,0000950170-25-100235
+MSFT,ppe_category,Leasehold improvements,FY2025,2025-06-30,12117000000,as_reported,12117000000,no_reference,,0001193125-26-323660
+MSFT,ppe_category,Leasehold improvements,FY2026,2026-06-30,16348000000,as_reported,16348000000,no_reference,,0001193125-26-323660
+MSFT,ppe_category,"Servers, network equipment, and software",FY2025,2025-06-30,132836000000,as_reported,132836000000,no_reference,,0001193125-26-323660
+MSFT,ppe_category,"Servers, network equipment, and software",FY2026,2026-06-30,215874000000,as_reported,215874000000,no_reference,,0001193125-26-323660
+MSFT,purchase_commitments,,FY2022,2022-06-30,45654000000,as_reported,45654000000,no_reference,,0001564590-22-026876
+MSFT,purchase_commitments,,FY2023,2023-06-30,67818000000,as_reported,67818000000,no_reference,,0000950170-23-035122
+MSFT,purchase_commitments,,FY2024,2024-06-30,72022000000,as_reported,72022000000,no_reference,,0000950170-24-087843
+MSFT,purchase_commitments,,FY2025,2025-06-30,109953000000,as_reported,109953000000,no_reference,,0000950170-25-100235
+MSFT,purchase_commitments,,FY2026,2026-06-30,194060000000,as_reported,194060000000,no_reference,,0001193125-26-323660
+MSFT,segment_revenue,Intelligent Cloud,FY2020,2020-06-30,48366000000,as_reported,48366000000,agree,48366000000,0001564590-22-026876
+MSFT,segment_revenue,Intelligent Cloud,FY2021,2021-06-30,59728000000,restated,60080000000,agree,59728000000,0000950170-23-035122
+MSFT,segment_revenue,Intelligent Cloud,FY2022,2022-06-30,74965000000,restated,75251000000,agree,74965000000,0000950170-24-087843
+MSFT,segment_revenue,Intelligent Cloud,FY2023,2023-06-30,72944000000,restated,87907000000,agree,72944000000,0000950170-25-100235
+MSFT,segment_revenue,Intelligent Cloud,FY2024,2024-06-30,87464000000,restated,105362000000,agree,87464000000,0001193125-26-323660
+MSFT,segment_revenue,Intelligent Cloud,FY2025,2025-06-30,106265000000,as_reported,106265000000,agree,106265000000,0001193125-26-323660
+MSFT,segment_revenue,Intelligent Cloud,FY2026,2026-06-30,137791000000,as_reported,137791000000,agree,137791000000,0001193125-26-323660
+MSFT,segment_revenue,More Personal Computing,FY2020,2020-06-30,48251000000,as_reported,48251000000,agree,48251000000,0001564590-22-026876
+MSFT,segment_revenue,More Personal Computing,FY2021,2021-06-30,54445000000,restated,54093000000,agree,54445000000,0000950170-23-035122
+MSFT,segment_revenue,More Personal Computing,FY2022,2022-06-30,59941000000,restated,59655000000,agree,59941000000,0000950170-24-087843
+MSFT,segment_revenue,More Personal Computing,FY2023,2023-06-30,44820000000,restated,54734000000,agree,44820000000,0000950170-25-100235
+MSFT,segment_revenue,More Personal Computing,FY2024,2024-06-30,50838000000,restated,62032000000,agree,50838000000,0001193125-26-323660
+MSFT,segment_revenue,More Personal Computing,FY2025,2025-06-30,54649000000,as_reported,54649000000,agree,54649000000,0001193125-26-323660
+MSFT,segment_revenue,More Personal Computing,FY2026,2026-06-30,54052000000,as_reported,54052000000,agree,54052000000,0001193125-26-323660
+MSFT,segment_revenue,Productivity and Business Processes,FY2020,2020-06-30,46398000000,as_reported,46398000000,agree,46398000000,0001564590-22-026876
+MSFT,segment_revenue,Productivity and Business Processes,FY2021,2021-06-30,53915000000,as_reported,53915000000,agree,53915000000,0000950170-23-035122
+MSFT,segment_revenue,Productivity and Business Processes,FY2022,2022-06-30,63364000000,as_reported,63364000000,agree,63364000000,0000950170-24-087843
+MSFT,segment_revenue,Productivity and Business Processes,FY2023,2023-06-30,94151000000,restated,69274000000,agree,94151000000,0000950170-25-100235
+MSFT,segment_revenue,Productivity and Business Processes,FY2024,2024-06-30,106820000000,restated,77728000000,agree,106820000000,0001193125-26-323660
+MSFT,segment_revenue,Productivity and Business Processes,FY2025,2025-06-30,120810000000,as_reported,120810000000,agree,120810000000,0001193125-26-323660
+MSFT,segment_revenue,Productivity and Business Processes,FY2026,2026-06-30,139996000000,as_reported,139996000000,agree,139996000000,0001193125-26-323660
+MU,ppe_category,Buildings,FY2021,2021-09-02,14776000000,as_reported,14776000000,no_reference,,0000723125-22-000048
+MU,ppe_category,Buildings,FY2022,2022-09-01,16676000000,as_reported,16676000000,no_reference,,0000723125-23-000054
+MU,ppe_category,Buildings,FY2023,2023-08-31,17967000000,as_reported,17967000000,no_reference,,0000723125-24-000027
+MU,ppe_category,Buildings,FY2024,2024-08-29,20141000000,as_reported,20141000000,no_reference,,0000723125-25-000028
+MU,ppe_category,Buildings,FY2025,2025-08-28,22173000000,as_reported,22173000000,no_reference,,0000723125-26-000023
+MU,ppe_category,Buildings,FY2026,2026-09-03,26493000000,as_reported,26493000000,no_reference,,0000723125-26-000023
+MU,ppe_category,Construction in progress,FY2021,2021-09-02,1517000000,as_reported,1517000000,no_reference,,0000723125-22-000048
+MU,ppe_category,Construction in progress,FY2022,2022-09-01,1897000000,as_reported,1897000000,no_reference,,0000723125-23-000054
+MU,ppe_category,Construction in progress,FY2023,2023-08-31,2464000000,as_reported,2464000000,no_reference,,0000723125-24-000027
+MU,ppe_category,Construction in progress,FY2024,2024-08-29,3444000000,as_reported,3444000000,no_reference,,0000723125-25-000028
+MU,ppe_category,Construction in progress,FY2025,2025-08-28,5518000000,as_reported,5518000000,no_reference,,0000723125-26-000023
+MU,ppe_category,Construction in progress,FY2026,2026-09-03,11424000000,as_reported,11424000000,no_reference,,0000723125-26-000023
+MU,ppe_category,Equipment,FY2021,2021-09-02,51902000000,as_reported,51902000000,no_reference,,0000723125-22-000048
+MU,ppe_category,Equipment,FY2022,2022-09-01,61354000000,as_reported,61354000000,no_reference,,0000723125-23-000054
+MU,ppe_category,Equipment,FY2023,2023-08-31,65555000000,as_reported,65555000000,no_reference,,0000723125-24-000027
+MU,ppe_category,Equipment,FY2024,2024-08-29,70813000000,as_reported,70813000000,no_reference,,0000723125-25-000028
+MU,ppe_category,Equipment,FY2025,2025-08-28,79934000000,as_reported,79934000000,no_reference,,0000723125-26-000023
+MU,ppe_category,Equipment,FY2026,2026-09-03,93954000000,as_reported,93954000000,no_reference,,0000723125-26-000023
+MU,ppe_category,Land,FY2021,2021-09-02,280000000,as_reported,280000000,no_reference,,0000723125-22-000048
+MU,ppe_category,Land,FY2022,2022-09-01,280000000,as_reported,280000000,no_reference,,0000723125-23-000054
+MU,ppe_category,Land,FY2023,2023-08-31,283000000,as_reported,283000000,no_reference,,0000723125-24-000027
+MU,ppe_category,Land,FY2024,2024-08-29,284000000,as_reported,284000000,no_reference,,0000723125-25-000028
+MU,ppe_category,Land,FY2025,2025-08-28,420000000,as_reported,420000000,no_reference,,0000723125-26-000023
+MU,ppe_category,Land,FY2026,2026-09-03,420000000,as_reported,420000000,no_reference,,0000723125-26-000023
+MU,ppe_category,Software,FY2021,2021-09-02,987000000,as_reported,987000000,no_reference,,0000723125-22-000048
+MU,ppe_category,Software,FY2022,2022-09-01,1124000000,as_reported,1124000000,no_reference,,0000723125-23-000054
+MU,ppe_category,Software,FY2023,2023-08-31,1316000000,as_reported,1316000000,no_reference,,0000723125-24-000027
+MU,ppe_category,Software,FY2024,2024-08-29,1365000000,as_reported,1365000000,no_reference,,0000723125-25-000028
+MU,ppe_category,Software,FY2025,2025-08-28,1651000000,as_reported,1651000000,no_reference,,0000723125-26-000023
+MU,ppe_category,Software,FY2026,2026-09-03,1885000000,as_reported,1885000000,no_reference,,0000723125-26-000023
+MU,segment_revenue,AEBU,FY2023,2023-08-31,4139000000,as_reported,4139000000,no_reference,,0000723125-25-000028
+MU,segment_revenue,AEBU,FY2024,2024-08-29,4631000000,as_reported,4631000000,no_reference,,0000723125-26-000023
+MU,segment_revenue,AEBU,FY2025,2025-08-28,4753000000,as_reported,4753000000,no_reference,,0000723125-26-000023
+MU,segment_revenue,AEBU,FY2026,2026-09-03,15886000000,as_reported,15886000000,no_reference,,0000723125-26-000023
+MU,segment_revenue,All Other,FY2020,2020-09-03,25000000,as_reported,25000000,no_reference,,0000723125-22-000048
+MU,segment_revenue,All Other,FY2021,2021-09-02,40000000,as_reported,40000000,no_reference,,0000723125-23-000054
+MU,segment_revenue,All Other,FY2022,2022-09-01,17000000,as_reported,17000000,no_reference,,0000723125-24-000027
+MU,segment_revenue,All Other,FY2023,2023-08-31,11000000,restated,10000000,no_reference,,0000723125-25-000028
+MU,segment_revenue,All Other,FY2024,2024-08-29,37000000,restated,38000000,no_reference,,0000723125-25-000028
+MU,segment_revenue,All Other,FY2025,2025-08-28,13000000,as_reported,13000000,no_reference,,0000723125-25-000028
+MU,segment_revenue,CDBU,FY2023,2023-08-31,2124000000,as_reported,2124000000,no_reference,,0000723125-25-000028
+MU,segment_revenue,CDBU,FY2024,2024-08-29,4984000000,as_reported,4984000000,no_reference,,0000723125-26-000023
+MU,segment_revenue,CDBU,FY2025,2025-08-28,7229000000,as_reported,7229000000,no_reference,,0000723125-26-000023
+MU,segment_revenue,CDBU,FY2026,2026-09-03,37592000000,as_reported,37592000000,no_reference,,0000723125-26-000023
+MU,segment_revenue,CMBU,FY2023,2023-08-31,1872000000,as_reported,1872000000,no_reference,,0000723125-25-000028
+MU,segment_revenue,CMBU,FY2024,2024-08-29,3792000000,as_reported,3792000000,no_reference,,0000723125-26-000023
+MU,segment_revenue,CMBU,FY2025,2025-08-28,13524000000,as_reported,13524000000,no_reference,,0000723125-26-000023
+MU,segment_revenue,CMBU,FY2026,2026-09-03,43085000000,as_reported,43085000000,no_reference,,0000723125-26-000023
+MU,segment_revenue,CNBU,FY2020,2020-09-03,9184000000,as_reported,9184000000,agree,9184000000,0000723125-22-000048
+MU,segment_revenue,CNBU,FY2021,2021-09-02,12280000000,as_reported,12280000000,agree,12280000000,0000723125-23-000054
+MU,segment_revenue,CNBU,FY2022,2022-09-01,13693000000,as_reported,13693000000,agree,13693000000,0000723125-24-000027
+MU,segment_revenue,CNBU,FY2023,2023-08-31,5710000000,as_reported,5710000000,agree,5710000000,0000723125-24-000027
+MU,segment_revenue,CNBU,FY2024,2024-08-29,9513000000,as_reported,9513000000,agree,9513000000,0000723125-24-000027
+MU,segment_revenue,EBU,FY2020,2020-09-03,2759000000,as_reported,2759000000,agree,2759000000,0000723125-22-000048
+MU,segment_revenue,EBU,FY2021,2021-09-02,4209000000,as_reported,4209000000,agree,4209000000,0000723125-23-000054
+MU,segment_revenue,EBU,FY2022,2022-09-01,5235000000,as_reported,5235000000,agree,5235000000,0000723125-24-000027
+MU,segment_revenue,EBU,FY2023,2023-08-31,3637000000,as_reported,3637000000,agree,3637000000,0000723125-24-000027
+MU,segment_revenue,EBU,FY2024,2024-08-29,4614000000,as_reported,4614000000,agree,4614000000,0000723125-24-000027
+MU,segment_revenue,MBU,FY2020,2020-09-03,5702000000,as_reported,5702000000,agree,5702000000,0000723125-22-000048
+MU,segment_revenue,MBU,FY2021,2021-09-02,7203000000,as_reported,7203000000,agree,7203000000,0000723125-23-000054
+MU,segment_revenue,MBU,FY2022,2022-09-01,7260000000,as_reported,7260000000,agree,7260000000,0000723125-24-000027
+MU,segment_revenue,MBU,FY2023,2023-08-31,3630000000,as_reported,3630000000,agree,3630000000,0000723125-24-000027
+MU,segment_revenue,MBU,FY2024,2024-08-29,6354000000,as_reported,6354000000,agree,6354000000,0000723125-24-000027
+MU,segment_revenue,MCBU,FY2023,2023-08-31,7394000000,as_reported,7394000000,no_reference,,0000723125-25-000028
+MU,segment_revenue,MCBU,FY2024,2024-08-29,11667000000,as_reported,11667000000,no_reference,,0000723125-26-000023
+MU,segment_revenue,MCBU,FY2025,2025-08-28,11859000000,as_reported,11859000000,no_reference,,0000723125-26-000023
+MU,segment_revenue,MCBU,FY2026,2026-09-03,36601000000,as_reported,36601000000,no_reference,,0000723125-26-000023
+MU,segment_revenue,SBU,FY2020,2020-09-03,3765000000,as_reported,3765000000,agree,3765000000,0000723125-22-000048
+MU,segment_revenue,SBU,FY2021,2021-09-02,3973000000,as_reported,3973000000,agree,3973000000,0000723125-23-000054
+MU,segment_revenue,SBU,FY2022,2022-09-01,4553000000,as_reported,4553000000,agree,4553000000,0000723125-24-000027
+MU,segment_revenue,SBU,FY2023,2023-08-31,2553000000,as_reported,2553000000,agree,2553000000,0000723125-24-000027
+MU,segment_revenue,SBU,FY2024,2024-08-29,4592000000,as_reported,4592000000,agree,4592000000,0000723125-24-000027
+NVDA,ppe_category,"Buildings, leasehold improvements, and furniture",FY2021,2021-01-31,796000000,as_reported,796000000,agree,796000000,0001045810-22-000036
+NVDA,ppe_category,"Buildings, leasehold improvements, and furniture",FY2022,2022-01-30,874000000,as_reported,874000000,agree,874000000,0001045810-23-000017
+NVDA,ppe_category,"Buildings, leasehold improvements, and furniture",FY2023,2023-01-29,1598000000,as_reported,1598000000,agree,1598000000,0001045810-24-000029
+NVDA,ppe_category,"Buildings, leasehold improvements, and furniture",FY2024,2024-01-28,1816000000,as_reported,1816000000,agree,1816000000,0001045810-25-000023
+NVDA,ppe_category,"Buildings, leasehold improvements, and furniture",FY2025,2025-01-26,2076000000,as_reported,2076000000,agree,2076000000,0001045810-26-000021
+NVDA,ppe_category,"Buildings, leasehold improvements, and furniture",FY2026,2026-01-25,2891000000,as_reported,2891000000,agree,2891000000,0001045810-26-000021
+NVDA,ppe_category,Construction in process,FY2021,2021-01-31,558000000,as_reported,558000000,no_reference,,0001045810-22-000036
+NVDA,ppe_category,Construction in process,FY2022,2022-01-30,737000000,as_reported,737000000,no_reference,,0001045810-23-000017
+NVDA,ppe_category,Construction in process,FY2023,2023-01-29,382000000,as_reported,382000000,no_reference,,0001045810-24-000029
+NVDA,ppe_category,Construction in process,FY2024,2024-01-28,189000000,as_reported,189000000,no_reference,,0001045810-25-000023
+NVDA,ppe_category,Construction in process,FY2025,2025-01-26,529000000,as_reported,529000000,no_reference,,0001045810-26-000021
+NVDA,ppe_category,Construction in process,FY2026,2026-01-25,683000000,as_reported,683000000,no_reference,,0001045810-26-000021
+NVDA,ppe_category,"Equipment, compute hardware, and software",FY2021,2021-01-31,1985000000,as_reported,1985000000,agree,1985000000,0001045810-22-000036
+NVDA,ppe_category,"Equipment, compute hardware, and software",FY2022,2022-01-30,2852000000,as_reported,2852000000,agree,2852000000,0001045810-23-000017
+NVDA,ppe_category,"Equipment, compute hardware, and software",FY2023,2023-01-29,4303000000,as_reported,4303000000,agree,4303000000,0001045810-24-000029
+NVDA,ppe_category,"Equipment, compute hardware, and software",FY2024,2024-01-28,5200000000,as_reported,5200000000,agree,5200000000,0001045810-25-000023
+NVDA,ppe_category,"Equipment, compute hardware, and software",FY2025,2025-01-26,7568000000,as_reported,7568000000,agree,7568000000,0001045810-26-000021
+NVDA,ppe_category,"Equipment, compute hardware, and software",FY2026,2026-01-25,12619000000,as_reported,12619000000,agree,12619000000,0001045810-26-000021
+NVDA,ppe_category,Land,FY2021,2021-01-31,218000000,as_reported,218000000,agree,218000000,0001045810-22-000036
+NVDA,ppe_category,Land,FY2022,2022-01-30,218000000,as_reported,218000000,agree,218000000,0001045810-23-000017
+NVDA,ppe_category,Land,FY2023,2023-01-29,218000000,as_reported,218000000,agree,218000000,0001045810-24-000029
+NVDA,ppe_category,Land,FY2024,2024-01-28,218000000,as_reported,218000000,agree,218000000,0001045810-25-000023
+NVDA,ppe_category,Land,FY2025,2025-01-26,511000000,as_reported,511000000,agree,511000000,0001045810-26-000021
+NVDA,ppe_category,Land,FY2026,2026-01-25,777000000,as_reported,777000000,agree,777000000,0001045810-26-000021
+NVDA,segment_revenue,Automotive,FY2020,2020-01-26,700000000,as_reported,700000000,agree,700000000,0001045810-22-000036
+NVDA,segment_revenue,Automotive,FY2021,2021-01-31,536000000,as_reported,536000000,agree,536000000,0001045810-23-000017
+NVDA,segment_revenue,Automotive,FY2022,2022-01-30,566000000,as_reported,566000000,agree,566000000,0001045810-24-000029
+NVDA,segment_revenue,Automotive,FY2023,2023-01-29,903000000,as_reported,903000000,agree,903000000,0001045810-25-000023
+NVDA,segment_revenue,Automotive,FY2024,2024-01-28,1091000000,as_reported,1091000000,agree,1091000000,0001045810-26-000021
+NVDA,segment_revenue,Automotive,FY2025,2025-01-26,1694000000,as_reported,1694000000,agree,1694000000,0001045810-26-000021
+NVDA,segment_revenue,Automotive,FY2026,2026-01-25,2349000000,as_reported,2349000000,agree,2349000000,0001045810-26-000021
+NVDA,segment_revenue,Compute,FY2023,2023-01-29,11317000000,as_reported,11317000000,agree,11317000000,0001045810-25-000023
+NVDA,segment_revenue,Compute,FY2024,2024-01-28,38950000000,as_reported,38950000000,agree,38950000000,0001045810-26-000021
+NVDA,segment_revenue,Compute,FY2025,2025-01-26,102196000000,as_reported,102196000000,agree,102196000000,0001045810-26-000021
+NVDA,segment_revenue,Compute,FY2026,2026-01-25,162361000000,as_reported,162361000000,agree,162361000000,0001045810-26-000021
+NVDA,segment_revenue,Compute & Networking,FY2020,2020-01-26,3279000000,as_reported,3279000000,no_reference,,0001045810-22-000036
+NVDA,segment_revenue,Compute & Networking,FY2021,2021-01-31,6841000000,as_reported,6841000000,no_reference,,0001045810-23-000017
+NVDA,segment_revenue,Compute & Networking,FY2022,2022-01-30,11046000000,as_reported,11046000000,no_reference,,0001045810-24-000029
+NVDA,segment_revenue,Compute & Networking,FY2023,2023-01-29,15068000000,as_reported,15068000000,no_reference,,0001045810-25-000023
+NVDA,segment_revenue,Compute & Networking,FY2024,2024-01-28,47405000000,as_reported,47405000000,no_reference,,0001045810-26-000021
+NVDA,segment_revenue,Compute & Networking,FY2025,2025-01-26,116193000000,as_reported,116193000000,no_reference,,0001045810-26-000021
+NVDA,segment_revenue,Compute & Networking,FY2026,2026-01-25,193479000000,as_reported,193479000000,no_reference,,0001045810-26-000021
+NVDA,segment_revenue,Data Center,FY2020,2020-01-26,2983000000,as_reported,2983000000,agree,2983000000,0001045810-22-000036
+NVDA,segment_revenue,Data Center,FY2021,2021-01-31,6696000000,as_reported,6696000000,agree,6696000000,0001045810-23-000017
+NVDA,segment_revenue,Data Center,FY2022,2022-01-30,10613000000,as_reported,10613000000,agree,10613000000,0001045810-24-000029
+NVDA,segment_revenue,Data Center,FY2023,2023-01-29,15005000000,as_reported,15005000000,agree,15005000000,0001045810-25-000023
+NVDA,segment_revenue,Data Center,FY2024,2024-01-28,47525000000,as_reported,47525000000,agree,47525000000,0001045810-26-000021
+NVDA,segment_revenue,Data Center,FY2025,2025-01-26,115186000000,as_reported,115186000000,agree,115186000000,0001045810-26-000021
+NVDA,segment_revenue,Data Center,FY2026,2026-01-25,193737000000,as_reported,193737000000,agree,193737000000,0001045810-26-000021
+NVDA,segment_revenue,Gaming,FY2020,2020-01-26,5518000000,as_reported,5518000000,agree,5518000000,0001045810-22-000036
+NVDA,segment_revenue,Gaming,FY2021,2021-01-31,7759000000,as_reported,7759000000,agree,7759000000,0001045810-23-000017
+NVDA,segment_revenue,Gaming,FY2022,2022-01-30,12462000000,as_reported,12462000000,agree,12462000000,0001045810-24-000029
+NVDA,segment_revenue,Gaming,FY2023,2023-01-29,9067000000,as_reported,9067000000,agree,9067000000,0001045810-25-000023
+NVDA,segment_revenue,Gaming,FY2024,2024-01-28,10447000000,as_reported,10447000000,agree,10447000000,0001045810-26-000021
+NVDA,segment_revenue,Gaming,FY2025,2025-01-26,11350000000,as_reported,11350000000,agree,11350000000,0001045810-26-000021
+NVDA,segment_revenue,Gaming,FY2026,2026-01-25,16042000000,as_reported,16042000000,agree,16042000000,0001045810-26-000021
+NVDA,segment_revenue,Graphics,FY2020,2020-01-26,7639000000,as_reported,7639000000,no_reference,,0001045810-22-000036
+NVDA,segment_revenue,Graphics,FY2021,2021-01-31,9834000000,as_reported,9834000000,no_reference,,0001045810-23-000017
+NVDA,segment_revenue,Graphics,FY2022,2022-01-30,15868000000,as_reported,15868000000,no_reference,,0001045810-24-000029
+NVDA,segment_revenue,Graphics,FY2023,2023-01-29,11906000000,as_reported,11906000000,no_reference,,0001045810-25-000023
+NVDA,segment_revenue,Graphics,FY2024,2024-01-28,13517000000,as_reported,13517000000,no_reference,,0001045810-26-000021
+NVDA,segment_revenue,Graphics,FY2025,2025-01-26,14304000000,as_reported,14304000000,no_reference,,0001045810-26-000021
+NVDA,segment_revenue,Graphics,FY2026,2026-01-25,22459000000,as_reported,22459000000,no_reference,,0001045810-26-000021
+NVDA,segment_revenue,Networking,FY2023,2023-01-29,3688000000,as_reported,3688000000,agree,3688000000,0001045810-25-000023
+NVDA,segment_revenue,Networking,FY2024,2024-01-28,8575000000,as_reported,8575000000,agree,8575000000,0001045810-26-000021
+NVDA,segment_revenue,Networking,FY2025,2025-01-26,12990000000,as_reported,12990000000,agree,12990000000,0001045810-26-000021
+NVDA,segment_revenue,Networking,FY2026,2026-01-25,31376000000,as_reported,31376000000,agree,31376000000,0001045810-26-000021
+NVDA,segment_revenue,OEM & Other,FY2020,2020-01-26,505000000,as_reported,505000000,agree,505000000,0001045810-22-000036
+NVDA,segment_revenue,OEM & Other,FY2021,2021-01-31,631000000,as_reported,631000000,agree,631000000,0001045810-23-000017
+NVDA,segment_revenue,OEM & Other,FY2022,2022-01-30,1162000000,as_reported,1162000000,agree,1162000000,0001045810-23-000017
+NVDA,segment_revenue,OEM & Other,FY2023,2023-01-29,455000000,as_reported,455000000,agree,455000000,0001045810-23-000017
+NVDA,segment_revenue,OEM and Other,FY2022,2022-01-30,1162000000,as_reported,1162000000,agree,1162000000,0001045810-24-000029
+NVDA,segment_revenue,OEM and Other,FY2023,2023-01-29,455000000,as_reported,455000000,agree,455000000,0001045810-25-000023
+NVDA,segment_revenue,OEM and Other,FY2024,2024-01-28,306000000,as_reported,306000000,agree,306000000,0001045810-26-000021
+NVDA,segment_revenue,OEM and Other,FY2025,2025-01-26,389000000,as_reported,389000000,agree,389000000,0001045810-26-000021
+NVDA,segment_revenue,OEM and Other,FY2026,2026-01-25,619000000,as_reported,619000000,agree,619000000,0001045810-26-000021
+NVDA,segment_revenue,Professional Visualization,FY2020,2020-01-26,1212000000,as_reported,1212000000,agree,1212000000,0001045810-22-000036
+NVDA,segment_revenue,Professional Visualization,FY2021,2021-01-31,1053000000,as_reported,1053000000,agree,1053000000,0001045810-23-000017
+NVDA,segment_revenue,Professional Visualization,FY2022,2022-01-30,2111000000,as_reported,2111000000,agree,2111000000,0001045810-24-000029
+NVDA,segment_revenue,Professional Visualization,FY2023,2023-01-29,1544000000,as_reported,1544000000,agree,1544000000,0001045810-25-000023
+NVDA,segment_revenue,Professional Visualization,FY2024,2024-01-28,1553000000,as_reported,1553000000,agree,1553000000,0001045810-26-000021
+NVDA,segment_revenue,Professional Visualization,FY2025,2025-01-26,1878000000,as_reported,1878000000,agree,1878000000,0001045810-26-000021
+NVDA,segment_revenue,Professional Visualization,FY2026,2026-01-25,3191000000,as_reported,3191000000,agree,3191000000,0001045810-26-000021
+ORCL,finance_lease_liability,,FY2025,2025-05-31,2934000000,as_reported,2934000000,agree,2934000000,0001193125-26-277521
+ORCL,finance_lease_liability,,FY2026,2026-05-31,7701000000,as_reported,7701000000,agree,7701000000,0001193125-26-277521
+ORCL,ppe_category,Buildings and improvements,FY2021,2021-05-31,4734000000,as_reported,4734000000,no_reference,,0001564590-22-023675
+ORCL,ppe_category,Buildings and improvements,FY2022,2022-05-31,4729000000,as_reported,4729000000,no_reference,,0000950170-23-028914
+ORCL,ppe_category,Buildings and improvements,FY2023,2023-05-31,5880000000,as_reported,5880000000,no_reference,,0000950170-24-075605
+ORCL,ppe_category,Buildings and improvements,FY2024,2024-05-31,6493000000,as_reported,6493000000,no_reference,,0000950170-25-087926
+ORCL,ppe_category,Buildings and improvements,FY2025,2025-05-31,10881000000,as_reported,10881000000,no_reference,,0001193125-26-277521
+ORCL,ppe_category,Buildings and improvements,FY2026,2026-05-31,21263000000,as_reported,21263000000,no_reference,,0001193125-26-277521
+ORCL,ppe_category,"Computer, network, machinery and equipment",FY2021,2021-05-31,9508000000,as_reported,9508000000,no_reference,,0001564590-22-023675
+ORCL,ppe_category,"Computer, network, machinery and equipment",FY2022,2022-05-31,12844000000,as_reported,12844000000,no_reference,,0000950170-23-028914
+ORCL,ppe_category,"Computer, network, machinery and equipment",FY2023,2023-05-31,17258000000,as_reported,17258000000,no_reference,,0000950170-24-075605
+ORCL,ppe_category,"Computer, network, machinery and equipment",FY2024,2024-05-31,20989000000,as_reported,20989000000,no_reference,,0000950170-25-087926
+ORCL,ppe_category,"Computer, network, machinery and equipment",FY2025,2025-05-31,30345000000,as_reported,30345000000,no_reference,,0001193125-26-277521
+ORCL,ppe_category,"Computer, network, machinery and equipment",FY2026,2026-05-31,59634000000,as_reported,59634000000,no_reference,,0001193125-26-277521
+ORCL,ppe_category,Construction in progress,FY2021,2021-05-31,233000000,as_reported,233000000,no_reference,,0001564590-22-023675
+ORCL,ppe_category,Construction in progress,FY2022,2022-05-31,512000000,as_reported,512000000,no_reference,,0000950170-23-028914
+ORCL,ppe_category,Construction in progress,FY2023,2023-05-31,3846000000,as_reported,3846000000,no_reference,,0000950170-24-075605
+ORCL,ppe_category,Construction in progress,FY2024,2024-05-31,5634000000,as_reported,5634000000,no_reference,,0000950170-25-087926
+ORCL,ppe_category,Construction in progress,FY2025,2025-05-31,16510000000,as_reported,16510000000,no_reference,,0001193125-26-277521
+ORCL,ppe_category,Construction in progress,FY2026,2026-05-31,39973000000,as_reported,39973000000,no_reference,,0001193125-26-277521
+ORCL,ppe_category,"Furniture, fixtures and other",FY2021,2021-05-31,454000000,as_reported,454000000,no_reference,,0001564590-22-023675
+ORCL,ppe_category,"Furniture, fixtures and other",FY2022,2022-05-31,423000000,as_reported,423000000,no_reference,,0000950170-23-028914
+ORCL,ppe_category,"Furniture, fixtures and other",FY2023,2023-05-31,447000000,as_reported,447000000,no_reference,,0000950170-24-075605
+ORCL,ppe_category,"Furniture, fixtures and other",FY2024,2024-05-31,463000000,as_reported,463000000,no_reference,,0000950170-25-087926
+ORCL,ppe_category,"Furniture, fixtures and other",FY2025,2025-05-31,466000000,as_reported,466000000,no_reference,,0001193125-26-277521
+ORCL,ppe_category,"Furniture, fixtures and other",FY2026,2026-05-31,452000000,as_reported,452000000,no_reference,,0001193125-26-277521
+ORCL,ppe_category,Land,FY2021,2021-05-31,871000000,as_reported,871000000,no_reference,,0001564590-22-023675
+ORCL,ppe_category,Land,FY2022,2022-05-31,1166000000,as_reported,1166000000,no_reference,,0000950170-23-028914
+ORCL,ppe_category,Land,FY2023,2023-05-31,1243000000,as_reported,1243000000,no_reference,,0000950170-24-075605
+ORCL,ppe_category,Land,FY2024,2024-05-31,1239000000,as_reported,1239000000,no_reference,,0000950170-25-087926
+ORCL,ppe_category,Land,FY2025,2025-05-31,1352000000,as_reported,1352000000,no_reference,,0001193125-26-277521
+ORCL,ppe_category,Land,FY2026,2026-05-31,1329000000,as_reported,1329000000,no_reference,,0001193125-26-277521
+ORCL,segment_revenue,Cloud and license,FY2020,2020-05-31,32523000000,as_reported,32523000000,no_reference,,0001564590-22-023675
+ORCL,segment_revenue,Cloud and license,FY2021,2021-05-31,34101000000,as_reported,34101000000,no_reference,,0000950170-23-028914
+ORCL,segment_revenue,Cloud and license,FY2022,2022-05-31,36052000000,as_reported,36052000000,no_reference,,0000950170-24-075605
+ORCL,segment_revenue,Cloud and license,FY2023,2023-05-31,41086000000,as_reported,41086000000,no_reference,,0000950170-25-087926
+ORCL,segment_revenue,Cloud and license,FY2024,2024-05-31,44464000000,as_reported,44464000000,no_reference,,0000950170-25-087926
+ORCL,segment_revenue,Cloud and license,FY2025,2025-05-31,49230000000,as_reported,49230000000,no_reference,,0000950170-25-087926
+ORCL,segment_revenue,Cloud and software,FY2024,2024-05-31,44464000000,as_reported,44464000000,no_reference,,0001193125-26-277521
+ORCL,segment_revenue,Cloud and software,FY2025,2025-05-31,49230000000,as_reported,49230000000,no_reference,,0001193125-26-277521
+ORCL,segment_revenue,Cloud and software,FY2026,2026-05-31,58530000000,as_reported,58530000000,no_reference,,0001193125-26-277521
+ORCL,segment_revenue,Hardware,FY2020,2020-05-31,3443000000,as_reported,3443000000,no_reference,,0001564590-22-023675
+ORCL,segment_revenue,Hardware,FY2021,2021-05-31,3359000000,as_reported,3359000000,no_reference,,0000950170-23-028914
+ORCL,segment_revenue,Hardware,FY2022,2022-05-31,3183000000,as_reported,3183000000,no_reference,,0000950170-24-075605
+ORCL,segment_revenue,Hardware,FY2023,2023-05-31,3274000000,as_reported,3274000000,no_reference,,0000950170-25-087926
+ORCL,segment_revenue,Hardware,FY2024,2024-05-31,3066000000,as_reported,3066000000,no_reference,,0001193125-26-277521
+ORCL,segment_revenue,Hardware,FY2025,2025-05-31,2936000000,as_reported,2936000000,no_reference,,0001193125-26-277521
+ORCL,segment_revenue,Hardware,FY2026,2026-05-31,3084000000,as_reported,3084000000,no_reference,,0001193125-26-277521
+ORCL,segment_revenue,Services,FY2020,2020-05-31,3106000000,as_reported,3106000000,no_reference,,0001564590-22-023675
+ORCL,segment_revenue,Services,FY2021,2021-05-31,3021000000,as_reported,3021000000,no_reference,,0000950170-23-028914
+ORCL,segment_revenue,Services,FY2022,2022-05-31,3205000000,as_reported,3205000000,no_reference,,0000950170-24-075605
+ORCL,segment_revenue,Services,FY2023,2023-05-31,5594000000,as_reported,5594000000,no_reference,,0000950170-25-087926
+ORCL,segment_revenue,Services,FY2024,2024-05-31,5431000000,as_reported,5431000000,no_reference,,0001193125-26-277521
+ORCL,segment_revenue,Services,FY2025,2025-05-31,5233000000,as_reported,5233000000,no_reference,,0001193125-26-277521
+ORCL,segment_revenue,Services,FY2026,2026-05-31,5743000000,as_reported,5743000000,no_reference,,0001193125-26-277521
+QCOM,ppe_category,Buildings and improvements,FY2021,2021-09-26,1642000000,as_reported,1642000000,no_reference,,0000804328-22-000021
+QCOM,ppe_category,Buildings and improvements,FY2022,2022-09-25,1767000000,as_reported,1767000000,no_reference,,0000804328-23-000055
+QCOM,ppe_category,Buildings and improvements,FY2023,2023-09-24,1849000000,as_reported,1849000000,no_reference,,0000804328-24-000075
+QCOM,ppe_category,Buildings and improvements,FY2024,2024-09-29,1888000000,as_reported,1888000000,no_reference,,0000804328-25-000085
+QCOM,ppe_category,Buildings and improvements,FY2025,2025-09-28,1915000000,as_reported,1915000000,no_reference,,0000804328-25-000085
+QCOM,ppe_category,Computer equipment and software,FY2021,2021-09-26,1483000000,as_reported,1483000000,no_reference,,0000804328-22-000021
+QCOM,ppe_category,Computer equipment and software,FY2022,2022-09-25,1680000000,as_reported,1680000000,no_reference,,0000804328-23-000055
+QCOM,ppe_category,Computer equipment and software,FY2023,2023-09-24,1773000000,as_reported,1773000000,no_reference,,0000804328-24-000075
+QCOM,ppe_category,Computer equipment and software,FY2024,2024-09-29,2022000000,as_reported,2022000000,no_reference,,0000804328-25-000085
+QCOM,ppe_category,Computer equipment and software,FY2025,2025-09-28,2165000000,as_reported,2165000000,no_reference,,0000804328-25-000085
+QCOM,ppe_category,Construction in progress,FY2021,2021-09-26,269000000,as_reported,269000000,no_reference,,0000804328-22-000021
+QCOM,ppe_category,Construction in progress,FY2022,2022-09-25,330000000,as_reported,330000000,no_reference,,0000804328-23-000055
+QCOM,ppe_category,Construction in progress,FY2023,2023-09-24,226000000,as_reported,226000000,no_reference,,0000804328-24-000075
+QCOM,ppe_category,Construction in progress,FY2024,2024-09-29,126000000,as_reported,126000000,no_reference,,0000804328-25-000085
+QCOM,ppe_category,Construction in progress,FY2025,2025-09-28,154000000,as_reported,154000000,no_reference,,0000804328-25-000085
+QCOM,ppe_category,Furniture and office equipment,FY2021,2021-09-26,94000000,as_reported,94000000,no_reference,,0000804328-22-000021
+QCOM,ppe_category,Furniture and office equipment,FY2022,2022-09-25,105000000,as_reported,105000000,no_reference,,0000804328-23-000055
+QCOM,ppe_category,Furniture and office equipment,FY2023,2023-09-24,130000000,as_reported,130000000,no_reference,,0000804328-24-000075
+QCOM,ppe_category,Furniture and office equipment,FY2024,2024-09-29,139000000,as_reported,139000000,no_reference,,0000804328-25-000085
+QCOM,ppe_category,Furniture and office equipment,FY2025,2025-09-28,148000000,as_reported,148000000,no_reference,,0000804328-25-000085
+QCOM,ppe_category,Land,FY2021,2021-09-26,172000000,as_reported,172000000,no_reference,,0000804328-22-000021
+QCOM,ppe_category,Land,FY2022,2022-09-25,170000000,as_reported,170000000,no_reference,,0000804328-23-000055
+QCOM,ppe_category,Land,FY2023,2023-09-24,169000000,as_reported,169000000,no_reference,,0000804328-24-000075
+QCOM,ppe_category,Land,FY2024,2024-09-29,169000000,as_reported,169000000,no_reference,,0000804328-25-000085
+QCOM,ppe_category,Land,FY2025,2025-09-28,168000000,as_reported,168000000,no_reference,,0000804328-25-000085
+QCOM,ppe_category,Leasehold improvements,FY2021,2021-09-26,374000000,as_reported,374000000,no_reference,,0000804328-22-000021
+QCOM,ppe_category,Leasehold improvements,FY2022,2022-09-25,369000000,as_reported,369000000,no_reference,,0000804328-23-000055
+QCOM,ppe_category,Leasehold improvements,FY2023,2023-09-24,485000000,as_reported,485000000,no_reference,,0000804328-24-000075
+QCOM,ppe_category,Leasehold improvements,FY2024,2024-09-29,550000000,as_reported,550000000,no_reference,,0000804328-25-000085
+QCOM,ppe_category,Leasehold improvements,FY2025,2025-09-28,594000000,as_reported,594000000,no_reference,,0000804328-25-000085
+QCOM,ppe_category,Machinery and equipment,FY2021,2021-09-26,6420000000,as_reported,6420000000,no_reference,,0000804328-22-000021
+QCOM,ppe_category,Machinery and equipment,FY2022,2022-09-25,7349000000,as_reported,7349000000,no_reference,,0000804328-23-000055
+QCOM,ppe_category,Machinery and equipment,FY2023,2023-09-24,8078000000,as_reported,8078000000,no_reference,,0000804328-24-000075
+QCOM,ppe_category,Machinery and equipment,FY2024,2024-09-29,8647000000,as_reported,8647000000,no_reference,,0000804328-25-000085
+QCOM,ppe_category,Machinery and equipment,FY2025,2025-09-28,9360000000,as_reported,9360000000,no_reference,,0000804328-25-000085
+QCOM,segment_revenue,Automotive,FY2021,2021-09-26,975000000,as_reported,975000000,no_reference,,0000804328-22-000021
+QCOM,segment_revenue,Automotive,FY2022,2022-09-25,1509000000,restated,1372000000,no_reference,,0000804328-23-000055
+QCOM,segment_revenue,Automotive,FY2023,2023-09-24,1872000000,as_reported,1872000000,no_reference,,0000804328-24-000075
+QCOM,segment_revenue,Automotive,FY2024,2024-09-29,2910000000,as_reported,2910000000,no_reference,,0000804328-25-000085
+QCOM,segment_revenue,Automotive,FY2025,2025-09-28,3957000000,as_reported,3957000000,no_reference,,0000804328-25-000085
+QCOM,segment_revenue,Handsets,FY2021,2021-09-26,16830000000,as_reported,16830000000,no_reference,,0000804328-22-000021
+QCOM,segment_revenue,Handsets,FY2022,2022-09-25,28815000000,restated,25027000000,no_reference,,0000804328-23-000055
+QCOM,segment_revenue,Handsets,FY2023,2023-09-24,22570000000,as_reported,22570000000,no_reference,,0000804328-24-000075
+QCOM,segment_revenue,Handsets,FY2024,2024-09-29,24863000000,as_reported,24863000000,no_reference,,0000804328-25-000085
+QCOM,segment_revenue,Handsets,FY2025,2025-09-28,27793000000,as_reported,27793000000,no_reference,,0000804328-25-000085
+QCOM,segment_revenue,IoT (internet of things),FY2021,2021-09-26,5056000000,as_reported,5056000000,no_reference,,0000804328-22-000021
+QCOM,segment_revenue,IoT (internet of things),FY2022,2022-09-25,7353000000,restated,6948000000,no_reference,,0000804328-23-000055
+QCOM,segment_revenue,IoT (internet of things),FY2023,2023-09-24,5940000000,as_reported,5940000000,no_reference,,0000804328-24-000075
+QCOM,segment_revenue,IoT (internet of things),FY2024,2024-09-29,5423000000,as_reported,5423000000,no_reference,,0000804328-25-000085
+QCOM,segment_revenue,IoT (internet of things),FY2025,2025-09-28,6617000000,as_reported,6617000000,no_reference,,0000804328-25-000085
+QCOM,segment_revenue,QSI,FY2023,2023-09-24,28000000,as_reported,28000000,agree,28000000,0000804328-25-000085
+QCOM,segment_revenue,QSI,FY2024,2024-09-29,18000000,as_reported,18000000,agree,18000000,0000804328-25-000085
+QCOM,segment_revenue,QTL,FY2023,2023-09-24,5306000000,as_reported,5306000000,agree,5306000000,0000804328-25-000085
+QCOM,segment_revenue,QTL,FY2024,2024-09-29,5572000000,as_reported,5572000000,agree,5572000000,0000804328-25-000085
+QCOM,segment_revenue,QTL,FY2025,2025-09-28,5582000000,as_reported,5582000000,no_reference,,0000804328-25-000085
+QCOM,segment_revenue,RFFE,FY2021,2021-09-26,4158000000,as_reported,4158000000,no_reference,,0000804328-22-000021
+QCOM,segment_revenue,RFFE,FY2022,2022-09-25,4330000000,as_reported,4330000000,no_reference,,0000804328-22-000021
+TSLA,finance_lease_liability,,FY2021,2021-12-31,1492000000,as_reported,1492000000,agree,1492000000,0000950170-23-001409
+TSLA,finance_lease_liability,,FY2022,2022-12-31,1054000000,as_reported,1054000000,agree,1054000000,0001628280-24-002390
+TSLA,finance_lease_liability,,FY2023,2023-12-31,573000000,as_reported,573000000,agree,573000000,0001628280-25-003063
+TSLA,finance_lease_liability,,FY2024,2024-12-31,335000000,as_reported,335000000,agree,335000000,0001628280-26-003952
+TSLA,finance_lease_liability,,FY2025,2025-12-31,223000000,as_reported,223000000,agree,223000000,0001628280-26-003952
+TSLA,ppe_category,AI infrastructure,FY2023,2023-12-31,1510000000,as_reported,1510000000,no_reference,,0001628280-25-003063
+TSLA,ppe_category,AI infrastructure,FY2024,2024-12-31,5152000000,as_reported,5152000000,no_reference,,0001628280-26-003952
+TSLA,ppe_category,AI infrastructure,FY2025,2025-12-31,6816000000,as_reported,6816000000,no_reference,,0001628280-26-003952
+TSLA,ppe_category,"Computer equipment, hardware and software",FY2021,2021-12-31,1414000000,as_reported,1414000000,no_reference,,0000950170-23-001409
+TSLA,ppe_category,"Computer equipment, hardware and software",FY2022,2022-12-31,2072000000,as_reported,2072000000,no_reference,,0001628280-24-002390
+TSLA,ppe_category,"Computer equipment, hardware and software",FY2023,2023-12-31,2409000000,restated,3799000000,no_reference,,0001628280-25-003063
+TSLA,ppe_category,"Computer equipment, hardware and software",FY2024,2024-12-31,2902000000,as_reported,2902000000,no_reference,,0001628280-26-003952
+TSLA,ppe_category,"Computer equipment, hardware and software",FY2025,2025-12-31,3206000000,as_reported,3206000000,no_reference,,0001628280-26-003952
+TSLA,ppe_category,Construction in progress,FY2021,2021-12-31,5559000000,as_reported,5559000000,agree,5559000000,0000950170-23-001409
+TSLA,ppe_category,Construction in progress,FY2022,2022-12-31,4263000000,as_reported,4263000000,agree,4263000000,0001628280-24-002390
+TSLA,ppe_category,Construction in progress,FY2023,2023-12-31,5791000000,as_reported,5791000000,agree,5791000000,0001628280-25-003063
+TSLA,ppe_category,Construction in progress,FY2024,2024-12-31,6783000000,as_reported,6783000000,agree,6783000000,0001628280-26-003952
+TSLA,ppe_category,Construction in progress,FY2025,2025-12-31,8786000000,as_reported,8786000000,no_reference,,0001628280-26-003952
+TSLA,ppe_category,Land and buildings,FY2021,2021-12-31,4675000000,as_reported,4675000000,no_reference,,0000950170-23-001409
+TSLA,ppe_category,Land and buildings,FY2022,2022-12-31,7751000000,as_reported,7751000000,no_reference,,0001628280-24-002390
+TSLA,ppe_category,Land and buildings,FY2023,2023-12-31,9498000000,restated,9505000000,no_reference,,0001628280-25-003063
+TSLA,ppe_category,Land and buildings,FY2024,2024-12-31,10677000000,as_reported,10677000000,no_reference,,0001628280-26-003952
+TSLA,ppe_category,Land and buildings,FY2025,2025-12-31,11837000000,as_reported,11837000000,no_reference,,0001628280-26-003952
+TSLA,ppe_category,Leasehold improvements,FY2021,2021-12-31,1826000000,as_reported,1826000000,agree,1826000000,0000950170-23-001409
+TSLA,ppe_category,Leasehold improvements,FY2022,2022-12-31,2366000000,as_reported,2366000000,agree,2366000000,0001628280-24-002390
+TSLA,ppe_category,Leasehold improvements,FY2023,2023-12-31,3136000000,restated,3168000000,agree,3136000000,0001628280-25-003063
+TSLA,ppe_category,Leasehold improvements,FY2024,2024-12-31,3688000000,as_reported,3688000000,agree,3688000000,0001628280-26-003952
+TSLA,ppe_category,Leasehold improvements,FY2025,2025-12-31,4439000000,as_reported,4439000000,no_reference,,0001628280-26-003952
+TSLA,ppe_category,"Machinery, equipment, vehicles and office furniture",FY2021,2021-12-31,9953000000,as_reported,9953000000,agree,9953000000,0000950170-23-001409
+TSLA,ppe_category,"Machinery, equipment, vehicles and office furniture",FY2022,2022-12-31,13558000000,as_reported,13558000000,agree,13558000000,0001628280-24-002390
+TSLA,ppe_category,"Machinery, equipment, vehicles and office furniture",FY2023,2023-12-31,16309000000,restated,16372000000,agree,16309000000,0001628280-25-003063
+TSLA,ppe_category,"Machinery, equipment, vehicles and office furniture",FY2024,2024-12-31,18339000000,as_reported,18339000000,agree,18339000000,0001628280-26-003952
+TSLA,ppe_category,"Machinery, equipment, vehicles and office furniture",FY2025,2025-12-31,20864000000,as_reported,20864000000,no_reference,,0001628280-26-003952
+TSLA,ppe_category,Tooling,FY2021,2021-12-31,2188000000,as_reported,2188000000,no_reference,,0000950170-23-001409
+TSLA,ppe_category,Tooling,FY2022,2022-12-31,2579000000,as_reported,2579000000,no_reference,,0001628280-24-002390
+TSLA,ppe_category,Tooling,FY2023,2023-12-31,3129000000,restated,3147000000,no_reference,,0001628280-25-003063
+TSLA,ppe_category,Tooling,FY2024,2024-12-31,3883000000,as_reported,3883000000,no_reference,,0001628280-26-003952
+TSLA,ppe_category,Tooling,FY2025,2025-12-31,4868000000,as_reported,4868000000,no_reference,,0001628280-26-003952
+TSLA,segment_revenue,Automotive,FY2021,2021-12-31,51034000000,as_reported,51034000000,no_reference,,0001628280-24-002390
+TSLA,segment_revenue,Automotive,FY2022,2022-12-31,77553000000,as_reported,77553000000,no_reference,,0001628280-24-002390
+TSLA,segment_revenue,Automotive,FY2023,2023-12-31,90738000000,as_reported,90738000000,no_reference,,0001628280-24-002390
+TSLA,segment_revenue,Automotive and services and other segment,FY2020,2020-12-31,29542000000,as_reported,29542000000,no_reference,,0000950170-23-001409
+TSLA,segment_revenue,Automotive and services and other segment,FY2021,2021-12-31,51034000000,as_reported,51034000000,no_reference,,0000950170-23-001409
+TSLA,segment_revenue,Automotive and services and other segment,FY2022,2022-12-31,77553000000,as_reported,77553000000,no_reference,,0000950170-23-001409
+TSLA,segment_revenue,Automotive and services and other segment,FY2023,2023-12-31,90738000000,as_reported,90738000000,no_reference,,0001628280-26-003952
+TSLA,segment_revenue,Automotive and services and other segment,FY2024,2024-12-31,87604000000,as_reported,87604000000,no_reference,,0001628280-26-003952
+TSLA,segment_revenue,Automotive and services and other segment,FY2025,2025-12-31,82056000000,as_reported,82056000000,no_reference,,0001628280-26-003952
+TSLA,segment_revenue,Automotive segment,FY2022,2022-12-31,77553000000,as_reported,77553000000,agree,77553000000,0001628280-25-003063
+TSLA,segment_revenue,Automotive segment,FY2023,2023-12-31,90738000000,as_reported,90738000000,agree,90738000000,0001628280-25-003063
+TSLA,segment_revenue,Automotive segment,FY2024,2024-12-31,87604000000,as_reported,87604000000,agree,87604000000,0001628280-25-003063
+TSLA,segment_revenue,Energy generation and storage segment,FY2020,2020-12-31,1994000000,as_reported,1994000000,agree,1994000000,0000950170-23-001409
+TSLA,segment_revenue,Energy generation and storage segment,FY2021,2021-12-31,2789000000,as_reported,2789000000,agree,2789000000,0001628280-24-002390
+TSLA,segment_revenue,Energy generation and storage segment,FY2022,2022-12-31,3909000000,as_reported,3909000000,agree,3909000000,0001628280-25-003063
+TSLA,segment_revenue,Energy generation and storage segment,FY2023,2023-12-31,6035000000,as_reported,6035000000,agree,6035000000,0001628280-26-003952
+TSLA,segment_revenue,Energy generation and storage segment,FY2024,2024-12-31,10086000000,as_reported,10086000000,agree,10086000000,0001628280-26-003952
+TSLA,segment_revenue,Energy generation and storage segment,FY2025,2025-12-31,12771000000,as_reported,12771000000,agree,12771000000,0001628280-26-003952
+TXN,ppe_category,Buildings and improvements,FY2021,2021-12-31,3490000000,as_reported,3490000000,no_reference,,0000097476-23-000007
+TXN,ppe_category,Buildings and improvements,FY2022,2022-12-31,4154000000,as_reported,4154000000,no_reference,,0000097476-24-000007
+TXN,ppe_category,Buildings and improvements,FY2023,2023-12-31,5549000000,as_reported,5549000000,no_reference,,0000097476-25-000007
+TXN,ppe_category,Buildings and improvements,FY2024,2024-12-31,6424000000,as_reported,6424000000,no_reference,,0000097476-26-000059
+TXN,ppe_category,Buildings and improvements,FY2025,2025-12-31,6830000000,as_reported,6830000000,no_reference,,0000097476-26-000059
+TXN,ppe_category,Land,FY2021,2021-12-31,132000000,as_reported,132000000,agree,132000000,0000097476-23-000007
+TXN,ppe_category,Land,FY2022,2022-12-31,132000000,as_reported,132000000,agree,132000000,0000097476-24-000007
+TXN,ppe_category,Land,FY2023,2023-12-31,150000000,as_reported,150000000,agree,150000000,0000097476-25-000007
+TXN,ppe_category,Land,FY2024,2024-12-31,113000000,as_reported,113000000,agree,113000000,0000097476-26-000059
+TXN,ppe_category,Land,FY2025,2025-12-31,162000000,as_reported,162000000,agree,162000000,0000097476-26-000059
+TXN,ppe_category,Machinery and equipment,FY2021,2021-12-31,4236000000,as_reported,4236000000,agree,4236000000,0000097476-23-000007
+TXN,ppe_category,Machinery and equipment,FY2022,2022-12-31,5664000000,as_reported,5664000000,agree,5664000000,0000097476-24-000007
+TXN,ppe_category,Machinery and equipment,FY2023,2023-12-31,7569000000,as_reported,7569000000,agree,7569000000,0000097476-25-000007
+TXN,ppe_category,Machinery and equipment,FY2024,2024-12-31,8717000000,as_reported,8717000000,agree,8717000000,0000097476-26-000059
+TXN,ppe_category,Machinery and equipment,FY2025,2025-12-31,10690000000,as_reported,10690000000,agree,10690000000,0000097476-26-000059
+TXN,purchase_commitments,,FY2022,2022-12-31,2106000000,as_reported,2106000000,no_reference,,0000097476-23-000007
+TXN,purchase_commitments,,FY2023,2023-12-31,1868000000,as_reported,1868000000,no_reference,,0000097476-24-000007
+TXN,purchase_commitments,,FY2024,2024-12-31,1417000000,as_reported,1417000000,no_reference,,0000097476-25-000007
+TXN,purchase_commitments,,FY2025,2025-12-31,1442000000,as_reported,1442000000,no_reference,,0000097476-26-000059
+TXN,segment_revenue,Analog,FY2020,2020-12-31,10886000000,as_reported,10886000000,agree,10886000000,0000097476-23-000007
+TXN,segment_revenue,Analog,FY2021,2021-12-31,14050000000,as_reported,14050000000,agree,14050000000,0000097476-24-000007
+TXN,segment_revenue,Analog,FY2022,2022-12-31,15359000000,as_reported,15359000000,agree,15359000000,0000097476-24-000007
+TXN,segment_revenue,Analog,FY2023,2023-12-31,13040000000,as_reported,13040000000,agree,13040000000,0000097476-25-000007
+TXN,segment_revenue,Analog,FY2024,2024-12-31,12161000000,as_reported,12161000000,agree,12161000000,0000097476-26-000059
+TXN,segment_revenue,Analog,FY2025,2025-12-31,14006000000,as_reported,14006000000,agree,14006000000,0000097476-26-000059
+TXN,segment_revenue,Embedded Processing,FY2020,2020-12-31,2570000000,as_reported,2570000000,agree,2570000000,0000097476-23-000007
+TXN,segment_revenue,Embedded Processing,FY2021,2021-12-31,3049000000,as_reported,3049000000,agree,3049000000,0000097476-24-000007
+TXN,segment_revenue,Embedded Processing,FY2022,2022-12-31,3261000000,as_reported,3261000000,agree,3261000000,0000097476-24-000007
+TXN,segment_revenue,Embedded Processing,FY2023,2023-12-31,3368000000,as_reported,3368000000,agree,3368000000,0000097476-24-000007
+TXN,segment_revenue,Embedded Processing,FY2024,2024-12-31,2533000000,as_reported,2533000000,agree,2533000000,0000097476-25-000007
+TXN,segment_revenue,Embedded Processing,FY2025,2025-12-31,2697000000,as_reported,2697000000,agree,2697000000,0000097476-26-000059
+TXN,segment_revenue,Other,FY2020,2020-12-31,1005000000,as_reported,1005000000,no_reference,,0000097476-23-000007
+TXN,segment_revenue,Other,FY2021,2021-12-31,1245000000,as_reported,1245000000,no_reference,,0000097476-24-000007
+TXN,segment_revenue,Other,FY2022,2022-12-31,1408000000,as_reported,1408000000,no_reference,,0000097476-24-000007
+TXN,segment_revenue,Other,FY2023,2023-12-31,1111000000,as_reported,1111000000,no_reference,,0000097476-24-000007
+TXN,segment_revenue,Other,FY2024,2024-12-31,947000000,as_reported,947000000,no_reference,,0000097476-25-000007
+TXN,segment_revenue,Other,FY2025,2025-12-31,979000000,as_reported,979000000,no_reference,,0000097476-26-000059
+WMT,ppe_category,Buildings and improvements,FY2021,2021-01-31,97582000000,as_reported,97582000000,no_reference,,0000104169-22-000012
+WMT,ppe_category,Buildings and improvements,FY2022,2022-01-31,100376000000,as_reported,100376000000,no_reference,,0000104169-23-000020
+WMT,ppe_category,Buildings and improvements,FY2023,2023-01-31,104554000000,as_reported,104554000000,no_reference,,0000104169-24-000056
+WMT,ppe_category,Buildings and improvements,FY2024,2024-01-31,111767000000,as_reported,111767000000,no_reference,,0000104169-25-000021
+WMT,ppe_category,Buildings and improvements,FY2025,2025-01-31,117973000000,as_reported,117973000000,no_reference,,0000104169-26-000055
+WMT,ppe_category,Buildings and improvements,FY2026,2026-01-31,128472000000,as_reported,128472000000,no_reference,,0000104169-26-000055
+WMT,ppe_category,Construction in progress,FY2021,2021-01-31,4741000000,as_reported,4741000000,agree,4741000000,0000104169-22-000012
+WMT,ppe_category,Construction in progress,FY2022,2022-01-31,7199000000,as_reported,7199000000,agree,7199000000,0000104169-23-000020
+WMT,ppe_category,Construction in progress,FY2023,2023-01-31,10802000000,as_reported,10802000000,agree,10802000000,0000104169-24-000056
+WMT,ppe_category,Construction in progress,FY2024,2024-01-31,13390000000,as_reported,13390000000,agree,13390000000,0000104169-25-000021
+WMT,ppe_category,Construction in progress,FY2025,2025-01-31,15403000000,as_reported,15403000000,agree,15403000000,0000104169-26-000055
+WMT,ppe_category,Construction in progress,FY2026,2026-01-31,18728000000,as_reported,18728000000,agree,18728000000,0000104169-26-000055
+WMT,ppe_category,Fixtures and equipment,FY2021,2021-01-31,56639000000,as_reported,56639000000,no_reference,,0000104169-22-000012
+WMT,ppe_category,Fixtures and equipment,FY2022,2022-01-31,60282000000,as_reported,60282000000,no_reference,,0000104169-23-000020
+WMT,ppe_category,Fixtures and equipment,FY2023,2023-01-31,65235000000,as_reported,65235000000,no_reference,,0000104169-24-000056
+WMT,ppe_category,Fixtures and equipment,FY2024,2024-01-31,72161000000,as_reported,72161000000,no_reference,,0000104169-25-000021
+WMT,ppe_category,Fixtures and equipment,FY2025,2025-01-31,76226000000,as_reported,76226000000,no_reference,,0000104169-26-000055
+WMT,ppe_category,Fixtures and equipment,FY2026,2026-01-31,85539000000,as_reported,85539000000,no_reference,,0000104169-26-000055
+WMT,ppe_category,Land,FY2021,2021-01-31,19308000000,as_reported,19308000000,agree,19308000000,0000104169-22-000012
+WMT,ppe_category,Land,FY2022,2022-01-31,19204000000,as_reported,19204000000,agree,19204000000,0000104169-23-000020
+WMT,ppe_category,Land,FY2023,2023-01-31,19317000000,as_reported,19317000000,agree,19317000000,0000104169-24-000056
+WMT,ppe_category,Land,FY2024,2024-01-31,19562000000,as_reported,19562000000,agree,19562000000,0000104169-25-000021
+WMT,ppe_category,Land,FY2025,2025-01-31,19342000000,as_reported,19342000000,agree,19342000000,0000104169-26-000055
+WMT,ppe_category,Land,FY2026,2026-01-31,20754000000,as_reported,20754000000,agree,20754000000,0000104169-26-000055
+WMT,ppe_category,Transportation equipment,FY2021,2021-01-31,2301000000,as_reported,2301000000,agree,2301000000,0000104169-22-000012
+WMT,ppe_category,Transportation equipment,FY2022,2022-01-31,2263000000,as_reported,2263000000,agree,2263000000,0000104169-23-000020
+WMT,ppe_category,Transportation equipment,FY2023,2023-01-31,2462000000,as_reported,2462000000,agree,2462000000,0000104169-24-000056
+WMT,ppe_category,Transportation equipment,FY2024,2024-01-31,2979000000,as_reported,2979000000,agree,2979000000,0000104169-25-000021
+WMT,ppe_category,Transportation equipment,FY2025,2025-01-31,2673000000,as_reported,2673000000,agree,2673000000,0000104169-26-000055
+WMT,ppe_category,Transportation equipment,FY2026,2026-01-31,2928000000,as_reported,2928000000,agree,2928000000,0000104169-26-000055
+WMT,segment_capex,Sam's Club,FY2020,2020-01-31,525000000,as_reported,525000000,agree,525000000,0000104169-22-000012
+WMT,segment_capex,Sam's Club,FY2021,2021-01-31,488000000,as_reported,488000000,agree,488000000,0000104169-23-000020
+WMT,segment_capex,Sam's Club,FY2022,2022-01-31,622000000,as_reported,622000000,agree,622000000,0000104169-24-000056
+WMT,segment_capex,Sam's Club,FY2023,2023-01-31,727000000,as_reported,727000000,agree,727000000,0000104169-24-000056
+WMT,segment_capex,Sam's Club,FY2024,2024-01-31,1041000000,as_reported,1041000000,no_reference,,0000104169-24-000056
+WMT,segment_capex,Sam's Club U.S.,FY2023,2023-01-31,727000000,as_reported,727000000,no_reference,,0000104169-25-000021
+WMT,segment_capex,Sam's Club U.S.,FY2024,2024-01-31,1041000000,as_reported,1041000000,no_reference,,0000104169-26-000055
+WMT,segment_capex,Sam's Club U.S.,FY2025,2025-01-31,1212000000,as_reported,1212000000,no_reference,,0000104169-26-000055
+WMT,segment_capex,Sam's Club U.S.,FY2026,2026-01-31,914000000,as_reported,914000000,no_reference,,0000104169-26-000055
+WMT,segment_capex,Walmart International,FY2020,2020-01-31,2801000000,as_reported,2801000000,agree,2801000000,0000104169-22-000012
+WMT,segment_capex,Walmart International,FY2021,2021-01-31,2436000000,as_reported,2436000000,agree,2436000000,0000104169-23-000020
+WMT,segment_capex,Walmart International,FY2022,2022-01-31,2497000000,as_reported,2497000000,agree,2497000000,0000104169-24-000056
+WMT,segment_capex,Walmart International,FY2023,2023-01-31,2625000000,as_reported,2625000000,agree,2625000000,0000104169-25-000021
+WMT,segment_capex,Walmart International,FY2024,2024-01-31,2911000000,as_reported,2911000000,no_reference,,0000104169-26-000055
+WMT,segment_capex,Walmart International,FY2025,2025-01-31,3178000000,as_reported,3178000000,no_reference,,0000104169-26-000055
+WMT,segment_capex,Walmart International,FY2026,2026-01-31,3197000000,as_reported,3197000000,no_reference,,0000104169-26-000055
+WMT,segment_capex,Walmart U.S.,FY2020,2020-01-31,6315000000,as_reported,6315000000,agree,6315000000,0000104169-22-000012
+WMT,segment_capex,Walmart U.S.,FY2021,2021-01-31,6131000000,as_reported,6131000000,agree,6131000000,0000104169-23-000020
+WMT,segment_capex,Walmart U.S.,FY2022,2022-01-31,8475000000,as_reported,8475000000,agree,8475000000,0000104169-24-000056
+WMT,segment_capex,Walmart U.S.,FY2023,2023-01-31,11425000000,as_reported,11425000000,agree,11425000000,0000104169-25-000021
+WMT,segment_capex,Walmart U.S.,FY2024,2024-01-31,13877000000,as_reported,13877000000,no_reference,,0000104169-26-000055
+WMT,segment_capex,Walmart U.S.,FY2025,2025-01-31,16466000000,as_reported,16466000000,no_reference,,0000104169-26-000055
+WMT,segment_capex,Walmart U.S.,FY2026,2026-01-31,20157000000,as_reported,20157000000,no_reference,,0000104169-26-000055
+WMT,segment_revenue,Sam's Club,FY2020,2020-01-31,58792000000,as_reported,58792000000,agree,58792000000,0000104169-22-000012
+WMT,segment_revenue,Sam's Club,FY2021,2021-01-31,63910000000,as_reported,63910000000,agree,63910000000,0000104169-23-000020
+WMT,segment_revenue,Sam's Club,FY2022,2022-01-31,73556000000,as_reported,73556000000,agree,73556000000,0000104169-24-000056
+WMT,segment_revenue,Sam's Club,FY2023,2023-01-31,84345000000,as_reported,84345000000,agree,84345000000,0000104169-24-000056
+WMT,segment_revenue,Sam's Club,FY2024,2024-01-31,86179000000,as_reported,86179000000,agree,86179000000,0000104169-24-000056
+WMT,segment_revenue,Sam's Club U.S.,FY2023,2023-01-31,86253000000,as_reported,86253000000,unresolved,84345000000,0000104169-25-000021
+WMT,segment_revenue,Sam's Club U.S.,FY2024,2024-01-31,88230000000,as_reported,88230000000,unresolved,86179000000,0000104169-26-000055
+WMT,segment_revenue,Sam's Club U.S.,FY2025,2025-01-31,92561000000,as_reported,92561000000,unresolved,90238000000,0000104169-26-000055
+WMT,segment_revenue,Sam's Club U.S.,FY2026,2026-01-31,95540000000,as_reported,95540000000,unresolved,93015000000,0000104169-26-000055
+WMT,segment_revenue,Walmart International,FY2020,2020-01-31,120130000000,as_reported,120130000000,unresolved,121432000000,0000104169-22-000012
+WMT,segment_revenue,Walmart International,FY2021,2021-01-31,121360000000,as_reported,121360000000,unresolved,122502000000,0000104169-23-000020
+WMT,segment_revenue,Walmart International,FY2022,2022-01-31,100959000000,as_reported,100959000000,unresolved,102459000000,0000104169-24-000056
+WMT,segment_revenue,Walmart International,FY2023,2023-01-31,102604000000,restated,100983000000,unresolved,100983000000,0000104169-25-000021
+WMT,segment_revenue,Walmart International,FY2024,2024-01-31,116049000000,restated,114641000000,unresolved,114641000000,0000104169-26-000055
+WMT,segment_revenue,Walmart International,FY2025,2025-01-31,123363000000,as_reported,123363000000,unresolved,121885000000,0000104169-26-000055
+WMT,segment_revenue,Walmart International,FY2026,2026-01-31,131988000000,as_reported,131988000000,unresolved,130423000000,0000104169-26-000055
+WMT,segment_revenue,Walmart U.S.,FY2020,2020-01-31,341004000000,as_reported,341004000000,agree,341004000000,0000104169-22-000012
+WMT,segment_revenue,Walmart U.S.,FY2021,2021-01-31,369963000000,as_reported,369963000000,agree,369963000000,0000104169-23-000020
+WMT,segment_revenue,Walmart U.S.,FY2022,2022-01-31,393247000000,as_reported,393247000000,agree,393247000000,0000104169-24-000056
+WMT,segment_revenue,Walmart U.S.,FY2023,2023-01-31,422398000000,restated,420553000000,unresolved,420553000000,0000104169-25-000021
+WMT,segment_revenue,Walmart U.S.,FY2024,2024-01-31,443802000000,restated,441817000000,unresolved,441817000000,0000104169-26-000055
+WMT,segment_revenue,Walmart U.S.,FY2025,2025-01-31,465009000000,as_reported,465009000000,unresolved,462415000000,0000104169-26-000055
+WMT,segment_revenue,Walmart U.S.,FY2026,2026-01-31,485599000000,as_reported,485599000000,unresolved,482975000000,0000104169-26-000055
+WULF,finance_lease_liability,,FY2024,2024-12-31,292000,as_reported,292000,unresolved,294000,0001083301-26-000031
+WULF,finance_lease_liability,,FY2025,2025-12-31,289000,as_reported,289000,unresolved,291000,0001083301-26-000031
+WULF,ppe_category,Construction in process,FY2021,2021-12-31,20867000,as_reported,20867000,no_reference,,0001558370-23-005301
+WULF,ppe_category,Construction in process,FY2022,2022-12-31,32360000,as_reported,32360000,no_reference,,0001083301-24-000072
+WULF,ppe_category,Construction in process,FY2023,2023-12-31,24578000,as_reported,24578000,no_reference,,0001083301-25-000018
+WULF,ppe_category,Construction in process,FY2024,2024-12-31,107624000,as_reported,107624000,no_reference,,0001083301-26-000031
+WULF,ppe_category,Construction in process,FY2025,2025-12-31,1069059000,as_reported,1069059000,no_reference,,0001083301-26-000031
+WULF,ppe_category,Deposits on miners,FY2021,2021-12-31,70560000,as_reported,70560000,agree,70560000,0001558370-23-005301
+WULF,ppe_category,Deposits on miners,FY2022,2022-12-31,57626000,as_reported,57626000,agree,57626000,0001083301-24-000072
+WULF,ppe_category,Deposits on miners,FY2023,2023-12-31,36469000,as_reported,36469000,agree,36469000,0001083301-25-000018
+WULF,ppe_category,Deposits on miners,FY2024,2024-12-31,53913000,as_reported,53913000,agree,53913000,0001083301-26-000031
+WULF,ppe_category,Electrical and computer equipment,FY2024,2024-12-31,32031000,as_reported,32031000,no_reference,,0001083301-26-000031
+WULF,ppe_category,Electrical and computer equipment,FY2025,2025-12-31,91158000,as_reported,91158000,no_reference,,0001083301-26-000031
+WULF,ppe_category,Equipment,FY2021,2021-12-31,19000,as_reported,19000,agree,19000,0001558370-23-005301
+WULF,ppe_category,Equipment,FY2022,2022-12-31,7208000,as_reported,7208000,agree,7208000,0001083301-24-000072
+WULF,ppe_category,Equipment,FY2023,2023-12-31,15736000,as_reported,15736000,agree,15736000,0001083301-25-000018
+WULF,ppe_category,Equipment,FY2024,2024-12-31,32031000,as_reported,32031000,agree,32031000,0001083301-25-000018
+WULF,ppe_category,Leasehold improvements,FY2022,2022-12-31,29880000,as_reported,29880000,agree,29880000,0001083301-24-000072
+WULF,ppe_category,Leasehold improvements,FY2023,2023-12-31,62850000,as_reported,62850000,agree,62850000,0001083301-25-000018
+WULF,ppe_category,Leasehold improvements,FY2024,2024-12-31,91614000,as_reported,91614000,agree,91614000,0001083301-26-000031
+WULF,ppe_category,Leasehold improvements,FY2025,2025-12-31,265010000,as_reported,265010000,agree,265010000,0001083301-26-000031
+WULF,ppe_category,Miners,FY2022,2022-12-31,71114000,as_reported,71114000,no_reference,,0001083301-24-000072
+WULF,ppe_category,Miners,FY2023,2023-12-31,100531000,as_reported,100531000,no_reference,,0001083301-25-000018
+WULF,ppe_category,Miners,FY2024,2024-12-31,192655000,as_reported,192655000,no_reference,,0001083301-26-000031
+WULF,ppe_category,Miners,FY2025,2025-12-31,213655000,as_reported,213655000,no_reference,,0001083301-26-000031
+WULF,ppe_category,Office furniture and fixtures,FY2025,2025-12-31,375000,as_reported,375000,no_reference,,0001083301-26-000031
+WULF,ppe_category,Vehicles,FY2023,2023-12-31,104000,as_reported,104000,agree,104000,0001083301-25-000018
+WULF,ppe_category,Vehicles,FY2024,2024-12-31,104000,as_reported,104000,agree,104000,0001083301-26-000031
+WULF,ppe_category,Vehicles,FY2025,2025-12-31,194000,as_reported,194000,agree,194000,0001083301-26-000031
+WULF,segment_revenue,Digital asset revenue,FY2024,2024-12-31,140051000,as_reported,140051000,no_reference,,0001083301-26-000031
+WULF,segment_revenue,Digital asset revenue,FY2025,2025-12-31,151556000,as_reported,151556000,no_reference,,0001083301-26-000031
+WULF,segment_revenue,HPC lease revenue,FY2025,2025-12-31,16899000,as_reported,16899000,no_reference,,0001083301-26-000031
+XOM,segment_capex,Chemical Products | Non-U.S.,FY2020,2020-12-31,546000000,as_reported,546000000,no_reference,,0000034088-23-000020
+XOM,segment_capex,Chemical Products | Non-U.S.,FY2021,2021-12-31,712000000,as_reported,712000000,no_reference,,0000034088-24-000018
+XOM,segment_capex,Chemical Products | Non-U.S.,FY2022,2022-12-31,1026000000,restated,1692000000,no_reference,,0000034088-25-000010
+XOM,segment_capex,Chemical Products | Non-U.S.,FY2023,2023-12-31,600000000,restated,1775000000,no_reference,,0000034088-25-000010
+XOM,segment_capex,Chemical Products | Non-U.S.,FY2024,2024-12-31,474000000,as_reported,474000000,no_reference,,0000034088-26-000045
+XOM,segment_capex,Chemical Products | Non-U.S.,FY2025,2025-12-31,800000000,as_reported,800000000,no_reference,,0000034088-26-000045
+XOM,segment_capex,Chemical Products | U.S.,FY2020,2020-12-31,1158000000,as_reported,1158000000,no_reference,,0000034088-23-000020
+XOM,segment_capex,Chemical Products | U.S.,FY2021,2021-12-31,538000000,as_reported,538000000,no_reference,,0000034088-24-000018
+XOM,segment_capex,Chemical Products | U.S.,FY2022,2022-12-31,1692000000,restated,1026000000,no_reference,,0000034088-25-000010
+XOM,segment_capex,Chemical Products | U.S.,FY2023,2023-12-31,1775000000,restated,600000000,no_reference,,0000034088-25-000010
+XOM,segment_capex,Chemical Products | U.S.,FY2024,2024-12-31,1161000000,as_reported,1161000000,no_reference,,0000034088-26-000045
+XOM,segment_capex,Chemical Products | U.S.,FY2025,2025-12-31,522000000,as_reported,522000000,no_reference,,0000034088-26-000045
+XOM,segment_capex,Energy Products | Non-U.S.,FY2020,2020-12-31,1446000000,as_reported,1446000000,no_reference,,0000034088-23-000020
+XOM,segment_capex,Energy Products | Non-U.S.,FY2021,2021-12-31,874000000,as_reported,874000000,no_reference,,0000034088-24-000018
+XOM,segment_capex,Energy Products | Non-U.S.,FY2022,2022-12-31,1141000000,restated,964000000,no_reference,,0000034088-25-000010
+XOM,segment_capex,Energy Products | Non-U.S.,FY2023,2023-12-31,1106000000,restated,1455000000,no_reference,,0000034088-25-000010
+XOM,segment_capex,Energy Products | Non-U.S.,FY2024,2024-12-31,589000000,as_reported,589000000,no_reference,,0000034088-26-000045
+XOM,segment_capex,Energy Products | Non-U.S.,FY2025,2025-12-31,703000000,as_reported,703000000,no_reference,,0000034088-26-000045
+XOM,segment_capex,Energy Products | U.S.,FY2020,2020-12-31,2937000000,as_reported,2937000000,no_reference,,0000034088-23-000020
+XOM,segment_capex,Energy Products | U.S.,FY2021,2021-12-31,979000000,as_reported,979000000,no_reference,,0000034088-24-000018
+XOM,segment_capex,Energy Products | U.S.,FY2022,2022-12-31,964000000,restated,1141000000,no_reference,,0000034088-25-000010
+XOM,segment_capex,Energy Products | U.S.,FY2023,2023-12-31,1455000000,restated,1106000000,no_reference,,0000034088-25-000010
+XOM,segment_capex,Energy Products | U.S.,FY2024,2024-12-31,1450000000,as_reported,1450000000,no_reference,,0000034088-26-000045
+XOM,segment_capex,Energy Products | U.S.,FY2025,2025-12-31,1251000000,as_reported,1251000000,no_reference,,0000034088-26-000045
+XOM,segment_capex,Specialty Products | Non-U.S.,FY2020,2020-12-31,331000000,as_reported,331000000,no_reference,,0000034088-23-000020
+XOM,segment_capex,Specialty Products | Non-U.S.,FY2021,2021-12-31,136000000,as_reported,136000000,no_reference,,0000034088-24-000018
+XOM,segment_capex,Specialty Products | Non-U.S.,FY2022,2022-12-31,37000000,restated,200000000,no_reference,,0000034088-25-000010
+XOM,segment_capex,Specialty Products | Non-U.S.,FY2023,2023-12-31,81000000,restated,370000000,no_reference,,0000034088-25-000010
+XOM,segment_capex,Specialty Products | Non-U.S.,FY2024,2024-12-31,230000000,as_reported,230000000,no_reference,,0000034088-26-000045
+XOM,segment_capex,Specialty Products | Non-U.S.,FY2025,2025-12-31,368000000,as_reported,368000000,no_reference,,0000034088-26-000045
+XOM,segment_capex,Specialty Products | U.S.,FY2020,2020-12-31,109000000,as_reported,109000000,no_reference,,0000034088-23-000020
+XOM,segment_capex,Specialty Products | U.S.,FY2021,2021-12-31,28000000,as_reported,28000000,no_reference,,0000034088-24-000018
+XOM,segment_capex,Specialty Products | U.S.,FY2022,2022-12-31,37000000,as_reported,37000000,no_reference,,0000034088-24-000018
+XOM,segment_capex,Specialty Products | U.S.,FY2023,2023-12-31,81000000,as_reported,81000000,no_reference,,0000034088-24-000018
+XOM,segment_capex,Upstream | Non-U.S.,FY2020,2020-12-31,4418000000,as_reported,4418000000,no_reference,,0000034088-23-000020
+XOM,segment_capex,Upstream | Non-U.S.,FY2021,2021-12-31,5308000000,as_reported,5308000000,no_reference,,0000034088-24-000018
+XOM,segment_capex,Upstream | Non-U.S.,FY2022,2022-12-31,5940000000,restated,6441000000,no_reference,,0000034088-25-000010
+XOM,segment_capex,Upstream | Non-U.S.,FY2023,2023-12-31,10372000000,restated,8217000000,no_reference,,0000034088-25-000010
+XOM,segment_capex,Upstream | Non-U.S.,FY2024,2024-12-31,94649000000,as_reported,94649000000,no_reference,,0000034088-26-000045
+XOM,segment_capex,Upstream | Non-U.S.,FY2025,2025-12-31,15872000000,as_reported,15872000000,no_reference,,0000034088-26-000045
+XOM,segment_capex,Upstream | U.S.,FY2020,2020-12-31,5726000000,as_reported,5726000000,no_reference,,0000034088-23-000020
+XOM,segment_capex,Upstream | U.S.,FY2021,2021-12-31,3308000000,as_reported,3308000000,no_reference,,0000034088-24-000018
+XOM,segment_capex,Upstream | U.S.,FY2022,2022-12-31,6441000000,restated,5940000000,no_reference,,0000034088-25-000010
+XOM,segment_capex,Upstream | U.S.,FY2023,2023-12-31,8217000000,restated,10372000000,no_reference,,0000034088-25-000010
+XOM,segment_capex,Upstream | U.S.,FY2024,2024-12-31,8371000000,as_reported,8371000000,no_reference,,0000034088-26-000045
+XOM,segment_capex,Upstream | U.S.,FY2025,2025-12-31,9490000000,as_reported,9490000000,no_reference,,0000034088-26-000045
+XOM,segment_revenue,Chemical Products | Non-U.S.,FY2020,2020-12-31,11243000000,as_reported,11243000000,no_reference,,0000034088-23-000020
+XOM,segment_revenue,Chemical Products | Non-U.S.,FY2021,2021-12-31,16633000000,as_reported,16633000000,no_reference,,0000034088-24-000018
+XOM,segment_revenue,Chemical Products | Non-U.S.,FY2022,2022-12-31,10670000000,restated,16949000000,no_reference,,0000034088-25-000010
+XOM,segment_revenue,Chemical Products | Non-U.S.,FY2023,2023-12-31,7951000000,restated,14314000000,no_reference,,0000034088-25-000010
+XOM,segment_revenue,Chemical Products | Non-U.S.,FY2024,2024-12-31,8558000000,as_reported,8558000000,no_reference,,0000034088-26-000045
+XOM,segment_revenue,Chemical Products | Non-U.S.,FY2025,2025-12-31,7594000000,as_reported,7594000000,no_reference,,0000034088-26-000045
+XOM,segment_revenue,Chemical Products | U.S.,FY2020,2020-12-31,6391000000,as_reported,6391000000,no_reference,,0000034088-23-000020
+XOM,segment_revenue,Chemical Products | U.S.,FY2021,2021-12-31,11995000000,as_reported,11995000000,no_reference,,0000034088-24-000018
+XOM,segment_revenue,Chemical Products | U.S.,FY2022,2022-12-31,16949000000,restated,10670000000,no_reference,,0000034088-25-000010
+XOM,segment_revenue,Chemical Products | U.S.,FY2023,2023-12-31,14314000000,restated,7951000000,no_reference,,0000034088-25-000010
+XOM,segment_revenue,Chemical Products | U.S.,FY2024,2024-12-31,14338000000,as_reported,14338000000,no_reference,,0000034088-26-000045
+XOM,segment_revenue,Chemical Products | U.S.,FY2025,2025-12-31,14615000000,as_reported,14615000000,no_reference,,0000034088-26-000045
+XOM,segment_revenue,Energy Products | Non-U.S.,FY2020,2020-12-31,86966000000,as_reported,86966000000,no_reference,,0000034088-23-000020
+XOM,segment_revenue,Energy Products | Non-U.S.,FY2021,2021-12-31,130406000000,as_reported,130406000000,no_reference,,0000034088-24-000018
+XOM,segment_revenue,Energy Products | Non-U.S.,FY2022,2022-12-31,117824000000,restated,188153000000,no_reference,,0000034088-25-000010
+XOM,segment_revenue,Energy Products | Non-U.S.,FY2023,2023-12-31,103868000000,restated,164515000000,no_reference,,0000034088-25-000010
+XOM,segment_revenue,Energy Products | Non-U.S.,FY2024,2024-12-31,101325000000,as_reported,101325000000,no_reference,,0000034088-26-000045
+XOM,segment_revenue,Energy Products | Non-U.S.,FY2025,2025-12-31,99073000000,as_reported,99073000000,no_reference,,0000034088-26-000045
+XOM,segment_revenue,Energy Products | U.S.,FY2020,2020-12-31,46401000000,as_reported,46401000000,no_reference,,0000034088-23-000020
+XOM,segment_revenue,Energy Products | U.S.,FY2021,2021-12-31,78500000000,as_reported,78500000000,no_reference,,0000034088-24-000018
+XOM,segment_revenue,Energy Products | U.S.,FY2022,2022-12-31,188153000000,restated,117824000000,no_reference,,0000034088-25-000010
+XOM,segment_revenue,Energy Products | U.S.,FY2023,2023-12-31,164515000000,restated,103868000000,no_reference,,0000034088-25-000010
+XOM,segment_revenue,Energy Products | U.S.,FY2024,2024-12-31,159531000000,as_reported,159531000000,no_reference,,0000034088-26-000045
+XOM,segment_revenue,Energy Products | U.S.,FY2025,2025-12-31,145378000000,as_reported,145378000000,no_reference,,0000034088-26-000045
+XOM,segment_revenue,Specialty Products | Non-U.S.,FY2020,2020-12-31,8993000000,as_reported,8993000000,no_reference,,0000034088-23-000020
+XOM,segment_revenue,Specialty Products | Non-U.S.,FY2021,2021-12-31,12473000000,as_reported,12473000000,no_reference,,0000034088-24-000018
+XOM,segment_revenue,Specialty Products | Non-U.S.,FY2022,2022-12-31,6152000000,restated,13727000000,no_reference,,0000034088-25-000010
+XOM,segment_revenue,Specialty Products | Non-U.S.,FY2023,2023-12-31,6044000000,restated,12363000000,no_reference,,0000034088-25-000010
+XOM,segment_revenue,Specialty Products | Non-U.S.,FY2024,2024-12-31,5790000000,as_reported,5790000000,no_reference,,0000034088-26-000045
+XOM,segment_revenue,Specialty Products | Non-U.S.,FY2025,2025-12-31,5502000000,as_reported,5502000000,no_reference,,0000034088-26-000045
+XOM,segment_revenue,Specialty Products | U.S.,FY2020,2020-12-31,3993000000,as_reported,3993000000,no_reference,,0000034088-23-000020
+XOM,segment_revenue,Specialty Products | U.S.,FY2021,2021-12-31,4858000000,as_reported,4858000000,no_reference,,0000034088-24-000018
+XOM,segment_revenue,Specialty Products | U.S.,FY2022,2022-12-31,6152000000,as_reported,6152000000,no_reference,,0000034088-24-000018
+XOM,segment_revenue,Specialty Products | U.S.,FY2023,2023-12-31,6044000000,as_reported,6044000000,no_reference,,0000034088-24-000018
+XOM,segment_revenue,Upstream | Non-U.S.,FY2020,2020-12-31,8673000000,as_reported,8673000000,no_reference,,0000034088-23-000020
+XOM,segment_revenue,Upstream | Non-U.S.,FY2021,2021-12-31,12914000000,as_reported,12914000000,no_reference,,0000034088-24-000018
+XOM,segment_revenue,Upstream | Non-U.S.,FY2022,2022-12-31,14579000000,restated,30585000000,no_reference,,0000034088-25-000010
+XOM,segment_revenue,Upstream | Non-U.S.,FY2023,2023-12-31,9500000000,restated,16074000000,no_reference,,0000034088-25-000010
+XOM,segment_revenue,Upstream | Non-U.S.,FY2024,2024-12-31,22929000000,as_reported,22929000000,no_reference,,0000034088-26-000045
+XOM,segment_revenue,Upstream | Non-U.S.,FY2025,2025-12-31,25396000000,as_reported,25396000000,no_reference,,0000034088-26-000045
+XOM,segment_revenue,Upstream | U.S.,FY2020,2020-12-31,5876000000,as_reported,5876000000,no_reference,,0000034088-23-000020
+XOM,segment_revenue,Upstream | U.S.,FY2021,2021-12-31,8883000000,as_reported,8883000000,no_reference,,0000034088-24-000018
+XOM,segment_revenue,Upstream | U.S.,FY2022,2022-12-31,30585000000,restated,14579000000,no_reference,,0000034088-25-000010
+XOM,segment_revenue,Upstream | U.S.,FY2023,2023-12-31,16074000000,restated,9500000000,no_reference,,0000034088-25-000010
+XOM,segment_revenue,Upstream | U.S.,FY2024,2024-12-31,14202000000,as_reported,14202000000,no_reference,,0000034088-26-000045
+XOM,segment_revenue,Upstream | U.S.,FY2025,2025-12-31,13993000000,as_reported,13993000000,no_reference,,0000034088-26-000045

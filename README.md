@@ -52,10 +52,12 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 - **Client packet:** every release now builds a `README.md` next to `values.csv`, `DATA_DICTIONARY.md` and `QUALITY.md`; DATAHQ serves a signed release as one zip at `/packet/<version>.zip` (Outputs page).
 - **Scale run:** 12 companies added from DATAHQ (AAPL, AVGO, INTC, QCOM, TXN, CSCO, IBM, WMT, XOM, JPM, ANET, and Compass by Kenny): 31 tracked. Full run on all 31 with parser `tables@9`: 132 filings, 384 values, 354 agree with the SEC's data, 26 more explained by code (16 the 10-K doesn't report, 10 definition gaps), 1,431 of 1,431 cited cells confirmed on the rendered 10-K, 0 of 7,075 planted faults through. Eight new failure types (16–23) in `docs/INGESTION.md`; seven fixed in code, one is a definition only a person can confirm.
 
+**Built, unsigned:** `v1.3.0` (hash 4029e202c594): the same 384 values as v1.1.0, plus `facts.csv` (1,436), `ai_spend.csv` (83) and `attribution.csv` (223 rows, 38 AI dollar amounts). Signing is Kenny's call; v1.2.0 (values and statements only) stays unsigned and is superseded.
+
 **Released:** `v1.1.0`, all 31 tracked companies (30 with a 10-K), 384 values, signed by Kenny Geiler, hash 794fb2dfadae. 14 decisions applied: the 8 above (four cost-line confirmations, ExxonMobil's revenue definition for four years) plus six earlier. DATAHQ serves it as `/packet/v1.1.0.zip`.
 
 **Next (the plan agreed 29 Oct, in order):**
-1. Build `v1.3.0` (values, facts, statements, attribution) and sign it; v1.2.0 stays unsigned.
+1. Sign `v1.3.0` (`ledger signoff v1.3.0 --by "Kenny Geiler"`); DATAHQ then serves the packet.
 2. Open items: Alphabet's PP&E category after FY2023 (type 44), purchase-commitment definitions (type 34), Nvidia's older-year transcripts and Alphabet's and Microsoft's links in `sources/ir.yaml`, ExxonMobil's 8-Ks under the old CIK (type 40), a `stated_sum` method for quarterly AI figures (type 42). (`ledger signoff v1.2.0 --by "Kenny Geiler"`), then DATAHQ serves it as a packet.
 2. L4: 8-K earnings releases through the AI spend reader, where the explicit AI amounts are.
 3. M3.1: one question per cause (XOM shows why).
