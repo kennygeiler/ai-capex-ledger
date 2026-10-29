@@ -10,21 +10,9 @@ from pathlib import Path
 from . import store
 from .extract import OUTPUTS
 from .guidance import OUTPUTS as AI_OUTPUTS
+from .steps import STEPS  # noqa: F401  re-exported: `ledger run`, DATAHQ and the Airflow DAG all read it from here or from steps
 
 FILE = store.ROOT / "data" / "jobs" / "progress.json"
-
-# The pipeline, in order: command, extra arguments, and what the step does in plain words.
-STEPS = [("ingest", [], "Find the 10-Ks at the SEC and locate the statements"),
-         ("extract", ["--run"], "The Reader agent reads each filing and cites every cell"),
-         ("extract", ["--load"], "Check every citation against the parsed table"),
-         ("reconcile", [], "Clean: one value per year, units and signs, newest filing, compare with SEC data"),
-         ("aispend", ["--run"], "The AI spend reader reads what the MD&A says about AI's part of capex and opex"),
-         ("aispend", ["--load"], "Check every quote against the filing; one AI-spend row per company and year"),
-         ("rules", [], "Run every check in the rule registry"),
-         ("faults", [], "Plant mistakes and confirm the checks catch them"),
-         ("evidence", [], "Re-read every cited cell on the rendered 10-K"),
-         ("report", [], "Write the review page")]
-
 
 def write(run_id: str, name: str, tickers: list[str], steps: list[dict], running: bool) -> None:
     FILE.parent.mkdir(parents=True, exist_ok=True)

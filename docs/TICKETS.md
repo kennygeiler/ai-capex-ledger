@@ -15,11 +15,11 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 | ID | Ticket | Done when |
 |---|---|---|
 | L4 | Feed the 8-K earnings release (Exhibit 99.1) filed with each 10-K through the AI spend reader: that is where the explicit AI amounts and shares are (type 27). | `ai_spend.csv` has `ai_amount` rows for the hyperscalers. |
-| L5 | Airflow DAG as a thin wrapper: one task per `ledger` step, `airflow standalone`. | A DAG file runs the pipeline end to end on one machine. |
 | L2 | Non-functional checks as tests: SEC request spacing and contact header; no email or key in any output; parse under 60 s; `uv sync --frozen` works. | 4 tests. |
 
 ## Done
 
+- **Airflow DAG (29 Oct):** `airflow/dags/capex_ledger.py`, one task per step of `ledger/steps.py`; parsed and task-tested with Airflow 3.3.2 (L5).
 - **AI spend from the MD&A (29 Oct):** `ledger aispend`, agent `ai_reader` (`aispend@v2`), tables `ai_statements` / `ai_spend`, rule `ai_amount_within_capex`, `ai_spend.csv` in every release, DATAHQ company section and dashboard column; Item 7 through `edgartools`. Types 24–27 in INGESTION.
 - **Slop pass (28 Oct, night):** DATAHQ progress from `data/jobs/progress.json`, not log regexes; one release-sort helper (string sort would have broken at `v1.10.0`); stale `STAGES` release labels and the unused `fix_rule` kind removed; prompt, model and stage-3 tickers read at call time.
 - **`v1.1.0` (28 Oct):** all 31 tracked companies, 384 values, signed by Kenny Geiler, hash 794fb2dfadae; 8 decisions by Kenny (cost lines ×4, XOM revenue definition ×4).

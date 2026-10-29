@@ -11,6 +11,8 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 - **The finding, honestly:** on all 31 companies, 79 statements, 54 company-year rows, 3 with an AI dollar amount (all IREN). Hyperscalers say "primarily" and "the majority"; the only numbers are total-capex outlooks (Meta $115–135B for 2026, Tesla >$20B), filed as `scope: total`, not AI spend. The explicit AI numbers live in earnings releases (8-K Exhibit 99.1), ticket L4. Types 24–27 in `docs/INGESTION.md`.
 - **Shipped with it:** rule `ai_amount_within_capex` (16 rules now), `ai_spend.csv` in every release with its own README section, a DATAHQ company section ("What the filing says about AI spend") and a dashboard column. **`v1.2.0` is built, unsigned** (hash f4a2ded3fc78; no values changed from v1.1.0; 54 AI-spend rows). Signing is Kenny's call.
 
+- **Airflow, as a thin wrapper:** `airflow/dags/capex_ledger.py` is one `BashOperator` per step of `ledger/steps.py`, daily on stage 3. Tested with Airflow 3.3.2 in a scratch virtualenv (`airflow dags reserialize`, `airflow tasks test capex_ledger 04_reconcile`); Airflow is not a project dependency. The pipeline, its caching and its logging stay in the ledger.
+
 **Before that (28 Oct, night):** a code-slop pass after the audit. Four fixes, no behaviour change for a buyer:
 - **Add-a-company progress reads data, not printed lines.** `ledger run` writes `data/jobs/progress.json` after every step (`ledger/progress.py`: which step, exit code, and a one-line summary counted from the store and the report files). DATAHQ's Add page reads that file; it no longer regex-parses the run's log. A run started before this change shows every step as waiting.
 - **One release-folder helper.** `release.releases()` and `version_key()` sort by version number everywhere; the old "previous release" lookup sorted by string, so `v1.10.0` would have diffed against the wrong release.
@@ -28,8 +30,7 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 **Next:**
 1. Sign `v1.2.0` (`ledger signoff v1.2.0 --by "Kenny Geiler"`), then DATAHQ serves it as a packet.
 2. L4: 8-K earnings releases through the AI spend reader, where the explicit AI amounts are.
-3. L5: Airflow DAG as a thin wrapper, if the Arctal conversation wants it.
-4. M3.1: one question per cause (XOM shows why).
+3. M3.1: one question per cause (XOM shows why).
 
 **Critical notes:**
 - **Dashes are zero.** APLD's newest 10-K shows "—" for its data-center cost line in FY2024 and FY2025; agents read these as 0.
@@ -71,7 +72,8 @@ Every command runs as `uv run python -m ledger <command> --stage N` or `--ticker
 | `ledger/ingest/` | SEC client, 10-K list, table parser, statement locator, restatement-note finder |
 | `ledger/agent.py`, `extract.py`, `reconcile.py` | Headless agent; tasks and citation checks; fiscal-year values |
 | `ledger/guidance.py` | AI spend from the MD&A: text, passages, the quote contract, table B |
-| `ledger/progress.py` | What a run is doing, for DATAHQ's Add page |
+| `ledger/steps.py`, `ledger/progress.py` | The pipeline's step list; what a run is doing, for DATAHQ's Add page |
+| `airflow/dags/capex_ledger.py` | The same steps as an Airflow DAG (one `BashOperator` each); Airflow is not a dependency, point one at this folder |
 | `agents/agents.json`, `agents/prompts/`, `ledger/agents.py` | The named agents: model, active prompt, change history; a prompt change is saved as a new version |
 | `ledger/app.py`, `app.html`, `hq.py` | DATAHQ web app (read-only on the database) and its numbers |
 | `ledger/rules.py`, `rules/` | Rule engine and the 16 rules |
