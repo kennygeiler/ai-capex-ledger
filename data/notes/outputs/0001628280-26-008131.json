@@ -1,0 +1,140 @@
+{
+ "accession": "0001628280-26-008131",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Consumer & Community Banking",
+   "table_id": "t0643",
+   "row_label": "Total net revenue",
+   "column_label": "Consumer & Community Banking | 2025",
+   "cell_text": "76,029",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 76029000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Consumer & Community Banking",
+   "table_id": "t0643",
+   "row_label": "Total net revenue",
+   "column_label": "Consumer & Community Banking | 2024",
+   "cell_text": "71,507",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 71507000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Consumer & Community Banking",
+   "table_id": "t0643",
+   "row_label": "Total net revenue",
+   "column_label": "Consumer & Community Banking | 2023",
+   "cell_text": "70,148",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 70148000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Commercial & Investment Bank",
+   "table_id": "t0643",
+   "row_label": "Total net revenue",
+   "column_label": "Commercial & Investment Bank | 2025",
+   "cell_text": "78,454",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 78454000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Commercial & Investment Bank",
+   "table_id": "t0643",
+   "row_label": "Total net revenue",
+   "column_label": "Commercial & Investment Bank | 2024",
+   "cell_text": "70,114",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 70114000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Commercial & Investment Bank",
+   "table_id": "t0643",
+   "row_label": "Total net revenue",
+   "column_label": "Commercial & Investment Bank | 2023",
+   "cell_text": "64,353",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 64353000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Asset & Wealth Management",
+   "table_id": "t0643",
+   "row_label": "Total net revenue",
+   "column_label": "Asset & Wealth Management | 2025",
+   "cell_text": "24,073",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 24073000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Asset & Wealth Management",
+   "table_id": "t0643",
+   "row_label": "Total net revenue",
+   "column_label": "Asset & Wealth Management | 2024",
+   "cell_text": "21,578",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 21578000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Asset & Wealth Management",
+   "table_id": "t0643",
+   "row_label": "Total net revenue",
+   "column_label": "Asset & Wealth Management | 2023",
+   "cell_text": "19,827",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 19827000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment note (t0643) reports revenue, expense, income, equity and assets per segment but no capital expenditures"
+  },
+  {
+   "field": "ppe_category",
+   "reason": "no property-and-equipment note table is among the tables provided"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table is among the tables provided"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is among the tables provided"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.2,
+  "input_tokens": 11231,
+  "output_tokens": 1775,
+  "attempts": 1,
+  "task_sha": "843553eb5e69a139"
+ }
+}

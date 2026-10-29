@@ -1,0 +1,269 @@
+{
+ "accession": "0000804328-23-000055",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Handsets",
+   "table_id": "t0019",
+   "row_label": "Handsets",
+   "column_label": "2023",
+   "cell_text": "22,570",
+   "period_end": "2023-09-24",
+   "months": 12,
+   "value": 22570000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Handsets",
+   "table_id": "t0019",
+   "row_label": "Handsets",
+   "column_label": "2022",
+   "cell_text": "28,815",
+   "period_end": "2022-09-25",
+   "months": 12,
+   "value": 28815000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Automotive",
+   "table_id": "t0019",
+   "row_label": "Automotive",
+   "column_label": "2023",
+   "cell_text": "1,872",
+   "period_end": "2023-09-24",
+   "months": 12,
+   "value": 1872000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Automotive",
+   "table_id": "t0019",
+   "row_label": "Automotive",
+   "column_label": "2022",
+   "cell_text": "1,509",
+   "period_end": "2022-09-25",
+   "months": 12,
+   "value": 1509000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "IoT (internet of things)",
+   "table_id": "t0019",
+   "row_label": "IoT (internet of things)",
+   "column_label": "2023",
+   "cell_text": "5,940",
+   "period_end": "2023-09-24",
+   "months": 12,
+   "value": 5940000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "IoT (internet of things)",
+   "table_id": "t0019",
+   "row_label": "IoT (internet of things)",
+   "column_label": "2022",
+   "cell_text": "7,353",
+   "period_end": "2022-09-25",
+   "months": 12,
+   "value": 7353000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0041",
+   "row_label": "Land",
+   "column_label": "September 24,2023",
+   "cell_text": "169",
+   "period_end": "2023-09-24",
+   "months": 0,
+   "value": 169000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0041",
+   "row_label": "Land",
+   "column_label": "September 25,2022",
+   "cell_text": "170",
+   "period_end": "2022-09-25",
+   "months": 0,
+   "value": 170000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0041",
+   "row_label": "Buildings and improvements",
+   "column_label": "September 24,2023",
+   "cell_text": "1,849",
+   "period_end": "2023-09-24",
+   "months": 0,
+   "value": 1849000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0041",
+   "row_label": "Buildings and improvements",
+   "column_label": "September 25,2022",
+   "cell_text": "1,767",
+   "period_end": "2022-09-25",
+   "months": 0,
+   "value": 1767000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment and software",
+   "table_id": "t0041",
+   "row_label": "Computer equipment and software",
+   "column_label": "September 24,2023",
+   "cell_text": "1,773",
+   "period_end": "2023-09-24",
+   "months": 0,
+   "value": 1773000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment and software",
+   "table_id": "t0041",
+   "row_label": "Computer equipment and software",
+   "column_label": "September 25,2022",
+   "cell_text": "1,680",
+   "period_end": "2022-09-25",
+   "months": 0,
+   "value": 1680000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0041",
+   "row_label": "Machinery and equipment",
+   "column_label": "September 24,2023",
+   "cell_text": "8,078",
+   "period_end": "2023-09-24",
+   "months": 0,
+   "value": 8078000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0041",
+   "row_label": "Machinery and equipment",
+   "column_label": "September 25,2022",
+   "cell_text": "7,349",
+   "period_end": "2022-09-25",
+   "months": 0,
+   "value": 7349000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and office equipment",
+   "table_id": "t0041",
+   "row_label": "Furniture and office equipment",
+   "column_label": "September 24,2023",
+   "cell_text": "130",
+   "period_end": "2023-09-24",
+   "months": 0,
+   "value": 130000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and office equipment",
+   "table_id": "t0041",
+   "row_label": "Furniture and office equipment",
+   "column_label": "September 25,2022",
+   "cell_text": "105",
+   "period_end": "2022-09-25",
+   "months": 0,
+   "value": 105000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0041",
+   "row_label": "Leasehold improvements",
+   "column_label": "September 24,2023",
+   "cell_text": "485",
+   "period_end": "2023-09-24",
+   "months": 0,
+   "value": 485000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0041",
+   "row_label": "Leasehold improvements",
+   "column_label": "September 25,2022",
+   "cell_text": "369",
+   "period_end": "2022-09-25",
+   "months": 0,
+   "value": 369000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0041",
+   "row_label": "Construction in progress",
+   "column_label": "September 24,2023",
+   "cell_text": "226",
+   "period_end": "2023-09-24",
+   "months": 0,
+   "value": 226000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0041",
+   "row_label": "Construction in progress",
+   "column_label": "September 25,2022",
+   "cell_text": "330",
+   "period_end": "2022-09-25",
+   "months": 0,
+   "value": 330000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note table with capital expenditures by segment is provided; t0019 reports QCT revenue by market and EBT only"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table is provided among the parsed tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is provided among the parsed tables"
+  }
+ ],
+ "notes": "segment_revenue values in t0019 are QCT revenues by market (Handsets, Automotive, IoT), not reportable segments (QCT/QTL/QSI); taken as market-level revenue per the field definition, hence confidence 0.85. Fiscal 2022 year-end 2022-09-25 taken from t0041 column. Unlabeled total and net rows in t0041 skipped.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.8,
+  "input_tokens": 4659,
+  "output_tokens": 2695,
+  "attempts": 1,
+  "task_sha": "a2cf71fbe144f850"
+ }
+}

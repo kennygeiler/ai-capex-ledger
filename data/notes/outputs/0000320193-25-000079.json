@@ -1,0 +1,280 @@
+{
+ "accession": "0000320193-25-000079",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Americas",
+   "table_id": "t0014",
+   "row_label": "Americas",
+   "column_label": "2025",
+   "cell_text": "178,353",
+   "period_end": "2025-09-27",
+   "months": 12,
+   "value": 178353000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Europe",
+   "table_id": "t0014",
+   "row_label": "Europe",
+   "column_label": "2025",
+   "cell_text": "111,032",
+   "period_end": "2025-09-27",
+   "months": 12,
+   "value": 111032000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Greater China",
+   "table_id": "t0014",
+   "row_label": "Greater China",
+   "column_label": "2025",
+   "cell_text": "64,377",
+   "period_end": "2025-09-27",
+   "months": 12,
+   "value": 64377000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Japan",
+   "table_id": "t0014",
+   "row_label": "Japan",
+   "column_label": "2025",
+   "cell_text": "28,703",
+   "period_end": "2025-09-27",
+   "months": 12,
+   "value": 28703000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Rest of Asia Pacific",
+   "table_id": "t0014",
+   "row_label": "Rest of Asia Pacific",
+   "column_label": "2025",
+   "cell_text": "33,696",
+   "period_end": "2025-09-27",
+   "months": 12,
+   "value": 33696000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Americas",
+   "table_id": "t0014",
+   "row_label": "Americas",
+   "column_label": "2024",
+   "cell_text": "167,045",
+   "period_end": "2024-09-28",
+   "months": 12,
+   "value": 167045000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Europe",
+   "table_id": "t0014",
+   "row_label": "Europe",
+   "column_label": "2024",
+   "cell_text": "101,328",
+   "period_end": "2024-09-28",
+   "months": 12,
+   "value": 101328000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Greater China",
+   "table_id": "t0014",
+   "row_label": "Greater China",
+   "column_label": "2024",
+   "cell_text": "66,952",
+   "period_end": "2024-09-28",
+   "months": 12,
+   "value": 66952000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Japan",
+   "table_id": "t0014",
+   "row_label": "Japan",
+   "column_label": "2024",
+   "cell_text": "25,052",
+   "period_end": "2024-09-28",
+   "months": 12,
+   "value": 25052000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Rest of Asia Pacific",
+   "table_id": "t0014",
+   "row_label": "Rest of Asia Pacific",
+   "column_label": "2024",
+   "cell_text": "30,658",
+   "period_end": "2024-09-28",
+   "months": 12,
+   "value": 30658000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Americas",
+   "table_id": "t0014",
+   "row_label": "Americas",
+   "column_label": "2023",
+   "cell_text": "162,560",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": 162560000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Europe",
+   "table_id": "t0014",
+   "row_label": "Europe",
+   "column_label": "2023",
+   "cell_text": "94,294",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": 94294000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Greater China",
+   "table_id": "t0014",
+   "row_label": "Greater China",
+   "column_label": "2023",
+   "cell_text": "72,559",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": 72559000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Japan",
+   "table_id": "t0014",
+   "row_label": "Japan",
+   "column_label": "2023",
+   "cell_text": "24,257",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": 24257000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Rest of Asia Pacific",
+   "table_id": "t0014",
+   "row_label": "Rest of Asia Pacific",
+   "column_label": "2023",
+   "cell_text": "29,615",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": 29615000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and buildings",
+   "table_id": "t0032",
+   "row_label": "Land and buildings",
+   "column_label": "2025",
+   "cell_text": "27,337",
+   "period_end": "2025-09-27",
+   "months": 0,
+   "value": 27337000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery, equipment and internal-use software",
+   "table_id": "t0032",
+   "row_label": "Machinery, equipment and internal-use software",
+   "column_label": "2025",
+   "cell_text": "83,420",
+   "period_end": "2025-09-27",
+   "months": 0,
+   "value": 83420000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0032",
+   "row_label": "Leasehold improvements",
+   "column_label": "2025",
+   "cell_text": "15,091",
+   "period_end": "2025-09-27",
+   "months": 0,
+   "value": 15091000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and buildings",
+   "table_id": "t0032",
+   "row_label": "Land and buildings",
+   "column_label": "2024",
+   "cell_text": "24,690",
+   "period_end": "2024-09-28",
+   "months": 0,
+   "value": 24690000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery, equipment and internal-use software",
+   "table_id": "t0032",
+   "row_label": "Machinery, equipment and internal-use software",
+   "column_label": "2024",
+   "cell_text": "80,205",
+   "period_end": "2024-09-28",
+   "months": 0,
+   "value": 80205000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0032",
+   "row_label": "Leasehold improvements",
+   "column_label": "2024",
+   "cell_text": "14,233",
+   "period_end": "2024-09-28",
+   "months": 0,
+   "value": 14233000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment note (t0048-t0050) reports net sales, cost of sales, operating expenses and operating income by geographic segment only; no capital expenditures by segment"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "t0039 has no total finance lease liabilities line; finance leases are split into a current row 'Finance leases' (538 / 144) and a non-current row labelled 'Other non-current liabilities' (692 / 752), a label that also appears for operating leases. The implied totals (1,230 for 2025, 896 for 2024, in millions) are sums, not a single citable cell"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table was provided among the note tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 24.2,
+  "input_tokens": 6547,
+  "output_tokens": 3454,
+  "attempts": 1,
+  "task_sha": "56491980eb9ffb3d"
+ }
+}

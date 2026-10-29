@@ -66,7 +66,18 @@ def ai_spend_csv(rows: list[dict]) -> str:
     return buf.getvalue()
 
 
-def build(version, values, extractions, exceptions, previous, confirmed=frozenset(), ai_spend=()) -> dict:
+def facts_csv(rows: list[dict]) -> str:
+    """Facts from the notes: segment capex and revenue, PP&E by category, finance lease liabilities, purchase commitments."""
+    buf = io.StringIO()
+    w = csv.writer(buf, lineterminator="\n")
+    w.writerow(["ticker", "field", "dimension", "period", "period_end", "value", "basis", "first_reported", "xbrl", "xbrl_value", "accession"])
+    for f in sorted(rows, key=lambda f: (f["ticker"], f["field"], f["dimension"], f["period"])):
+        w.writerow([f["ticker"], f["field"], f["dimension"], f["period"], f["period_end"], f["value"], f["basis"], f["first_reported"], f["label"],
+                    "" if f["reference"] is None else f["reference"], f["accession"]])
+    return buf.getvalue()
+
+
+def build(version, values, extractions, exceptions, previous, confirmed=frozenset(), ai_spend=(), facts=()) -> dict:
     """Release files as {name: text}. No timestamps inside, so the same inputs give the same hash (G7)."""
     ext = {e["extraction_id"]: e for e in extractions}
     rows = sorted(values, key=lambda v: (v["ticker"], v["field"], v["period"]))
@@ -84,7 +95,7 @@ def build(version, values, extractions, exceptions, previous, confirmed=frozense
                          f"{sum(v['source'] == 'override' for v in rows)} overridden · {sum(v['source'] == 'missing' for v in rows)} missing · "
                          f"{sum(v['label'] == 'agree' for v in rows)} agree with XBRL · {sum(v['basis'] == 'restated' for v in rows)} on a restated basis · "
                          f"{sum(v['label'] == 'not_reported' for v in rows)} blank because the company reports no such line", "",
-                         ai_line(list(ai_spend)), "",
+                         ai_line(list(ai_spend)), "", facts_line(list(facts)), "",
                          check_line(rows, confirmed), "",
                          "All gates passed: " + "; ".join(f"{g} {d}" for g, d in GATES.items()) + ".", "",
                          "## Notes", ""] + [f"- {e['ticker']} {e['field'] or ''}: {e['message']}" for e in notes] + [""])
@@ -98,7 +109,15 @@ def build(version, values, extractions, exceptions, previous, confirmed=frozense
     body = ["First release."] if previous is None else (changes or ["No values changed."]) + (
         ["", f"Added: {sum(added.values())} values for {', '.join(sorted(added))}."] if added else [])
     diff = "\n".join([f"# Changes in {version}", ""] + body + [""])
-    return {"values.csv": buf.getvalue(), "ai_spend.csv": ai_spend_csv(list(ai_spend)), "QUALITY.md": quality, "DIFF.md": diff, "README.md": readme(version, rows, list(ai_spend))}
+    return {"values.csv": buf.getvalue(), "facts.csv": facts_csv(list(facts)), "ai_spend.csv": ai_spend_csv(list(ai_spend)), "QUALITY.md": quality, "DIFF.md": diff,
+            "README.md": readme(version, rows, list(ai_spend))}
+
+
+def facts_line(rows: list[dict]) -> str:
+    return (f"Facts from the notes (facts.csv): {len(rows)} values for {len({f['ticker'] for f in rows})} companies: "
+            + ", ".join(f"{sum(f['field'] == k for f in rows)} {k}" for k in ("segment_capex", "segment_revenue", "ppe_category", "finance_lease_liability", "purchase_commitments"))
+            + f". {sum(f['label'] == 'agree' for f in rows)} agree with the filing's own XBRL, {sum(f['label'] == 'unresolved' for f in rows)} differ, "
+            f"{sum(f['label'] == 'no_reference' for f in rows)} have no tagged counterpart. Every value cites its cell.")
 
 
 def ai_line(rows: list[dict]) -> str:
@@ -118,6 +137,7 @@ def readme(version, rows, ai_spend=()) -> str:
         "A person reviewed what code could not settle and signed this release.", "",
         "## Files", "",
         "- `values.csv`: one row per company, field and fiscal year.",
+        "- `facts.csv`: facts from the notes: capex and revenue per segment, property and equipment by category, finance lease liabilities, purchase commitments; `xbrl` says whether the filing's own tagged fact agrees.",
         "- `ai_spend.csv`: what each 10-K's MD&A says about AI's part of capex and opex, one row per company, field, fiscal year and kind, with the sentence quoted.",
         "- `QUALITY.md`: how many values agree with XBRL, what a person checked, and every note on definitions and restatements.",
         "- `DIFF.md`: what changed since the previous release.",

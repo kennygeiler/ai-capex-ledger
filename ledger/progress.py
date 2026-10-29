@@ -10,6 +10,7 @@ from pathlib import Path
 from . import store
 from .extract import OUTPUTS
 from .guidance import OUTPUTS as AI_OUTPUTS
+from .notes import OUTPUTS as NOTE_OUTPUTS
 from .steps import STEPS  # noqa: F401  re-exported: `ledger run`, DATAHQ and the Airflow DAG all read it from here or from steps
 
 FILE = store.ROOT / "data" / "jobs" / "progress.json"
@@ -52,6 +53,15 @@ def summary(con, cmd: str, extra: list[str], tickers: list[str], name: str, star
         n, = one(f"select count(*) from ai_statements {t}")
         rows, ai = one(f"select count(*), count(*) filter (where ai_amount is not null) from ai_spend {t}")
         return f"{n} statements quoted; {rows} company-years speak to AI spend, {ai} with an AI dollar amount"
+    if cmd == "notes" and extra == ["--run"]:
+        since = datetime.fromisoformat(started_at).timestamp()
+        outs = [NOTE_OUTPUTS / f"{a}.json" for (a,) in con.execute(f"select accession from documents {t}", [tickers]).fetchall()]
+        fresh = [o for o in outs if o.exists() and o.stat().st_mtime >= since]
+        return f"Read {len(fresh)} filing{'s' * (len(fresh) != 1)}" if fresh else "Every filing was already read"
+    if cmd == "notes":
+        n, = one(f"select count(*) from note_extractions {t}")
+        rows, agree = one(f"select count(*), count(*) filter (where label = 'agree') from facts {t}")
+        return f"{n} cited cells; {rows} facts, {agree} match the filing's XBRL"
     if cmd == "rules":
         r, = con.execute("select count(*) from rules").fetchone()
         b, w, i = one(f"select count(*) filter (where severity = 'block'), count(*) filter (where severity = 'warn'), count(*) filter (where severity = 'info') from exceptions {t}")

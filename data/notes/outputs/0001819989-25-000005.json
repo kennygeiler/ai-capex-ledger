@@ -1,0 +1,172 @@
+{
+ "accession": "0001819989-25-000005",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Bitcoin Mining",
+   "table_id": "t0056",
+   "row_label": "Revenue - bitcoin mining",
+   "column_label": "Bitcoin Mining",
+   "cell_text": "151,270",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 151270000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Bitcoin Mining",
+   "table_id": "t0056",
+   "row_label": "Revenue - bitcoin mining",
+   "column_label": "Bitcoin Mining",
+   "cell_text": "126,842",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 126842000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Miners and mining equipment",
+   "table_id": "t0035",
+   "row_label": "Miners and mining equipment",
+   "column_label": "December 31, 2024",
+   "cell_text": "342,111",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 342111000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Miners and mining equipment",
+   "table_id": "t0035",
+   "row_label": "Miners and mining equipment",
+   "column_label": "December 31, 2023",
+   "cell_text": "163,523",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 163523000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0035",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, 2024",
+   "cell_text": "137,582",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 137582000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0035",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, 2023",
+   "cell_text": "138,883",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 138883000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0035",
+   "row_label": "Land",
+   "column_label": "December 31, 2024",
+   "cell_text": "49,021",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 49021000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Infrastructure",
+   "table_id": "t0035",
+   "row_label": "Infrastructure",
+   "column_label": "December 31, 2024",
+   "cell_text": "28,166",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 28166000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other",
+   "table_id": "t0035",
+   "row_label": "Other",
+   "column_label": "December 31, 2024",
+   "cell_text": "606",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 606000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other",
+   "table_id": "t0035",
+   "row_label": "Other",
+   "column_label": "December 31, 2023",
+   "cell_text": "440",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 440000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction-in-progress",
+   "table_id": "t0035",
+   "row_label": "Construction-in-progress",
+   "column_label": "December 31, 2024",
+   "cell_text": "82,017",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 82017000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction-in-progress",
+   "table_id": "t0035",
+   "row_label": "Construction-in-progress",
+   "column_label": "December 31, 2023",
+   "cell_text": "49",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 49000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the company has a single reportable segment (Bitcoin Mining) and the segment note reports revenue and operating items only, no capital expenditures"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no single 'total finance lease liabilities' cell exists; the balance sheet (t0023) shows only the current portion (3,798 / 3,404) and non-current portion (7,331 / 11,128) separately, which sum to 11,129 (2024) and 14,532 (2023) in thousands. Citing either single cell as the total would misstate it, so it is not reported as a cited value"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or purchase-commitments table is among the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 48.3,
+  "input_tokens": 16342,
+  "output_tokens": 5373,
+  "attempts": 2,
+  "task_sha": "c20dfb19320f5831"
+ }
+}

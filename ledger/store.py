@@ -18,7 +18,7 @@ import duckdb
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
-SCHEMA_VERSION = 5
+SCHEMA_VERSION = 6
 
 FIELDS = ("revenue", "cost_of_revenue", "cost_of_revenue_part", "operating_income", "capex", "opex")
 KINDS = ("accept", "override", "reject")  # what a person can decide about an exception
@@ -145,6 +145,41 @@ SCHEMA: tuple[Table, ...] = (
         _c("statement_ids", "VARCHAR", "Statements considered, comma-separated."),
         _c("input_hash", "VARCHAR", "Hash of everything this row depends on."),
     ), key=("ticker", "field", "period", "kind")),
+    Table("note_extractions", "Table A for note facts: every cell the notes reader cited (segment capex and revenue, PP&E by category, finance lease liabilities, purchase commitments).", (
+        _c("extraction_id", "VARCHAR", "Stable ID: accession|field|dimension|period_end."),
+        ACCN, TICKER,
+        _c("field", "VARCHAR", "segment_capex, segment_revenue, ppe_category, finance_lease_liability or purchase_commitments.", enum=("segment_capex", "segment_revenue", "ppe_category", "finance_lease_liability", "purchase_commitments")),
+        _c("dimension", "VARCHAR", "Segment, market or PP&E category, as written in the filing. Null for a company total.", nullable=True),
+        _c("period_end", "VARCHAR", "Fiscal year end the column refers to.", pattern=DATE),
+        _c("months", "INTEGER", "12 for a flow (capex, revenue); 0 for a balance at period_end."),
+        _c("value", "BIGINT", "US dollars, unscaled, positive."),
+        _c("unit_stated", "VARCHAR", "Unit text as written.", nullable=True),
+        _c("unit_source", "VARCHAR", "Where the unit was stated.", enum=("table", "statement", "document")),
+        _c("scale", "BIGINT", "1, 1000, 1000000 or 1000000000."),
+        _c("table_id", "VARCHAR", "Cited table."),
+        _c("row_label", "VARCHAR", "Cited row label, verbatim."),
+        _c("column_label", "VARCHAR", "Cited column label, verbatim."),
+        _c("cell_text", "VARCHAR", "Cited cell text, verbatim."),
+        _c("confidence", "DOUBLE", "Agent's confidence, 0 to 1."),
+        _c("notes", "VARCHAR", "Agent's notes.", nullable=True),
+        _c("prompt_version", "VARCHAR", "Prompt file and version, e.g. notes@v1."),
+        _c("run_id", "VARCHAR", "Run that produced it."),
+    ), key=("extraction_id",)),
+    Table("facts", "Table B for note facts: one value per company, field, dimension and fiscal year from the newest filing, labelled against the filing's XBRL instance where the fact carries a matching member.", (
+        TICKER,
+        _c("field", "VARCHAR", "As in note_extractions.", enum=("segment_capex", "segment_revenue", "ppe_category", "finance_lease_liability", "purchase_commitments")),
+        _c("dimension", "VARCHAR", "Segment, market or category; empty string for a company total (part of the key).",),
+        PERIOD,
+        _c("period_end", "VARCHAR", "Fiscal year end date.", pattern=DATE),
+        _c("value", "BIGINT", "US dollars, unscaled."),
+        _c("first_reported", "BIGINT", "The figure in the first 10-K that reported it."),
+        _c("basis", "VARCHAR", "as_reported, or restated when a later 10-K changed it.", enum=("as_reported", "restated")),
+        _c("label", "VARCHAR", "agree or unresolved against the XBRL instance member; no_reference when no tagged fact matches the dimension.", enum=("agree", "unresolved", "no_reference")),
+        _c("reference", "BIGINT", "The XBRL value compared with, when any.", nullable=True),
+        ACCN,
+        _c("extraction_ids", "VARCHAR", "Extractions used, comma-separated."),
+        _c("input_hash", "VARCHAR", "Hash of everything this row depends on."),
+    ), key=("ticker", "field", "dimension", "period")),
     Table("rules", "The rule registry as loaded from rules/*.yaml.", (
         _c("rule_id", "VARCHAR", "Rule ID, e.g. unit_scale."),
         _c("severity", "VARCHAR", "block, warn or info.", enum=("block", "warn", "info")),
@@ -178,7 +213,7 @@ SCHEMA: tuple[Table, ...] = (
     ), key=("decision_id",)),
     Table("runs", "One row per pipeline or agent step: what ran, on what, with which versions, and how it went.", (
         _c("run_id", "VARCHAR", "Run ID."),
-        _c("step", "VARCHAR", "Step name.", enum=("run", "ingest", "parse", "extract", "reconcile", "aispend", "rules", "faults", "evidence", "report", "review", "score", "release")),
+        _c("step", "VARCHAR", "Step name.", enum=("run", "ingest", "parse", "extract", "reconcile", "aispend", "notes", "rules", "faults", "evidence", "report", "review", "score", "release")),
         _c("subject", "VARCHAR", "What it ran on (accession, ticker, release).", nullable=True),
         _c("started_at", "VARCHAR", "UTC timestamp."),
         _c("seconds", "DOUBLE", "Wall-clock duration."),

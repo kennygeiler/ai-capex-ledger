@@ -6,7 +6,12 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (29 Oct 2026, later):** no more questions for a person. The direction agreed with Kenny: ingest and clean with nobody in the loop, then an attribution agent whose method he edits, then insights.
+**Last done (29 Oct 2026, night):** step two of the plan: the facts attribution needs.
+- **`ledger notes`** (in `ledger run`, after `aispend`): a third agent (`notes_reader`, prompt `notes@v2`) reads each 10-K's segment, property-and-equipment, lease and commitments tables and cites every cell: capex and revenue per segment, PP&E gross by category, total finance lease liabilities, purchase commitments. Table A `note_extractions`, table B `facts` (per company, field, segment or category, fiscal year; newest filing wins). The check is the filing's own XBRL instance read directly (`reference/dimensions.py`), members matched by name; an untagged fact is `no_reference`, stated as such. `facts.csv` ships in every release; the company page shows "Facts from the notes".
+- **Numbers:** all 31 companies, 124 filings: 2,346 cited cells, 1,436 facts (97 segment capex, 550 segment revenue, 699 PP&E categories, 28 finance lease liabilities, 42 purchase commitments); 522 agree with the filing's own tags, 27 differ, 887 untagged (segment capex and most PP&E categories carry no us-gaap member); 0 filings failed; 70 agent minutes, 1.88M tokens, 20 retries. Types 28–34 in `docs/INGESTION.md` (unit fallback, answer-key vintage, column labels, trailing text, untagged segment capex, capex in parentheses, purchase-commitment definitions).
+- **Also:** the agent-running steps release the database before the agent runs, so DATAHQ is not "busy" for ten minutes.
+
+**Before that (29 Oct, later):** no more questions for a person. The direction agreed with Kenny: ingest and clean with nobody in the loop, then an attribution agent whose method he edits, then insights.
 - **Definitions replace decisions.** `definitions/companies.yaml` holds the judgements made once per company (ExxonMobil's revenue line vs the SEC's wider tag; the cost lines for Oracle, Applied Digital, ExxonMobil, Compass), each with who and why. `reconcile` labels a defined revenue gap `definition_gap`; `cost_lines_summed` stays quiet while the agent's lines are all named. Stage 3 now: 0 block, 0 unresolved (384 values: 354 agree, 14 definition gaps, 16 not reported).
 - **Warnings are findings.** A big move, an outlier or a renamed line is a finding about the company with an "SEC data" column: agrees, or can't confirm. Nothing waits on a person except signing. Coverage rests on three legs: the cited cell re-read on the rendered 10-K, XBRL agreement, planted faults. 93 findings on the dashboard, 1 the SEC's data can't confirm.
 - `review decide` and the accept-warnings endpoint still exist for overrides and rejects; a definition is the right fix for anything that would be accepted twice.
@@ -33,11 +38,10 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 **Released:** `v1.1.0`, all 31 tracked companies (30 with a 10-K), 384 values, signed by Kenny Geiler, hash 794fb2dfadae. 14 decisions applied: the 8 above (four cost-line confirmations, ExxonMobil's revenue definition for four years) plus six earlier. DATAHQ serves it as `/packet/v1.1.0.zip`.
 
 **Next (the plan agreed 29 Oct, in order):**
-1. Base facts the attribution needs: segment capex (ASC 280 note), PP&E by category, purchase commitments and finance leases, sellers' data-center segment revenue; same parser, XBRL instance for the tagged ones.
-2. More sources: 8-K earnings releases (Exhibit 99.1, EDGAR) and prepared remarks from company IR pages (free, scraped per company; no paid transcript source).
-3. Money-flow model per industry (hyperscaler, neocloud, miner-to-HPC, chip seller, memory, networking) as versioned documents, and an attribution agent that reads the model plus the facts and emits AI-spend rows with method, confidence, citation. Edit the model, rerun only the agent, see the diff.
-4. DATAHQ in three tabs: Pipeline, Attribution, Insights (money flow buyers to sellers, AI share of capex over time, hard vs stated vs words).
-5. Sign `v1.2.0` (`ledger signoff v1.2.0 --by "Kenny Geiler"`), then DATAHQ serves it as a packet.
+1. More sources: 8-K earnings releases (Exhibit 99.1, EDGAR) and prepared remarks from company IR pages (free, scraped per company; no paid transcript source).
+2. Money-flow model per industry (hyperscaler, neocloud, miner-to-HPC, chip seller, memory, networking) as versioned documents, and an attribution agent that reads the model plus the facts and emits AI-spend rows with method, confidence, citation. Edit the model, rerun only the agent, see the diff.
+3. DATAHQ in three tabs: Pipeline, Attribution, Insights (money flow buyers to sellers, AI share of capex over time, hard vs stated vs words).
+4. Sign `v1.2.0` (or build `v1.3.0` with `facts.csv` and sign that) (`ledger signoff v1.2.0 --by "Kenny Geiler"`), then DATAHQ serves it as a packet.
 2. L4: 8-K earnings releases through the AI spend reader, where the explicit AI amounts are.
 3. M3.1: one question per cause (XOM shows why).
 
@@ -62,6 +66,7 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 | Ingest | `ingest` | 10-Ks from FY2022 on, fetched and cached with SHA-256; tables parsed; statements located; the XBRL answer key built for each company |
 | Extract | `extract --run`, then `extract --load` | One task per 10-K (tables only, no XBRL); the headless agent's values with citations, each checked against the cell |
 | Reconcile | `reconcile` | Fiscal-year values with their basis and first-reported figure, compared with XBRL |
+| Notes | `notes --run`, then `notes --load` | Facts from the notes for attribution: capex and revenue per segment, PP&E by category, finance lease liabilities, purchase commitments; a third agent over candidate note tables, every cell resolved; table A `note_extractions`, table B `facts`, checked against the filing's own XBRL instance where the member is tagged |
 | AI spend | `aispend --run`, then `aispend --load` | What each 10-K's MD&A says about AI's part of capex and opex: a second agent over the text (Item 7 via `edgartools`), every statement a verbatim quote checked against its passage; table A `ai_statements`, table B `ai_spend` |
 | Rules | `rules` | Exceptions from the 16 rules in `rules/*.yaml` |
 | Faults | `faults` | Every cell corrupted in typical ways, and what caught each |
@@ -82,6 +87,7 @@ Every command runs as `uv run python -m ledger <command> --stage N` or `--ticker
 | `ledger/ingest/` | SEC client, 10-K list, table parser, statement locator, restatement-note finder |
 | `ledger/agent.py`, `extract.py`, `reconcile.py` | Headless agent; tasks and citation checks; fiscal-year values |
 | `ledger/guidance.py` | AI spend from the MD&A: text, passages, the quote contract, table B |
+| `ledger/notes.py`, `reference/dimensions.py` | Facts from the notes: candidate tables, the cell contract, table B; the filing's XBRL instance with segment and category members as the answer key |
 | `ledger/steps.py`, `ledger/progress.py` | The pipeline's step list; what a run is doing, for DATAHQ's Add page |
 | `airflow/dags/capex_ledger.py` | The same steps as an Airflow DAG (one `BashOperator` each); Airflow is not a dependency, point one at this folder |
 | `agents/agents.json`, `agents/prompts/`, `ledger/agents.py` | The named agents: model, active prompt, change history; a prompt change is saved as a new version |
@@ -92,7 +98,7 @@ Every command runs as `uv run python -m ledger <command> --stage N` or `--ticker
 | `ledger/store.py` | DuckDB schema and write contracts ([docs/DATA_DICTIONARY.md](docs/DATA_DICTIONARY.md)) |
 | `ledger/reference/` | The XBRL answer key, built per company from cached SEC data |
 | `agents/` | Prompt and output schema |
-| `data/extract/outputs/`, `data/aispend/outputs/` | Agent outputs, kept as evidence; `data/text/` holds each filing's MD&A |
+| `data/extract/outputs/`, `data/notes/outputs/`, `data/aispend/outputs/` | Agent outputs, kept as evidence; `data/text/` holds each filing's MD&A |
 | `reports/`, `decisions/`, `golden/`, `releases/` | Validation pages and screenshots; review decisions; hand-checks; signed releases |
 | `scripts/` | Measurements: cell accuracy vs XBRL, rerun agreement, locator accuracy |
 | `docs/` | [PRD](docs/PRD.md), [tickets](docs/TICKETS.md), [fields](docs/FIELDS.md), [ingestion and learnings](docs/INGESTION.md) |

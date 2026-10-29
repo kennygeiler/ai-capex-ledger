@@ -28,16 +28,16 @@ class Job(unittest.TestCase):
         steps = [{"step": "ingest", "extra": [], "label": "x", "subject": "AMD", "started_at": "t", "seconds": 1.0, "code": 0, "summary": "5 filings found"}]
         progress.write("run-1", "AMD", ["AMD"], steps, running=False)
         j = app.job()
-        self.assertEqual([s["state"] for s in j["steps"]], ["done"] + ["waiting"] * 9)
+        self.assertEqual([s["state"] for s in j["steps"]], ["done"] + ["waiting"] * 11)
         self.assertEqual((j["steps"][0]["summary"], j["running"], j["exit"]), ("5 filings found", False, 0))
 
     def test_another_scope_is_not_this_job(self):
         progress.write("run-2", "NVDA", ["NVDA"], [{"step": "ingest", "extra": [], "label": "x", "subject": "NVDA", "started_at": "t", "seconds": 1.0, "code": 0, "summary": "s"}], running=True)
         j = app.job()
-        self.assertEqual(([s["state"] for s in j["steps"]], j["exit"]), (["waiting"] * 10, None))
+        self.assertEqual(([s["state"] for s in j["steps"]], j["exit"]), (["waiting"] * 12, None))
 
     def test_the_step_list_is_the_pipeline(self):
-        self.assertEqual([s[0] for s in progress.STEPS], ["ingest", "extract", "extract", "reconcile", "aispend", "aispend", "rules", "faults", "evidence", "report"])
+        self.assertEqual([s[0] for s in progress.STEPS], ["ingest", "extract", "extract", "reconcile", "aispend", "aispend", "notes", "notes", "rules", "faults", "evidence", "report"])
 
 
 if __name__ == "__main__":

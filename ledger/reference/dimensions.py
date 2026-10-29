@@ -1,0 +1,61 @@
+"""Dimensional facts from a filing's own XBRL instance: the answer key for the note facts.
+
+companyfacts carries company totals only. Segment capex, segment revenue and PP&E by category are tagged in the
+instance with one dimension member each (StatementBusinessSegmentsAxis, ProductOrServiceAxis,
+PropertyPlantAndEquipmentByTypeAxis), so the instance is read directly. Balances come from instant contexts."""
+import xml.etree.ElementTree as ET
+
+from ..ingest.edgar import RAW, _cached
+from .xbrl_instance import XBRLI, _instance_name
+
+XBRLDI = "{http://xbrl.org/2006/xbrldi}"
+GAAP = "{http://fasb.org/us-gaap/"
+
+# Concepts tried per field, in order. Members are matched by name (ledger.notes.norm_dim), never by axis.
+CONCEPTS = {
+    "segment_capex": ["PaymentsToAcquirePropertyPlantAndEquipment", "PaymentsToAcquireProductiveAssets", "PropertyPlantAndEquipmentAdditions",
+                      "NoncashOrPartNoncashAcquisitionFixedAssetsAcquired1"],
+    "segment_revenue": ["Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax", "RevenueFromContractWithCustomerIncludingAssessedTax", "SalesRevenueNet"],
+    "ppe_category": ["PropertyPlantAndEquipmentGross"],
+    "finance_lease_liability": ["FinanceLeaseLiability"],
+    "purchase_commitments": ["PurchaseObligation", "UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount", "ContractualObligation",
+                             "UnrecordedUnconditionalPurchaseObligation"],
+}
+
+
+def instance_facts(cik: int, accession: str) -> dict:
+    """{(concept, member or '', end date): value} for USD facts with at most one dimension; a duration fact only when
+    it spans a fiscal year (350–380 days). Empty when the filing has no instance XML."""
+    url = _instance_name(cik, accession)
+    if not url:
+        return {}
+    body, _ = _cached(url, RAW / f"{cik:010d}" / "filings" / f"{accession}.xml", False, 24 * 365)
+    root = ET.fromstring(body)
+    contexts = {}
+    for ctx in root.iter(f"{XBRLI}context"):
+        seg = ctx.find(f"{XBRLI}entity/{XBRLI}segment")
+        members = [m.text.strip() for m in seg.iter(f"{XBRLDI}explicitMember")] if seg is not None else []
+        if seg is not None and (len(members) != 1 or len(list(seg)) != 1):
+            continue  # typed or multi-dimensional: not a plain segment or category breakdown
+        p = ctx.find(f"{XBRLI}period")
+        inst, s, e = p.find(f"{XBRLI}instant"), p.find(f"{XBRLI}startDate"), p.find(f"{XBRLI}endDate")
+        if inst is not None:
+            contexts[ctx.get("id")] = (members[0] if members else "", inst.text.strip())
+        elif s is not None and e is not None:
+            from datetime import date
+            days = (date.fromisoformat(e.text.strip()) - date.fromisoformat(s.text.strip())).days + 1
+            if 350 <= days <= 380:
+                contexts[ctx.get("id")] = (members[0] if members else "", e.text.strip())
+    usd = {u.get("id") for u in root.iter(f"{XBRLI}unit")
+           if (m := u.find(f"{XBRLI}measure")) is not None and m.text and m.text.strip().lower().endswith(":usd")}
+    out = {}
+    for el in root:
+        if not el.tag.startswith(GAAP) or el.get("contextRef") not in contexts or el.get("unitRef") not in usd or not el.text:
+            continue
+        try:
+            val = round(float(el.text.strip()))
+        except ValueError:
+            continue
+        member, end = contexts[el.get("contextRef")]
+        out.setdefault((el.tag.split("}", 1)[1], member, end), val)
+    return out

@@ -1,0 +1,297 @@
+{
+ "accession": "0000051143-26-000010",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Software",
+   "table_id": "t0016",
+   "row_label": "Software",
+   "column_label": "2025",
+   "cell_text": "29,962",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 29962000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Software",
+   "table_id": "t0016",
+   "row_label": "Software",
+   "column_label": "2024",
+   "cell_text": "27,085",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 27085000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Software",
+   "table_id": "t0102",
+   "row_label": "Total Software",
+   "column_label": "2023 (1)",
+   "cell_text": "25,011",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 25011000000,
+   "confidence": 0.9,
+   "notes": "2023 appears only in the product-line table t0102. 'Total Software' is the segment total, so the dimension is kept as the segment name used in t0016."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Consulting",
+   "table_id": "t0016",
+   "row_label": "Consulting",
+   "column_label": "2025",
+   "cell_text": "21,055",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 21055000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Consulting",
+   "table_id": "t0016",
+   "row_label": "Consulting",
+   "column_label": "2024",
+   "cell_text": "20,692",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 20692000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Consulting",
+   "table_id": "t0102",
+   "row_label": "Total Consulting",
+   "column_label": "2023 (1)",
+   "cell_text": "20,884",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 20884000000,
+   "confidence": 0.9,
+   "notes": "2023 appears only in t0102. 'Total Consulting' is the segment total."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Infrastructure",
+   "table_id": "t0016",
+   "row_label": "Infrastructure",
+   "column_label": "2025",
+   "cell_text": "15,718",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 15718000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Infrastructure",
+   "table_id": "t0016",
+   "row_label": "Infrastructure",
+   "column_label": "2024",
+   "cell_text": "14,020",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 14020000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Infrastructure",
+   "table_id": "t0102",
+   "row_label": "Total Infrastructure",
+   "column_label": "2023 (1)",
+   "cell_text": "14,593",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 14593000000,
+   "confidence": 0.9,
+   "notes": "2023 appears only in t0102. 'Total Infrastructure' is the segment total."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Financing",
+   "table_id": "t0016",
+   "row_label": "Financing",
+   "column_label": "2025",
+   "cell_text": "737",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 737000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Financing",
+   "table_id": "t0016",
+   "row_label": "Financing",
+   "column_label": "2024",
+   "cell_text": "713",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 713000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Financing",
+   "table_id": "t0102",
+   "row_label": "Financing (2)",
+   "column_label": "2023 (1)",
+   "cell_text": "741",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 741000000,
+   "confidence": 0.95,
+   "notes": "2023 appears only in t0102. The footnote mark is dropped from the dimension."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0160",
+   "row_label": "Land and land improvements",
+   "column_label": "2025",
+   "cell_text": "182",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 182000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0160",
+   "row_label": "Land and land improvements",
+   "column_label": "2024",
+   "cell_text": "179",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 179000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and building and leasehold improvements",
+   "table_id": "t0160",
+   "row_label": "Buildings and building and leasehold improvements",
+   "column_label": "2025",
+   "cell_text": "4,807",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 4807000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and building and leasehold improvements",
+   "table_id": "t0160",
+   "row_label": "Buildings and building and leasehold improvements",
+   "column_label": "2024",
+   "cell_text": "4,825",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 4825000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Information technology equipment",
+   "table_id": "t0160",
+   "row_label": "Information technology equipment",
+   "column_label": "2025",
+   "cell_text": "8,885",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 8885000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Information technology equipment",
+   "table_id": "t0160",
+   "row_label": "Information technology equipment",
+   "column_label": "2024",
+   "cell_text": "8,895",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 8895000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Production, engineering, office and other equipment",
+   "table_id": "t0160",
+   "row_label": "Production, engineering, office and other equipment",
+   "column_label": "2025",
+   "cell_text": "4,000",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 4000000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Production, engineering, office and other equipment",
+   "table_id": "t0160",
+   "row_label": "Production, engineering, office and other equipment",
+   "column_label": "2024",
+   "cell_text": "3,792",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 3792000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0165",
+   "row_label": "Finance leases",
+   "column_label": "Total (2)",
+   "cell_text": "1,153",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 1153000000,
+   "confidence": 0.9,
+   "notes": "This is the maturity-table total net of imputed interest (1,297 undiscounted less 145), so it equals the present-value liability. It matches 'Finance lease obligations' of 1,153 in t0061. No explicit current plus non-current line is given."
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0061",
+   "row_label": "Purchase obligations",
+   "column_label": "Total Contractual | Payment Stream",
+   "cell_text": "4,817",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 4817000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "The segment tables report revenue, segment cost and segment profit only. No capital expenditures by segment appear."
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "No 2024 year-end finance lease liability appears. The maturity table t0165 covers only 2025 year-end."
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "No 2024 year-end purchase obligations appear. The contractual obligations table t0061 is as of 2025 year-end only."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 27.2,
+  "input_tokens": 8953,
+  "output_tokens": 3918,
+  "attempts": 1,
+  "task_sha": "d9fa2df7cbdd07eb"
+ }
+}

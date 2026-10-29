@@ -1,0 +1,269 @@
+{
+ "accession": "0001326801-25-000017",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Family of Apps",
+   "table_id": "t0031",
+   "row_label": "Family of Apps",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "162,355",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 162355000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Family of Apps",
+   "table_id": "t0031",
+   "row_label": "Family of Apps",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "133,006",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 133006000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Family of Apps",
+   "table_id": "t0031",
+   "row_label": "Family of Apps",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "114,450",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 114450000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Reality Labs",
+   "table_id": "t0031",
+   "row_label": "Reality Labs",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "2,146",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 2146000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Reality Labs",
+   "table_id": "t0031",
+   "row_label": "Reality Labs",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "1,896",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 1896000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Reality Labs",
+   "table_id": "t0031",
+   "row_label": "Reality Labs",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "2,159",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 2159000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0042",
+   "row_label": "Land",
+   "column_label": "December 31, | 2024",
+   "cell_text": "2,561",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 2561000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0042",
+   "row_label": "Land",
+   "column_label": "December 31, | 2023",
+   "cell_text": "2,080",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 2080000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Servers and network assets",
+   "table_id": "t0042",
+   "row_label": "Servers and network assets",
+   "column_label": "December 31, | 2024",
+   "cell_text": "68,397",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 68397000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Servers and network assets",
+   "table_id": "t0042",
+   "row_label": "Servers and network assets",
+   "column_label": "December 31, | 2023",
+   "cell_text": "46,838",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 46838000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0042",
+   "row_label": "Buildings",
+   "column_label": "December 31, | 2024",
+   "cell_text": "47,076",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 47076000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0042",
+   "row_label": "Buildings",
+   "column_label": "December 31, | 2023",
+   "cell_text": "37,961",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 37961000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0042",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, | 2024",
+   "cell_text": "7,293",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 7293000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0042",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, | 2023",
+   "cell_text": "6,972",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 6972000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment and other",
+   "table_id": "t0042",
+   "row_label": "Equipment and other",
+   "column_label": "December 31, | 2024",
+   "cell_text": "7,150",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 7150000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment and other",
+   "table_id": "t0042",
+   "row_label": "Equipment and other",
+   "column_label": "December 31, | 2023",
+   "cell_text": "7,416",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 7416000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Finance lease right-of-use assets",
+   "table_id": "t0042",
+   "row_label": "Finance lease right-of-use assets",
+   "column_label": "December 31, | 2024",
+   "cell_text": "5,384",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 5384000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Finance lease right-of-use assets",
+   "table_id": "t0042",
+   "row_label": "Finance lease right-of-use assets",
+   "column_label": "December 31, | 2023",
+   "cell_text": "4,185",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 4185000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0042",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, | 2024",
+   "cell_text": "26,802",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 26802000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0042",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, | 2023",
+   "cell_text": "24,269",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 24269000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment tables (t0006, t0062) report revenue, costs and income from operations only; no capital expenditures by segment are given"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "the lease tables provided show only discount rates/remaining terms (t0044) and lease cash flows / new lease liabilities arising (t0046); no total finance lease liability balance is present"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included among the tables provided"
+  }
+ ],
+ "notes": "segment_revenue cited from t0031 (revenue note) because t0062 repeats the row label 'Revenue' under each segment, making row citations ambiguous; values agree with t0006, t0011 and t0062. Advertising and Other revenue rows are sub-components of Family of Apps and were not extracted, to avoid double counting with the segment rows. 'Finance lease right-of-use assets' is a line within gross property and equipment, so it is included, at confidence 0.85 because it is a lease asset rather than an owned asset category.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.0,
+  "input_tokens": 6617,
+  "output_tokens": 3003,
+  "attempts": 1,
+  "task_sha": "47a2f918f6455a88"
+ }
+}

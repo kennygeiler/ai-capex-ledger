@@ -1,0 +1,176 @@
+{
+ "accession": "0001596532-26-000013",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0032",
+   "row_label": "Land",
+   "column_label": "December 31, | 2025",
+   "cell_text": "47.3",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 47300000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0032",
+   "row_label": "Land",
+   "column_label": "December 31, | 2024",
+   "cell_text": "47.2",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 47200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment and machinery",
+   "table_id": "t0032",
+   "row_label": "Equipment and machinery",
+   "column_label": "December 31, | 2025",
+   "cell_text": "188.3",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 188300000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment and machinery",
+   "table_id": "t0032",
+   "row_label": "Equipment and machinery",
+   "column_label": "December 31, | 2024",
+   "cell_text": "160.7",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 160700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer hardware and software",
+   "table_id": "t0032",
+   "row_label": "Computer hardware and software",
+   "column_label": "December 31, | 2025",
+   "cell_text": "66.2",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 66200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer hardware and software",
+   "table_id": "t0032",
+   "row_label": "Computer hardware and software",
+   "column_label": "December 31, | 2024",
+   "cell_text": "63.9",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 63900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0032",
+   "row_label": "Furniture and fixtures",
+   "column_label": "December 31, | 2025",
+   "cell_text": "3.7",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 3700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0032",
+   "row_label": "Furniture and fixtures",
+   "column_label": "December 31, | 2024",
+   "cell_text": "3.5",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 3500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0032",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, | 2025",
+   "cell_text": "38.4",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 38400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0032",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, | 2024",
+   "cell_text": "34.7",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 34700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction-in-process",
+   "table_id": "t0032",
+   "row_label": "Construction-in-process",
+   "column_label": "December 31, | 2025",
+   "cell_text": "107.9",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 107900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction-in-process",
+   "table_id": "t0032",
+   "row_label": "Construction-in-process",
+   "column_label": "December 31, | 2024",
+   "cell_text": "8.2",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 8200000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "Arista reports a single operating segment; no per-segment capital expenditures are presented in the tables provided"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "the only revenue table (t0052) breaks revenue down by geographic region (Americas, EMEA, Asia Pacific), not by reportable segment or by market/product line; Arista has one segment"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table was provided; finance lease liabilities do not appear in the tables given"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no commitments or contractual-obligations table was provided"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.7,
+  "input_tokens": 4648,
+  "output_tokens": 1984,
+  "attempts": 1,
+  "task_sha": "640d5c99656c2b10"
+ }
+}

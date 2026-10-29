@@ -44,7 +44,8 @@ def main(argv=None) -> int:
     prev_dir = ([p for p in releases() if version_key(p.name) < version_key(a.version)] or [None])[-1]
     previous = list(csv.DictReader((prev_dir / "values.csv").open())) if prev_dir else None
     ai = _rows(con, "select * from ai_spend where ticker in (select unnest(?))", tickers)
-    files = build(a.version, apply(values, excs, ds), exts, excs, previous, confirmed, ai)
+    facts = _rows(con, "select * from facts where ticker in (select unnest(?))", tickers)
+    files = build(a.version, apply(values, excs, ds), exts, excs, previous, confirmed, ai, facts)
     h = content_hash(files)
     out = RELEASES / a.version
     if out.exists():

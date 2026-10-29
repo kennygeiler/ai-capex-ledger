@@ -1,0 +1,197 @@
+{
+ "accession": "0001730168-25-000121",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Semiconductor solutions",
+   "table_id": "t0013",
+   "row_label": "Semiconductor solutions",
+   "column_label": "Fiscal Year Ended | November 2,2025",
+   "cell_text": "36,858",
+   "period_end": "2025-11-02",
+   "months": 12,
+   "value": 36858000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Semiconductor solutions",
+   "table_id": "t0013",
+   "row_label": "Semiconductor solutions",
+   "column_label": "Fiscal Year Ended | November 3,2024",
+   "cell_text": "30,096",
+   "period_end": "2024-11-03",
+   "months": 12,
+   "value": 30096000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Infrastructure software",
+   "table_id": "t0013",
+   "row_label": "Infrastructure software",
+   "column_label": "Fiscal Year Ended | November 2,2025",
+   "cell_text": "27,029",
+   "period_end": "2025-11-02",
+   "months": 12,
+   "value": 27029000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Infrastructure software",
+   "table_id": "t0013",
+   "row_label": "Infrastructure software",
+   "column_label": "Fiscal Year Ended | November 3,2024",
+   "cell_text": "21,478",
+   "period_end": "2024-11-03",
+   "months": 12,
+   "value": 21478000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Semiconductor solutions",
+   "table_id": "t0073",
+   "row_label": "Net revenue",
+   "column_label": "Fiscal Year | 2023",
+   "cell_text": "28,182",
+   "period_end": "2023-10-29",
+   "months": 12,
+   "value": 28182000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Infrastructure software",
+   "table_id": "t0073",
+   "row_label": "Net revenue",
+   "column_label": "Fiscal Year | 2023",
+   "cell_text": "7,637",
+   "period_end": "2023-10-29",
+   "months": 12,
+   "value": 7637000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0037",
+   "row_label": "Land",
+   "column_label": "November 2,2025",
+   "cell_text": "204",
+   "period_end": "2025-11-02",
+   "months": 0,
+   "value": 204000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0037",
+   "row_label": "Land",
+   "column_label": "November 3,2024",
+   "cell_text": "204",
+   "period_end": "2024-11-03",
+   "months": 0,
+   "value": 204000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0037",
+   "row_label": "Construction in progress",
+   "column_label": "November 2,2025",
+   "cell_text": "78",
+   "period_end": "2025-11-02",
+   "months": 0,
+   "value": 78000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0037",
+   "row_label": "Construction in progress",
+   "column_label": "November 3,2024",
+   "cell_text": "57",
+   "period_end": "2024-11-03",
+   "months": 0,
+   "value": 57000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and leasehold improvements",
+   "table_id": "t0037",
+   "row_label": "Buildings and leasehold improvements",
+   "column_label": "November 2,2025",
+   "cell_text": "1,488",
+   "period_end": "2025-11-02",
+   "months": 0,
+   "value": 1488000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and leasehold improvements",
+   "table_id": "t0037",
+   "row_label": "Buildings and leasehold improvements",
+   "column_label": "November 3,2024",
+   "cell_text": "1,518",
+   "period_end": "2024-11-03",
+   "months": 0,
+   "value": 1518000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0037",
+   "row_label": "Machinery and equipment",
+   "column_label": "November 2,2025",
+   "cell_text": "5,656",
+   "period_end": "2025-11-02",
+   "months": 0,
+   "value": 5656000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0037",
+   "row_label": "Machinery and equipment",
+   "column_label": "November 3,2024",
+   "cell_text": "5,246",
+   "period_end": "2024-11-03",
+   "months": 0,
+   "value": 5246000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "The segment tables report net revenue, cost of revenue, R&D, SG&A and operating income by segment only; no capital expenditures by segment are shown."
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "No total finance lease liability line exists in the tables. t0062 shows only the components: 'Short-term finance lease liabilities' (\u2014 at November 2,2025; 26 at November 3,2024) and 'Long-term finance lease liabilities' (\u2014 at November 2,2025; 13 at November 3,2024). These imply about $39M at FY2024 year-end and none at FY2025 year-end, but there is no single cell to cite for the total."
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "No contractual-obligations or commitments table is among the tables provided."
+  }
+ ],
+ "notes": "FY2025 and FY2024 segment revenue is cited from t0013, where the rows carry the segment names. FY2023 segment revenue is available only in the segment note t0073, where both rows are labelled 'Net revenue' and the 'Semiconductor solutions' section header is missing from the parse. The segment for each was assigned by position, and it matches t0013's 2025 and 2024 figures (36,858 and 27,029), so confidence is 0.85. The FY2023 period_end of 2023-10-29 is Broadcom's 52-week fiscal year-end; it is inferred because the column shows only '2023'.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 22.9,
+  "input_tokens": 6912,
+  "output_tokens": 2858,
+  "attempts": 1,
+  "task_sha": "64b682d513dd3ca0"
+ }
+}

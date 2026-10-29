@@ -1,0 +1,165 @@
+{
+ "accession": "0001083301-24-000072",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Miners",
+   "table_id": "t0028",
+   "row_label": "Miners",
+   "column_label": "December 31, 2023",
+   "cell_text": "100,531",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 100531000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Miners",
+   "table_id": "t0028",
+   "row_label": "Miners",
+   "column_label": "December 31, 2022",
+   "cell_text": "71,114",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 71114000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in process",
+   "table_id": "t0028",
+   "row_label": "Construction in process",
+   "column_label": "December 31, 2023",
+   "cell_text": "24,578",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 24578000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in process",
+   "table_id": "t0028",
+   "row_label": "Construction in process",
+   "column_label": "December 31, 2022",
+   "cell_text": "32,360",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 32360000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0028",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, 2023",
+   "cell_text": "62,850",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 62850000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0028",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, 2022",
+   "cell_text": "29,880",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 29880000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0028",
+   "row_label": "Equipment",
+   "column_label": "December 31, 2023",
+   "cell_text": "15,736",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 15736000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0028",
+   "row_label": "Equipment",
+   "column_label": "December 31, 2022",
+   "cell_text": "7,208",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 7208000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Vehicles",
+   "table_id": "t0028",
+   "row_label": "Vehicles",
+   "column_label": "December 31, 2023",
+   "cell_text": "104",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 104000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Deposits on miners",
+   "table_id": "t0028",
+   "row_label": "Deposits on miners",
+   "column_label": "December 31, 2023",
+   "cell_text": "36,469",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 36469000,
+   "confidence": 0.8
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Deposits on miners",
+   "table_id": "t0028",
+   "row_label": "Deposits on miners",
+   "column_label": "December 31, 2022",
+   "cell_text": "57,626",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 57626000,
+   "confidence": 0.8
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note table provided; only the property and equipment table is present"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "no segment note table provided; only the property and equipment table is present"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table provided"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no commitments or contractual-obligations table provided"
+  }
+ ],
+ "notes": "Vehicles at December 31, 2022 shows '\u2014' (nil) and is omitted. 'Deposits on miners' is included at 0.8 confidence: it is an advance payment rather than a placed-in-service asset class, but the filing lists it as a line within gross property and equipment and it sums into the 240,268 / 198,188 gross totals. Unlabeled total rows and accumulated depreciation are skipped.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.0,
+  "input_tokens": 4362,
+  "output_tokens": 1638,
+  "attempts": 1,
+  "task_sha": "465f1e114e5c5904"
+ }
+}

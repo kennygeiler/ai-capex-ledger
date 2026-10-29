@@ -1,0 +1,265 @@
+{
+ "accession": "0001628280-26-013305",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Colocation revenue",
+   "table_id": "t0014",
+   "row_label": "Colocation revenue",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "$65,424",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 65424000,
+   "confidence": 0.9,
+   "notes": "Revenue by line of business; the filing gives no separate segment note table, so revenue lines are used."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Colocation revenue",
+   "table_id": "t0014",
+   "row_label": "Colocation revenue",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "$24,378",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 24378000,
+   "confidence": 0.9,
+   "notes": "Revenue by line of business."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital asset self-mining revenue",
+   "table_id": "t0014",
+   "row_label": "Digital asset self-mining revenue",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "229,207",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 229207000,
+   "confidence": 0.9,
+   "notes": "Revenue by line of business."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital asset self-mining revenue",
+   "table_id": "t0014",
+   "row_label": "Digital asset self-mining revenue",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "408,740",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 408740000,
+   "confidence": 0.9,
+   "notes": "Revenue by line of business."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital asset hosted mining revenue from customers",
+   "table_id": "t0014",
+   "row_label": "Digital asset hosted mining revenue from customers",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "24,388",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 24388000,
+   "confidence": 0.9,
+   "notes": "Revenue by line of business."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital asset hosted mining revenue from customers",
+   "table_id": "t0014",
+   "row_label": "Digital asset hosted mining revenue from customers",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "77,554",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 77554000,
+   "confidence": 0.9,
+   "notes": "Revenue by line of business."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and improvements",
+   "table_id": "t0037",
+   "row_label": "Land and improvements1",
+   "column_label": "December 31, 2025",
+   "cell_text": "$21,769",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 21769000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and improvements",
+   "table_id": "t0037",
+   "row_label": "Land and improvements1",
+   "column_label": "December 31, 2024",
+   "cell_text": "$17,215",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 17215000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building and improvements",
+   "table_id": "t0037",
+   "row_label": "Building and improvements",
+   "column_label": "December 31, 2025",
+   "cell_text": "278,222",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 278222000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building and improvements",
+   "table_id": "t0037",
+   "row_label": "Building and improvements",
+   "column_label": "December 31, 2024",
+   "cell_text": "186,267",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 186267000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Mining and network equipment",
+   "table_id": "t0037",
+   "row_label": "Mining and network equipment",
+   "column_label": "December 31, 2025",
+   "cell_text": "408,777",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 408777000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Mining and network equipment",
+   "table_id": "t0037",
+   "row_label": "Mining and network equipment",
+   "column_label": "December 31, 2024",
+   "cell_text": "413,296",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 413296000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Electrical equipment",
+   "table_id": "t0037",
+   "row_label": "Electrical equipment",
+   "column_label": "December 31, 2025",
+   "cell_text": "77,348",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 77348000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Electrical equipment",
+   "table_id": "t0037",
+   "row_label": "Electrical equipment",
+   "column_label": "December 31, 2024",
+   "cell_text": "74,077",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 74077000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other property, plant and equipment",
+   "table_id": "t0037",
+   "row_label": "Other property, plant and equipment",
+   "column_label": "December 31, 2025",
+   "cell_text": "3,010",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 3010000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other property, plant and equipment",
+   "table_id": "t0037",
+   "row_label": "Other property, plant and equipment",
+   "column_label": "December 31, 2024",
+   "cell_text": "2,764",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 2764000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Add: Construction in progress",
+   "table_id": "t0037",
+   "row_label": "Add: Construction in progress",
+   "column_label": "December 31, 2025",
+   "cell_text": "911,066",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 911066000,
+   "confidence": 0.9,
+   "notes": "Construction in progress is presented below the net subtotal rather than in the gross list, but is a gross PP&E category."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Add: Construction in progress",
+   "table_id": "t0037",
+   "row_label": "Add: Construction in progress",
+   "column_label": "December 31, 2024",
+   "cell_text": "111,966",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 111966000,
+   "confidence": 0.9,
+   "notes": "Construction in progress is presented below the net subtotal rather than in the gross list, but is a gross PP&E category."
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0042",
+   "row_label": "Finance lease liabilities, net of current portion",
+   "column_label": "December 31, 2025",
+   "cell_text": "$844",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 844000,
+   "confidence": 0.95,
+   "notes": "Current portion is $\u2014 (zero), so the non-current cell equals total finance lease liabilities."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "No segment note with per-segment capital expenditures is among the tables; revenue is reported by line of business only."
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "December 31, 2024 total is not shown in a single cell: it is current 1,669 plus non-current 3 = $1,672 thousand (t0042), which cannot be cited to one cell."
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "No contractual-obligations or commitments table with purchase obligations is among the tables provided."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 53.4,
+  "input_tokens": 15813,
+  "output_tokens": 7538,
+  "attempts": 2,
+  "task_sha": "91ebb9ff0f042779"
+ }
+}

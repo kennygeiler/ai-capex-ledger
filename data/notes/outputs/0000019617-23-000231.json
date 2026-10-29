@@ -1,0 +1,180 @@
+{
+ "accession": "0000019617-23-000231",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Consumer & Community Banking",
+   "table_id": "t0612",
+   "row_label": "Total net revenue",
+   "column_label": "Consumer & Community Banking | 2022",
+   "cell_text": "55,017",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 55017000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Consumer & Community Banking",
+   "table_id": "t0612",
+   "row_label": "Total net revenue",
+   "column_label": "Consumer & Community Banking | 2021",
+   "cell_text": "50,073",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 50073000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Consumer & Community Banking",
+   "table_id": "t0612",
+   "row_label": "Total net revenue",
+   "column_label": "Consumer & Community Banking | 2020",
+   "cell_text": "51,268",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 51268000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Corporate & Investment Bank",
+   "table_id": "t0612",
+   "row_label": "Total net revenue",
+   "column_label": "Corporate & Investment Bank | 2022",
+   "cell_text": "47,899",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 47899000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Corporate & Investment Bank",
+   "table_id": "t0612",
+   "row_label": "Total net revenue",
+   "column_label": "Corporate & Investment Bank | 2021",
+   "cell_text": "51,749",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 51749000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Corporate & Investment Bank",
+   "table_id": "t0612",
+   "row_label": "Total net revenue",
+   "column_label": "Corporate & Investment Bank | 2020",
+   "cell_text": "49,284",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 49284000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Commercial Banking",
+   "table_id": "t0612",
+   "row_label": "Total net revenue",
+   "column_label": "Commercial Banking | 2022",
+   "cell_text": "11,533",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 11533000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Commercial Banking",
+   "table_id": "t0612",
+   "row_label": "Total net revenue",
+   "column_label": "Commercial Banking | 2021",
+   "cell_text": "10,008",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 10008000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Commercial Banking",
+   "table_id": "t0612",
+   "row_label": "Total net revenue",
+   "column_label": "Commercial Banking | 2020",
+   "cell_text": "9,313",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 9313000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Asset & Wealth Management",
+   "table_id": "t0612",
+   "row_label": "Total net revenue",
+   "column_label": "Asset & Wealth Management | 2022",
+   "cell_text": "17,748",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 17748000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Asset & Wealth Management",
+   "table_id": "t0612",
+   "row_label": "Total net revenue",
+   "column_label": "Asset & Wealth Management | 2021",
+   "cell_text": "16,957",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 16957000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Asset & Wealth Management",
+   "table_id": "t0612",
+   "row_label": "Total net revenue",
+   "column_label": "Asset & Wealth Management | 2020",
+   "cell_text": "14,240",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 14240000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment tables (t0105, t0612) report revenue, expense, income, equity and assets only; no capital expenditures by segment"
+  },
+  {
+   "field": "ppe_category",
+   "reason": "no property-and-equipment note table is among the tables provided"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table is among the tables provided"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is among the tables provided"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "Corporate (t0160) is not a reportable business segment and its total net revenue is negative in 2021 and 2020, so it was excluded; sub-line-of-business revenue (t0112, t0123, t0142, t0149) was not taken because the segment note t0612 reports the four reportable segments"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.0,
+  "input_tokens": 11740,
+  "output_tokens": 2283,
+  "attempts": 1,
+  "task_sha": "5df07786190d5f09"
+ }
+}

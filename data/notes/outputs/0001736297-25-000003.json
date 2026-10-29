@@ -1,0 +1,149 @@
+{
+ "accession": "0001736297-25-000003",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0038",
+   "row_label": "Construction in progress",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "29,064",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 29064000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Laboratory equipment",
+   "table_id": "t0038",
+   "row_label": "Laboratory equipment",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "10,467",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 10467000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Laboratory equipment",
+   "table_id": "t0038",
+   "row_label": "Laboratory equipment",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "6,470",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 6470000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office furniture",
+   "table_id": "t0038",
+   "row_label": "Office furniture",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "353",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 353000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office furniture",
+   "table_id": "t0038",
+   "row_label": "Office furniture",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "242",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 242000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0038",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "1,159",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 1159000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0038",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "437",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 437000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Servers and workstations",
+   "table_id": "t0038",
+   "row_label": "Servers and workstations",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "441",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 441000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Servers and workstations",
+   "table_id": "t0038",
+   "row_label": "Servers and workstations",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "242",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 242000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0045",
+   "row_label": "Total purchase commitments",
+   "column_label": "Purchase Commitments | 11,957 | 7,527 | 8,000",
+   "cell_text": "27,484",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 27484000,
+   "confidence": 0.85
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "The company reports a single segment (t0030 is a single-segment profit-and-loss disclosure), and the tables give no capital expenditures by segment."
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "The company has a single segment. The Revenue row in t0030 is the consolidated total, which is excluded, and no table breaks revenue down by market or product line."
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "None of the tables provided disclose finance lease liabilities."
+  }
+ ],
+ "notes": "Construction in progress as of 2023-12-31 is shown as '\u2014' (nil) and is omitted because values must be positive. The t0045 column header was parsed badly: the yearly payment amounts (11,957 + 7,527 + 8,000) were merged into the label. Their sum equals the 27,484 total, and the total is taken as of the 2024-12-31 report date. Confidence is 0.85 because the column carries no explicit date.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.7,
+  "input_tokens": 5195,
+  "output_tokens": 1854,
+  "attempts": 1,
+  "task_sha": "959e2d854aa06830"
+ }
+}

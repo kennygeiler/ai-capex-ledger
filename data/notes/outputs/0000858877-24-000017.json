@@ -1,0 +1,165 @@
+{
+ "accession": "0000858877-24-000017",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Land, buildings, and building and leasehold improvements",
+   "table_id": "t0082",
+   "row_label": "Land, buildings, and building and leasehold improvements",
+   "column_label": "July 27, 2024",
+   "cell_text": "4,247",
+   "period_end": "2024-07-27",
+   "months": 0,
+   "value": 4247000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land, buildings, and building and leasehold improvements",
+   "table_id": "t0082",
+   "row_label": "Land, buildings, and building and leasehold improvements",
+   "column_label": "July 29, 2023",
+   "cell_text": "4,229",
+   "period_end": "2023-07-29",
+   "months": 0,
+   "value": 4229000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Production, engineering, computer and other equipment and related software",
+   "table_id": "t0082",
+   "row_label": "Production, engineering, computer and other equipment and related software",
+   "column_label": "July 27, 2024",
+   "cell_text": "5,160",
+   "period_end": "2024-07-27",
+   "months": 0,
+   "value": 5160000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Production, engineering, computer and other equipment and related software",
+   "table_id": "t0082",
+   "row_label": "Production, engineering, computer and other equipment and related software",
+   "column_label": "July 29, 2023",
+   "cell_text": "5,355",
+   "period_end": "2023-07-29",
+   "months": 0,
+   "value": 5355000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Operating lease assets",
+   "table_id": "t0082",
+   "row_label": "Operating lease assets",
+   "column_label": "July 27, 2024",
+   "cell_text": "115",
+   "period_end": "2024-07-27",
+   "months": 0,
+   "value": 115000000,
+   "confidence": 0.85,
+   "notes": "Gross PP&E category (equipment leased to customers under operating leases), not a ROU asset; included because it sits within total gross property and equipment."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Operating lease assets",
+   "table_id": "t0082",
+   "row_label": "Operating lease assets",
+   "column_label": "July 29, 2023",
+   "cell_text": "135",
+   "period_end": "2023-07-29",
+   "months": 0,
+   "value": 135000000,
+   "confidence": 0.85,
+   "notes": "Gross PP&E category (equipment leased to customers under operating leases), not a ROU asset; included because it sits within total gross property and equipment."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures and other",
+   "table_id": "t0082",
+   "row_label": "Furniture, fixtures and other",
+   "column_label": "July 27, 2024",
+   "cell_text": "351",
+   "period_end": "2024-07-27",
+   "months": 0,
+   "value": 351000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures and other",
+   "table_id": "t0082",
+   "row_label": "Furniture, fixtures and other",
+   "column_label": "July 29, 2023",
+   "cell_text": "339",
+   "period_end": "2023-07-29",
+   "months": 0,
+   "value": 339000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0040",
+   "row_label": "Inventory purchase commitments",
+   "column_label": "July 27, 2024",
+   "cell_text": "5,158",
+   "period_end": "2024-07-27",
+   "months": 0,
+   "value": 5158000000,
+   "confidence": 0.75,
+   "notes": "Inventory purchase commitments with contract manufacturers and suppliers (matches t0046 row of 5,158). Excludes 'Other purchase obligations' of 3,998 in t0046; no single cell gives a combined total."
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0040",
+   "row_label": "Inventory purchase commitments",
+   "column_label": "July 29, 2023",
+   "cell_text": "7,253",
+   "period_end": "2023-07-29",
+   "months": 0,
+   "value": 7253000000,
+   "confidence": 0.75,
+   "notes": "Inventory purchase commitments only; other purchase obligations for this year-end are not given in these tables."
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0040",
+   "row_label": "Inventory purchase commitments",
+   "column_label": "July 30, 2022",
+   "cell_text": "12,964",
+   "period_end": "2022-07-30",
+   "months": 0,
+   "value": 12964000000,
+   "confidence": 0.75,
+   "notes": "Inventory purchase commitments only; other purchase obligations for this year-end are not given in these tables."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "No segment table with capital expenditures by segment is present; the segment/market tables provided show only consolidated results and deferred taxes."
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "Only consolidated revenue (t0021) is shown; no revenue by geographic segment or product category appears in the provided tables."
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "No finance lease liability line appears in the provided tables; the contractual obligations table lists operating leases only."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.7,
+  "input_tokens": 6968,
+  "output_tokens": 2270,
+  "attempts": 1,
+  "task_sha": "201cfa99ba1f5859"
+ }
+}

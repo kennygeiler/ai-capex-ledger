@@ -1,0 +1,290 @@
+{
+ "accession": "0001878848-26-000052",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "AI Cloud Services revenue",
+   "table_id": "t0044",
+   "row_label": "AI Cloud Services revenue",
+   "column_label": "Year Ended, | 2026",
+   "cell_text": "128,795",
+   "period_end": "2026-06-30",
+   "months": 12,
+   "value": 128795000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "AI Cloud Services revenue",
+   "table_id": "t0044",
+   "row_label": "AI Cloud Services revenue",
+   "column_label": "Year Ended, | 2025",
+   "cell_text": "16,394",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 16394000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "AI Cloud Services revenue",
+   "table_id": "t0044",
+   "row_label": "AI Cloud Services revenue",
+   "column_label": "Year Ended, | 2024",
+   "cell_text": "3,105",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 3105000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Bitcoin mining revenue",
+   "table_id": "t0044",
+   "row_label": "Bitcoin mining revenue",
+   "column_label": "Year Ended, | 2026",
+   "cell_text": "578,212",
+   "period_end": "2026-06-30",
+   "months": 12,
+   "value": 578212000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Bitcoin mining revenue",
+   "table_id": "t0044",
+   "row_label": "Bitcoin mining revenue",
+   "column_label": "Year Ended, | 2025",
+   "cell_text": "484,629",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 484629000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Bitcoin mining revenue",
+   "table_id": "t0044",
+   "row_label": "Bitcoin mining revenue",
+   "column_label": "Year Ended, | 2024",
+   "cell_text": "184,087",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 184087000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "GPU Hardware",
+   "table_id": "t0067",
+   "row_label": "GPU Hardware",
+   "column_label": "June 30, 2026",
+   "cell_text": "2,034,811",
+   "period_end": "2026-06-30",
+   "months": 0,
+   "value": 2034811000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "GPU Hardware",
+   "table_id": "t0067",
+   "row_label": "GPU Hardware",
+   "column_label": "June 30, 2025",
+   "cell_text": "76,001",
+   "period_end": "2025-06-30",
+   "months": 0,
+   "value": 76001000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0067",
+   "row_label": "Buildings",
+   "column_label": "June 30, 2026",
+   "cell_text": "864,255",
+   "period_end": "2026-06-30",
+   "months": 0,
+   "value": 864255000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0067",
+   "row_label": "Buildings",
+   "column_label": "June 30, 2025",
+   "cell_text": "639,750",
+   "period_end": "2025-06-30",
+   "months": 0,
+   "value": 639750000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Right-of-use assets - Finance lease",
+   "table_id": "t0067",
+   "row_label": "Right-of-use assets - Finance lease",
+   "column_label": "June 30, 2026",
+   "cell_text": "301,848",
+   "period_end": "2026-06-30",
+   "months": 0,
+   "value": 301848000,
+   "confidence": 0.8,
+   "notes": "Finance-lease ROU assets are presented as a gross line within property and equipment, gross; included as a category but they are leased rather than owned assets. 2025 cell is '\u2014' and omitted."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other PPE",
+   "table_id": "t0067",
+   "row_label": "Other PPE",
+   "column_label": "June 30, 2026",
+   "cell_text": "69,237",
+   "period_end": "2026-06-30",
+   "months": 0,
+   "value": 69237000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other PPE",
+   "table_id": "t0067",
+   "row_label": "Other PPE",
+   "column_label": "June 30, 2025",
+   "cell_text": "10,002",
+   "period_end": "2025-06-30",
+   "months": 0,
+   "value": 10002000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0067",
+   "row_label": "Land",
+   "column_label": "June 30, 2026",
+   "cell_text": "139,074",
+   "period_end": "2026-06-30",
+   "months": 0,
+   "value": 139074000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0067",
+   "row_label": "Land",
+   "column_label": "June 30, 2025",
+   "cell_text": "13,086",
+   "period_end": "2025-06-30",
+   "months": 0,
+   "value": 13086000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0067",
+   "row_label": "Leasehold improvements",
+   "column_label": "June 30, 2026",
+   "cell_text": "32",
+   "period_end": "2026-06-30",
+   "months": 0,
+   "value": 32000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0067",
+   "row_label": "Leasehold improvements",
+   "column_label": "June 30, 2025",
+   "cell_text": "43",
+   "period_end": "2025-06-30",
+   "months": 0,
+   "value": 43000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0067",
+   "row_label": "Construction in progress",
+   "column_label": "June 30, 2026",
+   "cell_text": "3,657,072",
+   "period_end": "2026-06-30",
+   "months": 0,
+   "value": 3657072000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0067",
+   "row_label": "Construction in progress",
+   "column_label": "June 30, 2025",
+   "cell_text": "237,734",
+   "period_end": "2025-06-30",
+   "months": 0,
+   "value": 237734000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Mining hardware",
+   "table_id": "t0067",
+   "row_label": "Mining hardware",
+   "column_label": "June 30, 2026",
+   "cell_text": "596,988",
+   "period_end": "2026-06-30",
+   "months": 0,
+   "value": 596988000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Mining hardware",
+   "table_id": "t0067",
+   "row_label": "Mining hardware",
+   "column_label": "June 30, 2025",
+   "cell_text": "1,135,584",
+   "period_end": "2025-06-30",
+   "months": 0,
+   "value": 1135584000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0092",
+   "row_label": "Total lease liabilities",
+   "column_label": "June 30, 2026",
+   "cell_text": "243,796",
+   "period_end": "2026-06-30",
+   "months": 0,
+   "value": 243796000,
+   "confidence": 0.95,
+   "notes": "Row is labeled 'Total lease liabilities' but it sums only 'Finance leases - Current' (125,340) and 'Finance leases - Non current' (118,456). It ties to 'Present value of finance lease liabilities' in t0097. The June 30, 2025 cell is '\u2014' (no finance leases)."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "The segment note (t0044) reports revenue, cost of revenue and gross profit by segment only. No capital expenditures by segment are disclosed."
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "No contractual-obligations or commitments table with purchase obligations is among the provided tables."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 23.1,
+  "input_tokens": 8809,
+  "output_tokens": 3575,
+  "attempts": 1,
+  "task_sha": "c4c4c0c816309519"
+ }
+}

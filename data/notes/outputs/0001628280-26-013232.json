@@ -1,0 +1,252 @@
+{
+ "accession": "0001628280-26-013232",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital asset self-mining revenue",
+   "table_id": "t0015",
+   "row_label": "Digital asset self-mining revenue",
+   "column_label": "Year Ended December 31, | 2024(As Restated)",
+   "cell_text": "408,740",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 408740000,
+   "confidence": 0.8,
+   "notes": "Revenue is disaggregated by revenue stream (product line); the segment note shows a single reportable segment gross profit."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital asset hosted mining revenue from customers",
+   "table_id": "t0015",
+   "row_label": "Digital asset hosted mining revenue from customers",
+   "column_label": "Year Ended December 31, | 2024(As Restated)",
+   "cell_text": "77,554",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 77554000,
+   "confidence": 0.8,
+   "notes": "Revenue stream / product line, not a separately reported segment."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "HPC hosting revenue",
+   "table_id": "t0015",
+   "row_label": "HPC hosting revenue",
+   "column_label": "Year Ended December 31, | 2024(As Restated)",
+   "cell_text": "24,378",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 24378000,
+   "confidence": 0.8,
+   "notes": "Revenue stream / product line, not a separately reported segment."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital asset self-mining revenue",
+   "table_id": "t0015",
+   "row_label": "Digital asset self-mining revenue",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "390,333",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 390333000,
+   "confidence": 0.8,
+   "notes": "Revenue stream / product line, not a separately reported segment."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital asset hosted mining revenue from customers",
+   "table_id": "t0015",
+   "row_label": "Digital asset hosted mining revenue from customers",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "102,005",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 102005000,
+   "confidence": 0.8,
+   "notes": "Revenue stream / product line, not a separately reported segment."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital asset hosted mining revenue from related parties",
+   "table_id": "t0015",
+   "row_label": "Digital asset hosted mining revenue from related parties",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "10,062",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 10062000,
+   "confidence": 0.8,
+   "notes": "Revenue stream / product line, not a separately reported segment."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and improvements",
+   "table_id": "t0050",
+   "row_label": "Land and improvements1",
+   "column_label": "December 31, 2024 (As Restated)",
+   "cell_text": "17,215",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 17215000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and improvements",
+   "table_id": "t0050",
+   "row_label": "Land and improvements1",
+   "column_label": "December 31, 2023",
+   "cell_text": "21,852",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 21852000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building and improvements",
+   "table_id": "t0050",
+   "row_label": "Building and improvements",
+   "column_label": "December 31, 2024 (As Restated)",
+   "cell_text": "186,267",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 186267000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building and improvements",
+   "table_id": "t0050",
+   "row_label": "Building and improvements",
+   "column_label": "December 31, 2023",
+   "cell_text": "164,495",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 164495000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Mining and network equipment",
+   "table_id": "t0050",
+   "row_label": "Mining and network equipment2",
+   "column_label": "December 31, 2024 (As Restated)",
+   "cell_text": "413,296",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 413296000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Mining and network equipment",
+   "table_id": "t0050",
+   "row_label": "Mining and network equipment2",
+   "column_label": "December 31, 2023",
+   "cell_text": "441,404",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 441404000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Electrical equipment",
+   "table_id": "t0050",
+   "row_label": "Electrical equipment3",
+   "column_label": "December 31, 2024 (As Restated)",
+   "cell_text": "74,077",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 74077000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Electrical equipment",
+   "table_id": "t0050",
+   "row_label": "Electrical equipment3",
+   "column_label": "December 31, 2023",
+   "cell_text": "64,810",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 64810000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other property, plant and equipment",
+   "table_id": "t0050",
+   "row_label": "Other property, plant and equipment4",
+   "column_label": "December 31, 2024 (As Restated)",
+   "cell_text": "2,764",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 2764000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other property, plant and equipment",
+   "table_id": "t0050",
+   "row_label": "Other property, plant and equipment4",
+   "column_label": "December 31, 2023",
+   "cell_text": "2,935",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 2935000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Add: Construction in progress",
+   "table_id": "t0050",
+   "row_label": "Add: Construction in progress",
+   "column_label": "December 31, 2024 (As Restated)",
+   "cell_text": "111,966",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 111966000,
+   "confidence": 0.9,
+   "notes": "Construction in progress is presented below the depreciable subtotal but is a gross PP&E category."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Add: Construction in progress",
+   "table_id": "t0050",
+   "row_label": "Add: Construction in progress",
+   "column_label": "December 31, 2023",
+   "cell_text": "183,909",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 183909000,
+   "confidence": 0.9,
+   "notes": "Construction in progress is presented below the depreciable subtotal but is a gross PP&E category."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "The segment note presents a single reportable segment gross profit reconciliation only; no capital expenditures by segment are disclosed."
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "No total finance lease liabilities line exists in any table, so no single cell can be cited. Components in t0052 (in thousands): current portion 1,669 and non-current 3 at December 31, 2024 (sum 1,672); current portion 19,771 and non-current 35,745 at December 31, 2023 (sum 55,516)."
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "No contractual-obligations or purchase-commitments table is included among the provided tables."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 55.1,
+  "input_tokens": 24636,
+  "output_tokens": 7999,
+  "attempts": 2,
+  "task_sha": "eb5f19e49a5c2cb1"
+ }
+}

@@ -147,6 +147,29 @@ our AI efforts" and give totals; the only numbers are total-capex outlooks (Meta
 | 26 | **Scope is loose for words-only statements.** The same kind of sentence gets `scope: ai` in one filing and `total` in the next; scope only has meaning for an amount or share. | GOOGL, META opex | by eye | Open: ignore scope for `qualitative` rows when reading them; or drop it from the contract for that class. |
 | 27 | **The numbers live elsewhere.** Explicit AI amounts and shares appear in earnings-call prepared remarks and 8-K earnings releases (Exhibit 99.1), not in 10-K MD&A. | every hyperscaler | by design | Next: feed Exhibit 99.1 of the 8-K filed with each 10-K (edgartools gives it) through the same agent and contract. |
 
+## Facts from the notes (29 Oct): the base for attribution
+
+AI-spend attribution needs numbers the primary statements don't carry: capex and revenue per segment (ASC 280), PP&E
+by category (servers vs buildings), finance lease liabilities, purchase commitments. `ledger notes` is a third agent
+(`notes_reader`, prompt `notes@v2`) over candidate note tables, same citation contract as the Reader; code resolves
+every cell. Table A `note_extractions`, table B `facts` (per company, field, dimension, fiscal year, newest filing).
+The answer key is the filing's own XBRL instance, read directly (`reference/dimensions.py`): segment and category
+members are matched by normalised name, so a tagged fact checks the agent and an untagged one is `no_reference`.
+
+First pass, six companies, 25 filings: 478 cells, 288 facts, 166 agree with the filing's tags, 11 differ, 111 untagged,
+2 filings failed. All 31 after the fixes below: 124 filings, 2,346 cells, 1,436 facts, 522 agree, 27 differ, 887 untagged,
+0 failed; 70 agent minutes, 1.88M tokens, 20 retries.
+
+| # | Type | Where | Caught by | Fix |
+|---|---|---|---|---|
+| 28 | **Note tables carry no unit of their own.** The parser states a unit only for a table that has one in its context; a PP&E note says "(in millions)" in the sentence above, or nowhere. The resolver crashed on a missing key and took the run down. | every filing | crash (KeyError) | `notes.with_units`: a note table without a unit takes the primary statements' unit, `unit_source: document`, as the statements already do. |
+| 29 | **The answer key came from the wrong vintage.** The fact takes the newest filing's value (Microsoft's recast segments), the reference took the oldest filing's tag: 9 "differ" rows that were right. | MSFT segment revenue FY2021–24, APLD PP&E FY2024 | `facts.label = unresolved` | The reference is built newest filing first, so a value and its check come from the same 10-K. |
+| 30 | **Column label shortened.** The agent cited `"May 31, 2024"` for the column listed as `"Fiscal year ended | May 31, 2024"`, twice, retry included. | APLD FY2024 | citation check (rejected) | Prompt `notes@v2`: the column label is the whole listed string, every ` | ` part included. |
+| 31 | **Text after the JSON.** One answer had a sentence after the closing brace; the extractor matched first brace to last and failed to parse. | APLD FY2026 | `_json` (rejected after retry) | `agent._json` decodes the first object and ignores what follows. |
+| 33 | **Capex in parentheses in a segment note.** Applied Digital's segment table shows capital expenditures as (1,234); the resolver required the shown sign and rejected the answer twice. | APLD FY2026 | citation check | Note values resolve as the absolute cell value: a spend or a balance is positive however the table prints it. |
+| 34 | **Purchase commitments are several definitions.** The agent reads the contractual-obligations total; the tags are `PurchaseObligation` (one concept among several) or company-specific: Amazon 50.4B vs 333.0B tagged, IBM 4.9B vs 0.5B. 8 of 42 differ, 29 untagged. | AMZN, IBM, COMP, CRDO, ALAB | `facts.label = unresolved` | Open: this field needs a per-company definition (which table, which total) before it feeds attribution; shown as "differs" until then. |
+| 32 | **Segment capex is rarely tagged.** Applied Digital's segment capex has no us-gaap member in the instance; every `segment_capex` is `no_reference`. Expected: ASC 280 capex is often a custom concept or untagged. | APLD | by design | None. The cell citation is the check; the share of untagged facts is reported honestly in QUALITY.md. |
+
 ## No questions (29 Oct)
 
 A person was being asked three kinds of thing: a definition (ExxonMobil's revenue line, which cost lines count), a big move or outlier the SEC's data couldn't confirm, and a renamed line. The first is now a file (`definitions/companies.yaml`, who and why on every entry) that code applies every run. The other two are findings with an "SEC data agrees / can't confirm" flag, not questions: a misread would also disagree with XBRL, so agreement rules it out, and a disagreement is already its own block. Stage 3 after the change: 0 block, 0 unresolved, 93 findings, 1 unconfirmed (one jump the SEC's data has no value for).
@@ -166,6 +189,7 @@ What each company cost. `ledger run` prints this, and each validation page shows
 | AAPL, AVGO, CSCO, QCOM, TXN, WMT | added in DATAHQ, blind | 4.9 min (26 filings) | 201,818 | 0 | 0 | 78/78 |
 | COMP (Compass) | added by Kenny in DATAHQ, blind | 1.2 min (4 filings) | 42,090 | 0 | 1 (cost lines: commissions) | 8/12 (4 opex definition gaps, explained by code) |
 | IBM, INTC, JPM, XOM | added in DATAHQ, blind | 3.7 min (16 filings) | 122,877 | types 16–21, 23 | 5 (XOM: 4 revenue definition, 1 cost lines) | see below |
+| all 31, notes | `notes`, blind, `notes@v2` | 70.1 min (124 filings) | 1,879,685 | 4 (types 28–31, 33) | 0 | 1,436 facts: 522 agree with the filing's tags, 27 differ (purchase-commitment definitions, type 34), 887 untagged |
 | all 31, AI spend | `aispend`, blind, `aispend@v2` | 11.6 min (124 filings with an Item 7; 87 asked, 37 had no passage) | 643,212 | 1 (type 24) | 0 | 79 statements → 54 company-year rows: 3 AI dollar amounts (all IREN), 9 company totals with AI as driver (Meta, Tesla, Core Scientific, IREN), 42 words only; IBM, Intel, ExxonMobil, JPMorgan: no passage mentions AI next to spending |
 | all 31 | full run, `tables@9` | 22.6 min (132 filings) | 907,507 | 1 (type 23) | 8 | 354/384 (26 explained by code: 16 not reported, 10 definition gaps); 1,431/1,431 cells confirmed |
 

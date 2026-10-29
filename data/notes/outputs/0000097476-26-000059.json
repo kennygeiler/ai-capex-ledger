@@ -1,0 +1,169 @@
+{
+ "accession": "0000097476-26-000059",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Analog",
+   "table_id": "t0023",
+   "row_label": "Revenue",
+   "column_label": "For Year Ended December 31, 2025 | Analog",
+   "cell_text": "14,006",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 14006000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Embedded Processing",
+   "table_id": "t0023",
+   "row_label": "Revenue",
+   "column_label": "For Year Ended December 31, 2025 | Embedded Processing",
+   "cell_text": "2,697",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 2697000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Other",
+   "table_id": "t0023",
+   "row_label": "Revenue",
+   "column_label": "For Year Ended December 31, 2025 | Other",
+   "cell_text": "979",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 979000000,
+   "confidence": 0.8,
+   "notes": "\"Other\" is shown alongside the reportable segments but is a catch-all of non-reportable operations, not a reportable segment."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Analog",
+   "table_id": "t0014",
+   "row_label": "Revenue",
+   "column_label": "2024",
+   "cell_text": "12,161",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 12161000000,
+   "confidence": 0.7,
+   "notes": "Table t0014 does not name its segment; it is identified as Analog because its 2025 revenue (14,006) and operating profit (5,412) match the Analog column of t0023 exactly."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0069",
+   "row_label": "Land",
+   "column_label": "Depreciable Lives (Years) | 2025",
+   "cell_text": "162",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 162000000,
+   "confidence": 0.9,
+   "notes": "The 2025 column header is merged with the depreciable-lives header. The values are gross amounts: 162 + 6,830 + 10,690 = 17,682, which is the Total."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0069",
+   "row_label": "Buildings and improvements",
+   "column_label": "Depreciable Lives (Years) | 2025",
+   "cell_text": "6,830",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 6830000000,
+   "confidence": 0.9,
+   "notes": "The 2025 column header is merged with the depreciable-lives header, but the values sum to the Total, so they are gross amounts."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0069",
+   "row_label": "Machinery and equipment",
+   "column_label": "Depreciable Lives (Years) | 2025",
+   "cell_text": "10,690",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 10690000000,
+   "confidence": 0.9,
+   "notes": "The 2025 column header is merged with the depreciable-lives header, but the values sum to the Total, so they are gross amounts."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0069",
+   "row_label": "Land",
+   "column_label": "December 31, | 2024",
+   "cell_text": "113",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 113000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0069",
+   "row_label": "Buildings and improvements",
+   "column_label": "December 31, | 2024",
+   "cell_text": "6,424",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 6424000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0069",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31, | 2024",
+   "cell_text": "8,717",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 8717000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0065",
+   "row_label": "Purchase commitments",
+   "column_label": "Total",
+   "cell_text": "1,442",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 1442000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "The segment table (t0023) reports revenue through operating profit only. Capital expenditures appear only as a consolidated figure in the free-cash-flow reconciliation (t0017)."
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "No lease table is among the tables provided, and no finance lease liability line appears in any table."
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "Embedded Processing and Other revenue for 2024 are not in the tables provided. Only the 2024 Analog figure appears, in t0014."
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "No 2024 year-end total is given. Table t0065 shows commitments as of 2025-12-31 only."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 22.9,
+  "input_tokens": 5402,
+  "output_tokens": 2874,
+  "attempts": 1,
+  "task_sha": "2afdc455bbcbd7b4"
+ }
+}

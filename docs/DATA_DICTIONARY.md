@@ -1,6 +1,6 @@
 # Data dictionary
 
-Generated from `ledger/store.py` (schema version 5). Do not edit by hand: run `uv run python -m ledger.store`.
+Generated from `ledger/store.py` (schema version 6). Do not edit by hand: run `uv run python -m ledger.store`.
 
 Money is BIGINT US dollars, unscaled. Dates are `YYYY-MM-DD` strings; timestamps are UTC ISO 8601.
 
@@ -144,6 +144,56 @@ Key: `(ticker, field, period, kind)`
 | `statement_ids` | VARCHAR | yes |  | Statements considered, comma-separated. |
 | `input_hash` | VARCHAR | yes |  | Hash of everything this row depends on. |
 
+## `note_extractions`
+
+Table A for note facts: every cell the notes reader cited (segment capex and revenue, PP&E by category, finance lease liabilities, purchase commitments).
+
+Key: `(extraction_id)`
+
+| Column | Type | Required | Allowed values | Meaning |
+|---|---|---|---|---|
+| `extraction_id` | VARCHAR | yes |  | Stable ID: accession|field|dimension|period_end. |
+| `accession` | VARCHAR | yes | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession number of the filing, e.g. 0001045810-26-000075. |
+| `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
+| `field` | VARCHAR | yes | `segment_capex`, `segment_revenue`, `ppe_category`, `finance_lease_liability`, `purchase_commitments` | segment_capex, segment_revenue, ppe_category, finance_lease_liability or purchase_commitments. |
+| `dimension` | VARCHAR | no |  | Segment, market or PP&E category, as written in the filing. Null for a company total. |
+| `period_end` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Fiscal year end the column refers to. |
+| `months` | INTEGER | yes |  | 12 for a flow (capex, revenue); 0 for a balance at period_end. |
+| `value` | BIGINT | yes |  | US dollars, unscaled, positive. |
+| `unit_stated` | VARCHAR | no |  | Unit text as written. |
+| `unit_source` | VARCHAR | yes | `table`, `statement`, `document` | Where the unit was stated. |
+| `scale` | BIGINT | yes |  | 1, 1000, 1000000 or 1000000000. |
+| `table_id` | VARCHAR | yes |  | Cited table. |
+| `row_label` | VARCHAR | yes |  | Cited row label, verbatim. |
+| `column_label` | VARCHAR | yes |  | Cited column label, verbatim. |
+| `cell_text` | VARCHAR | yes |  | Cited cell text, verbatim. |
+| `confidence` | DOUBLE | yes |  | Agent's confidence, 0 to 1. |
+| `notes` | VARCHAR | no |  | Agent's notes. |
+| `prompt_version` | VARCHAR | yes |  | Prompt file and version, e.g. notes@v1. |
+| `run_id` | VARCHAR | yes |  | Run that produced it. |
+
+## `facts`
+
+Table B for note facts: one value per company, field, dimension and fiscal year from the newest filing, labelled against the filing's XBRL instance where the fact carries a matching member.
+
+Key: `(ticker, field, dimension, period)`
+
+| Column | Type | Required | Allowed values | Meaning |
+|---|---|---|---|---|
+| `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
+| `field` | VARCHAR | yes | `segment_capex`, `segment_revenue`, `ppe_category`, `finance_lease_liability`, `purchase_commitments` | As in note_extractions. |
+| `dimension` | VARCHAR | yes |  | Segment, market or category; empty string for a company total (part of the key). |
+| `period` | VARCHAR | yes | pattern `^FY\d{4}$` | The company's fiscal year, e.g. FY2026 (NVDA's ended 25 Jan 2026). |
+| `period_end` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Fiscal year end date. |
+| `value` | BIGINT | yes |  | US dollars, unscaled. |
+| `first_reported` | BIGINT | yes |  | The figure in the first 10-K that reported it. |
+| `basis` | VARCHAR | yes | `as_reported`, `restated` | as_reported, or restated when a later 10-K changed it. |
+| `label` | VARCHAR | yes | `agree`, `unresolved`, `no_reference` | agree or unresolved against the XBRL instance member; no_reference when no tagged fact matches the dimension. |
+| `reference` | BIGINT | no |  | The XBRL value compared with, when any. |
+| `accession` | VARCHAR | yes | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession number of the filing, e.g. 0001045810-26-000075. |
+| `extraction_ids` | VARCHAR | yes |  | Extractions used, comma-separated. |
+| `input_hash` | VARCHAR | yes |  | Hash of everything this row depends on. |
+
 ## `rules`
 
 The rule registry as loaded from rules/*.yaml.
@@ -205,7 +255,7 @@ Key: `(run_id, step, subject)`
 | Column | Type | Required | Allowed values | Meaning |
 |---|---|---|---|---|
 | `run_id` | VARCHAR | yes |  | Run ID. |
-| `step` | VARCHAR | yes | `run`, `ingest`, `parse`, `extract`, `reconcile`, `aispend`, `rules`, `faults`, `evidence`, `report`, `review`, `score`, `release` | Step name. |
+| `step` | VARCHAR | yes | `run`, `ingest`, `parse`, `extract`, `reconcile`, `aispend`, `notes`, `rules`, `faults`, `evidence`, `report`, `review`, `score`, `release` | Step name. |
 | `subject` | VARCHAR | no |  | What it ran on (accession, ticker, release). |
 | `started_at` | VARCHAR | yes |  | UTC timestamp. |
 | `seconds` | DOUBLE | yes |  | Wall-clock duration. |

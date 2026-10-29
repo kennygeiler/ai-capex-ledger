@@ -1,0 +1,257 @@
+{
+ "accession": "0001564590-22-023675",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Cloud and license",
+   "table_id": "t0286",
+   "row_label": "Revenues(1)",
+   "column_label": "Year Ended May 31, | 2022",
+   "cell_text": "36,052",
+   "period_end": "2022-05-31",
+   "months": 12,
+   "value": 36052000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Cloud and license",
+   "table_id": "t0286",
+   "row_label": "Revenues(1)",
+   "column_label": "Year Ended May 31, | 2021",
+   "cell_text": "34,101",
+   "period_end": "2021-05-31",
+   "months": 12,
+   "value": 34101000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Cloud and license",
+   "table_id": "t0286",
+   "row_label": "Revenues(1)",
+   "column_label": "Year Ended May 31, | 2020",
+   "cell_text": "32,523",
+   "period_end": "2020-05-31",
+   "months": 12,
+   "value": 32523000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Hardware",
+   "table_id": "t0286",
+   "row_label": "Revenues",
+   "column_label": "Year Ended May 31, | 2022",
+   "cell_text": "3,183",
+   "period_end": "2022-05-31",
+   "months": 12,
+   "value": 3183000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Hardware",
+   "table_id": "t0286",
+   "row_label": "Revenues",
+   "column_label": "Year Ended May 31, | 2021",
+   "cell_text": "3,359",
+   "period_end": "2021-05-31",
+   "months": 12,
+   "value": 3359000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Hardware",
+   "table_id": "t0286",
+   "row_label": "Revenues",
+   "column_label": "Year Ended May 31, | 2020",
+   "cell_text": "3,443",
+   "period_end": "2020-05-31",
+   "months": 12,
+   "value": 3443000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Services",
+   "table_id": "t0286",
+   "row_label": "Revenues",
+   "column_label": "Year Ended May 31, | 2022",
+   "cell_text": "3,205",
+   "period_end": "2022-05-31",
+   "months": 12,
+   "value": 3205000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Services",
+   "table_id": "t0286",
+   "row_label": "Revenues",
+   "column_label": "Year Ended May 31, | 2021",
+   "cell_text": "3,021",
+   "period_end": "2021-05-31",
+   "months": 12,
+   "value": 3021000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Services",
+   "table_id": "t0286",
+   "row_label": "Revenues",
+   "column_label": "Year Ended May 31, | 2020",
+   "cell_text": "3,106",
+   "period_end": "2020-05-31",
+   "months": 12,
+   "value": 3106000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer, network, machinery and equipment",
+   "table_id": "t0238",
+   "row_label": "Computer, network, machinery and equipment",
+   "column_label": "May 31, | 2022",
+   "cell_text": "12,844",
+   "period_end": "2022-05-31",
+   "months": 0,
+   "value": 12844000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer, network, machinery and equipment",
+   "table_id": "t0238",
+   "row_label": "Computer, network, machinery and equipment",
+   "column_label": "May 31, | 2021",
+   "cell_text": "9,508",
+   "period_end": "2021-05-31",
+   "months": 0,
+   "value": 9508000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0238",
+   "row_label": "Buildings and improvements",
+   "column_label": "May 31, | 2022",
+   "cell_text": "4,729",
+   "period_end": "2022-05-31",
+   "months": 0,
+   "value": 4729000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0238",
+   "row_label": "Buildings and improvements",
+   "column_label": "May 31, | 2021",
+   "cell_text": "4,734",
+   "period_end": "2021-05-31",
+   "months": 0,
+   "value": 4734000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures and other",
+   "table_id": "t0238",
+   "row_label": "Furniture, fixtures and other",
+   "column_label": "May 31, | 2022",
+   "cell_text": "423",
+   "period_end": "2022-05-31",
+   "months": 0,
+   "value": 423000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures and other",
+   "table_id": "t0238",
+   "row_label": "Furniture, fixtures and other",
+   "column_label": "May 31, | 2021",
+   "cell_text": "454",
+   "period_end": "2021-05-31",
+   "months": 0,
+   "value": 454000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0238",
+   "row_label": "Land",
+   "column_label": "May 31, | 2022",
+   "cell_text": "1,166",
+   "period_end": "2022-05-31",
+   "months": 0,
+   "value": 1166000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0238",
+   "row_label": "Land",
+   "column_label": "May 31, | 2021",
+   "cell_text": "871",
+   "period_end": "2021-05-31",
+   "months": 0,
+   "value": 871000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0238",
+   "row_label": "Construction in progress",
+   "column_label": "May 31, | 2022",
+   "cell_text": "512",
+   "period_end": "2022-05-31",
+   "months": 0,
+   "value": 512000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0238",
+   "row_label": "Construction in progress",
+   "column_label": "May 31, | 2021",
+   "cell_text": "233",
+   "period_end": "2021-05-31",
+   "months": 0,
+   "value": 233000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment note (t0286) reports revenues, expenses and margin per segment only; no capital expenditures by segment"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities was provided"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table was provided"
+  }
+ ],
+ "notes": "segment_revenue taken from the segment note t0286. The parsed table has no header row for the first segment; the rows before 'Hardware:' are assigned to Cloud and license because their 2022 value (36,052) matches 'Cloud and license' in t0155 and t0166. The Hardware and Services rows are both labelled 'Revenues', so each citation is told apart by the segment header above it ('Hardware:' / 'Services:') and by its cell value. Geographic revenue rows (Americas/EMEA/Asia Pacific) are not reportable segments and were excluded.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 23.5,
+  "input_tokens": 7478,
+  "output_tokens": 3275,
+  "attempts": 1,
+  "task_sha": "66b27df62d09f7b4"
+ }
+}

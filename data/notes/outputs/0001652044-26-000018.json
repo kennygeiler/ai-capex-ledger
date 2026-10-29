@@ -1,0 +1,161 @@
+{
+ "accession": "0001652044-26-000018",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Google Services",
+   "table_id": "t0162",
+   "row_label": "Google Services",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "272,543",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 272543000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Google Services",
+   "table_id": "t0162",
+   "row_label": "Google Services",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "304,930",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 304930000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Google Services",
+   "table_id": "t0162",
+   "row_label": "Google Services",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "342,721",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 342721000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Google Cloud",
+   "table_id": "t0162",
+   "row_label": "Google Cloud",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "33,088",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 33088000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Google Cloud",
+   "table_id": "t0162",
+   "row_label": "Google Cloud",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "43,229",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 43229000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Google Cloud",
+   "table_id": "t0162",
+   "row_label": "Google Cloud",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "58,705",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 58705000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Other Bets",
+   "table_id": "t0162",
+   "row_label": "Other Bets",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "1,527",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 1527000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Other Bets",
+   "table_id": "t0162",
+   "row_label": "Other Bets",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "1,648",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 1648000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Other Bets",
+   "table_id": "t0162",
+   "row_label": "Other Bets",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "1,537",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 1537000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0122",
+   "row_label": "Total finance lease liabilities",
+   "column_label": "December 31, | 2024",
+   "cell_text": "1,677",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 1677000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0122",
+   "row_label": "Total finance lease liabilities",
+   "column_label": "December 31, | 2025",
+   "cell_text": "2,500",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 2500000000,
+   "confidence": 0.95
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment table t0162 reports revenues, operating income and segment expenses only; no capital expenditures by segment are given"
+  },
+  {
+   "field": "ppe_category",
+   "reason": "no property-and-equipment note table by category was provided"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table was provided"
+  }
+ ],
+ "notes": "Hedging gains (losses) in t0162 is excluded from segment_revenue because it is a reconciling item, not a segment. t0122 does not state its unit with the table. The filing-level unit is 'in millions'; its 'except per share amounts' qualifier does not apply here. Confidence for finance_lease_liability is set to 0.95 because the unit was inferred.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.5,
+  "input_tokens": 6045,
+  "output_tokens": 1770,
+  "attempts": 1,
+  "task_sha": "4411792fa5cd5649"
+ }
+}

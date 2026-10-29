@@ -53,11 +53,12 @@ def _ask(text: str, m: str) -> tuple[str, dict]:
 
 
 def _json(text: str) -> dict:
-    m = re.search(r"\{.*\}", text, re.S)  # the object, without any code fence or sentence around it
-    if not m:
+    start = text.find("{")  # the first object, without any code fence or sentence around it, or anything after it
+    if start < 0:
         raise Invalid("the answer has no JSON object")
     try:
-        return json.loads(m.group(0))
+        obj, _ = json.JSONDecoder().raw_decode(text[start:])
+        return obj
     except json.JSONDecodeError as e:
         raise Invalid(f"the JSON doesn't parse: {e}") from e
 

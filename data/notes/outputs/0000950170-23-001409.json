@@ -1,0 +1,265 @@
+{
+ "accession": "0000950170-23-001409",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Automotive and services and other segment",
+   "table_id": "t0069",
+   "row_label": "Revenues",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "77,553",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 77553000000,
+   "confidence": 0.7
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Automotive and services and other segment",
+   "table_id": "t0069",
+   "row_label": "Revenues",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "51,034",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 51034000000,
+   "confidence": 0.7
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Automotive and services and other segment",
+   "table_id": "t0069",
+   "row_label": "Revenues",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "29,542",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 29542000000,
+   "confidence": 0.7
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Energy generation and storage segment",
+   "table_id": "t0069",
+   "row_label": "Revenues",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "3,909",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 3909000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Energy generation and storage segment",
+   "table_id": "t0069",
+   "row_label": "Revenues",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "2,789",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 2789000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Energy generation and storage segment",
+   "table_id": "t0069",
+   "row_label": "Revenues",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "1,994",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 1994000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery, equipment, vehicles and office furniture",
+   "table_id": "t0045",
+   "row_label": "Machinery, equipment, vehicles and office furniture",
+   "column_label": "December 31, | 2022",
+   "cell_text": "13,558",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 13558000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery, equipment, vehicles and office furniture",
+   "table_id": "t0045",
+   "row_label": "Machinery, equipment, vehicles and office furniture",
+   "column_label": "December 31, | 2021",
+   "cell_text": "9,953",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 9953000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Tooling",
+   "table_id": "t0045",
+   "row_label": "Tooling",
+   "column_label": "December 31, | 2022",
+   "cell_text": "2,579",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 2579000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Tooling",
+   "table_id": "t0045",
+   "row_label": "Tooling",
+   "column_label": "December 31, | 2021",
+   "cell_text": "2,188",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 2188000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0045",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, | 2022",
+   "cell_text": "2,366",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 2366000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0045",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, | 2021",
+   "cell_text": "1,826",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 1826000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and buildings",
+   "table_id": "t0045",
+   "row_label": "Land and buildings",
+   "column_label": "December 31, | 2022",
+   "cell_text": "7,751",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 7751000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and buildings",
+   "table_id": "t0045",
+   "row_label": "Land and buildings",
+   "column_label": "December 31, | 2021",
+   "cell_text": "4,675",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 4675000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment, hardware and software",
+   "table_id": "t0045",
+   "row_label": "Computer equipment, hardware and software",
+   "column_label": "December 31, | 2022",
+   "cell_text": "2,072",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 2072000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment, hardware and software",
+   "table_id": "t0045",
+   "row_label": "Computer equipment, hardware and software",
+   "column_label": "December 31, | 2021",
+   "cell_text": "1,414",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 1414000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0045",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, | 2022",
+   "cell_text": "4,263",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 4263000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0045",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, | 2021",
+   "cell_text": "5,559",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 5559000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0051",
+   "row_label": "Total finance lease liabilities",
+   "column_label": "December 31, 2022",
+   "cell_text": "1,054",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 1054000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0051",
+   "row_label": "Total finance lease liabilities",
+   "column_label": "December 31, 2021",
+   "cell_text": "1,492",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 1492000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment table (t0069) reports revenues and gross profit only; no capital expenditures by segment appear in the tables provided"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or purchase-commitments table is among the tables provided"
+  }
+ ],
+ "notes": "Segment revenue taken from t0069 (reportable segments) rather than t0028 (revenue by source), since Tesla reports two segments. In t0069 the first segment's header row was not parsed; its 'Revenues' row precedes the 'Energy generation and storage segment' header. The dimension 'Automotive and services and other segment' is Tesla's name for that segment and does not appear verbatim in the table, so those rows have confidence 0.7. The two segments sum to total revenues in t0028 (77,553 + 3,909 = 81,462 for 2022), which corroborates the assignment.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 23.9,
+  "input_tokens": 9192,
+  "output_tokens": 3346,
+  "attempts": 1,
+  "task_sha": "a78f596e18611ef7"
+ }
+}

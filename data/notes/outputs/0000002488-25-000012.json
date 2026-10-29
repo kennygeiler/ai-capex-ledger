@@ -1,0 +1,253 @@
+{
+ "accession": "0000002488-25-000012",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Data Center",
+   "table_id": "t0022",
+   "row_label": "Data Center",
+   "column_label": "Year Ended | December 28,2024",
+   "cell_text": "12,579",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 12579000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Data Center",
+   "table_id": "t0022",
+   "row_label": "Data Center",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "6,496",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 6496000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Data Center",
+   "table_id": "t0022",
+   "row_label": "Data Center",
+   "column_label": "Year Ended | December 31,2022",
+   "cell_text": "6,043",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 6043000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Client",
+   "table_id": "t0022",
+   "row_label": "Client",
+   "column_label": "Year Ended | December 28,2024",
+   "cell_text": "7,054",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 7054000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Client",
+   "table_id": "t0022",
+   "row_label": "Client",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "4,651",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 4651000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Client",
+   "table_id": "t0022",
+   "row_label": "Client",
+   "column_label": "Year Ended | December 31,2022",
+   "cell_text": "6,201",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 6201000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Gaming",
+   "table_id": "t0022",
+   "row_label": "Gaming",
+   "column_label": "Year Ended | December 28,2024",
+   "cell_text": "2,595",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 2595000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Gaming",
+   "table_id": "t0022",
+   "row_label": "Gaming",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "6,212",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 6212000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Gaming",
+   "table_id": "t0022",
+   "row_label": "Gaming",
+   "column_label": "Year Ended | December 31,2022",
+   "cell_text": "6,805",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 6805000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Embedded",
+   "table_id": "t0022",
+   "row_label": "Embedded",
+   "column_label": "Year Ended | December 28,2024",
+   "cell_text": "3,557",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 3557000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Embedded",
+   "table_id": "t0022",
+   "row_label": "Embedded",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "5,321",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 5321000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Embedded",
+   "table_id": "t0022",
+   "row_label": "Embedded",
+   "column_label": "Year Ended | December 31,2022",
+   "cell_text": "4,552",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 4552000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land, building and leasehold improvements",
+   "table_id": "t0020",
+   "row_label": "Land, building and leasehold improvements",
+   "column_label": "December 28,2024",
+   "cell_text": "853",
+   "period_end": "2024-12-28",
+   "months": 0,
+   "value": 853000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land, building and leasehold improvements",
+   "table_id": "t0020",
+   "row_label": "Land, building and leasehold improvements",
+   "column_label": "December 30,2023",
+   "cell_text": "821",
+   "period_end": "2023-12-30",
+   "months": 0,
+   "value": 821000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0020",
+   "row_label": "Equipment",
+   "column_label": "December 28,2024",
+   "cell_text": "2,798",
+   "period_end": "2024-12-28",
+   "months": 0,
+   "value": 2798000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0020",
+   "row_label": "Equipment",
+   "column_label": "December 30,2023",
+   "cell_text": "2,346",
+   "period_end": "2023-12-30",
+   "months": 0,
+   "value": 2346000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0020",
+   "row_label": "Construction in progress",
+   "column_label": "December 28,2024",
+   "cell_text": "324",
+   "period_end": "2024-12-28",
+   "months": 0,
+   "value": 324000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0020",
+   "row_label": "Construction in progress",
+   "column_label": "December 30,2023",
+   "cell_text": "209",
+   "period_end": "2023-12-30",
+   "months": 0,
+   "value": 209000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0058",
+   "row_label": "Total unconditional purchase commitments",
+   "column_label": "Year | 4,501 | 274 | 46 | 45",
+   "cell_text": "4,968",
+   "period_end": "2024-12-28",
+   "months": 0,
+   "value": 4968000000,
+   "confidence": 0.8,
+   "notes": "Table header is mis-parsed (yearly payment amounts merged into the column label) and states no date; period_end assumed to be the filing's fiscal year-end 2024-12-28. The total row is plainly the purchase commitments total."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment tables report revenue, cost of sales and operating expenses, and operating income only; no capital expenditures by segment"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities was provided"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.6,
+  "input_tokens": 6118,
+  "output_tokens": 2703,
+  "attempts": 1,
+  "task_sha": "372a2be0abba96b1"
+ }
+}

@@ -8,7 +8,6 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 | ID | Ticket | Done when |
 |---|---|---|
-| M4 | Base facts for attribution: segment capex, PP&E by category, purchase commitments, finance leases, seller DC segment revenue. | Fields in `values` with citations, reconciled against the XBRL instance where tagged. |
 | M5 | Sources: 8-K Exhibit 99.1 and IR-page prepared remarks (free, scraped), through the AI spend reader. | `ai_spend.csv` has explicit AI amounts for the hyperscalers. |
 | M6 | Money-flow model per industry + attribution agent; edit model → rerun agent only → diff. | Attribution rows with method, confidence, citation; DATAHQ Attribution tab. |
 | M7 | DATAHQ: Pipeline / Attribution / Insights tabs; insights viz (money flow, AI share over time, hard vs stated vs words). | Three tabs; charts read from the signed release. |
@@ -22,6 +21,7 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Done
 
+- **Facts from the notes (29 Oct, M4):** `ledger notes`, agent `notes_reader` (`notes@v2`), tables `note_extractions` / `facts`, XBRL-instance answer key with members, `facts.csv` in releases, company page section. Types 28–32.
 - **No questions (29 Oct):** `definitions/companies.yaml` + `ledger/definitions.py`; reconcile and `cost_lines_summed` read it; warnings are findings with an SEC-data flag. M3.1 closed by this (one definition per cause).
 - **Airflow DAG (29 Oct):** `airflow/dags/capex_ledger.py`, one task per step of `ledger/steps.py`; parsed and task-tested with Airflow 3.3.2 (L5).
 - **AI spend from the MD&A (29 Oct):** `ledger aispend`, agent `ai_reader` (`aispend@v2`), tables `ai_statements` / `ai_spend`, rule `ai_amount_within_capex`, `ai_spend.csv` in every release, DATAHQ company section and dashboard column; Item 7 through `edgartools`. Types 24–27 in INGESTION.

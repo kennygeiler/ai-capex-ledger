@@ -1,0 +1,281 @@
+{
+ "accession": "0000050863-25-000009",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "CCG",
+   "table_id": "t0148",
+   "row_label": "Revenue",
+   "column_label": "Dec 28, 2024 | Intel Products | CCG",
+   "cell_text": "30,290",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 30290000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "DCAI",
+   "table_id": "t0148",
+   "row_label": "Revenue",
+   "column_label": "Dec 28, 2024 | Intel Products | DCAI",
+   "cell_text": "12,817",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 12817000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "NEX",
+   "table_id": "t0148",
+   "row_label": "Revenue",
+   "column_label": "Dec 28, 2024 | Intel Products | NEX",
+   "cell_text": "5,842",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 5842000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Intel Foundry",
+   "table_id": "t0148",
+   "row_label": "Revenue",
+   "column_label": "Dec 28, 2024 | Intel Products | Intel Foundry",
+   "cell_text": "17,543",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 17543000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "All Other",
+   "table_id": "t0148",
+   "row_label": "Revenue",
+   "column_label": "Dec 28, 2024 | Intel Products | All Other",
+   "cell_text": "3,824",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 3824000000,
+   "confidence": 0.8
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "CCG",
+   "table_id": "t0149",
+   "row_label": "Revenue",
+   "column_label": "Dec 30, 2023 | Intel Products | CCG",
+   "cell_text": "29,258",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 29258000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "DCAI",
+   "table_id": "t0149",
+   "row_label": "Revenue",
+   "column_label": "Dec 30, 2023 | Intel Products | DCAI",
+   "cell_text": "12,635",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 12635000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "NEX",
+   "table_id": "t0149",
+   "row_label": "Revenue",
+   "column_label": "Dec 30, 2023 | Intel Products | NEX",
+   "cell_text": "5,774",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 5774000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Intel Foundry",
+   "table_id": "t0149",
+   "row_label": "Revenue",
+   "column_label": "Dec 30, 2023 | Intel Products | Intel Foundry",
+   "cell_text": "18,910",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 18910000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "All Other",
+   "table_id": "t0149",
+   "row_label": "Revenue",
+   "column_label": "Dec 30, 2023 | Intel Products | All Other",
+   "cell_text": "5,608",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 5608000000,
+   "confidence": 0.8
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "CCG",
+   "table_id": "t0150",
+   "row_label": "Revenue",
+   "column_label": "Dec 31, 2022 | Intel Products | CCG",
+   "cell_text": "31,773",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 31773000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "DCAI",
+   "table_id": "t0150",
+   "row_label": "Revenue",
+   "column_label": "Dec 31, 2022 | Intel Products | DCAI",
+   "cell_text": "16,856",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 16856000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "NEX",
+   "table_id": "t0150",
+   "row_label": "Revenue",
+   "column_label": "Dec 31, 2022 | Intel Products | NEX",
+   "cell_text": "8,409",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 8409000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Intel Foundry",
+   "table_id": "t0150",
+   "row_label": "Revenue",
+   "column_label": "Dec 31, 2022 | Intel Products | Intel Foundry",
+   "cell_text": "27,491",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 27491000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "All Other",
+   "table_id": "t0150",
+   "row_label": "Revenue",
+   "column_label": "Dec 31, 2022 | Intel Products | All Other",
+   "cell_text": "5,530",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 5530000000,
+   "confidence": 0.8
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and buildings",
+   "table_id": "t0169",
+   "row_label": "Land and buildings",
+   "column_label": "Dec 28, 2024",
+   "cell_text": "56,544",
+   "period_end": "2024-12-28",
+   "months": 0,
+   "value": 56544000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0169",
+   "row_label": "Machinery and equipment",
+   "column_label": "Dec 28, 2024",
+   "cell_text": "103,150",
+   "period_end": "2024-12-28",
+   "months": 0,
+   "value": 103150000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0169",
+   "row_label": "Construction in progress",
+   "column_label": "Dec 28, 2024",
+   "cell_text": "50,418",
+   "period_end": "2024-12-28",
+   "months": 0,
+   "value": 50418000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and buildings",
+   "table_id": "t0169",
+   "row_label": "Land and buildings",
+   "column_label": "Dec 30, 2023",
+   "cell_text": "51,182",
+   "period_end": "2023-12-30",
+   "months": 0,
+   "value": 51182000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0169",
+   "row_label": "Machinery and equipment",
+   "column_label": "Dec 30, 2023",
+   "cell_text": "100,033",
+   "period_end": "2023-12-30",
+   "months": 0,
+   "value": 100033000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0169",
+   "row_label": "Construction in progress",
+   "column_label": "Dec 30, 2023",
+   "cell_text": "43,442",
+   "period_end": "2023-12-30",
+   "months": 0,
+   "value": 43442000000,
+   "confidence": 1.0
+  }
+ ],
+ "notes": "Segment revenue taken from the full segment tables t0148-t0150 (t0046-t0048, t0054, t0058 repeat the same figures). CCG, DCAI and NEX are the operating segments aggregated into Intel Products; the 'Total Intel Products' column is skipped as a subtotal of those three to avoid double counting. 'All Other' is not a reportable segment but is reported alongside the segments, hence confidence 0.8. Corporate Unallocated (revenue '\u2014'), Intersegment Eliminations and Total Consolidated are skipped.",
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment tables report revenue, cost of sales, gross margin, operating expenses and operating income only; no per-segment capital expenditures are given"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "lease table t0244 gives only undiscounted finance lease payments by year (total 235); the 'Present value of lease payments' (614) appears only in the Total column and evidently combines operating and finance leases, so no finance lease liability balance can be cited"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or purchase-commitments table is among the tables provided"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 23.6,
+  "input_tokens": 9221,
+  "output_tokens": 3606,
+  "attempts": 1,
+  "task_sha": "b4ad56d5ba147a54"
+ }
+}

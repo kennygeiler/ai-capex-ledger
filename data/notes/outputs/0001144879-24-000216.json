@@ -1,0 +1,324 @@
+{
+ "accession": "0001144879-24-000216",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_capex",
+   "dimension": "Data Center Hosting Business",
+   "table_id": "t0047",
+   "row_label": "Data Center Hosting Business",
+   "column_label": "Fiscal year ended | May 31, 2024",
+   "cell_text": "38,266",
+   "period_end": "2024-05-31",
+   "months": 12,
+   "value": 38266000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Data Center Hosting Business",
+   "table_id": "t0047",
+   "row_label": "Data Center Hosting Business",
+   "column_label": "Fiscal year ended | May 31, 2023",
+   "cell_text": "135,946",
+   "period_end": "2023-05-31",
+   "months": 12,
+   "value": 135946000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Cloud Services Business",
+   "table_id": "t0047",
+   "row_label": "Cloud Services Business",
+   "column_label": "Fiscal year ended | May 31, 2024",
+   "cell_text": "80,082",
+   "period_end": "2024-05-31",
+   "months": 12,
+   "value": 80082000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Cloud Services Business",
+   "table_id": "t0047",
+   "row_label": "Cloud Services Business",
+   "column_label": "Fiscal year ended | May 31, 2023",
+   "cell_text": "390",
+   "period_end": "2023-05-31",
+   "months": 12,
+   "value": 390000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "HPC Hosting Business",
+   "table_id": "t0047",
+   "row_label": "HPC Hosting Business",
+   "column_label": "Fiscal year ended | May 31, 2024",
+   "cell_text": "207,299",
+   "period_end": "2024-05-31",
+   "months": 12,
+   "value": 207299000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "HPC Hosting Business",
+   "table_id": "t0047",
+   "row_label": "HPC Hosting Business",
+   "column_label": "Fiscal year ended | May 31, 2023",
+   "cell_text": "9,813",
+   "period_end": "2023-05-31",
+   "months": 12,
+   "value": 9813000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Data Center Hosting Business",
+   "table_id": "t0045",
+   "row_label": "Data Center Hosting Business",
+   "column_label": "Fiscal year ended | May 31, 2024",
+   "cell_text": "136,618",
+   "period_end": "2024-05-31",
+   "months": 12,
+   "value": 136618000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Data Center Hosting Business",
+   "table_id": "t0045",
+   "row_label": "Data Center Hosting Business",
+   "column_label": "Fiscal year ended | May 31, 2023",
+   "cell_text": "55,392",
+   "period_end": "2023-05-31",
+   "months": 12,
+   "value": 55392000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Cloud Services Business",
+   "table_id": "t0045",
+   "row_label": "Cloud Services Business",
+   "column_label": "Fiscal year ended | May 31, 2024",
+   "cell_text": "28,957",
+   "period_end": "2024-05-31",
+   "months": 12,
+   "value": 28957000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Networking equipment, electrical equipment, and software",
+   "table_id": "t0022",
+   "row_label": "Networking equipment, electrical equipment, and software",
+   "column_label": "May 31,2024",
+   "cell_text": "32,517",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 32517000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Networking equipment, electrical equipment, and software",
+   "table_id": "t0022",
+   "row_label": "Networking equipment, electrical equipment, and software",
+   "column_label": "May 31,2023",
+   "cell_text": "21,173",
+   "period_end": "2023-05-31",
+   "months": 0,
+   "value": 21173000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Electric generation and transformers",
+   "table_id": "t0022",
+   "row_label": "Electric generation and transformers",
+   "column_label": "May 31,2024",
+   "cell_text": "9,933",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 9933000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Electric generation and transformers",
+   "table_id": "t0022",
+   "row_label": "Electric generation and transformers",
+   "column_label": "May 31,2023",
+   "cell_text": "4,655",
+   "period_end": "2023-05-31",
+   "months": 0,
+   "value": 4655000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building",
+   "table_id": "t0022",
+   "row_label": "Building",
+   "column_label": "May 31,2024",
+   "cell_text": "103,990",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 103990000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building",
+   "table_id": "t0022",
+   "row_label": "Building",
+   "column_label": "May 31,2023",
+   "cell_text": "63,350",
+   "period_end": "2023-05-31",
+   "months": 0,
+   "value": 63350000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0022",
+   "row_label": "Land",
+   "column_label": "May 31,2024",
+   "cell_text": "6,205",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 6205000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0022",
+   "row_label": "Land",
+   "column_label": "May 31,2023",
+   "cell_text": "2,152",
+   "period_end": "2023-05-31",
+   "months": 0,
+   "value": 2152000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land improvements",
+   "table_id": "t0022",
+   "row_label": "Land improvements",
+   "column_label": "May 31,2024",
+   "cell_text": "1,380",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 1380000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land improvements",
+   "table_id": "t0022",
+   "row_label": "Land improvements",
+   "column_label": "May 31,2023",
+   "cell_text": "1,293",
+   "period_end": "2023-05-31",
+   "months": 0,
+   "value": 1293000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0022",
+   "row_label": "Leasehold improvements",
+   "column_label": "May 31,2024",
+   "cell_text": "1,051",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 1051000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0022",
+   "row_label": "Construction in progress",
+   "column_label": "May 31,2024",
+   "cell_text": "190,162",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 190162000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0022",
+   "row_label": "Construction in progress",
+   "column_label": "May 31,2023",
+   "cell_text": "108,784",
+   "period_end": "2023-05-31",
+   "months": 0,
+   "value": 108784000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other equipment and fixtures",
+   "table_id": "t0022",
+   "row_label": "Other equipment and fixtures",
+   "column_label": "May 31,2024",
+   "cell_text": "9,552",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 9552000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other equipment and fixtures",
+   "table_id": "t0022",
+   "row_label": "Other equipment and fixtures",
+   "column_label": "May 31,2023",
+   "cell_text": "1,684",
+   "period_end": "2023-05-31",
+   "months": 0,
+   "value": 1684000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "finance_lease_liability",
+   "reason": "No single total finance lease liability cell exists. The balance sheet (t0016) shows only components: 'Current portion of finance lease liability' (107,683 at May 31, 2024; 5,722 at May 31, 2023) and 'Long-term portion of finance lease liability' (63,288; 8,334). Their sums would be $170,971 thousand (2024) and $14,056 thousand (2023), but these cannot be cited to one cell."
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "No contractual-obligations or purchase-commitments table is among the provided tables."
+  },
+  {
+   "field": "segment_capex",
+   "reason": "Partial note: the 'Other (1)' capex row in t0047 (4,291 / (1,164)) was skipped because it is not a reportable segment."
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "Partial note: Cloud Services Business FY2023 shows '\u2014' (no revenue), so no value was emitted. HPC Hosting Business has no revenue row in t0045 or t0014. t0014 duplicates t0045, and t0045 was cited."
+  },
+  {
+   "field": "ppe_category",
+   "reason": "Partial note: Leasehold improvements at May 31, 2023 shows '\u2014', so no value was emitted. 'Land and building' is a header row with no values."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 29.9,
+  "input_tokens": 8955,
+  "output_tokens": 4330,
+  "attempts": 1,
+  "task_sha": "6d950a985b4fccb6"
+ }
+}

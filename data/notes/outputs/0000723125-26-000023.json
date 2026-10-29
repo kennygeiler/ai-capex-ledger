@@ -1,0 +1,293 @@
+{
+ "accession": "0000723125-26-000023",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "CMBU",
+   "table_id": "t0045",
+   "row_label": "Revenue",
+   "column_label": "CMBU",
+   "cell_text": "43,085",
+   "period_end": "2026-09-03",
+   "months": 12,
+   "value": 43085000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "CDBU",
+   "table_id": "t0045",
+   "row_label": "Revenue",
+   "column_label": "CDBU",
+   "cell_text": "37,592",
+   "period_end": "2026-09-03",
+   "months": 12,
+   "value": 37592000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "MCBU",
+   "table_id": "t0045",
+   "row_label": "Revenue",
+   "column_label": "MCBU",
+   "cell_text": "36,601",
+   "period_end": "2026-09-03",
+   "months": 12,
+   "value": 36601000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "AEBU",
+   "table_id": "t0045",
+   "row_label": "Revenue",
+   "column_label": "AEBU",
+   "cell_text": "15,886",
+   "period_end": "2026-09-03",
+   "months": 12,
+   "value": 15886000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "CMBU",
+   "table_id": "t0046",
+   "row_label": "Revenue",
+   "column_label": "CMBU",
+   "cell_text": "13,524",
+   "period_end": "2025-08-28",
+   "months": 12,
+   "value": 13524000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "CDBU",
+   "table_id": "t0046",
+   "row_label": "Revenue",
+   "column_label": "CDBU",
+   "cell_text": "7,229",
+   "period_end": "2025-08-28",
+   "months": 12,
+   "value": 7229000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "MCBU",
+   "table_id": "t0046",
+   "row_label": "Revenue",
+   "column_label": "MCBU",
+   "cell_text": "11,859",
+   "period_end": "2025-08-28",
+   "months": 12,
+   "value": 11859000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "AEBU",
+   "table_id": "t0046",
+   "row_label": "Revenue",
+   "column_label": "AEBU",
+   "cell_text": "4,753",
+   "period_end": "2025-08-28",
+   "months": 12,
+   "value": 4753000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "CMBU",
+   "table_id": "t0047",
+   "row_label": "Revenue",
+   "column_label": "CMBU",
+   "cell_text": "3,792",
+   "period_end": "2024-08-29",
+   "months": 12,
+   "value": 3792000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "CDBU",
+   "table_id": "t0047",
+   "row_label": "Revenue",
+   "column_label": "CDBU",
+   "cell_text": "4,984",
+   "period_end": "2024-08-29",
+   "months": 12,
+   "value": 4984000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "MCBU",
+   "table_id": "t0047",
+   "row_label": "Revenue",
+   "column_label": "MCBU",
+   "cell_text": "11,667",
+   "period_end": "2024-08-29",
+   "months": 12,
+   "value": 11667000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "AEBU",
+   "table_id": "t0047",
+   "row_label": "Revenue",
+   "column_label": "AEBU",
+   "cell_text": "4,631",
+   "period_end": "2024-08-29",
+   "months": 12,
+   "value": 4631000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0025",
+   "row_label": "Land",
+   "column_label": "September 3,2026",
+   "cell_text": "420",
+   "period_end": "2026-09-03",
+   "months": 0,
+   "value": 420000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0025",
+   "row_label": "Buildings",
+   "column_label": "September 3,2026",
+   "cell_text": "26,493",
+   "period_end": "2026-09-03",
+   "months": 0,
+   "value": 26493000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0025",
+   "row_label": "Equipment(1)",
+   "column_label": "September 3,2026",
+   "cell_text": "93,954",
+   "period_end": "2026-09-03",
+   "months": 0,
+   "value": 93954000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0025",
+   "row_label": "Construction in progress(2)",
+   "column_label": "September 3,2026",
+   "cell_text": "11,424",
+   "period_end": "2026-09-03",
+   "months": 0,
+   "value": 11424000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Software",
+   "table_id": "t0025",
+   "row_label": "Software",
+   "column_label": "September 3,2026",
+   "cell_text": "1,885",
+   "period_end": "2026-09-03",
+   "months": 0,
+   "value": 1885000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0025",
+   "row_label": "Land",
+   "column_label": "August 28,2025",
+   "cell_text": "420",
+   "period_end": "2025-08-28",
+   "months": 0,
+   "value": 420000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0025",
+   "row_label": "Buildings",
+   "column_label": "August 28,2025",
+   "cell_text": "22,173",
+   "period_end": "2025-08-28",
+   "months": 0,
+   "value": 22173000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0025",
+   "row_label": "Equipment(1)",
+   "column_label": "August 28,2025",
+   "cell_text": "79,934",
+   "period_end": "2025-08-28",
+   "months": 0,
+   "value": 79934000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0025",
+   "row_label": "Construction in progress(2)",
+   "column_label": "August 28,2025",
+   "cell_text": "5,518",
+   "period_end": "2025-08-28",
+   "months": 0,
+   "value": 5518000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Software",
+   "table_id": "t0025",
+   "row_label": "Software",
+   "column_label": "August 28,2025",
+   "cell_text": "1,651",
+   "period_end": "2025-08-28",
+   "months": 0,
+   "value": 1651000000,
+   "confidence": 0.95
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment tables (t0045\u2013t0047) report revenue through operating income only; the only capex figure (t0009, Expenditures for property, plant, and equipment) is consolidated"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table is included in the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included in the provided tables"
+  }
+ ],
+ "notes": "Segment tables t0045/t0046/t0047 have segment names as columns, not years; the fiscal year of each table was inferred by matching its Total revenue to t0012 (133,188 = 2026, 37,378 = 2025, 25,111 = 2024), hence confidence below 1.0. FY2024 period_end 2024-08-29 is derived from Micron's fiscal calendar (year ends on the Thursday nearest Aug 31, consistent with 2025-08-28 and 2026-09-03); no FY2024 date appears in the tables, so confidence is lower still. 'All Other' and 'Unallocated' columns were excluded as they are not reportable segments. The units for t0025 and the segment tables were not stated with the tables; millions was applied from the filing-level unit line, and totals reconcile (t0025 gross 134,176; segment sums match Total). Footnote marks were stripped from the dimensions 'Equipment(1)' and 'Construction in progress(2)'.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 26.0,
+  "input_tokens": 6898,
+  "output_tokens": 3763,
+  "attempts": 1,
+  "task_sha": "450a064bb2383d3c"
+ }
+}

@@ -1,0 +1,137 @@
+{
+ "accession": "0001563190-26-000057",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0044",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, | 2025",
+   "cell_text": "197.5",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 197500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0044",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, | 2024",
+   "cell_text": "186.2",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 186200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office furniture and equipment",
+   "table_id": "t0044",
+   "row_label": "Office furniture and equipment",
+   "column_label": "December 31, | 2025",
+   "cell_text": "39.5",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 39500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office furniture and equipment",
+   "table_id": "t0044",
+   "row_label": "Office furniture and equipment",
+   "column_label": "December 31, | 2024",
+   "cell_text": "37.4",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 37400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer software and internally-developed software",
+   "table_id": "t0044",
+   "row_label": "Computer software and internally-developed software",
+   "column_label": "December 31, | 2025",
+   "cell_text": "56.9",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 56900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer software and internally-developed software",
+   "table_id": "t0044",
+   "row_label": "Computer software and internally-developed software",
+   "column_label": "December 31, | 2024",
+   "cell_text": "49.9",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 49900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment",
+   "table_id": "t0044",
+   "row_label": "Computer equipment",
+   "column_label": "December 31, | 2025",
+   "cell_text": "16.4",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 16400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment",
+   "table_id": "t0044",
+   "row_label": "Computer equipment",
+   "column_label": "December 31, | 2024",
+   "cell_text": "26.1",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 26100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0030",
+   "row_label": "Purchase obligations",
+   "column_label": "Payments Due by Period | Total",
+   "cell_text": "122.6",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 122600000,
+   "confidence": 0.9
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "No segment table with capital expenditures; t0009 is the consolidated statement of operations, consistent with a single reportable segment."
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "Only consolidated revenue appears (t0009 'Revenue' is the total); no per-segment or per-market revenue table is provided."
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "No lease table with finance lease liabilities is provided; the commitments table lists operating lease obligations only."
+  }
+ ],
+ "notes": "purchase_commitments: the contractual-obligations table has no date in its column labels; period_end assumed to be the filing's report period end 2025-12-31, hence confidence 0.9. The unlabeled row in t0044 (310.3 / 299.6) is the gross total and was skipped.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.9,
+  "input_tokens": 6039,
+  "output_tokens": 1574,
+  "attempts": 1,
+  "task_sha": "f6b7bf900a1925b2"
+ }
+}

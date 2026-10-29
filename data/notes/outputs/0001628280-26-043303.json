@@ -1,0 +1,161 @@
+{
+ "accession": "0001628280-26-043303",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Production equipment",
+   "table_id": "t0040",
+   "row_label": "Production equipment",
+   "column_label": "May 2, 2026",
+   "cell_text": "63,214",
+   "period_end": "2026-05-02",
+   "months": 0,
+   "value": 63214000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Production equipment",
+   "table_id": "t0040",
+   "row_label": "Production equipment",
+   "column_label": "May 3, 2025",
+   "cell_text": "44,789",
+   "period_end": "2025-05-03",
+   "months": 0,
+   "value": 44789000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment and software",
+   "table_id": "t0040",
+   "row_label": "Computer equipment and software",
+   "column_label": "May 2, 2026",
+   "cell_text": "48,924",
+   "period_end": "2026-05-02",
+   "months": 0,
+   "value": 48924000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment and software",
+   "table_id": "t0040",
+   "row_label": "Computer equipment and software",
+   "column_label": "May 3, 2025",
+   "cell_text": "27,901",
+   "period_end": "2025-05-03",
+   "months": 0,
+   "value": 27901000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Laboratory equipment",
+   "table_id": "t0040",
+   "row_label": "Laboratory equipment",
+   "column_label": "May 2, 2026",
+   "cell_text": "36,933",
+   "period_end": "2026-05-02",
+   "months": 0,
+   "value": 36933000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Laboratory equipment",
+   "table_id": "t0040",
+   "row_label": "Laboratory equipment",
+   "column_label": "May 3, 2025",
+   "cell_text": "21,944",
+   "period_end": "2025-05-03",
+   "months": 0,
+   "value": 21944000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0040",
+   "row_label": "Leasehold improvements",
+   "column_label": "May 2, 2026",
+   "cell_text": "4,096",
+   "period_end": "2026-05-02",
+   "months": 0,
+   "value": 4096000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0040",
+   "row_label": "Leasehold improvements",
+   "column_label": "May 3, 2025",
+   "cell_text": "3,513",
+   "period_end": "2025-05-03",
+   "months": 0,
+   "value": 3513000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0040",
+   "row_label": "Construction in progress",
+   "column_label": "May 2, 2026",
+   "cell_text": "27,027",
+   "period_end": "2026-05-02",
+   "months": 0,
+   "value": 27027000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0040",
+   "row_label": "Construction in progress",
+   "column_label": "May 3, 2025",
+   "cell_text": "9,687",
+   "period_end": "2025-05-03",
+   "months": 0,
+   "value": 9687000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0042",
+   "row_label": "Total unconditional purchase commitments",
+   "column_label": "Total | 346,058 | 11,046 | 2,850",
+   "cell_text": "359,954",
+   "period_end": "2026-05-02",
+   "months": 0,
+   "value": 359954000,
+   "confidence": 0.7,
+   "notes": "Table header appears mis-parsed (year-bucket values folded into column labels); the as-of date is not shown in the table and is assumed to be the fiscal year-end 2026-05-02. Total includes technology license fees (12,555) alongside manufacturing/foundry purchase commitments (337,746)."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "Single reportable segment (t0060 reports one segment's revenue, expenses and net income); the segment note gives no capital expenditures by segment."
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "Single reportable segment; t0060 shows only consolidated revenue, and no revenue by market or product line appears in the tables."
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "No lease table with finance lease liabilities is present in the provided tables."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.7,
+  "input_tokens": 5393,
+  "output_tokens": 1984,
+  "attempts": 1,
+  "task_sha": "6e8f0c86f3895b27"
+ }
+}

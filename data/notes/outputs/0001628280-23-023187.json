@@ -1,0 +1,189 @@
+{
+ "accession": "0001628280-23-023187",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment and software",
+   "table_id": "t0036",
+   "row_label": "Computer equipment and software",
+   "column_label": "April 29, 2023",
+   "cell_text": "13,942",
+   "period_end": "2023-04-29",
+   "months": 0,
+   "value": 13942000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment and software",
+   "table_id": "t0036",
+   "row_label": "Computer equipment and software",
+   "column_label": "April 30, 2022",
+   "cell_text": "1,736",
+   "period_end": "2022-04-30",
+   "months": 0,
+   "value": 1736000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Laboratory equipment",
+   "table_id": "t0036",
+   "row_label": "Laboratory equipment",
+   "column_label": "April 29, 2023",
+   "cell_text": "15,577",
+   "period_end": "2023-04-29",
+   "months": 0,
+   "value": 15577000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Laboratory equipment",
+   "table_id": "t0036",
+   "row_label": "Laboratory equipment",
+   "column_label": "April 30, 2022",
+   "cell_text": "9,521",
+   "period_end": "2022-04-30",
+   "months": 0,
+   "value": 9521000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Production equipment",
+   "table_id": "t0036",
+   "row_label": "Production equipment",
+   "column_label": "April 29, 2023",
+   "cell_text": "19,783",
+   "period_end": "2023-04-29",
+   "months": 0,
+   "value": 19783000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Production equipment",
+   "table_id": "t0036",
+   "row_label": "Production equipment",
+   "column_label": "April 30, 2022",
+   "cell_text": "15,502",
+   "period_end": "2022-04-30",
+   "months": 0,
+   "value": 15502000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0036",
+   "row_label": "Leasehold improvements",
+   "column_label": "April 29, 2023",
+   "cell_text": "2,005",
+   "period_end": "2023-04-29",
+   "months": 0,
+   "value": 2005000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0036",
+   "row_label": "Leasehold improvements",
+   "column_label": "April 30, 2022",
+   "cell_text": "1,465",
+   "period_end": "2022-04-30",
+   "months": 0,
+   "value": 1465000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Others",
+   "table_id": "t0036",
+   "row_label": "Others",
+   "column_label": "April 29, 2023",
+   "cell_text": "632",
+   "period_end": "2023-04-29",
+   "months": 0,
+   "value": 632000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Others",
+   "table_id": "t0036",
+   "row_label": "Others",
+   "column_label": "April 30, 2022",
+   "cell_text": "524",
+   "period_end": "2022-04-30",
+   "months": 0,
+   "value": 524000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0036",
+   "row_label": "Construction in progress",
+   "column_label": "April 29, 2023",
+   "cell_text": "6,300",
+   "period_end": "2023-04-29",
+   "months": 0,
+   "value": 6300000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0036",
+   "row_label": "Construction in progress",
+   "column_label": "April 30, 2022",
+   "cell_text": "2,932",
+   "period_end": "2022-04-30",
+   "months": 0,
+   "value": 2932000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0040",
+   "row_label": "Total unconditional purchase commitments",
+   "column_label": "Purchase Commitments to Manufacturing Vendors | 9,134 | 6,763 | 8,131 | 9,282",
+   "cell_text": "40,629",
+   "period_end": "2023-04-29",
+   "months": 0,
+   "value": 40629000,
+   "confidence": 0.8
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "Credo reports a single segment; no per-segment capital expenditures table is present"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "t0013 shows revenue by type only as a percentage of total revenue, with no dollar amounts; no segment or market revenue table in dollars is present"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease table with finance lease liabilities is present in the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "only the April 29, 2023 year-end is given; no prior-year (April 30, 2022) commitments table is present"
+  }
+ ],
+ "notes": "purchase_commitments: t0040's column headers were parsed with the yearly payment cells merged in; the manufacturing-vendor total 40,629 matches the sum 9,134+6,763+8,131+9,282+7,319. A separate Technology License Fees column (total 12,009) is also an unconditional commitment, but it was excluded because it is license fees rather than purchase obligations; confidence is 0.8 for that reason. The as-of date of 2023-04-29 is inferred from the filing period because the table does not state a date. ppe_category: the unlabeled subtotal (58,238 / 31,680), accumulated depreciation and net rows were skipped; t0030 (useful lives) contains no dollar values.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.1,
+  "input_tokens": 5382,
+  "output_tokens": 2398,
+  "attempts": 1,
+  "task_sha": "d8730196371e0305"
+ }
+}

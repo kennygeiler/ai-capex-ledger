@@ -1,0 +1,137 @@
+{
+ "accession": "0001835632-23-000013",
+ "prompt_version": "notes@v2",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0072",
+   "row_label": "Machinery and equipment",
+   "column_label": "January 28,2023",
+   "cell_text": "1,083.9",
+   "period_end": "2023-01-28",
+   "months": 0,
+   "value": 1083900000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0072",
+   "row_label": "Machinery and equipment",
+   "column_label": "January 29,2022",
+   "cell_text": "895.4",
+   "period_end": "2022-01-29",
+   "months": 0,
+   "value": 895400000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land, buildings, and leasehold improvements",
+   "table_id": "t0072",
+   "row_label": "Land, buildings, and leasehold improvements",
+   "column_label": "January 28,2023",
+   "cell_text": "306.2",
+   "period_end": "2023-01-28",
+   "months": 0,
+   "value": 306200000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land, buildings, and leasehold improvements",
+   "table_id": "t0072",
+   "row_label": "Land, buildings, and leasehold improvements",
+   "column_label": "January 29,2022",
+   "cell_text": "293.6",
+   "period_end": "2022-01-29",
+   "months": 0,
+   "value": 293600000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer software",
+   "table_id": "t0072",
+   "row_label": "Computer software",
+   "column_label": "January 28,2023",
+   "cell_text": "114.5",
+   "period_end": "2023-01-28",
+   "months": 0,
+   "value": 114500000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer software",
+   "table_id": "t0072",
+   "row_label": "Computer software",
+   "column_label": "January 29,2022",
+   "cell_text": "109.1",
+   "period_end": "2022-01-29",
+   "months": 0,
+   "value": 109100000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0072",
+   "row_label": "Furniture and fixtures",
+   "column_label": "January 28,2023",
+   "cell_text": "30.9",
+   "period_end": "2023-01-28",
+   "months": 0,
+   "value": 30900000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0072",
+   "row_label": "Furniture and fixtures",
+   "column_label": "January 29,2022",
+   "cell_text": "30.1",
+   "period_end": "2022-01-29",
+   "months": 0,
+   "value": 30100000,
+   "confidence": 0.95
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0037",
+   "row_label": "Total unconditional purchase commitments",
+   "column_label": "Purchase Commitments toFoundries and Test & AssemblyPartners | 742.7 | 622.1 | 613.9 | 449.4 | 185.5",
+   "cell_text": "3,147.1",
+   "period_end": "2023-01-28",
+   "months": 0,
+   "value": 3147100000,
+   "confidence": 0.8
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "Marvell operates as one reportable segment; no per-segment capex table is provided (t0011 is a percent-of-revenue income statement)"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "no segment or end-market revenue table is among the provided tables; t0011 shows only consolidated percent-of-revenue lines"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities is provided"
+  }
+ ],
+ "notes": "t0072 unit taken from the filing-level '(In millions...)' header since the table itself states none; the unlabeled 1,535.5/1,328.2 row is the gross total and was skipped. t0037: chose the foundry/test & assembly purchase commitments column (its year values 742.7+622.1+613.9+449.4+185.5+533.5 sum to 3,147.1); the separate Technology License Fees column total (556.6) was excluded, so a combined purchase-obligation figure would be 3,703.7. The table carries no explicit date; assumed as of the fiscal 2023 year-end 2023-01-28.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.0,
+  "input_tokens": 5079,
+  "output_tokens": 1986,
+  "attempts": 1,
+  "task_sha": "100c17abe70e6f4f"
+ }
+}
