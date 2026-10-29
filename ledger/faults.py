@@ -77,7 +77,7 @@ FAULTS = {f.__name__: f for f in (wrong_column, stale_column, wrong_row, wrong_s
 
 def inject(ticker, extractions, reference, fye, docs, ctx: Context, rules) -> list[dict]:
     """One trial per (fault, extraction). Returns rows: fault, extraction_id, outcome, caught_by."""
-    base_vals = {(v["field"], v["period"]): v["value"] for v in values_for(ticker, extractions, reference, fye, docs)}
+    base_vals = {(v["field"], v["period"]): v["value"] for v in values_for(ticker, extractions, reference, fye, docs, ctx.definitions)}
     # An exception counts as new if its id or its content changed: a fault can change an exception that was already open.
     base_exc = {(x["exception_id"], x["input_hash"]) for x in run(ctx, rules)}
     out = []
@@ -88,9 +88,9 @@ def inject(ticker, extractions, reference, fye, docs, ctx: Context, rules) -> li
                 continue
             xs = copy.copy(extractions)
             xs[i] = bad
-            vals = values_for(ticker, xs, reference, fye, docs)
+            vals = values_for(ticker, xs, reference, fye, docs, ctx.definitions)
             changed = any(base_vals.get((v["field"], v["period"])) != v["value"] for v in vals)
-            new = [x for x in run(Context(vals, xs, ctx.reference, ctx.parsed, ctx.years), rules)
+            new = [x for x in run(Context(vals, xs, ctx.reference, ctx.parsed, ctx.years, definitions=ctx.definitions), rules)
                    if (x["exception_id"], x["input_hash"]) not in base_exc and x["severity"] != "info"]
             rules_hit = sorted({x["rule_id"] for x in new if x["rule_id"] != "xbrl_reconcile"})
             outcome = "rule" if rules_hit else "xbrl_only" if new else "escaped" if changed else "no_effect"

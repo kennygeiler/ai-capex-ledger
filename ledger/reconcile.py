@@ -14,6 +14,7 @@ import json
 from datetime import date
 
 from .config import MVP_YEARS, RELEASE_FIELDS
+from .definitions import revenue_gap_explained
 from .ingest.edgar import fetch_json
 from .ingest.filings import fetch_tickers
 from .reference.normalize import fiscal_label
@@ -37,9 +38,10 @@ def _agrees(e: dict, r: int | None) -> bool:
     return r is not None and abs(e["value"] - r) <= max(e["scale"], _rounding(r)) // 2
 
 
-def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str | None, docs: dict) -> list[dict]:
+def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str | None, docs: dict, defs: dict | None = None) -> list[dict]:
     """extractions: 12-month cells joined with their filing date. reference: (field, period) -> value.
-    docs: accession -> (sha256, parser_version), folded into each value's input hash so a reparse reopens decisions."""
+    docs: accession -> (sha256, parser_version), folded into each value's input hash so a reparse reopens decisions.
+    defs: per-company definitions (ledger/definitions.py); a revenue definition turns an XBRL gap into definition_gap."""
     cells = {}  # (period_end, accession) -> {field: extraction}
     for e in extractions:
         if 350 <= (date.fromisoformat(e["period_end"]) - date.fromisoformat(e["period_start"])).days <= 380:
@@ -79,6 +81,8 @@ def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str |
             if label == "unresolved" and f == "opex" and "parts" in latest["cost_of_revenue"] and all(
                     _agrees(latest[p], reference.get((p, period))) for p in ("revenue", "operating_income")):
                 label = "definition_gap"  # the gap can only be which lines count as cost of revenue; a person confirms those once per company
+            if label == "unresolved" and f == "revenue" and revenue_gap_explained(defs or {}, ticker):
+                label = "definition_gap"  # the SEC's tag measures something wider than the sales line; the definition says so
             basis = "restated" if _restated(val(first), v, max(e["scale"] for e in used)) else "as_reported"
             out.append(_row(ticker, f, period, end, v, val(first), used, label, basis, docs))
     return out

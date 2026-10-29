@@ -19,14 +19,11 @@ from .snapshots import diff, last_two
 
 WATCH = store.ROOT / "data" / "watch.json"
 
-# Why each kind of open item needs a person: the cause code could not name. Shown with every question.
+# Why each kind of open item needs a person: the cause code could not name. Shown with every question. Only a block
+# is a question; a warning is a finding about the company, flagged with whether the SEC's data confirms the number.
 WHY = {
-    "xbrl_reconcile": "The 10-K and the SEC's data disagree and code can't name why.",
-    "cost_lines_summed": "Which lines count as cost of revenue is a judgement. Confirm once per company.",
-    "row_label_switch": "The line read for this field changed name between filings: the same line, or a misread?",
-    "jump": "A big move the SEC's data can't confirm: real, or a reading error?",
-    "outlier_vs_own_history": "Far from this company's normal, and the SEC's data can't confirm it: real, or a reading error?",
-    "coverage": "A year that should be there is missing.",
+    "xbrl_reconcile": "The 10-K and the SEC's data disagree and code can't name why. A definition in definitions/companies.yaml settles it for good.",
+    "cost_lines_summed": "Which lines count as cost of revenue is a judgement. Name the lines once in definitions/companies.yaml.",
 }
 CORROBORABLE = ("jump", "outlier_vs_own_history", "row_label_switch")  # a reading error would also disagree with XBRL; agreement rules it out
 
@@ -140,8 +137,8 @@ def snapshot(con, stage: int = 3) -> dict:
     ref = {(r["ticker"], r["field"], r["period"]): r["value"] for r in rows(con, "select ticker, field, period, value from reference_values where ticker in (select unnest(?))", t)}
     questions, moves = [], []
     for e in todo:
-        if e["rule_id"] in CORROBORABLE and corroborated(e):
-            moves.append(e)
+        if e["severity"] != "block":  # a warning is a finding, not a question; the flag says whether the SEC's data confirms it
+            moves.append({**e, "confirmed": e["rule_id"] in CORROBORABLE and corroborated(e)})
             continue
         detail = None
         if e["rule_id"] == "cost_lines_summed":  # the lines and the size of the gap, so the judgement is easy to make
@@ -162,26 +159,28 @@ def snapshot(con, stage: int = 3) -> dict:
         if v["basis"] == "restated" and v["value"] is not None and v["first_reported"]:
             pct = (v["value"] - v["first_reported"]) / abs(v["first_reported"])
             findings.append({"kind": "restated", "ticker": v["ticker"], "company": names.get(v["ticker"]), "field": v["field"], "period": v["period"],
-                             "before": v["first_reported"], "after": v["value"], "size": abs(pct)})
+                             "before": v["first_reported"], "after": v["value"], "size": abs(pct), "confirmed": v["label"] == "agree", "message": None})
     for e in moves:
-        if e["rule_id"] == "jump":
-            s = series[(e["ticker"], e["field"])]; ks = sorted(s); prev = ks[ks.index(e["period"]) - 1]
-            findings.append({"kind": "jump", "ticker": e["ticker"], "company": names.get(e["ticker"]), "field": e["field"], "period": e["period"],
-                             "before": s[prev], "after": s[e["period"]], "from": prev, "size": max(s[e["period"]] / s[prev], s[prev] / s[e["period"]])})
-    for e in moves:
-        if e["rule_id"] == "outlier_vs_own_history":
+        base = {"ticker": e["ticker"], "company": names.get(e["ticker"]), "field": e["field"], "period": e["period"], "confirmed": e["confirmed"], "message": e["message"]}
+        if e["rule_id"] == "jump" and e["period"] in (s := series.get((e["ticker"], e["field"]), {})) and sorted(s).index(e["period"]):
+            ks = sorted(s); prev = ks[ks.index(e["period"]) - 1]
+            findings.append({**base, "kind": "jump", "before": s[prev], "after": s[e["period"]], "from": prev, "size": max(s[e["period"]] / s[prev], s[prev] / s[e["period"]])})
+        elif e["rule_id"] == "outlier_vs_own_history" and (e["ticker"], "capex") in series and (e["ticker"], "revenue") in series:
             c, r = series[(e["ticker"], "capex")][e["period"]], series[(e["ticker"], "revenue")][e["period"]]
-            findings.append({"kind": "capex_intensity", "ticker": e["ticker"], "company": names.get(e["ticker"]), "field": "capex", "period": e["period"],
-                             "before": r, "after": c, "size": c / r, "message": e["message"]})
+            findings.append({**base, "kind": "capex_intensity", "field": "capex", "before": r, "after": c, "size": c / r})
+        elif e["rule_id"] == "row_label_switch":
+            findings.append({**base, "kind": "row_switch", "before": None, "after": None, "size": 0})
+        else:
+            findings.append({**base, "kind": "other", "before": None, "after": None, "size": 0})
     for (t, f), s in series.items():
         if f == "opex":
             for q, v in s.items():
                 r = series.get((t, "revenue"), {}).get(q)
                 if r and v > r:
                     findings.append({"kind": "opex_over_revenue", "ticker": t, "company": names.get(t), "field": "opex", "period": q,
-                                     "before": r, "after": v, "size": v / r})
-    order = {"restated": 0, "jump": 1, "capex_intensity": 2, "opex_over_revenue": 3}
-    findings.sort(key=lambda x: (order[x["kind"]], -x["size"]))
+                                     "before": r, "after": v, "size": v / r, "confirmed": label.get((t, "opex", q)) == "agree", "message": None})
+    order = {"restated": 0, "jump": 1, "capex_intensity": 2, "opex_over_revenue": 3, "row_switch": 4, "other": 5}
+    findings.sort(key=lambda x: (x.get("confirmed", True), order[x["kind"]], -x["size"]))  # what the SEC's data can't confirm comes first
 
     watch = json.loads(WATCH.read_text()) if WATCH.exists() else None
     full = con.execute("select started_at, seconds, outcome, detail from runs where step = 'run' order by started_at desc limit 1").fetchone()

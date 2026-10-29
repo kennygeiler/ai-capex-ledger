@@ -9,6 +9,7 @@ from collections import Counter
 
 from .. import store
 from ..config import MVP_YEARS, add_scope, scope
+from ..definitions import load as load_definitions
 from ..rules import Context, load, run
 
 
@@ -20,7 +21,7 @@ def context(con, tickers) -> Context:
                    reference={(r["ticker"], r["field"], r["period"]): r for r in q("select * from reference_values where ticker in (select unnest(?))")},
                    parsed={d["accession"]: json.loads((store.ROOT / d["tables_path"]).read_text()) for d in docs},
                    ai_spend=q("select * from ai_spend where ticker in (select unnest(?))"),
-                   years=MVP_YEARS, tickers=list(tickers))
+                   years=MVP_YEARS, tickers=list(tickers), definitions=load_definitions())
 
 
 def main(argv=None) -> int:

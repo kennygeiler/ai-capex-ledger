@@ -10,4 +10,5 @@ plain: Companies also file a machine-readable copy of their numbers (XBRL), whic
   number disagrees with it. Either we're wrong, the company's copy is wrong, or the two measure different things
   (for example before and after a restatement).
 action: Open the filing and decide which is right. If ours mixes old and restated figures, reject it (it ships blank,
-  with your reason). If we're right and the answer key is wrong, accept and say why.
+  with your reason). If the SEC's tag measures something wider than our line (ExxonMobil's Revenues), add a revenue
+  definition for the company in definitions/companies.yaml and it stops asking.

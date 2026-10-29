@@ -1,0 +1,44 @@
+# Per-company definitions: the judgements a person made once about what a field means for a company. Code applies
+# them on every run, so no one is asked again. Each entry says who decided and why. Add an entry here instead of
+# accepting the same exception release after release; the file is versioned with the repo.
+#
+#   revenue:    the 10-K line is the ledger's revenue and the SEC's XBRL tag measures something wider; the gap is the
+#               definition, not a misread, so the value is labelled definition_gap instead of blocking.
+#   cost_lines: the company reports no total cost-of-revenue line; these row labels are its costs of delivering
+#               revenue and are added up. The cost_lines_summed rule stays quiet while the agent's lines are all here.
+
+XOM:
+  revenue:
+    line: Sales and other operating revenue
+    why: The SEC's Revenues tag is total revenues and other income (sales plus income from equity affiliates plus other
+      income); the sales line has had no us-gaap tag since FY2022. A gap of a few percent is the definition.
+    by: Kenny Geiler
+    at: 2026-10-28
+  cost_lines:
+    lines: [Crude oil and product purchases, Production and manufacturing expenses]
+    why: ExxonMobil reports no cost-of-revenue total; these are its costs of delivering revenue.
+    by: Kenny Geiler
+    at: 2026-10-28
+
+ORCL:
+  cost_lines:
+    lines: [Cloud services and license support(1), Hardware(1), Services(1), Cloud and software(1), Services]
+    why: Oracle's own cost section (cloud services and license support, hardware, services); the SEC's opex tag has no
+      cost-of-revenue split. Older 10-Ks label the lines without the footnote mark.
+    by: Kenny Geiler
+    at: 2026-10-28
+
+APLD:
+  cost_lines:
+    lines: [Data center rental and other cost of revenue, Services cost of revenue]
+    why: The two cost lines above gross profit.
+    by: Kenny Geiler
+    at: 2026-10-28
+
+COMP:
+  cost_lines:
+    lines: [Commissions and other related expense]
+    why: Compass's cost of delivering a transaction; the SEC's opex tag includes commissions, so opex differs by
+      definition.
+    by: Kenny Geiler
+    at: 2026-10-28

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "datahq",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "LEDGER_CLAUDE=\"/Users/kennygeiler/Library/Application Support/Claude/claude-code/2.1.308/a93ded4b1b47/claude.app/Contents/MacOS/claude\" uv run python -m ledger app"],
+      "port": 3610
+    }
+  ]
+}

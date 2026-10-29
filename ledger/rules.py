@@ -40,6 +40,7 @@ class Context:
     years: list[str] = field(default_factory=list)
     tickers: list[str] = field(default_factory=list)  # every company asked for, including any with no 10-K
     ai_spend: list[dict] = field(default_factory=list)  # rows of `ai_spend` (what the MD&A says about AI's part)
+    definitions: dict = field(default_factory=dict)   # per-company definitions (definitions/companies.yaml)
     today: date = field(default_factory=date.today)   # coverage: a year whose 10-K isn't due yet isn't missing
 
 
@@ -140,11 +141,14 @@ def _row_switch(ctx, p):
 
 @check("cost_lines_summed")
 def _cost_lines(ctx, p):
-    """No total cost-of-revenue line, so cost lines the agent classified were added up: list them for review."""
+    """No total cost-of-revenue line, so cost lines the agent classified were added up: list them for review. Quiet
+    for a company whose definition already names every line the agent used."""
+    from .definitions import cost_lines
     lines = {}
     for e in ctx.extractions:
         if e["field"] == "cost_of_revenue_part":
             lines.setdefault(e["ticker"], {}).setdefault(e["row_label"], set()).add(e["accession"])
+    lines = {t: ls for t, ls in lines.items() if not ((known := cost_lines(ctx.definitions, t)) and set(ls) <= known)}
     def gaps(t):  # how far opex built this way is from the SEC figure, so the size of the judgement is visible
         out = []
         for v in sorted(ctx.values, key=lambda v: v["period"]):

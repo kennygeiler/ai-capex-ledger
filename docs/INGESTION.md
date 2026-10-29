@@ -147,6 +147,10 @@ our AI efforts" and give totals; the only numbers are total-capex outlooks (Meta
 | 26 | **Scope is loose for words-only statements.** The same kind of sentence gets `scope: ai` in one filing and `total` in the next; scope only has meaning for an amount or share. | GOOGL, META opex | by eye | Open: ignore scope for `qualitative` rows when reading them; or drop it from the contract for that class. |
 | 27 | **The numbers live elsewhere.** Explicit AI amounts and shares appear in earnings-call prepared remarks and 8-K earnings releases (Exhibit 99.1), not in 10-K MD&A. | every hyperscaler | by design | Next: feed Exhibit 99.1 of the 8-K filed with each 10-K (edgartools gives it) through the same agent and contract. |
 
+## No questions (29 Oct)
+
+A person was being asked three kinds of thing: a definition (ExxonMobil's revenue line, which cost lines count), a big move or outlier the SEC's data couldn't confirm, and a renamed line. The first is now a file (`definitions/companies.yaml`, who and why on every entry) that code applies every run. The other two are findings with an "SEC data agrees / can't confirm" flag, not questions: a misread would also disagree with XBRL, so agreement rules it out, and a disagreement is already its own block. Stage 3 after the change: 0 block, 0 unresolved, 93 findings, 1 unconfirmed (one jump the SEC's data has no value for).
+
 ## Scorecard
 
 What each company cost. `ledger run` prints this, and each validation page shows it. Code changes are counted by hand from the log above.

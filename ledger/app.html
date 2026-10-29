@@ -187,14 +187,16 @@ let hqCache = null;
 const hq = async (fresh) => (hqCache = !fresh && hqCache ? hqCache : await api('/api/hq'));
 const SHORT = {cost_lines_summed: 'Confirm the cost-of-revenue lines', xbrl_reconcile: "Disagrees with the SEC's data", row_label_switch: 'Line renamed, not confirmed',
   jump: 'Big move, not confirmed', outlier_vs_own_history: 'Unusual year, not confirmed', coverage: 'A year is missing'};
-const KIND = {restated: 'Restated', jump: 'Big move', capex_intensity: 'Capex vs revenue', opex_over_revenue: 'Opex above revenue'};
+const KIND = {restated: 'Restated', jump: 'Big move', capex_intensity: 'Capex vs revenue', opex_over_revenue: 'Opex above revenue', row_switch: 'Line renamed', other: 'Note'};
+const confirmedCell = (f) => (f.confirmed ? h('span', {class: 'muted'}, 'agrees') : h('span', {class: 'bad'}, "can't confirm"));
 const where = (list) => list.map((x) => [LABEL[x.field] || x.field, x.period].filter(Boolean).join(' ')).filter(Boolean).join(', ');
 const pct = (x) => (x < .001 ? '<0.1%' : `${(100 * x).toFixed(x < .1 ? 1 : 0)}%`);
 function change(f) {
   if (f.kind === 'restated') return `${usd(f.before)} → ${usd(f.after)} (${f.after >= f.before ? '+' : '−'}${pct(f.size)})`;
   if (f.kind === 'jump') return `${usd(f.before)} → ${usd(f.after)} (${f.size.toFixed(1)}×)`;
   if (f.kind === 'capex_intensity') return `capex ${pct(f.size)} of revenue`;
-  return `opex ${usd(f.after)} on revenue ${usd(f.before)}`;
+  if (f.kind === 'opex_over_revenue') return `opex ${usd(f.after)} on revenue ${usd(f.before)}`;
+  return h('span', {class: 'small'}, (f.message || '').slice(0, 140));
 }
 const groupQuestions = (qs) => { const g = new Map(); for (const q of qs) { const k = `${q.ticker}|${q.rule}`; if (!g.has(k)) g.set(k, []); g.get(k).push(q); } return [...g.values()]; };
 
@@ -223,8 +225,8 @@ async function dashboard(view) {
   let shown = 10;
   const findBox = h('div');
   const drawFindings = () => findBox.replaceChildren(
-    table([{t: 'Company', k: 'company'}, {t: 'Year', k: 'period'}, {t: 'What', k: 'kind', f: (f) => `${KIND[f.kind]}, ${(LABEL[f.field] || f.field).toLowerCase()}`},
-      {t: 'Change', sort: false, f: change}], d.findings.slice(0, shown), {onRow: (f) => go('company/' + f.ticker)}),
+    table([{t: 'Company', k: 'company'}, {t: 'Year', k: 'period', f: (f) => f.period || '—'}, {t: 'What', k: 'kind', f: (f) => `${KIND[f.kind]}, ${(LABEL[f.field] || f.field || '').toLowerCase()}`},
+      {t: 'Change', sort: false, f: change}, {t: 'SEC data', k: 'confirmed', f: confirmedCell}], d.findings.slice(0, shown), {onRow: (f) => go('company/' + f.ticker)}),
     d.findings.length > shown ? h('button', {type: 'button', class: 'small', style: 'margin-top:.5rem', onclick: () => { shown = d.findings.length; drawFindings(); }}, `Show all ${d.findings.length}`) : '');
   drawFindings();
 
@@ -286,7 +288,7 @@ async function companyPage(view, ticker) {
     docs.length > 0 && sect('The numbers', `${int(sc.agree)} of ${int(sc.values)} match the SEC's data`, valueGrid(c.values, questions.some((q) => q.rule === 'cost_lines_summed'))),
     docs.length > 0 && sect('How each number was cleaned', 'from the cell in the 10-K to the released value', cleaningTable(c.values)),
     c.ai_spend.length > 0 && sect('What the filing says about AI spend', `${c.ai_spend.filter((a) => a.ai_amount != null).length} of ${c.ai_spend.length} give an AI dollar amount`, aiTable(c.ai_spend)),
-    findings.length > 0 && sect('What happened', null, table([{t: 'Year', k: 'period'}, {t: 'What', k: 'kind', f: (f) => `${KIND[f.kind]}, ${(LABEL[f.field] || f.field).toLowerCase()}`}, {t: 'Change', sort: false, f: change}], findings)),
+    findings.length > 0 && sect('What happened', "a finding the SEC's data can't confirm is worth a look, not a decision", table([{t: 'Year', k: 'period', f: (f) => f.period || '—'}, {t: 'What', k: 'kind', f: (f) => `${KIND[f.kind]}, ${(LABEL[f.field] || f.field || '').toLowerCase()}`}, {t: 'Change', sort: false, f: change}, {t: 'SEC data', k: 'confirmed', f: confirmedCell}], findings)),
     sect('Filings', `${read} of ${docs.length} read by the agent · ${confirmed} of ${cells.length} cited cells re-read on the filing`, [
       docs.length ? table([{t: 'Form', k: 'form'}, {t: 'Year end', k: 'period', f: (x) => day(x.period)}, {t: 'Filed', k: 'filed', f: (x) => day(x.filed)},
         {t: 'Accession', k: 'accession', f: (x) => h('a', {href: x.url, target: '_blank', rel: 'noopener', class: 'mono'}, x.accession)},

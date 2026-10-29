@@ -3,7 +3,8 @@ severity: block
 description: When a company reports no total cost-of-revenue line, the cost lines an agent classified as cost of revenue
   were added up; the rule lists them.
 rationale: Standard data tools build cost of revenue from a company's cost lines when it reports no total (Oracle). The
-  classification is a judgement, so a person confirms it once per company. It blocks release until confirmed, because for
+  classification is a judgement, so a person confirms it once per company, in definitions/companies.yaml; the rule is
+  quiet while the agent's lines are all named there. It blocks release until confirmed, because for
   these companies the SEC data draws cost of revenue differently, so opex is checked against nothing else (the
   message shows how far opex is from the SEC figure, so the size of the judgement is visible).
 owner: Kenny Geiler
@@ -11,5 +12,5 @@ check: cost_lines_summed
 title: Cost of revenue was built by adding up the company's cost lines.
 plain: This company has no single "cost of revenue" line, so, as standard financial data tools do, the AI picked the lines that are
   costs of delivering revenue and they were added together. Opex depends on that choice.
-action: Read the listed lines. If each one is a cost of delivering revenue (not sales, R&D or admin), accept. If one doesn't
-  belong, tell the data owner.
+action: Read the listed lines. If each one is a cost of delivering revenue (not sales, R&D or admin), add them to the
+  company's cost_lines in definitions/companies.yaml with your name and why. If one doesn't belong, tell the data owner.

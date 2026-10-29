@@ -6,7 +6,12 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (29 Oct 2026):** AI spend from the MD&A, the question behind the ledger.
+**Last done (29 Oct 2026, later):** no more questions for a person. The direction agreed with Kenny: ingest and clean with nobody in the loop, then an attribution agent whose method he edits, then insights.
+- **Definitions replace decisions.** `definitions/companies.yaml` holds the judgements made once per company (ExxonMobil's revenue line vs the SEC's wider tag; the cost lines for Oracle, Applied Digital, ExxonMobil, Compass), each with who and why. `reconcile` labels a defined revenue gap `definition_gap`; `cost_lines_summed` stays quiet while the agent's lines are all named. Stage 3 now: 0 block, 0 unresolved (384 values: 354 agree, 14 definition gaps, 16 not reported).
+- **Warnings are findings.** A big move, an outlier or a renamed line is a finding about the company with an "SEC data" column: agrees, or can't confirm. Nothing waits on a person except signing. Coverage rests on three legs: the cited cell re-read on the rendered 10-K, XBRL agreement, planted faults. 93 findings on the dashboard, 1 the SEC's data can't confirm.
+- `review decide` and the accept-warnings endpoint still exist for overrides and rejects; a definition is the right fix for anything that would be accepted twice.
+
+**Before that (29 Oct):** AI spend from the MD&A, the question behind the ledger.
 - **`ledger aispend`** (in `ledger run`, after reconcile): a second agent (`ai_reader`, prompt `aispend@v2`) reads each 10-K's Item 7 passages that mention AI next to capital or operating spending and returns every statement as a verbatim quote; code checks the quote is in the passage. Table A `ai_statements`, table B `ai_spend` (per company, field, fiscal year and kind, the most specific statement from the newest filing). Item 7 comes through `edgartools` (`data/text/`); the table parser is untouched.
 - **The finding, honestly:** on all 31 companies, 79 statements, 54 company-year rows, 3 with an AI dollar amount (all IREN). Hyperscalers say "primarily" and "the majority"; the only numbers are total-capex outlooks (Meta $115–135B for 2026, Tesla >$20B), filed as `scope: total`, not AI spend. The explicit AI numbers live in earnings releases (8-K Exhibit 99.1), ticket L4. Types 24–27 in `docs/INGESTION.md`.
 - **Shipped with it:** rule `ai_amount_within_capex` (16 rules now), `ai_spend.csv` in every release with its own README section, a DATAHQ company section ("What the filing says about AI spend") and a dashboard column. **`v1.2.0` is built, unsigned** (hash f4a2ded3fc78; no values changed from v1.1.0; 54 AI-spend rows). Signing is Kenny's call.
@@ -27,8 +32,12 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 **Released:** `v1.1.0`, all 31 tracked companies (30 with a 10-K), 384 values, signed by Kenny Geiler, hash 794fb2dfadae. 14 decisions applied: the 8 above (four cost-line confirmations, ExxonMobil's revenue definition for four years) plus six earlier. DATAHQ serves it as `/packet/v1.1.0.zip`.
 
-**Next:**
-1. Sign `v1.2.0` (`ledger signoff v1.2.0 --by "Kenny Geiler"`), then DATAHQ serves it as a packet.
+**Next (the plan agreed 29 Oct, in order):**
+1. Base facts the attribution needs: segment capex (ASC 280 note), PP&E by category, purchase commitments and finance leases, sellers' data-center segment revenue; same parser, XBRL instance for the tagged ones.
+2. More sources: 8-K earnings releases (Exhibit 99.1, EDGAR) and prepared remarks from company IR pages (free, scraped per company; no paid transcript source).
+3. Money-flow model per industry (hyperscaler, neocloud, miner-to-HPC, chip seller, memory, networking) as versioned documents, and an attribution agent that reads the model plus the facts and emits AI-spend rows with method, confidence, citation. Edit the model, rerun only the agent, see the diff.
+4. DATAHQ in three tabs: Pipeline, Attribution, Insights (money flow buyers to sellers, AI share of capex over time, hard vs stated vs words).
+5. Sign `v1.2.0` (`ledger signoff v1.2.0 --by "Kenny Geiler"`), then DATAHQ serves it as a packet.
 2. L4: 8-K earnings releases through the AI spend reader, where the explicit AI amounts are.
 3. M3.1: one question per cause (XOM shows why).
 
@@ -37,6 +46,7 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 - **NVDA's capex line includes intangible assets.** Note it when comparing companies.
 - **Known blind spot:** a wrong-row misread is caught by comparing a company's filings with each other, so a company's first filing is less protected.
 - **Running agents:** `ledger run` and the app's Add company run the agent headless on Kenny's subscription (no paid API). It needs a logged-in `claude` (run `claude`, then `/login`) of version 2.1.280 or later for Opus 5.5. Until the installed one is upgraded, set `LEDGER_CLAUDE` to the desktop app's newer `claude` before `ledger run` and before `ledger app`.
+- **Definitions live in `definitions/companies.yaml`**, not in decisions. A new company with no cost-of-revenue total or a wider SEC tag asks once; the answer goes in the file.
 - **A parser bump re-opens decisions.** Every value's input hash includes the parser version, so after `tables@9` every earlier decision is superseded and the open list is rebuilt from the rules; that is why the APLD recast decisions are gone and the cost-line confirmations are back.
 - **`aispend` needs the network once per filing** (edgartools fetches Item 7, cached in `data/text/`, git-ignored like the rest of `data/`). A 10-K/A with no Item 7 gets an empty task and no agent call.
 - **Banks and oil majors come out partly blank on purpose.** JPMorgan has no capex or operating income line; IBM and ExxonMobil have no operating income line, so opex can't be computed. Those are `not_reported` rows with the reason, not errors.

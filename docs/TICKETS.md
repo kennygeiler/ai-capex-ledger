@@ -8,7 +8,10 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 | ID | Ticket | Done when |
 |---|---|---|
-| M3.1 | Group open items by cause, so one decision covers every item it explains (XOM's revenue definition is one judgement shown as four yearly items). | DATAHQ and `ledger review` list causes, not rows. |
+| M4 | Base facts for attribution: segment capex, PP&E by category, purchase commitments, finance leases, seller DC segment revenue. | Fields in `values` with citations, reconciled against the XBRL instance where tagged. |
+| M5 | Sources: 8-K Exhibit 99.1 and IR-page prepared remarks (free, scraped), through the AI spend reader. | `ai_spend.csv` has explicit AI amounts for the hyperscalers. |
+| M6 | Money-flow model per industry + attribution agent; edit model → rerun agent only → diff. | Attribution rows with method, confidence, citation; DATAHQ Attribution tab. |
+| M7 | DATAHQ: Pipeline / Attribution / Insights tabs; insights viz (money flow, AI share over time, hard vs stated vs words). | Three tabs; charts read from the signed release. |
 
 ### Later
 
@@ -19,6 +22,7 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Done
 
+- **No questions (29 Oct):** `definitions/companies.yaml` + `ledger/definitions.py`; reconcile and `cost_lines_summed` read it; warnings are findings with an SEC-data flag. M3.1 closed by this (one definition per cause).
 - **Airflow DAG (29 Oct):** `airflow/dags/capex_ledger.py`, one task per step of `ledger/steps.py`; parsed and task-tested with Airflow 3.3.2 (L5).
 - **AI spend from the MD&A (29 Oct):** `ledger aispend`, agent `ai_reader` (`aispend@v2`), tables `ai_statements` / `ai_spend`, rule `ai_amount_within_capex`, `ai_spend.csv` in every release, DATAHQ company section and dashboard column; Item 7 through `edgartools`. Types 24–27 in INGESTION.
 - **Slop pass (28 Oct, night):** DATAHQ progress from `data/jobs/progress.json`, not log regexes; one release-sort helper (string sort would have broken at `v1.10.0`); stale `STAGES` release labels and the unused `fix_rule` kind removed; prompt, model and stage-3 tickers read at call time.
