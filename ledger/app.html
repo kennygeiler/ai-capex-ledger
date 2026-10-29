@@ -7,28 +7,32 @@
 <style>
   /* Plain pages, whitespace instead of borders. One accent (ink blue); red only for a failure. */
   :root {
-    --bg: #fbfbfa; --fg: #1c1d1f; --muted: #6b6e74; --faint: #e9e9e6; --accent: #2f5bd3; --bad: #c43d2f;
+    --bg: #ffffff; --fg: #17191c; --muted: #676b73; --faint: #e6e7ea; --accent: #1f4fb8; --bad: #c43d2f; --bar: #f4f5f7; --row: #f7f8fa;
     --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --mono: ui-monospace, "SF Mono", Menlo, monospace;
   }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #141518; --fg: #e8e8e6; --muted: #9a9da3; --faint: #26282d; --accent: #7a9cff; --bad: #ff7a6b; color-scheme: dark; }
+    :root { --bg: #141518; --fg: #e8e8e6; --muted: #9a9da3; --faint: #26282d; --accent: #7a9cff; --bad: #ff7a6b; --bar: #1b1d22; --row: #191b1f; color-scheme: dark; }
   }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 var(--font); }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 13.5px/1.45 var(--font); }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
   button, input, select, textarea { font: inherit; color: inherit; }
   button { background: none; border: 0; padding: 0; cursor: pointer; color: var(--accent); }
   button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .wrap { max-width: 76rem; margin: 0 auto; padding: 0 max(16px, 3vw) 6rem; }
-  nav { display: flex; gap: 1.75rem; align-items: baseline; padding-block: 1.25rem 2rem; flex-wrap: wrap; }
-  nav .brand { font-weight: 600; letter-spacing: .06em; margin-right: auto; color: var(--fg); }
+  .wrap { max-width: 110rem; margin: 0 auto; padding: 0 max(16px, 2vw) 4rem; }
+  .bar { background: var(--bar); margin: 0 calc(-1 * max(16px, 2vw)); padding: 0 max(16px, 2vw); }
+  nav { display: flex; gap: 1.1rem; align-items: center; padding-block: .55rem; flex-wrap: nowrap; overflow-x: auto; white-space: nowrap; max-width: 110rem; margin: 0 auto; }
+  nav .search { width: 11rem; flex: 0 0 auto; border: 1px solid var(--faint); border-radius: 4px; padding: .3rem .55rem; background: var(--bg); font-size: .85rem; }
+  main { padding-top: 1.25rem; }
+  nav .brand { font-weight: 700; letter-spacing: .08em; color: var(--fg); margin-right: .5rem; }
+  nav .sp { margin-left: auto; }
   nav a { color: var(--muted); }
   nav a.on { color: var(--fg); }
-  nav .me { margin-left: 1rem; }
+  nav .me { margin-left: 1rem; flex: 0 0 auto; }
   nav .me input { width: 9rem; border: 0; border-bottom: 1px solid var(--faint); background: none; padding: .1rem 0; font-size: .82rem; }
-  h1 { font-size: 1.6rem; font-weight: 500; margin: 0; }
-  h2 { font-size: 1.05rem; font-weight: 600; margin: 0 0 .6rem; }
+  h1 { font-size: 1.25rem; font-weight: 600; margin: 0; }
+  h2 { font-size: .9rem; font-weight: 600; margin: 0 0 .5rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
   p { margin: 0; }
   .lede { color: var(--muted); max-width: 62ch; margin-top: .35rem; }
   .lede b { color: var(--fg); font-weight: 600; }
@@ -36,11 +40,11 @@
   .bad { color: var(--bad); }
   .small { font-size: .82rem; }
   .mono { font-family: var(--mono); font-size: .82rem; }
-  .stack { display: grid; gap: 3rem; }
+  .stack { display: grid; gap: 2rem; }
   .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 3rem; }
   .two > *, .stack > * { min-width: 0; }
   .figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: 1.5rem; }
-  .fig .n { font-size: 2.1rem; line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .fig .n { font-size: 1.6rem; line-height: 1.15; font-variant-numeric: tabular-nums; font-weight: 500; }
   .fig .l, .fig .s { color: var(--muted); font-size: .82rem; }
   .bars { display: grid; gap: .55rem; }
   .bar { display: grid; grid-template-columns: minmax(8rem, 12rem) 1fr auto; gap: .75rem; align-items: center; }
@@ -51,9 +55,12 @@
   .track i.note { background: var(--muted); opacity: .5; }
   .track i + i { margin-left: 0; }
   .scroll { overflow-x: auto; }
-  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
-  th { text-align: left; font-weight: 400; color: var(--muted); font-size: .8rem; padding: 0 1rem .35rem 0; white-space: nowrap; }
-  td { padding: .4rem 1rem .4rem 0; vertical-align: top; }
+  table { border-collapse: separate; border-spacing: 0; width: 100%; font-variant-numeric: tabular-nums; font-size: .86rem; }
+  th { text-align: left; font-weight: 500; color: var(--muted); font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; padding: .35rem .75rem .35rem 0; white-space: nowrap; background: var(--bg); position: sticky; top: 0; z-index: 2; border-bottom: 1px solid var(--faint); }
+  td { padding: .3rem .75rem .3rem 0; vertical-align: top; border-bottom: 1px solid var(--faint); }
+  tbody tr:hover td { background: var(--row); }
+  table th:first-child, table td:first-child { position: sticky; left: 0; background: var(--bg); z-index: 1; }
+  tbody tr:hover td:first-child { background: var(--row); }
   td.n, th.n { text-align: right; }
   tr.click { cursor: pointer; }
   tr.click:hover td { color: var(--accent); }
@@ -66,14 +73,14 @@
   .step .head .state { font-size: .82rem; color: var(--muted); margin-top: .15rem; }
   @media (max-width: 44rem) { .step { grid-template-columns: 1fr; gap: .5rem; } .wide { display: none; } .bar { grid-template-columns: 1fr auto; row-gap: .25rem; } .bar .track { grid-column: 1 / -1; } }
   .row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-  select, input[type=text] { background: var(--bg); border: 1px solid var(--faint); border-radius: 6px; padding: .35rem .55rem; }
+  select, input[type=text] { background: var(--bg); border: 1px solid var(--faint); border-radius: 4px; padding: .3rem .5rem; font-size: .86rem; }
   textarea { width: 100%; min-height: 28rem; background: var(--bg); border: 1px solid var(--faint); border-radius: 6px; padding: .75rem; font: .82rem/1.55 var(--mono); }
   textarea[readonly] { border-color: transparent; padding-inline: 0; resize: none; }
-  .btn { background: var(--accent); color: var(--bg); border-radius: 6px; padding: .4rem .9rem; }
+  .btn { background: var(--accent); color: #fff; border-radius: 4px; padding: .32rem .8rem; font-size: .86rem; font-weight: 500; }
   .btn[disabled] { opacity: .4; cursor: default; }
   ul.plain { margin: .2rem 0 0; padding-left: 1.1rem; }
   ul.plain li { margin: .15rem 0; }
-  .picks { display: flex; flex-wrap: wrap; gap: .3rem 1.1rem; }
+  .picks { display: flex; flex-wrap: wrap; gap: .25rem .8rem; font-size: .84rem; }
   .picks label { white-space: nowrap; cursor: pointer; }
   .controls { display: grid; gap: 1.1rem; }
   .controls .k { color: var(--muted); font-size: .8rem; margin-bottom: .2rem; }
@@ -82,7 +89,7 @@
   pre.raw { white-space: pre-wrap; word-break: break-word; font: .78rem/1.5 var(--mono); max-height: 30rem; overflow: auto; margin: .5rem 0 0; }
   .msg { color: var(--muted); padding: 2rem 0; }
   .pagehead { display: grid; gap: .3rem; }
-  .split { display: grid; grid-template-columns: minmax(0, 2fr) minmax(14rem, 1fr); gap: 3rem; }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem); gap: 1.5rem; align-items: start; }
   @media (max-width: 52rem) { .split { grid-template-columns: 1fr; } }
   .sechead { display: flex; gap: 1rem; align-items: baseline; flex-wrap: wrap; margin-bottom: .6rem; }
   .sechead h2 { margin: 0; }
@@ -91,7 +98,8 @@
   table.grid td.cell:hover { color: var(--accent); }
   table.grid .note { font-size: .74rem; color: var(--muted); white-space: normal; max-width: 9rem; margin-left: auto; }
   .brk { white-space: pre-wrap; word-break: break-word; }
-  table.heat td.c { background: color-mix(in srgb, var(--accent) calc(var(--i, 0) * 38%), transparent); border-radius: 4px; padding-inline: .5rem; }
+  table.heat td.c { background: color-mix(in srgb, var(--accent) calc(var(--i, 0) * 30%), transparent); padding-inline: .5rem; }
+  table.heat tbody tr:hover td.c { filter: brightness(.97); }
   table.heat td.c .note { font-size: .74rem; color: var(--muted); }
   table.heat th, table.heat td { padding-right: .5rem; }
   table.heat td.w { width: 9rem; }
@@ -104,8 +112,10 @@
   .dotrow { display: grid; grid-template-columns: 6rem 1fr minmax(8rem, auto); gap: .75rem; align-items: center; font-size: .82rem; }
   .dotrow .v { color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
   @media (max-width: 44rem) { .dotrow { grid-template-columns: 4.5rem 1fr; } .dotrow .v { grid-column: 1 / -1; text-align: left; } }
-  .strip .fig .n { font-size: 1.5rem; }
-  .panel { position: sticky; top: 1rem; }
+  .strip { background: var(--bar); margin: 0 calc(-1 * max(16px, 2vw)); padding: .9rem max(16px, 2vw); gap: 1rem 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr)); }
+  .strip .fig .n { font-size: 1.25rem; white-space: nowrap; }
+  .panel { position: sticky; top: 1rem; background: var(--bar); padding: 1rem; border-radius: 6px; max-height: calc(100vh - 2rem); overflow: auto; }
+  .panel h3 { font-size: .95rem; margin: 0 0 .5rem; }
   table.heat td.moved { outline: 2px solid var(--accent); outline-offset: -2px; }
   .badge { font: 600 .66rem/1 var(--mono); letter-spacing: .04em; color: var(--accent); padding: .1rem .3rem; border-radius: 3px; background: color-mix(in srgb, var(--accent) 12%, transparent); }
   .badge:hover { background: color-mix(in srgb, var(--accent) 24%, transparent); }
@@ -118,12 +128,16 @@
 </head>
 <body>
 <div class="wrap">
-  <nav>
+  <div class="bar"><nav>
     <a class="brand" href="#data">DATAHQ</a>
+    <input class="search" id="jump" type="text" list="tickers" placeholder="Ticker or company" aria-label="Jump to a company">
+    <datalist id="tickers"></datalist>
     <a href="#data" data-nav="data">Data</a>
     <a href="#attribution" data-nav="attribution">Attribution</a>
-    <span class="me muted small">signed as <input id="me" type="text" aria-label="Your name, logged on every model or prompt change"></span>
-  </nav>
+    <a href="#releases" data-nav="releases">Releases</a>
+    <a href="#agents" data-nav="agents">Agents</a>
+    <span class="sp me muted small">signed as <input id="me" type="text" aria-label="Your name, logged on every model or prompt change"></span>
+  </nav></div>
   <main id="view"><p class="msg">Loading…</p></main>
 </div>
 <div class="tip" id="tip" hidden></div>
@@ -161,6 +175,9 @@ let me = 'Kenny Geiler';
 try { me = localStorage.getItem('datahq-me') || me; } catch {}
 $('#me').value = me;
 $('#me').addEventListener('input', (e) => { me = e.target.value; try { localStorage.setItem('datahq-me', me); } catch {} });
+let NAMES = {};
+api('/api/data?t=&f=none').then((d) => { NAMES = d.names; $('#tickers').replaceChildren(...Object.entries(NAMES).map(([t, n]) => h('option', {value: t}, n))); });
+$('#jump').addEventListener('change', (e) => { const v = e.target.value.trim().toUpperCase(); const t = NAMES[v] ? v : Object.keys(NAMES).find((k) => NAMES[k].toUpperCase() === v); if (t) { e.target.value = ''; go(`data?t=${t}&f=ai_capex,capex`); } });
 
 function table(cols, rows, {key, onRow, detail} = {}) {
   const tb = h('tbody');
@@ -579,7 +596,7 @@ async function dataPage(view, qs) {
       fig('Cells confirmed', `${int(H.cells_confirmed)} / ${int(H.cells)}`, 'on the rendered 10-K', H.cells_confirmed < H.cells),
       fig('Faults through', `${int(H.faults_escaped)} / ${int(H.faults)}`, 'planted', H.faults_escaped > 0),
       fig('Reference', ev ? `${ev.agree} / ${ev.with_estimate}` : '—', ev ? `agree · ${ev.no_estimate} unestimated` : '', ev && ev.disagree > 0),
-      fig('Blocked', int(blocked), blocked ? 'needs a definition' : `run ${when(H.full_run ? H.full_run.at : H.run_at)}`, blocked > 0)),
+      fig('Blocked', int(blocked), blocked ? 'needs a definition' : `run ${day(H.full_run ? H.full_run.at : H.run_at)}`, blocked > 0)),
     h('section', {class: 'controls'},
       h('div', {class: 'row'}, viewSel, fieldSel, kindBar, h('button', {type: 'button', class: 'btn', onclick: exportCsv}, 'Export CSV'),
         h('span', {class: 'muted small'}, `${rows.filter((r) => years.includes(r.period)).length} rows · ${list.length} series · cells that moved since the last run are outlined`)),
@@ -685,7 +702,7 @@ async function attributionPage(view) {
     h('section', {class: 'figs strip'},
       fig('Company-years', int(rows.length), `${rows.filter((r) => r.ai_amount != null).length} with an AI amount`),
       ...Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([m, n]) => fig(METHOD[m], int(n), BADGE[m])),
-      fig('Last load', diff ? when(diff.at) : '—', diff ? `${int(diff.changed)} changed · ${int(diff.new)} new · ${int(diff.removed)} removed` : '')),
+      fig('Last load', diff ? day(diff.at) : '—', diff ? `${int(diff.changed)} changed · ${int(diff.new)} new · ${int(diff.removed)} removed` : '')),
     h('div', {class: 'row'}, rerun(null), h('span', {class: 'muted small'}, `prompt ${d.prompt} · a model edit reruns only its industry; nothing is re-read from filings`), status),
     progress,
     h('div', {class: 'split'}, h('section', {}, grid), h('section', {}, panel)),
@@ -714,7 +731,7 @@ async function route() {
   const raw = location.hash.slice(1) || 'data';
   const [path, qs] = raw.split('?');
   const [page, arg] = path.split('/');
-  const tab = {company: 'data', agents: 'data', releases: 'data', run: 'data', pipeline: 'data', insights: 'data'}[page] || page;
+  const tab = {company: 'data', run: 'data', pipeline: 'data', insights: 'data'}[page] || page;
   document.querySelectorAll('nav [data-nav]').forEach((a) => a.classList.toggle('on', a.dataset.nav === tab));
   const view = $('#view');
   view.replaceChildren();
