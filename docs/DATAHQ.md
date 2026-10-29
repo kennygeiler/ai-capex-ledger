@@ -29,6 +29,22 @@ Three tabs, in the order the data flows, plus the company page they all open.
 
 **Company**. Attribution first, then what the company said, then the facts from the notes, then the released numbers and how each was cleaned down to the cell, then the filings and every check that fired.
 
+## Who Arctal is, and how they would use this (29 Oct, from public sources)
+
+Arctal is a five-person London company that turns unstructured financial documents (regulatory filings, fund reports) into structured, source-linked datasets for asset managers, allocators and financial-data firms. Its datasets are structured against a taxonomy (an ICMA-aligned one for labelled bonds), cover "spending that has happened, is committed, or is planned", are refreshed continuously, and are distributed through S&P Global Sustainable1 (45,000+ entities, 33,000+ instruments). The role on offer owns ingestion, cleaning, storage, transformation and distribution, with AI agents in the pipeline and data quality as the deliverable.
+
+So the user is not a reader of pages. It is a data team producing a dataset a distributor resells, and the dataset's buyer, who opens it to check one number against its source. What they need from the interface:
+
+- **The dataset as a grid**, filterable by entity, field, year and kind, exportable in long format with provenance columns. Our fields already have Arctal's shape: spent (actual values and facts), committed (purchase commitments, finance leases), planned (outlook statements and guidance).
+- **Provenance one click deep**: the cell, the filing, the method, the inputs, the reference figure, the model and prompt versions. Source-linked is their product claim; here it is the panel.
+- **Taxonomy as a first-class object**: the money-flow models are the taxonomy that maps a company's disclosures to "AI capex". Versioned, editable, with the effect of a change shown as a diff.
+- **Coverage, freshness and measured error** per entity, as a status strip, because a distributor's buyer asks those three questions before any other.
+- **Deliveries**: signed releases with packets, and "changed since" a release or a run, because a continuously refreshed dataset must say what moved.
+
+## The data screen (29 Oct)
+
+One screen, default. A filter bar (entities by industry or role, field, years, kind: spent, committed, planned), a status strip (companies, filings, texts, facts, cells confirmed, faults, blocked, reference agreement), the grid (entities down, years across, one field at a time, cells shaded, click for provenance), a chart of the selection (series per entity, or parts of a whole), export of the selection as CSV with provenance, and "changed since the last run" shading. Saved views are links: the URL carries the filter. The Attribution screen keeps the models and the rerun; Releases and the readers' prompts stay secondary. The company page is the grid filtered to one entity.
+
 ## Data first (29 Oct)
 
 Kenny's note after the first rebuild: the app explained in sentences what it should have shown in numbers and shapes. Second pass, same three tabs, every page now opens on data:

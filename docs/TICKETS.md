@@ -18,6 +18,7 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Done
 
+- **Data screen (29 Oct):** DATAHQ as a dataset console after researching Arctal: filter bar, status strip, shaded grid with changed-cell outlines, provenance panel, chart of the selection, CSV export, saved views as links; `/api/data` long format.
 - **Evaluation (29 Oct):** `gold/ai_capex.yaml` reference set, `ledger eval`, `EVALUATION.md` in releases, Insights section; Alphabet's renamed PP&E categories fixed (type 45); server-category overstatement measured (type 46).
 - **DATAHQ three tabs (29 Oct, M7):** design audit and the new design in `docs/DATAHQ.md`; Pipeline, Attribution (model editor, rerun, diff, grid), Insights (live tables); company page attribution-first; dead question UI and Outputs removed.
 - **Money-flow models + attributor (29 Oct, M6):** six models in `agents/models/`, agent `attributor` (`attribution@v1`) with an arithmetic contract, table `attribution`, `attribution.csv`, diff on load, company page section. The Attribution tab with model editing is M7.

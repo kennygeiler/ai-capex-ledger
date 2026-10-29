@@ -6,7 +6,9 @@ A pipeline that takes a company's 10-K filings and returns revenue, capex and op
 
 *Updated with every commit.*
 
-**Last done (29 Oct 2026, latest):** DATAHQ data first. Every page opens on numbers and shapes: a coverage heat grid on Pipeline, the shaded AI-capex grid first on Attribution, four charts and an evaluation dot plot on Insights, a six-number strip and capex-with-AI-part bars on the company page. Prose cut to one-line captions (`docs/DATAHQ.md`, "Data first"). `v1.4.0` built, unsigned.
+**Last done (29 Oct 2026, last):** DATAHQ as a dataset console, designed from what Arctal does (five people turning filings into source-linked, taxonomy-structured datasets covering spending that has happened, is committed or is planned, distributed through S&P Global Sustainable1; `docs/DATAHQ.md`). One Data screen: a status strip (entities, values agreeing, facts, cells confirmed, faults, reference agreement, blocked); a filter bar (entities by industry, field, kind: spent / committed / planned, saved views); the grid (entities down, years across, shaded, cells that moved since the last run outlined); a provenance panel one click deep (value, method, inputs, XBRL, model and prompt versions, the cell and its screenshot, the filing); a chart of the selection; CSV export with provenance columns. The URL carries the selection. `/api/data` serves the dataset in long format. Pipeline, Insights and the company page folded into it; Attribution keeps the models; Add a company under `#run`.
+
+**Before that (29 Oct, latest):** DATAHQ data first. Every page opens on numbers and shapes: a coverage heat grid on Pipeline, the shaded AI-capex grid first on Attribution, four charts and an evaluation dot plot on Insights, a six-number strip and capex-with-AI-part bars on the company page. Prose cut to one-line captions (`docs/DATAHQ.md`, "Data first"). `v1.4.0` built, unsigned.
 
 **Before that (29 Oct):** a measured error. The role inside a firm owns a number others act on, so the number needs a reference set and an error band, not an agent's confidence.
 - **Reference set** `gold/ai_capex.yaml`: sourced figures for AI's part of capex (what the company said on a call, or an independent estimate), each with URL, quote, date and a line on what it measures. Six entries so far, all company statements; add one whenever a sourced figure turns up, never from memory.
@@ -122,7 +124,7 @@ Every command runs as `uv run python -m ledger <command> --stage N` or `--ticker
 | `ledger/steps.py`, `ledger/progress.py` | The pipeline's step list; what a run is doing, for DATAHQ's Add page |
 | `airflow/dags/capex_ledger.py` | The same steps as an Airflow DAG (one `BashOperator` each); Airflow is not a dependency, point one at this folder |
 | `agents/agents.json`, `agents/prompts/`, `ledger/agents.py` | The named agents: model, active prompt, change history; a prompt change is saved as a new version |
-| `ledger/app.py`, `app.html`, `hq.py` | DATAHQ web app (three tabs: Pipeline, Attribution, Insights) and its numbers; design audit in [docs/DATAHQ.md](docs/DATAHQ.md) |
+| `ledger/app.py`, `app.html`, `hq.py` | DATAHQ: the Data screen (grid, provenance, export) and Attribution (models, reruns); design audit and the Arctal research in [docs/DATAHQ.md](docs/DATAHQ.md) |
 | `ledger/rules.py`, `rules/` | Rule engine and the 16 rules |
 | `ledger/evidence.py`, `scorecard.py` | Rendered-10-K re-read with boxed screenshots; what each company cost |
 | `ledger/faults.py`, `review.py`, `release.py` | Fault injection, decisions, releases |

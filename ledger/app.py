@@ -190,6 +190,50 @@ def insights() -> dict:
             "release_has_attribution": bool(rel and (rel / "attribution.csv").exists())}
 
 
+FIELD_KIND = {"revenue": "spent", "capex": "spent", "opex": "spent", "ai_capex": "spent", "ai_opex": "spent", "segment_capex": "spent", "segment_revenue": "spent",
+              "ppe_category": "spent", "finance_lease_liability": "committed", "purchase_commitments": "committed", "ai_capex_outlook": "planned", "ai_opex_outlook": "planned",
+              "capex_guidance": "planned"}
+
+
+def data(q: dict) -> dict:
+    """The dataset in long format for the data screen: one row per entity, field, dimension, year and kind, with its
+    provenance ids. Filters: t (tickers, comma), f (fields, comma), y (years, comma), k (spent|committed|planned)."""
+    want_t = set(q.get("t", "").upper().split(",")) - {""}
+    want_f = set(q.get("f", "").split(",")) - {""}
+    want_y = set(q.get("y", "").upper().split(",")) - {""}
+    want_k = set(q.get("k", "").split(",")) - {""}
+    con = _con()
+    try:
+        rows = []
+        for v in _rows(con, 'select ticker, field, period, value, label, basis, extraction_ids, source from "values" where value is not null'):
+            rows.append({"ticker": v["ticker"], "field": v["field"], "dimension": "", "period": v["period"], "kind": "spent", "value": v["value"], "unit": "usd",
+                         "check": v["label"], "method": "cell", "confidence": None, "basis": v["basis"], "prov": {"extractions": v["extraction_ids"], "table": "values"}})
+        for f in _rows(con, "select ticker, field, dimension, period, value, label, reference, accession, extraction_ids, basis from facts"):
+            rows.append({"ticker": f["ticker"], "field": f["field"], "dimension": f["dimension"], "period": f["period"], "kind": FIELD_KIND.get(f["field"], "spent"), "value": f["value"], "unit": "usd",
+                         "check": f["label"], "method": "cell", "confidence": None, "basis": f["basis"], "prov": {"extractions": f["extraction_ids"], "accession": f["accession"], "table": "facts", "xbrl": f["reference"]}})
+        for a in _rows(con, "select * from attribution"):
+            if a["ai_amount"] is None:
+                continue
+            rows.append({"ticker": a["ticker"], "field": f"ai_{a['field']}" + ("_outlook" if a["kind"] == "outlook" else ""), "dimension": "", "period": a["period"],
+                         "kind": "planned" if a["kind"] == "outlook" else "spent", "value": a["ai_amount"], "unit": "usd", "check": None, "method": a["method"], "confidence": a["confidence"],
+                         "basis": a["basis"], "share": a["ai_share"], "prov": {"inputs": a["inputs"], "model": a["model"], "prompt": a["prompt_version"], "table": "attribution"}})
+        for s in _rows(con, "select * from ai_spend where class = 'explicit_amount' and scope = 'total'"):
+            rows.append({"ticker": s["ticker"], "field": "capex_guidance" if s["field"] == "capex" else "opex_guidance", "dimension": "", "period": s["period"], "kind": "planned" if s["kind"] == "outlook" else "spent",
+                         "value": (s["amount_low"] + s["amount_high"]) // 2, "unit": "usd", "check": None, "method": "stated", "confidence": None, "basis": s["quote"],
+                         "range": [s["amount_low"], s["amount_high"]], "prov": {"text": s["text_id"], "source": s["source"], "accession": s["accession"], "table": "ai_spend"}})
+        urls = {d["accession"]: d["url"] for d in _rows(con, "select accession, url from documents")}
+    finally:
+        con.close()
+    for r in rows:
+        acc = r["prov"].get("accession") or (r["prov"].get("extractions") or "").split("|")[0]
+        r["prov"]["url"] = urls.get(acc)
+    rows = [r for r in rows if (not want_t or r["ticker"] in want_t) and (not want_f or r["field"] in want_f) and (not want_y or r["period"] in want_y) and (not want_k or r["kind"] in want_k)]
+    names = {c["ticker"]: c["name"] for c in tracked()}
+    fields = sorted({r["field"] for r in rows} if want_t else set(FIELD_KIND) | {"opex_guidance"})
+    return {"rows": rows, "names": names, "industries": {c["ticker"]: industry(c["ticker"]) for c in tracked()}, "roles": {c["ticker"]: c.get("role", "other") for c in tracked()},
+            "fields": fields, "kinds": ["spent", "committed", "planned"]}
+
+
 def packet(version: str) -> bytes | None:
     d = RELEASES / version
     if not re.fullmatch(r"v\d+\.\d+\.\d+", version) or not (d / "SIGNOFF.json").exists():
@@ -332,6 +376,8 @@ class Handler(BaseHTTPRequestHandler):
             return self._json(job())
         if u.path == "/api/insights":
             return self._guard(lambda: self._json(insights()))
+        if u.path == "/api/data":
+            return self._guard(lambda: self._json(data(q)))
         if u.path == "/api/evaluation":
             f = store.ROOT / "reports" / "evaluation.json"
             return self._json(json.loads(f.read_text()) if f.exists() else None)
