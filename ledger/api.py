@@ -160,7 +160,7 @@ def to_csv(rows: list[dict]) -> str:
         return ""
     cols = list(dict.fromkeys(k for r in rows for k in r))
     buf = io.StringIO()
-    w = csv.DictWriter(buf, fieldnames=cols, extrasaction="ignore")
+    w = csv.DictWriter(buf, fieldnames=cols, extrasaction="ignore", lineterminator="\n")  # LF like every other release file; CRLF broke the signoff hash on read_text (v1.5.0)
     w.writeheader()
     for r in rows:
         w.writerow({k: ("" if v is None else v) for k, v in r.items()})

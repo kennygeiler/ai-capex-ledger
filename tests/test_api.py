@@ -144,3 +144,10 @@ class ReleaseRows(unittest.TestCase):
         self.assertEqual(rows[0]["release"], "v1.4.0")
         with self.assertRaises(KeyError):
             api.release_rows("v1.4.0", "projects")  # v1.4.0 predates the list
+
+
+class CsvLineEndings(unittest.TestCase):
+    def test_to_csv_uses_lf(self):
+        out = api.to_csv([{"a": 1, "b": "x"}, {"a": 2, "b": None}])
+        self.assertNotIn("\r", out)
+        self.assertEqual(out, "a,b\n1,x\n2,\n")

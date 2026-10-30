@@ -13,7 +13,7 @@ def main(argv=None) -> int:
     a = ap.parse_args(argv)
     d = RELEASES / a.version
     m = json.loads((d / "manifest.json").read_text())
-    files = {n: (d / n).read_text() for n in m["files"]}
+    files = {n: (d / n).open(newline="").read() for n in m["files"]}  # exact bytes: the hash was taken before the write
     h = m["hash"]
     if content_hash(files) != h:
         print(f"{a.version} files no longer match their hash; not signed.")

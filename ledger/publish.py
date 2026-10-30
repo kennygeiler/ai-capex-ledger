@@ -50,7 +50,7 @@ def check(version: str) -> dict:
     if not (d / "SIGNOFF.json").exists():
         raise NotPublishable(f"{version} is not signed; a release goes to production only after the owner signs it")
     s = json.loads((d / "SIGNOFF.json").read_text())
-    files = {n: (d / n).read_text() for n in m["files"]}
+    files = {n: (d / n).open(newline="").read() for n in m["files"]}  # exact bytes: the hash was taken before the write
     if content_hash(files) != m["hash"] or s["hash"] != m["hash"]:
         raise NotPublishable(f"{version} files no longer match the signed hash; not published")
     return {"manifest": m, "signoff": s, "dir": d}
