@@ -6,6 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141518" media="(prefers-color-scheme: dark)">
 <title>DATAHQ</title>
@@ -161,82 +162,7 @@
   .form label { display: grid; grid-template-columns: 6rem 1fr; gap: .5rem; align-items: center; font-size: .85rem; }
   .form input, .form select { border: 1px solid var(--faint); border-radius: 4px; padding: .25rem .45rem; background: var(--bg); font-size: .85rem; }
   @media (max-width: 700px) { .views { grid-template-columns: 1fr; } .barlist .bar { grid-template-columns: 6rem 1fr 5rem; } }
-  /* Reconcile */
-  .wbc select { max-width: 16rem; }
-  table.wbt th:first-child, table.wbt td:first-child { position: static; }
-  table.wbt tr.grp td { padding: 1.1rem 0 .35rem; border-bottom: 0; background: var(--bg); }
-  table.wbt tr.grp .gl { font-weight: 600; }
-  table.wbt tr.item { cursor: pointer; scroll-margin-top: 3rem; }
-  table.wbt input[type=checkbox] { width: 18px; height: 18px; margin: .15rem .2rem; }
-  table.wbt button.small, .exbody button.small, .bulk button.small { padding: .25rem .4rem; min-height: 24px; display: inline-flex; align-items: center; margin: -.25rem 0; }
-  table.wbt tr.item:focus-visible { outline: 0; }
-  table.wbt tr.item:focus-visible td, table.wbt tr.item.cur td { background: var(--row); }
-  table.wbt tr.item.cur td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
-  table.wbt tr.item[aria-expanded=true] td { border-bottom-color: transparent; }
-  table.wbt td.n { white-space: nowrap; }
-  .delta { font-weight: 500; }
-  table.wbt tr.ev td { padding: .2rem 0 1.4rem 1.6rem; background: var(--row); cursor: default; }
-  .evgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1.25rem 2.5rem; max-width: 80rem; }
-  .evgrid h3 { font-size: .86rem; font-weight: 600; margin: 0 0 .4rem; }
-  .evgrid p { max-width: 60ch; }
-  .kv2 { display: grid; grid-template-columns: 7rem 1fr; gap: .2rem .6rem; align-items: baseline; margin: .15rem 0; }
-  .inputs { margin-top: .6rem; display: grid; gap: .15rem; max-width: 30rem; }
-  .inputs .kv2 { grid-template-columns: 1fr auto; }
-  .inputs .kv2 > span:last-child { text-align: right; font-variant-numeric: tabular-nums; max-width: 14rem; }
-  .shot { max-width: min(100%, 34rem); border-radius: 4px; margin: .5rem 0; display: block; }
-  .resform { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
-  .resform input[type=text] { flex: 1 1 14rem; }
-  .segs { display: inline-flex; background: var(--faint); border-radius: 5px; padding: 2px; }
-  .seg { color: var(--muted); padding: .22rem .6rem; border-radius: 4px; font-size: .84rem; transition: transform 120ms cubic-bezier(.23,1,.32,1); }
-  .seg.on { background: var(--bg); color: var(--fg); font-weight: 500; }
-  .seg:hover { opacity: 1; color: var(--fg); }
-  .btn, .seg { transition: transform 120ms cubic-bezier(.23,1,.32,1); }
-  .btn:active, .seg:active { transform: scale(.97); }
-  .bulk { padding: .6rem .9rem; background: var(--row); border-radius: 6px; }
-  .evgrid { grid-template-columns: minmax(20rem, 26rem) minmax(16rem, 1fr) minmax(16rem, 22rem); }
-  @media (max-width: 70rem) { .evgrid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); } }
-  .evl { min-width: 0; }
-  svg.gauge { width: 100%; height: auto; display: block; overflow: visible; }
-  svg.gauge.mini { width: 7.5rem; height: .9rem; vertical-align: middle; }
-  td.gapc, th.gapc { width: 8rem; }
-  svg.gauge .track { stroke: var(--faint); stroke-width: 2; }
-  svg.gauge .band { fill: color-mix(in srgb, var(--fg) 12%, transparent); }
-  svg.gauge .ref { stroke: var(--fg); stroke-width: 2; }
-  svg.gauge line.ours { stroke: var(--accent); stroke-width: 6; stroke-linecap: round; }
-  svg.gauge circle.ours { fill: var(--accent); stroke: var(--bg); stroke-width: 2; }
-  svg.gauge .gap { stroke: var(--bad); stroke-width: 2; stroke-dasharray: 3 3; }
-  svg.gauge .lbl { font-size: 11px; fill: var(--muted); }
-  svg.gauge .lbl.ours { fill: var(--accent); font-weight: 600; }
-  svg.gauge .lbl.ref { fill: var(--fg); }
-  svg.gauge .lbl.gap { fill: var(--bad); font-weight: 600; }
-  svg.years { width: 100%; height: auto; display: block; }
-  svg.years .grid { stroke: var(--faint); stroke-width: 1; }
-  svg.years .lbl { font-size: 10.5px; fill: var(--muted); }
-  svg.years .lbl.hl { fill: var(--fg); font-weight: 600; }
-  svg.years rect.ours { fill: var(--accent); opacity: .55; }
-  svg.years rect.ours.hl { opacity: 1; }
-  svg.years rect.ref { fill: var(--muted); opacity: .6; }
-  svg.years .mark { stroke: var(--fg); stroke-width: 2.5; fill: var(--fg); }
-  svg.years .mark.thin { stroke-width: 1.5; stroke-dasharray: 2 3; }
-  .pbars { display: grid; gap: .3rem; }
-  .pb { display: grid; grid-template-columns: minmax(6rem, 9rem) minmax(5rem, 1fr) auto; gap: .6rem; align-items: center; font-size: .84rem; }
-  .pb .l { color: var(--muted); font-size: .8rem; line-height: 1.25; }
-  .pb .track { height: 10px; background: var(--faint); border-radius: 2px; overflow: hidden; }
-  .pb .track i { display: block; height: 100%; background: var(--accent); opacity: .55; }
-  .pb.ours .track i { opacity: 1; }
-  .pb.ref .track i { background: var(--fg); opacity: .55; }
-  .pb.tot .track i { background: var(--muted); opacity: .45; }
-  .pb .v { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .pb.ours .v { font-weight: 600; }
-  .gapline { margin-top: .4rem; font-size: .9rem; }
-  .lg { display: flex; flex-wrap: wrap; gap: .3rem 1rem; font-size: .76rem; color: var(--muted); margin-top: .4rem; }
-  .lg i { display: inline-block; width: 12px; height: 8px; border-radius: 2px; vertical-align: middle; }
-  .lg i.ours { background: var(--accent); }
-  .lg i.ref { background: var(--muted); }
-  .lg i.mark { background: var(--fg); height: 3px; }
-  .lg i.band { background: color-mix(in srgb, var(--fg) 12%, transparent); }
-  .words summary { cursor: pointer; margin-top: .6rem; }
-  .cellmeta { margin-bottom: .4rem; }
+  /* Reconcile is built on Tabler inside a shadow root (reconcilePage); its CSS lives there. */
   /* Explore */
   .exc select, .exc input { max-width: 15rem; }
   .plot { min-height: 400px; margin-top: .6rem; }
@@ -1015,135 +941,146 @@ async function releasesPage(view) {
       h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Values'), table([{t: 'Company', k: 'company'}, {t: 'Field', k: 'field'}, {t: 'Year', k: 'period'}, {t: 'Value', n: 1, k: 'value', f: (x) => (x.value === '' ? h('span', {class: 'muted'}, 'blank') : usd(Number(x.value)))}, {t: 'SEC data', k: 'xbrl'}], r.rows))))));
 }
 
-// ── Reconcile: the workbench. One row per open item, numbers side by side, evidence on expand, resolution inline. ──
+// ── Reconcile: the workbench, on Tabler (dashboard UI kit) inside its own shadow root so the kit's reset touches nothing else. ──
+// One card per cause; one row per item with ours, reference, a gap bar, delta and decision; Enter opens the evidence as
+// aligned diff tables (this year, the computation, every year) with a status badge per line, and the decision form.
+const TABLER_CSS = 'https://cdn.jsdelivr.net/npm/@tabler/core@1.3.2/dist/css/tabler.min.css';
 const CAUSE_ORDER = ['blocked', 'reference_disagrees', 'fact_differs', 'attribution_moved', 'fact_changed', 'finding_unconfirmed', 'new_filing'];
 const RES_LABEL = {accept: 'Accept', explain: 'Explain', fix: 'Fix', blocks: 'Blocks'};
 const RES_HELP = {accept: 'the number is right as it stands', explain: 'right, with the reason kept beside it', fix: 'wrong, stays open until a run fixes it', blocks: 'nothing ships until this is settled'};
+const RES_BADGE = {accept: 'bg-green-lt', explain: 'bg-azure-lt', fix: 'bg-yellow-lt', blocks: 'bg-red-lt'};
 let FOCUS_KEY = null;  // the row to focus after a save re-renders the page
 const num = (r, v) => (v == null ? '—' : r.measure === 'share' ? pct(v) : usd(v));
 const signed = (r, v) => (v == null ? '—' : (v < 0 ? '−' : '+') + (r.measure === 'share' ? `${(100 * Math.abs(v)).toFixed(1)} pts` : usd(Math.abs(v))));
-// ── charts for the evidence: ours against the stated figure, with the fewest words ──
-const NS = 'http://www.w3.org/2000/svg';
-const sv = (tag, attrs = {}, ...kids) => { const el = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) if (v != null) el.setAttribute(k, v); for (const c of kids.flat()) if (c != null) el.append(c instanceof Node ? c : document.createTextNode(String(c))); return el; };
-const fmt = (r, v) => (r.measure === 'share' ? pct(v) : usd(v));
-// a gauge: one scale, ours as a bar with a dot, the stated figure as a band (at least / at most) or a tick (equal), the gap in red
-function gauge(r, mini) {
-  const W = mini ? 120 : 360, H = mini ? 14 : 52, y = mini ? 7 : 26, pad = mini ? 2 : 6;
+const pctSigned = (x) => (x == null ? '—' : `${x < 0 ? '−' : '+'}${(100 * Math.abs(x)).toFixed(Math.abs(x) < .1 ? 1 : 0)}%`);
+const RECONCILE_CSS = `
+  :host { display: block; }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 0 0 4rem; }
+  .page-title { font-size: 1.25rem; }
+  .tn { font-variant-numeric: tabular-nums; }
+  .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .table thead th { font-size: .72rem; letter-spacing: .03em; }
+  .table td.num, .table th.num { text-align: right; }
+  tr.item { cursor: pointer; }
+  tr.item:focus-visible { outline: 2px solid var(--tblr-primary); outline-offset: -2px; }
+  tr.item.cur td { background: var(--tblr-active-bg, rgba(0,0,0,.03)); }
+  tr.item.cur td:first-child { box-shadow: inset 3px 0 0 var(--tblr-primary); }
+  tr.ev > td { padding: 1rem 1.25rem 1.25rem; background: var(--tblr-bg-surface-secondary); cursor: default; }
+  .gg { position: relative; height: 8px; width: 7rem; background: var(--tblr-border-color); border-radius: 4px; }
+  .gg .band { position: absolute; top: -3px; height: 14px; background: color-mix(in srgb, var(--tblr-body-color) 14%, transparent); border-radius: 2px; }
+  .gg .ours { position: absolute; left: 0; top: 0; height: 8px; background: var(--tblr-primary); border-radius: 4px; }
+  .gg .tick { position: absolute; top: -4px; width: 2px; height: 16px; background: var(--tblr-body-color); }
+  .gg .gap { position: absolute; top: 3px; height: 2px; background: repeating-linear-gradient(90deg, var(--tblr-red) 0 3px, transparent 3px 6px); }
+  .gg.lg { width: 100%; height: 10px; margin: .35rem 0 .2rem; }
+  .gg.lg .ours { height: 10px; }
+  .gg.lg .band { top: -3px; height: 16px; }
+  .gg.lg .tick { top: -5px; height: 20px; }
+  .bar { display: inline-block; height: 6px; border-radius: 3px; background: var(--tblr-primary); vertical-align: middle; margin-right: .35rem; opacity: .85; }
+  .card-header .card-title { white-space: nowrap; }
+  .card-header .small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-left: 1rem; }
+  .table .badge { white-space: nowrap; }
+  .bar.ref { background: var(--tblr-secondary); }
+  .bar.tot { background: var(--tblr-border-color-active, #bbb); }
+  .shot { max-width: 100%; border-radius: 4px; border: 1px solid var(--tblr-border-color); }
+  details.words summary { cursor: pointer; font-size: .8rem; color: var(--tblr-secondary); list-style: none; }
+  details.words summary::-webkit-details-marker { display: none; }
+  details.words[open] summary { margin-bottom: .4rem; }
+  .table-sm > :not(caption) > * > * { padding: .35rem .6rem; }
+  .card-title { font-size: .85rem; }
+  .btn:active { transform: scale(.98); }
+  .btn-group .btn.active { background: var(--tblr-primary); color: #fff; border-color: var(--tblr-primary); }
+`;
+function tablerTheme() { return (document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')); }
+// a gap bar: one scale, ours as a bar, the stated figure as a tick with a band for where it allows
+function gapBar(r, large) {
   const share = r.measure === 'share';
   const max = share ? 1 : Math.max(Math.abs(r.ours || 0), Math.abs(r.reference || 0)) * 1.15 || 1;
-  const x = (v) => pad + (W - 2 * pad) * Math.max(0, Math.min(1, Math.abs(v) / max));
+  const p = (v) => `${(100 * Math.max(0, Math.min(1, Math.abs(v) / max))).toFixed(1)}%`;
   const ref = r.reference, ours = r.ours;
-  const bandFrom = r.relation === 'ge' ? ref : r.relation === 'le' ? 0 : ref, bandTo = r.relation === 'ge' ? max : r.relation === 'le' ? ref : ref;
+  const from = r.relation === 'ge' ? ref : r.relation === 'le' ? 0 : ref * 0.9, to = r.relation === 'ge' ? max : r.relation === 'le' ? ref : ref * 1.1;
   const inside = ours != null && ref != null && (r.relation === 'ge' ? ours >= ref : r.relation === 'le' ? ours <= ref : Math.abs(ours - ref) <= 0.1 * Math.abs(ref));
-  const g = sv('svg', {viewBox: `0 0 ${W} ${H}`, class: 'gauge' + (mini ? ' mini' : ''), role: 'img', 'aria-label': `Ours ${fmt(r, ours)} against ${({ge: 'at least ', le: 'at most '})[r.relation] || ''}${fmt(r, ref)}`});
-  g.append(sv('line', {x1: pad, x2: W - pad, y1: y, y2: y, class: 'track'}));
-  if (ref != null) {
-    if (r.relation === 'eq') g.append(sv('rect', {x: x(ref * 0.9), y: y - (mini ? 5 : 9), width: Math.max(2, x(ref * 1.1) - x(ref * 0.9)), height: mini ? 10 : 18, class: 'band'}), sv('line', {x1: x(ref), x2: x(ref), y1: y - (mini ? 6 : 12), y2: y + (mini ? 6 : 12), class: 'ref'}));
-    else g.append(sv('rect', {x: x(bandFrom), y: y - (mini ? 5 : 9), width: Math.max(2, x(bandTo) - x(bandFrom)), height: mini ? 10 : 18, class: 'band'}), sv('line', {x1: x(ref), x2: x(ref), y1: y - (mini ? 6 : 12), y2: y + (mini ? 6 : 12), class: 'ref'}));
-  }
-  if (ours != null) {
-    g.append(sv('line', {x1: pad, x2: x(ours), y1: y, y2: y, class: 'ours'}), sv('circle', {cx: x(ours), cy: y, r: mini ? 3 : 5, class: 'ours'}));
-    if (ref != null && !inside) { const edge = r.relation === 'ge' ? ref : r.relation === 'le' ? ref : ref; g.append(sv('line', {x1: x(ours), x2: x(edge), y1: y, y2: y, class: 'gap'})); }
-  }
-  if (!mini) {
-    if (ours != null) g.append(sv('text', {x: x(ours), y: y - 15, 'text-anchor': ours > max * 0.85 ? 'end' : 'middle', class: 'lbl ours'}, `ours ${fmt(r, ours)}`));
-    if (ref != null) g.append(sv('text', {x: x(ref), y: y + 24, 'text-anchor': ref > max * 0.85 ? 'end' : ref < max * 0.12 ? 'start' : 'middle', class: 'lbl ref'}, `${({ge: 'at least ', le: 'at most '})[r.relation] || 'stated '}${fmt(r, ref)}`));
-    if (ours != null && ref != null && !inside && Math.abs(x(ours) - x(ref)) >= 80) g.append(sv('text', {x: (x(ours) + x(ref)) / 2, y: y - 15, 'text-anchor': 'middle', class: 'lbl gap'}, signed(r, r.delta)));
-  }
-  return g;
+  const el = h('div', {class: 'gg' + (large ? ' lg' : ''), role: 'img', 'aria-label': `Ours ${num(r, ours)} against ${({ge: 'at least ', le: 'at most '})[r.relation] || ''}${num(r, ref)}`});
+  if (ref != null) el.append(h('div', {class: 'band', style: `left:${p(from)};width:calc(${p(to)} - ${p(from)})`}), h('div', {class: 'tick', style: `left:${p(ref)}`}));
+  if (ours != null) el.append(h('div', {class: 'ours', style: `width:${p(ours)}`}));
+  if (ours != null && ref != null && !inside) { const a = Math.min(ours, ref), b = Math.max(ours, ref); el.append(h('div', {class: 'gap', style: `left:${p(a)};width:calc(${p(b)} - ${p(a)})`})); }
+  return el;
 }
-// horizontal bars on one scale: [{label, value, cls, note}]
-function pairBars(items, measure) {
-  const vals = items.map((i) => Math.abs(i.value || 0)), max = Math.max(1e-9, ...vals);
-  const f = (v) => (v == null ? '—' : measure === 'share' ? pct(v) : usd(v));
-  return h('div', {class: 'pbars'}, items.map((i) => h('div', {class: 'pb ' + (i.cls || '')}, h('span', {class: 'l', title: i.title || null}, i.label, i.note ? h('span', {class: 'muted', style: 'display:block;font-size:.72rem'}, i.note) : ''), h('span', {class: 'track'}, h('i', {style: `width:${(100 * Math.abs(i.value || 0) / max).toFixed(1)}%`})), h('span', {class: 'v'}, f(i.value)))));
+const badge = (text, cls) => h('span', {class: 'badge ' + (cls || 'bg-secondary-lt')}, text);
+const checkBadge = (label) => (label == null ? '' : label === 'agree' ? badge('SEC agrees', 'bg-green-lt') : label === 'not_reported' ? badge('not reported', 'bg-secondary-lt') : label === 'no_reference' ? badge('no tag', 'bg-secondary-lt') : label === 'definition_gap' ? badge('explained', 'bg-azure-lt') : badge('differs from SEC', 'bg-yellow-lt'));
+// a card with a title and a table; cols: {t, k|f, num, w}
+function dtable(title, cols, rows, {foot, note} = {}) {
+  const tbl = h('table', {class: 'table table-sm table-vcenter card-table'},
+    h('thead', {}, h('tr', {}, cols.map((c) => h('th', {class: c.num ? 'num' : null, style: c.w ? `width:${c.w}` : null}, c.t)))),
+    h('tbody', {}, rows.map((r) => h('tr', {class: r._cls || null}, cols.map((c) => h('td', {class: [c.num && 'num', c.strong && 'fw-semibold'].filter(Boolean).join(' ') || null}, c.f ? c.f(r) : r[c.k] ?? '—'))))),
+    foot ? h('tfoot', {}, h('tr', {}, foot.map((x, i) => h('td', {class: (cols[i] && cols[i].num ? 'num ' : '') + 'fw-semibold'}, x)))) : '');
+  return h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, title), note ? h('span', {class: 'ms-auto text-secondary small'}, note) : ''), h('div', {class: 'table-responsive'}, tbl));
 }
-// years across: ours as bars (share, or amount), every stated figure as a marker: a tick for equal, a bracket for at least / at most
-function yearChart(series, {share, highlight, pair} = {}) {
-  const W = 360, H = 130, L = 36, R = 8, T = 14, B = 22;
-  const val = (s) => (pair ? s.value : share ? s.share : s.amount);
-  const refv = (s) => (pair ? s.reference : null);
-  const allVals = series.flatMap((s) => [val(s), refv(s), ...(s.refs || []).filter((r) => (r.measure === 'share') === !!share).map((r) => r.reference)]).filter((v) => v != null);
-  if (!allVals.length) return h('p', {class: 'muted small'}, 'No years to show.');
-  const max = share ? 1 : Math.max(...allVals.map(Math.abs)) * 1.1;
-  const n = series.length, slot = (W - L - R) / n, bw = Math.min(28, slot * (pair ? 0.3 : 0.55));
-  const yv = (v) => T + (H - T - B) * (1 - Math.max(0, Math.min(1, Math.abs(v) / max)));
-  const g = sv('svg', {viewBox: `0 0 ${W} ${H}`, class: 'years', role: 'img', 'aria-label': 'Ours by year with every stated figure'});
-  for (const t of (share ? [0, .5, 1] : [0, .5, 1].map((k) => k * max))) g.append(sv('line', {x1: L, x2: W - R, y1: yv(t), y2: yv(t), class: 'grid'}), sv('text', {x: L - 4, y: yv(t) + 4, 'text-anchor': 'end', class: 'lbl'}, share ? (t ? pct(t) : '0%') : '$' + compact(t)));
-  series.forEach((s, i) => {
-    const cx = L + slot * (i + 0.5), v = val(s);
-    const hl = s.period === highlight;
-    g.append(sv('text', {x: cx, y: H - 6, 'text-anchor': 'middle', class: 'lbl' + (hl ? ' hl' : '')}, s.period.replace('FY', '')));
-    if (v != null) g.append(sv('rect', {x: pair ? cx - bw - 1 : cx - bw / 2, y: yv(v), width: bw, height: yv(0) - yv(v), class: 'ours' + (hl ? ' hl' : '')}, sv('title', {}, `${s.period}: ours ${share ? pct(v) : usd(v)}${s.method ? ', ' + (METHOD[s.method] || s.method) : ''}`)));
-    if (pair && refv(s) != null) g.append(sv('rect', {x: cx + 1, y: yv(refv(s)), width: bw, height: yv(0) - yv(refv(s)), class: 'ref'}, sv('title', {}, `${s.period}: tag ${usd(refv(s))}`)));
-    for (const r of (s.refs || []).filter((r) => (r.measure === 'share') === !!share)) {
-      const y = yv(r.reference);
-      if (r.relation === 'eq') g.append(sv('line', {x1: cx - bw / 2 - 5, x2: cx + bw / 2 + 5, y1: y, y2: y, class: 'mark'}), sv('circle', {cx, cy: y, r: 3.5, class: 'mark'}));
-      else g.append(sv('line', {x1: cx - bw / 2 - 5, x2: cx + bw / 2 + 5, y1: y, y2: y, class: 'mark'}), sv('line', {x1: cx + bw / 2 + 5, x2: cx + bw / 2 + 5, y1: y, y2: r.relation === 'ge' ? T : yv(0), class: 'mark thin'}));
-      g.append(sv('title', {}, `${s.period}: stated ${({ge: 'at least ', le: 'at most '})[r.relation] || ''}${share ? pct(r.reference) : usd(r.reference)}`));
-    }
-  });
-  return g;
-}
-const legend = (...items) => h('div', {class: 'lg'}, items.map(([cls, t]) => h('span', {}, h('i', {class: cls}), ' ', t)));
-const words = (...kids) => h('details', {class: 'words'}, h('summary', {class: 'muted small'}, 'In words'), h('div', {class: 'small', style: 'margin-top:.4rem'}, kids));
-
+const bar = (v, max, cls) => h('span', {class: 'bar ' + (cls || ''), style: `width:${Math.max(2, 44 * Math.abs(v || 0) / (max || 1)).toFixed(0)}px`});
 async function reconcilePage(view, qs) {
   const q = parseQ(qs || '');
   const scope = q.scope || 'all', group = q.group || 'cause', fCause = q.cause || '', fLayer = q.layer || '', fField = q.field || '', withResolved = q.resolved === '1';
   const d = await api('/api/v1/reconcile?scope=' + encodeURIComponent(scope));
+  const host = h('div', {id: 'reconcile-host'});
+  view.append(host);
+  const root = host.attachShadow({mode: 'open'});
+  const wrap = h('div', {class: 'wrap', 'data-bs-theme': tablerTheme()});
+  root.append(h('link', {rel: 'stylesheet', href: TABLER_CSS}), h('style', {}, RECONCILE_CSS), wrap);
   const setQ = (patch) => { const p = {scope, group, cause: fCause, layer: fLayer, field: fField, resolved: withResolved ? '1' : '', ...patch}; go('reconcile?' + new URLSearchParams(Object.fromEntries(Object.entries(p).filter(([, v]) => v))).toString()); };
-  let rows = d.rows.filter((r) => withResolved || !r.resolution || r.resolution.state === 'fix' || r.resolution.state === 'blocks');
+  const isOpen = (r) => !r.resolution || r.resolution.state === 'fix' || r.resolution.state === 'blocks';
+  let rows = d.rows.filter((r) => withResolved || isOpen(r));
   if (fCause) rows = rows.filter((r) => r.cause === fCause);
   if (fLayer) rows = rows.filter((r) => r.layer === fLayer);
   if (fField) rows = rows.filter((r) => (r.field || '') === fField);
-  const hidden = d.rows.length - d.rows.filter((r) => withResolved || !r.resolution || r.resolution.state === 'fix' || r.resolution.state === 'blocks').length;
+  const hidden = d.rows.length - d.rows.filter(isOpen).length;
   const causes = CAUSE_ORDER.filter((c) => d.rows.some((r) => r.cause === c)), layers = [...new Set(d.rows.map((r) => r.layer))].sort(), fields = [...new Set(d.rows.map((r) => r.field).filter(Boolean))].sort();
-  const sel = (label, value, opts, key) => h('select', {'aria-label': label, onchange: (e) => setQ({[key]: e.target.value})}, opts.map(([v, t]) => h('option', {value: v, selected: v === value || null}, t)));
-  const controls = h('div', {class: 'row wbc'},
-    sel('Scope', scope, [['all', 'All companies'], ...layers.map((l) => [l, INDUSTRY[l] || l]), ...Object.keys(d.names).sort().map((t) => [t, `${d.names[t]} (${t})`])], 'scope'),
-    sel('Group by', group, [['cause', 'Grouped by cause'], ['company', 'Grouped by company']], 'group'),
-    sel('Cause', fCause, [['', 'Every cause'], ...causes.map((c) => [c, d.causes.find((x) => x.cause === c)?.label || c])], 'cause'),
-    sel('Layer', fLayer, [['', 'Every layer'], ...layers.map((l) => [l, INDUSTRY[l] || l])], 'layer'),
-    sel('Field', fField, [['', 'Every field'], ...fields.map((f) => [f, LABEL[f] || f.replace('ai_', 'AI ')])], 'field'),
-    h('label', {class: 'small muted', style: 'white-space:nowrap'}, h('input', {type: 'checkbox', checked: withResolved || null, onchange: (e) => setQ({resolved: e.target.checked ? '1' : ''})}), ` show ${int(hidden)} resolved`));
-  const openRows = rows.filter((r) => !r.resolution || r.resolution.state === 'fix' || r.resolution.state === 'blocks');
-  const lede = h('p', {class: 'lede'}, h('b', {}, int(openRows.length)), ` open item${openRows.length === 1 ? '' : 's'}, `, h('b', {}, usd(openRows.reduce((s, r) => s + (r.dollars || 0), 0))), ` at stake. Last run ${day(d.last_run)}${d.release ? `, signed ${d.release}` : ''}. `,
-    h('span', {class: 'muted'}, 'Move with j and k, open with Enter, decide with a, e, f or b, select with space.'));
-
-  // the table
+  const sel = (label, value, opts, key) => h('select', {class: 'form-select form-select-sm', 'aria-label': label, onchange: (e) => setQ({[key]: e.target.value})}, opts.map(([v, t]) => h('option', {value: v, selected: v === value || null}, t)));
+  const openRows = rows.filter(isOpen);
+  const header = h('div', {class: 'page-header mb-3'}, h('div', {class: 'row align-items-center g-2'},
+    h('div', {class: 'col'}, h('h2', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'text-secondary small'}, `${int(openRows.length)} open, ${usd(openRows.reduce((s, r) => s + (r.dollars || 0), 0))} at stake. Last run ${day(d.last_run)}${d.release ? `, signed ${d.release}` : ''}. Keys: j k move, Enter opens, a e f b decide, space selects.`))));
+  const controls = h('div', {class: 'card mb-3'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'},
+    h('div', {class: 'col-auto'}, sel('Scope', scope, [['all', 'All companies'], ...layers.map((l) => [l, INDUSTRY[l] || l]), ...Object.keys(d.names).sort().map((t) => [t, `${d.names[t]} (${t})`])], 'scope')),
+    h('div', {class: 'col-auto'}, sel('Group by', group, [['cause', 'Grouped by cause'], ['company', 'Grouped by company']], 'group')),
+    h('div', {class: 'col-auto'}, sel('Cause', fCause, [['', 'Every cause'], ...causes.map((c) => [c, d.causes.find((x) => x.cause === c)?.label || c])], 'cause')),
+    h('div', {class: 'col-auto'}, sel('Layer', fLayer, [['', 'Every layer'], ...layers.map((l) => [l, INDUSTRY[l] || l])], 'layer')),
+    h('div', {class: 'col-auto'}, sel('Field', fField, [['', 'Every field'], ...fields.map((f) => [f, LABEL[f] || f.replace('ai_', 'AI ')])], 'field')),
+    h('div', {class: 'col-auto ms-auto'}, h('label', {class: 'form-check form-switch m-0'}, h('input', {class: 'form-check-input', type: 'checkbox', checked: withResolved || null, onchange: (e) => setQ({resolved: e.target.checked ? '1' : ''})}), h('span', {class: 'form-check-label small'}, `show ${int(hidden)} resolved`))))));
   const selected = new Set();
   let cur = -1;
   const trs = [];
-  const bulk = h('div', {class: 'row bulk', hidden: true});
+  const bulk = h('div', {class: 'card mb-3', hidden: true});
   const groups = new Map();
   const keyOf = (r) => (group === 'cause' ? r.cause : r.ticker);
   const ordered = [...rows].sort((a, b) => (group === 'cause' ? CAUSE_ORDER.indexOf(a.cause) - CAUSE_ORDER.indexOf(b.cause) || b.dollars - a.dollars || a.ticker.localeCompare(b.ticker) : a.name.localeCompare(b.name) || CAUSE_ORDER.indexOf(a.cause) - CAUSE_ORDER.indexOf(b.cause) || b.dollars - a.dollars));
   for (const r of ordered) groups.set(keyOf(r), [...(groups.get(keyOf(r)) || []), r]);
-  const tbody = h('tbody');
-  const head = h('tr', {}, h('th', {style: 'width:1.6rem'}, h('span', {class: 'sr'}, 'Select')), h('th', {}, group === 'cause' ? 'Company' : 'Cause'), h('th', {}, 'Where'), h('th', {class: 'n'}, 'Ours'), h('th', {class: 'n'}, 'Reference'), h('th', {class: 'gapc'}, 'Gap'), h('th', {class: 'n'}, 'Delta'), h('th', {}, 'Decision'));
+  const cards = [];
   for (const [g, list] of groups) {
     const label = group === 'cause' ? list[0].cause_label.replace(/:.*$/, '') : `${list[0].name} ${list[0].ticker}`;
-    const open = list.filter((r) => !r.resolution || r.resolution.state === 'fix' || r.resolution.state === 'blocks');
-    tbody.append(h('tr', {class: 'grp'}, h('td', {colspan: 8}, h('span', {class: 'gl'}, label), h('span', {class: 'muted small'}, ` ${int(open.length)} open of ${int(list.length)}${list.some((r) => r.dollars) ? `, ${usd(list.reduce((s, r) => s + r.dollars, 0))} at stake` : ''}`),
-      open.length > 1 ? h('button', {type: 'button', class: 'small', style: 'margin-left:1rem', onclick: () => { for (const r of open) selected.add(r.key); paint(); }}, `Select all ${int(open.length)}`) : '')));
+    const open = list.filter(isOpen);
+    const tbody = h('tbody');
     for (const r of list) {
       const i = trs.length;
-      const cb = h('input', {type: 'checkbox', 'aria-label': `Select ${r.name} ${r.where}`, checked: selected.has(r.key) || null, onclick: (e) => { e.stopPropagation(); e.target.checked ? selected.add(r.key) : selected.delete(r.key); paint(); }});
-      const first = group === 'cause' ? [h('a', {href: `#data?t=${r.ticker}&f=${r.field && r.field.startsWith('ai_') ? 'ai_capex,capex' : (r.field || 'capex') + ',capex'}`, onclick: (e) => e.stopPropagation()}, r.name), ' ', h('span', {class: 'muted small'}, r.ticker)] : [r.cause_label.replace(/:.*$/, '')];
-      const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field.replace('ai_', 'AI ')) : r.where, r.period ? ` ${r.period}` : ''), r.evidence.dimension ? h('div', {class: 'muted small'}, r.evidence.dimension) : r.cause === 'finding_unconfirmed' && r.measure == null ? h('div', {class: 'muted small'}, r.cause_label) : ''];
-      const delta = r.delta == null ? h('span', {class: 'muted'}, r.ours != null || r.reference != null ? 'one side only' : '—') : [h('span', {class: 'delta ' + (r.cause === 'reference_disagrees' || r.cause === 'fact_differs' ? 'bad' : '')}, signed(r, r.delta)), r.delta_pct != null && r.measure !== 'share' ? h('div', {class: 'muted small'}, `${r.delta_pct < 0 ? '−' : '+'}${(100 * Math.abs(r.delta_pct)).toFixed(Math.abs(r.delta_pct) < .1 ? 1 : 0)}%`) : r.measure === 'share' && r.dollars ? h('div', {class: 'muted small'}, `${usd(r.dollars)} at stake`) : ''];
-      const res = r.resolution ? [h('span', {class: r.resolution.state === 'blocks' ? 'bad' : r.resolution.state === 'fix' ? '' : 'muted'}, RES_LABEL[r.resolution.state]), h('div', {class: 'muted small'}, `${r.resolution.by}, ${day(r.resolution.at)}`)] : h('span', {class: 'muted'}, 'open');
+      const cb = h('input', {class: 'form-check-input m-0', type: 'checkbox', 'aria-label': `Select ${r.name} ${r.where}`, checked: selected.has(r.key) || null, onclick: (e) => { e.stopPropagation(); e.target.checked ? selected.add(r.key) : selected.delete(r.key); paint(); }});
+      const first = group === 'cause' ? [h('a', {href: `#data?t=${r.ticker}&f=${r.field && r.field.startsWith('ai_') ? 'ai_capex,capex' : (r.field || 'capex') + ',capex'}`, onclick: (e) => e.stopPropagation()}, r.name), ' ', h('span', {class: 'text-secondary small'}, r.ticker)] : [r.cause_label.replace(/:.*$/, '')];
+      const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field.replace('ai_', 'AI ')) : r.where, r.period ? ` ${r.period}` : ''), r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : r.cause === 'finding_unconfirmed' && r.measure == null ? h('div', {class: 'text-secondary small'}, r.cause_label) : ''];
+      const res = r.resolution ? [badge(RES_LABEL[r.resolution.state], RES_BADGE[r.resolution.state]), h('div', {class: 'text-secondary small'}, `${r.resolution.by}, ${day(r.resolution.at)}`)] : badge('open', 'bg-secondary-lt');
       const tr = h('tr', {class: 'item', tabindex: 0, 'aria-expanded': 'false', onkeydown: (e) => keys(e, i), onclick: () => toggle(i), onfocus: () => { cur = i; paintCur(); }},
-        h('td', {}, cb), h('td', {}, first), h('td', {}, where),
-        h('td', {class: 'n'}, num(r, r.ours), r.ours_label ? h('div', {class: 'muted small'}, r.ours_label) : ''),
-        h('td', {class: 'n'}, r.reference == null ? h('span', {class: 'muted'}, '—') : [({ge: '≥ ', le: '≤ '})[r.relation] || '', num(r, r.reference)], r.ref_label && r.reference != null ? h('div', {class: 'muted small'}, r.ref_label) : ''),
-        h('td', {class: 'gapc'}, r.ours != null && r.reference != null ? gauge(r, true) : ''), h('td', {class: 'n'}, delta), h('td', {}, res));
+        h('td', {class: 'w-1'}, cb), h('td', {}, first), h('td', {}, where),
+        h('td', {class: 'num'}, num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, METHOD[(r.ours_label || '').replace('by ', '')] || r.ours_label) : ''),
+        h('td', {class: 'num'}, r.reference == null ? h('span', {class: 'text-secondary'}, '—') : [({ge: '≥ ', le: '≤ '})[r.relation] || '', num(r, r.reference)], r.ref_label && r.reference != null ? h('div', {class: 'text-secondary small'}, r.ref_label) : ''),
+        h('td', {class: 'w-1'}, r.ours != null && r.reference != null ? gapBar(r) : ''),
+        h('td', {class: 'num'}, r.delta == null ? h('span', {class: 'text-secondary'}, r.ours != null || r.reference != null ? 'one side' : '—') : [h('span', {class: 'fw-semibold' + (r.cause === 'reference_disagrees' || r.cause === 'fact_differs' ? ' text-red' : '')}, signed(r, r.delta)), r.delta_pct != null && r.measure !== 'share' ? h('div', {class: 'text-secondary small'}, pctSigned(r.delta_pct)) : r.measure === 'share' && r.dollars ? h('div', {class: 'text-secondary small'}, `${usd(r.dollars)} at stake`) : '']),
+        h('td', {}, res));
       trs.push({tr, r, detail: null});
       tbody.append(tr);
     }
+    cards.push(h('div', {class: 'card mb-3'},
+      h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, label), h('span', {class: 'ms-2 text-secondary small'}, `${int(open.length)} open of ${int(list.length)}${list.some((r) => r.dollars) ? `, ${usd(list.reduce((s, r) => s + r.dollars, 0))} at stake` : ''}`),
+        open.length > 1 ? h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary ms-auto', onclick: () => { for (const r of open) selected.add(r.key); paint(); }}, `Select all ${int(open.length)}`) : ''),
+      h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table table-hover'},
+        h('thead', {}, h('tr', {}, h('th', {class: 'w-1'}, h('span', {class: 'visually-hidden'}, 'Select')), h('th', {}, group === 'cause' ? 'Company' : 'Cause'), h('th', {}, 'Where'), h('th', {class: 'num'}, 'Ours'), h('th', {class: 'num'}, 'Reference'), h('th', {class: 'w-1'}, 'Gap'), h('th', {class: 'num'}, 'Delta'), h('th', {}, 'Decision'))),
+        tbody))));
   }
-  function paint() { for (const t of trs) t.tr.querySelector('input[type=checkbox]').checked = selected.has(t.r.key); bulk.hidden = selected.size === 0; bulk.replaceChildren(h('span', {}, h('b', {}, int(selected.size)), ' selected'), resolutionForm(null, [...selected].map((k) => trs.find((t) => t.r.key === k).r), () => { selected.clear(); paint(); }), h('button', {type: 'button', class: 'small', onclick: () => { selected.clear(); paint(); }}, 'Clear')); }
+  function paint() { for (const t of trs) t.tr.querySelector('input[type=checkbox]').checked = selected.has(t.r.key); bulk.hidden = selected.size === 0; bulk.replaceChildren(h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-auto'}, h('b', {}, int(selected.size)), ' selected'), h('div', {class: 'col'}, resolutionForm(null, [...selected].map((k) => trs.find((t) => t.r.key === k).r), () => { selected.clear(); paint(); })), h('div', {class: 'col-auto'}, h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary', onclick: () => { selected.clear(); paint(); }}, 'Clear'))))); }
   function paintCur() { trs.forEach((t, j) => t.tr.classList.toggle('cur', j === cur)); }
   function toggle(i, force) {
     const t = trs[i]; cur = i; paintCur();
@@ -1165,62 +1102,80 @@ async function reconcilePage(view, qs) {
   function resolutionForm(r, many, done) {
     const items = many || [r];
     let state = r && r.resolution ? r.resolution.state : 'accept';
-    const btns = Object.keys(RES_LABEL).map((s) => h('button', {type: 'button', class: 'seg' + (s === state ? ' on' : ''), 'data-state': s, 'aria-pressed': String(s === state), title: RES_HELP[s], onclick: (e) => { state = s; e.currentTarget.parentNode.querySelectorAll('.seg').forEach((b) => { b.classList.toggle('on', b.dataset.state === s); b.setAttribute('aria-pressed', String(b.dataset.state === s)); }); }}, RES_LABEL[s]));
-    const reason = h('input', {type: 'text', name: 'reason', autocomplete: 'off', placeholder: many ? `Why, for all ${items.length}, e.g. accrual capex, cash basis differs` : 'e.g. includes finance leases, note 7', 'aria-label': 'Reason', value: r && r.resolution ? r.resolution.reason : '', onkeydown: (e) => { if (e.key === 'Enter') save.click(); }});
-    const status = h('span', {class: 'muted small', 'aria-live': 'polite'});
-    const save = h('button', {type: 'button', class: 'btn', onclick: async () => {
+    const btns = Object.keys(RES_LABEL).map((s) => h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary' + (s === state ? ' active' : ''), 'data-state': s, 'aria-pressed': String(s === state), title: RES_HELP[s], onclick: (e) => { state = s; e.currentTarget.parentNode.querySelectorAll('.btn').forEach((b) => { b.classList.toggle('active', b.dataset.state === s); b.setAttribute('aria-pressed', String(b.dataset.state === s)); }); }}, RES_LABEL[s]));
+    const reason = h('input', {type: 'text', class: 'form-control form-control-sm', name: 'reason', autocomplete: 'off', placeholder: many ? `Why, for all ${items.length}, e.g. accrual capex, cash basis differs` : 'e.g. includes finance leases, note 7', 'aria-label': 'Reason', value: r && r.resolution ? r.resolution.reason : '', onkeydown: (e) => { if (e.key === 'Enter') save.click(); }});
+    const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
+    const save = h('button', {type: 'button', class: 'btn btn-sm btn-primary', onclick: async () => {
       if (!reason.value.trim()) { reason.focus(); status.textContent = 'A reason is required.'; return; }
       save.disabled = true; status.textContent = 'Saving…';
       try {
         if (many) await api('/api/resolve/bulk', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({items: items.map((x) => ({key: x.key, hash: x.hash})), state, reason: reason.value, by: me})});
         else await api('/api/resolve', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({key: r.key, hash: r.hash, state, reason: reason.value, by: me})});
-        status.classList.remove('bad'); status.textContent = 'Saved.'; FOCUS_KEY = many ? items[0].key : r.key; if (done) done(); setTimeout(route, 250);
-      } catch (e) { status.textContent = `Couldn’t save: ${e.message}. Try again.`; status.classList.add('bad'); }
+        status.classList.remove('text-red'); status.textContent = 'Saved.'; FOCUS_KEY = many ? items[0].key : r.key; if (done) done(); setTimeout(route, 250);
+      } catch (e) { status.textContent = `Couldn’t save: ${e.message}. Try again.`; status.classList.add('text-red'); }
       finally { save.disabled = false; }
     }}, many ? `Save for ${items.length}` : 'Save');
-    return h('div', {class: 'resform'}, h('div', {class: 'segs', role: 'group', 'aria-label': 'Decision'}, btns), reason, save, status);
+    return h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-auto'}, h('div', {class: 'btn-group', role: 'group', 'aria-label': 'Decision'}, btns)), h('div', {class: 'col'}, h('div', {class: 'input-group input-group-sm'}, reason, save)), h('div', {class: 'col-12'}, status));
   }
   function evidence(r) {
-    const E = r.evidence || {}, S = r.series || [], left = [], mid = [];
+    const E = r.evidence || {}, S = r.series || [], cards = [];
+    const col = (n, ...k) => h('div', {class: `col-12 col-xl-${n}`}, k);
+    const yr = S.find((s) => s.period === r.period) || {};
     if (r.cause === 'reference_disagrees') {
-      left.push(h('h3', {}, `${r.period}: ours against the stated figure`), gauge(r), h('h3', {style: 'margin-top:.9rem'}, 'Every year'), yearChart(S, {share: r.measure === 'share', highlight: r.period}),
-        legend(['ours', 'ours' + (r.measure === 'share' ? ', share of the total' : '')], ['mark', 'stated; a bracket is at least or at most'], ['band', 'where the stated figure allows']));
-      const inputs = (E.inputs || []).map((i) => ({label: i.what, title: i.field, value: i.value, cls: 'in', note: i.check && i.check !== 'agree' ? 'differs from SEC data' : ''}));
-      const yr = S.find((s) => s.period === r.period) || {};
-      mid.push(h('h3', {}, `How ours is computed: ${METHOD[(r.ours_label || '').replace('by ', '')] || r.ours_label}`),
-        pairBars([...inputs, {label: 'AI amount', value: E.ours_amount, cls: 'ours'}, yr.total != null ? {label: `Total ${LABEL[r.field.replace('ai_', '')] || r.field.replace('ai_', '')}`, value: yr.total, cls: 'tot'} : null].filter(Boolean)),
-        words(E.basis ? h('p', {class: 'brk'}, E.basis) : '', E.quote ? h('p', {style: 'margin-top:.4rem'}, `“${E.quote}” `, E.url ? h('a', {href: E.url, target: '_blank', rel: 'noopener'}, 'source') : '', E.source_date ? h('span', {class: 'muted'}, `, ${day(E.source_date)}`) : '') : '', E.reference_basis ? h('p', {class: 'muted', style: 'margin-top:.4rem'}, E.reference_basis) : ''));
+      const lines = [{what: 'Ours', value: r.ours, src: METHOD[(r.ours_label || '').replace('by ', '')] || r.ours_label, amount: E.ours_amount, _cls: 'fw-semibold'},
+        {what: 'Stated', value: r.reference, rel: r.relation, src: `${E.source_kind === 'company_statement_via_press' ? 'company statement, via press' : (E.source_kind || 'source').replaceAll('_', ' ')}${E.source_date ? ', ' + day(E.source_date) : ''}`, amount: r.measure === 'share' && yr.total ? r.reference * yr.total : null},
+        {what: 'Delta', value: r.delta, src: r.measure === 'share' ? `${usd(r.dollars)} at stake` : pctSigned(r.delta_pct), amount: r.measure === 'share' && yr.total ? r.delta * yr.total : null, _cls: 'text-red'}];
+      cards.push(col(4, dtable(`${r.period}: ours against the stated figure`, [{t: '', f: (x) => [h('div', {}, x.what), h('div', {class: 'text-secondary small fw-normal'}, x.src)]}, {t: r.measure === 'share' ? 'Share' : 'Amount', num: 1, f: (x) => (x.what === 'Delta' ? signed(r, x.value) : [({ge: '≥ ', le: '≤ '})[x.rel] || '', num(r, x.value)])},
+          r.measure === 'share' ? {t: 'In dollars', num: 1, f: (x) => (x.amount == null ? '—' : x.what === 'Delta' ? (x.amount < 0 ? '−' : '+') + usd(Math.abs(x.amount)) : usd(x.amount))} : null].filter(Boolean), lines),
+        h('div', {class: 'card mt-3'}, h('div', {class: 'card-body py-2'}, gapBar(r, true), h('div', {class: 'd-flex justify-content-between small text-secondary'}, h('span', {}, 'ours ', h('b', {class: 'text-primary'}, num(r, r.ours))), h('span', {}, `${({ge: 'at least ', le: 'at most ', eq: 'stated '})[r.relation] || ''}`, h('b', {}, num(r, r.reference)))))),
+        E.quote ? h('details', {class: 'words mt-2'}, h('summary', {}, 'The statement, in words'), h('blockquote', {class: 'small mb-1'}, `“${E.quote}”`, ' ', E.url ? h('a', {href: E.url, target: '_blank', rel: 'noopener'}, 'source') : ''), E.reference_basis ? h('div', {class: 'small text-secondary'}, E.reference_basis) : '') : ''));
+      const inputs = (E.inputs || []).map((i) => ({what: i.what, field: i.field, value: i.value, share: i.share, check: i.check}));
+      const maxIn = Math.max(1, ...inputs.map((i) => Math.abs(i.value || 0)), Math.abs(E.ours_amount || 0), Math.abs(yr.total || 0));
+      const comp = [...inputs.map((i) => ({...i, kind: 'input'})), {what: 'AI amount', value: E.ours_amount, kind: 'out', _cls: 'fw-semibold'}, yr.total != null ? {what: `Total ${LABEL[r.field.replace('ai_', '')] || r.field.replace('ai_', '')}`, value: yr.total, kind: 'tot', check: 'agree'} : null, E.ours_share != null ? {what: 'Share', value: null, share: E.ours_share, kind: 'share'} : null].filter(Boolean);
+      cards.push(col(4, dtable('How ours is computed', [{t: 'Line', f: (x) => [h('div', {}, x.what, ' ', x.kind === 'input' || x.kind === 'tot' ? checkBadge(x.check) : ''), x.field ? h('div', {class: 'text-secondary small fw-normal'}, x.field) : '']}, {t: 'Value', num: 1, f: (x) => (x.kind === 'share' ? pct(x.share) : x.value == null ? (x.share != null ? pct(x.share) : h('span', {class: 'text-secondary'}, 'words only')) : [bar(x.value, maxIn, x.kind === 'tot' ? 'tot' : x.kind === 'out' ? '' : 'ref'), usd(x.value)])}], comp, {note: `${METHOD[(r.ours_label || '').replace('by ', '')] || r.ours_label}${E.confidence != null ? `, confidence ${E.confidence}` : ''}`}),
+        E.basis ? h('details', {class: 'words mt-2'}, h('summary', {}, 'The basis, in words'), h('div', {class: 'small'}, E.basis)) : ''));
+      const share = r.measure === 'share';
+      const yrows = S.map((s) => { const ref = (s.refs || []).find((x) => (x.measure === 'share') === share); const ov = share ? s.share : s.amount; return {period: s.period, ours: ov, method: s.method, total: s.total, ref: ref ? ref.reference : null, rel: ref ? ref.relation : null, outcome: ref ? ref.outcome : null, _cls: s.period === r.period ? 'table-active' : null}; });
+      const maxY = Math.max(1e-9, ...yrows.flatMap((y) => [Math.abs(y.ours || 0), Math.abs(y.ref || 0)]));
+      cards.push(col(4, dtable('Every year', [{t: 'Year', k: 'period', w: '4rem'}, {t: 'Ours', num: 1, f: (y) => (y.ours == null ? '—' : [bar(y.ours, share ? 1 : maxY), share ? pct(y.ours) : usd(y.ours)])}, {t: 'Stated', num: 1, f: (y) => (y.ref == null ? h('span', {class: 'text-secondary'}, '—') : [({ge: '≥ ', le: '≤ '})[y.rel] || '', share ? pct(y.ref) : usd(y.ref)])},
+          {t: 'Delta', num: 1, f: (y) => (y.ref == null || y.ours == null ? '' : h('span', {class: y.outcome === 'disagree' ? 'text-red' : ''}, signed({measure: r.measure}, y.ours - y.ref)))}, {t: '', f: (y) => (y.outcome === 'agree' ? badge('agrees', 'bg-green-lt') : y.outcome === 'disagree' ? badge('disagrees', 'bg-red-lt') : y.ours == null ? badge('no estimate', 'bg-secondary-lt') : '')}], yrows, {note: share ? 'share of the total' : ''})));
     } else if (r.cause === 'fact_differs') {
       const c = E.cell;
-      left.push(h('h3', {}, `${r.period}: the cited cell against the filing’s tag`),
-        pairBars([{label: 'Cited cell', value: r.ours, cls: 'ours'}, {label: 'XBRL tag', value: r.reference, cls: 'ref'}, E.release_value != null ? {label: `In ${d.release}`, value: Number(E.release_value), cls: 'tot'} : null].filter(Boolean)),
-        h('div', {class: 'gapline'}, h('span', {class: 'delta bad'}, signed(r, r.delta)), r.delta_pct != null ? h('span', {class: 'muted small'}, ` ${r.delta_pct < 0 ? '−' : '+'}${(100 * Math.abs(r.delta_pct)).toFixed(1)}%`) : ''),
-        S.length > 1 ? [h('h3', {style: 'margin-top:.9rem'}, 'Every year, cell against tag'), yearChart(S, {pair: true, highlight: r.period}), legend(['ours', 'cited cell'], ['ref', 'XBRL tag'])] : '');
-      mid.push(h('h3', {}, 'The cell'), c ? h('div', {class: 'cellmeta'}, h('b', {}, c.cell_text), h('span', {class: 'muted small'}, ` row “${c.row_label}”, column “${(c.column_label || '').replaceAll(' | ', ' ')}”, ${c.table_id}`)) : h('p', {class: 'muted small'}, 'No citation on record.'),
-        E.png ? h('img', {src: E.png, alt: `Screenshot of the cited cell ${c ? c.cell_text : ''}`, loading: 'lazy', class: 'shot'}) : '',
-        E.used_by && E.used_by.length ? [h('h3', {style: 'margin-top:.8rem'}, 'Feeds'), pairBars(E.used_by.map((u) => ({label: `${LABEL[u.field] || u.field} ${u.period}`, value: u.ai_amount, cls: 'ours', note: METHOD[u.method] || u.method})))] : '',
-        h('div', {class: 'row', style: 'margin-top:.6rem;gap:.8rem'}, E.url ? h('a', {href: E.url, target: '_blank', rel: 'noopener', class: 'small'}, 'Open the 10-K') : '', h('a', {href: '#attribution', class: 'small'}, 'The model')));
-    } else if (r.cause === 'attribution_moved') {
-      left.push(h('h3', {}, `${r.period}: before and after the load`), pairBars([{label: `Before, ${METHOD[E.before[0]] || E.before[0] || '—'}`, value: E.before[1], cls: 'ref'}, {label: `After, ${METHOD[E.after[0]] || E.after[0] || '—'}`, value: E.after[1], cls: 'ours'}]),
-        h('div', {class: 'gapline'}, h('span', {class: 'delta'}, signed(r, r.delta))));
-      mid.push(h('a', {href: `#data?t=${r.ticker}&f=ai_capex,capex`, class: 'small'}, 'The dataset'));
-    } else if (r.cause === 'fact_changed') {
-      left.push(h('h3', {}, `${r.period}: now against ${E.release || 'the release'}`), pairBars([{label: 'Now', value: r.ours, cls: 'ours'}, {label: E.release || 'Release', value: r.reference, cls: 'ref'}]), h('div', {class: 'gapline'}, h('span', {class: 'delta'}, signed(r, r.delta))));
-      mid.push(h('p', {class: 'muted small'}, 'Ships in the next release; the change note lists it.'));
+      const lines = [{what: 'Cited cell', value: r.ours, src: c ? `${c.table_id}, “${c.row_label}”` : '', _cls: 'fw-semibold'}, {what: 'XBRL tag', value: r.reference, src: 'the filing’s own data'}, E.release_value != null ? {what: `In ${d.release}`, value: Number(E.release_value), src: 'signed'} : null, {what: 'Delta', value: r.delta, src: pctSigned(r.delta_pct), _cls: 'text-red'}].filter(Boolean);
+      const maxL = Math.max(1, ...lines.filter((l) => l.what !== 'Delta').map((l) => Math.abs(l.value || 0)));
+      cards.push(col(4, dtable(`${r.period}: the cited cell against the filing’s tag`, [{t: '', f: (x) => [h('div', {}, x.what), x.src ? h('div', {class: 'text-secondary small fw-normal'}, x.src) : '']}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Delta' ? signed(r, x.value) : [bar(x.value, maxL, x.what === 'Cited cell' ? '' : 'ref'), usd(x.value)])}], lines),
+        h('div', {class: 'card mt-3'}, h('div', {class: 'card-body py-2'}, gapBar(r, true), h('div', {class: 'd-flex justify-content-between small text-secondary'}, h('span', {}, 'cell ', h('b', {class: 'text-primary'}, usd(r.ours))), h('span', {}, 'tag ', h('b', {}, usd(r.reference))))))));
+      cards.push(col(4, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'The cell')), h('div', {class: 'card-body py-2'}, c ? h('div', {class: 'datagrid'},
+          h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Cell'), h('div', {class: 'datagrid-content fw-semibold'}, c.cell_text)),
+          h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Row'), h('div', {class: 'datagrid-content'}, c.row_label)),
+          h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Column'), h('div', {class: 'datagrid-content'}, (c.column_label || '').replaceAll(' | ', ' '))),
+          h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Table'), h('div', {class: 'datagrid-content'}, c.table_id))) : h('p', {class: 'text-secondary small m-0'}, 'No citation on record.'),
+          E.png ? h('img', {src: E.png, alt: `Screenshot of the cited cell ${c ? c.cell_text : ''}`, loading: 'lazy', class: 'shot mt-2'}) : '',
+          h('div', {class: 'mt-2'}, E.url ? h('a', {href: E.url, target: '_blank', rel: 'noopener', class: 'small me-3'}, 'Open the 10-K') : '', h('a', {href: '#attribution', class: 'small'}, 'The model')))),
+        E.used_by && E.used_by.length ? h('div', {class: 'mt-3'}, dtable('Feeds', [{t: 'Attribution', f: (u) => `${LABEL[u.field] || u.field} ${u.period}`}, {t: 'AI amount', num: 1, f: (u) => usd(u.ai_amount)}, {t: 'Method', f: (u) => h('span', {class: 'text-secondary small'}, METHOD[u.method] || u.method)}], E.used_by)) : ''));
+      const maxY = Math.max(1e-9, ...S.flatMap((s) => [Math.abs(s.value || 0), Math.abs(s.reference || 0)]));
+      cards.push(col(4, dtable('Every year, cell against tag', [{t: 'Year', k: 'period', w: '4rem'}, {t: 'Cell', num: 1, f: (s) => (s.value == null ? '—' : [bar(s.value, maxY), usd(s.value)])}, {t: 'Tag', num: 1, f: (s) => (s.reference == null ? h('span', {class: 'text-secondary'}, '—') : [bar(s.reference, maxY, 'ref'), usd(s.reference)])}, {t: 'Delta', num: 1, f: (s) => (s.reference == null || s.value == null ? '' : h('span', {class: s.label === 'unresolved' ? 'text-red' : ''}, signed({measure: 'usd'}, s.value - s.reference)))}, {t: '', f: (s) => checkBadge(s.label)}], S.map((s) => ({...s, _cls: s.period === r.period ? 'table-active' : null})))));
+    } else if (r.cause === 'attribution_moved' || r.cause === 'fact_changed') {
+      const before = r.cause === 'attribution_moved' ? {what: `Before, ${METHOD[E.before[0]] || E.before[0] || '—'}`, value: E.before[1]} : {what: E.release || 'Release', value: r.reference};
+      const after = r.cause === 'attribution_moved' ? {what: `After, ${METHOD[E.after[0]] || E.after[0] || '—'}`, value: E.after[1], _cls: 'fw-semibold'} : {what: 'Now', value: r.ours, _cls: 'fw-semibold'};
+      const maxL = Math.max(1, Math.abs(before.value || 0), Math.abs(after.value || 0));
+      cards.push(col(5, dtable(`${r.period}: before and after`, [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Delta' ? signed(r, x.value) : [bar(x.value, maxL, x === before ? 'ref' : ''), usd(x.value)])}], [before, after, {what: 'Delta', value: r.delta, _cls: 'text-red'}])));
+      cards.push(col(3, h('a', {href: `#data?t=${r.ticker}&f=ai_capex,capex`, class: 'small'}, 'The dataset')));
     } else if (r.cause === 'finding_unconfirmed' || r.cause === 'blocked') {
-      if (r.measure) left.push(h('h3', {}, r.cause_label.replace(/:.*$/, '')), pairBars([{label: r.ref_label || 'before', value: r.reference, cls: 'ref'}, {label: r.ours_label || 'after', value: r.ours, cls: 'ours'}]), h('div', {class: 'gapline'}, h('span', {class: 'delta'}, signed(r, r.delta)), E.kind === 'jump' && E.size != null ? h('span', {class: 'muted small'}, ` ${Number(E.size).toFixed(1)}×`) : ''));
-      if (S.length > 1) left.push(h('h3', {style: 'margin-top:.9rem'}, `${LABEL[r.field] || r.field} by year`), yearChart(S, {pair: true, highlight: r.period}));
-      mid.push(words(h('p', {class: 'brk'}, E.message || '')), h('a', {href: `#data?t=${r.ticker}&f=${r.field || 'capex'},capex`, class: 'small'}, 'The dataset, with every citation'));
+      if (r.measure) {
+        const maxL = Math.max(1, Math.abs(r.ours || 0), Math.abs(r.reference || 0));
+        cards.push(col(4, dtable(r.cause_label.replace(/:.*$/, ''), [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Delta' ? [signed(r, x.value), E.kind === 'jump' && E.size != null ? h('span', {class: 'text-secondary small'}, ` ${Number(E.size).toFixed(1)}×`) : ''] : [bar(x.value, maxL, x.what === r.ours_label ? '' : 'ref'), usd(x.value)])}], [{what: r.ref_label || 'before', value: r.reference}, {what: r.ours_label || 'after', value: r.ours, _cls: 'fw-semibold'}, {what: 'Delta', value: r.delta, _cls: 'text-red'}])));
+      }
+      if (S.length > 1) { const maxY = Math.max(1e-9, ...S.map((s) => Math.abs(s.value || 0))); cards.push(col(4, dtable(`${LABEL[r.field] || r.field} by year`, [{t: 'Year', k: 'period', w: '4rem'}, {t: 'Value', num: 1, f: (s) => (s.value == null ? '—' : [bar(s.value, maxY), usd(s.value)])}, {t: '', f: (s) => checkBadge(s.label)}], S.map((s) => ({...s, _cls: s.period === r.period ? 'table-active' : null}))))); }
+      cards.push(col(4, h('details', {class: 'words', open: true}, h('summary', {}, 'The finding, in words'), h('div', {class: 'small'}, E.message || '')), h('div', {class: 'mt-2'}, h('a', {href: `#data?t=${r.ticker}&f=${r.field || 'capex'},capex`, class: 'small'}, 'The dataset, with every citation'))));
     } else if (r.cause === 'new_filing') {
-      left.push(h('h3', {}, `${E.form} filed ${day(E.filed)}`), h('a', {href: E.url, target: '_blank', rel: 'noopener', class: 'small'}, 'Open at the SEC'));
-      mid.push(h('a', {href: '#run', class: 'small'}, 'Run it'));
+      cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-body'}, `${E.form} filed ${day(E.filed)}. `, h('a', {href: E.url, target: '_blank', rel: 'noopener'}, 'Open at the SEC'), ' · ', h('a', {href: '#run'}, 'Run it')))));
     }
-    const resBox = h('div', {}, h('h3', {}, 'Decision'), r.resolution ? h('p', {class: 'small', style: 'margin-bottom:.5rem'}, `${RES_LABEL[r.resolution.state]} by ${r.resolution.by}, ${day(r.resolution.at)}: ${r.resolution.reason}`) : '', resolutionForm(r));
-    return h('div', {class: 'evgrid'}, h('h2', {class: 'sr'}, 'Evidence and decision'), h('div', {class: 'evl'}, left), h('div', {}, mid), resBox);
+    const decision = h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Decision'), r.resolution ? h('span', {class: 'ms-2 small text-secondary'}, `${RES_LABEL[r.resolution.state]} by ${r.resolution.by}, ${day(r.resolution.at)}: ${r.resolution.reason}`) : ''), h('div', {class: 'card-body py-2'}, resolutionForm(r))));
+    return h('div', {class: 'row g-3'}, cards, decision);
   }
-  view.append(h('div', {class: 'stack', style: 'gap:1rem'}, h('header', {class: 'pagehead'}, h('h1', {}, 'Reconcile'), lede), controls, bulk,
-    rows.length ? h('div', {class: 'scroll'}, h('table', {class: 'wbt'}, h('thead', {}, head), tbody)) : h('p', {class: 'msg'}, 'Nothing open for this scope.'),
-    d.noise ? h('p', {class: 'muted small'}, `${int(d.noise)} more facts differ from the filing’s tag but feed no attribution; they stay out of the queue.`) : ''));
+  wrap.append(header, controls, bulk, ...(cards.length ? cards : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'Nothing open for this scope.'))]),
+    d.noise ? h('p', {class: 'text-secondary small'}, `${int(d.noise)} more facts differ from the filing’s tag but feed no attribution; they stay out of the queue.`) : '');
   if (trs.length) { cur = Math.max(0, trs.findIndex((t) => t.r.key === FOCUS_KEY)); paintCur(); if (FOCUS_KEY) { trs[cur].tr.focus({preventScroll: true}); trs[cur].tr.scrollIntoView({block: 'center'}); } FOCUS_KEY = null; }
 }
 

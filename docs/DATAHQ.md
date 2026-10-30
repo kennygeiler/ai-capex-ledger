@@ -119,3 +119,15 @@ amount, the total it is a share of. A fact row shows the cited cell against the 
 three bars, and the same fact across years as paired bars. Moves and findings show before and after as two bars.
 `/api/v1/reconcile` carries a `series` per row for the year charts.
 
+**Reconcile, third pass (30 Oct, night):** Kenny's own screenshot on a wide monitor: the table stretched edge to edge,
+the hand-drawn charts shrank, labels collided; "brutally like shit, use a real UI kit." Reconcile is now built on
+Tabler (the dashboard kit, `@tabler/core@1.3.2` from jsDelivr, pinned), rendered inside its own shadow root so the
+kit's reset touches nothing else in DATAHQ. A bounded 1320px container. One card per cause with a card table: company,
+where, ours, reference, a gap bar, delta, a decision badge. The evidence under a row is three cards of aligned diff
+tables, not charts: this year (ours, stated, delta; share and dollars side by side; a gap bar beneath), the
+computation (each input with its value, a bar on one scale and an SEC badge; the AI amount; the total; the share), and
+every year (ours, stated, delta, an agrees / disagrees badge, the row's year highlighted). A fact row gets cell against
+tag against release, the cell as a datagrid with its screenshot, feeds, and the fact across years with the tag.
+Decision as a button group and an input group across the full width. Words sit behind a toggle; Inter is the kit's
+face. The other tabs keep the house style; Tabler is scoped to this one screen.
+
