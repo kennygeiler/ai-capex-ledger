@@ -88,7 +88,7 @@ def validate_output(obj: dict, accession: str, ps: dict[str, str]) -> None:
             raise Invalid(f"projects[{i}]: kind {p['kind']!r} or status {p['status']!r} out of range")
         if p["passage"] not in ps:
             raise Invalid(f"projects[{i}].passage {p['passage']!r} is not in the task")
-        if not isinstance(p["quote"], str) or len(p["quote"]) < 20 or _norm(p["quote"]) not in _norm(ps[p["passage"]]):
+        if not isinstance(p["quote"], str) or len(p["quote"]) < 8 or _norm(p["quote"]) not in _norm(ps[p["passage"]]):  # a project is often a table cell ("WULF Den (2 MW)"); verbatim is the guard, not length (type 59)
             raise Invalid(f"projects[{i}].quote is not a verbatim sentence of passage {p['passage']}: {str(p['quote'])[:80]!r}")
         lo, hi = p.get("amount_low"), p.get("amount_high")
         if (lo is None) != (hi is None):
