@@ -4,20 +4,6 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Open
 
-### C: the critique of 30 Oct (ten tickets, ranked)
-
-| ID | Ticket | Done when |
-|---|---|---|
-| C1 | **Revenue exposure has no stated inputs.** The AI-spend reader reads capex and opex statements only, so `stated_share` / `stated_amount` for `revenue` can never fire; Broadcom's "AI semiconductor revenue" is invisible. | `aispend@v4` reads revenue statements too (field `revenue`, scope `ai`: "AI revenue of $X", "data center revenue was N% of total"); `ai_statements`/`ai_spend` carry them; a rerun over every text; the attributor's revenue rows use them. |
-| C2 | **Theses are thin.** Written by an agent without sources; company facts hedged with "when stated". | Every thesis's next version cites at least three sources per layer (filings, calls, independent estimates) in a Sources section, names each company's AI segment or stated share with the source, and is dry-run before use. |
-| C4 | **Most of the 100 attribute `none`.** Honest, but the dataset says nothing about them. | A coverage roll-up per layer and measure (`/api/v1/coverage`, Status tab): companies with an amount, with words only, with nothing, per field; the Companies section of each thesis says why a `none` company is in the set. |
-| C5 | **Committed and planned are weak.** Purchase commitments and finance leases are extracted but never attributed; planned is total guidance only. | Attribution has `kind: committed` (method `commitment`: AI part of purchase commitments or lease commitments per the thesis) and `kind: outlook` rows from AI guidance; the Dataset's committed and planned columns fill from them. |
-| C6 | **Views are a filtered grid.** Bars and shares are hints, no real charts. | A view shows as a grid, a bar chart by group, a line chart by year per company, or a share grid; charts use the existing chart helpers and the ledger palette. |
-| C7 | **Two production shapes.** `/api/v1` serves the working database; Postgres holds releases with other table names. | One shape: the release holds every list the API serves (companies, values, facts, attribution, statements, plans, projects), `ledger publish` pushes those files, and `/api/v1/<list>?release=vX.Y.Z` serves a signed release's files unchanged. |
-| C8 | **No cost accounting for the agents.** Tokens sit in run logs; no cost per company, step or release. | `ledger cost` and the Status tab: tokens, seconds, attempts and estimated cost per step, per company and per release, with the price per million tokens in `ledger/config.py` and the date it was set. |
-| C9 | **Built blind.** Views tab, `/api/v1`, theses in the attributor, projects reader: none run against the real database yet. | Each exercised in the browser on the real database after the 100-company run, screenshots in `reports/evidence/datahq/`, problems logged. |
-| C10 | **The error band is a count.** "2 of 6 agree" is not an interval. | `ledger eval` reports a Wilson interval on the agreement rate overall and per method and layer, and the error distribution (median, interquartile range) on `eq` entries. |
-
 ### M3: review scales
 
 | ID | Ticket | Done when |
@@ -31,6 +17,24 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 | L2 | Non-functional checks as tests: SEC request spacing and contact header; no email or key in any output; parse under 60 s; `uv sync --frozen` works. | 4 tests. |
 
 ## Done
+
+| C10 | `ledger eval` reports a 95% Wilson interval overall and per method, layer and field, with median and IQR of the error on eq entries (`reports/EVALUATION.md`: 13 of 20 agree, interval 43%–85%). Done 31 Oct 2026. |
+
+| C9 | Flow, Dataset, Attribution, Views and Status exercised on the real database at 100 companies; every `/api/v1` list, roll-up and view called; screenshots in `reports/evidence/datahq/`; two problems found and fixed (unsigned-release query escaped the guard; Views control row stacked). Done 31 Oct 2026. |
+
+| C8 | `ledger cost` and `/api/v1/cost`: at 100 companies 12,315 agent calls, 73.9M in / 12.1M out tokens, 1,813 agent-minutes, about $536 at list price, $5.53 per company (`reports/cost.json`, Status tab). Done 31 Oct 2026. |
+
+| C7 | A release holds every API list as CSV plus theses.json (v1.5.0: companies, values, facts, attribution, statements, plans, projects); `ledger publish` pushes them; `/api/v1/<list>?release=vX.Y.Z` serves a signed release's file, 400 for an unsigned one. Done 31 Oct 2026. |
+
+| C6 | Views show as grid, bars by group, lines by year per company, or a share grid (`reports/evidence/datahq/views.png`, `views-bars.png`). Done 31 Oct 2026. |
+
+| C5 | `kind: committed` with the `commitment` method (5 rows: CoreWeave, miners' GPU commitments); `outlook` rows from AI guidance; Dataset's committed and planned columns fill. Done 31 Oct 2026. |
+
+| C4 | `/api/v1/coverage` and the Status tab: per layer and field, companies with an amount, words only, none, not run; each thesis's Companies section says why a company is in the set. Done 31 Oct 2026. |
+
+| C2 | Eleven theses rewritten with sources (8 to 39 fetched URLs each), every company fact cited or marked not disclosed, dry-run per layer (`docs/THESIS.md`) and switched on. Done 31 Oct 2026. |
+
+| C1 | Revenue statements read by `aispend@v4` (546 AI-revenue statements across 100 companies); `attribution.field = revenue` with stated and segment methods (252 actual revenue rows). Done 31 Oct 2026. |
 
 | C3 | Reference set 6 to 26 sourced entries across 7 layers (15 revenue, 11 capex), each with URL, quote and date; press-reported statements marked `company_statement_via_press`; `ledger eval` reports agreement and intervals per layer. Done 30 Oct 2026. |
 

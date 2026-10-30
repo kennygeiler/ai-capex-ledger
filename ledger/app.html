@@ -939,7 +939,7 @@ async function viewsPage(view, arg, qs) {
   const current = arg ? saved.find((v) => v.id === arg) : saved[0];
   const list = h('div', {class: 'viewlist'}, saved.map((v) => h('a', {href: '#views/' + v.id, class: 'viewrow' + (current && v.id === current.id ? ' on' : '')},
     h('span', {}, v.name), h('span', {class: 'muted small'}, `${MEASURES[v.measure] || v.measure}${v.group ? ', by ' + v.group : ''}`))));
-  const head = h('div', {class: 'controls'}, h('span', {class: 'muted small'}, `${saved.length} saved view${saved.length === 1 ? '' : 's'}`),
+  const head = h('div', {class: 'row'}, h('span', {class: 'muted small'}, `${saved.length} saved view${saved.length === 1 ? '' : 's'}`),
     h('button', {type: 'button', class: 'btn', onclick: () => editView(null)}, 'New view'));
   const body = h('div', {class: 'viewbody'});
   view.append(h('div', {class: 'views'}, h('div', {}, head, list), body));
@@ -949,7 +949,7 @@ async function viewsPage(view, arg, qs) {
   const q = new URLSearchParams({...current.filters, ...(current.group ? {group: current.group} : {})}).toString();
   const url = `/api/v1/${current.measure}?${q}`;
   body.append(h('div', {class: 'sechead'}, h('h2', {}, current.name), h('span', {class: 'muted small'}, current.note || '')),
-    h('div', {class: 'controls'}, h('span', {class: 'muted small'}, `${n} row${n === 1 ? '' : 's'}`),
+    h('div', {class: 'row', style: 'gap:1rem;margin-bottom:.8rem'}, h('span', {class: 'muted small'}, `${n} row${n === 1 ? '' : 's'}`),
       h('a', {href: url, target: '_blank', rel: 'noopener', class: 'small'}, 'JSON'), h('a', {href: url + '&format=csv', class: 'small'}, 'CSV'),
       h('button', {type: 'button', class: 'btn', onclick: () => editView(current)}, 'Edit'),
       h('button', {type: 'button', class: 'btn', onclick: async () => { if (!confirmDelete.checked) { confirmDelete.hidden = false; confirmDelete.checked = false; return; } await api(`/api/v1/views/${current.id}/delete`, {method: 'POST', body: JSON.stringify({by: me()})}); go('#views'); }}, 'Delete'),
