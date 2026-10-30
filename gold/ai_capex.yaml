@@ -3,6 +3,8 @@
 # "AI capex" in exactly the ledger's sense: a server share includes CPUs; a "vast majority" is a floor, not a number.
 # `ledger eval` scores every attribution row against these. Add an entry when you find a sourced figure; never one
 # from memory. relation: eq (the figure), ge (at least), le (at most). measure: share of capex, or amount in USD.
+# source.kind: company_statement (the company's own filing, release or transcript), company_statement_via_press (the
+# company's words as reported by a third party), independent_estimate (an analyst's figure).
 
 - ticker: GOOGL
   period: FY2025
@@ -12,7 +14,7 @@
   value: 0.60
   basis: Servers' share of 2025 capital expenditures (the rest data centers and networking), as stated by the CFO on the Q4 2025 call. Servers include CPUs, not only AI accelerators.
   source:
-    kind: company_statement
+    kind: company_statement_via_press  # the company's words as reported by a third party, not the company's own document
     url: https://nasdaq.com/articles/alphabet-spends-about-60-cents-every-technical-infrastructure-dollar-servers-nvidias
     quote: "60 per cent of Alphabet's capex in 2025 was spent on servers"
     date: 2026-02-05
@@ -27,7 +29,7 @@
   value: 0.90
   basis: Share of 2024 capex going to technical infrastructure (servers, data centers, networking), a planning statement on the Q4 2023 call. Wider than servers; a floor on the infrastructure share, not on AI.
   source:
-    kind: company_statement
+    kind: company_statement_via_press  # the company's words as reported by a third party, not the company's own document
     url: https://accelerationeconomy.com/?p=64061
     quote: "at least 90% of 2024 spending would focus on technical infrastructure"
     date: 2024-01-30
@@ -42,7 +44,7 @@
   value: 0.50
   basis: Short-lived assets (servers, CPUs and GPUs) were at most about half of cloud and AI spend through fiscal 2025; the CFO said "roughly half" long-lived in Q1 and "more than half" long-lived in Q2 and Q4. So the server share of the year is at most about 0.5.
   source:
-    kind: company_statement
+    kind: company_statement_via_press  # the company's words as reported by a third party, not the company's own document
     url: https://itpro.com/business/business-strategy/microsoft-promises-more-ai-spending-despite-cloud-cost-stumble
     quote: "more than half of cloud and AI-related spending at the firm was directed toward long-lived assets ... the remaining spend was primarily for servers, both CPUs and GPUs"
     date: 2025-01-29
@@ -57,7 +59,7 @@
   value: 0.50
   basis: The CEO said the vast majority of 2025 capex is AI for AWS; a floor of half on the AI share of total capex, which includes fulfillment and transportation.
   source:
-    kind: company_statement
+    kind: company_statement_via_press  # the company's words as reported by a third party, not the company's own document
     url: https://www.rcrwireless.com/20250207/business/amazon-100-billion-ai-infrastructure-spend-2025
     quote: "The vast majority of that capex spend is on AI for AWS"
     date: 2025-02-06
@@ -72,7 +74,7 @@
   value: 5000000000
   basis: AI-related capex including infrastructure, as stated by the CFO on the Q4 2024 call; the wording leaves open whether it is the year or cumulative, so a floor.
   source:
-    kind: company_statement
+    kind: company_statement_via_press  # the company's words as reported by a third party, not the company's own document
     url: https://www.tomshardware.com/tech-industry/artificial-intelligence/elon-musk-spent-roughly-usd10-billion-on-ai-training-hardware-in-2024
     quote: "total AI-related capex, including infrastructure, is now more than $5 billion"
     date: 2025-01-29
@@ -87,9 +89,311 @@
   value: 0.50
   basis: The vast majority of fiscal 2026 capex is revenue-generating data center equipment, per the company's plan; a floor of half on the data-center share.
   source:
-    kind: company_statement
+    kind: company_statement_via_press  # the company's words as reported by a third party, not the company's own document
     url: https://datacentremagazine.com/news/oracles-data-centre-strategy-cloud-ai-and-more-capacity
     quote: "vast majority of it dedicated to revenue-generating data center equipment"
     date: 2025-09-10
   by: Kenny Geiler
   at: 2026-10-29
+
+# --- C3 additions, 2026-10-30: sellers' AI or data-center revenue and non-hyperscaler capex, six more layers ---
+
+- ticker: NVDA
+  period: FY2025
+  field: revenue
+  measure: amount
+  relation: eq
+  value: 115200000000
+  basis: Data Center segment revenue for fiscal 2025 (ended January 2025), from the earnings release. Includes networking and non-AI data-center compute, so wider than AI accelerator revenue.
+  source:
+    kind: company_statement
+    url: https://www.sec.gov/Archives/edgar/data/1045810/000104581025000021/q4fy25pr.htm
+    quote: "Full-year revenue rose 142% to a record $115.2 billion."
+    date: 2025-02-26
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: AMD
+  period: FY2024
+  field: revenue
+  measure: amount
+  relation: eq
+  value: 12600000000
+  basis: Data Center segment revenue for 2024, from the earnings release. Includes EPYC server CPUs as well as Instinct accelerators, so wider than AI.
+  source:
+    kind: company_statement
+    url: https://ir.amd.com/financial-information/sec-filings/content/0000002488-25-000009/q42024991.htm
+    quote: "For 2024, Data Center segment revenue was a record $12.6 billion, an increase of 94% compared to the prior year"
+    date: 2025-02-04
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: AMD
+  period: FY2024
+  field: revenue
+  measure: amount
+  relation: ge
+  value: 5000000000
+  basis: AMD Instinct accelerator revenue for 2024, the CEO's floor in the earnings release; the closest to pure AI revenue AMD states.
+  source:
+    kind: company_statement
+    url: https://ir.amd.com/financial-information/sec-filings/content/0000002488-25-000009/q42024991.htm
+    quote: "delivered more than $5 billion of AMD Instinct accelerator revenue"
+    date: 2025-02-04
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: AVGO
+  period: FY2024
+  field: revenue
+  measure: amount
+  relation: eq
+  value: 12200000000
+  basis: AI revenue (custom accelerators plus AI networking) for fiscal 2024 (ended November 2024), as the CEO stated it in the earnings release. A company-defined AI line within semiconductor revenue.
+  source:
+    kind: company_statement
+    url: https://www.sec.gov/Archives/edgar/data/1730168/000173016824000125/avgo-11032024x8kxex99.htm
+    quote: "Semiconductor revenue was a record $30.1 billion driven by AI revenue of $12.2 billion."
+    date: 2024-12-12
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: MRVL
+  period: FY2025
+  field: revenue
+  measure: amount
+  relation: ge
+  value: 1500000000
+  basis: AI revenue for fiscal 2025 (ended February 2025) exceeded the company's $1.5 billion target, per the Q4 call; a floor, the exact figure was not stated. Custom silicon plus optics for AI.
+  source:
+    kind: company_statement_via_press  # the company's words as reported by a third party, not the company's own document
+    url: https://ziven.io/earnings/calls/MRVL/q4-fy2025
+    quote: "AI revenue surpassed the FY25 $1.5B target"
+    date: 2025-03-05
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: CRWV
+  period: FY2025
+  field: revenue
+  measure: amount
+  relation: eq
+  value: 5131000000
+  basis: Total revenue for 2025 from the earnings release's income statement; CoreWeave sells only AI cloud capacity, so total revenue is AI revenue.
+  source:
+    kind: company_statement_via_press  # the company's words as reported by a third party, not the company's own document
+    url: https://seekingalpha.com/pr/20416642
+    quote: "we became the fastest cloud in history to reach $5 billion in annual revenue"
+    date: 2026-02-26
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: CRWV
+  period: FY2025
+  field: capex
+  measure: amount
+  relation: le
+  value: 10309000000
+  basis: Purchases of property and equipment including capitalized software for 2025, from the cash flow statement in the earnings release. Nearly all is GPUs and the shells around them, so a ceiling on AI capex.
+  source:
+    kind: company_statement_via_press  # the company's words as reported by a third party, not the company's own document
+    url: https://seekingalpha.com/pr/20416642
+    quote: "Purchase of property and equipment, including capitalized internal-use software"
+    date: 2026-02-26
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: NBIS
+  period: FY2024
+  field: revenue
+  measure: amount
+  relation: eq
+  value: 117500000
+  basis: Group revenue for 2024 from the earnings release. Includes the smaller Toloka, TripleTen and Avride units alongside the core AI infrastructure business, so slightly wider than AI cloud.
+  source:
+    kind: company_statement
+    url: https://www.sec.gov/Archives/edgar/data/1513845/000110465925015480/tm257185d1_ex99-1.htm
+    quote: "For the full year 2024, the Group's revenue of $117.5 million increased 462% year-over-year."
+    date: 2025-02-20
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: NBIS
+  period: FY2024
+  field: capex
+  measure: amount
+  relation: le
+  value: 808100000
+  basis: Total capital expenditures for 2024 from the earnings release; nearly all GPU clusters and data centers, so a ceiling on AI capex.
+  source:
+    kind: company_statement
+    url: https://www.sec.gov/Archives/edgar/data/1513845/000110465925015480/tm257185d1_ex99-1.htm
+    quote: "Capital expenditures totaled $417.6 million and $808.1 million for the three and twelve months ended December 31, 2024"
+    date: 2025-02-20
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: IREN
+  period: FY2025
+  field: revenue
+  measure: amount
+  relation: eq
+  value: 16400000
+  basis: AI Cloud Services revenue for fiscal 2025 (ended June 2025), the income statement line in the full-year results; the rest of revenue is bitcoin mining.
+  source:
+    kind: company_statement_via_press  # the company's words as reported by a third party, not the company's own document
+    url: https://finviz.com/news/152716/iren-reports-full-year-fy25-results
+    quote: "AI Cloud Services Revenue 16.4 3.1"
+    date: 2025-08-28
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: APLD
+  period: FY2025
+  field: capex
+  measure: amount
+  relation: le
+  value: 681603000
+  basis: Purchases of property and equipment and other assets for fiscal 2025 (ended May 2025), the cash flow line in the earnings release (in thousands). Almost all is the Ellendale (Polaris Forge) HPC campus, but the line is total, so a ceiling.
+  source:
+    kind: company_statement
+    url: https://www.sec.gov/Archives/edgar/data/1144879/000114487925000019/apldq425earningsrelease.htm
+    quote: "Purchases of property and equipment and other assets"
+    date: 2025-07-30
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: WULF
+  period: FY2025
+  field: revenue
+  measure: amount
+  relation: eq
+  value: 16899000
+  basis: HPC lease revenue for 2025, the income statement line in the full-year results (in thousands); the rest of revenue is bitcoin mining.
+  source:
+    kind: company_statement
+    url: https://investors.terawulf.com/news-events/press-releases/detail/132
+    quote: "HPC lease revenue"
+    date: 2026-02-26
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: WULF
+  period: FY2025
+  field: capex
+  measure: amount
+  relation: le
+  value: 1060189000
+  basis: Purchase of and deposits on plant and equipment for 2025, the cash flow line in the full-year results (in thousands). The build is HPC data centers for Fluidstack and Google-backed leases, but the line is total, so a ceiling.
+  source:
+    kind: company_statement
+    url: https://investors.terawulf.com/news-events/press-releases/detail/132
+    quote: "Purchase of and deposits on plant and equipment"
+    date: 2026-02-26
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: CORZ
+  period: FY2025
+  field: capex
+  measure: amount
+  relation: le
+  value: 729000000
+  basis: Capital expenditures for 2025 per the 10-K's liquidity discussion, driven by converting mining sites to colocation for CoreWeave; the figure is total, so a ceiling on HPC capex.
+  source:
+    kind: company_statement
+    url: https://www.sec.gov/Archives/edgar/data/1839341/000162828026013305/core-20251231.htm
+    quote: "we incurred approximately 729.0 million and $95.0 million in capital expenditures, respectively"
+    date: 2026-03-02
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: MU
+  period: FY2025
+  field: revenue
+  measure: amount
+  relation: eq
+  value: 10000000000
+  basis: Combined HBM, high-capacity DIMM and LP server DRAM revenue for fiscal 2025 (ended August 2025), as stated on the Q4 call; wider than HBM alone (HBM was nearly $2 billion in Q4). Source is a call summary, not the release.
+  source:
+    kind: company_statement_via_press  # the company's words as reported by a third party, not the company's own document
+    url: https://ziven.io/earnings/calls/MU/q4-fy2025
+    quote: "HBM, high-capacity DIMMs, and LP server DRAM revenue reached $10 billion, over 5x the prior year."
+    date: 2025-09-23
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: DELL
+  period: FY2026
+  field: revenue
+  measure: amount
+  relation: ge
+  value: 25000000000
+  basis: AI-optimized server shipments in fiscal 2026 (ended January 2026), as the COO stated on the Q4 call; a floor, and shipments rather than recognized revenue.
+  source:
+    kind: company_statement_via_press  # the company's words as reported by a third party, not the company's own document
+    url: https://www.blocksandfiles.com/flash/2026/02/27/ai-server-frenzy-fuels-record-revenues-for-dell/4092727
+    quote: "shipped more than $25 billion throughout the year"
+    date: 2026-02-27
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: COHR
+  period: FY2025
+  field: revenue
+  measure: amount
+  relation: le
+  value: 3421300000
+  basis: Networking segment revenue for fiscal 2025 (ended June 2025), from the segment table in the earnings release. Holds the AI datacenter transceivers but also telecom, so a ceiling on AI revenue.
+  source:
+    kind: company_statement
+    url: https://www.sec.gov/Archives/edgar/data/820318/000119312525179833/d22249dex991.htm
+    quote: "Networking $945.2 $897.3 $679.8 $3,421.3 $2,295.7"
+    date: 2025-08-13
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: LITE
+  period: FY2025
+  field: revenue
+  measure: amount
+  relation: le
+  value: 1410800000
+  basis: Cloud & Networking segment revenue for fiscal 2025 (ended June 2025), from the earnings release. Holds the AI datacenter lasers and transceivers but also telecom, so a ceiling on AI revenue.
+  source:
+    kind: company_statement
+    url: https://www.sec.gov/Archives/edgar/data/1633978/000162828025039896/lite_ex991xq4fy25.htm
+    quote: "Cloud & Networking $ 1,410.8 $ 1,084.9 30.0%"
+    date: 2025-08-12
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: MOD
+  period: FY2025
+  field: revenue
+  measure: amount
+  relation: eq
+  value: 644000000
+  basis: Data center product sales for fiscal 2025 (ended March 2025), including $197 million from the Scott Springfield acquisition, per an earnings summary of the Q4 call. Cooling for all data centers, not only AI.
+  source:
+    kind: company_statement_via_press  # the company's words as reported by a third party, not the company's own document
+    url: https://247wallst.com/companies/mod/earnings/2025/Q4
+    quote: "Data center revenue increased 119% to $644 million for the full year"
+    date: 2025-05-20
+  by: Kenny Geiler
+  at: 2026-10-30
+
+- ticker: ETN
+  period: FY2025
+  field: revenue
+  measure: share
+  relation: eq
+  value: 0.17
+  basis: Data center end market as a share of total revenue in 2025, management's planning estimate as reported; all data centers, not only AI, and a plan rather than a reported actual.
+  source:
+    kind: company_statement_via_press  # the company's words as reported by a third party, not the company's own document
+    url: https://www.fool.com/investing/2025/10/12/should-you-buy-eaton-stock-while-its-below-400
+    quote: "management estimating that data centers will be responsible for 17% of total revenue in 2025"
+    date: 2025-10-12
+  by: Kenny Geiler
+  at: 2026-10-30
