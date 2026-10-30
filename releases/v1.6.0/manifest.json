@@ -1,0 +1,42 @@
+{
+ "version": "v1.6.0",
+ "stage": 3,
+ "hash": "4c1193c91ebaaf270b0cf2351a90167a65d9dcf6f1c8d8eb08818cc6dad5ad70",
+ "files": [
+  "DIFF.md",
+  "EVALUATION.md",
+  "QUALITY.md",
+  "README.md",
+  "ai_spend.csv",
+  "attribution.csv",
+  "companies.csv",
+  "facts.csv",
+  "plans.csv",
+  "projects.csv",
+  "statements.csv",
+  "theses.json",
+  "values.csv"
+ ],
+ "prompt": "statements@v2",
+ "parser": "tables@15",
+ "model": "claude-opus-5-5",
+ "rules": {
+  "ai_amount_within_capex": "ad793829e887",
+  "citation_resolves": "3a50d8d5efa3",
+  "column_matches_period": "86b02b433855",
+  "cost_lines_summed": "3558aa1465d1",
+  "coverage": "f49a130517cc",
+  "definition_note": "be70ad497270",
+  "jump": "f87049d4f8df",
+  "no_10k_yet": "327d486c7f1c",
+  "outlier_vs_own_history": "ea92d830eba7",
+  "period_length": "ab99693112fa",
+  "restated": "b2994efcaa46",
+  "row_label_switch": "9b4fd4cd2bff",
+  "sign": "c03563f8de51",
+  "statement_tie": "b101d037b308",
+  "unit_from_document": "a176a5307c6b",
+  "xbrl_reconcile": "a95669f8bdcd"
+ },
+ "decisions": 26
+}
