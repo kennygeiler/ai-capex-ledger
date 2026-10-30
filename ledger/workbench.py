@@ -30,7 +30,7 @@ def _inputs(con, ids: str) -> list[dict]:
         try:
             if kind == "fact" and len(parts) == 4:
                 r = con.execute("select value, label from facts where ticker=? and field=? and dimension=? and period=?", parts).fetchone()
-                out.append({"id": i, "what": f"{parts[2]} {parts[3]} ({parts[1]})".replace("  ", " ").replace(" (", " (").replace("( ", "("), "value": r[0] if r else None, "check": r[1] if r else None})
+                out.append({"id": i, "what": f"{parts[2]} {parts[3]}".strip(), "field": parts[1], "value": r[0] if r else None, "check": r[1] if r else None})
             elif kind == "stmt":  # a statement the attributor used: its quote and amount
                 r = con.execute("select amount_low, amount_high, share, quote, source, period from ai_statements where statement_id = ?", [rest]).fetchone()
                 amt = (r[0] + r[1]) / 2 if r and r[0] is not None and r[1] is not None else None
@@ -38,12 +38,43 @@ def _inputs(con, ids: str) -> list[dict]:
                             "share": r[2] if r else None})
             elif kind == "value" and len(parts) == 3:
                 r = con.execute('select value, label from "values" where ticker=? and field=? and period=?', parts).fetchone()
-                out.append({"id": i, "what": f"{parts[1]} {parts[2]}", "value": r[0] if r else None, "check": r[1] if r else None})
+                out.append({"id": i, "what": f"{parts[1]} {parts[2]}", "field": parts[1], "value": r[0] if r else None, "check": r[1] if r else None})
             else:
                 out.append({"id": i, "what": i, "value": None, "check": None})
         except Exception:  # a malformed id never breaks the page
             out.append({"id": i, "what": i, "value": None, "check": None})
     return out
+
+
+def _attribution_series(con, ticker: str, field: str, refs: list[dict]) -> list[dict]:
+    """Ours by year (amount, share, the total it is a share of, method) with every stated figure for that year."""
+    cur = con.execute("select period, ai_amount, ai_share, method, kind from attribution where ticker = ? and field = ? and kind = 'actual' and ai_amount is not null order by period", [ticker, field])
+    ours = {r[0]: {"period": r[0], "amount": r[1], "share": r[2], "method": r[3]} for r in cur.fetchall()}
+    totals = {r[0]: r[1] for r in con.execute('select period, value from "values" where ticker = ? and field = ? and value is not null', [ticker, field]).fetchall()}
+    out = {}
+    for p in sorted(set(ours) | {r["period"] for r in refs} | set(totals)):
+        out[p] = {"period": p, "amount": ours.get(p, {}).get("amount"), "share": ours.get(p, {}).get("share"), "method": ours.get(p, {}).get("method"), "total": totals.get(p), "refs": []}
+    for r in refs:
+        out[r["period"]]["refs"].append({"measure": r["measure"], "relation": r["relation"], "reference": r["reference"], "outcome": r["outcome"], "source": (r.get("source") or {}).get("kind")})
+    return list(out.values())
+
+
+def _fact_series(con, ticker: str, field: str, dimension: str) -> list[dict]:
+    """The same fact across years: our cited value and the filing's tag."""
+    cur = con.execute("select period, value, reference, label from facts where ticker = ? and field = ? and coalesce(dimension, '') = ? order by period", [ticker, field, dimension])
+    return [{"period": r[0], "value": r[1], "reference": _num(r[2]), "label": r[3]} for r in cur.fetchall()]
+
+
+def _value_series(con, ticker: str, field: str) -> list[dict]:
+    cur = con.execute('select period, value, label from "values" where ticker = ? and field = ? order by period', [ticker, field])
+    return [{"period": r[0], "value": r[1], "reference": None, "label": r[2]} for r in cur.fetchall()]
+
+
+def _num(x):
+    try:
+        return None if x in (None, "") else float(x)
+    except (TypeError, ValueError):
+        return None
 
 
 def items(con, flow: dict) -> dict:
@@ -56,6 +87,9 @@ def items(con, flow: dict) -> dict:
         cur = con.execute("select ticker, field, period, kind, method, ai_amount, ai_share, basis, inputs, confidence from attribution where ticker in (select unnest(?))", [tickers])
         for r in cur.fetchall():
             attr[(r[0], r[1], r[2], r[3])] = dict(zip([c[0] for c in cur.description], r))
+    evrows = {}
+    for r in ((flow.get("insight") or {}).get("evaluation") or {}).get("rows", []):
+        evrows.setdefault((r["ticker"], r.get("field", "capex")), []).append(r)
     rows = []
     for q in flow["queue"]:
         d = q.get("detail") or {}
@@ -68,12 +102,14 @@ def items(con, flow: dict) -> dict:
             a = attr.get((q["ticker"], d.get("field", "capex"), d.get("period"), "actual"), {})
             row |= {"field": f"ai_{d.get('field', 'capex')}", "period": d.get("period"), "measure": d.get("measure"), "ours": d.get("ours"), "reference": d.get("reference"), "relation": d.get("relation", "eq"),
                     "ours_label": f"by {d.get('method')}"}
+            row["series"] = _attribution_series(con, q["ticker"], d.get("field", "capex"), evrows.get((q["ticker"], d.get("field", "capex")), []))
             row["evidence"] = {"quote": (d.get("source") or {}).get("quote"), "url": (d.get("source") or {}).get("url"), "source_kind": (d.get("source") or {}).get("kind"), "source_date": (d.get("source") or {}).get("date"),
                                "reference_basis": d.get("basis"), "basis": a.get("basis"), "inputs": _inputs(con, a.get("inputs", "")), "confidence": a.get("confidence"),
                                "ours_amount": a.get("ai_amount"), "ours_share": a.get("ai_share")}
         elif q["kind"] == "fact_differs":
             c = d.get("cite") or {}
             row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": d.get("value"), "reference": d.get("reference"), "ours_label": "cited cell"}
+            row["series"] = _fact_series(con, q["ticker"], d.get("field"), d.get("dimension") or "")
             row["evidence"] = {"cell": {k: c.get(k) for k in ("table_id", "row_label", "column_label", "cell_text", "accession")} if c else None, "png": _png(c.get("extraction_id")),
                                "url": d.get("url"), "used_by": d.get("used_by") or [], "release_value": d.get("release_value"), "dimension": d.get("dimension")}
         elif q["kind"] == "fact_changed":
@@ -93,6 +129,8 @@ def items(con, flow: dict) -> dict:
                     "ref_label": {"restated": "earlier filing", "jump": "year before", "opex_over_revenue": "revenue"}.get(k),
                     "cause_label": {"restated": "Restated: the SEC's data can't confirm", "jump": "Big move: the SEC's data can't confirm", "row_switch": "Line renamed across filings",
                                     "capex_intensity": "Capex high against revenue", "opex_over_revenue": "Opex above revenue"}.get(k, row["cause_label"])}
+            if d.get("field"):
+                row["series"] = _value_series(con, q["ticker"], d["field"])
             row["evidence"] = {"message": d.get("message"), "kind": k, "size": d.get("size")}
         elif q["kind"] == "blocked":
             row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd" if d.get("value") is not None else None, "ours": d.get("value")}

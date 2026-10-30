@@ -108,3 +108,14 @@ neutrals, both themes.
 and one of them scanned the runs table; both fixed, and `flow()` is cached by scope until anything it reads changes
 (database, resolutions, diff, evaluation, releases, companies, evidence). Cold 0.3 s, warm instant.
 
+**Reconcile, second pass (30 Oct, later):** Kenny: "more structured for ours vs stated, instead of leaning on words,
+show me more data diffs and make it 95% visual." The evidence under a row is now charts, with the words behind an
+"In words" toggle. A gauge on one scale: ours as a bar with a dot, the stated figure as a tick with a band for
+where it allows (at least, at most, or within a tenth of equal), the gap dashed in red; a small one sits in every
+row's Gap column. A year chart: ours by year as bars (share of the total, or the amount), every stated figure for
+that company as a marker, a bracket when it is a floor or a ceiling, the row's year highlighted. The method's
+arithmetic as bars on one scale: each input with its value and whether it agrees with the SEC's data, the AI
+amount, the total it is a share of. A fact row shows the cited cell against the tag and the signed release as
+three bars, and the same fact across years as paired bars. Moves and findings show before and after as two bars.
+`/api/v1/reconcile` carries a `series` per row for the year charts.
+

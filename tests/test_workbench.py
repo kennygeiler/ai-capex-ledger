@@ -6,14 +6,16 @@ from ledger import views, workbench
 
 
 def _flow(queue):
-    return {"scope": "all", "names": {"GOOGL": "Alphabet", "IRM": "Iron Mountain"}, "release": {"last": "v1.5.0"}, "changed": {"last_run": "2026-10-30T00:00:00"}, "queue": queue, "noise": 2}
+    return {"scope": "all", "names": {"GOOGL": "Alphabet", "IRM": "Iron Mountain"}, "release": {"last": "v1.5.0"}, "changed": {"last_run": "2026-10-30T00:00:00"}, "queue": queue, "noise": 2,
+            "insight": {"evaluation": {"rows": [{"ticker": "GOOGL", "field": "capex", "period": "FY2025", "measure": "share", "relation": "eq", "reference": 0.6, "outcome": "disagree", "source": {"kind": "company_statement"}}]}}}
 
 
 def _con():
     con = duckdb.connect()
-    con.execute("create table facts (ticker text, field text, dimension text, period text, value double, label text)")
-    con.execute("insert into facts values ('GOOGL','ppe_category','Technical infrastructure','FY2025',141852e6,'unresolved'), ('GOOGL','ppe_category','Technical infrastructure','FY2024',112504e6,'agree')")
+    con.execute("create table facts (ticker text, field text, dimension text, period text, value double, label text, reference text)")
+    con.execute("insert into facts values ('GOOGL','ppe_category','Technical infrastructure','FY2025',141852e6,'unresolved','139596000000'), ('GOOGL','ppe_category','Technical infrastructure','FY2024',112504e6,'agree','112504000000')")
     con.execute('create table "values" (ticker text, field text, period text, value double, label text)')
+    con.execute("insert into \"values\" values ('GOOGL','capex','FY2025',91447e6,'agree'), ('GOOGL','capex','FY2024',52535e6,'agree')")
     con.execute("create table attribution (ticker text, field text, period text, kind text, method text, ai_amount double, ai_share double, basis text, inputs text, confidence double)")
     con.execute("insert into attribution values ('GOOGL','capex','FY2025','actual','ppe_category',29348e6,0.5586,'growth in technical infrastructure','fact:GOOGL|ppe_category|Technical infrastructure|FY2025,fact:GOOGL|ppe_category|Technical infrastructure|FY2024',0.5)")
     return con
@@ -33,6 +35,11 @@ class Workbench(unittest.TestCase):
         self.assertEqual(r["evidence"]["inputs"][0]["check"], "unresolved")
         self.assertEqual(out["open"], 1)
         self.assertEqual(out["causes"][0]["cause"], "reference_disagrees")
+        years = {y["period"]: y for y in r["series"]}
+        self.assertEqual(years["FY2025"]["total"], 91447e6)
+        self.assertEqual(years["FY2025"]["amount"], 29348e6)
+        self.assertEqual(years["FY2024"]["amount"], None)  # no attribution row that year, still a year on the chart
+        self.assertEqual(years["FY2025"]["refs"][0]["reference"], 0.6)
 
     def test_fact_differs_row_carries_cell_and_delta(self):
         q = {"kind": "fact_differs", "state": "disagrees", "ticker": "GOOGL", "where": "ppe_category Technical infrastructure FY2025", "impact": "x", "dollars": 0, "new": False, "action": "definition", "key": "k2", "hash": "h2",
@@ -45,6 +52,7 @@ class Workbench(unittest.TestCase):
         self.assertEqual(r["delta"], 2256e6)
         self.assertAlmostEqual(r["delta_pct"], 2256 / 139596)
         self.assertEqual(out["open"], 0)  # accepted: not open
+        self.assertEqual([(y["period"], y["reference"]) for y in r["series"]], [("FY2024", 112504e6), ("FY2025", 139596e6)])
 
     def test_finding_rows_get_numbers_only_when_numeric(self):
         qs = [{"kind": "finding_unconfirmed", "state": "look", "ticker": "IRM", "where": "opex FY2024", "impact": "x", "action": "open", "key": "k3", "hash": "h3", "resolution": None,
