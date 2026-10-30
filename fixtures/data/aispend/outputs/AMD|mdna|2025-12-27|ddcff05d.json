@@ -1,0 +1,46 @@
+{
+ "accession": "AMD|mdna|2025-12-27|ddcff05d",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 16600000000,
+   "amount_high": 16600000000,
+   "quote": "Data Center net revenue of $16.6 billion in 2025 increased by 32%, compared to net revenue of $12.6 billion in 2024.",
+   "passage": "p08",
+   "confidence": 0.9,
+   "notes": "Data Center segment revenue. The table in p07 gives $16,635 million. Growth is attributed to EPYC CPUs and Instinct GPUs. The segment includes non-AI server CPUs, so this is data-center revenue, not AI-only revenue."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 8100000000,
+   "amount_high": 8100000000,
+   "quote": "Research and development expenses of $8.1 billion in 2025 increased by $1.6 billion, or 25%, compared to $6.5 billion in 2024.",
+   "passage": "p10",
+   "confidence": 0.8,
+   "notes": "This is total R&D, not the AI part. The AI link is in the next sentence: the increase was primarily due to headcount growth 'in support of our continued focus on our AI strategy'. No AI-specific amount is stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.6,
+  "input_tokens": 7432,
+  "output_tokens": 1071,
+  "attempts": 1,
+  "task_sha": "1627573184fdef81"
+ }
+}

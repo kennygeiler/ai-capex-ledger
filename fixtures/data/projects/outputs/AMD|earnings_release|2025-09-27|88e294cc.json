@@ -1,0 +1,56 @@
+{
+ "accession": "AMD|earnings_release|2025-09-27|88e294cc",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "OpenAI 6 gigawatt AMD GPU deployment",
+   "kind": "gpu_cluster",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "OpenAI",
+   "capacity_mw": 6000,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "OpenAI and AMD announced a strategic partnership where AMD will be a core preferred partner to deploy 6 gigawatts of AMD GPUs to power OpenAI\u2019s next generation AI infrastructure, with the first 1-gigawatt deployment of AMD Instinct MI450 GPUs set to begin in the second half of 2026.",
+   "passage": "p05",
+   "confidence": 0.6
+  },
+  {
+   "name": "Oracle Cloud Infrastructure AI supercluster (AMD Helios)",
+   "kind": "gpu_cluster",
+   "status": "announced",
+   "location": null,
+   "counterparty": "Oracle",
+   "capacity_mw": null,
+   "gpus": 50000,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "Oracle and AMD announced that Oracle Cloud Infrastructure (OCI) will offer the first publicly available AI supercluster powered by the AMD \u201cHelios\u201d rack design with AMD Instinct MI450 GPUs, EPYC \u201cVenice\u201d CPUs and Pensando\u2122 \u201cVulcano\u201d networking, with an initial deployment of 50,000 GPUs starting in Q3 2026.",
+   "passage": "p06",
+   "confidence": 0.55
+  },
+  {
+   "name": "ORNL next-generation supercomputers",
+   "kind": "gpu_cluster",
+   "status": "announced",
+   "location": null,
+   "counterparty": "U.S. Department of Energy",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "AMD and the U.S. Department of Energy announced two new next-generation supercomputers with ORNL",
+   "passage": "p13",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.8,
+  "input_tokens": 13575,
+  "output_tokens": 1559,
+  "attempts": 1,
+  "task_sha": "81d561e61afce656"
+ }
+}

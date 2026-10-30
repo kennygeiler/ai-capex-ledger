@@ -1,0 +1,57 @@
+{
+ "accession": "AMD|earnings_release|2023-07-01|df76c86e",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1300000000,
+   "amount_high": 1300000000,
+   "quote": "Data Center segment revenue was $1.3 billion, down 11% year-over-year primarily due to lower 3 rd Gen EPYC processor sales as Enterprise demand was soft and Cloud inventory levels were elevated at some customers.",
+   "passage": "p03",
+   "confidence": 0.85,
+   "notes": "Quarterly figure (Q2 2023), not full-year. Fiscal year 2023 comes from the filing context because the sentence names no year. The segment table in p15 gives $1,321 million. The Data Center segment is mostly EPYC server CPUs, not AI accelerators specifically."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Looking to the third quarter, we expect our Data Center and Client segment revenues to each grow by a double-digit percentage sequentially driven by increasing demand for our EPYC and Ryzen processors, partially offset by Gaming and Embedded segment declines.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Q3 2023 outlook. This is sequential growth, not a level or a share of revenue. The sentence names no year. It covers the Data Center and Client segments together."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 135000000,
+   "amount_high": 135000000,
+   "quote": "AMD announced plans to invest $135 million to expand adaptive computing research, development and engineering operations in Ireland to fund strategic R&D projects for next generation AI, data center, networking and 6G communications infrastructure.",
+   "passage": "p08",
+   "confidence": 0.5,
+   "notes": "Planned R&D investment that covers AI together with data center, networking and 6G. The AI part is not separated out, so $135 million overstates AI spend. The sentence gives no year and no time period, so the amount may be spread over several years."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.8,
+  "input_tokens": 11831,
+  "output_tokens": 1822,
+  "attempts": 1,
+  "task_sha": "706a5a11bce43d16"
+ }
+}

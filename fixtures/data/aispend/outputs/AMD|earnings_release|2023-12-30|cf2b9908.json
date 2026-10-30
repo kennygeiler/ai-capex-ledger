@@ -1,0 +1,48 @@
+{
+ "accession": "AMD|earnings_release|2023-12-30|cf2b9908",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 6500000000,
+   "amount_high": 6500000000,
+   "quote": "For 2023, Data Center segment revenue was $6.5 billion, an increase of 7% compared to the prior year, driven by strong growth in AMD Instinct GPUs and 4 th Gen AMD EPYC CPUs.",
+   "passage": "p03",
+   "confidence": 0.9,
+   "notes": "Full-year Data Center segment revenue. It covers both AI GPUs (Instinct) and server CPUs (EPYC), so it is data-center revenue, not AI-only. The Q4-only figure of $2.3 billion in p02 is omitted so the full-year total is not double-counted."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "S equentially, AMD expects Data Center segment revenue to be flat, with a seasonal decline in server sales offset by a strong Data Center GPU ramp.",
+   "passage": "p06",
+   "confidence": 0.7,
+   "notes": "Outlook for Q1 2024 only, not the full year. It is quarter-over-quarter guidance with no amount. The sentence is quoted verbatim, including the stray space in 'S equentially'."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "increased R&D and marketing investments are mentioned (p18, p19) but are not linked to AI or quantified as AI spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.9,
+  "input_tokens": 14453,
+  "output_tokens": 1315,
+  "attempts": 1,
+  "task_sha": "5476240e4ce12cac"
+ }
+}

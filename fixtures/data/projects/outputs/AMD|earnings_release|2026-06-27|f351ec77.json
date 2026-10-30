@@ -1,0 +1,28 @@
+{
+ "accession": "AMD|earnings_release|2026-06-27|f351ec77",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Anthropic MI450 Series GPU deployment in AMD Helios racks",
+   "kind": "gpu_cluster",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Anthropic",
+   "capacity_mw": 2000,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Anthropic and AMD announced a strategic agreement to deploy up to 2 GW of AMD Instinct MI450 Series GPUs in AMD Helios racks.",
+   "passage": "p13",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.8,
+  "input_tokens": 7828,
+  "output_tokens": 615,
+  "attempts": 1,
+  "task_sha": "8293917232a65061"
+ }
+}

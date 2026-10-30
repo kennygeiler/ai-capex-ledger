@@ -1,0 +1,153 @@
+{
+ "accession": "0000002488-26-000018",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0010",
+   "row_label": "Net revenue",
+   "column_label": "Year Ended | December 27,2025",
+   "cell_text": "34,639",
+   "period_end": "2025-12-27",
+   "months": 12,
+   "value": 34639000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0010",
+   "row_label": "Net revenue",
+   "column_label": "Year Ended | December 28,2024",
+   "cell_text": "25,785",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 25785000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0010",
+   "row_label": "Net revenue",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "22,680",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 22680000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0010",
+   "row_label": "Total cost of sales",
+   "column_label": "Year Ended | December 27,2025",
+   "cell_text": "17,487",
+   "period_end": "2025-12-27",
+   "months": 12,
+   "value": 17487000000,
+   "confidence": 0.95,
+   "notes": "Chose 'Total cost of sales' (includes amortization of acquisition-related intangibles in cost of sales) over the 'Cost of sales' component line (16,456), per the rule to take the total line."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0010",
+   "row_label": "Total cost of sales",
+   "column_label": "Year Ended | December 28,2024",
+   "cell_text": "13,060",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 13060000000,
+   "confidence": 0.95,
+   "notes": "Chose 'Total cost of sales' over the 'Cost of sales' component line (12,114)."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0010",
+   "row_label": "Total cost of sales",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "12,220",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 12220000000,
+   "confidence": 0.95,
+   "notes": "Chose 'Total cost of sales' over the 'Cost of sales' component line (11,278)."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0010",
+   "row_label": "Operating income",
+   "column_label": "Year Ended | December 27,2025",
+   "cell_text": "3,694",
+   "period_end": "2025-12-27",
+   "months": 12,
+   "value": 3694000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0010",
+   "row_label": "Operating income",
+   "column_label": "Year Ended | December 28,2024",
+   "cell_text": "1,900",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 1900000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0010",
+   "row_label": "Operating income",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "401",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 401000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0014",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | December 27,2025",
+   "cell_text": "(974)",
+   "period_end": "2025-12-27",
+   "months": 12,
+   "value": 974000000,
+   "confidence": 0.9,
+   "notes": "Row label appears twice in the investing section; took the continuing-operations line (974). A separate discontinued-operations line shows (38); not added, per the rule against combining lines."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0014",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | December 28,2024",
+   "cell_text": "(636)",
+   "period_end": "2024-12-28",
+   "months": 12,
+   "value": 636000000,
+   "confidence": 0.95,
+   "notes": "Continuing-operations line; the discontinued-operations line of the same label shows '\u2014' for this year."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0014",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "(546)",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 546000000,
+   "confidence": 0.95,
+   "notes": "Continuing-operations line; the discontinued-operations line of the same label shows '\u2014' for this year."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.4,
+  "input_tokens": 6602,
+  "output_tokens": 1707,
+  "attempts": 1,
+  "task_sha": "1889f55143a2501f"
+ }
+}

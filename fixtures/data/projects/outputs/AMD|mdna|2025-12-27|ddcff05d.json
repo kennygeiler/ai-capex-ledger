@@ -1,0 +1,28 @@
+{
+ "accession": "AMD|mdna|2025-12-27|ddcff05d",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "OpenAI 6 gigawatt AMD GPU deployment",
+   "kind": "gpu_cluster",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "OpenAI OpCo, LLC",
+   "capacity_mw": 6000,
+   "gpus": null,
+   "announced": "2025-10",
+   "in_service": null,
+   "quote": "In October 2025, we entered into a product purchase agreement with OpenAI OpCo, LLC, (OpenAI) to deploy 6 gigawatts of AMD GPUs, with the deployment of the first gigawatt of capacity powered by our AMD Instinct MI450 series products.",
+   "passage": "p05",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.9,
+  "input_tokens": 7050,
+  "output_tokens": 817,
+  "attempts": 1,
+  "task_sha": "56696b5a6a99ad90"
+ }
+}

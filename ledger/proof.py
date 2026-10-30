@@ -47,9 +47,10 @@ def company(con, ticker: str, ev_rows: list[dict] | None = None, idx: dict | Non
     exc = _rows(con, "select rule_id, severity, field, period, subject, message from exceptions where ticker = ? ", t)
     unres = [e for e in exc if e["rule_id"] in ("extraction_failed", "note_extraction_failed")]
     located = [d for d in docs if (d["income_tables"] or "") and (d["cash_flow_tables"] or "")]
-    stages["ingest"] = _stage(checked=len(located), explained=0, open=[{"what": f"{e['rule_id'].replace('_', ' ')}: {e['subject']}", "detail": e["message"][:200], "needs": "a parser or unit rule"} for e in unres]
-                              + [{"what": f"{d['form']} {d['period']}: a statement table not located", "detail": f"{d['table_count']} tables parsed", "needs": "a locator rule"} for d in docs if d not in located],
-                              items=len(docs))
+    amended = [d for d in docs if d not in located and amendment_without_statements(d)]
+    stages["ingest"] = _stage(checked=len(located), explained=len(amended), open=[{"what": f"{e['rule_id'].replace('_', ' ')}: {e['subject']}", "detail": e["message"][:200], "needs": "a parser or unit rule"} for e in unres]
+                              + [{"what": f"{d['form']} {d['period']}: a statement table not located", "detail": f"{d['table_count']} tables parsed", "needs": "a locator rule"} for d in docs if d not in located and d not in amended],
+                              items=len(docs), explained_items=[{"what": f"{d['form']} {d['period']}", "by": "rule: an amendment without financial statements (Part III only)", "detail": f"{d['table_count']} tables parsed"} for d in amended])
 
     # values: agree with XBRL, or explained by a definition, a decision, or 'not reported'
     vals = _rows(con, 'select field, period, value, label, basis, extraction_ids from "values" where ticker = ? order by field, period', t)
@@ -145,6 +146,13 @@ def company(con, ticker: str, ev_rows: list[dict] | None = None, idx: dict | Non
             "stages": stages, "definitions": sorted((defs or {}).get(t, {}).keys())}
 
 
+def amendment_without_statements(doc: dict) -> bool:
+    """A 10-K/A that carries no financial statements (the common Part III amendment: directors, compensation) is not a
+    filing whose statements must be located (type 72). It is the form, with few tables and no statement table."""
+    # the income match is not required to be empty: in AMD's three-table amendment the locator took a compensation table for an income statement
+    return str(doc.get("form", "")).endswith("/A") and (doc.get("table_count") or 0) < 10 and not (doc.get("cash_flow_tables") or "")
+
+
 def _stage(checked: int, explained: int, open: list, items: int, explained_items: list | None = None, extra: dict | None = None) -> dict:
     return {"checked": checked, "explained": explained, "open": open, "items": items, "explained_items": explained_items or [], **(extra or {})}
 
@@ -179,6 +187,7 @@ GUARDS = [
     {"id": "restated_between_filings", "kind": "guard", "where": "facts", "what": "a cell from a later 10-K against a tag from an earlier one is a restatement", "type": None},
     {"id": "comparability", "kind": "guard", "where": "attribution", "what": "a wider measure within tolerance above a narrower stated figure is consistent, not a disagreement; a planning floor or a different basis is not comparable", "type": None},
     {"id": "accrual_vs_cash", "kind": "guard", "where": "attribution", "what": "a segment's accrual capex above the company's cash capex is a basis difference, flagged share_over_total", "type": None},
+    {"id": "amendment_without_statements", "kind": "guard", "where": "ingest", "what": "a 10-K/A with few tables and no statement table is a Part III amendment, not a filing to locate statements in", "type": 72},
 ]
 
 
@@ -196,7 +205,8 @@ def rules(con) -> dict:
               "program_words": sum(1 for c in cos for x in c["stages"]["statements"]["explained_items"] if "program" in x["by"]),
               "restated_between_filings": sum(1 for c in cos for x in c["stages"]["facts"]["explained_items"] if x["by"].startswith("restated")),
               "comparability": sum(1 for c in cos for x in c["stages"]["attribution"]["explained_items"] if x["by"].startswith("comparability") or x["by"].startswith("not comparable")),
-              "accrual_vs_cash": sum(1 for c in cos for x in c["stages"]["attribution"]["explained_items"] if x["by"].startswith("guard: accrual"))}
+              "accrual_vs_cash": sum(1 for c in cos for x in c["stages"]["attribution"]["explained_items"] if x["by"].startswith("guard: accrual")),
+              "amendment_without_statements": sum(1 for c in cos for x in c["stages"]["ingest"]["explained_items"] if "amendment" in x["by"])}
     out += [{**g, "fired": closed.get(g["id"], 0)} for g in GUARDS]
     out += [{"id": f"{t}:{k}", "kind": "definition", "where": "values", "what": f"{t}: {k} ({(v.get('why') or '')[:120]})", "fired": 1, "by": v.get("by")} for t in PROVEN for k, v in (defs.get(t) or {}).items() if isinstance(v, dict)]
     missing = {}

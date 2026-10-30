@@ -1,0 +1,1072 @@
+{
+ "accession": "0000002488-26-000021",
+ "form": "10-K/A",
+ "located": {
+  "cash_flow": null,
+  "cash_flow_score": 3,
+  "income": [
+   "t0005",
+   "t0006"
+  ],
+  "income_score": 3
+ },
+ "parser_version": "tables@12",
+ "period": "2025-12-27",
+ "sha256": "cd7d6cdb64f440ce1d649670b3c09857a9f0abd54f164a3b0f91724b42792666",
+ "statements": {
+  "cash_flow": null,
+  "income": [
+   {
+    "before": "gher in the second half of the year than in the first half of the year, although market conditions and product transitions could impact these trends. The following table provides a summary of net revenue, cost of sales and operating expenses, and operating income (loss) by segment for 2025 and 2024:",
+    "columns": [
+     "Year Ended | December 27,2025",
+     "Year Ended | December 28,2024"
+    ],
+    "id": "t0005",
+    "rows": [
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "16,635",
+        "value": 16635.0
+       },
+       {
+        "col": 1,
+        "text": "12,579",
+        "value": 12579.0
+       }
+      ],
+      "label": "Data Center"
+     },
+     {
+      "cells": [],
+      "label": "Client and Gaming"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "10,640",
+        "value": 10640.0
+       },
+       {
+        "col": 1,
+        "text": "7,054",
+        "value": 7054.0
+       }
+      ],
+      "label": "Client"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "3,910",
+        "value": 3910.0
+       },
+       {
+        "col": 1,
+        "text": "2,595",
+        "value": 2595.0
+       }
+      ],
+      "label": "Gaming"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "14,550",
+        "value": 14550.0
+       },
+       {
+        "col": 1,
+        "text": "9,649",
+        "value": 9649.0
+       }
+      ],
+      "label": "Total Client and Gaming"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "3,454",
+        "value": 3454.0
+       },
+       {
+        "col": 1,
+        "text": "3,557",
+        "value": 3557.0
+       }
+      ],
+      "label": "Embedded"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "34,639",
+        "value": 34639.0
+       },
+       {
+        "col": 1,
+        "text": "25,785",
+        "value": 25785.0
+       }
+      ],
+      "label": "Total net revenue"
+     },
+     {
+      "cells": [],
+      "label": "Cost of sales and operating expenses:"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "13,032",
+        "value": 13032.0
+       },
+       {
+        "col": 1,
+        "text": "9,097",
+        "value": 9097.0
+       }
+      ],
+      "label": "Data Center"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "11,695",
+        "value": 11695.0
+       },
+       {
+        "col": 1,
+        "text": "8,462",
+        "value": 8462.0
+       }
+      ],
+      "label": "Client and Gaming"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "2,211",
+        "value": 2211.0
+       },
+       {
+        "col": 1,
+        "text": "2,136",
+        "value": 2136.0
+       }
+      ],
+      "label": "Embedded"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "4,007",
+        "value": 4007.0
+       },
+       {
+        "col": 1,
+        "text": "4,190",
+        "value": 4190.0
+       }
+      ],
+      "label": "All other"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "30,945",
+        "value": 30945.0
+       },
+       {
+        "col": 1,
+        "text": "23,885",
+        "value": 23885.0
+       }
+      ],
+      "label": "Total cost of sales and operating expenses"
+     },
+     {
+      "cells": [],
+      "label": "Operating income (loss):"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "3,603",
+        "value": 3603.0
+       },
+       {
+        "col": 1,
+        "text": "3,482",
+        "value": 3482.0
+       }
+      ],
+      "label": "Data Center"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "2,855",
+        "value": 2855.0
+       },
+       {
+        "col": 1,
+        "text": "1,187",
+        "value": 1187.0
+       }
+      ],
+      "label": "Client and Gaming"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "1,243",
+        "value": 1243.0
+       },
+       {
+        "col": 1,
+        "text": "1,421",
+        "value": 1421.0
+       }
+      ],
+      "label": "Embedded"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(4,007)",
+        "value": -4007.0
+       },
+       {
+        "col": 1,
+        "text": "(4,190)",
+        "value": -4190.0
+       }
+      ],
+      "label": "All other"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "3,694",
+        "value": 3694.0
+       },
+       {
+        "col": 1,
+        "text": "1,900",
+        "value": 1900.0
+       }
+      ],
+      "label": "Total operating income"
+     }
+    ],
+    "scale": 1000000,
+    "unit_source": "table",
+    "unit_text": "(In millions)"
+   },
+   {
+    "before": "s in the foreseeable future. Substantially all of our sales transactions are denominated in U.S. dollars. Comparison of Gross Margin, Expenses, Interest Expense, Other Income (expense) and Income Taxes The following is a summary of certain Consolidated Statement of Operations data for 2025 and 2024:",
+    "columns": [
+     "December 27, 2025",
+     "December 28, 2024"
+    ],
+    "id": "t0006",
+    "rows": [
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "34,639",
+        "value": 34639.0
+       },
+       {
+        "col": 1,
+        "text": "25,785",
+        "value": 25785.0
+       }
+      ],
+      "label": "Net revenue"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "16,456",
+        "value": 16456.0
+       },
+       {
+        "col": 1,
+        "text": "12,114",
+        "value": 12114.0
+       }
+      ],
+      "label": "Cost of sales"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "1,031",
+        "value": 1031.0
+       },
+       {
+        "col": 1,
+        "text": "946",
+        "value": 946.0
+       }
+      ],
+      "label": "Amortization of acquisition-related intangibles"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "17,152",
+        "value": 17152.0
+       },
+       {
+        "col": 1,
+        "text": "12,725",
+        "value": 12725.0
+       }
+      ],
+      "label": "Gross profit"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "50%",
+        "value": 50.0
+       },
+       {
+        "col": 1,
+        "text": "49%",
+        "value": 49.0
+       }
+      ],
+      "label": "Gross margin"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "8,091",
+        "value": 8091.0
+       },
+       {
+        "col": 1,
+        "text": "6,456",
+        "value": 6456.0
+       }
+      ],
+      "label": "Research and development"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "4,144",
+        "value": 4144.0
+       },
+       {
+        "col": 1,
+        "text": "2,735",
+        "value": 2735.0
+       }
+      ],
+      "label": "Marketing, general and administrative"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "1,223",
+        "value": 1223.0
+       },
+       {
+        "col": 1,
+        "text": "1,448",
+        "value": 1448.0
+       }
+      ],
+      "label": "Amortization of acquisition-related intangibles"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(131)",
+        "value": -131.0
+       },
+       {
+        "col": 1,
+        "text": "(92)",
+        "value": -92.0
+       }
+      ],
+      "label": "Interest expense"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "577",
+        "value": 577.0
+       },
+       {
+        "col": 1,
+        "text": "181",
+        "value": 181.0
+       }
+      ],
+      "label": "Other income (expense), net"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(103)",
+        "value": -103.0
+       },
+       {
+        "col": 1,
+        "text": "381",
+        "value": 381.0
+       }
+      ],
+      "label": "Income tax provision (benefit)"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "66",
+        "value": 66.0
+       },
+       {
+        "col": 1,
+        "text": "\u2014",
+        "value": 0.0
+       }
+      ],
+      "label": "Income from discontinued operations, net of tax"
+     }
+    ],
+    "scale": 1000000,
+    "unit_source": "table",
+    "unit_text": "(In millions, except for percentages)"
+   }
+  ]
+ },
+ "table_count": 3,
+ "tables": [
+  {
+   "before": "gher in the second half of the year than in the first half of the year, although market conditions and product transitions could impact these trends. The following table provides a summary of net revenue, cost of sales and operating expenses, and operating income (loss) by segment for 2025 and 2024:",
+   "columns": [
+    "Year Ended | December 27,2025",
+    "Year Ended | December 28,2024"
+   ],
+   "id": "t0005",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "16,635",
+       "value": 16635.0
+      },
+      {
+       "col": 1,
+       "text": "12,579",
+       "value": 12579.0
+      }
+     ],
+     "label": "Data Center"
+    },
+    {
+     "cells": [],
+     "label": "Client and Gaming"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10,640",
+       "value": 10640.0
+      },
+      {
+       "col": 1,
+       "text": "7,054",
+       "value": 7054.0
+      }
+     ],
+     "label": "Client"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,910",
+       "value": 3910.0
+      },
+      {
+       "col": 1,
+       "text": "2,595",
+       "value": 2595.0
+      }
+     ],
+     "label": "Gaming"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "14,550",
+       "value": 14550.0
+      },
+      {
+       "col": 1,
+       "text": "9,649",
+       "value": 9649.0
+      }
+     ],
+     "label": "Total Client and Gaming"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,454",
+       "value": 3454.0
+      },
+      {
+       "col": 1,
+       "text": "3,557",
+       "value": 3557.0
+      }
+     ],
+     "label": "Embedded"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "34,639",
+       "value": 34639.0
+      },
+      {
+       "col": 1,
+       "text": "25,785",
+       "value": 25785.0
+      }
+     ],
+     "label": "Total net revenue"
+    },
+    {
+     "cells": [],
+     "label": "Cost of sales and operating expenses:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "13,032",
+       "value": 13032.0
+      },
+      {
+       "col": 1,
+       "text": "9,097",
+       "value": 9097.0
+      }
+     ],
+     "label": "Data Center"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "11,695",
+       "value": 11695.0
+      },
+      {
+       "col": 1,
+       "text": "8,462",
+       "value": 8462.0
+      }
+     ],
+     "label": "Client and Gaming"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,211",
+       "value": 2211.0
+      },
+      {
+       "col": 1,
+       "text": "2,136",
+       "value": 2136.0
+      }
+     ],
+     "label": "Embedded"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4,007",
+       "value": 4007.0
+      },
+      {
+       "col": 1,
+       "text": "4,190",
+       "value": 4190.0
+      }
+     ],
+     "label": "All other"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "30,945",
+       "value": 30945.0
+      },
+      {
+       "col": 1,
+       "text": "23,885",
+       "value": 23885.0
+      }
+     ],
+     "label": "Total cost of sales and operating expenses"
+    },
+    {
+     "cells": [],
+     "label": "Operating income (loss):"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,603",
+       "value": 3603.0
+      },
+      {
+       "col": 1,
+       "text": "3,482",
+       "value": 3482.0
+      }
+     ],
+     "label": "Data Center"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,855",
+       "value": 2855.0
+      },
+      {
+       "col": 1,
+       "text": "1,187",
+       "value": 1187.0
+      }
+     ],
+     "label": "Client and Gaming"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,243",
+       "value": 1243.0
+      },
+      {
+       "col": 1,
+       "text": "1,421",
+       "value": 1421.0
+      }
+     ],
+     "label": "Embedded"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(4,007)",
+       "value": -4007.0
+      },
+      {
+       "col": 1,
+       "text": "(4,190)",
+       "value": -4190.0
+      }
+     ],
+     "label": "All other"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,694",
+       "value": 3694.0
+      },
+      {
+       "col": 1,
+       "text": "1,900",
+       "value": 1900.0
+      }
+     ],
+     "label": "Total operating income"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "s in the foreseeable future. Substantially all of our sales transactions are denominated in U.S. dollars. Comparison of Gross Margin, Expenses, Interest Expense, Other Income (expense) and Income Taxes The following is a summary of certain Consolidated Statement of Operations data for 2025 and 2024:",
+   "columns": [
+    "December 27, 2025",
+    "December 28, 2024"
+   ],
+   "id": "t0006",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "34,639",
+       "value": 34639.0
+      },
+      {
+       "col": 1,
+       "text": "25,785",
+       "value": 25785.0
+      }
+     ],
+     "label": "Net revenue"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "16,456",
+       "value": 16456.0
+      },
+      {
+       "col": 1,
+       "text": "12,114",
+       "value": 12114.0
+      }
+     ],
+     "label": "Cost of sales"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,031",
+       "value": 1031.0
+      },
+      {
+       "col": 1,
+       "text": "946",
+       "value": 946.0
+      }
+     ],
+     "label": "Amortization of acquisition-related intangibles"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "17,152",
+       "value": 17152.0
+      },
+      {
+       "col": 1,
+       "text": "12,725",
+       "value": 12725.0
+      }
+     ],
+     "label": "Gross profit"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "50%",
+       "value": 50.0
+      },
+      {
+       "col": 1,
+       "text": "49%",
+       "value": 49.0
+      }
+     ],
+     "label": "Gross margin"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "8,091",
+       "value": 8091.0
+      },
+      {
+       "col": 1,
+       "text": "6,456",
+       "value": 6456.0
+      }
+     ],
+     "label": "Research and development"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4,144",
+       "value": 4144.0
+      },
+      {
+       "col": 1,
+       "text": "2,735",
+       "value": 2735.0
+      }
+     ],
+     "label": "Marketing, general and administrative"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,223",
+       "value": 1223.0
+      },
+      {
+       "col": 1,
+       "text": "1,448",
+       "value": 1448.0
+      }
+     ],
+     "label": "Amortization of acquisition-related intangibles"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(131)",
+       "value": -131.0
+      },
+      {
+       "col": 1,
+       "text": "(92)",
+       "value": -92.0
+      }
+     ],
+     "label": "Interest expense"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "577",
+       "value": 577.0
+      },
+      {
+       "col": 1,
+       "text": "181",
+       "value": 181.0
+      }
+     ],
+     "label": "Other income (expense), net"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(103)",
+       "value": -103.0
+      },
+      {
+       "col": 1,
+       "text": "381",
+       "value": 381.0
+      }
+     ],
+     "label": "Income tax provision (benefit)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "66",
+       "value": 66.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Income from discontinued operations, net of tax"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions, except for percentages)"
+  },
+  {
+   "before": "lion. FINANCIAL CONDITION Liquidity and Capital Resources As of December 27, 2025, our cash, cash equivalents and short-term investments were $10.6 billion compared to $5.1 billion as of December 28, 2024. Our operating, investing and financing cash flow activities for 2025 and 2024 were as follows:",
+   "columns": [
+    "December 27, 2025",
+    "December 28, 2024"
+   ],
+   "id": "t0007",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "6,493",
+       "value": 6493.0
+      },
+      {
+       "col": 1,
+       "text": "3,041",
+       "value": 3041.0
+      }
+     ],
+     "label": "Net cash provided by operating activities of continuing operations"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,216",
+       "value": 1216.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Net cash provided by operating activities of discontinued operations"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "7,709",
+       "value": 7709.0
+      },
+      {
+       "col": 1,
+       "text": "3,041",
+       "value": 3041.0
+      }
+     ],
+     "label": "Operating activities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(6,851)",
+       "value": -6851.0
+      },
+      {
+       "col": 1,
+       "text": "(1,101)",
+       "value": -1101.0
+      }
+     ],
+     "label": "Net cash (used in) provided by investing activities of continuing operations"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,318",
+       "value": 1318.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Net cash provided by investing activities of discontinued operations"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(5,533)",
+       "value": -5533.0
+      },
+      {
+       "col": 1,
+       "text": "(1,101)",
+       "value": -1101.0
+      }
+     ],
+     "label": "Investing activities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(431)",
+       "value": -431.0
+      },
+      {
+       "col": 1,
+       "text": "(2,062)",
+       "value": -2062.0
+      }
+     ],
+     "label": "Financing activities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,745",
+       "value": 1745.0
+      },
+      {
+       "col": 1,
+       "text": "(122)",
+       "value": -122.0
+      }
+     ],
+     "label": "Net increase (decrease) in cash, cash equivalents and restricted cash"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  }
+ ],
+ "ticker": "AMD",
+ "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000021/amd-20251227.htm"
+}

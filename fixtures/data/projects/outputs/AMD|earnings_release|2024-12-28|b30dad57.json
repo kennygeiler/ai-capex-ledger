@@ -1,0 +1,13 @@
+{
+ "accession": "AMD|earnings_release|2024-12-28|b30dad57",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 9265,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "18d88421af4ba832"
+ }
+}

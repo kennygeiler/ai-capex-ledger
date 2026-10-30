@@ -1,0 +1,13 @@
+{
+ "accession": "AMD|mdna|2023-12-30|0100b52c",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.1,
+  "input_tokens": 5296,
+  "output_tokens": 85,
+  "attempts": 1,
+  "task_sha": "c394435b7ffd84e3"
+ }
+}

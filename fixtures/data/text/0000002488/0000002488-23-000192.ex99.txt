@@ -1,0 +1,1461 @@
+                                                                                
+  NEWS RELEASE                                                                  
+                                                                                
+                                                                  Media Contact:
+                                                                                
+  Drew Prairie                                                                  
+                                                                                
+                                                              AMD Communications
+                                                                                
+                                                                    512-602-4425
+                                                                                
+                                                            drew.prairie@amd.com
+                                                                                
+                                                               Investor Contact:
+                                                                                
+  Mitch Haws                                                                    
+                                                                                
+                                                          AMD Investor Relations
+                                                                                
+                                                                    408-749-3124
+                                                                                
+                                                              mitch.haws@amd.com
+                                                                                
+                AMD Reports Third Quarter 2023 Financial Results                
+                                                                                
+                                                                                
+  SANTA CLARA, Calif. ― Oct. 31, 2023 ―                                         
+                                                                                
+AMD (NASDAQ:AMD) today announced revenue for the third quarter of 2023 of $5.8
+billion, gross margin of 47%, operating income of $224 million, net income of $
+299 million and diluted earnings per share of $0.18 . On a non-GAAP (*) basis,
+gross margin was 51%, operating income was $1.3 billion, net income was $1.1
+billion and diluted earnings per share was $0.70.
+
+“We delivered strong revenue and earnings growth driven by demand for our Ryzen
+7000 series PC processors and record server processor sales,” said AMD Chair and
+CEO Dr. Lisa Su. “Our data center business is on a significant growth trajectory
+based on the strength of our EPYC CPU portfolio and the ramp of Instinct MI300
+accelerator shipments to support multiple deployments with hyperscale,
+enterprise and AI customers.”
+
+“We executed well in the third quarter, delivering year-over-year growth in
+revenue, gross margin and earnings per share,” said AMD EVP, CFO and Treasurer
+Jean Hu. “In the fourth quarter, we expect to see strong growth in Data Center
+and continued momentum in Client, partially offset by lower sales in the Gaming
+segment and additional softening of demand in the embedded markets.”
+                                                                                
+                        GAAP Quarterly Financial Results                        
+                                                                                
+                                                                               1
+                                                                                
+                       Q3 2023    Q3 2022    Y/Y          Q2 2023    Q/Q        
+  Revenue ($M)          $5,800     $5,565    Up 4%         $5,359    Up 8%      
+  Gross profit ($M)     $2,747     $2,354    Up 17%        $2,443    Up 12%     
+  Gross margin             47%        42%    Up 5 ppts        46%    Up 1 ppt   
+  Operating             $2,533     $2,426    Up 4%         $2,471    Up 3%      
+  expenses ($M)                                                                 
+  Operating income        $224      $(64)    Up 450%        $(20)    Up 1,220%  
+  (loss) ($M)                                                                   
+  Operating margin          4%        -1%    Up 5 ppts         0%    Up 4 ppts  
+  Net income ($M)         $299        $66    Up 353%          $27    Up 1,007%  
+  Diluted earnings       $0.18      $0.04    Up 350%        $0.02    Up 800%    
+  per share                                                                     
+                                                                                
+                                                                                
+                    Non-GAAP(*) Quarterly Financial Results                     
+                                                                                
+                                                                                
+                      Q3 2023    Q3 2022    Y/Y           Q2 2023    Q/Q        
+  Revenue ($M)         $5,800     $5,565    Up 4%          $5,359    Up 8%      
+  Gross profit         $2,963     $2,776    Up 7%          $2,665    Up 11%     
+  ($M)                                                                          
+  Gross margin            51%        50%    Up 1 ppt          50%    Up 1 ppt   
+  Operating            $1,697     $1,520    Up 12%         $1,605    Up 6%      
+  expenses ($M)                                                                 
+  Operating income     $1,276     $1,264    Flat           $1,068    Up 19%     
+  ($M)                                                                          
+  Operating margin        22%        23%    Down 1 ppt        20%    Up 2 ppts  
+  Net income ($M)      $1,135     $1,095    Up 4%            $948    Up 20%     
+  Diluted earnings      $0.70      $0.67    Up 4%           $0.58    Up 21%     
+  per share                                                                     
+                                                                                
+                                                                                
+  Quarterly Segment Summary                                                     
+                                                                                
+• Data Center segment revenue was $1.6 billion, flat year-over-year, as growth
+in 4 th Gen AMD EPYC™ CPU sales was offset by a decline in adaptive System-on-
+Chip (SoC) data center products.
+
+◦ Revenue increased 21% sequentially as customer adoption of 4 th Gen AMD EPYC
+CPUs accelerated during the quarter.
+
+◦ AMD Instinct™ MI300A and MI300X GPUs are on track for volume production in the
+fourth quarter to support deployments with several leading HPC, cloud and AI
+customers.
+
+• Client segment revenue was $1.5 billion, up 42% year-over-year driven
+primarily by higher Ryzen mobile processor sales.
+
+◦ Revenue grew 46% sequentially driven by an increase in AMD Ryzen™ 7000 Series
+CPU sales.
+
+• Gaming segment revenue was $1.5 billion, down 8% year-over-year, primarily due
+to a decline in semi-custom revenue, partially offset by an increase in AMD
+Radeon™ GPU sales.
+
+◦ Revenue declined 5% sequentially due to lower semi-custom sales.
+
+• Embedded segment revenue was $1.2 billion, down 5% year-over-year primarily
+due to a decrease in revenue in the communications market.
+
+◦ Revenue decreased 15% sequentially due to inventory correction at customers in
+several end markets.
+                                                                               2
+                                                                                
+  Recent PR Highlights                                                          
+                                                                                
+• Cloud adoption of AMD EPYC processors continues to grow significantly, with
+nearly 100 new instances from Microsoft Azure, AWS, Oracle and others available
+for preview and general access, including new AWS instances powered by 4 th Gen
+AMD EPYC CPUs that deliver leadership performance and energy efficiency.
+
+• AMD expanded the 4 th Gen EPYC CPU portfolio with the launch of the AMD EPYC
+8004 Series processors, purpose built to deliver exceptional energy efficiency
+and performance for cloud services, intelligent edge and telco.
+
+• AMD made significant progress powering pervasive AI across the cloud, edge and
+end point devices:
+
+◦ AMD completed the acquisition of open-source AI software expert Nod.ai,
+expanding the company’s open AI software capabilities. Nod.ai has developed an
+industry-leading software technology that accelerates the deployment of AI
+solutions optimized for AMD Instinct data center accelerators, Ryzen AI
+processors, EPYC processors, Versal™ SoCs and Radeon GPUs.
+
+◦ AMD acquired AI software leader Mipsology. With proven expertise delivering AI
+software and solutions running on top of AMD adaptive computing silicon, the
+Mipsology team will help develop the full AMD AI software stack and expand the
+open ecosystem of software tools, libraries and models.
+
+◦ AI startup Lamini unveiled that it has been running production-ready Large
+Language Models (LLMs) exclusively on AMD Instinct accelerators, enabling
+enterprise customers to deploy LLMs finetuned for their specific data across
+hundreds of AMD Instinct MI250 GPUs with only three lines of code.
+
+• AMD expanded its AMD Ryzen processor lineup, delivering more performance and
+capabilities for enthusiasts, gamers and creators:
+
+◦ AMD announced the AMD Ryzen Threadripper™ PRO 7000 WX-Series and Ryzen
+Threadripper 7000 processors, delivering outstanding performance for the most
+demanding desktop platforms. Ryzen Threadripper PRO 7000 WX-Series processors
+will be available later this year to DIY customers, SI partners and through OEM
+partners including Dell Technologies, HP and Lenovo.
+
+◦ AMD launched new Ryzen 7045HX3D Series mobile processors, the first mobile
+processor with AMD 3D V-Cache™ technology, and the world’s fastest mobile gaming
+processor.
+
+◦ AMD launched the AMD Ryzen 5 5600X3D processor, delivering incredible gaming
+performance with AMD 3D V-cache technology.
+
+• Leadership AMD adaptive and embedded computing products are enabling new
+capabilities in key markets:
+                                                                               3
+◦ AMD extended its leadership in radiation-tolerant, space-grade compute
+solutions with the announcement of the Versal AI Edge XQRVE2302, the second
+device in the Versal adaptive SoC portfolio to be qualified for space flight.
+
+◦ AMD announced the AMD Alveo™ UL3524 accelerator card, a new fintech
+accelerator designed for electronic trading applications and AI-enabled trading
+strategies.
+
+◦ AMD announced the AMD Kria™ K24 System-on-Module (SOM) and KD240 Drives
+Starter Kit, offering power-efficient compute in a small form factor for cost-
+sensitive industrial and commercial edge applications.
+
+• New AMD graphics processors and software features are enabling incredible
+experiences for gamers and professionals:
+
+◦ AMD introduced the flagship laptop graphics processor, AMD Radeon RX 7900M,
+the fastest AMD Radeon GPU ever developed for laptops, delivering desktop-class
+performance for gaming and content creation.
+
+◦ AMD launched the Radeon RX 7800 XT and Radeon RX 7700 XT graphics cards,
+optimized to deliver incredibly high-performance, high-refresh 1440p gaming
+experiences for demanding AAA and esports titles.
+
+◦ AMD launched FidelityFX™ Super Resolution 3 in Forspoken and Immortals of
+Aveum , featuring new frame generation technology that delivers massive
+performance improvements over both native resolution and temporal upscaling.
+
+◦ AMD launched the latest version of the AMD Software: Adrenalin Edition
+application featuring AMD HYPR-RX technology, allowing AMD Radeon Super
+Resolution and AMD Radeon Boost technologies to work together to deliver greater
+performance.
+
+◦ AMD launched the Radeon PRO W7600 and Radeon PRO W7500 workstation graphics
+cards, engineered to tackle workloads across a range of professional industries.
+
+• AMD published its annual Corporate Responsibility Report, detailing 2022
+progress across focus areas spanning digital impact, environmental
+sustainability, supply chain responsibility, and diversity, belonging and
+inclusion.
+
+• AMD announced plans to invest approximately $400 million over the next five
+years to expand research, development and engineering operations in India,
+including the addition of approximately 3,000 new engineering roles by the end
+of 2028.
+                                                                                
+  Current Outlook                                                               
+                                                                                
+AMD’s outlook statements are based on current expectations. The following
+statements are forward-looking and actual results could differ materially
+depending on market conditions and the factors set forth under “Cautionary
+Statement” below.
+                                                                               4
+For the fourth quarter of 2023, AMD expects revenue to be approximately $6.1
+billion, plus or minus $300 million. At the mid-point of the revenue range, this
+represents year-over-year growth of approximately 9% and sequential growth of
+approximately 5%. Non-GAAP gross margin is expected to be approximately 51.5%.
+                                                                                
+  AMD Teleconference                                                            
+                                                                                
+AMD will hold a conference call for the financial community at 2:00 p.m. PT
+(5:00 p.m. ET) today to discuss its third quarter 2023 financial results. AMD
+will provide a real-time audio broadcast of the teleconference on the Investor
+Relations page of its website at www.amd.com.
+                                                                               5
+                                                                                
+  RECONCIL…                                                                     
+  OF GAAP                                                                       
+  TO                                                                            
+  NON-GAAP                                                                      
+  FINANCIAL                                                                     
+  MEASURES                                                                      
+  (in                                                                           
+  millions,                                                                     
+  except                                                                        
+  per share    Three         September                            September     
+  data)        Months              30,          July 1,                 24,     
+  (Unaudit…    Ended              2023             2023                2022     
+ ────────────────────────────────────────────────────────────────────────────── 
+  GAAP                                                                          
+  gross        $                 2,747       $    2,443       $       2,354     
+  profit                                                                        
+  GAAP                                                                          
+  gross                             47  %            46  %               42  %  
+  margin                                                                        
+  Stock-ba…                          6               10                   8     
+  compensa…                                                                     
+  Amortiza…                                                                     
+  of                               210              212                 412     
+  acquisit…                                                                     
+  intangib…                                                                     
+  Acquisit…                                                                     
+  and other                          —                —                   2     
+  costs(1)                                                                      
+  Non-GAAP                                                                      
+  gross        $                 2,963       $    2,665       $       2,776     
+  profit                                                                        
+  Non-GAAP                                                                      
+  gross                             51  %            50  %               50  %  
+  margin                                                                        
+  GAAP                                                                          
+  operating    $                 2,533       $    2,471       $       2,426     
+  expenses                                                                      
+  GAAP                                                                          
+  operating                         44  %            46  %               44  %  
+  expenses…                                                                     
+  %                                                                             
+  Stock-ba…                        347              338                 261     
+  compensa…                                                                     
+  Amortiza…                                                                     
+  of                               450              481                 590     
+  acquisit…                                                                     
+  intangib…                                                                     
+  Acquisit…                                                                     
+  and other                         39               47                  55     
+  costs(1)                                                                      
+  Non-GAAP                                                                      
+  operating    $                 1,697       $    1,605       $       1,520     
+  expenses                                                                      
+  Non-GAAP                                                                      
+  operating                         29  %            30  %               27  %  
+  expenses…                                                                     
+  %                                                                             
+  GAAP                                                                          
+  operating    $                   224       $      -20       $         -64     
+  income                                                                        
+  (loss)                                                                        
+  GAAP                                                                          
+  operating                          4  %             0  %               -1  %  
+  margin                                                                        
+  Stock-ba…                        353              348                 269     
+  compensa…                                                                     
+  Amortiza…                                                                     
+  of                               660              693               1,002     
+  acquisit…                                                                     
+  intangib…                                                                     
+  Acquisit…                                                                     
+  and other                         39               47                  57     
+  costs(1)                                                                      
+  Non-GAAP                                                                      
+  operating    $                 1,276       $    1,068       $       1,264     
+  income                                                                        
+  Non-GAAP                                                                      
+  operating                         22  %            20  %               23  %  
+  margin                                                                        
+                                                                                
+                                                                                
+          Thr…  Sept…                   July                  Sept…             
+          Mon…    30,                     1,                    24,             
+          End…   2023                   2023                   2022             
+ ────────────────────────────────────────────────────────────────────────────── 
+  GAAP                                                                          
+  net                                                                           
+  inc…                                                                          
+  /       $       299    $  0.18    $     27    $  0.02    $     66    $  0.04  
+  dil…                                                                          
+  ear…                                                                          
+  per                                                                           
+  sha…                                                                          
+  (Ga…                                                                          
+  los…                                                                          
+  on               -4          —           3          —           3          —  
+  equ…                                                                          
+  inv…                                                                          
+  net                                                                           
+  Sto…            353       0.22         348       0.21         269       0.16  
+  com…                                                                          
+  Equ…                                                                          
+  inc…             -3          —          -6          —          -4          —  
+  in                                                                            
+  inv…                                                                          
+  Amo…                                                                          
+  of              660       0.41         693       0.42       1,002       0.62  
+  acq…                                                                          
+  int…                                                                          
+  Acq…                                                                          
+  and              39       0.02          47       0.03          57       0.04  
+  oth…                                                                          
+  cos…                                                                          
+  Inc…                                                                          
+  tax            -209       -0.…        -164       -0.…        -298       -0.…  
+  pro…                                                                          
+  Non…                                                                          
+  net                                                                           
+  inc…                                                                          
+  /       $     1,135    $  0.70    $    948    $  0.58    $  1,095    $  0.67  
+  dil…                                                                          
+  ear…                                                                          
+  per                                                                           
+  sha…                                                                          
+                                                                                
+                                                                                
+         Acquisition-related and other costs primarily comprised of             
+  (1)    transaction costs, purchase price adjustments for inventory, certain   
+         compensation charges, contract termination and workforce rebalancing   
+         charges.                                                               
+                                                                                
+                                                                               6
+                                                                                
+  About AMD                                                                     
+                                                                                
+For more than 50 years AMD has driven innovation in high-performance computing,
+graphics and visualization technologies. AMD employees are focused on building
+leadership high-performance and adaptive products that push the boundaries of
+what is possible. Billions of people, leading Fortune 500 businesses and
+cutting-edge scientific research institutions around the world rely on AMD
+technology daily to improve how they live, work and play. For more information
+about how AMD is enabling today and inspiring tomorrow, visit the AMD (NASDAQ:
+AMD) website, blog, Facebook and Twitter pages.
+                                                                                
+  Cautionary Statement                                                          
+                                                                                
+This press release contains forward-looking statements concerning Advanced Micro
+Devices, Inc. (AMD) such as the significant growth trajectory of AMD’s data
+center business; that AMD expects to see strong growth in Data Center and
+continued momentum in Client, partially offset by lower sales in the Gaming
+segment and additional softening of demand in the embedded markets; that AMD
+Instinct™ MI300A and MI300X GPUs are on track for volume production in the
+fourth quarter of 2023 to support deployments with several leading HPC, Cloud
+and AI customers; the features, functionality, performance, availability, timing
+and expected benefits of AMD products ; AMD’s plans to invest approximately $400
+million over the next five years to expand research, development and engineering
+operations in India, including the addition of approximately 3,000 new
+engineering roles by the end of 2028; and AMD’s expected fourth quarter 2023
+financial outlook, including revenue and non-GAAP gross margin, which are made
+pursuant to the Safe Harbor provisions of the Private Securities Litigation
+Reform Act of 1995. Forward-looking statements are commonly identified by words
+such as "would," "may," "expects," "believes," "plans," "intends," "projects"
+and other terms with similar meaning. Investors are cautioned that the forward-
+looking statements in this press release are based on current beliefs,
+assumptions and expectations, speak only as of the date of this press release
+and involve risks and uncertainties that could cause actual results to differ
+materially from current expectations. Such statements are subject to certain
+known and unknown risks and uncertainties, many of which are difficult to
+predict and generally beyond AMD's control, that could cause actual results and
+other future events to differ materially from those expressed in, or implied or
+projected by, the forward-looking information and statements. Material factors
+that could cause actual results to differ materially from current expectations
+include, without limitation, the following: Intel Corporation’s dominance of the
+microprocessor market and its aggressive business practices; global economic
+uncertainty; cyclical nature of the semiconductor industry; market conditions of
+the industries in which AMD products are sold; loss of a significant customer;
+impact of the COVID-19 pandemic on AMD’s business, financial condition and
+results of operations; competitive markets in which AMD’s products are sold;
+quarterly and seasonal sales patterns; AMD's ability to adequately protect its
+technology or other intellectual property; unfavorable currency exchange rate
+fluctuations; ability of third party manufacturers to manufacture AMD's products
+on a timely basis in sufficient quantities and using competitive technologies;
+availability of essential equipment, materials, substrates or manufacturing
+processes; ability to achieve expected manufacturing yields for AMD’s products;
+AMD's ability to introduce products on a timely basis with expected features and
+performance levels; AMD's ability to generate revenue from its semi-custom SoC
+products; potential security vulnerabilities; potential security incidents
+including IT outages, data loss, data breaches and cyber-attacks; potential
+difficulties in upgrading and operating AMD’s new enterprise resource planning
+system; uncertainties involving the ordering and shipment of AMD’s products;
+AMD’s reliance on third-party intellectual property to design and introduce new
+products in a timely manner; AMD's reliance on third-party companies for design,
+manufacture and supply of motherboards, software and other computer platform
+components; AMD's reliance on Microsoft and other software vendors' support to
+design and develop software to run on AMD’s products; AMD’s reliance on third-
+party distributors and add-in-board partners; impact of modification or
+interruption of AMD’s internal business processes and information systems;
+compatibility of AMD’s products with some or all industry-standard software and
+hardware; costs related to defective products; efficiency of AMD's supply chain;
+AMD's ability to rely on third party supply-chain logistics functions; AMD’s
+ability to effectively control sales of its products on the gray market; impact
+of government actions and regulations such as export administration regulations,
+tariffs and trade protection measures; AMD’s ability to realize its deferred tax
+assets; potential tax liabilities; current and future claims and litigation;
+impact of environmental laws, conflict minerals-related provisions and other
+laws or regulations; impact of acquisitions, joint ventures and/or investments
+on AMD’s business and AMD’s ability to integrate acquired businesses; impact of
+any impairment of AMD’s tangible, definite-lived or indefinite-lived intangible
+assets, including goodwill, on AMD’s financial position and results of
+operation; restrictions imposed by agreements governing AMD’s notes, the
+guarantees of Xilinx’s notes and the revolving credit facility; AMD's
+indebtedness; AMD's ability to generate sufficient cash to meet its working
+capital requirements or generate sufficient revenue and operating cash flow to
+make all of its planned R&D or strategic investments, as well as the impact of
+financial institution failure on AMD’s cash and cash equivalents; political,
+legal, economic risks and natural disasters; future impairments of technology
+license purchases; AMD’s ability to attract and retain qualified personnel;
+AMD’s stock price volatility. Investors are urged to review in detail the risks
+and uncertainties in AMD’s Securities and Exchange Commission filings, including
+but not limited to AMD’s most recent reports on Forms 10-K and 10-Q.
+                                                                               7
+                                                                                
+         In this earnings press release, in addition to GAAP financial          
+         results, AMD has provided non-GAAP financial measures including        
+         non-GAAP gross profit, non-GAAP operating expenses, non-GAAP           
+         operating income, non-GAAP net income, non-GAAP diluted earnings per   
+         share. AMD uses a normalized tax rate in its computation of the        
+         non-GAAP income tax provision to provide better consistency across     
+         the reporting periods. For fiscal 2023, AMD uses a projected non-GAAP  
+         tax rate of 13%, which excludes the tax impact of pre-tax non-GAAP     
+         adjustments, reflecting currently available information. AMD also      
+         provided adjusted EBITDA and free cash flow as supplemental non-GAAP   
+         measures of its performance. These items are defined in the footnotes  
+         to the selected corporate data tables provided at the end of this      
+         earnings press release. AMD is providing these financial measures      
+         because it believes this non-GAAP presentation makes it easier for     
+         investors to compare its operating results for current and historical  
+         periods and also because AMD believes it assists investors in          
+         comparing AMD’s performance across reporting periods on a consistent   
+         basis by excluding items that it does not believe are indicative of    
+         its core operating performance and for the other reasons described in  
+         the footnotes to the selected data tables. The non-GAAP financial      
+         measures disclosed in this earnings press release should be viewed in  
+         addition to and not as a substitute for or superior to AMD’s reported  
+         results prepared in accordance with GAAP and should be read only in    
+         conjunction with AMD’s Consolidated Financial Statements prepared in   
+         accordance with GAAP. These non-GAAP financial measures referenced     
+         are reconciled to their most directly comparable GAAP financial        
+         measures in the data tables in this earnings press release. This       
+         earnings press release also contains forward-looking non-GAAP gross    
+         margin concerning AMD’s financial outlook, which is based on current   
+         expectations as of October 31, 2023 and assumptions and beliefs that   
+         involve numerous risks and uncertainties. Adjustments to arrive at     
+         the GAAP gross margin outlook typically include stock-based            
+         compensation, amortization of acquired intangible assets and           
+         acquisition-related and other costs. The timing and impact of such     
+         adjustments are dependent on future events that are typically          
+         uncertain or outside of AMD's control, therefore, a reconciliation to  
+         equivalent GAAP measures is not practicable at this time. AMD          
+         undertakes no intent or obligation to publicly update or revise its    
+         outlook statements as a result of new information, future events or    
+  (*)    otherwise, except as may be required by law.                           
+ ────────────────────────────────────────────────────────────────────────────── 
+                                                                                
+                                      -30-                                      
+AMD, the AMD Arrow logo, EPYC, Radeon, Ryzen, Instinct, Versal, Alveo, Kria,
+FidelityFX, 3D V-Cache, Ultrascale+, Zynq, Threadripper and combinations
+thereof, are trademarks of Advanced Micro Devices, Inc.
+                                                                               8
+                                                                                
+  ADVANCED MICRO DEVICES, INC.                                                  
+                                                                                
+                                                                                
+  CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS                               
+                                                                                
+(Millions except per share amounts and percentages) (Unaudited)
+                                                                                
+         Thr…  Se…          July          Se…       Nine  Se…          Sep…     
+         Mon…  30,            1,          24,       Mon…  30,           24,     
+         End…  20…          2023          20…       End…  20…          2022     
+ ────────────────────────────────────────────────────────────────────────────── 
+  Net    $     5,…       $  5,3…       $  5,…       $     16…       $  18,…     
+  re…                                                                           
+  Co…                                                                           
+  of           2,…          2,7…          2,…             8,…          8,7…     
+  sa…                                                                           
+  Am…                                                                           
+  of           210           212          412             727          1,0…     
+  ac…                                                                           
+  in…                                                                           
+  To…                                                                           
+  co…          3,…          2,9…          3,…             8,…          9,8…     
+  of                                                                            
+  sa…                                                                           
+  Gr…          2,…          2,4…          2,…             7,…          8,2…     
+  pr…                                                                           
+  Gr…           47  %         46  %        42  %           46  %         46  %  
+  ma…                                                                           
+  Re…                                                                           
+  and          1,…          1,4…          1,…             4,…          3,6…     
+  de…                                                                           
+  Ma…                                                                           
+  ge…          576           547          557             1,…          1,7…     
+  and                                                                           
+  ad…                                                                           
+  Am…                                                                           
+  of           450           481          590             1,…          1,4…     
+  ac…                                                                           
+  in…                                                                           
+  Li…          -10            -8           -8             -28           -97     
+  ga…                                                                           
+  Op…                                                                           
+  in…          224           -20          -64              59          1,4…     
+  (l…                                                                           
+  In…          -26           -28          -31             -79           -69     
+  ex…                                                                           
+  Ot…                                                                           
+  in…           59            46           22             148           -24     
+  (e…                                                                           
+  net                                                                           
+  In…                                                                           
+  (l…                                                                           
+  be…                                                                           
+  in…          257            -2          -73             128          1,3…     
+  ta…                                                                           
+  and                                                                           
+  eq…                                                                           
+  in…                                                                           
+  In…                                                                           
+  tax          -39           -23          -1…             -49            32     
+  pr…                                                                           
+  (b…                                                                           
+  Eq…                                                                           
+  in…            3             6            4              10            11     
+  in                                                                            
+  in…                                                                           
+  Net    $     299       $    27       $   66       $     187       $  1,2…     
+  in…                                                                           
+  Ea…                                                                           
+  per                                                                           
+  sh…                                                                           
+  Ba…    $     0.…       $  0.02       $  0.…       $     0.…       $  0.84     
+  Di…    $     0.…       $  0.02       $  0.…       $     0.…       $  0.84     
+  Sh…                                                                           
+  us…                                                                           
+  in                                                                            
+  per                                                                           
+  sh…                                                                           
+  ca…                                                                           
+  Ba…          1,…          1,6…          1,…             1,…          1,5…     
+  Di…          1,…          1,6…          1,…             1,…          1,5…     
+                                                                                
+                                                                               9
+                                                                                
+  ADVANCED MICRO DEVICES, INC.                                                  
+                                                                                
+                                                                                
+  CONDENSED CONSOLIDATED BALANCE SHEETS                                         
+                                                                                
+(Millions)
+                                                                                
+                                 September 30,            December 31,          
+                                 2023                     2022                  
+ ────────────────────────────────────────────────────────────────────────────── 
+                                 -Unaudited                                     
+  ASSETS                                                                        
+  Current assets:                                                               
+  Cash and cash equivalents      $               3,561    $              4,835  
+  Short-term investments                         2,224                   1,020  
+  Accounts receivable, net                       5,054                   4,126  
+  Inventories                                    4,445                   3,771  
+  Receivables from related                           1                       2  
+  parties                                                                       
+  Prepaid expenses and other                                                    
+  current                                        1,403                   1,265  
+  assets                                                                        
+  Total current assets                          16,688                  15,019  
+  Property and equipment, net                    1,566                   1,513  
+  Operating lease                                  507                     460  
+  right-of-use assets                                                           
+  Goodwill                                      24,186                  24,177  
+  Acquisition-related                           21,950                  24,118  
+  intangibles, net                                                              
+  Investment: equity method                         93                      83  
+  Deferred tax assets                               76                      58  
+  Other non-current assets                       2,560                   2,152  
+  Total Assets                   $              67,626    $             67,580  
+  LIABILITIES AND                                                               
+  STOCKHOLDERS' EQUITY                                                          
+  Current liabilities:                                                          
+  Accounts payable               $               2,245    $              2,493  
+  Payables to related parties                      325                     463  
+  Accrued liabilities                            3,376                   3,077  
+  Current portion of                               752                       —  
+  long-term debt, net                                                           
+  Other current liabilities                        929                     336  
+  Total current liabilities                      7,627                   6,369  
+  Long-term debt, net of                         1,715                   2,467  
+  current portion                                                               
+  Long-term operating lease                        395                     396  
+  liabilities                                                                   
+  Deferred tax liabilities                       1,152                   1,934  
+  Other long-term liabilities                    1,767                   1,664  
+  Stockholders' equity:                                                         
+  Capital stock:                                                                
+  Common stock, par value                           17                      16  
+  Additional paid-in capital                    59,182                  58,005  
+  Treasury stock, at cost                       -4,235                  -3,099  
+  Retained earnings                                 56                    -131  
+  (Accumulated deficit)                                                         
+  Accumulated other                                -50                     -41  
+  comprehensive loss                                                            
+  Total stockholders' equity     $              54,970    $             54,750  
+  Total Liabilities and                                                         
+  Stockholders'                  $              67,626    $             67,580  
+  Equity                                                                        
+                                                                                
+                                                                              10
+                                                                                
+  ADVANCED MICRO DEVICES, INC.                                                  
+                                                                                
+                                                                                
+  CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS                               
+                                                                                
+(Millions) (Unaudited)
+                                                                                
+           Three   Septe…       Septe…    Nine    Septem…               Septe…  
+           Months     30,          24,    Months      30,                  24,  
+           Ended     2023         2022    Ended      2023                 2022  
+ ────────────────────────────────────────────────────────────────────────────── 
+  Cash                                                                          
+  flows                                                                         
+  from                                                                          
+  oper…                                                                         
+  acti…                                                                         
+  Net      $          299    $      66    $           187            $   1,299  
+  inco…                                                                         
+  Adju…                                                                         
+  to                                                                            
+  reco…                                                                         
+  net                                                                           
+  inco…                                                                         
+  to                                                                            
+  net                                                                           
+  cash                                                                          
+  prov…                                                                         
+  by                                                                            
+  oper…                                                                         
+  acti…                                                                         
+  Depr…                                                                         
+  and                 823        1,165              2,654                2,954  
+  amor…                                                                         
+  Stoc…               353          275              1,010                  766  
+  comp…                                                                         
+  Amor…                                                                         
+  of                                                                            
+  oper…                25           23                 73                   63  
+  lease                                                                         
+  righ…                                                                         
+  asse…                                                                         
+  Amor…                                                                         
+  of                                                                            
+  inve…                 —            2                  3                  187  
+  fair                                                                          
+  value                                                                         
+  adju…                                                                         
+  Loss                                                                          
+  on                                                                            
+  sale                                                                          
+  or                                                                            
+  disp…                 3            —                 10                   15  
+  of                                                                            
+  prop…                                                                         
+  and                                                                           
+  equi…                                                                         
+  Defe…                                                                         
+  inco…              -218         -710               -800               -1,328  
+  taxes                                                                         
+  (Gai…                                                                         
+  loss…                                                                         
+  on                   -3            3                 -1                   57  
+  equi…                                                                         
+  inve…                                                                         
+  net                                                                           
+  Other               -23           -5                -43                   -9  
+  Chan…                                                                         
+  in                                                                            
+  oper…                                                                         
+  asse…                                                                         
+  and                                                                           
+  liab…                                                                         
+  Acco…                                                                         
+  rece…              -743         -285               -929               -1,301  
+  net                                                                           
+  Inve…               122         -723               -674                 -997  
+  Rece…                                                                         
+  from                  1            —                  1                   -1  
+  rela…                                                                         
+  part…                                                                         
+  Prep…                                                                         
+  expe…                                                                         
+  and                -143         -588               -380                 -825  
+  other                                                                         
+  asse…                                                                         
+  Paya…                                                                         
+  to                   13           36               -137                  313  
+  rela…                                                                         
+  part…                                                                         
+  Acco…              -547          783               -238                  811  
+  paya…                                                                         
+  Accr…                                                                         
+  and                 459          923                550                  994  
+  other                                                                         
+  liab…                                                                         
+  Net                                                                           
+  cash                                                                          
+  prov…               421          965              1,286                2,998  
+  by                                                                            
+  oper…                                                                         
+  acti…                                                                         
+  Cash                                                                          
+  flows                                                                         
+  from                                                                          
+  inve…                                                                         
+  acti…                                                                         
+  Purc…                                                                         
+  of                                                                            
+  prop…              -124         -123               -407                 -326  
+  and                                                                           
+  equi…                                                                         
+  Purc…                                                                         
+  of                 -496       -1,779             -3,312               -2,399  
+  shor…                                                                         
+  inve…                                                                         
+  Proc…                                                                         
+  from                                                                          
+  matu…               746          615              1,917                2,864  
+  of                                                                            
+  shor…                                                                         
+  inve…                                                                         
+  Proc…                                                                         
+  from                                                                          
+  sale                  —            —                248                    —  
+  of                                                                            
+  shor…                                                                         
+  inve…                                                                         
+  Cash                                                                          
+  rece…                                                                         
+  from                  —            —                  —                2,366  
+  acqu…                                                                         
+  of                                                                            
+  Xili…                                                                         
+  Acqu…                                                                         
+  net                                                                           
+  of                  -14            —                -14               -1,558  
+  cash                                                                          
+  acqu…                                                                         
+  Other               -10          -11                 -5                  -15  
+  Net                                                                           
+  cash                                                                          
+  prov…                                                                         
+  by                  102       -1,298             -1,573                  932  
+  (used                                                                         
+  in)                                                                           
+  inve…                                                                         
+  acti…                                                                         
+  Cash                                                                          
+  flows                                                                         
+  from                                                                          
+  fina…                                                                         
+  acti…                                                                         
+  Proc…                                                                         
+  from                                                                          
+  debt,                                                                         
+  net                   —            —                  —                  991  
+  of                                                                            
+  issu…                                                                         
+  costs                                                                         
+  Repa…                                                                         
+  of                    —         -312                  —                 -312  
+  debt                                                                          
+  Proc…                                                                         
+  from                                                                          
+  sales                                                                         
+  of                                                                            
+  comm…                 4            1                148                   79  
+  stock                                                                         
+  thro…                                                                         
+  empl…                                                                         
+  equi…                                                                         
+  plans                                                                         
+  Repu…                                                                         
+  of                 -511         -617               -752               -3,452  
+  comm…                                                                         
+  stock                                                                         
+  Comm…                                                                         
+  stock                                                                         
+  repu…                                                                         
+  for                                                                           
+  tax                -295         -305               -382                 -371  
+  with…                                                                         
+  on                                                                            
+  empl…                                                                         
+  equi…                                                                         
+  plans                                                                         
+  Other                -1            —                 -1                   -2  
+  Net                                                                           
+  cash                                                                          
+  used               -803       -1,233               -987               -3,067  
+  in                                                                            
+  fina…                                                                         
+  acti…                                                                         
+  Net                                                                           
+  incr…                                                                         
+  (dec…                                                                         
+  in                 -280       -1,566             -1,274                  863  
+  cash                                                                          
+  and                                                                           
+  cash                                                                          
+  equi…                                                                         
+  Cash                                                                          
+  and                                                                           
+  cash                                                                          
+  equi…             3,841        4,964              4,835                2,535  
+  at                                                                            
+  begi…                                                                         
+  of                                                                            
+  peri…                                                                         
+  Cash                                                                          
+  and                                                                           
+  cash                                                                          
+  equi…    $        3,561    $   3,398                     $3,561    $   3,398  
+  at                                                                            
+  end                                                                           
+  of                                                                            
+  peri…                                                                         
+                                                                                
+                                                                              11
+                                                                                
+  ADVANCED MICRO DEVICES, INC.                                                  
+                                                                                
+                                                                                
+  SELECTED CORPORATE DATA                                                       
+                                                                                
+(Millions) (Unaudited)
+                                                                                
+          Three   Sept…         July       Sept…    Nine    Sept…       Septe…  
+          Months    30,           1,         24,    Months    30,          24,  
+          Ended    2023         2023        2022    Ended    2023         2022  
+ ────────────────────────────────────────────────────────────────────────────── 
+  Seg…                                                                          
+  and                                                                           
+  Cat…                                                                          
+  Inf…                                                                          
+  Data                                                                          
+  Cen…                                                                          
+  Net     $       1,598    $   1,321    $  1,609    $       4,214    $   4,388  
+  rev…                                                                          
+  Ope…    $         306    $     147    $    505    $         601    $   1,404  
+  inc…                                                                          
+  Cli…                                                                          
+  Net     $       1,453    $     998    $  1,022    $       3,190    $   5,298  
+  rev…                                                                          
+  Ope…                                                                          
+  inc…    $         140    $     -69    $    -26    $        -101    $   1,342  
+  (lo…                                                                          
+  Gam…                                                                          
+  Net     $       1,506    $   1,581    $  1,631    $       4,844    $   5,161  
+  rev…                                                                          
+  Ope…    $         208    $     225    $    142    $         747    $     687  
+  inc…                                                                          
+  Emb…                                                                          
+  Net     $       1,243    $   1,459    $  1,303    $       4,264    $   3,155  
+  rev…                                                                          
+  Ope…    $         612    $     757    $    635    $       2,167    $   1,553  
+  inc…                                                                          
+  All                                                                           
+  Oth…                                                                          
+  Net     $           —    $       —    $      —    $           —    $       —  
+  rev…                                                                          
+  Ope…    $       -1,0…    $  -1,080    $  -1,3…    $       -3,3…    $  -3,573  
+  loss                                                                          
+  Tot…                                                                          
+  Net     $       5,800    $   5,359    $  5,565    $       16,5…    $  18,002  
+  rev…                                                                          
+  Ope…                                                                          
+  inc…    $         224    $     -20    $    -64    $          59    $   1,413  
+  (lo…                                                                          
+  (Bl…                                                                          
+  Oth…                                                                          
+  Data                                                                          
+  Cap…    $         124    $     125    $    123    $         407    $     326  
+  exp…                                                                          
+  Adj…    $       1,439    $   1,224    $  1,427    $       3,920    $   5,533  
+  EBI…                                                                          
+  Cas…                                                                          
+  cash                                                                          
+  equ…    $       5,785    $   6,285    $  5,591    $       5,785    $   5,591  
+  and                                                                           
+  sho…                                                                          
+  inv…                                                                          
+  Free                                                                          
+  cash    $         297    $     254    $    842    $         879    $   2,672  
+  flo…                                                                          
+  Tot…    $       67,6…    $  67,967    $  67,8…    $       67,6…    $  67,811  
+  ass…                                                                          
+  Tot…    $       2,467    $   2,467    $  2,466    $       2,467    $   2,466  
+  debt                                                                          
+                                                                                
+                                                                              12
+                                                                                
+         The Data Center segment primarily includes server microprocessors      
+  (1)    (CPUs) and graphics processing units (GPUs), data processing units     
+         (DPUs), Field Programmable Gate Arrays (FPGAs) and Adaptive            
+         System-on-Chip (SoC) products for data centers.                        
+         The Client segment primarily includes CPUs, accelerated processing     
+         units that integrate microprocessors and GPUs (APUs), and chipsets     
+         for desktop and notebook personal computers.                           
+         The Gaming segment primarily includes discrete GPUs, semi-custom SoC   
+         products and development services.                                     
+         The Embedded segment primarily includes embedded CPUs and GPUs, APUs,  
+         FPGAs, and Adaptive SoC products.                                      
+         From time to time, the Company may also sell or license portions of    
+         its IP portfolio.                                                      
+         All Other category primarily includes certain expenses and credits     
+         that are not allocated to any of the operating segments, such as       
+         amortization of acquisition-related intangible asset, employee         
+         stock-based compensation expense, acquisition-related and other        
+         costs, and licensing gain.                                             
+                                                                                
+                                                               
+  (2)    Reconciliation of GAAP Net Income to Adjusted EBITDA  
+                                                               
+                                                                                
+          Three   Sept…         July       Sept…    Nine    Sept…       Septe…  
+          Months    30,           1,         24,    Months    30,          24,  
+          Ended    2023         2023        2022    Ended    2023         2022  
+ ────────────────────────────────────────────────────────────────────────────── 
+  GAAP                                                                          
+  net     $         299    $      27    $     66    $         187    $   1,299  
+  inc…                                                                          
+  Int…               26           28          31               79           69  
+  exp…                                                                          
+  Oth…                                                                          
+  (in…              -59          -46         -22             -148           24  
+  exp…                                                                          
+  net                                                                           
+  Inc…                                                                          
+  tax               -39          -23        -135              -49           32  
+  pro…                                                                          
+  (be…                                                                          
+  Equ…                                                                          
+  inc…               -3           -6          -4              -10          -11  
+  in                                                                            
+  inv…                                                                          
+  Sto…              353          348         269            1,006          702  
+  com…                                                                          
+  Dep…                                                                          
+  and               163          156         163              478          450  
+  amo…                                                                          
+  Amo…                                                                          
+  of                660          693       1,002            2,176        2,504  
+  acq…                                                                          
+  int…                                                                          
+  Acq…                                                                          
+  and                39           47          57              201          464  
+  oth…                                                                          
+  cos…                                                                          
+  Adj…    $       1,439    $   1,224    $  1,427    $       3,920    $   5,533  
+  EBI…                                                                          
+                                                                                
+                                                      
+  The Company presents “Adjusted EBITDA” as a         
+  supplemental measure of its performance. Adjusted   
+  EBITDA for the Company is determined by adjusting   
+  GAAP net income for interest expense, other income  
+  (expense), net, income tax provision (benefit),     
+  equity income in investee, stock-based              
+  compensation, depreciation and amortization         
+  expense (including amortization of                  
+  acquisition-related intangibles),                   
+  acquisition-related and other costs. The Company    
+  calculates and presents Adjusted EBITDA because     
+  management believes it is of importance to          
+  investors and lenders in relation to its overall    
+  capital structure and its ability to borrow         
+  additional funds. In addition, the Company          
+  presents Adjusted EBITDA because it believes this   
+  measure assists investors in comparing its          
+  performance across reporting periods on a           
+  consistent basis by excluding items that the        
+  Company does not believe are indicative of its      
+  core operating performance. The Company’s           
+  calculation of Adjusted EBITDA may or may not be    
+  consistent with the calculation of this measure by  
+  other companies in the same industry. Investors     
+  should not view Adjusted EBITDA as an alternative   
+  to the GAAP operating measure of income or GAAP     
+  liquidity measures of cash flows from operating,    
+  investing and financing activities. In addition,    
+  Adjusted EBITDA does not take into account changes  
+  in certain assets and liabilities that can affect   
+  cash flows.                                         
+                                                      
+                                                                                
+  (3)    Reconciliation of GAAP Net Cash Provided by Operating Activities to    
+         Free Cash Flow                                                         
+                                                                                
+                                                                                
+         Thr…  Se…          July          Se…       Nine  Se…          Sep…     
+         Mon…  30,            1,          24,       Mon…  30,           24,     
+         End…  20…          2023          20…       End…  20…          2022     
+ ────────────────────────────────────────────────────────────────────────────── 
+  GA…                                                                           
+  net                                                                           
+  ca…                                                                           
+  pr…    $     421       $   379       $  965       $     1,…       $  2,9…     
+  by                                                                            
+  op…                                                                           
+  ac…                                                                           
+  Op…                                                                           
+  ca…                                                                           
+  fl…            7  %          7  %        17  %            8  %         17  %  
+  ma…                                                                           
+  %                                                                             
+  Pu…                                                                           
+  of                                                                            
+  pr…    $     -1…       $  -125       $  -1…       $     -4…       $  -326     
+  and                                                                           
+  eq…                                                                           
+  Fr…                                                                           
+  ca…    $     297       $   254       $  842       $     879       $  2,6…     
+  fl…                                                                           
+  Fr…                                                                           
+  ca…                                                                           
+  fl…            5  %          5  %        15  %            5  %         15  %  
+  ma…                                                                           
+  %                                                                             
+                                                                                
+                                                      
+  The Company also presents free cash flow as a       
+  supplemental Non-GAAP measure of its performance.   
+  Free cash flow is determined by adjusting GAAP net  
+  cash provided by operating activities for capital   
+  expenditures, and free cash flow margin % is free   
+  cash flow expressed as a percentage of the          
+  Company's net revenue. The Company calculates and   
+  communicates free cash flow in the financial        
+  earnings press release because management believes  
+  it is of importance to investors to understand the  
+  nature of these cash flows. The Company’s           
+  calculation of free cash flow may or may not be     
+  consistent with the calculation of this measure by  
+  other companies in the same industry. Investors     
+  should not view free cash flow as an alternative    
+  to GAAP liquidity measures of cash flows from       
+  operating activities.                               
+                                                      
+                                                                              13
+
+
+AMD FINANCIAL RESULTS Third Quarter 2023 October 31, 2023
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202322 CAUTIONARY STATEMENT This
+presentation contains forward-looking statements concerning Advanced Micro
+Devices, Inc. (AMD), such as the features, functionality, performance,
+availability, timing and expected benefits of AMD products; AMD’s expected
+fourth quarter 2023 financial outlook, including revenue, non-GAAP gross margin,
+non-GAAP operating expenses, non-GAAP tax rate and diluted share count; AMD’s
+large and compelling TAM; AMD’s ability to expand Data Center and AI leadership;
+and AMD’s ability to drive long-term shareholder returns, which are made
+pursuant to the Safe Harbor provisions of the Private Securities Litigation
+Reform Act of 1995. Forward-looking statements are commonly identified by words
+such as "would," "may," "expects," "believes," "plans," "intends," "projects"
+and other terms with similar meaning. Investors are cautioned that the forward-
+looking statements in this presentation are based on current beliefs,
+assumptions and expectations, speak only as of the date of this presentation and
+involve risks and uncertainties that could cause actual results to differ
+materially from current expectations. Such statements are subject to certain
+known and unknown risks and uncertainties, many of which are difficult to
+predict and generally beyond AMD's control, that could cause actual results and
+other future events to differ materially from those expressed in, or implied or
+projected by, the forward-looking information and statements. Material factors
+that could cause actual results to differ materially from current expectations
+include, without limitation, the following: Intel Corporation’s dominance of the
+microprocessor market and its aggressive business practices; global economic
+uncertainty; cyclical nature of the semiconductor industry; market conditions of
+the industries in which AMD products are sold; loss of a significant customer;
+impact of the COVID-19 pandemic on AMD’s business, financial condition and
+results of operations; competitive markets in which AMD’s products are sold;
+quarterly and seasonal sales patterns; AMD's ability to adequately protect its
+technology or other intellectual property; unfavorable currency exchange rate
+fluctuations; ability of third party manufacturers to manufacture AMD's products
+on a timely basis in sufficient quantities and using competitive technologies;
+availability of essential equipment, materials, substrates or manufacturing
+processes; ability to achieve expected manufacturing yields for AMD’s products;
+AMD's ability to introduce products on a timely basis with expected features and
+performance levels; AMD's ability to generate revenue from its semi-custom SoC
+products; potential security vulnerabilities; potential security incidents
+including IT outages, data loss, data breaches and cyber-attacks; potential
+difficulties in upgrading and operating AMD’s new enterprise resource planning
+system; uncertainties involving the ordering and shipment of AMD’s products;
+AMD’s reliance on third-party intellectual property to design and introduce new
+products in a timely manner; AMD's reliance on third-party companies for design,
+manufacture and supply of motherboards, software and other computer platform
+components; AMD's reliance on Microsoft and other software vendors' support to
+design and develop software to run on AMD’s products; AMD’s reliance on third-
+party distributors and add-in-board partners; impact of modification or
+interruption of AMD’s internal business processes and information systems;
+compatibility of AMD’s products with some or all industry-standard software and
+hardware; costs related to defective products; efficiency of AMD's supply chain;
+AMD's ability to rely on third party supply-chain logistics functions; AMD’s
+ability to effectively control sales of its products on the gray market; impact
+of government actions and regulations such as export administration regulations,
+tariffs and trade protection measures; AMD’s ability to realize its deferred tax
+assets; potential tax liabilities; current and future claims and litigation;
+impact of environmental laws, conflict minerals-related provisions and other
+laws or regulations; impact of acquisitions, joint ventures and/or investments
+on AMD’s business and AMD’s ability to integrate acquired businesses; impact of
+any impairment of AMD’s tangible, definite-lived or indefinite-lived intangible
+assets, including goodwill, on AMD’s financial position and results of
+operation; restrictions imposed by agreements governing AMD’s notes, the
+guarantees of Xilinx’s notes and the revolving credit facility; AMD's
+indebtedness; AMD's ability to generate sufficient cash to meet its working
+capital requirements or generate sufficient revenue and operating cash flow to
+make all of its planned R&D or strategic investments, as well as the impact of
+financial institution failure on AMD’s cash and cash equivalents; political,
+legal, economic risks and natural disasters; future impairments of technology
+license purchases; AMD’s ability to attract and retain qualified personnel;
+AMD’s stock price volatility. Investors are urged to review in detail the risks
+and uncertainties in AMD’s Securities and Exchange Commission filings, including
+but not limited to AMD’s most recent reports on Forms 10-K and 10-Q. NON-GAAP
+FINANCIAL MEASURES In this presentation, in addition to GAAP financial results,
+AMD has provided non-GAAP financial measures including non-GAAP gross profit,
+non-GAAP operating expenses, non-GAAP operating income, non-GAAP net income and
+non-GAAP diluted earnings per share. AMD uses a normalized tax rate in its
+computation of the non-GAAP income tax provision to provide better consistency
+across the reporting periods. For fiscal year 2023, AMD uses a projected non-
+GAAP tax rate of 13%, which excludes the tax impact of pre-tax non-GAAP
+adjustments, reflecting currently available information. AMD is providing these
+financial measures because it believes this non-GAAP presentation makes it
+easier for investors to compare its operating results for current and historical
+periods and also because AMD believes it assists investors in comparing AMD’s
+performance across reporting periods on a consistent basis by excluding items
+that it does not believe are indicative of its core operating performance. The
+non-GAAP financial measures disclosed in this presentation should be viewed in
+addition to and not as a substitute for or superior to AMD’s reported results
+prepared in accordance with GAAP and should be read only in conjunction with
+AMD’s Consolidated Financial Statements prepared in accordance with GAAP. These
+non-GAAP financial measures referenced are reconciled to their most directly
+comparable GAAP financial measures in the Appendices at the end of this
+presentation. This presentation also contains forward-looking non-GAAP measures
+concerning AMD’s financial outlook such as gross margin and operating expenses.
+These forward-looking non-GAAP measures are based on current expectations as of
+October 31, 2023, and assumptions and beliefs that involve numerous risks and
+uncertainties. AMD undertakes no intent or obligation to publicly update or
+revise its forward-looking statements made in this presentation except as may be
+required by law.
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202333 Expanding Customer & Partner
+Ecosystem Data Center and AI Growth Strong Financial Foundation Leadership
+Product Portfolio OUR JOURNEY
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202344 OUR LEADERSHIP TECHNOLOGY
+Software Enablement Open-source software optimized for performance across
+heterogenous solutions Data Center Leadership Delivering innovation in cloud,
+enterprise, AI and accelerated computing Advanced Technology Driving leadership
+process technology and 3D chiplet packaging Broad IP Portfolio Executing
+leadership CPU, GPU, DPU, FPGA, Adaptive SoC and AI products
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202355 OUR LEADERSHIP PRODUCTS Embedded
+Leadership FPGAs, Adaptive SoCs and SoMs, and embedded CPUs and GPUs for a broad
+set of markets Gaming Top-to-bottom desktop and notebook GPUs, game console and
+semi-custom SoCs Client Leadership CPUs and APUs for notebook and desktop PCs
+and commercial workstations Data Center Leadership data center and AI solutions
+with server CPUs, GPUs, FPGAs, DPUs and Adaptive SoCs
+
+AMD IS UNIQUELY POSITIONED IN AI RyzenTM 7040 Mobile processors with AI
+accelerator First x86 CPU with Integrated AI accelerator Embedded VersalTM AI
+Edge ZynqTM MPSoC Adaptive SoC + AI for Embedded AMD AlveoTM Accelerators AI
+Inference Optimized Solutions DELIVERING A COMPREHENSIVE AI COMPUTE PORTFOLIO Q3
+2023 FINANCIAL RESULTS | OCTOBER 31, 20236 AMD InstinctTM MI250 & MI300
+Accelerators Data Center HPC and AI Solutions AMD 4th Gen EPYCTM Processors
+Leadership Server Solutions
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 20237 REVENUE Q3 2023 ▪ Revenue of $5.8
+billion increased 4% y/y as growth in Client segment revenue was partially
+offset by lower Gaming and Embedded segment revenue $5.6B $5.8B Q3 2022 Q3 2023
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 20238 GROSS MARGIN Q3 2023 1. See
+Appendices for GAAP to Non-GAAP reconciliation ▪ Non-GAAP gross margin increase
+primarily driven by stronger Client segment revenue and product mix Non-GAAP1
+42% 47% Q3 2022 Q3 2023 GAAP ▪ GAAP gross margin increase driven by lower
+amortization of acquisition-related intangible assets, stronger Client segment
+revenue and product mix 50% 51% Q3 2022 Q3 2023
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 20239 Q3 2022 Q3 2023 $(0.1)B $0.2B
+OPERATING INCOME (LOSS) Q3 2023 1. See Appendices for GAAP to Non-GAAP
+reconciliation GAAP Non-GAAP1 $1.3B $1.3B Q3 2022 Q3 2023 ▪ GAAP operating
+income driven by lower amortization of acquisition-related intangible assets,
+stronger Client segment revenue and product mix, partially offset by increased
+R&D investments in AI ▪ Non-GAAP operating income flat y/y due to stronger
+Client segment revenue and product mix, offset by increased R&D investments in
+AI
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202310 $0.67 $0.70 Q3 2022 Q3 2023
+EARNINGS PER SHARE 1 Q3 2023 1. Earnings Per Share (EPS) = Diluted earnings per
+share; see Appendices for GAAP to Non-GAAP reconciliation GAAP Non-GAAP ▪ GAAP
+net income of $299 million, up 353% y/y ▪ GAAP EPS of $0.18, up 350% y/y,
+primarily driven by lower amortization of acquisition-related intangible assets
+and stronger Client segment revenue $0.04 $0.18 Q3 2022 Q3 2023 ▪ Non-GAAP net
+income of $1.1 billion, up 4% y/y ▪ Non-GAAP EPS of $0.70, up 4% y/y, primarily
+driven by stronger Client segment revenue
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202311 ($ in millions, except per share
+data) Q3’23 Q3’22 Y/Y Q2’23 Q/Q Revenue $5,800 $5,565 Up 4% $5,359 Up 8% Gross
+Profit $2,747 $2,354 Up 17% $2,443 Up 12% Gross Margin 47% 42% Up 5 ppts 46% Up
+1 ppt Operating Expenses $2,533 $2,426 Up 4% $2,471 Up 3% Operating
+Expense/Revenue % 44% 44% Flat 46% Down 2 ppts Operating Income (Loss) $224
+($64) Up 450% ($20) Up 1,220% Operating Margin 4% (1%) Up 5 ppts 0% Up 4 ppts
+Net Income $299 $66 Up 353% $27 Up 1,007% Earnings Per Share1 $0.18 $0.04 Up
+350% $0.02 Up 800% Q3 2023 SUMMARY P&L | GAAP 1. Earnings Per Share (EPS) =
+Diluted earnings per share
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202312 ($ in millions, except per share
+data) Q3’23 Q3’22 Y/Y Q2’23 Q/Q Revenue $5,800 $5,565 Up 4% $5,359 Up 8% Gross
+Profit $2,963 $2,776 Up 7% $2,665 Up 11% Gross Margin 51% 50% Up 1 ppt 50% Up 1
+ppt Operating Expenses $1,697 $1,520 Up 12% $1,605 Up 6% Operating
+Expense/Revenue % 29% 27% Up 2 ppts 30% Down 1 ppt Operating Income $1,276
+$1,264 Flat $1,068 Up 19% Operating Margin 22% 23% Down 1 ppt 20% Up 2 ppt Net
+Income $1,135 $1,095 Up 4% $948 Up 20% Earnings Per Share $0.70 $0.67 Up 4%
+$0.58 Up 21% Q3 2023 SUMMARY P&L | NON-GAAP 1 1. See Appendices for GAAP to Non-
+GAAP reconciliation; Earnings Per Share (EPS) = Diluted earnings per share
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202313 $5.6 $5.6 $5.4 $5.4 $5.8 Q3'22
+Q4'22 Q1'23 Q2'23 Q3'23 REVENUE ($ in Billions)
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202314 42% 43% 44% 46% 47% Q3'22 Q4'22
+Q1'23 Q2'23 Q3'23 GROSS MARGIN (GAAP)
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202315 50% 51% 50% 50% 51% Q3'22 Q4'22
+Q1'23 Q2'23 Q3'23 GROSS MARGIN (Non-GAAP)1 1. See Appendices for GAAP to Non-
+GAAP reconciliation.
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202316 $0.04 $0.01 $(0.09) $0.02 $0.18
+Q3'22 Q4'22 Q1'23 Q2'23 Q3'23 EARNINGS (LOSS) PER SHARE 1 (GAAP) 1. Earnings Per
+Share (EPS) = Diluted earnings per share except for Q1’23 for which basic shares
+were used
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202317 $0.67 $0.69 $0.60 $0.58 $0.70
+Q3'22 Q4'22 Q1'23 Q2'23 Q3'23 EARNINGS PER SHARE (Non-GAAP)1 1. See Appendices
+for GAAP to Non-GAAP reconciliation; Earnings Per Share (EPS) = Diluted earnings
+per share
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202318 Q3 2023 SUMMARY BALANCE SHEET
+ITEMS ($ in millions) Q3’23 Q2’23 Q/Q Cash, Cash Equivalents and Short-term
+Investments $5,785 $6,285 Down 8% Accounts Receivable, Net $5,054 $4,312 Up 17%
+Inventories $4,445 $4,567 Down 3% Total Debt $2,467 $2,467 Flat
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202319 Q3 2023 SEGMENT RESULTS ($ in
+millions) Q3’23 Q3’22 Y/Y Q2’23 Q/Q Data Center Net Revenue $1,598 $1,609 Flat
+$1,321 Up 21% Operating Income $306 $505 Down 39% $147 Up 108% Client Net
+Revenue $1,453 $1,022 Up 42% $998 Up 46% Operating Income (Loss) $140 ($26) Up
+638% ($69) Up 303% Gaming Net Revenue $1,506 $1,631 Down 8% $1,581 Down 5%
+Operating Income $208 $142 Up 46% $225 Down 8% Embedded Net Revenue $1,243
+$1,303 Down 5% $1,459 Down 15% Operating Income $612 $635 Down 4% $757 Down 19%
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202320 DATA CENTER SEGMENT Q3 2023 ▪
+Almost 100 new AMD processor-powered cloud instances launched from Amazon,
+Google, Microsoft, Oracle, Tencent and others ▪ Enterprise wins in automotive,
+aerospace, financial services, pharmaceutical and technology ▪ Launched 4th Gen
+EPYC “Siena” processors for intelligent edge and telco applications ▪ Announced
+acquisitions of Mipsology and Nod.ai to support expanding AI software
+capabilities ▪ AMD Instinct™ MI300A and MI300X GPU production shipments expected
+during Q4’23 Strategic Highlights $1.6B $1.6B Q3 2022 Q3 2023 31% 19% Q3 2022 Q3
+2023 Revenue Operating Margin Revenue $1.6 Billion Flat y/y Operating Income
+$306 Million vs. $505 Million a year ago Primarily due to increased R&D
+investments to support future AI revenue growth and product mix Growth in 4th
+Gen EPYCTM CPU sales offset by decrease in adaptive System-on-Chip (SoC) product
+sales
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202321 CLIENT SEGMENT Q3 2023 ▪ Growth
+driven by strong demand for RyzenTM 7000 series desktop and notebook processors
+▪ More than 50 notebook designs powered by Ryzen AI in market ▪ Launched first
+ThreadripperTM PRO workstation CPUs based on “Zen 4” core with Dell, HP and
+Lenovo announcing workstations powered by new Threadripper PRO processors
+Strategic Highlights $1.0B $1.5B Q3 2022 Q3 2023 (3)% 10% Q3 2022 Q3 2023
+Revenue Operating Margin Revenue $1.5 Billion Up 42% y/y Primarily driven by
+higher Ryzen mobile processor sales Operating Income $140 Million vs. $26
+Million Loss a year ago Primarily driven by higher revenue and lower operating
+expenses
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202322 9% 14% Q3 2022 Q3 2023 GAMING
+SEGMENT Q3 2023 ▪ Launched new RadeonTM RX 7000 enthusiast desktop GPUs offering
+leadership price/performance for 1440P gamers ▪ Launched first AMD RDNA 3
+architecture- based mobile GPU enabling desktop-level performance in Alienware’s
+newest m18 gaming laptop Strategic Highlights $1.6B $1.5B Q3 2022 Q3 2023
+Revenue Operating Margin Revenue $1.5 Billion Down 8% y/y Operating Income $208
+Million vs. $142 Million a year ago Primarily driven by increased Radeon GPU
+revenue Primarily due to decreased semi-custom revenue, partially offset by
+increased Radeon GPU sales
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202323 EMBEDDED SEGMENT Q3 2023 ▪
+Launched first AMD adaptive SoCs with on- chip HBM memory delivering significant
+performance and efficiency for data center, network, test and aerospace
+applications ▪ Announced next-generation space-grade Versal SoC integrating an
+enhanced AI Engine ▪ Launched Alveo accelerator card for fintech market
+delivering 7x improvement in latency compared to prior generation* Strategic
+Highlights$1.2B Q3 2022 Q3 2023 49% 49% Q3 2022 Q3 2023 Revenue Operating Margin
+Revenue $1.2 Billion Down 5% y/y Primarily due to lower revenue in the
+communications market Operating Income $612 Million vs. $635 Million a year ago
+$1.3B Slight decline in operating income primarily due to higher R&D expenses *
+See endnote ALV-10.
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202324 ($ in millions) Q4’23 Revenue
+~$6.1 Billion +/- $300 Million Increase of ~9% y/y and ~5% q/q Gross Margin
+~51.5% Operating Expenses ~$1.74 Billion Effective Tax Rate ~13% of pre-tax
+income Diluted Share Count² ~1.63 Billion shares FINANCIAL OUTLOOK – NON-GAAP1
+1. 1. See Cautionary Statement on Slide 2. These forward-looking outlook
+statements and non-GAAP measures are based on current expectations as of October
+31, 2023, and assumptions and beliefs that involve numerous risks and
+uncertainties. AMD undertakes no intent or obligation to publicly update or
+revise its outlook statements as a result of new information, future events or
+otherwise, except as may be required by law. All items, except revenue, are on a
+non-GAAP basis. Adjustments to arrive at the GAAP financial outlook typically
+include stock-based compensation, amortization of acquired intangible assets,
+income tax provision, and other non-recurring items such as impairment charges
+and acquisition-related costs. The timing and impact of such adjustments are
+dependent on future events that are typically uncertain or outside of AMD's
+control, therefore, a reconciliation to equivalent GAAP measures is not
+practicable at this time. 2. 2. Refer to Diluted Share Count overview in the
+Appendices
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 20232525 Client Segment Revenue $1.5B Up
+42% y/y Gross Margin 47% Non-GAAP Gross Margin 51% EPS $0.18 Non-GAAP EPS $0.70
+Revenue $5.8B Up 4% y/y Q3 2023 SUMMARY 1 Y/Y GROWTH IN REVENUE, GROSS MARGIN
+AND EPS STRONG DEMAND FOR 4TH GEN EPYC AND RYZEN 7000 PROCESSORS 1. See
+Appendices for GAAP to Non-GAAP reconciliation; Earnings Per Share (EPS) =
+Diluted earnings per share
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 20232626 AMD COMMITMENT TO ESG
+Governance Integrating corporate responsibility and governance across product
+design, supply chain, operations and external engagement Social Fostering a
+culture of diversity, belonging and inclusion, partnering with suppliers and
+positively impacting our communities Environmental Advancing environmental
+solutions in our products, supply chain and operations, while accelerating
+energy efficiency for IT users TOGETHER WE ADVANCE_CORPORATE RESPONSIBILITY
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 20232727 Large and Compelling TAM World-
+Class Execution and Focus Technology Leadership Expanding Data Center and AI
+Leadership Strong Balance Sheet OUR MOMENTUM DRIVING LONG-TERM SHAREHOLDER
+RETURNS
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202328 RECONCILIATION OF GAAP TO NON-
+GAAP GROSS PROFIT AND GROSS MARGIN (Millions) (Unaudited) Q3’22 Q4’22 Q1’23
+Q2’23 Q3’23 GAAP gross profit $ 2,354 $ 2,403 $ 2,359 $ 2,443 $ 2,747 GAAP gross
+margin 42% 43% 44% 46% 47% Stock-based compensation 8 9 8 10 6 Amortization of
+acquisition-related intangibles 412 443 305 212 210 Acquisition-related and
+other costs (1) 2 4 3 - - Non-GAAP gross profit $ 2,776 $ 2,859 $ 2,675 $ 2,665
+$ 2,963 Non-GAAP gross margin 50% 51% 50% 50% 51% RECONCILIATION OF GAAP TO NON-
+GAAP OPERATING EXPENSES (Millions) (Unaudited) Q3’23 Q3’22 Q2’23 GAAP operating
+expenses $ 2,533 $ 2,426 $ 2,471 GAAP operating expenses/revenue % 44% 44% 46%
+Stock-based compensation 347 261 338 Amortization of acquisition-related
+intangibles 450 590 481 Acquisition-related and other costs (1) 39 55 47 Non-
+GAAP operating expenses $ 1,697 $ 1,520 $ 1,605 Non-GAAP operating
+expenses/revenue % 29% 27% 30% APPENDICES (1) Acquisition-related and other
+costs primarily comprised of transaction costs, purchase price adjustments for
+inventory, certain compensation charges, contract termination and workforce
+rebalancing charges.
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202329 APPENDICES RECONCILIATION OF GAAP
+OPERATING INCOME (LOSS) TO NON-GAAP OPERATING INCOME (Millions) (Unaudited)
+Q3’23 Q3’22 Q2’23 GAAP operating income (loss) $ 224 $ (64) $ (20) GAAP
+operating margin 4% (1%) 0% Stock-based compensation 353 269 348 Amortization of
+acquisition-related intangibles 660 1,002 693 Acquisition-related and other
+costs (1) 39 57 47 Non-GAAP operating income $ 1,276 $ 1,264 $ 1,068 Non-GAAP
+operating margin 22% 23% 20% (1) Acquisition-related and other costs primarily
+comprised of transaction costs, purchase price adjustments for inventory,
+certain compensation charges, contract termination and workforce rebalancing
+charges.
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202330 RECONCILIATION OF GAAP TO NON-
+GAAP NET INCOME (LOSS) / EARNINGS (LOSS) PER SHARE(3) (1) Acquisition-related
+and other costs primarily comprised of transaction costs, purchase price
+adjustments for inventory, certain compensation charges, contract termination
+and workforce rebalancing charges. (2) GAAP and non-GAAP diluted EPS include the
+assumed conversion of the Company's 2026 Convertible Notes under the "if
+converted" method. (3) Earnings Per Share (EPS) = Diluted earnings per share
+except for Q1’23 for which basic shares were used. APPENDICES (Millions, except
+per share data) (Unaudited) Q3’22 Q4’22 Q1’23 Q2’23 Q3’23 GAAP net income (loss)
+/ earnings (loss) per share (3) $ 66 $ 0.04 $ 21 $ 0.01 $ (139) $ (0.09) $ 27 $
+0.02 $ 299 $ 0.18 (Gains) losses on equity investments, net 3 – 5 – (1) – 3 –
+(4) – Stock-based compensation 269 0.16 310 0.19 305 0.19 348 0.21 353 0.22
+Equity income in investee (4) – (3) – (1) – (6) – (3) – Amortization of
+acquisition-related intangibles 1,002 0.62 1,044 0.65 823 0.51 693 0.42 660 0.41
+Acquisition-related and other costs (1) 57 0.04 57 0.04 115 0.07 47 0.03 39 0.02
+Income tax provision (298) (0.19) (321) (0.20) (132) (0.08) (164) (0.10) (209)
+(0.13) Non-GAAP net income / earnings per share (3) $1,095 $ 0.67 $1,113 $ 0.69
+$970 $ 0.60 $948 $ 0.58 $1,135 $ 0.70 Shares used in earnings per share
+calculation Shares used in per share calculation (GAAP) (2) 1,625 1,618 1,611
+1,627 1,629 Shares used in per share calculation (Non-GAAP) (2) 1,625 1,618
+1,618 1,627 1,629
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202331 Shares (millions) (1) Q3’23 Q4’23
+Actual Estimate Basic shares 1,616 1,617 Dilutive impact from employee equity
+grants (2) 13 10 Diluted shares 1,629 1,627 APPENDICES SHARE COUNT OVERVIEW The
+table above provides actual share count for Q3’23 and an estimate of share count
+to use when calculating GAAP and non-GAAP diluted earnings per share for Q4’23.
+(1) Share counts are weighted average shares. (2) The dilutive impact of
+employee equity grants is based on the Treasury Stock method and is dependent
+upon the average stock price during the period. The Q3’23 average stock price
+was $108.55. The Q3’23 average stock price of $108.55 was assumed for Q4’23
+average stock price estimates.
+
+Q3 2023 FINANCIAL RESULTS – OCTOBER 31, 202332 ENDNOTES ALV-10: Testing
+conducted by AMD Performance Labs as of 8/16/23 on the Alveo UL3524 accelerator
+card, using Vivado™ Design Suite 2023.1 and running on Vivado Lab (Hardware
+Manager) 2023.1. Based on the GTF Latency Benchmark Design configured to enable
+GTF transceivers in internal near-end loopback mode. GTF TX and RX clocks
+operate at same frequency of ~644MHz with a 180 degrees phase shift. GTF Latency
+Benchmark Design measures latency in hardware by latching value of a single free
+running counter. Latency is measured as the difference between when TX data is
+latched at the GTF transceiver and when TX data is latched at the GTF receiver
+prior to routing back into the FPGA fabric. Latency measurement does not include
+protocol overhead, protocol framing, programmable logic (PL) latency, TX PL
+interface setup time, RX PL interface clock-to-out, package flight time, and
+other sources of latency. Benchmark test was run 1,000 times with 250 frames per
+test. Cited measurement result is based on GTF transceiver “RAW Mode”, where PCS
+(physical medium attachment) of the transceiver passes data ‘as-is’ to FPGA
+fabric. Latency measurement is consistent across all test runs for this
+configuration. System manufacturers may vary configurations, yielding different
+results. ALV-10

@@ -1,0 +1,28 @@
+{
+ "accession": "AMD|earnings_release|2025-12-27|88ccf70b",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "AMD, Cisco and HUMAIN AI infrastructure joint venture",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": "Cisco; HUMAIN",
+   "capacity_mw": 1000,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2030",
+   "quote": "AMD, Cisco and HUMAIN announced plans to form a joint venture to deliver 1 GW of AI infrastructure by 2030.",
+   "passage": "p06",
+   "confidence": 0.75
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.3,
+  "input_tokens": 10592,
+  "output_tokens": 558,
+  "attempts": 1,
+  "task_sha": "f1ee2c8e99bfb7b0"
+ }
+}

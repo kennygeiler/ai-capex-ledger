@@ -98,12 +98,13 @@ YEAR_DAYS = (350, 380)
 ADDED = (Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[1]) / "data" / "companies.json"
 # The proven set (docs/PROOF.md): five companies, one per failure path the pipeline has met, on which every stage is
 # proven end to end before anything is widened. The golden test freezes their inputs and expected tables.
-PROVEN = ["MSFT", "GOOGL", "AMZN", "NVDA", "APLD"]
+PROVEN = ["MSFT", "GOOGL", "AMZN", "NVDA", "APLD", "AMD"]
 PROVEN_WHY = {"MSFT": "PP&E growth method, a stated ceiling (at most 50%), software and finance leases inside the category",
               "GOOGL": "a category rename, a restatement between filings, a planning floor against a point figure",
               "AMZN": "a category split with no restated comparative",
               "NVDA": "the seller side: stated AI revenue against a segment, no AI capex",
-              "APLD": "segment accrual capex above cash capex, a miner turned HPC host"}
+              "APLD": "segment accrual capex above cash capex, a miner turned HPC host",
+              "AMD": "one method per series: a one-year stated Instinct figure against the Data Center segment every year"}
 
 
 def added() -> list[dict]:

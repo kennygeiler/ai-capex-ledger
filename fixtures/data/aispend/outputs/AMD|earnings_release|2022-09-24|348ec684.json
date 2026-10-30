@@ -1,0 +1,74 @@
+{
+ "accession": "AMD|earnings_release|2022-09-24|348ec684",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1600000000,
+   "amount_high": 1600000000,
+   "quote": "Data Center segment revenue was $1.6 billion, up 45% year-over-year driven by strong sales of EPYC\u2122 server processors.",
+   "passage": "p05",
+   "confidence": 0.8,
+   "notes": "Quarterly figure (Q3 2022), not full-year. Data Center segment revenue is mostly EPYC server CPUs rather than AI-specific products. The segment table in p14 gives $1,609 million for the same item."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 5600000000,
+   "amount_high": 5600000000,
+   "quote": "Revenue of $5.6 billion increased 29% year-over-year driven by growth across the Data Center, Gaming and Embedded segments.",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "Quarterly total revenue (Q3 2022). Data Center is named as one of several growth drivers."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Year-over-year and sequentially, the Embedded and Data Center segments are expected to grow.",
+   "passage": "p06",
+   "confidence": 0.7,
+   "notes": "Q4 2022 outlook. Fiscal year inferred from the preceding sentence in the same passage, which names the fourth quarter of 2022. No amount is stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 23200000000,
+   "amount_high": 23800000000,
+   "quote": "For the full year 2022, AMD expects revenue to be approximately $23.5 billion, plus or minus $300 million, an increase of approximately 43% over 2021 led by growth in the Embedded and Data Center segments.",
+   "passage": "p07",
+   "confidence": 0.9,
+   "notes": "Range is $23.5B plus or minus $300M. This is total revenue; Data Center is named as a growth driver, not quantified."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p05 mentions higher operating expenses in Data Center without AI attribution"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.1,
+  "input_tokens": 9469,
+  "output_tokens": 1554,
+  "attempts": 1,
+  "task_sha": "5ece4ad722f6430b"
+ }
+}

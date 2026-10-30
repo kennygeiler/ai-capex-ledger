@@ -1,0 +1,1390 @@
+                                                                                
+  NEWS RELEASE                                                                  
+                                                                                
+                                                                  Media Contact:
+                                                                                
+  Drew Prairie                                                                  
+                                                                                
+                                                              AMD Communications
+                                                                                
+                                                                    512-602-4425
+                                                                                
+                                                            drew.prairie@amd.com
+                                                                                
+                                                               Investor Contact:
+                                                                                
+  Laura Graves                                                                  
+                                                                                
+                                                          AMD Investor Relations
+                                                                                
+                                                                    408-749-5467
+                                                                                
+                                                            laura.graves@amd.com
+                                                                                
+                AMD Reports First Quarter 2022 Financial Results                
+                                                                                
+      ― Record quarterly revenue of $5.9 billion grew 71% year-over-year;       
+                                                                                
+                   Gross margin grew 2 percentage points and                    
+                                                                                
+        non-GAAP gross margin grew 7 percentage points year-over-year ―         
+                                                                                
+  SANTA CLARA, Calif. ― May 3, 2022 ―                                           
+                                                                                
+AMD (NASDAQ:AMD) today announced revenue for the first quarter of 2022 of $5.9
+billion, gross margin of 48%, operating income of $951 million, operating margin
+of 16%, net income of $786 million and diluted earnings per share of $0.56. On a
+non-GAAP (*) basis, gross margin was 53%, operating income was $1.8 billion, net
+income was $1.6 billion and diluted earnings per share was $1.13. First quarter
+2022 results include partial quarter financial results from the recently
+completed acquisition of Xilinx which closed February 14, 2022.
+
+Excluding Xilinx, AMD had record quarterly revenue of $5.3 billion, non-GAAP
+gross margin of 51% and non-GAAP operating margin of 30%.
+
+“The first quarter marked a significant inflection point in our journey to scale
+and transform AMD as we delivered record revenue and closed our strategic
+acquisition of Xilinx,” said AMD Chair and CEO Dr. Lisa Su. “Each of our
+businesses grew by a significant double digit percentage year-over-year, led by
+EPYC server processor revenue more than doubling for the third straight quarter.
+Demand remains strong for our leadership products, with our increased full-year
+guidance reflecting higher AMD organic growth and the addition of the growing
+Xilinx business.”
+                                                                                
+                        GAAP Quarterly Financial Results                        
+                                                                                
+                                                                               1
+                                                                                
+                   Q1 2022    Q1 2021    Y/Y           Q4 2021    Q/Q           
+  Revenue ($M)      $5,887     $3,445    Up 71%         $4,826    Up 22%        
+  Gross profit      $2,818     $1,587    Up 78%         $2,426    Up 16%        
+  ($M)                                                                          
+  Gross margin         48%        46%    Up 190 bps        50%    Down 240 bps  
+  %                                                                             
+  Operating         $1,950       $929    Up 110%        $1,223    Up 59%        
+  expenses ($M)                                                                 
+  Operating           $951       $662    Up 44%         $1,207    Down 21%      
+  income ($M)                                                                   
+  Operating            16%        19%    Down 3pp          25%    Down 9pp      
+  margin %                                                                      
+  Net income          $786       $555    Up 42%           $974    Down 19%      
+  ($M)                                                                          
+  Earnings per       $0.56      $0.45    Up 24%          $0.80    Down 30%      
+  share                                                                         
+                                                                                
+                                                                                
+                    Non-GAAP(*) Quarterly Financial Results                     
+                                                                                
+                                                                                
+                     Q1 2022    Q1 2021    Y/Y           Q4 2021    Q/Q         
+  Revenue ($M)        $5,887     $3,445    Up 71%         $4,826    Up 22%      
+  Gross profit        $3,100     $1,588    Up 95%         $2,427    Up 28%      
+  ($M)                                                                          
+  Gross margin %         53%        46%    Up 660 bps        50%    Up 240 bps  
+  Operating           $1,346       $830    Up 62%         $1,103    Up 22%      
+  expenses ($M)                                                                 
+  Operating           $1,837       $762    Up 141%        $1,328    Up 38%      
+  income ($M)                                                                   
+  Operating              31%        22%    Up 9pp            27%    Up 4pp      
+  margin %                                                                      
+  Net income ($M)     $1,589       $642    Up 148%        $1,122    Up 42%      
+  Earnings per         $1.13      $0.52    Up 117%         $0.92    Up 23%      
+  share                                                                         
+                                                                                
+                                                                                
+           Non-GAAP(*) Quarterly Financial Results (Excluding Xilinx)           
+                                                                                
+                                                                                
+                      Q1 2022    Q1 2021    Y/Y           Q4 2021    Q/Q        
+  Revenue ($M)         $5,328     $3,445    Up 55%         $4,826    Up 10%     
+  Gross profit         $2,712     $1,588    Up 71%         $2,427    Up 12%     
+  ($M)                                                                          
+  Gross margin %          51%        46%    Up 480 bps        50%    Up 60 bps  
+  Operating income     $1,604       $762    Up 110%        $1,328    Up 21%     
+  ($M)                                                                          
+  Operating margin        30%        22%    Up 8pp            27%    Up 3pp     
+  %                                                                             
+                                                                                
+                                                                                
+  Q1 2022 Results                                                               
+                                                                                
+• Revenue of $5.9 billion was up 71% year-over-year and 22% quarter-over-quarter
+driven by higher revenue in the Computing and Graphics and Enterprise, Embedded
+and Semi-Custom segments and the inclusion of Xilinx revenue.
+
+• Gross margin was 48%, an increase of 2 percentage points year-over-year and a
+decrease of 2 percentage points quarter-over-quarter. The year-over-year
+increase was primarily driven by higher server processor revenue and high margin
+Xilinx revenue, partially offset by amortization of intangible assets and
+acquisition-related costs. The quarter-over-quarter decrease was primarily due
+to amortization of intangible assets and acquisition-related costs.
+
+• Non-GAAP gross margin was 53%, an increase of 7 percentage points year-over-
+year and 3 percentage points quarter-over-quarter. The year-over-year increase
+was primarily driven by higher server processor revenue and high margin Xilinx
+revenue. The quarter-over-quarter increase was primarily driven by high margin
+Xilinx revenue, higher server processor revenue and richer client product mix.
+                                                                               2
+• Operating income was $951 million compared to $662 million a year ago and $1.2
+billion in the prior quarter. The year-over-year increase was primarily driven
+by higher revenue and gross profit, partially offset by amortization of
+intangible assets and acquisition-related costs. The quarter-over-quarter
+decrease was primarily due to amortization of intangible assets and acquisition-
+related costs.
+
+• Record non-GAAP operating income was $1.8 billion compared to $762 million a
+year ago and $1.3 billion in the prior quarter. The year-over-year and quarter-
+over-quarter increases were primarily driven by higher gross profit.
+
+• Net income was $786 million compared to $555 million a year ago and $974
+million in the prior quarter. The year-over-year increase was primarily driven
+by higher operating income. The quarter-over-quarter decrease was primarily due
+to lower operating income related to amortization of intangible assets and
+acquisition-related costs.
+
+• Record non-GAAP net income was $1.6 billion compared to $642 million a year
+ago and $1.1 billion in the prior quarter. The year-over-year and quarter-over-
+quarter increases were primarily driven by higher operating income.
+
+• Diluted earnings per share was $0.56 compared to $0.45 a year ago and $0.80 in
+the prior quarter. Record non-GAAP diluted earnings per share was $1.13 compared
+to $0.52 a year ago and $0.92 in the prior quarter.
+
+• Cash , cash equivalents and short-term investments were $6.5 billion at the
+end of the quarter. The company repurchased $1.9 billion of common stock during
+the quarter.
+
+• Record cash from operations was $995 million in the quarter compared to $898
+million a year ago and $822 million in the prior quarter. Record free cash flow
+was $924 million in the quarter compared to $832 million a year ago and $736
+million in the prior quarter.
+
+• AMD’s balance sheet reflects $49.6 billion of goodwill and acquisition-related
+intangible assets associated with the acquisition of Xilinx.
+                                                                                
+  Quarterly Financial Segment Summary                                           
+                                                                                
+• Record Computing and Graphics segment revenue was $2.8 billion, up 33% year-
+over-year and 8% quarter-over-quarter. The year-over-year increase was driven by
+Ryzen™ and Radeon ™ processor sales. The quarter-over-quarter increase was
+driven by Ryzen™ processor sales.
+
+◦ Client processor average selling price (ASP) increased year-over-year and
+quarter-over-quarter driven by a richer mix of Ryzen processor sales.
+
+◦ GPU ASP increased year-over-year driven by high end Radeon processor sales and
+decreased quarter-over-quarter due to a lower mix of data center GPU revenue.
+
+◦ Record operating income was $723 million compared to $485 million a year ago
+and $566 million in the prior quarter. Operating income improvements were
+primarily driven by higher revenue, partially offset by higher operating
+expenses.
+                                                                               3
+• Record Enterprise, Embedded and Semi-Custom segment revenue was $2.5 billion,
+up 88% year-over-year and 13% quarter-over-quarter driven by higher EPYC™
+processor revenue, semi-custom and embedded product sales.
+
+◦ Record operating income was $881 million compared to $277 million a year ago
+and $762 million in the prior quarter. Operating income improvements were
+primarily driven by higher revenue and an $83 million licensing gain.
+
+• Xilinx partial quarter revenue was $559 million with operating income of $233
+million. On a pro-forma basis for the full quarter, Xilinx generated over $1
+billion of revenue, up 22% year-over-year, driven by growth across all Xilinx
+major end market categories.
+
+• All Other operating loss was $886 million as compared to operating losses of
+$100 million a year ago and $121 million in the prior quarter. Higher operating
+loss was primarily due to amortization of intangible assets and acquisition-
+related costs.
+                                                                                
+  Recent PR Highlights                                                          
+                                                                                
+• AMD completed the largest acquisition in the history of the semiconductor
+industry by acquiring Xilinx to create the industry’s high-performance and
+adaptive computing leader with significantly expanded scale and the strongest
+portfolio of leadership computing, graphics and adaptive SoC products.
+
+• AMD announced a definitive agreement to acquire Pensando for approximately
+$1.9 billion before working capital and other adjustments. Pensando’s
+distributed services platform will expand AMD’s data center product portfolio
+with a high-performance data center processing unit (DPU) and software stack
+that are already deployed at scale across cloud and enterprise customers
+including Goldman Sachs, IBM Cloud, Microsoft Azure and Oracle Cloud.
+
+• AMD announced the general availability of 3rd Gen AMD EPYC processors with AMD
+3D V-Cache™ technology, delivering leadership performance in technical computing
+workloads, the industry’s largest L3 cache and modern security features.
+
+• Cloud customers continued to expand their AMD EPYC processor-powered
+offerings, with 465 cloud instances now delivering powerful performance for
+today’s most important workloads.
+
+◦ Microsoft Azure upgraded its HBv3 virtual machines (VMs) to 3 rd Gen AMD EPYC
+processors with AMD 3D V-Cache technology, driving the fastest adopted addition
+to the Azure high performance computing (HPC) platform ever.
+
+◦ AMD EPYC processors now power the new, compute optimized, Google Cloud C2D
+VMs, bringing customers strong performance for HPC workloads in areas like
+electronic design automation and computational fluid dynamics.
+
+◦ AMD powers new Amazon EC2 Hpc6a instances for HPC workloads and Amazon EC2 6a
+instances for compute-intensive workloads, delivering better price performance
+than the prior generation.
+                                                                               4
+• AMD expanded its lineup of high-performance AMD Ryzen desktop processors for
+gamers and creators.
+
+◦ AMD announced the Ryzen 7 5800X3D processor, the first Ryzen processor to
+feature AMD 3D V-Cache technology and the industry’s first x86 PC processor with
+3D stacked chiplets. The Ryzen 7 5800X3D processor delivers leadership gaming
+performance in select titles compared to the competitive processor without
+stacked cache technology.
+
+◦ Lenovo expanded its line of ThinkStation P620 workstations with the new Ryzen
+Threadripper TM PRO 5000 WX-Series processors, which bring dominant, full-
+spectrum performance leadership for the most demanding professional workloads.
+
+◦ AMD also expanded the Ryzen desktop processor portfolio with six new “Zen 3”
+and “Zen 2” processors, giving PC enthusiasts even more options to create a
+customized gaming experience.
+
+• AMD expanded the Versal product lineup with first customer shipments of the
+flagship Versal HBM adaptive SoC with integrated HBM2e memory and Versal Premium
+product series with AI Engines optimized for signal processing-intensive
+applications like next-generation radar and wireless system and device testing.
+
+• AMD announced that its board of directors approved a new $8 billion share
+repurchase program. This program is in addition to the $4 billion share
+repurchase program announced last year.
+
+• AMD entered into a $3 billion sustainability-linked credit facility to replace
+its existing $500 million revolving credit facility and reinforces commitment to
+the company’s environmental, social and governance (ESG) goals.
+
+• AMD announced that its board of directors elected President and CEO Dr. Lisa
+Su as the chair of the board and John E. Caldwell as lead independent director.
+Former Xilinx board members Jon Olson and Elizabeth Vanderslice also joined the
+AMD board in conjunction with the acquisition of Xilinx.
+                                                                                
+  Current Outlook                                                               
+                                                                                
+AMD’s outlook statements are based on current expectations. The following
+statements are forward-looking and actual results could differ materially
+depending on market conditions and the factors set forth under “Cautionary
+Statement” below.
+
+For the second quarter of 2022, AMD expects revenue to be approximately $6.5
+billion, plus or minus $200 million, an increase of approximately 69% year-over-
+year and approximately 10% quarter-over-quarter. The year-over-year increase is
+expected to be driven by the addition of Xilinx and higher server, semi-custom
+and client revenue. The quarter-over-quarter increase is expected to be
+primarily driven by Xilinx and higher server revenue. AMD expects non-GAAP gross
+margin to be approximately 54% in the second quarter of 2022.
+                                                                               5
+For the full year 2022, AMD now expects revenue to be approximately $26.3
+billion, an increase of approximately 60% over 2021, up from prior guidance of
+approximately 31%, driven by the addition of Xilinx and higher server and semi-
+custom revenue. AMD expects non-GAAP gross margin to be approximately 54% for
+2022, up from prior guidance of approximately 51%.
+                                                                                
+  AMD Teleconference                                                            
+                                                                                
+AMD will hold a conference call for the financial community at 2:00 p.m. PT
+(5:00 p.m. ET) today to discuss its first quarter 2022 financial results. AMD
+will provide a real-time audio broadcast of the teleconference on the Investor
+Relations page of its website at www.amd.com.
+                                                                               6
+                                                                                
+  RECONCIL…                                                                     
+  OF GAAP                                                                       
+  TO                                                                            
+  NON-GAAP                                                                      
+  FINANCIAL                                                                     
+  MEASURES                                                                      
+  (in                                                                           
+  millions,                                                                     
+  except                                                                        
+  per share    Three                            December                        
+  data)        Months      March 26,                 25,          March 27,     
+  (Unaudit…    Ended            2022                2021               2021     
+ ────────────────────────────────────────────────────────────────────────────── 
+  GAAP                                                                          
+  gross        $               2,818       $       2,426       $      1,587     
+  profit                                                                        
+  GAAP                                                                          
+  gross                           48  %               50  %              46  %  
+  margin %                                                                      
+  Stock-ba…                        4                   1                  1     
+  compensa…                                                                     
+  Acquisit…                       92                   —                  —     
+  costs(1)                                                                      
+  Amortiza…                                                                     
+  of                                                                            
+  acquired                       186                   —                  —     
+  intangib…                                                                     
+  assets                                                                        
+  Non-GAAP                                                                      
+  gross        $               3,100       $       2,427       $      1,588     
+  profit                                                                        
+  Non-GAAP                                                                      
+  gross                           53  %               50  %              46  %  
+  margin %                                                                      
+  GAAP                                                                          
+  operating    $               1,950       $       1,223       $        929     
+  expenses                                                                      
+  GAAP                                                                          
+  operating                       33  %               25  %              27  %  
+  expenses…                                                                     
+  %                                                                             
+  Stock-ba…                      170                 111                 84     
+  compensa…                                                                     
+  Acquisit…                      141                   9                 15     
+  costs(1)                                                                      
+  Amortiza…                                                                     
+  of                                                                            
+  acquired                       293                   —                  —     
+  intangib…                                                                     
+  assets                                                                        
+  Non-GAAP                                                                      
+  operating    $               1,346       $       1,103       $        830     
+  expenses                                                                      
+  Non-GAAP                                                                      
+  operating                       23  %               23  %              24  %  
+  expenses…                                                                     
+  %                                                                             
+  GAAP                                                                          
+  operating    $                 951       $       1,207       $        662     
+  income                                                                        
+  GAAP                                                                          
+  operating                       16  %               25  %              19  %  
+  margin %                                                                      
+  Stock-ba…                      174                 112                 85     
+  compensa…                                                                     
+  Acquisit…                      233                   9                 15     
+  costs(1)                                                                      
+  Amortiza…                                                                     
+  of                                                                            
+  acquired                       479                   —                  —     
+  intangib…                                                                     
+  assets                                                                        
+  Non-GAAP                                                                      
+  operating    $               1,837       $       1,328       $        762     
+  income                                                                        
+  Non-GAAP                                                                      
+  operating                       31  %               27  %              22  %  
+  margin %                                                                      
+                                                                                
+                                                                                
+          Three  Mar…                   Dec…                  March             
+          Mont…   26,                    25,                    27,             
+          Ended  2022                   2021                   2021             
+ ────────────────────────────────────────────────────────────────────────────── 
+  GAAP                                                                          
+  net                                                                           
+  inc…                                                                          
+  /       $       786    $   0.56    $   974    $  0.80    $    555    $  0.45  
+  ear…                                                                          
+  per                                                                           
+  sha…                                                                          
+  Loss                                                                          
+  on                —           —          —          —           6       0.01  
+  debt                                                                          
+  red…                                                                          
+  (Ga…                                                                          
+  los…                                                                          
+  on               44        0.03         -4          —           8       0.01  
+  equ…                                                                          
+  inv…                                                                          
+  net                                                                           
+  Sto…            174        0.12        112       0.09          85       0.07  
+  com…                                                                          
+  Equ…                                                                          
+  inc…             -3           —          —          —          -2          —  
+  in                                                                            
+  inv…                                                                          
+  Acq…            233        0.17          9          —          15       0.01  
+  cos…                                                                          
+  Amo…                                                                          
+  of                                                                            
+  acq…            479        0.34          —          —           —          —  
+  int…                                                                          
+  ass…                                                                          
+  Inc…                                                                          
+  tax            -124       -0.09         31       0.03         -25       -0.…  
+  pro…                                                                          
+  Non…                                                                          
+  net                                                                           
+  inc…                                                                          
+  /       $      1,5…    $   1.13    $  1,1…    $  0.92    $    642    $  0.52  
+  ear…                                                                          
+  per                                                                           
+  sha…                                                                          
+                                                                                
+                                                                                
+         Acquisition-related costs primarily comprised of transaction costs,    
+  (1)    purchase price adjustments for inventory and certain compensation      
+         charges                                                                
+                                                                                
+                                                                               7
+RECONCILIATION OF AMD GAAP TO AMD NON-GAAP EXCLUDING XILINX
+
+(in millions) (Unaudited)
+                                                                                
+           Three                                                                
+           Months                                                               
+           Ended                                                                
+           March                                                                
+           26,                                                                  
+           2022                                                                 
+ ────────────────────────────────────────────────────────────────────────────── 
+                            Gross            Gross     Opera…           Opera…  
+           Reven…           Profit           Margin    Income           Margin  
+                                             %                          %       
+  AMD      $       5,887    $       2,818    48%       $         951    16%     
+  GAAP                                                                          
+  Stoc…                —                4                        174            
+  comp…                                                                         
+  Acqu…                —               92                        233            
+  cost…                                                                         
+  Amor…                                                                         
+  of                                                                            
+  acqu…                —              186                        479            
+  inta…                                                                         
+  asse…                                                                         
+  AMD              5,887            3,100    53%               1,837    31%     
+  Non-…                                                                         
+  Xili…              559              388                        233            
+  segm…                                                                         
+  AMD                                                                           
+  Non-…    $       5,328    $       2,712    51%       $       1,604    30%     
+  Excl…                                                                         
+  Xili…                                                                         
+                                                                                
+                                                                                
+         Acquisition-related costs primarily comprised of transaction costs,    
+  (1)    purchase price adjustments for inventory and certain compensation      
+         charges                                                                
+                                                                                
+RECONCILIATION OF XILINX SEGMENT REVENUE TO XILINX PRO FORMA REVENUE
+
+(in millions) (Unaudited)
+                                                          
+                               Three Months Ended         
+                               March 26, 2022             
+ ──────────────────────────────────────────────────────── 
+                               Revenue                    
+  Xilinx Segment(1)            $                     559  
+  Xilinx Pre-Acquisition(2)                          477  
+  Xilinx Pro Forma(3)          $                   1,036  
+                                                          
+                                                                                
+  (1)    Represents unaudited Xilinx revenue from the date of acquisition,      
+         February 14, 2022, through March 26, 2022                              
+  (2)    Represents unaudited Xilinx revenue from January 2, 2022 to February   
+         13, 2022                                                               
+         The unaudited Xilinx pro forma revenue represents the three-month      
+  (3)    period beginning January 2, 2022 through March 26, 2022. The pro       
+         forma revenue is presented for informational purposes only.            
+                                                                                
+                                                                                
+  About AMD                                                                     
+                                                                                
+For more than 50 years AMD has driven innovation in high-performance computing,
+graphics and visualization technologies. AMD employees are focused on building
+leadership high-performance and adaptive products that push the boundaries of
+what is possible. Billions of people, leading Fortune 500 businesses and
+cutting-edge scientific research institutions around the world rely on AMD
+technology daily to improve how they live, work and play. For more information
+about how AMD is enabling today and inspiring tomorrow, visit the AMD (NASDAQ:
+AMD) website , blog , Facebook and Twitter pages.
+                                                                               8
+                                                                                
+  Cautionary Statement                                                          
+                                                                                
+This press release contains forward-looking statements concerning Advanced Micro
+Devices, Inc. (AMD) such as AMD’s expectations regarding demand for its
+products, AMD organic growth and Xilinx business growth; the features,
+functionality, performance, availability, timing and expected benefits of AMD
+products; AMD’s planned acquisition of Pensando Systems Inc. and the anticipated
+benefits from the acquisition; AMD’s expected second quarter 2022 and fiscal
+2022 financial outlook, including revenue and non-GAAP gross margin and expected
+drivers based on current expectations; and expected growth in 2022 , which are
+made pursuant to the Safe Harbor provisions of the Private Securities Litigation
+Reform Act of 1995. Forward-looking statements are commonly identified by words
+such as "would," "may," "expects," "believes," "plans," "intends," "projects"
+and other terms with similar meaning. Investors are cautioned that the forward-
+looking statements in this press release are based on current beliefs,
+assumptions and expectations, speak only as of the date of this press release
+and involve risks and uncertainties that could cause actual results to differ
+materially from current expectations. Such statements are subject to certain
+known and unknown risks and uncertainties, many of which are difficult to
+predict and generally beyond AMD's control, that could cause actual results and
+other future events to differ materially from those expressed in, or implied or
+projected by, the forward-looking information and statements. Material factors
+that could cause actual results to differ materially from current expectations
+include, without limitation, the following: Intel Corporation’s dominance of the
+microprocessor market and its aggressive business practices; global economic
+uncertainty; loss of a significant customer; impact of the COVID-19 pandemic on
+AMD’s business, financial condition and results of operations; competitive
+markets in which AMD’s products are sold; market conditions of the industries in
+which AMD products are sold; cyclical nature of the semiconductor industry;
+quarterly and seasonal sales patterns; AMD's ability to adequately protect its
+technology or other intellectual property; unfavorable currency exchange rate
+fluctuations; ability of third party manufacturers to manufacture AMD's products
+on a timely basis in sufficient quantities and using competitive technologies;
+availability of essential equipment, materials, substrates or manufacturing
+processes; ability to achieve expected manufacturing yields for AMD’s products;
+AMD's ability to introduce products on a timely basis with expected features and
+performance levels; AMD's ability to generate revenue from its semi-custom SoC
+products; potential security vulnerabilities; potential security incidents
+including IT outages, data loss, data breaches and cyber-attacks; uncertainties
+involving the ordering and shipment of AMD’s products; AMD’s reliance on third-
+party intellectual property to design and introduce new products in a timely
+manner; AMD's reliance on third-party companies for design, manufacture and
+supply of motherboards, software and other computer platform components; AMD's
+reliance on Microsoft and other software vendors' support to design and develop
+software to run on AMD’s products; AMD’s reliance on third-party distributors
+and add-in-board partners; impact of modification or interruption of AMD’s
+internal business processes and information systems; compatibility of AMD’s
+products with some or all industry-standard software and hardware; costs related
+to defective products; efficiency of AMD's supply chain; AMD's ability to rely
+on third party supply-chain logistics functions; AMD’s ability to effectively
+control sales of its products on the gray market; impact of government actions
+and regulations such as export administration regulations, tariffs and trade
+protection measures; AMD’s ability to realize its deferred tax assets; potential
+tax liabilities; current and future claims and litigation; impact of
+environmental laws, conflict minerals-related provisions and other laws or
+regulations; impact of acquisitions, joint ventures and/or investments on AMD's
+business, and ability of AMD to integrate acquired businesses, such as Xilinx;
+impact of any impairment of the combined company’s assets on the combined
+company’s financial position and results of operation; restrictions imposed by
+agreements governing AMD’s notes, the guarantees of Xilinx’s notes and the
+revolving credit facility; AMD's indebtedness; AMD's ability to generate
+sufficient cash to meet its working capital requirements or generate sufficient
+revenue and operating cash flow to make all of its planned R&D or strategic
+investments; political, legal, economic risks and natural disasters; future
+impairments of goodwill and technology license purchases; AMD’s ability to
+attract and retain qualified personnel; AMD’s stock price volatility; and
+worldwide political conditions. Investors are urged to review in detail the
+risks and uncertainties in AMD’s Securities and Exchange Commission filings,
+including but not limited to AMD’s most recent reports on Forms 10-K and 10-Q.
+                                                                                
+         In this earnings press release, in addition to GAAP financial          
+         results, AMD has provided non-GAAP financial measures including        
+         non-GAAP gross profit, non-GAAP operating expenses, non-GAAP           
+         operating income, non-GAAP net income, non-GAAP earnings per share.    
+         AMD uses a normalized tax rate in its computation of the non-GAAP      
+         income tax provision to provide better consistency across the          
+         reporting periods. For fiscal 2022, AMD uses a projected non-GAAP tax  
+         rate of 13%, which excludes the tax impact of pre-tax non-GAAP         
+         adjustments, reflecting currently available information. AMD also      
+         provided adjusted EBITDA and free cash flow as supplemental non-GAAP   
+         measures of its performance. These items are defined in the footnotes  
+         to the selected corporate data tables provided at the end of this      
+         earnings press release. In addition, AMD provided non-GAAP financial   
+         measures excluding Xilinx, including revenue, gross profit and         
+         operating income, and Xilinx pro forma revenue for the three months    
+         ended March 26, 2022 as supplemental information. AMD is providing     
+         these financial measures because it believes this non-GAAP             
+         presentation makes it easier for investors to compare its operating    
+         results for current and historical periods and also because AMD        
+         believes it assists investors in comparing AMD’s performance across    
+         reporting periods on a consistent basis by excluding items that it     
+         does not believe are indicative of its core operating performance and  
+         for the other reasons described in the footnotes to the selected data  
+         tables. The non-GAAP financial measures disclosed in this earnings     
+         press release should be viewed in addition to and not as a substitute  
+         for or superior to AMD’s reported results prepared in accordance with  
+         GAAP and should be read only in conjunction with AMD’s Consolidated    
+         Financial Statements prepared in accordance with GAAP. These non GAAP  
+         financial measures referenced are reconciled to their most directly    
+         comparable GAAP financial measures in the data tables at the end of    
+         this earnings press release. This earnings press release also          
+         contains forward-looking non-GAAP gross margin concerning AMD’s        
+         financial outlook, which is based on current expectations as of May    
+         3, 2022 and assumptions and beliefs that involve numerous risks and    
+         uncertainties. AMD undertakes no intent or obligation to publicly      
+         update or revise its outlook statements as a result of new             
+         information, future events or otherwise, except as may be required by  
+  (*)    law.                                                                   
+ ────────────────────────────────────────────────────────────────────────────── 
+                                                                                
+                                      -30-                                      
+AMD, the AMD Arrow logo, EPYC, Radeon, Ryzen, Threadripper, Versal and
+combinations thereof, are trademarks of Advanced Micro Devices, Inc. Other names
+are for informational purposes only and used to identify companies and products
+and may be trademarks of their respective owner.
+                                                                               9
+                                                                                
+  ADVANCED MICRO DEVICES, INC.                                                  
+                                                                                
+                                                                                
+  CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS                               
+                                                                                
+(Millions except per share amounts and percentages) (Unaudited)
+                                                                                
+               Three                            December                        
+               Months      March 26,                 25,          March 27,     
+               Ended            2022                2021               2021     
+ ────────────────────────────────────────────────────────────────────────────── 
+  Net          $               5,887       $       4,826       $      3,445     
+  revenue                                                                       
+  Cost of                      2,883               2,400              1,858     
+  sales                                                                         
+  Amortiza…                                                                     
+  of                             186                   —                  —     
+  acquisit…                                                                     
+  intangib…                                                                     
+  Total                                                                         
+  cost of                      3,069               2,400              1,858     
+  sales                                                                         
+  Gross                        2,818               2,426              1,587     
+  profit                                                                        
+  Gross                           48  %               50  %              46  %  
+  margin %                                                                      
+  Research                                                                      
+  and                          1,060                 811                610     
+  developm…                                                                     
+  Marketin…                                                                     
+  general                        597                 412                319     
+  and                                                                           
+  administ…                                                                     
+  Amortiza…                                                                     
+  of                             293                   —                  —     
+  acquisit…                                                                     
+  intangib…                                                                     
+  Licensing                      -83                  -4                 -4     
+  gain                                                                          
+  Operating                      951               1,207                662     
+  income                                                                        
+  Interest                       -13                  -8                 -9     
+  expense                                                                       
+  Other                                                                         
+  income                         -42                   4                -11     
+  (expense…                                                                     
+  net                                                                           
+  Income                                                                        
+  before                                                                        
+  income                         896               1,203                642     
+  taxes and                                                                     
+  equity                                                                        
+  income                                                                        
+  Income                                                                        
+  tax                            113                 229                 89     
+  provision                                                                     
+  Equity                                                                        
+  income in                        3                   —                  2     
+  investee                                                                      
+  Net          $                 786       $         974       $        555     
+  income                                                                        
+  Earnings                                                                      
+  per share                                                                     
+  Basic        $                0.56       $        0.81       $       0.46     
+  Diluted      $                0.56       $        0.80       $       0.45     
+  Shares                                                                        
+  used in                                                                       
+  per share                                                                     
+  calculat…                                                                     
+  Basic                        1,393               1,208              1,213     
+  Diluted                      1,410               1,222              1,231     
+                                                                                
+                                                                              10
+                                                                                
+  ADVANCED MICRO DEVICES, INC.                                                  
+                                                                                
+                                                                                
+  CONDENSED CONSOLIDATED BALANCE SHEETS                                         
+                                                                                
+(Millions)
+                                                                                
+                               March 26,             December 25,               
+                               2022                  2021                       
+ ────────────────────────────────────────────────────────────────────────────── 
+                               -Unaudited                                       
+  ASSETS                                                                        
+  Current assets:                                                               
+  Cash and cash equivalents    $            4,740    $              2,535       
+  Short-term investments                    1,792                   1,073       
+  Accounts receivable, net                  3,677                   2,706       
+  Inventories                               2,431                   1,955       
+  Receivables from related                      4                       2       
+  parties                                                                       
+  Prepaid expenses and                                                          
+  other current                               725                     312       
+  assets                                                                        
+  Total current assets                     13,369                   8,583       
+  Property and equipment,                   1,406                     702       
+  net                                                                           
+  Operating lease right-of                    416                     367       
+  use assets                                                                    
+  Goodwill                                 23,083                     289       
+  Acquisition-related                      26,832                       —       
+  intangibles, net                                                              
+  Investment: equity method                    72                      69       
+  Deferred tax assets                          32                     931       
+  Other non-current assets                  1,705                   1,478       
+  Total Assets                 $           66,915    $             12,419       
+  LIABILITIES AND                                                               
+  STOCKHOLDERS' EQUITY                                                          
+  Current liabilities:                                                          
+  Accounts payable             $            1,476    $              1,321       
+  Payables to related                         205                      85       
+  parties                                                                       
+  Accrued liabilities                       3,070                   2,424       
+  Short-term debt                             312                     312       
+  Other current liabilities                   518                      98       
+  Total current liabilities                 5,581                   4,240       
+  Long-term debt, net                       1,475                       1       
+  Long-term operating lease                   370                     348       
+  liabilities                                                                   
+  Deferred tax liabilities                  3,109                       —       
+  Other long-term                           1,047                          333  
+  liabilities                                                                   
+  Stockholders' equity:                                                         
+  Capital stock:                                                                
+  Common stock, par value                      16                      12       
+  Additional paid-in                       56,925                  11,069       
+  capital                                                                       
+  Treasury stock, at cost                    -941                  -2,130       
+  Accumulated deficit(1)                     -665                  -1,451       
+  Accumulated other                            -2                      -3       
+  comprehensive income                                                          
+  Total stockholders'          $           55,333    $              7,497       
+  equity                                                                        
+  Total Liabilities and                                                         
+  Stockholders'                $           66,915    $             12,419       
+  Equity                                                                        
+                                                                                
+(1) During the first quarter of 2021, the Company adopted ASU 2019-12, Income
+Taxes (Topic 740): Simplifying the Accounting for Income Taxes, using the
+modified retrospective adoption method, which resulted in $8 million of deferred
+tax liability associated with book-tax differences in a foreign equity method
+investment recognized in Accumulated deficit.
+                                                                              11
+                                                                                
+  ADVANCED MICRO DEVICES, INC.                                                  
+                                                                                
+                                                                                
+  SELECTED CASH FLOW INFORMATION                                                
+                                                                                
+(Millions) (Unaudited)
+                                                                                
+                   Three Months   March 26,       December 25,       March 27,  
+                   Ended               2022               2021            2021  
+ ────────────────────────────────────────────────────────────────────────────── 
+  Net cash                                                                      
+  provided by                                                                   
+  (used in)                                                                     
+  Operating        $                    995    $           822    $        898  
+  activities                                                                    
+  Investing        $                  3,158    $             —    $       -722  
+  activities                                                                    
+  Financing        $                 -1,948    $          -727    $         -8  
+  activities                                                                    
+                                                                                
+                                                                                
+  SELECTED CORPORATE DATA                                                       
+                                                                                
+(Millions) (Unaudited)
+                                                                                
+                   Three Months   March 26,       December 25,       March 27,  
+                   Ended               2022               2021            2021  
+ ────────────────────────────────────────────────────────────────────────────── 
+  Segment and                                                                   
+  Category                                                                      
+  Information(…                                                                 
+  Computing and                                                                 
+  Graphics                                                                      
+  Net revenue      $                  2,802    $         2,584    $      2,100  
+  Operating        $                    723    $           566    $        485  
+  income                                                                        
+  Enterprise,                                                                   
+  Embedded and                                                                  
+  Semi-Custom                                                                   
+  Net revenue      $                  2,526    $         2,242    $      1,345  
+  Operating        $                    881    $           762    $        277  
+  income                                                                        
+  Xilinx                                                                        
+  Net revenue      $                    559    $             —    $          —  
+  Operating        $                    233    $             —    $          —  
+  income                                                                        
+  All Other                                                                     
+  Net revenue      $                      —    $             —    $          —  
+  Operating        $                   -886    $          -121    $       -100  
+  loss                                                                          
+  Total                                                                         
+  Net revenue      $                  5,887    $         4,826    $      3,445  
+  Operating        $                    951    $         1,207    $        662  
+  income                                                                        
+  Other Data                                                                    
+  Capital          $                     71    $            86    $         66  
+  expenditures                                                                  
+  Adjusted         $                  1,967    $         1,446    $        857  
+  EBITDA(2)                                                                     
+  Cash, cash                                                                    
+  equivalents                                                                   
+  and              $                  6,532    $         3,608    $      3,116  
+  short-term                                                                    
+  investments                                                                   
+  Free cash        $                    924    $           736    $        832  
+  flow(3)                                                                       
+  Total assets     $                 66,915    $        12,419    $     10,047  
+  Total debt       $                  1,787    $           313    $        313  
+                                                                                
+                                                                              12
+                                                                                
+         The Computing and Graphics segment primarily includes desktop and      
+  (1)    notebook processors and chipsets, discrete and integrated graphics     
+         processing units (GPUs), data center and professional GPUs and         
+         development services.                                                  
+         The Enterprise, Embedded and Semi-Custom segment primarily includes    
+         server and embedded processors, semi-custom System-on-Chip (SoC)       
+         products, development services and technology for game consoles.       
+         The Xilinx segment primarily includes Field Programmable Gate Arrays   
+         (FPGAs), adaptive System-on-Chips (SoCs), and Adaptive Compute         
+         Acceleration Platform (ACAP) products.                                 
+         From time to time, the Company may also sell or license portions of    
+         its IP portfolio.                                                      
+         All Other category primarily includes certain expenses and credits     
+         that are not allocated to any of the operating segments. Also          
+         included in this category are acquisition-related intangible asset     
+         amortization expense, stock-based compensation expense and             
+         acquisition-related costs.                                             
+  (2)    Reconciliation of GAAP Net Income to Adjusted EBITDA                   
+                                                                                
+                                                                                
+                   Three Months   March 26,       December 25,       March 27,  
+                   Ended               2022               2021            2021  
+ ────────────────────────────────────────────────────────────────────────────── 
+  GAAP net         $                    786    $           974    $        555  
+  income                                                                        
+  Interest                               13                  8               9  
+  expense                                                                       
+  Other                                                                         
+  (income)                               42                 -4              11  
+  expense, net                                                                  
+  Income tax                            113                229              89  
+  provision                                                                     
+  Equity income                          -3                  —              -2  
+  in investee                                                                   
+  Stock-based                           174                112              85  
+  compensation                                                                  
+  Depreciation                                                                  
+  and                                   130                118              95  
+  amortization                                                                  
+  Amortization                                                                  
+  of acquired                           479                  —               —  
+  intangible                                                                    
+  assets                                                                        
+  Acquisition-…                         233                  9              15  
+  costs                                                                         
+  Adjusted         $                  1,967    $         1,446    $        857  
+  EBITDA                                                                        
+                                                                                
+                                                                                
+  The Company presents “Adjusted EBITDA” as a supplemental measure of its       
+  performance. Adjusted EBITDA for the Company is determined by adjusting GAAP  
+  net income for interest expense, other income (expense), net, income tax      
+  provision, equity income in investee, stock-based compensation, depreciation  
+  and amortization expense and acquisition-related costs. The Company also      
+  included amortization of acquired intangible assets for the three months      
+  ended March 26, 2022. The Company calculates and presents Adjusted EBITDA     
+  because management believes it is of importance to investors and lenders in   
+  relation to its overall capital structure and its ability to borrow           
+  additional funds. In addition, the Company presents Adjusted EBITDA because   
+  it believes this measure assists investors in comparing its performance       
+  across reporting periods on a consistent basis by excluding items that the    
+  Company does not believe are indicative of its core operating performance.    
+  The Company’s calculation of Adjusted EBITDA may or may not be consistent     
+  with the calculation of this measure by other companies in the same           
+  industry. Investors should not view Adjusted EBITDA as an alternative to the  
+  GAAP operating measure of income or GAAP liquidity measures of cash flows     
+  from operating, investing and financing activities. In addition, Adjusted     
+  EBITDA does not take into account changes in certain assets and liabilities   
+  that can affect cash flows. The Company has provided reconciliations within   
+  the earnings press release of these Non-GAAP financial measures to the most   
+  directly comparable GAAP financial measures.                                  
+ ────────────────────────────────────────────────────────────────────────────── 
+                                                                                
+                                                                                
+  (3)    Reconciliation of GAAP Net Cash Provided by Operating Activities to    
+         Free Cash Flow                                                         
+                                                                                
+                                                                                
+               Three                            December                        
+               Months      March 26,                 25,          March 27,     
+               Ended            2022                2021               2021     
+ ────────────────────────────────────────────────────────────────────────────── 
+  GAAP net                                                                      
+  cash                                                                          
+  provided     $                 995       $         822       $        898     
+  by                                                                            
+  operating                                                                     
+  activiti…                                                                     
+  Operating                                                                     
+  cash flow                       17  %               17  %              26  %  
+  margin %                                                                      
+  Purchases                                                                     
+  of                                                                            
+  property                       -71                 -86                -66     
+  and                                                                           
+  equipment                                                                     
+  Free cash    $                 924       $         736       $        832     
+  flow                                                                          
+  Free cash                                                                     
+  flow                            16  %               15  %              24  %  
+  margin %                                                                      
+                                                                                
+                                                      
+  The Company also presents free cash flow as a       
+  supplemental Non-GAAP measure of its performance.   
+  Free cash flow is determined by adjusting GAAP net  
+  cash provided by operating activities for capital   
+  expenditures. The Company calculates and            
+  communicates free cash flow in the financial        
+  earnings press release because management believes  
+  it is of importance to investors to understand the  
+  nature of these cash flows. The Company’s           
+  calculation of free cash flow may or may not be     
+  consistent with the calculation of this measure by  
+  other companies in the same industry. Investors     
+  should not view free cash flow as an alternative    
+  to GAAP liquidity measures of cash flows from       
+  operating activities. The Company has provided      
+  reconciliations within the earnings press release   
+  of these Non-GAAP financial measures to the most    
+  directly comparable GAAP financial measures.        
+                                                      
+                                                                              13
+
+
+FIRST QUARTER 2022 FINANCIAL RESULTS MAY 3, 2022
+
+2 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 CAUTIONARY STATEMENT This presentation
+contains forward-looking statements concerning Advanced Micro Devices, Inc.
+(AMD) such as the features, functionality, performance, availability, timing and
+expected benefits of AMD products; that AMD’s acquisition of Xilinx, Inc. will
+be non-GAAP EPS and free cash flow accretive in the first year; AMD’s expected
+product and revenue synergies from the acquisition of Xilinx, Inc.; and AMD’s
+expected second quarter 2022 and fiscal 2022 financial outlook, including
+revenue non-GAAP gross margin, non-GAAP operating expenses, non-GAAP operating
+expenses as a percentage of revenue, non-GAAP interest expense, taxes and other,
+non-GAAP tax rates and diluted share count, which are made pursuant to the Safe
+Harbor provisions of the Private Securities Litigation Reform Act of 1995.
+Forward-looking statements are commonly identified by words such as "would,"
+"may," "expects," "believes," "plans," "intends," "projects" and other terms
+with similar meaning. Investors are cautioned that the forward-looking
+statements in this presentation are based on current beliefs, assumptions and
+expectations, speak only as of the date of this presentation and involve risks
+and uncertainties that could cause actual results to differ materially from
+current expectations. Such statements are subject to certain known and unknown
+risks and uncertainties, many of which are difficult to predict and generally
+beyond AMD's control, that could cause actual results and other future events to
+differ materially from those expressed in, or implied or projected by, the
+forward-looking information and statements. Material factors that could cause
+actual results to differ materially from current expectations include, without
+limitation, the following: Intel Corporation’s dominance of the microprocessor
+market and its aggressive business practices; global economic uncertainty; loss
+of a significant customer; impact of the COVID-19 pandemic on AMD’s business,
+financial condition and results of operations; competitive markets in which
+AMD’s products are sold; market conditions of the industries in which AMD
+products are sold; cyclical nature of the semiconductor industry; quarterly and
+seasonal sales patterns; AMD's ability to adequately protect its technology or
+other intellectual property; unfavorable currency exchange rate fluctuations;
+ability of third party manufacturers to manufacture AMD's products on a timely
+basis in sufficient quantities and using competitive technologies; availability
+of essential equipment, materials, substrates or manufacturing processes;
+ability to achieve expected manufacturing yields for AMD’s products; AMD's
+ability to introduce products on a timely basis with expected features and
+performance levels; AMD's ability to generate revenue from its semi-custom SoC
+products; potential security vulnerabilities; potential security incidents
+including IT outages, data loss, data breaches and cyber-attacks; uncertainties
+involving the ordering and shipment of AMD’s products; AMD’s reliance on third-
+party intellectual property to design and introduce new products in a timely
+manner; AMD's reliance on third-party companies for design, manufacture and
+supply of motherboards, software and other computer platform components; AMD's
+reliance on Microsoft and other software vendors' support to design and develop
+software to run on AMD’s products; AMD’s reliance on third-party distributors
+and add-in-board partners; impact of modification or interruption of AMD’s
+internal business processes and information systems; compatibility of AMD’s
+products with some or all industry-standard software and hardware; costs related
+to defective products; efficiency of AMD's supply chain; AMD's ability to rely
+on third party supply-chain logistics functions; AMD’s ability to effectively
+control sales of its products on the gray market; impact of government actions
+and regulations such as export administration regulations, tariffs and trade
+protection measures; AMD’s ability to realize its deferred tax assets; potential
+tax liabilities; current and future claims and litigation; impact of
+environmental laws, conflict minerals-related provisions and other laws or
+regulations; impact of acquisitions, joint ventures and/or investments on AMD's
+business and AMD’s ability to integrate acquired businesses, such as Xilinx;
+impact of any impairment of the combined company’s assets on the combined
+company’s financial position and results of operation; restrictions imposed by
+agreements governing AMD’s notes, the guarantees of Xilinx’s notes and the
+revolving credit facility; AMD's indebtedness; AMD's ability to generate
+sufficient cash to meet its working capital requirements or generate sufficient
+revenue and operating cash flow to make all of its planned R&D or strategic
+investments; political, legal, economic risks and natural disasters; future
+impairments of goodwill and technology license purchases; AMD’s ability to
+attract and retain qualified personnel; AMD’s stock price volatility; and
+worldwide political conditions. Investors are urged to review in detail the
+risks and uncertainties in AMD’s Securities and Exchange Commission filings,
+including but not limited to AMD’s most recent reports on Forms 10-K and 10-Q.
+NON-GAAP FINANCIAL MEASURES In this presentation, in addition to GAAP financial
+results, AMD has provided non-GAAP financial measures including non-GAAP gross
+profit, non-GAAP operating expenses, non-GAAP operating income, non-GAAP net
+income, non-GAAP earnings per share and free cash flow. AMD uses a normalized
+tax rate in its computation of the non-GAAP income tax provision to provide
+better consistency across the reporting periods. For full year 2022, AMD uses a
+projected non-GAAP tax rate of 13%, which excludes the tax impact of pre-tax
+non-GAAP adjustments, reflecting currently available information, and a
+projected non-GAAP cash tax rate of approximately 10% that includes the
+projected current income tax liability plus known foreign withholding tax
+obligations paid expressed as a percentage of non-GAAP profit before tax. In
+addition, AMD provided non- GAAP financial measures excluding Xilinx, including
+revenue, gross profit and operating income, and Xilinx pro forma revenue for the
+three months ended March 26, 2022 as supplemental information. AMD is providing
+these financial measures because it believes this non-GAAP presentation makes it
+easier for investors to compare its operating results for current and historical
+periods and also because AMD believes it assists investors in comparing AMD’s
+performance across reporting periods on a consistent basis by excluding items
+that it does not believe are indicative of its core operating performance. The
+non-GAAP financial measures disclosed in this presentation should be viewed in
+addition to and not as a substitute for or superior to AMD’s reported results
+prepared in accordance with GAAP and should be read only in conjunction with
+AMD’s Consolidated Financial Statements prepared in accordance with GAAP. These
+non-GAAP financial measures referenced are reconciled to their most directly
+comparable GAAP financial measures in the Appendices at the end of this
+presentation. This presentation also contains forward-looking non-GAAP measures
+concerning AMD’s financial outlook such as gross margin, operating expenses,
+interest expense, taxes and other. These forward- looking non-GAAP measures are
+based on current expectations as of May 3, 2022, and assumptions and beliefs
+that involve numerous risks and uncertainties. AMD undertakes no intent or
+obligation to publicly update or revise its forward-looking statements made in
+this presentation except as may be required by law.
+
+3 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 OUR JOURNEY Outstanding Financial
+Performance Expanding Customer & Partner Ecosystem Best Product Portfolio in
+History Significant Business Acceleration
+
+4 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 Diversified and Growing Markets Data
+Center Momentum Non-GAAP Margin Expansion Industry-Leading Products Non-GAAP EPS
+and Free Cash Flow Accretive for 2022 Xilinx Acquisition Creates Industry’s
+High-Performance and Adaptive Computing Leader
+
+5 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 Open-source software co-designed with
+hardware, and optimized for performance across heterogenous solutions Driving
+leadership process technology and 3D chiplet packaging Executing leadership CPU,
+GPU, FPGA and Adaptive SoC products and roadmaps Driving innovation in cloud,
+enterprise, AI and accelerated computing OUR LEADERSHIP TECHNOLOGY SOFTWARE
+ENABLEMENTADVANCED TECHNOLOGYINDUSTRY LEADING IP DATA CENTER LEADERSHIP
+
+6 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 CPUs, FPGAs and Adaptive SoCs for a
+broad set of markets Leadership processors for ultrathin, commercial and gaming
+notebooks and consumer, gaming and workstation desktop PCs Leadership AMD EPYC
+server processors for cloud, enterprise and HPC. Data center solutions with
+high-performance AMD Instinct accelerators, SmartNICs and adaptive SOC
+accelerators Top-to-bottom graphics cards and game consoles based on RDNA 2
+Architecture OUR BEST EVER PRODUCT PORTFOLIO See endnotes R5K-002 and CZM-35
+EMBEDDEDCLIENTDATA CENTER GAMING
+
+7 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 1. See Appendices for GAAP to Non-GAAP
+reconciliation QUARTERLY SUMMARY Q1 2022¹ $3.4 $5.9 Q1 2021 Q1 2022 +71% y/y
+Quarterly Revenue ($B) Record revenue of $5.9 billion grew 71% y/y and 22% q/q
+ Gross margin 48%, up 2 pp y/y and down 2 pp q/q  Non-GAAP gross margin 53%,
+up 7 pp y/y and 3pp q/q  Operating income $951 million or 16% of revenue 
+Record Non-GAAP operating income $1.8 billion or 31% of revenue  Net income
+$786 million; Record Non-GAAP net income $1.6 billion  Diluted EPS $0.56;
+Record Non-GAAP diluted EPS $1.13  Record operating cash $995 million; record
+free cash flow $924 million  Cash, cash equivalents and short-term investments
+$6.5 billion  AMD financial results, excluding Xilinx: ‒ Revenue of $5.3
+billion up 55% y/y and 10% q/q ‒ Non-GAAP gross margin 51%, up 5 pp y/y and 1 pp
+q/q ‒ Non-GAAP operating income $1.6 billion or 30% of revenue  Repurchased
+$1.9 billion of stock; $8.3 billion in remaining authorization
+
+8 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 COMPUTING AND GRAPHICS SEGMENT Q1 2022
+ Record Revenue $2.8 billion • Up 33% y/y driven by RyzenTM and RadeonTM
+processor sales • Up 8% q/q driven by Ryzen processor sales  Average Selling
+Prices (ASP) • Client processor ASP grew y/y and q/q driven by a richer mix of
+Ryzen processor sales • GPU ASP up y/y driven by high-end Radeon processor
+sales; down q/q due to lower mix of data center GPUs  Record Operating Income
+$723 million or 26% of revenue  Strategic • Announced Ryzen 7 5800X3D desktop
+CPU with AMD 3D V-Cache technology featuring 3D stacked chiplets • Launched
+Ryzen 6000 mobile processors and Ryzen 6000 PRO processors for the commercial
+market • Ryzen ThreadripperTM PRO WX-Series processors power Lenovo ThinkStation
+P620 workstations • Desktop GPU sales driven by Radeon 6000 series graphics
+cards; launched Radeon 6000 mobile GPUs • Launched ROCm 5 software suite
+targeting Exascale-class HPC and AI applications
+
+9 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 ENTERPRISE, EMBEDDED AND SEMI-CUSTOM
+SEGMENT Q1 2022  Record Revenue $2.5 billion • Up 88% y/y and 13% q/q driven by
+record EPYCTM processor, semi-custom and embedded revenue  Record Operating
+Income $881 million or 35% of revenue • Improvements primarily driven by higher
+revenue and an $83 million licensing gain  Strategic news and highlights •
+Announced plans to acquire Pensando for approximately $1.9 billion to drive data
+center solution capabilities • Hyperscalers continue to expand internal
+infrastructure with AMD EPYC processors; 70 new AMD-powered cloud instances also
+launched from Alibaba, Amazon, Microsoft Azure, Google and others • Strong
+growth in Enterprise server revenue with solid pipeline • Announced availability
+of 3rd Gen AMD EPYC processors with AMD 3D V-Cache Technology • Semi-custom
+sales driven by strong demand for Sony and Microsoft game consoles and Valve’s
+Steam Deck
+
+10 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 XILINX Q1 2022  AMD’s acquisition of
+Xilinx closed on February 14, 2022  Xilinx adds multiple high-margin, long-term
+revenue streams spanning a new set of markets for AMD  Xilinx generated $559
+million of revenue for the six weeks of Q1’22 after the transaction closed 
+Operating income of $233 million for the six weeks of Q1’22 after the
+transaction closed  On a pro-forma basis for the full quarter, Xilinx generated
+$1.04 billion of revenue, up 22% y/y  Strategic news and highlights • Strong
+demand across all the Xilinx end markets • Expanded Versal product lineup with
+the first customer shipments of Versal HBM adaptive SOCs • Expanded FPGA-as-a-
+Service and SmartNIC deployments at Tier-1 hyperscalers • Record revenue from
+auto, industrial, vision and healthcare, and consumer customers
+
+11 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 $1,932 $2,801 $3,244 $3,445 $3,850
+$4,313 $4,826 $5,887 1000 2000 3000 4000 5000 6000 7000 Q2'20 Q3'20 Q4'20 Q1'21
+Q2'21 Q3'21 Q4'21 Q1'22 +71% y/y REVENUE TREND ($ IN MILLIONS) SIGNIFICANT
+REVENUE GROWTH
+
+12 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 44% 44% 45% 46% 48% 48% 50% 48% Q2'20
+Q3'20 Q4'20 Q1'21 Q2'21 Q3'21 Q4'21 Q1'22 53% (Non-GAAP) GAAP +2 pp y/y Non-GAAP
++ 7pp y/y GROSS MARGIN TREND (GAAP AND NON-GAAP)¹ 1. See Appendices for GAAP to
+Non-GAAP reconciliation. GAAP and non-GAAP gross margin are the same for all
+quarters except for Q1’22. GROSS MARGIN EXPANSION
+
+13 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 EARNINGS PER SHARE TREND $0.13 $0.32
+$0.39 $0.45 $0.58 $0.75 $0.80 $0.56 Q2'20 Q3'20 Q4'20 Q1'21 Q2'21 Q3'21 Q4'21
+Q1'22 A x is T it le +24% y/y (GAAP) $1.45 1 1. In Q4 2020, AMD released $1.3
+billion of its $2.9 billion income tax valuation allowance. The valuation
+allowance release had a $1.06 benefit to Q4 2020 earnings per share. Y/Y GROWTH
+IN PROFITABILITY $1.06 Valuation Allowance Release
+
+14 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 $0.18 $0.41 $0.52 $0.52 $0.63 $0.73
+$0.92 $1.13 Q2'20 Q3'20 Q4'20 Q1'21 Q2'21 Q3'21 Q4'21 Q1'22 +117% y/y EARNINGS
+PER SHARE TREND (NON-GAAP)1 1. 1. See Appendices for GAAP to Non-GAAP
+reconciliation STRONG EPS TRAJECTORY
+
+15 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 ($ in millions, except per share
+data) Q1’22 Q1’21 Y/Y Q4’21 Q/Q Revenue $5,887 $3,445 Up 71% $4,826 Up 22% Gross
+Profit $2,818 $1,587 Up 78% $2,426 Up 16% Gross Margin % 48% 46% Up 190 bps 50%
+Down 240 bps Operating Expenses $1,950 $929 Up 110% $1,223 Up 59% Operating
+Expense/Revenue % 33% 27% Up 6pp 25% Up 8pp Operating Income $951 $662 Up 44%
+$1,207 Down 21% Operating Margin % 16% 19% Down 3pp 25% Down 9pp Net Income1
+$786 $555 Up 42% $974 Down 19% Earnings Per Share1,2 $0.56 $0.45 Up 24% $0.80
+Down 30% Q1 2022 SUMMARY P&L – GAAP 1. Includes a higher tax rate beginning in
+Q1 2021 2. See Appendices for share count reference.
+
+16 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 ($ in millions, except per share
+data) Q1’22 Q1’21 Y/Y Q4’21 Q/Q Revenue $5,887 $3,445 Up 71% $4,826 Up 22% Gross
+Profit $3,100 $1,588 Up 95% $2,427 Up 28% Gross Margin % 53% 46% Up 660 bps 50%
+Up 240 bps Operating Expenses $1,346 $830 Up 62% $1,103 Up 22% Operating
+Expense/Revenue % 23% 24% Down 1pp 23% Flat Operating Income $1,837 $762 Up 141%
+$1,328 Up 38% Operating Margin % 31% 22% Up 9pp 27% Up 4pp Net Income $1,589
+$642 Up 148% $1,122 Up 42% Earnings Per Share¹ $1.13 $0.52 Up 117% $0.92 Up 23%
+Q1 2022 SUMMARY P&L – NON-GAAP¹ 1. See Appendices for GAAP to Non-GAAP
+reconciliation and share count reference
+
+17 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 Q1 2022 – AMD RESULTS EXCLUDING
+XILINX¹ ($ in millions, Non-GAAP measures) Q1’22 Q1’21 Y/Y Q4’21 Q/Q Revenue
+$5,328 $3,445 Up 55% $4,826 Up 10% Gross Profit $2,712 $1,588 Up 71% $2,427 Up
+12% Gross Margin % 51% 46% Up 480 bps 50% Up 60 bps Operating Income $1,604 $762
+Up 110% $1,328 Up 21% Operating Margin % 30% 22% Up 8pp 27% Up 3pp 1. See
+Appendices for GAAP to Non-GAAP reconciliation
+
+18 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 Q1 2022 SEGMENT RESULTS ($ in
+millions) Q1’22 Q1’21 Y/Y Q4’21 Q/Q Computing and Graphics Net Revenue $2,802
+$2,100 Up 33% $2,584 Up 8% Operating Income $723 $485 Up 49% $566 Up 28%
+Enterprise, Embedded and Semi-Custom Net Revenue $2,526 $1,345 Up $88% $2,242 Up
+13% Operating Income $881 $277 Up 218% $762 Up 16% Xilinx1 Net Revenue $559 ─ ─
+─ ─ Operating Income $233 ─ ─ ─ ─ All Other Category Operating Loss $(886)
+$(100) Up 786% $(121) Up 632% TOTAL Net Revenue $5,887 $3,445 Up 71% $4,826 Up
+22% Operating Income $951 $662 Up 44% $1,207 Down 21% 1. Xilinx represents
+partial quarter revenue following the close of the acquisition on February 14,
+2022.
+
+19 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 Q1 2022 SUMMARY BALANCE SHEET ITEMS
+($ in millions) Q1’222 Q1’21 Y/Y Q4’21 Q/Q Cash, Cash Equivalents and Short-term
+Investments $6,532 $3,116 Up $3,416 $3,608 Up $2,924 Accounts Receivable, Net
+$3,677 $2,178 Up $1,499 $2,706 Up $971 Inventories $2,431 $1,653 Up $778 $1,955
+Up $476 Total Debt (principal amount)1 $1,813 $314 Up $1,499 $313 Up $1,500
+Total Debt, Net1 $1,787 $313 Up $1,474 $313 Up $1,474 1. See Appendices for
+Total Debt reconciliation. 2. Includes contributions from Xilinx. STRONG BALANCE
+SHEET
+
+20 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 1. See Cautionary Statement on Slide
+2. These forward-looking outlook statements and non-GAAP measures are based on
+current expectations as of May 3, 2022, and assumptions and beliefs that involve
+numerous risks and uncertainties. AMD undertakes no intent or obligation to
+publicly update or revise its outlook statements as a result of new information,
+future events or otherwise, except as may be required by law. All items, except
+revenue, are on a non-GAAP basis. Adjustments to arrive at the GAAP financial
+outlook typically include stock-based compensation, amortization of acquired
+intangible assets, income tax provision, equity income in investee, and other
+non- recurring items such as loss on debt redemption/conversion, impairment
+charges and acquisition-related costs. The timing and impact of such adjustments
+are dependent on future events that are typically uncertain or outside of AMD's
+control; therefore, a reconciliation to equivalent GAAP measures is not
+practicable at this time. 2. Refer to Diluted Share Count overview in the
+Appendices Q2 2022 FY 2022 Revenue ~$6.5 Billion +/- $200 Million ~$26.3 Billion
+Growth of ~60% y/y Gross Margin % ~54% ~54% Operating Expenses Operating
+Expenses/Revenue % ~$1.56 Billion ~24% ~24% Interest Expense, Taxes and Other
+~$270 Million -- Effective Tax Rate ~13% of pre-tax income Cash Tax Rate ~10% of
+pre-tax income Diluted Share Count² ~1.64 billion shares ~1.58 billion shares
+FINANCIAL OUTLOOK – NON-GAAP 1
+
+21 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 Q1 2022 SUMMARY Record Non-GAAP
+Profitability Gross Margin of 48% Non-GAAP GM of 53% Record revenue $5.9B Up 71%
+Y/Y, 22% Q/Q Repurchased $1.9B Common Stock COMPLETED ACQUISITION OF XILINX
+
+22 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 AMD’S COMMITMENT TO ESG CORPORATE
+RESPONSIBILITY REPORT ON AMD.COM ENVIRONMENTAL Steadfast commitment to
+environmental stewardship and contributing to our local communities SOCIAL
+Creating a culture that drives innovation by fostering diversity, inclusion and
+belonging GOVERNANCE Delivering industry leading products with integrity,
+innovation and quality in order to help solve global challenges
+
+23 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 BUILDING THE BEST Outstanding
+Financial Performance Execution Excellence Leadership Roadmaps Increasing Market
+Share
+
+24 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 APPENDICES Reconciliation of GAAP to
+Non-GAAP Gross Profit and Gross Margin (Millions) (Unaudited) Q2'20 Q3'20 Q4'20
+Q1’21 Q2’21 Q3’21 Q4’21 Q1’22 GAAP gross profit $ 848 $ 1,230 $ 1,451 $ 1,587 $
+1,830 $ 2,086 $ 2,426 $ 2,818 GAAP gross margin % 44% 44% 45% 46% 48% 48% 50%
+48% Stock-based compensation 2 1 1 1 2 1 1 4 Acquisition-related costs (1) – – –
+– – – – 92 Amortization of acquired intangible assets – – – – – – – 186 Non-GAAP
+gross profit $ 850 $ 1,231 $ 1,452 $ 1,588 $ 1,832 $ 2,087 $ 2,427 $ 3,100 Non-
+GAAP gross margin % 44% 44% 45% 46% 48% 48% 50% 53% Reconciliation of GAAP to
+Non-GAAP Operating Expenses (Millions) (Unaudited) Q1’22 Q1’21 Q4’21 GAAP
+operating expenses $ 1,950 $ 929 $ 1,223 GAAP Operating Expenses/Revenue % 33%
+27% 25% Stock-based compensation 170 84 111 Acquisition-related costs (1) 141 15
+9 Amortization of acquired intangible assets 293 – – Non-GAAP operating expenses
+$ 1,346 $ 830 $ 1,103 Non-GAAP Operating Expenses/Revenue % 23% 24% 23% (1)
+Acquisition-related costs primarily comprised of transaction costs, purchase
+price adjustments for inventory and certain compensation charges.
+
+25 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 APPENDICES Reconciliation of GAAP
+Operating Income to Non-GAAP Operating Income (Millions) (Unaudited) Q1’22 Q1’21
+Q4’21 GAAP operating income $ 951 $ 662 $ 1,207 GAAP operating margin % 16% 19%
+25% Stock-based compensation 174 85 112 Acquisition-related costs (1) 233 15 9
+Amortization of acquired intangible assets 479 – – Non-GAAP operating income $
+1,837 $ 762 $ 1,328 Non-GAAP operating margin % 31% 22% 27% (1) Acquisition-
+related costs primarily comprised of transaction costs, purchase price
+adjustments for inventory and certain compensation charges.
+
+26 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 APPENDICES (1) Acquisition-related
+costs primarily comprised of transaction costs, purchase price adjustments for
+inventory and certain compensation charges. (2) Q2’20 GAAP diluted EPS
+calculation includes 31 million shares related to the assumed conversion of the
+Company's 2026 Convertible Notes and the associated $3 million interest expense
+add-back to net income under the "if converted" method. Q3’20 and Q4’20 GAAP
+diluted EPS calculation includes 11 million and 3 million shares, respectively,
+related to the assumed conversion of the Company's 2026 Convertible Notes and
+the associated $1 million and $0 million interest expense, respectively, add-
+back to net income under the "if converted" method. The 20 million (15 million
+weighted-average), 8 million shares (6 million weighted-average) and 3 million
+shares (2 million weighted-average) issued in exchange for $165 million, $60
+million and $24 million of convertible debt in Q3’20, Q4’20 and Q1’21,
+respectively, were not included as their inclusion would have been anti-
+dilutive. (Millions, except per share data) (Unaudited) Q2’20 Q3’20 Q4’20 Q1’21
+Q2’21 Q3’21 Q4’21 Q1’22 GAAP net income / earnings per share $ 157 $ 0.13 $ 390
+$ 0.32 $ 1,781 $ 1.45 $ 555 $ 0.45 $ 710 $ 0.58 $ 923 $ 0.75 $ 974 $ 0.80 $ 786
+$ 0.56 Loss on debt redemption/conversion – – 38 0.03 16 0.01 14 0.02 1 – – – –
+– – – (Gains) losses on equity investments, net – – – – – – – – – – (60) (0.05)
+(4) – 44 0.03 Non-cash interest expense related to convertible debt 2 – 2 – – –
+– – – – – – – – – – Stock-based compensation 60 0.05 76 0.06 79 0.06 85 0.07 83
+0.06 99 0.08 112 0.09 174 0.12 Equity income in investee (1) – (1) – (3) – (2) –
+(2) – (2) – – – (3) – Acquisition-related costs (1) – – – – 14 0.01 15 0.01 10
+0.01 8 0.01 9 – 233 0.17 Amortization of acquired intangible assets – – – – – –
+– – – – – – – – 479 0.34 Release of valuation allowance on deferred tax assets –
+– – – (1,301) (1.06) – – – – – – – – – – Income tax provision (2) – (4) – 50
+0.05 (25) (0.03) (24) (0.02) (75) (0.06) 31 0.03 (124) (0.09) Non-GAAP net
+income / earnings per share $ 216 $ 0.18 $ 501 $ 0.41 $ 636 $ 0.52 $ 642 $ 0.52
+$ 778 $ 0.63 $ 893 $ 0.73 $ 1,122 $ 0.92 $ 1,589 $ 1.13 Shares used and net
+income adjustment in earnings per share calculation Shares used in per share
+calculation (GAAP) (2) 1,227 1,215 1,226 1,231 1,232 1,230 1,222 1,410 Interest
+expense add back to GAAP net income (2) $ 3 $ 1 $ - $ - $ - $ - $ - $ - Shares
+used in per share calculation (Non-GAAP) 1,227 1,230 1,232 1,233 1,232 1,230
+1,222 1,410 Interest expense add back to Non-GAAP net income $ 1 $ 1 $ - $ - $ -
+$ - $ - $ - Reconciliation of GAAP to Non-GAAP Net Income / Earnings Per Share
+
+27 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 APPENDICES Total Debt (Net)
+(Millions) (Unaudited) Q1’22 Q1’21 Q4’21 2.95% Senior Notes due 2024 $ 750 $ – $
+– 2.375% Senior Notes due 2030 750 – – 7.50% Senior Notes due 2022 312 312 312
+2.125% Convertible Senior Notes due 2026 1 2 1 Total Debt (principal amount) $
+1,813 $ 314 $ 313 Unamortized debt discount and issuance costs (26) (1) – Total
+Debt (net) $ 1,787 $ 313 $ 313 Reconciliation of Operating Cash Flow to Free
+Cash Flow (Millions) (Unaudited) Q1’22 Operating cash flow 995 Operating cash
+flow margin % 17% Purchases of property and equipment (71) Free cash flow 924
+Free cash flow margin % 16%
+
+28 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 APPENDICES Reconciliation of AMD GAAP
+to AMD Non-GAAP Excluding Xilinx Q1’22 (Millions) (Unaudited) Revenue Gross
+Profit Gross Margin % Operating Income Operating Margin % AMD GAAP $ 5,887 $
+2,818 48% $ 951 16% Stock-based compensation — 4 174 Acquisition-related costs
+(1) — 92 233 Amortization of acquired intangible assets — 186 479 AMD Non-GAAP
+5,887 3,100 53% 1,837 31% Xilinx segment 559 388 233 AMD Non-GAAP Excluding
+Xilinx $ 5,328 $ 2,712 51% $ 1,604 30% (1) Acquisition-related costs primarily
+comprised of transaction costs, purchase price adjustments for inventory and
+certain compensation charges.
+
+29 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 APPENDICES Reconciliation of Xilinx
+Segment Revenue to Xilinx Pro Forma Revenue Q1’22 (Millions) (Unaudited) Revenue
+Xilinx Segment (1) $ 559 Xilinx Pre-Acquisition (2) 477 Xilinx Pro Forma (3) $
+1,036 (1) Represents unaudited Xilinx revenue from the date of acquisition,
+February 14, 2022, through March 26, 2022. (2) Represents unaudited Xilinx
+revenue from January 2, 2022 to February 13, 2022. (3) The unaudited Xilinx pro
+forma revenue represents the three-month period beginning January 2, 2022
+through March 26, 2022. The pro forma revenue is presented for informational
+purposes only.
+
+30 Q1 2022 FINANCIAL RESULTS | MAY 3, 2022 APPENDICES Share Count Overview
+Shares (millions) (1) Q4’21 Q1’22 Q2’22 2022 Actual Actual Estimate Estimate
+Basic Shares 1,208 1,393 1,622 1,568 Dilutive impacts from: Employee Equity
+Grants (2) 14 13 13 12 Xilinx Assumed Awards - 4 6 4 Diluted Shares 1,222 1,410
+1,641 1,584 The table above provides actual share count for Q4’21 and Q1’22 and
+an estimate of share count to use when calculating GAAP and non-GAAP diluted
+earnings per share for Q2’22 and FY 2022. (1) Share counts are weighted average
+shares. (2) The dilutive impact of employee equity grants is based on the
+Treasury Stock method and is dependent upon the average stock price during the
+period. The Q4’21 and Q1’22 average stock price was $131.29 and $121.81,
+respectively. The Q1’22 average stock price of $121.81 was assumed for Q2’22 and
+FY22 average stock price estimates.
+
+31 FIRST QUARTER 2022 FINANCIAL RESULTS | MAY 3, 2022 [AMD Official Use Only]
+ENDNOTES R5K-002: Testing by AMD Performance labs as of 5/28/2021 based on the
+average FPS of 20 PC games at 1920x1080 with the High image quality preset using
+an AMD Ryzen™ 9 5900X processor vs. Core i9-11900K. For Ryzen 5000 G-Series
+processors testing as of 5/5/2021 based on the average FPS of 11 PC games at
+1920x1080 with the low image quality preset using an AMD Ryzen™ 7 5700G vs Core
+i7-11700, both configured with integrated graphics. Results may vary.
+R5K-002.R5K-050: Testing by AMD Performance Labs as of December 11, 2020 using
+an AMD Ryzen 9 5900 and Intel Core i9-10900, each similarly configured and
+tested with an NVIDIA GeForce RTX 2080 Ti graphics card. Results may vary.
+R5K-002. CZM-35:Tested by AMD Labs in December 2020. The Ryzen 5000 series
+mobile processors are the fastest mobile processors with the highest-performing
+single-thread and multi-thread performance available on an x86 mobile processor,
+measured with Cinebench R.20 1T and Cinebench R20 nT respectively, using
+similarly configured systems with Ryzen 9 4900H, Ryzen 9 5980HX and Ryzen 5980HS
+processors vs i9-10980HK, Core i7-1185G7 processors. Performance may vary.
+CZM-35. DISCLAIMERS AND ATTRIBUTIONS The information contained herein is for
+informational purposes only and is subject to change without notice. Timelines,
+roadmaps, and/or product release dates shown in these slides are plans only and
+subject to change. While every precaution has been taken in the preparation of
+this document, it may contain technical inaccuracies, omissions and
+typographical errors, and AMD is under no obligation to update or otherwise
+correct this information. Advanced Micro Devices, Inc. makes no representations
+or warranties with respect to the accuracy or completeness of the contents of
+this document, and assumes no liability of any kind, including the implied
+warranties of non-infringement, merchantability or fitness for particular
+purposes, with respect to the operation or use of AMD hardware, software or
+other products described herein. No license, including implied or arising by
+estoppel, to any intellectual property rights is granted by this document. Terms
+and limitations applicable to the purchase or use of AMD’s products are as set
+forth in a signed agreement between the parties or in AMD's Standard Terms and
+Conditions of Sale. ©2022 Advanced Micro Devices, Inc. All rights reserved. AMD,
+the AMD Arrow logo, AMD CDNA, AMD Instinct, AMD RDNA, Radeon, Ryzen, EPYC and
+combinations thereof are trademarks of Advanced Micro Devices, Inc. Other
+product names used in this presentation are for identification purposes only and
+may be trademarks of their respective companies.

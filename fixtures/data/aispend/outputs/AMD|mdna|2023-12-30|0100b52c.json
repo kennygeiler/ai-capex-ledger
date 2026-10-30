@@ -1,0 +1,44 @@
+{
+ "accession": "AMD|mdna|2023-12-30|0100b52c",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 6500000000,
+   "amount_high": 6500000000,
+   "quote": "Data Center net revenue of $6.5 billion in 2023 increased by 7%, compared to net revenue of $6.0 billion in 2022.",
+   "passage": "p05",
+   "confidence": 0.9,
+   "notes": "Data Center segment revenue as stated in the sentence; the segment includes EPYC server CPUs as well as Instinct AI GPUs, so it is data-center revenue, not AI-accelerator revenue alone. The table in p04 gives $6,496 million."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The increase was primarily due to higher employee-related costs due to an increase in headcount to support increased investment in AI.",
+   "passage": "p06",
+   "confidence": 0.8,
+   "notes": "Attributes the $867 million R&D increase to AI headcount in words only. No AI amount is stated. Total R&D of $5.9 billion appears in the preceding sentence, which does not mention AI. The year is implied as 2023 by context, not stated in this sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.1,
+  "input_tokens": 6648,
+  "output_tokens": 1079,
+  "attempts": 1,
+  "task_sha": "01395b5409c21ecc"
+ }
+}

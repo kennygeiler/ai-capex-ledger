@@ -1,0 +1,73 @@
+{
+ "accession": "AMD|earnings_release|2026-06-27|f351ec77",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 6700000000,
+   "amount_high": 6700000000,
+   "quote": "Data Center segment revenue was $6.7 billion, up 107% year-over-year, driven by strong demand for AMD EPYC\u2122 processors and AMD Instinct\u2122 GPUs.",
+   "passage": "p03",
+   "confidence": 0.9,
+   "notes": "Quarterly figure (Q2 fiscal 2026), not full-year; the table in p22 gives $6,718 million for the same period."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.58,
+   "quote": "\u201cRevenue increased 50% year-over-year to a record $11.5 billion, driven by continued strength in our Data Center business, which represented 58% of company revenue in the quarter,\u201d said Jean Hu, AMD executive vice president, chief financial officer and treasurer.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "Share of Q2 fiscal 2026 revenue, not full-year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 11500000000,
+   "amount_high": 11500000000,
+   "quote": "\u201cRevenue increased 50% year-over-year to a record $11.5 billion, driven by continued strength in our Data Center business, which represented 58% of company revenue in the quarter,\u201d said Jean Hu, AMD executive vice president, chief financial officer and treasurer.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "Total company revenue for Q2 fiscal 2026, with Data Center named as the driver; not the AI part."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We expect Data Center sales to accelerate in the second half of 2026, driving stronger overall revenue growth and continued earnings expansion.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "Outlook for the second half of fiscal 2026; no amount stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "operating expenses are reported only as totals (p20, p21, p23); no sentence quantifies or attributes them to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.2,
+  "input_tokens": 14719,
+  "output_tokens": 1950,
+  "attempts": 1,
+  "task_sha": "f999706e2cb76946"
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "accession": "AMD|earnings_release|2022-03-26|dddceb43",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Pensando acquisition",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Pensando",
+   "amount_low": 1900000000,
+   "amount_high": 1900000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "AMD announced a definitive agreement to acquire Pensando for approximately $1.9 billion before working capital and other adjustments.",
+   "passage": "p01",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.8,
+  "input_tokens": 5191,
+  "output_tokens": 525,
+  "attempts": 1,
+  "task_sha": "e0793e3a04f6665f"
+ }
+}

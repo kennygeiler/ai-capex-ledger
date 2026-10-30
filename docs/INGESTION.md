@@ -311,3 +311,9 @@ What each company cost. `ledger run` prints this, and each validation page shows
     something wider. Fix (1 Nov 2026): the concept is off the list; a fact with no purchase-obligation tag is
     `no_reference`, which is the truth. Found by the Proof board: the last two open items on the proven set.
 
+72. **An amendment without financial statements.** AMD's 10-K/A of 27 Dec 2025 has three tables and no income or
+    cash-flow statement: a Part III amendment (directors, compensation). The Proof board counted it as a filing whose
+    statements were not located. Fix (1 Nov 2026): `proof.amendment_without_statements` (the form ends in /A, under
+    ten tables, no cash-flow statement) explains it as such; the locator had taken a compensation table in it for an
+    income statement, so the income match cannot be the test. Found by widening the proven set to AMD.
+

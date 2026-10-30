@@ -1,0 +1,70 @@
+{
+ "accession": "AMD|earnings_release|2024-12-28|b30dad57",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 5000000000,
+   "amount_high": 5000000000,
+   "quote": "Data Center segment annual revenue nearly doubled as EPYC processor adoption accelerated and we delivered more than $5 billion of AMD Instinct accelerator revenue.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "\"More than $5 billion\" is recorded as a floor of $5 billion. This is AMD Instinct (AI accelerator) revenue. The sentence names no year; the preceding sentence refers to 2024."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 12600000000,
+   "amount_high": 12600000000,
+   "quote": "For 2024, Data Center segment revenue was a record $12.6 billion, an increase of 94% compared to the prior year, driven by growth in both AMD Instinct and EPYC processors.",
+   "passage": "p04",
+   "confidence": 1.0,
+   "notes": "This is full-year Data Center segment revenue. It includes EPYC server CPUs as well as Instinct AI accelerators."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3900000000,
+   "amount_high": 3900000000,
+   "quote": "Data Center segment revenue in the quarter was a record $3.9 billion, up 69% year-over-year primarily driven by the strong ramp of AMD Instinct\u2122 GPU shipments and growth in AMD EPYC\u2122 CPU sales.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "This is a QUARTERLY figure for Q4 of fiscal 2024, not annual revenue. Do not treat it as the fiscal-year amount; the annual figure is in p04."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "value creation,\u201d said AMD EVP, CFO and Treasurer Jean Hu.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "The quote is truncated because the code may require an exact substring. The full sentence is: \"We closed 2024 with a strong fourth quarter, ... accelerated earnings expansion while investing aggressively in AI and innovation to position us for long-term growth and value creation,\u201d said AMD EVP, CFO and Treasurer Jean Hu.\" The sentence does not say whether the AI investment is opex or capex; opex is inferred."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.3,
+  "input_tokens": 12337,
+  "output_tokens": 2007,
+  "attempts": 1,
+  "task_sha": "32e8728382c9425d"
+ }
+}

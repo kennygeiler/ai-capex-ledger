@@ -1,0 +1,61 @@
+{
+ "accession": "0000002488-23-000047",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "capex",
+   "table_id": "t0016",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | December 31,2022",
+   "cell_text": "(450)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 450000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0016",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | December 25,2021",
+   "cell_text": "(301)",
+   "period_end": "2021-12-25",
+   "months": 12,
+   "value": 301000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0016",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | December 26,2020",
+   "cell_text": "(294)",
+   "period_end": "2020-12-26",
+   "months": 12,
+   "value": 294000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "reason": "No consolidated income statement was provided. Table t0032 (Net revenue 4,612; one column '2022') is a partial table, probably a segment or acquired-business disclosure. Table t0033 (Net revenue 24,117 / 20,150, with net income of 2,311 / 8) does not reconcile with the cash-flow net income of 1,320 / 3,162, so it looks like a pro forma table for the Xilinx acquisition. Neither one is the company's reported total revenue."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "None of the provided tables has a cost of sales or cost of revenue line, and there are no component cost lines either."
+  },
+  {
+   "field": "operating_income",
+   "reason": "The only operating income line (t0032, 2,247) comes from a partial, non-consolidated table whose revenue of 4,612 is far below the company total. There is no consolidated operating income line in the provided tables."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.9,
+  "input_tokens": 5539,
+  "output_tokens": 1130,
+  "attempts": 1,
+  "task_sha": "b945bf40072aba93"
+ }
+}

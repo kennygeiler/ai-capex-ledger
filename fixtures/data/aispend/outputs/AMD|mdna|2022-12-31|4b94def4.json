@@ -1,0 +1,37 @@
+{
+ "accession": "AMD|mdna|2022-12-31|4b94def4",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 6000000000,
+   "amount_high": 6000000000,
+   "quote": "Data Center net revenue of $6 billion in 2022 increased by 64%, compared to net revenue of $3.7 billion in 2021.",
+   "passage": "p04",
+   "confidence": 0.9,
+   "notes": "Data Center segment revenue, rounded in the sentence; the segment table in p03 gives $6,043 million. The sentence attributes the growth mainly to EPYC server CPUs, not AI accelerators specifically."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p05 mentions higher Data Center operating expenses without linking them to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.0,
+  "input_tokens": 5926,
+  "output_tokens": 629,
+  "attempts": 1,
+  "task_sha": "9929bb30479454e8"
+ }
+}

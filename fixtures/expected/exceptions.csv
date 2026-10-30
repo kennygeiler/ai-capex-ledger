@@ -12,6 +12,8 @@ jump,warn,NVDA,capex,FY2025,,"capex moves 3.03× from FY2024 (1,069,000,000) to 
 outlier_vs_own_history,warn,APLD,capex,FY2022,,"capex ÷ revenue is 643.0% in FY2022, vs a median of 298.2% for the window",d3b0434b44516a0a
 outlier_vs_own_history,warn,APLD,capex,FY2024,,"capex ÷ revenue is 85.6% in FY2024, vs a median of 298.2% for the window",b2a5149f05b09414
 outlier_vs_own_history,warn,NVDA,capex,FY2023,,"capex ÷ revenue is 6.8% in FY2023, vs a median of 2.8% for the window",417bc03297d54445
+restated,info,AMD,cost_of_revenue,FY2024,2023-12-31..2024-12-28,"cost_of_revenue FY2024 2023-12-31..2024-12-28 differs between filings: 13,060,000,000 (0000002488-26-000018), 12,114,000,000 (0000002488-26-000021)",b343a72594a4b683
+restated,info,AMD,cost_of_revenue,FY2025,2024-12-29..2025-12-27,"cost_of_revenue FY2025 2024-12-29..2025-12-27 differs between filings: 17,487,000,000 (0000002488-26-000018), 16,456,000,000 (0000002488-26-000021)",92859bf1d1de1a99
 restated,info,APLD,capex,FY2022,2021-06-01..2022-05-31,"capex FY2022 2021-06-01..2022-05-31 differs between filings: 54,974,000 (0001144879-23-000176), 58,251,000 (0001628280-22-023816)",aba8a7d25f1f0e66
 restated,info,APLD,capex,FY2023,2022-06-01..2023-05-31,"capex FY2023 2022-06-01..2023-05-31 differs between filings: 128,721,000 (0001144879-23-000176), 131,278,000 (0001144879-24-000216), 131,278,000 (0001144879-25-000021)",449f081c14cdaeb0
 restated,info,APLD,cost_of_revenue,FY2024,2023-06-01..2024-05-31,"cost_of_revenue FY2024 2023-06-01..2024-05-31 differs between filings: 148,340,000 (0001144879-24-000216), 106,653,000 (0001144879-25-000021)",fc935617705b5964
@@ -20,6 +22,9 @@ restated,info,APLD,operating_income,FY2024,2023-06-01..2024-05-31,"operating_inc
 restated,info,APLD,operating_income,FY2025,2024-06-01..2025-05-31,"operating_income FY2025 2024-06-01..2025-05-31 differs between filings: -16,845,000 (0001144879-25-000021), -72,175,000 (0001144879-26-000048)",fd06cc1338a68a97
 restated,info,APLD,revenue,FY2024,2023-06-01..2024-05-31,"revenue FY2024 2023-06-01..2024-05-31 differs between filings: 165,575,000 (0001144879-24-000216), 136,618,000 (0001144879-25-000021), 165,575,000 (0001144879-26-000048)",256a0ad199baf0bc
 restated,info,APLD,revenue,FY2025,2024-06-01..2025-05-31,"revenue FY2025 2024-06-01..2025-05-31 differs between filings: 144,193,000 (0001144879-25-000021), 228,569,000 (0001144879-26-000048)",e85d3d3ba9e35f8a
+row_label_switch,warn,AMD,cost_of_revenue,,,cost_of_revenue is read from different rows across filings: 'total cost of sales' in 3 filing(s); 'cost of sales' in 2 filing(s),34636ac81b49794b
+row_label_switch,warn,AMD,operating_income,,,operating_income is read from different rows across filings: 'operating income' in 3 filing(s); 'total operating income' in 2 filing(s),7fd4879c3b2dbd89
+row_label_switch,warn,AMD,revenue,,,revenue is read from different rows across filings: 'net revenue' in 3 filing(s); 'total net revenue' in 2 filing(s),382713da15bc9f43
 row_label_switch,warn,APLD,capex,,,capex is read from different rows across filings: 'purchases of property and equipment and other assets' in 10 filing(s); 'purchases of property and equipment' in 2 filing(s),c1c581f741105e35
 row_label_switch,warn,APLD,revenue,,,revenue is read from different rows across filings: 'total revenue' in 8 filing(s); 'hosting revenue' in 4 filing(s),9fb4a9da4b23a341
 row_label_switch,warn,NVDA,operating_income,,,operating_income is read from different rows across filings: 'operating income' in 9 filing(s); 'income from operations' in 6 filing(s),ef6d7f410f6afb0c
