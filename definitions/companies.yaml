@@ -98,27 +98,13 @@ SLNH:
     by: Kenny Geiler
     at: 2026-10-31
 
-TMUS:
-  cost_lines:
-    lines: [Cost of services, exclusive of depreciation and amortization shown separately below, Cost of equipment sales, exclusive of depreciation and amortization shown separately below]
-    why: T-Mobile reports cost of services and cost of equipment sales, each excluding depreciation, with no total.
-    by: Kenny Geiler
-    at: 2026-10-31
-
-T:
-  cost_lines:
-    lines: [Equipment, Other cost of revenues (exclusive of depreciationand amortization shown separately below), Broadcast, programming and operations]
-    why: AT&T reports equipment cost, other cost of revenues and (until 2022) broadcast and programming cost with no total; the filing's own label runs 'depreciationand' together.
-    by: Kenny Geiler
-    at: 2026-10-31
-
 VST:
   opex:
     why: Vistra's XBRL OperatingExpenses tag is total operating costs including fuel and purchased power; our opex excludes those lines, so the two differ by them while revenue and operating income agree.
     by: Kenny Geiler
     at: 2026-10-31
   cost_lines:
-    lines: [Fuel, purchased power costs and delivery fees, "Fuel, purchased power costs, and delivery fees", Operating costs]
+    lines: ["Fuel, purchased power costs and delivery fees", "Fuel, purchased power costs, and delivery fees", Operating costs]
     why: Vistra reports fuel and purchased power (the label gains a comma in later filings) and operating costs with no cost-of-revenue total.
     by: Kenny Geiler
     at: 2026-10-31
@@ -147,3 +133,40 @@ TLN:
     why: Talen's XBRL OperatingExpenses tag is total operating expenses including fuel and purchased power; our opex excludes those cost lines, so the two differ by them while revenue and operating income agree.
     by: Kenny Geiler
     at: 2026-10-31
+
+BTBT:
+  cost_lines:
+    lines: [Cloud services, Colocation services, Digital asset mining, ETH staking]
+    why: Bit Digital reports cost of revenue by business line (cloud, colocation, mining, staking) with no total.
+    by: Kenny Geiler
+    at: 2026-10-31
+
+GLXY:
+  cost_lines:
+    lines: [Transaction expenses]
+    why: Galaxy's one cost-of-revenue line is transaction expenses; the rest of its costs are operating expenses.
+    by: Kenny Geiler
+    at: 2026-10-31
+
+T:
+  cost_lines:
+    lines: [Equipment, "Other cost of revenues (exclusive of depreciationand amortization shown separately below)", "Broadcast, programming and operations"]
+    why: AT&T reports equipment cost, other cost of revenues and (until 2022) broadcast and programming cost with no total; the filing's own label runs "depreciationand" together.
+    by: Kenny Geiler
+    at: 2026-10-31
+  opex:
+    why: AT&T's XBRL OperatingExpenses tag is total operating expenses including cost of revenues and depreciation; our opex excludes the cost lines, so the two differ by them while revenue and operating income agree.
+    by: Kenny Geiler
+    at: 2026-10-31
+
+TMUS:
+  cost_lines:
+    lines: ["Cost of services, exclusive of depreciation and amortization shown separately below", "Cost of equipment sales, exclusive of depreciation and amortization shown separately below"]
+    why: T-Mobile reports cost of services and cost of equipment sales, each excluding depreciation, with no total.
+    by: Kenny Geiler
+    at: 2026-10-31
+  opex:
+    why: T-Mobile's XBRL OperatingExpenses tag is total operating expenses including cost of services and equipment; our opex excludes those lines, so the two differ by them while revenue and operating income agree.
+    by: Kenny Geiler
+    at: 2026-10-31
+
