@@ -39,6 +39,7 @@ Not tracked, rebuilt by `ledger run` (needs the network and about 30 minutes for
 uv sync                                                     # Python 3.12, DuckDB, edgartools, pypdf, playwright
 echo 'SEC_USER_AGENT="Your Name you@example.com"' > .env     # the SEC requires a contact; never commit it
 echo 'DATABASE_URL="postgresql://…"' >> .env                 # production Postgres, only if you will publish releases
+echo 'DATABASE_READONLY_URL="postgresql://…"' >> .env        # the arctal_reader string, SELECT only; the one to hand a consumer
 claude                                                      # then /login: the agents run on a Claude subscription, headless
 export LEDGER_CLAUDE="$(which claude)"                      # the claude binary the pipeline should use
 uv run python -m unittest -q                                # 114 tests, offline, seconds
