@@ -45,3 +45,12 @@ class Ordinal(unittest.TestCase):
     def test_version_order(self):
         self.assertLess(publish.ordinal("v1.3.0"), publish.ordinal("v1.4.0"))
         self.assertLess(publish.ordinal("v1.10.0"), publish.ordinal("v2.0.0"))
+
+
+class Adds(unittest.TestCase):
+    def test_every_column_gets_an_add_if_missing(self):
+        from ledger.publish import adds
+        stmts = adds("ledger_attribution", ["ticker", "ai_share", "status"])
+        self.assertEqual(stmts, ['ALTER TABLE ledger_attribution ADD COLUMN IF NOT EXISTS "ticker" text',
+                                 'ALTER TABLE ledger_attribution ADD COLUMN IF NOT EXISTS "ai_share" numeric',
+                                 'ALTER TABLE ledger_attribution ADD COLUMN IF NOT EXISTS "status" text'])

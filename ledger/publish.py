@@ -65,6 +65,12 @@ def ddl(name: str, header: list[str]) -> str:
     return f'CREATE TABLE IF NOT EXISTS {name} (release text NOT NULL, {cols})'
 
 
+def adds(name: str, header: list[str]) -> list[str]:
+    """One ALTER per column, so a release with a new column (v1.6.0 added status and flag) loads into a table an older
+    release created; a column that exists is left alone, and older releases' rows carry NULL in the new one."""
+    return [f'ALTER TABLE {name} ADD COLUMN IF NOT EXISTS "{c}" {t}' for c, t in columns(header)]
+
+
 RELEASES_DDL = """CREATE TABLE IF NOT EXISTS ledger_releases (
   version text PRIMARY KEY, ordinal bigint NOT NULL, hash text NOT NULL, stage integer, prompt text, parser text, model text,
   signed_by text NOT NULL, signed_at timestamptz NOT NULL, published_at timestamptz NOT NULL, rows jsonb NOT NULL)"""
@@ -98,6 +104,8 @@ def publish(version: str, url: str | None = None) -> dict:
                     continue  # an older release without this list
                 header, body = rows(d / f"{stem}.csv")
                 con.execute(ddl(table, header))
+                for stmt in adds(table, header):
+                    con.execute(stmt)
                 con.execute(f"DELETE FROM {table} WHERE release = %s", (version,))
                 cols = ", ".join(f'"{c}"' for c in header)
                 with con.cursor().copy(f"COPY {table} (release, {cols}) FROM STDIN") as cp:
