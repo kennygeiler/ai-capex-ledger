@@ -263,3 +263,22 @@ Missing for a clean handoff:
 Still open from the list: the data fixes (13), which need agent reruns; a wide export; a data dictionary endpoint;
 a one-click override for a unit error.
 
+## Item 13, the data (31 Oct, afternoon): two of the Monday diagnoses were wrong
+
+- **Tesla** was not a misread. The quote is "AI infrastructure capex of $1.0B in Q1": a real AI figure for one quarter,
+  used by the attributor as the year's actual and called a lower bound. The Reconcile row showed the quote cut at 110
+  characters, which hid the words "AI infrastructure capex"; a fresh analyst reads what is shown. Fix at the cause:
+  the attributor now rejects a part-year stated amount as a year's actual (type 68) and the quote is no longer cut.
+- **Lumentum** was not a regression. The stricter component_supplier@v3 says Cloud & Networking includes telecom and
+  is not an AI line, so words-only is the thesis's answer; the older segment amounts in v1.5.0 were the looser v1.
+  The three Fix decisions are superseded by Explain, and the bulk-caught finding by Accept, all under "Replication
+  run (Claude), corrected".
+- **AMD**: chip_seller@v4 says one method per company series; a one-year stated Instinct figure goes in the basis,
+  the Data Center segment stays the series.
+- **Micron**: component_supplier@v4 says no predecessor segment before CMBU existed; FY2022 CNBU is not an AI line.
+- **Equinix**: the $15 billion xScale joint venture is a program, not a year's guidance; `plans` now drops outlook
+  statements with program words (type 69); the projects list keeps it.
+- **Amazon**: hyperscaler@v5 lets FY2024 and earlier use the wider "Equipment" category at confidence ≤ 0.35 (type 70),
+  so the series has history, the way Alphabet's is handled before its rename.
+- **Seen on the way:** a company whose attribution run fails (every attempt rejected) is loaded with no rows at all, so a
+  guard added in code without the matching words in the thesis empties the company. Guards and theses move together.

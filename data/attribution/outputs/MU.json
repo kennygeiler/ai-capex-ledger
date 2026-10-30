@@ -1,39 +1,23 @@
 {
  "ticker": "MU",
  "prompt_version": "attribution@v2",
- "model": "component_supplier@v3",
+ "model": "component_supplier@v4",
  "rows": [
   {
    "field": "revenue",
-   "period": "FY2026",
+   "period": "FY2023",
    "kind": "actual",
    "method": "segment",
-   "ai_amount": 43085000000,
+   "ai_amount": 1872000000,
    "ai_share": null,
    "inputs": [
     {
-     "id": "fact:MU|segment_revenue|CMBU|FY2026",
-     "value": 43085000000
+     "id": "fact:MU|segment_revenue|CMBU|FY2023",
+     "value": 1872000000
     }
    ],
-   "basis": "Revenue of the Cloud Memory Business Unit (hyperscale cloud memory and all HBM), the AI line. Excluded: CDBU $37.592bn (data center, but it includes enterprise storage and non-AI DRAM), MCBU and AEBU. The 10-K's ~60% data-center share is a market share, not an AI share. The $5.687bn CDBU statement is a single quarter.",
-   "confidence": 0.6
-  },
-  {
-   "field": "revenue",
-   "period": "FY2025",
-   "kind": "actual",
-   "method": "segment",
-   "ai_amount": 13524000000,
-   "ai_share": null,
-   "inputs": [
-    {
-     "id": "fact:MU|segment_revenue|CMBU|FY2025",
-     "value": 13524000000
-    }
-   ],
-   "basis": "CMBU revenue, up 257% on 'accelerating AI demand in cloud server markets for HBM' (MD&A). CDBU $7.229bn is excluded. The '>50% data center' statement is one quarter's data-center mix, not an AI share.",
-   "confidence": 0.6
+   "basis": "Cloud Memory Business Unit revenue (hyperscale cloud memory and all HBM), recast for the year the segment was created. CDBU's 2.124bn is excluded because it includes enterprise storage and non-AI DRAM. CMBU in fiscal 2023 is mostly pre-HBM-ramp cloud memory, so it overstates AI. No total revenue value is in the pack, so no share is given.",
+   "confidence": 0.45
   },
   {
    "field": "revenue",
@@ -48,51 +32,40 @@
      "value": 3792000000
     }
    ],
-   "basis": "CMBU revenue as recast to the fiscal-2025 segment structure. The fact has no XBRL reference. The reported FY2024 segment was CNBU ($9.513bn, which includes client and graphics), and it is not used.",
-   "confidence": 0.45
+   "basis": "CMBU revenue, the cloud and HBM line, recast to the fiscal 2025 segments. CDBU's 4.984bn is excluded; the releases say only in words that AI drove data center and HBM growth. No total revenue value is in the pack.",
+   "confidence": 0.55
   },
   {
    "field": "revenue",
-   "period": "FY2023",
+   "period": "FY2025",
    "kind": "actual",
    "method": "segment",
-   "ai_amount": 1872000000,
+   "ai_amount": 13524000000,
    "ai_share": null,
    "inputs": [
     {
-     "id": "fact:MU|segment_revenue|CMBU|FY2023",
-     "value": 1872000000
+     "id": "fact:MU|segment_revenue|CMBU|FY2025",
+     "value": 13524000000
     }
    ],
-   "basis": "CMBU revenue as recast to the fiscal-2025 segment structure. The fact has no XBRL reference. The reported FY2023 CNBU ($5.71bn) included client and graphics and is not used.",
-   "confidence": 0.4
+   "basis": "CMBU revenue, which the MD&A says rose 257% on AI demand for HBM, high-capacity DIMMs and LP server DRAM. CDBU's 7.229bn is excluded, and the stated 'data center >50%' is a quarterly data-center share, not an AI share. No total revenue value is in the pack.",
+   "confidence": 0.6
   },
   {
    "field": "revenue",
-   "period": "FY2022",
-   "kind": "actual",
-   "method": "segment",
-   "ai_amount": 13693000000,
-   "ai_share": null,
-   "inputs": [
-    {
-     "id": "fact:MU|segment_revenue|CNBU|FY2022",
-     "value": 13693000000
-    }
-   ],
-   "basis": "Compute and Networking BU revenue, the only data-center-bearing segment before the 2025 recast. It includes client PC and graphics DRAM, so it overstates AI exposure heavily and is not comparable to CMBU.",
-   "confidence": 0.2
-  },
-  {
-   "field": "capex",
    "period": "FY2026",
    "kind": "actual",
-   "method": "qualitative",
-   "ai_amount": null,
+   "method": "segment",
+   "ai_amount": 43085000000,
    "ai_share": null,
-   "inputs": [],
-   "basis": "Micron says it is 'investing in our global manufacturing footprint to support [customers'] growing demand' in 'the AI era'. That is the whole capex ($30.712bn gross), with no HBM or AI share stated, so no amount is attributed.",
-   "confidence": 0.4
+   "inputs": [
+    {
+     "id": "fact:MU|segment_revenue|CMBU|FY2026",
+     "value": 43085000000
+    }
+   ],
+   "basis": "CMBU revenue, the cloud and HBM line. CDBU's 37.592bn is excluded; the 10-K's ~60% data-center share is not an AI share, and there is no HBM revenue figure. The FY2026-tagged MD&A quotes (+257%/+45%) match the FY2025 text, not FY2026's segment growth.",
+   "confidence": 0.6
   },
   {
    "field": "capex",
@@ -102,7 +75,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The May 2025 release ties 'disciplined investments' to 'growing AI-driven memory demand'. That is the total capex ($15.857bn), with no AI or HBM split stated.",
+   "basis": "Micron said it is making 'disciplined investments ... to satisfy growing AI-driven memory demand' but gave no HBM or AI share of the 15.857bn capex. The seller-side signal is the 13.524bn of CMBU revenue.",
    "confidence": 0.3
   },
   {
@@ -113,45 +86,68 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The outlook statement says investments will 'satisfy growing AI-driven memory demand'. It gives no amount and no AI share.",
+   "basis": "The May 2025 release frames fiscal 2025 investment as meant to 'satisfy growing AI-driven memory demand', with no amount or share.",
    "confidence": 0.3
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Micron is 'investing in our global manufacturing footprint to support' customers' AI-era memory demand. It states no HBM or AI share of the 30.712bn gross capex, so the total is the whole, not the AI part. The seller-side signal is the 43.085bn of CMBU revenue.",
+   "confidence": 0.4
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "period": "FY2024",
-   "reason": "no statement links FY2024 capex to AI and no HBM/AI share is given; no PP&E category is AI-specific"
+   "period": "FY2022",
+   "reason": "no statement ties capex to AI and no HBM/AI share of capex is stated"
   },
   {
    "field": "capex",
    "period": "FY2023",
-   "reason": "no statement links FY2023 capex to AI and no AI share is given"
+   "reason": "no statement ties capex to AI and no HBM/AI share of capex is stated"
   },
   {
    "field": "capex",
-   "period": "FY2022",
-   "reason": "no statement links FY2022 capex to AI and no AI share is given"
+   "period": "FY2024",
+   "reason": "no statement ties capex to AI and no HBM/AI share of capex is stated"
   },
   {
    "field": "capex",
-   "reason": "the FY2027 outlook (~$11.5bn Q1, ~$25bn H1) is in the thesis but not in the pack as a statement, so no outlook row is made"
+   "period": "FY2027",
+   "reason": "the fiscal 2027 guidance (~$11.5bn Q1, ~$25bn H1) is in the thesis but not in the pack as an outlook statement, and it has no AI share"
   },
   {
    "field": "opex",
-   "reason": "no opex values, segment cost lines or statements attributing operating expenses to AI in the pack for any year"
+   "reason": "no opex values, segment cost lines or statements attributing operating expenses to AI in the pack"
   },
   {
    "field": "revenue",
-   "reason": "no total revenue value in the pack, so ai_share cannot be computed; no HBM revenue figure is stated in any year"
+   "period": "FY2022",
+   "reason": "pre-CMBU segments only; Compute and Networking (CNBU) includes client and graphics and is not an AI line, and there is no AI statement for the year"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2021",
+   "reason": "pre-CMBU segments only; CNBU is not an AI line"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2020",
+   "reason": "pre-CMBU segments only; CNBU is not an AI line"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 24.5,
-  "input_tokens": 21145,
-  "output_tokens": 3109,
+  "seconds": 29.8,
+  "input_tokens": 21183,
+  "output_tokens": 3599,
   "attempts": 1,
-  "task_sha": "9cbc1cc9cf0568a8"
+  "task_sha": "4c61340d01c493ec"
  }
 }

@@ -282,3 +282,25 @@ What each company cost. `ledger run` prints this, and each validation page shows
 - **One question per cause (M3.1):** XOM's revenue definition is one judgement shown as four items. Cost lines already ask once per company; `xbrl_reconcile` should too when every year of a field disagrees by the same kind of gap.
 - **APLD opex FY2023:** restated with no explanatory sentence found by the cue list. Agrees with XBRL, so not blocking.
 - **First filings:** a wrong-row misread is caught by comparing filings, so a company's first 10-K is less protected.
+
+68. **A quarter's stated amount used as the year's actual.** Tesla's Q1 2024 release: "AI infrastructure capex of $1.0B in Q1".
+    The statement reader tagged it an explicit AI amount for FY2024 (right: it is one), and the attributor used it as the
+    year's `stated_amount` actual, calling it a lower bound in `basis`. A lower bound is not the year. Fix (31 Oct 2026):
+    `attribution._check_arithmetic` rejects a `stated_amount` actual whose statement names a quarter, a half or N months;
+    the attributor must answer `qualitative` and name the part-year figure. The code guard alone made the run fail
+    (the attributor kept answering what other@v3 told it to, twice, and a failed run leaves the company with no
+    attribution rows), so other@v4 says the same rule in words. A `stated_sum` method (type 42) is still the right
+    long-term answer. Found by the replication run (`docs/REPLICATION.md`); the UI's truncated quote had hidden
+    the words "AI infrastructure capex", so the first diagnosis ("misread") was wrong.
+69. **A multi-year program read as a year's guidance.** Equinix's release: "a greater than $15 billion joint venture,
+    expected to nearly triple the capital invested in the xScale portfolio once completed", tagged outlook, explicit
+    amount, scope total, FY2025. `plans` compared it with FY2025 capex of $4.3B and showed a −$10.7B gap. Fix:
+    `plans.program_words` drops an outlook statement whose quote names a joint venture, "once completed", "over the next",
+    "through 20XX", "multi-year", "cumulative" or "program"; the projects reader already carries it as a project.
+70. **A PP&E category renamed with no restated comparative.** Amazon's FY2025 10-K splits "Equipment" into "Servers and
+    networking equipment", "Heavy equipment" and "Other equipment" for 2025 and 2024 only; the FY2024 10-K shows
+    "Equipment" for 2024 and 2023. So the server category's growth exists for FY2025 only, and Amazon's AI capex series
+    had one year. Fix: hyperscaler thesis v5 lets the attributor use the growth of the wider "Equipment" category for
+    FY2024 and earlier at confidence ≤ 0.35, saying it includes heavy and other equipment, the way Alphabet's
+    "Information technology assets" is used before its rename.
+

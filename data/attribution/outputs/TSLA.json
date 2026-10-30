@@ -1,7 +1,7 @@
 {
  "ticker": "TSLA",
  "prompt_version": "attribution@v2",
- "model": "other@v3",
+ "model": "other@v4",
  "rows": [
   {
    "field": "capex",
@@ -11,23 +11,18 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "Q3 2023 release says Tesla more than doubled its AI training compute for its dataset and Optimus; no AI capex amount is stated against FY2023 capex of $8.899B.",
-   "confidence": 0.4
+   "basis": "Q3 2023 release says Tesla 'more than doubled the size of our AI training compute' for its dataset and Optimus; no AI capex amount for the year is stated. Total FY2023 capex is $8.899B, which is not the AI part.",
+   "confidence": 0.5
   },
   {
    "field": "capex",
    "period": "FY2024",
    "kind": "actual",
-   "method": "stated_amount",
-   "ai_amount": 1000000000,
-   "ai_share": 0.0882,
-   "inputs": [
-    {
-     "id": "stmt:TSLA|earnings_release|2024-03-31|abd54a2f|capex|FY2024|actual|0",
-     "value": 1000000000
-    }
-   ],
-   "basis": "Q1 2024 release states AI infrastructure capex of $1.0B in Q1 only; $1.0B \u00f7 FY2024 capex $11.342B. This is a lower bound: Q2 release separately states $0.6B (H1 $1.6B), and no AI amount is stated for H2 or the full year.",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Only part-year AI figures are stated: AI infrastructure capex of $1.0B in Q1 and $0.6B in Q2 2024; no full-year AI amount. The 10-K says the $11.34B total was 'mainly for AI-related capital expenditures, global factory expansion and machinery', which is the whole, not the AI part. The PP&E note's 'AI infrastructure' category is not used because the model forbids PP&E estimates.",
    "confidence": 0.5
   },
   {
@@ -38,8 +33,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "10-K says FY2025 capex of $8.53B was mainly for global AI and operational infrastructure and factory expansion; releases cite 16k H200 GPUs added (Cortex at 67k H100 equivalents) and Cortex 2 under construction. No AI amount stated.",
-   "confidence": 0.4
+   "basis": "Releases name AI training compute (16k H200 added, Cortex at 67k H100 equivalents; Cortex 2 under construction at Giga Texas). The 10-K says the $8.53B total was 'mainly for global AI and operational infrastructure and factory expansion'. No AI amount is stated, and the PP&E 'AI infrastructure' category is not used under the model.",
+   "confidence": 0.5
   },
   {
    "field": "capex",
@@ -49,7 +44,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "Q1 2024 release says Tesla will continue to increase core AI infrastructure capacity; the 10-K guide of over $11B for 2025 is a company total with no AI part.",
+   "basis": "The Q1 2024 release says Tesla will 'continue to increase our core AI infrastructure capacity'. The 10-K guide is total capex above $11B with no AI amount.",
    "confidence": 0.3
   },
   {
@@ -60,8 +55,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "FY2025 10-K guides 2026 capex in excess of $20B, driven by AI initiatives (compute infrastructure, data centers) among other uses; this is the company total, not the AI part. Release plans to more than double Texas onsite compute in H1 2026. No AI amount; later guidance changes are not broken out by program.",
-   "confidence": 0.35
+   "basis": "The FY2025 10-K guides total capex 'in excess of $20 billion in 2026, driven by our AI initiatives', and the release plans to more than double onsite Texas compute in H1 2026. The total is the whole, not the AI part. The later cut (over $25B to about $20B) is not broken out by program.",
+   "confidence": 0.4
   },
   {
    "field": "opex",
@@ -71,8 +66,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "Releases and 10-K attribute the opex increase partly to Cybertruck, AI and other R&D programs; no AI amount is stated against FY2023 opex of $8.769B.",
-   "confidence": 0.3
+   "basis": "Releases and the 10-K say opex rose 'driven by Cybertruck, AI and other R&D projects'. No AI opex amount is stated.",
+   "confidence": 0.4
   },
   {
    "field": "opex",
@@ -82,8 +77,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "10-K says the opex increases were primarily driven by AI program costs; releases say the same quarterly. No AI amount is stated against FY2024 opex of $10.374B.",
-   "confidence": 0.35
+   "basis": "The 10-K says opex increases were 'primarily driven by additional costs year over year related to AI programs', and Q2 2024 says 'largely driven by AI projects'. No AI opex amount is stated.",
+   "confidence": 0.4
   },
   {
    "field": "opex",
@@ -93,8 +88,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "10-K says R&D rose $1.87B (41%), mainly from AI and other programs plus $500M more SBC; releases cite AI and other R&D projects. The AI part is not separated from the $12.739B opex.",
-   "confidence": 0.35
+   "basis": "The 10-K says R&D rose $1.87B (41%) 'primarily due to increases in costs related to AI and other programs' plus $500M of SBC, and releases repeat 'AI and other R&D projects'. AI is not separated from the other programs, so there is no AI amount.",
+   "confidence": 0.4
   },
   {
    "field": "revenue",
@@ -104,7 +99,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "Q3 2026 release says rising data center demand should keep driving demand for Tesla's products (energy storage context). This is words only, with no AI or data-center revenue amount or share.",
+   "basis": "The Q3 2026 release says 'We expect rising data center demand to continue driving demand for our products' (energy storage). This links revenue to data-center demand in words only, with no amount or share.",
    "confidence": 0.2
   }
  ],
@@ -112,21 +107,21 @@
   {
    "field": "capex",
    "period": "FY2022",
-   "reason": "no statement links FY2022 capex to AI"
+   "reason": "no statement links FY2022 capex to AI and no AI amount is stated"
   },
   {
    "field": "capex",
    "period": "FY2024",
-   "reason": "only Q1 ($1.0B) and Q2 ($0.6B) AI infrastructure capex are stated; no full-year AI capex amount; the 'AI infrastructure' PP&E category is not used because the model forbids PP&E estimates for this industry"
+   "reason": "outlook: the FY2023 10-K guide (above $10B) is total capex with no AI part named"
   },
   {
    "field": "capex",
-   "period": "FY2024",
-   "reason": "outlook: the 2024 guide of over $10B is a company total with no AI part"
+   "reason": "committed: finance lease liabilities ($223M at FY2025) are not identified as AI and no AI purchase commitments are in the pack"
   },
   {
    "field": "capex",
-   "reason": "finance lease liabilities are not stated as AI, so no commitment row"
+   "period": "FY2026",
+   "reason": "actual: AI-linked statements exist (onsite training infrastructure ramp), but FY2026 is not a released fiscal year in the pack's values"
   },
   {
    "field": "opex",
@@ -134,32 +129,37 @@
    "reason": "no statement links FY2022 opex to AI"
   },
   {
+   "field": "opex",
+   "period": "FY2026",
+   "reason": "actual: AI R&D is named in 2026 releases, but FY2026 is not a released fiscal year in the pack's values"
+  },
+  {
    "field": "revenue",
    "period": "FY2022",
-   "reason": "no AI segment; Automotive and Energy segments are not AI lines, and nothing links revenue to AI"
+   "reason": "Automotive and Energy segments are not AI lines and no AI revenue is stated"
   },
   {
    "field": "revenue",
    "period": "FY2023",
-   "reason": "no AI segment and no statement of AI revenue"
+   "reason": "Automotive and Energy segments are not AI lines and no AI revenue is stated"
   },
   {
    "field": "revenue",
    "period": "FY2024",
-   "reason": "no AI segment and no statement of AI revenue"
+   "reason": "Automotive and Energy segments are not AI lines and no AI revenue is stated"
   },
   {
    "field": "revenue",
    "period": "FY2025",
-   "reason": "no AI segment and no statement of AI revenue"
+   "reason": "Automotive and Energy segments are not AI lines and no AI revenue is stated"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 55.8,
-  "input_tokens": 39806,
-  "output_tokens": 6663,
-  "attempts": 2,
-  "task_sha": "793ee0e16e0a90be"
+  "seconds": 22.9,
+  "input_tokens": 19986,
+  "output_tokens": 2854,
+  "attempts": 1,
+  "task_sha": "bb96387e78f93600"
  }
 }

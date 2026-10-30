@@ -1,24 +1,24 @@
 {
  "n": 26,
- "with_estimate": 20,
- "agree": 13,
- "disagree": 7,
- "no_estimate": 6,
+ "with_estimate": 19,
+ "agree": 14,
+ "disagree": 5,
+ "no_estimate": 7,
  "agree_ci": [
-  0.433,
-  0.819
+  0.512,
+  0.882
  ],
  "overall": {
-  "n": 20,
-  "agree": 13,
+  "n": 19,
+  "agree": 14,
   "agree_ci": [
-   0.433,
-   0.819
+   0.512,
+   0.882
   ],
   "median_abs_error": 0.00031055900621118014,
   "iqr_abs_error": [
    0.0,
-   0.24
+   0.064
   ],
   "n_eq": 9
  },
@@ -36,32 +36,29 @@
    "n_eq": 1
   },
   "segment": {
-   "n": 7,
-   "agree": 5,
+   "n": 9,
+   "agree": 7,
    "agree_ci": [
-    0.359,
-    0.918
+    0.453,
+    0.937
    ],
-   "median_abs_error": 0.00031055900621118014,
+   "median_abs_error": 0.0003382063323738827,
    "iqr_abs_error": [
     0.0,
-    0.176
+    0.089
    ],
-   "n_eq": 5
+   "n_eq": 6
   },
   "stated_amount": {
-   "n": 5,
-   "agree": 3,
+   "n": 2,
+   "agree": 2,
    "agree_ci": [
-    0.231,
-    0.882
+    0.342,
+    1.0
    ],
-   "median_abs_error": 0.30158730158730157,
-   "iqr_abs_error": [
-    -0.151,
-    0.754
-   ],
-   "n_eq": 2
+   "median_abs_error": 0.0,
+   "iqr_abs_error": null,
+   "n_eq": 1
   },
   "stated_share": {
    "n": 1,
@@ -89,15 +86,15 @@
  "layers": {
   "chip_seller": {
    "n": 5,
-   "agree": 4,
+   "agree": 5,
    "agree_ci": [
-    0.376,
-    0.964
+    0.566,
+    1.0
    ],
    "median_abs_error": 0.00012152777777777777,
    "iqr_abs_error": [
     0.0,
-    0.603
+    0.002
    ],
    "n_eq": 3
   },
@@ -158,26 +155,15 @@
    "median_abs_error": 0.0,
    "iqr_abs_error": null,
    "n_eq": 1
-  },
-  "other": {
-   "n": 1,
-   "agree": 0,
-   "agree_ci": [
-    0.0,
-    0.793
-   ],
-   "median_abs_error": null,
-   "iqr_abs_error": null,
-   "n_eq": 0
   }
  },
  "fields": {
   "capex": {
-   "n": 8,
+   "n": 7,
    "agree": 3,
    "agree_ci": [
-    0.137,
-    0.694
+    0.158,
+    0.75
    ],
    "median_abs_error": 0.12683333333333344,
    "iqr_abs_error": null,
@@ -185,15 +171,15 @@
   },
   "revenue": {
    "n": 12,
-   "agree": 10,
+   "agree": 11,
    "agree_ci": [
-    0.552,
-    0.953
+    0.646,
+    0.985
    ],
    "median_abs_error": 0.00021604339199447894,
    "iqr_abs_error": [
     0.0,
-    0.264
+    0.001
    ],
    "n_eq": 8
   }
@@ -297,11 +283,11 @@
     "quote": "total AI-related capex, including infrastructure, is now more than $5 billion",
     "date": "2025-01-29"
    },
-   "method": "stated_amount",
+   "method": "qualitative",
    "confidence": 0.5,
-   "ours": 1000000000,
-   "outcome": "disagree",
-   "error": -0.8,
+   "ours": null,
+   "outcome": "no_estimate",
+   "error": null,
    "layer": "other"
   },
   {
@@ -360,11 +346,11 @@
     "quote": "For 2024, Data Center segment revenue was a record $12.6 billion, an increase of 94% compared to the prior year",
     "date": "2025-02-04"
    },
-   "method": "stated_amount",
-   "confidence": 0.8,
-   "ours": 5000000000,
-   "outcome": "disagree",
-   "error": -0.6031746031746031,
+   "method": "segment",
+   "confidence": 0.75,
+   "ours": 12579000000,
+   "outcome": "agree",
+   "error": -0.0016666666666666668,
    "layer": "chip_seller"
   },
   {
@@ -381,11 +367,11 @@
     "quote": "delivered more than $5 billion of AMD Instinct accelerator revenue",
     "date": "2025-02-04"
    },
-   "method": "stated_amount",
-   "confidence": 0.8,
-   "ours": 5000000000,
+   "method": "segment",
+   "confidence": 0.75,
+   "ours": 12579000000,
    "outcome": "agree",
-   "error": 0.0,
+   "error": 1.5158,
    "layer": "chip_seller"
   },
   {

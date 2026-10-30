@@ -37,26 +37,26 @@
    "usd": 125.58
   },
   "attribution": {
-   "calls": 417,
-   "input_tokens": 5954947.0,
-   "output_tokens": 1055761.0,
-   "seconds": 8681.3,
-   "attempts": 418,
-   "failed": 3,
-   "usd": 44.93
+   "calls": 422,
+   "input_tokens": 6036830.0,
+   "output_tokens": 1070800.0,
+   "seconds": 8803.0,
+   "attempts": 422,
+   "failed": 4,
+   "usd": 45.56
   }
  },
  "companies": [
   {
    "ticker": "AMD",
    "layer": "chip_seller",
-   "calls": 180,
-   "input_tokens": 1831503.0,
-   "output_tokens": 842491.0,
-   "seconds": 5761.7,
-   "attempts": 176,
+   "calls": 181,
+   "input_tokens": 1855752.0,
+   "output_tokens": 846315.0,
+   "seconds": 5792.4,
+   "attempts": 177,
    "failed": 4,
-   "usd": 24.18
+   "usd": 24.35
   },
   {
    "ticker": "CORZ",
@@ -182,13 +182,13 @@
   {
    "ticker": "TSLA",
    "layer": "other",
-   "calls": 236,
-   "input_tokens": 1112602.0,
-   "output_tokens": 227232.0,
-   "seconds": 2001.5,
-   "attempts": 237,
-   "failed": 1,
-   "usd": 8.99
+   "calls": 238,
+   "input_tokens": 1132588.0,
+   "output_tokens": 230086.0,
+   "seconds": 2024.4,
+   "attempts": 238,
+   "failed": 2,
+   "usd": 9.13
   },
   {
    "ticker": "EQIX",
@@ -237,13 +237,13 @@
   {
    "ticker": "MU",
    "layer": "component_supplier",
-   "calls": 168,
-   "input_tokens": 1052473.0,
-   "output_tokens": 176849.0,
-   "seconds": 1595.2,
-   "attempts": 168,
+   "calls": 169,
+   "input_tokens": 1073656.0,
+   "output_tokens": 180448.0,
+   "seconds": 1625.0,
+   "attempts": 169,
    "failed": 0,
-   "usd": 7.75
+   "usd": 7.9
   },
   {
    "ticker": "RIOT",
@@ -312,6 +312,17 @@
    "usd": 6.54
   },
   {
+   "ticker": "AMZN",
+   "layer": "hyperscaler",
+   "calls": 156,
+   "input_tokens": 883170.0,
+   "output_tokens": 145165.0,
+   "seconds": 1339.6,
+   "attempts": 156,
+   "failed": 0,
+   "usd": 6.44
+  },
+  {
    "ticker": "AVGO",
    "layer": "chip_seller",
    "calls": 137,
@@ -354,17 +365,6 @@
    "attempts": 115,
    "failed": 0,
    "usd": 6.29
-  },
-  {
-   "ticker": "AMZN",
-   "layer": "hyperscaler",
-   "calls": 155,
-   "input_tokens": 866705.0,
-   "output_tokens": 140403.0,
-   "seconds": 1301.3,
-   "attempts": 155,
-   "failed": 0,
-   "usd": 6.27
   },
   {
    "ticker": "EME",
@@ -1116,15 +1116,15 @@
   }
  ],
  "total": {
-  "calls": 12315,
-  "input_tokens": 73868963.0,
-  "output_tokens": 12046123.0,
-  "seconds": 108805.0,
-  "attempts": 12488,
-  "failed": 71,
-  "usd": 536.38
+  "calls": 12320,
+  "input_tokens": 73950846.0,
+  "output_tokens": 12061162.0,
+  "seconds": 108926.7,
+  "attempts": 12492,
+  "failed": 72,
+  "usd": 537.01
  },
- "per_company_usd": 5.53,
+ "per_company_usd": 5.54,
  "models": [
   "claude-opus-5-5"
  ],

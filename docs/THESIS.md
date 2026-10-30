@@ -67,3 +67,17 @@ Each sourced thesis (ticket C2) was run against its layer with `attribution --mo
 | neocloud@v3 | neocloud@v1 | 1 | 0 | 3 | 0 | 1/2 | 2/2 |
 | other@v3 | other@v1 | 12 | 1 | 33 | 56 | 0/1 | 0/1 |
 | power@v3 | power@v1 | 4 | 2 | 6 | 7 | 0/0 | 0/0 |
+
+## Dry runs, second round (31 Oct 2026, from the replication run)
+
+Ticker-scoped: each thesis was dry-run on the one company it was changed for, then switched on for its layer. The reference column is `gold/ai_capex.yaml` agreement for that company.
+
+| Thesis | replaced | company | rows changed | new | removed | reference before | after | what changed |
+|---|---|---|---|---|---|---|---|---|
+| chip_seller@v4 | chip_seller@v3 | AMD | 2 | 0 | 0 | 1/2 | 2/2 | one method per series: FY2024 revenue is the Data Center segment ($12,579M), the Instinct floor goes in the basis |
+| component_supplier@v4 | component_supplier@v3 | MU | 0 | 4 | 1 | 0/1 | 0/1 | FY2022 CNBU revenue row removed (no cloud segment before CMBU); capex rows FY2022 to FY2024 added as qualitative |
+| hyperscaler@v5 | hyperscaler@v4 | AMZN | 0 | 3 | 0 | 1/1 | 1/1 | FY2022 to FY2024 AI capex from the wider Equipment category at ≤ 0.35 |
+| other@v4 | other@v3 | TSLA | 0 | 9 | 0 | 0/1 | 0/1 (no estimate, honestly) | a part-year stated amount is not the year's actual: FY2024 is qualitative with the Q1 $1.0B and Q2 $0.6B in the basis |
+
+Not a thesis change, code: a part-year stated amount is no longer a year's actual (type 68, Tesla), and a multi-year program is no longer a year's plan (type 69, Equinix).
+

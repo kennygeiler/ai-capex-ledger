@@ -145,12 +145,12 @@
   },
   "prompt": "attribution@v2",
   "models": {
-   "hyperscaler": "hyperscaler@v4",
+   "hyperscaler": "hyperscaler@v5",
    "neocloud": "neocloud@v3",
    "miner_to_hpc": "miner_to_hpc@v3",
-   "chip_seller": "chip_seller@v3",
-   "component_supplier": "component_supplier@v3",
-   "other": "other@v3",
+   "chip_seller": "chip_seller@v4",
+   "component_supplier": "component_supplier@v4",
+   "other": "other@v4",
    "chip_equipment": "chip_equipment@v3",
    "datacenter_build": "datacenter_build@v3",
    "datacenter_landlord": "datacenter_landlord@v3",
@@ -347,6 +347,46 @@
     "at": "2026-10-30T04:17:29+00:00",
     "by": "Kenny Geiler",
     "change": "switched to attribution@v2"
+   },
+   {
+    "at": "2026-10-30T16:33:50+00:00",
+    "by": "Claude Fable 5.1, from the replication run, for Kenny Geiler to confirm",
+    "change": "chip_seller@v4 saved, not in use: One method per company series: a one-year stated figure no longer switches AMD's AI revenue from the Data Center segment to Instinct (replication run, docs/REPLICATION.md)."
+   },
+   {
+    "at": "2026-10-30T16:33:50+00:00",
+    "by": "Claude Fable 5.1, from the replication run, for Kenny Geiler to confirm",
+    "change": "component_supplier@v4 saved, not in use: Micron: no predecessor segment before CMBU existed; FY2022 CNBU ($13.7B, client and graphics included) is not an AI revenue line (replication run)."
+   },
+   {
+    "at": "2026-10-30T16:33:50+00:00",
+    "by": "Claude Fable 5.1, from the replication run, for Kenny Geiler to confirm",
+    "change": "hyperscaler@v5 saved, not in use: Amazon: Equipment growth for FY2024 and earlier at confidence \u2264 0.35, so the series has history (type 70, replication run)."
+   },
+   {
+    "at": "2026-10-30T16:39:51+00:00",
+    "by": "Claude Fable 5.1, after ticker-scoped dry runs, for Kenny Geiler to confirm",
+    "change": "chip_seller: switched to chip_seller@v4"
+   },
+   {
+    "at": "2026-10-30T16:39:51+00:00",
+    "by": "Claude Fable 5.1, after ticker-scoped dry runs, for Kenny Geiler to confirm",
+    "change": "component_supplier: switched to component_supplier@v4"
+   },
+   {
+    "at": "2026-10-30T16:39:51+00:00",
+    "by": "Claude Fable 5.1, after ticker-scoped dry runs, for Kenny Geiler to confirm",
+    "change": "hyperscaler: switched to hyperscaler@v5"
+   },
+   {
+    "at": "2026-10-30T16:41:37+00:00",
+    "by": "Claude Fable 5.1, from the replication run, for Kenny Geiler to confirm",
+    "change": "other@v4 saved, not in use: A part-year stated amount is not the year's actual (type 68, Tesla Q1 2024): qualitative with the figures in the basis."
+   },
+   {
+    "at": "2026-10-30T16:42:02+00:00",
+    "by": "Claude Fable 5.1, after a ticker-scoped dry run, for Kenny Geiler to confirm",
+    "change": "other: switched to other@v4"
    }
   ]
  },

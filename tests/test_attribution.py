@@ -58,3 +58,12 @@ class Contract(unittest.TestCase):
         A.validate_output(obj(none=[{"field": "revenue", "reason": "a buyer"}]), "X", PACK)
         with self.assertRaises(A.Invalid):
             A.validate_output(obj(none=[{"field": "sales", "reason": "x"}]), "X", PACK)
+
+
+class PartYear(unittest.TestCase):
+    def test_part_year_words(self):
+        from ledger.attribution import part_year
+        self.assertEqual(part_year("AI infrastructure capex of $1.0B in Q1."), "Q1")
+        self.assertEqual(part_year("in the first half of fiscal 2025 we spent $2B"), "first half")
+        self.assertIsNone(part_year("AI-related capital expenditures of $5 billion in 2024"))
+        self.assertIsNone(part_year("Quarterly Report"))  # not a period word on its own

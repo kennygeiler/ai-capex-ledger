@@ -157,6 +157,15 @@ def validate_output(obj: dict, ticker: str, items: dict, override: str | None = 
             raise Invalid(f"none_found[{i}] needs a field and a reason")
 
 
+PART_YEAR = re.compile(r"\b(Q[1-4]|[1-4]Q|H[12]|(first|second|third|fourth) (quarter|half)|(first|last) (three|six|nine) months|nine months|six months|three months|quarter)\b", re.I)
+
+
+def part_year(quote: str) -> str | None:
+    """The words that make a stated amount cover part of a year, or None (type 68)."""
+    m = PART_YEAR.search(quote or "")
+    return m.group(0) if m else None
+
+
 def _check_arithmetic(r: dict, items: dict, i: int) -> None:
     m, amt, ins = r["method"], r["ai_amount"], r["inputs"]
     if not isinstance(amt, int) or isinstance(amt, bool) or amt < 0:
@@ -170,6 +179,8 @@ def _check_arithmetic(r: dict, items: dict, i: int) -> None:
         s = items[stmts[0]["id"]]
         if abs(amt - (s["amount_low"] + s["amount_high"]) // 2) > tol:
             raise Invalid(f"rows[{i}]: ai_amount {amt} is not the statement's midpoint {(s['amount_low'] + s['amount_high']) // 2}")
+        if r["kind"] == "actual" and part_year(s.get("quote") or ""):  # type 68: a quarter's amount used as the year's actual (Tesla Q1 2024)
+            raise Invalid(f"rows[{i}]: the statement covers part of the year ({part_year(s['quote'])}); a part-year amount is not the year's actual. Use qualitative and name the part-year figure in basis.")
     elif m == "stated_share":
         stmts = [x for x in ins if items[x["id"]]["kind"] == "statement"]
         vals = [x for x in ins if items[x["id"]]["kind"] == "value"]

@@ -34,7 +34,7 @@ def _inputs(con, ids: str) -> list[dict]:
             elif kind == "stmt":  # a statement the attributor used: its quote and amount
                 r = con.execute("select amount_low, amount_high, share, quote, source, period from ai_statements where statement_id = ?", [rest]).fetchone()
                 amt = (r[0] + r[1]) / 2 if r and r[0] is not None and r[1] is not None else None
-                out.append({"id": i, "what": f"“{(r[3] or '')[:110]}{'…' if r and len(r[3] or '') > 110 else ''}” ({r[4]}, {r[5]})" if r else i, "value": amt, "check": None,
+                out.append({"id": i, "what": f"“{r[3] or ''}” ({r[4]}, {r[5]})" if r else i, "value": amt, "check": None,  # the whole quote: a cut one hid "AI infrastructure capex" (type 68)
                             "share": r[2] if r else None})
             elif kind == "value" and len(parts) == 3:
                 r = con.execute('select value, label from "values" where ticker=? and field=? and period=?', parts).fetchone()

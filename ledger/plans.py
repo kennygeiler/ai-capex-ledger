@@ -7,6 +7,17 @@ company's own value; AI guidance (scope ai) with the attributed AI amount. The g
 guided range, and `inside_range` says whether the actual landed inside the range the company gave."""
 from __future__ import annotations
 
+import re
+
+PROGRAM = re.compile(r"joint venture|once completed|over the next|through 20\d\d|by 20\d\d|multi-?year|cumulative|total investment|over (two|three|four|five|ten|\d+) years|program", re.I)
+
+
+def program_words(quote: str) -> str | None:
+    """Words that make an outlook statement a multi-year program or a deal size rather than a year's guidance (type 69,
+    Equinix's $15 billion xScale joint venture read as FY2025 capex guidance). Such a statement is a project, not a plan."""
+    m = PROGRAM.search(quote or "")
+    return m.group(0) if m else None
+
 
 def plans(con, tickers: list[str] | None = None) -> list[dict]:
     where = "where v.ticker in (select unnest(?))" if tickers else ""
@@ -17,6 +28,7 @@ def plans(con, tickers: list[str] | None = None) -> list[dict]:
     guidance = rows("""select s.ticker, s.field, s.period, s.scope, s.amount_low, s.amount_high, s.quote, s.source, s.text_id, t.date, t.url
                        from ai_statements s join texts t on t.text_id = s.text_id
                        where s.kind = 'outlook' and s.class = 'explicit_amount' order by t.date desc""")
+    guidance = [g for g in guidance if not program_words(g["quote"])]
     out = []
     for (ticker, field, period), v in sorted(actual.items()):
         for scope in ("total", "ai"):
