@@ -45,9 +45,7 @@ def main(argv=None) -> int:
     previous = list(csv.DictReader((prev_dir / "values.csv").open())) if prev_dir else None
     ai = _rows(con, "select * from ai_spend where ticker in (select unnest(?))", tickers)
     facts = _rows(con, "select * from facts where ticker in (select unnest(?))", tickers)
-    attribution = _rows(con, "select * from attribution where ticker in (select unnest(?))", tickers)
-    ev_path = store.ROOT / "reports" / "evaluation.json"
-    files = build(a.version, apply(values, excs, ds), exts, excs, previous, confirmed, ai, facts, attribution, json.loads(ev_path.read_text()) if ev_path.exists() else None)
+    files = build(a.version, apply(values, excs, ds), exts, excs, previous, confirmed, ai, facts)
     from .. import api  # one shape (C7): the release holds every list the API serves, as the API serves it
     want = set(tickers[0])
     for name in api.RELEASE_LISTS:

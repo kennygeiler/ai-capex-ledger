@@ -8,22 +8,24 @@ New here, person or agent? Read [docs/HANDOFF.md](docs/HANDOFF.md) first: what a
 
 *Updated with every commit. The diary of earlier entries is in `docs/archive/README-status-diary.md`.*
 
-**Last done (1 Nov 2026):** the consolidation. The frame is `docs/PROOF.md`: the pipeline proves every number it produces, on the proven set first (`config.PROVEN`: Microsoft, Alphabet, Amazon, Nvidia, Applied Digital, AMD; six of six proven, golden test equal). Every exported row carries `proven`, `status` and `flag`. Judgement lives in two places: `definitions/` (a person edits) and `decisions/` (the two append-only logs the app writes). DATAHQ is six pages: Proof, a company's trail, Rules (with the theses and the readers), Reconcile, Dataset, Explore; the rest is gone, `ledger/app.html` 904 lines from 1,414. Docs are PROOF (the spec), INGESTION (the failure log, 72 types), API (the contract), FIELDS, COMPANIES, DATA_DICTIONARY, HANDOFF (the start page); the rest is archived under `docs/archive/`. v1.6.0 is signed and published; the next release carries `proven`.
+**Last done (1 Nov 2026, late):** **the taxonomy, and nothing invented.** Kenny: standardize and sanitize, follow a published standard, no concept of AI spend of our own. `docs/TAXONOMY.md` and `taxonomy/taxonomy.yaml`: spent, committed and derived by us-gaap concept (ASC 280, 440, 842), planned verbatim under Regulation S-K, the entity's industry from the SEC's SIC code, the shape from EU Taxonomy activity 8.1 and ICMA's category structure. `ledger/taxonomy.py` builds one row shape for all of it from the readers' tables, no agent; every reported PP&E category maps to a us-gaap asset-type member in `taxonomy/asset_types.yaml` with the note's words as evidence (the six: 609 rows, zero unmapped). The only AI rows are `company_stated_ai`: the company's own figure, quoted. Removed as conjecture: the attribution methods and the ai_amount / ai_share columns, the theses as attribution instructions (archived under `docs/archive/theses/`), the reference set as a scorer (its figures are now company-stated rows with their sources, `taxonomy/stated_figures.yaml`), plans, the attribution and eval steps and commands, their routes, pages, tests and fixtures. The Proof board's attribution stage is the mapping stage; the Dataset page's kinds are spent, committed, derived, planned. Six of six proven, golden equal on the re-frozen expectation (the frozen exceptions lost the three `ai_amount_within_capex` rows of the removed rule, nothing else), 158 tests.
+
+**Before that (1 Nov 2026):** the consolidation. The frame is `docs/PROOF.md`: the pipeline proves every number it produces, on the proven set first (`config.PROVEN`: Microsoft, Alphabet, Amazon, Nvidia, Applied Digital, AMD; six of six proven, golden test equal). Every exported row carries `proven`, `status` and `flag`. Judgement lives in two places: `definitions/` (a person edits) and `decisions/` (the two append-only logs the app writes). DATAHQ is six pages: Proof, a company's trail, Rules (with the theses and the readers), Reconcile, Dataset, Explore; the rest is gone, `ledger/app.html` 904 lines from 1,414. Docs are PROOF (the spec), INGESTION (the failure log, 72 types), API (the contract), FIELDS, COMPANIES, DATA_DICTIONARY, HANDOFF (the start page); the rest is archived under `docs/archive/`. v1.6.0 is signed and published; the next release carries `proven`.
 
 **Next:**
-0. Kenny reads `docs/TAXONOMY.md` and `taxonomy/taxonomy.yaml` (draft, unwired): every category from a named standard, the inferred AI-share methods listed for removal, three questions at the end. Then wire: category ids on rows, remap the six, verification flags on committed and planned.
+0. `ai_spend.ai_amount` is the one computed column left: an explicit AI share × our value for the year. Keep it (arithmetic on two stated figures, like the derived measure) or drop it to the share alone; Kenny's call.
+0. Verification flags on committed and planned rows (today: `check` = no_reference or verbatim; a sourced check for commitments is the next rule). Operating lease liabilities and contractual-obligation totals are in the taxonomy but not yet read by the notes reader.
 1. Widen the proven set one company at a time (Micron, Tesla, Iron Mountain, Equinix), golden green at each step. Nothing runs across 100 until then.
 2. Put "unreferenced" on the Proof board as its own column; grow the reference set with a sourced, scoped figure per proven company-year.
-3. Kenny confirms the replication decisions (`decisions/resolutions.jsonl`) and the four thesis switches, all marked for him.
+3. Kenny confirms the replication decisions (`decisions/resolutions.jsonl`), all marked for him.
 4. Send to Arctal: the repo, the v1.6.0 packet, DATAHQ, `DATABASE_READONLY_URL`.
 
 **Critical notes:**
 - Never sign a release without Kenny's explicit OK for that release. Never run agents on a paid API; `claude -p` on the subscription (`LEDGER_CLAUDE`).
-- `ledger golden --check` before any commit that touches a parser, a rule, a loader or a thesis; `--freeze` only on purpose, in a commit that says why.
-- A code guard needs its thesis to say the same thing, or the attributor keeps answering the old way and a failed run empties the company.
+- `ledger golden --check` before any commit that touches a parser, a rule, a loader or the taxonomy; `--freeze` only on purpose, in a commit that says why. Freeze copies the live DB's tables, so rerun `ledger rules` on the proven six first when a rule changed.
 - `.env` holds `SEC_USER_AGENT`, `DATABASE_URL` (owner, publish only) and `DATABASE_READONLY_URL` (the one to hand out); never committed.
 - Release files are LF, hashed before the write, read back byte-exact; `publish` adds a release's new columns to existing tables.
-- Theses and prompts are versioned, never edited in place; dry-run on the company before the switch.
+- Prompts and the taxonomy are versioned, never edited in place.
 - Dashes are zero; NVDA's capex includes intangibles; banks and oil majors are partly blank on purpose; old work is in tags (`takehome-xbrl-explorer`, `quarterly-v0.1`).
 
 ## How it works

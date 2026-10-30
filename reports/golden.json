@@ -1,5 +1,5 @@
 {
- "at": "2026-10-30T17:31:25+00:00",
+ "at": "2026-10-30T19:58:21+00:00",
  "ok": true,
  "failed_step": null,
  "diffs": {},
@@ -38,14 +38,6 @@
   },
   {
    "step": "projects --load",
-   "exit": 0
-  },
-  {
-   "step": "attribution --pack",
-   "exit": 0
-  },
-  {
-   "step": "attribution --load",
    "exit": 0
   },
   {

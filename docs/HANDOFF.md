@@ -19,11 +19,12 @@ across the AI supply chain (`docs/COMPANIES.md`), annual, fiscal years 2022 to 2
 
 Tracked, so you have it on clone:
 
-- Code (`ledger/`), tests (`tests/`), the rules (`rules/*.yaml`), the agents' prompts and money-flow models
-  (`agents/`), per-company definitions (`definitions/companies.yaml`), the reference set (`gold/ai_capex.yaml`),
-  the investor-page links (`sources/ir.yaml`), the hand-check (`golden/`).
+- Code (`ledger/`), tests (`tests/`), the rules (`rules/*.yaml`), the agents' prompts (`agents/`), the taxonomy
+  (`taxonomy/`: the categories and their standards, the asset-type mappings, the stated figures), per-company
+  definitions (`definitions/companies.yaml`), the investor-page links (`sources/ir.yaml`), the hand-check (`golden/`),
+  the golden test's frozen inputs and expectation (`fixtures/`).
 - Every agent output, kept as evidence: `data/extract/outputs/` (statement cells), `data/notes/outputs/` (note
-  facts), `data/aispend/outputs/` (AI statements), `data/attribution/outputs/` (attributions). A rebuild reuses them;
+  facts), `data/aispend/outputs/` (AI statements), `data/projects/outputs/` (named projects). A rebuild reuses them;
   no agent runs unless a task changes.
 - Signed releases (`releases/v*/`), the decisions log (`decisions/`), the reports and evidence screenshots
   (`reports/`), and every document in `docs/`.
@@ -55,7 +56,7 @@ around it; a person lists the links).
 uv run python -m ledger run --ticker NVDA        # every step for one company, agents included, then the scorecard
 uv run python -m ledger run --stage 3            # all 31 (about 30 minutes on a fresh clone, mostly fetching and Chrome)
 LEDGER_CLAUDE="$(which claude)" uv run python -m ledger app   # DATAHQ at http://127.0.0.1:3610
-uv run python -m ledger eval                     # the attribution against the reference set
+uv run python -m ledger golden --check           # the proven six rebuilt from frozen inputs, every table compared
 uv run python -m ledger release v1.5.0 --stage 3 # refuses while a gate fails; then signoff, by the owner only
 uv run python -m ledger publish v1.5.0           # a signed release to the production Postgres; --status lists what is there
 ```
@@ -69,27 +70,26 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 | values | revenue, capex, opex per company and fiscal year, from statement cells | table `values`, `releases/*/values.csv` | `docs/FIELDS.md` |
 | facts | segment capex and revenue, PP&E by category, finance leases, purchase commitments, from the notes | tables `note_extractions`, `facts`, `facts.csv` | `docs/DATA_DICTIONARY.md` |
 | texts, statements | MD&A, 8-K releases, transcripts; what each says about AI's part of spend, as verbatim quotes | tables `texts`, `ai_statements`, `ai_spend`, `ai_spend.csv` | `docs/INGESTION.md` |
-| attribution | AI's part of capex and opex per company-year, with method, inputs and basis | table `attribution`, `attribution.csv` | `docs/INGESTION.md` (Attribution) |
-| money-flow models | per industry, where AI money shows up and which methods are allowed; versioned, never edited in place | `agents/models/<industry>@vN.md`, in use per `agents/agents.json` | `docs/archive/FLOW.md` |
+| taxonomy | one row shape for spent, committed, derived, planned and company-stated AI, every category a named standard's concept; built by code, no agent | `taxonomy/taxonomy.yaml`, `ledger/taxonomy.py`, `/api/v1/taxonomy`, `taxonomy.csv` (next release) | `docs/TAXONOMY.md` |
+| asset-type mappings | each company's reported PP&E category mapped to a us-gaap member, with the note's words as evidence; an unmapped one is open on Proof | `taxonomy/asset_types.yaml` | `docs/TAXONOMY.md` |
 | prompts | one per agent, versioned the same way | `agents/prompts/`, `agents/schemas/` | `agents/agents.json` |
 | definitions | judgements made once per company and applied every run | `definitions/companies.yaml` | README Critical notes |
-| reference set | sourced figures for AI's part of capex, with URL and quote | `gold/ai_capex.yaml` | `docs/INGESTION.md` (Evaluation) |
-| rules | the 16 checks, each with its rationale and owner | `rules/*.yaml`, `ledger/rules.py` | `docs/archive/PRD.md` |
-| resolutions | what a person decided about a queue item; `status` on exported rows | `resolutions.jsonl` at the repo root (tracked) | `docs/archive/FLOW.md`, `docs/API.md` |
+| stated figures | figures companies stated about AI, gathered from releases, calls and press, verbatim with the source; `company_stated_ai` rows | `taxonomy/stated_figures.yaml` | `docs/TAXONOMY.md` |
+| rules, guards | the 15 checks, each with its rationale and owner; the two guards that tag part-year and program statements | `rules/*.yaml`, `ledger/rules.py`, `ledger/guards.py` | `docs/PROOF.md` |
+| resolutions | what a person decided about a queue item; `status` on exported rows | `decisions/resolutions.jsonl` (tracked, append-only) | `docs/PROOF.md`, `docs/API.md` |
 | releases | plain files whose content hash a person signs | `releases/v*/` | release `README.md` |
 | production | the signed releases, one table per release file plus `ledger_releases`; `current_*` views follow the highest version | Postgres at `DATABASE_URL`, `ledger/publish.py` | this file |
-| companies | the 100 companies by supply-chain layer; the layer picks the money-flow model | `data/companies.json`, `ledger/config.py` `INDUSTRIES` | `docs/COMPANIES.md` |
+| companies | the 100 companies by supply-chain layer (`group`, a reading aid); the proven set in `config.PROVEN` | `data/companies.json`, `ledger/config.py` | `docs/COMPANIES.md`, `docs/PROOF.md` |
 
 ## How to do the common things
 
 - **Add a company**: DATAHQ, `#run`, type the ticker; or `ledger run --ticker X`. It joins stage 3. Give it an
   industry in `ledger/config.py` `INDUSTRIES`, or it gets the `other` model.
-- **Change how AI spend is attributed**: open the model in DATAHQ (Flow, Method stage, or the Attribution tab),
-  Edit, Save as New Version, Dry Run, then Use and Rerun the industry. Or edit `agents/models/`, register the version
-  in `agents/agents.json`, run `ledger attribution --stage 3 --run` then `--load`.
+- **Map a reported asset type**: Proof shows it open under Mapping; add the entry to `taxonomy/asset_types.yaml`
+  with the note's own words as evidence, who and when. A mapping is a classification, never a number.
 - **Settle a disagreement with the SEC's data**: add a definition for the company in `definitions/companies.yaml`
   (who, why), rerun `reconcile` and `rules`. Never accept the same thing twice.
-- **Tighten the error band**: add a sourced figure to `gold/ai_capex.yaml`, run `ledger eval`.
+- **Add a figure a company stated about AI**: `taxonomy/stated_figures.yaml`, verbatim, with the URL and the quote.
 - **Release**: `ledger release vX.Y.Z --stage 3` (refuses while a gate fails), then `ledger signoff vX.Y.Z --by
   "<name>"`. Signing is the one human act and belongs to the owner. Then `ledger publish vX.Y.Z` pushes the signed
   files to production; it refuses an unsigned release or one whose files no longer match the signed hash, and
@@ -112,17 +112,17 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 
 ## If you are an AI agent
 
-Read in this order: this file, README Status, `docs/archive/FLOW.md`, `docs/INGESTION.md` (skim the tables), then the
+Read in this order: this file, README Status, `docs/PROOF.md`, `docs/TAXONOMY.md`, `docs/INGESTION.md` (skim the tables), then the
 module you will change. Run the tests before and after. The invariants that must hold:
 
 - Every value in `values` resolves to a cell in a parsed table; `extract --load` rejects anything else.
-- Every attribution amount equals its method's arithmetic over inputs that exist in the data pack;
-  `attribution --load` rejects anything else.
+- No column holds a number the pipeline made up: every taxonomy row is a reported figure, a verbatim quote, or
+  arithmetic on reported balances marked `derived`. An asset type maps to a published us-gaap member or stays open.
 - A release is reproducible from its inputs: same inputs, same hash. Never edit a file under `releases/`.
-- `decisions/`, `resolutions.jsonl` and the agents' history are append-only.
+- `decisions/` and the agents' history are append-only.
 
-Verify, don't assert: the pipeline writes `runs`, snapshots, `data/jobs/progress.json`, `reports/evaluation.json`
-and `data/attribution/diff.json`; read them rather than the log. `rtk` wraps shell commands in some sessions and
+Verify, don't assert: the pipeline writes `runs`, snapshots and `data/jobs/progress.json`; `ledger golden --check` says
+whether the proven six still rebuild equal; read them rather than the log. `rtk` wraps shell commands in some sessions and
 truncates long output; use `rtk proxy <cmd>` or a Python one-liner to read a full file or an HTTP body.
 
 `docs/PROOF.md` is the frame since 31 Oct 2026: the pipeline proves every number on five companies first; `ledger golden --check` is the bar. `docs/archive/REPLICATION.md` is the walk through the app as its user would do it that led there.

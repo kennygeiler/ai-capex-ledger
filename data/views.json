@@ -1,67 +1,76 @@
 {
  "views": [
   {
-   "id": "ai-capex-by-layer",
-   "name": "AI capex by layer",
-   "measure": "attribution",
+   "id": "capex-by-group",
+   "name": "Capex by group, by year",
+   "measure": "taxonomy",
    "filters": {
-    "field": "capex",
-    "kind": "actual"
-   },
-   "group": "layer",
-   "show": "bars",
-   "note": "Attributed AI capex rolled up by supply-chain layer.",
-   "by": "Kenny Geiler",
-   "at": "2026-10-30T02:21:37+00:00"
-  },
-  {
-   "id": "hyperscaler-ai-share",
-   "name": "Hyperscaler AI share of capex",
-   "measure": "attribution",
-   "filters": {
-    "layer": "hyperscaler",
-    "field": "capex",
-    "kind": "actual"
+    "category": "capex"
    },
    "group": null,
    "show": "chart",
-   "note": "Each hyperscaler's AI share of capex by year, with method.",
-   "by": "Kenny Geiler",
-   "at": "2026-10-30T02:21:37+00:00",
    "chart": {
-    "x": "period",
+    "x": "fiscal_year",
+    "series": "group",
+    "type": "stacked",
+    "value": ""
+   },
+   "note": "the cash-flow line, us-gaap PaymentsToAcquirePropertyPlantAndEquipment, summed by supply-chain group",
+   "by": "Claude Fable 5.1",
+   "at": "2026-11-01T00:00:00+00:00"
+  },
+  {
+   "id": "technology-equipment-gross",
+   "name": "Technology equipment, gross balance by company",
+   "measure": "taxonomy",
+   "filters": {
+    "category": "ppe_gross_by_type",
+    "standard_type": "TechnologyEquipmentMember"
+   },
+   "group": null,
+   "show": "chart",
+   "chart": {
+    "x": "fiscal_year",
+    "series": "ticker",
+    "type": "lines",
+    "value": ""
+   },
+   "note": "every reported PP&E category mapped to us-gaap TechnologyEquipmentMember; the balance as reported, not an estimate",
+   "by": "Claude Fable 5.1",
+   "at": "2026-11-01T00:00:00+00:00"
+  },
+  {
+   "id": "company-stated-ai",
+   "name": "What companies state about AI, in dollars",
+   "measure": "taxonomy",
+   "filters": {
+    "measure": "company_stated_ai"
+   },
+   "group": null,
+   "show": "grid",
+   "chart": null,
+   "note": "verbatim figures the companies themselves stated; scope in their words; never computed",
+   "by": "Claude Fable 5.1",
+   "at": "2026-11-01T00:00:00+00:00"
+  },
+  {
+   "id": "committed",
+   "name": "Committed: purchase obligations and finance leases",
+   "measure": "taxonomy",
+   "filters": {
+    "measure": "committed"
+   },
+   "group": null,
+   "show": "chart",
+   "chart": {
+    "x": "fiscal_year",
     "series": "ticker",
     "type": "bars",
-    "value": "share"
-   }
-  },
-  {
-   "id": "capex-plans-vs-reality",
-   "name": "Capex guidance vs actual",
-   "measure": "plans",
-   "filters": {
-    "field": "capex",
-    "scope": "total"
+    "value": ""
    },
-   "group": null,
-   "show": "grid",
-   "note": "The newest guidance before the year end against what was spent.",
-   "by": "Kenny Geiler",
-   "at": "2026-10-30T02:21:37+00:00"
-  },
-  {
-   "id": "revenue-exposure",
-   "name": "AI revenue exposure",
-   "measure": "attribution",
-   "filters": {
-    "field": "revenue",
-    "kind": "actual"
-   },
-   "group": null,
-   "show": "grid",
-   "note": "Sellers' AI or data-center revenue, by method.",
-   "by": "Kenny Geiler",
-   "at": "2026-10-30T02:21:37+00:00"
+   "note": "ASC 440 and ASC 842 balances as reported",
+   "by": "Claude Fable 5.1",
+   "at": "2026-11-01T00:00:00+00:00"
   }
  ],
  "history": []

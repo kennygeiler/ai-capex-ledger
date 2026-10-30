@@ -11,7 +11,6 @@ from . import store
 from .extract import OUTPUTS
 from .guidance import OUTPUTS as AI_OUTPUTS
 from .notes import OUTPUTS as NOTE_OUTPUTS
-from .attribution import OUTPUTS as ATTR_OUTPUTS
 from .steps import STEPS  # noqa: F401  re-exported: `ledger run`, DATAHQ and the Airflow DAG all read it from here or from steps
 
 FILE = store.ROOT / "data" / "jobs" / "progress.json"
@@ -66,19 +65,6 @@ def summary(con, cmd: str, extra: list[str], tickers: list[str], name: str, star
         n, = one(f"select count(*) from note_extractions {t}")
         rows, agree = one(f"select count(*), count(*) filter (where label = 'agree') from facts {t}")
         return f"{n} cited cells; {rows} facts, {agree} match the filing's XBRL"
-    if cmd == "attribution" and extra == ["--run"]:
-        since = datetime.fromisoformat(started_at).timestamp()
-        fresh = [t for t in tickers if (ATTR_OUTPUTS / f"{t}.json").exists() and (ATTR_OUTPUTS / f"{t}.json").stat().st_mtime >= since]
-        return f"Attributed {len(fresh)} compan{'ies' if len(fresh) != 1 else 'y'}" if fresh else "Every company was already attributed for this model and data"
-    if cmd == "attribution":
-        n, amt = one(f"select count(*), count(*) filter (where ai_amount is not null) from attribution {t}")
-        d = store.ROOT / "data" / "attribution" / "diff.json"
-        changed = json.loads(d.read_text()).get("changed") if d.exists() else None
-        return f"{n} rows, {amt} with an AI amount" + (f"; {changed} changed since the last attribution" if changed is not None else "")
-    if cmd == "eval":
-        f = store.ROOT / "reports" / "evaluation.json"
-        ev = json.loads(f.read_text()) if f.exists() else None
-        return f"{ev['n']} reference entries: {ev['agree']} agree, {ev['disagree']} disagree, {ev['no_estimate']} without an estimate" if ev else "No reference set"
     if cmd == "rules":
         r, = con.execute("select count(*) from rules").fetchone()
         b, w, i = one(f"select count(*) filter (where severity = 'block'), count(*) filter (where severity = 'warn'), count(*) filter (where severity = 'info') from exceptions {t}")

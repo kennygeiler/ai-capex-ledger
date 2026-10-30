@@ -7,8 +7,8 @@ the fixtures, runs every code stage (nothing is fetched, no agent is asked), and
 fixtures/expected/, column by column, row by row. Any change to a parser, a rule, a loader or a thesis has to leave
 the comparison equal or update the expectation on purpose.
 
-Agents are frozen here on purpose: their answers are inputs. How good those answers are is measured by the
-reference set (`ledger eval`), not by this test."""
+Agents are frozen here on purpose: their answers are inputs. The checks on those answers (XBRL, the rendered cell, the
+verbatim quote) are what the proof board shows."""
 from __future__ import annotations
 
 import csv
@@ -27,10 +27,10 @@ from .config import PROVEN
 FIXTURES = store.ROOT / "fixtures"
 EXPECTED = FIXTURES / "expected"
 # the tables the code stages produce, and the columns that vary run to run (left out of the comparison)
-TABLES = {"values": ("run_id",), "facts": (), "ai_statements": ("run_id",), "ai_spend": (), "attribution": ("run_id",), "projects": ("run_id",),
+TABLES = {"values": ("run_id",), "facts": (), "ai_statements": ("run_id",), "ai_spend": (), "projects": ("run_id",),
           "extractions": ("run_id",), "note_extractions": ("run_id",), "exceptions": ("exception_id",)}
 STEPS = [["extract", "--pack"], ["extract", "--load"], ["reconcile"], ["aispend", "--pack"], ["aispend", "--load"], ["notes", "--pack"], ["notes", "--load"],
-         ["projects", "--pack"], ["projects", "--load"], ["attribution", "--pack"], ["attribution", "--load"], ["rules"]]  # pack rebuilds the task files the loaders check quotes against; the agents' answers are the frozen inputs
+         ["projects", "--pack"], ["projects", "--load"], ["rules"]]  # pack rebuilds the task files the loaders check quotes against; the agents' answers are the frozen inputs
 # what the temporary root needs besides data/: the config the stages read, as it is in the repo
 SHARED = ("agents", "definitions", "gold", "rules", "decisions.jsonl", "sources", ".env")  # .env: the SEC client checks the contact at import; nothing is fetched
 
@@ -99,13 +99,6 @@ def freeze(con, tickers: list[str] | None = None) -> dict:
                 dst.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(src, dst)
                 copied += 1
-    for t in tickers:
-        src = store.ROOT / "data" / "attribution" / "outputs" / f"{t}.json"
-        if src.exists():
-            dst = FIXTURES / "data" / "attribution" / "outputs" / f"{t}.json"
-            dst.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(src, dst)
-            copied += 1
     xbrl = _rows(con, "select * from reference_values where ticker in (select unnest(?))", tickers) if store_has(con, "reference_values") else []
     (FIXTURES / "seed.json").write_text(json.dumps({"tickers": tickers, "documents": docs, "texts": texts, "reference_values": xbrl}, indent=1, default=str))
     shutil.copy2(store.ROOT / "data" / "companies.json", FIXTURES / "data" / "companies.json")

@@ -97,15 +97,12 @@ FAIL = {
     "restated": lambda c: c.extractions.append({**c.extractions[2], "accession": "0001193125-26-000099", "value": 99999}),
     "xbrl_reconcile": lambda c: c.values[0].update(label="unresolved"),
     "outlier_vs_own_history": lambda c: c.values[1].update(value=150000000000),
-    "ai_amount_within_capex": lambda c: c.ai_spend.append({"ticker": "ORCL", "field": "capex", "period": "FY2026", "kind": "actual", "scope": "ai", "class": "explicit_amount",
-                                                           "amount_low": 30000000000, "amount_high": 30000000000, "share": None, "ai_amount": 30000000000,
-                                                           "quote": "We spent $30 billion on AI infrastructure.", "accession": ACC, "statement_ids": "x", "input_hash": "h"}),
 }
 
 
 class Registry(unittest.TestCase):
     def test_every_rule_loads_with_rationale_and_owner(self):
-        self.assertEqual(len(RULES), 16)
+        self.assertEqual(len(RULES), 15)
         for r in RULES.values():
             self.assertTrue(r["rationale"].strip() and r["owner"].strip(), r["id"])
 

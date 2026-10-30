@@ -26,6 +26,7 @@ from .config import industry
 ROOT = store.ROOT
 FILE = ROOT / "taxonomy" / "taxonomy.yaml"
 ASSET_TYPES = ROOT / "taxonomy" / "asset_types.yaml"
+STATED = ROOT / "taxonomy" / "stated_figures.yaml"  # figures companies stated, gathered from releases, calls and press: verbatim, with the source
 MEASURES = ("spent", "committed", "derived", "planned", "company_stated_ai")
 CONCEPT = {"capex": "PaymentsToAcquirePropertyPlantAndEquipment", "segment_capex": "PaymentsToAcquirePropertyPlantAndEquipment (StatementBusinessSegmentsAxis)",
            "segment_revenue": "Revenues (StatementBusinessSegmentsAxis)", "purchase_commitments": "UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount",
@@ -125,6 +126,15 @@ def rows(con, tickers: list[str] | None = None) -> list[dict]:
             out.append(_row(ticker=pj["ticker"], fiscal_year=pj["period"], measure="planned", category="project", reported_name=pj["name"], standard_concept="none: a project the company named",
                             value=pj["amount_low"], value_high=pj["amount_high"], unit="USD", period_as_stated=pj["period"], quote=pj["quote"], source=pj["text_id"], check="verbatim",
                             tags=";".join(x for x in [f"kind:{pj['kind']}", f"status:{pj['status']}", f"location:{pj['location']}" if pj["location"] else "", f"capacity_mw:{pj['capacity_mw']}" if pj["capacity_mw"] else ""] if x)))
+    if STATED.exists():
+        for e in yaml.safe_load(STATED.read_text()) or []:
+            if tickers and e["ticker"] not in tickers:
+                continue
+            src = e.get("source") or {}
+            out.append(_row(ticker=e["ticker"], fiscal_year=e["period"], measure="company_stated_ai", category=f"ai_{e.get('field', 'capex')}", reported_name=f"a stated figure about AI {e.get('field', 'capex')}, gathered",
+                            standard_concept="none: the company's own words, as reported", value=e["value"] if e["measure"] == "amount" else None, share=e["value"] if e["measure"] == "share" else None,
+                            unit="USD" if e["measure"] == "amount" else "share", period_as_stated=e["period"], quote=src.get("quote"), source=src.get("url"), check="verbatim (gathered)",
+                            tags=";".join(x for x in [f"relation:{e.get('relation', 'eq')}", f"source:{src.get('kind', '')}", f"scope:{e.get('scope', 'same')}", f"by:{e.get('by', '')}"] if x)))
     for r in out:
         r["group"] = industry(r["ticker"])
     return out

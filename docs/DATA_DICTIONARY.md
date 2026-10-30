@@ -128,7 +128,7 @@ Key: `(statement_id)`
 | `source` | VARCHAR | yes | `mdna`, `earnings_release`, `transcript`, `cfo_commentary` | mdna, earnings_release, transcript or cfo_commentary. |
 | `accession` | VARCHAR | no | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession when the text is a filing. |
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
-| `field` | VARCHAR | yes | `capex`, `opex` | capex or opex. |
+| `field` | VARCHAR | yes | `capex`, `opex`, `revenue` | capex, opex or revenue. |
 | `period` | VARCHAR | yes | pattern `^FY\d{4}$` | The company's fiscal year, e.g. FY2026 (NVDA's ended 25 Jan 2026). |
 | `kind` | VARCHAR | yes | `actual`, `outlook` | actual: the fiscal year the filing reports. outlook: a later year. |
 | `scope` | VARCHAR | yes | `ai`, `total` | ai: the figure is the AI part. total: the company's total, with AI named as a driver. |
@@ -152,7 +152,7 @@ Key: `(ticker, field, period, kind)`
 | Column | Type | Required | Allowed values | Meaning |
 |---|---|---|---|---|
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
-| `field` | VARCHAR | yes | `capex`, `opex` | capex or opex. |
+| `field` | VARCHAR | yes | `capex`, `opex`, `revenue` | capex, opex or revenue. |
 | `period` | VARCHAR | yes | pattern `^FY\d{4}$` | The company's fiscal year, e.g. FY2026 (NVDA's ended 25 Jan 2026). |
 | `kind` | VARCHAR | yes | `actual`, `outlook` | actual or outlook. |
 | `scope` | VARCHAR | yes | `ai`, `total` | ai or total (see ai_statements). |
@@ -217,30 +217,6 @@ Key: `(ticker, field, dimension, period)`
 | `accession` | VARCHAR | yes | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession number of the filing, e.g. 0001045810-26-000075. |
 | `extraction_ids` | VARCHAR | yes |  | Extractions used, comma-separated. |
 | `input_hash` | VARCHAR | yes |  | Hash of everything this row depends on. |
-
-## `attribution`
-
-AI's part of capex and opex per company and fiscal year, attributed by the attributor from the money-flow model and the data pack; every number recomputed by code from its inputs.
-
-Key: `(ticker, field, period, kind)`
-
-| Column | Type | Required | Allowed values | Meaning |
-|---|---|---|---|---|
-| `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
-| `field` | VARCHAR | yes | `capex`, `opex`, `revenue` | capex, opex or revenue (revenue exposure). |
-| `period` | VARCHAR | yes | pattern `^FY\d{4}$` | The company's fiscal year, e.g. FY2026 (NVDA's ended 25 Jan 2026). |
-| `kind` | VARCHAR | yes | `actual`, `outlook` | actual or outlook. |
-| `method` | VARCHAR | yes | `stated_share`, `stated_amount`, `segment`, `ppe_category`, `whole_business`, `qualitative`, `none` | stated_share, stated_amount, segment, ppe_category, whole_business, qualitative or none. |
-| `ai_amount` | BIGINT | no |  | AI dollars; null for qualitative and none. |
-| `ai_share` | DOUBLE | no |  | ai_amount ÷ the company's value for the field and year. |
-| `confidence` | DOUBLE | yes |  | Agent's confidence, within the model's ceiling for the method. |
-| `basis` | VARCHAR | yes |  | The arithmetic and what the number does and does not include, for a reader. |
-| `inputs` | VARCHAR | yes |  | Pack item ids the number rests on, comma-separated (value:…, fact:…, stmt:…). |
-| `model` | VARCHAR | yes |  | Money-flow model version used, e.g. hyperscaler@v1. |
-| `model_sha256` | VARCHAR | yes |  | Hash of the model text, so a model edit shows in the diff. |
-| `prompt_version` | VARCHAR | yes |  | Prompt version. |
-| `run_id` | VARCHAR | yes |  | Run that produced it. |
-| `input_hash` | VARCHAR | yes |  | Hash of method, amount, inputs and model. |
 
 ## `projects`
 
@@ -336,7 +312,7 @@ Key: `(run_id, step, subject)`
 | Column | Type | Required | Allowed values | Meaning |
 |---|---|---|---|---|
 | `run_id` | VARCHAR | yes |  | Run ID. |
-| `step` | VARCHAR | yes | `run`, `ingest`, `parse`, `extract`, `reconcile`, `texts`, `aispend`, `notes`, `attribution`, `eval`, `rules`, `faults`, `evidence`, `report`, `review`, `score`, `release` | Step name. |
+| `step` | VARCHAR | yes | `run`, `ingest`, `parse`, `extract`, `reconcile`, `texts`, `aispend`, `notes`, `attribution`, `eval`, `rules`, `faults`, `evidence`, `report`, `review`, `score`, `release`, `projects`, `cost`, `publish` | Step name. |
 | `subject` | VARCHAR | no |  | What it ran on (accession, ticker, release). |
 | `started_at` | VARCHAR | yes |  | UTC timestamp. |
 | `seconds` | DOUBLE | yes |  | Wall-clock duration. |

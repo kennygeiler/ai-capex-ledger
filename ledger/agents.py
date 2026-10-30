@@ -59,43 +59,6 @@ def use_prompt(agent_id: str, version: str, by: str) -> None:
     cfg[agent_id]["history"].append({"at": _now(), "by": by, "change": f"switched to {version}"})
     _save(cfg)
 
-
-MODELS = ROOT / "agents" / "models"
-
-
-def model_versions(industry: str) -> list[str]:
-    return sorted((p.stem for p in MODELS.glob(f"{industry}@v*.md")), key=lambda v: int(v.split("@v")[1]))
-
-
-def model_text(version: str) -> str:
-    return (MODELS / f"{version}.md").read_text()
-
-
-def save_model(industry: str, text: str, by: str, note: str) -> str:
-    """Save a money-flow model edit as the industry's next version; not in use until `use_model`."""
-    if not text.strip() or not by.strip() or not note.strip():
-        raise ValueError("a model change needs the text, who made it and why")
-    cfg = load()
-    a = cfg["attributor"]
-    if industry not in a["models"]:
-        raise ValueError(f"no model for {industry}")
-    new = f"{industry}@v{int(model_versions(industry)[-1].split('@v')[1]) + 1}"
-    text = re.sub(rf"\b{re.escape(industry)}@v\d+\b", new, text)
-    (MODELS / f"{new}.md").write_text(text if text.endswith("\n") else text + "\n")
-    a["history"].append({"at": _now(), "by": by, "change": f"{new} saved, not in use: {note}"})
-    _save(cfg)
-    return new
-
-
-def use_model(industry: str, version: str, by: str) -> None:
-    if version not in model_versions(industry):
-        raise ValueError(f"no model {version}")
-    cfg = load()
-    cfg["attributor"]["models"][industry] = version
-    cfg["attributor"]["history"].append({"at": _now(), "by": by, "change": f"{industry}: switched to {version}"})
-    _save(cfg)
-
-
 def set_model(agent_id: str, model: str, by: str) -> None:
     if not re.fullmatch(r"[a-z0-9][a-z0-9.\-]{2,60}", model):
         raise ValueError("a model id looks like claude-opus-5-5")

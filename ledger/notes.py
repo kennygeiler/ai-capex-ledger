@@ -1,4 +1,4 @@
-"""Facts from the notes: what AI-spend attribution needs beyond the primary statements.
+"""Facts from the notes: segment capex and revenue, PP&E by category, finance leases, purchase commitments.
 
   segment_capex           capital expenditures per reportable segment (ASC 280 note)        flow, per segment
   segment_revenue         revenue per segment or market (segment note, revenue by market)   flow, per segment

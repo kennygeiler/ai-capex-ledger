@@ -1,7 +1,7 @@
 """Saved views: a question a person built in DATAHQ, kept as a query another system can call (docs/THESIS.md).
 
 A view is {id, name, measure, filters, group, show, by, at, note}. `measure` is one of the API's lists
-(attribution, values, facts, statements, plans, projects); `filters` are that list's filters (ticker, layer, period,
+(taxonomy, values, facts, statements, projects); `filters` are that list's filters (ticker, layer, period,
 field, kind, method, scope); `group` is a column to roll up by (ticker, layer, period, field, method) or null for
 rows; `show` is grid, bars (by group), lines (by year per company) or shares. Views live in data/views.json, tracked, so a view
 travels with the repo. Saving a view with an existing id replaces it; the old one is kept in `history`."""
@@ -15,10 +15,10 @@ from pathlib import Path
 
 ROOT = Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[1]
 FILE = ROOT / "data" / "views.json"
-MEASURES = ("attribution", "values", "facts", "statements", "plans", "projects")
+MEASURES = ("taxonomy", "values", "facts", "statements", "projects")
 GROUPS = (None, "ticker", "layer", "period", "field", "method", "kind", "scope")
 SHOWS = ("grid", "bars", "lines", "shares", "chart")  # chart: the Explorer's spec in `chart` {x, series, type}
-CHART_AXES = ("period", "ticker", "layer", "field", "method", "kind", "dimension", "status", "scope", "source")
+CHART_AXES = ("period", "fiscal_year", "ticker", "layer", "group", "field", "category", "measure", "standard_type", "kind", "dimension", "status", "scope", "source")
 CHART_TYPES = ("bars", "stacked", "lines", "share")
 
 

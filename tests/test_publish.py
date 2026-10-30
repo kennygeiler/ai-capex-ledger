@@ -50,7 +50,7 @@ class Ordinal(unittest.TestCase):
 class Adds(unittest.TestCase):
     def test_every_column_gets_an_add_if_missing(self):
         from ledger.publish import adds
-        stmts = adds("ledger_attribution", ["ticker", "ai_share", "status"])
-        self.assertEqual(stmts, ['ALTER TABLE ledger_attribution ADD COLUMN IF NOT EXISTS "ticker" text',
-                                 'ALTER TABLE ledger_attribution ADD COLUMN IF NOT EXISTS "ai_share" numeric',
-                                 'ALTER TABLE ledger_attribution ADD COLUMN IF NOT EXISTS "status" text'])
+        stmts = adds("ledger_facts", ["ticker", "share", "status"])
+        self.assertEqual(stmts, ['ALTER TABLE ledger_facts ADD COLUMN IF NOT EXISTS "ticker" text',
+                                 'ALTER TABLE ledger_facts ADD COLUMN IF NOT EXISTS "share" numeric',
+                                 'ALTER TABLE ledger_facts ADD COLUMN IF NOT EXISTS "status" text'])

@@ -93,18 +93,8 @@ def facts_csv(rows: list[dict]) -> str:
     return buf.getvalue()
 
 
-def attribution_csv(rows: list[dict]) -> str:
-    """AI's part of capex and opex per company and fiscal year, with the method and the inputs behind each number."""
-    buf = io.StringIO()
-    w = csv.writer(buf, lineterminator="\n")
-    w.writerow(["ticker", "field", "period", "kind", "method", "ai_amount", "ai_share", "confidence", "model", "inputs", "basis"])
-    for a in sorted(rows, key=lambda a: (a["ticker"], a["field"], a["period"], a["kind"])):
-        w.writerow([a["ticker"], a["field"], a["period"], a["kind"], a["method"], "" if a["ai_amount"] is None else a["ai_amount"],
-                    "" if a["ai_share"] is None else round(a["ai_share"], 4), a["confidence"], a["model"], a["inputs"], a["basis"]])
-    return buf.getvalue()
 
-
-def build(version, values, extractions, exceptions, previous, confirmed=frozenset(), ai_spend=(), facts=(), attribution=(), evaluation=None) -> dict:
+def build(version, values, extractions, exceptions, previous, confirmed=frozenset(), ai_spend=(), facts=()) -> dict:
     """Release files as {name: text}. No timestamps inside, so the same inputs give the same hash (G7)."""
     ext = {e["extraction_id"]: e for e in extractions}
     rows = sorted(values, key=lambda v: (v["ticker"], v["field"], v["period"]))
@@ -122,7 +112,7 @@ def build(version, values, extractions, exceptions, previous, confirmed=frozense
                          f"{sum(v['source'] == 'override' for v in rows)} overridden · {sum(v['source'] == 'missing' for v in rows)} missing · "
                          f"{sum(v['label'] == 'agree' for v in rows)} agree with XBRL · {sum(v['basis'] == 'restated' for v in rows)} on a restated basis · "
                          f"{sum(v['label'] == 'not_reported' for v in rows)} blank because the company reports no such line", "",
-                         ai_line(list(ai_spend)), "", facts_line(list(facts)), "", attribution_line(list(attribution)), "", evaluation_line(evaluation), "",
+                         ai_line(list(ai_spend)), "", facts_line(list(facts)), "",
                          check_line(rows, confirmed), "",
                          "All gates passed: " + "; ".join(f"{g} {d}" for g, d in GATES.items()) + ".", "",
                          "## Notes", ""] + [f"- {e['ticker']} {e['field'] or ''}: {e['message']}" for e in notes] + [""])
@@ -136,27 +126,10 @@ def build(version, values, extractions, exceptions, previous, confirmed=frozense
     body = ["First release."] if previous is None else (changes or ["No values changed."]) + (
         ["", f"Added: {sum(added.values())} values for {', '.join(sorted(added))}."] if added else [])
     diff = "\n".join([f"# Changes in {version}", ""] + body + [""])
-    files = {"values.csv": buf.getvalue(), "facts.csv": facts_csv(list(facts)), "ai_spend.csv": ai_spend_csv(list(ai_spend)), "attribution.csv": attribution_csv(list(attribution)), "QUALITY.md": quality, "DIFF.md": diff,
+    files = {"values.csv": buf.getvalue(), "facts.csv": facts_csv(list(facts)), "ai_spend.csv": ai_spend_csv(list(ai_spend)), "QUALITY.md": quality, "DIFF.md": diff,
              "README.md": readme(version, rows, list(ai_spend))}
-    if evaluation:
-        from .evaluation import render
-        files["EVALUATION.md"] = render(evaluation)
     return files
 
-
-def evaluation_line(ev: dict | None) -> str:
-    if not ev:
-        return "Evaluation: no reference set."
-    return (f"Evaluation (EVALUATION.md): against {ev['n']} sourced reference figures for AI's part of capex, we have a number for {ev['with_estimate']}: "
-            f"{ev['agree']} agree, {ev['disagree']} disagree; {ev['no_estimate']} have no estimate from us. The set is small and says so.")
-
-
-def attribution_line(rows: list[dict]) -> str:
-    by = {}
-    for a in rows:
-        by[a["method"]] = by.get(a["method"], 0) + 1
-    return (f"AI attribution (attribution.csv): {len(rows)} rows for {len({a['ticker'] for a in rows})} companies, {sum(a['ai_amount'] is not None for a in rows)} with an AI dollar amount, by method: "
-            + ", ".join(f"{v} {k}" for k, v in sorted(by.items(), key=lambda kv: -kv[1])) + ". Each number names its inputs and the money-flow model version; code recomputed every one.")
 
 
 def facts_line(rows: list[dict]) -> str:
@@ -184,8 +157,6 @@ def readme(version, rows, ai_spend=()) -> str:
         "## Files", "",
         "- `values.csv`: one row per company, field and fiscal year.",
         "- `facts.csv`: facts from the notes: capex and revenue per segment, property and equipment by category, finance lease liabilities, purchase commitments; `xbrl` says whether the filing's own tagged fact agrees.",
-        "- `EVALUATION.md`: the attribution scored against a reference set of sourced figures (what the companies said AI's part of capex was): coverage, agreement, error band per method.",
-        "- `attribution.csv`: AI's part of capex and opex per company and fiscal year, with the method (a stated share or amount, segment capex, growth in the server category, the whole business, or words only), the inputs behind the number and the money-flow model version.",
         "- `ai_spend.csv`: what each 10-K's MD&A says about AI's part of capex and opex, one row per company, field, fiscal year and kind, with the sentence quoted.",
         "- `QUALITY.md`: how many values agree with XBRL, what a person checked, and every note on definitions and restatements.",
         "- `DIFF.md`: what changed since the previous release.",
@@ -200,12 +171,6 @@ def readme(version, rows, ai_spend=()) -> str:
         "| `source` | `agent`: read from the filing by the agent and checked. `override`: a reviewer replaced it, with a recorded reason. |",
         "| `xbrl` | `agree`: matches the company's XBRL data. `definition_gap`: differs only in which lines count as cost of revenue, confirmed by a reviewer. `unresolved`: differs; a reviewer decided. `not_reported`: no line to read. |",
         "| `citations` | The filing's accession number, table, row label, column label and the cell text, for every cell behind the value. |", "",
-        "## Columns of attribution.csv", "",
-        "| Column | Meaning |", "|---|---|",
-        "| `method` | `stated_share` / `stated_amount`: the company said so. `segment`: the AI segment's capex (ASC 280). `ppe_category`: year-on-year growth in the server and network category (all server growth, not only AI). `whole_business`: a single-segment AI business. `qualitative`: words only, no number. `none`: nothing links the spend to AI. |",
-        "| `ai_amount`, `ai_share` | AI dollars and their share of the company's capex or opex; blank for `qualitative` and `none`. |",
-        "| `confidence` | 0 to 1, within the model's ceiling for the method. |",
-        "| `model`, `inputs`, `basis` | The money-flow model version, the ids of the values, facts and statements the number rests on, and the arithmetic in words. |", "",
         "## Columns of ai_spend.csv", "",
         "| Column | Meaning |", "|---|---|",
         "| `kind` | `actual`: the fiscal year the filing reports. `outlook`: a later year the filing speaks to. |",

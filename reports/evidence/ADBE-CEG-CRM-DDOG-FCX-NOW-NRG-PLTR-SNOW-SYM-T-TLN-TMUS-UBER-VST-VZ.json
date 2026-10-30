@@ -1,0 +1,4064 @@
+{
+ "0000732712-23-000012|capex|2020-01-01|2020-12-31": {
+  "cell": "(18,192)",
+  "img": null,
+  "match": true,
+  "seen": "(18,192)"
+ },
+ "0000732712-23-000012|capex|2021-01-01|2021-12-31": {
+  "cell": "(20,286)",
+  "img": null,
+  "match": true,
+  "seen": "(20,286)"
+ },
+ "0000732712-23-000012|capex|2022-01-01|2022-12-31": {
+  "cell": "(23,087)",
+  "img": null,
+  "match": true,
+  "seen": "(23,087)"
+ },
+ "0000732712-23-000012|cost_of_revenue_part|2020-01-01|2020-12-31|Cost of services (exclusive of items shown below)": {
+  "cell": "31,401",
+  "img": null,
+  "match": true,
+  "seen": "31,401"
+ },
+ "0000732712-23-000012|cost_of_revenue_part|2020-01-01|2020-12-31|Cost of wireless equipment": {
+  "cell": "19,800",
+  "img": null,
+  "match": true,
+  "seen": "19,800"
+ },
+ "0000732712-23-000012|cost_of_revenue_part|2021-01-01|2021-12-31|Cost of services (exclusive of items shown below)": {
+  "cell": "31,234",
+  "img": null,
+  "match": true,
+  "seen": "31,234"
+ },
+ "0000732712-23-000012|cost_of_revenue_part|2021-01-01|2021-12-31|Cost of wireless equipment": {
+  "cell": "25,067",
+  "img": null,
+  "match": true,
+  "seen": "25,067"
+ },
+ "0000732712-23-000012|cost_of_revenue_part|2022-01-01|2022-12-31|Cost of services (exclusive of items shown below)": {
+  "cell": "28,637",
+  "img": null,
+  "match": true,
+  "seen": "28,637"
+ },
+ "0000732712-23-000012|cost_of_revenue_part|2022-01-01|2022-12-31|Cost of wireless equipment": {
+  "cell": "30,496",
+  "img": null,
+  "match": true,
+  "seen": "30,496"
+ },
+ "0000732712-23-000012|operating_income|2020-01-01|2020-12-31": {
+  "cell": "28,798",
+  "img": null,
+  "match": true,
+  "seen": "28,798"
+ },
+ "0000732712-23-000012|operating_income|2021-01-01|2021-12-31": {
+  "cell": "32,448",
+  "img": null,
+  "match": true,
+  "seen": "32,448"
+ },
+ "0000732712-23-000012|operating_income|2022-01-01|2022-12-31": {
+  "cell": "30,467",
+  "img": null,
+  "match": true,
+  "seen": "30,467"
+ },
+ "0000732712-23-000012|revenue|2020-01-01|2020-12-31": {
+  "cell": "128,292",
+  "img": null,
+  "match": true,
+  "seen": "128,292"
+ },
+ "0000732712-23-000012|revenue|2021-01-01|2021-12-31": {
+  "cell": "133,613",
+  "img": null,
+  "match": true,
+  "seen": "133,613"
+ },
+ "0000732712-23-000012|revenue|2022-01-01|2022-12-31": {
+  "cell": "136,835",
+  "img": null,
+  "match": true,
+  "seen": "136,835"
+ },
+ "0000732712-24-000010|capex|2021-01-01|2021-12-31": {
+  "cell": "(20,286)",
+  "img": null,
+  "match": true,
+  "seen": "(20,286)"
+ },
+ "0000732712-24-000010|capex|2022-01-01|2022-12-31": {
+  "cell": "(23,087)",
+  "img": null,
+  "match": true,
+  "seen": "(23,087)"
+ },
+ "0000732712-24-000010|capex|2023-01-01|2023-12-31": {
+  "cell": "(18,767)",
+  "img": null,
+  "match": true,
+  "seen": "(18,767)"
+ },
+ "0000732712-24-000010|cost_of_revenue_part|2021-01-01|2021-12-31|Cost of services (exclusive of items shown below)": {
+  "cell": "31,234",
+  "img": null,
+  "match": true,
+  "seen": "31,234"
+ },
+ "0000732712-24-000010|cost_of_revenue_part|2021-01-01|2021-12-31|Cost of wireless equipment": {
+  "cell": "25,067",
+  "img": null,
+  "match": true,
+  "seen": "25,067"
+ },
+ "0000732712-24-000010|cost_of_revenue_part|2022-01-01|2022-12-31|Cost of services (exclusive of items shown below)": {
+  "cell": "28,637",
+  "img": null,
+  "match": true,
+  "seen": "28,637"
+ },
+ "0000732712-24-000010|cost_of_revenue_part|2022-01-01|2022-12-31|Cost of wireless equipment": {
+  "cell": "30,496",
+  "img": null,
+  "match": true,
+  "seen": "30,496"
+ },
+ "0000732712-24-000010|cost_of_revenue_part|2023-01-01|2023-12-31|Cost of services (exclusive of items shown below)": {
+  "cell": "28,100",
+  "img": null,
+  "match": true,
+  "seen": "28,100"
+ },
+ "0000732712-24-000010|cost_of_revenue_part|2023-01-01|2023-12-31|Cost of wireless equipment": {
+  "cell": "26,787",
+  "img": null,
+  "match": true,
+  "seen": "26,787"
+ },
+ "0000732712-24-000010|operating_income|2021-01-01|2021-12-31": {
+  "cell": "32,448",
+  "img": null,
+  "match": true,
+  "seen": "32,448"
+ },
+ "0000732712-24-000010|operating_income|2022-01-01|2022-12-31": {
+  "cell": "30,467",
+  "img": null,
+  "match": true,
+  "seen": "30,467"
+ },
+ "0000732712-24-000010|operating_income|2023-01-01|2023-12-31": {
+  "cell": "22,877",
+  "img": null,
+  "match": true,
+  "seen": "22,877"
+ },
+ "0000732712-24-000010|revenue|2021-01-01|2021-12-31": {
+  "cell": "133,613",
+  "img": null,
+  "match": true,
+  "seen": "133,613"
+ },
+ "0000732712-24-000010|revenue|2022-01-01|2022-12-31": {
+  "cell": "136,835",
+  "img": null,
+  "match": true,
+  "seen": "136,835"
+ },
+ "0000732712-24-000010|revenue|2023-01-01|2023-12-31": {
+  "cell": "133,974",
+  "img": null,
+  "match": true,
+  "seen": "133,974"
+ },
+ "0000732712-25-000006|capex|2022-01-01|2022-12-31": {
+  "cell": "(23,087)",
+  "img": null,
+  "match": true,
+  "seen": "(23,087)"
+ },
+ "0000732712-25-000006|capex|2023-01-01|2023-12-31": {
+  "cell": "(18,767)",
+  "img": null,
+  "match": true,
+  "seen": "(18,767)"
+ },
+ "0000732712-25-000006|capex|2024-01-01|2024-12-31": {
+  "cell": "(17,090)",
+  "img": null,
+  "match": true,
+  "seen": "(17,090)"
+ },
+ "0000732712-25-000006|cost_of_revenue_part|2022-01-01|2022-12-31|Cost of services (exclusive of items shown below)": {
+  "cell": "28,637",
+  "img": "220c67c25061.png",
+  "match": true,
+  "seen": "28,637"
+ },
+ "0000732712-25-000006|cost_of_revenue_part|2022-01-01|2022-12-31|Cost of wireless equipment": {
+  "cell": "30,496",
+  "img": "437063a8b97f.png",
+  "match": true,
+  "seen": "30,496"
+ },
+ "0000732712-25-000006|cost_of_revenue_part|2023-01-01|2023-12-31|Cost of services (exclusive of items shown below)": {
+  "cell": "28,100",
+  "img": null,
+  "match": true,
+  "seen": "28,100"
+ },
+ "0000732712-25-000006|cost_of_revenue_part|2023-01-01|2023-12-31|Cost of wireless equipment": {
+  "cell": "26,787",
+  "img": null,
+  "match": true,
+  "seen": "26,787"
+ },
+ "0000732712-25-000006|cost_of_revenue_part|2024-01-01|2024-12-31|Cost of services (exclusive of items shown below)": {
+  "cell": "27,997",
+  "img": null,
+  "match": true,
+  "seen": "27,997"
+ },
+ "0000732712-25-000006|cost_of_revenue_part|2024-01-01|2024-12-31|Cost of wireless equipment": {
+  "cell": "26,100",
+  "img": null,
+  "match": true,
+  "seen": "26,100"
+ },
+ "0000732712-25-000006|operating_income|2022-01-01|2022-12-31": {
+  "cell": "30,467",
+  "img": "d5151486a12f.png",
+  "match": true,
+  "seen": "30,467"
+ },
+ "0000732712-25-000006|operating_income|2023-01-01|2023-12-31": {
+  "cell": "22,877",
+  "img": null,
+  "match": true,
+  "seen": "22,877"
+ },
+ "0000732712-25-000006|operating_income|2024-01-01|2024-12-31": {
+  "cell": "28,686",
+  "img": null,
+  "match": true,
+  "seen": "28,686"
+ },
+ "0000732712-25-000006|revenue|2022-01-01|2022-12-31": {
+  "cell": "136,835",
+  "img": "d3d59e89c9c0.png",
+  "match": true,
+  "seen": "136,835"
+ },
+ "0000732712-25-000006|revenue|2023-01-01|2023-12-31": {
+  "cell": "133,974",
+  "img": null,
+  "match": true,
+  "seen": "133,974"
+ },
+ "0000732712-25-000006|revenue|2024-01-01|2024-12-31": {
+  "cell": "134,788",
+  "img": null,
+  "match": true,
+  "seen": "134,788"
+ },
+ "0000732712-26-000007|capex|2023-01-01|2023-12-31": {
+  "cell": "(18,767)",
+  "img": "60cf579373c4.png",
+  "match": true,
+  "seen": "(18,767)"
+ },
+ "0000732712-26-000007|capex|2024-01-01|2024-12-31": {
+  "cell": "(17,090)",
+  "img": null,
+  "match": true,
+  "seen": "(17,090)"
+ },
+ "0000732712-26-000007|capex|2025-01-01|2025-12-31": {
+  "cell": "(17,011)",
+  "img": null,
+  "match": true,
+  "seen": "(17,011)"
+ },
+ "0000732712-26-000007|cost_of_revenue_part|2023-01-01|2023-12-31|Cost of services (exclusive of items shown below)": {
+  "cell": "28,100",
+  "img": "a8baf894b0e8.png",
+  "match": true,
+  "seen": "28,100"
+ },
+ "0000732712-26-000007|cost_of_revenue_part|2023-01-01|2023-12-31|Cost of wireless equipment": {
+  "cell": "26,787",
+  "img": "6e6b49bf055d.png",
+  "match": true,
+  "seen": "26,787"
+ },
+ "0000732712-26-000007|cost_of_revenue_part|2024-01-01|2024-12-31|Cost of services (exclusive of items shown below)": {
+  "cell": "27,997",
+  "img": "d8eed4346772.png",
+  "match": true,
+  "seen": "27,997"
+ },
+ "0000732712-26-000007|cost_of_revenue_part|2024-01-01|2024-12-31|Cost of wireless equipment": {
+  "cell": "26,100",
+  "img": "4ab364d67d87.png",
+  "match": true,
+  "seen": "26,100"
+ },
+ "0000732712-26-000007|cost_of_revenue_part|2025-01-01|2025-12-31|Cost of services (exclusive of items shown below)": {
+  "cell": "27,789",
+  "img": "5a68c63eb026.png",
+  "match": true,
+  "seen": "27,789"
+ },
+ "0000732712-26-000007|cost_of_revenue_part|2025-01-01|2025-12-31|Cost of wireless equipment": {
+  "cell": "28,976",
+  "img": "8824e2abb5bb.png",
+  "match": true,
+  "seen": "28,976"
+ },
+ "0000732712-26-000007|operating_income|2023-01-01|2023-12-31": {
+  "cell": "22,877",
+  "img": "f991c9649fbf.png",
+  "match": true,
+  "seen": "22,877"
+ },
+ "0000732712-26-000007|operating_income|2024-01-01|2024-12-31": {
+  "cell": "28,686",
+  "img": "9d2b75344abc.png",
+  "match": true,
+  "seen": "28,686"
+ },
+ "0000732712-26-000007|operating_income|2025-01-01|2025-12-31": {
+  "cell": "29,259",
+  "img": "26d47e018765.png",
+  "match": true,
+  "seen": "29,259"
+ },
+ "0000732712-26-000007|revenue|2023-01-01|2023-12-31": {
+  "cell": "133,974",
+  "img": "ef9dfc394963.png",
+  "match": true,
+  "seen": "133,974"
+ },
+ "0000732712-26-000007|revenue|2024-01-01|2024-12-31": {
+  "cell": "134,788",
+  "img": "d37c8f702e49.png",
+  "match": true,
+  "seen": "134,788"
+ },
+ "0000732712-26-000007|revenue|2025-01-01|2025-12-31": {
+  "cell": "138,191",
+  "img": "62359d3ce230.png",
+  "match": true,
+  "seen": "138,191"
+ },
+ "0000796343-23-000007|capex|2019-11-30|2020-11-27": {
+  "cell": "(419)",
+  "img": null,
+  "match": true,
+  "seen": "(419)"
+ },
+ "0000796343-23-000007|capex|2020-11-28|2021-12-03": {
+  "cell": "(348)",
+  "img": null,
+  "match": true,
+  "seen": "(348)"
+ },
+ "0000796343-23-000007|capex|2021-12-04|2022-12-02": {
+  "cell": "(442)",
+  "img": null,
+  "match": true,
+  "seen": "(442)"
+ },
+ "0000796343-23-000007|cost_of_revenue|2019-11-30|2020-11-27": {
+  "cell": "1,722",
+  "img": null,
+  "match": true,
+  "seen": "1,722"
+ },
+ "0000796343-23-000007|cost_of_revenue|2020-11-28|2021-12-03": {
+  "cell": "1,865",
+  "img": null,
+  "match": true,
+  "seen": "1,865"
+ },
+ "0000796343-23-000007|cost_of_revenue|2021-12-04|2022-12-02": {
+  "cell": "2,165",
+  "img": null,
+  "match": true,
+  "seen": "2,165"
+ },
+ "0000796343-23-000007|operating_income|2019-11-30|2020-11-27": {
+  "cell": "4,237",
+  "img": null,
+  "match": true,
+  "seen": "4,237"
+ },
+ "0000796343-23-000007|operating_income|2020-11-28|2021-12-03": {
+  "cell": "5,802",
+  "img": null,
+  "match": true,
+  "seen": "5,802"
+ },
+ "0000796343-23-000007|operating_income|2021-12-04|2022-12-02": {
+  "cell": "6,098",
+  "img": null,
+  "match": true,
+  "seen": "6,098"
+ },
+ "0000796343-23-000007|revenue|2019-11-30|2020-11-27": {
+  "cell": "12,868",
+  "img": null,
+  "match": true,
+  "seen": "12,868"
+ },
+ "0000796343-23-000007|revenue|2020-11-28|2021-12-03": {
+  "cell": "15,785",
+  "img": null,
+  "match": true,
+  "seen": "15,785"
+ },
+ "0000796343-23-000007|revenue|2021-12-04|2022-12-02": {
+  "cell": "17,606",
+  "img": null,
+  "match": true,
+  "seen": "17,606"
+ },
+ "0000796343-24-000006|capex|2020-11-28|2021-12-03": {
+  "cell": "(348)",
+  "img": null,
+  "match": true,
+  "seen": "(348)"
+ },
+ "0000796343-24-000006|capex|2021-12-04|2022-12-02": {
+  "cell": "(442)",
+  "img": null,
+  "match": true,
+  "seen": "(442)"
+ },
+ "0000796343-24-000006|capex|2022-12-03|2023-12-01": {
+  "cell": "(360)",
+  "img": null,
+  "match": true,
+  "seen": "(360)"
+ },
+ "0000796343-24-000006|cost_of_revenue|2020-11-28|2021-12-03": {
+  "cell": "1,865",
+  "img": null,
+  "match": true,
+  "seen": "1,865"
+ },
+ "0000796343-24-000006|cost_of_revenue|2021-12-04|2022-12-02": {
+  "cell": "2,165",
+  "img": null,
+  "match": true,
+  "seen": "2,165"
+ },
+ "0000796343-24-000006|cost_of_revenue|2022-12-03|2023-12-01": {
+  "cell": "2,354",
+  "img": null,
+  "match": true,
+  "seen": "2,354"
+ },
+ "0000796343-24-000006|operating_income|2020-11-28|2021-12-03": {
+  "cell": "5,802",
+  "img": null,
+  "match": true,
+  "seen": "5,802"
+ },
+ "0000796343-24-000006|operating_income|2021-12-04|2022-12-02": {
+  "cell": "6,098",
+  "img": null,
+  "match": true,
+  "seen": "6,098"
+ },
+ "0000796343-24-000006|operating_income|2022-12-03|2023-12-01": {
+  "cell": "6,650",
+  "img": null,
+  "match": true,
+  "seen": "6,650"
+ },
+ "0000796343-24-000006|revenue|2020-11-28|2021-12-03": {
+  "cell": "15,785",
+  "img": null,
+  "match": true,
+  "seen": "15,785"
+ },
+ "0000796343-24-000006|revenue|2021-12-04|2022-12-02": {
+  "cell": "17,606",
+  "img": null,
+  "match": true,
+  "seen": "17,606"
+ },
+ "0000796343-24-000006|revenue|2022-12-03|2023-12-01": {
+  "cell": "19,409",
+  "img": null,
+  "match": true,
+  "seen": "19,409"
+ },
+ "0000796343-25-000004|capex|2021-12-04|2022-12-02": {
+  "cell": "(442)",
+  "img": null,
+  "match": true,
+  "seen": "(442)"
+ },
+ "0000796343-25-000004|capex|2022-12-03|2023-12-01": {
+  "cell": "(360)",
+  "img": null,
+  "match": true,
+  "seen": "(360)"
+ },
+ "0000796343-25-000004|capex|2023-12-02|2024-11-29": {
+  "cell": "(183)",
+  "img": null,
+  "match": true,
+  "seen": "(183)"
+ },
+ "0000796343-25-000004|cost_of_revenue|2021-12-04|2022-12-02": {
+  "cell": "2,165",
+  "img": null,
+  "match": true,
+  "seen": "2,165"
+ },
+ "0000796343-25-000004|cost_of_revenue|2022-12-03|2023-12-01": {
+  "cell": "2,354",
+  "img": null,
+  "match": true,
+  "seen": "2,354"
+ },
+ "0000796343-25-000004|cost_of_revenue|2023-12-02|2024-11-29": {
+  "cell": "2,358",
+  "img": null,
+  "match": true,
+  "seen": "2,358"
+ },
+ "0000796343-25-000004|operating_income|2021-12-04|2022-12-02": {
+  "cell": "6,098",
+  "img": null,
+  "match": true,
+  "seen": "6,098"
+ },
+ "0000796343-25-000004|operating_income|2022-12-03|2023-12-01": {
+  "cell": "6,650",
+  "img": null,
+  "match": true,
+  "seen": "6,650"
+ },
+ "0000796343-25-000004|operating_income|2023-12-02|2024-11-29": {
+  "cell": "6,741",
+  "img": null,
+  "match": true,
+  "seen": "6,741"
+ },
+ "0000796343-25-000004|revenue|2021-12-04|2022-12-02": {
+  "cell": "17,606",
+  "img": null,
+  "match": true,
+  "seen": "17,606"
+ },
+ "0000796343-25-000004|revenue|2022-12-03|2023-12-01": {
+  "cell": "19,409",
+  "img": null,
+  "match": true,
+  "seen": "19,409"
+ },
+ "0000796343-25-000004|revenue|2023-12-02|2024-11-29": {
+  "cell": "21,505",
+  "img": null,
+  "match": true,
+  "seen": "21,505"
+ },
+ "0000796343-26-000003|capex|2022-12-03|2023-12-01": {
+  "cell": "(360)",
+  "img": null,
+  "match": true,
+  "seen": "(360)"
+ },
+ "0000796343-26-000003|capex|2023-12-02|2024-11-29": {
+  "cell": "(183)",
+  "img": null,
+  "match": true,
+  "seen": "(183)"
+ },
+ "0000796343-26-000003|capex|2024-11-30|2025-11-28": {
+  "cell": "(179)",
+  "img": null,
+  "match": true,
+  "seen": "(179)"
+ },
+ "0000796343-26-000003|cost_of_revenue|2022-12-03|2023-12-01": {
+  "cell": "2,354",
+  "img": null,
+  "match": true,
+  "seen": "2,354"
+ },
+ "0000796343-26-000003|cost_of_revenue|2023-12-02|2024-11-29": {
+  "cell": "2,358",
+  "img": "cc1f2ef3f2b1.png",
+  "match": true,
+  "seen": "2,358"
+ },
+ "0000796343-26-000003|cost_of_revenue|2024-11-30|2025-11-28": {
+  "cell": "2,551",
+  "img": "c3722762e518.png",
+  "match": true,
+  "seen": "2,551"
+ },
+ "0000796343-26-000003|operating_income|2022-12-03|2023-12-01": {
+  "cell": "6,650",
+  "img": null,
+  "match": true,
+  "seen": "6,650"
+ },
+ "0000796343-26-000003|operating_income|2023-12-02|2024-11-29": {
+  "cell": "6,741",
+  "img": "4ce5a516ccda.png",
+  "match": true,
+  "seen": "6,741"
+ },
+ "0000796343-26-000003|operating_income|2024-11-30|2025-11-28": {
+  "cell": "8,706",
+  "img": "324fc047c69e.png",
+  "match": true,
+  "seen": "8,706"
+ },
+ "0000796343-26-000003|revenue|2022-12-03|2023-12-01": {
+  "cell": "19,409",
+  "img": null,
+  "match": true,
+  "seen": "19,409"
+ },
+ "0000796343-26-000003|revenue|2023-12-02|2024-11-29": {
+  "cell": "21,505",
+  "img": "9aa2091dfcf0.png",
+  "match": true,
+  "seen": "21,505"
+ },
+ "0000796343-26-000003|revenue|2024-11-30|2025-11-28": {
+  "cell": "23,769",
+  "img": "9406b2570cd3.png",
+  "match": true,
+  "seen": "23,769"
+ },
+ "0000831259-23-000013|operating_income|2021-01-01|2021-12-31": {
+  "cell": "8,366",
+  "img": null,
+  "match": true,
+  "seen": "$8,366"
+ },
+ "0000831259-23-000013|operating_income|2022-01-01|2022-12-31": {
+  "cell": "7,037",
+  "img": null,
+  "match": true,
+  "seen": "$7,037"
+ },
+ "0000831259-23-000013|revenue|2021-01-01|2021-12-31": {
+  "cell": "22,845",
+  "img": null,
+  "match": true,
+  "seen": "$22,845"
+ },
+ "0000831259-23-000013|revenue|2022-01-01|2022-12-31": {
+  "cell": "22,780",
+  "img": null,
+  "match": true,
+  "seen": "$22,780"
+ },
+ "0000831259-24-000011|operating_income|2022-01-01|2022-12-31": {
+  "cell": "7,037",
+  "img": null,
+  "match": true,
+  "seen": "$7,037"
+ },
+ "0000831259-24-000011|operating_income|2023-01-01|2023-12-31": {
+  "cell": "6,225",
+  "img": null,
+  "match": true,
+  "seen": "$6,225"
+ },
+ "0000831259-24-000011|revenue|2022-01-01|2022-12-31": {
+  "cell": "22,780",
+  "img": "c11d233f2493.png",
+  "match": true,
+  "seen": "$22,780"
+ },
+ "0000831259-24-000011|revenue|2023-01-01|2023-12-31": {
+  "cell": "22,855",
+  "img": null,
+  "match": true,
+  "seen": "$22,855"
+ },
+ "0000831259-25-000006|operating_income|2023-01-01|2023-12-31": {
+  "cell": "6,225",
+  "img": null,
+  "match": true,
+  "seen": "$6,225"
+ },
+ "0000831259-25-000006|operating_income|2024-01-01|2024-12-31": {
+  "cell": "6,864",
+  "img": null,
+  "match": true,
+  "seen": "$6,864"
+ },
+ "0000831259-25-000006|revenue|2023-01-01|2023-12-31": {
+  "cell": "22,855",
+  "img": null,
+  "match": true,
+  "seen": "$22,855"
+ },
+ "0000831259-25-000006|revenue|2024-01-01|2024-12-31": {
+  "cell": "25,455",
+  "img": "934384f980b4.png",
+  "match": true,
+  "seen": "$25,455"
+ },
+ "0001013871-23-000004|capex|2020-01-01|2020-12-31": {
+  "cell": "(230)",
+  "img": null,
+  "match": true,
+  "seen": "(230)"
+ },
+ "0001013871-23-000004|capex|2021-01-01|2021-12-31": {
+  "cell": "(269)",
+  "img": null,
+  "match": true,
+  "seen": "(269)"
+ },
+ "0001013871-23-000004|capex|2022-01-01|2022-12-31": {
+  "cell": "(367)",
+  "img": null,
+  "match": true,
+  "seen": "(367)"
+ },
+ "0001013871-23-000004|operating_income|2022-01-01|2022-12-31": {
+  "cell": "1,954",
+  "img": null,
+  "match": true,
+  "seen": "1,954"
+ },
+ "0001013871-23-000004|revenue|2022-01-01|2022-12-31": {
+  "cell": "27,682",
+  "img": null,
+  "match": true,
+  "seen": "$27,682"
+ },
+ "0001013871-24-000005|capex|2021-01-01|2021-12-31": {
+  "cell": "(269)",
+  "img": null,
+  "match": true,
+  "seen": "(269)"
+ },
+ "0001013871-24-000005|capex|2022-01-01|2022-12-31": {
+  "cell": "(367)",
+  "img": null,
+  "match": true,
+  "seen": "(367)"
+ },
+ "0001013871-24-000005|capex|2023-01-01|2023-12-31": {
+  "cell": "(598)",
+  "img": null,
+  "match": true,
+  "seen": "(598)"
+ },
+ "0001013871-24-000005|operating_income|2023-01-01|2023-12-31": {
+  "cell": "600",
+  "img": null,
+  "match": true,
+  "seen": "600"
+ },
+ "0001013871-24-000005|revenue|2023-01-01|2023-12-31": {
+  "cell": "24,202",
+  "img": null,
+  "match": true,
+  "seen": "$24,202"
+ },
+ "0001013871-25-000006|capex|2022-01-01|2022-12-31": {
+  "cell": "(367)",
+  "img": null,
+  "match": true,
+  "seen": "(367)"
+ },
+ "0001013871-25-000006|capex|2023-01-01|2023-12-31": {
+  "cell": "(598)",
+  "img": null,
+  "match": true,
+  "seen": "(598)"
+ },
+ "0001013871-25-000006|capex|2024-01-01|2024-12-31": {
+  "cell": "(472)",
+  "img": null,
+  "match": true,
+  "seen": "(472)"
+ },
+ "0001013871-25-000006|operating_income|2024-01-01|2024-12-31": {
+  "cell": "2,382",
+  "img": null,
+  "match": true,
+  "seen": "2,382"
+ },
+ "0001013871-25-000006|revenue|2024-01-01|2024-12-31": {
+  "cell": "23,553",
+  "img": null,
+  "match": true,
+  "seen": "$23,553"
+ },
+ "0001013871-26-000004|capex|2023-01-01|2023-12-31": {
+  "cell": "(598)",
+  "img": null,
+  "match": true,
+  "seen": "(598)"
+ },
+ "0001013871-26-000004|capex|2024-01-01|2024-12-31": {
+  "cell": "(472)",
+  "img": null,
+  "match": true,
+  "seen": "(472)"
+ },
+ "0001013871-26-000004|capex|2025-01-01|2025-12-31": {
+  "cell": "(1,147)",
+  "img": null,
+  "match": true,
+  "seen": "(1,147)"
+ },
+ "0001013871-26-000004|operating_income|2025-01-01|2025-12-31": {
+  "cell": "1,605",
+  "img": null,
+  "match": true,
+  "seen": "1,605"
+ },
+ "0001013871-26-000004|revenue|2025-01-01|2025-12-31": {
+  "cell": "28,117",
+  "img": "127d0f9846ae.png",
+  "match": true,
+  "seen": "$28,117"
+ },
+ "0001108524-22-000013|capex|2019-02-01|2020-01-31": {
+  "cell": "(643)",
+  "img": null,
+  "match": true,
+  "seen": "(643)"
+ },
+ "0001108524-22-000013|capex|2020-02-01|2021-01-31": {
+  "cell": "(710)",
+  "img": null,
+  "match": true,
+  "seen": "(710)"
+ },
+ "0001108524-22-000013|capex|2021-02-01|2022-01-31": {
+  "cell": "(717)",
+  "img": null,
+  "match": true,
+  "seen": "(717)"
+ },
+ "0001108524-22-000013|cost_of_revenue|2019-02-01|2020-01-31": {
+  "cell": "4,235",
+  "img": null,
+  "match": true,
+  "seen": "4,235"
+ },
+ "0001108524-22-000013|cost_of_revenue|2020-02-01|2021-01-31": {
+  "cell": "5,438",
+  "img": null,
+  "match": true,
+  "seen": "5,438"
+ },
+ "0001108524-22-000013|cost_of_revenue|2021-02-01|2022-01-31": {
+  "cell": "7,026",
+  "img": null,
+  "match": true,
+  "seen": "7,026"
+ },
+ "0001108524-22-000013|operating_income|2019-02-01|2020-01-31": {
+  "cell": "297",
+  "img": null,
+  "match": true,
+  "seen": "297"
+ },
+ "0001108524-22-000013|operating_income|2020-02-01|2021-01-31": {
+  "cell": "455",
+  "img": null,
+  "match": true,
+  "seen": "455"
+ },
+ "0001108524-22-000013|operating_income|2021-02-01|2022-01-31": {
+  "cell": "548",
+  "img": null,
+  "match": true,
+  "seen": "548"
+ },
+ "0001108524-22-000013|revenue|2019-02-01|2020-01-31": {
+  "cell": "17,098",
+  "img": null,
+  "match": true,
+  "seen": "17,098"
+ },
+ "0001108524-22-000013|revenue|2020-02-01|2021-01-31": {
+  "cell": "21,252",
+  "img": null,
+  "match": true,
+  "seen": "21,252"
+ },
+ "0001108524-22-000013|revenue|2021-02-01|2022-01-31": {
+  "cell": "26,492",
+  "img": null,
+  "match": true,
+  "seen": "26,492"
+ },
+ "0001108524-23-000011|capex|2020-02-01|2021-01-31": {
+  "cell": "(710)",
+  "img": null,
+  "match": true,
+  "seen": "(710)"
+ },
+ "0001108524-23-000011|capex|2021-02-01|2022-01-31": {
+  "cell": "(717)",
+  "img": null,
+  "match": true,
+  "seen": "(717)"
+ },
+ "0001108524-23-000011|capex|2022-02-01|2023-01-31": {
+  "cell": "(798)",
+  "img": null,
+  "match": true,
+  "seen": "(798)"
+ },
+ "0001108524-23-000011|cost_of_revenue|2020-02-01|2021-01-31": {
+  "cell": "5,438",
+  "img": null,
+  "match": true,
+  "seen": "5,438"
+ },
+ "0001108524-23-000011|cost_of_revenue|2021-02-01|2022-01-31": {
+  "cell": "7,026",
+  "img": null,
+  "match": true,
+  "seen": "7,026"
+ },
+ "0001108524-23-000011|cost_of_revenue|2022-02-01|2023-01-31": {
+  "cell": "8,360",
+  "img": null,
+  "match": true,
+  "seen": "8,360"
+ },
+ "0001108524-23-000011|operating_income|2020-02-01|2021-01-31": {
+  "cell": "455",
+  "img": null,
+  "match": true,
+  "seen": "455"
+ },
+ "0001108524-23-000011|operating_income|2021-02-01|2022-01-31": {
+  "cell": "548",
+  "img": null,
+  "match": true,
+  "seen": "548"
+ },
+ "0001108524-23-000011|operating_income|2022-02-01|2023-01-31": {
+  "cell": "1,030",
+  "img": null,
+  "match": true,
+  "seen": "1,030"
+ },
+ "0001108524-23-000011|revenue|2020-02-01|2021-01-31": {
+  "cell": "21,252",
+  "img": null,
+  "match": true,
+  "seen": "21,252"
+ },
+ "0001108524-23-000011|revenue|2021-02-01|2022-01-31": {
+  "cell": "26,492",
+  "img": null,
+  "match": true,
+  "seen": "26,492"
+ },
+ "0001108524-23-000011|revenue|2022-02-01|2023-01-31": {
+  "cell": "31,352",
+  "img": null,
+  "match": true,
+  "seen": "31,352"
+ },
+ "0001108524-24-000005|capex|2021-02-01|2022-01-31": {
+  "cell": "(717)",
+  "img": null,
+  "match": true,
+  "seen": "(717)"
+ },
+ "0001108524-24-000005|capex|2022-02-01|2023-01-31": {
+  "cell": "(798)",
+  "img": null,
+  "match": true,
+  "seen": "(798)"
+ },
+ "0001108524-24-000005|capex|2023-02-01|2024-01-31": {
+  "cell": "(736)",
+  "img": null,
+  "match": true,
+  "seen": "(736)"
+ },
+ "0001108524-24-000005|cost_of_revenue|2021-02-01|2022-01-31": {
+  "cell": "7,026",
+  "img": "eaaea216e47b.png",
+  "match": true,
+  "seen": "7,026"
+ },
+ "0001108524-24-000005|cost_of_revenue|2022-02-01|2023-01-31": {
+  "cell": "8,360",
+  "img": null,
+  "match": true,
+  "seen": "8,360"
+ },
+ "0001108524-24-000005|cost_of_revenue|2023-02-01|2024-01-31": {
+  "cell": "8,541",
+  "img": null,
+  "match": true,
+  "seen": "8,541"
+ },
+ "0001108524-24-000005|operating_income|2021-02-01|2022-01-31": {
+  "cell": "548",
+  "img": "a1f285a90899.png",
+  "match": true,
+  "seen": "548"
+ },
+ "0001108524-24-000005|operating_income|2022-02-01|2023-01-31": {
+  "cell": "1,030",
+  "img": null,
+  "match": true,
+  "seen": "1,030"
+ },
+ "0001108524-24-000005|operating_income|2023-02-01|2024-01-31": {
+  "cell": "5,011",
+  "img": null,
+  "match": true,
+  "seen": "5,011"
+ },
+ "0001108524-24-000005|revenue|2021-02-01|2022-01-31": {
+  "cell": "26,492",
+  "img": "2405368e0007.png",
+  "match": true,
+  "seen": "26,492"
+ },
+ "0001108524-24-000005|revenue|2022-02-01|2023-01-31": {
+  "cell": "31,352",
+  "img": null,
+  "match": true,
+  "seen": "31,352"
+ },
+ "0001108524-24-000005|revenue|2023-02-01|2024-01-31": {
+  "cell": "34,857",
+  "img": null,
+  "match": true,
+  "seen": "34,857"
+ },
+ "0001108524-25-000006|capex|2022-02-01|2023-01-31": {
+  "cell": "(798)",
+  "img": null,
+  "match": true,
+  "seen": "(798)"
+ },
+ "0001108524-25-000006|capex|2023-02-01|2024-01-31": {
+  "cell": "(736)",
+  "img": null,
+  "match": true,
+  "seen": "(736)"
+ },
+ "0001108524-25-000006|capex|2024-02-01|2025-01-31": {
+  "cell": "(658)",
+  "img": null,
+  "match": true,
+  "seen": "(658)"
+ },
+ "0001108524-25-000006|cost_of_revenue|2022-02-01|2023-01-31": {
+  "cell": "8,360",
+  "img": null,
+  "match": true,
+  "seen": "8,360"
+ },
+ "0001108524-25-000006|cost_of_revenue|2023-02-01|2024-01-31": {
+  "cell": "8,541",
+  "img": null,
+  "match": true,
+  "seen": "8,541"
+ },
+ "0001108524-25-000006|cost_of_revenue|2024-02-01|2025-01-31": {
+  "cell": "8,643",
+  "img": null,
+  "match": true,
+  "seen": "8,643"
+ },
+ "0001108524-25-000006|operating_income|2022-02-01|2023-01-31": {
+  "cell": "1,030",
+  "img": null,
+  "match": true,
+  "seen": "1,030"
+ },
+ "0001108524-25-000006|operating_income|2023-02-01|2024-01-31": {
+  "cell": "5,011",
+  "img": null,
+  "match": true,
+  "seen": "5,011"
+ },
+ "0001108524-25-000006|operating_income|2024-02-01|2025-01-31": {
+  "cell": "7,205",
+  "img": null,
+  "match": true,
+  "seen": "7,205"
+ },
+ "0001108524-25-000006|revenue|2022-02-01|2023-01-31": {
+  "cell": "31,352",
+  "img": null,
+  "match": true,
+  "seen": "31,352"
+ },
+ "0001108524-25-000006|revenue|2023-02-01|2024-01-31": {
+  "cell": "34,857",
+  "img": null,
+  "match": true,
+  "seen": "34,857"
+ },
+ "0001108524-25-000006|revenue|2024-02-01|2025-01-31": {
+  "cell": "37,895",
+  "img": null,
+  "match": true,
+  "seen": "37,895"
+ },
+ "0001108524-26-000060|capex|2023-02-01|2024-01-31": {
+  "cell": "(736)",
+  "img": null,
+  "match": true,
+  "seen": "(736)"
+ },
+ "0001108524-26-000060|capex|2024-02-01|2025-01-31": {
+  "cell": "(658)",
+  "img": null,
+  "match": true,
+  "seen": "(658)"
+ },
+ "0001108524-26-000060|capex|2025-02-01|2026-01-31": {
+  "cell": "(594)",
+  "img": null,
+  "match": true,
+  "seen": "(594)"
+ },
+ "0001108524-26-000060|cost_of_revenue|2023-02-01|2024-01-31": {
+  "cell": "8,541",
+  "img": null,
+  "match": true,
+  "seen": "8,541"
+ },
+ "0001108524-26-000060|cost_of_revenue|2024-02-01|2025-01-31": {
+  "cell": "8,643",
+  "img": null,
+  "match": true,
+  "seen": "8,643"
+ },
+ "0001108524-26-000060|cost_of_revenue|2025-02-01|2026-01-31": {
+  "cell": "9,270",
+  "img": null,
+  "match": true,
+  "seen": "9,270"
+ },
+ "0001108524-26-000060|operating_income|2023-02-01|2024-01-31": {
+  "cell": "5,011",
+  "img": null,
+  "match": true,
+  "seen": "5,011"
+ },
+ "0001108524-26-000060|operating_income|2024-02-01|2025-01-31": {
+  "cell": "7,205",
+  "img": null,
+  "match": true,
+  "seen": "7,205"
+ },
+ "0001108524-26-000060|operating_income|2025-02-01|2026-01-31": {
+  "cell": "8,331",
+  "img": null,
+  "match": true,
+  "seen": "8,331"
+ },
+ "0001108524-26-000060|revenue|2023-02-01|2024-01-31": {
+  "cell": "34,857",
+  "img": null,
+  "match": true,
+  "seen": "34,857"
+ },
+ "0001108524-26-000060|revenue|2024-02-01|2025-01-31": {
+  "cell": "37,895",
+  "img": "a5664ed6c045.png",
+  "match": true,
+  "seen": "37,895"
+ },
+ "0001108524-26-000060|revenue|2025-02-01|2026-01-31": {
+  "cell": "41,525",
+  "img": null,
+  "match": true,
+  "seen": "41,525"
+ },
+ "0001283699-23-000016|capex|2020-01-01|2020-12-31": {
+  "cell": "(11,034)",
+  "img": null,
+  "match": true,
+  "seen": "(11,034)"
+ },
+ "0001283699-23-000016|capex|2021-01-01|2021-12-31": {
+  "cell": "(12,326)",
+  "img": null,
+  "match": true,
+  "seen": "(12,326)"
+ },
+ "0001283699-23-000016|capex|2022-01-01|2022-12-31": {
+  "cell": "(13,970)",
+  "img": null,
+  "match": true,
+  "seen": "(13,970)"
+ },
+ "0001283699-23-000016|cost_of_revenue_part|2020-01-01|2020-12-31|Cost of equipment sales, exclusive of depreciation and amortization shown separately below": {
+  "cell": "16,388",
+  "img": null,
+  "match": true,
+  "seen": "16,388"
+ },
+ "0001283699-23-000016|cost_of_revenue_part|2020-01-01|2020-12-31|Cost of services, exclusive of depreciation and amortization shown separately below": {
+  "cell": "11,878",
+  "img": null,
+  "match": true,
+  "seen": "11,878"
+ },
+ "0001283699-23-000016|cost_of_revenue_part|2021-01-01|2021-12-31|Cost of equipment sales, exclusive of depreciation and amortization shown separately below": {
+  "cell": "22,671",
+  "img": null,
+  "match": true,
+  "seen": "22,671"
+ },
+ "0001283699-23-000016|cost_of_revenue_part|2021-01-01|2021-12-31|Cost of services, exclusive of depreciation and amortization shown separately below": {
+  "cell": "13,934",
+  "img": null,
+  "match": true,
+  "seen": "13,934"
+ },
+ "0001283699-23-000016|cost_of_revenue_part|2022-01-01|2022-12-31|Cost of equipment sales, exclusive of depreciation and amortization shown separately below": {
+  "cell": "21,540",
+  "img": null,
+  "match": true,
+  "seen": "21,540"
+ },
+ "0001283699-23-000016|cost_of_revenue_part|2022-01-01|2022-12-31|Cost of services, exclusive of depreciation and amortization shown separately below": {
+  "cell": "14,666",
+  "img": null,
+  "match": true,
+  "seen": "14,666"
+ },
+ "0001283699-23-000016|operating_income|2020-01-01|2020-12-31": {
+  "cell": "6,636",
+  "img": null,
+  "match": true,
+  "seen": "6,636"
+ },
+ "0001283699-23-000016|operating_income|2021-01-01|2021-12-31": {
+  "cell": "6,892",
+  "img": null,
+  "match": true,
+  "seen": "6,892"
+ },
+ "0001283699-23-000016|operating_income|2022-01-01|2022-12-31": {
+  "cell": "6,543",
+  "img": null,
+  "match": true,
+  "seen": "6,543"
+ },
+ "0001283699-23-000016|revenue|2020-01-01|2020-12-31": {
+  "cell": "68,397",
+  "img": null,
+  "match": true,
+  "seen": "68,397"
+ },
+ "0001283699-23-000016|revenue|2021-01-01|2021-12-31": {
+  "cell": "80,118",
+  "img": null,
+  "match": true,
+  "seen": "80,118"
+ },
+ "0001283699-23-000016|revenue|2022-01-01|2022-12-31": {
+  "cell": "79,571",
+  "img": null,
+  "match": true,
+  "seen": "79,571"
+ },
+ "0001283699-24-000008|capex|2021-01-01|2021-12-31": {
+  "cell": "(12,326)",
+  "img": null,
+  "match": true,
+  "seen": "(12,326)"
+ },
+ "0001283699-24-000008|capex|2022-01-01|2022-12-31": {
+  "cell": "(13,970)",
+  "img": null,
+  "match": true,
+  "seen": "(13,970)"
+ },
+ "0001283699-24-000008|capex|2023-01-01|2023-12-31": {
+  "cell": "(9,801)",
+  "img": null,
+  "match": true,
+  "seen": "(9,801)"
+ },
+ "0001283699-24-000008|cost_of_revenue_part|2021-01-01|2021-12-31|Cost of equipment sales, exclusive of depreciation and amortization shown separately below": {
+  "cell": "22,671",
+  "img": null,
+  "match": true,
+  "seen": "22,671"
+ },
+ "0001283699-24-000008|cost_of_revenue_part|2021-01-01|2021-12-31|Cost of services, exclusive of depreciation and amortization shown separately below": {
+  "cell": "13,934",
+  "img": null,
+  "match": true,
+  "seen": "13,934"
+ },
+ "0001283699-24-000008|cost_of_revenue_part|2022-01-01|2022-12-31|Cost of equipment sales, exclusive of depreciation and amortization shown separately below": {
+  "cell": "21,540",
+  "img": null,
+  "match": true,
+  "seen": "21,540"
+ },
+ "0001283699-24-000008|cost_of_revenue_part|2022-01-01|2022-12-31|Cost of services, exclusive of depreciation and amortization shown separately below": {
+  "cell": "14,666",
+  "img": null,
+  "match": true,
+  "seen": "14,666"
+ },
+ "0001283699-24-000008|cost_of_revenue_part|2023-01-01|2023-12-31|Cost of equipment sales, exclusive of depreciation and amortization shown separately below": {
+  "cell": "18,533",
+  "img": null,
+  "match": true,
+  "seen": "18,533"
+ },
+ "0001283699-24-000008|cost_of_revenue_part|2023-01-01|2023-12-31|Cost of services, exclusive of depreciation and amortization shown separately below": {
+  "cell": "11,655",
+  "img": null,
+  "match": true,
+  "seen": "11,655"
+ },
+ "0001283699-24-000008|operating_income|2021-01-01|2021-12-31": {
+  "cell": "6,892",
+  "img": null,
+  "match": true,
+  "seen": "6,892"
+ },
+ "0001283699-24-000008|operating_income|2022-01-01|2022-12-31": {
+  "cell": "6,543",
+  "img": null,
+  "match": true,
+  "seen": "6,543"
+ },
+ "0001283699-24-000008|operating_income|2023-01-01|2023-12-31": {
+  "cell": "14,266",
+  "img": null,
+  "match": true,
+  "seen": "14,266"
+ },
+ "0001283699-24-000008|revenue|2021-01-01|2021-12-31": {
+  "cell": "80,118",
+  "img": null,
+  "match": true,
+  "seen": "80,118"
+ },
+ "0001283699-24-000008|revenue|2022-01-01|2022-12-31": {
+  "cell": "79,571",
+  "img": null,
+  "match": true,
+  "seen": "79,571"
+ },
+ "0001283699-24-000008|revenue|2023-01-01|2023-12-31": {
+  "cell": "78,558",
+  "img": null,
+  "match": true,
+  "seen": "78,558"
+ },
+ "0001283699-25-000012|capex|2022-01-01|2022-12-31": {
+  "cell": "(13,970)",
+  "img": null,
+  "match": true,
+  "seen": "(13,970)"
+ },
+ "0001283699-25-000012|capex|2023-01-01|2023-12-31": {
+  "cell": "(9,801)",
+  "img": null,
+  "match": true,
+  "seen": "(9,801)"
+ },
+ "0001283699-25-000012|capex|2024-01-01|2024-12-31": {
+  "cell": "(8,840)",
+  "img": null,
+  "match": true,
+  "seen": "(8,840)"
+ },
+ "0001283699-25-000012|cost_of_revenue_part|2022-01-01|2022-12-31|Cost of equipment sales, exclusive of depreciation and amortization shown separately below": {
+  "cell": "21,540",
+  "img": null,
+  "match": true,
+  "seen": "21,540"
+ },
+ "0001283699-25-000012|cost_of_revenue_part|2022-01-01|2022-12-31|Cost of services, exclusive of depreciation and amortization shown separately below": {
+  "cell": "14,666",
+  "img": null,
+  "match": true,
+  "seen": "14,666"
+ },
+ "0001283699-25-000012|cost_of_revenue_part|2023-01-01|2023-12-31|Cost of equipment sales, exclusive of depreciation and amortization shown separately below": {
+  "cell": "18,533",
+  "img": null,
+  "match": true,
+  "seen": "18,533"
+ },
+ "0001283699-25-000012|cost_of_revenue_part|2023-01-01|2023-12-31|Cost of services, exclusive of depreciation and amortization shown separately below": {
+  "cell": "11,655",
+  "img": null,
+  "match": true,
+  "seen": "11,655"
+ },
+ "0001283699-25-000012|cost_of_revenue_part|2024-01-01|2024-12-31|Cost of equipment sales, exclusive of depreciation and amortization shown separately below": {
+  "cell": "18,882",
+  "img": null,
+  "match": true,
+  "seen": "18,882"
+ },
+ "0001283699-25-000012|cost_of_revenue_part|2024-01-01|2024-12-31|Cost of services, exclusive of depreciation and amortization shown separately below": {
+  "cell": "10,771",
+  "img": null,
+  "match": true,
+  "seen": "10,771"
+ },
+ "0001283699-25-000012|operating_income|2022-01-01|2022-12-31": {
+  "cell": "6,543",
+  "img": "803d79a76fb1.png",
+  "match": true,
+  "seen": "6,543"
+ },
+ "0001283699-25-000012|operating_income|2023-01-01|2023-12-31": {
+  "cell": "14,266",
+  "img": null,
+  "match": true,
+  "seen": "14,266"
+ },
+ "0001283699-25-000012|operating_income|2024-01-01|2024-12-31": {
+  "cell": "18,010",
+  "img": null,
+  "match": true,
+  "seen": "18,010"
+ },
+ "0001283699-25-000012|revenue|2022-01-01|2022-12-31": {
+  "cell": "79,571",
+  "img": "ec3c3461a2ed.png",
+  "match": true,
+  "seen": "79,571"
+ },
+ "0001283699-25-000012|revenue|2023-01-01|2023-12-31": {
+  "cell": "78,558",
+  "img": null,
+  "match": true,
+  "seen": "78,558"
+ },
+ "0001283699-25-000012|revenue|2024-01-01|2024-12-31": {
+  "cell": "81,400",
+  "img": null,
+  "match": true,
+  "seen": "81,400"
+ },
+ "0001283699-26-000010|capex|2023-01-01|2023-12-31": {
+  "cell": "(9,801)",
+  "img": "adf5fdb3f406.png",
+  "match": true,
+  "seen": "(9,801)"
+ },
+ "0001283699-26-000010|capex|2024-01-01|2024-12-31": {
+  "cell": "(8,840)",
+  "img": null,
+  "match": true,
+  "seen": "(8,840)"
+ },
+ "0001283699-26-000010|capex|2025-01-01|2025-12-31": {
+  "cell": "(9,955)",
+  "img": null,
+  "match": true,
+  "seen": "(9,955)"
+ },
+ "0001283699-26-000010|cost_of_revenue_part|2023-01-01|2023-12-31|Cost of equipment sales, exclusive of depreciation and amortization shown separately below": {
+  "cell": "18,533",
+  "img": null,
+  "match": true,
+  "seen": "18,533"
+ },
+ "0001283699-26-000010|cost_of_revenue_part|2023-01-01|2023-12-31|Cost of services, exclusive of depreciation and amortization shown separately below": {
+  "cell": "11,655",
+  "img": null,
+  "match": true,
+  "seen": "11,655"
+ },
+ "0001283699-26-000010|cost_of_revenue_part|2024-01-01|2024-12-31|Cost of equipment sales, exclusive of depreciation and amortization shown separately below": {
+  "cell": "18,882",
+  "img": null,
+  "match": true,
+  "seen": "18,882"
+ },
+ "0001283699-26-000010|cost_of_revenue_part|2024-01-01|2024-12-31|Cost of services, exclusive of depreciation and amortization shown separately below": {
+  "cell": "10,771",
+  "img": null,
+  "match": true,
+  "seen": "10,771"
+ },
+ "0001283699-26-000010|cost_of_revenue_part|2025-01-01|2025-12-31|Cost of equipment sales, exclusive of depreciation and amortization shown separately below": {
+  "cell": "21,277",
+  "img": null,
+  "match": true,
+  "seen": "21,277"
+ },
+ "0001283699-26-000010|cost_of_revenue_part|2025-01-01|2025-12-31|Cost of services, exclusive of depreciation and amortization shown separately below": {
+  "cell": "11,497",
+  "img": null,
+  "match": true,
+  "seen": "11,497"
+ },
+ "0001283699-26-000010|operating_income|2023-01-01|2023-12-31": {
+  "cell": "14,266",
+  "img": "43f2c14eef2a.png",
+  "match": true,
+  "seen": "14,266"
+ },
+ "0001283699-26-000010|operating_income|2024-01-01|2024-12-31": {
+  "cell": "18,010",
+  "img": "2055449718f7.png",
+  "match": true,
+  "seen": "18,010"
+ },
+ "0001283699-26-000010|operating_income|2025-01-01|2025-12-31": {
+  "cell": "18,279",
+  "img": "3c3ea7469f4a.png",
+  "match": true,
+  "seen": "18,279"
+ },
+ "0001283699-26-000010|revenue|2023-01-01|2023-12-31": {
+  "cell": "78,558",
+  "img": "65899ede0b20.png",
+  "match": true,
+  "seen": "78,558"
+ },
+ "0001283699-26-000010|revenue|2024-01-01|2024-12-31": {
+  "cell": "81,400",
+  "img": "fa8510cbf7c6.png",
+  "match": true,
+  "seen": "81,400"
+ },
+ "0001283699-26-000010|revenue|2025-01-01|2025-12-31": {
+  "cell": "88,309",
+  "img": "0e828198040d.png",
+  "match": true,
+  "seen": "88,309"
+ },
+ "0001321655-23-000011|capex|2020-01-01|2020-12-31": {
+  "cell": "(12,236)",
+  "img": null,
+  "match": true,
+  "seen": "(12,236)"
+ },
+ "0001321655-23-000011|capex|2021-01-01|2021-12-31": {
+  "cell": "(12,627)",
+  "img": null,
+  "match": true,
+  "seen": "(12,627)"
+ },
+ "0001321655-23-000011|capex|2022-01-01|2022-12-31": {
+  "cell": "(40,027)",
+  "img": null,
+  "match": true,
+  "seen": "(40,027)"
+ },
+ "0001321655-23-000011|cost_of_revenue|2020-01-01|2020-12-31": {
+  "cell": "352,547",
+  "img": null,
+  "match": true,
+  "seen": "352,547"
+ },
+ "0001321655-23-000011|cost_of_revenue|2021-01-01|2021-12-31": {
+  "cell": "339,404",
+  "img": null,
+  "match": true,
+  "seen": "339,404"
+ },
+ "0001321655-23-000011|cost_of_revenue|2022-01-01|2022-12-31": {
+  "cell": "408,549",
+  "img": null,
+  "match": true,
+  "seen": "408,549"
+ },
+ "0001321655-23-000011|operating_income|2020-01-01|2020-12-31": {
+  "cell": "(1,173,679)",
+  "img": null,
+  "match": true,
+  "seen": "(1,173,679)"
+ },
+ "0001321655-23-000011|operating_income|2021-01-01|2021-12-31": {
+  "cell": "(411,046)",
+  "img": null,
+  "match": true,
+  "seen": "(411,046)"
+ },
+ "0001321655-23-000011|operating_income|2022-01-01|2022-12-31": {
+  "cell": "(161,201)",
+  "img": null,
+  "match": true,
+  "seen": "(161,201)"
+ },
+ "0001321655-23-000011|revenue|2020-01-01|2020-12-31": {
+  "cell": "1,092,673",
+  "img": null,
+  "match": true,
+  "seen": "$1,092,673"
+ },
+ "0001321655-23-000011|revenue|2021-01-01|2021-12-31": {
+  "cell": "1,541,889",
+  "img": null,
+  "match": true,
+  "seen": "$1,541,889"
+ },
+ "0001321655-23-000011|revenue|2022-01-01|2022-12-31": {
+  "cell": "1,905,871",
+  "img": null,
+  "match": true,
+  "seen": "$1,905,871"
+ },
+ "0001321655-24-000022|capex|2021-01-01|2021-12-31": {
+  "cell": "(12,627)",
+  "img": null,
+  "match": true,
+  "seen": "(12,627)"
+ },
+ "0001321655-24-000022|capex|2022-01-01|2022-12-31": {
+  "cell": "(40,027)",
+  "img": null,
+  "match": true,
+  "seen": "(40,027)"
+ },
+ "0001321655-24-000022|capex|2023-01-01|2023-12-31": {
+  "cell": "(15,114)",
+  "img": null,
+  "match": true,
+  "seen": "(15,114)"
+ },
+ "0001321655-24-000022|cost_of_revenue|2021-01-01|2021-12-31": {
+  "cell": "339,404",
+  "img": null,
+  "match": true,
+  "seen": "339,404"
+ },
+ "0001321655-24-000022|cost_of_revenue|2022-01-01|2022-12-31": {
+  "cell": "408,549",
+  "img": null,
+  "match": true,
+  "seen": "408,549"
+ },
+ "0001321655-24-000022|cost_of_revenue|2023-01-01|2023-12-31": {
+  "cell": "431,105",
+  "img": null,
+  "match": true,
+  "seen": "431,105"
+ },
+ "0001321655-24-000022|operating_income|2021-01-01|2021-12-31": {
+  "cell": "(411,046)",
+  "img": null,
+  "match": true,
+  "seen": "(411,046)"
+ },
+ "0001321655-24-000022|operating_income|2022-01-01|2022-12-31": {
+  "cell": "(161,201)",
+  "img": null,
+  "match": true,
+  "seen": "(161,201)"
+ },
+ "0001321655-24-000022|operating_income|2023-01-01|2023-12-31": {
+  "cell": "119,966",
+  "img": null,
+  "match": true,
+  "seen": "119,966"
+ },
+ "0001321655-24-000022|revenue|2021-01-01|2021-12-31": {
+  "cell": "1,541,889",
+  "img": null,
+  "match": true,
+  "seen": "$1,541,889"
+ },
+ "0001321655-24-000022|revenue|2022-01-01|2022-12-31": {
+  "cell": "1,905,871",
+  "img": null,
+  "match": true,
+  "seen": "$1,905,871"
+ },
+ "0001321655-24-000022|revenue|2023-01-01|2023-12-31": {
+  "cell": "2,225,012",
+  "img": null,
+  "match": true,
+  "seen": "$2,225,012"
+ },
+ "0001321655-25-000022|capex|2022-01-01|2022-12-31": {
+  "cell": "(40,027)",
+  "img": null,
+  "match": true,
+  "seen": "(40,027)"
+ },
+ "0001321655-25-000022|capex|2023-01-01|2023-12-31": {
+  "cell": "(15,114)",
+  "img": null,
+  "match": true,
+  "seen": "(15,114)"
+ },
+ "0001321655-25-000022|capex|2024-01-01|2024-12-31": {
+  "cell": "(12,634)",
+  "img": null,
+  "match": true,
+  "seen": "(12,634)"
+ },
+ "0001321655-25-000022|cost_of_revenue|2022-01-01|2022-12-31": {
+  "cell": "408,549",
+  "img": null,
+  "match": true,
+  "seen": "408,549"
+ },
+ "0001321655-25-000022|cost_of_revenue|2023-01-01|2023-12-31": {
+  "cell": "431,105",
+  "img": null,
+  "match": true,
+  "seen": "431,105"
+ },
+ "0001321655-25-000022|cost_of_revenue|2024-01-01|2024-12-31": {
+  "cell": "565,990",
+  "img": null,
+  "match": true,
+  "seen": "565,990"
+ },
+ "0001321655-25-000022|operating_income|2022-01-01|2022-12-31": {
+  "cell": "(161,201)",
+  "img": null,
+  "match": true,
+  "seen": "(161,201)"
+ },
+ "0001321655-25-000022|operating_income|2023-01-01|2023-12-31": {
+  "cell": "119,966",
+  "img": null,
+  "match": true,
+  "seen": "119,966"
+ },
+ "0001321655-25-000022|operating_income|2024-01-01|2024-12-31": {
+  "cell": "310,403",
+  "img": null,
+  "match": true,
+  "seen": "310,403"
+ },
+ "0001321655-25-000022|revenue|2022-01-01|2022-12-31": {
+  "cell": "1,905,871",
+  "img": null,
+  "match": true,
+  "seen": "$1,905,871"
+ },
+ "0001321655-25-000022|revenue|2023-01-01|2023-12-31": {
+  "cell": "2,225,012",
+  "img": null,
+  "match": true,
+  "seen": "$2,225,012"
+ },
+ "0001321655-25-000022|revenue|2024-01-01|2024-12-31": {
+  "cell": "2,865,507",
+  "img": null,
+  "match": true,
+  "seen": "$2,865,507"
+ },
+ "0001321655-26-000011|capex|2023-01-01|2023-12-31": {
+  "cell": "(15,114)",
+  "img": null,
+  "match": true,
+  "seen": "(15,114)"
+ },
+ "0001321655-26-000011|capex|2024-01-01|2024-12-31": {
+  "cell": "(12,634)",
+  "img": null,
+  "match": true,
+  "seen": "(12,634)"
+ },
+ "0001321655-26-000011|capex|2025-01-01|2025-12-31": {
+  "cell": "(33,882)",
+  "img": null,
+  "match": true,
+  "seen": "(33,882)"
+ },
+ "0001321655-26-000011|cost_of_revenue|2023-01-01|2023-12-31": {
+  "cell": "431,105",
+  "img": null,
+  "match": true,
+  "seen": "431,105"
+ },
+ "0001321655-26-000011|cost_of_revenue|2024-01-01|2024-12-31": {
+  "cell": "565,990",
+  "img": null,
+  "match": true,
+  "seen": "565,990"
+ },
+ "0001321655-26-000011|cost_of_revenue|2025-01-01|2025-12-31": {
+  "cell": "789,177",
+  "img": null,
+  "match": true,
+  "seen": "789,177"
+ },
+ "0001321655-26-000011|operating_income|2023-01-01|2023-12-31": {
+  "cell": "119,966",
+  "img": null,
+  "match": true,
+  "seen": "119,966"
+ },
+ "0001321655-26-000011|operating_income|2024-01-01|2024-12-31": {
+  "cell": "310,403",
+  "img": null,
+  "match": true,
+  "seen": "310,403"
+ },
+ "0001321655-26-000011|operating_income|2025-01-01|2025-12-31": {
+  "cell": "1,414,015",
+  "img": null,
+  "match": true,
+  "seen": "1,414,015"
+ },
+ "0001321655-26-000011|revenue|2023-01-01|2023-12-31": {
+  "cell": "2,225,012",
+  "img": null,
+  "match": true,
+  "seen": "$2,225,012"
+ },
+ "0001321655-26-000011|revenue|2024-01-01|2024-12-31": {
+  "cell": "2,865,507",
+  "img": null,
+  "match": true,
+  "seen": "$2,865,507"
+ },
+ "0001321655-26-000011|revenue|2025-01-01|2025-12-31": {
+  "cell": "4,475,446",
+  "img": null,
+  "match": true,
+  "seen": "$4,475,446"
+ },
+ "0001373715-23-000035|capex|2020-01-01|2020-12-31": {
+  "cell": "(419)",
+  "img": null,
+  "match": true,
+  "seen": "(419)"
+ },
+ "0001373715-23-000035|capex|2021-01-01|2021-12-31": {
+  "cell": "(392)",
+  "img": null,
+  "match": true,
+  "seen": "(392)"
+ },
+ "0001373715-23-000035|capex|2022-01-01|2022-12-31": {
+  "cell": "(550)",
+  "img": null,
+  "match": true,
+  "seen": "(550)"
+ },
+ "0001373715-23-000035|cost_of_revenue|2020-01-01|2020-12-31": {
+  "cell": "987",
+  "img": null,
+  "match": true,
+  "seen": "987"
+ },
+ "0001373715-23-000035|cost_of_revenue|2021-01-01|2021-12-31": {
+  "cell": "1,353",
+  "img": null,
+  "match": true,
+  "seen": "1,353"
+ },
+ "0001373715-23-000035|cost_of_revenue|2022-01-01|2022-12-31": {
+  "cell": "1,573",
+  "img": null,
+  "match": true,
+  "seen": "1,573"
+ },
+ "0001373715-23-000035|operating_income|2020-01-01|2020-12-31": {
+  "cell": "199",
+  "img": null,
+  "match": true,
+  "seen": "199"
+ },
+ "0001373715-23-000035|operating_income|2021-01-01|2021-12-31": {
+  "cell": "257",
+  "img": null,
+  "match": true,
+  "seen": "257"
+ },
+ "0001373715-23-000035|operating_income|2022-01-01|2022-12-31": {
+  "cell": "355",
+  "img": null,
+  "match": true,
+  "seen": "355"
+ },
+ "0001373715-23-000035|revenue|2020-01-01|2020-12-31": {
+  "cell": "4,519",
+  "img": null,
+  "match": true,
+  "seen": "4,519"
+ },
+ "0001373715-23-000035|revenue|2021-01-01|2021-12-31": {
+  "cell": "5,896",
+  "img": null,
+  "match": true,
+  "seen": "5,896"
+ },
+ "0001373715-23-000035|revenue|2022-01-01|2022-12-31": {
+  "cell": "7,245",
+  "img": null,
+  "match": true,
+  "seen": "7,245"
+ },
+ "0001373715-24-000030|capex|2021-01-01|2021-12-31": {
+  "cell": "(392)",
+  "img": null,
+  "match": true,
+  "seen": "(392)"
+ },
+ "0001373715-24-000030|capex|2022-01-01|2022-12-31": {
+  "cell": "(550)",
+  "img": null,
+  "match": true,
+  "seen": "(550)"
+ },
+ "0001373715-24-000030|capex|2023-01-01|2023-12-31": {
+  "cell": "(694)",
+  "img": null,
+  "match": true,
+  "seen": "(694)"
+ },
+ "0001373715-24-000030|cost_of_revenue|2021-01-01|2021-12-31": {
+  "cell": "1,353",
+  "img": null,
+  "match": true,
+  "seen": "1,353"
+ },
+ "0001373715-24-000030|cost_of_revenue|2022-01-01|2022-12-31": {
+  "cell": "1,573",
+  "img": null,
+  "match": true,
+  "seen": "1,573"
+ },
+ "0001373715-24-000030|cost_of_revenue|2023-01-01|2023-12-31": {
+  "cell": "1,921",
+  "img": null,
+  "match": true,
+  "seen": "1,921"
+ },
+ "0001373715-24-000030|operating_income|2021-01-01|2021-12-31": {
+  "cell": "257",
+  "img": null,
+  "match": true,
+  "seen": "257"
+ },
+ "0001373715-24-000030|operating_income|2022-01-01|2022-12-31": {
+  "cell": "355",
+  "img": null,
+  "match": true,
+  "seen": "355"
+ },
+ "0001373715-24-000030|operating_income|2023-01-01|2023-12-31": {
+  "cell": "762",
+  "img": null,
+  "match": true,
+  "seen": "762"
+ },
+ "0001373715-24-000030|revenue|2021-01-01|2021-12-31": {
+  "cell": "5,896",
+  "img": null,
+  "match": true,
+  "seen": "5,896"
+ },
+ "0001373715-24-000030|revenue|2022-01-01|2022-12-31": {
+  "cell": "7,245",
+  "img": null,
+  "match": true,
+  "seen": "7,245"
+ },
+ "0001373715-24-000030|revenue|2023-01-01|2023-12-31": {
+  "cell": "8,971",
+  "img": null,
+  "match": true,
+  "seen": "8,971"
+ },
+ "0001373715-25-000010|capex|2022-01-01|2022-12-31": {
+  "cell": "(550)",
+  "img": null,
+  "match": true,
+  "seen": "(550)"
+ },
+ "0001373715-25-000010|capex|2023-01-01|2023-12-31": {
+  "cell": "(694)",
+  "img": null,
+  "match": true,
+  "seen": "(694)"
+ },
+ "0001373715-25-000010|capex|2024-01-01|2024-12-31": {
+  "cell": "(852)",
+  "img": null,
+  "match": true,
+  "seen": "(852)"
+ },
+ "0001373715-25-000010|cost_of_revenue|2022-01-01|2022-12-31": {
+  "cell": "1,573",
+  "img": null,
+  "match": true,
+  "seen": "1,573"
+ },
+ "0001373715-25-000010|cost_of_revenue|2023-01-01|2023-12-31": {
+  "cell": "1,921",
+  "img": null,
+  "match": true,
+  "seen": "1,921"
+ },
+ "0001373715-25-000010|cost_of_revenue|2024-01-01|2024-12-31": {
+  "cell": "2,287",
+  "img": null,
+  "match": true,
+  "seen": "2,287"
+ },
+ "0001373715-25-000010|operating_income|2022-01-01|2022-12-31": {
+  "cell": "355",
+  "img": null,
+  "match": true,
+  "seen": "355"
+ },
+ "0001373715-25-000010|operating_income|2023-01-01|2023-12-31": {
+  "cell": "762",
+  "img": null,
+  "match": true,
+  "seen": "762"
+ },
+ "0001373715-25-000010|operating_income|2024-01-01|2024-12-31": {
+  "cell": "1,364",
+  "img": null,
+  "match": true,
+  "seen": "1,364"
+ },
+ "0001373715-25-000010|revenue|2022-01-01|2022-12-31": {
+  "cell": "7,245",
+  "img": null,
+  "match": true,
+  "seen": "7,245"
+ },
+ "0001373715-25-000010|revenue|2023-01-01|2023-12-31": {
+  "cell": "8,971",
+  "img": null,
+  "match": true,
+  "seen": "8,971"
+ },
+ "0001373715-25-000010|revenue|2024-01-01|2024-12-31": {
+  "cell": "10,984",
+  "img": null,
+  "match": true,
+  "seen": "10,984"
+ },
+ "0001373715-26-000007|capex|2023-01-01|2023-12-31": {
+  "cell": "(694)",
+  "img": null,
+  "match": true,
+  "seen": "(694)"
+ },
+ "0001373715-26-000007|capex|2024-01-01|2024-12-31": {
+  "cell": "(852)",
+  "img": null,
+  "match": true,
+  "seen": "(852)"
+ },
+ "0001373715-26-000007|capex|2025-01-01|2025-12-31": {
+  "cell": "(868)",
+  "img": null,
+  "match": true,
+  "seen": "(868)"
+ },
+ "0001373715-26-000007|cost_of_revenue|2023-01-01|2023-12-31": {
+  "cell": "1,921",
+  "img": null,
+  "match": true,
+  "seen": "1,921"
+ },
+ "0001373715-26-000007|cost_of_revenue|2024-01-01|2024-12-31": {
+  "cell": "2,287",
+  "img": null,
+  "match": true,
+  "seen": "2,287"
+ },
+ "0001373715-26-000007|cost_of_revenue|2025-01-01|2025-12-31": {
+  "cell": "2,983",
+  "img": null,
+  "match": true,
+  "seen": "2,983"
+ },
+ "0001373715-26-000007|operating_income|2023-01-01|2023-12-31": {
+  "cell": "762",
+  "img": null,
+  "match": true,
+  "seen": "762"
+ },
+ "0001373715-26-000007|operating_income|2024-01-01|2024-12-31": {
+  "cell": "1,364",
+  "img": null,
+  "match": true,
+  "seen": "1,364"
+ },
+ "0001373715-26-000007|operating_income|2025-01-01|2025-12-31": {
+  "cell": "1,824",
+  "img": null,
+  "match": true,
+  "seen": "1,824"
+ },
+ "0001373715-26-000007|revenue|2023-01-01|2023-12-31": {
+  "cell": "8,971",
+  "img": "15523ed65b5a.png",
+  "match": true,
+  "seen": "8,971"
+ },
+ "0001373715-26-000007|revenue|2024-01-01|2024-12-31": {
+  "cell": "10,984",
+  "img": null,
+  "match": true,
+  "seen": "10,984"
+ },
+ "0001373715-26-000007|revenue|2025-01-01|2025-12-31": {
+  "cell": "13,278",
+  "img": null,
+  "match": true,
+  "seen": "13,278"
+ },
+ "0001543151-23-000010|capex|2020-01-01|2020-12-31": {
+  "cell": "(616)",
+  "img": null,
+  "match": true,
+  "seen": "(616)"
+ },
+ "0001543151-23-000010|capex|2021-01-01|2021-12-31": {
+  "cell": "(298)",
+  "img": null,
+  "match": true,
+  "seen": "(298)"
+ },
+ "0001543151-23-000010|capex|2022-01-01|2022-12-31": {
+  "cell": "(252)",
+  "img": null,
+  "match": true,
+  "seen": "(252)"
+ },
+ "0001543151-23-000010|cost_of_revenue|2020-01-01|2020-12-31": {
+  "cell": "5,154",
+  "img": null,
+  "match": true,
+  "seen": "5,154"
+ },
+ "0001543151-23-000010|cost_of_revenue|2021-01-01|2021-12-31": {
+  "cell": "9,351",
+  "img": null,
+  "match": true,
+  "seen": "9,351"
+ },
+ "0001543151-23-000010|cost_of_revenue|2022-01-01|2022-12-31": {
+  "cell": "19,659",
+  "img": null,
+  "match": true,
+  "seen": "19,659"
+ },
+ "0001543151-23-000010|operating_income|2020-01-01|2020-12-31": {
+  "cell": "(4,863)",
+  "img": null,
+  "match": true,
+  "seen": "(4,863)"
+ },
+ "0001543151-23-000010|operating_income|2021-01-01|2021-12-31": {
+  "cell": "(3,834)",
+  "img": null,
+  "match": true,
+  "seen": "(3,834)"
+ },
+ "0001543151-23-000010|operating_income|2022-01-01|2022-12-31": {
+  "cell": "(1,832)",
+  "img": null,
+  "match": true,
+  "seen": "(1,832)"
+ },
+ "0001543151-23-000010|revenue|2020-01-01|2020-12-31": {
+  "cell": "11,139",
+  "img": null,
+  "match": true,
+  "seen": "$11,139"
+ },
+ "0001543151-23-000010|revenue|2021-01-01|2021-12-31": {
+  "cell": "17,455",
+  "img": null,
+  "match": true,
+  "seen": "$17,455"
+ },
+ "0001543151-23-000010|revenue|2022-01-01|2022-12-31": {
+  "cell": "31,877",
+  "img": null,
+  "match": true,
+  "seen": "$31,877"
+ },
+ "0001543151-24-000012|capex|2021-01-01|2021-12-31": {
+  "cell": "(298)",
+  "img": null,
+  "match": true,
+  "seen": "(298)"
+ },
+ "0001543151-24-000012|capex|2022-01-01|2022-12-31": {
+  "cell": "(252)",
+  "img": null,
+  "match": true,
+  "seen": "(252)"
+ },
+ "0001543151-24-000012|capex|2023-01-01|2023-12-31": {
+  "cell": "(223)",
+  "img": null,
+  "match": true,
+  "seen": "(223)"
+ },
+ "0001543151-24-000012|cost_of_revenue|2021-01-01|2021-12-31": {
+  "cell": "9,351",
+  "img": null,
+  "match": true,
+  "seen": "9,351"
+ },
+ "0001543151-24-000012|cost_of_revenue|2022-01-01|2022-12-31": {
+  "cell": "19,659",
+  "img": null,
+  "match": true,
+  "seen": "19,659"
+ },
+ "0001543151-24-000012|cost_of_revenue|2023-01-01|2023-12-31": {
+  "cell": "22,457",
+  "img": null,
+  "match": true,
+  "seen": "22,457"
+ },
+ "0001543151-24-000012|operating_income|2021-01-01|2021-12-31": {
+  "cell": "(3,834)",
+  "img": null,
+  "match": true,
+  "seen": "(3,834)"
+ },
+ "0001543151-24-000012|operating_income|2022-01-01|2022-12-31": {
+  "cell": "(1,832)",
+  "img": null,
+  "match": true,
+  "seen": "(1,832)"
+ },
+ "0001543151-24-000012|operating_income|2023-01-01|2023-12-31": {
+  "cell": "1,110",
+  "img": null,
+  "match": true,
+  "seen": "1,110"
+ },
+ "0001543151-24-000012|revenue|2021-01-01|2021-12-31": {
+  "cell": "17,455",
+  "img": null,
+  "match": true,
+  "seen": "$17,455"
+ },
+ "0001543151-24-000012|revenue|2022-01-01|2022-12-31": {
+  "cell": "31,877",
+  "img": null,
+  "match": true,
+  "seen": "$31,877"
+ },
+ "0001543151-24-000012|revenue|2023-01-01|2023-12-31": {
+  "cell": "37,281",
+  "img": null,
+  "match": true,
+  "seen": "$37,281"
+ },
+ "0001543151-25-000008|capex|2022-01-01|2022-12-31": {
+  "cell": "(252)",
+  "img": null,
+  "match": true,
+  "seen": "(252)"
+ },
+ "0001543151-25-000008|capex|2023-01-01|2023-12-31": {
+  "cell": "(223)",
+  "img": null,
+  "match": true,
+  "seen": "(223)"
+ },
+ "0001543151-25-000008|capex|2024-01-01|2024-12-31": {
+  "cell": "(242)",
+  "img": null,
+  "match": true,
+  "seen": "(242)"
+ },
+ "0001543151-25-000008|cost_of_revenue|2023-01-01|2023-12-31": {
+  "cell": "22,457",
+  "img": null,
+  "match": true,
+  "seen": "22,457"
+ },
+ "0001543151-25-000008|cost_of_revenue|2024-01-01|2024-12-31": {
+  "cell": "26,651",
+  "img": null,
+  "match": true,
+  "seen": "26,651"
+ },
+ "0001543151-25-000008|operating_income|2023-01-01|2023-12-31": {
+  "cell": "1,110",
+  "img": null,
+  "match": true,
+  "seen": "1,110"
+ },
+ "0001543151-25-000008|operating_income|2024-01-01|2024-12-31": {
+  "cell": "2,799",
+  "img": null,
+  "match": true,
+  "seen": "2,799"
+ },
+ "0001543151-25-000008|revenue|2023-01-01|2023-12-31": {
+  "cell": "37,281",
+  "img": null,
+  "match": true,
+  "seen": "$37,281"
+ },
+ "0001543151-25-000008|revenue|2024-01-01|2024-12-31": {
+  "cell": "43,978",
+  "img": null,
+  "match": true,
+  "seen": "$43,978"
+ },
+ "0001543151-26-000015|capex|2023-01-01|2023-12-31": {
+  "cell": "(223)",
+  "img": null,
+  "match": true,
+  "seen": "(223)"
+ },
+ "0001543151-26-000015|capex|2024-01-01|2024-12-31": {
+  "cell": "(242)",
+  "img": null,
+  "match": true,
+  "seen": "(242)"
+ },
+ "0001543151-26-000015|capex|2025-01-01|2025-12-31": {
+  "cell": "(336)",
+  "img": null,
+  "match": true,
+  "seen": "(336)"
+ },
+ "0001543151-26-000015|cost_of_revenue|2023-01-01|2023-12-31": {
+  "cell": "22,457",
+  "img": "b5fb1e6f422d.png",
+  "match": true,
+  "seen": "22,457"
+ },
+ "0001543151-26-000015|cost_of_revenue|2024-01-01|2024-12-31": {
+  "cell": "26,651",
+  "img": "94835872d892.png",
+  "match": true,
+  "seen": "26,651"
+ },
+ "0001543151-26-000015|cost_of_revenue|2025-01-01|2025-12-31": {
+  "cell": "31,338",
+  "img": "2726df65875d.png",
+  "match": true,
+  "seen": "31,338"
+ },
+ "0001543151-26-000015|operating_income|2023-01-01|2023-12-31": {
+  "cell": "1,110",
+  "img": "94319b976766.png",
+  "match": true,
+  "seen": "1,110"
+ },
+ "0001543151-26-000015|operating_income|2024-01-01|2024-12-31": {
+  "cell": "2,799",
+  "img": "b8a9103bf0f4.png",
+  "match": true,
+  "seen": "2,799"
+ },
+ "0001543151-26-000015|operating_income|2025-01-01|2025-12-31": {
+  "cell": "5,565",
+  "img": "1bf6259a852d.png",
+  "match": true,
+  "seen": "5,565"
+ },
+ "0001543151-26-000015|revenue|2023-01-01|2023-12-31": {
+  "cell": "37,281",
+  "img": "d784d22b4bbd.png",
+  "match": true,
+  "seen": "$37,281"
+ },
+ "0001543151-26-000015|revenue|2024-01-01|2024-12-31": {
+  "cell": "43,978",
+  "img": "d9cef2de58ce.png",
+  "match": true,
+  "seen": "$43,978"
+ },
+ "0001543151-26-000015|revenue|2025-01-01|2025-12-31": {
+  "cell": "52,017",
+  "img": "62758eedfda7.png",
+  "match": true,
+  "seen": "$52,017"
+ },
+ "0001561550-23-000006|capex|2020-01-01|2020-12-31": {
+  "cell": "(5,415)",
+  "img": null,
+  "match": true,
+  "seen": "(5,415)"
+ },
+ "0001561550-23-000006|capex|2021-01-01|2021-12-31": {
+  "cell": "(9,956)",
+  "img": null,
+  "match": true,
+  "seen": "(9,956)"
+ },
+ "0001561550-23-000006|capex|2022-01-01|2022-12-31": {
+  "cell": "(35,261)",
+  "img": null,
+  "match": true,
+  "seen": "(35,261)"
+ },
+ "0001561550-23-000006|cost_of_revenue|2020-01-01|2020-12-31": {
+  "cell": "130,197",
+  "img": null,
+  "match": true,
+  "seen": "130,197"
+ },
+ "0001561550-23-000006|cost_of_revenue|2021-01-01|2021-12-31": {
+  "cell": "234,245",
+  "img": null,
+  "match": true,
+  "seen": "234,245"
+ },
+ "0001561550-23-000006|cost_of_revenue|2022-01-01|2022-12-31": {
+  "cell": "346,743",
+  "img": null,
+  "match": true,
+  "seen": "346,743"
+ },
+ "0001561550-23-000006|operating_income|2020-01-01|2020-12-31": {
+  "cell": "(13,773)",
+  "img": null,
+  "match": true,
+  "seen": "(13,773)"
+ },
+ "0001561550-23-000006|operating_income|2021-01-01|2021-12-31": {
+  "cell": "(19,156)",
+  "img": null,
+  "match": true,
+  "seen": "(19,156)"
+ },
+ "0001561550-23-000006|operating_income|2022-01-01|2022-12-31": {
+  "cell": "(58,695)",
+  "img": null,
+  "match": true,
+  "seen": "(58,695)"
+ },
+ "0001561550-23-000006|revenue|2020-01-01|2020-12-31": {
+  "cell": "603,466",
+  "img": null,
+  "match": true,
+  "seen": "$603,466"
+ },
+ "0001561550-23-000006|revenue|2021-01-01|2021-12-31": {
+  "cell": "1,028,784",
+  "img": null,
+  "match": true,
+  "seen": "$1,028,784"
+ },
+ "0001561550-23-000006|revenue|2022-01-01|2022-12-31": {
+  "cell": "1,675,100",
+  "img": null,
+  "match": true,
+  "seen": "$1,675,100"
+ },
+ "0001561550-24-000009|capex|2021-01-01|2021-12-31": {
+  "cell": "(9,956)",
+  "img": null,
+  "match": true,
+  "seen": "(9,956)"
+ },
+ "0001561550-24-000009|capex|2022-01-01|2022-12-31": {
+  "cell": "(35,261)",
+  "img": null,
+  "match": true,
+  "seen": "(35,261)"
+ },
+ "0001561550-24-000009|capex|2023-01-01|2023-12-31": {
+  "cell": "(27,586)",
+  "img": null,
+  "match": true,
+  "seen": "(27,586)"
+ },
+ "0001561550-24-000009|cost_of_revenue|2021-01-01|2021-12-31": {
+  "cell": "234,245",
+  "img": null,
+  "match": true,
+  "seen": "234,245"
+ },
+ "0001561550-24-000009|cost_of_revenue|2022-01-01|2022-12-31": {
+  "cell": "346,743",
+  "img": null,
+  "match": true,
+  "seen": "346,743"
+ },
+ "0001561550-24-000009|cost_of_revenue|2023-01-01|2023-12-31": {
+  "cell": "409,908",
+  "img": null,
+  "match": true,
+  "seen": "409,908"
+ },
+ "0001561550-24-000009|operating_income|2021-01-01|2021-12-31": {
+  "cell": "(19,156)",
+  "img": null,
+  "match": true,
+  "seen": "(19,156)"
+ },
+ "0001561550-24-000009|operating_income|2022-01-01|2022-12-31": {
+  "cell": "(58,695)",
+  "img": null,
+  "match": true,
+  "seen": "(58,695)"
+ },
+ "0001561550-24-000009|operating_income|2023-01-01|2023-12-31": {
+  "cell": "(33,464)",
+  "img": null,
+  "match": true,
+  "seen": "(33,464)"
+ },
+ "0001561550-24-000009|revenue|2021-01-01|2021-12-31": {
+  "cell": "1,028,784",
+  "img": null,
+  "match": true,
+  "seen": "$1,028,784"
+ },
+ "0001561550-24-000009|revenue|2022-01-01|2022-12-31": {
+  "cell": "1,675,100",
+  "img": null,
+  "match": true,
+  "seen": "$1,675,100"
+ },
+ "0001561550-24-000009|revenue|2023-01-01|2023-12-31": {
+  "cell": "2,128,359",
+  "img": null,
+  "match": true,
+  "seen": "$2,128,359"
+ },
+ "0001561550-25-000025|capex|2022-01-01|2022-12-31": {
+  "cell": "(35,261)",
+  "img": null,
+  "match": true,
+  "seen": "(35,261)"
+ },
+ "0001561550-25-000025|capex|2023-01-01|2023-12-31": {
+  "cell": "(27,586)",
+  "img": null,
+  "match": true,
+  "seen": "(27,586)"
+ },
+ "0001561550-25-000025|capex|2024-01-01|2024-12-31": {
+  "cell": "(34,719)",
+  "img": null,
+  "match": true,
+  "seen": "(34,719)"
+ },
+ "0001561550-25-000025|cost_of_revenue|2022-01-01|2022-12-31": {
+  "cell": "346,743",
+  "img": "4e0bc63cc7ca.png",
+  "match": true,
+  "seen": "346,743"
+ },
+ "0001561550-25-000025|cost_of_revenue|2023-01-01|2023-12-31": {
+  "cell": "409,908",
+  "img": null,
+  "match": true,
+  "seen": "409,908"
+ },
+ "0001561550-25-000025|cost_of_revenue|2024-01-01|2024-12-31": {
+  "cell": "515,531",
+  "img": null,
+  "match": true,
+  "seen": "515,531"
+ },
+ "0001561550-25-000025|operating_income|2022-01-01|2022-12-31": {
+  "cell": "(58,695)",
+  "img": "ff93e1fa44ab.png",
+  "match": true,
+  "seen": "(58,695)"
+ },
+ "0001561550-25-000025|operating_income|2023-01-01|2023-12-31": {
+  "cell": "(33,464)",
+  "img": null,
+  "match": true,
+  "seen": "(33,464)"
+ },
+ "0001561550-25-000025|operating_income|2024-01-01|2024-12-31": {
+  "cell": "54,284",
+  "img": null,
+  "match": true,
+  "seen": "54,284"
+ },
+ "0001561550-25-000025|revenue|2022-01-01|2022-12-31": {
+  "cell": "1,675,100",
+  "img": "41589f0114a0.png",
+  "match": true,
+  "seen": "$1,675,100"
+ },
+ "0001561550-25-000025|revenue|2023-01-01|2023-12-31": {
+  "cell": "2,128,359",
+  "img": null,
+  "match": true,
+  "seen": "$2,128,359"
+ },
+ "0001561550-25-000025|revenue|2024-01-01|2024-12-31": {
+  "cell": "2,684,275",
+  "img": null,
+  "match": true,
+  "seen": "$2,684,275"
+ },
+ "0001622536-26-000017|cost_of_revenue|2024-01-01|2024-12-31": {
+  "cell": "(797)",
+  "img": "e9cb95d1154d.png",
+  "match": true,
+  "seen": "(797)"
+ },
+ "0001622536-26-000017|cost_of_revenue|2025-01-01|2025-12-31": {
+  "cell": "(1,066)",
+  "img": "cb82ac4b39e4.png",
+  "match": true,
+  "seen": "(1,066)"
+ },
+ "0001622536-26-000017|operating_income|2024-01-01|2024-12-31": {
+  "cell": "226",
+  "img": "3321846fa79a.png",
+  "match": true,
+  "seen": "226"
+ },
+ "0001622536-26-000017|operating_income|2025-01-01|2025-12-31": {
+  "cell": "(90)",
+  "img": "3cca1892cad3.png",
+  "match": true,
+  "seen": "(90)"
+ },
+ "0001622536-26-000017|revenue|2024-01-01|2024-12-31": {
+  "cell": "2,115",
+  "img": "a4c4b611278d.png",
+  "match": true,
+  "seen": "2,115"
+ },
+ "0001622536-26-000017|revenue|2025-01-01|2025-12-31": {
+  "cell": "2,581",
+  "img": "45b9f58cb797.png",
+  "match": true,
+  "seen": "2,581"
+ },
+ "0001628280-25-008786|cost_of_revenue|2022-01-01|2022-12-31": {
+  "cell": "(1,084)",
+  "img": "c54ca0e1b8a8.png",
+  "match": true,
+  "seen": "(1,084)"
+ },
+ "0001628280-25-008786|cost_of_revenue|2024-01-01|2024-12-31": {
+  "cell": "(797)",
+  "img": null,
+  "match": true,
+  "seen": "(797)"
+ },
+ "0001628280-25-008786|operating_income|2022-01-01|2022-12-31": {
+  "cell": "241",
+  "img": "4aa99fe6e170.png",
+  "match": true,
+  "seen": "241"
+ },
+ "0001628280-25-008786|operating_income|2024-01-01|2024-12-31": {
+  "cell": "226",
+  "img": null,
+  "match": true,
+  "seen": "226"
+ },
+ "0001628280-25-008786|revenue|2022-01-01|2022-12-31": {
+  "cell": "3,089",
+  "img": "36e2bdaf034a.png",
+  "match": true,
+  "seen": "3,089"
+ },
+ "0001628280-25-008786|revenue|2024-01-01|2024-12-31": {
+  "cell": "2,115",
+  "img": null,
+  "match": true,
+  "seen": "2,115"
+ },
+ "0001628280-26-008819|capex|2023-01-01|2023-12-31": {
+  "cell": "(27,586)",
+  "img": null,
+  "match": true,
+  "seen": "(27,586)"
+ },
+ "0001628280-26-008819|capex|2024-01-01|2024-12-31": {
+  "cell": "(34,719)",
+  "img": null,
+  "match": true,
+  "seen": "(34,719)"
+ },
+ "0001628280-26-008819|capex|2025-01-01|2025-12-31": {
+  "cell": "(49,578)",
+  "img": null,
+  "match": true,
+  "seen": "(49,578)"
+ },
+ "0001628280-26-008819|cost_of_revenue|2023-01-01|2023-12-31": {
+  "cell": "409,908",
+  "img": null,
+  "match": true,
+  "seen": "409,908"
+ },
+ "0001628280-26-008819|cost_of_revenue|2024-01-01|2024-12-31": {
+  "cell": "515,531",
+  "img": null,
+  "match": true,
+  "seen": "515,531"
+ },
+ "0001628280-26-008819|cost_of_revenue|2025-01-01|2025-12-31": {
+  "cell": "686,957",
+  "img": null,
+  "match": true,
+  "seen": "686,957"
+ },
+ "0001628280-26-008819|operating_income|2023-01-01|2023-12-31": {
+  "cell": "(33,464)",
+  "img": null,
+  "match": true,
+  "seen": "(33,464)"
+ },
+ "0001628280-26-008819|operating_income|2024-01-01|2024-12-31": {
+  "cell": "54,284",
+  "img": null,
+  "match": true,
+  "seen": "54,284"
+ },
+ "0001628280-26-008819|operating_income|2025-01-01|2025-12-31": {
+  "cell": "(44,373)",
+  "img": null,
+  "match": true,
+  "seen": "(44,373)"
+ },
+ "0001628280-26-008819|revenue|2023-01-01|2023-12-31": {
+  "cell": "2,128,359",
+  "img": null,
+  "match": true,
+  "seen": "$2,128,359"
+ },
+ "0001628280-26-008819|revenue|2024-01-01|2024-12-31": {
+  "cell": "2,684,275",
+  "img": null,
+  "match": true,
+  "seen": "$2,684,275"
+ },
+ "0001628280-26-008819|revenue|2025-01-01|2025-12-31": {
+  "cell": "3,427,158",
+  "img": null,
+  "match": true,
+  "seen": "$3,427,158"
+ },
+ "0001640147-22-000023|capex|2019-02-01|2020-01-31": {
+  "cell": "(18,583)",
+  "img": null,
+  "match": true,
+  "seen": "(18,583)"
+ },
+ "0001640147-22-000023|capex|2020-02-01|2021-01-31": {
+  "cell": "(35,037)",
+  "img": null,
+  "match": true,
+  "seen": "(35,037)"
+ },
+ "0001640147-22-000023|capex|2021-02-01|2022-01-31": {
+  "cell": "(16,221)",
+  "img": null,
+  "match": true,
+  "seen": "(16,221)"
+ },
+ "0001640147-22-000023|cost_of_revenue|2019-02-01|2020-01-31": {
+  "cell": "116,557",
+  "img": null,
+  "match": true,
+  "seen": "116,557"
+ },
+ "0001640147-22-000023|cost_of_revenue|2020-02-01|2021-01-31": {
+  "cell": "242,588",
+  "img": null,
+  "match": true,
+  "seen": "242,588"
+ },
+ "0001640147-22-000023|cost_of_revenue|2021-02-01|2022-01-31": {
+  "cell": "458,433",
+  "img": null,
+  "match": true,
+  "seen": "458,433"
+ },
+ "0001640147-22-000023|operating_income|2019-02-01|2020-01-31": {
+  "cell": "(358,088)",
+  "img": null,
+  "match": true,
+  "seen": "(358,088)"
+ },
+ "0001640147-22-000023|operating_income|2020-02-01|2021-01-31": {
+  "cell": "(543,937)",
+  "img": null,
+  "match": true,
+  "seen": "(543,937)"
+ },
+ "0001640147-22-000023|operating_income|2021-02-01|2022-01-31": {
+  "cell": "(715,036)",
+  "img": null,
+  "match": true,
+  "seen": "(715,036)"
+ },
+ "0001640147-22-000023|revenue|2019-02-01|2020-01-31": {
+  "cell": "264,748",
+  "img": null,
+  "match": true,
+  "seen": "$264,748"
+ },
+ "0001640147-22-000023|revenue|2020-02-01|2021-01-31": {
+  "cell": "592,049",
+  "img": null,
+  "match": true,
+  "seen": "$592,049"
+ },
+ "0001640147-22-000023|revenue|2021-02-01|2022-01-31": {
+  "cell": "1,219,327",
+  "img": null,
+  "match": true,
+  "seen": "$1,219,327"
+ },
+ "0001640147-23-000030|capex|2020-02-01|2021-01-31": {
+  "cell": "(35,037)",
+  "img": null,
+  "match": true,
+  "seen": "(35,037)"
+ },
+ "0001640147-23-000030|capex|2021-02-01|2022-01-31": {
+  "cell": "(16,221)",
+  "img": null,
+  "match": true,
+  "seen": "(16,221)"
+ },
+ "0001640147-23-000030|capex|2022-02-01|2023-01-31": {
+  "cell": "(25,128)",
+  "img": null,
+  "match": true,
+  "seen": "(25,128)"
+ },
+ "0001640147-23-000030|cost_of_revenue|2020-02-01|2021-01-31": {
+  "cell": "242,588",
+  "img": null,
+  "match": true,
+  "seen": "242,588"
+ },
+ "0001640147-23-000030|cost_of_revenue|2021-02-01|2022-01-31": {
+  "cell": "458,433",
+  "img": null,
+  "match": true,
+  "seen": "458,433"
+ },
+ "0001640147-23-000030|cost_of_revenue|2022-02-01|2023-01-31": {
+  "cell": "717,540",
+  "img": null,
+  "match": true,
+  "seen": "717,540"
+ },
+ "0001640147-23-000030|operating_income|2020-02-01|2021-01-31": {
+  "cell": "(543,937)",
+  "img": null,
+  "match": true,
+  "seen": "(543,937)"
+ },
+ "0001640147-23-000030|operating_income|2021-02-01|2022-01-31": {
+  "cell": "(715,036)",
+  "img": null,
+  "match": true,
+  "seen": "(715,036)"
+ },
+ "0001640147-23-000030|operating_income|2022-02-01|2023-01-31": {
+  "cell": "(842,267)",
+  "img": null,
+  "match": true,
+  "seen": "(842,267)"
+ },
+ "0001640147-23-000030|revenue|2020-02-01|2021-01-31": {
+  "cell": "592,049",
+  "img": null,
+  "match": true,
+  "seen": "$592,049"
+ },
+ "0001640147-23-000030|revenue|2021-02-01|2022-01-31": {
+  "cell": "1,219,327",
+  "img": null,
+  "match": true,
+  "seen": "$1,219,327"
+ },
+ "0001640147-23-000030|revenue|2022-02-01|2023-01-31": {
+  "cell": "2,065,659",
+  "img": null,
+  "match": true,
+  "seen": "$2,065,659"
+ },
+ "0001640147-24-000101|capex|2021-02-01|2022-01-31": {
+  "cell": "(16,221)",
+  "img": null,
+  "match": true,
+  "seen": "(16,221)"
+ },
+ "0001640147-24-000101|capex|2022-02-01|2023-01-31": {
+  "cell": "(25,128)",
+  "img": null,
+  "match": true,
+  "seen": "(25,128)"
+ },
+ "0001640147-24-000101|capex|2023-02-01|2024-01-31": {
+  "cell": "(35,086)",
+  "img": null,
+  "match": true,
+  "seen": "(35,086)"
+ },
+ "0001640147-24-000101|cost_of_revenue|2021-02-01|2022-01-31": {
+  "cell": "458,433",
+  "img": null,
+  "match": true,
+  "seen": "458,433"
+ },
+ "0001640147-24-000101|cost_of_revenue|2022-02-01|2023-01-31": {
+  "cell": "717,540",
+  "img": null,
+  "match": true,
+  "seen": "717,540"
+ },
+ "0001640147-24-000101|cost_of_revenue|2023-02-01|2024-01-31": {
+  "cell": "898,558",
+  "img": null,
+  "match": true,
+  "seen": "898,558"
+ },
+ "0001640147-24-000101|operating_income|2021-02-01|2022-01-31": {
+  "cell": "(715,036)",
+  "img": null,
+  "match": true,
+  "seen": "(715,036)"
+ },
+ "0001640147-24-000101|operating_income|2022-02-01|2023-01-31": {
+  "cell": "(842,267)",
+  "img": null,
+  "match": true,
+  "seen": "(842,267)"
+ },
+ "0001640147-24-000101|operating_income|2023-02-01|2024-01-31": {
+  "cell": "(1,094,773)",
+  "img": null,
+  "match": true,
+  "seen": "(1,094,773)"
+ },
+ "0001640147-24-000101|revenue|2021-02-01|2022-01-31": {
+  "cell": "1,219,327",
+  "img": null,
+  "match": true,
+  "seen": "$1,219,327"
+ },
+ "0001640147-24-000101|revenue|2022-02-01|2023-01-31": {
+  "cell": "2,065,659",
+  "img": null,
+  "match": true,
+  "seen": "$2,065,659"
+ },
+ "0001640147-24-000101|revenue|2023-02-01|2024-01-31": {
+  "cell": "2,806,489",
+  "img": null,
+  "match": true,
+  "seen": "$2,806,489"
+ },
+ "0001640147-25-000052|capex|2022-02-01|2023-01-31": {
+  "cell": "(25,128)",
+  "img": null,
+  "match": true,
+  "seen": "(25,128)"
+ },
+ "0001640147-25-000052|capex|2023-02-01|2024-01-31": {
+  "cell": "(35,086)",
+  "img": null,
+  "match": true,
+  "seen": "(35,086)"
+ },
+ "0001640147-25-000052|capex|2024-02-01|2025-01-31": {
+  "cell": "(46,279)",
+  "img": null,
+  "match": true,
+  "seen": "(46,279)"
+ },
+ "0001640147-25-000052|cost_of_revenue|2022-02-01|2023-01-31": {
+  "cell": "717,540",
+  "img": null,
+  "match": true,
+  "seen": "717,540"
+ },
+ "0001640147-25-000052|cost_of_revenue|2023-02-01|2024-01-31": {
+  "cell": "898,558",
+  "img": null,
+  "match": true,
+  "seen": "898,558"
+ },
+ "0001640147-25-000052|cost_of_revenue|2024-02-01|2025-01-31": {
+  "cell": "1,214,673",
+  "img": null,
+  "match": true,
+  "seen": "1,214,673"
+ },
+ "0001640147-25-000052|operating_income|2022-02-01|2023-01-31": {
+  "cell": "(842,267)",
+  "img": null,
+  "match": true,
+  "seen": "(842,267)"
+ },
+ "0001640147-25-000052|operating_income|2023-02-01|2024-01-31": {
+  "cell": "(1,094,773)",
+  "img": null,
+  "match": true,
+  "seen": "(1,094,773)"
+ },
+ "0001640147-25-000052|operating_income|2024-02-01|2025-01-31": {
+  "cell": "(1,456,010)",
+  "img": null,
+  "match": true,
+  "seen": "(1,456,010)"
+ },
+ "0001640147-25-000052|revenue|2022-02-01|2023-01-31": {
+  "cell": "2,065,659",
+  "img": null,
+  "match": true,
+  "seen": "$2,065,659"
+ },
+ "0001640147-25-000052|revenue|2023-02-01|2024-01-31": {
+  "cell": "2,806,489",
+  "img": null,
+  "match": true,
+  "seen": "$2,806,489"
+ },
+ "0001640147-25-000052|revenue|2024-02-01|2025-01-31": {
+  "cell": "3,626,396",
+  "img": null,
+  "match": true,
+  "seen": "$3,626,396"
+ },
+ "0001640147-26-000008|capex|2023-02-01|2024-01-31": {
+  "cell": "(35,086)",
+  "img": null,
+  "match": true,
+  "seen": "(35,086)"
+ },
+ "0001640147-26-000008|capex|2024-02-01|2025-01-31": {
+  "cell": "(46,279)",
+  "img": null,
+  "match": true,
+  "seen": "(46,279)"
+ },
+ "0001640147-26-000008|capex|2025-02-01|2026-01-31": {
+  "cell": "(101,628)",
+  "img": null,
+  "match": true,
+  "seen": "(101,628)"
+ },
+ "0001640147-26-000008|cost_of_revenue|2023-02-01|2024-01-31": {
+  "cell": "898,558",
+  "img": null,
+  "match": true,
+  "seen": "898,558"
+ },
+ "0001640147-26-000008|cost_of_revenue|2024-02-01|2025-01-31": {
+  "cell": "1,214,673",
+  "img": null,
+  "match": true,
+  "seen": "1,214,673"
+ },
+ "0001640147-26-000008|cost_of_revenue|2025-02-01|2026-01-31": {
+  "cell": "1,537,805",
+  "img": null,
+  "match": true,
+  "seen": "1,537,805"
+ },
+ "0001640147-26-000008|operating_income|2023-02-01|2024-01-31": {
+  "cell": "(1,094,773)",
+  "img": null,
+  "match": true,
+  "seen": "(1,094,773)"
+ },
+ "0001640147-26-000008|operating_income|2024-02-01|2025-01-31": {
+  "cell": "(1,456,010)",
+  "img": null,
+  "match": true,
+  "seen": "(1,456,010)"
+ },
+ "0001640147-26-000008|operating_income|2025-02-01|2026-01-31": {
+  "cell": "(1,435,165)",
+  "img": null,
+  "match": true,
+  "seen": "(1,435,165)"
+ },
+ "0001640147-26-000008|revenue|2023-02-01|2024-01-31": {
+  "cell": "2,806,489",
+  "img": null,
+  "match": true,
+  "seen": "$2,806,489"
+ },
+ "0001640147-26-000008|revenue|2024-02-01|2025-01-31": {
+  "cell": "3,626,396",
+  "img": null,
+  "match": true,
+  "seen": "$3,626,396"
+ },
+ "0001640147-26-000008|revenue|2025-02-01|2026-01-31": {
+  "cell": "4,683,946",
+  "img": null,
+  "match": true,
+  "seen": "$4,683,946"
+ },
+ "0001692819-23-000005|cost_of_revenue_part|2020-01-01|2020-12-31|Fuel, purchased power costs and delivery fees": {
+  "cell": "(5,174)",
+  "img": null,
+  "match": true,
+  "seen": "(5,174)"
+ },
+ "0001692819-23-000005|cost_of_revenue_part|2020-01-01|2020-12-31|Operating costs": {
+  "cell": "(1,622)",
+  "img": null,
+  "match": true,
+  "seen": "(1,622)"
+ },
+ "0001692819-23-000005|cost_of_revenue_part|2021-01-01|2021-12-31|Fuel, purchased power costs and delivery fees": {
+  "cell": "(9,169)",
+  "img": null,
+  "match": true,
+  "seen": "(9,169)"
+ },
+ "0001692819-23-000005|cost_of_revenue_part|2021-01-01|2021-12-31|Operating costs": {
+  "cell": "(1,559)",
+  "img": null,
+  "match": true,
+  "seen": "(1,559)"
+ },
+ "0001692819-23-000005|cost_of_revenue_part|2022-01-01|2022-12-31|Fuel, purchased power costs and delivery fees": {
+  "cell": "(10,401)",
+  "img": null,
+  "match": true,
+  "seen": "(10,401)"
+ },
+ "0001692819-23-000005|cost_of_revenue_part|2022-01-01|2022-12-31|Operating costs": {
+  "cell": "(1,645)",
+  "img": null,
+  "match": true,
+  "seen": "(1,645)"
+ },
+ "0001692819-23-000005|operating_income|2020-01-01|2020-12-31": {
+  "cell": "1,519",
+  "img": null,
+  "match": true,
+  "seen": "1,519"
+ },
+ "0001692819-23-000005|operating_income|2021-01-01|2021-12-31": {
+  "cell": "(1,515)",
+  "img": null,
+  "match": true,
+  "seen": "(1,515)"
+ },
+ "0001692819-23-000005|operating_income|2022-01-01|2022-12-31": {
+  "cell": "(1,177)",
+  "img": null,
+  "match": true,
+  "seen": "(1,177)"
+ },
+ "0001692819-23-000005|revenue|2020-01-01|2020-12-31": {
+  "cell": "11,443",
+  "img": null,
+  "match": true,
+  "seen": "$11,443"
+ },
+ "0001692819-23-000005|revenue|2021-01-01|2021-12-31": {
+  "cell": "12,077",
+  "img": null,
+  "match": true,
+  "seen": "$12,077"
+ },
+ "0001692819-23-000005|revenue|2022-01-01|2022-12-31": {
+  "cell": "13,728",
+  "img": null,
+  "match": true,
+  "seen": "$13,728"
+ },
+ "0001692819-24-000012|cost_of_revenue_part|2021-01-01|2021-12-31|Fuel, purchased power costs and delivery fees": {
+  "cell": "(9,169)",
+  "img": null,
+  "match": true,
+  "seen": "(9,169)"
+ },
+ "0001692819-24-000012|cost_of_revenue_part|2021-01-01|2021-12-31|Operating costs": {
+  "cell": "(1,559)",
+  "img": null,
+  "match": true,
+  "seen": "(1,559)"
+ },
+ "0001692819-24-000012|cost_of_revenue_part|2022-01-01|2022-12-31|Fuel, purchased power costs and delivery fees": {
+  "cell": "(10,401)",
+  "img": null,
+  "match": true,
+  "seen": "(10,401)"
+ },
+ "0001692819-24-000012|cost_of_revenue_part|2022-01-01|2022-12-31|Operating costs": {
+  "cell": "(1,645)",
+  "img": null,
+  "match": true,
+  "seen": "(1,645)"
+ },
+ "0001692819-24-000012|cost_of_revenue_part|2023-01-01|2023-12-31|Fuel, purchased power costs and delivery fees": {
+  "cell": "(7,557)",
+  "img": null,
+  "match": true,
+  "seen": "(7,557)"
+ },
+ "0001692819-24-000012|cost_of_revenue_part|2023-01-01|2023-12-31|Operating costs": {
+  "cell": "(1,702)",
+  "img": null,
+  "match": true,
+  "seen": "(1,702)"
+ },
+ "0001692819-24-000012|operating_income|2021-01-01|2021-12-31": {
+  "cell": "(1,515)",
+  "img": null,
+  "match": true,
+  "seen": "(1,515)"
+ },
+ "0001692819-24-000012|operating_income|2022-01-01|2022-12-31": {
+  "cell": "(1,177)",
+  "img": null,
+  "match": true,
+  "seen": "(1,177)"
+ },
+ "0001692819-24-000012|operating_income|2023-01-01|2023-12-31": {
+  "cell": "2,661",
+  "img": null,
+  "match": true,
+  "seen": "2,661"
+ },
+ "0001692819-24-000012|revenue|2021-01-01|2021-12-31": {
+  "cell": "12,077",
+  "img": null,
+  "match": true,
+  "seen": "$12,077"
+ },
+ "0001692819-24-000012|revenue|2022-01-01|2022-12-31": {
+  "cell": "13,728",
+  "img": null,
+  "match": true,
+  "seen": "$13,728"
+ },
+ "0001692819-24-000012|revenue|2023-01-01|2023-12-31": {
+  "cell": "14,779",
+  "img": null,
+  "match": true,
+  "seen": "$14,779"
+ },
+ "0001692819-25-000013|capex|2022-01-01|2022-12-31": {
+  "cell": "(1,301)",
+  "img": null,
+  "match": true,
+  "seen": "(1,301)"
+ },
+ "0001692819-25-000013|capex|2023-01-01|2023-12-31": {
+  "cell": "(1,676)",
+  "img": null,
+  "match": true,
+  "seen": "(1,676)"
+ },
+ "0001692819-25-000013|capex|2024-01-01|2024-12-31": {
+  "cell": "(2,078)",
+  "img": null,
+  "match": true,
+  "seen": "(2,078)"
+ },
+ "0001692819-25-000013|cost_of_revenue_part|2022-01-01|2022-12-31|Fuel, purchased power costs, and delivery fees": {
+  "cell": "(10,401)",
+  "img": null,
+  "match": true,
+  "seen": "(10,401)"
+ },
+ "0001692819-25-000013|cost_of_revenue_part|2022-01-01|2022-12-31|Operating costs": {
+  "cell": "(1,645)",
+  "img": "d8e4e6805d17.png",
+  "match": true,
+  "seen": "(1,645)"
+ },
+ "0001692819-25-000013|cost_of_revenue_part|2023-01-01|2023-12-31|Fuel, purchased power costs, and delivery fees": {
+  "cell": "(7,557)",
+  "img": null,
+  "match": true,
+  "seen": "(7,557)"
+ },
+ "0001692819-25-000013|cost_of_revenue_part|2023-01-01|2023-12-31|Operating costs": {
+  "cell": "(1,702)",
+  "img": null,
+  "match": true,
+  "seen": "(1,702)"
+ },
+ "0001692819-25-000013|cost_of_revenue_part|2024-01-01|2024-12-31|Fuel, purchased power costs, and delivery fees": {
+  "cell": "(7,285)",
+  "img": null,
+  "match": true,
+  "seen": "(7,285)"
+ },
+ "0001692819-25-000013|cost_of_revenue_part|2024-01-01|2024-12-31|Operating costs": {
+  "cell": "(2,414)",
+  "img": null,
+  "match": true,
+  "seen": "(2,414)"
+ },
+ "0001692819-25-000013|operating_income|2022-01-01|2022-12-31": {
+  "cell": "(1,177)",
+  "img": "3dda9f1eb254.png",
+  "match": true,
+  "seen": "(1,177)"
+ },
+ "0001692819-25-000013|operating_income|2023-01-01|2023-12-31": {
+  "cell": "2,661",
+  "img": null,
+  "match": true,
+  "seen": "2,661"
+ },
+ "0001692819-25-000013|operating_income|2024-01-01|2024-12-31": {
+  "cell": "4,081",
+  "img": null,
+  "match": true,
+  "seen": "4,081"
+ },
+ "0001692819-25-000013|revenue|2022-01-01|2022-12-31": {
+  "cell": "13,728",
+  "img": "c95edf56f170.png",
+  "match": true,
+  "seen": "$13,728"
+ },
+ "0001692819-25-000013|revenue|2023-01-01|2023-12-31": {
+  "cell": "14,779",
+  "img": null,
+  "match": true,
+  "seen": "$14,779"
+ },
+ "0001692819-25-000013|revenue|2024-01-01|2024-12-31": {
+  "cell": "17,224",
+  "img": null,
+  "match": true,
+  "seen": "$17,224"
+ },
+ "0001692819-26-000006|capex|2023-01-01|2023-12-31": {
+  "cell": "(1,676)",
+  "img": null,
+  "match": true,
+  "seen": "(1,676)"
+ },
+ "0001692819-26-000006|capex|2024-01-01|2024-12-31": {
+  "cell": "(2,078)",
+  "img": null,
+  "match": true,
+  "seen": "(2,078)"
+ },
+ "0001692819-26-000006|capex|2025-01-01|2025-12-31": {
+  "cell": "(2,752)",
+  "img": null,
+  "match": true,
+  "seen": "(2,752)"
+ },
+ "0001692819-26-000006|cost_of_revenue_part|2023-01-01|2023-12-31|Fuel, purchased power costs, and delivery fees": {
+  "cell": "(7,557)",
+  "img": null,
+  "match": true,
+  "seen": "(7,557)"
+ },
+ "0001692819-26-000006|cost_of_revenue_part|2023-01-01|2023-12-31|Operating costs": {
+  "cell": "(1,702)",
+  "img": "6bf63f8348aa.png",
+  "match": true,
+  "seen": "(1,702)"
+ },
+ "0001692819-26-000006|cost_of_revenue_part|2024-01-01|2024-12-31|Fuel, purchased power costs, and delivery fees": {
+  "cell": "(7,285)",
+  "img": null,
+  "match": true,
+  "seen": "(7,285)"
+ },
+ "0001692819-26-000006|cost_of_revenue_part|2024-01-01|2024-12-31|Operating costs": {
+  "cell": "(2,414)",
+  "img": "7c58eda6658f.png",
+  "match": true,
+  "seen": "(2,414)"
+ },
+ "0001692819-26-000006|cost_of_revenue_part|2025-01-01|2025-12-31|Fuel, purchased power costs, and delivery fees": {
+  "cell": "(9,101)",
+  "img": null,
+  "match": true,
+  "seen": "(9,101)"
+ },
+ "0001692819-26-000006|cost_of_revenue_part|2025-01-01|2025-12-31|Operating costs": {
+  "cell": "(2,803)",
+  "img": "beb3a12591d1.png",
+  "match": true,
+  "seen": "(2,803)"
+ },
+ "0001692819-26-000006|operating_income|2023-01-01|2023-12-31": {
+  "cell": "2,661",
+  "img": "a641bd3ac8e4.png",
+  "match": true,
+  "seen": "2,661"
+ },
+ "0001692819-26-000006|operating_income|2024-01-01|2024-12-31": {
+  "cell": "4,081",
+  "img": "ec6b55c46189.png",
+  "match": true,
+  "seen": "4,081"
+ },
+ "0001692819-26-000006|operating_income|2025-01-01|2025-12-31": {
+  "cell": "1,906",
+  "img": "fd7463326ea9.png",
+  "match": true,
+  "seen": "1,906"
+ },
+ "0001692819-26-000006|revenue|2023-01-01|2023-12-31": {
+  "cell": "14,779",
+  "img": "329d45b9f62d.png",
+  "match": true,
+  "seen": "$14,779"
+ },
+ "0001692819-26-000006|revenue|2024-01-01|2024-12-31": {
+  "cell": "17,224",
+  "img": "64f8f1d76746.png",
+  "match": true,
+  "seen": "$17,224"
+ },
+ "0001692819-26-000006|revenue|2025-01-01|2025-12-31": {
+  "cell": "17,738",
+  "img": "ce00fc6224be.png",
+  "match": true,
+  "seen": "$17,738"
+ },
+ "0001837240-22-000049|capex|2019-09-27|2020-09-26": {
+  "cell": "(5,071)",
+  "img": null,
+  "match": true,
+  "seen": "(5,071)"
+ },
+ "0001837240-22-000049|capex|2020-09-26|2021-09-25": {
+  "cell": "(12,168)",
+  "img": null,
+  "match": true,
+  "seen": "(12,168)"
+ },
+ "0001837240-22-000049|capex|2021-09-25|2022-09-24": {
+  "cell": "(17,950)",
+  "img": null,
+  "match": true,
+  "seen": "(17,950)"
+ },
+ "0001837240-22-000049|cost_of_revenue|2019-09-27|2020-09-26": {
+  "cell": "111,016",
+  "img": null,
+  "match": true,
+  "seen": "111,016"
+ },
+ "0001837240-22-000049|cost_of_revenue|2020-09-26|2021-09-25": {
+  "cell": "241,466",
+  "img": null,
+  "match": true,
+  "seen": "241,466"
+ },
+ "0001837240-22-000049|cost_of_revenue|2021-09-25|2022-09-24": {
+  "cell": "493,665",
+  "img": null,
+  "match": true,
+  "seen": "493,665"
+ },
+ "0001837240-22-000049|operating_income|2019-09-27|2020-09-26": {
+  "cell": "(110,377)",
+  "img": null,
+  "match": true,
+  "seen": "(110,377)"
+ },
+ "0001837240-22-000049|operating_income|2020-09-26|2021-09-25": {
+  "cell": "(122,381)",
+  "img": null,
+  "match": true,
+  "seen": "(122,381)"
+ },
+ "0001837240-22-000049|operating_income|2021-09-25|2022-09-24": {
+  "cell": "(140,375)",
+  "img": null,
+  "match": true,
+  "seen": "(140,375)"
+ },
+ "0001837240-22-000049|revenue|2019-09-27|2020-09-26": {
+  "cell": "92,086",
+  "img": null,
+  "match": true,
+  "seen": "92,086"
+ },
+ "0001837240-22-000049|revenue|2020-09-26|2021-09-25": {
+  "cell": "251,913",
+  "img": null,
+  "match": true,
+  "seen": "251,913"
+ },
+ "0001837240-22-000049|revenue|2021-09-25|2022-09-24": {
+  "cell": "593,312",
+  "img": null,
+  "match": true,
+  "seen": "593,312"
+ },
+ "0001837240-23-000189|capex|2020-09-26|2021-09-25": {
+  "cell": "(12,168)",
+  "img": null,
+  "match": true,
+  "seen": "(12,168)"
+ },
+ "0001837240-23-000189|capex|2021-09-25|2022-09-24": {
+  "cell": "(17,950)",
+  "img": null,
+  "match": true,
+  "seen": "(17,950)"
+ },
+ "0001837240-23-000189|capex|2022-09-25|2023-09-30": {
+  "cell": "(15,688)",
+  "img": null,
+  "match": true,
+  "seen": "(15,688)"
+ },
+ "0001837240-23-000189|cost_of_revenue|2020-09-26|2021-09-25": {
+  "cell": "241,466",
+  "img": null,
+  "match": true,
+  "seen": "241,466"
+ },
+ "0001837240-23-000189|cost_of_revenue|2021-09-25|2022-09-24": {
+  "cell": "493,665",
+  "img": null,
+  "match": true,
+  "seen": "493,665"
+ },
+ "0001837240-23-000189|cost_of_revenue|2022-09-25|2023-09-30": {
+  "cell": "987,152",
+  "img": null,
+  "match": true,
+  "seen": "987,152"
+ },
+ "0001837240-23-000189|operating_income|2020-09-26|2021-09-25": {
+  "cell": "(122,381)",
+  "img": null,
+  "match": true,
+  "seen": "(122,381)"
+ },
+ "0001837240-23-000189|operating_income|2021-09-25|2022-09-24": {
+  "cell": "(140,375)",
+  "img": null,
+  "match": true,
+  "seen": "(140,375)"
+ },
+ "0001837240-23-000189|operating_income|2022-09-25|2023-09-30": {
+  "cell": "(223,230)",
+  "img": null,
+  "match": true,
+  "seen": "(223,230)"
+ },
+ "0001837240-23-000189|revenue|2020-09-26|2021-09-25": {
+  "cell": "251,913",
+  "img": null,
+  "match": true,
+  "seen": "251,913"
+ },
+ "0001837240-23-000189|revenue|2021-09-25|2022-09-24": {
+  "cell": "593,312",
+  "img": null,
+  "match": true,
+  "seen": "593,312"
+ },
+ "0001837240-23-000189|revenue|2022-09-25|2023-09-30": {
+  "cell": "1,176,891",
+  "img": null,
+  "match": true,
+  "seen": "1,176,891"
+ },
+ "0001837240-24-000232|capex|2021-09-25|2022-09-24": {
+  "cell": "(17,950)",
+  "img": null,
+  "match": true,
+  "seen": "(17,950)"
+ },
+ "0001837240-24-000232|capex|2022-09-25|2023-09-30": {
+  "cell": "(15,688)",
+  "img": null,
+  "match": true,
+  "seen": "(15,688)"
+ },
+ "0001837240-24-000232|capex|2023-10-01|2024-09-28": {
+  "cell": "(42,237)",
+  "img": null,
+  "match": true,
+  "seen": "(42,237)"
+ },
+ "0001837240-24-000232|cost_of_revenue|2021-09-25|2022-09-24": {
+  "cell": "493,665",
+  "img": null,
+  "match": true,
+  "seen": "493,665"
+ },
+ "0001837240-24-000232|cost_of_revenue|2022-09-25|2023-09-30": {
+  "cell": "987,152",
+  "img": null,
+  "match": true,
+  "seen": "987,152"
+ },
+ "0001837240-24-000232|cost_of_revenue|2023-10-01|2024-09-28": {
+  "cell": "1,542,513",
+  "img": null,
+  "match": true,
+  "seen": "1,542,513"
+ },
+ "0001837240-24-000232|operating_income|2021-09-25|2022-09-24": {
+  "cell": "(140,375)",
+  "img": null,
+  "match": true,
+  "seen": "(140,375)"
+ },
+ "0001837240-24-000232|operating_income|2022-09-25|2023-09-30": {
+  "cell": "(223,230)",
+  "img": null,
+  "match": true,
+  "seen": "(223,230)"
+ },
+ "0001837240-24-000232|operating_income|2023-10-01|2024-09-28": {
+  "cell": "(116,725)",
+  "img": null,
+  "match": true,
+  "seen": "(116,725)"
+ },
+ "0001837240-24-000232|revenue|2021-09-25|2022-09-24": {
+  "cell": "593,312",
+  "img": null,
+  "match": true,
+  "seen": "593,312"
+ },
+ "0001837240-24-000232|revenue|2022-09-25|2023-09-30": {
+  "cell": "1,176,891",
+  "img": null,
+  "match": true,
+  "seen": "1,176,891"
+ },
+ "0001837240-24-000232|revenue|2023-10-01|2024-09-28": {
+  "cell": "1,788,179",
+  "img": null,
+  "match": true,
+  "seen": "1,788,179"
+ },
+ "0001837240-25-000278|capex|2022-09-25|2023-09-30": {
+  "cell": "(21,326)",
+  "img": "01389918a2e8.png",
+  "match": true,
+  "seen": "(21,326)"
+ },
+ "0001837240-25-000278|capex|2023-10-01|2024-09-28": {
+  "cell": "(44,374)",
+  "img": "838a27a543fa.png",
+  "match": true,
+  "seen": "(44,374)"
+ },
+ "0001837240-25-000278|capex|2024-09-29|2025-09-27": {
+  "cell": "(79,030)",
+  "img": "57925b13c8b7.png",
+  "match": true,
+  "seen": "(79,030)"
+ },
+ "0001837240-25-000278|cost_of_revenue|2022-09-25|2023-09-30": {
+  "cell": "987,152",
+  "img": null,
+  "match": true,
+  "seen": "987,152"
+ },
+ "0001837240-25-000278|cost_of_revenue|2023-10-01|2024-09-28": {
+  "cell": "1,542,513",
+  "img": null,
+  "match": true,
+  "seen": "1,542,513"
+ },
+ "0001837240-25-000278|cost_of_revenue|2024-09-29|2025-09-27": {
+  "cell": "1,824,312",
+  "img": null,
+  "match": true,
+  "seen": "1,824,312"
+ },
+ "0001837240-25-000278|operating_income|2022-09-25|2023-09-30": {
+  "cell": "(223,230)",
+  "img": null,
+  "match": true,
+  "seen": "(223,230)"
+ },
+ "0001837240-25-000278|operating_income|2023-10-01|2024-09-28": {
+  "cell": "(116,725)",
+  "img": null,
+  "match": true,
+  "seen": "(116,725)"
+ },
+ "0001837240-25-000278|operating_income|2024-09-29|2025-09-27": {
+  "cell": "(115,006)",
+  "img": null,
+  "match": true,
+  "seen": "(115,006)"
+ },
+ "0001837240-25-000278|revenue|2022-09-25|2023-09-30": {
+  "cell": "1,176,891",
+  "img": null,
+  "match": true,
+  "seen": "1,176,891"
+ },
+ "0001837240-25-000278|revenue|2023-10-01|2024-09-28": {
+  "cell": "1,788,179",
+  "img": null,
+  "match": true,
+  "seen": "1,788,179"
+ },
+ "0001837240-25-000278|revenue|2024-09-29|2025-09-27": {
+  "cell": "2,246,922",
+  "img": null,
+  "match": true,
+  "seen": "2,246,922"
+ },
+ "0001868275-23-000014|capex|2020-01-01|2020-12-31": {
+  "cell": "(1,747)",
+  "img": null,
+  "match": true,
+  "seen": "(1,747)"
+ },
+ "0001868275-23-000014|capex|2021-01-01|2021-12-31": {
+  "cell": "(1,329)",
+  "img": null,
+  "match": true,
+  "seen": "(1,329)"
+ },
+ "0001868275-23-000014|capex|2022-01-01|2022-12-31": {
+  "cell": "(1,689)",
+  "img": null,
+  "match": true,
+  "seen": "(1,689)"
+ },
+ "0001868275-23-000014|cost_of_revenue_part|2020-01-01|2020-12-31|Purchased power and fuel": {
+  "cell": "9,592",
+  "img": null,
+  "match": true,
+  "seen": "9,592"
+ },
+ "0001868275-23-000014|cost_of_revenue_part|2020-01-01|2020-12-31|Purchased power and fuel from affiliates": {
+  "cell": "(7)",
+  "img": null,
+  "match": true,
+  "seen": "(7)"
+ },
+ "0001868275-23-000014|cost_of_revenue_part|2021-01-01|2021-12-31|Purchased power and fuel": {
+  "cell": "12,157",
+  "img": null,
+  "match": true,
+  "seen": "12,157"
+ },
+ "0001868275-23-000014|cost_of_revenue_part|2021-01-01|2021-12-31|Purchased power and fuel from affiliates": {
+  "cell": "6",
+  "img": null,
+  "match": true,
+  "seen": "6"
+ },
+ "0001868275-23-000014|cost_of_revenue_part|2022-01-01|2022-12-31|Purchased power and fuel": {
+  "cell": "17,457",
+  "img": null,
+  "match": true,
+  "seen": "17,457"
+ },
+ "0001868275-23-000014|cost_of_revenue_part|2022-01-01|2022-12-31|Purchased power and fuel from affiliates": {
+  "cell": "5",
+  "img": null,
+  "match": true,
+  "seen": "5"
+ },
+ "0001868275-23-000014|operating_income|2020-01-01|2020-12-31": {
+  "cell": "256",
+  "img": null,
+  "match": true,
+  "seen": "256"
+ },
+ "0001868275-23-000014|operating_income|2021-01-01|2021-12-31": {
+  "cell": "(346)",
+  "img": null,
+  "match": true,
+  "seen": "(346)"
+ },
+ "0001868275-23-000014|operating_income|2022-01-01|2022-12-31": {
+  "cell": "495",
+  "img": null,
+  "match": true,
+  "seen": "495"
+ },
+ "0001868275-23-000014|revenue|2020-01-01|2020-12-31": {
+  "cell": "17,603",
+  "img": null,
+  "match": true,
+  "seen": "17,603"
+ },
+ "0001868275-23-000014|revenue|2021-01-01|2021-12-31": {
+  "cell": "19,649",
+  "img": null,
+  "match": true,
+  "seen": "19,649"
+ },
+ "0001868275-23-000014|revenue|2022-01-01|2022-12-31": {
+  "cell": "24,440",
+  "img": null,
+  "match": true,
+  "seen": "24,440"
+ },
+ "0001868275-24-000014|capex|2021-01-01|2021-12-31": {
+  "cell": "(1,329)",
+  "img": null,
+  "match": true,
+  "seen": "(1,329)"
+ },
+ "0001868275-24-000014|capex|2022-01-01|2022-12-31": {
+  "cell": "(1,689)",
+  "img": null,
+  "match": true,
+  "seen": "(1,689)"
+ },
+ "0001868275-24-000014|capex|2023-01-01|2023-12-31": {
+  "cell": "(2,422)",
+  "img": null,
+  "match": true,
+  "seen": "(2,422)"
+ },
+ "0001868275-24-000014|cost_of_revenue_part|2021-01-01|2021-12-31|Purchased power and fuel": {
+  "cell": "12,157",
+  "img": null,
+  "match": true,
+  "seen": "12,157"
+ },
+ "0001868275-24-000014|cost_of_revenue_part|2021-01-01|2021-12-31|Purchased power and fuel from affiliates": {
+  "cell": "6",
+  "img": null,
+  "match": true,
+  "seen": "6"
+ },
+ "0001868275-24-000014|cost_of_revenue_part|2022-01-01|2022-12-31|Purchased power and fuel": {
+  "cell": "17,457",
+  "img": null,
+  "match": true,
+  "seen": "17,457"
+ },
+ "0001868275-24-000014|cost_of_revenue_part|2022-01-01|2022-12-31|Purchased power and fuel from affiliates": {
+  "cell": "5",
+  "img": null,
+  "match": true,
+  "seen": "5"
+ },
+ "0001868275-24-000014|cost_of_revenue_part|2023-01-01|2023-12-31|Purchased power and fuel": {
+  "cell": "16,001",
+  "img": null,
+  "match": true,
+  "seen": "16,001"
+ },
+ "0001868275-24-000014|operating_income|2021-01-01|2021-12-31": {
+  "cell": "(346)",
+  "img": null,
+  "match": true,
+  "seen": "(346)"
+ },
+ "0001868275-24-000014|operating_income|2022-01-01|2022-12-31": {
+  "cell": "495",
+  "img": null,
+  "match": true,
+  "seen": "495"
+ },
+ "0001868275-24-000014|operating_income|2023-01-01|2023-12-31": {
+  "cell": "1,610",
+  "img": null,
+  "match": true,
+  "seen": "1,610"
+ },
+ "0001868275-24-000014|revenue|2021-01-01|2021-12-31": {
+  "cell": "19,649",
+  "img": null,
+  "match": true,
+  "seen": "19,649"
+ },
+ "0001868275-24-000014|revenue|2022-01-01|2022-12-31": {
+  "cell": "24,440",
+  "img": null,
+  "match": true,
+  "seen": "24,440"
+ },
+ "0001868275-24-000014|revenue|2023-01-01|2023-12-31": {
+  "cell": "24,918",
+  "img": null,
+  "match": true,
+  "seen": "24,918"
+ },
+ "0001868275-25-000023|capex|2022-01-01|2022-12-31": {
+  "cell": "(1,689)",
+  "img": "3c753b7f7566.png",
+  "match": true,
+  "seen": "(1,689)"
+ },
+ "0001868275-25-000023|capex|2023-01-01|2023-12-31": {
+  "cell": "(2,422)",
+  "img": null,
+  "match": true,
+  "seen": "(2,422)"
+ },
+ "0001868275-25-000023|capex|2024-01-01|2024-12-31": {
+  "cell": "(2,565)",
+  "img": null,
+  "match": true,
+  "seen": "(2,565)"
+ },
+ "0001868275-25-000023|cost_of_revenue_part|2022-01-01|2022-12-31|Purchased power and fuel": {
+  "cell": "17,457",
+  "img": "4bff68a1d4c1.png",
+  "match": true,
+  "seen": "17,457"
+ },
+ "0001868275-25-000023|cost_of_revenue_part|2022-01-01|2022-12-31|Purchased power and fuel from affiliates": {
+  "cell": "5",
+  "img": "bb0a7e53171c.png",
+  "match": true,
+  "seen": "5"
+ },
+ "0001868275-25-000023|cost_of_revenue_part|2023-01-01|2023-12-31|Purchased power and fuel": {
+  "cell": "16,001",
+  "img": null,
+  "match": true,
+  "seen": "16,001"
+ },
+ "0001868275-25-000023|cost_of_revenue_part|2024-01-01|2024-12-31|Purchased power and fuel": {
+  "cell": "11,419",
+  "img": null,
+  "match": true,
+  "seen": "11,419"
+ },
+ "0001868275-25-000023|operating_income|2022-01-01|2022-12-31": {
+  "cell": "495",
+  "img": "2e8ae0100c11.png",
+  "match": true,
+  "seen": "495"
+ },
+ "0001868275-25-000023|operating_income|2023-01-01|2023-12-31": {
+  "cell": "1,610",
+  "img": null,
+  "match": true,
+  "seen": "1,610"
+ },
+ "0001868275-25-000023|operating_income|2024-01-01|2024-12-31": {
+  "cell": "4,352",
+  "img": null,
+  "match": true,
+  "seen": "4,352"
+ },
+ "0001868275-25-000023|revenue|2022-01-01|2022-12-31": {
+  "cell": "24,440",
+  "img": "2fe5a4441349.png",
+  "match": true,
+  "seen": "24,440"
+ },
+ "0001868275-25-000023|revenue|2023-01-01|2023-12-31": {
+  "cell": "24,918",
+  "img": null,
+  "match": true,
+  "seen": "24,918"
+ },
+ "0001868275-25-000023|revenue|2024-01-01|2024-12-31": {
+  "cell": "23,568",
+  "img": null,
+  "match": true,
+  "seen": "23,568"
+ },
+ "0001868275-26-000032|capex|2023-01-01|2023-12-31": {
+  "cell": "(2,422)",
+  "img": null,
+  "match": true,
+  "seen": "(2,422)"
+ },
+ "0001868275-26-000032|capex|2024-01-01|2024-12-31": {
+  "cell": "(2,565)",
+  "img": null,
+  "match": true,
+  "seen": "(2,565)"
+ },
+ "0001868275-26-000032|capex|2025-01-01|2025-12-31": {
+  "cell": "(2,949)",
+  "img": null,
+  "match": true,
+  "seen": "(2,949)"
+ },
+ "0001868275-26-000032|cost_of_revenue_part|2023-01-01|2023-12-31|Purchased power and fuel": {
+  "cell": "16,001",
+  "img": "b25d575ecd52.png",
+  "match": true,
+  "seen": "16,001"
+ },
+ "0001868275-26-000032|cost_of_revenue_part|2024-01-01|2024-12-31|Purchased power and fuel": {
+  "cell": "11,419",
+  "img": "7e9fc19b2c1c.png",
+  "match": true,
+  "seen": "11,419"
+ },
+ "0001868275-26-000032|cost_of_revenue_part|2025-01-01|2025-12-31|Purchased power and fuel": {
+  "cell": "14,681",
+  "img": "41069e110429.png",
+  "match": true,
+  "seen": "14,681"
+ },
+ "0001868275-26-000032|operating_income|2023-01-01|2023-12-31": {
+  "cell": "1,610",
+  "img": "fba06d36aa07.png",
+  "match": true,
+  "seen": "1,610"
+ },
+ "0001868275-26-000032|operating_income|2024-01-01|2024-12-31": {
+  "cell": "4,352",
+  "img": "b3d55d934c33.png",
+  "match": true,
+  "seen": "4,352"
+ },
+ "0001868275-26-000032|operating_income|2025-01-01|2025-12-31": {
+  "cell": "3,086",
+  "img": "fc8ca200d562.png",
+  "match": true,
+  "seen": "3,086"
+ },
+ "0001868275-26-000032|revenue|2023-01-01|2023-12-31": {
+  "cell": "24,918",
+  "img": "c6140938c38b.png",
+  "match": true,
+  "seen": "$24,918"
+ },
+ "0001868275-26-000032|revenue|2024-01-01|2024-12-31": {
+  "cell": "23,568",
+  "img": "beaafaf470e1.png",
+  "match": true,
+  "seen": "$23,568"
+ },
+ "0001868275-26-000032|revenue|2025-01-01|2025-12-31": {
+  "cell": "25,533",
+  "img": "7463f485cb56.png",
+  "match": true,
+  "seen": "$25,533"
+ }
+}

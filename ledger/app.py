@@ -73,7 +73,6 @@ def company(ticker: str) -> dict:
                    if json.loads(r["detail"] or "{}").get("ticker") == ticker]
         report = build(con, [ticker], f"stage{STAGE}")
         ai = _rows(con, "select * from ai_spend where ticker = ? order by field, period, kind", ticker)
-        attribution = _rows(con, "select * from attribution where ticker = ? order by field, period, kind", ticker)
         facts = _rows(con, "select f.*, e.table_id, e.row_label, e.column_label, e.cell_text from facts f left join note_extractions e on e.extraction_id = split_part(f.extraction_ids, ',', -1) "
                            "where f.ticker = ? order by f.field, f.dimension, f.period", ticker)
     finally:
@@ -90,7 +89,7 @@ def company(ticker: str) -> dict:
     info = next(c for c in tracked() if c["ticker"] == ticker)
     return {"ticker": ticker, "name": info["name"], "note": info.get("note"), "documents": docs, "skipped": skipped, "exceptions": excs,
             "values": report["values"], "tables": report["tables"], "scorecard": report["scorecard"][0],
-            "release": rel[-1].name if rel else None, "released": len(released), "ai_spend": ai, "facts": facts, "attribution": attribution}
+            "release": rel[-1].name if rel else None, "released": len(released), "ai_spend": ai, "facts": facts}
 
 
 def agents_view() -> dict:
@@ -121,85 +120,13 @@ def latest_signed():
     return signed[-1] if signed else None
 
 
-def attribution_view() -> dict:
-    """The Attribution tab: every model with its versions, the attributor's prompt, every row, and the last load's diff."""
-    cfg = agents.load()["attributor"]
-    con = _con()
-    try:
-        rows = _rows(con, "select * from attribution order by ticker, field, period, kind")
-    finally:
-        con.close()
-    present = {c["ticker"] for c in tracked()}
-    models = {}
-    for ind, ver in cfg["models"].items():
-        vs = agents.model_versions(ind)
-        models[ind] = {"version": ver, "versions": vs, "texts": {v: agents.model_text(v) for v in vs},
-                       "companies": sorted(t for t in INDUSTRIES.get(ind, []) if t in present) if ind != "other" else sorted(t for t in present if industry(t) == "other")}
-    diff_path = store.ROOT / "data" / "attribution" / "diff.json"
-    return {"models": models, "prompt": cfg["prompt"], "history": cfg["history"], "rows": rows,
-            "diff": json.loads(diff_path.read_text()) if diff_path.exists() else None}
-
-
-DC = re.compile(r"data ?cent|ai cloud|cloud|compute", re.I)
-
-
-def insights() -> dict:
-    """The Insights tab, from the live tables: buyers' AI capex against their total capex by year, sellers' data-center
-    revenue, every company's latest attribution, and the method mix. Labelled against the signed release."""
-    con = _con()
-    try:
-        vals = _rows(con, 'select ticker, field, period, value from "values" where value is not null')
-        attr = _rows(con, "select ticker, period, method, ai_amount, ai_share, confidence from attribution where field = 'capex' and kind = 'actual'")
-        segs = _rows(con, "select ticker, dimension, period, value from facts where field = 'segment_revenue'")
-    finally:
-        con.close()
-    roles = {c["ticker"]: c.get("role", "other") for c in tracked()}
-    names = {c["ticker"]: c["name"] for c in tracked()}
-    years = sorted({v["period"] for v in vals})
-    capex = {(v["ticker"], v["period"]): v["value"] for v in vals if v["field"] == "capex"}
-    ai = {(a["ticker"], a["period"]): a for a in attr}
-    by_year = []
-    for y in years:
-        buyers = [t for t in roles if roles[t] == "buyer" and (t, y) in capex]
-        total = sum(capex[(t, y)] for t in buyers)
-        attributed = sum(ai[(t, y)]["ai_amount"] for t in buyers if (t, y) in ai and ai[(t, y)]["ai_amount"] is not None)
-        covered = sum(capex[(t, y)] for t in buyers if (t, y) in ai and ai[(t, y)]["ai_amount"] is not None)
-        dc = {}
-        for s in segs:
-            if roles.get(s["ticker"]) == "seller" and s["period"] == y and DC.search(s["dimension"] or ""):
-                dc[s["ticker"]] = max(dc.get(s["ticker"], 0), s["value"])  # one line per seller: the biggest data-center-like line
-        by_year.append({"period": y, "buyers": len(buyers), "capex": total, "ai_capex": attributed, "capex_covered": covered, "sellers_dc": sum(dc.values()), "sellers": len(dc)})
-    latest = []
-    for t in sorted(roles):
-        mine = sorted((k[1] for k in ai if k[0] == t and ai[k]["ai_amount"] is not None))
-        if not mine:
-            continue
-        y = mine[-1]
-        a = ai[(t, y)]
-        latest.append({"ticker": t, "company": names[t], "role": roles[t], "industry": industry(t), "period": y, "ai_amount": a["ai_amount"], "capex": capex.get((t, y)),
-                       "share": a["ai_share"], "method": a["method"], "confidence": a["confidence"]})
-    methods = {}
-    for a in attr:
-        methods[a["method"]] = methods.get(a["method"], 0) + 1
-    series = {}  # per buyer with any attributed amount: year -> capex, AI amount, method
-    for (t, y), a in ai.items():
-        if roles.get(t) == "buyer" and any(x["ai_amount"] is not None for (tt, _), x in ai.items() if tt == t):
-            series.setdefault(t, {})[y] = {"capex": capex.get((t, y)), "ai_amount": a["ai_amount"], "share": a["ai_share"], "method": a["method"]}
-    rel = latest_signed()
-    sig = json.loads((rel / "SIGNOFF.json").read_text()) if rel else {}
-    return {"years": years, "by_year": by_year, "latest": sorted(latest, key=lambda x: -x["ai_amount"]), "methods": methods, "series": series, "names": names,
-            "release": rel.name if rel else None, "signed_by": sig.get("signed_by"), "signed_at": sig.get("signed_at"),
-            "release_has_attribution": bool(rel and (rel / "attribution.csv").exists())}
-
-
-FIELD_KIND = {"revenue": "spent", "capex": "spent", "opex": "spent", "ai_capex": "spent", "ai_opex": "spent", "segment_capex": "spent", "segment_revenue": "spent",
-              "ppe_category": "spent", "finance_lease_liability": "committed", "purchase_commitments": "committed", "ai_capex_outlook": "planned", "ai_opex_outlook": "planned",
-              "capex_guidance": "planned"}
+FIELD_KIND = {"revenue": "spent", "capex": "spent", "opex": "spent", "segment_capex": "spent", "segment_revenue": "spent", "ppe_category": "derived",
+              "finance_lease_liability": "committed", "purchase_commitments": "committed"}  # the taxonomy measure of each read field (docs/TAXONOMY.md)
 
 
 def data(q: dict) -> dict:
     """The dataset in long format for the data screen: one row per entity, field, dimension, year and kind, with its
-    provenance ids. Filters: t (tickers, comma), f (fields, comma), y (years, comma), k (spent|committed|planned)."""
+    provenance ids. Filters: t (tickers, comma), f (fields, comma), y (years, comma), k (spent|committed|derived|planned)."""
     want_t = set(q.get("t", "").upper().split(",")) - {""}
     want_f = set(q.get("f", "").split(",")) - {""}
     want_y = set(q.get("y", "").upper().split(",")) - {""}
@@ -213,16 +140,6 @@ def data(q: dict) -> dict:
         for f in _rows(con, "select ticker, field, dimension, period, value, label, reference, accession, extraction_ids, basis from facts"):
             rows.append({"ticker": f["ticker"], "field": f["field"], "dimension": f["dimension"], "period": f["period"], "kind": FIELD_KIND.get(f["field"], "spent"), "value": f["value"], "unit": "usd",
                          "check": f["label"], "method": "cell", "confidence": None, "basis": f["basis"], "prov": {"extractions": f["extraction_ids"], "accession": f["accession"], "table": "facts", "xbrl": f["reference"]}})
-        for a in _rows(con, "select * from attribution"):
-            if a["ai_amount"] is None:
-                continue
-            rows.append({"ticker": a["ticker"], "field": f"ai_{a['field']}" + {"outlook": "_outlook", "committed": "_committed"}.get(a["kind"], ""), "dimension": "", "period": a["period"],
-                         "kind": {"outlook": "planned", "committed": "committed"}.get(a["kind"], "spent"), "value": a["ai_amount"], "unit": "usd", "check": None, "method": a["method"], "confidence": a["confidence"],
-                         "basis": a["basis"], "share": a["ai_share"], "prov": {"inputs": a["inputs"], "model": a["model"], "prompt": a["prompt_version"], "table": "attribution"}})
-        for s in _rows(con, "select * from ai_spend where class = 'explicit_amount' and scope = 'total'"):
-            rows.append({"ticker": s["ticker"], "field": f"{s['field']}_guidance", "dimension": "", "period": s["period"], "kind": "planned" if s["kind"] == "outlook" else "spent",
-                         "value": (s["amount_low"] + s["amount_high"]) // 2, "unit": "usd", "check": None, "method": "stated", "confidence": None, "basis": s["quote"],
-                         "range": [s["amount_low"], s["amount_high"]], "prov": {"text": s["text_id"], "source": s["source"], "accession": s["accession"], "table": "ai_spend"}})
         urls = {d["accession"]: d["url"] for d in _rows(con, "select accession, url from documents")}
     finally:
         con.close()
@@ -231,15 +148,14 @@ def data(q: dict) -> dict:
         acc = r["prov"].get("accession") or (r["prov"].get("extractions") or "").split("|")[0]
         r["prov"]["url"] = urls.get(acc)
         t = r["prov"]["table"]
-        r["status"] = (resolutions.status_of(idx, "attribution", r["ticker"], r["field"].replace("ai_", "").replace("_outlook", "").replace("_committed", ""), "", r["period"], {"planned": "outlook", "committed": "committed"}.get(r["kind"], "actual")) if t == "attribution"
-                       else resolutions.status_of(idx, "facts", r["ticker"], r["field"], r["dimension"], r["period"]) if t == "facts"
+        r["status"] = (resolutions.status_of(idx, "facts", r["ticker"], r["field"], r["dimension"], r["period"]) if t == "facts"
                        else resolutions.status_of(idx, "values", r["ticker"], r["field"], "", r["period"]) if t == "values" else "")
-        r["flag"] = "share_over_total" if r.get("share") is not None and r["share"] > 1 else "differs_from_xbrl" if r.get("check") == "unresolved" else ""
+        r["flag"] = "differs_from_xbrl" if r.get("check") == "unresolved" else ""
     rows = [r for r in rows if (not want_t or r["ticker"] in want_t) and (not want_f or r["field"] in want_f) and (not want_y or r["period"] in want_y) and (not want_k or r["kind"] in want_k)]
     names = {c["ticker"]: c["name"] for c in tracked()}
-    fields = sorted({r["field"] for r in rows} if want_t else set(FIELD_KIND) | {"opex_guidance"})
+    fields = sorted({r["field"] for r in rows} if want_t else set(FIELD_KIND))
     return {"rows": rows, "names": names, "industries": {c["ticker"]: industry(c["ticker"]) for c in tracked()}, "roles": {c["ticker"]: c.get("role", "other") for c in tracked()},
-            "fields": fields, "kinds": ["spent", "committed", "planned"]}
+            "fields": fields, "kinds": ["spent", "committed", "derived", "planned"]}
 
 
 def usd_(n) -> str:
@@ -250,8 +166,8 @@ _FLOW: dict = {}
 
 
 def _stamp() -> tuple:
-    """What the Flow page depends on: the database, the resolutions, the attribution diff, the evaluation, the releases, the company list."""
-    paths = [store.DEFAULT_DB, resolutions.LOG, store.ROOT / "data" / "attribution" / "diff.json", store.ROOT / "reports" / "evaluation.json", RELEASES, ADDED, EVIDENCE]
+    """What the app depends on: the database, the resolutions, the releases, the added companies, the evidence."""
+    paths = [store.DEFAULT_DB, resolutions.LOG, RELEASES, ADDED, EVIDENCE]
     return tuple(p.stat().st_mtime_ns if p.exists() else 0 for p in paths)
 
 
@@ -266,8 +182,8 @@ def flow(scope: str) -> dict:
 
 
 def _flow(scope: str) -> dict:
-    """The flow screen: what changed, then each stage's artifacts and checks, for a scope (all, an industry, or a
-    ticker). Everything from what the pipeline already wrote."""
+    """The queue for a scope (all, a layer, a ticker): new filings, blocks, facts that differ from the filing's tag, facts
+    that changed since the signed release, findings the SEC's data can't confirm. Nothing here is an estimate."""
     present = {c["ticker"] for c in tracked()}
     if scope in INDUSTRIES or scope == "other":
         tickers = sorted(t for t in present if industry(t) == scope)
@@ -278,83 +194,38 @@ def _flow(scope: str) -> dict:
     con = _con()
     try:
         hqd = snapshot(con, STAGE)
-        t = [tickers]
-        vals = _rows(con, 'select ticker, field, period, value, label from "values" where ticker in (select unnest(?))', tickers)
         facts = _rows(con, "select ticker, field, dimension, period, value, label from facts where ticker in (select unnest(?))", tickers)
-        stmts = con.execute("select count(*), count(distinct source) from ai_statements where ticker in (select unnest(?))", t).fetchone()
-        texts = con.execute("select kind, count(*) from texts where ticker in (select unnest(?)) group by 1", t).fetchall()
-        docs = con.execute("select count(*) from documents where ticker in (select unnest(?))", t).fetchone()[0]
-        exts = _rows(con, "select extraction_id from extractions where ticker in (select unnest(?))", tickers)
-        attr = _rows(con, "select * from attribution where ticker in (select unnest(?))", tickers)
-    finally:
-        con.close()
-    ev_path, diff_path = store.ROOT / "reports" / "evaluation.json", store.ROOT / "data" / "attribution" / "diff.json"
-    ev = json.loads(ev_path.read_text()) if ev_path.exists() else None
-    diff = json.loads(diff_path.read_text()) if diff_path.exists() else None
-    rel = latest_signed()
-    # what changed since the signed release: values and facts that differ from the release files
-    rel_vals = {(r["ticker"], r["field"], r["period"]): r["value"] for r in csv.DictReader((rel / "values.csv").open())} if rel else {}
-    rel_facts = {(r["ticker"], r["field"], r["dimension"], r["period"]): r["value"] for r in csv.DictReader((rel / "facts.csv").open())} if rel and (rel / "facts.csv").exists() else {}
-    vals_changed = [v for v in vals if rel_vals and str(v["value"] if v["value"] is not None else "") != rel_vals.get((v["ticker"], v["field"], v["period"]), "")]
-    facts_changed = [f for f in facts if rel_facts and str(f["value"]) != rel_facts.get((f["ticker"], f["field"], f["dimension"], f["period"]), "")]
-    ev_rows = [r for r in (ev["rows"] if ev else []) if r["ticker"] in tickers]
-    since = hqd["since"] or {}
-    ev_load = load_all()
-    changed = {"new_filings": [f for f in (hqd["watch"] or {}).get("new", []) if f["ticker"] in tickers],
-               "filings_read": [f for f in since.get("new_filings", []) if f.split("|")[0] in tickers],
-               "values_changed": [{"key": f"{v['ticker']}|{v['field']}|{v['period']}", "before": rel_vals.get((v["ticker"], v["field"], v["period"])), "after": v["value"]} for v in vals_changed][:50],
-               "facts_changed": len(facts_changed),
-               "attribution_changed": [r for r in (diff or {}).get("rows", []) if r["key"].split("|")[0] in tickers],
-               "references_disagree": [r for r in ev_rows if r["outcome"] == "disagree"],
-               "release": rel.name if rel else None, "last_run": hqd["health"][0]["run_at"]}
-    # the queue: every issue for the scope, with where it is, what it touches, the dollars at stake, and the action
-    con = _con()
-    try:
         cites = {e["extraction_id"]: e for e in _rows(con, "select extraction_id, accession, table_id, row_label, column_label, cell_text from note_extractions where ticker in (select unnest(?))", tickers)}
         urls = {d["accession"]: d["url"] for d in _rows(con, "select accession, url from documents where ticker in (select unnest(?))", tickers)}
         fact_ref = {(f["ticker"], f["field"], f["dimension"], f["period"]): f for f in _rows(con, "select ticker, field, dimension, period, reference, extraction_ids from facts where ticker in (select unnest(?))", tickers)}
     finally:
         con.close()
-    uses = {}  # pack input id -> attributions that rest on it
-    for a in attr:
-        for i in (a["inputs"] or "").split(","):
-            if i:
-                uses.setdefault(i, []).append(a)
-    capex_of = {(v["ticker"], v["period"]): v["value"] for v in vals if v["field"] == "capex" and v["value"] is not None}
+    rel = latest_signed()
+    rel_facts = {(r["ticker"], r["field"], r["dimension"], r["period"]): r["value"] for r in csv.DictReader((rel / "facts.csv").open())} if rel and (rel / "facts.csv").exists() else {}
+    facts_changed = [f for f in facts if rel_facts and str(f["value"]) != rel_facts.get((f["ticker"], f["field"], f["dimension"], f["period"]), "")]
+    since = hqd["since"] or {}
+    changed = {"new_filings": [f for f in (hqd["watch"] or {}).get("new", []) if f["ticker"] in tickers],
+               "filings_read": [f for f in since.get("new_filings", []) if f.split("|")[0] in tickers], "facts_changed": len(facts_changed),
+               "release": rel.name if rel else None, "last_run": hqd["health"][0]["run_at"]}
     res = resolutions.latest()
-    signed_at = json.loads((rel / "SIGNOFF.json").read_text())["signed_at"] if rel else ""
     queue = []
     for f in changed["new_filings"]:
-        queue.append({"kind": "new_filing", "state": "new", "ticker": f["ticker"], "where": f"{f['form']} for the year ended {f['period']}", "impact": "values, facts, statements and attribution for the year", "action": "run", "detail": f})
+        queue.append({"kind": "new_filing", "state": "new", "ticker": f["ticker"], "where": f"{f['form']} for the year ended {f['period']}", "impact": "values, facts and statements for the year", "action": "run", "detail": f})
     for e in hqd["questions"]:
         if e["ticker"] in tickers:
             queue.append({"kind": "blocked", "state": "blocked", "ticker": e["ticker"], "where": f"{e['field'] or ''} {e['period'] or ''}".strip() or e["rule"], "impact": "blocks the release", "action": "definition", "detail": e})
-    for r in ev_rows:
-        if r["outcome"] == "disagree":
-            cap = capex_of.get((r["ticker"], r["period"]))
-            at_stake = round(abs((r["ours"] or 0) - r["reference"]) * cap) if r["measure"] == "share" and cap else (abs((r["ours"] or 0) - r["reference"]) if r["measure"] == "amount" else 0)
-            queue.append({"kind": "reference_disagrees", "state": "disagrees", "ticker": r["ticker"], "where": f"AI {r.get('field', 'capex')} {r['period']}", "impact": f"the attribution by {r['method']}: {usd_(at_stake)} between ours and the stated figure",
-                          "dollars": at_stake, "new": True, "action": "method", "detail": r})
     for f in facts_changed[:30]:
-        queue.append({"kind": "fact_changed", "state": "moved", "ticker": f["ticker"], "where": f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " "), "impact": "attribution inputs; the next release", "dollars": 0, "new": True, "action": "release",
+        queue.append({"kind": "fact_changed", "state": "moved", "ticker": f["ticker"], "where": f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " "), "impact": "the next release", "dollars": 0, "new": True, "action": "release",
                       "detail": {**f, "release_value": (lambda v: None if v in (None, "") else float(v))(rel_facts.get((f["ticker"], f["field"], f["dimension"], f["period"])))}})
     for f in facts:
         if f["label"] == "unresolved":
-            fid = f"fact:{f['ticker']}|{f['field']}|{f['dimension']}|{f['period']}"
-            used_by = uses.get(fid, [])
             fr = fact_ref.get((f["ticker"], f["field"], f["dimension"], f["period"]), {})
             cite = cites.get((fr.get("extraction_ids") or "").split(",")[-1])
             key = f"{f['ticker']}|{f['field']}|{f['dimension']}|{f['period']}"
             queue.append({"kind": "fact_differs", "state": "disagrees", "ticker": f["ticker"], "where": f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " "),
-                          "impact": (f"feeds {len(used_by)} attribution{'s' * (len(used_by) != 1)} worth {usd_(sum(a['ai_amount'] or 0 for a in used_by))}" if used_by else "feeds no attribution"),
-                          "dollars": sum(a["ai_amount"] or 0 for a in used_by), "new": key not in {"|".join(k) for k in rel_facts}, "action": "definition",
-                          "detail": {**f, "reference": fr.get("reference"), "cite": cite, "url": urls.get((cite or {}).get("accession")), "used_by": [{"field": a["field"], "period": a["period"], "ai_amount": a["ai_amount"], "method": a["method"]} for a in used_by],
-                                     "release_value": rel_facts.get((f["ticker"], f["field"], f["dimension"], f["period"]))}})
-    for r in changed["attribution_changed"]:
-        b, a_ = r["before"][1] or 0, r["after"][1] or 0
-        if not b and not a_:
-            continue  # none to words-only, or back: no dollars moved, nothing to judge
-        queue.append({"kind": "attribution_moved", "state": "moved", "ticker": r["key"].split("|")[0], "where": " ".join(r["key"].split("|")[1:]), "impact": f"the dataset: {usd_(abs(a_ - b))} moved; the change note", "dollars": abs(a_ - b), "new": (diff or {}).get("at", "") > signed_at, "action": "release", "detail": r})
+                          "impact": "a cited cell against the filing's tag", "dollars": abs((f["value"] or 0) - (float(fr["reference"]) if fr.get("reference") not in (None, "") else (f["value"] or 0))),
+                          "new": key not in {"|".join(k) for k in rel_facts}, "action": "definition",
+                          "detail": {**f, "reference": fr.get("reference"), "cite": cite, "url": urls.get((cite or {}).get("accession")), "release_value": rel_facts.get((f["ticker"], f["field"], f["dimension"], f["period"]))}})
     for x in hqd["findings"]:
         if x["ticker"] in tickers and not x.get("confirmed", True):
             queue.append({"kind": "finding_unconfirmed", "state": "look", "ticker": x["ticker"], "where": f"{x['field'] or ''} {x['period'] or ''}".strip(), "impact": "a value the SEC's data can't confirm", "action": "open", "detail": x})
@@ -367,45 +238,11 @@ def _flow(scope: str) -> dict:
         if q_["resolution"] and q_["resolution"]["state"] == "blocks":
             q_["state"] = "blocked"
     order = {"blocked": 0, "disagrees": 1, "new": 2, "moved": 3, "look": 4}
-    noise = [q_ for q_ in queue if q_["kind"] == "fact_differs" and not q_["dollars"]]
-    queue = [q_ for q_ in queue if not (q_["kind"] == "fact_differs" and not q_["dollars"])]
     queue.sort(key=lambda q_: (0 if q_["state"] == "blocked" else 1, -q_["dollars"], order[q_["state"]], q_["ticker"]))
     open_ = [q_ for q_ in queue if not q_["resolution"] or q_["resolution"]["state"] == "fix"]
-    # release: what blocks (the gates' blocks plus what a person marked), the diff against the last signed release, a change note
     blocks = [q_ for q_ in queue if q_["state"] == "blocked"]
-    note = []
-    if rel:
-        if vals_changed: note.append(f"{len(vals_changed)} values changed since {rel.name}.")
-        if facts_changed: note.append(f"{len(facts_changed)} facts from the notes changed or were added since {rel.name}.")
-        if diff and diff.get("changed"): note.append(f"{diff['changed']} attribution rows moved in the last load ({diff['at'][:10]}).")
-        if changed["references_disagree"]: note.append(f"{len(changed['references_disagree'])} attributions disagree with a stated reference and ship marked as such.")
-    release = {"last": rel.name if rel else None, "blocks": len(blocks), "unresolved": len(open_), "values_changed": len(vals_changed), "facts_changed": len(facts_changed),
-               "attribution_moved": len(changed["attribution_changed"]), "note": " ".join(note) or "Nothing has changed since the last signed release.",
-               "commands": [f"uv run python -m ledger release vX.Y.Z --stage 3", "uv run python -m ledger signoff vX.Y.Z --by \"Kenny Geiler\""]}
-    kinds = {"spent": 0, "committed": 0, "planned": 0}
-    for a in attr:
-        if a["ai_amount"] is not None:
-            kinds["planned" if a["kind"] == "outlook" else "spent"] += 1
-    kinds["committed"] = sum(f["field"] in ("purchase_commitments", "finance_lease_liability") for f in facts)
-    inds = sorted({industry(x) for x in tickers})
-    cfg = agents.load()["attributor"]
-    method = [{"industry": i, "version": cfg["models"][i], "companies": sorted(x for x in tickers if industry(x) == i),
-               "text": agents.model_text(cfg["models"][i]), "versions": agents.model_versions(i)} for i in inds]
-    by_method = {}
-    for a in attr:
-        if a["kind"] == "actual" and a["field"] == "capex":
-            by_method[a["method"]] = by_method.get(a["method"], 0) + 1
-    confirmed = sum(bool(ev_load.get(e["extraction_id"], {}).get("match")) for e in exts)
-    return {"scope": scope or "all", "tickers": tickers, "changed": changed,
-            "extracted": {"filings": docs, "texts": {k: n for k, n in texts}, "values": len(vals), "values_agree": sum(v["label"] == "agree" for v in vals),
-                          "values_explained": sum(v["label"] in ("definition_gap", "not_reported") for v in vals), "facts": len(facts), "facts_agree": sum(f["label"] == "agree" for f in facts),
-                          "facts_differ": sum(f["label"] == "unresolved" for f in facts), "statements": stmts[0], "cells": len(exts), "cells_confirmed": confirmed},
-            "method": {"models": method, "prompt": cfg["prompt"], "history": cfg["history"][-6:]},
-            "attribution": {"rows": len([a for a in attr if a["kind"] == "actual" and a["field"] == "capex"]), "amounts": sum(a["ai_amount"] is not None and a["kind"] == "actual" and a["field"] == "capex" for a in attr),
-                            "by_method": by_method, "diff": {"at": diff.get("at"), "changed": diff.get("changed"), "new": diff.get("new"), "removed": diff.get("removed")} if diff else None},
-            "insight": {"by_year": [y for y in insights()["by_year"] if y["buyers"] > 0], "evaluation": {"n": len(ev_rows), "agree": sum(r["outcome"] == "agree" for r in ev_rows),
-                        "disagree": sum(r["outcome"] == "disagree" for r in ev_rows), "no_estimate": sum(r["outcome"] == "no_estimate" for r in ev_rows), "rows": ev_rows}},
-            "queue": queue, "noise": len(noise), "release": release, "kinds": kinds,
+    release = {"last": rel.name if rel else None, "blocks": len(blocks), "unresolved": len(open_), "facts_changed": len(facts_changed)}
+    return {"scope": scope or "all", "tickers": tickers, "changed": changed, "queue": queue, "noise": 0, "release": release,
             "industries": sorted(INDUSTRIES) + ["other"], "names": {c["ticker"]: c["name"] for c in tracked()}}
 
 
@@ -435,42 +272,6 @@ JOB = store.ROOT / "data" / "jobs" / "current.json"
 _proc = None
 
 
-def attribute(industry_: str | None, by: str) -> dict:
-    """Rerun the attributor (run, then load) for one industry or every company, in the background; nothing is re-read
-    from filings. The job page shows the log's last lines and the diff when it ends."""
-    global _proc
-    if _proc and _proc.poll() is None:
-        raise ValueError("a run is already going; wait for it to finish")
-    if industry_ and industry_ not in INDUSTRIES and industry_ != "other":
-        raise ValueError(f"no industry {industry_}")
-    tickers = [t for t in stage_tickers(3) if not industry_ or industry(t) == industry_]
-    if not tickers:
-        raise ValueError("no company in that industry")
-    log = JOB.parent / f"attribution-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S')}.log"
-    JOB.parent.mkdir(parents=True, exist_ok=True)
-    cmd = " && ".join(f"{sys.executable} -m ledger attribution --ticker {' '.join(tickers)} {step}" for step in ("--run", "--load"))
-    _proc = subprocess.Popen(["sh", "-c", cmd], cwd=store.ROOT, env=os.environ.copy(), stdout=log.open("w"), stderr=subprocess.STDOUT)
-    JOB.write_text(json.dumps({"kind": "attribution", "ticker": industry_ or "all", "by": by, "log": str(log), "started": datetime.now(timezone.utc).isoformat(timespec="seconds"), "pid": _proc.pid}))
-    return job()
-
-
-def dryrun(version: str, by: str) -> dict:
-    """Run a saved model version against its industry in the background and compare; the table is untouched."""
-    global _proc
-    if _proc and _proc.poll() is None:
-        raise ValueError("a run is already going; wait for it to finish")
-    ind = version.split("@")[0]
-    if version not in agents.model_versions(ind):
-        raise ValueError(f"no model {version}")
-    tickers = [t for t in stage_tickers(3) if industry(t) == ind]
-    log = JOB.parent / f"dryrun-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S')}.log"
-    JOB.parent.mkdir(parents=True, exist_ok=True)
-    _proc = subprocess.Popen([sys.executable, "-m", "ledger", "attribution", "--ticker", *tickers, "--run", "--model-version", version, "--dry-run"], cwd=store.ROOT, env=os.environ.copy(), stdout=log.open("w"), stderr=subprocess.STDOUT)
-    JOB.write_text(json.dumps({"kind": "dryrun", "ticker": version, "by": by, "log": str(log), "started": datetime.now(timezone.utc).isoformat(timespec="seconds"), "pid": _proc.pid}))
-    return job()
-
-
-
 def _alive(pid: int) -> bool:
     try:
         os.kill(pid, 0)
@@ -497,15 +298,11 @@ def job() -> dict | None:
     else:
         code = (2 if any(s["code"] == 2 for s in done.values()) else 0) if mine and not mine["running"] else None
     steps, next_up = [], True
-    for cmd, extra, label in (progress.STEPS if meta.get("kind", "run") == "run" else [("attribution", ["--run"], "The Attributor reads the model and each company's data")] + ([("attribution", ["--load"], "Recompute every number from its inputs and write the diff")] if meta.get("kind") == "attribution" else [("attribution", ["--dry-run"], "Compare with the table and score against the reference set; nothing written")])):
+    for cmd, extra, label in progress.STEPS:
         s = done.get((cmd, tuple(extra)))
         steps.append({"label": label, "state": "done" if s else "running" if running and next_up else "waiting", "summary": s["summary"] if s else ""})
         next_up = next_up and bool(s)
     lines = Path(meta["log"]).read_text(errors="ignore").splitlines() if Path(meta["log"]).exists() else []
-    if meta.get("kind") in ("attribution", "dryrun"):  # two steps, read from the log's own headings
-        done_run, done_load = any(l.startswith("running the attributor") for l in lines) and any(": " in l and ("rows," in l or "FAILED" in l) for l in lines), any(" rows for " in l or "dry run " in l for l in lines)
-        steps = [{"label": steps[0]["label"], "state": "done" if (done_run and (done_load or not running)) else "running" if running else "waiting", "summary": next((l.strip() for l in lines if l.startswith("running the attributor")), "")},
-                 {"label": steps[1]["label"], "state": "done" if done_load else "running" if running and done_run else "waiting", "summary": next((l.strip() for l in lines if " rows for " in l or l.startswith("dry run ")), "")}]
     return {**meta, "running": running, "exit": code, "steps": steps, "tail": lines[-4:]}
 
 
@@ -548,14 +345,6 @@ class Handler(BaseHTTPRequestHandler):
             return self._guard(lambda: self._json(flow(q.get("scope", "all"))))
         if u.path == "/api/data":
             return self._guard(lambda: self._json(data(q)))
-        if u.path == "/api/evaluation":
-            f = store.ROOT / "reports" / "evaluation.json"
-            return self._json(json.loads(f.read_text()) if f.exists() else None)
-        if u.path == "/api/dryrun":
-            f = store.ROOT / "data" / "attribution" / "dryrun" / q.get("version", "") / "result.json"
-            return self._json(json.loads(f.read_text()) if f.exists() and re.fullmatch(r"[a-z_]+@v\d+", q.get("version", "")) else None)
-        if u.path == "/api/attribution":
-            return self._guard(lambda: self._json(attribution_view()))
         if u.path.startswith("/api/v1/"):  # the read API, docs/API.md
             return self._guard(lambda: self._v1(u.path[len("/api/v1/"):].strip("/"), q))
         if u.path.startswith("/packet/") and u.path.endswith(".zip"):
@@ -600,11 +389,11 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(workbench.items(con, f))
             finally:
                 con.close()
-        if name in ("coverage", "cost"):
+        if name == "cost":
             from .cost import report
             con = _con()
             try:
-                return self._json(api.coverage(con) if name == "coverage" else report(con))
+                return self._json(report(con))
             finally:
                 con.close()
         if name not in api.LISTS:
@@ -652,23 +441,12 @@ class Handler(BaseHTTPRequestHandler):
             return self._guard(lambda: self._json(bulk()))
         if u.path == "/api/resolve":
             return self._guard(lambda: self._json(resolutions.resolve(body.get("key", ""), body.get("hash", ""), body.get("state", ""), body.get("reason", ""), body.get("by", ""))))
-        if u.path == "/api/dryrun":
-            return self._guard(lambda: self._json(dryrun(body.get("version", ""), body.get("by", ""))))
-        if u.path == "/api/attribute":
-            return self._guard(lambda: self._json(attribute(body.get("industry") or None, body.get("by", ""))))
         if u.path == "/api/v1/views":
             return self._guard(lambda: self._json(views.save(body.get("view") or body, body.get("by", ""))))
         if u.path.startswith("/api/v1/views/") and u.path.endswith("/delete"):
             vid = u.path[len("/api/v1/views/"):-len("/delete")]
             return self._guard(lambda: self._json((views.delete(vid, body.get("by", "")), {"ok": True})[1]))
         parts = u.path.strip("/").split("/")  # api/agents/<id>/<prompt|use|model>, api/models/<industry>/<save|use>
-        if len(parts) == 4 and parts[:2] == ["api", "models"]:
-            ind, what = parts[2], parts[3]
-            if what == "save":
-                return self._guard(lambda: self._json({"version": agents.save_model(ind, body.get("text", ""), body.get("by", ""), body.get("note", ""))}))
-            if what == "use":
-                return self._guard(lambda: self._json((agents.use_model(ind, body.get("version", ""), body.get("by", "")), {"ok": True})[1]))
-            return self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
         if len(parts) != 4 or parts[:2] != ["api", "agents"] or parts[2] not in agents.load():
             return self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
         aid, what = parts[2], parts[3]

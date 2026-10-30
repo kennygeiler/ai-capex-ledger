@@ -17,31 +17,10 @@ def _con():
     con.execute("create table documents (accession text, ticker text, cik integer, filed text)")
     con.execute('create table "values" (ticker text, field text, period text, value double, label text)')
     con.execute("insert into \"values\" values ('GOOGL','capex','FY2025',91447e6,'agree'), ('GOOGL','capex','FY2024',52535e6,'agree')")
-    con.execute("create table attribution (ticker text, field text, period text, kind text, method text, ai_amount double, ai_share double, basis text, inputs text, confidence double)")
-    con.execute("insert into attribution values ('GOOGL','capex','FY2025','actual','ppe_category',29348e6,0.5586,'growth in technical infrastructure','fact:GOOGL|ppe_category|Technical infrastructure|FY2025,fact:GOOGL|ppe_category|Technical infrastructure|FY2024',0.5)")
     return con
 
 
 class Workbench(unittest.TestCase):
-    def test_reference_disagrees_row_has_both_numbers_and_inputs(self):
-        q = {"kind": "reference_disagrees", "state": "disagrees", "ticker": "GOOGL", "where": "AI capex FY2025", "impact": "x", "dollars": 17935e6, "new": True, "action": "method", "key": "k1", "hash": "h1", "resolution": None,
-             "detail": {"field": "capex", "period": "FY2025", "measure": "share", "relation": "ge", "reference": 0.9, "ours": 0.5586, "method": "ppe_category", "basis": "what it measures", "source": {"quote": "at least 90%", "url": "https://x", "kind": "company_statement", "date": "2024-01-30"}}}
-        out = workbench.items(_con(), _flow([q]))
-        r = out["rows"][0]
-        self.assertEqual((r["measure"], r["ours"], r["reference"], r["relation"]), ("share", 0.5586, 0.9, "ge"))
-        self.assertAlmostEqual(r["delta"], -0.3414)
-        self.assertEqual(r["field"], "ai_capex")
-        self.assertEqual(r["evidence"]["quote"], "at least 90%")
-        self.assertEqual([i["value"] for i in r["evidence"]["inputs"]], [141852e6, 112504e6])
-        self.assertEqual(r["evidence"]["inputs"][0]["check"], "unresolved")
-        self.assertEqual(out["open"], 1)
-        self.assertEqual(out["causes"][0]["cause"], "reference_disagrees")
-        years = {y["period"]: y for y in r["series"]}
-        self.assertEqual(years["FY2025"]["total"], 91447e6)
-        self.assertEqual(years["FY2025"]["amount"], 29348e6)
-        self.assertEqual(years["FY2024"]["amount"], None)  # no attribution row that year, still a year on the chart
-        self.assertEqual(years["FY2025"]["refs"][0]["reference"], 0.6)
-
     def test_fact_differs_row_carries_cell_and_delta(self):
         q = {"kind": "fact_differs", "state": "disagrees", "ticker": "GOOGL", "where": "ppe_category Technical infrastructure FY2025", "impact": "x", "dollars": 0, "new": False, "action": "definition", "key": "k2", "hash": "h2",
              "resolution": {"state": "accept", "by": "Kenny", "at": "2026-10-30", "reason": "ok"},
@@ -77,16 +56,16 @@ class ChartViews(unittest.TestCase):
         views.FILE = self._file
 
     def test_chart_view_saves_its_spec(self):
-        v = views.save({"name": "AI capex by layer", "measure": "attribution", "filters": {"field": "capex"}, "group": None, "show": "chart", "chart": {"x": "period", "series": "layer", "type": "stacked"}}, "Kenny")
+        v = views.save({"name": "AI capex by layer", "measure": "taxonomy", "filters": {"category": "capex"}, "group": None, "show": "chart", "chart": {"x": "period", "series": "layer", "type": "stacked"}}, "Kenny")
         self.assertEqual(v["chart"], {"x": "period", "series": "layer", "type": "stacked", "value": ""})
         g = views.save({"name": "Grid", "measure": "values", "filters": {}, "group": None, "show": "grid", "chart": {"x": "period", "series": "", "type": "bars"}}, "Kenny")
         self.assertNotIn("chart", g)
 
     def test_chart_view_rejects_a_bad_axis(self):
         with self.assertRaises(ValueError):
-            views.save({"name": "Bad", "measure": "attribution", "filters": {}, "group": None, "show": "chart", "chart": {"x": "colour", "series": "", "type": "bars"}}, "Kenny")
+            views.save({"name": "Bad", "measure": "taxonomy", "filters": {}, "group": None, "show": "chart", "chart": {"x": "colour", "series": "", "type": "bars"}}, "Kenny")
         with self.assertRaises(ValueError):
-            views.save({"name": "Bad", "measure": "attribution", "filters": {}, "group": None, "show": "chart"}, "Kenny")
+            views.save({"name": "Bad", "measure": "taxonomy", "filters": {}, "group": None, "show": "chart"}, "Kenny")
 
 
 if __name__ == "__main__":

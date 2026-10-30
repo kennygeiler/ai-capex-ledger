@@ -32,8 +32,8 @@ AI_SET = [
     {"ticker": "CORZ", "name": "Core Scientific", "group": "Nasdaq, not S&P 500", "role": "buyer"},
 ]
 
-# How money flows to AI in each company's business: which money-flow model (agents/models/<industry>@vN.md) the
-# attributor reads. A company not listed here gets "other" (no AI attribution beyond what it states).
+# The supply-chain layer each company was picked under, which the taxonomy rows carry as `group`: a reading aid, not
+# a standard (docs/TAXONOMY.md). A company not listed here is "other".
 INDUSTRIES = {
     "hyperscaler": ["MSFT", "GOOGL", "AMZN", "META", "ORCL"],
     "neocloud": ["CRWV", "NBIS"],

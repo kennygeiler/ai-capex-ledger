@@ -9,14 +9,13 @@ import io
 import re
 
 from .config import INDUSTRIES, PROVEN, industry, tracked
-from .plans import plans as _plans
 from . import resolutions as _resolutions
 from . import views as _views
 
-FILTERS = ("ticker", "layer", "period", "field", "kind", "method", "scope", "dimension", "source", "measure", "category", "fiscal_year", "standard_type", "check", "group")
-SUM_COLS = {"attribution": "ai_amount", "values": "value", "facts": "value", "statements": "amount_mid", "plans": "gap", "projects": "amount", "taxonomy": "value"}
-LISTS = ("companies", "values", "facts", "attribution", "statements", "plans", "projects", "theses", "views", "taxonomy")
-RELEASE_LISTS = ("companies", "values", "facts", "attribution", "statements", "plans", "projects", "taxonomy")  # the files a release holds, one per list (C7)
+FILTERS = ("ticker", "layer", "period", "field", "kind", "method", "scope", "dimension", "source", "measure", "category", "fiscal_year", "standard_type", "check")  # the taxonomy rows carry `group` (the layer); filter it as layer
+SUM_COLS = {"values": "value", "facts": "value", "statements": "amount_mid", "projects": "amount", "taxonomy": "value"}
+LISTS = ("companies", "values", "facts", "statements", "projects", "views", "taxonomy")
+RELEASE_LISTS = ("companies", "values", "facts", "statements", "projects", "taxonomy")  # the files a release holds, one per list
 
 
 def _rows(con, sql, *p):
@@ -34,14 +33,6 @@ def companies(con=None) -> list[dict]:
              **(sic(con, c["ticker"]) if con is not None else {"sic": None, "sic_description": None})} for c in tracked()]
 
 
-def theses() -> list[dict]:
-    from . import agents
-    cfg = agents.load()["attributor"]
-    return [{"layer": layer, "version": v, "versions": agents.model_versions(layer), "text": agents.model_text(v),
-             "companies": sorted(INDUSTRIES.get(layer, [c["ticker"] for c in tracked() if industry(c["ticker"]) == "other"]))}
-            for layer, v in cfg["models"].items()]
-
-
 def fetch(con, name: str) -> list[dict]:
     """One list, unfiltered, with `layer` on every row that has a ticker."""
     if name == "companies":
@@ -53,32 +44,23 @@ def fetch(con, name: str) -> list[dict]:
         rows = _rows(con, 'select ticker, field, period, period_end, value, label as check_label, basis, source, extraction_ids from "values" where value is not null order by ticker, field, period')
     elif name == "facts":
         rows = _rows(con, "select ticker, field, dimension, period, period_end, value, label as check_label, reference as xbrl, accession, basis from facts order by ticker, field, dimension, period")
-    elif name == "attribution":
-        rows = _rows(con, "select ticker, field, period, kind, method, ai_amount, ai_share, confidence, basis, inputs, model, prompt_version, run_id from attribution order by ticker, field, period, kind")
     elif name == "statements":
         rows = _rows(con, """select s.statement_id, s.ticker, s.field, s.period, s.kind, s.scope, s.class, s.amount_low, s.amount_high,
                                     case when s.amount_low is null then null else (s.amount_low + s.amount_high) // 2 end as amount_mid,
                                     s.share, s.quote, s.source, t.date, t.url from ai_statements s join texts t on t.text_id = s.text_id order by s.ticker, s.field, s.period, t.date""")
-    elif name == "plans":
-        rows = _plans(con)
     elif name == "projects":
         rows = _rows(con, "select * from projects order by ticker, period, name") if _table(con, "projects") else []
-    elif name == "theses":
-        rows = theses()
     elif name == "views":
         rows = _views.load()["views"]
     else:
         raise KeyError(f"no list {name}; one of {LISTS}")
-    idx = _resolutions.by_row() if name in ("values", "facts", "attribution") else None
+    idx = _resolutions.by_row() if name in ("values", "facts") else None
     for r in rows:
         if "ticker" in r and "layer" not in r:
             r["layer"] = industry(r["ticker"])
         if "ticker" in r and name != "views":
             r["proven"] = r["ticker"] in PROVEN  # docs/PROOF.md: every number of a proven company is checked or explained; the rest are as they are
-        if name == "attribution":  # status: a person's latest decision on the row; flag: what the numbers say by themselves
-            r["status"] = _resolutions.status_of(idx, "attribution", r["ticker"], r["field"], "", r["period"], r["kind"])
-            r["flag"] = "share_over_total" if r.get("ai_share") is not None and r["ai_share"] > 1 else ""
-        elif name == "values":
+        if name == "values":  # status: a person's latest decision on the row; flag: what the numbers say by themselves
             r["status"] = _resolutions.status_of(idx, "values", r["ticker"], r["field"], "", r["period"])
             r["flag"] = "differs_from_xbrl" if r.get("check_label") == "unresolved" else ""
         elif name == "facts":
@@ -144,27 +126,6 @@ def query(con, name: str, q: dict) -> list[dict]:
     if q.get("release"):
         return apply(release_rows(q["release"], name), q)
     return apply(fetch(con, name), q)
-
-
-def coverage(con) -> dict:
-    """Per layer and field: companies with an AI amount, with words only, with nothing, with no row at all (C4)."""
-    cos = companies()
-    att = _rows(con, "select ticker, field, method, ai_amount from attribution where kind = 'actual'")
-    state = {}
-    for a in att:
-        k = (a["ticker"], a["field"])
-        cur = state.get(k, "none")
-        new = "amount" if a["ai_amount"] is not None else ("words" if a["method"] == "qualitative" else "none")
-        state[k] = {"amount": 2, "words": 1, "none": 0}[new] > {"amount": 2, "words": 1, "none": 0}[cur] and new or cur
-    out = []
-    for layer in sorted({c["layer"] for c in cos}):
-        mine = [c["ticker"] for c in cos if c["layer"] == layer]
-        for field in ("capex", "opex", "revenue"):
-            counts = {"amount": 0, "words": 0, "none": 0, "no_row": 0}
-            for t in mine:
-                counts[state.get((t, field), "no_row")] += 1
-            out.append({"layer": layer, "field": field, "companies": len(mine), **counts})
-    return {"rows": out, "note": "amount: an AI dollar figure with a method; words: the company links it to AI without a number; none: the thesis says it is not AI spend; no row: not run yet."}
 
 
 def view_data(con, view_id: str) -> dict:

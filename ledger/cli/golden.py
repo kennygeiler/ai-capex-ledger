@@ -42,7 +42,7 @@ def main(argv=None) -> int:
                 print(l["err"][-1500:] or l["out"][-1500:])
         return 1
     if r["ok"]:
-        print(f"golden: every table equals fixtures/expected ({', '.join(t for t in ['values', 'facts', 'ai_statements', 'ai_spend', 'attribution', 'projects', 'extractions', 'note_extractions', 'exceptions'])}).")
+        print(f"golden: every table equals fixtures/expected ({', '.join(t for t in ['values', 'facts', 'ai_statements', 'ai_spend', 'projects', 'extractions', 'note_extractions', 'exceptions'])}).")
         return 0
     print("golden: differences")
     for name, d in r["diffs"].items():

@@ -27,8 +27,8 @@ never as a click on a row; once written it applies every run and the item never 
 | Values | a value per field and year | the SEC's XBRL | a definition (cost lines, revenue line), a restatement rule | `unresolved` |
 | Facts | a fact per segment or category and year | the filing's instance (concept and member named) | a restatement between filings, an untagged line | `unresolved` with no explanation |
 | Statements | a quote | the text it came from, verbatim | scope, period and part-year tags set by rule | a part-year or program statement without its tag |
-| Attribution | an amount per field and year | the reference set, same scope | comparability by scope and tolerance; the method's known bias | `disagree` |
-| Plans, projects | a plan per year, a project per mention | code only | program words (type 69) | a program read as a plan |
+| Mapping | a reported asset type | the us-gaap member it maps to, with the note's words (`taxonomy/asset_types.yaml`) | the mapping is the explanation | a reported category with no mapping |
+| Planned | a guidance statement, a project | the text, verbatim | part-year and program tags (types 68, 69) | never: a verbatim row is what it is |
 | Release | the company's rows | the gates | resolutions written as definitions | any `blocks` |
 
 ## The five
@@ -50,7 +50,7 @@ The other 95 stay in the dataset as they are, marked not yet proven.
 instances, the documents and texts rows, and the agents' answers. `fixtures/expected/` holds the tables the code
 makes from them. `ledger golden --check` rebuilds a repo layout in a temporary root (`LEDGER_ROOT`), seeds a fresh
 database, runs pack and load for every stage, reconcile and the rules, with nothing fetched and no agent asked,
-and compares every table with the expectation. Any change to a parser, a rule, a loader or a thesis has to leave
+and compares every table with the expectation. Any change to a parser, a rule, a loader or the taxonomy has to leave
 the comparison equal or change the expectation on purpose (`--freeze`, then a commit that says why).
 
 The agents' answers are inputs here, on purpose. Whether they are good answers is the reference set's job
@@ -61,16 +61,17 @@ rebuilt from the texts (so the harness packs before it loads); three of the five
 been produced under the previous thesis after the switch (the proof requires every proven company rerun under
 the thesis in use); and the order of a value's cost-line extraction ids was not deterministic.
 
-## The four measures
+## The measures (docs/TAXONOMY.md)
 
-| Measure | Question | Table |
+| Measure | What | Standard |
 |---|---|---|
-| Capex allocation | how much of this year's capex is AI | `attribution`, field capex |
-| Revenue exposure | how much of revenue comes from AI demand | `attribution`, field revenue |
-| Project-level investment | which named projects, how big, what stage | `projects` |
-| Plans vs reality | what the company said it would spend, and what it spent | `plans` |
+| spent | capex, segment capex, segment revenue | us-gaap concepts, ASC 280 |
+| committed | purchase obligations, finance lease liabilities | ASC 440, ASC 842 |
+| derived | the reported gross PP&E balance per asset type, mapped to a us-gaap member, and its change | us-gaap PropertyPlantAndEquipmentByTypeAxis |
+| planned | guidance and projects, verbatim, forward-looking | Regulation S-K |
+| company_stated_ai | a figure the company itself stated about AI, verbatim, in its own scope words | none: the company's words |
 
-One thesis per layer of the AI supply chain (`agents/models/<layer>@vN.md`, `docs/COMPANIES.md`): what moves the needle, where the money shows up, how to attribute, what counts as a project, the traps. Versioned, never edited in place; dry-run on a company before the switch.
+Nothing is inferred. The attribution methods that estimated an AI share, and the theses that drove them, are archived under `docs/archive/theses/` (1 Nov 2026, "invent nothing").
 
 ## DATAHQ
 
@@ -83,4 +84,4 @@ One thesis per layer of the AI supply chain (`agents/models/<layer>@vN.md`, `doc
 - **Reconcile**: judgement on open items, which should be nearly empty; a judgement that would be made twice becomes a definition.
 - **Dataset**: the grid for a consumer, marks per cell (✓ traced, ≠ differs from SEC data, ✗ disagrees with a stated figure, ! above the total, a decision as a badge), CSV export.
 - **Explore**: charts on the API lists, share as a value, saved views as queries.
-- The releases table and the golden test's last run sit on Proof; the theses and the readers on Rules. Six pages, one file, `ledger/app.html`.
+- The releases table and the golden test's last run sit on Proof; the guards, the asset-type mappings and the readers on Rules. Six pages, one file, `ledger/app.html`.

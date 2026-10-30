@@ -195,7 +195,7 @@ $('#me').value = me;
 $('#me').addEventListener('input', (e) => { me = e.target.value; try { localStorage.setItem('datahq-me', me); } catch {} });
 let NAMES = {};
 api('/api/data?t=&f=none').then((d) => { NAMES = d.names; $('#tickers').replaceChildren(...Object.entries(NAMES).map(([t, n]) => h('option', {value: t}, n))); });
-$('#jump').addEventListener('change', (e) => { const v = e.target.value.trim().toUpperCase(); const t = NAMES[v] ? v : Object.keys(NAMES).find((k) => NAMES[k].toUpperCase() === v); if (t) { e.target.value = ''; go(`data?t=${t}&f=ai_capex,capex`); } });
+$('#jump').addEventListener('change', (e) => { const v = e.target.value.trim().toUpperCase(); const t = NAMES[v] ? v : Object.keys(NAMES).find((k) => NAMES[k].toUpperCase() === v); if (t) { e.target.value = ''; go(`data?t=${t}&f=capex`); } });
 
 function table(cols, rows, {key, onRow, detail} = {}) {
   const tb = h('tbody');
@@ -254,47 +254,24 @@ const hq = async (fresh) => (hqCache = !fresh && hqCache ? hqCache : await api('
 const pct = (x) => (x == null ? '—' : x < .001 ? '<0.1%' : `${(100 * x).toFixed(x < .1 ? 1 : 0)}%`);
 const fig = (l, n, s, bad) => h('div', {class: 'fig'}, h('div', {class: 'l'}, l), h('div', {class: 'n' + (bad ? ' bad' : '')}, n), h('div', {class: 's' + (bad ? ' bad' : '')}, s));
 const INDUSTRY = {hyperscaler: 'Hyperscaler', neocloud: 'Neocloud', miner_to_hpc: 'Miner to HPC', chip_seller: 'Chip design', chip_equipment: 'Chip equipment', component_supplier: 'Memory, networking, servers', datacenter_build: 'Data-center build', datacenter_landlord: 'Data-center landlord', power: 'Power producer', ai_software: 'AI software', other: 'Adopters and other'};
-const METHOD = {stated_share: 'stated share', stated_amount: 'stated amount', segment: 'segment', ppe_category: 'server category growth', whole_business: 'whole business', commitment: 'commitments', qualitative: 'words only', none: 'none'};
-const METHOD_NOTE = {stated_share: 'the company said the share', stated_amount: 'the company said the amount', segment: 'the AI segment’s capex in the notes', ppe_category: 'growth in the server and network category; all servers, not only AI', whole_business: 'a single-segment AI business', qualitative: 'words, no number', none: 'nothing links the spend to AI'};
-function jobBox(onDone, kind) {
-  const box = h('div');
-  let timer = null;
-  async function poll() {
-    clearTimeout(timer);
-    const j = await api('/api/job');
-    if (!j || (kind && (j.kind || 'run') !== kind)) { box.replaceChildren(); return; }
-    const mark = {done: 'done', running: 'running', waiting: ''};
-    box.replaceChildren(
-      h('div', {class: 'sechead'}, h('h2', {}, j.kind === 'attribution' ? `Attribution: ${j.ticker === 'all' ? 'every company' : INDUSTRY[j.ticker] || j.ticker}` : j.ticker),
-        h('span', {class: 'muted small'}, j.running ? `running since ${when(j.started)}` : j.exit === 0 ? 'finished' : j.exit == null ? '' : `stopped (exit ${j.exit})`)),
-      h('div', {class: 'steps'}, j.steps.map((s) => h('div', {class: `stp ${s.state}`},
-        h('span', {class: 'state'}, mark[s.state]), h('div', {}, h('div', {}, s.label), s.summary ? h('div', {class: 'muted small'}, s.summary) : '')))),
-      !j.running && j.exit !== 0 && j.exit != null ? h('pre', {class: 'raw'}, j.tail.join('\n')) : '',
-      !j.running && j.exit === 0 && j.kind !== 'attribution' ? h('p', {}, h('a', {href: '#company/' + j.ticker}, `Open ${j.ticker}`)) : '');
-    if (j.running) timer = setTimeout(poll, 2000); else if (onDone) onDone(j);
-  }
-  poll();
-  return box;
-}
-
 // ── Data-first pieces: a cell with intensity, a mini bar, year bars, a dot plot ──────────────────────────────────
 // One row per year: a dark AI part inside a light whole, labelled with both.
 // ── Data: the dataset as a grid, provenance one click deep ──────────────────
-const FIELDS = {capex: 'Capex', ai_capex: 'AI capex', ai_revenue: 'AI revenue', ai_capex_committed: 'AI capex committed', revenue_guidance: 'Revenue guidance', revenue: 'Revenue', opex: 'Opex', ai_opex: 'AI opex', segment_capex: 'Segment capex', segment_revenue: 'Segment revenue', ppe_category: 'PP&E by category',
-  finance_lease_liability: 'Finance lease liabilities', purchase_commitments: 'Purchase commitments', ai_capex_outlook: 'AI capex, planned', ai_opex_outlook: 'AI opex, planned', capex_guidance: 'Capex guidance', opex_guidance: 'Opex guidance'};
-const KINDS = {spent: 'spent', committed: 'committed', planned: 'planned'};
+const FIELDS = {capex: 'Capex', revenue: 'Revenue', opex: 'Opex', segment_capex: 'Segment capex', segment_revenue: 'Segment revenue', ppe_category: 'PP&E by category', finance_lease_liability: 'Finance lease liabilities', purchase_commitments: 'Purchase commitments'};
+const KINDS = {spent: 'spent', committed: 'committed', derived: 'derived', planned: 'planned'};
+const ALL_KINDS = Object.keys(KINDS);
 const parseQ = (s) => Object.fromEntries(new URLSearchParams(s));
 const CHECK = {agree: 'agrees with XBRL', definition_gap: 'definition gap, explained', unresolved: 'differs from XBRL', no_reference: 'no tagged counterpart', not_reported: 'not reported'};
 
 async function dataPage(view, qs) {
   const q = parseQ(qs || '');
-  const [hqd, meta, ev] = await Promise.all([hq(), api('/api/data?t=&f='), api('/api/evaluation')]);
+  const [hqd, meta] = await Promise.all([hq(), api('/api/data?t=&f=')]);
   const H = hqd.health[0];
   const all = Object.keys(meta.names).sort();
   const sel = {
     t: q.t ? q.t.split(',') : all.filter((t) => (!q.role || meta.roles[t] === q.role) && (!q.ind || meta.industries[t] === q.ind)),
-    f: (q.f || 'ai_capex').split(','), k: q.k ? q.k.split(',') : ['spent', 'committed', 'planned'], y: q.y ? q.y.split(',') : null, wide: !!q.wide, eval: !!q.eval};
-  const setQ = () => { const p = new URLSearchParams(); p.set('t', sel.t.join(',')); p.set('f', sel.f.join(',')); if (sel.y) p.set('y', sel.y.join(',')); if (sel.k.length < 3) p.set('k', sel.k.join(',')); if (sel.wide) p.set('wide', 1); if (sel.eval) p.set('eval', 1); location.hash = 'data?' + p.toString(); };
+    f: (q.f || 'capex').split(','), k: q.k ? q.k.split(',') : ALL_KINDS, y: q.y ? q.y.split(',') : null, wide: !!q.wide, eval: !!q.eval};
+  const setQ = () => { const p = new URLSearchParams(); p.set('t', sel.t.join(',')); p.set('f', sel.f.join(',')); if (sel.y) p.set('y', sel.y.join(',')); if (sel.k.length < ALL_KINDS.length) p.set('k', sel.k.join(',')); if (sel.wide) p.set('wide', 1); if (sel.eval) p.set('eval', 1); location.hash = 'data?' + p.toString(); };
 
   // one line of controls: field, companies (a group or a custom list), kind, years hidden unless set
   const GROUPS = [['all', 'All companies'], ['buyer', 'Buyers'], ['seller', 'Sellers'], ...Object.keys(INDUSTRY).map((k) => ['ind:' + k, INDUSTRY[k]]), ['custom', 'Custom…']];
@@ -302,8 +279,8 @@ async function dataPage(view, qs) {
   const groupSel = h('select', {'aria-label': 'Companies', onchange: (e) => { const v = e.target.value; if (v === 'custom') { openPicker(); return; } sel.t = all.filter((t) => v === 'all' || meta.roles[t] === v || (v.startsWith('ind:') && meta.industries[t] === v.slice(4))); setQ(); }},
     GROUPS.map(([k, v]) => h('option', {value: k, selected: groupOf() === k || null}, v)));
   const fieldSel = h('select', {'aria-label': 'Field', onchange: (e) => { sel.f = [e.target.value]; setQ(); }}, Object.entries(FIELDS).map(([k, v]) => h('option', {value: k, selected: sel.f[0] === k || null}, v)));
-  const kindSel = h('select', {'aria-label': 'Kind', onchange: (e) => { sel.k = e.target.value === 'all' ? ['spent', 'committed', 'planned'] : [e.target.value]; setQ(); }},
-    [['all', 'Spent, committed, planned'], ['spent', 'Spent'], ['committed', 'Committed'], ['planned', 'Planned']].map(([k, v]) => h('option', {value: k, selected: (sel.k.length === 3 ? 'all' : sel.k[0]) === k || null}, v)));
+  const kindSel = h('select', {'aria-label': 'Kind', onchange: (e) => { sel.k = e.target.value === 'all' ? ALL_KINDS : [e.target.value]; setQ(); }},
+    [['all', 'Every measure'], ['spent', 'Spent'], ['committed', 'Committed'], ['derived', 'Derived'], ['planned', 'Planned']].map(([k, v]) => h('option', {value: k, selected: (sel.k.length === ALL_KINDS.length ? 'all' : sel.k[0]) === k || null}, v)));
   function openPicker() {
     drawer(h('h3', {}, 'Companies'), h('div', {class: 'controls'}, Object.entries(groups).map(([ind, ts]) => h('div', {}, h('div', {class: 'muted small', style: 'margin-bottom:.2rem'}, INDUSTRY[ind] || ind),
       h('div', {class: 'picks'}, ts.map((t) => h('label', {}, h('input', {type: 'checkbox', checked: sel.t.includes(t) || null, onchange: (e) => { sel.t = e.target.checked ? [...sel.t, t] : sel.t.filter((x) => x !== t); }}), ' ', t)))))),
@@ -316,7 +293,7 @@ async function dataPage(view, qs) {
   const d = await api('/api/data?' + new URLSearchParams({t: sel.t.join(','), f: sel.f.join(','), k: sel.k.join(',')}).toString());
   const rows = q.check ? d.rows.filter((r) => q.check.split(',').includes(r.check) || (q.check.includes('flag') && r.flag)) : d.rows;
   const years = [...new Set(rows.map((r) => r.period))].sort().filter((y) => !sel.y || sel.y.includes(y));
-  const changed = new Set([...(hqd.since?.changed || []).map((c) => c.key), ...((await api('/api/attribution')).diff?.rows || []).map((r) => r.key.split('|').slice(0, 3).join('|'))]);
+  const changed = new Set((hqd.since?.changed || []).map((c) => c.key));
   const seriesKey = (r) => `${r.ticker}|${r.field}|${r.dimension}`;
   const series = new Map();
   for (const r of rows) { if (!years.includes(r.period)) continue; const k = seriesKey(r); if (!series.has(k)) series.set(k, {ticker: r.ticker, field: r.field, dimension: r.dimension, y: {}}); series.get(k).y[r.period] = r; }
@@ -329,7 +306,7 @@ async function dataPage(view, qs) {
     const bits = [h('h3', {style: 'margin:0 0 .4rem'}, `${d.names[r.ticker]}, ${FIELDS[r.field] || r.field}${r.dimension ? ', ' + r.dimension : ''}, ${r.period}`),
       h('div', {class: 'figs', style: 'margin-bottom:1rem'}, fig('Value', usd(r.value), r.range ? `${usd(r.range[0])} – ${usd(r.range[1])}` : KINDS[r.kind]),
         r.share != null ? fig('Share of capex', pct(r.share), `confidence ${pct(r.confidence)}`) : '',
-        fig('Method', r.method === 'cell' ? 'cell' : METHOD[r.method] || r.method, r.check ? CHECK[r.check] || r.check : p.model ? `model ${p.model}` : p.source ? p.source.replace('_', ' ') : '')),
+        fig('Method', r.method === 'cell' ? 'cell' : r.method, r.check ? CHECK[r.check] || r.check : p.source ? p.source.replace('_', ' ') : '')),
       r.basis && r.method !== 'cell' ? h('p', {style: 'margin-bottom:.6rem'}, r.basis) : '',
       p.inputs ? h('p', {class: 'muted small mono', style: 'margin-bottom:.6rem'}, p.inputs) : '',
       p.xbrl != null ? h('p', {class: 'muted small'}, `XBRL: ${usd(p.xbrl)}`) : '',
@@ -342,17 +319,14 @@ async function dataPage(view, qs) {
     }
   }
 
-  // the auditor's mark: traced (agrees with its source), untraced (checked, no source to agree with), disagrees
-  const evOut = Object.fromEntries((ev?.rows || []).map((e) => [`${e.ticker}|${e.period}`, e.outcome]));
+  // the auditor's mark: traced (agrees with its source), untraced (checked, no source to agree with), differs
   function mark(r) {
     let k = 'u', why = 'checked, no tagged counterpart to agree with';
     if (r.check === 'agree') { k = 't'; why = 'agrees with the SEC’s XBRL'; }
     else if (r.check === 'unresolved') { k = 'd'; why = 'differs from the SEC’s XBRL'; }
     else if (r.check === 'definition_gap') { k = 't'; why = 'differs from the SEC’s tag by a definition on file'; }
-    else if (r.field === 'ai_capex') { const o = evOut[`${r.ticker}|${r.period}`]; if (o === 'agree') { k = 't'; why = 'agrees with what the company stated'; } else if (o === 'disagree') { k = 'x'; why = 'disagrees with what the company stated'; } else { why = 'recomputed from its inputs; no stated figure to compare'; } }
     else if (r.method === 'stated') { k = 't'; why = 'quoted from the company, checked against the text'; }
     const marks = [h('span', {class: 'mk ' + k, title: why, 'aria-label': why}, k === 'x' ? '✗' : k === 'd' ? '≠' : '✓')];
-    if (r.flag === 'share_over_total') marks.push(h('span', {class: 'mk o', title: 'the AI amount is more than the whole total: accrual segment capex against cash capex', 'aria-label': 'above the total'}, '!'));
     if (r.status) marks.push(h('span', {class: 'badge bg-' + ({fix_pending: 'yellow', accepted: 'green', explained: 'azure', blocks: 'red'})[r.status] + '-lt ms-1', title: r.status.replace('_', ' ')}, ({fix_pending: 'fix', accepted: 'ok', explained: 'expl', blocks: 'block'})[r.status]));
     return marks;
   }
@@ -383,56 +357,12 @@ async function dataPage(view, qs) {
 
   view.append(h('div', {class: 'stack', style: 'gap:1rem'},
     h('div', {class: 'hrow'}, fieldSel, groupSel, kindSel, h('button', {type: 'button', class: 'btn', onclick: exportCsv}, 'Export CSV'),
-      h('span', {class: 'muted small'}, `${list.length} rows in USD. ✓ traced, ≠ differs from SEC data, ✗ disagrees with a stated figure, ! above the total, fix / ok / expl: a person’s decision.`)),
+      h('span', {class: 'muted small'}, `${list.length} rows in USD. ✓ traced to the SEC's data, ≠ differs from it, fix / ok / expl: a person’s decision.`)),
     grid));
 }
 
 // ── Flow: the job. A queue of issues, the four stages as context, ending at release ─────────────────────────────
 const COLORS = ['#2f5bd3', '#d9822b', '#2a9d8f', '#c43d6b', '#7a5cc4', '#6b8e23', '#8c6d46', '#3d8fc4'];  // fixed order: a colour follows its entity
-let attrCache = null;
-async function openModel(ind) {
-  attrCache ||= await api('/api/attribution');
-  const m = attrCache.models[ind];
-  let shown = m.version;
-  const status = h('span', {class: 'muted small', 'aria-live': 'polite'});
-  const text = h('textarea', {readonly: true, 'aria-label': 'Model text', spellcheck: 'false', style: 'min-height:18rem'});
-  const verSel = h('select', {'aria-label': 'Model version', onchange: (e) => { shown = e.target.value; show(); }}, m.versions.map((v) => h('option', {value: v, selected: v === m.version || null}, v === m.version ? `${v} (in use)` : v)));
-  const note = h('input', {type: 'text', placeholder: 'What changed and why…', 'aria-label': 'What changed and why', style: 'flex:1;min-width:12rem'});
-  const editBtn = h('button', {type: 'button', onclick: () => { text.readOnly = false; editRow.hidden = false; editBtn.hidden = true; useBtn.hidden = true; text.focus(); }}, 'Edit');
-  const useBtn = h('button', {type: 'button', onclick: () => post('use', {version: shown}, `Now using ${shown}. Rerun the industry.`)}, 'Use This Version');
-  const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('save', {text: text.value, note: note.value}, (r) => `Saved as ${r.version}; not in use until switched on.`)}, 'Save as New Version');
-  const cancelBtn = h('button', {type: 'button', onclick: show}, 'Cancel');
-  const editRow = h('div', {class: 'hrow', hidden: true}, note, saveBtn, cancelBtn);
-  const dryBox = h('div', {style: 'margin-top:.8rem'});
-  async function showDry() {
-    const r = await api('/api/dryrun?version=' + encodeURIComponent(shown));
-    dryBox.replaceChildren();
-    if (!r) return;
-    const rb = r.reference.before, ra = r.reference.after;
-    dryBox.append(h('p', {class: 'small'}, h('b', {style: 'font-weight:500'}, `Dry run of ${r.version}`), ` (${day(r.at)}, ${r.companies.length} companies): ${int(r.changed.length)} rows would change, ${int(r.new.length)} new, ${int(r.removed.length)} removed. Reference: ${rb.agree} of ${rb.n} agree now, ${ra.agree} of ${ra.n} with ${r.version}${ra.disagree !== rb.disagree ? ` (${ra.disagree} disagree vs ${rb.disagree})` : ''}.`),
-      r.changed.length ? table([{t: 'Row', sort: false, f: (c) => h('span', {class: 'mono small'}, c.key)}, {t: 'Now', sort: false, f: (c) => `${METHOD[c.before[0]] || c.before[0]}${c.before[1] != null ? ', ' + usd(c.before[1]) : ''}`}, {t: `With ${r.version}`, sort: false, f: (c) => `${METHOD[c.after[0]] || c.after[0]}${c.after[1] != null ? ', ' + usd(c.after[1]) : ''}`}], r.changed.slice(0, 20)) : '');
-  }
-  const dryBtn = h('button', {type: 'button', onclick: async () => {
-    status.textContent = 'Starting the dry run…';
-    try { await api('/api/dryrun', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({version: shown, by: me})}); status.textContent = 'Dry run running; reopen this model when it ends.'; dryBox.replaceChildren(jobBox(() => showDry(), 'dryrun')); }
-    catch (e) { status.textContent = e.message; status.classList.add('bad'); }
-  }}, 'Dry Run');
-  const rerunBtn = h('button', {type: 'button', class: 'btn', onclick: async () => {
-    status.textContent = 'Starting…';
-    try { await api('/api/attribute', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({industry: ind, by: me})}); status.textContent = 'Running; the queue updates when it ends.'; setTimeout(route, 1500); }
-    catch (e) { status.textContent = e.message; status.classList.add('bad'); }
-  }}, `Rerun ${INDUSTRY[ind]}`);
-  function show() { text.value = m.texts[shown]; text.readOnly = true; editRow.hidden = true; editBtn.hidden = false; useBtn.hidden = shown === m.version; dryBtn.hidden = shown === m.version; text.style.height = 'auto'; text.style.height = Math.min(520, text.scrollHeight + 4) + 'px'; showDry(); }
-  async function post(what, body, done) {
-    status.textContent = 'Saving…';
-    try { const r = await api(`/api/models/${ind}/${what}`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({...body, by: me})}); status.textContent = typeof done === 'function' ? done(r) : done; attrCache = null; setTimeout(route, 1200); }
-    catch (e) { status.textContent = e.message; status.classList.add('bad'); }
-  }
-  drawer(h('h3', {}, `${INDUSTRY[ind]} model`), h('p', {class: 'muted small', style: 'margin-bottom:.6rem'}, m.companies.join(', ') || 'no company'),
-    h('div', {class: 'hrow', style: 'margin-bottom:.6rem'}, verSel, editBtn, dryBtn, useBtn, rerunBtn, status), dryBox, text, editRow);
-  queueMicrotask(show);
-}
-
 // ── Status: the pipeline's numbers ───────────────────────────────────────────
 let drawerOpener = null;
 function drawer(...kids) {
@@ -453,7 +383,7 @@ window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(
 // ── Reconcile: the workbench, on Tabler (dashboard UI kit) inside its own shadow root so the kit's reset touches nothing else. ──
 // One card per cause; one row per item with ours, reference, a gap bar, delta and decision; Enter opens the evidence as
 // aligned diff tables (this year, the computation, every year) with a status badge per line, and the decision form.
-const CAUSE_ORDER = ['blocked', 'reference_disagrees', 'fact_differs', 'attribution_moved', 'fact_changed', 'finding_unconfirmed', 'new_filing'];
+const CAUSE_ORDER = ['blocked', 'fact_differs', 'fact_changed', 'finding_unconfirmed', 'new_filing'];
 const RES_LABEL = {accept: 'Accept', explain: 'Explain', fix: 'Fix', blocks: 'Blocks'};
 const RES_HELP = {accept: 'the number is right as it stands', explain: 'right, with the reason kept beside it', fix: 'wrong, stays open until a run fixes it', blocks: 'nothing ships until this is settled'};
 const RES_BADGE = {accept: 'bg-green-lt', explain: 'bg-azure-lt', fix: 'bg-yellow-lt', blocks: 'bg-red-lt'};
@@ -513,7 +443,7 @@ async function reconcilePage(view, qs) {
     h('div', {class: 'col-auto'}, sel('Group by', group, [['cause', 'Grouped by cause'], ['company', 'Grouped by company']], 'group')),
     h('div', {class: 'col-auto'}, sel('Cause', fCause, [['', 'Every cause'], ...causes.map((c) => [c, d.causes.find((x) => x.cause === c)?.label || c])], 'cause')),
     h('div', {class: 'col-auto'}, sel('Layer', fLayer, [['', 'Every layer'], ...layers.map((l) => [l, INDUSTRY[l] || l])], 'layer')),
-    h('div', {class: 'col-auto'}, sel('Field', fField, [['', 'Every field'], ...fields.map((f) => [f, LABEL[f] || f.replace('ai_', 'AI ')])], 'field')),
+    h('div', {class: 'col-auto'}, sel('Field', fField, [['', 'Every field'], ...fields.map((f) => [f, LABEL[f] || f])], 'field')),
     kinds.length ? h('div', {class: 'col-auto'}, sel('Finding kind', fKind, [['', 'Every finding kind'], ...kinds.map((k) => [k, KINDL[k] || k.replaceAll('_', ' ')])], 'kind')) : '',
     h('div', {class: 'col-auto ms-auto'}, h('label', {class: 'form-check form-switch m-0'}, h('input', {class: 'form-check-input', type: 'checkbox', checked: withResolved || null, onchange: (e) => setQ({resolved: e.target.checked ? '1' : ''})}), h('span', {class: 'form-check-label small'}, `show ${int(hidden)} resolved`))))));
   const selected = new Set();
@@ -532,15 +462,15 @@ async function reconcilePage(view, qs) {
     for (const r of list) {
       const i = trs.length;
       const cb = h('input', {class: 'form-check-input m-0', type: 'checkbox', 'aria-label': `Select ${r.name} ${r.where}`, checked: selected.has(r.key) || null, onclick: (e) => { e.stopPropagation(); e.target.checked ? selected.add(r.key) : selected.delete(r.key); paint(); }});
-      const first = group === 'cause' ? [h('a', {href: `#data?t=${r.ticker}&f=${r.field && r.field.startsWith('ai_') ? 'ai_capex,capex' : (r.field || 'capex') + ',capex'}`, onclick: (e) => e.stopPropagation()}, r.name), ' ', h('span', {class: 'text-secondary small'}, r.ticker)] : [r.cause_label.replace(/:.*$/, '')];
-      const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field.replace('ai_', 'AI ')) : r.where, r.period ? ` ${r.period}` : ''), r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : r.cause === 'finding_unconfirmed' && r.measure == null ? h('div', {class: 'text-secondary small'}, r.cause_label) : ''];
+      const first = group === 'cause' ? [h('a', {href: `#proof/${r.ticker}`, onclick: (e) => e.stopPropagation()}, r.name), ' ', h('span', {class: 'text-secondary small'}, r.ticker)] : [r.cause_label.replace(/:.*$/, '')];
+      const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field) : r.where, r.period ? ` ${r.period}` : ''), r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : r.cause === 'finding_unconfirmed' && r.measure == null ? h('div', {class: 'text-secondary small'}, r.cause_label) : ''];
       const res = r.resolution ? [badge(RES_LABEL[r.resolution.state], RES_BADGE[r.resolution.state]), h('div', {class: 'text-secondary small'}, `${r.resolution.by}, ${day(r.resolution.at)}`)] : badge('open', 'bg-secondary-lt');
       const tr = h('tr', {class: 'item', tabindex: 0, 'aria-expanded': 'false', onkeydown: (e) => keys(e, i), onclick: () => toggle(i), onfocus: () => { cur = i; paintCur(); }},
         h('td', {class: 'w-1'}, cb), h('td', {}, first), h('td', {}, where),
-        h('td', {class: 'num'}, num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, METHOD[(r.ours_label || '').replace('by ', '')] || r.ours_label) : ''),
+        h('td', {class: 'num'}, num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, r.ours_label) : ''),
         h('td', {class: 'num'}, r.reference == null ? h('span', {class: 'text-secondary'}, '—') : [({ge: '≥ ', le: '≤ '})[r.relation] || '', num(r, r.reference)], r.ref_label && r.reference != null ? h('div', {class: 'text-secondary small'}, r.ref_label) : ''),
         h('td', {class: 'w-1'}, r.ours != null && r.reference != null ? gapBar(r) : ''),
-        h('td', {class: 'num'}, r.delta == null ? h('span', {class: 'text-secondary'}, r.ours != null || r.reference != null ? 'one side' : '—') : [h('span', {class: 'fw-semibold' + (r.cause === 'reference_disagrees' || r.cause === 'fact_differs' ? ' text-red' : '')}, signed(r, r.delta)), r.delta_pct != null && r.measure !== 'share' ? h('div', {class: 'text-secondary small'}, pctSigned(r.delta_pct)) : r.measure === 'share' && r.dollars ? h('div', {class: 'text-secondary small'}, `${usd(r.dollars)} at stake`) : '']),
+        h('td', {class: 'num'}, r.delta == null ? h('span', {class: 'text-secondary'}, r.ours != null || r.reference != null ? 'one side' : '—') : [h('span', {class: 'fw-semibold' + (r.cause === 'fact_differs' ? ' text-red' : '')}, signed(r, r.delta)), r.delta_pct != null && r.measure !== 'share' ? h('div', {class: 'text-secondary small'}, pctSigned(r.delta_pct)) : r.measure === 'share' && r.dollars ? h('div', {class: 'text-secondary small'}, `${usd(r.dollars)} at stake`) : '']),
         h('td', {}, res));
       trs.push({tr, r, detail: null});
       tbody.append(tr);
@@ -599,25 +529,7 @@ async function reconcilePage(view, qs) {
     const E = r.evidence || {}, S = r.series || [], cards = [];
     const col = (n, ...k) => h('div', {class: `col-12 col-xl-${n}`}, k);
     const yr = S.find((s) => s.period === r.period) || {};
-    if (r.cause === 'reference_disagrees') {
-      const lines = [{what: 'Ours', value: r.ours, src: METHOD[(r.ours_label || '').replace('by ', '')] || r.ours_label, amount: E.ours_amount, _cls: 'fw-semibold'},
-        {what: 'Stated', value: r.reference, rel: r.relation, src: [`${E.source_kind === 'company_statement_via_press' ? 'company statement, via press' : (E.source_kind || 'source').replaceAll('_', ' ')}${E.source_date ? ', ' + day(E.source_date) : ''}`, E.reference_basis ? h('div', {class: 'text-body mt-1'}, h('span', {class: 'fw-semibold'}, 'Measures: '), E.reference_basis.split(/(?<=\.)\s/)[0]) : ''], amount: r.measure === 'share' && yr.total ? r.reference * yr.total : null},
-        {what: 'Delta', value: r.delta, src: r.measure === 'share' ? `${usd(r.dollars)} at stake` : pctSigned(r.delta_pct), amount: r.measure === 'share' && yr.total ? r.delta * yr.total : null, _cls: 'text-red'}];
-      cards.push(col(4, dtable(`${r.period}: ours against the stated figure`, [{t: '', f: (x) => [h('div', {}, x.what), h('div', {class: 'text-secondary small fw-normal'}, x.src)]}, {t: r.measure === 'share' ? 'Share' : 'Amount', num: 1, f: (x) => (x.what === 'Delta' ? signed(r, x.value) : [({ge: '≥ ', le: '≤ '})[x.rel] || '', num(r, x.value)])},
-          r.measure === 'share' ? {t: 'In dollars', num: 1, f: (x) => (x.amount == null ? '—' : x.what === 'Delta' ? (x.amount < 0 ? '−' : '+') + usd(Math.abs(x.amount)) : usd(x.amount))} : null].filter(Boolean), lines),
-        h('div', {class: 'card mt-3'}, h('div', {class: 'card-body py-2'}, gapBar(r, true), h('div', {class: 'd-flex justify-content-between small text-secondary'}, h('span', {}, 'ours ', h('b', {class: 'text-primary'}, num(r, r.ours))), h('span', {}, `${({ge: 'at least ', le: 'at most ', eq: 'stated '})[r.relation] || ''}`, h('b', {}, num(r, r.reference)))))),
-        E.quote ? h('details', {class: 'words mt-2'}, h('summary', {}, 'The statement, in words'), h('blockquote', {class: 'small mb-1'}, `“${E.quote}”`, ' ', E.url ? h('a', {href: E.url, target: '_blank', rel: 'noopener'}, 'source') : ''), E.reference_basis ? h('div', {class: 'small text-secondary'}, E.reference_basis) : '') : ''));
-      const inputs = (E.inputs || []).map((i) => ({what: i.what, field: i.field, value: i.value, share: i.share, check: i.check}));
-      const maxIn = Math.max(1, ...inputs.map((i) => Math.abs(i.value || 0)), Math.abs(E.ours_amount || 0), Math.abs(yr.total || 0));
-      const comp = [...inputs.map((i) => ({...i, kind: 'input'})), {what: 'AI amount', value: E.ours_amount, kind: 'out', _cls: 'fw-semibold'}, yr.total != null ? {what: `Total ${LABEL[r.field.replace('ai_', '')] || r.field.replace('ai_', '')}`, value: yr.total, kind: 'tot', check: 'agree'} : null, E.ours_share != null ? {what: 'Share', value: null, share: E.ours_share, kind: 'share'} : null].filter(Boolean);
-      cards.push(col(4, dtable('How ours is computed', [{t: 'Line', f: (x) => [h('div', {}, x.what, ' ', x.kind === 'input' || x.kind === 'tot' ? checkBadge(x.check) : ''), x.field ? h('div', {class: 'text-secondary small fw-normal'}, x.field) : '']}, {t: 'Value', num: 1, f: (x) => (x.kind === 'share' ? pct(x.share) : x.value == null ? (x.share != null ? pct(x.share) : h('span', {class: 'text-secondary'}, 'words only')) : [bar(x.value, maxIn, x.kind === 'tot' ? 'tot' : x.kind === 'out' ? '' : 'ref'), usd(x.value)])}], comp, {note: `${METHOD[(r.ours_label || '').replace('by ', '')] || r.ours_label}${E.confidence != null ? `, confidence ${E.confidence}` : ''}`}),
-        E.basis ? h('details', {class: 'words mt-2'}, h('summary', {}, 'The basis, in words'), h('div', {class: 'small'}, E.basis)) : ''));
-      const share = r.measure === 'share';
-      const yrows = S.map((s) => { const ref = (s.refs || []).find((x) => (x.measure === 'share') === share); const ov = share ? s.share : s.amount; return {period: s.period, ours: ov, method: s.method, total: s.total, ref: ref ? ref.reference : null, rel: ref ? ref.relation : null, outcome: ref ? ref.outcome : null, _cls: s.period === r.period ? 'table-active' : null}; });
-      const maxY = Math.max(1e-9, ...yrows.flatMap((y) => [Math.abs(y.ours || 0), Math.abs(y.ref || 0)]));
-      cards.push(col(4, dtable('Every year', [{t: 'Year', k: 'period', w: '4rem'}, {t: 'Ours', num: 1, f: (y) => (y.ours == null ? '—' : [bar(y.ours, share ? 1 : maxY), share ? pct(y.ours) : usd(y.ours)])}, {t: 'Stated', num: 1, f: (y) => (y.ref == null ? h('span', {class: 'text-secondary'}, '—') : [({ge: '≥ ', le: '≤ '})[y.rel] || '', share ? pct(y.ref) : usd(y.ref)])},
-          {t: 'Delta', num: 1, f: (y) => (y.ref == null || y.ours == null ? '' : h('span', {class: y.outcome === 'disagree' ? 'text-red' : ''}, signed({measure: r.measure}, y.ours - y.ref)))}, {t: '', f: (y) => (y.outcome === 'agree' ? badge('agrees', 'bg-green-lt') : y.outcome === 'disagree' ? badge('disagrees', 'bg-red-lt') : y.ours == null ? badge('no estimate', 'bg-secondary-lt') : '')}], yrows, {note: share ? 'share of the total' : ''})));
-    } else if (r.cause === 'fact_differs') {
+    if (r.cause === 'fact_differs') {
       const c = E.cell;
       const X = E.xbrl, cellAcc = c ? c.accession : null;
       const lines = [{what: 'Cited cell', value: r.ours, src: c ? `${c.table_id}, “${c.row_label}”, filing ${c.accession}` : '', _cls: 'fw-semibold'},
@@ -631,18 +543,17 @@ async function reconcilePage(view, qs) {
           h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Column'), h('div', {class: 'datagrid-content'}, (c.column_label || '').replaceAll(' | ', ' '))),
           h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Table'), h('div', {class: 'datagrid-content'}, c.table_id))) : h('p', {class: 'text-secondary small m-0'}, 'No citation on record.'),
           E.png ? h('img', {src: E.png, alt: `Screenshot of the cited cell ${c ? c.cell_text : ''}`, loading: 'lazy', class: 'shot mt-2'}) : '',
-          h('div', {class: 'mt-2'}, E.url ? h('a', {href: E.url, target: '_blank', rel: 'noopener', class: 'small me-3'}, 'Open the 10-K') : '', h('a', {href: '#attribution', class: 'small'}, 'The model')))),
-        E.used_by && E.used_by.length ? h('div', {class: 'mt-3'}, dtable('Feeds', [{t: 'Attribution', f: (u) => `${LABEL[u.field] || u.field} ${u.period}`}, {t: 'AI amount', num: 1, f: (u) => usd(u.ai_amount)}, {t: 'Method', f: (u) => h('span', {class: 'text-secondary small'}, METHOD[u.method] || u.method)}], E.used_by)) : '',
+          h('div', {class: 'mt-2'}, E.url ? h('a', {href: E.url, target: '_blank', rel: 'noopener', class: 'small me-3'}, 'Open the 10-K') : '', h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'The company\'s trail')))),
+        
         h('div', {class: 'mt-3'}, h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', onclick: () => definitionDrawer(r)}, 'Add a definition'))));
       const maxY = Math.max(1e-9, ...S.flatMap((s) => [Math.abs(s.value || 0), Math.abs(s.reference || 0)]));
       cards.push(col(4, dtable('Every year, cell against tag', [{t: 'Year', k: 'period', w: '4rem'}, {t: 'Cell', num: 1, f: (s) => (s.value == null ? '—' : [bar(s.value, maxY), usd(s.value)])}, {t: 'Tag', num: 1, f: (s) => (s.reference == null ? h('span', {class: 'text-secondary'}, '—') : [bar(s.reference, maxY, 'ref'), usd(s.reference)])}, {t: 'Delta', num: 1, f: (s) => (s.reference == null || s.value == null ? '' : h('span', {class: s.label === 'unresolved' ? 'text-red' : ''}, signed({measure: 'usd'}, s.value - s.reference)))}, {t: '', f: (s) => checkBadge(s.label)}], S.map((s) => ({...s, _cls: s.period === r.period ? 'table-active' : null})))));
-    } else if (r.cause === 'attribution_moved' || r.cause === 'fact_changed') {
-      if (r.cause === 'attribution_moved' && !r.period) { const w = (r.where || '').split(' '); r.field = r.field || w[0]; r.period = w[1] || null; }
-      const before = r.cause === 'attribution_moved' ? {what: `Before, ${METHOD[E.before[0]] || E.before[0] || '—'}`, value: E.before[1]} : {what: E.release || 'Release', value: r.reference};
-      const after = r.cause === 'attribution_moved' ? {what: `After, ${METHOD[E.after[0]] || E.after[0] || '—'}`, value: E.after[1], _cls: 'fw-semibold'} : {what: 'Now', value: r.ours, _cls: 'fw-semibold'};
+    } else if (r.cause === 'fact_changed') {
+      const before = {what: E.release || 'Release', value: r.reference};
+      const after = {what: 'Now', value: r.ours, _cls: 'fw-semibold'};
       const maxL = Math.max(1, Math.abs(before.value || 0), Math.abs(after.value || 0));
       cards.push(col(5, dtable(`${r.period}: before and after`, [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Delta' ? signed(r, x.value) : [bar(x.value, maxL, x === before ? 'ref' : ''), usd(x.value)])}], [before, after, {what: 'Delta', value: r.delta, _cls: 'text-red'}])));
-      cards.push(col(3, h('a', {href: `#data?t=${r.ticker}&f=ai_capex,capex`, class: 'small'}, 'The dataset')));
+      cards.push(col(3, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'The company\'s trail')));
     } else if (r.cause === 'finding_unconfirmed' || r.cause === 'blocked') {
       if (r.measure) {
         const maxL = Math.max(1, Math.abs(r.ours || 0), Math.abs(r.reference || 0));
@@ -662,46 +573,46 @@ async function reconcilePage(view, qs) {
 }
 
 // ── Explore: charts you can change. A measure, an x, a series, a type; Plotly for hover, zoom and legend toggles. ──
-const EXM = {attribution: {label: 'AI attribution', value: (r) => r.ai_amount, alt: {share: (r) => r.ai_share}, fieldDefault: 'capex', kindDefault: 'actual'},
+const EXM = {taxonomy: {label: 'Taxonomy rows (spent, committed, derived, planned, company-stated AI)', value: (r) => r.value, alt: {change: (r) => r.value_high}, x: 'fiscal_year'},
   values: {label: 'Values from the statements', value: (r) => r.value, fieldDefault: 'capex'},
   facts: {label: 'Facts from the notes', value: (r) => r.value, fieldDefault: 'segment_capex'},
   statements: {label: 'What companies said', value: (r) => r.amount_mid, fieldDefault: 'capex'},
-  plans: {label: 'Plans vs reality', value: (r) => r.actual, alt: {plan: (r) => r.plan_mid, gap: (r) => r.gap}, fieldDefault: 'capex'},
   projects: {label: 'Named projects', value: (r) => (r.amount_low != null && r.amount_high != null ? (r.amount_low + r.amount_high) / 2 : null)}};
-const EX_AXES = {period: 'year', ticker: 'company', layer: 'layer', field: 'field', method: 'method', kind: 'kind', dimension: 'dimension', status: 'status', scope: 'scope', source: 'source'};
+const EX_AXES = {period: 'year', fiscal_year: 'fiscal year', ticker: 'company', layer: 'layer', group: 'group', field: 'field', measure: 'measure', category: 'category', standard_type: 'standard type', kind: 'kind', dimension: 'dimension', status: 'status', scope: 'scope', source: 'source'};
 const EX_TYPES = {bars: 'bars', stacked: 'stacked bars', lines: 'lines', share: 'share of total'};
 const colorReg = (() => { let m = {}; try { m = JSON.parse(localStorage.getItem('datahq-colors') || '{}'); } catch {} return (name) => { if (name === 'Other') return '#9aa39d'; if (m[name] == null) { m[name] = Object.keys(m).length; try { localStorage.setItem('datahq-colors', JSON.stringify(m)); } catch {} } return COLORS[m[name] % COLORS.length]; }; })();
 async function explorePage(view, arg, qs) {
   const {rows: saved} = await api('/api/v1/views');
   const q = parseQ(qs || '');
-  let st = {measure: 'attribution', field: '', kind: '', layer: '', ticker: '', from: '', to: '', x: 'period', series: 'layer', type: 'stacked', value: ''};
+  let st = {measure: 'taxonomy', field: '', kind: '', layer: '', ticker: '', tmeasure: 'spent', category: 'capex', standard_type: '', from: '', to: '', x: 'fiscal_year', series: 'group', type: 'stacked', value: ''};
   const current = arg ? saved.find((v) => v.id === arg) : null;
-  if (current) st = {...st, measure: current.measure, field: current.filters.field || '', kind: current.filters.kind || '', layer: current.filters.layer || '', ticker: current.filters.ticker || '',
+  if (current) st = {...st, measure: current.measure, field: current.filters.field || '', kind: current.filters.kind || '', layer: current.filters.layer || '', ticker: current.filters.ticker || '', tmeasure: current.filters.measure || '', category: current.filters.category || '', standard_type: current.filters.standard_type || '',
     ...(current.chart ? {x: current.chart.x, series: current.chart.series || '', type: current.chart.type, value: current.chart.value || ''} : {x: current.group || 'period', series: current.group ? '' : 'ticker', type: current.show === 'lines' ? 'lines' : 'bars'})};
   else if (Object.keys(q).length) st = {...st, ...q};
   if (st.field === '' && !current && !Object.keys(q).length) st.field = EXM[st.measure].fieldDefault || '';
-  if (st.kind === '' && !current && !Object.keys(q).length) st.kind = EXM[st.measure].kindDefault || '';
-  const list = h('div', {class: 'viewlist'}, saved.map((v) => h('a', {href: '#explore/' + v.id, class: 'viewrow' + (current && v.id === current.id ? ' on' : '')}, h('span', {}, v.name), h('span', {class: 'muted small'}, `${EXM[v.measure]?.label || v.measure}${v.chart ? `, ${v.chart.x} by ${v.chart.series || 'total'}` : v.group ? ', by ' + v.group : ''}`))));
+  const list = h('div', {class: 'viewlist'}, saved.map((v) => h('a', {href: '#explore/' + v.id, class: 'viewrow' + (current && v.id === current.id ? ' on' : '')}, h('span', {}, v.name), h('span', {class: 'muted small'}, `${v.measure}${v.filters.category ? ' · ' + v.filters.category.replace(/_/g, ' ') : v.filters.measure ? ' · ' + v.filters.measure.replace('_', ' ') : ''}${v.chart ? `, ${v.chart.x.replace('_', ' ')} by ${v.chart.series || 'total'}` : ''}`))));
   const left = h('div', {}, h('div', {class: 'hrow'}, h('span', {class: 'muted small'}, `${saved.length} saved view${saved.length === 1 ? '' : 's'}`), h('a', {href: '#explore', class: 'small'}, 'New')), list);
   const body = h('div', {class: 'exbody'});
   view.append(h('div', {class: 'views'}, left, body));
   const fetchRows = async () => {
     const p = new URLSearchParams();
     for (const k of ['field', 'kind', 'layer', 'ticker']) if (st[k]) p.set(k, st[k]);
+    for (const [k, q_] of [['tmeasure', 'measure'], ['category', 'category'], ['standard_type', 'standard_type']]) if (st.measure === 'taxonomy' && st[k]) p.set(q_, st[k]);
     const d = await api(`/api/v1/${st.measure}?${p}`);
-    return d.rows.filter((r) => (!st.from || !r.period || r.period >= st.from) && (!st.to || !r.period || r.period <= st.to));
+    return d.rows.filter((r) => (!st.from || !(r.period || r.fiscal_year) || (r.period || r.fiscal_year) >= st.from) && (!st.to || !(r.period || r.fiscal_year) || (r.period || r.fiscal_year) <= st.to));
   };
   let all = await api(`/api/v1/${st.measure}`), rows = all.rows;
   const distinct = (c) => [...new Set(rows.map((r) => r[c]).filter((v) => v != null && v !== ''))].sort();
   const setState = (patch) => { st = {...st, ...patch}; go('explore?' + new URLSearchParams(Object.fromEntries(Object.entries(st).filter(([, v]) => v))).toString()); };
-  const sel = (label, key, opts, {blank} = {}) => h('select', {'aria-label': label, onchange: (e) => setState({[key]: e.target.value, ...(key === 'measure' ? {field: EXM[e.target.value].fieldDefault || '', kind: EXM[e.target.value].kindDefault || '', value: ''} : {})})},
+  const sel = (label, key, opts, {blank} = {}) => h('select', {'aria-label': label, onchange: (e) => setState({[key]: e.target.value, ...(key === 'measure' ? {field: EXM[e.target.value].fieldDefault || '', kind: '', value: '', tmeasure: e.target.value === 'taxonomy' ? 'spent' : '', category: e.target.value === 'taxonomy' ? 'capex' : '', standard_type: '', x: EXM[e.target.value].x || 'period'} : {})})},
     blank ? h('option', {value: '', selected: !st[key] || null}, blank) : '', opts.map(([v, t]) => h('option', {value: v, selected: st[key] === v || null}, t)));
-  const years = distinct('period');
+  const years = distinct(st.measure === 'taxonomy' ? 'fiscal_year' : 'period');
   const controls = h('div', {class: 'hrow exc'},
     sel('Measure', 'measure', Object.entries(EXM).map(([k, m]) => [k, m.label])),
+    st.measure === 'taxonomy' ? [sel('Measure', 'tmeasure', distinct('measure').map((m) => [m, m.replace('_', ' ')]), {blank: 'every measure'}), sel('Category', 'category', distinct('category').map((c) => [c, c.replace(/_/g, ' ')]), {blank: 'every category'}), sel('Standard type', 'standard_type', distinct('standard_type').map((c) => [c, c.replace('Member', '')]), {blank: 'every asset type'})] : '',
     rows.some((r) => 'field' in r) ? sel('Field', 'field', distinct('field').map((f) => [f, LABEL[f] || f]), {blank: 'every field'}) : '',
     rows.some((r) => 'kind' in r) ? sel('Kind', 'kind', distinct('kind').map((k) => [k, k]), {blank: 'every kind'}) : '',
-    EXM[st.measure].alt ? sel('Value', 'value', Object.keys(EXM[st.measure].alt).map((k) => [k, k === 'share' ? 'share of the total' : k]), {blank: st.measure === 'attribution' ? 'dollar amount' : 'actual'}) : '',
+    EXM[st.measure].alt ? sel('Value', 'value', Object.keys(EXM[st.measure].alt).map((k) => [k, k === 'change' ? 'change from the prior year' : k]), {blank: 'the value as reported'}) : '',
     sel('Layer', 'layer', distinct('layer').map((l) => [l, INDUSTRY[l] || l]), {blank: 'every layer'}),
     h('input', {type: 'text', name: 'tickers', value: st.ticker, placeholder: 'e.g. MSFT, GOOGL', 'aria-label': 'Tickers, comma-separated', spellcheck: 'false', autocapitalize: 'characters', autocomplete: 'off', style: 'width:12rem', onchange: (e) => setState({ticker: e.target.value.toUpperCase().replace(/\s/g, '')})}),
     years.length ? [sel('From', 'from', years.map((y) => [y, y]), {blank: 'from'}), sel('To', 'to', years.map((y) => [y, y]), {blank: 'to'})] : '',
@@ -713,16 +624,16 @@ async function explorePage(view, arg, qs) {
   rows = await fetchRows();
   const m = EXM[st.measure];
   const val = st.value && m.alt && m.alt[st.value] ? m.alt[st.value] : m.value;
-  const isShare = st.value === 'share';  // shares average across rows; dollars add
+  const isShare = false;
   const pts = rows.filter((r) => val(r) != null && r[st.x] != null);
-  const xs = [...new Set(pts.map((r) => String(r[st.x])))].sort((a, b) => (st.x === 'period' ? a.localeCompare(b) : 0));
+  const xs = [...new Set(pts.map((r) => String(r[st.x])))].sort((a, b) => (st.x === 'period' || st.x === 'fiscal_year' ? a.localeCompare(b) : 0));
   const sums = {};
   for (const r of pts) { const s = st.series ? String(r[st.series] ?? '—') : 'total'; sums[s] = (sums[s] || 0) + Math.abs(val(r)); }
   let seriesNames = Object.keys(sums).sort((a, b) => sums[b] - sums[a]);
   const folded = seriesNames.length > 8 ? new Set(seriesNames.slice(8)) : new Set();
   if (folded.size) seriesNames = [...seriesNames.slice(0, 8), 'Other'];
   const nameOf = (r) => { const s = st.series ? String(r[st.series] ?? '—') : 'total'; return folded.has(s) ? 'Other' : s; };
-  if (st.x !== 'period') xs.sort((a, b) => pts.filter((r) => String(r[st.x]) === b).reduce((s, r) => s + val(r), 0) - pts.filter((r) => String(r[st.x]) === a).reduce((s, r) => s + val(r), 0));
+  if (st.x !== 'period' && st.x !== 'fiscal_year') xs.sort((a, b) => pts.filter((r) => String(r[st.x]) === b).reduce((s, r) => s + val(r), 0) - pts.filter((r) => String(r[st.x]) === a).reduce((s, r) => s + val(r), 0));
   const cell = {};
   for (const r of pts) { const k = `${nameOf(r)}|${r[st.x]}`; cell[k] = cell[k] || {sum: 0, rows: []}; cell[k].sum += val(r); cell[k].rows.push(r); }
   if (isShare) for (const c of Object.values(cell)) c.sum = c.sum / c.rows.length;
@@ -742,8 +653,8 @@ async function explorePage(view, arg, qs) {
   if (!pts.length) { plot.replaceChildren(h('p', {class: 'msg'}, 'No rows match. Widen the filters, or run the step that fills this list.')); return; }
   const css = getComputedStyle(document.documentElement);
   const fg = css.getPropertyValue('--fg').trim(), muted = css.getPropertyValue('--muted').trim(), faint = css.getPropertyValue('--faint').trim(), bg = css.getPropertyValue('--bg').trim();
-  const xLabel = (x) => (st.x === 'layer' ? INDUSTRY[x] || x : st.x === 'method' ? METHOD[x] || x : st.x === 'ticker' && NAMES[x] ? `${NAMES[x]} ${x}` : x);
-  const disp = (n) => (st.series === 'layer' ? INDUSTRY[n] || n : st.series === 'method' ? METHOD[n] || n : st.series === 'ticker' && NAMES[n] ? `${NAMES[n]} ${n}` : n);
+  const xLabel = (x) => (st.x === 'layer' || st.x === 'group' ? INDUSTRY[x] || x : st.x === 'standard_type' ? x.replace('Member', '') : st.x === 'ticker' && NAMES[x] ? `${NAMES[x]} ${x}` : x);
+  const disp = (n) => (st.series === 'layer' || st.series === 'group' ? INDUSTRY[n] || n : st.series === 'standard_type' ? n.replace('Member', '') : st.series === 'ticker' && NAMES[n] ? `${NAMES[n]} ${n}` : n);
   const traces = seriesNames.map((n) => {
     const ys = xs.map((x) => { const c = cell[`${n}|${x}`]; if (!c) return null; return st.type === 'share' ? (totals[x] ? 100 * c.sum / totals[x] : null) : c.sum / unit; });
     const custom = xs.map((x) => { const c = cell[`${n}|${x}`]; return c ? [fmtv(c.sum), c.rows.length, totals[x] && !isShare ? pct(c.sum / totals[x]) : '—'] : ['—', 0, '—']; });
@@ -754,7 +665,7 @@ async function explorePage(view, arg, qs) {
     barmode: st.type === 'bars' ? 'group' : 'stack', bargap: .25, bargroupgap: .06, hovermode: st.type === 'lines' ? 'x unified' : 'closest', showlegend: seriesNames.length > 1 || !!st.series,
     legend: {orientation: 'h', y: -0.14, font: {color: fg}, traceorder: st.type === 'lines' || st.type === 'bars' ? 'normal' : 'reversed'}, xaxis: {type: 'category', showgrid: false, linecolor: faint, tickfont: {color: muted}, categoryorder: 'array', categoryarray: xs, tickvals: xs, ticktext: xs.map(xLabel), automargin: true, tickangle: xs.some((x) => xLabel(x).length > 12) ? -30 : 0},
     yaxis: {gridcolor: faint, zerolinecolor: faint, tickprefix: st.type === 'share' || isShare ? '' : '$', ticksuffix: st.type === 'share' ? '%' : suffix, tickformat: ',.0f', fixedrange: false, rangemode: 'tozero',
-      title: {text: st.type === 'share' ? 'share of the total, %' : isShare ? `${LABEL[st.field] || st.field || 'AI'} share of the total, % (mean of rows)` : `${EXM[st.measure].label}${st.field ? ', ' + (LABEL[st.field] || st.field) : ''}, $${suffix === 'B' ? 'billion' : 'million'}`, font: {color: muted, size: 11}}},
+      title: {text: st.type === 'share' ? 'share of the total, %' : `${st.measure === 'taxonomy' ? (st.category || st.tmeasure || 'taxonomy rows').replace(/_/g, ' ') + (st.value === 'change' ? ', change from the prior year' : '') : EXM[st.measure].label}${st.field ? ', ' + (LABEL[st.field] || st.field) : ''}, $${suffix === 'B' ? 'billion' : 'million'}`, font: {color: muted, size: 11}}},
     hoverlabel: {bgcolor: bg, bordercolor: faint, font: {color: fg, family: css.getPropertyValue('--font')}}, dragmode: 'zoom'};
   if (!window.Plotly) { plot.replaceChildren(h('p', {class: 'msg bad'}, 'The chart library did not load (offline?). The rows are below.')); showRows(pts); return; }
   await Plotly.newPlot(plot, traces, layout, {displayModeBar: 'hover', displaylogo: false, responsive: true, modeBarButtonsToRemove: ['lasso2d', 'select2d', 'autoScale2d', 'toImage'], scrollZoom: false});
@@ -766,10 +677,9 @@ async function explorePage(view, arg, qs) {
   showRows(null);
   function showRows(list, title) {
     if (!list) { under.replaceChildren(h('p', {class: 'muted small', style: 'margin-top:.6rem'}, 'Click a bar or point for the rows behind it, or ', h('button', {type: 'button', class: 'small', onclick: () => showRows(pts, 'Every row')}, 'show every row'), '. Drag to zoom, double-click to reset, click a legend entry to hide a series.')); return; }
-    const cols = [{t: 'Company', k: 'ticker', f: (r) => h('a', {href: `#data?t=${r.ticker}&f=${st.measure === 'attribution' ? 'ai_' + (r.field || 'capex') + ',' : ''}${r.field || 'capex'}`}, NAMES[r.ticker] || r.ticker)}, {t: 'Year', k: 'period'}];
-    for (const c of ['field', 'kind', 'method', 'dimension', 'status', 'scope', 'source']) if (list.some((r) => r[c] != null)) cols.push({t: c, k: c, f: (r) => (c === 'method' ? METHOD[r[c]] || r[c] : r[c] ?? '—')});
+    const cols = [{t: 'Company', k: 'ticker', f: (r) => h('a', {href: `#proof/${r.ticker}`}, NAMES[r.ticker] || r.ticker)}, {t: 'Year', f: (r) => r.period || r.fiscal_year || '—'}];
+    for (const c of ['measure', 'category', 'reported_name', 'standard_type', 'field', 'kind', 'dimension', 'status', 'check', 'source']) if (list.some((r) => r[c] != null)) cols.push({t: c.replace('_', ' '), k: c, f: (r) => r[c] ?? '—'});
     cols.push({t: 'Value', n: 1, f: (r) => fmtv(val(r)), s: (r) => val(r)});
-    if (st.measure === 'attribution') cols.push({t: 'Share', n: 1, f: (r) => [pct(r.ai_share), r.flag === 'share_over_total' ? h('span', {class: 'badge bg-orange-lt ms-1'}, 'above total') : '', r.status ? h('span', {class: 'badge bg-yellow-lt ms-1'}, r.status.replace('_', ' ')) : ''], s: (r) => r.ai_share});
     if (list.some((r) => r.basis || r.quote)) cols.push({t: 'Basis', sort: false, f: (r) => h('span', {class: 'small brk'}, (r.basis || r.quote || '').slice(0, 160)), wide: 1});
     under.replaceChildren(h('div', {class: 'sechead', style: 'margin-top:1rem'}, h('h2', {}, title || 'Rows'), h('span', {class: 'muted small'}, `${int(list.length)} row${list.length === 1 ? '' : 's'}${list.length > 300 ? ', first 300 shown; the CSV has them all' : ''}`)), table(cols, list.slice(0, 300)));
   }
@@ -781,6 +691,7 @@ async function explorePage(view, arg, qs) {
       h('p', {class: 'muted small', style: 'margin-top:.6rem'}, 'Saved views are queries another system can call: /api/v1/views/<id>/data.'),
       h('div', {class: 'hrow', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn', onclick: async () => {
         const filters = Object.fromEntries(['field', 'kind', 'layer', 'ticker'].filter((k) => st[k]).map((k) => [k, st[k]]));
+    if (st.measure === 'taxonomy') for (const [k, q_] of [['tmeasure', 'measure'], ['category', 'category'], ['standard_type', 'standard_type']]) if (st[k]) filters[q_] = st[k];
         try {
           const out = await api('/api/v1/views', {method: 'POST', body: JSON.stringify({view: {id: current ? current.id : undefined, name: name.value, measure: st.measure, filters, group: null, show: 'chart', chart: {x: st.x, series: st.series, type: st.type, value: st.value}, note: note.value}, by: me})});
           closeDrawer(); go('#explore/' + out.id); if (location.hash === '#explore/' + out.id) route();
@@ -811,7 +722,7 @@ async function proofPage(view) {
       b.stages.map((s) => stageCell(c.stages[s.id])),
       h('td', {}, c.proven ? h('span', {class: 'badge bg-green-lt'}, 'proven') : h('span', {class: 'badge bg-red-lt'}, `${int(c.open)} open`))))))));
   const legend = h('p', {class: 'text-secondary small mt-2'}, 'Each cell: checked · explained · open. Click a company for its trail; open items say what rule or definition is missing.');
-  const others = h('div', {class: 'card mt-3'}, h('div', {class: 'card-body py-2 d-flex align-items-center gap-3'}, h('span', {class: 'fw-semibold'}, `The other ${int(b.others.companies)}`), h('span', {class: 'text-secondary small'}, `${int(b.others.values_agree)} of ${int(b.others.values)} values agree with the SEC's data; ${int(b.others.with_amount)} of ${int(b.others.attribution)} attribution rows carry an amount. ${b.others.note}.`),
+  const others = h('div', {class: 'card mt-3'}, h('div', {class: 'card-body py-2 d-flex align-items-center gap-3'}, h('span', {class: 'fw-semibold'}, `The other ${int(b.others.companies)}`), h('span', {class: 'text-secondary small'}, `${int(b.others.values_agree)} of ${int(b.others.values)} values and ${int(b.others.facts_agree)} of ${int(b.others.facts)} facts agree with the SEC's data. ${b.others.note}.`),
     h('a', {href: '#data', class: 'ms-auto small'}, 'Dataset'), h('a', {href: '#reconcile', class: 'small'}, 'Reconcile')));
   const rel = await api('/api/outputs').catch(() => ({releases: []}));
   const releases = dtable('Releases', [{t: 'Version', k: 'version'}, {t: 'Signed', f: (r) => (r.signed_by ? `${r.signed_by}, ${day(r.signed_at)}` : h('span', {class: 'text-secondary'}, 'not signed'))}, {t: 'Values', num: 1, f: (r) => int(r.rows.length)}, {t: 'Packet', f: (r) => (r.packet ? h('a', {href: `/packet/${r.version}.zip`}, 'zip') : '')}], [...rel.releases].reverse().slice(0, 6));
@@ -827,9 +738,9 @@ async function trailPage(view, ticker) {
   const c = await api('/api/v1/proof/' + encodeURIComponent(ticker));
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, c.name, h('span', {class: 'text-secondary ms-2 fw-normal'}, c.ticker)), h('div', {class: 'text-secondary small'}, `${INDUSTRY[c.layer] || c.layer}. ${c.why || ''} ${c.in_proven_set ? '' : 'Not in the proven set.'}`)),
-    h('div', {class: 'col-auto'}, c.proven ? h('span', {class: 'badge bg-green-lt'}, 'proven') : h('span', {class: 'badge bg-red-lt'}, `${int(c.open)} open`), ' ', h('a', {href: `#data?t=${c.ticker}&f=ai_capex,capex`, class: 'small ms-2'}, 'Dataset'), h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-2'}, 'Reconcile'))));
+    h('div', {class: 'col-auto'}, c.proven ? h('span', {class: 'badge bg-green-lt'}, 'proven') : h('span', {class: 'badge bg-red-lt'}, `${int(c.open)} open`), ' ', h('a', {href: `#data?t=${c.ticker}&f=capex`, class: 'small ms-2'}, 'Dataset'), h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-2'}, 'Reconcile'))));
   const cards = Object.entries(c.stages).map(([id, st]) => {
-    const extra = id === 'attribution' ? ` ${int(st.with_amount)} with an amount, ${int(st.unreferenced)} without a reference figure.` : id === 'plans' ? ` ${int(st.plans)} plans, ${int(st.projects)} project mentions (${int(st.projects_latest)} latest).` : '';
+    const extra = id === 'mapping' ? ` ${int(st.derived_rows)} derived rows, ${int(st.committed_rows)} committed rows, ${int(st.company_stated_ai)} company-stated AI figures.` : id === 'planned' ? ` ${int(st.guidance)} guidance statements, ${int(st.projects)} projects.` : '';
     const body = [];
     if (st.open.length) body.push(dtable('Open', [{t: 'What', k: 'what'}, {t: 'Detail', f: (o) => h('span', {class: 'text-secondary small brk'}, o.detail || '')}, {t: 'Needs', f: (o) => h('span', {class: 'badge bg-red-lt'}, o.needs)}], st.open));
     if (st.explained_items && st.explained_items.length) body.push(h('details', {class: 'mt-2', open: st.open.length ? null : null}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, `${int(st.explained_items.length)} explained`),
@@ -840,20 +751,18 @@ async function trailPage(view, ticker) {
   const defs = c.definitions.length ? h('p', {class: 'text-secondary small'}, 'Definitions on file: ', c.definitions.join(', ')) : '';
   view.append(head, defs, ...cards);
 }
-const STAGE_LABEL_UI = {ingest: 'Ingest', values: 'Values', facts: 'Facts', statements: 'Statements', attribution: 'Attribution', plans: 'Plans and projects', release: 'Release'};
+const STAGE_LABEL_UI = {ingest: 'Ingest', values: 'Values', facts: 'Facts', statements: 'Statements', mapping: 'Mapping', planned: 'Planned', release: 'Release'};
 
 async function rulesPage(view) {
   const r = await api('/api/v1/rules');
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'}, h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Rules'),
     h('div', {class: 'text-secondary small'}, 'Every rule, guard and definition, with what it closed on the proven set in the latest run. Below, the open items grouped by what is missing: that list is the work.'))));
-  const KINDB = {rule: 'bg-secondary-lt', guard: 'bg-azure-lt', definition: 'bg-green-lt'};
+  const KINDB = {rule: 'bg-secondary-lt', guard: 'bg-azure-lt', definition: 'bg-green-lt', mapping: 'bg-green-lt'};
   const tbl = dtable('In force', [{t: 'Kind', f: (x) => h('span', {class: 'badge ' + KINDB[x.kind]}, x.kind)}, {t: 'Id', f: (x) => h('span', {class: 'font-monospace small'}, x.id)}, {t: 'What', f: (x) => h('span', {class: 'small brk'}, x.what)}, {t: 'Severity', f: (x) => x.severity || (x.where ? x.where : '')}, {t: 'Fired or closed', num: 1, f: (x) => int(x.fired)}, {t: 'Type', f: (x) => (x.type ? `type ${x.type}` : '')}], r.rules);
   const open = r.open_by_need.length ? r.open_by_need.map((g) => dtable(`Needs ${g.needs}`, [{t: 'Company', k: 'ticker'}, {t: 'Stage', k: 'stage'}, {t: 'What', k: 'what'}, {t: 'Detail', f: (o) => h('span', {class: 'text-secondary small brk'}, o.detail || '')}], g.items)) : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'Nothing open on the proven set.'))];
-  const [att, readers] = await Promise.all([api('/api/attribution').catch(() => ({models: {}})), api('/api/agents').catch(() => ({}))]);
-  const theses = dtable('Theses in use', [{t: 'Layer', f: (m) => INDUSTRY[m.industry] || m.industry}, {t: 'Version', f: (m) => h('button', {type: 'button', class: 'btn btn-sm btn-link p-0', onclick: () => openModel(m.industry)}, m.version)}, {t: 'Companies', num: 1, f: (m) => int(m.companies.length)}, {t: 'Versions', f: (m) => h('span', {class: 'text-secondary small'}, m.versions.join(', '))}],
-    Object.entries(att.models || {}).map(([k, m]) => ({industry: k, ...m})), {note: 'open one to read, edit as the next version, dry-run it, switch it on, rerun the layer'});
+  const readers = await api('/api/agents').catch(() => ({}));
   const agents = dtable('The readers', [{t: 'Agent', k: 'name'}, {t: 'Model', f: (a) => h('span', {class: 'font-monospace small'}, a.llm.model)}, {t: 'Prompt in use', f: (a) => h('span', {class: 'font-monospace small'}, a.prompt)}, {t: 'Decides', f: (a) => h('span', {class: 'small text-secondary'}, a.decides.join('; '))}], Object.values(readers), {note: 'prompts are files under agents/prompts, versioned, never edited in place'});
-  view.append(head, tbl, h('h2', {class: 'mt-4 mb-2'}, `Open on the proven set: ${int(r.open)}`), ...open.map((x) => h('div', {class: 'mb-3'}, x)), h('div', {class: 'mt-4'}, theses), h('div', {class: 'mt-3'}, agents));
+  view.append(head, tbl, h('h2', {class: 'mt-4 mb-2'}, `Open on the proven set: ${int(r.open)}`), ...open.map((x) => h('div', {class: 'mb-3'}, x)), h('div', {class: 'mt-4'}, agents));
 }
 
 // ── Routing ─────────────────────────────────────────────────────────────────
@@ -886,7 +795,7 @@ async function route() {
     if (page === 'proof' && arg) await trailPage(view, arg);
     else if (page === 'proof') await proofPage(view);
     else if (page === 'rules') await rulesPage(view);
-    else if (page === 'company') await dataPage(view, `t=${arg || ''}&f=ai_capex,capex`);
+    else if (page === 'company') await dataPage(view, `t=${arg || ''}&f=capex`);
     else if (page === 'reconcile') await reconcilePage(view, qs);
     else if (page === 'views' || page === 'explore') await explorePage(view, arg, qs);
     else if (page === 'data' || page === 'insights') await dataPage(view, qs);

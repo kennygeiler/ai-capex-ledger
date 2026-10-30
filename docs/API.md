@@ -12,20 +12,16 @@ behind a proxy that authenticates before exposing it.
 | `/api/v1/companies` | company | ticker, name, layer, group, role, note |
 | `/api/v1/values` | company, field, fiscal year | ticker, field, period, period_end, value, check_label, basis, source, extraction_ids, layer, status, flag |
 | `/api/v1/facts` | company, note field, dimension, year | ticker, field, dimension, period, period_end, value, check_label, xbrl, accession, basis, layer, status, flag |
-| `/api/v1/attribution` | company, field (capex, opex, revenue), year, kind | ticker, field, period, kind, method, ai_amount, ai_share, confidence, basis, inputs, model, prompt_version, run_id, layer, status, flag |
 | `/api/v1/statements` | statement an agent read | statement_id, ticker, field, period, kind, scope, class, amount_low, amount_high, amount_mid, share, quote, source, date, url, layer |
-| `/api/v1/plans` | company, field, year, scope | ticker, field, period, scope, plan_low, plan_high, plan_mid, plan_date, plan_source, plan_quote, plan_url, actual, actual_method, gap, gap_share, inside_range, layer |
 | `/api/v1/projects` | named project | ticker, period, name, kind, location, amount_low, amount_high, status, announced, in_service, counterparty, quote, source, url, layer (empty until the projects reader has run) |
-| `/api/v1/theses` | layer | layer, version, versions, text, companies |
+| `/api/v1/taxonomy` | one row per measure, category, company and year (`docs/TAXONOMY.md`) | ticker, fiscal_year, measure (spent, committed, derived, planned, company_stated_ai), category, reported_name, standard_concept, standard_type, value, value_high, share, unit, period_as_stated, quote, source, check, tags, group, layer, proven |
 | `/api/v1/views` | saved view | id, name, measure, filters, group, show, note, by, at |
 
 `proven` says whether the row's company is in the proven set (`docs/PROOF.md`): every number of a proven company is checked or
 explained; a row with `proven: false` is as the pipeline left it. `status` is a person's latest decision on the row from `decisions/resolutions.jsonl` (`accepted`, `explained`, `fix_pending`, `blocks`, or empty);
-`flag` is what the numbers say by themselves (`share_over_total` on an attribution whose AI amount exceeds the total; `differs_from_xbrl`
-on a value or fact that does not match the SEC's data). A consumer excludes `fix_pending` and `blocks` rows and treats a flag as a caveat.
+`flag` is what the numbers say by themselves (`differs_from_xbrl` on a value or fact that does not match the SEC's data). A consumer excludes `fix_pending` and `blocks` rows and treats a flag as a caveat.
 
-The four measures (`docs/PROOF.md`): capex allocation and revenue exposure are `attribution` rows with field
-`capex` or `revenue`; project-level investment is `projects`; plans versus reality is `plans`.
+The measures (`docs/TAXONOMY.md`) are the `taxonomy` list: spent, committed and derived by us-gaap concept, planned and company-stated AI verbatim.
 
 The proof pages (`docs/PROOF.md`): `/api/v1/proof` is the board (the proven set's stage counts and the rest in one line), `/api/v1/proof/<ticker>`
 a company's trail (per stage: checked, explained, open items with what they need), `/api/v1/rules` every rule, guard and definition with what it closed
@@ -41,22 +37,22 @@ step and per company; `ledger cost` writes the same to `reports/cost.json`).
 
 ## One shape, two doors
 
-`?release=vX.Y.Z` on any of companies, values, facts, attribution, statements, plans, projects serves that signed
+`?release=vX.Y.Z` on any of companies, values, facts, statements, projects, taxonomy serves that signed
 release's file instead of the working database, typed back from CSV and with a `release` column, so a consumer gets
 the same columns from a release as from the live API. A release holds one CSV per list (`ledger release`), and
 `ledger publish` pushes those same files to Postgres as `ledger_<list>` tables with `current_<list>` views.
 
 ## Filters and grouping
 
-Every list takes `ticker`, `layer`, `period`, `field`, `kind`, `method`, `scope`, `dimension`, `source` as
+Every list takes `ticker`, `layer`, `period`, `field`, `kind`, `method`, `scope`, `dimension`, `source`, `measure`, `category`, `fiscal_year`, `standard_type`, `check` as
 comma-separated values, matched without regard to case. `group=<column>` rolls the list up: one row per distinct
-value with `rows`, `amount` (the sum of the list's amount column: ai_amount, value, amount_mid, gap or amount) and
+value with `rows`, `amount` (the sum of the list's amount column: value, amount_mid or amount) and
 `with_amount`.
 
 ```
-/api/v1/attribution?field=capex&kind=actual&layer=hyperscaler
-/api/v1/attribution?field=revenue&group=layer
-/api/v1/plans?field=capex&scope=total&ticker=META,MSFT&format=csv
+/api/v1/taxonomy?measure=spent&category=capex&layer=hyperscaler
+/api/v1/taxonomy?category=ppe_gross_by_type&standard_type=TechnologyEquipmentMember&group=ticker
+/api/v1/taxonomy?measure=company_stated_ai&ticker=MSFT&format=csv
 /api/v1/facts?field=segment_capex&ticker=APLD
 ```
 
@@ -65,7 +61,7 @@ A JSON response is `{"list", "count", "filters", "rows"}`.
 ## Views
 
 A view is a saved question: `{id, name, measure, filters, group, show, note}` where `measure` is one of the lists
-above (attribution, values, facts, statements, plans, projects), `filters` and `group` are as above, and `show` is
+above (taxonomy, values, facts, statements, projects), `filters` and `group` are as above, and `show` is
 `grid`, `bars` (one bar per group), `lines` (one line per company by year), `shares` (a share grid) or `chart`, the Explorer's spec in `chart: {x, series, type, value}` (x and series from period, ticker, layer, field, method, kind, dimension, status, scope, source; type bars, stacked, lines or share). Views live in `data/views.json`, tracked.
 
 ```
