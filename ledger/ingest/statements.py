@@ -107,6 +107,10 @@ def assemble(tables: list[dict], ids: list[str], doc_units: list[dict] | None = 
             p["inherited_from"] = first["id"]
         if not p["unit_text"] and first["unit_text"]:
             p["unit_text"], p["scale"], p["unit_source"] = first["unit_text"], first["scale"], "statement"
+    if not doc_units and any(not p["unit_text"] for p in parts):  # the filing states no unit anywhere: the SEC requires one when figures are scaled, so these are whole dollars (CleanSpark FY2022, type 62)
+        for p in parts:
+            if not p["unit_text"]:
+                p.update(unit_text="(no unit stated anywhere in the filing: whole dollars)", scale=1, unit_source="document", unit_context="")
     if doc_units and any(not p["unit_text"] for p in parts):
         from collections import Counter
         scale = Counter(u["scale"] for u in doc_units).most_common(1)[0][0]

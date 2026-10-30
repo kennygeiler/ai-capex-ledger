@@ -195,3 +195,13 @@ class WholeDollars(unittest.TestCase):
         self.assertEqual(tables[1]["scale"], 1)
         self.assertEqual(scale_of("(in thousands of dollars)"), 1_000)
         self.assertEqual(sorted(u["scale"] for u in document_units(html_)), [1, 1_000])
+
+
+class NoUnitAnywhere(unittest.TestCase):
+    def test_filing_without_any_unit_statement_is_whole_dollars(self):
+        html_ = """<html><body><p>Consolidated Statements of Operations</p>
+        <table><tr><td></td><td>2022</td><td>2021</td></tr><tr><td>Revenues</td><td>131,524,860</td><td>39,315,000</td></tr><tr><td>Cost of revenues</td><td>60,000,000</td><td>20,000,000</td></tr>
+        <tr><td>Operating loss</td><td>(5,000,000)</td><td>(4,000,000)</td></tr><tr><td>Income tax expense</td><td>100,000</td><td>90,000</td></tr><tr><td>Net loss</td><td>(57,000,000)</td><td>(21,000,000)</td></tr><tr><td>Diluted loss per share</td><td>(1.35)</td><td>(0.80)</td></tr></table></body></html>"""
+        tables = parse_tables(html_)
+        parts = assemble(tables, locate(tables)["income"], document_units(html_))
+        self.assertEqual((parts[0]["scale"], parts[0]["unit_source"]), (1, "document"))
