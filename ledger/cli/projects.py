@@ -52,7 +52,10 @@ def main(argv=None) -> int:
 
         def stale(d, path):
             out = OUTPUTS / f"{d['text_id']}.json"
-            return not out.exists() or (json.loads(out.read_text()).get("_run") or {}).get("task_sha") != sha(path)
+            if not out.exists():
+                return True
+            o = json.loads(out.read_text())
+            return "error" in o or (o.get("_run") or {}).get("task_sha") != sha(path)  # an errored output is always re-asked (type 60)
 
         todo = [(d, p) for d, p in zip(docs, paths) if a.rerun or stale(d, p)]
         OUTPUTS.mkdir(parents=True, exist_ok=True)

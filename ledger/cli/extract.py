@@ -59,7 +59,10 @@ def main(argv=None) -> int:
             out = OUTPUTS / f"{p['accession']}.json"
             if not out.exists():
                 return True
-            run = json.loads(out.read_text()).get("_run")
+            o = json.loads(out.read_text())
+            if "error" in o:
+                return True  # an errored output is always re-asked (type 60)
+            run = o.get("_run")
             return bool(run) and run.get("task_sha") != hashlib.sha256(path.read_bytes()).hexdigest()[:16]
 
         todo = [(p, path) for p, path in zip(docs, paths) if a.rerun or stale(p, path)]
