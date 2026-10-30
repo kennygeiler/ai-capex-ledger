@@ -12,8 +12,9 @@ def _flow(queue):
 
 def _con():
     con = duckdb.connect()
-    con.execute("create table facts (ticker text, field text, dimension text, period text, value double, label text, reference text)")
-    con.execute("insert into facts values ('GOOGL','ppe_category','Technical infrastructure','FY2025',141852e6,'unresolved','139596000000'), ('GOOGL','ppe_category','Technical infrastructure','FY2024',112504e6,'agree','112504000000')")
+    con.execute("create table facts (ticker text, field text, dimension text, period text, value double, label text, reference text, period_end text)")
+    con.execute("insert into facts values ('GOOGL','ppe_category','Technical infrastructure','FY2025',141852e6,'unresolved','139596000000','2025-12-31'), ('GOOGL','ppe_category','Technical infrastructure','FY2024',112504e6,'agree','112504000000','2024-12-31')")
+    con.execute("create table documents (accession text, ticker text, cik integer, filed text)")
     con.execute('create table "values" (ticker text, field text, period text, value double, label text)')
     con.execute("insert into \"values\" values ('GOOGL','capex','FY2025',91447e6,'agree'), ('GOOGL','capex','FY2024',52535e6,'agree')")
     con.execute("create table attribution (ticker text, field text, period text, kind text, method text, ai_amount double, ai_share double, basis text, inputs text, confidence double)")

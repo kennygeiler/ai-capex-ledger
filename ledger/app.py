@@ -228,9 +228,15 @@ def data(q: dict) -> dict:
         urls = {d["accession"]: d["url"] for d in _rows(con, "select accession, url from documents")}
     finally:
         con.close()
+    idx = resolutions.by_row()
     for r in rows:
         acc = r["prov"].get("accession") or (r["prov"].get("extractions") or "").split("|")[0]
         r["prov"]["url"] = urls.get(acc)
+        t = r["prov"]["table"]
+        r["status"] = (resolutions.status_of(idx, "attribution", r["ticker"], r["field"].replace("ai_", "").replace("_outlook", "").replace("_committed", ""), "", r["period"], {"planned": "outlook", "committed": "committed"}.get(r["kind"], "actual")) if t == "attribution"
+                       else resolutions.status_of(idx, "facts", r["ticker"], r["field"], r["dimension"], r["period"]) if t == "facts"
+                       else resolutions.status_of(idx, "values", r["ticker"], r["field"], "", r["period"]) if t == "values" else "")
+        r["flag"] = "share_over_total" if r.get("share") is not None and r["share"] > 1 else "differs_from_xbrl" if r.get("check") == "unresolved" else ""
     rows = [r for r in rows if (not want_t or r["ticker"] in want_t) and (not want_f or r["field"] in want_f) and (not want_y or r["period"] in want_y) and (not want_k or r["kind"] in want_k)]
     names = {c["ticker"]: c["name"] for c in tracked()}
     fields = sorted({r["field"] for r in rows} if want_t else set(FIELD_KIND) | {"opex_guidance"})
@@ -329,7 +335,7 @@ def _flow(scope: str) -> dict:
         if r["outcome"] == "disagree":
             cap = capex_of.get((r["ticker"], r["period"]))
             at_stake = round(abs((r["ours"] or 0) - r["reference"]) * cap) if r["measure"] == "share" and cap else (abs((r["ours"] or 0) - r["reference"]) if r["measure"] == "amount" else 0)
-            queue.append({"kind": "reference_disagrees", "state": "disagrees", "ticker": r["ticker"], "where": f"AI capex {r['period']}", "impact": f"the attribution by {r['method']}: {usd_(at_stake)} between ours and the stated figure",
+            queue.append({"kind": "reference_disagrees", "state": "disagrees", "ticker": r["ticker"], "where": f"AI {r.get('field', 'capex')} {r['period']}", "impact": f"the attribution by {r['method']}: {usd_(at_stake)} between ours and the stated figure",
                           "dollars": at_stake, "new": True, "action": "method", "detail": r})
     for f in facts_changed[:30]:
         queue.append({"kind": "fact_changed", "state": "moved", "ticker": f["ticker"], "where": f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " "), "impact": "attribution inputs; the next release", "dollars": 0, "new": True, "action": "release",
@@ -348,6 +354,8 @@ def _flow(scope: str) -> dict:
                                      "release_value": rel_facts.get((f["ticker"], f["field"], f["dimension"], f["period"]))}})
     for r in changed["attribution_changed"]:
         b, a_ = r["before"][1] or 0, r["after"][1] or 0
+        if not b and not a_:
+            continue  # none to words-only, or back: no dollars moved, nothing to judge
         queue.append({"kind": "attribution_moved", "state": "moved", "ticker": r["key"].split("|")[0], "where": " ".join(r["key"].split("|")[1:]), "impact": f"the dataset: {usd_(abs(a_ - b))} moved; the change note", "dollars": abs(a_ - b), "new": (diff or {}).get("at", "") > signed_at, "action": "release", "detail": r})
     for x in hqd["findings"]:
         if x["ticker"] in tickers and not x.get("confirmed", True):

@@ -10,6 +10,7 @@ import re
 
 from .config import INDUSTRIES, industry, tracked
 from .plans import plans as _plans
+from . import resolutions as _resolutions
 from . import views as _views
 
 FILTERS = ("ticker", "layer", "period", "field", "kind", "method", "scope", "dimension", "source")
@@ -63,9 +64,19 @@ def fetch(con, name: str) -> list[dict]:
         rows = _views.load()["views"]
     else:
         raise KeyError(f"no list {name}; one of {LISTS}")
+    idx = _resolutions.by_row() if name in ("values", "facts", "attribution") else None
     for r in rows:
         if "ticker" in r and "layer" not in r:
             r["layer"] = industry(r["ticker"])
+        if name == "attribution":  # status: a person's latest decision on the row; flag: what the numbers say by themselves
+            r["status"] = _resolutions.status_of(idx, "attribution", r["ticker"], r["field"], "", r["period"], r["kind"])
+            r["flag"] = "share_over_total" if r.get("ai_share") is not None and r["ai_share"] > 1 else ""
+        elif name == "values":
+            r["status"] = _resolutions.status_of(idx, "values", r["ticker"], r["field"], "", r["period"])
+            r["flag"] = "differs_from_xbrl" if r.get("check_label") == "unresolved" else ""
+        elif name == "facts":
+            r["status"] = _resolutions.status_of(idx, "facts", r["ticker"], r["field"], r.get("dimension") or "", r["period"])
+            r["flag"] = "differs_from_xbrl" if r.get("check_label") == "unresolved" else ""
     return rows
 
 

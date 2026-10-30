@@ -27,7 +27,7 @@ the drawer gave no cell, no tag value, no affected attribution. Verdict: ship wi
 the release gate must read what a person has resolved. Taken: the queue is ranked by dollars at stake (the
 attributions a fact feeds, the gap between ours and a stated reference, the amount that moved), with a "new since the
 last signed release" flag; facts that feed no attribution are collapsed into one line; resolutions (accept, explain,
-fix, blocks) are an append-only log in `data/resolutions.jsonl`, keyed by the item and a hash of its content, and
+fix, blocks) are an append-only log in `resolutions.jsonl`, keyed by the item and a hash of its content, and
 Release reads them: a blocking resolution blocks, accept and explain hide the item until its content changes, and the
 line says "gates pass, but N unresolved" rather than "nothing blocks"; the drawer shows ours, the tag, the delta, the
 cell and its filing, the attributions the fact feeds, the value in the last release, and the resolution controls.

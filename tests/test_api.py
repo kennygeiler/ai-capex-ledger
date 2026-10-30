@@ -151,3 +151,23 @@ class CsvLineEndings(unittest.TestCase):
         out = api.to_csv([{"a": 1, "b": "x"}, {"a": 2, "b": None}])
         self.assertNotIn("\r", out)
         self.assertEqual(out, "a,b\n1,x\n2,\n")
+
+
+class StatusAndFlag(unittest.TestCase):
+    def test_attribution_rows_carry_status_and_flag(self):
+        import duckdb
+        from ledger import resolutions
+        con = duckdb.connect()
+        con.execute("create table attribution (ticker text, field text, period text, kind text, method text, ai_amount double, ai_share double, confidence double, basis text, inputs text, model text, prompt_version text, run_id text)")
+        con.execute("insert into attribution values ('APLD','capex','FY2025','actual','segment',977e6,1.43,0.8,'b','','m','p','r'), ('TSLA','capex','FY2024','actual','stated_amount',1e9,0.088,0.5,'b','','m','p','r')")
+        old = resolutions.LOG
+        import tempfile, pathlib, json
+        resolutions.LOG = pathlib.Path(tempfile.mkdtemp()) / "resolutions.jsonl"
+        resolutions.LOG.write_text(json.dumps({"key": "reference_disagrees|TSLA|AI capex FY2024", "hash": "h", "state": "fix", "reason": "misread", "by": "k", "at": "2026-10-30"}) + "\n")
+        try:
+            rows = {(r["ticker"], r["period"]): r for r in api.fetch(con, "attribution")}
+        finally:
+            resolutions.LOG = old
+        self.assertEqual((rows[("APLD", "FY2025")]["flag"], rows[("APLD", "FY2025")]["status"]), ("share_over_total", ""))
+        self.assertEqual((rows[("TSLA", "FY2024")]["flag"], rows[("TSLA", "FY2024")]["status"]), ("", "fix_pending"))
+        self.assertIn("status", api.to_csv(list(rows.values())).splitlines()[0])

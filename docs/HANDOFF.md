@@ -31,7 +31,7 @@ Tracked, so you have it on clone:
 Not tracked, rebuilt by `ledger run` (needs the network and about 30 minutes for all 31):
 
 - The database `data/ledger.duckdb`, the raw filings `data/raw/`, parsed tables `data/docs/`, MD&A and release texts
-  `data/text/`, the task files, snapshots, `data/watch.json`, the jobs folder, `data/resolutions.jsonl`, dry runs.
+  `data/text/`, the task files, snapshots, `data/watch.json`, the jobs folder, `resolutions.jsonl`, dry runs.
 
 ## Setup
 
@@ -75,7 +75,7 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 | definitions | judgements made once per company and applied every run | `definitions/companies.yaml` | README Critical notes |
 | reference set | sourced figures for AI's part of capex, with URL and quote | `gold/ai_capex.yaml` | `docs/INGESTION.md` (Evaluation) |
 | rules | the 16 checks, each with its rationale and owner | `rules/*.yaml`, `ledger/rules.py` | `docs/PRD.md` |
-| resolutions | what a person decided about a queue item | `data/resolutions.jsonl` (not tracked) | `docs/FLOW.md` |
+| resolutions | what a person decided about a queue item; `status` on exported rows | `resolutions.jsonl` at the repo root (tracked) | `docs/FLOW.md`, `docs/API.md` |
 | releases | plain files whose content hash a person signs | `releases/v*/` | release `README.md` |
 | production | the signed releases, one table per release file plus `ledger_releases`; `current_*` views follow the highest version | Postgres at `DATABASE_URL`, `ledger/publish.py` | this file |
 | companies | the 100 companies by supply-chain layer; the layer picks the money-flow model | `data/companies.json`, `ledger/config.py` `INDUSTRIES` | `docs/COMPANIES.md` |
@@ -119,7 +119,7 @@ module you will change. Run the tests before and after. The invariants that must
 - Every attribution amount equals its method's arithmetic over inputs that exist in the data pack;
   `attribution --load` rejects anything else.
 - A release is reproducible from its inputs: same inputs, same hash. Never edit a file under `releases/`.
-- `decisions/`, `data/resolutions.jsonl` and the agents' history are append-only.
+- `decisions/`, `resolutions.jsonl` and the agents' history are append-only.
 
 Verify, don't assert: the pipeline writes `runs`, snapshots, `data/jobs/progress.json`, `reports/evaluation.json`
 and `data/attribution/diff.json`; read them rather than the log. `rtk` wraps shell commands in some sessions and

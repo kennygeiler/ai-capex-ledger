@@ -10,14 +10,18 @@ behind a proxy that authenticates before exposing it.
 | Path | One row per | Columns |
 |---|---|---|
 | `/api/v1/companies` | company | ticker, name, layer, group, role, note |
-| `/api/v1/values` | company, field, fiscal year | ticker, field, period, period_end, value, check_label, basis, source, extraction_ids, layer |
-| `/api/v1/facts` | company, note field, dimension, year | ticker, field, dimension, period, period_end, value, check_label, xbrl, accession, basis, layer |
-| `/api/v1/attribution` | company, field (capex, opex, revenue), year, kind | ticker, field, period, kind, method, ai_amount, ai_share, confidence, basis, inputs, model, prompt_version, run_id, layer |
+| `/api/v1/values` | company, field, fiscal year | ticker, field, period, period_end, value, check_label, basis, source, extraction_ids, layer, status, flag |
+| `/api/v1/facts` | company, note field, dimension, year | ticker, field, dimension, period, period_end, value, check_label, xbrl, accession, basis, layer, status, flag |
+| `/api/v1/attribution` | company, field (capex, opex, revenue), year, kind | ticker, field, period, kind, method, ai_amount, ai_share, confidence, basis, inputs, model, prompt_version, run_id, layer, status, flag |
 | `/api/v1/statements` | statement an agent read | statement_id, ticker, field, period, kind, scope, class, amount_low, amount_high, amount_mid, share, quote, source, date, url, layer |
 | `/api/v1/plans` | company, field, year, scope | ticker, field, period, scope, plan_low, plan_high, plan_mid, plan_date, plan_source, plan_quote, plan_url, actual, actual_method, gap, gap_share, inside_range, layer |
 | `/api/v1/projects` | named project | ticker, period, name, kind, location, amount_low, amount_high, status, announced, in_service, counterparty, quote, source, url, layer (empty until the projects reader has run) |
 | `/api/v1/theses` | layer | layer, version, versions, text, companies |
 | `/api/v1/views` | saved view | id, name, measure, filters, group, show, note, by, at |
+
+`status` is a person's latest decision on the row from `resolutions.jsonl` (`accepted`, `explained`, `fix_pending`, `blocks`, or empty);
+`flag` is what the numbers say by themselves (`share_over_total` on an attribution whose AI amount exceeds the total; `differs_from_xbrl`
+on a value or fact that does not match the SEC's data). A consumer excludes `fix_pending` and `blocks` rows and treats a flag as a caveat.
 
 The four measures (`docs/THESIS.md`): capex allocation and revenue exposure are `attribution` rows with field
 `capex` or `revenue`; project-level investment is `projects`; plans versus reality is `plans`.

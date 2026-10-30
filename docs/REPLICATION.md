@@ -3,7 +3,7 @@
 A data scientist at Arctal opens DATAHQ cold, works the actionable items, records decisions, and tries to produce
 the dataset and the chart a manager would ask for. Done by Claude in the browser at 1600px, light theme, on the state
 of the repo at `9ea9e68` (v1.5.0 signed and published, every tab on Tabler). Decisions were saved as
-"Replication run (Claude), for Kenny Geiler to confirm" in `data/resolutions.jsonl`; Kenny can revert any of them.
+"Replication run (Claude), for Kenny Geiler to confirm" in `resolutions.jsonl`; Kenny can revert any of them.
 
 The brief for the morning: make sure the data is clean and exportable, and be equipped to build a dataset or a
 visualization on request.
@@ -77,7 +77,7 @@ Hindering:
   Accept reduce it. Expected, but nowhere stated.
 
 Roadblocks:
-- **Decisions do not travel with the repo.** `data/resolutions.jsonl` is git-ignored with the rest of `data/`, so the five decisions
+- **Decisions do not travel with the repo.** `resolutions.jsonl` is git-ignored with the rest of `data/`, so the five decisions
   recorded here exist only on this machine; a clone, or Arctal, never sees who judged what. Resolutions are judgement, not pipeline output;
   they belong with `definitions/` and `decisions/`, tracked.
 - **A dirty value cannot be corrected from the UI.** AT&T FY2022 opex is $74.5M in the dataset against $74,480M in
@@ -209,7 +209,7 @@ What a data scientist has today, from the shell, no UI:
 
 Missing for a clean handoff:
 - A `flag` or `status` column on attribution and values rows: disputed, fix pending, accepted, explained, from
-  `data/resolutions.jsonl`. Today the CSV cannot exclude the four dirty rows above without a join by hand.
+  `resolutions.jsonl`. Today the CSV cannot exclude the four dirty rows above without a join by hand.
 - A `unit` column (values are integer dollars; nothing in the file says so) and a data dictionary endpoint
   (`/api/v1/fields`: field, definition, unit, kind, source step).
 - A wide export (company × year for one field) for the people who live in spreadsheets. Dataset's Export CSV is long
@@ -220,7 +220,7 @@ Missing for a clean handoff:
 
 ## Fix list, ranked by what unblocks the Monday job
 
-1. Track `data/resolutions.jsonl` (move it beside `decisions/`); resolution state into the exports and the Dataset grid (flag column; a mark on the cell).
+1. Track `resolutions.jsonl` (move it beside `decisions/`); resolution state into the exports and the Dataset grid (flag column; a mark on the cell).
 2. Shares above 100% flagged everywhere; AT&T unit error becomes a "unit" finding with a one-click override.
 3. "What it measures" visible beside every stated figure in Reconcile; XBRL concept and member named on fact rows.
 4. "Add a definition" as an action in Reconcile, pre-filled from the row.
@@ -237,3 +237,29 @@ Missing for a clean handoff:
 12. Two denominators for the reference check reconciled (20 vs 26).
 13. Data: re-read Tesla, pick one AMD scope, repair Micron's segment series, restore Lumentum, check the Equinix
     plan, explain Amazon's gap in the cell.
+
+## Done since (31 Oct, same day)
+
+1. `resolutions.jsonl` is tracked at the repo root; the five decisions travel with the repo. The queue key for a stated-figure
+   item now names the field (AMD's revenue row is no longer keyed "AI capex").
+2. `status` and `flag` columns on values, facts and attribution in every export and in the signed release going forward;
+   the Dataset grid shows `fix`, `ok`, `expl`, `block` on the cell, `!` for a share above the total, `≠` for differs from
+   SEC data and `✗` only for disagrees with a stated figure.
+3. Reconcile: what the stated figure measures sits under "Stated"; the XBRL concept and member are named on fact rows, with
+   the filing they came from, and a line that says "different filings: a restatement, not a disagreement" when the cell
+   is from a later 10-K than the tag (Alphabet FY2024 is exactly that; Iron Mountain's tag is
+   PaymentsToAcquireProductiveAssets, wider than the table's capital expenditures). "Add a definition" on fact rows
+   writes the YAML. A finding-kind filter (restated, big move, line renamed, unit) for bulk work. The bulk form lists its
+   rows. Moved rows have their year. The header counts open, fix pending and blocking apart.
+4. Explore: share of the total as a value (mean of rows), the saved "Hyperscaler AI share of capex" view opens as shares,
+   an axis title with the unit, long labels angled, "The numbers in the chart" as a table; status and flag on the rows.
+5. Flow: "values differ" and "facts differ" link to their rows; the Method card is one line with the list behind it;
+   scope select grouped into layers and companies; "new since" only when it is not on every row; no $0M moved rows; the
+   reference line uses the with-an-estimate denominator, same as Status.
+6. Status: the findings table is gone, a link to Reconcile in its place.
+7. Attribution: field (capex, revenue, opex) and kind selects; a badge legend.
+8. Agents: one collapsed card per reader, the first open. "Add a company" in the nav.
+
+Still open from the list: the data fixes (13), which need agent reruns; a wide export; a data dictionary endpoint;
+a one-click override for a unit error.
+

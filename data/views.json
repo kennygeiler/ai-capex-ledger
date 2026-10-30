@@ -24,10 +24,16 @@
     "kind": "actual"
    },
    "group": null,
-   "show": "shares",
+   "show": "chart",
    "note": "Each hyperscaler's AI share of capex by year, with method.",
    "by": "Kenny Geiler",
-   "at": "2026-10-30T02:21:37+00:00"
+   "at": "2026-10-30T02:21:37+00:00",
+   "chart": {
+    "x": "period",
+    "series": "ticker",
+    "type": "bars",
+    "value": "share"
+   }
   },
   {
    "id": "capex-plans-vs-reality",

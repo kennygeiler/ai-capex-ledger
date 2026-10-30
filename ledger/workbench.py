@@ -59,6 +59,39 @@ def _attribution_series(con, ticker: str, field: str, refs: list[dict]) -> list[
     return list(out.values())
 
 
+def xbrl_name(con, accession: str, period_end: str | None, value) -> dict | None:
+    """Which us-gaap concept and member the filing's reference value came from: the instance is read (cached XML) and
+    the one fact with that value on that date is named. None when the filing has no instance or no such fact."""
+    if value is None or not accession:
+        return None
+    try:
+        doc = con.execute("select cik, ticker from documents where accession = ?", [accession]).fetchone()
+        if not doc:
+            return None
+        want = round(float(value))
+        # the reference may come from any of the company's filings (the year's own 10-K tags it; a later one restates), newest first
+        for cik, acc in con.execute("select cik, accession from documents where ticker = ? order by filed desc", [doc[1]]).fetchall():
+            hits = [(c, m, e) for (c, m, e), v in _instance(int(cik), acc).items() if v == want and (not period_end or e == period_end)]
+            if hits:
+                c, m, e = hits[0]
+                return {"concept": f"us-gaap:{c}", "member": m or None, "date": e, "accession": acc, "others": len(hits) - 1}
+        return None
+    except Exception:
+        return None
+
+
+_INSTANCES: dict = {}
+
+
+def _instance(cik: int, accession: str) -> dict:
+    if (cik, accession) not in _INSTANCES:
+        from .reference.dimensions import instance_facts
+        if len(_INSTANCES) > 40:
+            _INSTANCES.clear()
+        _INSTANCES[(cik, accession)] = instance_facts(cik, accession)
+    return _INSTANCES[(cik, accession)]
+
+
 def _fact_series(con, ticker: str, field: str, dimension: str) -> list[dict]:
     """The same fact across years: our cited value and the filing's tag."""
     cur = con.execute("select period, value, reference, label from facts where ticker = ? and field = ? and coalesce(dimension, '') = ? order by period", [ticker, field, dimension])
@@ -110,13 +143,15 @@ def items(con, flow: dict) -> dict:
             c = d.get("cite") or {}
             row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": d.get("value"), "reference": d.get("reference"), "ours_label": "cited cell"}
             row["series"] = _fact_series(con, q["ticker"], d.get("field"), d.get("dimension") or "")
+            pe = con.execute("select period_end from facts where ticker = ? and field = ? and coalesce(dimension, '') = ? and period = ?", [q["ticker"], d.get("field"), d.get("dimension") or "", d.get("period")]).fetchone()
             row["evidence"] = {"cell": {k: c.get(k) for k in ("table_id", "row_label", "column_label", "cell_text", "accession")} if c else None, "png": _png(c.get("extraction_id")),
+                               "xbrl": xbrl_name(con, c.get("accession") or "", pe[0] if pe else None, d.get("reference")),
                                "url": d.get("url"), "used_by": d.get("used_by") or [], "release_value": d.get("release_value"), "dimension": d.get("dimension")}
         elif q["kind"] == "fact_changed":
             row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": d.get("value"), "reference": d.get("release_value"), "ours_label": "now"}
             row["evidence"] = {"dimension": d.get("dimension"), "release": rel}
         elif q["kind"] == "attribution_moved":
-            parts = q["key"].split("|")[2:]
+            parts = (q["where"] or "").split()  # "revenue FY2025 actual"
             before, after = d.get("before") or [None, None], d.get("after") or [None, None]
             row |= {"field": parts[0] if parts else None, "period": parts[1] if len(parts) > 1 else None, "measure": "usd", "ours": after[1], "reference": before[1],
                     "ours_label": f"by {after[0]}", "ref_label": f"before, by {before[0]}"}
