@@ -143,19 +143,19 @@
    "model": "claude-opus-5-5",
    "runs_on": "Claude Code on Kenny's subscription: claude -p, headless, no tools, no paid API"
   },
-  "prompt": "attribution@v1",
+  "prompt": "attribution@v2",
   "models": {
-   "hyperscaler": "hyperscaler@v2",
-   "neocloud": "neocloud@v1",
-   "miner_to_hpc": "miner_to_hpc@v1",
-   "chip_seller": "chip_seller@v1",
-   "component_supplier": "component_supplier@v1",
-   "other": "other@v1",
-   "chip_equipment": "chip_equipment@v1",
-   "datacenter_build": "datacenter_build@v1",
-   "datacenter_landlord": "datacenter_landlord@v1",
-   "power": "power@v1",
-   "ai_software": "ai_software@v1"
+   "hyperscaler": "hyperscaler@v4",
+   "neocloud": "neocloud@v3",
+   "miner_to_hpc": "miner_to_hpc@v3",
+   "chip_seller": "chip_seller@v3",
+   "component_supplier": "component_supplier@v3",
+   "other": "other@v3",
+   "chip_equipment": "chip_equipment@v3",
+   "datacenter_build": "datacenter_build@v3",
+   "datacenter_landlord": "datacenter_landlord@v3",
+   "power": "power@v3",
+   "ai_software": "ai_software@v3"
   },
   "history": [
    {
@@ -287,6 +287,66 @@
     "at": "2026-10-30T03:11:35+00:00",
     "by": "Kenny Geiler",
     "change": "component_supplier@v3 saved, not in use: C2: sourced thesis; company facts cited, Sources section"
+   },
+   {
+    "at": "2026-10-30T04:17:29+00:00",
+    "by": "Kenny Geiler",
+    "change": "hyperscaler: switched to hyperscaler@v4"
+   },
+   {
+    "at": "2026-10-30T04:17:29+00:00",
+    "by": "Kenny Geiler",
+    "change": "neocloud: switched to neocloud@v3"
+   },
+   {
+    "at": "2026-10-30T04:17:29+00:00",
+    "by": "Kenny Geiler",
+    "change": "miner_to_hpc: switched to miner_to_hpc@v3"
+   },
+   {
+    "at": "2026-10-30T04:17:29+00:00",
+    "by": "Kenny Geiler",
+    "change": "chip_seller: switched to chip_seller@v3"
+   },
+   {
+    "at": "2026-10-30T04:17:29+00:00",
+    "by": "Kenny Geiler",
+    "change": "component_supplier: switched to component_supplier@v3"
+   },
+   {
+    "at": "2026-10-30T04:17:29+00:00",
+    "by": "Kenny Geiler",
+    "change": "other: switched to other@v3"
+   },
+   {
+    "at": "2026-10-30T04:17:29+00:00",
+    "by": "Kenny Geiler",
+    "change": "chip_equipment: switched to chip_equipment@v3"
+   },
+   {
+    "at": "2026-10-30T04:17:29+00:00",
+    "by": "Kenny Geiler",
+    "change": "datacenter_build: switched to datacenter_build@v3"
+   },
+   {
+    "at": "2026-10-30T04:17:29+00:00",
+    "by": "Kenny Geiler",
+    "change": "datacenter_landlord: switched to datacenter_landlord@v3"
+   },
+   {
+    "at": "2026-10-30T04:17:29+00:00",
+    "by": "Kenny Geiler",
+    "change": "power: switched to power@v3"
+   },
+   {
+    "at": "2026-10-30T04:17:29+00:00",
+    "by": "Kenny Geiler",
+    "change": "ai_software: switched to ai_software@v3"
+   },
+   {
+    "at": "2026-10-30T04:17:29+00:00",
+    "by": "Kenny Geiler",
+    "change": "switched to attribution@v2"
    }
   ]
  },
