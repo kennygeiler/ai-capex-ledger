@@ -182,3 +182,16 @@ class ZerosAreCounted(unittest.TestCase):
         self.assertEqual(scale_of("($000,000, except per share)"), 1_000_000)
         self.assertEqual(scale_of("(in millions)"), 1_000_000)
         self.assertEqual([u["scale"] for u in document_units("<p>Consolidated Statements of Income (000,000)</p>")], [1_000_000])
+
+
+class WholeDollars(unittest.TestCase):
+    def test_expressed_in_us_dollars_is_scale_one(self):
+        from ledger.ingest.tables import scale_of
+        html_ = """<html><body><p>Notes (in thousands)</p><table><tr><td></td><td>2025</td></tr><tr><td>Lease cost</td><td>1,200</td></tr><tr><td>Total lease cost</td><td>1,200</td></tr><tr><td>Short-term lease cost</td><td>50</td></tr></table>
+        <p>BIT DIGITAL, INC. CONSOLIDATED STATEMENTS OF OPERATIONS (Expressed in US dollars, except for the number of shares)</p>
+        <table><tr><td></td><td>2025</td><td>2024</td></tr><tr><td>Revenue</td><td>105,012,000</td><td>108,117,000</td></tr><tr><td>Cost of revenue</td><td>60,000,000</td><td>55,000,000</td></tr>
+        <tr><td>Operating income</td><td>5,000,000</td><td>4,000,000</td></tr><tr><td>Income tax expense</td><td>100,000</td><td>90,000</td></tr><tr><td>Net income</td><td>4,000,000</td><td>3,500,000</td></tr><tr><td>Diluted earnings per share</td><td>0.03</td><td>0.03</td></tr></table></body></html>"""
+        tables = parse_tables(html_)
+        self.assertEqual(tables[1]["scale"], 1)
+        self.assertEqual(scale_of("(in thousands of dollars)"), 1_000)
+        self.assertEqual(sorted(u["scale"] for u in document_units(html_)), [1, 1_000])

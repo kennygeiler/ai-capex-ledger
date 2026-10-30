@@ -15,7 +15,7 @@ import html
 import re
 from html.parser import HTMLParser
 
-PARSER_VERSION = "tables@12"  # 11: a quarterly table never raises the marker bar; 12: "(000,000)" is millions (zeros counted)
+PARSER_VERSION = "tables@13"  # 12: "(000,000)" is millions (zeros counted); 13: "(expressed in US dollars)" is whole dollars
 _NUM = re.compile(r"^\(?-?\$?\s*\(?([0-9][0-9,]*(?:\.[0-9]+)?)\s*\)?%?$")
 _DASHES = {"—", "–", "-", "— ", "−"}
 _CCY = r"(?:USD\s+|US\$\s*|U\.S\.\s+dollars\s+|dollars\s+)?"
@@ -25,6 +25,8 @@ _UNIT_PAREN = re.compile(r"\(\s*(?:(?:US)?\$\s*(thousands|millions|billions)|(th
 _UNIT_LOOSE = re.compile(r"\b(?:in|dollars in|amounts in)\s+" + _CCY + r"(thousands|millions|billions)\b", re.I)
 # Coherent's "($000)" and "($000, except per share data)": three zeros for thousands.
 _UNIT_000 = re.compile(r"\(\s*(?:US)?\$?\s*000(?:,000)*s?\b[^)]*\)", re.I)
+# Bit Digital's "(Expressed in US dollars, except for the number of shares)": whole dollars, scale 1.
+_UNIT_ONES = re.compile(r"\(\s*(?:expressed |amounts |stated |presented )?in\s+(?:U\.?S\.?\s+)?dollars\b(?!\s+in\s+(?:thousands|millions|billions))[^)]*\)", re.I)
 
 
 def scale_of(unit_text: str) -> int:
@@ -33,7 +35,9 @@ def scale_of(unit_text: str) -> int:
     if m:
         return SCALES[m.group(0).lower()]
     zeros = len(re.sub(r"[^0]", "", unit_text))
-    return 1_000_000_000 if zeros >= 9 else 1_000_000 if zeros >= 6 else 1_000
+    if zeros:
+        return 1_000_000_000 if zeros >= 9 else 1_000_000 if zeros >= 6 else 1_000
+    return 1  # "(expressed in US dollars)": whole dollars
 _YEAR = re.compile(r"^(19|20)\d\d$")
 SCALES = {"thousands": 1_000, "millions": 1_000_000, "billions": 1_000_000_000}
 
@@ -176,7 +180,7 @@ def _structure(raw: dict, idx: int) -> dict | None:
     for r in rows[:first_data]:
         cells, slot = [], 0
         for text, span in r:
-            if text and text != "$" and not _UNIT.search(text) and not _UNIT_PAREN.fullmatch(text.strip()) and not _UNIT_000.fullmatch(text.strip()):
+            if text and text != "$" and not _UNIT.search(text) and not _UNIT_PAREN.fullmatch(text.strip()) and not _UNIT_000.fullmatch(text.strip()) and not _UNIT_ONES.fullmatch(text.strip()):
                 cells.append((slot, slot + span, text))
             slot += span
         inner = [c for c in cells if c[0] > 0]  # cells in the label column are section labels ("Revenue:")
@@ -208,7 +212,7 @@ def _structure(raw: dict, idx: int) -> dict | None:
 
     unit_text = None
     for src in [raw["before"][-300:]] + [" ".join(t for t, _ in r) for r in rows[:first_data + 2]]:
-        m = _UNIT.search(src) or _UNIT_PAREN.search(src) or _UNIT_LOOSE.search(src) or _UNIT_000.search(src)
+        m = _UNIT.search(src) or _UNIT_PAREN.search(src) or _UNIT_LOOSE.search(src) or _UNIT_000.search(src) or _UNIT_ONES.search(src)
         if m:
             unit_text = m.group(0)
     body = [{"label": label, "cells": [{"col": i, "text": x, "value": parse_number(x)} for i, x in snap(nums)]}
@@ -240,7 +244,7 @@ def document_units(doc: bytes | str) -> list[dict]:
     text = re.sub(r"<ix:header>.*?</ix:header>", " ", text, flags=re.S | re.I)
     text = html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", text)))
     out = []
-    for rx in (_UNIT, _UNIT_PAREN, _UNIT_000):
+    for rx in (_UNIT, _UNIT_PAREN, _UNIT_000, _UNIT_ONES):
         for m in rx.finditer(text):
             out.append({"text": m.group(0), "scale": scale_of(m.group(0)), "offset": m.start(),
                         "context": text[max(0, m.start() - 120):m.end() + 40].strip()})
