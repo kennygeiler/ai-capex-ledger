@@ -124,3 +124,5 @@ module you will change. Run the tests before and after. The invariants that must
 Verify, don't assert: the pipeline writes `runs`, snapshots, `data/jobs/progress.json`, `reports/evaluation.json`
 and `data/attribution/diff.json`; read them rather than the log. `rtk` wraps shell commands in some sessions and
 truncates long output; use `rtk proxy <cmd>` or a Python one-liner to read a full file or an HTTP body.
+
+`docs/REPLICATION.md` is the latest walk through the app as its user would do it, with what served, what hindered, and the fix list.
