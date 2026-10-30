@@ -43,7 +43,7 @@ def report(con, tickers: list[str] | None = None) -> dict:
             o["calls"] += 1
             o["input_tokens"] += inp
             o["output_tokens"] += out
-            o["seconds"] += float(r["seconds"] or 0)
+            o["seconds"] += float(d.get("seconds") or r["seconds"] or 0)  # the agent call's own seconds, not the loader's
             o["attempts"] += int(d.get("attempts") or (1 if r["outcome"] == "ok" else 0))
             o["failed"] += r["outcome"] == "failed"
             o["usd"] += usd(model, inp, out) or 0.0
