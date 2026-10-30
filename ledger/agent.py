@@ -78,7 +78,9 @@ def ask(agent_id: str, task: str, check) -> dict:
             return {**obj, "_run": run}
         except Invalid as e:
             reason = e.reason
-    raise Invalid(f"{reason} (after {run['attempts']} attempts)")
+    err = Invalid(f"{reason} (after {run['attempts']} attempts)")
+    err.answer = text[:20000]  # the last rejected answer, kept in the output file so the failure can be read
+    raise err
 
 
 def extract(task: str, parsed: dict) -> dict:

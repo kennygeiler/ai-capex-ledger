@@ -74,7 +74,7 @@ def main(argv=None) -> int:
                 obj["_run"]["task_sha"] = sha(paths[t])
                 note = f"{len(obj['rows'])} rows, {sum(r['ai_amount'] is not None for r in obj['rows'])} with an amount, {obj['_run']['seconds']:.0f}s, {obj['_run']['attempts']} attempt(s)"
             except Invalid as e:
-                obj, note = {"ticker": t, "error": e.reason}, f"FAILED: {e.reason}"
+                obj, note = {"ticker": t, "error": e.reason, "rejected": getattr(e, "answer", None)}, f"FAILED: {e.reason}"
             (out_dir / f"{t}.json").write_text(json.dumps(obj, indent=1))
             return f"  {t}: {note}"
 
