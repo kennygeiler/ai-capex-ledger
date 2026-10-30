@@ -5,6 +5,10 @@
 set -e
 cd "$(dirname "$0")/.."
 export LEDGER_CLAUDE="${LEDGER_CLAUDE:-$CLAUDE_CODE_EXECPATH}"
+# C2: dry-run every newest thesis against its layer before switching it on (data/attribution/dryrun/<version>/result.json)
+for v in $(uv run python -c "from ledger.agents import load, model_versions; cfg=load()['attributor']; print(' '.join(model_versions(l)[-1] for l in cfg['models'] if cfg['models'][l] != model_versions(l)[-1]))"); do
+  uv run python -m ledger attribution --stage 3 --run --model-version "$v" --dry-run || true
+done
 uv run python - <<'PY'
 from ledger.agents import load, use_model, use_prompt, model_versions
 cfg = load()["attributor"]
