@@ -62,7 +62,6 @@ Each sourced thesis (ticket C2) was run against its layer with `attribution --mo
 | component_supplier@v3 | component_supplier@v1 | 18 | 1 | 58 | 82 | 0/3 | 2/3 |
 | datacenter_build@v3 | datacenter_build@v1 | 11 | 0 | 35 | 24 | 0/2 | 1/2 |
 | datacenter_landlord@v3 | datacenter_landlord@v1 | 3 | 4 | 0 | 1 | 0/0 | 0/0 |
-| hyperscaler@v1 | hyperscaler@v2 | 2 | 0 | 0 | 0 | 0/3 | 0/3 |
 | hyperscaler@v4 | hyperscaler@v2 | 5 | 0 | 6 | 3 | 2/5 | 2/5 |
 | miner_to_hpc@v3 | miner_to_hpc@v1 | 11 | 1 | 40 | 10 | 0/5 | 2/5 |
 | neocloud@v3 | neocloud@v1 | 1 | 0 | 3 | 0 | 1/2 | 2/2 |
