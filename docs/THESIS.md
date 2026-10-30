@@ -49,3 +49,22 @@ either: the API for what the pipeline holds now, Postgres for what was signed.
 A view is a saved question: a measure, filters, a grouping, and how to show it (grid, bars by year, share by
 company). Stored in `data/views.json`, created and edited in DATAHQ, served at `/api/v1/views` and
 `/api/v1/views/<id>/data`, so a view built by a person is a query another system can call.
+
+## Dry runs before the switch-on (30 Oct 2026)
+
+Each sourced thesis (ticket C2) was run against its layer with `attribution --model-version X@vN --dry-run` before `use_model`, under the `attribution@v1` prompt. New rows are mostly revenue exposure; removed rows are `none` rows the thesis no longer emits. The reference column is agreement with `gold/ai_capex.yaml` for the layer's companies, before and after.
+
+| Thesis | replaced | companies | rows changed | new | removed | reference agree before | after |
+|---|---|---|---|---|---|---|---|
+| ai_software@v3 | ai_software@v1 | 6 | 3 | 5 | 17 | 0/0 | 0/0 |
+| chip_equipment@v3 | chip_equipment@v1 | 8 | 0 | 22 | 0 | 0/0 | 0/0 |
+| chip_seller@v3 | chip_seller@v1 | 14 | 0 | 66 | 22 | 0/5 | 3/5 |
+| component_supplier@v3 | component_supplier@v1 | 18 | 1 | 58 | 82 | 0/3 | 2/3 |
+| datacenter_build@v3 | datacenter_build@v1 | 11 | 0 | 35 | 24 | 0/2 | 1/2 |
+| datacenter_landlord@v3 | datacenter_landlord@v1 | 3 | 4 | 0 | 1 | 0/0 | 0/0 |
+| hyperscaler@v1 | hyperscaler@v2 | 2 | 0 | 0 | 0 | 0/3 | 0/3 |
+| hyperscaler@v4 | hyperscaler@v2 | 5 | 0 | 6 | 3 | 2/5 | 2/5 |
+| miner_to_hpc@v3 | miner_to_hpc@v1 | 11 | 1 | 40 | 10 | 0/5 | 2/5 |
+| neocloud@v3 | neocloud@v1 | 1 | 0 | 3 | 0 | 1/2 | 2/2 |
+| other@v3 | other@v1 | 12 | 1 | 33 | 56 | 0/1 | 0/1 |
+| power@v3 | power@v1 | 4 | 2 | 6 | 7 | 0/0 | 0/0 |
