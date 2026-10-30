@@ -129,3 +129,32 @@ class NoteLocator(unittest.TestCase):
         t = {"id": "t0130", "before": "Property and equipment, net, consisted of the following (in millions):", "rows": [{"label": l, "cells": [{"col": 0, "text": "1", "value": 1}]} for l in rows]}
         self.assertIn("t0130", locate([t], set())["ppe"])
 
+
+
+class ThousandsAsZeros(unittest.TestCase):
+    HTML = """<html><body><p>Coherent Corp. and Subsidiaries Consolidated Statements of Cash Flows</p>
+    <table><tr><td></td><td>Year Ended June 30,</td><td></td></tr><tr><td></td><td>2023</td><td>2022</td></tr><tr><td>($000)</td><td></td><td></td></tr>
+    <tr><td>Net earnings (loss)</td><td>(259,458)</td><td>234,759</td></tr>
+    <tr><td>Additions to property, plant &amp; equipment</td><td>(436,060)</td><td>(314,332)</td></tr>
+    <tr><td>Net cash provided by operating activities</td><td>783,962</td><td>597,603</td></tr></table></body></html>"""
+
+    def test_dollar_000_is_thousands(self):
+        t = parse_tables(self.HTML)[0]
+        self.assertEqual(t["scale"], 1_000)
+        self.assertIn("000", t["unit_text"])
+        self.assertEqual(t["columns"], ["Year Ended June 30, | 2023", "Year Ended June 30, | 2022"])
+        self.assertEqual([u["scale"] for u in document_units(self.HTML)], [1_000])
+
+
+class PercentColumnsNeverWin(unittest.TestCase):
+    def test_mdna_percent_of_revenue_table_loses_to_the_statement(self):
+        html_ = """<html><body><p>The following table sets forth select items from our Consolidated Statements of Earnings (Loss) ($ in millions):</p>
+        <table><tr><td></td><td>2023</td><td>% of Revenues</td></tr><tr><td>Revenues</td><td>5,160</td><td>100%</td></tr><tr><td>Cost of goods sold</td><td>3,542</td><td>69%</td></tr>
+        <tr><td>Operating income</td><td>205</td><td>4%</td></tr><tr><td>Income tax expense</td><td>40</td><td>1%</td></tr><tr><td>Net earnings</td><td>(259)</td><td>(5)%</td></tr><tr><td>Diluted earnings per share</td><td>(1.83)</td><td></td></tr></table>
+        <p>Consolidated Statements of Earnings (Loss)</p>
+        <table><tr><td></td><td>2023</td><td>2022</td></tr><tr><td>($000, except per share data)</td><td></td><td></td></tr><tr><td>Revenues</td><td>5,160,100</td><td>3,316,616</td></tr>
+        <tr><td>Cost of goods sold</td><td>3,541,817</td><td>2,051,120</td></tr><tr><td>Operating income</td><td>205,000</td><td>400,000</td></tr><tr><td>Income tax expense</td><td>40,000</td><td>50,000</td></tr><tr><td>Net earnings (loss)</td><td>(259,458)</td><td>234,759</td></tr><tr><td>Diluted earnings per share</td><td>(1.83)</td><td>1.62</td></tr></table></body></html>"""
+        tables = parse_tables(html_)
+        self.assertEqual(len(tables), 2)
+        self.assertEqual(locate(tables)["income"], [tables[1]["id"]])
+        self.assertEqual(tables[1]["scale"], 1_000)

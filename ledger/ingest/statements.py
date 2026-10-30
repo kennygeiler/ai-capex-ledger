@@ -47,7 +47,8 @@ def _mdna(tables: list[dict]) -> bool:
     return bool(MDNA.search(tables[0]["before"][-300:]))
 
 
-SUMMARY = re.compile(r"snapshot|highlights|selected financial|summary", re.I)
+SUMMARY = re.compile(r"snapshot|highlights|selected? (financial|items)|summary", re.I)
+PERCENT = re.compile(r"%|percent", re.I)
 BALANCE = re.compile(r"^(total )?(assets|liabilities|(stockholders'|shareholders'|total )?equity)\b", re.I)
 
 
@@ -56,7 +57,8 @@ def _summary(tables: list[dict]) -> bool:
     "Management Discussion Snapshot" has revenue, net income and EPS, then assets, liabilities, equity). Never the
     primary statement, even when it scores like one and comes first."""
     labels = [r["label"] for t in tables for r in t["rows"]]
-    return bool(SUMMARY.search(tables[0]["before"][-300:])) or (any(BALANCE.search(l) for l in labels) and any(INCOME_MARKERS["revenue"].search(l) for l in labels))
+    percent = any(PERCENT.search(c) for t in tables for c in t["columns"])  # "% of Revenues" columns: an MD&A analysis table (Coherent)
+    return percent or bool(SUMMARY.search(tables[0]["before"][-300:])) or (any(BALANCE.search(l) for l in labels) and any(INCOME_MARKERS["revenue"].search(l) for l in labels))
 
 
 def _quarterly(tables: list[dict]) -> bool:
