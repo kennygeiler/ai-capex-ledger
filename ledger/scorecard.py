@@ -8,10 +8,13 @@ from .evidence import load_all
 
 
 def scorecard(con, tickers: list[str], name: str) -> list[dict]:
-    q = lambda sql: [dict(zip([c[0] for c in con.execute(sql, [tickers]).description], r)) for r in con.execute(sql, [tickers]).fetchall()]
+    def q(sql):  # one execution per query; it used to run each twice, once for the column names (the Flow page took five seconds)
+        cur = con.execute(sql, [tickers])
+        cols = [c[0] for c in cur.description]
+        return [dict(zip(cols, r)) for r in cur.fetchall()]
     docs = q("select accession, ticker from documents where ticker in (select unnest(?))")
     runs = {}  # accession -> latest extract run detail
-    for r in q("select subject, started_at, detail from runs where step = 'extract' and subject in (select accession from documents where ticker in (select unnest(?))) order by started_at"):
+    for r in q("select r.subject, r.started_at, r.detail from runs r join documents d on d.accession = r.subject where r.step = 'extract' and d.ticker in (select unnest(?)) order by r.started_at"):
         runs[r["subject"]] = json.loads(r["detail"] or "{}")
     vals = q('select ticker, label, value, extraction_ids from "values" where ticker in (select unnest(?))')
     excs = q("select * from exceptions where ticker in (select unnest(?))")

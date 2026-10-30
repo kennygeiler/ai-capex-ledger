@@ -46,8 +46,8 @@ either: the API for what the pipeline holds now, Postgres for what was signed.
 
 ## Views
 
-A view is a saved question: a measure, filters, a grouping, and how to show it (grid, bars by year, share by
-company). Stored in `data/views.json`, created and edited in DATAHQ, served at `/api/v1/views` and
+A view is a saved question: a measure, filters, and how to show it, since 30 Oct a chart spec (x, series, type)
+built in the Explorer. Stored in `data/views.json`, created and edited in DATAHQ, served at `/api/v1/views` and
 `/api/v1/views/<id>/data`, so a view built by a person is a query another system can call.
 
 ## Dry runs before the switch-on (30 Oct 2026)

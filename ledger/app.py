@@ -242,7 +242,26 @@ def usd_(n) -> str:
     return "—" if n is None else f"${n / 1e6:,.0f}M"
 
 
+_FLOW: dict = {}
+
+
+def _stamp() -> tuple:
+    """What the Flow page depends on: the database, the resolutions, the attribution diff, the evaluation, the releases, the company list."""
+    paths = [store.DEFAULT_DB, resolutions.LOG, store.ROOT / "data" / "attribution" / "diff.json", store.ROOT / "reports" / "evaluation.json", RELEASES, ADDED, EVIDENCE]
+    return tuple(p.stat().st_mtime_ns if p.exists() else 0 for p in paths)
+
+
 def flow(scope: str) -> dict:
+    """`_flow` cached by scope while nothing it reads has changed; the first load after a run pays once."""
+    key = (scope, _stamp())
+    if key not in _FLOW:
+        if len(_FLOW) > 24:
+            _FLOW.clear()
+        _FLOW[key] = _flow(scope)
+    return _FLOW[key]
+
+
+def _flow(scope: str) -> dict:
     """The flow screen: what changed, then each stage's artifacts and checks, for a scope (all, an industry, or a
     ticker). Everything from what the pipeline already wrote."""
     present = {c["ticker"] for c in tracked()}
@@ -313,7 +332,8 @@ def flow(scope: str) -> dict:
             queue.append({"kind": "reference_disagrees", "state": "disagrees", "ticker": r["ticker"], "where": f"AI capex {r['period']}", "impact": f"the attribution by {r['method']}: {usd_(at_stake)} between ours and the stated figure",
                           "dollars": at_stake, "new": True, "action": "method", "detail": r})
     for f in facts_changed[:30]:
-        queue.append({"kind": "fact_changed", "state": "moved", "ticker": f["ticker"], "where": f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " "), "impact": "attribution inputs; the next release", "dollars": 0, "new": True, "action": "release", "detail": f})
+        queue.append({"kind": "fact_changed", "state": "moved", "ticker": f["ticker"], "where": f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " "), "impact": "attribution inputs; the next release", "dollars": 0, "new": True, "action": "release",
+                      "detail": {**f, "release_value": (lambda v: None if v in (None, "") else float(v))(rel_facts.get((f["ticker"], f["field"], f["dimension"], f["period"])))}})
     for f in facts:
         if f["label"] == "unresolved":
             fid = f"fact:{f['ticker']}|{f['field']}|{f['dimension']}|{f['period']}"
@@ -583,6 +603,14 @@ class Handler(BaseHTTPRequestHandler):
         name, fmt = parts[0], q.get("format", "json")
         if name.endswith(".csv"):
             name, fmt = name[:-4], "csv"
+        if name == "reconcile":  # the workbench, docs/DATAHQ.md
+            from . import workbench
+            f = flow(q.get("scope", "all"))
+            con = _con()
+            try:
+                return self._json(workbench.items(con, f))
+            finally:
+                con.close()
         if name in ("coverage", "cost"):
             from .cost import report
             con = _con()
@@ -628,6 +656,13 @@ class Handler(BaseHTTPRequestHandler):
             return self._json({"error": "send JSON"}, HTTPStatus.BAD_REQUEST)
         if u.path == "/api/companies":
             return self._guard(lambda: self._json(add_company(body.get("ticker", ""), body.get("by", ""))))
+        if u.path == "/api/resolve/bulk":  # one reason for many items, each logged on its own
+            def bulk():
+                out = [resolutions.resolve(i.get("key", ""), i.get("hash", ""), body.get("state", ""), body.get("reason", ""), body.get("by", "")) for i in body.get("items") or []]
+                if not out:
+                    raise ValueError("no items")
+                return {"saved": len(out)}
+            return self._guard(lambda: self._json(bulk()))
         if u.path == "/api/resolve":
             return self._guard(lambda: self._json(resolutions.resolve(body.get("key", ""), body.get("hash", ""), body.get("state", ""), body.get("reason", ""), body.get("by", ""))))
         if u.path == "/api/dryrun":

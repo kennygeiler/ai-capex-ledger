@@ -16,7 +16,9 @@ ROOT = Path(__file__).resolve().parents[1]
 FILE = ROOT / "data" / "views.json"
 MEASURES = ("attribution", "values", "facts", "statements", "plans", "projects")
 GROUPS = (None, "ticker", "layer", "period", "field", "method", "kind", "scope")
-SHOWS = ("grid", "bars", "lines", "shares")
+SHOWS = ("grid", "bars", "lines", "shares", "chart")  # chart: the Explorer's spec in `chart` {x, series, type}
+CHART_AXES = ("period", "ticker", "layer", "field", "method", "kind", "dimension", "status", "scope", "source")
+CHART_TYPES = ("bars", "stacked", "lines", "share")
 
 
 def load() -> dict:
@@ -51,8 +53,17 @@ def save(view: dict, by: str) -> dict:
     filters = view.get("filters") or {}
     if not isinstance(filters, dict) or any(not isinstance(k, str) or not isinstance(v, str) for k, v in filters.items()):
         raise ValueError("filters is a map of column to comma-separated values")
+    chart = view.get("chart")
+    if view.get("show") == "chart":
+        if not isinstance(chart, dict) or chart.get("x") not in CHART_AXES or chart.get("series", "") not in CHART_AXES + ("",) or chart.get("type") not in CHART_TYPES:
+            raise ValueError(f"a chart view needs chart = {{x: one of {CHART_AXES}, series: one of those or empty, type: one of {CHART_TYPES}}}")
+        chart = {"x": chart["x"], "series": chart.get("series") or "", "type": chart["type"], "value": str(chart.get("value") or "")}
+    else:
+        chart = None
     new = {"id": vid, "name": name, "measure": view["measure"], "filters": filters, "group": view.get("group"), "show": view.get("show", "grid"),
            "note": (view.get("note") or "").strip(), "by": by.strip(), "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    if chart:
+        new["chart"] = chart
     d = load()
     old = next((v for v in d["views"] if v["id"] == vid), None)
     if old:

@@ -77,3 +77,34 @@ Kenny's note after the first rebuild: the app explained in sentences what it sho
 Captions are one line; the only paragraph left is the attribution basis, which is the number's explanation.
 
 Design rules kept: no tags, italics, dividers, bordered boxes, section numbers or gradient heroes; one accent, red only for a failure; tabular numbers; running text under 65 characters where it is prose; both themes from the same tokens; phone width with a 16px gutter.
+
+## Reconcile and Explore (30 Oct)
+
+Kenny, after the 100-company run: "there's no charts for me to manipulate", and "if I am supposed to be cleaning
+data, the way it is presented to me is extremely difficult to actually reconcile." Both were true. Views were
+static bar lists; the Flow queue was sentences with one dollar figure, the two numbers a person needs were one
+drawer away for every one of 198 items, rows interleaved companies and causes, and the page took five seconds.
+
+**Reconcile** (`#reconcile`, `/api/v1/reconcile?scope=`): every open item as one row: company, where, ours,
+reference, delta (dollars or share points, and a percent), decision. Grouped by cause or by company, filtered by
+cause, layer and field, resolved rows hidden by default. Enter opens the evidence under the row, not in a drawer:
+the amount, method and inputs with their values for an attribution; the cited cell, its row, column, table and
+screenshot for a fact; the quote with its source and date for a stated figure; before and after for a move. The
+decision sits beside the evidence: Accept, Explain, Fix or Blocks, a reason, Save. Keyboard: j and k move, Enter
+opens, a, e, f, b pick the decision and focus the reason, space selects; a selection gets one form that resolves
+every selected row with one reason (`/api/resolve/bulk`, each row logged on its own). A key press never animates.
+The Flow page keeps its four stages and links here for the work.
+
+**Explore** (`#explore`, replaces Views): a measure (attribution, values, facts, statements, plans, projects), its
+field and kind, a layer, tickers, a year range; then an x axis, a series and a chart type (bars, stacked, lines,
+share of total). Plotly draws it: hover for the value and its share of the x, click a legend entry to hide a series,
+drag to zoom, double-click to reset, click a bar or point for the rows behind it with links into the dataset. More
+than eight series fold into Other; a series keeps its colour across filters (a registry in the browser). Save as
+view keeps the spec (`show: chart`, `chart: {x, series, type, value}`) in `data/views.json`; a saved view is still a
+query at `/api/v1/views/<id>/data`. Y axis in $B or $M by the data; axis and grid hairlines in the page's own
+neutrals, both themes.
+
+**Speed:** the Flow page (and so Reconcile) took five seconds because the scorecard ran each of its queries twice
+and one of them scanned the runs table; both fixed, and `flow()` is cached by scope until anything it reads changes
+(database, resolutions, diff, evaluation, releases, companies, evidence). Cold 0.3 s, warm instant.
+

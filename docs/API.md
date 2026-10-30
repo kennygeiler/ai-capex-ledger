@@ -22,6 +22,10 @@ behind a proxy that authenticates before exposing it.
 The four measures (`docs/THESIS.md`): capex allocation and revenue exposure are `attribution` rows with field
 `capex` or `revenue`; project-level investment is `projects`; plans versus reality is `plans`.
 
+One screen's feed: `/api/v1/reconcile?scope=all|<layer>|<ticker>` is the Reconcile workbench's rows (`docs/DATAHQ.md`): one per open
+item with `ours`, `reference`, `delta`, `delta_pct`, `measure` (usd or share), the cause, the evidence (cell, screenshot, quote, inputs) and the
+resolution. `POST /api/resolve` records one decision `{key, hash, state, reason, by}`; `POST /api/resolve/bulk` takes `{items: [{key, hash}], state, reason, by}`.
+
 Two roll-ups, not lists: `/api/v1/coverage` (per layer and field: companies with an AI amount, words only, none,
 not run) and `/api/v1/cost` (agent calls, tokens, seconds, attempts, failures and an estimated price at list, per
 step and per company; `ledger cost` writes the same to `reports/cost.json`).
@@ -53,7 +57,7 @@ A JSON response is `{"list", "count", "filters", "rows"}`.
 
 A view is a saved question: `{id, name, measure, filters, group, show, note}` where `measure` is one of the lists
 above (attribution, values, facts, statements, plans, projects), `filters` and `group` are as above, and `show` is
-`grid`, `bars` (one bar per group), `lines` (one line per company by year) or `shares` (a share grid). Views live in `data/views.json`, tracked.
+`grid`, `bars` (one bar per group), `lines` (one line per company by year), `shares` (a share grid) or `chart`, the Explorer's spec in `chart: {x, series, type, value}` (x and series from period, ticker, layer, field, method, kind, dimension, status, scope, source; type bars, stacked, lines or share). Views live in `data/views.json`, tracked.
 
 ```
 GET  /api/v1/views                 the saved views
