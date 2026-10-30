@@ -42,3 +42,10 @@ COMP:
       definition.
     by: Kenny Geiler
     at: 2026-10-28
+
+CDNS:
+  cost_lines:
+    lines: [Cost of product and maintenance, Cost of services]
+    why: Cadence reports no cost-of-revenue total; these are its two cost lines above gross margin.
+    by: Kenny Geiler
+    at: 2026-10-30

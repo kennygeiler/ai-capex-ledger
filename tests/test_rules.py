@@ -194,3 +194,15 @@ class Engine(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class FiftyThreeWeekYear(unittest.TestCase):
+    def test_column_named_by_prior_year_is_accepted(self):
+        from ledger import rules as R
+        ctx = type("C", (), {})()
+        ok = {"ticker": "CDNS", "field": "capex", "column_label": "2020", "period_end": "2021-01-02", "period_start": "2019-12-29", "extraction_id": "e1"}
+        bad = {**ok, "column_label": "2019", "extraction_id": "e2"}
+        plain = {**ok, "column_label": "2020", "period_end": "2021-06-30", "period_start": "2020-07-01", "extraction_id": "e3"}
+        ctx.extractions = [ok, bad, plain]
+        out = R._column_period(ctx, {})
+        self.assertEqual(sorted(f.subject for f in out), ["e2", "e3"])

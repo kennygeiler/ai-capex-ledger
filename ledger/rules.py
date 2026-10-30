@@ -105,7 +105,8 @@ def _column_period(ctx, p):
         years = [int(y) for y in re.findall(r"\b(20\d\d)\b", label)]
         span = re.search(r"(three|six|nine|twelve) months|year", label, re.I)
         months = round(_days(e) / 30.4)
-        if stated and stated != end or not stated and years and end.year not in years:
+        named = {end.year} | ({end.year - 1} if end.month == 1 and end.day <= 7 else set())  # a 52/53-week year ending 2 Jan 2021 is "2020"
+        if stated and stated != end or not stated and years and not (set(years) & named):
             out.append(Finding(e["ticker"], f"column '{label}' does not match the claimed period end {end}", e["field"], None, e["extraction_id"]))
         elif span and spans[span.group(1 if span.group(1) else 0).lower()] != months:
             out.append(Finding(e["ticker"], f"column '{label}' does not match the claimed length of {months} months", e["field"], None, e["extraction_id"]))
