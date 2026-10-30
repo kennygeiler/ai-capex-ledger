@@ -10,7 +10,6 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 |---|---|---|
 | C1 | **Revenue exposure has no stated inputs.** The AI-spend reader reads capex and opex statements only, so `stated_share` / `stated_amount` for `revenue` can never fire; Broadcom's "AI semiconductor revenue" is invisible. | `aispend@v4` reads revenue statements too (field `revenue`, scope `ai`: "AI revenue of $X", "data center revenue was N% of total"); `ai_statements`/`ai_spend` carry them; a rerun over every text; the attributor's revenue rows use them. |
 | C2 | **Theses are thin.** Written by an agent without sources; company facts hedged with "when stated". | Every thesis's next version cites at least three sources per layer (filings, calls, independent estimates) in a Sources section, names each company's AI segment or stated share with the source, and is dry-run before use. |
-| C3 | **Reference set covers 6% of companies.** Six entries, all hyperscalers. | At least 25 sourced entries across at least six layers in `gold/ai_capex.yaml` (URL, quote, date each); `ledger eval` reports agreement per layer. |
 | C4 | **Most of the 100 attribute `none`.** Honest, but the dataset says nothing about them. | A coverage roll-up per layer and measure (`/api/v1/coverage`, Status tab): companies with an amount, with words only, with nothing, per field; the Companies section of each thesis says why a `none` company is in the set. |
 | C5 | **Committed and planned are weak.** Purchase commitments and finance leases are extracted but never attributed; planned is total guidance only. | Attribution has `kind: committed` (method `commitment`: AI part of purchase commitments or lease commitments per the thesis) and `kind: outlook` rows from AI guidance; the Dataset's committed and planned columns fill from them. |
 | C6 | **Views are a filtered grid.** Bars and shares are hints, no real charts. | A view shows as a grid, a bar chart by group, a line chart by year per company, or a share grid; charts use the existing chart helpers and the ledger palette. |
@@ -32,6 +31,8 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 | L2 | Non-functional checks as tests: SEC request spacing and contact header; no email or key in any output; parse under 60 s; `uv sync --frozen` works. | 4 tests. |
 
 ## Done
+
+| C3 | Reference set 6 to 26 sourced entries across 7 layers (15 revenue, 11 capex), each with URL, quote and date; press-reported statements marked `company_statement_via_press`; `ledger eval` reports agreement and intervals per layer. Done 30 Oct 2026. |
 
 - **Data screen (29 Oct):** DATAHQ as a dataset console after researching Arctal: filter bar, status strip, shaded grid with changed-cell outlines, provenance panel, chart of the selection, CSV export, saved views as links; `/api/data` long format.
 - **Evaluation (29 Oct):** `gold/ai_capex.yaml` reference set, `ledger eval`, `EVALUATION.md` in releases, Insights section; Alphabet's renamed PP&E categories fixed (type 45); server-category overstatement measured (type 46).
