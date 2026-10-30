@@ -290,7 +290,7 @@ What each company cost. `ledger run` prints this, and each validation page shows
     the attributor must answer `qualitative` and name the part-year figure. The code guard alone made the run fail
     (the attributor kept answering what other@v3 told it to, twice, and a failed run leaves the company with no
     attribution rows), so other@v4 says the same rule in words. A `stated_sum` method (type 42) is still the right
-    long-term answer. Found by the replication run (`docs/REPLICATION.md`); the UI's truncated quote had hidden
+    long-term answer. Found by the replication run (`docs/archive/REPLICATION.md`); the UI's truncated quote had hidden
     the words "AI infrastructure capex", so the first diagnosis ("misread") was wrong.
 69. **A multi-year program read as a year's guidance.** Equinix's release: "a greater than $15 billion joint venture,
     expected to nearly triple the capital invested in the xScale portfolio once completed", tagged outlook, explicit

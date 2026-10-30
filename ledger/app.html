@@ -38,18 +38,9 @@
   td.n .note { font-weight: 400; }
   /* layout */
   .stack { display: grid; gap: 1.25rem; }
-  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 1.25rem; }
-  .two > *, .stack > * { min-width: 0; }
+  .stack > * { min-width: 0; }
   .hrow { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; }
   .pagehead { display: grid; gap: .3rem; margin-bottom: .25rem; }
-  .sechead { display: flex; gap: 1rem; align-items: baseline; flex-wrap: wrap; margin-bottom: .6rem; }
-  .sechead h2 { margin: 0; }
-  section.card > .sechead { padding: .6rem 1rem; margin: 0; border-bottom: 1px solid var(--tblr-border-color); }
-  section.card > .sechead h2 { font-size: .85rem; }
-  section.card > :not(.sechead) { padding: .75rem 1rem; }
-  section.card > .card-table-wrap { padding: 0; }
-  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem); gap: 1.25rem; align-items: start; }
-  @media (max-width: 52rem) { .split { grid-template-columns: 1fr; } }
   /* figures: stat cards */
   .figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: .75rem; }
   .fig { background: var(--tblr-bg-surface); border: 1px solid var(--tblr-border-color); border-radius: var(--tblr-border-radius); padding: .6rem .85rem; }
@@ -57,21 +48,7 @@
   .fig .n { font-size: 1.35rem; line-height: 1.2; font-weight: 600; margin: .1rem 0; }
   .fig .s { color: var(--tblr-secondary); font-size: .78rem; }
   .fig .n.bad, .fig .s.bad { color: var(--tblr-red); }
-  .strip { display: grid; }
   /* bars */
-  .bars { display: grid; gap: .5rem; }
-  .bars .bar { display: grid; grid-template-columns: minmax(8rem, 12rem) 1fr auto; gap: .75rem; align-items: center; }
-  .bars .bar .v { color: var(--tblr-secondary); font-size: .8rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .track { position: relative; height: 8px; border-radius: 4px; background: var(--tblr-border-color); overflow: hidden; }
-  .track i { position: absolute; left: 0; top: 0; display: block; height: 100%; border-radius: 4px; background: var(--tblr-primary); }
-  .track i.bad { background: var(--tblr-red); }
-  .track i.note { background: var(--tblr-secondary); opacity: .5; }
-  .track i.rest { background: var(--tblr-border-color); filter: brightness(.93); }
-  .mini { display: grid; grid-template-columns: 4.5rem auto; gap: .5rem; align-items: center; font-size: .8rem; color: var(--tblr-secondary); font-variant-numeric: tabular-nums; }
-  .mini i { display: block; height: 6px; border-radius: 3px; background: var(--tblr-primary); }
-  .dots { display: grid; gap: .35rem; }
-  .dotrow { display: grid; grid-template-columns: 6rem 1fr minmax(8rem, auto); gap: .75rem; align-items: center; font-size: .8rem; }
-  .dotrow .v { color: var(--tblr-secondary); text-align: right; font-variant-numeric: tabular-nums; }
   /* tables the pages build by hand (grid, heat) */
   .scroll { overflow-x: auto; }
   table.grid, table.heat { width: 100%; }
@@ -110,10 +87,6 @@
   .drawer .close { position: absolute; top: .7rem; right: .9rem; }
   .drawer h3 { font-size: 1rem; margin: 0 2rem .6rem 0; }
   /* flow */
-  .stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: .75rem; }
-  .stage { background: var(--tblr-bg-surface); border: 1px solid var(--tblr-border-color); border-radius: var(--tblr-border-radius); padding: .75rem 1rem; }
-  .stage ul.plain { padding-left: 0; list-style: none; }
-  .stage li { margin: .2rem 0; }
   .steps { display: grid; gap: .6rem; }
   .stp { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; color: var(--tblr-secondary); }
   .stp.done, .stp.running { color: var(--tblr-body-color); }
@@ -148,8 +121,6 @@
   .gg.lg .ours { height: 10px; }
   .gg.lg .band { top: -3px; height: 16px; }
   .gg.lg .tick { top: -5px; height: 20px; }
-  .bar { display: inline-block; height: 6px; border-radius: 3px; background: var(--tblr-primary); vertical-align: middle; margin-right: .35rem; opacity: .85; }
-  .bars .bar { display: grid; height: auto; background: none; opacity: 1; margin: 0; }
   .bar.ref { background: var(--tblr-secondary); }
   .bar.tot { background: var(--tblr-border-color-active, #bbb); }
   .card-header .card-title { white-space: nowrap; font-size: .85rem; }
@@ -173,13 +144,9 @@
     <div class="navbar-nav flex-row flex-wrap me-auto">
       <a class="nav-link px-2" href="#proof" data-nav="proof">Proof</a>
       <a class="nav-link px-2" href="#rules" data-nav="rules">Rules</a>
-      <a class="nav-link px-2" href="#golden" data-nav="golden">Golden</a>
       <a class="nav-link px-2" href="#reconcile" data-nav="reconcile">Reconcile</a>
       <a class="nav-link px-2" href="#data" data-nav="data">Dataset</a>
-      <a class="nav-link px-2" href="#attribution" data-nav="attribution">Attribution</a>
       <a class="nav-link px-2" href="#explore" data-nav="explore">Explore</a>
-      <a class="nav-link px-2" href="#releases" data-nav="releases">Releases</a>
-      <a class="nav-link px-2" href="#agents" data-nav="agents">Agents</a>
     </div>
     <div class="d-flex align-items-center gap-3">
       <input class="form-control form-control-sm" id="jump" name="jump" type="text" list="tickers" placeholder="Ticker or company…" aria-label="Jump to a company" autocomplete="off" spellcheck="false" style="width:13rem">
@@ -261,94 +228,9 @@ function table(cols, rows, {key, onRow, detail} = {}) {
   return h('div', {class: 'card'}, h('div', {class: 'table-responsive'}, h('table', {class: 'table table-sm table-vcenter card-table table-hover'}, h('thead', {}, head), tb)));
 }
 
-function bars(list) {
-  return h('div', {class: 'bars'}, list.map((b) => h('div', {class: 'bar'}, h('span', {}, b.name),
-    h('div', {class: 'track'}, h('i', {class: b.cls || null, style: `width:${Math.max(0, Math.min(100, b.pct))}%`})), h('span', {class: 'v'}, b.v))));
-}
-
-const KIND = {restated: 'Restated', jump: 'Big move', capex_intensity: 'Capex vs revenue', opex_over_revenue: 'Opex above revenue', row_switch: 'Line renamed', other: 'Note'};
-function attributionTable(rows) {
-  return table([{t: 'Field', k: 'field', f: (a) => LABEL[a.field] || a.field}, {t: 'Year', k: 'period'}, {t: 'Kind', k: 'kind'}, {t: 'Method', k: 'method', f: (a) => METHOD[a.method] || a.method},
-    {t: 'AI amount', n: 1, k: 'ai_amount', f: (a) => (a.ai_amount != null ? usd(a.ai_amount) : h('span', {class: 'muted'}, '—'))},
-    {t: 'Share', n: 1, k: 'ai_share', f: (a) => (a.ai_share != null ? pct(a.ai_share) : '—')}, {t: 'Confidence', n: 1, k: 'confidence', f: (a) => pct(a.confidence)}],
-    rows, {detail: (a) => h('div', {class: 'src'}, h('div', {}, a.basis), h('div', {class: 'muted small mono'}, a.inputs || '—'))});
-}
 const FACT = {segment_capex: 'Segment capex', segment_revenue: 'Segment revenue', ppe_category: 'PP&E by category', finance_lease_liability: 'Finance lease liabilities', purchase_commitments: 'Purchase commitments'};
-function factsTable(rows) {
-  return table([{t: 'Fact', k: 'field', f: (f) => FACT[f.field] || f.field}, {t: 'Segment / category', k: 'dimension', f: (f) => f.dimension || h('span', {class: 'muted'}, 'company')},
-    {t: 'Year', k: 'period'}, {t: 'Value', n: 1, k: 'value', f: (f) => usd(f.value)},
-    {t: 'XBRL', k: 'label', f: (f) => (f.label === 'agree' ? h('span', {class: 'muted'}, 'agrees') : f.label === 'unresolved' ? h('span', {class: 'bad'}, `differs: ${usd(f.xbrl_value ?? f.reference)}`) : h('span', {class: 'muted'}, 'not tagged'))}],
-    rows, {detail: (f) => h('div', {class: 'src'}, h('div', {class: 'mono small'}, `${f.accession} ${f.table_id}, "${f.row_label}" / "${f.column_label}" = ${f.cell_text}`))});
-}
 const SOURCE = {mdna: '10-K MD&A', earnings_release: 'earnings release', transcript: 'call transcript', cfo_commentary: 'CFO commentary'};
 const AI_CLASS = {explicit_amount: 'amount', explicit_share: 'share', qualitative: 'words only'};
-function aiTable(rows) {
-  const stated = (a) => a.class === 'explicit_amount' ? (a.amount_low === a.amount_high ? usd(a.amount_low) : `${usd(a.amount_low)} – ${usd(a.amount_high)}`) : a.class === 'explicit_share' ? pct(a.share) : '—';
-  return table([{t: 'Field', k: 'field', f: (a) => LABEL[a.field] || a.field}, {t: 'Year', k: 'period'}, {t: 'Kind', k: 'kind'},
-    {t: 'Says', sort: false, f: (a) => `${AI_CLASS[a.class]}${a.class !== 'qualitative' ? (a.scope === 'ai' ? ', AI part' : ', company total') : ''}`},
-    {t: 'Stated', n: 1, sort: false, f: stated}, {t: 'AI amount', n: 1, k: 'ai_amount', f: (a) => (a.ai_amount != null ? usd(a.ai_amount) : h('span', {class: 'muted'}, '—'))},
-    {t: 'Source', k: 'source', f: (a) => SOURCE[a.source] || a.source}],
-    rows, {detail: (a) => h('div', {class: 'src'}, h('div', {}, `“${a.quote}”`), h('div', {class: 'muted small'}, a.accession || a.text_id))});
-}
-
-// Fields down, years across; a note under a value says what a reader must know. Click a value for its source.
-function valueGrid(values, costLinesOpen) {
-  const years = [...new Set(values.map((v) => v.period))].sort(), fields = ['revenue', 'capex', 'opex'];
-  const by = new Map(values.map((v) => [`${v.field}|${v.period}`, v]));
-  const rev = (y) => by.get(`revenue|${y}`)?.value;
-  const panel = h('div', {style: 'margin-top:1rem'});
-  const mark = (v) => {
-    if (v.decision) return `decided: ${v.decision.kind}`;
-    if (v.label === 'definition_gap') return costLinesOpen ? 'waits on your cost-line call' : 'cost lines confirmed';
-    if (v.basis === 'restated') return `restated from ${usd(v.first_reported)}`;
-    if (v.field === 'opex' && rev(v.period) != null && v.value > rev(v.period)) return 'above revenue';
-    if (v.label !== 'agree') return XBRL[v.label] || v.label;
-    return '';
-  };
-  return h('div', {}, h('div', {class: 'scroll'}, h('table', {class: 'grid'},
-    h('thead', {}, h('tr', {}, h('th', {}, ''), years.map((y) => h('th', {class: 'n'}, y)))),
-    h('tbody', {}, fields.map((f) => h('tr', {}, h('td', {}, LABEL[f]), years.map((y) => {
-      const v = by.get(`${f}|${y}`);
-      if (!v) return h('td', {class: 'n muted'}, '—');
-      const m = mark(v);
-      return h('td', {class: 'n cell', tabindex: 0, onclick: () => { panel.replaceChildren(h('h3', {style: 'margin:0 0 .5rem'}, `${LABEL[f]} ${y}: ${usd(v.value)}`), sources(v)); }},
-        h('div', {}, usd(v.value)), m ? h('div', {class: 'note'}, m) : '');
-    })))))), panel);
-}
-
-// The cleaning, one row per value: what the filing printed, what was done to it, what came out, and how it was checked.
-function cleaningTable(values) {
-  const rows = values.map((v) => {
-    const s = v.sources, one = s[0] || {};
-    const scale = one.scale ? ({1: 'units', 1000: 'thousands', 1000000: 'millions', 1000000000: 'billions'})[one.scale] || `×${one.scale}` : '';
-    const steps = [];
-    if (v.field === 'opex') steps.push('revenue − cost of revenue − operating income, one column');
-    if (scale && scale !== 'units') steps.push(`in ${scale}`);
-    if (s.some((x) => /^\(|^-/.test(x.cell || '') && x.value > 0)) steps.push('brackets → positive');
-    if (s.some((x) => /^[—–-]$/.test((x.cell || '').trim()))) steps.push('dash → 0');
-    if (s.some((x) => x.field === 'cost_of_revenue_part')) steps.push(`${s.filter((x) => x.field === 'cost_of_revenue_part').length} cost lines summed`);
-    steps.push(`column “${(one.col || '').split(' | ').pop()}” → ${v.period}`);
-    steps.push(v.basis === 'restated' ? `newest 10-K (${day(one.filed)}); first reported ${usd(v.first_reported)}` : `10-K filed ${day(one.filed)}`);
-    const check = v.decision ? `decided: ${v.decision.kind}` : v.label === 'agree' ? 'matches SEC' : v.label === 'definition_gap' ? 'cost lines: your call' : XBRL[v.label] || v.label;
-    return {v, field: LABEL[v.field], period: v.period, printed: v.field === 'opex' ? s.map((x) => `${({revenue: 'revenue', cost_of_revenue: 'cost', cost_of_revenue_part: 'cost line', operating_income: 'op. income'})[x.field] || x.field} ${x.cell}`).join('\n') : one.cell, row: v.field === 'opex' ? '' : one.row, steps, value: v.value, check,
-      confirmed: s.length && s.every((x) => x.machine && x.machine.match)};
-  });
-  return table([{t: 'Value', k: 'field', s: (r) => r.field + r.period, f: (r) => [r.field, ' ', h('span', {class: 'muted'}, r.period)]},
-    {t: 'In the 10-K', k: 'printed', f: (r) => [h('span', {class: 'mono brk'}, r.printed || '—'), r.row ? h('div', {class: 'muted small brk'}, r.row) : '']},
-    {t: 'Cleaning', sort: false, f: (r) => h('div', {class: 'small brk'}, r.steps.join(', ')), wide: 1},
-    {t: 'Value', k: 'value', n: 1, f: (r) => usd(r.value)},
-    {t: 'Checked', k: 'check', f: (r) => h('span', {class: r.check === 'matches SEC' ? 'muted' : null}, r.check, r.confirmed ? h('div', {class: 'muted small'}, 're-read on filing') : '')}],
-    rows, {detail: (r) => sources(r.v)});
-}
-
-const tok = (d) => (d.agent && d.agent.detail.input_tokens != null ? d.agent.detail.input_tokens + d.agent.detail.output_tokens : null);
-
-function rawAnswer(accession) {
-  const pre = h('pre', {class: 'raw'}, 'Loading…');
-  fetch('/api/output?accession=' + encodeURIComponent(accession)).then((r) => (r.ok ? r.json() : Promise.reject(new Error('no saved answer'))))
-    .then((j) => { pre.textContent = JSON.stringify(j, null, 1); }).catch((e) => { pre.textContent = e.message; });
-  return pre;
-}
 
 function sources(v) {
   const wrap = h('div', {});
@@ -366,136 +248,14 @@ function sources(v) {
   return wrap;
 }
 
-function agentCard(a) {
-  let shown = a.prompt;
-  const text = h('textarea', {readonly: true, 'aria-label': 'Prompt text', spellcheck: 'false'});
-  const verSel = h('select', {'aria-label': 'Prompt version', onchange: (e) => { shown = e.target.value; showPrompt(); }},
-    a.versions.map((v) => h('option', {value: v, selected: v === a.prompt || null}, v === a.prompt ? `${v} (in use)` : v)));
-  const note = h('input', {type: 'text', placeholder: 'What changed and why…', 'aria-label': 'What changed and why', style: 'flex:1;min-width:14rem'});
-  const status = h('span', {class: 'muted small', 'aria-live': 'polite'});
-  const editBtn = h('button', {type: 'button', onclick: () => startEdit()}, 'Edit');
-  const useBtn = h('button', {type: 'button', onclick: () => post('use', {version: shown}, `Now using ${shown}.`)}, 'Use This Version');
-  const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('prompt', {text: text.value, note: note.value}, (r) => `Saved as ${r.version} and in use.`)}, 'Save as New Version');
-  const cancelBtn = h('button', {type: 'button', onclick: () => { showPrompt(); }}, 'Cancel');
-  const editRow = h('div', {class: 'hrow', hidden: true}, note, saveBtn, cancelBtn);
-  function showPrompt() {
-    text.value = a.prompts[shown]; text.readOnly = true; editRow.hidden = true; editBtn.hidden = false;
-    useBtn.hidden = shown === a.prompt; text.style.height = 'auto'; text.style.height = Math.min(900, text.scrollHeight + 4) + 'px';
-  }
-  function startEdit() { text.readOnly = false; editRow.hidden = false; editBtn.hidden = true; useBtn.hidden = true; text.focus(); }
-  async function post(what, body, done) {
-    status.textContent = 'Saving…';
-    try {
-      const r = await api(`/api/agents/${a.id}/${what}`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({...body, by: me})});
-      status.textContent = typeof done === 'function' ? done(r) : done;
-      setTimeout(route, 900);
-    } catch (e) { status.textContent = e.message; status.classList.add('bad'); }
-  }
-  const model = h('input', {type: 'text', value: a.llm.model, 'aria-label': 'Model id', style: 'width:14rem'});
-  const modelSave = h('button', {type: 'button', onclick: () => post('model', {model: model.value}, `Model set to ${model.value}.`)}, 'Save Model');
-
-  const allRuns = a.runs;  // newest first
-  const latest = [...allRuns.reduce((m, r) => (m.has(r.accession) ? m : m.set(r.accession, r)), new Map()).values()];  // the newest run of each filing
-  let runs = latest;
-  const tickers = [...new Set(allRuns.map((r) => r.ticker).filter(Boolean))].sort();
-  const everyRun = h('label', {class: 'small muted'}, h('input', {type: 'checkbox', onchange: (e) => { runs = e.target.checked ? allRuns : latest; drawRuns(); }}), ` show every run (${int(allRuns.length)}), not just the latest per filing`);
-  const runBox = h('div');
-  const runFilter = h('select', {'aria-label': 'Filter runs by company', onchange: () => drawRuns()}, h('option', {value: ''}, 'All companies'), tickers.map((t) => h('option', {value: t}, t)));
-  function drawRuns() {
-    const list = runs.filter((r) => !runFilter.value || r.ticker === runFilter.value).sort((x, y) => (x.outcome === 'ok') - (y.outcome === 'ok'));
-    runBox.replaceChildren(table([{t: 'When', k: 'started_at', f: (r) => when(r.started_at)}, {t: 'Company', k: 'ticker'}, {t: 'Fiscal year end', k: 'period', f: (r) => day(r.period), wide: 1},
-      {t: 'Model', s: (r) => r.versions.model, f: (r) => r.versions.model || h('span', {class: 'muted'}, 'in-session')}, {t: 'Prompt', s: (r) => r.versions.prompt, f: (r) => r.versions.prompt},
-      {t: 'Tokens', n: 1, s: (r) => (r.detail.input_tokens ?? 0) + (r.detail.output_tokens ?? 0), f: (r) => (r.detail.input_tokens != null ? int(r.detail.input_tokens + r.detail.output_tokens) : '—')},
-      {t: 'Tries', n: 1, s: (r) => r.detail.attempts, f: (r) => r.detail.attempts ?? '—'},
-      {t: 'Outcome', k: 'outcome', f: (r) => h('span', {class: r.outcome === 'ok' ? null : 'bad'}, r.outcome === 'ok' ? `${r.detail.values ?? '—'} values` : r.detail.error || r.outcome)}],
-      list, {detail: (r) => rawAnswer(r.accession)}));
-  }
-  drawRuns();
-  const tokens = latest.reduce((s, r) => s + (r.detail.input_tokens ?? 0) + (r.detail.output_tokens ?? 0), 0);
-  const failed = latest.filter((r) => r.outcome !== 'ok').length;
-  const per = a.cost;
-
-  const card = h('div', {class: 'stack'},
-    h('section', {}, h('h2', {}, a.name), h('p', {class: 'lede'}, a.job)),
-    h('div', {class: 'two'},
-      h('section', {}, h('h2', {}, 'Decides'), h('ul', {class: 'plain'}, a.decides.map((d) => h('li', {}, d)))),
-      h('section', {}, h('h2', {}, 'Checked by'), h('ul', {class: 'plain'}, a.checked_by.map((d) => h('li', {}, d))))),
-    h('section', {}, h('h2', {}, 'Model'), h('p', {class: 'muted', style: 'margin-bottom:.6rem'}, a.llm.runs_on), h('div', {class: 'hrow'}, model, modelSave)),
-    h('section', {}, h('h2', {}, 'Prompt'), h('div', {class: 'hrow', style: 'margin-bottom:.8rem'}, verSel, editBtn, useBtn, h('span', {class: 'muted small'}, 'A saved prompt is not used until a person switches it on here. Switching the prompt or model makes the next run ask the agent again for every filing.')),
-      text, editRow),
-    h('section', {class: 'hrow'}, status),
-    h('section', {}, h('h2', {}, 'History'), table([{t: 'When', k: 'at', f: (x) => when(x.at)}, {t: 'Who', k: 'by'}, {t: 'Change', k: 'change'}], [...a.history].reverse())),
-    h('section', {}, h('h2', {}, 'Runs'), h('p', {class: 'muted', style: 'margin-bottom:.6rem'},
-        `${int(latest.length)} filings read, ${compact(tokens)} tokens, ${failed} failed.`, per ? ` A new company costs about ${per.minutes} min and ${compact(per.tokens)} tokens (average of ${per.companies}).` : '', ' Failures first; click a run for its answer.'),
-      h('div', {class: 'hrow', style: 'margin-bottom:.6rem'}, runFilter, everyRun), runBox));
-  queueMicrotask(showPrompt);
-  return card;
-}
-
-const COLORS = ['#2f5bd3', '#d9822b', '#2a9d8f', '#c43d6b', '#7a5cc4', '#6b8e23', '#8c6d46', '#3d8fc4'];  // fixed order: a colour follows its entity
-function lineChart(rows, years, tickers, ratio) {
-  const W = 520, H = 240, L = 56, R = 64, T = 10, B = 26;
-  const vals = rows.map((r) => r.value);
-  let lo = Math.min(0, ...vals), hi = Math.max(0, ...vals);
-  if (hi === lo) hi = lo + 1;
-  const x = (y) => L + (years.length === 1 ? (W - L - R) / 2 : (years.indexOf(y) * (W - L - R)) / (years.length - 1));
-  const yv = (v) => T + (H - T - B) * (1 - (v - lo) / (hi - lo));
-  const ns = 'http://www.w3.org/2000/svg';
-  const s = (tag, attrs) => { const el = document.createElementNS(ns, tag); for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v); return el; };
-  const svg = s('svg', {viewBox: `0 0 ${W} ${H}`, width: '100%', role: 'img', 'aria-label': 'Line chart'});
-  const fmtAxis = (v) => {
-    if (ratio) return Math.round(v * 100) + '%';
-    const a = Math.abs(v), sign = v < 0 ? '−' : '';
-    return a >= 1e9 ? `${sign}$${+(a / 1e9).toFixed(a >= 1e10 ? 0 : 1)}B` : `${sign}$${+(a / 1e6).toFixed(a >= 1e7 ? 0 : 1)}M`;
-  };
-  for (let i = 0; i <= 4; i++) {
-    const v = lo + ((hi - lo) * i) / 4;
-    svg.append(s('line', {x1: L, x2: W - R, y1: yv(v), y2: yv(v), stroke: 'var(--faint)', 'stroke-width': 1}));
-    const t = s('text', {x: L - 6, y: yv(v) + 4, 'text-anchor': 'end'}); t.textContent = fmtAxis(v); svg.append(t);
-  }
-  years.forEach((y) => { const t = s('text', {x: x(y), y: H - 6, 'text-anchor': 'middle'}); t.textContent = y.replace('FY', ''); svg.append(t); });
-  const tip = $('#tip'), ends = [];
-  tickers.forEach((tk, i) => {
-    const pts = rows.filter((r) => r.ticker === tk).sort((a, b) => a.period.localeCompare(b.period));
-    if (!pts.length) return;
-    const color = COLORS[i % COLORS.length];
-    svg.append(s('polyline', {points: pts.map((p) => `${x(p.period)},${yv(p.value)}`).join(' '), fill: 'none', stroke: color, 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round'}));
-    for (const p of pts) {
-      const dot = s('circle', {cx: x(p.period), cy: yv(p.value), r: 3.5, fill: color});
-      const hit = s('circle', {cx: x(p.period), cy: yv(p.value), r: 10, fill: 'transparent'});
-      hit.addEventListener('mousemove', (e) => { tip.hidden = false; tip.textContent = `${p.company} ${p.period}: ${ratio ? (100 * p.value).toFixed(1) + '%' : usd(p.value)}`; tip.style.left = e.clientX + 12 + 'px'; tip.style.top = e.clientY + 12 + 'px'; });
-      hit.addEventListener('mouseleave', () => { tip.hidden = true; });
-      svg.append(dot, hit);
-    }
-    const last = pts[pts.length - 1];
-    ends.push({tk, color, x: x(last.period) + 7, y: yv(last.value) + 4});
-  });
-  ends.sort((a, b) => a.y - b.y);  // end labels: keep 12px apart so none overlap
-  for (let i = 1; i < ends.length; i++) if (ends[i].x === ends[i - 1].x && ends[i].y - ends[i - 1].y < 12) ends[i].y = ends[i - 1].y + 12;
-  for (const e of ends) { const lab = s('text', {x: e.x, y: e.y}); lab.textContent = e.tk; lab.style.fill = e.color; svg.append(lab); }
-  return h('div', {}, svg);
-}
-
-
 // ── Shared ──────────────────────────────────────────────────────────────────
 let hqCache = null;
 const hq = async (fresh) => (hqCache = !fresh && hqCache ? hqCache : await api('/api/hq'));
-const confirmedCell = (f) => (f.confirmed ? h('span', {class: 'muted'}, 'agrees') : h('span', {class: 'bad'}, "can't confirm"));
 const pct = (x) => (x == null ? '—' : x < .001 ? '<0.1%' : `${(100 * x).toFixed(x < .1 ? 1 : 0)}%`);
 const fig = (l, n, s, bad) => h('div', {class: 'fig'}, h('div', {class: 'l'}, l), h('div', {class: 'n' + (bad ? ' bad' : '')}, n), h('div', {class: 's' + (bad ? ' bad' : '')}, s));
-const sect = (title, note, ...body) => h('section', {}, h('div', {class: 'sechead'}, h('h2', {}, title), note ? h('span', {class: 'muted small'}, note) : ''), ...body);
 const INDUSTRY = {hyperscaler: 'Hyperscaler', neocloud: 'Neocloud', miner_to_hpc: 'Miner to HPC', chip_seller: 'Chip design', chip_equipment: 'Chip equipment', component_supplier: 'Memory, networking, servers', datacenter_build: 'Data-center build', datacenter_landlord: 'Data-center landlord', power: 'Power producer', ai_software: 'AI software', other: 'Adopters and other'};
 const METHOD = {stated_share: 'stated share', stated_amount: 'stated amount', segment: 'segment', ppe_category: 'server category growth', whole_business: 'whole business', commitment: 'commitments', qualitative: 'words only', none: 'none'};
 const METHOD_NOTE = {stated_share: 'the company said the share', stated_amount: 'the company said the amount', segment: 'the AI segment’s capex in the notes', ppe_category: 'growth in the server and network category; all servers, not only AI', whole_business: 'a single-segment AI business', qualitative: 'words, no number', none: 'nothing links the spend to AI'};
-function change(f) {
-  if (f.kind === 'restated') return `${usd(f.before)} → ${usd(f.after)} (${f.after >= f.before ? '+' : '−'}${pct(f.size)})`;
-  if (f.kind === 'jump') return `${usd(f.before)} → ${usd(f.after)} (${f.size.toFixed(1)}×)`;
-  if (f.kind === 'capex_intensity') return `capex ${pct(f.size)} of revenue`;
-  if (f.kind === 'opex_over_revenue') return `opex ${usd(f.after)} on revenue ${usd(f.before)}`;
-  return h('span', {class: 'small'}, (f.message || '').slice(0, 140));
-}
-
-// A job (add a company, or rerun attribution) and its steps, polled while it runs.
 function jobBox(onDone, kind) {
   const box = h('div');
   let timer = null;
@@ -518,43 +278,11 @@ function jobBox(onDone, kind) {
 }
 
 // ── Data-first pieces: a cell with intensity, a mini bar, year bars, a dot plot ──────────────────────────────────
-const heat = (v, max, text, cls) => h('td', {class: 'n c ' + (cls || ''), role: 'button', style: `--i:${Math.max(0, Math.min(1, max ? v / max : 0)).toFixed(3)}`}, text);
-const mini = (share, text) => h('div', {class: 'mini'}, h('i', {style: `width:${Math.max(0, Math.min(100, 100 * (share || 0))).toFixed(1)}%`}), h('span', {}, text));
 // One row per year: a dark AI part inside a light whole, labelled with both.
-function yearBars(rows, max) {
-  return h('div', {class: 'bars'}, rows.map((r) => h('div', {class: 'bar'}, h('span', {}, r.label, r.sub ? h('span', {class: 'muted small'}, `, ${r.sub}`) : ''),
-    h('div', {class: 'track'}, h('i', {class: 'rest', style: `width:${(100 * r.whole / max).toFixed(2)}%`}), h('i', {style: `width:${(100 * (r.part || 0) / max).toFixed(2)}%`})),
-    h('span', {class: 'v'}, r.part != null ? `${usd(r.part)} of ${usd(r.whole)}` : usd(r.whole)))));
-}
-// Reference vs ours on a 0–100% axis: a bar for a floor or ceiling, a tick for a stated figure, a dot for ours.
-function dotPlot(rows) {
-  const W = 360, H = 22, L = 4, R = 4;
-  const x = (v) => L + (W - L - R) * Math.max(0, Math.min(1, v));
-  const ns = 'http://www.w3.org/2000/svg', s = (tag, a) => { const el = document.createElementNS(ns, tag); for (const [k, v] of Object.entries(a)) el.setAttribute(k, v); return el; };
-  return h('div', {class: 'dots'}, rows.map((r) => {
-    const svg = s('svg', {viewBox: `0 0 ${W} ${H}`, width: '100%', height: H, role: 'img', 'aria-label': `${r.ticker} ${r.period}`});
-    svg.append(s('line', {x1: L, x2: W - R, y1: H / 2, y2: H / 2, stroke: 'var(--faint)', 'stroke-width': 2}));
-    if (r.relation === 'ge') svg.append(s('rect', {x: x(r.reference), y: H / 2 - 4, width: x(1) - x(r.reference), height: 8, fill: 'var(--faint)'}));
-    if (r.relation === 'le') svg.append(s('rect', {x: x(0), y: H / 2 - 4, width: x(r.reference) - x(0), height: 8, fill: 'var(--faint)'}));
-    svg.append(s('line', {x1: x(r.reference), x2: x(r.reference), y1: 2, y2: H - 2, stroke: 'var(--muted)', 'stroke-width': 2}));
-    if (r.ours != null) svg.append(s('circle', {cx: x(r.ours), cy: H / 2, r: 5, fill: r.outcome === 'agree' ? 'var(--accent)' : 'var(--bad)'}));
-    return h('div', {class: 'dotrow'}, h('span', {}, `${r.ticker} ${r.period.slice(2)}`), svg,
-      h('span', {class: 'v'}, r.ours == null ? h('span', {class: 'muted'}, 'no estimate') : `${pct(r.ours)} vs ${({eq: '', ge: '≥', le: '≤'})[r.relation]}${pct(r.reference)}`));
-  }));
-}
-
 // ── Data: the dataset as a grid, provenance one click deep ──────────────────
 const FIELDS = {capex: 'Capex', ai_capex: 'AI capex', ai_revenue: 'AI revenue', ai_capex_committed: 'AI capex committed', revenue_guidance: 'Revenue guidance', revenue: 'Revenue', opex: 'Opex', ai_opex: 'AI opex', segment_capex: 'Segment capex', segment_revenue: 'Segment revenue', ppe_category: 'PP&E by category',
   finance_lease_liability: 'Finance lease liabilities', purchase_commitments: 'Purchase commitments', ai_capex_outlook: 'AI capex, planned', ai_opex_outlook: 'AI opex, planned', capex_guidance: 'Capex guidance', opex_guidance: 'Opex guidance'};
 const KINDS = {spent: 'spent', committed: 'committed', planned: 'planned'};
-const VIEWS = [
-  {t: 'AI capex, buyers', q: {f: 'ai_capex', role: 'buyer'}},
-  {t: 'Capex, every company', q: {f: 'capex'}},
-  {t: 'Spent, committed, planned: hyperscalers', q: {f: 'capex,purchase_commitments,capex_guidance,ai_capex', ind: 'hyperscaler', wide: 1}},
-  {t: 'Segment capex', q: {f: 'segment_capex'}},
-  {t: 'PP&E by category', q: {f: 'ppe_category', ind: 'hyperscaler'}},
-  {t: 'Sellers’ segment revenue', q: {f: 'segment_revenue', role: 'seller'}},
-  {t: 'Reference check', q: {f: 'ai_capex', eval: 1}}];
 const parseQ = (s) => Object.fromEntries(new URLSearchParams(s));
 const CHECK = {agree: 'agrees with XBRL', definition_gap: 'definition gap, explained', unresolved: 'differs from XBRL', no_reference: 'no tagged counterpart', not_reported: 'not reported'};
 
@@ -643,9 +371,6 @@ async function dataPage(view, qs) {
         return c;
       }))))));
 
-  // chart of the selection: one series per entity (and dimension), up to eight
-  const chartRows = list.slice(0, 8).flatMap((s) => years.filter((y) => s.y[y]).map((y) => ({ticker: s.dimension ? `${s.ticker} ${s.dimension}`.slice(0, 28) : s.ticker, company: d.names[s.ticker], period: y, value: s.y[y].value})));
-  const chart = chartRows.length ? lineChart(chartRows, years, [...new Set(chartRows.map((r) => r.ticker))], false) : h('p', {class: 'muted'}, 'Nothing selected.');
 
   function exportCsv() {
     const cols = ['ticker', 'company', 'field', 'dimension', 'period', 'kind', 'value', 'share', 'method', 'confidence', 'check', 'basis', 'source_url', 'provenance'];
@@ -656,21 +381,15 @@ async function dataPage(view, qs) {
     document.body.append(a); a.click(); a.remove();
   }
 
-  const chartBox = h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Chart'), h('div', {style: 'margin-top:.8rem'}, chart));
   view.append(h('div', {class: 'stack', style: 'gap:1rem'},
     h('div', {class: 'hrow'}, fieldSel, groupSel, kindSel, h('button', {type: 'button', class: 'btn', onclick: exportCsv}, 'Export CSV'),
       h('span', {class: 'muted small'}, `${list.length} rows in USD. ✓ traced, ≠ differs from SEC data, ✗ disagrees with a stated figure, ! above the total, fix / ok / expl: a person’s decision.`)),
-    grid,
-    sel.eval && ev ? h('div', {}, h('h2', {}, 'Reference check'), dotPlot(ev.rows.filter((r) => r.measure === 'share'))) : '',
-    chartBox));
+    grid));
 }
 
 // ── Flow: the job. A queue of issues, the four stages as context, ending at release ─────────────────────────────
-const STATE = {blocked: 'Blocked', disagrees: 'Disagrees', new: 'New', moved: 'Moved', look: 'Look'};
-const ACTION = {run: 'Run', definition: 'Add a definition', method: 'Open the model', release: 'Release', open: 'Open'};
-const QKIND = {new_filing: 'New filing at the SEC, not read', blocked: 'Blocked: needs a definition', reference_disagrees: 'Attribution disagrees with a stated reference',
-  fact_changed: 'Fact changed since the last release', fact_differs: 'Fact differs from the filing’s XBRL tag', attribution_moved: 'Attribution moved in the last load', finding_unconfirmed: 'Finding the SEC’s data can’t confirm'};
-let attrCache = null, showResolved = false;
+const COLORS = ['#2f5bd3', '#d9822b', '#2a9d8f', '#c43d6b', '#7a5cc4', '#6b8e23', '#8c6d46', '#3d8fc4'];  // fixed order: a colour follows its entity
+let attrCache = null;
 async function openModel(ind) {
   attrCache ||= await api('/api/attribution');
   const m = attrCache.models[ind];
@@ -714,115 +433,7 @@ async function openModel(ind) {
   queueMicrotask(show);
 }
 
-async function flowPage(view, qs) {
-  const q = parseQ(qs || '');
-  const scope = q.scope || 'all';
-  const d = await api('/api/flow?scope=' + encodeURIComponent(scope));
-  const scopeSel = h('select', {'aria-label': 'Scope', onchange: (e) => go('flow?scope=' + e.target.value)},
-    h('option', {value: 'all', selected: scope === 'all' || null}, 'All companies'),
-    h('optgroup', {label: 'Layers'}, d.industries.map((i) => h('option', {value: i, selected: scope === i || null}, INDUSTRY[i] || i))),
-    h('optgroup', {label: 'Companies'}, Object.keys(d.names).sort().map((t) => h('option', {value: t, selected: scope === t || null}, `${d.names[t]} (${t})`))));
-  const X = d.extracted, A = d.attribution, R = d.release, E = d.insight.evaluation, C = d.changed;
-  const queue = d.queue.filter((x) => showResolved || !x.resolution || x.resolution.state === 'fix' || x.resolution.state === 'blocks');
-  const resolved = d.queue.length - queue.length;
-  const gaps = [];
-  if (X.values - X.values_agree - X.values_explained) gaps.push(h('a', {href: `#data?${scope !== 'all' && d.tickers.length === 1 ? 't=' + d.tickers[0] + '&' : ''}f=capex&check=unresolved`}, `${X.values - X.values_agree - X.values_explained} values differ from the SEC’s data`));
-  if (X.facts_differ) gaps.push(h('a', {href: '#reconcile?scope=' + scope + '&cause=fact_differs'}, `${X.facts_differ} facts differ from the filing’s tags`));
-  if (X.cells_confirmed < X.cells) gaps.push(`${X.cells - X.cells_confirmed} cited cells not confirmed on the rendered filing`);
-  if (C.new_filings.length) gaps.push(`${C.new_filings.length} filings at the SEC not read`);
-  const stage = (title, lines, actions) => h('div', {class: 'stage'}, h('h2', {}, title), h('ul', {class: 'plain'}, lines.map((l) => h('li', {}, l))), actions ? h('div', {class: 'hrow', style: 'margin-top:.5rem'}, actions) : '');
-  const kv = (n, l) => [h('b', {style: 'font-weight:500'}, int(n)), ' ', l];
-  const stages = h('div', {class: 'stages'},
-    stage('Extracted', gaps.length ? gaps : [`${int(X.filings)} filings, ${int(X.values)} values, ${int(X.facts)} facts, ${int(X.statements)} statements: no gaps`],
-      [h('a', {href: `#data?${scope !== 'all' && d.tickers.length === 1 ? 't=' + d.tickers[0] + '&' : ''}f=capex`, class: 'small'}, 'Open the dataset')]),
-    stage('Method', [`${d.method.models.length} theses in use, prompt ${d.method.prompt}`, h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Each one'), h('ul', {class: 'plain'}, d.method.models.map((m) => h('li', {}, `${INDUSTRY[m.industry]}: ${m.version}`, h('span', {class: 'muted small'}, ` (${m.companies.length}) `), h('button', {type: 'button', class: 'small', onclick: () => openModel(m.industry)}, 'edit or rerun')))))]),
-    stage('Attribution', [A.diff ? kv(A.diff.changed, `moved in the last load (${day(A.diff.at)})`) : 'no load yet',
-        E.n ? [kv(E.agree, `of ${int(E.n - E.no_estimate)} references with an estimate agree`), E.disagree ? h('span', {class: 'bad'}, `, ${int(E.disagree)} disagree`) : '', E.no_estimate ? h('span', {class: 'muted'}, `, ${int(E.no_estimate)} without an estimate`) : ''] : 'no reference for this scope'],
-      [h('a', {href: `#data?${scope !== 'all' && d.tickers.length === 1 ? 't=' + d.tickers[0] + '&' : ''}f=ai_capex`, class: 'small'}, 'Open the grid'), h('a', {href: '#attribution', class: 'small'}, 'Every method')]),
-    stage('Release', [R.last ? `Last signed: ${R.last}` : 'Nothing signed yet', R.blocks ? h('span', {class: 'bad'}, `${int(R.blocks)} item${R.blocks > 1 ? 's' : ''} block the next release`) : R.unresolved ? h('span', {class: 'bad'}, `Gates pass, but ${int(R.unresolved)} item${R.unresolved > 1 ? 's' : ''} unresolved below`) : 'Nothing blocks the next release',
-        `Since ${R.last || 'the start'}: ${int(R.values_changed)} values, ${int(R.facts_changed)} facts, ${int(R.attribution_moved)} attributions changed`, h('span', {class: 'small'}, R.note)],
-      [h('a', {href: '#releases', class: 'small'}, 'Releases'), h('button', {type: 'button', class: 'small', onclick: () => drawer(h('h3', {}, 'Release the dataset'), h('p', {}, R.note), h('pre', {class: 'raw', style: 'margin-top:.8rem'}, R.commands.join('\n')), h('p', {class: 'muted small', style: 'margin-top:.6rem'}, 'A release refuses while a gate fails; signing is the one human act.'))}, 'Change note and commands')]));
-  const allNew = queue.length > 0 && queue.every((x) => x.new);
-  const rowsBox = queue.length ? table([{t: 'State', k: 'state', f: (x) => [h('span', {class: x.state === 'blocked' || x.state === 'disagrees' ? 'bad' : x.state === 'look' ? 'muted' : null}, STATE[x.state]), x.new && !allNew ? h('div', {class: 'muted small'}, 'new since ' + (R.last || 'start')) : '', x.resolution ? h('div', {class: 'muted small'}, `${x.resolution.state} by ${x.resolution.by}`) : '']},
-    {t: 'At stake', k: 'dollars', n: 1, f: (x) => (x.dollars ? usd(x.dollars) : h('span', {class: 'muted'}, '—'))},
-    {t: 'Company', k: 'ticker', f: (x) => d.names[x.ticker] || x.ticker}, {t: 'What', sort: false, f: (x) => [QKIND[x.kind], h('div', {class: 'muted small'}, x.where)]},
-    {t: 'Touches', sort: false, f: (x) => h('span', {class: 'small'}, x.impact), wide: 1},
-    {t: 'Action', sort: false, f: (x) => h('button', {type: 'button', class: 'small', onclick: (e) => { e.stopPropagation(); act(x); }}, ACTION[x.action])}], queue, {onRow: (x) => openItem(x)})
-    : h('p', {class: 'muted'}, 'Nothing to do for this scope: no new filings, nothing blocked, nothing disagrees, nothing moved.');
-  function act(x) {
-    if (x.action === 'method') return openModel(d.method.models.find((m) => m.companies.includes(x.ticker))?.industry || d.method.models[0].industry);
-    if (x.action === 'release') return drawer(h('h3', {}, 'Release'), h('p', {}, R.note), h('pre', {class: 'raw', style: 'margin-top:.8rem'}, R.commands.join('\n')));
-    if (x.action === 'run') return go('run');
-    if (x.action === 'definition') return drawer(h('h3', {}, 'Add a definition'), h('p', {}, 'A judgement made once per company, applied every run: which lines are cost of revenue, or which line is revenue when the SEC’s tag is wider. Add it with your name and why, then rerun reconcile and rules.'), h('pre', {class: 'raw', style: 'margin-top:.8rem'}, 'definitions/companies.yaml\n\n' + x.ticker + ':\n  cost_lines:\n    lines: [...]\n    why: ...\n    by: ' + me + '\n    at: ' + new Date().toISOString().slice(0, 10)));
-    openItem(x);
-  }
-  function openItem(x) {
-    const det = x.detail || {};
-    const trail = [h('a', {href: `#data?t=${x.ticker}&f=capex,ai_capex`}, `${d.names[x.ticker] || x.ticker}: the dataset`)];
-    const body = [h('h3', {}, QKIND[x.kind]), h('p', {class: 'muted small', style: 'margin-bottom:.8rem'}, `${d.names[x.ticker] || x.ticker}, ${x.where}`), h('p', {}, h('b', {style: 'font-weight:500'}, 'Touches: '), x.impact)];
-    if (x.kind === 'reference_disagrees') body.push(h('p', {style: 'margin-top:.6rem'}, `Ours ${det.measure === 'share' ? pct(det.ours) : usd(det.ours)} against ${({eq: '', ge: 'at least ', le: 'at most '})[det.relation]}${det.measure === 'share' ? pct(det.reference) : usd(det.reference)} (${det.method}).`), h('p', {class: 'muted small', style: 'margin-top:.4rem'}, det.basis), h('p', {class: 'small', style: 'margin-top:.4rem'}, `“${det.source.quote}” `, h('a', {href: det.source.url, target: '_blank', rel: 'noopener'}, 'source')));
-    if (x.kind === 'fact_differs') {
-      const delta = det.reference != null ? det.value - det.reference : null;
-      body.push(h('div', {class: 'figs', style: 'margin:.6rem 0'}, fig('Ours', usd(det.value), det.cite ? `${det.cite.table_id}, “${det.cite.row_label}”` : ''), fig('Tag', usd(det.reference), 'the filing’s XBRL'), fig('Delta', delta == null ? '—' : usd(delta), delta != null && det.reference ? pct(Math.abs(delta) / Math.abs(det.reference)) : '')));
-      if (det.cite) body.push(h('p', {class: 'small'}, `Cell “${det.cite.cell_text}” in row “${det.cite.row_label}”, column “${det.cite.column_label.replaceAll(' | ', ' ')}”. `, det.url ? h('a', {href: det.url, target: '_blank', rel: 'noopener'}, 'Open the filing') : ''));
-      if (det.used_by && det.used_by.length) body.push(h('p', {class: 'small', style: 'margin-top:.4rem'}, 'Feeds: ', det.used_by.map((u) => `${u.field} ${u.period} ${usd(u.ai_amount)} (${METHOD[u.method] || u.method})`).join('; ')));
-      if (det.release_value != null) body.push(h('p', {class: 'muted small', style: 'margin-top:.4rem'}, `In ${R.last}: ${usd(Number(det.release_value))}`));
-      body.push(h('p', {class: 'muted small', style: 'margin-top:.4rem'}, 'Usually a definition: which table or total the tag measures. A definition is applied every run.'));
-    }
-    if (x.kind === 'attribution_moved') body.push(h('p', {style: 'margin-top:.6rem'}, `${det.before[0]} ${det.before[1] != null ? usd(det.before[1]) : ''} → ${det.after[0]} ${det.after[1] != null ? usd(det.after[1]) : ''}`));
-    if (x.kind === 'finding_unconfirmed' || x.kind === 'blocked') body.push(h('p', {style: 'margin-top:.6rem'}, det.message || ''));
-    if (x.kind === 'new_filing') body.push(h('p', {style: 'margin-top:.6rem'}, `Filed ${day(det.filed)}. `, h('a', {href: det.url, target: '_blank', rel: 'noopener'}, 'Open at the SEC')));
-    const stateSel = h('select', {'aria-label': 'Resolution'}, [['accept', 'Accept: the number is right'], ['explain', 'Explain: right, reason below'], ['fix', 'Fix: will be fixed, stays open'], ['blocks', 'Blocks the release']].map(([k, v]) => h('option', {value: k}, v)));
-    const reason = h('input', {type: 'text', placeholder: 'Why…', 'aria-label': 'Reason', style: 'flex:1;min-width:12rem'});
-    const status = h('span', {class: 'muted small', 'aria-live': 'polite'});
-    const save = h('button', {type: 'button', class: 'btn', onclick: async () => {
-      status.textContent = 'Saving…';
-      try { await api('/api/resolve', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({key: x.key, hash: x.hash, state: stateSel.value, reason: reason.value, by: me})}); status.textContent = 'Saved.'; setTimeout(route, 700); }
-      catch (e) { status.textContent = e.message; status.classList.add('bad'); }
-    }}, 'Save Resolution');
-    if (x.resolution) body.push(h('p', {class: 'small', style: 'margin-top:.8rem'}, `${x.resolution.state} by ${x.resolution.by}, ${day(x.resolution.at)}: ${x.resolution.reason}`));
-    body.push(h('div', {class: 'hrow', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn', onclick: () => act(x)}, ACTION[x.action]), ...trail),
-      h('div', {class: 'hrow', style: 'margin-top:1rem'}, stateSel, reason, save, status));
-    drawer(...body);
-  }
-  view.append(h('div', {class: 'stack', style: 'gap:1.25rem'},
-    h('div', {class: 'hrow'}, scopeSel, h('span', {class: 'muted small'}, `${queue.length} item${queue.length === 1 ? '' : 's'} to look at. Last run ${day(C.last_run)}${R.last ? `, last signed ${R.last}` : ''}. `, h('a', {href: '#reconcile?scope=' + scope}, 'Work through them in Reconcile'))),
-    stages,
-    h('div', {}, rowsBox,
-      h('p', {class: 'muted small', style: 'margin-top:.8rem'}, d.noise ? `${int(d.noise)} more facts differ from the filing’s tag but feed no attribution (mostly purchase commitments, a definition question). ` : '',
-        resolved ? h('button', {type: 'button', class: 'small', onclick: () => { showResolved = !showResolved; route(); }}, `${showResolved ? 'Hide' : 'Show'} ${int(resolved)} resolved`) : ''))));
-}
-
 // ── Status: the pipeline's numbers ───────────────────────────────────────────
-async function statusPage(view) {
-  const [hqd, ev] = await Promise.all([hq(true), api('/api/evaluation')]);
-  const H = hqd.health[0], blocked = hqd.questions.length;
-  view.append(h('div', {class: 'stack'}, h('section', {class: 'figs'},
-      fig('Companies', int(H.companies), `${int(H.filings)} 10-Ks, ${int(H.texts)} texts`),
-      fig('Values agree', `${int(H.agree)} / ${int(H.values)}`, 'with SEC data', H.waiting > 0),
-      fig('Facts', int(H.facts), `${int(H.attributed)} AI amounts`),
-      fig('Cells confirmed', `${int(H.cells_confirmed)} / ${int(H.cells)}`, 'on the rendered 10-K', H.cells_confirmed < H.cells),
-      fig('Faults through', `${int(H.faults_escaped)} / ${int(H.faults)}`, 'planted', H.faults_escaped > 0),
-      fig('Reference', ev ? `${ev.agree} / ${ev.with_estimate}` : '—', ev ? `with an estimate agree, ${ev.no_estimate} without one` : '', ev && ev.disagree > 0),
-      fig('Blocked', int(blocked), blocked ? 'needs a definition' : `run ${day(H.full_run ? H.full_run.at : H.run_at)}`, blocked > 0)),
-    h('p', {class: 'muted small'}, `${int(hqd.findings.length)} findings (restated, big move, line renamed, unit taken from elsewhere): `, h('a', {href: '#reconcile?cause=finding_unconfirmed'}, 'work them in Reconcile')),
-    ev ? h('div', {}, h('h2', {}, 'Reference check'), dotPlot(ev.rows.filter((r) => r.measure === 'share'))) : ''));
-  // C4 coverage and C8 cost, both from /api/v1
-  try {
-    const [cov, cost] = await Promise.all([api('/api/v1/coverage'), api('/api/v1/cost')]);
-    const covRows = cov.rows.filter((r) => r.field === 'capex' || r.field === 'revenue');
-    view.append(h('section', {}, h('h2', {}, 'Coverage by layer'), h('p', {class: 'muted small'}, cov.note),
-      table([{t: 'Layer', k: 'layer', f: (r) => INDUSTRY[r.layer] || r.layer}, {t: 'Field', k: 'field'}, {t: 'Companies', k: 'companies', n: true}, {t: 'With an amount', k: 'amount', n: true}, {t: 'Words only', k: 'words', n: true}, {t: 'None', k: 'none', n: true}, {t: 'Not run', k: 'no_row', n: true}], covRows)));
-    const t = cost.total;
-    view.append(h('section', {}, h('h2', {}, 'What the agents cost'),
-      h('p', {class: 'muted small'}, `${int(t.calls)} agent calls, ${compact(t.input_tokens)} tokens in, ${compact(t.output_tokens)} out, ${Math.round(t.seconds / 60)} min, ${int(t.failed)} failed. About $${t.usd.toLocaleString('en-US', {minimumFractionDigits: 2})} at list price${cost.per_company_usd ? `, $${cost.per_company_usd.toFixed(2)} per company` : ''}. ${cost.note}`),
-      table([{t: 'Step', k: 'step'}, {t: 'Calls', k: 'calls', n: true}, {t: 'In tokens', k: 'input_tokens', n: true, f: (r) => compact(r.input_tokens)}, {t: 'Out tokens', k: 'output_tokens', n: true, f: (r) => compact(r.output_tokens)}, {t: 'Min', k: 'seconds', n: true, f: (r) => (r.seconds / 60).toFixed(1)}, {t: 'Attempts', k: 'attempts', n: true}, {t: 'Failed', k: 'failed', n: true}, {t: 'USD', k: 'usd', n: true, f: (r) => '$' + r.usd.toFixed(2)}],
-        Object.entries(cost.steps).map(([step, o]) => ({step, ...o}))),
-      h('p', {class: 'muted small', style: 'margin-top:.6rem'}, 'Most expensive companies: ' + cost.companies.slice(0, 8).map((c) => `${c.ticker} $${c.usd.toFixed(2)}`).join(', '))));
-  } catch (e) { view.append(h('p', {class: 'msg small'}, 'Coverage and cost: ' + e.message)); }
-}
-
-// A drawer on the right: one thing at a time, closed with Esc or the ×.
 let drawerOpener = null;
 function drawer(...kids) {
   closeDrawer();
@@ -837,122 +448,8 @@ function closeDrawer() { const had = document.querySelector('.drawer'); document
 window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('td.cell')) { e.preventDefault(); e.target.click(); } });
 
 // ── Run: add a company ───────────────────────────────────────────────────────
-async function runPage(view) {
-  const ticker = h('input', {type: 'text', placeholder: 'Ticker, e.g. AVGO…', 'aria-label': 'Ticker', style: 'width:8rem;text-transform:uppercase'});
-  const status = h('span', {class: 'muted small', 'aria-live': 'polite'}), progress = h('div');
-  const addBtn = h('button', {type: 'button', class: 'btn', onclick: async () => {
-    status.textContent = 'Starting…'; status.classList.remove('bad');
-    try { await api('/api/companies', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ticker: ticker.value, by: me})}); status.textContent = ''; hqCache = null; progress.replaceChildren(jobBox(() => { hqCache = null; }, 'run')); }
-    catch (e) { status.textContent = e.message; status.classList.add('bad'); }
-  }}, 'Add and Run');
-  ticker.addEventListener('keydown', (e) => { if (e.key === 'Enter') addBtn.click(); });
-  progress.append(jobBox(null, 'run'));
-  view.append(h('div', {class: 'stack'}, h('header', {class: 'pagehead'}, h('h1', {}, 'Add a company'), h('p', {class: 'muted small'}, 'any ticker the SEC lists, every step runs, agents on the subscription')),
-    h('div', {class: 'hrow'}, ticker, addBtn, status), progress));
-}
-
 // ── Attribution: the grid with a method badge per cell; the badge opens the model ───────────────────────────────
-const BADGE = {stated_share: 'SH', stated_amount: 'ST', segment: 'SEG', ppe_category: 'PPE', whole_business: 'ALL', qualitative: 'Q', none: '·'};
-async function attributionPage(view, qs) {
-  const aq = parseQ(qs || ''), aField = aq.field || 'capex', aKind = aq.kind || 'actual';
-  const d = await api('/api/attribution');
-  const meta = await api('/api/data?t=&f=none');
-  const inds = Object.keys(d.models);
-  const rows = d.rows.filter((r) => r.field === aField && r.kind === aKind);
-  const fieldSel = h('select', {'aria-label': 'Field', onchange: (e) => go(`attribution?field=${e.target.value}&kind=${aKind}`)}, [['capex', 'AI capex'], ['revenue', 'AI revenue'], ['opex', 'AI opex']].map(([k, t]) => h('option', {value: k, selected: k === aField || null}, t)));
-  const kindSel = h('select', {'aria-label': 'Kind', onchange: (e) => go(`attribution?field=${aField}&kind=${e.target.value}`)}, [['actual', 'actual'], ['outlook', 'planned'], ['committed', 'committed']].map(([k, t]) => h('option', {value: k, selected: k === aKind || null}, t)));
-  const legend = h('span', {class: 'muted small'}, Object.entries(BADGE).filter(([k]) => k !== 'none').map(([k, b]) => h('span', {style: 'margin-right:.7rem'}, h('span', {class: 'badge bg-secondary-lt'}, b), ' ', METHOD[k])));
-  const years = [...new Set(rows.map((r) => r.period))].sort();
-  const by = new Map(rows.map((r) => [`${r.ticker}|${r.period}`, r]));
-  const peak = (t) => Math.max(0, ...rows.filter((r) => r.ticker === t).map((r) => r.ai_amount || 0));
-  const maxA = Math.max(...rows.map((r) => r.ai_amount || 0), 1);
-  const counts = {};
-  for (const r of rows) counts[r.method] = (counts[r.method] || 0) + 1;
-  const status = h('span', {class: 'muted small', 'aria-live': 'polite'}), progress = h('div');
-
-  const rerun = (ind) => h('button', {type: 'button', class: 'btn', onclick: async () => {
-    status.textContent = 'Starting…'; status.classList.remove('bad');
-    try { await api('/api/attribute', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({industry: ind, by: me})}); status.textContent = ''; progress.replaceChildren(jobBox(() => route(), 'attribution')); }
-    catch (e) { status.textContent = e.message; status.classList.add('bad'); }
-  }}, ind ? `Rerun ${INDUSTRY[ind]}` : 'Rerun All');
-
-  function showBasis(t, y, r) {
-    drawer(h('h3', {style: 'margin:0 0 .4rem'}, `${meta.names[t]}, ${y}`),
-      h('div', {class: 'figs', style: 'margin-bottom:1rem'}, fig('AI capex', r.ai_amount != null ? usd(r.ai_amount) : '—', r.ai_share != null ? `${pct(r.ai_share)} of capex` : 'no amount'),
-        fig('Method', METHOD[r.method], `confidence ${pct(r.confidence)}`), fig('Model', r.model, h('button', {type: 'button', class: 'small', onclick: () => showModel(meta.industries[t])}, 'open'))),
-      h('p', {}, r.basis), h('p', {class: 'muted small mono', style: 'margin-top:.6rem'}, r.inputs || '—'));
-  }
-  function showModel(ind) {
-    const m = d.models[ind];
-    let shown = m.version;
-    const text = h('textarea', {readonly: true, 'aria-label': 'Model text', spellcheck: 'false', style: 'min-height:18rem'});
-    const verSel = h('select', {'aria-label': 'Model version', onchange: (e) => { shown = e.target.value; show(); }}, m.versions.map((v) => h('option', {value: v, selected: v === m.version || null}, v === m.version ? `${v} (in use)` : v)));
-    const note = h('input', {type: 'text', placeholder: 'What changed and why…', 'aria-label': 'What changed and why', style: 'flex:1;min-width:12rem'});
-    const editBtn = h('button', {type: 'button', onclick: () => { text.readOnly = false; editRow.hidden = false; editBtn.hidden = true; useBtn.hidden = true; text.focus(); }}, 'Edit');
-    const useBtn = h('button', {type: 'button', onclick: () => post('use', {version: shown}, `Now using ${shown}; rerun the industry.`)}, 'Use');
-    const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('save', {text: text.value, note: note.value}, (r) => `Saved as ${r.version}; not in use until switched on.`)}, 'Save as New Version');
-    const cancelBtn = h('button', {type: 'button', onclick: show}, 'Cancel');
-    const editRow = h('div', {class: 'hrow', hidden: true}, note, saveBtn, cancelBtn);
-    function show() { text.value = m.texts[shown]; text.readOnly = true; editRow.hidden = true; editBtn.hidden = false; useBtn.hidden = shown === m.version; text.style.height = 'auto'; text.style.height = Math.min(520, text.scrollHeight + 4) + 'px'; }
-    async function post(what, body, done) {
-      status.textContent = 'Saving…';
-      try { const r = await api(`/api/models/${ind}/${what}`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({...body, by: me})}); status.textContent = typeof done === 'function' ? done(r) : done; setTimeout(route, 1200); }
-      catch (e) { status.textContent = e.message; status.classList.add('bad'); }
-    }
-    drawer(h('h3', {style: 'margin:0 0 .4rem'}, `${INDUSTRY[ind]} model`), h('p', {class: 'muted small', style: 'margin-bottom:.6rem'}, m.companies.join(', ') || 'no company'),
-      h('div', {class: 'hrow', style: 'margin-bottom:.6rem'}, verSel, editBtn, useBtn, rerun(ind), status), text, editRow);
-    queueMicrotask(show);
-  }
-
-  // grid, grouped by industry
-  const body = [];
-  for (const ind of inds) {
-    const ts = d.models[ind].companies.filter((t) => rows.some((r) => r.ticker === t)).sort((a, b) => peak(b) - peak(a));
-    if (!ts.length) continue;
-    body.push(h('tr', {}, h('td', {class: 'muted small', colspan: years.length + 1, style: 'padding-top:.9rem'}, INDUSTRY[ind], ', ', h('button', {type: 'button', class: 'small', onclick: () => showModel(ind)}, d.models[ind].version))));
-    for (const t of ts) body.push(h('tr', {}, h('td', {}, h('a', {href: `#data?t=${t}&f=ai_capex,capex`}, meta.names[t]), ' ', h('span', {class: 'muted small'}, t)), years.map((y) => {
-      const r = by.get(`${t}|${y}`);
-      if (!r) return h('td', {class: 'n muted'}, '');
-      const badge = h('button', {type: 'button', class: 'badge', title: METHOD[r.method], onclick: (e) => { e.stopPropagation(); showModel(meta.industries[t]); }}, BADGE[r.method]);
-      const c = heat(r.ai_amount || 0, maxA, [h('div', {}, r.ai_amount != null ? usd(r.ai_amount) : h('span', {class: 'muted'}, '—')), h('div', {class: 'note'}, r.ai_share != null ? pct(r.ai_share) : '', ' ', badge)]);
-      c.classList.add('cell'); c.tabIndex = 0;
-      c.addEventListener('click', () => showBasis(t, y, r));
-      return c;
-    })));
-  }
-  const grid = h('div', {class: 'scroll'}, h('table', {class: 'heat'}, h('thead', {}, h('tr', {}, h('th', {}, `AI ${aField}`), years.map((y) => h('th', {class: 'n'}, y.slice(2))))), h('tbody', {}, body)));
-
-  // reruns and diff as tables
-  const diff = d.diff;
-  const diffTable = diff && diff.rows && diff.rows.length ? table([{t: 'Company, field, year, kind', sort: false, f: (r) => h('span', {class: 'mono small'}, r.key)},
-    {t: 'Before', sort: false, f: (r) => `${METHOD[r.before[0]] || r.before[0]}${r.before[1] != null ? ', ' + usd(r.before[1]) : ''}`},
-    {t: 'After', sort: false, f: (r) => `${METHOD[r.after[0]] || r.after[0]}${r.after[1] != null ? ', ' + usd(r.after[1]) : ''}`}], diff.rows) : h('p', {class: 'muted small'}, diff ? 'No row changed in the last load.' : 'No load yet.');
-  const history = table([{t: 'When', k: 'at', f: (x) => when(x.at)}, {t: 'Who', k: 'by'}, {t: 'Change', k: 'change', wide: 1}], [...d.history].reverse().slice(0, 12));
-
-  view.append(h('div', {class: 'stack', style: 'gap:1rem'},
-    h('div', {class: 'hrow'}, fieldSel, kindSel, rerun(null), h('span', {class: 'muted small'}, `${rows.filter((r) => r.ai_amount != null).length} of ${rows.length} company-years with an AI amount, click a cell for its basis, a badge for the model`), status),
-    legend,
-    progress, grid,
-    h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, diff ? `Changed in the last load: ${int(diff.changed)}, ${day(diff.at)}` : 'No load yet'), h('div', {style: 'margin-top:.8rem'}, diffTable)),
-    h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Model and prompt changes'), h('div', {style: 'margin-top:.8rem'}, history))));
-}
-
 // ── Agents (the readers) and Releases ───────────────────────────────────────
-async function agentsPage(view) {
-  const all = await api('/api/agents');
-  view.append(h('header', {style: 'margin-bottom:2.5rem'}, h('h1', {}, 'The readers'),
-    h('p', {class: 'lede'}, 'Every agent in the pipeline: what it decides, what checks it, its model and prompt. A prompt is never edited in place: a change becomes the next version and is switched on as a second step, both logged with a name. The attributor’s models are edited on the Attribution tab.')));
-  Object.values(all).forEach((a, i) => view.append(h('details', {class: 'card mb-2', open: i === 0 || null}, h('summary', {class: 'card-header', style: 'cursor:pointer'}, h('h3', {class: 'card-title m-0'}, a.name), h('span', {class: 'ms-3 text-secondary small'}, `${a.llm.model}, prompt ${a.prompt}`)), h('div', {class: 'card-body'}, agentCard(a)))));
-}
-
-async function releasesPage(view) {
-  const d = await api('/api/outputs');
-  view.append(h('div', {class: 'stack'}, h('header', {class: 'pagehead'}, h('h1', {}, 'Releases'), h('p', {class: 'lede'}, 'A release is a folder of plain files whose content hash a person signs. A signed one has a packet to send.')),
-    ...[...d.releases].reverse().map((r) => sect(r.version, r.signed_by ? `signed by ${r.signed_by}, ${day(r.signed_at)}` : 'not signed',
-      h('p', {class: 'muted small', style: 'margin-bottom:.5rem'}, `${int(r.rows.length)} values`, r.packet ? [', ', h('a', {href: `/packet/${r.version}.zip`}, 'Download the packet (zip)')] : ', a packet needs a signature'),
-      h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Values'), table([{t: 'Company', k: 'company'}, {t: 'Field', k: 'field'}, {t: 'Year', k: 'period'}, {t: 'Value', n: 1, k: 'value', f: (x) => (x.value === '' ? h('span', {class: 'muted'}, 'blank') : usd(Number(x.value)))}, {t: 'SEC data', k: 'xbrl'}], r.rows))))));
-}
-
 // ── Reconcile: the workbench, on Tabler (dashboard UI kit) inside its own shadow root so the kit's reset touches nothing else. ──
 // One card per cause; one row per item with ours, reference, a gap bar, delta and decision; Enter opens the evidence as
 // aligned diff tables (this year, the computation, every year) with a status badge per line, and the decision form.
@@ -1306,7 +803,7 @@ async function proofPage(view) {
   const proven = b.proven.filter((c) => c.proven).length;
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'}, h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Proof'),
     h('div', {class: 'text-secondary small'}, h('b', {class: 'text-body'}, `${proven} of ${b.proven.length}`), ' proven. Every number is ', h('span', {class: 'text-green'}, 'checked'), ' against something independent, ', h('span', {class: 'text-azure'}, 'explained'), ' by a rule or a definition on file, or ', h('span', {class: 'text-red'}, 'open'), '. Proven means nothing open at any stage.')),
-    h('div', {class: 'col-auto'}, g.ok == null ? h('span', {class: 'badge bg-secondary-lt'}, 'golden: not run') : h('a', {href: '#golden', class: 'badge ' + (g.ok ? 'bg-green-lt' : 'bg-red-lt')}, g.ok ? `golden: equal, ${day(g.at)}` : `golden: differs, ${day(g.at)}`))));
+    h('div', {class: 'col-auto'}, g.ok == null ? h('span', {class: 'badge bg-secondary-lt'}, 'golden: not run') : h('span', {class: 'badge ' + (g.ok ? 'bg-green-lt' : 'bg-red-lt')}, g.ok ? `golden: equal, ${day(g.at)}` : `golden: differs, ${day(g.at)}`))));
   const table_ = h('div', {class: 'card'}, h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table'},
     h('thead', {}, h('tr', {}, h('th', {}, 'Company'), b.stages.map((s) => h('th', {class: 'num'}, s.label)), h('th', {}, ''))),
     h('tbody', {}, b.proven.map((c) => h('tr', {class: 'item', tabindex: 0, onclick: () => go('proof/' + c.ticker), onkeydown: (e) => { if (e.key === 'Enter') go('proof/' + c.ticker); }},
@@ -1316,7 +813,14 @@ async function proofPage(view) {
   const legend = h('p', {class: 'text-secondary small mt-2'}, 'Each cell: checked · explained · open. Click a company for its trail; open items say what rule or definition is missing.');
   const others = h('div', {class: 'card mt-3'}, h('div', {class: 'card-body py-2 d-flex align-items-center gap-3'}, h('span', {class: 'fw-semibold'}, `The other ${int(b.others.companies)}`), h('span', {class: 'text-secondary small'}, `${int(b.others.values_agree)} of ${int(b.others.values)} values agree with the SEC's data; ${int(b.others.with_amount)} of ${int(b.others.attribution)} attribution rows carry an amount. ${b.others.note}.`),
     h('a', {href: '#data', class: 'ms-auto small'}, 'Dataset'), h('a', {href: '#reconcile', class: 'small'}, 'Reconcile')));
-  view.append(head, table_, legend, others);
+  const rel = await api('/api/outputs').catch(() => ({releases: []}));
+  const releases = dtable('Releases', [{t: 'Version', k: 'version'}, {t: 'Signed', f: (r) => (r.signed_by ? `${r.signed_by}, ${day(r.signed_at)}` : h('span', {class: 'text-secondary'}, 'not signed'))}, {t: 'Values', num: 1, f: (r) => int(r.rows.length)}, {t: 'Packet', f: (r) => (r.packet ? h('a', {href: `/packet/${r.version}.zip`}, 'zip') : '')}], [...rel.releases].reverse().slice(0, 6));
+  const golden = h('details', {class: 'card mt-3'}, h('summary', {class: 'card-header py-2', style: 'cursor:pointer'}, h('h3', {class: 'card-title m-0'}, 'Golden test'), h('span', {class: 'ms-3 text-secondary small'}, g.ok == null ? 'not run yet' : `${g.ok ? 'equal' : 'differs'}, ${when(g.at)}${g.tickers ? ', ' + g.tickers.join(', ') : ''}`)),
+    h('div', {class: 'card-body py-2'}, h('p', {class: 'small text-secondary'}, 'The code stages run on the frozen inputs for the proven set and must reproduce the expected tables. Any change to a parser, a rule, a loader or a thesis has to pass it, or change the expectation on purpose.'),
+      h('pre', {class: 'raw'}, 'uv run python -m ledger golden --check\nuv run python -m ledger golden --freeze   # change the expectation on purpose, then commit with the reason'),
+      g.steps ? h('div', {class: 'mt-2'}, dtable('Last run', [{t: 'Step', k: 'step'}, {t: 'Exit', num: 1, k: 'exit'}], g.steps)) : '',
+      g.diffs && Object.keys(g.diffs).length ? h('div', {class: 'mt-2'}, dtable('Differences', [{t: 'Table', k: 'name'}, {t: 'Only in the run', num: 1, k: 'n_only_in_run'}, {t: 'Only in expected', num: 1, k: 'n_only_in_expected'}], Object.entries(g.diffs).map(([k, v]) => ({name: k, ...v})))) : ''));
+  view.append(head, table_, legend, others, h('div', {class: 'mt-3'}, releases), golden);
 }
 
 async function trailPage(view, ticker) {
@@ -1345,18 +849,11 @@ async function rulesPage(view) {
   const KINDB = {rule: 'bg-secondary-lt', guard: 'bg-azure-lt', definition: 'bg-green-lt'};
   const tbl = dtable('In force', [{t: 'Kind', f: (x) => h('span', {class: 'badge ' + KINDB[x.kind]}, x.kind)}, {t: 'Id', f: (x) => h('span', {class: 'font-monospace small'}, x.id)}, {t: 'What', f: (x) => h('span', {class: 'small brk'}, x.what)}, {t: 'Severity', f: (x) => x.severity || (x.where ? x.where : '')}, {t: 'Fired or closed', num: 1, f: (x) => int(x.fired)}, {t: 'Type', f: (x) => (x.type ? `type ${x.type}` : '')}], r.rules);
   const open = r.open_by_need.length ? r.open_by_need.map((g) => dtable(`Needs ${g.needs}`, [{t: 'Company', k: 'ticker'}, {t: 'Stage', k: 'stage'}, {t: 'What', k: 'what'}, {t: 'Detail', f: (o) => h('span', {class: 'text-secondary small brk'}, o.detail || '')}], g.items)) : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'Nothing open on the proven set.'))];
-  view.append(head, tbl, h('h2', {class: 'mt-4 mb-2'}, `Open on the proven set: ${int(r.open)}`), ...open.map((x) => h('div', {class: 'mb-3'}, x)));
-}
-
-async function goldenPage(view) {
-  const g = await api('/api/v1/golden');
-  const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'}, h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Golden'),
-    h('div', {class: 'text-secondary small'}, 'The code stages run on the frozen inputs for the proven set and must reproduce the expected tables. Any change to a parser, a rule, a loader or a thesis has to pass it, or change the expectation on purpose.')),
-    h('div', {class: 'col-auto'}, g.ok == null ? h('span', {class: 'badge bg-secondary-lt'}, 'not run yet') : h('span', {class: 'badge ' + (g.ok ? 'bg-green-lt' : 'bg-red-lt')}, g.ok ? `equal, ${when(g.at)}` : `differs, ${when(g.at)}`))));
-  const cmd = h('pre', {class: 'raw'}, 'uv run python -m ledger golden --check        # run it\nuv run python -m ledger golden --check --keep --verbose\nuv run python -m ledger golden --freeze       # change the expectation, on purpose, then commit with the reason');
-  const steps = g.steps ? dtable('Last run', [{t: 'Step', k: 'step'}, {t: 'Exit', num: 1, k: 'exit'}], g.steps) : '';
-  const diffs = g.diffs && Object.keys(g.diffs).length ? dtable('Differences', [{t: 'Table', k: 'name'}, {t: 'Rows in the run', num: 1, k: 'rows_got'}, {t: 'Expected', num: 1, k: 'rows_want'}, {t: 'Only in the run', num: 1, k: 'n_only_in_run'}, {t: 'Only in expected', num: 1, k: 'n_only_in_expected'}], Object.entries(g.diffs).map(([k, v]) => ({name: k, ...v}))) : '';
-  view.append(head, h('p', {class: 'small text-secondary'}, `Fixtures ${g.fixtures ? 'present' : 'missing'}${g.tickers ? ' for ' + g.tickers.join(', ') : ''}.`), cmd, h('div', {class: 'mt-3'}, steps), h('div', {class: 'mt-3'}, diffs));
+  const [att, readers] = await Promise.all([api('/api/attribution').catch(() => ({models: {}})), api('/api/agents').catch(() => ({}))]);
+  const theses = dtable('Theses in use', [{t: 'Layer', f: (m) => INDUSTRY[m.industry] || m.industry}, {t: 'Version', f: (m) => h('button', {type: 'button', class: 'btn btn-sm btn-link p-0', onclick: () => openModel(m.industry)}, m.version)}, {t: 'Companies', num: 1, f: (m) => int(m.companies.length)}, {t: 'Versions', f: (m) => h('span', {class: 'text-secondary small'}, m.versions.join(', '))}],
+    Object.entries(att.models || {}).map(([k, m]) => ({industry: k, ...m})), {note: 'open one to read, edit as the next version, dry-run it, switch it on, rerun the layer'});
+  const agents = dtable('The readers', [{t: 'Agent', k: 'name'}, {t: 'Model', f: (a) => h('span', {class: 'font-monospace small'}, a.llm.model)}, {t: 'Prompt in use', f: (a) => h('span', {class: 'font-monospace small'}, a.prompt)}, {t: 'Decides', f: (a) => h('span', {class: 'small text-secondary'}, a.decides.join('; '))}], Object.values(readers), {note: 'prompts are files under agents/prompts, versioned, never edited in place'});
+  view.append(head, tbl, h('h2', {class: 'mt-4 mb-2'}, `Open on the proven set: ${int(r.open)}`), ...open.map((x) => h('div', {class: 'mb-3'}, x)), h('div', {class: 'mt-4'}, theses), h('div', {class: 'mt-3'}, agents));
 }
 
 // ── Routing ─────────────────────────────────────────────────────────────────
@@ -1381,24 +878,17 @@ async function route() {
   const raw = location.hash.slice(1) || 'proof';
   const [path, qs] = raw.split('?');
   const [page, arg] = path.split('/');
-  const tab = {company: 'data', pipeline: 'flow', insights: 'data', views: 'explore', run: 'proof', flow: 'proof', status: 'proof'}[page] || page;
+  const tab = {company: 'data', views: 'explore', flow: 'proof', status: 'proof', golden: 'proof', releases: 'proof', agents: 'rules', attribution: 'rules', run: 'proof'}[page] || page;
   document.querySelectorAll('header [data-nav]').forEach((a) => a.classList.toggle('active', a.dataset.nav === tab));
   const view = $('#view');
-  view.replaceChildren(h('h1', {class: 'sr'}, `DATAHQ, ${({proof: 'Proof', rules: 'Rules', golden: 'Golden', flow: 'Flow', reconcile: 'Reconcile', data: 'Dataset', company: 'Company', attribution: 'Attribution', views: 'Explore', explore: 'Explore', status: 'Status', releases: 'Releases', agents: 'Agents', run: 'Add a Company'})[page] || 'Data'}`));
+  view.replaceChildren(h('h1', {class: 'sr'}, `DATAHQ, ${({proof: 'Proof', rules: 'Rules', reconcile: 'Reconcile', data: 'Dataset', company: 'Company', explore: 'Explore'})[page] || 'Data'}`));
   try {
     if (page === 'proof' && arg) await trailPage(view, arg);
     else if (page === 'proof') await proofPage(view);
     else if (page === 'rules') await rulesPage(view);
-    else if (page === 'golden') await goldenPage(view);
     else if (page === 'company') await dataPage(view, `t=${arg || ''}&f=ai_capex,capex`);
-    else if (page === 'flow') await flowPage(view, qs);
-    else if (page === 'attribution') await attributionPage(view, qs);
     else if (page === 'reconcile') await reconcilePage(view, qs);
     else if (page === 'views' || page === 'explore') await explorePage(view, arg, qs);
-    else if (page === 'agents') await agentsPage(view);
-    else if (page === 'releases') await releasesPage(view);
-    else if (page === 'run') await runPage(view);
-    else if (page === 'status') await statusPage(view);
     else if (page === 'data' || page === 'insights') await dataPage(view, qs);
     else await proofPage(view);
   } catch (e) {

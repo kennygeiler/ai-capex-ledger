@@ -19,18 +19,19 @@ behind a proxy that authenticates before exposing it.
 | `/api/v1/theses` | layer | layer, version, versions, text, companies |
 | `/api/v1/views` | saved view | id, name, measure, filters, group, show, note, by, at |
 
-`status` is a person's latest decision on the row from `resolutions.jsonl` (`accepted`, `explained`, `fix_pending`, `blocks`, or empty);
+`proven` says whether the row's company is in the proven set (`docs/PROOF.md`): every number of a proven company is checked or
+explained; a row with `proven: false` is as the pipeline left it. `status` is a person's latest decision on the row from `decisions/resolutions.jsonl` (`accepted`, `explained`, `fix_pending`, `blocks`, or empty);
 `flag` is what the numbers say by themselves (`share_over_total` on an attribution whose AI amount exceeds the total; `differs_from_xbrl`
 on a value or fact that does not match the SEC's data). A consumer excludes `fix_pending` and `blocks` rows and treats a flag as a caveat.
 
-The four measures (`docs/THESIS.md`): capex allocation and revenue exposure are `attribution` rows with field
+The four measures (`docs/PROOF.md`): capex allocation and revenue exposure are `attribution` rows with field
 `capex` or `revenue`; project-level investment is `projects`; plans versus reality is `plans`.
 
 The proof pages (`docs/PROOF.md`): `/api/v1/proof` is the board (the proven set's stage counts and the rest in one line), `/api/v1/proof/<ticker>`
 a company's trail (per stage: checked, explained, open items with what they need), `/api/v1/rules` every rule, guard and definition with what it closed
 and the open items by what is missing, `/api/v1/golden` the golden test's last result.
 
-One screen's feed: `/api/v1/reconcile?scope=all|<layer>|<ticker>` is the Reconcile workbench's rows (`docs/DATAHQ.md`): one per open
+One screen's feed: `/api/v1/reconcile?scope=all|<layer>|<ticker>` is the Reconcile workbench's rows (`docs/PROOF.md`): one per open
 item with `ours`, `reference`, `delta`, `delta_pct`, `measure` (usd or share), the cause, the evidence (cell, screenshot, quote, inputs) and the
 resolution. `POST /api/resolve` records one decision `{key, hash, state, reason, by}`; `POST /api/resolve/bulk` takes `{items: [{key, hash}], state, reason, by}`.
 

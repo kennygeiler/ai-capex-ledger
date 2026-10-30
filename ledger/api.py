@@ -8,7 +8,7 @@ import csv
 import io
 import re
 
-from .config import INDUSTRIES, industry, tracked
+from .config import INDUSTRIES, PROVEN, industry, tracked
 from .plans import plans as _plans
 from . import resolutions as _resolutions
 from . import views as _views
@@ -68,6 +68,8 @@ def fetch(con, name: str) -> list[dict]:
     for r in rows:
         if "ticker" in r and "layer" not in r:
             r["layer"] = industry(r["ticker"])
+        if "ticker" in r and name != "views":
+            r["proven"] = r["ticker"] in PROVEN  # docs/PROOF.md: every number of a proven company is checked or explained; the rest are as they are
         if name == "attribution":  # status: a person's latest decision on the row; flag: what the numbers say by themselves
             r["status"] = _resolutions.status_of(idx, "attribution", r["ticker"], r["field"], "", r["period"], r["kind"])
             r["flag"] = "share_over_total" if r.get("ai_share") is not None and r["ai_share"] > 1 else ""

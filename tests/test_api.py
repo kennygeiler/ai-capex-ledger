@@ -154,6 +154,11 @@ class CsvLineEndings(unittest.TestCase):
 
 
 class StatusAndFlag(unittest.TestCase):
+    def test_every_row_says_whether_its_company_is_proven(self):
+        rows = api.fetch(None, "companies")
+        from ledger.config import PROVEN
+        self.assertEqual({r["ticker"] for r in rows if r["proven"]}, set(PROVEN))
+
     def test_attribution_rows_carry_status_and_flag(self):
         import duckdb
         from ledger import resolutions

@@ -26,8 +26,6 @@ import duckdb
 from . import agents, progress, store
 from .cli.report import build
 from .config import ADDED, INDUSTRIES, added, industry, stage_tickers, tracked
-from .ingest.edgar import fetch_tickers
-from .extract import OUTPUTS
 from .evidence import load_all
 from .hq import snapshot
 from . import api, resolutions, views
@@ -472,29 +470,6 @@ def dryrun(version: str, by: str) -> dict:
     return job()
 
 
-def add_company(ticker: str, by: str) -> dict:
-    """Add a company the SEC knows and run the whole pipeline on it. Agent work runs on the subscription (claude -p)."""
-    global _proc
-    t = ticker.strip().upper()
-    if not re.fullmatch(r"[A-Z][A-Z0-9.\-]{0,9}", t):
-        raise ValueError("a ticker looks like AVGO")
-    if _proc and _proc.poll() is None:
-        raise ValueError("a company is already being run; wait for it to finish")
-    sec = fetch_tickers()[0]
-    if t not in sec:
-        raise ValueError(f"{t} isn't a ticker the SEC lists")
-    if t not in {c["ticker"] for c in tracked()}:
-        name = re.sub(r"\b(Inc|Corp|Corporation|Holdings|Ltd|Co|Plc)\b\.?", "", sec[t]["title"].title()).strip(" ,.")
-        ADDED.parent.mkdir(parents=True, exist_ok=True)
-        ADDED.write_text(json.dumps(added() + [{"ticker": t, "name": name, "group": "Added in DATAHQ", "added_by": by or "unknown",
-                                                "added_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}], indent=1))
-    log = JOB.parent / f"{t}-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S')}.log"
-    JOB.parent.mkdir(parents=True, exist_ok=True)
-    _proc = subprocess.Popen([sys.executable, "-m", "ledger", "run", "--ticker", t], cwd=store.ROOT, env=os.environ.copy(),
-                             stdout=log.open("w"), stderr=subprocess.STDOUT)
-    JOB.write_text(json.dumps({"kind": "run", "ticker": t, "log": str(log), "started": datetime.now(timezone.utc).isoformat(timespec="seconds"), "pid": _proc.pid}))
-    return job()
-
 
 def _alive(pid: int) -> bool:
     try:
@@ -569,8 +544,6 @@ class Handler(BaseHTTPRequestHandler):
             return self._guard(lambda: self._json(agents_view()))
         if u.path == "/api/job":
             return self._json(job())
-        if u.path == "/api/insights":
-            return self._guard(lambda: self._json(insights()))
         if u.path == "/api/flow":
             return self._guard(lambda: self._json(flow(q.get("scope", "all"))))
         if u.path == "/api/data":
@@ -596,10 +569,6 @@ class Handler(BaseHTTPRequestHandler):
                 return self.wfile.write(z)
         if u.path == "/api/outputs":
             return self._guard(lambda: self._json(outputs()))
-        if u.path == "/api/output":  # the agent's raw answer for one filing, exactly as saved
-            f = OUTPUTS / f"{q.get('accession', '')}.json"
-            if f.parent == OUTPUTS and f.exists():
-                return self._send(HTTPStatus.OK, f.read_bytes())
         if u.path.startswith("/evidence/"):
             f = EVIDENCE / u.path.removeprefix("/evidence/")
             if f.parent == EVIDENCE and f.suffix == ".png" and f.exists():
@@ -674,8 +643,6 @@ class Handler(BaseHTTPRequestHandler):
             body = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))) or b"{}")
         except json.JSONDecodeError:
             return self._json({"error": "send JSON"}, HTTPStatus.BAD_REQUEST)
-        if u.path == "/api/companies":
-            return self._guard(lambda: self._json(add_company(body.get("ticker", ""), body.get("by", ""))))
         if u.path == "/api/resolve/bulk":  # one reason for many items, each logged on its own
             def bulk():
                 out = [resolutions.resolve(i.get("key", ""), i.get("hash", ""), body.get("state", ""), body.get("reason", ""), body.get("by", "")) for i in body.get("items") or []]

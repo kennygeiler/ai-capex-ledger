@@ -1,6 +1,6 @@
 """What a person decided about a queue item: accept (the number is right as is), explain (right, and here is why),
-fix (will be fixed; stays open), blocks (must not ship). Append-only log in resolutions.jsonl at the repo root,
-tracked (it is judgement, like decisions.jsonl and definitions/), keyed by the item and a hash of its content, so a
+fix (will be fixed; stays open), blocks (must not ship). Append-only log in decisions/resolutions.jsonl, beside
+decisions.jsonl (tracked: it is judgement, like definitions/), keyed by the item and a hash of its content, so a
 changed item comes back. The release gate counts `blocks`; `accept` and `explain` hide the item until its content
 changes. `by_row()` maps the latest state onto dataset rows so exports and the grid can carry it."""
 import json
@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 
 from .store import ROOT
 
-LOG = ROOT / "resolutions.jsonl"
+LOG = ROOT / "decisions" / "resolutions.jsonl"  # beside decisions.jsonl: the two append-only logs of judgement the app writes; definitions/ is the one a person edits
 STATES = ("accept", "explain", "fix", "blocks")
 STATUS = {"accept": "accepted", "explain": "explained", "fix": "fix_pending", "blocks": "blocks"}  # the word a row carries
 

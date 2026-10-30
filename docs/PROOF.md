@@ -61,7 +61,18 @@ rebuilt from the texts (so the harness packs before it loads); three of the five
 been produced under the previous thesis after the switch (the proof requires every proven company rerun under
 the thesis in use); and the order of a value's cost-line extraction ids was not deterministic.
 
-## DATAHQ, rebuilt for this
+## The four measures
+
+| Measure | Question | Table |
+|---|---|---|
+| Capex allocation | how much of this year's capex is AI | `attribution`, field capex |
+| Revenue exposure | how much of revenue comes from AI demand | `attribution`, field revenue |
+| Project-level investment | which named projects, how big, what stage | `projects` |
+| Plans vs reality | what the company said it would spend, and what it spent | `plans` |
+
+One thesis per layer of the AI supply chain (`agents/models/<layer>@vN.md`, `docs/COMPANIES.md`): what moves the needle, where the money shows up, how to attribute, what counts as a project, the traps. Versioned, never edited in place; dry-run on a company before the switch.
+
+## DATAHQ
 
 - **Proof** (home): the five companies down, the stages across. Each cell: checked, explained, open, as counts.
   Proven companies read as one line. Below, the other 95 in one collapsed row with their counts.
@@ -69,6 +80,7 @@ the thesis in use); and the order of a value's cost-line extraction ids was not 
   definition that explains it, or "open". The cited cell, the tag's concept and member, the quote, the inputs.
 - **Rules**: every rule and definition, what it explains, how many items it closed in the latest run, and the
   failure type it came from. The open items of the five, grouped by what rule is missing. This is the work list.
-- **Golden**: the fixtures, the last check, the diff.
-- Kept: Explore (charts), Reconcile (judgement on open items, which should be nearly empty), Releases, Agents, the API.
-- Gone: Flow and Status as separate pages; their counts live on Proof.
+- **Reconcile**: judgement on open items, which should be nearly empty; a judgement that would be made twice becomes a definition.
+- **Dataset**: the grid for a consumer, marks per cell (✓ traced, ≠ differs from SEC data, ✗ disagrees with a stated figure, ! above the total, a decision as a badge), CSV export.
+- **Explore**: charts on the API lists, share as a value, saved views as queries.
+- The releases table and the golden test's last run sit on Proof; the theses and the readers on Rules. Six pages, one file, `ledger/app.html`.

@@ -23,8 +23,7 @@ class Keys(unittest.TestCase):
         self.assertEqual(resolutions.status_of(idx, "values", "LITE", "operating_income", "", "FY2023"), "explained")  # no period in the key: every year
 
     def test_log_is_at_the_repo_root_and_tracked(self):
-        self.assertEqual(resolutions.LOG.name, "resolutions.jsonl")
-        self.assertEqual(resolutions.LOG.parent, resolutions.ROOT)
+        self.assertEqual(resolutions.LOG, resolutions.ROOT / "decisions" / "resolutions.jsonl")
         self.assertNotIn("resolutions.jsonl", (resolutions.ROOT / ".gitignore").read_text())
 
 

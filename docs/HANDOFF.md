@@ -13,7 +13,7 @@ input so code recomputes the number. A person edits the models and definitions, 
 set, and signs a release; nobody is asked anything else.
 
 Built by Kenny Geiler in late October 2026 as a working prototype for a data-science role at Arctal. 100 companies
-across the AI supply chain (`docs/COMPANIES.md`), annual, fiscal years 2022 to 2026. See `docs/DATAHQ.md` for who Arctal is and why the app looks the way it does.
+across the AI supply chain (`docs/COMPANIES.md`), annual, fiscal years 2022 to 2026. See `docs/PROOF.md` for who Arctal is and why the app looks the way it does.
 
 ## What a clone contains, and what it does not
 
@@ -70,12 +70,12 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 | facts | segment capex and revenue, PP&E by category, finance leases, purchase commitments, from the notes | tables `note_extractions`, `facts`, `facts.csv` | `docs/DATA_DICTIONARY.md` |
 | texts, statements | MD&A, 8-K releases, transcripts; what each says about AI's part of spend, as verbatim quotes | tables `texts`, `ai_statements`, `ai_spend`, `ai_spend.csv` | `docs/INGESTION.md` |
 | attribution | AI's part of capex and opex per company-year, with method, inputs and basis | table `attribution`, `attribution.csv` | `docs/INGESTION.md` (Attribution) |
-| money-flow models | per industry, where AI money shows up and which methods are allowed; versioned, never edited in place | `agents/models/<industry>@vN.md`, in use per `agents/agents.json` | `docs/FLOW.md` |
+| money-flow models | per industry, where AI money shows up and which methods are allowed; versioned, never edited in place | `agents/models/<industry>@vN.md`, in use per `agents/agents.json` | `docs/archive/FLOW.md` |
 | prompts | one per agent, versioned the same way | `agents/prompts/`, `agents/schemas/` | `agents/agents.json` |
 | definitions | judgements made once per company and applied every run | `definitions/companies.yaml` | README Critical notes |
 | reference set | sourced figures for AI's part of capex, with URL and quote | `gold/ai_capex.yaml` | `docs/INGESTION.md` (Evaluation) |
-| rules | the 16 checks, each with its rationale and owner | `rules/*.yaml`, `ledger/rules.py` | `docs/PRD.md` |
-| resolutions | what a person decided about a queue item; `status` on exported rows | `resolutions.jsonl` at the repo root (tracked) | `docs/FLOW.md`, `docs/API.md` |
+| rules | the 16 checks, each with its rationale and owner | `rules/*.yaml`, `ledger/rules.py` | `docs/archive/PRD.md` |
+| resolutions | what a person decided about a queue item; `status` on exported rows | `resolutions.jsonl` at the repo root (tracked) | `docs/archive/FLOW.md`, `docs/API.md` |
 | releases | plain files whose content hash a person signs | `releases/v*/` | release `README.md` |
 | production | the signed releases, one table per release file plus `ledger_releases`; `current_*` views follow the highest version | Postgres at `DATABASE_URL`, `ledger/publish.py` | this file |
 | companies | the 100 companies by supply-chain layer; the layer picks the money-flow model | `data/companies.json`, `ledger/config.py` `INDUSTRIES` | `docs/COMPANIES.md` |
@@ -108,11 +108,11 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 7. The SEC contact and the production database URL live only in `.env`. Never commit them, never print them.
 8. Never get around a bot check. Investor-page links are listed by a person.
 9. Prompts and models are never edited in place; a change is the next version, switched on as a second step.
-10. The design rules for DATAHQ are in `docs/DATAHQ.md`; one thing per screen; numbers before words.
+10. The design rules for DATAHQ are in `docs/PROOF.md`; one thing per screen; numbers before words.
 
 ## If you are an AI agent
 
-Read in this order: this file, README Status, `docs/FLOW.md`, `docs/INGESTION.md` (skim the tables), then the
+Read in this order: this file, README Status, `docs/archive/FLOW.md`, `docs/INGESTION.md` (skim the tables), then the
 module you will change. Run the tests before and after. The invariants that must hold:
 
 - Every value in `values` resolves to a cell in a parsed table; `extract --load` rejects anything else.
@@ -125,4 +125,4 @@ Verify, don't assert: the pipeline writes `runs`, snapshots, `data/jobs/progress
 and `data/attribution/diff.json`; read them rather than the log. `rtk` wraps shell commands in some sessions and
 truncates long output; use `rtk proxy <cmd>` or a Python one-liner to read a full file or an HTTP body.
 
-`docs/PROOF.md` is the frame since 31 Oct 2026: the pipeline proves every number on five companies first; `ledger golden --check` is the bar. `docs/REPLICATION.md` is the walk through the app as its user would do it that led there.
+`docs/PROOF.md` is the frame since 31 Oct 2026: the pipeline proves every number on five companies first; `ledger golden --check` is the bar. `docs/archive/REPLICATION.md` is the walk through the app as its user would do it that led there.
