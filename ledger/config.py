@@ -35,10 +35,15 @@ AI_SET = [
 # attributor reads. A company not listed here gets "other" (no AI attribution beyond what it states).
 INDUSTRIES = {
     "hyperscaler": ["MSFT", "GOOGL", "AMZN", "META", "ORCL"],
-    "neocloud": ["CRWV"],
-    "miner_to_hpc": ["IREN", "APLD", "CIFR", "WULF", "CORZ"],
-    "chip_seller": ["NVDA", "AMD", "AVGO", "MRVL", "ALAB", "CRDO", "INTC", "QCOM", "TXN"],
-    "component_supplier": ["MU", "ANET", "CSCO"],
+    "neocloud": ["CRWV", "NBIS"],
+    "miner_to_hpc": ["IREN", "APLD", "CIFR", "WULF", "CORZ", "HUT", "RIOT", "MARA", "CLSK", "BTBT", "SLNH", "GLXY", "BTDR"],
+    "chip_seller": ["NVDA", "AMD", "AVGO", "MRVL", "ALAB", "CRDO", "INTC", "QCOM", "TXN", "ARM", "MPWR", "RMBS", "SITM", "SNPS", "CDNS"],
+    "chip_equipment": ["LRCX", "AMAT", "KLAC", "TER", "ENTG", "ONTO", "AEIS", "ACLS"],
+    "component_supplier": ["MU", "ANET", "CSCO", "WDC", "STX", "SNDK", "SMCI", "DELL", "HPE", "NTAP", "CIEN", "COHR", "LITE", "AAOI", "FN", "JBL", "FLEX", "CLS", "PENG"],
+    "datacenter_build": ["VRT", "ETN", "NVT", "MOD", "JCI", "PWR", "FIX", "EME", "GEV", "POWL", "BE"],
+    "datacenter_landlord": ["EQIX", "DLR", "IRM"],
+    "power": ["VST", "CEG", "NRG", "TLN"],
+    "ai_software": ["CRM", "NOW", "ADBE", "SNOW", "PLTR", "DDOG"],
 }
 
 

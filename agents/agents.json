@@ -140,7 +140,12 @@
    "miner_to_hpc": "miner_to_hpc@v1",
    "chip_seller": "chip_seller@v1",
    "component_supplier": "component_supplier@v1",
-   "other": "other@v1"
+   "other": "other@v1",
+   "chip_equipment": "chip_equipment@v1",
+   "datacenter_build": "datacenter_build@v1",
+   "datacenter_landlord": "datacenter_landlord@v1",
+   "power": "power@v1",
+   "ai_software": "ai_software@v1"
   },
   "history": [
    {
@@ -157,6 +162,11 @@
     "at": "2026-10-29T21:41:33+00:00",
     "by": "Kenny Geiler",
     "change": "hyperscaler: switched to hyperscaler@v2"
+   },
+   {
+    "at": "2026-10-30T02:07:10+00:00",
+    "by": "Kenny Geiler",
+    "change": "five money-flow models @v1 for the supply-chain layers added at 100 companies: chip_equipment, datacenter_build, datacenter_landlord, power, ai_software"
    }
   ]
  }

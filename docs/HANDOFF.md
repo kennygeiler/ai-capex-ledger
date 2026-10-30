@@ -12,8 +12,8 @@ money-flow model for the company's industry and the cleaned data and says how mu
 input so code recomputes the number. A person edits the models and definitions, reruns, checks against a reference
 set, and signs a release; nobody is asked anything else.
 
-Built by Kenny Geiler in late October 2026 as a working prototype for a data-science role at Arctal. 31 companies,
-annual, fiscal years 2022 to 2026. See `docs/DATAHQ.md` for who Arctal is and why the app looks the way it does.
+Built by Kenny Geiler in late October 2026 as a working prototype for a data-science role at Arctal. 100 companies
+across the AI supply chain (`docs/COMPANIES.md`), annual, fiscal years 2022 to 2026. See `docs/DATAHQ.md` for who Arctal is and why the app looks the way it does.
 
 ## What a clone contains, and what it does not
 
@@ -38,6 +38,7 @@ Not tracked, rebuilt by `ledger run` (needs the network and about 30 minutes for
 ```bash
 uv sync                                                     # Python 3.12, DuckDB, edgartools, pypdf, playwright
 echo 'SEC_USER_AGENT="Your Name you@example.com"' > .env     # the SEC requires a contact; never commit it
+echo 'DATABASE_URL="postgresql://…"' >> .env                 # production Postgres, only if you will publish releases
 claude                                                      # then /login: the agents run on a Claude subscription, headless
 export LEDGER_CLAUDE="$(which claude)"                      # the claude binary the pipeline should use
 uv run python -m unittest -q                                # 114 tests, offline, seconds
@@ -55,6 +56,7 @@ uv run python -m ledger run --stage 3            # all 31 (about 30 minutes on a
 LEDGER_CLAUDE="$(which claude)" uv run python -m ledger app   # DATAHQ at http://127.0.0.1:3610
 uv run python -m ledger eval                     # the attribution against the reference set
 uv run python -m ledger release v1.5.0 --stage 3 # refuses while a gate fails; then signoff, by the owner only
+uv run python -m ledger publish v1.5.0           # a signed release to the production Postgres; --status lists what is there
 ```
 
 Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `python -m ledger` lists them.
@@ -74,6 +76,8 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 | rules | the 16 checks, each with its rationale and owner | `rules/*.yaml`, `ledger/rules.py` | `docs/PRD.md` |
 | resolutions | what a person decided about a queue item | `data/resolutions.jsonl` (not tracked) | `docs/FLOW.md` |
 | releases | plain files whose content hash a person signs | `releases/v*/` | release `README.md` |
+| production | the signed releases, one table per release file plus `ledger_releases`; `current_*` views follow the highest version | Postgres at `DATABASE_URL`, `ledger/publish.py` | this file |
+| companies | the 100 companies by supply-chain layer; the layer picks the money-flow model | `data/companies.json`, `ledger/config.py` `INDUSTRIES` | `docs/COMPANIES.md` |
 
 ## How to do the common things
 
@@ -86,7 +90,9 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
   (who, why), rerun `reconcile` and `rules`. Never accept the same thing twice.
 - **Tighten the error band**: add a sourced figure to `gold/ai_capex.yaml`, run `ledger eval`.
 - **Release**: `ledger release vX.Y.Z --stage 3` (refuses while a gate fails), then `ledger signoff vX.Y.Z --by
-  "<name>"`. Signing is the one human act and belongs to the owner.
+  "<name>"`. Signing is the one human act and belongs to the owner. Then `ledger publish vX.Y.Z` pushes the signed
+  files to production; it refuses an unsigned release or one whose files no longer match the signed hash, and
+  publishing the same version again replaces its rows in one transaction.
 - **Find why something is wrong**: `docs/INGESTION.md` logs every failure type found so far (46), where it showed,
   what caught it, what fixed it. Add to it.
 
@@ -98,7 +104,7 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 4. A person sees only surprises and judgement calls, and each one says why code could not decide it.
 5. No paid API: the agents run on a Claude subscription through `claude -p`.
 6. Never sign a release without the owner's explicit approval for that release.
-7. The SEC contact lives only in `.env`. Never commit it, never print it.
+7. The SEC contact and the production database URL live only in `.env`. Never commit them, never print them.
 8. Never get around a bot check. Investor-page links are listed by a person.
 9. Prompts and models are never edited in place; a change is the next version, switched on as a second step.
 10. The design rules for DATAHQ are in `docs/DATAHQ.md`; one thing per screen; numbers before words.
