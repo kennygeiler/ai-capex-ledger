@@ -1,0 +1,117 @@
+{
+  "$comment": "Output contract for one AI-spend task: what the text says about AI's share of capex and opex, and AI's or data-center's share of revenue, each statement a verbatim quote.",
+  "type": "object",
+  "required": [
+    "accession",
+    "prompt_version",
+    "statements",
+    "none_found"
+  ],
+  "properties": {
+    "accession": {
+      "type": "string"
+    },
+    "prompt_version": {
+      "type": "string",
+      "const": "aispend@v4"
+    },
+    "statements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "field",
+          "fiscal_year",
+          "kind",
+          "scope",
+          "class",
+          "quote",
+          "passage",
+          "confidence"
+        ],
+        "properties": {
+          "field": {
+            "enum": [
+              "capex",
+              "opex",
+              "revenue"
+            ]
+          },
+          "fiscal_year": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "kind": {
+            "enum": [
+              "actual",
+              "outlook"
+            ]
+          },
+          "scope": {
+            "enum": [
+              "ai",
+              "total"
+            ]
+          },
+          "class": {
+            "enum": [
+              "explicit_amount",
+              "explicit_share",
+              "qualitative"
+            ]
+          },
+          "amount_low": {
+            "type": "integer"
+          },
+          "amount_high": {
+            "type": "integer"
+          },
+          "share": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "quote": {
+            "type": "string"
+          },
+          "passage": {
+            "type": "string",
+            "pattern": "^p\\d\\d$"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "none_found": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "field",
+          "reason"
+        ],
+        "properties": {
+          "field": {
+            "enum": [
+              "capex",
+              "opex",
+              "revenue"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

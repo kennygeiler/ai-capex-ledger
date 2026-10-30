@@ -4,6 +4,21 @@ The backlog for [PRD.md](PRD.md), grouped by milestone. Owner of every ticket: K
 
 ## Open
 
+### C: the critique of 30 Oct (ten tickets, ranked)
+
+| ID | Ticket | Done when |
+|---|---|---|
+| C1 | **Revenue exposure has no stated inputs.** The AI-spend reader reads capex and opex statements only, so `stated_share` / `stated_amount` for `revenue` can never fire; Broadcom's "AI semiconductor revenue" is invisible. | `aispend@v4` reads revenue statements too (field `revenue`, scope `ai`: "AI revenue of $X", "data center revenue was N% of total"); `ai_statements`/`ai_spend` carry them; a rerun over every text; the attributor's revenue rows use them. |
+| C2 | **Theses are thin.** Written by an agent without sources; company facts hedged with "when stated". | Every thesis's next version cites at least three sources per layer (filings, calls, independent estimates) in a Sources section, names each company's AI segment or stated share with the source, and is dry-run before use. |
+| C3 | **Reference set covers 6% of companies.** Six entries, all hyperscalers. | At least 25 sourced entries across at least six layers in `gold/ai_capex.yaml` (URL, quote, date each); `ledger eval` reports agreement per layer. |
+| C4 | **Most of the 100 attribute `none`.** Honest, but the dataset says nothing about them. | A coverage roll-up per layer and measure (`/api/v1/coverage`, Status tab): companies with an amount, with words only, with nothing, per field; the Companies section of each thesis says why a `none` company is in the set. |
+| C5 | **Committed and planned are weak.** Purchase commitments and finance leases are extracted but never attributed; planned is total guidance only. | Attribution has `kind: committed` (method `commitment`: AI part of purchase commitments or lease commitments per the thesis) and `kind: outlook` rows from AI guidance; the Dataset's committed and planned columns fill from them. |
+| C6 | **Views are a filtered grid.** Bars and shares are hints, no real charts. | A view shows as a grid, a bar chart by group, a line chart by year per company, or a share grid; charts use the existing chart helpers and the ledger palette. |
+| C7 | **Two production shapes.** `/api/v1` serves the working database; Postgres holds releases with other table names. | One shape: the release holds every list the API serves (companies, values, facts, attribution, statements, plans, projects), `ledger publish` pushes those files, and `/api/v1/<list>?release=vX.Y.Z` serves a signed release's files unchanged. |
+| C8 | **No cost accounting for the agents.** Tokens sit in run logs; no cost per company, step or release. | `ledger cost` and the Status tab: tokens, seconds, attempts and estimated cost per step, per company and per release, with the price per million tokens in `ledger/config.py` and the date it was set. |
+| C9 | **Built blind.** Views tab, `/api/v1`, theses in the attributor, projects reader: none run against the real database yet. | Each exercised in the browser on the real database after the 100-company run, screenshots in `reports/evidence/datahq/`, problems logged. |
+| C10 | **The error band is a count.** "2 of 6 agree" is not an interval. | `ledger eval` reports a Wilson interval on the agreement rate overall and per method and layer, and the error distribution (median, interquartile range) on `eq` entries. |
+
 ### M3: review scales
 
 | ID | Ticket | Done when |

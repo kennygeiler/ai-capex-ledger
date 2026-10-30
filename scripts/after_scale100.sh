@@ -31,4 +31,5 @@ uv run python -m ledger attribution --stage 3 --load
 uv run python -m ledger projects --stage 3 --run
 uv run python -m ledger projects --stage 3 --load
 uv run python -m ledger run --stage 3
+uv run python -m ledger cost --stage 3
 echo "##### AFTER DONE $(date -u +%FT%TZ)"

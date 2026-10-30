@@ -21,6 +21,17 @@ class Evaluation(unittest.TestCase):
         b = ev["bands"]["ppe_category"]
         self.assertEqual((b["n"], b["agree"], b["n_eq"]), (2, 1, 1))
         self.assertAlmostEqual(b["median_abs_error"], abs(0.58 - 0.60) / 0.60)
+        self.assertEqual(b["agree_ci"], (0.095, 0.905))  # 1 of 2: a wide interval, as it should be
+        self.assertIn("hyperscaler", ev["layers"])
+        self.assertEqual(ev["layers"]["hyperscaler"]["n"], 2)
+        self.assertEqual(ev["fields"]["capex"]["agree"], 1)
+
+    def test_wilson(self):
+        from ledger.evaluation import wilson
+        self.assertIsNone(wilson(0, 0))
+        lo, hi = wilson(2, 6)
+        self.assertTrue(0.09 < lo < 0.10 and 0.69 < hi < 0.71)
+        self.assertEqual(wilson(10, 10)[1], 1.0)
 
 
 if __name__ == "__main__":

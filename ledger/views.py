@@ -3,7 +3,7 @@
 A view is {id, name, measure, filters, group, show, by, at, note}. `measure` is one of the API's lists
 (attribution, values, facts, statements, plans, projects); `filters` are that list's filters (ticker, layer, period,
 field, kind, method, scope); `group` is a column to roll up by (ticker, layer, period, field, method) or null for
-rows; `show` is grid, bars or shares, a hint for the visualizer. Views live in data/views.json, tracked, so a view
+rows; `show` is grid, bars (by group), lines (by year per company) or shares. Views live in data/views.json, tracked, so a view
 travels with the repo. Saving a view with an existing id replaces it; the old one is kept in `history`."""
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FILE = ROOT / "data" / "views.json"
 MEASURES = ("attribution", "values", "facts", "statements", "plans", "projects")
 GROUPS = (None, "ticker", "layer", "period", "field", "method", "kind", "scope")
-SHOWS = ("grid", "bars", "shares")
+SHOWS = ("grid", "bars", "lines", "shares")
 
 
 def load() -> dict:

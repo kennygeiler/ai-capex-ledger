@@ -4,11 +4,11 @@ You are attributing one company's capital expenditures (`capex`), operating expe
 
 ## Output rows
 
-One row per (`field`, `period`, `kind`) you can say something about. `kind` is `actual` (money spent in that fiscal year) or `outlook` (expected for a later year, from a statement).
+One row per (`field`, `period`, `kind`) you can say something about. `kind` is `actual` (money spent in that fiscal year), `outlook` (expected for a later year, from a statement: planned), or `committed` (contracted but not yet spent at the year end: purchase commitments for GPUs, cloud capacity or data-center construction, and finance leases, where the thesis says they are AI).
 
 | Field | Meaning |
 |---|---|
-| `method` | One of `stated_share`, `stated_amount`, `segment`, `ppe_category`, `whole_business`, `qualitative`, `none`. The model says which are allowed for this industry. |
+| `method` | One of `stated_share`, `stated_amount`, `segment`, `ppe_category`, `whole_business`, `commitment`, `qualitative`, `none`. The model says which are allowed for this industry. |
 | `ai_amount` | Whole US dollars, or `null` for `qualitative` and `none`. |
 | `ai_share` | `ai_amount ÷ the company's value for that field and year`, when that value is in the pack; else `null`. |
 | `inputs` | Every pack item the number rests on, by its id, with the value you took from it: `[{"id": "fact:…", "value": 1234}]`. Code recomputes `ai_amount` from these. |
@@ -21,6 +21,7 @@ One row per (`field`, `period`, `kind`) you can say something about. `kind` is `
 - `stated_share`: `ai_amount = round(share × value)`; inputs are the statement and the value (`value:…`).
 - `segment`: `ai_amount` is the sum of the listed `fact:…` segment capex (or cost) inputs; for `revenue`, the sum of the listed `segment_revenue` facts that the thesis names as the AI or data-center line.
 - `ppe_category`: `ai_amount = gross(t) − gross(t−1)` of one category; inputs are the two facts, newer first.
+- `commitment`: `kind: committed`; `ai_amount` is the sum of the listed `purchase_commitments` or `finance_lease_liability` facts for the year end that the thesis says are AI (a neocloud's GPU purchase commitments; a hyperscaler's where the note separates them). Say in `basis` what the commitment covers.
 - `whole_business`: `ai_amount = value`; the input is the value. For `revenue` only where the thesis allows it (a single-business AI cloud).
 - `qualitative` / `none`: `ai_amount` and `inputs` empty; `basis` says what was said, or that nothing was.
 

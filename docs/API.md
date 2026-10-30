@@ -22,6 +22,17 @@ behind a proxy that authenticates before exposing it.
 The four measures (`docs/THESIS.md`): capex allocation and revenue exposure are `attribution` rows with field
 `capex` or `revenue`; project-level investment is `projects`; plans versus reality is `plans`.
 
+Two roll-ups, not lists: `/api/v1/coverage` (per layer and field: companies with an AI amount, words only, none,
+not run) and `/api/v1/cost` (agent calls, tokens, seconds, attempts, failures and an estimated price at list, per
+step and per company; `ledger cost` writes the same to `reports/cost.json`).
+
+## One shape, two doors
+
+`?release=vX.Y.Z` on any of companies, values, facts, attribution, statements, plans, projects serves that signed
+release's file instead of the working database, typed back from CSV and with a `release` column, so a consumer gets
+the same columns from a release as from the live API. A release holds one CSV per list (`ledger release`), and
+`ledger publish` pushes those same files to Postgres as `ledger_<list>` tables with `current_<list>` views.
+
 ## Filters and grouping
 
 Every list takes `ticker`, `layer`, `period`, `field`, `kind`, `method`, `scope`, `dimension`, `source` as
@@ -42,7 +53,7 @@ A JSON response is `{"list", "count", "filters", "rows"}`.
 
 A view is a saved question: `{id, name, measure, filters, group, show, note}` where `measure` is one of the lists
 above (attribution, values, facts, statements, plans, projects), `filters` and `group` are as above, and `show` is
-`grid`, `bars` or `shares` (a hint for the visualizer). Views live in `data/views.json`, tracked.
+`grid`, `bars` (one bar per group), `lines` (one line per company by year) or `shares` (a share grid). Views live in `data/views.json`, tracked.
 
 ```
 GET  /api/v1/views                 the saved views

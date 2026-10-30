@@ -20,6 +20,24 @@ OUT = ROOT / "reports" / "evaluation.json"
 TOL = 0.10  # an "eq" entry agrees when ours is within 10% of it, relative
 
 
+def wilson(k: int, n: int, z: float = 1.96) -> tuple[float, float] | None:
+    """95% Wilson score interval on a proportion; None when n = 0."""
+    if not n:
+        return None
+    p, z2 = k / n, z * z
+    centre = (p + z2 / (2 * n)) / (1 + z2 / n)
+    half = z * ((p * (1 - p) / n + z2 / (4 * n * n)) ** 0.5) / (1 + z2 / n)
+    return (round(max(0.0, centre - half), 3), round(min(1.0, centre + half), 3))
+
+
+def _band(rows: list[dict]) -> dict:
+    """n, agree, the Wilson interval on the agreement rate, and the error distribution on eq entries."""
+    errs = sorted(abs(r["error"]) for r in rows if r["relation"] == "eq" and r["error"] is not None)
+    q = statistics.quantiles(errs, n=4) if len(errs) >= 2 else None
+    return {"n": len(rows), "agree": sum(r["outcome"] == "agree" for r in rows), "agree_ci": wilson(sum(r["outcome"] == "agree" for r in rows), len(rows)),
+            "median_abs_error": statistics.median(errs) if errs else None, "iqr_abs_error": (round(q[0], 3), round(q[2], 3)) if q else None, "n_eq": len(errs)}
+
+
 def load(path: Path = GOLD) -> list[dict]:
     entries = yaml.safe_load(path.read_text()) if path.exists() else []
     for e in entries or []:
@@ -54,22 +72,16 @@ def score(entries: list[dict], attribution: list[dict], capex: dict) -> dict:
         else:
             outcome = "agree" if mine <= e["value"] * (1 + TOL) else "disagree"
         rows.append({**row, "ours": mine, "outcome": outcome, "error": err})
-    by_method = {}
+    from .config import industry
     for r in rows:
-        if r["outcome"] == "no_estimate":
-            continue
-        m = by_method.setdefault(r["method"], {"n": 0, "agree": 0, "errors": []})
-        m["n"] += 1
-        m["agree"] += r["outcome"] == "agree"
-        if r["relation"] == "eq" and r["error"] is not None:
-            m["errors"].append(abs(r["error"]))
-    bands = {m: {"n": v["n"], "agree": v["agree"], "median_abs_error": statistics.median(v["errors"]) if v["errors"] else None, "n_eq": len(v["errors"])}
-             for m, v in by_method.items()}
-    n = len(rows)
+        r["layer"] = industry(r["ticker"])
     with_est = [r for r in rows if r["outcome"] != "no_estimate"]
+    group = lambda key: {k: _band([r for r in with_est if r[key] == k]) for k in sorted({r[key] for r in with_est})}
+    n = len(rows)
     return {"n": n, "with_estimate": len(with_est), "agree": sum(r["outcome"] == "agree" for r in with_est),
             "disagree": sum(r["outcome"] == "disagree" for r in with_est), "no_estimate": n - len(with_est),
-            "eq_entries": sum(r["relation"] == "eq" for r in rows), "bands": bands, "rows": rows}
+            "agree_ci": wilson(sum(r["outcome"] == "agree" for r in with_est), len(with_est)), "overall": _band(with_est),
+            "eq_entries": sum(r["relation"] == "eq" for r in rows), "bands": group("method"), "layers": group("layer"), "fields": group("field"), "rows": rows}
 
 
 def render(ev: dict) -> str:
@@ -82,9 +94,15 @@ def render(ev: dict) -> str:
     rel = {"eq": "", "ge": "≥ ", "le": "≤ "}
     for r in ev["rows"]:
         lines.append(f"| {r['ticker']} | {r['period']} | {rel[r['relation']]}{fmt(r, r['reference'])} | {fmt(r, r['ours'])} | {r['method'] or '—'} | {r['outcome'].replace('_', ' ')} | {r['basis']} |")
-    lines += ["", "## Error band by method", "", "| Method | n | agree | median abs error (eq entries) |", "|---|---|---|---|"]
-    for m, b in sorted(ev["bands"].items()):
-        band = "—" if b["median_abs_error"] is None else f"{b['median_abs_error']:.0%} (n={b['n_eq']})"
-        lines.append(f"| {m} | {b['n']} | {b['agree']} | {band} |")
+    ci = lambda b: "—" if not b.get("agree_ci") else f"{b['agree_ci'][0]:.0%}–{b['agree_ci'][1]:.0%}"
+    err = lambda b: "—" if b["median_abs_error"] is None else f"{b['median_abs_error']:.0%}" + (f" (IQR {b['iqr_abs_error'][0]:.0%}–{b['iqr_abs_error'][1]:.0%})" if b.get("iqr_abs_error") else "") + f" n={b['n_eq']}"
+    o = ev.get("overall") or {}
+    lines += ["", f"Agreement rate {ev['agree']}/{ev['with_estimate']}, 95% Wilson interval {ci(o)}. The interval is the honest width at this sample size; "
+              f"it narrows as the reference set grows. Error on entries that state a figure: median {err(o)}.", ""]
+    for title, key, name in (("Error band by method", "bands", "Method"), ("By layer", "layers", "Layer"), ("By field", "fields", "Field")):
+        lines += [f"## {title}", "", f"| {name} | n | agree | 95% interval | abs error on eq entries (median, IQR) |", "|---|---|---|---|---|"]
+        for m, b in sorted((ev.get(key) or {}).items()):
+            lines.append(f"| {m} | {b['n']} | {b['agree']} | {ci(b)} | {err(b)} |")
+        lines.append("")
     lines += ["", "Sources, one per entry:", ""] + [f"- {r['ticker']} {r['period']}: {r['source']['quote']} ({r['source']['url']}, {r['source'].get('date', '')})" for r in ev["rows"]] + [""]
     return "\n".join(lines)

@@ -52,7 +52,7 @@
    "model": "claude-opus-5-5",
    "runs_on": "Claude Code on Kenny's subscription: claude -p, headless, no tools, no paid API"
   },
-  "prompt": "aispend@v3",
+  "prompt": "aispend@v4",
   "history": [
    {
     "at": "2026-10-29T00:00:00+00:00",
@@ -78,6 +78,11 @@
     "at": "2026-10-29T20:37:56+00:00",
     "by": "Kenny Geiler",
     "change": "switched to aispend@v3"
+   },
+   {
+    "at": "2026-10-30T02:59:32+00:00",
+    "by": "Kenny Geiler",
+    "change": "switched to aispend@v4"
    }
   ]
  },

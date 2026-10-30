@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import csv
 import io
+import re
 
 from .config import INDUSTRIES, industry, tracked
 from .plans import plans as _plans
@@ -14,6 +15,7 @@ from . import views as _views
 FILTERS = ("ticker", "layer", "period", "field", "kind", "method", "scope", "dimension", "source")
 SUM_COLS = {"attribution": "ai_amount", "values": "value", "facts": "value", "statements": "amount_mid", "plans": "gap", "projects": "amount"}
 LISTS = ("companies", "values", "facts", "attribution", "statements", "plans", "projects", "theses", "views")
+RELEASE_LISTS = ("companies", "values", "facts", "attribution", "statements", "plans", "projects")  # the files a release holds, one per list (C7)
 
 
 def _rows(con, sql, *p):
@@ -95,8 +97,56 @@ def apply(rows: list[dict], q: dict) -> list[dict]:
     return rows
 
 
+def release_rows(version: str, name: str) -> list[dict]:
+    """A signed release's file for a list, typed back from CSV: the same shape the live API serves, unchanged."""
+    import csv
+    from .publish import NUMERIC, check
+    d = check(version)["dir"]
+    f = d / f"{name}.csv"
+    if name not in RELEASE_LISTS or not f.exists():
+        raise KeyError(f"release {version} has no {name}")
+    with f.open(newline="") as fh:
+        rows = list(csv.DictReader(fh))
+    for r in rows:
+        for k, v in r.items():
+            if v == "":
+                r[k] = None
+            elif k in NUMERIC or k in ("gap", "plan_low", "plan_high", "plan_mid", "actual", "gap_share", "capacity_mw", "gpus", "amount_mid"):
+                try:
+                    r[k] = int(v) if re.fullmatch(r"-?\d+", v) else float(v)
+                except ValueError:
+                    pass
+            elif v in ("True", "False"):
+                r[k] = v == "True"
+        r["release"] = version
+    return rows
+
+
 def query(con, name: str, q: dict) -> list[dict]:
+    if q.get("release"):
+        return apply(release_rows(q["release"], name), q)
     return apply(fetch(con, name), q)
+
+
+def coverage(con) -> dict:
+    """Per layer and field: companies with an AI amount, with words only, with nothing, with no row at all (C4)."""
+    cos = companies()
+    att = _rows(con, "select ticker, field, method, ai_amount from attribution where kind = 'actual'")
+    state = {}
+    for a in att:
+        k = (a["ticker"], a["field"])
+        cur = state.get(k, "none")
+        new = "amount" if a["ai_amount"] is not None else ("words" if a["method"] == "qualitative" else "none")
+        state[k] = {"amount": 2, "words": 1, "none": 0}[new] > {"amount": 2, "words": 1, "none": 0}[cur] and new or cur
+    out = []
+    for layer in sorted({c["layer"] for c in cos}):
+        mine = [c["ticker"] for c in cos if c["layer"] == layer]
+        for field in ("capex", "opex", "revenue"):
+            counts = {"amount": 0, "words": 0, "none": 0, "no_row": 0}
+            for t in mine:
+                counts[state.get((t, field), "no_row")] += 1
+            out.append({"layer": layer, "field": field, "companies": len(mine), **counts})
+    return {"rows": out, "note": "amount: an AI dollar figure with a method; words: the company links it to AI without a number; none: the thesis says it is not AI spend; no row: not run yet."}
 
 
 def view_data(con, view_id: str) -> dict:

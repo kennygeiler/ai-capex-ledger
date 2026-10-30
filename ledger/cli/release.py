@@ -48,6 +48,12 @@ def main(argv=None) -> int:
     attribution = _rows(con, "select * from attribution where ticker in (select unnest(?))", tickers)
     ev_path = store.ROOT / "reports" / "evaluation.json"
     files = build(a.version, apply(values, excs, ds), exts, excs, previous, confirmed, ai, facts, attribution, json.loads(ev_path.read_text()) if ev_path.exists() else None)
+    from .. import api  # one shape (C7): the release holds every list the API serves, as the API serves it
+    want = set(tickers[0])
+    for name in api.RELEASE_LISTS:
+        rows = [r for r in api.fetch(con, name) if r.get("ticker", "") in want or name == "companies"]
+        files[f"{name}.csv"] = api.to_csv(rows)
+    files["theses.json"] = json.dumps(api.theses(), indent=1, sort_keys=True)
     h = content_hash(files)
     out = RELEASES / a.version
     if out.exists():

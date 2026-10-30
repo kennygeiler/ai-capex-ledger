@@ -21,8 +21,9 @@ MODELS = ROOT / "agents" / "models"
 TASKS = ROOT / "data" / "attribution" / "tasks"
 OUTPUTS = ROOT / "data" / "attribution" / "outputs"
 FIELDS = ("capex", "opex", "revenue")  # capex allocation, opex, revenue exposure (docs/THESIS.md)
-METHODS = ("stated_share", "stated_amount", "segment", "ppe_category", "whole_business", "qualitative", "none")
-NUMERIC = ("stated_share", "stated_amount", "segment", "ppe_category", "whole_business")
+KINDS = ("actual", "outlook", "committed")  # spent, planned, committed (docs/THESIS.md)
+METHODS = ("stated_share", "stated_amount", "segment", "ppe_category", "whole_business", "commitment", "qualitative", "none")
+NUMERIC = ("stated_share", "stated_amount", "segment", "ppe_category", "whole_business", "commitment")
 
 
 def prompt_version() -> str:
@@ -125,7 +126,7 @@ def validate_output(obj: dict, ticker: str, items: dict, override: str | None = 
         missing = [k for k in ("field", "period", "kind", "method", "ai_amount", "ai_share", "inputs", "basis", "confidence") if k not in r]
         if missing:
             raise Invalid(f"rows[{i}] missing {missing}")
-        if r["field"] not in FIELDS or r["kind"] not in ("actual", "outlook") or r["method"] not in METHODS:
+        if r["field"] not in FIELDS or r["kind"] not in KINDS or r["method"] not in METHODS:
             raise Invalid(f"rows[{i}]: field, kind or method out of range")
         if not re.fullmatch(r"FY\d{4}", str(r["period"])):
             raise Invalid(f"rows[{i}].period {r['period']!r} is not FYyyyy")
@@ -144,6 +145,8 @@ def validate_output(obj: dict, ticker: str, items: dict, override: str | None = 
             have = it.get("value") if it["kind"] != "statement" else (it["share"] if it["share"] is not None else ((it["amount_low"] + it["amount_high"]) // 2 if it["amount_low"] is not None else None))
             if have is not None and abs(float(x["value"]) - float(have)) > 1:
                 raise Invalid(f"rows[{i}]: input {x['id']} is {have}, not {x['value']}")
+        if r["method"] == "commitment" and r["kind"] != "committed" or r["kind"] == "committed" and r["method"] not in ("commitment", "stated_amount", "stated_share", "qualitative", "none"):
+            raise Invalid(f"rows[{i}]: the commitment method goes with kind committed, and a committed row uses commitment, a stated figure, or words")
         if r["method"] in NUMERIC:
             _check_arithmetic(r, items, i)
         else:
@@ -192,6 +195,12 @@ def _check_arithmetic(r: dict, items: dict, i: int) -> None:
             raise Invalid(f"rows[{i}]: ppe_category needs two facts of the same category, newer first")
         if abs(amt - (facts[0]["value"] - facts[1]["value"])) > tol:
             raise Invalid(f"rows[{i}]: ai_amount {amt} ≠ gross(t) − gross(t−1) = {facts[0]['value'] - facts[1]['value']}")
+    elif m == "commitment":
+        facts = [items[x["id"]] for x in ins]
+        if not facts or any(f["kind"] != "fact" or f["field"] not in ("purchase_commitments", "finance_lease_liability") for f in facts):
+            raise Invalid(f"rows[{i}]: commitment needs purchase_commitments or finance_lease_liability fact inputs")
+        if abs(amt - sum(f["value"] for f in facts)) > tol:
+            raise Invalid(f"rows[{i}]: ai_amount {amt} ≠ sum of commitments {sum(f['value'] for f in facts)}")
     elif m == "whole_business":
         vals = [items[x["id"]] for x in ins]
         if len(vals) != 1 or vals[0]["kind"] != "value" or vals[0]["field"] != r["field"] or vals[0]["period"] != r["period"]:

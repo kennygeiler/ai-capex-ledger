@@ -217,11 +217,11 @@ def data(q: dict) -> dict:
         for a in _rows(con, "select * from attribution"):
             if a["ai_amount"] is None:
                 continue
-            rows.append({"ticker": a["ticker"], "field": f"ai_{a['field']}" + ("_outlook" if a["kind"] == "outlook" else ""), "dimension": "", "period": a["period"],
-                         "kind": "planned" if a["kind"] == "outlook" else "spent", "value": a["ai_amount"], "unit": "usd", "check": None, "method": a["method"], "confidence": a["confidence"],
+            rows.append({"ticker": a["ticker"], "field": f"ai_{a['field']}" + {"outlook": "_outlook", "committed": "_committed"}.get(a["kind"], ""), "dimension": "", "period": a["period"],
+                         "kind": {"outlook": "planned", "committed": "committed"}.get(a["kind"], "spent"), "value": a["ai_amount"], "unit": "usd", "check": None, "method": a["method"], "confidence": a["confidence"],
                          "basis": a["basis"], "share": a["ai_share"], "prov": {"inputs": a["inputs"], "model": a["model"], "prompt": a["prompt_version"], "table": "attribution"}})
         for s in _rows(con, "select * from ai_spend where class = 'explicit_amount' and scope = 'total'"):
-            rows.append({"ticker": s["ticker"], "field": "capex_guidance" if s["field"] == "capex" else "opex_guidance", "dimension": "", "period": s["period"], "kind": "planned" if s["kind"] == "outlook" else "spent",
+            rows.append({"ticker": s["ticker"], "field": f"{s['field']}_guidance", "dimension": "", "period": s["period"], "kind": "planned" if s["kind"] == "outlook" else "spent",
                          "value": (s["amount_low"] + s["amount_high"]) // 2, "unit": "usd", "check": None, "method": "stated", "confidence": None, "basis": s["quote"],
                          "range": [s["amount_low"], s["amount_high"]], "prov": {"text": s["text_id"], "source": s["source"], "accession": s["accession"], "table": "ai_spend"}})
         urls = {d["accession"]: d["url"] for d in _rows(con, "select accession, url from documents")}
@@ -580,6 +580,13 @@ class Handler(BaseHTTPRequestHandler):
         name, fmt = parts[0], q.get("format", "json")
         if name.endswith(".csv"):
             name, fmt = name[:-4], "csv"
+        if name in ("coverage", "cost"):
+            from .cost import report
+            con = _con()
+            try:
+                return self._json(api.coverage(con) if name == "coverage" else report(con))
+            finally:
+                con.close()
         if name not in api.LISTS:
             return self._json({"error": f"no list {name!r}", "lists": api.LISTS}, HTTPStatus.NOT_FOUND)
         if name == "views" and len(parts) == 3 and parts[2] == "data":

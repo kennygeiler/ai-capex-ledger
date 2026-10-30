@@ -110,3 +110,37 @@ class Views(unittest.TestCase):
         views.save({"id": "rev", "name": "Revenue", "measure": "attribution", "filters": {"field": "revenue"}, "group": None, "show": "grid"}, "Kenny")
         out = api.view_data(_store(), "rev")
         self.assertEqual([r["ticker"] for r in out["rows"]], ["NVDA"])
+
+
+class Coverage(unittest.TestCase):
+    def test_counts(self):
+        cov = api.coverage(_store())
+        row = next(r for r in cov["rows"] if r["layer"] == "chip_seller" and r["field"] == "revenue")
+        self.assertEqual(row["amount"], 1)
+        self.assertEqual(row["no_row"], row["companies"] - 1)
+
+
+class Cost(unittest.TestCase):
+    def test_report(self):
+        from ledger import cost
+        con = _store()
+        store.write(con, "documents", [], replace=True)
+        store.write(con, "runs", [
+            {"run_id": "r1", "step": "attribution", "subject": "META", "started_at": "2026-10-30T00:00:00", "seconds": 20.0, "outcome": "ok",
+             "versions": json.dumps({"prompt": "attribution@v1", "model": "hyperscaler@v2", "llm": "claude-opus-5-5"}), "detail": json.dumps({"rows": 3, "model": "claude-opus-5-5", "input_tokens": 1_000_000, "output_tokens": 50_000, "attempts": 1})},
+            {"run_id": "r1", "step": "attribution", "subject": "NVDA", "started_at": "2026-10-30T00:00:00", "seconds": 5.0, "outcome": "failed",
+             "versions": json.dumps({"prompt": "attribution@v1"}), "detail": json.dumps({"error": "x"})}], replace=True)
+        rep = cost.report(con)
+        self.assertEqual(rep["total"]["usd"], 5.0)  # 1M in at $4 + 50k out at $20
+        self.assertEqual(rep["steps"]["attribution"]["failed"], 1)
+        self.assertEqual(rep["companies"][0]["ticker"], "META")
+        self.assertIn("$5.00", cost.render(rep))
+
+
+class ReleaseRows(unittest.TestCase):
+    def test_signed_release_lists_are_typed(self):
+        rows = api.release_rows("v1.4.0", "values")
+        self.assertTrue(rows and isinstance(rows[0]["value"], (int, float)))
+        self.assertEqual(rows[0]["release"], "v1.4.0")
+        with self.assertRaises(KeyError):
+            api.release_rows("v1.4.0", "projects")  # v1.4.0 predates the list

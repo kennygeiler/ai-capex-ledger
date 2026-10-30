@@ -21,13 +21,15 @@ from .store import ROOT
 
 TASKS = ROOT / "data" / "aispend" / "tasks"
 OUTPUTS = ROOT / "data" / "aispend" / "outputs"
-FIELDS = ("capex", "opex")
+FIELDS = ("capex", "opex", "revenue")  # revenue: AI or data-center revenue, the seller side (docs/THESIS.md)
 KINDS = ("actual", "outlook")
 SCOPES = ("ai", "total")
 CLASSES = ("explicit_amount", "explicit_share", "qualitative")
 
 CAPEX = re.compile(r"capital expenditure|capital spending|purchases? of property|property and equipment|technical infrastructure|data ?cent(er|re)|servers?|GPU", re.I)
 OPEX = re.compile(r"research and development|R&D|operating expenses|headcount|compensation|cost of revenue", re.I)
+REVENUE = re.compile(r"\brevenues?\b|\bsales\b|\bbacklog\b|\borders\b", re.I)
+DC = re.compile(r"data ?cent(er|re)|AI (infrastructure|server|semiconductor|revenue|platform)|accelerator|HBM|hyperscale", re.I)
 AI = re.compile(r"\bAI\b|artificial intelligence|machine learning|generative|accelerated computing|large language|\bLLM", re.I)
 OUTLOOK = re.compile(r"\b(expect|anticipate|plan|intend|estimate|forecast|guidance)", re.I)
 LIQUIDITY = re.compile(r"liquidity and capital resources", re.I)
@@ -55,6 +57,8 @@ def passages(text: str, limit: int = 30) -> list[str]:
     def rank(i, p):
         spend = CAPEX.search(p) or OPEX.search(p)
         if spend and AI.search(p):
+            return 0
+        if REVENUE.search(p) and (AI.search(p) or DC.search(p)) and re.search(r"\$\s?\d|\d+(\.\d+)?\s?%|percent|billion|million", p):
             return 0
         if CAPEX.search(p) and OUTLOOK.search(p):
             return 1
@@ -138,7 +142,7 @@ def validate_output(obj: dict, accession: str, ps: dict[str, str]) -> None:
             raise Invalid(f"statements[{i}].confidence must be between 0 and 1")
     for i, n in enumerate(obj["none_found"]):
         if not isinstance(n, dict) or n.get("field") not in FIELDS or "reason" not in n:
-            raise Invalid(f"none_found[{i}] needs a field (capex or opex) and a reason")
+            raise Invalid(f"none_found[{i}] needs a field ({', '.join(FIELDS)}) and a reason")
 
 
 def period_of(s: dict, reported_year: int) -> tuple[str, str | None]:

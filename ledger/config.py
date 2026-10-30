@@ -133,3 +133,10 @@ def scope(a) -> tuple[list[str], str]:
         ts = sorted({t.upper() for t in a.ticker})
         return ts, "-".join(ts)
     return stage_tickers(a.stage or 1), f"stage{a.stage or 1}"
+
+
+# List prices per million tokens for the cost report (`ledger cost`), from Anthropic's price list on the date given.
+# The agents run on a Claude subscription, so these are what the same work would cost on the API, not what was paid.
+PRICES = {"claude-opus-5-5": {"input": 4.00, "output": 20.00, "cache_read": 0.20, "as_of": "2026-10-06"},
+          "claude-sonnet-5-5": {"input": 2.00, "output": 10.00, "cache_read": 0.20, "as_of": "2026-10-06"},
+          "claude-haiku-5-5": {"input": 0.10, "output": 0.50, "cache_read": 0.01, "as_of": "2026-10-06"}}

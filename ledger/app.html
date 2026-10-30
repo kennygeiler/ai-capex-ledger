@@ -473,8 +473,8 @@ const confirmedCell = (f) => (f.confirmed ? h('span', {class: 'muted'}, 'agrees'
 const pct = (x) => (x == null ? '—' : x < .001 ? '<0.1%' : `${(100 * x).toFixed(x < .1 ? 1 : 0)}%`);
 const fig = (l, n, s, bad) => h('div', {class: 'fig'}, h('div', {class: 'l'}, l), h('div', {class: 'n' + (bad ? ' bad' : '')}, n), h('div', {class: 's' + (bad ? ' bad' : '')}, s));
 const sect = (title, note, ...body) => h('section', {}, h('div', {class: 'sechead'}, h('h2', {}, title), note ? h('span', {class: 'muted small'}, note) : ''), ...body);
-const INDUSTRY = {hyperscaler: 'Hyperscaler', neocloud: 'Neocloud', miner_to_hpc: 'Miner to HPC', chip_seller: 'Chip seller', component_supplier: 'Memory and networking', other: 'Other'};
-const METHOD = {stated_share: 'stated share', stated_amount: 'stated amount', segment: 'segment capex', ppe_category: 'server category growth', whole_business: 'whole business', qualitative: 'words only', none: 'none'};
+const INDUSTRY = {hyperscaler: 'Hyperscaler', neocloud: 'Neocloud', miner_to_hpc: 'Miner to HPC', chip_seller: 'Chip design', chip_equipment: 'Chip equipment', component_supplier: 'Memory, networking, servers', datacenter_build: 'Data-center build', datacenter_landlord: 'Data-center landlord', power: 'Power producer', ai_software: 'AI software', other: 'Adopters and other'};
+const METHOD = {stated_share: 'stated share', stated_amount: 'stated amount', segment: 'segment', ppe_category: 'server category growth', whole_business: 'whole business', commitment: 'commitments', qualitative: 'words only', none: 'none'};
 const METHOD_NOTE = {stated_share: 'the company said the share', stated_amount: 'the company said the amount', segment: 'the AI segment’s capex in the notes', ppe_category: 'growth in the server and network category; all servers, not only AI', whole_business: 'a single-segment AI business', qualitative: 'words, no number', none: 'nothing links the spend to AI'};
 function change(f) {
   if (f.kind === 'restated') return `${usd(f.before)} → ${usd(f.after)} (${f.after >= f.before ? '+' : '−'}${pct(f.size)})`;
@@ -533,7 +533,7 @@ function dotPlot(rows) {
 }
 
 // ── Data: the dataset as a grid, provenance one click deep ──────────────────
-const FIELDS = {capex: 'Capex', ai_capex: 'AI capex', revenue: 'Revenue', opex: 'Opex', ai_opex: 'AI opex', segment_capex: 'Segment capex', segment_revenue: 'Segment revenue', ppe_category: 'PP&E by category',
+const FIELDS = {capex: 'Capex', ai_capex: 'AI capex', ai_revenue: 'AI revenue', ai_capex_committed: 'AI capex committed', revenue_guidance: 'Revenue guidance', revenue: 'Revenue', opex: 'Opex', ai_opex: 'AI opex', segment_capex: 'Segment capex', segment_revenue: 'Segment revenue', ppe_category: 'PP&E by category',
   finance_lease_liability: 'Finance lease liabilities', purchase_commitments: 'Purchase commitments', ai_capex_outlook: 'AI capex, planned', ai_opex_outlook: 'AI opex, planned', capex_guidance: 'Capex guidance', opex_guidance: 'Opex guidance'};
 const KINDS = {spent: 'spent', committed: 'committed', planned: 'planned'};
 const VIEWS = [
@@ -792,6 +792,19 @@ async function statusPage(view) {
       fig('Blocked', int(blocked), blocked ? 'needs a definition' : `run ${day(H.full_run ? H.full_run.at : H.run_at)}`, blocked > 0)),
     h('div', {}, h('h2', {}, 'Findings'), table([{t: 'Company', k: 'company'}, {t: 'Year', k: 'period', f: (f) => f.period || '—'}, {t: 'What', k: 'kind', f: (f) => `${KIND[f.kind]}, ${(LABEL[f.field] || f.field || '').toLowerCase()}`}, {t: 'Change', sort: false, f: change}, {t: 'SEC data', k: 'confirmed', f: confirmedCell}], hqd.findings, {onRow: (f) => go('company/' + f.ticker)})),
     ev ? h('div', {}, h('h2', {}, 'Reference check'), dotPlot(ev.rows.filter((r) => r.measure === 'share'))) : ''));
+  // C4 coverage and C8 cost, both from /api/v1
+  try {
+    const [cov, cost] = await Promise.all([api('/api/v1/coverage'), api('/api/v1/cost')]);
+    const covRows = cov.rows.filter((r) => r.field === 'capex' || r.field === 'revenue');
+    view.append(h('section', {}, h('h2', {}, 'Coverage by layer'), h('p', {class: 'muted small'}, cov.note),
+      table([{t: 'Layer', k: 'layer', f: (r) => INDUSTRY[r.layer] || r.layer}, {t: 'Field', k: 'field'}, {t: 'Companies', k: 'companies', n: true}, {t: 'With an amount', k: 'amount', n: true}, {t: 'Words only', k: 'words', n: true}, {t: 'None', k: 'none', n: true}, {t: 'Not run', k: 'no_row', n: true}], covRows)));
+    const t = cost.total;
+    view.append(h('section', {}, h('h2', {}, 'What the agents cost'),
+      h('p', {class: 'muted small'}, `${int(t.calls)} agent calls, ${compact(t.input_tokens)} tokens in, ${compact(t.output_tokens)} out, ${Math.round(t.seconds / 60)} min, ${int(t.failed)} failed. About $${t.usd.toLocaleString('en-US', {minimumFractionDigits: 2})} at list price${cost.per_company_usd ? `, $${cost.per_company_usd.toFixed(2)} per company` : ''}. ${cost.note}`),
+      table([{t: 'Step', k: 'step'}, {t: 'Calls', k: 'calls', n: true}, {t: 'In tokens', k: 'input_tokens', n: true, f: (r) => compact(r.input_tokens)}, {t: 'Out tokens', k: 'output_tokens', n: true, f: (r) => compact(r.output_tokens)}, {t: 'Min', k: 'seconds', n: true, f: (r) => (r.seconds / 60).toFixed(1)}, {t: 'Attempts', k: 'attempts', n: true}, {t: 'Failed', k: 'failed', n: true}, {t: 'USD', k: 'usd', n: true, f: (r) => '$' + r.usd.toFixed(2)}],
+        Object.entries(cost.steps).map(([step, o]) => ({step, ...o}))),
+      h('p', {class: 'muted small', style: 'margin-top:.6rem'}, 'Most expensive companies: ' + cost.companies.slice(0, 8).map((c) => `${c.ticker} $${c.usd.toFixed(2)}`).join(', '))));
+  } catch (e) { view.append(h('p', {class: 'msg small'}, 'Coverage and cost: ' + e.message)); }
 }
 
 // A drawer on the right: one thing at a time, closed with Esc or the ×.
@@ -948,6 +961,12 @@ async function viewsPage(view, arg, qs) {
     const max = Math.max(1, ...rows.map((r) => Math.abs(amount(r) || 0)));
     body.append(h('div', {class: 'barlist'}, rows.map((r) => h('div', {class: 'bar'}, h('span', {class: 'l'}, String(r[current.group] ?? '—')),
       h('span', {class: 'track'}, h('i', {style: `width:${100 * Math.abs(amount(r) || 0) / max}%`})), h('span', {class: 'n'}, usd(amount(r)))))));
+  } else if (current.show === 'lines' && rows.some((r) => r.period && r.ticker)) {
+    const val = (r) => r.ai_amount ?? r.value ?? r.amount_mid ?? r.actual ?? null;
+    const pts = rows.filter((r) => val(r) != null).map((r) => ({ticker: r.ticker, period: r.period, value: val(r), company: r.ticker}));
+    const years = [...new Set(pts.map((r) => r.period))].sort(), ts = [...new Set(pts.map((r) => r.ticker))].sort().slice(0, 8);
+    body.append(h('div', {class: 'chart'}, lineChart(pts.filter((r) => ts.includes(r.ticker)), years, ts, false)),
+      h('p', {class: 'muted small'}, ts.map((t, i) => h('span', {style: `margin-right:.8rem;color:${COLORS[i % COLORS.length]}`}, t)), ts.length < new Set(pts.map((r) => r.ticker)).size ? ' (first eight companies; filter to see others)' : ''));
   } else if (current.show === 'shares' && rows.some((r) => r.ai_share != null)) {
     const years = [...new Set(rows.map((r) => r.period))].sort(), ts = [...new Set(rows.map((r) => r.ticker))].sort();
     const by = {}; for (const r of rows) by[`${r.ticker}|${r.period}`] = r;
@@ -966,7 +985,7 @@ async function viewsPage(view, arg, qs) {
     const measure = h('select', {}, Object.entries(MEASURES).map(([k, t]) => h('option', {value: k, selected: f.measure === k || null}, t)));
     const filt = Object.fromEntries(FILTER_COLS.map((c) => [c, h('input', {type: 'text', value: f.filters[c] || '', placeholder: c})]));
     const group = h('select', {}, GROUP_COLS.map((g) => h('option', {value: g, selected: (f.group || '') === g || null}, g || 'rows, no grouping')));
-    const show = h('select', {}, ['grid', 'bars', 'shares'].map((k) => h('option', {value: k, selected: f.show === k || null}, k)));
+    const show = h('select', {}, [['grid', 'grid'], ['bars', 'bars by group'], ['lines', 'lines by year per company'], ['shares', 'share grid']].map(([k, t]) => h('option', {value: k, selected: f.show === k || null}, t)));
     const note = h('input', {type: 'text', value: f.note || '', placeholder: 'One line on what to read into it'});
     const msg = h('p', {class: 'msg small'});
     drawer(h('h3', {}, v ? 'Edit view' : 'New view'),

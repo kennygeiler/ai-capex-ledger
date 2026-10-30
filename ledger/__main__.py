@@ -15,6 +15,7 @@ COMMANDS = {
     "projects": "Read named projects (data centers, fabs, plants, power, GPU clusters, commitments) with size and stage from every text (--run), check every quote and load (--load).",
     "attribution": "Attribute capex and opex to AI per company from the industry's money-flow model and the data (--run), recompute and load (--load).",
     "eval": "Score the attribution against the reference set (gold/ai_capex.yaml): coverage, agreement, error band per method.",
+    "cost": "What the agents cost: tokens, seconds, attempts and an estimated price per step and per company (reports/cost.json).",
     "rules": "Run the rule registry and write exceptions.",
     "faults": "Corrupt real extractions one at a time and report what catches each fault.",
     "evidence": "Re-read every cited cell on the rendered 10-K and screenshot it, boxed.",
