@@ -102,7 +102,7 @@
    "model": "claude-opus-5-5",
    "runs_on": "Claude Code on Kenny's subscription: claude -p, headless, no tools, no paid API"
   },
-  "prompt": "notes@v2",
+  "prompt": "notes@v3",
   "history": [
    {
     "at": "2026-10-29T20:00:00+00:00",
@@ -118,6 +118,11 @@
     "at": "2026-10-29T19:49:37+00:00",
     "by": "Kenny Geiler",
     "change": "switched to notes@v2"
+   },
+   {
+    "at": "2026-10-30T03:06:56+00:00",
+    "by": "Kenny Geiler",
+    "change": "switched to notes@v3"
    }
   ]
  },

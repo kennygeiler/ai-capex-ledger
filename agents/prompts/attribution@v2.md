@@ -32,7 +32,7 @@ One row per (`field`, `period`, `kind`) you can say something about. `kind` is `
 3. A company total "to support AI" is the whole, never the AI part.
 3b. Revenue exposure is the seller side: data-center or AI segment revenue is a `revenue` row, never a `capex` input. A buyer whose segments are not AI-specific (Microsoft Intelligent Cloud, Alphabet Google Cloud) gets `qualitative` or `none` for revenue, as the thesis says.
 4. Years: one row per fiscal year present in the pack's values for `actual`; `outlook` rows only from statements with `kind: outlook`.
-5. Say what is missing in `none_found`: fields and years with no basis, and why.
+5. Say what is missing in `none_found`: fields and years with no basis, and why. Every entry is `{"field": "capex" | "opex" | "revenue", "reason": "..."}`; a year may be added as `"period": "FY2024"`, but the field is only ever one of those three words.
 
 ## Output
 
