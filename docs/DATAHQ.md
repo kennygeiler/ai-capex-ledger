@@ -131,3 +131,14 @@ tag against release, the cell as a datagrid with its screenshot, feeds, and the 
 Decision as a button group and an input group across the full width. Words sit behind a toggle; Inter is the kit's
 face. The other tabs keep the house style; Tabler is scoped to this one screen.
 
+**Every tab on Tabler (30 Oct, late):** Kenny: "yes, all tabs." The kit now loads for the whole page (`@tabler/core@1.3.2`,
+jsDelivr, pinned, Inter from Google Fonts). The house stylesheet became a bridge: the app's own layout classes
+(`.stack`, `.two`, `.figs`, `.bars`, `.stages`, `.views`, the hand-built `grid` and `heat` tables, the drawer) map onto the
+kit's tokens, and the old colour tokens (`--fg`, `--muted`, `--accent`, `--bad`) alias the kit's, so the line chart and dot
+plot keep working. The navbar is the kit's; the page sits in `container-xl`. Shared primitives emit kit components:
+`table()` returns a card with a card table; stat figures are stat cards; sections with a heading become cards. A
+post-render pass (`skin()`) puts the kit's classes on every select, input, checkbox, textarea, button and table a page
+builds by hand, so all nine pages pick the kit up without each being rewritten. Reconcile left its shadow root. The
+kit's theme follows the system (`data-bs-theme`). The app's flex row was renamed `.hrow` so it no longer collides with
+the kit's grid `.row`.
+

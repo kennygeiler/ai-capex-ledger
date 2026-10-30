@@ -5,190 +5,189 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141518" media="(prefers-color-scheme: dark)">
 <title>DATAHQ</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.3.2/dist/css/tabler.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.34.0/plotly.min.js" defer></script>
 <style>
-  /* Plain pages, whitespace instead of borders. One accent (ink blue); red only for a failure. */
-  :root {
-    --bg: #fafbf8; --fg: #1b1e1c; --muted: #5f6662; --faint: #d9ded8; --accent: #1e6b4e; --bad: #b5452e; --bar: #f1f3ef; --row: #f3f5f1;
-    --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --mono: ui-monospace, "SF Mono", Menlo, monospace;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg: #15181a; --fg: #e6e9e4; --muted: #9aa39d; --faint: #2a2f2c; --accent: #5fbf95; --bad: #e07a64; --bar: #1b1f21; --row: #1a1e20; color-scheme: dark; }
-  }
-  * { box-sizing: border-box; }
+  /* DATAHQ on Tabler. The kit carries the look; this block maps the app's own layout classes onto the kit's tokens. */
+  :root { --bg: var(--tblr-bg-surface); --fg: var(--tblr-body-color); --muted: var(--tblr-secondary); --faint: var(--tblr-border-color); --accent: var(--tblr-primary); --bad: var(--tblr-red); --bar: var(--tblr-bg-surface-secondary); --row: var(--tblr-active-bg, rgba(0,0,0,.03));
+    --font: var(--tblr-font-sans-serif); --mono: var(--tblr-font-monospace); --tblr-font-sans-serif: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   [hidden] { display: none !important; }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .skip { position: absolute; left: -999px; top: .5rem; background: var(--bg); padding: .4rem .7rem; z-index: 30; }
+  .skip { position: absolute; left: -999px; top: .5rem; background: var(--tblr-bg-surface); padding: .4rem .7rem; z-index: 1100; }
   .skip:focus { left: .5rem; }
-  h1, h2, h3 { text-wrap: balance; }
-  button, a, select, input, label { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-  button:hover { opacity: .8; }
-  .btn:hover { opacity: .9; }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 13.5px/1.45 var(--font); }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  button, input, select, textarea { font: inherit; color: inherit; }
-  button { background: none; border: 0; padding: 0; cursor: pointer; color: var(--accent); }
-  button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .wrap { max-width: 110rem; margin: 0 auto; padding: 0 max(16px, 2vw) 4rem; }
-  .bar { background: var(--bar); margin: 0 calc(-1 * max(16px, 2vw)); padding: 0 max(16px, 2vw); }
-  nav { display: flex; gap: 1.1rem; align-items: center; padding-block: .55rem; flex-wrap: nowrap; overflow-x: auto; white-space: nowrap; max-width: 110rem; margin: 0 auto; }
-  nav .search { width: 11rem; flex: 0 0 auto; border: 1px solid var(--faint); border-radius: 4px; padding: .3rem .55rem; background: var(--bg); font-size: .85rem; }
+  body { font-size: .875rem; }
   main { padding-top: 1.25rem; }
-  nav .brand { font-weight: 700; letter-spacing: .08em; color: var(--fg); margin-right: .5rem; }
-  nav .sp { margin-left: auto; }
-  nav a { color: var(--muted); }
-  nav a.on { color: var(--fg); }
-  nav .me { margin-left: 1rem; flex: 0 0 auto; }
-  nav .me input { width: 9rem; border: 0; border-bottom: 1px solid var(--faint); background: none; padding: .1rem 0; font-size: .82rem; }
   h1 { font-size: 1.25rem; font-weight: 600; margin: 0; }
   h2 { font-size: .95rem; font-weight: 600; margin: 0 0 .5rem; }
+  h3 { font-size: .9rem; font-weight: 600; }
   p { margin: 0; }
-  .lede { color: var(--muted); max-width: 62ch; margin-top: .35rem; }
-  .lede b { color: var(--fg); font-weight: 600; }
-  .muted { color: var(--muted); }
-  .bad { color: var(--bad); }
-  .small { font-size: .82rem; }
-  .mono { font-family: var(--mono); font-size: .82rem; }
-  .stack { display: grid; gap: 2rem; }
-  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 3rem; }
-  .two > *, .stack > * { min-width: 0; }
-  .figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: 1.5rem; }
-  .fig .n { font-size: 1.6rem; line-height: 1.15; font-variant-numeric: tabular-nums; font-weight: 500; }
-  .fig .l, .fig .s { color: var(--muted); font-size: .82rem; }
-  .bars { display: grid; gap: .55rem; }
-  .bar { display: grid; grid-template-columns: minmax(8rem, 12rem) 1fr auto; gap: .75rem; align-items: center; }
-  .bar .v { color: var(--muted); font-size: .82rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .track { height: 8px; border-radius: 4px; background: var(--faint); overflow: hidden; }
-  .track i { display: block; height: 100%; border-radius: 4px; background: var(--accent); }
-  .track i.bad { background: var(--bad); }
-  .track i.note { background: var(--muted); opacity: .5; }
-  .track i + i { margin-left: 0; }
-  .scroll { overflow-x: auto; }
-  table { border-collapse: separate; border-spacing: 0; width: 100%; font-variant-numeric: tabular-nums; font-size: .86rem; }
-  th { text-align: left; font-weight: 500; color: var(--muted); font-size: .78rem; padding: .35rem .75rem .35rem 0; white-space: nowrap; background: var(--bg); position: sticky; top: 0; z-index: 2; border-bottom: 1px solid var(--faint); }
-  td { padding: .3rem .75rem .3rem 0; vertical-align: top; border-bottom: 1px solid var(--faint); }
-  tbody tr:hover td { background: var(--row); }
-  table th:first-child, table td:first-child { position: sticky; left: 0; background: var(--bg); z-index: 1; }
-  tbody tr:hover td:first-child { background: var(--row); }
-  td.n, th.n { text-align: right; }
+  .lede { color: var(--tblr-secondary); max-width: 70ch; margin-top: .25rem; }
+  .lede b { color: var(--tblr-body-color); font-weight: 600; }
+  .muted { color: var(--tblr-secondary); }
+  .bad { color: var(--tblr-red); }
+  td > span.bad, td > span.muted { white-space: nowrap; }
+  .small { font-size: .8rem; }
+  .mono { font-family: var(--tblr-font-monospace); font-size: .8rem; }
+  .brk { white-space: pre-wrap; word-break: break-word; }
+  .num, td.n, th.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
   td.n { font-weight: 500; }
   td.n .note { font-weight: 400; }
+  /* layout */
+  .stack { display: grid; gap: 1.25rem; }
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 1.25rem; }
+  .two > *, .stack > * { min-width: 0; }
+  .hrow { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; }
+  .pagehead { display: grid; gap: .3rem; margin-bottom: .25rem; }
+  .sechead { display: flex; gap: 1rem; align-items: baseline; flex-wrap: wrap; margin-bottom: .6rem; }
+  .sechead h2 { margin: 0; }
+  section.card > .sechead { padding: .6rem 1rem; margin: 0; border-bottom: 1px solid var(--tblr-border-color); }
+  section.card > .sechead h2 { font-size: .85rem; }
+  section.card > :not(.sechead) { padding: .75rem 1rem; }
+  section.card > .card-table-wrap { padding: 0; }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem); gap: 1.25rem; align-items: start; }
+  @media (max-width: 52rem) { .split { grid-template-columns: 1fr; } }
+  /* figures: stat cards */
+  .figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: .75rem; }
+  .fig { background: var(--tblr-bg-surface); border: 1px solid var(--tblr-border-color); border-radius: var(--tblr-border-radius); padding: .6rem .85rem; }
+  .fig .l { color: var(--tblr-secondary); font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; font-weight: 600; }
+  .fig .n { font-size: 1.35rem; line-height: 1.2; font-weight: 600; margin: .1rem 0; }
+  .fig .s { color: var(--tblr-secondary); font-size: .78rem; }
+  .fig .n.bad, .fig .s.bad { color: var(--tblr-red); }
+  .strip { display: grid; }
+  /* bars */
+  .bars { display: grid; gap: .5rem; }
+  .bars .bar { display: grid; grid-template-columns: minmax(8rem, 12rem) 1fr auto; gap: .75rem; align-items: center; }
+  .bars .bar .v { color: var(--tblr-secondary); font-size: .8rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .track { position: relative; height: 8px; border-radius: 4px; background: var(--tblr-border-color); overflow: hidden; }
+  .track i { position: absolute; left: 0; top: 0; display: block; height: 100%; border-radius: 4px; background: var(--tblr-primary); }
+  .track i.bad { background: var(--tblr-red); }
+  .track i.note { background: var(--tblr-secondary); opacity: .5; }
+  .track i.rest { background: var(--tblr-border-color); filter: brightness(.93); }
+  .mini { display: grid; grid-template-columns: 4.5rem auto; gap: .5rem; align-items: center; font-size: .8rem; color: var(--tblr-secondary); font-variant-numeric: tabular-nums; }
+  .mini i { display: block; height: 6px; border-radius: 3px; background: var(--tblr-primary); }
+  .dots { display: grid; gap: .35rem; }
+  .dotrow { display: grid; grid-template-columns: 6rem 1fr minmax(8rem, auto); gap: .75rem; align-items: center; font-size: .8rem; }
+  .dotrow .v { color: var(--tblr-secondary); text-align: right; font-variant-numeric: tabular-nums; }
+  /* tables the pages build by hand (grid, heat) */
+  .scroll { overflow-x: auto; }
+  table.grid, table.heat { width: 100%; }
+  table.grid th, table.heat th { position: sticky; top: 0; z-index: 2; background: var(--tblr-bg-surface); }
+  table.grid th:first-child, table.grid td:first-child, table.heat th:first-child, table.heat td:first-child { position: sticky; left: 0; background: var(--tblr-bg-surface); z-index: 1; }
+  table.grid td.cell, table.heat td.cell { cursor: pointer; }
+  table.grid td.cell:hover, table.heat td.cell:hover { color: var(--tblr-primary); }
+  table.grid .note { font-size: .72rem; color: var(--tblr-secondary); white-space: normal; max-width: 9rem; margin-left: auto; }
+  table.heat td.c { padding-inline: .5rem; background: color-mix(in srgb, var(--tblr-primary) calc(var(--i, 0) * 28%), transparent); }
+  table.heat td.c .note { font-size: .72rem; color: var(--tblr-secondary); }
+  table.heat td.moved { box-shadow: inset 3px 0 0 var(--tblr-primary); }
   tr.click { cursor: pointer; }
-  tr.click:hover td { color: var(--accent); }
-  tr.open td { color: var(--accent); }
-  .detail td { padding: .25rem 0 1.25rem; color: var(--fg); }
+  tr.open td { color: var(--tblr-primary); }
+  .detail td { padding: .25rem .75rem 1.25rem !important; }
+  .mk { display: inline-block; width: 1.1em; text-align: center; margin-left: .25rem; font-weight: 600; }
+  .mk.t { color: var(--tblr-green); }
+  .mk.u { color: var(--tblr-secondary); opacity: .6; }
+  .mk.x { color: var(--tblr-red); }
   .src { display: grid; gap: .3rem; margin-bottom: .9rem; max-width: 60rem; }
-  .src img { max-width: min(100%, 40rem); border-radius: 4px; margin-top: .3rem; }
-  .step { display: grid; grid-template-columns: 11rem 1fr; gap: 1.5rem; }
-  .step > * { min-width: 0; }
-  .step .head .state { font-size: .82rem; color: var(--muted); margin-top: .15rem; }
-  @media (max-width: 44rem) { .step { grid-template-columns: 1fr; gap: .5rem; } .wide { display: none; } .bar { grid-template-columns: 1fr auto; row-gap: .25rem; } .bar .track { grid-column: 1 / -1; } }
-  .row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-  select, input[type=text] { background: var(--bg); border: 1px solid var(--faint); border-radius: 4px; padding: .3rem .5rem; font-size: .86rem; }
-  textarea { width: 100%; min-height: 28rem; background: var(--bg); border: 1px solid var(--faint); border-radius: 6px; padding: .75rem; font: .82rem/1.55 var(--mono); }
-  textarea[readonly] { border-color: transparent; padding-inline: 0; resize: none; }
-  .btn { background: var(--accent); color: #fff; border-radius: 4px; padding: .32rem .8rem; font-size: .86rem; font-weight: 500; }
-  .btn[disabled] { opacity: .4; cursor: default; }
+  .src img { max-width: min(100%, 40rem); border-radius: 4px; margin-top: .3rem; border: 1px solid var(--tblr-border-color); }
+  /* text controls that the kit does not reach */
+  textarea { width: 100%; min-height: 28rem; font: .8rem/1.55 var(--tblr-font-monospace); }
+  textarea[readonly] { background: var(--tblr-bg-surface-secondary); resize: none; }
+  pre.raw { white-space: pre-wrap; word-break: break-word; font: .78rem/1.5 var(--tblr-font-monospace); max-height: 30rem; overflow: auto; margin: .5rem 0 0; background: var(--tblr-bg-surface-secondary); padding: .6rem .75rem; border-radius: var(--tblr-border-radius); }
+  .msg { color: var(--tblr-secondary); padding: 2rem 0; }
+  .tip { position: fixed; pointer-events: none; background: var(--tblr-bg-surface); box-shadow: var(--tblr-shadow); border: 1px solid var(--tblr-border-color); border-radius: 6px; padding: .35rem .6rem; font-size: .8rem; z-index: 1090; }
   ul.plain { margin: .2rem 0 0; padding-left: 1.1rem; }
   ul.plain li { margin: .15rem 0; }
   .picks { display: flex; flex-wrap: wrap; gap: .25rem .8rem; font-size: .84rem; }
   .picks label { white-space: nowrap; cursor: pointer; }
   .controls { display: grid; gap: 1.1rem; }
-  .controls .k { color: var(--muted); font-size: .8rem; margin-bottom: .2rem; }
-  svg text { fill: var(--muted); font-size: 11px; font-family: var(--font); }
-  .tip { position: fixed; pointer-events: none; background: var(--bg); box-shadow: 0 2px 12px rgba(0,0,0,.18); border-radius: 6px; padding: .35rem .6rem; font-size: .8rem; }
-  pre.raw { white-space: pre-wrap; word-break: break-word; font: .78rem/1.5 var(--mono); max-height: 30rem; overflow: auto; margin: .5rem 0 0; }
-  .msg { color: var(--muted); padding: 2rem 0; }
-  .pagehead { display: grid; gap: .3rem; }
-  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem); gap: 1.5rem; align-items: start; }
-  @media (max-width: 52rem) { .split { grid-template-columns: 1fr; } }
-  .sechead { display: flex; gap: 1rem; align-items: baseline; flex-wrap: wrap; margin-bottom: .6rem; }
-  .sechead h2 { margin: 0; }
-  .kv { display: grid; grid-template-columns: 1fr auto; gap: .45rem 1rem; font-variant-numeric: tabular-nums; }
-  table.grid td.cell { cursor: pointer; }
-  table.grid td.cell:hover { color: var(--accent); }
-  table.grid .note { font-size: .74rem; color: var(--muted); white-space: normal; max-width: 9rem; margin-left: auto; }
-  .brk { white-space: pre-wrap; word-break: break-word; }
-  table.heat td.c { padding-inline: .5rem; }
-  .mk { display: inline-block; width: 1.1em; text-align: center; margin-left: .25rem; font-weight: 600; }
-  .mk.t { color: var(--accent); }
-  .mk.u { color: var(--muted); opacity: .55; }
-  .mk.x { color: var(--bad); }
-  table.heat td.c .note { font-size: .74rem; color: var(--muted); }
-  table.heat th, table.heat td { padding-right: .5rem; }
-  table.heat td.w { width: 9rem; }
-  .mini { display: grid; grid-template-columns: 5rem auto; gap: .5rem; align-items: center; font-size: .82rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-  .mini i { display: block; height: 6px; border-radius: 3px; background: var(--accent); }
-  .track { position: relative; }
-  .track i { position: absolute; left: 0; top: 0; }
-  .track i.rest { background: var(--faint); filter: brightness(.93); }
-  .dots { display: grid; gap: .35rem; }
-  .dotrow { display: grid; grid-template-columns: 6rem 1fr minmax(8rem, auto); gap: .75rem; align-items: center; font-size: .82rem; }
-  .dotrow .v { color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
-  @media (max-width: 44rem) { .dotrow { grid-template-columns: 4.5rem 1fr; } .dotrow .v { grid-column: 1 / -1; text-align: left; } }
-  .strip { background: var(--bar); margin: 0 calc(-1 * max(16px, 2vw)); padding: .9rem max(16px, 2vw); gap: 1rem 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr)); }
-  .strip .fig .n { font-size: 1.25rem; white-space: nowrap; }
-  .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(100%, 30rem); background: var(--bg); box-shadow: -8px 0 30px rgba(0,0,0,.12); padding: 1.25rem 1.5rem 2rem; overflow: auto; overscroll-behavior: contain; z-index: 20; }
-  .drawer .close { position: absolute; top: .6rem; right: .9rem; font-size: 1.4rem; color: var(--muted); }
-  .drawer h3 { font-size: 1rem; margin: 0 1.5rem .6rem 0; }
-  .panel h3 { font-size: .95rem; margin: 0 0 .5rem; }
-  table.heat td.moved { box-shadow: inset 3px 0 0 var(--accent); }
-  .badge { font: 500 .7rem/1 var(--font); color: var(--muted); padding: .1rem .3rem; border-radius: 3px; background: var(--bar); }
-  .badge:hover { background: color-mix(in srgb, var(--accent) 24%, transparent); }
-  .stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1.5rem 2rem; }
+  /* the drawer: the kit's offcanvas, opened by script */
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(100%, 32rem); background: var(--tblr-bg-surface); box-shadow: var(--tblr-shadow-dropdown, -8px 0 30px rgba(0,0,0,.12)); border-left: 1px solid var(--tblr-border-color); padding: 1.25rem 1.5rem 2rem; overflow: auto; overscroll-behavior: contain; z-index: 1050; }
+  .drawer .close { position: absolute; top: .7rem; right: .9rem; }
+  .drawer h3 { font-size: 1rem; margin: 0 2rem .6rem 0; }
+  /* flow */
+  .stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: .75rem; }
+  .stage { background: var(--tblr-bg-surface); border: 1px solid var(--tblr-border-color); border-radius: var(--tblr-border-radius); padding: .75rem 1rem; }
   .stage ul.plain { padding-left: 0; list-style: none; }
   .stage li { margin: .2rem 0; }
-  .steps { display: grid; gap: .8rem; }
-  .stp { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; color: var(--muted); }
-  .stp.done, .stp.running { color: var(--fg); }
-  .stp .state { font-size: .8rem; color: var(--muted); }
-  .stp.running .state { color: var(--accent); }
-  .views { display: grid; grid-template-columns: 16rem 1fr; gap: 1.5rem; align-items: start; }
+  .steps { display: grid; gap: .6rem; }
+  .stp { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; color: var(--tblr-secondary); }
+  .stp.done, .stp.running { color: var(--tblr-body-color); }
+  .stp .state { font-size: .8rem; color: var(--tblr-secondary); }
+  .stp.running .state { color: var(--tblr-primary); }
+  /* explore */
+  .views { display: grid; grid-template-columns: 16rem 1fr; gap: 1.25rem; align-items: start; }
   .viewlist { display: flex; flex-direction: column; gap: .15rem; margin-top: .5rem; }
-  .viewrow { display: flex; flex-direction: column; padding: .35rem .5rem; border-radius: 4px; color: var(--fg); }
-  .viewrow.on { background: var(--faint); }
-  .barlist { display: flex; flex-direction: column; gap: .35rem; max-width: 48rem; }
-  .barlist .bar { display: grid; grid-template-columns: 12rem 1fr 7rem; gap: .6rem; align-items: center; font-size: .9rem; }
-  .barlist .track { height: .7rem; background: var(--faint); border-radius: 2px; overflow: hidden; }
-  .barlist .track i { display: block; height: 100%; background: var(--accent); }
-  .barlist .n { text-align: right; font-variant-numeric: tabular-nums; }
-  .form { display: flex; flex-direction: column; gap: .45rem; }
-  .form label { display: grid; grid-template-columns: 6rem 1fr; gap: .5rem; align-items: center; font-size: .85rem; }
-  .form input, .form select { border: 1px solid var(--faint); border-radius: 4px; padding: .25rem .45rem; background: var(--bg); font-size: .85rem; }
-  @media (max-width: 700px) { .views { grid-template-columns: 1fr; } .barlist .bar { grid-template-columns: 6rem 1fr 5rem; } }
-  /* Reconcile is built on Tabler inside a shadow root (reconcilePage); its CSS lives there. */
-  /* Explore */
+  .viewrow { display: flex; flex-direction: column; padding: .4rem .6rem; border-radius: var(--tblr-border-radius); color: var(--tblr-body-color); }
+  .viewrow:hover { background: var(--tblr-bg-surface-secondary); text-decoration: none; }
+  .viewrow.on { background: var(--tblr-active-bg, rgba(32,107,196,.08)); }
   .exc select, .exc input { max-width: 15rem; }
   .plot { min-height: 400px; margin-top: .6rem; }
   .plot .modebar { opacity: .5; }
-  @media (prefers-reduced-motion: reduce) { .btn, .seg { transition: none; } }
+  @media (max-width: 700px) { .views { grid-template-columns: 1fr; } }
+  .form { display: flex; flex-direction: column; gap: .45rem; }
+  .form label { display: grid; grid-template-columns: 6rem 1fr; gap: .5rem; align-items: center; font-size: .85rem; }
+  /* reconcile */
+  .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .table thead th { font-size: .72rem; letter-spacing: .03em; }
+  tr.item { cursor: pointer; }
+  tr.item:focus-visible { outline: 2px solid var(--tblr-primary); outline-offset: -2px; }
+  tr.item.cur td { background: var(--tblr-active-bg, rgba(0,0,0,.03)); }
+  tr.item.cur td:first-child { box-shadow: inset 3px 0 0 var(--tblr-primary); }
+  tr.ev > td { padding: 1rem 1.25rem 1.25rem; background: var(--tblr-bg-surface-secondary); cursor: default; }
+  .gg { position: relative; height: 8px; width: 7rem; background: var(--tblr-border-color); border-radius: 4px; }
+  .gg .band { position: absolute; top: -3px; height: 14px; background: color-mix(in srgb, var(--tblr-body-color) 14%, transparent); border-radius: 2px; }
+  .gg .ours { position: absolute; left: 0; top: 0; height: 8px; background: var(--tblr-primary); border-radius: 4px; }
+  .gg .tick { position: absolute; top: -4px; width: 2px; height: 16px; background: var(--tblr-body-color); }
+  .gg .gap { position: absolute; top: 3px; height: 2px; background: repeating-linear-gradient(90deg, var(--tblr-red) 0 3px, transparent 3px 6px); }
+  .gg.lg { width: 100%; height: 10px; margin: .35rem 0 .2rem; }
+  .gg.lg .ours { height: 10px; }
+  .gg.lg .band { top: -3px; height: 16px; }
+  .gg.lg .tick { top: -5px; height: 20px; }
+  .bar { display: inline-block; height: 6px; border-radius: 3px; background: var(--tblr-primary); vertical-align: middle; margin-right: .35rem; opacity: .85; }
+  .bars .bar { display: grid; height: auto; background: none; opacity: 1; margin: 0; }
+  .bar.ref { background: var(--tblr-secondary); }
+  .bar.tot { background: var(--tblr-border-color-active, #bbb); }
+  .card-header .card-title { white-space: nowrap; font-size: .85rem; }
+  .card-header .small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-left: 1rem; }
+  .table .badge { white-space: nowrap; }
+  .shot { max-width: 100%; border-radius: 4px; border: 1px solid var(--tblr-border-color); }
+  details.words summary { cursor: pointer; font-size: .8rem; color: var(--tblr-secondary); list-style: none; }
+  details.words summary::-webkit-details-marker { display: none; }
+  details.words[open] summary { margin-bottom: .4rem; }
+  .table-sm > :not(caption) > * > * { padding: .35rem .6rem; }
+  .btn:active { transform: scale(.98); }
+  .btn-group .btn.active { background: var(--tblr-primary); color: #fff; border-color: var(--tblr-primary); }
+  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
 </style>
 </head>
 <body>
 <a class="skip" href="#view">Skip to content</a>
-<div class="wrap">
-  <div class="bar"><nav>
-    <a class="brand" href="#flow">DATAHQ</a>
-    <a href="#flow" data-nav="flow">Flow</a>
-    <a href="#reconcile" data-nav="reconcile">Reconcile</a>
-    <input class="search" id="jump" name="jump" type="text" list="tickers" placeholder="Ticker or company…" aria-label="Jump to a company" autocomplete="off" spellcheck="false">
-    <datalist id="tickers"></datalist>
-    <a href="#data" data-nav="data">Dataset</a>
-    <a href="#attribution" data-nav="attribution">Attribution</a>
-    <a href="#explore" data-nav="explore">Explore</a>
-    <a href="#status" data-nav="status">Status</a>
-    <a href="#releases" data-nav="releases">Releases</a>
-    <a href="#agents" data-nav="agents">Agents</a>
-    <span class="sp me muted small">signed as <input id="me" name="signer" type="text" aria-label="Your name, logged on every model or prompt change" autocomplete="name"></span>
-  </nav></div>
+<header class="navbar navbar-expand-md d-print-none" data-bs-theme="dark">
+  <div class="container-xl">
+    <a class="navbar-brand" href="#flow"><span class="fw-bold" style="letter-spacing:.08em">DATAHQ</span></a>
+    <div class="navbar-nav flex-row flex-wrap me-auto">
+      <a class="nav-link px-2" href="#flow" data-nav="flow">Flow</a>
+      <a class="nav-link px-2" href="#reconcile" data-nav="reconcile">Reconcile</a>
+      <a class="nav-link px-2" href="#data" data-nav="data">Dataset</a>
+      <a class="nav-link px-2" href="#attribution" data-nav="attribution">Attribution</a>
+      <a class="nav-link px-2" href="#explore" data-nav="explore">Explore</a>
+      <a class="nav-link px-2" href="#status" data-nav="status">Status</a>
+      <a class="nav-link px-2" href="#releases" data-nav="releases">Releases</a>
+      <a class="nav-link px-2" href="#agents" data-nav="agents">Agents</a>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <input class="form-control form-control-sm" id="jump" name="jump" type="text" list="tickers" placeholder="Ticker or company…" aria-label="Jump to a company" autocomplete="off" spellcheck="false" style="width:13rem">
+      <datalist id="tickers"></datalist>
+      <span class="text-secondary small text-nowrap">signed as <input id="me" name="signer" type="text" class="form-control form-control-sm d-inline-block" style="width:9rem" aria-label="Your name, logged on every model or prompt change" autocomplete="name"></span>
+    </div>
+  </div>
+</header>
+<div class="page-wrapper"><div class="page-body"><div class="container-xl">
   <main id="view" tabindex="-1"><p class="msg">Loading…</p></main>
-</div>
+</div></div></div>
 <div class="tip" id="tip" hidden></div>
 
 <script>
@@ -256,7 +255,7 @@ function table(cols, rows, {key, onRow, detail} = {}) {
     return th;
   }));
   draw(rows);
-  return h('div', {class: 'scroll'}, h('table', {}, h('thead', {}, head), tb));
+  return h('div', {class: 'card'}, h('div', {class: 'table-responsive'}, h('table', {class: 'table table-sm table-vcenter card-table table-hover'}, h('thead', {}, head), tb)));
 }
 
 function bars(list) {
@@ -375,7 +374,7 @@ function agentCard(a) {
   const useBtn = h('button', {type: 'button', onclick: () => post('use', {version: shown}, `Now using ${shown}.`)}, 'Use This Version');
   const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('prompt', {text: text.value, note: note.value}, (r) => `Saved as ${r.version} and in use.`)}, 'Save as New Version');
   const cancelBtn = h('button', {type: 'button', onclick: () => { showPrompt(); }}, 'Cancel');
-  const editRow = h('div', {class: 'row', hidden: true}, note, saveBtn, cancelBtn);
+  const editRow = h('div', {class: 'hrow', hidden: true}, note, saveBtn, cancelBtn);
   function showPrompt() {
     text.value = a.prompts[shown]; text.readOnly = true; editRow.hidden = true; editBtn.hidden = false;
     useBtn.hidden = shown === a.prompt; text.style.height = 'auto'; text.style.height = Math.min(900, text.scrollHeight + 4) + 'px';
@@ -418,14 +417,14 @@ function agentCard(a) {
     h('div', {class: 'two'},
       h('section', {}, h('h2', {}, 'Decides'), h('ul', {class: 'plain'}, a.decides.map((d) => h('li', {}, d)))),
       h('section', {}, h('h2', {}, 'Checked by'), h('ul', {class: 'plain'}, a.checked_by.map((d) => h('li', {}, d))))),
-    h('section', {}, h('h2', {}, 'Model'), h('p', {class: 'muted', style: 'margin-bottom:.6rem'}, a.llm.runs_on), h('div', {class: 'row'}, model, modelSave)),
-    h('section', {}, h('h2', {}, 'Prompt'), h('div', {class: 'row', style: 'margin-bottom:.8rem'}, verSel, editBtn, useBtn, h('span', {class: 'muted small'}, 'A saved prompt is not used until a person switches it on here. Switching the prompt or model makes the next run ask the agent again for every filing.')),
+    h('section', {}, h('h2', {}, 'Model'), h('p', {class: 'muted', style: 'margin-bottom:.6rem'}, a.llm.runs_on), h('div', {class: 'hrow'}, model, modelSave)),
+    h('section', {}, h('h2', {}, 'Prompt'), h('div', {class: 'hrow', style: 'margin-bottom:.8rem'}, verSel, editBtn, useBtn, h('span', {class: 'muted small'}, 'A saved prompt is not used until a person switches it on here. Switching the prompt or model makes the next run ask the agent again for every filing.')),
       text, editRow),
-    h('section', {class: 'row'}, status),
+    h('section', {class: 'hrow'}, status),
     h('section', {}, h('h2', {}, 'History'), table([{t: 'When', k: 'at', f: (x) => when(x.at)}, {t: 'Who', k: 'by'}, {t: 'Change', k: 'change'}], [...a.history].reverse())),
     h('section', {}, h('h2', {}, 'Runs'), h('p', {class: 'muted', style: 'margin-bottom:.6rem'},
         `${int(latest.length)} filings read, ${compact(tokens)} tokens, ${failed} failed.`, per ? ` A new company costs about ${per.minutes} min and ${compact(per.tokens)} tokens (average of ${per.companies}).` : '', ' Failures first; click a run for its answer.'),
-      h('div', {class: 'row', style: 'margin-bottom:.6rem'}, runFilter, everyRun), runBox));
+      h('div', {class: 'hrow', style: 'margin-bottom:.6rem'}, runFilter, everyRun), runBox));
   queueMicrotask(showPrompt);
   return card;
 }
@@ -577,7 +576,7 @@ async function dataPage(view, qs) {
   function openPicker() {
     drawer(h('h3', {}, 'Companies'), h('div', {class: 'controls'}, Object.entries(groups).map(([ind, ts]) => h('div', {}, h('div', {class: 'muted small', style: 'margin-bottom:.2rem'}, INDUSTRY[ind] || ind),
       h('div', {class: 'picks'}, ts.map((t) => h('label', {}, h('input', {type: 'checkbox', checked: sel.t.includes(t) || null, onchange: (e) => { sel.t = e.target.checked ? [...sel.t, t] : sel.t.filter((x) => x !== t); }}), ' ', t)))))),
-      h('div', {class: 'row', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn', onclick: () => { closeDrawer(); setQ(); }}, 'Apply')));
+      h('div', {class: 'hrow', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn', onclick: () => { closeDrawer(); setQ(); }}, 'Apply')));
   }
   const groups = {};
   for (const t of all) (groups[meta.industries[t]] ||= []).push(t);
@@ -653,7 +652,7 @@ async function dataPage(view, qs) {
 
   const chartBox = h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Chart'), h('div', {style: 'margin-top:.8rem'}, chart));
   view.append(h('div', {class: 'stack', style: 'gap:1rem'},
-    h('div', {class: 'row'}, fieldSel, groupSel, kindSel, h('button', {type: 'button', class: 'btn', onclick: exportCsv}, 'Export CSV'),
+    h('div', {class: 'hrow'}, fieldSel, groupSel, kindSel, h('button', {type: 'button', class: 'btn', onclick: exportCsv}, 'Export CSV'),
       h('span', {class: 'muted small'}, `${list.length} rows in USD. ✓ traced to its source, ✗ disagrees with it.`)),
     grid,
     sel.eval && ev ? h('div', {}, h('h2', {}, 'Reference check'), dotPlot(ev.rows.filter((r) => r.measure === 'share'))) : '',
@@ -678,7 +677,7 @@ async function openModel(ind) {
   const useBtn = h('button', {type: 'button', onclick: () => post('use', {version: shown}, `Now using ${shown}. Rerun the industry.`)}, 'Use This Version');
   const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('save', {text: text.value, note: note.value}, (r) => `Saved as ${r.version}; not in use until switched on.`)}, 'Save as New Version');
   const cancelBtn = h('button', {type: 'button', onclick: show}, 'Cancel');
-  const editRow = h('div', {class: 'row', hidden: true}, note, saveBtn, cancelBtn);
+  const editRow = h('div', {class: 'hrow', hidden: true}, note, saveBtn, cancelBtn);
   const dryBox = h('div', {style: 'margin-top:.8rem'});
   async function showDry() {
     const r = await api('/api/dryrun?version=' + encodeURIComponent(shown));
@@ -705,7 +704,7 @@ async function openModel(ind) {
     catch (e) { status.textContent = e.message; status.classList.add('bad'); }
   }
   drawer(h('h3', {}, `${INDUSTRY[ind]} model`), h('p', {class: 'muted small', style: 'margin-bottom:.6rem'}, m.companies.join(', ') || 'no company'),
-    h('div', {class: 'row', style: 'margin-bottom:.6rem'}, verSel, editBtn, dryBtn, useBtn, rerunBtn, status), dryBox, text, editRow);
+    h('div', {class: 'hrow', style: 'margin-bottom:.6rem'}, verSel, editBtn, dryBtn, useBtn, rerunBtn, status), dryBox, text, editRow);
   queueMicrotask(show);
 }
 
@@ -725,7 +724,7 @@ async function flowPage(view, qs) {
   if (X.facts_differ) gaps.push(`${X.facts_differ} facts differ from the filing’s tags`);
   if (X.cells_confirmed < X.cells) gaps.push(`${X.cells - X.cells_confirmed} cited cells not confirmed on the rendered filing`);
   if (C.new_filings.length) gaps.push(`${C.new_filings.length} filings at the SEC not read`);
-  const stage = (title, lines, actions) => h('div', {class: 'stage'}, h('h2', {}, title), h('ul', {class: 'plain'}, lines.map((l) => h('li', {}, l))), actions ? h('div', {class: 'row', style: 'margin-top:.5rem'}, actions) : '');
+  const stage = (title, lines, actions) => h('div', {class: 'stage'}, h('h2', {}, title), h('ul', {class: 'plain'}, lines.map((l) => h('li', {}, l))), actions ? h('div', {class: 'hrow', style: 'margin-top:.5rem'}, actions) : '');
   const kv = (n, l) => [h('b', {style: 'font-weight:500'}, int(n)), ' ', l];
   const stages = h('div', {class: 'stages'},
     stage('Extracted', gaps.length ? gaps : [`${int(X.filings)} filings, ${int(X.values)} values, ${int(X.facts)} facts, ${int(X.statements)} statements: no gaps`],
@@ -775,12 +774,12 @@ async function flowPage(view, qs) {
       catch (e) { status.textContent = e.message; status.classList.add('bad'); }
     }}, 'Save Resolution');
     if (x.resolution) body.push(h('p', {class: 'small', style: 'margin-top:.8rem'}, `${x.resolution.state} by ${x.resolution.by}, ${day(x.resolution.at)}: ${x.resolution.reason}`));
-    body.push(h('div', {class: 'row', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn', onclick: () => act(x)}, ACTION[x.action]), ...trail),
-      h('div', {class: 'row', style: 'margin-top:1rem'}, stateSel, reason, save, status));
+    body.push(h('div', {class: 'hrow', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn', onclick: () => act(x)}, ACTION[x.action]), ...trail),
+      h('div', {class: 'hrow', style: 'margin-top:1rem'}, stateSel, reason, save, status));
     drawer(...body);
   }
   view.append(h('div', {class: 'stack', style: 'gap:1.25rem'},
-    h('div', {class: 'row'}, scopeSel, h('span', {class: 'muted small'}, `${queue.length} item${queue.length === 1 ? '' : 's'} to look at. Last run ${day(C.last_run)}${R.last ? `, last signed ${R.last}` : ''}. `, h('a', {href: '#reconcile?scope=' + scope}, 'Work through them in Reconcile'))),
+    h('div', {class: 'hrow'}, scopeSel, h('span', {class: 'muted small'}, `${queue.length} item${queue.length === 1 ? '' : 's'} to look at. Last run ${day(C.last_run)}${R.last ? `, last signed ${R.last}` : ''}. `, h('a', {href: '#reconcile?scope=' + scope}, 'Work through them in Reconcile'))),
     stages,
     h('div', {}, rowsBox,
       h('p', {class: 'muted small', style: 'margin-top:.8rem'}, d.noise ? `${int(d.noise)} more facts differ from the filing’s tag but feed no attribution (mostly purchase commitments, a definition question). ` : '',
@@ -821,7 +820,8 @@ let drawerOpener = null;
 function drawer(...kids) {
   closeDrawer();
   drawerOpener = document.activeElement;
-  const box = h('div', {class: 'drawer', role: 'dialog', 'aria-modal': 'false', 'aria-label': 'Details'}, h('button', {type: 'button', class: 'close', 'aria-label': 'Close', onclick: closeDrawer}, '×'), ...kids);
+  const box = h('div', {class: 'drawer', role: 'dialog', 'aria-modal': 'false', 'aria-label': 'Details'}, h('button', {type: 'button', class: 'btn-close close', 'aria-label': 'Close', onclick: closeDrawer}), ...kids);
+  skin(box);
   document.body.append(box);
   box.querySelector('.close').focus();
   return box;
@@ -841,7 +841,7 @@ async function runPage(view) {
   ticker.addEventListener('keydown', (e) => { if (e.key === 'Enter') addBtn.click(); });
   progress.append(jobBox(null, 'run'));
   view.append(h('div', {class: 'stack'}, h('header', {class: 'pagehead'}, h('h1', {}, 'Add a company'), h('p', {class: 'muted small'}, 'any ticker the SEC lists, every step runs, agents on the subscription')),
-    h('div', {class: 'row'}, ticker, addBtn, status), progress));
+    h('div', {class: 'hrow'}, ticker, addBtn, status), progress));
 }
 
 // ── Attribution: the grid with a method badge per cell; the badge opens the model ───────────────────────────────
@@ -881,7 +881,7 @@ async function attributionPage(view) {
     const useBtn = h('button', {type: 'button', onclick: () => post('use', {version: shown}, `Now using ${shown}; rerun the industry.`)}, 'Use');
     const saveBtn = h('button', {type: 'button', class: 'btn', onclick: () => post('save', {text: text.value, note: note.value}, (r) => `Saved as ${r.version}; not in use until switched on.`)}, 'Save as New Version');
     const cancelBtn = h('button', {type: 'button', onclick: show}, 'Cancel');
-    const editRow = h('div', {class: 'row', hidden: true}, note, saveBtn, cancelBtn);
+    const editRow = h('div', {class: 'hrow', hidden: true}, note, saveBtn, cancelBtn);
     function show() { text.value = m.texts[shown]; text.readOnly = true; editRow.hidden = true; editBtn.hidden = false; useBtn.hidden = shown === m.version; text.style.height = 'auto'; text.style.height = Math.min(520, text.scrollHeight + 4) + 'px'; }
     async function post(what, body, done) {
       status.textContent = 'Saving…';
@@ -889,7 +889,7 @@ async function attributionPage(view) {
       catch (e) { status.textContent = e.message; status.classList.add('bad'); }
     }
     drawer(h('h3', {style: 'margin:0 0 .4rem'}, `${INDUSTRY[ind]} model`), h('p', {class: 'muted small', style: 'margin-bottom:.6rem'}, m.companies.join(', ') || 'no company'),
-      h('div', {class: 'row', style: 'margin-bottom:.6rem'}, verSel, editBtn, useBtn, rerun(ind), status), text, editRow);
+      h('div', {class: 'hrow', style: 'margin-bottom:.6rem'}, verSel, editBtn, useBtn, rerun(ind), status), text, editRow);
     queueMicrotask(show);
   }
 
@@ -919,7 +919,7 @@ async function attributionPage(view) {
   const history = table([{t: 'When', k: 'at', f: (x) => when(x.at)}, {t: 'Who', k: 'by'}, {t: 'Change', k: 'change', wide: 1}], [...d.history].reverse().slice(0, 12));
 
   view.append(h('div', {class: 'stack', style: 'gap:1rem'},
-    h('div', {class: 'row'}, rerun(null), h('span', {class: 'muted small'}, `${rows.filter((r) => r.ai_amount != null).length} of ${rows.length} company-years with an AI amount, click a cell for its basis, a badge for the model`), status),
+    h('div', {class: 'hrow'}, rerun(null), h('span', {class: 'muted small'}, `${rows.filter((r) => r.ai_amount != null).length} of ${rows.length} company-years with an AI amount, click a cell for its basis, a badge for the model`), status),
     progress, grid,
     h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, diff ? `Changed in the last load: ${int(diff.changed)}, ${day(diff.at)}` : 'No load yet'), h('div', {style: 'margin-top:.8rem'}, diffTable)),
     h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Model and prompt changes'), h('div', {style: 'margin-top:.8rem'}, history))));
@@ -944,7 +944,6 @@ async function releasesPage(view) {
 // ── Reconcile: the workbench, on Tabler (dashboard UI kit) inside its own shadow root so the kit's reset touches nothing else. ──
 // One card per cause; one row per item with ours, reference, a gap bar, delta and decision; Enter opens the evidence as
 // aligned diff tables (this year, the computation, every year) with a status badge per line, and the decision form.
-const TABLER_CSS = 'https://cdn.jsdelivr.net/npm/@tabler/core@1.3.2/dist/css/tabler.min.css';
 const CAUSE_ORDER = ['blocked', 'reference_disagrees', 'fact_differs', 'attribution_moved', 'fact_changed', 'finding_unconfirmed', 'new_filing'];
 const RES_LABEL = {accept: 'Accept', explain: 'Explain', fix: 'Fix', blocks: 'Blocks'};
 const RES_HELP = {accept: 'the number is right as it stands', explain: 'right, with the reason kept beside it', fix: 'wrong, stays open until a run fixes it', blocks: 'nothing ships until this is settled'};
@@ -953,44 +952,6 @@ let FOCUS_KEY = null;  // the row to focus after a save re-renders the page
 const num = (r, v) => (v == null ? '—' : r.measure === 'share' ? pct(v) : usd(v));
 const signed = (r, v) => (v == null ? '—' : (v < 0 ? '−' : '+') + (r.measure === 'share' ? `${(100 * Math.abs(v)).toFixed(1)} pts` : usd(Math.abs(v))));
 const pctSigned = (x) => (x == null ? '—' : `${x < 0 ? '−' : '+'}${(100 * Math.abs(x)).toFixed(Math.abs(x) < .1 ? 1 : 0)}%`);
-const RECONCILE_CSS = `
-  :host { display: block; }
-  .wrap { max-width: 1320px; margin: 0 auto; padding: 0 0 4rem; }
-  .page-title { font-size: 1.25rem; }
-  .tn { font-variant-numeric: tabular-nums; }
-  .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
-  .table thead th { font-size: .72rem; letter-spacing: .03em; }
-  .table td.num, .table th.num { text-align: right; }
-  tr.item { cursor: pointer; }
-  tr.item:focus-visible { outline: 2px solid var(--tblr-primary); outline-offset: -2px; }
-  tr.item.cur td { background: var(--tblr-active-bg, rgba(0,0,0,.03)); }
-  tr.item.cur td:first-child { box-shadow: inset 3px 0 0 var(--tblr-primary); }
-  tr.ev > td { padding: 1rem 1.25rem 1.25rem; background: var(--tblr-bg-surface-secondary); cursor: default; }
-  .gg { position: relative; height: 8px; width: 7rem; background: var(--tblr-border-color); border-radius: 4px; }
-  .gg .band { position: absolute; top: -3px; height: 14px; background: color-mix(in srgb, var(--tblr-body-color) 14%, transparent); border-radius: 2px; }
-  .gg .ours { position: absolute; left: 0; top: 0; height: 8px; background: var(--tblr-primary); border-radius: 4px; }
-  .gg .tick { position: absolute; top: -4px; width: 2px; height: 16px; background: var(--tblr-body-color); }
-  .gg .gap { position: absolute; top: 3px; height: 2px; background: repeating-linear-gradient(90deg, var(--tblr-red) 0 3px, transparent 3px 6px); }
-  .gg.lg { width: 100%; height: 10px; margin: .35rem 0 .2rem; }
-  .gg.lg .ours { height: 10px; }
-  .gg.lg .band { top: -3px; height: 16px; }
-  .gg.lg .tick { top: -5px; height: 20px; }
-  .bar { display: inline-block; height: 6px; border-radius: 3px; background: var(--tblr-primary); vertical-align: middle; margin-right: .35rem; opacity: .85; }
-  .card-header .card-title { white-space: nowrap; }
-  .card-header .small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-left: 1rem; }
-  .table .badge { white-space: nowrap; }
-  .bar.ref { background: var(--tblr-secondary); }
-  .bar.tot { background: var(--tblr-border-color-active, #bbb); }
-  .shot { max-width: 100%; border-radius: 4px; border: 1px solid var(--tblr-border-color); }
-  details.words summary { cursor: pointer; font-size: .8rem; color: var(--tblr-secondary); list-style: none; }
-  details.words summary::-webkit-details-marker { display: none; }
-  details.words[open] summary { margin-bottom: .4rem; }
-  .table-sm > :not(caption) > * > * { padding: .35rem .6rem; }
-  .card-title { font-size: .85rem; }
-  .btn:active { transform: scale(.98); }
-  .btn-group .btn.active { background: var(--tblr-primary); color: #fff; border-color: var(--tblr-primary); }
-`;
-function tablerTheme() { return (document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')); }
 // a gap bar: one scale, ours as a bar, the stated figure as a tick with a band for where it allows
 function gapBar(r, large) {
   const share = r.measure === 'share';
@@ -1020,11 +981,8 @@ async function reconcilePage(view, qs) {
   const q = parseQ(qs || '');
   const scope = q.scope || 'all', group = q.group || 'cause', fCause = q.cause || '', fLayer = q.layer || '', fField = q.field || '', withResolved = q.resolved === '1';
   const d = await api('/api/v1/reconcile?scope=' + encodeURIComponent(scope));
-  const host = h('div', {id: 'reconcile-host'});
-  view.append(host);
-  const root = host.attachShadow({mode: 'open'});
-  const wrap = h('div', {class: 'wrap', 'data-bs-theme': tablerTheme()});
-  root.append(h('link', {rel: 'stylesheet', href: TABLER_CSS}), h('style', {}, RECONCILE_CSS), wrap);
+  const wrap = h('div', {class: 'stack', style: 'gap:.75rem'});
+  view.append(wrap);
   const setQ = (patch) => { const p = {scope, group, cause: fCause, layer: fLayer, field: fField, resolved: withResolved ? '1' : '', ...patch}; go('reconcile?' + new URLSearchParams(Object.fromEntries(Object.entries(p).filter(([, v]) => v))).toString()); };
   const isOpen = (r) => !r.resolution || r.resolution.state === 'fix' || r.resolution.state === 'blocks';
   let rows = d.rows.filter((r) => withResolved || isOpen(r));
@@ -1035,8 +993,8 @@ async function reconcilePage(view, qs) {
   const causes = CAUSE_ORDER.filter((c) => d.rows.some((r) => r.cause === c)), layers = [...new Set(d.rows.map((r) => r.layer))].sort(), fields = [...new Set(d.rows.map((r) => r.field).filter(Boolean))].sort();
   const sel = (label, value, opts, key) => h('select', {class: 'form-select form-select-sm', 'aria-label': label, onchange: (e) => setQ({[key]: e.target.value})}, opts.map(([v, t]) => h('option', {value: v, selected: v === value || null}, t)));
   const openRows = rows.filter(isOpen);
-  const header = h('div', {class: 'page-header mb-3'}, h('div', {class: 'row align-items-center g-2'},
-    h('div', {class: 'col'}, h('h2', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'text-secondary small'}, `${int(openRows.length)} open, ${usd(openRows.reduce((s, r) => s + (r.dollars || 0), 0))} at stake. Last run ${day(d.last_run)}${d.release ? `, signed ${d.release}` : ''}. Keys: j k move, Enter opens, a e f b decide, space selects.`))));
+  const header = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
+    h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'text-secondary small'}, `${int(openRows.length)} open, ${usd(openRows.reduce((s, r) => s + (r.dollars || 0), 0))} at stake. Last run ${day(d.last_run)}${d.release ? `, signed ${d.release}` : ''}. Keys: j k move, Enter opens, a e f b decide, space selects.`))));
   const controls = h('div', {class: 'card mb-3'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'},
     h('div', {class: 'col-auto'}, sel('Scope', scope, [['all', 'All companies'], ...layers.map((l) => [l, INDUSTRY[l] || l]), ...Object.keys(d.names).sort().map((t) => [t, `${d.names[t]} (${t})`])], 'scope')),
     h('div', {class: 'col-auto'}, sel('Group by', group, [['cause', 'Grouped by cause'], ['company', 'Grouped by company']], 'group')),
@@ -1200,7 +1158,7 @@ async function explorePage(view, arg, qs) {
   if (st.field === '' && !current && !Object.keys(q).length) st.field = EXM[st.measure].fieldDefault || '';
   if (st.kind === '' && !current && !Object.keys(q).length) st.kind = EXM[st.measure].kindDefault || '';
   const list = h('div', {class: 'viewlist'}, saved.map((v) => h('a', {href: '#explore/' + v.id, class: 'viewrow' + (current && v.id === current.id ? ' on' : '')}, h('span', {}, v.name), h('span', {class: 'muted small'}, `${EXM[v.measure]?.label || v.measure}${v.chart ? `, ${v.chart.x} by ${v.chart.series || 'total'}` : v.group ? ', by ' + v.group : ''}`))));
-  const left = h('div', {}, h('div', {class: 'row'}, h('span', {class: 'muted small'}, `${saved.length} saved view${saved.length === 1 ? '' : 's'}`), h('a', {href: '#explore', class: 'small'}, 'New')), list);
+  const left = h('div', {}, h('div', {class: 'hrow'}, h('span', {class: 'muted small'}, `${saved.length} saved view${saved.length === 1 ? '' : 's'}`), h('a', {href: '#explore', class: 'small'}, 'New')), list);
   const body = h('div', {class: 'exbody'});
   view.append(h('div', {class: 'views'}, left, body));
   const fetchRows = async () => {
@@ -1215,7 +1173,7 @@ async function explorePage(view, arg, qs) {
   const sel = (label, key, opts, {blank} = {}) => h('select', {'aria-label': label, onchange: (e) => setState({[key]: e.target.value, ...(key === 'measure' ? {field: EXM[e.target.value].fieldDefault || '', kind: EXM[e.target.value].kindDefault || '', value: ''} : {})})},
     blank ? h('option', {value: '', selected: !st[key] || null}, blank) : '', opts.map(([v, t]) => h('option', {value: v, selected: st[key] === v || null}, t)));
   const years = distinct('period');
-  const controls = h('div', {class: 'row exc'},
+  const controls = h('div', {class: 'hrow exc'},
     sel('Measure', 'measure', Object.entries(EXM).map(([k, m]) => [k, m.label])),
     rows.some((r) => 'field' in r) ? sel('Field', 'field', distinct('field').map((f) => [f, LABEL[f] || f]), {blank: 'every field'}) : '',
     rows.some((r) => 'kind' in r) ? sel('Kind', 'kind', distinct('kind').map((k) => [k, k]), {blank: 'every kind'}) : '',
@@ -1249,7 +1207,7 @@ async function explorePage(view, arg, qs) {
   const under = h('div', {});
   const q2 = new URLSearchParams(); for (const k of ['field', 'kind', 'layer', 'ticker']) if (st[k]) q2.set(k, st[k]);
   const url = `/api/v1/${st.measure}?${q2}`;
-  const saveRow = h('div', {class: 'row', style: 'gap:1rem'}, h('span', {class: 'muted small'}, `${int(pts.length)} row${pts.length === 1 ? '' : 's'}${folded.size ? `, ${folded.size} smaller series folded into Other` : ''}`),
+  const saveRow = h('div', {class: 'hrow', style: 'gap:1rem'}, h('span', {class: 'muted small'}, `${int(pts.length)} row${pts.length === 1 ? '' : 's'}${folded.size ? `, ${folded.size} smaller series folded into Other` : ''}`),
     h('a', {href: url, target: '_blank', rel: 'noopener', class: 'small'}, 'JSON'), h('a', {href: url + '&format=csv', class: 'small'}, 'CSV'),
     h('button', {type: 'button', class: 'btn', onclick: () => saveView()}, current ? 'Save changes' : 'Save as view'),
     current ? h('button', {type: 'button', class: 'small', 'aria-live': 'polite', onclick: async (e) => { const b = e.currentTarget; if (b.dataset.armed) { await api(`/api/v1/views/${current.id}/delete`, {method: 'POST', body: JSON.stringify({by: me})}); go('#explore'); } else { b.dataset.armed = '1'; b.textContent = 'Click again to delete this view'; setTimeout(() => { delete b.dataset.armed; b.textContent = 'Delete'; }, 5000); } }}, 'Delete') : '');
@@ -1289,7 +1247,7 @@ async function explorePage(view, arg, qs) {
     const msg = h('p', {class: 'msg small'});
     drawer(h('h3', {}, current ? 'Save changes' : 'Save as view'), h('div', {class: 'form'}, h('label', {}, 'Name', name), h('label', {}, 'Note', note)),
       h('p', {class: 'muted small', style: 'margin-top:.6rem'}, 'Saved views are queries another system can call: /api/v1/views/<id>/data.'),
-      h('div', {class: 'row', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn', onclick: async () => {
+      h('div', {class: 'hrow', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn', onclick: async () => {
         const filters = Object.fromEntries(['field', 'kind', 'layer', 'ticker'].filter((k) => st[k]).map((k) => [k, st[k]]));
         try {
           const out = await api('/api/v1/views', {method: 'POST', body: JSON.stringify({view: {id: current ? current.id : undefined, name: name.value, measure: st.measure, filters, group: null, show: 'chart', chart: {x: st.x, series: st.series, type: st.type, value: st.value}, note: note.value}, by: me})});
@@ -1302,12 +1260,28 @@ async function explorePage(view, arg, qs) {
 
 // ── Routing ─────────────────────────────────────────────────────────────────
 function go(hash) { location.hash = hash; }
+// the kit's theme follows the system; its classes land on every control the pages build by hand
+const syncTheme = () => { document.documentElement.setAttribute('data-bs-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); };
+syncTheme(); matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncTheme);
+function skin(root) {
+  root.querySelectorAll('select:not(.form-select)').forEach((el) => el.classList.add('form-select', 'form-select-sm', 'w-auto', 'd-inline-block'));
+  root.querySelectorAll('input[type=text]:not(.form-control), textarea:not(.form-control)').forEach((el) => el.classList.add('form-control', 'form-control-sm'));
+  root.querySelectorAll('input[type=text].form-control:not(.w-auto)').forEach((el) => { if (!el.style.flex && !el.style.width) el.classList.add('w-auto', 'd-inline-block'); });
+  root.querySelectorAll('input[type=checkbox]:not(.form-check-input)').forEach((el) => el.classList.add('form-check-input'));
+  root.querySelectorAll('button.btn:not(.btn-primary):not(.btn-outline-secondary):not(.btn-ghost-secondary):not(.btn-link)').forEach((el) => el.classList.add('btn-primary', 'btn-sm'));
+  root.querySelectorAll('button:not(.btn):not(.btn-close):not(.badge)').forEach((el) => el.classList.add('btn', 'btn-link', 'btn-sm', 'p-0', 'align-baseline'));
+  root.querySelectorAll('button.badge').forEach((el) => el.classList.add('bg-secondary-lt', 'border-0'));
+  root.querySelectorAll('table:not(.table)').forEach((el) => el.classList.add('table', 'table-sm', 'table-vcenter'));
+  root.querySelectorAll('section:not(.card):not(.figs):not(.hrow)').forEach((el) => { if (el.querySelector(':scope > .sechead, :scope > h2')) el.classList.add('card'); });
+  root.querySelectorAll('section.card > h2:first-child').forEach((el) => { const head = h('div', {class: 'sechead'}); el.replaceWith(head); head.append(el); });
+  root.querySelectorAll('section.card > .card').forEach((el) => { el.classList.remove('card'); el.classList.add('card-table-wrap'); });
+}
 async function route() {
   const raw = location.hash.slice(1) || 'flow';
   const [path, qs] = raw.split('?');
   const [page, arg] = path.split('/');
   const tab = {company: 'data', run: 'flow', pipeline: 'flow', insights: 'data', views: 'explore'}[page] || page;
-  document.querySelectorAll('nav [data-nav]').forEach((a) => a.classList.toggle('on', a.dataset.nav === tab));
+  document.querySelectorAll('header [data-nav]').forEach((a) => a.classList.toggle('active', a.dataset.nav === tab));
   const view = $('#view');
   view.replaceChildren(h('h1', {class: 'sr'}, `DATAHQ, ${({flow: 'Flow', reconcile: 'Reconcile', data: 'Dataset', company: 'Company', attribution: 'Attribution', views: 'Explore', explore: 'Explore', status: 'Status', releases: 'Releases', agents: 'Agents', run: 'Add a Company'})[page] || 'Data'}`));
   try {
@@ -1325,6 +1299,7 @@ async function route() {
   } catch (e) {
     view.replaceChildren(h('p', {class: 'msg bad'}, e.message));
   }
+  skin(view);
   window.scrollTo(0, 0);
 }
 window.addEventListener('hashchange', route);
