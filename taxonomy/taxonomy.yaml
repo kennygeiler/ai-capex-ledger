@@ -1,0 +1,95 @@
+# The taxonomy (docs/TAXONOMY.md). Structured like an ICMA use-of-proceeds taxonomy: category, definition from a named
+# standard, evidence required, reporting metric. Nothing here is our concept; every category names its standard.
+# Versioned: edit as taxonomy@v2 in a new file, never in place.
+version: taxonomy@v1
+standards:
+  us-gaap: "FASB US GAAP Financial Reporting Taxonomy, as tagged in the filer's XBRL instance"
+  asc-280: "Segment reporting"
+  asc-440: "Commitments"
+  asc-842: "Leases"
+  sec-sk-303: "Regulation S-K Item 303, management's discussion; forward-looking statements"
+  sec-sic: "SEC Standard Industrial Classification, from EDGAR submissions"
+  eu-taxonomy-8.1: "EU Taxonomy Climate Delegated Act, activity 8.1 Data processing, hosting and related activities (NACE J63.11): the reporting shape capex / opex / turnover aligned to an activity"
+  icma-gbp: "ICMA Green Bond Principles: the structure category / eligibility / evidence / reporting metric (structure only)"
+
+entity:
+  - id: sic
+    standard: sec-sic
+    definition: the SEC's SIC code and description for the filer
+    evidence: EDGAR submissions
+  - id: group
+    standard: none
+    definition: the supply-chain layer the company was picked under (hyperscaler, neocloud, miner_to_hpc, chip_seller, chip_equipment, component_supplier, datacenter_build, datacenter_landlord, power, ai_software, other)
+    note: a reading aid, not a definition; shown as group, never as industry
+
+measures:
+  spent:
+    standard: eu-taxonomy-8.1
+    definition: cash paid or assets added in the fiscal year, by us-gaap concept
+    categories:
+      - id: capex
+        standard: us-gaap
+        concepts: [PaymentsToAcquirePropertyPlantAndEquipment, PaymentsToAcquireProductiveAssets]
+        evidence: the cash-flow statement line, cited; agreement with the filer's XBRL
+        metric: USD, fiscal year
+      - id: ppe_additions_by_type
+        standard: us-gaap
+        concepts: [PropertyPlantAndEquipmentGross]
+        axis: PropertyPlantAndEquipmentByTypeAxis
+        evidence: the PP&E note table, cited; the member the filer tagged; the mapping to a standard member in taxonomy/asset_types.yaml with the note's words
+        metric: USD gross balance at year end, and the year-over-year change (arithmetic on reported balances)
+      - id: segment_capex
+        standard: asc-280
+        axis: StatementBusinessSegmentsAxis
+        evidence: the segment note, cited; the member the filer tagged
+        metric: USD, fiscal year, per segment
+      - id: segment_revenue
+        standard: asc-280
+        axis: StatementBusinessSegmentsAxis
+        evidence: the segment note, cited
+        metric: USD, fiscal year, per segment
+  committed:
+    standard: eu-taxonomy-8.1
+    definition: obligations signed and disclosed but not yet paid, by us-gaap concept
+    categories:
+      - id: purchase_obligations
+        standard: asc-440
+        concepts: [UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount, PurchaseObligation, UnrecordedUnconditionalPurchaseObligation]
+        evidence: the commitments note, cited
+        metric: USD at year end, total and by due period where disclosed
+      - id: finance_lease_liability
+        standard: asc-842
+        concepts: [FinanceLeaseLiability]
+        evidence: the leases note, cited
+        metric: USD at year end
+      - id: operating_lease_liability
+        standard: asc-842
+        concepts: [OperatingLeaseLiability]
+        evidence: the leases note, cited
+        metric: USD at year end
+      - id: contractual_obligations_total
+        standard: us-gaap
+        concepts: [ContractualObligation]
+        evidence: the contractual obligations table, cited
+        metric: USD at year end
+        note: the total of every obligation; never a stand-in for purchase obligations (failure type 71)
+  planned:
+    standard: sec-sk-303
+    definition: what management said it expects to spend, and projects it named, quoted verbatim and flagged forward-looking
+    categories:
+      - id: guidance
+        standard: sec-sk-303
+        evidence: the sentence, verbatim, from the 10-K, an 8-K release or a transcript; the period and range as stated
+        metric: USD range for the stated period; tags part_year (type 68) and program (type 69) where the words say so
+      - id: project
+        standard: none
+        definition: a project the company named with a size, stage or date, as the company described it
+        evidence: the sentence, verbatim
+        metric: USD, MW or units as stated; status as stated
+        note: unverified against anything; carried as what the company said
+
+company_stated_ai:
+  standard: none
+  definition: a figure or share the company itself stated about AI spend or AI revenue, quoted verbatim; never computed
+  fields: [quote, scope_words_as_stated, period_as_stated, measure (spent|committed|planned), value or range or share, source]
+  note: the only place the word AI attaches to a number in this dataset
