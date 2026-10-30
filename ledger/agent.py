@@ -68,7 +68,7 @@ def ask(agent_id: str, task: str, check) -> dict:
     after one retry. `check(obj)` raises Invalid when the answer breaks its contract."""
     pv, m = agents.load()[agent_id]["prompt"], model(agent_id)
     base = f"{agents.prompt_text(pv)}\n\n---\n\n{task}\n\nReply with the JSON object only."
-    run, reason = {"model": None, "seconds": 0.0, "input_tokens": 0, "output_tokens": 0, "attempts": 0}, None
+    run, reason, last = {"model": None, "seconds": 0.0, "input_tokens": 0, "output_tokens": 0, "attempts": 0}, None, None
     for _ in range(2):
         text, u = _ask(base if not reason else f"{base}\n\nYour previous answer was rejected: {reason}\nFix that and reply with the JSON object only.", m)
         run = {**run, "model": u["model"], "attempts": run["attempts"] + 1, **{k: round(run[k] + u[k], 1) for k in ("seconds", "input_tokens", "output_tokens")}}
@@ -76,9 +76,11 @@ def ask(agent_id: str, task: str, check) -> dict:
             obj = _json(text)
             check(obj)
             return {**obj, "_run": run}
-        except Invalid as e:
-            reason = e.reason
-    err = Invalid(f"{reason} (after {run['attempts']} attempts)")
+        except Exception as e:  # every reader's contract raises its own Invalid (a dataclass with .reason); all of them are retried once (type 58)
+            if not hasattr(e, "reason"):
+                raise
+            reason, last = e.reason, e
+    err = type(last)(f"{reason} (after {run['attempts']} attempts)")  # the caller's own class, so its except clause sees it
     err.answer = text[:20000]  # the last rejected answer, kept in the output file so the failure can be read
     raise err
 

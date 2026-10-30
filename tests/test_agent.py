@@ -44,3 +44,21 @@ class Agent(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class EveryReaderIsRetried(unittest.TestCase):
+    def test_attribution_invalid_is_retried_and_kept(self):
+        from ledger import attribution
+        answers = iter(['{"a": 1}', '{"a": 2}'])
+        calls = []
+        with mock.patch.object(agent, "_ask", lambda prompt, m: (calls.append(prompt), (next(answers), {"model": "m", "seconds": 1.0, "input_tokens": 10, "output_tokens": 5}))[1]), \
+             mock.patch.object(agent.agents, "load", lambda: {"attributor": {"prompt": "attribution@v2", "llm": {"model": "m"}}}), \
+             mock.patch.object(agent, "model", lambda a: "m"), mock.patch.object(agent.agents, "prompt_text", lambda v: "P"):
+            def check(obj):
+                raise attribution.Invalid(f"bad {obj['a']}")
+            with self.assertRaises(attribution.Invalid) as cm:
+                agent.ask("attributor", "T", check)
+        self.assertEqual(len(calls), 2)
+        self.assertIn("rejected: bad 1", calls[1])
+        self.assertIn("after 2 attempts", cm.exception.reason)
+        self.assertEqual(cm.exception.answer, '{"a": 2}')
