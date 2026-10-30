@@ -1,4 +1,4 @@
-"""AI's part of each company's capex and opex, attributed by an agent that reads the money-flow model for the
+"""AI's part of each company's capex, opex and revenue, attributed by an agent that reads the money-flow model for the
 company's industry (agents/models/<industry>@vN.md) and the company's cleaned data, and must show its inputs.
 
 The data pack is everything the ledger holds for the company: values, facts from the notes, and what the company
@@ -20,6 +20,7 @@ from .store import ROOT
 MODELS = ROOT / "agents" / "models"
 TASKS = ROOT / "data" / "attribution" / "tasks"
 OUTPUTS = ROOT / "data" / "attribution" / "outputs"
+FIELDS = ("capex", "opex", "revenue")  # capex allocation, opex, revenue exposure (docs/THESIS.md)
 METHODS = ("stated_share", "stated_amount", "segment", "ppe_category", "whole_business", "qualitative", "none")
 NUMERIC = ("stated_share", "stated_amount", "segment", "ppe_category", "whole_business")
 
@@ -81,7 +82,7 @@ def render_pack(ticker: str, items: dict) -> str:
 
 
 def make_task(ticker: str, items: dict, model: str) -> str:
-    head = (f"# Task: attribute {ticker}'s capex and opex to AI\n\nTicker: {ticker}\nPrompt version: {prompt_version()}\nModel: {model}\n"
+    head = (f"# Task: attribute {ticker}'s capex, opex and revenue to AI\n\nTicker: {ticker}\nPrompt version: {prompt_version()}\nModel: {model}\n"
             f"Industry: {industry(ticker)}\n\n")
     return head + "# Money-flow model\n\n" + model_text(model) + "\n\n# Data pack\n\n" + render_pack(ticker, items) + "\n"
 
@@ -124,7 +125,7 @@ def validate_output(obj: dict, ticker: str, items: dict, override: str | None = 
         missing = [k for k in ("field", "period", "kind", "method", "ai_amount", "ai_share", "inputs", "basis", "confidence") if k not in r]
         if missing:
             raise Invalid(f"rows[{i}] missing {missing}")
-        if r["field"] not in ("capex", "opex") or r["kind"] not in ("actual", "outlook") or r["method"] not in METHODS:
+        if r["field"] not in FIELDS or r["kind"] not in ("actual", "outlook") or r["method"] not in METHODS:
             raise Invalid(f"rows[{i}]: field, kind or method out of range")
         if not re.fullmatch(r"FY\d{4}", str(r["period"])):
             raise Invalid(f"rows[{i}].period {r['period']!r} is not FYyyyy")
@@ -149,7 +150,7 @@ def validate_output(obj: dict, ticker: str, items: dict, override: str | None = 
             if r["ai_amount"] is not None or r["inputs"]:
                 raise Invalid(f"rows[{i}]: {r['method']} carries no amount and no inputs")
     for i, n in enumerate(obj["none_found"]):
-        if not isinstance(n, dict) or n.get("field") not in ("capex", "opex") or "reason" not in n:
+        if not isinstance(n, dict) or n.get("field") not in FIELDS or "reason" not in n:
             raise Invalid(f"none_found[{i}] needs a field and a reason")
 
 
@@ -176,12 +177,15 @@ def _check_arithmetic(r: dict, items: dict, i: int) -> None:
             raise Invalid(f"rows[{i}]: ai_amount {amt} ≠ share × value = {want}")
     elif m == "segment":
         facts = [items[x["id"]] for x in ins]
+        want = "segment_revenue" if r["field"] == "revenue" else "segment_capex"
         if not facts or any(f["kind"] != "fact" or f["field"] not in ("segment_capex", "segment_revenue") for f in facts):
-            raise Invalid(f"rows[{i}]: segment needs segment_capex fact inputs")
-        if any(f["field"] == "segment_revenue" for f in facts):
+            raise Invalid(f"rows[{i}]: segment needs {want} fact inputs")
+        if r["field"] != "revenue" and any(f["field"] == "segment_revenue" for f in facts):
             raise Invalid(f"rows[{i}]: segment revenue is the seller side, not AI spend")
+        if r["field"] == "revenue" and any(f["field"] == "segment_capex" for f in facts):
+            raise Invalid(f"rows[{i}]: revenue exposure needs segment_revenue facts, not segment capex")
         if abs(amt - sum(f["value"] for f in facts)) > tol:
-            raise Invalid(f"rows[{i}]: ai_amount {amt} ≠ sum of segment capex {sum(f['value'] for f in facts)}")
+            raise Invalid(f"rows[{i}]: ai_amount {amt} ≠ sum of {want} {sum(f['value'] for f in facts)}")
     elif m == "ppe_category":
         facts = [items[x["id"]] for x in ins]
         if len(facts) != 2 or any(f["kind"] != "fact" or f["field"] != "ppe_category" for f in facts) or facts[0]["dimension"] != facts[1]["dimension"]:

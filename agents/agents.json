@@ -167,6 +167,87 @@
     "at": "2026-10-30T02:07:10+00:00",
     "by": "Kenny Geiler",
     "change": "five money-flow models @v1 for the supply-chain layers added at 100 companies: chip_equipment, datacenter_build, datacenter_landlord, power, ai_software"
+   },
+   {
+    "at": "2026-10-30T02:23:57+00:00",
+    "by": "Kenny Geiler",
+    "change": "hyperscaler@v3 saved, not in use: thesis: Thesis, Companies, revenue attribution and Projects sections added"
+   },
+   {
+    "at": "2026-10-30T02:23:57+00:00",
+    "by": "Kenny Geiler",
+    "change": "neocloud@v2 saved, not in use: thesis: Thesis, Companies, revenue attribution and Projects sections added"
+   },
+   {
+    "at": "2026-10-30T02:23:57+00:00",
+    "by": "Kenny Geiler",
+    "change": "miner_to_hpc@v2 saved, not in use: thesis: Thesis, Companies, revenue attribution and Projects sections added"
+   },
+   {
+    "at": "2026-10-30T02:23:57+00:00",
+    "by": "Kenny Geiler",
+    "change": "chip_seller@v2 saved, not in use: thesis: Thesis, Companies, revenue attribution and Projects sections added"
+   },
+   {
+    "at": "2026-10-30T02:23:57+00:00",
+    "by": "Kenny Geiler",
+    "change": "chip_equipment@v2 saved, not in use: thesis: Thesis, Companies, revenue attribution and Projects sections added"
+   },
+   {
+    "at": "2026-10-30T02:23:57+00:00",
+    "by": "Kenny Geiler",
+    "change": "component_supplier@v2 saved, not in use: thesis: Thesis, Companies, revenue attribution and Projects sections added"
+   },
+   {
+    "at": "2026-10-30T02:23:57+00:00",
+    "by": "Kenny Geiler",
+    "change": "datacenter_build@v2 saved, not in use: thesis: Thesis, Companies, revenue attribution and Projects sections added"
+   },
+   {
+    "at": "2026-10-30T02:23:57+00:00",
+    "by": "Kenny Geiler",
+    "change": "datacenter_landlord@v2 saved, not in use: thesis: Thesis, Companies, revenue attribution and Projects sections added"
+   },
+   {
+    "at": "2026-10-30T02:23:57+00:00",
+    "by": "Kenny Geiler",
+    "change": "power@v2 saved, not in use: thesis: Thesis, Companies, revenue attribution and Projects sections added"
+   },
+   {
+    "at": "2026-10-30T02:23:57+00:00",
+    "by": "Kenny Geiler",
+    "change": "ai_software@v2 saved, not in use: thesis: Thesis, Companies, revenue attribution and Projects sections added"
+   },
+   {
+    "at": "2026-10-30T02:23:57+00:00",
+    "by": "Kenny Geiler",
+    "change": "other@v2 saved, not in use: thesis: Thesis, Companies, revenue attribution and Projects sections added"
+   }
+  ]
+ },
+ "projects_reader": {
+  "name": "Projects reader",
+  "job": "Reads the passages of each text that name a project with a size and returns every named project the company is building, buying or contracting for the AI buildout: kind, stage, size, dates, counterparty, each a verbatim quote.",
+  "decides": [
+   "Whether a sentence names a project or only a total or an intention",
+   "The project's kind and stage from the words used",
+   "Which size, date and counterparty the sentence states, and nothing it does not"
+  ],
+  "checked_by": [
+   "Every quote must be a verbatim sentence of the passage it cites, or the answer is rejected and asked again once",
+   "Amounts, capacity, GPU counts and dates must be in range or null",
+   "The loader keeps the newest mention per project, so a project shows once at its latest status"
+  ],
+  "llm": {
+   "model": "claude-opus-5-5",
+   "runs_on": "Claude Code on Kenny's subscription: claude -p, headless, no tools, no paid API"
+  },
+  "prompt": "projects@v1",
+  "history": [
+   {
+    "at": "2026-10-30T03:00:00+00:00",
+    "by": "Kenny Geiler",
+    "change": "projects@v1: first version, project-level investment (docs/THESIS.md)"
    }
   ]
  }

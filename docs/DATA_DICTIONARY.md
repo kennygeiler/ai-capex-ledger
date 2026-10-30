@@ -1,6 +1,6 @@
 # Data dictionary
 
-Generated from `ledger/store.py` (schema version 8). Do not edit by hand: run `uv run python -m ledger.store`.
+Generated from `ledger/store.py` (schema version 9). Do not edit by hand: run `uv run python -m ledger.store`.
 
 Money is BIGINT US dollars, unscaled. Dates are `YYYY-MM-DD` strings; timestamps are UTC ISO 8601.
 
@@ -227,7 +227,7 @@ Key: `(ticker, field, period, kind)`
 | Column | Type | Required | Allowed values | Meaning |
 |---|---|---|---|---|
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
-| `field` | VARCHAR | yes | `capex`, `opex` | capex or opex. |
+| `field` | VARCHAR | yes | `capex`, `opex`, `revenue` | capex, opex or revenue (revenue exposure). |
 | `period` | VARCHAR | yes | pattern `^FY\d{4}$` | The company's fiscal year, e.g. FY2026 (NVDA's ended 25 Jan 2026). |
 | `kind` | VARCHAR | yes | `actual`, `outlook` | actual or outlook. |
 | `method` | VARCHAR | yes | `stated_share`, `stated_amount`, `segment`, `ppe_category`, `whole_business`, `qualitative`, `none` | stated_share, stated_amount, segment, ppe_category, whole_business, qualitative or none. |
@@ -241,6 +241,39 @@ Key: `(ticker, field, period, kind)`
 | `prompt_version` | VARCHAR | yes |  | Prompt version. |
 | `run_id` | VARCHAR | yes |  | Run that produced it. |
 | `input_hash` | VARCHAR | yes |  | Hash of method, amount, inputs and model. |
+
+## `projects`
+
+Project-level investment: every named project a text mentions (data center, fab, plant, power, GPU cluster, commitment), with size and stage; latest marks the newest mention per project.
+
+Key: `(project_id)`
+
+| Column | Type | Required | Allowed values | Meaning |
+|---|---|---|---|---|
+| `project_id` | VARCHAR | yes |  | text_id|n. |
+| `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
+| `text_id` | VARCHAR | yes |  | The text it was read from (texts). |
+| `source` | VARCHAR | yes | `mdna`, `earnings_release`, `transcript`, `cfo_commentary` | mdna, earnings_release, transcript or cfo_commentary. |
+| `accession` | VARCHAR | no | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession when the text is a filing. |
+| `date` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | The text's date. |
+| `period` | VARCHAR | yes | pattern `^FY\d{4}$` | The company's fiscal year, e.g. FY2026 (NVDA's ended 25 Jan 2026). |
+| `name` | VARCHAR | yes |  | The project as the company names it. |
+| `kind` | VARCHAR | yes | `data_center`, `fab`, `plant`, `power`, `gpu_cluster`, `cloud_commitment`, `network`, `other` | data_center, fab, plant, power, gpu_cluster, cloud_commitment, network or other. |
+| `status` | VARCHAR | yes | `announced`, `under_construction`, `in_service`, `contracted`, `cancelled` | announced, under_construction, in_service, contracted or cancelled. |
+| `location` | VARCHAR | no |  | Place as stated. |
+| `counterparty` | VARCHAR | no |  | The other party when stated. |
+| `amount_low` | BIGINT | no |  | Stated size, US dollars. |
+| `amount_high` | BIGINT | no |  | Stated size, US dollars. |
+| `capacity_mw` | DOUBLE | no |  | Megawatts when stated. |
+| `gpus` | BIGINT | no |  | GPUs when stated. |
+| `announced` | VARCHAR | no |  | Date announced, when stated. |
+| `in_service` | VARCHAR | no |  | Date in service or expected, when stated. |
+| `quote` | VARCHAR | yes |  | The sentence, verbatim. |
+| `passage` | VARCHAR | yes |  | Passage tag in the task. |
+| `confidence` | DOUBLE | yes |  | Agent's confidence. |
+| `latest` | BOOLEAN | yes |  | True on the newest mention of this project for the company. |
+| `prompt_version` | VARCHAR | yes |  | Prompt version. |
+| `run_id` | VARCHAR | yes |  | Run that produced it. |
 
 ## `rules`
 
@@ -303,7 +336,7 @@ Key: `(run_id, step, subject)`
 | Column | Type | Required | Allowed values | Meaning |
 |---|---|---|---|---|
 | `run_id` | VARCHAR | yes |  | Run ID. |
-| `step` | VARCHAR | yes | `run`, `ingest`, `parse`, `extract`, `reconcile`, `texts`, `aispend`, `notes`, `attribution`, `rules`, `faults`, `evidence`, `report`, `review`, `score`, `release` | Step name. |
+| `step` | VARCHAR | yes | `run`, `ingest`, `parse`, `extract`, `reconcile`, `texts`, `aispend`, `notes`, `attribution`, `eval`, `rules`, `faults`, `evidence`, `report`, `review`, `score`, `release` | Step name. |
 | `subject` | VARCHAR | no |  | What it ran on (accession, ticker, release). |
 | `started_at` | VARCHAR | yes |  | UTC timestamp. |
 | `seconds` | DOUBLE | yes |  | Wall-clock duration. |

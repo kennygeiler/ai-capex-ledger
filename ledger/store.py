@@ -18,7 +18,7 @@ import duckdb
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
-SCHEMA_VERSION = 8
+SCHEMA_VERSION = 9  # v9: projects table
 
 FIELDS = ("revenue", "cost_of_revenue", "cost_of_revenue_part", "operating_income", "capex", "opex")
 KINDS = ("accept", "override", "reject")  # what a person can decide about an exception
@@ -200,7 +200,7 @@ SCHEMA: tuple[Table, ...] = (
     ), key=("ticker", "field", "dimension", "period")),
     Table("attribution", "AI's part of capex and opex per company and fiscal year, attributed by the attributor from the money-flow model and the data pack; every number recomputed by code from its inputs.", (
         TICKER,
-        _c("field", "VARCHAR", "capex or opex.", enum=("capex", "opex")),
+        _c("field", "VARCHAR", "capex, opex or revenue (revenue exposure).", enum=("capex", "opex", "revenue")),
         PERIOD,
         _c("kind", "VARCHAR", "actual or outlook.", enum=("actual", "outlook")),
         _c("method", "VARCHAR", "stated_share, stated_amount, segment, ppe_category, whole_business, qualitative or none.", enum=("stated_share", "stated_amount", "segment", "ppe_category", "whole_business", "qualitative", "none")),
@@ -215,6 +215,32 @@ SCHEMA: tuple[Table, ...] = (
         _c("run_id", "VARCHAR", "Run that produced it."),
         _c("input_hash", "VARCHAR", "Hash of method, amount, inputs and model."),
     ), key=("ticker", "field", "period", "kind")),
+    Table("projects", "Project-level investment: every named project a text mentions (data center, fab, plant, power, GPU cluster, commitment), with size and stage; latest marks the newest mention per project.", (
+        _c("project_id", "VARCHAR", "text_id|n."),
+        TICKER,
+        _c("text_id", "VARCHAR", "The text it was read from (texts)."),
+        _c("source", "VARCHAR", "mdna, earnings_release, transcript or cfo_commentary.", enum=("mdna", "earnings_release", "transcript", "cfo_commentary")),
+        _c("accession", "VARCHAR", "SEC accession when the text is a filing.", nullable=True, pattern=ACCESSION),
+        _c("date", "VARCHAR", "The text's date.", pattern=DATE),
+        PERIOD,
+        _c("name", "VARCHAR", "The project as the company names it."),
+        _c("kind", "VARCHAR", "data_center, fab, plant, power, gpu_cluster, cloud_commitment, network or other.", enum=("data_center", "fab", "plant", "power", "gpu_cluster", "cloud_commitment", "network", "other")),
+        _c("status", "VARCHAR", "announced, under_construction, in_service, contracted or cancelled.", enum=("announced", "under_construction", "in_service", "contracted", "cancelled")),
+        _c("location", "VARCHAR", "Place as stated.", nullable=True),
+        _c("counterparty", "VARCHAR", "The other party when stated.", nullable=True),
+        _c("amount_low", "BIGINT", "Stated size, US dollars.", nullable=True),
+        _c("amount_high", "BIGINT", "Stated size, US dollars.", nullable=True),
+        _c("capacity_mw", "DOUBLE", "Megawatts when stated.", nullable=True),
+        _c("gpus", "BIGINT", "GPUs when stated.", nullable=True),
+        _c("announced", "VARCHAR", "Date announced, when stated.", nullable=True),
+        _c("in_service", "VARCHAR", "Date in service or expected, when stated.", nullable=True),
+        _c("quote", "VARCHAR", "The sentence, verbatim."),
+        _c("passage", "VARCHAR", "Passage tag in the task."),
+        _c("confidence", "DOUBLE", "Agent's confidence."),
+        _c("latest", "BOOLEAN", "True on the newest mention of this project for the company."),
+        _c("prompt_version", "VARCHAR", "Prompt version."),
+        _c("run_id", "VARCHAR", "Run that produced it."),
+    ), key=("project_id",)),
     Table("rules", "The rule registry as loaded from rules/*.yaml.", (
         _c("rule_id", "VARCHAR", "Rule ID, e.g. unit_scale."),
         _c("severity", "VARCHAR", "block, warn or info.", enum=("block", "warn", "info")),

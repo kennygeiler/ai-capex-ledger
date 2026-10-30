@@ -6,11 +6,13 @@ import argparse
 import json
 
 from .. import store
+from ..config import add_scope
 from ..evaluation import OUT, load, render, score
 
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m ledger eval")
+    add_scope(ap)  # accepted so `ledger run --ticker X` can chain it; the score is always over the whole reference set
     ap.add_argument("--db", default=str(store.DEFAULT_DB))
     a = ap.parse_args(argv)
     con = store.init(a.db)

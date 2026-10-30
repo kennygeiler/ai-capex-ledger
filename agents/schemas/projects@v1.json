@@ -1,0 +1,32 @@
+{
+  "$comment": "Output contract for one projects task: named projects the company is building, buying or contracting for the AI buildout, each a verbatim quote.",
+  "type": "object",
+  "required": ["accession", "prompt_version", "projects"],
+  "properties": {
+    "accession": {"type": "string"},
+    "prompt_version": {"type": "string", "const": "projects@v1"},
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "kind", "status", "quote", "passage", "confidence"],
+        "properties": {
+          "name": {"type": "string", "minLength": 3, "maxLength": 120},
+          "kind": {"enum": ["data_center", "fab", "plant", "power", "gpu_cluster", "cloud_commitment", "network", "other"]},
+          "status": {"enum": ["announced", "under_construction", "in_service", "contracted", "cancelled"]},
+          "location": {"type": ["string", "null"]},
+          "counterparty": {"type": ["string", "null"]},
+          "amount_low": {"type": ["integer", "null"]},
+          "amount_high": {"type": ["integer", "null"]},
+          "capacity_mw": {"type": ["number", "null"]},
+          "gpus": {"type": ["integer", "null"]},
+          "announced": {"type": ["string", "null"]},
+          "in_service": {"type": ["string", "null"]},
+          "quote": {"type": "string"},
+          "passage": {"type": "string", "pattern": "^p\\d\\d$"},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+        }
+      }
+    }
+  }
+}

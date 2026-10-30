@@ -147,6 +147,19 @@
   .stp.done, .stp.running { color: var(--fg); }
   .stp .state { font-size: .8rem; color: var(--muted); }
   .stp.running .state { color: var(--accent); }
+  .views { display: grid; grid-template-columns: 16rem 1fr; gap: 1.5rem; align-items: start; }
+  .viewlist { display: flex; flex-direction: column; gap: .15rem; margin-top: .5rem; }
+  .viewrow { display: flex; flex-direction: column; padding: .35rem .5rem; border-radius: 4px; color: var(--fg); }
+  .viewrow.on { background: var(--faint); }
+  .barlist { display: flex; flex-direction: column; gap: .35rem; max-width: 48rem; }
+  .barlist .bar { display: grid; grid-template-columns: 12rem 1fr 7rem; gap: .6rem; align-items: center; font-size: .9rem; }
+  .barlist .track { height: .7rem; background: var(--faint); border-radius: 2px; overflow: hidden; }
+  .barlist .track i { display: block; height: 100%; background: var(--accent); }
+  .barlist .n { text-align: right; font-variant-numeric: tabular-nums; }
+  .form { display: flex; flex-direction: column; gap: .45rem; }
+  .form label { display: grid; grid-template-columns: 6rem 1fr; gap: .5rem; align-items: center; font-size: .85rem; }
+  .form input, .form select { border: 1px solid var(--faint); border-radius: 4px; padding: .25rem .45rem; background: var(--bg); font-size: .85rem; }
+  @media (max-width: 700px) { .views { grid-template-columns: 1fr; } .barlist .bar { grid-template-columns: 6rem 1fr 5rem; } }
 </style>
 </head>
 <body>
@@ -159,6 +172,7 @@
     <datalist id="tickers"></datalist>
     <a href="#data" data-nav="data">Dataset</a>
     <a href="#attribution" data-nav="attribution">Attribution</a>
+    <a href="#views" data-nav="views">Views</a>
     <a href="#status" data-nav="status">Status</a>
     <a href="#releases" data-nav="releases">Releases</a>
     <a href="#agents" data-nav="agents">Agents</a>
@@ -903,6 +917,72 @@ async function releasesPage(view) {
       h('details', {}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Values'), table([{t: 'Company', k: 'company'}, {t: 'Field', k: 'field'}, {t: 'Year', k: 'period'}, {t: 'Value', n: 1, k: 'value', f: (x) => (x.value === '' ? h('span', {class: 'muted'}, 'blank') : usd(Number(x.value)))}, {t: 'SEC data', k: 'xbrl'}], r.rows))))));
 }
 
+// ── Views: saved questions, each a query another system can call (docs/API.md) ─────────────────────────────────
+const MEASURES = {attribution: 'Attribution (capex, opex, revenue)', values: 'Values', facts: 'Facts from the notes', statements: 'Statements', plans: 'Plans vs reality', projects: 'Projects'};
+const FILTER_COLS = ['ticker', 'layer', 'period', 'field', 'kind', 'method', 'scope'];
+const GROUP_COLS = ['', 'ticker', 'layer', 'period', 'field', 'method', 'kind', 'scope'];
+async function viewsPage(view, arg, qs) {
+  const {rows: saved} = await api('/api/v1/views');
+  const current = arg ? saved.find((v) => v.id === arg) : saved[0];
+  const list = h('div', {class: 'viewlist'}, saved.map((v) => h('a', {href: '#views/' + v.id, class: 'viewrow' + (current && v.id === current.id ? ' on' : '')},
+    h('span', {}, v.name), h('span', {class: 'muted small'}, `${MEASURES[v.measure] || v.measure}${v.group ? ', by ' + v.group : ''}`))));
+  const head = h('div', {class: 'controls'}, h('span', {class: 'muted small'}, `${saved.length} saved view${saved.length === 1 ? '' : 's'}`),
+    h('button', {type: 'button', class: 'btn', onclick: () => editView(null)}, 'New view'));
+  const body = h('div', {class: 'viewbody'});
+  view.append(h('div', {class: 'views'}, h('div', {}, head, list), body));
+  if (!current) { body.append(h('p', {class: 'msg'}, 'No view yet. New view asks a question of the dataset and keeps it.')); return; }
+  const d = await api(`/api/v1/views/${current.id}/data`);
+  const rows = d.rows, n = rows.length;
+  const q = new URLSearchParams({...current.filters, ...(current.group ? {group: current.group} : {})}).toString();
+  const url = `/api/v1/${current.measure}?${q}`;
+  body.append(h('div', {class: 'sechead'}, h('h2', {}, current.name), h('span', {class: 'muted small'}, current.note || '')),
+    h('div', {class: 'controls'}, h('span', {class: 'muted small'}, `${n} row${n === 1 ? '' : 's'}`),
+      h('a', {href: url, target: '_blank', rel: 'noopener', class: 'small'}, 'JSON'), h('a', {href: url + '&format=csv', class: 'small'}, 'CSV'),
+      h('button', {type: 'button', class: 'btn', onclick: () => editView(current)}, 'Edit'),
+      h('button', {type: 'button', class: 'btn', onclick: async () => { if (!confirmDelete.checked) { confirmDelete.hidden = false; confirmDelete.checked = false; return; } await api(`/api/v1/views/${current.id}/delete`, {method: 'POST', body: JSON.stringify({by: me()})}); go('#views'); }}, 'Delete'),
+      h('label', {class: 'small muted', hidden: true}, h('input', {type: 'checkbox'}), ' click Delete again to confirm')));
+  const confirmDelete = body.querySelector('label input');
+  const amount = (r) => r.amount ?? r.ai_amount ?? r.value ?? r.amount_mid ?? r.gap ?? null;
+  if (!n) { body.append(h('p', {class: 'msg'}, 'No rows match. Widen the filters, or run the step that fills this list.')); return; }
+  if (current.show === 'bars' && current.group) {
+    const max = Math.max(1, ...rows.map((r) => Math.abs(amount(r) || 0)));
+    body.append(h('div', {class: 'barlist'}, rows.map((r) => h('div', {class: 'bar'}, h('span', {class: 'l'}, String(r[current.group] ?? '—')),
+      h('span', {class: 'track'}, h('i', {style: `width:${100 * Math.abs(amount(r) || 0) / max}%`})), h('span', {class: 'n'}, usd(amount(r)))))));
+  } else if (current.show === 'shares' && rows.some((r) => r.ai_share != null)) {
+    const years = [...new Set(rows.map((r) => r.period))].sort(), ts = [...new Set(rows.map((r) => r.ticker))].sort();
+    const by = {}; for (const r of rows) by[`${r.ticker}|${r.period}`] = r;
+    body.append(h('div', {class: 'tablewrap'}, h('table', {class: 'grid'}, h('thead', {}, h('tr', {}, h('th', {}, 'Company'), years.map((y) => h('th', {class: 'n'}, y)))),
+      h('tbody', {}, ts.map((t) => h('tr', {}, h('th', {}, t), years.map((y) => { const r = by[`${t}|${y}`]; return h('td', {class: 'n', title: r ? `${usd(r.ai_amount)} · ${r.method}` : ''}, r ? mini(r.ai_share, pct(r.ai_share)) : '—'); })))))));
+  } else {
+    const cols = Object.keys(rows[0]).filter((c) => !['basis', 'inputs', 'quote', 'plan_quote', 'run_id', 'prompt_version', 'model'].includes(c)).slice(0, 12);
+    const cell = (r, c) => { const v = r[c]; const num = typeof v === 'number'; const text = v == null ? '—' : num ? (Math.abs(v) >= 1e6 ? usd(v) : (c.includes('share') || c === 'confidence' ? pct(v) : String(v))) : typeof v === 'boolean' ? (v ? 'yes' : 'no') : String(v); return h('td', {class: num ? 'n' : ''}, text); };
+    const tbody = h('tbody', {}, rows.slice(0, 500).map((r) => h('tr', {}, cols.map((c) => cell(r, c)))));
+    body.append(h('div', {class: 'tablewrap'}, h('table', {class: 'grid'}, h('thead', {}, h('tr', {}, cols.map((c) => h('th', {class: typeof rows[0][c] === 'number' ? 'n' : ''}, c)))), tbody)));
+    if (n > 500) body.append(h('p', {class: 'muted small'}, `First 500 of ${n}; the CSV has them all.`));
+  }
+  function editView(v) {
+    const f = v ? {...v} : {name: '', measure: 'attribution', filters: {}, group: '', show: 'grid', note: ''};
+    const name = h('input', {type: 'text', value: f.name, placeholder: 'What this view answers'});
+    const measure = h('select', {}, Object.entries(MEASURES).map(([k, t]) => h('option', {value: k, selected: f.measure === k || null}, t)));
+    const filt = Object.fromEntries(FILTER_COLS.map((c) => [c, h('input', {type: 'text', value: f.filters[c] || '', placeholder: c})]));
+    const group = h('select', {}, GROUP_COLS.map((g) => h('option', {value: g, selected: (f.group || '') === g || null}, g || 'rows, no grouping')));
+    const show = h('select', {}, ['grid', 'bars', 'shares'].map((k) => h('option', {value: k, selected: f.show === k || null}, k)));
+    const note = h('input', {type: 'text', value: f.note || '', placeholder: 'One line on what to read into it'});
+    const msg = h('p', {class: 'msg small'});
+    drawer(h('h3', {}, v ? 'Edit view' : 'New view'),
+      h('div', {class: 'form'}, h('label', {}, 'Name', name), h('label', {}, 'Measure', measure),
+        h('div', {class: 'muted small'}, 'Filters, comma-separated values'), FILTER_COLS.map((c) => h('label', {}, c, filt[c])),
+        h('label', {}, 'Group by', group), h('label', {}, 'Show as', show), h('label', {}, 'Note', note)),
+      h('div', {class: 'row', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn', onclick: async () => {
+        const filters = Object.fromEntries(FILTER_COLS.filter((c) => filt[c].value.trim()).map((c) => [c, filt[c].value.trim()]));
+        try {
+          const out = await api('/api/v1/views', {method: 'POST', body: JSON.stringify({view: {id: v ? v.id : undefined, name: name.value, measure: measure.value, filters, group: group.value || null, show: show.value, note: note.value}, by: me()})});
+          closeDrawer(); go('#views/' + out.id); if (location.hash === '#views/' + out.id) route();
+        } catch (e) { msg.textContent = e.message; msg.classList.add('bad'); }
+      }}, v ? 'Save' : 'Create'), msg));
+  }
+}
+
 // ── Routing ─────────────────────────────────────────────────────────────────
 function go(hash) { location.hash = hash; }
 async function route() {
@@ -912,11 +992,12 @@ async function route() {
   const tab = {company: 'data', run: 'flow', pipeline: 'flow', insights: 'data'}[page] || page;
   document.querySelectorAll('nav [data-nav]').forEach((a) => a.classList.toggle('on', a.dataset.nav === tab));
   const view = $('#view');
-  view.replaceChildren(h('h1', {class: 'sr'}, `DATAHQ, ${({flow: 'Flow', data: 'Dataset', company: 'Company', attribution: 'Attribution', status: 'Status', releases: 'Releases', agents: 'Agents', run: 'Add a Company'})[page] || 'Data'}`));
+  view.replaceChildren(h('h1', {class: 'sr'}, `DATAHQ, ${({flow: 'Flow', data: 'Dataset', company: 'Company', attribution: 'Attribution', views: 'Views', status: 'Status', releases: 'Releases', agents: 'Agents', run: 'Add a Company'})[page] || 'Data'}`));
   try {
     if (page === 'company') await dataPage(view, `t=${arg || ''}&f=ai_capex,capex`);
     else if (page === 'flow') await flowPage(view, qs);
     else if (page === 'attribution') await attributionPage(view);
+    else if (page === 'views') await viewsPage(view, arg, qs);
     else if (page === 'agents') await agentsPage(view);
     else if (page === 'releases') await releasesPage(view);
     else if (page === 'run') await runPage(view);

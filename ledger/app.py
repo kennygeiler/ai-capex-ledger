@@ -30,7 +30,7 @@ from .ingest.edgar import fetch_tickers
 from .extract import OUTPUTS
 from .evidence import load_all
 from .hq import snapshot
-from . import resolutions
+from . import api, resolutions, views
 from .release import RELEASES, releases
 from .review import decisions, latest, open_items
 from .rules import load as load_rules
@@ -552,6 +552,8 @@ class Handler(BaseHTTPRequestHandler):
             return self._json(json.loads(f.read_text()) if f.exists() and re.fullmatch(r"[a-z_]+@v\d+", q.get("version", "")) else None)
         if u.path == "/api/attribution":
             return self._guard(lambda: self._json(attribution_view()))
+        if u.path.startswith("/api/v1/"):  # the read API, docs/API.md
+            return self._guard(lambda: self._v1(u.path[len("/api/v1/"):].strip("/"), q))
         if u.path.startswith("/packet/") and u.path.endswith(".zip"):
             z = packet(u.path[len("/packet/"):-4])
             if z:
@@ -572,6 +574,34 @@ class Handler(BaseHTTPRequestHandler):
             if f.parent == EVIDENCE and f.suffix == ".png" and f.exists():
                 return self._send(HTTPStatus.OK, f.read_bytes(), mimetypes.guess_type(f.name)[0])
         self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
+
+    def _v1(self, path: str, q: dict):
+        parts = path.split("/")
+        name, fmt = parts[0], q.get("format", "json")
+        if name.endswith(".csv"):
+            name, fmt = name[:-4], "csv"
+        if name not in api.LISTS:
+            return self._json({"error": f"no list {name!r}", "lists": api.LISTS}, HTTPStatus.NOT_FOUND)
+        if name == "views" and len(parts) == 3 and parts[2] == "data":
+            con = _con()
+            try:
+                out = api.view_data(con, parts[1])
+            finally:
+                con.close()
+            return self._send(HTTPStatus.OK, api.to_csv(out["rows"]).encode(), "text/csv; charset=utf-8") if fmt == "csv" else self._json(out)
+        if len(parts) != 1:
+            return self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
+        if name in ("companies", "theses", "views"):
+            rows = api.apply(api.fetch(None, name), q)
+        else:
+            con = _con()
+            try:
+                rows = api.query(con, name, q)
+            finally:
+                con.close()
+        if fmt == "csv":
+            return self._send(HTTPStatus.OK, api.to_csv(rows).encode(), "text/csv; charset=utf-8")
+        return self._json({"list": name, "count": len(rows), "filters": {k: v for k, v in q.items() if k in api.FILTERS or k == "group"}, "rows": rows})
 
     def _hq(self):
         con = _con()
@@ -594,6 +624,11 @@ class Handler(BaseHTTPRequestHandler):
             return self._guard(lambda: self._json(dryrun(body.get("version", ""), body.get("by", ""))))
         if u.path == "/api/attribute":
             return self._guard(lambda: self._json(attribute(body.get("industry") or None, body.get("by", ""))))
+        if u.path == "/api/v1/views":
+            return self._guard(lambda: self._json(views.save(body.get("view") or body, body.get("by", ""))))
+        if u.path.startswith("/api/v1/views/") and u.path.endswith("/delete"):
+            vid = u.path[len("/api/v1/views/"):-len("/delete")]
+            return self._guard(lambda: self._json((views.delete(vid, body.get("by", "")), {"ok": True})[1]))
         parts = u.path.strip("/").split("/")  # api/agents/<id>/<prompt|use|model>, api/models/<industry>/<save|use>
         if len(parts) == 4 and parts[:2] == ["api", "models"]:
             ind, what = parts[2], parts[3]

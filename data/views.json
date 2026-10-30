@@ -1,0 +1,62 @@
+{
+ "views": [
+  {
+   "id": "ai-capex-by-layer",
+   "name": "AI capex by layer",
+   "measure": "attribution",
+   "filters": {
+    "field": "capex",
+    "kind": "actual"
+   },
+   "group": "layer",
+   "show": "bars",
+   "note": "Attributed AI capex rolled up by supply-chain layer.",
+   "by": "Kenny Geiler",
+   "at": "2026-10-30T02:21:37+00:00"
+  },
+  {
+   "id": "hyperscaler-ai-share",
+   "name": "Hyperscaler AI share of capex",
+   "measure": "attribution",
+   "filters": {
+    "layer": "hyperscaler",
+    "field": "capex",
+    "kind": "actual"
+   },
+   "group": null,
+   "show": "shares",
+   "note": "Each hyperscaler's AI share of capex by year, with method.",
+   "by": "Kenny Geiler",
+   "at": "2026-10-30T02:21:37+00:00"
+  },
+  {
+   "id": "capex-plans-vs-reality",
+   "name": "Capex guidance vs actual",
+   "measure": "plans",
+   "filters": {
+    "field": "capex",
+    "scope": "total"
+   },
+   "group": null,
+   "show": "grid",
+   "note": "The newest guidance before the year end against what was spent.",
+   "by": "Kenny Geiler",
+   "at": "2026-10-30T02:21:37+00:00"
+  },
+  {
+   "id": "revenue-exposure",
+   "name": "AI revenue exposure",
+   "measure": "attribution",
+   "filters": {
+    "field": "revenue",
+    "kind": "actual"
+   },
+   "group": null,
+   "show": "grid",
+   "note": "Sellers' AI or data-center revenue, by method.",
+   "by": "Kenny Geiler",
+   "at": "2026-10-30T02:21:37+00:00"
+  }
+ ],
+ "history": []
+}
