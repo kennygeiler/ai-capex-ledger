@@ -132,8 +132,8 @@ def validate_output(obj: dict, accession: str, ps: dict[str, str]) -> None:
             raise Invalid(f"statements[{i}].quote is not a verbatim sentence of passage {s['passage']}: {str(s['quote'])[:80]!r}")
         if s["class"] == "explicit_amount":
             lo, hi = s.get("amount_low"), s.get("amount_high")
-            if not (isinstance(lo, int) and isinstance(hi, int) and not isinstance(lo, bool) and 0 < lo <= hi):
-                raise Invalid(f"statements[{i}]: explicit_amount needs integer dollars amount_low <= amount_high")
+            if not (isinstance(lo, int) and isinstance(hi, int) and not isinstance(lo, bool) and 0 <= lo <= hi):  # a stated zero is a figure (Galaxy: "does not currently earn any revenue from its Data Centers business", type 61)
+                raise Invalid(f"statements[{i}]: explicit_amount needs integer dollars 0 <= amount_low <= amount_high")
         if s["class"] == "explicit_share":
             sh = s.get("share")
             if not (isinstance(sh, (int, float)) and not isinstance(sh, bool) and 0 < sh <= 1):
