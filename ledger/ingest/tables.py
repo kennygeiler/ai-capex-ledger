@@ -15,7 +15,7 @@ import html
 import re
 from html.parser import HTMLParser
 
-PARSER_VERSION = "tables@11"  # 10: "($000)" is thousands; percent-of-revenue tables never win; 11: a quarterly table never raises the marker bar
+PARSER_VERSION = "tables@12"  # 11: a quarterly table never raises the marker bar; 12: "(000,000)" is millions (zeros counted)
 _NUM = re.compile(r"^\(?-?\$?\s*\(?([0-9][0-9,]*(?:\.[0-9]+)?)\s*\)?%?$")
 _DASHES = {"—", "–", "-", "— ", "−"}
 _CCY = r"(?:USD\s+|US\$\s*|U\.S\.\s+dollars\s+|dollars\s+)?"
@@ -24,12 +24,16 @@ _UNIT = re.compile(r"\(\s*(?:in|dollars in|amounts in|\$ in|U\.S\. dollars in)\s
 _UNIT_PAREN = re.compile(r"\(\s*(?:(?:US)?\$\s*(thousands|millions|billions)|(thousands|millions|billions)\s+of\s+(?:U\.?S\.?\s+)?dollars)\s*\)", re.I)
 _UNIT_LOOSE = re.compile(r"\b(?:in|dollars in|amounts in)\s+" + _CCY + r"(thousands|millions|billions)\b", re.I)
 # Coherent's "($000)" and "($000, except per share data)": three zeros for thousands.
-_UNIT_000 = re.compile(r"\(\s*(?:US)?\$?\s*000s?\b[^)]*\)", re.I)
+_UNIT_000 = re.compile(r"\(\s*(?:US)?\$?\s*000(?:,000)*s?\b[^)]*\)", re.I)
 
 
 def scale_of(unit_text: str) -> int:
+    """"(in millions)" by the word; "($000)" and AT&T's "(000,000)" by counting the zeros."""
     m = re.search(r"thousands|millions|billions", unit_text, re.I)
-    return SCALES[m.group(0).lower()] if m else 1_000
+    if m:
+        return SCALES[m.group(0).lower()]
+    zeros = len(re.sub(r"[^0]", "", unit_text))
+    return 1_000_000_000 if zeros >= 9 else 1_000_000 if zeros >= 6 else 1_000
 _YEAR = re.compile(r"^(19|20)\d\d$")
 SCALES = {"thousands": 1_000, "millions": 1_000_000, "billions": 1_000_000_000}
 

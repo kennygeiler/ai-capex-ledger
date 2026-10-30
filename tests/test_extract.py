@@ -90,3 +90,16 @@ class Dating(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CapexSign(unittest.TestCase):
+    def test_positive_cell_accepted_only_when_the_label_says_capex(self):
+        from ledger.extract import Invalid, resolve
+        parsed = {"accession": "a", "tables": [{"id": "t1", "columns": ["2025"], "scale": 1_000_000, "unit_text": "(in millions)", "unit_source": "table",
+                                                 "rows": [{"label": "Capital expenditures", "cells": [{"col": 0, "text": "4,494", "value": 4494.0}]},
+                                                          {"label": "Proceeds from sale of assets", "cells": [{"col": 0, "text": "120", "value": 120.0}]}]}],
+                  "statements": {"income": [], "cash_flow": []}}
+        v = {"field": "capex", "table_id": "t1", "row_label": "Capital expenditures", "column_label": "2025", "cell_text": "4,494", "value": 4_494_000_000}
+        resolve(v, parsed)
+        with self.assertRaises(Invalid):
+            resolve({**v, "row_label": "Proceeds from sale of assets", "cell_text": "120", "value": 120_000_000}, parsed)

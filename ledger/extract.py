@@ -125,7 +125,8 @@ def resolve(v: dict, parsed: dict) -> dict:
     shown = round(cell["value"] * t["scale"])
     # Sign conventions: capex is cash spent, shown in parentheses, stored positive (a positive cell is a mismatch to
     # review, not something to silently flip). Cost of revenue is stored positive however the table shows it.
-    expected = -shown if v["field"] == "capex" else abs(shown) if v["field"].startswith("cost_of_revenue") else shown
+    capex_label = re.search(r"capital expenditure|purchases? of property|additions to property", v["row_label"], re.I)
+    expected = (abs(shown) if capex_label else -shown) if v["field"] == "capex" else abs(shown) if v["field"].startswith("cost_of_revenue") else shown  # a positive cell is accepted only when its own label says capex (Freeport's summary table, type 57)
     if v["value"] != expected:
         raise Invalid(f"value {v['value']} != cell {v['cell_text']} × {t['scale']:,} = {expected} ({v['field']} sign convention)")
     return {"unit_stated": t["unit_text"], "unit_source": t["unit_source"], "scale": t["scale"]}

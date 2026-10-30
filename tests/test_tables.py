@@ -172,3 +172,13 @@ class QuarterlyNeverRaisesTheBar(unittest.TestCase):
         tables = parse_tables(html_)
         self.assertEqual(len(tables), 2)
         self.assertEqual(locate(tables)["income"], [tables[1]["id"]])
+
+
+class ZerosAreCounted(unittest.TestCase):
+    def test_scales(self):
+        from ledger.ingest.tables import scale_of
+        self.assertEqual(scale_of("($000)"), 1_000)
+        self.assertEqual(scale_of("(000,000)"), 1_000_000)
+        self.assertEqual(scale_of("($000,000, except per share)"), 1_000_000)
+        self.assertEqual(scale_of("(in millions)"), 1_000_000)
+        self.assertEqual([u["scale"] for u in document_units("<p>Consolidated Statements of Income (000,000)</p>")], [1_000_000])
