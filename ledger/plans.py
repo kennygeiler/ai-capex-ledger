@@ -9,14 +9,7 @@ from __future__ import annotations
 
 import re
 
-PROGRAM = re.compile(r"joint venture|once completed|over the next|through 20\d\d|by 20\d\d|multi-?year|cumulative|total investment|over (two|three|four|five|ten|\d+) years|program", re.I)
-
-
-def program_words(quote: str) -> str | None:
-    """Words that make an outlook statement a multi-year program or a deal size rather than a year's guidance (type 69,
-    Equinix's $15 billion xScale joint venture read as FY2025 capex guidance). Such a statement is a project, not a plan."""
-    m = PROGRAM.search(quote or "")
-    return m.group(0) if m else None
+from .guards import program_words  # noqa: E402
 
 
 def plans(con, tickers: list[str] | None = None) -> list[dict]:

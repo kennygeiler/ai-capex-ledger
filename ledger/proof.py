@@ -11,9 +11,8 @@ import json
 from pathlib import Path
 
 from . import definitions, resolutions, store
-from .attribution import part_year
+from .guards import part_year, program_words
 from .config import PROVEN, PROVEN_WHY, industry, tracked
-from .plans import program_words
 
 STAGES = ("ingest", "values", "facts", "statements", "attribution", "plans", "release")
 STAGE_LABEL = {"ingest": "Ingest", "values": "Values", "facts": "Facts", "statements": "Statements", "attribution": "Attribution", "plans": "Plans and projects", "release": "Release"}

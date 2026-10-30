@@ -1,0 +1,64 @@
+# The company's own PP&E category, as printed in its note, mapped to the nearest us-gaap PropertyPlantAndEquipmentByTypeAxis
+# member (docs/TAXONOMY.md). A mapping is a classification against a published list, recorded with the note's words; it is
+# never a number. `standard_type` is the us-gaap member; `evidence` is what the note says the category holds, quoted or
+# paraphrased from the filing; `by` and `at` say who recorded it. One entry per (ticker, reported_name). A reported name
+# with no entry is open on the Proof board until someone writes one.
+#
+# us-gaap members used: TechnologyEquipmentMember, ComputerEquipmentMember, SoftwareAndSoftwareDevelopmentCostsMember,
+# LandMember, LandAndBuildingMember, BuildingAndBuildingImprovementsMember, LeaseholdImprovementsMember,
+# ConstructionInProgressMember, FurnitureAndFixturesMember, MachineryAndEquipmentMember, LandImprovementsMember,
+# ElectricGenerationEquipmentMember, OtherMachineryAndEquipmentMember, PropertyPlantAndEquipmentOtherTypesMember.
+
+MSFT:
+  "Computer equipment and software": {standard_type: TechnologyEquipmentMember, evidence: "the note's own category name: computer equipment and software, the line Microsoft renamed in fiscal 2025", by: Claude Fable 5.1, at: 2026-11-01}
+  "Servers, network equipment, and software": {standard_type: TechnologyEquipmentMember, evidence: "the note's own category name from fiscal 2025: servers, network equipment, and software", by: Claude Fable 5.1, at: 2026-11-01}
+  "Buildings and improvements": {standard_type: BuildingAndBuildingImprovementsMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Furniture and equipment": {standard_type: FurnitureAndFixturesMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Land": {standard_type: LandMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Leasehold improvements": {standard_type: LeaseholdImprovementsMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+GOOGL:
+  "Information technology assets": {standard_type: TechnologyEquipmentMember, evidence: "the note's category through FY2023: information technology assets (servers and network equipment), renamed Technical infrastructure in the FY2024 10-K", by: Claude Fable 5.1, at: 2026-11-01}
+  "Technical infrastructure": {standard_type: TechnologyEquipmentMember, evidence: "the FY2024 10-K's category: technical infrastructure, which the filing's own extension member goog:TechnicalInfrastructureMember tags; servers, data-center equipment and network equipment per the note", by: Claude Fable 5.1, at: 2026-11-01}
+  "Land and buildings": {standard_type: LandAndBuildingMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Office space": {standard_type: BuildingAndBuildingImprovementsMember, evidence: "the FY2024 10-K's category: office space (land, buildings, leasehold improvements for offices)", by: Claude Fable 5.1, at: 2026-11-01}
+  "Leasehold improvements": {standard_type: LeaseholdImprovementsMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Furniture and fixtures": {standard_type: FurnitureAndFixturesMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Corporate and other assets": {standard_type: PropertyPlantAndEquipmentOtherTypesMember, evidence: "the FY2024 10-K's category: corporate and other assets", by: Claude Fable 5.1, at: 2026-11-01}
+  "Construction in progress": {standard_type: ConstructionInProgressMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Add: assets not yet in service": {standard_type: ConstructionInProgressMember, evidence: "the FY2024 10-K's line: assets not yet in service, the successor of construction in progress", by: Claude Fable 5.1, at: 2026-11-01}
+AMZN:
+  "Equipment": {standard_type: MachineryAndEquipmentMember, evidence: "the note's category through FY2024: equipment, which the FY2025 10-K splits into servers and networking equipment, heavy equipment and other equipment; wider than technology equipment", by: Claude Fable 5.1, at: 2026-11-01}
+  "Servers and networking equipment": {standard_type: TechnologyEquipmentMember, evidence: "the FY2025 10-K's category: servers and networking equipment", by: Claude Fable 5.1, at: 2026-11-01}
+  "Heavy equipment": {standard_type: MachineryAndEquipmentMember, evidence: "the FY2025 10-K's category: heavy equipment (fulfillment and transportation)", by: Claude Fable 5.1, at: 2026-11-01}
+  "Other equipment": {standard_type: OtherMachineryAndEquipmentMember, evidence: "the FY2025 10-K's category: other equipment", by: Claude Fable 5.1, at: 2026-11-01}
+  "Land and buildings": {standard_type: LandAndBuildingMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Other assets": {standard_type: PropertyPlantAndEquipmentOtherTypesMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Construction in progress": {standard_type: ConstructionInProgressMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+NVDA:
+  "Equipment, compute hardware, and software": {standard_type: TechnologyEquipmentMember, evidence: "the note's own category name: equipment, compute hardware, and software", by: Claude Fable 5.1, at: 2026-11-01}
+  "Buildings, leasehold improvements, and furniture": {standard_type: BuildingAndBuildingImprovementsMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Land": {standard_type: LandMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Construction in process": {standard_type: ConstructionInProgressMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+APLD:
+  "Networking equipment, electrical equipment, and software": {standard_type: TechnologyEquipmentMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Information Systems and Software": {standard_type: TechnologyEquipmentMember, evidence: "the FY2022 and FY2023 notes' category name, the predecessor line", by: Claude Fable 5.1, at: 2026-11-01}
+  "Electric Generation and Transformers": {standard_type: ElectricGenerationEquipmentMember, evidence: "the note's own category name (FY2022 and FY2023 capitalisation)", by: Claude Fable 5.1, at: 2026-11-01}
+  "Electric generation and transformers": {standard_type: ElectricGenerationEquipmentMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Electrical infrastructure": {standard_type: ElectricGenerationEquipmentMember, evidence: "the FY2026 note's category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Mechanical infrastructure": {standard_type: MachineryAndEquipmentMember, evidence: "the FY2026 note's category name (cooling and mechanical plant)", by: Claude Fable 5.1, at: 2026-11-01}
+  "Building": {standard_type: BuildingAndBuildingImprovementsMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Building improvements": {standard_type: BuildingAndBuildingImprovementsMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Land": {standard_type: LandMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Land Improvements": {standard_type: LandImprovementsMember, evidence: "the note's own category name (FY2022 and FY2023 capitalisation)", by: Claude Fable 5.1, at: 2026-11-01}
+  "Land improvements": {standard_type: LandImprovementsMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Leasehold improvements": {standard_type: LeaseholdImprovementsMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Construction in Progress": {standard_type: ConstructionInProgressMember, evidence: "the note's own category name (FY2022 and FY2023 capitalisation)", by: Claude Fable 5.1, at: 2026-11-01}
+  "Construction in progress": {standard_type: ConstructionInProgressMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Other Equipment and Fixtures": {standard_type: FurnitureAndFixturesMember, evidence: "the note's own category name (FY2021 to FY2023 capitalisation)", by: Claude Fable 5.1, at: 2026-11-01}
+  "Other equipment and fixtures": {standard_type: FurnitureAndFixturesMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+AMD:
+  "Equipment": {standard_type: MachineryAndEquipmentMember, evidence: "the note's own category name: equipment (test, manufacturing and computer equipment together; the note does not split them)", by: Claude Fable 5.1, at: 2026-11-01}
+  "Construction in progress": {standard_type: ConstructionInProgressMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Land": {standard_type: LandMember, evidence: "the note's own category name (FY2022 only, before the line was combined)", by: Claude Fable 5.1, at: 2026-11-01}
+  "Building and leasehold improvements": {standard_type: BuildingAndBuildingImprovementsMember, evidence: "the note's own category name (FY2021 and FY2022)", by: Claude Fable 5.1, at: 2026-11-01}
+  "Land, building and leasehold improvements": {standard_type: LandAndBuildingMember, evidence: "the note's own category name from FY2022: land, building and leasehold improvements combined", by: Claude Fable 5.1, at: 2026-11-01}

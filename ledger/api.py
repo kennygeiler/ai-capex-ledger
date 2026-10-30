@@ -13,10 +13,10 @@ from .plans import plans as _plans
 from . import resolutions as _resolutions
 from . import views as _views
 
-FILTERS = ("ticker", "layer", "period", "field", "kind", "method", "scope", "dimension", "source")
-SUM_COLS = {"attribution": "ai_amount", "values": "value", "facts": "value", "statements": "amount_mid", "plans": "gap", "projects": "amount"}
-LISTS = ("companies", "values", "facts", "attribution", "statements", "plans", "projects", "theses", "views")
-RELEASE_LISTS = ("companies", "values", "facts", "attribution", "statements", "plans", "projects")  # the files a release holds, one per list (C7)
+FILTERS = ("ticker", "layer", "period", "field", "kind", "method", "scope", "dimension", "source", "measure", "category", "fiscal_year", "standard_type", "check", "group")
+SUM_COLS = {"attribution": "ai_amount", "values": "value", "facts": "value", "statements": "amount_mid", "plans": "gap", "projects": "amount", "taxonomy": "value"}
+LISTS = ("companies", "values", "facts", "attribution", "statements", "plans", "projects", "theses", "views", "taxonomy")
+RELEASE_LISTS = ("companies", "values", "facts", "attribution", "statements", "plans", "projects", "taxonomy")  # the files a release holds, one per list (C7)
 
 
 def _rows(con, sql, *p):
@@ -28,8 +28,10 @@ def _table(con, name: str) -> bool:
     return bool(con.execute("select count(*) from information_schema.tables where table_name = ?", [name]).fetchone()[0])
 
 
-def companies() -> list[dict]:
-    return [{"ticker": c["ticker"], "name": c["name"], "layer": industry(c["ticker"]), "group": c["group"], "role": c.get("role"), "note": c.get("note")} for c in tracked()]
+def companies(con=None) -> list[dict]:
+    from .taxonomy import sic
+    return [{"ticker": c["ticker"], "name": c["name"], "layer": industry(c["ticker"]), "group": c["group"], "role": c.get("role"), "note": c.get("note"),
+             **(sic(con, c["ticker"]) if con is not None else {"sic": None, "sic_description": None})} for c in tracked()]
 
 
 def theses() -> list[dict]:
@@ -43,7 +45,10 @@ def theses() -> list[dict]:
 def fetch(con, name: str) -> list[dict]:
     """One list, unfiltered, with `layer` on every row that has a ticker."""
     if name == "companies":
-        rows = companies()
+        rows = companies(con)
+    elif name == "taxonomy":
+        from .taxonomy import rows as _tax
+        rows = _tax(con)
     elif name == "values":
         rows = _rows(con, 'select ticker, field, period, period_end, value, label as check_label, basis, source, extraction_ids from "values" where value is not null order by ticker, field, period')
     elif name == "facts":

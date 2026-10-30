@@ -618,7 +618,7 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(HTTPStatus.OK, api.to_csv(out["rows"]).encode(), "text/csv; charset=utf-8") if fmt == "csv" else self._json(out)
         if len(parts) != 1:
             return self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
-        if name in ("companies", "theses", "views"):
+        if name in ("theses", "views"):
             rows = api.apply(api.fetch(None, name), q)
         else:
             con = _con()

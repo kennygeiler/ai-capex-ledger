@@ -157,13 +157,7 @@ def validate_output(obj: dict, ticker: str, items: dict, override: str | None = 
             raise Invalid(f"none_found[{i}] needs a field and a reason")
 
 
-PART_YEAR = re.compile(r"\b(Q[1-4]|[1-4]Q|H[12]|(first|second|third|fourth) (quarter|half)|(first|last) (three|six|nine) months|nine months|six months|three months|quarter)\b", re.I)
-
-
-def part_year(quote: str) -> str | None:
-    """The words that make a stated amount cover part of a year, or None (type 68)."""
-    m = PART_YEAR.search(quote or "")
-    return m.group(0) if m else None
+from .guards import part_year  # noqa: E402
 
 
 def _check_arithmetic(r: dict, items: dict, i: int) -> None:
