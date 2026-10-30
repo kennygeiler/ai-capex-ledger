@@ -304,3 +304,10 @@ What each company cost. `ledger run` prints this, and each validation page shows
     FY2024 and earlier at confidence ≤ 0.35, saying it includes heavy and other equipment, the way Alphabet's
     "Information technology assets" is used before its rename.
 
+71. **A fallback concept that measures a wider total.** The purchase-commitments answer key tried
+    `ContractualObligation` when no purchase-obligation concept was tagged. Amazon's FY2024 and FY2025 10-Ks tag only
+    that total ($333B, $440B: debt, leases and purchases together), so the cited cell "Unconditional purchase
+    obligations" ($50B, $85B) was labelled as differing from the tag. The cell was right; the reference measured
+    something wider. Fix (1 Nov 2026): the concept is off the list; a fact with no purchase-obligation tag is
+    `no_reference`, which is the truth. Found by the Proof board: the last two open items on the proven set.
+

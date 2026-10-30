@@ -19,8 +19,9 @@ CONCEPTS = {
     "segment_revenue": ["Revenues", "RevenueFromContractWithCustomerExcludingAssessedTax", "RevenueFromContractWithCustomerIncludingAssessedTax", "SalesRevenueNet"],
     "ppe_category": ["PropertyPlantAndEquipmentGross"],
     "finance_lease_liability": ["FinanceLeaseLiability"],
-    "purchase_commitments": ["PurchaseObligation", "UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount", "ContractualObligation",
-                             "UnrecordedUnconditionalPurchaseObligation"],
+    "purchase_commitments": ["PurchaseObligation", "UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount", "UnrecordedUnconditionalPurchaseObligation"],
+    # not ContractualObligation: it is the total of every contractual obligation (debt, leases, purchases), a wider line;
+    # Amazon's FY2024 and FY2025 10-Ks tag only that total, and the fallback made a right cell look wrong (type 71)
 }
 
 
