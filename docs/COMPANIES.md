@@ -23,8 +23,10 @@ states. Tickers in `data/companies.json` (group "Scale to 100", with `layer`).
 
 The pipeline reads 10-K filings. The foundries, lithography and Korean memory makers that investors put at the base
 of the chain (TSMC, ASML, SK hynix, Samsung) file 20-F or nothing with the SEC, so they are out until the pipeline
-reads 20-Fs (an open failure type, see `docs/INGESTION.md`). Nebius (NBIS), Bitdeer (BTDR), Arm (ARM) and Celestica
-(CLS) moved to 10-K recently; their earlier years come from 20-F or 40-F and will show as gaps.
+reads 20-Fs (an open failure type, see `docs/INGESTION.md`). Nebius (NBIS) and Bitdeer (BTDR) still file 20-F (checked
+on EDGAR, 30 Oct 2026), so they sit in the set with no values until the 20-F reader exists; their theses carry what
+their releases and 6-Ks state. Arm (ARM) and Celestica (CLS) moved to 10-K recently; their earlier years come from
+20-F or 40-F and show as gaps.
 
 ## How the layers were chosen
 
