@@ -44,9 +44,31 @@ def load(path: Path = GOLD) -> list[dict]:
         for k in ("ticker", "period", "field", "measure", "relation", "value", "basis", "source", "by"):
             if k not in e:
                 raise ValueError(f"gold entry {e.get('ticker')} {e.get('period')} lacks {k}")
+        if e.get("scope", "same") not in SCOPES:
+            raise ValueError(f"gold entry {e['ticker']} {e['period']}: scope must be one of {SCOPES}")
         if e["measure"] not in ("share", "amount") or e["relation"] not in ("eq", "ge", "le") or not e["source"].get("url"):
             raise ValueError(f"gold entry {e['ticker']} {e['period']}: measure, relation or source url out of range")
     return entries or []
+
+
+SCOPES = ("same", "narrower", "wider", "not_comparable")
+WINDOW = {"share": 0.15, "amount": 0.5}  # how far a wider measure may sit above a narrower one and still be consistent
+
+
+def comparable(e: dict, mine: float) -> tuple[str, str]:
+    """The comparability rule (docs/PROOF.md). A gold entry says how its scope relates to ours: `narrower` (the stated
+    figure measures a subset of what our method measures, e.g. servers against all technical infrastructure), `wider`,
+    `same`, or `not_comparable` (a planning floor, a different basis). A disagreement in the expected direction and
+    inside the window is `consistent`; a not-comparable entry is `not_comparable`. Both are explained, not open."""
+    scope, ref, w = e.get("scope", "same"), e["value"], WINDOW[e["measure"]]
+    if scope == "not_comparable":
+        return "not_comparable", e.get("scope_note") or "the reference measures something else"
+    above = (mine - ref) if e["measure"] == "share" else (mine - ref) / ref
+    if scope == "narrower" and 0 <= above <= w:
+        return "consistent", f"ours is the wider measure, {above:.0%} above the narrower stated figure, inside the {w:.0%} window" if e["measure"] == "share" else f"ours is the wider measure, {above:.0%} above the narrower stated figure"
+    if scope == "wider" and -w <= above <= 0:
+        return "consistent", f"ours is the narrower measure, {-above:.0%} below the wider stated figure, inside the window"
+    return "disagree", (f"scope {scope}: outside the window" if scope != "same" else "")
 
 
 def score(entries: list[dict], attribution: list[dict], capex: dict) -> dict:
@@ -71,15 +93,19 @@ def score(entries: list[dict], attribution: list[dict], capex: dict) -> dict:
             outcome = "agree" if mine >= e["value"] * (1 - TOL) else "disagree"
         else:
             outcome = "agree" if mine <= e["value"] * (1 + TOL) else "disagree"
-        rows.append({**row, "ours": mine, "outcome": outcome, "error": err})
+        if outcome == "disagree":
+            outcome, note = comparable(e, mine)
+            row["note"] = note
+        rows.append({**row, "scope": e.get("scope", "same"), "ours": mine, "outcome": outcome, "error": err})
     from .config import industry
     for r in rows:
         r["layer"] = industry(r["ticker"])
     with_est = [r for r in rows if r["outcome"] != "no_estimate"]
+    explained = sum(r["outcome"] in ("consistent", "not_comparable") for r in with_est)
     group = lambda key: {k: _band([r for r in with_est if r[key] == k]) for k in sorted({r[key] for r in with_est})}
     n = len(rows)
     return {"n": n, "with_estimate": len(with_est), "agree": sum(r["outcome"] == "agree" for r in with_est),
-            "disagree": sum(r["outcome"] == "disagree" for r in with_est), "no_estimate": n - len(with_est),
+            "disagree": sum(r["outcome"] == "disagree" for r in with_est), "no_estimate": n - len(with_est), "explained": explained,
             "agree_ci": wilson(sum(r["outcome"] == "agree" for r in with_est), len(with_est)), "overall": _band(with_est),
             "eq_entries": sum(r["relation"] == "eq" for r in rows), "bands": group("method"), "layers": group("layer"), "fields": group("field"), "rows": rows}
 

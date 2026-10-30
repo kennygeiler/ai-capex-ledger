@@ -26,6 +26,10 @@ on a value or fact that does not match the SEC's data). A consumer excludes `fix
 The four measures (`docs/THESIS.md`): capex allocation and revenue exposure are `attribution` rows with field
 `capex` or `revenue`; project-level investment is `projects`; plans versus reality is `plans`.
 
+The proof pages (`docs/PROOF.md`): `/api/v1/proof` is the board (the proven set's stage counts and the rest in one line), `/api/v1/proof/<ticker>`
+a company's trail (per stage: checked, explained, open items with what they need), `/api/v1/rules` every rule, guard and definition with what it closed
+and the open items by what is missing, `/api/v1/golden` the golden test's last result.
+
 One screen's feed: `/api/v1/reconcile?scope=all|<layer>|<ticker>` is the Reconcile workbench's rows (`docs/DATAHQ.md`): one per open
 item with `ours`, `reference`, `delta`, `delta_pct`, `measure` (usd or share), the cause, the evidence (cell, screenshot, quote, inputs) and the
 resolution. `POST /api/resolve` records one decision `{key, hash, state, reason, by}`; `POST /api/resolve/bulk` takes `{items: [{key, hash}], state, reason, by}`.

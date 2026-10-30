@@ -125,4 +125,4 @@ Verify, don't assert: the pipeline writes `runs`, snapshots, `data/jobs/progress
 and `data/attribution/diff.json`; read them rather than the log. `rtk` wraps shell commands in some sessions and
 truncates long output; use `rtk proxy <cmd>` or a Python one-liner to read a full file or an HTTP body.
 
-`docs/REPLICATION.md` is the latest walk through the app as its user would do it, with what served, what hindered, and the fix list.
+`docs/PROOF.md` is the frame since 31 Oct 2026: the pipeline proves every number on five companies first; `ledger golden --check` is the bar. `docs/REPLICATION.md` is the walk through the app as its user would do it that led there.

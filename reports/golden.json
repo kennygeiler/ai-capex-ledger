@@ -1,0 +1,63 @@
+{
+ "at": "2026-10-30T17:25:29+00:00",
+ "ok": true,
+ "failed_step": null,
+ "diffs": {},
+ "steps": [
+  {
+   "step": "extract --pack",
+   "exit": 0
+  },
+  {
+   "step": "extract --load",
+   "exit": 0
+  },
+  {
+   "step": "reconcile",
+   "exit": 0
+  },
+  {
+   "step": "aispend --pack",
+   "exit": 0
+  },
+  {
+   "step": "aispend --load",
+   "exit": 0
+  },
+  {
+   "step": "notes --pack",
+   "exit": 0
+  },
+  {
+   "step": "notes --load",
+   "exit": 0
+  },
+  {
+   "step": "projects --pack",
+   "exit": 0
+  },
+  {
+   "step": "projects --load",
+   "exit": 0
+  },
+  {
+   "step": "attribution --pack",
+   "exit": 0
+  },
+  {
+   "step": "attribution --load",
+   "exit": 0
+  },
+  {
+   "step": "rules",
+   "exit": 0
+  }
+ ],
+ "tickers": [
+  "MSFT",
+  "GOOGL",
+  "AMZN",
+  "NVDA",
+  "APLD"
+ ]
+}

@@ -611,6 +611,18 @@ class Handler(BaseHTTPRequestHandler):
         name, fmt = parts[0], q.get("format", "json")
         if name.endswith(".csv"):
             name, fmt = name[:-4], "csv"
+        if name in ("proof", "rules", "golden"):  # the proof pages, docs/PROOF.md
+            from . import proof
+            if name == "golden":
+                f = store.ROOT / "reports" / "golden.json"
+                return self._json({**(json.loads(f.read_text()) if f.exists() else {"ok": None, "at": None}), "fixtures": (store.ROOT / "fixtures" / "seed.json").exists()})
+            con = _con()
+            try:
+                if name == "rules":
+                    return self._json(proof.rules(con))
+                return self._json(proof.company(con, parts[1]) if len(parts) == 2 else proof.board(con))
+            finally:
+                con.close()
         if name == "reconcile":  # the workbench, docs/DATAHQ.md
             from . import workbench
             f = flow(q.get("scope", "all"))

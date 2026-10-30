@@ -29,6 +29,12 @@ def main(argv=None) -> int:
         print(f"froze {len(r['tickers'])} companies ({', '.join(r['tickers'])}): {r['documents']} filings, {r['texts']} texts, {r['xbrl_facts']} XBRL facts, {r['files']} files into {FIXTURES.relative_to(store.ROOT)}/")
         return 0
     r = check(keep=a.keep, verbose=a.verbose)
+    from datetime import datetime, timezone
+    rep = store.ROOT / "reports" / "golden.json"
+    rep.parent.mkdir(parents=True, exist_ok=True)
+    rep.write_text(json.dumps({"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "ok": bool(r.get("ok")) and not r.get("failed_step"), "failed_step": r.get("failed_step"),
+                               "diffs": {k: {kk: vv for kk, vv in v.items()} for k, v in r.get("diffs", {}).items()}, "steps": [{"step": l["step"], "exit": l["exit"]} for l in r["log"]],
+                               "tickers": json.loads((FIXTURES / "seed.json").read_text())["tickers"]}, indent=1))
     if r.get("failed_step"):
         print(f"golden: step {r['failed_step']} failed; root kept at {r['root']}" if a.keep else f"golden: step {r['failed_step']} failed (rerun with --keep --verbose)")
         for l in r["log"]:

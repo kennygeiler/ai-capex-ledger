@@ -1,12 +1,12 @@
 # Evaluation: the attribution against the reference set
 
-26 reference entries (gold/ai_capex.yaml), each a sourced figure or bound for AI's part of capex. We have a number for 19: 14 agree, 5 disagree; 7 have no estimate from us. Only 11 entries state a figure rather than a bound, so the error band is a first measurement, not a statistic.
+26 reference entries (gold/ai_capex.yaml), each a sourced figure or bound for AI's part of capex. We have a number for 19: 14 agree, 1 disagree; 7 have no estimate from us. Only 11 entries state a figure rather than a bound, so the error band is a first measurement, not a statistic.
 
 | Company | Year | Reference | Ours | Method | Outcome | What the reference measures |
 |---|---|---|---|---|---|---|
-| GOOGL | FY2025 | 60% | 68% | ppe_category | disagree | Servers' share of 2025 capital expenditures (the rest data centers and networking), as stated by the CFO on the Q4 2025 call. Servers include CPUs, not only AI accelerators. |
-| GOOGL | FY2024 | ≥ 90% | 56% | ppe_category | disagree | Share of 2024 capex going to technical infrastructure (servers, data centers, networking), a planning statement on the Q4 2023 call. Wider than servers; a floor on the infrastructure share, not on AI. |
-| MSFT | FY2025 | ≤ 50% | 60% | ppe_category | disagree | Short-lived assets (servers, CPUs and GPUs) were at most about half of cloud and AI spend through fiscal 2025; the CFO said "roughly half" long-lived in Q1 and "more than half" long-lived in Q2 and Q4. So the server share of the year is at most about 0.5. |
+| GOOGL | FY2025 | 60% | 68% | ppe_category | consistent | Servers' share of 2025 capital expenditures (the rest data centers and networking), as stated by the CFO on the Q4 2025 call. Servers include CPUs, not only AI accelerators. |
+| GOOGL | FY2024 | ≥ 90% | 56% | ppe_category | not comparable | Share of 2024 capex going to technical infrastructure (servers, data centers, networking), a planning statement on the Q4 2023 call. Wider than servers; a floor on the infrastructure share, not on AI. |
+| MSFT | FY2025 | ≤ 50% | 60% | ppe_category | consistent | Short-lived assets (servers, CPUs and GPUs) were at most about half of cloud and AI spend through fiscal 2025; the CFO said "roughly half" long-lived in Q1 and "more than half" long-lived in Q2 and Q4. So the server share of the year is at most about 0.5. |
 | AMZN | FY2025 | ≥ 50% | 45% | ppe_category | agree | The CEO said the vast majority of 2025 capex is AI for AWS; a floor of half on the AI share of total capex, which includes fulfillment and transportation. |
 | TSLA | FY2024 | ≥ $5.0B | — | qualitative | no estimate | AI-related capex including infrastructure, as stated by the CFO on the Q4 2024 call; the wording leaves open whether it is the year or cumulative, so a floor. |
 | ORCL | FY2026 | ≥ 50% | 53% | ppe_category | agree | The vast majority of fiscal 2026 capex is revenue-generating data center equipment, per the company's plan; a floor of half on the data-center share. |
@@ -20,7 +20,7 @@
 | NBIS | FY2024 | $0.1B | — | — | no estimate | Group revenue for 2024 from the earnings release. Includes the smaller Toloka, TripleTen and Avride units alongside the core AI infrastructure business, so slightly wider than AI cloud. |
 | NBIS | FY2024 | ≤ $0.8B | — | — | no estimate | Total capital expenditures for 2024 from the earnings release; nearly all GPU clusters and data centers, so a ceiling on AI capex. |
 | IREN | FY2025 | $0.0B | $0.0B | segment | agree | AI Cloud Services revenue for fiscal 2025 (ended June 2025), the income statement line in the full-year results; the rest of revenue is bitcoin mining. |
-| APLD | FY2025 | ≤ $0.7B | $1.0B | segment | disagree | Purchases of property and equipment and other assets for fiscal 2025 (ended May 2025), the cash flow line in the earnings release (in thousands). Almost all is the Ellendale (Polaris Forge) HPC campus, but the line is total, so a ceiling. |
+| APLD | FY2025 | ≤ $0.7B | $1.0B | segment | not comparable | Purchases of property and equipment and other assets for fiscal 2025 (ended May 2025), the cash flow line in the earnings release (in thousands). Almost all is the Ellendale (Polaris Forge) HPC campus, but the line is total, so a ceiling. |
 | WULF | FY2025 | $0.0B | $0.0B | segment | agree | HPC lease revenue for 2025, the income statement line in the full-year results (in thousands); the rest of revenue is bitcoin mining. |
 | WULF | FY2025 | ≤ $1.1B | — | qualitative | no estimate | Purchase of and deposits on plant and equipment for 2025, the cash flow line in the full-year results (in thousands). The build is HPC data centers for Fluidstack and Google-backed leases, but the line is total, so a ceiling. |
 | CORZ | FY2025 | ≤ $0.7B | — | qualitative | no estimate | Capital expenditures for 2025 per the 10-K's liquidity discussion, driven by converting mining sites to colocation for CoreWeave; the figure is total, so a ceiling on HPC capex. |

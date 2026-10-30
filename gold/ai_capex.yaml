@@ -8,6 +8,8 @@
 
 - ticker: GOOGL
   period: FY2025
+  scope: narrower
+  scope_note: servers only; ours is growth in Technical infrastructure (servers, data centers, networking)
   field: capex
   measure: share
   relation: eq
@@ -23,6 +25,8 @@
 
 - ticker: GOOGL
   period: FY2024
+  scope: not_comparable
+  scope_note: a planning floor for all technical infrastructure spend; ours is growth in a gross category
   field: capex
   measure: share
   relation: ge
@@ -38,6 +42,8 @@
 
 - ticker: MSFT
   period: FY2025
+  scope: narrower
+  scope_note: short-lived assets only; ours is growth in Computer equipment and software, which also holds software and finance-leased assets
   field: capex
   measure: share
   relation: le
@@ -250,6 +256,8 @@
 
 - ticker: APLD
   period: FY2025
+  scope: not_comparable
+  scope_note: cash purchases of PP&E; ours is the HPC segment's accrual capex, which includes financed and accrued additions
   field: capex
   measure: amount
   relation: le
