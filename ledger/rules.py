@@ -88,6 +88,8 @@ def _period(ctx, p):
     out = []
     for e in ctx.extractions:
         d = _days(e)
+        if (ctx.parsed.get(e["accession"]) or {}).get("form") == "10-KT" and d < 350:
+            continue  # a transition-period filing reports a short period on purpose (Hut 8 changed its year end, type 64); reconcile never ships it as a fiscal year
         if not 350 <= d <= 380:
             out.append(Finding(e["ticker"], f"period {e['period_start']}..{e['period_end']} is {d} days, not a fiscal year", e["field"], None, e["extraction_id"]))
     return out

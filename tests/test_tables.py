@@ -205,3 +205,10 @@ class NoUnitAnywhere(unittest.TestCase):
         tables = parse_tables(html_)
         parts = assemble(tables, locate(tables)["income"], document_units(html_))
         self.assertEqual((parts[0]["scale"], parts[0]["unit_source"]), (1, "document"))
+
+
+class QuarterEndDatesAreQuarterly(unittest.TestCase):
+    def test_dates(self):
+        from ledger.ingest.statements import _quarterly
+        self.assertTrue(_quarterly([{"columns": ["2022 | March 31,", "2022 | June 30,", "2022 | September 30,", "2022 | December 31,"], "rows": []}]))
+        self.assertFalse(_quarterly([{"columns": ["Year Ended December 31, | 2023", "Year Ended December 31, | 2022"], "rows": []}]))

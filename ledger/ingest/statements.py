@@ -61,9 +61,16 @@ def _summary(tables: list[dict]) -> bool:
     return percent or bool(SUMMARY.search(tables[0]["before"][-300:])) or (any(BALANCE.search(l) for l in labels) and any(INCOME_MARKERS["revenue"].search(l) for l in labels))
 
 
+QUARTER_ENDS = re.compile(r"march 31|june 30|september 30|december 31|\b(?:mar|jun|sep|dec)\.? ?3[01]\b", re.I)
+
+
 def _quarterly(tables: list[dict]) -> bool:
-    """Columns of three-month periods: an MD&A quarterly summary, never a 10-K's primary statement."""
-    return any(re.search(r"three months|quarter|\bq[1-4]\b", c, re.I) for t in tables for c in t["columns"])
+    """Columns of three-month periods: an MD&A quarterly summary, never a 10-K's primary statement. Named by the word
+    (three months, quarter, Q1) or by three or more quarter-end dates in one table (Marathon: "2022 | March 31,",
+    "2022 | June 30,", …; type 63)."""
+    if any(re.search(r"three months|quarter|\bq[1-4]\b", c, re.I) for t in tables for c in t["columns"]):
+        return True
+    return any(len({m.group(0).lower() for c in t["columns"] for m in QUARTER_ENDS.finditer(c)}) >= 3 for t in tables)
 
 
 def locate(tables: list[dict]) -> dict:

@@ -76,6 +76,9 @@ def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str |
             latest = newest
             used = [x for p in parts for x in latest[p].get("parts", [latest[p]])]
             v, r = val(latest), reference.get((f, period))
+            if f == "opex" and v < 0:  # operating income holds fair-value gains (bitcoin miners), so revenue − cost − operating income is not opex (type 65)
+                out.append(_row(ticker, f, period, end, None, None, used, "not_reported", "as_reported", docs))
+                continue
             tol = max([e["scale"] for e in used] + ([_rounding(r)] if r is not None else [])) // 2 * len(used)
             label = "no_reference" if r is None else "agree" if abs(v - r) <= tol else "unresolved"
             if label == "unresolved" and f == "opex" and "parts" in latest["cost_of_revenue"] and all(

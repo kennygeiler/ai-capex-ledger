@@ -70,3 +70,80 @@ IRM:
     by: Kenny Geiler
     at: 2026-10-30
 
+CEG:
+  cost_lines:
+    lines: [Purchased power and fuel, Purchased power and fuel from affiliates]
+    why: Constellation reports no cost-of-revenue total; purchased power and fuel, including from affiliates, is its cost of delivering energy.
+    by: Kenny Geiler
+    at: 2026-10-31
+
+HPE:
+  cost_lines:
+    lines: [Cost of products, Cost of services, Financing cost, Cost of products (exclusive of amortization shown separately below), Cost of services (exclusive of amortization shown separately below)]
+    why: HPE reports cost of products, cost of services and financing cost with no total; newer filings add the amortization qualifier to the labels.
+    by: Kenny Geiler
+    at: 2026-10-31
+
+RIOT:
+  cost_lines:
+    lines: [Bitcoin Mining, Engineering, Data Center Hosting, Other]
+    why: Riot's cost of revenues is split by business line (bitcoin mining, engineering, data center hosting, other) with no total.
+    by: Kenny Geiler
+    at: 2026-10-31
+
+SLNH:
+  cost_lines:
+    lines: [Total cost of cryptocurrency mining revenue, Cost of data hosting revenue]
+    why: Soluna reports the cost of mining revenue and of data-hosting revenue separately with no total.
+    by: Kenny Geiler
+    at: 2026-10-31
+
+TMUS:
+  cost_lines:
+    lines: [Cost of services, exclusive of depreciation and amortization shown separately below, Cost of equipment sales, exclusive of depreciation and amortization shown separately below]
+    why: T-Mobile reports cost of services and cost of equipment sales, each excluding depreciation, with no total.
+    by: Kenny Geiler
+    at: 2026-10-31
+
+T:
+  cost_lines:
+    lines: [Equipment, Other cost of revenues (exclusive of depreciationand amortization shown separately below), Broadcast, programming and operations]
+    why: AT&T reports equipment cost, other cost of revenues and (until 2022) broadcast and programming cost with no total; the filing's own label runs 'depreciationand' together.
+    by: Kenny Geiler
+    at: 2026-10-31
+
+VST:
+  opex:
+    why: Vistra's XBRL OperatingExpenses tag is total operating costs including fuel and purchased power; our opex excludes those lines, so the two differ by them while revenue and operating income agree.
+    by: Kenny Geiler
+    at: 2026-10-31
+  cost_lines:
+    lines: [Fuel, purchased power costs and delivery fees, "Fuel, purchased power costs, and delivery fees", Operating costs]
+    why: Vistra reports fuel and purchased power (the label gains a comma in later filings) and operating costs with no cost-of-revenue total.
+    by: Kenny Geiler
+    at: 2026-10-31
+
+VZ:
+  cost_lines:
+    lines: [Cost of services (exclusive of items shown below), Cost of wireless equipment]
+    why: Verizon reports cost of services and cost of wireless equipment with no total.
+    by: Kenny Geiler
+    at: 2026-10-31
+
+LITE:
+  opex:
+    why: Lumentum's XBRL OperatingExpenses tag is narrower than revenue minus cost of revenue minus operating income by a stable 60 to 85 million every year while revenue and operating income agree; the tag excludes amortization and restructuring lines the income statement puts below gross profit.
+    by: Kenny Geiler
+    at: 2026-10-31
+
+UBER:
+  opex:
+    why: Uber's XBRL OperatingExpenses tag is total costs and expenses including cost of revenue; our opex is revenue minus cost of revenue minus operating income, so the two differ by cost of revenue while revenue and operating income agree.
+    by: Kenny Geiler
+    at: 2026-10-31
+
+TLN:
+  opex:
+    why: Talen's XBRL OperatingExpenses tag is total operating expenses including fuel and purchased power; our opex excludes those cost lines, so the two differ by them while revenue and operating income agree.
+    by: Kenny Geiler
+    at: 2026-10-31

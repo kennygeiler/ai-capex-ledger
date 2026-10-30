@@ -15,7 +15,7 @@ import html
 import re
 from html.parser import HTMLParser
 
-PARSER_VERSION = "tables@14"  # 13: "(expressed in US dollars)" is whole dollars; 14: a filing that states no unit anywhere is whole dollars
+PARSER_VERSION = "tables@15"  # 14: a filing that states no unit anywhere is whole dollars; 15: quarter-end date columns mark a quarterly table
 _NUM = re.compile(r"^\(?-?\$?\s*\(?([0-9][0-9,]*(?:\.[0-9]+)?)\s*\)?%?$")
 _DASHES = {"—", "–", "-", "— ", "−"}
 _CCY = r"(?:USD\s+|US\$\s*|U\.S\.\s+dollars\s+|dollars\s+)?"
