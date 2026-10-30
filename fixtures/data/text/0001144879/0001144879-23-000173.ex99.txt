@@ -1,0 +1,683 @@
+   Applied Digital Reports Fiscal Fourth Quarter and Full Year 2023 Financial   
+                                    Results                                     
+                                                                                
+                 - Generated Sequential Revenue Growth of 56% -                 
+                                                                                
+                  - Provides Fiscal 2024 Full-Year Guidance -                   
+DALLAS, TX – July 24, 2023 -- Applied Digital Corporation (Nasdaq: APLD)
+("Applied Digital" or the "Company") , a designer, builder, and operator of
+next-generation digital infrastructure designed for High-Performance Computing
+(“HPC”) applications, reported financial results for the fiscal fourth quarter
+and full year ended May 31, 2023. The Company also provided forward guidance and
+an operational update.
+                                                                                
+  Recent Financial and Operational Highlights                                   
+                                                                                
+• Fiscal fourth quarter 2023 revenue of $22 million.
+
+• Fiscal fourth quarter 2023 adjusted EBITDA of $2.9 million.
+
+• Fiscal fourth quarter 2023 adjusted loss from continuing operations of $0.3
+million, or adjusted loss per share of less than $0.01.
+
+• Launched AI Cloud Service to Provide High-Performance Computing Power for AI
+Applications
+
+• Energized 9MW Jamestown HPC Facility in May
+                                                                                
+  Management Commentary                                                         
+                                                                                
+“We ended the fiscal year with significant momentum. We successfully energized
+our Ellendale next-generation data center facility and launched our AI Cloud
+Service to provide high-performance computing power for AI applications,” said
+Applied Digital Chairman and CEO Wes Cummins. “Our differentiated and
+proprietary data center infrastructure uniquely positions us to meet the
+sophisticated and demanding requirements for businesses and enterprises to run
+AI workloads and other emerging HPC applications. Our recent announcement of two
+AI customer agreements worth up to $640 million solidifies our position as a key
+data center player in the emerging digital infrastructure landscape for
+artificial intelligence cloud services.”
+
+“Looking ahead, we will accelerate our focus on non-crypto use cases and
+leverage the capabilities of our next-generation proprietary data center assets
+for HPC applications. Demand for our services from both traditional customers
+and emerging HPC applications remains robust, and we remain excited about the
+year ahead. We are incredibly proud of the progress made during the quarter and
+look forward to providing further updates on our progress as we head into fiscal
+2024.”
+                                                                                
+  Garden City, Texas Facility Update (200MW)                                    
+                                                                                
+The Company finalized technical details with the utility provider and energy
+partner. Final tie-in to the substation was started last week and should finish
+in the next few days. Once we receive final facilities extension agreement,
+which we expect imminently, the site will begin energization.
+                                                                                
+  Ellendale, North Dakota Facility Update (180MW)                               
+                                                                                
+The Company successfully completed the full energization of the facility after
+initiating the process in early March only six months after initial construction
+began.
+                                                                                
+  HPC Update                                                                    
+                                                                                
+The Company expanded the capacity of its specialized HPC datacenter, adjacent to
+its existing 100MW Jamestown facility, to 9MW and successfully energized initial
+capacity at the facility. The facility successfully passed the Integrated
+Systems Test for its first 200KW of HPC equipment and systems, which is the
+final step in ensuring that all systems, including powered equipment, operate in
+accordance with the design intent.
+
+The company continues developing additional HPC data center capacity, including
+200MW in North Dakota and 100MW in a new state.
+                                                                                
+  AI Cloud Service Update                                                       
+                                                                                
+Applied Digital’s AI Cloud Service, offered through its wholly owned subsidiary
+Sai Computing, provides high-performance computing power for artificial
+intelligence and machine learning applications.
+
+In conjunction with the launch of its AI Cloud Services, the Company announced
+the signing and successful onboarding of its first AI customer, Character A.I.,
+with an agreement worth up to $180 million over 24 months. The service is
+expected to be fully operational by the end of 2023 and will be hosted at the
+standalone 9MW HPC facility in Jamestown along with third-party colocation
+facilities. This customer executed its option for the full $180 million contract
+and added an additional option for another $180 million in capacity, doubling
+the potential value of this initial contract. In June, the Company secured its
+second AI customer with an agreement worth up to $460 million over 36 months.
+
+Financial Results for Fiscal Fourth Quarter 2023 Ended May 31, 2023
+
+Revenues in the fiscal fourth quarter 2023 were $22 million, up 193% from the
+fiscal fourth quarter 2022. Hosting revenues were attributable to the Company’s
+operations in Jamestown, North Dakota along with the increase in energized MW
+capacity at the Ellendale, North Dakota facility. The Jamestown site operated at
+full capacity throughout the quarter.
+Cost of revenues in the fiscal fourth quarter 2023 was $16.0 million compared to
+$7.4 million in the fiscal fourth quarter 2022. The increase in cost was
+attributable to higher energy costs used to generate hosting revenues,
+depreciation, amortization expense, and personnel expenses for employees working
+on our Jamestown and Ellendale hosting facilities.
+Adjusted Gross Profit, a non-GAAP measure, for the fiscal fourth quarter 2023
+was $7.8 million, or 36% of revenue, compared to Adjusted Gross Profit of $1.1
+million, or 15% of revenue in the fiscal fourth quarter 2022.
+
+Operating expenses for the fiscal fourth quarter 2023 were $12.3 million, which
+included $5.2 million of stock-based compensation, $6.2 million in other general
+and administrative costs, and $0.9 million of depreciation and amortization
+expenses. For the fiscal fourth quarter 2022, operating expenses were $4.4
+million, almost all of which were attributable to general and administrative
+costs.
+
+Net loss attributable to Applied Digital for the fiscal fourth quarter 2023 was
+$6.5 million, or $0.07 per basic and diluted share, based on a weighted average
+share count during the quarter of 95.1 million. This compares to a net loss
+attributable to Applied Digital of $2.8 million, or $0.04 per basic and diluted
+share, based on a weighted average share count of 76.6 million for the fiscal
+fourth quarter 2022.
+
+Adjusted EBITDA, a non-GAAP measure, for the fiscal fourth quarter 2023 was $2.9
+million compared to an Adjusted EBITDA loss of 3.1 million for the fiscal fourth
+quarter 2022.
+
+Adjusted net loss from continuing operations, a non-GAAP measure, for the fiscal
+fourth quarter of 2023, was a loss of $0.3 million, or adjusted loss per basic
+and diluted share of less than $0.01, based on a weighted average share count
+during the quarter of approximately 95.1 million. This compares to an adjusted
+net loss from continuing operations of $4.3 million, or $0.06 per basic and
+diluted share, for the fiscal fourth quarter of 2022 based on a weighted average
+share count during the quarter of approximately 76.6 million.
+
+Applied Digital ended the fiscal year with unrestricted cash and cash
+equivalents of $29.0 million and $79.4 million in debt outstanding.
+                                                                                
+  Guidance                                                                      
+                                                                                
+For full-year fiscal 2024, Applied Digital expects total revenue in the range of
+$385 million – $405 million, and Adjusted EBITDA in the range of $195 million –
+$205 million.
+                                                                                
+  Conference Call                                                               
+                                                                                
+Applied Digital will host a conference call today, July 24, 2023, at 9:00 a.m.
+Eastern Time (6:00 a.m. Pacific Time) to discuss these results. A question-and-
+answer session will follow the management’s presentation.
+
+To participate, please dial the appropriate number at least ten minutes prior to
+the start time and ask for the Applied Digital conference call.
+
+U.S. dial-in number: 1-877-407-0792
+
+International number: 1-201-689-8263
+
+Conference ID: 13739906
+
+The conference call will broadcast live and be available for replay here .
+
+Please call the conference telephone number approximately 10 minutes before the
+start time. An operator will register your name and organization. If you have
+any difficulty connecting with the conference call, please contact Applied
+Digital’s investor relations team at 1-949-574-3860.
+
+A replay of the call will be available after 1:00 p.m. Eastern time July 24,
+2023, through August 7, 2023.
+
+Toll-free replay number: 1-844-512-2921
+
+International replay number: 1-412-317-6671
+
+Conference ID: 13739906
+                                                                                
+  About Applied Digital                                                         
+                                                                                
+Applied Digital Corporation (Nasdaq: APLD) designs, develops, and operates next-
+generation data centers across North America to provide digital infrastructure
+solutions to the rapidly growing high-performance computing (HPC) industry. Find
+more information at www.applieddigital.com . Follow us on Twitter at
+@APLDdigital.
+                                                                                
+  Forward-Looking Statements                                                    
+                                                                                
+This release contains "forward-looking statements" as defined in the Private
+Securities Litigation Reform Act of 1995 regarding, among other things, future
+operating and financial performance, product development, market position,
+business strategy and objectives. These statements use words, and variations of
+words, such as "continue," "build," "future," "increase," "drive," "believe,"
+"look," "ahead," "confident," "deliver," "outlook," "expect," and "predict."
+Other examples of forward-looking statements may include, but are not limited
+to, (i) statements of Company plans and objectives, including our evolving
+business model, or estimates or predictions of actions by suppliers, (ii)
+statements of future economic performance, and (iii) statements of assumptions
+underlying other statements and statements about the Company or its business.
+You are cautioned not to rely on these forward-looking statements. These
+statements are based on current expectations of future events and thus are
+inherently subject to uncertainty. If underlying assumptions prove inaccurate or
+known or unknown risks or uncertainties materialize, actual results could vary
+materially from the Company's expectations and projections. These risks,
+uncertainties, and other factors include: decline in demand for our products and
+services; the volatility of the crypto asset industry; the inability to comply
+with developments and changes in regulation; cash flow and access to capital;
+and maintenance of third party relationships. Information in this release is as
+of the dates and time periods indicated herein, and the Company does not
+undertake to update any of the information contained in these materials, except
+as required by law.
+                                                                                
+  APPLIED DIGITAL CORPORATION AND SUBSIDIARIES                                  
+                                                                                
+                                                                                
+  Consolidated Balance Sheets (Unaudited)                                       
+                                                                                
+(In thousands, except number of shares and par value data)
+                                                                                
+                                               May 31, 2023       May 31, 2022  
+ ────────────────────────────────────────────────────────────────────────────── 
+  ASSETS                                                                        
+  Current Assets:                                                               
+  Cash and cash equivalents                 $        43,574    $        46,299  
+  Accounts receivable                                    82                227  
+  Prepaid expenses and other current                  2,103              1,336  
+  assets                                                                        
+  Total current assets                               45,759             47,862  
+  Property and equipment, net                       195,593             64,260  
+  Operating lease right of use asset,                 1,290              1,110  
+  net                                                                           
+  Finance lease right of use asset, net              14,303              5,298  
+  Other Assets                                        7,012              1,450  
+  TOTAL ASSETS                              $       263,957    $       119,980  
+  LIABILITIES AND STOCKHOLDERS’ EQUITY                                          
+  Current Liabilities:                                                          
+  Accounts payable and accrued              $        14,776    $        13,260  
+  liabilities                                                                   
+  Current portion of operating lease                    320                191  
+  liability                                                                     
+  Current portion of finance lease                    5,722                813  
+  liability                                                                     
+  Current portion of term loan                        7,950              1,333  
+  Customer deposits                                  36,370              9,524  
+  Current deferred revenue                           48,692              3,877  
+  Sales and use tax payable                           1,630                  —  
+  Total current liabilities                         115,460             28,998  
+  Deferred tax liability                                  —                540  
+  Long-term portion of operating lease                1,005                936  
+  liability                                                                     
+  Long-term portion of finance lease                  8,334              4,374  
+  liability                                                                     
+  Long-term portion of term loan                     33,222              5,897  
+  Long-term related party loan                       35,257                  —  
+  Other long term related party                       1,000                  —  
+  liabilities                                                                   
+  Total liabilities                                 194,278             40,745  
+  Commitments and contingencies (Note                                           
+  12)                                                                           
+  Stockholders’ deficit:                                                        
+  Common stock, $0.001 par value,                                               
+  166,666,667 shares authorized,                                                
+  100,927,358 shares issued and                                                 
+  95,925,630                                                                    
+  shares outstanding at May 31, 2023,                   101                 98  
+  and                                                                           
+  97,837,702 shares issued and                                                  
+  97,801,406                                                                    
+  shares outstanding at May 31, 2022                                            
+  Treasury stock, 5,001,728 shares at                                           
+  May                                                   -62                -62  
+  31, 2023 and 36,296 shares at May 31,                                         
+  2022, at cost                                                                 
+  Additional paid in capital                        160,194            128,293  
+  Accumulated deficit                              -100,716            -56,070  
+  Total stockholders’ equity                                                    
+  attributable                                       59,517             72,259  
+  to Applied Digital Corporation                                                
+  Noncontrolling interest                            10,162              6,976  
+  Total Stockholders' equity including               69,679             79,235  
+  noncontrolling interest                                                       
+  TOTAL LIABILITIES AND STOCKHOLDERS’       $       263,957    $       119,980  
+  EQUITY                                                                        
+                                                                                
+                                                                                
+  APPLIED DIGITAL CORPORATION AND SUBSIDIARIES                                  
+                                                                                
+                                                                                
+  Consolidated Statements of Operations (Unaudited)                             
+                                                                                
+(In thousands, except share and per share data)
+                                                                                
+            Three                                                               
+            Months   May 31,        May 31,    Year      May 31,       May 31,  
+            Ended       2023           2022    Ended        2023          2022  
+ ────────────────────────────────────────────────────────────────────────────── 
+  Reven…                                                                        
+  Hosti…    $         22,038    $     7,523    $          55,392    $    8,549  
+  reven…                                                                        
+  Cost                                                                          
+  of        $         15,950    $     7,433    $          44,388    $    9,506  
+  reven…                                                                        
+  Gross                6,088             90               11,004          -957  
+  profit                                                                        
+  Costs                                                                         
+  and                                                                           
+  expen…                                                                        
+  Selli…                                                                        
+  gener…    $         12,332    $     4,356    $          55,059    $   19,941  
+  and                                                                           
+  admin…                                                                        
+  Total                                                                         
+  costs     $         12,332    $     4,356    $          55,059    $   19,941  
+  and                                                                           
+  expen…                                                                        
+  Opera…    $         -6,244    $    -4,266    $         -44,055    $  -20,898  
+  loss                                                                          
+  Other                                                                         
+  income                                                                        
+  (expe…                                                                        
+  Inter…    $           -855    $      -112    $          -1,980    $     -112  
+  Expen…                                                                        
+  Gain                                                                          
+  on                                                                            
+  extin…                   —              —                    —           406  
+  of                                                                            
+  accou…                                                                        
+  payab…                                                                        
+  Loss                                                                          
+  on                                                                            
+  extin…                   —              —                  -94        -1,342  
+  of                                                                            
+  debt                                                                          
+  Total                                                                         
+  other                 -855           -112               -2,074        -1,048  
+  expen…                                                                        
+  net                                                                           
+  Net                                                                           
+  loss                                                                          
+  from                                                                          
+  conti…                                                                        
+  opera…              -7,099         -4,378              -46,129       -21,946  
+  before                                                                        
+  income                                                                        
+  tax                                                                           
+  expen…                                                                        
+  Income                                                                        
+  tax                    243           -266                  523          -540  
+  benef…                                                                        
+  (expe…                                                                        
+  Net                                                                           
+  loss                                                                          
+  from                -6,856         -4,643              -45,606       -22,486  
+  conti…                                                                        
+  opera…                                                                        
+  Net                                                                           
+  loss                                                                          
+  from                                                                          
+  disco…                   —          1,826                    —        -1,044  
+  opera…                                                                        
+  net of                                                                        
+  income                                                                        
+  taxes                                                                         
+  Net                                                                           
+  loss                                                                          
+  inclu…              -6,856         -2,817              -45,606       -23,530  
+  nonco…                                                                        
+  inter…                                                                        
+  Net                                                                           
+  loss                                                                          
+  attri…                -383            -10                 -960           -10  
+  to                                                                            
+  nonco…                                                                        
+  inter…                                                                        
+  Net                                                                           
+  loss                                                                          
+  attri…                                                                        
+  to        $         -6,473    $    -2,827    $         -44,646    $  -23,520  
+  Appli…                                                                        
+  Digit…                                                                        
+  Corpo…                                                                        
+  Basic                                                                         
+  and                                                                           
+  dilut…                                                                        
+  net                                                                           
+  (loss)                                                                        
+  gain                                                                          
+  per                                                                           
+  share:                                                                        
+  Conti…    $          -0.07    $     -0.06    $           -0.49    $    -0.39  
+  Opera…                                                                        
+  Disco…    $              —    $      0.02    $               —    $    -0.02  
+  Opera…                                                                        
+  Basic                                                                         
+  and                                                                           
+  dilut…                                                                        
+  net       $          -0.07    $     -0.04    $           -0.49    $    -0.41  
+  loss                                                                          
+  per                                                                           
+  share                                                                         
+  Basic                                                                         
+  and                                                                           
+  dilut…                                                                        
+  weigh…                                                                        
+  avera…             95,146…       76,631,…             93,976,…       57,121…  
+  number                                                                        
+  of                                                                            
+  shares                                                                        
+  outst…                                                                        
+                                                                                
+Use and Reconciliation of Non-GAAP Financial Measures
+This press release and our related earnings call contain certain non-GAAP
+financial measures. See below for discussion on each non-GAAP metric.
+                                                                                
+  Adjusted Operating Loss and Adjusted Net Loss                                 
+                                                                                
+Adjusted operating loss and adjusted net loss are non-GAAP measures that
+represent operating loss and net loss from continuing operations excluding
+stock-based compensation and nonrecurring expenses. We believe these are useful
+metrics as they provide additional information regarding factors and trends
+affecting our business and provide perspective on results absent one-time or
+significant non-cash items. However, Applied Digital’s presentation of these
+measures should not be construed as an inference that its future results will be
+unaffected by unusual or non-recurring items. Applied Digital’s computation of
+Adjusted Operating Loss and Adjusted Net Loss may not be comparable to other
+similarly titled measures computed by other companies, because all companies may
+not calculate Adjusted Operating Loss and Adjusted Net Loss in the same fashion.
+
+Because of these limitations, Adjusted Operating Loss and Adjusted Net Loss
+should not be considered in isolation or as a substitute for performance
+measures calculated in accordance with GAAP. Applied Digital compensates for
+these limitations by relying primarily on its GAAP results and using Adjusted
+Operating Loss and Adjusted Net Loss on a supplemental basis. You should review
+the reconciliation of operating loss to Adjusted Operating Loss and net loss to
+Adjusted Net Loss above and not rely on any single financial measure to evaluate
+Applied Digital’s business.
+                                                                                
+  EBITDA and Adjusted EBITDA                                                    
+                                                                                
+“EBITDA” is defined as earnings before interest, taxes, and depreciation and
+amortization. “Adjusted EBITDA” is defined as EBITDA adjusted for stock-based
+compensation, gain on extinguishment of accounts payable, loss on extinguishment
+of debt, one-time professional service costs, one-time electricity costs, and
+other non-recurring expenses. These costs have been adjusted as they are not
+indicative of business operations. Adjusted EBITDA is intended as a supplemental
+measure of Applied Digital’s performance that is neither required by, nor
+presented in accordance with, GAAP. Applied Digital believes that the use of
+EBITDA and Adjusted EBITDA provides an additional tool for investors to use in
+evaluating ongoing operating results and trends and in comparing its financial
+measures with those of comparable companies, which may present similar non-GAAP
+financial measures to investors. We also believe EBITDA and Adjusted EBITDA are
+useful metrics to investors because they provide additional information
+regarding factors and trends affecting our business, which are used in the
+business planning process to understand expected operating performance, to
+evaluate results against those expectations, and because of their importance as
+measures of underlying operating performance, as the primary compensation
+performance measure under certain programs and plans. However, you should be
+aware that when evaluating EBITDA and Adjusted EBITDA, Applied Digital may incur
+future expenses similar to those excluded when calculating these measures. In
+addition, Applied Digital’s presentation of these measures should not be
+construed as an inference that its future results will be unaffected by unusual
+or non-recurring items. Applied Digital’s computation of Adjusted EBITDA may not
+be comparable to other similarly titled measures computed by other companies,
+because all companies may not calculate Adjusted EBITDA in the same fashion.
+
+Because of these limitations, EBITDA and Adjusted EBITDA should not be
+considered in isolation or as a substitute for performance measures calculated
+in accordance with GAAP. Applied Digital compensates for these limitations by
+relying primarily on its GAAP results and using EBITDA and Adjusted EBITDA on a
+supplemental basis. You should review the reconciliation of net loss to EBITDA
+and Adjusted EBITDA above and not rely on any single financial measure to
+evaluate Applied Digital’s business.
+                                                                                
+  Adjusted Gross Profit                                                         
+                                                                                
+“Adjusted Gross Profit” is a non-GAAP measure that represents gross profit
+adjusted for depreciation expense and one-time electricity charges within cost
+of revenues. We believe this is a useful metric as it provides additional
+information regarding gross profit aside from significant non-cash expenses in
+depreciation. However, Applied Digital’s presentation of this measure should not
+be construed as an inference that its future results will be unaffected by other
+factors within cost of revenues. Applied Digital’s computation of Adjusted Gross
+Profit may not be comparable to other similarly titled measures computed by
+other companies, because all companies may not calculate Adjusted Gross Profit
+in the same fashion.
+
+Because of these limitations, Adjusted Gross Profit should not be considered in
+isolation or as a substitute for performance measures calculated in accordance
+with GAAP. Applied Digital compensates for these limitations by relying
+primarily on its GAAP results and using Adjusted Gross Profit on a supplemental
+basis. You should
+
+review the reconciliation of gross profit to Adjusted Gross Profit above and not
+rely on any single financial measure to evaluate Applied Digital’s business.
+                                                                                
+  Rec…                                                                          
+  of                                                                            
+  GAAP                                                                          
+  to           Three    May            May       Fisc…   May            May     
+  Non…  $ in   Mont…    31,            31,       Year    31,            31,     
+  Mea…  thou…  Ended   2023           2022       Ended  2023           2022     
+ ────────────────────────────────────────────────────────────────────────────── 
+  Adj…                                                                          
+  ope…                                                                          
+  loss                                                                          
+  Ope…                                                                          
+  Loss                                                                          
+  from         $      -6,2…       $  -4,2…       $      -44…       $  -20,…     
+  Con…                                                                          
+  Ope…                                                                          
+  (GA…                                                                          
+  Add:                                                                          
+  Sto…                5,195              —              32,…          12,3…     
+  com…                                                                          
+  Add:                                                                          
+  Gain                                                                          
+  on                                                                            
+  Ext…                    —              —                 —           -406     
+  of                                                                            
+  Acc…                                                                          
+  Pay…                                                                          
+  Add:                                                                          
+  Loss                                                                          
+  on                      —              —                94          1,342     
+  Ext…                                                                          
+  of                                                                            
+  Debt                                                                          
+  Add:                                                                          
+  Non…                                                                          
+  pro…                  727            240              2,1…          1,310     
+  ser…                                                                          
+  cos…                                                                          
+  Add:                                                                          
+  One…                    —              —               114              —     
+  ele…                                                                          
+  cha…                                                                          
+  Add:                                                                          
+  Oth…                  615             93              2,2…             93     
+  non…                                                                          
+  exp…                                                                          
+  Adj…                                                                          
+  Ope…                                                                          
+  Loss                                                                          
+  from         $        293       $  -3,9…       $      -7,…       $  -6,2…     
+  Con…                                                                          
+  Ope…                                                                          
+  (No…                                                                          
+  Adj…                                                                          
+  ope…                                                                          
+  mar…                    1  %         -52  %            -13  %         -73  %  
+  from                                                                          
+  Con…                                                                          
+  Ope…                                                                          
+  Adj…                                                                          
+  net                                                                           
+  inc…                                                                          
+  (lo…                                                                          
+  Net                                                                           
+  Loss                                                                          
+  from         $      -6,8…       $  -4,6…       $      -45…       $  -22,…     
+  Con…                                                                          
+  Ope…                                                                          
+  (GA…                                                                          
+  Add:                                                                          
+  Sto…                5,195              —              32,…          12,3…     
+  com…                                                                          
+  Add:                                                                          
+  Gain                                                                          
+  on                                                                            
+  Ext…                    —              —                 —           -406     
+  of                                                                            
+  Acc…                                                                          
+  Pay…                                                                          
+  Add:                                                                          
+  Loss                                                                          
+  on                      —              —                94          1,342     
+  Ext…                                                                          
+  of                                                                            
+  Debt                                                                          
+  Add:                                                                          
+  Non…                                                                          
+  pro…                  727            240              2,1…          1,310     
+  ser…                                                                          
+  cos…                                                                          
+  Add:                                                                          
+  One…                    —              —               114              —     
+  ele…                                                                          
+  cha…                                                                          
+  Add:                                                                          
+  Oth…                  615             93              2,2…             93     
+  non…                                                                          
+  exp…                                                                          
+  Adj…                                                                          
+  net                                                                           
+  loss                                                                          
+  from         $       -319       $  -4,3…       $      -8,…       $  -7,8…     
+  Con…                                                                          
+  Ope…                                                                          
+  (No…                                                                          
+  EBI…                                                                          
+  and                                                                           
+  Adj…                                                                          
+  EBI…                                                                          
+  Net                                                                           
+  Loss                                                                          
+  from         $      -6,8…       $  -4,6…       $      -45…       $  -22,…     
+  Con…                                                                          
+  Ope…                                                                          
+  (GA…                                                                          
+  Add:                                                                          
+  Int…                  855            112              1,9…            112     
+  Exp…                                                                          
+  Add:                                                                          
+  Inc…                                                                          
+  Tax                  -242            266              -523            540     
+  Ben…                                                                          
+  (Ex…                                                                          
+  Add:                                                                          
+  Dep…                2,636            875              7,2…          1,120     
+  and                                                                           
+  Amo…                                                                          
+  EBI…         $      -3,6…       $  -3,3…       $      -36…       $  -20,…     
+  (No…                                                                          
+  Add:                                                                          
+  Sto…                5,195              —              32,…          12,3…     
+  com…                                                                          
+  Add:                                                                          
+  Gain                                                                          
+  on                                                                            
+  Ext…                    —              —                 —           -406     
+  of                                                                            
+  Acc…                                                                          
+  Pay…                                                                          
+  Add:                                                                          
+  Loss                                                                          
+  on                      —              —                94          1,342     
+  Ext…                                                                          
+  of                                                                            
+  Debt                                                                          
+  Add:                                                                          
+  Non…                                                                          
+  pro…                  727            240              2,1…          1,310     
+  ser…                                                                          
+  cos…                                                                          
+  Add:                                                                          
+  One…                    —              —               114              —     
+  ele…                                                                          
+  cha…                                                                          
+  Add:                                                                          
+  Oth…                  615             93              2,2…             93     
+  non…                                                                          
+  exp…                                                                          
+  Adj…                                                                          
+  EBI…         $      2,930       $  -3,0…       $      -146       $  -6,0…     
+  (No…                                                                          
+  Adj…                                                                          
+  Gro…                                                                          
+  Pro…                                                                          
+  Gro…                                                                          
+  pro…         $      6,088       $     90       $      11,…       $   -957     
+  (GA…                                                                          
+  Add:                                                                          
+  Dep…                                                                          
+  and                                                                           
+  amo…                1,739          1,010              4,3…          1,070     
+  in                                                                            
+  cost                                                                          
+  of                                                                            
+  rev…                                                                          
+  Add:                                                                          
+  One…                    —              —               114              —     
+  ele…                                                                          
+  cha…                                                                          
+  Adj…                                                                          
+  Gro…         $      7,827       $  1,100       $      15,…       $    113     
+  Pro…                                                                          
+  (No…                                                                          
+                                                                                
+                                                                                
+  Investor Relations Contacts                                                   
+                                                                                
+Matt Glover or Alex Kovtun
+Gateway Group, Inc.
+(949) 574-3860 APLD@gateway-grp.com
+                                                                                
+  Media Contact                                                                 
+                                                                                
+Robert Collins or Brenlyn Motlagh
+Gateway Group, Inc.
+(949) 899-3135 APLD@gateway-grp.com

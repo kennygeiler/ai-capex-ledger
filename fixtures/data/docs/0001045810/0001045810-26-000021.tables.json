@@ -1,0 +1,10461 @@
+{
+ "accession": "0001045810-26-000021",
+ "form": "10-K",
+ "located": {
+  "cash_flow": [
+   "t0024"
+  ],
+  "cash_flow_score": 4,
+  "income": [
+   "t0020"
+  ],
+  "income_score": 5
+ },
+ "parser_version": "tables@12",
+ "period": "2026-01-25",
+ "sha256": "fc7afafdf0cf3db7fde872954ee1bf191b9e81cfc30800facc10881883b041d8",
+ "statements": {
+  "cash_flow": [
+   {
+    "before": "See accompanying Notes to the Consolidated Financial Statements. 54 Table of Contents NVIDIA Corporation and Subsidiaries Consolidated Statements of Cash Flows (In millions)",
+    "columns": [
+     "Year Ended | Jan 25, 2026",
+     "Year Ended | Jan 26, 2025",
+     "Year Ended | Jan 28, 2024"
+    ],
+    "id": "t0024",
+    "rows": [
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "120,067",
+        "value": 120067.0
+       },
+       {
+        "col": 1,
+        "text": "72,880",
+        "value": 72880.0
+       },
+       {
+        "col": 2,
+        "text": "29,760",
+        "value": 29760.0
+       }
+      ],
+      "label": "Net income"
+     },
+     {
+      "cells": [],
+      "label": "Adjustments to reconcile net income to net cash provided by operating activities:"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "6,386",
+        "value": 6386.0
+       },
+       {
+        "col": 1,
+        "text": "4,737",
+        "value": 4737.0
+       },
+       {
+        "col": 2,
+        "text": "3,549",
+        "value": 3549.0
+       }
+      ],
+      "label": "Stock-based compensation expense"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "2,843",
+        "value": 2843.0
+       },
+       {
+        "col": 1,
+        "text": "1,864",
+        "value": 1864.0
+       },
+       {
+        "col": 2,
+        "text": "1,508",
+        "value": 1508.0
+       }
+      ],
+      "label": "Depreciation and amortization"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(8,918)",
+        "value": -8918.0
+       },
+       {
+        "col": 1,
+        "text": "(1,030)",
+        "value": -1030.0
+       },
+       {
+        "col": 2,
+        "text": "(238)",
+        "value": -238.0
+       }
+      ],
+      "label": "Gains on non-marketable equity securities and publicly-held equity securities, net"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(1,424)",
+        "value": -1424.0
+       },
+       {
+        "col": 1,
+        "text": "(4,477)",
+        "value": -4477.0
+       },
+       {
+        "col": 2,
+        "text": "(2,489)",
+        "value": -2489.0
+       }
+      ],
+      "label": "Deferred income taxes"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(287)",
+        "value": -287.0
+       },
+       {
+        "col": 1,
+        "text": "(502)",
+        "value": -502.0
+       },
+       {
+        "col": 2,
+        "text": "(278)",
+        "value": -278.0
+       }
+      ],
+      "label": "Other"
+     },
+     {
+      "cells": [],
+      "label": "Changes in operating assets and liabilities, net of acquisitions:"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(15,399)",
+        "value": -15399.0
+       },
+       {
+        "col": 1,
+        "text": "(13,063)",
+        "value": -13063.0
+       },
+       {
+        "col": 2,
+        "text": "(6,172)",
+        "value": -6172.0
+       }
+      ],
+      "label": "Accounts receivable"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(11,324)",
+        "value": -11324.0
+       },
+       {
+        "col": 1,
+        "text": "(4,781)",
+        "value": -4781.0
+       },
+       {
+        "col": 2,
+        "text": "(98)",
+        "value": -98.0
+       }
+      ],
+      "label": "Inventories"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "577",
+        "value": 577.0
+       },
+       {
+        "col": 1,
+        "text": "(395)",
+        "value": -395.0
+       },
+       {
+        "col": 2,
+        "text": "(1,522)",
+        "value": -1522.0
+       }
+      ],
+      "label": "Prepaid expenses and other assets"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "3,096",
+        "value": 3096.0
+       },
+       {
+        "col": 1,
+        "text": "3,357",
+        "value": 3357.0
+       },
+       {
+        "col": 2,
+        "text": "1,531",
+        "value": 1531.0
+       }
+      ],
+      "label": "Accounts payable"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "5,257",
+        "value": 5257.0
+       },
+       {
+        "col": 1,
+        "text": "4,278",
+        "value": 4278.0
+       },
+       {
+        "col": 2,
+        "text": "2,025",
+        "value": 2025.0
+       }
+      ],
+      "label": "Accrued and other current liabilities"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "1,844",
+        "value": 1844.0
+       },
+       {
+        "col": 1,
+        "text": "1,221",
+        "value": 1221.0
+       },
+       {
+        "col": 2,
+        "text": "514",
+        "value": 514.0
+       }
+      ],
+      "label": "Other long-term liabilities"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "102,718",
+        "value": 102718.0
+       },
+       {
+        "col": 1,
+        "text": "64,089",
+        "value": 64089.0
+       },
+       {
+        "col": 2,
+        "text": "28,090",
+        "value": 28090.0
+       }
+      ],
+      "label": "Net cash provided by operating activities"
+     },
+     {
+      "cells": [],
+      "label": "Cash flows from investing activities:"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "15,157",
+        "value": 15157.0
+       },
+       {
+        "col": 1,
+        "text": "495",
+        "value": 495.0
+       },
+       {
+        "col": 2,
+        "text": "50",
+        "value": 50.0
+       }
+      ],
+      "label": "Proceeds from sales of marketable securities"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "11,226",
+        "value": 11226.0
+       },
+       {
+        "col": 1,
+        "text": "11,195",
+        "value": 11195.0
+       },
+       {
+        "col": 2,
+        "text": "9,732",
+        "value": 9732.0
+       }
+      ],
+      "label": "Proceeds from maturities of marketable securities"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "84",
+        "value": 84.0
+       },
+       {
+        "col": 1,
+        "text": "171",
+        "value": 171.0
+       },
+       {
+        "col": 2,
+        "text": "1",
+        "value": 1.0
+       }
+      ],
+      "label": "Proceeds from sales of non-marketable equity securities"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(40,616)",
+        "value": -40616.0
+       },
+       {
+        "col": 1,
+        "text": "(26,575)",
+        "value": -26575.0
+       },
+       {
+        "col": 2,
+        "text": "(18,211)",
+        "value": -18211.0
+       }
+      ],
+      "label": "Purchases of marketable securities"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(17,502)",
+        "value": -17502.0
+       },
+       {
+        "col": 1,
+        "text": "(1,486)",
+        "value": -1486.0
+       },
+       {
+        "col": 2,
+        "text": "(862)",
+        "value": -862.0
+       }
+      ],
+      "label": "Purchases of non-marketable equity securities"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(13,000)",
+        "value": -13000.0
+       },
+       {
+        "col": 1,
+        "text": "\u2014",
+        "value": 0.0
+       },
+       {
+        "col": 2,
+        "text": "\u2014",
+        "value": 0.0
+       }
+      ],
+      "label": "Groq, Inc."
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(6,042)",
+        "value": -6042.0
+       },
+       {
+        "col": 1,
+        "text": "(3,236)",
+        "value": -3236.0
+       },
+       {
+        "col": 2,
+        "text": "(1,069)",
+        "value": -1069.0
+       }
+      ],
+      "label": "Purchases related to property and equipment and intangible assets"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(1,535)",
+        "value": -1535.0
+       },
+       {
+        "col": 1,
+        "text": "(1,007)",
+        "value": -1007.0
+       },
+       {
+        "col": 2,
+        "text": "(83)",
+        "value": -83.0
+       }
+      ],
+      "label": "Acquisitions, net of cash acquired"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "\u2014",
+        "value": 0.0
+       },
+       {
+        "col": 1,
+        "text": "22",
+        "value": 22.0
+       },
+       {
+        "col": 2,
+        "text": "(124)",
+        "value": -124.0
+       }
+      ],
+      "label": "Other"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(52,228)",
+        "value": -52228.0
+       },
+       {
+        "col": 1,
+        "text": "(20,421)",
+        "value": -20421.0
+       },
+       {
+        "col": 2,
+        "text": "(10,566)",
+        "value": -10566.0
+       }
+      ],
+      "label": "Net cash used in investing activities"
+     },
+     {
+      "cells": [],
+      "label": "Cash flows from financing activities:"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "644",
+        "value": 644.0
+       },
+       {
+        "col": 1,
+        "text": "490",
+        "value": 490.0
+       },
+       {
+        "col": 2,
+        "text": "403",
+        "value": 403.0
+       }
+      ],
+      "label": "Proceeds related to employee stock plans"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(40,086)",
+        "value": -40086.0
+       },
+       {
+        "col": 1,
+        "text": "(33,706)",
+        "value": -33706.0
+       },
+       {
+        "col": 2,
+        "text": "(9,533)",
+        "value": -9533.0
+       }
+      ],
+      "label": "Payments related to repurchases of common stock"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(7,948)",
+        "value": -7948.0
+       },
+       {
+        "col": 1,
+        "text": "(6,930)",
+        "value": -6930.0
+       },
+       {
+        "col": 2,
+        "text": "(2,783)",
+        "value": -2783.0
+       }
+      ],
+      "label": "Payments related to employee stock plan taxes"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(974)",
+        "value": -974.0
+       },
+       {
+        "col": 1,
+        "text": "(834)",
+        "value": -834.0
+       },
+       {
+        "col": 2,
+        "text": "(395)",
+        "value": -395.0
+       }
+      ],
+      "label": "Dividends paid"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(101)",
+        "value": -101.0
+       },
+       {
+        "col": 1,
+        "text": "(129)",
+        "value": -129.0
+       },
+       {
+        "col": 2,
+        "text": "(74)",
+        "value": -74.0
+       }
+      ],
+      "label": "Principal payments on property and equipment and intangible assets"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "\u2014",
+        "value": 0.0
+       },
+       {
+        "col": 1,
+        "text": "(1,250)",
+        "value": -1250.0
+       },
+       {
+        "col": 2,
+        "text": "(1,250)",
+        "value": -1250.0
+       }
+      ],
+      "label": "Repayment of debt"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(9)",
+        "value": -9.0
+       },
+       {
+        "col": 1,
+        "text": "\u2014",
+        "value": 0.0
+       },
+       {
+        "col": 2,
+        "text": "(1)",
+        "value": -1.0
+       }
+      ],
+      "label": "Other"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(48,474)",
+        "value": -48474.0
+       },
+       {
+        "col": 1,
+        "text": "(42,359)",
+        "value": -42359.0
+       },
+       {
+        "col": 2,
+        "text": "(13,633)",
+        "value": -13633.0
+       }
+      ],
+      "label": "Net cash used in financing activities"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "2,016",
+        "value": 2016.0
+       },
+       {
+        "col": 1,
+        "text": "1,309",
+        "value": 1309.0
+       },
+       {
+        "col": 2,
+        "text": "3,891",
+        "value": 3891.0
+       }
+      ],
+      "label": "Change in cash and cash equivalents"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "8,589",
+        "value": 8589.0
+       },
+       {
+        "col": 1,
+        "text": "7,280",
+        "value": 7280.0
+       },
+       {
+        "col": 2,
+        "text": "3,389",
+        "value": 3389.0
+       }
+      ],
+      "label": "Cash and cash equivalents at beginning of period"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "10,605",
+        "value": 10605.0
+       },
+       {
+        "col": 1,
+        "text": "8,589",
+        "value": 8589.0
+       },
+       {
+        "col": 2,
+        "text": "7,280",
+        "value": 7280.0
+       }
+      ],
+      "label": "Cash and cash equivalents at end of period"
+     },
+     {
+      "cells": [],
+      "label": "Supplemental disclosures of cash flow information:"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "20,288",
+        "value": 20288.0
+       },
+       {
+        "col": 1,
+        "text": "15,118",
+        "value": 15118.0
+       },
+       {
+        "col": 2,
+        "text": "6,549",
+        "value": 6549.0
+       }
+      ],
+      "label": "Cash paid for income taxes, net"
+     }
+    ],
+    "scale": 1000000,
+    "unit_source": "table",
+    "unit_text": "(In millions)"
+   }
+  ],
+  "income": [
+   {
+    "before": "nd industry data, and (iii) changes in technology. /s/ PricewaterhouseCoopers LLP San Jose, California February 25, 2026 We have served as the Company\u2019s auditor since 2004. 50 Table of Contents NVIDIA Corporation and Subsidiaries Consolidated Statements of Income (In millions, except per share data)",
+    "columns": [
+     "Year Ended | Jan 25, 2026",
+     "Year Ended | Jan 26, 2025",
+     "Year Ended | Jan 28, 2024"
+    ],
+    "id": "t0020",
+    "rows": [
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "215,938",
+        "value": 215938.0
+       },
+       {
+        "col": 1,
+        "text": "130,497",
+        "value": 130497.0
+       },
+       {
+        "col": 2,
+        "text": "60,922",
+        "value": 60922.0
+       }
+      ],
+      "label": "Revenue"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "62,475",
+        "value": 62475.0
+       },
+       {
+        "col": 1,
+        "text": "32,639",
+        "value": 32639.0
+       },
+       {
+        "col": 2,
+        "text": "16,621",
+        "value": 16621.0
+       }
+      ],
+      "label": "Cost of revenue"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "153,463",
+        "value": 153463.0
+       },
+       {
+        "col": 1,
+        "text": "97,858",
+        "value": 97858.0
+       },
+       {
+        "col": 2,
+        "text": "44,301",
+        "value": 44301.0
+       }
+      ],
+      "label": "Gross profit"
+     },
+     {
+      "cells": [],
+      "label": "Operating expenses"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "18,497",
+        "value": 18497.0
+       },
+       {
+        "col": 1,
+        "text": "12,914",
+        "value": 12914.0
+       },
+       {
+        "col": 2,
+        "text": "8,675",
+        "value": 8675.0
+       }
+      ],
+      "label": "Research and development"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "4,579",
+        "value": 4579.0
+       },
+       {
+        "col": 1,
+        "text": "3,491",
+        "value": 3491.0
+       },
+       {
+        "col": 2,
+        "text": "2,654",
+        "value": 2654.0
+       }
+      ],
+      "label": "Sales, general and administrative"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "23,076",
+        "value": 23076.0
+       },
+       {
+        "col": 1,
+        "text": "16,405",
+        "value": 16405.0
+       },
+       {
+        "col": 2,
+        "text": "11,329",
+        "value": 11329.0
+       }
+      ],
+      "label": "Total operating expenses"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "130,387",
+        "value": 130387.0
+       },
+       {
+        "col": 1,
+        "text": "81,453",
+        "value": 81453.0
+       },
+       {
+        "col": 2,
+        "text": "32,972",
+        "value": 32972.0
+       }
+      ],
+      "label": "Operating income"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "2,300",
+        "value": 2300.0
+       },
+       {
+        "col": 1,
+        "text": "1,786",
+        "value": 1786.0
+       },
+       {
+        "col": 2,
+        "text": "866",
+        "value": 866.0
+       }
+      ],
+      "label": "Interest income"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(259)",
+        "value": -259.0
+       },
+       {
+        "col": 1,
+        "text": "(247)",
+        "value": -247.0
+       },
+       {
+        "col": 2,
+        "text": "(257)",
+        "value": -257.0
+       }
+      ],
+      "label": "Interest expense"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "9,022",
+        "value": 9022.0
+       },
+       {
+        "col": 1,
+        "text": "1,034",
+        "value": 1034.0
+       },
+       {
+        "col": 2,
+        "text": "237",
+        "value": 237.0
+       }
+      ],
+      "label": "Other income, net"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "11,063",
+        "value": 11063.0
+       },
+       {
+        "col": 1,
+        "text": "2,573",
+        "value": 2573.0
+       },
+       {
+        "col": 2,
+        "text": "846",
+        "value": 846.0
+       }
+      ],
+      "label": "Total other income, net"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "141,450",
+        "value": 141450.0
+       },
+       {
+        "col": 1,
+        "text": "84,026",
+        "value": 84026.0
+       },
+       {
+        "col": 2,
+        "text": "33,818",
+        "value": 33818.0
+       }
+      ],
+      "label": "Income before income tax"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "21,383",
+        "value": 21383.0
+       },
+       {
+        "col": 1,
+        "text": "11,146",
+        "value": 11146.0
+       },
+       {
+        "col": 2,
+        "text": "4,058",
+        "value": 4058.0
+       }
+      ],
+      "label": "Income tax expense"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "120,067",
+        "value": 120067.0
+       },
+       {
+        "col": 1,
+        "text": "72,880",
+        "value": 72880.0
+       },
+       {
+        "col": 2,
+        "text": "29,760",
+        "value": 29760.0
+       }
+      ],
+      "label": "Net income"
+     },
+     {
+      "cells": [],
+      "label": "Net income per share:"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "4.93",
+        "value": 4.93
+       },
+       {
+        "col": 1,
+        "text": "2.97",
+        "value": 2.97
+       },
+       {
+        "col": 2,
+        "text": "1.21",
+        "value": 1.21
+       }
+      ],
+      "label": "Basic"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "4.90",
+        "value": 4.9
+       },
+       {
+        "col": 1,
+        "text": "2.94",
+        "value": 2.94
+       },
+       {
+        "col": 2,
+        "text": "1.19",
+        "value": 1.19
+       }
+      ],
+      "label": "Diluted"
+     },
+     {
+      "cells": [],
+      "label": "Weighted average shares used in per share computation:"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "24,359",
+        "value": 24359.0
+       },
+       {
+        "col": 1,
+        "text": "24,555",
+        "value": 24555.0
+       },
+       {
+        "col": 2,
+        "text": "24,690",
+        "value": 24690.0
+       }
+      ],
+      "label": "Basic"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "24,514",
+        "value": 24514.0
+       },
+       {
+        "col": 1,
+        "text": "24,804",
+        "value": 24804.0
+       },
+       {
+        "col": 2,
+        "text": "24,940",
+        "value": 24940.0
+       }
+      ],
+      "label": "Diluted"
+     }
+    ],
+    "scale": 1000000,
+    "unit_source": "table",
+    "unit_text": "(In millions, except per share data)"
+   }
+  ]
+ },
+ "table_count": 58,
+ "tables": [
+  {
+   "before": "Commission file number: 0-23985 NVIDIA CORP ORATION (Exact name of registrant as specified in its charter)",
+   "columns": [
+    "94-3177549 | (I.R.S. Employer | Identification No.)"
+   ],
+   "id": "t0002",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "95051",
+       "value": 95051.0
+      }
+     ],
+     "label": "2788 San Tomas Expressway, Santa Clara, California"
+    },
+    {
+     "cells": [],
+     "label": "(Address of principal executive offices)"
+    }
+   ],
+   "scale": null,
+   "unit_text": null
+  },
+  {
+   "before": "s and Exchange Commission pursuant to Regulation 14A not later than 120 days after the end of the fiscal year covered by this Annual Report on Form 10-K are incorporated by reference into Part III, Items 10-14 of this Annual Report on Form 10-K. Table of Contents NVIDIA Corporation Table of Contents",
+   "columns": [
+    "Page | Part I"
+   ],
+   "id": "t0005",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4",
+       "value": 4.0
+      }
+     ],
+     "label": "Item 1."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "12",
+       "value": 12.0
+      }
+     ],
+     "label": "Item 1A."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "32",
+       "value": 32.0
+      }
+     ],
+     "label": "Item 1B."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "32",
+       "value": 32.0
+      }
+     ],
+     "label": "Item 1C"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "33",
+       "value": 33.0
+      }
+     ],
+     "label": "Item 2."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "33",
+       "value": 33.0
+      }
+     ],
+     "label": "Item 3."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "33",
+       "value": 33.0
+      }
+     ],
+     "label": "Item 4."
+    },
+    {
+     "cells": [],
+     "label": "Part II"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "33",
+       "value": 33.0
+      }
+     ],
+     "label": "Item 5."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "35",
+       "value": 35.0
+      }
+     ],
+     "label": "Item 6."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "36",
+       "value": 36.0
+      }
+     ],
+     "label": "Item 7."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "44",
+       "value": 44.0
+      }
+     ],
+     "label": "Item 7A."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "45",
+       "value": 45.0
+      }
+     ],
+     "label": "Item 8."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "45",
+       "value": 45.0
+      }
+     ],
+     "label": "Item 9."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "45",
+       "value": 45.0
+      }
+     ],
+     "label": "Item 9A."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "46",
+       "value": 46.0
+      }
+     ],
+     "label": "Item 9B."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "46",
+       "value": 46.0
+      }
+     ],
+     "label": "Item 9C."
+    },
+    {
+     "cells": [],
+     "label": "Part III"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "46",
+       "value": 46.0
+      }
+     ],
+     "label": "Item 10."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "47",
+       "value": 47.0
+      }
+     ],
+     "label": "Item 11."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "47",
+       "value": 47.0
+      }
+     ],
+     "label": "Item 12."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "47",
+       "value": 47.0
+      }
+     ],
+     "label": "Item 13."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "47",
+       "value": 47.0
+      }
+     ],
+     "label": "Item 14."
+    },
+    {
+     "cells": [],
+     "label": "Part IV"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "48",
+       "value": 48.0
+      }
+     ],
+     "label": "Item 15."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "83",
+       "value": 83.0
+      }
+     ],
+     "label": "Item 16."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "84",
+       "value": 84.0
+      }
+     ],
+     "label": "Signatures"
+    }
+   ],
+   "scale": null,
+   "unit_text": null
+  },
+  {
+   "before": "e employee listening systems to gather feedback and maintain an inclusive culture where hiring and promotions are based on merit. Information About Our Executive Officers The following sets forth certain information regarding our executive officers, their ages, and positions as of February 20, 2026:",
+   "columns": [
+    "Age"
+   ],
+   "id": "t0006",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "63",
+       "value": 63.0
+      }
+     ],
+     "label": "Jen-Hsun Huang"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "58",
+       "value": 58.0
+      }
+     ],
+     "label": "Colette M. Kress"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "71",
+       "value": 71.0
+      }
+     ],
+     "label": "Ajay K. Puri"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "71",
+       "value": 71.0
+      }
+     ],
+     "label": "Debora Shoquist"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "59",
+       "value": 59.0
+      }
+     ],
+     "label": "Timothy S. Teter"
+    }
+   ],
+   "scale": null,
+   "unit_text": null
+  },
+  {
+   "before": " cash dividends is subject to our Board of Directors' continuing determination that the declaration of dividends is in the best interests of our shareholders. 33 Table of Contents The following table presents details of our share repurchase transactions during the fourth quarter of fiscal year 2026:",
+   "columns": [
+    "Average Price Paid per Share (1)",
+    "Average Price Paid per Share (1)",
+    "Average Price Paid per Share (1)",
+    "Average Price Paid per Share (1)"
+   ],
+   "id": "t0007",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "5.6",
+       "value": 5.6
+      },
+      {
+       "col": 1,
+       "text": "198.89",
+       "value": 198.89
+      },
+      {
+       "col": 2,
+       "text": "5.6",
+       "value": 5.6
+      },
+      {
+       "col": 3,
+       "text": "61.1",
+       "value": 61.1
+      }
+     ],
+     "label": "October 27, 2025 - November 23, 2025"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "6.6",
+       "value": 6.6
+      },
+      {
+       "col": 1,
+       "text": "179.41",
+       "value": 179.41
+      },
+      {
+       "col": 2,
+       "text": "6.6",
+       "value": 6.6
+      },
+      {
+       "col": 3,
+       "text": "59.9",
+       "value": 59.9
+      }
+     ],
+     "label": "November 24, 2025 - December 21, 2025"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "7.3",
+       "value": 7.3
+      },
+      {
+       "col": 1,
+       "text": "186.52",
+       "value": 186.52
+      },
+      {
+       "col": 2,
+       "text": "7.3",
+       "value": 7.3
+      },
+      {
+       "col": 3,
+       "text": "58.5",
+       "value": 58.5
+      }
+     ],
+     "label": "December 22, 2025 - January 25, 2026"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "19.5",
+       "value": 19.5
+      },
+      {
+       "col": 2,
+       "text": "19.5",
+       "value": 19.5
+      }
+     ],
+     "label": "Total"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": " assumes reinvestment of dividends in each of the indices indicated. Total return is based on historical results and is not intended to indicate future performance. *$100 invested on 1/31/2021 in stock and in indices, including reinvestment of dividends. Source: FactSet financial data and analytics.",
+   "columns": [
+    "1/31/2021",
+    "1/30/2022",
+    "1/29/2023",
+    "1/28/2024",
+    "1/26/2025",
+    "1/25/2026"
+   ],
+   "id": "t0008",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "100.00",
+       "value": 100.0
+      },
+      {
+       "col": 1,
+       "text": "175.98",
+       "value": 175.98
+      },
+      {
+       "col": 2,
+       "text": "157.05",
+       "value": 157.05
+      },
+      {
+       "col": 3,
+       "text": "470.88",
+       "value": 470.88
+      },
+      {
+       "col": 4,
+       "text": "1,100.68",
+       "value": 1100.68
+      },
+      {
+       "col": 5,
+       "text": "1,448.75",
+       "value": 1448.75
+      }
+     ],
+     "label": "NVIDIA Corporation"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "100.00",
+       "value": 100.0
+      },
+      {
+       "col": 1,
+       "text": "121.00",
+       "value": 121.0
+      },
+      {
+       "col": 2,
+       "text": "112.98",
+       "value": 112.98
+      },
+      {
+       "col": 3,
+       "text": "137.98",
+       "value": 137.98
+      },
+      {
+       "col": 4,
+       "text": "174.50",
+       "value": 174.5
+      },
+      {
+       "col": 5,
+       "text": "200.33",
+       "value": 200.33
+      }
+     ],
+     "label": "S&P 500"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "100.00",
+       "value": 100.0
+      },
+      {
+       "col": 1,
+       "text": "112.60",
+       "value": 112.6
+      },
+      {
+       "col": 2,
+       "text": "95.60",
+       "value": 95.6
+      },
+      {
+       "col": 3,
+       "text": "138.07",
+       "value": 138.07
+      },
+      {
+       "col": 4,
+       "text": "173.95",
+       "value": 173.95
+      },
+      {
+       "col": 5,
+       "text": "206.01",
+       "value": 206.01
+      }
+     ],
+     "label": "Nasdaq 100"
+    }
+   ],
+   "scale": null,
+   "unit_text": null
+  },
+  {
+   "before": "hin our supply chain, we continuously manage product availability and costs with our vendors. Refer to \u201cItem 1A. Risk Factors \u2013 Risks Related to Regulatory, Legal, Our Stock and Other Matters\u201d for a further discussion of the potential impact of these factors on our business. Fiscal Year 2026 Summary",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025"
+   ],
+   "id": "t0009",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "215,938",
+       "value": 215938.0
+      },
+      {
+       "col": 1,
+       "text": "130,497",
+       "value": 130497.0
+      }
+     ],
+     "label": "Revenue"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "71.1%",
+       "value": 71.1
+      },
+      {
+       "col": 1,
+       "text": "75.0%",
+       "value": 75.0
+      }
+     ],
+     "label": "Gross margin"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "23,076",
+       "value": 23076.0
+      },
+      {
+       "col": 1,
+       "text": "16,405",
+       "value": 16405.0
+      }
+     ],
+     "label": "Operating expenses"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "130,387",
+       "value": 130387.0
+      },
+      {
+       "col": 1,
+       "text": "81,453",
+       "value": 81453.0
+      }
+     ],
+     "label": "Operating income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "120,067",
+       "value": 120067.0
+      },
+      {
+       "col": 1,
+       "text": "72,880",
+       "value": 72880.0
+      }
+     ],
+     "label": "Net income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4.90",
+       "value": 4.9
+      },
+      {
+       "col": 1,
+       "text": "2.94",
+       "value": 2.94
+      }
+     ],
+     "label": "Net income per diluted share"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "($ in millions, except per share data)"
+  },
+  {
+   "before": "le free of charge on the SEC\u2019s website at http://www.sec.gov and at our investor relations website, http://investor.nvidia.com. 39 Table of Contents The following table sets forth, for the periods indicated, certain items in our Consolidated Statements of Income expressed as a percentage of revenue.",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025"
+   ],
+   "id": "t0010",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "100.0%",
+       "value": 100.0
+      },
+      {
+       "col": 1,
+       "text": "100.0%",
+       "value": 100.0
+      }
+     ],
+     "label": "Revenue"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "28.9",
+       "value": 28.9
+      },
+      {
+       "col": 1,
+       "text": "25.0",
+       "value": 25.0
+      }
+     ],
+     "label": "Cost of revenue"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "71.1",
+       "value": 71.1
+      },
+      {
+       "col": 1,
+       "text": "75.0",
+       "value": 75.0
+      }
+     ],
+     "label": "Gross profit"
+    },
+    {
+     "cells": [],
+     "label": "Operating expenses"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "8.6",
+       "value": 8.6
+      },
+      {
+       "col": 1,
+       "text": "9.9",
+       "value": 9.9
+      }
+     ],
+     "label": "Research and development"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2.1",
+       "value": 2.1
+      },
+      {
+       "col": 1,
+       "text": "2.7",
+       "value": 2.7
+      }
+     ],
+     "label": "Sales, general and administrative"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.7",
+       "value": 10.7
+      },
+      {
+       "col": 1,
+       "text": "12.6",
+       "value": 12.6
+      }
+     ],
+     "label": "Total operating expenses"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "60.4",
+       "value": 60.4
+      },
+      {
+       "col": 1,
+       "text": "62.4",
+       "value": 62.4
+      }
+     ],
+     "label": "Operating income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1.1",
+       "value": 1.1
+      },
+      {
+       "col": 1,
+       "text": "1.4",
+       "value": 1.4
+      }
+     ],
+     "label": "Interest income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(0.1)",
+       "value": -0.1
+      },
+      {
+       "col": 1,
+       "text": "(0.2)",
+       "value": -0.2
+      }
+     ],
+     "label": "Interest expense"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4.2",
+       "value": 4.2
+      },
+      {
+       "col": 1,
+       "text": "0.8",
+       "value": 0.8
+      }
+     ],
+     "label": "Other income, net"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "5.2",
+       "value": 5.2
+      },
+      {
+       "col": 1,
+       "text": "2.0",
+       "value": 2.0
+      }
+     ],
+     "label": "Total other income, net"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "65.5",
+       "value": 65.5
+      },
+      {
+       "col": 1,
+       "text": "64.4",
+       "value": 64.4
+      }
+     ],
+     "label": "Income before income tax"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "9.9",
+       "value": 9.9
+      },
+      {
+       "col": 1,
+       "text": "8.6",
+       "value": 8.6
+      }
+     ],
+     "label": "Income tax expense"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "55.6%",
+       "value": 55.6
+      },
+      {
+       "col": 1,
+       "text": "55.8%",
+       "value": 55.8
+      }
+     ],
+     "label": "Net income"
+    }
+   ],
+   "scale": null,
+   "unit_text": null
+  },
+  {
+   "before": "Reportable Segments Revenue by Reportable Segments",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | $Change",
+    "Year Ended | %Change"
+   ],
+   "id": "t0011",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "193,479",
+       "value": 193479.0
+      },
+      {
+       "col": 1,
+       "text": "116,193",
+       "value": 116193.0
+      },
+      {
+       "col": 2,
+       "text": "77,286",
+       "value": 77286.0
+      },
+      {
+       "col": 3,
+       "text": "67%",
+       "value": 67.0
+      }
+     ],
+     "label": "Compute & Networking"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "22,459",
+       "value": 22459.0
+      },
+      {
+       "col": 1,
+       "text": "14,304",
+       "value": 14304.0
+      },
+      {
+       "col": 2,
+       "text": "8,155",
+       "value": 8155.0
+      },
+      {
+       "col": 3,
+       "text": "57%",
+       "value": 57.0
+      }
+     ],
+     "label": "Graphics"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "215,938",
+       "value": 215938.0
+      },
+      {
+       "col": 1,
+       "text": "130,497",
+       "value": 130497.0
+      },
+      {
+       "col": 2,
+       "text": "85,441",
+       "value": 85441.0
+      },
+      {
+       "col": 3,
+       "text": "65%",
+       "value": 65.0
+      }
+     ],
+     "label": "Total"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "($ in millions)"
+  },
+  {
+   "before": "Operating Income by Reportable Segments",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | $Change",
+    "Year Ended | %Change"
+   ],
+   "id": "t0012",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "130,141",
+       "value": 130141.0
+      },
+      {
+       "col": 1,
+       "text": "82,875",
+       "value": 82875.0
+      },
+      {
+       "col": 2,
+       "text": "47,266",
+       "value": 47266.0
+      },
+      {
+       "col": 3,
+       "text": "57%",
+       "value": 57.0
+      }
+     ],
+     "label": "Compute & Networking"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "9,156",
+       "value": 9156.0
+      },
+      {
+       "col": 1,
+       "text": "5,085",
+       "value": 5085.0
+      },
+      {
+       "col": 2,
+       "text": "4,071",
+       "value": 4071.0
+      },
+      {
+       "col": 3,
+       "text": "80%",
+       "value": 80.0
+      }
+     ],
+     "label": "Graphics"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "139,297",
+       "value": 139297.0
+      },
+      {
+       "col": 1,
+       "text": "87,960",
+       "value": 87960.0
+      },
+      {
+       "col": 2,
+       "text": "51,337",
+       "value": 51337.0
+      },
+      {
+       "col": 3,
+       "text": "58%",
+       "value": 58.0
+      }
+     ],
+     "label": "Total"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "($ in millions)"
+  },
+  {
+   "before": "ements of excess inventory purchase obligations resulted in a provision release of $1.5 billion and $689 million for fiscal years 2026 and 2025, respectively. The net effect on our gross margin was an unfavorable impact of 2.6% and 2.3% in fiscal years 2026 and 2025, respectively. Operating Expenses",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | $Change",
+    "Year Ended | %Change"
+   ],
+   "id": "t0013",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "18,497",
+       "value": 18497.0
+      },
+      {
+       "col": 1,
+       "text": "12,914",
+       "value": 12914.0
+      },
+      {
+       "col": 2,
+       "text": "5,583",
+       "value": 5583.0
+      },
+      {
+       "col": 3,
+       "text": "43%",
+       "value": 43.0
+      }
+     ],
+     "label": "Research and development"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4,579",
+       "value": 4579.0
+      },
+      {
+       "col": 1,
+       "text": "3,491",
+       "value": 3491.0
+      },
+      {
+       "col": 2,
+       "text": "1,088",
+       "value": 1088.0
+      },
+      {
+       "col": 3,
+       "text": "31%",
+       "value": 31.0
+      }
+     ],
+     "label": "Sales, general and administrative"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "23,076",
+       "value": 23076.0
+      },
+      {
+       "col": 1,
+       "text": "16,405",
+       "value": 16405.0
+      },
+      {
+       "col": 2,
+       "text": "6,671",
+       "value": 6671.0
+      },
+      {
+       "col": 3,
+       "text": "41%",
+       "value": 41.0
+      }
+     ],
+     "label": "Total operating expenses"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "($ in millions)"
+  },
+  {
+   "before": "ute and infrastructure. 41 Table of Contents The increases in sales, general and administrative expenses for fiscal year 2026 were primarily driven by compensation and benefits expense, including stock-based compensation, reflecting employee growth and compensation increases. Total Other Income, Net",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | $Change"
+   ],
+   "id": "t0014",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,300",
+       "value": 2300.0
+      },
+      {
+       "col": 1,
+       "text": "1,786",
+       "value": 1786.0
+      },
+      {
+       "col": 2,
+       "text": "514",
+       "value": 514.0
+      }
+     ],
+     "label": "Interest income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(259)",
+       "value": -259.0
+      },
+      {
+       "col": 1,
+       "text": "(247)",
+       "value": -247.0
+      },
+      {
+       "col": 2,
+       "text": "(12)",
+       "value": -12.0
+      }
+     ],
+     "label": "Interest expense"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "9,022",
+       "value": 9022.0
+      },
+      {
+       "col": 1,
+       "text": "1,034",
+       "value": 1034.0
+      },
+      {
+       "col": 2,
+       "text": "7,988",
+       "value": 7988.0
+      }
+     ],
+     "label": "Other income, net"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "11,063",
+       "value": 11063.0
+      },
+      {
+       "col": 1,
+       "text": "2,573",
+       "value": 2573.0
+      },
+      {
+       "col": 2,
+       "text": "8,490",
+       "value": 8490.0
+      }
+     ],
+     "label": "Total other income, net"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "($ in millions)"
+  },
+  {
+   "before": "in state deferred tax assets are more likely than not realizable and released $711 million of valuation allowance. Refer to Note 13 of the Notes to the Consolidated Financial Statements in Part IV, Item 15 of this Annual Report on Form 10-K for additional information. Liquidity and Capital Resources",
+   "columns": [
+    "Jan 25, 2026",
+    "Jan 26, 2025"
+   ],
+   "id": "t0015",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10,605",
+       "value": 10605.0
+      },
+      {
+       "col": 1,
+       "text": "8,589",
+       "value": 8589.0
+      }
+     ],
+     "label": "Cash and cash equivalents"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "51,951",
+       "value": 51951.0
+      },
+      {
+       "col": 1,
+       "text": "34,621",
+       "value": 34621.0
+      }
+     ],
+     "label": "Marketable securities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "62,556",
+       "value": 62556.0
+      },
+      {
+       "col": 1,
+       "text": "43,210",
+       "value": 43210.0
+      }
+     ],
+     "label": "Cash, cash equivalents, and marketable securities"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "42 Table of Contents",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025"
+   ],
+   "id": "t0016",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "102,718",
+       "value": 102718.0
+      },
+      {
+       "col": 1,
+       "text": "64,089",
+       "value": 64089.0
+      }
+     ],
+     "label": "Net cash provided by operating activities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(52,228)",
+       "value": -52228.0
+      },
+      {
+       "col": 1,
+       "text": "(20,421)",
+       "value": -20421.0
+      }
+     ],
+     "label": "Net cash used in investing activities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(48,474)",
+       "value": -48474.0
+      },
+      {
+       "col": 1,
+       "text": "(42,359)",
+       "value": -42359.0
+      }
+     ],
+     "label": "Net cash used in financing activities"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "made after December 31, 2022. The excise tax is included in our share repurchase cost and was not material for fiscal years 2026 and 2025. 43 Table of Contents Outstanding Indebtedness and Commercial Paper Program Our aggregate debt maturities as of January 25, 2026, by year payable, are as follows:",
+   "columns": [
+    "Jan 25, 2026"
+   ],
+   "id": "t0017",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,000",
+       "value": 1000.0
+      }
+     ],
+     "label": "Due in one year"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,750",
+       "value": 2750.0
+      }
+     ],
+     "label": "Due in one to five years"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,250",
+       "value": 1250.0
+      }
+     ],
+     "label": "Due in five to ten years"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,500",
+       "value": 3500.0
+      }
+     ],
+     "label": "Due in greater than ten years"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(32)",
+       "value": -32.0
+      }
+     ],
+     "label": "Unamortized debt discount and issuance costs"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "8,468",
+       "value": 8468.0
+      }
+     ],
+     "label": "Net carrying amount"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "999",
+       "value": 999.0
+      }
+     ],
+     "label": "Less short-term portion"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "7,469",
+       "value": 7469.0
+      }
+     ],
+     "label": "Total long-term portion"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": " within NVIDIA have been detected. Item 9B. Other Information The following members of our Board of Directors and/or officers adopted , modified or terminated a trading arrangement that is intended to satisfy the affirmative defense conditions of Rule 10b5-1(c), or a Rule 10b5-1 Trading Arrangement:",
+   "columns": [
+    "Total Shares of Common Stock to be Sold | 3,984*"
+   ],
+   "id": "t0018",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "500,000",
+       "value": 500000.0
+      }
+     ],
+     "label": "Colette M. Kress"
+    }
+   ],
+   "scale": null,
+   "unit_text": null
+  },
+  {
+   "before": "unting fees and services required by this item will be contained in our 2026 Proxy Statement under the caption \u201cFees Billed by the Independent Registered Public Accounting Firm,\u201d and is hereby incorporated by reference. 47 Table of Contents Part IV Item 15. Exhibits and Financial Statement Schedules",
+   "columns": [
+    "Page | Financial Statements"
+   ],
+   "id": "t0019",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "49",
+       "value": 49.0
+      }
+     ],
+     "label": "Report of Independent Registered Public Accounting Firm (PCAOB ID: 238)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "51",
+       "value": 51.0
+      }
+     ],
+     "label": "Consolidated Statements of Income for the years ended January 25, 2026, January 26, 2025, and January 28, 2024"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "52",
+       "value": 52.0
+      }
+     ],
+     "label": "Consolidated Statements of Comprehensive Income for the years ended January 25, 2026, January 26, 2025, and January 28, 2024"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "53",
+       "value": 53.0
+      }
+     ],
+     "label": "Consolidated Balance Sheets as of January 25, 2026 and January 26, 2025"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "54",
+       "value": 54.0
+      }
+     ],
+     "label": "Consolidated Statements of Shareholders\u2019 Equity for the years ended January 25, 2026, January 26, 2025, and January 28, 2024"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "55",
+       "value": 55.0
+      }
+     ],
+     "label": "Consolidated Statements of Cash Flows for the years ended January 25, 2026, January 26, 2025, and January 28, 2024"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "56",
+       "value": 56.0
+      }
+     ],
+     "label": "Notes to the Consolidated Financial Statements"
+    },
+    {
+     "cells": [],
+     "label": "2."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "81",
+       "value": 81.0
+      }
+     ],
+     "label": "Schedule II Valuation and Qualifying Accounts for the years ended January 25, 2026, January 26, 2025, and January 28, 2024"
+    },
+    {
+     "cells": [],
+     "label": "3."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "82",
+       "value": 82.0
+      }
+     ],
+     "label": "The exhibits listed in the accompanying index to exhibits are filed or incorporated by reference as a part of this Annual Report on Form 10-K."
+    }
+   ],
+   "scale": null,
+   "unit_text": null
+  },
+  {
+   "before": "nd industry data, and (iii) changes in technology. /s/ PricewaterhouseCoopers LLP San Jose, California February 25, 2026 We have served as the Company\u2019s auditor since 2004. 50 Table of Contents NVIDIA Corporation and Subsidiaries Consolidated Statements of Income (In millions, except per share data)",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | Jan 28, 2024"
+   ],
+   "id": "t0020",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "215,938",
+       "value": 215938.0
+      },
+      {
+       "col": 1,
+       "text": "130,497",
+       "value": 130497.0
+      },
+      {
+       "col": 2,
+       "text": "60,922",
+       "value": 60922.0
+      }
+     ],
+     "label": "Revenue"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "62,475",
+       "value": 62475.0
+      },
+      {
+       "col": 1,
+       "text": "32,639",
+       "value": 32639.0
+      },
+      {
+       "col": 2,
+       "text": "16,621",
+       "value": 16621.0
+      }
+     ],
+     "label": "Cost of revenue"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "153,463",
+       "value": 153463.0
+      },
+      {
+       "col": 1,
+       "text": "97,858",
+       "value": 97858.0
+      },
+      {
+       "col": 2,
+       "text": "44,301",
+       "value": 44301.0
+      }
+     ],
+     "label": "Gross profit"
+    },
+    {
+     "cells": [],
+     "label": "Operating expenses"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "18,497",
+       "value": 18497.0
+      },
+      {
+       "col": 1,
+       "text": "12,914",
+       "value": 12914.0
+      },
+      {
+       "col": 2,
+       "text": "8,675",
+       "value": 8675.0
+      }
+     ],
+     "label": "Research and development"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4,579",
+       "value": 4579.0
+      },
+      {
+       "col": 1,
+       "text": "3,491",
+       "value": 3491.0
+      },
+      {
+       "col": 2,
+       "text": "2,654",
+       "value": 2654.0
+      }
+     ],
+     "label": "Sales, general and administrative"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "23,076",
+       "value": 23076.0
+      },
+      {
+       "col": 1,
+       "text": "16,405",
+       "value": 16405.0
+      },
+      {
+       "col": 2,
+       "text": "11,329",
+       "value": 11329.0
+      }
+     ],
+     "label": "Total operating expenses"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "130,387",
+       "value": 130387.0
+      },
+      {
+       "col": 1,
+       "text": "81,453",
+       "value": 81453.0
+      },
+      {
+       "col": 2,
+       "text": "32,972",
+       "value": 32972.0
+      }
+     ],
+     "label": "Operating income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,300",
+       "value": 2300.0
+      },
+      {
+       "col": 1,
+       "text": "1,786",
+       "value": 1786.0
+      },
+      {
+       "col": 2,
+       "text": "866",
+       "value": 866.0
+      }
+     ],
+     "label": "Interest income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(259)",
+       "value": -259.0
+      },
+      {
+       "col": 1,
+       "text": "(247)",
+       "value": -247.0
+      },
+      {
+       "col": 2,
+       "text": "(257)",
+       "value": -257.0
+      }
+     ],
+     "label": "Interest expense"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "9,022",
+       "value": 9022.0
+      },
+      {
+       "col": 1,
+       "text": "1,034",
+       "value": 1034.0
+      },
+      {
+       "col": 2,
+       "text": "237",
+       "value": 237.0
+      }
+     ],
+     "label": "Other income, net"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "11,063",
+       "value": 11063.0
+      },
+      {
+       "col": 1,
+       "text": "2,573",
+       "value": 2573.0
+      },
+      {
+       "col": 2,
+       "text": "846",
+       "value": 846.0
+      }
+     ],
+     "label": "Total other income, net"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "141,450",
+       "value": 141450.0
+      },
+      {
+       "col": 1,
+       "text": "84,026",
+       "value": 84026.0
+      },
+      {
+       "col": 2,
+       "text": "33,818",
+       "value": 33818.0
+      }
+     ],
+     "label": "Income before income tax"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "21,383",
+       "value": 21383.0
+      },
+      {
+       "col": 1,
+       "text": "11,146",
+       "value": 11146.0
+      },
+      {
+       "col": 2,
+       "text": "4,058",
+       "value": 4058.0
+      }
+     ],
+     "label": "Income tax expense"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "120,067",
+       "value": 120067.0
+      },
+      {
+       "col": 1,
+       "text": "72,880",
+       "value": 72880.0
+      },
+      {
+       "col": 2,
+       "text": "29,760",
+       "value": 29760.0
+      }
+     ],
+     "label": "Net income"
+    },
+    {
+     "cells": [],
+     "label": "Net income per share:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4.93",
+       "value": 4.93
+      },
+      {
+       "col": 1,
+       "text": "2.97",
+       "value": 2.97
+      },
+      {
+       "col": 2,
+       "text": "1.21",
+       "value": 1.21
+      }
+     ],
+     "label": "Basic"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4.90",
+       "value": 4.9
+      },
+      {
+       "col": 1,
+       "text": "2.94",
+       "value": 2.94
+      },
+      {
+       "col": 2,
+       "text": "1.19",
+       "value": 1.19
+      }
+     ],
+     "label": "Diluted"
+    },
+    {
+     "cells": [],
+     "label": "Weighted average shares used in per share computation:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "24,359",
+       "value": 24359.0
+      },
+      {
+       "col": 1,
+       "text": "24,555",
+       "value": 24555.0
+      },
+      {
+       "col": 2,
+       "text": "24,690",
+       "value": 24690.0
+      }
+     ],
+     "label": "Basic"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "24,514",
+       "value": 24514.0
+      },
+      {
+       "col": 1,
+       "text": "24,804",
+       "value": 24804.0
+      },
+      {
+       "col": 2,
+       "text": "24,940",
+       "value": 24940.0
+      }
+     ],
+     "label": "Diluted"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions, except per share data)"
+  },
+  {
+   "before": "See accompanying Notes to the Consolidated Financial Statements. 51 Table of Contents NVIDIA Corporation and Subsidiaries Consolidated Statements of Comprehensive Income (In millions)",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | Jan 28, 2024"
+   ],
+   "id": "t0021",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "120,067",
+       "value": 120067.0
+      },
+      {
+       "col": 1,
+       "text": "72,880",
+       "value": 72880.0
+      },
+      {
+       "col": 2,
+       "text": "29,760",
+       "value": 29760.0
+      }
+     ],
+     "label": "Net income"
+    },
+    {
+     "cells": [],
+     "label": "Other comprehensive income, net of tax"
+    },
+    {
+     "cells": [],
+     "label": "Available-for-sale securities:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "107",
+       "value": 107.0
+      },
+      {
+       "col": 1,
+       "text": "1",
+       "value": 1.0
+      },
+      {
+       "col": 2,
+       "text": "80",
+       "value": 80.0
+      }
+     ],
+     "label": "Net change in unrealized gain"
+    },
+    {
+     "cells": [],
+     "label": "Cash flow hedges:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "43",
+       "value": 43.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "(10)",
+       "value": -10.0
+      }
+     ],
+     "label": "Net change in unrealized gain (loss)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "150",
+       "value": 150.0
+      },
+      {
+       "col": 1,
+       "text": "1",
+       "value": 1.0
+      },
+      {
+       "col": 2,
+       "text": "70",
+       "value": 70.0
+      }
+     ],
+     "label": "Other comprehensive income, net of tax"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "120,217",
+       "value": 120217.0
+      },
+      {
+       "col": 1,
+       "text": "72,881",
+       "value": 72881.0
+      },
+      {
+       "col": 2,
+       "text": "29,830",
+       "value": 29830.0
+      }
+     ],
+     "label": "Total comprehensive income"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "See accompanying Notes to the Consolidated Financial Statements. 52 Table of Contents NVIDIA Corporation and Subsidiaries Consolidated Balance Sheets (In millions, except par value)",
+   "columns": [
+    "Jan 25, 2026",
+    "Jan 26, 2025"
+   ],
+   "id": "t0022",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10,605",
+       "value": 10605.0
+      },
+      {
+       "col": 1,
+       "text": "8,589",
+       "value": 8589.0
+      }
+     ],
+     "label": "Cash and cash equivalents"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "51,951",
+       "value": 51951.0
+      },
+      {
+       "col": 1,
+       "text": "34,621",
+       "value": 34621.0
+      }
+     ],
+     "label": "Marketable securities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "38,466",
+       "value": 38466.0
+      },
+      {
+       "col": 1,
+       "text": "23,065",
+       "value": 23065.0
+      }
+     ],
+     "label": "Accounts receivable, net"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "21,403",
+       "value": 21403.0
+      },
+      {
+       "col": 1,
+       "text": "10,080",
+       "value": 10080.0
+      }
+     ],
+     "label": "Inventories"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,180",
+       "value": 3180.0
+      },
+      {
+       "col": 1,
+       "text": "3,771",
+       "value": 3771.0
+      }
+     ],
+     "label": "Prepaid expenses and other current assets"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "125,605",
+       "value": 125605.0
+      },
+      {
+       "col": 1,
+       "text": "80,126",
+       "value": 80126.0
+      }
+     ],
+     "label": "Total current assets"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10,383",
+       "value": 10383.0
+      },
+      {
+       "col": 1,
+       "text": "6,283",
+       "value": 6283.0
+      }
+     ],
+     "label": "Property and equipment, net"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,867",
+       "value": 2867.0
+      },
+      {
+       "col": 1,
+       "text": "1,793",
+       "value": 1793.0
+      }
+     ],
+     "label": "Operating lease assets"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "20,832",
+       "value": 20832.0
+      },
+      {
+       "col": 1,
+       "text": "5,188",
+       "value": 5188.0
+      }
+     ],
+     "label": "Goodwill"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,306",
+       "value": 3306.0
+      },
+      {
+       "col": 1,
+       "text": "807",
+       "value": 807.0
+      }
+     ],
+     "label": "Intangible assets, net"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "13,258",
+       "value": 13258.0
+      },
+      {
+       "col": 1,
+       "text": "10,979",
+       "value": 10979.0
+      }
+     ],
+     "label": "Deferred income tax assets"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "22,251",
+       "value": 22251.0
+      },
+      {
+       "col": 1,
+       "text": "3,387",
+       "value": 3387.0
+      }
+     ],
+     "label": "Non-marketable equity securities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "8,301",
+       "value": 8301.0
+      },
+      {
+       "col": 1,
+       "text": "3,038",
+       "value": 3038.0
+      }
+     ],
+     "label": "Other assets"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "206,803",
+       "value": 206803.0
+      },
+      {
+       "col": 1,
+       "text": "111,601",
+       "value": 111601.0
+      }
+     ],
+     "label": "Total assets"
+    },
+    {
+     "cells": [],
+     "label": "Liabilities and Shareholders' Equity"
+    },
+    {
+     "cells": [],
+     "label": "Current liabilities:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "9,812",
+       "value": 9812.0
+      },
+      {
+       "col": 1,
+       "text": "6,310",
+       "value": 6310.0
+      }
+     ],
+     "label": "Accounts payable"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "21,352",
+       "value": 21352.0
+      },
+      {
+       "col": 1,
+       "text": "11,737",
+       "value": 11737.0
+      }
+     ],
+     "label": "Accrued and other current liabilities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "999",
+       "value": 999.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Short-term debt"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "32,163",
+       "value": 32163.0
+      },
+      {
+       "col": 1,
+       "text": "18,047",
+       "value": 18047.0
+      }
+     ],
+     "label": "Total current liabilities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "7,469",
+       "value": 7469.0
+      },
+      {
+       "col": 1,
+       "text": "8,463",
+       "value": 8463.0
+      }
+     ],
+     "label": "Long-term debt"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,572",
+       "value": 2572.0
+      },
+      {
+       "col": 1,
+       "text": "1,519",
+       "value": 1519.0
+      }
+     ],
+     "label": "Long-term operating lease liabilities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "7,306",
+       "value": 7306.0
+      },
+      {
+       "col": 1,
+       "text": "4,245",
+       "value": 4245.0
+      }
+     ],
+     "label": "Other long-term liabilities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "49,510",
+       "value": 49510.0
+      },
+      {
+       "col": 1,
+       "text": "32,274",
+       "value": 32274.0
+      }
+     ],
+     "label": "Total liabilities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Commitments and contingencies - see Note 12"
+    },
+    {
+     "cells": [],
+     "label": "Shareholders\u2019 equity:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Preferred stock, $0.001 par value; 2 shares authorized; none issued"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "24",
+       "value": 24.0
+      },
+      {
+       "col": 1,
+       "text": "24",
+       "value": 24.0
+      }
+     ],
+     "label": "Common stock, $0.001 par value; 80,000 shares authorized; 24,304 shares issued and outstanding as of January 25, 2026; 24,477 shares issued and outstanding as of January 26, 2025"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10,118",
+       "value": 10118.0
+      },
+      {
+       "col": 1,
+       "text": "11,237",
+       "value": 11237.0
+      }
+     ],
+     "label": "Additional paid-in capital"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "178",
+       "value": 178.0
+      },
+      {
+       "col": 1,
+       "text": "28",
+       "value": 28.0
+      }
+     ],
+     "label": "Accumulated other comprehensive income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "146,973",
+       "value": 146973.0
+      },
+      {
+       "col": 1,
+       "text": "68,038",
+       "value": 68038.0
+      }
+     ],
+     "label": "Retained earnings"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "157,293",
+       "value": 157293.0
+      },
+      {
+       "col": 1,
+       "text": "79,327",
+       "value": 79327.0
+      }
+     ],
+     "label": "Total shareholders' equity"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "206,803",
+       "value": 206803.0
+      },
+      {
+       "col": 1,
+       "text": "111,601",
+       "value": 111601.0
+      }
+     ],
+     "label": "Total liabilities and shareholders' equity"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions, except par value)"
+  },
+  {
+   "before": "See accompanying Notes to the Consolidated Financial Statements. 53 Table of Contents NVIDIA Corporation and Subsidiaries Consolidated Statements of Shareholders' Equity",
+   "columns": [
+    "Common StockOutstanding | Shares",
+    "Common StockOutstanding | Amount",
+    "Additional Paid-in | Capital",
+    "Accumulated Other Comprehensive | Income (Loss)",
+    "Retained | Earnings",
+    "Total Shareholders' | Equity"
+   ],
+   "id": "t0023",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "24,661",
+       "value": 24661.0
+      },
+      {
+       "col": 1,
+       "text": "25",
+       "value": 25.0
+      },
+      {
+       "col": 2,
+       "text": "11,948",
+       "value": 11948.0
+      },
+      {
+       "col": 3,
+       "text": "(43)",
+       "value": -43.0
+      },
+      {
+       "col": 4,
+       "text": "10,171",
+       "value": 10171.0
+      },
+      {
+       "col": 5,
+       "text": "22,101",
+       "value": 22101.0
+      }
+     ],
+     "label": "Balances as of Jan 29, 2023"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "29,760",
+       "value": 29760.0
+      },
+      {
+       "col": 5,
+       "text": "29,760",
+       "value": 29760.0
+      }
+     ],
+     "label": "Net income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "70",
+       "value": 70.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "70",
+       "value": 70.0
+      }
+     ],
+     "label": "Other comprehensive income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "265",
+       "value": 265.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "403",
+       "value": 403.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "403",
+       "value": 403.0
+      }
+     ],
+     "label": "Issuance of common stock"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(72)",
+       "value": -72.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "(2,783)",
+       "value": -2783.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "(2,783)",
+       "value": -2783.0
+      }
+     ],
+     "label": "Tax withholding related to common stock"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(211)",
+       "value": -211.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "(27)",
+       "value": -27.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "(9,719)",
+       "value": -9719.0
+      },
+      {
+       "col": 5,
+       "text": "(9,746)",
+       "value": -9746.0
+      }
+     ],
+     "label": "Shares repurchased"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "(395)",
+       "value": -395.0
+      },
+      {
+       "col": 5,
+       "text": "(395)",
+       "value": -395.0
+      }
+     ],
+     "label": "Cash dividends declared and paid ($0.016 per common share)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "3,568",
+       "value": 3568.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "3,568",
+       "value": 3568.0
+      }
+     ],
+     "label": "Stock-based compensation"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "24,643",
+       "value": 24643.0
+      },
+      {
+       "col": 1,
+       "text": "25",
+       "value": 25.0
+      },
+      {
+       "col": 2,
+       "text": "13,109",
+       "value": 13109.0
+      },
+      {
+       "col": 3,
+       "text": "27",
+       "value": 27.0
+      },
+      {
+       "col": 4,
+       "text": "29,817",
+       "value": 29817.0
+      },
+      {
+       "col": 5,
+       "text": "42,978",
+       "value": 42978.0
+      }
+     ],
+     "label": "Balances as of Jan 28, 2024"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "72,880",
+       "value": 72880.0
+      },
+      {
+       "col": 5,
+       "text": "72,880",
+       "value": 72880.0
+      }
+     ],
+     "label": "Net income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "1",
+       "value": 1.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "1",
+       "value": 1.0
+      }
+     ],
+     "label": "Other comprehensive income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "203",
+       "value": 203.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "490",
+       "value": 490.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "490",
+       "value": 490.0
+      }
+     ],
+     "label": "Issuance of common stock"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(59)",
+       "value": -59.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "(6,930)",
+       "value": -6930.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "(6,930)",
+       "value": -6930.0
+      }
+     ],
+     "label": "Tax withholding related to common stock"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(310)",
+       "value": -310.0
+      },
+      {
+       "col": 1,
+       "text": "(1)",
+       "value": -1.0
+      },
+      {
+       "col": 2,
+       "text": "(189)",
+       "value": -189.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "(33,825)",
+       "value": -33825.0
+      },
+      {
+       "col": 5,
+       "text": "(34,015)",
+       "value": -34015.0
+      }
+     ],
+     "label": "Shares repurchased"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "(834)",
+       "value": -834.0
+      },
+      {
+       "col": 5,
+       "text": "(834)",
+       "value": -834.0
+      }
+     ],
+     "label": "Cash dividends declared and paid ($0.034 per common share)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "4,757",
+       "value": 4757.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "4,757",
+       "value": 4757.0
+      }
+     ],
+     "label": "Stock-based compensation"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "24,477",
+       "value": 24477.0
+      },
+      {
+       "col": 1,
+       "text": "24",
+       "value": 24.0
+      },
+      {
+       "col": 2,
+       "text": "11,237",
+       "value": 11237.0
+      },
+      {
+       "col": 3,
+       "text": "28",
+       "value": 28.0
+      },
+      {
+       "col": 4,
+       "text": "68,038",
+       "value": 68038.0
+      },
+      {
+       "col": 5,
+       "text": "79,327",
+       "value": 79327.0
+      }
+     ],
+     "label": "Balances as of Jan 26, 2025"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "120,067",
+       "value": 120067.0
+      },
+      {
+       "col": 5,
+       "text": "120,067",
+       "value": 120067.0
+      }
+     ],
+     "label": "Net income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "150",
+       "value": 150.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "150",
+       "value": 150.0
+      }
+     ],
+     "label": "Other comprehensive income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "160",
+       "value": 160.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "644",
+       "value": 644.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "644",
+       "value": 644.0
+      }
+     ],
+     "label": "Issuance of common stock"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(51)",
+       "value": -51.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "(7,948)",
+       "value": -7948.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "(7,948)",
+       "value": -7948.0
+      }
+     ],
+     "label": "Tax withholding related to common stock"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(282)",
+       "value": -282.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "(230)",
+       "value": -230.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "(40,158)",
+       "value": -40158.0
+      },
+      {
+       "col": 5,
+       "text": "(40,388)",
+       "value": -40388.0
+      }
+     ],
+     "label": "Shares repurchased"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "(974)",
+       "value": -974.0
+      },
+      {
+       "col": 5,
+       "text": "(974)",
+       "value": -974.0
+      }
+     ],
+     "label": "Cash dividends declared and paid ($0.04 per common share)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "28",
+       "value": 28.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "28",
+       "value": 28.0
+      }
+     ],
+     "label": "Fair value of partially vested equity awards assumed in connection withacquisitions"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "6,387",
+       "value": 6387.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "6,387",
+       "value": 6387.0
+      }
+     ],
+     "label": "Stock-based compensation"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "24,304",
+       "value": 24304.0
+      },
+      {
+       "col": 1,
+       "text": "24",
+       "value": 24.0
+      },
+      {
+       "col": 2,
+       "text": "10,118",
+       "value": 10118.0
+      },
+      {
+       "col": 3,
+       "text": "178",
+       "value": 178.0
+      },
+      {
+       "col": 4,
+       "text": "146,973",
+       "value": 146973.0
+      },
+      {
+       "col": 5,
+       "text": "157,293",
+       "value": 157293.0
+      }
+     ],
+     "label": "Balances as of Jan 25, 2026"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions, except per share data)"
+  },
+  {
+   "before": "See accompanying Notes to the Consolidated Financial Statements. 54 Table of Contents NVIDIA Corporation and Subsidiaries Consolidated Statements of Cash Flows (In millions)",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | Jan 28, 2024"
+   ],
+   "id": "t0024",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "120,067",
+       "value": 120067.0
+      },
+      {
+       "col": 1,
+       "text": "72,880",
+       "value": 72880.0
+      },
+      {
+       "col": 2,
+       "text": "29,760",
+       "value": 29760.0
+      }
+     ],
+     "label": "Net income"
+    },
+    {
+     "cells": [],
+     "label": "Adjustments to reconcile net income to net cash provided by operating activities:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "6,386",
+       "value": 6386.0
+      },
+      {
+       "col": 1,
+       "text": "4,737",
+       "value": 4737.0
+      },
+      {
+       "col": 2,
+       "text": "3,549",
+       "value": 3549.0
+      }
+     ],
+     "label": "Stock-based compensation expense"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,843",
+       "value": 2843.0
+      },
+      {
+       "col": 1,
+       "text": "1,864",
+       "value": 1864.0
+      },
+      {
+       "col": 2,
+       "text": "1,508",
+       "value": 1508.0
+      }
+     ],
+     "label": "Depreciation and amortization"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(8,918)",
+       "value": -8918.0
+      },
+      {
+       "col": 1,
+       "text": "(1,030)",
+       "value": -1030.0
+      },
+      {
+       "col": 2,
+       "text": "(238)",
+       "value": -238.0
+      }
+     ],
+     "label": "Gains on non-marketable equity securities and publicly-held equity securities, net"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(1,424)",
+       "value": -1424.0
+      },
+      {
+       "col": 1,
+       "text": "(4,477)",
+       "value": -4477.0
+      },
+      {
+       "col": 2,
+       "text": "(2,489)",
+       "value": -2489.0
+      }
+     ],
+     "label": "Deferred income taxes"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(287)",
+       "value": -287.0
+      },
+      {
+       "col": 1,
+       "text": "(502)",
+       "value": -502.0
+      },
+      {
+       "col": 2,
+       "text": "(278)",
+       "value": -278.0
+      }
+     ],
+     "label": "Other"
+    },
+    {
+     "cells": [],
+     "label": "Changes in operating assets and liabilities, net of acquisitions:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(15,399)",
+       "value": -15399.0
+      },
+      {
+       "col": 1,
+       "text": "(13,063)",
+       "value": -13063.0
+      },
+      {
+       "col": 2,
+       "text": "(6,172)",
+       "value": -6172.0
+      }
+     ],
+     "label": "Accounts receivable"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(11,324)",
+       "value": -11324.0
+      },
+      {
+       "col": 1,
+       "text": "(4,781)",
+       "value": -4781.0
+      },
+      {
+       "col": 2,
+       "text": "(98)",
+       "value": -98.0
+      }
+     ],
+     "label": "Inventories"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "577",
+       "value": 577.0
+      },
+      {
+       "col": 1,
+       "text": "(395)",
+       "value": -395.0
+      },
+      {
+       "col": 2,
+       "text": "(1,522)",
+       "value": -1522.0
+      }
+     ],
+     "label": "Prepaid expenses and other assets"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,096",
+       "value": 3096.0
+      },
+      {
+       "col": 1,
+       "text": "3,357",
+       "value": 3357.0
+      },
+      {
+       "col": 2,
+       "text": "1,531",
+       "value": 1531.0
+      }
+     ],
+     "label": "Accounts payable"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "5,257",
+       "value": 5257.0
+      },
+      {
+       "col": 1,
+       "text": "4,278",
+       "value": 4278.0
+      },
+      {
+       "col": 2,
+       "text": "2,025",
+       "value": 2025.0
+      }
+     ],
+     "label": "Accrued and other current liabilities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,844",
+       "value": 1844.0
+      },
+      {
+       "col": 1,
+       "text": "1,221",
+       "value": 1221.0
+      },
+      {
+       "col": 2,
+       "text": "514",
+       "value": 514.0
+      }
+     ],
+     "label": "Other long-term liabilities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "102,718",
+       "value": 102718.0
+      },
+      {
+       "col": 1,
+       "text": "64,089",
+       "value": 64089.0
+      },
+      {
+       "col": 2,
+       "text": "28,090",
+       "value": 28090.0
+      }
+     ],
+     "label": "Net cash provided by operating activities"
+    },
+    {
+     "cells": [],
+     "label": "Cash flows from investing activities:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "15,157",
+       "value": 15157.0
+      },
+      {
+       "col": 1,
+       "text": "495",
+       "value": 495.0
+      },
+      {
+       "col": 2,
+       "text": "50",
+       "value": 50.0
+      }
+     ],
+     "label": "Proceeds from sales of marketable securities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "11,226",
+       "value": 11226.0
+      },
+      {
+       "col": 1,
+       "text": "11,195",
+       "value": 11195.0
+      },
+      {
+       "col": 2,
+       "text": "9,732",
+       "value": 9732.0
+      }
+     ],
+     "label": "Proceeds from maturities of marketable securities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "84",
+       "value": 84.0
+      },
+      {
+       "col": 1,
+       "text": "171",
+       "value": 171.0
+      },
+      {
+       "col": 2,
+       "text": "1",
+       "value": 1.0
+      }
+     ],
+     "label": "Proceeds from sales of non-marketable equity securities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(40,616)",
+       "value": -40616.0
+      },
+      {
+       "col": 1,
+       "text": "(26,575)",
+       "value": -26575.0
+      },
+      {
+       "col": 2,
+       "text": "(18,211)",
+       "value": -18211.0
+      }
+     ],
+     "label": "Purchases of marketable securities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(17,502)",
+       "value": -17502.0
+      },
+      {
+       "col": 1,
+       "text": "(1,486)",
+       "value": -1486.0
+      },
+      {
+       "col": 2,
+       "text": "(862)",
+       "value": -862.0
+      }
+     ],
+     "label": "Purchases of non-marketable equity securities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(13,000)",
+       "value": -13000.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Groq, Inc."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(6,042)",
+       "value": -6042.0
+      },
+      {
+       "col": 1,
+       "text": "(3,236)",
+       "value": -3236.0
+      },
+      {
+       "col": 2,
+       "text": "(1,069)",
+       "value": -1069.0
+      }
+     ],
+     "label": "Purchases related to property and equipment and intangible assets"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(1,535)",
+       "value": -1535.0
+      },
+      {
+       "col": 1,
+       "text": "(1,007)",
+       "value": -1007.0
+      },
+      {
+       "col": 2,
+       "text": "(83)",
+       "value": -83.0
+      }
+     ],
+     "label": "Acquisitions, net of cash acquired"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "22",
+       "value": 22.0
+      },
+      {
+       "col": 2,
+       "text": "(124)",
+       "value": -124.0
+      }
+     ],
+     "label": "Other"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(52,228)",
+       "value": -52228.0
+      },
+      {
+       "col": 1,
+       "text": "(20,421)",
+       "value": -20421.0
+      },
+      {
+       "col": 2,
+       "text": "(10,566)",
+       "value": -10566.0
+      }
+     ],
+     "label": "Net cash used in investing activities"
+    },
+    {
+     "cells": [],
+     "label": "Cash flows from financing activities:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "644",
+       "value": 644.0
+      },
+      {
+       "col": 1,
+       "text": "490",
+       "value": 490.0
+      },
+      {
+       "col": 2,
+       "text": "403",
+       "value": 403.0
+      }
+     ],
+     "label": "Proceeds related to employee stock plans"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(40,086)",
+       "value": -40086.0
+      },
+      {
+       "col": 1,
+       "text": "(33,706)",
+       "value": -33706.0
+      },
+      {
+       "col": 2,
+       "text": "(9,533)",
+       "value": -9533.0
+      }
+     ],
+     "label": "Payments related to repurchases of common stock"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(7,948)",
+       "value": -7948.0
+      },
+      {
+       "col": 1,
+       "text": "(6,930)",
+       "value": -6930.0
+      },
+      {
+       "col": 2,
+       "text": "(2,783)",
+       "value": -2783.0
+      }
+     ],
+     "label": "Payments related to employee stock plan taxes"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(974)",
+       "value": -974.0
+      },
+      {
+       "col": 1,
+       "text": "(834)",
+       "value": -834.0
+      },
+      {
+       "col": 2,
+       "text": "(395)",
+       "value": -395.0
+      }
+     ],
+     "label": "Dividends paid"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(101)",
+       "value": -101.0
+      },
+      {
+       "col": 1,
+       "text": "(129)",
+       "value": -129.0
+      },
+      {
+       "col": 2,
+       "text": "(74)",
+       "value": -74.0
+      }
+     ],
+     "label": "Principal payments on property and equipment and intangible assets"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 1,
+       "text": "(1,250)",
+       "value": -1250.0
+      },
+      {
+       "col": 2,
+       "text": "(1,250)",
+       "value": -1250.0
+      }
+     ],
+     "label": "Repayment of debt"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(9)",
+       "value": -9.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "(1)",
+       "value": -1.0
+      }
+     ],
+     "label": "Other"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(48,474)",
+       "value": -48474.0
+      },
+      {
+       "col": 1,
+       "text": "(42,359)",
+       "value": -42359.0
+      },
+      {
+       "col": 2,
+       "text": "(13,633)",
+       "value": -13633.0
+      }
+     ],
+     "label": "Net cash used in financing activities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,016",
+       "value": 2016.0
+      },
+      {
+       "col": 1,
+       "text": "1,309",
+       "value": 1309.0
+      },
+      {
+       "col": 2,
+       "text": "3,891",
+       "value": 3891.0
+      }
+     ],
+     "label": "Change in cash and cash equivalents"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "8,589",
+       "value": 8589.0
+      },
+      {
+       "col": 1,
+       "text": "7,280",
+       "value": 7280.0
+      },
+      {
+       "col": 2,
+       "text": "3,389",
+       "value": 3389.0
+      }
+     ],
+     "label": "Cash and cash equivalents at beginning of period"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10,605",
+       "value": 10605.0
+      },
+      {
+       "col": 1,
+       "text": "8,589",
+       "value": 8589.0
+      },
+      {
+       "col": 2,
+       "text": "7,280",
+       "value": 7280.0
+      }
+     ],
+     "label": "Cash and cash equivalents at end of period"
+    },
+    {
+     "cells": [],
+     "label": "Supplemental disclosures of cash flow information:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "20,288",
+       "value": 20288.0
+      },
+      {
+       "col": 1,
+       "text": "15,118",
+       "value": 15118.0
+      },
+      {
+       "col": 2,
+       "text": "6,549",
+       "value": 6549.0
+      }
+     ],
+     "label": "Cash paid for income taxes, net"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "We recognize stock-based compensation expense from grants of restricted stock units, or RSUs, performance stock units, or PSUs, and market-based PSUs, and issuances under our employee stock purchase plan, or ESPP. Consolidated Statements of Income include stock-based compensation expense as follows:",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | Jan 28, 2024"
+   ],
+   "id": "t0025",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "261",
+       "value": 261.0
+      },
+      {
+       "col": 1,
+       "text": "178",
+       "value": 178.0
+      },
+      {
+       "col": 2,
+       "text": "141",
+       "value": 141.0
+      }
+     ],
+     "label": "Cost of revenue"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4,676",
+       "value": 4676.0
+      },
+      {
+       "col": 1,
+       "text": "3,423",
+       "value": 3423.0
+      },
+      {
+       "col": 2,
+       "text": "2,532",
+       "value": 2532.0
+      }
+     ],
+     "label": "Research and development"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,449",
+       "value": 1449.0
+      },
+      {
+       "col": 1,
+       "text": "1,136",
+       "value": 1136.0
+      },
+      {
+       "col": 2,
+       "text": "876",
+       "value": 876.0
+      }
+     ],
+     "label": "Sales, general and administrative"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "6,386",
+       "value": 6386.0
+      },
+      {
+       "col": 1,
+       "text": "4,737",
+       "value": 4737.0
+      },
+      {
+       "col": 2,
+       "text": "3,549",
+       "value": 3549.0
+      }
+     ],
+     "label": "Total"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "The following is a summary of equity awards granted under our equity incentive plans:",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | Jan 28, 2024"
+   ],
+   "id": "t0026",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "70",
+       "value": 70.0
+      },
+      {
+       "col": 1,
+       "text": "89",
+       "value": 89.0
+      },
+      {
+       "col": 2,
+       "text": "140",
+       "value": 140.0
+      }
+     ],
+     "label": "Awards granted"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "9,389",
+       "value": 9389.0
+      },
+      {
+       "col": 1,
+       "text": "7,834",
+       "value": 7834.0
+      },
+      {
+       "col": 2,
+       "text": "5,316",
+       "value": 5316.0
+      }
+     ],
+     "label": "Estimated total grant-date fair value"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "133.97",
+       "value": 133.97
+      },
+      {
+       "col": 1,
+       "text": "87.99",
+       "value": 87.99
+      },
+      {
+       "col": 2,
+       "text": "37.41",
+       "value": 37.41
+      }
+     ],
+     "label": "Weighted average grant-date fair value per share"
+    },
+    {
+     "cells": [],
+     "label": "ESPP"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "13",
+       "value": 13.0
+      },
+      {
+       "col": 1,
+       "text": "30",
+       "value": 30.0
+      },
+      {
+       "col": 2,
+       "text": "30",
+       "value": 30.0
+      }
+     ],
+     "label": "Shares purchased"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "49.13",
+       "value": 49.13
+      },
+      {
+       "col": 1,
+       "text": "17.74",
+       "value": 17.74
+      },
+      {
+       "col": 2,
+       "text": "15.81",
+       "value": 15.81
+      }
+     ],
+     "label": "Weighted average price per share"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "20.75",
+       "value": 20.75
+      },
+      {
+       "col": 1,
+       "text": "8.61",
+       "value": 8.61
+      },
+      {
+       "col": 2,
+       "text": "6.99",
+       "value": 6.99
+      }
+     ],
+     "label": "Weighted average grant-date fair value per share"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions, except per share data)"
+  },
+  {
+   "before": "age period of 2.3 years for RSUs, PSUs, and market-based PSUs, and 0.9 years for ESPP. 61 Table of Contents NVIDIA Corporation and Subsidiaries Notes to the Consolidated Financial Statements (Continued) The fair value of shares issued under our ESPP has been estimated with the following assumptions:",
+   "columns": [
+    "Year Ended | Jan 25, 2026 | (Using the Black-Scholes model) | 0.1-2.0 | 3.5%-4.3% | 26%-96%",
+    "Year Ended | Jan 26, 2025 | (Using the Black-Scholes model) | 0.1-2.0 | 3.6%-5.4% | 31%-75%",
+    "Year Ended | Jan 28, 2024 | (Using the Black-Scholes model) | 0.1-2.0 | 3.9%-5.5% | 31%-67%"
+   ],
+   "id": "t0027",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "0.03%",
+       "value": 0.03
+      },
+      {
+       "col": 1,
+       "text": "0.03%",
+       "value": 0.03
+      },
+      {
+       "col": 2,
+       "text": "0.06%",
+       "value": 0.06
+      }
+     ],
+     "label": "Dividend yield"
+    }
+   ],
+   "scale": null,
+   "unit_text": null
+  },
+  {
+   "before": "2.2 billion shares reserved for future issuance under the 2012 Plan. 62 Table of Contents NVIDIA Corporation and Subsidiaries Notes to the Consolidated Financial Statements (Continued) Equity Award Activity The following is a summary of our equity award transactions under our equity incentive plans:",
+   "columns": [
+    "RSUs, PSUs and Market-based PSUs Outstanding | Number of Shares",
+    "RSUs, PSUs and Market-based PSUs Outstanding | Weighted Average Grant-Date Fair Value Per Share"
+   ],
+   "id": "t0028",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "274",
+       "value": 274.0
+      },
+      {
+       "col": 1,
+       "text": "44.75",
+       "value": 44.75
+      }
+     ],
+     "label": "Balance as of Jan 26, 2025"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "70",
+       "value": 70.0
+      },
+      {
+       "col": 1,
+       "text": "133.97",
+       "value": 133.97
+      }
+     ],
+     "label": "Granted"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(146)",
+       "value": -146.0
+      },
+      {
+       "col": 1,
+       "text": "39.14",
+       "value": 39.14
+      }
+     ],
+     "label": "Vested"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(9)",
+       "value": -9.0
+      },
+      {
+       "col": 1,
+       "text": "59.29",
+       "value": 59.29
+      }
+     ],
+     "label": "Canceled and forfeited"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "189",
+       "value": 189.0
+      },
+      {
+       "col": 1,
+       "text": "81.51",
+       "value": 81.51
+      }
+     ],
+     "label": "Balance as of Jan 25, 2026"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "188",
+       "value": 188.0
+      },
+      {
+       "col": 1,
+       "text": "81.15",
+       "value": 81.15
+      }
+     ],
+     "label": "Vested and expected to vest after Jan 25, 2026"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions, except per share data)"
+  },
+  {
+   "before": "ctive vesting dates, during the years ended January 25, 2026, January 26, 2025, and January 28, 2024, was $ 22.2 billion, $ 15.1 billion, and $ 8.2 billion, respectively. Note 4 - Net Income Per Share The following is the basic and diluted net income per share computations for the periods presented:",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | Jan 28, 2024"
+   ],
+   "id": "t0029",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "120,067",
+       "value": 120067.0
+      },
+      {
+       "col": 1,
+       "text": "72,880",
+       "value": 72880.0
+      },
+      {
+       "col": 2,
+       "text": "29,760",
+       "value": 29760.0
+      }
+     ],
+     "label": "Net income"
+    },
+    {
+     "cells": [],
+     "label": "Denominator:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "24,359",
+       "value": 24359.0
+      },
+      {
+       "col": 1,
+       "text": "24,555",
+       "value": 24555.0
+      },
+      {
+       "col": 2,
+       "text": "24,690",
+       "value": 24690.0
+      }
+     ],
+     "label": "Basic weighted average shares"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "155",
+       "value": 155.0
+      },
+      {
+       "col": 1,
+       "text": "249",
+       "value": 249.0
+      },
+      {
+       "col": 2,
+       "text": "250",
+       "value": 250.0
+      }
+     ],
+     "label": "Dilutive impact of outstanding equity awards"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "24,514",
+       "value": 24514.0
+      },
+      {
+       "col": 1,
+       "text": "24,804",
+       "value": 24804.0
+      },
+      {
+       "col": 2,
+       "text": "24,940",
+       "value": 24940.0
+      }
+     ],
+     "label": "Diluted weighted average shares"
+    },
+    {
+     "cells": [],
+     "label": "Net income per share:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4.93",
+       "value": 4.93
+      },
+      {
+       "col": 1,
+       "text": "2.97",
+       "value": 2.97
+      },
+      {
+       "col": 2,
+       "text": "1.21",
+       "value": 1.21
+      }
+     ],
+     "label": "Basic (1)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4.90",
+       "value": 4.9
+      },
+      {
+       "col": 1,
+       "text": "2.94",
+       "value": 2.94
+      },
+      {
+       "col": 2,
+       "text": "1.19",
+       "value": 1.19
+      }
+     ],
+     "label": "Diluted (2)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "41",
+       "value": 41.0
+      },
+      {
+       "col": 1,
+       "text": "51",
+       "value": 51.0
+      },
+      {
+       "col": 2,
+       "text": "150",
+       "value": 150.0
+      }
+     ],
+     "label": "Anti-dilutive equity awards excluded from diluted net income per share"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions, except per share data)"
+  },
+  {
+   "before": "l qualitative impairment tests and concluded that goodwill was no t impaired. 63 Table of Contents NVIDIA Corporation and Subsidiaries Notes to the Consolidated Financial Statements (Continued) Note 6 - Amortizable Intangible Assets The components of our amortizable intangible assets are as follows:",
+   "columns": [
+    "Jan 25, 2026 | Gross CarryingAmount",
+    "Jan 25, 2026 | AccumulatedAmortization",
+    "Jan 25, 2026 | Net CarryingAmount",
+    "Jan 26, 2025 | Gross CarryingAmount",
+    "Jan 26, 2025 | AccumulatedAmortization",
+    "Jan 26, 2025 | Net CarryingAmount"
+   ],
+   "id": "t0030",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "5,656",
+       "value": 5656.0
+      },
+      {
+       "col": 1,
+       "text": "(2,580)",
+       "value": -2580.0
+      },
+      {
+       "col": 2,
+       "text": "3,076",
+       "value": 3076.0
+      },
+      {
+       "col": 3,
+       "text": "2,900",
+       "value": 2900.0
+      },
+      {
+       "col": 4,
+       "text": "(2,264)",
+       "value": -2264.0
+      },
+      {
+       "col": 5,
+       "text": "636",
+       "value": 636.0
+      }
+     ],
+     "label": "Acquisition-related intangible assets"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "528",
+       "value": 528.0
+      },
+      {
+       "col": 1,
+       "text": "(298)",
+       "value": -298.0
+      },
+      {
+       "col": 2,
+       "text": "230",
+       "value": 230.0
+      },
+      {
+       "col": 3,
+       "text": "449",
+       "value": 449.0
+      },
+      {
+       "col": 4,
+       "text": "(278)",
+       "value": -278.0
+      },
+      {
+       "col": 5,
+       "text": "171",
+       "value": 171.0
+      }
+     ],
+     "label": "Patents and licensed technology"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "6,184",
+       "value": 6184.0
+      },
+      {
+       "col": 1,
+       "text": "(2,878)",
+       "value": -2878.0
+      },
+      {
+       "col": 2,
+       "text": "3,306",
+       "value": 3306.0
+      },
+      {
+       "col": 3,
+       "text": "3,349",
+       "value": 3349.0
+      },
+      {
+       "col": 4,
+       "text": "(2,542)",
+       "value": -2542.0
+      },
+      {
+       "col": 5,
+       "text": "807",
+       "value": 807.0
+      }
+     ],
+     "label": "Total intangible assets"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "on expense associated with intangible assets for fiscal years 2026, 2025, and 2024 was $ 488 million, $ 593 million, and $ 614 million, respectively. The following table outlines the estimated future amortization expense related to the net carrying amount of intangible assets as of January 25, 2026:",
+   "columns": [
+    "Future Amortization Expense | Fiscal Year: | 923 | 729 | 592 | 511 | 468"
+   ],
+   "id": "t0031",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "83",
+       "value": 83.0
+      }
+     ],
+     "label": "2032 and thereafter"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,306",
+       "value": 3306.0
+      }
+     ],
+     "label": "Total"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "Securities The fair values of our financial assets are determined using quoted market prices of identical assets or market prices of similar assets from active markets. We review fair value classification on a quarterly basis. The following is a summary of cash equivalents and marketable securities:",
+   "columns": [
+    "Jan 25, 2026 | Cost or AmortizedCost | Cash Equivalents",
+    "Jan 25, 2026 | UnrealizedGain | Cash Equivalents",
+    "Jan 25, 2026 | UnrealizedLoss | Cash Equivalents",
+    "Jan 25, 2026 | EstimatedFair Value | Marketable Securities",
+    "Jan 25, 2026 | Reported as | Other Assets",
+    "Jan 25, 2026 | Reported as | Other Assets",
+    "Jan 25, 2026 | Reported as | Other Assets"
+   ],
+   "id": "t0032",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "21,635",
+       "value": 21635.0
+      },
+      {
+       "col": 1,
+       "text": "77",
+       "value": 77.0
+      },
+      {
+       "col": 2,
+       "text": "(3)",
+       "value": -3.0
+      },
+      {
+       "col": 3,
+       "text": "21,709",
+       "value": 21709.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "21,709",
+       "value": 21709.0
+      },
+      {
+       "col": 6,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Debt securities issued by the U.S. Treasury"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "15,410",
+       "value": 15410.0
+      },
+      {
+       "col": 1,
+       "text": "92",
+       "value": 92.0
+      },
+      {
+       "col": 2,
+       "text": "(3)",
+       "value": -3.0
+      },
+      {
+       "col": 3,
+       "text": "15,499",
+       "value": 15499.0
+      },
+      {
+       "col": 4,
+       "text": "345",
+       "value": 345.0
+      },
+      {
+       "col": 5,
+       "text": "15,154",
+       "value": 15154.0
+      },
+      {
+       "col": 6,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Corporate debt securities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,157",
+       "value": 2157.0
+      },
+      {
+       "col": 1,
+       "text": "4",
+       "value": 4.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "2,161",
+       "value": 2161.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "2,161",
+       "value": 2161.0
+      },
+      {
+       "col": 6,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Debt securities issued by U.S. government agencies"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "110",
+       "value": 110.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "110",
+       "value": 110.0
+      },
+      {
+       "col": 4,
+       "text": "110",
+       "value": 110.0
+      },
+      {
+       "col": 5,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 6,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Certificates of deposit"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "40",
+       "value": 40.0
+      },
+      {
+       "col": 1,
+       "text": "1",
+       "value": 1.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "41",
+       "value": 41.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "41",
+       "value": 41.0
+      },
+      {
+       "col": 6,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Foreign government bonds"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "7,830",
+       "value": 7830.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "7,830",
+       "value": 7830.0
+      },
+      {
+       "col": 4,
+       "text": "7,830",
+       "value": 7830.0
+      },
+      {
+       "col": 5,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 6,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Money market funds"
+    },
+    {
+     "cells": [
+      {
+       "col": 3,
+       "text": "17,726",
+       "value": 17726.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "12,886",
+       "value": 12886.0
+      },
+      {
+       "col": 6,
+       "text": "4,840",
+       "value": 4840.0
+      }
+     ],
+     "label": "Publicly-held equity securities (1) (2)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "47,182",
+       "value": 47182.0
+      },
+      {
+       "col": 1,
+       "text": "174",
+       "value": 174.0
+      },
+      {
+       "col": 2,
+       "text": "(6)",
+       "value": -6.0
+      },
+      {
+       "col": 3,
+       "text": "65,076",
+       "value": 65076.0
+      },
+      {
+       "col": 4,
+       "text": "8,285",
+       "value": 8285.0
+      },
+      {
+       "col": 5,
+       "text": "51,951",
+       "value": 51951.0
+      },
+      {
+       "col": 6,
+       "text": "4,840",
+       "value": 4840.0
+      }
+     ],
+     "label": "Total"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "2026, 2025, and 2024, reflecting the difference between the sale proceeds and the carrying value of the equity securities at the beginning of the period or the purchase date, if later. 65 Table of Contents NVIDIA Corporation and Subsidiaries Notes to the Consolidated Financial Statements (Continued)",
+   "columns": [
+    "Jan 26, 2025 | Pricing Category | Cash Equivalents",
+    "Jan 26, 2025 | Cost or AmortizedCost | Cash Equivalents",
+    "Jan 26, 2025 | UnrealizedGain | Cash Equivalents",
+    "Jan 26, 2025 | UnrealizedLoss | Marketable Securities",
+    "Jan 26, 2025 | EstimatedFair Value | Marketable Securities",
+    "Jan 26, 2025 | Reported as | Marketable Securities"
+   ],
+   "id": "t0033",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "18,504",
+       "value": 18504.0
+      },
+      {
+       "col": 1,
+       "text": "51",
+       "value": 51.0
+      },
+      {
+       "col": 2,
+       "text": "(29)",
+       "value": -29.0
+      },
+      {
+       "col": 3,
+       "text": "18,526",
+       "value": 18526.0
+      },
+      {
+       "col": 4,
+       "text": "2,071",
+       "value": 2071.0
+      },
+      {
+       "col": 5,
+       "text": "16,455",
+       "value": 16455.0
+      }
+     ],
+     "label": "Corporate debt securities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "16,749",
+       "value": 16749.0
+      },
+      {
+       "col": 1,
+       "text": "42",
+       "value": 42.0
+      },
+      {
+       "col": 2,
+       "text": "(22)",
+       "value": -22.0
+      },
+      {
+       "col": 3,
+       "text": "16,769",
+       "value": 16769.0
+      },
+      {
+       "col": 4,
+       "text": "1,801",
+       "value": 1801.0
+      },
+      {
+       "col": 5,
+       "text": "14,968",
+       "value": 14968.0
+      }
+     ],
+     "label": "Debt securities issued by the U.S. Treasury"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,775",
+       "value": 2775.0
+      },
+      {
+       "col": 1,
+       "text": "7",
+       "value": 7.0
+      },
+      {
+       "col": 2,
+       "text": "(5)",
+       "value": -5.0
+      },
+      {
+       "col": 3,
+       "text": "2,777",
+       "value": 2777.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "2,777",
+       "value": 2777.0
+      }
+     ],
+     "label": "Debt securities issued by U.S. government agencies"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "177",
+       "value": 177.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "177",
+       "value": 177.0
+      },
+      {
+       "col": 4,
+       "text": "137",
+       "value": 137.0
+      },
+      {
+       "col": 5,
+       "text": "40",
+       "value": 40.0
+      }
+     ],
+     "label": "Foreign government bonds"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "97",
+       "value": 97.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "97",
+       "value": 97.0
+      },
+      {
+       "col": 4,
+       "text": "97",
+       "value": 97.0
+      },
+      {
+       "col": 5,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Certificates of deposit"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,760",
+       "value": 3760.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 3,
+       "text": "3,760",
+       "value": 3760.0
+      },
+      {
+       "col": 4,
+       "text": "3,760",
+       "value": 3760.0
+      },
+      {
+       "col": 5,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Money market funds"
+    },
+    {
+     "cells": [
+      {
+       "col": 3,
+       "text": "381",
+       "value": 381.0
+      },
+      {
+       "col": 4,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 5,
+       "text": "381",
+       "value": 381.0
+      }
+     ],
+     "label": "Publicly-held equity securities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "42,062",
+       "value": 42062.0
+      },
+      {
+       "col": 1,
+       "text": "100",
+       "value": 100.0
+      },
+      {
+       "col": 2,
+       "text": "(56)",
+       "value": -56.0
+      },
+      {
+       "col": 3,
+       "text": "42,487",
+       "value": 42487.0
+      },
+      {
+       "col": 4,
+       "text": "7,866",
+       "value": 7866.0
+      },
+      {
+       "col": 5,
+       "text": "34,621",
+       "value": 34621.0
+      }
+     ],
+     "label": "Total"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "The following tables provide the breakdown of unrealized losses, aggregated by investment category and length of time that individual debt securities have been in a continuous loss position:",
+   "columns": [
+    "Jan 25, 2026 | Less than 12 Months | Estimated Fair Value",
+    "Jan 25, 2026 | Less than 12 Months | Gross Unrealized Loss",
+    "Jan 26, 2025 | Less than 12 Months | Estimated Fair Value",
+    "Jan 26, 2025 | Less than 12 Months | Gross Unrealized Loss"
+   ],
+   "id": "t0034",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10,666",
+       "value": 10666.0
+      },
+      {
+       "col": 1,
+       "text": "(3)",
+       "value": -3.0
+      },
+      {
+       "col": 2,
+       "text": "6,315",
+       "value": 6315.0
+      },
+      {
+       "col": 3,
+       "text": "(22)",
+       "value": -22.0
+      }
+     ],
+     "label": "Debt securities issued by the U.S. Treasury"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,332",
+       "value": 1332.0
+      },
+      {
+       "col": 1,
+       "text": "(3)",
+       "value": -3.0
+      },
+      {
+       "col": 2,
+       "text": "5,291",
+       "value": 5291.0
+      },
+      {
+       "col": 3,
+       "text": "(29)",
+       "value": -29.0
+      }
+     ],
+     "label": "Corporate debt securities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,134",
+       "value": 1134.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "816",
+       "value": 816.0
+      },
+      {
+       "col": 3,
+       "text": "(5)",
+       "value": -5.0
+      }
+     ],
+     "label": "Debt securities issued by U.S. government agencies"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "13,132",
+       "value": 13132.0
+      },
+      {
+       "col": 1,
+       "text": "(6)",
+       "value": -6.0
+      },
+      {
+       "col": 2,
+       "text": "12,422",
+       "value": 12422.0
+      },
+      {
+       "col": 3,
+       "text": "(56)",
+       "value": -56.0
+      }
+     ],
+     "label": "Total"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": ", 2026 and January 26, 2025 were not significant. Gross unrealized losses are related to fixed income securities, driven primarily by changes in interest rates. The estimated fair value of debt securities included in cash equivalents and marketable securities are shown below by contractual maturity.",
+   "columns": [
+    "Jan 25, 2026"
+   ],
+   "id": "t0035",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "20,427",
+       "value": 20427.0
+      }
+     ],
+     "label": "Less than one year"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "19,093",
+       "value": 19093.0
+      }
+     ],
+     "label": "Due in 1 - 5 years"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "39,520",
+       "value": 39520.0
+      }
+     ],
+     "label": "Total"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "-specific rights and obligations. Gains and losses on these investments, realized and unrealized, are recognized in Other income, net on our Consolidated Statements of Income. Adjustments to the carrying value of our non-marketable equity securities during fiscal years 2026 and 2025 were as follows:",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025"
+   ],
+   "id": "t0036",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,387",
+       "value": 3387.0
+      },
+      {
+       "col": 1,
+       "text": "1,321",
+       "value": 1321.0
+      }
+     ],
+     "label": "Balance at beginning of period"
+    },
+    {
+     "cells": [],
+     "label": "Adjustments related to non-marketable equity securities:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "17,444",
+       "value": 17444.0
+      },
+      {
+       "col": 1,
+       "text": "1,309",
+       "value": 1309.0
+      }
+     ],
+     "label": "Net additions"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,369",
+       "value": 2369.0
+      },
+      {
+       "col": 1,
+       "text": "816",
+       "value": 816.0
+      }
+     ],
+     "label": "Unrealized gains"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(848)",
+       "value": -848.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Reclassification (1)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(101)",
+       "value": -101.0
+      },
+      {
+       "col": 1,
+       "text": "(59)",
+       "value": -59.0
+      }
+     ],
+     "label": "Impairments and unrealized losses"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "22,251",
+       "value": 22251.0
+      },
+      {
+       "col": 1,
+       "text": "3,387",
+       "value": 3387.0
+      }
+     ],
+     "label": "Balance at end of period"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "s to complete their build. Three direct customers accounted for 25 %, 18 %, and 13 % of our accounts receivable balance as of January 25, 2026. Two direct customers accounted for 17 % and 16 % of our accounts receivable balance as of January 26, 2025. Certain balance sheet components are as follows:",
+   "columns": [
+    "Jan 25, 2026",
+    "Jan 26, 2025"
+   ],
+   "id": "t0037",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,807",
+       "value": 3807.0
+      },
+      {
+       "col": 1,
+       "text": "3,408",
+       "value": 3408.0
+      }
+     ],
+     "label": "Raw materials"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "8,822",
+       "value": 8822.0
+      },
+      {
+       "col": 1,
+       "text": "3,399",
+       "value": 3399.0
+      }
+     ],
+     "label": "Work in process"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "8,774",
+       "value": 8774.0
+      },
+      {
+       "col": 1,
+       "text": "3,273",
+       "value": 3273.0
+      }
+     ],
+     "label": "Finished goods"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "21,403",
+       "value": 21403.0
+      },
+      {
+       "col": 1,
+       "text": "10,080",
+       "value": 10080.0
+      }
+     ],
+     "label": "Total inventories (1)"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "(1) In fiscal years 2026 and 2025, we recorded inventory provisions of $ 4.0 billion and $ 1.6 billion, respectively, in cost of revenue.",
+   "columns": [
+    "Jan 25, 2026 | Property and Equipment:",
+    "Jan 26, 2025 | (In years)"
+   ],
+   "id": "t0038",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "777",
+       "value": 777.0
+      },
+      {
+       "col": 1,
+       "text": "511",
+       "value": 511.0
+      }
+     ],
+     "label": "Land"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,891",
+       "value": 2891.0
+      },
+      {
+       "col": 1,
+       "text": "2,076",
+       "value": 2076.0
+      }
+     ],
+     "label": "Buildings, leasehold improvements, and furniture"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "12,619",
+       "value": 12619.0
+      },
+      {
+       "col": 1,
+       "text": "7,568",
+       "value": 7568.0
+      }
+     ],
+     "label": "Equipment, compute hardware, and software"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "683",
+       "value": 683.0
+      },
+      {
+       "col": 1,
+       "text": "529",
+       "value": 529.0
+      }
+     ],
+     "label": "Construction in process"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "16,970",
+       "value": 16970.0
+      },
+      {
+       "col": 1,
+       "text": "10,684",
+       "value": 10684.0
+      }
+     ],
+     "label": "Total property and equipment, gross"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(6,587)",
+       "value": -6587.0
+      },
+      {
+       "col": 1,
+       "text": "(4,401)",
+       "value": -4401.0
+      }
+     ],
+     "label": "Accumulated depreciation and amortization"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10,383",
+       "value": 10383.0
+      },
+      {
+       "col": 1,
+       "text": "6,283",
+       "value": 6283.0
+      }
+     ],
+     "label": "Total property and equipment, net"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "rovements and finance leases was $ 519 million and $ 410 million as of January 25, 2026 and January 26, 2025, respectively. Property, equipment and intangible assets acquired but not paid for during fiscal years 2026, 2025, and 2024 were $ 820 million, $ 525 million, and $ 170 million, respectively.",
+   "columns": [
+    "Jan 25, 2026",
+    "Jan 26, 2025"
+   ],
+   "id": "t0039",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "5,318",
+       "value": 5318.0
+      },
+      {
+       "col": 1,
+       "text": "4,880",
+       "value": 4880.0
+      }
+     ],
+     "label": "Customer program accruals"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,921",
+       "value": 3921.0
+      },
+      {
+       "col": 1,
+       "text": "9",
+       "value": 9.0
+      }
+     ],
+     "label": "Accrued purchase consideration"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,807",
+       "value": 2807.0
+      },
+      {
+       "col": 1,
+       "text": "1,290",
+       "value": 1290.0
+      }
+     ],
+     "label": "Product warranty"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,739",
+       "value": 2739.0
+      },
+      {
+       "col": 1,
+       "text": "2,095",
+       "value": 2095.0
+      }
+     ],
+     "label": "Excess inventory purchase obligations (1)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,669",
+       "value": 2669.0
+      },
+      {
+       "col": 1,
+       "text": "881",
+       "value": 881.0
+      }
+     ],
+     "label": "Taxes payable"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,379",
+       "value": 1379.0
+      },
+      {
+       "col": 1,
+       "text": "837",
+       "value": 837.0
+      }
+     ],
+     "label": "Deferred revenue (2)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,146",
+       "value": 1146.0
+      },
+      {
+       "col": 1,
+       "text": "848",
+       "value": 848.0
+      }
+     ],
+     "label": "Accrued payroll and related expenses"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,373",
+       "value": 1373.0
+      },
+      {
+       "col": 1,
+       "text": "897",
+       "value": 897.0
+      }
+     ],
+     "label": "Other"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "21,352",
+       "value": 21352.0
+      },
+      {
+       "col": 1,
+       "text": "11,737",
+       "value": 11737.0
+      }
+     ],
+     "label": "Total accrued and other current liabilities"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "cost of revenue. (2) Includes customer advances and unearned revenue related to hardware and software support, cloud services, and license and development arrangements. The balance as of January 25, 2026 and January 26, 2025 included $ 160 million and $ 81 million of customer advances, respectively.",
+   "columns": [
+    "Jan 25, 2026",
+    "Jan 26, 2025"
+   ],
+   "id": "t0040",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,958",
+       "value": 3958.0
+      },
+      {
+       "col": 1,
+       "text": "2,188",
+       "value": 2188.0
+      }
+     ],
+     "label": "Income tax payable (1)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,774",
+       "value": 1774.0
+      },
+      {
+       "col": 1,
+       "text": "886",
+       "value": 886.0
+      }
+     ],
+     "label": "Deferred income tax"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,193",
+       "value": 1193.0
+      },
+      {
+       "col": 1,
+       "text": "976",
+       "value": 976.0
+      }
+     ],
+     "label": "Deferred revenue (2)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "381",
+       "value": 381.0
+      },
+      {
+       "col": 1,
+       "text": "195",
+       "value": 195.0
+      }
+     ],
+     "label": "Other"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "7,306",
+       "value": 7306.0
+      },
+      {
+       "col": 1,
+       "text": "4,245",
+       "value": 4245.0
+      }
+     ],
+     "label": "Total other long-term liabilities"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "ily comprised of unrecognized tax benefits and related interest and penalties. (2) Includes unearned revenue related to hardware and software support and cloud services. Deferred Revenue The following table shows the changes in short- and long-term deferred revenue during fiscal years 2026 and 2025:",
+   "columns": [
+    "Jan 25, 2026",
+    "Jan 26, 2025"
+   ],
+   "id": "t0041",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,813",
+       "value": 1813.0
+      },
+      {
+       "col": 1,
+       "text": "1,337",
+       "value": 1337.0
+      }
+     ],
+     "label": "Balance at beginning of period"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "11,137",
+       "value": 11137.0
+      },
+      {
+       "col": 1,
+       "text": "5,083",
+       "value": 5083.0
+      }
+     ],
+     "label": "Deferred revenue additions (1)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(10,378)",
+       "value": -10378.0
+      },
+      {
+       "col": 1,
+       "text": "(4,607)",
+       "value": -4607.0
+      }
+     ],
+     "label": "Revenue recognized (2)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,572",
+       "value": 2572.0
+      },
+      {
+       "col": 1,
+       "text": "1,813",
+       "value": 1813.0
+      }
+     ],
+     "label": "Balance at end of period"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "acts was recorded in other income or expense and offsets the change in fair value of the hedged foreign currency denominated monetary assets and liabilities, which was also recorded in other income or expense. The table below presents the notional value of our foreign currency contracts outstanding:",
+   "columns": [
+    "Jan 25, 2026",
+    "Jan 26, 2025"
+   ],
+   "id": "t0042",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,765",
+       "value": 1765.0
+      },
+      {
+       "col": 1,
+       "text": "1,424",
+       "value": 1424.0
+      }
+     ],
+     "label": "Designated as accounting hedges"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,332",
+       "value": 2332.0
+      },
+      {
+       "col": 1,
+       "text": "1,297",
+       "value": 1297.0
+      }
+     ],
+     "label": "Not designated as accounting hedges"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "o mitigate our potential exposure. The guarantees, classified as credit derivatives with changes in fair value recognized in Other income and expense, were not material. 69 Table of Contents NVIDIA Corporation and Subsidiaries Notes to the Consolidated Financial Statements (Continued) Note 11 - Debt",
+   "columns": [
+    "ExpectedRemaining Term (years)",
+    "EffectiveInterest Rate",
+    "Jan 25, 2026",
+    "Jan 26, 2025"
+   ],
+   "id": "t0043",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "0.6",
+       "value": 0.6
+      },
+      {
+       "col": 1,
+       "text": "3.31%",
+       "value": 3.31
+      },
+      {
+       "col": 2,
+       "text": "1,000",
+       "value": 1000.0
+      },
+      {
+       "col": 3,
+       "text": "1,000",
+       "value": 1000.0
+      }
+     ],
+     "label": "3.20% Notes Due 2026"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2.4",
+       "value": 2.4
+      },
+      {
+       "col": 1,
+       "text": "1.64%",
+       "value": 1.64
+      },
+      {
+       "col": 2,
+       "text": "1,250",
+       "value": 1250.0
+      },
+      {
+       "col": 3,
+       "text": "1,250",
+       "value": 1250.0
+      }
+     ],
+     "label": "1.55% Notes Due 2028"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4.2",
+       "value": 4.2
+      },
+      {
+       "col": 1,
+       "text": "2.93%",
+       "value": 2.93
+      },
+      {
+       "col": 2,
+       "text": "1,500",
+       "value": 1500.0
+      },
+      {
+       "col": 3,
+       "text": "1,500",
+       "value": 1500.0
+      }
+     ],
+     "label": "2.85% Notes Due 2030"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "5.4",
+       "value": 5.4
+      },
+      {
+       "col": 1,
+       "text": "2.09%",
+       "value": 2.09
+      },
+      {
+       "col": 2,
+       "text": "1,250",
+       "value": 1250.0
+      },
+      {
+       "col": 3,
+       "text": "1,250",
+       "value": 1250.0
+      }
+     ],
+     "label": "2.00% Notes Due 2031"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "14.2",
+       "value": 14.2
+      },
+      {
+       "col": 1,
+       "text": "3.54%",
+       "value": 3.54
+      },
+      {
+       "col": 2,
+       "text": "1,000",
+       "value": 1000.0
+      },
+      {
+       "col": 3,
+       "text": "1,000",
+       "value": 1000.0
+      }
+     ],
+     "label": "3.50% Notes Due 2040"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "24.2",
+       "value": 24.2
+      },
+      {
+       "col": 1,
+       "text": "3.54%",
+       "value": 3.54
+      },
+      {
+       "col": 2,
+       "text": "2,000",
+       "value": 2000.0
+      },
+      {
+       "col": 3,
+       "text": "2,000",
+       "value": 2000.0
+      }
+     ],
+     "label": "3.50% Notes Due 2050"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "34.2",
+       "value": 34.2
+      },
+      {
+       "col": 1,
+       "text": "3.73%",
+       "value": 3.73
+      },
+      {
+       "col": 2,
+       "text": "500",
+       "value": 500.0
+      },
+      {
+       "col": 3,
+       "text": "500",
+       "value": 500.0
+      }
+     ],
+     "label": "3.70% Notes Due 2060"
+    },
+    {
+     "cells": [
+      {
+       "col": 2,
+       "text": "(32)",
+       "value": -32.0
+      },
+      {
+       "col": 3,
+       "text": "(37)",
+       "value": -37.0
+      }
+     ],
+     "label": "Unamortized debt discount and issuance costs"
+    },
+    {
+     "cells": [
+      {
+       "col": 2,
+       "text": "8,468",
+       "value": 8468.0
+      },
+      {
+       "col": 3,
+       "text": "8,463",
+       "value": 8463.0
+      }
+     ],
+     "label": "Net carrying amount"
+    },
+    {
+     "cells": [
+      {
+       "col": 2,
+       "text": "(999)",
+       "value": -999.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      }
+     ],
+     "label": "Less short-term portion"
+    },
+    {
+     "cells": [
+      {
+       "col": 2,
+       "text": "7,469",
+       "value": 7469.0
+      },
+      {
+       "col": 3,
+       "text": "8,463",
+       "value": 8463.0
+      }
+     ],
+     "label": "Total long-term portion"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": " Statements (Continued) Accrual for Product Warranty Liabilities The estimated amount of product warranty liabilities was $ 2.8 billion and $ 1.3 billion as of January 25, 2026 and January 26, 2025, respectively. The estimated product returns and product warranty activity consisted of the following:",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | Jan 28, 2024"
+   ],
+   "id": "t0044",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,290",
+       "value": 1290.0
+      },
+      {
+       "col": 1,
+       "text": "306",
+       "value": 306.0
+      },
+      {
+       "col": 2,
+       "text": "82",
+       "value": 82.0
+      }
+     ],
+     "label": "Balance at beginning of period"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,474",
+       "value": 2474.0
+      },
+      {
+       "col": 1,
+       "text": "1,203",
+       "value": 1203.0
+      },
+      {
+       "col": 2,
+       "text": "278",
+       "value": 278.0
+      }
+     ],
+     "label": "Additions"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(957)",
+       "value": -957.0
+      },
+      {
+       "col": 1,
+       "text": "(219)",
+       "value": -219.0
+      },
+      {
+       "col": 2,
+       "text": "(54)",
+       "value": -54.0
+      }
+     ],
+     "label": "Utilization"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,807",
+       "value": 2807.0
+      },
+      {
+       "col": 1,
+       "text": "1,290",
+       "value": 1290.0
+      },
+      {
+       "col": 2,
+       "text": "306",
+       "value": 306.0
+      }
+     ],
+     "label": "Balance at end of period"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "s new and updated income tax disclosures, including disaggregation of information in the rate reconciliation and income taxes paid, which we adopted on a prospective basis for the year ending January 25, 2026. The Income tax expense applicable to income before income taxes consists of the following:",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | Jan 28, 2024"
+   ],
+   "id": "t0045",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "19,039",
+       "value": 19039.0
+      },
+      {
+       "col": 1,
+       "text": "14,032",
+       "value": 14032.0
+      },
+      {
+       "col": 2,
+       "text": "5,710",
+       "value": 5710.0
+      }
+     ],
+     "label": "Federal"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,218",
+       "value": 1218.0
+      },
+      {
+       "col": 1,
+       "text": "892",
+       "value": 892.0
+      },
+      {
+       "col": 2,
+       "text": "335",
+       "value": 335.0
+      }
+     ],
+     "label": "State"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,550",
+       "value": 2550.0
+      },
+      {
+       "col": 1,
+       "text": "699",
+       "value": 699.0
+      },
+      {
+       "col": 2,
+       "text": "502",
+       "value": 502.0
+      }
+     ],
+     "label": "Foreign"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "22,807",
+       "value": 22807.0
+      },
+      {
+       "col": 1,
+       "text": "15,623",
+       "value": 15623.0
+      },
+      {
+       "col": 2,
+       "text": "6,547",
+       "value": 6547.0
+      }
+     ],
+     "label": "Total current"
+    },
+    {
+     "cells": [],
+     "label": "Deferred income taxes:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(1,364)",
+       "value": -1364.0
+      },
+      {
+       "col": 1,
+       "text": "(4,515)",
+       "value": -4515.0
+      },
+      {
+       "col": 2,
+       "text": "(2,499)",
+       "value": -2499.0
+      }
+     ],
+     "label": "Federal"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(885)",
+       "value": -885.0
+      },
+      {
+       "col": 1,
+       "text": "(242)",
+       "value": -242.0
+      },
+      {
+       "col": 2,
+       "text": "(206)",
+       "value": -206.0
+      }
+     ],
+     "label": "State"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "825",
+       "value": 825.0
+      },
+      {
+       "col": 1,
+       "text": "280",
+       "value": 280.0
+      },
+      {
+       "col": 2,
+       "text": "216",
+       "value": 216.0
+      }
+     ],
+     "label": "Foreign"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(1,424)",
+       "value": -1424.0
+      },
+      {
+       "col": 1,
+       "text": "(4,477)",
+       "value": -4477.0
+      },
+      {
+       "col": 2,
+       "text": "(2,489)",
+       "value": -2489.0
+      }
+     ],
+     "label": "Total deferred"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "21,383",
+       "value": 21383.0
+      },
+      {
+       "col": 1,
+       "text": "11,146",
+       "value": 11146.0
+      },
+      {
+       "col": 2,
+       "text": "4,058",
+       "value": 4058.0
+      }
+     ],
+     "label": "Income tax expense"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "72 Table of Contents NVIDIA Corporation and Subsidiaries Notes to the Consolidated Financial Statements (Continued) Income before income tax consists of the following:",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | Jan 28, 2024"
+   ],
+   "id": "t0046",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "123,181",
+       "value": 123181.0
+      },
+      {
+       "col": 1,
+       "text": "77,456",
+       "value": 77456.0
+      },
+      {
+       "col": 2,
+       "text": "29,495",
+       "value": 29495.0
+      }
+     ],
+     "label": "U.S."
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "18,269",
+       "value": 18269.0
+      },
+      {
+       "col": 1,
+       "text": "6,570",
+       "value": 6570.0
+      },
+      {
+       "col": 2,
+       "text": "4,323",
+       "value": 4323.0
+      }
+     ],
+     "label": "Foreign"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "141,450",
+       "value": 141450.0
+      },
+      {
+       "col": 1,
+       "text": "84,026",
+       "value": 84026.0
+      },
+      {
+       "col": 2,
+       "text": "33,818",
+       "value": 33818.0
+      }
+     ],
+     "label": "Income before income tax"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "The income tax expense (benefit) differs from the amount computed by applying the U.S. federal statutory rate of 21.0 % to income before income taxes for the fiscal year ended January 25, 2026 as follows:",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 25, 2026"
+   ],
+   "id": "t0047",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "29,704",
+       "value": 29704.0
+      },
+      {
+       "col": 1,
+       "text": "21.0%",
+       "value": 21.0
+      }
+     ],
+     "label": "US Federal Statutory Tax Rate"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "258",
+       "value": 258.0
+      },
+      {
+       "col": 1,
+       "text": "0.2%",
+       "value": 0.2
+      }
+     ],
+     "label": "State and Local Income Taxes, Net of Federal Income Tax Effect (1)"
+    },
+    {
+     "cells": [],
+     "label": "Foreign tax effects"
+    },
+    {
+     "cells": [],
+     "label": "Israel"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(3,064)",
+       "value": -3064.0
+      },
+      {
+       "col": 1,
+       "text": "(2.2)%",
+       "value": -2.2
+      }
+     ],
+     "label": "Reduced statutory tax rate on qualifying income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,606",
+       "value": 1606.0
+      },
+      {
+       "col": 1,
+       "text": "1.2%",
+       "value": 1.2
+      }
+     ],
+     "label": "Other"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "741",
+       "value": 741.0
+      },
+      {
+       "col": 1,
+       "text": "0.5%",
+       "value": 0.5
+      }
+     ],
+     "label": "Other foreign jurisdictions"
+    },
+    {
+     "cells": [],
+     "label": "Effect of cross-border tax laws"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(4,208)",
+       "value": -4208.0
+      },
+      {
+       "col": 1,
+       "text": "(3.0)%",
+       "value": -3.0
+      }
+     ],
+     "label": "Foreign-derived deduction eligible income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(142)",
+       "value": -142.0
+      },
+      {
+       "col": 1,
+       "text": "(0.1)%",
+       "value": -0.1
+      }
+     ],
+     "label": "Other"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(1,933)",
+       "value": -1933.0
+      },
+      {
+       "col": 1,
+       "text": "(1.4)%",
+       "value": -1.4
+      }
+     ],
+     "label": "Tax credits"
+    },
+    {
+     "cells": [],
+     "label": "Nontaxable or nondeductible items"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(1,475)",
+       "value": -1475.0
+      },
+      {
+       "col": 1,
+       "text": "(1.0)%",
+       "value": -1.0
+      }
+     ],
+     "label": "Stock-based compensation"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "29",
+       "value": 29.0
+      }
+     ],
+     "label": "Other"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(133)",
+       "value": -133.0
+      },
+      {
+       "col": 1,
+       "text": "(0.1)%",
+       "value": -0.1
+      }
+     ],
+     "label": "Other (2)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "21,383",
+       "value": 21383.0
+      },
+      {
+       "col": 1,
+       "text": "15.1%",
+       "value": 15.1
+      }
+     ],
+     "label": "Income tax expense"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions, except percentages)"
+  },
+  {
+   "before": "tion and Subsidiaries Notes to the Consolidated Financial Statements (Continued) The income tax expense (benefit) differs from the amount computed by applying the U.S. federal statutory rate of 21% to income before income taxes for fiscal years ended January 26, 2025 and January 28, 2024 as follows:",
+   "columns": [
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | Jan 28, 2024",
+    "Year Ended | Jan 28, 2024"
+   ],
+   "id": "t0048",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "17,645",
+       "value": 17645.0
+      },
+      {
+       "col": 1,
+       "text": "21.0%",
+       "value": 21.0
+      },
+      {
+       "col": 2,
+       "text": "7,102",
+       "value": 7102.0
+      },
+      {
+       "col": 3,
+       "text": "21.0%",
+       "value": 21.0
+      }
+     ],
+     "label": "Tax expense computed at federal statutory rate"
+    },
+    {
+     "cells": [],
+     "label": "Expense (benefit) resulting from:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "554",
+       "value": 554.0
+      },
+      {
+       "col": 1,
+       "text": "0.7%",
+       "value": 0.7
+      },
+      {
+       "col": 2,
+       "text": "120",
+       "value": 120.0
+      },
+      {
+       "col": 3,
+       "text": "0.4%",
+       "value": 0.4
+      }
+     ],
+     "label": "State income taxes, net of federal tax effect"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(2,976)",
+       "value": -2976.0
+      },
+      {
+       "col": 1,
+       "text": "(3.5)%",
+       "value": -3.5
+      },
+      {
+       "col": 2,
+       "text": "(1,408)",
+       "value": -1408.0
+      },
+      {
+       "col": 3,
+       "text": "(4.2)%",
+       "value": -4.2
+      }
+     ],
+     "label": "Foreign-derived deduction eligible income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(2,097)",
+       "value": -2097.0
+      },
+      {
+       "col": 1,
+       "text": "(2.5)%",
+       "value": -2.5
+      },
+      {
+       "col": 2,
+       "text": "(741)",
+       "value": -741.0
+      },
+      {
+       "col": 3,
+       "text": "(2.2)%",
+       "value": -2.2
+      }
+     ],
+     "label": "Stock-based compensation"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(990)",
+       "value": -990.0
+      },
+      {
+       "col": 1,
+       "text": "(1.2)%",
+       "value": -1.2
+      },
+      {
+       "col": 2,
+       "text": "(431)",
+       "value": -431.0
+      },
+      {
+       "col": 3,
+       "text": "(1.3)%",
+       "value": -1.3
+      }
+     ],
+     "label": "U.S. federal research and development tax credit"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(984)",
+       "value": -984.0
+      },
+      {
+       "col": 1,
+       "text": "(1.2)%",
+       "value": -1.2
+      },
+      {
+       "col": 2,
+       "text": "(467)",
+       "value": -467.0
+      },
+      {
+       "col": 3,
+       "text": "(1.4)%",
+       "value": -1.4
+      }
+     ],
+     "label": "Foreign tax rate differential"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(6)",
+       "value": -6.0
+      },
+      {
+       "col": 2,
+       "text": "(117)",
+       "value": -117.0
+      },
+      {
+       "col": 3,
+       "text": "(0.3)%",
+       "value": -0.3
+      }
+     ],
+     "label": "Other"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "11,146",
+       "value": 11146.0
+      },
+      {
+       "col": 1,
+       "text": "13.3%",
+       "value": 13.3
+      },
+      {
+       "col": 2,
+       "text": "4,058",
+       "value": 4058.0
+      },
+      {
+       "col": 3,
+       "text": "12.0%",
+       "value": 12.0
+      }
+     ],
+     "label": "Income tax expense"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions, except percentages)"
+  },
+  {
+   "before": "to law and contains several changes to key U.S. federal income tax laws. We have recognized the tax effects of currently effective OBBBA provisions in our results for fiscal year 2026. The amount of cash paid for income taxes (net of refunds) for the fiscal year ended January 25, 2026 is as follows:",
+   "columns": [
+    "Year Ended | Jan 25, 2026"
+   ],
+   "id": "t0049",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "16,755",
+       "value": 16755.0
+      }
+     ],
+     "label": "Federal"
+    },
+    {
+     "cells": [],
+     "label": "State"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,049",
+       "value": 1049.0
+      }
+     ],
+     "label": "California"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,041",
+       "value": 1041.0
+      }
+     ],
+     "label": "Other"
+    },
+    {
+     "cells": [],
+     "label": "Foreign"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,287",
+       "value": 1287.0
+      }
+     ],
+     "label": "Israel"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "156",
+       "value": 156.0
+      }
+     ],
+     "label": "Other"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "20,288",
+       "value": 20288.0
+      }
+     ],
+     "label": "Total income taxes paid, net of refunds"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "74 Table of Contents NVIDIA Corporation and Subsidiaries Notes to the Consolidated Financial Statements (Continued) The tax effect of temporary differences that gives rise to significant portions of the deferred tax assets and liabilities are presented below:",
+   "columns": [
+    "Jan 25, 2026",
+    "Jan 26, 2025"
+   ],
+   "id": "t0050",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "5,436",
+       "value": 5436.0
+      },
+      {
+       "col": 1,
+       "text": "6,256",
+       "value": 6256.0
+      }
+     ],
+     "label": "Capitalized research and development expenditure"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "5,389",
+       "value": 5389.0
+      },
+      {
+       "col": 1,
+       "text": "2,820",
+       "value": 2820.0
+      }
+     ],
+     "label": "Net controlled foreign corporation tested income deferred tax assets"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,644",
+       "value": 3644.0
+      },
+      {
+       "col": 1,
+       "text": "2,058",
+       "value": 2058.0
+      }
+     ],
+     "label": "Accruals and reserves, not currently deductible for tax purposes"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "718",
+       "value": 718.0
+      },
+      {
+       "col": 1,
+       "text": "759",
+       "value": 759.0
+      }
+     ],
+     "label": "Research and other tax credit carryforwards"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "554",
+       "value": 554.0
+      },
+      {
+       "col": 1,
+       "text": "299",
+       "value": 299.0
+      }
+     ],
+     "label": "Operating lease liabilities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "443",
+       "value": 443.0
+      },
+      {
+       "col": 1,
+       "text": "456",
+       "value": 456.0
+      }
+     ],
+     "label": "Net operating loss and capital loss carryforwards"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "679",
+       "value": 679.0
+      },
+      {
+       "col": 1,
+       "text": "566",
+       "value": 566.0
+      }
+     ],
+     "label": "Other deferred tax assets"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "16,863",
+       "value": 16863.0
+      },
+      {
+       "col": 1,
+       "text": "13,214",
+       "value": 13214.0
+      }
+     ],
+     "label": "Gross deferred tax assets"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(768)",
+       "value": -768.0
+      },
+      {
+       "col": 1,
+       "text": "(1,610)",
+       "value": -1610.0
+      }
+     ],
+     "label": "Less valuation allowance"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "16,095",
+       "value": 16095.0
+      },
+      {
+       "col": 1,
+       "text": "11,604",
+       "value": 11604.0
+      }
+     ],
+     "label": "Total deferred tax assets"
+    },
+    {
+     "cells": [],
+     "label": "Deferred tax liabilities:"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(2,227)",
+       "value": -2227.0
+      },
+      {
+       "col": 1,
+       "text": "(264)",
+       "value": -264.0
+      }
+     ],
+     "label": "Equity investments"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(1,813)",
+       "value": -1813.0
+      },
+      {
+       "col": 1,
+       "text": "(891)",
+       "value": -891.0
+      }
+     ],
+     "label": "Unremitted earnings of foreign subsidiaries"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(533)",
+       "value": -533.0
+      },
+      {
+       "col": 1,
+       "text": "(286)",
+       "value": -286.0
+      }
+     ],
+     "label": "Operating lease assets"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(38)",
+       "value": -38.0
+      },
+      {
+       "col": 1,
+       "text": "(70)",
+       "value": -70.0
+      }
+     ],
+     "label": "Acquired intangibles"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(4,611)",
+       "value": -4611.0
+      },
+      {
+       "col": 1,
+       "text": "(1,511)",
+       "value": -1511.0
+      }
+     ],
+     "label": "Gross deferred tax liabilities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "11,484",
+       "value": 11484.0
+      },
+      {
+       "col": 1,
+       "text": "10,093",
+       "value": 10093.0
+      }
+     ],
+     "label": "Net deferred tax asset (1)"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "foreign tax provisions. If any such limitations apply, the tax attributes may expire or be denied before utilization. 75 Table of Contents NVIDIA Corporation and Subsidiaries Notes to the Consolidated Financial Statements (Continued) A reconciliation of gross unrecognized tax benefits is as follows:",
+   "columns": [
+    "Jan 25, 2026",
+    "Jan 26, 2025",
+    "Jan 28, 2024"
+   ],
+   "id": "t0051",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,861",
+       "value": 2861.0
+      },
+      {
+       "col": 1,
+       "text": "1,670",
+       "value": 1670.0
+      },
+      {
+       "col": 2,
+       "text": "1,238",
+       "value": 1238.0
+      }
+     ],
+     "label": "Balance at beginning of period"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,959",
+       "value": 1959.0
+      },
+      {
+       "col": 1,
+       "text": "1,268",
+       "value": 1268.0
+      },
+      {
+       "col": 2,
+       "text": "616",
+       "value": 616.0
+      }
+     ],
+     "label": "Increases in tax positions for current year"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "57",
+       "value": 57.0
+      },
+      {
+       "col": 1,
+       "text": "48",
+       "value": 48.0
+      },
+      {
+       "col": 2,
+       "text": "87",
+       "value": 87.0
+      }
+     ],
+     "label": "Increases in tax positions for prior years"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(224)",
+       "value": -224.0
+      },
+      {
+       "col": 1,
+       "text": "(27)",
+       "value": -27.0
+      },
+      {
+       "col": 2,
+       "text": "(19)",
+       "value": -19.0
+      }
+     ],
+     "label": "Lapse in statute of limitations"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(157)",
+       "value": -157.0
+      },
+      {
+       "col": 1,
+       "text": "(88)",
+       "value": -88.0
+      },
+      {
+       "col": 2,
+       "text": "(148)",
+       "value": -148.0
+      }
+     ],
+     "label": "Decreases in tax positions for prior years"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(76)",
+       "value": -76.0
+      },
+      {
+       "col": 1,
+       "text": "(10)",
+       "value": -10.0
+      },
+      {
+       "col": 2,
+       "text": "(104)",
+       "value": -104.0
+      }
+     ],
+     "label": "Settlements"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4,420",
+       "value": 4420.0
+      },
+      {
+       "col": 1,
+       "text": "2,861",
+       "value": 2861.0
+      },
+      {
+       "col": 2,
+       "text": "1,670",
+       "value": 1670.0
+      }
+     ],
+     "label": "Balance at end of period"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "Our CODM does not review any information regarding total assets on a reportable segment basis. There are no intersegment transactions. The accounting policies for segment reporting are the same as for our consolidated financial statements. The table below presents details of our reportable segments.",
+   "columns": [
+    "Compute & Networking",
+    "Graphics",
+    "Total"
+   ],
+   "id": "t0052",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "193,479",
+       "value": 193479.0
+      },
+      {
+       "col": 1,
+       "text": "22,459",
+       "value": 22459.0
+      },
+      {
+       "col": 2,
+       "text": "215,938",
+       "value": 215938.0
+      }
+     ],
+     "label": "Revenue"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "63,338",
+       "value": 63338.0
+      },
+      {
+       "col": 1,
+       "text": "13,303",
+       "value": 13303.0
+      },
+      {
+       "col": 2,
+       "text": "76,641",
+       "value": 76641.0
+      }
+     ],
+     "label": "Other segment items (1)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "130,141",
+       "value": 130141.0
+      },
+      {
+       "col": 1,
+       "text": "9,156",
+       "value": 9156.0
+      },
+      {
+       "col": 2,
+       "text": "139,297",
+       "value": 139297.0
+      }
+     ],
+     "label": "Operating income"
+    },
+    {
+     "cells": [],
+     "label": "Year Ended Jan 26, 2025"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "116,193",
+       "value": 116193.0
+      },
+      {
+       "col": 1,
+       "text": "14,304",
+       "value": 14304.0
+      },
+      {
+       "col": 2,
+       "text": "130,497",
+       "value": 130497.0
+      }
+     ],
+     "label": "Revenue"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "33,318",
+       "value": 33318.0
+      },
+      {
+       "col": 1,
+       "text": "9,219",
+       "value": 9219.0
+      },
+      {
+       "col": 2,
+       "text": "42,537",
+       "value": 42537.0
+      }
+     ],
+     "label": "Other segment items (1)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "82,875",
+       "value": 82875.0
+      },
+      {
+       "col": 1,
+       "text": "5,085",
+       "value": 5085.0
+      },
+      {
+       "col": 2,
+       "text": "87,960",
+       "value": 87960.0
+      }
+     ],
+     "label": "Operating income"
+    },
+    {
+     "cells": [],
+     "label": "Year Ended Jan 28, 2024"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "47,405",
+       "value": 47405.0
+      },
+      {
+       "col": 1,
+       "text": "13,517",
+       "value": 13517.0
+      },
+      {
+       "col": 2,
+       "text": "60,922",
+       "value": 60922.0
+      }
+     ],
+     "label": "Revenue"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "15,389",
+       "value": 15389.0
+      },
+      {
+       "col": 1,
+       "text": "7,671",
+       "value": 7671.0
+      },
+      {
+       "col": 2,
+       "text": "23,060",
+       "value": 23060.0
+      }
+     ],
+     "label": "Other segment items (1)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "32,016",
+       "value": 32016.0
+      },
+      {
+       "col": 1,
+       "text": "5,846",
+       "value": 5846.0
+      },
+      {
+       "col": 2,
+       "text": "37,862",
+       "value": 37862.0
+      }
+     ],
+     "label": "Operating income"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "cisions or assessing financial performance. 77 Table of Contents NVIDIA Corporation and Subsidiaries Notes to the Consolidated Financial Statements (Continued) A reconciliation of segment operating income to consolidated income before income tax for fiscal years 2026, 2025, and 2024 were as follows:",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | Jan 28, 2024"
+   ],
+   "id": "t0053",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "139,297",
+       "value": 139297.0
+      },
+      {
+       "col": 1,
+       "text": "87,960",
+       "value": 87960.0
+      },
+      {
+       "col": 2,
+       "text": "37,862",
+       "value": 37862.0
+      }
+     ],
+     "label": "Segment operating income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(6,386)",
+       "value": -6386.0
+      },
+      {
+       "col": 1,
+       "text": "(4,737)",
+       "value": -4737.0
+      },
+      {
+       "col": 2,
+       "text": "(3,549)",
+       "value": -3549.0
+      }
+     ],
+     "label": "Stock-based compensation expense"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(1,997)",
+       "value": -1997.0
+      },
+      {
+       "col": 1,
+       "text": "(1,171)",
+       "value": -1171.0
+      },
+      {
+       "col": 2,
+       "text": "(728)",
+       "value": -728.0
+      }
+     ],
+     "label": "Unallocated operating expenses"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(527)",
+       "value": -527.0
+      },
+      {
+       "col": 1,
+       "text": "(599)",
+       "value": -599.0
+      },
+      {
+       "col": 2,
+       "text": "(613)",
+       "value": -613.0
+      }
+     ],
+     "label": "Acquisition-related and other costs"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,300",
+       "value": 2300.0
+      },
+      {
+       "col": 1,
+       "text": "1,786",
+       "value": 1786.0
+      },
+      {
+       "col": 2,
+       "text": "866",
+       "value": 866.0
+      }
+     ],
+     "label": "Interest income"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "(259)",
+       "value": -259.0
+      },
+      {
+       "col": 1,
+       "text": "(247)",
+       "value": -247.0
+      },
+      {
+       "col": 2,
+       "text": "(257)",
+       "value": -257.0
+      }
+     ],
+     "label": "Interest expense"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "9,022",
+       "value": 9022.0
+      },
+      {
+       "col": 1,
+       "text": "1,034",
+       "value": 1034.0
+      },
+      {
+       "col": 2,
+       "text": "237",
+       "value": 237.0
+      }
+     ],
+     "label": "Other income, net"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "141,450",
+       "value": 141450.0
+      },
+      {
+       "col": 1,
+       "text": "84,026",
+       "value": 84026.0
+      },
+      {
+       "col": 2,
+       "text": "33,818",
+       "value": 33818.0
+      }
+     ],
+     "label": "Consolidated income before income tax"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "Revenue by geographic area is based upon the location of the customers\u2019 headquarters. The end customer and shipping location may be different from our customers' headquarters location.",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | Jan 28, 2024"
+   ],
+   "id": "t0054",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "149,617",
+       "value": 149617.0
+      },
+      {
+       "col": 1,
+       "text": "77,482",
+       "value": 77482.0
+      },
+      {
+       "col": 2,
+       "text": "31,533",
+       "value": 31533.0
+      }
+     ],
+     "label": "United States"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "42,345",
+       "value": 42345.0
+      },
+      {
+       "col": 1,
+       "text": "23,600",
+       "value": 23600.0
+      },
+      {
+       "col": 2,
+       "text": "14,912",
+       "value": 14912.0
+      }
+     ],
+     "label": "Taiwan (2)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "19,677",
+       "value": 19677.0
+      },
+      {
+       "col": 1,
+       "text": "25,048",
+       "value": 25048.0
+      },
+      {
+       "col": 2,
+       "text": "12,330",
+       "value": 12330.0
+      }
+     ],
+     "label": "China (including Hong Kong)"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4,299",
+       "value": 4299.0
+      },
+      {
+       "col": 1,
+       "text": "4,367",
+       "value": 4367.0
+      },
+      {
+       "col": 2,
+       "text": "2,147",
+       "value": 2147.0
+      }
+     ],
+     "label": "Other"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "215,938",
+       "value": 215938.0
+      },
+      {
+       "col": 1,
+       "text": "130,497",
+       "value": 130497.0
+      },
+      {
+       "col": 2,
+       "text": "60,922",
+       "value": 60922.0
+      }
+     ],
+     "label": "Total revenue"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "e direct customer represented 13 % of total revenue, and were primarily attributable to the Compute & Networking segment. 78 Table of Contents NVIDIA Corporation and Subsidiaries Notes to the Consolidated Financial Statements (Continued) The following table summarizes revenue by specialized markets:",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | Jan 28, 2024"
+   ],
+   "id": "t0055",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "193,737",
+       "value": 193737.0
+      },
+      {
+       "col": 1,
+       "text": "115,186",
+       "value": 115186.0
+      },
+      {
+       "col": 2,
+       "text": "47,525",
+       "value": 47525.0
+      }
+     ],
+     "label": "Data Center"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "162,361",
+       "value": 162361.0
+      },
+      {
+       "col": 1,
+       "text": "102,196",
+       "value": 102196.0
+      },
+      {
+       "col": 2,
+       "text": "38,950",
+       "value": 38950.0
+      }
+     ],
+     "label": "Compute"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "31,376",
+       "value": 31376.0
+      },
+      {
+       "col": 1,
+       "text": "12,990",
+       "value": 12990.0
+      },
+      {
+       "col": 2,
+       "text": "8,575",
+       "value": 8575.0
+      }
+     ],
+     "label": "Networking"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "16,042",
+       "value": 16042.0
+      },
+      {
+       "col": 1,
+       "text": "11,350",
+       "value": 11350.0
+      },
+      {
+       "col": 2,
+       "text": "10,447",
+       "value": 10447.0
+      }
+     ],
+     "label": "Gaming"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,191",
+       "value": 3191.0
+      },
+      {
+       "col": 1,
+       "text": "1,878",
+       "value": 1878.0
+      },
+      {
+       "col": 2,
+       "text": "1,553",
+       "value": 1553.0
+      }
+     ],
+     "label": "Professional Visualization"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,349",
+       "value": 2349.0
+      },
+      {
+       "col": 1,
+       "text": "1,694",
+       "value": 1694.0
+      },
+      {
+       "col": 2,
+       "text": "1,091",
+       "value": 1091.0
+      }
+     ],
+     "label": "Automotive"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "619",
+       "value": 619.0
+      },
+      {
+       "col": 1,
+       "text": "389",
+       "value": 389.0
+      },
+      {
+       "col": 2,
+       "text": "306",
+       "value": 306.0
+      }
+     ],
+     "label": "OEM and Other"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "215,938",
+       "value": 215938.0
+      },
+      {
+       "col": 1,
+       "text": "130,497",
+       "value": 130497.0
+      },
+      {
+       "col": 2,
+       "text": "60,922",
+       "value": 60922.0
+      }
+     ],
+     "label": "Total revenue"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "The following table presents summarized information for long-lived assets by country. Long-lived assets consist of property and equipment and exclude other assets, operating lease assets, goodwill, and intangible assets.",
+   "columns": [
+    "Jan 25, 2026",
+    "Jan 26, 2025"
+   ],
+   "id": "t0056",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "5,125",
+       "value": 5125.0
+      },
+      {
+       "col": 1,
+       "text": "3,626",
+       "value": 3626.0
+      }
+     ],
+     "label": "United States"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,219",
+       "value": 3219.0
+      },
+      {
+       "col": 1,
+       "text": "1,481",
+       "value": 1481.0
+      }
+     ],
+     "label": "Taiwan"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,471",
+       "value": 1471.0
+      },
+      {
+       "col": 1,
+       "text": "840",
+       "value": 840.0
+      }
+     ],
+     "label": "Israel"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "568",
+       "value": 568.0
+      },
+      {
+       "col": 1,
+       "text": "336",
+       "value": 336.0
+      }
+     ],
+     "label": "Other"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10,383",
+       "value": 10383.0
+      },
+      {
+       "col": 1,
+       "text": "6,283",
+       "value": 6283.0
+      }
+     ],
+     "label": "Total long-lived assets"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "Note 17 - Leases Our lease obligations primarily consist of operating leases for our offices and data centers, with lease periods expiring between fiscal years 2027 and 2041. Future minimum lease obligations under our non-cancelable lease agreements as of January 25, 2026 were as follows:",
+   "columns": [
+    "Operating Lease Obligations | Fiscal Year: | 493 | 485 | 457 | 381 | 314"
+   ],
+   "id": "t0057",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,494",
+       "value": 1494.0
+      }
+     ],
+     "label": "2032 and thereafter"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "3,624",
+       "value": 3624.0
+      }
+     ],
+     "label": "Total"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "680",
+       "value": 680.0
+      }
+     ],
+     "label": "Less imputed interest"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,944",
+       "value": 2944.0
+      }
+     ],
+     "label": "Present value of net future minimum lease payments"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "372",
+       "value": 372.0
+      }
+     ],
+     "label": "Less short-term operating lease liabilities"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "2,572",
+       "value": 2572.0
+      }
+     ],
+     "label": "Long-term operating lease liabilities"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "l Statements (Continued) Operating lease costs for fiscal years 2026, 2025, and 2024 were $ 462 million, $ 356 million, and $ 269 million, respectively. Short-term and variable lease costs for fiscal years 2026, 2025, and 2024 were not significant. Other information related to leases was as follows:",
+   "columns": [
+    "Year Ended | Jan 25, 2026",
+    "Year Ended | Jan 26, 2025",
+    "Year Ended | Jan 28, 2024"
+   ],
+   "id": "t0058",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "428",
+       "value": 428.0
+      },
+      {
+       "col": 1,
+       "text": "313",
+       "value": 313.0
+      },
+      {
+       "col": 2,
+       "text": "286",
+       "value": 286.0
+      }
+     ],
+     "label": "Operating cash flow used for operating leases"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,439",
+       "value": 1439.0
+      },
+      {
+       "col": 1,
+       "text": "877",
+       "value": 877.0
+      },
+      {
+       "col": 2,
+       "text": "531",
+       "value": 531.0
+      }
+     ],
+     "label": "Operating lease assets obtained in exchange for lease obligations"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "rm of 8.8 years and a weighted average discount rate of 4.38 %. As of January 26, 2025, our operating leases had a weighted average remaining lease term of 6.5 years and a weighted average discount rate of 4.16 %. 80 NVIDIA Corporation and Subsidiaries Schedule II \u2013 Valuation and Qualifying Accounts",
+   "columns": [
+    "Balance atBeginning of Period",
+    "Additions",
+    "Additions",
+    "Deductions",
+    "Deductions",
+    "Balance atEnd of Period"
+   ],
+   "id": "t0059",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4",
+       "value": 4.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "(1)",
+       "value": -1.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "(1)",
+       "value": -1.0
+      },
+      {
+       "col": 5,
+       "text": "4",
+       "value": 4.0
+      }
+     ],
+     "label": "Allowance for doubtful accounts"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "82",
+       "value": 82.0
+      },
+      {
+       "col": 1,
+       "text": "188",
+       "value": 188.0
+      },
+      {
+       "col": 2,
+       "text": "(2)",
+       "value": -2.0
+      },
+      {
+       "col": 3,
+       "text": "(100)",
+       "value": -100.0
+      },
+      {
+       "col": 4,
+       "text": "(4)",
+       "value": -4.0
+      },
+      {
+       "col": 5,
+       "text": "170",
+       "value": 170.0
+      }
+     ],
+     "label": "Sales return allowance"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,610",
+       "value": 1610.0
+      },
+      {
+       "col": 1,
+       "text": "31",
+       "value": 31.0
+      },
+      {
+       "col": 2,
+       "text": "(3)",
+       "value": -3.0
+      },
+      {
+       "col": 3,
+       "text": "(873)",
+       "value": -873.0
+      },
+      {
+       "col": 4,
+       "text": "(3)",
+       "value": -3.0
+      },
+      {
+       "col": 5,
+       "text": "768",
+       "value": 768.0
+      }
+     ],
+     "label": "Deferred tax valuation allowance"
+    },
+    {
+     "cells": [],
+     "label": "Fiscal year 2025"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4",
+       "value": 4.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "(1)",
+       "value": -1.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "(1)",
+       "value": -1.0
+      },
+      {
+       "col": 5,
+       "text": "4",
+       "value": 4.0
+      }
+     ],
+     "label": "Allowance for doubtful accounts"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "109",
+       "value": 109.0
+      },
+      {
+       "col": 1,
+       "text": "151",
+       "value": 151.0
+      },
+      {
+       "col": 2,
+       "text": "(2)",
+       "value": -2.0
+      },
+      {
+       "col": 3,
+       "text": "(178)",
+       "value": -178.0
+      },
+      {
+       "col": 4,
+       "text": "(4)",
+       "value": -4.0
+      },
+      {
+       "col": 5,
+       "text": "82",
+       "value": 82.0
+      }
+     ],
+     "label": "Sales return allowance"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,552",
+       "value": 1552.0
+      },
+      {
+       "col": 1,
+       "text": "58",
+       "value": 58.0
+      },
+      {
+       "col": 2,
+       "text": "(3)",
+       "value": -3.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "(3)",
+       "value": -3.0
+      },
+      {
+       "col": 5,
+       "text": "1,610",
+       "value": 1610.0
+      }
+     ],
+     "label": "Deferred tax valuation allowance"
+    },
+    {
+     "cells": [],
+     "label": "Fiscal year 2024"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "4",
+       "value": 4.0
+      },
+      {
+       "col": 1,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 2,
+       "text": "(1)",
+       "value": -1.0
+      },
+      {
+       "col": 3,
+       "text": "\u2014",
+       "value": 0.0
+      },
+      {
+       "col": 4,
+       "text": "(1)",
+       "value": -1.0
+      },
+      {
+       "col": 5,
+       "text": "4",
+       "value": 4.0
+      }
+     ],
+     "label": "Allowance for doubtful accounts"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "26",
+       "value": 26.0
+      },
+      {
+       "col": 1,
+       "text": "213",
+       "value": 213.0
+      },
+      {
+       "col": 2,
+       "text": "(2)",
+       "value": -2.0
+      },
+      {
+       "col": 3,
+       "text": "(130)",
+       "value": -130.0
+      },
+      {
+       "col": 4,
+       "text": "(4)",
+       "value": -4.0
+      },
+      {
+       "col": 5,
+       "text": "109",
+       "value": 109.0
+      }
+     ],
+     "label": "Sales return allowance"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "1,484",
+       "value": 1484.0
+      },
+      {
+       "col": 1,
+       "text": "162",
+       "value": 162.0
+      },
+      {
+       "col": 2,
+       "text": "(3)",
+       "value": -3.0
+      },
+      {
+       "col": 3,
+       "text": "(94)",
+       "value": -94.0
+      },
+      {
+       "col": 4,
+       "text": "(3)",
+       "value": -3.0
+      },
+      {
+       "col": 5,
+       "text": "1,552",
+       "value": 1552.0
+      }
+     ],
+     "label": "Deferred tax valuation allowance"
+    }
+   ],
+   "scale": 1000000,
+   "unit_text": "(In millions)"
+  },
+  {
+   "before": "eductions mainly represent the release of valuation allowance on certain state deferred tax assets. Refer to Note 13 of the Notes to the Consolidated Financial Statements in Part IV, Item 15 of this Annual Report on Form 10-K for additional information. (4) Represents sales returns. 81 Exhibit Index",
+   "columns": [
+    "Incorporated by Reference | Exhibit | 3.1 | Reference is made to Exhibits 3.1, 3.2, 3.3 and 3.4 | 4.2 | 4.1 | Annex B-1 to Exhibit 4.2 | 4.6 | Annex A-1 to Exhibit 4.2 | Annex C-1 to Exhibit 4.2 | Annex D-1 to Exhibit 4.2 | 10.1"
+   ],
+   "id": "t0060",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.1",
+       "value": 10.1
+      }
+     ],
+     "label": "10.2+"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.26",
+       "value": 10.26
+      }
+     ],
+     "label": "10.3+"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.27",
+       "value": 10.27
+      }
+     ],
+     "label": "10.4+"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.1",
+       "value": 10.1
+      }
+     ],
+     "label": "10.5+"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.2",
+       "value": 10.2
+      }
+     ],
+     "label": "10.6+"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.16",
+       "value": 10.16
+      }
+     ],
+     "label": "10.7+"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.14",
+       "value": 10.14
+      }
+     ],
+     "label": "10.8+"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.2",
+       "value": 10.2
+      }
+     ],
+     "label": "10.9+"
+    }
+   ],
+   "scale": null,
+   "unit_text": null
+  },
+  {
+   "before": "82",
+   "columns": [
+    "column 1"
+   ],
+   "id": "t0061",
+   "rows": [
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.3",
+       "value": 10.3
+      }
+     ],
+     "label": "10.10+"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.1",
+       "value": 10.1
+      }
+     ],
+     "label": "10.11+"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.13",
+       "value": 10.13
+      }
+     ],
+     "label": "10.12+"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.14",
+       "value": 10.14
+      }
+     ],
+     "label": "10.13+"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.1",
+       "value": 10.1
+      }
+     ],
+     "label": "10.14+"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.2",
+       "value": 10.2
+      }
+     ],
+     "label": "10.15+"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.15",
+       "value": 10.15
+      }
+     ],
+     "label": "10.16+"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.1",
+       "value": 10.1
+      }
+     ],
+     "label": "10.17+"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "10.1",
+       "value": 10.1
+      }
+     ],
+     "label": "10.18+"
+    },
+    {
+     "cells": [],
+     "label": "19.1*"
+    },
+    {
+     "cells": [],
+     "label": "21.1*"
+    },
+    {
+     "cells": [],
+     "label": "23.1*"
+    },
+    {
+     "cells": [],
+     "label": "24.1*"
+    },
+    {
+     "cells": [],
+     "label": "31.1*"
+    },
+    {
+     "cells": [],
+     "label": "31.2*"
+    },
+    {
+     "cells": [],
+     "label": "32.1#*"
+    },
+    {
+     "cells": [],
+     "label": "32.2#*"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "97.1",
+       "value": 97.1
+      }
+     ],
+     "label": "97.1+"
+    },
+    {
+     "cells": [],
+     "label": "101.INS*"
+    },
+    {
+     "cells": [],
+     "label": "101.SCH*"
+    },
+    {
+     "cells": [],
+     "label": "101.CAL*"
+    },
+    {
+     "cells": [],
+     "label": "101.DEF*"
+    },
+    {
+     "cells": [],
+     "label": "101.LAB*"
+    },
+    {
+     "cells": [],
+     "label": "101.PRE*"
+    },
+    {
+     "cells": [
+      {
+       "col": 0,
+       "text": "104",
+       "value": 104.0
+      }
+     ],
+     "label": ""
+    }
+   ],
+   "scale": null,
+   "unit_text": null
+  }
+ ],
+ "ticker": "NVDA",
+ "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm"
+}

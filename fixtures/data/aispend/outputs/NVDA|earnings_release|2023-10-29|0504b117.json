@@ -1,0 +1,37 @@
+{
+ "accession": "NVDA|earnings_release|2023-10-29|0504b117",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 14510000000,
+   "amount_high": 14510000000,
+   "quote": "Record Data Center revenue of $14.51 billion, up 41% from Q2, up 279% from year ago",
+   "passage": "p01",
+   "confidence": 0.85,
+   "notes": "Quarterly figure for Q3 FY24 (quarter ended 2023-10-29), not full fiscal-year revenue. The quote is a bullet fragment without the leading bullet. The same figure appears in the p09 table ($14,514 million) and qualitatively in p10, so those are not recorded separately. The p11 20-25% figure is a geographic share of Data Center revenue, not AI's share of total revenue, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; the release covers NVIDIA's sales, not its own capex"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 7474,
+  "output_tokens": 735,
+  "attempts": 1,
+  "task_sha": "262276d4399f7b95"
+ }
+}

@@ -10,9 +10,10 @@ from __future__ import annotations
 import json
 import re
 from datetime import datetime, timezone
+import os
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[1]
 FILE = ROOT / "data" / "views.json"
 MEASURES = ("attribution", "values", "facts", "statements", "plans", "projects")
 GROUPS = (None, "ticker", "layer", "period", "field", "method", "kind", "scope")

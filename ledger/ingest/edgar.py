@@ -12,7 +12,7 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[2]
 RAW = ROOT / "data" / "raw"
 MIN_INTERVAL = 0.15  # seconds between requests (under 10/s)
 _last = 0.0

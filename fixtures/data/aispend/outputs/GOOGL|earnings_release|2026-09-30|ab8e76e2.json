@@ -1,0 +1,42 @@
+{
+ "accession": "GOOGL|earnings_release|2026-09-30|ab8e76e2",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "(1) Alphabet-level activities primarily reflect expenses related to our shared AI research and development.",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "Footnote says Alphabet-level activities' expenses are primarily AI R&D. No amount or share is given. The sentence names no year; the period is the quarter ended 2026-09-30."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "TPU systems sales were also a meaningful contributor to revenue growth.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "TPU systems sales are seller-side AI hardware revenue. The sentence calls them a meaningful contributor to growth but gives no figure. The surrounding Google Cloud segment total ($30.7B, +103%) is a buyer cloud segment and is not recorded as AI revenue, per rule 4b. The sentence names no year; the period is the quarter ended 2026-09-30."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.9,
+  "input_tokens": 4990,
+  "output_tokens": 942,
+  "attempts": 1,
+  "task_sha": "e1028566e894a837"
+ }
+}

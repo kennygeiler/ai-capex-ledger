@@ -1,0 +1,35 @@
+{
+ "accession": "APLD|mdna|2025-05-31|fd1ad521",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We believe that the significant investments in property and equipment will remain throughout fiscal year 2026 as we continue construction of our HPC hosting facilities.",
+   "passage": "p06",
+   "confidence": 0.6,
+   "notes": "The sentence ties capital spending to HPC hosting facilities, not to AI by name. Passage p02 describes those Ellendale HPC facilities as built for GPU/AI workloads, so the AI link is indirect. No amount or share is stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "the only opex sentence (p06) attributes expected increases to general expansion of operations, not to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "reported revenue ($142.3 million for fiscal 2025) is total revenue, and its growth is attributed to the blockchain Data Center Hosting facility; no sentence states an AI or HPC revenue figure or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.9,
+  "input_tokens": 6180,
+  "output_tokens": 795,
+  "attempts": 1,
+  "task_sha": "e700ffdd8c7b2e9a"
+ }
+}

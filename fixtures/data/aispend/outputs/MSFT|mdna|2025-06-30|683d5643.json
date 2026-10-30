@@ -1,0 +1,94 @@
+{
+ "accession": "MSFT|mdna|2025-06-30|683d5643",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The investments we are making in cloud and AI infrastructure and devices will continue to increase our operating costs and may decrease our operating margins.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Forward-looking statement that cloud and AI infrastructure investments, together with devices, will raise operating costs. It gives no amount or share for AI."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 3800000000,
+   "amount_high": 3800000000,
+   "quote": "Operating expenses increased $3.8 billion or 6% driven by investments in cloud and AI engineering and Gaming, including the impact of the Activision Blizzard acquisition.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "The $3.8B is the year-over-year increase in total operating expenses, not the total and not the AI part. Cloud and AI engineering is named as a driver alongside Gaming and Activision Blizzard."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 1100000000,
+   "amount_high": 1100000000,
+   "quote": "Operating expenses increased $1.1 billion or 4% driven by investments in cloud and AI engineering and commercial sales.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "This is a segment-level increase; the passage does not name the segment. The $1.1B is a year-over-year change, not total opex and not the AI part."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 1500000000,
+   "amount_high": 1500000000,
+   "quote": "Operating expenses increased $1.5 billion or 7% driven by investments in cloud and AI engineering.",
+   "passage": "p04",
+   "confidence": 0.6,
+   "notes": "This is a segment-level increase; the passage does not name the segment. The $1.5B is a year-over-year change, not total opex and not the AI part, even though cloud and AI engineering is the only driver named."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 3000000000,
+   "amount_high": 3000000000,
+   "quote": "Research and development expenses increased $3.0 billion or 10% driven by investments in cloud and AI engineering and Gaming, including the impact of the Activision Blizzard acquisition.",
+   "passage": "p06",
+   "confidence": 0.7,
+   "notes": "The $3.0B is the year-over-year increase in total R&D expenses, not the total and not the AI part. Cloud and AI engineering is named as a driver alongside Gaming."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We will continue to invest in capital expenditures to support growth in our cloud offerings and our investments in AI infrastructure and training.",
+   "passage": "p08",
+   "confidence": 0.9,
+   "notes": "Forward-looking statement that capex will support cloud growth and AI infrastructure and training. It gives no amount or share."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "Microsoft is a buyer here; no sentence states AI's part of revenue."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.1,
+  "input_tokens": 5731,
+  "output_tokens": 2084,
+  "attempts": 1,
+  "task_sha": "b01e4d786d15bcbe"
+ }
+}

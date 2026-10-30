@@ -1,0 +1,200 @@
+{
+ "accession": "0001144879-23-000176",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Electric Generation and Transformers",
+   "table_id": "t0017",
+   "row_label": "Electric Generation and Transformers",
+   "column_label": "May 31,2023",
+   "cell_text": "4,655",
+   "period_end": "2023-05-31",
+   "months": 0,
+   "value": 4655000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Electric Generation and Transformers",
+   "table_id": "t0017",
+   "row_label": "Electric Generation and Transformers",
+   "column_label": "May 31,2022",
+   "cell_text": "4,338",
+   "period_end": "2022-05-31",
+   "months": 0,
+   "value": 4338000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other Equipment and Fixtures",
+   "table_id": "t0017",
+   "row_label": "Other Equipment and Fixtures",
+   "column_label": "May 31,2023",
+   "cell_text": "1,685",
+   "period_end": "2023-05-31",
+   "months": 0,
+   "value": 1685000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other Equipment and Fixtures",
+   "table_id": "t0017",
+   "row_label": "Other Equipment and Fixtures",
+   "column_label": "May 31,2022",
+   "cell_text": "588",
+   "period_end": "2022-05-31",
+   "months": 0,
+   "value": 588000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in Progress",
+   "table_id": "t0017",
+   "row_label": "Construction in Progress",
+   "column_label": "May 31,2023",
+   "cell_text": "106,226",
+   "period_end": "2023-05-31",
+   "months": 0,
+   "value": 106226000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in Progress",
+   "table_id": "t0017",
+   "row_label": "Construction in Progress",
+   "column_label": "May 31,2022",
+   "cell_text": "18,305",
+   "period_end": "2022-05-31",
+   "months": 0,
+   "value": 18305000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Information Systems and Software",
+   "table_id": "t0017",
+   "row_label": "Information Systems and Software",
+   "column_label": "May 31,2023",
+   "cell_text": "21,173",
+   "period_end": "2023-05-31",
+   "months": 0,
+   "value": 21173000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Information Systems and Software",
+   "table_id": "t0017",
+   "row_label": "Information Systems and Software",
+   "column_label": "May 31,2022",
+   "cell_text": "9,608",
+   "period_end": "2022-05-31",
+   "months": 0,
+   "value": 9608000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0017",
+   "row_label": "Land",
+   "column_label": "May 31,2023",
+   "cell_text": "2,152",
+   "period_end": "2023-05-31",
+   "months": 0,
+   "value": 2152000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0017",
+   "row_label": "Land",
+   "column_label": "May 31,2022",
+   "cell_text": "1,074",
+   "period_end": "2022-05-31",
+   "months": 0,
+   "value": 1074000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land Improvements",
+   "table_id": "t0017",
+   "row_label": "Land Improvements",
+   "column_label": "May 31,2023",
+   "cell_text": "1,293",
+   "period_end": "2023-05-31",
+   "months": 0,
+   "value": 1293000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land Improvements",
+   "table_id": "t0017",
+   "row_label": "Land Improvements",
+   "column_label": "May 31,2022",
+   "cell_text": "1,180",
+   "period_end": "2022-05-31",
+   "months": 0,
+   "value": 1180000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building",
+   "table_id": "t0017",
+   "row_label": "Building",
+   "column_label": "May 31,2023",
+   "cell_text": "63,350",
+   "period_end": "2023-05-31",
+   "months": 0,
+   "value": 63350000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building",
+   "table_id": "t0017",
+   "row_label": "Building",
+   "column_label": "May 31,2022",
+   "cell_text": "30,176",
+   "period_end": "2022-05-31",
+   "months": 0,
+   "value": 30176000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note with per-segment capital expenditures; the filing reports a single hosting business"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "only a single consolidated 'Hosting revenue' line is reported; no per-segment or per-market revenue breakdown"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no total finance lease liabilities line; the balance sheet (t0011) gives only 'Current portion of finance lease liability' (5,722 / 813) and 'Long-term portion of finance lease liability' (8,334 / 4,374), and the validator rejects current/non-current dimensions, so they cannot be cited without summing cells"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table with total purchase obligations is included in the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 34.5,
+  "input_tokens": 19421,
+  "output_tokens": 5057,
+  "attempts": 2,
+  "task_sha": "dad53f8be6c0083d"
+ }
+}

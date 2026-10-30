@@ -1,0 +1,226 @@
+          Applied Blockchain Provides Operational and Guidance Updates          
+                                                                                
+  DALLAS, TX – July 18, 2022 –                                                  
+                                                                                
+                                                                                
+  Applied Blockchain, Inc.                                                      
+                                                                                
+(Nasdaq: APLD) ("Applied Blockchain" or the "Company") today provided updates on
+its operations and financial guidance.
+
+Updated fiscal fourth quarter 2022 (ended May 31, 2022) financial guidance with
+revenue increasing at the midpoint from $5.95 million to $7.20 million.
+
+Datacenter in Jamestown, North Dakota is partially offline due to unexpected
+equipment failure at the substation powering the facility; the power provider is
+working diligently to restore service, which is expected by early September.
+
+Construction of Applied Blockchain’s 200-Megawatt (“MW”) facility in Garden
+City, Texas is progressing with several buildings erected and electrical
+equipment delivered.
+
+The Company is in the design and pre-construction phase of a third co-hosting
+datacenter in North Dakota; once operational, it is expected to bring Applied
+Blockchain’s total hosting capacity to 500MW.
+
+“Since we reported our fiscal third quarter 2022 results in mid-May, our
+operations have continued at or better than expectations, driving our financial
+performance above the guidance we previously communicated,” said Applied
+Blockchain Chairman and CEO Wes Cummins. “While we have a short-term setback
+with part of our capacity being offline in Jamestown for several weeks, the
+Company has never been in a better position. Our new 200MW hosting agreement
+with Marathon, announced separately today, not only reinforces the high level of
+demand for hosting, but the structure of the agreement allows us to accelerate
+our buildout without equity dilution. Additionally, our third co-hosting
+datacenter is expected to give us a clear path to 500 MWs online early next
+calendar year, which we estimate can generate $100 million of Adjusted EBITDA on
+an annual basis.”
+                                                                                
+  Fiscal Fourth Quarter 2022 Guidance Update                                    
+                                                                                
+The Company provided fiscal fourth quarter 2022 financial guidance during its
+fiscal third quarter 2022 earnings conference call, which included projected
+revenue of between $5.7 million and $6.2 million and projected Adjusted EBITDA
+of between ($4.0) million and ($4.6) million.
+
+Since providing this guidance, performance from Applied Blockchain’s first Next-
+Gen co-hosted datacenter in Jamestown, North Dakota has been positive and better
+than management’s assumptions supporting the original guidance. Accordingly, the
+Company is updating its fiscal fourth quarter 2022 financial guidance for
+projected revenue to a range of $7.0 to $7.4 million. Since the Company is still
+finalizing its fiscal fourth quarter financials, updated Adjusted EBITDA
+guidance cannot be reasonably provided at this time, however, Adjusted EBITDA is
+expected to be a narrower loss than original guidance given the higher revenue.
+
+Jamestown, North Dakota Co-Hosting Facility Update (100MW)
+
+As previously reported, Applied Blockchain’s first 100MW Next-Gen co-hosting
+facility in Jamestown, North Dakota began energizing in late January 2022, and
+had over 90MW online as of June 2022. Recently there was an unexpected equipment
+failure at the substation powering the facility, resulting in a partial outage
+of approximately 50%. The Company is engaging regularly with the power provider,
+who is diligently working to remediate the equipment failure to restore full
+capacity, which is expected by early September. The Jamestown facility was not
+damaged and remains fully operational and capable of hosting the entire 100MW of
+capacity when sufficient power is available again.
+
+Garden City, Texas Co-Hosting Facility Update (200MW)
+
+Construction of Applied Blockchain’s second datacenter began in late April 2022
+as previously disclosed in its fiscal third quarter earnings release issued on
+May 13, 2022. The facility, co-located with a wind farm, is in Garden City,
+Texas with planned capacity of 200MW. The first buildings have been constructed
+and the majority of the electrical equipment required is on site. The Company is
+planning to energize the Garden City facility late in the third calendar quarter
+of 2022.
+                                                                                
+  Third Co-Hosting Facility Update                                              
+                                                                                
+The Company has executed a Letter of Intent (LOI) with a utility and is in the
+late stages of design and pre-construction for a third co-hosting facility,
+which will be located in North Dakota. Groundbreaking is planned for the third
+calendar quarter of 2022. A meaningful portion of the power capacity at this
+site has already been contracted by Marathon Digital Holdings, Inc. (Nasdaq:
+MARA), which is discussed in a separate press release issued today.
+                                                                                
+  About Applied Blockchain                                                      
+                                                                                
+Applied Blockchain, Inc. (Nasdaq: APLD) is a builder and operator of next-
+generation data centers across North America, which provide substantial compute
+power to blockchain infrastructure and support Bitcoin mining. The Company has
+partnered with some of the most recognized names in the industry to develop,
+deploy, and scale its business. Find more information at
+www.appliedblockchaininc.com . Follow us on Twitter at @APLDBlockchain .
+                                                                                
+  Forward-Looking Statements                                                    
+                                                                                
+This release contains "forward-looking statements" as defined in the Private
+Securities Litigation Reform Act of 1995 regarding, among other things, future
+operating and financial performance, product development, market position,
+business strategy and objectives. These statements use words, and variations of
+words, such as "continue," "build," "future," "increase," "drive," "believe,"
+"look," "ahead," "confident," "deliver," "outlook," "expect," and "predict."
+Other examples of forward-looking statements may include, but are not limited
+to, (i) statements of Company plans and objectives, including our evolving
+business model, or estimates or predictions of actions by suppliers, (ii)
+statements of future economic performance, and (iii) statements of assumptions
+underlying other statements and statements about the Company or its business.
+You are cautioned not to rely on these forward-looking statements. These
+statements are based on current expectations of future events and thus are
+inherently subject to uncertainty. If underlying assumptions prove inaccurate or
+known or unknown risks or uncertainties materialize, actual results could vary
+materially from the Company's expectations and projections. These risks,
+uncertainties, and other factors include: decline in demand for our products and
+services; the volatility of the crypto asset industry; the inability to comply
+with developments and changes in regulation; cash flow and access to capital;
+and maintenance of third party relationships. Information in this release is as
+of the dates and time periods indicated herein, and the Company does not
+undertake to update any of the information contained in these materials, except
+as required by law.
+                                                                                
+  Investor Relations Contacts                                                   
+                                                                                
+Jeff Grampp, CFA or Matt Glover
+Gateway Group, Inc.
+(949) 574-3860 APLD@gatewayir.com
+                                                                                
+  Media Contact                                                                 
+                                                                                
+Catherine Adcock
+Gateway Group, Inc.
+(949) 574-3860 APLD@gatewayir.com
+
+
+Applied Blockchain Secures 200-Megawatt Five-Year Hosting Contract with Marathon
+                                Digital Holdings                                
+                                                                                
+  DALLAS, TX – July 18, 2022 –                                                  
+                                                                                
+                                                                                
+  Applied Blockchain, Inc.                                                      
+                                                                                
+(Nasdaq: APLD) ("Applied Blockchain" or the "Company") has entered into a five-
+year hosting contract with Marathon Digital Holdings, Inc. (Nasdaq: MARA)
+(“Marathon”) for 200-Megawatts (“MW”) of Bitcoin mining capacity. The Company
+will provide comprehensive hosting services for Marathon’s Bitcoin miners at
+Applied Blockchain’s owned and operated co-hosting datacenters.
+
+“Partnering with Marathon, one of the largest Bitcoin miners in the industry,
+represents a significant step forward in Applied Blockchain’s growth trajectory.
+The multi-year agreement validates our capabilities as a best-in-class co-
+hosting datacenter operator. We are continuing to grow our contracted hosting
+capacity, which provides predictable revenue over a multi-year time frame,” said
+Applied Blockchain Chairman and CEO Wes Cummins. “Additionally, demand for our
+hosting services remains robust despite the volatility in the cryptocurrency
+markets, giving us continued confidence in the growth potential of our business
+for fiscal 2023 and beyond.”
+
+“This new agreement with Applied Blockchain is instrumental in helping us
+achieve our target of 23.3 exahashes per second of compute power for Bitcoin
+mining in 2023," said Fred Thiel, Marathon’s chairman and CEO. "Wes and his team
+have proven themselves to be capable builders and operators of large-scale
+datacenters. Their expertise in hosting and mining operations complements our
+asset-light strategy, freeing up resources and allowing us to efficiently scale
+Marathon as one the leading Bitcoin mining companies in North America. We look
+forward to working alongside Applied Blockchain to install miners and achieve
+our growth targets.”
+                                                                                
+  About Applied Blockchain                                                      
+                                                                                
+Applied Blockchain, Inc. (Nasdaq: APLD) is a builder and operator of next-
+generation data centers across North America, which provide substantial compute
+power to blockchain infrastructure and support Bitcoin mining. The Company has
+partnered with some of the most recognized names in the industry to develop,
+deploy, and scale its business. Find more information at
+www.appliedblockchaininc.com . Follow us on Twitter at @APLDBlockchain .
+                                                                                
+  About Marathon Digital Holdings                                               
+                                                                                
+Marathon is a digital asset technology company that focuses on supporting and
+securing the Bitcoin ecosystem. The Company is currently in the process of
+becoming one of the largest and most sustainably powered Bitcoin mining
+operations in North America, while remaining asset light.
+                                                                                
+  Forward-Looking Statements                                                    
+                                                                                
+This release contains "forward-looking statements" as defined in the Private
+Securities Litigation Reform Act of 1995 regarding, among other things, future
+operating and financial performance, product development, market position,
+business strategy and objectives. These statements use words, and variations of
+words, such as "continue," "build," "future," "increase," "drive," "believe,"
+"look," "ahead," "confident," "deliver," "outlook," "expect," and "predict."
+Other examples of forward-looking statements may include, but are not limited
+to, (i) statements of Company plans and objectives, including our evolving
+business model, or estimates or predictions of actions by suppliers, (ii)
+statements of future economic performance, and (iii) statements of assumptions
+underlying other statements and statements about the Company or its business.
+You are cautioned not to rely on these forward-looking statements. These
+statements are based on current expectations of future events and thus are
+inherently subject to uncertainty. If underlying assumptions prove inaccurate or
+known or unknown risks or uncertainties materialize, actual results could vary
+materially from the Company's expectations and projections. These risks,
+uncertainties, and other factors include: decline in demand for our products and
+services; the volatility of the crypto asset industry; the inability to comply
+with developments and changes in regulation; cash flow and access to capital;
+and maintenance of third party relationships. Information in this release is as
+of the dates and time periods indicated herein, and the Company does not
+undertake to update any of the information contained in these materials, except
+as required by law.
+                                                                                
+  Applied Blockchain Investor Relations Contacts                                
+                                                                                
+Jeff Grampp, CFA or Matt Glover
+Gateway Group, Inc.
+(949) 574-3860 APLD@gatewayir.com
+                                                                                
+  Applied Blockchain Media Contact                                              
+                                                                                
+Catherine Adcock
+Gateway Group, Inc.
+(949) 574-3860 APLD@gatewayir.com
+                                                                                
+  Marathon Digital Holdings Company Contact                                     
+                                                                                
+(800) 804-1690
+
+ir@marathondh.com

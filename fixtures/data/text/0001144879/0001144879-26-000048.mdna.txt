@@ -1,0 +1,775 @@
+Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations
+
+You should read the following discussion and analysis of our financial condition and results of operations together with our consolidated financial statements and the related notes appearing elsewhere in this Annual Report on Form 10-K. Some of the information contained in this discussion and analysis or set forth elsewhere in this Annual Report, including information with respect to our plans and strategy for our business, includes forward-looking statements that involve risks and uncertainties. You should read the sections titled “Risk Factors” and “Forward-Looking Statements” for a discussion of important factors that could cause actual results to differ materially from the results described in or implied by the forward-looking statements contained in the following discussion and analysis. 
+
+This Item generally discusses fiscal year 2026 and 2025 items and year-to-year comparisons between fiscal year 2026 and 2025. A comparison of our results of operations and cash flows for fiscal year 2025 and fiscal year 2024 is not included in this Annual Report and can be found under “Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations” in our Annual Report on Form 10-K for the fiscal year ended May 31, 2025, filed with the SEC on July 30, 2025. 
+
+During the fiscal year 2026, we completed the contribution of our Cloud Services Business to ChronoScale (each as defined below), formerly Ekso (as defined below). As a result of this transaction, certain prior-period amounts presented in this Annual Report have been recast to conform to the current period presentation. The recast primarily reflects changes associated with the transaction, including revisions to segment reporting and the presentation of certain historical financial statement line items and related disclosures. As a result, certain fiscal year 2025 and fiscal year 2024 amounts presented in this Annual Report differ from the amounts previously reported in our Annual Report on Form 10-K for the fiscal year ended May 31, 2025.
+
+Unless the context otherwise requires, references in this “Management’s Discussion and Analysis of Financial Condition and Results of Operations” to “we,” “us,” “our,” and “the Company” are intended to mean the business and operations of Applied Digital Corporation and its subsidiaries.
+
+Business Overview
+
+We are a U.S. designer, developer, and operator of high-performance, sustainably engineered data centers and colocation services for artificial intelligence (“AI”), networking, and blockchain workloads. We provide digital infrastructure solutions to the rapidly growing industries of high-performance computing (“HPC”) and AI. As of May 31, 2026, we operated in two distinct business segments, data center hosting (the "Data Center Hosting Business") and HPC data center hosting (the “HPC Hosting Business”), all of which are included in our consolidated financial statements, as further discussed below. Management considers the Data Center Hosting Business and the HPC Hosting Business to be its core operations for long-run strategic and performance evaluation purposes.
+
+We consolidate variable interest entities (“VIE”) and voting interest entities ("VOE") where it has been determined that the Company is the primary beneficiary of the entities' operation in accordance with ASC Topic 810, Consolidations. The primary beneficiary is the party that has both the power to direct the activities that most significantly impact the VIE's/VOE's economic performance and the obligation to absorb losses or the right to receive benefits of the VIE/VOE that could potentially be significant to the VIE/VOE. In evaluating whether the Company is the primary beneficiary, the Company evaluates its power to direct the most significant activities of the VIE/VOE by considering the purpose and design of the entity and the risks the entity was designed to create and pass through to its variable interest holders. The Company also evaluates its economic interests in the VIE/VOE.
+
+On May 5, 2026, the Company completed the previously announced divestiture of its cloud business pursuant to that certain Contribution and Exchange Agreement (the “Contribution and Exchange Agreement”), dated February 15, 2026, by and among Ekso Bionics Holdings, Inc. (“Ekso”), APLD Intermediate HoldCo LLC, a Delaware limited liability company (“APLD Intermediate”), APLD ChronoScale HoldCo LLC, a Delaware limited liability company and a wholly owned subsidiary of APLD Intermediate (“Contributor”), each a wholly owned direct or indirect subsidiary of the Company, and Applied Digital Cloud Corporation, a Nevada corporation, a wholly owned indirect subsidiary of the Company and a direct subsidiary of Contributor (“Cloud”), for purposes of consummating a business combination (the “Cloud Business Combination”). Pursuant to the Contribution and Exchange Agreement, Contributor contributed to Ekso all of its right, title and interest in and to 1,200 shares of common stock of Cloud, constituting 100% of the issued and outstanding equity of Cloud, in exchange for 138,216,820 newly issued shares of Ekso common stock, par value $0.001 per share. As a result of 
+
+41
+
+the Cloud Business Combination, Cloud became a wholly owned subsidiary of Ekso, Ekso changed its name to ChronoScale Corporation (“ChronoScale”) and ChronoScale’s common stock began trading on the Nasdaq Capital Market under the symbol “CHRN” on May 5, 2026. Immediately following the closing of the Cloud Business Combination, the Company (on an aggregate basis with Contributor), owned approximately 97% of the issued and outstanding equity of ChronoScale.
+
+Business Update
+
+HPC Hosting Business
+
+Our HPC Hosting Business designs, constructs, and operates next-generation data centers, which are designed to provide massive computing power and support HPC applications within a cost-effective model. 
+
+We recently commenced operations at our first HPC data center at our Polaris Forge 1 campus with 100MW of capacity. We continue building our second HPC data center at Polaris Forge 1 to provide an additional 150MW of capacity. These facilities are being designed and purpose-built to host high-density graphics processing unit architecture or other HPC applications, such as artificial intelligence, natural language processing, machine learning, and additional HPC developments. Our third HPC focused data center facility at Polaris Forge 1, which is expected to provide an additional 150MW of capacity, is currently under construction, with an anticipated ready for service date in calendar year 2027.
+
+On May 28, 2025, APLD ELN-02 LLC and APLD ELN-03 LLC, our subsidiaries, each entered into a data center lease (the “ELN-02 Lease” and the “ELN-03 Lease”) with CoreWeave, Inc. (“CoreWeave”) to deliver an aggregate of 250 MW of infrastructure to host CoreWeave’s HPC operations at Polaris Forge 1. The ELN-02 Lease is for the full capacity of our 100 MW data center that was completed and became operational in October 2025, and the ELN-03 Lease is for the full capacity of our 150 MW data center that is also under construction. We have guaranteed the obligations of APLD ELN-02 LLC and APLD ELN-03 LLC under the respective lease to which such subsidiary is a party.
+
+On March 30, 2026, the Company and CoreWeave amended the ELN-02 Lease to suspend the term for two of the four data halls covered by the lease (the “ELN-02 Lease Amendment”) and the Company entered into a new datacenter lease with CoreWeave Compute Acquisition Co. VIII, LLC (“CoreWeave SPV”), a wholly owned subsidiary of CoreWeave, for those two data halls on substantially the same terms as the ELN-02 Lease (the “ELN-02 SPV Lease”). The ELN-02 SPV Lease is conterminous with the initial term of the ELN-02 Lease. Upon the expiration or earlier termination of the ELN-02 SPV Lease, the suspended term under the ELN-02 Lease will resume and all four data halls of ELN-02 will once again be governed by the ELN-02 Lease. As further credit enhancement, CoreWeave delivered to APLD ELN-02 LLC an Unconditional Springing Guaranty of Payment and Performance (the “ELN-02 Guaranty”) in connection with CoreWeave SPV’s obligations under the ELN-02 SPV Lease. CoreWeave is obligated to provide a letter of credit in the amount of $50 million to secure obligations under the ELN-02 Lease within 30 days of March 30, 2026.
+
+Also on March 30, 2026, CoreWeave entered into an Assignment, Assumption and Consent Agreement with CoreWeave SPV and APLD ELN-03 LLC, assigning all of CoreWeave’s rights and obligations under the ELN-03 Lease to CoreWeave SPV for the remaining term of the ELN-03 Lease and releasing CoreWeave from the ELN-03 Lease. In addition, CoreWeave also provided an Unconditional Springing Guaranty of Payment and Performance in connection with CoreWeave SPV’s obligations under the ELN-03 Lease, similar to the ELN-02 Guaranty.
+
+On August 28, 2025, APLD ELN-02 C LLC, our subsidiary, entered into a third data center lease, the (“Building 4 Lease”) with CoreWeave to deliver an additional 150 MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. We have guaranteed the obligations of APLD ELN-02 C LLC under the Building 4 Lease.
+
+On August 18, 2025, we also announced that we would be breaking ground on our Polaris Forge 2 campus with an initial 200 MW data center near Harwood, North Dakota. The project has begun and we currently anticipate reaching initial capacity in the calendar year 2026 and reaching full capacity in early calendar year 2027. On October 20, 2025, APLD FAR-01 LLC and APLD FAR-02 LLC, the Company’s subsidiaries, entered into a data center lease with a U.S.-based investment-grade hyperscaler to deliver 200MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Polaris Forge 2, which is currently under construction. The initial 200 MW are phased within two buildings expected to begin to come online during the calendar year 2026.
+
+42
+
+On January 22, 2026 we announced that we broke ground on Delta Forge 1, a 300 MW critical IT load campus located in a strategic southern U.S. market.
+
+On April 20, 2026 and April 22, 2026, APLD AEX-01 LLC and APLD AEX-02 LLC, respectively, each a subsidiary of the Company, entered into separate data center leases with a second U.S.-based investment-grade hyperscaler to deliver a combined 300MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Delta Forge 1. Initial operations at Delta Forge 1 are anticipated to commence during calendar year 2027. On May 20, 2026, a different subsidiary of the Company entered into a data center lease with the same U.S.-based investment-grade hyperscaler to deliver a combined 300MW of critical IT load to support the second hyperscaler’s AI and HPC infrastructure at Polaris Forge 3. Initial operations at Polaris Forge 3 are anticipated to commence during calendar year 2027.
+
+We began to generate revenue from this business segment in fiscal year 2026, recognizing $385.3 million in revenue during the fiscal year ended May 31, 2026, with $270.6 million related to services revenue and $114.7 million related to data center rental and other revenue.
+
+Data Center Hosting Business
+
+Our Data Center Hosting Business provides energized infrastructure services to crypto mining customers. Our custom-designed data centers allow customers to rent space based on their power requirements. We currently serve one crypto mining customer with a remaining contractual term of one and a half years. As of May 31, 2026, our 106 MW facility in Jamestown, North Dakota and our 180 MW facility in Ellendale, North Dakota continue to operate at full capacity. 
+
+We recognized $154.4 million, $144.2 million, and $136.6 million in revenue from this business segment during the fiscal years ended May 31, 2026, May 31, 2025, and May 31, 2024 respectively.
+
+ChronoScale
+
+On May 5, 2026, we completed the separation of our cloud business in a series of transactions that resulted in the Company owning approximately 97% of the issued and outstanding equity of ChronoScale Corporation ("ChronoScale"). ChronoScale owns and operates our historic cloud business and is consolidated into our financial statements. The common stock of ChronoScale began trading on the Nasdaq Capital Market under the symbol “CHRN” on May 5, 2026.
+
+ChronoScale's cloud business currently operates in three states: Colorado, Minnesota and Utah. This business provides cloud services to customers, such as AI and machine learning developers by renting space at third party co-location centers and providing the customers with access to its cloud computing equipment. 
+
+Management Updates
+
+On January 15, 2026, the Company appointed Jason Zhang, co-founder and Chief Strategy Officer, to serve as the Company’s co-founder and President.
+
+Organizational Update
+
+In part to facilitate the 2030 9.250% Notes Offering (as defined below), we completed a targeted reorganization of the entities and assets related to the Polaris Forge 1 campus. This reorganization included a series of steps such as renaming certain existing entities and forming new direct and indirect wholly owned subsidiaries of APLD HPC Holdings 2 LLC, including APLD ComputeCo LLC, the issuer of the 2030 9.250% Notes (“APLD ComputeCo”), and additional internal transactions, including equity distributions and contributions and asset transfers, resulting in APLD ELN-02 LLC and APLD ELN-03 LLC being owned by APLD ComputeCo. APLD ComputeCo is wholly owned by APLD HPC TopCo 2, in which we own 86.5% of fully diluted common equity, and an affiliate of funds and investment vehicles managed by entities within MAM owns 13.5% of fully diluted common equity, as well as preferred equity.
+
+In order to facilitate the 2031 6.750% Notes Offering (as defined below), we also completed a targeted reorganization of the entities and assets related to the Polaris Forge 2 campus consistent with the reorganizations completed in connecting with the 2030 9.250% Notes Offering. This reorganization included a series of steps such as renaming certain existing entities and forming new direct and indirect wholly owned subsidiaries of APLD FAR Holdings LLC, including APLD ComputeCo 2 LLC (“APLD ComputeCo 2”), the issuer of the 2031 6.750% Notes, and additional internal transactions, 
+
+43
+
+including equity distributions and contributions and asset transfers. Under the resulting structure, APLD FAR-01 LLC and APLD FAR-02 LLC are owned by APLD ComputeCo 2. APLD ComputeCo 2 is wholly owned by APLD HPC TopCo 2.
+
+Public Offerings and Changes to Equity
+
+June 2025 At-the-Market Sales Agreement
+
+On June 2, 2025, the Company entered into a Sales Agreement with Northland Securities, Inc. and Wells Fargo Securities, LLC (the “June 2025 Sales Agreement”), pursuant to which, up to $200,000,000 of shares of the Company's common stock may be issued if and when sold. As of the date of this report, the Company has issued and sold approximately 15.3 million shares under the June 2025 Sales Agreement for gross proceeds of approximately $196.4 million.
+
+Series G Preferred Stock
+
+On August 14, 2025, we entered into the first amendment (the “First Amendment”) to the Preferred Equity Purchase Agreement (the “PEPA”), dated April 30, 2025, to, among other things, (i) increase the aggregate commitment amount of the shares of Series G Convertible Preferred Stock (the “Series G Preferred Stock”) from $150 million to $300 million, and (ii) increase our access to capital by removing the Put Limitation (as defined in the PEPA) that had previously limited the aggregate purchase price for any Put Issuance (as defined in the PEPA) to no more than $75 million. In connection with the First Amendment, on August 14, 2025, we filed an amendment (the “First CoD Amendment”) to the Series G Certificate of Designation, originally filed with the Secretary of State of the State of Nevada on April 30, 2025. The First CoD Amendment amends the Series G Certificate of Designation to, among other things, (i) increase the initial Floor Price (as set forth in Section 1.5(c)(i) of the Series G Certificate of Designation) to $12.50 from $4.25, and (ii) change the limit below which the Floor Price may not be reduced (as set forth in Section 1.5(c)(ii) of the Series G Certificate of Designation) to $4.33 from $1.34. The Floor Price sets the minimum floor for the conversion price of the Series G Preferred Stock, which price may not be reduced unless we determine to do so in our discretion. The First CoD Amendment further amended the status of converted or repurchased preferred stock such that any shares of Series G Preferred Stock that have been or will be converted will be retired and resume the status of authorized but unissued shares.
+
+On September 11, 2025, we entered into the second amendment (the “Second Amendment”) to the PEPA, dated April 30, 2025, by and between us and the investors signatory thereto, as amended by the First Amendment, dated August 14, 2025 in order to increase our access to capital to fund the continued construction and development of our Polaris Forge 1 data center campus in Ellendale, North Dakota and other general corporate purposes.
+
+The Second Amendment amends the PEPA to, among other things, increase the aggregate commitment amount of the shares of Series G Preferred Stock from $300 million to $450 million. Concurrent with the Second Amendment, the
+
+Company filed an amendment to the Certificate of Designations to increase the number of shares authorized for issuance as Series G Preferred Stock from 156,000 to 204,000 shares.
+
+On September 25, 2025, the Company filed an amendment (the “Third CoD Amendment”) to the Series G Certificate of Designation, originally filed with the Secretary of State of the State of Nevada on April 30, 2025, as amended. The Third CoD Amendment amended the Series G Certificate of Designation, as amended, to increase the Floor Price (as set forth in Section 1.5(c)(i) of the Certificate of Designation) to $22.00 from $12.50.
+
+On October 7, 2025, the Company entered into the third amendment (the “Third Amendment”) to the PEPA, dated April 30, 2025, by and between the Company and the investors signatory thereto, as amended by the First Amendment and the Second Amendment, in order to increase its access to capital to fund the continued construction and development of its Polaris Forge I data center in Ellendale, North Dakota. The Third Amendment amends the PEPA to, among other things, increase the aggregate commitment amount of the shares of the Series G Preferred Stock from 450.0 million to 590.0 million.
+
+On October 14, 2025, the Company filed a fourth amendment (the “Fourth CoD Amendment”) to the Series G Certificate of Designation, as amended. The Fourth CoD Amendment amended the Series G Certificate of Designation, as amended, which increased the Floor Price (as set forth in Section 1.5(c)(i) of the Certificate of Designation) to $34.00 from $22.00. On October 21, 2025, the Company entered into the fourth amendment (the “Fourth Amendment”) to the PEPA in order to increase its access to capital to fund the continued construction and development of its Polaris Forge 1 and Polaris Forge 2 
+
+44
+
+data centers in Ellendale and Harwood, North Dakota, as well as general working capital purposes and for transaction expenses.
+
+The Fourth Amendment amended the PEPA to, among other things: (i) increase the aggregate commitment amount of the shares of Series G Preferred Stock, from $590.0 million to $1.59 billion; (ii) subject to waiver by a majority-in-interest of the investors, (a) set the maximum put issuance amount to $75.0 million per issuance, (b) set the limit to one put issuance per seven (7) business day period, and (c) set the maximum aggregate stated value of Series G Preferred Stock outstanding at any one time to $75.0 million; (iii) increase the original discount from 2% to 3%; (iv) eliminate the placement agent fee; and (v) eliminate the prohibition on Variable Rate Transactions (as defined in the PEPA). On October 21, 2025, in connection with the entry into the Fourth Amendment, the Applied Digital filed an amendment (the “Fifth Certificate of Designations Amendment”) to the Certificate of the Designations, Powers, Preferences and Rights of Series G Convertible Preferred Stock, originally filed with the Secretary of State of the State of Nevada on April 30, 2025, as amended on each of August 14, 2025, September 11, 2025, September 25, 2025 and October 14, 2025 (as amended, the “Certificate of Designations”). The Fifth Certificate of Designations Amendment amended the Certificate of Designations to, among other things, (i) increase the authorized shares of Series G Preferred Stock from 204,000 shares to 1,030,000 shares, and (ii) increase the limit below which the Floor Price (as defined in Section 1.5(c)(ii) of the Certificate of Designations) may not be reduced from $4.33 to $4.48. In addition, under the Fifth Certificate of Designations Amendment, Applied Digital’s Board of Directors may increase or decrease the applicable Floor Price with respect to any put, at its sole discretion.
+
+On May 29, 2026, the Company entered into the fifth amendment (the “Fifth Amendment”) to the PEPA. The Fifth Amendment amended the PEPA to, among other things: (i) set the maximum put issuance amount to $150,000,000 per issuance, (ii) set the limit to one put issuance per seven (7) calendar day period, (iii) set the maximum aggregate stated value of Series G Preferred Stock outstanding at any one time to $150,000,000, (iv) create a controlled account for which proceeds from the put issuance will be funded, (v) extend the term of the PEPA to August 29, 2029, and (vi) provide a cure period for the investors to pay the purchase price for any put issuance. 
+
+As Series G Preferred Stock may be reissued, during the fiscal years ended May 31, 2026 and May 31, 2025, the Company issued and sold 835,800 and 78,000 shares of Series G Preferred Stock, respectively, for gross proceeds of $815.0 million and $75.0 million, respectively. During the fiscal year ended May 31, 2026, 913,800 shares of Series G Preferred Stock were converted into approximately 51.0 million shares of the Company’s common stock. As of May 31, 2026, no shares of Series G Preferred Stock were issued or outstanding. 
+
+CoreWeave Warrants
+
+On May 28, 2025, in connection with the entry into the data center leases with CoreWeave for Building 2 and Building 3 (the "CoreWeave Leases"), the Company issued to CoreWeave a warrant (the “CoreWeave Warrant”) to acquire up to 13,062,521 shares of the Company's common stock at an exercise price of $7.19 per share, subject to adjustment in accordance with the terms and conditions set forth in the CoreWeave Warrant. The CoreWeave Warrant is exercisable upon issuance, upon payment of the applicable exercise price in cash or through cashless exercise for a period of 10 years. On June 9, 2025, CoreWeave assigned a portion of the CoreWeave Warrant to acquire up to 6,531,261 shares of the Company's common stock to PEAK6 Capital Management, LLC (the “PEAK6 Warrant”). CoreWeave concurrently assigned the remaining portion of the CoreWeave Warrant to acquire up to 6,531,260 shares of the Company's common stock to Jane Street (the “Jane Street CW Warrant”), and on or around May 15, 2026, Jane Street assigned all of its right, title and interest in and to the Jane Street CW Warrant to Wells Fargo Bank, National Association ("WFBNA"). As of May 31, 2026, 300 warrant shares subject to the PEAK6 Warrant have been exercised through cashless exercise. 
+
+Additionally, on August 28, 2025, in connection with the entry into the Building 4 Lease, the Company issued to CoreWeave a warrant (the “Building 4 Warrant”) to acquire up to 8,393,611 shares of the Company’s common stock at an exercise price of $10.75 per share, subject to adjustment in accordance with the terms and conditions set forth in the Building 4 Warrant. The Building 4 Warrant is on the same Form of Warrant as the initial CoreWeave Warrant. In addition, we agreed to file a resale registration statement with the SEC to register the resale of the shares of common stock issuable upon exercise of the Building 4 Warrant pursuant to the Registration Rights Agreement, dated May 28, 2025, between us and CoreWeave (“CoreWeave Registration Rights Agreement”). On October 31, 2025, CoreWeave assigned the Building 4 Warrant and its rights under the CoreWeave Registration Rights Agreement to Jane Street Global Trading, LLC (“Jane Street”). On or around May 15, 2026, Jane Street assigned all of its right, title and interest in and to the Building 4 Warrant to WFBNA.
+
+45
+
+Macquarie Warrants
+
+On November 27, 2024, as partial consideration for the Macquarie Promissory Note, the Company issued warrants to purchase up to 1,035,197 shares of the Company’s common stock (the “Macquarie Warrants”) to Macquarie Equipment Capital, Inc. (“MEC”). The Macquarie Warrants are exercisable from and after the date that is six months following the date of issuance thereof and will have a five and one-half-year term and an exercise price of $9.66 per share, which exercise price must be paid in cash. The Macquarie Warrants survived the termination of the Macquarie Promissory Note and remain outstanding as of May 31, 2026.  On October 31, 2025, MEC assigned the Macquarie Warrants and its rights under the Registration Rights Agreement in connection therewith to Jane Street and on or around May 15, 2026, Jane Street assigned all of its right, title and interest in and to Macquarie Warrants to WFBNA.
+
+Amended and Restated Unit Purchase Agreement
+
+As previously disclosed, on January 13, 2025, APLD HPC Holdings LLC (formerly, APLD ELN-02 Holdings LLC), an indirect wholly owned subsidiary of the Company, entered into a Unit Purchase Agreement (the “Unit Purchase Agreement” or “UPA”) for its HPC Hosting Business with MIP VI HPC Holdings, LLC, which is an affiliate of funds and investment vehicles managed by entities within Macquarie Asset Management (“MAM”). On February 11, 2025, APLD HPC Holdings LLC novated and assigned its rights, title and interests and duties, liabilities and obligations under the UPA to APLD HPC TopCo LLC, an indirect wholly-owned subsidiary of the Company (“TopCo 1”). On October 3, 2025, the Company, TopCo 1, APLD HPC TopCo 2 LLC, an indirect wholly-owned subsidiary of the Company (“TopCo 2”), and MIP HPC Holdings, LLC (formerly, MIP VI HPC Holdings, LLC) (the “Purchaser”) entered into an Amended and Restated Unit Purchase Agreement (the “A&R UPA”).
+
+On October 6, 2025, all conditions to the Initial Closing (as defined in the A&R UPA) were satisfied and the Initial Closing occurred. At the Initial Closing, TopCo 2 sold to the Purchaser 112,500 Preferred Units in TopCo 2 at a price per Preferred Unit of $1,000, for an aggregate purchase price of $112.5 million, and for no additional consideration, TopCo 2 agreed to issue to the Purchaser such number of Common Units of TopCo 2 representing, in the aggregate, seven and a half percent (7.5%) of the fully diluted common equity of TopCo 2 as of immediately following the Initial Closing. The proceeds of the Initial Closing will be used to pay, among other things, construction and development costs of Polaris Forge 1 and transaction expenses. MAM has the right to invest up to an additional $4.9 billion under the A&R UPA.
+
+In addition, pursuant to the A&R UPA, on October 6, 2025, the Company issued to the designated affiliates of the Purchaser, warrants to purchase an aggregate of 2.4 million shares of the Company’s common stock. Under its terms the warrants became exercisable on April 6, 2026. Also on October 6, 2025, the Company entered into a registration rights agreement with the Purchaser, pursuant to which the Company agreed to file with the SEC a registration statement registering the resale of the shares of common stock issuable upon exercise of the warrants within 60 days of the execution of the registration rights agreement. On November 25, 2025, TopCo 2 sold to the Purchaser 450,000 Preferred Units in TopCo 2 at a price per Preferred Unit of $1,000, for an aggregate purchase price of $450.0 million.
+
+On December 9, 2025, TopCo 2 sold to the Purchaser an additional 337,500 Preferred Units in TopCo 2 at a price per Preferred Unit of $1,000, for an aggregate purchase price of $337.5 million. Additionally, 27,778 common units were issued.
+
+On May 29, 2026, TopCo 2 completed a fourth closing under its A&R UPA, selling 925,000 preferred units for $925.0 million and issuing an additional 41,815 common units. This brought the total amount funded to date under the A&R UPA to $1.8 billion as of May 31, 2026 and MIP HPC Holdings, LLC's holdings to 13.5% of TopCo 2’s fully diluted common equity.
+
+Retirement of Treasury Stock
+
+On October 7, 2025, the Board of Directors approve and authorized 9,291,199 shares of the Company’s capital stock that was currently held in treasury stock to be retired and returned to the authorized but unissued capital stock.
+
+STB Warrant
+
+During the fiscal year ended May 31, 2026, 800,000 of the STB Warrants were exercised for $6.3 million.
+
+46
+
+Settlement of Prepaid Forward Transaction
+
+On November 3, 2025, the Company’s Prepaid Forward Transaction associated with the Convertible Notes matured and the Company received 7,165,300 shares of common stock which are now held in treasury stock as of May 31, 2026.
+
+Increase in Authorized Shares 
+
+On November 5, 2025, at the Annual Stockholders’ Meeting, the Company’s stockholders approved an amendment to the Second Amended and Restated Articles of Incorporation, increasing the number of shares of common stock authorized for issuance thereunder to 600,000,000 shares, which became effective upon filing on November 6, 2025.
+
+Increase in 2024 Plan Authorized Shares
+
+On November 5, 2025, at the Annual Stockholders’ Meeting, the Company’s stockholders approved an amendment to the Applied Digital Corporation 2024 Omnibus Equity Incentive Plan to increase the number of shares of common stock authorized for issuance thereunder by 15,000,000 shares. 
+
+Debt Financing
+
+Promissory Note
+
+On September 9, 2025, our subsidiary, APLD FAR-01 LLC ("APLD FAR-01"), entered into a promissory note (the “MEC Promissory Note”) with Macquarie Equipment Capital, Inc., a Delaware corporation ("MEC”). The MEC Promissory Note provides for a principal sum of (a) $50 million (the “Initial Loan”), which was drawn on the Closing Date, plus (b) subject to the mutual consent of us and MEC, additional loans in an aggregate principal amount not to exceed $25 million (the “Additional Loans” and together with the Initial Loan, the “MEC Loan”).
+
+The MEC Loan shall bear interest at 8.0% per annum, unless an Event of Default (as defined therein) has occurred and is continuing, in which case, the Secured Obligations (as defined therein) shall bear interest at the sum of 8.0% per annum plus an additional 1.50% per month (the “Post-Default Rate”). From the Closing Date until the date that is twelve months following the Closing Date (the “PIK Period”), accrued interest will be paid in kind, with such payment in kind being capitalized to principal monthly and at such other times as may be specified in the MEC Promissory Note. After the PIK Period, accrued interest will be paid in cash, provided that (i) the Post-Default Rate interest is payable in cash on demand and (ii) accrued interest on any principal amount repaid or prepaid is payable on the date of such repayment or prepayment. The MEC Promissory Note matures on the earliest of (i) the date of acceleration of the MEC Loan, (ii) February 1, 2026, if the 200 MW Lease Execution (as defined therein) has not occurred on or before October 31, 2025, or (iii) September 9, 2027. The MEC Loan will accelerate and we must mandatorily prepay the full outstanding principal balance of the MEC Promissory Note, together with accrued interest to the date of prepayment on the principal amount prepaid and any other amounts then due and payable, upon the occurrence of any of the following conditions: (a) a Change of Control (as defined therein), (b) within ninety (90) days following the occurrence of the 200 MW Lease Execution, and (c) within thirty (30) days following a Qualifying Preference Share Issuance (as defined therein).
+
+We may voluntarily prepay all or part of the MEC Promissory Note at any time with no less than three (3) business days’ notice with accrued interest to the date of prepayment on the principal amount prepaid, so long as, with respect to the portion of the MEC Loan then being prepaid, in each case, such prepayment is accompanied by the payment of amounts sufficient to achieve a rate of return that equals or exceeds 1.10 to 1.00. The same 1.10x return hurdle applies to repayment at maturity. Amounts repaid under the MEC Promissory Note will not be available to be re-borrowed.
+
+Proceeds of the MEC Loan under the MEC Promissory Note were used, in part, to (i) pay transaction costs, (ii) pay transaction expenses in connection with the Note Documents (as defined therein), (iii) fund the purchase of the financed properties located on the Company’s campus in Harwood, North Dakota (“Polaris Forge 2”), including all associated closing costs, title fees, and legal expenses, (iv) finance improvements to the Polaris Forge 2 properties, (v) fund the purchase of the Transformers (as defined therein) and other equipment expected to be installed and used for the improvements of the Polaris Forge 2 properties, (v) to pay any other costs, fees, expenses, or amounts related to or in connection with the development and construction of Polaris Forge 2, and (vi) for general corporate working capital purposes.
+
+47
+
+In connection with the MEC Loan, (i) APLD FAR-01, APLD FAR Holdings LLC, a Delaware limited liability company ("APLD FAR Holdings"), as parent of the APLD FAR-01, and APLD FAR-02 LLC, a Delaware limited liability company ("APLD FAR-02"), as a subsidiary of APLD FAR Holdings, have entered into a guarantee and collateral agreement, as grantors thereunder, in favor of MEC (the “Guarantee and Collateral Agreement”).
+
+On November 28, 2025, APLD FAR-01 repaid the MEC Promissory Note in full, including all outstanding and unpaid principal, accrued interest, and rate of return.
+
+2025 Revolving Credit Facility
+
+On November 10, 2025, the Company entered into a loan and security agreement with First National Bank of Omaha, pursuant to which the lender agreed to make one or more revolving loans, and issue letters of credit, from time to time to the Company in an aggregate principal amount of $65 million (the "2025 Revolving Credit Facility"). Amounts borrowed and repaid are available for future borrowing. Interest accrues on the outstanding balance at a rate of SOFR plus 2.75% per annum. The loan is secured by all of the Company’s (but none of its subsidiaries’) assets. On May 29, 2026, the 2025 Revolving Credit Facility was modified and the standby letters of credit thereunder transferred when the Company and certain of its subsidiaries entered into the 2026 Revolving Credit Facility (as defined below).
+
+9.250% Senior Secured Notes due 2030
+
+On November 20, 2025, our subsidiary APLD ComputeCo LLC ("APLD ComputeCo"), closed a $2.35 billion offering (the “2030 9.250% Notes Offering”) of 9.250% senior secured notes due 2030 (the “2030 9.250% Notes”) at an issue price of 97.000%. The 2030 9.250% Notes were issued and sold in a private offering to persons reasonably believed to be qualified institutional buyers in reliance on Rule 144A under the Securities Act of 1933, as amended, and outside the United States to non-U.S. persons in reliance on Regulation S under the Securities Act. The 2030 9.250% Notes are senior secured obligations of APLD ComputeCo and bear interest at a rate of 9.250% per annum, payable semi-annually in arrears on June 15 and December 15 of each year, beginning on June 15, 2026. The principal amount of the 2030 9.250% Notes will amortize on a semi-annual basis on June 15 and December 15 of each year, beginning on December 15, 2027, in amounts set forth in the Indenture. The 2030 9.250% Notes will mature on December 15, 2030, unless earlier redeemed or repurchased in accordance with their terms. The 2030 9.250% Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo. Other than a customary completion guarantee, the Company is not providing credit support for the 2030 9.250% Notes Offering.
+
+SMBC Loan Extinguishment
+
+Concurrently with the closing of the 2030 9.250% Notes Offering, we repaid in full the aggregate principal balance plus accrued interest under the Credit and Guaranty Agreement, dated as of February 11, 2025, by and among APLD HPC Holdings LLC, the Subsidiary Guarantors thereunder (as defined therein), the lenders party thereto and Sumitomo Mitsui Banking Corporation (“SMBC”), as administrative agent.
+
+DevCo Facility
+
+On December 18, 2025, APLD DevCo LLC ("APLD DevCo”), a subsidiary of the Company, entered into an ongoing credit arrangement with MEC, for the purposes of funding the initial sourcing, planning, development and construction costs associated with a new data center project (the “DevCo Facility”) and other potential projects.
+
+The DevCo Facility is evidenced by, among other documents, that certain Promissory Note, dated as of December 18, 2025 (such date, the “Initial Closing Date”) (as amended and restated by that certain Amendment No. 1 to Promissory Note dated as of February 24, 2026 and as may be further amended, restated, amended and restated, supplemented, or otherwise modified from time to time, the “DevCo Promissory Note”) executed by APLD DevCo in favor of MEC. The DevCo Promissory Note provides for a principal sum of (a) $45 million (the “First Draw”), which was drawn on the Initial Closing Date, plus (b) $40 million (the “Second Draw”) which was drawn on February 24, 2026, plus (c) $15 million (the “Third Draw,” and, together with the First Draw and the Second Draw, the “Initial Loan,” and each, individually, a “Draw”) with the Third Draw to be funded upon APLD DevCo’s request at any time after the Initial Closing Date subject to satisfaction of or waiver by MEC of certain conditions precedent on or prior to the Third Draw, plus (d) the principal sum of any Additional Loans (as defined below, and, together with the Initial Loan, the “DevCo Loan”), if applicable, made by MEC (at the mutual consent of APLD DevCo and MEC).
+
+48
+
+In addition, the DevCo Promissory Note provides for, upon request of APLD DevCo occurring prior to the Maturity Date (as defined below), (a) rolling over of the outstanding principal balance of the DevCo Loan from time to time into one or more loans for one or more new projects (such rollovers, the “Rollover Loans”), or (b) increasing the size of the existing DevCo Loan by advancing new loans to APLD DevCo (such loans, the “Additional Loans”), in either case, for the purpose of financing development activities at new or existing data center projects at direct or indirect, wholly owned domestic subsidiaries of APLD DevCo, each of which shall become a guarantor with respect to such Additional Loans or Rollover Loans, as applicable, subject to the prior written approval of MEC (in its sole discretion) and the satisfaction of the conditions specified by MEC.
+
+Each Draw is fully committed, but any Additional Loans or Rollover Loans made by MEC under the DevCo Promissory Note would be on an uncommitted, discretionary basis (with no specified maximum borrowing limit for any Additional Loans or Rollover Loans).
+
+The DevCo Loan shall bear interest at 8.0% per annum, unless an Event of Default (as defined therein) has occurred and is continuing, in which case, the Secured Obligations (as defined therein) shall bear interest at the sum of 8.0% per annum plus an additional 1.50% per month (the “Post-Default Rate”).
+
+The DevCo Loan matures on the earliest of (i) the date of acceleration of the DevCo Loan, (ii) July 18, 2026, if the Initial Lease Execution (as defined therein) has not occurred on or before April 18, 2026, or (iii) December 18, 2027 (the “Maturity Date”).
+
+Proceeds from the DevCo Loan will be used, in part, to (i) pay transaction expenses, and (ii) fund the purchase, development and improvement of, and the purchase of equipment for, our latest new project under development.
+
+In connection with the Loan, (i) APLD Intermediate as direct parent of APLD DevCo, and APLD DevCo’s subsidiaries (the “Note Parties”) have entered into a guarantee and collateral agreement, as grantors thereunder, in favor of MEC (the “Guarantee and Collateral Agreement”), and (ii) the Company has entered into a parent guarantee in favor of MEC to guarantee the obligations of the Note Parties under the DevCo Promissory Note.
+
+On May 29, 2026, APLD DevCo repaid the DevCo Loan in full, including all outstanding and unpaid principal, accrued interest, and rate of return, when the Company and certain of its subsidiaries completed the fourth closing under the Amended & Restated Unit Purchase Agreement, as described in Note 11 - Variable Interest Entities.
+
+6.750% Senior Secured Notes due 2031
+
+On March 10, 2026, APLD ComputeCo 2 LLC, a subsidiary of the Company (“APLD ComputeCo 2”), closed a $2.15 billion offering (the “2031 6.750% Notes Offering”) of 6.750% senior secured notes due 2031 (the “2031 6.750% Notes”) at an issue price of 98.000% of par. The 2031 6.750% Notes are senior secured obligations of APLD ComputeCo 2 and bear interest at a rate of 6.750% per annum, payable semi-annually in arrears on March 15 and September 15 of each year, beginning on September 15, 2026. The principal amount of the 2031 6.750% Notes will amortize on a semi-annual basis on March 15 and September 15 of each year, in amounts set forth in the Indenture. The 2031 6.750% Notes will mature on March 15, 2031, unless earlier redeemed or repurchased in accordance with their terms. The 2031 6.750% Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo 2. The Company provided a customary completion guarantee for the 2031 6.750% Notes Offering. The gross proceeds from the 2031 6.750% Notes Offering were deposited into a segregated escrow account pending the execution of an electric service agreement with certain providers on the terms and conditions of a related escrow agreement. On June 18, 2026, the escrow release condition was satisfied, and the escrowed funds were released into the project accounts to fund the development and construction of the facilities.
+
+Bridge Facility
+
+On May 1, 2026, APLD ComputeCo 3 LLC ("APLD ComputeCo 3"), a subsidiary of the Company, and APLD ComputeCo 3's wholly owned subsidiaries as subsidiary guarantors entered into a Credit and Guaranty Agreement with Goldman Sachs Bank USA, as administrative agent and as collateral agent (in such capacity, the “Bridge Facility Collateral Agent”) and the Lenders party thereto, providing for a bridge loan facility in an aggregate principal amount of $300 million (the “Bridge Facility”). 
+
+49
+
+Proceeds of the Bridge Facility were used to (i) pay transaction expenses in connection with the Loan Documents (as defined therein), (ii) fund the construction and improvement of ELN-04, (iii) fund the purchase of equipment expected to be installed and used for the improvements of ELN-04, and (iv) pay other costs, fees, expenses or amounts related to or in connection with the development and construction of ELN-04.
+
+The Bridge Facility bears interest at a rate per annum equal to, depending on the Type of Loans under any Borrowing, either Daily Simple SOFR plus 2.75% per annum or the Base Rate plus 1.75% per annum, and matures on April 30, 2027. 
+
+In connection with the Bridge Facility, (i) APLD ComputeCo 3 and the subsidiary guarantors have entered into a Collateral Agency, Security and Depositary Agreement, as grantors thereunder, in favor of the Bridge Facility Collateral Agent, pursuant to which APLD ComputeCo 3 and the subsidiary guarantors pledged a continuing security interest in substantially all of their respective assets, (ii) APLD HPC Holdings 2 LLC, a Delaware limited liability company, as parent of APLD ComputeCo 3, entered into a Pledge Agreement in favor of the Bridge Facility Collateral Agent, pursuant to which it pledged the equity interests in APLD ComputeCo 3, and (iii) the Company provided a full recourse parent guarantee (the “Parent Guarantee”) in favor of the Bridge Facility Collateral Agent. 
+
+Subsequent to the end of the fiscal year, APLD ComputeCo 3 refinanced the Bridge Facility with the closing of the 2031 7.000% Notes Offering (as defined below). See further discussion in Note 21 - Subsequent Events.
+
+2026 Revolving Credit Facility
+
+On May 29, 2026, APLD Intermediate HoldCo LLC, a Delaware limited liability company and a first-tier subsidiary of the Company ("APLD Intermediate HoldCo"), and certain other subsidiaries of the Company as subsidiary guarantors entered into a Credit Agreement (the “Revolving Credit Agreement”) with First National Bank of Omaha, as administrative agent and collateral agent (in such capacity, the “Revolving Credit Collateral Agent”), and the lenders and issuing banks party thereto, providing for a revolving credit facility in an initial aggregate principal amount of $350.0 million with an additional accordion option of up to $200 million (the “2026 Revolving Credit Facility”). 
+
+Proceeds of the 2026 Revolving Credit Facility will be used (i) on the closing date, to repay or refinance existing indebtedness, (ii) for general corporate purposes and (iii) for ongoing working capital needs of APLD Intermediate HoldCo and its subsidiaries. 
+
+The 2026 Revolving Credit Facility bears interest at a rate per annum equal to, at APLD Intermediate HoldCo’s election, either Term SOFR plus 2.25% or the Alternate Base Rate plus 1.25%, and matures on the earlier of (i) May 29, 2029 and (ii) the date that is ninety-one (91) days prior to a specified date in Section 10.01(a)(i) of that certain Preferred Equity Purchase Agreement. 
+
+In connection with the 2026 Revolving Credit Facility, (i) the Company, APLD Intermediate HoldCo, and certain of the Company's subsidiaries (collectively, the “Revolving Credit Loan Parties”) entered into a Collateral Agreement in favor of the Revolving Credit Collateral Agent, pursuant to which the Revolving Credit Loan Parties pledged a continuing security interest in substantially all of their respective assets (subject to the exclusions specified in the Revolving Credit Agreement), and (ii) the Revolving Credit Loan Parties entered into a Guarantee Agreement in favor of the Revolving Credit Collateral Agent, guaranteeing the obligations of the other Revolving Credit Loan Parties under the Revolving Credit Agreement. APLD ComputeCo 3 and its subsidiaries are not (i) Revolving Credit Loan Parties, (ii) “restricted subsidiaries” under the 2026 Revolving Credit Facility, (iii) required to provide any credit support for the 2026 Revolving Credit Facility, or (iv) subject to any covenants or other restrictions in the 2026 Revolving Credit Facility. 
+
+Recent Developments
+
+Cloud SAFE Payoff
+
+During the fiscal year ended May 31, 2025, we entered into two Simple Agreements for Future Equity (“SAFEs”) with an investor for equity in Cloud, which was, at that time, our wholly-owned subsidiary, for aggregate proceeds of $12.0 million. On June 2, 2026, following an agreement reached with the investor, we paid off all amounts outstanding under the SAFEs, totaling $13.3 million.
+
+50
+
+Delta Forge 2 Lease
+
+On June 5, 2026, we entered into an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler at our Delta Forge 2 210 MW critical IT load campus located in our southern region, comprising a single building under construction. The lease is for the full 210 MW of critical IT load, representing approximately $5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028.
+
+$1.59 Billion Senior Secured Notes due 2031
+
+On June 16, 2026, APLD ComputeCo 3 refinanced the Bridge Facility with the closing of a $1.59 billion offering (the “2031 7.000% Notes Offering”) of 7.000% senior secured notes due 2031 (the “2031 7.000% Notes”) at an issue price of 100.000% of par. The 2031 7.000% Notes are senior secured obligations of APLD ComputeCo 3 and bear interest at a rate of 7.000% per annum, payable semi-annually in arrears on June 15 and December 15 of each year, beginning on December 15, 2026. The principal amount of the 2031 7.000% Notes will amortize on a semi-annual basis on June 15 and December 15 of each year, in amounts set forth in the Indenture. The 2031 7.000% Notes will mature on June 15, 2031, unless earlier redeemed or repurchased in accordance with their terms. The 2031 7.000% Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo 3. The Company provided a customary completion guarantee for the 2031 7.000% Notes Offering. 
+
+Series G
+
+On June 17, 2026 and June 22, 2026, we issued an aggregate of 154,500 shares of Series G Preferred Stock for total gross proceeds of $150.0 million. Of the 154,500 shares of Series G Preferred Stock issued, 81,346 shares have been converted into an aggregate of 1,787,825 shares of our common stock and 73,154 shares remain outstanding.
+
+On June 26, 2026, we entered into the sixth amendment to the PEPA to increase the aggregate commitment amount under the PEPA for the issuance of shares of Series G Preferred Stock from $1.59 billion to $2.0 billion.
+
+Satisfaction of Escrow Release Condition for 6.750% Senior Secured Notes due 2031
+
+On June 18, 2026, APLD ComputeCo 2 satisfied the escrow release condition under the escrow agreement for the 2031 6.750% Notes and executed and delivered to the escrow agent an escrow release certificate directing the escrow agent to release the funds in the escrow account to APLD ComputeCo 2 and apply such funds in accordance with the escrow agreement and the indenture for the 2031 6.750% Notes.
+
+Upsize of 2026 Revolving Credit Facility 
+
+On June 26, 2026, in connection with the 2026 Revolving Credit Facility, the Company, APLD Intermediate HoldCo, and the subsidiary guarantors party to the Revolving Credit Agreement entered into an Incremental Assumption Agreement No. 1 (the “Assumption Agreement”), with the Revolving Credit Collateral Agent and the lenders and issuing banks party thereto, providing for an Incremental Revolving Facility Commitment in an aggregate principal amount of up to $80,000,000 (the “Incremental Revolving Financing”). After giving effect to the Assumption Agreement, the aggregate revolving commitments under the 2026 Revolving Credit Facility increased to $430.0 million, with an additional $120 million accordion option remaining. The Incremental Revolving Financing constitutes a part of the 2026 Revolving Credit Facility and is subject to the terms and conditions of the Revolving Credit Agreement and the other loan documents entered into in connection therewith.
+
+Loan and Security Agreement
+
+On June 30, 2026, the Company entered into a Loan and Security Agreement (the "Texas Capital Loan Agreement") with Texas Capital Bank ("Texas Capital") and a related Promissory Note in favor of Texas Capital in the stated principal amount of $58.5 million (the "Texas Capital Note"). The Texas Capital Loan Agreement contains standard terms, conditions and covenants. Interest is payable on the Texas Capital Note at the sum of an adjusted term SOFR plus an applicable margin. The Texas Capital Note matures on June 30, 2031.
+
+51
+
+ChronoScale Holding Company Transaction
+
+On July 1, 2026, ChronoScale, our majority owned public subsidiary, completed a holding company formation transaction (the “Holding Company Transaction”) that created a new parent holding company as the public company, called ChronoScale Holdings Corporation, a Nevada corporation (“ChronoScale Holdings”), with its operating companies as wholly-owned subsidiaries. The holding company structure better reflects ChronoScale’s individual operating businesses, allows for and can accommodate future growth from internal operations and generally provides for greater administrative and operational flexibility. ChronoScale Holdings has the exact same classes and number of shares outstanding after the Holding Company Transaction as ChronoScale had outstanding immediately before the Holding Company Transaction, and as such, the shareholders of ChronoScale were not be diluted as a result of the Holding Company Transaction. Following the Holding Company Transaction, ChronoScale Holdings became the successor issuer to ChronoScale and continues to trade on Nasdaq under the ticker symbol “CHRN” with the same CUSIP. 
+
+52
+
+Results of Operations 
+
+Results of Operations for the fiscal year ended May 31, 2026 compared to fiscal years ended May 31, 2025 and May 31, 2024
+
+The following table sets forth key components of the results of operations (in thousands) during the fiscal years ended May 31, 2026, 2025, and 2024.
+
+Fiscal Year Ended
+May 31, 2026  May 31, 2025  May 31, 2024
+Revenues:
+Services revenue  $  496,609 $  226,643 $  150,814
+Data center rental and other revenue  114,702  —  —
+Related party revenue  —  1,926  14,761
+Total revenue  611,311  228,569  165,575
+Costs and expenses:
+Services cost of revenue  396,858  216,759  148,340
+Data center rental and other cost of revenue  56,771  —  —
+Selling, general and administrative (1)  332,096  107,877  97,776
+Loss (gain) on classification as held for sale (2)  59,650  (24,616)  15,417
+Loss on abandonment of assets  2,398  724  —
+Loss from legal settlement  —  —  2,380
+Total costs and expenses  847,773  300,744  263,913
+Operating loss  (236,462)  (72,175)  (98,338)
+Interest expense, net (3)  29,516  32,139  27,517
+Gain on change in fair value of derivatives  (75,818)  —  —
+Gain on change in fair value of investments  (10,840)  —  —
+Loss on conversion of debt  —  33,612  —
+Loss on change in fair value of debt  —  85,439  7,401
+Loss on change in fair value of related party debt  —  —  8,116
+Loss on extinguishment of debt  —  1,177  —
+Loss on extinguishment of related party debt  —  —  2,507
+Loss on change in fair value of warrants  2,212  6,421  —
+Loss on change in fair value of related party warrants  —  —  5,696
+Net loss from continuing operations before income tax expenses  (181,532)  (230,963)  (149,575)
+Income tax expense  1,787  102  96
+Net loss from continuing operations  (183,319)  (231,065)  (149,671)
+Net loss from discontinued operations  (1,020)  —  —
+Net loss  (184,339)  (231,065)  (149,671)
+Net loss attributable to noncontrolling interest and redeemable noncontrolling interest  (59,665)  —  (397)
+Preferred dividends  (6,259)  (2,615)  —
+Net loss attributable to common stockholders  $  (250,263) $  (233,680) $  (149,274)
+Net loss attributable to common stockholders
+Continuing operations  $  (249,243)  $  (233,680)  $  (149,274)
+Discontinued operations  (1,020)  —  —
+Net loss  $  (250,263)  $  (233,680)  $  (149,274)
+
+53
+
+Basic and diluted net loss per share attributable to common stockholders
+Continuing operations  $  (0.91)  $  (1.16)  $  (1.31)
+Discontinued operations  —  —  —
+Basic and diluted net loss per share  $  (0.91)  $  (1.16)  $  (1.31)
+Basic and diluted weighted average number of shares outstanding  275,194,755  201,194,451  114,061,414
+Adjusted Amounts (4)
+Adjusted revenue  $  539,707  $  144,193  $  136,618
+Adjusted operating income (loss)  $  57,796  $  2,384  $  4,752
+Adjusted operating margin  11%  2%  3%
+Adjusted net income (loss) from continuing operations attributable to common stockholders  $  36,076  $  (12,458)  $  (13,052)
+Adjusted net income (loss) from continuing operations attributable to common stockholders per diluted share  $  0.11  $  (0.06)  $  (0.11)
+Other Financial Data (4)
+EBITDA  $  (65,540)  $  (126,204)  $  (35,095)
+as a percentage of adjusted revenue  (11)%  (55)%  (21)%
+Adjusted EBITDA  $  107,229  $  19,628  $  21,922
+as a percentage of adjusted revenue  18%  9%  13%
+Net operating income  $  90,388  $  —  $  —
+Net operating income margin  91%  —%  —%
+
+(1)Includes related party selling, general and administrative expense of $0.3 million, $0.3 million, and $0.6 million for the fiscal years ended May 31, 2026, May 31, 2025, and May 31, 2024 respectively.
+
+(2)For the fiscal year ended May 31, 2026, amount includes a loss on classification of held for sale of $59.7 million representing the write down of the cloud business assets to their carrying value as of February 15, 2026 when it no longer qualified as held for sale. For the fiscal year ended May 31, 2025, amount includes $25 million received in connection with the sale of our Garden City facility once conditional approval requirements were met and escrowed funds were released. The fiscal year ended May 31, 2024 includes $15.4 million loss on classification of held for sale related to the sale of the Garden City facility. 
+
+(3)For the fiscal year ended May 31, 2026, amount includes related party income of $0.1 million. For the fiscal year ended May 31, 2024, amount includes related party interest expense of $5.7 million. 
+
+(4)Adjusted Amounts and Other Financial Data are non-GAAP performance measures. A reconciliation of reported amounts to adjusted amounts can be found in the "Non-GAAP Measures and Reconciliation" section of Management's Discussion and Analysis.
+
+Commentary on Results of Operations for the fiscal year ended May 31, 2026 compared to the fiscal year ended May 31, 2025
+
+Revenues
+
+Services revenue increased $270.0 million, or 119%, from $226.6 million for the fiscal year ended May 31, 2025 to $496.6 million for the fiscal year ended May 31, 2026. Our HPC Hosting Business commenced operations during the current fiscal year with the first HPC data center at our Polaris Forge 1 campus resulting in the recognition of approximately $270.6 million related to tenant fit-out services. Additionally, there was an increase of $12.1 million in revenue generated by our Data Center Hosting Business due to performance improvements compared to the fiscal year ended May 31, 2025.
+
+These increases were slightly offset by a decrease of $12.4 million in revenue generated from ChronoScale during the fiscal year ended May 31, 2026 compared to the fiscal year ended May 31, 2025 primarily due to a reduction in rates for cloud services.
+
+54
+
+Data center rental and other revenue was $114.7 million for the fiscal year ended May 31, 2026, which is the period during which our HPC Hosting Business commenced operations. This revenue consisted of approximately $99.8 million related to base rent and $14.9 million related to tenant recoveries.
+
+Related party revenue decreased $1.9 million, or 100%, from $1.9 million for the fiscal year ended May 31, 2025 to no related party revenue recognized for the fiscal year ended May 31, 2026, driven by certain related parties terminating their contracts during the first fiscal quarter of fiscal year 2025.
+
+Cost of revenues
+
+Services cost of revenue increased by $180.1 million, or 83%, from $216.8 million for the fiscal year ended May 31, 2025 to $396.9 million for the fiscal year ended May 31, 2026. The increase was due to the following changes: 
+
+•approximately $258.1 million in expenses associated with tenant fit-out services for our HPC Hosting Business which we began providing during the current fiscal year;
+
+•approximately $2.1 million increase in energy costs associated with our Data Center Hosting Business; and
+
+•approximately $1.0 million increase in other expenses directly attributable to generating revenue primarily related to repairs and maintenance, security, and property insurance associated with our data centers.
+
+These increases were partially offset by decreases of approximately $62.3 million in depreciation and amortization expense and approximately $17.2 million in lease and related expense primarily due to the renegotiations of certain of our leases during fiscal year ended May 31, 2026 as well as due to our cloud services business (the “Cloud Services Business”) being classified as held for sale until February 15, 2026, which resulted in decreased depreciation and amortization recorded and a decrease of $1.2 million in personnel expenses due to the closing of the Cloud transaction.
+
+Data center rental and other cost of revenue was $56.8 million for the fiscal year ended May 31, 2026, which is when we commenced our data center rental operations within our HPC Hosting Business. The primary components of data center rental and other cost of revenue were categorized as follows:
+
+•approximately $32.2 million in depreciation and amortization expenses associated with our HPC Hosting Business;
+
+•approximately $14.9 million in expenses which are reimbursable as tenant recoveries;
+
+•approximately $8.5 million in rental property operating expenses, which are not eligible for recovery from our tenant;
+
+•approximately $0.7 million in property insurance expenses associated with our HPC Hosting Business; and
+
+•approximately $0.2 million in property tax expenses associated with our HPC Hosting Business.
+
+Selling, general and administrative expense
+
+Selling, general and administrative expense increased by $224.2 million, or 208%, from $107.9 million for the fiscal year ended May 31, 2025 to $332.1 million for the fiscal year ended May 31, 2026. The increase was primarily due to the overall growth in the business, categorized as follows:
+
+•approximately $198.3 million increase in stock-based compensation primarily due to an increase in shares awarded related to the increase in headcount as well as performance stock awards granted during the fiscal year ended May 31, 2026 compared to the fiscal year ended May 31, 2025;
+
+•approximately $16.0 million increase in professional service expenses primarily related to legal services provided on discrete transactions and projects as well as general support of the business;
+
+•approximately $15.4 million increase in personnel expenses largely driven by increases in headcount to support the business; and
+
+•approximately $6.2 million increase in other selling, general, and administrative expense primarily related to travel, computer and software expenses.
+
+These increases were partially offset by a decrease of approximately $11.2 million in lease and related expenses and a decrease of approximately $0.5 million in depreciation and amortization expense for the fiscal year ended May 31, 2026 compared to the fiscal year ended May 31, 2025, primarily due to the renegotiations of certain of our leases during fiscal 
+
+55
+
+year ended May 31, 2026 as well as due to the Cloud Services Business being classified as held for sale until February 15, 2026, which resulted in decreased depreciation and amortization recorded.
+
+Loss (gain) on classification as held for sale
+
+Loss (gain) on classification of held for sale changed by $84.3 million, or 342%, from a gain of $24.6 million for the fiscal year ended May 31, 2025 to a loss of $59.7 million for the fiscal year ended May 31, 2026. The loss during the fiscal year ended May 31, 2026 was primarily due to the write down of the Cloud Services Business assets to their carrying value as of February 15, 2026 when it no longer qualified as held for sale. Comparatively, the gain during the fiscal year ended May 31, 2025 was due to the receipt of $25.0 million of funds received in connection with the sale of our Garden City facility as conditional approval requirements were met and escrowed funds were released.
+
+Loss on abandonment of assets 
+
+Loss on abandonment of assets increased by $1.7 million, or 231%, from $0.7 million for the fiscal year ended May 31, 2025 to $2.4 million for the fiscal year ended May 31, 2026, driven by the write down of certain assets to their fair value upon disposal. 
+
+Interest expense, net
+
+Interest expense, net decreased $2.6 million, or 8%, from $32.1 million for the fiscal year ended May 31, 2025 to $29.5 million for the fiscal year ended May 31, 2026. As we entered into more debt arrangements during the current fiscal year, there was an increase of approximately $53.3 million in interest expense, approximately $3.3 million in loan issuance cost, and approximately $2.1 million in interest expense issuance discount.
+
+These increases were partially offset by an increase of $52.6 million in interest income due to an increase in funds held in interest-bearing demand deposit accounts as well as a decrease of $8.7 million in finance lease interest due to renegotiations of certain of our leases during the fiscal year 2026. 
+
+Gain on change in fair value of derivatives
+
+Gain on change in fair value of derivatives was $75.8 million for the fiscal year ended May 31, 2026, due to an increase of $89.2 million in fair value of our Babcock & Wilcox Enterprises, Inc. (“BWE”) common stock warrant offset by a decrease of $13.3 million in fair value of the derivative assets related to the preferred units and corresponding common units held by APLD HPC TopCo 2’s noncontrolling interest. There was no such gain recorded in the prior fiscal year.
+
+Gain on change in fair value of investments
+
+Gain on change in fair value of investment was $10.8 million for the fiscal year ended May 31, 2026, due to an increase of $8.8 million in fair value of our investment in BWE common stock and an increase of $2.0 million in fair value of our investment in Base Electron, a related party. There was no such gain recorded in the prior fiscal year.
+
+Loss on extinguishment of debt
+
+Loss on extinguishment of debt was $1.2 million for the fiscal year ended May 31, 2025, due to unamortized loan issuance costs related to the Macquarie Promissory Note that was repaid in the fiscal year ended May 31, 2025. There was no such loss recorded in the current fiscal year.
+
+Loss on conversion of debt
+
+Loss on conversion of debt was $33.6 million for the fiscal year ended May 31, 2025, due to the difference in the fair value compared to the price at which the promissory notes, totaling $92.1 million, entered into with YA II PN, LTD in the year ended May 31, 2024 (the “YA Notes") were converted. There was no such loss recorded in the current fiscal year.
+
+Loss on change in fair value of debt
+
+Loss on change in fair value of debt was $85.4 million for the fiscal year ended May 31, 2025, primarily due to a loss of approximately $89.6 million related to the change in fair value of the conversion option derivative of the Convertible Note during the two week period in which we did not have sufficient authorized shares to settle such conversion fully in shares. 
+
+56
+
+This loss was partially offset by a gain of approximately $4.1 million related to the change in the fair value of the YA Notes. There was no such loss recorded in the current fiscal year.
+
+Loss on change in fair value of warrants
+
+Loss on change in fair value of warrants was $2.2 million for the fiscal year ended May 31, 2026 due to revaluation of warrants issued by ChronoScale to third parties. Comparatively, loss on change in fair value of warrants was $6.4 million for the fiscal year ended May 31, 2025 primarily due to the initial valuation of the STB Warrants issued during the fiscal year ended May 31, 2025.
+
+Income tax expense
+
+Income tax expense increased $1.7 million, or 1652%, from $0.1 million for the fiscal year ended May 31, 2025 to a $1.8 million expense for the fiscal year ended May 31, 2026. This change was driven by an increase in current state and federal income tax expense during the current fiscal year.
+
+Net loss from discontinued operations
+
+Net loss from discontinued operations was $1.0 million for the fiscal year ended May 31, 2026 and represents the income statement activity related to the Ekso business at ChronoScale classified as held for sale and discontinued operations. There was no such activity in the prior fiscal year.
+
+Comparative Segment Data for the fiscal year ended May 31, 2026 compared to fiscal years ended May 31, 2025 and May 31, 2024:
+
+The following table sets forth the operating profit for each of our segments during the fiscal years ended May 31, 2026, 2025, and 2024 (in thousands):
+
+Fiscal Year Ended
+May 31, 2026  May 31, 2025  May 31, 2024
+Segment profit
+Data Center Hosting Business  $  48,337  $63,927  $4,812
+HPC Hosting Business  39,127  (12,086)  (4,811)
+Total segment profit  $  87,464  $51,841  $1
+
+Commentary on Segment Data Comparative Results for the fiscal year ended May 31, 2026 compared to fiscal year ended May 31, 2025 and May 31, 2024:
+
+Data Center Hosting Business
+
+Operating Profit
+
+Data Center Hosting Business operating profit decreased $15.6 million, or 24%, from $63.9 million for the fiscal year ended May 31, 2025 to $48.3 million for the fiscal year ended May 31, 2026. This decrease was primarily due to the recognition of a $25.0 million gain on classification of held for sale due to the release of escrowed funds related to the sale of the Garden City facility in the prior fiscal year as well as an increase of $2.2 million in cost of revenues due to increases in power, payroll, and repair and maintenance expenses. Offsetting this decrease was an increase of $10.2 million in revenue as performance improved at the sites. 
+
+HPC Hosting Business
+
+Operating Profit
+
+HPC Hosting Business operating profit increased $51.2 million, or 424%, from a loss of $12.1 million for the fiscal year ended May 31, 2025 to a profit of $39.1 million for the fiscal year ended May 31, 2026. The change is primarily due to revenue generated related to tenant fit-out services, net of expenses, as well as rental revenues from our first HPC data center at our Polaris Forge 1 campus as it became fully operational during the fiscal year ended May 31, 2026.
+
+57
+
+Non-GAAP Measures
+
+To supplement our consolidated financial statements presented under GAAP, we are presenting certain non-GAAP financial measures. We are providing these non-GAAP financial measures to disclose additional information to facilitate the comparison of past and present operations by providing perspective on results absent one-time or significant non-cash items. We utilize these measures in the business planning process to understand expected operating performance and to evaluate results against those expectations. We believe that these non-GAAP financial measures, when considered together with our GAAP financial results, provide management and investors with an additional understanding of our core business operating results regarding factors and trends affecting our business and provide a reasonable basis for comparing our ongoing results of operations. Management considers the Data Center Hosting Business and the HPC Hosting Business to be its core operations for long-run strategic and performance evaluation purposes. Accordingly, these non-GAAP financial measures exclude the results of our consolidated subsidiary, ChronoScale. ChronoScale is included in our consolidated financial statements and results of continuing operations. Due to its strategic role relative to the Company’s core business, management believes the ChronoScale results may obscure underlying trends in the performance of core operations when included in certain non-GAAP measures. 
+
+These non-GAAP financial measures are provided as supplemental measures to our performance measures calculated in accordance with GAAP and therefore, are not intended to be considered in isolation or as a substitute for comparable GAAP measures. Excluding the results of ChronoScale in our non-GAAP financial measures removes revenues and expenses that are part of the Company’s consolidated results and continuing operations and should not be viewed as measures or reflections of liquidity or profitability in accordance with GAAP. Further, these non-GAAP financial measures have no standardized meaning prescribed by GAAP and are not prepared under any comprehensive set of accounting rules or principles. Because of the non-standardized definitions of non-GAAP financial measures, we caution investors that the non-GAAP financial measures as used by us in this Annual Report on Form 10-K have limits in their usefulness to investors and may be calculated differently from, and therefore may not be directly comparable to, similarly titled measures used by other companies. Further, investors should be aware that when evaluating these non-GAAP financial measures, these measures should not be construed as an inference that our future results will be unaffected by unusual or non-recurring items. In addition, from time to time in the future there may be items that we may exclude for purposes of our non-GAAP financial measures and we may in the future cease to exclude items that we have historically excluded for purposes of our non-GAAP financial measures. Likewise, we may determine to modify the nature of the adjustments to arrive at our non-GAAP financial measures. Investors should review the non-GAAP reconciliations provided below and not rely on any single financial measure to evaluate our business.
+
+Adjusted Revenue
+
+“Adjusted revenue” is a non-GAAP financial measure that represents total revenue excluding ChronoScale revenue. Adjusted revenue is total revenue excluding total revenue from ChronoScale. 
+
+Adjusted Operating Income, Adjusted Net Income (Loss), and Adjusted Net Income (Loss) per Diluted Share
+
+“Adjusted operating income” and “Adjusted net income (loss) from continuing operations attributable to common stockholders” are non-GAAP financial measures that represent operating income and net income (loss) from operations excluding ChronoScale, respectively. Adjusted operating income is Operating loss excluding operating loss from ChronoScale, stock-based compensation, non-recurring repair expenses, diligence, acquisition, disposition and integration expenses, litigation expenses, loss on abandonment of assets, (gain) loss on classification of held for sale, accelerated depreciation and amortization, loss on legal settlement, restructuring expenses and other non-recurring expenses that management believes are not representative of our expected ongoing costs. Adjusted net income (loss) is Adjusted operating income further adjusted for interest expense directly attributable to ChronoScale, gain on change in fair value of derivatives, gain on change in fair value of investments, loss on conversion of debt, loss on change in fair value of debt, loss on change in fair value of related party debt, loss on change in fair value of warrants, loss on change in fair value of warrants issued to related parties, loss on extinguishment of debt and loss on extinguishment of related party debt. We define “Adjusted net income (loss) per diluted share” as Adjusted net income (loss) divided by weighted average diluted share count.
+
+EBITDA and Adjusted EBITDA
+
+“EBITDA” is defined as earnings before interest expense, net, income tax expense, and depreciation and amortization and excluding results of ChronoScale. “Adjusted EBITDA” is defined as EBITDA adjusted for stock-based compensation, non-
+
+58
+
+recurring repair expenses, diligence, acquisition, disposition and integration expenses, litigation expenses, (gain) loss on classification as held for sale, loss on abandonment of assets, gain on change in fair value of derivatives, gain on change in fair value of investments, loss on conversion of debt, loss on change in fair value of debt, loss on change in fair value of related party debt, loss on change in fair value of warrants, loss on change in fair value of warrants issued to related parties, loss on extinguishment of debt and loss on extinguishment of related party debt, loss on legal settlement, restructuring expenses, and other non-recurring expenses that management believes are not representative of our expected ongoing costs. 
+
+Net Operating Income
+
+"Net Operating Income" is a non-GAAP financial measure that represents base rental revenue from the HPC Hosting Business. Net Operating Income is HPC Hosting Business base rental revenue less rental property operating expenses, property taxes, and property insurance expenses. "Net Operating Income Margin" is defined as Net Operating Income divided by HPC Hosting Business base rental revenue.
+
+Reconciliation of GAAP to Non-GAAP Measures
+
+Fiscal Year Ended
+$ in thousands  May 31, 2026  May 31, 2025  May 31, 2024
+Adjusted Revenue
+Total revenue (GAAP)  $  611,311  $  228,569  $  165,575
+ChronoScale revenue  (71,604)  (84,376)  (28,957)
+Adjusted revenue (Non-GAAP)  $  539,707  $  144,193  $  136,618
+Adjusted operating income
+Operating loss (GAAP)  $  (236,462)  $  (72,175)  $  (98,338)
+Operating loss from ChronoScale  37,043  55,331  65,486
+Stock-based compensation  219,289  22,492  6,973
+Non-recurring repair expenses (1)  322  173  1,224
+Diligence, acquisition, disposition and integration expenses (2)  27,938  17,269  5,545
+Litigation expenses (3)  1,179  1,389  1,589
+Loss on abandonment of assets  1,799  1,138  —
+(Gain) loss on classification as held for sale  —  (24,616)  15,417
+Accelerated depreciation and amortization (4)  —  45  4,307
+Loss on legal settlement  —  —  2,380
+Restructuring expenses (5)  1,469  711  —
+Other non-recurring expenses (6)  5,219  627  169
+Adjusted operating income (Non-GAAP)  $  57,796  $  2,384  $  4,752
+Adjusted operating margin  11  %  2  %  3  %
+Adjusted net income (loss) from continuing operations attributable to common stockholders
+Net loss from continuing operations (GAAP)  $  (183,319)  $  (231,065)  $  (149,671)
+Operating loss from ChronoScale  37,043  55,331  65,486
+Interest expense directly attributed to ChronoScale  9,583  17,399  9,809
+Stock-based compensation  219,289  22,492  6,973
+Non-recurring repair expenses (1)  322  173  1,224
+Diligence, acquisition, disposition and integration expenses (2)  27,938  17,269  5,545
+Litigation expenses (3)  1,179  1,389  1,589
+Loss on abandonment of assets  1,799  1,138  —
+
+59
+
+(Gain) loss on classification as held for sale  —  (24,616)  15,417
+Accelerated depreciation and amortization (4)  —  45  4,307
+Gain on change in fair value of derivatives  (75,818)  —  —
+Gain on change in fair value of investments  (10,840)  —  —
+Loss on conversion of debt  —  33,612  —
+Loss on change in fair value of debt  —  85,439  7,401
+Loss on change in fair value of related party debt  —  —  8,116
+Loss on change in fair value of warrants  2,212  6,421  —
+Loss on change in fair value of warrants issued to related parties  —  —  5,696
+Loss on extinguishment of debt  —  1,177  —
+Loss on extinguishment of related party debt  —  —  2,507
+Loss on legal settlement  —  —  2,380
+Restructuring expenses (5)  1,469  711  —
+Other non-recurring expenses (6)  5,219  627  169
+Adjusted net income (loss) from continuing operations (Non-GAAP)  $  36,076  $  (12,458)  $  (13,052)
+Diluted weighted average number of shares outstanding (Non-GAAP) (7)  318,968,163  201,194,451  114,061,414
+Adjusted net income (loss) from continuing operations per diluted share (Non-GAAP)  $  0.11  $  (0.06)  $  (0.11)
+EBITDA and Adjusted EBITDA
+Net loss from continuing operations (GAAP)  $  (183,319)  $  (231,065)  $  (149,671)
+Operating loss from ChronoScale  37,043  55,331  65,486
+Interest expense, net  29,516  32,139  27,517
+Income tax expense (benefit)  1,787  102  96
+Depreciation and amortization (4)  49,433  17,289  21,477
+EBITDA (Non-GAAP)  $  (65,540)  $  (126,204)  $  (35,095)
+Stock-based compensation  219,289  22,492  6,973
+Non-recurring repair expenses (1)  322  173  1,224
+Diligence, acquisition, disposition and integration expenses (2)  27,938  17,269  5,545
+Litigation expenses (3)  1,179  1,389  1,589
+(Gain) loss on classification as held for sale  —  (24,616)  15,417
+Loss on abandonment of assets  1,799  1,138  —
+Gain on change in fair value of derivatives  (75,818)  —  —
+Gain on change in fair value of investments  (10,840)  —  —
+Loss on conversion of debt  —  33,612  —
+Loss on change in fair value of debt  —  85,439  7,401
+Loss on change in fair value of related party debt  —  —  8,116
+Loss on change in fair value of warrants  2,212  6,421  —
+Loss on change in fair value of warrants issued to related parties  —  —  5,696
+Loss on extinguishment of debt  —  1,177  —
+Loss on extinguishment of related party debt  —  —  2,507
+Loss on legal settlement  —  —  2,380
+Restructuring expenses (5)  1,469  711  —
+Other non-recurring expenses (6)  5,219  627  169
+
+60
+
+Adjusted EBITDA (Non-GAAP)  $  107,229  19,628  21,922
+Net Operating Income
+HPC Hosting Business base rental revenue (GAAP)  $  99,811  —  —
+Rental property operating expenses  (8,545)
+Property taxes  (198)
+Property insurance expenses  (680)
+Net Operating Income (Non-GAAP)  $  90,388  —  —
+Net Operating Income margin  91  %  %  %
+
+(1)Represents costs incurred for the non-recurring repair and replacement of equipment at our data center facilities.
+
+(2)Represents legal, accounting and consulting costs incurred in association with certain discrete transactions and projects.
+
+(3)Represents non-recurring litigation expense associated with our defense of class action lawsuits and legal fees related to matters with certain former employees. We do not expect to incur these expenses on a regular basis.
+
+(4)Represents the acceleration of expense related to assets that were abandoned by us due to operational failure or other reasons. Depreciation and amortization in this amount is included in Depreciation and Amortization expense within our calculation of EBITDA, and therefore is not added back as a management adjustment in our calculation of Adjusted EBITDA.
+
+(5)Represents non-recurring expenses associated with employee separations.
+
+(6)Represents expenses that are not representative of our expected ongoing costs.
+
+(7)Potentially dilutive securities or other contracts to issue common stock are only included for each period if the effect is dilutive to Adjusted net income (loss) from continuing operations per diluted share.
+
+Funding Requirements
+
+We have experienced net losses through the period ended May 31, 2026. Our transition to profitability is dependent on the successful operation of our business. 
+
+We expect to have sufficient liquidity, including cash on hand, payments from customers, access to debt financing, and access to public capital markets, to support ongoing operations and meet our working capital needs for at least the next 12 months and all of our known requirements and plans for cash. However, we may be unable to raise additional funds or enter into such arrangements when needed on favorable terms, or at all, which would have a negative impact on our financial condition and could force us to delay, limit, reduce or terminate our ongoing operations and development plans. We have based our estimates as to how long we expect we will be able to fund our operations on assumptions that may prove to be wrong, and we could use our available capital resources sooner than we currently expect, in which case, we would be required to obtain additional financing sooner than currently projected, which may not be available to us on acceptable terms, or at all. Our failure to raise capital as and when needed would have a negative impact on our financial condition and our ability to pursue our business strategy.
+
+We expect that our general and administrative expenses and our operating expenditures will continue to increase as we continue to expand our operations. We believe that the significant investments in property and equipment will remain throughout fiscal year 2027 as we continue construction of our HPC hosting facilities.
+
+Sources of Liquidity and Capital Resources
+
+Our primary capital requirements are to fund the development and expansion of our data center infrastructure, support working capital needs, cover operating expenses, and finance capital expenditures associated with technology upgrades and facility enhancements. As of May 31, 2026, we had unrestricted cash and cash equivalents of $1.6 billion and restricted cash of $2.6 billion. Historically we have incurred losses and have relied on equity and debt financings to fund our operations. We have primarily generated cash in the last 12 months from the proceeds of our term loans, issuances of common stock, preferred stock, promissory notes, senior unsecured convertible notes, senior secured notes (issued by our subsidiaries), debt facilities and the receipt of contractual deposits and revenue payments from customers. 
+
+61
+
+We believe that existing cash balances, cash flows from operations, existing debt facilities, and access to capital markets will provide sufficient liquidity to meet our debt obligations, including any repayment of debt or refinancing of debt, working capital needs, planned capital expenditures, and other contractual obligations, for at least the next twelve months and the foreseeable future thereafter.
+
+Financing Activities
+
+See Note 8 - Debt in the notes to the consolidated financial statements included in this Annual Report on Form 10-K for more information on our term loans and other debt instruments.
+
+June 2025 At-the-Market Sales Agreement
+
+On June 2, 2025, the Company entered into a Sales Agreement with Northland Securities, Inc. and Wells Fargo Securities, LLC (the “June 2025 Sales Agreement”), pursuant to which, up to $200,000,000 of shares of the Company's common stock may be issued if and when sold. As of the date of this report, the Company has issued and sold approximately 15.3 million shares under the June 2025 Sales Agreement for gross proceeds of approximately $196.4 million.
+
+Series G Convertible Preferred Stock
+
+During the fiscal years ended May 31, 2026 and May 31, 2025, the Company issued and sold 835,800 and 78,000 shares of Series G Preferred Stock, respectively, for gross proceeds of $815.0 million and $75.0 million, respectively. During the fiscal year ended May 31, 2026, 913,800 shares of Series G Preferred Stock were converted into 51.0 million shares of the Company’s common stock. As of May 31, 2026, no shares of Series G Preferred Stock were issued and outstanding. 
+
+Promissory Note
+
+On September 9, 2025, as described above, our subsidiary APLD FAR-01 LLC entered into the MEC Promissory Note with MEC, which provides for a principal sum of (a) $50 million, which was drawn on the Closing Date, plus (b) subject to the mutual consent of us and the Lender, additional loans in an aggregate principal amount not to exceed $25 million. On November 28, 2025, APLD FAR-01 LLC repaid the MEC Promissory Note in full, including all outstanding and unpaid principal, accrued interest, and rate of return.
+
+Amended and Restated Unit Purchase Agreement
+
+On October 6, 2025, as described above, the TopCo 2 sold to the Purchaser 112,500 Preferred Units in TopCo 2 at a price per Preferred Unit of $1,000, for an aggregate purchase price of $112.5 million. On November 25, 2025, the TopCo 2 sold to the Purchaser 450,000 Preferred Units in the TopCo 2 at a price per Preferred Unit of $1,000, for an aggregate purchase price of $450.0 million. On December 9, 2025, the TopCo 2 issued to the Purchaser an additional 27,778 common units and 337,500 Preferred Units in the TopCo 2 at a price per Preferred Unit of $1,000, for an aggregate purchase price of $337.5 million. On May 29, 2026, TopCo 2 completed a fourth closing under its A&R UPA, selling 925,000 preferred units for $925.0 million and issuing an additional 41,815 common units. This brought the total amount funded to date under the A&R UPA to $1.8 billion as of May 31, 2026.
+
+2025 Revolving Credit Facility
+
+On November 10, 2025, as described above, the Company entered into the 2025 Revolving Credit Facility with First National Bank of Omaha, pursuant to which the lender agreed to make one or more revolving loans, and issue letters of credit, from time to time to the Company in an aggregate principal amount of $65 million. On May 29, 2026, the 2025 Revolving Credit Facility was modified and the standby letters of credit thereunder transferred when the Company and certain of its subsidiaries entered into the 2026 Revolving Credit Facility.
+
+9.250% 2030 Senior Secured Notes due 2030
+
+On November 20, 2025, as described above, our subsidiary APLD ComputeCo LLC closed the 2030 9.250% Notes Offering of the 2030 9.25% Notes at an issue price of 97.0%. The net proceeds from the 2030 9.250% Notes after issuance costs and repayment of the SMBC Loan were approximately $1.9 billion. 
+
+62
+
+DevCo Facility
+
+On December 18, 2025, as described above, our subsidiary APLD DevCo LLC and MEC entered into the DevCo Facility. The DevCo Promissory Note provides for a principal sum of (a) the First Draw, plus (b) the Second Draw, plus (c) the Third Draw, with the Third Draw to be funded upon APLD DevCo’s request at any time after the Initial Closing Date subject to satisfaction of or waiver by MEC of certain conditions precedent on or prior to the Third Draw, plus (d) the principal sum of any Additional Loans, if applicable. 
+
+The DevCo Loan bears interest at 8.0% per annum, unless an Event of Default (as defined therein) has occurred and is continuing, in which case, the Secured Obligations (as defined therein) shall bear interest at the sum of 8.0% per annum plus an additional 1.50% per month (the “Post-Default Rate”). On May 29, 2026, APLD DevCo repaid the DevCo Loan in full, including all outstanding and unpaid principal, accrued interest, and rate of return.
+
+2031 Senior Secured Notes
+
+On March 10, 2026, as described above, our subsidiary APLD ComputeCo 2 LLC closed the 2031 6.750% Notes Offering of the 2031 6.750% Notes at an issue price of 98.0%. The net proceeds from the 2031 6.750% Notes after issuance costs were approximately $2.1 billion. 
+
+Bridge Facility 
+
+On May 1, 2026, as described above, our subsidiary APLD ComputeCo 3 entered into a Credit and Guaranty Agreement with Goldman Sachs Bank USA, providing for a bridge loan facility in an aggregate principal amount of $300.0 million. On June 16, 2026, the Bridge Facility was refinanced with the closing of the 2031 7.000% Notes Offering.
+
+2026 Revolving Credit Facility 
+
+On May 29, 2026, as described above, our subsidiary APLD Intermediate HoldCo entered into the 2026 Revolving Credit Facility with First National Bank of Omaha, pursuant to which the lenders and issuing banks party to the Revolving Credit Agreement agreed to make one or more revolving loans, and issue letters of credit, from time to time to APLD Intermediate HoldCo in an initial aggregate principal amount of $350.0 million.
+
+As of May 31, 2026, approximately $65.0 million of standby letters of credit were outstanding under the 2026 Revolving Credit Facility. Refer to Note 8 - Debt in the accompanying Notes to the Consolidated Financial Statements for additional information.
+
+Material Contractual Obligations
+
+In the ordinary course of business, we enter into contractual arrangements that require future cash payments. The following table sets forth information regarding our anticipated future cash payments under our contractual obligations as of May 31, 2026 (in thousands):
+
+Payments Due by Period
+Total  FY 2027  FY 2028  FY 2029  FY 2030  FY 2031  Thereafter
+Debt obligations(1)  $  5,306,680  $  16,591  $  196,648  $  290,798  $  295,689  $  4,194,954  $  312,000
+Interest on debt obligations(2)  1,784,691  377,502  399,283  358,730  334,729  295,011  19,436
+Operating lease obligations(3)  75,142  22,218  23,853  18,391  4,812  1,315  4,553
+Financing lease obligations(4)  62,037  51,069  10,968  —  —  —  —
+Power commitments(5)  19,178  19,178  —  —  —  —  —
+Preferred share dividends(6)  37,164  6,194  6,194  6,194  6,194  6,194  6,194
+
+(1)Debt obligations presented in the table reflect scheduled principal payments related to our long-term debt as described in Note 8 to the consolidated financial statements for further discussion.
+
+(2)Estimated interest payments on our debt obligations include estimated future interest payments based on the terms of the debt agreements. See Note 8 to the consolidated financial statements for further discussion.
+
+(3)Operating lease obligations include future minimum payments for our operating leases.
+
+63
+
+(4)Financing lease obligations include future minimum payments for our finance leases.
+
+(5)Power commitments represents our obligation related to the energy services agreement for our Jamestown, North Dakota co-hosting facility payable. See Note 18 to the consolidated financial statements for further discussion.
+
+(6)Preferred share dividends represent future dividend payments in accordance with preferred stock that has been issued. These amounts do not include preferred dividends related to preferred units of APLD HPC TopCo 2 LLC which may fluctuate depending on the redeemable noncontrolling interest's contribution as well as other factors that may impact the dividend rate. See Note 16 - Temporary Equity for further discussion.
+
+Summary of Cash Flows
+
+The following table provides information about our net cash flow for the fiscal years ended May 31, 2026, May 31, 2025, and May 31, 2024 respectively.
+
+Fiscal Year Ended
+$ in thousands  May 31, 2026  May 31, 2025  May 31, 2024
+Net cash provided by (used in) operating activities  $  89,685  $  (115,402)  $  13,794
+Net cash used in investing activities  (2,936,397)  (667,654)  (172,437)
+Net cash provided by financing activities  6,876,826  874,686  146,757
+Net increase (decrease) in cash, cash equivalents, and restricted cash  4,030,114  91,630  (11,886)
+Cash, cash equivalents, and restricted cash, beginning of period, including cash from discontinued operations  123,318  31,688  43,574
+Cash, cash equivalents, and restricted cash, end of period, including cash from discontinued operations  $  4,153,432  $  123,318  $  31,688
+Less: Cash, cash equivalents, and restricted cash from discontinued operations  $  2  $  —  $  —
+Cash, cash equivalents, and restricted cash from continued operations  $  4,153,430  $  123,318  $  31,688
+
+Commentary on the change in cash flows between the fiscal years ended May 31, 2026 and May 31, 2025:
+
+Operating Activities
+
+The net cash provided by (used in) operating activities changed by $205.1 million, or 178%, from $115.4 million used in operating activities for the fiscal year ended May 31, 2025 to $89.7 million provided by operating activities for the fiscal year ended May 31, 2026. Activities that positively impacted operating cash flows during the fiscal year ended May 31, 2026 included stock-based compensation associated with awards granted during the current period, non-cash interest expense associated with the increase in debt borrowings, deferred revenue received, as well as a decrease in net loss between comparative periods. These positive impacts were partially offset by prior period activities which were not present in the current period, including losses on the conversion and fair value of debt. Other impacts included changes in working capital associated with energizing our first HPC data center at our Polaris Forge 1 campus during the current fiscal year.
+
+Investing Activities
+
+The net cash used in investing activities increased by $2.3 billion, or 340%, from $667.7 million for the fiscal year ended May 31, 2025 to $2.9 billion for the fiscal year ended May 31, 2026. This increase was primarily due to an increase of approximately $2.2 billion in investments in property and equipment during the fiscal year ended May 31, 2026 as our payments in the current period for construction related expenses increased as well as an increase in loans to related parties and investments in other companies. Additionally, there were less proceeds from the sale of assets during the fiscal year ended May 31, 2026, compared to the fiscal year ended May 31, 2025 to offset the increase in cash used in investing activities.
+
+Financing Activities
+
+The net cash provided by financing activities increased by $6.0 billion, or 686%, from $874.7 million for the fiscal year ended May 31, 2025 to $6.9 billion for the fiscal year ended May 31, 2026. The primary reason for the change was an increase in the net borrowings of long-term debt of $4.1 billion and a capital contribution from our noncontrolling interest partners of $1.8 billion. Also contributing to the increase was an increase in the net proceeds from offerings of our common and preferred stock of $627.8 million during the fiscal year ended May 31, 2026. These increases were partially offset by a 
+
+64
+
+decrease of $450.0 million in borrowings under our Convertible Notes which occurred during the fiscal year ended May 31, 2025 as well as an increase of $129.5 million in payments of deferred financing costs during the fiscal year ended May 31, 2026 compared to the fiscal year ended May 31, 2025.
+
+Recent Accounting Pronouncements 
+
+For a discussion of recently issued financial accounting standards, refer to Note 2 - Significant Accounting Policies, in Part II, Item 8 of this Annual Report on Form 10-K.
+
+Critical Accounting Estimates and Significant Judgments
+
+Our consolidated financial statements are prepared in accordance with generally accepted accounting principles in the U.S. (“GAAP”). In connection with the preparation of our consolidated financial statements, we are required to make assumptions and estimates about future events and apply judgments that affect the reported amounts of assets, liabilities, revenue, expenses and the related disclosures. We base our assumptions, estimates and judgments on historical experience, current trends and other factors that management believes to be relevant at the time our consolidated financial statements are prepared. On a regular basis, management reviews the accounting policies, assumptions, estimates and judgments to ensure that our financial statements are presented fairly and in accordance with GAAP. However, because future events and their effects cannot be determined with certainty, actual results could differ from our assumptions and estimates, and such differences could be material.
+
+While our significant accounting policies are described in more detail in Note 2 - Significant Accounting Policies to our consolidated financial statements, we believe that the following accounting policies are those most critical to the judgments and estimates used in the preparation of our consolidated financial statements.
+
+Stock-based Compensation
+
+We account for stock-based compensation with performance conditions by recognizing expense ratably over the requisite service period once we conclude that it is probable that the performance conditions will be achieved. Our conclusion as to the probability of achievement is complex and requires significant judgment by management. In addition, estimates around the service period for performance awards that are probable of being achieved require significant judgment by management. We may revise our estimate when we determine that it is probable that the performance condition will be achieved within a different time period. 
+
+We reassess the probability related to vesting and the requisite service period at each reporting period, and recognize a cumulative catch up adjustment for such changes in our probability assessment in subsequent reporting periods. Our determination of probability is based on historical metrics, future projections, and our historical performance against such projections. 
+
+Fair Value Measurements
+
+Warrants
+
+We measure the warrants issued by the Company to CoreWeave, MIP VI REIT AIV, L.P., and MIP VI DC REIT AIV, L.P. at fair value (see Note 14 - Warrants for further discussion). We engaged a third party valuation specialist to assist management in its determination of the fair value of the warrants using a Black-Scholes Option Pricing model. Inherent in pricing models are assumptions related to expected share-price volatility, expected life, risk-free interest rate and dividend yield, which are considered Level 3 inputs. 
+
+We measured the warrants issued to the Company from BWE at fair value (see Note 10 - Derivative Assets for further discussion). We engaged a third party valuation specialist to assist management in its determination of the fair value of the warrants using a Black-Scholes Option Pricing model. Inherent in pricing models are assumptions related to expected share-price volatility, expected life, risk-free interest rate and dividend yield, which are considered Level 3 inputs. 
+
+Redeemable Noncontrolling Interest
+
+We engaged a third party valuation specialist to assist management in the determination of the fair value of the embedded derivative features, the Redemption features and the Contingent Dividend Rate Increase feature, associated with the preferred units and corresponding common units issued to APLD HPC TopCo 2's noncontrolling interest. The third party 
+
+65
+
+valuation specialist utilized a binomial lattice model in a risk-neutral framework. Inherent in the pricing model are assumptions related to the estimated credit spread of the associated preferred stock and corresponding common units, volatility, and risk-free rate of the derivative assets, which are considered Level 3 inputs (see Note 10 - Derivative Assets for further discussion).
+
+Performance Stock Units 
+
+We measured the performance stock units that vest based on market price at fair value (see Note 15 - Stock-Based Compensation Plans for further discussion). We engaged a third party valuation specialist to assist management in its determination of the fair value of the performance stock units using a Monte Carlo simulation model. Inherent in simulation models are assumptions related to simulation term, expected share-price volatility, risk-free interest rate and dividend yield, which are considered Level 3 inputs. 
+
+Management Incentive Plan Units 
+
+We measured the management incentive plan ("MIP") units granted in connection with the ChronoScale transaction at grant-date fair value (see Note 15 - Stock-Based Compensation Plans for further discussion). We engaged a third party valuation specialist to assist management in its determination of the grant-date fair value of the MIP units. The valuation considered multiple liquidity scenarios, which were measured using a combination of option pricing model ("OPM") and current value method ("CVM"). The valuation incorporated the contractual terms of the awards, the applicable distribution waterfall, and the underlying value of ChronoScale at the time of issuance. Inherent in the valuation are assumptions related to the probability and timing of liquidity events, expected volatility, risk-free interest rates, discounts for lack of marketability, and the underlying equity value of ChronoScale, which are considered Level 3 inputs.

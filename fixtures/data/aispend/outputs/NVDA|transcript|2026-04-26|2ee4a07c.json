@@ -1,0 +1,146 @@
+{
+ "accession": "NVDA|transcript|2026-04-26|2ee4a07c",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 75000000000,
+   "amount_high": 75000000000,
+   "quote": "Data Center revenue of $75 billion was up 92% year-over-year and 21% sequentially, driven by sustained strength in our Blackwell architecture.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "Quarterly figure (Q1 fiscal 2027, quarter ended 2026-04-26), not full-year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 60000000000,
+   "amount_high": 60000000000,
+   "quote": "For your models, Data Center computing revenue of $60 billion was up 77% year-over-year, while Data Center networking revenue of $15 billion nearly tripled year-over-year.",
+   "passage": "p03",
+   "confidence": 0.9,
+   "notes": "Quarterly Data Center compute sub-component of the $75B Data Center total; do not add to it."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 15000000000,
+   "amount_high": 15000000000,
+   "quote": "For your models, Data Center computing revenue of $60 billion was up 77% year-over-year, while Data Center networking revenue of $15 billion nearly tripled year-over-year.",
+   "passage": "p03",
+   "confidence": 0.9,
+   "notes": "Quarterly Data Center networking sub-component of the $75B Data Center total; do not add to it."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 38000000000,
+   "amount_high": 38000000000,
+   "quote": "Hyperscale revenue of $38 billion was approximately 50% of Data Center revenue and increased 12% quarter-over-quarter.",
+   "passage": "p05",
+   "confidence": 0.85,
+   "notes": "Quarterly Hyperscale sub-market of Data Center; the ~50% is a share of Data Center revenue, not of total revenue. Sub-component of the $75B; do not add."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 37000000000,
+   "amount_high": 37000000000,
+   "quote": "ACIE revenue was $37 billion and grew 31% quarter-over- quarter, including AI cloud revenue that more than tripled year-over-year.",
+   "passage": "p05",
+   "confidence": 0.85,
+   "notes": "Quarterly ACIE (AI clouds, industrial, enterprise) sub-market of Data Center. Sub-component of the $75B; do not add."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 9000000000,
+   "amount_high": 9000000000,
+   "quote": "Our physical AI continues to gain momentum, exceeding $9 billion in revenue over the last 12 months.",
+   "passage": "p15",
+   "confidence": 0.8,
+   "notes": "'Exceeding' $9B, so this is a lower bound. It covers the trailing 12 months, not a fiscal year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 20000000000,
+   "amount_high": 20000000000,
+   "quote": "We have visibility to nearly $20 billion in total CPU revenue this year, setting us up to become the world-leading CPU supplier.",
+   "passage": "p13",
+   "confidence": 0.65,
+   "notes": "'Nearly' $20B. I read 'this year' as fiscal 2027, the reported year. CPU revenue (Vera/Grace) is data-center/agentic AI demand but is not labeled AI revenue explicitly."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1000000000000,
+   "amount_high": 1000000000000,
+   "quote": "We are continuing to work vigorously on our supply chain ecosystem to address the incredible demand we see ahead of us, giving us full confidence in the $1 trillion in Blackwell and Rubin revenue we foresee from 2025 through calendar 2027.",
+   "passage": "p17",
+   "confidence": 0.6,
+   "notes": "Cumulative Blackwell and Rubin revenue over calendar 2025 through calendar 2027, not a single fiscal year. I set fiscal_year to the end year; do not treat it as annual revenue."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect sequential growth to be driven primarily by Data Center.",
+   "passage": "p17",
+   "confidence": 0.8,
+   "notes": "Q2 fiscal 2027 outlook. Total revenue is guided at $91B \u00b12% in a separate sentence that does not mention AI or Data Center."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "For the full year, we now expect OpEx to grow somewhere in the upper-40s on a year-over-year basis, driven by higher R&D and acceleration in the usage of AI tools to enhance productivity.",
+   "passage": "p18",
+   "confidence": 0.75,
+   "notes": "The 'upper-40s' figure is percentage growth of total OpEx, not an AI share, so the class is qualitative. 'Full year' refers to the current fiscal 2027. AI tools are named as one driver."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "No sentence states or attributes NVIDIA's own capital expenditures to AI. The capex mentions (p19, p20) are hyperscaler customers' capex."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 29.5,
+  "input_tokens": 8736,
+  "output_tokens": 3752,
+  "attempts": 1,
+  "task_sha": "23cc85e8fd3bfaee"
+ }
+}

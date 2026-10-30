@@ -1,0 +1,1131 @@
+                                                                                
+           Applied Digital Reports Fiscal Third Quarter 2025 Results            
+                                                                                
+                                                                                
+  DALLAS, TX –                                                                  
+                                                                                
+April 14, 2025
+                                                                                
+  -- Applied Digital Corporation (Nasdaq: APLD)                                 
+                                                                                
+("Applied Digital" or the "Company") , a designer, builder, and operator of
+next-generation digital infrastructure designed for high-performance computing
+(“HPC”) applications, cloud services (“Cloud Services”), and data center hosting
+(“Data Center Hosting”), reported financial results for the fiscal third quarter
+ended February 28, 2025. The Company also provided an operational update.
+                                                                                
+  Fiscal Third Quarter 2025 Financial Highlights                                
+                                                                                
+• Revenues: $52.9 million, up 22% from the prior year comparable period
+
+• Net loss attributable to common stockholders: $36.1 million, up 43% from the
+prior year comparable period
+
+• Net loss attributable to common stockholders per basic and diluted share:
+$0.16, up 69% from the prior year comparable period
+
+• Adjusted net loss attributable to common stockholders: $17.8 million
+
+• Adjusted net loss attributable to common stockholders per diluted share: $0.08
+
+• Adjusted EBITDA: $10.0 million
+
+Adjusted Net Loss Attributable to Common Stockholders , Adjusted Net Loss
+Attributable to Common Stockholders per Diluted Share , and Adjusted EBITDA are
+non-GAAP measures. A reconciliation of each of these Non-GAAP Measures to the
+most directly comparable financial measure presented in accordance with
+accounting principles generally accepted in the United States (“GAAP”) is set
+forth below. See “ Reconciliation of GAAP to Non-GAAP Measures. ”
+                                                                                
+  Recent Operational Highlights                                                 
+                                                                                
+• On April 10, 2025, the Board of Directors approved a plan to sell the
+Company's Cloud Services Business.
+
+• APLD HPC Holdings LLC closed a $375 million financing with Sumitomo Mitsui
+Banking Corporation (“SMBC”). The Company used a portion of the proceeds to
+repay its obligations under the November 2024 M acquarie Promissory Note, and
+the remaining proceeds are intended to be used to advance the development of the
+first and second data center buildings at the Ellendale HPC Campus.
+
+• Laura Laltrello joined Applied Digital as the Company’s new Chief Operating
+Officer (COO). The onboarding of Ms. Laltrello is intended to enhance the
+Company’s position as a leader in next-generation data centers at the forefront
+of the AI revolution.
+                                                                                
+  Management Commentary                                                         
+                                                                                
+During the quarter ended February 28, 2025, Applied Digital achieved significant
+milestones in advancing its strategic objectives, including two transactions
+with globally renowned financial institutions.
+
+First, with Macquarie Asset Management ("MAM")—one of the largest infrastructure
+investors globally— upon closing of the transaction, MAM will have the right to
+invest up to $5 billion in capital to support the development of Applied
+Digital’s next-generation data centers. We believe this investment highlights
+MAM’s strong confidence in the scalability and value of our platform.
+
+Second, with Sumitomo Mitsui Banking Corporation ("SMBC"), one of Japan’s top
+three banking groups and a global leader in data center financing, Applied
+Digital closed a $375 million financing arrangement. We believe
+
+this arrangement underscores the trust that leading financial institutions place
+in the value of our data centers, land assets, and power infrastructure
+pipeline.
+
+MAM and SMBC are playing instrumental roles in supporting our ongoing
+discussions with customers to lease the Ellendale campus. Their support is
+especially valuable amid the current crosscurrents in the industry and broader
+economy. We believe the Ellendale campus represents a highly strategic industry
+asset.
+
+We also believe that if we were to transition into a data center REIT in the
+future, we need to focus our businesses. For that reason, we believe separating
+the Cloud Services Business from our data center operations better serves the
+long-term interests of our shareholders.
+
+"We are confident in the progress we are making and remain committed to
+delivering sustainable, long-term value for our investors,” said Applied Digital
+Chairman and CEO Wes Cummins.
+                                                                                
+  HPC Data Center Hosting Update                                                
+                                                                                
+Applied Digital’s HPC Data Center Hosting Business designs, builds, and operates
+next-generation data centers designed to provide massive computing power and
+support high-performance computing applications within a cost-effective model.
+During the prior fiscal year, the Company broke ground on its first 100 MW HPC
+facility in Ellendale, North Dakota. The new 369,000+ square-foot building will
+provide ultra-low-cost and highly efficient liquid-cooled infrastructure for HPC
+applications. Construction remains on schedule and the building will be ready
+for service in the second half of this calendar year.
+
+Applied Digital continues negotiations with multiple US-based hyperscalers to
+lease up to 400 MW of capacity, inclusive of the Ellendale HPC data center under
+construction and two forthcoming buildings at the Ellendale Campus.
+                                                                                
+  Cloud Services Update                                                         
+                                                                                
+Applied Digital’s Cloud Services Business provides high-performance computing
+power for artificial intelligence and machine learning applications. During the
+three months ended February 28, 2025, the Company generated $17.8 million in
+revenues from the Cloud Services Business segment, representing an increase of
+220% compared to $5.6 million during the three months ended February 29, 2024.
+However, our revenue declined $9.9 million sequentially from the second fiscal
+quarter 2025 revenue of $27.7 million due to moving some GPU capacity to a
+multi-tenant on-demand model from single-tenant reserve contracts. We
+encountered technical issues in moving the capacity which have since been
+resolved.
+                                                                                
+  Data Center Hosting Update                                                    
+                                                                                
+Applied Digital’s Data Center Hosting Business operates data centers to provide
+energized space to crypto mining customers. As of February 28, 2025, the
+Company’s 106 MW facility in Jamestown, N.D., and 180 MW facility in Ellendale,
+N.D., are operating at full capacity.
+
+During the three months ended February 28, 2025, the Company generated $35.2
+million in revenue from the Data Center Hosting Business segment, representing a
+decrease of 7% compared to the $37.8 million during the three months ended
+February 29, 2024.
+                                                                                
+  Financial Results for Fiscal Third Quarter 2025                               
+                                                                                
+Operating Results
+
+Total revenues in the fiscal third quarter 2025 were $52.9 million compared to
+$40.3 million, up 22% from the fiscal third quarter 2024. The growth was
+primarily driven by the continued expansion of the Company’s Cloud Services
+Business during the latter period, fueled by the deployment of additional GPU
+clusters.
+
+Cost of revenues in the fiscal third quarter 2025 were $49.1 million compared to
+$47.1 million, up 4% from the fiscal third quarter 2024. The increase in cost of
+revenues was primarily driven by the growth in the business as more facilities
+were energized and additional services were provided to customers compared to
+the comparable prior year period.
+
+Selling, general and administrative expenses in the fiscal third quarter 2025
+were $22.7 million compared to $30.0 million, down 24% from the fiscal third
+quarter of 2024. The decrease was primarily due to GPU cluster deployments,
+which are now revenue generating and as such, the depreciation and amortization
+is now captured as a part of cost of revenues.
+
+Interest expense, net in the fiscal third quarter 2025 was $8.9 million compared
+to $4.8 million, up 87%, from the fiscal third quarter 2024. The increase in
+interest expense, net was primarily driven by an increase in finance leases and
+interest-bearing loans between periods.
+
+Loss on extinguishment of debt in the fiscal third quarter 2025 was $1.2 million
+due to the extinguishment of the Macquarie Promissory Note that was repaid
+during the period. There were no such losses recorded in the prior year
+comparative period.
+
+Loss on change in fair value of warrants in the fiscal third quarter 2025 was
+$6.4 million due to the initial valuation of the STB Warrants issued during the
+period. There were no such losses recorded in the prior year comparative period.
+
+Net loss for common shareholders for the fiscal third quarter 2025 was $36.1
+million, or $0.16 per basic and diluted share. This compares to a net loss of
+$62.8 million, or $0.52 per basic and diluted share.
+
+Adjusted net loss, a non-GAAP measure, for the fiscal third quarter 2025, was
+$17.8 million or adjusted net loss per basic and diluted share of $0.08. This
+compares to an adjusted net loss, a non-GAAP financial measure, of $28.2
+million, or $0.23 per basic and diluted share, for the fiscal third quarter of
+2024.
+
+Adjusted EBITDA, a non-GAAP financial measure, for the fiscal third quarter 2025
+was $10.0 million compared to an Adjusted EBITDA loss of $1.3 million for the
+fiscal third quarter 2024.
+
+Balance Sheet
+
+As of February 28, 2025, the Company had $261.2 million in cash, cash
+equivalents, and restricted cash, along with $689.1 million in debt.
+                                                                                
+  Conference Call                                                               
+                                                                                
+Applied Digital will host a conference call today, April 14, 2025 , a t 5:00
+p.m. Eastern Time (2:00 p.m. Pacific Time) to discuss these results. A question-
+and-answer session will follow the management’s presentation.
+
+Participant Dial-In: 1-800-549-8228
+
+Conference ID: 19309
+
+The conference call will be broadcast live and available for replay for one year
+here .
+
+Please call the conference telephone number approximately 10 minutes before the
+start time. An operator will register your name and organization. If you have
+difficulty connecting with the conference call, please get in touch with Applied
+Digital’s investor relations team at 1-949-574-3860.
+
+A phone replay of the call will also be available from 8:00 p.m. Eastern Time on
+April 14, 2025, through April 21, 2025, at 11:59 p.m. Eastern Time.
+
+Replay Dial-In: 1-888-660-6264
+
+Playback Passcode: 19309#
+                                                                                
+  About Applied Digital                                                         
+                                                                                
+Applied Digital Corporation (Nasdaq: APLD) designs, develops, and operates next-
+generation digital infrastructure across North America to provide digital
+infrastructure solutions and cloud services to the rapidly growing industries of
+High-Performance Computing ("HPC") and Artificial Intelligence ("AI"). Find more
+information at www.applieddigital.com . Follow us on X (formerly Twitter) at
+@APLDdigital.
+                                                                                
+  Forward-Looking Statements                                                    
+                                                                                
+This press release contains “forward-looking statements” as defined in the
+Private Securities Litigation Reform Act of 1995 regarding, among other things,
+future operating and financial performance, product development, market
+position, business strategy and objectives and the closing of the transaction
+described herein. These statements use words, and variations of words, such as
+“will,” “continue,” “build,” “future,” “increase,” “drive,” “believe,” “look,”
+“ahead,” “confident,” “deliver,” “outlook,” “expect,” “project” and “predict.”
+Other examples of forward-looking statements may include, but are not limited
+to, (i) statements of Company plans and objectives, including our evolving
+business model, business strategy or estimates or predictions of actions by
+suppliers, (ii) statements of future economic performance, (iii) statements of
+assumptions underlying other statements and statements about the Company or its
+business, and (iv) the Company’s ability to effectively apply the net proceeds
+from the transactions as described above. You are cautioned not to rely on these
+forward-looking statements. These statements are based on current expectations
+of future events and thus are inherently subject to uncertainty. If underlying
+assumptions prove inaccurate or known or unknown risks or uncertainties
+materialize, actual results could vary materially from the Company’s
+expectations and projections. These risks, uncertainties, and other factors
+include: our ability to complete construction of the Ellendale HPC data center;
+our ability to complete the negotiation and execution of the definitive
+transaction documents required to close the MAM facility; our ability to raise
+additional capital to fund the ongoing data center construction and operations;
+our dependence on principal customers, including our ability to execute leases
+with key customers, including leases for our Ellendale HPC campus; our ability
+to timely and successfully build new hosting facilities with the appropriate
+contractual margins and efficiencies; power or other supply disruptions and
+equipment failures; the inability to comply with regulations, developments and
+changes in regulations; cash flow and access to capital; availability of
+financing to continue to grow our business; decline in demand for our products
+and services; and maintenance of third party relationships. Information in this
+release is as of the dates and time periods indicated herein, and the Company
+does not undertake to update any of the information contained in these
+materials, except as required by law.
+
+Use and Reconciliation of Non-GAAP Financial Measures
+
+To supplement our consolidated financial statements presented under GAAP, we are
+presenting certain non-GAAP financial measures. We are providing these non-GAAP
+financial measures to disclose additional information to facilitate the
+comparison of past and present operations by providing perspective on results
+absent one-time or significant non-cash items. We utilize these measures in the
+business planning process to understand expected operating performance and to
+evaluate results against those expectations. We believe
+
+that these non-GAAP financial measures, when considered together with our GAAP
+financial results, provide management and investors with an additional
+understanding of our business operating results regarding factors and trends
+affecting our business and provide a reasonable basis for comparing our ongoing
+results of operations .
+
+These non-GAAP financial measures are provided as supplemental measures to the
+Company’s performance measures calculated in accordance with GAAP and therefore,
+are not intended to be considered in isolation or as a substitute for comparable
+GAAP measures. Further, these non-GAAP financial measures have no standardized
+meaning prescribed by GAAP and are not prepared under any comprehensive set of
+accounting rules or principles. Because of the non-standardized definitions of
+non-GAAP financial measures, we caution investors that the non-GAAP financial
+measures as used by us in this Quarterly Report on Form 10-Q have limits in
+their usefulness to investors and may be calculated differently from, and
+therefore may not be directly comparable to, similarly titled measures used by
+other companies. Further, investors should be aware that when evaluating these
+non-GAAP financial measures, these measures should not be construed as an
+inference that the Company’s future results will be unaffected by unusual or
+non-recurring items. In addition, from time to time in the future there may be
+items that we may exclude for purposes of our non-GAAP financial measures and we
+may in the future cease to exclude items that we have historically excluded for
+purposes of our non-GAAP financial measures. Likewise, we may determine to
+modify the nature of the adjustments to arrive at our non-GAAP financial
+measures. Investors should review the non-GAAP reconciliations provided below
+and not rely on any single financial measure to evaluate the Company’s business.
+
+Adjusted Operating Loss, Adjusted Net Loss Attributable to Common Stockholders,
+and Adjusted Net Loss Attributable to Common Stockholders per Diluted Share
+
+“Adjusted Operating Loss” and “Adjusted net loss attributable to common
+stockholders” are non-GAAP financial measures that represent operating loss and
+net loss attributable to common stockholders, respectively. Adjusted Operating
+Loss is Operating loss excluding stock-based compensation, non-recurring repair
+expenses, diligence, acquisition, disposition and integration expenses,
+litigation expenses, non-recurring research and development expenses, loss on
+abandonment of assets, loss/(gain) on classification of held for sale,
+accelerated depreciation and amortization, loss on legal settlement, as well as
+other non-recurring expenses that Management believes are not representative of
+the Company’s expected ongoing costs. Adjusted net loss attributable to common
+stockholders is Adjusted Operating Loss further adjusted for the loss on change
+in fair value of warrants, loss on conversion of debt, loss on change in fair
+value of debt and related party debt, respectively and loss on the
+extinguishment of debt and related party debt, respectively and preferred
+dividends. We define “Adjusted net loss attributable to common stockholders per
+diluted share” as Adjusted net loss attributable to common stockholders divided
+by weighted average diluted share count.
+                                                                                
+  EBITDA and Adjusted EBITDA                                                    
+                                                                                
+“EBITDA” is defined as earnings before interest expense, net, income tax
+expense, and depreciation and amortization. “Adjusted EBITDA” is defined as
+EBITDA adjusted for stock-based compensation, non-recurring repair expenses,
+diligence, acquisition, disposition and integration expenses, litigation
+expenses, research and development expenses, loss/(gain) on classification of
+held for sale, loss on abandonment of assets, loss on conversion of debt, loss
+on change in fair value of debt and related party debt, respectively, loss on
+change in fair value of warrants, loss on extinguishment of debt and related
+party debt, respectively, loss on legal settlement and preferred dividends as
+well as other non-recurring expenses that Management believes are not
+representative of our expected ongoing costs.
+                                                                                
+  Investor Relations Contacts                                                   
+                                                                                
+Matt Glover or Ralf Esper
+
+Gateway Group, Inc.
+
+(949) 574-3860
+
+APLD@gateway-grp.com
+                                                                                
+  Media Contact                                                                 
+                                                                                
+Buffy Harakidas, EVP
+
+JSA (Jaymie Scotto & Associates)
+
+(856) 264-7827
+
+jsa_applied@jsa.net
+                                                                                
+                  APPLIED DIGITAL CORPORATION AND SUBSIDIARIES                  
+                                                                                
+                                                                                
+               Condensed Consolidated Balance Sheets (Unaudited)                
+                                                                                
+                (In thousands, except share and par value data)                 
+                                                                                
+                                          February 28, 2025       May 31, 2024  
+ ────────────────────────────────────────────────────────────────────────────── 
+  ASSETS                                                                        
+  Current assets:                                                               
+  Cash and cash equivalents            $             68,743    $         3,339  
+  Restricted cash                                                               
+  Funds for construction                            154,139                  —  
+  Letters of credit                                  31,342             21,349  
+  Accounts receivable                                14,619              3,847  
+  Prepaid expenses and other                                                    
+  current                                             5,416              1,343  
+  assets                                                                        
+  Current assets held for sale                            —                384  
+  Total current assets                              274,259             30,262  
+  Property and equipment, net                     1,002,206            340,381  
+  Operating lease right of use                      153,434            153,611  
+  assets, net                                                                   
+  Finance lease right of use                        235,203            218,683  
+  assets, net                                                                   
+  Other assets                                       42,245             19,930  
+  TOTAL ASSETS                         $          1,707,347            762,867  
+  LIABILITIES, TEMPORARY EQUITY AND                                             
+  STOCKHOLDERS' EQUITY                                                          
+  Current liabilities:                                                          
+  Accounts payable                     $            170,517    $       116,117  
+  Accrued liabilities                                19,268             26,282  
+  Current portion of operating                                                  
+  lease                                              27,496             21,705  
+  liability                                                                     
+  Current portion of finance lease                  140,135            107,683  
+  liability                                                                     
+  Current portion of debt                            10,138             10,082  
+  Current portion of debt, at fair                        —             35,836  
+  value                                                                         
+  Customer deposits                                  16,125             13,819  
+  Related party customer deposits                         —              1,549  
+  Deferred revenue                                    4,879             37,674  
+  Related party deferred revenue                          —              1,692  
+  Due to customer                                     4,807             13,002  
+  Other current liabilities                             216                 96  
+  Total current liabilities                         393,581            385,537  
+  Long-term portion of operating                                                
+  lease                                             104,679            109,740  
+  liability                                                                     
+  Long-term portion of finance                                                  
+  lease                                              32,232             63,288  
+  liability                                                                     
+  Long-term debt                                    678,988             79,472  
+  Total liabilities                               1,209,480            638,037  
+  Commitments and contingencies                                                 
+  (Note 10)                                                                     
+  Temporary equity                                                              
+  Series E preferred stock, $0.001                                              
+  par                                                                           
+  value, 2,000,000 shares                                                       
+  authorized,                                                                   
+  301,673 shares issued and                           6,932                  —  
+  outstanding at                                                                
+  February 28, 2025, and no shares                                              
+  authorized, issued or outstanding                                             
+  at May                                                                        
+  31, 2024                                                                      
+  Series E-1 preferred stock,                                                   
+  $0.001,                                                                       
+  62,500 shares authorized, 39,763                                              
+  shares                                                                        
+  issued and outstanding at                          36,287                  —  
+  February 28,                                                                  
+  2025, and no shares authorized,                                               
+  issued                                                                        
+  or outstanding at May 31, 2024                                                
+  Stockholders' equity:                                                         
+  Common stock, $0.001 par value,                                               
+  400,000,000 shares authorized,                                                
+  233,682,359 shares issued and                                                 
+  shares                                                                        
+  outstanding at February 28, 2025,                     230                144  
+  and                                                                           
+  144,083,944 shares issued and                                                 
+  139,051,142 shares outstanding at                                             
+  May                                                                           
+  31, 2024                                                                      
+  Treasury stock, 9,291,199 shares                                              
+  at                                                                            
+  February 28, 2025 and 5,032,802                   -31,400                -62  
+  shares                                                                        
+  at May 31, 2024, at cost                                                      
+  Additional paid in capital                        914,336            374,738  
+  Accumulated deficit                              -428,518           -249,990  
+  Total stockholders’ equity                                                    
+  attributable                                      454,648            124,830  
+  to Applied Digital Corporation                                                
+  TOTAL LIABILITIES, TEMPORARY                                                  
+  EQUITY AND                           $          1,707,347            762,867  
+  SHAREHOLDERS' EQUITY                                                          
+                                                                                
+                                                                                
+                  APPLIED DIGITAL CORPORATION AND SUBSIDIARIES                  
+                                                                                
+                                                                                
+          Condensed Consolidated Statements of Operations (Unaudited)           
+                                                                                
+                     (In thousands, except per share data)                      
+                                                                                
+            Three    Februa…       Februa…    Nine      Februa…                 
+            Months       28,           29,    Months        28,       February  
+            Ended       2025          2024    Ended        2025       29, 2024  
+ ────────────────────────────────────────────────────────────────────────────── 
+  Reven…                                                                        
+  Reven…    $         52,921    $   40,284    $         175,567    $   110,993  
+  Relat…                                                                        
+  party                    —         3,064                1,926         10,883  
+  reven…                                                                        
+  Total               52,921        43,348              177,493        121,876  
+  reven…                                                                        
+  Costs                                                                         
+  and                                                                           
+  expen…                                                                        
+  Cost                                                                          
+  of                  49,141        47,061              162,562        102,051  
+  reven…                                                                        
+  Selli…                                                                        
+  gener…              22,723        30,020               66,852         66,456  
+  and                                                                           
+  admin…                                                                        
+  Loss/…                                                                        
+  on                                                                            
+  class…                                                                        
+  of                       —        21,723              -24,616         21,723  
+  held                                                                          
+  for                                                                           
+  sale(…                                                                        
+  Loss                                                                          
+  on                                                                            
+  aband…                   —             —                  769              —  
+  of                                                                            
+  assets                                                                        
+  Loss                                                                          
+  on                       —             —                    —          2,380  
+  legal                                                                         
+  settl…                                                                        
+  Total                                                                         
+  costs               71,864        98,804              205,567        192,610  
+  and                                                                           
+  expen…                                                                        
+  Opera…             -18,943       -55,456              -28,074        -70,734  
+  loss                                                                          
+  Inter…                                                                        
+  expen…               8,897         4,770               23,687          9,522  
+  net(3)                                                                        
+  Loss                                                                          
+  on                                                                            
+  conve…                   —             —               33,612              —  
+  of                                                                            
+  debt                                                                          
+  Loss                                                                          
+  on                                                                            
+  change                                                                        
+  in                       —             —               85,439              —  
+  fair                                                                          
+  value                                                                         
+  of                                                                            
+  debt                                                                          
+  Loss                                                                          
+  on                                                                            
+  change                                                                        
+  in                                                                            
+  fair                     —         2,612                    —          2,612  
+  value                                                                         
+  of                                                                            
+  relat…                                                                        
+  party                                                                         
+  debt                                                                          
+  Loss                                                                          
+  on                                                                            
+  extin…               1,177             —                1,177              —  
+  of                                                                            
+  debt                                                                          
+  Loss                                                                          
+  on                                                                            
+  extin…                                                                        
+  of                       —             —                    —          2,353  
+  relat…                                                                        
+  party                                                                         
+  debt                                                                          
+  Loss                                                                          
+  on                                                                            
+  change                                                                        
+  in                   6,421             —                6,421              —  
+  fair                                                                          
+  value                                                                         
+  of                                                                            
+  warra…                                                                        
+  Net                                                                           
+  loss                                                                          
+  before             -35,438       -62,838              -178,4…        -85,221  
+  income                                                                        
+  tax                                                                           
+  expen…                                                                        
+  Income                                                                        
+  tax                    117             —                  118              —  
+  expen…                                                                        
+  Net                -35,555       -62,838              -178,5…        -85,221  
+  loss                                                                          
+  Net                                                                           
+  loss                                                                          
+  attri…                   —             —                    —           -397  
+  to                                                                            
+  nonco…                                                                        
+  inter…                                                                        
+  Prefe…                -540             —               -1,213              —  
+  divid…                                                                        
+  Net                                                                           
+  loss                                                                          
+  attri…    $        -36,095    $  -62,838    $         -179,7…    $   -84,824  
+  to                                                                            
+  common                                                                        
+  stock…                                                                        
+  Basic                                                                         
+  and                                                                           
+  dilut…                                                                        
+  net                                                                           
+  loss                                                                          
+  per       $          -0.16    $    -0.52    $           -0.93    $     -0.77  
+  share                                                                         
+  attri…                                                                        
+  to                                                                            
+  common                                                                        
+  stock…                                                                        
+  Basic                                                                         
+  and                                                                           
+  dilut…                                                                        
+  weigh…                                                                        
+  avera…             222,45…       121,42…              193,40…       110,500…  
+  number                                                                        
+  of                                                                            
+  shares                                                                        
+  outst…                                                                        
+                                                                                
+(1) Includes related party selling, general and administrative expense of $0.1
+million and $0.1 million for the three months ended February 28, 2025 and
+February 29, 2024, respectively, and $0.2 million and $0.5 million for the nine
+months ended February 28, 2025 and February 29, 2024, respectively.
+
+(2) Includes $25 million received in connection with the sale of our Garden City
+facility once conditional approval requirements were met and escrowed funds were
+released during the nine months ended February 28, 2025. The three and nine
+months ended February 29, 2024 includes $21.7 million loss on held for sale
+classification related to the sale of the Garden City facility.
+
+(3) There was no related party debt outstanding during the three and nine months
+ended February 28, 2025 and as such, no interest expense was incurred related to
+related party debt. For the three and nine months ended February 29, 2024,
+amounts include related party interest expense of $0.2 million and $0.8 million,
+respectively.
+                                                                                
+                  APPLIED DIGITAL CORPORATION AND SUBSIDIARIES                  
+                                                                                
+   Condensed Consolidated Statements of Cash Flows (In thousands) (Unaudited)   
+                                                                                
+                     Nine Months           February 28,           February 29,  
+                     Ended                         2025                   2024  
+ ────────────────────────────────────────────────────────────────────────────── 
+  CASH FLOW FROM                                                                
+  OPERATING                                                                     
+  ACTIVITIES                                                                    
+  Net loss           $                         -178,528    $           -85,221  
+  Adjustments to                                                                
+  reconcile net                                                                 
+  loss to net                                                                   
+  cash (used in)                                                                
+  provided by                                                                   
+  operating                                                                     
+  activities:                                                                   
+  Depreciation                                                                  
+  and                                            79,540                 47,664  
+  amortization                                                                  
+  Stock-based                                    10,233                 13,634  
+  compensation                                                                  
+  Lease expense                                  23,911                  6,708  
+  Loss on                                                                       
+  extinguishment                                  1,177                      —  
+  of debt                                                                       
+  Loss on                                                                       
+  extinguishment                                                                
+  of related                                          —                  2,353  
+  party                                                                         
+  debt                                                                          
+  Loss on legal                                       —                  2,380  
+  settlement                                                                    
+  Amortization of                                                               
+  debt issuance                                  11,515                    498  
+  costs                                                                         
+  Loss/(gain) on                                                                
+  classification                                -24,616                 21,723  
+  of held                                                                       
+  for sale                                                                      
+  Loss on change                                                                
+  in fair value                                       —                  2,612  
+  of related                                                                    
+  party debt                                                                    
+  Loss on                                                                       
+  conversion of                                  33,612                      —  
+  debt                                                                          
+  Loss on change                                                                
+  in fair value                                  85,439                      —  
+  of debt                                                                       
+  Loss on                                                                       
+  abandonment of                                    769                      —  
+  assets                                                                        
+  Loss on change                                                                
+  in fair value                                   6,421                      —  
+  of warrants                                                                   
+  issued                                                                        
+  Changes in                                                                    
+  operating                                                                     
+  assets and                                                                    
+  liabilities:                                                                  
+  Accounts                                      -10,722                   -143  
+  receivable                                                                    
+  Prepaid                                                                       
+  expenses and                                   -4,072                 -4,115  
+  other current                                                                 
+  assets                                                                        
+  Customer                                        2,306                   -150  
+  deposits                                                                      
+  Related party                                                                 
+  customer                                       -1,549                      —  
+  deposits                                                                      
+  Deferred                                      -32,795                 15,953  
+  revenue                                                                       
+  Related party                                                                 
+  deferred                                       -1,692                   -237  
+  revenue                                                                       
+  Accounts                                      -88,378                 55,463  
+  payable                                                                       
+  Accrued                                       -12,319                  5,811  
+  liabilities                                                                   
+  Due to customer                                -8,195                      —  
+  Lease assets                                  -13,557                -35,674  
+  and liabilities                                                               
+  Other assets                                     -757                 -3,921  
+  CASH FLOW (USED                                                               
+  IN) PROVIDED BY                              -122,257                 45,338  
+  OPERATING                                                                     
+  ACTIVITIES                                                                    
+  CASH FLOW FROM                                                                
+  INVESTING                                                                     
+  ACTIVITIES                                                                    
+  Purchases of                                                                  
+  property and                                 -483,340                -84,437  
+  equipment and                                                                 
+  other assets                                                                  
+  Proceeds from                                                                 
+  satisfaction of                                25,000                      —  
+  contingency on                                                                
+  sale of assets                                                                
+  Finance lease                                  -4,840                -35,132  
+  prepayments                                                                   
+  Purchases of                                   -2,498                   -390  
+  investments                                                                   
+  CASH FLOW USED                                                                
+  IN INVESTING                                 -465,678               -119,959  
+  ACTIVITIES                                                                    
+  CASH FLOW FROM                                                                
+  FINANCING                                                                     
+  ACTIVITIES                                                                    
+  Repayment of                                  -93,992                -27,527  
+  finance leases                                                                
+  Borrowings of                                 650,000                  8,422  
+  long-term debt                                                                
+  Borrowings of                                                                 
+  related party                                       —                 23,000  
+  debt                                                                          
+  Repayments of                                -290,535                 -6,764  
+  long-term debt                                                                
+  Repayment of                                                                  
+  related party                                       —                -45,500  
+  debt                                                                          
+  Payment of                                                                    
+  deferred                                      -42,903                      —  
+  financing costs                                                               
+  Tax payments                                                                  
+  for restricted                                 -2,970                   -606  
+  stock upon                                                                    
+  vesting                                                                       
+  Proceeds from                                                                 
+  issuance of                                   191,590                121,237  
+  common stock                                                                  
+  Common stock                                  -10,253                   -235  
+  issuance costs                                                                
+  Proceeds from                                                                 
+  issuance of                                   100,489                      —  
+  preferred                                                                     
+  stock                                                                         
+  Preferred stock                                -8,914                      —  
+  issuance costs                                                                
+  Dividends                                                                     
+  issued on                                      -1,213                      —  
+  preferred stock                                                               
+  Proceeds from                                                                 
+  issuance of                                                                   
+  SAFE agreement                                 12,000                      —  
+  included in                                                                   
+  long-term debt                                                                
+  Repurchase of                                 -31,342                         
+  shares                                                                        
+  Proceeds from                                                                 
+  convertible                                   450,000                      —  
+  notes                                                                         
+  Purchase of                                                                   
+  capped call                                   -51,750                      —  
+  options                                                                       
+  Purchase of                                                                   
+  prepaid forward                               -52,736                      —  
+  contract                                                                      
+  CASH FLOW                                                                     
+  PROVIDED BY                                   817,471                 72,027  
+  FINANCING                                                                     
+  ACTIVITIES                                                                    
+  NET INCREASE                                                                  
+  (DECREASE) IN                                                                 
+  CASH, CASH                                    229,536                 -2,594  
+  EQUIVALENTS,                                                                  
+  AND RESTRICTED                                                                
+  CASH                                                                          
+  CASH, CASH                                                                    
+  EQUIVALENTS,                                                                  
+  AND RESTRICTED                                 31,688                 43,574  
+  CASH, BEGINNING                                                               
+  OF PERIOD                                                                     
+  CASH, CASH                                                                    
+  EQUIVALENTS,                                                                  
+  AND RESTRICTED     $                          261,224    $            40,980  
+  CASH, END OF                                                                  
+  PERIOD                                                                        
+                                                                                
+                                                                                
+                  APPLIED DIGITAL CORPORATION AND SUBSIDIARIES                  
+                                                                                
+   Condensed Consolidated Statements of Cash Flows (In thousands) (Unaudited)   
+                                                                                
+                                   continued                                    
+                                                                                
+                                                                                
+                     Nine Months           February 28,           February 29,  
+                     Ended                         2025                   2024  
+ ────────────────────────────────────────────────────────────────────────────── 
+  SUPPLEMENTAL                                                                  
+  DISCLOSURE OF                                                                 
+  CASH FLOW                                                                     
+  INFORMATION                                                                   
+  Interest paid      $                           54,855    $             9,121  
+  SUPPLEMENTAL                                                                  
+  DISCLOSURE OF                                                                 
+  NON-CASH                                                                      
+  ACTIVITIES                                                                    
+  Operating                                                                     
+  right-of-use                                                                  
+  assets obtained    $                           20,280    $            95,018  
+  by lease                                                                      
+  obligation                                                                    
+  Finance                                                                       
+  right-of-use                                                                  
+  assets obtained    $                          106,754    $           219,268  
+  by                                                                            
+  lease                                                                         
+  obligation                                                                    
+  Property and                                                                  
+  equipment in                                                                  
+  accounts           $                          142,787    $            41,100  
+  payable and                                                                   
+  accrued                                                                       
+  liabilities                                                                   
+  Conversion of                                                                 
+  debt to common     $                          104,945    $                 —  
+  stock                                                                         
+  Extinguishment                                                                
+  of                 $                                —    $             9,765  
+  non-controlling                                                               
+  interest                                                                      
+  Loss on legal      $                                —    $             2,300  
+  settlement                                                                    
+  Conversion of                                                                 
+  preferred stock                                53,191                      —  
+  to common                                                                     
+  stock                                                                         
+  Cashless                                                                      
+  exercise of                                         5                      —  
+  warrants                                                                      
+  Issuance of                                                                   
+  warrants, at       $                           50,586    $                 —  
+  fair value                                                                    
+                                                                                
+                                                                                
+                  APPLIED DIGITAL CORPORATION AND SUBSIDIARIES                  
+                                                                                
+            Reconciliation of GAAP to Non-GAAP Measures (Unaudited)             
+                                                                                
+                     (In thousands, except percentage data)                     
+                                                                                
+               Three  Febr…          Febr…       Nine   Feb…          Febr…     
+        $ in   Mont…    28,            29,       Mont…   28,            29,     
+        thou…  Ended   2025           2024       Ended  2025           2024     
+ ────────────────────────────────────────────────────────────────────────────── 
+  Adj…                                                                          
+  ope…                                                                          
+  loss                                                                          
+  Ope…                                                                          
+  loss         $      -18,…       $  -55,…       $      -28…       $  -70,…     
+  (GA…                                                                          
+  Sto…                9,170          3,071              9,4…          13,5…     
+  com…                                                                          
+  Non…                                                                          
+  rep…                    3              —               173              —     
+  exp…                                                                          
+  Dil…                                                                          
+  acq…                                                                          
+  dis…                  561          3,168              12,…          3,703     
+  and                                                                           
+  int…                                                                          
+  exp…                                                                          
+  Lit…                  174             81              1,3…            657     
+  exp…                                                                          
+  Res…                                                                          
+  and                     —            -65                36            119     
+  dev…                                                                          
+  exp…                                                                          
+  Loss                                                                          
+  on                                                                            
+  aba…                    —              —               769              —     
+  of                                                                            
+  ass…                                                                          
+  Los…                                                                          
+  on                                                                            
+  cla…                                                                          
+  of                      —          21,7…              -24…          21,7…     
+  held                                                                          
+  for                                                                           
+  sale                                                                          
+  Acc…                                                                          
+  dep…                    —          4,043                45          4,220     
+  and                                                                           
+  amo…                                                                          
+  Loss                                                                          
+  on                      —              —                 —          2,380     
+  leg…                                                                          
+  set…                                                                          
+  Oth…                                                                          
+  non…                  271            -13               522            245     
+  exp…                                                                          
+  Adj…                                                                          
+  ope…         $      -8,7…       $  -23,…       $      -28…       $  -24,…     
+  loss                                                                          
+  (No…                                                                          
+  Adj…                                                                          
+  ope…                  -17  %         -54  %            -16  %         -20  %  
+  mar…                                                                          
+  Adj…                                                                          
+  net                                                                           
+  loss                                                                          
+  att…                                                                          
+  to                                                                            
+  com…                                                                          
+  sto…                                                                          
+  Net                                                                           
+  loss                                                                          
+  att…                                                                          
+  to           $      -36,…       $  -62,…       $      -17…       $  -84,…     
+  com…                                                                          
+  sto…                                                                          
+  (GA…                                                                          
+  Sto…                9,170          3,071              9,4…          13,5…     
+  com…                                                                          
+  Non…                                                                          
+  rep…                    3              —               173              —     
+  exp…                                                                          
+  Dil…                                                                          
+  acq…                                                                          
+  dis…                  561          3,168              12,…          3,703     
+  and                                                                           
+  int…                                                                          
+  exp…                                                                          
+  Lit…                  174             81              1,3…            657     
+  exp…                                                                          
+  Res…                                                                          
+  and                     —            -65                36            119     
+  dev…                                                                          
+  exp…                                                                          
+  Loss                                                                          
+  on                                                                            
+  aba…                    —              —               769              —     
+  of                                                                            
+  ass…                                                                          
+  Los…                                                                          
+  on                                                                            
+  cla…                                                                          
+  of                      —          21,7…              -24…          21,7…     
+  held                                                                          
+  for                                                                           
+  sale                                                                          
+  Acc…                                                                          
+  dep…                    —          4,043                45          4,220     
+  and                                                                           
+  amo…                                                                          
+  Loss                                                                          
+  on                      —              —                 —          2,380     
+  leg…                                                                          
+  set…                                                                          
+  Loss                                                                          
+  on                                                                            
+  cha…                                                                          
+  in                  6,421              —              6,4…              —     
+  fair                                                                          
+  val…                                                                          
+  of                                                                            
+  war…                                                                          
+  Loss                                                                          
+  on                                                                            
+  con…                    —              —              33,…              —     
+  of                                                                            
+  deb…                                                                          
+  Loss                                                                          
+  on                                                                            
+  cha…                                                                          
+  in                      —              —              85,…              —     
+  fair                                                                          
+  val…                                                                          
+  of                                                                            
+  deb…                                                                          
+  Loss                                                                          
+  on                                                                            
+  cha…                                                                          
+  in                                                                            
+  fair                    —          2,612                 —          2,612     
+  val…                                                                          
+  of                                                                            
+  rel…                                                                          
+  par…                                                                          
+  debt                                                                          
+  Loss                                                                          
+  on                                                                            
+  ext…                1,177              —              1,1…              —     
+  of                                                                            
+  debt                                                                          
+  Loss                                                                          
+  on                                                                            
+  ext…                                                                          
+  of                      —              —                 —          2,353     
+  rel…                                                                          
+  par…                                                                          
+  debt                                                                          
+  Pre…                  540              —              1,2…              —     
+  div…                                                                          
+  Oth…                                                                          
+  non…                  271            -13               522            245     
+  exp…                                                                          
+  Adj…                                                                          
+  net                                                                           
+  loss                                                                          
+  att…         $      -17,…       $  -28,…       $      -51…       $  -33,…     
+  to                                                                            
+  com…                                                                          
+  sto…                                                                          
+  (No…                                                                          
+  Adj…                                                                          
+  net                                                                           
+  loss                                                                          
+  att…                                                                          
+  to                                                                            
+  com…         $      -0.08       $  -0.23       $      -0.…       $  -0.30     
+  sto…                                                                          
+  per                                                                           
+  dil…                                                                          
+  sha…                                                                          
+  (No…                                                                          
+                                                                                
+                                                                                
+                  APPLIED DIGITAL CORPORATION AND SUBSIDIARIES                  
+                                                                                
+            Reconciliation of GAAP to Non-GAAP Measures (Unaudited)             
+                                                                                
+                                   continued                                    
+                                                                                
+                     (In thousands, except percentage data)                     
+                                                                                
+  EBITDA and Adjusted                                                           
+  EBITDA                                                                        
+ ────────────────────────────────────────────────────────────────────────────── 
+  Net loss                                                                      
+  attributable to        $  -36,095    $  -62,838    $  -179,741    $  -84,824  
+  common                                                                        
+  stockholders (GAAP)                                                           
+  Interest expense,           8,897         4,770         23,687         9,522  
+  net                                                                           
+  Income tax expense            117             —            118             —  
+  Depreciation and           18,779        26,204         79,585        47,664  
+  amortization(5)                                                               
+  EBITDA (Non-GAAP)      $   -8,302    $  -31,864    $   -76,351    $  -27,638  
+  Stock-based                 9,170         3,071          9,405        13,511  
+  compensation                                                                  
+  Non-recurring                   3             —            173             —  
+  repair expenses(1)                                                            
+  Diligence,                                                                    
+  acquisition,                                                                  
+  disposition and               561         3,168         12,228         3,703  
+  integration                                                                   
+  expenses(2)                                                                   
+  Litigation                    174            81          1,341           657  
+  expenses(3)                                                                   
+  Research and                                                                  
+  development                     —           -65             36           119  
+  expenses(4)                                                                   
+  Loss/(gain) on                                                                
+  classification of               —        21,723        -24,616        21,723  
+  held                                                                          
+  for sale                                                                      
+  Loss on abandonment             —             —            769             —  
+  of assets                                                                     
+  Loss on conversion              —             —         33,612             —  
+  of debt(7)                                                                    
+  Loss on change in                                                             
+  fair value of                   —             —         85,439             —  
+  debt(8)                                                                       
+  Loss on change in                                                             
+  fair value of                   —         2,612              —         2,612  
+  related                                                                       
+  party debt                                                                    
+  Loss on change in                                                             
+  fair value of               6,421             —          6,421             —  
+  warrants                                                                      
+  Loss on                                                                       
+  extinguishment of           1,177             —          1,177             —  
+  debt                                                                          
+  Loss on                                                                       
+  extinguishment of               —             —              —         2,353  
+  related party                                                                 
+  debt                                                                          
+  Loss on legal                   —             —              —         2,380  
+  settlement                                                                    
+  Preferred dividends           540             —          1,213             —  
+  Other non-recurring           271           -13            522           245  
+  expenses(6)                                                                   
+  Adjusted EBITDA        $   10,015    $   -1,287    $    51,369    $   19,665  
+  (Non-GAAP)                                                                    
+                                                                                
+(1) Represents costs incurred in the repair and replacement of equipment at our
+Ellendale data center hosting facility as a result of the previously disclosed
+power outage.
+
+(2) Represents legal, accounting and consulting costs incurred in association
+with certain discrete transactions and projects.
+
+(3) Represents non-recurring litigation expense associated with our defense of
+class action lawsuits and legal fees related to matters with certain former
+employees. We do not expect to incur these expenses on a regular basis.
+
+(4) Represents specific non-recurring research and development activities
+related to our business expansion that we do not expect to incur on a regular
+basis.
+
+(5) Represents the acceleration of expense related to assets that were abandoned
+by us due to operational failure or other reasons. Depreciation and amortization
+in this amount is included in Depreciation and Amortization expense within our
+calculation of EBITDA, and therefore is not added back as a management
+adjustment in our calculation of Adjusted EBITDA.
+
+(6) Represents expenses that are not representative of our expected ongoing
+costs.
+
+(7) Represents loss on conversion of debt due to the difference in fair value to
+the price at which the YA Notes were converted.
+
+(8) Represents loss on change in fair value of debt due to the adjustments to
+the fair value of the 2.75% Senior Unsecured Convertible Notes, as well as
+adjustments to the fair value of the YA Notes.

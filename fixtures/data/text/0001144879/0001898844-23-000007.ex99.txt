@@ -1,0 +1,697 @@
+      Applied Digital Reports Fiscal First Quarter 2024 Financial Results       
+                                                                                
+                 - Generated Sequential Revenue Growth of 65% -                 
+                                                                                
+                  - Reaffirms Fiscal 2024 Full-Year Guidance -                  
+                                                                                
+          - Applied Digital to Host Investor Day on October 12, 2023 -          
+DALLAS, TX – October 9, 2023 -- Applied Digital Corporation (Nasdaq: APLD)
+("Applied Digital" or the "Company") , a designer, builder, and operator of
+next-generation digital infrastructure designed for High-Performance Computing
+(“HPC”) applications, artificial intelligence cloud services (“Cloud services”),
+and datacenter hosting (“Hosting”), reported financial results for the fiscal
+first quarter ended August 31, 2023. The Company also provided forward guidance
+and an operational update.
+
+Fiscal First quarter 2024 Financial and Operational Highlights
+
+• Total revenue of $36.3 million
+
+• Net loss of $11.9 million
+
+• Adjusted EBITDA of $10.0 million
+
+• Adjusted net income from operations of $0.1 million, or adjusted earnings per
+share of less than $0.01
+
+• Fully energized 180 megawatt ("MW") hosting facility in Ellendale, ND
+
+Adjusted EBITDA, adjusted net income, and adjusted earnings per share are non-
+GAAP measures. Reconciliations of adjusted EBITDA, adjusted net income, and
+adjusted earnings per share to the most directly comparable financial measure
+presented in accordance with accounting principles generally accepted in the
+United States ("GAAP") are set forth in the schedule accompanying this release.
+See “Reconciliation of GAAP to Non-GAAP Measures.”
+                                                                                
+  Management Commentary                                                         
+                                                                                
+“The first quarter represented a strong start to the fiscal year and continued
+momentum for Applied Digital as we made meaningful progress across our
+business,” said Applied Digital Chairman and CEO Wes Cummins. “We are finalizing
+details for our Garden City facility and have a clear path now to reaching 500
+MW across our three hosting facilities. The pipeline of Cloud customer
+opportunities remains strong and we began deploying GPUs for our first customer
+in that line of business during the quarter. We remain on schedule with
+developing additional HPC data center capacity and look forward to signing our
+first anchor tenant soon.”
+
+“Looking ahead, we remain confident about our growth prospects as a
+differentiated provider of HPC data center infrastructure. Demand for our
+services from both traditional customers and emerging HPC applications remains
+robust, and we remain excited about the year ahead.”
+                                                                                
+  Cloud Service Update                                                          
+                                                                                
+Applied Digital’s Cloud Service, offered through its wholly owned subsidiary Sai
+Computing, provides high-performance computing power for artificial intelligence
+and machine learning applications.
+
+The Company has ordered 34,000 GPUs for the Company's Cloud services business.
+During the three months ended August 31, 2023, the Company received and deployed
+an initial production cluster of 1,024 GPUs, and began recognizing revenue on
+our first cloud services contract.
+
+High-Performance Computing (HPC) Datacenter Hosting Update
+
+Applied Digital’s HPC datacenter business designs, builds and operates next-
+generation datacenters designed to provide high computing power and support
+high-compute applications within a cost-effective model. The Company has over
+300 MW of capacity in development, including 200 MW in North Dakota and 100 MW
+in Utah.
+                                                                                
+  Datacenter Hosting Update                                                     
+                                                                                
+The Company's Ellendale, North Dakota facility was fully energized during the
+quarter and the Jamestown, North Dakota facility operated at full capacity. The
+Company’s 200 MW facility in Garden City, Texas is expected to energize during
+the fourth quarter of calendar year 2023. On September 8, 2023, the Company
+entered into a facility extension agreement with Oncor Electricity Delivery
+Company LLC ("Oncor") for the transmission and metering of power. With this in
+place, metering and telemetry equipment will be installed onsite by Oncor and
+once installed, the site will be energized. The installation is expected to be
+completed by October 23rd.
+
+Financial Results for Fiscal First Quarter 2024 Ended August 31, 2023
+
+Balance Sheet
+
+Applied Digital ended the fiscal quarter with cash, cash equivalents, and
+restricted cash of $31.2 million and $44.0 million in debt outstanding.
+Operating Results
+Total revenues in the fiscal first quarter 2024 were $36.3 million, up 425% from
+the fiscal first quarter 2023. Revenues were attributable to the Company’s
+operations in Jamestown, North Dakota along with the increase in energized MW
+capacity at the Ellendale, North Dakota facility, and revenue from the Company’s
+first Cloud Services contract.
+
+Cost of revenues in the fiscal first quarter 2024 was $24.4 million compared to
+$6.1 million in the fiscal first quarter 2023. The increase in cost was
+attributable to higher energy costs used to generate hosting revenues,
+depreciation, amortization expense, and personnel expenses for employees working
+on our Jamestown and Ellendale hosting facilities.
+
+Operating expenses for the fiscal first quarter 2024 were $17.1 million. For the
+fiscal first quarter 2023, operating expenses were $5.0 million, almost all of
+which were attributable to general and administrative costs.
+
+Net loss for the fiscal first quarter 2024 was $11.9 million, or $(0.12) per
+basic and diluted share, based on a weighted average share count during the
+quarter of 100.5 million. This compares to a net loss of $4.7 million, or
+$(0.05) per basic and diluted share, based on a weighted average share count of
+93.1 million for the fiscal first quarter 2023.
+
+Adjusted EBITDA, a non-GAAP measure, for the fiscal first quarter 2024 was $10.0
+million compared to an Adjusted EBITDA loss of $1.7 million for the fiscal first
+quarter 2023.
+
+Adjusted net income attribute to Applied Digital, a non-GAAP measure, for the
+fiscal first quarter of 2024, was $0.1 million or adjusted net income per basic
+and diluted share of less than $0.01, based on a weighted average share count
+during the quarter of approximately 100.5 million. This compares to an adjusted
+net loss, a non-GAAP measure, attributable to Applied Digital of $3.3 million,
+or $(0.03) per basic and diluted share, for the fiscal first quarter of 2023
+based on a weighted average share count during the quarter of approximately 93.1
+million.
+
+Cash Flows
+
+The Company experienced a net decrease in cash, cash equivalents, and restricted
+cash during the fiscal first quarter 2024 of $12.4 million. The primary drivers
+of the change were as follows:
+
+• Purchase of property, equipment, and other assets of $32.6 million, driven by
+construction of the Company's and HPC hosting datacenters.
+
+• Investments of $0.4 million.
+
+• Finance lease prepayments of $7.6 million and repayment of finance leases of
+$4.8 million, primarily driven by the Company's leases of hosting equipment for
+Cloud services.
+
+• Debt repayments of approximately $42.8 million.
+
+These were partially offset by the following:
+
+• Net cash received from operating activities of $4.5 million, driven by the
+recurring operations of the business.
+
+• Borrowings of $6.8 million driven by draws on the Company's 9% loan from B.
+Riley and funding received from the 6.15% Vantage Garden City Loan
+
+• Net cash received from the issuance of common stock of $64.5 million under the
+Company's at-the-market sales agreement.
+                                                                                
+  Guidance                                                                      
+                                                                                
+For full-year fiscal 2024, Applied Digital reaffirms its previously announced
+guidance of total revenue in the range of $385 million – $405 million, and
+Adjusted EBITDA in the range of $195 million – $205 million.
+                                                                                
+  Investor Day                                                                  
+                                                                                
+Applied Digital will host an Investor Day on Thursday, October 12, 2023, in New
+York, NY. Presentations will be made by Chairman and CEO Wes Cummins, CFO David
+Rench, and other senior leaders of the Company. The presentations will provide
+an in-depth overview of Applied Digital’s business, growth strategy, and
+financial outlook. In-person attendance is by invitation only to institutional
+investors and analysts. Presentations are expected to begin at 8:30 a.m. ET, and
+the event is expected to conclude at 12:00 p.m. ET.
+                                                                                
+  Conference Call                                                               
+                                                                                
+Applied Digital will host a conference call today, October 9, 2023, at 9:00 a.m.
+Eastern Time (6:00 a.m. Pacific Time) to discuss these results. A question-and-
+answer session will follow the management’s presentation.
+
+To participate, please dial the appropriate number at least ten minutes prior to
+the start time and ask for the Applied Digital conference call.
+
+U.S. dial-in number: 1-877-407-0792
+
+International number: 1-201-689-8263
+
+Conference ID: 13741431
+
+The conference call will broadcast live and be available for replay here .
+
+Please call the conference telephone number approximately 10 minutes before the
+start time. An operator will register your name and organization. If you have
+any difficulty connecting with the conference call, please contact Applied
+Digital’s investor relations team at 1-949-574-3860.
+
+A replay of the call will be available after 1:00 p.m. Eastern Time October 9,
+2023, through October 23, 2023.
+
+Toll-free replay number: 1-844-512-2921
+
+International replay number: 1-412-317-6671
+
+Conference ID: 13741431
+                                                                                
+  About Applied Digital                                                         
+                                                                                
+Applied Digital Corporation (Nasdaq: APLD) designs, develops, and operates next-
+generation data centers across North America to provide digital infrastructure
+solutions to the rapidly growing high-performance computing (HPC) industry. Find
+more information at www.applieddigital.com . Follow us on Twitter at
+@APLDdigital.
+                                                                                
+  Forward-Looking Statements                                                    
+                                                                                
+This release contains "forward-looking statements" as defined in the Private
+Securities Litigation Reform Act of 1995 regarding, among other things, future
+operating and financial performance, product development, market position,
+business strategy and objectives. These statements use words, and variations of
+words, such as "continue," "build," "future," "increase," "drive," "believe,"
+"look," "ahead," "confident," "deliver," "outlook," "expect," and "predict."
+Other examples of forward-looking statements may include, but are not limited
+to, (i) statements of Company plans and objectives, including our evolving
+business model, or estimates or predictions of actions by suppliers, (ii)
+statements of future economic performance, and (iii) statements of assumptions
+underlying other statements and statements about the Company or its business.
+You are cautioned not to rely on these forward-looking statements. These
+statements are based on current expectations of future events and thus are
+inherently subject to uncertainty. If underlying assumptions prove inaccurate or
+known or unknown risks or uncertainties materialize, actual results could vary
+materially from the Company's expectations and projections. These risks,
+uncertainties, and other factors include: decline in demand for our products and
+services; the volatility of the crypto asset industry; the inability to comply
+with developments and changes in regulation; cash flow and access to capital;
+and maintenance of third party relationships. Information in this release is as
+of the dates and time periods indicated herein, and the Company does not
+undertake to update any of the information contained in these materials, except
+as required by law.
+
+Use and Reconciliation of Non-GAAP Financial Measures
+
+This press release and our related earnings call contain certain non-GAAP
+financial measures. See below for discussion on each non-GAAP metric.
+                                                                                
+  Adjusted Operating Loss and Adjusted Net Loss                                 
+                                                                                
+“Adjusted Operating Loss” and “Adjusted Net Loss” are non-GAAP measures that
+represents operating loss and net loss, respectively, excluding stock-based
+compensation and nonrecurring expenses. We believe these are useful metrics as
+they provide additional information regarding factors and trends affecting our
+business and provide perspective on results absent one-time or significant non-
+cash items. However, Applied Digital’s presentation of these measures should not
+be construed as an inference that its future results will be unaffected by
+unusual or non-recurring items. Applied Digital’s computation of Adjusted
+Operating Loss and Adjusted Net Loss may not be comparable to other similarly
+titled measures computed by other companies, because all companies may not
+calculate Adjusted Operating Loss and Adjusted Net Loss in the same fashion.
+
+Because of these limitations, Adjusted Operating Loss and Adjusted Net Loss
+should not be considered in isolation or as a substitute for performance
+measures calculated in accordance with GAAP. Applied Digital compensates for
+these limitations by relying primarily on its GAAP results and using Adjusted
+Operating Loss and Adjusted Net Loss on a supplemental basis. You should review
+the reconciliation of operating loss to Adjusted Operating Loss and net loss to
+Adjusted Net Loss above and not rely on any single financial measure to evaluate
+Applied Digital’s business.
+                                                                                
+  EBITDA and Adjusted EBITDA                                                    
+                                                                                
+“EBITDA” is defined as earnings before interest, taxes, and depreciation and
+amortization. “Adjusted EBITDA” is defined as EBITDA adjusted for stock-based
+compensation, loss on extinguishment of debt, one-time professional service
+costs, and other nonrecurring costs. These costs have been adjusted as they are
+not indicative of business operations. Adjusted EBITDA is intended as a
+supplemental measure of Applied Digital’s performance that is neither required
+by, nor presented in accordance with, GAAP. Applied Digital believes that the
+use of EBITDA and Adjusted EBITDA provides an additional tool for investors to
+use in evaluating ongoing operating results and trends and in comparing its
+financial measures with those of comparable companies, which may present similar
+non-GAAP financial measures to investors. We also believe EBITDA and Adjusted
+EBITDA are useful metrics to investors because they provide additional
+information regarding factors and trends affecting our business, which are used
+in the business planning process to understand expected operating performance,
+to evaluate results against those expectations, and because of their importance
+as measures of underlying operating performance, as the primary compensation
+performance measure under certain programs and plans. However, you should be
+aware that when evaluating EBITDA and Adjusted EBITDA, Applied Digital may incur
+future expenses similar to those excluded when calculating these measures. In
+addition, Applied Digital’s presentation of these measures should not be
+construed as an inference that its future results will be unaffected by unusual
+or non-recurring items. Applied Digital’s computation of Adjusted EBITDA may not
+be comparable to other similarly titled measures computed by other companies,
+because all companies may not calculate Adjusted EBITDA in the same fashion.
+
+Because of these limitations, EBITDA and Adjusted EBITDA should not be
+considered in isolation or as a substitute for performance measures calculated
+in accordance with GAAP. Applied Digital compensates for these limitations by
+relying primarily on its GAAP results and using EBITDA and Adjusted EBITDA on a
+supplemental basis. You should review the reconciliation of net loss to EBITDA
+and Adjusted EBITDA above and not rely on any single financial measure to
+evaluate Applied Digital’s business.
+                                                                                
+  Investor Relations Contacts                                                   
+                                                                                
+Matt Glover or Alex Kovtun
+Gateway Group, Inc.
+(949) 574-3860 APLD@gateway-grp.com
+                                                                                
+  Media Contact                                                                 
+                                                                                
+Brenlyn Motlagh or Diana Jarrah
+Gateway Group, Inc.
+(949) 899-3135 APLD@gateway-grp.com
+                                                                                
+                  APPLIED DIGITAL CORPORATION AND SUBSIDIARIES                  
+                                                                                
+                                                                                
+               Condensed Consolidated Balance Sheets (Unaudited)                
+                                                                                
+                (In thousands, except share and par value data)                 
+                                                                                
+                                            August 31, 2023       May 31, 2023  
+ ────────────────────────────────────────────────────────────────────────────── 
+  ASSETS                                                                        
+  Current assets:                                                               
+  Cash and cash equivalents              $            5,942    $        28,999  
+  Restricted cash                                    25,271             14,575  
+  Accounts receivable                                    27                 82  
+  Prepaid expenses and other current                  2,308              2,103  
+  assets                                                                        
+  Total current assets                               33,548             45,759  
+  Property and equipment, net                       222,666            195,593  
+  Operating lease right of use                       11,183              1,290  
+  assets, net                                                                   
+  Finance lease right of use assets,                 55,691             14,303  
+  net                                                                           
+  Other assets                                       26,065              7,012  
+  TOTAL ASSETS                           $          349,153    $       263,957  
+  LIABILITIES AND STOCKHOLDERS'                                                 
+  EQUITY                                                                        
+  Current liabilities:                                                          
+  Accounts payable                       $           16,229    $         6,446  
+  Accrued liabilities                                12,743              8,330  
+  Current portion of operating lease                  1,807                320  
+  liability                                                                     
+  Current portion of finance lease                   23,471              5,722  
+  liability                                                                     
+  Current portion of debt                             9,163              7,950  
+  Customer deposits                                  32,559             32,559  
+  Related party customer deposits                     3,811              3,811  
+  Deferred revenue                                   50,863             47,168  
+  Related party deferred revenue                        971              1,524  
+  Sales and use tax payable                              62              1,630  
+  Total current liabilities                         151,679            115,460  
+  Long-term portion of operating                                                
+  lease                                               9,573              1,005  
+  liability                                                                     
+  Long-term portion of finance lease                 25,071              8,334  
+  liability                                                                     
+  Long-term debt                                     34,882             33,222  
+  Long-term related party loan                            —             35,257  
+  Other long-term related party                           —              1,000  
+  liabilities                                                                   
+  Total liabilities                                 221,205            194,278  
+  Commitments and contingencies                                                 
+  Stockholders' equity:                                                         
+  Common stock, $0.001 par value,                                               
+  166,666,667 shares authorized,                                                
+  110,850,885 shares issued and                                                 
+  105,849,157 shares outstanding at                                             
+  August                                                110                101  
+  31, 2023, and 100,927,358 shares                                              
+  issued                                                                        
+  and 95,925,630 shares outstanding                                             
+  at May                                                                        
+  31, 2023                                                                      
+  Treasury stock, 5,001,728 shares at                                           
+  August 31, 2023 and 5,001,728                         -62                -62  
+  shares at                                                                     
+  May 31, 2023, at cost                                                         
+  Additional paid in capital                        240,073            160,194  
+  Accumulated deficit                              -112,173           -100,716  
+  Total stockholders’ equity                                                    
+  attributable                                      127,948             59,517  
+  to Applied Digital Corporation                                                
+  Noncontrolling interest                                 —             10,162  
+  Total stockholders' equity                                                    
+  including                                         127,948             69,679  
+  noncontrolling interest                                                       
+  TOTAL LIABILITIES AND SHAREHOLDERS'    $          349,153    $       263,957  
+  DEFICIT                                                                       
+                                                                                
+                                                                                
+                  APPLIED DIGITAL CORPORATION AND SUBSIDIARIES                  
+                                                                                
+                                                                                
+          Condensed Consolidated Statements of Operations (Unaudited)           
+                                                                                
+                     (In thousands, except per share data)                      
+                                                                                
+                      Three Months                                              
+                      Ended              August 31, 2023       August 31, 2022  
+ ────────────────────────────────────────────────────────────────────────────── 
+  Revenue:                                                                      
+  Hosting revenue     $                           29,987    $            4,338  
+  Cloud services                                   2,152                     —  
+  revenue                                                                       
+  Related party                                    4,184                 2,586  
+  hosting revenue                                                               
+  Total revenue                                   36,323                 6,924  
+  Costs and                                                                     
+  expenses:                                                                     
+  Cost of revenues                                24,398                 6,093  
+  Selling, general                                                              
+  and                                             17,052                 5,008  
+  administrative                                                                
+  Total costs and                                 41,450                11,101  
+  expenses                                                                      
+  Operating loss                                  -5,127                -4,177  
+  Interest Expense                                 2,074                   356  
+  Loss on                                                                       
+  extinguishment                                   2,353                    94  
+  of debt                                                                       
+  Loss from legal                                  2,300                     —  
+  settlement                                                                    
+  Net loss before                                                               
+  income tax                                     -11,854                -4,627  
+  expenses                                                                      
+  Income tax                                           —                    32  
+  expense                                                                       
+  Net loss                                       -11,854                -4,659  
+  Net loss                                                                      
+  attributable to                                   -397                  -128  
+  noncontrolling                                                                
+  interest                                                                      
+  Net loss                                                                      
+  attributable to     $                          -11,457    $           -4,531  
+  Applied Digital                                                               
+  Corporation                                                                   
+  Basic and                                                                     
+  diluted net                                                                   
+  (loss) gain per                                                               
+  share:                                                                        
+  Basic and                                                                     
+  diluted net loss    $                            -0.12    $            -0.05  
+  per share                                                                     
+  Basic and                                                                     
+  diluted weighted                                                              
+  average                                    100,521,673            93,105,835  
+  number of shares                                                              
+  outstanding                                                                   
+                                                                                
+                                                                                
+                  APPLIED DIGITAL CORPORATION AND SUBSIDIARIES                  
+                                                                                
+   Condensed Consolidated Statements of Cash Flows (Unaudited)(In thousands)    
+                                                                                
+                      Three Months                                              
+                      Ended              August 31, 2023       August 31, 2022  
+ ────────────────────────────────────────────────────────────────────────────── 
+  CASH FLOW FROM                                                                
+  OPERATING                                                                     
+  ACTIVITIES                                                                    
+  Net loss            $                          -11,854    $           -4,659  
+  Adjustments to                                                                
+  reconcile net                                                                 
+  loss to net                                                                   
+  cash provided by                                                              
+  operating                                                                     
+  activities:                                                                   
+  Depreciation and                                 7,860                 1,136  
+  amortization                                                                  
+  Stock-based                                      5,641                   579  
+  compensation                                                                  
+  Deferred income                                      —                    32  
+  taxes                                                                         
+  Loss on                                                                       
+  extinguishment                                   2,353                    94  
+  of debt                                                                       
+  Loss from legal                                  2,300                     —  
+  settlement                                                                    
+  Amortization of                                                               
+  debt issuance                                      235                     —  
+  costs                                                                         
+  Loss on                                                                       
+  abandonment of                                     173                     —  
+  assets                                                                        
+  Changes in                                                                    
+  operating assets                                                              
+  and                                                                           
+  liabilities:                                                                  
+  Accounts                                            55                   177  
+  receivable                                                                    
+  Prepaid expenses                                                              
+  and other                                         -205                  -164  
+  current                                                                       
+  assets                                                                        
+  Customer                                             —                 4,042  
+  deposits                                                                      
+  Related party                                                                 
+  customer                                             —                   545  
+  deposits                                                                      
+  Current deferred                                 3,695                15,316  
+  revenue                                                                       
+  Current related                                                               
+  party deferred                                    -553                     —  
+  revenue                                                                       
+  Accounts payable                                   205                   196  
+  Accrued                                          2,113                     —  
+  liabilities                                                                   
+  Lease assets and                                    39                     —  
+  liabilities                                                                   
+  Sales and use                                   -1,568                     —  
+  tax payable                                                                   
+  Other assets                                    -5,972                     —  
+  CASH FLOW                                                                     
+  PROVIDED BY                                      4,517                17,294  
+  OPERATING                                                                     
+  ACTIVITIES                                                                    
+  CASH FLOW FROM                                                                
+  INVESTING                                                                     
+  ACTIVITIES                                                                    
+  Purchases of                                                                  
+  property and                                   -32,591               -31,673  
+  equipment and                                                                 
+  other assets                                                                  
+  Finance lease                                   -7,560                     —  
+  prepayments                                                                   
+  Purchases of                                      -390                     —  
+  investments                                                                   
+  CASH USED IN                                                                  
+  INVESTING                                      -40,541               -31,673  
+  ACTIVITIES                                                                    
+  CASH FLOW FROM                                                                
+  FINANCING                                                                     
+  ACTIVITIES                                                                    
+  Repayment of                                    -4,849                  -209  
+  finance leases                                                                
+  Borrowings of                                    3,750                15,000  
+  long-term debt                                                                
+  Borrowings of                                                                 
+  related party                                    3,000                     —  
+  debt                                                                          
+  Repayments of                                   -3,463                -7,488  
+  long-term debt                                                                
+  Repayment of                                                                  
+  related party                                  -39,257                     —  
+  debt                                                                          
+  Payment of                                                                    
+  deferred                                             —                  -140  
+  financing costs                                                               
+  Noncontrolling                                                                
+  interest                                             —                 1,747  
+  contributions                                                                 
+  Proceeds from                                                                 
+  issuance of                                     64,482                     —  
+  common stock                                                                  
+  CASH FLOW                                                                     
+  PROVIDED BY                                     23,663                 8,910  
+  FINANCING                                                                     
+  ACTIVITIES                                                                    
+  NET DECREASE IN                                                               
+  CASH, CASH                                                                    
+  EQUIVALENTS,                                   -12,361                -5,469  
+  AND RESTRICTED                                                                
+  CASH                                                                          
+  CASH, CASH                                                                    
+  EQUIVALENTS, AND                                                              
+  RESTRICTED                                      43,574                46,299  
+  CASH, BEGINNING                                                               
+  OF PERIOD                                                                     
+  CASH, CASH                                                                    
+  EQUIVALENTS, AND                                                              
+  RESTRICTED          $                           31,213    $           40,830  
+  CASH, END OF                                                                  
+  PERIOD                                                                        
+  SUPPLEMENTAL                                                                  
+  DISCLOSURE OF                                                                 
+  CASH FLOW                                                                     
+  INFORMATION                                                                   
+  Interest paid       $                            1,839    $              356  
+  SUPPLEMENTAL                                                                  
+  DISCLOSURE OF                                                                 
+  NON-CASH                                                                      
+  ACTIVITIES                                                                    
+  Operating                                                                     
+  right-of-use                                                                  
+  assets obtained     $                           10,272    $                —  
+  by lease                                                                      
+  obligation                                                                    
+  Finance                                                                       
+  right-of-use                                                                  
+  assets obtained     $                           46,952    $              922  
+  by                                                                            
+  lease obligation                                                              
+  Property and                                                                  
+  equipment in        $                            6,729    $            8,352  
+  accounts                                                                      
+  payable                                                                       
+  Conversion of                                                                 
+  non-controlling     $                            9,765    $                —  
+  interest                                                                      
+  Loss from legal     $                            2,300    $                —  
+  settlement                                                                    
+                                                                                
+                                                                                
+                  APPLIED DIGITAL CORPORATION AND SUBSIDIARIES                  
+                                                                                
+            Reconciliation of GAAP to Non-GAAP Measures (Unaudited)             
+                                                                                
+                     (In thousands, except percentage data)                     
+                                                                                
+                    Three Months                                 August 31,     
+                    Ended           August 31, 2023                    2022     
+ ────────────────────────────────────────────────────────────────────────────── 
+  Adjusted                                                                      
+  operating                                                                     
+  income (loss)                                                                 
+  Operating loss    $                        -5,127       $          -4,177     
+  (GAAP)                                                                        
+  Stock-based                                 5,641                     579     
+  compensation                                                                  
+  Non-recurring                                                                 
+  professional                                  592                     408     
+  service costs                                                                 
+  Other                                                                         
+  non-recurring                                 653                     200     
+  expenses                                                                      
+  Adjusted                                                                      
+  operating         $                         1,759       $          -2,990     
+  income (loss)                                                                 
+  (Non-GAAP)                                                                    
+  Adjusted                                                                      
+  operating                                     4.8  %                -43.2  %  
+  margin                                                                        
+  Adjusted net                                                                  
+  income (loss)                                                                 
+  Net loss                                                                      
+  attributable                                                                  
+  to Applied        $                       -11,457       $          -4,531     
+  Digital                                                                       
+  (GAAP)                                                                        
+  Stock-based                                 5,641                     579     
+  compensation                                                                  
+  Loss on                                                                       
+  extinguishment                              2,353                      94     
+  of debt                                                                       
+  Loss from                                                                     
+  legal                                       2,300                       —     
+  settlement                                                                    
+  Non-recurring                                                                 
+  professional                                  592                     408     
+  service costs                                                                 
+  Other                                                                         
+  non-recurring                                 653                     200     
+  expenses                                                                      
+  Adjusted net                                                                  
+  income (loss)                                                                 
+  attributable      $                            82       $          -3,250     
+  to Applied                                                                    
+  Digital                                                                       
+  (Non-GAAP)                                                                    
+  Adjusted                                                                      
+  earnings per      $                             —       $           -0.03     
+  share                                                                         
+  (Non-GAAP)                                                                    
+  EBITDA and                                                                    
+  Adjusted                                                                      
+  EBITDA                                                                        
+  Net loss                                                                      
+  attributable                                                                  
+  to Applied        $                       -11,457       $          -4,531     
+  Digital                                                                       
+  (GAAP)                                                                        
+  Interest                                    2,074                     356     
+  expense                                                                       
+  Income tax                                                                    
+  benefit                                         —                      32     
+  (expense)                                                                     
+  Depreciation                                                                  
+  and                                         7,860                   1,136     
+  amortization                                                                  
+  EBITDA            $                        -1,523       $          -3,007     
+  (Non-GAAP)                                                                    
+  Stock-based                                 5,641                     579     
+  compensation                                                                  
+  Loss on                                                                       
+  extinguishment                              2,353                      94     
+  of debt                                                                       
+  Loss from                                                                     
+  legal                                       2,300                       —     
+  settlement                                                                    
+  Non-recurring                                                                 
+  professional                                  592                     408     
+  service costs                                                                 
+  Other                                                                         
+  non-recurring                                 653                     200     
+  expenses                                                                      
+  Adjusted                                                                      
+  EBITDA            $                        10,016       $          -1,726     
+  (Non-GAAP)                                                                    
+                                                                                

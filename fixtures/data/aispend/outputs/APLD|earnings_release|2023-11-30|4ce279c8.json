@@ -1,0 +1,48 @@
+{
+ "accession": "APLD|earnings_release|2023-11-30|4ce279c8",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Due to the delayed delivery of certain networking components for GPU clusters, we now expect our revenue and EBITDA to be below the low end of our previously guided range for fiscal year 2024.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Total revenue guidance is lowered because GPU-cluster (AI/HPC) commissioning was delayed. The sentence states no AI revenue figure or share."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 500000000,
+   "amount_high": 500000000,
+   "quote": "We now expect to exit fiscal year 2024 at an annual revenue run rate of approximately $500 million and an annualized adjusted EBITDA run rate of approximately $250 million.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "This is an exit annualized run rate for total revenue, not full-year fiscal 2024 revenue. The sentence does not attribute it to AI; it is recorded as scope total only so it is not mistaken for AI revenue. The AI link comes from the preceding sentence's GPU-cluster context."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.9,
+  "input_tokens": 5103,
+  "output_tokens": 967,
+  "attempts": 1,
+  "task_sha": "fcb92fe8bcca46ea"
+ }
+}

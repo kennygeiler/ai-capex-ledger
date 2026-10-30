@@ -1,0 +1,27 @@
+{
+ "accession": "APLD|earnings_release|2023-05-31|9903f409",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; energizing the Ellendale facility is described without any spend figure or capex reference"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only AI figure is 'two AI customer agreements worth up to $640 million', a multi-year contract value, not revenue reported or guided for any fiscal year, so it is not recorded as revenue; launching the AI Cloud Service is a product description with no revenue figure or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.0,
+  "input_tokens": 4933,
+  "output_tokens": 524,
+  "attempts": 1,
+  "task_sha": "a135b116038d9dc1"
+ }
+}

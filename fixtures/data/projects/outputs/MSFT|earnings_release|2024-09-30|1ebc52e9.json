@@ -1,0 +1,13 @@
+{
+ "accession": "MSFT|earnings_release|2024-09-30|1ebc52e9",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 4851,
+  "output_tokens": 54,
+  "attempts": 1,
+  "task_sha": "fc255c9c4e44ba4b"
+ }
+}

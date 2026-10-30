@@ -1,0 +1,13 @@
+{
+ "accession": "AMZN|earnings_release|2023-06-30|e6963d2f",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 5030,
+  "output_tokens": 90,
+  "attempts": 1,
+  "task_sha": "cadf5a4baccdd8c4"
+ }
+}

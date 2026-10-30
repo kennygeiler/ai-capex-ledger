@@ -1,0 +1,27 @@
+{
+ "accession": "MSFT|earnings_release|2022-12-31|b1ad452e",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; \"we continue to invest to drive growth\" names no spend category or AI link"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "Microsoft Cloud revenue ($27.1 billion) is a buyer's cloud segment, not AI revenue, and no sentence states AI's part of revenue; the CEO's remarks on AI are general and state no amount"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 5040,
+  "output_tokens": 260,
+  "attempts": 1,
+  "task_sha": "0a5599e5111b717b"
+ }
+}

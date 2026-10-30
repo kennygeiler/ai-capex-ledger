@@ -24,6 +24,7 @@ COMMANDS = {
     "release": "Build a versioned release (refuses while any gate fails).",
     "signoff": "Record who signed a release.",
     "publish": "Push a signed release to the production database (DATABASE_URL in .env); --status lists what production holds.",
+    "golden": "The golden test: --freeze the proven set's inputs and expected tables; --check runs the code stages on them and compares (docs/PROOF.md).",
     "app": "DATAHQ web app: dashboard, each company's pipeline, the agents, and an outputs explorer (http://127.0.0.1:3610).",
 }
 

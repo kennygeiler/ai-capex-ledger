@@ -1,0 +1,27 @@
+{
+ "accession": "APLD|earnings_release|2022-08-31|88fefe7d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "datacenter buildout and financing are discussed for Bitcoin-mining hosting capacity; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "current customers mine Bitcoin; the GPU machine-learning pilot is a prospective customer, and no sentence states AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 5336,
+  "output_tokens": 304,
+  "attempts": 1,
+  "task_sha": "4e3d0ea81378b7e5"
+ }
+}

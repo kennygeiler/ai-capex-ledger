@@ -1,0 +1,63 @@
+{
+ "accession": "NVDA|earnings_release|2025-04-27|28d9e1c7",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 39100000000,
+   "amount_high": 39100000000,
+   "quote": "Data Center revenue for the first quarter was $39.1 billion, up 73% from a year ago and up 10% sequentially.",
+   "passage": "p05",
+   "confidence": 0.9,
+   "notes": "Quarterly figure (Q1 fiscal 2026), not full-year. The sentence names no fiscal year, so code supplies the reported year 2026. The same figure appears in the p01 bullet, which has no complete sentence; recorded once here."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 34200000000,
+   "amount_high": 34200000000,
+   "quote": "Data Center compute revenue was $34.2 billion, up 76% from a year ago and up 5% sequentially.",
+   "passage": "p05",
+   "confidence": 0.7,
+   "notes": "Quarterly figure (Q1 fiscal 2026). This is a sub-component of the $39.1B Data Center revenue; do not add the two together."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 5000000000,
+   "amount_high": 5000000000,
+   "quote": "Networking revenue was $5.0 billion, up 56% from a year ago and up 64% sequentially, driven by the growth of NVLink compute fabric in our GB200 systems and continued adoption of Ethernet for AI solutions at cloud service providers and consumer internet companies.",
+   "passage": "p05",
+   "confidence": 0.6,
+   "notes": "Quarterly figure (Q1 fiscal 2026). This is a sub-component of the $39.1B Data Center revenue (compute $34.2B + networking $5.0B \u2248 $39.1B); do not add it to the total. Confidence is lower because the sentence does not state that all networking revenue is data-center or AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.6,
+  "input_tokens": 5327,
+  "output_tokens": 1505,
+  "attempts": 1,
+  "task_sha": "957f6c39567c57f3"
+ }
+}

@@ -1,0 +1,46 @@
+{
+ "accession": "GOOGL|mdna|2025-12-31|f335a54f",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Intersect acquisition",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Intersect",
+   "amount_low": 4800000000,
+   "amount_high": 4800000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2025-12",
+   "in_service": null,
+   "quote": "In December 2025, we entered into a definitive agreement to acquire Intersect, which provides data center and energy infrastructure solutions, for $4.8 billion in cash, plus the assumption of debt.",
+   "passage": "p06",
+   "confidence": 0.6
+  },
+  {
+   "name": "January 2026 power purchase agreement",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 9900000000,
+   "amount_high": 9900000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2026-01",
+   "in_service": null,
+   "quote": "In January 2026, we executed a power purchase agreement which we expect to be accounted for as a lease resulting in future payments depending on certain agreement terms of $9.9 billion between 2027 and 2047.",
+   "passage": "p04",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.1,
+  "input_tokens": 5088,
+  "output_tokens": 996,
+  "attempts": 1,
+  "task_sha": "3eea17c481d1a593"
+ }
+}

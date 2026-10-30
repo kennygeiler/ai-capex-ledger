@@ -4,6 +4,7 @@ Every choice here is a data decision, so each one is written down rather than bu
 Tickers are resolved to CIKs live from https://www.sec.gov/files/company_tickers.json.
 """
 import json
+import os
 from pathlib import Path
 
 
@@ -94,7 +95,15 @@ YEAR_DAYS = (350, 380)
 # The AI set, 5 fiscal years from 10-K filings only.
 # Companies added in DATAHQ (or `ledger add`), kept in data/companies.json. They run through the same pipeline and
 # join the full set, so the next release includes them once a person signs it.
-ADDED = Path(__file__).resolve().parents[1] / "data" / "companies.json"
+ADDED = (Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[1]) / "data" / "companies.json"
+# The proven set (docs/PROOF.md): five companies, one per failure path the pipeline has met, on which every stage is
+# proven end to end before anything is widened. The golden test freezes their inputs and expected tables.
+PROVEN = ["MSFT", "GOOGL", "AMZN", "NVDA", "APLD"]
+PROVEN_WHY = {"MSFT": "PP&E growth method, a stated ceiling (at most 50%), software and finance leases inside the category",
+              "GOOGL": "a category rename, a restatement between filings, a planning floor against a point figure",
+              "AMZN": "a category split with no restated comparative",
+              "NVDA": "the seller side: stated AI revenue against a segment, no AI capex",
+              "APLD": "segment accrual capex above cash capex, a miner turned HPC host"}
 
 
 def added() -> list[dict]:

@@ -1,0 +1,50 @@
+{
+ "accession": "APLD|earnings_release|2025-02-28|77b566ba",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 17800000,
+   "amount_high": 17800000,
+   "quote": "During the three months ended February 28, 2025, the Company generated $17.8 million in revenues from the Cloud Services Business segment, representing an increase of 220% compared to $5.6 million during the three months ended February 29, 2024.",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "Quarterly figure (Q3 FY2025, three months ended 2025-02-28), not full-year revenue. The preceding sentence describes the Cloud Services segment as providing compute for AI and machine learning applications, so the segment revenue is treated as AI revenue. That AI link comes from the adjacent sentence, not from this one."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 35200000,
+   "amount_high": 35200000,
+   "quote": "During the three months ended February 28, 2025, the Company generated $35.2 million in revenue from the Data Center Hosting Business segment, representing a decrease of 7% compared to the $37.8 million during the three months ended February 29, 2024.",
+   "passage": "p04",
+   "confidence": 0.5,
+   "notes": "Quarterly figure (Q3 FY2025), not full-year revenue. Recorded as data-center revenue. However, this hosting segment's demand is not tied to AI in the text and may be largely non-AI (e.g., crypto mining hosting), hence the low confidence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "No sentence states capital expenditures or links them to AI. The $375 million SMBC financing in p01 is a financing whose proceeds will fund data center construction, not a stated capex amount, and that sentence does not mention AI."
+  },
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies operating expenses or attributes them to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.5,
+  "input_tokens": 5969,
+  "output_tokens": 1437,
+  "attempts": 1,
+  "task_sha": "488d10700a234fb6"
+ }
+}

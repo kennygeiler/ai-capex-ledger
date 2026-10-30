@@ -1,0 +1,13 @@
+{
+ "accession": "AMZN|earnings_release|2024-12-31|54148327",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.4,
+  "input_tokens": 4721,
+  "output_tokens": 50,
+  "attempts": 1,
+  "task_sha": "a9cb3ae27f3c4ca2"
+ }
+}

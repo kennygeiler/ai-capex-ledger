@@ -1,7 +1,7 @@
 {
  "ticker": "GOOGL",
  "prompt_version": "attribution@v2",
- "model": "hyperscaler@v4",
+ "model": "hyperscaler@v5",
  "rows": [
   {
    "field": "capex",
@@ -20,8 +20,8 @@
      "value": 141852000000
     }
    ],
-   "basis": "Growth in gross Technical infrastructure, 203,679m \u2212 141,852m = 61,827m, against 91,447m of purchases of property and equipment. This counts all growth in servers, network equipment and data centers, AI or not. It excludes assets not yet in service (78,592m, up from 50,597m). The Q4 2025 call's split of about 60% servers and 40% data centers and networking supports reading most of this as the compute fleet. No AI share or amount was stated.",
-   "confidence": 0.55
+   "basis": "Growth in gross Technical infrastructure: 203,679m \u2212 141,852m = 61,827m, against 91,447m of purchases of property and equipment. This counts all server, network and data-center infrastructure growth, not only AI; the Q4 2025 call's about 60% of capex in servers supports the order of magnitude. Purchase commitments of $149.1bn and RPO of $242.8bn are forward signals not in this number.",
+   "confidence": 0.6
   },
   {
    "field": "capex",
@@ -40,7 +40,7 @@
      "value": 112504000000
     }
    ],
-   "basis": "Growth in gross Technical infrastructure, 141,852m \u2212 112,504m = 29,348m, against 52,535m of capex. This counts all growth in servers, network and data-center assets, not only AI. Assets not yet in service (50,597m, up from 35,136m) are excluded.",
+   "basis": "Growth in gross Technical infrastructure: 141,852m \u2212 112,504m = 29,348m, against 52,535m of purchases of property and equipment. This counts all technical infrastructure growth, not only AI. The FY2024 balance is unresolved against XBRL.",
    "confidence": 0.5
   },
   {
@@ -60,7 +60,7 @@
      "value": 66267000000
     }
    ],
-   "basis": "Growth in gross Information technology assets (the server category before the FY2024 recategorization), 80,594m \u2212 66,267m = 14,327m, against 32,251m of capex. Technical infrastructure at FY2023 was 112,504m, so the new category is broader and the two series are not mixed here. This counts all server and network growth, not only AI.",
+   "basis": "Growth in gross Information technology assets (the predecessor category): 80,594m \u2212 66,267m = 14,327m, against 32,251m of capex. The restated Technical infrastructure balance for FY2023 (112,504m) is broader than Information technology assets (80,594m), so the two series are not mixed. This counts all IT asset growth, not only AI.",
    "confidence": 0.45
   },
   {
@@ -80,7 +80,7 @@
      "value": 55606000000
     }
    ],
-   "basis": "Growth in gross Information technology assets, 66,267m \u2212 55,606m = 10,661m, against 31,485m of capex. This is all server and network growth in a year before the generative-AI ramp, so it overstates AI.",
+   "basis": "Growth in gross Information technology assets: 66,267m \u2212 55,606m = 10,661m, against 31,485m of capex. This counts all server and network growth. It predates the generative-AI buildout, so the AI part is likely much smaller.",
    "confidence": 0.35
   },
   {
@@ -91,7 +91,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The Q4 2025 release guides total 2026 capex to $175\u2013185bn \"to meet customer demand\". The FY2025 MD&A says investment is scaling technical infrastructure \"in particular for AI\". This is the whole capex, not the AI part, so no amount is attributed. Purchase commitments were $149.1bn at year-end 2025 (FY2025 10-K); that figure is not in the pack.",
+   "basis": "Total 2026 capex guidance is $175bn to $185bn 'to meet customer demand'. That figure is the whole, not the AI part, and no AI share is stated.",
    "confidence": 0.3
   },
   {
@@ -102,7 +102,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The Q2 2026 release says $49.6bn of net proceeds from the June 2026 stock and mandatory convertible preferred issuance will go to general corporate purposes \"including capital expenditures to scale AI infrastructure and global compute\". No amount is earmarked for AI.",
+   "basis": "The June 2026 equity issuance ($49.6bn net) is for general purposes 'including capital expenditures to scale AI infrastructure and global compute'. The release gives no amount for AI capex.",
    "confidence": 0.2
   },
   {
@@ -113,7 +113,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The FY2025 MD&A and releases say \"Alphabet-level activities primarily reflect expenses related to our shared AI research and development\". Their cost is not in the pack. AI also shows up as depreciation of the fleet, which is not quantified as AI.",
+   "basis": "'Alphabet-level activities primarily reflect expenses related to our shared AI research and development' (FY2025 MD&A and Q4 release). No amount is attributed to AI, and AI depreciation of the fleet is not quantified.",
    "confidence": 0.3
   },
   {
@@ -124,7 +124,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "FY2024 releases say unallocated costs \"primarily include AI-focused shared R&D activities, including development costs of our general AI models\". No amount is in the pack.",
+   "basis": "The FY2024 releases say unallocated costs 'primarily include AI-focused shared R&D activities, including development costs of our general AI models'. They give no amount.",
    "confidence": 0.3
   },
   {
@@ -135,8 +135,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "From Q1 2023, after the segment change, unallocated corporate costs \"primarily include AI-focused shared R&D activities\" (Google DeepMind). No amount is in the pack.",
-   "confidence": 0.3
+   "basis": "The FY2023 releases say unallocated corporate costs 'primarily include AI-focused shared R&D activities', together with philanthropy and corporate shared costs. They give no amount.",
+   "confidence": 0.25
   },
   {
    "field": "opex",
@@ -146,7 +146,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The FY2025 MD&A says technical-infrastructure operating costs (depreciation, energy, equipment, network capacity) \"are expected to significantly increase as developing and serving AI offerings require more compute power\". No amount is given.",
+   "basis": "The FY2025 MD&A expects technical infrastructure operating costs (depreciation, energy, equipment, network) to 'significantly increase' because AI needs more compute. It gives no amount.",
    "confidence": 0.25
   }
  ],
@@ -154,50 +154,48 @@
   {
    "field": "opex",
    "period": "FY2022",
-   "reason": "no statement in the pack attributes FY2022 operating expenses to AI, and there is no AI cost line"
+   "reason": "no statement in the pack links FY2022 operating expenses to AI"
   },
   {
-   "field": "revenue",
-   "period": "FY2025",
-   "reason": "no AI segment; Google Cloud (58,705m) is not the AI line per the thesis; no stated AI revenue amount or share; RPO $242.8bn is demand, not revenue"
-  },
-  {
-   "field": "revenue",
-   "period": "FY2024",
-   "reason": "no AI segment and no stated AI revenue amount or share"
-  },
-  {
-   "field": "revenue",
-   "period": "FY2023",
-   "reason": "no AI segment and no stated AI revenue amount or share"
+   "field": "opex",
+   "reason": "FY2026 statements (Alphabet-level activities are shared AI R&D) exist, but there is no FY2026 opex value in the pack, so no actual row"
   },
   {
    "field": "revenue",
    "period": "FY2022",
-   "reason": "no AI segment and no stated AI revenue amount or share"
+   "reason": "no AI revenue segment; Google Cloud is not the AI line and no AI amount or share is stated"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "no AI revenue segment; Google Cloud is not the AI line and no AI amount or share is stated"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "no AI revenue segment; Google Cloud (43.2bn) is not the AI line and no AI amount or share is stated"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "reason": "no AI revenue segment; Google Cloud (58.7bn) is not the AI line, and the RPO of $242.8bn is contracted future revenue, not AI revenue for the year"
   },
   {
    "field": "revenue",
    "period": "FY2026",
-   "reason": "only words: \"TPU systems sales were also a meaningful contributor to revenue growth\" (Q3 2026 release); FY2026 is not in the pack's values and no amount is given"
+   "reason": "the Q3 2026 release says only that 'TPU systems sales were also a meaningful contributor to revenue growth' (words only), and there is no FY2026 revenue value in the pack"
   },
   {
    "field": "capex",
-   "period": "FY2025",
-   "reason": "no committed row: purchase commitments are not in the pack's facts, and the thesis does not identify Alphabet's finance lease liability (2,500m) as AI"
-  },
-  {
-   "field": "opex",
-   "period": "FY2026",
-   "reason": "AI-R&D statements exist for FY2026 but FY2026 is not in the pack's values, so no actual row"
+   "reason": "no committed row: the purchase commitments ($149.1bn) are not in the pack's facts, and the finance lease liabilities are not identified as AI by the thesis"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 30.2,
-  "input_tokens": 19744,
-  "output_tokens": 3887,
+  "seconds": 33.4,
+  "input_tokens": 19940,
+  "output_tokens": 4081,
   "attempts": 1,
-  "task_sha": "c23e78c0cf7ce367"
+  "task_sha": "df99cddd232e9924"
  }
 }

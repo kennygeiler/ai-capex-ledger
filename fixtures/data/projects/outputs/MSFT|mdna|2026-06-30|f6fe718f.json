@@ -1,0 +1,13 @@
+{
+ "accession": "MSFT|mdna|2026-06-30|f6fe718f",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.8,
+  "input_tokens": 4283,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "dfca5cbb44b4e131"
+ }
+}

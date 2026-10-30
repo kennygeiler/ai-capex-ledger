@@ -1,0 +1,27 @@
+{
+ "accession": "MSFT|earnings_release|2026-06-30|d68ac006",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; the passage gives no capex figures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the only expense items mentioned (Voluntary Retirement Program, severance, XBOX impairment) are not linked to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "Microsoft is a buyer; Azure revenue (surpassed $100 billion) and Microsoft Cloud revenue ($59.3 billion) are cloud segments, not stated AI revenue, and no sentence states AI's part of revenue. The $90.0 billion quarterly revenue bullet does not link revenue to AI in the sentence itself (only the headline does), and the $3.2 billion Anthropic gain is an investment gain, not revenue."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 5527,
+  "output_tokens": 576,
+  "attempts": 1,
+  "task_sha": "d19ba57ba4eed464"
+ }
+}

@@ -1,0 +1,74 @@
+{
+ "accession": "NVDA|earnings_release|2024-07-28|a6bb6103",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 26300000000,
+   "amount_high": 26300000000,
+   "quote": "Record quarterly Data Center revenue of $26.3 billion, up 16% from Q1 and up 154% from a year ago",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Quarterly figure for Q2 of fiscal 2025 (quarter ended 2024-07-28), not a full-year amount. The sentence names no year; fiscal 2025 comes from the filing period. The quote omits the leading bullet character."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 22600000000,
+   "amount_high": 22600000000,
+   "quote": "Data Center compute revenue was $22.6 billion, up 162% from a year ago and up 17% sequentially.",
+   "passage": "p06",
+   "confidence": 0.85,
+   "notes": "Quarterly Q2 fiscal 2025 figure. It is the compute subset of the $26.3 billion Data Center revenue and is not additive to it. The sentence names no year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3700000000,
+   "amount_high": 3700000000,
+   "quote": "Networking revenue was $3.7 billion, up 114% from a year ago driven by InfiniBand and Ethernet for AI revenue, which includes Spectrum-X end-to-end ethernet platform.",
+   "passage": "p06",
+   "confidence": 0.7,
+   "notes": "Quarterly Q2 fiscal 2025 figure. It is the networking subset of Data Center revenue and is not additive to the $26.3 billion. The sentence calls it Networking revenue rather than Data Center revenue explicitly, and only part of it (Ethernet for AI) is labeled AI. The sentence names no year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In the fourth quarter, we expect to ship several billion dollars in Blackwell revenue.",
+   "passage": "p07",
+   "confidence": 0.6,
+   "notes": "Blackwell is the data-center AI GPU. 'Several billion dollars' gives no specific amount or range, so it is recorded as qualitative. The sentence names no fiscal year; context suggests Q4 of fiscal 2025, but that is not stated in the sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "a seller; no sentence links the company's capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "operating expenses are mentioned only in forward-looking boilerplate; no sentence quantifies or attributes them to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.2,
+  "input_tokens": 6962,
+  "output_tokens": 1623,
+  "attempts": 1,
+  "task_sha": "2de240a6354bc6df"
+ }
+}

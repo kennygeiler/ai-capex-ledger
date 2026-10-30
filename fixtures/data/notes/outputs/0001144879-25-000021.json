@@ -1,0 +1,300 @@
+{
+ "accession": "0001144879-25-000021",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_capex",
+   "dimension": "Data Center Hosting Business",
+   "table_id": "t0060",
+   "row_label": "Data Center Hosting Business",
+   "column_label": "Fiscal Year Ended | May 31, 2025",
+   "cell_text": "9,320",
+   "period_end": "2025-05-31",
+   "months": 12,
+   "value": 9320000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Data Center Hosting Business",
+   "table_id": "t0060",
+   "row_label": "Data Center Hosting Business",
+   "column_label": "Fiscal Year Ended | May 31, 2024",
+   "cell_text": "38,266",
+   "period_end": "2024-05-31",
+   "months": 12,
+   "value": 38266000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Data Center Hosting Business",
+   "table_id": "t0060",
+   "row_label": "Data Center Hosting Business",
+   "column_label": "Fiscal Year Ended | May 31, 2023",
+   "cell_text": "135,946",
+   "period_end": "2023-05-31",
+   "months": 12,
+   "value": 135946000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "HPC Hosting Business",
+   "table_id": "t0060",
+   "row_label": "HPC Hosting Business",
+   "column_label": "Fiscal Year Ended | May 31, 2025",
+   "cell_text": "976,506",
+   "period_end": "2025-05-31",
+   "months": 12,
+   "value": 976506000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "HPC Hosting Business",
+   "table_id": "t0060",
+   "row_label": "HPC Hosting Business",
+   "column_label": "Fiscal Year Ended | May 31, 2024",
+   "cell_text": "207,299",
+   "period_end": "2024-05-31",
+   "months": 12,
+   "value": 207299000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "HPC Hosting Business",
+   "table_id": "t0060",
+   "row_label": "HPC Hosting Business",
+   "column_label": "Fiscal Year Ended | May 31, 2023",
+   "cell_text": "9,813",
+   "period_end": "2023-05-31",
+   "months": 12,
+   "value": 9813000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Data Center Hosting Business",
+   "table_id": "t0056",
+   "row_label": "Total segment revenue",
+   "column_label": "Fiscal Year Ended May 31, 2025 | Data Center Hosting Business",
+   "cell_text": "144,193",
+   "period_end": "2025-05-31",
+   "months": 12,
+   "value": 144193000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Networking equipment, electrical equipment, and software",
+   "table_id": "t0025",
+   "row_label": "Networking equipment, electrical equipment, and software",
+   "column_label": "May 31,2025",
+   "cell_text": "32,938",
+   "period_end": "2025-05-31",
+   "months": 0,
+   "value": 32938000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Networking equipment, electrical equipment, and software",
+   "table_id": "t0025",
+   "row_label": "Networking equipment, electrical equipment, and software",
+   "column_label": "May 31,2024",
+   "cell_text": "32,185",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 32185000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Electric generation and transformers",
+   "table_id": "t0025",
+   "row_label": "Electric generation and transformers",
+   "column_label": "May 31,2025",
+   "cell_text": "9,914",
+   "period_end": "2025-05-31",
+   "months": 0,
+   "value": 9914000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Electric generation and transformers",
+   "table_id": "t0025",
+   "row_label": "Electric generation and transformers",
+   "column_label": "May 31,2024",
+   "cell_text": "9,933",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 9933000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building",
+   "table_id": "t0025",
+   "row_label": "Building",
+   "column_label": "May 31,2025",
+   "cell_text": "109,672",
+   "period_end": "2025-05-31",
+   "months": 0,
+   "value": 109672000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building",
+   "table_id": "t0025",
+   "row_label": "Building",
+   "column_label": "May 31,2024",
+   "cell_text": "103,990",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 103990000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0025",
+   "row_label": "Land",
+   "column_label": "May 31,2025",
+   "cell_text": "20,047",
+   "period_end": "2025-05-31",
+   "months": 0,
+   "value": 20047000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0025",
+   "row_label": "Land",
+   "column_label": "May 31,2024",
+   "cell_text": "6,205",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 6205000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land improvements",
+   "table_id": "t0025",
+   "row_label": "Land improvements",
+   "column_label": "May 31,2025",
+   "cell_text": "1,423",
+   "period_end": "2025-05-31",
+   "months": 0,
+   "value": 1423000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land improvements",
+   "table_id": "t0025",
+   "row_label": "Land improvements",
+   "column_label": "May 31,2024",
+   "cell_text": "1,380",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 1380000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0025",
+   "row_label": "Leasehold improvements",
+   "column_label": "May 31,2025",
+   "cell_text": "444",
+   "period_end": "2025-05-31",
+   "months": 0,
+   "value": 444000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0025",
+   "row_label": "Leasehold improvements",
+   "column_label": "May 31,2024",
+   "cell_text": "444",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 444000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0025",
+   "row_label": "Construction in progress",
+   "column_label": "May 31,2025",
+   "cell_text": "1,123,156",
+   "period_end": "2025-05-31",
+   "months": 0,
+   "value": 1123156000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0025",
+   "row_label": "Construction in progress",
+   "column_label": "May 31,2024",
+   "cell_text": "186,869",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 186869000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other equipment and fixtures",
+   "table_id": "t0025",
+   "row_label": "Other equipment and fixtures",
+   "column_label": "May 31,2025",
+   "cell_text": "2,126",
+   "period_end": "2025-05-31",
+   "months": 0,
+   "value": 2126000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other equipment and fixtures",
+   "table_id": "t0025",
+   "row_label": "Other equipment and fixtures",
+   "column_label": "May 31,2024",
+   "cell_text": "1,760",
+   "period_end": "2024-05-31",
+   "months": 0,
+   "value": 1760000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "finance_lease_liability",
+   "reason": "no total finance lease liabilities line is given; the balance sheet (t0018) shows only 'Current portion of finance lease liability' and 'Long-term portion of finance lease liability', and the validator rejects a current/non-current dimension on this field, while citing both cells undimensioned would put two cells on one dimension and adding them is not allowed"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or purchase-commitments table is among the tables provided"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 55.6,
+  "input_tokens": 23885,
+  "output_tokens": 8026,
+  "attempts": 2,
+  "task_sha": "4a75a88d059d03c5"
+ }
+}

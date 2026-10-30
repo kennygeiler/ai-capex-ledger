@@ -1,0 +1,1510 @@
+FOR IMMEDIATE RELEASE:
+        NVIDIA Announces Financial Results for First Quarter Fiscal 2024        
+• Quarterly revenue of $7.19 billion, up 19% from previous quarter
+
+• Record Data Center revenue of $4.28 billion
+
+• Second quarter fiscal 2024 revenue outlook of $11.00 billion
+                                                                                
+  SANTA CLARA, Calif.-May 24, 2023-                                             
+                                                                                
+NVIDIA (NASDAQ: NVDA) today reported revenue for the first quarter ended April
+30, 2023, of $7.19 billion, down 13% from a year ago and up 19% from the
+previous quarter.
+
+GAAP earnings per diluted share for the quarter were $0.82, up 28% from a year
+ago and up 44% from the previous quarter. Non-GAAP earnings per diluted share
+were $1.09, down 20% from a year ago and up 24% from the previous quarter.
+
+“The computer industry is going through two simultaneous transitions —
+accelerated computing and generative AI,” said Jensen Huang, founder and CEO of
+NVIDIA.
+
+“A trillion dollars of installed global data center infrastructure will
+transition from general purpose to accelerated computing as companies race to
+apply generative AI into every product, service and business process.
+
+“Our entire data center family of products — H100, Grace CPU, Grace Hopper
+Superchip, NVLink, Quantum 400 InfiniBand and BlueField-3 DPU — is in
+production. We are significantly increasing our supply to meet surging demand
+for them,” he said.
+
+During the first quarter of fiscal 2024, NVIDIA returned to shareholders $99
+million in cash dividends.
+
+NVIDIA will pay its next quarterly cash dividend of $0.04 per share on June 30,
+2023, to all shareholders of record on June 8, 2023.
+                                                                                
+  Q1 Fiscal 2024 Summary                                                        
+                                                                                
+                                                                                
+  G…                                                                            
+  ($                                                                            
+  in                                                                            
+  m…    Q1             Q4              Q1                                       
+  e…    FY…            FY…             FY…             Q/Q          Y/Y         
+  e…                                                                            
+  p…                                                                            
+  s…                                                                            
+  R…              $7…            $6,…             $8…         Up           Do…  
+                                                              19%          13%  
+  G…                                                          Up           Do…  
+  m…         64…    %       63…     %       65.5    %         1.3          0.9  
+                                                              pts          pts  
+  O…              $2…            $2,…             $3…         Down         Do…  
+  e…                                                          3%           30%  
+  O…              $2…            $1,…             $1…         Up           Up   
+  i…                                                          70%          15%  
+  N…              $2…            $1,…             $1…         Up           Up   
+  i…                                                          44%          26%  
+  D…                                                                            
+  e…              $0…            $0.…             $0…         Up           Up   
+  p…                                                          44%          28%  
+  s…                                                                            
+                                                                                
+                                                                                
+  N…                                                                            
+  ($                                                                            
+  in                                                                            
+  m…    Q1             Q4              Q1                                       
+  e…    FY…            FY…             FY…             Q/Q          Y/Y         
+  e…                                                                            
+  p…                                                                            
+  s…                                                                            
+  R…              $7…            $6,…             $8…         Up           Do…  
+                                                              19%          13%  
+  G…                                                          Up           Do…  
+  m…         66…    %       66…     %       67.1    %         0.7          0.3  
+                                                              pts          pts  
+  O…              $1…            $1,…             $1…         Down         Up   
+  e…                                                          1%           9%   
+  O…              $3…            $2,…             $3…         Up           Do…  
+  i…                                                          37%          23%  
+  N…              $2…            $2,…             $3…         Up           Do…  
+  i…                                                          25%          21%  
+  D…                                                                            
+  e…              $1…            $0.…             $1…         Up           Do…  
+  p…                                                          24%          20%  
+  s…                                                                            
+                                                                                
+                                                                                
+  Outlook                                                                       
+                                                                                
+NVIDIA’s outlook for the second quarter of fiscal 2024 is as follows:
+
+• Revenue is expected to be $11.00 billion, plus or minus 2%.
+
+• GAAP and non-GAAP gross margins are expected to be 68.6% and 70.0%,
+respectively, plus or minus 50 basis points.
+
+• GAAP and non-GAAP operating expenses are expected to be approximately $2.71
+billion and $1.90 billion, respectively.
+
+• GAAP and non-GAAP other income and expense are expected to be an income of
+approximately $90 million, excluding gains and losses from non-affiliated
+investments.
+
+• GAAP and non-GAAP tax rates are expected to be 14.0%, plus or minus 1%,
+excluding any discrete items.
+                                                                                
+  Highlights                                                                    
+                                                                                
+NVIDIA achieved progress since its previous earnings announcement in these
+areas:
+                                                                                
+  Data Center                                                                   
+                                                                                
+• First-quarter revenue was a record $4.28 billion, up 14% from a year ago and
+up 18% from the previous quarter.
+
+• Launched four inference platforms that combine the company’s full-stack
+inference software with the latest NVIDIA Ada, NVIDIA Hopper ™ and NVIDIA Grace
+Hopper ™ processors.
+
+• Announced that Google Cloud is the first cloud provider offering the new
+NVIDIA L4 Tensor Core GPU to accelerate generative AI applications.
+
+• Introduced NVIDIA AI Foundations to help businesses create and operate custom
+large language models and generative AI models trained with their own
+proprietary data for domain-specific tasks.
+
+• Unveiled the NVIDIA cuLitho software library for computational lithography to
+accelerate the design and manufacturing of next-gen semiconductors.
+
+• Expanded its partners offering new products and services based on the NVIDIA
+H100 Tensor Core GPU — including Amazon Web Services, Google Cloud, Microsoft
+Azure and Oracle Cloud Infrastructure.
+
+• Partnered with ServiceNow to build generative AI across enterprise IT.
+
+• Announced a collaboration with Medtronic to build an AI platform for medical
+devices.
+
+• Joined with Dell Technologies in Project Helix to deliver full-stack solutions
+to help enterprises build and deploy trustworthy generative AI applications.
+
+• Announced it is integrating NVIDIA AI Enterprise software into Microsoft’s
+Azure Machine Learning to help enterprises accelerate their AI initiatives.
+                                                                                
+  Gaming                                                                        
+                                                                                
+• First-quarter revenue was $2.24 billion, down 38% from a year ago and up 22%
+from the previous quarter.
+
+• Announced the GeForce RTX ™ 4060 family of GPUs, bringing the advancements of
+NVIDIA Ada Lovelace architecture and DLSS, starting at $299.
+
+• Launched the GeForce RTX 4070 GPU based on the Ada architecture, which enables
+DLSS 3, real-time ray-tracing and the ability to run most modern games at over
+100 frames per second at 1440p resolution.
+
+• Added 36 DLSS gaming titles, bringing the total number of games and apps to
+300.
+
+• Made path tracing available for the first time on a major gaming title through
+collaboration with CD PROJEKT RED on an update to Cyberpunk 2077 .
+
+• Expanded GeForce NOW’s game titles to more than 1,600, including the first
+Microsoft Xbox game, Gears 5 .
+                                                                                
+  Professional Visualization                                                    
+                                                                                
+• First-quarter revenue was $295 million, down 53% from a year ago and up 31%
+from the previous quarter.
+
+• Announced NVIDIA Omniverse ™ Cloud, a fully managed service running in
+Microsoft Azure, for the development and deployment of industrial metaverse
+applications.
+
+• Expanded its collaboration with Microsoft to connect Microsoft 365
+applications with Omniverse.
+
+• Announced six new NVIDIA RTX ™ GPUs for mobile and desktop workstations based
+on the Ada architecture.
+                                                                                
+  Automotive                                                                    
+                                                                                
+• First-quarter revenue was a record $296 million, up 114% from a year ago and
+up 1% from the previous quarter.
+
+• Announced that its automotive design win pipeline has grown to $14 billion
+over the next six years, up from $11 billion a year ago.
+
+• Announced that the world’s leading electric vehicle maker BYD will extend its
+use of NVIDIA DRIVE Orin ™ across new models.
+                                                                                
+  CFO Commentary                                                                
+                                                                                
+Commentary on the quarter by Colette Kress, NVIDIA’s executive vice president
+and chief financial officer, is available at https://investor.nvidia.com/.
+                                                                                
+  Conference Call and Webcast Information                                       
+                                                                                
+NVIDIA will conduct a conference call with analysts and investors to discuss its
+first quarter fiscal 2024 financial results and current financial prospects
+today at 2 p.m. Pacific time (5 p.m. Eastern time). A live webcast (listen-only
+mode) of the conference call will be accessible at NVIDIA’s investor relations
+website, https://investor.nvidia.com. The webcast will be recorded and available
+for replay until NVIDIA’s conference call to discuss its financial results for
+its second quarter of fiscal 2024.
+                                                                                
+  Non-GAAP Measures                                                             
+                                                                                
+To supplement NVIDIA’s condensed consolidated financial statements presented in
+accordance with GAAP, the company uses non-GAAP measures of certain components
+of financial performance. These non-GAAP measures include non-GAAP gross profit,
+non-GAAP gross margin, non-GAAP operating expenses, non-GAAP income from
+operations, non-GAAP other income (expense), net, non-GAAP net income, non-GAAP
+net income, or earnings, per diluted share, and free cash flow. For NVIDIA’s
+investors to be better able to compare its current results with those of
+previous periods, the company has shown a reconciliation of GAAP to non-GAAP
+financial measures. These reconciliations adjust the related GAAP financial
+measures to exclude acquisition termination costs, stock-based compensation
+expense, acquisition-related and other costs, IP-related costs, legal settlement
+costs,
+
+other, losses from non-affiliated investments, interest expense related to
+amortization of debt discount, and the associated tax impact of these items
+where applicable. Free cash flow is calculated as GAAP net cash provided by
+operating activities less both purchases of property and equipment and
+intangible assets and principal payments on property and equipment and
+intangible assets. NVIDIA believes the presentation of its non-GAAP financial
+measures enhances the user’s overall understanding of the company’s historical
+financial performance. The presentation of the company’s non-GAAP financial
+measures is not meant to be considered in isolation or as a substitute for the
+company’s financial results prepared in accordance with GAAP, and the company’s
+non-GAAP measures may be different from non-GAAP measures used by other
+companies.
+                                                                                
+  About NVIDIA                                                                  
+                                                                                
+Since its founding in 1993, NVIDIA (NASDAQ: NVDA) has been a pioneer in
+accelerated computing. The company’s invention of the GPU in 1999 sparked the
+growth of the PC gaming market, redefined computer graphics, ignited the era of
+modern AI and is fueling the creation of the industrial metaverse. NVIDIA is now
+a full-stack computing company with data-center-scale offerings that are
+reshaping industry. More information at https://nvidianews.nvidia.com/.
+                                      ###                                       
+For further information, contact:
+                                                     
+  Simona Jankowski         Robert Sherbin            
+  Investor Relations       Corporate Communications  
+  NVIDIA Corporation       NVIDIA Corporation        
+  sjankowski@nvidia.com    rsherbin@nvidia.com       
+                                                     
+Certain statements in this press release including, but not limited to,
+statements as to: the computer industry going through two simultaneous
+transitions – accelerated computing and generative AI; installed global data
+center infrastructure transitioning from general purpose to accelerated
+computing as companies race to apply generative AI into every product, service
+and business process; NVIDIA’s entire data center family of products being in
+production; NVIDIA significantly increasing supply to meet surging demand;
+NVIDIA’s next quarterly cash dividend; NVIDIA’s financial outlook and expected
+tax rates for the second quarter of fiscal 2024; the benefits, impact,
+performance, features and availability of our products and technologies,
+including NVIDIA Ada, NVIDIA Hopper, NVIDIA Grace Hopper CPU, NVIDIA L4 Tensor
+Core GPU, NVIDIA AI Foundations, NVIDIA cuLitho software library, NVIDIA H100
+Tensor Core GPU, NVIDIA AI Enterprise, GeForce RTX GPUs, DLSS 3, GeForce NOW,
+NVIDIA Omniverse Cloud, Omniverse, NVIDIA RTX GPUs, and NVIDIA DRIVE Orin; and
+the benefits and impact of our collaborations, including with Google Cloud,
+Amazon Web Services, Microsoft Azure, Oracle Cloud Infrastructure, ServiceNow,
+Medtronic, Dell Technologies, CD PROJEKT RED, Microsoft, and BYD are forward-
+looking statements that are subject to risks and uncertainties that could cause
+results to be materially different than expectations. Important factors that
+could cause actual results to differ materially include: global economic
+conditions; our reliance on third parties to manufacture, assemble, package and
+test our products; the impact of technological development and competition;
+development of new products and technologies or enhancements to our existing
+product and technologies; market acceptance of our products or our partners’
+products; design, manufacturing or software defects; changes in consumer
+preferences or demands; changes in industry standards and interfaces; unexpected
+loss of performance of our products or technologies when integrated into
+systems; as well as other factors detailed from time to time in the most recent
+reports NVIDIA files with the Securities and Exchange Commission, or SEC,
+including, but not limited to, its annual report on Form 10-K and quarterly
+reports on Form 10-Q. Copies of reports filed with the SEC are posted on the
+company’s website and are available from NVIDIA without charge. These forward-
+looking statements are not guarantees of future performance and speak only as of
+the date hereof, and, except as required by law, NVIDIA disclaims any obligation
+to update these forward-looking statements to reflect future events or
+circumstances.
+
+© 2023 NVIDIA Corporation. All rights reserved. NVIDIA, the NVIDIA logo,
+GeForce, GeForce NOW, GeForce RTX, NVIDIA DRIVE Orin, NVIDIA Grace Hopper,
+NVIDIA Hopper, NVIDIA Omniverse, and NVIDIA RTX are trademarks and/or registered
+trademarks of NVIDIA Corporation in the U.S. and/or other countries. Other
+company and product names may be trademarks of the respective companies with
+which they are associated. Features, pricing, availability, and specifications
+are subject to change without notice.
+                                                                                
+                               NVIDIA CORPORATION                               
+                                                                                
+                                                                                
+                  CONDENSED CONSOLIDATED STATEMENTS OF INCOME                   
+                                                                                
+                      (In millions, except per share data)                      
+                                                                                
+                                  (Unaudited)                                   
+                                                                                
+                                          Three                                 
+                                          Months                                
+                                          Ended                                 
+                                          2023       April 30,    2022  May 1,  
+ ────────────────────────────────────────────────────────────────────────────── 
+  Revenue                                 $              7,192    $      8,288  
+  Cost of                                                2,544           2,857  
+  revenue                                                                       
+  Gross                                                  4,648           5,431  
+  profit                                                                        
+  Operating                                                                     
+  expenses                                                                      
+               Research                                                         
+               and                                       1,875           1,618  
+               developm…                                                        
+               Sales,                                                           
+               general                                     633             592  
+               and                                                              
+               administ…                                                        
+               Acquisit…                                                        
+               terminat…                                     —           1,353  
+               cost                                                             
+                            Total                                               
+                            operating                    2,508           3,563  
+                            expenses                                            
+  Income                                                                        
+  from                                                   2,140           1,868  
+  operatio…                                                                     
+               Interest                                    150              18  
+               income                                                           
+               Interest                                    -66             -68  
+               expense                                                          
+               Other,                                      -15             -13  
+               net                                                              
+                            Other                                               
+                            income                          69             -63  
+                            (expense),                                          
+                            net                                                 
+  Income                                                                        
+  before                                                 2,209           1,805  
+  income                                                                        
+  tax                                                                           
+  Income                                                                        
+  tax                                                      166             187  
+  expense                                                                       
+  Net                                     $              2,043    $      1,618  
+  income                                                                        
+  Net                                                                           
+  income                                                                        
+  per                                                                           
+  share:                                                                        
+               Basic                      $               0.83    $       0.65  
+               Diluted                    $               0.82    $       0.64  
+  Weighted                                                                      
+  average                                                                       
+  shares                                                                        
+  used in                                                                       
+  per                                                                           
+  share                                                                         
+  computat…                                                                     
+               Basic                                     2,470           2,506  
+               Diluted                                   2,490           2,537  
+                                                                                
+                                                                                
+  NVIDIA                                                                        
+  CORPORA…                                                                      
+  CONDENS…                                                                      
+  CONSOLI…                                                                      
+  BALANCE                                                                       
+  SHEETS                                                                        
+  (In                                                                           
+  million…                                                                      
+  (Unaudi…                                                                      
+  ASSETS                                                     January            
+  Current                               April 30,            29,                
+  assets:                               2023                 2023               
+ ────────────────────────────────────────────────────────────────────────────── 
+              Cash,                                                             
+              cash                                                              
+              equivale…                 $          15,320    $          13,296  
+              and                                                               
+              marketab…                                                         
+              securiti…                                                         
+              Accounts                                                          
+              receivab…                             4,080                3,827  
+              net                                                               
+              Inventor…                             4,611                5,159  
+              Prepaid                                                           
+              expenses                                                          
+              and other                               872                  791  
+              current                                                           
+              assets                                                            
+                           Total                                                
+                           current                 24,883               23,073  
+                           assets                                               
+  Property                                                                      
+  and                                               3,740                3,807  
+  equipme…                                                                      
+  net                                                                           
+  Operati…                                                                      
+  lease                                             1,094                1,038  
+  assets                                                                        
+  Goodwill                                          4,430                4,372  
+  Intangi…                                                                      
+  assets,                                           1,541                1,676  
+  net                                                                           
+  Deferred                                                                      
+  income                                            4,568                3,396  
+  tax                                                                           
+  assets                                                                        
+  Other                                             4,204                3,820  
+  assets                                                                        
+                           Total        $          44,460    $          41,182  
+                           assets                                               
+  LIABILI…                                                                      
+  AND                                                                           
+  SHAREHO…                                                                      
+  EQUITY                                                                        
+  Current                                                                       
+  liabili…                                                                      
+              Accounts                  $           1,141    $           1,193  
+              payable                                                           
+              Accrued                                                           
+              and other                             4,869                4,120  
+              current                                                           
+              liabilit…                                                         
+              Short-te…                             1,250                1,250  
+              debt                                                              
+                           Total                                                
+                           current                  7,260                6,563  
+                           liabilit…                                            
+  Long-te…                                          9,704                9,703  
+  debt                                                                          
+  Long-te…                                                                      
+  operati…                                            939                  902  
+  lease                                                                         
+  liabili…                                                                      
+  Other                                                                         
+  long-te…                                          2,037                1,913  
+  liabili…                                                                      
+                           Total                   19,940               19,081  
+                           liabilit…                                            
+  Shareho…                                         24,520               22,101  
+  equity                                                                        
+                           Total                                                
+                           liabilit…                                            
+                           and          $          44,460    $          41,182  
+                           sharehol…                                            
+                           equity                                               
+                                                                                
+                                                                                
+  NVIDIA CORPORATION                                                            
+  CONDENSED CONSOLIDATED                                                        
+  STATEMENTS OF CASH FLOWS                                                      
+  (In millions)                                                                 
+  (Unaudited)                     Three Months Ended                            
+  Cash flows from operating       April 30,                     May 1,          
+  activities:                     2023                          2022            
+ ────────────────────────────────────────────────────────────────────────────── 
+  Net income                      $                    2,043    $        1,618  
+  Adjustments to reconcile net                                                  
+  income to                                                                     
+  net cash                                                                      
+  provided by operating                                                         
+  activities:                                                                   
+  Stock based compensation                               735               578  
+  expense                                                                       
+  Depreciation and                                       384               334  
+  amortization                                                                  
+  Losses on investments in non                                                  
+  affiliates,                                             14                17  
+  net                                                                           
+  Deferred income taxes                               -1,135              -542  
+  Acquisition termination cost                             —             1,353  
+  Other                                                  -34                23  
+  Changes in operating assets                                                   
+  and                                                                           
+  liabilities, net of                                                           
+  acquisitions:                                                                 
+                                                                                
+  Accounts receivable                                   -252              -788  
+  Inventories                                            566              -560  
+  Prepaid expenses and other                            -215            -1,261  
+  assets                                                                        
+  Accounts payable                                        11               255  
+  Accrued liabilities and                                                       
+  other current                                          689               634  
+  liabilities                                                                   
+  Other long-term liabilities                            105                70  
+  Net cash provided by                                                          
+  operating                                            2,911             1,731  
+  activities                                                                    
+  Cash flows from investing                                                     
+  activities:                                                                   
+  Proceeds from maturities of                                                   
+  marketable                                           2,512             5,947  
+  securities                                                                    
+  Proceeds from sales of                                                        
+  marketable                                               —             1,029  
+  securities                                                                    
+  Purchases of marketable                             -2,801            -3,932  
+  securities                                                                    
+  Purchase related to property                                                  
+  and                                                   -248              -361  
+  equipment and intangible                                                      
+  assets                                                                        
+  Acquisitions, net of cash                              -83               -36  
+  acquired                                                                      
+  Investments and other, net                            -221               -35  
+  Net cash provided by (used                                                    
+  in) investing                                         -841             2,612  
+  activities                                                                    
+  Cash flows from financing                                                     
+  activities:                                                                   
+  Proceeds related to employee                           246               204  
+  stock plans                                                                   
+  Payments related to tax on                                                    
+  restricted                                            -507              -532  
+  stock units                                                                   
+  Dividends paid                                         -99              -100  
+  Principal payments on                                                         
+  property and                                           -20               -22  
+  equipment and intangible                                                      
+  assets                                                                        
+  Payments related to                                                           
+  repurchases of                                           —            -1,996  
+  common stock                                                                  
+  Net cash provided by (used                                                    
+  in) financing                                         -380            -2,446  
+  activities                                                                    
+  Change in cash and cash                              1,690             1,897  
+  equivalents                                                                   
+  Cash and cash equivalents at                                                  
+  beginning                                            3,389             1,990  
+  of period                                                                     
+  Cash and cash equivalents at                                                  
+  end of                          $                    5,079    $        3,887  
+  period                                                                        
+                                                                                
+                                                                                
+           NVIDIA                                                               
+           CORPO…                                                               
+           RECON…                                                               
+           OF                                                                   
+           GAAP                                                                 
+           TO                                                                   
+           NON-G…                                                               
+           FINAN…                                                               
+           MEASU…                                                               
+           -In                                                                  
+           milli…                                                               
+           except                                                               
+           per                                                                  
+           share                                                                
+           data                                                                 
+           -Unau…                                                               
+                      Three                                                     
+                     Months                                                     
+                      Ended                                                     
+                      April              Janua…              May 1,             
+                        30,                 29,                                 
+                       2023                2023                2022             
+  GAAP                                                                          
+  gross                   $  4,648            $  3,833            $   5,431     
+  prof…                                                                         
+  GAAP                                                                          
+  gross                       64.6  %             63.3  %              65.5  %  
+  marg…                                                                         
+           Acqui…                                                               
+           and                                                                  
+           other               119                 120                   94     
+           costs                                                                
+           (A)                                                                  
+           Stock…                                                               
+           compe…               27                  30                   38     
+           expen…                                                               
+           (B)                                                                  
+           IP-re…                8                  16                    —     
+           costs                                                                
+  Non-…                                                                         
+  gross                   $  4,802            $  3,999            $   5,563     
+  prof…                                                                         
+  Non-…                                                                         
+  gross                       66.8  %             66.1  %              67.1  %  
+  marg…                                                                         
+  GAAP                                                                          
+  oper…                   $  2,508            $  2,576            $   3,563     
+  expe…                                                                         
+           Stock…                                                               
+           compe…             -708                -709                 -540     
+           expen…                                                               
+           (B)                                                                  
+           Acqui…                                                               
+           and                                                                  
+           other               -54                 -54                  -55     
+           costs                                                                
+           (A)                                                                  
+           Acqui…                                                               
+           termi…                —                   —               -1,353     
+           cost                                                                 
+           Legal                                                                
+           settl…                —                   —                   -7     
+           costs                                                                
+           Other                 4                 -38                    —     
+           (C)                                                                  
+  Non-…                                                                         
+  oper…                   $  1,750            $  1,775            $   1,608     
+  expe…                                                                         
+  GAAP                                                                          
+  inco…                   $  2,140            $  1,257            $   1,868     
+  from                                                                          
+  oper…                                                                         
+           Total                                                                
+           impact                                                               
+           of                                                                   
+           non-G…                                                               
+           adjus…              912                 967                2,087     
+           to                                                                   
+           income                                                               
+           from                                                                 
+           opera…                                                               
+  Non-…                                                                         
+  inco…                   $  3,052            $  2,224            $   3,955     
+  from                                                                          
+  oper…                                                                         
+  GAAP                                                                          
+  other                                                                         
+  inco…                   $     69            $     32            $     -63     
+  (exp…                                                                         
+  net                                                                           
+           Losses                                                               
+           from                 14                  10                   17     
+           non-a…                                                               
+           inves…                                                               
+           Inter…                                                               
+           expen…                                                               
+           relat…                                                               
+           to                    1                   1                    1     
+           amort…                                                               
+           of                                                                   
+           debt                                                                 
+           disco…                                                               
+  Non-…                                                                         
+  other                                                                         
+  inco…                   $     84            $     43            $     -45     
+  (exp…                                                                         
+  net                                                                           
+  GAAP                                                                          
+  net                     $  2,043            $  1,414            $   1,618     
+  inco…                                                                         
+           Total                                                                
+           pre-t…                                                               
+           impact              927                 978                2,105     
+           of                                                                   
+           non-G…                                                               
+           adjus…                                                               
+           Income                                                               
+           tax                                                                  
+           impact                                                               
+           of                 -257                -218                 -280     
+           non-G…                                                               
+           adjus…                                                               
+           (D)                                                                  
+  Non-…                                                                         
+  net                     $  2,713            $  2,174            $   3,443     
+  inco…                                                                         
+                                                                                
+                                                                                
+  Diluted                 Three                                                 
+  net                     Months                                                
+  income                  Ended               January                           
+  per                     April 30,           29,                May 1,         
+  share                   2023                2023               2022           
+ ────────────────────────────────────────────────────────────────────────────── 
+              GAAP        $           0.82    $          0.57    $        0.64  
+              Non-GAAP    $           1.09    $          0.88    $        1.36  
+  Weighted                                                                      
+  average                                                                       
+  shares                                                                        
+  used in                                                                       
+  diluted                            2,490              2,477            2,537  
+  net                                                                           
+  income                                                                        
+  per                                                                           
+  share                                                                         
+  computa…                                                                      
+  GAAP net                                                                      
+  cash                                                                          
+  provided                $          2,911    $         2,249    $       1,731  
+  by                                                                            
+  operati…                                                                      
+  activit…                                                                      
+              Purchas…                                                          
+              related                                                           
+              to                                                                
+              property                                                          
+              and                     -248               -509             -361  
+              equipme…                                                          
+              and                                                               
+              intangi…                                                          
+              assets                                                            
+              Princip…                                                          
+              payments                                                          
+              on                                                                
+              property                                                          
+              and                      -20                 -4              -22  
+              equipme…                                                          
+              and                                                               
+              intangi…                                                          
+              assets                                                            
+  Free                                                                          
+  cash                    $          2,643    $         1,736    $       1,348  
+  flow                                                                          
+                                                                                
+                                                                                
+  (A)                                                                           
+  Acquisit…                                                                     
+  and other                                                                     
+  costs                                                                         
+  are                                                                           
+  comprised                                                                     
+  of                                                                            
+  amortiza…                                                                     
+  of                                                                            
+  intangib…                                                                     
+  assets,                                                                       
+  transact…                                                                     
+  costs,                                                                        
+  and                                                                           
+  certain                                                                       
+  compensa…                                                                     
+  charges                                                                       
+  and are                                                                       
+  included                                                                      
+  in the                                                                        
+  following                                                                     
+  line                                                                          
+  items:                                                                        
+                                                                                
+                                  Three                                         
+                                 Months                                         
+                                  Ended                                         
+                              April 30,            January         May 1,       
+                                                       29,                      
+                                   2023               2023           2022       
+               Cost of                $  119             $  120         $   94  
+               revenue                                                          
+               Research                                                         
+               and                    $   12             $   10         $    9  
+               developme…                                                       
+               Sales,                                                           
+               general                $   42             $   44         $   46  
+               and                                                              
+               administr…                                                       
+  (B)                                                                           
+  Stock-ba…                                                                     
+  compensa…                                                                     
+  consists                                                                      
+  of                                                                            
+  the                                                                           
+  followin…                                                                     
+                                  Three                                         
+                                 Months                                         
+                                  Ended                                         
+                              April 30,            January         May 1,       
+                                                       29,                      
+                                   2023               2023           2022       
+               Cost of                $   27             $   30         $   38  
+               revenue                                                          
+               Research                                                         
+               and                    $  524             $  527         $  384  
+               developme…                                                       
+               Sales,                                                           
+               general                $  184             $  182         $  156  
+               and                                                              
+               administr…                                                       
+  (C) Other                                                                     
+  consists                                                                      
+  of assets                                                                     
+  held for                                                                      
+  sale                                                                          
+  related                                                                       
+  adjustme…                                                                     
+  (D)                                                                           
+  Income                                                                        
+  tax                                                                           
+  impact of                                                                     
+  non-GAAP                                                                      
+  adjustme…                                                                     
+  including                                                                     
+  the                                                                           
+  recognit…                                                                     
+  of excess                                                                     
+  tax                                                                           
+  benefits                                                                      
+  or                                                                            
+  deficien…                                                                     
+  related                                                                       
+  to                                                                            
+  stock-ba…                                                                     
+  compensa…                                                                     
+  under                                                                         
+  GAAP                                                                          
+  accounti…                                                                     
+  standard                                                                      
+  (ASU                                                                          
+  2016-09).                                                                     
+                                                                                
+                                                                                
+  NVIDIA CORPORATION                                                            
+  RECONCILIATION OF                                                             
+  GAAP TO NON-GAAP                                                              
+  OUTLOOK                                                                       
+                                                   Q2 FY2024 Outlook            
+                                                   -$ in millions               
+  GAAP gross margin                                                    68.6  %  
+                          Impact of stock-based                                 
+                          compensation expense,                                 
+                          acquisition-related                           1.4  %  
+                          costs, and other                                      
+                          costs                                                 
+  Non-GAAP gross                                                       70.0  %  
+  margin                                                                        
+  GAAP operating                                   $                  2,710     
+  expenses                                                                      
+                          Stock-based                                           
+                          compensation expense,                                 
+                          acquisition-related                          -810     
+                          costs, and other                                      
+                          costs                                                 
+  Non-GAAP operating                               $                  1,900     
+  expenses                                                                      
+                                                                                
+
+
+                                                                                
+              CFO Commentary on First Quarter Fiscal 2024 Results               
+                                                                                
+                                                                                
+  Q1 Fiscal 2024 Summary                                                        
+                                                                                
+                                                                                
+  G…                                                                            
+  ($                                                                            
+  in                                                                            
+  m…    Q1             Q4              Q1                                       
+  e…    FY…            FY…             FY…             Q/Q          Y/Y         
+  e…                                                                            
+  p…                                                                            
+  s…                                                                            
+  R…              $7…            $6,…             $8…         Up           Do…  
+                                                              19%          13%  
+  G…                                                          Up           Do…  
+  m…         64…    %       63…     %       65.5    %         1.3          0.9  
+                                                              pts          pts  
+  O…              $2…            $2,…             $3…         Down         Do…  
+  e…                                                          3%           30%  
+  O…              $2…            $1,…             $1…         Up           Up   
+  i…                                                          70%          15%  
+  N…              $2…            $1,…             $1…         Up           Up   
+  i…                                                          44%          26%  
+  D…                                                                            
+  e…              $0…            $0.…             $0…         Up           Up   
+  p…                                                          44%          28%  
+  s…                                                                            
+                                                                                
+                                                                                
+  N…                                                                            
+  ($                                                                            
+  in                                                                            
+  m…    Q1             Q4              Q1                                       
+  e…    FY…            FY…             FY…             Q/Q          Y/Y         
+  e…                                                                            
+  p…                                                                            
+  s…                                                                            
+  R…              $7…            $6,…             $8…         Up           Do…  
+                                                              19%          13%  
+  G…                                                          Up           Do…  
+  m…         66…    %       66…     %       67.1    %         0.7          0.3  
+                                                              pts          pts  
+  O…              $1…            $1,…             $1…         Down         Up   
+  e…                                                          1%           9%   
+  O…              $3…            $2,…             $3…         Up           Do…  
+  i…                                                          37%          23%  
+  N…              $2…            $2,…             $3…         Up           Do…  
+  i…                                                          25%          21%  
+  D…                                                                            
+  e…              $1…            $0.…             $1…         Up           Do…  
+  p…                                                          24%          20%  
+  s…                                                                            
+                                                                                
+                                                                                
+  Re…                                                                           
+  by                                                                            
+  Re…                                                                           
+  Se…                                                                           
+  ($     Q1            Q4             Q1                                        
+  in     FY24          FY23           FY23           Q/Q          Y/Y           
+  mi…                                                                           
+  Co…                                                       Up           Up     
+  &              $4,…          $3,6…          $3,6…         21%          21%    
+  Ne…                                                                           
+  Gr…            2,7…          2,378          4,616         Up           Down   
+                                                            15%          41%    
+  To…            $7,…          $6,0…          $8,2…         Up           Down   
+                                                            19%          13%    
+                                                                                
+                                                                                
+  Re…                                                                           
+  by                                                                            
+  Ma…                                                                           
+  Pl…                                                                           
+  ($     Q1            Q4             Q1                                        
+  in     FY24          FY23           FY23           Q/Q          Y/Y           
+  mi…                                                                           
+  Da…            $4,…          $3,6…          $3,7…         Up           Up     
+  Ce…                                                       18%          14%    
+  Ga…            2,2…          1,831          3,620         Up           Down   
+                                                            22%          38%    
+  Pr…             295            226            622         Up           Down   
+  Vi…                                                       31%          53%    
+  Au…             296            294            138         Up           Up     
+                                                            1%           114%   
+  OEM                                                       Down         Down   
+  and              77             84            158         8%           51%    
+  Ot…                                                                           
+  To…            $7,…          $6,0…          $8,2…         Up           Down   
+                                                            19%          13%    
+                                                                                
+We specialize in markets where our computing platforms can provide tremendous
+acceleration for applications. These platforms incorporate processors,
+interconnects, software, algorithms, systems, and services to deliver unique
+value. Our platforms address four large markets where our expertise is critical:
+Data Center, Gaming, Professional Visualization, and Automotive.
+                                                                                
+  Revenue                                                                       
+                                                                                
+Revenue was $7.19 billion, down 13% from a year ago and up 19% sequentially.
+
+Data Center revenue was a record, up 14% from a year ago and up 18%
+sequentially, led by growing demand for generative AI and large language models
+using GPUs based on our NVIDIA Hopper and Ampere architectures. The revenue
+growth reflects strong demand from large consumer internet companies and cloud
+service providers. Enterprise demand for GPU platforms was strong, although
+general purpose networking solutions declined both sequentially and from a year
+ago.
+
+Gaming revenue was down 38% from a year ago and up 22% sequentially. The year-
+on-year decrease reflects weaker demand due to the macroeconomic slowdown and
+lower shipments to normalize channel inventory levels. The sequential increase
+was driven by the ramp of our new GeForce RTX 40 Series GPUs for desktops and
+laptops based on the Ada Lovelace architecture.
+
+Professional Visualization revenue was down 53% from a year ago and up 31%
+sequentially. The year-on-year decrease reflects lower sell-in to partners to
+help reduce channel inventory levels. The sequential increase was driven by
+higher demand for desktop and mobile workstation GPUs.
+
+Automotive revenue was up 114% from a year ago and up 1% sequentially. The year-
+on-year increase reflects growth in sales of self-driving platforms and AI
+cockpit solutions.
+
+OEM and Other revenue was down 51% from a year ago and down 8% sequentially.
+These decreases were primarily driven by lower entry level notebook GPU sales.
+                                                                                
+  Gross Margin                                                                  
+                                                                                
+                                                                                
+  Recon…                                                                        
+  of                                                                            
+  GAAP                                                                          
+  to                                                                            
+  Non-G…                                                                        
+  Gross                                                                         
+  Margin                                                                        
+  ($ in     Q1 FY24                Q4 FY23                Q1                    
+  milli…                                                  FY23                  
+  GAAP                                                                          
+  gross                    $4,648                 $3,833                $5,431  
+  profit                                                                        
+  GAAP                                                                          
+  gross              64.6       %           63.3       %          65.5       %  
+  margin                                                                        
+  Acqui…                                                                        
+  and                         119                    120                    94  
+  other                                                                         
+  costs                                                                         
+  Stock…                                                                        
+  compe…                       27                     30                    38  
+  expen…                                                                        
+  IP-re…                        8                     16                    --  
+  costs                                                                         
+  Non-G…                                                                        
+  gross                    $4,802                 $3,999                $5,563  
+  profit                                                                        
+  Non-G…                                                                        
+  gross              66.8       %           66.1       %          67.1       %  
+  margin                                                                        
+                                                                                
+GAAP and non-GAAP gross margins declined from a year earlier and increased
+sequentially. The year-on-year decline reflects lower Gaming margins and a
+higher contribution from Automotive, partially offset by higher Data Center
+margins. The sequential increase reflects lower costs in Gaming and higher Data
+Center margins as we ramp our Hopper architecture.
+                                                                                
+  Expenses                                                                      
+                                                                                
+                                                                                
+  Reconciliation of                                                             
+  GAAP to Non-GAAP                                                              
+  Operating                                                                     
+  Expenses                                                                      
+  ($ in millions)      Q1 FY24            Q4 FY23            Q1 FY23            
+  GAAP operating                  $2,508             $2,576             $3,563  
+  expenses                                                                      
+  Stock-based                                                                   
+  compensation                      -708               -709               -540  
+  expense                                                                       
+  Acquisition-rela…                  -54                -54                -55  
+  and other costs                                                               
+  Acquisition                         --                 --             -1,353  
+  termination cost                                                              
+  Legal settlement                    --                 --                 -7  
+  costs                                                                         
+  Other                                4                -38                 --  
+  Non-GAAP                                                                      
+  operating                       $1,750             $1,775             $1,608  
+  expenses                                                                      
+                                                                                
+GAAP operating expenses were down 30% from a year ago and down 3% sequentially.
+The prior year included a termination charge of $1.35 billion for the proposed
+Arm acquisition, and the prior quarter included fixed asset write-downs.
+
+Non-GAAP operating expenses were up 9% from a year ago and down 1% sequentially.
+The year-on-year increase was driven by employee growth and related costs. The
+sequential decrease reflects timing of engineering development investments and
+reduced depreciation expense related to the extension of certain fixed asset
+useful lives, partially offset by employee growth and related costs.
+                                                                                
+  Other Income & Expense and Income Tax                                         
+                                                                                
+                                                                                
+  Reconciliation of                                                             
+  GAAP to Non-GAAP OI&E                                                         
+  ($ in millions)          Q1 FY24          Q4 FY23            Q1 FY23          
+  Interest income                     $150               $115              $18  
+  Interest expense                     -66                -65              -68  
+  Other, net                           -15                -18              -13  
+  GAAP other income                    $69                $32             -$63  
+  (expense), net                                                                
+  Non-affiliated                        14           10                     17  
+  investment losses                                                             
+  Interest expense                                                              
+  related to                             1                  1                1  
+  amortization                                                                  
+  of debt discount                                                              
+  Non-GAAP other income                $84                $43             -$45  
+  (expense), net                                                                
+                                                                                
+GAAP other income and expense (OI&E) includes interest income, interest expense,
+gains and losses from non-affiliated investments and other. Non-GAAP OI&E
+excludes the gains or losses from non-affiliated investments and the portion of
+interest expense from the amortization of the debt discount.
+
+Interest income was $150 million, up from a year ago and sequentially, due to
+higher yields on investments. Net loss from non-affiliated investments was $14
+million due to the mark-to-market of publicly traded equity investments and
+changes in value of our non-affiliated private investments.
+
+GAAP effective tax rate was 7.5%, which reflects the foreign-derived intangible
+income deduction, tax benefits related to stock-based compensation, and the U.S.
+federal research tax credit. Non-GAAP effective tax rate was 13.5%.
+                                                                                
+  Balance Sheet and Cash Flow                                                   
+                                                                                
+Cash, cash equivalents and marketable securities were $15.32 billion, down from
+$20.34 billion a year ago and up from $13.30 billion a quarter ago. The year-on-
+year decrease reflects $8.04 billion in stock repurchases, partially offset by
+operating cash flow generation. The sequential increase reflects operating cash
+flow generation.
+
+Accounts receivable was $4.08 billion with a DSO of 52.
+
+Inventory was $4.61 billion with a DSI of 165. Gross inventory purchase and
+long-term supply and capacity obligations were $7.27 billion and prepaid supply
+agreements were $3.40 billion.
+
+Other purchase obligations, inclusive of $2.43 billion of multi-year cloud
+service agreements, were $3.26 billion.
+
+Cash flow from operating activities was $2.91 billion, up from $1.73 billion a
+year ago and $2.25 billion a quarter ago. The year-on-year increase reflects
+lower inventory prepayments and changes in inventory, partially offset by lower
+revenue. The sequential increase was driven by higher revenue.
+
+Free cash flow was $2.64 billion compared with $1.35 billion a year ago and
+$1.74 billion a quarter ago.
+
+Depreciation and amortization expense was $384 million, including amortization
+of acquisition-related intangible assets. Starting in fiscal 2024, we extended
+the useful lives of most of our servers, storage, and network equipment from
+three years to a range of four to five years, and assembly and test equipment
+from five to seven years. This change in useful lives drove a favorable impact
+to operating expenses of $31 million and cost of goods sold of $2 million in the
+first quarter.
+
+During the first quarter, we returned $99 million to shareholders in the form of
+cash dividends. As of the end of the first quarter, we had $7.23 billion
+remaining under our share repurchase authorization through December 2023.
+
+During the first quarter, we filed a Form S-3 shelf registration statement to
+replace the existing shelf that was expiring. We plan to file an amendment to
+this shelf in the near term for administrative purposes. We do not have any
+immediate plans to utilize this shelf once effective.
+                                                                                
+  Second Quarter of Fiscal 2024 Outlook                                         
+                                                                                
+Outlook for the second quarter of fiscal 2024 is as follows:
+
+• Revenue is expected to be $11.00 billion, plus or minus 2%.
+
+• GAAP and non-GAAP gross margins are expected to be 68.6% and 70.0%,
+respectively, plus or minus 50 basis points.
+
+• GAAP and non-GAAP operating expenses are expected to be approximately $2.71
+billion and $1.90 billion, respectively.
+
+• GAAP and non-GAAP other income and expense are expected to be an income of
+approximately $90 million, excluding gains and losses from non-affiliated
+investments.
+
+• GAAP and non-GAAP tax rates are expected to be 14.0%, plus or minus 1%,
+excluding any discrete items.
+
+• Capital expenditures are expected to be approximately $300 million to $350
+million, including principal payments on property and equipment. For full year
+fiscal 2024, capital expenditures are still expected to be approximately $1.10
+billion to $1.30 billion, including principal payments on property and
+equipment.
+                          ___________________________                           
+For further information, contact:
+                                                     
+  Simona Jankowski         Robert Sherbin            
+  Investor Relations       Corporate Communications  
+  NVIDIA Corporation       NVIDIA Corporation        
+  sjankowski@nvidia.com    rsherbin@nvidia.com       
+                                                     
+                                                                                
+  Non-GAAP Measures                                                             
+                                                                                
+To supplement NVIDIA’s condensed consolidated financial statements presented in
+accordance with GAAP, the company uses non-GAAP measures of certain components
+of financial performance. These non-GAAP measures include non-GAAP gross profit,
+non-GAAP gross margin, non-GAAP operating expenses, non-GAAP income from
+operations, non-GAAP other income (expense), net, non-GAAP net income, non-GAAP
+net income, or earnings, per diluted share, and free cash flow. In order for
+NVIDIA’s investors to be better able to compare its current results with those
+of previous periods, the company has shown a reconciliation of GAAP to non-GAAP
+financial measures. These reconciliations adjust the related GAAP financial
+measures to exclude acquisition termination costs, stock-based compensation
+expense, acquisition-related and other costs, IP-related costs, legal settlement
+costs, other, losses from non-affiliated investments, interest expense related
+to amortization of debt discount, and the associated tax impact of these items
+where applicable. Free cash flow is calculated as GAAP net cash provided by
+operating activities less both purchases of property and equipment and
+intangible assets and principal payments on property and equipment and
+intangible assets. NVIDIA believes the presentation of its non-GAAP financial
+measures enhances the user's overall understanding of the company’s historical
+financial performance. The presentation of the company’s non-GAAP financial
+measures is not meant to be considered in isolation or as a substitute for the
+company’s financial results prepared in accordance with GAAP, and the company’s
+non-GAAP measures may be different from non-GAAP measures used by other
+companies.
+
+Certain statements in this CFO Commentary including, but not limited to,
+statements as to: our computing platforms providing tremendous acceleration for
+applications and delivering unique value; growing demand for generative AI and
+large language models using GPUs based on our Hopper and NVIDIA Ampere
+architectures; our plan to file an amendment to our Form S-3 shelf registration
+statement in the near term for administrative purposes; our lack of immediate
+plans to utilize the shelf once effective; our financial outlook and expected
+tax rates for the second quarter of fiscal 2024; and our expected capital
+expenditures for the second quarter and full year of fiscal 2024 are forward-
+looking statements that are subject to risks and uncertainties that could cause
+results to be materially different than expectations. Important factors that
+could cause actual results to differ materially include: global economic
+conditions; our reliance on third parties to manufacture, assemble, package and
+test our products; the impact of technological development and competition;
+development of new products and technologies or enhancements to our existing
+product and technologies; market acceptance of our products or our partners’
+products; design, manufacturing or software defects; changes in consumer
+preferences or demands; changes in industry standards and interfaces; unexpected
+loss of performance of our products or technologies when integrated into
+systems; as well as other factors detailed from time to time in the most recent
+reports NVIDIA files with the Securities and Exchange Commission, or SEC,
+including, but not limited to, its annual report on Form 10-K and quarterly
+reports on Form 10-Q. Copies of reports filed with the SEC are posted on the
+company’s website and are available from NVIDIA without charge. These forward-
+looking statements are not guarantees of future performance and speak only as of
+the date hereof, and, except as required by law, NVIDIA disclaims any obligation
+to update these forward-looking statements to reflect future events or
+circumstances.
+                                     # # #                                      
+© 2023 NVIDIA Corporation. All rights reserved. NVIDIA and the NVIDIA logo are
+trademarks and/or registered trademarks of NVIDIA Corporation in the U.S. and/or
+other countries. Other company and product names may be trademarks of the
+respective companies with which they are associated. Features, pricing,
+availability, and specifications are subject to change without notice.
+                                                                                
+           NVIDIA                                                               
+           CORPO…                                                               
+           RECON…                                                               
+           OF                                                                   
+           GAAP                                                                 
+           TO                                                                   
+           NON-G…                                                               
+           FINAN…                                                               
+           MEASU…                                                               
+           -In                                                                  
+           milli…                                                               
+           except                                                               
+           per                                                                  
+           share                                                                
+           data                                                                 
+           -Unau…                                                               
+                      Three                                                     
+                     Months                                                     
+                      Ended                                                     
+                      April              Janua…              May 1,             
+                        30,                 29,                                 
+                       2023                2023                2022             
+  GAAP                                                                          
+  gross                   $  4,648            $  3,833            $   5,431     
+  prof…                                                                         
+  GAAP                                                                          
+  gross                       64.6  %             63.3  %              65.5  %  
+  marg…                                                                         
+           Acqui…                                                               
+           and                                                                  
+           other               119                 120                   94     
+           costs                                                                
+           (A)                                                                  
+           Stock…                                                               
+           compe…               27                  30                   38     
+           expen…                                                               
+           (B)                                                                  
+           IP-re…                8                  16                    —     
+           costs                                                                
+  Non-…                                                                         
+  gross                   $  4,802            $  3,999            $   5,563     
+  prof…                                                                         
+  Non-…                                                                         
+  gross                       66.8  %             66.1  %              67.1  %  
+  marg…                                                                         
+  GAAP                                                                          
+  oper…                   $  2,508            $  2,576            $   3,563     
+  expe…                                                                         
+           Stock…                                                               
+           compe…             -708                -709                 -540     
+           expen…                                                               
+           (B)                                                                  
+           Acqui…                                                               
+           and                                                                  
+           other               -54                 -54                  -55     
+           costs                                                                
+           (A)                                                                  
+           Acqui…                                                               
+           termi…                —                   —               -1,353     
+           cost                                                                 
+           Legal                                                                
+           settl…                —                   —                   -7     
+           costs                                                                
+           Other                 4                 -38                    —     
+           (C)                                                                  
+  Non-…                                                                         
+  oper…                   $  1,750            $  1,775            $   1,608     
+  expe…                                                                         
+  GAAP                                                                          
+  inco…                   $  2,140            $  1,257            $   1,868     
+  from                                                                          
+  oper…                                                                         
+           Total                                                                
+           impact                                                               
+           of                                                                   
+           non-G…                                                               
+           adjus…              912                 967                2,087     
+           to                                                                   
+           income                                                               
+           from                                                                 
+           opera…                                                               
+  Non-…                                                                         
+  inco…                   $  3,052            $  2,224            $   3,955     
+  from                                                                          
+  oper…                                                                         
+  GAAP                                                                          
+  other                                                                         
+  inco…                   $     69            $     32            $     -63     
+  (exp…                                                                         
+  net                                                                           
+           Losses                                                               
+           from                 14                  10                   17     
+           non-a…                                                               
+           inves…                                                               
+           Inter…                                                               
+           expen…                                                               
+           relat…                                                               
+           to                    1                   1                    1     
+           amort…                                                               
+           of                                                                   
+           debt                                                                 
+           disco…                                                               
+  Non-…                                                                         
+  other                                                                         
+  inco…                   $     84            $     43            $     -45     
+  (exp…                                                                         
+  net                                                                           
+  GAAP                                                                          
+  net                     $  2,043            $  1,414            $   1,618     
+  inco…                                                                         
+           Total                                                                
+           pre-t…                                                               
+           impact              927                 978                2,105     
+           of                                                                   
+           non-G…                                                               
+           adjus…                                                               
+           Income                                                               
+           tax                                                                  
+           impact                                                               
+           of                 -257                -218                 -280     
+           non-G…                                                               
+           adjus…                                                               
+           (D)                                                                  
+  Non-…                                                                         
+  net                     $  2,713            $  2,174            $   3,443     
+  inco…                                                                         
+                                                                                
+                                                                                
+  Diluted                 Three                                                 
+  net                     Months                                                
+  income                  Ended               January                           
+  per                     April 30,           29,                May 1,         
+  share                   2023                2023               2022           
+ ────────────────────────────────────────────────────────────────────────────── 
+              GAAP        $           0.82    $          0.57    $        0.64  
+              Non-GAAP    $           1.09    $          0.88    $        1.36  
+  Weighted                                                                      
+  average                                                                       
+  shares                                                                        
+  used in                                                                       
+  diluted                            2,490              2,477            2,537  
+  net                                                                           
+  income                                                                        
+  per                                                                           
+  share                                                                         
+  computa…                                                                      
+  GAAP net                                                                      
+  cash                                                                          
+  provided                $          2,911    $         2,249    $       1,731  
+  by                                                                            
+  operati…                                                                      
+  activit…                                                                      
+              Purchas…                                                          
+              related                                                           
+              to                                                                
+              property                                                          
+              and                     -248               -509             -361  
+              equipme…                                                          
+              and                                                               
+              intangi…                                                          
+              assets                                                            
+              Princip…                                                          
+              payments                                                          
+              on                                                                
+              property                                                          
+              and                      -20                 -4              -22  
+              equipme…                                                          
+              and                                                               
+              intangi…                                                          
+              assets                                                            
+  Free                                                                          
+  cash                    $          2,643    $         1,736    $       1,348  
+  flow                                                                          
+                                                                                
+                                                                                
+  (A)                                                                           
+  Acquisit…                                                                     
+  and other                                                                     
+  costs                                                                         
+  are                                                                           
+  comprised                                                                     
+  of                                                                            
+  amortiza…                                                                     
+  of                                                                            
+  intangib…                                                                     
+  assets,                                                                       
+  transact…                                                                     
+  costs,                                                                        
+  and                                                                           
+  certain                                                                       
+  compensa…                                                                     
+  charges                                                                       
+  and are                                                                       
+  included                                                                      
+  in the                                                                        
+  following                                                                     
+  line                                                                          
+  items:                                                                        
+                                                                                
+                                  Three                                         
+                                 Months                                         
+                                  Ended                                         
+                              April 30,            January         May 1,       
+                                                       29,                      
+                                   2023               2023           2022       
+               Cost of                $  119             $  120         $   94  
+               revenue                                                          
+               Research                                                         
+               and                    $   12             $   10         $    9  
+               developme…                                                       
+               Sales,                                                           
+               general                $   42             $   44         $   46  
+               and                                                              
+               administr…                                                       
+  (B)                                                                           
+  Stock-ba…                                                                     
+  compensa…                                                                     
+  consists                                                                      
+  of                                                                            
+  the                                                                           
+  followin…                                                                     
+                                  Three                                         
+                                 Months                                         
+                                  Ended                                         
+                              April 30,            January         May 1,       
+                                                       29,                      
+                                   2023               2023           2022       
+               Cost of                $   27             $   30         $   38  
+               revenue                                                          
+               Research                                                         
+               and                    $  524             $  527         $  384  
+               developme…                                                       
+               Sales,                                                           
+               general                $  184             $  182         $  156  
+               and                                                              
+               administr…                                                       
+  (C) Other                                                                     
+  consists                                                                      
+  of assets                                                                     
+  held for                                                                      
+  sale                                                                          
+  related                                                                       
+  adjustme…                                                                     
+  (D)                                                                           
+  Income                                                                        
+  tax                                                                           
+  impact of                                                                     
+  non-GAAP                                                                      
+  adjustme…                                                                     
+  including                                                                     
+  the                                                                           
+  recognit…                                                                     
+  of excess                                                                     
+  tax                                                                           
+  benefits                                                                      
+  or                                                                            
+  deficien…                                                                     
+  related                                                                       
+  to                                                                            
+  stock-ba…                                                                     
+  compensa…                                                                     
+  under                                                                         
+  GAAP                                                                          
+  accounti…                                                                     
+  standard                                                                      
+  (ASU                                                                          
+  2016-09).                                                                     
+                                                                                
+                                                                                
+  NVIDIA CORPORATION                                                            
+  RECONCILIATION OF                                                             
+  GAAP TO NON-GAAP                                                              
+  OUTLOOK                                                                       
+                                                   Q2 FY2024 Outlook            
+                                                   -$ in millions               
+  GAAP gross margin                                                    68.6  %  
+                          Impact of stock-based                                 
+                          compensation expense,                                 
+                          acquisition-related                           1.4  %  
+                          costs, and other                                      
+                          costs                                                 
+  Non-GAAP gross                                                       70.0  %  
+  margin                                                                        
+  GAAP operating                                   $                  2,710     
+  expenses                                                                      
+                          Stock-based                                           
+                          compensation expense,                                 
+                          acquisition-related                          -810     
+                          costs, and other                                      
+                          costs                                                 
+  Non-GAAP operating                               $                  1,900     
+  expenses                                                                      
+                                                                                

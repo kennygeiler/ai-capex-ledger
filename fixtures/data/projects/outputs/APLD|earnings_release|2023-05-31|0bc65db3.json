@@ -1,0 +1,13 @@
+{
+ "accession": "APLD|earnings_release|2023-05-31|0bc65db3",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "d8d53947e1a16e33"
+ }
+}

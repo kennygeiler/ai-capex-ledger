@@ -1,0 +1,42 @@
+{
+ "accession": "APLD|mdna|2023-05-31|fb84607e",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2023,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We believe that the significant investments in property and equipment continue during calendar 2023 as we continue to grow our AI cloud services business.",
+   "passage": "p08",
+   "confidence": 0.8,
+   "notes": "Names calendar 2023, not fiscal 2023 (the fiscal year ends May 31), so fiscal_year 2023 follows the sentence's wording. The investments in property and equipment overall are tied to AI cloud growth, so scope is total. Forward-looking ('continue'), so kind is outlook."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We also expect that our revenues will increase as we continue to bring online additional capacity at existing datacenter facilities and as we begin to provide services to AI cloud services and HPC customers.",
+   "passage": "p08",
+   "confidence": 0.8,
+   "notes": "Total revenue is expected to grow, driven partly by AI cloud and HPC customers. The sentence gives no AI amount or share and names no year. The $460 million, 36-month AI customer agreement in p02 is a multi-year contract value, not revenue for a fiscal year, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "operating and G&A expense growth is attributed to expanding operations and public-company costs; no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.7,
+  "input_tokens": 6411,
+  "output_tokens": 1110,
+  "attempts": 1,
+  "task_sha": "65925801f281ed4d"
+ }
+}

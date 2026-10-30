@@ -200,7 +200,7 @@
     "date": "2026-02-05"
    },
    "method": "ppe_category",
-   "confidence": 0.55,
+   "confidence": 0.6,
    "ours": 0.6761,
    "outcome": "disagree",
    "error": 0.12683333333333344,
@@ -242,10 +242,10 @@
     "date": "2025-01-29"
    },
    "method": "ppe_category",
-   "confidence": 0.55,
-   "ours": 0.6051,
+   "confidence": 0.5,
+   "ours": 0.605,
    "outcome": "disagree",
-   "error": 0.21019999999999994,
+   "error": 0.20999999999999996,
    "layer": "hyperscaler"
   },
   {

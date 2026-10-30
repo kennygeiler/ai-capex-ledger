@@ -12,11 +12,12 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass
+import os
 from pathlib import Path
 
 import duckdb
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[1]  # LEDGER_ROOT: the golden harness runs the pipeline in a copy of the repo layout
 DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
 SCHEMA_VERSION = 9  # v9: projects table
 

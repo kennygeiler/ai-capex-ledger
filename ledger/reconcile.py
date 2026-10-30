@@ -95,7 +95,7 @@ def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str |
 
 
 def _row(ticker, field, period, end, value, first, used, label, basis, docs):
-    ids = [e["extraction_id"] for e in used]
+    ids = sorted(e["extraction_id"] for e in used)  # sorted: the golden test showed the cost-line order varied run to run
     h = hashlib.sha256(json.dumps([value, ids, label, sorted({docs[i.split("|")[0]] for i in ids})]).encode()).hexdigest()[:16]
     return {"ticker": ticker, "field": field, "period": period, "period_end": end, "value": value,
             "source": "agent" if value is not None else "missing", "method": "computed" if field == "opex" else "reported",

@@ -1,0 +1,650 @@
+[
+ {
+  "ticker": "ANET",
+  "name": "Arista Networks",
+  "group": "Added in DATAHQ",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-28T17:47:33+00:00",
+  "role": "seller"
+ },
+ {
+  "ticker": "COMP",
+  "name": "Compass",
+  "group": "Added in DATAHQ",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-28T18:45:07+00:00",
+  "role": "other"
+ },
+ {
+  "ticker": "AAPL",
+  "name": "Apple",
+  "group": "S&P 500 majors",
+  "role": "other",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "AVGO",
+  "name": "Broadcom",
+  "group": "S&P 500 majors",
+  "role": "seller",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "INTC",
+  "name": "Intel",
+  "group": "S&P 500 majors",
+  "role": "seller",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "QCOM",
+  "name": "Qualcomm",
+  "group": "S&P 500 majors",
+  "role": "seller",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "TXN",
+  "name": "Texas Instruments",
+  "group": "S&P 500 majors",
+  "role": "seller",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "CSCO",
+  "name": "Cisco Systems",
+  "group": "S&P 500 majors",
+  "role": "other",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "IBM",
+  "name": "IBM",
+  "group": "S&P 500 majors",
+  "role": "other",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "WMT",
+  "name": "Walmart",
+  "group": "S&P 500 majors",
+  "role": "other",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "XOM",
+  "name": "ExxonMobil",
+  "group": "S&P 500 majors",
+  "role": "other",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "JPM",
+  "name": "JPMorgan Chase",
+  "group": "S&P 500 majors",
+  "role": "other",
+  "added_by": "Claude (scale run)",
+  "added_at": "2026-10-28T18:40:00+00:00"
+ },
+ {
+  "ticker": "NBIS",
+  "name": "Nebius Group N.V",
+  "group": "Scale to 100",
+  "layer": "neocloud",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "HUT",
+  "name": "Hut 8",
+  "group": "Scale to 100",
+  "layer": "miner_to_hpc",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "RIOT",
+  "name": "Riot Platforms",
+  "group": "Scale to 100",
+  "layer": "miner_to_hpc",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "MARA",
+  "name": "Mara",
+  "group": "Scale to 100",
+  "layer": "miner_to_hpc",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "CLSK",
+  "name": "Cleanspark",
+  "group": "Scale to 100",
+  "layer": "miner_to_hpc",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "BTBT",
+  "name": "Bit Digital",
+  "group": "Scale to 100",
+  "layer": "miner_to_hpc",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "SLNH",
+  "name": "Soluna",
+  "group": "Scale to 100",
+  "layer": "miner_to_hpc",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "GLXY",
+  "name": "Galaxy Digital",
+  "group": "Scale to 100",
+  "layer": "miner_to_hpc",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "BTDR",
+  "name": "Bitdeer Technologies Group",
+  "group": "Scale to 100",
+  "layer": "miner_to_hpc",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "ARM",
+  "name": "Arm   /Uk",
+  "group": "Scale to 100",
+  "layer": "chip_seller",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "MPWR",
+  "name": "Monolithic Power Systems",
+  "group": "Scale to 100",
+  "layer": "chip_seller",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "RMBS",
+  "name": "Rambus",
+  "group": "Scale to 100",
+  "layer": "chip_seller",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "SITM",
+  "name": "Sitime",
+  "group": "Scale to 100",
+  "layer": "chip_seller",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "SNPS",
+  "name": "Synopsys",
+  "group": "Scale to 100",
+  "layer": "chip_seller",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "CDNS",
+  "name": "Cadence Design Systems",
+  "group": "Scale to 100",
+  "layer": "chip_seller",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "LRCX",
+  "name": "Lam Research",
+  "group": "Scale to 100",
+  "layer": "chip_equipment",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "AMAT",
+  "name": "Applied Materials  /De",
+  "group": "Scale to 100",
+  "layer": "chip_equipment",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "KLAC",
+  "name": "Kla",
+  "group": "Scale to 100",
+  "layer": "chip_equipment",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "TER",
+  "name": "Teradyne",
+  "group": "Scale to 100",
+  "layer": "chip_equipment",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "ENTG",
+  "name": "Entegris",
+  "group": "Scale to 100",
+  "layer": "chip_equipment",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "ONTO",
+  "name": "Onto Innovation",
+  "group": "Scale to 100",
+  "layer": "chip_equipment",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "AEIS",
+  "name": "Advanced Energy Industries",
+  "group": "Scale to 100",
+  "layer": "chip_equipment",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "ACLS",
+  "name": "Axcelis Technologies",
+  "group": "Scale to 100",
+  "layer": "chip_equipment",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "WDC",
+  "name": "Western Digital",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "STX",
+  "name": "Seagate Technology",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "SNDK",
+  "name": "Sandisk",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "SMCI",
+  "name": "Super Micro Computer",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "DELL",
+  "name": "Dell Technologies",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "HPE",
+  "name": "Hewlett Packard Enterprise",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "NTAP",
+  "name": "Netapp",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "CIEN",
+  "name": "Ciena",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "COHR",
+  "name": "Coherent",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "LITE",
+  "name": "Lumentum",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "AAOI",
+  "name": "Applied Optoelectronics",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "FN",
+  "name": "Fabrinet",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "JBL",
+  "name": "Jabil",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "FLEX",
+  "name": "Flex",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "CLS",
+  "name": "Celestica",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "PENG",
+  "name": "Penguin Solutions",
+  "group": "Scale to 100",
+  "layer": "component_supplier",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "VRT",
+  "name": "Vertiv",
+  "group": "Scale to 100",
+  "layer": "datacenter_build",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "ETN",
+  "name": "Eaton",
+  "group": "Scale to 100",
+  "layer": "datacenter_build",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "NVT",
+  "name": "Nvent Electric",
+  "group": "Scale to 100",
+  "layer": "datacenter_build",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "MOD",
+  "name": "Modine Manufacturing",
+  "group": "Scale to 100",
+  "layer": "datacenter_build",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "JCI",
+  "name": "Johnson Controls International",
+  "group": "Scale to 100",
+  "layer": "datacenter_build",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "PWR",
+  "name": "Quanta Services",
+  "group": "Scale to 100",
+  "layer": "datacenter_build",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "FIX",
+  "name": "Comfort Systems Usa",
+  "group": "Scale to 100",
+  "layer": "datacenter_build",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "EME",
+  "name": "Emcor Group",
+  "group": "Scale to 100",
+  "layer": "datacenter_build",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "GEV",
+  "name": "Ge Vernova",
+  "group": "Scale to 100",
+  "layer": "datacenter_build",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "POWL",
+  "name": "Powell Industries",
+  "group": "Scale to 100",
+  "layer": "datacenter_build",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "BE",
+  "name": "Bloom Energy",
+  "group": "Scale to 100",
+  "layer": "datacenter_build",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "EQIX",
+  "name": "Equinix",
+  "group": "Scale to 100",
+  "layer": "datacenter_landlord",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "DLR",
+  "name": "Digital Realty Trust",
+  "group": "Scale to 100",
+  "layer": "datacenter_landlord",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "IRM",
+  "name": "Iron Mountain",
+  "group": "Scale to 100",
+  "layer": "datacenter_landlord",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "VST",
+  "name": "Vistra",
+  "group": "Scale to 100",
+  "layer": "power",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "CEG",
+  "name": "Constellation Energy",
+  "group": "Scale to 100",
+  "layer": "power",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "NRG",
+  "name": "Nrg Energy",
+  "group": "Scale to 100",
+  "layer": "power",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "TLN",
+  "name": "Talen Energy",
+  "group": "Scale to 100",
+  "layer": "power",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "CRM",
+  "name": "Salesforce",
+  "group": "Scale to 100",
+  "layer": "ai_software",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "NOW",
+  "name": "Servicenow",
+  "group": "Scale to 100",
+  "layer": "ai_software",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "ADBE",
+  "name": "Adobe",
+  "group": "Scale to 100",
+  "layer": "ai_software",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "SNOW",
+  "name": "Snowflake",
+  "group": "Scale to 100",
+  "layer": "ai_software",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "PLTR",
+  "name": "Palantir Technologies",
+  "group": "Scale to 100",
+  "layer": "ai_software",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "DDOG",
+  "name": "Datadog",
+  "group": "Scale to 100",
+  "layer": "ai_software",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "UBER",
+  "name": "Uber Technologies",
+  "group": "Scale to 100",
+  "layer": "other",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "SYM",
+  "name": "Symbotic",
+  "group": "Scale to 100",
+  "layer": "other",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "VZ",
+  "name": "Verizon Communications",
+  "group": "Scale to 100",
+  "layer": "other",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "T",
+  "name": "At&T",
+  "group": "Scale to 100",
+  "layer": "other",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "TMUS",
+  "name": "T-Mobile Us",
+  "group": "Scale to 100",
+  "layer": "other",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ },
+ {
+  "ticker": "FCX",
+  "name": "Freeport-Mcmoran",
+  "group": "Scale to 100",
+  "layer": "other",
+  "added_by": "Kenny Geiler",
+  "added_at": "2026-10-30T02:06:24+00:00"
+ }
+]

@@ -1,0 +1,712 @@
+   Applied Blockchain Reports Fiscal First Quarter 2023 Financial Results and   
+                         Provides an Operational Update                         
+                                                                                
+  DALLAS, TX – October 11, 2022 --                                              
+                                                                                
+                                                                                
+  Applied Blockchain, Inc.                                                      
+                                                                                
+(Nasdaq: APLD) ("Applied Blockchain" or the "Company") , a designer, builder and
+operator of next-generation datacenters that provide power to blockchain
+infrastructure and support High-Performance Computing (HPC) applications, today
+reported financial results for the fiscal first quarter ended August 31. 2022.
+The Company also provided an operational update and outlook.
+                                                                                
+  Recent Operational and Financial Highlights                                   
+                                                                                
+• Fiscal first quarter 2023 revenue of $6.9 million, at the high-end of guidance
+of $6.5 million to $6.9 million.
+
+• Fiscal first quarter 2023 adjusted EBITDA of $(1.9) million, compared to
+adjusted EBITDA guidance of ($1.8) million) to ($2.2) million.
+• Announced planned corporate name change to “Applied Digital Corporation”,
+reflecting the Company’s broad services and offerings for HPC applications. The
+name change is to be voted on by shareholders at its upcoming Annual General
+Meeting on November 10, 2022.
+
+• Broke ground on third co-hosting facility on September 8, 2022, located in
+Ellendale, North Dakota with planned hosting capacity of 180MW; capacity is
+already fully contracted
+
+• Continued buildout of second co-hosting facility, located in Garden City,
+Texas with 200MW of planned hosting capacity, with 15 of 16 buildings
+constructed
+
+• Marathon Digital Holdings, Inc. (Nasdaq: MARA) exercised option for additional
+capacity at Applied Blockchain’s hosting facilities, bringing its total
+contracted capacity to 276MW
+• Accelerated discussions with prospective non-cryptocurrency customers for HPC
+applications that could be hosted at the Company’s co-hosting facilities. The
+company expects to have a pilot program with a customer operating as early as
+this month for a machine learning (ML) application.
+                                                                                
+  Management Commentary                                                         
+                                                                                
+“Our fiscal 2023 year began with a solid start as revenue and adjusted EBITDA
+compared favorably to our guidance and we continued to operate and progress our
+three datacenter sites with a keen focus on building to nearly 500MW of hosting
+capacity by early calendar 2023, all of which is already contracted,” said
+Applied Blockchain Chairman and CEO Wes Cummins. “We believe that, once
+operational, this should translate to $100 million of annualized adjusted
+EBITDA, an impressive accomplishment for a company of our current size.
+Construction of our next two datacenters at Garden City, Texas and Ellendale,
+North Dakota are progressing as expected, and while we have encountered some
+regulatory delays in Texas, our expectation to be at near 500MW of capacity by
+early 2023 is unchanged.
+
+“While our current customers are focused on mining Bitcoin, we see significant
+potential with future new customers that can use our co-hosting facilities for
+other HPC applications. We can offer these customers ultra-low cost, high
+efficiency digital infrastructure. We believe this will provide them with
+significant cost savings compared to their current offerings and we have been
+encouraged with the acceleration in conversations with these types of customers
+and expect to have a pilot running with a customer as early as this month for a
+GPU based machine learning application. If successful we would expect to scale
+this project early next year. We continue to see strong demand from
+cryptocurrency customers, but we believe diversifying our customer base and
+revenue stream will be of long-term benefit to our shareholders.
+
+“Lastly, we are also continuing to progress additional non-dilutive financing
+options to fund the buildout of our datacenters, with a preference on commercial
+debt from regional lenders in areas we currently operate. We expect funds from
+these banks along with over $40 million of cash at the end of August, near-term
+benefits from our customer prepayments and deposits, which amounted to nearly
+$20 million in
+
+the first fiscal quarter, and an inflection to positive adjusted EBITDA to be
+sufficient to fund our near-term capital needs.”
+                                                                                
+  Jamestown, North Dakota Facility Update (100MW)                               
+                                                                                
+Applied Blockchain’s first facility is in Jamestown, North Dakota with capacity
+of 100MW. The entire 100MW of capacity has been fully contracted on multi-year
+contracts, providing revenue visibility for the Company. Additionally, the
+facility is powered through a five-year Energy Services Agreement (ESA) with a
+local utility, providing visibility into the cost structure as a stable pricing
+mechanism for energy costs has been negotiated.
+
+As previously reported on July 18, 2022, there was an unexpected equipment
+failure at the substation powering the facility, resulting in a partial outage
+of approximately 50%. The power provider completed the required repairs in mid-
+August, fully restoring power capacity to Jamestown. The Jamestown facility was
+not damaged and, since the repairs, it has been performing as expected.
+                                                                                
+  Garden City, Texas Facility Update (200MW)                                    
+                                                                                
+Applied Blockchain’s second facility is in Garden City, Texas, planned for
+capacity of 200MW and will be co-located with a wind farm. Construction began in
+late April 2022 and 15 of 16 buildings are now standing. While construction of
+the facility has progressed as expected, the primary risk to timing of
+energization of this facility is regulatory approval.
+                                                                                
+  Ellendale, North Dakota Facility Update (180MW)                               
+                                                                                
+Applied Blockchain’s third co-hosting facility is in Ellendale, North Dakota
+with planned capacity of 180MW. The site is close to significant wind power
+capacity and is at a different location than its current Jamestown facility. The
+Company entered into a five-year ESA with a utility partner and broke ground on
+the site on September 8, 2022.
+
+Marathon Digital Holdings, Inc. (Nasdaq: MARA) exercised its option for
+additional capacity at Applied Blockchain’s hosting facilities, bringing its
+total contracted capacity to 276MW and fully contracting out the planned
+capacity at the Ellendale facility. Energization of the Ellendale facility is
+expected in the first calendar quarter of 2023.
+
+Financial Results for Fiscal First Quarter 2023 Ended August 31, 2022
+
+Note: Applied Blockchain did not have operations in the prior year comparable
+period and thus no comparative analysis is included. Any reference to share
+count or per share metrics reflects the one-for-six reverse stock split that was
+effected April 12, 2022.
+Revenues in the fiscal first quarter 2023 were $6.9 million, at the high-end of
+guidance of $6.5 million to $6.9 million. Hosting revenues were generated
+entirely from the Company’s first hosting facility in Jamestown, North Dakota.
+Note that the Jamestown facility operated only at about 50% capacity during a
+meaningful portion of the quarter due to an unexpected equipment failure at the
+substation powering the facility. Repairs were made in August and the facility
+has been operating as expected since the event.
+
+Cost of revenues in the fiscal first quarter 2023 were $6.1 million, consisting
+of $4.9 million of energy costs, $836,000 of depreciation and amortization
+expense, and $360,000 of personnel expenses for employees directly working at
+our Jamestown hosting facility.
+
+Operating expenses for the fiscal first quarter 2023 were $5 million, which
+included $4.1 million in selling, general and administrative costs, $579,000 in
+stock-based compensation and $298,000 in depreciation and amortization expenses.
+
+Adjusted net loss from continuing operations for the fiscal first quarter 2023
+was $3.4 million, or ($0.04) per basic and diluted share, based on a weighted
+average basic and fully diluted share count during the quarter of 93.1 million.
+
+Net loss attributable to Applied Blockchain for the fiscal first quarter 2023
+was $4.5 million, or ($0.05) per basic and diluted share, based on a weighted
+average basic and fully diluted share count during the quarter of 93.1 million.
+
+Adjusted EBITDA, a non-GAAP measure, for the fiscal first quarter of 2023 was
+$(1.9) million, compared to guidance of ($1.8) million to ($2.2) million.
+                                                                                
+  Liquidity and Capitalization                                                  
+                                                                                
+Applied Blockchain ended the fiscal first quarter 2023 with cash and cash
+equivalents of $40.8 million and $14.7 million in debt outstanding.
+
+The Company’s outstanding share count at October 11, 2022 was approximately 92.8
+million, which reflects its one-for-six reverse stock split that was effected on
+April 12, 2022 and the previously announced cancellation of approximately 5.0
+million shares in June from Xsquared Holding Limited (“Sparkpool”).
+                                                                                
+  Conference Call                                                               
+                                                                                
+Applied Blockchain will host a conference call today, October 11, 2022 at 5:00
+p.m. Eastern Time (2:00 p.m. Pacific Time) to discuss these results. A question-
+and-answer session will follow management’s presentation.
+
+To participate, please dial the appropriate number at least ten minutes prior to
+the start time and ask for the Applied Blockchain conference call.
+U.S. dial-in number: 1-877-407-0792
+
+International number: 1-201-689-8263
+
+Conference ID: 13733281
+
+The conference call will broadcast live and be available for replay here .
+
+A replay of the call will be available after 8:00 p.m. Eastern time today
+through October 26, 2022.
+
+Toll-free replay number: 1-844-512-2921
+
+International replay number: 1-412-317-6671
+
+Conference ID: 13733281
+                                                                                
+  About Applied Blockchain                                                      
+                                                                                
+Applied Blockchain, Inc. (Nasdaq: APLD) designs, develops and operates next-
+generation datacenters across North America to provide low-cost digital
+infrastructure solutions to the rapidly growing high performance computing (HPC)
+industry. The Company has partnered with the most recognized names in the
+industry to develop, deploy, and scale its business. Find more information at
+www.appliedblockchaininc.com. Follow us on Twitter at @APLDBlockchain.
+                                                                                
+  Forward-Looking Statements                                                    
+                                                                                
+This release contains "forward-looking statements" as defined in the Private
+Securities Litigation Reform Act of 1995 regarding, among other things, future
+operating and financial performance, product development, market position,
+business strategy and objectives. These statements use words, and variations of
+words, such as "continue," "build," "future," "increase," "drive," "believe,"
+"look," "ahead," "confident," "deliver," "outlook," "expect," and "predict."
+Other examples of forward-looking statements may include, but are not limited
+to, (i) statements of Company plans and objectives, including our evolving
+business model, or estimates or predictions of actions by suppliers, (ii)
+statements of future economic performance, and (iii) statements of assumptions
+underlying other statements and statements about the Company or its business.
+You are cautioned not to rely on these forward-looking statements. These
+statements are based on current expectations of future events and thus are
+inherently subject to uncertainty. If underlying assumptions prove inaccurate or
+known or unknown risks or uncertainties materialize, actual results could vary
+materially from the Company's expectations and projections. These risks,
+uncertainties, and other factors include: decline in demand for our products and
+services; the volatility of the crypto asset industry; the inability to comply
+with developments and changes in regulation; cash flow and access to capital;
+and maintenance of third party relationships. Information in this release is as
+of the dates and time periods indicated herein, and the Company does not
+undertake to update any of the information contained in these materials, except
+as required by law.
+                                                                                
+  APPLIED BLOCKCHAIN, INC. AND SUBSIDIARIES                                     
+                                                                                
+Consolidated Balance Sheets (Unaudited)
+
+(In thousands, except number of shares and par value data)
+                                                                                
+                                            August 31, 2022       May 31, 2022  
+ ────────────────────────────────────────────────────────────────────────────── 
+  ASSETS                                                                        
+  Current Assets:                                                               
+  Cash and cash equivalents              $           40,830    $        46,299  
+  Accounts receivable                                    50                227  
+  Prepaid expenses and other current                  1,500              1,336  
+  assets                                                                        
+  Total current assets                               42,380             47,862  
+  Property and equipment, net                        95,095             64,260  
+  Right of use asset, net                             6,995              6,408  
+  Utility deposits                                    1,450              1,450  
+  TOTAL ASSETS                           $          145,920    $       119,980  
+  LIABILITIES, MEZZANINE EQUITY AND                                             
+  STOCKHOLDERS' EQUITY                                                          
+  Current Liabilities:                                                          
+  Accounts payable and accrued           $           13,456    $        13,260  
+  liabilities                                                                   
+  Current portion of lease liability                  1,371              1,004  
+  Current portion of term loan                        2,587              1,333  
+  Customer deposits                                  14,111              9,524  
+  Current deferred revenue                           17,142              3,877  
+  Total current liabilities                          48,667             28,998  
+  Deferred tax liability                                572                540  
+  Long-term deferred revenue                          2,051                  —  
+  Long-term portion of lease                          5,620              5,310  
+  liability                                                                     
+  Long-term term loan                                12,109              5,897  
+  Total liabilities                      $           69,019    $        40,745  
+  Commitments and contingencies (Note                                           
+  12)                                                                           
+  Shareholders' equity (deficit):                                               
+  Common stock, $0.001 par value,                                               
+  166,666,667 shares authorized,                                                
+  92,872,271 shares issued and                                                  
+  92,835,974                             $               93    $            98  
+  shares outstanding at August 31,                                              
+  2022,                                                                         
+  and 97,837,703 shares issued and                                              
+  outstanding at May 31, 2022                                                   
+  Additional paid in capital                        128,877            128,293  
+  Treasury stock, 36,300 shares at                                              
+  August                                                -62                -62  
+  31, 2022 and May 31, 2022, at cost                                            
+  Accumulated deficit                               -60,601            -56,070  
+  Total stockholders’ equity                                                    
+  attributable                                       68,307             72,259  
+  to Applied Blockchain, Inc.                                                   
+  Noncontrolling interest                             8,594              6,976  
+  Total Stockholders' equity                                                    
+  (deficit)                              $           76,901    $        79,235  
+  including noncontrolling interest                                             
+  TOTAL LIABILITIES AND SHAREHOLDERS'    $          145,920    $       119,980  
+  DEFICIT                                                                       
+                                                                                
+                                                                                
+  APPLIED BLOCKCHAIN INC. AND SUBSIDIARIES                                      
+                                                                                
+                                                                                
+  Consolidated Statements of Operations (Unaudited)                             
+                                                                                
+(In thousands, except per share data)
+                                                                                
+                    Three Months                                                
+                    Ended                                                       
+                    August 31, 2022                August 31, 2021              
+ ────────────────────────────────────────────────────────────────────────────── 
+  Revenues:                                                                     
+  Hosting           $                     6,924    $                         —  
+  revenue                                                                       
+  Cost of           $                     6,093    $                         —  
+  revenues                                                                      
+  Gross profit                              831                              —  
+  Costs and                                                                     
+  expenses:                                                                     
+  Selling,                                                                      
+  general and       $                     4,131    $                       698  
+  administrative                                                                
+  Stock-based                               579                         12,337  
+  compensation                                                                  
+  Depreciation                                                                  
+  and                                       298                              3  
+  amortization                                                                  
+  Total costs       $                     5,008    $                    13,038  
+  and expenses                                                                  
+  Operating loss    $                    -4,177    $                   -13,038  
+  Other income                                                                  
+  (expense):                                                                    
+  Interest          $                      -356    $                         —  
+  Expense                                                                       
+  Gain on                                                                       
+  extinguishment                              —                             40  
+  of accounts                                                                   
+  payable                                                                       
+  Loss on                                                                       
+  extinguishment                            -94                         -1,342  
+  of debt                                                                       
+  Total other                              -450                         -1,302  
+  expense, net                                                                  
+  Net loss from                                                                 
+  continuing                                                                    
+  operations                             -4,627                        -14,340  
+  before income                                                                 
+  tax expenses                                                                  
+  Income tax                                -32                              —  
+  expenses                                                                      
+  Net loss from                                                                 
+  continuing                             -4,659                        -14,340  
+  operations                                                                    
+  Net gain from                                                                 
+  discontinued                                                                  
+  operations,                                 —                            243  
+  net of income                                                                 
+  taxes                                                                         
+  Net loss                                                                      
+  including                              -4,659                        -14,097  
+  noncontrolling                                                                
+  interests                                                                     
+  Net loss                                                                      
+  attributable                                                                  
+  to                                       -128                              —  
+  noncontrolling                                                                
+  interest                                                                      
+  Net loss                                                                      
+  attributable      $                    -4,531    $                   -14,097  
+  to Applied                                                                    
+  Blockchain                                                                    
+  Basic and                                                                     
+  diluted net                                                                   
+  (loss) gain                                                                   
+  per                                                                           
+  share:                                                                        
+  Continuing        $                     -0.05    $                     -0.32  
+  Operations                                                                    
+  Discontinued      $                         —    $                      0.01  
+  Operations                                                                    
+  Basic and                                                                     
+  diluted net       $                     -0.05    $                     -0.31  
+  loss per share                                                                
+  Basic and                                                                     
+  diluted                                                                       
+  weighted                                                                      
+  average                            93,105,835                     44,937,269  
+  number of                                                                     
+  shares                                                                        
+  outstanding                                                                   
+                                                                                
+                                                                                
+  APPLIED BLOCKCHAIN INC. AND SUBSIDIARIES                                      
+                                                                                
+                                                                                
+  Consolidated Statements of Cash Flows (Unaudited)                             
+                                                                                
+(In thousands of dollars)
+                                                                                
+                                         Three Months Ended                     
+                                            August 31, 2022    August 31, 2021  
+ ────────────────────────────────────────────────────────────────────────────── 
+  CASH FLOW FROM OPERATING ACTIVITIES                                           
+  Net loss attributable to Applied                 $(4,531)          $(14,097)  
+  Blockchain                                                                    
+  Net gain from discontinued                                                    
+  operations,                                             —               -243  
+  net of income taxes                                                           
+  Net Loss attributable to                                                      
+  noncontrolling                                       -128                  —  
+  interest                                                                      
+  Net Income (loss) from continuing                  -4,659            -14,340  
+  operations                                                                    
+  Adjustments to reconcile net loss                                             
+  to net                                                                        
+  cash provided by (used in)                                                    
+  operating                                                                     
+  activities:                                                                   
+  Depreciation and Amortization                       1,136                  3  
+  Gain on extinguishment of accounts                      —                -40  
+  payable                                                                       
+  Loss on extinguishment of debt                         94              1,342  
+  Stock-Based Compensation                              579             12,337  
+  Deferred Tax                                           32                  —  
+  Changes in assets and liabilities:                                            
+  Accounts receivable                                   177                  —  
+  Utility Deposits                                        —               -773  
+  Prepaid expenses and other current                   -164               -770  
+  assets                                                                        
+  Customer deposits                                   4,587                  —  
+  Deferred revenue                                   15,316                  —  
+  Accounts payable and accrued                          196                368  
+  liabilities                                                                   
+  Net cash provided by (used in)                                                
+  operating                                          17,294             -1,870  
+  activities of continuing operations                                           
+  Net cash provided by operating                                                
+  activities of discontinued                              —                435  
+  operations                                                                    
+  NET CASH PROVIDED BY (USED IN)                                                
+  OPERATING                                          17,294             -1,435  
+  ACTIVITIES                                                                    
+  CASH FLOW FROM INVESTING ACTIVITIES                                           
+  Purchases of property and equipment               -31,673               -988  
+  Deposit on equipment                                    —            -10,300  
+  Net cash used in investing                                                    
+  activities of                                     -31,673            -11,288  
+  continuing operations                                                         
+  Net cash used in investing                                                    
+  activities of                                           —                  —  
+  discontinued operations                                                       
+  NET CASH USED IN INVESTING                        -31,673            -11,288  
+  ACTIVITIES                                                                    
+  CASH FLOW FROM FINANCING ACTIVITIES                                           
+  Issuance of preferred stock                             —             32,600  
+  Repayment of finance leases                          -209                  —  
+  Preferred stock issuance costs                          —             -2,698  
+  Term loan paydown                                  -7,056                  —  
+  Proceeds from issuance of term loan                15,000                  —  
+  Term Loan Issuance Costs                             -140                  —  
+  Loan principal payments                              -432                  —  
+  Equity contributions to                             1,747                  —  
+  subsidiaries                                                                  
+  Net cash provided by financing                      8,910             29,902  
+  activities of continuing operations                                           
+  Net cash provided by financing                                                
+  activities of discontinued                              —                  —  
+  operations                                                                    
+  CASH FLOW PROVIDED BY FINANCING                     8,910             29,902  
+  ACTIVITIES                                                                    
+  NET (DECREASE ) INCREASE IN CASH                                              
+  AND                                                -5,469             17,179  
+  CASH EQUIVALENTS                                                              
+  CASH AND CASH EQUIVALENTS,                                                    
+  BEGINNING OF                                       46,299             11,750  
+  PERIOD                                                                        
+  CASH AND CASH EQUIVALENTS, END OF                  40,830             28,929  
+  PERIOD                                                                        
+  Less: cash and cash equivalents of                      —                  —  
+  discontinued operations                                                       
+  Cash and cash equivalents of                                                  
+  continuing                                        $40,830            $28,929  
+  operations                                                                    
+  SUPPLEMENTAL DISCLOSURE OF CASH                                               
+  FLOW                                                                          
+  INFORMATION                                                                   
+  Interest Paid                                        $356                 $—  
+  SUPPLEMENTAL DISCLOSURE OF NON-CASH                                           
+  ACTIVITIES                                                                    
+  Right-of-use asset obtained by                                                
+  lease                                                $922             $1,291  
+  obligation                                                                    
+  Fixed assets in accounts payable                   $8,352             $4,391  
+                                                                                
+Use and Reconciliation of Non-GAAP Financial Measures
+This press release and our related earnings call contain certain non-GAAP
+financial measures. See below for discussion on each non-GAAP metric.
+                                                                                
+  Adjusted Operating Loss and Adjusted Net Loss                                 
+                                                                                
+“Adjusted Operating Loss” and “Adjusted Net Loss are non-GAAP measures that
+represent operating loss and net loss, respectively, from continuing operations
+excluding stock-based compensation and nonrecurring expenses. We believe these
+are useful metrics as they provide additional information regarding factors and
+trends affecting our business and provide perspective on results absent one-time
+or significant non-cash items. However, Applied Blockchain’s presentation of
+these measures should not be construed as an inference that its future results
+will be unaffected by unusual or non-recurring items. Applied Blockchain’s
+computation of Adjusted Operating Loss and Adjusted Net Loss may not be
+comparable to other similarly titled measures computed by other companies,
+because all companies may not calculate Adjusted Operating Loss and Adjusted Net
+Loss in the same fashion.
+
+Because of these limitations, Adjusted Operating Loss and Adjusted Net Loss
+should not be considered in isolation or as a substitute for performance
+measures calculated in accordance with GAAP. Applied Blockchain compensates for
+these limitations by relying primarily on its GAAP results and using Adjusted
+Operating Loss and Adjusted Net Loss on a supplemental basis. You should review
+the reconciliation of operating loss to Adjusted Operating Loss and net loss to
+Adjusted Net Loss above and not rely on any single financial measure to evaluate
+Applied Blockchain’s business.
+                                                                                
+  EBITDA and Adjusted EBITDA                                                    
+                                                                                
+“EBITDA” is defined as earnings before interest, taxes, and depreciation and
+amortization. “Adjusted EBITDA” is defined as EBITDA adjusted for stock-based
+compensation, gain on extinguishment of accounts payable, loss on extinguishment
+of debt, and one-time professional service costs not directly related to the
+company’s offering and therefore not deferred under the guidance in ASC 340 and
+SAB Topic 5A. These costs have been adjusted as they are not indicative of
+business operations. Adjusted EBITDA is intended as a supplemental measure of
+Applied Blockchain’s performance that is neither required by, nor presented in
+accordance with, GAAP. Applied Blockchain believes that the use of EBITDA and
+Adjusted EBITDA provides an additional tool for investors to use in evaluating
+ongoing operating results and trends and in comparing its financial measures
+with those of comparable companies, which may present similar non-GAAP financial
+measures to investors. We also believe EBITDA and Adjusted EBITDA are useful
+metrics to investors because they provide additional information regarding
+factors and trends affecting our business, which are used in the business
+planning process to understand expected operating performance, to evaluate
+results against those expectations, and because of their importance as measures
+of underlying operating performance, as the primary compensation performance
+measure under certain programs and plans. However, you should be aware that when
+evaluating EBITDA and Adjusted EBITDA, Applied Blockchain may incur future
+expenses similar to those excluded when calculating these measures. In addition,
+Applied Blockchain’s presentation of these measures should not be construed as
+an inference that its future results will be unaffected by unusual or non-
+recurring items. Applied Blockchain’s computation of Adjusted EBITDA may not be
+comparable to other similarly titled measures computed by other companies,
+because all companies may not calculate Adjusted EBITDA in the same fashion.
+
+Because of these limitations, EBITDA and Adjusted EBITDA should not be
+considered in isolation or as a substitute for performance measures calculated
+in accordance with GAAP. Applied Blockchain compensates for these limitations by
+relying primarily on its GAAP results and using EBITDA and Adjusted EBITDA on a
+supplemental basis. You should review the reconciliation of net loss to EBITDA
+and Adjusted EBITDA above and not rely on any single financial measure to
+evaluate Applied Blockchain’s business.
+                                                                                
+  Adjusted Gross Profit                                                         
+                                                                                
+“Adjusted Gross Profit” is a non-GAAP measure that represents gross profit
+adjusted for depreciation expense within cost of revenues. We believe this is a
+useful metric as it provide additional information regarding gross profit aside
+from significant non-cash expense in depreciation. However, Applied Blockchain’s
+presentation of this measure should not be construed as an inference that its
+future results
+
+will be unaffected by other factors within cost of revenues. Applied
+Blockchain’s computation of Adjusted Gross Profit may not be comparable to other
+similarly titled measures computed by other companies, because all companies may
+not calculate Adjusted Gross Profit in the same fashion.
+
+Because of these limitations, Adjusted Gross Profit should not be considered in
+isolation or as a substitute for performance measures calculated in accordance
+with GAAP. Applied Blockchain compensates for these limitations by relying
+primarily on its GAAP results and using Adjusted Gross Profit on a supplemental
+basis. You should review the reconciliation of gross profit to Adjusted Gross
+Profit above and not rely on any single financial measure to evaluate Applied
+Blockchain’s business.
+                                                                                
+  $ in           Three Months          August 31,                 August 31,    
+  thousands      Ended                 2022                       2021          
+ ────────────────────────────────────────────────────────────────────────────── 
+  Adjusted                                                                      
+  operating                                                                     
+  loss                                                                          
+  Operating                                                                     
+  Loss from                                                                     
+  Continuing     $             -4,177                 $  -13,038                
+  Operations                                                                    
+  (GAAP)                                                                        
+  Add:                                                                          
+  Stock-based                                                                   
+  compensati…                     579                     12,337                
+  for                                                                           
+  service                                                                       
+  agreement                                                                     
+  Add: Gain                                                                     
+  on                                                                            
+  Extinguish…                       —                        -40                
+  of Accounts                                                                   
+  Payable                                                                       
+  Add: Loss                                                                     
+  on                               94                      1,342                
+  Extinguish…                                                                   
+  of Debt                                                                       
+  Add:                                                                          
+  Non-recurr…                                                                   
+  profession…                     408                                           
+  service                                                                       
+  costs                                                                         
+  Add: Other                                                                    
+  non-recurr…                     200                          —                
+  expenses                                                                      
+  Adjusted                                                                      
+  Operating                                                                     
+  Loss from      $             -2,896                 $      601                
+  Continuing                                                                    
+  Operations                                                                    
+  (Non-GAAP)                                                                    
+  Adjusted                                                                      
+  operating                                                                     
+  margin from                   -41.8  %                       —  %             
+  Continuing                                                                    
+  Operations                                                                    
+  Adjusted                                                                      
+  net loss                                                                      
+  Net Loss                                                                      
+  from                                                                          
+  Continuing                   -4,659                    -14,340                
+  Operations                                                                    
+  (GAAP)                                                                        
+  Add:                                                                          
+  Stock-based                                                                   
+  compensati…                     579                     12,337                
+  for                                                                           
+  service                                                                       
+  agreement                                                                     
+  Add: Gain                                                                     
+  on                                                                            
+  Extinguish…                       —                        -40                
+  of Accounts                                                                   
+  Payable                                                                       
+  Add: Loss                                                                     
+  on                               94                      1,342                
+  Extinguish…                                                                   
+  of Debt                                                                       
+  Add:                                                                          
+  Non-recurr…                                                                   
+  profession…                     408                                           
+  service                                                                       
+  costs                                                                         
+  Add: Other                                                                    
+  non-recurr…                     200                          —                
+  expenses                                                                      
+  Adjusted                                                                      
+  net loss                                                                      
+  from           $             -3,378                 $     -701                
+  Continuing                                                                    
+  Operations                                                                    
+  (Non-GAAP)                                                                    
+  EBITDA and                                                                    
+  Adjusted                                                                      
+  EBITDA                                                                        
+  Net Loss                                                                      
+  from                                                                          
+  Continuing     $             -4,659                 $  -14,340                
+  Operations                                                                    
+  (GAAP)                                                                        
+  Add:                                                                          
+  Interest                        356                          —                
+  Expense                                                                       
+  Add: Income                      32                          —                
+  Tax Expense                                                                   
+  Add:                          1,136                          3                
+  Depreciati…                                                                   
+  EBITDA         $             -3,135                 $  -14,337                
+  (Non-GAAP)                                                                    
+  Add:                                                                          
+  Stock-based                                                                   
+  compensati…                     579                     12,337                
+  for                                                                           
+  service                                                                       
+  agreement                                                                     
+  Add: Gain                                                                     
+  on                                                                            
+  Extinguish…                       —                        -40                
+  of Accounts                                                                   
+  Payable                                                                       
+  Add: Loss                                                                     
+  on                               94                      1,342                
+  Extinguish…                                                                   
+  of Debt                                                                       
+  Add:                                                                          
+  Non-recurr…                                                                   
+  profession…                     408                                           
+  service                                                                       
+  costs                                                                         
+  Add: Other                                                                    
+  non-recurr…                     200                          —                
+  expenses                                                                      
+  Adjusted                                                                      
+  EBITDA         $             -1,854                 $     -698                
+  (Non-GAAP)                                                                    
+  Adjusted                                                                      
+  Gross                                                                         
+  Profit                                                                        
+  Gross                                                                         
+  profit         $                831                 $        —                
+  (GAAP)                                                                        
+  Add:                                                                          
+  Depreciati…                     836                          —                
+  in cost of                                                                    
+  revenues                                                                      
+  Adjusted                                                                      
+  Profit         $              1,667                 $        —                
+  (Non-GAAP)                                                                    
+                                                                                
+                                                                                
+  Investor Relations Contacts                                                   
+                                                                                
+Matt Glover or Jeff Grampp, CFA
+Gateway Group, Inc.
+(949) 574-3860 APLD@gatewayir.com
+                                                                                
+  Media Contact                                                                 
+                                                                                
+Brenlyn Motlagh
+Gateway Group, Inc.
+(949) 899-3135 APLD@gatewayir.com

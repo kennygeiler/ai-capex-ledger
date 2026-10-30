@@ -1,0 +1,69 @@
+{
+ "accession": "0001018724-26-000004",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "capex",
+   "table_id": "t0034",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(52,729)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 52729000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0034",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(82,999)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 82999000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0034",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(131,819)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 131819000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "reason": "The table supplied as the income statement (t0034) is actually the cash-flow statement; it has no revenue or net sales line. The income statement was not provided."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "The table supplied as the income statement (t0034) is the cash-flow statement; it has no cost of sales line. The income statement was not provided."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "No income statement provided; t0034 is the cash-flow statement and has no cost-of-revenue component lines."
+  },
+  {
+   "field": "operating_income",
+   "reason": "The table supplied as the income statement (t0034) is the cash-flow statement; it has no operating income line. The income statement was not provided."
+  }
+ ],
+ "notes": [
+  "The income-statement section duplicates table t0034, the consolidated statement of cash flows. The table-classification step probably picked the wrong table for the income statement. Re-run with the correct statement of operations table to get revenue, cost of sales, and operating income.",
+  "capex: 'Purchases of property and equipment' is shown gross. 'Proceeds from property and equipment sales and incentives' is a separate line and was not netted, per the rule against adding lines together."
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.3,
+  "input_tokens": 6758,
+  "output_tokens": 784,
+  "attempts": 1,
+  "task_sha": "9477a835fde1c67f"
+ }
+}

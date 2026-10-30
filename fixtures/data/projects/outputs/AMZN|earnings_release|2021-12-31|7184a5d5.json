@@ -1,0 +1,58 @@
+{
+ "accession": "AMZN|earnings_release|2021-12-31|7184a5d5",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "AWS Asia Pacific (Jakarta) Region",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Jakarta, Indonesia",
+   "counterparty": null,
+   "amount_low": 5000000000,
+   "amount_high": 5000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Newly released AWS economic impact studies estimate that the AWS Asia Pacific (Jakarta) Region will create 24,700 direct and indirect jobs through a planned investment of $5 billion (IDR$71 trillion) in Indonesia over the next 15 years, and AWS will invest over $17 billion (CA$21 billion) in Canada by 2037 on the construction and operation of its two Canadian infrastructure Regions.",
+   "passage": "p02",
+   "confidence": 0.8
+  },
+  {
+   "name": "AWS Canada West (Calgary) Region",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Calgary, Canada",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "AWS continued to expand its infrastructure footprint around the world, opening the AWS Asia Pacific (Jakarta) Region and announcing plans to launch the AWS Canada West (Calgary) Region in late 2023 or early 2024.",
+   "passage": "p02",
+   "confidence": 0.8
+  },
+  {
+   "name": "18 new utility-scale wind and solar energy projects",
+   "kind": "power",
+   "status": "announced",
+   "location": "Finland, Germany, Italy, Spain, the UK, and the U.S.",
+   "counterparty": null,
+   "capacity_mw": 2000,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Amazon announced 18 new utility-scale wind and solar energy projects in Finland, Germany, Italy, Spain, the UK, and the U.S. , representing 2 gigawatts of new clean energy capacity and increasing Amazon\u2019s renewable energy procurement by 40% in one year.",
+   "passage": "p05",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.5,
+  "input_tokens": 6179,
+  "output_tokens": 1449,
+  "attempts": 1,
+  "task_sha": "3c2ba71276b2b4f1"
+ }
+}

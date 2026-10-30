@@ -1,0 +1,27 @@
+{
+ "accession": "APLD|earnings_release|2022-11-30|2e918393",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; the passage describes datacenter construction progress and hosting capacity (MW) without a spend figure"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the only figure is a projected adjusted EBITDA run rate (~$100 million) for cryptocurrency hosting, which is not revenue and not AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 4878,
+  "output_tokens": 245,
+  "attempts": 1,
+  "task_sha": "63078783d94b636e"
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "accession": "NVDA|transcript|2026-04-26|2ee4a07c",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 5911,
+  "output_tokens": 158,
+  "attempts": 1,
+  "task_sha": "977a0c935fc3ab4a"
+ }
+}

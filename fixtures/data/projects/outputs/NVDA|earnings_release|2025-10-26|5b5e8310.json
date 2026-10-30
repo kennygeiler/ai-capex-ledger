@@ -1,0 +1,42 @@
+{
+ "accession": "NVDA|earnings_release|2025-10-26|5b5e8310",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "OpenAI next-generation AI infrastructure partnership",
+   "kind": "gpu_cluster",
+   "status": "announced",
+   "location": null,
+   "counterparty": "OpenAI",
+   "capacity_mw": 10000,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Announced a strategic partnership with OpenAI to deploy at least 10 gigawatts of NVIDIA systems for OpenAI\u2019s next-generation AI infrastructure.",
+   "passage": "p02",
+   "confidence": 0.5
+  },
+  {
+   "name": "Anthropic NVIDIA infrastructure (Grace Blackwell and Vera Rubin systems)",
+   "kind": "gpu_cluster",
+   "status": "announced",
+   "location": null,
+   "counterparty": "Anthropic",
+   "capacity_mw": 1000,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Announced that, for the first time, Anthropic will run and scale on NVIDIA infrastructure, initially adopting 1 gigawatt of compute capacity with NVIDIA Grace Blackwell and Vera Rubin systems.",
+   "passage": "p03",
+   "confidence": 0.45
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.3,
+  "input_tokens": 4714,
+  "output_tokens": 937,
+  "attempts": 1,
+  "task_sha": "6ad515af23bf3fb7"
+ }
+}

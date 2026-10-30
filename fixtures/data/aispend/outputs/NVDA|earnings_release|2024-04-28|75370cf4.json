@@ -1,0 +1,63 @@
+{
+ "accession": "NVDA|earnings_release|2024-04-28|75370cf4",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 22600000000,
+   "amount_high": 22600000000,
+   "quote": "Record quarterly Data Center revenue of $22.6 billion, up 23% from Q4 and up 427% from a year ago",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Quarterly figure (Q1 FY25, quarter ended 2024-04-28), not full-year; the sentence names no fiscal year. Table in p09 gives $22,563 million for Q1 FY25."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 19400000000,
+   "amount_high": 19400000000,
+   "quote": "Data Center compute revenue was $19.4 billion, up 478% from a year ago and up 29% sequentially.",
+   "passage": "p10",
+   "confidence": 0.8,
+   "notes": "Quarterly figure (Q1 FY25). This is the compute component of the $22.6 billion Data Center revenue above; do not add it to that total."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3200000000,
+   "amount_high": 3200000000,
+   "quote": "Networking revenue was $3.2 billion, up 242% from a year ago on strong growth of InfiniBand end-to-end solutions, and down 5% sequentially due to the timing of supply.",
+   "passage": "p10",
+   "confidence": 0.7,
+   "notes": "Quarterly figure (Q1 FY25). This is Data Center networking, a component of the $22.6 billion Data Center revenue; do not add it to that total. The sentence itself does not say 'Data Center'; the p09 table places Networking under Data Center."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "a seller; no sentence links the company's own capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only opex mention (p08, operating expenses growing in the low-40% range) is a forward-looking-statement list item that does not link opex to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.3,
+  "input_tokens": 7108,
+  "output_tokens": 1568,
+  "attempts": 1,
+  "task_sha": "fe9b6dbe5713a5b4"
+ }
+}

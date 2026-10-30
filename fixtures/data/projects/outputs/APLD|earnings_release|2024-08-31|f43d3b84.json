@@ -1,0 +1,84 @@
+{
+ "accession": "APLD|earnings_release|2024-08-31|f43d3b84",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Ellendale HPC Campus 100 MW HPC facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Ellendale, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 100,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "During the prior fiscal year, the Company broke ground on its first 100 MW HPC facility in Ellendale, North Dakota.",
+   "passage": "p06",
+   "confidence": 0.9
+  },
+  {
+   "name": "Ellendale HPC Campus two additional buildings",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Ellendale, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 300,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Beyond this, we plan to bring an additional 300 MW online through two additional buildings, which are in the design stage, ultimately increasing Ellendale's total HPC capacity to 400 MW.",
+   "passage": "p07",
+   "confidence": 0.85
+  },
+  {
+   "name": "Cloud Services Business GPU clusters",
+   "kind": "gpu_cluster",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The Company added two additional clusters to our Cloud Services Business, increasing the total to six clusters, each containing 1,024 GPUs.",
+   "passage": "p02",
+   "confidence": 0.7
+  },
+  {
+   "name": "Jamestown, North Dakota 106 MW facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Jamestown, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 106,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "As of August 31, 2024, our 106 MW facility in Jamestown, North Dakota and our 180 MW facility in Ellendale, North Dakota are operating at full capacity.",
+   "passage": "p08",
+   "confidence": 0.5
+  },
+  {
+   "name": "Ellendale, North Dakota 180 MW facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Ellendale, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 180,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "As of August 31, 2024, our 106 MW facility in Jamestown, North Dakota and our 180 MW facility in Ellendale, North Dakota are operating at full capacity.",
+   "passage": "p08",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.9,
+  "input_tokens": 6294,
+  "output_tokens": 1805,
+  "attempts": 1,
+  "task_sha": "0c75a7d47989fca1"
+ }
+}

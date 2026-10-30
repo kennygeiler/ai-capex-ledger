@@ -1,7 +1,7 @@
 {
  "ticker": "MSFT",
  "prompt_version": "attribution@v2",
- "model": "hyperscaler@v4",
+ "model": "hyperscaler@v5",
  "rows": [
   {
    "field": "capex",
@@ -20,8 +20,8 @@
      "value": 132836000000
     }
    ],
-   "basis": "Growth in gross 'Servers, network equipment, and software' (215,874m \u2212 132,836m at June 30 2026 vs 2025). This counts all server growth, not only AI, and is gross of disposals. It excludes finance-leased assets (liability 66.6bn), leases not yet commenced (329.1bn, primarily datacenters) and purchase commitments (194.1bn), all of which are outside cash capex.",
-   "confidence": 0.6
+   "basis": "Growth in gross 'Servers, network equipment, and software': 215,874m \u2212 132,836m = 83,038m, against 115,948m of cash additions to PP&E. This counts all server, network and software growth, not only AI, and includes finance-leased assets placed in service. It excludes buildings and land. Forward signals not in the amount: finance lease liabilities of 66,594m (46,172m a year earlier), purchase commitments of 194,060m, leases not yet commenced of $329.1bn 'primarily for datacenters', and commercial RPO of $678bn.",
+   "confidence": 0.55
   },
   {
    "field": "capex",
@@ -29,7 +29,7 @@
    "kind": "actual",
    "method": "ppe_category",
    "ai_amount": 39056000000,
-   "ai_share": 0.6051,
+   "ai_share": 0.605,
    "inputs": [
     {
      "id": "fact:MSFT|ppe_category|Computer equipment and software|FY2025",
@@ -40,8 +40,8 @@
      "value": 93780000000
     }
    ],
-   "basis": "Growth in gross 'Computer equipment and software' (132,836m \u2212 93,780m), the same category later renamed 'Servers, network equipment, and software' (both show 132,836m at June 30 2025). This counts all server and software growth, not only AI.",
-   "confidence": 0.55
+   "basis": "Growth in gross 'Computer equipment and software': 132,836m \u2212 93,780m = 39,056m, against 64,551m of capex. This is the same category later renamed 'Servers, network equipment, and software', with the same FY2025 balance under both names. It counts all server growth, not only AI.",
+   "confidence": 0.5
   },
   {
    "field": "capex",
@@ -60,7 +60,7 @@
      "value": 74961000000
     }
    ],
-   "basis": "Growth in gross 'Computer equipment and software' (93,780m \u2212 74,961m), the predecessor name of the server category. This counts all server growth. The FY2023 MD&A tied the capex increase to cloud and AI infrastructure only in words.",
+   "basis": "Growth in gross 'Computer equipment and software' (the server category before its rename): 93,780m \u2212 74,961m = 18,819m, against 44,477m of capex. This counts all server growth, not only AI.",
    "confidence": 0.45
   },
   {
@@ -80,7 +80,7 @@
      "value": 60631000000
     }
    ],
-   "basis": "Growth in gross 'Computer equipment and software' (74,961m \u2212 60,631m). This was largely general cloud server growth at the start of the AI buildout, so it is an upper bound on AI.",
+   "basis": "Growth in gross 'Computer equipment and software': 74,961m \u2212 60,631m = 14,330m, against 28,107m of capex. This counts all server growth. The year is largely before the AI buildout, so most of it is general cloud.",
    "confidence": 0.3
   },
   {
@@ -100,118 +100,52 @@
      "value": 51250000000
     }
    ],
-   "basis": "Growth in gross 'Computer equipment and software' (60,631m \u2212 51,250m). This predates the AI buildout and no statement links it to AI; it is mostly general cloud servers and only a ceiling.",
+   "basis": "Growth in gross 'Computer equipment and software': 60,631m \u2212 51,250m = 9,381m, against 23,886m of capex. This counts all server growth in a year before the AI buildout, so it is mostly general cloud.",
+   "confidence": 0.25
+  },
+  {
+   "field": "capex",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "FY2026 MD&A: 'We will continue to invest in capital expenditures to support growth in our cloud offerings and our investments in AI training and other infrastructure.' This covers total capex, with no amount and no AI share.",
+   "confidence": 0.2
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2026 MD&A attributes increases to AI in words only. Cost of revenue rose 17.7bn (44%) 'driven by investments in AI infrastructure to support growing customer demand'. R&D rose 3.1bn, driven by compute capacity and AI talent but also XBOX impairment. These are total increases with mixed drivers; no AI amount is given.",
+   "confidence": 0.25
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2025 MD&A says segment operating expenses rose 1.1bn, 1.5bn and 3.8bn, and R&D rose 3.0bn, 'driven by investments in cloud and AI engineering' (some also by Gaming and Activision). These are total increases with mixed drivers, not AI amounts.",
+   "confidence": 0.2
+  },
+  {
+   "field": "opex",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "FY2026 MD&A: 'The investments we are making in cloud and AI infrastructure and devices will continue to increase our operating costs and may decrease our operating margins.' The statement gives no amount.",
    "confidence": 0.15
-  },
-  {
-   "field": "capex",
-   "period": "FY2027",
-   "kind": "outlook",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "FY2026 10-K MD&A: 'We will continue to invest in capital expenditures to support growth in our cloud offerings and our investments in AI training and other infrastructure.' This is total capex with no amount or AI share.",
-   "confidence": 0.3
-  },
-  {
-   "field": "capex",
-   "period": "FY2026",
-   "kind": "outlook",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "FY2025 10-K MD&A says it will continue to invest in capex for cloud and 'AI infrastructure and training'. A Q2 FY2025 release cites 'continued investments in our cloud and AI infrastructure'. Neither gives an amount.",
-   "confidence": 0.3
-  },
-  {
-   "field": "capex",
-   "period": "FY2025",
-   "kind": "outlook",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "FY2024 10-K MD&A: capex is expected 'to increase in coming years to support growth in our cloud offerings and our investments in AI infrastructure and training'. This is total scope with no amount.",
-   "confidence": 0.3
-  },
-  {
-   "field": "capex",
-   "period": "FY2024",
-   "kind": "outlook",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "FY2023 10-K MD&A: capex is expected 'to increase in coming years to support growth in our cloud offerings and our investments in AI infrastructure'. This is total scope with no amount.",
-   "confidence": 0.25
-  },
-  {
-   "field": "opex",
-   "period": "FY2026",
-   "kind": "actual",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "FY2026 MD&A attributes segment opex increases (e.g. +$4.9bn, +$2.5bn, +$1.4bn) and R&D (+$3.1bn) to 'research and development compute capacity, AI talent, and data' alongside Xbox impairment, sales and Copilot advertising. No AI amount is separated, and the cost-of-revenue increases attributed to AI infrastructure are not opex.",
-   "confidence": 0.3
-  },
-  {
-   "field": "opex",
-   "period": "FY2025",
-   "kind": "actual",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "FY2025 MD&A attributes opex increases ($1.1bn, $1.5bn, $3.8bn) and R&D (+$3.0bn) to 'investments in cloud and AI engineering', in some cases together with sales and Gaming/Activision. These are total increases with mixed drivers, not AI amounts.",
-   "confidence": 0.25
-  },
-  {
-   "field": "opex",
-   "period": "FY2027",
-   "kind": "outlook",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "FY2026 MD&A: investments 'in cloud and AI infrastructure and devices will continue to increase our operating costs'. No amount.",
-   "confidence": 0.2
-  },
-  {
-   "field": "opex",
-   "period": "FY2026",
-   "kind": "outlook",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "FY2025 MD&A: investments 'in cloud and AI infrastructure and devices will continue to increase our operating costs'. No amount.",
-   "confidence": 0.2
-  },
-  {
-   "field": "opex",
-   "period": "FY2025",
-   "kind": "outlook",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "FY2024 MD&A: same sentence about cloud and AI infrastructure increasing operating costs. No amount.",
-   "confidence": 0.2
-  },
-  {
-   "field": "opex",
-   "period": "FY2024",
-   "kind": "outlook",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "FY2023 MD&A: investments 'in cloud and AI infrastructure and devices will continue to increase our operating costs'. No amount.",
-   "confidence": 0.2
   },
   {
    "field": "revenue",
@@ -226,8 +160,8 @@
      "value": 37000000000
     }
    ],
-   "basis": "The Q3 FY2026 release states an AI business 'annual revenue run rate of $37 billion, up 123%'. This is a run rate at the quarter, not fiscal-year revenue, and Q4 gave none. Intelligent Cloud (137.8bn) is not AI and is not used. Commercial RPO was $678bn, a demand signal only.",
-   "confidence": 0.5
+   "basis": "Q3 FY2026 release: AI business 'surpassed an annual revenue run rate of $37 billion, up 123%'. This is a run rate at April 2026, not FY2026 recognized revenue, and the Q4 release gave none. Intelligent Cloud (137,791m) is not the AI line and is excluded.",
+   "confidence": 0.45
   },
   {
    "field": "revenue",
@@ -242,53 +176,57 @@
      "value": 13000000000
     }
    ],
-   "basis": "The Q2 FY2025 release (quarter to Dec 31 2024) states the AI business 'surpassed an annual revenue run rate of $13 billion, up 175%'. This is a mid-year run rate, not FY2025 revenue, and likely understates the year-end level.",
+   "basis": "Q2 FY2025 release: AI business 'surpassed an annual revenue run rate of $13 billion, up 175%'. This is a mid-year run rate, not FY2025 recognized revenue, so it likely understates the full year.",
    "confidence": 0.4
   }
  ],
  "none_found": [
   {
    "field": "capex",
+   "reason": "No stated AI share or amount of capex in any year (FY2026 10-K and the July 29 2026 release checked). Every capex statement is total-capex 'to support' cloud and AI."
+  },
+  {
+   "field": "capex",
    "period": "FY2026",
-   "reason": "No committed row: purchase commitments (194.1bn) and finance lease liabilities (66.6bn) are not separated into AI in the note, and the 329.1bn of leases not yet commenced is neither capex nor a liability. The company gave no stated AI share or amount of capex."
+   "reason": "No committed row. Finance lease liabilities (66,594m), purchase commitments (194,060m) and leases not yet commenced ($329.1bn, 'primarily for datacenters') are not separated as AI in the notes, so they are recorded in basis only."
   },
   {
    "field": "opex",
    "period": "FY2022",
-   "reason": "no statement attributes opex to AI and no segment cost line exists"
+   "reason": "The pack has no statement linking opex to AI for this year."
   },
   {
    "field": "opex",
    "period": "FY2023",
-   "reason": "no statement attributes FY2023 actual opex to AI; only an FY2024 outlook sentence"
+   "reason": "The pack has no statement linking opex to AI for this year."
   },
   {
    "field": "opex",
    "period": "FY2024",
-   "reason": "no statement attributes FY2024 actual opex to AI in the pack"
+   "reason": "The pack has no statement linking opex to AI for this year."
   },
   {
    "field": "revenue",
    "period": "FY2022",
-   "reason": "no AI revenue statement, and no AI segment exists (Intelligent Cloud is not AI)"
+   "reason": "No AI revenue figure was stated, and Intelligent Cloud is not an AI segment."
   },
   {
    "field": "revenue",
    "period": "FY2023",
-   "reason": "no AI revenue statement, and no AI segment exists"
+   "reason": "No AI revenue figure was stated, and Intelligent Cloud is not an AI segment."
   },
   {
    "field": "revenue",
    "period": "FY2024",
-   "reason": "no AI revenue statement in the pack for FY2024, and no AI segment exists"
+   "reason": "No AI revenue figure was stated, and Intelligent Cloud is not an AI segment."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 41.9,
-  "input_tokens": 19365,
-  "output_tokens": 5635,
+  "seconds": 36.9,
+  "input_tokens": 19567,
+  "output_tokens": 4745,
   "attempts": 1,
-  "task_sha": "f6eda725513ca106"
+  "task_sha": "301eeeeb9b346c07"
  }
 }

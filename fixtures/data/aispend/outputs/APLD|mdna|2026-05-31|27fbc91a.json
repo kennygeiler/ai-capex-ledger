@@ -1,0 +1,44 @@
+{
+ "accession": "APLD|mdna|2026-05-31|27fbc91a",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 385300000,
+   "amount_high": 385300000,
+   "quote": "We began to generate revenue from this business segment in fiscal year 2026, recognizing $385.3 million in revenue during the fiscal year ended May 31, 2026, with $270.6 million related to services revenue and $114.7 million related to data center rental and other revenue.",
+   "passage": "p05",
+   "confidence": 0.8,
+   "notes": "'This business segment' is the HPC Hosting Business (AI/HPC data-center hosting for hyperscalers); the segment is HPC broadly rather than strictly AI, and the segment name is not stated within the sentence itself. Component figures ($270.6M fit-out services in p09, $114.7M rental in p10) are subsets of this amount and are not recorded separately to avoid double counting. The legacy Data Center Hosting Business (blockchain) is excluded."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We believe that the significant investments in property and equipment will remain throughout fiscal year 2027 as we continue construction of our HPC hosting facilities.",
+   "passage": "p16",
+   "confidence": 0.7,
+   "notes": "Links property and equipment investment to construction of HPC hosting facilities, which are built for AI workloads. The sentence says HPC, not AI explicitly, and gives no amount."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "the only opex statement (p16) attributes rising G&A and operating expenditures to the general expansion of operations, not to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.8,
+  "input_tokens": 8925,
+  "output_tokens": 1454,
+  "attempts": 1,
+  "task_sha": "48947acfed23c0fb"
+ }
+}

@@ -1,0 +1,70 @@
+{
+ "accession": "APLD|earnings_release|2022-05-31|f3979360",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Jamestown, North Dakota Next-Gen co-hosting facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Jamestown, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 100,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-01",
+   "quote": "As previously reported, Applied Blockchain\u2019s first 100MW Next-Gen co-hosting facility in Jamestown, North Dakota began energizing in late January 2022, and had over 90MW online as of June 2022.",
+   "passage": "p04",
+   "confidence": 0.9
+  },
+  {
+   "name": "Garden City, Texas data center",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Garden City, Texas",
+   "counterparty": null,
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022",
+   "quote": "The facility, co-located with a wind farm, is in Garden City, Texas with planned capacity of 200MW.",
+   "passage": "p05",
+   "confidence": 0.85
+  },
+  {
+   "name": "Third co-hosting datacenter in North Dakota",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "North Dakota",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The Company is in the design and pre-construction phase of a third co-hosting datacenter in North Dakota; once operational, it is expected to bring Applied Blockchain\u2019s total hosting capacity to 500MW.",
+   "passage": "p01",
+   "confidence": 0.8
+  },
+  {
+   "name": "Marathon 200MW hosting agreement",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Marathon",
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": "2022-07-18",
+   "in_service": null,
+   "quote": "Our new 200MW hosting agreement with Marathon, announced separately today, not only reinforces the high level of demand for hosting, but the structure of the agreement allows us to accelerate our buildout without equity dilution.",
+   "passage": "p02",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.2,
+  "input_tokens": 5054,
+  "output_tokens": 1444,
+  "attempts": 1,
+  "task_sha": "099ef0acefb5d2b9"
+ }
+}

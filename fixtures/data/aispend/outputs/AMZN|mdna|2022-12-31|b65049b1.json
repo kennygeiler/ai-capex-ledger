@@ -1,0 +1,27 @@
+{
+ "accession": "AMZN|mdna|2022-12-31|b65049b1",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "cash capital expenditures ($58.3 billion in 2022) are attributed to technology infrastructure, mainly for AWS business growth, and to fulfillment capacity; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "technology and content cost increases are attributed to payroll and technology infrastructure; AI and machine learning appear only in a general statement about technology advances and in a description of AWS's services (boilerplate), and neither quantifies nor attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; AWS is a cloud segment, not AI revenue, and no sentence states AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 6776,
+  "output_tokens": 536,
+  "attempts": 1,
+  "task_sha": "f1bbdc9142efbb37"
+ }
+}

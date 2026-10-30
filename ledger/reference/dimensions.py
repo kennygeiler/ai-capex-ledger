@@ -3,6 +3,7 @@
 companyfacts carries company totals only. Segment capex, segment revenue and PP&E by category are tagged in the
 instance with one dimension member each (StatementBusinessSegmentsAxis, ProductOrServiceAxis,
 PropertyPlantAndEquipmentByTypeAxis), so the instance is read directly. Balances come from instant contexts."""
+import json
 import xml.etree.ElementTree as ET
 
 from ..ingest.edgar import RAW, _cached
@@ -26,6 +27,9 @@ CONCEPTS = {
 def instance_facts(cik: int, accession: str) -> dict:
     """{(concept, member or '', end date): value} for USD facts with at most one dimension; a duration fact only when
     it spans a fiscal year (350–380 days). Empty when the filing has no instance XML."""
+    distilled = RAW / f"{cik:010d}" / "filings" / f"{accession}.facts.json"  # the facts this function returns, kept so the XML is read once; the golden fixtures carry only this
+    if distilled.exists():
+        return {tuple(k.split("\t")): v for k, v in json.loads(distilled.read_text()).items()}
     url = _instance_name(cik, accession)
     if not url:
         return {}
@@ -58,4 +62,6 @@ def instance_facts(cik: int, accession: str) -> dict:
             continue
         member, end = contexts[el.get("contextRef")]
         out.setdefault((el.tag.split("}", 1)[1], member, end), val)
+    distilled.parent.mkdir(parents=True, exist_ok=True)
+    distilled.write_text(json.dumps({"\t".join(k): v for k, v in out.items()}))
     return out

@@ -1,0 +1,42 @@
+{
+ "accession": "GOOGL|mdna|2023-12-31|cd642f05",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect to increase, relative to 2023, our investment in our technical infrastructure, including servers, network equipment, and data centers, to support the growth of our business and our long-term initiatives, in particular in support of AI products and services.",
+   "passage": "p10",
+   "confidence": 0.9,
+   "notes": "Same sentence appears in p01. No year is named for the outlook; 'relative to 2023' is the comparison base, so fiscal_year is null and code will apply the year after the reported year. Total technical-infrastructure investment, with AI named as a driver; no AI amount is stated. The actual 2023 capex of $32.3 billion (p10) is not recorded because that sentence does not link it to AI."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We continue to make significant research and development investments in areas of strategic focus as we seek to develop new, innovative offerings, improve our existing offerings, and rapidly and responsibly deploy AI across our businesses.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Present-tense R&D statement that names AI deployment as one aim among several. No AI amount or share is given. Confidence is lowered because AI is one of several listed purposes, not clearly the driver."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue (Google Cloud operating income is a cloud segment, not AI revenue)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.2,
+  "input_tokens": 6866,
+  "output_tokens": 1020,
+  "attempts": 1,
+  "task_sha": "f10bd080b8486535"
+ }
+}

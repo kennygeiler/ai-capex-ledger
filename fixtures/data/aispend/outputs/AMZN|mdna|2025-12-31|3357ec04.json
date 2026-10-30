@@ -1,0 +1,46 @@
+{
+ "accession": "AMZN|mdna|2025-12-31|3357ec04",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect spending in technology and infrastructure to increase over time as we continue to add infrastructure and employees, including to support our artificial intelligence and machine learning initiatives.",
+   "passage": "p04",
+   "confidence": 0.85,
+   "notes": "Technology and infrastructure is an operating expense line; AI/ML initiatives cited as one reason for expected increase, no amount or share stated. No year named."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect spending in technology and infrastructure will increase over time, which can negatively impact short-term free cash flow, as we add infrastructure and employees, including to support our artificial intelligence and machine learning initiatives, to support long-term growth.",
+   "passage": "p02",
+   "confidence": 0.75,
+   "notes": "Near-duplicate of the p04 statement; 'spending in technology and infrastructure' may span both opex and capital spending, recorded as opex (the technology and infrastructure expense line). No year named."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures ($128.3 billion in 2025) are attributed to technology infrastructure and AWS business growth, but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI part of revenue; AWS is a cloud segment, not AI revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.6,
+  "input_tokens": 6614,
+  "output_tokens": 1173,
+  "attempts": 1,
+  "task_sha": "0b489d312aa7deb8"
+ }
+}

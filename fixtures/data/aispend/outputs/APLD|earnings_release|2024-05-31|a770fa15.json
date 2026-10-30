@@ -1,0 +1,50 @@
+{
+ "accession": "APLD|earnings_release|2024-05-31|a770fa15",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 29000000,
+   "amount_high": 29000000,
+   "quote": "The Company recognized $29.0 million in revenues from the Cloud business during fiscal year 2024.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "The sentence names the Cloud business, not AI. The same passage says the Cloud Services division provides high-performance computing for AI and machine learning applications, so the amount is recorded as AI revenue with reduced confidence."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 165600000,
+   "amount_high": 165600000,
+   "quote": "Revenue increased $110.2 million , or 199% , from $55.4 million for the fiscal year ended May 31, 2023 to $165.6 million for the fiscal year ended May 31, 2024 driven by increased capacity across the Company\u2019s three Data Center Hosting facilities between the periods as well as the Company recognizing revenue under its Cloud Services segment due to the launch of the service during the current fiscal year.",
+   "passage": "p03",
+   "confidence": 0.5,
+   "notes": "This is total revenue, not the AI part. The drivers named are Data Center Hosting, which is largely crypto-mining hosting and not stated as AI, and the Cloud Services launch, which is AI compute per p02. The sentence does not mention AI directly."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "No sentence states capital expenditures or links them to AI. The 100 MW HPC facility under construction is mentioned, but no spend figure or attribution is given."
+  },
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies operating expenses or attributes them to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.0,
+  "input_tokens": 5359,
+  "output_tokens": 1296,
+  "attempts": 1,
+  "task_sha": "201e73a189e7875d"
+ }
+}

@@ -1,0 +1,901 @@
+                                                                    Exhibit 99.1
+Alphabet Announces Fourth Quarter and Fiscal Year 2021 Results
+MOUNTAIN VIEW, Calif. – February 1, 2022 – Alphabet Inc. (NASDAQ: GOOG, GOOGL)
+today announced financial results for the quarter and fiscal year ended December
+31, 2021.
+
+Sundar Pichai, CEO of Alphabet and Google, said: “Our deep investment in AI
+technologies continues to drive extraordinary and helpful experiences for people
+and businesses, across our most important products. Q4 saw ongoing strong growth
+in our advertising business, which helped millions of businesses thrive and find
+new customers, a quarterly sales record for our Pixel phones despite supply
+constraints, and our Cloud business continuing to grow strongly.”
+
+Ruth Porat, CFO of Alphabet and Google, said: “Our fourth quarter revenues of
+$75 billion, up 32% year over year, reflected broad-based strength in advertiser
+spend and strong consumer online activity, as well as substantial ongoing
+revenue growth from Google Cloud. Our investments have helped us drive this
+growth by delivering the services that people, our partners and businesses need,
+and we continue to invest in long-term opportunities.”
+                                                                                
+   Q4 2021 financial highlights                                                 
+                                                                                
+The following table summarizes our consolidated financial results for the
+quarters and years ended December 31, 2020 and 2021 (in millions, except for per
+share information and percentages).
+                                                                                
+                 Quar…                               Year                       
+                 Ended                              Ended                       
+                 Dece…                              Dece…                       
+          2020     31,       2021             2020    31,       2021            
+ ────────────────────────────────────────────────────────────────────────────── 
+          -una…                                                 -un…            
+  Rev…    $      56,8…       $     75,…       $     182,…       $     257,…     
+  Inc…                                                                          
+  in                                                                            
+  rev…              23  %            32  %             13  %             41  %  
+  year                                                                          
+  over                                                                          
+  year                                                                          
+  Ope…    $      15,6…       $     21,…       $     41,2…       $     78,7…     
+  inc…                                                                          
+  Ope…              28  %            29  %             23  %             31  %  
+  mar…                                                                          
+  Oth…                                                                          
+  inc…    $      3,038       $     2,5…       $     6,858       $     12,0…     
+  (ex…                                                                          
+  net                                                                           
+  Net     $      15,2…       $     20,…       $     40,2…       $     76,0…     
+  inc…                                                                          
+  Dil…    $      22.30       $     30.…       $     58.61       $     112.…     
+  EPS                                                                           
+                                                                                
+                                                                                
+  Q4 2021 supplemental information                                              
+                                                                                
+(in millions, except for number of employees; unaudited)
+Revenues, Traffic Acquisition Costs (TAC) and number of employees
+                                                                           
+                            Quarter Ended December                         
+                            31,                        2020          2021  
+ ───────────────────────────────────────────────────────────────────────── 
+  Google Search & other     $                        31,903    $   43,301  
+  YouTube ads                                         6,885         8,633  
+  Google Network                                      7,411         9,305  
+  Google advertising                                 46,199        61,239  
+  Google other                                        6,674         8,161  
+  Google Services total                              52,873        69,400  
+  Google Cloud                                        3,831         5,541  
+  Other Bets                                            196           181  
+  Hedging gains (losses)                                 -2           203  
+  Total revenues            $                        56,898    $   75,325  
+  Total TAC                 $                        10,466    $   13,427  
+  Number of employees                               135,301       156,500  
+                                                                           
+                                                                                
+   Segment Operating Results                                                    
+                                                                                
+                                                                               
+                                  Quarter Ended December                       
+                                  31,                       2020         2021  
+ ───────────────────────────────────────────────────────────────────────────── 
+  Operating income (loss):                                                     
+  Google Services                 $                       19,066    $  25,993  
+  Google Cloud                                            -1,243         -890  
+  Other Bets                                              -1,136       -1,450  
+  Corporate costs, unallocated                            -1,036       -1,768  
+  Total income from operations    $                       15,651    $  21,885  
+                                                                               
+Change in the useful lives of our server and network equipment (unaudited)
+In January 2021, we completed an assessment of the useful lives of our servers
+and network equipment and adjusted the estimated useful life of our servers from
+three years to four years and the estimated useful life of certain network
+equipment from three years to five years. This change in accounting estimate was
+effective beginning in fiscal year 2021, and the effect for the three and twelve
+months ended December 31, 2021, respectively, was a reduction in depreciation
+expense of $446 million and $2.6 billion and an increase in net income of $347
+million and $2.0 billion, or $0.52 and $3.02 per basic share and $0.52 and $2.98
+per diluted share.
+
+Stock Split Effected in Form of Stock Dividend (“Stock Split”)
+
+Alphabet today announced that the Board of Directors had approved and declared a
+20-for-one stock split (the “Stock Split”) in the form of a one-time special
+stock dividend on each share of the Company’s Class A, Class B, and Class C
+stock. The Stock Split is subject to stockholder approval of an amendment to the
+Company’s Amended and Restated Certificate of Incorporation to increase the
+number of authorized shares of Class A, Class B, and Class C stock to
+accommodate the Stock Split.
+
+If approval is obtained, each of the Company’s stockholders of record at the
+close of business on July 1, 2022 (the “Record Date”), will receive, after the
+close of business on July 15, 2022, a dividend of 19 additional shares of the
+same class of stock for every share held by such stockholder as of the Record
+Date.
+                                                                                
+  Webcast and conference call information                                       
+                                                                                
+A live audio webcast of our fourth quarter 2021 earnings release call will be
+available on YouTube at https://youtu.be/ItLfgdDN5oE. The call begins today at
+2:00 PM (PT) / 5:00 PM (ET). This press release, including the reconciliations
+of certain non-GAAP measures to their nearest comparable GAAP measures, is also
+available at http://abc.xyz/investor.
+                                       2                                        
+We also provide announcements regarding our financial performance, including SEC
+filings, investor events, press and earnings releases, and blogs, on our
+investor relations website (http://abc.xyz/investor).
+
+We also share Google news and product updates on Google’s Keyword blog at
+https://www.blog.google/, which may be of interest or material to our investors.
+                                                                                
+  Forward-looking statements                                                    
+                                                                                
+This press release may contain forward-looking statements that involve risks and
+uncertainties. Actual results may differ materially from the results predicted,
+and reported results should not be considered as an indication of future
+performance. The potential risks and uncertainties that could cause actual
+results to differ from the results predicted include, among others, those risks
+and uncertainties included under the captions “Risk Factors” and “Management’s
+Discussion and Analysis of Financial Condition and Results of Operations” in our
+Annual Report on Form 10-K for the year ended December 31, 2020 and our most
+recent Quarterly Report on Form 10-Q for the quarter ended September 30, 2021,
+which are on file with the SEC and are available on our investor relations
+website at http://abc.xyz/investor and on the SEC website at www.sec.gov.
+Additional information will also be set forth in our Annual Report on Form 10-K
+for the year ended December 31, 2021. All information provided in this release
+and in the attachments is as of February 1, 2022. Undue reliance should not be
+placed on the forward-looking statements in this press release, which are based
+on information available to us on the date hereof. We undertake no duty to
+update this information unless required by law.
+                                                                                
+   About non-GAAP financial measures                                            
+                                                                                
+To supplement our consolidated financial statements, which are prepared and
+presented in accordance with GAAP, we use the following non-GAAP financial
+measures: free cash flow; constant currency revenues; and percentage change in
+constant currency revenues. The presentation of this financial information is
+not intended to be considered in isolation or as a substitute for, or superior
+to, the financial information prepared and presented in accordance with GAAP.
+
+We use these non-GAAP financial measures for financial and operational decision-
+making and as a means to evaluate period-to-period comparisons. We believe that
+these non-GAAP financial measures provide meaningful supplemental information
+regarding our performance and liquidity by excluding certain items that may not
+be indicative of our recurring core business operating results, such as our
+revenues excluding the effect of foreign exchange rate movements and hedging
+activities. We believe that both management and investors benefit from referring
+to these non-GAAP financial measures in assessing our performance and when
+planning, forecasting, and analyzing future periods. These non-GAAP financial
+measures also facilitate management’s internal comparisons to our historical
+performance and liquidity as well as comparisons to our competitors’ operating
+results. We believe these non-GAAP financial measures are useful to investors
+both because (1) they allow for greater transparency with respect to key metrics
+used by management in its financial and operational decision-making and (2) they
+are used by our institutional investors and the analyst community to help them
+analyze the health of our business.
+
+There are a number of limitations related to the use of non-GAAP financial
+measures. We compensate for these limitations by providing specific information
+regarding the GAAP amounts excluded from these non-GAAP financial measures and
+evaluating these non-GAAP financial measures together with their relevant
+financial measures in accordance with GAAP.
+
+For more information on these non-GAAP financial measures, please see the tables
+captioned “Reconciliation from net cash provided by operating activities to free
+cash flow” and “Reconciliation from GAAP revenues to non-GAAP constant currency
+revenues” included at the end of this release.
+                                                                                
+  Contact                                                                       
+                                                                                
+                                               
+  Investor relations            Media          
+  investor-relations@abc.xyz    press@abc.xyz  
+                                               
+                                       3                                        
+                                                                                
+                                 Alphabet Inc.                                  
+                                                                                
+                                                                                
+                          CONSOLIDATED BALANCE SHEETS                           
+                                                                                
+  (In millions, except share amounts which are reflected in thousands and par   
+                            value per share amounts)                            
+                                                                                
+                                                    As of December              
+                      As of December                31,                         
+  Assets              31,                           2021                        
+  Current assets:     2020                          (unaudited)                 
+ ────────────────────────────────────────────────────────────────────────────── 
+  Cash and cash       $                   26,465    $                   20,945  
+  equivalents                                                                   
+  Marketable                             110,229                       118,704  
+  securities                                                                    
+  Total cash, cash                                                              
+  equivalents, and                       136,694                       139,649  
+  marketable                                                                    
+  securities                                                                    
+  Accounts                                30,930                        39,304  
+  receivable, net                                                               
+  Income taxes                               454                           966  
+  receivable, net                                                               
+  Inventory                                  728                         1,170  
+  Other current                            5,490                         7,054  
+  assets                                                                        
+  Total current                          174,296                       188,143  
+  assets                                                                        
+  Non-marketable                          20,703                        29,549  
+  securities                                                                    
+  Deferred income                          1,084                         1,284  
+  taxes                                                                         
+  Property and                            84,749                        97,599  
+  equipment, net                                                                
+  Operating lease                         12,211                        12,959  
+  assets                                                                        
+  Intangible                               1,445                         1,417  
+  assets, net                                                                   
+  Goodwill                                21,175                        22,956  
+  Other                                                                         
+  non-current                              3,953                         5,361  
+  assets                                                                        
+  Total assets        $                  319,616    $                  359,268  
+  Liabilities and                                                               
+  Stockholders’                                                                 
+  Equity                                                                        
+  Current                                                                       
+  liabilities:                                                                  
+  Accounts payable    $                    5,589    $                    6,037  
+  Accrued                                                                       
+  compensation and                        11,086                        13,889  
+  benefits                                                                      
+  Accrued expenses                                                              
+  and other                               28,631                        31,236  
+  current                                                                       
+  liabilities                                                                   
+  Accrued revenue                          7,500                         8,996  
+  share                                                                         
+  Deferred revenue                         2,543                         3,288  
+  Income taxes                             1,485                           808  
+  payable, net                                                                  
+  Total current                           56,834                        64,254  
+  liabilities                                                                   
+  Long-term debt                          13,932                        14,817  
+  Deferred                                                                      
+  revenue,                                   481                           535  
+  non-current                                                                   
+  Income taxes                                                                  
+  payable,                                 8,849                         9,176  
+  non-current                                                                   
+  Deferred income                          3,561                         5,257  
+  taxes                                                                         
+  Operating lease                         11,146                        11,389  
+  liabilities                                                                   
+  Other long-term                          2,269                         2,205  
+  liabilities                                                                   
+  Total                                   97,072                       107,633  
+  liabilities                                                                   
+  Contingencies                                                                 
+  Stockholders’                                                                 
+  equity:                                                                       
+  Preferred stock,                                                              
+  $0.001 par value                                                              
+  per                                                                           
+  share, 100,000                               0                             0  
+  shares                                                                        
+  authorized; no                                                                
+  shares issued                                                                 
+  and outstanding                                                               
+  Class A and                                                                   
+  Class B common                                                                
+  stock, and                                                                    
+  Class C capital                                                               
+  stock and                                                                     
+  additional                                                                    
+  paid-in capital,                                                              
+  $0.001 par value                                                              
+  per                                                                           
+  share:                                                                        
+  15,000,000                                                                    
+  shares                                                                        
+  authorized                                                                    
+  (Class A                                                                      
+  9,000,000, Class                        58,510                        61,774  
+  B 3,000,000,                                                                  
+  Class C                                                                       
+  3,000,000);                                                                   
+  675,222 (Class A                                                              
+  300,730,                                                                      
+  Class B 45,843,                                                               
+  Class C 328,649)                                                              
+  and                                                                           
+  662,121 (Class A                                                              
+  300,737, Class B                                                              
+  44,665, Class C                                                               
+  316,719) shares                                                               
+  issued                                                                        
+  and outstanding                                                               
+  Accumulated                                                                   
+  other                                                                         
+  comprehensive                              633                        -1,623  
+  income                                                                        
+  (loss)                                                                        
+  Retained                               163,401                       191,484  
+  earnings                                                                      
+  Total                                                                         
+  stockholders’                          222,544                       251,635  
+  equity                                                                        
+  Total                                                                         
+  liabilities and     $                  319,616    $                  359,268  
+  stockholders’                                                                 
+  equity                                                                        
+                                                                                
+                                       4                                        
+                                                                                
+                                 Alphabet Inc.                                  
+                                                                                
+                                                                                
+                       CONSOLIDATED STATEMENTS OF INCOME                        
+                                                                                
+  (In millions, except share amounts which are reflected in thousands and per   
+                                 share amounts)                                 
+                                                                                
+                    Quart…                             Year                     
+                     Ended                            Ended                     
+                    Decem…                           Decem…                     
+           2020        31,    2021             2020     31,    2021             
+ ────────────────────────────────────────────────────────────────────────────── 
+           -unaud…                                             -unaud…          
+  Reve…    $        56,898    $      75,325    $     182,5…    $        257,6…  
+  Costs                                                                         
+  and                                                                           
+  expe…                                                                         
+  Cost                                                                          
+  of                26,080           32,988          84,732             110,9…  
+  reve…                                                                         
+  Rese…                                                                         
+  and                7,022            8,708          27,573             31,562  
+  deve…                                                                         
+  Sales                                                                         
+  and                5,314            7,604          17,946             22,912  
+  mark…                                                                         
+  Gene…                                                                         
+  and                2,831            4,140          11,052             13,510  
+  admi…                                                                         
+  Total                                                                         
+  costs             41,247           53,440          141,3…             178,9…  
+  and                                                                           
+  expe…                                                                         
+  Inco…                                                                         
+  from              15,651           21,885          41,224             78,714  
+  oper…                                                                         
+  Other                                                                         
+  inco…              3,038            2,517           6,858             12,020  
+  (exp…                                                                         
+  net                                                                           
+  Inco…                                                                         
+  befo…             18,689           24,402          48,082             90,734  
+  inco…                                                                         
+  taxes                                                                         
+  Prov…                                                                         
+  for                3,462            3,760           7,813             14,701  
+  inco…                                                                         
+  taxes                                                                         
+  Net      $        15,227    $      20,642    $     40,269    $        76,033  
+  inco…                                                                         
+  Basic                                                                         
+  earn…                                                                         
+  per                                                                           
+  share                                                                         
+  of                                                                            
+  Class                                                                         
+  A and                                                                         
+  B        $         22.54    $       31.15    $      59.15    $        113.88  
+  comm…                                                                         
+  stock                                                                         
+  and                                                                           
+  Class                                                                         
+  C                                                                             
+  capi…                                                                         
+  stock                                                                         
+  Dilu…                                                                         
+  earn…                                                                         
+  per                                                                           
+  share                                                                         
+  of                                                                            
+  Class                                                                         
+  A                                                                             
+  and B    $         22.30    $       30.69    $      58.61    $        112.20  
+  comm…                                                                         
+  stock                                                                         
+  and                                                                           
+  Class                                                                         
+  C                                                                             
+  capi…                                                                         
+  stock                                                                         
+  Numb…                                                                         
+  of                                                                            
+  shar…                                                                         
+  used                                                                          
+  in                675,5…          662,663          680,8…             667,6…  
+  basic                                                                         
+  earn…                                                                         
+  per                                                                           
+  share                                                                         
+  calc…                                                                         
+  Numb…                                                                         
+  of                                                                            
+  shar…                                                                         
+  used                                                                          
+  in                682,9…          672,493          687,0…             677,6…  
+  dilu…                                                                         
+  earn…                                                                         
+  per                                                                           
+  share                                                                         
+  calc…                                                                         
+                                                                                
+                                       5                                        
+                                                                                
+                                 Alphabet Inc.                                  
+                                                                                
+                                                                                
+                     CONSOLIDATED STATEMENTS OF CASH FLOWS                      
+                                                                                
+                                 (In millions)                                  
+                                                                                
+                    Quart…                             Year                     
+                     Ended                            Ended                     
+                    Decem…                           Decem…                     
+           2020        31,    2021             2020     31,    2021             
+ ────────────────────────────────────────────────────────────────────────────── 
+           -unaud…                                             -unaud…          
+  Oper…                                                                         
+  acti…                                                                         
+  Net      $        15,227    $      20,642    $     40,269    $        76,033  
+  inco…                                                                         
+  Adju…                                                                         
+  Depr…                                                                         
+  and                                                                           
+  impa…                                                                         
+  of                 3,539            3,215          12,905             11,555  
+  prop…                                                                         
+  and                                                                           
+  equi…                                                                         
+  Amor…                                                                         
+  and                                                                           
+  impa…                186              224             792                886  
+  of                                                                            
+  inta…                                                                         
+  asse…                                                                         
+  Stoc…                                                                         
+  comp…              3,223            3,954          12,991             15,376  
+  expe…                                                                         
+  Defe…                                                                         
+  inco…              1,670            1,616           1,390              1,808  
+  taxes                                                                         
+  Gain                                                                          
+  on                                                                            
+  debt                                                                          
+  and               -3,262           -2,478          -6,317             -12,2…  
+  equi…                                                                         
+  secu…                                                                         
+  net                                                                           
+  Other                392              -14           1,267               -213  
+  Chan…                                                                         
+  in                                                                            
+  asse…                                                                         
+  and                                                                           
+  liab…                                                                         
+  net                                                                           
+  of                                                                            
+  effe…                                                                         
+  of                                                                            
+  acqu…                                                                         
+                                                                                
+  Acco…             -5,445           -5,819          -6,524             -9,095  
+  rece…                                                                         
+  Inco…                                                                         
+  taxe…                740           -3,369           1,209               -625  
+  net                                                                           
+  Other               -738             -399          -1,330             -1,846  
+  asse…                                                                         
+  Acco…                963            1,157             694                283  
+  paya…                                                                         
+  Accr…                                                                         
+  expe…                                                                         
+  and                4,613            4,541           5,504              7,304  
+  other                                                                         
+  liab…                                                                         
+  Accr…                                                                         
+  reve…              1,362            1,296           1,639              1,682  
+  share                                                                         
+  Defe…                207              368             635                774  
+  reve…                                                                         
+  Net                                                                           
+  cash                                                                          
+  prov…             22,677           24,934          65,124             91,652  
+  by                                                                            
+  oper…                                                                         
+  acti…                                                                         
+  Inve…                                                                         
+  acti…                                                                         
+  Purc…                                                                         
+  of                                                                            
+  prop…             -5,479           -6,383          -22,2…             -24,6…  
+  and                                                                           
+  equi…                                                                         
+  Purc…                                                                         
+  of                -31,6…          -40,090          -136,…             -135,…  
+  mark…                                                                         
+  secu…                                                                         
+  Matu…                                                                         
+  and                                                                           
+  sales             35,155           36,168          132,9…             128,2…  
+  of                                                                            
+  mark…                                                                         
+  secu…                                                                         
+  Purc…                                                                         
+  of                -5,311             -770          -7,175             -2,838  
+  non-…                                                                         
+  secu…                                                                         
+  Matu…                                                                         
+  and                                                                           
+  sales                425              344           1,023                934  
+  of                                                                            
+  non-…                                                                         
+  secu…                                                                         
+  Acqu…                                                                         
+  net                                                                           
+  of                                                                            
+  cash                                                                          
+  acqu…               -370             -385            -738             -2,618  
+  and                                                                           
+  purc…                                                                         
+  of                                                                            
+  inta…                                                                         
+  asse…                                                                         
+  Other                                                                         
+  inve…                -57              100              68                541  
+  acti…                                                                         
+  Net                                                                           
+  cash                                                                          
+  used              -7,281          -11,016          -32,7…             -35,5…  
+  in                                                                            
+  inve…                                                                         
+  acti…                                                                         
+  Fina…                                                                         
+  acti…                                                                         
+  Net                                                                           
+  paym…                                                                         
+  rela…                                                                         
+  to                -1,647           -2,923          -5,720             -10,1…  
+  stoc…                                                                         
+  award                                                                         
+  acti…                                                                         
+  Repu…                                                                         
+  of                                                                            
+  comm…             -7,904          -13,473          -31,1…             -50,2…  
+  and                                                                           
+  capi…                                                                         
+  stock                                                                         
+  Proc…                                                                         
+  from                                                                          
+  issu…                                                                         
+  of                     0            6,250          11,761             20,199  
+  debt,                                                                         
+  net                                                                           
+  of                                                                            
+  costs                                                                         
+  Repa…                                                                         
+  of                   -57           -6,365          -2,100             -21,4…  
+  debt                                                                          
+  Proc…                                                                         
+  from                                                                          
+  sale                                                                          
+  of                                                                            
+  inte…                338                0           2,800                310  
+  in                                                                            
+  cons…                                                                         
+  enti…                                                                         
+  net                                                                           
+  Net                                                                           
+  cash                                                                          
+  used              -9,270          -16,511          -24,4…             -61,3…  
+  in                                                                            
+  fina…                                                                         
+  acti…                                                                         
+  Effe…                                                                         
+  of                                                                            
+  exch…                                                                         
+  rate                                                                          
+  chan…                210             -181              24               -287  
+  on                                                                            
+  cash                                                                          
+  and                                                                           
+  cash                                                                          
+  equi…                                                                         
+  Net                                                                           
+  incr…                                                                         
+  (dec…                                                                         
+  in                 6,336           -2,774           7,967             -5,520  
+  cash                                                                          
+  and                                                                           
+  cash                                                                          
+  equi…                                                                         
+  Cash                                                                          
+  and                                                                           
+  cash                                                                          
+  equi…             20,129           23,719          18,498             26,465  
+  at                                                                            
+  begi…                                                                         
+  of                                                                            
+  peri…                                                                         
+  Cash                                                                          
+  and                                                                           
+  cash                                                                          
+  equi…    $        26,465    $      20,945    $     26,465    $        20,945  
+  at                                                                            
+  end                                                                           
+  of                                                                            
+  peri…                                                                         
+                                                                                
+                                       6                                        
+Reconciliation from net cash provided by operating activities to free cash flow
+(in millions; unaudited) :
+
+We provide free cash flow because it is a liquidity measure that provides useful
+information to management and investors about the amount of cash generated by
+the business that can be used for strategic opportunities, including investing
+in our business and acquisitions, and to strengthen our balance sheet.
+                                                                              
+                                     Quarter Ended December 31, 2021          
+ ──────────────────────────────────────────────────────────────────────────── 
+  Net cash provided by operating     $                                24,934  
+  activities                                                                  
+  Less: purchases of property and                                     -6,383  
+  equipment                                                                   
+  Free cash flow                     $                                18,551  
+                                                                              
+Free cash flow: We define free cash flow as net cash provided by operating
+activities less capital expenditures.
+
+Reconciliation from GAAP revenues to non-GAAP constant currency revenues (in
+millions, except percentages; unaudited) :
+
+We provide non-GAAP constant currency revenues and the non-GAAP percentage
+change in constant currency revenues because they facilitate the comparison of
+current results to historic performance by excluding the effect of foreign
+exchange rate movements and hedging activities, which are not indicative of our
+core operating results.
+                                                                                
+  Comparison to the Quarter Ended December 31, 2020                             
+                                                                                
+                                                                                
+                                                                   % Change     
+                Quarter         December          December       from Prior     
+                Ended           31, 2020          31, 2021             Year     
+ ────────────────────────────────────────────────────────────────────────────── 
+  EMEA          $                 17,238    $       23,153               34  %  
+  revenues                                                                      
+  EMEA                                                                          
+  constant                                          23,211               35  %  
+  currency                                                                      
+  revenues                                                                      
+  APAC                             9,909            12,732               28  %  
+  revenues                                                                      
+  APAC                                                                          
+  constant                                          12,996               31  %  
+  currency                                                                      
+  revenues                                                                      
+  Other                                                                         
+  Americas                         3,050             4,447               46  %  
+  revenues                                                                      
+  Other                                                                         
+  Americas                                                                      
+  constant                                           4,398               44  %  
+  currency                                                                      
+  revenues                                                                      
+  United                                                                        
+  States                          26,703            34,790               30  %  
+  revenues                                                                      
+  Hedging                                                                       
+  gains                               -2               203                      
+  (losses)                                                                      
+  Total         $                 56,898    $       75,325               32  %  
+  revenues                                                                      
+  Revenues,                                                                     
+  excluding     $                 56,900    $       75,122                      
+  hedging                                                                       
+  effect                                                                        
+  Exchange                                                                      
+  rate                                                 273                      
+  effect                                                                        
+  Total                                                                         
+  constant                                  $       75,395               33  %  
+  currency                                                                      
+  revenues                                                                      
+                                                                                
+                                       7                                        
+Comparison to the Quarter Ended September 30, 2021
+                                                                                
+                                                                   % Change     
+                                                                       from     
+                Quarter        September          December            Prior     
+                Ended           30, 2021          31, 2021          Quarter     
+ ────────────────────────────────────────────────────────────────────────────── 
+  EMEA          $                 19,839    $       23,153               17  %  
+  revenues                                                                      
+  EMEA                                                                          
+  constant                                          23,662               19  %  
+  currency                                                                      
+  revenues                                                                      
+  APAC                            11,705            12,732                9  %  
+  revenues                                                                      
+  APAC                                                                          
+  constant                                          12,872               10  %  
+  currency                                                                      
+  revenues                                                                      
+  Other                                                                         
+  Americas                         3,688             4,447               21  %  
+  revenues                                                                      
+  Other                                                                         
+  Americas                                                                      
+  constant                                           4,560               24  %  
+  currency                                                                      
+  revenues                                                                      
+  United                                                                        
+  States                          29,824            34,790               17  %  
+  revenues                                                                      
+  Hedging                                                                       
+  gains                               62               203                      
+  (losses)                                                                      
+  Total         $                 65,118    $       75,325               16  %  
+  revenues                                                                      
+  Revenues,                                                                     
+  excluding     $                 65,056    $       75,122                      
+  hedging                                                                       
+  effect                                                                        
+  Exchange                                                                      
+  rate                                                 762                      
+  effect                                                                        
+  Total                                                                         
+  constant                                  $       75,884               17  %  
+  currency                                                                      
+  revenues                                                                      
+                                                                                
+                                                                                
+  Comparison to the Year Ended December 31, 2020                                
+                                                                                
+                                                                                
+                                                                   % Change     
+                               December          December        from Prior     
+                Year Ended     31, 2020          31, 2021              Year     
+ ────────────────────────────────────────────────────────────────────────────── 
+  EMEA          $                55,370    $       79,107                43  %  
+  revenues                                                                      
+  EMEA                                                                          
+  constant                                         76,321                38  %  
+  currency                                                                      
+  revenues                                                                      
+  APAC                           32,550            46,123                42  %  
+  revenues                                                                      
+  APAC                                                                          
+  constant                                         45,666                40  %  
+  currency                                                                      
+  revenues                                                                      
+  Other                                                                         
+  Americas                        9,417            14,404                53  %  
+  revenues                                                                      
+  Other                                                                         
+  Americas                                                                      
+  constant                                         14,317                52  %  
+  currency                                                                      
+  revenues                                                                      
+  United                                                                        
+  States                         85,014           117,854                39  %  
+  revenues                                                                      
+  Hedging                                                                       
+  gains                             176               149                       
+  (losses)                                                                      
+  Total         $               182,527    $      257,637                41  %  
+  revenues                                                                      
+  Revenues,                                                                     
+  excluding     $               182,351    $      257,488                       
+  hedging                                                                       
+  effect                                                                        
+  Exchange                                                                      
+  rate                                             -3,330                       
+  effect                                                                        
+  Total                                                                         
+  constant                                 $      254,158                39  %  
+  currency                                                                      
+  revenues                                                                      
+                                                                                
+Non-GAAP constant currency revenues and percentage change : We define non-GAAP
+constant currency revenues as total revenues excluding the effect of foreign
+exchange rate movements and hedging activities, and we use it to determine the
+constant currency revenue percentage change on year-on-year and quarter-on-
+quarter basis. Non-GAAP constant currency revenues are calculated by translating
+current quarter revenues using prior period exchange rates and excluding any
+hedging effect recognized in the current quarter. Constant currency revenue
+percentage change is calculated by determining the increase in current quarter
+non-GAAP constant currency revenues over prior period revenues, excluding any
+hedging effect recognized in the prior period.
+                                       8                                        
+                                                                                
+  Other income (expense), net                                                   
+                                                                                
+The following table presents our other income (expense), net (in millions;
+unaudited):
+                                                                                
+                                              Quarter Ended                     
+                                              December 31,    2020        2021  
+ ────────────────────────────────────────────────────────────────────────────── 
+  Interest income                             $                386    $    378  
+  Interest expense                                             -53        -117  
+  Foreign currency exchange gain (loss),                       -87        -163  
+  net                                                                           
+  Gain (loss) on debt securities, net                          210        -172  
+  Gain (loss) on equity securities, net(1)                   3,052       2,650  
+  Performance fees                                            -405        -228  
+  Income (loss) and impairment from equity                     355          49  
+  method investments, net                                                       
+  Other                                                       -420         120  
+  Other income (expense), net                 $              3,038    $  2,517  
+                                                                                
+(1) Includes all gains and losses, unrealized and realized, on equity
+investments. For Q4 2021, the net effect of the gain on equity securities of
+$2,650 million and the performance fees of $228 million increased the provision
+for income tax, net income, and diluted EPS by $509 million, $1,913 million, and
+$2.84, respectively. Fluctuations in the value of our investments may be
+affected by market dynamics and other factors and could significantly contribute
+to the volatility of OI&E in future periods.
+                                                                                
+   Segment results                                                              
+                                                                                
+The following table presents our revenues and operating income (loss) (in
+millions; unaudited):
+                                                                                
+                                Quarter Ended December                          
+                                                   31,    2020            2021  
+ ────────────────────────────────────────────────────────────────────────────── 
+  Revenues:                                                                     
+  Google Services                                    $  52,873       $  69,400  
+  Google Cloud                                           3,831           5,541  
+  Other Bets                                               196             181  
+  Hedging gains (losses)                                    -2             203  
+  Total revenues                                     $  56,898       $  75,325  
+                                Quarter Ended December                          
+                                                   31,                          
+                                                  2020            2021          
+  Operating income                                                              
+  (loss):                                                                       
+  Google Services                                    $  19,066       $  25,993  
+  Google Cloud                                          -1,243            -890  
+  Other Bets                                            -1,136          -1,450  
+  Corporate costs,                                      -1,036          -1,768  
+  unallocated                                                                   
+  Total income from                                  $  15,651       $  21,885  
+  operations                                                                    
+                                                                                
+We report our segment results as Google Services, Google Cloud, and Other Bets:
+
+• Google Services includes products and services such as ads, Android, Chrome,
+hardware, Google Maps, Google Play, Search, and YouTube. Google Services
+generates revenues primarily from advertising; sales of apps and in-app
+purchases, digital content products, and hardware; and fees received for
+subscription-based products such as YouTube Premium and YouTube TV.
+
+• Google Cloud includes Google’s infrastructure and platform services,
+collaboration tools, and other services for enterprise customers. Google Cloud
+generates revenues from fees received for Google Cloud Platform services, Google
+Workspace collaboration tools and other enterprise services.
+
+• Other Bets is a combination of multiple operating segments that are not
+individually material. Revenues from Other Bets are generated primarily from the
+sale of health technology and internet services.
+                                       9                                        
+Unallocated corporate costs primarily include corporate initiatives, corporate
+shared costs, such as finance and legal, including certain fines and
+settlements, as well as costs associated with certain shared R&D activities.
+Additionally, hedging gains (losses) related to revenue are included in
+corporate costs.
+                                       10                                       

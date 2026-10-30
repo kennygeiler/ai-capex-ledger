@@ -1,0 +1,84 @@
+{
+ "accession": "APLD|mdna|2024-05-31|ca2881d7",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Jamestown, North Dakota facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Jamestown, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 106,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our 106 MW facility in Jamestown, North Dakota operated at full capacity during the fiscal year ended May 31, 2024; however, our 180 MW facility in Ellendale, North Dakota experienced a power outage starting in January 2024.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Ellendale, North Dakota facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Ellendale, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 180,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our 106 MW facility in Jamestown, North Dakota operated at full capacity during the fiscal year ended May 31, 2024; however, our 180 MW facility in Ellendale, North Dakota experienced a power outage starting in January 2024.",
+   "passage": "p01",
+   "confidence": 0.8
+  },
+  {
+   "name": "Garden City, Texas facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Garden City, Texas",
+   "counterparty": null,
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Additionally, during fiscal year 2024, we increased our energy capacity at our 200 MW Garden City, Texas facility up to 132 MW.",
+   "passage": "p01",
+   "confidence": 0.55
+  },
+  {
+   "name": "Ellendale HPC data center facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Ellendale, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 100,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "During the fiscal second quarter 2024, we broke ground on our first 100 MW HPC data center facility in Ellendale, North Dakota.",
+   "passage": "p04",
+   "confidence": 0.9
+  },
+  {
+   "name": "Ellendale, North Dakota 400 MW hyperscaler capacity lease",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Ellendale, North Dakota",
+   "counterparty": "US-based hyperscaler",
+   "capacity_mw": 400,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The Company has entered into exclusivity and executed a letter of intent with a US-based hyperscaler for a 400 MW capacity lease, inclusive of our current 100 MW facility under construction and two forthcoming buildings in Ellendale, North Dakota.",
+   "passage": "p05",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.0,
+  "input_tokens": 10101,
+  "output_tokens": 1738,
+  "attempts": 1,
+  "task_sha": "585f137391c69c4f"
+ }
+}

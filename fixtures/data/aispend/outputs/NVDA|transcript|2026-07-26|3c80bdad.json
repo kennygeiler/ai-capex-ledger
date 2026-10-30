@@ -1,0 +1,57 @@
+{
+ "accession": "NVDA|transcript|2026-07-26|3c80bdad",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 89000000000,
+   "amount_high": 89000000000,
+   "quote": "Q2 data center revenue increased 18% quarter-over-quarter to $89 billion with strong contributions from both subsegments; hyperscale and ACIE, which includes our neocloud, industrial, and enterprise customers.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "Quarterly figure (Q2 fiscal 2027), not full-year data center revenue. The hyperscale ($49B, p02) and ACIE ($40B, p04) subsegment figures are parts of this total and are not recorded separately, to avoid double counting."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 5000000000,
+   "amount_high": 5000000000,
+   "quote": "Our Grace CPU, introduced in 2021, has been a great success, with revenue on a trailing 12-month basis, exceeding $5 billion.",
+   "passage": "p06",
+   "confidence": 0.6,
+   "notes": "'Exceeding $5 billion' is a lower bound, recorded as 5B. The period is a trailing 12 months, not a named fiscal year. This is data-center CPU revenue and is likely already included in data center revenue."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "For the full year, we now expect OpEx to grow in the low-50s, driven by a broadening of our product portfolio and further increase in the usage of AI tools, which has already and will continue to enhance engineering productivity.",
+   "passage": "p18",
+   "confidence": 0.75,
+   "notes": "Total opex growth (low-50s %), partly driven by the usage of AI tools. The AI part is not quantified. 'The full year' refers to the current fiscal year, fiscal 2027, as the sentence states it."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states NVIDIA's own capital expenditures; the capex figures in p02 ($800B in 2026, $1.3T in 2027) are hyperscaler customers' capex, not NVIDIA's"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.9,
+  "input_tokens": 9134,
+  "output_tokens": 2445,
+  "attempts": 1,
+  "task_sha": "574bc8b5f411ef74"
+ }
+}

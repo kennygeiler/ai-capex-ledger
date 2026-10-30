@@ -1,0 +1,35 @@
+{
+ "accession": "GOOGL|mdna|2022-12-31|23cf8ca4",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We also expect to continue to invest in our technical infrastructure, including servers, network equipment, and data centers, to support the growth of our business and our long-term initiatives, in particular in support of AI.",
+   "passage": "p01",
+   "confidence": 0.85,
+   "notes": "AI is named as one driver of overall technical infrastructure investment, not as a separate AI part. No year is named, so code applies the outlook default (fiscal 2023). The p04 capex figures ($31.5B in 2022) are not tied to AI in their sentence, so they are not recorded. The p03 definition of technical infrastructure 'including AI' is a category description and was skipped."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "the R&D investment sentence in p01 does not mention AI, and no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "Alphabet is a buyer here; no sentence states AI's or data-center's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.8,
+  "input_tokens": 5788,
+  "output_tokens": 686,
+  "attempts": 1,
+  "task_sha": "a3aef165b8c21bd8"
+ }
+}

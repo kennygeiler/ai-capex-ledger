@@ -1,0 +1,48 @@
+{
+ "accession": "AMZN|earnings_release|2025-12-31|25d5f63b",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This increase primarily reflects investments in artificial intelligence.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Refers to the $50.7 billion year-over-year increase in purchases of property and equipment for the trailing twelve months, stated in the preceding sentence. That figure is a change in total capex and not an AI amount, so it is not recorded as one. No year is named in the sentence, so code applies the filing year (2025)."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 200000000000,
+   "amount_high": 200000000000,
+   "quote": "With such strong demand for our existing offerings and seminal opportunities like AI, chips, robotics, and low earth orbit satellites, we expect to invest about $200 billion in capital expenditures across Amazon in 2026, and anticipate strong long-term return on invested capital.",
+   "passage": "p02",
+   "confidence": 0.95,
+   "notes": "This is total company capex guidance. AI is one of several named drivers. The figure is 'about' $200 billion."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of fiscal-year revenue. Three related figures do not qualify: the Amazon Connect $1 billion annualized run rate is one product's run rate, not fiscal revenue or AI's share of revenue; Rufus's ~$12 billion is incremental annualized sales attributed to an assistant, not AI revenue; and the chips business growth is given only as a percentage, with no amount."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.8,
+  "input_tokens": 5411,
+  "output_tokens": 1418,
+  "attempts": 1,
+  "task_sha": "ab474fbbc0f8b1ac"
+ }
+}
