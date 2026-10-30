@@ -14,7 +14,7 @@ import json
 from datetime import date
 
 from .config import MVP_YEARS, RELEASE_FIELDS
-from .definitions import revenue_gap_explained
+from .definitions import revenue_gap_explained, opex_gap_explained
 from .ingest.edgar import fetch_json
 from .ingest.filings import fetch_tickers
 from .reference.normalize import fiscal_label
@@ -81,6 +81,9 @@ def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str |
             if label == "unresolved" and f == "opex" and "parts" in latest["cost_of_revenue"] and all(
                     _agrees(latest[p], reference.get((p, period))) for p in ("revenue", "operating_income")):
                 label = "definition_gap"  # the gap can only be which lines count as cost of revenue; a person confirms those once per company
+            if label == "unresolved" and f == "opex" and opex_gap_explained(defs or {}, ticker) and all(
+                    _agrees(latest[p], reference.get((p, period))) for p in ("revenue", "operating_income")):
+                label = "definition_gap"  # the SEC's opex tag is wider than ours (it includes cost of sales); the definition says so
             if label == "unresolved" and f == "revenue" and revenue_gap_explained(defs or {}, ticker):
                 label = "definition_gap"  # the SEC's tag measures something wider than the sales line; the definition says so
             basis = "restated" if _restated(val(first), v, max(e["scale"] for e in used)) else "as_reported"

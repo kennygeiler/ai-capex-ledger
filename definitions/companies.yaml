@@ -49,3 +49,24 @@ CDNS:
     why: Cadence reports no cost-of-revenue total; these are its two cost lines above gross margin.
     by: Kenny Geiler
     at: 2026-10-30
+
+DLR:
+  cost_lines:
+    lines: [Rental property operating and maintenance, Property taxes and insurance]
+    why: Digital Realty reports no cost-of-revenue total; property operating costs and property taxes are its costs of delivering rental revenue.
+    by: Kenny Geiler
+    at: 2026-10-30
+
+GEV:
+  cost_lines:
+    lines: [Cost of equipment, Cost of services]
+    why: GE Vernova reports cost of equipment and cost of services with no total line.
+    by: Kenny Geiler
+    at: 2026-10-30
+
+IRM:
+  opex:
+    why: Iron Mountain's XBRL OperatingExpenses tag is total operating costs including cost of sales and depreciation; our opex is revenue minus cost of sales minus operating income, so the two differ by cost of sales every year while revenue and operating income agree.
+    by: Kenny Geiler
+    at: 2026-10-30
+

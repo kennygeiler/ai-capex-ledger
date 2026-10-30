@@ -80,7 +80,7 @@ def locate(tables: list[dict]) -> dict:
         cands += [(_score(tables[i:i + 2], markers), _caption(tables[i:i + 2], kind) - 1, -i, [tables[i]["id"], tables[i + 1]["id"]], _quarterly(tables[i:i + 2]) or _mdna(tables[i:i + 2]) or _summary(tables[i:i + 2]))
                   for i in range(len(tables) - 1)
                   if _score(tables[i:i + 2], markers) > max(_score([tables[i]], markers), _score([tables[i + 1]], markers))]
-        if kind == "income" and not any(c[0] >= need for c in cands):  # some issuers (miners, early-stage) have no EPS-style markers: accept 3
+        if kind == "income" and not any(c[0] >= need and not c[4] for c in cands):  # some issuers (miners, early-stage) have no EPS-style markers: accept 3; a quarterly or summary table never raises the bar (JCI, type 54)
             need = 3
         ok = [c for c in cands if c[0] >= need]
         best = max(ok, key=lambda c: (not c[4], c[0], c[1], c[2]), default=None)

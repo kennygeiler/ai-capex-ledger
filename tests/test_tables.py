@@ -158,3 +158,17 @@ class PercentColumnsNeverWin(unittest.TestCase):
         self.assertEqual(len(tables), 2)
         self.assertEqual(locate(tables)["income"], [tables[1]["id"]])
         self.assertEqual(tables[1]["scale"], 1_000)
+
+
+class QuarterlyNeverRaisesTheBar(unittest.TestCase):
+    def test_quarterly_table_with_more_markers_loses_to_the_statement(self):
+        html_ = """<html><body><p>Quarterly financial information (unaudited)</p>
+        <table><tr><td></td><td>FirstQuarter</td><td>SecondQuarter</td><td>FullYear</td></tr><tr><td>Net sales</td><td>5,209</td><td>5,597</td><td>22,952</td></tr>
+        <tr><td>Operating income</td><td>400</td><td>500</td><td>2,000</td></tr><tr><td>Income tax provision</td><td>50</td><td>60</td><td>240</td></tr>
+        <tr><td>Net income</td><td>300</td><td>400</td><td>1,600</td></tr><tr><td>Diluted earnings per share</td><td>0.45</td><td>0.60</td><td>2.40</td></tr></table>
+        <p>Consolidated Statements of Income (in millions)</p>
+        <table><tr><td></td><td>2024</td><td>2023</td></tr><tr><td>Net sales</td><td>22,952</td><td>22,331</td></tr><tr><td>Cost of sales</td><td>15,000</td><td>14,800</td></tr>
+        <tr><td>Operating income</td><td>2,000</td><td>1,900</td></tr><tr><td>Net income</td><td>1,600</td><td>1,500</td></tr></table></body></html>"""
+        tables = parse_tables(html_)
+        self.assertEqual(len(tables), 2)
+        self.assertEqual(locate(tables)["income"], [tables[1]["id"]])

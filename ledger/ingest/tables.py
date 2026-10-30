@@ -15,7 +15,7 @@ import html
 import re
 from html.parser import HTMLParser
 
-PARSER_VERSION = "tables@10"  # 9: highlights tables never win the locator; 10: "($000)" is thousands; percent-of-revenue tables never win
+PARSER_VERSION = "tables@11"  # 10: "($000)" is thousands; percent-of-revenue tables never win; 11: a quarterly table never raises the marker bar
 _NUM = re.compile(r"^\(?-?\$?\s*\(?([0-9][0-9,]*(?:\.[0-9]+)?)\s*\)?%?$")
 _DASHES = {"—", "–", "-", "— ", "−"}
 _CCY = r"(?:USD\s+|US\$\s*|U\.S\.\s+dollars\s+|dollars\s+)?"

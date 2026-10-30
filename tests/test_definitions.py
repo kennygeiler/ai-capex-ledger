@@ -43,3 +43,11 @@ class Definitions(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class OpexDefinition(unittest.TestCase):
+    def test_loads_and_explains(self):
+        from ledger.definitions import load, opex_gap_explained
+        defs = load()
+        self.assertTrue(opex_gap_explained(defs, "IRM"))
+        self.assertFalse(opex_gap_explained(defs, "MSFT"))

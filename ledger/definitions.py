@@ -13,11 +13,13 @@ FILE = ROOT / "definitions" / "companies.yaml"
 
 
 def load(path: Path = FILE) -> dict:
-    """{ticker: {revenue: {...}, cost_lines: {...}}}, validated: every entry names who decided and why."""
+    """{ticker: {revenue: {...}, cost_lines: {...}, opex: {...}}}, validated: every entry names who decided and why.
+    opex: the SEC's OperatingExpenses tag measures something wider than revenue minus cost of revenue minus operating
+    income (Iron Mountain's includes cost of sales); the definition says so, and the gap is a definition, not a misread."""
     defs = yaml.safe_load(path.read_text()) if path.exists() else {}
     for t, d in (defs or {}).items():
         for k, e in d.items():
-            if k not in ("revenue", "cost_lines") or not e.get("by") or not e.get("why"):
+            if k not in ("revenue", "cost_lines", "opex") or not e.get("by") or not e.get("why"):
                 raise ValueError(f"definitions: {t}.{k} needs by and why")
             if k == "cost_lines" and not e.get("lines"):
                 raise ValueError(f"definitions: {t}.cost_lines needs lines")
@@ -26,6 +28,10 @@ def load(path: Path = FILE) -> dict:
 
 def revenue_gap_explained(defs: dict, ticker: str) -> bool:
     return "revenue" in defs.get(ticker, {})
+
+
+def opex_gap_explained(defs: dict, ticker: str) -> bool:
+    return "opex" in defs.get(ticker, {})
 
 
 def cost_lines(defs: dict, ticker: str) -> set[str] | None:
