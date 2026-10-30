@@ -1,0 +1,224 @@
+{
+ "ticker": "MOD",
+ "prompt_version": "attribution@v2",
+ "model": "datacenter_build@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 1112100000,
+   "ai_share": 0.3496,
+   "inputs": [
+    {
+     "id": "fact:MOD|segment_revenue|Data Centers|FY2026",
+     "value": 1112100000
+    }
+   ],
+   "basis": "Revenue of the Data Centers line, 1,112.1M of 3,181.1M net sales; HVAC Technologies, Heat Transfer Solutions and Performance Technologies are excluded. Data center, not AI; it is reported as a product group inside Climate Solutions in the FY2026 release and becomes a separate segment in FY2027.",
+   "confidence": 0.55
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 644200000,
+   "ai_share": 0.2494,
+   "inputs": [
+    {
+     "id": "fact:MOD|segment_revenue|Data Centers|FY2025",
+     "value": 644200000
+    }
+   ],
+   "basis": "Revenue of the Data Centers line, 644.2M of 2,583.5M. This matches the release's 'Data center revenue increased 119% to $644 million', which includes 197M from the Scott Springfield acquisition. Data center, not AI.",
+   "confidence": 0.55
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 294200000,
+   "ai_share": 0.1222,
+   "inputs": [
+    {
+     "id": "fact:MOD|segment_revenue|Data Centers|FY2024",
+     "value": 294200000
+    }
+   ],
+   "basis": "Revenue of the Data Centers line, 294.2M of 2,407.8M. The release says data center revenue grew 69%. This is a product-group disaggregation inside Climate Solutions, not a reported segment. Data center, not AI.",
+   "confidence": 0.5
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 173800000,
+   "ai_share": 0.0756,
+   "inputs": [
+    {
+     "id": "fact:MOD|segment_revenue|Data center cooling|FY2023",
+     "value": 173800000
+    }
+   ],
+   "basis": "Revenue of the Data center cooling product line, 173.8M of 2,297.9M. This is a disaggregation inside Climate Solutions, not a reported segment. Data center, not AI.",
+   "confidence": 0.45
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A says sales to data center customers increased $32 million. That is an increment, not a revenue level, and no data-center revenue line is in the pack for FY2022. Data center, not AI.",
+   "confidence": 0.25
+  },
+  {
+   "field": "revenue",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2026 release and the Q1 FY2027 release both expect Data Center sales to grow 60 to 80% in FY2027, with no dollar amount. The $4B hyperscale chiller agreement is an agreement, not revenue, and is not in the pack. Data center, not AI.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2028",
+   "kind": "outlook",
+   "method": "stated_amount",
+   "ai_amount": 2000000000,
+   "ai_share": null,
+   "inputs": [
+    {
+     "id": "stmt:MOD|earnings_release|2025-12-31|d2796c2b|revenue|FY2028|outlook|0",
+     "value": 2000000000
+    }
+   ],
+   "basis": "Company target of $2 billion of Data Center revenue by fiscal 2028, which the Q3 FY2026 release says it is 'solidly ahead of'. This is a target, not a forecast of total revenue. Data center, not AI.",
+   "confidence": 0.45
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A and the release tie higher FY2026 capex (143.3M total) to Data Centers manufacturing expansion in the U.S. and Canada, with no amount. Climate Solutions segment capex of 113.4M also includes HVAC Technologies, so it is not an AI line and is not used.",
+   "confidence": 0.35
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2024 MD&A and release plan added data center cooling capacity in the US, Canada and the UK (a new UK site was purchased), with no amount.",
+   "confidence": 0.3
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The Q2 FY2025 release says Modine continues to expand manufacturing capacity for colocation and hyperscale customers, with no amount.",
+   "confidence": 0.25
+  },
+  {
+   "field": "capex",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "stated_amount",
+   "ai_amount": 100000000,
+   "ai_share": null,
+   "inputs": [
+    {
+     "id": "stmt:MOD|earnings_release|2025-06-30|74138f15|capex|FY2027|outlook|3",
+     "value": 100000000
+    }
+   ],
+   "basis": "A $100M Data Centers capacity expansion in North America: a new Dallas facility, further expansion in Grenada MS, and two repurposed Performance Technologies sites. It is a program amount whose spend may fall across FY2026 and FY2027. Data center, not AI.",
+   "confidence": 0.45
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The releases cite SG&A growth from 'data center growth investment' and gross-margin pressure from capacity-expansion costs for data center products, with no amounts.",
+   "confidence": 0.25
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no statement ties FY2022 capex to data centers; segment capex is by Climate Solutions or legacy segments, not a data-center line"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no statement ties FY2023 capex to data centers; Climate Solutions segment capex is not a data-center line"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "no actual-year statement with an amount; the UK site purchase is stated only as a FY2025 plan without a figure"
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "no statement attributes FY2025 actual capex to data centers with an amount or in words for that year; Climate Solutions segment capex of 53.3M is not a data-center line"
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no segment cost line and no statement attributes opex to data centers"
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "no segment cost line and no statement attributes opex to data centers"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "no segment cost line and no statement attributes opex to data centers"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "no segment cost line and no statement attributes opex to data centers"
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "no committed row: the pack has no purchase commitments, and the finance lease liability (FY2023 to FY2024 only) is not tied to data centers"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 34.9,
+  "input_tokens": 25730,
+  "output_tokens": 4218,
+  "attempts": 1,
+  "task_sha": "8ed00ca215665e9f"
+ }
+}

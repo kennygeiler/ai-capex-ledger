@@ -1,0 +1,204 @@
+{
+ "accession": "0001321655-23-000011",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Government",
+   "table_id": "t0056",
+   "row_label": "Government",
+   "column_label": "Years Ended December 31, | 2022",
+   "cell_text": "1,071,776",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 1071776000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Government",
+   "table_id": "t0056",
+   "row_label": "Government",
+   "column_label": "Years Ended December 31, | 2021",
+   "cell_text": "897,356",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 897356000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Government",
+   "table_id": "t0056",
+   "row_label": "Government",
+   "column_label": "Years Ended December 31, | 2020",
+   "cell_text": "610,198",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 610198000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Commercial",
+   "table_id": "t0056",
+   "row_label": "Commercial",
+   "column_label": "Years Ended December 31, | 2022",
+   "cell_text": "834,095",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 834095000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Commercial",
+   "table_id": "t0056",
+   "row_label": "Commercial",
+   "column_label": "Years Ended December 31, | 2021",
+   "cell_text": "644,533",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 644533000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Commercial",
+   "table_id": "t0056",
+   "row_label": "Commercial",
+   "column_label": "Years Ended December 31, | 2020",
+   "cell_text": "482,475",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 482475000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0038",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of December 31, | 2022",
+   "cell_text": "80,378",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 80378000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0038",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of December 31, | 2021",
+   "cell_text": "72,834",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 72834000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment, software, and other",
+   "table_id": "t0038",
+   "row_label": "Computer equipment, software, and other",
+   "column_label": "As of December 31, | 2022",
+   "cell_text": "52,688",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 52688000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment, software, and other",
+   "table_id": "t0038",
+   "row_label": "Computer equipment, software, and other",
+   "column_label": "As of December 31, | 2021",
+   "cell_text": "16,916",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 16916000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0038",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of December 31, | 2022",
+   "cell_text": "13,010",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 13010000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0038",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of December 31, | 2021",
+   "cell_text": "8,358",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 8358000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0038",
+   "row_label": "Construction in progress",
+   "column_label": "As of December 31, | 2022",
+   "cell_text": "5,506",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 5506000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0038",
+   "row_label": "Construction in progress",
+   "column_label": "As of December 31, | 2021",
+   "cell_text": "3,126",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 3126000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0023",
+   "row_label": "Noncancelable purchase commitments(1)",
+   "column_label": "Payments Due by Period | Total",
+   "cell_text": "1,275,377",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 1275377000,
+   "confidence": 0.95
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "No segment capital expenditures are given in the provided tables; the segment table (t0056) reports revenue by Government and Commercial only."
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "No finance lease liabilities appear in the provided tables; the commitments table lists operating lease commitments only."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.6,
+  "input_tokens": 6310,
+  "output_tokens": 2046,
+  "attempts": 1,
+  "task_sha": "89ff27dbc2636b27"
+ }
+}

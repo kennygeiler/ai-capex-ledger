@@ -3,105 +3,6 @@
  "prompt_version": "statements@v2",
  "values": [
   {
-   "field": "revenue",
-   "table_id": "t0035",
-   "row_label": "Total net sales",
-   "column_label": "Year Ended December 31, | 2023",
-   "cell_text": "574,785",
-   "period_end": "2023-12-31",
-   "months": 12,
-   "value": 574785000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "revenue",
-   "table_id": "t0035",
-   "row_label": "Total net sales",
-   "column_label": "Year Ended December 31, | 2024",
-   "cell_text": "637,959",
-   "period_end": "2024-12-31",
-   "months": 12,
-   "value": 637959000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "revenue",
-   "table_id": "t0035",
-   "row_label": "Total net sales",
-   "column_label": "Year Ended December 31, | 2025",
-   "cell_text": "716,924",
-   "period_end": "2025-12-31",
-   "months": 12,
-   "value": 716924000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "cost_of_revenue",
-   "table_id": "t0035",
-   "row_label": "Cost of sales",
-   "column_label": "Year Ended December 31, | 2023",
-   "cell_text": "304,739",
-   "period_end": "2023-12-31",
-   "months": 12,
-   "value": 304739000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "cost_of_revenue",
-   "table_id": "t0035",
-   "row_label": "Cost of sales",
-   "column_label": "Year Ended December 31, | 2024",
-   "cell_text": "326,288",
-   "period_end": "2024-12-31",
-   "months": 12,
-   "value": 326288000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "cost_of_revenue",
-   "table_id": "t0035",
-   "row_label": "Cost of sales",
-   "column_label": "Year Ended December 31, | 2025",
-   "cell_text": "356,414",
-   "period_end": "2025-12-31",
-   "months": 12,
-   "value": 356414000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "operating_income",
-   "table_id": "t0035",
-   "row_label": "Operating income",
-   "column_label": "Year Ended December 31, | 2023",
-   "cell_text": "36,852",
-   "period_end": "2023-12-31",
-   "months": 12,
-   "value": 36852000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "operating_income",
-   "table_id": "t0035",
-   "row_label": "Operating income",
-   "column_label": "Year Ended December 31, | 2024",
-   "cell_text": "68,593",
-   "period_end": "2024-12-31",
-   "months": 12,
-   "value": 68593000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "operating_income",
-   "table_id": "t0035",
-   "row_label": "Operating income",
-   "column_label": "Year Ended December 31, | 2025",
-   "cell_text": "79,975",
-   "period_end": "2025-12-31",
-   "months": 12,
-   "value": 79975000000,
-   "confidence": 1.0
-  },
-  {
    "field": "capex",
    "table_id": "t0034",
    "row_label": "Purchases of property and equipment",
@@ -137,16 +38,32 @@
  ],
  "not_found": [
   {
+   "field": "revenue",
+   "reason": "The table supplied as the income statement (t0034) is actually the cash-flow statement; it has no revenue or net sales line. The income statement was not provided."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "The table supplied as the income statement (t0034) is the cash-flow statement; it has no cost of sales line. The income statement was not provided."
+  },
+  {
    "field": "cost_of_revenue_part",
-   "reason": "Not applicable: the statement has a single total 'Cost of sales' line, so cost_of_revenue is used instead."
+   "reason": "No income statement provided; t0034 is the cash-flow statement and has no cost-of-revenue component lines."
+  },
+  {
+   "field": "operating_income",
+   "reason": "The table supplied as the income statement (t0034) is the cash-flow statement; it has no operating income line. The income statement was not provided."
   }
+ ],
+ "notes": [
+  "The income-statement section duplicates table t0034, the consolidated statement of cash flows. The table-classification step probably picked the wrong table for the income statement. Re-run with the correct statement of operations table to get revenue, cost of sales, and operating income.",
+  "capex: 'Purchases of property and equipment' is shown gross. 'Proceeds from property and equipment sales and incentives' is a separate line and was not netted, per the rule against adding lines together."
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 10.4,
-  "input_tokens": 6238,
-  "output_tokens": 1377,
+  "seconds": 10.3,
+  "input_tokens": 6758,
+  "output_tokens": 784,
   "attempts": 1,
-  "task_sha": "0d4d4d9f62e6f81a"
+  "task_sha": "9477a835fde1c67f"
  }
 }

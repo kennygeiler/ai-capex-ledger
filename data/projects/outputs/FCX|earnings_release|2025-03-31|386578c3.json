@@ -1,0 +1,78 @@
+{
+ "accession": "FCX|earnings_release|2025-03-31|386578c3",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Bagdad 2X Expansion",
+   "kind": "plant",
+   "status": "announced",
+   "location": "northwest Arizona",
+   "counterparty": null,
+   "amount_low": 3500000000,
+   "amount_high": 3500000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In late 2023, FCX completed technical and economic studies, which indicate the opportunity to construct new concentrating facilities to increase copper production by 200 to 250 million pounds per year at estimated incremental project capital costs of approximately $3.5 billion.",
+   "passage": "p02",
+   "confidence": 0.6
+  },
+  {
+   "name": "Grasberg gas-fired combined cycle facility",
+   "kind": "power",
+   "status": "announced",
+   "location": "Grasberg minerals district, Indonesia",
+   "counterparty": null,
+   "amount_low": 1000000000,
+   "amount_high": 1000000000,
+   "capacity_mw": 265,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The majority of PTFI\u2019s planned investments in a new gas-fired combined cycle facility are expected to be incurred over the next three years at a cost of approximately $1 billion.",
+   "passage": "p06",
+   "confidence": 0.6
+  },
+  {
+   "name": "PTFI new smelter and precious metals refinery (downstream processing facilities)",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Indonesia",
+   "counterparty": null,
+   "amount_low": null,
+   "amount_high": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Additionally, production and delivery costs include charges for operational readiness and startup costs associated with PT Freeport Indonesia\u2019s (PTFI) new smelter and precious metals refinery (PMR) (collectively, PTFI\u2019s new downstream processing facilities) totaling $44 million in first-quarter 2025 and $15 million in first-quarter 2024.",
+   "passage": "p12",
+   "confidence": 0.45
+  },
+  {
+   "name": "Kucing Liar",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Grasberg District, Indonesia",
+   "counterparty": null,
+   "amount_low": null,
+   "amount_high": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Kucing Liar project in development - Ramp-up to commence prior to 2030 - 560 mm lbs Cu & 520 k oz Au per annum reflected in base plan",
+   "passage": "p28",
+   "confidence": 0.45
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 22.0,
+  "input_tokens": 16672,
+  "output_tokens": 2647,
+  "attempts": 1,
+  "task_sha": "100401b084fe9d21"
+ }
+}

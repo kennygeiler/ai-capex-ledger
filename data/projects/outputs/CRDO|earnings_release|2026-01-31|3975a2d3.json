@@ -1,0 +1,13 @@
+{
+ "accession": "CRDO|earnings_release|2026-01-31|3975a2d3",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 4291,
+  "output_tokens": 53,
+  "attempts": 1,
+  "task_sha": "ed7727a5189d13c3"
+ }
+}

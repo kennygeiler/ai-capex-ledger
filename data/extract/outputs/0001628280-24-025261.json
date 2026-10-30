@@ -1,0 +1,90 @@
+{
+ "accession": "0001628280-24-025261",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0042",
+   "row_label": "Total revenues",
+   "column_label": "As of December 31, 2021 | As Adjusted",
+   "cell_text": "159,163",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 159163000,
+   "confidence": 0.7,
+   "notes": "t0042 is an ASU adoption-adjustment table, not the primary income statement. The embedded caption reads 'Consolidated Statements of Comprehensive Income (Loss) Year Ended December 31, 2021', so this is a 12-month FY2021 value. The As Adjusted column was taken. As Reported shows the same 159,163. The Adoption Adjustment column is a delta and was not extracted."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0042",
+   "row_label": "Operating income (loss)",
+   "column_label": "As of December 31, 2021 | As Adjusted",
+   "cell_text": "(2,988)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": -2988000,
+   "confidence": 0.7,
+   "notes": "This value comes from the adoption-adjustment table and covers FY2021. As Adjusted was chosen because it is consistent with the as-adjusted cash-flow statement, where 2021 net loss is (29,813). As Reported was (12,665), and the Adoption Adjustment column is a delta and was not extracted."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0008",
+   "row_label": "Purchase of property and equipment",
+   "column_label": "Year Ended December 31, | 2023 | (as Adjusted)",
+   "cell_text": "(27,611)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 27611000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0008",
+   "row_label": "Purchase of property and equipment",
+   "column_label": "Year Ended December 31, | 2022 | (as Adjusted)",
+   "cell_text": "(41,108)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 41108000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0008",
+   "row_label": "Purchase of property and equipment",
+   "column_label": "Year Ended December 31, | 2021 | (as Adjusted)",
+   "cell_text": "(273,851)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 273851000,
+   "confidence": 1.0,
+   "notes": "'Advances to vendors' (435,065) is a separate line and was not added. The rules say only the property-and-equipment purchase line counts."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "reason": "The supplied income-statement table t0042 is a FY2021 adoption-adjustment reconciliation. No income statement for FY2023 or FY2022 was provided, so revenue for 2023-12-31 and 2022-12-31 could not be cited."
+  },
+  {
+   "field": "operating_income",
+   "reason": "No income statement for FY2023 or FY2022 was provided, only the FY2021 adoption-adjustment table t0042. Operating income for 2023-12-31 and 2022-12-31 could not be cited."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "Table t0042 shows only 'Total revenues' and 'Total margin (total revenues less total cost of revenues)'. It has no total cost-of-revenue line and no cost-component lines. Deriving cost as 159,163 \u2212 116,767 would be arithmetic, which the rules prohibit. No income statement was provided for FY2023 or FY2022."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "No individual cost-of-revenue lines appear in any supplied table."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.9,
+  "input_tokens": 6179,
+  "output_tokens": 1906,
+  "attempts": 1,
+  "task_sha": "45da33c5e84c17a0"
+ }
+}

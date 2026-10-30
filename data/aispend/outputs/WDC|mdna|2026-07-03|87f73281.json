@@ -1,0 +1,27 @@
+{
+ "accession": "WDC|mdna|2026-07-03|87f73281",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capex outlooks (p03: 4%-6% of net revenue over five years; p04: 2027 higher than 2026) cite heads, media and automation investments, not AI; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 only describes HDDs' role in the AI-driven data economy (boilerplate); no sentence states AI or data-center revenue as an amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 5230,
+  "output_tokens": 358,
+  "attempts": 1,
+  "task_sha": "f0383a8c6045509c"
+ }
+}

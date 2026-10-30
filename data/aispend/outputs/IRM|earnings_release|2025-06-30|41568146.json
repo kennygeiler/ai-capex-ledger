@@ -1,0 +1,57 @@
+{
+ "accession": "IRM|earnings_release|2025-06-30|41568146",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In 2025, we expect nearly 30% data center revenue growth",
+   "passage": "p11",
+   "confidence": 0.6,
+   "notes": "States a growth rate for data center revenue, not an amount or a share of total revenue, so recorded as qualitative. Iron Mountain is a colocation data center operator; the sentence does not say how much of this demand is AI. Bullet text in a slide, without terminal punctuation."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In 2026, we expect our current backlog will drive revenue growth of at least 25%, before any incremental new leasing",
+   "passage": "p11",
+   "confidence": 0.5,
+   "notes": "Growth rate for data center revenue under the DATA CENTER slide heading, not an amount or a share of total revenue. Data center demand is not explicitly tied to AI."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In 2027 and beyond, we expect our current backlog to contribute an additional $200 million of growth, before any incremental new leasing",
+   "passage": "p11",
+   "confidence": 0.5,
+   "notes": "The $200 million is incremental data center revenue growth for '2027 and beyond', not a revenue level for one year, so it is not recorded as an explicit_amount. Data center demand is not explicitly tied to AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; growth capex and data center development are described without reference to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.4,
+  "input_tokens": 18629,
+  "output_tokens": 1711,
+  "attempts": 1,
+  "task_sha": "011bf4630aaadc81"
+ }
+}

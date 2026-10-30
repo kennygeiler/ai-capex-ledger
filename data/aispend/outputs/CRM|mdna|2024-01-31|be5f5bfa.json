@@ -1,0 +1,46 @@
+{
+ "accession": "CRM|mdna|2024-01-31|be5f5bfa",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "However, at the end of fiscal 2024, we began to invest in incremental AI resources to accelerate further growth and as a result our research and development headcount increased by five percent during fiscal 2024.",
+   "passage": "p03",
+   "confidence": 0.85,
+   "notes": "R&D investment in AI resources stated in words only; the five percent is growth in R&D headcount overall, not AI's share of opex, so it is not recorded as a share."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect that research and development expenses will likely remain consistent as a percentage of revenue in the near term as we continue to invest in technology to support the development of new, and improve existing, technologies, including our AI technologies and our Data Cloud service offering, and the integration of acquired technologies combined with our anticipated revenue growth in line with these incremental expenses.",
+   "passage": "p04",
+   "confidence": 0.8,
+   "notes": "Total R&D outlook with AI technologies named as one of several areas of investment. No year is named ('near term'), so fiscal_year is null."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures or infrastructure and data center investment to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI or data-center share or amount of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.0,
+  "input_tokens": 5764,
+  "output_tokens": 842,
+  "attempts": 1,
+  "task_sha": "51e2b4bd5ac9c30f"
+ }
+}

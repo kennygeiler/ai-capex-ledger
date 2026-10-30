@@ -1,0 +1,13 @@
+{
+ "accession": "BE|earnings_release|2024-12-31|f1108176",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.0,
+  "input_tokens": 5483,
+  "output_tokens": 149,
+  "attempts": 1,
+  "task_sha": "c38c06deb7eac2f3"
+ }
+}

@@ -1,6 +1,6 @@
 {
  "accession": "TSLA|earnings_release|2023-09-30|1e631da9",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "opex",
@@ -10,28 +10,33 @@
    "class": "qualitative",
    "quote": "YoY, operating income was primarily impacted by the following items: - reduced ASP due to pricing and mix - increase in operating expenses driven by Cybertruck, AI and other R&D projects - cost of production ramp and idle cost related to factory upgrades - negative FX impact + growth in vehicle deliveries (despite the margin headwind from underutilization from new factories) + lower cost per vehicle and IRA credit benefit + gross profit growth in Energy Generation and Storage as well as Services and Other + growth in regulatory credit sales",
    "passage": "p02",
-   "confidence": 0.9,
-   "notes": "The year-over-year increase in operating expenses is attributed partly to AI, alongside Cybertruck and other R&D. No AI amount or share is stated. This is a bulleted list with no closing period, so the quote ends at the last bullet, before the 'Cash' section heading. The release covers Q3 2023, so the year falls to the reported fiscal year, 2023."
+   "confidence": 0.85,
+   "notes": "Q3-2023 YoY increase in operating expenses attributed partly to AI alongside Cybertruck and other R&D; no amount given. The bullet list has no sentence-ending period before the next section heading, so the quote stops at the end of the list."
   },
   {
    "field": "capex",
-   "fiscal_year": 2023,
+   "fiscal_year": null,
    "kind": "actual",
-   "scope": "total",
+   "scope": "ai",
    "class": "qualitative",
-   "quote": "Our main objectives remained unchanged in Q3-2023: reducing cost per vehicle, free cash flow generation while maximizing delivery volumes and continued investment in AI and other growth projects.",
+   "quote": "We have more than doubled the size of our AI training compute to accommodate for our growing dataset as well as our Optimus robot project.",
    "passage": "p01",
-   "confidence": 0.4,
-   "notes": "The sentence says 'investment in AI' without saying whether that means capital expenditures or operating expenses. It is recorded as capex because a nearby sentence in the passage, 'more than doubled the size of our AI training compute', points to infrastructure spend. That reading is an inference, so confidence is low. No amount or share is stated."
+   "confidence": 0.6,
+   "notes": "Reports expansion of AI training compute, which implies AI-related capital spending, but the sentence does not mention expenditures or state any amount. 'More than doubled' describes compute capacity, not a share of spend."
   }
  ],
- "none_found": [],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "Tesla is an automaker and a buyer of AI compute. No sentence states revenue from AI or data-center demand."
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 16.8,
-  "input_tokens": 7698,
-  "output_tokens": 1759,
+  "seconds": 14.4,
+  "input_tokens": 8003,
+  "output_tokens": 1689,
   "attempts": 1,
-  "task_sha": "a25ff2aefad5b864"
+  "task_sha": "9beb4fc39f1a2736"
  }
 }

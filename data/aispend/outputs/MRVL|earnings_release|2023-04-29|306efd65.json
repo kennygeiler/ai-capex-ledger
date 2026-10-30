@@ -1,23 +1,35 @@
 {
  "accession": "MRVL|earnings_release|2023-04-29|306efd65",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "While we are still in the early stages of our AI ramp, we are forecasting our AI revenue in fiscal 2024 to at least double from the prior year and continue to grow rapidly in the coming years.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Gives a growth multiple ('at least double' year over year), not an AI revenue amount or a share of total revenue. Recorded as qualitative; no figure derived. The nearby sentence 'AI has emerged as a key growth driver' was skipped as less specific."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "p01 reports purchases of property and equipment only as a cash-flow table figure with no sentence linking capital expenditures to AI; p02 is a product/end-market list (boilerplate)"
+   "reason": "Purchases of property and equipment ($99.8M) appear only in the cash-flow table; no sentence links capital expenditures to AI."
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; AI appears only in p02's list of customer products and applications"
+   "reason": "No sentence quantifies operating expenses, R&D or headcount, or attributes them to AI."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.6,
-  "input_tokens": 5326,
-  "output_tokens": 204,
+  "seconds": 7.9,
+  "input_tokens": 5878,
+  "output_tokens": 842,
   "attempts": 1,
-  "task_sha": "a3896448d1c06a6b"
+  "task_sha": "6f01a8cba3826e4d"
  }
 }

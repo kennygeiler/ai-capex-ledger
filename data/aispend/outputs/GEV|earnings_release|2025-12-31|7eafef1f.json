@@ -1,0 +1,27 @@
+{
+ "accession": "GEV|earnings_release|2025-12-31|7eafef1f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures ($0.7 billion in Q4 2025; $6 billion commitment 2025-2028) are tied to increasing production in Power and Electrification; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D spending ($0.4 billion in Q4 2025; $5 billion commitment 2025-2028) is described as advancing energy transition technologies; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "revenue is reported by Power, Wind and Electrification segments; no sentence states AI or data-center revenue or attributes revenue or orders to AI demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.1,
+  "input_tokens": 10533,
+  "output_tokens": 337,
+  "attempts": 1,
+  "task_sha": "a51cbe5b90075e8b"
+ }
+}

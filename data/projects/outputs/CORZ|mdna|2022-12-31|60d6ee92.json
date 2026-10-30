@@ -1,0 +1,70 @@
+{
+ "accession": "CORZ|mdna|2022-12-31|60d6ee92",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Port of Muskogee John T. Griffin Industrial Park data center",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Port of Muskogee John T. Griffin Industrial Park, Oklahoma",
+   "counterparty": "Muskogee City-County Port Authority",
+   "capacity_mw": 500,
+   "gpus": null,
+   "announced": "2022-02",
+   "in_service": null,
+   "quote": "In February 2022, the Muskogee City-County Port Authority (Oklahoma) announced an agreement with us to develop a 500MW data center at the Port of Muskogee John T. Griffin Industrial Park which remains substantially undeveloped.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "North Dakota facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "North Dakota",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In April 2022, we borrowed an additional $0.7 million from Bremer to finance the construction of our North Dakota facility.",
+   "passage": "p26",
+   "confidence": 0.5
+  },
+  {
+   "name": "Cedarvale, Texas facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Cedarvale, Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Based on this evaluation, we determined that the carrying value of the fleet of deployed mining equipment and of the other non-mining equipment property, plant and equipment at Cedarvale and Cottonwood, Texas facility sites may no longer be fully recoverable by the cash flows of the site.",
+   "passage": "p17",
+   "confidence": 0.45
+  },
+  {
+   "name": "Cottonwood, Texas facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Cottonwood, Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Based on this evaluation, we determined that the carrying value of the fleet of deployed mining equipment and of the other non-mining equipment property, plant and equipment at Cedarvale and Cottonwood, Texas facility sites may no longer be fully recoverable by the cash flows of the site.",
+   "passage": "p17",
+   "confidence": 0.45
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.3,
+  "input_tokens": 13462,
+  "output_tokens": 1471,
+  "attempts": 1,
+  "task_sha": "9795ef959d71c227"
+ }
+}

@@ -1,6 +1,6 @@
 {
  "accession": "GOOGL|earnings_release|2022-06-30|e159b570",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "2ae29712bed0e953"
+  "task_sha": "daa3bd7a90a939a0"
  }
 }

@@ -1,23 +1,37 @@
 {
  "accession": "INTC|earnings_release|2025-09-27|109b98ad",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 4100000000,
+   "amount_high": 4100000000,
+   "quote": "Data Center and AI (DCAI) $4.1 billion down 1%",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Q3 2025 quarterly segment revenue only, not full-year. The quote is a table row, not a full sentence. The DCAI segment includes data-center CPUs broadly and is not AI-only. Segment revenues include intersegment transactions."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "capital expenditures appear only as figures in the non-GAAP reconciliation table (p05) and a definition of net capital spending (p04); no sentence links capital expenditures to AI"
+   "reason": "capex figures appear only in the non-GAAP reconciliation table (gross $2,956M, net $1,556M for the quarter) and no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p01's mention of AI demand and U.S.-based R&D describes market position, not spend"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.6,
-  "input_tokens": 5607,
-  "output_tokens": 262,
+  "seconds": 8.6,
+  "input_tokens": 5912,
+  "output_tokens": 762,
   "attempts": 1,
-  "task_sha": "c59fcfa79fc2e26f"
+  "task_sha": "204069a4d20862bb"
  }
 }

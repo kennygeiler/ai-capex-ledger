@@ -1,6 +1,6 @@
 {
  "accession": "0000002488-24-000012",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -16,42 +16,6 @@
   },
   {
    "field": "segment_revenue",
-   "dimension": "Client",
-   "table_id": "t0021",
-   "row_label": "Client",
-   "column_label": "Year Ended | December 30,2023",
-   "cell_text": "4,651",
-   "period_end": "2023-12-30",
-   "months": 12,
-   "value": 4651000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Gaming",
-   "table_id": "t0021",
-   "row_label": "Gaming",
-   "column_label": "Year Ended | December 30,2023",
-   "cell_text": "6,212",
-   "period_end": "2023-12-30",
-   "months": 12,
-   "value": 6212000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Embedded",
-   "table_id": "t0021",
-   "row_label": "Embedded",
-   "column_label": "Year Ended | December 30,2023",
-   "cell_text": "5,321",
-   "period_end": "2023-12-30",
-   "months": 12,
-   "value": 5321000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "segment_revenue",
    "dimension": "Data Center",
    "table_id": "t0021",
    "row_label": "Data Center",
@@ -60,42 +24,6 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 6043000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Client",
-   "table_id": "t0021",
-   "row_label": "Client",
-   "column_label": "Year Ended | December 31,2022",
-   "cell_text": "6,201",
-   "period_end": "2022-12-31",
-   "months": 12,
-   "value": 6201000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Gaming",
-   "table_id": "t0021",
-   "row_label": "Gaming",
-   "column_label": "Year Ended | December 31,2022",
-   "cell_text": "6,805",
-   "period_end": "2022-12-31",
-   "months": 12,
-   "value": 6805000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Embedded",
-   "table_id": "t0021",
-   "row_label": "Embedded",
-   "column_label": "Year Ended | December 31,2022",
-   "cell_text": "4,552",
-   "period_end": "2022-12-31",
-   "months": 12,
-   "value": 4552000000,
    "confidence": 1.0
   },
   {
@@ -115,6 +43,30 @@
    "dimension": "Client",
    "table_id": "t0021",
    "row_label": "Client",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "4,651",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 4651000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Client",
+   "table_id": "t0021",
+   "row_label": "Client",
+   "column_label": "Year Ended | December 31,2022",
+   "cell_text": "6,201",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 6201000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Client",
+   "table_id": "t0021",
+   "row_label": "Client",
    "column_label": "Year Ended | December 25,2021",
    "cell_text": "6,887",
    "period_end": "2021-12-25",
@@ -127,11 +79,59 @@
    "dimension": "Gaming",
    "table_id": "t0021",
    "row_label": "Gaming",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "6,212",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 6212000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Gaming",
+   "table_id": "t0021",
+   "row_label": "Gaming",
+   "column_label": "Year Ended | December 31,2022",
+   "cell_text": "6,805",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 6805000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Gaming",
+   "table_id": "t0021",
+   "row_label": "Gaming",
    "column_label": "Year Ended | December 25,2021",
    "cell_text": "5,607",
    "period_end": "2021-12-25",
    "months": 12,
    "value": 5607000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Embedded",
+   "table_id": "t0021",
+   "row_label": "Embedded",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "5,321",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 5321000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Embedded",
+   "table_id": "t0021",
+   "row_label": "Embedded",
+   "column_label": "Year Ended | December 31,2022",
+   "cell_text": "4,552",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 4552000000,
    "confidence": 1.0
   },
   {
@@ -160,30 +160,6 @@
   },
   {
    "field": "ppe_category",
-   "dimension": "Equipment",
-   "table_id": "t0019",
-   "row_label": "Equipment",
-   "column_label": "December 30,2023",
-   "cell_text": "2,346",
-   "period_end": "2023-12-30",
-   "months": 0,
-   "value": 2346000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Construction in progress",
-   "table_id": "t0019",
-   "row_label": "Construction in progress",
-   "column_label": "December 30,2023",
-   "cell_text": "209",
-   "period_end": "2023-12-30",
-   "months": 0,
-   "value": 209000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
    "dimension": "Land, building and leasehold improvements",
    "table_id": "t0019",
    "row_label": "Land, building and leasehold improvements",
@@ -199,11 +175,35 @@
    "dimension": "Equipment",
    "table_id": "t0019",
    "row_label": "Equipment",
+   "column_label": "December 30,2023",
+   "cell_text": "2,346",
+   "period_end": "2023-12-30",
+   "months": 0,
+   "value": 2346000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0019",
+   "row_label": "Equipment",
    "column_label": "December 31,2022",
    "cell_text": "2,163",
    "period_end": "2022-12-31",
    "months": 0,
    "value": 2163000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0019",
+   "row_label": "Construction in progress",
+   "column_label": "December 30,2023",
+   "cell_text": "209",
+   "period_end": "2023-12-30",
+   "months": 0,
+   "value": 209000000,
    "confidence": 1.0
   },
   {
@@ -228,30 +228,26 @@
    "period_end": "2023-12-30",
    "months": 0,
    "value": 4594000000,
-   "confidence": 0.85,
-   "notes": "Column header is malformed by parsing (yearly payment amounts merged into the label); the table is the year-by-year schedule of unconditional purchase commitments as of the fiscal 2023 year-end, and 3,858+351+186+51+49+99 = 4,594 confirms the total. Segment revenue taken from t0021 (three-year segment note); t0008 duplicates 2023 and 2022 values."
+   "confidence": 0.85
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "The segment note reports net revenue and operating income (loss) by segment only; no capital expenditures by segment are presented."
+   "reason": "the segment note reports net revenue and operating income (loss) by segment only; no capital expenditures by segment are given"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No lease table with finance lease liabilities is present in the provided tables."
-  },
-  {
-   "field": "purchase_commitments",
-   "reason": "Only the December 30, 2023 commitments schedule is provided; no prior year-end (December 31, 2022) total is available."
+   "reason": "no lease note table with finance lease liabilities is included in the provided tables"
   }
  ],
+ "notes": "segment_revenue cited from t0021 (segment note, three years); t0008 duplicates the 2023 and 2022 figures. t0061's column header was mis-parsed: annual payments 3,858/351/186/51/49 were absorbed into the label. They sum with the '2029 and thereafter' 99 to the 4,594 total, which supports reading it as the total as of fiscal year-end 2023-12-30. Confidence is 0.85 because the header is garbled. No prior-year purchase commitment total is shown.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 20.1,
-  "input_tokens": 6040,
-  "output_tokens": 2911,
+  "seconds": 19.9,
+  "input_tokens": 6823,
+  "output_tokens": 2696,
   "attempts": 1,
-  "task_sha": "a1bffa8f2966c002"
+  "task_sha": "da8a4f72358966ed"
  }
 }

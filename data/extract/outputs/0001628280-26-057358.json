@@ -1,0 +1,150 @@
+{
+ "accession": "0001628280-26-057358",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0023",
+   "row_label": "Net revenue",
+   "column_label": "Years Ended | June 27, 2026",
+   "cell_text": "3,014.0",
+   "period_end": "2026-06-27",
+   "months": 12,
+   "value": 3014000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0023",
+   "row_label": "Net revenue",
+   "column_label": "Years Ended | June 28, 2025",
+   "cell_text": "1,645.0",
+   "period_end": "2025-06-28",
+   "months": 12,
+   "value": 1645000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0023",
+   "row_label": "Net revenue",
+   "column_label": "Years Ended | June 29, 2024",
+   "cell_text": "1,359.2",
+   "period_end": "2024-06-29",
+   "months": 12,
+   "value": 1359200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0023",
+   "row_label": "Cost of sales",
+   "column_label": "Years Ended | June 27, 2026",
+   "cell_text": "1,680.5",
+   "period_end": "2026-06-27",
+   "months": 12,
+   "value": 1680500000,
+   "confidence": 0.9,
+   "notes": "Single 'Cost of sales' line. The separate 'Amortization of acquired developed intangibles' line (77.6) is also deducted above gross profit. It is excluded because the rules bar amortization. No combined total line exists."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0023",
+   "row_label": "Cost of sales",
+   "column_label": "Years Ended | June 28, 2025",
+   "cell_text": "1,102.9",
+   "period_end": "2025-06-28",
+   "months": 12,
+   "value": 1102900000,
+   "confidence": 0.9,
+   "notes": "Single 'Cost of sales' line. The separate amortization of acquired developed intangibles line (82.2) is excluded."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0023",
+   "row_label": "Cost of sales",
+   "column_label": "Years Ended | June 29, 2024",
+   "cell_text": "1,023.8",
+   "period_end": "2024-06-29",
+   "months": 12,
+   "value": 1023800000,
+   "confidence": 0.9,
+   "notes": "Single 'Cost of sales' line. The separate amortization of acquired developed intangibles line (83.9) is excluded."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0023",
+   "row_label": "Income (loss) from operations",
+   "column_label": "Years Ended | June 27, 2026",
+   "cell_text": "524.8",
+   "period_end": "2026-06-27",
+   "months": 12,
+   "value": 524800000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0023",
+   "row_label": "Income (loss) from operations",
+   "column_label": "Years Ended | June 28, 2025",
+   "cell_text": "(180.1)",
+   "period_end": "2025-06-28",
+   "months": 12,
+   "value": -180100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0023",
+   "row_label": "Income (loss) from operations",
+   "column_label": "Years Ended | June 29, 2024",
+   "cell_text": "(434.0)",
+   "period_end": "2024-06-29",
+   "months": 12,
+   "value": -434000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Payments for acquisition of property, plant and equipment",
+   "column_label": "Years Ended | June 27, 2026",
+   "cell_text": "(451.3)",
+   "period_end": "2026-06-27",
+   "months": 12,
+   "value": 451300000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Payments for acquisition of property, plant and equipment",
+   "column_label": "Years Ended | June 28, 2025",
+   "cell_text": "(231.0)",
+   "period_end": "2025-06-28",
+   "months": 12,
+   "value": 231000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Payments for acquisition of property, plant and equipment",
+   "column_label": "Years Ended | June 29, 2024",
+   "cell_text": "(133.0)",
+   "period_end": "2024-06-29",
+   "months": 12,
+   "value": 133000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.3,
+  "input_tokens": 6564,
+  "output_tokens": 1867,
+  "attempts": 1,
+  "task_sha": "d87612825656e917"
+ }
+}

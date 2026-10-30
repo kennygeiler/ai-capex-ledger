@@ -1,0 +1,13 @@
+{
+ "accession": "SNOW|mdna|2024-01-31|4d467e40",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 4638,
+  "output_tokens": 50,
+  "attempts": 1,
+  "task_sha": "08befc63ad01e060"
+ }
+}

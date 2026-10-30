@@ -1,0 +1,265 @@
+{
+ "accession": "0000820318-22-000019",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_capex",
+   "dimension": "Photonic Solutions",
+   "table_id": "t0065",
+   "row_label": "Expenditures for property, plant & equipment",
+   "column_label": "Photonic Solutions",
+   "cell_text": "89,818",
+   "period_end": "2022-06-30",
+   "months": 12,
+   "value": 89818000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Compound Semiconductors",
+   "table_id": "t0065",
+   "row_label": "Expenditures for property, plant & equipment",
+   "column_label": "Compound Semiconductors",
+   "cell_text": "224,514",
+   "period_end": "2022-06-30",
+   "months": 12,
+   "value": 224514000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Photonic Solutions",
+   "table_id": "t0067",
+   "row_label": "Expenditures for property, plant & equipment",
+   "column_label": "Photonic Solutions",
+   "cell_text": "45,795",
+   "period_end": "2020-06-30",
+   "months": 12,
+   "value": 45795000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Compound Semiconductors",
+   "table_id": "t0067",
+   "row_label": "Expenditures for property, plant & equipment",
+   "column_label": "Compound Semiconductors",
+   "cell_text": "88,318",
+   "period_end": "2020-06-30",
+   "months": 12,
+   "value": 88318000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Photonic Solutions",
+   "table_id": "t0065",
+   "row_label": "Revenues",
+   "column_label": "Photonic Solutions",
+   "cell_text": "2,226,196",
+   "period_end": "2022-06-30",
+   "months": 12,
+   "value": 2226196000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Compound Semiconductors",
+   "table_id": "t0065",
+   "row_label": "Revenues",
+   "column_label": "Compound Semiconductors",
+   "cell_text": "1,090,420",
+   "period_end": "2022-06-30",
+   "months": 12,
+   "value": 1090420000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Photonic Solutions",
+   "table_id": "t0020",
+   "row_label": "Revenues",
+   "column_label": "Year EndedJune 30, | 2021",
+   "cell_text": "2,038",
+   "period_end": "2021-06-30",
+   "months": 12,
+   "value": 2038000000,
+   "confidence": 0.75
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Compound Semiconductors",
+   "table_id": "t0021",
+   "row_label": "Revenues",
+   "column_label": "Year EndedJune 30, | 2021",
+   "cell_text": "1,068",
+   "period_end": "2021-06-30",
+   "months": 12,
+   "value": 1068000000,
+   "confidence": 0.75
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Photonic Solutions",
+   "table_id": "t0067",
+   "row_label": "Revenues",
+   "column_label": "Photonic Solutions",
+   "cell_text": "1,536,790",
+   "period_end": "2020-06-30",
+   "months": 12,
+   "value": 1536790000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Compound Semiconductors",
+   "table_id": "t0067",
+   "row_label": "Revenues",
+   "column_label": "Compound Semiconductors",
+   "cell_text": "821,230",
+   "period_end": "2020-06-30",
+   "months": 12,
+   "value": 821230000,
+   "confidence": 0.85
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0038",
+   "row_label": "Land and land improvements",
+   "column_label": "2022",
+   "cell_text": "19,368",
+   "period_end": "2022-06-30",
+   "months": 0,
+   "value": 19368000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0038",
+   "row_label": "Buildings and improvements",
+   "column_label": "2022",
+   "cell_text": "415,530",
+   "period_end": "2022-06-30",
+   "months": 0,
+   "value": 415530000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0038",
+   "row_label": "Machinery and equipment",
+   "column_label": "2022",
+   "cell_text": "1,651,762",
+   "period_end": "2022-06-30",
+   "months": 0,
+   "value": 1651762000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0038",
+   "row_label": "Construction in progress",
+   "column_label": "2022",
+   "cell_text": "271,605",
+   "period_end": "2022-06-30",
+   "months": 0,
+   "value": 271605000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Finance lease right-of-use asset",
+   "table_id": "t0038",
+   "row_label": "Finance lease right-of-use asset",
+   "column_label": "2022",
+   "cell_text": "25,000",
+   "period_end": "2022-06-30",
+   "months": 0,
+   "value": 25000000,
+   "confidence": 0.8
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0038",
+   "row_label": "Land and land improvements",
+   "column_label": "2021",
+   "cell_text": "20,454",
+   "period_end": "2021-06-30",
+   "months": 0,
+   "value": 20454000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0038",
+   "row_label": "Buildings and improvements",
+   "column_label": "2021",
+   "cell_text": "419,157",
+   "period_end": "2021-06-30",
+   "months": 0,
+   "value": 419157000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0038",
+   "row_label": "Machinery and equipment",
+   "column_label": "2021",
+   "cell_text": "1,483,183",
+   "period_end": "2021-06-30",
+   "months": 0,
+   "value": 1483183000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0038",
+   "row_label": "Construction in progress",
+   "column_label": "2021",
+   "cell_text": "136,544",
+   "period_end": "2021-06-30",
+   "months": 0,
+   "value": 136544000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Finance lease right-of-use asset",
+   "table_id": "t0038",
+   "row_label": "Finance lease right-of-use asset",
+   "column_label": "2021",
+   "cell_text": "25,000",
+   "period_end": "2021-06-30",
+   "months": 0,
+   "value": 25000000,
+   "confidence": 0.8
+  }
+ ],
+ "not_found": [
+  {
+   "field": "finance_lease_liability",
+   "reason": "the lease table gives finance lease cost, cash flows, term and discount rate only; no finance lease liability balance is shown"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is among the provided tables"
+  }
+ ],
+ "notes": "t0065 and t0067 column labels carry no year; t0065 is FY2022 (revenues match t0034 and t0020/t0021 2022) and t0067 is FY2020 (revenues match t0023/t0024 2020 column). No FY2021 segment-note table was provided, so FY2021 segment revenue comes from the MD&A tables t0020 (Photonic Solutions) and t0021 (Compound Semiconductors), whose segment is identified by matching values, not by a label; FY2021 segment capex is not available. 'Unallocated & Other' is not a reportable segment and was skipped (FY2020 capex 2,764; FY2020 revenue 22,051). End-market revenue in t0034 (Industrial, Communications, etc.) was not extracted because the filing's reportable segments are Photonic Solutions and Compound Semiconductors. 'Finance lease right-of-use asset' is included as a gross PP&E category because it sits within the gross subtotal (confidence 0.8).",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 26.7,
+  "input_tokens": 7241,
+  "output_tokens": 3828,
+  "attempts": 1,
+  "task_sha": "4d8e2db69ad024fa"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "MARA|earnings_release|2024-09-30|71caa164",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; p05 describes a strategy of building AI/HPC infrastructure without linking any spend to it, and the data center acquisitions in p02/p06 are for bitcoin mining capacity"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a bitcoin miner; no sentence states revenue from AI or data-center demand, and AI/HPC hosting is described only as a strategic aim"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.5,
+  "input_tokens": 6963,
+  "output_tokens": 510,
+  "attempts": 1,
+  "task_sha": "0f7b83a987984f5d"
+ }
+}

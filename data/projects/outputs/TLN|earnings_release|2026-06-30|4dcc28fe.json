@@ -1,0 +1,28 @@
+{
+ "accession": "TLN|earnings_release|2026-06-30|4dcc28fe",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Cornerstone Acquisition",
+   "kind": "power",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 2600,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026-06-15",
+   "quote": "On June 15, 2026, the Company completed the Cornerstone Acquisition, which increases Talen\u2019s generation by approximately 2.6 GW and provides efficient baseload and peaker generation and cash flow diversification.",
+   "passage": "p03",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.9,
+  "input_tokens": 7761,
+  "output_tokens": 471,
+  "attempts": 1,
+  "task_sha": "a3c2d877c5dc878c"
+ }
+}

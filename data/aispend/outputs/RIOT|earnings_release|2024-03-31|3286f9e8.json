@@ -1,0 +1,27 @@
+{
+ "accession": "RIOT|earnings_release|2024-03-31|3286f9e8",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure statements (e.g., ~$10.5MM saved since ESS Metron acquisition; Rockdale/Corsicana build-out and miner purchases in p05) concern Bitcoin mining infrastructure; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; cost discussion concerns Bitcoin mining network difficulty, power and fixed costs"
+  },
+  {
+   "field": "revenue",
+   "reason": "'Data Center Hosting' revenue (zero in Q1 2024; $3.2MM hosting revenue folded into Bitcoin Mining) is hosting of Bitcoin mining clients, not AI or AI data-center demand; no sentence states AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.6,
+  "input_tokens": 8979,
+  "output_tokens": 560,
+  "attempts": 1,
+  "task_sha": "4cebd273f29c051c"
+ }
+}

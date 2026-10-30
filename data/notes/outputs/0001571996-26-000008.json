@@ -1,0 +1,196 @@
+{
+ "accession": "0001571996-26-000008",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Infrastructure Solutions Group",
+   "table_id": "t0084",
+   "row_label": "Infrastructure Solutions Group",
+   "column_label": "Fiscal Year Ended | January 30, 2026",
+   "cell_text": "60,826",
+   "period_end": "2026-01-30",
+   "months": 12,
+   "value": 60826000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Infrastructure Solutions Group",
+   "table_id": "t0084",
+   "row_label": "Infrastructure Solutions Group",
+   "column_label": "Fiscal Year Ended | January 31, 2025",
+   "cell_text": "43,593",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 43593000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Infrastructure Solutions Group",
+   "table_id": "t0084",
+   "row_label": "Infrastructure Solutions Group",
+   "column_label": "Fiscal Year Ended | February 2, 2024",
+   "cell_text": "33,885",
+   "period_end": "2024-02-02",
+   "months": 12,
+   "value": 33885000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Client Solutions Group",
+   "table_id": "t0084",
+   "row_label": "Client Solutions Group",
+   "column_label": "Fiscal Year Ended | January 30, 2026",
+   "cell_text": "50,984",
+   "period_end": "2026-01-30",
+   "months": 12,
+   "value": 50984000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Client Solutions Group",
+   "table_id": "t0084",
+   "row_label": "Client Solutions Group",
+   "column_label": "Fiscal Year Ended | January 31, 2025",
+   "cell_text": "48,393",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 48393000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Client Solutions Group",
+   "table_id": "t0084",
+   "row_label": "Client Solutions Group",
+   "column_label": "Fiscal Year Ended | February 2, 2024",
+   "cell_text": "48,916",
+   "period_end": "2024-02-02",
+   "months": 12,
+   "value": 48916000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Assets in a customer contract",
+   "table_id": "t0090",
+   "row_label": "Assets in a customer contract",
+   "column_label": "January 30, 2026",
+   "cell_text": "5,777",
+   "period_end": "2026-01-30",
+   "months": 0,
+   "value": 5777000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Assets in a customer contract",
+   "table_id": "t0090",
+   "row_label": "Assets in a customer contract",
+   "column_label": "January 31, 2025",
+   "cell_text": "5,204",
+   "period_end": "2025-01-31",
+   "months": 0,
+   "value": 5204000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer and other equipment",
+   "table_id": "t0090",
+   "row_label": "Computer and other equipment",
+   "column_label": "January 30, 2026",
+   "cell_text": "3,849",
+   "period_end": "2026-01-30",
+   "months": 0,
+   "value": 3849000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer and other equipment",
+   "table_id": "t0090",
+   "row_label": "Computer and other equipment",
+   "column_label": "January 31, 2025",
+   "cell_text": "3,651",
+   "period_end": "2025-01-31",
+   "months": 0,
+   "value": 3651000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and buildings",
+   "table_id": "t0090",
+   "row_label": "Land and buildings",
+   "column_label": "January 30, 2026",
+   "cell_text": "3,134",
+   "period_end": "2026-01-30",
+   "months": 0,
+   "value": 3134000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and buildings",
+   "table_id": "t0090",
+   "row_label": "Land and buildings",
+   "column_label": "January 31, 2025",
+   "cell_text": "2,838",
+   "period_end": "2025-01-31",
+   "months": 0,
+   "value": 2838000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Internal use software",
+   "table_id": "t0090",
+   "row_label": "Internal use software",
+   "column_label": "January 30, 2026",
+   "cell_text": "2,083",
+   "period_end": "2026-01-30",
+   "months": 0,
+   "value": 2083000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Internal use software",
+   "table_id": "t0090",
+   "row_label": "Internal use software",
+   "column_label": "January 31, 2025",
+   "cell_text": "2,403",
+   "period_end": "2025-01-31",
+   "months": 0,
+   "value": 2403000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment note (t0084) reports net revenue and operating income by segment only; no capital expenditures by segment are shown"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities is included in the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included in the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.3,
+  "input_tokens": 10510,
+  "output_tokens": 2353,
+  "attempts": 1,
+  "task_sha": "cf360656e76f11a8"
+ }
+}

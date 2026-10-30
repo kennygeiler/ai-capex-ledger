@@ -1,0 +1,194 @@
+{
+ "accession": "0000732712-24-000010",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0078",
+   "row_label": "Total Operating Revenues",
+   "column_label": "2023",
+   "cell_text": "133,974",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 133974000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0078",
+   "row_label": "Total Operating Revenues",
+   "column_label": "2022",
+   "cell_text": "136,835",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 136835000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0078",
+   "row_label": "Total Operating Revenues",
+   "column_label": "2021",
+   "cell_text": "133,613",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 133613000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0078",
+   "row_label": "Cost of services (exclusive of items shown below)",
+   "column_label": "2023",
+   "cell_text": "28,100",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 28100000000,
+   "confidence": 0.9,
+   "notes": "No total cost-of-revenue line. Cost of services is the direct cost of delivering service revenues. It excludes depreciation and amortization, which is shown separately."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0078",
+   "row_label": "Cost of services (exclusive of items shown below)",
+   "column_label": "2022",
+   "cell_text": "28,637",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 28637000000,
+   "confidence": 0.9,
+   "notes": "No total cost-of-revenue line. Cost of services is the direct cost of delivering service revenues. It excludes depreciation and amortization, which is shown separately."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0078",
+   "row_label": "Cost of services (exclusive of items shown below)",
+   "column_label": "2021",
+   "cell_text": "31,234",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 31234000000,
+   "confidence": 0.9,
+   "notes": "No total cost-of-revenue line. Cost of services is the direct cost of delivering service revenues. It excludes depreciation and amortization, which is shown separately."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0078",
+   "row_label": "Cost of wireless equipment",
+   "column_label": "2023",
+   "cell_text": "26,787",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 26787000000,
+   "confidence": 0.95,
+   "notes": "No total cost-of-revenue line. Cost of wireless equipment is the direct cost of the equipment sold as Wireless equipment revenues."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0078",
+   "row_label": "Cost of wireless equipment",
+   "column_label": "2022",
+   "cell_text": "30,496",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 30496000000,
+   "confidence": 0.95,
+   "notes": "No total cost-of-revenue line. Cost of wireless equipment is the direct cost of the equipment sold as Wireless equipment revenues."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0078",
+   "row_label": "Cost of wireless equipment",
+   "column_label": "2021",
+   "cell_text": "25,067",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 25067000000,
+   "confidence": 0.95,
+   "notes": "No total cost-of-revenue line. Cost of wireless equipment is the direct cost of the equipment sold as Wireless equipment revenues."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0078",
+   "row_label": "Operating Income",
+   "column_label": "2023",
+   "cell_text": "22,877",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 22877000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0078",
+   "row_label": "Operating Income",
+   "column_label": "2022",
+   "cell_text": "30,467",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 30467000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0078",
+   "row_label": "Operating Income",
+   "column_label": "2021",
+   "cell_text": "32,448",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 32448000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0084",
+   "row_label": "Capital expenditures (including capitalized software)",
+   "column_label": "2023",
+   "cell_text": "(18,767)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 18767000000,
+   "confidence": 0.95,
+   "notes": "The capex line also includes capitalized software, an intangible asset. It is used as stated."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0084",
+   "row_label": "Capital expenditures (including capitalized software)",
+   "column_label": "2022",
+   "cell_text": "(23,087)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 23087000000,
+   "confidence": 0.95,
+   "notes": "The capex line also includes capitalized software, an intangible asset. It is used as stated."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0084",
+   "row_label": "Capital expenditures (including capitalized software)",
+   "column_label": "2021",
+   "cell_text": "(20,286)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 20286000000,
+   "confidence": 0.95,
+   "notes": "The capex line also includes capitalized software, an intangible asset. It is used as stated."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "The income statement has no single total cost-of-revenue line. Its components are given as cost_of_revenue_part entries: Cost of services and Cost of wireless equipment."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.6,
+  "input_tokens": 6297,
+  "output_tokens": 2160,
+  "attempts": 1,
+  "task_sha": "033b88f3d23fffc6"
+ }
+}

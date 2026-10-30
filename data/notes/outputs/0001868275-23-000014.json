@@ -1,0 +1,45 @@
+{
+ "accession": "0001868275-23-000014",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0070",
+   "row_label": "Other purchase obligations(e)",
+   "column_label": "Total",
+   "cell_text": "3,104",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 3104000000,
+   "confidence": 0.6,
+   "notes": "The table has no single total-purchase-obligations line. Purchase power obligations (1,789) and fuel purchase agreements (7,745) are listed as separate rows. 'Other purchase obligations' is the only row labelled as purchase obligations, so it was cited without adding cells. The unit is not stated with the table and is assumed to be millions, consistent with the rest of the filing."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note table is provided; capital expenditures appear only as a consolidated line in the cash flow statement (t0086)"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "no segment or market revenue table is provided; the tables given are the cash flow statement, contract balances, tax carryforwards and contractual obligations"
+  },
+  {
+   "field": "ppe_category",
+   "reason": "no property-and-equipment note table with gross categories is provided"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table is provided; the obligations table lists operating leases only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.3,
+  "input_tokens": 7168,
+  "output_tokens": 879,
+  "attempts": 1,
+  "task_sha": "85a7c0dc6450348b"
+ }
+}

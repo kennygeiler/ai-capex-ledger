@@ -1,0 +1,27 @@
+{
+ "accession": "AAOI|earnings_release|2024-03-31|3df9b88b",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; the passages are forward-looking-statement boilerplate and an income statement table"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence links operating expenses to AI; R&D of $11,712 thousand appears only as a table line with no AI attribution"
+  },
+  {
+   "field": "revenue",
+   "reason": "no quotable sentence states AI or data-center revenue; Q1 2024 Datacenter revenue of $28,986 thousand appears only as a row in the p02 income statement table (a quarterly figure, not a full fiscal year), and p01 mentions the internet datacenter market only as a risk factor"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.3,
+  "input_tokens": 6113,
+  "output_tokens": 626,
+  "attempts": 1,
+  "task_sha": "dd814496e3d9f4f4"
+ }
+}

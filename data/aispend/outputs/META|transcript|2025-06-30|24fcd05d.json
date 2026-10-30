@@ -1,7 +1,20 @@
 {
  "accession": "META|transcript|2025-06-30|24fcd05d",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 66000000000,
+   "amount_high": 72000000000,
+   "quote": "We currently expect 2025 capital expenditures, including principal payments on finance leases, to be in the range of $66-72 billion, narrowed from our prior outlook of $64-72 billion and up approximately $30 billion year-over-year at the mid-point.",
+   "passage": "p06",
+   "confidence": 0.7,
+   "notes": "Total capex guidance. The sentence itself does not name AI. The AI link is in the following sentence, which is truncated in the passage ('as we continue aggressively pursuing'). That sentence also gives a qualitative 2026 outlook of 'similarly significant capex dollar growth'; it is not recorded because it cannot be quoted as a complete sentence."
+  },
   {
    "field": "opex",
    "fiscal_year": null,
@@ -9,31 +22,20 @@
    "scope": "total",
    "class": "qualitative",
    "quote": "This was partially offset by continued hiring in priority areas of monetization, infrastructure, Reality Labs, AI, as well as regulation and compliance.",
-   "passage": "p01",
+   "passage": "p03",
    "confidence": 0.6,
-   "notes": "Headcount statement; AI is one of several priority hiring areas offsetting a headcount reduction. It does not directly attribute expense to AI. No year named, so code applies the reported year (2025)."
-  },
-  {
-   "field": "opex",
-   "fiscal_year": null,
-   "kind": "actual",
-   "scope": "ai",
-   "class": "qualitative",
-   "quote": "Within AI, we\u2019ve had a particular emphasis on recruiting leading talent within the industry as we build out Meta Superintelligence Labs to accelerate our AI model development and product initiatives.",
-   "passage": "p02",
-   "confidence": 0.7,
-   "notes": "Headcount investment in AI talent (Meta Superintelligence Labs), with no amount given. No year named, so code applies the reported year (2025)."
+   "notes": "Headcount. AI is one of several priority hiring areas, not the sole driver. The passage begins mid-sentence."
   },
   {
    "field": "opex",
    "fiscal_year": null,
    "kind": "outlook",
-   "scope": "ai",
+   "scope": "total",
    "class": "qualitative",
    "quote": "And we also have some visibility into the compensation expense growth that we\u2019ll recognize from the AI talent that we\u2019re hiring this year.",
-   "passage": "p04",
-   "confidence": 0.7,
-   "notes": "Expected compensation expense growth from AI hires. The preceding sentence refers to 'next year' (2026), but this sentence names no year, so fiscal_year is null and code applies the year after the reported year."
+   "passage": "p07",
+   "confidence": 0.8,
+   "notes": "Context points to next year's expense, but the sentence names no year."
   },
   {
    "field": "opex",
@@ -42,9 +44,8 @@
    "scope": "total",
    "class": "qualitative",
    "quote": "After that, employee compensation is the next largest driver of expense growth in \u201926, again, driven primarily in the investments that we\u2019re making in technical talent including recognizing a full year of compensation expense for the AI talent we hire this year.",
-   "passage": "p05",
-   "confidence": 0.8,
-   "notes": "2026 total expense growth is driven by compensation, which includes the full-year cost of AI talent. AI is one component of technical talent, so this is not an AI amount."
+   "passage": "p08",
+   "confidence": 0.9
   },
   {
    "field": "opex",
@@ -53,9 +54,8 @@
    "scope": "total",
    "class": "qualitative",
    "quote": "So I mean the impact of the sort of increased compensation costs including SBC, of our AI hires this year is reflected in the revised 2025 expense outlook and in the comments I made about sort of the 2026, expense outlook.",
-   "passage": "p07",
-   "confidence": 0.8,
-   "notes": "Compensation costs of AI hires, including SBC, are reflected in the revised 2025 total expense outlook. No figure is stated in the passages."
+   "passage": "p10",
+   "confidence": 0.9
   },
   {
    "field": "opex",
@@ -64,23 +64,28 @@
    "scope": "total",
    "class": "qualitative",
    "quote": "So I mean the impact of the sort of increased compensation costs including SBC, of our AI hires this year is reflected in the revised 2025 expense outlook and in the comments I made about sort of the 2026, expense outlook.",
-   "passage": "p07",
-   "confidence": 0.8,
-   "notes": "Same sentence, recorded for the 2026 expense outlook. No figure is stated."
-  }
- ],
- "none_found": [
+   "passage": "p10",
+   "confidence": 0.9
+  },
   {
-   "field": "capex",
-   "reason": "The p03 2025 capex guidance ($66-72 billion) does not mention AI in the sentence, so it is not recorded as an AI-linked total. The following 2026 capex-growth sentence is truncated and does not mention AI in the visible text. No sentence quantifies or attributes capital expenditures to AI."
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We're also seeing good progress with AI for ad creative -- with a meaningful percent of our ad revenue now coming from campaigns using one of our Generative AI features.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "'Meaningful percent' is not a number. This is ad revenue from campaigns that use GenAI tools, not seller-side AI or data-center revenue. Separately, p04 reports Q2 Reality Labs segment revenue of $370 million, driven by AI glasses; it is not recorded because it is a quarterly segment figure, not total or AI revenue."
   }
  ],
+ "none_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 22.5,
-  "input_tokens": 5151,
-  "output_tokens": 2736,
+  "seconds": 24.5,
+  "input_tokens": 5833,
+  "output_tokens": 2714,
   "attempts": 1,
-  "task_sha": "d163efcab54bcf9f"
+  "task_sha": "0f151f41b0a178f3"
  }
 }

@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|mdna|2025-12-31|c816910d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are stated (2025 actual of $2.9 billion; 2026 outlook of $3.25-$3.75 billion) but no sentence links them to AI; they are attributed to development programs and customer demand for data center space generally"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no passage states a revenue figure or share, and no sentence links revenue to AI; the data center demand and rental rate statements give no amount"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 9099,
+  "output_tokens": 412,
+  "attempts": 1,
+  "task_sha": "011555ba69c7b234"
+ }
+}

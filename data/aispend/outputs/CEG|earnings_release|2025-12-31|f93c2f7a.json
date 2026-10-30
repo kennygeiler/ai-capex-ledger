@@ -1,0 +1,27 @@
+{
+ "accession": "CEG|earnings_release|2025-12-31|f93c2f7a",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the Crane restart capex mention (p02) is not attributed to AI and gives no amount"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 describes powering data centers in the AI age as strategic positioning (boilerplate); no sentence states AI or data-center revenue as an amount or share, and the Microsoft PPA gives no revenue figure"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.7,
+  "input_tokens": 5213,
+  "output_tokens": 304,
+  "attempts": 1,
+  "task_sha": "65e46e1af2bb7726"
+ }
+}

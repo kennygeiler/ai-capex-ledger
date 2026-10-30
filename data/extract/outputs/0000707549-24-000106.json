@@ -1,0 +1,153 @@
+{
+ "accession": "0000707549-24-000106",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0027",
+   "row_label": "Revenue",
+   "column_label": "Year Ended | June 30,2024",
+   "cell_text": "14,905,386",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 14905386000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0027",
+   "row_label": "Revenue",
+   "column_label": "Year Ended | June 25,2023",
+   "cell_text": "17,428,516",
+   "period_end": "2023-06-25",
+   "months": 12,
+   "value": 17428516000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0027",
+   "row_label": "Revenue",
+   "column_label": "Year Ended | June 26,2022",
+   "cell_text": "17,227,039",
+   "period_end": "2022-06-26",
+   "months": 12,
+   "value": 17227039000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0027",
+   "row_label": "Total cost of goods sold",
+   "column_label": "Year Ended | June 30,2024",
+   "cell_text": "7,852,595",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 7852595000,
+   "confidence": 0.9,
+   "notes": "Took the 'Total cost of goods sold' line, which includes the restructuring charges allocated to cost of goods sold, rather than the 'Cost of goods sold' line, which excludes them."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0027",
+   "row_label": "Total cost of goods sold",
+   "column_label": "Year Ended | June 25,2023",
+   "cell_text": "9,651,591",
+   "period_end": "2023-06-25",
+   "months": 12,
+   "value": 9651591000,
+   "confidence": 0.9,
+   "notes": "Took the 'Total cost of goods sold' line, which includes the restructuring charges allocated to cost of goods sold, rather than the 'Cost of goods sold' line, which excludes them."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0027",
+   "row_label": "Total cost of goods sold",
+   "column_label": "Year Ended | June 26,2022",
+   "cell_text": "9,355,232",
+   "period_end": "2022-06-26",
+   "months": 12,
+   "value": 9355232000,
+   "confidence": 0.9,
+   "notes": "Took the 'Total cost of goods sold' line. There were no restructuring charges this year, so it equals the 'Cost of goods sold' line."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0027",
+   "row_label": "Operating income",
+   "column_label": "Year Ended | June 30,2024",
+   "cell_text": "4,263,913",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 4263913000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0027",
+   "row_label": "Operating income",
+   "column_label": "Year Ended | June 25,2023",
+   "cell_text": "5,174,860",
+   "period_end": "2023-06-25",
+   "months": 12,
+   "value": 5174860000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0027",
+   "row_label": "Operating income",
+   "column_label": "Year Ended | June 26,2022",
+   "cell_text": "5,381,822",
+   "period_end": "2022-06-26",
+   "months": 12,
+   "value": 5381822000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0030",
+   "row_label": "Capital expenditures and intangible assets",
+   "column_label": "Year Ended | June 30,2024",
+   "cell_text": "(396,670)",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 396670000,
+   "confidence": 0.95,
+   "notes": "This line combines capital expenditures with intangible asset purchases. No separate PP&E-only line is presented."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0030",
+   "row_label": "Capital expenditures and intangible assets",
+   "column_label": "Year Ended | June 25,2023",
+   "cell_text": "(501,568)",
+   "period_end": "2023-06-25",
+   "months": 12,
+   "value": 501568000,
+   "confidence": 0.95,
+   "notes": "This line combines capital expenditures with intangible asset purchases. No separate PP&E-only line is presented."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0030",
+   "row_label": "Capital expenditures and intangible assets",
+   "column_label": "Year Ended | June 26,2022",
+   "cell_text": "(546,034)",
+   "period_end": "2022-06-26",
+   "months": 12,
+   "value": 546034000,
+   "confidence": 0.95,
+   "notes": "This line combines capital expenditures with intangible asset purchases. No separate PP&E-only line is presented."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.7,
+  "input_tokens": 6655,
+  "output_tokens": 1869,
+  "attempts": 1,
+  "task_sha": "dc1e4be33c5a7645"
+ }
+}

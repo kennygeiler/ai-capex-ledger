@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|earnings_release|2023-06-30|c3877ed5",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex appears only in non-GAAP definitions and forward-looking boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI or data-center revenue figure or share of total revenue; p09 gives only annualized cash rental revenue on signed renewals, p08 mentions 'AI Training & Inference Driving Data Gravity' only as slide text about demand, and p13 mentions AI only in forward-looking boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.7,
+  "input_tokens": 16695,
+  "output_tokens": 469,
+  "attempts": 1,
+  "task_sha": "3fd30d69f4880b0a"
+ }
+}

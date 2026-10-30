@@ -1,0 +1,46 @@
+{
+ "accession": "JBL|earnings_release|2025-08-31|d36c34ce",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Strength in AI-driven demand across capital equipment, data centers, and networking, combined with deliberate portfolio actions in Connected Living & Digital Commerce, more than offset pressures in Automotive and Renewables, highlighting the resilience of our diversified business model.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Attributes fiscal 2025 revenue strength partly to AI-driven demand. The sentence states no amount or share of AI revenue. The year comes from the surrounding quote ('Fiscal 2025 was a strong year'), not from this sentence, so it is left null."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Jabil is well positioned to deliver sustainable value creation over the long term, with significant opportunities ahead in areas such as AI data center infrastructure, healthcare, and advanced warehouse and retail automation.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "A forward-looking mention of AI data center infrastructure as a growth opportunity, with no amount, share or year. This is close to strategic boilerplate. The FY26 revenue guidance of $31.3 billion is in the preceding sentence, which does not mention AI, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex appears only in the adjusted free cash flow definition and the forward-looking-statement risk factors"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.7,
+  "input_tokens": 6744,
+  "output_tokens": 1300,
+  "attempts": 1,
+  "task_sha": "c15c88c35fdf14f6"
+ }
+}

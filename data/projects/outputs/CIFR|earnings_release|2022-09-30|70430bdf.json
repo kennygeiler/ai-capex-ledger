@@ -1,0 +1,86 @@
+{
+ "accession": "CIFR|earnings_release|2022-09-30|70430bdf",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Alborz",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": "WindHQ LLC",
+   "capacity_mw": 40,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Alborz: 40 MW wind-powered site with Cipher\u2019s joint venture partner, \u2022 now producing up to ~1.3 EH/s; and capable of mining up to ~4.5 bitcoin daily.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Bear",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": "WindHQ LLC",
+   "capacity_mw": 10,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-10",
+   "quote": "Bear and Chief: Completed in October with a total initial capacity of \u2022 up to 20 MW, now producing up to ~0.6 EH/s; and capable of mining up to ~2.0 bitcoin daily.",
+   "passage": "p03",
+   "confidence": 0.8
+  },
+  {
+   "name": "Chief",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": "WindHQ LLC",
+   "capacity_mw": 10,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-10",
+   "quote": "Bear and Chief: Completed in October with a total initial capacity of \u2022 up to 20 MW, now producing up to ~0.6 EH/s; and capable of mining up to ~2.0 bitcoin daily.",
+   "passage": "p03",
+   "confidence": 0.8
+  },
+  {
+   "name": "Odessa",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Odessa",
+   "counterparty": null,
+   "capacity_mw": 207,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-11",
+   "quote": "Odessa: 207 MW site with infrastructure and rig installation complete \u2022 for first ~2.3 EH/s expected to begin mining this month; mining rigs capable of producing an additional ~2.6 EH/s either shipped or scheduled to ship by year-end.",
+   "passage": "p04",
+   "confidence": 0.85
+  },
+  {
+   "name": "Odessa power contract",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Odessa",
+   "counterparty": null,
+   "amount_low": 78900000,
+   "amount_high": 78900000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Odessa power contract valued at ~$78.9mm \u2013 Flexibility to mine bitcoin or resell power to market",
+   "passage": "p07",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.3,
+  "input_tokens": 8590,
+  "output_tokens": 1682,
+  "attempts": 1,
+  "task_sha": "6dc69f77cfb012ba"
+ }
+}

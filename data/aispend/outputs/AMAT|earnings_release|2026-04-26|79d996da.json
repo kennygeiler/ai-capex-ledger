@@ -1,0 +1,35 @@
+{
+ "accession": "AMAT|earnings_release|2026-04-26|79d996da",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The rapid global build-out of AI computing infrastructure combined with Applied\u2019s strong leadership positions in leading-edge logic, DRAM and advanced packaging provide an exceptionally strong foundation for sustained, multi-year revenue and profit growth.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Links expected multi-year revenue growth to the AI infrastructure build-out in words only; no AI revenue amount or share is stated. The adjacent sentence's 'more than 30 percent' is a calendar-2026 growth rate for the semiconductor equipment business, not a share of revenue from AI, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes the company's own capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the TSMC, Micron and Synopsys/NVIDIA R&D collaborations are described without any spend amount, share or statement about operating expenses"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.1,
+  "input_tokens": 5167,
+  "output_tokens": 887,
+  "attempts": 1,
+  "task_sha": "d07d29e3f4beb318"
+ }
+}

@@ -1,23 +1,46 @@
 {
  "accession": "CRDO|earnings_release|2025-05-03|e4a4b010",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We continue to see growing demand for our solutions across hyperscaler customers to power advanced AI services, a trend we believe will persist for the foreseeable future.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Links demand from hyperscaler customers to AI services without stating an AI revenue amount or share. The sentence states demand, not revenue directly. The total fiscal 2025 revenue of $436.8 million is in a separate sentence that does not mention AI, so it is not recorded."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We continue to see growing demand for our solutions across hyperscaler customers to power advanced AI services, a trend we believe will persist for the foreseeable future.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "The forward-looking part ('will persist for the foreseeable future') names no year. The sentence describes demand rather than revenue directly."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
-  "model": null,
-  "seconds": 0.0,
-  "input_tokens": 0,
-  "output_tokens": 0,
-  "attempts": 0,
-  "task_sha": "0e18798dfac6aa4a"
+  "model": "claude-opus-5-5",
+  "seconds": 13.0,
+  "input_tokens": 4926,
+  "output_tokens": 1061,
+  "attempts": 1,
+  "task_sha": "c8f171f99ec17dfc"
  }
 }

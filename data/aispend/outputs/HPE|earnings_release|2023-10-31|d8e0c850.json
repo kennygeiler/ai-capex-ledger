@@ -1,0 +1,37 @@
+{
+ "accession": "HPE|earnings_release|2023-10-31|d8e0c850",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1200000000,
+   "amount_high": 1200000000,
+   "quote": "High Performance Computing & Artificial Intelligence (\u201cHPC & AI\u201d) revenue was $1.2 billion, up 37% from the prior-year period in actual dollars and 38% in constant currency (1) , with 4.7% operating profit margin, compared to 3.5% from the prior-year period.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Fourth-quarter fiscal 2023 figure, not the full year. The release does not say this is the quarter, but it compares to the 'prior-year period' and the annual segment table gives a different number. The segment combines HPC and AI, so the figure is not AI-only. The full-year HPC & AI segment revenue of $3,913 million (fiscal 2023) appears only in the segment tables (p04, p05). It is not recorded as a statement because those passages have no sentence to quote."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in the free cash flow definition (p02, p06); no sentence links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D expenditures and artificial intelligence are mentioned only in forward-looking boilerplate (p03); no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.6,
+  "input_tokens": 6874,
+  "output_tokens": 993,
+  "attempts": 1,
+  "task_sha": "4f7e1ad4cea56696"
+ }
+}

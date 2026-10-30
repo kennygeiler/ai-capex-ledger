@@ -1,0 +1,68 @@
+{
+ "accession": "MOD|earnings_release|2025-06-30|74138f15",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2028,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 2000000000,
+   "amount_high": 2000000000,
+   "quote": "We believe that this capacity expansion, coupled with strong demand, provides a clear path to approach $2 billion in data center revenues by fiscal 2028.",
+   "passage": "p04",
+   "confidence": 0.8,
+   "notes": "'Approach $2 billion' is an approximate ceiling, not a firm guide. Data-center revenue here is cooling products sold to data-center customers."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Revenues this past quarter benefited from a strong performance by Climate Solutions, driven by continued momentum and higher sales of data center products, along with organic and inorganic growth in the HVAC Technologies product group.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "First quarter of fiscal 2026. Data-center sales are named as a revenue driver; no AI or data-center amount is stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Higher growth in Climate Solutions driven by recent acquisitions and more than 45% growth in data center sales",
+   "passage": "p10",
+   "confidence": 0.7,
+   "notes": "Slide bullet in the Fiscal 2026 Outlook section, not a full sentence. States a growth rate (>45%), which is not a share of revenue or an amount, so it is recorded as qualitative. Given the section, the year is likely fiscal 2026, but the bullet does not name it."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 100000000,
+   "amount_high": 100000000,
+   "quote": "Prioritizing organic growth in Data Centers, with $100 million capacity expansion in North America, including a new facility in Dallas, TX, further expansion in Grenada, MS, and repurposing two existing Performance Technologies sites",
+   "passage": "p05",
+   "confidence": 0.5,
+   "notes": "Slide bullet, not a full sentence. The $100M is manufacturing capacity for data-center cooling products, not AI compute infrastructure. It is planned capex, and the timing is not stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI. SG&A growth is tied to Climate Solutions growth and acquisitions generally, and data-center resources are mentioned only in passing in an EBITDA bullet."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 19.0,
+  "input_tokens": 8648,
+  "output_tokens": 2133,
+  "attempts": 1,
+  "task_sha": "aa3fb0448d5e324e"
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "accession": "TLN|earnings_release|2025-03-31|39a5ebc7",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "AWS Data Campus",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "AWS",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "GAAP Net Income (Loss) Attributable to Stockholders decreased $(429) million compared to prior year, primarily due to the absence of the gain on the sale of the AWS Data Campus, unrealized losses in the nuclear facility decommission trust, and lower realized hedge gains due to higher settled PJM West Hub on-peak prices as a result of colder than normal weather.",
+   "passage": "p01",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.8,
+  "input_tokens": 7792,
+  "output_tokens": 751,
+  "attempts": 1,
+  "task_sha": "b2b03797adbeee7d"
+ }
+}

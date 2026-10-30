@@ -1,23 +1,27 @@
 {
  "accession": "CIFR|earnings_release|2025-09-30|b464d805",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; passages describe AI/HPC leases (AWS ~$5.5Bn estimated contract value, Fluidstack/Google $1.4Bn backstop), which are lease revenue and lessee obligations, not Cipher's capex. The ~67% AI/HPC figure in p06 is a share of gross MW capacity, not spend. The ~$1.3Bn convertible offering in p06 is a financing, not capex."
+   "reason": "no sentence states or attributes capital expenditures to AI; the ~$1.3Bn convertible offering (p06) is financing proceeds, not capex"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue for a fiscal year; the ~$5.5Bn estimated contract value of the AWS lease (p05) spans a 15-year term with rent starting August 2026, the ~67% AI/HPC figure (p06) is a share of megawatt capacity rather than revenue, and the $1.4Bn Google backstop (p06/p07) is a guarantee of lease obligations"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.2,
-  "input_tokens": 8564,
-  "output_tokens": 376,
+  "seconds": 8.7,
+  "input_tokens": 8867,
+  "output_tokens": 641,
   "attempts": 1,
-  "task_sha": "052318a299c98315"
+  "task_sha": "fcac3f99c699c694"
  }
 }

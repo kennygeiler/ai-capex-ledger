@@ -1,0 +1,86 @@
+{
+ "accession": "SLNH|earnings_release|2024-09-30|0c964bf2",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Project Dorothy 2",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Texas",
+   "counterparty": "Spring Lane Capital",
+   "amount_low": 30000000,
+   "amount_high": 30000000,
+   "capacity_mw": 48,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "$30 million Expansion and Groundbreaking of Project Dorothy 2 \u2013 $30 million funding \u25cf secured from Spring Lane Capital for a 48 MW expansion of Project Dorothy, Soluna\u2019s flagship behind-the-meter data center.",
+   "passage": "p05",
+   "confidence": 0.85
+  },
+  {
+   "name": "Soluna Cloud HPE H100 GPU deployment",
+   "kind": "gpu_cluster",
+   "status": "in_service",
+   "location": null,
+   "counterparty": "Hewlett Packard Enterprise (HPE)",
+   "capacity_mw": null,
+   "gpus": 512,
+   "announced": null,
+   "in_service": null,
+   "quote": "Enterprise \u25cf AI Services with HPE - Soluna Cloud partnered with HPE to make 512 H100 SXM GPUs available, boosting support for generative AI workloads.",
+   "passage": "p05",
+   "confidence": 0.7
+  },
+  {
+   "name": "Project Rosa",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 187,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Project \u25cf Rosa PPA and land Term Sheets signed for a 187 MW Texas-based data center.",
+   "passage": "p07",
+   "confidence": 0.75
+  },
+  {
+   "name": "Project Kati",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Project \u25cf Kati secured ERCOT approval for its Reactive Power Study, nearing exit of planning.",
+   "passage": "p07",
+   "confidence": 0.75
+  },
+  {
+   "name": "Project Grace",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "adjacent to Project Dorothy",
+   "counterparty": null,
+   "capacity_mw": 2,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Project \u25cf Grace announced to build 2 MW of AI data center adjacent to Project Dorothy.",
+   "passage": "p07",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.0,
+  "input_tokens": 5494,
+  "output_tokens": 1957,
+  "attempts": 1,
+  "task_sha": "cca1fe72305bddc2"
+ }
+}

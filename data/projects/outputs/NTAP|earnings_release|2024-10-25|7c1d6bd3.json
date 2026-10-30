@@ -1,0 +1,13 @@
+{
+ "accession": "NTAP|earnings_release|2024-10-25|7c1d6bd3",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "ee2d311910b7361d"
+ }
+}

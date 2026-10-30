@@ -61,9 +61,15 @@ _BOX = """([boxes]) => boxes.map(([b, css]) => { const d = document.createElemen
 
 
 def same(a: str, b: str) -> bool:
-    """Same number as printed: ignores $, spaces and thousands separators; keeps digits, parentheses and dashes."""
+    """Same number as printed: ignores $, spaces and thousands separators; keeps digits, parentheses and dashes. When
+    the rendered cell runs several columns' values together ("(2,292)(2,367)(2,828)", HPE, type 67), the cited text
+    must be one of those values: the row is confirmed, the column by the parser's own placement."""
     n = lambda s: re.sub(r"[\s$,\u200b\ufeff]", "", s).replace("–", "—").replace("-", "—")  # \u200b: a zero-width space some filers put in cells
-    return n(a) == n(b)
+    if n(a) == n(b):
+        return True
+    raw = re.sub(r"[\s$\u200b\ufeff]", "", a)  # keep the thousands separators: they are what tells "2,190" from "2,089" in "2,1902,089"
+    tokens = re.findall(r"\(?\d{1,3}(?:,\d{3})*(?:\.\d+)?\)?%?|—|–|-", raw)
+    return len(tokens) > 1 and "".join(tokens) == raw and n(b) in {n(t) for t in tokens}
 
 
 def read(doc: Path, cites: list[dict], shots: set[str], out_dir: Path) -> dict:

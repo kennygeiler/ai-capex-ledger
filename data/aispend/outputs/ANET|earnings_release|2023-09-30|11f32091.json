@@ -1,23 +1,27 @@
 {
  "accession": "ANET|earnings_release|2023-09-30|11f32091",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is a cash flow table; purchases of property and equipment are listed but no sentence links capital expenditures to AI"
+   "reason": "the only passage is a cash flow table; purchases of property and equipment are listed with no sentence linking capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "the only passage is a cash flow table; no sentence quantifies or attributes operating expenses to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the passage is a cash flow table only"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the passage is a cash flow table with no revenue breakdown"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.2,
-  "input_tokens": 5275,
-  "output_tokens": 161,
+  "seconds": 4.1,
+  "input_tokens": 5582,
+  "output_tokens": 213,
   "attempts": 1,
-  "task_sha": "d20d649e1062a32b"
+  "task_sha": "aa9bcef9c24a9583"
  }
 }

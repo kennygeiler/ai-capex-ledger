@@ -1,7 +1,20 @@
 {
  "accession": "GOOGL|earnings_release|2025-12-31|baec9125",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 175000000000,
+   "amount_high": 185000000000,
+   "quote": "To meet customer demand and capitalize on the growing opportunities we have ahead of us, our 2026 CapEx investments are anticipated to be in the range of $175 to $185 billion.",
+   "passage": "p04",
+   "confidence": 0.9,
+   "notes": "Total 2026 capex guidance, not the AI part. The AI link comes from the preceding sentence ('our AI investments and infrastructure drive revenue'), not from this sentence itself."
+  },
   {
    "field": "opex",
    "fiscal_year": null,
@@ -9,23 +22,23 @@
    "scope": "ai",
    "class": "qualitative",
    "quote": "Alphabet-level activities primarily reflect expenses related to our shared AI research and development.",
-   "passage": "p01",
-   "confidence": 0.6,
-   "notes": "Footnote describing what the Alphabet-level activities cost category contains. It covers only that category's expenses, not total company opex, and it may be closer to definitional boilerplate than a spend statement. Present tense with no year named, so fiscal_year is null. p02 is a bullet fragment that lists the same category's contents (AI R&D compensation and infrastructure usage costs). It is not a complete sentence and gives no amount, so it was not recorded separately."
+   "passage": "p05",
+   "confidence": 0.8,
+   "notes": "Segment footnote: it says Alphabet-level expenses are mainly shared AI R&D but gives no amount. p06 describes the same allocation and is a sentence fragment, so it is skipped."
   }
  ],
  "none_found": [
   {
-   "field": "capex",
-   "reason": "no sentence links capital expenditures to AI"
+   "field": "revenue",
+   "reason": "Alphabet is a buyer of AI infrastructure. Google Cloud revenue ($17.7B quarter, >$70B run rate) is a cloud segment, and no sentence states AI's part of revenue as an amount or share."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 8.4,
-  "input_tokens": 4501,
-  "output_tokens": 787,
+  "seconds": 9.2,
+  "input_tokens": 5313,
+  "output_tokens": 1098,
   "attempts": 1,
-  "task_sha": "c08c81b274a51669"
+  "task_sha": "71691f31c370ec1a"
  }
 }

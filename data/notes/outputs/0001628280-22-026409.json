@@ -1,0 +1,220 @@
+{
+ "accession": "0001628280-22-026409",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Memory Solutions",
+   "table_id": "t0138",
+   "row_label": "Memory Solutions",
+   "column_label": "August 26,2022",
+   "cell_text": "975,181",
+   "period_end": "2022-08-26",
+   "months": 12,
+   "value": 975181000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Memory Solutions",
+   "table_id": "t0138",
+   "row_label": "Memory Solutions",
+   "column_label": "August 27,2021",
+   "cell_text": "931,818",
+   "period_end": "2021-08-27",
+   "months": 12,
+   "value": 931818000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Memory Solutions",
+   "table_id": "t0138",
+   "row_label": "Memory Solutions",
+   "column_label": "August 28,2020",
+   "cell_text": "857,237",
+   "period_end": "2020-08-28",
+   "months": 12,
+   "value": 857237000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Intelligent Platform Solutions",
+   "table_id": "t0138",
+   "row_label": "Intelligent Platform Solutions",
+   "column_label": "August 26,2022",
+   "cell_text": "440,986",
+   "period_end": "2022-08-26",
+   "months": 12,
+   "value": 440986000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Intelligent Platform Solutions",
+   "table_id": "t0138",
+   "row_label": "Intelligent Platform Solutions",
+   "column_label": "August 27,2021",
+   "cell_text": "344,757",
+   "period_end": "2021-08-27",
+   "months": 12,
+   "value": 344757000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Intelligent Platform Solutions",
+   "table_id": "t0138",
+   "row_label": "Intelligent Platform Solutions",
+   "column_label": "August 28,2020",
+   "cell_text": "265,140",
+   "period_end": "2020-08-28",
+   "months": 12,
+   "value": 265140000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "LED Solutions",
+   "table_id": "t0138",
+   "row_label": "LED Solutions",
+   "column_label": "August 26,2022",
+   "cell_text": "403,185",
+   "period_end": "2022-08-26",
+   "months": 12,
+   "value": 403185000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "LED Solutions",
+   "table_id": "t0138",
+   "row_label": "LED Solutions",
+   "column_label": "August 27,2021",
+   "cell_text": "224,567",
+   "period_end": "2021-08-27",
+   "months": 12,
+   "value": 224567000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0094",
+   "row_label": "Equipment",
+   "column_label": "August 26,2022",
+   "cell_text": "204,805",
+   "period_end": "2022-08-26",
+   "months": 0,
+   "value": 204805000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0094",
+   "row_label": "Equipment",
+   "column_label": "August 27,2021",
+   "cell_text": "182,493",
+   "period_end": "2021-08-27",
+   "months": 0,
+   "value": 182493000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and building improvements",
+   "table_id": "t0094",
+   "row_label": "Buildings and building improvements",
+   "column_label": "August 26,2022",
+   "cell_text": "59,047",
+   "period_end": "2022-08-26",
+   "months": 0,
+   "value": 59047000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and building improvements",
+   "table_id": "t0094",
+   "row_label": "Buildings and building improvements",
+   "column_label": "August 27,2021",
+   "cell_text": "53,502",
+   "period_end": "2021-08-27",
+   "months": 0,
+   "value": 53502000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures and software",
+   "table_id": "t0094",
+   "row_label": "Furniture, fixtures and software",
+   "column_label": "August 26,2022",
+   "cell_text": "38,715",
+   "period_end": "2022-08-26",
+   "months": 0,
+   "value": 38715000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures and software",
+   "table_id": "t0094",
+   "row_label": "Furniture, fixtures and software",
+   "column_label": "August 27,2021",
+   "cell_text": "32,114",
+   "period_end": "2021-08-27",
+   "months": 0,
+   "value": 32114000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0094",
+   "row_label": "Land",
+   "column_label": "August 26,2022",
+   "cell_text": "16,126",
+   "period_end": "2022-08-26",
+   "months": 0,
+   "value": 16126000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0094",
+   "row_label": "Land",
+   "column_label": "August 27,2021",
+   "cell_text": "16,126",
+   "period_end": "2021-08-27",
+   "months": 0,
+   "value": 16126000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment note reports net sales and segment operating income only; no capital expenditures by segment"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities is included in the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included in the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.3,
+  "input_tokens": 7047,
+  "output_tokens": 2403,
+  "attempts": 1,
+  "task_sha": "abc0f374694ede80"
+ }
+}

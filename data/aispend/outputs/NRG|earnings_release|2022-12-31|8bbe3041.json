@@ -1,0 +1,27 @@
+{
+ "accession": "NRG|earnings_release|2022-12-31|8bbe3041",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only as maintenance and environmental figures in the 2023 guidance table; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "NRG is a power and energy retailer; no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 5476,
+  "output_tokens": 201,
+  "attempts": 1,
+  "task_sha": "428cd1bcd69a067f"
+ }
+}

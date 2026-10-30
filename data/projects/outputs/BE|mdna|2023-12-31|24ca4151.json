@@ -1,0 +1,56 @@
+{
+ "accession": "BE|mdna|2023-12-31|24ca4151",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Three greenfield sites PPA (the Project)",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 73,
+   "gpus": null,
+   "announced": "2022",
+   "in_service": "2024",
+   "quote": "For example, in the fourth quarter of 2022, we entered into a PPA contract for the sale of electricity to a customer for three greenfield sites that were at various stages of development (the \u201cProject\u201d).",
+   "passage": "p04",
+   "confidence": 0.6
+  },
+  {
+   "name": "Fremont, California manufacturing facility",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Fremont, California",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-07",
+   "quote": "We expect to continue to make capital expenditures over the next few quarters to expand production capacity at our new manufacturing facility in Fremont, California, which includes the purchase of new equipment and other tenant improvements.",
+   "passage": "p12",
+   "confidence": 0.6
+  },
+  {
+   "name": "PPA V Upgrade",
+   "kind": "power",
+   "status": "in_service",
+   "location": null,
+   "counterparty": "Intel",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "On August 24, 2023, as part of the PPA V Upgrade, we paid off the outstanding balance and related accrued interest of $118.5 million and $0.5 million, respectively, of our 3.04% Senior Secured Notes due June 30, 2031.",
+   "passage": "p09",
+   "confidence": 0.4
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.8,
+  "input_tokens": 9928,
+  "output_tokens": 1599,
+  "attempts": 1,
+  "task_sha": "847faf2cff75be78"
+ }
+}

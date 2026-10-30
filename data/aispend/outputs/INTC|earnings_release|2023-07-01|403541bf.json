@@ -1,23 +1,37 @@
 {
  "accession": "INTC|earnings_release|2023-07-01|403541bf",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 4000000000,
+   "amount_high": 4000000000,
+   "quote": "Business Unit Revenue and Q2 2023 vs. Q2 2022 Trends Client Computing Group (CCG) $6.8 billion down 12% Data Center and AI (DCAI) $4.0 billion down 15% Network and Edge (NEX) $1.4 billion down 38% Mobileye $454 million down 1% Intel Foundry Services (IFS) $232 million up 307%",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Quarterly (Q2 2023, three months ended Jul 1, 2023) segment revenue, not full-year. The Data Center and AI segment is a combined data-center/AI segment rather than AI revenue alone. The passage is a tabular list with no sentence punctuation, so the full passage text is quoted. The p04 table gives the same figure more precisely as $4,004 million."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no passage mentions capital expenditures; AI appears only in segment names (Data Center and AI), a product collaboration with Microsoft, and AI-enabled processor capabilities, which describe what the company sells rather than spend"
+   "reason": "no sentence states or links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes R&D, infrastructure, or headcount expenses to AI; the reorganization in p01 is described as reducing costs but is not linked to AI spend, and p04 reports segment revenue and operating income only"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p01 describes a reorganization intended to reduce costs but states no AI spend"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.7,
-  "input_tokens": 5263,
-  "output_tokens": 238,
+  "seconds": 6.9,
+  "input_tokens": 5566,
+  "output_tokens": 774,
   "attempts": 1,
-  "task_sha": "90f544e741fdbc38"
+  "task_sha": "f01e817c50c4997c"
  }
 }

@@ -1,0 +1,256 @@
+{
+ "accession": "0000883241-23-000019",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Design Automation",
+   "table_id": "t0094",
+   "row_label": "Revenue",
+   "column_label": "Year Ended October 31, | 2023",
+   "cell_text": "3,775,287",
+   "period_end": "2023-10-31",
+   "months": 12,
+   "value": 3775287000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Design Automation",
+   "table_id": "t0094",
+   "row_label": "Revenue",
+   "column_label": "Year Ended October 31, | 2022",
+   "cell_text": "3,300,173",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 3300173000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Design Automation",
+   "table_id": "t0094",
+   "row_label": "Revenue",
+   "column_label": "Year Ended October 31, | 2021",
+   "cell_text": "2,754,737",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 2754737000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Design IP",
+   "table_id": "t0094",
+   "row_label": "Revenue",
+   "column_label": "Year Ended October 31, | 2023",
+   "cell_text": "1,542,726",
+   "period_end": "2023-10-31",
+   "months": 12,
+   "value": 1542726000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Design IP",
+   "table_id": "t0094",
+   "row_label": "Revenue",
+   "column_label": "Year Ended October 31, | 2022",
+   "cell_text": "1,315,541",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 1315541000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Design IP",
+   "table_id": "t0094",
+   "row_label": "Revenue",
+   "column_label": "Year Ended October 31, | 2021",
+   "cell_text": "1,055,672",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 1055672000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Software Integrity",
+   "table_id": "t0094",
+   "row_label": "Revenue",
+   "column_label": "Year Ended October 31, | 2023",
+   "cell_text": "524,606",
+   "period_end": "2023-10-31",
+   "months": 12,
+   "value": 524606000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Software Integrity",
+   "table_id": "t0094",
+   "row_label": "Revenue",
+   "column_label": "Year Ended October 31, | 2022",
+   "cell_text": "465,828",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 465828000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Software Integrity",
+   "table_id": "t0094",
+   "row_label": "Revenue",
+   "column_label": "Year Ended October 31, | 2021",
+   "cell_text": "393,784",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 393784000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer and other equipment",
+   "table_id": "t0056",
+   "row_label": "Computer and other equipment",
+   "column_label": "As of October 31, | 2023",
+   "cell_text": "991,994",
+   "period_end": "2023-10-31",
+   "months": 0,
+   "value": 991994000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer and other equipment",
+   "table_id": "t0056",
+   "row_label": "Computer and other equipment",
+   "column_label": "As of October 31, | 2022",
+   "cell_text": "870,388",
+   "period_end": "2022-10-31",
+   "months": 0,
+   "value": 870388000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0056",
+   "row_label": "Buildings",
+   "column_label": "As of October 31, | 2023",
+   "cell_text": "135,255",
+   "period_end": "2023-10-31",
+   "months": 0,
+   "value": 135255000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0056",
+   "row_label": "Buildings",
+   "column_label": "As of October 31, | 2022",
+   "cell_text": "135,722",
+   "period_end": "2022-10-31",
+   "months": 0,
+   "value": 135722000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0056",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of October 31, | 2023",
+   "cell_text": "86,946",
+   "period_end": "2023-10-31",
+   "months": 0,
+   "value": 86946000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0056",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of October 31, | 2022",
+   "cell_text": "80,885",
+   "period_end": "2022-10-31",
+   "months": 0,
+   "value": 80885000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0056",
+   "row_label": "Land",
+   "column_label": "As of October 31, | 2023",
+   "cell_text": "21,598",
+   "period_end": "2023-10-31",
+   "months": 0,
+   "value": 21598000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0056",
+   "row_label": "Land",
+   "column_label": "As of October 31, | 2022",
+   "cell_text": "21,598",
+   "period_end": "2022-10-31",
+   "months": 0,
+   "value": 21598000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0056",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of October 31, | 2023",
+   "cell_text": "265,536",
+   "period_end": "2023-10-31",
+   "months": 0,
+   "value": 265536000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0056",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of October 31, | 2022",
+   "cell_text": "241,062",
+   "period_end": "2022-10-31",
+   "months": 0,
+   "value": 241062000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment note (t0094, t0095) reports revenue and adjusted operating income/margin only; no capital expenditures by segment are given"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities is included in the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or purchase-commitments table is included in the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 19.9,
+  "input_tokens": 7456,
+  "output_tokens": 2953,
+  "attempts": 1,
+  "task_sha": "4ac9b2dfe8cd9f34"
+ }
+}

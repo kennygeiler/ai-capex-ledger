@@ -1,0 +1,44 @@
+{
+ "accession": "EQIX|mdna|2025-12-31|d3866ec7",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "TIM NextGen DC Corporation acquisition (three Philippines data centers)",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Philippines",
+   "counterparty": "TIM NextGen DC Corporation",
+   "amount_low": 183000000,
+   "amount_high": 183000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We completed our acquisition of all outstanding shares of TIM NextGen DC Corporation, consisting of three data centers in the Philippines, for total purchase consideration of $183 million.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Strategic land acquisitions for retail and xScale capacity (Amsterdam, Chicago, London, Milan, Mumbai, Toronto)",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "greater Amsterdam, Chicago, London, Milan, Mumbai and Toronto metros",
+   "counterparty": null,
+   "capacity_mw": 1000,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We closed strategic land acquisitions in several locations, including the greater Amsterdam, Chicago, London, Milan, Mumbai and Toronto metros, which will support approximately 1 GW of retail and xScale capacity.",
+   "passage": "p01",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.0,
+  "input_tokens": 7407,
+  "output_tokens": 1145,
+  "attempts": 1,
+  "task_sha": "d822aedd95bf81a8"
+ }
+}

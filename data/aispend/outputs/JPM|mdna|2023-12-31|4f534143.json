@@ -1,6 +1,6 @@
 {
  "accession": "JPM|mdna|2023-12-31|4f534143",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "906bf6b78a67fa9e"
+  "task_sha": "ee6b5e7f61424a0a"
  }
 }

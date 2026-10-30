@@ -1,0 +1,35 @@
+{
+ "accession": "0001408710-23-000028",
+ "prompt_version": "notes@v3",
+ "values": [],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "No segment note with capital expenditures by segment is among the tables; the tables show only consolidated income statement data (t0011, t0012) and revenue by geography (t0028), consistent with a single reportable segment."
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "Revenue is broken out only by geographic region and country (t0028), not by reportable segment, market or product line; geographic splits are not segment or market revenue."
+  },
+  {
+   "field": "ppe_category",
+   "reason": "No property-and-equipment note table with gross amounts by category is among the tables provided."
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "The only lease table (t0047) shows cash paid for lease liabilities (financing cash flows from finance leases of 9), not a finance lease liability balance at year-end."
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "No contractual-obligations or commitments table with total purchase obligations is among the tables provided."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.1,
+  "input_tokens": 6534,
+  "output_tokens": 489,
+  "attempts": 1,
+  "task_sha": "7e59c21a2afaa3c1"
+ }
+}

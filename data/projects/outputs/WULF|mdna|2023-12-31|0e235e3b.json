@@ -1,0 +1,84 @@
+{
+ "accession": "WULF|mdna|2023-12-31|0e235e3b",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Lake Mariner Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Barker, New York",
+   "counterparty": null,
+   "capacity_mw": 160,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-03",
+   "quote": "As of December 31, 2023, the Lake Mariner Facility was operating approximately 115 megawatt (\u201cMW\u201d) of bitcoin mining capacity and as of the date of this Annual Report, the Company has expanded its Lake Mariner Facility infrastructure to 160 MW of bitcoin mining capacity at the site.",
+   "passage": "p02",
+   "confidence": 0.75
+  },
+  {
+   "name": "Lake Mariner Facility 35 MW expansion",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Lake Mariner Facility",
+   "counterparty": null,
+   "capacity_mw": 35,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "As of the date of this Annual Report, the Company has a total operational capacity of 210 megawatts (\u201cMW\u201d) and is currently constructing an additional 35 MW at its Lake Mariner Facility, which is expected to be operational in mid-2024.",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "NYPA PPA",
+   "kind": "power",
+   "status": "contracted",
+   "location": "New York",
+   "counterparty": "Power Authority of the State of New York (NYPA)",
+   "capacity_mw": 90,
+   "gpus": null,
+   "announced": "2022-02-12",
+   "in_service": null,
+   "quote": "The Company has an agreement in place with the Power Authority of the State of New York (\u201cNYPA\u201d) for 90 MW of high load factor power to support its bitcoin mining operations (the \u201cPPA\u201d).",
+   "passage": "p02",
+   "confidence": 0.7
+  },
+  {
+   "name": "Nautilus Cryptomine Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Berwick, Pennsylvania",
+   "counterparty": "Talen Energy Corporation",
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "Nautilus currently owns a 200 MW bitcoin mining facility located adjacent to the 2.5 gigawatt nuclear-powered Susquehanna Station.",
+   "passage": "p03",
+   "confidence": 0.7
+  },
+  {
+   "name": "WULF Compute HPC power block at Lake Mariner Facility",
+   "kind": "gpu_cluster",
+   "status": "announced",
+   "location": "upstate New York",
+   "counterparty": null,
+   "capacity_mw": 2,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Subsequent to a successful pilot phase involving a compact graphics processing unit (\u201cGPU\u201d) system designed to bolster generative AI and large language model applications, the Company made an initial commitment by allocating a 2 MW power block at the Lake Mariner Facility located in upstate New York (the \u201cLake Mariner Facility\u201d).",
+   "passage": "p09",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.1,
+  "input_tokens": 12593,
+  "output_tokens": 2060,
+  "attempts": 1,
+  "task_sha": "efb8e559f2ca7297"
+ }
+}

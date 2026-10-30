@@ -1,0 +1,27 @@
+{
+ "accession": "FCX|earnings_release|2021-12-31|ee50a41d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are discussed (mining projects, Indonesia smelter) but no sentence links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "copper/gold/molybdenum miner; no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 7558,
+  "output_tokens": 192,
+  "attempts": 1,
+  "task_sha": "27b5543ee9532762"
+ }
+}

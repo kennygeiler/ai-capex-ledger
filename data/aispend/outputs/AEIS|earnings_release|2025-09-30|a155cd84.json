@@ -1,0 +1,46 @@
+{
+ "accession": "AEIS|earnings_release|2025-09-30|a155cd84",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Data Center Computing revenue grew 113% year-over-year and 21% sequentially",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "The figures are growth rates for third-quarter 2025 Data Center Computing revenue. They are not an amount or a share of revenue, so the class is qualitative. The text is a bullet fragment rather than a full sentence. No year is named; the quarter is Q3 of fiscal 2025."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u201cThird quarter results surpassed the high end of our guidance due to increased demand for our AI data center solutions,\u201d said Steve Kelley, president and CEO of Advanced Energy.",
+   "passage": "p02",
+   "confidence": 0.85,
+   "notes": "This attributes total third-quarter results to AI data center demand. The sentence names no year; the context is Q3 fiscal 2025."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.2,
+  "input_tokens": 5307,
+  "output_tokens": 959,
+  "attempts": 1,
+  "task_sha": "8dc0cbf648d518b7"
+ }
+}

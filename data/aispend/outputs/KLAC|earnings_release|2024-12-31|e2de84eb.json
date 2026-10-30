@@ -1,0 +1,27 @@
+{
+ "accession": "KLAC|earnings_release|2024-12-31|e2de84eb",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is safe-harbor boilerplate; 'changes in customer capital spending patterns' refers to customers' spending as a risk factor, and no sentence links KLA's own capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is safe-harbor boilerplate; no sentence quantifies or attributes R&D, infrastructure or headcount costs to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only passage is safe-harbor boilerplate; 'risks related to artificial intelligence' is a generic risk factor, and no sentence states AI's or data-center demand's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.4,
+  "input_tokens": 6093,
+  "output_tokens": 285,
+  "attempts": 1,
+  "task_sha": "c41efdcde7b479ab"
+ }
+}

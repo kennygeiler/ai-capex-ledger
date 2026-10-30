@@ -1,0 +1,13 @@
+{
+ "accession": "ENTG|mdna|2025-12-31|d0a9cda4",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.0,
+  "input_tokens": 5266,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "73049c52b5bf8121"
+ }
+}

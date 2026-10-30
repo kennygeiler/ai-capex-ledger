@@ -1,23 +1,27 @@
 {
  "accession": "TXN|earnings_release|2022-03-31|1f6b8365",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; capex appears only as a cash-flow line item ($443 million for Q1 2022) and in the free cash flow definition, with no AI attribution"
+   "reason": "capital expenditures appear only as a cash-flow table line ($443 million for the quarter) with no sentence linking them to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "revenue outlook ($4.20\u2013$4.80 billion for Q2) is total revenue with no AI or data-center driver; no sentence states AI or data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.1,
-  "input_tokens": 5158,
-  "output_tokens": 192,
+  "seconds": 9.5,
+  "input_tokens": 5459,
+  "output_tokens": 227,
   "attempts": 1,
-  "task_sha": "e6e2ae663519c378"
+  "task_sha": "6ea0604bfb70e52c"
  }
 }

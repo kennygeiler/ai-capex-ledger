@@ -1,0 +1,13 @@
+{
+ "accession": "TSLA|earnings_release|2023-06-30|d291e087",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "b9a4040bdb0d0fd6"
+ }
+}

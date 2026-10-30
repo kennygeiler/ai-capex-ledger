@@ -1,0 +1,27 @@
+{
+ "accession": "VRT|earnings_release|2024-12-31|e676bc10",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capex figure ('Our capital expenditure forecast for 2025 is ~$275 million, ~3.0% of sales.', p03) is a company total not linked to AI in the sentence; the preceding sentence ties ER&D and capacity investment to 'the growing needs of the industry' without naming AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the ER&D investment sentence (p03) gives no amount and does not attribute the spend to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a seller, but no sentence states data-center or AI revenue as a figure or share; the $2,346 million net sales is total revenue with no stated driver, and the ~30% data-center-driven growth refers to orders, not revenue; the CEO's AI remarks (p02) are general market commentary"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.5,
+  "input_tokens": 5437,
+  "output_tokens": 829,
+  "attempts": 1,
+  "task_sha": "a99ded7c711ce0f3"
+ }
+}

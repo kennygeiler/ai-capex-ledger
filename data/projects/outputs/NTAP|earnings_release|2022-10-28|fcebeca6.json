@@ -1,0 +1,13 @@
+{
+ "accession": "NTAP|earnings_release|2022-10-28|fcebeca6",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "8e5599cfbb9a5c6b"
+ }
+}

@@ -1,0 +1,65 @@
+{
+ "accession": "0001050915-24-000009",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "capex",
+   "table_id": "t0021",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(434,803)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 434803000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0021",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "(427,630)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 427630000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0021",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "(385,852)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 385852000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "reason": "The income statement section supplied table t0021, which is the cash-flow statement, and t0022, which is the statement of equity. No revenue line appears in either table."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "No income statement table was provided. Neither t0021 (cash flow) nor t0022 (equity) has a cost of revenue or cost of services line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "No income statement table was provided, so there are no cost-of-revenue component lines to cite."
+  },
+  {
+   "field": "operating_income",
+   "reason": "No income statement table was provided. Neither t0021 nor t0022 has an operating income line."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.1,
+  "input_tokens": 9409,
+  "output_tokens": 601,
+  "attempts": 1,
+  "task_sha": "96dabd1727431239"
+ }
+}

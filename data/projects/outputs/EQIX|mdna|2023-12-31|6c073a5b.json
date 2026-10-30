@@ -1,0 +1,30 @@
+{
+ "accession": "EQIX|mdna|2023-12-31|6c073a5b",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "AMER 1 Joint Venture",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Americas",
+   "counterparty": "GIC",
+   "amount_low": 8400000,
+   "amount_high": 8400000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2023-03",
+   "in_service": null,
+   "quote": "In March, we sold the Mexico 3 (\"MX3x\") data center site in connection with the formation of a new joint venture with GIC, to develop and operate xScale data centers in the Americas (the \"AMER 1 Joint Venture\").",
+   "passage": "p01",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.8,
+  "input_tokens": 8271,
+  "output_tokens": 898,
+  "attempts": 1,
+  "task_sha": "88d853d4a61b69dd"
+ }
+}

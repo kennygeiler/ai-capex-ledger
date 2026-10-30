@@ -1,23 +1,27 @@
 {
  "accession": "CIFR|earnings_release|2022-09-30|70430bdf",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the release covers bitcoin mining data centers and rig deployment only"
+   "reason": "no sentence links capital expenditures to AI; data center build-outs are for bitcoin mining"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "bitcoin miner; no sentence states AI or data-center revenue (data centers are self-operated bitcoin mining facilities)"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.9,
-  "input_tokens": 5290,
-  "output_tokens": 163,
+  "seconds": 2.8,
+  "input_tokens": 5589,
+  "output_tokens": 201,
   "attempts": 1,
-  "task_sha": "8fc073c0a9bd506d"
+  "task_sha": "f231af04fcf8601e"
  }
 }

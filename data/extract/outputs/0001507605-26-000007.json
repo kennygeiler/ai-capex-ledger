@@ -1,0 +1,65 @@
+{
+ "accession": "0001507605-26-000007",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "capex",
+   "table_id": "t0020",
+   "row_label": "Purchase of property and equipment",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(407,071)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 407071000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0020",
+   "row_label": "Purchase of property and equipment",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(250,825)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 250825000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0020",
+   "row_label": "Purchase of property and equipment",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(27,611)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 27611000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "reason": "Table t0029 does not look like the consolidated statement of operations. It has no 2025 column in a 10-K for the period ended 2025-12-31. It has only Revenue, Income before income taxes and EPS rows, with no cost or operating lines. Its figures (2024 revenue 675,045; basic EPS 1.89) are consistent with a pro forma acquisition disclosure, not reported results. The actual income statement table appears to be missing from the parse, so no reported revenue can be cited."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "No cost of revenue line appears in the provided income statement table (t0029). The actual statement of operations appears to be missing from the parse."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "No cost line items appear in the provided income statement table. The actual statement of operations appears to be missing from the parse."
+  },
+  {
+   "field": "operating_income",
+   "reason": "No operating income or income (loss) from operations line appears in the provided income statement table (t0029 shows only income before income taxes, apparently pro forma). The actual statement of operations appears to be missing from the parse."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.3,
+  "input_tokens": 6094,
+  "output_tokens": 1267,
+  "attempts": 1,
+  "task_sha": "3053667418f6154a"
+ }
+}

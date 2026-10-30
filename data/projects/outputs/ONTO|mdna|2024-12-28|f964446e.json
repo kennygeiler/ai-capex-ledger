@@ -1,0 +1,13 @@
+{
+ "accession": "ONTO|mdna|2024-12-28|f964446e",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 4956,
+  "output_tokens": 49,
+  "attempts": 1,
+  "task_sha": "24e894289727c62a"
+ }
+}

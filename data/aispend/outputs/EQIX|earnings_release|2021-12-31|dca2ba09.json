@@ -1,0 +1,27 @@
+{
+ "accession": "EQIX|earnings_release|2021-12-31|dca2ba09",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure guidance (non-recurring $2.145-$2.385 billion, recurring $158-$168 million for 2022) is given, but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "revenues ($6.636 billion for 2021, $7.202-$7.252 billion guided for 2022) are stated only as company totals; no sentence mentions AI or states a separate AI, data-center-segment, AI-server or HBM revenue figure or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 13142,
+  "output_tokens": 453,
+  "attempts": 1,
+  "task_sha": "3b63b6a1be9e985c"
+ }
+}

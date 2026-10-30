@@ -1,0 +1,176 @@
+{
+ "accession": "0000917273-25-000021",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Computer software",
+   "table_id": "t0077",
+   "row_label": "Computer software",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "44,745",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 44745000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer software",
+   "table_id": "t0077",
+   "row_label": "Computer software",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "44,226",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 44226000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment",
+   "table_id": "t0077",
+   "row_label": "Computer equipment",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "38,282",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 38282000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment",
+   "table_id": "t0077",
+   "row_label": "Computer equipment",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "36,198",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 36198000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0077",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "31,973",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 31973000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0077",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "27,810",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 27810000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery",
+   "table_id": "t0077",
+   "row_label": "Machinery",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "49,204",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 49204000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery",
+   "table_id": "t0077",
+   "row_label": "Machinery",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "30,446",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 30446000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0077",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "14,164",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 14164000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0077",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "12,561",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 12561000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0077",
+   "row_label": "Construction in progress",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "7,789",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 7789000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0077",
+   "row_label": "Construction in progress",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "5,660",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 5660000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note table reporting capital expenditures by segment is among the provided tables"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "the only revenue breakdown (t0019) is by revenue type (product, royalties, contract and other) and is stated as percentages of total revenue, not dollar amounts per segment or market"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities is among the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "the commitments tables (t0034, t0080) list software licenses, other contractual obligations and acquisition retention bonuses; there is no purchase obligations or purchase commitments line, and the total mixes non-purchase items"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.0,
+  "input_tokens": 6526,
+  "output_tokens": 2169,
+  "attempts": 1,
+  "task_sha": "ce90213366f17fe2"
+ }
+}

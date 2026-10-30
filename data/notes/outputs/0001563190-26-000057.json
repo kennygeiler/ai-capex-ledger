@@ -1,6 +1,6 @@
 {
  "accession": "0001563190-26-000057",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -108,30 +108,29 @@
    "period_end": "2025-12-31",
    "months": 0,
    "value": 122600000,
-   "confidence": 0.9
+   "confidence": 0.95
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "No segment table with capital expenditures; t0009 is the consolidated statement of operations, consistent with a single reportable segment."
+   "reason": "the provided tables contain no segment breakdown of capital expenditures; table t0009 is a consolidated income statement only"
   },
   {
    "field": "segment_revenue",
-   "reason": "Only consolidated revenue appears (t0009 'Revenue' is the total); no per-segment or per-market revenue table is provided."
+   "reason": "table t0009 reports only consolidated revenue; no revenue by segment, market or product line is given"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No lease table with finance lease liabilities is provided; the commitments table lists operating lease obligations only."
+   "reason": "no finance lease liability line appears in the tables; the commitments table lists only operating lease obligations"
   }
  ],
- "notes": "purchase_commitments: the contractual-obligations table has no date in its column labels; period_end assumed to be the filing's report period end 2025-12-31, hence confidence 0.9. The unlabeled row in t0044 (310.3 / 299.6) is the gross total and was skipped.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.9,
-  "input_tokens": 6039,
-  "output_tokens": 1574,
+  "seconds": 11.8,
+  "input_tokens": 6165,
+  "output_tokens": 1402,
   "attempts": 1,
-  "task_sha": "f6b7bf900a1925b2"
+  "task_sha": "26dcbf2a4e29f14d"
  }
 }

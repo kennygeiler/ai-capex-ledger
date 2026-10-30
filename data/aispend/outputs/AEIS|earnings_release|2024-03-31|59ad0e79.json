@@ -1,0 +1,27 @@
+{
+ "accession": "AEIS|earnings_release|2024-03-31|59ad0e79",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 is forward-looking-statement boilerplate and p02 is a revenue-by-market table"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only data-center figure is a table cell in p02 (Data Center Computing net revenue of $41,902 thousand for the three months ended March 31, 2024), not a sentence. It is a single quarter rather than the fiscal-year figure, and the table text is garbled with the label split across cells, so it cannot be quoted as a verbatim sentence. A reviewer may want to capture it manually as quarterly data-center revenue."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.8,
+  "input_tokens": 6055,
+  "output_tokens": 725,
+  "attempts": 1,
+  "task_sha": "83206402fa371673"
+ }
+}

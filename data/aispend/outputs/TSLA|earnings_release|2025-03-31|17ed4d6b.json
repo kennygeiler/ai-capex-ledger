@@ -1,31 +1,35 @@
 {
  "accession": "TSLA|earnings_release|2025-03-31|17ed4d6b",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "opex",
    "fiscal_year": null,
    "kind": "actual",
-   "scope": "total",
+   "scope": "ai",
    "class": "qualitative",
    "quote": "increase in operating expenses driven by AI and other R&D projects partially offset by a decrease in SG&A",
    "passage": "p02",
    "confidence": 0.8,
-   "notes": "The quote is a bullet item in a list ('YoY, operating income was primarily impacted by the following items: ...'), not a punctuated sentence. It is copied verbatim as the smallest complete clause. It refers to Q1 2025 compared with Q1 2024, not a full fiscal year. It names AI as a driver of the opex increase but does not quantify the AI portion."
+   "notes": "Quote is one bullet item, not a full sentence: the passage gives a bulleted list of year-over-year drivers of Q1 operating income with no sentence punctuation. It attributes the year-over-year rise in operating expenses to AI together with other R&D projects, without separating the AI part or giving an amount. It reports Q1 of fiscal 2025 and names no year (only 'YoY'), so fiscal_year is null and defaults to the reported year, 2025."
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; capex appears only in the free cash flow definitions, and 'critical, high-value investments' is not tied to AI or to capex"
+   "reason": "capex appears only in the free-cash-flow definitions; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue; the statement that AI infrastructure is driving load growth describes an opportunity for Energy storage products, not reported or guided revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 8.5,
-  "input_tokens": 8000,
-  "output_tokens": 902,
+  "seconds": 12.6,
+  "input_tokens": 8299,
+  "output_tokens": 1138,
   "attempts": 1,
-  "task_sha": "827cffea172721cf"
+  "task_sha": "1cf1e18031c2ffe0"
  }
 }

@@ -1,0 +1,13 @@
+{
+ "accession": "DELL|earnings_release|2025-10-31|1bc852b4",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.0,
+  "input_tokens": 5039,
+  "output_tokens": 81,
+  "attempts": 1,
+  "task_sha": "e390240cf90b1523"
+ }
+}

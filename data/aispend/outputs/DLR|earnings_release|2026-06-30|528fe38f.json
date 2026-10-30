@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|earnings_release|2026-06-30|528fe38f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; development capacity is labeled 'For Growing Digital Transformation, Cloud and AI Workloads' only in a slide heading (p12), with no spend amount, and the acquisition consideration figures (p03, p04) are not tied to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "total revenues of $1.9 billion (p02) are not linked to AI or stated as AI/data-center demand revenue; the top-customer table (p07) lists a 'Leading AI Chip Maker' at 1.6% of annualized recurring revenue, but that is one customer's share in a table, not a sentence stating AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.2,
+  "input_tokens": 18576,
+  "output_tokens": 692,
+  "attempts": 1,
+  "task_sha": "bc19fa329f7f915d"
+ }
+}

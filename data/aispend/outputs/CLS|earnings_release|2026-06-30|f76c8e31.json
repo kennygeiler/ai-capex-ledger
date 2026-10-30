@@ -1,0 +1,27 @@
+{
+ "accession": "CLS|earnings_release|2026-06-30|f76c8e31",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes Celestica's own capital expenditures to AI; capex mentions appear only in forward-looking-statement boilerplate and the free cash flow definition"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "passages include only the headline, company description and forward-looking boilerplate; no sentence states an AI or data-center revenue figure or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 6431,
+  "output_tokens": 237,
+  "attempts": 1,
+  "task_sha": "b8d85d54ed0e69b7"
+ }
+}

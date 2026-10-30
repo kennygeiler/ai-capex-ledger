@@ -1,0 +1,56 @@
+{
+ "accession": "WULF|earnings_release|2022-09-30|f8386683",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Lake Mariner facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "New York",
+   "counterparty": null,
+   "capacity_mw": 110,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "Construction activities on Building 2, also 50 MW, are substantially complete and the Company expects to achieve total capacity of 110 MW at the Lake Mariner facility in Q1 2023.",
+   "passage": "p04",
+   "confidence": 0.8
+  },
+  {
+   "name": "Nautilus Cryptomine facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Pennsylvania",
+   "counterparty": "Talen Energy Corp.",
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "The Nautilus Cryptomine facility, which has access to an initial 200 MW of mining capacity from Talen\u2019s 2.3 GW Susquehanna Nuclear Station in Pennsylvania, with an option for an incremental 100 MW, is in the final stages of construction and is projected to begin mining at scale in Q1 2023.",
+   "passage": "p04",
+   "confidence": 0.8
+  },
+  {
+   "name": "Nautilus JV contracted power",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Talen Energy Corp.",
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Recent amendment to Nautilus Cryptomine joint venture agreement with an \u25cf affiliate of Talen Energy Corp. (the \u201cNautilus JV\u201d) maximizes TeraWulf\u2019s 50 MW share of five-year contracted power at $0.02/kWh, for an expected average of $0.035/kWh across its two sites.",
+   "passage": "p03",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 19.1,
+  "input_tokens": 7925,
+  "output_tokens": 2358,
+  "attempts": 1,
+  "task_sha": "5ea2cb4873c1aecb"
+ }
+}

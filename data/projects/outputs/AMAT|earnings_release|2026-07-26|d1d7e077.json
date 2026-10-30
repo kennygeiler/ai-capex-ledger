@@ -1,0 +1,30 @@
+{
+ "accession": "AMAT|earnings_release|2026-07-26|d1d7e077",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Tampines Campus",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Singapore",
+   "counterparty": null,
+   "amount_low": 500000000,
+   "amount_high": 500000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The new US$500 million Tampines Campus more than doubles Applied\u2019s advanced cleanroom capacity in Singapore and strengthens the company\u2019s global manufacturing footprint.",
+   "passage": "p01",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.0,
+  "input_tokens": 4690,
+  "output_tokens": 410,
+  "attempts": 1,
+  "task_sha": "60ad23bdcd5505f5"
+ }
+}

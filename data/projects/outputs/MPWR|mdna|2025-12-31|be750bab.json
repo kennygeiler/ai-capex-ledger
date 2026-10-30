@@ -1,0 +1,13 @@
+{
+ "accession": "MPWR|mdna|2025-12-31|be750bab",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 4170,
+  "output_tokens": 49,
+  "attempts": 1,
+  "task_sha": "3a8345966083c9d1"
+ }
+}

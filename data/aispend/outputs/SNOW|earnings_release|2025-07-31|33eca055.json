@@ -1,0 +1,27 @@
+{
+ "accession": "SNOW|earnings_release|2025-07-31|33eca055",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "product revenue of $1.09 billion is a total figure in a sentence that does not name AI as a driver; the count of 6,100 accounts using Snowflake's AI is a usage metric, not a revenue amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.2,
+  "input_tokens": 4937,
+  "output_tokens": 344,
+  "attempts": 1,
+  "task_sha": "2c6b9fcba33ba696"
+ }
+}

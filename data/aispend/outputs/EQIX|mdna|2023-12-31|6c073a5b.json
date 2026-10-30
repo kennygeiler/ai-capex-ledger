@@ -1,0 +1,27 @@
+{
+ "accession": "EQIX|mdna|2023-12-31|6c073a5b",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex discussion (p12, p14, p15) concerns IBX data center construction and expansion generally, with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue; the IBX expansion revenue fragments (p03-p05) are incremental colocation revenue from capacity additions, not AI or AI-driven data-center demand, and the power-density remark (p02) does not mention AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 12122,
+  "output_tokens": 527,
+  "attempts": 1,
+  "task_sha": "8c50d6efb17862b9"
+ }
+}

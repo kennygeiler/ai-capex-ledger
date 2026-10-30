@@ -1,6 +1,6 @@
 {
  "accession": "MSFT|earnings_release|2025-03-31|ccf57533",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "374e632326fd0a4a"
+  "task_sha": "3159d5108ab9c282"
  }
 }

@@ -1,0 +1,232 @@
+{
+ "accession": "0001616533-26-000050",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Advanced Computing",
+   "table_id": "t0065",
+   "row_label": "Advanced Computing",
+   "column_label": "August 28,2026",
+   "cell_text": "558,789",
+   "period_end": "2026-08-28",
+   "months": 12,
+   "value": 558789000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Advanced Computing",
+   "table_id": "t0065",
+   "row_label": "Advanced Computing",
+   "column_label": "August 29,2025",
+   "cell_text": "648,417",
+   "period_end": "2025-08-29",
+   "months": 12,
+   "value": 648417000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Advanced Computing",
+   "table_id": "t0065",
+   "row_label": "Advanced Computing",
+   "column_label": "August 30,2024",
+   "cell_text": "554,552",
+   "period_end": "2024-08-30",
+   "months": 12,
+   "value": 554552000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Integrated Memory",
+   "table_id": "t0065",
+   "row_label": "Integrated Memory",
+   "column_label": "August 28,2026",
+   "cell_text": "924,001",
+   "period_end": "2026-08-28",
+   "months": 12,
+   "value": 924001000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Integrated Memory",
+   "table_id": "t0065",
+   "row_label": "Integrated Memory",
+   "column_label": "August 29,2025",
+   "cell_text": "464,249",
+   "period_end": "2025-08-29",
+   "months": 12,
+   "value": 464249000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Integrated Memory",
+   "table_id": "t0065",
+   "row_label": "Integrated Memory",
+   "column_label": "August 30,2024",
+   "cell_text": "356,426",
+   "period_end": "2024-08-30",
+   "months": 12,
+   "value": 356426000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Optimized LED",
+   "table_id": "t0065",
+   "row_label": "Optimized LED",
+   "column_label": "August 28,2026",
+   "cell_text": "248,678",
+   "period_end": "2026-08-28",
+   "months": 12,
+   "value": 248678000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Optimized LED",
+   "table_id": "t0065",
+   "row_label": "Optimized LED",
+   "column_label": "August 29,2025",
+   "cell_text": "256,128",
+   "period_end": "2025-08-29",
+   "months": 12,
+   "value": 256128000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Optimized LED",
+   "table_id": "t0065",
+   "row_label": "Optimized LED",
+   "column_label": "August 30,2024",
+   "cell_text": "259,818",
+   "period_end": "2024-08-30",
+   "months": 12,
+   "value": 259818000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0110",
+   "row_label": "Equipment",
+   "column_label": "August 28,2026",
+   "cell_text": "89,670",
+   "period_end": "2026-08-28",
+   "months": 0,
+   "value": 89670000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0110",
+   "row_label": "Equipment",
+   "column_label": "August 29,2025",
+   "cell_text": "90,160",
+   "period_end": "2025-08-29",
+   "months": 0,
+   "value": 90160000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and building improvements",
+   "table_id": "t0110",
+   "row_label": "Buildings and building improvements",
+   "column_label": "August 28,2026",
+   "cell_text": "70,525",
+   "period_end": "2026-08-28",
+   "months": 0,
+   "value": 70525000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and building improvements",
+   "table_id": "t0110",
+   "row_label": "Buildings and building improvements",
+   "column_label": "August 29,2025",
+   "cell_text": "69,245",
+   "period_end": "2025-08-29",
+   "months": 0,
+   "value": 69245000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures and software",
+   "table_id": "t0110",
+   "row_label": "Furniture, fixtures and software",
+   "column_label": "August 28,2026",
+   "cell_text": "46,964",
+   "period_end": "2026-08-28",
+   "months": 0,
+   "value": 46964000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures and software",
+   "table_id": "t0110",
+   "row_label": "Furniture, fixtures and software",
+   "column_label": "August 29,2025",
+   "cell_text": "46,784",
+   "period_end": "2025-08-29",
+   "months": 0,
+   "value": 46784000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0110",
+   "row_label": "Land",
+   "column_label": "August 28,2026",
+   "cell_text": "14,983",
+   "period_end": "2026-08-28",
+   "months": 0,
+   "value": 14983000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0110",
+   "row_label": "Land",
+   "column_label": "August 29,2025",
+   "cell_text": "14,983",
+   "period_end": "2025-08-29",
+   "months": 0,
+   "value": 14983000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment tables report net sales, cost of goods sold, operating expense and segment operating income only; no capital expenditures by segment are given"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table is included among the tables provided"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included among the tables provided"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.3,
+  "input_tokens": 9482,
+  "output_tokens": 2666,
+  "attempts": 1,
+  "task_sha": "65eb45ab3150740b"
+ }
+}

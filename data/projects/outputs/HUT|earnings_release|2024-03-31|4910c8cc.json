@@ -1,0 +1,42 @@
+{
+ "accession": "HUT|earnings_release|2024-03-31|4910c8cc",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Ontario natural gas power generation facilities",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Ontario, Canada",
+   "counterparty": "Macquarie Equipment Finance Ltd.",
+   "capacity_mw": 310,
+   "gpus": null,
+   "announced": "2024-02",
+   "in_service": null,
+   "quote": "This increase was driven by a $3.4 million increase in stock-based compensation, $2.9 million in restructuring costs due to optimization initiatives during the quarter, $1.4 million in expenses related to the February 2024 acquisition of four power plants in Ontario, Canada in partnership with Macquarie Equipment Finance Ltd., and $5.9 million related to headcount and other general and administration expenses acquired as part of the Business Combination and to support the growth of the Company.",
+   "passage": "p04",
+   "confidence": 0.7
+  },
+  {
+   "name": "AI vertical GPU-as-a-service customer agreement",
+   "kind": "gpu_cluster",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Shortly after the close of the quarter, we finalized commercial agreements for our new AI vertical under a GPU-as-a-service model, including a customer agreement which provides for fixed infrastructure payments plus revenue sharing.",
+   "passage": "p01",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.7,
+  "input_tokens": 4868,
+  "output_tokens": 1411,
+  "attempts": 1,
+  "task_sha": "394dc9f812408f55"
+ }
+}

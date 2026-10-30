@@ -1,0 +1,72 @@
+{
+ "accession": "EQIX|earnings_release|2024-06-30|e7a39f20",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Philippines acquisition of three data centers from Total Information Management",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Philippines",
+   "counterparty": "Total Information Management (TIM)",
+   "amount_low": 180000000,
+   "amount_high": 180000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Last month, Equinix announced its planned entry into the Philippines with the acquisition of three data centers from Total Information Management (\u201cTIM\u201d), a leading technology solutions provider.",
+   "passage": "p02",
+   "confidence": 0.75
+  },
+  {
+   "name": "Silicon Valley 12",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Silicon Valley",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Since our last earnings call, the company leased an incremental 17 megawatts of capacity into its Silicon Valley 12 and Paris 13 assets, bringing total xScale leasing to 365 megawatts globally.",
+   "passage": "p02",
+   "confidence": 0.7
+  },
+  {
+   "name": "Paris 13",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Paris",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Since our last earnings call, the company leased an incremental 17 megawatts of capacity into its Silicon Valley 12 and Paris 13 assets, bringing total xScale leasing to 365 megawatts globally.",
+   "passage": "p02",
+   "confidence": 0.7
+  },
+  {
+   "name": "Atlanta metro area xScale campus",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Atlanta metro area",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Additionally, Equinix recently acquired a greater than 200-acre land parcel with access to power as it develops its first multi- hundred-megawatt xScale campus in the Atlanta metro area, which will better position it to pursue larger AI and hyperscale workloads in the U.S.",
+   "passage": "p02",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.7,
+  "input_tokens": 5418,
+  "output_tokens": 1321,
+  "attempts": 1,
+  "task_sha": "6b02d27ccd73c2b6"
+ }
+}

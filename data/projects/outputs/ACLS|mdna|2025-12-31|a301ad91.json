@@ -1,0 +1,13 @@
+{
+ "accession": "ACLS|mdna|2025-12-31|a301ad91",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 5084,
+  "output_tokens": 50,
+  "attempts": 1,
+  "task_sha": "957eef6d84b3de63"
+ }
+}

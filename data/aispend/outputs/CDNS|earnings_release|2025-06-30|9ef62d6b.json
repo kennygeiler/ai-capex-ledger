@@ -1,0 +1,46 @@
+{
+ "accession": "CDNS|earnings_release|2025-06-30|9ef62d6b",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Core EDA, comprised of Cadence\u2019s digital, custom / analog and verification businesses, delivered 16% year-over-year revenue growth, driven by further proliferation of Cadence's AI portfolio.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Segment (Core EDA) revenue growth attributed to the AI portfolio in words only; 16% is a growth rate, not AI's share of revenue. Q2 period; no year named in sentence."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "System Design & Analysis business achieved 35% year-over-year revenue growth driven by Cadence\u2019s multi-physics analysis platform and AI-driven optimization, which delivered superior results.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "Segment (SD&A) revenue growth attributed partly to AI-driven optimization; 35% is a growth rate, not an AI share. AI is one of two named drivers. Q2 period; no year named in sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "purchases of property, plant and equipment appear only in the cash flow table; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D and AI are mentioned together only in forward-looking-statement risk boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.4,
+  "input_tokens": 7721,
+  "output_tokens": 1157,
+  "attempts": 1,
+  "task_sha": "c51e86c40dfb0e77"
+ }
+}

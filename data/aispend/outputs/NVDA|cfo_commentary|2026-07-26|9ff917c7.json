@@ -1,23 +1,50 @@
 {
  "accession": "NVDA|cfo_commentary|2026-07-26|9ff917c7",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 89000000000,
+   "amount_high": 89000000000,
+   "quote": "Data Center revenue for the second quarter was a record $89.0 billion, up 117% from a year ago and up 18% sequentially, driven by the ramp of our Blackwell Ultra infrastructure.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Quarterly figure (Q2 FY27, quarter ended 2026-07-26), not a full-year amount; sentence names no fiscal year, filing reports fiscal 2027."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 150000000000,
+   "amount_high": 200000000000,
+   "quote": "Each generation of NVIDIA infrastructure deployed at PORTS-Pike could represent approximately 1.5 million NVIDIA GPUs, or approximately $150 billion to $200 billion in NVIDIA revenue.",
+   "passage": "p03",
+   "confidence": 0.4,
+   "notes": "Hypothetical per-infrastructure-generation revenue at one site, not an annual outlook for any fiscal year; the first data centers are expected in fiscal 2029, so the default 'year after the reported year' would be misleading."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the only capex figure is $8 billion of capital expenditure commitments in the future-commitments table (p02), which is not attributed to AI, and the AI-infrastructure language in p02-p03 concerns supply, lease, AI-cloud and guarantee commitments, not the company's own capital expenditures"
+   "reason": "no sentence links capital expenditures to AI; the $8 billion capital expenditure commitment in the table carries no AI attribution"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; the p01 opex increase is attributed to 'higher compute infrastructure and compensation and benefits costs' without mentioning AI, the Q3 FY27 opex outlook of ~$9.2B GAAP / $9.0B non-GAAP (p04) gives no AI driver, and the p02 sentence on cloud service agreements and data center leases powering R&D (including open models such as Nemotron, Cosmos and GR00T) describes commitments, not operating expense amounts or shares tied to AI"
+   "reason": "operating expense increases are attributed to compute infrastructure and compensation costs without naming AI; the Q3 opex outlook has no AI link"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 8.4,
-  "input_tokens": 8653,
-  "output_tokens": 817,
+  "seconds": 13.0,
+  "input_tokens": 8962,
+  "output_tokens": 1588,
   "attempts": 1,
-  "task_sha": "92ffbaaeaf4bd587"
+  "task_sha": "95e0b90748285398"
  }
 }

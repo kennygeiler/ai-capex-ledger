@@ -1,0 +1,35 @@
+{
+ "accession": "SNDK|mdna|2025-06-27|e928c27d",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Cloud revenue increased 195%, or $635 million, in 2025 compared to 2024, primarily due to a 153% increase in exabytes sold due to increased enterprise SSD shipments to data center customers and a 17% increase in ASP per gigabyte due to improved pricing.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "Cloud end-market revenue is attributed to enterprise SSD shipments to data center customers. The $635 million is a year-over-year increase, not a revenue level, and the 195% is a growth rate, not a share of revenue. Neither is recorded as an amount or share. No AI or data-center revenue figure is stated. Cloud segment is treated as data-center demand on the seller side, which is why confidence is reduced."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure sentences (conservative strategy in 2025/2024; increased investment in fiscal 2026 for node transitions; reduction from the SDSS transaction) are not linked to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only opex sentence (modest reduction from the SDSS transaction) is not linked to AI; no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.3,
+  "input_tokens": 5699,
+  "output_tokens": 907,
+  "attempts": 1,
+  "task_sha": "73a7a5896b56e5b8"
+ }
+}

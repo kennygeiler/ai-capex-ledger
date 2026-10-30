@@ -1,0 +1,98 @@
+{
+ "accession": "APLD|earnings_release|2024-05-31|a770fa15",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Ellendale 100 MW HPC facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Ellendale, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 100,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "During the fiscal second quarter, the Company broke ground on its first 100 MW high-performance compute facility in Ellendale, North Dakota.",
+   "passage": "p05",
+   "confidence": 0.9
+  },
+  {
+   "name": "Ellendale HPC campus hyperscaler LOI",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Ellendale, North Dakota",
+   "counterparty": "US-based hyperscaler",
+   "capacity_mw": 400,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The Company has entered into exclusivity through an executed LOI with a US-based hyperscaler for 400 MW capacity, inclusive of our 100 MW facility currently under construction and two forthcoming buildings in Ellendale, North Dakota.",
+   "passage": "p06",
+   "confidence": 0.6
+  },
+  {
+   "name": "Next two Ellendale HPC buildings",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 300,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "To support this vision, we have added several industry veterans to our team and are already working on the design of our next two buildings which will provide 300 MW of capacity.",
+   "passage": "p03",
+   "confidence": 0.7
+  },
+  {
+   "name": "Three additional HPC campuses",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 1400,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "This starts with our Ellendale campus and continues with three additional campuses we are actively marketing totaling 1.4 GW.",
+   "passage": "p03",
+   "confidence": 0.5
+  },
+  {
+   "name": "Jamestown, North Dakota data center hosting facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Jamestown, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 106,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our 106 MW facility in Jamestown, North Dakota, operated at full capacity throughout the year.",
+   "passage": "p07",
+   "confidence": 0.85
+  },
+  {
+   "name": "Ellendale Data Center Hosting facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Ellendale, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 180,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "However, our 180 MW facility in Ellendale, North Dakota, experienced a power outage starting in January.",
+   "passage": "p07",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.6,
+  "input_tokens": 6452,
+  "output_tokens": 1991,
+  "attempts": 1,
+  "task_sha": "d514d1a8d7ecefaf"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "SYM|earnings_release|2025-03-29|f2d18c47",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; capex appears only in the free cash flow definition"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "AI appears only in product descriptions ('AI-powered supply chain automation systems'), which are boilerplate; no sentence states an AI or data-center revenue figure or share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.6,
+  "input_tokens": 10243,
+  "output_tokens": 242,
+  "attempts": 1,
+  "task_sha": "a131ec1932c486cd"
+ }
+}

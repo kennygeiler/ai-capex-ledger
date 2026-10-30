@@ -1,6 +1,6 @@
 {
  "accession": "0001144879-25-000021",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_capex",
@@ -12,8 +12,7 @@
    "period_end": "2025-05-31",
    "months": 12,
    "value": 9320000,
-   "confidence": 0.95,
-   "notes": "Row under the 'Capital expenditures:' heading; the same label also appears under depreciation and amortization."
+   "confidence": 1.0
   },
   {
    "field": "segment_capex",
@@ -25,8 +24,7 @@
    "period_end": "2024-05-31",
    "months": 12,
    "value": 38266000,
-   "confidence": 0.95,
-   "notes": "Row under the 'Capital expenditures:' heading."
+   "confidence": 1.0
   },
   {
    "field": "segment_capex",
@@ -38,8 +36,7 @@
    "period_end": "2023-05-31",
    "months": 12,
    "value": 135946000,
-   "confidence": 0.95,
-   "notes": "Row under the 'Capital expenditures:' heading."
+   "confidence": 1.0
   },
   {
    "field": "segment_capex",
@@ -51,8 +48,7 @@
    "period_end": "2025-05-31",
    "months": 12,
    "value": 976506000,
-   "confidence": 0.95,
-   "notes": "Row under the 'Capital expenditures:' heading."
+   "confidence": 1.0
   },
   {
    "field": "segment_capex",
@@ -64,8 +60,7 @@
    "period_end": "2024-05-31",
    "months": 12,
    "value": 207299000,
-   "confidence": 0.95,
-   "notes": "Row under the 'Capital expenditures:' heading."
+   "confidence": 1.0
   },
   {
    "field": "segment_capex",
@@ -77,8 +72,7 @@
    "period_end": "2023-05-31",
    "months": 12,
    "value": 9813000,
-   "confidence": 0.95,
-   "notes": "Row under the 'Capital expenditures:' heading."
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -90,8 +84,7 @@
    "period_end": "2025-05-31",
    "months": 12,
    "value": 144193000,
-   "confidence": 0.9,
-   "notes": "Segment revenue is given by segment only for FY2025; HPC Hosting Business shows '\u2014' (no revenue) and is omitted. Includes related party revenue."
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -289,19 +282,19 @@
  "not_found": [
   {
    "field": "finance_lease_liability",
-   "reason": "No single total finance lease liability cell exists. The balance sheet (t0018) shows only 'Current portion of finance lease liability' (13,633 at May 31, 2025; 5,283 at May 31, 2024) and 'Long-term portion of finance lease liability' (15; 3,381). Their sums, 13,648 and 8,664 thousand, cannot be cited to one cell. Finance lease liabilities of discontinued operations held for sale (t0030) are also reported separately."
+   "reason": "no total finance lease liabilities line is given; the balance sheet (t0018) shows only 'Current portion of finance lease liability' and 'Long-term portion of finance lease liability', and the validator rejects a current/non-current dimension on this field, while citing both cells undimensioned would put two cells on one dimension and adding them is not allowed"
   },
   {
    "field": "purchase_commitments",
-   "reason": "None of the provided tables is a contractual-obligations or purchase-commitments table."
+   "reason": "no contractual-obligations or purchase-commitments table is among the tables provided"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 61.8,
-  "input_tokens": 23728,
-  "output_tokens": 8417,
+  "seconds": 55.6,
+  "input_tokens": 23885,
+  "output_tokens": 8026,
   "attempts": 2,
-  "task_sha": "5ff52ff17fd94cea"
+  "task_sha": "4a75a88d059d03c5"
  }
 }

@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|earnings_release|2024-06-30|1afee529",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; capex is mentioned only in non-GAAP definitions and forward-looking boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "total revenue of $1.4 billion is not tied to AI in its sentence; the only AI mention is the slide fragment 'AI Spurs Demand ... for Large Capacity Blocks' (p07), which is a chart heading about bookings, not a complete sentence stating AI revenue, and attributing the >1 MW bookings to AI would be inference"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 15342,
+  "output_tokens": 635,
+  "attempts": 1,
+  "task_sha": "db6b734988ee11d8"
+ }
+}

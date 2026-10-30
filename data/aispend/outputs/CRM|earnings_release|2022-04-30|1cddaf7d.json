@@ -1,0 +1,27 @@
+{
+ "accession": "CRM|earnings_release|2022-04-30|1cddaf7d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p03 only reports a cash-flow table figure for capital expenditures with no AI attribution, and p01 mentions capital expenditures only in safe-harbor boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p02 data center expense mentions are risk-factor boilerplate"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; passages are company description, safe-harbor boilerplate and a cash-flow table"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 6918,
+  "output_tokens": 269,
+  "attempts": 1,
+  "task_sha": "58427f11ebf654ae"
+ }
+}

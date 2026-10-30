@@ -1,0 +1,27 @@
+{
+ "accession": "TLN|earnings_release|2025-12-31|059e17e9",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; the only passage is boilerplate company description"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only AI mention is boilerplate positioning ('well-positioned to serve... AI data centers'); no sentence states an amount or share of revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 5009,
+  "output_tokens": 213,
+  "attempts": 1,
+  "task_sha": "255320552b848523"
+ }
+}

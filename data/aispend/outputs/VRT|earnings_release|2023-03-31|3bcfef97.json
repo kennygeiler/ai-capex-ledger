@@ -1,0 +1,27 @@
+{
+ "accession": "VRT|earnings_release|2023-03-31|3bcfef97",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures of $27.8 million appear only in the cash flow table (p02), with no sentence linking them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 says end-market demand drivers are 'reinforced by growing AI investment' and calls data center market demand resilient, but no sentence states an AI or data-center amount or share of Vertiv's revenue, or attributes its revenue to AI; this is market commentary"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.7,
+  "input_tokens": 5880,
+  "output_tokens": 638,
+  "attempts": 1,
+  "task_sha": "77dcb097d33df2ac"
+ }
+}

@@ -1,0 +1,62 @@
+{
+ "accession": "AMZN|earnings_release|2024-03-31|240be97f",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "AWS infrastructure Region in the Kingdom of Saudi Arabia",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Kingdom of Saudi Arabia",
+   "counterparty": null,
+   "amount_low": 5300000000,
+   "amount_high": 5300000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "As part of AWS\u2019s long-term commitment, it is planning to invest more than $5.3 billion in the Kingdom of Saudi Arabia and more than $5 billion in Mexico over the next several years.",
+   "passage": "p01",
+   "confidence": 0.8
+  },
+  {
+   "name": "AWS infrastructure Region in Mexico",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Mexico",
+   "counterparty": null,
+   "amount_low": 5000000000,
+   "amount_high": 5000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "As part of AWS\u2019s long-term commitment, it is planning to invest more than $5.3 billion in the Kingdom of Saudi Arabia and more than $5 billion in Mexico over the next several years.",
+   "passage": "p01",
+   "confidence": 0.8
+  },
+  {
+   "name": "Mississippi data center complexes",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Mississippi",
+   "counterparty": null,
+   "amount_low": 10000000000,
+   "amount_high": 10000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "A planned investment of $10 billion to build two data center complexes in Mississippi.",
+   "passage": "p02",
+   "confidence": 0.9
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.7,
+  "input_tokens": 5171,
+  "output_tokens": 969,
+  "attempts": 1,
+  "task_sha": "9e31f452291b7902"
+ }
+}

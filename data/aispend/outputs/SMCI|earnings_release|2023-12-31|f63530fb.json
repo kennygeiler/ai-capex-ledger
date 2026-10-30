@@ -1,0 +1,48 @@
+{
+ "accession": "SMCI|earnings_release|2023-12-31|f63530fb",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "While we continue to win new partners, our current end customers continue to demand more Supermicro\u2019s optimized AI computer platforms and rack-scale Total IT Solutions.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Links customer demand, and so seller-side revenue, to AI platforms in words only. The sentence says 'demand', not 'revenue', and names no period. The fiscal year is left null."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 14300000000,
+   "amount_high": 14700000000,
+   "quote": "As our innovative solutions continue to gain market share, we are raising our fiscal year 2024 revenue outlook to $14.3 billion to $14.7 billion.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Total company revenue guidance, recorded with scope total so it is not read as AI revenue. This sentence does not itself name AI as a driver; the AI link comes only from the preceding sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.0,
+  "input_tokens": 5881,
+  "output_tokens": 1211,
+  "attempts": 1,
+  "task_sha": "1bf80d489c94ac45"
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "accession": "NOW|mdna|2023-12-31|2e79fbf5",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Microsoft cloud services purchase agreement (Azure)",
+   "kind": "cloud_commitment",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Microsoft",
+   "amount_low": 500000000,
+   "amount_high": 500000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our estimated future obligations consist of leases, a non-cancellable $500 million agreement with Microsoft to purchase cloud services over five years for accelerating the Azure adoption for mutual customers, the second installment of the consideration for the G2K acquisition to be paid in February 2024, purchase obligations, debt and unrecognized tax benefits as of December 31, 2023.",
+   "passage": "p08",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.1,
+  "input_tokens": 5830,
+  "output_tokens": 445,
+  "attempts": 1,
+  "task_sha": "cac2357174a8ccd1"
+ }
+}

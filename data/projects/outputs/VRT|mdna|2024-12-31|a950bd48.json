@@ -1,0 +1,13 @@
+{
+ "accession": "VRT|mdna|2024-12-31|a950bd48",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.2,
+  "input_tokens": 5406,
+  "output_tokens": 49,
+  "attempts": 1,
+  "task_sha": "7d24616d8d4ee5db"
+ }
+}

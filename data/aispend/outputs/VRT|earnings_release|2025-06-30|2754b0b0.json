@@ -1,0 +1,50 @@
+{
+ "accession": "VRT|earnings_release|2025-06-30|2754b0b0",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 2638000000,
+   "amount_high": 2638000000,
+   "quote": "Vertiv delivered strong second quarter performance with net sales of $2,638 million, representing a 35% increase ($685 million) from the prior year period, driven by robust data center demand and continued market penetration.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Total net sales for Q2 2025 only, not the full fiscal year; data center demand named as a driver. The data-center portion is not stated."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We are strategically investing in capacity expansion and accelerating our innovation pipeline to capitalize on unprecedented data center growth, particularly in AI- enabled infrastructure.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Capacity expansion implies capex, but 'investing' is not explicitly capital expenditures. The sentence also covers innovation (ER&D). The full-year capex outlook of $250-$300 million (p04) is tied only to 'strong industry demand', not to AI, so it is not recorded."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "To capitalize on these expanding opportunities, we are continuing to accelerate our growth investments, with significant ER&D investments in next- generation technologies and AI-optimized infrastructure solutions.",
+   "passage": "p05",
+   "confidence": 0.8,
+   "notes": "ER&D investment is linked to AI-optimized solutions in words only. The sentence is present tense, so it is recorded as an actual."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.3,
+  "input_tokens": 5968,
+  "output_tokens": 1482,
+  "attempts": 1,
+  "task_sha": "d865c17b5494e8b9"
+ }
+}

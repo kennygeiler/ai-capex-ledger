@@ -1,23 +1,37 @@
 {
  "accession": "WULF|earnings_release|2026-06-30|50ff4df8",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 19000000000,
+   "amount_high": 33000000000,
+   "quote": "The lease represents approximately $19 billion of contracted revenue over the initial term and up to approximately $33 billion if Anthropic exercises both five-year extension options.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Contracted AI data-center lease revenue from Anthropic, summed over the 20-year initial term ($19B) or up to 30 years with both extensions ($33B). This is a multi-year contract total, not revenue for any single fiscal year, so fiscal_year is null and the code default (year after filing) should not be read as the year the amount is earned. Low and high are two contract-length scenarios, not a guidance range."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; p01 is a business description of HPC/AI infrastructure (boilerplate) and p02/p03 are safe-harbor risk language"
+   "reason": "no complete sentence states capital expenditures or links them to AI; the slide's 'Illustrative Capital Formation 250 - 500 MW critical IT @ $10 - 12M/MW = $2.5B - $6.0B' (p06) is a hypothetical per-MW build-cost model in slide fragments, not a statement of actual or guided capex"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; passages contain only a company description and forward-looking-statement disclaimers"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.1,
-  "input_tokens": 6907,
-  "output_tokens": 219,
+  "seconds": 9.3,
+  "input_tokens": 8415,
+  "output_tokens": 1018,
   "attempts": 1,
-  "task_sha": "ca4499cf6221ffa1"
+  "task_sha": "b5609caaf36c8213"
  }
 }

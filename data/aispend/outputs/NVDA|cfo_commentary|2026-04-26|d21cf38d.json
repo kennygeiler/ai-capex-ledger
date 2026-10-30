@@ -1,23 +1,88 @@
 {
  "accession": "NVDA|cfo_commentary|2026-04-26|d21cf38d",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 75200000000,
+   "amount_high": 75200000000,
+   "quote": "Data Center revenue for the first quarter was a record $75.2 billion, up 92% from a year ago and up 21% sequentially, driven by the ramp of our Blackwell 300 products and demand for our InfiniBand, Spectrum-X\u2122 Ethernet, and NVLink\u2122 solutions.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Quarterly figure (Q1 FY27), not full-year; table in p01 gives $75,246 million."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 60400000000,
+   "amount_high": 60400000000,
+   "quote": "Under the previous sub-markets, Data Center compute revenue was a record $60.4 billion, up 77% from a year ago and up 18% sequentially.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Q1 FY27 quarterly figure; a component of the $75.2 billion Data Center revenue, do not add to it."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 14800000000,
+   "amount_high": 14800000000,
+   "quote": "Data Center networking revenue was a record $14.8 billion, up 199% from a year ago and up 35% sequentially.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Q1 FY27 quarterly figure; a component of the $75.2 billion Data Center revenue, do not add to it."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.5,
+   "quote": "Hyperscale revenue increased sequentially and remained at approximately 50% of Data Center revenue, while the remaining 50% came from a continued diversification of customers, including AI Clouds, industrial, enterprise, and sovereign customers.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Share is of Data Center revenue, not of total revenue; Q1 FY27 quarter. Describes the customer mix within Data Center."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 4600000000,
+   "amount_high": 4600000000,
+   "quote": "No shipments of Data Center Hopper products to China occurred during the quarter, compared with $4.6 billion in the first quarter of fiscal year 2026.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Prior-year Q1 FY26 Data Center Hopper shipments to China; a subset of Data Center revenue. Q1 FY27 figure was zero."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states capital expenditures or links them to AI; capex is mentioned only in the free cash flow definition (p03), which is boilerplate"
+   "reason": "no sentence states or links capital expenditures to AI; free cash flow definition only mentions purchases of property and equipment generically"
   },
   {
    "field": "opex",
-   "reason": "no sentence attributes operating expenses to AI; the opex drivers in p02 (compensation, compute and infrastructure costs, engineering development materials), the $30.0 billion multi-year cloud service commitments for R&D (p02), and the Q2 FY27 opex outlook of $8.5B GAAP / $8.3B non-GAAP (p03) do not mention AI, and rule 4 forbids inferring an AI link"
+   "reason": "operating expense increases are attributed to compensation, compute and infrastructure costs, and engineering materials, with no sentence linking them to AI; the Q2 opex outlook is total and not AI-linked"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.2,
-  "input_tokens": 7896,
-  "output_tokens": 525,
+  "seconds": 17.1,
+  "input_tokens": 8203,
+  "output_tokens": 2120,
   "attempts": 1,
-  "task_sha": "10034d240e7ead4b"
+  "task_sha": "bb5854b2571a128c"
  }
 }

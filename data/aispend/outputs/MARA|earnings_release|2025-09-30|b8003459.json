@@ -1,0 +1,35 @@
+{
+ "accession": "MARA|earnings_release|2025-09-30|b8003459",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Deployed the first ten AI Inference racks at our Granbury site within a non-water-cooled modular data center, marking a significant step forward in proving out our AI infrastructure.",
+   "passage": "p03",
+   "confidence": 0.5,
+   "notes": "Reports deployment of AI inference compute (implied capital spend on AI) but states no amount or share and does not use the words capital expenditures. The ~$168.0 million Exaion stake is an acquisition/capital injection, not capex, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; operating expenses are mentioned only as funded by bitcoin sales"
+  },
+  {
+   "field": "revenue",
+   "reason": "total revenue of $252.4 million is reported, but no sentence states an AI or data-center part of revenue or links revenue to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.3,
+  "input_tokens": 13128,
+  "output_tokens": 1439,
+  "attempts": 1,
+  "task_sha": "8b480b3b9eb522f7"
+ }
+}

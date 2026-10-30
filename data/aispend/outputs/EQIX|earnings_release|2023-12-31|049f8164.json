@@ -1,0 +1,35 @@
+{
+ "accession": "EQIX|earnings_release|2023-12-31|049f8164",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The surge in demand for hyperscale infrastructure to support AI and cloud initiatives is resulting in strong demand and significant leasing activity for Equinix\u2019s global xScale data center portfolio.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "Links xScale demand and leasing to AI and cloud; describes leasing activity (megawatts leased), not revenue as such, and states no AI amount or share."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capex guidance (non-recurring $2.570\u20132.800B, recurring $210\u2013230M, xScale on-balance-sheet $50\u201390M for 2024) is given without any link to AI; the liquid-cooling expansion is not stated as a capex amount or driver"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.7,
+  "input_tokens": 8898,
+  "output_tokens": 835,
+  "attempts": 1,
+  "task_sha": "1f5910415e7bf29b"
+ }
+}

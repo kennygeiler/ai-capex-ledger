@@ -1,0 +1,13 @@
+{
+ "accession": "TMUS|earnings_release|2023-12-31|9a3168ce",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.1,
+  "input_tokens": 5061,
+  "output_tokens": 53,
+  "attempts": 1,
+  "task_sha": "f2538d9905d22e75"
+ }
+}

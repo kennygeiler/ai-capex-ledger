@@ -1,0 +1,13 @@
+{
+ "accession": "LITE|earnings_release|2024-06-29|4e330c5f",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.0,
+  "input_tokens": 4860,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "48c8053bd6fad989"
+ }
+}

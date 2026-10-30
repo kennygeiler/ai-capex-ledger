@@ -1,0 +1,147 @@
+{
+ "accession": "0001640147-26-000008",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0026",
+   "row_label": "Revenue",
+   "column_label": "Fiscal Year Ended January 31, | 2026",
+   "cell_text": "4,683,946",
+   "period_end": "2026-01-31",
+   "months": 12,
+   "value": 4683946000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0026",
+   "row_label": "Revenue",
+   "column_label": "Fiscal Year Ended January 31, | 2025",
+   "cell_text": "3,626,396",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 3626396000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0026",
+   "row_label": "Revenue",
+   "column_label": "Fiscal Year Ended January 31, | 2024",
+   "cell_text": "2,806,489",
+   "period_end": "2024-01-31",
+   "months": 12,
+   "value": 2806489000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0026",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Year Ended January 31, | 2026",
+   "cell_text": "1,537,805",
+   "period_end": "2026-01-31",
+   "months": 12,
+   "value": 1537805000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0026",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Year Ended January 31, | 2025",
+   "cell_text": "1,214,673",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 1214673000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0026",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Year Ended January 31, | 2024",
+   "cell_text": "898,558",
+   "period_end": "2024-01-31",
+   "months": 12,
+   "value": 898558000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0026",
+   "row_label": "Operating loss",
+   "column_label": "Fiscal Year Ended January 31, | 2026",
+   "cell_text": "(1,435,165)",
+   "period_end": "2026-01-31",
+   "months": 12,
+   "value": -1435165000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0026",
+   "row_label": "Operating loss",
+   "column_label": "Fiscal Year Ended January 31, | 2025",
+   "cell_text": "(1,456,010)",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": -1456010000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0026",
+   "row_label": "Operating loss",
+   "column_label": "Fiscal Year Ended January 31, | 2024",
+   "cell_text": "(1,094,773)",
+   "period_end": "2024-01-31",
+   "months": 12,
+   "value": -1094773000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0029",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended January 31, | 2026",
+   "cell_text": "(101,628)",
+   "period_end": "2026-01-31",
+   "months": 12,
+   "value": 101628000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0029",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended January 31, | 2025",
+   "cell_text": "(46,279)",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 46279000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0029",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended January 31, | 2024",
+   "cell_text": "(35,086)",
+   "period_end": "2024-01-31",
+   "months": 12,
+   "value": 35086000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.4,
+  "input_tokens": 6351,
+  "output_tokens": 1554,
+  "attempts": 1,
+  "task_sha": "6a08052f241a50f5"
+ }
+}

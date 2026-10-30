@@ -1,7 +1,20 @@
 {
  "accession": "META|earnings_release|2023-06-30|ceffc05d",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2023,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 27000000000,
+   "amount_high": 30000000000,
+   "quote": "We expect our full-year 2023 capital expenditures to be in the range of $27-30 billion, lowered from our prior estimate of $30-33 billion.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Total capex guidance, not the AI part. The quoted sentence does not mention AI; the AI link comes from the next sentence, which says the reduction came partly from cost savings on non-AI servers. The more specific numeric statement is recorded and the qualitative sentence is skipped per rule 3."
+  },
   {
    "field": "capex",
    "fiscal_year": 2024,
@@ -10,22 +23,26 @@
    "class": "qualitative",
    "quote": "Looking ahead, while we will continue to refine our plans as we progress throughout this year, we currently expect total capital expenditures to grow in 2024, driven by our investments across both data centers and servers, particularly in support of our AI work.",
    "passage": "p03",
-   "confidence": 0.9,
-   "notes": "The sentence describes growth in total 2024 capex, driven in part by AI. It gives no amount and does not quantify the AI part. The $27-30 billion 2023 guidance in p02 is not recorded: that sentence does not link the total to AI. The following sentence only says cost savings came from non-AI servers, which does not attribute any spend to AI."
+   "confidence": 1.0,
+   "notes": "Total capex is expected to grow, with AI work named as a driver. No amount is given."
   }
  ],
  "none_found": [
   {
    "field": "opex",
    "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.0,
-  "input_tokens": 4894,
-  "output_tokens": 728,
+  "seconds": 9.6,
+  "input_tokens": 5199,
+  "output_tokens": 892,
   "attempts": 1,
-  "task_sha": "a9588838b10d93a3"
+  "task_sha": "3ff99b05ba469476"
  }
 }

@@ -1,0 +1,35 @@
+{
+ "accession": "JBL|earnings_release|2025-05-31|b2182c92",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Our Intelligent Infrastructure segment remains a critical growth engine, benefiting from accelerating AI-driven demand.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Seller-side statement linking the Intelligent Infrastructure segment's revenue growth to AI-driven demand, with no amount or share. The scope is the segment, not total revenue, and not strictly the AI part. 'ai' is the closer fit, so confidence is reduced. No year is named; present tense, so code uses fiscal 2025."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in the adjusted free cash flow definition (p02) and forward-looking boilerplate (p03); no sentence links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 6201,
+  "output_tokens": 759,
+  "attempts": 1,
+  "task_sha": "0909526f2f207b98"
+ }
+}

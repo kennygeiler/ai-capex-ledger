@@ -1,0 +1,27 @@
+{
+ "accession": "CEG|earnings_release|2022-12-31|497eee22",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures discussed (nuclear fuel, baseline, separation/ERP) but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.5,
+  "input_tokens": 6912,
+  "output_tokens": 195,
+  "attempts": 1,
+  "task_sha": "659e5a4954cf6152"
+ }
+}

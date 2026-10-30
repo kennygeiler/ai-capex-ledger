@@ -1,0 +1,13 @@
+{
+ "accession": "COHR|earnings_release|2023-03-31|a3b25c8d",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.4,
+  "input_tokens": 7343,
+  "output_tokens": 83,
+  "attempts": 1,
+  "task_sha": "1a6441dcdb327ac6"
+ }
+}

@@ -1,0 +1,162 @@
+{
+ "accession": "0001558370-24-001575",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0274",
+   "row_label": "Total operating revenues",
+   "column_label": "\u200b | 2023",
+   "cell_text": "5,477,061",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 5477061000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0274",
+   "row_label": "Total operating revenues",
+   "column_label": "\u200b | 2022",
+   "cell_text": "4,691,834",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 4691834000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0274",
+   "row_label": "Total operating revenues",
+   "column_label": "\u200b | Year Ended December 31, | 2021",
+   "cell_text": "4,427,882",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 4427882000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0274",
+   "row_label": "Rental property operating and maintenance",
+   "column_label": "\u200b | 2023",
+   "cell_text": "2,381,666",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 2381666000,
+   "confidence": 0.85,
+   "notes": "No total cost-of-revenue line. Operating and maintenance cost of the data center properties (power, staffing, upkeep) that produce rental and other services revenue; a direct cost of delivering revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0274",
+   "row_label": "Rental property operating and maintenance",
+   "column_label": "\u200b | 2022",
+   "cell_text": "1,825,817",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 1825817000,
+   "confidence": 0.85,
+   "notes": "No total cost-of-revenue line. Operating and maintenance cost of the data center properties that produce rental revenue; a direct cost of delivering revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0274",
+   "row_label": "Rental property operating and maintenance",
+   "column_label": "\u200b | Year Ended December 31, | 2021",
+   "cell_text": "1,570,506",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 1570506000,
+   "confidence": 0.85,
+   "notes": "No total cost-of-revenue line. Operating and maintenance cost of the data center properties that produce rental revenue; a direct cost of delivering revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0274",
+   "row_label": "Property taxes and insurance",
+   "column_label": "\u200b | 2023",
+   "cell_text": "216,405",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 216405000,
+   "confidence": 0.7,
+   "notes": "Property-level taxes and insurance on the revenue-producing data center properties; customarily part of REIT property operating costs. Lower confidence because it is not a delivery cost in the narrowest sense."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0274",
+   "row_label": "Property taxes and insurance",
+   "column_label": "\u200b | 2022",
+   "cell_text": "191,745",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 191745000,
+   "confidence": 0.7,
+   "notes": "Property-level taxes and insurance on the revenue-producing data center properties; customarily part of REIT property operating costs. Lower confidence because it is not a delivery cost in the narrowest sense."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0274",
+   "row_label": "Property taxes and insurance",
+   "column_label": "\u200b | Year Ended December 31, | 2021",
+   "cell_text": "207,814",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 207814000,
+   "confidence": 0.7,
+   "notes": "Property-level taxes and insurance on the revenue-producing data center properties; customarily part of REIT property operating costs. Lower confidence because it is not a delivery cost in the narrowest sense."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0274",
+   "row_label": "Operating income",
+   "column_label": "\u200b | 2023",
+   "cell_text": "524,461",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 524461000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0274",
+   "row_label": "Operating income",
+   "column_label": "\u200b | 2022",
+   "cell_text": "589,968",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 589968000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0274",
+   "row_label": "Operating income",
+   "column_label": "\u200b | Year Ended December 31, | 2021",
+   "cell_text": "694,009",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 694009000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "The income statement has no single total cost-of-revenue line; component lines are given as cost_of_revenue_part instead."
+  },
+  {
+   "field": "capex",
+   "reason": "No cash-flow statement table was provided for this filing (the section is empty), so there is no cell to cite for purchases of property and equipment."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.7,
+  "input_tokens": 5121,
+  "output_tokens": 2180,
+  "attempts": 1,
+  "task_sha": "9d3cf0bf93cbca39"
+ }
+}

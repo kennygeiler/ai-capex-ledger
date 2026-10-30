@@ -1,0 +1,27 @@
+{
+ "accession": "EQIX|earnings_release|2022-06-30|d8d44f9d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "total, recurring, non-recurring and xScale capital expenditure guidance for 2022 is given, but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the release does not mention AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "revenue figures are company totals for a data center REIT with no AI or data-center segment breakout; no sentence attributes revenue to AI demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 12815,
+  "output_tokens": 435,
+  "attempts": 1,
+  "task_sha": "290829fab8e830bd"
+ }
+}

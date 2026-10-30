@@ -1,0 +1,212 @@
+{
+ "accession": "0001408710-24-000032",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Datacom",
+   "table_id": "t0013",
+   "row_label": "Datacom",
+   "column_label": "Year ended June 28, 2024",
+   "cell_text": "1,150,307",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 1150307000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Datacom",
+   "table_id": "t0013",
+   "row_label": "Datacom",
+   "column_label": "Year ended June 30, 2023",
+   "cell_text": "520,796",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 520796000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Datacom",
+   "table_id": "t0013",
+   "row_label": "Datacom",
+   "column_label": "Year ended June 24, 2022",
+   "cell_text": "361,306",
+   "period_end": "2022-06-24",
+   "months": 12,
+   "value": 361306000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Telecom",
+   "table_id": "t0013",
+   "row_label": "Telecom",
+   "column_label": "Year ended June 28, 2024",
+   "cell_text": "1,138,708",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 1138708000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Telecom",
+   "table_id": "t0013",
+   "row_label": "Telecom",
+   "column_label": "Year ended June 30, 2023",
+   "cell_text": "1,487,551",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 1487551000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Telecom",
+   "table_id": "t0013",
+   "row_label": "Telecom",
+   "column_label": "Year ended June 24, 2022",
+   "cell_text": "1,421,493",
+   "period_end": "2022-06-24",
+   "months": 12,
+   "value": 1421493000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Automotive",
+   "table_id": "t0013",
+   "row_label": "Automotive",
+   "column_label": "Year ended June 28, 2024",
+   "cell_text": "327,188",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 327188000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Automotive",
+   "table_id": "t0013",
+   "row_label": "Automotive",
+   "column_label": "Year ended June 30, 2023",
+   "cell_text": "368,581",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 368581000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Automotive",
+   "table_id": "t0013",
+   "row_label": "Automotive",
+   "column_label": "Year ended June 24, 2022",
+   "cell_text": "204,407",
+   "period_end": "2022-06-24",
+   "months": 12,
+   "value": 204407000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Industrial laser",
+   "table_id": "t0013",
+   "row_label": "Industrial laser",
+   "column_label": "Year ended June 28, 2024",
+   "cell_text": "122,722",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 122722000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Industrial laser",
+   "table_id": "t0013",
+   "row_label": "Industrial laser",
+   "column_label": "Year ended June 30, 2023",
+   "cell_text": "125,415",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 125415000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Industrial laser",
+   "table_id": "t0013",
+   "row_label": "Industrial laser",
+   "column_label": "Year ended June 24, 2022",
+   "cell_text": "149,357",
+   "period_end": "2022-06-24",
+   "months": 12,
+   "value": 149357000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Others",
+   "table_id": "t0013",
+   "row_label": "Others",
+   "column_label": "Year ended June 28, 2024",
+   "cell_text": "144,042",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 144042000,
+   "confidence": 0.8
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Others",
+   "table_id": "t0013",
+   "row_label": "Others",
+   "column_label": "Year ended June 30, 2023",
+   "cell_text": "142,894",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 142894000,
+   "confidence": 0.8
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Others",
+   "table_id": "t0013",
+   "row_label": "Others",
+   "column_label": "Year ended June 24, 2022",
+   "cell_text": "125,661",
+   "period_end": "2022-06-24",
+   "months": 12,
+   "value": 125661000,
+   "confidence": 0.8
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note with capital expenditures by segment is among the tables; revenue is reported only by end market (t0013/t0027) and geography (t0026), consistent with a single reportable segment"
+  },
+  {
+   "field": "ppe_category",
+   "reason": "no property-and-equipment note table is among the tables provided"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "the only lease table (t0046) gives lease cash flows and ROU assets obtained, not finance lease liability balances"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is among the tables provided"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.9,
+  "input_tokens": 7614,
+  "output_tokens": 2503,
+  "attempts": 1,
+  "task_sha": "57daad57f7205544"
+ }
+}

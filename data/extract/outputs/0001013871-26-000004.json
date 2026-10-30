@@ -1,0 +1,108 @@
+{
+ "accession": "0001013871-26-000004",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0056",
+   "row_label": "Revenue(a)",
+   "column_label": "For the Year Ended December 31, 2025",
+   "cell_text": "28,117",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 28117000000,
+   "confidence": 0.7,
+   "notes": "Row label clearly is revenue. Confidence is lowered because t0056 may not be the consolidated income statement. Its Net Income (700) does not match the cash-flow Net Income/(Loss) for 2025 (864), so the table may be a summary, segment, or other non-consolidated presentation. Footnote (a) is not shown."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0056",
+   "row_label": "Operating income(b)",
+   "column_label": "For the Year Ended December 31, 2025",
+   "cell_text": "1,605",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 1605000000,
+   "confidence": 0.7,
+   "notes": "Row label clearly is operating income. Confidence is lowered for the same reason as revenue: t0056 Net Income (700) differs from the cash-flow statement Net Income/(Loss) (864), so this table may not be the consolidated statement. Footnote (b) is not shown."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0069",
+   "row_label": "Capital expenditures",
+   "column_label": "For the Year Ended December 31, | 2025",
+   "cell_text": "(1,147)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 1147000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0069",
+   "row_label": "Capital expenditures",
+   "column_label": "For the Year Ended December 31, | 2024",
+   "cell_text": "(472)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 472000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0069",
+   "row_label": "Capital expenditures",
+   "column_label": "For the Year Ended December 31, | 2023",
+   "cell_text": "(598)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 598000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "period_end": "2025-12-31",
+   "reason": "Income statement t0056 shows no cost of revenue / cost of sales line, and no cost-of-revenue component lines, so cost_of_revenue_part cannot be used either."
+  },
+  {
+   "field": "revenue",
+   "period_end": "2024-12-31",
+   "reason": "Income statement t0056 has only a 2025 column."
+  },
+  {
+   "field": "revenue",
+   "period_end": "2023-12-31",
+   "reason": "Income statement t0056 has only a 2025 column."
+  },
+  {
+   "field": "operating_income",
+   "period_end": "2024-12-31",
+   "reason": "Income statement t0056 has only a 2025 column."
+  },
+  {
+   "field": "operating_income",
+   "period_end": "2023-12-31",
+   "reason": "Income statement t0056 has only a 2025 column."
+  },
+  {
+   "field": "cost_of_revenue",
+   "period_end": "2024-12-31",
+   "reason": "No income statement column for 2024."
+  },
+  {
+   "field": "cost_of_revenue",
+   "period_end": "2023-12-31",
+   "reason": "No income statement column for 2023."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.7,
+  "input_tokens": 6322,
+  "output_tokens": 1496,
+  "attempts": 1,
+  "task_sha": "3210f18ed04bd665"
+ }
+}

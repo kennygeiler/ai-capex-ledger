@@ -1,0 +1,42 @@
+{
+ "accession": "MARA|earnings_release|2025-06-30|6aa5d6f0",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Hansford County, Texas wind farm behind-the-meter data center",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Hansford County, Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Completed construction of a new behind-the-meter data center at our Hansford County, Texas wind farm, enabling low-cost power generation and improving operational efficiency.",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "Hansford County, Texas wind farm",
+   "kind": "power",
+   "status": "in_service",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 114,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "MARA\u2019s commitment to long-term cost efficiency is further supported by strategic investments in owned power infrastructure, including our 114 MW wind farm in Texas, which now has an onsite data center that we expect to begin energization in the second-half of the year.",
+   "passage": "p01",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.8,
+  "input_tokens": 12303,
+  "output_tokens": 1069,
+  "attempts": 1,
+  "task_sha": "49ef22f8c2788380"
+ }
+}

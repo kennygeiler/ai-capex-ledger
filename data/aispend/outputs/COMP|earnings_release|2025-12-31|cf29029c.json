@@ -1,23 +1,27 @@
 {
  "accession": "COMP|earnings_release|2025-12-31|cf29029c",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the only passage concerns purchase-accounting adjustments for capitalized software in the Anywhere merger"
+   "reason": "the only passage is a pro forma purchase-accounting note on intangible assets and capitalized software; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.8,
-  "input_tokens": 4623,
-  "output_tokens": 174,
+  "seconds": 3.6,
+  "input_tokens": 4928,
+  "output_tokens": 191,
   "attempts": 1,
-  "task_sha": "1595589ff7fdb792"
+  "task_sha": "cba08bf64287809c"
  }
 }

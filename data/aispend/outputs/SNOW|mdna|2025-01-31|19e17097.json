@@ -1,0 +1,48 @@
+{
+ "accession": "SNOW|mdna|2025-01-31|19e17097",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We will continue to invest significantly in research and development to improve our platform, including in the areas of data science and AI Technology.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "R&D investment overall, with AI Technology named as one area of focus; no AI amount or share given."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 92700000,
+   "amount_high": 92700000,
+   "quote": "Third-party cloud infrastructure expenses, incurred primarily in developing our platform (including with respect to GPUs to develop AI Technology), also increased $92.7 million for the fiscal year ended January 31, 2025, compared to the prior fiscal year.",
+   "passage": "p06",
+   "confidence": 0.6,
+   "notes": "$92.7M is the year-over-year increase in R&D third-party cloud infrastructure expense, not the level of spend. AI GPUs are one component of it; the AI part is not stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p08 mentions capital expenditure requirements generically"
+  },
+  {
+   "field": "revenue",
+   "reason": "Snowflake buys cloud and GPU capacity; no sentence states an AI or data-center share of its revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.6,
+  "input_tokens": 7267,
+  "output_tokens": 1490,
+  "attempts": 1,
+  "task_sha": "7e92584832577fb5"
+ }
+}

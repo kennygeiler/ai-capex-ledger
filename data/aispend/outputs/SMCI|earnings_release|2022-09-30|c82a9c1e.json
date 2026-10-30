@@ -1,0 +1,27 @@
+{
+ "accession": "SMCI|earnings_release|2022-09-30|c82a9c1e",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the record $1.85 billion Q1 revenue sentence does not attribute revenue to AI; 'We recognize the opportunities being driven by more demanding compute, storage, telco and AI workloads.' (p01) names AI as one of several opportunity drivers, not as a source of revenue; p03 is a company description (boilerplate)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.7,
+  "input_tokens": 6012,
+  "output_tokens": 584,
+  "attempts": 1,
+  "task_sha": "186f43b03577e2d0"
+ }
+}

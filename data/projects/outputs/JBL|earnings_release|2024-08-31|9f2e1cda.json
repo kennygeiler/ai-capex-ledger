@@ -1,0 +1,13 @@
+{
+ "accession": "JBL|earnings_release|2024-08-31|9f2e1cda",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 7824,
+  "output_tokens": 53,
+  "attempts": 1,
+  "task_sha": "dc6c4de3967ee07b"
+ }
+}

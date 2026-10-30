@@ -1,0 +1,13 @@
+{
+ "accession": "SLNH|earnings_release|2022-09-30|9b9b0624",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "8c3a0e82f50d6082"
+ }
+}

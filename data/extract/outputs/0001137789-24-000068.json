@@ -1,0 +1,147 @@
+{
+ "accession": "0001137789-24-000068",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Revenue",
+   "column_label": "Fiscal Years Ended | June 28,2024",
+   "cell_text": "6,551",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 6551000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Revenue",
+   "column_label": "Fiscal Years Ended | June 30,2023",
+   "cell_text": "7,384",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 7384000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Revenue",
+   "column_label": "Fiscal Years Ended | July 1,2022",
+   "cell_text": "11,661",
+   "period_end": "2022-07-01",
+   "months": 12,
+   "value": 11661000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Years Ended | June 28,2024",
+   "cell_text": "5,015",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 5015000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Years Ended | June 30,2023",
+   "cell_text": "6,033",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 6033000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Years Ended | July 1,2022",
+   "cell_text": "8,192",
+   "period_end": "2022-07-01",
+   "months": 12,
+   "value": 8192000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0022",
+   "row_label": "Income (loss) from operations",
+   "column_label": "Fiscal Years Ended | June 28,2024",
+   "cell_text": "452",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 452000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0022",
+   "row_label": "Income (loss) from operations",
+   "column_label": "Fiscal Years Ended | June 30,2023",
+   "cell_text": "(342)",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": -342000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0022",
+   "row_label": "Income (loss) from operations",
+   "column_label": "Fiscal Years Ended | July 1,2022",
+   "cell_text": "1,955",
+   "period_end": "2022-07-01",
+   "months": 12,
+   "value": 1955000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0024",
+   "row_label": "Acquisition of property, equipment and leasehold improvements",
+   "column_label": "Fiscal Years Ended | June 28,2024",
+   "cell_text": "(254)",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 254000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0024",
+   "row_label": "Acquisition of property, equipment and leasehold improvements",
+   "column_label": "Fiscal Years Ended | June 30,2023",
+   "cell_text": "(316)",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 316000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0024",
+   "row_label": "Acquisition of property, equipment and leasehold improvements",
+   "column_label": "Fiscal Years Ended | July 1,2022",
+   "cell_text": "(381)",
+   "period_end": "2022-07-01",
+   "months": 12,
+   "value": 381000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.3,
+  "input_tokens": 6183,
+  "output_tokens": 1388,
+  "attempts": 1,
+  "task_sha": "e213b8c27334d1d2"
+ }
+}

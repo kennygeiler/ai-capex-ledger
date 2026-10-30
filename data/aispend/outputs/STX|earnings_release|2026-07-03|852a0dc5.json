@@ -1,0 +1,46 @@
+{
+ "accession": "STX|earnings_release|2026-07-03|852a0dc5",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our performance is being driven by robust cloud data center demand and disciplined execution, and we see the momentum continuing in 2027,\u201d said Dave Mosley, Seagate\u2019s chair and chief executive officer.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Says overall performance (not explicitly revenue) is driven by cloud data center demand; no data-center revenue figure or share stated. Present tense, so fiscal_year null (the filing's year, fiscal 2026)."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our performance is being driven by robust cloud data center demand and disciplined execution, and we see the momentum continuing in 2027,\u201d said Dave Mosley, Seagate\u2019s chair and chief executive officer.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "'Momentum continuing in 2027' implies continued data-center-driven performance; this is vague and gives no revenue guidance. '2027' is taken as the company's naming of the year (likely fiscal 2027)."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI or data center demand"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.3,
+  "input_tokens": 4871,
+  "output_tokens": 980,
+  "attempts": 1,
+  "task_sha": "1b8e877eedc27b6c"
+ }
+}

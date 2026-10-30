@@ -1,0 +1,37 @@
+{
+ "accession": "RIOT|earnings_release|2026-03-31|7a84ae5d",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 33200000,
+   "amount_high": 33200000,
+   "quote": "The Company\u2019s first quarter of Data Center revenue of $33.2 million.",
+   "passage": "p02",
+   "confidence": 0.75,
+   "notes": "Quarterly figure (Q1 2026, three months ended March 31, 2026), not full-year. It is data-center revenue, mostly tenant fit-out services ($32.2M, cost-plus reimbursement) and only $0.9M operating-lease revenue, from tenant AMD. The release does not label it AI revenue."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the p06 AMD lease table lists data-center construction capex ($89.5M / $83.2M / $172.7M), but it is a table, not a sentence, and does not mention AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.6,
+  "input_tokens": 16239,
+  "output_tokens": 1039,
+  "attempts": 1,
+  "task_sha": "b212e7e0f1e2f8c2"
+ }
+}

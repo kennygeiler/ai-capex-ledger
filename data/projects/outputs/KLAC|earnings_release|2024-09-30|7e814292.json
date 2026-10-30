@@ -1,0 +1,13 @@
+{
+ "accession": "KLAC|earnings_release|2024-09-30|7e814292",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 4493,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "8169810b68b17dea"
+ }
+}

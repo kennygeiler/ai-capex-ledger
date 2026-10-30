@@ -1,0 +1,46 @@
+{
+ "accession": "TER|earnings_release|2025-06-29|9976ddaa",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "System-on-a-Chip (SOC), primarily for artificial intelligence applications, was the strongest growth driver,\u201d said Teradyne CEO, Greg Smith.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Q2 2025 SOC test revenue growth attributed primarily to AI applications; no amount or share of revenue stated; sentence names no year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The exact timing of program ramps and capacity adds remain uncertain, but we believe that AI will drive strong second half performance for Teradyne.\"",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "AI cited as driver of overall second-half performance; 'second half' refers to 2025 by context but the sentence names no year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.5,
+  "input_tokens": 5403,
+  "output_tokens": 1110,
+  "attempts": 1,
+  "task_sha": "cd11b50f9005156a"
+ }
+}

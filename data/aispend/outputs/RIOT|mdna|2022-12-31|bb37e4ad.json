@@ -1,0 +1,37 @@
+{
+ "accession": "RIOT|mdna|2022-12-31|bb37e4ad",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 36900000,
+   "amount_high": 36900000,
+   "quote": "For the year ended December 31, 2022, Data Center Hosting revenue was approximately $36.9 million.",
+   "passage": "p04",
+   "confidence": 0.3,
+   "notes": "Recorded only because the prompt counts data-center revenue. This is Riot's Data Center Hosting segment, which hosts third-party Bitcoin mining hardware. It is not AI demand and should likely be excluded from AI totals. The same figure appears in p06 and p11."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the Corsicana and Rockdale build-outs are for Bitcoin mining and hosting, and no amount is stated"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; Data Center Hosting costs are power, rent and compensation for Bitcoin-mining hosting"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.3,
+  "input_tokens": 10343,
+  "output_tokens": 841,
+  "attempts": 1,
+  "task_sha": "d9ae4e3cde904c4a"
+ }
+}

@@ -1,0 +1,76 @@
+{
+ "accession": "FCX|earnings_release|2022-03-31|74a429f8",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Greenfield smelter in Gresik, Indonesia",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Gresik, Indonesia",
+   "counterparty": null,
+   "amount_low": 2800000000,
+   "amount_high": 2800000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "In July 2021, PT-FI awarded a construction contract to a third-party contractor with an estimated cost of $2.8 billion.",
+   "passage": "p06",
+   "confidence": 0.6
+  },
+  {
+   "name": "PT Smelting expansion",
+   "kind": "plant",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 250000000,
+   "amount_high": 250000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2021-11",
+   "in_service": "2023",
+   "quote": "PT-FI is funding the cost of the expansion, which is estimated to approximate $250 million, with a loan that will convert to equity, and increase ownership in PT Smelting from a 39.5 percent ownership interest to a majority ownership interest once the expansion is complete.",
+   "passage": "p07",
+   "confidence": 0.55
+  },
+  {
+   "name": "Precious metals refinery (PMR)",
+   "kind": "plant",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 250000000,
+   "amount_high": 250000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Construction of a precious metals refinery (PMR) to process gold and silver from the greenfield smelter and PT Smelting at an estimated cost of $250 million.",
+   "passage": "p08",
+   "confidence": 0.5
+  },
+  {
+   "name": "PT-FI dual-fuel power plant",
+   "kind": "power",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "PT-FI is also advancing construction of a dual- fuel power plant and upgrades to the mill circuit to improve recoveries.",
+   "passage": "p05",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.8,
+  "input_tokens": 17560,
+  "output_tokens": 1667,
+  "attempts": 1,
+  "task_sha": "740893e5c5522f43"
+ }
+}

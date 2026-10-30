@@ -1,0 +1,150 @@
+{
+ "accession": "0001674101-26-000008",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Net sales",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "10,229.9",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 10229900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Net sales",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "8,011.8",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 8011800000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Net sales",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "6,863.2",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 6863200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Cost of sales",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "6,514.7",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 6514700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Cost of sales",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "5,077.6",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 5077600000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Cost of sales",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "4,462.7",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 4462700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0022",
+   "row_label": "Operating profit (loss)",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "1,829.7",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 1829700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0022",
+   "row_label": "Operating profit (loss)",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "1,367.4",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 1367400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0022",
+   "row_label": "Operating profit (loss)",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "872.2",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 872200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0025",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(220.0)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 220000000,
+   "confidence": 1.0,
+   "notes": "Separate 'Investments in capitalized software' line not added, per rule."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0025",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(167.0)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 167000000,
+   "confidence": 1.0,
+   "notes": "Separate 'Investments in capitalized software' line not added, per rule."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0025",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(127.9)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 127900000,
+   "confidence": 1.0,
+   "notes": "Separate 'Investments in capitalized software' line not added, per rule."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.9,
+  "input_tokens": 6587,
+  "output_tokens": 1592,
+  "attempts": 1,
+  "task_sha": "22d828bd780bc317"
+ }
+}

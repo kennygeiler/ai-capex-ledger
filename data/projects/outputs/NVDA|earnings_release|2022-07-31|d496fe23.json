@@ -1,0 +1,13 @@
+{
+ "accession": "NVDA|earnings_release|2022-07-31|d496fe23",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.5,
+  "input_tokens": 4714,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "ec17a5cb26ae8eaf"
+ }
+}

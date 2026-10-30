@@ -1,0 +1,27 @@
+{
+ "accession": "SNPS|earnings_release|2023-07-31|85ba3a8f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links Synopsys's capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only R&D mention refers to customers' R&D investments, not Synopsys's own operating expenses"
+  },
+  {
+   "field": "revenue",
+   "reason": "quarterly revenue of $1.487 billion is reported without any AI or data-center breakdown; the CEO's 'AI-driven era' remark describes customer design activity and does not state AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.7,
+  "input_tokens": 5084,
+  "output_tokens": 618,
+  "attempts": 1,
+  "task_sha": "5149555c4d9d6c6f"
+ }
+}

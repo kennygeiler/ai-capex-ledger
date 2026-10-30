@@ -1,0 +1,27 @@
+{
+ "accession": "CLS|earnings_release|2026-09-30|f17b00af",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in forward-looking-statement boilerplate and the free cash flow definition; no sentence states capex amounts or links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "passages are a company description and safe-harbor boilerplate; no sentence states AI or data-center revenue as an amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 7698,
+  "output_tokens": 265,
+  "attempts": 1,
+  "task_sha": "af16f50db2407dad"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "CLSK|earnings_release|2024-09-30|d12cbbf9",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the passage mentions deploying hashrate and data centers for Bitcoin mining but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "Bitcoin miner; 'data centers' refers to its own mining facilities, and no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.5,
+  "input_tokens": 5005,
+  "output_tokens": 219,
+  "attempts": 1,
+  "task_sha": "5319d25c8b63efc9"
+ }
+}

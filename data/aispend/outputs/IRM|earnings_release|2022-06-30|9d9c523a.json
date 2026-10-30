@@ -1,0 +1,27 @@
+{
+ "accession": "IRM|earnings_release|2022-06-30|9d9c523a",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex appears only in forward-looking-statement boilerplate ('our ability to fund capital expenditures')"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the data center passages give only growth rates (30% revenue growth, 24% organic storage rental revenue growth) and leased megawatts, not a data center revenue amount or its share of total revenue; deriving one would require inference"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.6,
+  "input_tokens": 7707,
+  "output_tokens": 574,
+  "attempts": 1,
+  "task_sha": "8eabdad1279d295d"
+ }
+}

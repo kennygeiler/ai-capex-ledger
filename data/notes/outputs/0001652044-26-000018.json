@@ -1,6 +1,6 @@
 {
  "accession": "0001652044-26-000018",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -192,8 +192,7 @@
    "period_end": "2024-12-31",
    "months": 0,
    "value": 50597000000,
-   "confidence": 0.8,
-   "notes": "Gross category equivalent to construction in progress; presented below the in-service subtotal and accumulated depreciation, so not part of the 'in service' total."
+   "confidence": 0.8
   },
   {
    "field": "ppe_category",
@@ -205,8 +204,7 @@
    "period_end": "2025-12-31",
    "months": 0,
    "value": 78592000000,
-   "confidence": 0.8,
-   "notes": "Gross category equivalent to construction in progress; presented below the in-service subtotal and accumulated depreciation, so not part of the 'in service' total."
+   "confidence": 0.8
   },
   {
    "field": "finance_lease_liability",
@@ -218,8 +216,7 @@
    "period_end": "2024-12-31",
    "months": 0,
    "value": 1677000000,
-   "confidence": 0.95,
-   "notes": "Unit (millions) not stated with the table; taken from elsewhere in the filing. Equals 235 current + 1,442 non-current."
+   "confidence": 0.95
   },
   {
    "field": "finance_lease_liability",
@@ -231,26 +228,26 @@
    "period_end": "2025-12-31",
    "months": 0,
    "value": 2500000000,
-   "confidence": 0.95,
-   "notes": "Unit (millions) not stated with the table; taken from elsewhere in the filing. Equals 441 current + 2,059 non-current."
+   "confidence": 0.95
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment note (t0162) reports revenue, operating income and segment expenses only; no per-segment capital expenditures table is provided"
+   "reason": "the segment note (t0162) reports revenues, operating income and segment expenses only; no capital expenditures by segment"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or purchase-commitments table is among the tables provided"
+   "reason": "no contractual-obligations or commitments table is among the tables provided"
   }
  ],
+ "notes": "Hedging gains (losses) excluded from segment_revenue because it is not a segment. 'Add: assets not yet in service' is included as a gross PP&E category (functionally construction in progress, outside the in-service subtotal) at 0.8 confidence; its label is kept verbatim. Footnote mark '(1)' is dropped from the Technical infrastructure dimension. t0122's unit line was not stated with the table and the referenced text is empty, so millions was assumed, consistent with the other lease tables (0.95). In t0162, 'Google Services', 'Google Cloud' and 'Other Bets' appear again under operating income; the cited cells are the revenue rows.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 20.9,
-  "input_tokens": 6319,
-  "output_tokens": 3125,
+  "seconds": 19.8,
+  "input_tokens": 6443,
+  "output_tokens": 2949,
   "attempts": 1,
-  "task_sha": "2ea400bf8bebd4e9"
+  "task_sha": "9833f1754e1a6d24"
  }
 }

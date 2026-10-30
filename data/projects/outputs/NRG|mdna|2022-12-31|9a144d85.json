@@ -1,0 +1,28 @@
+{
+ "accession": "NRG|mdna|2022-12-31|9a144d85",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Astoria redevelopment project",
+   "kind": "power",
+   "status": "cancelled",
+   "location": "Astoria site",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "During the year ended December 31, 2022, the Company recorded impairment losses of $206 million, of which $150 million were related to the decline in PJM capacity prices and the near-term retirement date of the Joliet facility, $43 million related to the purchase and sale agreement for the sale of the land and related assets at the Astoria generating site and the planned withdrawal and cancellation of its proposed Astoria redevelopment project, and an additional $13 million in the East segment.",
+   "passage": "p11",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 10383,
+  "output_tokens": 578,
+  "attempts": 1,
+  "task_sha": "de85a5f64c39d128"
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "accession": "RIOT|earnings_release|2023-12-31|a3387bed",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Rockdale Facility expansion",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 700,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In addition to our record financial performance in 2023, Riot achieved significant progress across our key strategic development targets, including: (i) completion of our 700 megawatt Rockdale Facility expansion; (ii) successful scaling of our power strategy, which drove our industry-leading low cost to mine in FY 2023 to $7,539 per Bitcoin; (iii) a landmark partnership with MicroBT to lock-in a long-term, fixed-price supply of latest-generation miners, ensuring that Riot operates among the most efficient mining fleets in our industry; and (iv) ongoing development of our 1 gigawatt Corsicana Facility, which will begin energization at the end of Q1 2024 and which, when fully developed, will be the largest dedicated Bitcoin mining facility in the world.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Corsicana Facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Corsicana, Texas",
+   "counterparty": null,
+   "capacity_mw": 1000,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024-03",
+   "quote": "In addition to our record financial performance in 2023, Riot achieved significant progress across our key strategic development targets, including: (i) completion of our 700 megawatt Rockdale Facility expansion; (ii) successful scaling of our power strategy, which drove our industry-leading low cost to mine in FY 2023 to $7,539 per Bitcoin; (iii) a landmark partnership with MicroBT to lock-in a long-term, fixed-price supply of latest-generation miners, ensuring that Riot operates among the most efficient mining fleets in our industry; and (iv) ongoing development of our 1 gigawatt Corsicana Facility, which will begin energization at the end of Q1 2024 and which, when fully developed, will be the largest dedicated Bitcoin mining facility in the world.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "MicroBT long-term miner supply agreement",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "MicroBT",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In addition to our record financial performance in 2023, Riot achieved significant progress across our key strategic development targets, including: (i) completion of our 700 megawatt Rockdale Facility expansion; (ii) successful scaling of our power strategy, which drove our industry-leading low cost to mine in FY 2023 to $7,539 per Bitcoin; (iii) a landmark partnership with MicroBT to lock-in a long-term, fixed-price supply of latest-generation miners, ensuring that Riot operates among the most efficient mining fleets in our industry; and (iv) ongoing development of our 1 gigawatt Corsicana Facility, which will begin energization at the end of Q1 2024 and which, when fully developed, will be the largest dedicated Bitcoin mining facility in the world.",
+   "passage": "p01",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.9,
+  "input_tokens": 10181,
+  "output_tokens": 2237,
+  "attempts": 1,
+  "task_sha": "ff5bb270a7829d75"
+ }
+}

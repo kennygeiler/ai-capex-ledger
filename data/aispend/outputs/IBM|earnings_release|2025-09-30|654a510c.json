@@ -1,23 +1,37 @@
 {
  "accession": "IBM|earnings_release|2025-09-30|654a510c",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 9500000000,
+   "amount_high": 9500000000,
+   "quote": "Our AI book of business now stands at more than $9.5 billion,\" said Arvind Krishna, IBM chairman, president and chief executive officer.",
+   "passage": "p01",
+   "confidence": 0.4,
+   "notes": "This is 'AI book of business', a cumulative inception-to-date measure combining signings/bookings and revenue. It is not revenue recognized in fiscal 2025 and should not be summed with revenue figures. 'More than $9.5 billion' is recorded as a lower bound. fiscal_year is null because the figure is cumulative and not tied to a period."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p01 only defines free cash flow, including net capital expenditures, without any AI attribution"
+   "reason": "no sentence links capital expenditures to AI; p02 mentions net capital expenditures only in the free cash flow definition"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.7,
-  "input_tokens": 4799,
-  "output_tokens": 168,
+  "seconds": 9.3,
+  "input_tokens": 5272,
+  "output_tokens": 1019,
   "attempts": 1,
-  "task_sha": "b90270af90a85e7b"
+  "task_sha": "1db6b8feb3f50422"
  }
 }

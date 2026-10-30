@@ -1,0 +1,27 @@
+{
+ "accession": "IRM|earnings_release|2023-12-31|2ffa4eda",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only recurring capital expenditures appear (reconciliation tables) and the risk-factor phrase 'our ability to fund capital expenditures'; no sentence links capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; artificial intelligence appears only in forward-looking-statement boilerplate"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states data-center or AI revenue as an amount or share; data centers are mentioned only as leased megawatts (124 MW), as a driver of Adjusted EBITDA, and as a contributor to storage rental revenue growth of 10%, which is a segment growth rate rather than a data-center revenue figure"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.8,
+  "input_tokens": 15770,
+  "output_tokens": 699,
+  "attempts": 1,
+  "task_sha": "690a37ff97b90527"
+ }
+}

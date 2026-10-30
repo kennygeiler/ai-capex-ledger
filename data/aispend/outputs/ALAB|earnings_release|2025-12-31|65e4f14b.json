@@ -1,23 +1,27 @@
 {
  "accession": "ALAB|earnings_release|2025-12-31|65e4f14b",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the cash flow table (p04) reports purchases of property and equipment of $37,544 thousand for fiscal 2025 with no AI attribution"
+   "reason": "the cash flow table gives purchases of property and equipment ($37,544 thousand in 2025) but no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; p01 describes the new Israel Design Center's AI-focused R&D activities but makes no statement about spend, and p03 is forward-looking-statement boilerplate"
+   "reason": "the Israel Design Center passage describes AI-focused R&D activity but states no amount, share or spend attribution for operating expenses"
+  },
+  {
+   "field": "revenue",
+   "reason": "the passages do not include a revenue figure; no sentence states AI or data-center revenue as an amount or share"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 7.9,
-  "input_tokens": 7176,
-  "output_tokens": 497,
+  "seconds": 5.5,
+  "input_tokens": 7479,
+  "output_tokens": 506,
   "attempts": 1,
-  "task_sha": "ff05ae4bbee8d618"
+  "task_sha": "4c50e56466e310e4"
  }
 }

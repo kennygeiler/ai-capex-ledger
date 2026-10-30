@@ -1,0 +1,35 @@
+{
+ "accession": "ETN|earnings_release|2026-06-30|258491eb",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "While data centers remain a key growth driver, we are benefiting from robust demand across our end markets.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Eaton sells electrical equipment into data centers, so this is seller-side demand. The sentence names data centers as a growth driver of sales without quantifying the data-center part, so the scope is total. It is present tense in a Q2 2026 release, and no year is stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures of $253 million (Q2 2026) appear only in the free cash flow table and are not linked to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 4993,
+  "output_tokens": 559,
+  "attempts": 1,
+  "task_sha": "074c8347c1a354d0"
+ }
+}

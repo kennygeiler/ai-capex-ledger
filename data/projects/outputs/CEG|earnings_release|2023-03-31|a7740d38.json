@@ -1,0 +1,28 @@
+{
+ "accession": "CEG|earnings_release|2023-03-31|a7740d38",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Nine Mile Point clean hydrogen production facility",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Oswego, New York",
+   "counterparty": null,
+   "capacity_mw": 1,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Hydrogen production has commenced at the nation\u2019s first 1 MW demonstration scale, nuclear-powered clean hydrogen production facility at our Nine Mile Point Nuclear Plant in Oswego, New York, an advancement that will help demonstrate the potential for hydrogen to power a clean economy.",
+   "passage": "p03",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.9,
+  "input_tokens": 16423,
+  "output_tokens": 639,
+  "attempts": 1,
+  "task_sha": "73f938473653b8eb"
+ }
+}

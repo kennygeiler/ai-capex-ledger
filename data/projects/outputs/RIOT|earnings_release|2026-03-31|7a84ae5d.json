@@ -1,0 +1,60 @@
+{
+ "accession": "RIOT|earnings_release|2026-03-31|7a84ae5d",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Rockdale AMD data center lease (25 MW initial lease)",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Rockdale",
+   "counterparty": "AMD",
+   "amount_low": 89500000,
+   "amount_high": 89500000,
+   "capacity_mw": 25,
+   "gpus": null,
+   "announced": "2026-01",
+   "in_service": "2026-05",
+   "quote": "Capital Expenditures 4 $89.5 million ($3.6 million per MW) $83.2 million ($3.3 million per MW) $172.7 million ($3.5 million per MW)",
+   "passage": "p04",
+   "confidence": 0.8
+  },
+  {
+   "name": "Rockdale AMD data center lease (25 MW expansion)",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Rockdale",
+   "counterparty": "AMD",
+   "amount_low": 83200000,
+   "amount_high": 83200000,
+   "capacity_mw": 25,
+   "gpus": null,
+   "announced": "2026-04",
+   "in_service": "2027-05",
+   "quote": "Capital Expenditures 4 $89.5 million ($3.6 million per MW) $83.2 million ($3.3 million per MW) $172.7 million ($3.5 million per MW)",
+   "passage": "p04",
+   "confidence": 0.8
+  },
+  {
+   "name": "Corsicana data center campus",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Corsicana",
+   "counterparty": null,
+   "capacity_mw": 756,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Corsicana core & shell development has commenced and is on-schedule Prospective Corsicana data center campus UP TO 756 MW TOTAL IT CAPACITY Planned at Corsicana across 4.5 buildings (168 MW IT Capacity per Building)",
+   "passage": "p06",
+   "confidence": 0.75
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.7,
+  "input_tokens": 14610,
+  "output_tokens": 2204,
+  "attempts": 1,
+  "task_sha": "6c586170c8bc969b"
+ }
+}

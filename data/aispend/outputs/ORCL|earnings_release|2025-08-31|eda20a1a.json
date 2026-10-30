@@ -1,23 +1,27 @@
 {
  "accession": "ORCL|earnings_release|2025-08-31|eda20a1a",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; the release gives revenue, RPO and OCI revenue forecasts only, and the GPU/datacenter mention is safe-harbor risk boilerplate"
+   "reason": "no sentence states or attributes capital expenditures to AI; the release gives no capex figures"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; AI references describe products and demand, not spend"
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expense to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the Cloud Infrastructure (IaaS) revenue figures and the OCI forecast ($18B FY26 rising to $144B) are a cloud segment, not stated as AI revenue (rule 4b); the sentence that AI Cloud Infrastructure and the AI Database 'will contribute to dramatically increasing cloud demand and consumption' speaks of demand, not revenue, and gives no AI share or amount; the other AI mentions are product descriptions or safe-harbor boilerplate"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.8,
-  "input_tokens": 7014,
-  "output_tokens": 271,
+  "seconds": 9.4,
+  "input_tokens": 7317,
+  "output_tokens": 751,
   "attempts": 1,
-  "task_sha": "5e49ce38a5e5f7f5"
+  "task_sha": "8d7cf48d7a680aa0"
  }
 }

@@ -1,0 +1,13 @@
+{
+ "accession": "FLEX|mdna|2023-03-31|3f83b1e2",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.4,
+  "input_tokens": 6259,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "a7df88a8c3dbbfd3"
+ }
+}

@@ -1,0 +1,55 @@
+{
+ "accession": "GLXY|earnings_release|2025-06-30|5a9aaa98",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1000000000,
+   "amount_high": 1000000000,
+   "quote": "CoreWeave, as our anchor tenant, has committed to a total of 526 MW of critical IT capacity for a period of 15 years, generating an anticipated average annual revenue of over $1B for the combined three phases.",
+   "passage": "p14",
+   "confidence": 0.8,
+   "notes": "Data-center (AI/HPC) lease revenue. 'Over $1B' is recorded as a $1B floor. The figure is an average annual amount across the 15-year term once all three phases (526 MW) are delivered, not a single fiscal year. The sentence names no year, so fiscal_year is null."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Galaxy expects to begin generating Data Centers revenue in the first half of 2026, when it starts delivering critical IT capacity to CoreWeave under Phase I of its lease agreement.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Data Centers revenue comes from AI/HPC capacity leased to CoreWeave. The sentence gives the start timing only, with no amount. The p03 table shows Data Centers revenue of nil for Q2 2025, but that is a table, not a sentence."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Until then, all expenses are being capitalized.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Refers to Data Centers segment (AI/HPC Helios build-out) expenses being capitalized until revenue starts. The link to AI comes from the preceding sentence, not this one, and no amount is given."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; Digital Assets compensation/G&A increases are not linked to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.1,
+  "input_tokens": 16573,
+  "output_tokens": 1623,
+  "attempts": 1,
+  "task_sha": "b05327aa0603b024"
+ }
+}

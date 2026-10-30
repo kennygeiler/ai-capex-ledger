@@ -1,0 +1,30 @@
+{
+ "accession": "CEG|mdna|2024-12-31|b0c4c251",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Crane Clean Energy Center",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Microsoft",
+   "amount_low": 1600000000,
+   "amount_high": 1600000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2024",
+   "in_service": "2028",
+   "quote": "We estimate the project will require approximately $1.6 billion of cash from operations for capital expenditures necessary to restart the plant, with an estimated in-service date of 2028.",
+   "passage": "p01",
+   "confidence": 0.9
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.6,
+  "input_tokens": 9390,
+  "output_tokens": 629,
+  "attempts": 1,
+  "task_sha": "02117c9aaff84680"
+ }
+}

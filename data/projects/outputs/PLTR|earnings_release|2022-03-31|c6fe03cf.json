@@ -1,0 +1,13 @@
+{
+ "accession": "PLTR|earnings_release|2022-03-31|c6fe03cf",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "d112fe0289928140"
+ }
+}

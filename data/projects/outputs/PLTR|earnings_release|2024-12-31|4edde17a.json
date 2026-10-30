@@ -1,0 +1,13 @@
+{
+ "accession": "PLTR|earnings_release|2024-12-31|4edde17a",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "bd4c287ad2d5b51f"
+ }
+}

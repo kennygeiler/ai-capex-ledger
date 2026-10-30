@@ -1,23 +1,27 @@
 {
  "accession": "ANET|earnings_release|2021-12-31|18d6be57",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is a cash flow table; it reports purchases of property, equipment and intangible assets but no sentence links capital expenditures to AI"
+   "reason": "the only passage is a cash flow table; purchases of property, equipment and intangible assets are reported but no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "the only passage is a cash flow table; no sentence quantifies or attributes operating expenses to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the passage is a cash flow table only"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the passage is a cash flow table only"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.7,
-  "input_tokens": 5329,
-  "output_tokens": 168,
+  "seconds": 3.2,
+  "input_tokens": 5628,
+  "output_tokens": 211,
   "attempts": 1,
-  "task_sha": "7549caa02d1fc023"
+  "task_sha": "20d0a4b95ae542ca"
  }
 }

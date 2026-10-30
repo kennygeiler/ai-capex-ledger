@@ -1,23 +1,27 @@
 {
  "accession": "QCOM|earnings_release|2023-12-24|1aa538c8",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is a cash flow table; it reports total capital expenditures of $214 million but no sentence links capital expenditures to AI"
+   "reason": "only a cash-flow table line item for capital expenditures; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the passage is a cash flow table only"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "passage is a cash flow statement; no sentence states AI or data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.9,
-  "input_tokens": 5213,
+  "seconds": 3.4,
+  "input_tokens": 5518,
   "output_tokens": 187,
   "attempts": 1,
-  "task_sha": "6baa42f4e7281660"
+  "task_sha": "0488e1d4e014d7c8"
  }
 }

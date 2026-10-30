@@ -1,0 +1,27 @@
+{
+ "accession": "PWR|earnings_release|2023-03-31|05cf783e",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in safe-harbor and free-cash-flow definition boilerplate; no sentence states an amount or links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; revenue mentioned only in forward-looking-statement boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 5906,
+  "output_tokens": 212,
+  "attempts": 1,
+  "task_sha": "edda686253c0b74e"
+ }
+}

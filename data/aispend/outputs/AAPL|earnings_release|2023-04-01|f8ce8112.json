@@ -1,6 +1,6 @@
 {
  "accession": "AAPL|earnings_release|2023-04-01|f8ce8112",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "fa49d8fa5e6dd2f1"
+  "task_sha": "194ce315121eaa2a"
  }
 }

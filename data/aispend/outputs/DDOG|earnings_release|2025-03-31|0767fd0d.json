@@ -1,0 +1,27 @@
+{
+ "accession": "DDOG|earnings_release|2025-03-31|0767fd0d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the Australia data center announcement (p01) states no amount and no AI link, and capex mentions in p02/p03 are forward-looking boilerplate and a free cash flow definition"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p02 and p03 mention expenses only in safe-harbor and non-GAAP definition boilerplate"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.4,
+  "input_tokens": 5506,
+  "output_tokens": 281,
+  "attempts": 1,
+  "task_sha": "b465f9cc21a6e383"
+ }
+}

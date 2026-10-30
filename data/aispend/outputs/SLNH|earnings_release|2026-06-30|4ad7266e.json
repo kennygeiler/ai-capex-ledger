@@ -1,0 +1,27 @@
+{
+ "accession": "SLNH|earnings_release|2026-06-30|4ad7266e",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the cash-flow table reports purchases of property, plant and equipment ($9,483 thousand) with no AI attribution, and the 'AI build-out' and pipeline MW sentences describe development plans, not capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "revenue growth (145% year-over-year) is stated without attributing any part of revenue to AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.8,
+  "input_tokens": 7266,
+  "output_tokens": 483,
+  "attempts": 1,
+  "task_sha": "8a0379d7156e4b29"
+ }
+}

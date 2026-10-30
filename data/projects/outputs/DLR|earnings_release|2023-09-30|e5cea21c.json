@@ -1,0 +1,88 @@
+{
+ "accession": "DLR|earnings_release|2023-09-30|e5cea21c",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "MRS5",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Marseille, France",
+   "counterparty": null,
+   "amount_low": 65000000,
+   "amount_high": 65000000,
+   "capacity_mw": 22,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "During the third quarter, Digital Realty signed a 50-year right of use agreement related to a 2.7-acre site (MRS5) in Marseille, France, which can support the development of data center capacity with approximately 22 megawatts of IT load, as an extension to its existing highly connected campus in the port of Marseille.",
+   "passage": "p05",
+   "confidence": 0.85
+  },
+  {
+   "name": "MRS6",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "near Marseille",
+   "counterparty": null,
+   "amount_low": 49000000,
+   "amount_high": 49000000,
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Additionally, Digital Realty secured approximately 27 acres (MRS6) near Marseille for a purchase price of \u20ac47 million or $49 million.",
+   "passage": "p05",
+   "confidence": 0.85
+  },
+  {
+   "name": "Digital Connexion: A Brookfield, Jio and Digital Realty Company",
+   "kind": "other",
+   "status": "announced",
+   "location": "India",
+   "counterparty": "Brookfield Infrastructure; Jio",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In addition, Digital Realty previously announced plans to expand its joint venture in India with Brookfield Infrastructure through the addition of Jio, a Reliance Industries, Ltd. company.",
+   "passage": "p05",
+   "confidence": 0.5
+  },
+  {
+   "name": "Loudoun County, Northern Virginia new development capacity",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Loudoun County, Northern Virginia",
+   "counterparty": null,
+   "capacity_mw": 100,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "New development capacity to be brought ~100 MW to market prior to 2026 In Loudoun County",
+   "passage": "p14",
+   "confidence": 0.55
+  },
+  {
+   "name": "Northern Virginia nearby development site outside the power-constrained area",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Northern Virginia",
+   "counterparty": null,
+   "capacity_mw": 192,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "192 MW Capacity in a nearby development site outside the power-constrained area",
+   "passage": "p14",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.9,
+  "input_tokens": 16380,
+  "output_tokens": 1799,
+  "attempts": 1,
+  "task_sha": "b8ba0d62531a4196"
+ }
+}

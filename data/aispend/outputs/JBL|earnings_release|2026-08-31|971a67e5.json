@@ -1,0 +1,59 @@
+{
+ "accession": "JBL|earnings_release|2026-08-31|971a67e5",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Our teams supported significant growth in AI infrastructure, delivered strong performance across several other end markets and brought critical new capacity online.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Describes significant growth in AI infrastructure business during the reported year (fiscal 2026 per p01 context) without quantifying AI revenue; sentence names no year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u201cOur fiscal 2027 outlook reflects the strength of Jabil\u2019s diversified portfolio, with accelerating AI demand complemented by solid growth in automotive, healthcare, energy infrastructure, defense and aerospace, and warehouse and retail automation,\u201d Dastoor continued.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Names accelerating AI demand as one driver of the overall fiscal 2027 outlook; no AI share or amount stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 44500000000,
+   "amount_high": 44500000000,
+   "quote": "We expect revenue of $44.5 billion, up 24%, core operating margin expansion of 30 basis points to 6.1%, core diluted earnings per share growth of 34% to $17.55, and adjusted free cash flow of approximately $1.6 billion.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Total revenue guidance, not AI revenue; the link to AI demand is in the preceding sentence of the same passage, not in this sentence. Fiscal 2027 is named in the passage's opening sentence, not this one."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; capex appears only in the adjusted free cash flow definition and forward-looking boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.6,
+  "input_tokens": 6856,
+  "output_tokens": 1688,
+  "attempts": 1,
+  "task_sha": "cd8c5f8107f1bcb9"
+ }
+}

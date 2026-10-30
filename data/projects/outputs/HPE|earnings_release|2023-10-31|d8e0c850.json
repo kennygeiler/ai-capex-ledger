@@ -1,0 +1,13 @@
+{
+ "accession": "HPE|earnings_release|2023-10-31|d8e0c850",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 5907,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "6642a00546da104f"
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "accession": "CDNS|earnings_release|2022-01-01|cc3a9226",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.2,
+  "input_tokens": 5217,
+  "output_tokens": 53,
+  "attempts": 1,
+  "task_sha": "d9ab01c8cd11cc5b"
+ }
+}

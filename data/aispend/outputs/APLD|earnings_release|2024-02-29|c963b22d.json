@@ -1,23 +1,35 @@
 {
  "accession": "APLD|earnings_release|2024-02-29|c963b22d",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase in revenues were driven by increased capacity across the Company\u2019s three datacenter hosting facilities between periods as well as the Company's recognizing revenue under its Cloud services segment which began providing service during the current fiscal year.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Attributes total revenue growth to datacenter hosting capacity and the new Cloud Services (GPU cloud) segment. It states no AI or data-center revenue amount or share. The total of $43.3 million in the preceding sentence is a fiscal Q3 2024 quarterly figure, not a full-year figure, and that sentence does not itself link revenue to AI or data-center demand, so it is not recorded. Confidence is lowered because the datacenter hosting business at this time was largely crypto-mining hosting, not AI demand."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; the passage mentions progress on a 100 MW HPC datacenter and a Cloud Services customer named Together AI, but gives no amount, share, or spend statement"
+   "reason": "no sentence states or attributes capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.9,
-  "input_tokens": 4602,
-  "output_tokens": 308,
+  "seconds": 9.7,
+  "input_tokens": 5024,
+  "output_tokens": 995,
   "attempts": 1,
-  "task_sha": "f19be95703dddda8"
+  "task_sha": "02f2d83939d7b52b"
  }
 }

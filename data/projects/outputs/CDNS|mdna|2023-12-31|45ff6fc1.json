@@ -1,0 +1,13 @@
+{
+ "accession": "CDNS|mdna|2023-12-31|45ff6fc1",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 4873,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "330cd3baabae1567"
+ }
+}

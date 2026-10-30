@@ -1,0 +1,13 @@
+{
+ "accession": "AVGO|mdna|2023-10-29|00087c4e",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 4236,
+  "output_tokens": 50,
+  "attempts": 1,
+  "task_sha": "c75a059bde0ce2ab"
+ }
+}

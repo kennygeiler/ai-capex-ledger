@@ -1,0 +1,35 @@
+{
+ "accession": "CDNS|earnings_release|2026-03-31|1f8cc472",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Core EDA revenue grew 18% year\u2011over\u2011year, driven by expanding customer adoption of Cadence\u2019s AI\u2011driven solutions, with continued strength in advanced digital implementation, custom, and verification at leading AI infrastructure and semiconductor customers",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Core EDA is a segment, not total company revenue. The 18% is a growth rate, not AI's share of revenue. The sentence names AI-driven solutions and AI infrastructure customers as drivers but does not quantify the AI part. The sentence names no year and covers the quarter ended 2026-03-31."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "purchases of property, plant and equipment appear only in the cash flow table; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D and AI appear only in forward-looking-statement risk boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.8,
+  "input_tokens": 7665,
+  "output_tokens": 845,
+  "attempts": 1,
+  "task_sha": "6885e951605e154c"
+ }
+}

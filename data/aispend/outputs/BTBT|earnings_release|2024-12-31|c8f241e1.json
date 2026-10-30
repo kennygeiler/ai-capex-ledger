@@ -1,0 +1,50 @@
+{
+ "accession": "BTBT|earnings_release|2024-12-31|c8f241e1",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 45700000,
+   "amount_high": 45700000,
+   "quote": "Cloud services revenue was $45.7 million for 2024 compared \u25cf to nil the prior year.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "The company's cloud services business is a GPU/HPC compute seller, so this is seller-side compute revenue, but the sentence itself does not say AI or data center. It is recorded with low confidence; drop it if a strict AI or data-center label is required."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1400000,
+   "amount_high": 1400000,
+   "quote": "Colocation services revenue, related to the Company\u2019s acquisition of Enovum Data Centers Corp. in October 2024, was $1.4 million for the period.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Data-center colocation revenue from the Enovum Data Centers acquisition. The sentence gives no fiscal year ('for the period'), so code should use the reported year, 2024. It is linked to data centers but not explicitly to AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only investment figure is the approximately $19.3 million to develop the Pointe-Claire data center site (p03), and no sentence links it to AI; the site supports cloud services and colocation without naming AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.6,
+  "input_tokens": 5612,
+  "output_tokens": 1564,
+  "attempts": 1,
+  "task_sha": "939a3cdd01deeab1"
+ }
+}

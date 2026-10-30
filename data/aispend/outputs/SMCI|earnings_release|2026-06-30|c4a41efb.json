@@ -1,0 +1,27 @@
+{
+ "accession": "SMCI|earnings_release|2026-06-30|c4a41efb",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the passages are a preliminary-update header, safe-harbor boilerplate and a company description"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the only figure, $60 billion of orders, appears in forward-looking-statement boilerplate and is orders/backlog, not revenue, and is not attributed to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 6376,
+  "output_tokens": 292,
+  "attempts": 1,
+  "task_sha": "c706b4583e805b99"
+ }
+}

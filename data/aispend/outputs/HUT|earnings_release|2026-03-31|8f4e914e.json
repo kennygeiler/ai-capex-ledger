@@ -1,0 +1,37 @@
+{
+ "accession": "HUT|earnings_release|2026-03-31|8f4e914e",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 16800000000,
+   "amount_high": 16800000000,
+   "quote": "That conviction has produced a contracted revenue base of $16.8 billion underpinned by triple- net, take-or-pay data center leases with 597 MW of IT capacity across two hyperscale AI campuses, and diversified blue-chip, investment-grade counterparties.",
+   "passage": "p04",
+   "confidence": 0.5,
+   "notes": "Multi-year contracted lease value (backlog over ~15-year terms) for AI data center campuses, not revenue for a single fiscal year; River Bend delivery expected Q2 2027. The $9.8 billion Beacon Point lease (p02, p06) is included in this total and is not recorded separately to avoid double counting. Q1 2026 total revenue of $66.0 million (p07) includes AI Cloud revenue but the AI part is not stated, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; the $3.25 billion senior secured notes (p03, p08) are project financing for River Bend construction, not a stated capex amount"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.1,
+  "input_tokens": 7498,
+  "output_tokens": 1373,
+  "attempts": 1,
+  "task_sha": "511db58a23e0d025"
+ }
+}

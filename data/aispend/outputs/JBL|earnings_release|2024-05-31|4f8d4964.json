@@ -1,0 +1,35 @@
+{
+ "accession": "JBL|earnings_release|2024-05-31|4f8d4964",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "\u201cIt\u2019s clear that Jabil has navigated a period of significant transformation this fiscal year: a year in which we divested our Mobility business, captured growth in the AI datacenter space, and experienced softness across multiple end-markets,\u201dsaid CEO Mike Dastoor.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "'captured growth in the AI datacenter space' implies AI-datacenter revenue growth but does not say revenue explicitly or give an amount or share; 'this fiscal year' is not a named year, so fiscal_year is null (reported year fiscal 2024 applies)."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are mentioned only in the adjusted free cash flow definition and forward-looking risk boilerplate; no sentence links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.7,
+  "input_tokens": 6721,
+  "output_tokens": 750,
+  "attempts": 1,
+  "task_sha": "f8d58fc0b368af2e"
+ }
+}

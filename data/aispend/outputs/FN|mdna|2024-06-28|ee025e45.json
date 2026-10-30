@@ -1,0 +1,35 @@
+{
+ "accession": "FN|mdna|2024-06-28|ee025e45",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Revenues from optical communications products, which represented $2,289.0 million, or 79.4%, of our revenues for fiscal year 2024, increased by $280.7 million, or 14.0%, compared to prior fiscal year, mainly due to an increase in revenues from data communication products, primarily for artificial intelligence applications, offset by a decline in revenues from telecommunication products as inventory absorption within the telecommunication market continued during fiscal year 2024.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "The $2,289.0 million (79.4%) is all optical communications revenue, not AI revenue. The sentence names AI applications only in words, as the main driver of growth in datacom revenue, so it is recorded as qualitative with no amount."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "The fiscal 2025 capex increase is attributed to the Chonburi manufacturing building and improvements. No sentence links capital expenditures to AI."
+  },
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies operating expenses or attributes them to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.3,
+  "input_tokens": 5521,
+  "output_tokens": 759,
+  "attempts": 1,
+  "task_sha": "75f1a8b55b1acb13"
+ }
+}

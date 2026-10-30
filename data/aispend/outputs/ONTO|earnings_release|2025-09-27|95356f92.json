@@ -1,0 +1,27 @@
+{
+ "accession": "ONTO|earnings_release|2025-09-27|95356f92",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "passage is forward-looking-statement boilerplate and a company description; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, data-center or advanced-packaging revenue as an amount or share; mentions of customer capital spending and advanced packaging are risk-factor boilerplate or product description"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 5965,
+  "output_tokens": 238,
+  "attempts": 1,
+  "task_sha": "ca45862958ecc7ff"
+ }
+}

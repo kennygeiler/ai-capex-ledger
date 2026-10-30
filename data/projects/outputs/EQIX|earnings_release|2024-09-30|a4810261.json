@@ -1,0 +1,100 @@
+{
+ "accession": "EQIX|earnings_release|2024-09-30|a4810261",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "xScale joint venture with CPP Investments and GIC",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "U.S.",
+   "counterparty": "Canada Pension Plan Investment Board (CPP Investments) and GIC",
+   "amount_low": 15000000000,
+   "amount_high": 15000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2024-10",
+   "in_service": null,
+   "quote": "Earlier this month, Equinix announced plans to nearly triple the capital invested in its xScale data center portfolio with the agreement to form a greater than $15 billion joint venture, subject to closing conditions, with Canada Pension Plan Investment Board (CPP Investments) and GIC, with whom Equinix has previously partnered on xScale projects in Asia, the Americas and Europe.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Atlanta metro xScale campus",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Atlanta metro area",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "As previously announced, Equinix recently acquired a greater-than-200-acre land parcel as it develops its first multi- hundred-megawatt xScale campus in the Atlanta metro area to support the pursuit of larger AI and hyperscale workloads.",
+   "passage": "p02",
+   "confidence": 0.8
+  },
+  {
+   "name": "Seoul 2 (SL2x)",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Seoul",
+   "counterparty": null,
+   "capacity_mw": 20,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Since its Q2 earnings call, the company leased an incremental 20 megawatts of capacity into its Seoul 2 (SL2x) asset, bringing total xScale leasing to 385 megawatts globally with nearly 90% of its operational and under-construction capacity leased.",
+   "passage": "p02",
+   "confidence": 0.7
+  },
+  {
+   "name": "Johannesburg IBX data center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Johannesburg, South Africa",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024-08",
+   "quote": "In August, Equinix opened its first International Business Exchange TM (IBX \u00ae ) data center in Johannesburg, South Africa to support and enhance the growing digital infrastructure and connectivity needs of enterprises and service providers on the rapidly growing African continent.",
+   "passage": "p02",
+   "confidence": 0.75
+  },
+  {
+   "name": "New York 3 (NY3)",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "New York",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The company also opened the first phases of its New York 3 (NY3) and Tokyo 15 (TY15) assets, easing capacity constraints in two key markets.",
+   "passage": "p02",
+   "confidence": 0.7
+  },
+  {
+   "name": "Tokyo 15 (TY15)",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Tokyo",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The company also opened the first phases of its New York 3 (NY3) and Tokyo 15 (TY15) assets, easing capacity constraints in two key markets.",
+   "passage": "p02",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.0,
+  "input_tokens": 5701,
+  "output_tokens": 2098,
+  "attempts": 1,
+  "task_sha": "25d52b41e5617dd6"
+ }
+}

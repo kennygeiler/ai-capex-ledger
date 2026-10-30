@@ -1,0 +1,57 @@
+{
+ "accession": "IRM|earnings_release|2026-03-31|a06ced0d",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In Q1 2026, data center revenue grew 47% and we signed 22 MW of new leases",
+   "passage": "p10",
+   "confidence": 0.8,
+   "notes": "Data center operator (seller side). The sentence gives Q1 data center revenue growth, not an amount or share. The $255M Q1 Global Data Center revenue appears only in the p12 table, not in a sentence. Bullet text, no terminal period."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In 2026, current backlog expected to drive growth of 25%+",
+   "passage": "p10",
+   "confidence": 0.7,
+   "notes": "The data center section context implies this is data center revenue growth, but the sentence does not name revenue. It is a growth rate, not an amount or share."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Beyond 2026, we expect our current backlog to contribute more than $350 million of growth, before any incremental new leasing",
+   "passage": "p10",
+   "confidence": 0.6,
+   "notes": "$350M+ is incremental data center revenue growth across unspecified years after 2026. It is not a revenue level, so it is recorded as qualitative rather than as an amount. There is no single fiscal year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; growth capital and recurring capex are mentioned without AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.1,
+  "input_tokens": 17798,
+  "output_tokens": 1768,
+  "attempts": 1,
+  "task_sha": "95eb3177fa7af4c3"
+ }
+}

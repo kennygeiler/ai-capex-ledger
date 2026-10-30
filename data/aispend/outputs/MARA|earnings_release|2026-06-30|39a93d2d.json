@@ -1,0 +1,27 @@
+{
+ "accession": "MARA|earnings_release|2026-06-30|39a93d2d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes MARA's own capital expenditures to AI; the $725 billion and $1 trillion figures in p02 are third-party hyperscaler capex (Goldman Sachs), not MARA's, and mentions of 'investing' and 'capital allocation' are not linked to AI spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, data-center or HPC revenue; lease discussions are pending and no AI/HPC revenue figure or share is given"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.5,
+  "input_tokens": 9725,
+  "output_tokens": 568,
+  "attempts": 1,
+  "task_sha": "7b1a5b4afbebba78"
+ }
+}

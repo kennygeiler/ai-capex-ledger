@@ -1,23 +1,27 @@
 {
  "accession": "WULF|earnings_release|2025-06-30|c9976be9",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is forward-looking-statements boilerplate; no sentence links capital expenditures to AI or HPC"
+   "reason": "only passage is forward-looking-statements boilerplate; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "the only passage is forward-looking-statements boilerplate; no sentence quantifies or attributes operating expenses to AI or HPC"
+   "reason": "only passage is forward-looking-statements boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "only passage is forward-looking-statements boilerplate (mentions HPC data center leasing as a risk factor); no sentence states AI or data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.9,
-  "input_tokens": 5131,
-  "output_tokens": 171,
+  "seconds": 4.4,
+  "input_tokens": 5430,
+  "output_tokens": 234,
   "attempts": 1,
-  "task_sha": "765cbf2098e8d7bb"
+  "task_sha": "23a825a584d2a344"
  }
 }

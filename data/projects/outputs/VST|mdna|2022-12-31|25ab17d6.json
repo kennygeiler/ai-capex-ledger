@@ -1,0 +1,60 @@
+{
+ "accession": "VST|mdna|2022-12-31|25ab17d6",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Texas solar photovoltaic and battery ESS development",
+   "kind": "power",
+   "status": "announced",
+   "location": "Texas",
+   "counterparty": null,
+   "amount_low": 850000000,
+   "amount_high": 850000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2020-09",
+   "in_service": null,
+   "quote": "\u2022In September 2020, we announced the planned development, at a cost of approximately $850 million, of up to 668 MW of solar photovoltaic power generation facilities and 260 MW of battery ESS in Texas.",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "Illinois solar photovoltaic and battery ESS development at retired plant sites",
+   "kind": "power",
+   "status": "announced",
+   "location": "Illinois",
+   "counterparty": null,
+   "amount_low": 550000000,
+   "amount_high": 550000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2021-09",
+   "in_service": null,
+   "quote": "\u2022In September 2021, we announced the planned development, at a cost of approximately $550 million, of up to 300 MW of solar photovoltaic power generation facilities and up to 150 MW of battery ESS at retired or to-be-retired plant sites in Illinois, based on the passage of Illinois Senate Bill 2408, the Energy Transition Act.",
+   "passage": "p02",
+   "confidence": 0.75
+  },
+  {
+   "name": "Moss Landing Power Plant battery ESS",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Moss Landing Power Plant site",
+   "counterparty": "PG&E",
+   "capacity_mw": 350,
+   "gpus": null,
+   "announced": "2022-01",
+   "in_service": null,
+   "quote": "\u2022In January 2022, we announced that, subject to approval by the CPUC, we would enter into a 15-year resource adequacy and energy settlement contract with PG&E to develop an additional 350 MW battery ESS at our Moss Landing Power Plant site.",
+   "passage": "p03",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.6,
+  "input_tokens": 11642,
+  "output_tokens": 1178,
+  "attempts": 1,
+  "task_sha": "17b6ed6b1979a018"
+ }
+}

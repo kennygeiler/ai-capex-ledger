@@ -1,0 +1,63 @@
+{
+ "accession": "DELL|earnings_release|2024-11-01|c2b3d77a",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 7400000000,
+   "amount_high": 7400000000,
+   "quote": "Servers and networking revenue was $7.4 billion, up 58%, with demand growth across AI and traditional servers.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "Q3 FY2025 quarterly figure, not full year. Covers all servers and networking, with AI named as one growth driver alongside traditional servers. This is not the AI portion. fiscal_year is taken from the task header, since the sentence names no year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 23500000000,
+   "amount_high": 23500000000,
+   "quote": "\u201cWe continued to build on our AI leadership and momentum, delivering combined ISG and CSG revenue of $23.5 billion, up 13% year over year,\u201d said Yvonne McGill, chief financial officer, Dell Technologies.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Q3 FY2025 quarterly figure. Combined ISG+CSG revenue (nearly all of company revenue), framed as reflecting AI momentum. This is not the AI portion. fiscal_year is taken from the task header."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3600000000,
+   "amount_high": 3600000000,
+   "quote": "\u201cInterest in our portfolio is at an all-time high, driving record AI server orders demand of $3.6 billion in Q3 and a pipeline that grew more than 50%, with growth across all customer types.\u201d",
+   "passage": "p03",
+   "confidence": 0.4,
+   "notes": "This is AI server ORDERS for Q3, not recognized revenue. It is recorded as the closest AI-specific seller-side figure. Downstream should not treat it as AI revenue without review. The release gives no AI server revenue figure."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.1,
+  "input_tokens": 5072,
+  "output_tokens": 1678,
+  "attempts": 1,
+  "task_sha": "6545421b29907446"
+ }
+}

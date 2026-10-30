@@ -1,0 +1,112 @@
+{
+ "accession": "NRG|earnings_release|2025-06-30|2fdbb036",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Data center retail agreements on two NRG-owned Texas sites",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 295,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2030",
+   "quote": "NRG has entered into 295 MW of premium, long-term retail agreements to power data centers constructed on two NRG-owned sites in Texas.",
+   "passage": "p04",
+   "confidence": 0.85
+  },
+  {
+   "name": "T.H. Wharton generation facility",
+   "kind": "power",
+   "status": "under_construction",
+   "location": "Texas",
+   "counterparty": "Public Utility Commission of Texas (PUCT)",
+   "capacity_mw": 415,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "On July 31, 2025, NRG entered into a $216 million loan agreement with the Public Utility Commission of Texas (PUCT) under the TEF for a low-interest rate loan at 3% to support development at its 415 MW (456 MW nameplate) T.H. Wharton generation facility.",
+   "passage": "p05",
+   "confidence": 0.75
+  },
+  {
+   "name": "Greens Bayou",
+   "kind": "power",
+   "status": "announced",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "NRG has two additional Texas new build projects in TEF due diligence review, Greens Bayou and Cedar Bayou, totaling 1.1 GW.",
+   "passage": "p06",
+   "confidence": 0.75
+  },
+  {
+   "name": "Cedar Bayou",
+   "kind": "power",
+   "status": "announced",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "NRG has two additional Texas new build projects in TEF due diligence review, Greens Bayou and Cedar Bayou, totaling 1.1 GW.",
+   "passage": "p06",
+   "confidence": 0.75
+  },
+  {
+   "name": "LS Power natural gas-fired generation portfolio acquisition",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "LS Power",
+   "capacity_mw": 13000,
+   "gpus": null,
+   "announced": "2025-05-12",
+   "in_service": null,
+   "quote": "On May 12, 2025, NRG entered into a definitive agreement with LS Power to acquire a power portfolio including 13 GW of natural gas-fired generation facilities and a Commercial & Industrial Virtual Power Plant platform with 6 GW of capacity.",
+   "passage": "p08",
+   "confidence": 0.8
+  },
+  {
+   "name": "LS Power Commercial & Industrial Virtual Power Plant platform acquisition",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "LS Power",
+   "capacity_mw": 6000,
+   "gpus": null,
+   "announced": "2025-05-12",
+   "in_service": null,
+   "quote": "On May 12, 2025, NRG entered into a definitive agreement with LS Power to acquire a power portfolio including 13 GW of natural gas-fired generation facilities and a Commercial & Industrial Virtual Power Plant platform with 6 GW of capacity.",
+   "passage": "p08",
+   "confidence": 0.7
+  },
+  {
+   "name": "Texas Residential Virtual Power Plant",
+   "kind": "power",
+   "status": "announced",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 150,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "Building on strong customer adoption of the Home Essentials and other offerings, NRG has raised its 2025 Texas Residential Virtual Power Plant target to 150 MW, up from 20 MW.",
+   "passage": "p07",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 19.5,
+  "input_tokens": 8306,
+  "output_tokens": 2322,
+  "attempts": 1,
+  "task_sha": "ca22c4f13ba29502"
+ }
+}

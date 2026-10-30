@@ -1,0 +1,98 @@
+{
+ "accession": "SLNH|earnings_release|2025-03-31|d9ba3f1d",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Project Dorothy 2",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "Construction of Project Dorothy 2 started in the third quarter of 2024, and the \u25cf initial phase of powering up is underway, which aims to increase our Bitcoin hosting capacity by 64.0%, reaching a total of 123 MW, which is expected to be fully completed by Q4 2025.",
+   "passage": "p03",
+   "confidence": 0.85
+  },
+  {
+   "name": "Project Dorothy 1A",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Project \u25cf Dorothy 1A and 1B were online for the full year of 2024, generating $13.7 million and $17.0 million in Bitcoin hosting and mining revenue, respectively.",
+   "passage": "p02",
+   "confidence": 0.6
+  },
+  {
+   "name": "Project Dorothy 1B",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Project \u25cf Dorothy 1A and 1B were online for the full year of 2024, generating $13.7 million and $17.0 million in Bitcoin hosting and mining revenue, respectively.",
+   "passage": "p02",
+   "confidence": 0.6
+  },
+  {
+   "name": "Project Kati",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 166,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Project Kati successfully exited the ERCOT planning phase, which is expected to \u25cf unlock up to 166 MW of new Bitcoin hosting and AI joint venture opportunities for the Company.",
+   "passage": "p03",
+   "confidence": 0.8
+  },
+  {
+   "name": "Project Rosa",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 187,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Term Sheets for Power for Project Rosa in 2024 and a land agreement were \u25cf subsequently secured in early 2025, which is expected to unlock up to 187 MW of new Bitcoin hosting and AI joint venture opportunities for Soluna Holdings.",
+   "passage": "p03",
+   "confidence": 0.75
+  },
+  {
+   "name": "Project Ada (CloudCo) HPE Nvidia GPU contract",
+   "kind": "cloud_commitment",
+   "status": "cancelled",
+   "location": null,
+   "counterparty": "Hewlett Packard Enterprise Company",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Recognizing the 2024 downtrend in market pricing and softening demand for GPU-as-a-Service in small clusters, in March 2025, the Company\u2019s indirect subsidiary, CloudCo terminated the HPE contract to access Nvidia GPUs and recorded a \u25cf loss on contract of $28.6 million which is the sum of future payments due under the contract and the full write down of the prepaid asset.",
+   "passage": "p04",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.7,
+  "input_tokens": 7968,
+  "output_tokens": 2635,
+  "attempts": 1,
+  "task_sha": "beee4e07a319b87d"
+ }
+}

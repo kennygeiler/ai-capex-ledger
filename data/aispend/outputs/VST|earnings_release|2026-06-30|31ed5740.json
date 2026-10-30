@@ -1,0 +1,27 @@
+{
+ "accession": "VST|earnings_release|2026-06-30|31ed5740",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the cash flow table reports total capex ($1,572 million for the six months) with no AI attribution, and p01 is forward-looking-statement boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the mention of potential transactions with large load facilities in p01 is forward-looking boilerplate, not a revenue figure"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 6497,
+  "output_tokens": 250,
+  "attempts": 1,
+  "task_sha": "d9146ddc8b89d241"
+ }
+}

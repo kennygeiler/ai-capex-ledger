@@ -1,0 +1,49 @@
+{
+ "accession": "CIEN|earnings_release|2026-08-01|e7c50073",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 1700000000,
+   "amount_high": 1700000000,
+   "quote": "Ciena's differentiated position in AI is driving record Q3 performance \u25aa Revenue: $1.7B, up 37% YoY",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Quarterly (Q3 fiscal 2026) total revenue, not full-year; AI cited as the driver. Slide bullet text, not a full prose sentence."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.53,
+   "quote": "Cloud provider revenue: 53% of total, up 82% YoY",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "Q3 fiscal 2026 only, not full-year. Revenue from cloud-provider customers is a proxy for data-center/AI demand, but the filing does not label it AI revenue. Slide bullet text."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states Ciena's own capital expenditures; p03 refers to cloud providers' AI capex as an outlook assumption, which is customer spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes Ciena's operating expenses to AI; the R&D headcount in p01 is not linked to AI spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.8,
+  "input_tokens": 6537,
+  "output_tokens": 1210,
+  "attempts": 1,
+  "task_sha": "221d6f9ad342ff05"
+ }
+}

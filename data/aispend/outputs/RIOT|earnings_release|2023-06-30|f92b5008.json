@@ -1,0 +1,61 @@
+{
+ "accession": "RIOT|earnings_release|2023-06-30|f92b5008",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 7700000,
+   "amount_high": 7700000,
+   "quote": "Data center hosting revenue of $7.7 million for the quarter, as compared \u25cf to $9.8 million for the same three-month period in 2022, driven by fewer hosting customers and lower Bitcoin values during the 2023 period, partially offset by increased revenue share from hosting customers.",
+   "passage": "p02",
+   "confidence": 0.4,
+   "notes": "Q2 2023 quarterly figure only, not full-year. Riot's 'Data Center Hosting' segment hosts third-party Bitcoin miners, not AI workloads. It is recorded only because the segment is labeled data-center revenue; downstream use may want to exclude it."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 19300000,
+   "amount_high": 19300000,
+   "quote": "Engineering revenue of $19.3 million for the quarter, as compared to \u25cf $16.9 million for the same three-month period in 2022, primarily driven by increased demand from third-party data center and engineering customers and delivering on backlog of projects.",
+   "passage": "p03",
+   "confidence": 0.4,
+   "notes": "Q2 2023 quarterly Engineering segment revenue. Third-party data center demand is named as a driver, so the scope is total for the segment, not the data-center part. No AI link is stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Expect continued growth in data center demand from existing and new clients",
+   "passage": "p10",
+   "confidence": 0.3,
+   "notes": "This is a slide bullet, not a full sentence, and refers to the Engineering segment's data center customers. No AI link is stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "No sentence links capital expenditures to AI. The Corsicana Phase 1 capex ($333mm total) is for an immersion-cooled Bitcoin mining facility."
+  },
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies operating expenses for AI or attributes them to AI. The cost increases cited relate to Bitcoin mining capacity, hosting power costs and engineering materials and labor."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.6,
+  "input_tokens": 10708,
+  "output_tokens": 1996,
+  "attempts": 1,
+  "task_sha": "4a0ac02cf50bdbee"
+ }
+}

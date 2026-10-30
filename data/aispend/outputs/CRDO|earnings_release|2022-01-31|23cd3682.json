@@ -1,6 +1,6 @@
 {
  "accession": "CRDO|earnings_release|2022-01-31|23cd3682",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "d693495f3a62c82c"
+  "task_sha": "be8302f42460ade1"
  }
 }

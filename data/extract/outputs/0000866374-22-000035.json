@@ -1,0 +1,150 @@
+{
+ "accession": "0000866374-22-000035",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0024",
+   "row_label": "Net sales",
+   "column_label": "Fiscal Year Ended March 31, | 2022",
+   "cell_text": "26,041",
+   "period_end": "2022-03-31",
+   "months": 12,
+   "value": 26041000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0024",
+   "row_label": "Net sales",
+   "column_label": "Fiscal Year Ended March 31, | 2021",
+   "cell_text": "24,124",
+   "period_end": "2021-03-31",
+   "months": 12,
+   "value": 24124000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0024",
+   "row_label": "Net sales",
+   "column_label": "Fiscal Year Ended March 31, | 2020",
+   "cell_text": "24,210",
+   "period_end": "2020-03-31",
+   "months": 12,
+   "value": 24210000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0024",
+   "row_label": "Cost of sales",
+   "column_label": "Fiscal Year Ended March 31, | 2022",
+   "cell_text": "24,094",
+   "period_end": "2022-03-31",
+   "months": 12,
+   "value": 24094000000,
+   "confidence": 0.95,
+   "notes": "Single 'Cost of sales' line used. A separate 'Restructuring charges' line (15) sits above gross profit and is not included, per the rule excluding restructuring."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0024",
+   "row_label": "Cost of sales",
+   "column_label": "Fiscal Year Ended March 31, | 2021",
+   "cell_text": "22,349",
+   "period_end": "2021-03-31",
+   "months": 12,
+   "value": 22349000000,
+   "confidence": 0.95,
+   "notes": "Single 'Cost of sales' line used. A separate 'Restructuring charges' line (88) sits above gross profit and is not included, per the rule excluding restructuring."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0024",
+   "row_label": "Cost of sales",
+   "column_label": "Fiscal Year Ended March 31, | 2020",
+   "cell_text": "22,681",
+   "period_end": "2020-03-31",
+   "months": 12,
+   "value": 22681000000,
+   "confidence": 0.95,
+   "notes": "Single 'Cost of sales' line used. A separate 'Restructuring charges' line (190) sits above gross profit and is not included, per the rule excluding restructuring."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0024",
+   "row_label": "Operating income",
+   "column_label": "Fiscal Year Ended March 31, | 2022",
+   "cell_text": "972",
+   "period_end": "2022-03-31",
+   "months": 12,
+   "value": 972000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0024",
+   "row_label": "Operating income",
+   "column_label": "Fiscal Year Ended March 31, | 2021",
+   "cell_text": "795",
+   "period_end": "2021-03-31",
+   "months": 12,
+   "value": 795000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0024",
+   "row_label": "Operating income",
+   "column_label": "Fiscal Year Ended March 31, | 2020",
+   "cell_text": "415",
+   "period_end": "2020-03-31",
+   "months": 12,
+   "value": 415000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0027",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended March 31, | 2022",
+   "cell_text": "(443)",
+   "period_end": "2022-03-31",
+   "months": 12,
+   "value": 443000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0027",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended March 31, | 2021",
+   "cell_text": "(351)",
+   "period_end": "2021-03-31",
+   "months": 12,
+   "value": 351000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0027",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended March 31, | 2020",
+   "cell_text": "(462)",
+   "period_end": "2020-03-31",
+   "months": 12,
+   "value": 462000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.4,
+  "input_tokens": 5962,
+  "output_tokens": 1686,
+  "attempts": 1,
+  "task_sha": "9652ef6437036778"
+ }
+}

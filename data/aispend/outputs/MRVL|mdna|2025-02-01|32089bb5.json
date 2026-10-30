@@ -1,23 +1,53 @@
 {
  "accession": "MRVL|mdna|2025-02-01|32089bb5",
- "prompt_version": "aispend@v3",
- "statements": [],
- "none_found": [
+ "prompt_version": "aispend@v4",
+ "statements": [
   {
-   "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; capital expenditures appear only as generic valuation inputs in impairment and business-combination accounting policies (p03, p04)"
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We have seen strong revenue growth from our data center end market, driven by robust demand for our interconnect and custom compute products from AI applications.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "Data center revenue growth attributed to AI demand; no data center revenue amount or share of total revenue is stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "This was primarily due to an 88% increase in sales from the data center end market which benefited from strong AI demand.",
+   "passage": "p06",
+   "confidence": 0.8,
+   "notes": "The 88% is year-over-year growth in data center sales, not a share of revenue, so it is not recorded as explicit_share. The sentence names no year, though the surrounding passage refers to fiscal 2025 vs fiscal 2024. No data center revenue dollar amount is given."
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; p02 describes a restructuring to increase research and development investment in the data center end market, but it does not mention AI, and treating data center as AI would be an inference; the AI references in p01 and p05 concern revenue and demand, not spend"
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "A restructuring plan was initiated during the third quarter of fiscal 2025 to increase research and development investment in the data center end market and reduce investment in new product development in other end markets including the cancellation of certain future product releases.",
+   "passage": "p03",
+   "confidence": 0.5,
+   "notes": "R&D is shifted toward the data center end market, which the filing elsewhere ties to AI demand, but this sentence does not mention AI. No amount is given. The year given is when the plan started, not the year of the spend, so fiscal_year is null."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; capex mentions are only in valuation-methodology boilerplate (p04, p05)"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.7,
-  "input_tokens": 5700,
-  "output_tokens": 328,
+  "seconds": 11.2,
+  "input_tokens": 6168,
+  "output_tokens": 1356,
   "attempts": 1,
-  "task_sha": "a72eb26459882830"
+  "task_sha": "4e847a3b0120bd56"
  }
 }

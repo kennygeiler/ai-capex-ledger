@@ -1,0 +1,42 @@
+{
+ "accession": "TSLA|earnings_release|2024-09-30|f8e08539",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Lathrop Megafactory",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Lathrop",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Ramp of Powerwall 3 and the Lathrop Megafactory continued successfully \u2013 with Lathrop demonstrating 200 Megapack production (40 GWh annual run rate) in a single week.",
+   "passage": "p01",
+   "confidence": 0.6
+  },
+  {
+   "name": "Shanghai Megafactory",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Shanghai",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "The Shanghai Megafactory remains on track to begin shipping Megapacks in Q1 2025.",
+   "passage": "p01",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.3,
+  "input_tokens": 4702,
+  "output_tokens": 778,
+  "attempts": 1,
+  "task_sha": "7a64f4a09017669e"
+ }
+}

@@ -1,0 +1,70 @@
+{
+ "accession": "CIFR|earnings_release|2022-06-30|ebe4bf2c",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Alborz data center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 40,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Alborz: All mining rigs have been installed at this 40 MW wind-powered site with Cipher\u2019s joint venture partner, producing up to 1.3 EH/s;",
+   "passage": "p02",
+   "confidence": 0.8
+  },
+  {
+   "name": "Bear data center",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We completed our Alborz data center, mining rigs are en route to finalize the initial phases of the Bear and Chief data centers, and our 205 megawatt facility at Odessa is scheduled to deploy over the remainder of 2022,\u201d said Tyler Page, CEO of Cipher.",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "Chief data center",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We completed our Alborz data center, mining rigs are en route to finalize the initial phases of the Bear and Chief data centers, and our 205 megawatt facility at Odessa is scheduled to deploy over the remainder of 2022,\u201d said Tyler Page, CEO of Cipher.",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "Odessa data center",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Odessa",
+   "counterparty": null,
+   "capacity_mw": 205,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022",
+   "quote": "We completed our Alborz data center, mining rigs are en route to finalize the initial phases of the Bear and Chief data centers, and our 205 megawatt facility at Odessa is scheduled to deploy over the remainder of 2022,\u201d said Tyler Page, CEO of Cipher.",
+   "passage": "p01",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.4,
+  "input_tokens": 6386,
+  "output_tokens": 1655,
+  "attempts": 1,
+  "task_sha": "dcecf67b6badb99e"
+ }
+}

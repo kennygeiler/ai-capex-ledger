@@ -1,0 +1,37 @@
+{
+ "accession": "GLXY|earnings_release|2026-06-30|3c15f591",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1000000000,
+   "amount_high": 1000000000,
+   "quote": "CoreWeave has leased 526 MW of critical IT capacity, generating anticipated average annual revenue of over $1B for the combined three phases at 90%+ average lease- level adjusted EBITDA margins across the 15-year base contract term.",
+   "passage": "p15",
+   "confidence": 0.7,
+   "notes": "'Over $1B' is recorded as a floor of $1B. It is average annual data-center leasing revenue from an AI/HPC tenant across the 15-year base term, not guidance for a specific fiscal year, so fiscal_year is null."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "No sentence states the company's capital expenditures or links them to AI. Data Centers quarterly capex ($757M in Q3 2026) and the estimated Phase II construction cost ($4.0B) appear only in KPI tables or slide fragments, not in quotable sentences. The $1.7T and ~$1T capex figures are industry-wide market data."
+  },
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies or attributes operating expenses to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.7,
+  "input_tokens": 20312,
+  "output_tokens": 1454,
+  "attempts": 1,
+  "task_sha": "4f85d1769002f957"
+ }
+}

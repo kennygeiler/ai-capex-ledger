@@ -1,0 +1,70 @@
+{
+ "accession": "APLD|earnings_release|2022-02-28|213257cc",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Jamestown, North Dakota co-hosting facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Jamestown, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 100,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-02-02",
+   "quote": "Applied Blockchain\u2019s first co-hosting facility is in Jamestown, North Dakota with an initial planned capacity of 100MW.",
+   "passage": "p06",
+   "confidence": 0.9
+  },
+  {
+   "name": "Antpool joint venture co-hosting infrastructure",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Antpool, an affiliate of Bitmain",
+   "capacity_mw": 1500,
+   "gpus": null,
+   "announced": "2022-01",
+   "in_service": null,
+   "quote": "We also entered into a significant JV with Antpool, an affiliate of Bitmain, to build up to 1.5GW of co-hosting capacity.",
+   "passage": "p04",
+   "confidence": 0.75
+  },
+  {
+   "name": "Texas 200MW wind-powered facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": "2021-11-24",
+   "in_service": null,
+   "quote": "On November 24, 2021, Applied Blockchain entered into a letter of intent to develop a facility in Texas with 200MW of wind power.",
+   "passage": "p07",
+   "confidence": 0.85
+  },
+  {
+   "name": "Additional Texas wind farm facility",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The Company is also progressing on several additional co-hosting facilities including an additional Texas wind farm with targeted capacity of 200MW, which is expected to break ground in late fiscal first quarter 2023 or early fiscal second quarter 2023.",
+   "passage": "p08",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.8,
+  "input_tokens": 6373,
+  "output_tokens": 1648,
+  "attempts": 1,
+  "task_sha": "ea8a0d17449f88c5"
+ }
+}

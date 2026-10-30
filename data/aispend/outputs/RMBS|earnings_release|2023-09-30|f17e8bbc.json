@@ -1,0 +1,27 @@
+{
+ "accession": "RMBS|earnings_release|2023-09-30|f17e8bbc",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only AI sentence (p01) describes the company's positioning to address data-center memory performance requirements fueled by AI; it states no AI or data-center revenue figure or share and does not attribute revenue to AI demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.2,
+  "input_tokens": 4848,
+  "output_tokens": 317,
+  "attempts": 1,
+  "task_sha": "951440bf7b40750e"
+ }
+}

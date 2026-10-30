@@ -1,0 +1,45 @@
+{
+ "accession": "0001868275-26-000032",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0065",
+   "row_label": "Other purchase obligations(e)",
+   "column_label": "Total",
+   "cell_text": "4,698",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 4698000000,
+   "confidence": 0.6,
+   "notes": "The table has no single total purchase-obligations line. It lists three purchase rows separately: Purchase power obligations (1,971), Fuel purchase agreements (10,829) and Other purchase obligations (4,698). I cited the row labeled as general purchase obligations and did not add rows together. The power and fuel rows could also count as purchase commitments. The unit is millions, taken from the table's unit label."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "No segment note table is provided; only the commitments table (t0065) is available"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "No segment note or revenue-by-segment table is provided; only the commitments table (t0065) is available"
+  },
+  {
+   "field": "ppe_category",
+   "reason": "No property-and-equipment note table is provided"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "No lease note table is provided; the commitments table shows only operating leases"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 4666,
+  "output_tokens": 766,
+  "attempts": 1,
+  "task_sha": "1148aab99da3ce36"
+ }
+}

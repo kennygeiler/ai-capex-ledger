@@ -1,0 +1,13 @@
+{
+ "accession": "TSLA|mdna|2025-12-31|d4653541",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.8,
+  "input_tokens": 5091,
+  "output_tokens": 98,
+  "attempts": 1,
+  "task_sha": "eccc45f9978b9b64"
+ }
+}

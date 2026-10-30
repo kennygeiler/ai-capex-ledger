@@ -1,0 +1,13 @@
+{
+ "accession": "ADBE|mdna|2025-11-28|f31e0836",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 5002,
+  "output_tokens": 80,
+  "attempts": 1,
+  "task_sha": "98de082d0d12dcc4"
+ }
+}

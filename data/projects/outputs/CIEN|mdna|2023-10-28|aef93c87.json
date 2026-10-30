@@ -1,0 +1,13 @@
+{
+ "accession": "CIEN|mdna|2023-10-28|aef93c87",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 6113,
+  "output_tokens": 50,
+  "attempts": 1,
+  "task_sha": "d54e9fcda0a7167c"
+ }
+}

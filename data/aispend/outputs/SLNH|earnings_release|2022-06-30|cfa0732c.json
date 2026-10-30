@@ -1,0 +1,27 @@
+{
+ "accession": "SLNH|earnings_release|2022-06-30|cfa0732c",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; 'intends to invest through the cycle' is a headline about crypto mining with no AI link or amount"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; mentions of AI and machine learning are boilerplate company description"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 5091,
+  "output_tokens": 220,
+  "attempts": 1,
+  "task_sha": "1713ee0b53ca3b49"
+ }
+}

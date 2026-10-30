@@ -1,23 +1,27 @@
 {
  "accession": "CSCO|mdna|2024-07-27|4e641018",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p01 mentions capital expenditures only as a generic liquidity requirement"
+   "reason": "capital expenditures appear only in a generic liquidity-requirements list (p03); no sentence links capex to AI or states a capex amount"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expense to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data center switching is only described as declining (p01, fiscal 2024) or growing (p02, an earlier-year comparison) within the Networking category; no sentence states an amount or share of AI or data-center revenue, or attributes revenue to AI demand"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.1,
-  "input_tokens": 4665,
-  "output_tokens": 163,
+  "seconds": 7.0,
+  "input_tokens": 5456,
+  "output_tokens": 624,
   "attempts": 1,
-  "task_sha": "12a4a39846d9ab52"
+  "task_sha": "0796194cb2c43da2"
  }
 }

@@ -1,0 +1,13 @@
+{
+ "accession": "POWL|earnings_release|2025-09-30|8a1fc3d8",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.4,
+  "input_tokens": 4713,
+  "output_tokens": 112,
+  "attempts": 1,
+  "task_sha": "50462d54a80a7577"
+ }
+}

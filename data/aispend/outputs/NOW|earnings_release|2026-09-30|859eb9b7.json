@@ -1,0 +1,44 @@
+{
+ "accession": "NOW|earnings_release|2026-09-30|859eb9b7",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1700000000,
+   "amount_high": 1700000000,
+   "quote": "Our AI momentum continues to build, with AI net new ACV exceeding expectations and enabling us to raise our year-end target for the second time this year, from $1 billion at the start of the year to $1.7 billion now.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Figure is the year-end target for AI net new annual contract value, a bookings metric rather than recognized revenue. fiscal_year comes from 'year-end target ... this year' in the sentence, read against the release's fiscal 2026 period."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Importantly, we are capturing this significant opportunity with a capital- efficient model, reducing capex and raising our full-year free cash flow margin target by 100 basis points to 36 percent.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "The sentence says capex is being reduced while the company pursues the AI opportunity. It does not say AI drives the spend and gives no amount. fiscal_year is inferred from the 'full-year' target in the same sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies operating expenses for AI or attributes them to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.6,
+  "input_tokens": 5414,
+  "output_tokens": 1426,
+  "attempts": 1,
+  "task_sha": "a0d30212d3c5fc3d"
+ }
+}

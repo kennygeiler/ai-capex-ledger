@@ -1,0 +1,27 @@
+{
+ "accession": "SYM|mdna|2022-09-24|e422f835",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capex sentence (p01) mentions expected capital expenditures for infrastructure and workforce expansion without linking them to AI or stating an amount"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.8,
+  "input_tokens": 4843,
+  "output_tokens": 187,
+  "attempts": 1,
+  "task_sha": "7a8df2f3ce58db4c"
+ }
+}

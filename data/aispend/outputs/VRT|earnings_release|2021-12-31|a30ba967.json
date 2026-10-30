@@ -1,0 +1,35 @@
+{
+ "accession": "VRT|earnings_release|2021-12-31|a30ba967",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2021,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "EMEA net sales increased 20.0% and were up 10.5% organically, driven by large colocation data center activity and telecom providers investing in capacity expansions.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Fourth-quarter EMEA sales growth is attributed partly to colocation data-center demand and partly to telecom demand. The 20.0% and 10.5% figures are growth rates of regional sales, not a data-center revenue amount or share, so the statement is recorded as qualitative. Q4 2021 falls in fiscal 2021."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.9,
+  "input_tokens": 5156,
+  "output_tokens": 906,
+  "attempts": 1,
+  "task_sha": "9730930d6e98d49f"
+ }
+}

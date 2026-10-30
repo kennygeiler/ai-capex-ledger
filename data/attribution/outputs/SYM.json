@@ -1,0 +1,105 @@
+{
+ "ticker": "SYM",
+ "prompt_version": "attribution@v2",
+ "model": "other@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Symbotic sells warehouse automation robots (physical AI), so its revenue is physical-end exposure in words only. No AI line or AI share of revenue is stated; the Systems segment is warehouse systems, not an AI line.",
+   "confidence": 0.2
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Symbotic sells warehouse automation robots (physical AI), so its revenue is physical-end exposure in words only. No AI line or AI share of revenue is stated; the Systems segment is warehouse systems, not an AI line.",
+   "confidence": 0.2
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Symbotic sells warehouse automation robots (physical AI), so its revenue is physical-end exposure in words only. No AI line or AI share of revenue is stated; the Systems segment is warehouse systems, not an AI line.",
+   "confidence": 0.2
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Symbotic sells warehouse automation robots (physical AI), so its revenue is physical-end exposure in words only. No AI line or AI share of revenue is stated; the Systems segment is warehouse systems, not an AI line.",
+   "confidence": 0.2
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no statement of AI capex and no AI segment. The thesis forbids estimating from PP&E categories for this industry."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no statement of AI capex and no AI segment. The thesis forbids estimating from PP&E categories for this industry."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "no statement of AI capex and no AI segment. The thesis forbids estimating from PP&E categories for this industry."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "no statement of AI capex and no AI segment. The thesis forbids estimating from PP&E categories for this industry."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no AI revenue amount or share is stated, and the pack has no verbatim company statements. The Systems, Operation services and Software maintenance segments are not AI lines, so revenue stays qualitative with no amount."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.5,
+  "input_tokens": 12635,
+  "output_tokens": 1381,
+  "attempts": 1,
+  "task_sha": "80c09979ebb9b0d6"
+ }
+}

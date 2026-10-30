@@ -1,0 +1,35 @@
+{
+ "accession": "DELL|mdna|2025-01-31|df4130af",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase in servers and networking net revenue was driven by growth in our AI-optimized server offerings and, to a lesser extent, our traditional server and networking offerings.",
+   "passage": "p13",
+   "confidence": 0.8,
+   "notes": "The sentence is about servers and networking net revenue (a product line within ISG), not total company revenue. AI-optimized servers are named as the main driver of growth, but no AI revenue figure or share is given. The preceding sentence's 54% is growth in servers and networking revenue, not an AI share. This sentence names no year; the preceding sentence refers to Fiscal 2025."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures of $2.7 billion are reported, but no sentence links them to AI; the stated drivers are product demand, mix, contract manufacturers and IT infrastructure"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the lower operating expense rate is attributed to ISG revenue growth and cost management"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.5,
+  "input_tokens": 7912,
+  "output_tokens": 929,
+  "attempts": 1,
+  "task_sha": "561961fa98085143"
+ }
+}

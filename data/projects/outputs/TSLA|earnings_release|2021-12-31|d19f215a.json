@@ -1,0 +1,28 @@
+{
+ "accession": "TSLA|earnings_release|2021-12-31|d19f215a",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Megapack factory",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We are in the process of building a dedicated Megapack factory to address the growing demand.",
+   "passage": "p01",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.3,
+  "input_tokens": 4479,
+  "output_tokens": 351,
+  "attempts": 1,
+  "task_sha": "dd6cc177162a16c9"
+ }
+}

@@ -1,23 +1,27 @@
 {
  "accession": "CSCO|earnings_release|2025-01-25|060afe0e",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "only passage is safe-harbor boilerplate; no sentence links capital expenditures to AI"
+   "reason": "no sentence links Cisco's capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "only passage is safe-harbor boilerplate; mentions of AI development and investments in engineering are risk-factor language and do not quantify or attribute operating expenses to AI"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 reports AI Infrastructure orders (more than $350 million in Q2; approximately $700 million for 1HFY25), but orders are bookings, not recognized revenue, and the fragment is a bullet rather than a complete sentence; no sentence states AI or data-center revenue as an amount or share of revenue. The p02 CEO remark that results were driven by customer demand does not name AI as the driver, and 'As AI becomes more pervasive...' is positioning boilerplate."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.7,
-  "input_tokens": 5635,
-  "output_tokens": 177,
+  "seconds": 7.7,
+  "input_tokens": 6379,
+  "output_tokens": 660,
   "attempts": 1,
-  "task_sha": "519dd7d2a21a18f5"
+  "task_sha": "f6cd062e1a4fec4a"
  }
 }

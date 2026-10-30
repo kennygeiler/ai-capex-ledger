@@ -1,0 +1,37 @@
+{
+ "accession": "BE|earnings_release|2025-12-31|d13dc4f7",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 2020000000,
+   "amount_high": 2020000000,
+   "quote": "The company had record revenue of $2.02 billion for the full year driven by significant growth from the AI data center industry and continued strong demand from the C&I business.",
+   "passage": "p01",
+   "confidence": 1.0,
+   "notes": "Total full-year revenue with AI data center demand named as a driver alongside C&I; the AI part is not stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the $5 billion Brookfield AI infrastructure partnership is a financing collaboration, not stated as Bloom's capital expenditure"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.0,
+  "input_tokens": 8026,
+  "output_tokens": 534,
+  "attempts": 1,
+  "task_sha": "5e91fa61ff0c2ff1"
+ }
+}

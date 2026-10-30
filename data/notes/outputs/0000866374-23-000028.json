@@ -1,0 +1,176 @@
+{
+ "accession": "0000866374-23-000028",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0031",
+   "row_label": "Machinery and equipment",
+   "column_label": "As of March 31, | 2023",
+   "cell_text": "3,737",
+   "period_end": "2023-03-31",
+   "months": 0,
+   "value": 3737000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0031",
+   "row_label": "Machinery and equipment",
+   "column_label": "As of March 31, | 2022",
+   "cell_text": "3,540",
+   "period_end": "2022-03-31",
+   "months": 0,
+   "value": 3540000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0031",
+   "row_label": "Buildings",
+   "column_label": "As of March 31, | 2023",
+   "cell_text": "1,162",
+   "period_end": "2023-03-31",
+   "months": 0,
+   "value": 1162000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0031",
+   "row_label": "Buildings",
+   "column_label": "As of March 31, | 2022",
+   "cell_text": "1,123",
+   "period_end": "2022-03-31",
+   "months": 0,
+   "value": 1123000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0031",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of March 31, | 2023",
+   "cell_text": "590",
+   "period_end": "2023-03-31",
+   "months": 0,
+   "value": 590000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0031",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of March 31, | 2022",
+   "cell_text": "564",
+   "period_end": "2022-03-31",
+   "months": 0,
+   "value": 564000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures, computer equipment and software, and other",
+   "table_id": "t0031",
+   "row_label": "Furniture, fixtures, computer equipment and software, and other",
+   "column_label": "As of March 31, | 2023",
+   "cell_text": "553",
+   "period_end": "2023-03-31",
+   "months": 0,
+   "value": 553000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures, computer equipment and software, and other",
+   "table_id": "t0031",
+   "row_label": "Furniture, fixtures, computer equipment and software, and other",
+   "column_label": "As of March 31, | 2022",
+   "cell_text": "503",
+   "period_end": "2022-03-31",
+   "months": 0,
+   "value": 503000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0031",
+   "row_label": "Land",
+   "column_label": "As of March 31, | 2023",
+   "cell_text": "124",
+   "period_end": "2023-03-31",
+   "months": 0,
+   "value": 124000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0031",
+   "row_label": "Land",
+   "column_label": "As of March 31, | 2022",
+   "cell_text": "113",
+   "period_end": "2022-03-31",
+   "months": 0,
+   "value": 113000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction-in-progress",
+   "table_id": "t0031",
+   "row_label": "Construction-in-progress",
+   "column_label": "As of March 31, | 2023",
+   "cell_text": "400",
+   "period_end": "2023-03-31",
+   "months": 0,
+   "value": 400000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction-in-progress",
+   "table_id": "t0031",
+   "row_label": "Construction-in-progress",
+   "column_label": "As of March 31, | 2022",
+   "cell_text": "261",
+   "period_end": "2022-03-31",
+   "months": 0,
+   "value": 261000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment capital expenditure table is given; t0067 reports depreciation expense by segment, not capex"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "the tables provided show only consolidated net sales (t0023, t0016); no revenue by segment or market"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease balance table; t0021 lists finance lease payments due in a contractual-obligations schedule with no fiscal year-end column, not a liability balance"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "the contractual obligations table t0021 has no purchase obligations or purchase commitments row"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.7,
+  "input_tokens": 6875,
+  "output_tokens": 1996,
+  "attempts": 1,
+  "task_sha": "a7f6dd75eca8de41"
+ }
+}

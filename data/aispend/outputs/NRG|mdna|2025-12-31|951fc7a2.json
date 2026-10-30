@@ -1,0 +1,27 @@
+{
+ "accession": "NRG|mdna|2025-12-31|951fc7a2",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the capex mentions are environmental compliance (ELG at Texas coal units), the Texas Generation Portfolio acquisition, and budgeting process, none attributed to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only AI mention (p01) is an industry-wide load-growth outlook (EIA/ERCOT forecasts of data center and GenAI demand), not a statement of the amount or share of NRG's revenue coming from AI or data-center customers"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.3,
+  "input_tokens": 5562,
+  "output_tokens": 332,
+  "attempts": 1,
+  "task_sha": "b115b1b29278a50f"
+ }
+}

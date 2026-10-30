@@ -1,0 +1,27 @@
+{
+ "accession": "TMUS|earnings_release|2026-03-31|1776d99a",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capex guidance (~$10.0 billion) and the quarterly increase are attributed to planned timing of purchases and the UScellular acquisition; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a telecom carrier, not an AI seller; no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.9,
+  "input_tokens": 5835,
+  "output_tokens": 219,
+  "attempts": 1,
+  "task_sha": "467410773e57c157"
+ }
+}

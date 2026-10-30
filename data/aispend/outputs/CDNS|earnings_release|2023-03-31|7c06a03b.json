@@ -1,0 +1,27 @@
+{
+ "accession": "CDNS|earnings_release|2023-03-31|7c06a03b",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 cash-flow table lists purchases of property, plant and equipment without any AI attribution, and p01/p03 mention capital expenditure requirements only as boilerplate risk factors"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share; passages are forward-looking boilerplate and a cash-flow table"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 6828,
+  "output_tokens": 262,
+  "attempts": 1,
+  "task_sha": "3b4e15161f4d8242"
+ }
+}

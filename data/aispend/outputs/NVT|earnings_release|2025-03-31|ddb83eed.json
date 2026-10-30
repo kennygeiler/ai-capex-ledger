@@ -1,0 +1,35 @@
+{
+ "accession": "NVT|earnings_release|2025-03-31|ddb83eed",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We are raising our full-year sales and EPS guidance to reflect the Avail Electrical Products Group acquisition, the strength in data centers and power utilities, and to include the impact of tariffs.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Raised total full-year sales guidance is attributed partly to data-center strength, alongside the acquisition, power utilities and tariffs. No guidance figure and no data-center revenue amount or share is stated. 'Full-year' names no year, so fiscal_year is null; the filing reports fiscal 2025, so this is presumably 2025 guidance."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 4895,
+  "output_tokens": 635,
+  "attempts": 1,
+  "task_sha": "70c0189a42ec1bc8"
+ }
+}

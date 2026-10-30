@@ -1,0 +1,147 @@
+{
+ "accession": "0001321655-26-000011",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0026",
+   "row_label": "Revenue",
+   "column_label": "Years Ended December 31, | 2025",
+   "cell_text": "4,475,446",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 4475446000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0026",
+   "row_label": "Revenue",
+   "column_label": "Years Ended December 31, | 2024",
+   "cell_text": "2,865,507",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 2865507000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0026",
+   "row_label": "Revenue",
+   "column_label": "Years Ended December 31, | 2023",
+   "cell_text": "2,225,012",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 2225012000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0026",
+   "row_label": "Cost of revenue",
+   "column_label": "Years Ended December 31, | 2025",
+   "cell_text": "789,177",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 789177000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0026",
+   "row_label": "Cost of revenue",
+   "column_label": "Years Ended December 31, | 2024",
+   "cell_text": "565,990",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 565990000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0026",
+   "row_label": "Cost of revenue",
+   "column_label": "Years Ended December 31, | 2023",
+   "cell_text": "431,105",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 431105000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0026",
+   "row_label": "Income from operations",
+   "column_label": "Years Ended December 31, | 2025",
+   "cell_text": "1,414,015",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 1414015000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0026",
+   "row_label": "Income from operations",
+   "column_label": "Years Ended December 31, | 2024",
+   "cell_text": "310,403",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 310403000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0026",
+   "row_label": "Income from operations",
+   "column_label": "Years Ended December 31, | 2023",
+   "cell_text": "119,966",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 119966000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0029",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Years Ended December 31, | 2025",
+   "cell_text": "(33,882)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 33882000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0029",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Years Ended December 31, | 2024",
+   "cell_text": "(12,634)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 12634000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0029",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Years Ended December 31, | 2023",
+   "cell_text": "(15,114)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 15114000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.8,
+  "input_tokens": 6149,
+  "output_tokens": 1483,
+  "attempts": 1,
+  "task_sha": "ae4c2402a6e56e4c"
+ }
+}

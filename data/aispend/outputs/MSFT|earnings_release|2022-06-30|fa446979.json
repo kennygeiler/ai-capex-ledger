@@ -1,23 +1,27 @@
 {
  "accession": "MSFT|earnings_release|2022-06-30|fa446979",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the only passage discusses gross margin and a change in the estimated useful lives of server and network equipment, with no mention of AI"
+   "reason": "no sentence states capital expenditures or links them to AI; the only passage discusses gross margin and server useful-life accounting"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the only passage concerns gross margin percentage and cloud sales mix"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's or data-center's part of revenue (cloud sales mix is not AI revenue)"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.4,
-  "input_tokens": 4497,
-  "output_tokens": 207,
+  "seconds": 4.4,
+  "input_tokens": 4802,
+  "output_tokens": 205,
   "attempts": 1,
-  "task_sha": "5fd544ca0577a97b"
+  "task_sha": "e06d30829db4186b"
  }
 }

@@ -1,0 +1,185 @@
+{
+ "accession": "0000917273-24-000028",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Computer software",
+   "table_id": "t0078",
+   "row_label": "Computer software",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "44,226",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 44226000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment",
+   "table_id": "t0078",
+   "row_label": "Computer equipment",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "36,198",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 36198000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0078",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "27,810",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 27810000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery",
+   "table_id": "t0078",
+   "row_label": "Machinery",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "30,446",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 30446000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0078",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "12,561",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 12561000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0078",
+   "row_label": "Construction in progress",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "5,660",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 5660000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer software",
+   "table_id": "t0078",
+   "row_label": "Computer software",
+   "column_label": "As of December 31, | 2022",
+   "cell_text": "59,500",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 59500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment",
+   "table_id": "t0078",
+   "row_label": "Computer equipment",
+   "column_label": "As of December 31, | 2022",
+   "cell_text": "36,865",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 36865000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0078",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of December 31, | 2022",
+   "cell_text": "32,384",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 32384000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery",
+   "table_id": "t0078",
+   "row_label": "Machinery",
+   "column_label": "As of December 31, | 2022",
+   "cell_text": "19,587",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 19587000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0078",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of December 31, | 2022",
+   "cell_text": "12,664",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 12664000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0078",
+   "row_label": "Construction in progress",
+   "column_label": "As of December 31, | 2022",
+   "cell_text": "6,949",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 6949000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0083",
+   "row_label": "Total",
+   "column_label": "Total",
+   "cell_text": "27,123",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 27123000,
+   "confidence": 0.6
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "Rambus reports a single reportable segment; no per-segment capital expenditures table is given"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "only a revenue-mix table in percentages of total revenue (t0021) is provided; no segment or market revenue in dollars"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities is included in the provided tables"
+  }
+ ],
+ "notes": "purchase_commitments: t0083 (duplicated as t0036) is a contractual-obligations table whose rows are software licenses, other contractual obligations and acquisition retention bonuses rather than a line explicitly labeled purchase obligations; cited the grand total across years as of 2023-12-31, confidence lowered accordingly. The period end comes from the filing's report period, as the table gives only payment years.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.6,
+  "input_tokens": 6547,
+  "output_tokens": 2313,
+  "attempts": 1,
+  "task_sha": "daf910dba8ce30be"
+ }
+}

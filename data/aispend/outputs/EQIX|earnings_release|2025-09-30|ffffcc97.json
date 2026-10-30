@@ -1,0 +1,27 @@
+{
+ "accession": "EQIX|earnings_release|2025-09-30|ffffcc97",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure guidance (total $3.792-$4.292 billion for 2025, recurring $134-$154 million for Q4) is given without any link to AI; capacity expansion in p01 is tied to the Build Bolder strategy, not AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the Distributed AI launch in p02 is a product description, not spend"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue; revenue and interconnection revenue guidance are not attributed to AI, and the mention of the AI ecosystem in p03 concerns cloud on-ramps, not revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 6930,
+  "output_tokens": 539,
+  "attempts": 1,
+  "task_sha": "f011bad801388c94"
+ }
+}

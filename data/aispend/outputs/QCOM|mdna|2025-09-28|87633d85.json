@@ -1,23 +1,27 @@
 {
  "accession": "QCOM|mdna|2025-09-28|87633d85",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "capital expenditures are reported ($1.2 billion in fiscal 2025) and expected to increase, but no sentence links them to AI; the stated driver is testing of integrated circuits"
+   "reason": "capital expenditures are reported ($1.2 billion in fiscal 2025) and expected to increase, but the stated driver is testing of integrated circuits; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.2,
-  "input_tokens": 4796,
-  "output_tokens": 188,
+  "seconds": 5.4,
+  "input_tokens": 5103,
+  "output_tokens": 248,
   "attempts": 1,
-  "task_sha": "fb81f96126fb3f5f"
+  "task_sha": "1f071e9b07d2ffe8"
  }
 }

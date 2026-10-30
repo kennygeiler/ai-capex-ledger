@@ -1,23 +1,50 @@
 {
  "accession": "NVDA|earnings_release|2024-01-28|2694cc34",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 47525000000,
+   "amount_high": 47525000000,
+   "quote": "Revenue by Market Platform ($ in millions) FY24 FY23 Y/Y Data Center $47,525 $15,005 Up 217%",
+   "passage": "p07",
+   "confidence": 0.95,
+   "notes": "Full fiscal 2024 Data Center revenue from the revenue-by-market-platform table ($47,525 million). The quote is a table row, not a prose sentence. The FY23 figure ($15,005 million) is a prior-year comparative and is not recorded."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 18400000000,
+   "amount_high": 18400000000,
+   "quote": "Record quarterly Data Center revenue of $18.4 billion, up 27% from Q3, up 409% from year ago",
+   "passage": "p01",
+   "confidence": 0.85,
+   "notes": "Covers the fourth quarter of fiscal 2024 only, not the full year. The full-year figure is recorded from p07."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states capital expenditures or links them to AI; passages cover product announcements, revenue results and forward-looking-statement boilerplate"
+   "reason": "no sentence states or attributes capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence states operating expenses (R&D, infrastructure, headcount) or attributes them to AI; AI mentions describe products and customer demand driving revenue, not the company's own spend"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.3,
-  "input_tokens": 6244,
-  "output_tokens": 202,
+  "seconds": 13.7,
+  "input_tokens": 6937,
+  "output_tokens": 1276,
   "attempts": 1,
-  "task_sha": "4ab6e311e6b4cafb"
+  "task_sha": "104437dcd1db60aa"
  }
 }

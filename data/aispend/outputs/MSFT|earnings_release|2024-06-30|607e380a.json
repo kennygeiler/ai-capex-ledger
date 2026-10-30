@@ -1,6 +1,6 @@
 {
  "accession": "MSFT|earnings_release|2024-06-30|607e380a",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "789edb013c11e132"
+  "task_sha": "83e40c359ec5d0a6"
  }
 }

@@ -1,0 +1,35 @@
+{
+ "accession": "JCI|mdna|2025-09-30|d4f21199",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In addition, the increased maturity and adoption of AI and high-performance computing is currently impacting the microchip and data center industry and driving technology innovation, which has led to increased demand for hyperscale and data center cooling solutions that deliver heat management and energy efficiency.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Describes AI-driven demand for data center cooling solutions, which the company sells. It does not explicitly state that the company's revenue came from this demand, and it may be read as an industry-trend description rather than a revenue statement."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are mentioned only generically (uses of offering proceeds, funding from cash); no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 5867,
+  "output_tokens": 778,
+  "attempts": 1,
+  "task_sha": "c6fb88209af5f004"
+ }
+}

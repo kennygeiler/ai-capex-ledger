@@ -1,0 +1,104 @@
+{
+ "accession": "0000831259-26-000012",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0031",
+   "row_label": "Revenuesa,b",
+   "column_label": "Years Ended December 31, | 2025",
+   "cell_text": "25,915",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 25915000000,
+   "confidence": 0.9,
+   "notes": "Trailing 'a,b' in the row label are footnote markers. t0031 looks like a selected-financial-data summary rather than the full consolidated statement of income, but it is the only revenue line provided."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0031",
+   "row_label": "Revenuesa,b",
+   "column_label": "Years Ended December 31, | 2024",
+   "cell_text": "25,455",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 25455000000,
+   "confidence": 0.9,
+   "notes": "Trailing 'a,b' in the row label are footnote markers. Source is the summary table t0031."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0031",
+   "row_label": "Operating incomea,c",
+   "column_label": "Years Ended December 31, | 2025",
+   "cell_text": "6,518",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 6518000000,
+   "confidence": 0.9,
+   "notes": "Trailing 'a,c' in the row label are footnote markers. Source is the summary table t0031."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0031",
+   "row_label": "Operating incomea,c",
+   "column_label": "Years Ended December 31, | 2024",
+   "cell_text": "6,864",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 6864000000,
+   "confidence": 0.9,
+   "notes": "Trailing 'a,c' in the row label are footnote markers. Source is the summary table t0031."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0031",
+   "row_label": "Capital expenditures",
+   "column_label": "Years Ended December 31, | 2025",
+   "cell_text": "4,494",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 4494000000,
+   "confidence": 0.8,
+   "notes": "The cash-flow statement t0061 shows capital expenditures only by segment and has no total line. Per the rules the segment lines are not summed. This single total line is taken from the summary table t0031 instead. It is consistent with the t0061 segment lines, which total 4,494, but that sum was used only as a check, not as the source."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0031",
+   "row_label": "Capital expenditures",
+   "column_label": "Years Ended December 31, | 2024",
+   "cell_text": "4,808",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 4808000000,
+   "confidence": 0.8,
+   "notes": "The cash-flow statement t0061 has no total capital expenditures line, only segment lines. This total line is taken from the summary table t0031. It is consistent with the t0061 segment lines, which total 4,808, but that sum was used only as a check."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "The income statement tables provided (t0031 summary, t0032 operating data) contain no cost of revenue or cost of sales line, either as a total or as components. cost_of_revenue_part is therefore also not extractable. The t0032 per-pound unit cost metrics are not dollar totals."
+  },
+  {
+   "field": "capex",
+   "reason": "For 2023, t0061 shows capital expenditures only as segment lines with no total, and t0031 has no 2023 column. Summing the lines is not allowed."
+  },
+  {
+   "field": "revenue",
+   "reason": "No 2023 column in the provided income statement tables."
+  },
+  {
+   "field": "operating_income",
+   "reason": "No 2023 column in the provided income statement tables."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.4,
+  "input_tokens": 6451,
+  "output_tokens": 1797,
+  "attempts": 1,
+  "task_sha": "413d47fa17fbdcb7"
+ }
+}

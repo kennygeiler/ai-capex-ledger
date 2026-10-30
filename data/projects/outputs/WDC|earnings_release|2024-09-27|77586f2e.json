@@ -1,0 +1,13 @@
+{
+ "accession": "WDC|earnings_release|2024-09-27|77586f2e",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 1.9,
+  "input_tokens": 5790,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "5dfffa4b68a61f30"
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "accession": "CRDO|mdna|2024-04-27|21592fd2",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "20e440ee498b3295"
+ }
+}

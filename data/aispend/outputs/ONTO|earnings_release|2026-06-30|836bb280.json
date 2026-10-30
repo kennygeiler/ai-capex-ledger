@@ -1,0 +1,27 @@
+{
+ "accession": "ONTO|earnings_release|2026-06-30|836bb280",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's own capital expenditures to AI; 'customer capital spending' in p02 is risk-factor boilerplate about buyers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expense to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 says the company is positioned for AI and HPC inflections and reports record advanced-node and advanced-packaging revenue, but no sentence states an AI or data-center revenue figure or share or attributes revenue to AI; the backlog above $1 billion is not tied to AI in the sentence"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.0,
+  "input_tokens": 6227,
+  "output_tokens": 621,
+  "attempts": 1,
+  "task_sha": "228e18c520d7fdd0"
+ }
+}

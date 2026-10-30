@@ -1,0 +1,35 @@
+{
+ "accession": "CIEN|earnings_release|2025-11-01|390d3cf0",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Record quarter in RLS revenue and shipments, driven by hyperscaler AI infrastructure buildouts",
+   "passage": "p07",
+   "confidence": 0.6,
+   "notes": "Q4 FY2025 bullet attributing RLS product revenue to hyperscaler AI buildouts. No AI revenue figure or share is stated. 'Direct Cloud Provider revenue... 42% of total revenue' was not recorded because the sentence does not tie it to AI or data-center demand."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links Ciena's capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, headcount) to AI; the 4,500+ R&D specialists figure is not linked to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.8,
+  "input_tokens": 8346,
+  "output_tokens": 975,
+  "attempts": 1,
+  "task_sha": "ffdf1a42b67fa565"
+ }
+}

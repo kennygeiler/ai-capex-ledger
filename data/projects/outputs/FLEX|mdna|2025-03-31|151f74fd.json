@@ -1,0 +1,28 @@
+{
+ "accession": "FLEX|mdna|2025-03-31|151f74fd",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Orangeburg manufacturing facility",
+   "kind": "plant",
+   "status": "contracted",
+   "location": "Orangeburg",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "This was primarily driven by $0.4 billion of cash paid for the acquisitions of the Orangeburg manufacturing facility, Crown and JetCool, net of cash acquired, and $0.4 billion of capital expenditures for property and equipment to continue expanding capabilities and capacity in support of our businesses.",
+   "passage": "p02",
+   "confidence": 0.35
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.3,
+  "input_tokens": 4945,
+  "output_tokens": 616,
+  "attempts": 1,
+  "task_sha": "e44eb07f38fbb8b7"
+ }
+}

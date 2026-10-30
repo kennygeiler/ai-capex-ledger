@@ -1,0 +1,30 @@
+{
+ "accession": "ETN|earnings_release|2025-03-31|15af7da0",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Fibrebond Corporation acquisition",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Fibrebond Corporation",
+   "amount_low": 1450000000,
+   "amount_high": 1450000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2025-04-01",
+   "in_service": null,
+   "quote": "On April 1, 2025, Eaton acquired Fibrebond Corporation (Fibrebond) for $1.45 billion, net of cash acquired.",
+   "passage": "p03",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 5329,
+  "output_tokens": 568,
+  "attempts": 1,
+  "task_sha": "15aa58c252b02da1"
+ }
+}

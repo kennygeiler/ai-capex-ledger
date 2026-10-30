@@ -1,0 +1,27 @@
+{
+ "accession": "DDOG|earnings_release|2023-12-31|4869e63e",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in forward-looking boilerplate (p01) and the free cash flow definition (p02); no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "research and development expenses appear only in forward-looking boilerplate and non-GAAP definitions; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's or data-center demand's part of revenue; passages are safe-harbor and non-GAAP definition boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.0,
+  "input_tokens": 5388,
+  "output_tokens": 261,
+  "attempts": 1,
+  "task_sha": "854fa01ccfae78fa"
+ }
+}

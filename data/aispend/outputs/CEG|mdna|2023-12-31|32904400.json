@@ -1,0 +1,27 @@
+{
+ "accession": "CEG|mdna|2023-12-31|32904400",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the 2023 actual ($2,422 million) and the 2024/2025 outlook ($2.8 billion / $2.3 billion) are attributed to nuclear fuel, growth projects (uprates, license renewals, wind repowering, hydrogen) and existing generation upgrades, not AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 6280,
+  "output_tokens": 298,
+  "attempts": 1,
+  "task_sha": "332341a4936296c2"
+ }
+}

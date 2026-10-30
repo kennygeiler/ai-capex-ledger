@@ -1,0 +1,30 @@
+{
+ "accession": "TER|mdna|2025-12-31|47c5191d",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "MultiLane Test Products (MLTP)",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "MultiLane",
+   "amount_low": 157000000,
+   "amount_high": 157000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2026-01-29",
+   "in_service": null,
+   "quote": "Under the agreement, MultiLane will contribute all the assets related to its test and measurement business to the joint venture and we will invest approximately $157 million in exchange for 75% ownership of MLTP.",
+   "passage": "p01",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.0,
+  "input_tokens": 5072,
+  "output_tokens": 470,
+  "attempts": 1,
+  "task_sha": "8cfe72743197de25"
+ }
+}

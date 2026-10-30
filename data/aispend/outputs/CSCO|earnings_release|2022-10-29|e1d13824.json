@@ -1,23 +1,27 @@
 {
  "accession": "CSCO|earnings_release|2022-10-29|e1d13824",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is safe-harbor boilerplate; no sentence mentions AI or links capital expenditures to AI"
+   "reason": "the only passage is safe-harbor boilerplate; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "the only passage is safe-harbor boilerplate; no sentence mentions AI or links operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "the only passage is safe-harbor boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only passage is safe-harbor boilerplate; its mention of the data center market is a competition risk factor, not a statement of AI or data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.8,
-  "input_tokens": 5635,
-  "output_tokens": 180,
+  "seconds": 4.7,
+  "input_tokens": 5942,
+  "output_tokens": 225,
   "attempts": 1,
-  "task_sha": "9efcccda5de8332d"
+  "task_sha": "9f146625042984f7"
  }
 }

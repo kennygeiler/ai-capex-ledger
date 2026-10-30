@@ -1,0 +1,27 @@
+{
+ "accession": "JBL|earnings_release|2023-02-28|fd49c1da",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in the adjusted free cash flow definition and forward-looking risk boilerplate; no sentence links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, data-center or AI-server revenue as an amount or share; revenue mentions are guidance boilerplate only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 5964,
+  "output_tokens": 217,
+  "attempts": 1,
+  "task_sha": "2a973e0a08959bb8"
+ }
+}

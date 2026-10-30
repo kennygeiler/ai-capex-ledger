@@ -1,0 +1,28 @@
+{
+ "accession": "AMZN|earnings_release|2026-03-31|a6434e07",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "One million+ NVIDIA GPUs deployment",
+   "kind": "gpu_cluster",
+   "status": "announced",
+   "location": null,
+   "counterparty": "NVIDIA",
+   "capacity_mw": null,
+   "gpus": 1000000,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "Landed 2.1 million+ AI chips over the past 12 months, more than half of which were Trainium, and announced one million+ NVIDIA GPUs to be deployed starting in 2026, giving customers the widest range of accelerated compute options.",
+   "passage": "p01",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.1,
+  "input_tokens": 4810,
+  "output_tokens": 542,
+  "attempts": 1,
+  "task_sha": "70316577f8e56463"
+ }
+}

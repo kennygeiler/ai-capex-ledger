@@ -1,0 +1,46 @@
+{
+ "accession": "INTC|earnings_release|2022-10-01|dc6e1dc6",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Ocotillo campus manufacturing expansion",
+   "kind": "fab",
+   "status": "contracted",
+   "location": "Chandler, Arizona",
+   "counterparty": "Brookfield Asset Management",
+   "amount_low": 30000000000,
+   "amount_high": 30000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "As part of SCIP, Intel signed a definitive agreement with Brookfield Asset Management, one of the largest global alternative asset managers, under which the companies will jointly invest up to $30 billion in Intel\u2019s manufacturing expansion at its Ocotillo campus in Chandler, Arizona.",
+   "passage": "p02",
+   "confidence": 0.9
+  },
+  {
+   "name": "Ohio chipmaking facilities",
+   "kind": "fab",
+   "status": "under_construction",
+   "location": "Ohio",
+   "counterparty": null,
+   "amount_low": null,
+   "amount_high": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The company also made progress toward creating a geographically balanced, secure and resilient semiconductor supply chain as it broke ground on two of the world\u2019s most advanced chipmaking facilities in Ohio.",
+   "passage": "p02",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.1,
+  "input_tokens": 6625,
+  "output_tokens": 927,
+  "attempts": 1,
+  "task_sha": "f4ae83dead1078dd"
+ }
+}

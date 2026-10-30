@@ -1,0 +1,128 @@
+{
+ "accession": "0001137789-25-000157",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0030",
+   "row_label": "Land and land improvements",
+   "column_label": "June 27,2025",
+   "cell_text": "18",
+   "period_end": "2025-06-27",
+   "months": 0,
+   "value": 18000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0030",
+   "row_label": "Land and land improvements",
+   "column_label": "June 28,2024",
+   "cell_text": "18",
+   "period_end": "2024-06-28",
+   "months": 0,
+   "value": 18000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0030",
+   "row_label": "Equipment",
+   "column_label": "June 27,2025",
+   "cell_text": "8,566",
+   "period_end": "2025-06-27",
+   "months": 0,
+   "value": 8566000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0030",
+   "row_label": "Equipment",
+   "column_label": "June 28,2024",
+   "cell_text": "8,632",
+   "period_end": "2024-06-28",
+   "months": 0,
+   "value": 8632000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and leasehold improvements",
+   "table_id": "t0030",
+   "row_label": "Buildings and leasehold improvements",
+   "column_label": "June 27,2025",
+   "cell_text": "1,413",
+   "period_end": "2025-06-27",
+   "months": 0,
+   "value": 1413000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and leasehold improvements",
+   "table_id": "t0030",
+   "row_label": "Buildings and leasehold improvements",
+   "column_label": "June 28,2024",
+   "cell_text": "1,412",
+   "period_end": "2024-06-28",
+   "months": 0,
+   "value": 1412000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0030",
+   "row_label": "Construction in progress",
+   "column_label": "June 27,2025",
+   "cell_text": "333",
+   "period_end": "2025-06-27",
+   "months": 0,
+   "value": 333000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0030",
+   "row_label": "Construction in progress",
+   "column_label": "June 28,2024",
+   "cell_text": "198",
+   "period_end": "2024-06-28",
+   "months": 0,
+   "value": 198000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "Seagate reports a single reportable segment and no segment capex table is provided"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "table t0010 gives revenue by market only as percentages of total revenue, not dollar amounts; no dollar segment or market revenue cells to cite"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table is provided"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is provided"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.3,
+  "input_tokens": 4899,
+  "output_tokens": 1245,
+  "attempts": 1,
+  "task_sha": "bfad14f65c799e6a"
+ }
+}

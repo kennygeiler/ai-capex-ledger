@@ -1,10 +1,10 @@
 {
  "accession": "0001628280-26-003952",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
-   "dimension": "Automotive and services and other segment",
+   "dimension": "Automotive segment",
    "table_id": "t0068",
    "row_label": "Revenues",
    "column_label": "Year Ended December 31, | 2025",
@@ -12,11 +12,12 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 82056000000,
-   "confidence": 0.6
+   "confidence": 0.8,
+   "notes": "The first block of t0068 has no segment header in the parsed table. It is taken as the automotive segment because Tesla reports two segments and 82,056 + 12,771 equals total revenues of 94,827 in t0026. The row label 'Revenues' appears twice in t0068; this is the first occurrence."
   },
   {
    "field": "segment_revenue",
-   "dimension": "Automotive and services and other segment",
+   "dimension": "Automotive segment",
    "table_id": "t0068",
    "row_label": "Revenues",
    "column_label": "Year Ended December 31, | 2024",
@@ -24,11 +25,12 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 87604000000,
-   "confidence": 0.6
+   "confidence": 0.8,
+   "notes": "Segment header missing in the parsed table; inferred as automotive (87,604 + 10,086 = 97,690 total). First 'Revenues' row in t0068."
   },
   {
    "field": "segment_revenue",
-   "dimension": "Automotive and services and other segment",
+   "dimension": "Automotive segment",
    "table_id": "t0068",
    "row_label": "Revenues",
    "column_label": "Year Ended December 31, | 2023",
@@ -36,7 +38,8 @@
    "period_end": "2023-12-31",
    "months": 12,
    "value": 90738000000,
-   "confidence": 0.6
+   "confidence": 0.8,
+   "notes": "Segment header missing in the parsed table; inferred as automotive (90,738 + 6,035 = 96,773 total). First 'Revenues' row in t0068."
   },
   {
    "field": "segment_revenue",
@@ -48,7 +51,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 12771000000,
-   "confidence": 0.9
+   "confidence": 0.95,
+   "notes": "Second 'Revenues' row in t0068, under the 'Energy generation and storage segment' header."
   },
   {
    "field": "segment_revenue",
@@ -60,7 +64,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 10086000000,
-   "confidence": 0.9
+   "confidence": 0.95,
+   "notes": "Second 'Revenues' row in t0068, under the 'Energy generation and storage segment' header."
   },
   {
    "field": "segment_revenue",
@@ -72,7 +77,8 @@
    "period_end": "2023-12-31",
    "months": 12,
    "value": 6035000000,
-   "confidence": 0.9
+   "confidence": 0.95,
+   "notes": "Second 'Revenues' row in t0068, under the 'Energy generation and storage segment' header."
   },
   {
    "field": "ppe_category",
@@ -270,20 +276,19 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment table (t0068) reports revenues, cost of revenues and gross profit only; no per-segment capital expenditures appear in the tables"
+   "reason": "The segment tables give revenues, cost of revenues and gross profit by segment only; no capital expenditures by segment appear in the tables provided."
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or purchase-commitments table is among the parsed tables"
+   "reason": "No contractual-obligations or purchase-commitments table is among the tables provided."
   }
  ],
- "notes": "t0068: the first segment's header row is missing from the parsed table, so its 'Revenues' rows are unlabeled. They are attributed to Tesla's other reportable segment, 'Automotive and services and other segment', because 82,056 + 12,771 = 94,827 matches total revenues in t0026 (similarly for 2024 and 2023). That dimension name is not written in the tables, so confidence is 0.6. Both segments use row_label 'Revenues'; the first occurrence is automotive and the second is energy. t0026 is a product-line breakdown that overlaps the segment split, so it was not also extracted, to avoid double counting. The finance lease totals in t0047 agree with t0044 and t0045 (71 + 152 = 223; 113 + 222 = 335).",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 26.9,
-  "input_tokens": 8720,
-  "output_tokens": 3649,
+  "seconds": 25.1,
+  "input_tokens": 8840,
+  "output_tokens": 3737,
   "attempts": 1,
-  "task_sha": "0609c814ea62d419"
+  "task_sha": "8caad26e5bbb16b8"
  }
 }

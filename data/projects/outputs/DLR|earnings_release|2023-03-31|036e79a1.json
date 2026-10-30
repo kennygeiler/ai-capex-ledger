@@ -1,0 +1,44 @@
+{
+ "accession": "DLR|earnings_release|2023-03-31|036e79a1",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Osaka, Japan data center land parcel",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Osaka, Japan",
+   "counterparty": null,
+   "amount_low": 7000000,
+   "amount_high": 7000000,
+   "capacity_mw": 24,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "During the first quarter, MC Digital Realty, acquired a three-acre land parcel, which could support up to 24MW of IT load in Osaka, Japan, for \u00a5950 million or $7 million.",
+   "passage": "p05",
+   "confidence": 0.8
+  },
+  {
+   "name": "Germany renewables",
+   "kind": "power",
+   "status": "announced",
+   "location": "Germany",
+   "counterparty": null,
+   "capacity_mw": 116,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "116 MW New renewables announced in Germany",
+   "passage": "p11",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.6,
+  "input_tokens": 13539,
+  "output_tokens": 875,
+  "attempts": 1,
+  "task_sha": "25f8d11125a6fe5a"
+ }
+}

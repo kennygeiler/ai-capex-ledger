@@ -1,23 +1,27 @@
 {
  "accession": "CSCO|earnings_release|2025-04-26|c0d6341c",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is forward-looking-statement safe harbor boilerplate; no sentence states or links capital expenditures to AI"
+   "reason": "no sentence states or attributes capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "the only passage is forward-looking-statement safe harbor boilerplate; mentions of AI ('our development and use of artificial intelligence', 'momentum we are seeing with AI') are risk-factor language and say nothing about operating expense amounts or attribution to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p03 mentions 'our development and use of artificial intelligence' only as a risk factor (boilerplate)"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue; p01 reports AI Infrastructure orders from webscale customers (exceeded $600 million, surpassing a $1 billion target), but orders are bookings, not revenue, and the passage text is garbled; p02's AI 'momentum' remark is qualitative and not tied to revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.8,
-  "input_tokens": 5672,
-  "output_tokens": 224,
+  "seconds": 7.0,
+  "input_tokens": 6410,
+  "output_tokens": 711,
   "attempts": 1,
-  "task_sha": "e8c3b9242118321d"
+  "task_sha": "b6176be44048eab8"
  }
 }

@@ -1,6 +1,6 @@
 {
  "accession": "GOOGL|earnings_release|2023-09-30|aa4d5bb6",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "opex",
@@ -11,21 +11,25 @@
    "quote": "These costs primarily include AI-focused shared R&D activities; corporate initiatives such as our philanthropic activities; corporate shared costs such as certain finance, human resource, and legal costs, including certain fines and settlements.",
    "passage": "p02",
    "confidence": 0.6,
-   "notes": "The sentence describes what Alphabet-level unallocated costs consist of and names AI-focused shared R&D as one component, but gives no amount or share. 'Primarily' applies to the whole list, not to AI alone, so this only weakly links R&D opex to AI. It names no year; the period is the reporting period (fiscal 2023)."
+   "notes": "Describes what unallocated Alphabet-level costs include, naming AI-focused shared R&D first; links R&D spend to AI in words only, but reads partly as a segment-reporting description rather than a statement of spend, and no amount or share of opex is given."
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; p01 covers server useful-life and depreciation changes with no AI link"
+   "reason": "no sentence links capital expenditures to AI; p01 concerns depreciation useful-life changes only"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 7.6,
-  "input_tokens": 4788,
-  "output_tokens": 722,
+  "seconds": 6.2,
+  "input_tokens": 5095,
+  "output_tokens": 624,
   "attempts": 1,
-  "task_sha": "d408da204e427088"
+  "task_sha": "a8eb0d08c1ed7fff"
  }
 }

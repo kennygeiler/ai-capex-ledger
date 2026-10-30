@@ -1,0 +1,143 @@
+{
+ "ticker": "GLXY",
+ "prompt_version": "attribution@v2",
+ "model": "miner_to_hpc@v3",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "MD&A says the increase in consolidated capex ($1,192.5m in 2025 vs $59.0m) was primarily AI/HPC investment to build out Helios, and the 2025 Q2 release says all Data Centers expenses are being capitalized; there is no segment capex split. Construction in progress grew from $35.8m to $1,344.2m, but it is a generic category with no XBRL reference, and Data center infrastructure fell from $113.7m to $67.7m after mining impairments, so no HPC-specific PP&E growth is used.",
+   "confidence": 0.3
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "stated_amount",
+   "ai_amount": 1700000000,
+   "ai_share": null,
+   "inputs": [
+    {
+     "id": "stmt:GLXY|earnings_release|2025-09-30|689fb35d|capex|FY2026|outlook|0",
+     "value": 1700000000
+    }
+   ],
+   "basis": "Stated total cost of the Helios Phase I build, $1.7bn, funded by the $1.4bn project financing. Part of it was already spent in 2025, so it is a project total, not purely FY2026 spend. The GPUs are CoreWeave's; this is the shell and fit-out.",
+   "confidence": 0.5
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "committed",
+   "method": "commitment",
+   "ai_amount": 529775000,
+   "ai_share": 0.44,
+   "inputs": [
+    {
+     "id": "fact:GLXY|purchase_commitments||FY2025",
+     "value": 529775000
+    }
+   ],
+   "basis": "Purchase commitments of $529.8m at 31 Dec 2025, taken as Helios data-center construction because it was the only large build in the year. The pack does not show what the note covers and the fact has no XBRL reference, so the AI scope is assumed, not stated. The share is relative to 2025 capex spent.",
+   "confidence": 0.4
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 8433000,
+   "ai_share": 0.00014,
+   "inputs": [
+    {
+     "id": "fact:GLXY|segment_revenue|Data Centers|FY2025",
+     "value": 8433000
+    }
+   ],
+   "basis": "Revenue of the Data Centers segment, which holds the Helios campus leased to CoreWeave; the Digital Assets segment ($60,385.4m) is excluded. The MD&A says Galaxy does not currently earn any revenue from Data Centers, so the $8.4m may be pre-lease or transitional revenue rather than CoreWeave rent.",
+   "confidence": 0.6
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Galaxy expected Data Centers leasing revenue to begin in H1 2026 with Phase I delivery to CoreWeave. The 2026 Q2 release expects about $80m of leasing revenue per quarter from Q3 2026. The other stated figures do not fit a single fiscal year: $700m covers the first 12 months after the full 393 MW is energized, and the $1bn-plus is an average across the 15-year term. No fiscal-year amount is stated.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "stated_amount",
+   "ai_amount": 1000000000,
+   "ai_share": null,
+   "inputs": [
+    {
+     "id": "stmt:GLXY|earnings_release|2026-06-30|3c15f591|revenue|FY2027|outlook|0",
+     "value": 1000000000
+    }
+   ],
+   "basis": "Stated anticipated average annual revenue of over $1bn from CoreWeave's 526 MW across three phases. It is a run-rate average over the 15-year base term once all phases (through 2028) are delivered, not a FY2027 forecast, so FY2027 revenue is likely lower.",
+   "confidence": 0.4
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "mining-only year before the Helios conversion; no Data Centers segment capex, AI statement or HPC PP&E category"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "mining-only year before the Helios conversion; the Data center infrastructure balance was mining infrastructure, later impaired"
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "FY2026 is not a completed fiscal year in the pack's values; only quarterly Data Centers capex ($448m and $354m) is stated, not a full-year actual"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "only the Digital Assets segment reports revenue; there is no Data Centers segment line"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "only the Digital Assets segment reports revenue; there is no Data Centers segment line"
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "no Data Centers segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "no Data Centers segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "no Data Centers segment cost of revenue in the pack; the company says Data Centers expenses are being capitalized"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 38.8,
+  "input_tokens": 20006,
+  "output_tokens": 4212,
+  "attempts": 1,
+  "task_sha": "d6ad038aa80d4eb6"
+ }
+}

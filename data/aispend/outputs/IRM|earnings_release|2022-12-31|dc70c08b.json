@@ -1,0 +1,46 @@
+{
+ "accession": "IRM|earnings_release|2022-12-31|dc70c08b",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Organic storage rental revenue growth of 8.9%, reflecting continued benefit of pricing combined with positive volume trends and data center growth",
+   "passage": "p07",
+   "confidence": 0.5,
+   "notes": "Full-year organic storage rental revenue growth attributed partly to data center growth. The 8.9% is a growth rate of total storage rental revenue, not a data-center share or amount. No AI-specific wording."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Organic storage rental revenue growth of 11.0%, reflecting continued benefit of pricing combined with positive volume trends and data center growth",
+   "passage": "p06",
+   "confidence": 0.4,
+   "notes": "Q4 2022 only, not the full year. The 11.0% is the growth of total storage rental revenue, with data center growth named as one driver. No data-center revenue amount is stated, and AI is not mentioned."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only recurring capital expenditures appear in the AFFO reconciliation, and the risk factor names the ability to fund capex; no sentence links capital expenditures to AI or data-center buildout"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses, R&D or headcount to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.1,
+  "input_tokens": 12015,
+  "output_tokens": 1047,
+  "attempts": 1,
+  "task_sha": "3ddbcf3d401ee4f8"
+ }
+}

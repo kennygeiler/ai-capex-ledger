@@ -1,0 +1,13 @@
+{
+ "accession": "NOW|earnings_release|2026-06-30|82df8a0f",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 4855,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "a100d9dbe20e3c0f"
+ }
+}

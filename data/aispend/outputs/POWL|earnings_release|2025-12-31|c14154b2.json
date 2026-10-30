@@ -1,0 +1,27 @@
+{
+ "accession": "POWL|earnings_release|2025-12-31|c14154b2",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a seller (switchgear), but the data-center figures are orders/bookings (an approximately $75 million data center order; data center orders 'well in excess of $100 million' in the quarter), not revenue; p02 speaks only of 'opportunities' from data center development and AI investment, not revenue; no sentence states data-center or AI revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 5302,
+  "output_tokens": 582,
+  "attempts": 1,
+  "task_sha": "bc82b5453bf997c6"
+ }
+}

@@ -1,0 +1,84 @@
+{
+ "accession": "VST|earnings_release|2025-09-30|4e0218e8",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "West Texas natural gas power units",
+   "kind": "power",
+   "status": "announced",
+   "location": "West Texas",
+   "counterparty": null,
+   "capacity_mw": 860,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Announced plan to build two new natural gas power units totaling 860 MW of capacity in West Texas.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Comanche Peak Nuclear Plant PPA",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 1200,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Announced a 20-year power purchase agreement (\u201cPPA\u201d) with an \u2022 investment grade counterparty for 1,200 MW from our Comanche Peak Nuclear Plant in Texas.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Acquisition of seven natural gas plants",
+   "kind": "power",
+   "status": "in_service",
+   "location": "Midwest, Northeast, and California markets",
+   "counterparty": null,
+   "capacity_mw": 2600,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "And most recently, we successfully closed the acquisition of seven natural gas plants, adding approximately 2,600 MW of capacity to our portfolio, furthering our capabilities across the Midwest, Northeast, and California markets.",
+   "passage": "p03",
+   "confidence": 0.6
+  },
+  {
+   "name": "Oak Hill solar facility",
+   "kind": "power",
+   "status": "in_service",
+   "location": "Texas (ERCOT)",
+   "counterparty": "Amazon",
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Achieved commercial operations date (COD) for our new Oak Hill 200 MW \u2022 solar facility supported by a power purchase agreement with Amazon in Texas (ERCOT).",
+   "passage": "p05",
+   "confidence": 0.9
+  },
+  {
+   "name": "Pulaski solar facility",
+   "kind": "power",
+   "status": "under_construction",
+   "location": "Illinois (MISO)",
+   "counterparty": "Microsoft",
+   "capacity_mw": 405,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Progressing with construction in support of a power purchase agreement \u2022 at our Pulaski 405 MW new solar facility with Microsoft in Illinois (MISO).",
+   "passage": "p06",
+   "confidence": 0.9
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.4,
+  "input_tokens": 6431,
+  "output_tokens": 1637,
+  "attempts": 1,
+  "task_sha": "948c8be1e5f33820"
+ }
+}

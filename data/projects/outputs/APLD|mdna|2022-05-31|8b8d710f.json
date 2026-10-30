@@ -1,0 +1,84 @@
+{
+ "accession": "APLD|mdna|2022-05-31|8b8d710f",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Jamestown, North Dakota hosting facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Jamestown, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 100,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-02-02",
+   "quote": "Our first facility was constructed in North Dakota with 100 MW of capacity.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Jamestown, North Dakota facility energy services agreement",
+   "kind": "power",
+   "status": "contracted",
+   "location": "North Dakota",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We signed an energy services agreement with a utility to power this facility.",
+   "passage": "p01",
+   "confidence": 0.6
+  },
+  {
+   "name": "Garden City, Texas datacenter facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Garden City, Texas",
+   "counterparty": null,
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": "2022-04-13",
+   "in_service": "2022",
+   "quote": "We are mid-construction on our second facility in Garden City, Texas, and are in the development stage of the Company's third facility, located in North Dakota.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Third North Dakota facility",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "North Dakota",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We are mid-construction on our second facility in Garden City, Texas, and are in the development stage of the Company's third facility, located in North Dakota.",
+   "passage": "p01",
+   "confidence": 0.7
+  },
+  {
+   "name": "1.21 Gigawatts joint venture datacenters",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": "Antpool Capital Asset Investment, L.P.",
+   "capacity_mw": 1500,
+   "gpus": null,
+   "announced": "2022-01-06",
+   "in_service": null,
+   "quote": "1.21 Gigawatts will develop, acquire, construct, finance, operate, maintain and own one or more Next-Gen datacenters with initially up to 1.5GW of capacity for hosting blockchain infrastructure.",
+   "passage": "p02",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.0,
+  "input_tokens": 6553,
+  "output_tokens": 1652,
+  "attempts": 1,
+  "task_sha": "a100e7469e75d652"
+ }
+}

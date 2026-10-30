@@ -1,0 +1,27 @@
+{
+ "accession": "AMAT|mdna|2022-10-30|5d65973b",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes Applied's own capital expenditures to AI; references to capital equipment spending describe customers' spending (Applied's revenue drivers), not Applied's capex"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes Applied's R&D, infrastructure or headcount costs to AI; 'development efforts' sentence names no AI link"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI or data-center revenue amount or share; the mention of artificial intelligence as an emerging end-market driver of industry growth is general boilerplate, not a statement of AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 5387,
+  "output_tokens": 283,
+  "attempts": 1,
+  "task_sha": "d36037f9473b39de"
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "accession": "META|transcript|2025-06-30|24fcd05d",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Prometheus",
+   "kind": "gpu_cluster",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 1000,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our Prometheus cluster is coming online next year and we think it'll be the world's first 1GW+ cluster.",
+   "passage": "p01",
+   "confidence": 0.8
+  },
+  {
+   "name": "Hyperion",
+   "kind": "gpu_cluster",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 5000,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We're also building out Hyperion, which will be able to scale up to 5GW over several years.",
+   "passage": "p01",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.4,
+  "input_tokens": 4501,
+  "output_tokens": 618,
+  "attempts": 1,
+  "task_sha": "2da718321883c3e0"
+ }
+}

@@ -1,0 +1,72 @@
+{
+ "accession": "BTBT|mdna|2024-12-31|825737e1",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 50000000,
+   "amount_high": 50000000,
+   "quote": "On January 10, 2024, the Company announced it had increased the size of its contract for up to an aggregate of 2,048 GPUs worth more than $50 million of annualized revenues to the Company.",
+   "passage": "p11",
+   "confidence": 0.7,
+   "notes": "Annualized contract value for the WhiteFiber AI cloud services contract, not reported revenue for a fiscal year. 'More than $50 million' recorded as a lower bound of 50000000. No fiscal year is named."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 900000,
+   "amount_high": 900000,
+   "quote": "The initial order of 300 GPUs is expected to generate approximately $4.6 million in revenue to Bit Digital over the five-year term, or approximately $0.9 million per year.",
+   "passage": "p12",
+   "confidence": 0.6,
+   "notes": "Annual figure from the HPC GPU cloud services contract with Boosteroid. Boosteroid is a cloud gaming customer, not an AI customer, so this is HPC/data-center revenue rather than strictly AI revenue. The $4.6 million five-year total is also stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 20200000,
+   "amount_high": 20200000,
+   "quote": "It represents an aggregate revenue opportunity of approximately $20.2 million.",
+   "passage": "p13",
+   "confidence": 0.65,
+   "notes": "Aggregate revenue opportunity over a 25-month H200 GPU services contract with an AI Compute Fund. It is a multi-year contract value, not revenue for one fiscal year, and it is terminable on notice."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 30000000,
+   "amount_high": 30000000,
+   "quote": "Concurrently, we placed a purchase order for 130 H200 servers for approximately $30 million.",
+   "passage": "p13",
+   "confidence": 0.7,
+   "notes": "A purchase commitment for AI GPU servers placed on December 30, 2024; deployment began in February 2025. It is recorded as outlook because the sentence states an order, not a completed expenditure."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or explicitly attributes operating expenses to AI. The R&D discussion in p05 concerns cloud services capabilities without stating AI spend."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.9,
+  "input_tokens": 9681,
+  "output_tokens": 1894,
+  "attempts": 1,
+  "task_sha": "e4ec6dd14b76d480"
+ }
+}

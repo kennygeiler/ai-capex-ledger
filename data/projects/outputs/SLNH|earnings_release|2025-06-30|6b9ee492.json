@@ -1,0 +1,100 @@
+{
+ "accession": "SLNH|earnings_release|2025-06-30|6b9ee492",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Dorothy 2",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Steady gross margin, continued improvement in Three Month Adjusted EBITDA of +$2.3 million since Q3 2024, and energized Dorothy 2 ALBANY, NY, August 15, 2025 - Soluna Holdings, Inc. (\u201cSoluna\u201d or the \u201cCompany\u201d) (NASDAQ: SLNH), a developer of green data centers for intensive computing applications, including Bitcoin mining and AI, announced its financial results for the second quarter ended June 30, 2025.",
+   "passage": "p01",
+   "confidence": 0.8
+  },
+  {
+   "name": "Kati 1",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": "Spring Lane Capital",
+   "amount_low": 20000000,
+   "amount_high": 20000000,
+   "capacity_mw": 35,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "Soluna has secured land and $20M in funding from Spring Lane Capital to begin \u25cf construction on Kati 1, the first 35 MW phase of our 166 MW wind-powered data center.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Project Kati",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 166,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Soluna has secured land and $20M in funding from Spring Lane Capital to begin \u25cf construction on Kati 1, the first 35 MW phase of our 166 MW wind-powered data center.",
+   "passage": "p02",
+   "confidence": 0.8
+  },
+  {
+   "name": "Project Hedy",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Including wind-powered Projects Hedy and Ellen, and solar-powered Project Annie.",
+   "passage": "p03",
+   "confidence": 0.75
+  },
+  {
+   "name": "Project Ellen",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Including wind-powered Projects Hedy and Ellen, and solar-powered Project Annie.",
+   "passage": "p03",
+   "confidence": 0.75
+  },
+  {
+   "name": "Project Annie",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Including wind-powered Projects Hedy and Ellen, and solar-powered Project Annie.",
+   "passage": "p03",
+   "confidence": 0.75
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.0,
+  "input_tokens": 7125,
+  "output_tokens": 1707,
+  "attempts": 1,
+  "task_sha": "88652a60a8699af7"
+ }
+}

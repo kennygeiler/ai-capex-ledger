@@ -1,0 +1,27 @@
+{
+ "accession": "NVT|mdna|2022-12-31|31709ee7",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are mentioned only generically (liquidity needs, goodwill valuation assumptions); no sentence links capex to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "research and development funding is mentioned generically; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share; revenue appears only in valuation assumptions"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 5437,
+  "output_tokens": 222,
+  "attempts": 1,
+  "task_sha": "d7ab8408f9150e4a"
+ }
+}

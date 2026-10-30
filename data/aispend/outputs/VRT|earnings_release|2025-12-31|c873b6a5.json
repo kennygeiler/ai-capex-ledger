@@ -1,0 +1,27 @@
+{
+ "accession": "VRT|earnings_release|2025-12-31|c873b6a5",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes the company's capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "Q4 net sales of $2,880 million are total sales with no AI or data-center portion stated; the only AI link is to trailing twelve-month orders ('particularly in AI infrastructure') and hyperscale/colocation order strength, which are orders, not revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 5372,
+  "output_tokens": 533,
+  "attempts": 1,
+  "task_sha": "eb613b21eeaa064a"
+ }
+}

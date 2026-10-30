@@ -1,0 +1,84 @@
+{
+ "accession": "SLNH|earnings_release|2025-12-31|7ded04f8",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Project Gladys",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "With the addition of Projects Gladys and Fei in August, Soluna crossed 1 GW of \u25cf renewable-powered computing in operation, construction, and development, a notable milestone reflecting the scalability of its behind-the-meter model.",
+   "passage": "p01",
+   "confidence": 0.6
+  },
+  {
+   "name": "Project Fei",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "With the addition of Projects Gladys and Fei in August, Soluna crossed 1 GW of \u25cf renewable-powered computing in operation, construction, and development, a notable milestone reflecting the scalability of its behind-the-meter model.",
+   "passage": "p01",
+   "confidence": 0.6
+  },
+  {
+   "name": "Project Dorothy 2",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 48,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025-11",
+   "quote": "We completed and fully energized Project Dorothy 2 (48MW) in November \u25cf 2025, enhancing the profitability and operational efficiency of our operating data centers, while diversifying our customer mix and improving overall customer satisfaction.",
+   "passage": "p01",
+   "confidence": 0.95
+  },
+  {
+   "name": "Project Kati 1",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 83,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "We expect to begin generating revenue from this 83MW facility as capacity is ramped up throughout the first half of 2026.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Project Kati 2",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Texas",
+   "counterparty": "Metrobloks",
+   "capacity_mw": 100,
+   "gpus": null,
+   "announced": "2025",
+   "in_service": null,
+   "quote": "In 2025, the Company signed an MOU with Metrobloks for an initial 100+ MW critical IT development, with a roadmap to expand to over 300 MW.",
+   "passage": "p01",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.6,
+  "input_tokens": 8347,
+  "output_tokens": 1703,
+  "attempts": 1,
+  "task_sha": "527b84a5788425d1"
+ }
+}

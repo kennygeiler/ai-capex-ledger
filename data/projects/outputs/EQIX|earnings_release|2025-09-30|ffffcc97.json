@@ -1,0 +1,58 @@
+{
+ "accession": "EQIX|earnings_release|2025-09-30|ffffcc97",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Dallas 12 development",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Dallas",
+   "counterparty": null,
+   "capacity_mw": 67,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In Q3, the company added seven new projects, including its Dallas 12 development, which is expected to deliver approximately 3,700 cabinets or 67 megawatts of capacity to this key metro.",
+   "passage": "p03",
+   "confidence": 0.85
+  },
+  {
+   "name": "Chennai, India data center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Chennai, India",
+   "counterparty": null,
+   "amount_low": 69000000,
+   "amount_high": 69000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025-09",
+   "quote": "With an initial investment of $69 million, the new facility will support local and global businesses by providing direct access to one of the world\u2019s fastest- growing digital economies.",
+   "passage": "p03",
+   "confidence": 0.7
+  },
+  {
+   "name": "Land acquisitions across Amsterdam, Chicago, Johannesburg, London and Toronto metros",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Amsterdam, Chicago, Johannesburg, London and Toronto",
+   "counterparty": null,
+   "capacity_mw": 900,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Land acquisitions 1 across Amsterdam, Chicago, Johannesburg, London and Toronto metros will support over 900 megawatts of retail and xScale \u00ae capacity at full build-out",
+   "passage": "p01",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.5,
+  "input_tokens": 6652,
+  "output_tokens": 1297,
+  "attempts": 1,
+  "task_sha": "f3a69eec0cb80f89"
+ }
+}

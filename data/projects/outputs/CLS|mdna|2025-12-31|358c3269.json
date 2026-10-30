@@ -1,0 +1,56 @@
+{
+ "accession": "CLS|mdna|2025-12-31|358c3269",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Thailand manufacturing facility expansion",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Thailand",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our capital expenditures for 2025 were $201.2 million (2024 \u2014 $170.9 million; 2023 \u2014 $125.1 million), primarily to enhance our manufacturing capabilities in various geographies (including expansion of our Thailand, U.S. and Malaysia manufacturing facilities and our design centers), in support of our growth in AI/ML and HPS programs.",
+   "passage": "p11",
+   "confidence": 0.5
+  },
+  {
+   "name": "U.S. manufacturing facility expansion",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "U.S.",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our capital expenditures for 2025 were $201.2 million (2024 \u2014 $170.9 million; 2023 \u2014 $125.1 million), primarily to enhance our manufacturing capabilities in various geographies (including expansion of our Thailand, U.S. and Malaysia manufacturing facilities and our design centers), in support of our growth in AI/ML and HPS programs.",
+   "passage": "p11",
+   "confidence": 0.45
+  },
+  {
+   "name": "Malaysia manufacturing facility expansion",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Malaysia",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our capital expenditures for 2025 were $201.2 million (2024 \u2014 $170.9 million; 2023 \u2014 $125.1 million), primarily to enhance our manufacturing capabilities in various geographies (including expansion of our Thailand, U.S. and Malaysia manufacturing facilities and our design centers), in support of our growth in AI/ML and HPS programs.",
+   "passage": "p11",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.2,
+  "input_tokens": 10554,
+  "output_tokens": 1032,
+  "attempts": 1,
+  "task_sha": "d5d1508f9d5d5e0a"
+ }
+}

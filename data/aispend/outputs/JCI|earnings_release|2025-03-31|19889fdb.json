@@ -1,0 +1,27 @@
+{
+ "accession": "JCI|earnings_release|2025-03-31|19889fdb",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only passage is forward-looking-statement boilerplate; capital expenditures are mentioned generically with no link to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; AI appears only in a risk-factor list item"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; AI appears only as boilerplate risk language"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 6397,
+  "output_tokens": 215,
+  "attempts": 1,
+  "task_sha": "16df68600552ee6a"
+ }
+}

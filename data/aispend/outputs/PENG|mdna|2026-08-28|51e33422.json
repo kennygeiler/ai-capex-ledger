@@ -1,0 +1,46 @@
+{
+ "accession": "PENG|mdna|2026-08-28|51e33422",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "This transition contributed to strong revenue growth in the second half of 2026, though the pace and timing of new customer deployments may create variability in net sales from period to period.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "The 'transition' is the AI infrastructure business shifting toward non-hyperscaler customers, as the preceding sentence says. No AI revenue figure is given."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Integrated Memory net sales increased by $459.8 million, or 99.0%, compared to the same period in the prior year, primarily driven by strong momentum across DRAM and Flash, as accelerating AI-driven demand drove favorable pricing and increased volume.",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "$459.8M is the year-over-year increase in segment net sales, not an AI revenue amount. AI-driven demand is named as a driver, so this is recorded as qualitative. The year comes from the surrounding paragraph's 2026 comparison."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the future capex focus in p08 names R&D, manufacturing equipment, acquisitions and IT, not AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the 2026 opex drivers are not tied to AI, and the AI-linked mentions in p04-p06 are fiscal 2025 comparisons"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.1,
+  "input_tokens": 7241,
+  "output_tokens": 1449,
+  "attempts": 1,
+  "task_sha": "c71db1627adcc25a"
+ }
+}

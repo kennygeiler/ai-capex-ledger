@@ -1,0 +1,152 @@
+{
+ "accession": "0001451809-26-000012",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Lab and manufacturing equipment",
+   "table_id": "t0034",
+   "row_label": "Lab and manufacturing equipment",
+   "column_label": "As of | December 31, 2025",
+   "cell_text": "158,909",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 158909000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Lab and manufacturing equipment",
+   "table_id": "t0034",
+   "row_label": "Lab and manufacturing equipment",
+   "column_label": "As of | December 31, 2024",
+   "cell_text": "119,964",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 119964000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment",
+   "table_id": "t0034",
+   "row_label": "Computer equipment",
+   "column_label": "As of | December 31, 2025",
+   "cell_text": "3,928",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 3928000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment",
+   "table_id": "t0034",
+   "row_label": "Computer equipment",
+   "column_label": "As of | December 31, 2024",
+   "cell_text": "3,833",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 3833000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0034",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of | December 31, 2025",
+   "cell_text": "1,152",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 1152000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0034",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of | December 31, 2024",
+   "cell_text": "1,167",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 1167000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0034",
+   "row_label": "Construction in progress",
+   "column_label": "As of | December 31, 2025",
+   "cell_text": "15,885",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 15885000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0034",
+   "row_label": "Construction in progress",
+   "column_label": "As of | December 31, 2024",
+   "cell_text": "9,538",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 9538000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0034",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of | December 31, 2025",
+   "cell_text": "8,303",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 8303000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0034",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of | December 31, 2024",
+   "cell_text": "7,818",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 7818000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "The company reports a single segment (t0053 is the single-segment P&L); no per-segment capital expenditures are given."
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "Single reportable segment; the only revenue line in t0053 is the consolidated total, and no market or product-line revenue breakdown appears in the tables."
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "No finance lease liability line appears; t0037 shows only 'Short term lease liability', which is not identified as a finance lease, and no lease note table is provided."
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "No contractual-obligations or commitments table is included in the provided tables."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.5,
+  "input_tokens": 5199,
+  "output_tokens": 1591,
+  "attempts": 1,
+  "task_sha": "a84b972295b6f9a2"
+ }
+}

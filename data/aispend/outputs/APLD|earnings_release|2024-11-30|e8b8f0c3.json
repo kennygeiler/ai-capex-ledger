@@ -1,23 +1,50 @@
 {
  "accession": "APLD|earnings_release|2024-11-30|e8b8f0c3",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 27700000,
+   "amount_high": 27700000,
+   "quote": "During the three months ended November 30, 2024, the Company generated $27.7 million in revenues from the Cloud Services Business segment, representing an increase of 523% compared to $4.5 million during the three months ended November 30, 2023.",
+   "passage": "p05",
+   "confidence": 0.7,
+   "notes": "Quarterly figure (three months ended 2024-11-30), not full-year. The quoted sentence does not say AI itself; the preceding sentence in p05 defines the Cloud Services Business as providing high-performance computing power for AI and machine learning applications. APLD is a seller of AI compute, so this is not a buyer's cloud segment. No fiscal year is named in the sentence; the period falls in fiscal 2025."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 36200000,
+   "amount_high": 36200000,
+   "quote": "During the three months ended November 30, 2024, the Company generated $36.2 million in revenue from the Data Center Hosting Business segment.",
+   "passage": "p06",
+   "confidence": 0.4,
+   "notes": "Quarterly figure. The sentence states data-center revenue literally. However, APLD's Data Center Hosting segment hosts mostly cryptocurrency-mining customers, not AI workloads, and no passage ties this segment to AI demand. Low confidence that this is AI or data-center-demand revenue in the intended sense; exclude it if crypto hosting is out of scope."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; passages describe the Ellendale HPC campus, the AI-driven power market and forward-looking boilerplate, but give no capex amount, share or AI-linked spend statement"
+   "reason": "no sentence states capital expenditures or links them to AI; p03 mentions delivering the 400 MW Ellendale campus within budget, but gives no amount"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies operating expenses or attributes them to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.0,
-  "input_tokens": 5670,
-  "output_tokens": 253,
+  "seconds": 12.9,
+  "input_tokens": 6138,
+  "output_tokens": 1528,
   "attempts": 1,
-  "task_sha": "78d659c9f70b47e9"
+  "task_sha": "49ead989da78364f"
  }
 }

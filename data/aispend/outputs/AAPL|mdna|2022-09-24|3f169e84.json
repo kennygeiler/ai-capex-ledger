@@ -1,6 +1,6 @@
 {
  "accession": "AAPL|mdna|2022-09-24|3f169e84",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "ce49cb032407e8a8"
+  "task_sha": "c17d1697ff94355c"
  }
 }

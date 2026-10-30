@@ -1,0 +1,27 @@
+{
+ "accession": "FCX|earnings_release|2025-12-31|2a4050c5",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures ($4.5 billion in 2025, ~$4.3 billion expected for 2026) are attributed to mining projects, PTFI downstream processing facilities and Grasberg/Kucing Liar development; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a copper and gold miner; AI and data centers appear only in a third-party S&P Global study on global copper demand (p09, p10), and no sentence states what share or amount of FCX's revenue comes from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.4,
+  "input_tokens": 12682,
+  "output_tokens": 377,
+  "attempts": 1,
+  "task_sha": "324274dd4773168a"
+ }
+}

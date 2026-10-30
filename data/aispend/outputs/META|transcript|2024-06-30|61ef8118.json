@@ -1,6 +1,6 @@
 {
  "accession": "META|transcript|2024-06-30|61ef8118",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -11,21 +11,26 @@
    "quote": "While we continue to refine our plans for next year, we currently expect significant capex growth in 2025 as we invest to support our AI research and our product development efforts.",
    "passage": "p02",
    "confidence": 0.9,
-   "notes": "Expected growth in total capex is attributed to AI research together with product development. No AI-specific amount or share is stated. The 2024 range of $37-40 billion in the preceding sentence is not recorded because that sentence does not link capex to AI."
+   "notes": "Total capex growth expected in 2025, with AI research named as a driver alongside product development. No AI-specific amount is given."
   }
  ],
  "none_found": [
   {
    "field": "opex",
    "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "META is a buyer; no sentence states AI's part of revenue"
   }
  ],
+ "notes": "The p02 sentence giving full-year 2024 capex of $37-40 billion was not recorded because that sentence does not link the spend to AI.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.9,
-  "input_tokens": 4993,
-  "output_tokens": 660,
+  "seconds": 7.3,
+  "input_tokens": 5294,
+  "output_tokens": 696,
   "attempts": 1,
-  "task_sha": "0c554c0aeff8bbe5"
+  "task_sha": "4b9f42b68897727b"
  }
 }

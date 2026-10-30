@@ -1,0 +1,13 @@
+{
+ "accession": "ACLS|earnings_release|2026-03-31|e49630ef",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.2,
+  "input_tokens": 5350,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "031d1417876537eb"
+ }
+}

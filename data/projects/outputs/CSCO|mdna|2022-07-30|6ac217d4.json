@@ -1,0 +1,13 @@
+{
+ "accession": "CSCO|mdna|2022-07-30|6ac217d4",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 1.9,
+  "input_tokens": 6279,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "86af02b7dbc3deda"
+ }
+}

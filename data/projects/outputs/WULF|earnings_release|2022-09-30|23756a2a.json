@@ -1,0 +1,56 @@
+{
+ "accession": "WULF|earnings_release|2022-09-30|23756a2a",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Lake Mariner facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "New York",
+   "counterparty": null,
+   "capacity_mw": 110,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "In Q1 2023, the Company expects to achieve total capacity of 110 MW at its wholly owned Lake Mariner facility and 50 MW of net mining capacity at the Nautilus Cryptomine facility, which is a partnership with Talen Energy Corporation and receives power directly from the Susquehanna Nuclear Station at a five-year contracted fixed rate of $0.02 per kilowatt hour, which is among the lowest for any Bitcoin miner in the sector.",
+   "passage": "p03",
+   "confidence": 0.6
+  },
+  {
+   "name": "Nautilus Cryptomine facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Pennsylvania",
+   "counterparty": "Talen Energy Corporation",
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "In Q1 2023, the Company expects to achieve total capacity of 110 MW at its wholly owned Lake Mariner facility and 50 MW of net mining capacity at the Nautilus Cryptomine facility, which is a partnership with Talen Energy Corporation and receives power directly from the Susquehanna Nuclear Station at a five-year contracted fixed rate of $0.02 per kilowatt hour, which is among the lowest for any Bitcoin miner in the sector.",
+   "passage": "p03",
+   "confidence": 0.6
+  },
+  {
+   "name": "Susquehanna Nuclear Station power supply for Nautilus Cryptomine",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Talen Energy Corporation",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In Q1 2023, the Company expects to achieve total capacity of 110 MW at its wholly owned Lake Mariner facility and 50 MW of net mining capacity at the Nautilus Cryptomine facility, which is a partnership with Talen Energy Corporation and receives power directly from the Susquehanna Nuclear Station at a five-year contracted fixed rate of $0.02 per kilowatt hour, which is among the lowest for any Bitcoin miner in the sector.",
+   "passage": "p03",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.8,
+  "input_tokens": 4977,
+  "output_tokens": 1270,
+  "attempts": 1,
+  "task_sha": "763f4a2756ea2fe7"
+ }
+}

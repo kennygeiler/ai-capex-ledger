@@ -1,0 +1,35 @@
+{
+ "accession": "COHR|earnings_release|2025-03-31|3bbfd9ff",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We delivered strong growth and profitability in the March quarter with record revenue driven by another quarter of strong AI- relateddatacenter demand.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Total quarterly revenue (Q3 FY2025, $1.50B) attributed to AI-related datacenter demand in words only; no AI amount or share stated. The sentence names no year, so fiscal_year is null. Code will default it to the filing's reported year (2025). The 46% Datacenter & Communications figure in p03 is year-over-year growth, not a share of revenue, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the CFO's 'investments for the long-term growth' is not tied to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.2,
+  "input_tokens": 5821,
+  "output_tokens": 762,
+  "attempts": 1,
+  "task_sha": "40d817738ed65e93"
+ }
+}

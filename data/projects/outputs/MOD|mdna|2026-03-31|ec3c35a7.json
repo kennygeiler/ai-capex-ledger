@@ -1,0 +1,28 @@
+{
+ "accession": "MOD|mdna|2026-03-31|ec3c35a7",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Long-term data center customer capacity agreement",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We recently entered into a long-term capacity agreement with one of our data center customers, who made a $165 million up-front deposit intended to support our investments necessary to meet the planned sales volume.",
+   "passage": "p16",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 8677,
+  "output_tokens": 606,
+  "attempts": 1,
+  "task_sha": "f407d62ab5d929c4"
+ }
+}

@@ -1,23 +1,72 @@
 {
  "accession": "APLD|earnings_release|2025-08-31|68239573",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 26300000,
+   "amount_high": 26300000,
+   "quote": "The increase was primarily due to $26.3 million of revenue generated related to tenant fit-out services associated with our HPC Hosting Business.",
+   "passage": "p06",
+   "confidence": 0.8,
+   "notes": "Fiscal Q1 2026 figure only (three months ended August 31, 2025), not full year. The HPC Hosting Business serves AI data center tenants (p03 calls the company a 'full-stack developer of AI data centers'). These are one-time tenant fit-out payments, not lease revenue."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 37900000,
+   "amount_high": 37900000,
+   "quote": "During the three months ended August 31, 2025, the Company generated $37.9 million in revenue from the Data Center Hosting Business segment, representing an increase of 9% compared to the $34.8 million during the three months ended August 31, 2024.",
+   "passage": "p05",
+   "confidence": 0.5,
+   "notes": "Fiscal Q1 2026 figure only. This is data-center hosting revenue, but the Data Center Hosting segment is distinct from the AI-focused HPC Hosting Business and serves largely blockchain workloads. It is recorded literally as data-center revenue; its AI linkage is doubtful."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "These installations contributed approximately $26 million in revenue this quarter and are expected to ramp significantly next quarter as we approach the building's ready-for-service date.",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "The actual $26 million is recorded from p06's more precise figure. This statement records the outlook: HPC (AI) fit-out revenue is expected to ramp significantly next quarter. No amount and no year are named; next quarter falls within fiscal 2026."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Lease revenues are expected to ramp later this year as equipment installation is completed.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "Refers to HPC (AI data center) lease revenues at Polaris Forge 1. No amount is given. 'Later this year' does not name the year explicitly."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; passages cover revenue, NOI targets, facility timelines and customer cost savings, not the company's capital spending"
+   "reason": "no sentence states capital expenditures or links them to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expense to AI. The $25.0 million of cost of revenue tied to HPC tenant fit-out services (p07) is a cost of delivering services, not AI opex."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.1,
-  "input_tokens": 6174,
-  "output_tokens": 222,
+  "seconds": 15.8,
+  "input_tokens": 6894,
+  "output_tokens": 1802,
   "attempts": 1,
-  "task_sha": "77d00183a106d2ef"
+  "task_sha": "db519c0e92135265"
  }
 }

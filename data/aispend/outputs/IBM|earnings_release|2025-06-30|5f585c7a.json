@@ -1,23 +1,27 @@
 {
  "accession": "IBM|earnings_release|2025-06-30|5f585c7a",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage (p01) defines free cash flow and mentions net capital expenditures as a component, but no sentence links capital expenditures to AI or states a capex amount or share"
+   "reason": "no sentence links capital expenditures to AI; p02 mentions net capital expenditures only in the free cash flow definition, and the outlook given is for free cash flow, not capex"
   },
   {
    "field": "opex",
-   "reason": "no sentence in any passage quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 states the generative AI book of business is more than $7.5 billion, but a book of business is a cumulative, inception-to-date figure of bookings and signings, not revenue for a fiscal year; recording it as revenue would require inference, so it is not recorded"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.6,
-  "input_tokens": 4717,
-  "output_tokens": 185,
+  "seconds": 10.0,
+  "input_tokens": 5203,
+  "output_tokens": 625,
   "attempts": 1,
-  "task_sha": "1881305b31fb80a9"
+  "task_sha": "06d15533c8f68d70"
  }
 }

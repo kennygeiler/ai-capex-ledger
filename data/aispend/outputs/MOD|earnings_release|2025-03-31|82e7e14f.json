@@ -1,0 +1,48 @@
+{
+ "accession": "MOD|earnings_release|2025-03-31|82e7e14f",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 644000000,
+   "amount_high": 644000000,
+   "quote": "Data center revenue increased 119% to $644 million, and included $197 million of data center revenue from Scott Springfield acquisition",
+   "passage": "p06",
+   "confidence": 0.9,
+   "notes": "Bullet item from the fiscal 2025 Climate Solutions slide (FY24 vs FY25 columns), so the period is fiscal 2025. The sentence names no year, so fiscal_year is null and resolves to the reported year. The $644M is data center revenue for the Climate Solutions segment, which includes $197M from the Scott Springfield acquisition."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Another year of strong growth in Climate Solutions, including more than 30% growth in data center sales",
+   "passage": "p09",
+   "confidence": 0.7,
+   "notes": "This bullet sits under the 'Fiscal 2026 Outlook' heading. It guides more than 30% growth in data center sales. That is a growth rate, not an amount or a share of revenue, so it is recorded as qualitative and no implied amount is derived. The sentence names no year, so fiscal_year is null and resolves to the year after the reported year (fiscal 2026)."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI or data-center demand; 'our investments are driving strong returns' in the data center business gives no capex figure or AI link"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, headcount, infrastructure) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.6,
+  "input_tokens": 9351,
+  "output_tokens": 1318,
+  "attempts": 1,
+  "task_sha": "1c904ef94dca0419"
+ }
+}

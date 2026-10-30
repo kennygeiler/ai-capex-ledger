@@ -1,0 +1,42 @@
+{
+ "accession": "EQIX|earnings_release|2022-12-31|c057b60f",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Johannesburg, South Africa data center",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Johannesburg, South Africa",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In Q4, Equinix announced its first builds in Johannesburg, South Africa, and Johor, Malaysia.",
+   "passage": "p01",
+   "confidence": 0.6
+  },
+  {
+   "name": "Johor, Malaysia data center",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Johor, Malaysia",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In Q4, Equinix announced its first builds in Johannesburg, South Africa, and Johor, Malaysia.",
+   "passage": "p01",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.0,
+  "input_tokens": 13038,
+  "output_tokens": 663,
+  "attempts": 1,
+  "task_sha": "a032f95eaf085be0"
+ }
+}

@@ -1,23 +1,27 @@
 {
  "accession": "QCOM|earnings_release|2022-12-25|7f36b794",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is a cash flow table; capital expenditures of $398 million are reported with no sentence linking them to AI"
+   "reason": "the only capex figure is a cash-flow table line (capital expenditures -398); no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the passage contains only cash flow line items"
+   "reason": "passage is a cash-flow statement table; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; passage contains only cash-flow figures"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.7,
-  "input_tokens": 5197,
-  "output_tokens": 177,
+  "seconds": 3.0,
+  "input_tokens": 5498,
+  "output_tokens": 208,
   "attempts": 1,
-  "task_sha": "d753affaf0c73ec7"
+  "task_sha": "30522b1c1f6457f9"
  }
 }

@@ -1,0 +1,46 @@
+{
+ "accession": "NVT|earnings_release|2026-03-31|b21a8fa5",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We saw growth across all verticals, with infrastructure leading, driven by broad-based data center growth in both the gray and white space.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Q1 fiscal 2026 sales growth attributed to data center demand in words only; no data-center revenue figure or share is stated, and data center is not explicitly AI."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "As a result of our strong first-quarter performance and significant momentum in data centers, we are raising our full- year sales and EPS guidance.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Raised full-year sales guidance attributed partly to data center momentum; no guidance figure given. 'Full-year' names no year, so fiscal_year is null, but it refers to the current fiscal year (2026), not the year after. Code's default would assign the following year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the release mentions 'investments in new products and capacity' but gives no amount and does not link capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.6,
+  "input_tokens": 4919,
+  "output_tokens": 918,
+  "attempts": 1,
+  "task_sha": "43c7c42aa81c9d33"
+ }
+}

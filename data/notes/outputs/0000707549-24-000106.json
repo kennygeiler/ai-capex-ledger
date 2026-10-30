@@ -1,0 +1,181 @@
+{
+ "accession": "0000707549-24-000106",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Manufacturing and engineering equipment",
+   "table_id": "t0047",
+   "row_label": "Manufacturing and engineering equipment",
+   "column_label": "June 30,2024",
+   "cell_text": "1,956,478",
+   "period_end": "2024-06-30",
+   "months": 0,
+   "value": 1956478000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Manufacturing and engineering equipment",
+   "table_id": "t0047",
+   "row_label": "Manufacturing and engineering equipment",
+   "column_label": "June 25,2023",
+   "cell_text": "1,802,627",
+   "period_end": "2023-06-25",
+   "months": 0,
+   "value": 1802627000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0047",
+   "row_label": "Buildings and improvements",
+   "column_label": "June 30,2024",
+   "cell_text": "1,605,802",
+   "period_end": "2024-06-30",
+   "months": 0,
+   "value": 1605802000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0047",
+   "row_label": "Buildings and improvements",
+   "column_label": "June 25,2023",
+   "cell_text": "1,286,849",
+   "period_end": "2023-06-25",
+   "months": 0,
+   "value": 1286849000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer and computer-related equipment",
+   "table_id": "t0047",
+   "row_label": "Computer and computer-related equipment",
+   "column_label": "June 30,2024",
+   "cell_text": "178,941",
+   "period_end": "2024-06-30",
+   "months": 0,
+   "value": 178941000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer and computer-related equipment",
+   "table_id": "t0047",
+   "row_label": "Computer and computer-related equipment",
+   "column_label": "June 25,2023",
+   "cell_text": "174,084",
+   "period_end": "2023-06-25",
+   "months": 0,
+   "value": 174084000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0047",
+   "row_label": "Land",
+   "column_label": "June 30,2024",
+   "cell_text": "163,796",
+   "period_end": "2024-06-30",
+   "months": 0,
+   "value": 163796000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0047",
+   "row_label": "Land",
+   "column_label": "June 25,2023",
+   "cell_text": "98,739",
+   "period_end": "2023-06-25",
+   "months": 0,
+   "value": 98739000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office equipment, furniture and fixtures",
+   "table_id": "t0047",
+   "row_label": "Office equipment, furniture and fixtures",
+   "column_label": "June 30,2024",
+   "cell_text": "85,629",
+   "period_end": "2024-06-30",
+   "months": 0,
+   "value": 85629000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office equipment, furniture and fixtures",
+   "table_id": "t0047",
+   "row_label": "Office equipment, furniture and fixtures",
+   "column_label": "June 25,2023",
+   "cell_text": "83,108",
+   "period_end": "2023-06-25",
+   "months": 0,
+   "value": 83108000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0057",
+   "row_label": "Total finance lease liabilities",
+   "column_label": "June 30,2024",
+   "cell_text": "15,973",
+   "period_end": "2024-06-30",
+   "months": 0,
+   "value": 15973000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0057",
+   "row_label": "Total finance lease liabilities",
+   "column_label": "June 25,2023",
+   "cell_text": "46,176",
+   "period_end": "2023-06-25",
+   "months": 0,
+   "value": 46176000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0060",
+   "row_label": "Total",
+   "column_label": "PurchaseObligations | 816,752 | 29,784 | 4,508 | 4,786 | 3,679",
+   "cell_text": "926,683",
+   "period_end": "2024-06-30",
+   "months": 0,
+   "value": 926683000,
+   "confidence": 0.85
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note table is provided; Lam Research reports a single reportable segment, so there is no per-segment capital expenditure"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "no segment or market/product-line revenue table is provided; Lam Research reports a single reportable segment"
+  }
+ ],
+ "notes": "purchase_commitments: table t0060 has a malformed header (the yearly payment amounts were parsed into the column label). The Total row 926,683 equals the sum of the yearly amounts in the header, plus Thereafter (3,113) and the indeterminable-timing obligations (64,061). It is taken as the June 30, 2024 total. No prior-year commitments table is given. t0029 is the balance sheet and t0041 is the deferred tax table, so neither was used for lease liabilities.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.7,
+  "input_tokens": 7232,
+  "output_tokens": 2152,
+  "attempts": 1,
+  "task_sha": "f3199a428fed69a6"
+ }
+}

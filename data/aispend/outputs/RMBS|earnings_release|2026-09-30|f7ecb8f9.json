@@ -1,0 +1,27 @@
+{
+ "accession": "RMBS|earnings_release|2026-09-30|f7ecb8f9",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the CEO's statement about expanding product and IP offerings for AI and data center infrastructure describes offerings, not spend"
+  },
+  {
+   "field": "revenue",
+   "reason": "total, product, royalties and contract revenue are stated, but no sentence states an AI or data-center part of revenue or attributes revenue to AI demand; p02 is boilerplate company description and the AI product-offering bullet describes offerings, not revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 5511,
+  "output_tokens": 494,
+  "attempts": 1,
+  "task_sha": "2a59baa898244894"
+ }
+}

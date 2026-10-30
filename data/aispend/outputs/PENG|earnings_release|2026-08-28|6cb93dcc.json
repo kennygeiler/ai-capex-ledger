@@ -1,0 +1,53 @@
+{
+ "accession": "PENG|earnings_release|2026-08-28|6cb93dcc",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our company performance accelerated significantly in the second half of fiscal 2026 following the launch of our AI Factory Platform and increased focus on the data center market.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Links total company performance (net sales growth) to the AI Factory Platform and data center focus; no AI or data-center revenue figure is stated."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We prioritized and aligned our AI Infrastructure and Memory businesses with strong AI-driven data center demand, increased investment in product innovation, and sharpened go-to-market execution with a focus on making neocloud and enterprise customers successful,\u201d said Kash Shaikh, president and CEO of Penguin Solutions.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "Increased product-innovation (R&D) investment is mentioned alongside alignment to AI-driven demand; the AI link to spend is indirect and no amount is given. No year is named in the sentence."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Based on this continued momentum, particularly the strength in AI Infrastructure, we are increasing our fiscal 2027 expectations for both net sales and non-GAAP diluted EPS beyond the preliminary growth view shared during the third-quarter earnings call, as we continue to drive strong operating leverage across the business.",
+   "passage": "p03",
+   "confidence": 0.85,
+   "notes": "Raised total net sales outlook for fiscal 2027 attributed to AI Infrastructure strength; no figure is given in the passages."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; capex appears only in forward-looking-statement boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.1,
+  "input_tokens": 7334,
+  "output_tokens": 1552,
+  "attempts": 1,
+  "task_sha": "12659c107ab0d27e"
+ }
+}

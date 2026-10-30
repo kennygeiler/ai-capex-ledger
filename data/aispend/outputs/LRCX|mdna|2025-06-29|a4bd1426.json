@@ -1,0 +1,27 @@
+{
+ "accession": "LRCX|mdna|2025-06-29|a4bd1426",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures of $759 million are stated but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D investment is mentioned only as a liquidity consideration; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "passages describe products used in cloud and enterprise servers (boilerplate) but no sentence states AI or data-center revenue or its share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.5,
+  "input_tokens": 5570,
+  "output_tokens": 220,
+  "attempts": 1,
+  "task_sha": "f8f9b5f1488cb494"
+ }
+}

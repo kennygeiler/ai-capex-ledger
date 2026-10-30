@@ -1,23 +1,48 @@
 {
  "accession": "AMD|earnings_release|2023-04-01|5c81aaa3",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1295000000,
+   "amount_high": 1295000000,
+   "quote": "Data Center Net Revenue $1,295 $1,293 Flat",
+   "passage": "p08",
+   "confidence": 0.75,
+   "notes": "Slide table, not a prose sentence; figures are $ in millions per the table header. Covers Q1 2023 (quarter ended 2023-04-01) only, not the full fiscal year. Data Center segment revenue, not AI-specific; it includes server CPUs, GPUs, FPGAs and DPUs."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "For the second quarter we expect sequential growth in our Data Center and Client segments offset by modest declines in our Gaming and Embedded segments.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Directional Q2 2023 outlook for Data Center segment revenue; no amount given. Year taken from the release's Q2 2023 outlook context."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; capital expenditures are not discussed in any passage"
+   "reason": "capital expenditures of $158 million are reported, but no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; p07 attributes lower Data Center operating income partly to 'increased R&D investments' without linking them to AI, and p08 gives a ~$1.6 billion Q2'23 operating expense outlook with no AI link; AI mentions in p01, p04-p06 and p09 describe roadmap and products, not spend"
+   "reason": "the ~$1.6 billion operating expense outlook and the 'increased R&D investments' in Data Center are not attributed to AI by any sentence"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.0,
-  "input_tokens": 8130,
-  "output_tokens": 403,
+  "seconds": 14.9,
+  "input_tokens": 9289,
+  "output_tokens": 1752,
   "attempts": 1,
-  "task_sha": "e52ff9818b966007"
+  "task_sha": "d1184f9a5734d3e8"
  }
 }

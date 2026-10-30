@@ -1,0 +1,84 @@
+{
+ "accession": "NRG|earnings_release|2024-12-31|cddfaf69",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Project Development Agreement with GE Vernova and Kiewit (TIC) for gas-fired combined cycle generation",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "GE Vernova (GEV) and Kiewit's subsidiary, TIC",
+   "capacity_mw": 5400,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2029",
+   "quote": "NRG has signed a strategic Project Development Agreement with GE Vernova (GEV) and Kiewit's subsidiary, TIC, to develop and construct up to 5.4 GW of new gas- fired, combined cycle generation projects.",
+   "passage": "p04",
+   "confidence": 0.85
+  },
+  {
+   "name": "GE Vernova 7HA gas turbine slot reservation agreement",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "GE Vernova (GEV)",
+   "capacity_mw": 1200,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Additionally, NRG has entered into a slot reservation agreement with GEV for the procurement of 1.2 GW of 7HA gas turbines.",
+   "passage": "p04",
+   "confidence": 0.8
+  },
+  {
+   "name": "Data center Letters of Intent with Menlo Equities and PowLan for NRG-owned sites",
+   "kind": "power",
+   "status": "announced",
+   "location": null,
+   "counterparty": "Menlo Equities and PowLan",
+   "capacity_mw": 400,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Targeting 400 MW of retail supply in the initial phase, these arrangements have the potential to scale to 6.5 GW, with work expected to start in 2026.",
+   "passage": "p05",
+   "confidence": 0.75
+  },
+  {
+   "name": "Cedar Bayou 5 CCGT",
+   "kind": "power",
+   "status": "announced",
+   "location": null,
+   "counterparty": "Public Utility Commission of Texas (PUCT)",
+   "capacity_mw": 689,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In December 2024, the Public Utility Commission of Texas (PUCT) selected the 689 MW Cedar Bayou 5 CCGT project to advance to the next phase of diligence, marking the second NRG project chosen under the TEF process.",
+   "passage": "p06",
+   "confidence": 0.75
+  },
+  {
+   "name": "T.H. Wharton",
+   "kind": "power",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 415,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "A turbine is onsite at the Company's T.H. Wharton plant (also in TEF due diligence) and commercial operation is expected by summer 2026.",
+   "passage": "p06",
+   "confidence": 0.65
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.1,
+  "input_tokens": 9094,
+  "output_tokens": 2316,
+  "attempts": 1,
+  "task_sha": "ecf91174270da365"
+ }
+}

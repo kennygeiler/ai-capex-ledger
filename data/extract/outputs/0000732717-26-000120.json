@@ -1,0 +1,200 @@
+{
+ "accession": "0000732717-26-000120",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0070",
+   "row_label": "Total operating revenues",
+   "column_label": "2025",
+   "cell_text": "125,648",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 125648000000,
+   "confidence": 0.95,
+   "notes": "Unit (000,000) not stated with the table; taken from elsewhere in the filing."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0070",
+   "row_label": "Total operating revenues",
+   "column_label": "2024",
+   "cell_text": "122,336",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 122336000000,
+   "confidence": 0.95,
+   "notes": "Unit (000,000) not stated with the table; taken from elsewhere in the filing."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0070",
+   "row_label": "Total operating revenues",
+   "column_label": "2023",
+   "cell_text": "122,428",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 122428000000,
+   "confidence": 0.95,
+   "notes": "Unit (000,000) not stated with the table; taken from elsewhere in the filing."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0070",
+   "row_label": "Equipment",
+   "column_label": "2025",
+   "cell_text": "25,396",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 25396000000,
+   "confidence": 0.9,
+   "notes": "The 'Equipment' row under the 'Cost of revenues' heading in Operating Expenses (not the 'Equipment' revenue row, which shows 24,490). It is the cost of equipment sold. There is no total cost-of-revenues line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0070",
+   "row_label": "Equipment",
+   "column_label": "2024",
+   "cell_text": "22,249",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 22249000000,
+   "confidence": 0.9,
+   "notes": "The 'Equipment' row under the 'Cost of revenues' heading in Operating Expenses (not the revenue row, which shows 22,201). It is the cost of equipment sold. There is no total cost-of-revenues line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0070",
+   "row_label": "Equipment",
+   "column_label": "2023",
+   "cell_text": "23,136",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 23136000000,
+   "confidence": 0.9,
+   "notes": "The 'Equipment' row under the 'Cost of revenues' heading in Operating Expenses (not the revenue row, which shows 22,779). It is the cost of equipment sold. There is no total cost-of-revenues line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0070",
+   "row_label": "Other cost of revenues (exclusive of depreciationand amortization shown separately below)",
+   "column_label": "2025",
+   "cell_text": "25,424",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 25424000000,
+   "confidence": 0.95,
+   "notes": "Listed under the 'Cost of revenues' heading and labeled as a cost of revenues (service delivery). Excludes D&A, which is shown separately."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0070",
+   "row_label": "Other cost of revenues (exclusive of depreciationand amortization shown separately below)",
+   "column_label": "2024",
+   "cell_text": "26,972",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 26972000000,
+   "confidence": 0.95,
+   "notes": "Listed under the 'Cost of revenues' heading and labeled as a cost of revenues (service delivery). Excludes D&A, which is shown separately."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0070",
+   "row_label": "Other cost of revenues (exclusive of depreciationand amortization shown separately below)",
+   "column_label": "2023",
+   "cell_text": "26,987",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 26987000000,
+   "confidence": 0.95,
+   "notes": "Listed under the 'Cost of revenues' heading and labeled as a cost of revenues (service delivery). Excludes D&A, which is shown separately."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0070",
+   "row_label": "Operating Income",
+   "column_label": "2025",
+   "cell_text": "24,162",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 24162000000,
+   "confidence": 0.95,
+   "notes": "Unit (000,000) not stated with the table; taken from elsewhere in the filing."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0070",
+   "row_label": "Operating Income",
+   "column_label": "2024",
+   "cell_text": "19,049",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 19049000000,
+   "confidence": 0.95,
+   "notes": "Unit (000,000) not stated with the table; taken from elsewhere in the filing."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0070",
+   "row_label": "Operating Income",
+   "column_label": "2023",
+   "cell_text": "23,461",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 23461000000,
+   "confidence": 0.95,
+   "notes": "Unit (000,000) not stated with the table; taken from elsewhere in the filing."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0076",
+   "row_label": "Capital expenditures",
+   "column_label": "2025",
+   "cell_text": "(20,842)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 20842000000,
+   "confidence": 0.95,
+   "notes": "Unit (000,000) not stated with the table; taken from elsewhere in the filing."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0076",
+   "row_label": "Capital expenditures",
+   "column_label": "2024",
+   "cell_text": "(20,263)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 20263000000,
+   "confidence": 0.95,
+   "notes": "Unit (000,000) not stated with the table; taken from elsewhere in the filing."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0076",
+   "row_label": "Capital expenditures",
+   "column_label": "2023",
+   "cell_text": "(17,853)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 17853000000,
+   "confidence": 0.95,
+   "notes": "Unit (000,000) not stated with the table; taken from elsewhere in the filing."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "There is no total cost-of-revenues line. 'Cost of revenues' is only a heading over the Equipment and Other cost of revenues rows, so those rows are given as cost_of_revenue_part."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.1,
+  "input_tokens": 6784,
+  "output_tokens": 2530,
+  "attempts": 1,
+  "task_sha": "fe451bf866d4a639"
+ }
+}

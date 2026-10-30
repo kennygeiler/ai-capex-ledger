@@ -1,0 +1,37 @@
+{
+ "accession": "BTBT|mdna|2025-12-31|84ea934b",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 68800000,
+   "amount_high": 68800000,
+   "quote": "Our revenue from cloud services increased by $23.0 million, or 50.4%, to $68.8 million for the year ended December 31, 2025 from $45.7 million for the year ended December 31, 2024.",
+   "passage": "p04",
+   "confidence": 0.8,
+   "notes": "The sentence does not say 'AI'. Recorded as AI revenue because p01 defines 'cloud services' as cloud-based HPC GPU services for AI and ML developers that support generative AI training and inference. Prior-year $45.7 million (2024) not recorded because it is outside the reported year. The NC-1 colocation contract ($865 million over 10 years, p02) is a multi-year contracted total, not a fiscal-year figure, and is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.5,
+  "input_tokens": 5650,
+  "output_tokens": 851,
+  "attempts": 1,
+  "task_sha": "befcbe9ac549c0c3"
+ }
+}

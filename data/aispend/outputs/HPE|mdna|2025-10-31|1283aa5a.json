@@ -1,0 +1,35 @@
+{
+ "accession": "HPE|mdna|2025-10-31|1283aa5a",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "While the AI servers business is growing at a faster pace, because graphics processing units represent a large portion of the solutions, the pricing is very competitive and margins are limited.",
+   "passage": "p04",
+   "confidence": 0.5,
+   "notes": "Says the AI servers business is growing faster than traditional servers but gives no amount or share of revenue; the context is the goodwill impairment test, not a revenue disclosure, so it is weak evidence of AI revenue."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in liquidity and FCF definitions; no sentence links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 6479,
+  "output_tokens": 631,
+  "attempts": 1,
+  "task_sha": "34aa8d8bceea881f"
+ }
+}

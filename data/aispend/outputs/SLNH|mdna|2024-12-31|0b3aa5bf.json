@@ -1,0 +1,42 @@
+{
+ "accession": "SLNH|mdna|2024-12-31|0b3aa5bf",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Revenues were first recognized in December 2024, with modest growth in early 2025.",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "The sentence does not name the business, but the surrounding sentences in p03 say these revenues are Soluna Cloud's AI/HPC GPU cloud services under the HPE Agreement. No amount is stated."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We continue to develop a 2MW AI/HPC data center to be co-located with the same windfarm as Project Dorothy that will be the first construction of Soluna\u2019s proprietary Helix design that remains in the concept design phase.",
+   "passage": "p06",
+   "confidence": 0.5,
+   "notes": "Describes ongoing development of an AI/HPC data center, which implies capital spend, but the sentence does not mention expenditure explicitly. The project is still in concept design. No year is named, so the filing year applies."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies operating expenses for AI or attributes them to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.1,
+  "input_tokens": 6152,
+  "output_tokens": 1049,
+  "attempts": 1,
+  "task_sha": "e606b88f59c928c0"
+ }
+}

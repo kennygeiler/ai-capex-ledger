@@ -1,0 +1,13 @@
+{
+ "accession": "FN|earnings_release|2026-03-27|3b46f8df",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 6329,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "7ee7fb41984040a8"
+ }
+}

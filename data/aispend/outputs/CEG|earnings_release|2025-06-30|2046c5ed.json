@@ -1,0 +1,27 @@
+{
+ "accession": "CEG|earnings_release|2025-06-30|2046c5ed",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 only defines FCFbG using maintenance and nuclear fuel capex"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p02's research and experimentation deduction is a tax provision, not AI spend"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states revenue from AI or data-center demand; p02's AI executive-order mention is policy boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 6040,
+  "output_tokens": 238,
+  "attempts": 1,
+  "task_sha": "0f4c06327598dc13"
+ }
+}

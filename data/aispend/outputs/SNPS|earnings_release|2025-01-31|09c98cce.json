@@ -1,0 +1,27 @@
+{
+ "accession": "SNPS|earnings_release|2025-01-31|09c98cce",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only mention of capital expenditures (p02) is non-GAAP boilerplate and does not link capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount spend to AI; p02 mentions R&D only in non-GAAP boilerplate"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 gives total Q1 revenue ($1.455 billion) without linking it to AI; the CEO's remark that design activity is 'fueled by the AI-driven reinvention of compute' does not mention revenue or state an AI amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.3,
+  "input_tokens": 5438,
+  "output_tokens": 502,
+  "attempts": 1,
+  "task_sha": "40625b918fa97462"
+ }
+}

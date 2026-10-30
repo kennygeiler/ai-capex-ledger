@@ -1,0 +1,27 @@
+{
+ "accession": "POWL|earnings_release|2024-12-31|1790f097",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "planned manufacturing capacity upgrades are mentioned with no amount and no link to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data centers are named only as one of several markets presenting opportunities and awards; no sentence states AI or data-center revenue or its share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.3,
+  "input_tokens": 4983,
+  "output_tokens": 309,
+  "attempts": 1,
+  "task_sha": "fabc4ba0f5c0fe04"
+ }
+}

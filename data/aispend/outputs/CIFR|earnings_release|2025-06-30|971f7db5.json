@@ -1,23 +1,27 @@
 {
  "accession": "CIFR|earnings_release|2025-06-30|971f7db5",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes Cipher's capital expenditures to AI; the $85 billion CapEx quote in p03 is Alphabet's CFO describing Alphabet's spend, not Cipher's, and the Black Pearl design bullets describe data center capabilities without any spend amount or attribution"
+   "reason": "no sentence states or attributes Cipher's capital expenditures to AI; the $85 billion capex figure in p03 is a quoted statement by Alphabet's CFO about Alphabet's own capex, not Cipher's"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes Cipher's operating expenses (R&D, infrastructure costs, headcount) to AI; passages are forward-looking-statement boilerplate, non-GAAP definitions, and operational metrics for bitcoin mining"
+   "reason": "no sentence quantifies or attributes Cipher's operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI, HPC or data-center revenue figure or share for Cipher; HPC and AI mentions are forward-looking boilerplate and design descriptions only"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.1,
-  "input_tokens": 7700,
-  "output_tokens": 332,
+  "seconds": 4.5,
+  "input_tokens": 7997,
+  "output_tokens": 312,
   "attempts": 1,
-  "task_sha": "e4ff80a765a211ec"
+  "task_sha": "db32c318045214f5"
  }
 }

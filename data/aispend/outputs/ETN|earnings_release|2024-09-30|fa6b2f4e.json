@@ -1,0 +1,27 @@
+{
+ "accession": "ETN|earnings_release|2024-09-30|fa6b2f4e",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only as a quarterly line item in a cash-flow table with no link to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data center is mentioned only as a market served (boilerplate); no sentence states data-center or AI revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.9,
+  "input_tokens": 5021,
+  "output_tokens": 195,
+  "attempts": 1,
+  "task_sha": "dbd33e2b07e6f3df"
+ }
+}

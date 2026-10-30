@@ -1,23 +1,27 @@
 {
  "accession": "CSCO|earnings_release|2022-04-30|8e1782af",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the only passage is safe-harbor boilerplate, and its mention of 'levels of capital spending on Internet-based systems' refers to industry spending as a risk factor, not Cisco's capex"
+   "reason": "the only passage is safe-harbor boilerplate; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; 'strategic investments in innovation' and 'investments in sales, engineering...' are forward-looking boilerplate with no AI linkage"
+   "reason": "the only passage is safe-harbor boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the data center market is mentioned only as a competition risk factor"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.7,
-  "input_tokens": 5699,
-  "output_tokens": 249,
+  "seconds": 3.5,
+  "input_tokens": 5996,
+  "output_tokens": 210,
   "attempts": 1,
-  "task_sha": "7739ccf59003c55a"
+  "task_sha": "bc9a1ce4f007d019"
  }
 }

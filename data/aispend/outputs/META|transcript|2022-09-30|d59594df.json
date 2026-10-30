@@ -1,17 +1,17 @@
 {
  "accession": "META|transcript|2022-09-30|d59594df",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
-   "fiscal_year": 2023,
-   "kind": "outlook",
+   "fiscal_year": null,
+   "kind": "actual",
    "scope": "ai",
    "class": "qualitative",
-   "quote": "An increase in AI capacity is driving substantially all of our capital expenditure growth in 2023.",
-   "passage": "p05",
-   "confidence": 0.9,
-   "notes": "Attributes substantially all of the year-over-year capex growth (not total capex) to AI capacity; the 2023 total guide of $34-39 billion in the preceding sentence does not itself mention AI, so it is not recorded."
+   "quote": "Our current surge in capex is largely due to building out our AI infrastructure and we would expect capex to come down as a percent of revenue over the long term.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Present tense 'current surge' names no year; it refers to the reported period. 'Largely due to' attributes the capex increase to AI in words only, not a share of total capex."
   },
   {
    "field": "capex",
@@ -20,34 +20,51 @@
    "scope": "ai",
    "class": "qualitative",
    "quote": "These investments are driving substantially all of our capital expenditure growth in 2023.",
-   "passage": "p01",
-   "confidence": 0.8,
-   "notes": "'These investments' refers to expanding AI capacity in the preceding sentence; same claim as the p05 statement, so it may duplicate it. Applies to capex growth, not total capex."
+   "passage": "p02",
+   "confidence": 0.85,
+   "notes": "'These investments' refers to expanding AI capacity in the preceding sentence. 'Substantially all' applies to the growth in capex, not to total capex."
   },
   {
    "field": "capex",
-   "fiscal_year": null,
+   "fiscal_year": 2023,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 34000000000,
+   "amount_high": 39000000000,
+   "quote": "For 2023, we expect capital expenditures to be in the range of $34-39 billion, driven by our investments in data centers, servers, and network infrastructure.",
+   "passage": "p06",
+   "confidence": 0.7,
+   "notes": "This is total capex guidance, not AI spend. The sentence itself does not name AI. The next sentence attributes substantially all of the capex growth to AI capacity, so the total is recorded here to keep it from being read as the AI amount."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2023,
    "kind": "outlook",
    "scope": "ai",
    "class": "qualitative",
-   "quote": "There is some increased capital intensity that comes with moving more of our infrastructure to AI.",
-   "passage": "p01",
-   "confidence": 0.6,
-   "notes": "Present tense with no year. The sentence links higher capital intensity to AI infrastructure but states no amount. Recorded as outlook because the context is forward-looking guidance; code will apply the year after the reported year."
+   "quote": "An increase in AI capacity is driving substantially all of our capital expenditure growth in 2023.",
+   "passage": "p06",
+   "confidence": 0.9,
+   "notes": "'Substantially all' applies to the year-over-year growth in capex, not to total capex. No AI dollar amount or share of capex is stated."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the Reality Labs expense outlook is not tied to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "Meta is a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 12.8,
-  "input_tokens": 5043,
-  "output_tokens": 1513,
+  "seconds": 13.1,
+  "input_tokens": 5665,
+  "output_tokens": 1605,
   "attempts": 1,
-  "task_sha": "3e362dbc189b319e"
+  "task_sha": "4d82add6dfffb519"
  }
 }

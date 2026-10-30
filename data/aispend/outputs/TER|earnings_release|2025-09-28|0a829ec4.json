@@ -1,0 +1,57 @@
+{
+ "accession": "TER|earnings_release|2025-09-28|0a829ec4",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Growth was driven primarily by System-on-a-Chip (SOC) solutions for artificial intelligence applications and strong performance in memory.",
+   "passage": "p02",
+   "confidence": 0.85,
+   "notes": "Refers to Q3 2025 sales growth, which is driven primarily by AI-related SOC test demand. The sentence names no year. No amount for AI revenue is stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Strong AI- related demand in Compute and Memory expected to grow in Q4'25",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Headline bullet rather than a full sentence. Q4'25 outlook attributes demand to AI in words only. The Q4 revenue guidance of $920M-$1,000M is in a separate sentence that does not mention AI, so it is not recorded."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "As we look ahead to Q4, AI-related test demand remains robust across compute, networking and memory segments.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Q4 outlook describing AI-related demand qualitatively. The sentence names no year, though context indicates Q4 2025."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.9,
+  "input_tokens": 5575,
+  "output_tokens": 1278,
+  "attempts": 1,
+  "task_sha": "5b386cda81a16a05"
+ }
+}

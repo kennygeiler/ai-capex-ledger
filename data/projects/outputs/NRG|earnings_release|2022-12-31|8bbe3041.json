@@ -1,0 +1,13 @@
+{
+ "accession": "NRG|earnings_release|2022-12-31|8bbe3041",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 9229,
+  "output_tokens": 130,
+  "attempts": 1,
+  "task_sha": "e15e94771af71f60"
+ }
+}

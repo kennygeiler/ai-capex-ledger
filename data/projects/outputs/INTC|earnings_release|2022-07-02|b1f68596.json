@@ -1,0 +1,13 @@
+{
+ "accession": "INTC|earnings_release|2022-07-02|b1f68596",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.9,
+  "input_tokens": 6297,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "160ef6889f3c2c3f"
+ }
+}

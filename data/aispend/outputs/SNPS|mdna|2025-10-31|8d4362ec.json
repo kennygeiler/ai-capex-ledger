@@ -1,0 +1,27 @@
+{
+ "accession": "SNPS|mdna|2025-10-31|8d4362ec",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only passage describes the Design IP segment's products"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the mention of AI/data center markets is a product description (boilerplate); no sentence states an AI or data-center revenue figure or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.1,
+  "input_tokens": 4882,
+  "output_tokens": 205,
+  "attempts": 1,
+  "task_sha": "59f5f7c63ad1f033"
+ }
+}

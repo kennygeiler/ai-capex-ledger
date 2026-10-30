@@ -1,72 +1,68 @@
 {
  "ticker": "CSCO",
- "prompt_version": "attribution@v1",
- "model": "component_supplier@v1",
+ "prompt_version": "attribution@v2",
+ "model": "component_supplier@v3",
  "rows": [
   {
-   "field": "capex",
-   "period": "FY2022",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "Cisco's capex (477M) is small and not AI-driven per the component_supplier model; no segment capex, stated share, or statement ties it to AI. Seller-side AI signal would be Networking segment revenue, which is not in the pack.",
-   "confidence": 0.8
-  },
-  {
-   "field": "capex",
-   "period": "FY2023",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "Cisco's capex (849M) is small and not AI-driven per the component_supplier model; no segment capex, stated share, or statement ties it to AI.",
-   "confidence": 0.8
-  },
-  {
-   "field": "capex",
-   "period": "FY2024",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "Cisco's capex (670M) is small and not AI-driven per the component_supplier model; no segment capex, stated share, or statement ties it to AI.",
-   "confidence": 0.8
-  },
-  {
-   "field": "capex",
-   "period": "FY2025",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "Cisco's capex (905M) is small and not AI-driven per the component_supplier model; no segment capex, stated share, or statement ties it to AI.",
-   "confidence": 0.8
-  },
-  {
-   "field": "capex",
+   "field": "revenue",
    "period": "FY2026",
    "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "Cisco's capex (1.41B) rose but no statement or segment ties it to AI; PP&E categories (production/engineering equipment, buildings) are general and not AI-specific, so ppe_category is not used.",
-   "confidence": 0.75
+   "method": "stated_share",
+   "ai_amount": 3799500000,
+   "ai_share": 0.06,
+   "inputs": [
+    {
+     "id": "stmt:CSCO|mdna|2026-07-25|a0def52d|revenue|FY2026|actual|0",
+     "value": 0.06
+    },
+    {
+     "id": "value:CSCO|revenue|FY2026",
+     "value": 63325000000
+    }
+   ],
+   "basis": "The 10-K MD&A says AI infrastructure from hyperscaler customers was approximately 6% of total revenue; 0.06 \u00d7 63.325B = 3.80B, consistent with the release's 'approximately $4 billion'. This is hyperscaler AI infrastructure revenue (Silicon One systems and optics) only. It excludes enterprise or neocloud AI and is not the $9.3B of orders.",
+   "confidence": 0.8
   },
   {
-   "field": "opex",
+   "field": "revenue",
    "period": "FY2025",
+   "kind": "actual",
+   "method": "stated_share",
+   "ai_amount": 1133080000,
+   "ai_share": 0.02,
+   "inputs": [
+    {
+     "id": "stmt:CSCO|mdna|2026-07-25|a0def52d|revenue|FY2025|actual|1",
+     "value": 0.02
+    },
+    {
+     "id": "value:CSCO|revenue|FY2025",
+     "value": 56654000000
+    }
+   ],
+   "basis": "The FY2026 10-K says hyperscaler AI infrastructure was 'less than 2%' of FY2025 revenue; 0.02 \u00d7 56.654B = 1.13B is an upper bound, not a point estimate. The release's 'over $2 billion' FY2025 figure is AI infrastructure orders, not revenue, and is not used.",
+   "confidence": 0.5
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
    "kind": "actual",
    "method": "qualitative",
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "MD&A says R&D expenses increased partly due to 'higher headcount-related expenses reflecting our investments in AI', alongside share-based comp, acquisition cash comp and discretionary spending; no amount or share of opex is given.",
+   "basis": "The MD&A says only that 'revenue grew in both campus switching and data center switching'. That is a data-center switching remark with no AI attribution and no amount.",
+   "confidence": 0.1
+  },
+  {
+   "field": "revenue",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2026 10-K expects hyperscaler AI infrastructure demand 'to remain a significant driver of our results in fiscal 2027'. No amount is in the pack; the release's $7.5B FY2027 expectation is not a pack item.",
    "confidence": 0.3
   },
   {
@@ -77,7 +73,18 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "MD&A says R&D expenses increased partly due to 'higher headcount-related expenses reflecting our investments in AI', alongside discretionary spending and share-based comp; no amount or share of opex is given.",
+   "basis": "The MD&A attributes the R&D increase primarily to 'higher headcount-related expenses reflecting our investments in AI', among other drivers. No amount or share is given.",
+   "confidence": 0.3
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A attributes the R&D increase partly to 'higher headcount-related expenses reflecting our investments in AI'. No amount or share is given.",
    "confidence": 0.3
   }
  ],
@@ -85,60 +92,60 @@
   {
    "field": "capex",
    "period": "FY2022",
-   "reason": "no segment capex, stated AI share or amount; model treats Cisco capex as not AI"
+   "reason": "Under the thesis, Cisco capex is small and not AI; no statement ties capex to AI."
   },
   {
    "field": "capex",
    "period": "FY2023",
-   "reason": "no segment capex, stated AI share or amount; model treats Cisco capex as not AI"
+   "reason": "Under the thesis, Cisco capex is small and not AI; no statement ties capex to AI."
   },
   {
    "field": "capex",
    "period": "FY2024",
-   "reason": "no segment capex, stated AI share or amount; model treats Cisco capex as not AI"
+   "reason": "Under the thesis, Cisco capex is small and not AI; no statement ties capex to AI."
   },
   {
    "field": "capex",
    "period": "FY2025",
-   "reason": "no segment capex, stated AI share or amount; model treats Cisco capex as not AI"
+   "reason": "Under the thesis, Cisco capex is small and not AI; no statement ties capex to AI."
   },
   {
    "field": "capex",
    "period": "FY2026",
-   "reason": "no segment capex, stated AI share or amount; model treats Cisco capex as not AI"
+   "reason": "Capex rose to 1.41B but no statement ties it to AI, and the thesis says none for Cisco. Purchase commitments jumped to 17.165B at FY2026 year end, but the note does not separate AI and the thesis does not treat them as AI, so there is no committed row."
   },
   {
    "field": "opex",
    "period": "FY2022",
-   "reason": "no segment cost line and no statement attributes opex to AI"
+   "reason": "No statement attributes opex to AI."
   },
   {
    "field": "opex",
    "period": "FY2023",
-   "reason": "no segment cost line and no statement attributes opex to AI"
+   "reason": "No statement attributes opex to AI."
   },
   {
    "field": "opex",
    "period": "FY2024",
-   "reason": "no segment cost line and no statement attributes opex to AI"
+   "reason": "No statement attributes opex to AI."
   },
   {
-   "field": "opex",
-   "period": "FY2025",
-   "reason": "AI cited only qualitatively as one driver of the R&D increase; no amount or share"
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "No AI revenue statement. Networking is not an AI segment under the thesis."
   },
   {
-   "field": "opex",
-   "period": "FY2026",
-   "reason": "AI cited only qualitatively as one driver of the R&D increase; no amount or share"
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "No AI revenue statement. Networking is not an AI segment under the thesis."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 15.0,
-  "input_tokens": 7272,
-  "output_tokens": 1953,
+  "seconds": 18.6,
+  "input_tokens": 18566,
+  "output_tokens": 2480,
   "attempts": 1,
-  "task_sha": "a82400004eb744a8"
+  "task_sha": "a74983009e33820f"
  }
 }

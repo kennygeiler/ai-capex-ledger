@@ -1,0 +1,133 @@
+{
+ "accession": "0001137789-25-000157",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0008",
+   "row_label": "Revenue",
+   "column_label": "Fiscal Years Ended | June 27,2025",
+   "cell_text": "9,097",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 9097000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0008",
+   "row_label": "Revenue",
+   "column_label": "Fiscal Years Ended | June 28,2024",
+   "cell_text": "6,551",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 6551000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0008",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Years Ended | June 27,2025",
+   "cell_text": "5,897",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 5897000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0008",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Years Ended | June 28,2024",
+   "cell_text": "5,015",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 5015000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0008",
+   "row_label": "Income from operations",
+   "column_label": "Fiscal Years Ended | June 27,2025",
+   "cell_text": "1,890",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 1890000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0008",
+   "row_label": "Income from operations",
+   "column_label": "Fiscal Years Ended | June 28,2024",
+   "cell_text": "452",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 452000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0024",
+   "row_label": "Acquisition of property, equipment and leasehold improvements",
+   "column_label": "Fiscal Years Ended | June 27,2025",
+   "cell_text": "(265)",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 265000000,
+   "confidence": 1.0,
+   "notes": "Line also includes leasehold improvements; it is the single capital-expenditure line in investing activities."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0024",
+   "row_label": "Acquisition of property, equipment and leasehold improvements",
+   "column_label": "Fiscal Years Ended | June 28,2024",
+   "cell_text": "(254)",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 254000000,
+   "confidence": 1.0,
+   "notes": "Line also includes leasehold improvements; it is the single capital-expenditure line in investing activities."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0024",
+   "row_label": "Acquisition of property, equipment and leasehold improvements",
+   "column_label": "Fiscal Years Ended | June 30,2023",
+   "cell_text": "(316)",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 316000000,
+   "confidence": 1.0,
+   "notes": "Line also includes leasehold improvements; it is the single capital-expenditure line in investing activities."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "column_label": "Fiscal Years Ended | June 30,2023",
+   "reason": "Income statement table t0008 presents only fiscal 2025 and 2024; no fiscal 2023 column."
+  },
+  {
+   "field": "cost_of_revenue",
+   "column_label": "Fiscal Years Ended | June 30,2023",
+   "reason": "Income statement table t0008 presents only fiscal 2025 and 2024; no fiscal 2023 column."
+  },
+  {
+   "field": "operating_income",
+   "column_label": "Fiscal Years Ended | June 30,2023",
+   "reason": "Income statement table t0008 presents only fiscal 2025 and 2024; no fiscal 2023 column."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.6,
+  "input_tokens": 5740,
+  "output_tokens": 1537,
+  "attempts": 1,
+  "task_sha": "d0e199745a8755d7"
+ }
+}

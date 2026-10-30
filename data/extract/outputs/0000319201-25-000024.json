@@ -1,0 +1,119 @@
+{
+ "accession": "0000319201-25-000024",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0032",
+   "row_label": "Total revenues",
+   "column_label": "Year Ended June 30, | 2025",
+   "cell_text": "12,156,162",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 12156162000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0032",
+   "row_label": "Total revenues",
+   "column_label": "Year Ended June 30, | 2024",
+   "cell_text": "9,812,247",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 9812247000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0032",
+   "row_label": "Total revenues",
+   "column_label": "Year Ended June 30, | 2023",
+   "cell_text": "10,496,056",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 10496056000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0032",
+   "row_label": "Costs of revenues",
+   "column_label": "Year Ended June 30, | 2025",
+   "cell_text": "4,751,867",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 4751867000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0032",
+   "row_label": "Costs of revenues",
+   "column_label": "Year Ended June 30, | 2024",
+   "cell_text": "3,928,073",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 3928073000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0032",
+   "row_label": "Costs of revenues",
+   "column_label": "Year Ended June 30, | 2023",
+   "cell_text": "4,218,307",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 4218307000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0035",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended June 30, | 2025",
+   "cell_text": "(335,259)",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 335259000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0035",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended June 30, | 2024",
+   "cell_text": "(277,384)",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 277384000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0035",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended June 30, | 2023",
+   "cell_text": "(341,591)",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 341591000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "operating_income",
+   "reason": "The income statement (t0032) has no operating income or 'income (loss) from operations' line; it lists all costs and expenses, including interest expense and other expense (income), net, under one 'Costs and expenses' heading and goes straight to 'Income before income taxes'. Not derived by arithmetic, per rule 4."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.4,
+  "input_tokens": 7034,
+  "output_tokens": 1349,
+  "attempts": 1,
+  "task_sha": "d6fd4b811d7dee6b"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "NOW|earnings_release|2025-09-30|a1900a4c",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; 'AI-driven efficiencies' (p02) describes margin effects, not AI spend"
+  },
+  {
+   "field": "revenue",
+   "reason": "subscription revenue of $3,299 million (p01) is total revenue with no AI link stated; Now Assist being 'ahead of plan' (p02) gives no AI revenue figure or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.8,
+  "input_tokens": 5960,
+  "output_tokens": 449,
+  "attempts": 1,
+  "task_sha": "a1532d6732d70e12"
+ }
+}

@@ -1,23 +1,27 @@
 {
  "accession": "WMT|mdna|2024-01-31|f3c37477",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the only mention (p01) concerns funding capital expenditures from cash flows and borrowings"
+   "reason": "the only passage mentions capital expenditures as a funding need but does not link them to AI or state an amount"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer (retailer); no sentence states AI's or data-center part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.8,
-  "input_tokens": 4520,
-  "output_tokens": 168,
+  "seconds": 5.1,
+  "input_tokens": 4819,
+  "output_tokens": 183,
   "attempts": 1,
-  "task_sha": "ef6cdbb619490991"
+  "task_sha": "df8c997deadd9c1d"
  }
 }

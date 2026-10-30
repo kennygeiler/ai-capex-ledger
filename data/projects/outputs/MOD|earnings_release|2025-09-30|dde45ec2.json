@@ -1,0 +1,98 @@
+{
+ "accession": "MOD|earnings_release|2025-09-30|dde45ec2",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Grenada, MS chiller production facility",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Grenada, MS",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Launched chiller production in Grenada, MS, plan to launch on remaining lines by the end of FY26",
+   "passage": "p09",
+   "confidence": 0.75
+  },
+  {
+   "name": "Franklin, WI data center products production facility",
+   "kind": "plant",
+   "status": "announced",
+   "location": "Franklin, WI",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Plan to launch production in Franklin, WI in Q3 FY26 and Jefferson City, MO in Q4 FY26",
+   "passage": "p09",
+   "confidence": 0.7
+  },
+  {
+   "name": "Jefferson City, MO data center products production facility",
+   "kind": "plant",
+   "status": "announced",
+   "location": "Jefferson City, MO",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Plan to launch production in Franklin, WI in Q3 FY26 and Jefferson City, MO in Q4 FY26",
+   "passage": "p09",
+   "confidence": 0.7
+  },
+  {
+   "name": "Grand Prairie, TX chiller and modular data center site",
+   "kind": "plant",
+   "status": "contracted",
+   "location": "Grand Prairie, TX",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Secured site in Grand Prairie, TX to support chillers and modular data centers",
+   "passage": "p09",
+   "confidence": 0.6
+  },
+  {
+   "name": "India chiller production",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "India",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Launched chiller production in India and further expanding chiller capacity in the UK",
+   "passage": "p09",
+   "confidence": 0.6
+  },
+  {
+   "name": "UK chiller capacity expansion",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "UK",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Launched chiller production in India and further expanding chiller capacity in the UK",
+   "passage": "p09",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.3,
+  "input_tokens": 10089,
+  "output_tokens": 1520,
+  "attempts": 1,
+  "task_sha": "a641064830846cbc"
+ }
+}

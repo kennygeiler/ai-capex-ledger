@@ -1,0 +1,27 @@
+{
+ "accession": "JCI|earnings_release|2024-06-30|2cee9fa8",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; p01 is a company description and p02 is boilerplate about Bosch"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes JCI operating expenses to AI; p02's R&D headcount figures describe Bosch, not JCI, and are boilerplate about AI expertise"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; p01 only lists data centers among industries served (boilerplate)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 5170,
+  "output_tokens": 251,
+  "attempts": 1,
+  "task_sha": "e181b5de29f0bb5a"
+ }
+}

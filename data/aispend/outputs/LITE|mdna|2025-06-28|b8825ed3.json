@@ -1,0 +1,46 @@
+{
+ "accession": "LITE|mdna|2025-06-28|b8825ed3",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase in Cloud & Networking net revenue is primarily due to higher unit sales from cloud and AI/ML customers, which increased by $193.2 million, in part due to a full year of revenue from Cloud Light, which we acquired in the second quarter of fiscal year 2024.",
+   "passage": "p05",
+   "confidence": 0.7,
+   "notes": "The $193.2 million is the year-over-year increase in sales to cloud and AI/ML customers combined, not a level of AI revenue, and it also includes cloud. It is recorded as qualitative so the increase is not read as AI revenue. No year is named for the period, so fiscal_year is null (the reported year is fiscal 2025)."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "However, during fiscal year 2025, network equipment manufacturers continued to normalize inventory levels and we saw increasing demand from AI and cloud customers as they continue to expand their data centers.",
+   "passage": "p04",
+   "confidence": 0.8,
+   "notes": "Names AI and cloud customer demand as a revenue driver but states no figure or share."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p08 mentions capex only generically for business growth and manufacturing capabilities"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.7,
+  "input_tokens": 7266,
+  "output_tokens": 1157,
+  "attempts": 1,
+  "task_sha": "1b4ee7fd11c74e42"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "IRM|mdna|2022-12-31|f1400b2b",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the 2023 total capex outlook of approximately $1,000.0 million (p13) gives no AI or data-center driver, and p09's data-center capital investment language is a general business description"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share; p11 only says, in a bullet fragment rather than a complete sentence, that the Global Data Center Business segment contributed to organic storage rental revenue growth, and the filing does not mention AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.6,
+  "input_tokens": 10125,
+  "output_tokens": 709,
+  "attempts": 1,
+  "task_sha": "6c80fb1918eca75a"
+ }
+}

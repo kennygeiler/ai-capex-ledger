@@ -1,0 +1,112 @@
+{
+ "accession": "WULF|mdna|2025-12-31|f3ddc0f6",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Cayuga Site",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Lansing, New York",
+   "counterparty": null,
+   "capacity_mw": 400,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Upon completion of permitting and site development, the Cayuga Site has the potential for up to 400 MW of gross capacity, supporting approximately 320 MW of critical IT load.",
+   "passage": "p01",
+   "confidence": 0.8
+  },
+  {
+   "name": "Abernathy HPC Campus",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Fluidstack",
+   "capacity_mw": 168,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The Abernathy HPC Campus is designed for 168 MW of critical IT load, representing the full build-out of the site.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Lake Mariner Data Campus",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 18,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025-07",
+   "quote": "In July 2025, the Company commenced its HPC leasing operations and as of December 31, 2025 had energized 18 critical IT MW of HPC leasing capacity at the Lake Mariner Data Campus.",
+   "passage": "p10",
+   "confidence": 0.85
+  },
+  {
+   "name": "New York Power Authority power arrangement for Lake Mariner Data Campus",
+   "kind": "power",
+   "status": "contracted",
+   "location": "NYISO Zone A",
+   "counterparty": "New York Power Authority",
+   "capacity_mw": 90,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Power for the Lake Mariner Data Campus is sourced from the NYISO Zone A grid, with 90 MW allocated under a long-term arrangement with the New York Power Authority.",
+   "passage": "p04",
+   "confidence": 0.75
+  },
+  {
+   "name": "Morgantown generating station",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Charles County, Maryland",
+   "counterparty": null,
+   "capacity_mw": 210,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The Morgantown Purchase Agreement was signed in late 2025 and contemplates the acquisition of the Morgantown generating station, a grid-connected power generation facility with approximately 210 MW of current operational capacity, including electrical infrastructure, associated real property, contracts and other assets (\u201cMorgantown\u201d).",
+   "passage": "p08",
+   "confidence": 0.85
+  },
+  {
+   "name": "La Lupa",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": "Fluidstack",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "For the year ended December 31, 2025, the Company leveraged its strategic transition toward HPC leasing and execution of long-term lease agreements with Fluidstack, which benefit from substantial credit support provided by Google, to enable efficient financing and funding of the phased development of the La Lupa and Akela facilities.",
+   "passage": "p17",
+   "confidence": 0.7
+  },
+  {
+   "name": "Akela",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": "Fluidstack",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "For the year ended December 31, 2025, the Company leveraged its strategic transition toward HPC leasing and execution of long-term lease agreements with Fluidstack, which benefit from substantial credit support provided by Google, to enable efficient financing and funding of the phased development of the La Lupa and Akela facilities.",
+   "passage": "p17",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.6,
+  "input_tokens": 8419,
+  "output_tokens": 2360,
+  "attempts": 1,
+  "task_sha": "307f3e4036b84549"
+ }
+}

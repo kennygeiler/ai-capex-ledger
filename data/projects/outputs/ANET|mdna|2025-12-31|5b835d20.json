@@ -1,0 +1,30 @@
+{
+ "accession": "ANET|mdna|2025-12-31|5b835d20",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Santa Clara, California office, lab and data center building",
+   "kind": "other",
+   "status": "under_construction",
+   "location": "Santa Clara, California",
+   "counterparty": null,
+   "amount_low": 170000000,
+   "amount_high": 195000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2021",
+   "in_service": "2026",
+   "quote": "The estimated capital expenditures related to this project is expected to be approximately $170.0 million to $195.0 million through the end of fiscal 2026 when construction is expected to be completed.",
+   "passage": "p03",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.8,
+  "input_tokens": 4596,
+  "output_tokens": 523,
+  "attempts": 1,
+  "task_sha": "99a4b9425252e9b5"
+ }
+}

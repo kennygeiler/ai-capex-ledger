@@ -1,0 +1,27 @@
+{
+ "accession": "CRM|earnings_release|2023-10-31|de28edd3",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; p02 is forward-looking-statement risk boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; data center expense mention in p02 is risk-factor boilerplate"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 gives total revenue of $8.7 billion but does not tie it to AI or state AI's part; 'number one AI CRM' is a positioning claim, not a revenue statement"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 6114,
+  "output_tokens": 244,
+  "attempts": 1,
+  "task_sha": "f9bbc3b3b64957ae"
+ }
+}

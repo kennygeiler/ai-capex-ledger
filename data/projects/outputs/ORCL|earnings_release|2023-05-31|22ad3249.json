@@ -1,0 +1,28 @@
+{
+ "accession": "ORCL|earnings_release|2023-05-31|22ad3249",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "NVIDIA GPU cluster in Oracle Gen2 Cloud",
+   "kind": "gpu_cluster",
+   "status": "in_service",
+   "location": null,
+   "counterparty": "NVIDIA",
+   "capacity_mw": null,
+   "gpus": 4000,
+   "announced": null,
+   "in_service": null,
+   "quote": "NVIDIA themselves are using our clusters, including one with more than 4,000 GPUs, for their AI infrastructure.",
+   "passage": "p01",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.6,
+  "input_tokens": 5015,
+  "output_tokens": 779,
+  "attempts": 1,
+  "task_sha": "35177586d54aaba3"
+ }
+}

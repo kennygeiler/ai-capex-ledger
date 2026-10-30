@@ -1,0 +1,27 @@
+{
+ "accession": "SNOW|earnings_release|2022-04-30|fb0a4936",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "passage is a cash flow statement table; purchases of property and equipment are given but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; passage contains only cash flow figures"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.6,
+  "input_tokens": 5291,
+  "output_tokens": 194,
+  "attempts": 1,
+  "task_sha": "3eff4ccd6c6763ec"
+ }
+}

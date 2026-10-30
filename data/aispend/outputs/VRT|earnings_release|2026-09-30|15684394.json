@@ -1,0 +1,27 @@
+{
+ "accession": "VRT|earnings_release|2026-09-30|15684394",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capex sentence (p02: full-year 2026 capex anticipated at approximately 4.0% of revenue) gives total capex as a share of revenue and attributes it to 'increasing demand across its pipelines', not to AI; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a seller of data center infrastructure, but no sentence states data-center or AI revenue as an amount or share; p01 cites organic orders growth (not revenue) and describes the data center buildout in general terms"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.3,
+  "input_tokens": 5110,
+  "output_tokens": 557,
+  "attempts": 1,
+  "task_sha": "70ba71b74a5ea9fc"
+ }
+}

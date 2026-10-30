@@ -1,23 +1,27 @@
 {
  "accession": "CIFR|mdna|2022-12-31|f4965266",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; capex discussed (e.g., majority directed to bitcoin mining machines, Odessa Facility buildout) relates to bitcoin mining, not AI"
+   "reason": "capital expenditures are directed to bitcoin mining machines and Odessa Facility infrastructure; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; the MD&A does not mention AI"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a bitcoin miner whose 'data centers' are bitcoin mining facilities; no sentence states AI or AI data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.9,
-  "input_tokens": 7648,
-  "output_tokens": 191,
+  "seconds": 4.3,
+  "input_tokens": 7951,
+  "output_tokens": 269,
   "attempts": 1,
-  "task_sha": "c4d6259873bf460f"
+  "task_sha": "ea9a97072897ab44"
  }
 }

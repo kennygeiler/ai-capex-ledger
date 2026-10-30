@@ -1,6 +1,6 @@
 {
  "accession": "0001563190-23-000038",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -12,6 +12,42 @@
    "period_end": "2022-12-31",
    "months": 0,
    "value": 192300000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office furniture and equipment",
+   "table_id": "t0049",
+   "row_label": "Office furniture and equipment",
+   "column_label": "December 31, | 2022",
+   "cell_text": "37.1",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 37100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer software and internally-developed software",
+   "table_id": "t0049",
+   "row_label": "Computer software and internally-developed software",
+   "column_label": "December 31, | 2022",
+   "cell_text": "37.9",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 37900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment",
+   "table_id": "t0049",
+   "row_label": "Computer equipment",
+   "column_label": "December 31, | 2022",
+   "cell_text": "32.3",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 32300000,
    "confidence": 1.0
   },
   {
@@ -31,18 +67,6 @@
    "dimension": "Office furniture and equipment",
    "table_id": "t0049",
    "row_label": "Office furniture and equipment",
-   "column_label": "December 31, | 2022",
-   "cell_text": "37.1",
-   "period_end": "2022-12-31",
-   "months": 0,
-   "value": 37100000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Office furniture and equipment",
-   "table_id": "t0049",
-   "row_label": "Office furniture and equipment",
    "column_label": "December 31, | 2021",
    "cell_text": "31.9",
    "period_end": "2021-12-31",
@@ -55,35 +79,11 @@
    "dimension": "Computer software and internally-developed software",
    "table_id": "t0049",
    "row_label": "Computer software and internally-developed software",
-   "column_label": "December 31, | 2022",
-   "cell_text": "37.9",
-   "period_end": "2022-12-31",
-   "months": 0,
-   "value": 37900000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Computer software and internally-developed software",
-   "table_id": "t0049",
-   "row_label": "Computer software and internally-developed software",
    "column_label": "December 31, | 2021",
    "cell_text": "28.1",
    "period_end": "2021-12-31",
    "months": 0,
    "value": 28100000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Computer equipment",
-   "table_id": "t0049",
-   "row_label": "Computer equipment",
-   "column_label": "December 31, | 2022",
-   "cell_text": "32.3",
-   "period_end": "2022-12-31",
-   "months": 0,
-   "value": 32300000,
    "confidence": 1.0
   },
   {
@@ -108,30 +108,29 @@
    "period_end": "2022-12-31",
    "months": 0,
    "value": 74600000,
-   "confidence": 0.9
+   "confidence": 0.95
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "No segment table with capital expenditures is given; table t0009 is the consolidated statement of operations, consistent with a single reportable segment."
+   "reason": "Compass reports a single segment; table t0009 is the consolidated statement of operations with no per-segment capital expenditures"
   },
   {
    "field": "segment_revenue",
-   "reason": "Table t0009 reports only consolidated revenue (6,018.0 / 6,421.0 / 3,720.8). No per-segment or per-market revenue breakdown is shown."
+   "reason": "only consolidated revenue is reported (t0009); no per-segment or per-market revenue breakdown is given"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No lease note table is provided, and the commitments table t0030 lists only operating lease obligations. No finance lease liability can be cited."
+   "reason": "no lease note table with finance lease liabilities is provided; the obligations table lists only operating lease obligations"
   }
  ],
- "notes": "purchase_commitments: t0030 has no as-of date in its columns. The period_end of 2022-12-31 is inferred from the filing's report period, so confidence is 0.9. The unlabeled row in t0049 (299.6 / 242.4) is the gross total and was skipped.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.9,
-  "input_tokens": 6034,
-  "output_tokens": 1633,
+  "seconds": 10.7,
+  "input_tokens": 6154,
+  "output_tokens": 1449,
   "attempts": 1,
-  "task_sha": "36532c44e5b1ced3"
+  "task_sha": "0010a24171dd31c2"
  }
 }

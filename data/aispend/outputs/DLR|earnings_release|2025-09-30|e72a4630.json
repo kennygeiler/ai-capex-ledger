@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|earnings_release|2025-09-30|e72a4630",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; capex mentions are only in non-GAAP definitions (p06, p11) and forward-looking boilerplate (p12); land acquisitions (p01) are not tied to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue; '9% Y/Y Growth in Data Center Revenue' (p08) is a slide fragment giving a growth rate of the company's entire data-center leasing revenue, not an AI or data-center revenue amount or share; AI mentions (p02, p10) are business descriptions and initiatives"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.6,
+  "input_tokens": 15309,
+  "output_tokens": 538,
+  "attempts": 1,
+  "task_sha": "912d748b515766c1"
+ }
+}

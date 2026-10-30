@@ -1,0 +1,72 @@
+{
+ "accession": "GLXY|earnings_release|2026-06-30|39568656",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 80000000,
+   "amount_high": 80000000,
+   "quote": "With the full 133 MW now delivered, due to contracted payments, Galaxy expects Phase I to generate quarterly leasing revenue of approximately $80 million and expected quarterly project-level Adjusted EBITDA margin of over 90% beginning in Q3 2026.",
+   "passage": "p04",
+   "confidence": 0.8,
+   "notes": "Quarterly run-rate of data-center leasing revenue (CoreWeave AI tenant) beginning Q3 2026, not a full-year figure; same sentence also appears in p02. Data-center leasing revenue treated as seller-side data-center revenue."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1000000000,
+   "amount_high": 1000000000,
+   "quote": "CoreWeave has leased 526 MW of critical IT capacity, generating anticipated average annual revenue of over $1B for the combined three phases at 90%+ average lease- level adjusted EBITDA margins across the 15-year base contract term.",
+   "passage": "p18",
+   "confidence": 0.6,
+   "notes": "\"Over $1B\" recorded as a floor of $1B. Average annual revenue over the 15-year lease once all three phases are operational, not tied to a single fiscal year."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 448000000,
+   "amount_high": 448000000,
+   "quote": "Data Centers Quarterly Capital Expenditure $448M $354M",
+   "passage": "p05",
+   "confidence": 0.5,
+   "notes": "KPI table row, not a full sentence. $448M is Q2 2026 and $354M is Q1 2026; this records Q2 only. Segment capex is for data centers built for AI/HPC tenants, but the row does not say AI. Slide p18 also lists an estimated $4.0B Phase II construction cost and a $1.8B Phase I construction cost as table fragments, not sentences."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 354000000,
+   "amount_high": 354000000,
+   "quote": "Data Centers Quarterly Capital Expenditure $448M $354M",
+   "passage": "p05",
+   "confidence": 0.5,
+   "notes": "Same KPI table row; this records the Q1 2026 figure. Same caveats as the Q2 statement: a table row, segment capex not explicitly labeled AI, and a quarterly figure."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 23.4,
+  "input_tokens": 20647,
+  "output_tokens": 2829,
+  "attempts": 1,
+  "task_sha": "3ed709c4d138f703"
+ }
+}

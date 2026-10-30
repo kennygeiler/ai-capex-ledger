@@ -1,6 +1,6 @@
 {
  "accession": "0001563190-25-000050",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -108,30 +108,29 @@
    "period_end": "2024-12-31",
    "months": 0,
    "value": 70200000,
-   "confidence": 0.9
+   "confidence": 0.95
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "Compass reports a single segment; table t0009 is the consolidated statement of operations with no per-segment capital expenditures"
+   "reason": "Compass reports a single segment; no per-segment capital expenditures are given in the tables"
   },
   {
    "field": "segment_revenue",
-   "reason": "only consolidated revenue is presented (t0009 'Revenue' row is the total); no segment or market breakdown in the tables provided"
+   "reason": "table t0009 is the consolidated statement of operations with total revenue only; no revenue by segment, market or product line is reported"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no lease note table or finance lease liability line is provided; the commitments table lists operating lease obligations only"
+   "reason": "no finance lease liabilities appear in the tables; the commitments table lists operating lease obligations only"
   }
  ],
- "notes": "purchase_commitments: the commitments table has no date in its columns; period_end taken as the filing's report period (2024-12-31), hence confidence 0.9. Only the 2024 year-end is available for purchase obligations.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 10.8,
-  "input_tokens": 6020,
-  "output_tokens": 1470,
+  "seconds": 12.3,
+  "input_tokens": 6146,
+  "output_tokens": 1447,
   "attempts": 1,
-  "task_sha": "742b0051c20246aa"
+  "task_sha": "b77bdb03b239642d"
  }
 }

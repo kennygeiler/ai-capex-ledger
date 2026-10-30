@@ -1,0 +1,100 @@
+{
+ "ticker": "CIEN",
+ "prompt_version": "attribution@v2",
+ "model": "component_supplier@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Ciena ties FY2025 demand to AI only in words: 'unprecedented increases in demand, in particular as a result of expenditures related to AI and other cloud-based applications' (MD&A), RLS records 'driven by hyperscaler AI infrastructure buildouts' and WL6e ramps 'driven by AI network buildouts'. The stated 'Direct Cloud Provider revenue ... 40% of total revenue' (Q3 FY2025) is a customer group, not an AI line, so it is not used as a stated share. Networking Platforms segment revenue (3,676,377,000) is the seller-side signal but is not a data-center or AI line.",
+   "confidence": 0.3
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A says that, to capture opportunities created by the impact of AI on networks, Ciena continued to develop its WaveLogic coherent modem technology, including for use inside and around the data center. No amount or share of operating expense is attributed to AI.",
+   "confidence": 0.2
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A says that in fiscal 2024 Ciena continued to develop WaveLogic coherent modem technology to capture market opportunities created by the impact of AI on networks. No amount or share of operating expense is attributed to AI.",
+   "confidence": 0.2
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "Under the thesis, Ciena's capex is not AI. No expansion is stated as being for AI demand with an amount."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "Under the thesis, Ciena's capex is not AI. No expansion is stated as being for AI demand with an amount."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "Under the thesis, Ciena's capex is not AI. No expansion is stated as being for AI demand with an amount."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "Under the thesis, Ciena's capex is not AI. No expansion is stated as being for AI demand with an amount. The finance lease covers a building and is not stated as AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "No statement in the pack links FY2022 operating expense to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "No statement in the pack links FY2023 operating expense to AI."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "No statement in the pack links FY2022 revenue to AI, and Ciena has no AI or data-center segment."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "No statement in the pack links FY2023 revenue to AI, and Ciena has no AI or data-center segment."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "No statement in the pack links FY2024 revenue to AI, and Ciena has no AI or data-center segment."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "reason": "FY2026 has no revenue value in the pack because the year was not yet reported. The FY2026 statements are qualitative ('AI-driven Cloud expansion'), quarterly totals, or a cloud-provider customer share of 53%, which is a customer mix and not an AI line."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.8,
+  "input_tokens": 18629,
+  "output_tokens": 1886,
+  "attempts": 1,
+  "task_sha": "6059d104a6ab9ec7"
+ }
+}

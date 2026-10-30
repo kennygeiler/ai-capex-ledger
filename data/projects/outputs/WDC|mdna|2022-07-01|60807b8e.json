@@ -1,0 +1,28 @@
+{
+ "accession": "WDC|mdna|2022-07-01|60807b8e",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Y7 wafer fabrication facility",
+   "kind": "fab",
+   "status": "under_construction",
+   "location": "Yokkaichi, Japan",
+   "counterparty": "Flash Ventures",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2022-01",
+   "in_service": null,
+   "quote": "In January 2022, we entered into additional agreements regarding Flash Ventures\u2019 investment in a new wafer fabrication facility currently under construction in Yokkaichi, Japan, referred to as \u201cY7\u201d.",
+   "passage": "p03",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.5,
+  "input_tokens": 11723,
+  "output_tokens": 990,
+  "attempts": 2,
+  "task_sha": "eb07e114a6b8d972"
+ }
+}

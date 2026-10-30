@@ -1,0 +1,155 @@
+{
+ "accession": "0001571996-25-000034",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0028",
+   "row_label": "Total net revenue",
+   "column_label": "Fiscal Year Ended | January 31, 2025",
+   "cell_text": "95,567",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 95567000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0028",
+   "row_label": "Total net revenue",
+   "column_label": "Fiscal Year Ended | February 2, 2024",
+   "cell_text": "88,425",
+   "period_end": "2024-02-02",
+   "months": 12,
+   "value": 88425000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0028",
+   "row_label": "Total net revenue",
+   "column_label": "Fiscal Year Ended | February 3, 2023",
+   "cell_text": "102,301",
+   "period_end": "2023-02-03",
+   "months": 12,
+   "value": 102301000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0028",
+   "row_label": "Total cost of net revenue",
+   "column_label": "Fiscal Year Ended | January 31, 2025",
+   "cell_text": "74,317",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 74317000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0028",
+   "row_label": "Total cost of net revenue",
+   "column_label": "Fiscal Year Ended | February 2, 2024",
+   "cell_text": "67,356",
+   "period_end": "2024-02-02",
+   "months": 12,
+   "value": 67356000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0028",
+   "row_label": "Total cost of net revenue",
+   "column_label": "Fiscal Year Ended | February 3, 2023",
+   "cell_text": "79,615",
+   "period_end": "2023-02-03",
+   "months": 12,
+   "value": 79615000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0028",
+   "row_label": "Operating income",
+   "column_label": "Fiscal Year Ended | January 31, 2025",
+   "cell_text": "6,237",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 6237000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0028",
+   "row_label": "Operating income",
+   "column_label": "Fiscal Year Ended | February 2, 2024",
+   "cell_text": "5,411",
+   "period_end": "2024-02-02",
+   "months": 12,
+   "value": 5411000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0028",
+   "row_label": "Operating income",
+   "column_label": "Fiscal Year Ended | February 3, 2023",
+   "cell_text": "5,771",
+   "period_end": "2023-02-03",
+   "months": 12,
+   "value": 5771000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0030",
+   "row_label": "Capital expenditures and capitalized software development costs",
+   "column_label": "Fiscal Year Ended | January 31, 2025",
+   "cell_text": "(2,652)",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 2652000000,
+   "confidence": 0.9,
+   "notes": "Only capex line in investing section; it also includes capitalized software development costs (intangible assets), used as a single line per instructions."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0030",
+   "row_label": "Capital expenditures and capitalized software development costs",
+   "column_label": "Fiscal Year Ended | February 2, 2024",
+   "cell_text": "(2,756)",
+   "period_end": "2024-02-02",
+   "months": 12,
+   "value": 2756000000,
+   "confidence": 0.9,
+   "notes": "Only capex line in investing section; it also includes capitalized software development costs (intangible assets), used as a single line per instructions."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0030",
+   "row_label": "Capital expenditures and capitalized software development costs",
+   "column_label": "Fiscal Year Ended | February 3, 2023",
+   "cell_text": "(3,003)",
+   "period_end": "2023-02-03",
+   "months": 12,
+   "value": 3003000000,
+   "confidence": 0.9,
+   "notes": "Only capex line in investing section; it also includes capitalized software development costs (intangible assets), used as a single line per instructions."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the statement has a total line 'Total cost of net revenue'."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.7,
+  "input_tokens": 6154,
+  "output_tokens": 1797,
+  "attempts": 1,
+  "task_sha": "5a017a00e3c7661f"
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "accession": "CLS|earnings_release|2025-12-31|fee01ee8",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 17000000000,
+   "amount_high": 17000000000,
+   "quote": "As demand for AI-related data center technologies continues to strengthen, we now expect revenue of $17.0 billion and adjusted EPS (non-GAAP)* of $8.75 for 2026.",
+   "passage": "p01",
+   "confidence": 1.0,
+   "notes": "Total 2026 revenue outlook with AI-related data center demand cited as the driver; not the AI part of revenue."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 1000000000,
+   "amount_high": 1000000000,
+   "quote": "We now anticipate our 2026 capital expenditures will be approximately $1 billion, or approximately 6% of our latest annual revenue outlook.",
+   "passage": "p06",
+   "confidence": 0.7,
+   "notes": "Total 2026 capex outlook. The sentence itself does not name AI; the AI and data center link comes from adjacent passages (p02 'long-term AI infrastructure investments', p03 capacity for 'next-generation AI infrastructure', p05 'data center customers'). The 6% is capex as a share of revenue outlook, not an AI share. The same $1 billion figure appears in p02 ('this year') and is not recorded again."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, headcount) to AI; the R&D mention in p09 is forward-looking boilerplate"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data center revenue as a figure or share for fiscal 2025 or 2026; only total revenue outlook driven by AI demand is given"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.2,
+  "input_tokens": 7572,
+  "output_tokens": 1725,
+  "attempts": 1,
+  "task_sha": "a8df636b482711fd"
+ }
+}

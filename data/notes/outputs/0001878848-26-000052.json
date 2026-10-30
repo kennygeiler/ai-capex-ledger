@@ -1,6 +1,6 @@
 {
  "accession": "0001878848-26-000052",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -132,8 +132,7 @@
    "period_end": "2026-06-30",
    "months": 0,
    "value": 301848000,
-   "confidence": 0.8,
-   "notes": "Finance-lease ROU assets are presented as a gross line within property and equipment, gross; included as a category but they are leased rather than owned assets. 2025 cell is '\u2014' and omitted."
+   "confidence": 0.8
   },
   {
    "field": "ppe_category",
@@ -265,26 +264,26 @@
    "period_end": "2026-06-30",
    "months": 0,
    "value": 243796000,
-   "confidence": 0.95,
-   "notes": "Row is labeled 'Total lease liabilities' but it sums only 'Finance leases - Current' (125,340) and 'Finance leases - Non current' (118,456). It ties to 'Present value of finance lease liabilities' in t0097. The June 30, 2025 cell is '\u2014' (no finance leases)."
+   "confidence": 0.9
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "The segment note (t0044) reports revenue, cost of revenue and gross profit by segment only. No capital expenditures by segment are disclosed."
+   "reason": "the segment note (t0044) reports revenue, cost of revenue and gross profit by segment only; no capital expenditures by segment are disclosed"
   },
   {
    "field": "purchase_commitments",
-   "reason": "No contractual-obligations or commitments table with purchase obligations is among the provided tables."
+   "reason": "no contractual-obligations or commitments table with total purchase obligations is among the tables provided"
   }
  ],
+ "notes": "Segment revenue taken from the segment note t0044 (three years) rather than the income statement t0011. Right-of-use assets - Finance lease is included as a gross PP&E category because the filing presents it within property and equipment, gross (confidence 0.8); its June 30, 2025 cell is '\u2014' and is omitted. The finance lease liability is cited from 'Total lease liabilities' in t0092 because all lease liabilities in that table are finance leases (125,340 current + 118,456 non-current = 243,796, matching 'Present value of finance lease liabilities' in t0097). The June 30, 2025 finance lease liability is '\u2014' and is omitted.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 23.1,
-  "input_tokens": 8809,
-  "output_tokens": 3575,
+  "seconds": 23.5,
+  "input_tokens": 8935,
+  "output_tokens": 3551,
   "attempts": 1,
-  "task_sha": "c4c4c0c816309519"
+  "task_sha": "22ef5474a6d41636"
  }
 }

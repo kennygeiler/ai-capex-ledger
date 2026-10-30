@@ -1,0 +1,35 @@
+{
+ "accession": "COHR|earnings_release|2021-12-31|75853b19",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The strong demand for transceivers in hyperscale datacenters and AI superclusters continues unabated.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "This links transceiver sales to datacenter and AI demand in words only. The sentence that follows says 200G/400G/800G transceivers are 'about a third of our datacom transceiver business'. That is a share of one product line, not of total revenue, and the sentence does not call it AI or data-center revenue, so it was not recorded as explicit_share. The sentence names no year, so code uses the reported fiscal year (2022)."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.2,
+  "input_tokens": 5956,
+  "output_tokens": 783,
+  "attempts": 1,
+  "task_sha": "40f9db824e06a424"
+ }
+}

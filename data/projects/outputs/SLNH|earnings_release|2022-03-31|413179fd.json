@@ -1,0 +1,56 @@
+{
+ "accession": "SLNH|earnings_release|2022-03-31|413179fd",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Sophie",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Sophie\u2019s long-term power contract reduced electricity costs ~37% from March to April.",
+   "passage": "p04",
+   "confidence": 0.6
+  },
+  {
+   "name": "Edith",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Corporate expenses within SG&A at Edith were re-classified in 2021.",
+   "passage": "p03",
+   "confidence": 0.5
+  },
+  {
+   "name": "Marie",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Marie excludes pass-through revenue and expenses from LegacyHosting customers.",
+   "passage": "p06",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.2,
+  "input_tokens": 8406,
+  "output_tokens": 836,
+  "attempts": 1,
+  "task_sha": "4e900350804dc2ef"
+ }
+}

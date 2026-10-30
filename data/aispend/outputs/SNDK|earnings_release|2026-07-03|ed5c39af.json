@@ -1,0 +1,50 @@
+{
+ "accession": "SNDK|earnings_release|2026-07-03|ed5c39af",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 2977000000,
+   "amount_high": 2977000000,
+   "quote": "Datacenter $4,802 $2,977 up 61% $269 *",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Table row, not a prose sentence. This is quarterly Datacenter segment revenue for Q4 fiscal 2026 ($ in millions), not a full-year figure. The full-year fiscal 2026 data-center revenue is not stated. Task metadata says the period ended 2026-07-03, but the release's tables report Q1 fiscal 2027 (ended 2026-10-02) as the current quarter."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 4802000000,
+   "amount_high": 4802000000,
+   "quote": "Datacenter $4,802 $2,977 up 61% $269 *",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Table row, not a prose sentence. This is quarterly Datacenter segment revenue for Q1 fiscal 2027 (three months ended 2026-10-02, $ in millions), not a full-year figure. The release appears to be the Q1 FY2027 release despite the task metadata."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only purchases of property, plant and equipment ($54M and $43M per quarter) appear in the cash-flow tables, and no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies operating expenses or attributes them to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.7,
+  "input_tokens": 6379,
+  "output_tokens": 1212,
+  "attempts": 1,
+  "task_sha": "14382607314c2ac8"
+ }
+}

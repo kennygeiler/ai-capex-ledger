@@ -1,0 +1,44 @@
+{
+ "accession": "HUT|earnings_release|2025-12-31|93d84fa8",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 202300000,
+   "amount_high": 202300000,
+   "quote": "Generated $202.3 million in full-year revenue from ASIC Compute, primarily through the Company\u2019s majority-owned subsidiary, American - Bitcoin Corp. (\u201cAmerican Bitcoin\u201d); AI Cloud through the Company\u2019s wholly owned Highrise AI subsidiary; and Traditional Cloud solutions delivered under the Hut 8 Canada brand.",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "The $202.3M figure covers ASIC Compute, AI Cloud and Traditional Cloud together, so it is total revenue. The AI Cloud part is not stated separately. The wording is ambiguous about whether the $202.3M belongs only to ASIC Compute."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Launched a partnership with Anthropic and Fluidstack to accelerate the - deployment of hyperscale AI infrastructure in the United States, under which Hut 8 will develop and deliver at least 245 MW and up to 2,295 MW of AI data center infrastructure.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "This is a commitment to build AI data center capacity, stated in MW with no dollar amount. It implies AI capex but does not state it as spend. No year is named."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.2,
+  "input_tokens": 5796,
+  "output_tokens": 1012,
+  "attempts": 1,
+  "task_sha": "a09bfac25b9790ef"
+ }
+}

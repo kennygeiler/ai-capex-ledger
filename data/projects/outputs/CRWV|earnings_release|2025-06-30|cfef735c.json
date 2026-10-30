@@ -1,0 +1,60 @@
+{
+ "accession": "CRWV|earnings_release|2025-06-30|cfef735c",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "OpenAI $4 billion expansion deal",
+   "kind": "cloud_commitment",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "OpenAI",
+   "amount_low": 4000000000,
+   "amount_high": 4000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "$4 billion expansion deal with OpenAI, in addition to previously announced $11.9 billion deal",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "OpenAI $11.9 billion deal",
+   "kind": "cloud_commitment",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "OpenAI",
+   "amount_low": 11900000000,
+   "amount_high": 11900000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "$4 billion expansion deal with OpenAI, in addition to previously announced $11.9 billion deal",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "Kenilworth, NJ data center campus",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Kenilworth, NJ",
+   "counterparty": null,
+   "capacity_mw": 250,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "Developing, as part of a joint venture, a new data center campus in Kenilworth, NJ, with capacity of up to 250MW.",
+   "passage": "p03",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.3,
+  "input_tokens": 5053,
+  "output_tokens": 1063,
+  "attempts": 1,
+  "task_sha": "825f0ce2c018153f"
+ }
+}

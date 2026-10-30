@@ -1,0 +1,35 @@
+{
+ "accession": "WDC|earnings_release|2026-01-02|995de2f8",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect strong revenue growth and improved profitability driven by continued data center demand and by the adoption of our high-capacity drives.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Total revenue growth attributed partly to data center demand; no AI or data-center revenue figure is stated. The following sentence's $3.2 billion Q3 FY26 revenue guidance is not linked to AI or data center, so it is not recorded. The p01 CEO quote ties 'strong performance' to AI-driven demand but does not refer specifically to revenue, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p03 only defines free cash flow"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p03 is non-GAAP guidance boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.7,
+  "input_tokens": 5600,
+  "output_tokens": 934,
+  "attempts": 1,
+  "task_sha": "e832a6296fcd2db6"
+ }
+}

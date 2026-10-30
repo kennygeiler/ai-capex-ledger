@@ -1,0 +1,27 @@
+{
+ "accession": "IRM|earnings_release|2023-03-31|fe025375",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; recurring capital expenditures ($27.7 million in Q1 2023) appear only in the AFFO reconciliation with no AI or data-center attribution, and 'our ability to fund capital expenditures' is forward-looking-statement boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI or data-center revenue figure or share; 'data center growth' is cited only as one contributor to 11% organic storage rental revenue growth, and the 52 megawatts of leases signed is capacity, not revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.1,
+  "input_tokens": 11533,
+  "output_tokens": 730,
+  "attempts": 1,
+  "task_sha": "1a9975907373d93d"
+ }
+}

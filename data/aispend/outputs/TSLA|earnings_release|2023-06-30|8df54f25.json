@@ -1,6 +1,6 @@
 {
  "accession": "TSLA|earnings_release|2023-06-30|8df54f25",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "opex",
@@ -11,21 +11,25 @@
    "quote": "YoY, operating income was primarily impacted by the following items: - reduced ASP due to mix and pricing - cost of production ramp of 4680 cells and other related charges - increase in Operating expenses driven by Cybertruck, AI and other large projects - negative FX impact + growth in vehicle deliveries (despite margin headwind from underutilization of new factories) + lower cost per vehicle, which includes lower raw material costs and IRA credit + gross profit growth in Energy business as well as Services & Other",
    "passage": "p02",
    "confidence": 0.8,
-   "notes": "Relevant clause is the bullet 'increase in Operating expenses driven by Cybertruck, AI and other large projects'. The bulleted list has no closing period, so the quote runs to the end of the list. It names AI as one of several drivers of the YoY increase in total operating expenses. It quantifies no AI portion. It refers to Q2 2023 versus Q2 2022, not the full fiscal year. The sentence names no year, so fiscal_year is null."
+   "notes": "The quote is a bulleted list with no closing period, so it was taken up to the next sentence ('Other income...'). It covers the Q2 2023 YoY increase in operating expenses, and AI is one of several named drivers. No amount is stated. No year is named in the sentence, so the filing year (2023) applies."
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the start of Dojo training computer production and the free cash flow definitions state no capex attributed to AI"
+   "reason": "no sentence links capital expenditures to AI; the Dojo production start is described without any spend figure or capex attribution"
+  },
+  {
+   "field": "revenue",
+   "reason": "Tesla is not an AI/data-center seller here; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.4,
-  "input_tokens": 7664,
-  "output_tokens": 1282,
+  "seconds": 12.0,
+  "input_tokens": 7963,
+  "output_tokens": 1101,
   "attempts": 1,
-  "task_sha": "d3ff056d76d15254"
+  "task_sha": "a0cf666666ec3fe7"
  }
 }

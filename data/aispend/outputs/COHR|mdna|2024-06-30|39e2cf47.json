@@ -1,0 +1,53 @@
+{
+ "accession": "COHR|mdna|2024-06-30|39e2cf47",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The IR&D expenses are primarily related to our continued investment in new products and platform technologies in an effort to accelerate our organic growth across all of our businesses, including significant investments in datacom transceivers for AI, indium phosphide and gallium arsenide semiconductor lasers, silicon carbide materials, and lasers for display processing, semiconductor capital equipment, and instrumentation.",
+   "passage": "p04",
+   "confidence": 0.8,
+   "notes": "AI transceivers are named as one of several significant IR&D investment areas; no AI amount or share is stated. The sentence names no year, but the passage context is fiscal 2024 IR&D."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In addition, revenues decreased $20 million, or 1%, in the communications market, primarily due to decreased volumes in the telecom vertical as our communications service provider customers continued to work down their inventory levels with reduced capital spending, partially offset by increased shipments in the datacom vertical driven by increased AI-related datacom shipments.",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "The $20 million figure is a decrease in total communications revenue, not AI revenue. AI-related datacom shipments are described only qualitatively as a partial offset."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The decrease in revenues of $45 million during fiscal 2024 was primarily due to decreased volumes year-over-year in the telecom vertical as our communications service provider customers continue to work down their inventory levels with reduced capital spending, partially offset by increases in the datacom vertical driven by increased AI-related datacom transceivers shipments, both within the communications market.",
+   "passage": "p05",
+   "confidence": 0.8,
+   "notes": "The $45 million is the Networking segment's total revenue decrease. The AI-related datacom transceiver increase is stated only qualitatively."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 mentions capital expenditures only in forward-looking-statement boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.2,
+  "input_tokens": 5846,
+  "output_tokens": 1217,
+  "attempts": 1,
+  "task_sha": "a6f452515cbdafd1"
+ }
+}

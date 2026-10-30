@@ -1,0 +1,268 @@
+{
+ "accession": "0001101302-26-000012",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Materials Solutions",
+   "table_id": "t0022",
+   "row_label": "Net sales",
+   "column_label": "2025",
+   "cell_text": "1,406.7",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 1406700000,
+   "confidence": 0.7
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Materials Solutions",
+   "table_id": "t0022",
+   "row_label": "Net sales",
+   "column_label": "2024",
+   "cell_text": "1,400.1",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 1400100000,
+   "confidence": 0.7
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Materials Solutions",
+   "table_id": "t0022",
+   "row_label": "Net sales",
+   "column_label": "2023",
+   "cell_text": "1,689.5",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 1689500000,
+   "confidence": 0.7
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Advanced Purity Solutions",
+   "table_id": "t0022",
+   "row_label": "Net sales",
+   "column_label": "2025",
+   "cell_text": "1,799.1",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 1799100000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Advanced Purity Solutions",
+   "table_id": "t0022",
+   "row_label": "Net sales",
+   "column_label": "2024",
+   "cell_text": "1,850.2",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 1850200000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Advanced Purity Solutions",
+   "table_id": "t0022",
+   "row_label": "Net sales",
+   "column_label": "2023",
+   "cell_text": "1,846.6",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 1846600000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0051",
+   "row_label": "Land",
+   "column_label": "2025",
+   "cell_text": "79.9",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 79900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0051",
+   "row_label": "Land",
+   "column_label": "2024",
+   "cell_text": "47.2",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 47200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0051",
+   "row_label": "Buildings and improvements",
+   "column_label": "2025",
+   "cell_text": "1,041.0",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 1041000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0051",
+   "row_label": "Buildings and improvements",
+   "column_label": "2024",
+   "cell_text": "849.8",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 849800000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Manufacturing equipment",
+   "table_id": "t0051",
+   "row_label": "Manufacturing equipment",
+   "column_label": "2025",
+   "cell_text": "877.5",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 877500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Manufacturing equipment",
+   "table_id": "t0051",
+   "row_label": "Manufacturing equipment",
+   "column_label": "2024",
+   "cell_text": "799.6",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 799600000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Canisters and cylinders",
+   "table_id": "t0051",
+   "row_label": "Canisters and cylinders",
+   "column_label": "2025",
+   "cell_text": "218.5",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 218500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Canisters and cylinders",
+   "table_id": "t0051",
+   "row_label": "Canisters and cylinders",
+   "column_label": "2024",
+   "cell_text": "204.0",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 204000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Molds",
+   "table_id": "t0051",
+   "row_label": "Molds",
+   "column_label": "2025",
+   "cell_text": "90.4",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 90400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Molds",
+   "table_id": "t0051",
+   "row_label": "Molds",
+   "column_label": "2024",
+   "cell_text": "85.4",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 85400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office furniture and lab equipment",
+   "table_id": "t0051",
+   "row_label": "Office furniture and lab equipment",
+   "column_label": "2025",
+   "cell_text": "372.1",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 372100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office furniture and lab equipment",
+   "table_id": "t0051",
+   "row_label": "Office furniture and lab equipment",
+   "column_label": "2024",
+   "cell_text": "338.2",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 338200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0051",
+   "row_label": "Construction in progress",
+   "column_label": "2025",
+   "cell_text": "175.9",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 175900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0051",
+   "row_label": "Construction in progress",
+   "column_label": "2024",
+   "cell_text": "356.1",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 356100000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment note reports net sales, cost of sales, operating expenses and segment profit only; no capital expenditures by segment"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "t0067 gives only a short-term (2.0 / 1.9) and a long-term (17.0 / 18.4) finance lease line with no total finance lease liabilities line; current/non-current dimensions are not accepted for this field and cells may not be added"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "t0027 lists 'Capital purchase obligations' (60.0) and 'Supply purchase obligations' (150.5) as separate lines with no total purchase obligations line; cells may not be added"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 57.7,
+  "input_tokens": 20617,
+  "output_tokens": 8172,
+  "attempts": 2,
+  "task_sha": "58d3307b5020724b"
+ }
+}

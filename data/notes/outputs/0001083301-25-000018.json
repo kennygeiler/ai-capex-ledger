@@ -1,6 +1,6 @@
 {
  "accession": "0001083301-25-000018",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -132,7 +132,7 @@
    "period_end": "2024-12-31",
    "months": 0,
    "value": 53913000,
-   "confidence": 0.85
+   "confidence": 0.8
   },
   {
    "field": "ppe_category",
@@ -144,34 +144,33 @@
    "period_end": "2023-12-31",
    "months": 0,
    "value": 36469000,
-   "confidence": 0.85
+   "confidence": 0.8
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "no segment note table was provided; only property-and-equipment and balance-sheet tables are present"
+   "reason": "no segment note table is provided; no per-segment capital expenditures are reported in the tables"
   },
   {
    "field": "segment_revenue",
-   "reason": "no segment note or revenue-by-market table was provided"
+   "reason": "no segment note table is provided; no per-segment or per-market revenue is reported in the tables"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no total finance lease liabilities cell exists; t0019 shows only components \u2014 'Current portion of finance lease liability' 2 and 'Finance lease liability, net of current portion' 292 at December 31, 2024 (sum $294 thousand), and '\u2014' for both at December 31, 2023 \u2014 so no single cell can be cited for the total"
+   "reason": "the tables show only 'Current portion of finance lease liability' (2) and 'Finance lease liability, net of current portion' (292) at December 31, 2024, with no total finance lease liabilities line; the schema accepts no dimension for this field, so the current and non-current cells cannot be cited separately, and adding them is not allowed"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or commitments table was provided"
+   "reason": "no contractual-obligations or commitments table is provided"
   }
  ],
- "notes": "Deposits on miners is included as a gross PP&E category because the six category rows sum exactly to the unlabeled gross total (477,941 for 2024; 240,268 for 2023); confidence 0.85 because a deposit is an advance payment rather than a placed-in-service asset class. Table t0019 is the balance sheet, not a lease note.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 15.6,
-  "input_tokens": 5657,
-  "output_tokens": 2084,
-  "attempts": 1,
-  "task_sha": "df783ccfb55ea6ff"
+  "seconds": 32.1,
+  "input_tokens": 11611,
+  "output_tokens": 4365,
+  "attempts": 2,
+  "task_sha": "5f7ad9bf63613f9d"
  }
 }

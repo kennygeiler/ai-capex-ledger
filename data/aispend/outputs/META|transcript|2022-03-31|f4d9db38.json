@@ -1,23 +1,27 @@
 {
  "accession": "META|transcript|2022-03-31|f4d9db38",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only capex sentence (p01) gives total 2022 capital expenditures of $29-34 billion but does not link any of it to AI"
+   "reason": "the only capex sentence (p01) gives the total 2022 outlook of $29-34 billion but does not link it to AI, so it is not recorded even as scope total"
   },
   {
    "field": "opex",
    "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.2,
-  "input_tokens": 4448,
-  "output_tokens": 206,
+  "seconds": 5.2,
+  "input_tokens": 4753,
+  "output_tokens": 314,
   "attempts": 1,
-  "task_sha": "97da9b127d8d6e48"
+  "task_sha": "33045524a85cd357"
  }
 }

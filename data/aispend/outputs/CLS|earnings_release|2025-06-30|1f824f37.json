@@ -1,0 +1,27 @@
+{
+ "accession": "CLS|earnings_release|2025-06-30|1f824f37",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "p01 mentions hyperscaler customers' capital expenditures only as a forward-looking-statement assumption about customer demand, not Celestica's own capex; p02 defines free cash flow and gives no capex amount or AI link"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 lists anticipated CCS revenue growth and AI commercialization as boilerplate forward-looking assumptions; no sentence states an AI or data-center revenue amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 5374,
+  "output_tokens": 266,
+  "attempts": 1,
+  "task_sha": "e59c4d502bc47587"
+ }
+}

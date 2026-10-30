@@ -1,0 +1,155 @@
+{
+ "accession": "0001628280-23-005248",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0021",
+   "row_label": "Net sales",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "5,691.5",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 5691500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0021",
+   "row_label": "Net sales",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "4,998.1",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 4998100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0021",
+   "row_label": "Net sales",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "4,370.6",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 4370600000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0021",
+   "row_label": "Cost of sales",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "4,075.4",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 4075400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0021",
+   "row_label": "Cost of sales",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "3,475.4",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 3475400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0021",
+   "row_label": "Cost of sales",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "2,896.9",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 2896900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0021",
+   "row_label": "Operating profit (loss)",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "223.4",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 223400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0021",
+   "row_label": "Operating profit (loss)",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "259.9",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 259900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0021",
+   "row_label": "Operating profit (loss)",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "213.5",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 213500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0024",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "(100.0)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 100000000,
+   "confidence": 1.0,
+   "notes": "Separate 'Investments in capitalized software' line not added, per rule against combining lines."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0024",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "(73.4)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 73400000,
+   "confidence": 1.0,
+   "notes": "Separate 'Investments in capitalized software' line not added, per rule against combining lines."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0024",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "(44.4)",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 44400000,
+   "confidence": 1.0,
+   "notes": "Separate 'Investments in capitalized software' line not added, per rule against combining lines."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the statement has a total 'Cost of sales' line."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.8,
+  "input_tokens": 7166,
+  "output_tokens": 1473,
+  "attempts": 1,
+  "task_sha": "7e7208b96f3651c8"
+ }
+}

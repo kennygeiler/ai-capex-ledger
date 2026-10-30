@@ -1,0 +1,13 @@
+{
+ "accession": "VRT|earnings_release|2023-03-31|3bcfef97",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 5740,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "fb0dfca65f0d2515"
+ }
+}

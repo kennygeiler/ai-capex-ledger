@@ -1,0 +1,46 @@
+{
+ "accession": "SMCI|mdna|2023-06-30|963da760",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The year-over-year increase in net sales of server and storage systems was primarily due to the strong demands from such customers for GPU, high performance computing (\u201cHPC\u201d), and rack-scale solutions which are generally more complex and of higher value, resulting in an increase of average selling prices.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Attributes server and storage systems revenue growth to large enterprise and datacenter customers' demand for GPU, HPC and rack-scale solutions. AI is not named, and no AI or data-center revenue figure or share is stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This is due to increased demand from datacenter customers in the United States for GPU, high performance computing (\u201cHPC\u201d), and rack-scale solutions.",
+   "passage": "p04",
+   "confidence": 0.55,
+   "notes": "Attributes US regional revenue growth to datacenter demand for GPU, HPC and rack-scale solutions. It is a qualitative driver only, AI is not named, and it covers the US region rather than total revenue."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "FY2024 capex outlook ($105.0M\u2013$115.0M) is tied to manufacturing capabilities, IT and facilities, including Malaysia land; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.7,
+  "input_tokens": 6121,
+  "output_tokens": 1097,
+  "attempts": 1,
+  "task_sha": "ecfa726ca13b65fb"
+ }
+}

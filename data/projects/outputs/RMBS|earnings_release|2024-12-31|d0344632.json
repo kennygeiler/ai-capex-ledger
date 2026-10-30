@@ -1,0 +1,13 @@
+{
+ "accession": "RMBS|earnings_release|2024-12-31|d0344632",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 1.7,
+  "input_tokens": 4708,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "c1848543aea65f66"
+ }
+}

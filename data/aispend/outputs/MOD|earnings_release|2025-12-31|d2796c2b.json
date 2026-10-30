@@ -1,0 +1,83 @@
+{
+ "accession": "MOD|earnings_release|2025-12-31|d2796c2b",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2028,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 2000000000,
+   "amount_high": 2000000000,
+   "quote": "Given the strong demand for our products, coupled with our ability to successfully execute on our planned capacity expansion, we are also raising our multi-year outlook for Data Center sales to 50 to 70 percent annual growth for the next two years, putting us solidly ahead of our $2 billion revenue target for fiscal year 2028.",
+   "passage": "p04",
+   "confidence": 0.8,
+   "notes": "$2 billion is the Data Center revenue target; company expects to be 'solidly ahead' of it, so it is a floor, not a point estimate. Also guides 50-70% annual Data Center sales growth for the next two years (a growth rate, not an amount or share)."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "This confidence is anchored in the exceptional growth of our Data Centers business, where we now expect revenue to increase by more than 70 percent year-over-year.",
+   "passage": "p04",
+   "confidence": 0.8,
+   "notes": "Data Center revenue growth of more than 70% expected for the current year (fiscal 2026 per context); a growth rate, not a share of revenue or an amount, so qualitative. The sentence names no year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Data center sales increased 78 percent from the prior year, and HVAC Technologies sales increased 48 percent, including $42.8 million of incremental sales from acquired businesses.",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "Third-quarter Data Center sales growth rate; no data center sales amount or share of revenue stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Sales growth was driven by higher sales in the Climate Solutions segment, driven by strong demand from data center customers and sales from acquired businesses.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Total net sales growth (Q3 net sales of $805.0 million) attributed in part to data center demand."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This decrease was due to an increase in working capital, primarily related to higher inventory balances and higher capital expenditures to support growth in Data Centers.",
+   "passage": "p04",
+   "confidence": 0.6,
+   "notes": "Capex is for manufacturing capacity for Modine's Data Center (cooling) product line, which serves data-center demand, not AI compute capex. Covers the nine months ended December 31, 2025. Total capex figures (YTD $101M; FY26 outlook $150M-$180M, p08) are not linked to data centers in their own sentences."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "SG&A lower 220 bps; dollar increase driven by CS acquisitions and data center growth investment, partially offset by PT cost savings initiatives",
+   "passage": "p07",
+   "confidence": 0.5,
+   "notes": "Bullet fragment, not a full sentence. Q3 SG&A ($89.3M) increase attributed in part to investment in data center product growth, not AI spend as such."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 25.4,
+  "input_tokens": 8536,
+  "output_tokens": 2939,
+  "attempts": 1,
+  "task_sha": "6f335992f12c84d2"
+ }
+}

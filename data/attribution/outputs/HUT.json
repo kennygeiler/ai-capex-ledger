@@ -1,0 +1,168 @@
+{
+ "ticker": "HUT",
+ "prompt_version": "attribution@v2",
+ "model": "miner_to_hpc@v3",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "ppe_category",
+   "ai_amount": 3249000,
+   "ai_share": 0.016,
+   "inputs": [
+    {
+     "id": "fact:HUT|ppe_category|AI GPUs|FY2025",
+     "value": 42573000
+    },
+    {
+     "id": "fact:HUT|ppe_category|AI GPUs|FY2024",
+     "value": 39324000
+    }
+   ],
+   "basis": "Growth in gross AI GPUs PP&E: 42,573,000 \u2212 39,324,000 = 3,249,000, against 202,928,000 of purchases of property and equipment. It excludes River Bend construction, which may sit in construction in progress or land; neither category is AI-specific, and the pack does not split them. It also excludes Data center infrastructure (Traditional Cloud), mining categories and the 162.7m of deposits for future sites.",
+   "confidence": 0.6
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Hut 8 says it will develop at least 245 MW and up to 2,295 MW of AI data center infrastructure under the Anthropic/Fluidstack partnership, built with Jacobs and Vertiv at $9-11m per MW. No total capex is stated. 245 MW \u00d7 $9-11m (about $2.2-2.7bn) is a reader's calculation, not an amount.",
+   "confidence": 0.3
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "stated_amount",
+   "ai_amount": 1000000,
+   "ai_share": null,
+   "inputs": [
+    {
+     "id": "stmt:HUT|mdna|2025-12-31|b43d1ead|opex|FY2024|actual|4",
+     "value": 1000000
+    }
+   ],
+   "basis": "MD&A: a $1.0m increase in cost of revenue for the AI Cloud offering, which launched in September 2024. With no prior-year cost, this is the FY2024 AI Cloud cost. GPU depreciation is excluded. The pack has no FY2024 opex value, so there is no share.",
+   "confidence": 0.5
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "MD&A: AI Cloud costs rose $2.2m on a full year of activity, and depreciation of AI GPUs rose $6.6m. Together with the FY2024 $1.0m this implies about $3.2m of AI Cloud cost of revenue plus GPU depreciation. That is a reader's calculation; no FY2025 amount is stated.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "stated_amount",
+   "ai_amount": 1800000,
+   "ai_share": 0.011,
+   "inputs": [
+    {
+     "id": "stmt:HUT|mdna|2025-12-31|b43d1ead|revenue|FY2024|actual|1",
+     "value": 1800000
+    }
+   ],
+   "basis": "MD&A: a $1.8m contribution from the AI Cloud (GPU-as-a-Service, Highrise AI) offering launched in September 2024, against 162,385,000 of total revenue. It excludes Traditional/Data Center Cloud, which is legacy Canadian colocation and not AI, and the quarterly 'HPC \u2013 Colocation and Cloud' figures that mix the two. The Compute segment mixes mining and AI cloud and is not used.",
+   "confidence": 0.6
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "MD&A: AI Cloud revenue rose $7.4m on a full year of sales. 1.8m + 7.4m \u2248 9.2m is a reader's calculation, not a stated amount. AI Cloud sits inside the Compute segment (202.3m), which also holds ASIC mining and has no split.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "A Q1 2024 release expected revenue to begin in the second half of the year at a forecast annual rate of about $20m. This is a run-rate, not a fiscal-year figure.",
+   "confidence": 0.2
+  },
+  {
+   "field": "revenue",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "A Q1 2026 release cites a $16.8bn contracted revenue base from triple-net leases for 597 MW across two hyperscale AI campuses, including the River Bend Fluidstack lease. This is total contract value over the lease terms, not revenue in any year.",
+   "confidence": 0.2
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no AI segment, PP&E category or statement; the AI Cloud business did not exist before September 2024"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no AI segment, PP&E category or statement; the AI Cloud business did not exist before September 2024"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "the AI GPUs category first appears at FY2024 year end (39,324,000 gross) with no FY2023 balance in the pack, so ppe_category growth cannot be computed. The GPUs may have been financed through the finance lease (ROU rose 1.4m to 26.4m), which is not stated as AI. No segment capex and no stated amount."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no AI cost line or statement; AI Cloud launched September 2024"
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "no AI cost line or statement; AI Cloud launched September 2024"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "Compute (mining) and Digital Infrastructure (miner managed services/hosting) only; no AI revenue line"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "Compute, Digital Infrastructure, Power and Other only; Traditional Cloud is not AI; AI Cloud launched September 2024"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "reason": "Q2 2026 colocation revenue ($1.3m consolidated, plus $27.0m in King Mountain JV equity earnings) is quarterly only; FY2026 is not a year in the pack's values"
+  },
+  {
+   "field": "capex",
+   "reason": "no committed row: the finance lease liability (23.7m at FY2024) and River Bend obligations are not stated as AI purchase commitments in the pack"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 39.5,
+  "input_tokens": 22178,
+  "output_tokens": 5009,
+  "attempts": 1,
+  "task_sha": "0a8213a67af8c6d1"
+ }
+}

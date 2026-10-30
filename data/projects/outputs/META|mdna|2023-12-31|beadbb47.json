@@ -1,0 +1,13 @@
+{
+ "accession": "META|mdna|2023-12-31|beadbb47",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.5,
+  "input_tokens": 4492,
+  "output_tokens": 47,
+  "attempts": 1,
+  "task_sha": "c8b1f2e65de1968f"
+ }
+}

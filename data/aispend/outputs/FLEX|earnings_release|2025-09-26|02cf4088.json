@@ -1,0 +1,35 @@
+{
+ "accession": "FLEX|earnings_release|2025-09-26|02cf4088",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Raising full-year net sales, adjusted operating margin and adjusted EPS guidance due to strong data center demand in our Power and Cloud businesses and continued disciplined execution.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "The raised total net sales guidance is attributed to data center demand, but no figure or share is given here. 'Full-year' refers to the current fiscal year (fiscal 2026), but the sentence names no year, so fiscal_year is null."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 5129,
+  "output_tokens": 574,
+  "attempts": 1,
+  "task_sha": "ed6f09749847b38f"
+ }
+}

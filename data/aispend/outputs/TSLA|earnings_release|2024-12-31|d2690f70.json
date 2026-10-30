@@ -1,6 +1,6 @@
 {
  "accession": "TSLA|earnings_release|2024-12-31|d2690f70",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -11,27 +11,32 @@
    "quote": "In 2024, we made significant investments in infrastructure that will spur the next wave of growth for the company, including vehicle manufacturing capabilities for new models, AI training compute and energy storage manufacturing capacity.",
    "passage": "p01",
    "confidence": 0.8,
-   "notes": "'Investments in infrastructure' read as capital expenditures; AI training compute is named as one of several components, with no amount or share stated."
+   "notes": "The text says 'investments in infrastructure', not 'capital expenditures'. It treats AI training compute as one of several drivers and gives no amount or share."
   },
   {
    "field": "opex",
-   "fiscal_year": null,
+   "fiscal_year": 2024,
    "kind": "actual",
    "scope": "total",
    "class": "qualitative",
-   "quote": "YoY, operating income was primarily impacted by the following items: - reduced S3XY vehicle ASP - increase in operating expenses driven by AI and other R&D projects + growth in Energy Generation and Storage and Services and Other gross profit + lower cost per vehicle, including lower raw material costs partially offset by lower fixed cost absorption from production decrease YoY + higher regulatory credit revenue Cash Quarter-end cash, cash equivalents and investments in Q4 was $36.6B.",
+   "quote": "YoY, operating income was primarily impacted by the following items: - reduced S3XY vehicle ASP - increase in operating expenses driven by AI and other R&D projects + growth in Energy Generation and Storage and Services and Other gross profit + lower cost per vehicle, including lower raw material costs partially offset by lower fixed cost absorption from production decrease YoY + higher regulatory credit revenue",
    "passage": "p02",
    "confidence": 0.8,
-   "notes": "The sentence names no year. Code uses the filing's reported year (2024) for this actual. The bullet list runs into the next heading with no sentence break, so the quote is the full span up to the next period. The relevant clause is 'increase in operating expenses driven by AI and other R&D projects'. It is a Q4 year-over-year comparison, not a full-year figure, and no amount or share is stated."
+   "notes": "This is a Q4 2024 year-over-year comparison. The increase in operating expenses is attributed to AI together with other R&D projects, with no amount. The source is a bullet list without sentence punctuation, so the quote stops before the 'Cash' heading."
   }
  ],
- "none_found": [],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "Tesla is a buyer of AI compute; no sentence states AI or data-center revenue or its share of revenue"
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 16.6,
-  "input_tokens": 7864,
-  "output_tokens": 1511,
+  "seconds": 34.9,
+  "input_tokens": 8163,
+  "output_tokens": 1207,
   "attempts": 1,
-  "task_sha": "bcbd286ee970570f"
+  "task_sha": "bb4fec6a30d1802a"
  }
 }

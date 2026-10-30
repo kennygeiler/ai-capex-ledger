@@ -1,23 +1,35 @@
 {
  "accession": "WULF|earnings_release|2024-09-30|c7422e2b",
- "prompt_version": "aispend@v3",
- "statements": [],
- "none_found": [
+ "prompt_version": "aispend@v4",
+ "statements": [
   {
    "field": "capex",
-   "reason": "No sentence links capital expenditures to AI. The capex mentions in p05 and p06 refer to HPC hosting facilities (CB-1, CB-2) and electrical expansion at Lake Mariner and do not mention AI. The p05 slide heading 'Growth in Bitcoin mining and HPC/AI is funded' says growth is funded but states no capital expenditure and no AI amount or share, so recording it would require inference."
-  },
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "On the WULF Compute front, TeraWulf is actively expanding its HPC hosting infrastructure at Lake Mariner.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Investment in HPC hosting infrastructure (GPU-oriented data center capacity) is treated as AI-related capex. The sentence states no amount and does not use the words 'capital expenditures', so this is an inference from 'expanding ... infrastructure'. The CB-1 and CB-2 capex in p05 and p06 is described only as 'fully funded' or 'estimated remaining capex', with no amount in a complete sentence."
+  }
+ ],
+ "none_found": [
   {
    "field": "opex",
-   "reason": "No sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI. Cost of revenue is attributed to bitcoin network difficulty and the halving."
+   "reason": "no sentence quantifies or attributes operating expenses to AI or HPC"
+  },
+  {
+   "field": "revenue",
+   "reason": "reported revenue comes from Bitcoin self-mining; the revenue-per-MW figures in p07 are illustrative business-model ranges, not reported or guided company AI revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 8.3,
-  "input_tokens": 8215,
-  "output_tokens": 884,
+  "seconds": 9.7,
+  "input_tokens": 9180,
+  "output_tokens": 1091,
   "attempts": 1,
-  "task_sha": "a47a1d6ca767d066"
+  "task_sha": "f382b6a1d38b6d86"
  }
 }

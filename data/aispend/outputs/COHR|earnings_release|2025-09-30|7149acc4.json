@@ -1,0 +1,46 @@
+{
+ "accession": "COHR|earnings_release|2025-09-30|7149acc4",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Revenue growth of 19% year- over-year in the September quarter on a pro forma basis was driven by strong demand from AI-relateddatacenters and communications.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Attributes total revenue growth (Q1 FY2026, the September quarter) to AI-related datacenter and communications demand. It states no AI or data-center revenue amount. The 19% is a growth rate, not a share of revenue. The p02 table gives a combined 'Datacenter & Communications' segment figure of $1,090.0M, but it is a table row rather than a sentence and includes communications, so it was not recorded as data-center revenue. The same sentence appears in p03 without the year-over-year and pro forma wording."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect continued strong growth throughout this fiscal year based on increasing datacenter and communications demand along with our continued production capacity expansion.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "The sentence says 'this fiscal year', which is fiscal 2026 per the release header. It does not mention AI explicitly; the link to AI comes from the preceding sentence about AI-related datacenters. It gives no amount."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; 'continued production capacity expansion' gives no spend figure and no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.7,
+  "input_tokens": 5853,
+  "output_tokens": 1518,
+  "attempts": 1,
+  "task_sha": "e0608889d612253d"
+ }
+}

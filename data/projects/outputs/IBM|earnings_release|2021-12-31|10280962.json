@@ -1,0 +1,13 @@
+{
+ "accession": "IBM|earnings_release|2021-12-31|10280962",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.2,
+  "input_tokens": 5134,
+  "output_tokens": 49,
+  "attempts": 1,
+  "task_sha": "0e8dbedd6ad411c6"
+ }
+}

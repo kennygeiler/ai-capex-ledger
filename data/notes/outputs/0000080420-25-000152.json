@@ -1,0 +1,152 @@
+{
+ "accession": "0000080420-25-000152",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0027",
+   "row_label": "Land",
+   "column_label": "September 30, | 2025",
+   "cell_text": "24,436",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 24436000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0027",
+   "row_label": "Land",
+   "column_label": "September 30, | 2024",
+   "cell_text": "24,110",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 24110000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0027",
+   "row_label": "Buildings and improvements",
+   "column_label": "September 30, | 2025",
+   "cell_text": "133,455",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 133455000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0027",
+   "row_label": "Buildings and improvements",
+   "column_label": "September 30, | 2024",
+   "cell_text": "127,094",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 127094000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0027",
+   "row_label": "Machinery and equipment",
+   "column_label": "September 30, | 2025",
+   "cell_text": "99,840",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 99840000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0027",
+   "row_label": "Machinery and equipment",
+   "column_label": "September 30, | 2024",
+   "cell_text": "94,889",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 94889000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0027",
+   "row_label": "Furniture and fixtures",
+   "column_label": "September 30, | 2025",
+   "cell_text": "3,056",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 3056000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0027",
+   "row_label": "Furniture and fixtures",
+   "column_label": "September 30, | 2024",
+   "cell_text": "2,885",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 2885000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in process",
+   "table_id": "t0027",
+   "row_label": "Construction in process",
+   "column_label": "September 30, | 2025",
+   "cell_text": "2,110",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 2110000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in process",
+   "table_id": "t0027",
+   "row_label": "Construction in process",
+   "column_label": "September 30, | 2024",
+   "cell_text": "3,317",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 3317000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the company reports a single reportable segment; the segment note gives revenue, expenses and net income only, with no per-segment capital expenditures"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "single reportable segment; the only revenue line in the segment note is the consolidated total, and no revenue by market or product line is given in the tables provided"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table was provided"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no commitments or contractual-obligations table was provided"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.1,
+  "input_tokens": 5077,
+  "output_tokens": 1643,
+  "attempts": 1,
+  "task_sha": "90de161ea6aba832"
+ }
+}

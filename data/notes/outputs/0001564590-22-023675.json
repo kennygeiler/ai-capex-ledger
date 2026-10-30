@@ -1,6 +1,6 @@
 {
  "accession": "0001564590-22-023675",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -12,7 +12,7 @@
    "period_end": "2022-05-31",
    "months": 12,
    "value": 36052000000,
-   "confidence": 0.85
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -24,7 +24,7 @@
    "period_end": "2021-05-31",
    "months": 12,
    "value": 34101000000,
-   "confidence": 0.85
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -36,7 +36,7 @@
    "period_end": "2020-05-31",
    "months": 12,
    "value": 32523000000,
-   "confidence": 0.85
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -238,20 +238,20 @@
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no lease note table with finance lease liabilities was provided"
+   "reason": "no lease note table was provided among the tables"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or commitments table was provided"
+   "reason": "no contractual-obligations or commitments table was provided among the tables"
   }
  ],
- "notes": "segment_revenue taken from the segment note t0286. The parsed table has no header row for the first segment; the rows before 'Hardware:' are assigned to Cloud and license because their 2022 value (36,052) matches 'Cloud and license' in t0155 and t0166. The Hardware and Services rows are both labelled 'Revenues', so each citation is told apart by the segment header above it ('Hardware:' / 'Services:') and by its cell value. Geographic revenue rows (Americas/EMEA/Asia Pacific) are not reportable segments and were excluded.",
+ "notes": "Segment revenue taken from the segment note t0286 (segments: cloud and license, hardware, services). Its first block has no visible section header; it is identified as Cloud and license because 36,052 matches the 'Cloud and license' row in t0155, hence confidence 0.8. Hardware and Services both use the row label 'Revenues' and are told apart by their section headers ('Hardware:', 'Services:'), hence confidence 0.9. Geographic revenue (Americas/EMEA/Asia Pacific) is not a segment and was not extracted.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 23.5,
-  "input_tokens": 7478,
-  "output_tokens": 3275,
+  "seconds": 22.5,
+  "input_tokens": 7604,
+  "output_tokens": 3260,
   "attempts": 1,
-  "task_sha": "66b27df62d09f7b4"
+  "task_sha": "390307fb5323bd8c"
  }
 }

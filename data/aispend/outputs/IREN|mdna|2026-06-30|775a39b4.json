@@ -1,76 +1,19 @@
 {
  "accession": "IREN|mdna|2026-06-30|775a39b4",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
-   "field": "capex",
-   "fiscal_year": null,
+   "field": "revenue",
+   "fiscal_year": 2026,
    "kind": "actual",
-   "scope": "total",
+   "scope": "ai",
    "class": "explicit_amount",
-   "amount_low": 1335100000,
-   "amount_high": 1335100000,
-   "quote": "The payments for computer hardware of $1,335.1 million primarily relates to AI hardware.",
-   "passage": "p23",
-   "confidence": 0.7,
-   "notes": "Amount is total computer-hardware payments, which the sentence says primarily relate to AI hardware. The AI portion is not stated separately, so this is recorded as scope total and not as an AI amount. The sentence names no year; it is a cash-flow item for the reported fiscal year."
-  },
-  {
-   "field": "capex",
-   "fiscal_year": null,
-   "kind": "actual",
-   "scope": "total",
-   "class": "explicit_amount",
-   "amount_low": 2998000000,
-   "amount_high": 2998000000,
-   "quote": "The payment for property, plant and equipment net of computer hardware of $2,998.0 million primarily relates to the continuing expansion of our data center capacity at Childress, including Horizons 1-4, and at the Sweetwater 1 and Sweetwater 2 sites as well as the transition of the British Columbia data centers to AI Cloud.",
-   "passage": "p23",
-   "confidence": 0.75,
-   "notes": "PP&E payments, excluding computer hardware. AI is a driver (data center expansion and the transition to AI Cloud), but no AI-specific amount is stated. The sentence names no year."
-  },
-  {
-   "field": "capex",
-   "fiscal_year": null,
-   "kind": "actual",
-   "scope": "ai",
-   "class": "qualitative",
-   "quote": "Furthermore, we have generated significant negative cash flows from investing activities as we continue to support the growth of our AI Cloud Services segment.",
-   "passage": "p20",
-   "confidence": 0.8,
-   "notes": "Investing cash outflows are linked to AI Cloud Services growth in words only."
-  },
-  {
-   "field": "capex",
-   "fiscal_year": null,
-   "kind": "outlook",
-   "scope": "ai",
-   "class": "qualitative",
-   "quote": "We anticipate making significant investments for the foreseeable future, including capital requirements associated with our agreement with Microsoft announced in November 2025 (the \u201cMicrosoft Agreement\u201d), as well as GPU acquisitions and the development of additional data center capacity.",
-   "passage": "p20",
-   "confidence": 0.85,
-   "notes": "Forward-looking significant investment in GPUs, data centers and the Microsoft Agreement, in the context of the AI Cloud Services segment. No amount or year is given."
-  },
-  {
-   "field": "capex",
-   "fiscal_year": null,
-   "kind": "outlook",
-   "scope": "ai",
-   "class": "qualitative",
-   "quote": "These commitments include committed capital expenditure on AI hardware and infrastructure related to site development.",
-   "passage": "p24",
-   "confidence": 0.8,
-   "notes": "Total commitments of $13,810.0 million are given in the preceding sentence, which does not mention AI. This sentence attributes part of the commitments to AI capex without quantifying it."
-  },
-  {
-   "field": "capex",
-   "fiscal_year": null,
-   "kind": "outlook",
-   "scope": "ai",
-   "class": "qualitative",
-   "quote": "The increase in total commitments was primarily due to an increase in commitments related to our expansion into AI Cloud Services and includes committed capital expenditure on computer hardware and infrastructure related to site development of Horizons 1-4 at the Childress site, the Sweetwater 1 and Sweetwater 2 sites and the transition of the Childress and British Columbia data centers to AI Cloud.",
-   "passage": "p25",
-   "confidence": 0.75,
-   "notes": "Committed future capex is attributed primarily to the AI Cloud expansion. No amount is stated in this sentence."
+   "amount_low": 128800000,
+   "amount_high": 128800000,
+   "quote": "Our AI Cloud Services revenue for the years ended June 30, 2026 and 2025 was $128.8 million and $16.4 million, respectively, an increase of $112.4 million.",
+   "passage": "p16",
+   "confidence": 1.0,
+   "notes": "Fiscal 2026 figure recorded; the fiscal 2025 comparative ($16.4 million) is a prior year and not recorded."
   },
   {
    "field": "opex",
@@ -81,18 +24,66 @@
    "amount_low": 16900000,
    "amount_high": 16900000,
    "quote": "Cost of revenue - AI Cloud Services for the years ended June 30, 2026 and 2025 was $16.9 million and $1.3 million, respectively, an increase of $15.6 million.",
-   "passage": "p17",
+   "passage": "p18",
+   "confidence": 0.8,
+   "notes": "This is cost of revenue for the AI Cloud Services segment (electricity, employee benefits, other direct expenses), excluding depreciation. It is an AI operating cost, not total company opex."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 1335100000,
+   "amount_high": 1335100000,
+   "quote": "The payments for computer hardware of $1,335.1 million primarily relates to AI hardware.",
+   "passage": "p25",
+   "confidence": 0.8,
+   "notes": "Total cash payments for computer hardware, stated to be 'primarily' AI hardware. The AI part is not separately quantified, so scope is total. No year in the sentence; this is the fiscal 2026 cash flow."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 2998000000,
+   "amount_high": 2998000000,
+   "quote": "The payment for property, plant and equipment net of computer hardware of $2,998.0 million primarily relates to the continuing expansion of our data center capacity at Childress, including Horizons 1-4, and at the Sweetwater 1 and Sweetwater 2 sites as well as the transition of the British Columbia data centers to AI Cloud.",
+   "passage": "p25",
    "confidence": 0.75,
-   "notes": "This is AI Cloud Services cost of revenue (electricity, employee benefits and other direct costs), treated here as AI operating cost. It is cost of revenue, not R&D or SG&A. The fiscal 2025 figure ($1.3 million) is omitted as outside the scope."
+   "notes": "PP&E payments excluding computer hardware, driven by data center expansion and the AI Cloud transition. The AI part is not separately stated. No year in the sentence; this is the fiscal 2026 cash flow."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We anticipate making significant investments for the foreseeable future, including capital requirements associated with our agreement with Microsoft announced in November 2025 (the \u201cMicrosoft Agreement\u201d), as well as GPU acquisitions and the development of additional data center capacity.",
+   "passage": "p22",
+   "confidence": 0.85,
+   "notes": "Forward-looking capex for GPUs and AI data center capacity; no amount given."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "These commitments include committed capital expenditure on AI hardware and infrastructure related to site development.",
+   "passage": "p26",
+   "confidence": 0.65,
+   "notes": "Refers to $13,810.0 million of total commitments as of June 30, 2026, stated in the prior sentence. That figure is not recorded as an amount because the sentence stating it does not link it to AI, and it may include non-capex commitments."
   }
  ],
  "none_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 24.3,
-  "input_tokens": 9764,
-  "output_tokens": 3214,
+  "seconds": 18.2,
+  "input_tokens": 10353,
+  "output_tokens": 2415,
   "attempts": 1,
-  "task_sha": "a6a1bec7e6fd6e07"
+  "task_sha": "68a9954fa7083314"
  }
 }

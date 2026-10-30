@@ -1,23 +1,44 @@
 {
  "accession": "MU|earnings_release|2026-02-26|0b9cd048",
- "prompt_version": "aispend@v3",
- "statements": [],
- "none_found": [
+ "prompt_version": "aispend@v4",
+ "statements": [
   {
    "field": "capex",
-   "reason": "only passage (p01) is the company boilerplate description; no sentence links capital expenditures to AI"
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "In the AI era, memory has become a strategic asset for our customers, and we are investing in our global manufacturing footprint to support their growing demand.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Investment in the manufacturing footprint is implied capital spending, tied to customer demand in the AI era. The word 'capital expenditures' is not used, and the sentence gives no AI-specific portion. It is present tense with no year named."
   },
   {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 5687000000,
+   "amount_high": 5687000000,
+   "quote": "Core Data Center Business Unit Revenue $ 5,687 $ 2,379 $ 1,830",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Table row, not a sentence. Figures are in millions. The amount is quarterly (FQ2-26), not full fiscal year, and FQ1-26 was $2,379M. The Cloud Memory Business Unit ($7,749M in FQ2-26) likely serves data-center and HBM demand, but it is not labeled data center or AI in the text, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
    "field": "opex",
-   "reason": "only passage (p01) is the company boilerplate description; no sentence quantifies or attributes operating expenses to AI"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.3,
-  "input_tokens": 4641,
-  "output_tokens": 159,
+  "seconds": 11.6,
+  "input_tokens": 5491,
+  "output_tokens": 1341,
   "attempts": 1,
-  "task_sha": "b2d31a51e96da2f0"
+  "task_sha": "0631c568ec711f4e"
  }
 }

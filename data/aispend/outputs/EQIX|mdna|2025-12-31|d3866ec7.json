@@ -1,0 +1,35 @@
+{
+ "accession": "EQIX|mdna|2025-12-31|d3866ec7",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This increased power consumption, which we expect to accelerate with the adoption of AI, has driven us to build out our new IBX data centers to support power and cooling needs twice that of previous IBX data centers.",
+   "passage": "p03",
+   "confidence": 0.5,
+   "notes": "Indirect link: AI is said to accelerate customer power consumption, which drove the higher-spec IBX build-out (capital spending). The sentence does not name capital expenditures or isolate an AI portion, so it is recorded as total-scope qualitative. No year is named."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data center operator; AI is cited only as a demand driver (p04), and no sentence states an AI or AI-driven revenue figure or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.8,
+  "input_tokens": 8908,
+  "output_tokens": 922,
+  "attempts": 1,
+  "task_sha": "6e4e42247139fe4a"
+ }
+}

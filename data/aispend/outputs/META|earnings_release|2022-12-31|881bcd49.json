@@ -1,31 +1,37 @@
 {
  "accession": "META|earnings_release|2022-12-31|881bcd49",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
-   "fiscal_year": 2023,
+   "fiscal_year": null,
    "kind": "outlook",
    "scope": "total",
-   "class": "qualitative",
-   "quote": "The reduced outlook reflects our updated plans for lower data center construction spend in 2023 as we shift to a new data center architecture that is more cost efficient and can support both AI and non-AI workloads.",
+   "class": "explicit_amount",
+   "amount_low": 30000000000,
+   "amount_high": 33000000000,
+   "quote": "We expect capital expenditures to be in the range of $30-33 billion, lowered from our prior estimate of $34-37 billion.",
    "passage": "p01",
-   "confidence": 0.6,
-   "notes": "Links the 2023 capex outlook to a data center architecture supporting both AI and non-AI workloads, so AI is a factor in total capex, not a quantified AI portion. The $30-33 billion total is in the preceding sentence, which names no year and does not mention AI, so it is not recorded as a separate statement."
+   "confidence": 0.7,
+   "notes": "This sentence gives total capex and names no year. The next sentence names 2023 and gives the AI link: a new data center architecture that supports both AI and non-AI workloads. That link is weak, since it is mentioned as a reason for lower spend, not as a driver of spend. The sentence gives no AI part of capex."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.4,
-  "input_tokens": 4818,
-  "output_tokens": 801,
+  "seconds": 8.8,
+  "input_tokens": 6443,
+  "output_tokens": 924,
   "attempts": 1,
-  "task_sha": "881a865e20f688ba"
+  "task_sha": "7654fa364c740bd5"
  }
 }

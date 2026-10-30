@@ -1,23 +1,46 @@
 {
  "accession": "MRVL|earnings_release|2024-02-03|3756a0e6",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "AI drove strong growth in our data center end market revenue which increased 38% sequentially and 54% year-over-year.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "The 38% and 54% figures are growth rates of data center revenue, not a share of total revenue, so this is recorded as qualitative. The period is Q4 fiscal 2024 per the preceding sentence. The sentence itself names no year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In the first quarter of fiscal 2025, we expect continued sequential growth in our data center revenue with initial shipments of our cloud optimized silicon programs for AI complementing our electro-optics franchise.",
+   "passage": "p01",
+   "confidence": 0.85,
+   "notes": "This is a Q1 fiscal 2025 outlook for data center revenue growth driven by AI custom silicon. No amount is given."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; passages discuss AI-driven revenue growth and product end markets only"
+   "reason": "no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; AI mentions concern revenue and product applications"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.9,
-  "input_tokens": 5159,
-  "output_tokens": 184,
+  "seconds": 10.7,
+  "input_tokens": 5462,
+  "output_tokens": 1018,
   "attempts": 1,
-  "task_sha": "30f06bc435be85c8"
+  "task_sha": "0998bc0a02a152ac"
  }
 }

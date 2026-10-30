@@ -1,0 +1,27 @@
+{
+ "accession": "CEG|earnings_release|2023-12-31|f95d4c2a",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data centers are named only as a growth opportunity (p01, p02), and the 2%-to-7.5% figure is a national electricity-demand statistic, not the company's revenue; no sentence states any revenue from AI or data-center customers"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 5230,
+  "output_tokens": 294,
+  "attempts": 1,
+  "task_sha": "7090c6c9e99c5c24"
+ }
+}

@@ -1,43 +1,7 @@
 {
  "accession": "0000950170-23-001409",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
-  {
-   "field": "segment_revenue",
-   "dimension": "Automotive and services and other segment",
-   "table_id": "t0069",
-   "row_label": "Revenues",
-   "column_label": "Year Ended December 31, | 2022",
-   "cell_text": "77,553",
-   "period_end": "2022-12-31",
-   "months": 12,
-   "value": 77553000000,
-   "confidence": 0.7
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Automotive and services and other segment",
-   "table_id": "t0069",
-   "row_label": "Revenues",
-   "column_label": "Year Ended December 31, | 2021",
-   "cell_text": "51,034",
-   "period_end": "2021-12-31",
-   "months": 12,
-   "value": 51034000000,
-   "confidence": 0.7
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Automotive and services and other segment",
-   "table_id": "t0069",
-   "row_label": "Revenues",
-   "column_label": "Year Ended December 31, | 2020",
-   "cell_text": "29,542",
-   "period_end": "2020-12-31",
-   "months": 12,
-   "value": 29542000000,
-   "confidence": 0.7
-  },
   {
    "field": "segment_revenue",
    "dimension": "Energy generation and storage segment",
@@ -48,7 +12,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 3909000000,
-   "confidence": 0.95
+   "confidence": 0.85,
+   "notes": "Row label 'Revenues' appears twice in t0069; this is the one under the 'Energy generation and storage segment' header. The other segment's header (automotive) is missing from the parsed table, so its revenue is not cited because no segment name is written for it."
   },
   {
    "field": "segment_revenue",
@@ -60,7 +25,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 2789000000,
-   "confidence": 0.95
+   "confidence": 0.85,
+   "notes": "Row label 'Revenues' appears twice in t0069; this is the one under the 'Energy generation and storage segment' header."
   },
   {
    "field": "segment_revenue",
@@ -72,7 +38,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 1994000000,
-   "confidence": 0.95
+   "confidence": 0.85,
+   "notes": "Row label 'Revenues' appears twice in t0069; this is the one under the 'Energy generation and storage segment' header."
   },
   {
    "field": "ppe_category",
@@ -246,20 +213,19 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment table (t0069) reports revenues and gross profit only; no capital expenditures by segment appear in the tables provided"
+   "reason": "the segment note (t0069) reports revenues and gross profit only; no capital expenditures by segment are given"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or purchase-commitments table is among the tables provided"
+   "reason": "no contractual-obligations or purchase-commitments table is among the provided tables"
   }
  ],
- "notes": "Segment revenue taken from t0069 (reportable segments) rather than t0028 (revenue by source), since Tesla reports two segments. In t0069 the first segment's header row was not parsed; its 'Revenues' row precedes the 'Energy generation and storage segment' header. The dimension 'Automotive and services and other segment' is Tesla's name for that segment and does not appear verbatim in the table, so those rows have confidence 0.7. The two segments sum to total revenues in t0028 (77,553 + 3,909 = 81,462 for 2022), which corroborates the assignment.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 23.9,
-  "input_tokens": 9192,
-  "output_tokens": 3346,
+  "seconds": 24.0,
+  "input_tokens": 9318,
+  "output_tokens": 3098,
   "attempts": 1,
-  "task_sha": "a78f596e18611ef7"
+  "task_sha": "814e9e199ca0d45f"
  }
 }

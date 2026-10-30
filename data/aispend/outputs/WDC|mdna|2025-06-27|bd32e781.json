@@ -1,0 +1,35 @@
+{
+ "accession": "WDC|mdna|2025-06-27|bd32e781",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase was also driven by a 15% increase in units sold as a result of higher shipments of our high-capacity enterprise products stemming from data center expansions.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Links total revenue growth to data-center demand in words only. The 15% is a unit-volume increase, not a share of revenue. The year comes from the preceding sentence in the passage ('in 2025'), not this one. No AI or data-center revenue figure is stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are stated ($412 million in 2025; 4% to 6% of net revenue guided for fiscal 2026) but no sentence links them to AI or data-center demand"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.5,
+  "input_tokens": 5318,
+  "output_tokens": 646,
+  "attempts": 1,
+  "task_sha": "ab569c90a543fd89"
+ }
+}

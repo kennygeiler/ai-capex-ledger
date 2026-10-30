@@ -1,0 +1,66 @@
+{
+ "accession": "MOD|mdna|2026-03-31|ec3c35a7",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 3181000000,
+   "amount_high": 3181000000,
+   "quote": "Fiscal 2026 net sales of $3,181 million were $598 million, or 23 percent, higher than the prior year, primarily due to $621 million of higher sales in our Climate Solutions segment, including organic sales growth to hyperscale and colocation data center customers in North America and Europe and $119 million of incremental sales from the acquired L.B. White, Climate by Design, and AbsolutAire businesses.",
+   "passage": "p08",
+   "confidence": 0.9,
+   "notes": "Total net sales; data center customer growth is cited as a driver. This is not the data center revenue amount."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Compared with the prior year, sales of data center, HVAC technologies, and heat transfer solutions products increased $468 million, $102 million, and $45 million, respectively.",
+   "passage": "p11",
+   "confidence": 0.6,
+   "notes": "The $468M figure is the year-over-year increase in data center product sales, not the level of data center revenue, so it is recorded as qualitative. The link to AI rests on p01 ('data center growth fueled by increased AI usage')."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We have rapidly expanded our Data Centers business, investing to expand our manufacturing capacity, particularly in the U.S. and Canada, to support the significant sales growth to both hyperscale and colocation customers during fiscal 2026.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "Capacity investment serves data center (AI-driven) demand. The word 'capital expenditures' is not used, and no amount is given."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We are especially excited about opportunities to grow our Data Centers segment and are prioritizing the expansion of this business and our manufacturing footprint to meet increasing customer demand.",
+   "passage": "p04",
+   "confidence": 0.5,
+   "notes": "Forward-looking expansion of the data center manufacturing footprint. The sentence names no year; capex is implied but not stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence attributes R&D, SG&A or headcount spending to AI or data centers; the data center capacity inefficiencies are reported in cost of sales, not operating expenses"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 19.9,
+  "input_tokens": 9466,
+  "output_tokens": 2318,
+  "attempts": 1,
+  "task_sha": "d849b51a8f7d5f34"
+ }
+}

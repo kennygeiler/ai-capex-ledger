@@ -1,0 +1,36 @@
+{
+ "accession": "NOW|earnings_release|2026-06-30|82df8a0f",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2030,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.3,
+   "quote": "ServiceNow hosted its annual Financial Analyst Day on May 4, where the company outlined long-term targets including $30 billion+ in subscription revenues, 30% of ACV to come from AI, and a Rule of 60+ by 2030 1 .",
+   "passage": "p03",
+   "confidence": 0.5,
+   "notes": "The 30% is a share of annual contract value (ACV), not of recognized revenue. It is recorded as the closest seller-side AI share; treat it as an ACV target, not a revenue share. The 2030 year comes from 'by 2030' in the same sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.4,
+  "input_tokens": 5699,
+  "output_tokens": 809,
+  "attempts": 1,
+  "task_sha": "8d7fd85126228665"
+ }
+}

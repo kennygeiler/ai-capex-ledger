@@ -1,0 +1,46 @@
+{
+ "accession": "DLR|earnings_release|2024-06-30|1afee529",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Slough Trading Estate data centers",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Slough Trading Estate, west London, UK",
+   "counterparty": null,
+   "amount_low": 200000000,
+   "amount_high": 200000000,
+   "capacity_mw": 15,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Subsequent to quarter end, and as previously disclosed, Digital Realty closed on its purchase option to acquire two data centers located in the Slough Trading Estate for $200 million.",
+   "passage": "p05",
+   "confidence": 0.8
+  },
+  {
+   "name": "Amsterdam land parcel and high voltage substation",
+   "kind": "other",
+   "status": "contracted",
+   "location": "Amsterdam",
+   "counterparty": null,
+   "amount_low": 7900000,
+   "amount_high": 7900000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "During the quarter, Digital Realty acquired a 4.1-acre parcel of land in Amsterdam, near one of its existing campuses for approximately \u20ac7.4 million or $7.9 million.",
+   "passage": "p05",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.6,
+  "input_tokens": 15136,
+  "output_tokens": 1068,
+  "attempts": 1,
+  "task_sha": "9cd7ec6e4c9a68dd"
+ }
+}

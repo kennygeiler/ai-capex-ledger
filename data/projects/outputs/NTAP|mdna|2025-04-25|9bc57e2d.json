@@ -1,0 +1,13 @@
+{
+ "accession": "NTAP|mdna|2025-04-25|9bc57e2d",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 4613,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "e8eb19dc7cb7c665"
+ }
+}

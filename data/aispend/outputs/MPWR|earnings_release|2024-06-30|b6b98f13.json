@@ -1,0 +1,61 @@
+{
+ "accession": "MPWR|earnings_release|2024-06-30|b6b98f13",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 187200000,
+   "amount_high": 187200000,
+   "quote": "In our Enterprise Data market, second quarter 2024 revenue of $187.2 million increased 25.0% from the first quarter of 2024 primarily from growth in sales supporting server AI solutions.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Quarterly figure (Q2 2024), not full year. Enterprise Data is MPS's server/data-center market, treated as data-center revenue; the growth is attributed primarily to server AI, but the segment is not stated to be entirely AI."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.369,
+   "quote": "Enterprise Data revenue represented 36.9% of MPS\u2019s second quarter 2024 revenue compared with 10.9% in the second quarter of 2023.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Share of Q2 2024 quarterly revenue, not full year. Enterprise Data is treated as the data-center market; the segment is not explicitly labeled AI."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.109,
+   "quote": "Enterprise Data revenue represented 36.9% of MPS\u2019s second quarter 2024 revenue compared with 10.9% in the second quarter of 2023.",
+   "passage": "p01",
+   "confidence": 0.65,
+   "notes": "Prior-year comparison: share of Q2 2023 quarterly revenue. Enterprise Data is treated as the data-center market; the segment is not explicitly labeled AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.2,
+  "input_tokens": 4869,
+  "output_tokens": 1201,
+  "attempts": 1,
+  "task_sha": "858f2db087cfbce1"
+ }
+}

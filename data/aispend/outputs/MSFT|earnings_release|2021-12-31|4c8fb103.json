@@ -1,6 +1,6 @@
 {
  "accession": "MSFT|earnings_release|2021-12-31|4c8fb103",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "9c25bc580d694453"
+  "task_sha": "8dce3cb595ee16f8"
  }
 }

@@ -1,0 +1,35 @@
+{
+ "accession": "MOD|earnings_release|2022-03-31|2cce04e1",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This increase was driven by higher sales to data center and commercial HVAC customers.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Data-center demand is named as one of two drivers of the BHVAC segment's sales increase ($101.9 million vs $66.9 million); no data-center amount or share is stated, and the figure is segment sales rather than total company revenue. The quarter ended 2022-03-31 is Q4 of fiscal 2022. The sentence does not mention AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.2,
+  "input_tokens": 4956,
+  "output_tokens": 710,
+  "attempts": 1,
+  "task_sha": "1b409dbfc9d1c8eb"
+ }
+}

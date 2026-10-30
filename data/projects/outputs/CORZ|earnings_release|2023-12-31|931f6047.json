@@ -1,0 +1,30 @@
+{
+ "accession": "CORZ|earnings_release|2023-12-31|931f6047",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "CoreWeave HPC hosting contract, Austin, Texas data center",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Austin, TX",
+   "counterparty": "CoreWeave, Inc.",
+   "amount_low": 100000000,
+   "amount_high": 100000000,
+   "capacity_mw": 16,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Upgrading Austin, TX data center formerly housing HP \u2022 Providing up to 16 MW infrastructure \u2022 Total revenue more than $100 million over multi-year period",
+   "passage": "p11",
+   "confidence": 0.75
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.5,
+  "input_tokens": 9640,
+  "output_tokens": 1109,
+  "attempts": 1,
+  "task_sha": "60430470810653fa"
+ }
+}

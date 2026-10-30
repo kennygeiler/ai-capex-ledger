@@ -1,0 +1,30 @@
+{
+ "accession": "NVDA|earnings_release|2023-01-29|af5f726b",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Multi-year cloud service agreements",
+   "kind": "cloud_commitment",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 2230000000,
+   "amount_high": 2230000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Other purchase obligations, inclusive of $2.23 billion of multi-year cloud service agreements, were $3.14 billion.",
+   "passage": "p05",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.2,
+  "input_tokens": 4783,
+  "output_tokens": 481,
+  "attempts": 1,
+  "task_sha": "b1cdc19e2abd976a"
+ }
+}

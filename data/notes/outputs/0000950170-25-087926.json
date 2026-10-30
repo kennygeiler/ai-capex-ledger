@@ -1,78 +1,32 @@
 {
  "accession": "0000950170-25-087926",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
    "dimension": "Cloud and license",
-   "table_id": "t0008",
-   "row_label": "Cloud and license",
-   "column_label": "Year Ended May 31, | Percent Change | 2025",
+   "table_id": "t0069",
+   "row_label": "Revenues",
+   "column_label": "Year Ended May 31, | 2025",
    "cell_text": "49,230",
    "period_end": "2025-05-31",
    "months": 12,
    "value": 49230000000,
-   "confidence": 1.0
+   "confidence": 0.9,
+   "notes": "First 'Revenues' row in t0069. The parsed table drops the 'Cloud and license:' header, so the segment is inferred from its position and from the match with t0008 and t0012."
   },
   {
    "field": "segment_revenue",
    "dimension": "Cloud and license",
-   "table_id": "t0008",
-   "row_label": "Cloud and license",
-   "column_label": "Year Ended May 31, | Percent Change | 2024",
+   "table_id": "t0069",
+   "row_label": "Revenues",
+   "column_label": "Year Ended May 31, | 2024",
    "cell_text": "44,464",
    "period_end": "2024-05-31",
    "months": 12,
    "value": 44464000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Hardware",
-   "table_id": "t0008",
-   "row_label": "Hardware",
-   "column_label": "Year Ended May 31, | Percent Change | 2025",
-   "cell_text": "2,936",
-   "period_end": "2025-05-31",
-   "months": 12,
-   "value": 2936000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Hardware",
-   "table_id": "t0008",
-   "row_label": "Hardware",
-   "column_label": "Year Ended May 31, | Percent Change | 2024",
-   "cell_text": "3,066",
-   "period_end": "2024-05-31",
-   "months": 12,
-   "value": 3066000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Services",
-   "table_id": "t0008",
-   "row_label": "Services",
-   "column_label": "Year Ended May 31, | Percent Change | 2025",
-   "cell_text": "5,233",
-   "period_end": "2025-05-31",
-   "months": 12,
-   "value": 5233000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Services",
-   "table_id": "t0008",
-   "row_label": "Services",
-   "column_label": "Year Ended May 31, | Percent Change | 2024",
-   "cell_text": "5,431",
-   "period_end": "2024-05-31",
-   "months": 12,
-   "value": 5431000000,
-   "confidence": 1.0
+   "confidence": 0.9,
+   "notes": "First 'Revenues' row in t0069. The parsed table drops the 'Cloud and license:' header, so the segment is inferred from its position and from the match with t0008 and t0012."
   },
   {
    "field": "segment_revenue",
@@ -84,7 +38,34 @@
    "period_end": "2023-05-31",
    "months": 12,
    "value": 41086000000,
-   "confidence": 0.85
+   "confidence": 0.9,
+   "notes": "First 'Revenues' row in t0069. The parsed table drops the 'Cloud and license:' header, so the segment is inferred from its position."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Hardware",
+   "table_id": "t0069",
+   "row_label": "Revenues",
+   "column_label": "Year Ended May 31, | 2025",
+   "cell_text": "2,936",
+   "period_end": "2025-05-31",
+   "months": 12,
+   "value": 2936000000,
+   "confidence": 0.95,
+   "notes": "'Revenues' row under the 'Hardware:' header. The row label is repeated within the table."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Hardware",
+   "table_id": "t0069",
+   "row_label": "Revenues",
+   "column_label": "Year Ended May 31, | 2024",
+   "cell_text": "3,066",
+   "period_end": "2024-05-31",
+   "months": 12,
+   "value": 3066000000,
+   "confidence": 0.95,
+   "notes": "'Revenues' row under the 'Hardware:' header. The row label is repeated within the table."
   },
   {
    "field": "segment_revenue",
@@ -96,7 +77,34 @@
    "period_end": "2023-05-31",
    "months": 12,
    "value": 3274000000,
-   "confidence": 0.9
+   "confidence": 0.95,
+   "notes": "'Revenues' row under the 'Hardware:' header. The row label is repeated within the table."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Services",
+   "table_id": "t0069",
+   "row_label": "Revenues",
+   "column_label": "Year Ended May 31, | 2025",
+   "cell_text": "5,233",
+   "period_end": "2025-05-31",
+   "months": 12,
+   "value": 5233000000,
+   "confidence": 0.95,
+   "notes": "'Revenues' row under the 'Services:' header. The row label is repeated within the table."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Services",
+   "table_id": "t0069",
+   "row_label": "Revenues",
+   "column_label": "Year Ended May 31, | 2024",
+   "cell_text": "5,431",
+   "period_end": "2024-05-31",
+   "months": 12,
+   "value": 5431000000,
+   "confidence": 0.95,
+   "notes": "'Revenues' row under the 'Services:' header. The row label is repeated within the table."
   },
   {
    "field": "segment_revenue",
@@ -108,7 +116,8 @@
    "period_end": "2023-05-31",
    "months": 12,
    "value": 5594000000,
-   "confidence": 0.9
+   "confidence": 0.95,
+   "notes": "'Revenues' row under the 'Services:' header. The row label is repeated within the table."
   },
   {
    "field": "ppe_category",
@@ -234,24 +243,23 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment tables (t0069, t0070) report revenues, expenses and margin only; no capital expenditures by segment"
+   "reason": "The segment note (t0069/t0070) reports revenues, expenses and margin by segment only. No capital expenditures by segment are given."
   },
   {
    "field": "finance_lease_liability",
-   "reason": "the only lease table (t0054) reports lease cost; no finance lease liability balance is given"
+   "reason": "The lease table t0054 shows only lease costs. No finance lease liability balance appears in the provided tables."
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or commitments table is included among the provided tables"
+   "reason": "No contractual-obligations or commitments table was provided."
   }
  ],
- "notes": "2025 and 2024 segment revenue cited from t0008 (Total Revenues by Business), which has unambiguous segment row labels; 2023 taken from t0069, where each segment's row is labeled 'Revenues' and the segment is identified by its section header (the first block's 'Cloud and license' header is not shown in the parsed table, hence lower confidence).",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 21.2,
-  "input_tokens": 7783,
-  "output_tokens": 3066,
+  "seconds": 28.8,
+  "input_tokens": 7909,
+  "output_tokens": 3594,
   "attempts": 1,
-  "task_sha": "8ca216af6ac4c26f"
+  "task_sha": "116f95bce06ae60a"
  }
 }

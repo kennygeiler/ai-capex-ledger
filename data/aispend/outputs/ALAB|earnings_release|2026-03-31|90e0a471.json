@@ -1,23 +1,35 @@
 {
  "accession": "ALAB|earnings_release|2026-03-31|90e0a471",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We believe the opportunity ahead is significant, and we are investing to be a leader for rack- scale AI technologies in close partnership with our customers.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "CEO says the company is investing in rack-scale AI technologies but does not say whether this is R&D/opex or capex. It is present tense with no year, so it is recorded as opex, actual, fiscal_year null. Low confidence because the field is ambiguous."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or links capital expenditures to AI; p01 describes products and p02 is forward-looking-statement boilerplate"
+   "reason": "no sentence links capital expenditures to AI"
   },
   {
-   "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; mentions of R&D plans and team investments in p02 are forward-looking-statement boilerplate"
+   "field": "revenue",
+   "reason": "total revenue of $308.4 million (Q1 2026) is attributed to PCIe 6 portfolio demand, not explicitly to AI or data-center demand. No sentence states an AI or data-center revenue figure or share, and the AI link is not inferred from product descriptions"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.5,
-  "input_tokens": 6118,
-  "output_tokens": 205,
+  "seconds": 12.5,
+  "input_tokens": 6704,
+  "output_tokens": 1073,
   "attempts": 1,
-  "task_sha": "83cdddd87e7f5ab5"
+  "task_sha": "b8c000d2c00bf0a6"
  }
 }

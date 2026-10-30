@@ -1,0 +1,13 @@
+{
+ "accession": "UBER|earnings_release|2021-12-31|47846815",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 4303,
+  "output_tokens": 49,
+  "attempts": 1,
+  "task_sha": "742ddb13278742c6"
+ }
+}

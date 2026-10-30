@@ -1,0 +1,27 @@
+{
+ "accession": "EME|earnings_release|2023-06-30|9ea886ba",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capex figure is purchases of property, plant and equipment in the cash flow table (p02), and no sentence links it to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; p01 links data center construction demand only to growth in remaining performance obligations (backlog), not revenue, and gives no data-center figure or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 5729,
+  "output_tokens": 559,
+  "attempts": 1,
+  "task_sha": "a4544e470b9df449"
+ }
+}

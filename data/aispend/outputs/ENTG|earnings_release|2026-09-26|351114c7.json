@@ -1,0 +1,27 @@
+{
+ "accession": "ENTG|earnings_release|2026-09-26|351114c7",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is a safe-harbor disclaimer; no sentence states or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is a safe-harbor disclaimer; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only passage is a safe-harbor disclaimer; its sole AI mention is a risk factor about the use of AI, and no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 6237,
+  "output_tokens": 233,
+  "attempts": 1,
+  "task_sha": "3b6751d2561c7312"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "SYM|earnings_release|2025-12-27|53cafb85",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex appears only as a cash-flow line item and a forward-looking-statement topic"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "AI references describe the company's AI-enabled products (boilerplate); no sentence states AI or data-center revenue as an amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.0,
+  "input_tokens": 10594,
+  "output_tokens": 228,
+  "attempts": 1,
+  "task_sha": "efecb678828feab8"
+ }
+}

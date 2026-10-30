@@ -1,0 +1,27 @@
+{
+ "accession": "VZ|mdna|2023-12-31|19d1d3b9",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex is mentioned only as an anticipated reduction and as financed by internally generated funds"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; revenue is mentioned only as expected service revenue growth"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.9,
+  "input_tokens": 5025,
+  "output_tokens": 204,
+  "attempts": 1,
+  "task_sha": "a0878c8753071d64"
+ }
+}

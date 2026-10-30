@@ -1,0 +1,36 @@
+{
+ "accession": "WDC|earnings_release|2023-09-29|dcadbd02",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.32,
+   "quote": "Cloud represented 32% of total revenue.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Quarterly figure (three months ended 2023-09-29, Q1 of fiscal 2024), not full-year. WDC's 'Cloud' end market is sales of hard drives and flash to data-center customers (the seller side), so it is treated as data-center revenue. The sentence does not mention AI and names no year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "purchases of property, plant and equipment appear only in cash-flow tables; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.3,
+  "input_tokens": 6018,
+  "output_tokens": 789,
+  "attempts": 1,
+  "task_sha": "3c268c26dbd61c77"
+ }
+}

@@ -1,0 +1,172 @@
+{
+ "accession": "0000707549-23-000102",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Manufacturing and engineering equipment",
+   "table_id": "t0054",
+   "row_label": "Manufacturing and engineering equipment",
+   "column_label": "June 25,2023",
+   "cell_text": "1,802,627",
+   "period_end": "2023-06-25",
+   "months": 0,
+   "value": 1802627000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Manufacturing and engineering equipment",
+   "table_id": "t0054",
+   "row_label": "Manufacturing and engineering equipment",
+   "column_label": "June 26,2022",
+   "cell_text": "1,588,805",
+   "period_end": "2022-06-26",
+   "months": 0,
+   "value": 1588805000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0054",
+   "row_label": "Buildings and improvements",
+   "column_label": "June 25,2023",
+   "cell_text": "1,286,849",
+   "period_end": "2023-06-25",
+   "months": 0,
+   "value": 1286849000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0054",
+   "row_label": "Buildings and improvements",
+   "column_label": "June 26,2022",
+   "cell_text": "1,124,381",
+   "period_end": "2022-06-26",
+   "months": 0,
+   "value": 1124381000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer and computer-related equipment",
+   "table_id": "t0054",
+   "row_label": "Computer and computer-related equipment",
+   "column_label": "June 25,2023",
+   "cell_text": "174,084",
+   "period_end": "2023-06-25",
+   "months": 0,
+   "value": 174084000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer and computer-related equipment",
+   "table_id": "t0054",
+   "row_label": "Computer and computer-related equipment",
+   "column_label": "June 26,2022",
+   "cell_text": "177,198",
+   "period_end": "2022-06-26",
+   "months": 0,
+   "value": 177198000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0054",
+   "row_label": "Land",
+   "column_label": "June 25,2023",
+   "cell_text": "98,739",
+   "period_end": "2023-06-25",
+   "months": 0,
+   "value": 98739000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0054",
+   "row_label": "Land",
+   "column_label": "June 26,2022",
+   "cell_text": "84,733",
+   "period_end": "2022-06-26",
+   "months": 0,
+   "value": 84733000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office equipment, furniture and fixtures",
+   "table_id": "t0054",
+   "row_label": "Office equipment, furniture and fixtures",
+   "column_label": "June 25,2023",
+   "cell_text": "83,108",
+   "period_end": "2023-06-25",
+   "months": 0,
+   "value": 83108000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office equipment, furniture and fixtures",
+   "table_id": "t0054",
+   "row_label": "Office equipment, furniture and fixtures",
+   "column_label": "June 26,2022",
+   "cell_text": "70,642",
+   "period_end": "2022-06-26",
+   "months": 0,
+   "value": 70642000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0064",
+   "row_label": "Total finance lease liabilities",
+   "column_label": "June 25,2023",
+   "cell_text": "46,176",
+   "period_end": "2023-06-25",
+   "months": 0,
+   "value": 46176000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0064",
+   "row_label": "Total finance lease liabilities",
+   "column_label": "June 26,2022",
+   "cell_text": "43,371",
+   "period_end": "2022-06-26",
+   "months": 0,
+   "value": 43371000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note table is provided; Lam Research reports a single reportable segment, so there is no per-segment capex"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "no segment or market revenue table is provided in the tables given"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is provided in the tables given"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.7,
+  "input_tokens": 7130,
+  "output_tokens": 1839,
+  "attempts": 1,
+  "task_sha": "67ae9f7b685c4302"
+ }
+}

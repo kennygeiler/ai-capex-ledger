@@ -1,0 +1,265 @@
+{
+ "accession": "0000936395-23-000044",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Networking Platforms",
+   "table_id": "t0033",
+   "row_label": "Total revenue by product line",
+   "column_label": "Year Ended October 28, 2023 | Networking Platforms",
+   "cell_text": "3,493,492",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 3493492000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Platform Software and Services",
+   "table_id": "t0033",
+   "row_label": "Total revenue by product line",
+   "column_label": "Year Ended October 28, 2023 | Platform Software and Services",
+   "cell_text": "303,873",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 303873000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Blue Planet Automation Software and Services",
+   "table_id": "t0033",
+   "row_label": "Total revenue by product line",
+   "column_label": "Year Ended October 28, 2023 | Blue Planet Automation Software and Services",
+   "cell_text": "69,170",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 69170000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Global Services",
+   "table_id": "t0033",
+   "row_label": "Total revenue by product line",
+   "column_label": "Year Ended October 28, 2023 | Global Services",
+   "cell_text": "520,014",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 520014000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Networking Platforms",
+   "table_id": "t0034",
+   "row_label": "Total revenue by product line",
+   "column_label": "Year Ended October 29, 2022 | Networking Platforms",
+   "cell_text": "2,778,370",
+   "period_end": "2022-10-29",
+   "months": 12,
+   "value": 2778370000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Platform Software and Services",
+   "table_id": "t0034",
+   "row_label": "Total revenue by product line",
+   "column_label": "Year Ended October 29, 2022 | Platform Software and Services",
+   "cell_text": "277,191",
+   "period_end": "2022-10-29",
+   "months": 12,
+   "value": 277191000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Blue Planet Automation Software and Services",
+   "table_id": "t0034",
+   "row_label": "Total revenue by product line",
+   "column_label": "Year Ended October 29, 2022 | Blue Planet Automation Software and Services",
+   "cell_text": "76,567",
+   "period_end": "2022-10-29",
+   "months": 12,
+   "value": 76567000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Global Services",
+   "table_id": "t0034",
+   "row_label": "Total revenue by product line",
+   "column_label": "Year Ended October 29, 2022 | Global Services",
+   "cell_text": "500,533",
+   "period_end": "2022-10-29",
+   "months": 12,
+   "value": 500533000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Networking Platforms",
+   "table_id": "t0035",
+   "row_label": "Total revenue by product line",
+   "column_label": "Year Ended October 30, 2021 | Networking Platforms",
+   "cell_text": "2,825,305",
+   "period_end": "2021-10-30",
+   "months": 12,
+   "value": 2825305000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Platform Software and Services",
+   "table_id": "t0035",
+   "row_label": "Total revenue by product line",
+   "column_label": "Year Ended October 30, 2021 | Platform Software and Services",
+   "cell_text": "229,588",
+   "period_end": "2021-10-30",
+   "months": 12,
+   "value": 229588000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Blue Planet Automation Software and Services",
+   "table_id": "t0035",
+   "row_label": "Total revenue by product line",
+   "column_label": "Year Ended October 30, 2021 | Blue Planet Automation Software and Services",
+   "cell_text": "77,247",
+   "period_end": "2021-10-30",
+   "months": 12,
+   "value": 77247000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Global Services",
+   "table_id": "t0035",
+   "row_label": "Total revenue by product line",
+   "column_label": "Year Ended October 30, 2021 | Global Services",
+   "cell_text": "488,544",
+   "period_end": "2021-10-30",
+   "months": 12,
+   "value": 488544000,
+   "confidence": 0.85
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment, furniture and fixtures",
+   "table_id": "t0056",
+   "row_label": "Equipment, furniture and fixtures",
+   "column_label": "October 28, 2023",
+   "cell_text": "676,485",
+   "period_end": "2023-10-28",
+   "months": 0,
+   "value": 676485000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building subject to finance lease",
+   "table_id": "t0056",
+   "row_label": "Building subject to finance lease",
+   "column_label": "October 28, 2023",
+   "cell_text": "67,904",
+   "period_end": "2023-10-28",
+   "months": 0,
+   "value": 67904000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0056",
+   "row_label": "Leasehold improvements",
+   "column_label": "October 28, 2023",
+   "cell_text": "74,391",
+   "period_end": "2023-10-28",
+   "months": 0,
+   "value": 74391000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment, furniture and fixtures",
+   "table_id": "t0056",
+   "row_label": "Equipment, furniture and fixtures",
+   "column_label": "October 29, 2022",
+   "cell_text": "619,160",
+   "period_end": "2022-10-29",
+   "months": 0,
+   "value": 619160000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building subject to finance lease",
+   "table_id": "t0056",
+   "row_label": "Building subject to finance lease",
+   "column_label": "October 29, 2022",
+   "cell_text": "69,247",
+   "period_end": "2022-10-29",
+   "months": 0,
+   "value": 69247000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0056",
+   "row_label": "Leasehold improvements",
+   "column_label": "October 29, 2022",
+   "cell_text": "80,415",
+   "period_end": "2022-10-29",
+   "months": 0,
+   "value": 80415000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0066",
+   "row_label": "Finance lease liabilities",
+   "column_label": "Balance at October 28, 2023",
+   "cell_text": "52,145",
+   "period_end": "2023-10-28",
+   "months": 0,
+   "value": 52145000,
+   "confidence": 0.95
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0066",
+   "row_label": "Finance lease liabilities",
+   "column_label": "Balance at October 29, 2022",
+   "cell_text": "56,934",
+   "period_end": "2022-10-29",
+   "months": 0,
+   "value": 56934000,
+   "confidence": 0.95
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment tables provided report revenue only (by product line and timing of recognition); no capital expenditures by segment are given"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included among the provided tables"
+  }
+ ],
+ "notes": "segment_revenue: Ciena's reportable segments are the column headers (Networking Platforms, Platform Software and Services, Blue Planet Automation Software and Services, Global Services); each is cited from the 'Total revenue by product line' row in that segment's column rather than the finer product-line rows, to give one value per segment without overlap. For t0034 and t0035 the unit was not stated with the table; thousands was applied, consistent with t0033 and the magnitudes, hence slightly lower confidence. finance_lease_liability: t0066 shows a single 'Finance lease liabilities' line with no current/non-current split, taken as the total (0.95).",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 26.1,
+  "input_tokens": 7667,
+  "output_tokens": 3860,
+  "attempts": 1,
+  "task_sha": "9119d09bdd86a96d"
+ }
+}

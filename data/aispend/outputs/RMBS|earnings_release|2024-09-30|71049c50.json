@@ -1,0 +1,27 @@
+{
+ "accession": "RMBS|earnings_release|2024-09-30|71049c50",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the CEO quote mentions 'strategic investment in new leadership products' but does not attribute R&D or other operating expenses to AI; product announcements are boilerplate"
+  },
+  {
+   "field": "revenue",
+   "reason": "passages describe DDR5 chipsets for the data center and AI but state no AI or data-center revenue figure or share, nor attribute revenue growth to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.6,
+  "input_tokens": 4962,
+  "output_tokens": 231,
+  "attempts": 1,
+  "task_sha": "f31d3ea3466c3980"
+ }
+}

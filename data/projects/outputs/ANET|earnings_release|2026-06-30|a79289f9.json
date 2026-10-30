@@ -1,0 +1,13 @@
+{
+ "accession": "ANET|earnings_release|2026-06-30|a79289f9",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 4227,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "8c3309e51ac9d1d1"
+ }
+}

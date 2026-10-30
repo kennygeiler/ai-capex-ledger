@@ -1,0 +1,160 @@
+{
+ "ticker": "AEIS",
+ "prompt_version": "attribution@v2",
+ "model": "chip_equipment@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 327466000,
+   "ai_share": 0.1774,
+   "inputs": [
+    {
+     "id": "fact:AEIS|segment_revenue|Data Center Computing|FY2022",
+     "value": 327466000
+    }
+   ],
+   "basis": "Data Center Computing market revenue of 327.466M of 1,845.422M total. The line is server power supplies sold to hyperscalers and includes non-AI cloud and enterprise server power. In FY2022 that was most of it, since the AI ramp came later. Semiconductor Equipment (930.8M) is excluded.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 249900000,
+   "ai_share": 0.1509,
+   "inputs": [
+    {
+     "id": "fact:AEIS|segment_revenue|Data Center Computing|FY2023",
+     "value": 249900000
+    }
+   ],
+   "basis": "Data Center Computing revenue of 249.9M of 1,655.8M. The MD&A credits AI demand for second-half growth but says the market as a whole declined on cloud digestion. The line includes non-AI server power, and Semiconductor Equipment is excluded.",
+   "confidence": 0.35
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 284200000,
+   "ai_share": 0.1918,
+   "inputs": [
+    {
+     "id": "fact:AEIS|segment_revenue|Data Center Computing|FY2024",
+     "value": 284200000
+    }
+   ],
+   "basis": "Data Center Computing revenue of 284.2M of 1,482.0M, up 13.7%. The line includes non-AI server power, and Semiconductor Equipment (792.5M) is excluded.",
+   "confidence": 0.45
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 587300000,
+   "ai_share": 0.3265,
+   "inputs": [
+    {
+     "id": "fact:AEIS|segment_revenue|Data Center Computing|FY2025",
+     "value": 587300000
+    }
+   ],
+   "basis": "Data Center Computing revenue of 587.3M of 1,798.8M, up 106.7%. The company credits 'AI data center solutions' for the growth. The line still includes some non-AI server power, and Semiconductor Equipment (839.9M) is excluded.",
+   "confidence": 0.6
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2022 MD&A expected lower 2023 demand as cloud and enterprise customers digested capacity. It gives no figure and does not tie the outlook specifically to AI.",
+   "confidence": 0.2
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2024 MD&A expected these factors to 'continue to support strong demand for the next few quarters'. It gives no figure.",
+   "confidence": 0.25
+  },
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Capex of 58.9M went to factories and facilities, and no AI part is stated. Seller-side signal: Data Center Computing was 17.7% of revenue.",
+   "confidence": 0
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Capex of 61.0M, with no AI part stated. Seller-side signal: Data Center Computing was 15.1% of revenue.",
+   "confidence": 0
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Capex of 56.8M, with no AI part stated. Seller-side signal: Data Center Computing was 19.2% of revenue.",
+   "confidence": 0
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Capex of 107.4M went to factory capacity, including the Thailand factory, and no AI part is stated. Capital projects in process rose from 35.4M to 82.5M, but that is not identified as AI. Seller-side signal: Data Center Computing was 32.6% of revenue.",
+   "confidence": 0
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "No statement attributes any part of capex to AI. Capex is factory capacity for all markets, and the 2026 guide of $180M to $195M is not in the pack and is not stated as AI."
+  },
+  {
+   "field": "opex",
+   "reason": "There is no segment cost line, and no statement attributes opex to AI in any of FY2022 to FY2025."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "reason": "The 2026 outlook ('more than 50%' data-center growth) is not a pack statement. It is a growth rate, not an amount, so no outlook row can be built."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 24.6,
+  "input_tokens": 16422,
+  "output_tokens": 3049,
+  "attempts": 1,
+  "task_sha": "d19f4206596afdbe"
+ }
+}

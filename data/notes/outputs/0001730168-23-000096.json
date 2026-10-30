@@ -1,6 +1,6 @@
 {
  "accession": "0001730168-23-000096",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -36,8 +36,7 @@
    "period_end": "2021-10-31",
    "months": 12,
    "value": 20383000000,
-   "confidence": 0.95,
-   "notes": "First 'Semiconductor solutions' row in t0066 (net revenue block, above 'Operating income:'). FY2021 end date inferred as 2021-10-31, the Sunday closest to October 31 under the 52/53-week fiscal calendar."
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -73,8 +72,7 @@
    "period_end": "2021-10-31",
    "months": 12,
    "value": 7067000000,
-   "confidence": 0.95,
-   "notes": "First 'Infrastructure software' row in t0066 (net revenue block). FY2021 end date inferred as 2021-10-31 under the 52/53-week fiscal calendar."
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -176,23 +174,23 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "The segment note (t0066) reports net revenue and operating income by segment only; no capital expenditures by segment are given."
+   "reason": "the segment note (t0066) reports net revenue and operating income per segment only; no capital expenditures by segment"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No single total finance lease liabilities cell exists. Only the components are shown, in t0039 and repeated in t0055: short-term 45 and long-term 4 at October 29, 2023 (sum $49M), and short-term 37 and long-term 22 at October 30, 2022 (sum $59M). These are not emitted as values because the totals cannot be cited to one cell."
+   "reason": "no 'total finance lease liabilities' line exists; t0039 gives only 'Short-term lease liabilities - finance leases' (45 / 37) and 'Long-term lease liabilities - finance leases' (4 / 22). The prompt says to cite these with dimension 'current'/'non-current', but the validator rejects any dimension on this field, and citing both with dimension null would put two cells on one dimension, and adding them is not allowed. Omitted pending a schema/prompt fix"
   },
   {
    "field": "purchase_commitments",
-   "reason": "None of the provided tables is a contractual-obligations or commitments table, and no purchase obligations total appears."
+   "reason": "no contractual-obligations or purchase-commitments table is included among the provided tables"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 22.0,
-  "input_tokens": 7156,
-  "output_tokens": 2797,
-  "attempts": 1,
-  "task_sha": "6811f11d09bbffb2"
+  "seconds": 34.9,
+  "input_tokens": 14613,
+  "output_tokens": 4952,
+  "attempts": 2,
+  "task_sha": "f77eecf9fdc58461"
  }
 }

@@ -1,0 +1,46 @@
+{
+ "accession": "MOD|mdna|2023-03-31|ec29c740",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Compared with the prior year, sales of data center cooling, heat transfer, and HVAC & refrigeration products increased $58 million, $33 million, and $11 million, respectively.",
+   "passage": "p05",
+   "confidence": 0.6,
+   "notes": "$58 million is the year-over-year increase in data center cooling sales, not the level of data center revenue, so it is recorded as qualitative rather than explicit_amount. The sentence does not mention AI; data center demand is used as the proxy."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We expect particularly strong growth in the data center markets as the need for digital infrastructure expands.",
+   "passage": "p03",
+   "confidence": 0.5,
+   "notes": "Expects growth in the data center markets Modine serves; the sentence does not state Modine's own data center revenue and names no year, though the surrounding text concerns fiscal 2024. No AI mention."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI or data centers; p07 mentions capex obligations only generically"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.8,
+  "input_tokens": 6076,
+  "output_tokens": 946,
+  "attempts": 1,
+  "task_sha": "70e32d036a68d138"
+ }
+}

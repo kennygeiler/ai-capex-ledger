@@ -1,0 +1,35 @@
+{
+ "accession": "SNPS|earnings_release|2023-10-31|9cebef63",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We start 2024 with tremendous forward momentum driven by a resilient business model, technology trends \u2013 chief among them AI \u2013 that create a rising tide for our business, and customers who continue to prioritize investments in the chips and systems that position them for the future.",
+   "passage": "p02",
+   "confidence": 0.4,
+   "notes": "Executive quote naming AI as the chief technology trend lifting the business in 2024. It does not explicitly mention revenue or quantify an AI share, so it is recorded only as a qualitative driver of total business."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expense to AI; 'AI-driven design differentiation' describes products, not spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.5,
+  "input_tokens": 5377,
+  "output_tokens": 930,
+  "attempts": 1,
+  "task_sha": "0aec675c6833eecc"
+ }
+}

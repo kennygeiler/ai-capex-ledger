@@ -1,0 +1,27 @@
+{
+ "accession": "WDC|mdna|2023-06-30|d8f77976",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are discussed (approximately $1.4 billion in 2023, $821 million net cash, 2024 expected lower) but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; opex reductions are tied to market conditions only"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, data-center, AI-server or HBM revenue; demand discussion refers to digital transformation and data storage generally, not AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.9,
+  "input_tokens": 5739,
+  "output_tokens": 252,
+  "attempts": 1,
+  "task_sha": "faba64737c47261d"
+ }
+}

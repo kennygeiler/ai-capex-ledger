@@ -1,0 +1,27 @@
+{
+ "accession": "NTAP|earnings_release|2023-07-28|35bdf583",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is a cash flow table; purchases of property and equipment are not linked to AI in any sentence"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the passage contains only cash flow line items"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.5,
+  "input_tokens": 5182,
+  "output_tokens": 189,
+  "attempts": 1,
+  "task_sha": "9a34b4f057b1e38f"
+ }
+}

@@ -1,0 +1,68 @@
+{
+ "accession": "0001193125-25-297510",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "capex",
+   "table_id": "t0022",
+   "row_label": "Purchase of fixed assets",
+   "column_label": "For the year ended September 30, | 2025",
+   "cell_text": "(144,661)",
+   "period_end": "2025-09-30",
+   "months": 12,
+   "value": 144661000,
+   "confidence": 0.6,
+   "notes": "Two candidate PP&E lines in investing: 'Purchase of fixed assets' and 'Payments on miners and mining equipment (including deposits)' (418,212). Chose 'Purchase of fixed assets' because it matches the 'purchases of property and equipment' wording. Lines were not added together, per the rules. The miners line is also capital spending, so total PP&E cash spend is likely understated."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0022",
+   "row_label": "Purchase of fixed assets",
+   "column_label": "For the year ended September 30, | 2024",
+   "cell_text": "(66,100)",
+   "period_end": "2024-09-30",
+   "months": 12,
+   "value": 66100000,
+   "confidence": 0.6,
+   "notes": "Same choice as 2025. 'Payments on miners and mining equipment (including deposits)' of (740,296) was excluded."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0022",
+   "row_label": "Purchase of fixed assets",
+   "column_label": "For the year ended September 30, | 2023",
+   "cell_text": "(61,460)",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": 61460000,
+   "confidence": 0.6,
+   "notes": "Same choice as 2025. 'Payments on miners and mining equipment (including deposits)' of (239,416) was excluded."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "reason": "The consolidated income statement is not among the tables provided. Table t0035 covers only FY2023 and is a discontinued-operations table: its net loss of (4,429) matches 'Less: Income from discontinued operations' of 4,429 in the FY2023 cash-flow column of t0022. Its 'Total revenues, net' of 158 is therefore not company total revenue."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "No consolidated income statement was provided. Table t0035 is a discontinued-operations table and has no cost-of-revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "No consolidated income statement was provided, so no cost-of-revenue lines can be cited."
+  },
+  {
+   "field": "operating_income",
+   "reason": "No consolidated income statement was provided. The 'Loss from operations' of (5,913) in t0035 belongs to discontinued operations only (FY2023)."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.6,
+  "input_tokens": 7540,
+  "output_tokens": 1220,
+  "attempts": 1,
+  "task_sha": "174fd4c99bf1a0fc"
+ }
+}

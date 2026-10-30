@@ -1,0 +1,27 @@
+{
+ "accession": "TLN|earnings_release|2026-06-30|4dcc28fe",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; p02 mentions capital expenditures only in forward-looking-statement boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 mentions AI data center power demand only as company-description boilerplate; no sentence states an amount or share of revenue from AI or data-center customers"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 5439,
+  "output_tokens": 221,
+  "attempts": 1,
+  "task_sha": "48d0eea69564c34c"
+ }
+}

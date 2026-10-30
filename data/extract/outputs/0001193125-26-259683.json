@@ -1,0 +1,123 @@
+{
+ "accession": "0001193125-26-259683",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0008",
+   "row_label": "Net revenues",
+   "column_label": "Year Ended | April 24, 2026",
+   "cell_text": "6,925",
+   "period_end": "2026-04-24",
+   "months": 12,
+   "value": 6925000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0008",
+   "row_label": "Net revenues",
+   "column_label": "Year Ended | April 25, 2025",
+   "cell_text": "6,572",
+   "period_end": "2025-04-25",
+   "months": 12,
+   "value": 6572000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0008",
+   "row_label": "Net revenues",
+   "column_label": "Year Ended | April 26, 2024",
+   "cell_text": "6,268",
+   "period_end": "2024-04-26",
+   "months": 12,
+   "value": 6268000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0008",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended | April 24, 2026",
+   "cell_text": "1,674",
+   "period_end": "2026-04-24",
+   "months": 12,
+   "value": 1674000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0008",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended | April 25, 2025",
+   "cell_text": "1,337",
+   "period_end": "2025-04-25",
+   "months": 12,
+   "value": 1337000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0008",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended | April 26, 2024",
+   "cell_text": "1,214",
+   "period_end": "2024-04-26",
+   "months": 12,
+   "value": 1214000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0037",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | April 24, 2026",
+   "cell_text": "(198)",
+   "period_end": "2026-04-24",
+   "months": 12,
+   "value": 198000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0037",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | April 25, 2025",
+   "cell_text": "(168)",
+   "period_end": "2025-04-25",
+   "months": 12,
+   "value": 168000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0037",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended | April 26, 2024",
+   "cell_text": "(155)",
+   "period_end": "2024-04-26",
+   "months": 12,
+   "value": 155000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "Table t0008 is a summary table showing Net revenues and Gross profit but no total cost of revenues line; deriving it by subtraction would be arithmetic, which the rules forbid."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Table t0008 contains no cost-of-revenue component lines (e.g. cost of product or cost of services); only Gross profit and Gross margin are shown."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.8,
+  "input_tokens": 5589,
+  "output_tokens": 1231,
+  "attempts": 1,
+  "task_sha": "95027c8261499fe8"
+ }
+}

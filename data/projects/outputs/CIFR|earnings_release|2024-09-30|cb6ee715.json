@@ -1,0 +1,98 @@
+{
+ "accession": "CIFR|earnings_release|2024-09-30|cb6ee715",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Barber Lake data center site",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "West Texas",
+   "counterparty": null,
+   "capacity_mw": 300,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Completed acquisition of Barber Lake data center site, which includes 250 acres of land in West Texas, a newly constructed high-to-mid voltage substation, approvals for 300 MW, and agreements necessary to participate in the ERCOT market",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Reveille data center site",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 70,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2027",
+   "quote": "Completed acquisition of Reveille data center site, which includes approvals for 70 MW and potential to expand to 200 MW, with energization targeted for 2027",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Black Pearl",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 300,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "Construction of the 300 MW data center at Black Pearl progressing well, with expected energization in Q2 2025",
+   "passage": "p08",
+   "confidence": 0.9
+  },
+  {
+   "name": "Mikeska",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "LZ_West",
+   "counterparty": null,
+   "capacity_mw": 500,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2027",
+   "quote": "Total capacity of 500 MW pending load studies / ERCOT LFL approval",
+   "passage": "p18",
+   "confidence": 0.7
+  },
+  {
+   "name": "Milsing",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "LZ_North",
+   "counterparty": null,
+   "capacity_mw": 500,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2027",
+   "quote": "Total capacity of 500 MW pending load studies / ERCOT LFL approval",
+   "passage": "p19",
+   "confidence": 0.7
+  },
+  {
+   "name": "McLennan",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "LZ_North",
+   "counterparty": null,
+   "capacity_mw": 500,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2027",
+   "quote": "Total capacity of 500 MW pending load studies / ERCOT LFL approval",
+   "passage": "p20",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.6,
+  "input_tokens": 9681,
+  "output_tokens": 1736,
+  "attempts": 1,
+  "task_sha": "626d280d4419bd74"
+ }
+}

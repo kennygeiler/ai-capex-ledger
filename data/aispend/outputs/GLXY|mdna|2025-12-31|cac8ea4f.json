@@ -1,0 +1,66 @@
+{
+ "accession": "GLXY|mdna|2025-12-31|cac8ea4f",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The increase was primarily due to investment in AI/HPC infrastructure to build out our data center hosting facility at Helios in West Texas, partially offset by an $87.3 million impairment of mining equipment and related infrastructure and $12.3 million of disposals of mining equipment net carrying value associated with the data center conversion of our Helios campus.",
+   "passage": "p07",
+   "confidence": 0.8,
+   "notes": "Describes the increase in the property and equipment balance (stated as $1.2 billion in the preceding sentence), not capital expenditures directly. The sentence attributes the increase 'primarily' to AI/HPC infrastructure but does not quantify the AI part."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "To meet our estimated capital expenditure requirements related to the conversion of the existing bitcoin mining infrastructure at our Helios campus to AI/HPC data center infrastructure, we will need to obtain additional debt, equity and/or equity-linked financing.",
+   "passage": "p10",
+   "confidence": 0.9,
+   "notes": "Refers to estimated future capex for the AI/HPC conversion. No amount or year is stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 0,
+   "amount_high": 0,
+   "quote": "Galaxy does not currently earn any revenue from its Data Centers business, but expects this segment to become a significant and diversified source of long-term, predictable revenue for Galaxy, uncorrelated to the prices of digital assets, particularly once we begin to deliver critical IT load for CoreWeave (and potentially other future tenants) starting in 2026.",
+   "passage": "p04",
+   "confidence": 0.8,
+   "notes": "Data Centers (AI/HPC leasing) revenue is stated as zero ('does not currently earn any revenue'). The period is present tense, so the filing year applies."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Galaxy does not currently earn any revenue from its Data Centers business, but expects this segment to become a significant and diversified source of long-term, predictable revenue for Galaxy, uncorrelated to the prices of digital assets, particularly once we begin to deliver critical IT load for CoreWeave (and potentially other future tenants) starting in 2026.",
+   "passage": "p04",
+   "confidence": 0.8,
+   "notes": "Long-term expectation for AI/HPC data center revenue. The sentence mentions 2026 only as the start of capacity delivery, not as the year of the revenue outlook, so fiscal_year is null."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.6,
+  "input_tokens": 7004,
+  "output_tokens": 2159,
+  "attempts": 1,
+  "task_sha": "a3df790cb279fdac"
+ }
+}

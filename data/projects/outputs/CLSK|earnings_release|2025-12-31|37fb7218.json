@@ -1,0 +1,42 @@
+{
+ "accession": "CLSK|earnings_release|2025-12-31|37fb7218",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Houston region utility power capacity",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Houston region",
+   "counterparty": null,
+   "capacity_mw": 890,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We strengthened our financial foundation, secured up to 890 megawatts of high-quality utility potential capacity in the Houston region, and materially advanced our Sandersville site with the acquisition of an additional 122-acre parcel as we progress toward AI tenancy.",
+   "passage": "p02",
+   "confidence": 0.75
+  },
+  {
+   "name": "Sandersville site",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Sandersville",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We strengthened our financial foundation, secured up to 890 megawatts of high-quality utility potential capacity in the Houston region, and materially advanced our Sandersville site with the acquisition of an additional 122-acre parcel as we progress toward AI tenancy.",
+   "passage": "p02",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.9,
+  "input_tokens": 4597,
+  "output_tokens": 766,
+  "attempts": 1,
+  "task_sha": "be4ded541d4e700b"
+ }
+}

@@ -1,6 +1,6 @@
 {
  "accession": "META|transcript|2024-12-31|77fde475",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -11,19 +11,9 @@
    "amount_low": 60000000000,
    "amount_high": 65000000000,
    "quote": "We anticipate our full year 2025 capital expenditures will be in the range of $60-65 billion.",
-   "passage": "p05",
-   "confidence": 0.8,
-   "notes": "Total capex guidance; this sentence itself does not mention AI. The link to generative AI is in the next sentence of the same passage. Not an AI amount."
-  },
-  {
-   "field": "capex",
-   "fiscal_year": 2025,
-   "kind": "outlook",
-   "scope": "total",
-   "class": "qualitative",
-   "quote": "We expect capex growth in 2025 will be driven by increased investment to support both our generative AI efforts and our core business.",
-   "passage": "p05",
-   "confidence": 1.0
+   "passage": "p06",
+   "confidence": 0.9,
+   "notes": "This is total capex, not AI capex. The AI link is in the next sentence: growth is driven by generative AI and the core business. Elsewhere management says the majority of 2025 capex goes to the core business."
   },
   {
    "field": "capex",
@@ -33,19 +23,8 @@
    "class": "qualitative",
    "quote": "These are all big investments -- especially the hundreds of billions of dollars that we will invest in AI infrastructure over the long term.",
    "passage": "p01",
-   "confidence": 0.6,
-   "notes": "'Hundreds of billions' over 'the long term' is not a stated range or a single fiscal year, so it is recorded as qualitative. A null year should not be defaulted to 2025, because this is a multi-year statement. The field is assumed to be capex (AI infrastructure)."
-  },
-  {
-   "field": "capex",
-   "fiscal_year": 2025,
-   "kind": "outlook",
-   "scope": "total",
-   "class": "qualitative",
-   "quote": "On the data center side, we\u2019re anticipating higher data center spend in 2025 to be driven by build-outs of our large training clusters and our higher power density data centers that are entering the core construction phase.",
-   "passage": "p08",
    "confidence": 0.7,
-   "notes": "The AI link is through 'large training clusters'. The sentence does not say 'AI' explicitly."
+   "notes": "'Hundreds of billions' is a vague magnitude, not a stated amount or range, so it is recorded as qualitative. The horizon is 'over the long term', which is multi-year and not just the year after fiscal 2024."
   },
   {
    "field": "capex",
@@ -54,9 +33,9 @@
    "scope": "ai",
    "class": "qualitative",
    "quote": "And then in terms of the breakdown for core versus Gen AI use cases, we\u2019re expecting total infrastructure spend within each of Gen AI, non-AI and core AI to increase in \u201825 with the majority of our CapEx directed to our core business with some caveat that that is -- that\u2019s not easy to measure perfectly as the data centers we\u2019re building can support AI or non-AI workloads and the GPU- based servers we procure for gen AI can be repurposed for core AI use cases and so on and so forth.",
-   "passage": "p09",
-   "confidence": 0.7,
-   "notes": "The sentence says Gen AI and core AI infrastructure spend will increase in 2025, but gives no AI share. 'Majority to core business' is not an AI share, because core business includes core AI."
+   "passage": "p10",
+   "confidence": 0.8,
+   "notes": "Says Gen AI and core AI infrastructure spend will increase, but gives no figure. The 'majority' refers to the core business, which includes both core AI and non-AI, so it is not an AI share."
   },
   {
    "field": "capex",
@@ -65,9 +44,30 @@
    "scope": "ai",
    "class": "qualitative",
    "quote": "We are planning to significantly ramp up deployment of GPUs in 2025, and we\u2019ll continue to engage with our vendors and invest in our own silicon to meet those needs.",
-   "passage": "p10",
+   "passage": "p11",
+   "confidence": 0.85
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "On the data center side, we\u2019re anticipating higher data center spend in 2025 to be driven by build-outs of our large training clusters and our higher power density data centers that are entering the core construction phase.",
+   "passage": "p09",
+   "confidence": 0.65,
+   "notes": "The AI link is implicit ('large training clusters'). The next sentence says the capacity serves core AI and non-AI use cases."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "And here, growth in employee comp and headcount more broadly is primarily driven by those areas that I mentioned, infrastructure monetization, generative AI, Reality Labs, and regulation and compliance.",
+   "passage": "p12",
    "confidence": 0.8,
-   "notes": "GPU deployment is treated as AI capex. The sentence does not say 'AI' explicitly."
+   "notes": "Generative AI is one of several named drivers of 2025 employee compensation growth. The year comes from the preceding sentence in the same passage, which names 2025."
   },
   {
    "field": "opex",
@@ -76,40 +76,23 @@
    "scope": "total",
    "class": "qualitative",
    "quote": "In 2025, we expect headcount growth will continue to be primarily driven by technical roles across our priority initiatives within infrastructure, monetization, Reality Labs, generative AI, as well as regulation and compliance.",
-   "passage": "p04",
-   "confidence": 0.7,
-   "notes": "Generative AI is one of several named drivers of headcount growth."
-  },
-  {
-   "field": "opex",
-   "fiscal_year": null,
-   "kind": "outlook",
-   "scope": "total",
-   "class": "qualitative",
-   "quote": "And here, growth in employee comp and headcount more broadly is primarily driven by those areas that I mentioned, infrastructure monetization, generative AI, Reality Labs, and regulation and compliance.",
-   "passage": "p11",
-   "confidence": 0.7,
-   "notes": "The preceding sentence refers to 2025 expense growth, but this sentence names no year. Generative AI is one of several drivers."
-  },
-  {
-   "field": "opex",
-   "fiscal_year": null,
-   "kind": "outlook",
-   "scope": "total",
-   "class": "qualitative",
-   "quote": "That\u2019s what a lot of our new headcount growth is going towards.",
-   "passage": "p02",
-   "confidence": 0.5,
-   "notes": "'That' refers to initiatives that use AI advances to grow revenue, described in a prior sentence. The AI link is indirect, and the sentence names no year (the context says 'next few years')."
+   "passage": "p05",
+   "confidence": 0.75,
+   "notes": "This covers headcount growth, a proxy for opex. Generative AI is one of several drivers."
   }
  ],
- "none_found": [],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "Meta is a buyer of AI infrastructure. No sentence states an AI revenue amount or share. p02 only says AI initiatives aim to increase revenue growth."
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 26.0,
-  "input_tokens": 5588,
-  "output_tokens": 3450,
+  "seconds": 22.7,
+  "input_tokens": 5963,
+  "output_tokens": 3049,
   "attempts": 1,
-  "task_sha": "dc995acc318f3e03"
+  "task_sha": "c5453deeddce9fb6"
  }
 }

@@ -1,0 +1,37 @@
+{
+ "accession": "DELL|earnings_release|2024-02-02|a085e33a",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 4900000000,
+   "amount_high": 4900000000,
+   "quote": "Servers and networking revenue was $4.9 billion, with sequential growth driven primarily by AI-optimized servers.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Fourth-quarter (not full-year) ISG servers and networking revenue, per the preceding sentence; AI-optimized servers named only as the driver of sequential growth, so this is not the AI-server revenue figure. No year in the sentence; the context implies Q4 fiscal 2024. The $2.9 billion AI-optimized server backlog in p02 is backlog, not revenue, and is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links Dell's own capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.3,
+  "input_tokens": 5168,
+  "output_tokens": 901,
+  "attempts": 1,
+  "task_sha": "bc2d179878a1219f"
+ }
+}

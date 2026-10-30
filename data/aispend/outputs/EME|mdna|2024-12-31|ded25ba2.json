@@ -1,0 +1,57 @@
+{
+ "accession": "EME|mdna|2024-12-31|ded25ba2",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Excluding the impact of acquisitions, the increase in this segment\u2019s revenues was primarily a result of growth within the network and communications market sector, predominantly due to data center construction projects.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "US electrical construction segment revenue growth (segment total $3,342.9 million stated in a separate sentence) attributed in words to data center construction; no data-center revenue figure or share given."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Increased demand for cloud computing and data storage, driven in part by the emergence of artificial intelligence, has resulted in a greater number of project opportunities for us in several of the geographies in which we operate.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Links AI to demand and project opportunities rather than directly to revenue; no figure. No year in the sentence, so code applies the reported year, fiscal 2024."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This segment experienced notable increases in revenues within: (a) the high-tech manufacturing market sector, as a result of stronger demand for our mechanical construction and/or fire protection services by certain customers: (i) engaged in either the design and manufacturing of semiconductors or the production and development of electric vehicles and/or lithium batteries and (ii) within the biotech, life-sciences, and pharmaceutical industries, (b) the network and communications market sector, due to increased data center project activity as this segment benefited from the same market demand described above within our United States electrical construction and facilities services segment, (c) the institutional market sector, given several public sector or university projects which were active during 2024, (d) the manufacturing and industrial market sector largely as a result of the re-shoring of critical supply chain by certain of our customers, (e) the water and wastewater market sector, driven by several projects within the Southeast region of the United States, and (f) the healthcare market sector, due to an increase in projects throughout several of the regions in which we operate.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "US mechanical construction segment; data center project activity is one of several drivers of revenue growth; no data-center figure or share. The year is taken from 'during 2024' in item (c) and the past-tense reporting of 2024 results."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are mentioned only in investing cash flows and climate-target context; no sentence links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.9,
+  "input_tokens": 6020,
+  "output_tokens": 1677,
+  "attempts": 1,
+  "task_sha": "9ba334d5dbd08584"
+ }
+}

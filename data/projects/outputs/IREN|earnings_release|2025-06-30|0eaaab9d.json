@@ -1,0 +1,13 @@
+{
+ "accession": "IREN|earnings_release|2025-06-30|0eaaab9d",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "dedd4ac65d546bb1"
+ }
+}

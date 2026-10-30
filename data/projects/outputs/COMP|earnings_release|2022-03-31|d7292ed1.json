@@ -1,0 +1,13 @@
+{
+ "accession": "COMP|earnings_release|2022-03-31|d7292ed1",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 5467,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "78d098ab50addc4d"
+ }
+}

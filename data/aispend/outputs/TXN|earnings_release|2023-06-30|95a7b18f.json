@@ -1,23 +1,27 @@
 {
  "accession": "TXN|earnings_release|2023-06-30|95a7b18f",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p01 only defines free cash flow and p02 reports total capital expenditures in a cash flow table with no AI attribution"
+   "reason": "capital expenditures appear only as a cash-flow line item ($1,446 million for the quarter) and in the free cash flow definition; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
    "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only revenue statement is a total third-quarter outlook of $4.36-$4.74 billion with no mention of AI or data-center demand; no sentence states AI's or data center's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.4,
-  "input_tokens": 5134,
-  "output_tokens": 185,
+  "seconds": 7.6,
+  "input_tokens": 5441,
+  "output_tokens": 262,
   "attempts": 1,
-  "task_sha": "0c1e85c2a84a6268"
+  "task_sha": "7178a72acdf8b82a"
  }
 }

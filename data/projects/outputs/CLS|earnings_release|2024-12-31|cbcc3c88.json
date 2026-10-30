@@ -1,0 +1,13 @@
+{
+ "accession": "CLS|earnings_release|2024-12-31|cbcc3c88",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 6313,
+  "output_tokens": 88,
+  "attempts": 1,
+  "task_sha": "623a29ec8eaee2f1"
+ }
+}

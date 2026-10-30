@@ -1,0 +1,30 @@
+{
+ "accession": "LITE|earnings_release|2023-09-30|348bfbe8",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Acquisition of Cloud Light Technology Limited",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Cloud Light Technology Limited",
+   "amount_low": 750000000,
+   "amount_high": 750000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2023-10-30",
+   "in_service": null,
+   "quote": "San Jose, Calif., October 30, 2023 \u2013Lumentum Holdings Inc. (NASDAQ: LITE) (\u201cLumentum\u201d) and Cloud Light Technology Limited (\u201cCloud Light\u201d) today announced that they have entered into a definitive agreement under which Lumentum will acquire Cloud Light with a transaction value of approximately $750 million, subject to certain adjustments.",
+   "passage": "p01",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.5,
+  "input_tokens": 5464,
+  "output_tokens": 695,
+  "attempts": 1,
+  "task_sha": "1627dcc5cc9047f2"
+ }
+}

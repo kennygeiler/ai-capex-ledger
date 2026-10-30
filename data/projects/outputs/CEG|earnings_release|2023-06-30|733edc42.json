@@ -1,0 +1,58 @@
+{
+ "accession": "CEG|earnings_release|2023-06-30|733edc42",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "South Texas Project Nuclear Generating Station (44% stake acquisition)",
+   "kind": "power",
+   "status": "contracted",
+   "location": "about 90 miles southwest of Houston",
+   "counterparty": "NRG Energy Inc.",
+   "amount_low": 1750000000,
+   "amount_high": 1750000000,
+   "capacity_mw": 2645,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In alignment with our capital and strategic plan we have agreed to acquire NRG Energy Inc.\u2019s 44% ownership stake in the South Texas Project Nuclear Generating Station, a 2,645-megawatt, dual-unit nuclear plant located about 90 miles southwest of Houston, for $1.75 billion.",
+   "passage": "p03",
+   "confidence": 0.85
+  },
+  {
+   "name": "Criterion wind facility repower",
+   "kind": "power",
+   "status": "under_construction",
+   "location": "Oakland, Md.",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We have commenced a project to repower our Criterion wind facility in Oakland, Md.",
+   "passage": "p04",
+   "confidence": 0.8
+  },
+  {
+   "name": "Microsoft Hourly Carbon-Free Matching Agreement",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Microsoft",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In a first for our industry, we recently signed a landmark agreement with Microsoft to provide one of its data centers with environmental attributes from nuclear energy as part of a strategy to power its operations with clean energy around the clock, demonstrating the unique value of nuclear as a sustainable climate solution.",
+   "passage": "p02",
+   "confidence": 0.75
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.8,
+  "input_tokens": 17835,
+  "output_tokens": 1268,
+  "attempts": 1,
+  "task_sha": "dbf879c24af74f0b"
+ }
+}

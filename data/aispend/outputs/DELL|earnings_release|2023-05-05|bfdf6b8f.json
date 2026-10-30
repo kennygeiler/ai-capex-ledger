@@ -1,0 +1,37 @@
+{
+ "accession": "DELL|earnings_release|2023-05-05|bfdf6b8f",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 3800000000,
+   "amount_high": 3800000000,
+   "quote": "Servers and networking revenue was $3.8 billion, with demand growth in AI optimized high value workload servers.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Figure is first-quarter fiscal 2024 Servers and networking revenue, a sub-segment of ISG, not company total revenue and not a full-year figure. AI-optimized servers are cited only as a source of demand growth, so the AI portion is not stated. Recorded as scope total so the $3.8B is not mistaken for AI revenue."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.8,
+  "input_tokens": 4853,
+  "output_tokens": 596,
+  "attempts": 1,
+  "task_sha": "7e1b04b7001f2fec"
+ }
+}

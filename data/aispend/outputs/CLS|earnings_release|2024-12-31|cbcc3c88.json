@@ -1,0 +1,42 @@
+{
+ "accession": "CLS|earnings_release|2024-12-31|cbcc3c88",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Overall, the current demand environment for data center hardware is robust, as evidenced by recent customer forecasts as well as new AI program awards over the last 90 days, including our second and third 1.6T program wins.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Describes robust data-center and AI demand behind the outlook, but states no AI or data-center revenue figure or share. The $10.7 billion 2025 total-revenue outlook in the preceding sentence is not attributed to AI in that sentence, so it is not recorded."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The program will leverage Celestica\u2019s proprietary R&D investments across multiple technologies, including AI/ML servers, 1.6 Terabyte switches, and advanced liquid cooling systems.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Links R&D investment to AI/ML server technology but gives no amount, share or period. It is a program description rather than a spend statement, so confidence is reduced."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's own capital expenditures to AI; the p03 mention of capital expenditure refers to hyperscaler customers' spending in forward-looking boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.3,
+  "input_tokens": 5612,
+  "output_tokens": 1021,
+  "attempts": 1,
+  "task_sha": "bc053e3254cee711"
+ }
+}

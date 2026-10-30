@@ -1,0 +1,46 @@
+{
+ "accession": "TER|earnings_release|2026-06-28|a3073fe6",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Record revenue in Memory and Integrated Systems Test driven by all things AI",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Headline bullet, not a full sentence. It refers to Q3 2026 segment revenue, not total revenue. No AI amount or share is stated. The bullet names no year; context is Q3 2026, so code will use the filing year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Demand extended across the AI value chain, from memory and hard disk drive test to high-speed interconnect and robotics, driving results above the high end of our guidance.",
+   "passage": "p02",
+   "confidence": 0.75,
+   "notes": "CEO quote naming AI demand as a driver of Q3 2026 results ($1,306 million of quarterly revenue, stated in a separate sentence). AI's part is not quantified. The sentence names no year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.8,
+  "input_tokens": 5552,
+  "output_tokens": 954,
+  "attempts": 1,
+  "task_sha": "6227a96dca633207"
+ }
+}

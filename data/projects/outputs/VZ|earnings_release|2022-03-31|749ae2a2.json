@@ -1,0 +1,42 @@
+{
+ "accession": "VZ|earnings_release|2022-03-31|749ae2a2",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "C-Band network build",
+   "kind": "network",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "W e continue to accelerate our C-Band network build with our goal of reaching at least 175 million people by the end of the year and, with the recent early clearing spectrum announcement, we now have the ability to dep loy more of this spectrum a full year sooner.",
+   "passage": "p03",
+   "confidence": 0.5
+  },
+  {
+   "name": "5G Ultra Wideband network",
+   "kind": "network",
+   "status": "in_service",
+   "location": "United States",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Verizon Communications Inc. (NYSE, Nasdaq: VZ) reported first-quarter results today, including the expansion of its 5G Ultra Wideband network to nearly 113 million people around the country and elevated demands for its 5G mobility and nationwide broadband services.",
+   "passage": "p02",
+   "confidence": 0.4
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.1,
+  "input_tokens": 5796,
+  "output_tokens": 1006,
+  "attempts": 1,
+  "task_sha": "b22898cb00e01e31"
+ }
+}

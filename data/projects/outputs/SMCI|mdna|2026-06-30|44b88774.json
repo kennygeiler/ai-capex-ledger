@@ -1,0 +1,13 @@
+{
+ "accession": "SMCI|mdna|2026-06-30|44b88774",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.9,
+  "input_tokens": 5809,
+  "output_tokens": 90,
+  "attempts": 1,
+  "task_sha": "8f0fcb5ba47b4725"
+ }
+}

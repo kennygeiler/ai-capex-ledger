@@ -1,0 +1,27 @@
+{
+ "accession": "KLAC|earnings_release|2023-09-30|16f653a4",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is safe-harbor boilerplate; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is safe-harbor boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only passage is safe-harbor boilerplate; no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.5,
+  "input_tokens": 6013,
+  "output_tokens": 208,
+  "attempts": 1,
+  "task_sha": "9a7ebb1e96f63461"
+ }
+}

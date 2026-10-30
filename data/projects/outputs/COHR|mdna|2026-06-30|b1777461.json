@@ -1,0 +1,28 @@
+{
+ "accession": "COHR|mdna|2026-06-30|b1777461",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "NVIDIA multi-year strategic agreement for advanced optics manufacturing capacity",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "NVIDIA",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2026-03-02",
+   "in_service": null,
+   "quote": "On March 2, 2026, the Company entered into a multi-year strategic agreement with NVIDIA to advance the development of advanced optics technologies, including manufacturing capacity and research and development, to enable next-generation AI infrastructure.",
+   "passage": "p01",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.5,
+  "input_tokens": 9094,
+  "output_tokens": 566,
+  "attempts": 1,
+  "task_sha": "c0716bf8934e0f37"
+ }
+}

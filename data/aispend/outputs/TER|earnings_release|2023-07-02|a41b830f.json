@@ -1,0 +1,35 @@
+{
+ "accession": "TER|earnings_release|2023-07-02|a41b830f",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "As we enter Q3, test demand for DRR5 and HBM memory devices for data center applications remains strong and SOC test demand for automotive applications is incrementally stronger.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Seller side: describes demand for Teradyne's test equipment from DDR5/HBM data-center memory, not a revenue figure. Present-tense 'remains strong', so recorded as actual. The 'Q3' named here is Q3 2023, but the sentence gives no year, so fiscal_year is null. Wording links demand, not stated revenue, to data center, so confidence is lower."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.8,
+  "input_tokens": 5382,
+  "output_tokens": 828,
+  "attempts": 1,
+  "task_sha": "760b1b639ef45c38"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "T|earnings_release|2024-03-31|4b18e8c0",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capital figure is a total capital investment outlook ($21-$22 billion), and no sentence links it to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 4814,
+  "output_tokens": 214,
+  "attempts": 1,
+  "task_sha": "a700ac9dd26e04ab"
+ }
+}

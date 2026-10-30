@@ -1,0 +1,27 @@
+{
+ "accession": "CIEN|earnings_release|2024-11-02|30b80c92",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share; 'Non-telco represented 48% of total revenue' is a customer-type split, not AI/data-center revenue, and 'Direct Cloud Provider revenue grew 53% sequentially' gives only a growth rate with no AI link; the WaveLogic 6 Nano data-center mention is a product description (boilerplate)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.8,
+  "input_tokens": 5269,
+  "output_tokens": 522,
+  "attempts": 1,
+  "task_sha": "8c3f9b88a28460e2"
+ }
+}

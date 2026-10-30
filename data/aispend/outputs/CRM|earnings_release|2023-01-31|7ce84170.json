@@ -1,0 +1,27 @@
+{
+ "accession": "CRM|earnings_release|2023-01-31|7ce84170",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only passage is forward-looking-statement risk boilerplate; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "only passage is risk boilerplate mentioning data center and infrastructure expenses generally; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 5470,
+  "output_tokens": 209,
+  "attempts": 1,
+  "task_sha": "a14668ca79d5a727"
+ }
+}

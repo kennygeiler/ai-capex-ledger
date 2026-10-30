@@ -1,10 +1,10 @@
 {
  "accession": "0001628280-24-002390",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
-   "dimension": "Automotive",
+   "dimension": "Automotive segment",
    "table_id": "t0067",
    "row_label": "Revenues",
    "column_label": "Year Ended December 31, | 2023",
@@ -12,12 +12,11 @@
    "period_end": "2023-12-31",
    "months": 12,
    "value": 90738000000,
-   "confidence": 0.8,
-   "notes": "First 'Revenues' row has no segment heading in the parsed table; it precedes the 'Energy generation and storage segment' heading, so it is Tesla's other reportable segment, automotive. 90,738 + 6,035 = 96,773 total revenues (t0027) confirms it. Dimension inferred, not verbatim."
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
-   "dimension": "Automotive",
+   "dimension": "Automotive segment",
    "table_id": "t0067",
    "row_label": "Revenues",
    "column_label": "Year Ended December 31, | 2022",
@@ -25,12 +24,11 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 77553000000,
-   "confidence": 0.8,
-   "notes": "Segment heading missing in parsed table; inferred automotive. 77,553 + 3,909 = 81,462 total revenues."
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
-   "dimension": "Automotive",
+   "dimension": "Automotive segment",
    "table_id": "t0067",
    "row_label": "Revenues",
    "column_label": "Year Ended December 31, | 2021",
@@ -38,8 +36,7 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 51034000000,
-   "confidence": 0.8,
-   "notes": "Segment heading missing in parsed table; inferred automotive. 51,034 + 2,789 = 53,823 total revenues."
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -51,8 +48,7 @@
    "period_end": "2023-12-31",
    "months": 12,
    "value": 6035000000,
-   "confidence": 0.95,
-   "notes": "Row label is 'Revenues' under the 'Energy generation and storage segment' heading."
+   "confidence": 0.95
   },
   {
    "field": "segment_revenue",
@@ -64,8 +60,7 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 3909000000,
-   "confidence": 0.95,
-   "notes": "Row label is 'Revenues' under the 'Energy generation and storage segment' heading."
+   "confidence": 0.95
   },
   {
    "field": "segment_revenue",
@@ -77,8 +72,7 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 2789000000,
-   "confidence": 0.95,
-   "notes": "Row label is 'Revenues' under the 'Energy generation and storage segment' heading."
+   "confidence": 0.95
   },
   {
    "field": "ppe_category",
@@ -252,19 +246,20 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment note (t0067) reports revenues and gross profit only; no per-segment capital expenditures table is provided"
+   "reason": "the segment note table reports revenues and gross profit only; no per-segment capital expenditures are given"
   },
   {
    "field": "purchase_commitments",
    "reason": "no contractual-obligations or purchase-commitments table is among the provided tables"
   }
  ],
+ "notes": "In t0067 the first segment block has no header row in the parsed table; it is the block preceding 'Energy generation and storage segment' and is taken as Tesla's Automotive segment (dimension 'Automotive segment' inferred, hence confidence 0.8). Product-line revenue in t0027 was not extracted because the filing reports revenue by reportable segment in t0067.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 24.4,
-  "input_tokens": 8715,
-  "output_tokens": 3249,
+  "seconds": 23.0,
+  "input_tokens": 8847,
+  "output_tokens": 3179,
   "attempts": 1,
-  "task_sha": "a06d95fbe9dd501e"
+  "task_sha": "5979510216447665"
  }
 }

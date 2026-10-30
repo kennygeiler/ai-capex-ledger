@@ -1,0 +1,42 @@
+{
+ "accession": "AAOI|earnings_release|2025-12-31|9b33db01",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our results were driven by broad-based demand in both our CATV and datacenter businesses.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Says datacenter demand helped drive overall results but gives no datacenter revenue figure or share. The sentence names no year; the surrounding quote refers to fiscal 2025 results, so code should use the reported year."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We made tangible progress during the quarter on expanding our manufacturing capacity, which is a critical step as we prepare for higher-volume production of our next generation datacenter products.",
+   "passage": "p02",
+   "confidence": 0.4,
+   "notes": "Links capacity expansion (implied capital spending) to datacenter products, without naming capex, AI, or an amount. Ambiguous whether this counts as an AI capex statement."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.1,
+  "input_tokens": 6153,
+  "output_tokens": 1015,
+  "attempts": 1,
+  "task_sha": "bf12c81ca770bb19"
+ }
+}

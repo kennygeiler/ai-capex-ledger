@@ -1,0 +1,27 @@
+{
+ "accession": "CDNS|mdna|2025-12-31|42791308",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage lists purchases of property, plant and equipment as a use of cash without linking capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage mentions operating expenses and salaries as uses of cash without attributing any part to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.0,
+  "input_tokens": 4827,
+  "output_tokens": 196,
+  "attempts": 1,
+  "task_sha": "45444c22ceb3aac1"
+ }
+}

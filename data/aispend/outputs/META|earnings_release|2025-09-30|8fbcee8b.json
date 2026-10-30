@@ -1,31 +1,66 @@
 {
  "accession": "META|earnings_release|2025-09-30|8fbcee8b",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
-   "field": "opex",
-   "fiscal_year": null,
+   "field": "capex",
+   "fiscal_year": 2025,
    "kind": "outlook",
-   "scope": "ai",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 70000000000,
+   "amount_high": 72000000000,
+   "quote": "We currently expect 2025 capital expenditures, including principal payments on finance leases, to be in the range of $70-72 billion, increased from our prior outlook of $66-72 billion.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Total capex guidance, not the AI part. The sentence does not mention AI; recorded as scope total so it is not mistaken for AI spend. Includes principal payments on finance leases."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We anticipate this will provide further upward pressure on our capital expenditures and expense plans next year.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "'Next year' relative to the fiscal 2025 release gives 2026. The link to AI is implicit: 'this' refers to aggressive investment to meet expanding compute needs. The word AI does not appear in the passage."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We anticipate this will provide further upward pressure on our capital expenditures and expense plans next year.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "Same sentence as the capex statement. Expense plans face upward pressure from compute and infrastructure needs. The AI link is implicit and is not stated."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
    "class": "qualitative",
    "quote": "Employee compensation costs will be the second largest contributor to growth, as we recognize a full year of compensation for employees hired throughout 2025, particularly AI talent, and add technical talent in priority areas.",
    "passage": "p03",
-   "confidence": 0.7,
-   "notes": "Links growth in headcount expense to AI talent hiring, but gives no amount or share. The sentence names no outlook year: '2025' refers to when employees were hired. The preceding sentence implies 2026, but fiscal_year is left null per the rules."
+   "confidence": 0.8,
+   "notes": "Total expense growth in 2026, with year taken from the preceding sentence's context of 2026 vs 2025. AI talent hiring is named as a driver of compensation growth. No amount or share is given."
   }
  ],
  "none_found": [
   {
-   "field": "capex",
-   "reason": "No sentence links capital expenditures to AI. p01 gives total 2025 capex of $70-72 billion with no AI driver stated. p02 and p03 cite 'compute needs' and infrastructure capacity as drivers of 2026 capex, without naming AI."
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 12.2,
-  "input_tokens": 4985,
-  "output_tokens": 1050,
+  "seconds": 17.8,
+  "input_tokens": 5292,
+  "output_tokens": 1708,
   "attempts": 1,
-  "task_sha": "3b08605764f559d4"
+  "task_sha": "d2c291a5d5ff09c7"
  }
 }

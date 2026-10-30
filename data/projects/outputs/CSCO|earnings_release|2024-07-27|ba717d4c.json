@@ -1,0 +1,13 @@
+{
+ "accession": "CSCO|earnings_release|2024-07-27|ba717d4c",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "9419169492ef7184"
+ }
+}

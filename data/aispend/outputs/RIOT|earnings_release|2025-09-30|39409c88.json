@@ -1,0 +1,37 @@
+{
+ "accession": "RIOT|earnings_release|2025-09-30|39409c88",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 214000000,
+   "amount_high": 214000000,
+   "quote": "Forecasted capital expenditures of $214 million over next 18 months for two buildings, representing $1.9 million per Critical IT MW1",
+   "passage": "p06",
+   "confidence": 0.6,
+   "notes": "Core & Shell capex for two Corsicana data center buildings (112 MW critical IT). The sentence says 'data center', not 'AI'. The filing elsewhere frames the data centers as aimed at AI/HPC customers (hyperscalers, neoclouds), so treating this as AI capex is an interpretation. The figure covers 18 months spanning 2025-2027 (p10) and is not one fiscal year. It excludes land, substation and design-engineering capex. Text is a slide bullet, not a full sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "data center and AI sales hires are listed (p05), but no sentence quantifies operating expenses or attributes them to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "revenue is Bitcoin Mining and Engineering; 90% of the Engineering backlog comes from the data center sector (p08, p09), but that is backlog, not revenue, and no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.7,
+  "input_tokens": 11618,
+  "output_tokens": 1210,
+  "attempts": 1,
+  "task_sha": "4500e51a57402793"
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "accession": "SNPS|earnings_release|2025-04-30|cc84ffd0",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The mega trends of AI, software-defined systems, and silicon proliferation continue to drive our growth.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "CEO quote naming AI as one of several trends driving growth generally; it does not state any AI part of revenue. Synopsys is an EDA vendor, not a direct seller of AI or data-center hardware, so this may be closer to boilerplate."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 5006,
+  "output_tokens": 637,
+  "attempts": 1,
+  "task_sha": "41b1f720c6ad0ed9"
+ }
+}

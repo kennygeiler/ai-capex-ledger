@@ -1,0 +1,102 @@
+{
+ "accession": "RIOT|mdna|2023-12-31|97dbe74a",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Rockdale Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 700,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The Rockdale Facility currently provides 700 MW in total developed capacity for our Bitcoin mining and data center hosting services for institutional-scale hosted clients.",
+   "passage": "p01",
+   "confidence": 0.9
+  },
+  {
+   "name": "Corsicana Facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Navarro County, Texas",
+   "counterparty": null,
+   "capacity_mw": 1000,
+   "gpus": null,
+   "announced": "2022",
+   "in_service": null,
+   "quote": "During the year ended December 31, 2022, we announced the initiation of a large-scale development to expand our Bitcoin mining and data center hosting capabilities in Navarro County, Texas with the acquisition of a 265-acre site where the anticipated one-gigawatt Corsicana Facility is being constructed.",
+   "passage": "p18",
+   "confidence": 0.9
+  },
+  {
+   "name": "Corsicana Facility first phase",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Navarro County, Texas",
+   "counterparty": null,
+   "amount_low": 333000000,
+   "amount_high": 333000000,
+   "capacity_mw": 400,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "We estimate that the total cost of the first phase of the development will be approximately $333.0 million, which is scheduled to be invested through mid-2024.",
+   "passage": "p19",
+   "confidence": 0.8
+  },
+  {
+   "name": "MicroBT Master Agreement",
+   "kind": "other",
+   "status": "contracted",
+   "location": "Corsicana Facility",
+   "counterparty": "MicroBT",
+   "amount_low": 453400000,
+   "amount_high": 453400000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2023",
+   "in_service": "2025",
+   "quote": "During the year ended December 31, 2023, we entered into the Master Agreement to acquire 99,840 miners from MicroBT (consisting of 8,320 M56S+ model miners, 22,684 M56S++ model miners, 20,778 M66 model miners, and 48,058 M66S model miners), primarily for use at the Corsicana Facility, for a total purchase price of approximately $453.4 million.",
+   "passage": "p02",
+   "confidence": 0.75
+  },
+  {
+   "name": "Midas immersion cooling systems purchase",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Midas Green Technologies, LLC (d/b/a Midas Immersion Cooling)",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "The remaining commitment of approximately $21.1 million is due in installments in early 2024, based on the estimated delivery schedule.",
+   "passage": "p17",
+   "confidence": 0.5
+  },
+  {
+   "name": "Power purchase agreement (PPA)",
+   "kind": "power",
+   "status": "contracted",
+   "location": "ERCOT",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Power curtailment credits during the years ended December 31, 2023 and 2022 were $71.2 million and $27.3 million, respectively, and represent sales of unused power under our PPA and participation in ancillary services under ERCOT Demand Response Services Programs.",
+   "passage": "p11",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.3,
+  "input_tokens": 8877,
+  "output_tokens": 2064,
+  "attempts": 1,
+  "task_sha": "c66368dbfc3d95c8"
+ }
+}

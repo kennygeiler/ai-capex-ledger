@@ -1,0 +1,62 @@
+{
+ "accession": "DLR|earnings_release|2021-12-31|aae2ea44",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Northern Virginia land acquisition (16 acres)",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Northern Virginia",
+   "counterparty": null,
+   "amount_low": 23000000,
+   "amount_high": 23000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "During the fourth quarter, Digital Realty made a strategic investment in AtlasEdge Data Centres, a European edge data center provider; acquired 16 acres of land in Northern Virginia for approximately $23 million; and sold a mixed-use retail and data center property in San Jose, California for approximately $60 million.",
+   "passage": "p04",
+   "confidence": 0.6
+  },
+  {
+   "name": "Medallion Lagos, Nigeria land parcels",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Lagos, Nigeria",
+   "counterparty": "Pembani Remgro",
+   "amount_low": 22000000,
+   "amount_high": 22000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "During the fourth quarter, Medallion, a leading Nigerian colocation and interconnection provider jointly owned by Digital Realty and Pembani Remgro, acquired two land parcels in Lagos, Nigeria.",
+   "passage": "p04",
+   "confidence": 0.5
+  },
+  {
+   "name": "Teraco acquisition",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Africa",
+   "counterparty": "Berkshire Partners and Permira",
+   "amount_low": 3500000000,
+   "amount_high": 3500000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Subsequent to quarter-end, Digital Realty announced it has entered into a definitive agreement to acquire roughly a 55% stake in Teraco, Africa\u2019s leading carrier-neutral colocation provider, from a consortium of investors including Berkshire Partners and Permira, in a transaction valuing Teraco at approximately $3.5 billion and representing a cap rate of approximately 3.5% on projected 2022 cash net operating income of approximately $121 million.",
+   "passage": "p04",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.2,
+  "input_tokens": 16166,
+  "output_tokens": 1631,
+  "attempts": 1,
+  "task_sha": "9bf6885ed68af46d"
+ }
+}

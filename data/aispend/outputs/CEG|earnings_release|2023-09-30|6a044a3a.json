@@ -1,0 +1,27 @@
+{
+ "accession": "CEG|earnings_release|2023-09-30|6a044a3a",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 mentions capital expenditures only in a non-GAAP definition of free cash flow"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 describes a Microsoft agreement to power a data center with nuclear energy but states no amount or share of revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.6,
+  "input_tokens": 5941,
+  "output_tokens": 304,
+  "attempts": 1,
+  "task_sha": "a5092b771f4370da"
+ }
+}

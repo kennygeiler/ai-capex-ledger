@@ -1,0 +1,35 @@
+{
+ "accession": "VRT|mdna|2022-12-31|0edd3630",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Sales increases were primarily due to deployment of large colocation data centers, the global recovery from COVID-19, and an increase in E&I sales of $236.9.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Names data-center demand (colocation deployments) as a driver of Europe, Middle East & Africa regional net sales growth ($1,361.6 in 2022, stated in the preceding sentence). It does not state a data-center or AI revenue figure or share. The sentence covers a regional segment, not total company revenue, and lists data centers as one of several drivers, so confidence is reduced."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures of approximately $100.0 in 2022 and approximately $150 expected in 2023 are stated, but no sentence links them to AI or data centers. They are described as maintenance and growth/innovation projects."
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.7,
+  "input_tokens": 5341,
+  "output_tokens": 827,
+  "attempts": 1,
+  "task_sha": "f7c13631340c97aa"
+ }
+}

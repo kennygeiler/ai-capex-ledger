@@ -1,0 +1,37 @@
+{
+ "accession": "IRM|earnings_release|2025-03-31|d87fa861",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 800000000,
+   "amount_high": 800000000,
+   "quote": "~$800 million 2025E Revenue \u27a2 Top global operator of data centers with 29 data centers in 21 markets, serving 1,300+ customers, including 5 of largest global hyperscalers",
+   "passage": "p10",
+   "confidence": 0.7,
+   "notes": "Investor-slide fragment, not a full sentence; data center segment revenue at the midpoint of 2025 guidance, stated as approximate (~). Colocation/leasing revenue from data-center demand, not explicitly attributed to AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI or data-center buildout with an amount, share or attribution; only recurring capex in AFFO reconciliation and risk-factor mention of funding capex"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; artificial intelligence appears only in forward-looking-statement boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.3,
+  "input_tokens": 15968,
+  "output_tokens": 889,
+  "attempts": 1,
+  "task_sha": "4226d45275082168"
+ }
+}

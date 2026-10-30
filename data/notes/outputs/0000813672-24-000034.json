@@ -1,0 +1,185 @@
+{
+ "accession": "0000813672-24-000034",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment and internal-use software",
+   "table_id": "t0097",
+   "row_label": "Equipment and internal-use software",
+   "column_label": "As of | December 31,2023",
+   "cell_text": "781,683",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 781683000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment and internal-use software",
+   "table_id": "t0097",
+   "row_label": "Equipment and internal-use software",
+   "column_label": "As of | December 31,2022",
+   "cell_text": "727,415",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 727415000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0097",
+   "row_label": "Buildings",
+   "column_label": "As of | December 31,2023",
+   "cell_text": "131,882",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 131882000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0097",
+   "row_label": "Buildings",
+   "column_label": "As of | December 31,2022",
+   "cell_text": "131,949",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 131949000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0097",
+   "row_label": "Land",
+   "column_label": "As of | December 31,2023",
+   "cell_text": "56,641",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 56641000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0097",
+   "row_label": "Land",
+   "column_label": "As of | December 31,2022",
+   "cell_text": "56,611",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 56611000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold, building and land improvements",
+   "table_id": "t0097",
+   "row_label": "Leasehold, building and land improvements",
+   "column_label": "As of | December 31,2023",
+   "cell_text": "211,854",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 211854000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold, building and land improvements",
+   "table_id": "t0097",
+   "row_label": "Leasehold, building and land improvements",
+   "column_label": "As of | December 31,2022",
+   "cell_text": "176,413",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 176413000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0097",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of | December 31,2023",
+   "cell_text": "39,998",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 39998000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0097",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of | December 31,2022",
+   "cell_text": "34,330",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 34330000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "In-process capital assets",
+   "table_id": "t0097",
+   "row_label": "In-process capital assets",
+   "column_label": "As of | December 31,2023",
+   "cell_text": "17,937",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 17937000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "In-process capital assets",
+   "table_id": "t0097",
+   "row_label": "In-process capital assets",
+   "column_label": "As of | December 31,2022",
+   "cell_text": "21,670",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 21670000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0035",
+   "row_label": "Purchase obligations",
+   "column_label": "Total",
+   "cell_text": "107.4",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 107400000,
+   "confidence": 0.85
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "Cadence reports a single segment; no per-segment capital expenditures table is provided"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "tables t0012 and t0046 give revenue by recognition type as percentages only, not revenue by segment or market"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no finance lease liabilities appear in the tables; only operating lease liabilities are reported"
+  }
+ ],
+ "notes": "purchase_commitments: the t0035 'Total' column has no date label; period_end 2023-12-31 is assumed from the filing's report period, as the contractual-obligations table is presented as of fiscal year-end.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.2,
+  "input_tokens": 5791,
+  "output_tokens": 2366,
+  "attempts": 1,
+  "task_sha": "0ba76a920e191ce4"
+ }
+}

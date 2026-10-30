@@ -1,0 +1,112 @@
+{
+ "accession": "CIFR|mdna|2024-12-31|7e1c2b4c",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Black Pearl Facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "This change primarily related to $129.1 million of deposits primarily related to new miner purchases, and a $33.6 million increase in contributions to equity investees related to capital expenditures and operations at the Bear and Chief facilities, partially offset by a $119.0 million increase in purchases of property and equipment related to building out the Black Pearl facility, and acquisition of the Barber Lake Facility.",
+   "passage": "p11",
+   "confidence": 0.85
+  },
+  {
+   "name": "Bitmain Antminer S21 XP miner purchase for Black Pearl Facility",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Bitmain",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2025-01-31",
+   "in_service": "2025-06",
+   "quote": "On January 31, 2025, we executed our option as part of the Amendment Agreement, further described in Note 6. Deposits on equipment, with Bitmain to obtain Antminer S21 XP miners for delivery between May and June 2025.",
+   "passage": "p04",
+   "confidence": 0.6
+  },
+  {
+   "name": "Odessa Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Odessa",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Revenue for the year ended December 31, 2024 was $151.3 million, compared to $126.8 million for the year ended December 31, 2023, and was generated entirely from bitcoin mining operations at the Odessa Facility.",
+   "passage": "p05",
+   "confidence": 0.85
+  },
+  {
+   "name": "Luminant Power Agreement",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Odessa",
+   "counterparty": "Luminant",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "At our Odessa Facility, we sell excess electricity that was available under the Luminant Power Agreement, but not needed in our mining operations, back to the ERCOT market through Luminant.",
+   "passage": "p08",
+   "confidence": 0.8
+  },
+  {
+   "name": "Bear Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "This change primarily related to $129.1 million of deposits primarily related to new miner purchases, and a $33.6 million increase in contributions to equity investees related to capital expenditures and operations at the Bear and Chief facilities, partially offset by a $119.0 million increase in purchases of property and equipment related to building out the Black Pearl facility, and acquisition of the Barber Lake Facility.",
+   "passage": "p11",
+   "confidence": 0.7
+  },
+  {
+   "name": "Chief Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "This change primarily related to $129.1 million of deposits primarily related to new miner purchases, and a $33.6 million increase in contributions to equity investees related to capital expenditures and operations at the Bear and Chief facilities, partially offset by a $119.0 million increase in purchases of property and equipment related to building out the Black Pearl facility, and acquisition of the Barber Lake Facility.",
+   "passage": "p11",
+   "confidence": 0.7
+  },
+  {
+   "name": "Barber Lake Facility",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "This change primarily related to $129.1 million of deposits primarily related to new miner purchases, and a $33.6 million increase in contributions to equity investees related to capital expenditures and operations at the Bear and Chief facilities, partially offset by a $119.0 million increase in purchases of property and equipment related to building out the Black Pearl facility, and acquisition of the Barber Lake Facility.",
+   "passage": "p11",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.1,
+  "input_tokens": 6456,
+  "output_tokens": 2111,
+  "attempts": 1,
+  "task_sha": "f164c4b615471b03"
+ }
+}

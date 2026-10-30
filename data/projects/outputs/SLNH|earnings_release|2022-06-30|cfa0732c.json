@@ -1,0 +1,70 @@
+{
+ "accession": "SLNH|earnings_release|2022-06-30|cfa0732c",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Dorothy",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Dorothy 1b Dorothy 1a Dorothy 1a Initial 20MW RemainingEdith Marie Sophie Dorothy 5MW19",
+   "passage": "p05",
+   "confidence": 0.5
+  },
+  {
+   "name": "Sophie",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "SophieAverage June PH/s increased by 11%to 357.6 PH/sversus May PH/S of 322.7",
+   "passage": "p06",
+   "confidence": 0.7
+  },
+  {
+   "name": "Marie",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "MarieAverage hashrate in June was 499.9, compared to 561.9 in May",
+   "passage": "p07",
+   "confidence": 0.7
+  },
+  {
+   "name": "Edith",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "EdithContinue to optimize equipment mix at mature facility",
+   "passage": "p08",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.5,
+  "input_tokens": 7000,
+  "output_tokens": 1231,
+  "attempts": 1,
+  "task_sha": "e24b17e91bffaf89"
+ }
+}

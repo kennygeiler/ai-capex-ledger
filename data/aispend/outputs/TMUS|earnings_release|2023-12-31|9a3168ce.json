@@ -1,0 +1,27 @@
+{
+ "accession": "TMUS|earnings_release|2023-12-31|9a3168ce",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the 2024 capital expenditure guidance ($8.6 billion to $9.4 billion) is never linked to AI; no sentence quantifies or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a wireless carrier and buyer; no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.4,
+  "input_tokens": 5193,
+  "output_tokens": 287,
+  "attempts": 1,
+  "task_sha": "497ea04f92b6d806"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "MARA|mdna|2023-12-31|f36309d1",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the acquisition and property and equipment passages concern bitcoin mining sites and mining rigs"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; hosting payments are for bitcoin mining equipment in third-party data centers, not AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a bitcoin miner; no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 5404,
+  "output_tokens": 223,
+  "attempts": 1,
+  "task_sha": "d3e33a531aaaaafb"
+ }
+}

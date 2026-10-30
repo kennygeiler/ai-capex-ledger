@@ -1,0 +1,72 @@
+{
+ "accession": "RIOT|earnings_release|2026-06-30|e5c929a6",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Rockdale campus frontier AI lab data center lease",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Rockdale campus",
+   "counterparty": "leading frontier AI lab",
+   "amount_low": 9100000000,
+   "amount_high": 9100000000,
+   "capacity_mw": 191,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2027-12",
+   "quote": "Subsequent to quarter end, Riot announced the execution of a Data Center Lease and Services Agreement (the \u201cData Center Lease\u201d) with one of the world\u2019s leading frontier AI labs, for 191 MW of critical IT capacity at Riot\u2019s Rockdale campus.",
+   "passage": "p01",
+   "confidence": 0.9
+  },
+  {
+   "name": "Rockdale campus AMD initial 25 MW deployment",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Rockdale campus",
+   "counterparty": "Advanced Micro Devices, Inc. (AMD)",
+   "capacity_mw": 25,
+   "gpus": null,
+   "announced": "2026-01-16",
+   "in_service": "2026-05",
+   "quote": "During the quarter, Riot completed delivery of the final 20 MW of AMD\u2019s initial deployment, bringing the full 25 MW of commissioned capacity online, on time and on budget, and converting the lease to recurring revenue at full initial scale.",
+   "passage": "p06",
+   "confidence": 0.9
+  },
+  {
+   "name": "Rockdale campus AMD 25 MW expansion",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Rockdale campus",
+   "counterparty": "Advanced Micro Devices, Inc. (AMD)",
+   "capacity_mw": 25,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2027-05",
+   "quote": "Construction is now underway on the 25 MW expansion, with the 10 MW Phase 3 on track for delivery in November 2026 and the 15 MW Phase 4 to follow in May 2027, at which point AMD's total contracted capacity of 50 MW will be fully deployed.",
+   "passage": "p06",
+   "confidence": 0.9
+  },
+  {
+   "name": "Corsicana Site",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Corsicana",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Advanced commercial and design discussions with full site under non-binding LOI to single tenant",
+   "passage": "p07",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.3,
+  "input_tokens": 17956,
+  "output_tokens": 1774,
+  "attempts": 1,
+  "task_sha": "15bbbe125b0d9346"
+ }
+}

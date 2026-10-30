@@ -1,23 +1,27 @@
 {
  "accession": "COMP|earnings_release|2022-09-30|6e13f820",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is a cash flow table; capital expenditures of $56.9 million (nine months 2022) appear with no sentence linking them to AI"
+   "reason": "only a cash-flow line item for total capital expenditures ($56.9 million, nine months); no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the passage is a cash flow table only"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "passage is a cash flow statement; no sentence states AI or data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.0,
-  "input_tokens": 5263,
-  "output_tokens": 184,
+  "seconds": 3.3,
+  "input_tokens": 5568,
+  "output_tokens": 200,
   "attempts": 1,
-  "task_sha": "b2d28ff04f9ec984"
+  "task_sha": "583da8892b0caea9"
  }
 }

@@ -1,0 +1,70 @@
+{
+ "accession": "RIOT|mdna|2025-12-31|cb7cc9d0",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Rockdale Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 700,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our Rockdale Facility in Texas, with 700 MW of developed capacity, is among the largest digital infrastructure campuses in North America, as measured by developed capacity.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Corsicana Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 400,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "In 2024, we completed construction of 400 MW of developed capacity at our second large-scale Texas development, the Corsicana Facility.",
+   "passage": "p01",
+   "confidence": 0.8
+  },
+  {
+   "name": "AMD Lease",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Rockdale Facility",
+   "counterparty": "AMD",
+   "capacity_mw": 25,
+   "gpus": null,
+   "announced": "2026-01",
+   "in_service": null,
+   "quote": "Additionally, in January 2026, we announced the execution of the AMD Lease to provide 25 MW of critical IT load capacity at the Rockdale Facility.",
+   "passage": "p03",
+   "confidence": 0.9
+  },
+  {
+   "name": "Rockdale Facility land acquisition",
+   "kind": "other",
+   "status": "contracted",
+   "location": "Rockdale Facility",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2026-01",
+   "in_service": null,
+   "quote": "In January 2026, we announced the acquisition in fee simple of the approximately 200-acre parcel of land underlying the Rockdale Facility, which was previously occupied pursuant to a long-term ground lease.",
+   "passage": "p02",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.8,
+  "input_tokens": 7049,
+  "output_tokens": 1460,
+  "attempts": 1,
+  "task_sha": "bd83229bf4880671"
+ }
+}

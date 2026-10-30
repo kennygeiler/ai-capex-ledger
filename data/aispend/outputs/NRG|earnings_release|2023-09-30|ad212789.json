@@ -1,0 +1,27 @@
+{
+ "accession": "NRG|earnings_release|2023-09-30|ad212789",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only as a cash-flow line item ($493 million, nine months 2023) with no link to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; passages are a cash-flow statement and a non-GAAP definition"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.9,
+  "input_tokens": 6024,
+  "output_tokens": 204,
+  "attempts": 1,
+  "task_sha": "8eb4a456cf5a4d3f"
+ }
+}

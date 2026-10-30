@@ -1,0 +1,27 @@
+{
+ "accession": "KLAC|mdna|2024-06-30|d31ac82f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes KLAC's own capital expenditures to AI; the capex mentioned is customers' capacity-expansion plans, not linked to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "revenue declines are attributed to a macro-driven semiconductor slowdown; no sentence states AI or data-center revenue or its share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 5011,
+  "output_tokens": 229,
+  "attempts": 1,
+  "task_sha": "cc0d1881b958f9ca"
+ }
+}

@@ -1,6 +1,6 @@
 {
  "accession": "META|earnings_release|2024-03-31|2cba69da",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -13,7 +13,7 @@
    "quote": "We anticipate our full-year 2024 capital expenditures will be in the range of $35-40 billion, increased from our prior range of $30-37 billion as we continue to accelerate our infrastructure investments to support our artificial intelligence (AI) roadmap.",
    "passage": "p01",
    "confidence": 1.0,
-   "notes": "Total capex guidance with AI given as the reason for the increase; the prior range of $30-37 billion is superseded guidance and is not recorded separately."
+   "notes": "Total capex guidance with AI cited as the driver; the prior $30-37 billion range is superseded and not recorded separately."
   },
   {
    "field": "capex",
@@ -24,21 +24,25 @@
    "quote": "While we are not providing guidance for years beyond 2024, we expect capital expenditures will continue to increase next year as we invest aggressively to support our ambitious AI research and product development efforts.",
    "passage": "p01",
    "confidence": 0.9,
-   "notes": "The sentence says 'next year' without naming it, so fiscal_year is null. It is a directional outlook for total capex that names AI as the driver, with no amount stated."
+   "notes": "Says 'next year' rather than a fiscal year, so fiscal_year is left null; the default for an outlook (year after fiscal 2024) gives 2025. No amount; AI is named as the reason total capex will rise."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; p02 is non-GAAP free cash flow methodology boilerplate"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 7.7,
-  "input_tokens": 4740,
+  "seconds": 8.2,
+  "input_tokens": 5041,
   "output_tokens": 822,
   "attempts": 1,
-  "task_sha": "5e730008b082982d"
+  "task_sha": "7e42f92975c90e44"
  }
 }

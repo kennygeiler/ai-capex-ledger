@@ -1,23 +1,63 @@
 {
  "accession": "APLD|earnings_release|2026-05-31|11407f98",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 114700000,
+   "amount_high": 114700000,
+   "quote": "Data center rental and other revenue was $114.7 million for the fiscal year ended May 31, 2026, which is the period during which our HPC Hosting Business commenced operations.",
+   "passage": "p14",
+   "confidence": 0.8,
+   "notes": "Rental revenue from the HPC Hosting Business (AI Factory data centers). It is recorded as AI/data-center revenue. The line is labeled 'data center rental and other', so it is not explicitly called AI revenue."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 270600000,
+   "amount_high": 270600000,
+   "quote": "Our HPC Hosting Business commenced operations at our first HPC data center at our Polaris Forge 1 campus resulting in the recognition of approximately $270.6 million related to tenant fit-out services.",
+   "passage": "p13",
+   "confidence": 0.7,
+   "notes": "Services revenue from tenant fit-out at the HPC/AI data center. It is attributed to the HPC Hosting Business but not explicitly labeled AI revenue. The fiscal year comes from the preceding sentence, which reports the fiscal year ended May 31, 2026."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 50600000,
+   "amount_high": 50600000,
+   "quote": "Data center rental and other revenue in the fiscal fourth quarter 2026 was $50.6 million as the first HPC data center at our Polaris Forge 1 campus was fully operating during the current quarter.",
+   "passage": "p11",
+   "confidence": 0.6,
+   "notes": "This is a quarterly figure for fiscal Q4 2026 only, not the full year, and is already included in the $114.7M fiscal-year figure. The Data Center Hosting Business segment revenue (p10, $37.3M) is excluded because that segment is not tied to AI in the text."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes the company's capital expenditures to AI; the passages cover company description, CEO commentary on industry demand, contracted leases/revenue, forward-looking-statement boilerplate and non-GAAP definitions"
+   "reason": "no sentence states capital expenditures or links them to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; mentions of HPC costs appear only in risk-factor boilerplate"
+   "reason": "no sentence quantifies or attributes operating expenses to AI. The HPC cost-of-revenue items are cost of revenue, not opex attributed to AI."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.3,
-  "input_tokens": 6753,
-  "output_tokens": 280,
+  "seconds": 14.0,
+  "input_tokens": 8691,
+  "output_tokens": 1507,
   "attempts": 1,
-  "task_sha": "e311a41654701c97"
+  "task_sha": "0b200edf0f297d57"
  }
 }

@@ -1,18 +1,39 @@
 {
  "ticker": "CORZ",
- "prompt_version": "attribution@v1",
- "model": "miner_to_hpc@v1",
+ "prompt_version": "attribution@v2",
+ "model": "miner_to_hpc@v3",
  "rows": [
   {
-   "field": "capex",
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 65424000,
+   "ai_share": 0.2051,
+   "inputs": [
+    {
+     "id": "fact:CORZ|segment_revenue|Colocation revenue|FY2025",
+     "value": 65424000
+    }
+   ],
+   "basis": "Revenue of the Colocation segment (formerly HPC hosting), all from CoreWeave: 65,424,000 / 319,019,000 total revenue. Digital asset self-mining (229.2M) and hosted mining (24.4M, miner hosting) are excluded. The GPUs are the tenant's.",
+   "confidence": 0.8
+  },
+  {
+   "field": "revenue",
    "period": "FY2024",
    "kind": "actual",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no Colocation/HPC segment capex and no GPU/HPC PP&E category. MD&A (Dec 31, 2024) describes converting a significant portion of the data centers to HPC hosting, and Colocation/HPC hosting revenue of $24.4M began in FY2024. The FY2024 AI share of the $95.0M capex cannot be quantified. Construction in progress is not HPC-specific, so it is not used.",
-   "confidence": 0.3
+   "method": "segment",
+   "ai_amount": 24378000,
+   "ai_share": 0.0477,
+   "inputs": [
+    {
+     "id": "fact:CORZ|segment_revenue|Colocation revenue|FY2024",
+     "value": 24378000
+    }
+   ],
+   "basis": "Revenue of the Colocation segment, 24,378,000 / 510,672,000 total revenue. The same figure appears as 'HPC hosting revenue' (the line's earlier name) and matches the MD&A's stated $24.4M; it is counted once. Mining and miner-hosting revenue are excluded.",
+   "confidence": 0.8
   },
   {
    "field": "capex",
@@ -22,7 +43,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The pack has no Colocation segment capex and no HPC-specific PP&E category. Construction in progress rose to $911.1M, but the note does not separate HPC from other work. Statements describe roughly $750M of CoreWeave-funded build-out plus $104M of company-funded powered shell for HPC. These are outlooks, not reported FY2025 spend, so FY2025 actual AI capex (of $729M total) is not quantified. The GPUs are the tenant's.",
+   "basis": "Consolidated capex was 729.0M in FY2025 and is not split by segment. The company describes its build-out as converting data centers to HPC hosting for CoreWeave, largely funded by CoreWeave; no AI amount is stated. Construction in progress grew from 112.0M to 911.1M, but that category is not HPC-specific.",
    "confidence": 0.3
   },
   {
@@ -31,15 +52,15 @@
    "kind": "outlook",
    "method": "stated_amount",
    "ai_amount": 750000000,
-   "ai_share": 1.0288,
+   "ai_share": null,
    "inputs": [
     {
-     "id": "stmt:CORZ|earnings_release|2024-09-30|55293aba|capex|FY2025|outlook|0",
+     "id": "stmt:CORZ|earnings_release|2024-09-30|55293aba|capex|FY2025|outlook|1",
      "value": 750000000
     }
    ],
-   "basis": "Up to $1.5M per HPC MW, about $750M, of data-center build-out for CoreWeave. CoreWeave funds it and it is credited against hosting payments. This is shell and fit-out; the GPUs are the tenant's. The separate $104M company-funded 70 MW expansion is not added. The $1.14B commitment is excluded because it is a company total. The share exceeds 1 against FY2025 actual capex of $729M because the build-out spans more than one year.",
-   "confidence": 0.5
+   "basis": "Q3 2024 release: up to $1.5M per HPC MW, about $750M, of data-center build-out costs funded by CoreWeave and credited against hosting payments. This supersedes the earlier $575M and covers the whole program, not one fiscal year. It excludes the $104M the company funds for the 70 MW expansion. The $1.14B contractual commitment at 31 Dec 2024 is 'primarily' HPC, so it is a total and is not used.",
+   "confidence": 0.4
   },
   {
    "field": "capex",
@@ -54,8 +75,8 @@
      "value": 104000000
     }
    ],
-   "basis": "Core Scientific funds $104M ($1.5M/MW) of powered core and shell for the additional 70 MW CoreWeave expansion, with no capex credit. The same sentence is repeated across several releases, so the timing is uncertain. The pack has no FY2026 capex value.",
-   "confidence": 0.4
+   "basis": "Q4 2025 release: Core Scientific funds $104M ($1.5M per MW) of powered core and shell for the additional 70 MW CoreWeave expansion, with no capex credit. Only the company-funded part is stated; CoreWeave-funded build costs are not included.",
+   "confidence": 0.5
   },
   {
    "field": "capex",
@@ -66,62 +87,77 @@
    "ai_share": null,
    "inputs": [
     {
-     "id": "stmt:CORZ|earnings_release|2026-03-31|3a57a46a|capex|FY2027|outlook|0",
+     "id": "stmt:CORZ|earnings_release|2026-06-30|191065f6|capex|FY2027|outlook|1",
      "value": 104000000
     }
    ],
-   "basis": "This is the same $104M company-funded 70 MW powered-shell commitment, repeated in the Q1 2026 release. It likely overlaps the FY2026 outlook rather than adding to it. The pack has no FY2027 capex value.",
-   "confidence": 0.3
+   "basis": "The 2026 releases restate the same $104M company-funded powered core and shell for the 70 MW expansion. This is likely the same spend as the FY2026 row, carried forward, and should not be added to it.",
+   "confidence": 0.25
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "period": "FY2022",
-   "reason": "Before the pivot: mining and hosting-for-miners only, with no HPC segment or statement."
+   "period": "FY2024",
+   "reason": "Consolidated capex of 95.0M is not split by segment, and no statement attributes FY2024 spend to HPC. PP&E categories are not HPC-specific."
   },
   {
    "field": "capex",
    "period": "FY2023",
-   "reason": "Before the pivot: no HPC/colocation segment, revenue or statement."
+   "reason": "Mining-only year before the HPC pivot; no AI basis."
   },
   {
    "field": "capex",
-   "period": "FY2024",
-   "reason": "No segment capex, HPC PP&E category or stated FY2024 AI amount; qualitative only."
+   "period": "FY2022",
+   "reason": "Mining-only year before the HPC pivot; no AI basis."
   },
   {
-   "field": "capex",
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "HPC hosting revenue was nil per the MD&A. The 'Hosting revenue' line is miner hosting, not AI."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "Only mining, miner-hosting and equipment-sales revenue; no HPC line."
+  },
+  {
+   "field": "revenue",
    "period": "FY2025",
-   "reason": "No segment capex or HPC-specific PP&E category; the statements are outlooks; qualitative only."
+   "reason": "No fiscal-year outlook. The $6.7B and $8.7B figures are lifetime contract values and the ~$850M is an average annual run-rate; none is a fiscal-year revenue figure."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "reason": "No FY2026 values in the pack. 2026 releases say only that the majority of revenue is colocation (qualitative), and the ~$850M is a run-rate on a $10B+ 12-year contract, not FY2026 revenue."
   },
   {
    "field": "opex",
-   "period": "FY2022",
-   "reason": "No AI segment cost line and no statement attributes opex to AI."
+   "period": "FY2025",
+   "reason": "No Colocation segment cost line in the pack, and no statement attributes opex to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "No Colocation segment cost line in the pack, and no statement attributes opex to AI."
   },
   {
    "field": "opex",
    "period": "FY2023",
-   "reason": "No AI segment cost line and no statement attributes opex to AI."
+   "reason": "Mining-only year; no AI segment cost."
   },
   {
    "field": "opex",
-   "period": "FY2024",
-   "reason": "Colocation revenue exists, but the pack has no Colocation cost of revenue."
-  },
-  {
-   "field": "opex",
-   "period": "FY2025",
-   "reason": "Colocation revenue exists, but the pack has no Colocation cost of revenue."
+   "period": "FY2022",
+   "reason": "Mining-only year; no AI segment cost."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 25.0,
-  "input_tokens": 9280,
-  "output_tokens": 3031,
+  "seconds": 42.4,
+  "input_tokens": 22346,
+  "output_tokens": 5013,
   "attempts": 1,
-  "task_sha": "c3a1a0d17043b184"
+  "task_sha": "9ab45483f4030e9d"
  }
 }

@@ -1,0 +1,72 @@
+{
+ "accession": "NRG|earnings_release|2025-03-31|bf913277",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "LS Power portfolio acquisition (13 GW natural gas generation and 6 GW C&I VPP platform)",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "LS Power",
+   "capacity_mw": 13000,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "NRG has entered into a definitive agreement with LS Power to acquire a power portfolio (the \u201cPortfolio\u201d) including 13 GW of premier natural gas-fired generation and the leading C&I VPP business with 6 GW of capacity.",
+   "passage": "p04",
+   "confidence": 0.85
+  },
+  {
+   "name": "Rockland Capital 738 MW natural gas peaking generation portfolio in Texas",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Texas",
+   "counterparty": "Rockland Capital",
+   "amount_low": 560000000,
+   "amount_high": 560000000,
+   "capacity_mw": 738,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "NRG successfully closed on April 10, 2025, the strategic acquisition of a 738 MW natural gas combined cycle peaking generation portfolio in Texas from Rockland Capital for $560 million subject to standard working capital adjustment, or an attractive $760 per kW, far below the cost of a new build.",
+   "passage": "p05",
+   "confidence": 0.85
+  },
+  {
+   "name": "Greens Bayou peaking facility",
+   "kind": "power",
+   "status": "announced",
+   "location": null,
+   "counterparty": "Public Utility Commission of Texas",
+   "capacity_mw": 443,
+   "gpus": null,
+   "announced": "2025-03",
+   "in_service": null,
+   "quote": "In March 2025, the Public Utility Commission of Texas (PUCT) selected the 443 MW Greens Bayou peaking facility project to advance to the next phase of diligence, marking the third NRG project chosen under the TEF process.",
+   "passage": "p06",
+   "confidence": 0.8
+  },
+  {
+   "name": "T.H. Wharton",
+   "kind": "power",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "Commercial operation at T.H. Wharton is expected by summer 2026.",
+   "passage": "p06",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.6,
+  "input_tokens": 7797,
+  "output_tokens": 1614,
+  "attempts": 1,
+  "task_sha": "618e82744dbf0943"
+ }
+}

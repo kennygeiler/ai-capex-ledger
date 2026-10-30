@@ -1,23 +1,63 @@
 {
  "accession": "AMD|earnings_release|2022-06-25|c07f4c0c",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1500000000,
+   "amount_high": 1500000000,
+   "quote": "Data Center segment revenue was $1.5 billion, up 83% year-over-year driven by strong sales of EPYC\u2122 server processors.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "Quarterly figure (Q2 2022), not full-year. Data Center segment revenue is driven mainly by EPYC server CPUs rather than AI accelerators, but the rubric treats data-center revenue as in scope. The segment table in p09 gives the exact figure as $1,486 million."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 6500000000,
+   "amount_high": 6900000000,
+   "quote": "For the third quarter of 2022, AMD expects revenue to be approximately $6.7 billion, plus or minus $200 million, an increase of approximately 55% year-over- year led by growth in the Data Center and Embedded segments.",
+   "passage": "p05",
+   "confidence": 0.85,
+   "notes": "Q3 2022 quarterly guidance for total revenue, not the AI part. Data Center is cited as a driver. The range is the stated $6.7B plus or minus $200M."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 26000000000,
+   "amount_high": 26600000000,
+   "quote": "For the full year 2022, AMD continues to expect revenue to be approximately $26.3 billion, plus or minus $300 million, an increase of approximately 60% over 2021 led by growth in the Data Center and Embedded segments.",
+   "passage": "p06",
+   "confidence": 0.95,
+   "notes": "Full-year 2022 total revenue guidance with Data Center cited as a driver. This is not AI revenue. The range is the stated $26.3B plus or minus $300M."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; passages cover product roadmap, revenue and gross margin outlook only"
+   "reason": "no sentence states or attributes capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the AI mention in p05 is a product/strategy description, not spend"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the Data Center segment's 'higher operating expenses' are not linked to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.7,
-  "input_tokens": 5056,
-  "output_tokens": 191,
+  "seconds": 12.1,
+  "input_tokens": 7322,
+  "output_tokens": 1352,
   "attempts": 1,
-  "task_sha": "96475799be31d147"
+  "task_sha": "534e6ccbc7224ef4"
  }
 }

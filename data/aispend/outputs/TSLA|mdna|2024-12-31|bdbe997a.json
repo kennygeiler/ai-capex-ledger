@@ -1,6 +1,6 @@
 {
  "accession": "TSLA|mdna|2024-12-31|bdbe997a",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -12,8 +12,8 @@
    "amount_high": 11340000000,
    "quote": "Net cash flows from investing activities and their variability across each period related primarily to capital expenditures, which were $11.34 billion and $8.90 billion for the years ended December 31, 2024 and 2023, respectively, mainly for AI-related capital expenditures, global factory expansion and machinery and equipment as we expand and enhance our product roadmap.",
    "passage": "p08",
-   "confidence": 0.9,
-   "notes": "Total 2024 capex; 'mainly for AI-related capital expenditures' names AI as the first of several drivers, but the AI portion is not quantified. The 2023 figure ($8.90B) is prior-year and not recorded."
+   "confidence": 1.0,
+   "notes": "Total 2024 capex. AI-related capex is named first among the drivers ('mainly for'), but the AI part is not quantified. The 2023 figure ($8.90 billion) is a prior year and is not recorded."
   },
   {
    "field": "capex",
@@ -26,18 +26,7 @@
    "quote": "Owing and subject to the foregoing as well as the pipeline of announced projects under development, all other continuing infrastructure growth and varying levels of inflation, we currently expect our capital expenditures to exceed $11.00 billion in 2025 and in each of the following two fiscal years.",
    "passage": "p02",
    "confidence": 0.6,
-   "notes": "Guidance is 'to exceed $11.00 billion', so this is a lower bound only and there is no upper bound. The same floor applies to 'each of the following two fiscal years', which are not recorded separately because the sentence does not name them. The link to AI is indirect: 'the foregoing' refers to the prior sentence, which lists investing in autonomy and AI-enabled training among the drivers. The same guidance is repeated in p07 without any AI reference."
-  },
-  {
-   "field": "capex",
-   "fiscal_year": null,
-   "kind": "actual",
-   "scope": "ai",
-   "class": "qualitative",
-   "quote": "We are simultaneously developing and ramping new products, building or ramping manufacturing facilities on three continents, piloting the development and manufacture of new battery cell technologies, expanding our Supercharger network and investing in autonomy and other artificial intelligence enabled training and products, and the pace of our capital spend may vary depending on overall priority among projects, the pace at which we meet milestones, production adjustments to and among our various products, increased capital efficiencies and the addition of new projects.",
-   "passage": "p02",
-   "confidence": 0.6,
-   "notes": "Present-tense description of ongoing capital projects, one of which is AI-enabled training. Kind is ambiguous: the activity is ongoing, but the sentence frames it as a driver of future capital spend."
+   "notes": "'Exceed $11.00 billion' is a floor, so the amount is a lower bound, not a point estimate. The same outlook covers 'each of the following two fiscal years' (2026\u20132027); those years are not recorded separately. The AI link ('investing in autonomy and other artificial intelligence enabled training and products') is in the preceding sentence, which this sentence refers to as 'the foregoing'; the quoted sentence itself does not mention AI."
   },
   {
    "field": "opex",
@@ -47,17 +36,22 @@
    "class": "qualitative",
    "quote": "The overall increases were primarily driven by additional costs year over year related to AI programs.",
    "passage": "p04",
-   "confidence": 0.85,
-   "notes": "Attributes the R&D expense increase primarily to AI programs. The preceding sentence gives the increase as $571M (2024 vs 2023); that figure is the total change, not the AI amount, so it is not recorded as an AI amount. The sentence names no year, so fiscal_year is null and the reported year (2024) applies."
+   "confidence": 0.9,
+   "notes": "Refers to the $571 million (14%) increase in R&D expenses in 2024, stated in the preceding sentence. The AI part of that increase is not quantified. The sentence names no year, so code should apply the filing's reported year (2024)."
   }
  ],
- "none_found": [],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "Tesla is a buyer of AI infrastructure; no sentence states an AI or data-center share of revenue."
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 26.4,
-  "input_tokens": 6156,
-  "output_tokens": 3011,
+  "seconds": 18.4,
+  "input_tokens": 6461,
+  "output_tokens": 2198,
   "attempts": 1,
-  "task_sha": "8d238a4532bf2657"
+  "task_sha": "46da4dfc1466be69"
  }
 }

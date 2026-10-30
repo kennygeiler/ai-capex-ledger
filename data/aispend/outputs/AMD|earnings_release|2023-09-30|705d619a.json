@@ -1,17 +1,30 @@
 {
  "accession": "AMD|earnings_release|2023-09-30|705d619a",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
-   "field": "opex",
+   "field": "revenue",
    "fiscal_year": null,
    "kind": "actual",
    "scope": "ai",
-   "class": "qualitative",
-   "quote": "Non-GAAP operating income flat y/y due to stronger Client segment revenue and product mix, offset by increased R&D investments in AI",
-   "passage": "p12",
+   "class": "explicit_amount",
+   "amount_low": 1600000000,
+   "amount_high": 1600000000,
+   "quote": "Data Center segment revenue was $1.6 billion, flat year-over-year, as growth in 4 th Gen AMD EPYC\u2122 CPU sales was offset by a decline in adaptive System-on- Chip (SoC) data center products.",
+   "passage": "p03",
    "confidence": 0.8,
-   "notes": "Slide bullet, not a full sentence. It refers to Q3 2023 (a quarter of fiscal 2023), not the full year. It states that R&D investment in AI increased but gives no amount."
+   "notes": "Quarterly figure for Q3 2023 (quarter ended 2023-09-30), not full fiscal 2023; the sentence names no year. Data Center segment includes EPYC server CPUs and adaptive SoCs, not only AI accelerators. The segment table in p14 gives $1,598 million for the same quarter."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In the fourth quarter, we expect to see strong growth in Data Center and continued momentum in Client, partially offset by lower sales in the Gaming segment and additional softening of demand in the embedded markets.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Outlook is for Q4 of the current fiscal year (2023), not the following year. The sentence names no year, so fiscal_year is null; the default rule would assign 2024, which would be wrong. Data Center demand is described qualitatively only."
   },
   {
    "field": "opex",
@@ -19,10 +32,10 @@
    "kind": "actual",
    "scope": "ai",
    "class": "qualitative",
-   "quote": "GAAP operating income driven by lower amortization of acquisition-related intangible assets, stronger Client segment revenue and product mix, partially offset by increased R&D investments in AI",
-   "passage": "p12",
+   "quote": "Non-GAAP operating income flat y/y due to stronger Client segment revenue and product mix, offset by increased R&D investments in AI",
+   "passage": "p13",
    "confidence": 0.8,
-   "notes": "Slide bullet for Q3 2023. It covers the same R&D increase as the non-GAAP bullet, stated on a GAAP basis. No amount is given."
+   "notes": "Slide bullet without terminal punctuation. Refers to Q3 2023 R&D spend increases attributed to AI, with no amount given."
   },
   {
    "field": "opex",
@@ -31,23 +44,23 @@
    "scope": "ai",
    "class": "qualitative",
    "quote": "Primarily due to increased R&D investments to support future AI revenue growth and product mix",
-   "passage": "p13",
-   "confidence": 0.7,
-   "notes": "Slide fragment explaining the decline in Data Center segment operating income in Q3 2023. It applies to that segment only and gives no amount."
+   "passage": "p15",
+   "confidence": 0.75,
+   "notes": "Slide fragment explaining the decline in Q3 2023 Data Center operating income. Links increased R&D to AI with no amount."
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI. The $400 million India investment in p06 is for R&D and engineering operations, is not tied to AI, and appears only in a forward-looking boilerplate list."
+   "reason": "no sentence links capital expenditures to AI or states capital expenditures"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 10.3,
-  "input_tokens": 11354,
-  "output_tokens": 1148,
+  "seconds": 17.5,
+  "input_tokens": 12068,
+  "output_tokens": 2022,
   "attempts": 1,
-  "task_sha": "f7b13f0ecd083f4a"
+  "task_sha": "08fba61514e956cb"
  }
 }

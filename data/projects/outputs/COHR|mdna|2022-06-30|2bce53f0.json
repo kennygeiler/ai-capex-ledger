@@ -1,0 +1,13 @@
+{
+ "accession": "COHR|mdna|2022-06-30|2bce53f0",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.1,
+  "input_tokens": 5895,
+  "output_tokens": 50,
+  "attempts": 1,
+  "task_sha": "1b0d08a558fd8303"
+ }
+}

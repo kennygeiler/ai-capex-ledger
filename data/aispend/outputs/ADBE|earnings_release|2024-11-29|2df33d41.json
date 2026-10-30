@@ -1,0 +1,27 @@
+{
+ "accession": "ADBE|earnings_release|2024-11-29|2df33d41",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the FY24 revenue sentence ($21.51 billion) does not link revenue to AI, and the sentence mentioning 'AI innovation' is a forward-looking positioning statement that states no AI part of revenue and does not name AI as a driver of reported revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.0,
+  "input_tokens": 4833,
+  "output_tokens": 413,
+  "attempts": 1,
+  "task_sha": "ac725671dd667328"
+ }
+}

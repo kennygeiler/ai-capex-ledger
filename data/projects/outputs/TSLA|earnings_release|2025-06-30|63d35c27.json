@@ -1,0 +1,28 @@
+{
+ "accession": "TSLA|earnings_release|2025-06-30|63d35c27",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Cortex",
+   "kind": "gpu_cluster",
+   "status": "in_service",
+   "location": "Gigafactory Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": 67000,
+   "announced": null,
+   "in_service": null,
+   "quote": "We expanded AI training compute with an additional 16k H200 GPUs at Gigafactory Texas, bringing Cortex to a total of 67k H100 equivalents.",
+   "passage": "p03",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 6936,
+  "output_tokens": 461,
+  "attempts": 1,
+  "task_sha": "6ad184a3ecd25e04"
+ }
+}

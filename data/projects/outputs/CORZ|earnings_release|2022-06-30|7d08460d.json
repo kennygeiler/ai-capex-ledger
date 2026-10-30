@@ -1,0 +1,13 @@
+{
+ "accession": "CORZ|earnings_release|2022-06-30|7d08460d",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 12143,
+  "output_tokens": 118,
+  "attempts": 1,
+  "task_sha": "efc943e64e46e5d0"
+ }
+}

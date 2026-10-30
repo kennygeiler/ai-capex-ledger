@@ -1,0 +1,100 @@
+{
+ "accession": "HUT|mdna|2025-12-31|b43d1ead",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "River Bend campus",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Louisiana",
+   "counterparty": "Fluidstack",
+   "amount_low": 7000000000,
+   "amount_high": 17700000000,
+   "capacity_mw": 245,
+   "gpus": null,
+   "announced": "2025-12",
+   "in_service": "2027",
+   "quote": "As part of the partnership, we entered into a 15-year, triple-net lease with Fluidstack for 245 MW of AI data center IT capacity at our River Bend campus (\u201cRiver Bend\u201d) in Louisiana.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "River Bend campus future expansion phases",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Louisiana",
+   "counterparty": "Fluidstack",
+   "capacity_mw": 1000,
+   "gpus": null,
+   "announced": "2025-12",
+   "in_service": null,
+   "quote": "The agreement grants Fluidstack a Right of First Offer for up to an additional 1,000 MW of IT capacity at future expansion phases of campus, subject to the expansion of power at the site.",
+   "passage": "p02",
+   "confidence": 0.55
+  },
+  {
+   "name": "Hut 8 and Anthropic AI data center partnership additional capacity",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": "Anthropic",
+   "capacity_mw": 1050,
+   "gpus": null,
+   "announced": "2025-12",
+   "in_service": null,
+   "quote": "As part of the partnership, Hut 8 and Anthropic may jointly diligence and develop up to 1,050 MW of additional optional capacity across our broader pipeline for a total of up to 2,295 MW of AI data center infrastructure, reflecting our power-first development model and strategic focus on scaling AI infrastructure.",
+   "passage": "p02",
+   "confidence": 0.6
+  },
+  {
+   "name": "Vega facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "panhandle of Texas",
+   "counterparty": "American Bitcoin",
+   "capacity_mw": 205,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025-06",
+   "quote": "The increase reflects the energization of our 205 MW Vega site in June 2025.",
+   "passage": "p13",
+   "confidence": 0.6
+  },
+  {
+   "name": "Texas development sites",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 1180,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The growth was driven by an increase of 1,230 MW in capacity advancing from exclusivity to development, including two sites in Texas totaling 1,180 MW, and one site in Illinois of 50 MW.",
+   "passage": "p11",
+   "confidence": 0.5
+  },
+  {
+   "name": "Illinois development site",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Illinois",
+   "counterparty": null,
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The growth was driven by an increase of 1,230 MW in capacity advancing from exclusivity to development, including two sites in Texas totaling 1,180 MW, and one site in Illinois of 50 MW.",
+   "passage": "p11",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 23.3,
+  "input_tokens": 11843,
+  "output_tokens": 2715,
+  "attempts": 1,
+  "task_sha": "5c6272ee943ef9c7"
+ }
+}

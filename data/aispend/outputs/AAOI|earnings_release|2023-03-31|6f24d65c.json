@@ -1,0 +1,35 @@
+{
+ "accession": "AAOI|earnings_release|2023-03-31|6f24d65c",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Further, we are encouraged by the improving demand we saw for our 100G products in our datacenter business, and we generated another quarter of good CATV results.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Mentions improving datacenter demand but states no datacenter revenue figure or share. The sentence names no year; the context (Q1 2023) comes from the prior sentence, so fiscal_year is null."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.2,
+  "input_tokens": 5922,
+  "output_tokens": 718,
+  "attempts": 1,
+  "task_sha": "fdfe69e0cf69d9ff"
+ }
+}

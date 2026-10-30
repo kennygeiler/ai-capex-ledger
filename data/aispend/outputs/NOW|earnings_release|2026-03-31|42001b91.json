@@ -1,0 +1,27 @@
+{
+ "accession": "NOW|earnings_release|2026-03-31|42001b91",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 is a cash-flow table listing purchases of property and equipment with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 reports total subscription revenues of $3,671 million; 'the AI control tower for business reinvention' is a company descriptor (boilerplate), and no sentence states the AI part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.4,
+  "input_tokens": 5308,
+  "output_tokens": 234,
+  "attempts": 1,
+  "task_sha": "7d975c55babddebf"
+ }
+}

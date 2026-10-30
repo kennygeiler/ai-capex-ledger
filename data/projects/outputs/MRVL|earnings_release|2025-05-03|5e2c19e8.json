@@ -1,0 +1,13 @@
+{
+ "accession": "MRVL|earnings_release|2025-05-03|5e2c19e8",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 4377,
+  "output_tokens": 54,
+  "attempts": 1,
+  "task_sha": "f93552c6de3b4540"
+ }
+}

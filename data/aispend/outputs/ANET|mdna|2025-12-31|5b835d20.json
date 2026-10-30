@@ -1,23 +1,36 @@
 {
  "accession": "ANET|mdna|2025-12-31|5b835d20",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.65,
+   "quote": "The percentage of revenue derived from these product categories during the current fiscal year was approximately 65% from Core, 18% from Cognitive Adjacencies, and 17% from Software and Services.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "Core is defined in the same passage as 'AI, Cloud, and Data Center Networking', so the 65% is a combined AI, cloud and data-center revenue share, not an AI-only share. The sentence says 'current fiscal year' without a number, so fiscal_year is null and code should use the reported year, 2025. Customer-segment shares in p02 (48% Cloud and AI Titans, 20% AI and Specialty Providers) were not recorded because they classify customers, not AI revenue."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links the company's own capital expenditures to AI; the Santa Clara building capex (p08) is for office, lab and data center space with no AI attribution; AI-related capital expenditure references in p04-p05 describe customers' budgets, not Arista's; the AI-driven increase in purchase commitments (p06) concerns inventory and working capital, not capex"
+   "reason": "the only capex figure ($170.0 to $195.0 million through fiscal 2026, p09) is for the Santa Clara office, lab and data center building and is not linked to AI; references to AI infrastructure capex in p06 describe customers' spending, not Arista's"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; the R&D investment sentence in p03 ties spending to the cloud networking platform and product offerings without naming AI"
+   "reason": "p04 mentions increasing R&D investment for the cloud networking platform but no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.7,
-  "input_tokens": 6972,
-  "output_tokens": 546,
+  "seconds": 10.9,
+  "input_tokens": 7451,
+  "output_tokens": 1121,
   "attempts": 1,
-  "task_sha": "d768ebba50361858"
+  "task_sha": "b846b1e72984b667"
  }
 }

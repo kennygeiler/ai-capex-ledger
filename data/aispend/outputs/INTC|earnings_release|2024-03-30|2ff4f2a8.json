@@ -1,23 +1,37 @@
 {
  "accession": "INTC|earnings_release|2024-03-30|2ff4f2a8",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3000000000,
+   "amount_high": 3000000000,
+   "quote": "Business Unit Revenue and Q1 2024 vs. Q1 2023 Trends Intel Products: Client Computing Group (CCG) $7.5 billion up 31% Data Center and AI (DCAI) $3.0 billion up 5% Network and Edge (NEX) $1.4 billion down 8% Total Intel Products revenue $11.9 billion up 17% Intel Foundry $4.4 billion down 10% All other: Altera $342 million down 58% Mobileye $239 million down 48% Other $194 million up 17% Total all other revenue $775 million down 46% Intersegment eliminations $(4.4) billion Total net revenue $12.7 billion up 9%",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Data Center and AI (DCAI) segment revenue for Q1 2024 only (three months ended 2024-03-30), not the full fiscal year. The segment combines data-center and AI products, so it is recorded as data-center revenue. p04 gives the unrounded figure of $3,036 million. The quote is the passage's single run-on summary line, not a conventional sentence."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; p01's 'accelerate our AI solutions' describes product strategy, not spend"
+   "reason": "no sentence states or attributes capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p02 and p04 report segment revenue and operating income only, and 'Data Center and AI' is a segment name, not a spend statement"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; 'accelerate our AI solutions' in p01 is a general strategy statement, not spend"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.6,
-  "input_tokens": 5546,
-  "output_tokens": 284,
+  "seconds": 10.8,
+  "input_tokens": 5847,
+  "output_tokens": 914,
   "attempts": 1,
-  "task_sha": "6d9a4361c84af57e"
+  "task_sha": "dcd79529ec12895d"
  }
 }

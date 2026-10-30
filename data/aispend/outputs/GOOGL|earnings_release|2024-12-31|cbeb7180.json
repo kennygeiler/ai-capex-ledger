@@ -1,6 +1,6 @@
 {
  "accession": "GOOGL|earnings_release|2024-12-31|cbeb7180",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -11,29 +11,34 @@
    "amount_low": 75000000000,
    "amount_high": 75000000000,
    "quote": "We are confident about the opportunities ahead, and to accelerate our progress, we expect to invest approximately $75 billion in capital expenditures in 2025.",
-   "passage": "p01",
-   "confidence": 0.6,
-   "notes": "This is total 2025 capex guidance. The sentence does not name AI; 'our progress' refers back to the preceding sentence about the 'full-stack approach to AI innovation' and core businesses. Recorded as scope total so the figure is not read as AI spend."
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Total 2025 capex guidance. The sentence does not name AI itself; the AI link comes from the surrounding CEO quote about AI leadership and compute. This is total capex, not the AI part."
   },
   {
    "field": "opex",
    "fiscal_year": null,
    "kind": "actual",
-   "scope": "total",
+   "scope": "ai",
    "class": "qualitative",
    "quote": "These costs primarily include certain AI-focused shared R&D activities, including development costs of our general AI models; corporate initiatives such as our philanthropic activities; corporate shared costs such as certain finance, human resource, and legal costs, including certain fines and settlements.",
-   "passage": "p02",
-   "confidence": 0.5,
-   "notes": "Segment-reporting description of unallocated Alphabet-level costs, which include AI-focused shared R&D (general AI model development). 'Primarily' covers the whole list, not AI R&D alone, so this does not establish what share is AI. It may be closer to accounting boilerplate than a spend statement. No year named; code defaults to fiscal 2024."
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "Unallocated Alphabet-level costs are listed as including AI-focused shared R&D. The word 'primarily' covers the whole list of cost types, not AI alone. No amount or share is stated."
   }
  ],
- "none_found": [],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "Alphabet is a buyer. Google Cloud revenue ($12.0 billion) and the Cloud+YouTube run rate are not AI revenue, and no sentence states the AI part of revenue."
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.9,
-  "input_tokens": 4892,
-  "output_tokens": 1113,
+  "seconds": 7.8,
+  "input_tokens": 5271,
+  "output_tokens": 906,
   "attempts": 1,
-  "task_sha": "0ada00bd572e0dff"
+  "task_sha": "7fd430ddb4e4ab5f"
  }
 }

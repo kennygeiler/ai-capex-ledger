@@ -1,0 +1,84 @@
+{
+ "accession": "CIFR|earnings_release|2024-03-31|33d32c5b",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Black Pearl data center",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 300,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "300 MW data center at Black Pearl on track for energization in 2025 with land cleared and leveled for construction",
+   "passage": "p03",
+   "confidence": 0.9
+  },
+  {
+   "name": "Bear JV data center expansion",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": "WindHQ LLC",
+   "capacity_mw": 30,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "30 MW expansion at each of Bear and Chief JV data centers, delivering an additional ~1.25 EH/s of self-mining capacity, on track for completion in second quarter 2024",
+   "passage": "p02",
+   "confidence": 0.8
+  },
+  {
+   "name": "Chief JV data center expansion",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": "WindHQ LLC",
+   "capacity_mw": 30,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "30 MW expansion at each of Bear and Chief JV data centers, delivering an additional ~1.25 EH/s of self-mining capacity, on track for completion in second quarter 2024",
+   "passage": "p02",
+   "confidence": 0.8
+  },
+  {
+   "name": "Odessa data center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Odessa",
+   "counterparty": null,
+   "capacity_mw": 207,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "~6.7 EH/s Operating Hash Rate 207 MW Operating Power Capacity Odessa \u2013 90% of BTC Production(1)",
+   "passage": "p09",
+   "confidence": 0.5
+  },
+  {
+   "name": "Alborz data center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": "WindHQ LLC",
+   "capacity_mw": 40,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "~1.3 EH/s Operating Hash Rate(2) 40 MW Operating Power Capacity BTC Mined YTD(4) ~168 BTC",
+   "passage": "p10",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.5,
+  "input_tokens": 7732,
+  "output_tokens": 1559,
+  "attempts": 1,
+  "task_sha": "0d0621a778df6a9b"
+ }
+}

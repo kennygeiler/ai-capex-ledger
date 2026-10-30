@@ -1,0 +1,53 @@
+{
+ "accession": "VRT|mdna|2024-12-31|a950bd48",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The Company has invested in developing new product, services, and solutions to serve this growing industry, is increasing capacity to support additional demand for AI infrastructure as necessary and we will continue to invest to support additional growth driven by AI.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "'increasing capacity to support additional demand for AI infrastructure' implies capacity capex tied to AI, but the sentence does not say 'capital expenditures'. No year is named in the sentence."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The Company has invested in developing new product, services, and solutions to serve this growing industry, is increasing capacity to support additional demand for AI infrastructure as necessary and we will continue to invest to support additional growth driven by AI.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "'will continue to invest to support additional growth driven by AI' is forward-looking but does not specify capex or opex. It is recorded as capex alongside the capacity expansion."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The Company has invested in developing new product, services, and solutions to serve this growing industry, is increasing capacity to support additional demand for AI infrastructure as necessary and we will continue to invest to support additional growth driven by AI.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "'invested in developing new product, services, and solutions' for the AI-driven data center industry suggests R&D spend. It is not explicitly labeled as R&D or operating expense."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI or data-center revenue figure or share; p01 says only that AI 'has led to increased demand'"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.7,
+  "input_tokens": 5470,
+  "output_tokens": 1291,
+  "attempts": 1,
+  "task_sha": "945c039407dca221"
+ }
+}

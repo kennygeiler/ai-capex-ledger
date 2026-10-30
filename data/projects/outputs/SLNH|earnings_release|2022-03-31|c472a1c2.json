@@ -1,0 +1,13 @@
+{
+ "accession": "SLNH|earnings_release|2022-03-31|c472a1c2",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 4152,
+  "output_tokens": 126,
+  "attempts": 1,
+  "task_sha": "f0b692cbd4411f57"
+ }
+}

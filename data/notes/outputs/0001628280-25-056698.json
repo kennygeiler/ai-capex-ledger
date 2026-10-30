@@ -1,0 +1,265 @@
+{
+ "accession": "0001628280-25-056698",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Networking Platforms",
+   "table_id": "t0073",
+   "row_label": "Networking Platforms",
+   "column_label": "Year Ended | November 1, 2025",
+   "cell_text": "3,676,377",
+   "period_end": "2025-11-01",
+   "months": 12,
+   "value": 3676377000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Networking Platforms",
+   "table_id": "t0073",
+   "row_label": "Networking Platforms",
+   "column_label": "Year Ended | November 2, 2024",
+   "cell_text": "3,042,055",
+   "period_end": "2024-11-02",
+   "months": 12,
+   "value": 3042055000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Networking Platforms",
+   "table_id": "t0073",
+   "row_label": "Networking Platforms",
+   "column_label": "Year Ended | October 28, 2023",
+   "cell_text": "3,493,492",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 3493492000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Platform Software and Services",
+   "table_id": "t0073",
+   "row_label": "Platform Software and Services",
+   "column_label": "Year Ended | November 1, 2025",
+   "cell_text": "363,830",
+   "period_end": "2025-11-01",
+   "months": 12,
+   "value": 363830000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Platform Software and Services",
+   "table_id": "t0073",
+   "row_label": "Platform Software and Services",
+   "column_label": "Year Ended | November 2, 2024",
+   "cell_text": "358,062",
+   "period_end": "2024-11-02",
+   "months": 12,
+   "value": 358062000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Platform Software and Services",
+   "table_id": "t0073",
+   "row_label": "Platform Software and Services",
+   "column_label": "Year Ended | October 28, 2023",
+   "cell_text": "303,873",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 303873000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Blue Planet Automation Software and Services",
+   "table_id": "t0073",
+   "row_label": "Blue Planet Automation Software and Services",
+   "column_label": "Year Ended | November 1, 2025",
+   "cell_text": "115,547",
+   "period_end": "2025-11-01",
+   "months": 12,
+   "value": 115547000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Blue Planet Automation Software and Services",
+   "table_id": "t0073",
+   "row_label": "Blue Planet Automation Software and Services",
+   "column_label": "Year Ended | November 2, 2024",
+   "cell_text": "77,619",
+   "period_end": "2024-11-02",
+   "months": 12,
+   "value": 77619000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Blue Planet Automation Software and Services",
+   "table_id": "t0073",
+   "row_label": "Blue Planet Automation Software and Services",
+   "column_label": "Year Ended | October 28, 2023",
+   "cell_text": "69,170",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 69170000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Global Services",
+   "table_id": "t0073",
+   "row_label": "Global Services",
+   "column_label": "Year Ended | November 1, 2025",
+   "cell_text": "613,753",
+   "period_end": "2025-11-01",
+   "months": 12,
+   "value": 613753000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Global Services",
+   "table_id": "t0073",
+   "row_label": "Global Services",
+   "column_label": "Year Ended | November 2, 2024",
+   "cell_text": "537,219",
+   "period_end": "2024-11-02",
+   "months": 12,
+   "value": 537219000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Global Services",
+   "table_id": "t0073",
+   "row_label": "Global Services",
+   "column_label": "Year Ended | October 28, 2023",
+   "cell_text": "520,014",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 520014000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment, furniture and fixtures",
+   "table_id": "t0047",
+   "row_label": "Equipment, furniture and fixtures",
+   "column_label": "November 1, 2025",
+   "cell_text": "892,223",
+   "period_end": "2025-11-01",
+   "months": 0,
+   "value": 892223000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment, furniture and fixtures",
+   "table_id": "t0047",
+   "row_label": "Equipment, furniture and fixtures",
+   "column_label": "November 2, 2024",
+   "cell_text": "788,781",
+   "period_end": "2024-11-02",
+   "months": 0,
+   "value": 788781000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building subject to finance lease",
+   "table_id": "t0047",
+   "row_label": "Building subject to finance lease",
+   "column_label": "November 1, 2025",
+   "cell_text": "67,242",
+   "period_end": "2025-11-01",
+   "months": 0,
+   "value": 67242000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building subject to finance lease",
+   "table_id": "t0047",
+   "row_label": "Building subject to finance lease",
+   "column_label": "November 2, 2024",
+   "cell_text": "67,517",
+   "period_end": "2024-11-02",
+   "months": 0,
+   "value": 67517000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0047",
+   "row_label": "Leasehold improvements",
+   "column_label": "November 1, 2025",
+   "cell_text": "91,562",
+   "period_end": "2025-11-01",
+   "months": 0,
+   "value": 91562000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0047",
+   "row_label": "Leasehold improvements",
+   "column_label": "November 2, 2024",
+   "cell_text": "77,451",
+   "period_end": "2024-11-02",
+   "months": 0,
+   "value": 77451000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0057",
+   "row_label": "Finance lease liabilities",
+   "column_label": "Balance at November 1, 2025",
+   "cell_text": "43,344",
+   "period_end": "2025-11-01",
+   "months": 0,
+   "value": 43344000,
+   "confidence": 0.9
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0057",
+   "row_label": "Finance lease liabilities",
+   "column_label": "Balance at November 2, 2024",
+   "cell_text": "47,917",
+   "period_end": "2024-11-02",
+   "months": 0,
+   "value": 47917000,
+   "confidence": 0.9
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment note reports revenue, gross profit, R&D expense and segment profit only; no capital expenditures by segment"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or purchase-commitments table is among the provided tables"
+  }
+ ],
+ "notes": "segment_revenue uses the four reportable segments from t0073 (unit 'in thousands' taken from elsewhere in the filing); product-line rows in t0028-t0030 (e.g. Optical Networking) are sub-segment breakdowns and were not cited to avoid double counting. finance_lease_liability confidence 0.9 because the single 'Finance lease liabilities' line is not explicitly labeled as a total of current and non-current portions.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.2,
+  "input_tokens": 9860,
+  "output_tokens": 3126,
+  "attempts": 1,
+  "task_sha": "d0e5cb640a75f1f5"
+ }
+}

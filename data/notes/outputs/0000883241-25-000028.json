@@ -1,0 +1,226 @@
+{
+ "accession": "0000883241-25-000028",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Design Automation",
+   "table_id": "t0102",
+   "row_label": "Revenue",
+   "column_label": "Year Ended October 31, | 2025",
+   "cell_text": "5,302,340",
+   "period_end": "2025-10-31",
+   "months": 12,
+   "value": 5302340000,
+   "confidence": 0.95,
+   "notes": "Row label 'Revenue' sits under the 'Design Automation:' header in t0102; the consolidated 'Revenue' row at the top of the table was skipped."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Design Automation",
+   "table_id": "t0102",
+   "row_label": "Revenue",
+   "column_label": "Year Ended October 31, | 2024",
+   "cell_text": "4,221,122",
+   "period_end": "2024-10-31",
+   "months": 12,
+   "value": 4221122000,
+   "confidence": 0.95,
+   "notes": "Row label 'Revenue' sits under the 'Design Automation:' header in t0102."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Design Automation",
+   "table_id": "t0102",
+   "row_label": "Revenue",
+   "column_label": "Year Ended October 31, | 2023",
+   "cell_text": "3,775,288",
+   "period_end": "2023-10-31",
+   "months": 12,
+   "value": 3775288000,
+   "confidence": 0.95,
+   "notes": "Row label 'Revenue' sits under the 'Design Automation:' header in t0102."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Design IP",
+   "table_id": "t0102",
+   "row_label": "Revenue",
+   "column_label": "Year Ended October 31, | 2025",
+   "cell_text": "1,751,838",
+   "period_end": "2025-10-31",
+   "months": 12,
+   "value": 1751838000,
+   "confidence": 0.95,
+   "notes": "Row label 'Revenue' sits under the 'Design IP:' header in t0102."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Design IP",
+   "table_id": "t0102",
+   "row_label": "Revenue",
+   "column_label": "Year Ended October 31, | 2024",
+   "cell_text": "1,906,314",
+   "period_end": "2024-10-31",
+   "months": 12,
+   "value": 1906314000,
+   "confidence": 0.95,
+   "notes": "Row label 'Revenue' sits under the 'Design IP:' header in t0102."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Design IP",
+   "table_id": "t0102",
+   "row_label": "Revenue",
+   "column_label": "Year Ended October 31, | 2023",
+   "cell_text": "1,542,726",
+   "period_end": "2023-10-31",
+   "months": 12,
+   "value": 1542726000,
+   "confidence": 0.95,
+   "notes": "Row label 'Revenue' sits under the 'Design IP:' header in t0102."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer and other equipment",
+   "table_id": "t0062",
+   "row_label": "Computer and other equipment",
+   "column_label": "As of October 31, | 2025",
+   "cell_text": "1,150,804",
+   "period_end": "2025-10-31",
+   "months": 0,
+   "value": 1150804000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0062",
+   "row_label": "Buildings",
+   "column_label": "As of October 31, | 2025",
+   "cell_text": "100,016",
+   "period_end": "2025-10-31",
+   "months": 0,
+   "value": 100016000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0062",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of October 31, | 2025",
+   "cell_text": "101,183",
+   "period_end": "2025-10-31",
+   "months": 0,
+   "value": 101183000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0062",
+   "row_label": "Land",
+   "column_label": "As of October 31, | 2025",
+   "cell_text": "13,888",
+   "period_end": "2025-10-31",
+   "months": 0,
+   "value": 13888000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0062",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of October 31, | 2025",
+   "cell_text": "295,917",
+   "period_end": "2025-10-31",
+   "months": 0,
+   "value": 295917000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer and other equipment",
+   "table_id": "t0062",
+   "row_label": "Computer and other equipment",
+   "column_label": "As of October 31, | 2024",
+   "cell_text": "1,011,712",
+   "period_end": "2024-10-31",
+   "months": 0,
+   "value": 1011712000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0062",
+   "row_label": "Buildings",
+   "column_label": "As of October 31, | 2024",
+   "cell_text": "103,779",
+   "period_end": "2024-10-31",
+   "months": 0,
+   "value": 103779000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0062",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of October 31, | 2024",
+   "cell_text": "87,524",
+   "period_end": "2024-10-31",
+   "months": 0,
+   "value": 87524000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0062",
+   "row_label": "Land",
+   "column_label": "As of October 31, | 2024",
+   "cell_text": "18,219",
+   "period_end": "2024-10-31",
+   "months": 0,
+   "value": 18219000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0062",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of October 31, | 2024",
+   "cell_text": "271,753",
+   "period_end": "2024-10-31",
+   "months": 0,
+   "value": 271753000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment note (t0102, t0103) reports revenue, cost of revenue and operating expenses, and adjusted operating income per segment only; no capital expenditures by segment"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note or finance lease liability table is among the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is among the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.5,
+  "input_tokens": 7298,
+  "output_tokens": 2976,
+  "attempts": 1,
+  "task_sha": "5c54bfc68ee5a5bc"
+ }
+}

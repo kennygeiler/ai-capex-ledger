@@ -1,0 +1,72 @@
+{
+ "accession": "CORZ|earnings_release|2024-12-31|a6cebf0f",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "CoreWeave HPC hosting contracts",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "CoreWeave",
+   "amount_low": 750000000,
+   "amount_high": 750000000,
+   "capacity_mw": 590,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Up to $1.5 million per HPC MW (or approximately $750 million) of data center build out costs are funded by CoreWeave and credited against hosting payments at no more than 50% of monthly fees until fully repaid.",
+   "passage": "p12",
+   "confidence": 0.7
+  },
+  {
+   "name": "Denton, Texas HPC data center expansion",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Denton, Texas",
+   "counterparty": null,
+   "capacity_mw": 70,
+   "gpus": null,
+   "announced": "2024-11-20",
+   "in_service": null,
+   "quote": "Note: All figures are as of 2/26/25; Includes ~100 MW gross capacity / ~70 MW critical IT load expansion at Denton site; Also includes Austin, Texas site representing 20MW gross capacity / ~18 MW critical IT load.",
+   "passage": "p08",
+   "confidence": 0.75
+  },
+  {
+   "name": "Austin, Texas HPC data center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Austin, Texas",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 18,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "HPC hosting costs at our Austin, Texas data center consist primarily of lease expense, the direct pass-through of power costs, and direct and indirect facilities operations expenses, including personnel and benefit costs and stock- based compensation.",
+   "passage": "p02",
+   "confidence": 0.75
+  },
+  {
+   "name": "Auburn, Alabama HPC data center",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Auburn, Alabama",
+   "counterparty": null,
+   "capacity_mw": 11,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Signed a lease (includes option to buy) for an existing data center with 11 MW of current critical IT load in Auburn, Alabama",
+   "passage": "p09",
+   "confidence": 0.65
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.9,
+  "input_tokens": 13416,
+  "output_tokens": 2316,
+  "attempts": 1,
+  "task_sha": "b5a22edb199c50c9"
+ }
+}

@@ -1,6 +1,6 @@
 {
  "accession": "AAPL|earnings_release|2021-12-25|9639132e",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "e67dc963b6b7b9b6"
+  "task_sha": "dc04a42e6b9f45db"
  }
 }

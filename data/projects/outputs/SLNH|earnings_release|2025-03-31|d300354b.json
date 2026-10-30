@@ -1,0 +1,112 @@
+{
+ "accession": "SLNH|earnings_release|2025-03-31|d300354b",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Project Dorothy 2",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "We have continued construction of Project Dorothy 2 and the initial phase of \u25cf powering up that facility is underway, which is expected to increase our Bitcoin hosting capacity by 64%, reaching a total of 123 MW (with an expected completion timeline of Q4 2025).",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Project Dorothy 1B",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We simplified our capital structure by fully converting Convertible Loan \u25cf Notes last year, significantly restructuring the Preferred B equity, and paying off the Navitas loan at Project Dorothy 1B.",
+   "passage": "p02",
+   "confidence": 0.4
+  },
+  {
+   "name": "Project Sophie",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Non-dilutive \u25cf Financing Closed with Galaxy \u2013 Soluna SW LLC closed a $5 million debt facility with Galaxy Digital, secured by the assets of Project Sophie.",
+   "passage": "p03",
+   "confidence": 0.4
+  },
+  {
+   "name": "Project Hedy",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Expanded Project Pipeline up to approximately 698MW in operations, construction, and development \u2013 as of today, the Company added two new projects (Hedy and Ellen) totaling 220MW.",
+   "passage": "p03",
+   "confidence": 0.75
+  },
+  {
+   "name": "Project Ellen",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Expanded Project Pipeline up to approximately 698MW in operations, construction, and development \u2013 as of today, the Company added two new projects (Hedy and Ellen) totaling 220MW.",
+   "passage": "p03",
+   "confidence": 0.75
+  },
+  {
+   "name": "Project Kati",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 166,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Project Kati (166MW) is now \u25cf shovel ready with capital formation underway.",
+   "passage": "p03",
+   "confidence": 0.85
+  },
+  {
+   "name": "Project Rosa",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 187,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Project Rosa (187MW) land acquisition agreements were signed in February, 2025.",
+   "passage": "p03",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.4,
+  "input_tokens": 7076,
+  "output_tokens": 2281,
+  "attempts": 1,
+  "task_sha": "15ab89e1b8f88a7b"
+ }
+}

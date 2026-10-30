@@ -1,0 +1,30 @@
+{
+ "accession": "ANET|mdna|2023-12-31|a889e10e",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Santa Clara, California office and lab building",
+   "kind": "other",
+   "status": "announced",
+   "location": "Santa Clara, California",
+   "counterparty": null,
+   "amount_low": 80000000,
+   "amount_high": 100000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The estimated capital expenditures related to this project is expected to be approximately $80.0 to $100.0 million for the year ending 2024, with construction expected to commence in the second half of 2024.",
+   "passage": "p02",
+   "confidence": 0.4
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.8,
+  "input_tokens": 4306,
+  "output_tokens": 441,
+  "attempts": 1,
+  "task_sha": "073a20c3df7fde71"
+ }
+}

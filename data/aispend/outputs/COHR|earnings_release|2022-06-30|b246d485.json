@@ -1,0 +1,27 @@
+{
+ "accession": "COHR|earnings_release|2022-06-30|b246d485",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the passage is a market-overview slide"
+  },
+  {
+   "field": "opex",
+   "reason": "'Industry leading investments in R&D' is product-description boilerplate and does not link R&D spend to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the $21B TAM figure is a market-size estimate, not company revenue; no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 4976,
+  "output_tokens": 211,
+  "attempts": 1,
+  "task_sha": "a92907375346010d"
+ }
+}

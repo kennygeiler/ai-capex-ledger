@@ -1,0 +1,154 @@
+{
+ "ticker": "BTBT",
+ "prompt_version": "attribution@v2",
+ "model": "miner_to_hpc@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 77667425,
+   "ai_share": 0.6839,
+   "inputs": [
+    {
+     "id": "fact:BTBT|segment_revenue|Cloud services|FY2025",
+     "value": 68753609
+    },
+    {
+     "id": "fact:BTBT|segment_revenue|Colocation services|FY2025",
+     "value": 8913816
+    }
+   ],
+   "basis": "Cloud services 68,753,609 + colocation services 8,913,816 = 77,667,425, the two HPC segments the thesis names. Digital asset mining (27.3M) and ETH staking (7.0M) are excluded. The cloud business sits in WhiteFiber, which is about 70.5% owned and consolidated; the full segment is counted.",
+   "confidence": 0.8
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 47088976,
+   "ai_share": 0.4358,
+   "inputs": [
+    {
+     "id": "fact:BTBT|segment_revenue|Cloud services|FY2024",
+     "value": 45727735
+    },
+    {
+     "id": "fact:BTBT|segment_revenue|Colocation services|FY2024",
+     "value": 1361241
+    }
+   ],
+   "basis": "Cloud services 45,727,735 + colocation services 1,361,241 (Enovum, acquired October 2024) = 47,088,976. Mining (58.6M) and ETH staking (1.8M) are excluded.",
+   "confidence": 0.8
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2024 MD&A cites a GPU contract worth more than $50M of annualized revenue (a run-rate, not a fiscal-year figure), a 300-GPU order worth about $0.9M per year over five years, and a $20.2M aggregate revenue opportunity (a contract total). None of these is a FY2025 revenue forecast, so no amount is given.",
+   "confidence": 0.3
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "ppe_category",
+   "ai_amount": 83228694,
+   "ai_share": 0.2911,
+   "inputs": [
+    {
+     "id": "fact:BTBT|ppe_category|Cloud service equipment|FY2025",
+     "value": 146589318
+    },
+    {
+     "id": "fact:BTBT|ppe_category|Cloud service equipment|FY2024",
+     "value": 63360624
+    }
+   ],
+   "basis": "Growth in gross cloud service equipment (GPU servers): 146,589,318 \u2212 63,360,624 = 83,228,694. The following are excluded: colocation service equipment growth of 19,365,682 (only one category is allowed), construction in progress (up 132.4M, use not stated), leasehold improvements, and miners. The figure is net of any disposals, so it is likely a floor on HPC spend.",
+   "confidence": 0.6
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "stated_amount",
+   "ai_amount": 30000000,
+   "ai_share": 0.1049,
+   "inputs": [
+    {
+     "id": "stmt:BTBT|mdna|2024-12-31|825737e1|capex|FY2025|outlook|3",
+     "value": 30000000
+    }
+   ],
+   "basis": "A purchase order for 130 H200 servers for about $30M, stated in the FY2024 MD&A. The share is taken against FY2025 consolidated capex of 285,928,406. This purchase is likely already inside the FY2025 growth in cloud service equipment.",
+   "confidence": 0.7
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "The pack has no FY2023 balance for cloud service equipment or colocation service equipment, so the category growth cannot be computed. There is no segment capex and no stated AI capex amount for the year."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "Pre-pivot year: the only categories are miners, construction in progress and vehicles. There is no AI segment or statement."
+  },
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "Pre-pivot mining year with no AI category, segment or statement in the pack."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "Committed: the finance lease liability of 12,911,192 at FY2025 year end is not described as AI, and the pack has no purchase commitments fact, so no committed row is given."
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "There is no cost line for the cloud or colocation segments and no statement attributing opex to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "There is no cost line for the cloud or colocation segments and no statement attributing opex to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "Pre-pivot mining year; no AI cost line."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "Pre-pivot mining year; no AI cost line."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "Mining-only year: the FY2024 release says cloud services revenue was nil the prior year, and the pack has no HPC segment revenue."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "Mining-only year with no HPC segment revenue in the pack."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 28.1,
+  "input_tokens": 19133,
+  "output_tokens": 3511,
+  "attempts": 1,
+  "task_sha": "3415b3b29787e827"
+ }
+}

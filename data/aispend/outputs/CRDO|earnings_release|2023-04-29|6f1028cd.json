@@ -1,23 +1,35 @@
 {
  "accession": "CRDO|earnings_release|2023-04-29|6f1028cd",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We see this shift accelerating the demand for energy-efficient connectivity solutions that perform at the highest speeds, which is exactly where Credo excels.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "The 'shift' is generative AI in hyperscale compute, named in the previous sentence. It is presented as accelerating demand for Credo's products, so AI is a forward-looking driver of revenue. No AI or data-center revenue figure or share is stated. The fiscal 2023 total revenue of $184M is not tied to AI in its own sentence, so it is not recorded. Kind is inferred from forward-looking context, so confidence is low."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
-  "model": null,
-  "seconds": 0.0,
-  "input_tokens": 0,
-  "output_tokens": 0,
-  "attempts": 0,
-  "task_sha": "edf5b2664b657cc8"
+  "model": "claude-opus-5-5",
+  "seconds": 8.5,
+  "input_tokens": 4979,
+  "output_tokens": 876,
+  "attempts": 1,
+  "task_sha": "d18bb3a1f470aaea"
  }
 }

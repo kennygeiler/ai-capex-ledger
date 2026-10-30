@@ -1,17 +1,32 @@
 {
  "accession": "IREN|earnings_release|2026-03-31|714dc8ad",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
-   "field": "capex",
+   "field": "revenue",
    "fiscal_year": null,
-   "kind": "outlook",
-   "scope": "total",
-   "class": "qualitative",
-   "quote": "We expect this, together with operating cash flows, GPU financing, and additional financing initiatives to support our near-term Capex program, which includes delivery of the Microsoft contract and deployment of air-cooled capacity across Mackenzie and Childress.",
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 33600000,
+   "amount_high": 33600000,
+   "quote": "This was partially offset by continued growth in AI cloud services revenue, which increased to $33.6 million compared to $17.3 million in the prior quarter.",
    "passage": "p07",
-   "confidence": 0.7,
-   "notes": "Near-term capex program is described as covering AI Cloud deliveries (the Microsoft GPU contract and air-cooled GPU capacity). No amount is given. Year not named, so code applies the outlook default."
+   "confidence": 0.8,
+   "notes": "Quarterly figure for the March 2026 quarter (Q3 FY26), not a full fiscal-year amount; sentence names no year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3700000000,
+   "amount_high": 3700000000,
+   "quote": "In 2026, we are targeting 480 megawatts of AI Cloud capacity, 150,000 GPUs, and 3.7 billion of ARR by year-end.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "AI Cloud annualized run-rate revenue (ARR) target exiting calendar 2026, not recognized revenue for fiscal 2026; '2026' here is calendar year, while IREN's fiscal year ends June 30."
   },
   {
    "field": "capex",
@@ -22,32 +37,32 @@
    "quote": "When you look at the GPU financing, which is the lion's share of that Capex, the Microsoft contract is a great template.",
    "passage": "p12",
    "confidence": 0.6,
-   "notes": "Says GPUs make up the 'lion's share' of capex for the build-out. The wording is spoken and ambiguous: it refers to GPU financing rather than GPU spend directly. No number is stated."
+   "notes": "Spoken on the earnings call: GPUs described as the 'lion's share' of capex for the AI infrastructure build-out; no amount or share stated."
   },
   {
    "field": "capex",
    "fiscal_year": null,
    "kind": "outlook",
-   "scope": "ai",
+   "scope": "total",
    "class": "qualitative",
-   "quote": "Yes, so the Capex involved for the retrofitting of the air-cooled data centers in Childress is pretty modest in the scheme of things.",
-   "passage": "p11",
-   "confidence": 0.6,
-   "notes": "Describes AI Cloud retrofit capex as modest. No number is stated, and the sentence says nothing on whether this capex is completed or planned."
+   "quote": "We expect this, together with operating cash flows, GPU financing, and additional financing initiatives to support our near-term Capex program, which includes delivery of the Microsoft contract and deployment of air-cooled capacity across Mackenzie and Childress.",
+   "passage": "p07",
+   "confidence": 0.7,
+   "notes": "Near-term capex program tied to AI Cloud deployments (Microsoft contract, air-cooled GPU capacity); no capex amount given."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount operating expenses to AI. The only cost figure, the cost of revenues decrease, relates to Bitcoin mining electricity."
+   "reason": "no sentence quantifies or attributes operating expenses to AI; only cost of revenues decrease tied to reduced Bitcoin mining"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 13.3,
-  "input_tokens": 18863,
-  "output_tokens": 1709,
+  "seconds": 17.1,
+  "input_tokens": 19166,
+  "output_tokens": 2031,
   "attempts": 1,
-  "task_sha": "f28a332f23f58309"
+  "task_sha": "bb7a4490f5626b6f"
  }
 }

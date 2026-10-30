@@ -1,23 +1,37 @@
 {
  "accession": "CORZ|mdna|2023-12-31|cf587128",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 100000000,
+   "amount_high": 100000000,
+   "quote": "The total potential revenue associated with the contract is more than $100 million.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Lower bound: the filing says 'more than $100 million', so both fields hold $100 million. This is the total potential value of a multi-year contract to supply 16 MW of data center infrastructure to CoreWeave, Inc. for high performance computing, not revenue for a single fiscal year. The filing names no year, so fiscal_year is null. The data-center/HPC context comes from the preceding sentence, and the quoted sentence itself does not mention AI. The contract was announced on March 6, 2024, after the fiscal 2023 period."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; capex discussion concerns bitcoin mining equipment, property, plant and equipment, and reduced spending after Chapter 11"
+   "reason": "no sentence links capital expenditures to AI; capex is discussed only as reduced following Chapter 11 and as bitcoin mining equipment purchases"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; operating cost discussion concerns bitcoin mining and electricity costs"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.5,
-  "input_tokens": 5679,
-  "output_tokens": 209,
+  "seconds": 10.2,
+  "input_tokens": 6737,
+  "output_tokens": 858,
   "attempts": 1,
-  "task_sha": "f617a60394dbd69a"
+  "task_sha": "94631fa1564b2e2d"
  }
 }

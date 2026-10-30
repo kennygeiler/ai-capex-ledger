@@ -1,0 +1,28 @@
+{
+ "accession": "VRT|earnings_release|2024-09-30|3f645a68",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Pelzer, South Carolina manufacturing facility",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Pelzer, South Carolina",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We continue to increase capacity globally across our portfolio, as demonstrated by the recent expansion of our modular infrastructure capabilities with a new manufacturing facility in Pelzer, South Carolina, which has already started production shipments.",
+   "passage": "p03",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.6,
+  "input_tokens": 7075,
+  "output_tokens": 376,
+  "attempts": 1,
+  "task_sha": "5bb9d163becfe79d"
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "accession": "GLXY|earnings_release|2025-03-31|6679bd84",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Helios Data Center Campus Phase I",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "CoreWeave",
+   "capacity_mw": 133,
+   "gpus": null,
+   "announced": "2025-03-28",
+   "in_service": "2026",
+   "quote": "This additional capacity would be structured on terms similar to those outlined in the previously announced 15-year, 133 MW lease agreement from March 28, 2025.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Helios Data Center Campus Phase II",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "CoreWeave",
+   "capacity_mw": 260,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2027",
+   "quote": "Under the Phase II option agreement, Galaxy would deliver approximately 260 megawatts (\u201cMW\u201d) of incremental critical IT load to CoreWeave, with deliveries expected to commence in 2027.",
+   "passage": "p01",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.5,
+  "input_tokens": 8910,
+  "output_tokens": 1051,
+  "attempts": 1,
+  "task_sha": "8951d67dd72a7e1d"
+ }
+}

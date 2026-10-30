@@ -1,0 +1,13 @@
+{
+ "accession": "CIEN|earnings_release|2023-07-29|92ec8eac",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 4670,
+  "output_tokens": 53,
+  "attempts": 1,
+  "task_sha": "ed3bb25f57aa2d2a"
+ }
+}

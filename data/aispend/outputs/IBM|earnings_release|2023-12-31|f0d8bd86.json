@@ -1,23 +1,42 @@
 {
  "accession": "IBM|earnings_release|2023-12-31|f0d8bd86",
- "prompt_version": "aispend@v3",
- "statements": [],
- "none_found": [
+ "prompt_version": "aispend@v4",
+ "statements": [
   {
-   "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p02 mentions net capital expenditures only in the free cash flow definition"
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "In the fourth quarter, we grew revenue in all of our segments, driven by continued adoption of our hybrid cloud and AI offerings.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Total revenue growth (Q4 2023) attributed partly to AI offerings, jointly with hybrid cloud; no AI revenue amount or share stated. The adjacent claim that the watsonx/generative AI book of business 'roughly doubled' is bookings growth, not revenue, so it is not recorded."
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; p01 says 2023 strengths enabled increased investment in R&D and talent, but the AI purpose clause ('to bolster our hybrid cloud and AI capabilities') attaches to the nine acquisitions, which are neither capex nor opex"
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Throughout 2023, those strengths enabled us to increase our investment in R&D and talent, and complete nine acquisitions to bolster our hybrid cloud and AI capabilities, all while continuing to return value to shareholders through our dividend.",
+   "passage": "p02",
+   "confidence": 0.4,
+   "notes": "Ambiguous: 'to bolster our hybrid cloud and AI capabilities' most directly modifies the acquisitions, not the increased R&D and talent investment; the link of R&D/headcount spend to AI is weak and unquantified."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p03 only defines free cash flow, including net capital expenditures"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.3,
-  "input_tokens": 4862,
-  "output_tokens": 531,
+  "seconds": 13.1,
+  "input_tokens": 5384,
+  "output_tokens": 1213,
   "attempts": 1,
-  "task_sha": "c601964717373190"
+  "task_sha": "268392ec9b94284a"
  }
 }

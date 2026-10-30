@@ -1,7 +1,163 @@
 {
  "accession": "0000051143-24-000012",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
+  {
+   "field": "segment_capex",
+   "dimension": "Software",
+   "table_id": "t0116",
+   "row_label": "Capital expenditures/investments in intangibles",
+   "column_label": "Software",
+   "cell_text": "385",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 385000000,
+   "confidence": 0.85,
+   "notes": "Row combines capex with investments in intangibles; first block of the table, before the 2022 separator row, is 2023."
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Consulting",
+   "table_id": "t0116",
+   "row_label": "Capital expenditures/investments in intangibles",
+   "column_label": "Consulting",
+   "cell_text": "20",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 20000000,
+   "confidence": 0.85,
+   "notes": "Row combines capex with investments in intangibles; first block is 2023."
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Infrastructure",
+   "table_id": "t0116",
+   "row_label": "Capital expenditures/investments in intangibles",
+   "column_label": "Infrastructure",
+   "cell_text": "836",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 836000000,
+   "confidence": 0.85,
+   "notes": "Row combines capex with investments in intangibles; first block is 2023."
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Financing",
+   "table_id": "t0116",
+   "row_label": "Capital expenditures/investments in intangibles",
+   "column_label": "Financing",
+   "cell_text": "15",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 15000000,
+   "confidence": 0.85,
+   "notes": "Row combines capex with investments in intangibles; first block is 2023."
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Software",
+   "table_id": "t0116",
+   "row_label": "Capital expenditures/investments in intangibles",
+   "column_label": "Software",
+   "cell_text": "446",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 446000000,
+   "confidence": 0.85,
+   "notes": "Row combines capex with investments in intangibles; block under the 2022 separator row."
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Consulting",
+   "table_id": "t0116",
+   "row_label": "Capital expenditures/investments in intangibles",
+   "column_label": "Consulting",
+   "cell_text": "33",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 33000000,
+   "confidence": 0.85,
+   "notes": "Row combines capex with investments in intangibles; 2022 block."
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Infrastructure",
+   "table_id": "t0116",
+   "row_label": "Capital expenditures/investments in intangibles",
+   "column_label": "Infrastructure",
+   "cell_text": "853",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 853000000,
+   "confidence": 0.85,
+   "notes": "Row combines capex with investments in intangibles; 2022 block."
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Financing",
+   "table_id": "t0116",
+   "row_label": "Capital expenditures/investments in intangibles",
+   "column_label": "Financing",
+   "cell_text": "27",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 27000000,
+   "confidence": 0.85,
+   "notes": "Row combines capex with investments in intangibles; 2022 block."
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Software",
+   "table_id": "t0116",
+   "row_label": "Capital expenditures/investments in intangibles",
+   "column_label": "Software",
+   "cell_text": "559",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 559000000,
+   "confidence": 0.85,
+   "notes": "Row combines capex with investments in intangibles; block under the 2021 separator row."
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Consulting",
+   "table_id": "t0116",
+   "row_label": "Capital expenditures/investments in intangibles",
+   "column_label": "Consulting",
+   "cell_text": "55",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 55000000,
+   "confidence": 0.85,
+   "notes": "Row combines capex with investments in intangibles; 2021 block."
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Infrastructure",
+   "table_id": "t0116",
+   "row_label": "Capital expenditures/investments in intangibles",
+   "column_label": "Infrastructure",
+   "cell_text": "792",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 792000000,
+   "confidence": 0.85,
+   "notes": "Row combines capex with investments in intangibles; 2021 block."
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Financing",
+   "table_id": "t0116",
+   "row_label": "Capital expenditures/investments in intangibles",
+   "column_label": "Financing",
+   "cell_text": "33",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 33000000,
+   "confidence": 0.85,
+   "notes": "Row combines capex with investments in intangibles; 2021 block."
+  },
   {
    "field": "segment_revenue",
    "dimension": "Software",
@@ -108,7 +264,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 23426000000,
-   "confidence": 0.85
+   "confidence": 0.95,
+   "notes": "2021 only in the segment note; year taken from the 2021 separator row above the block."
   },
   {
    "field": "segment_revenue",
@@ -120,7 +277,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 17844000000,
-   "confidence": 0.85
+   "confidence": 0.95,
+   "notes": "2021 block of the segment note."
   },
   {
    "field": "segment_revenue",
@@ -132,7 +290,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 14188000000,
-   "confidence": 0.85
+   "confidence": 0.95,
+   "notes": "2021 block of the segment note."
   },
   {
    "field": "segment_revenue",
@@ -144,151 +303,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 774000000,
-   "confidence": 0.85
-  },
-  {
-   "field": "segment_capex",
-   "dimension": "Software",
-   "table_id": "t0116",
-   "row_label": "Capital expenditures/investments in intangibles",
-   "column_label": "Software",
-   "cell_text": "385",
-   "period_end": "2023-12-31",
-   "months": 12,
-   "value": 385000000,
-   "confidence": 0.8
-  },
-  {
-   "field": "segment_capex",
-   "dimension": "Consulting",
-   "table_id": "t0116",
-   "row_label": "Capital expenditures/investments in intangibles",
-   "column_label": "Consulting",
-   "cell_text": "20",
-   "period_end": "2023-12-31",
-   "months": 12,
-   "value": 20000000,
-   "confidence": 0.8
-  },
-  {
-   "field": "segment_capex",
-   "dimension": "Infrastructure",
-   "table_id": "t0116",
-   "row_label": "Capital expenditures/investments in intangibles",
-   "column_label": "Infrastructure",
-   "cell_text": "836",
-   "period_end": "2023-12-31",
-   "months": 12,
-   "value": 836000000,
-   "confidence": 0.8
-  },
-  {
-   "field": "segment_capex",
-   "dimension": "Financing",
-   "table_id": "t0116",
-   "row_label": "Capital expenditures/investments in intangibles",
-   "column_label": "Financing",
-   "cell_text": "15",
-   "period_end": "2023-12-31",
-   "months": 12,
-   "value": 15000000,
-   "confidence": 0.8
-  },
-  {
-   "field": "segment_capex",
-   "dimension": "Software",
-   "table_id": "t0116",
-   "row_label": "Capital expenditures/investments in intangibles",
-   "column_label": "Software",
-   "cell_text": "446",
-   "period_end": "2022-12-31",
-   "months": 12,
-   "value": 446000000,
-   "confidence": 0.8
-  },
-  {
-   "field": "segment_capex",
-   "dimension": "Consulting",
-   "table_id": "t0116",
-   "row_label": "Capital expenditures/investments in intangibles",
-   "column_label": "Consulting",
-   "cell_text": "33",
-   "period_end": "2022-12-31",
-   "months": 12,
-   "value": 33000000,
-   "confidence": 0.8
-  },
-  {
-   "field": "segment_capex",
-   "dimension": "Infrastructure",
-   "table_id": "t0116",
-   "row_label": "Capital expenditures/investments in intangibles",
-   "column_label": "Infrastructure",
-   "cell_text": "853",
-   "period_end": "2022-12-31",
-   "months": 12,
-   "value": 853000000,
-   "confidence": 0.8
-  },
-  {
-   "field": "segment_capex",
-   "dimension": "Financing",
-   "table_id": "t0116",
-   "row_label": "Capital expenditures/investments in intangibles",
-   "column_label": "Financing",
-   "cell_text": "27",
-   "period_end": "2022-12-31",
-   "months": 12,
-   "value": 27000000,
-   "confidence": 0.8
-  },
-  {
-   "field": "segment_capex",
-   "dimension": "Software",
-   "table_id": "t0116",
-   "row_label": "Capital expenditures/investments in intangibles",
-   "column_label": "Software",
-   "cell_text": "559",
-   "period_end": "2021-12-31",
-   "months": 12,
-   "value": 559000000,
-   "confidence": 0.8
-  },
-  {
-   "field": "segment_capex",
-   "dimension": "Consulting",
-   "table_id": "t0116",
-   "row_label": "Capital expenditures/investments in intangibles",
-   "column_label": "Consulting",
-   "cell_text": "55",
-   "period_end": "2021-12-31",
-   "months": 12,
-   "value": 55000000,
-   "confidence": 0.8
-  },
-  {
-   "field": "segment_capex",
-   "dimension": "Infrastructure",
-   "table_id": "t0116",
-   "row_label": "Capital expenditures/investments in intangibles",
-   "column_label": "Infrastructure",
-   "cell_text": "792",
-   "period_end": "2021-12-31",
-   "months": 12,
-   "value": 792000000,
-   "confidence": 0.8
-  },
-  {
-   "field": "segment_capex",
-   "dimension": "Financing",
-   "table_id": "t0116",
-   "row_label": "Capital expenditures/investments in intangibles",
-   "column_label": "Financing",
-   "cell_text": "33",
-   "period_end": "2021-12-31",
-   "months": 12,
-   "value": 33000000,
-   "confidence": 0.8
+   "confidence": 0.95,
+   "notes": "2021 block of the segment note."
   },
   {
    "field": "ppe_category",
@@ -396,7 +412,8 @@
    "period_end": "2023-12-31",
    "months": 0,
    "value": 499000000,
-   "confidence": 0.85
+   "confidence": 0.85,
+   "notes": "Taken from the maturity table's total after imputed interest (present value of finance lease liabilities at 2023 year-end); no balance-sheet line was given. No 2022 value appears in the tables."
   },
   {
    "field": "purchase_commitments",
@@ -408,31 +425,16 @@
    "period_end": "2023-12-31",
    "months": 0,
    "value": 3822000000,
-   "confidence": 0.9
+   "confidence": 1.0
   }
  ],
- "not_found": [
-  {
-   "field": "finance_lease_liability",
-   "reason": "No 2022 year-end finance lease liability balance is reported; only the 2023 maturity table (t0174) gives the total after imputed interest."
-  },
-  {
-   "field": "purchase_commitments",
-   "reason": "No 2022 year-end purchase obligations total is reported; the contractual obligations table (t0058) covers 2023 year-end only."
-  }
- ],
- "notes": [
-  "segment_revenue 2023/2022 taken from t0017, where the columns are years. The 'Other' row (233 / 453) is excluded because it is not a reportable segment: t0112 Total Segments 61,627 = 61,860 - 233. 2021 values come from t0112, where the columns are segments and the year comes from the '2021' separator row; that is why confidence is 0.85.",
-  "segment_capex comes from t0116, where the columns are segments. The row label 'Capital expenditures/investments in intangibles' repeats once per year block. The first block has no year label and is taken as 2023; the later blocks follow the '2022' and '2021' separator rows. Confidence is 0.8 because the line includes investments in intangibles as well as PP&E additions.",
-  "finance_lease_liability is the 'Total (2)' column of the maturity table, which is the present value after imputed interest (582 - 82 = 499). It matches the 'Finance lease obligations' total of 499 in t0058. That column is not a year column, so confidence is 0.85.",
-  "purchase_commitments is the total across all years from the 'Total Contractual | Payment Stream' column, which is a total column rather than a year column, so confidence is 0.9."
- ],
+ "not_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 34.8,
-  "input_tokens": 8520,
-  "output_tokens": 5158,
+  "seconds": 33.8,
+  "input_tokens": 8646,
+  "output_tokens": 5015,
   "attempts": 1,
-  "task_sha": "c6beb6b567c38de7"
+  "task_sha": "8e7b07eb46166c2d"
  }
 }

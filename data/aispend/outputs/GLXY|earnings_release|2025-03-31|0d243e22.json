@@ -1,0 +1,27 @@
+{
+ "accession": "GLXY|earnings_release|2025-03-31|0d243e22",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the passage is a segment income statement table; no sentence links capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the table's Data Centers operating income (loss) row is not an AI opex statement"
+  },
+  {
+   "field": "revenue",
+   "reason": "only a table row 'Data Centers leasing revenue' shown as '-' for every period; there is no sentence stating AI or data-center revenue, and the dash is not a stated amount"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.2,
+  "input_tokens": 5134,
+  "output_tokens": 423,
+  "attempts": 1,
+  "task_sha": "f174b6534aaae340"
+ }
+}

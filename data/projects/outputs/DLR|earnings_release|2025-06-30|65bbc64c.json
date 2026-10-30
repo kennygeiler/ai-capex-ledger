@@ -1,0 +1,62 @@
+{
+ "accession": "DLR|earnings_release|2025-06-30|65bbc64c",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Atlanta metro area data center land (100 acres)",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Atlanta metro area",
+   "counterparty": null,
+   "amount_low": 120000000,
+   "amount_high": 120000000,
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "As previously disclosed, Digital Realty acquired approximately 100 acres of land in the Atlanta metro area that is expected to support over 200 megawatts of IT capacity for approximately $120 million.",
+   "passage": "p05",
+   "confidence": 0.75
+  },
+  {
+   "name": "Dallas metro area data center land (167 acres)",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Dallas metro area",
+   "counterparty": null,
+   "amount_low": 11000000,
+   "amount_high": 11000000,
+   "capacity_mw": 480,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Separately, Digital Realty acquired a 167-acre land parcel in the Dallas metro area that is expected to support approximately 480 megawatts of IT capacity for approximately $11 million.",
+   "passage": "p05",
+   "confidence": 0.8
+  },
+  {
+   "name": "Franklin Park campus expansion",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Chicago metro area",
+   "counterparty": null,
+   "amount_low": 6000000,
+   "amount_high": 6000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Lastly, Digital Realty acquired several land parcels as part of an assemblage in the Chicago metro area supporting the continued expansion of its Franklin Park campus for approximately $6 million.",
+   "passage": "p05",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.1,
+  "input_tokens": 16240,
+  "output_tokens": 1290,
+  "attempts": 1,
+  "task_sha": "3d8afb5083ac0340"
+ }
+}

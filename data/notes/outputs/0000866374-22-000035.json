@@ -1,0 +1,281 @@
+{
+ "accession": "0000866374-22-000035",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Flex Agility Solutions",
+   "table_id": "t0065",
+   "row_label": "Flex Agility Solutions",
+   "column_label": "Fiscal Year Ended March 31, | 2022",
+   "cell_text": "14,027",
+   "period_end": "2022-03-31",
+   "months": 12,
+   "value": 14027000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Flex Agility Solutions",
+   "table_id": "t0065",
+   "row_label": "Flex Agility Solutions",
+   "column_label": "Fiscal Year Ended March 31, | 2021",
+   "cell_text": "13,493",
+   "period_end": "2021-03-31",
+   "months": 12,
+   "value": 13493000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Flex Agility Solutions",
+   "table_id": "t0065",
+   "row_label": "Flex Agility Solutions",
+   "column_label": "Fiscal Year Ended March 31, | 2020",
+   "cell_text": "14,053",
+   "period_end": "2020-03-31",
+   "months": 12,
+   "value": 14053000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Flex Reliability Solutions",
+   "table_id": "t0065",
+   "row_label": "Flex Reliability Solutions",
+   "column_label": "Fiscal Year Ended March 31, | 2022",
+   "cell_text": "10,603",
+   "period_end": "2022-03-31",
+   "months": 12,
+   "value": 10603000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Flex Reliability Solutions",
+   "table_id": "t0065",
+   "row_label": "Flex Reliability Solutions",
+   "column_label": "Fiscal Year Ended March 31, | 2021",
+   "cell_text": "9,495",
+   "period_end": "2021-03-31",
+   "months": 12,
+   "value": 9495000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Flex Reliability Solutions",
+   "table_id": "t0065",
+   "row_label": "Flex Reliability Solutions",
+   "column_label": "Fiscal Year Ended March 31, | 2020",
+   "cell_text": "9,053",
+   "period_end": "2020-03-31",
+   "months": 12,
+   "value": 9053000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Nextracker",
+   "table_id": "t0065",
+   "row_label": "Nextracker",
+   "column_label": "Fiscal Year Ended March 31, | 2022",
+   "cell_text": "1,458",
+   "period_end": "2022-03-31",
+   "months": 12,
+   "value": 1458000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Nextracker",
+   "table_id": "t0065",
+   "row_label": "Nextracker",
+   "column_label": "Fiscal Year Ended March 31, | 2021",
+   "cell_text": "1,195",
+   "period_end": "2021-03-31",
+   "months": 12,
+   "value": 1195000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Nextracker",
+   "table_id": "t0065",
+   "row_label": "Nextracker",
+   "column_label": "Fiscal Year Ended March 31, | 2020",
+   "cell_text": "1,171",
+   "period_end": "2020-03-31",
+   "months": 12,
+   "value": 1171000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0031",
+   "row_label": "Machinery and equipment",
+   "column_label": "As of March 31, | 2022",
+   "cell_text": "3,540",
+   "period_end": "2022-03-31",
+   "months": 0,
+   "value": 3540000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0031",
+   "row_label": "Machinery and equipment",
+   "column_label": "As of March 31, | 2021",
+   "cell_text": "3,381",
+   "period_end": "2021-03-31",
+   "months": 0,
+   "value": 3381000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0031",
+   "row_label": "Buildings",
+   "column_label": "As of March 31, | 2022",
+   "cell_text": "1,123",
+   "period_end": "2022-03-31",
+   "months": 0,
+   "value": 1123000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0031",
+   "row_label": "Buildings",
+   "column_label": "As of March 31, | 2021",
+   "cell_text": "1,103",
+   "period_end": "2021-03-31",
+   "months": 0,
+   "value": 1103000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0031",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of March 31, | 2022",
+   "cell_text": "564",
+   "period_end": "2022-03-31",
+   "months": 0,
+   "value": 564000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0031",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of March 31, | 2021",
+   "cell_text": "500",
+   "period_end": "2021-03-31",
+   "months": 0,
+   "value": 500000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures, computer equipment and software",
+   "table_id": "t0031",
+   "row_label": "Furniture, fixtures, computer equipment and software",
+   "column_label": "As of March 31, | 2022",
+   "cell_text": "503",
+   "period_end": "2022-03-31",
+   "months": 0,
+   "value": 503000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures, computer equipment and software",
+   "table_id": "t0031",
+   "row_label": "Furniture, fixtures, computer equipment and software",
+   "column_label": "As of March 31, | 2021",
+   "cell_text": "491",
+   "period_end": "2021-03-31",
+   "months": 0,
+   "value": 491000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0031",
+   "row_label": "Land",
+   "column_label": "As of March 31, | 2022",
+   "cell_text": "113",
+   "period_end": "2022-03-31",
+   "months": 0,
+   "value": 113000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0031",
+   "row_label": "Land",
+   "column_label": "As of March 31, | 2021",
+   "cell_text": "113",
+   "period_end": "2021-03-31",
+   "months": 0,
+   "value": 113000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction-in-progress",
+   "table_id": "t0031",
+   "row_label": "Construction-in-progress",
+   "column_label": "As of March 31, | 2022",
+   "cell_text": "261",
+   "period_end": "2022-03-31",
+   "months": 0,
+   "value": 261000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction-in-progress",
+   "table_id": "t0031",
+   "row_label": "Construction-in-progress",
+   "column_label": "As of March 31, | 2021",
+   "cell_text": "255",
+   "period_end": "2021-03-31",
+   "months": 0,
+   "value": 255000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment table (t0065) reports net sales and segment income only; no per-segment capital expenditures are given"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note balance table is provided; t0022 shows only future finance lease payments by maturity bucket (columns are not year-end balances), not the finance lease liability"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "the contractual obligations table (t0022) has no purchase obligations or purchase commitments row"
+  }
+ ],
+ "notes": "Segment revenue rows in t0065 are the first (net sales) block; the same segment labels repeat under 'Segment income and reconciliation of operating income', which was not used. Confidence 0.95 because the net sales block has no explicit header row. Intersegment eliminations and the unlabeled total were skipped.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 21.8,
+  "input_tokens": 6695,
+  "output_tokens": 3271,
+  "attempts": 1,
+  "task_sha": "beacbfa126a374b6"
+ }
+}

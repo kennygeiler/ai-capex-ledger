@@ -1,0 +1,153 @@
+{
+ "accession": "0001493152-23-007879",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0153",
+   "row_label": "Total revenues",
+   "column_label": "2022 | Year ended December 31,",
+   "cell_text": "117,753",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 117753000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0153",
+   "row_label": "Total revenues",
+   "column_label": "2021 (Restated) | Year ended December 31,",
+   "cell_text": "159,163",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 159163000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0153",
+   "row_label": "Total revenues",
+   "column_label": "2020 | Year ended December 31,",
+   "cell_text": "4,357",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 4357000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0153",
+   "row_label": "Total cost of revenues",
+   "column_label": "2022 | Year ended December 31,",
+   "cell_text": "(151,426)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 151426000,
+   "confidence": 1.0,
+   "notes": "Total line includes energy/hosting and depreciation and amortization components."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0153",
+   "row_label": "Total cost of revenues",
+   "column_label": "2021 (Restated) | Year ended December 31,",
+   "cell_text": "(42,395)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 42395000,
+   "confidence": 1.0,
+   "notes": "Total line includes energy/hosting and depreciation and amortization components."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0153",
+   "row_label": "Total cost of revenues",
+   "column_label": "2020 | Year ended December 31,",
+   "cell_text": "(6,915)",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 6915000,
+   "confidence": 1.0,
+   "notes": "Total line includes energy/hosting and depreciation and amortization components."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0153",
+   "row_label": "Operating income (loss)",
+   "column_label": "2022 | Year ended December 31,",
+   "cell_text": "(663,868)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": -663868000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0153",
+   "row_label": "Operating income (loss)",
+   "column_label": "2021 (Restated) | Year ended December 31,",
+   "cell_text": "(12,663)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": -12663000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0153",
+   "row_label": "Operating income (loss)",
+   "column_label": "2020 | Year ended December 31,",
+   "cell_text": "(9,818)",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": -9818000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0159",
+   "row_label": "Purchase of property and equipment",
+   "column_label": "2022 | For the Years Ended December 31,",
+   "cell_text": "(41,108)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 41108000,
+   "confidence": 1.0,
+   "notes": "Separate 'Advances to vendors' line (largely miner deposits later reclassified to property and equipment) not added, per rule against combining lines."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0159",
+   "row_label": "Purchase of property and equipment",
+   "column_label": "2021 (Restated) | For the Years Ended December 31,",
+   "cell_text": "(273,851)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 273851000,
+   "confidence": 1.0,
+   "notes": "Separate 'Advances to vendors' line not added, per rule against combining lines."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0159",
+   "row_label": "Purchase of property and equipment",
+   "column_label": "2020 | For the Years Ended December 31,",
+   "cell_text": "(17,742)",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 17742000,
+   "confidence": 1.0,
+   "notes": "Separate 'Advances to vendors' line not added, per rule against combining lines."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.1,
+  "input_tokens": 7310,
+  "output_tokens": 1846,
+  "attempts": 1,
+  "task_sha": "f45375b26307ed57"
+ }
+}

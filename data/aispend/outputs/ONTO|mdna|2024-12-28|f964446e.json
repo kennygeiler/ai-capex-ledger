@@ -1,0 +1,46 @@
+{
+ "accession": "ONTO|mdna|2024-12-28|f964446e",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u2022In fiscal 2024, revenue increased 21% compared to fiscal 2023, primarily due to an increase in sales in our inspection business of Dragonfly systems and other products in support of advanced packaging needs for chips used in Artificial Intelligence (AI) applications.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "21% is total revenue growth, not AI's share of revenue; AI-linked advanced packaging is named as the primary driver, so recorded as qualitative with scope total."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Total systems and software revenue increased $167.1 million for the year ended December 28, 2024, as compared to the year ended December 30, 2023, primarily due to an increase in units shipped of our inspection product line to customers in support of advanced packaging needs for chips used in AI applications.",
+   "passage": "p03",
+   "confidence": 0.75,
+   "notes": "$167.1 million is the year-over-year increase in systems and software revenue, not an AI revenue figure; AI-chip advanced packaging is named as the primary driver. Not recorded as an explicit AI amount."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures ($31.9 million) are attributed to ERP, facilities, demo/test, manufacturing and network equipment; no sentence links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.1,
+  "input_tokens": 5765,
+  "output_tokens": 844,
+  "attempts": 1,
+  "task_sha": "297a811e2d11c4fc"
+ }
+}

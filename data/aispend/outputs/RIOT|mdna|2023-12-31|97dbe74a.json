@@ -1,0 +1,37 @@
+{
+ "accession": "RIOT|mdna|2023-12-31|97dbe74a",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 27300000,
+   "amount_high": 27300000,
+   "quote": "For the years ended December 31, 2023 and 2022, Data Center Hosting revenue was $27.3 million and $36.9 million, respectively.",
+   "passage": "p04",
+   "confidence": 0.4,
+   "notes": "Literal match to 'data-center revenue', but this segment hosts institutional Bitcoin miners at the Rockdale Facility. It is not AI demand, and downstream users may want to exclude it. The same figure appears in p02. The 2022 figure ($36.9 million) is outside the reported fiscal year and is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the Corsicana Facility development is for Bitcoin mining and hosting"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.8,
+  "input_tokens": 7047,
+  "output_tokens": 1124,
+  "attempts": 1,
+  "task_sha": "c1b2f94ee8889023"
+ }
+}

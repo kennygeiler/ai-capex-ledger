@@ -1,23 +1,27 @@
 {
  "accession": "MU|earnings_release|2026-09-03|b3bc9ff7",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "the only passage is a quarterly business-unit results table; no sentence mentions capital expenditures"
   },
   {
    "field": "opex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the table gives only margins by business unit"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 is a table, not a sentence. It reports quarterly (FQ4-26, FQ3-26, FQ4-25) revenue by business unit, including Core Data Center Business Unit revenue of $18,002 (in millions) and Cloud Memory Business Unit revenue of $16,283 for FQ4-26. These are single-quarter figures, not fiscal-year 2026 totals, and no complete sentence states them, so they cannot be quoted or recorded as fiscal-year data-center revenue without inference. Review manually if quarterly data-center revenue is wanted."
   }
  ],
  "_run": {
-  "model": null,
-  "seconds": 0.0,
-  "input_tokens": 0,
-  "output_tokens": 0,
-  "attempts": 0,
-  "task_sha": "da10a0692e06032d"
+  "model": "claude-opus-5-5",
+  "seconds": 10.1,
+  "input_tokens": 5058,
+  "output_tokens": 702,
+  "attempts": 1,
+  "task_sha": "213a97229a3c27fd"
  }
 }

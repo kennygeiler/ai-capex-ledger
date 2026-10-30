@@ -1,0 +1,35 @@
+{
+ "accession": "TER|mdna|2023-12-31|df5498cc",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The growth of DDR5 and High Bandwidth Memory (\"HBM\") devices for data center applications continued to drive demand for our products in the memory market in 2023.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Says data-center and HBM growth drove demand for Teradyne's memory test products in 2023. It speaks of demand, not revenue, and gives no amount or share. It is limited to the memory market."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "purchases of property, plant and equipment ($159.6M in 2023, $163.2M in 2022) are reported with no link to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 19.9,
+  "input_tokens": 5235,
+  "output_tokens": 608,
+  "attempts": 1,
+  "task_sha": "8ac9232952bdc0b0"
+ }
+}

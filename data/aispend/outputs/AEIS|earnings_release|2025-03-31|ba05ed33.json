@@ -1,0 +1,37 @@
+{
+ "accession": "AEIS|earnings_release|2025-03-31|ba05ed33",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 96200000,
+   "amount_high": 96200000,
+   "quote": "Data Center \u200b 96.2 \u200b 41.9 \u200b 88.7 Computing",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "This comes from the net-revenue-by-market table, not a prose sentence. The table cells are in millions. The first column is the quarter ended March 31, 2025; 41.9 is Q1 2024 and 88.7 is Q4 2024, judged from the Total row (404.6 / 327.5 / 415.4) against p01. The figure is quarterly (Q1 FY2025), not a full-year amount. 'Data Center Computing' is the company's market segment and is not stated to be AI-specific. A prose sentence in p01 mentions 'growth in our new data center programs' qualitatively; it is skipped in favour of this number."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.6,
+  "input_tokens": 5648,
+  "output_tokens": 1142,
+  "attempts": 1,
+  "task_sha": "5e1e44071d8c3c48"
+ }
+}

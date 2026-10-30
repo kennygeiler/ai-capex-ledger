@@ -1,0 +1,66 @@
+{
+ "accession": "MOD|earnings_release|2026-06-30|20d53b6e",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 348600000,
+   "amount_high": 348600000,
+   "quote": "Data Centers segment sales were $348.6 million, compared with $183.7 million one year ago, an increase of 90 percent.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "First quarter of fiscal 2027 only (three months ended June 30, 2026), not a full-year figure. This is data-center cooling segment revenue for a seller to hyperscale customers."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Expecting Data Center sales to grow 60-80% including above market growth in North America",
+   "passage": "p13",
+   "confidence": 0.6,
+   "notes": "Slide bullet, not a full sentence. Gives a growth rate (60-80%), not an amount or a share of total revenue, so it is recorded as qualitative. No dollar figure is derived."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "This increase was primarily driven by higher coil sales to data center customers and $19.7 million of incremental sales from acquired businesses.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "Q1 FY27. Commercial HVAC segment growth is attributed partly to data-center customers, but no data-center amount is stated. The $19.7M figure refers to acquisitions, not data-center sales."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2027,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "This decrease was primarily due to higher capital expenditures to increase production capacity in the Data Centers segment, partially offset by favorable net changes in working capital.",
+   "passage": "p04",
+   "confidence": 0.4,
+   "notes": "Q1 FY27. This is capex for Modine's own manufacturing capacity to make data-center cooling products, not AI compute infrastructure. It is ambiguous whether this fits the AI-capex field. The total FY27 capex guidance of $150-200M (p14) is not linked to AI or data centers, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies or attributes R&D, infrastructure or headcount expense to AI. The SG&A increase is tied to Data Centers segment growth, not to AI spend."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.5,
+  "input_tokens": 12741,
+  "output_tokens": 1862,
+  "attempts": 1,
+  "task_sha": "45f83237a3653674"
+ }
+}

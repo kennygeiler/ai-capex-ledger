@@ -1,0 +1,27 @@
+{
+ "accession": "SMCI|earnings_release|2023-03-31|97e5b807",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the CEO quote mentions record engagements for AI applications and GPU cluster deployments, but no sentence states AI, data-center or AI-server revenue or links revenue to AI demand; p03 is company-description boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.4,
+  "input_tokens": 5928,
+  "output_tokens": 374,
+  "attempts": 1,
+  "task_sha": "21b763a86fc5b13a"
+ }
+}

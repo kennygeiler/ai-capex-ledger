@@ -1,7 +1,20 @@
 {
  "accession": "NVDA|mdna|2023-01-29|0ad29605",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 15010000000,
+   "amount_high": 15010000000,
+   "quote": "Data Center revenue for fiscal year 2023 was $15.01 billion, up 41% from fiscal year 2022.",
+   "passage": "p07",
+   "confidence": 1.0,
+   "notes": "Data Center segment revenue, i.e. seller-side data-center demand; the qualitative growth description in p04 is skipped in favor of this figure."
+  },
   {
    "field": "opex",
    "fiscal_year": 2023,
@@ -11,21 +24,21 @@
    "quote": "We entered into multi-year cloud service agreements in the second half of fiscal year 2023 to these offerings and our research and development activities.",
    "passage": "p03",
    "confidence": 0.5,
-   "notes": "The sentence is garbled in the source (likely 'to support these offerings'). It links multi-year cloud service commitments to the NVIDIA AI cloud service offerings (p02) and to R&D, but states no amount. It is unclear whether these commitments are recognized as operating expense in fiscal 2023, and the AI link depends on 'these offerings' referring to the AI cloud services."
+   "notes": "Sentence appears truncated (likely 'to support these offerings'); it links cloud service agreements to NVIDIA AI cloud offerings and R&D but states no amount, and it is unclear whether the resulting cost is operating expense."
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only capex figure (p09: approximately $1.10 billion to $1.30 billion in property and equipment for fiscal 2024) is not linked to AI in the sentence; no sentence ties capital expenditures to AI"
+   "reason": "the only capex sentence (p11, $1.10\u2013$1.30 billion for fiscal 2024 property and equipment) does not link capital expenditures to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 7.3,
-  "input_tokens": 5884,
-  "output_tokens": 646,
+  "seconds": 11.9,
+  "input_tokens": 6415,
+  "output_tokens": 901,
   "attempts": 1,
-  "task_sha": "b096f354c35b4e5c"
+  "task_sha": "169faa66ecc9ff33"
  }
 }

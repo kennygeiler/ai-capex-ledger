@@ -1,0 +1,27 @@
+{
+ "accession": "MARA|mdna|2022-12-31|2871af99",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the passage describes depreciation of bitcoin mining equipment only"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states revenue from AI or data-center demand; the passage concerns bitcoin miner depreciation accounting"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 5007,
+  "output_tokens": 199,
+  "attempts": 1,
+  "task_sha": "942bb1cccbaf2f5f"
+ }
+}

@@ -1,0 +1,70 @@
+{
+ "accession": "MARA|earnings_release|2026-06-30|39a93d2d",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Matagorda County, Texas powered land site",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Matagorda County, Texas",
+   "counterparty": null,
+   "capacity_mw": 2000,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Subsequent to quarter-end, we secured the rights to a 2 GW powered land site in Matagorda County, Texas \u2014 an acquisition that, upon ERCOT and interconnect approvals, would more than double our powered land portfolio.",
+   "passage": "p01",
+   "confidence": 0.9
+  },
+  {
+   "name": "Long Ridge",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We continued to advance the Long Ridge transaction and are currently awaiting FERC approval.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Hannibal campus",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We believe this transaction will transform our existing Hannibal campus by adding adjacent land while immediately contributing positive EBITDA upon closing.",
+   "passage": "p01",
+   "confidence": 0.6
+  },
+  {
+   "name": "AION Consortium",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 3000,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Exaion's selection to participate in the AION Consortium, a European Union-backed initiative targeting approximately three gigawatts of AI-ready data center capacity, further validates both its technical capabilities and strategic positioning.",
+   "passage": "p01",
+   "confidence": 0.45
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.3,
+  "input_tokens": 12137,
+  "output_tokens": 1413,
+  "attempts": 1,
+  "task_sha": "a333d4425da963a3"
+ }
+}

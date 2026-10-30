@@ -1,0 +1,53 @@
+{
+ "accession": "MOD|mdna|2024-03-31|7007b768",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Compared with the prior year, sales of data center cooling products increased $120 million, primarily due to higher sales to both hyperscale and colocation customers.",
+   "passage": "p08",
+   "confidence": 0.6,
+   "notes": "Data-center cooling sales rose by $120 million, but the filing does not state the level of data-center revenue. The $120 million is a year-over-year change, not an amount, so it is recorded as qualitative. Data center is used as the AI proxy; AI is not named."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We expect particularly strong growth in the data center markets during fiscal 2025, as the need for digital infrastructure continues to expand.",
+   "passage": "p04",
+   "confidence": 0.5,
+   "notes": "The sentence expects growth in the data center markets the company serves. It implies higher data-center revenue but does not quantify it. AI is not named."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We are growing our data center business and recently purchased a new manufacturing site in the U.K., where we plan to expand production capacity for data center cooling products.",
+   "passage": "p11",
+   "confidence": 0.5,
+   "notes": "Capex is linked to data-center cooling capacity, not to AI by name. No amount is given for the data-center part. The total capex sentence ($88 million in fiscal 2024) does not cite data center or AI as a driver, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses, R&D or headcount to AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.4,
+  "input_tokens": 7920,
+  "output_tokens": 1516,
+  "attempts": 1,
+  "task_sha": "7a9dc96e58a0cddb"
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "accession": "SNOW|mdna|2023-01-31|9dd7c3b9",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Amended third-party cloud infrastructure agreement",
+   "kind": "cloud_commitment",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 2500000000,
+   "amount_high": 2500000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2023-01",
+   "in_service": null,
+   "quote": "Under the amended agreement, we have committed to spend an aggregate of at least $2.5 billion from fiscal 2024 to fiscal 2028 on cloud infrastructure services ($350.0 million in fiscal 2024, $450.0 million in fiscal 2025, $500.0 million in fiscal 2026, $550.0 million in fiscal 2027, and $650.0 million in fiscal 2028).",
+   "passage": "p02",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.6,
+  "input_tokens": 4920,
+  "output_tokens": 602,
+  "attempts": 1,
+  "task_sha": "5bbf55b52f3c4219"
+ }
+}

@@ -1,23 +1,27 @@
 {
  "accession": "AMZN|earnings_release|2024-12-31|54148327",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage (p01) is a product announcement about Trainium2 instances' price-performance; no sentence states or links capital expenditures to AI"
+   "reason": "no sentence links capital expenditures to AI; the only passage is a product announcement (Trainium2 general availability)"
   },
   {
    "field": "opex",
-   "reason": "the only passage (p01) describes a product offering; no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the only passage describes a product"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue; the Trainium2 passage is a product description (boilerplate), and AWS segment revenue is not AI revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.9,
-  "input_tokens": 4475,
-  "output_tokens": 190,
+  "seconds": 3.3,
+  "input_tokens": 4778,
+  "output_tokens": 228,
   "attempts": 1,
-  "task_sha": "1122f7f31c210826"
+  "task_sha": "94eee0293bf22215"
  }
 }

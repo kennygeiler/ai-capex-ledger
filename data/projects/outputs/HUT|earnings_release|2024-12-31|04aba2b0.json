@@ -1,0 +1,56 @@
+{
+ "accession": "HUT|earnings_release|2024-12-31|04aba2b0",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "River Bend campus",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "After the quarter, Hut 8 secured 592 acres of land for its River Bend campus, a project from this subset of its development pipeline.",
+   "passage": "p06",
+   "confidence": 0.85
+  },
+  {
+   "name": "Vega",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 205,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "Secured Vega, a 205 MW behind-the-meter site in Texas, which is expected \u00b7 to be energized in Q2 2025, less than one year after acquisition, through the Company\u2019s greenfield development capabilities, which enables rapid deployment low-cost Bitcoin mining infrastructure.",
+   "passage": "p05",
+   "confidence": 0.6
+  },
+  {
+   "name": "Salt Creek",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 63,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Completed the greenfield development and energization of Salt Creek, a 63 \u00b7 MW Bitcoin mining facility, just over three months after breaking ground for an all-in cost of approximately $240,000 per MW.",
+   "passage": "p07",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.2,
+  "input_tokens": 6163,
+  "output_tokens": 1183,
+  "attempts": 1,
+  "task_sha": "7b6a711e3474d281"
+ }
+}

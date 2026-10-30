@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|earnings_release|2025-03-31|5e4fdc95",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; land acquisitions (p02) and the U.S. Hyperscale Data Center Fund (p02, p09) are not tied to AI spend in any sentence, and 'Strong demand for Digital Transformation, Cloud and AI' (p09) is a slide bullet on the fund's rationale, not a spend statement"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "total revenue of $1.4 billion for 1Q25 (p01) is given without any AI or data-center attribution, and bookings and backlog figures are not linked to AI; no sentence states an AI or data-center share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.7,
+  "input_tokens": 16538,
+  "output_tokens": 620,
+  "attempts": 1,
+  "task_sha": "375d35decdde9e0c"
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "accession": "RIOT|earnings_release|2023-09-30|2320bcc0",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 5100000,
+   "amount_high": 5100000,
+   "quote": "Data Center Hosting revenue of $5.1 million for the quarter, as compared \u25cf to $8.4 million for the same three-month period in 2022, driven by reduced hosting activity as we continue to address legacy contracts.",
+   "passage": "p02",
+   "confidence": 0.3,
+   "notes": "Quarterly (Q3 2023) figure, not full fiscal year. Riot's 'Data Center Hosting' segment hosts third-party Bitcoin miners, not AI workloads; recorded only because the segment is labeled data-center revenue. Likely should be excluded from AI revenue totals."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Engineering business dynamically positioned for growth in data center businesses driven by an increase in AI applications",
+   "passage": "p07",
+   "confidence": 0.5,
+   "notes": "Slide bullet, not a full sentence. It links expected Engineering segment growth to AI-driven data-center demand. It is a qualitative positioning statement with no amount or share."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "Capex figures (Corsicana Phase 1: $333mm total, $155mm spent, $128mm Q4 2023, $50mm 2024) are for Bitcoin-mining immersion-cooled infrastructure; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.8,
+  "input_tokens": 10122,
+  "output_tokens": 1519,
+  "attempts": 1,
+  "task_sha": "71cdb943c7b31c0c"
+ }
+}

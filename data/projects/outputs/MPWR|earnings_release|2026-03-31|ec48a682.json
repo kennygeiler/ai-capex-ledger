@@ -1,0 +1,13 @@
+{
+ "accession": "MPWR|earnings_release|2026-03-31|ec48a682",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.0,
+  "input_tokens": 4748,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "203b92e8e2d3b764"
+ }
+}

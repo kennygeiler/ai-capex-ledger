@@ -1,0 +1,136 @@
+{
+ "accession": "0001628280-23-005248",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0030",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31, 2022",
+   "cell_text": "405.4",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 405400000,
+   "confidence": 0.95,
+   "notes": "Unit taken from the filing-level 'Dollars in millions' header because the table states no unit; the cell magnitudes fit millions."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0030",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31, 2021",
+   "cell_text": "373.6",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 373600000,
+   "confidence": 0.95,
+   "notes": "Unit taken from the filing-level 'Dollars in millions' header because the table states no unit."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0030",
+   "row_label": "Buildings",
+   "column_label": "December 31, 2022",
+   "cell_text": "312.4",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 312400000,
+   "confidence": 0.95,
+   "notes": "Unit taken from the filing-level 'Dollars in millions' header because the table states no unit."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0030",
+   "row_label": "Buildings",
+   "column_label": "December 31, 2021",
+   "cell_text": "304.8",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 304800000,
+   "confidence": 0.95,
+   "notes": "Unit taken from the filing-level 'Dollars in millions' header because the table states no unit."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0030",
+   "row_label": "Land",
+   "column_label": "December 31, 2022",
+   "cell_text": "41.0",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 41000000,
+   "confidence": 0.95,
+   "notes": "Unit taken from the filing-level 'Dollars in millions' header because the table states no unit."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0030",
+   "row_label": "Land",
+   "column_label": "December 31, 2021",
+   "cell_text": "42.1",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 42100000,
+   "confidence": 0.95,
+   "notes": "Unit taken from the filing-level 'Dollars in millions' header because the table states no unit."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0030",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, 2022",
+   "cell_text": "41.5",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 41500000,
+   "confidence": 0.95,
+   "notes": "Unit taken from the filing-level 'Dollars in millions' header because the table states no unit."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0030",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, 2021",
+   "cell_text": "34.8",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 34800000,
+   "confidence": 0.95,
+   "notes": "Unit taken from the filing-level 'Dollars in millions' header because the table states no unit."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "No segment table in the provided tables reports capital expenditures by segment."
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "Table t0009 gives one 'Net sales' row with no segment or market name in its rows or columns, so it cannot be attributed to a segment verbatim. It looks like a single-segment MD&A comparison, but which segment it covers is not shown."
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "No lease note table was provided."
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "No contractual-obligations or commitments table was provided."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.2,
+  "input_tokens": 4696,
+  "output_tokens": 1928,
+  "attempts": 1,
+  "task_sha": "f4c45509b07ad4d1"
+ }
+}

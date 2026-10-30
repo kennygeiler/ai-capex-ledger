@@ -1,0 +1,49 @@
+{
+ "accession": "MPWR|earnings_release|2026-06-30|5ed6b2c5",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 380600000,
+   "amount_high": 380600000,
+   "quote": "In our Enterprise Data market, second quarter 2026 revenue of $380.6 million increased 44.8% from the first quarter of 2026.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Quarterly figure (Q2 2026), not full-year. Enterprise Data is MPS's data-center/server end market and the release ties its growth to AI and server applications, but the segment is not labeled 'AI' or 'data center' outright."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.388,
+   "quote": "Enterprise Data revenue represented 38.8% of our total second quarter 2026 revenue compared with 32.7% in the first quarter of 2026.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Share of Q2 2026 revenue only, not full-year. Same caveat: Enterprise Data treated as the data-center/AI-server segment."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.8,
+  "input_tokens": 5016,
+  "output_tokens": 1005,
+  "attempts": 1,
+  "task_sha": "4498501836e5aa86"
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "accession": "LITE|mdna|2023-07-01|b1f80882",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The increase was offset by $67.8 million decrease in Datacom due to reduction in demand associated with inventory management and build-up at our customers and slowing of cloud data center customer capital spending.",
+   "passage": "p03",
+   "confidence": 0.5,
+   "notes": "Links Datacom revenue to cloud data-center customer demand. $67.8 million is a year-over-year decrease, not a level of data-center revenue, so it is recorded as qualitative. Datacom is a product line, not explicitly 'data center revenue', and the sentence does not mention AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures ($91.2 million in fiscal 2022; Thailand manufacturing) are not linked to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 6173,
+  "output_tokens": 767,
+  "attempts": 1,
+  "task_sha": "aa5e1226a15b869b"
+ }
+}

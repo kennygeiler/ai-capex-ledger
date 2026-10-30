@@ -1,0 +1,27 @@
+{
+ "accession": "AAOI|earnings_release|2023-12-31|54b47272",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is forward-looking-statement boilerplate; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is forward-looking-statement boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only passage is boilerplate; it lists the internet datacenter market as a risk factor but no sentence states AI or data-center revenue as an amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 5620,
+  "output_tokens": 229,
+  "attempts": 1,
+  "task_sha": "d2afe40e618b12fc"
+ }
+}

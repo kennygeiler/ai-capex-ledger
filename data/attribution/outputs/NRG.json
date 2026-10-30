@@ -1,0 +1,68 @@
+{
+ "ticker": "NRG",
+ "prompt_version": "attribution@v2",
+ "model": "power@v3",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "NRG links its gas build (about 5.4 GW with GE Vernova and Kiewit, 2.4 GW of turbine slots reserved) and the 295 MW Texas data-center sites to data-center demand in words only. No capex amount is tied to a data-center counterparty, and no data-center agreement on the gas build was found by 29 October 2026. The rise in construction in progress (442M to 1,196M) is not attributed to AI.",
+   "confidence": 0.2
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The earnings release targets 400 MW of retail supply to data centers in the initial phase, with potential to scale to 6.5 GW and work expected to start in 2026. No revenue amount or share is stated, and this is contracted power to a data-center customer, not AI revenue.",
+   "confidence": 0.25
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no statement ties capex to a data-center project; segments (Texas, East, West/Services/Other) are by market, not customer"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no statement ties capex to a data-center project; segments (Texas, East, West/Services/Other, Vivint) are by market, not customer"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "no statement ties capex to a data-center project; segments are by market, not customer"
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "no stated amount or share; finance lease liabilities and construction in progress are not identified as AI or data-center, so no commitment or ppe_category row"
+  },
+  {
+   "field": "opex",
+   "reason": "thesis: opex is none for power producers; no statement attributes opex to AI"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "reason": "no data-center PPA revenue is stated for the year; first power under the 295 MW agreement is in the second half of 2026; no segment is a data-center line, and whole_business is never allowed"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.2,
+  "input_tokens": 12915,
+  "output_tokens": 1470,
+  "attempts": 1,
+  "task_sha": "b7e2be11ed6fb009"
+ }
+}

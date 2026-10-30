@@ -1,0 +1,150 @@
+{
+ "accession": "0001628280-26-008819",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0025",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "3,427,158",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 3427158000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0025",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "2,684,275",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 2684275000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0025",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "2,128,359",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 2128359000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0025",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "686,957",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 686957000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0025",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "515,531",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 515531000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0025",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "409,908",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 409908000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0025",
+   "row_label": "Operating (loss) income",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(44,373)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": -44373000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0025",
+   "row_label": "Operating (loss) income",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "54,284",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 54284000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0025",
+   "row_label": "Operating (loss) income",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(33,464)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": -33464000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0028",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(49,578)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 49578000,
+   "confidence": 1.0,
+   "notes": "Capitalized software development costs are a separate line and are not added, per the rule against combining lines."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0028",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(34,719)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 34719000,
+   "confidence": 1.0,
+   "notes": "Capitalized software development costs are a separate line and are not added, per the rule against combining lines."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0028",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(27,586)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 27586000,
+   "confidence": 1.0,
+   "notes": "Capitalized software development costs are a separate line and are not added, per the rule against combining lines."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.1,
+  "input_tokens": 6736,
+  "output_tokens": 1429,
+  "attempts": 1,
+  "task_sha": "fe72a83be8474636"
+ }
+}

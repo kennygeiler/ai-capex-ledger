@@ -1,0 +1,13 @@
+{
+ "accession": "NRG|earnings_release|2023-09-30|ad212789",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 8238,
+  "output_tokens": 86,
+  "attempts": 1,
+  "task_sha": "820926905568477e"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "ETN|earnings_release|2024-12-31|bc0e7ec5",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures for property, plant and equipment appear only as table rows in the free cash flow reconciliation (p02, p03); no sentence links capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only mention of data centers is boilerplate listing the markets Eaton serves (p01); no sentence states AI or data-center revenue as an amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.6,
+  "input_tokens": 5134,
+  "output_tokens": 349,
+  "attempts": 1,
+  "task_sha": "721cb935a0d2a56e"
+ }
+}

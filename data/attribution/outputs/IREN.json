@@ -1,8 +1,67 @@
 {
  "ticker": "IREN",
- "prompt_version": "attribution@v1",
- "model": "miner_to_hpc@v1",
+ "prompt_version": "attribution@v2",
+ "model": "miner_to_hpc@v3",
  "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 3105000,
+   "ai_share": 0.0166,
+   "inputs": [
+    {
+     "id": "fact:IREN|segment_revenue|AI Cloud Services revenue|FY2024",
+     "value": 3105000
+    }
+   ],
+   "basis": "Revenue of the AI Cloud segment for fiscal 2024: 3.105m of 187.192m total. The Bitcoin Mining segment's 184.087m is excluded.",
+   "confidence": 0.8
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 16394000,
+   "ai_share": 0.0327,
+   "inputs": [
+    {
+     "id": "fact:IREN|segment_revenue|AI Cloud Services revenue|FY2025",
+     "value": 16394000
+    }
+   ],
+   "basis": "Revenue of the AI Cloud segment for fiscal 2025: 16.394m of 501.023m total, matching the MD&A's 16.4m. The Bitcoin Mining segment's 484.629m is excluded.",
+   "confidence": 0.8
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 128795000,
+   "ai_share": 0.1822,
+   "inputs": [
+    {
+     "id": "fact:IREN|segment_revenue|AI Cloud Services revenue|FY2026",
+     "value": 128795000
+    }
+   ],
+   "basis": "Revenue of the AI Cloud segment for fiscal 2026: 128.795m of 707.007m total, matching the stated 128.8m. The Bitcoin Mining segment's 578.212m is excluded.",
+   "confidence": 0.8
+  },
+  {
+   "field": "revenue",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "IREN targets more than 4bn of AI Cloud annualized run-rate revenue by end of calendar 2026, about 85% under contract, including about 1.9bn a year from the Microsoft contract. These are run-rate and contract figures, not fiscal-year revenue, so no amount is attributed.",
+   "confidence": 0.3
+  },
   {
    "field": "capex",
    "period": "FY2025",
@@ -20,8 +79,8 @@
      "value": 33315000
     }
    ],
-   "basis": "Gross HPC Hardware grew from 33,315,000 to 76,001,000, so AI spend is 42,686,000. The pack has no AI Cloud Services segment capex. This figure covers GPU and HPC hardware only. It excludes HPC data-center buildings and construction in progress, which the note does not split from mining, and it excludes mining hardware. Disposals and depreciation are not netted.",
-   "confidence": 0.55
+   "basis": "Growth in gross HPC Hardware PP&E: 76.001m \u2212 33.315m = 42.686m, shared against 573.456m of capex. This excludes AI data-center buildings and construction in progress, and gross growth can include non-cash additions.",
+   "confidence": 0.6
   },
   {
    "field": "capex",
@@ -40,8 +99,8 @@
      "value": 76001000
     }
    ],
-   "basis": "Gross GPU Hardware grew from 76,001,000 to 2,034,811,000, so AI spend is 1,958,810,000. FY2025's GPU Hardware balance equals the prior HPC Hardware line, so this is the same category renamed. MD&A says hardware payments of $1,335.1M were 'primarily' AI. That is a total-scope figure, so it is not used as the AI amount. The gap from 1,958.8M likely reflects non-cash or financed additions and transfers. The pack's capex value (2,998.0M) is PP&E net of computer hardware, so ai_share compares two different bases. AI data-center buildings and CIP at Childress and Sweetwater are excluded because they are not separated from other spend.",
-   "confidence": 0.5
+   "basis": "Growth in gross GPU Hardware PP&E (the former HPC Hardware line, 76.001m at FY2025): 2,034.811m \u2212 76.001m = 1,958.810m. The share is against the 2,998.006m PP&E payments, which exclude the 1,335.1m paid for computer hardware (mostly AI). It excludes construction in progress at Childress Horizons 1-4, Sweetwater and British Columbia (CIP rose to 3,657.072m), so it understates the AI build.",
+   "confidence": 0.6
   },
   {
    "field": "capex",
@@ -49,14 +108,14 @@
    "kind": "outlook",
    "method": "stated_amount",
    "ai_amount": 193000000,
-   "ai_share": 0.0644,
+   "ai_share": null,
    "inputs": [
     {
-     "id": "stmt:IREN|mdna|2025-06-30|ae1b30ff|capex|FY2026|outlook|1",
+     "id": "stmt:IREN|mdna|2025-06-30|ae1b30ff|capex|FY2026|outlook|2",
      "value": 193000000
     }
    ],
-   "basis": "From the FY2025 MD&A: an August 2025 purchase order for about 4.2k NVIDIA B200 GPUs at about $193M. A further 1.2k B300 order of $71.4M (stmt \u2026|outlook|2) is not included, because this row rests on one statement. Together the two orders total about $264.4M. Neither figure covers data-center construction.",
+   "basis": "August 2025 purchase order for about 4.2k NVIDIA B200 GPUs, about 193m. The separate B300 purchase of about 71.4m is not included because a row takes one statement.",
    "confidence": 0.5
   },
   {
@@ -67,7 +126,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "MD&A anticipates significant investment for the Microsoft Agreement, GPU acquisitions and additional data-center capacity. Management calls GPU financing 'the lion's share' of the capex program and says the Microsoft prepayment ($1.9bn) covers 95% of GPU-related capex. No FY2027 amount is stated.",
+   "basis": "IREN says it will make significant investments for the Microsoft Agreement, GPU acquisitions and new data-center capacity, and that GPU financing is the lion's share of capex. The pack has no FY2027 dollar figure; the 25bn to 30bn from the call is not in the pack.",
    "confidence": 0.3
   },
   {
@@ -79,11 +138,11 @@
    "ai_share": 0.004,
    "inputs": [
     {
-     "id": "stmt:IREN|mdna|2025-06-30|ae1b30ff|opex|FY2025|actual|0",
+     "id": "stmt:IREN|mdna|2025-06-30|ae1b30ff|opex|FY2025|actual|1",
      "value": 1300000
     }
    ],
-   "basis": "Cost of revenue for AI Cloud Services was $1.3M, as stated in MD&A. This covers segment cost of revenue only. It excludes AI-related SG&A and depreciation of GPU hardware, which are not stated.",
+   "basis": "Stated cost of revenue for AI Cloud Services of 1.3m in fiscal 2025, against 324.704m of opex. It excludes AI-related depreciation and SG&A.",
    "confidence": 0.8
   },
   {
@@ -95,47 +154,51 @@
    "ai_share": 0.011,
    "inputs": [
     {
-     "id": "stmt:IREN|mdna|2026-06-30|775a39b4|opex|FY2026|actual|6",
+     "id": "stmt:IREN|mdna|2026-06-30|775a39b4|opex|FY2026|actual|1",
      "value": 16900000
     }
    ],
-   "basis": "Cost of revenue for AI Cloud Services was $16.9M, as stated in MD&A. This covers segment cost of revenue only. It excludes the employee and platform investment the release ties to the AI Cloud ramp, and GPU depreciation, neither of which is quantified.",
+   "basis": "Stated cost of revenue for AI Cloud Services of 16.9m in fiscal 2026, against 1,534.015m of opex. It excludes GPU depreciation and the platform and employee costs the release links to the AI ramp.",
    "confidence": 0.8
   }
  ],
  "none_found": [
   {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "only Bitcoin Mining revenue (75.509m, equal to the total); no AI Cloud line"
+  },
+  {
    "field": "capex",
    "period": "FY2023",
-   "reason": "No AI segment capex, no AI statement, and no HPC/GPU PP&E category for FY2023 or FY2022."
+   "reason": "no HPC/GPU PP&E category, segment capex or AI capex statement for the year"
   },
   {
    "field": "capex",
    "period": "FY2024",
-   "reason": "HPC Hardware has a FY2024 balance (33,315,000) but no FY2023 balance, so growth cannot be computed. There is no AI segment capex or AI statement for FY2024."
+   "reason": "the HPC Hardware category starts at FY2024 with no FY2023 balance to take growth from; no segment capex or AI statement"
+  },
+  {
+   "field": "capex",
+   "reason": "no committed row: the 13.8bn capex commitments are not a pack fact, and the thesis does not say the 243.796m finance lease liability is AI"
   },
   {
    "field": "opex",
    "period": "FY2023",
-   "reason": "No AI segment cost line or statement. All FY2023 revenue was bitcoin mining."
+   "reason": "no AI segment cost line or statement"
   },
   {
    "field": "opex",
    "period": "FY2024",
-   "reason": "The FY2025 MD&A mentions FY2024 AI Cloud cost of revenue of $0.4M, but the pack's statement is tagged FY2025 and carries no FY2024 amount, so it cannot be used as an input."
-  },
-  {
-   "field": "opex",
-   "period": "FY2027",
-   "reason": "No outlook statement quantifies or describes future AI operating costs."
+   "reason": "the 0.4m AI Cloud cost of revenue appears only in a statement tagged FY2025, with the 1.3m amount; there is no FY2024 statement or fact"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 32.9,
-  "input_tokens": 9372,
-  "output_tokens": 4099,
-  "attempts": 1,
-  "task_sha": "3f8d70d6fcc890c2"
+  "seconds": 88.5,
+  "input_tokens": 45268,
+  "output_tokens": 10769,
+  "attempts": 2,
+  "task_sha": "88e5e7c7b4317f37"
  }
 }

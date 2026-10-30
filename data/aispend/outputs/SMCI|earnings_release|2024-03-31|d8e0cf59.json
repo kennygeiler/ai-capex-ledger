@@ -1,0 +1,48 @@
+{
+ "accession": "SMCI|earnings_release|2024-03-31|d8e0cf59",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 14700000000,
+   "amount_high": 15100000000,
+   "quote": "As such, we are raising our fiscal year 2024 revenue outlook from $14.3 to $14.7 billion to a new range of $14.7 to $15.1 billion.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Total revenue guidance. 'As such' ties the raise to the preceding sentences on AI rack-scale demand and market-share gains, so AI is a stated driver only by reference. This is not an AI revenue figure."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Strong demand for AI rack scale PnP solutions, along with our team\u2019s ability to develop innovative DLC designs, enabled us to expand our market leadership in AI infrastructure.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Refers to fiscal Q3 2024 results. The sentence names no year. It credits AI demand for market leadership, not explicitly for revenue, and gives no AI revenue amount or share."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.5,
+  "input_tokens": 6012,
+  "output_tokens": 1277,
+  "attempts": 1,
+  "task_sha": "831134ee725a4fe7"
+ }
+}

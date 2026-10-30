@@ -1,23 +1,27 @@
 {
  "accession": "AVGO|earnings_release|2023-01-29|ef4efba5",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "passages are financial tables only (reconciliation and cash flow statement); purchases of property, plant and equipment are reported but no sentence links capital expenditures to AI"
+   "reason": "passages are financial tables only; purchases of property, plant and equipment are reported but no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "passages are financial tables only; no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "passages contain only GAAP/non-GAAP reconciliation and cash flow tables; no sentence states AI, data-center or AI-related revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.4,
-  "input_tokens": 5517,
-  "output_tokens": 189,
+  "seconds": 6.1,
+  "input_tokens": 5818,
+  "output_tokens": 232,
   "attempts": 1,
-  "task_sha": "eb1ff1164a981469"
+  "task_sha": "cfc5b96a9fd181b5"
  }
 }

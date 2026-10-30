@@ -1,0 +1,13 @@
+{
+ "accession": "GEV|earnings_release|2026-09-30|f20e8968",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 7512,
+  "output_tokens": 375,
+  "attempts": 1,
+  "task_sha": "7bd05b2d5aaadb9b"
+ }
+}

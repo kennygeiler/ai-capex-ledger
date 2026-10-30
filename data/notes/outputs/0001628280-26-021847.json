@@ -1,0 +1,176 @@
+{
+ "accession": "0001628280-26-021847",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0062",
+   "row_label": "Land and land improvements",
+   "column_label": "December 31,2025",
+   "cell_text": "4,471",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 4471000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0062",
+   "row_label": "Land and land improvements",
+   "column_label": "December 31,2024",
+   "cell_text": "1,553",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 1553000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and leasehold improvements",
+   "table_id": "t0062",
+   "row_label": "Buildings and leasehold improvements",
+   "column_label": "December 31,2025",
+   "cell_text": "36,464",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 36464000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and leasehold improvements",
+   "table_id": "t0062",
+   "row_label": "Buildings and leasehold improvements",
+   "column_label": "December 31,2024",
+   "cell_text": "25,453",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 25453000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computers and related software",
+   "table_id": "t0062",
+   "row_label": "Computers and related software",
+   "column_label": "December 31,2025",
+   "cell_text": "13,542",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 13542000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computers and related software",
+   "table_id": "t0062",
+   "row_label": "Computers and related software",
+   "column_label": "December 31,2024",
+   "cell_text": "11,533",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 11533000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0062",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31,2025",
+   "cell_text": "19,522",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 19522000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0062",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31,2024",
+   "cell_text": "9,324",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 9324000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office furniture and fixtures",
+   "table_id": "t0062",
+   "row_label": "Office furniture and fixtures",
+   "column_label": "December 31,2025",
+   "cell_text": "74",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 74000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office furniture and fixtures",
+   "table_id": "t0062",
+   "row_label": "Office furniture and fixtures",
+   "column_label": "December 31,2024",
+   "cell_text": "34",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 34000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0062",
+   "row_label": "Construction in progress",
+   "column_label": "December 31,2025",
+   "cell_text": "16,215",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 16215000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0062",
+   "row_label": "Construction in progress",
+   "column_label": "December 31,2024",
+   "cell_text": "9,250",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 9250000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment tables provided show only a reconciliation of segment operating income (loss) to net loss before taxes; no capital expenditures by segment are given"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "no revenue by segment or market appears in the provided segment tables; t0107 shows only segment operating income and reconciling items"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "t0099 has no total finance lease liabilities line, only 'Current finance lease liabilities' (20) and 'Non-current financing lease liabilities' (2,236) for 2025; the validator rejects current/non-current dimensions, and adding the cells is not allowed, so no single citable cell exists"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table with purchase obligations is included in the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 34.0,
+  "input_tokens": 12439,
+  "output_tokens": 4183,
+  "attempts": 2,
+  "task_sha": "33aa6552d453da42"
+ }
+}

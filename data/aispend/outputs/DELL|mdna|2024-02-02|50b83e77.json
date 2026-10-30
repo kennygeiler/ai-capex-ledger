@@ -1,0 +1,46 @@
+{
+ "accession": "DELL|mdna|2024-02-02|50b83e77",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Despite overall caution from our enterprise and large corporate customers, our ISG business benefited from increased demand for AI-optimized solutions as advancements in AI influenced customer spending behavior as organizations look to implement AI in their own operations.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Says AI-optimized solutions demand helped ISG segment results, but gives no AI revenue figure. 'Total' here is the ISG segment, not company-wide revenue. No year is named; the context is fiscal 2024."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect ISG net revenue to grow, driven by our AI-optimized servers, improving demand for our traditional servers, and a recovery in demand for our storage offerings.",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "Expected ISG segment revenue growth, with AI-optimized servers as one driver. 'Total' is the ISG segment, not company-wide revenue. The sentence names no year, though the surrounding passage refers to Fiscal 2025."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures ($2.8 billion in Fiscal 2024) are reported, but no sentence links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies operating expenses or attributes them to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.0,
+  "input_tokens": 6086,
+  "output_tokens": 1158,
+  "attempts": 1,
+  "task_sha": "ccc64dacd4950037"
+ }
+}

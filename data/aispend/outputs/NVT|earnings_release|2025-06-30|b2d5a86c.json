@@ -1,0 +1,35 @@
+{
+ "accession": "NVT|earnings_release|2025-06-30|b2d5a86c",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We are raising our full-year sales and updating our EPS guidance to reflect our terrific second quarter performance and our increasing momentum in data centers and power utilities.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Total full-year sales guidance raised, partly attributed to data-center momentum; no amount stated and data centers are not separated from power utilities. 'Full-year' names no year explicitly; read as the current fiscal 2025 since this is a Q2 2025 release, not the year after."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.5,
+  "input_tokens": 4867,
+  "output_tokens": 747,
+  "attempts": 1,
+  "task_sha": "29327e515e26351b"
+ }
+}

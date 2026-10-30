@@ -1,6 +1,6 @@
 {
  "accession": "0000104169-24-000056",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_capex",
@@ -228,7 +228,7 @@
    "period_end": "2024-01-31",
    "months": 0,
    "value": 19562000000,
-   "confidence": 0.9
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -240,7 +240,7 @@
    "period_end": "2024-01-31",
    "months": 0,
    "value": 111767000000,
-   "confidence": 0.9
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -252,7 +252,7 @@
    "period_end": "2024-01-31",
    "months": 0,
    "value": 72161000000,
-   "confidence": 0.9
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -264,7 +264,7 @@
    "period_end": "2024-01-31",
    "months": 0,
    "value": 2979000000,
-   "confidence": 0.9
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -276,7 +276,7 @@
    "period_end": "2024-01-31",
    "months": 0,
    "value": 13390000000,
-   "confidence": 0.9
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -342,20 +342,19 @@
  "not_found": [
   {
    "field": "finance_lease_liability",
-   "reason": "No single total finance lease liabilities cell exists in the tables. The balance sheet (t0051) shows only the components: 'Finance lease obligations due within one year' (725 at 2024-01-31; 567 at 2023-01-31) and 'Long-term finance lease obligations' (5,709; 4,843), implying totals of $6,434M and $5,410M. Because no one cell can be cited for the total, the field is reported as not found rather than mislabeling the non-current portion as the total."
+   "reason": "No total finance lease liabilities line; t0051 gives only 'Finance lease obligations due within one year' (725 / 567) and 'Long-term finance lease obligations' (5,709 / 4,843). The prompt says to cite these with dimension current / non-current, but the validator rejects any dimension on this field, and citing both with a null dimension would put two cells on one dimension, so the field is left uncited rather than summed."
   },
   {
    "field": "purchase_commitments",
-   "reason": "No contractual-obligations or purchase-commitments table is included among the provided tables."
+   "reason": "No contractual-obligations or purchase-commitments table is among the tables provided."
   }
  ],
- "notes": "Segment capex and revenue come from t0084, whose columns carry no year; the year comes from the 'Fiscal Year Ended January 31, 2023/2022' sub-header rows, and the first block is fiscal 2024 (it matches the consolidated 642,637 net sales). 'Corporate and support' is excluded because it is not a reportable segment. In t0054 the 2024 column header was parsed as 'Estimated Useful Lives | 2024'. It is cited verbatim and treated as the 2024-01-31 balance, which is why confidence is 0.9.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 64.1,
-  "input_tokens": 19238,
-  "output_tokens": 9553,
+  "seconds": 68.3,
+  "input_tokens": 19379,
+  "output_tokens": 9946,
   "attempts": 2,
-  "task_sha": "15e3ca33c565ecb4"
+  "task_sha": "0439a9032dee2e6a"
  }
 }

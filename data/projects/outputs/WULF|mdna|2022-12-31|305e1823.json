@@ -1,0 +1,98 @@
+{
+ "accession": "WULF|mdna|2022-12-31|305e1823",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Lake Mariner Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Barker, New York",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-03",
+   "quote": "TeraWulf began mining bitcoin at the Lake Mariner Facility in March 2022 with 10 MW of mining capacity located on the turbine deck of the former coal-fired power plant and energized its first dedicated mining building (\u201cBuilding 1\u201d), housing approximately 50 MW of mining capacity, during the third quarter of 2022.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Lake Mariner Facility Building 1",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Barker, New York",
+   "counterparty": null,
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022",
+   "quote": "TeraWulf began mining bitcoin at the Lake Mariner Facility in March 2022 with 10 MW of mining capacity located on the turbine deck of the former coal-fired power plant and energized its first dedicated mining building (\u201cBuilding 1\u201d), housing approximately 50 MW of mining capacity, during the third quarter of 2022.",
+   "passage": "p02",
+   "confidence": 0.8
+  },
+  {
+   "name": "Lake Mariner Facility Building 2",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Barker, New York",
+   "counterparty": null,
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "Construction is largely complete at the Company\u2019s second dedicated mining building (\u201cBuilding 2\u201d), which is also scheduled to house approximately 50MW of mining capacity and is targeted for completion in the second quarter of 2023.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Lake Mariner Facility NYPA power agreement",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Barker, New York",
+   "counterparty": "NYPA",
+   "capacity_mw": 90,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Located at a site adjacent to the decommissioned coal-fired Somerset Generating Station in Barker, New York, the Lake Mariner Facility has secured an initial 90 MW of energy to support its bitcoin mining capacity through an agreement with NYPA with the potential to expand into an additional 410 MW of energy supply.",
+   "passage": "p02",
+   "confidence": 0.8
+  },
+  {
+   "name": "Nautilus Cryptomine Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Salem Township, Luzerne County, Pennsylvania",
+   "counterparty": "Talen",
+   "capacity_mw": 300,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023-02",
+   "quote": "At the time of this Annual Report, the Nautilus Cryptomine Facility has access to up to 300 MW of bitcoin mining capacity from the Susquehanna Station and is expected to be the first bitcoin mining facility site that is powered by 100% \u201cbehind the meter\u201d zero-carbon nuclear energy.",
+   "passage": "p03",
+   "confidence": 0.75
+  },
+  {
+   "name": "Nautilus Cryptomine Facility power purchase agreement",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Salem Township, Luzerne County, Pennsylvania",
+   "counterparty": "Talen",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The Nautilus Cryptomine Facility has secured as its power supply zero-carbon nuclear energy received directly from a substation connected to the Susquehanna Station\u2019s electrical generators over a five-year term with two successive three-year renewal options.",
+   "passage": "p03",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.9,
+  "input_tokens": 12979,
+  "output_tokens": 2830,
+  "attempts": 1,
+  "task_sha": "187fe5fa2140a196"
+ }
+}

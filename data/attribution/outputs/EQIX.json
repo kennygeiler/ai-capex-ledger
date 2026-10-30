@@ -1,0 +1,96 @@
+{
+ "ticker": "EQIX",
+ "prompt_version": "attribution@v2",
+ "model": "datacenter_landlord@v3",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2024 MD&A says power consumption, expected to accelerate with AI adoption, drove new IBX builds with twice the prior power and cooling. No AI share or amount of the 3.066B capex is stated. Development capex is data-center capacity, broader than AI.",
+   "confidence": 0.4
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The Q1 2025 release says the footprint is expanding 'to accommodate the demand for AI and cloud services', and the FY2025 MD&A repeats the AI power-density rationale. No AI part of the 4.311B PP&E purchases is stated. Data-center capex is not AI capex, and xScale JV builds sit off balance sheet.",
+   "confidence": 0.4
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "In Q3 2024 Equinix signed a >$15B US xScale joint venture to pursue AI demand, building multi-hundred-MW campuses for 'larger AI and hyperscale workloads'. The $15B is total JV capital, mostly partners' and off balance sheet, not Equinix capex and not an AI share, so no amount is attributed.",
+   "confidence": 0.45
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "FY2023 releases attribute strong xScale leasing and demand to AI and cloud initiatives in words only. No segment is AI-specific; regional segments say nothing about AI, and leasing is not revenue in the year.",
+   "confidence": 0.25
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The Q2 2024 release says xScale demand and leasing rose due to hyperscale infrastructure needs for AI and cloud, in words only. No AI or hyperscale share of the 8.748B revenue is stated, and xScale revenue largely sits in JVs.",
+   "confidence": 0.25
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "No statement in the pack links FY2022 capex to AI. Regional segment capex and PP&E categories are data-center capacity, not AI, and the thesis does not allow them for a landlord."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "No FY2023 capex statement in the pack mentions AI. Expansion capex is data-center capacity, broader than AI."
+  },
+  {
+   "field": "opex",
+   "reason": "The thesis sets opex to none for data-center landlords; no statement attributes operating expense to AI in any year."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "No statement in the pack links FY2022 revenue to AI, and the regional segments (Americas, EMEA, Asia-Pacific) are not AI lines."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "reason": "The pack has no FY2025 revenue statement mentioning AI. The thesis's '60% of largest Q4 2025 deals driven by AI workloads' is not a pack item and concerns leasing, not revenue. One-time xScale fees in 2026 are unquantified."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.3,
+  "input_tokens": 13840,
+  "output_tokens": 1792,
+  "attempts": 1,
+  "task_sha": "231a2c11d722a718"
+ }
+}

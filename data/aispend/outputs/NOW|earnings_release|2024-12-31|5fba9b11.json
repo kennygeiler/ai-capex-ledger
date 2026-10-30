@@ -1,0 +1,27 @@
+{
+ "accession": "NOW|earnings_release|2024-12-31|5fba9b11",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 gives total subscription revenues with no AI part stated; p02 is forward-looking-statement boilerplate mentioning AI products and data centers as risks, not revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 5417,
+  "output_tokens": 202,
+  "attempts": 1,
+  "task_sha": "5d78c7ebc94c9483"
+ }
+}

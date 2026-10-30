@@ -1,23 +1,50 @@
 {
  "accession": "AVGO|earnings_release|2026-02-01|069baa97",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 8400000000,
+   "amount_high": 8400000000,
+   "quote": "Q1 AI revenue of $8.4 billion grew 106% year-over-year, above our forecast, driven by robust demand for custom AI accelerators and AI networking",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Quarterly figure for Q1 of fiscal 2026, not a full-year amount. The sentence names only 'Q1'; fiscal 2026 comes from the release's reporting period (quarter ended 2026-02-01)."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 10700000000,
+   "amount_high": 10700000000,
+   "quote": "Our AI revenue growth is accelerating, and we expect AI semiconductor revenue to be $10.7 billion in Q2.",
+   "passage": "p01",
+   "confidence": 0.85,
+   "notes": "Quarterly guidance for Q2, not full year. The sentence says only 'Q2'. fiscal_year 2026 is set because the default for a null outlook (filing year + 1 = 2027) would be wrong for next quarter's guidance."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; purchases of property, plant and equipment appear only as table figures with no AI attribution"
+   "reason": "Only the total purchases of property, plant and equipment appear, in the cash flow tables; no sentence links capital expenditures to AI."
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; passages are forward-looking risk boilerplate and financial tables"
+   "reason": "No sentence quantifies or attributes operating expenses to AI."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.9,
-  "input_tokens": 6919,
-  "output_tokens": 188,
+  "seconds": 11.5,
+  "input_tokens": 7388,
+  "output_tokens": 1334,
   "attempts": 1,
-  "task_sha": "81a5c1eaa4957ce7"
+  "task_sha": "79b0bb3ef9bd6b80"
  }
 }

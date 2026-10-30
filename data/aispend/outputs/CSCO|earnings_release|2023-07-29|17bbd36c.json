@@ -1,23 +1,27 @@
 {
  "accession": "CSCO|earnings_release|2023-07-29|17bbd36c",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "only passage is safe-harbor boilerplate; the sole AI mention ('innovations in AI') is a forward-looking-statement category, and the 'capital spending on Internet-based systems' risk factor refers to customer spending, not Cisco's capital expenditures"
+   "reason": "no sentence states or links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "only passage is safe-harbor boilerplate; no sentence quantifies or attributes Cisco's research and development, infrastructure or headcount expenses to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; 'innovating in key areas like AI' is general commentary, not a spend statement"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; only total Q4 revenue of $15.2 billion with no AI attribution, and the data center market mention is a risk-factor boilerplate"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.6,
-  "input_tokens": 5655,
-  "output_tokens": 235,
+  "seconds": 3.7,
+  "input_tokens": 6356,
+  "output_tokens": 231,
   "attempts": 1,
-  "task_sha": "eab12eab4aea68d4"
+  "task_sha": "c4803839e57b57cb"
  }
 }

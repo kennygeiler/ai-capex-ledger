@@ -1,0 +1,35 @@
+{
+ "accession": "MOD|earnings_release|2023-06-30|4da5f4b4",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This increase was driven by higher sales of data center cooling products, partially offset by lower sales of heat transfer products and HVAC and \u2022 refrigeration products.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Data-center demand named as the driver of Climate Solutions segment sales growth for the first quarter of fiscal 2024. The figure is segment sales, not data-center revenue. The release does not state a data-center sales amount or share. 'Data center' is not explicitly tied to AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI. 'Invested for growth in key markets such as data centers' gives no amount and does not name capex or AI."
+  },
+  {
+   "field": "opex",
+   "reason": "SG&A increase attributed to compensation; no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.2,
+  "input_tokens": 6372,
+  "output_tokens": 1032,
+  "attempts": 1,
+  "task_sha": "6c763153d7da610c"
+ }
+}

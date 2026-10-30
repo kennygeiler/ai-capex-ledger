@@ -1,0 +1,168 @@
+{
+ "accession": "0001692819-23-000005",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0052",
+   "row_label": "Operating revenues (Note 4)",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "13,728",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 13728000000,
+   "confidence": 0.9,
+   "notes": "Unit '(in millions)' was not stated with the table; it was inferred from elsewhere in the filing. The values are consistent with the scale of a consolidated statement in millions."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0052",
+   "row_label": "Operating revenues (Note 4)",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "12,077",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 12077000000,
+   "confidence": 0.9,
+   "notes": "Unit inferred from elsewhere in the filing; see 2022 note."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0052",
+   "row_label": "Operating revenues (Note 4)",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "11,443",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 11443000000,
+   "confidence": 0.9,
+   "notes": "Unit inferred from elsewhere in the filing; see 2022 note."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0052",
+   "row_label": "Fuel, purchased power costs and delivery fees",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "(10,401)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 10401000000,
+   "confidence": 0.85,
+   "notes": "There is no total cost-of-revenue line. Fuel, purchased power and delivery fees are the direct cost of generating and delivering the electricity sold. Unit inferred from elsewhere in the filing."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0052",
+   "row_label": "Fuel, purchased power costs and delivery fees",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "(9,169)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 9169000000,
+   "confidence": 0.85,
+   "notes": "Direct cost of generating, procuring and delivering power sold; there is no total cost-of-revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0052",
+   "row_label": "Fuel, purchased power costs and delivery fees",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "(5,174)",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 5174000000,
+   "confidence": 0.85,
+   "notes": "Direct cost of generating, procuring and delivering power sold; there is no total cost-of-revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0052",
+   "row_label": "Operating costs",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "(1,645)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 1645000000,
+   "confidence": 0.75,
+   "notes": "Operating costs are the generation plants' operations and maintenance costs, which are a cost of producing the power sold. They are separate from SG&A, D&A and impairment, which are excluded. The label is generic, so confidence is lower."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0052",
+   "row_label": "Operating costs",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "(1,559)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 1559000000,
+   "confidence": 0.75,
+   "notes": "Plant operations and maintenance cost of producing power; the generic label lowers confidence."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0052",
+   "row_label": "Operating costs",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "(1,622)",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 1622000000,
+   "confidence": 0.75,
+   "notes": "Plant operations and maintenance cost of producing power; the generic label lowers confidence."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0052",
+   "row_label": "Operating income (loss)",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "(1,177)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": -1177000000,
+   "confidence": 0.9,
+   "notes": "Loss. The row ties to revenue minus the listed expense lines. Unit inferred from elsewhere in the filing."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0052",
+   "row_label": "Operating income (loss)",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "(1,515)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": -1515000000,
+   "confidence": 0.9,
+   "notes": "Loss. Unit inferred from elsewhere in the filing."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0052",
+   "row_label": "Operating income (loss)",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "1,519",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 1519000000,
+   "confidence": 0.9,
+   "notes": "Unit inferred from elsewhere in the filing."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "capex",
+   "reason": "Table t0131 is the parent-company-only condensed cash-flow statement (Schedule I), not the consolidated one. It shows 'Dividend received from subsidiaries' and 'Equity contribution to subsidiaries', and its 'Capital expenditures' row is \u2014 for 2022 and 2021 and (15) for 2020. That parent-only figure is not the company's consolidated capex, which is incompatible with consolidated revenue of $13.7B. The consolidated cash-flow statement was not provided, so capex is not reported."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "The income statement has no single total cost-of-revenue line. The components are reported as cost_of_revenue_part instead."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 23.0,
+  "input_tokens": 5719,
+  "output_tokens": 2723,
+  "attempts": 1,
+  "task_sha": "0d1659f23db2c442"
+ }
+}

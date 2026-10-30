@@ -1,0 +1,13 @@
+{
+ "accession": "GEV|mdna|2024-12-31|ccc865ce",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.8,
+  "input_tokens": 5872,
+  "output_tokens": 50,
+  "attempts": 1,
+  "task_sha": "e0079dcd3d9bc689"
+ }
+}

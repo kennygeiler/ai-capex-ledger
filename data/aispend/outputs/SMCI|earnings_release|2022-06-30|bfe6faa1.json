@@ -1,0 +1,27 @@
+{
+ "accession": "SMCI|earnings_release|2022-06-30|bfe6faa1",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; passages are company description boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "AI is mentioned only in descriptions of what the company sells; no sentence states AI, data-center or AI-server revenue as an amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.1,
+  "input_tokens": 4978,
+  "output_tokens": 218,
+  "attempts": 1,
+  "task_sha": "9fc615bb281a5fc9"
+ }
+}

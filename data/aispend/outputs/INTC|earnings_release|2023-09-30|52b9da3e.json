@@ -1,23 +1,37 @@
 {
  "accession": "INTC|earnings_release|2023-09-30|52b9da3e",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3800000000,
+   "amount_high": 3800000000,
+   "quote": "Business Unit Revenue and Q3 2023 vs. Q3 2022 Trends Client Computing Group (CCG) $7.9 billion down 3% Data Center and AI (DCAI) $3.8 billion down 10% Network and Edge (NEX) $1.5 billion down 32% Mobileye $530 million up 18% Intel Foundry Services (IFS) $311 million up 299%",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Quarterly figure (Q3 2023, three months ended 2023-09-30), not full fiscal year. Data Center and AI segment revenue; p03 table gives the same figure as $3,814 million. The passage is a summary line rather than a punctuated sentence, so the whole line is quoted."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence mentions capital expenditures; passages cover segment reorganization, segment revenue and operating income only (source is an earnings release, not a 10-K MD&A)"
+   "reason": "no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expense to AI; 'Data Center and AI' appears only as a segment name with revenue and operating income figures"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the p01 reorganization note mentions cost reduction but not AI spend"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.2,
-  "input_tokens": 5051,
-  "output_tokens": 211,
+  "seconds": 7.3,
+  "input_tokens": 5352,
+  "output_tokens": 725,
   "attempts": 1,
-  "task_sha": "49e236cacc0e50c3"
+  "task_sha": "18a396c61dbd0161"
  }
 }

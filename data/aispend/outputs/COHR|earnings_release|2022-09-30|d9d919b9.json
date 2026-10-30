@@ -1,0 +1,27 @@
+{
+ "accession": "COHR|earnings_release|2022-09-30|d9d919b9",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is a slide-style product and market overview; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "'Industry leading investments in R&D' is a value-proposition bullet with no link to AI and no amount or share; boilerplate"
+  },
+  {
+   "field": "revenue",
+   "reason": "'Increasing spend on cloud infrastructure' and 'Artificial Intelligence/Machine Learning' are listed as megatrends only; no sentence states an AI or data-center revenue amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 4980,
+  "output_tokens": 246,
+  "attempts": 1,
+  "task_sha": "9b7e40b505a7127d"
+ }
+}

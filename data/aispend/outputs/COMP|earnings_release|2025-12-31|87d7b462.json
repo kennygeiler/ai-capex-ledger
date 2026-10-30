@@ -1,23 +1,27 @@
 {
  "accession": "COMP|earnings_release|2025-12-31|87d7b462",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is a cash flow statement; capital expenditures of $13.4 million (2025) are reported with no sentence linking them to AI"
+   "reason": "the only passage is a cash flow table; capital expenditures of $13.4 million appear with no link to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the passage contains only cash flow line items"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.1,
-  "input_tokens": 5264,
-  "output_tokens": 183,
+  "seconds": 2.4,
+  "input_tokens": 5571,
+  "output_tokens": 175,
   "attempts": 1,
-  "task_sha": "b945987a9d115341"
+  "task_sha": "f58a66a53f115cb5"
  }
 }

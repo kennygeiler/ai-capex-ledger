@@ -1,0 +1,35 @@
+{
+ "accession": "IRM|earnings_release|2022-03-31|93386840",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Global Data Center business revenue increased 36.4% in the first quarter, or a 38.1% increase compared to the first quarter of 2021, excluding the impact of FX.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Data center revenue for a data-center lessor. The 36.4% is a growth rate, not a share of total revenue, so it is not recorded as explicit_share. No dollar amount for data center revenue is stated. The quarter is Q1 2022 per the filing period, but the sentence names no year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI or data-center build-out; only risk-factor boilerplate mentions the ability to fund capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.5,
+  "input_tokens": 8095,
+  "output_tokens": 983,
+  "attempts": 1,
+  "task_sha": "91f316367e5e6aa1"
+ }
+}

@@ -1,0 +1,147 @@
+{
+ "accession": "0001558370-25-008058",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0075",
+   "row_label": "Net sales",
+   "column_label": "\u200b | 2025",
+   "cell_text": "2,583.5",
+   "period_end": "2025-03-31",
+   "months": 12,
+   "value": 2583500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0075",
+   "row_label": "Net sales",
+   "column_label": "\u200b | 2024",
+   "cell_text": "2,407.8",
+   "period_end": "2024-03-31",
+   "months": 12,
+   "value": 2407800000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0075",
+   "row_label": "Net sales",
+   "column_label": "\u200b | 2023",
+   "cell_text": "2,297.9",
+   "period_end": "2023-03-31",
+   "months": 12,
+   "value": 2297900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0075",
+   "row_label": "Cost of sales",
+   "column_label": "\u200b | 2025",
+   "cell_text": "1,939.7",
+   "period_end": "2025-03-31",
+   "months": 12,
+   "value": 1939700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0075",
+   "row_label": "Cost of sales",
+   "column_label": "\u200b | 2024",
+   "cell_text": "1,882.2",
+   "period_end": "2024-03-31",
+   "months": 12,
+   "value": 1882200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0075",
+   "row_label": "Cost of sales",
+   "column_label": "\u200b | 2023",
+   "cell_text": "1,908.5",
+   "period_end": "2023-03-31",
+   "months": 12,
+   "value": 1908500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0075",
+   "row_label": "Operating income",
+   "column_label": "\u200b | 2025",
+   "cell_text": "283.5",
+   "period_end": "2025-03-31",
+   "months": 12,
+   "value": 283500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0075",
+   "row_label": "Operating income",
+   "column_label": "\u200b | 2024",
+   "cell_text": "240.7",
+   "period_end": "2024-03-31",
+   "months": 12,
+   "value": 240700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0075",
+   "row_label": "Operating income",
+   "column_label": "\u200b | 2023",
+   "cell_text": "150.4",
+   "period_end": "2023-03-31",
+   "months": 12,
+   "value": 150400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0078",
+   "row_label": "Expenditures for property, plant and equipment",
+   "column_label": "\u200b | 2025",
+   "cell_text": "(84.0)",
+   "period_end": "2025-03-31",
+   "months": 12,
+   "value": 84000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0078",
+   "row_label": "Expenditures for property, plant and equipment",
+   "column_label": "\u200b | 2024",
+   "cell_text": "(87.7)",
+   "period_end": "2024-03-31",
+   "months": 12,
+   "value": 87700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0078",
+   "row_label": "Expenditures for property, plant and equipment",
+   "column_label": "\u200b | 2023",
+   "cell_text": "(50.7)",
+   "period_end": "2023-03-31",
+   "months": 12,
+   "value": 50700000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.8,
+  "input_tokens": 6052,
+  "output_tokens": 1427,
+  "attempts": 1,
+  "task_sha": "02cc6e356e81e3d0"
+ }
+}

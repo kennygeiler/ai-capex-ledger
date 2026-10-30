@@ -1,0 +1,50 @@
+{
+ "accession": "ADBE|earnings_release|2025-08-29|d7b6a129",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 5000000000,
+   "amount_high": 5000000000,
+   "quote": "Adobe is the leader in the AI creative applications category with AI-influenced ARR surpassing $5 billion and AI-first ARR already exceeding our $250 million year-end target,\u201d said Shantanu Narayen, chair and CEO, Adobe.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "This is annual recurring revenue (ARR) at the end of Q3 FY25, not recognized revenue. 'Surpassing' means $5B is a floor. 'AI-influenced' is a broad metric: it counts ARR from products that include AI features, not revenue from AI alone."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 250000000,
+   "amount_high": 250000000,
+   "quote": "Adobe is the leader in the AI creative applications category with AI-influenced ARR surpassing $5 billion and AI-first ARR already exceeding our $250 million year-end target,\u201d said Shantanu Narayen, chair and CEO, Adobe.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "This is ARR, not recognized revenue. 'Exceeding' means $250M is a floor. The $250M figure was the year-end target, which the company says it has already passed. AI-first ARR may overlap with AI-influenced ARR, so do not add the two figures together."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies operating expenses or attributes them to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.4,
+  "input_tokens": 4859,
+  "output_tokens": 1256,
+  "attempts": 1,
+  "task_sha": "18ee0167984badd3"
+ }
+}

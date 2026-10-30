@@ -1,0 +1,27 @@
+{
+ "accession": "SLNH|earnings_release|2025-03-31|d300354b",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; purchases of property, plant and equipment ($3,808 thousand) appear only in the cash-flow table with no AI attribution, and the AI/HPC pipeline statements (p02, p04) describe project capacity, not spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as a figure or share; the revenue discussion (p05) attributes changes and the growth outlook to Bitcoin hosting, BTC halving and demand response, not AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.5,
+  "input_tokens": 6976,
+  "output_tokens": 504,
+  "attempts": 1,
+  "task_sha": "edfcbfc0a183d20c"
+ }
+}

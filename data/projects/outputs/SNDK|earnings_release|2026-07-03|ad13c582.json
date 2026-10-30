@@ -1,0 +1,13 @@
+{
+ "accession": "SNDK|earnings_release|2026-07-03|ad13c582",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 6798,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "69efaf51c293bc15"
+ }
+}

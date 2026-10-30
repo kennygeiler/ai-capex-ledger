@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|earnings_release|2023-09-30|e5cea21c",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex appears only in non-GAAP definitions (p05, p09) and forward-looking boilerplate (p10)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue; the only AI mention is a slide fragment on bookings ('AI adds incremental layer of demand', p07), not a complete sentence and about bookings rather than revenue, and p10 mentions AI only as a forward-looking-statement topic"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.5,
+  "input_tokens": 15515,
+  "output_tokens": 532,
+  "attempts": 1,
+  "task_sha": "95d9ab5bf3df5482"
+ }
+}

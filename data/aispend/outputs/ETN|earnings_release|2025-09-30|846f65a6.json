@@ -1,0 +1,27 @@
+{
+ "accession": "ETN|earnings_release|2025-09-30|846f65a6",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capital expenditures figure (p01, Q3 2025 $178 million) is a quarterly total with no link to AI or data centers; acquisitions of Fibrebond and Boyd Thermal are M&A, not capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states Eaton's AI or data-center revenue; Fibrebond's ~$378 million is the acquired company's total sales to mixed end-markets, not Eaton's data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 5163,
+  "output_tokens": 349,
+  "attempts": 1,
+  "task_sha": "b1e36f609085e7aa"
+ }
+}

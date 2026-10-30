@@ -1,0 +1,46 @@
+{
+ "accession": "TER|mdna|2025-12-31|47c5191d",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase in Semiconductor Test revenues of $399.8 million, or 18.8%, was driven primarily by higher sales in compute related to artificial intelligence applications and in Integrated System Test primarily related to system level testers.",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "$399.8 million is the year-over-year increase in Semiconductor Test segment revenue, which AI compute demand drove along with system level testers. It is not the AI part of revenue, so it is recorded as qualitative."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our product revenues increased $365.3 million, or 15.9%, driven primarily by higher sales in compute related to artificial intelligence applications and in Integrated System Test primarily related to system level testers.",
+   "passage": "p04",
+   "confidence": 0.8,
+   "notes": "$365.3 million is the year-over-year increase in total product revenue, which AI compute and system level testers drove. No AI revenue figure or share is stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI. The $224.0 million PP&E purchase in 2025 has no AI attribution. The planned ~$157 million MultiLane joint venture investment (p01) targets AI data center test, but it is an equity investment in a business, not capital expenditure."
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI. Higher selling, administrative, engineering and development spending (p05) is not linked to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.0,
+  "input_tokens": 6027,
+  "output_tokens": 1116,
+  "attempts": 1,
+  "task_sha": "dc7e30676abc76c8"
+ }
+}

@@ -1,23 +1,35 @@
 {
  "accession": "MSFT|earnings_release|2025-12-31|110fcd0a",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We are only at the beginning phases of AI diffusion and already Microsoft has built an AI business that is larger than some of our biggest franchises",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "CEO quote sizes the AI business relative to other franchises without stating an amount or share of revenue; present tense, no year named. Microsoft Cloud revenue ($50B+) is a buyer's cloud figure and is not AI revenue, so it was skipped."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence states or attributes capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the OpenAI non-GAAP exclusion concerns investment income/losses, not opex"
   }
  ],
  "_run": {
-  "model": null,
-  "seconds": 0.0,
-  "input_tokens": 0,
-  "output_tokens": 0,
-  "attempts": 0,
-  "task_sha": "acc3e1107976940d"
+  "model": "claude-opus-5-5",
+  "seconds": 7.5,
+  "input_tokens": 5342,
+  "output_tokens": 803,
+  "attempts": 1,
+  "task_sha": "89004231e81d7b29"
  }
 }

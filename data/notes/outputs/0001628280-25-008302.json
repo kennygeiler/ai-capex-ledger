@@ -1,6 +1,6 @@
 {
  "accession": "0001628280-25-008302",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -12,7 +12,19 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 408740000,
-   "confidence": 0.85
+   "confidence": 0.8
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital asset self-mining revenue",
+   "table_id": "t0016",
+   "row_label": "Digital asset self-mining revenue",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "390,333",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 390333000,
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -25,30 +37,6 @@
    "months": 12,
    "value": 77554000,
    "confidence": 0.8
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "HPC hosting revenue",
-   "table_id": "t0016",
-   "row_label": "HPC hosting revenue",
-   "column_label": "Year Ended December 31, | 2024",
-   "cell_text": "24,378",
-   "period_end": "2024-12-31",
-   "months": 12,
-   "value": 24378000,
-   "confidence": 0.85
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Digital asset self-mining revenue",
-   "table_id": "t0016",
-   "row_label": "Digital asset self-mining revenue",
-   "column_label": "Year Ended December 31, | 2023",
-   "cell_text": "390,333",
-   "period_end": "2023-12-31",
-   "months": 12,
-   "value": 390333000,
-   "confidence": 0.85
   },
   {
    "field": "segment_revenue",
@@ -75,6 +63,18 @@
    "confidence": 0.8
   },
   {
+   "field": "segment_revenue",
+   "dimension": "HPC hosting revenue",
+   "table_id": "t0016",
+   "row_label": "HPC hosting revenue",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "24,378",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 24378000,
+   "confidence": 0.8
+  },
+  {
    "field": "ppe_category",
    "dimension": "Land and improvements",
    "table_id": "t0044",
@@ -88,66 +88,6 @@
   },
   {
    "field": "ppe_category",
-   "dimension": "Building and improvements",
-   "table_id": "t0044",
-   "row_label": "Building and improvements",
-   "column_label": "December 31, 2024",
-   "cell_text": "256,086",
-   "period_end": "2024-12-31",
-   "months": 0,
-   "value": 256086000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Mining and network equipment",
-   "table_id": "t0044",
-   "row_label": "Mining and network equipment2",
-   "column_label": "December 31, 2024",
-   "cell_text": "414,173",
-   "period_end": "2024-12-31",
-   "months": 0,
-   "value": 414173000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Electrical equipment",
-   "table_id": "t0044",
-   "row_label": "Electrical equipment3",
-   "column_label": "December 31, 2024",
-   "cell_text": "82,598",
-   "period_end": "2024-12-31",
-   "months": 0,
-   "value": 82598000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Other property, plant and equipment",
-   "table_id": "t0044",
-   "row_label": "Other property, plant and equipment4",
-   "column_label": "December 31, 2024",
-   "cell_text": "2,884",
-   "period_end": "2024-12-31",
-   "months": 0,
-   "value": 2884000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Construction in progress",
-   "table_id": "t0044",
-   "row_label": "Add: Construction in progress",
-   "column_label": "December 31, 2024",
-   "cell_text": "162,856",
-   "period_end": "2024-12-31",
-   "months": 0,
-   "value": 162856000,
-   "confidence": 0.9
-  },
-  {
-   "field": "ppe_category",
    "dimension": "Land and improvements",
    "table_id": "t0044",
    "row_label": "Land and improvements1",
@@ -156,6 +96,18 @@
    "period_end": "2023-12-31",
    "months": 0,
    "value": 21852000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building and improvements",
+   "table_id": "t0044",
+   "row_label": "Building and improvements",
+   "column_label": "December 31, 2024",
+   "cell_text": "256,086",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 256086000,
    "confidence": 1.0
   },
   {
@@ -175,11 +127,35 @@
    "dimension": "Mining and network equipment",
    "table_id": "t0044",
    "row_label": "Mining and network equipment2",
+   "column_label": "December 31, 2024",
+   "cell_text": "414,173",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 414173000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Mining and network equipment",
+   "table_id": "t0044",
+   "row_label": "Mining and network equipment2",
    "column_label": "December 31, 2023",
    "cell_text": "441,404",
    "period_end": "2023-12-31",
    "months": 0,
    "value": 441404000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Electrical equipment",
+   "table_id": "t0044",
+   "row_label": "Electrical equipment3",
+   "column_label": "December 31, 2024",
+   "cell_text": "82,598",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 82598000,
    "confidence": 1.0
   },
   {
@@ -199,6 +175,18 @@
    "dimension": "Other property, plant and equipment",
    "table_id": "t0044",
    "row_label": "Other property, plant and equipment4",
+   "column_label": "December 31, 2024",
+   "cell_text": "2,884",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 2884000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other property, plant and equipment",
+   "table_id": "t0044",
+   "row_label": "Other property, plant and equipment4",
    "column_label": "December 31, 2023",
    "cell_text": "2,935",
    "period_end": "2023-12-31",
@@ -208,7 +196,19 @@
   },
   {
    "field": "ppe_category",
-   "dimension": "Construction in progress",
+   "dimension": "Add: Construction in progress",
+   "table_id": "t0044",
+   "row_label": "Add: Construction in progress",
+   "column_label": "December 31, 2024",
+   "cell_text": "162,856",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 162856000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Add: Construction in progress",
    "table_id": "t0044",
    "row_label": "Add: Construction in progress",
    "column_label": "December 31, 2023",
@@ -222,24 +222,23 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "no table reports capital expenditures by segment; the segment tables (t0028, t0072) reconcile reportable segment gross profit only"
+   "reason": "the company has a single reportable segment; the segment note reports gross profit only and no per-segment capital expenditures"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no single 'total finance lease liabilities' cell exists; t0046 and t0032 give only the current portion (1,669 / 19,771) and non-current portion (3 / 35,745), which sum to 1,672 thousand at 2024-12-31 and 55,516 thousand at 2023-12-31, but no cell carries those totals"
+   "reason": "no total finance lease liabilities line; the lease note (t0046) gives only 'Finance lease liabilities, current portion' (1,669 / 19,771) and 'Finance lease liabilities, net of current portion' (3 / 35,745), which cannot be cited as a single undimensioned value without adding cells"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or purchase-commitments table is included in the provided tables"
+   "reason": "no contractual-obligations or commitments table is included among the provided tables"
   }
  ],
- "notes": "segment_revenue is taken from revenue lines in t0016 (results of operations), which match the company's self-mining, hosted mining and HPC hosting segments; hosted mining is reported split by customers and related parties and is kept as written rather than merged. The 2024 related-party hosted revenue is '\u2014' and is omitted, as is 2023 HPC hosting revenue. Construction in progress sits below the gross subtotal in t0044 but is a gross category, so it is included at 0.9 confidence.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 52.4,
-  "input_tokens": 20290,
-  "output_tokens": 7329,
+  "seconds": 47.0,
+  "input_tokens": 20445,
+  "output_tokens": 6649,
   "attempts": 2,
-  "task_sha": "3c8b268357685dad"
+  "task_sha": "e92c1f26c2752d45"
  }
 }

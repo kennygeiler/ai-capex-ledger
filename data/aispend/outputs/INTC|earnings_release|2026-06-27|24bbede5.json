@@ -1,23 +1,35 @@
 {
  "accession": "INTC|earnings_release|2026-06-27|24bbede5",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Revenue, gross margin and earnings per share exceeded guidance, including our strongest data center revenue growth in 15 years,",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Quarterly (Q3 2026) statement; the CFO's sentence ends with a comma inside the quotation. The p02 table gives DCAI revenue of $7.3B (up 78%) for Q3 2026 only, but it is a table row, not a sentence, and a quarterly figure, not a fiscal-year amount, so it is not recorded as an explicit_amount. The task header says period ended 2026-06-27, but the passages report the quarter ended Sep 26, 2026."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p01 mentions 'disciplined investments in capacity' with no AI link, and the p05 table reports gross capital expenditures (-4,219M for the quarter ended Sep 26, 2026) with no AI attribution. Note: passages cover Q3 2026 (ended Sep 26, 2026), not the period ended 2026-06-27 named in the task"
+   "reason": "gross capital expenditures ($4,219M for Q3 2026) appear only in a table, and no sentence links capital expenditures to AI; 'disciplined investments in capacity' is not tied to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes R&D, infrastructure, or headcount spend to AI; p03 and p04 describe products and partnerships, not spend"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.7,
-  "input_tokens": 5692,
-  "output_tokens": 418,
+  "seconds": 10.9,
+  "input_tokens": 5991,
+  "output_tokens": 1072,
   "attempts": 1,
-  "task_sha": "f48dce09dd8c1785"
+  "task_sha": "05ca44b5f2c4f795"
  }
 }

@@ -1,0 +1,13 @@
+{
+ "accession": "POWL|mdna|2022-09-30|788f4522",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 4815,
+  "output_tokens": 48,
+  "attempts": 1,
+  "task_sha": "4987b0e248e7e7d8"
+ }
+}

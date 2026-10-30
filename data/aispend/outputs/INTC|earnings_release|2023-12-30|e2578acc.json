@@ -1,23 +1,37 @@
 {
  "accession": "INTC|earnings_release|2023-12-30|e2578acc",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 15500000000,
+   "amount_high": 15500000000,
+   "quote": "Data Center $4.0 down 10% $15.5 down 20% and AI billion billi\u2026 (DCAI)",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Taken from a garbled segment table, not a full sentence. The columns interleave: Data Center and AI Group (DCAI) revenue is $4.0 billion for Q4 2023 (down 10%) and $15.5 billion for full-year 2023 (down 20%). Only the full-year figure is recorded. DCAI is a data-center segment that also includes non-AI server CPU revenue. It is recorded as data-center revenue under the rules; it is not a pure AI figure."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states capital expenditures or links them to AI; passages cover segment reorganization, segment revenue, and product/partner announcements only"
+   "reason": "no sentence links capital expenditures to AI or states capital expenditures"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes R&D, infrastructure, or headcount spend to AI; AI mentions describe products (AI PC, OpenVINO, AI-enhanced SoCs) and segment names, which are boilerplate, not spend"
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount spending to AI; the integration of ACSG into CCG and DCAI in p01 is described only as reducing costs, with no link to AI spend"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.5,
-  "input_tokens": 5492,
-  "output_tokens": 216,
+  "seconds": 10.6,
+  "input_tokens": 5791,
+  "output_tokens": 1015,
   "attempts": 1,
-  "task_sha": "f4dba19c14ce3dcd"
+  "task_sha": "ee01f1d12470023f"
  }
 }

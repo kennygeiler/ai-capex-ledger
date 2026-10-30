@@ -1,0 +1,35 @@
+{
+ "accession": "NOW|earnings_release|2024-06-30|b8c0b907",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "\u201cQ2 was another fantastic quarter with NNACV and GenAI contributions exceeding expectations,\u201d said ServiceNow CFO Gina Mastantuono.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "GenAI's contribution is to net new annual contract value (NNACV), a bookings metric rather than recognized revenue, and no amount or share is given. The $1 billion figure in p02 is pipeline, not revenue. The $15+ billion 2026 subscription revenue target is not tied to AI in its own sentence, so it is not recorded. The sentence names only 'Q2'; the filing's period is Q2 of fiscal 2024."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.7,
+  "input_tokens": 5545,
+  "output_tokens": 902,
+  "attempts": 1,
+  "task_sha": "b29cd9b6e83b52a7"
+ }
+}

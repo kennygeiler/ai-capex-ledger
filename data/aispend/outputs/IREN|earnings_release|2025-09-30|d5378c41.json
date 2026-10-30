@@ -1,23 +1,76 @@
 {
  "accession": "IREN|earnings_release|2025-09-30|d5378c41",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 7300000,
+   "amount_high": 7300000,
+   "quote": "AI Cloud Services Revenue 7.3 7.0",
+   "passage": "p06",
+   "confidence": 0.8,
+   "notes": "Income-statement row, not a prose sentence. US$m for the quarter ended September 30, 2025 (Q1 FY26 only, not the full fiscal year). The 7.0 is the prior quarter (Q4 FY25). Total revenue was $240.3m."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3400000000,
+   "amount_high": 3400000000,
+   "quote": "Targeting $3.4bn in AI Cloud annualized run-rate revenue (ARR) by the end of 2026 (expansion to 140k GPUs)1",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "This is an annualized run-rate target, not fiscal-year revenue. 'End of 2026' appears to be calendar 2026, which falls in IREN's FY27 (June year-end); recorded as 2026 as named. Footnote 1 (p04): about $1.94bn from the Microsoft contract plus an estimated $1.5bn from British Columbia; not fully contracted."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 500000000,
+   "amount_high": 500000000,
+   "quote": "New multi-year contracts including Together AI, Fluidstack and Fireworks AI, supporting growth to target AI Cloud ARR of >$500m by end of Q1 20263",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "'>$500m' means more than $500m, so this is a lower bound. It is an annualized run-rate, not period revenue. The trailing '3' is footnote 3 attached to '2026'. 'Q1 2026' appears to be calendar Q1 2026, which falls within IREN's FY26."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1900000000,
+   "amount_high": 1900000000,
+   "quote": "$1.9bn expected ARR contribution2",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Expected average annual revenue from the $9.7bn, roughly 5-year Microsoft AI Cloud contract, with phased deployments through 2026. Bullet fragment; '2' is a footnote marker. No year is named. Footnote 1 gives $1.94bn."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states an amount, share or AI attribution of capital expenditures; the only capex mention (p02, 'Near-term capex expected to be funded through combination of existing cash, operating cashflows, Microsoft prepayments and additional financing initiatives') describes funding sources, not AI spend, and the $400m GPU financing is a financing facility, not reported capex"
+   "reason": "No sentence states or attributes capital expenditures to AI. The 'near-term capex' bullet covers only funding sources and gives no amount or AI link."
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; the statement of operations (p06) reports AI Cloud Services cost of revenue and SG&A without any narrative linking opex to AI"
+   "reason": "No sentence quantifies or attributes operating expenses to AI."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.9,
-  "input_tokens": 9260,
-  "output_tokens": 533,
+  "seconds": 18.6,
+  "input_tokens": 9563,
+  "output_tokens": 2094,
   "attempts": 1,
-  "task_sha": "494a94611ddbbf3a"
+  "task_sha": "225f7b9c9bbfddee"
  }
 }

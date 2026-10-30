@@ -1,0 +1,35 @@
+{
+ "accession": "MOD|earnings_release|2022-06-30|85a59f54",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This increase was driven by higher sales of heat transfer, HVAC and refrigeration, and data center cooling products.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Data center cooling is one of several drivers of Climate Solutions segment sales growth. The sentence gives no data-center amount or share and does not mention AI. The segment total ($244.4 million) is stated in a separate sentence that does not mention data centers, so it is not recorded. No year is named; the filing year (fiscal 2023, quarter ended 2022-06-30) applies."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 4953,
+  "output_tokens": 650,
+  "attempts": 1,
+  "task_sha": "48038c2ee00f2f05"
+ }
+}

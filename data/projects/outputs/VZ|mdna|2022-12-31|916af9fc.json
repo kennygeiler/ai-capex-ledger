@@ -1,0 +1,28 @@
+{
+ "accession": "VZ|mdna|2022-12-31|916af9fc",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Verizon renewable energy purchase agreements (REPAs)",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Arizona, Illinois, Indiana, Iowa, Maryland, Nebraska, New York, North Carolina, Ohio, Oklahoma, Pennsylvania, Texas and West Virginia",
+   "counterparty": null,
+   "capacity_mw": 3000,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Under the REPAs, we plan to purchase up to an aggregate of approximately 3.0 gigawatts of capacity across multiple states, including Arizona, Illinois, Indiana, Iowa, Maryland, Nebraska, New York, North Carolina, Ohio, Oklahoma, Pennsylvania, Texas and West Virginia.",
+   "passage": "p06",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.6,
+  "input_tokens": 5620,
+  "output_tokens": 635,
+  "attempts": 1,
+  "task_sha": "77442c45a4c9c85c"
+ }
+}

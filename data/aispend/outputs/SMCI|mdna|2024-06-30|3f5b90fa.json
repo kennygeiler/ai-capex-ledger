@@ -1,0 +1,57 @@
+{
+ "accession": "SMCI|mdna|2024-06-30|3f5b90fa",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increased use of AI, which has required increased datacenter capabilities, has substantially increased demand for our products in the recent past.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Attributes increased product demand (net sales) to AI; no year named, and 'recent past' is not tied to a specific fiscal year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "During fiscal year 2024 we experienced increased revenue from server and storage systems, particularly from our large enterprise and datacenter customers.",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "Data-center customers are named as a driver of revenue growth; no data-center revenue figure is stated. A near-identical sentence in p04 (using 'net sales') is not recorded again."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The year-over-year increase in net sales of server and storage systems was primarily due to the strong demand for GPU based rack-scale solutions, including liquid-cooled and air-cooled servers which are generally more complex and of higher value, resulting in an increase of average selling prices (\"ASP\").",
+   "passage": "p04",
+   "confidence": 0.7,
+   "notes": "The sentence names GPU-based rack-scale demand but does not say 'AI'; the AI link comes from the context in p02. No year is named in the sentence, although the paragraph covers fiscal 2024."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "The fiscal 2025 capex outlook ($140-150 million) is attributed to manufacturing, tooling, the ERP upgrade and facilities; no sentence links capital expenditures to AI."
+  },
+  {
+   "field": "opex",
+   "reason": "R&D investment is linked to GPU and microprocessor product cycles, not to AI explicitly; no sentence quantifies or attributes operating expenses to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.7,
+  "input_tokens": 7316,
+  "output_tokens": 1431,
+  "attempts": 1,
+  "task_sha": "d649028476903c78"
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "accession": "NVT|earnings_release|2025-12-31|56ea5907",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We are well positioned for continued growth in 2026, led by the infrastructure vertical, particularly data centers and power utilities.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Expected 2026 growth in total sales is attributed in words to the infrastructure vertical, particularly data centers. No AI or data-center revenue figure or share is stated, and AI is not named explicitly."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.8,
+  "input_tokens": 4947,
+  "output_tokens": 531,
+  "attempts": 1,
+  "task_sha": "27eec4f82fbd4419"
+ }
+}

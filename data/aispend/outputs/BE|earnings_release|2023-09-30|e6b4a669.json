@@ -1,0 +1,27 @@
+{
+ "accession": "BE|earnings_release|2023-09-30|e6b4a669",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the CEO's comment that AI adoption will drive data centers to adopt Bloom energy servers is a forward-looking market view; no sentence states an amount or share of revenue from AI or data-center customers"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.9,
+  "input_tokens": 6170,
+  "output_tokens": 216,
+  "attempts": 1,
+  "task_sha": "66449ec0460de857"
+ }
+}

@@ -1,23 +1,37 @@
 {
  "accession": "INTC|earnings_release|2025-03-29|e326bf9d",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 4100000000,
+   "amount_high": 4100000000,
+   "quote": "Business Unit Revenue and Q1 20253 vs. Q1 2024 Trends Intel Products: Client Computing Group (CCG) $7.6 billion down 8% Data Center and AI (DCAI) $4.1 billion up 8% Total Intel Products revenue $11.8 billion down 3% Intel Foundry $4.7 billion up 7% All Other $0.9 billion up 47% Intersegment Eliminations $(4.7) billion Total net revenue $12.7 billion flat 3Numbers are presented as actual and rounded; as a result, totals may not sum.",
+   "passage": "p04",
+   "confidence": 0.8,
+   "notes": "Data Center and AI (DCAI) segment revenue for Q1 2025 only (quarter ended 2025-03-29), not full fiscal year; the quote is a flattened table, so the sentence boundary is approximate; the segment combines data center and AI, not AI alone."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the 2025 gross capex target ($18 billion) and net capex outlook ($8\u201311 billion) are attributed to operational efficiencies and core-business investment, not AI"
+   "reason": "gross capex target of $18 billion and net capex of $8\u201311 billion for 2025 are stated, but no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, MG&A, headcount) to AI; 'Data Center and AI (DCAI)' appears only as a revenue segment name"
+   "reason": "R&D and MG&A outlook figures are given, but no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.2,
-  "input_tokens": 6692,
-  "output_tokens": 229,
+  "seconds": 8.2,
+  "input_tokens": 6993,
+  "output_tokens": 919,
   "attempts": 1,
-  "task_sha": "8aa9414367cbe765"
+  "task_sha": "01e40f37188880b1"
  }
 }

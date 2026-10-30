@@ -1,0 +1,44 @@
+{
+ "accession": "EQIX|earnings_release|2025-12-31|e357282e",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Hampton, Georgia data center",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Hampton, Georgia",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In January, Equinix contributed the Hampton, Georgia asset to its xScale joint venture in the United States, an important first step to deploying $15 billion of capital with its JV partners in major metros, and enabling the JV to enter a lease arrangement with a customer.",
+   "passage": "p02",
+   "confidence": 0.6
+  },
+  {
+   "name": "xScale joint venture in the United States",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "United States",
+   "counterparty": null,
+   "amount_low": 15000000000,
+   "amount_high": 15000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In January, Equinix contributed the Hampton, Georgia asset to its xScale joint venture in the United States, an important first step to deploying $15 billion of capital with its JV partners in major metros, and enabling the JV to enter a lease arrangement with a customer.",
+   "passage": "p02",
+   "confidence": 0.65
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.0,
+  "input_tokens": 6470,
+  "output_tokens": 888,
+  "attempts": 1,
+  "task_sha": "0e1fc52f221dea50"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "HPE|earnings_release|2024-07-31|8c66a2f4",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in the free cash flow definition (p01, p04); no sentence links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "research and development appears only in forward-looking-statement boilerplate (p02); no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "AI is mentioned only in safe-harbor boilerplate (p02) and the segment realignment description (p03); no sentence states an AI, HPC & AI, or AI-server revenue amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 6370,
+  "output_tokens": 253,
+  "attempts": 1,
+  "task_sha": "a1dc0fba874ed7ee"
+ }
+}

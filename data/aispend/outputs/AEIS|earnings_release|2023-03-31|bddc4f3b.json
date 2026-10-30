@@ -1,0 +1,37 @@
+{
+ "accession": "AEIS|earnings_release|2023-03-31|bddc4f3b",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 59659000,
+   "amount_high": 59659000,
+   "quote": "Data Center \u200b 59,659 \u200b 76,238 \u200b 94,525 Computing",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Table row, not a sentence. Data Center Computing net sales for the three months ended March 31, 2023 (Q1 only, not full fiscal year), in thousands ($59,659K). Market label is split across the garbled table text."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.9,
+  "input_tokens": 6055,
+  "output_tokens": 771,
+  "attempts": 1,
+  "task_sha": "4cecb3a8e538109a"
+ }
+}

@@ -1,23 +1,27 @@
 {
  "accession": "CORZ|earnings_release|2025-09-30|81b016ae",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p01 is forward-looking-statement risk boilerplate (mentions 'future capital expenditures' and the artificial intelligence industry only as risk factors), and p02 is a cash flow table whose purchases of property, plant and equipment are not attributed to AI"
+   "reason": "p01 is risk-factor boilerplate mentioning future capital expenditures generically; p02 cash-flow table gives purchases of property, plant and equipment with no sentence linking capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; passages contain only risk-factor boilerplate and cash flow statement line items"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "colocation and data center references in p01 are risk-factor boilerplate; p02 shows deferred revenue from colocation services as a cash-flow line item, not a statement of AI or data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.3,
-  "input_tokens": 6608,
-  "output_tokens": 309,
+  "seconds": 4.1,
+  "input_tokens": 6907,
+  "output_tokens": 265,
   "attempts": 1,
-  "task_sha": "7347a90c00049e84"
+  "task_sha": "a9cc7598fa5c0fed"
  }
 }

@@ -1,0 +1,70 @@
+{
+ "accession": "ORCL|earnings_release|2024-08-31|7de508fa",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "MultiCloud agreement with AWS",
+   "kind": "cloud_commitment",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "AWS",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "But the biggest news of all was signing a MultiCloud agreement with AWS\u2014including our latest technology Exadata hardware and Version 23ai of our database software\u2014embedded into AWS cloud datacenters.",
+   "passage": "p01",
+   "confidence": 0.6
+  },
+  {
+   "name": "Oracle's largest cloud datacenter (800 MW, NVIDIA GPU clusters)",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": "NVIDIA",
+   "capacity_mw": 800,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The largest of these datacenters is 800 megawatts and will contain acres of NVIDIA GPU Clusters for training large scale AI models.",
+   "passage": "p02",
+   "confidence": 0.5
+  },
+  {
+   "name": "Oracle Cloud regions at Microsoft",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": "Microsoft",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "At the end of Q1, 7 Oracle Cloud regions were live at Microsoft with 24 more being built, and 4 Oracle Cloud regions were live at Google with 14 more being built.",
+   "passage": "p02",
+   "confidence": 0.5
+  },
+  {
+   "name": "Oracle Cloud regions at Google",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": "Google",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "At the end of Q1, 7 Oracle Cloud regions were live at Microsoft with 24 more being built, and 4 Oracle Cloud regions were live at Google with 14 more being built.",
+   "passage": "p02",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.6,
+  "input_tokens": 5265,
+  "output_tokens": 1693,
+  "attempts": 1,
+  "task_sha": "f7487f1add9e0d87"
+ }
+}

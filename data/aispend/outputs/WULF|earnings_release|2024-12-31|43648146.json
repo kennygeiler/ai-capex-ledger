@@ -1,23 +1,37 @@
 {
  "accession": "WULF|earnings_release|2024-12-31|43648146",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1000000000,
+   "amount_high": 1000000000,
+   "quote": "Announced strategic expansion into AI-driven HPC hosting with long-term data center leases expected to generate $1 billion in cumulative revenue over initial 10-year contract terms",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "This is a headline bullet, not a full sentence, and it has no closing period. The $1 billion is cumulative revenue over the initial 10-year lease terms, not a single fiscal year's revenue, so it should not be read as next-year (2025) revenue. The leases start at various dates in 2025 (p03). It is the seller side: HPC/GPU hosting revenue from AI-driven data center leases. The qualitative restatement in p02 ('expected to generate significant recurring revenue') is skipped in favor of this figure."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; passages describe HPC lease revenue ($1 billion cumulative over 10-year terms), hosting capacity (72.5 MW, option for 135 MW) and planned capacity growth (100-150 MW annually), none of which is a capex amount, share or AI-driven capex statement"
+   "reason": "no sentence states or links capital expenditures to AI; p02's planned 100-150 MW annual scaling is capacity, not spend"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.7,
-  "input_tokens": 5738,
-  "output_tokens": 279,
+  "seconds": 7.8,
+  "input_tokens": 6039,
+  "output_tokens": 848,
   "attempts": 1,
-  "task_sha": "55e56087caceb5e7"
+  "task_sha": "a00e2ec8c989b148"
  }
 }

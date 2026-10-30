@@ -1,0 +1,105 @@
+{
+ "accession": "0001641172-25-001756",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0313",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended | December 31, | 2024",
+   "cell_text": "38,021",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 38021000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0313",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended | December 31, | 2023",
+   "cell_text": "21,066",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 21066000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0313",
+   "row_label": "Total cost of revenue",
+   "column_label": "Year Ended | December 31, | 2024",
+   "cell_text": "28,627",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 28627000,
+   "confidence": 0.95,
+   "notes": "Two candidate total rows exist. 'Total costs of revenue' (1,735) only repeats the data hosting depreciation line and looks like a parsing artifact. 'Total cost of revenue' (28,627) equals the sum of all five cost-of-revenue lines (7,499+9,377+5,724+4,292+1,735), so it is the true total."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0313",
+   "row_label": "Total cost of revenue",
+   "column_label": "Year Ended | December 31, | 2023",
+   "cell_text": "15,829",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 15829000,
+   "confidence": 0.95,
+   "notes": "Two candidate total rows exist. 'Total costs of revenue' (1,167) only repeats the data hosting depreciation line and looks like a parsing artifact. 'Total cost of revenue' (15,829) equals the sum of the cost-of-revenue lines (6,365+5,601+2,696+1,167), so it is the true total."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0313",
+   "row_label": "Operating loss",
+   "column_label": "Year Ended | December 31, | 2024",
+   "cell_text": "(47,523)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": -47523000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0313",
+   "row_label": "Operating loss",
+   "column_label": "Year Ended | December 31, | 2023",
+   "cell_text": "(20,241)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": -20241000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0317",
+   "row_label": "Purchases of property, plant, and equipment",
+   "column_label": "2024 | Year Ended December 31,",
+   "cell_text": "(9,160)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 9160000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0317",
+   "row_label": "Purchases of property, plant, and equipment",
+   "column_label": "2023 | Year Ended December 31,",
+   "cell_text": "(12,705)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 12705000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.4,
+  "input_tokens": 6827,
+  "output_tokens": 1360,
+  "attempts": 1,
+  "task_sha": "545a9b0cdce36332"
+ }
+}

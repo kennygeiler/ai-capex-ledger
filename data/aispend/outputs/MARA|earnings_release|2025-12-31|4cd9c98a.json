@@ -1,0 +1,35 @@
+{
+ "accession": "MARA|earnings_release|2025-12-31|4cd9c98a",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "As demand emerges, we will selectively convert capacity to higher-value workloads, including AI inference and high-performance compute, deploying capital only where we believe returns justify investment.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Links future capital deployment to converting capacity for AI/HPC workloads, but gives no amount, timing or year. The commitment is conditional ('as demand emerges'). The Exaion stake (p03) and the Starwood JV option to invest up to 50 percent (p01) are acquisitions or JV equity, not stated capex, so they are not recorded; the 50 percent is an ownership share, not a share of capex."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "total revenue ($907.1 million for 2025) is reported without any AI or data-center attribution; no sentence states AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.4,
+  "input_tokens": 9109,
+  "output_tokens": 913,
+  "attempts": 1,
+  "task_sha": "a4c7c0c1bde6f23b"
+ }
+}

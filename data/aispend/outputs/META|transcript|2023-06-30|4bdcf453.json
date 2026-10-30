@@ -1,6 +1,6 @@
 {
  "accession": "META|transcript|2023-06-30|4bdcf453",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -9,9 +9,8 @@
    "scope": "total",
    "class": "qualitative",
    "quote": "Looking ahead, while we continue to refine our plans as we progress throughout the year, we currently expect total capital expenditures to grow in 2024, driven by our investments across both data centers and servers, particularly in support of our AI work.",
-   "passage": "p02",
-   "confidence": 1.0,
-   "notes": "Total 2024 capex expected to grow with AI named as a driver; no amount or AI share given."
+   "passage": "p04",
+   "confidence": 1.0
   },
   {
    "field": "capex",
@@ -20,23 +19,27 @@
    "scope": "ai",
    "class": "qualitative",
    "quote": "And then we certainly also expect to invest more in servers in 2024 for both AI workloads to support all of the AI work that we've talked about across the core AI ranking, recommendation work along with the next-gen AI efforts.",
-   "passage": "p06",
-   "confidence": 0.7,
-   "notes": "Expected increase in server investment for AI workloads in 2024. The following sentence adds non-AI workloads, so this is a directional statement about AI server capex, not a quantified AI portion."
+   "passage": "p08",
+   "confidence": 0.8,
+   "notes": "Expects more server investment for AI workloads in 2024; the following sentence adds non-AI workloads, so the AI part is not separated from total server spend."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue (Reels run-rate and Click-to-WhatsApp revenue are not AI revenue)"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 10.6,
-  "input_tokens": 5229,
-  "output_tokens": 1096,
+  "seconds": 15.5,
+  "input_tokens": 6127,
+  "output_tokens": 1695,
   "attempts": 1,
-  "task_sha": "eaab712e5effce8a"
+  "task_sha": "748ff5cf1a4bd94f"
  }
 }

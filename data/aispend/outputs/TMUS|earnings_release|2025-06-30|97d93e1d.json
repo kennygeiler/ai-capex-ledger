@@ -1,0 +1,27 @@
+{
+ "accession": "TMUS|earnings_release|2025-06-30|97d93e1d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure guidance (~$9.5 billion for FY 2025) and changes are given, but no sentence links capital expenditures to AI; the stated driver is planned timing of capital purchases"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer (wireless carrier); no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.5,
+  "input_tokens": 5362,
+  "output_tokens": 223,
+  "attempts": 1,
+  "task_sha": "aa43f1d7b7b086dd"
+ }
+}

@@ -1,0 +1,85 @@
+{
+ "accession": "RIOT|earnings_release|2026-06-30|e5c929a6",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 23200000,
+   "amount_high": 23200000,
+   "quote": "Data Center revenue of $23.2 million for the quarter, comprised of $4.9 \u2022 million in operating lease revenue and $18.3 million in tenant fit-out services revenue, reflecting the Company\u2019s second quarter of Data Center segment revenue and the completed delivery of the initial 25 MW to AMD.",
+   "passage": "p02",
+   "confidence": 0.85,
+   "notes": "Quarterly figure (Q2 fiscal 2026 only), not full-year; data-center revenue from an AI tenant (AMD)."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 9100000000,
+   "amount_high": 9100000000,
+   "quote": "The Data Center Lease carries an initial term of 20 years, running through June 2048, and is expected to generate approximately $9.1 billion in total initial contract revenue.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Total contract revenue over a 20-year lease term (rent commencing Dec 2027) with a frontier AI lab, not a single fiscal year; the default next-year assignment does not apply."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 9800000000,
+   "amount_high": 9800000000,
+   "quote": "In just over six months, Riot has now executed leases totaling 241 megawatts of capacity, representing approximately $9.8 billion of long-term, contracted revenue with two of the most important companies in the AI ecosystem.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Cumulative multi-year contracted revenue across the AMD and frontier AI lab leases, not a single fiscal year; overlaps with the $9.1 billion statement."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 2100000000,
+   "amount_high": 2300000000,
+   "quote": "FUND NEW LEADING FRONTIER AI LAB PROJECT BUILDOUT Expected capital expenditures $2.1 \u2013 $2.3B",
+   "passage": "p09",
+   "confidence": 0.6,
+   "notes": "Slide text rather than a full sentence. Project capex for the 191 MW data center leased to a frontier AI lab, spread over the Dec 2027 to June 2028 phased deployment, so not a single fiscal year."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 81000000,
+   "amount_high": 81000000,
+   "quote": "SECOND 25 MW - $69M DELAYED DRAW TERM LOAN (DDTL) Drawdown facility preserves balance sheet liquidity for new projects Expected capex ~$81M",
+   "passage": "p09",
+   "confidence": 0.55,
+   "notes": "Slide text rather than a full sentence; approximate figure. Capex for AMD's second 25 MW data center deployment, delivered Nov 2026 to May 2027, so it spans fiscal 2026\u20132027."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 21.4,
+  "input_tokens": 16085,
+  "output_tokens": 2824,
+  "attempts": 1,
+  "task_sha": "822e29a7002b0a42"
+ }
+}

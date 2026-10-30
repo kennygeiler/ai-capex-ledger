@@ -1,0 +1,36 @@
+{
+ "accession": "WDC|earnings_release|2024-09-27|77586f2e",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.54,
+   "quote": "Cloud represented 54% of total revenue.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "WDC is a seller (HDD/SSD). Its 'Cloud' end market is data-center customers; the next sentence ties the increase to nearline HDD and enterprise SSD shipments to data center customers. The figure covers the fiscal first quarter of fiscal 2025, not a full year. The sentence does not use the words 'AI' or 'data center', so confidence is lowered."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "purchases of property, plant and equipment appear only in cash-flow tables; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.8,
+  "input_tokens": 6057,
+  "output_tokens": 764,
+  "attempts": 1,
+  "task_sha": "8cd8bd3ece83fcb1"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "CDNS|earnings_release|2025-09-30|5c06132f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "purchases of property, plant and equipment appear only in the cash flow table, and no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D investment 'including opportunities presented by AI' appears only in forward-looking-statement risk boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the full-year revenue outlook (~14% growth) is not tied to AI, and the CEO's remark about the AI ecosystem describes positioning, not AI's share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.7,
+  "input_tokens": 7606,
+  "output_tokens": 396,
+  "attempts": 1,
+  "task_sha": "9622bf1978088c58"
+ }
+}

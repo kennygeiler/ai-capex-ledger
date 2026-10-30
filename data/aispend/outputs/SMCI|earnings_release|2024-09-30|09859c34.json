@@ -1,0 +1,27 @@
+{
+ "accession": "SMCI|earnings_release|2024-09-30|09859c34",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is company-description boilerplate; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is company-description boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only passage describes products (server, AI, storage systems) without stating any AI, data-center or AI-server revenue figure or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 5109,
+  "output_tokens": 216,
+  "attempts": 1,
+  "task_sha": "6d8b70dadecc900a"
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "accession": "PENG|mdna|2025-08-29|67030f7a",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Advanced Computing net sales increased by $93.9 million, or 16.9%, compared to the same period in the prior year, primarily due to higher hardware sales driven by increased demand for AI solutions and HPC.",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "The $93.9 million is the year-over-year increase in Advanced Computing segment sales, not an AI revenue figure. AI is named alongside HPC as a driver of the increase, so it is recorded as qualitative with total scope. fiscal_year comes from the preceding sentence's 'in 2025'; this sentence says 'compared to the same period in the prior year'."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the capex outlook in p05 names R&D, manufacturing equipment, acquisitions and IT, not AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the higher Advanced Computing opex in p04 is attributed to bonus-related personnel costs"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.3,
+  "input_tokens": 6201,
+  "output_tokens": 813,
+  "attempts": 1,
+  "task_sha": "269790564648afc2"
+ }
+}

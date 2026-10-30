@@ -1,0 +1,56 @@
+{
+ "accession": "VST|earnings_release|2024-12-31|aa8cf1ce",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Illinois Coal to Solar & Energy Storage Initiative at Baldwin",
+   "kind": "power",
+   "status": "in_service",
+   "location": "Baldwin, Illinois",
+   "counterparty": null,
+   "capacity_mw": 70,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Executing its renewable development pipeline, bringing online the first two projects that are part of its \u2022 Illinois Coal to Solar & Energy Storage Initiative at Baldwin (70 MW) and Coffeen (46 MW), revitalizing retired and to-be-retired coal plant sites.",
+   "passage": "p02",
+   "confidence": 0.75
+  },
+  {
+   "name": "Illinois Coal to Solar & Energy Storage Initiative at Coffeen",
+   "kind": "power",
+   "status": "in_service",
+   "location": "Coffeen, Illinois",
+   "counterparty": null,
+   "capacity_mw": 46,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Executing its renewable development pipeline, bringing online the first two projects that are part of its \u2022 Illinois Coal to Solar & Energy Storage Initiative at Baldwin (70 MW) and Coffeen (46 MW), revitalizing retired and to-be-retired coal plant sites.",
+   "passage": "p02",
+   "confidence": 0.75
+  },
+  {
+   "name": "Vistra Vision 15% minority interest acquisition",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Growing its ownership interest in nuclear by closing on an agreement to acquire the entire 15% minority interest \u2022 in its Vistra Vision subsidiary, making Vistra the sole owner of its highly valuable, carbon-free assets.",
+   "passage": "p03",
+   "confidence": 0.45
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.7,
+  "input_tokens": 7447,
+  "output_tokens": 1184,
+  "attempts": 1,
+  "task_sha": "61b4a8beebd664b1"
+ }
+}

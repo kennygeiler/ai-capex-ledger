@@ -1,0 +1,68 @@
+{
+ "accession": "0000831259-23-000013",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0033",
+   "row_label": "Revenuesa,b",
+   "column_label": "Years Ended December 31, | 2022",
+   "cell_text": "22,780",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 22780000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0033",
+   "row_label": "Revenuesa,b",
+   "column_label": "Years Ended December 31, | 2021",
+   "cell_text": "22,845",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 22845000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0033",
+   "row_label": "Operating incomea",
+   "column_label": "Years Ended December 31, | 2022",
+   "cell_text": "7,037",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 7037000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0033",
+   "row_label": "Operating incomea",
+   "column_label": "Years Ended December 31, | 2021",
+   "cell_text": "8,366",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 8366000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "The provided tables (t0033 is a selected-financial-data summary, t0034 is operating data) contain no cost-of-revenue or cost-of-sales line, total or component, for any period."
+  },
+  {
+   "field": "capex",
+   "reason": "The cash-flow statement (t0063) investing section has no single capital-expenditures line. It shows only six segment lines under the 'Capital expenditures:' header (North America copper mines, South America, Indonesia mining, Indonesia smelter development, Molybdenum mines, Other), and the rules forbid adding lines together. The summary table t0033 has a 'Capital expenditures' row (3,469 for 2022 and 2,115 for 2021), but it is not in the cash-flow statement. Its cells are also unparenthesized, so the validator's capex sign check would turn them into negative values, which contradicts the positive-capex rule. I did not report a negated value to get past the check. This needs a human decision: either accept the t0033 row with a validator sign exception, or allow summing the segment lines (they total 3,469 / 2,115 / 1,961 for 2022 / 2021 / 2020)."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 33.7,
+  "input_tokens": 12996,
+  "output_tokens": 3637,
+  "attempts": 2,
+  "task_sha": "fcb0b2da8fb21177"
+ }
+}

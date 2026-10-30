@@ -1,0 +1,13 @@
+{
+ "accession": "HPE|mdna|2024-10-31|ac6a2646",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 6895,
+  "output_tokens": 246,
+  "attempts": 1,
+  "task_sha": "ff9412117e7332bb"
+ }
+}

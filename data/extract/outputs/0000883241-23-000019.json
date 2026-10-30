@@ -1,0 +1,147 @@
+{
+ "accession": "0000883241-23-000019",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0043",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended October 31, | 2023",
+   "cell_text": "5,842,619",
+   "period_end": "2023-10-31",
+   "months": 12,
+   "value": 5842619000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0043",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended October 31, | 2022",
+   "cell_text": "5,081,542",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 5081542000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0043",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended October 31, | 2021",
+   "cell_text": "4,204,193",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 4204193000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0043",
+   "row_label": "Total cost of revenue",
+   "column_label": "Year Ended October 31, | 2023",
+   "cell_text": "1,222,193",
+   "period_end": "2023-10-31",
+   "months": 12,
+   "value": 1222193000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0043",
+   "row_label": "Total cost of revenue",
+   "column_label": "Year Ended October 31, | 2022",
+   "cell_text": "1,063,697",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 1063697000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0043",
+   "row_label": "Total cost of revenue",
+   "column_label": "Year Ended October 31, | 2021",
+   "cell_text": "861,777",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 861777000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0043",
+   "row_label": "Operating income",
+   "column_label": "Year Ended October 31, | 2023",
+   "cell_text": "1,269,259",
+   "period_end": "2023-10-31",
+   "months": 12,
+   "value": 1269259000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0043",
+   "row_label": "Operating income",
+   "column_label": "Year Ended October 31, | 2022",
+   "cell_text": "1,162,038",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 1162038000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0043",
+   "row_label": "Operating income",
+   "column_label": "Year Ended October 31, | 2021",
+   "cell_text": "734,790",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 734790000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0046",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended October 31, | 2023",
+   "cell_text": "(189,618)",
+   "period_end": "2023-10-31",
+   "months": 12,
+   "value": 189618000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0046",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended October 31, | 2022",
+   "cell_text": "(136,589)",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 136589000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0046",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended October 31, | 2021",
+   "cell_text": "(93,764)",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 93764000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.7,
+  "input_tokens": 6888,
+  "output_tokens": 1421,
+  "attempts": 1,
+  "task_sha": "ac18b4fb255ab6f4"
+ }
+}

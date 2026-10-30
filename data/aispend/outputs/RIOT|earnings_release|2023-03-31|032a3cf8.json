@@ -1,0 +1,37 @@
+{
+ "accession": "RIOT|earnings_release|2023-03-31|032a3cf8",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 9000000,
+   "amount_high": 9000000,
+   "quote": "Data center hosting revenue of $9.0 million for the three-month period \u00b7 ended March 31, 2023, as compared to $9.7 million for the same three-month period in 2022, driven by reduced customer billings as a result of lower revenue share from customers due to lower Bitcoin prices.",
+   "passage": "p02",
+   "confidence": 0.3,
+   "notes": "Literal data-center revenue, but this is hosting of third-party Bitcoin miners (revenue share tied to BTC prices), not AI demand; figure covers only Q1 2023 (three months), not the full fiscal year. Recorded only because the prompt names data-center revenue; downstream use as AI revenue is likely inappropriate."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capex figures (Corsicana Phase 1 schedule, Rockdale expansion) are for Bitcoin mining infrastructure; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; cost increases are attributed to Bitcoin mining capacity and mining difficulty"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.2,
+  "input_tokens": 11377,
+  "output_tokens": 1126,
+  "attempts": 1,
+  "task_sha": "ec0771d9ec25c2ff"
+ }
+}

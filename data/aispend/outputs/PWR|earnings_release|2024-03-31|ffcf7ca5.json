@@ -1,0 +1,27 @@
+{
+ "accession": "PWR|earnings_release|2024-03-31|ffcf7ca5",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in free cash flow definitions and forward-looking boilerplate (p02-p04); no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses, R&D or headcount to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 says utilities' power demand is rising because of AI and data centers, but no sentence states an amount, share or attribution of Quanta's own revenue to AI or data centers; the full-year revenue growth expectation is not tied to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.0,
+  "input_tokens": 8659,
+  "output_tokens": 480,
+  "attempts": 1,
+  "task_sha": "50b434eb9ca45a09"
+ }
+}

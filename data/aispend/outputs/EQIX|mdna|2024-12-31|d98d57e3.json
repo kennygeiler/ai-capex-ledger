@@ -1,0 +1,35 @@
+{
+ "accession": "EQIX|mdna|2024-12-31|d98d57e3",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "This increased power consumption, which we expect to accelerate with the adoption of AI, has driven us to build out our new IBX data centers to support power and cooling needs twice that of previous IBX data centers.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "Links data center build-out (capital spending) to AI-driven power demand only indirectly. The sentence gives no amount and does not use the term capital expenditures. The xScale joint-venture sentence in p04 cites AI-driven demand, but it describes partnership arrangements rather than the company's capex, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "AI is cited only as a driver of industry outsourcing demand (p01, p02, p04). The incremental revenues from newly opened IBX data centers (p06\u2013p08) are not tied to AI, and no sentence states AI's share or amount of revenue."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.1,
+  "input_tokens": 13120,
+  "output_tokens": 989,
+  "attempts": 1,
+  "task_sha": "8b17bdb6528e21d8"
+ }
+}

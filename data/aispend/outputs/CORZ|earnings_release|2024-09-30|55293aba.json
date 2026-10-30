@@ -1,7 +1,20 @@
 {
  "accession": "CORZ|earnings_release|2024-09-30|55293aba",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 8700000000,
+   "amount_high": 8700000000,
+   "quote": "To date, we have contracted approximately 500 megawatts of revenue generating, critical IT load that we expect to generate a total of $8.7 billion over the life of the contracts.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Cumulative contracted HPC hosting revenue (AI-related workloads per p02) over 12-year contracts, not a single fiscal year; null fiscal_year defaulting to 2025 would misattribute it. A $725 million average annual run rate appears only in slide text in p04, with no complete sentence to quote."
+  },
   {
    "field": "capex",
    "fiscal_year": null,
@@ -12,22 +25,22 @@
    "amount_high": 750000000,
    "quote": "Up to $1.5 million per HPC MW (or approximately $750 million) of data center build out costs are funded by CoreWeave and credited against hosting payments at no more than 50% of monthly fees until fully repaid.",
    "passage": "p04",
-   "confidence": 0.4,
-   "notes": "Amount is an upper bound ('up to') on HPC data center build-out costs funded by the customer (CoreWeave) and credited against hosting payments, not capex funded by Core Scientific itself; the slide says 'Client pays for capex'. The sentence does not say 'AI'; HPC hosting is tied to AI-related workloads only in p02. The build-out spans 1H 2025 to 2H 2026 and the sentence names no year, so fiscal_year is null. Recorded with low confidence; reviewers may prefer to treat this as not company capex."
+   "confidence": 0.5,
+   "notes": "This is a cap ('up to') on HPC data center build-out costs funded by the customer CoreWeave and credited against hosting fees. It is ambiguous whether this counts as the company's own capex. The build-out runs over 1H 2025 to 2H 2026, so no single fiscal year is stated."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes research and development, infrastructure, or headcount operating expenses to AI; the p04 expense footnote describes contract operating costs without linking an amount to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI/HPC"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.6,
-  "input_tokens": 5723,
-  "output_tokens": 1186,
+  "seconds": 12.5,
+  "input_tokens": 6288,
+  "output_tokens": 1491,
   "attempts": 1,
-  "task_sha": "546cb74cfb3322d8"
+  "task_sha": "584f492083722dde"
  }
 }

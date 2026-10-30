@@ -1,0 +1,86 @@
+{
+ "accession": "TSLA|mdna|2022-12-31|89fbe2c0",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Gigafactory New York",
+   "kind": "plant",
+   "status": "contracted",
+   "location": "State of New York",
+   "counterparty": "SUNY Foundation",
+   "amount_low": 5000000000,
+   "amount_high": 5000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In connection with our operations at Gigafactory New York, we have an agreement to spend or incur $5.00 billion in combined capital, operational expenses, costs of goods sold and other costs in the State of New York through December 31, 2029 (pursuant to a deferral of our required timelines to meet such obligations that was granted in April 2021, and which was memorialized in an amendment to our agreement with the SUNY Foundation in August 2021).",
+   "passage": "p02",
+   "confidence": 0.6
+  },
+  {
+   "name": "Gigafactory Shanghai",
+   "kind": "plant",
+   "status": "contracted",
+   "location": "Shanghai",
+   "counterparty": "local government of Shanghai",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We also have an operating lease arrangement with the local government of Shanghai pursuant to which we are required to spend RMB 14.08 billion in capital expenditures at Gigafactory Shanghai by the end of 2023.",
+   "passage": "p02",
+   "confidence": 0.6
+  },
+  {
+   "name": "Gigafactory Texas",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Cash flows from investing activities and their variability across each period related primarily to capital expenditures, which were $7.16 billion for the year ended December 31, 2022 and $6.48 billion for the year ended December 31, 2021, mainly for the expansions of Gigafactory Texas, the Fremont Factory, Gigafactory Berlin-Brandenburg, and Gigafactory Shanghai.",
+   "passage": "p04",
+   "confidence": 0.45
+  },
+  {
+   "name": "Fremont Factory",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Fremont",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Cash flows from investing activities and their variability across each period related primarily to capital expenditures, which were $7.16 billion for the year ended December 31, 2022 and $6.48 billion for the year ended December 31, 2021, mainly for the expansions of Gigafactory Texas, the Fremont Factory, Gigafactory Berlin-Brandenburg, and Gigafactory Shanghai.",
+   "passage": "p04",
+   "confidence": 0.45
+  },
+  {
+   "name": "Gigafactory Berlin-Brandenburg",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Berlin-Brandenburg",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Cash flows from investing activities and their variability across each period related primarily to capital expenditures, which were $7.16 billion for the year ended December 31, 2022 and $6.48 billion for the year ended December 31, 2021, mainly for the expansions of Gigafactory Texas, the Fremont Factory, Gigafactory Berlin-Brandenburg, and Gigafactory Shanghai.",
+   "passage": "p04",
+   "confidence": 0.45
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.0,
+  "input_tokens": 5310,
+  "output_tokens": 1991,
+  "attempts": 1,
+  "task_sha": "4b9a6777574caa11"
+ }
+}

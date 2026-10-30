@@ -1,0 +1,27 @@
+{
+ "accession": "EME|earnings_release|2022-12-31|3be96c9e",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "purchases of property, plant and equipment ($49,289 thousand in 2022) appear only in the cash flow table; no sentence links capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data centers are named only as one of several end markets (p01 credits them, along with semiconductor, water and healthcare projects, for operating margins; p02 lists them among markets with strong demand); no sentence states AI or data-center revenue as an amount or share, or says such revenue drove total revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.4,
+  "input_tokens": 6376,
+  "output_tokens": 735,
+  "attempts": 1,
+  "task_sha": "8de7dd04e4ed8d0c"
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "accession": "AEIS|mdna|2024-12-31|143f2cbc",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 284200000,
+   "amount_high": 284200000,
+   "quote": "Sales in the Data Center Computing market increased $34.3 million, or 13.7%, to $284.2 million, as compared to $249.9 million in the prior year.",
+   "passage": "p04",
+   "confidence": 0.9,
+   "notes": "Data Center Computing market revenue. The sentence names no year, so the reported year (2024) applies; passage context confirms the year ended December 31, 2024."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We expect these factors will continue to support strong demand for the next few quarters.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "'These factors' refers to accelerated AI investments and high-power solution ramps that drive Data Center Computing demand. Horizon is 'the next few quarters', not a named fiscal year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex is described as primarily directed toward manufacturing and operations"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.1,
+  "input_tokens": 5532,
+  "output_tokens": 984,
+  "attempts": 1,
+  "task_sha": "68d52c98ce425bac"
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "accession": "META|earnings_release|2024-03-31|2cba69da",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.1,
+  "input_tokens": 4706,
+  "output_tokens": 49,
+  "attempts": 1,
+  "task_sha": "f8f221b8627fd7c7"
+ }
+}

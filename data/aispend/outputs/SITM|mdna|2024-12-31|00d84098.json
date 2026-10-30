@@ -1,0 +1,27 @@
+{
+ "accession": "SITM|mdna|2024-12-31|00d84098",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex mentions concern the fabless model, supply chain and general growth investing"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, headcount, infrastructure) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "AI datacenters are mentioned only in a product-description sentence (p01); no sentence states AI or datacenter revenue as an amount, share, or driver"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 5663,
+  "output_tokens": 233,
+  "attempts": 1,
+  "task_sha": "1681617d24cb8bf6"
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "accession": "SMCI|earnings_release|2023-06-30|572a6a75",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u201cSupermicro\u2019s record revenue and 37% year-over-year growth for fiscal year 2023 validates our global leadership position in AI accelerated compute platforms,\u201d said Charles Liang, President and CEO of Supermicro.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "The CEO ties total FY2023 revenue growth to AI leadership. The 37% is year-over-year growth of total revenue, not AI's share of revenue, so no AI amount or share is recorded. The link to AI is indirect, which is why confidence is lowered."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.0,
+  "input_tokens": 5847,
+  "output_tokens": 808,
+  "attempts": 1,
+  "task_sha": "e9831d1660cbc6b6"
+ }
+}

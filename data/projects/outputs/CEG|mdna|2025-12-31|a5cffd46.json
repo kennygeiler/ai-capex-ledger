@@ -1,0 +1,56 @@
+{
+ "accession": "CEG|mdna|2025-12-31|a5cffd46",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Crane Clean Energy Center",
+   "kind": "power",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In November 2025, the DOE Office of Energy Dominance Financing issued a guarantee for up to $1.0 billion for an unsecured loan from the Federal Financing Bank to support the restart of the Crane Clean Energy Center.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Clinton Clean Energy Center",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Meta Platforms, Inc.",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2025-06",
+   "in_service": "2027-06",
+   "quote": "In June 2025, we signed a 20-year PPA with Meta Platforms, Inc. (Meta) for the output of the Clinton Clean Energy Center to support Meta\u2019s clean energy goals and operations in the region with emissions-free nuclear energy.",
+   "passage": "p02",
+   "confidence": 0.9
+  },
+  {
+   "name": "Clinton Clean Energy Center uprates",
+   "kind": "power",
+   "status": "announced",
+   "location": null,
+   "counterparty": "Meta Platforms, Inc.",
+   "capacity_mw": 30,
+   "gpus": null,
+   "announced": "2025-06",
+   "in_service": "2029",
+   "quote": "This deal will expand Clinton\u2019s clean energy output by 30 megawatts through plant uprates, expected to be fully complete in 2029, and will enable the Clinton Clean Energy Center to continue to flow power onto the local grid, providing grid reliability and low-cost power to the region for decades to come.",
+   "passage": "p02",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.9,
+  "input_tokens": 9722,
+  "output_tokens": 1341,
+  "attempts": 1,
+  "task_sha": "a2c138cde65bc2a4"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "FLEX|earnings_release|2026-06-26|25e2cdf3",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is company boilerplate; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is company boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the passage describes Flex's data center offerings (boilerplate) but states no AI or data-center revenue figure, share, or attribution"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.8,
+  "input_tokens": 4894,
+  "output_tokens": 217,
+  "attempts": 1,
+  "task_sha": "f354abc087c8f5ac"
+ }
+}

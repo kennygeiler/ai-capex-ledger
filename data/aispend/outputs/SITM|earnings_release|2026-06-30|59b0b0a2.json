@@ -1,0 +1,27 @@
+{
+ "accession": "SITM|earnings_release|2026-06-30|59b0b0a2",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only passage is boilerplate describing the company's MEMS timing products"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only AI mention ('high-growth ones in AI data centers') is a product-description boilerplate listing applications; no sentence states AI or data-center revenue as an amount, share, or driver"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 4887,
+  "output_tokens": 248,
+  "attempts": 1,
+  "task_sha": "6ee6cdddbcaef71b"
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "accession": "T|mdna|2025-12-31|15775050",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "FirstNet",
+   "kind": "network",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "FirstNet",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "These sustainability payments represent our commitment to fund FirstNet\u2019s operating expenses and future reinvestment in the network, which we own and operate.",
+   "passage": "p02",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.2,
+  "input_tokens": 4368,
+  "output_tokens": 564,
+  "attempts": 1,
+  "task_sha": "3921bf2be92992d7"
+ }
+}

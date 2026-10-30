@@ -1,6 +1,6 @@
 {
  "accession": "0001628280-23-010454",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -12,31 +12,7 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 159688000,
-   "confidence": 0.85
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Hosting revenue",
-   "table_id": "t0081",
-   "row_label": "Hosting revenue",
-   "column_label": "Year Ended December 31, | 2021",
-   "cell_text": "79,323",
-   "period_end": "2021-12-31",
-   "months": 12,
-   "value": 79323000,
-   "confidence": 0.85
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Hosting revenue",
-   "table_id": "t0081",
-   "row_label": "Hosting revenue",
-   "column_label": "Year Ended December 31, | 2020",
-   "cell_text": "41,598",
-   "period_end": "2020-12-31",
-   "months": 12,
-   "value": 41598000,
-   "confidence": 0.85
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -48,31 +24,7 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 82829000,
-   "confidence": 0.85
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Equipment sales",
-   "table_id": "t0081",
-   "row_label": "Equipment sales",
-   "column_label": "Year Ended December 31, | 2021",
-   "cell_text": "248,235",
-   "period_end": "2021-12-31",
-   "months": 12,
-   "value": 248235000,
-   "confidence": 0.85
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Equipment sales",
-   "table_id": "t0081",
-   "row_label": "Equipment sales",
-   "column_label": "Year Ended December 31, | 2020",
-   "cell_text": "12,595",
-   "period_end": "2020-12-31",
-   "months": 12,
-   "value": 12595000,
-   "confidence": 0.85
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -88,6 +40,30 @@
   },
   {
    "field": "segment_revenue",
+   "dimension": "Hosting revenue",
+   "table_id": "t0081",
+   "row_label": "Hosting revenue",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "79,323",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 79323000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Equipment sales",
+   "table_id": "t0081",
+   "row_label": "Equipment sales",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "248,235",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 248235000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
    "dimension": "Digital asset mining income",
    "table_id": "t0081",
    "row_label": "Digital asset mining income",
@@ -96,6 +72,30 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 216925000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Hosting revenue",
+   "table_id": "t0081",
+   "row_label": "Hosting revenue",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "41,598",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 41598000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Equipment sales",
+   "table_id": "t0081",
+   "row_label": "Equipment sales",
+   "column_label": "Year Ended December 31, | 2020",
+   "cell_text": "12,595",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 12595000,
    "confidence": 0.9
   },
   {
@@ -124,18 +124,6 @@
   },
   {
    "field": "ppe_category",
-   "dimension": "Land and improvements",
-   "table_id": "t0054",
-   "row_label": "Land and improvements1",
-   "column_label": "December 31, | 2021",
-   "cell_text": "12,995",
-   "period_end": "2021-12-31",
-   "months": 0,
-   "value": 12995000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
    "dimension": "Building and improvements",
    "table_id": "t0054",
    "row_label": "Building and improvements",
@@ -144,6 +132,54 @@
    "period_end": "2022-12-31",
    "months": 0,
    "value": 294480000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer, mining and network equipment",
+   "table_id": "t0054",
+   "row_label": "Computer, mining and network equipment2",
+   "column_label": "December 31, | 2022",
+   "cell_text": "464,823",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 464823000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Electrical equipment",
+   "table_id": "t0054",
+   "row_label": "Electrical equipment3",
+   "column_label": "December 31, | 2022",
+   "cell_text": "170,793",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 170793000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other property, plant and equipment",
+   "table_id": "t0054",
+   "row_label": "Other property, plant and equipment4",
+   "column_label": "December 31, | 2022",
+   "cell_text": "1,513",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 1513000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and improvements",
+   "table_id": "t0054",
+   "row_label": "Land and improvements1",
+   "column_label": "December 31, | 2021",
+   "cell_text": "12,995",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 12995000,
    "confidence": 1.0
   },
   {
@@ -163,35 +199,11 @@
    "dimension": "Computer, mining and network equipment",
    "table_id": "t0054",
    "row_label": "Computer, mining and network equipment2",
-   "column_label": "December 31, | 2022",
-   "cell_text": "464,823",
-   "period_end": "2022-12-31",
-   "months": 0,
-   "value": 464823000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Computer, mining and network equipment",
-   "table_id": "t0054",
-   "row_label": "Computer, mining and network equipment2",
    "column_label": "December 31, | 2021",
    "cell_text": "475,331",
    "period_end": "2021-12-31",
    "months": 0,
    "value": 475331000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Electrical equipment",
-   "table_id": "t0054",
-   "row_label": "Electrical equipment3",
-   "column_label": "December 31, | 2022",
-   "cell_text": "170,793",
-   "period_end": "2022-12-31",
-   "months": 0,
-   "value": 170793000,
    "confidence": 1.0
   },
   {
@@ -211,18 +223,6 @@
    "dimension": "Other property, plant and equipment",
    "table_id": "t0054",
    "row_label": "Other property, plant and equipment4",
-   "column_label": "December 31, | 2022",
-   "cell_text": "1,513",
-   "period_end": "2022-12-31",
-   "months": 0,
-   "value": 1513000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Other property, plant and equipment",
-   "table_id": "t0054",
-   "row_label": "Other property, plant and equipment4",
    "column_label": "December 31, | 2021",
    "cell_text": "1,156",
    "period_end": "2021-12-31",
@@ -234,23 +234,23 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment note (t0081, t0083) reports revenue, cost of revenue and gross profit by segment only; no capital expenditures by segment"
+   "reason": "the segment tables report revenue, cost of revenue and gross profit only; no capital expenditures by segment"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "2021-12-31: no single total cell; the balance sheet (t0036) shows only the components 'Finance lease obligations, current portion' 28,452 and 'Finance lease obligations, net of current portion' 62,145 (sum 90,597 thousand), so no one cell can be cited for the total. 2022-12-31: the finance lease lines in t0066 and t0036 are '\u2014' because the liabilities were reclassified to 'Operating and finance lease liabilities subject to compromise' (84,664), which combines operating and finance leases and so is not a finance-lease-only total"
+   "reason": "no total finance lease liabilities line is given; the lease note shows current and non-current finance lease liabilities as \u2014 at 2022-12-31 (reclassified to liabilities subject to compromise, combined with operating leases), and 2021 is given only as separate current and non-current balance-sheet lines"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or purchase-commitments table is among the tables provided"
+   "reason": "no contractual-obligations or purchase-commitments table is included among the tables provided"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 58.6,
-  "input_tokens": 27526,
-  "output_tokens": 7757,
+  "seconds": 55.4,
+  "input_tokens": 27735,
+  "output_tokens": 8046,
   "attempts": 2,
-  "task_sha": "27deb564959ebd1b"
+  "task_sha": "37f612e602c95ee1"
  }
 }

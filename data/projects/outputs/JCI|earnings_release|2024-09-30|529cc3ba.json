@@ -1,0 +1,13 @@
+{
+ "accession": "JCI|earnings_release|2024-09-30|529cc3ba",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 5491,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "25a4b94aab2ed804"
+ }
+}

@@ -1,0 +1,58 @@
+{
+ "accession": "AAOI|mdna|2024-12-31|f246dd8d",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.595,
+   "quote": "In 2024, we earned 59.5% of our total revenue from the internet data center market and 35.2% of our total revenue from the CATV market.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "Share of total revenue from the internet data center market. The dollar figure ($148,525 thousand) appears only in the p10 table, not in a quotable sentence."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "In 2024, our increase of revenue of 14.6% over the prior-year was driven primarily by increased demand for our internet data center products, which we believe is arising from demand for products necessary for new data center construction along with data center upgrades to enable new technologies like AI, and the demand recovery in the CATV market, offset by the lack of revenue from Non-Recurring Engineering (\"NRE\") projects.",
+   "passage": "p04",
+   "confidence": 0.7,
+   "notes": "Attributes the growth in total revenue partly to data-center demand linked to AI. The 14.6% is the growth rate, not an AI share."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Based on customer forecasts and order backlog we believe that this elevated data center demand will likely continue into 2025.",
+   "passage": "p04",
+   "confidence": 0.7,
+   "notes": "Outlook on data-center demand, not stated as revenue. The same sentence also appears in p11."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p13 mentions capex only as a possible use of offering proceeds"
+  },
+  {
+   "field": "opex",
+   "reason": "the R&D increase is attributed to 800G/1.6T data center products and headcount, but no sentence links operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.3,
+  "input_tokens": 8414,
+  "output_tokens": 1323,
+  "attempts": 1,
+  "task_sha": "bf2ff5568a94179f"
+ }
+}

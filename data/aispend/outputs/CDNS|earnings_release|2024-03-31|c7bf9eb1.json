@@ -1,0 +1,27 @@
+{
+ "accession": "CDNS|earnings_release|2024-03-31|c7bf9eb1",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the purchases of property, plant and equipment line in the cash flow table is not tied to AI, and the 'capital expenditure requirements' mention is risk-factor boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the mention of R&D investments 'including opportunities presented by AI' is forward-looking-statement risk boilerplate"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the Reality Digital Twin Platform bullet describes a product, not revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 7150,
+  "output_tokens": 288,
+  "attempts": 1,
+  "task_sha": "8d7b08c99a3a14ea"
+ }
+}

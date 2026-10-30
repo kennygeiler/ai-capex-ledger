@@ -1,0 +1,27 @@
+{
+ "accession": "NVT|earnings_release|2024-12-31|cb2a41e6",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the passage names data centers as a growth vertical but states no data-center or AI revenue figure or share, and does not attribute revenue to AI demand; general outlook language only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 4851,
+  "output_tokens": 202,
+  "attempts": 1,
+  "task_sha": "0fbb66b171564bc2"
+ }
+}

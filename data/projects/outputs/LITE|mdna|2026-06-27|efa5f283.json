@@ -1,0 +1,13 @@
+{
+ "accession": "LITE|mdna|2026-06-27|efa5f283",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 5895,
+  "output_tokens": 108,
+  "attempts": 1,
+  "task_sha": "0966c4041da82de4"
+ }
+}

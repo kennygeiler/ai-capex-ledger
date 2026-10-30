@@ -1,0 +1,116 @@
+{
+ "ticker": "SMCI",
+ "prompt_version": "attribution@v2",
+ "model": "component_supplier@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The Q2 release names AI only as one of several markets (enterprise, cloud, AI, 5G/Telco), and the MD&A credits enterprise and datacenter customers. No AI amount or share is stated. Server and storage systems ($4.46bn) is a product line, not an AI line.",
+   "confidence": 0.15
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The CEO calls record revenue a validation of AI accelerated compute leadership, and the MD&A ties growth to GPU, HPC and rack-scale demand from datacenter customers. No AI amount or share is stated.",
+   "confidence": 0.25
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A says the increased use of AI 'has substantially increased demand for our products', and the release credits AI infrastructure demand for revenue up 110% to $14.9bn. That $14.9bn is total revenue, not the AI part. No AI share is stated.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A attributes growth to GPU servers and rack-scale solutions. It says GPU & Super Racks billings rose by $5,804.0m (52%), which is an increase, not a level, so it gives no AI revenue amount. No AI share is stated in the filing.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A says Hyper Servers, GPU & Super Racks billings rose by $15,261.5m (83.4%) on GB200/GB300 systems. That is an increase, not a level. The call's 'AI solutions about 60% of fourth-quarter revenue' would support a stated_share row, but it is a quarterly figure and is not in the pack, so no amount is attributed.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2026 MD&A expects 'further demand for data center expansion driven by the AI market'. Q1 FY2027 revenue is estimated at $18.5\u201319.5bn 'primarily due to increased demand for AI platforms', but that is a total, not an AI amount.",
+   "confidence": 0.25
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no reportable segments and no statement attributes capex to AI"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no reportable segments and no statement attributes capex to AI"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "no reportable segments and no statement attributes capex to AI"
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "the release says the Malaysia and Silicon Valley expansions serve 'the growing AI revolution' but gives no amount or AI split; under the thesis that is none"
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "capex of $162m has no AI split and no expansion is stated as being for AI with an amount"
+  },
+  {
+   "field": "opex",
+   "reason": "no segment cost line and no statement attributes opex to AI in any year FY2022\u2013FY2026"
+  },
+  {
+   "field": "revenue",
+   "reason": "no AI revenue amount or share appears in the filings or releases in the pack; the call's ~60% Q4 FY2026 AI share is not a pack item; Server and storage systems is a product segment, not an AI line"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 24.6,
+  "input_tokens": 22289,
+  "output_tokens": 2567,
+  "attempts": 1,
+  "task_sha": "18ae31dedc329c00"
+ }
+}

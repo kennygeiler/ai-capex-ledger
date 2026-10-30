@@ -1,0 +1,13 @@
+{
+ "accession": "CRM|earnings_release|2024-04-30|f0044b73",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "00abf77a23bfd25a"
+ }
+}

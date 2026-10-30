@@ -1,0 +1,116 @@
+{
+ "ticker": "SNPS",
+ "prompt_version": "attribution@v2",
+ "model": "chip_seller@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Synopsys sells design tools and IP. Its segments (Semiconductor & System Design 4,615.7M; Software Integrity 465.8M) have no AI or data-center line, and the company states no AI revenue amount or share. The thesis attributes none to design-tool vendors.",
+   "confidence": 0.8
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Neither segment (Design Automation 3,775.3M; Design IP 1,542.7M) is an AI line, and the company states no AI revenue amount or share. The thesis attributes none to design-tool vendors.",
+   "confidence": 0.8
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The CEO says AI 'continues to drive our customers' investments in silicon and systems' (Q1 FY2024 release), but this is about customer demand in words only. No AI revenue line, amount or share is stated. Segments are Design Automation 4,221.1M and Design IP 1,906.3M, and neither is an AI line.",
+   "confidence": 0.8
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The release names AI among the 'mega trends' that drive growth, in words only. No AI revenue line, amount or share is stated. Segments are Design Automation 5,302.3M and Design IP 1,751.8M, and neither is an AI line.",
+   "confidence": 0.8
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The outlook of $9.715B total revenue 'on continued AI-driven demand strength' covers all revenue, not the AI part (rule 3). No AI amount or share is guided.",
+   "confidence": 0.8
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "No statement gives an AI amount or share of capex. A design-tool vendor's capex (136.6M) funds computers and facilities, not AI infrastructure, and PP&E categories are not AI-specific."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "No statement gives an AI amount or share of capex (189.6M). PP&E categories are not AI-specific."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "No statement gives an AI amount or share of capex (139.5M). PP&E categories are not AI-specific."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "No statement gives an AI amount or share of capex (169.5M). The rise in 'Computer and other equipment' is not stated to be AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "No statement gives an AI amount or share of opex or R&D, and no statement says R&D is AI-driven."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "No statement gives an AI amount or share of opex or R&D, and no statement says R&D is AI-driven."
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "No statement gives an AI amount or share of opex or R&D, and no statement says R&D is AI-driven."
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "No statement gives an AI amount or share of opex or R&D, and no statement says R&D is AI-driven."
+  },
+  {
+   "field": "revenue",
+   "reason": "Synopsys has no AI or data-center revenue line. AI appears only as a demand driver in releases, so the thesis attributes none."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.7,
+  "input_tokens": 16700,
+  "output_tokens": 2000,
+  "attempts": 1,
+  "task_sha": "29ee9c9b160731b4"
+ }
+}

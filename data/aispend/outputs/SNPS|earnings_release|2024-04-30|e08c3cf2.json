@@ -1,0 +1,27 @@
+{
+ "accession": "SNPS|earnings_release|2024-04-30|e08c3cf2",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only boilerplate mention of capital expenditures in a non-GAAP explanation; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "only boilerplate mention of research and development in a non-GAAP explanation; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue or its share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 4966,
+  "output_tokens": 217,
+  "attempts": 1,
+  "task_sha": "75cb01d9e2f08812"
+ }
+}

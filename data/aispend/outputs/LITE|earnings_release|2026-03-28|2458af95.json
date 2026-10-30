@@ -1,0 +1,27 @@
+{
+ "accession": "LITE|earnings_release|2026-03-28|2458af95",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; passages are a company description (p01) and forward-looking-statement boilerplate (p02)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the mention of R&D facilities in p01 is boilerplate"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; p01 describes products serving AI/cloud infrastructure and p02 lists AI/cloud datacenter market expectations only as forward-looking-statement boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 6016,
+  "output_tokens": 264,
+  "attempts": 1,
+  "task_sha": "37c69334734bf4b0"
+ }
+}

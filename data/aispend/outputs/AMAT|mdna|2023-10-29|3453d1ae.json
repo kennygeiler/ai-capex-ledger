@@ -1,0 +1,35 @@
+{
+ "accession": "AMAT|mdna|2023-10-29|3453d1ae",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "In fiscal 2024, we expect advanced foundry and logic demand to be stronger as compared to fiscal 2023 due to increased customer spending in PC, cloud and Artificial Intelligence (AI) data centers as well as customers\u2019 continued investments in new technology.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "Equipment seller; the sentence names AI data-center spending as one of several drivers of stronger foundry/logic demand (a proxy for revenue). It does not state AI's part of revenue, and it covers only foundry/logic demand, not total revenue. Recorded as scope total because AI is only given as a driver."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's own capital expenditures to AI; references to capital equipment spending describe customers' spending (AMAT's revenue)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.6,
+  "input_tokens": 5575,
+  "output_tokens": 724,
+  "attempts": 1,
+  "task_sha": "08ae4e141b6fff97"
+ }
+}

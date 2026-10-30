@@ -1,0 +1,13 @@
+{
+ "accession": "MU|earnings_release|2022-06-02|7e49f838",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.6,
+  "input_tokens": 5977,
+  "output_tokens": 104,
+  "attempts": 1,
+  "task_sha": "35be74e1900a3e3e"
+ }
+}

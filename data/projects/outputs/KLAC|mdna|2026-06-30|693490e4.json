@@ -1,0 +1,13 @@
+{
+ "accession": "KLAC|mdna|2026-06-30|693490e4",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.2,
+  "input_tokens": 5144,
+  "output_tokens": 49,
+  "attempts": 1,
+  "task_sha": "e0f1624727349ac3"
+ }
+}

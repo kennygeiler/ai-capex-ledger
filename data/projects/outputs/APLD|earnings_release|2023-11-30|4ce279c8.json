@@ -1,0 +1,98 @@
+{
+ "accession": "APLD|earnings_release|2023-11-30|4ce279c8",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Garden City, Texas hosting facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Garden City, Texas",
+   "counterparty": null,
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Energized 200 megawatt (\"MW\") hosting facility in Garden City, Texas",
+   "passage": "p01",
+   "confidence": 0.9
+  },
+  {
+   "name": "Ellendale, North Dakota high-performance compute facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Ellendale, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 100,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "During the quarter ended November 30, 2023, the Company broke ground on its first 100 MW high-performance compute facility in Ellendale, North Dakota.",
+   "passage": "p04",
+   "confidence": 0.9
+  },
+  {
+   "name": "Jamestown, North Dakota facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Jamestown, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 106,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "As of November 30, 2023, the Company\u2019s 106 MW facility in Jamestown, North Dakota and 180 MW facility in Ellendale, North Dakota were fully operational.",
+   "passage": "p05",
+   "confidence": 0.9
+  },
+  {
+   "name": "Ellendale, North Dakota hosting facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Ellendale, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 180,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "As of November 30, 2023, the Company\u2019s 106 MW facility in Jamestown, North Dakota and 180 MW facility in Ellendale, North Dakota were fully operational.",
+   "passage": "p05",
+   "confidence": 0.9
+  },
+  {
+   "name": "TerraForm Power Retail Electric Service Agreement for Garden City facility",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Garden City, Texas",
+   "counterparty": "TerraForm Power",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "During the quarter ended November 30, 2023, the Company entered into a long-term Retail Electric Service Agreement with TerraForm Power to provide energy to the Company\u2019s 200 MW Garden City, Texas facility and the Company began energizing the facility.",
+   "passage": "p05",
+   "confidence": 0.85
+  },
+  {
+   "name": "Utah data center capacity in development",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Utah",
+   "counterparty": null,
+   "capacity_mw": 100,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The Company has over 400 MW of capacity in development, including 300 MW in North Dakota and 100 MW in Utah.",
+   "passage": "p04",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.9,
+  "input_tokens": 6261,
+  "output_tokens": 2001,
+  "attempts": 1,
+  "task_sha": "3106be13c331f003"
+ }
+}

@@ -1,0 +1,43 @@
+{
+ "accession": "COHR|earnings_release|2026-03-31|bfc021bf",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.75,
+   "quote": "Revenue Mix Reflects Rapid Growth of Datacenter & Communications Segment* INDUSTRIAL 25% DATACENTER & COMMUNICATIONS INDUSTRIAL 75% DATACENTER & 41% 2%* COMMUNICATIONS",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "Garbled slide text, not a full sentence. Read as Datacenter & Communications = 75% of Q3 FY26 revenue (Industrial 25%, pro forma). This is a single quarter, not the full year. The segment also includes communications, so it is broader than datacenter or AI revenue alone."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "As AI datacenter infrastructure continues to scale, we are rapidly expanding capacity to meet demand.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Capacity expansion implies capital spending but the sentence does not say capital expenditures; AI datacenter scaling is the stated driver. Present tense, no year named."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.2,
+  "input_tokens": 6187,
+  "output_tokens": 1620,
+  "attempts": 1,
+  "task_sha": "a62687adc0bdc035"
+ }
+}

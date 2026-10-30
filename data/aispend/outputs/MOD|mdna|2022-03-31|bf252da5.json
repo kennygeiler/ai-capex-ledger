@@ -1,0 +1,46 @@
+{
+ "accession": "MOD|mdna|2022-03-31|bf252da5",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In addition, sales to data center customers increased $32 million.",
+   "passage": "p05",
+   "confidence": 0.7,
+   "notes": "The sentence states only the year-over-year increase ($32 million) in data center sales, not the level of data-center revenue. It is recorded as qualitative so that the change is not mistaken for the revenue amount."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We expect growth in each of the HVAC and data center markets we serve during fiscal 2023.",
+   "passage": "p04",
+   "confidence": 0.5,
+   "notes": "This is an outlook for growth in the data center markets the company serves, not explicitly for its own data-center revenue. The wording is ambiguous."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "No sentence links capital expenditures to AI or data-center investment. p07 mentions obligations for capital expenditures only generically."
+  },
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.3,
+  "input_tokens": 6151,
+  "output_tokens": 933,
+  "attempts": 1,
+  "task_sha": "d81485af0ce0bc51"
+ }
+}

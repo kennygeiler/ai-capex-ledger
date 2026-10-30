@@ -1,0 +1,27 @@
+{
+ "accession": "SNOW|earnings_release|2024-04-30|8f436ccb",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "purchases of property and equipment and capitalized software appear only in the cash flow table (p02); no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "total and product revenue are reported, but no sentence states an AI or data-center share or amount of revenue; the CEO's remark that AI products are 'generating strong customer interest' is about interest, not revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 5838,
+  "output_tokens": 330,
+  "attempts": 1,
+  "task_sha": "2f90664dcb57efba"
+ }
+}

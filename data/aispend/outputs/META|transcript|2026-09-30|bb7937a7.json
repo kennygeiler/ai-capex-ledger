@@ -1,23 +1,46 @@
 {
  "accession": "META|transcript|2026-09-30|bb7937a7",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Within our Reality Labs segment, Q3 revenue was $443 million, down 6% due to lower Quest headset sales, which were partially offset by continued strong growth in AI glasses revenue.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "The $443 million is total Reality Labs segment revenue, not AI revenue. The sentence states no figure for AI glasses revenue, only 'continued strong growth'. It covers Q3 of fiscal 2026, a quarter rather than a full year, and names no year. It is unclear whether AI glasses count as AI revenue in the sense this prompt means."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "billions of people and building businesses at scale makes us feel good that AI is going to become a meaningful source of revenue diversification over time.",
+   "passage": "p03",
+   "confidence": 0.5,
+   "notes": "The passage starts partway through a sentence, so the quote is the complete text that is available. The outlook is long-term and vague ('over time'), and it names no year or amount."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "p01 gives a total 2026 capital expenditure outlook of $135-145 billion but does not link it to AI, so it is not recorded as a scope-total AI statement; no other sentence links capital expenditures to AI"
+   "reason": "The p02 sentence gives total 2026 capex guidance of $135-145 billion but does not link it to AI, so no sentence attributes capital expenditures to AI. If a total-capex record is wanted anyway, use outlook, scope total, fiscal_year 2026, amount 135000000000-145000000000."
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; p02 discusses inference and GPU-utilization efficiency initiatives, not spend"
+   "reason": "p04 describes work on inference efficiency and GPU utilization but does not quantify or attribute operating expenses to AI."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.5,
-  "input_tokens": 4645,
-  "output_tokens": 489,
+  "seconds": 17.4,
+  "input_tokens": 5063,
+  "output_tokens": 1227,
   "attempts": 1,
-  "task_sha": "7695d3c5349d4e31"
+  "task_sha": "df38f77a329b53aa"
  }
 }

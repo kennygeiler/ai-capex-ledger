@@ -1,0 +1,28 @@
+{
+ "accession": "VZ|mdna|2024-12-31|d2869f03",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Renewable energy purchase agreements (28 agreements)",
+   "kind": "power",
+   "status": "contracted",
+   "location": "multiple states",
+   "counterparty": null,
+   "capacity_mw": 3700,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "As of December 31, 2024, Verizon had 28 renewable energy purchase agreements with third parties for a total of approximately 3.7 gigawatts of anticipated renewable energy capacity across multiple states.",
+   "passage": "p06",
+   "confidence": 0.4
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.6,
+  "input_tokens": 5424,
+  "output_tokens": 683,
+  "attempts": 1,
+  "task_sha": "8a02d955d8e6cd18"
+ }
+}

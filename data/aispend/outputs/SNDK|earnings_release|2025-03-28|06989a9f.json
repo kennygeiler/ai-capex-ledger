@@ -1,0 +1,27 @@
+{
+ "accession": "SNDK|earnings_release|2025-03-28|06989a9f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the passage only defines free cash flow using purchases of property, plant and equipment"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the passage covers non-GAAP tax adjustments and free cash flow definitions only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 5065,
+  "output_tokens": 210,
+  "attempts": 1,
+  "task_sha": "c0a6627a1e227022"
+ }
+}

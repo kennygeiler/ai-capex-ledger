@@ -1,0 +1,35 @@
+{
+ "accession": "ONTO|mdna|2026-01-03|3ff429e6",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Total systems and software revenue decreased $2.6 million for the year ended January 3, 2026, as compared to the year ended December 28, 2024, primarily due to a decrease in units shipped of our inspection product line to customers in support of advanced packaging needs for chips used in AI applications, partially offset by an increase in metrology product line units shipped to customers in Advanced Nodes and units shipped to Semilab USA customers in SiC specialty devices.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "The $2.6 million is the change in total systems and software revenue, not AI revenue. The sentence only names AI advanced-packaging demand as the main driver of the change, so the class is qualitative. The similar fiscal 2024 sentence in p03 is skipped because it describes a prior year, not the reported year or an outlook year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures ($28.5 million) are attributed to ERP systems, facility improvements, demo/testing, manufacturing and network equipment; no sentence links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 5988,
+  "output_tokens": 823,
+  "attempts": 1,
+  "task_sha": "617795f2594ef5d9"
+ }
+}

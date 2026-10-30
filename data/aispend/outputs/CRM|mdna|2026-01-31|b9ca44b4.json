@@ -1,0 +1,46 @@
+{
+ "accession": "CRM|mdna|2026-01-31|b9ca44b4",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We intend to continue to invest additional resources in our AI, agentic and cloud services to allow us to scale with our customers and continue to evolve our security measures.",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "Investment in AI, agentic and cloud services, which the next sentence shows is recorded in cost of revenues (infrastructure). AI is grouped with cloud services and is not separated out; no amount given."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect that research and development expenses will likely remain consistent as a percentage of revenue over time as we continue to invest in the development of new, and improve existing, technologies, including AI, agents and our Data 360 service offerings, and the integration of acquired technologies, including our November 2025 acquisition of Informatica.",
+   "passage": "p04",
+   "confidence": 0.7,
+   "notes": "This is an outlook for total R&D as a percentage of revenue. AI is one of several areas of investment named; no AI-specific amount or share is given."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only data-center references are to restructuring exits (p01, p07)"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue. Informatica's ~$0.4 billion contribution (p02) is acquired-business revenue, and calling Informatica 'AI-powered' describes the product, not AI revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.9,
+  "input_tokens": 5472,
+  "output_tokens": 994,
+  "attempts": 1,
+  "task_sha": "9cdf91ee150becea"
+ }
+}

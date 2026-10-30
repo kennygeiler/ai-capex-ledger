@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|earnings_release|2024-12-31|3f1acbb5",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; mentions of capital expenditures are only in non-GAAP definitions (p05, p08) and forward-looking boilerplate (p09)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only revenue figures are total quarterly revenue ($1.4 billion), bookings, backlog and renewal rental revenue (p01, p07), and none is tied to AI; AI appears only in forward-looking boilerplate ('the potential impact of artificial intelligence and data regulations', p09)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.0,
+  "input_tokens": 15054,
+  "output_tokens": 469,
+  "attempts": 1,
+  "task_sha": "c67e422834e869bb"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "VST|mdna|2024-12-31|9ebd9f88",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are reported for 2024 ($2,078 million) and estimated for 2025 (~$2.275 billion), but no sentence links capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data centers are named only as a driver of expected electricity load growth, and the company mentions discussions on potential long-term power sales to large load facilities; no sentence states an amount, share or attribution of revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.0,
+  "input_tokens": 6081,
+  "output_tokens": 408,
+  "attempts": 1,
+  "task_sha": "12d8492a8107137f"
+ }
+}

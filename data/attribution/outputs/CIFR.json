@@ -1,7 +1,7 @@
 {
  "ticker": "CIFR",
- "prompt_version": "attribution@v1",
- "model": "miner_to_hpc@v1",
+ "prompt_version": "attribution@v2",
+ "model": "miner_to_hpc@v3",
  "rows": [
   {
    "field": "capex",
@@ -11,8 +11,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "Only a Bitcoin Mining segment is reported, and there is no HPC/AI segment capex, no company statement and no GPU/HPC-specific PP&E category in the pack. This is before the HPC pivot, so the row is none, not zero.",
-   "confidence": 0.7
+   "basis": "Consolidated capex of 39.2M in a year with one segment, Bitcoin Mining. No HPC segment, statement or GPU/HPC PP&E category exists, so none of it is attributable to AI.",
+   "confidence": 0.85
   },
   {
    "field": "capex",
@@ -22,8 +22,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "Only a Bitcoin Mining segment is reported (revenue 126.8M equals the company total). There is no HPC/AI segment capex, no statement and no GPU/HPC PP&E category, so the row is none, not zero.",
-   "confidence": 0.7
+   "basis": "Consolidated capex of 20.5M, all in the single Bitcoin Mining segment. The PP&E growth is in miners and leasehold improvements, which are mining assets.",
+   "confidence": 0.85
   },
   {
    "field": "capex",
@@ -33,8 +33,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "There is no HPC/AI segment capex and no AI statement in the pack. Construction-in-progress grew from 0.05M to 82.0M and Land grew, but neither category is HPC-specific; mining sites are built in them too, so they cannot be attributed to AI.",
-   "confidence": 0.6
+   "basis": "Consolidated capex of 139.5M with one Bitcoin Mining segment. The miners and mining equipment category rose 178.6M, which is mining capex and not AI. No HPC line or statement exists.",
+   "confidence": 0.85
   },
   {
    "field": "capex",
@@ -44,8 +44,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "There is no HPC/AI segment capex and no AI statement in the pack. Construction-in-progress (82.0M to 276.5M), Infrastructure (28.2M to 108.8M) and the new Buildings line all grew, likely in part from HPC site build-out, but no PP&E category separates GPU/HPC assets, so nothing can be attributed.",
-   "confidence": 0.5
+   "basis": "Consolidated capex of 487.9M with one Bitcoin Mining segment and no HPC segment capex or stated HPC spend in the pack. Construction-in-progress (82.0M to 276.5M), Infrastructure, Buildings and Land grew, likely partly for the Barber Lake and Black Pearl HPC builds, but these categories are not HPC-specific. The 9 to 11M per critical IT MW estimate times contracted MW would be a reader's calculation, not a stated amount.",
+   "confidence": 0.7
   },
   {
    "field": "opex",
@@ -55,96 +55,93 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "There is no AI/HPC segment cost of revenue and no statement attributing opex to AI. All reported revenue is bitcoin mining.",
-   "confidence": 0.7
+   "basis": "Opex of 39.7M, all bitcoin mining. There is no HPC segment cost line and no AI statement.",
+   "confidence": 0.85
   },
   {
-   "field": "opex",
-   "period": "FY2023",
+   "field": "revenue",
+   "period": "FY2022",
    "kind": "actual",
    "method": "none",
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "There is no AI/HPC segment cost of revenue and no statement attributing opex to AI. All reported revenue is bitcoin mining.",
-   "confidence": 0.7
-  },
-  {
-   "field": "opex",
-   "period": "FY2024",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "There is no AI/HPC segment cost of revenue and no statement attributing opex to AI. The only segment reported is Bitcoin Mining (151.3M, equal to the company total).",
-   "confidence": 0.7
-  },
-  {
-   "field": "opex",
-   "period": "FY2025",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "There is no AI/HPC segment cost of revenue and no statement attributing opex to AI anywhere in the pack. No FY2025 segment data is provided.",
-   "confidence": 0.6
+   "basis": "Revenue of 3.0M, all bitcoin mining. No HPC revenue was recognized; HPC rent starts with Barber Lake Phase I, targeted Q4 2026.",
+   "confidence": 0.9
   }
  ],
  "none_found": [
   {
    "field": "capex",
    "period": "FY2022",
-   "reason": "pre-pivot; only a Bitcoin Mining segment; no HPC segment capex, statement, or GPU/HPC PP&E category"
+   "reason": "single Bitcoin Mining segment; no HPC segment capex, stated AI amount or HPC-specific PP&E category"
   },
   {
    "field": "capex",
    "period": "FY2023",
-   "reason": "pre-pivot; only a Bitcoin Mining segment; no HPC segment capex, statement, or GPU/HPC PP&E category"
+   "reason": "single Bitcoin Mining segment; no HPC segment capex, stated AI amount or HPC-specific PP&E category"
   },
   {
    "field": "capex",
    "period": "FY2024",
-   "reason": "no HPC/AI segment capex or statement; construction-in-progress and land growth are not HPC-specific categories"
+   "reason": "single Bitcoin Mining segment; no HPC segment capex, stated AI amount or HPC-specific PP&E category"
   },
   {
    "field": "capex",
    "period": "FY2025",
-   "reason": "no HPC/AI segment capex or statement in the pack; growth in construction-in-progress, infrastructure and buildings is not separable from mining"
+   "reason": "single Bitcoin Mining segment; HPC build (Barber Lake to Fluidstack, Black Pearl to AWS, 600 MW) is a project, but no segment capex or stated HPC spend for the year is in the pack; construction-in-progress is not HPC-specific"
+  },
+  {
+   "field": "capex",
+   "reason": "no outlook statements and no purchase_commitments or finance_lease_liability facts in the pack, so no outlook or committed rows"
   },
   {
    "field": "opex",
    "period": "FY2022",
-   "reason": "no AI segment cost of revenue and no statement attributing opex to AI"
+   "reason": "no HPC segment cost of revenue; all opex is bitcoin mining"
   },
   {
    "field": "opex",
    "period": "FY2023",
-   "reason": "no AI segment cost of revenue and no statement attributing opex to AI"
+   "reason": "no opex value or HPC segment cost line in the pack"
   },
   {
    "field": "opex",
    "period": "FY2024",
-   "reason": "no AI segment cost of revenue and no statement attributing opex to AI"
+   "reason": "no opex value or HPC segment cost line in the pack"
   },
   {
    "field": "opex",
    "period": "FY2025",
-   "reason": "no AI segment cost of revenue and no statement attributing opex to AI; no FY2025 segment data in the pack"
+   "reason": "no opex value or HPC segment cost line in the pack"
   },
   {
-   "field": "capex",
-   "period": "outlook",
-   "reason": "the pack contains no company statements, so there are no outlook rows"
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "all revenue is bitcoin mining"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "only segment is Bitcoin Mining (126.8M); no HPC revenue line"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "only segment is Bitcoin Mining (151.3M); no HPC revenue line"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "reason": "only segment is Bitcoin Mining (223.9M); no HPC revenue recognized through 2025; the Fluidstack (~3bn plus 830M expansion) and AWS (~5.5bn) lease values are project contract values, not fiscal-year revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 14.7,
-  "input_tokens": 6886,
-  "output_tokens": 1958,
+  "seconds": 20.4,
+  "input_tokens": 17901,
+  "output_tokens": 2354,
   "attempts": 1,
-  "task_sha": "b3ff1ca409d24ec6"
+  "task_sha": "54d8f55fe151c123"
  }
 }

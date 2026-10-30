@@ -1,0 +1,63 @@
+{
+ "accession": "DELL|earnings_release|2026-07-31|7c321c91",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 16400000000,
+   "amount_high": 16400000000,
+   "quote": "That\u2019s clearest in our AI server business where we booked a record $60.9 billion in orders, recognized a record $16.4 billion in revenue and exited the quarter with a record $95 billion backlog.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Quarterly figure (Q2 FY27), not full-year; same figure restated in p03 as AI-Optimized Servers revenue up 100% y/y."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 74000000000,
+   "amount_high": 74000000000,
+   "quote": "AI-Optimized $ 60.0 $ 74.0 200 % Servers revenue",
+   "passage": "p04",
+   "confidence": 0.8,
+   "notes": "Guidance table row, not a sentence; $74.0B is the updated FY27 AI-optimized servers revenue outlook (previous $60.0B), consistent with total revenue updated from $167B to $192B in p02. Column headers are garbled in extraction."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 192000000000,
+   "amount_high": 192000000000,
+   "quote": "With AI momentum accelerating and our opportunity expanding across the portfolio, we\u2019re raising our full-year FY27 revenue outlook by $25 billion to $192 billion, up nearly 70% year over year.",
+   "passage": "p02",
+   "confidence": 1.0,
+   "notes": "Total revenue outlook with AI cited as a driver; not the AI part."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.5,
+  "input_tokens": 5557,
+  "output_tokens": 1505,
+  "attempts": 1,
+  "task_sha": "13ec9659d5a602f3"
+ }
+}

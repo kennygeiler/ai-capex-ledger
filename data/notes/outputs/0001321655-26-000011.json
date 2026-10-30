@@ -1,0 +1,136 @@
+{
+ "accession": "0001321655-26-000011",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0035",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of December 31, | 2025",
+   "cell_text": "98,302",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 98302000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0035",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "85,284",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 85284000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment, software, and other",
+   "table_id": "t0035",
+   "row_label": "Computer equipment, software, and other",
+   "column_label": "As of December 31, | 2025",
+   "cell_text": "77,315",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 77315000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment, software, and other",
+   "table_id": "t0035",
+   "row_label": "Computer equipment, software, and other",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "55,815",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 55815000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0035",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of December 31, | 2025",
+   "cell_text": "15,435",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 15435000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0035",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "13,906",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 13906000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0035",
+   "row_label": "Construction in progress",
+   "column_label": "As of December 31, | 2025",
+   "cell_text": "9,999",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 9999000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0035",
+   "row_label": "Construction in progress",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "7,632",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 7632000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0022",
+   "row_label": "Noncancelable purchase commitments(1)",
+   "column_label": "Payments Due by Period | Total",
+   "cell_text": "1,758,951",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 1758951000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note table with capital expenditures by segment is provided; the only tables under the segment heading are the consolidated income statement and its percentage-of-revenue version"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "tables t0012 and t0013 show consolidated revenue only; no revenue by segment or market appears in the provided tables"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities is provided; the commitments table lists only operating lease commitments"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.7,
+  "input_tokens": 6002,
+  "output_tokens": 1581,
+  "attempts": 1,
+  "task_sha": "18aab0d6c2ef795a"
+ }
+}

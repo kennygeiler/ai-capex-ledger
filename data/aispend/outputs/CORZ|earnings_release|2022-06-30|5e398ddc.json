@@ -1,23 +1,27 @@
 {
  "accession": "CORZ|earnings_release|2022-06-30|5e398ddc",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states capital expenditures or links them to AI; passages describe blockchain data centers and digital asset mining, with guidance only for hashrate, power and fleet size"
+   "reason": "no sentence states capital expenditures or links them to AI; the 'data centers' are blockchain/bitcoin-mining facilities"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; the only AI-adjacent content is a company description, which is boilerplate"
+   "reason": "operating cost increases are attributed to power, depreciation and personnel for bitcoin self-mining and hosting, not AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "$164.0 million is total quarterly revenue from digital asset self-mining and colocation; no sentence states revenue from AI or AI data-center demand"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.7,
-  "input_tokens": 4978,
-  "output_tokens": 207,
+  "seconds": 4.4,
+  "input_tokens": 6210,
+  "output_tokens": 383,
   "attempts": 1,
-  "task_sha": "639c9fb03bc12b10"
+  "task_sha": "192eb47477842881"
  }
 }

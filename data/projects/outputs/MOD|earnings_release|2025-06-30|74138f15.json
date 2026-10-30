@@ -1,0 +1,58 @@
+{
+ "accession": "MOD|earnings_release|2025-06-30|74138f15",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "North America data center products manufacturing capacity expansion",
+   "kind": "plant",
+   "status": "announced",
+   "location": "North America",
+   "counterparty": null,
+   "amount_low": 100000000,
+   "amount_high": 100000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Prioritizing organic growth in Data Centers, with $100 million capacity expansion in North America, including a new facility in Dallas, TX, further expansion in Grenada, MS, and repurposing two existing Performance Technologies sites",
+   "passage": "p08",
+   "confidence": 0.85
+  },
+  {
+   "name": "Dallas, TX data center products manufacturing facility",
+   "kind": "plant",
+   "status": "announced",
+   "location": "Dallas, TX",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Prioritizing organic growth in Data Centers, with $100 million capacity expansion in North America, including a new facility in Dallas, TX, further expansion in Grenada, MS, and repurposing two existing Performance Technologies sites",
+   "passage": "p08",
+   "confidence": 0.75
+  },
+  {
+   "name": "Grenada, MS plant expansion",
+   "kind": "plant",
+   "status": "announced",
+   "location": "Grenada, MS",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Prioritizing organic growth in Data Centers, with $100 million capacity expansion in North America, including a new facility in Dallas, TX, further expansion in Grenada, MS, and repurposing two existing Performance Technologies sites",
+   "passage": "p08",
+   "confidence": 0.75
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.8,
+  "input_tokens": 9804,
+  "output_tokens": 1161,
+  "attempts": 1,
+  "task_sha": "2be0432a05418f09"
+ }
+}

@@ -1,23 +1,74 @@
 {
  "accession": "AMD|earnings_release|2025-12-27|88ccf70b",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 16600000000,
+   "amount_high": 16600000000,
+   "quote": "For the full year 2025, Data Center segment revenue was a record $16.6 billion, up 32% year-over-year, reflecting growth across both EPYC CPUs and AMD Instinct GPUs",
+   "passage": "p03",
+   "confidence": 1.0,
+   "notes": "Full-year Data Center segment revenue; the segment includes server CPUs as well as AI accelerators. The bullet fragment has no terminal period; the quote is copied verbatim."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 5400000000,
+   "amount_high": 5400000000,
+   "quote": "Data Center segment revenue in the quarter was a record $5.4 billion, up 39% year-over-year, driven by strong demand for AMD EPYC\u2122 processors and the continued ramp of AMD Instinct GPU shipments.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Q4 2025 quarterly figure only, not full-year; do not sum it with the full-year $16.6B."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 390000000,
+   "amount_high": 390000000,
+   "quote": "1. Fourth quarter of 2025 results included AMD Instinct MI308 GPU product revenue to China of ~$390 million",
+   "passage": "p12",
+   "confidence": 0.6,
+   "notes": "Q4 2025 quarterly figure for one AI GPU product, sold to China only, and approximate (~). It is a subset of Data Center revenue. The quote is a slide footnote fragment."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u201c2025 was a defining year for AMD, with record revenue and earnings driven by strong execution and broad-based demand for our high-performance and AI platforms,\u201d said Dr. Lisa Su, AMD chair and CEO.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Names AI platforms as one driver of total record revenue, without quantifying AI's part."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; AI mentions are product descriptions, customer/partner announcements, or forward-looking boilerplate"
+   "reason": "no sentence states or links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; p11 notes higher operating expenses in Client and Gaming without linking them to AI, and p06 references operating expense outlook only in cautionary boilerplate"
+   "reason": "operating expenses are reported in total (p15, p16) but no sentence attributes or quantifies any operating expense as AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.7,
-  "input_tokens": 10895,
-  "output_tokens": 276,
+  "seconds": 14.6,
+  "input_tokens": 13396,
+  "output_tokens": 1695,
   "attempts": 1,
-  "task_sha": "6b3b017a26ca758f"
+  "task_sha": "cf6fa43df5c5e42d"
  }
 }

@@ -1,0 +1,27 @@
+{
+ "accession": "VZ|earnings_release|2022-12-31|66a92419",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital spending is attributed to C-Band spectrum build-out and business-as-usual spending; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 4921,
+  "output_tokens": 189,
+  "attempts": 1,
+  "task_sha": "b331298e44baf2ce"
+ }
+}

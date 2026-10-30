@@ -1,0 +1,27 @@
+{
+ "accession": "JCI|earnings_release|2022-06-30|47bb51cf",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only passage is forward-looking-statement boilerplate; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "only passage is forward-looking-statement boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; passage is boilerplate only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 5486,
+  "output_tokens": 203,
+  "attempts": 1,
+  "task_sha": "0bdbba85cf6def7d"
+ }
+}

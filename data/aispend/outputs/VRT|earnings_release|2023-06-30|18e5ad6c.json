@@ -1,0 +1,27 @@
+{
+ "accession": "VRT|earnings_release|2023-06-30|18e5ad6c",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "AI is described only as a growth opportunity and industry tailwind ('incremental opportunities directly related to AI', 'increase the size of the addressable market'); no sentence states what part of Vertiv's revenue comes from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.5,
+  "input_tokens": 5261,
+  "output_tokens": 473,
+  "attempts": 1,
+  "task_sha": "19222a9f864f8784"
+ }
+}

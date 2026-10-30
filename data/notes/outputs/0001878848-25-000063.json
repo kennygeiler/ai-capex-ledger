@@ -1,6 +1,6 @@
 {
  "accession": "0001878848-25-000063",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -12,8 +12,7 @@
    "period_end": "2025-06-30",
    "months": 12,
    "value": 484629000,
-   "confidence": 0.9,
-   "notes": "Revenue line by business (Bitcoin Mining / AI Cloud Services) in an annual statement-of-operations-style table; t0061 is geographic and was not used"
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -25,8 +24,7 @@
    "period_end": "2024-06-30",
    "months": 12,
    "value": 184087000,
-   "confidence": 0.9,
-   "notes": "Revenue line by business; t0061 is geographic and was not used"
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -38,8 +36,7 @@
    "period_end": "2023-06-30",
    "months": 12,
    "value": 75509000,
-   "confidence": 0.9,
-   "notes": "Revenue line by business; t0061 is geographic and was not used"
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -51,8 +48,7 @@
    "period_end": "2025-06-30",
    "months": 12,
    "value": 16394000,
-   "confidence": 0.9,
-   "notes": "Revenue line by business; 2023 cell is '\u2014' and was omitted"
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -64,8 +60,7 @@
    "period_end": "2024-06-30",
    "months": 12,
    "value": 3105000,
-   "confidence": 0.9,
-   "notes": "Revenue line by business"
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -197,8 +192,7 @@
    "period_end": "2025-06-30",
    "months": 0,
    "value": 43000,
-   "confidence": 1.0,
-   "notes": "June 30, 2024 cell is '\u2014' and was omitted"
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -228,23 +222,24 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "No table reports capital expenditures by segment; the provided tables give revenue and cost of revenue by business line only"
+   "reason": "No segment capital expenditure figures appear in the provided tables; the segment-related tables report revenue, cost of revenue and operating items only."
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No lease note table was provided in the extracted tables"
+   "reason": "No lease note or finance lease liability table is included in the provided tables."
   },
   {
    "field": "purchase_commitments",
-   "reason": "No contractual-obligations or commitments table was provided in the extracted tables"
+   "reason": "No contractual-obligations or commitments table is included in the provided tables."
   }
  ],
+ "notes": "segment_revenue taken from t0012 (Bitcoin Mining and AI Cloud Services revenue lines, annual columns); confidence 0.9 because t0012 is laid out like the consolidated income statement rather than a dedicated segment note. AI Cloud Services 2023 ('\u2014') and Leasehold improvements June 30, 2024 ('\u2014') omitted as nil. t0061 is a geographic revenue breakdown, not segments, and t0009 is quarterly, so neither was used.",
  "_run": {
   "model": "claude-opus-5-5",
   "seconds": 18.8,
-  "input_tokens": 7510,
-  "output_tokens": 2728,
+  "input_tokens": 7634,
+  "output_tokens": 2801,
   "attempts": 1,
-  "task_sha": "38e373e8c8f06bad"
+  "task_sha": "0c8f9ae08a6b5bd2"
  }
 }

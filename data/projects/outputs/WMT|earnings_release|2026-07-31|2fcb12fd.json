@@ -1,0 +1,13 @@
+{
+ "accession": "WMT|earnings_release|2026-07-31|2fcb12fd",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "97d133a641808ba5"
+ }
+}

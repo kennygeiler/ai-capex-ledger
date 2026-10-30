@@ -1,0 +1,27 @@
+{
+ "accession": "ONTO|mdna|2022-01-01|b291e77a",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures (purchases of property, plant and equipment) are stated only as totals with no link to AI in any sentence"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, data-center, AI-server or HBM revenue or its share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 5497,
+  "output_tokens": 195,
+  "attempts": 1,
+  "task_sha": "24de24c26c9baa67"
+ }
+}

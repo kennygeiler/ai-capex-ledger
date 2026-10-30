@@ -1,0 +1,13 @@
+{
+ "accession": "LRCX|earnings_release|2024-03-31|dd06c43a",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "b4c09229e10cb0f0"
+ }
+}

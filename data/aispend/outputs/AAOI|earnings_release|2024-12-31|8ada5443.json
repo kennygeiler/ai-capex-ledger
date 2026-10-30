@@ -1,0 +1,42 @@
+{
+ "accession": "AAOI|earnings_release|2024-12-31|8ada5443",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Going forward, we expect to make sizeable capex investments over the next several quarters to prepare for increased datacenter product production in 2025.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "The sentence links planned capex to datacenter product production, not explicitly to AI. 'Next several quarters' names no fiscal year; 2025 refers to production, not to the capex. This is manufacturing capacity for a seller of datacenter optics, not AI infrastructure the company uses itself."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u201cWe are pleased to have generated a solid quarter, driven by strength in both our datacenter and CATV businesses,\u201d said Dr. Thompson Lin, AOI\u2019s Founder, President and Chief Executive Officer.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "The sentence credits Q4 2024 results to datacenter (and CATV) strength without stating a datacenter revenue amount or share. 'Solid quarter' refers to overall results, not revenue specifically. AI is not named."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI or datacenter"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.2,
+  "input_tokens": 6173,
+  "output_tokens": 1371,
+  "attempts": 1,
+  "task_sha": "03dc42b2ec5ac25c"
+ }
+}

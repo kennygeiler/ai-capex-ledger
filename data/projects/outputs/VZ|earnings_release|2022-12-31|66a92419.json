@@ -1,0 +1,30 @@
+{
+ "accession": "VZ|earnings_release|2022-12-31|66a92419",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "C-Band spectrum build-out",
+   "kind": "network",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 10000000000,
+   "amount_high": 10000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2021",
+   "in_service": null,
+   "quote": "C-Band-related investments peaked in 2022, and we expect capital intensity to begin to decline in 2023 with less than $1.8 billion remaining to complete the incremental $10 billion of C-Band-related capital spending that we announced at our 2021 investor day.",
+   "passage": "p02",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.0,
+  "input_tokens": 5215,
+  "output_tokens": 442,
+  "attempts": 1,
+  "task_sha": "f593beba58585fa1"
+ }
+}

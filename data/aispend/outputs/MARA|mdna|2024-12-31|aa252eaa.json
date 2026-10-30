@@ -1,0 +1,35 @@
+{
+ "accession": "MARA|mdna|2024-12-31|aa252eaa",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In 2025, we expect to remain the dominant player in bitcoin mining while expanding our footprint in energy generation and investing in research and development to establish our presence in AI and adjacent markets, creating additional revenue opportunities over the long term.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "R&D investment is linked to establishing a presence in 'AI and adjacent markets'; the sentence gives no amount and does not separate AI from adjacent markets."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the data-center hosting commitments (p05) are for bitcoin mining equipment, not AI, and the edge infrastructure development (p01) is not described as capital spending"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states revenue from AI or data-center demand; p01 only refers to future 'additional revenue opportunities' and hosting revenue relates to mining hosting"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.7,
+  "input_tokens": 5908,
+  "output_tokens": 614,
+  "attempts": 1,
+  "task_sha": "91e5ff2290460223"
+ }
+}

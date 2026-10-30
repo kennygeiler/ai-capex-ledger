@@ -1,0 +1,27 @@
+{
+ "accession": "FCX|mdna|2024-12-31|f294d263",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the expected 2025 capex of $5.0 billion is tied to mining projects (e.g., Grasberg underground development) and downstream processing, not AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p04 cites data centers and AI only as one of several drivers of general copper demand (market-fundamentals commentary); no sentence states AI's or data centers' part of the company's revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.4,
+  "input_tokens": 6737,
+  "output_tokens": 324,
+  "attempts": 1,
+  "task_sha": "a6c00892933dfe47"
+ }
+}

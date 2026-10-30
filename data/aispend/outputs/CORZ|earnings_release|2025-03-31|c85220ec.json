@@ -1,7 +1,20 @@
 {
  "accession": "CORZ|earnings_release|2025-03-31|c85220ec",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 8600000,
+   "amount_high": 8600000,
+   "quote": "Total revenue for the fiscal first quarter of 2025 was $79.5 million, consisting of $67.2 million in Digital asset self-mining revenue, $3.8 million in Digital asset hosted mining revenue and $8.6 million in Colocation (formerly \u201cHPC hosting\u201d) revenue.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Quarterly figure (Q1 fiscal 2025), not full year. Colocation (formerly HPC hosting) is the company's data-center revenue serving AI-related workloads (p03), but this sentence does not say AI. Total revenue of $79.5 million is mostly bitcoin mining."
+  },
   {
    "field": "capex",
    "fiscal_year": null,
@@ -11,23 +24,23 @@
    "amount_low": 104000000,
    "amount_high": 104000000,
    "quote": "For the additional 70 MW expansion, Core Scientific is responsible for funding $104 Million of capex ($1.5M per MW) for the powered core and shell with no capex credit associated with this new agreement.",
-   "passage": "p04",
-   "confidence": 0.6,
-   "notes": "The sentence states capex for the 70 MW CoreWeave high-density colocation expansion. It does not itself say 'AI'. The AI link comes from p01, which describes converting facilities for AI-related workloads under these contracts. The sentence describes a funding commitment with no period stated, so it is recorded as an outlook with no fiscal year. The separate ~$750 Million build-out figure in p04 is funded by CoreWeave, not the company, so it is excluded. Total Q1 2025 purchases of property, plant and equipment ($88.4 million, p02/p05) appear only in the cash-flow tables with no AI link, so they are not recorded."
+   "passage": "p08",
+   "confidence": 0.75,
+   "notes": "This is a capex commitment for the CoreWeave high-density colocation (AI/HPC) expansion. No year is stated, and the spend may fall across more than one fiscal year. The sentence links it to the CoreWeave contract, not to AI explicitly."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 10.8,
-  "input_tokens": 7086,
-  "output_tokens": 1118,
+  "seconds": 16.4,
+  "input_tokens": 8377,
+  "output_tokens": 1730,
   "attempts": 1,
-  "task_sha": "55b67a3dedd13311"
+  "task_sha": "26faab9a5feddc1f"
  }
 }

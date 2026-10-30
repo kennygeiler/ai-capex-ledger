@@ -1,0 +1,75 @@
+{
+ "accession": "MOD|earnings_release|2024-03-31|8751eeb1",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We delivered another year of record sales and adjusted EBITDA, led by our data center business with revenues increasing 69 percent from the prior year.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "69 percent is a year-over-year growth rate of data center revenue, not a share of total revenue or an amount, so recorded as qualitative. The sentence says 'another year', and the fiscal year is taken from the surrounding fiscal 2024 quote."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This increase was driven by higher sales of data center cooling products including the impact from the acquisition of Scott Springfield Manufacturing on March 1, 2024, partially offset by lower sales of heat transfer products.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Refers to fourth-quarter Climate Solutions segment sales, not company total, and names no fiscal year. Data center cooling is cited as the driver."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase was driven by higher sales in both segments, with particularly strong gains in sales of data center products.",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "Refers to the full-year net sales increase given in the preceding sentence ($2,407.8 million). This sentence names no year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Overall, we expect revenue growth to be driven by continued strength in the data center market and growth in other targeted markets, partially offset by lower sales resulting from the impact of Performance Technologies divestitures and other planned reductions.",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "The surrounding context is the fiscal 2025 outlook, but the sentence itself names no year."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Supported by a strong backlog and pipeline, we are adding additional data center manufacturing capacity in the US, Canada and in the UK to ensure that we can meet demand from our customers in the future.",
+   "passage": "p03",
+   "confidence": 0.5,
+   "notes": "The sentence implies capacity investment for data center products, a proxy for AI and data-center demand. It does not use the words 'capital expenditures' and states no amount. Recorded as an ongoing or forward investment."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI or data center"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.6,
+  "input_tokens": 7556,
+  "output_tokens": 1927,
+  "attempts": 1,
+  "task_sha": "4891da7f40e453d2"
+ }
+}

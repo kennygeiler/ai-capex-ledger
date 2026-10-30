@@ -1,0 +1,35 @@
+{
+ "accession": "RIOT|earnings_release|2025-12-31|0452ab5a",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We have successfully commenced operations on the first phase of the lease with AMD, generating revenue for Riot, as of January 2026.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Data-center lease revenue from AMD that began in January 2026, after the reported fiscal year. No amount is stated. The sentence does not explicitly say the lease serves AI workloads. Fiscal_year 2026 comes from 'as of January 2026' in the sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI or data-center buildout; the only mention of capex is generic safe-harbor language"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.8,
+  "input_tokens": 7083,
+  "output_tokens": 705,
+  "attempts": 1,
+  "task_sha": "2f514e040f0a7fd6"
+ }
+}

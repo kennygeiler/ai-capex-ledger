@@ -1,0 +1,27 @@
+{
+ "accession": "SNOW|earnings_release|2025-01-31|1dd4a700",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "product revenue of $943 million is total product revenue, not linked to AI as a driver; 'the most consequential data and AI company' is a description of the company, not a statement of AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.6,
+  "input_tokens": 4911,
+  "output_tokens": 212,
+  "attempts": 1,
+  "task_sha": "72d34f8b03300d67"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "PENG|mdna|2022-08-26|1a7fc01b",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 lists capex focus areas (capacity, R&D, equipment, IT) without mentioning AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.6,
+  "input_tokens": 5197,
+  "output_tokens": 216,
+  "attempts": 1,
+  "task_sha": "84d484ee34e8583a"
+ }
+}

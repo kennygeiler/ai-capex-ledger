@@ -1,0 +1,232 @@
+{
+ "accession": "0001193125-23-259599",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Land and improvements",
+   "table_id": "t0075",
+   "row_label": "Land and improvements",
+   "column_label": "August 31, 2023(1)",
+   "cell_text": "107",
+   "period_end": "2023-08-31",
+   "months": 0,
+   "value": 107000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and improvements",
+   "table_id": "t0075",
+   "row_label": "Land and improvements",
+   "column_label": "August 31, 2022",
+   "cell_text": "108",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 108000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0075",
+   "row_label": "Buildings",
+   "column_label": "August 31, 2023(1)",
+   "cell_text": "1,281",
+   "period_end": "2023-08-31",
+   "months": 0,
+   "value": 1281000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0075",
+   "row_label": "Buildings",
+   "column_label": "August 31, 2022",
+   "cell_text": "1,191",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 1191000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0075",
+   "row_label": "Leasehold improvements",
+   "column_label": "August 31, 2023(1)",
+   "cell_text": "676",
+   "period_end": "2023-08-31",
+   "months": 0,
+   "value": 676000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0075",
+   "row_label": "Leasehold improvements",
+   "column_label": "August 31, 2022",
+   "cell_text": "1,362",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 1362000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0075",
+   "row_label": "Machinery and equipment",
+   "column_label": "August 31, 2023(1)",
+   "cell_text": "4,362",
+   "period_end": "2023-08-31",
+   "months": 0,
+   "value": 4362000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0075",
+   "row_label": "Machinery and equipment",
+   "column_label": "August 31, 2022",
+   "cell_text": "5,627",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 5627000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures and office equipment",
+   "table_id": "t0075",
+   "row_label": "Furniture, fixtures and office equipment",
+   "column_label": "August 31, 2023(1)",
+   "cell_text": "229",
+   "period_end": "2023-08-31",
+   "months": 0,
+   "value": 229000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures and office equipment",
+   "table_id": "t0075",
+   "row_label": "Furniture, fixtures and office equipment",
+   "column_label": "August 31, 2022",
+   "cell_text": "241",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 241000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer hardware and software",
+   "table_id": "t0075",
+   "row_label": "Computer hardware and software",
+   "column_label": "August 31, 2023(1)",
+   "cell_text": "840",
+   "period_end": "2023-08-31",
+   "months": 0,
+   "value": 840000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer hardware and software",
+   "table_id": "t0075",
+   "row_label": "Computer hardware and software",
+   "column_label": "August 31, 2022",
+   "cell_text": "860",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 860000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Transportation equipment",
+   "table_id": "t0075",
+   "row_label": "Transportation equipment",
+   "column_label": "August 31, 2023(1)",
+   "cell_text": "7",
+   "period_end": "2023-08-31",
+   "months": 0,
+   "value": 7000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Transportation equipment",
+   "table_id": "t0075",
+   "row_label": "Transportation equipment",
+   "column_label": "August 31, 2022",
+   "cell_text": "10",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 10000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0075",
+   "row_label": "Construction in progress",
+   "column_label": "August 31, 2023(1)",
+   "cell_text": "147",
+   "period_end": "2023-08-31",
+   "months": 0,
+   "value": 147000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0075",
+   "row_label": "Construction in progress",
+   "column_label": "August 31, 2022",
+   "cell_text": "179",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 179000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0049",
+   "row_label": "Non-cancelable purchase order obligations(4)",
+   "column_label": "Total",
+   "cell_text": "663",
+   "period_end": "2023-08-31",
+   "months": 0,
+   "value": 663000000,
+   "confidence": 0.9
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note table is provided; the segment-section tables are consolidated summaries, non-GAAP reconciliations and deferred taxes with no per-segment capital expenditures"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "no per-segment or per-market revenue table is provided; only consolidated net revenue appears"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "the lease table (t0078) gives only separate current and non-current finance lease liability lines with no total line; the schema rejects a dimension for this field, and citing both cells under a null dimension would mean two cells for one dimension or adding cells, so no single citable value exists"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 37.3,
+  "input_tokens": 15901,
+  "output_tokens": 5578,
+  "attempts": 2,
+  "task_sha": "1637c28c4187e2ae"
+ }
+}

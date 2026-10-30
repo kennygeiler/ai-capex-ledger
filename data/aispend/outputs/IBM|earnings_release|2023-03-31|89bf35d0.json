@@ -1,23 +1,27 @@
 {
  "accession": "IBM|earnings_release|2023-03-31|89bf35d0",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only capital expenditures mention is the definition of free cash flow (net capital expenditures, including the investment in software); no sentence links capital expenditures to AI"
+   "reason": "the passage only defines free cash flow as net of capital expenditures; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; the only expense discussed is workforce rebalancing charges for stranded costs, with no AI link"
+   "reason": "the only operating expense discussed is workforce rebalancing charges for stranded costs; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue or AI's share of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.9,
-  "input_tokens": 5121,
-  "output_tokens": 193,
+  "seconds": 3.1,
+  "input_tokens": 5420,
+  "output_tokens": 214,
   "attempts": 1,
-  "task_sha": "6560277fa7ca00c7"
+  "task_sha": "43504ca03dea2b51"
  }
 }

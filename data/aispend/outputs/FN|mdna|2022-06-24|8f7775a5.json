@@ -1,0 +1,27 @@
+{
+ "accession": "FN|mdna|2022-06-24|8f7775a5",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are described (Chonburi building, equipment for Thailand, PRC and Israel; fiscal 2023 expected to decrease) but no sentence links capex to AI or data-center demand"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no passage states AI, data-center or AI-related revenue as an amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 5467,
+  "output_tokens": 215,
+  "attempts": 1,
+  "task_sha": "eae5419a495ea7c8"
+ }
+}

@@ -1,23 +1,27 @@
 {
  "accession": "CIFR|mdna|2025-12-31|63821ea6",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; passages describe the HPC data center strategy and AI demand (p01, p02) and investment in bitcoin mining equipment (p06), but give no capex amount, share, or AI-linked spend statement"
+   "reason": "no sentence states or attributes capital expenditures to AI; the capital investment mentioned (p06) is in bitcoin mining equipment, and the data center passages (p01, p02) are strategy boilerplate"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; cost of revenue (p08) is power costs driven by bitcoin mining at the Black Pearl Facility"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, HPC or data-center revenue as an amount or share; p05 says revenues historically came primarily from bitcoin mining, and p06 only expects the revenue profile to become more influenced by hyperscaler leases, without naming AI or giving a figure"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.0,
-  "input_tokens": 7505,
-  "output_tokens": 319,
+  "seconds": 8.5,
+  "input_tokens": 7921,
+  "output_tokens": 825,
   "attempts": 1,
-  "task_sha": "3c0e43bcb7eadcf0"
+  "task_sha": "29a9ebe766be3fb8"
  }
 }

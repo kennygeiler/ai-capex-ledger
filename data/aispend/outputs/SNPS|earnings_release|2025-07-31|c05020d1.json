@@ -1,0 +1,27 @@
+{
+ "accession": "SNPS|earnings_release|2025-07-31|c05020d1",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only capex mention (p02) is non-GAAP methodology boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "total Q3 revenue of $1.740 billion is reported, but no sentence states AI or data-center revenue or AI's share of revenue; AI mentions describe customers' AI-powered products (boilerplate)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 5596,
+  "output_tokens": 252,
+  "attempts": 1,
+  "task_sha": "172c2756808d6b43"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "SLNH|mdna|2025-12-31|1641d6ec",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the fiscal 2025 capex of $28.1 million (p07) is given without an AI attribution, the 2024 capex is attributed to D2, and p06's need for additional capital equipment is tied to production, staffing and network improvements, not AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only AI-attributed cost (p04: Cost of High-Performance Computing Services of approximately $5.7 million for AI and HPC processing) is for fiscal 2024, a prior year outside the reported fiscal year 2025 and not an outlook; no sentence quantifies or attributes fiscal 2025 or future operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share; expected Kati 1 revenue (p01) is hosting/Bitcoin mining revenue, and the AI/HPC MOUs (p02, p03) give no revenue figures"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.4,
+  "input_tokens": 6166,
+  "output_tokens": 829,
+  "attempts": 1,
+  "task_sha": "b70a8b62af02ad28"
+ }
+}

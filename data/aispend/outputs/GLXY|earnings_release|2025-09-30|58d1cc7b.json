@@ -1,0 +1,27 @@
+{
+ "accession": "GLXY|earnings_release|2025-09-30|58d1cc7b",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is a segment statement-of-operations table; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the Data Centers segment table lists operating expenses (e.g., total operating expenses 648 thousand for Q3 2025), but no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the Data Centers segment table shows revenues of $2,662 thousand for Q3 2025, all from Lending, but this is a table row rather than a quotable sentence and it is not stated to come from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.6,
+  "input_tokens": 5558,
+  "output_tokens": 432,
+  "attempts": 1,
+  "task_sha": "feb51e04688b3be5"
+ }
+}

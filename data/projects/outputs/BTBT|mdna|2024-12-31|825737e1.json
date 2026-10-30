@@ -1,0 +1,70 @@
+{
+ "accession": "BTBT|mdna|2024-12-31|825737e1",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "MTL 1",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Montreal, Canada",
+   "counterparty": null,
+   "capacity_mw": 4,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Through Enovum, we lease and operate a 4MW AI data center located in Montreal, Canada (\u201cMTL 1\u201d).",
+   "passage": "p01",
+   "confidence": 0.9
+  },
+  {
+   "name": "MTL 2",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Montreal",
+   "counterparty": null,
+   "capacity_mw": 5,
+   "gpus": null,
+   "announced": "2024-12-27",
+   "in_service": "2025-06",
+   "quote": "On December 27, 2024, we announced that we had acquired the real estate and building for a build-to-suit 5MW Tier-3 data center expansion project in Montreal (\u201cMTL 2\u201d).",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "Enovum Data Centers Corp acquisition",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Montreal, Canada",
+   "counterparty": "Enovum Data Centers Corp",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2024-10-11",
+   "in_service": null,
+   "quote": "On October 11, 2024, we significantly expanded our HPC data center operations and capabilities by acquiring Enovum Data Centers Corp (\u201cEnovum\u201d), a Tier-3 HPC data center platform based in Montreal, Canada.",
+   "passage": "p01",
+   "confidence": 0.6
+  },
+  {
+   "name": "Bl\u00f6ndUos Campus",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Iceland",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our initial HPC data center partnership through which we lease capacity is at Bl\u00f6ndUos Campus, Iceland, offering a world-class operations team with certified technicians and reliable engineers.",
+   "passage": "p02",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.7,
+  "input_tokens": 12558,
+  "output_tokens": 1548,
+  "attempts": 1,
+  "task_sha": "2a613d704240c57f"
+ }
+}

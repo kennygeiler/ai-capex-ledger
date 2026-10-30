@@ -1,0 +1,53 @@
+{
+ "accession": "VRT|mdna|2025-12-31|61f372d3",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "These expansions support our ability to deliver critical power infrastructure at scale for data centers and other mission-critical applications amid accelerating demand, particularly driven by AI and high-performance computing workloads.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Capacity expansions since late 2021 (multi-year, not a single fiscal year) attributed to demand driven by AI/HPC; the sentence does not say 'capital expenditures' explicitly."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "With this, we are increasing capacity to support additional demand for AI infrastructure as necessary, and we will continue to invest to support additional growth driven by AI.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Capacity increases and continued investment tied to AI demand; read as capex but the sentence does not name capital expenditures or a year."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We have invested in developing new product, services, and solutions to serve this growing industry.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "Product development investment (likely R&D) for the AI/HPC-driven data center industry; 'this growing industry' refers back to the prior sentence on AI, and the expense type is not stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "seller of data center infrastructure, but no passage states an AI or data-center revenue amount or share; only qualitative demand language"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.8,
+  "input_tokens": 5628,
+  "output_tokens": 1530,
+  "attempts": 1,
+  "task_sha": "f9644268610898a8"
+ }
+}

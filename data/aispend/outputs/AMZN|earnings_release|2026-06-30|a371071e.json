@@ -1,6 +1,6 @@
 {
  "accession": "AMZN|earnings_release|2026-06-30|a371071e",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -11,21 +11,34 @@
    "quote": "This increase primarily reflects investments in artificial intelligence.",
    "passage": "p01",
    "confidence": 0.8,
-   "notes": "Refers to the $66.1 billion year-over-year increase in purchases of property and equipment (net) for the trailing twelve months ended June 30, 2026, stated in the preceding sentence. That figure is an increase in capex, not an AI amount, so no AI amount is derived from it. The sentence names no year and the period is a trailing twelve months rather than a fiscal year. The preceding sentence is truncated at the start of the passage, so it is not quoted."
+   "notes": "Attributes the year-over-year increase ($66.1 billion, trailing twelve months ended June 30, 2026) in purchases of property and equipment primarily to AI. The sentence stating the dollar figure is truncated at the start of the passage, so it cannot be quoted as a complete sentence. The figure is an increase in total capex, not an AI amount."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 25000000000,
+   "amount_high": 25000000000,
+   "quote": "Exceeded a $25 billion annual revenue run rate for AWS\u2019s AI business, growing triple-digit percentages year-over-year.",
+   "passage": "p02",
+   "confidence": 0.75,
+   "notes": "'Exceeded' means $25 billion is a lower bound. The figure is an annualized run rate as of the quarter ended June 30, 2026, not reported fiscal-year revenue. The sentence states AI's part of AWS explicitly, so it is recorded as AI revenue."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; p02 describes a product launch and says nothing about spend"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 10.3,
-  "input_tokens": 4577,
-  "output_tokens": 870,
+  "seconds": 9.3,
+  "input_tokens": 4929,
+  "output_tokens": 1041,
   "attempts": 1,
-  "task_sha": "a619e53c5ef1628d"
+  "task_sha": "d54a3503530a55e8"
  }
 }

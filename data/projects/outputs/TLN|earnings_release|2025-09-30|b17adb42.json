@@ -1,0 +1,42 @@
+{
+ "accession": "TLN|earnings_release|2025-09-30|b17adb42",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Freedom",
+   "kind": "power",
+   "status": "contracted",
+   "location": "PJM power market",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2025-07-17",
+   "in_service": null,
+   "quote": "On July 17, 2025, Talen entered into definitive agreements to acquire Freedom and Guernsey, two highly efficient combined-cycle gas-fired plants totaling approximately 3 GW located within the PJM power market.",
+   "passage": "p02",
+   "confidence": 0.8
+  },
+  {
+   "name": "Guernsey",
+   "kind": "power",
+   "status": "contracted",
+   "location": "PJM power market",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2025-07-17",
+   "in_service": null,
+   "quote": "On July 17, 2025, Talen entered into definitive agreements to acquire Freedom and Guernsey, two highly efficient combined-cycle gas-fired plants totaling approximately 3 GW located within the PJM power market.",
+   "passage": "p02",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.3,
+  "input_tokens": 8138,
+  "output_tokens": 611,
+  "attempts": 1,
+  "task_sha": "c6102a0352b4352b"
+ }
+}

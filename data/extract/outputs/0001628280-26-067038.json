@@ -1,0 +1,152 @@
+{
+ "accession": "0001628280-26-067038",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0062",
+   "row_label": "Net revenue",
+   "column_label": "Fiscal Year Ended August 31, | 2026",
+   "cell_text": "35,954",
+   "period_end": "2026-08-31",
+   "months": 12,
+   "value": 35954000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0062",
+   "row_label": "Net revenue",
+   "column_label": "Fiscal Year Ended August 31, | 2025",
+   "cell_text": "29,802",
+   "period_end": "2025-08-31",
+   "months": 12,
+   "value": 29802000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0062",
+   "row_label": "Net revenue",
+   "column_label": "Fiscal Year Ended August 31, | 2024",
+   "cell_text": "28,883",
+   "period_end": "2024-08-31",
+   "months": 12,
+   "value": 28883000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0062",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Year Ended August 31, | 2026",
+   "cell_text": "32,637",
+   "period_end": "2026-08-31",
+   "months": 12,
+   "value": 32637000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0062",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Year Ended August 31, | 2025",
+   "cell_text": "27,156",
+   "period_end": "2025-08-31",
+   "months": 12,
+   "value": 27156000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0062",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Year Ended August 31, | 2024",
+   "cell_text": "26,207",
+   "period_end": "2024-08-31",
+   "months": 12,
+   "value": 26207000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0062",
+   "row_label": "Operating income",
+   "column_label": "Fiscal Year Ended August 31, | 2026",
+   "cell_text": "1,704",
+   "period_end": "2026-08-31",
+   "months": 12,
+   "value": 1704000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0062",
+   "row_label": "Operating income",
+   "column_label": "Fiscal Year Ended August 31, | 2025",
+   "cell_text": "1,182",
+   "period_end": "2025-08-31",
+   "months": 12,
+   "value": 1182000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0062",
+   "row_label": "Operating income",
+   "column_label": "Fiscal Year Ended August 31, | 2024",
+   "cell_text": "2,013",
+   "period_end": "2024-08-31",
+   "months": 12,
+   "value": 2013000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0065",
+   "row_label": "Acquisition of property, plant and equipment",
+   "column_label": "Fiscal Year Ended August 31, | 2026",
+   "cell_text": "(628)",
+   "period_end": "2026-08-31",
+   "months": 12,
+   "value": 628000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0065",
+   "row_label": "Acquisition of property, plant and equipment",
+   "column_label": "Fiscal Year Ended August 31, | 2025",
+   "cell_text": "(468)",
+   "period_end": "2025-08-31",
+   "months": 12,
+   "value": 468000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0065",
+   "row_label": "Acquisition of property, plant and equipment",
+   "column_label": "Fiscal Year Ended August 31, | 2024",
+   "cell_text": "(784)",
+   "period_end": "2024-08-31",
+   "months": 12,
+   "value": 784000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the income statement has a single total 'Cost of revenue' line."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.8,
+  "input_tokens": 6246,
+  "output_tokens": 1431,
+  "attempts": 1,
+  "task_sha": "664e91b6a15b041f"
+ }
+}

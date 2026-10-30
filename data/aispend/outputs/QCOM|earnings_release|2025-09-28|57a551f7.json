@@ -1,23 +1,27 @@
 {
  "accession": "QCOM|earnings_release|2025-09-28|57a551f7",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "only passage (p01) is forward-looking-statement boilerplate; no sentence states or links capital expenditures to AI"
+   "reason": "no sentence states capital expenditures or links them to AI"
   },
   {
    "field": "opex",
-   "reason": "only passage (p01) is forward-looking-statement boilerplate; no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the CEO mentions 'expansion to data centers' as strategic momentum only; no sentence states an AI or data-center revenue amount or share (QCT, non-Apple, Automotive and IoT figures are not AI revenue)"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.7,
-  "input_tokens": 5480,
-  "output_tokens": 192,
+  "seconds": 4.8,
+  "input_tokens": 5943,
+  "output_tokens": 246,
   "attempts": 1,
-  "task_sha": "50e7faf189c15291"
+  "task_sha": "0d757b8a73c0a7b3"
  }
 }

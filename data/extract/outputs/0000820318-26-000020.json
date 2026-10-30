@@ -1,0 +1,120 @@
+{
+ "accession": "0000820318-26-000020",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Revenues",
+   "column_label": "2026",
+   "cell_text": "7,118,181",
+   "period_end": "2026-06-30",
+   "months": 12,
+   "value": 7118181000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Revenues",
+   "column_label": "2025",
+   "cell_text": "5,810,115",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 5810115000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Revenues",
+   "column_label": "2024",
+   "cell_text": "4,707,688",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 4707688000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Cost of goods sold",
+   "column_label": "2026",
+   "cell_text": "4,449,141",
+   "period_end": "2026-06-30",
+   "months": 12,
+   "value": 4449141000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Cost of goods sold",
+   "column_label": "2025",
+   "cell_text": "3,766,793",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 3766793000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Cost of goods sold",
+   "column_label": "2024",
+   "cell_text": "3,251,724",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 3251724000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0025",
+   "row_label": "Additions to property, plant & equipment",
+   "column_label": "2026",
+   "cell_text": "(1,102,909)",
+   "period_end": "2026-06-30",
+   "months": 12,
+   "value": 1102909000,
+   "confidence": 1.0,
+   "notes": "Purchases of intangible assets is a separate line (7,174) and is not added."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0025",
+   "row_label": "Additions to property, plant & equipment",
+   "column_label": "2025",
+   "cell_text": "(440,836)",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 440836000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0025",
+   "row_label": "Additions to property, plant & equipment",
+   "column_label": "2024",
+   "cell_text": "(346,816)",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 346816000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "operating_income",
+   "reason": "The income statement has no operating income or income (loss) from operations line; it combines operating costs with interest expense, other income, gains and impairments into 'Total Costs, Expenses and Other Expense' and goes straight to 'Earnings (Loss) Before Income Taxes'. Not derived by arithmetic per rule 4."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.1,
+  "input_tokens": 6541,
+  "output_tokens": 1246,
+  "attempts": 1,
+  "task_sha": "aec15c0ba6aaf654"
+ }
+}

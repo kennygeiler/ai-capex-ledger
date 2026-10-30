@@ -1,23 +1,27 @@
 {
  "accession": "COMP|earnings_release|2021-12-31|8e6a2531",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p01 only defines free cash flow as operating cash flow less capital expenditures"
+   "reason": "the only mention of capital expenditures is a free cash flow definition; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.9,
-  "input_tokens": 4509,
-  "output_tokens": 172,
+  "seconds": 3.1,
+  "input_tokens": 4812,
+  "output_tokens": 178,
   "attempts": 1,
-  "task_sha": "169c02c7a00bef5f"
+  "task_sha": "0335e1427596715f"
  }
 }

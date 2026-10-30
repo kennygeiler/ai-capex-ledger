@@ -1,23 +1,37 @@
 {
  "accession": "NVDA|earnings_release|2025-10-26|5b5e8310",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 51200000000,
+   "amount_high": 51200000000,
+   "quote": "Data Center revenue for the third quarter was a record $51.2 billion, up 66% from a year ago and up 25% sequentially, driven by three platform shifts - accelerated computing, powerful AI models, and agentic applications.",
+   "passage": "p10",
+   "confidence": 0.9,
+   "notes": "Quarterly figure (Q3 fiscal 2026, quarter ended 2025-10-26), not full-year. The same figure appears in the p01 bullet. p11 gives the components, Data Center compute revenue of $43.0 billion and Networking revenue of $8.2 billion. These are not recorded separately to avoid double counting."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes NVIDIA's own capital expenditures to AI; passages cover revenue, customer partnerships, gross margin and financing cash flows only"
+   "reason": "no sentence links capital expenditures to AI; the cash-flow table in p09 gives no AI attribution"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes NVIDIA's operating expenses (R&D, infrastructure, headcount) to AI; AI mentions describe products sold and customer deployments"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.6,
-  "input_tokens": 5902,
-  "output_tokens": 211,
+  "seconds": 8.6,
+  "input_tokens": 6254,
+  "output_tokens": 852,
   "attempts": 1,
-  "task_sha": "7b161ba3a933634a"
+  "task_sha": "fabb2992371cfdd4"
  }
 }

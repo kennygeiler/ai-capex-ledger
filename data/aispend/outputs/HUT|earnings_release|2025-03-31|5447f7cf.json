@@ -1,0 +1,27 @@
+{
+ "accession": "HUT|earnings_release|2025-03-31|5447f7cf",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only candidate is $16.1 million of Compute revenue (p01, p02), which combines Bitcoin Mining with GPU-as-a-Service and Data Center Cloud; no sentence states the AI or data-center part on its own"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.9,
+  "input_tokens": 6354,
+  "output_tokens": 506,
+  "attempts": 1,
+  "task_sha": "12b4acb305e4c5f7"
+ }
+}

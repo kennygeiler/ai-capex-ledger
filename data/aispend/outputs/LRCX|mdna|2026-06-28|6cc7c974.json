@@ -1,0 +1,27 @@
+{
+ "accession": "LRCX|mdna|2026-06-28|6cc7c974",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; passages mention capital expenditures only in general liquidity, free-cash-flow and purchase-obligation context"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p01 mentions R&D investment only in general liquidity terms"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, data-center or AI-driven demand as an amount or share of revenue in the provided passages"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 5686,
+  "output_tokens": 248,
+  "attempts": 1,
+  "task_sha": "5ea94222ea660a3a"
+ }
+}

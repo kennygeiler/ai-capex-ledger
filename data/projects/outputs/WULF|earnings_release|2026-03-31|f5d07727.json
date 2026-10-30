@@ -1,0 +1,13 @@
+{
+ "accession": "WULF|earnings_release|2026-03-31|f5d07727",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 4392,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "a6dfb60bd9c81ece"
+ }
+}

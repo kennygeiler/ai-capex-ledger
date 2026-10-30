@@ -1,7 +1,46 @@
 {
  "accession": "IREN|earnings_release|2025-12-31|01d8c123",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 17300000,
+   "amount_high": 17300000,
+   "quote": "AI Cloud Services Revenue 17.3 7.3",
+   "passage": "p07",
+   "confidence": 0.7,
+   "notes": "Table row from the Consolidated Statement of Operations rather than a sentence. $17.3m is for the quarter ended December 31, 2025 (Q2 FY26), not the full fiscal year; $7.3m is the prior quarter (Q1 FY26). Total revenue for the quarter was $184.7m."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3400000000,
+   "amount_high": 3400000000,
+   "quote": "Targeted 140k GPU expansion on track to deliver $3.4bn ARR by end of CY26",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Highlight bullet rather than a full sentence. Annualized run-rate (ARR) target for AI Cloud, not reported fiscal-year revenue. 'CY26' is calendar 2026; IREN's fiscal year ends June 30, so end of CY26 falls within fiscal 2027. Footnote 2 (p04) breaks it down as $1.94bn expected average annual revenue from the Microsoft contract plus an estimated $1.5bn from British Columbia, and says it is not fully contracted."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 400000000,
+   "amount_high": 400000000,
+   "quote": "British Columbia AI Cloud expansion ongoing, with ~$0.4bn ARR now under contract for Prince George and remaining contract negotiations supporting >$0.5bn ARR3",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Highlight bullet. The ~$0.4bn is contracted annualized AI Cloud run-rate at Prince George; per footnote 3 it includes amounts not yet generating revenue. The '3' at the end is a footnote marker. The >$0.5bn figure is under negotiation and is not recorded. This is part of the $3.4bn ARR target, not in addition to it."
+  },
   {
    "field": "capex",
    "fiscal_year": null,
@@ -11,21 +50,21 @@
    "quote": "Together with Microsoft prepayment ($1.9bn) covers 95% of GPU-related capex",
    "passage": "p01",
    "confidence": 0.5,
-   "notes": "Bullet fragment, not a full sentence. It refers to GPU-related (AI Cloud) capex for the Microsoft contract but gives no capex amount. 95% is the share of that capex covered by financing, not a share of capex going to AI, so it is recorded as qualitative. The $3.6bn financing and $1.9bn prepayment are funding sources, not capex amounts, and are not used to derive one. No year is stated in the sentence."
+   "notes": "Refers to GPU (AI) capex for the Microsoft contract, but no capex amount is stated. The 95% is the share of that capex covered by funding ($3.6bn GPU financing plus the $1.9bn prepayment), not the AI share of capex. Recorded as qualitative; no figure is derived."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI. AI Cloud Services cost of revenue appears only as a quarterly table line item, not as a statement about AI spend."
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the mining hardware impairments tied to the ASIC-to-GPU transition are impairments, not AI opex"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.9,
-  "input_tokens": 11311,
-  "output_tokens": 1047,
+  "seconds": 22.5,
+  "input_tokens": 11612,
+  "output_tokens": 2644,
   "attempts": 1,
-  "task_sha": "3ddc6f67ab7ab6fb"
+  "task_sha": "9167d09d6da05415"
  }
 }

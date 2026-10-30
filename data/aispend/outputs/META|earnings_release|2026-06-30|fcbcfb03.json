@@ -1,23 +1,27 @@
 {
  "accession": "META|earnings_release|2026-06-30|fcbcfb03",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "p01 gives a 2026 total capital expenditures outlook ($130-145 billion) but no sentence links capital expenditures to AI"
+   "reason": "p01 gives a total 2026 capex outlook ($130-145 billion) but does not mention AI as a reason or driver, so it does not qualify even as scope: total; p02 is non-GAAP free cash flow methodology boilerplate"
   },
   {
    "field": "opex",
    "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.5,
-  "input_tokens": 4651,
-  "output_tokens": 275,
+  "seconds": 6.0,
+  "input_tokens": 4950,
+  "output_tokens": 405,
   "attempts": 1,
-  "task_sha": "542130841bc228a3"
+  "task_sha": "e308a3538aa65525"
  }
 }

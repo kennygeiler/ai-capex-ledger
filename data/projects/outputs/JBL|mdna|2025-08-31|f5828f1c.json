@@ -1,0 +1,13 @@
+{
+ "accession": "JBL|mdna|2025-08-31|f5828f1c",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 5293,
+  "output_tokens": 50,
+  "attempts": 1,
+  "task_sha": "056f6a95e2ee2b1a"
+ }
+}

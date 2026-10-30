@@ -1,23 +1,44 @@
 {
  "accession": "CORZ|earnings_release|2026-06-30|191065f6",
- "prompt_version": "aispend@v3",
- "statements": [],
- "none_found": [
+ "prompt_version": "aispend@v4",
+ "statements": [
   {
-   "field": "capex",
-   "reason": "no sentence links capital expenditures to AI. The cash flow table (p04) gives purchases of PP&E and land acquisitions with no AI attribution. The p09 sentence on funding $104 Million of capex for the 70 MW CoreWeave expansion's powered core and shell does not mention AI. p02 and p08 describe the AI colocation business, which is business description and not spend."
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The majority of the Company's revenue is derived from high-density colocation services, with the remainder derived from earning digital assets for the Company's own account and from digital asset mining hosting services.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "High-density colocation is the company's data-center business serving AI workloads (per the preceding sentence). 'The majority' is wording only, so this is qualitative and not a share."
   },
   {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 104000000,
+   "amount_high": 104000000,
+   "quote": "For the additional 70 MW expansion, Core Scientific is responsible for funding $104 Million of capex ($1.5M per MW) for the powered core and shell with no capex credit associated with this new agreement.",
+   "passage": "p10",
+   "confidence": 0.6,
+   "notes": "Committed capex for the CoreWeave HDC expansion. The sentence does not say 'AI'; the AI link comes from the CoreWeave/HDC context. No year is stated, and the timing of the spend is unclear."
+  }
+ ],
+ "none_found": [
+  {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI. p05 mentions colocation startup costs only as an Adjusted EBITDA adjustment definition, with no AI link or amount."
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.9,
-  "input_tokens": 9922,
-  "output_tokens": 514,
+  "seconds": 14.4,
+  "input_tokens": 10505,
+  "output_tokens": 1427,
   "attempts": 1,
-  "task_sha": "9c8427b22fc25874"
+  "task_sha": "842accfdb464303a"
  }
 }

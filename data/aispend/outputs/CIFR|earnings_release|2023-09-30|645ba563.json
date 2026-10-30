@@ -1,23 +1,27 @@
 {
  "accession": "CIFR|earnings_release|2023-09-30|645ba563",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the only spend mentioned (S21 rig purchase for $14/TH, Black Pearl site acquisition) relates to bitcoin mining, not AI"
+   "reason": "capex mentioned (S21 mining rig purchase, Black Pearl site acquisition) relates to bitcoin mining only; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; passages are safe-harbor boilerplate and bitcoin-mining growth updates"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; electricity costs relate to bitcoin mining"
+  },
+  {
+   "field": "revenue",
+   "reason": "bitcoin miner; 'data centers' here are bitcoin mining facilities, and no sentence states AI or data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.4,
-  "input_tokens": 6314,
-  "output_tokens": 209,
+  "seconds": 4.3,
+  "input_tokens": 7029,
+  "output_tokens": 296,
   "attempts": 1,
-  "task_sha": "b17972caa93a42c4"
+  "task_sha": "8000e1c0f9d0da8e"
  }
 }

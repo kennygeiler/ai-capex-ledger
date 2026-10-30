@@ -1,6 +1,6 @@
 {
  "accession": "IBM|mdna|2025-12-31|3d2f9513",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "474df6640a56b1c5"
+  "task_sha": "1eb98f3faeb7e782"
  }
 }

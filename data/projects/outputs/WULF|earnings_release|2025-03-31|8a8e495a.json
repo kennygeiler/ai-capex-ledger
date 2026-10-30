@@ -1,0 +1,100 @@
+{
+ "accession": "WULF|earnings_release|2025-03-31|8a8e495a",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Core42 HPC hosting data halls at Lake Mariner",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Lake Mariner",
+   "counterparty": "Core42",
+   "amount_low": 430000000,
+   "amount_high": 430000000,
+   "capacity_mw": 72.5,
+   "gpus": null,
+   "announced": "2024-12-23",
+   "in_service": "2025",
+   "quote": "Commenced buildout of dedicated HPC data halls and remain on track to deliver 72.5 MW of gross HPC hosting infrastructure to Core42 in 2025.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "WULF Den",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Lake Mariner",
+   "counterparty": "Core42",
+   "capacity_mw": 2.5,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "Estimated Project Financing assumes that ~70% of total project costs for Wulf Den, CB-1 and CB-2 are financed.",
+   "passage": "p14",
+   "confidence": 0.7
+  },
+  {
+   "name": "CB-1",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Lake Mariner",
+   "counterparty": "Core42",
+   "capacity_mw": 20,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "Estimated Project Financing assumes that ~70% of total project costs for Wulf Den, CB-1 and CB-2 are financed.",
+   "passage": "p14",
+   "confidence": 0.7
+  },
+  {
+   "name": "CB-2",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Lake Mariner",
+   "counterparty": "Core42",
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "Estimated Project Financing assumes that ~70% of total project costs for Wulf Den, CB-1 and CB-2 are financed.",
+   "passage": "p14",
+   "confidence": 0.7
+  },
+  {
+   "name": "Additional HPC capacity at Lake Mariner (200\u2013250 MW target)",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Lake Mariner",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "Initiated process to secure additional HPC customers; targeting 200\u2013250 MW operational by year-end 2026.",
+   "passage": "p01",
+   "confidence": 0.6
+  },
+  {
+   "name": "Lake Mariner facility electrical expansion to 500 MW",
+   "kind": "power",
+   "status": "announced",
+   "location": "Lake Mariner",
+   "counterparty": null,
+   "capacity_mw": 500,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Includes electrical capital expenditures required to expand the Lake Mariner facility to 500 MW.",
+   "passage": "p09",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 39.4,
+  "input_tokens": 30866,
+  "output_tokens": 4394,
+  "attempts": 2,
+  "task_sha": "b236975d39d344d4"
+ }
+}

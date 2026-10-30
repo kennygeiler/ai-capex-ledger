@@ -1,0 +1,238 @@
+{
+ "accession": "0000820318-25-000014",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Networking",
+   "table_id": "t0031",
+   "row_label": "Total Revenues",
+   "column_label": "Year Ended June 30, 2025 | Networking",
+   "cell_text": "3,421,276",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 3421276000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Materials",
+   "table_id": "t0031",
+   "row_label": "Total Revenues",
+   "column_label": "Year Ended June 30, 2025 | Materials",
+   "cell_text": "953,843",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 953843000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Lasers",
+   "table_id": "t0031",
+   "row_label": "Total Revenues",
+   "column_label": "Year Ended June 30, 2025 | Lasers",
+   "cell_text": "1,434,996",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 1434996000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Networking",
+   "table_id": "t0013",
+   "row_label": "Revenues",
+   "column_label": "Year EndedJune 30, | 2024",
+   "cell_text": "2,296",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 2296000000,
+   "confidence": 0.8,
+   "notes": "Segment not named in table; attributed to Networking because the 2025 column (3,421) matches Networking revenue in t0031."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Materials",
+   "table_id": "t0014",
+   "row_label": "Revenues",
+   "column_label": "Year EndedJune 30, | 2024",
+   "cell_text": "1,017",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 1017000000,
+   "confidence": 0.8,
+   "notes": "Segment not named in table; attributed to Materials because the 2025 column (954) matches Materials revenue in t0031."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Lasers",
+   "table_id": "t0015",
+   "row_label": "Revenues",
+   "column_label": "Year EndedJune 30, | 2024",
+   "cell_text": "1,395",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 1395000000,
+   "confidence": 0.8,
+   "notes": "Segment not named in table; attributed to Lasers because the 2025 column (1,435) matches Lasers revenue in t0031."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Networking",
+   "table_id": "t0017",
+   "row_label": "Revenues",
+   "column_label": "Year EndedJune 30, | 2023",
+   "cell_text": "2,341",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 2341000000,
+   "confidence": 0.75,
+   "notes": "Segment not named in table; attributed to Networking because the 2024 column (2,296) matches Networking 2024 revenue in t0013."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Lasers",
+   "table_id": "t0019",
+   "row_label": "Revenues",
+   "column_label": "Year EndedJune 30, | 2023",
+   "cell_text": "1,469",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 1469000000,
+   "confidence": 0.75,
+   "notes": "Segment not named in table; attributed to Lasers because the 2024 column (1,395) matches Lasers 2024 revenue in t0015. No Materials 2023 table was provided."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0035",
+   "row_label": "Land and land improvements",
+   "column_label": "2025",
+   "cell_text": "59,543",
+   "period_end": "2025-06-30",
+   "months": 0,
+   "value": 59543000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0035",
+   "row_label": "Buildings and improvements",
+   "column_label": "2025",
+   "cell_text": "881,578",
+   "period_end": "2025-06-30",
+   "months": 0,
+   "value": 881578000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0035",
+   "row_label": "Machinery and equipment",
+   "column_label": "2025",
+   "cell_text": "2,188,509",
+   "period_end": "2025-06-30",
+   "months": 0,
+   "value": 2188509000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0035",
+   "row_label": "Construction in progress",
+   "column_label": "2025",
+   "cell_text": "363,129",
+   "period_end": "2025-06-30",
+   "months": 0,
+   "value": 363129000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0035",
+   "row_label": "Land and land improvements",
+   "column_label": "2024",
+   "cell_text": "66,156",
+   "period_end": "2024-06-30",
+   "months": 0,
+   "value": 66156000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0035",
+   "row_label": "Buildings and improvements",
+   "column_label": "2024",
+   "cell_text": "774,991",
+   "period_end": "2024-06-30",
+   "months": 0,
+   "value": 774991000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0035",
+   "row_label": "Machinery and equipment",
+   "column_label": "2024",
+   "cell_text": "2,034,310",
+   "period_end": "2024-06-30",
+   "months": 0,
+   "value": 2034310000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0035",
+   "row_label": "Construction in progress",
+   "column_label": "2024",
+   "cell_text": "398,884",
+   "period_end": "2024-06-30",
+   "months": 0,
+   "value": 398884000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Finance lease right-of-use asset",
+   "table_id": "t0035",
+   "row_label": "Finance lease right-of-use asset",
+   "column_label": "2024",
+   "cell_text": "25,000",
+   "period_end": "2024-06-30",
+   "months": 0,
+   "value": 25000000,
+   "confidence": 0.9,
+   "notes": "Listed as a gross PP&E line within the table, though it is a lease ROU asset rather than an owned asset category; 2025 cell is '\u2014'."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "The segment note (t0060) reports revenues, costs and segment profit only; no capital expenditures by segment are given."
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "The lease table (t0053) reports lease costs, cash flows, terms and discount rates only; no finance lease liability balances are shown."
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "No contractual-obligations or commitments table was provided."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 26.1,
+  "input_tokens": 7576,
+  "output_tokens": 3648,
+  "attempts": 1,
+  "task_sha": "225483629e0e52df"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "TER|mdna|2022-12-31|35235fc9",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "passages state purchases of property, plant and equipment ($163.2 million in 2022, $132.5 million in 2021) but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "passages cover only investing cash flows; no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.8,
+  "input_tokens": 4974,
+  "output_tokens": 204,
+  "attempts": 1,
+  "task_sha": "756f3423c23fb0dc"
+ }
+}

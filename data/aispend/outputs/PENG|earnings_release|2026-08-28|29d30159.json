@@ -1,0 +1,27 @@
+{
+ "accession": "PENG|earnings_release|2026-08-28|29d30159",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; passages are a CFO-hire quote, forward-looking-statement boilerplate and a company description"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share; references to AI infrastructure are company descriptions and boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 6176,
+  "output_tokens": 218,
+  "attempts": 1,
+  "task_sha": "bebc3c03b7ff211e"
+ }
+}

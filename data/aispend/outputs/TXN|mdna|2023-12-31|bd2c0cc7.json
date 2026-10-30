@@ -1,23 +1,27 @@
 {
  "accession": "TXN|mdna|2023-12-31|bd2c0cc7",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; capex discussion cites manufacturing and technology capacity planning and the CHIPS Act, not AI"
+   "reason": "capital expenditures are discussed only in terms of manufacturing and technology capacity and the CHIPS Act; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, data-center, AI-server or HBM revenue as an amount or share of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.3,
-  "input_tokens": 4745,
-  "output_tokens": 180,
+  "seconds": 3.3,
+  "input_tokens": 5048,
+  "output_tokens": 218,
   "attempts": 1,
-  "task_sha": "97c2eb4c16c4b1f7"
+  "task_sha": "61b7f8e4c5066e38"
  }
 }

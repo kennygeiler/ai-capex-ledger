@@ -1,0 +1,46 @@
+{
+ "accession": "GLXY|earnings_release|2025-09-30|689fb35d",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1700000000,
+   "amount_high": 1700000000,
+   "quote": "Galaxy secured a $1.4 billion project financing facility, fully funding the $1.7 billion Phase I build at Helios.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "Total cost of the Phase I build of the Helios data center, which other passages (p01, p03, p13) describe as being for CoreWeave's AI/HPC operations. The sentence does not use the word 'capital expenditures' or name AI. It is a multi-project cost spanning 2025 through 1H26 (delivery expected 1H26), not a single fiscal-year figure. A null year will default to 2026, which overstates the precision of that year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1000000000,
+   "amount_high": 1000000000,
+   "quote": "CoreWeave, as our anchor tenant, has committed to a total of 526 MW of critical IT capacity for a period of 15 years, generating an anticipated average annual revenue of over $1B for the combined three phases.",
+   "passage": "p13",
+   "confidence": 0.6,
+   "notes": "'Over $1B' is recorded as a lower bound. This is anticipated average annual lease revenue over a 15-year term from AI/HPC data center capacity, once all three phases are fully operational (Phase III starts in 2028). It is not revenue for a specific fiscal year, so a null year defaulting to 2026 would be misleading. Reported Q3 2025 Data Centers segment revenue ($2.662M) appears only in a table (p07), not in a sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.0,
+  "input_tokens": 16824,
+  "output_tokens": 1775,
+  "attempts": 1,
+  "task_sha": "69d134fd6a87d87b"
+ }
+}

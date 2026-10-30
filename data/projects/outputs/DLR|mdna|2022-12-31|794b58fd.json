@@ -1,0 +1,13 @@
+{
+ "accession": "DLR|mdna|2022-12-31|794b58fd",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.6,
+  "input_tokens": 8006,
+  "output_tokens": 111,
+  "attempts": 1,
+  "task_sha": "924200c1c2375468"
+ }
+}

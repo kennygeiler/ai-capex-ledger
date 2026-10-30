@@ -1,0 +1,13 @@
+{
+ "accession": "CLSK|earnings_release|2024-09-30|d12cbbf9",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.6,
+  "input_tokens": 4905,
+  "output_tokens": 106,
+  "attempts": 1,
+  "task_sha": "b4255f807a18bcee"
+ }
+}

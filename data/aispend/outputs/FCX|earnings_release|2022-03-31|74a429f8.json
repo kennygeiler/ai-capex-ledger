@@ -1,0 +1,27 @@
+{
+ "accession": "FCX|earnings_release|2022-03-31|74a429f8",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "FCX is a copper and gold miner; capital expenditures are for mining projects and Indonesia smelter projects, and no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "revenue comes from copper, gold and molybdenum sales; no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.6,
+  "input_tokens": 12672,
+  "output_tokens": 218,
+  "attempts": 1,
+  "task_sha": "1b310411e1984316"
+ }
+}

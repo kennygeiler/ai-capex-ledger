@@ -1,0 +1,35 @@
+{
+ "accession": "AMAT|mdna|2024-10-27|12a65211",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Investments by semiconductor equipment customers are expected to remain strong with growth in the adoption of high-bandwidth memory and other forms of advanced packaging, continued demand for AI and data center computing, and for non-leading edge nodes.",
+   "passage": "p03",
+   "confidence": 0.5,
+   "notes": "The sentence is about customers' equipment spending, which is the source of AMAT's Semiconductor Systems revenue. It names AI and data center demand as one of several drivers, but it does not state AMAT's revenue directly or give any AI portion. No year is named, so code applies the year after fiscal 2024."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's own capital expenditures to AI; references to capital equipment describe customers' spending on AMAT's products"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.0,
+  "input_tokens": 5712,
+  "output_tokens": 718,
+  "attempts": 1,
+  "task_sha": "5b96af98946f73f5"
+ }
+}

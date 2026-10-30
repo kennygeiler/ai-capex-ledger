@@ -1,0 +1,27 @@
+{
+ "accession": "SLNH|earnings_release|2022-09-30|ad810464",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only boilerplate company description; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "only boilerplate company description; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the mention of AI and machine learning describes what the data centers serve (boilerplate); no sentence states an AI or data-center revenue amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.3,
+  "input_tokens": 4918,
+  "output_tokens": 210,
+  "attempts": 1,
+  "task_sha": "1e42e16cb028b136"
+ }
+}

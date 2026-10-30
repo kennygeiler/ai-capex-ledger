@@ -1,0 +1,35 @@
+{
+ "accession": "PENG|earnings_release|2026-05-29|a767e6c2",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Supported by very strong agentic AI-driven customer demand across its Integrated Memory and AI Infrastructure businesses, Penguin Solutions now expects full-year fiscal 2026 net sales growth of 22% plus or minus 2%, full-year GAAP EPS of $1.97 plus or minus 5 cents, and full-year non-GAAP EPS of $2.60 plus or minus 5 cents.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Total net sales outlook with AI-driven demand named as the driver. The 22% is growth in total net sales, not an AI share or amount, so it is recorded as qualitative with scope total. No AI or data-center revenue figure is stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.0,
+  "input_tokens": 4941,
+  "output_tokens": 556,
+  "attempts": 1,
+  "task_sha": "bbc908a851bb6b09"
+ }
+}

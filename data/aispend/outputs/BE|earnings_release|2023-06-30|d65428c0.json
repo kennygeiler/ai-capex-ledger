@@ -1,0 +1,27 @@
+{
+ "accession": "BE|earnings_release|2023-06-30|d65428c0",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the cash flow statement gives purchases of property, plant and equipment with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; passages are forward-looking-statement boilerplate and a cash flow table"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 6593,
+  "output_tokens": 208,
+  "attempts": 1,
+  "task_sha": "17c9b8434bdfb96f"
+ }
+}

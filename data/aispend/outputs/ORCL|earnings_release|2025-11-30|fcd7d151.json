@@ -1,31 +1,27 @@
 {
  "accession": "ORCL|earnings_release|2025-11-30|fcd7d151",
- "prompt_version": "aispend@v3",
- "statements": [
-  {
-   "field": "opex",
-   "fiscal_year": null,
-   "kind": "actual",
-   "scope": "ai",
-   "class": "qualitative",
-   "quote": "For years Oracle has been investing in AI and building autonomous cloud software.",
-   "passage": "p01",
-   "confidence": 0.4,
-   "notes": "CEO quote about multi-year AI investment, not tied to one fiscal year. 'Investing' is not stated as R&D or other opex, and it may be partly capex; recorded as opex because it is paired with building software. It could also be read as general description, not a spend statement."
-  }
- ],
+ "prompt_version": "aispend@v4",
+ "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states capital expenditures or links them to AI; the release gives no capex figure, and 'we will continue to buy the latest GPUs from NVIDIA' is a chip-sourcing policy statement with no spend amount, share or capex attribution"
+   "reason": "no sentence states or attributes capital expenditures to AI; datacenter buildout and GPU purchases are described without any capex figure or capex framing"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; 'For years Oracle has been investing in AI and building autonomous cloud software' is a general statement that names no expense category, period or amount"
+  },
+  {
+   "field": "revenue",
+   "reason": "Cloud Infrastructure (IaaS) revenue of $4.1 billion is a cloud segment, not AI revenue, and no sentence states AI's part of it; RPO commitments from Meta and NVIDIA are backlog, not revenue, and are not stated as AI revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.7,
-  "input_tokens": 7273,
-  "output_tokens": 922,
+  "seconds": 7.0,
+  "input_tokens": 7574,
+  "output_tokens": 588,
   "attempts": 1,
-  "task_sha": "1ced5abbb9820ba7"
+  "task_sha": "3e6cd69b947740d6"
  }
 }

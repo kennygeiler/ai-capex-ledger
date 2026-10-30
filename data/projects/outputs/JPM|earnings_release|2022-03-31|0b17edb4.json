@@ -1,0 +1,13 @@
+{
+ "accession": "JPM|earnings_release|2022-03-31|0b17edb4",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "8136b6fc642330c1"
+ }
+}

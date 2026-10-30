@@ -1,23 +1,61 @@
 {
  "accession": "IREN|earnings_release|2026-03-31|bc8a86fa",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3700000000,
+   "amount_high": 3700000000,
+   "quote": "ARR of $3.7bn represents expected $1.9bn average annual revenue under Microsoft contract plus estimated $1.8bn ARR from ~74k GPU deployment at British Columbia and Childress sites, based on internal company assumptions regarding GPU models, utilization and pricing.",
+   "passage": "p04",
+   "confidence": 0.7,
+   "notes": "Annualized run-rate for AI Cloud, not fiscal-year revenue. The highlights (p01) target it 'by end of CY26', which is a calendar year; IREN's fiscal year ends June 30, so the year is left null rather than mapped to a fiscal year. Not fully contracted."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3100000000,
+   "amount_high": 3100000000,
+   "quote": "ARR under contract of $3.1bn represents expected $1.9bn average annual revenue under Microsoft contract, expected $0.7bn average annual revenue under NVIDIA contract, plus $0.5bn ARR under contract from GPU deployments at Prince George.",
+   "passage": "p04",
+   "confidence": 0.7,
+   "notes": "Contracted AI Cloud annualized run-rate, including amounts not yet revenue-generating. This is not revenue recognized in a fiscal year, and the sentence names no year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Revenues decreased $39.9m, driven by lower average Bitcoin price combined with decommissioning of mining hardware ahead of GPU installation and billing, partially offset by increase in AI Cloud revenue",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Quarterly (Q3 FY26) comparison. The AI Cloud Services revenue figure ($33.6m) appears only in the p07 table, not in a sentence. The quote is a bullet without terminal punctuation."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; the only capex sentence (p02, 'Near term capex expected to be met through combination of existing cash...') describes funding sources, with no amount, share, or AI attribution"
+   "reason": "the only capex sentence describes how near-term capex will be funded; no sentence states an amount or links capex to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the AI Cloud Services cost-of-revenue line in p07 is a table figure, not a sentence, and is cost of revenue rather than opex"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.1,
-  "input_tokens": 11814,
-  "output_tokens": 579,
+  "seconds": 18.3,
+  "input_tokens": 12117,
+  "output_tokens": 2061,
   "attempts": 1,
-  "task_sha": "ddbe6ae05df374c9"
+  "task_sha": "1806d2f4b4b3946c"
  }
 }

@@ -1,0 +1,65 @@
+{
+ "accession": "0001193125-26-059002",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "capex",
+   "table_id": "t0024",
+   "row_label": "Purchases of property, plant and equipment",
+   "column_label": "Years Ended December 31, | 2025",
+   "cell_text": "(224,009)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 224009000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0024",
+   "row_label": "Purchases of property, plant and equipment",
+   "column_label": "Years Ended December 31, | 2024",
+   "cell_text": "(198,095)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 198095000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0024",
+   "row_label": "Purchases of property, plant and equipment",
+   "column_label": "Years Ended December 31, | 2023",
+   "cell_text": "(159,642)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 159642000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "reason": "The table supplied as the income statement (t0023) is the statement of shareholders' equity, and t0024 is the cash-flow statement. Neither has a revenue line. The actual income statement was not included in the input."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "No income statement was provided. t0023 is the shareholders' equity statement and t0024 is the cash-flow statement, so there is no cost of revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "No income statement was provided, so there are no cost-of-revenue component lines."
+  },
+  {
+   "field": "operating_income",
+   "reason": "No income statement was provided. Neither t0023 (shareholders' equity) nor t0024 (cash flows) has an operating income or income from operations line."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.3,
+  "input_tokens": 8920,
+  "output_tokens": 910,
+  "attempts": 1,
+  "task_sha": "1a4eeedfbf9d4941"
+ }
+}

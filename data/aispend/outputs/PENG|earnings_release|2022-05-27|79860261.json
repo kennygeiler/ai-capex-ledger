@@ -1,0 +1,27 @@
+{
+ "accession": "PENG|earnings_release|2022-05-27|79860261",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage describes the Stratus acquisition; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the passage mentions data center and Edge computing only as a description of Stratus's business; no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.0,
+  "input_tokens": 4921,
+  "output_tokens": 200,
+  "attempts": 1,
+  "task_sha": "cdb08440155e5ebe"
+ }
+}

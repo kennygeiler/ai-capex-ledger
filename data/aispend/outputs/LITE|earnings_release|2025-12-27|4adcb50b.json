@@ -1,0 +1,27 @@
+{
+ "accession": "LITE|earnings_release|2025-12-27|4adcb50b",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share; p01 gives total revenue growth guidance (over 85%) without attributing it to AI, an OCS backlog above $400 million and a multi-hundred-million-dollar CPO order (backlog and orders, not revenue), and calls the company mission-critical to AI leaders without tying revenue to AI; p02 is a company description and p03 is forward-looking-statement boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.6,
+  "input_tokens": 6258,
+  "output_tokens": 566,
+  "attempts": 1,
+  "task_sha": "bce5ed12e8fb3dd5"
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "accession": "SMCI|mdna|2025-06-30|5d7ef788",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Data center lease agreement dated June 14, 2025",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 117700000,
+   "amount_high": 117700000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2025-06-14",
+   "in_service": "2025-10-02",
+   "quote": "Pursuant to the data center lease agreement dated June 14, 2025, we anticipate making an approximately $117.7 million lease payment subject to the remaining tranches expected to commence on October 2, 2025, which is not reflected in the consolidated balance sheets as the lease has not commenced.",
+   "passage": "p07",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 5654,
+  "output_tokens": 515,
+  "attempts": 1,
+  "task_sha": "1bc689d18d597879"
+ }
+}

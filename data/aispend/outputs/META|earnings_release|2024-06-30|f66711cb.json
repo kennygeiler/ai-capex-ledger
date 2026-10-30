@@ -1,6 +1,6 @@
 {
  "accession": "META|earnings_release|2024-06-30|f66711cb",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -11,21 +11,25 @@
    "quote": "While we continue to refine our plans for next year, we currently expect significant capital expenditures growth in 2025 as we invest to support our artificial intelligence research and product development efforts.",
    "passage": "p01",
    "confidence": 0.9,
-   "notes": "Describes expected growth in total 2025 capex with AI research and product development as the driver; no amount or AI share is stated. The preceding sentence's $37-40 billion full-year 2024 range is not linked to AI in its own sentence, so it is not recorded."
+   "notes": "Gives no figure. The AI link is for the growth in total 2025 capex, not a stated AI portion. The adjacent 2024 range of $37-40 billion is not recorded because that sentence does not mention AI."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies operating expenses or links them to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.7,
-  "input_tokens": 4699,
-  "output_tokens": 528,
+  "seconds": 6.0,
+  "input_tokens": 5002,
+  "output_tokens": 619,
   "attempts": 1,
-  "task_sha": "db7e263b9fe6921b"
+  "task_sha": "1540a9cf78e353e1"
  }
 }

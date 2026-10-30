@@ -1,0 +1,65 @@
+{
+ "accession": "0001101302-24-000009",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "capex",
+   "table_id": "t0045",
+   "row_label": "Acquisition of property and equipment",
+   "column_label": "Year ended December 31, 2023",
+   "cell_text": "(456,847)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 456847000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0045",
+   "row_label": "Acquisition of property and equipment",
+   "column_label": "Year ended December 31, 2022",
+   "cell_text": "(466,192)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 466192000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0045",
+   "row_label": "Acquisition of property and equipment",
+   "column_label": "Year ended December 31, 2021",
+   "cell_text": "(210,626)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 210626000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "reason": "Table t0051 does not appear to be the reported income statement. It has no 2023 column, only covers 2022 and 2021, and lacks cost and operating lines. Its 2022 net income (292,867) also differs from the cash-flow statement's 2022 net income (208,920). This pattern fits an unaudited pro forma table, likely for the CMC Materials acquisition. Its 'Net sales' figures (3,920,850; 3,518,893) are therefore not taken as reported revenue. The consolidated statement of operations needs to be re-parsed."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "No cost of sales line in the supplied income-statement table (t0051), which appears to be a pro forma disclosure rather than the consolidated statement of operations."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "No cost-of-revenue component lines in the supplied income-statement table (t0051)."
+  },
+  {
+   "field": "operating_income",
+   "reason": "No operating income line in the supplied income-statement table (t0051), which appears to be a pro forma disclosure rather than the consolidated statement of operations."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.5,
+  "input_tokens": 5975,
+  "output_tokens": 1217,
+  "attempts": 1,
+  "task_sha": "54af5ff77692e111"
+ }
+}

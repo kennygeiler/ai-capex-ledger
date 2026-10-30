@@ -1,0 +1,27 @@
+{
+ "accession": "TLN|earnings_release|2025-06-30|6cf1ff7c",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; the only capex mention is forward-looking-statement boilerplate (p04)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the passages describe the AWS PPA and data-center positioning (p01-p03) but no sentence states an amount or share of revenue from AI or data-center demand, or ties revenue to AI; p03 is a company description (boilerplate)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.9,
+  "input_tokens": 6001,
+  "output_tokens": 433,
+  "attempts": 1,
+  "task_sha": "19352dd7aeb6f1c0"
+ }
+}

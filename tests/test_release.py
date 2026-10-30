@@ -66,3 +66,11 @@ class Build(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SplitIds(unittest.TestCase):
+    def test_commas_inside_labels(self):
+        from ledger.release import split_ids
+        j = "0001692819-26-000006|revenue|2023-01-01|2023-12-31,0001692819-26-000006|cost_of_revenue_part|2023-01-01|2023-12-31|Fuel, purchased power costs, and delivery fees,0001692819-26-000006|operating_income|2023-01-01|2023-12-31"
+        self.assertEqual(len(split_ids(j)), 3)
+        self.assertTrue(split_ids(j)[1].endswith("delivery fees"))

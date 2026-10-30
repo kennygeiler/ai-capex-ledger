@@ -1,0 +1,125 @@
+{
+ "accession": "0000833444-25-000097",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0030",
+   "row_label": "",
+   "column_label": "Year Ended September 30, | 2025",
+   "cell_text": "23,596",
+   "period_end": "2025-09-30",
+   "months": 12,
+   "value": 23596000000,
+   "confidence": 0.9,
+   "notes": "The total net sales row has no label (shown as '(no label)' in the rendering), so it is cited with an empty row_label. It is the sum line under 'Products and systems' and 'Services' revenue."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0030",
+   "row_label": "",
+   "column_label": "Year Ended September 30, | 2024",
+   "cell_text": "22,952",
+   "period_end": "2024-09-30",
+   "months": 12,
+   "value": 22952000000,
+   "confidence": 0.9,
+   "notes": "The total net sales row has no label (shown as '(no label)' in the rendering), so it is cited with an empty row_label."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0030",
+   "row_label": "",
+   "column_label": "Year Ended September 30, | 2023",
+   "cell_text": "22,331",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": 22331000000,
+   "confidence": 0.9,
+   "notes": "The total net sales row has no label (shown as '(no label)' in the rendering), so it is cited with an empty row_label."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0030",
+   "row_label": "",
+   "column_label": "Year Ended September 30, | 2025",
+   "cell_text": "15,004",
+   "period_end": "2025-09-30",
+   "months": 12,
+   "value": 15004000000,
+   "confidence": 0.9,
+   "notes": "The total cost of sales row has no label (shown as '(no label)' in the rendering), so it is cited with an empty row_label. It is the sum line under the 'Cost of sales' header, and gross profit equals revenue minus this line."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0030",
+   "row_label": "",
+   "column_label": "Year Ended September 30, | 2024",
+   "cell_text": "14,875",
+   "period_end": "2024-09-30",
+   "months": 12,
+   "value": 14875000000,
+   "confidence": 0.9,
+   "notes": "The total cost of sales row has no label, so it is cited with an empty row_label."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0030",
+   "row_label": "",
+   "column_label": "Year Ended September 30, | 2023",
+   "cell_text": "14,527",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": 14527000000,
+   "confidence": 0.9,
+   "notes": "The total cost of sales row has no label, so it is cited with an empty row_label."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0034",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended September 30, | 2025",
+   "cell_text": "(434)",
+   "period_end": "2025-09-30",
+   "months": 12,
+   "value": 434000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0034",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended September 30, | 2024",
+   "cell_text": "(494)",
+   "period_end": "2024-09-30",
+   "months": 12,
+   "value": 494000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0034",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended September 30, | 2023",
+   "cell_text": "(446)",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": 446000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "operating_income",
+   "reason": "The income statement has no operating income or 'income from operations' line. It goes from restructuring and impairment costs, net financing charges and equity income directly to 'Income from continuing operations before income taxes'. Deriving operating income would require arithmetic, which the rules forbid."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 27.6,
+  "input_tokens": 13726,
+  "output_tokens": 3529,
+  "attempts": 2,
+  "task_sha": "68c3ea1974416789"
+ }
+}

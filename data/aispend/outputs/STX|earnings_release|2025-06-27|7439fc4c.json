@@ -1,0 +1,36 @@
+{
+ "accession": "STX|earnings_release|2025-06-27|7439fc4c",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.75,
+   "quote": "The data center markets accounted for about 75% of our fiscal 2025 revenue and include nearline products and systems sold into cloud and enterprise customers, as well as cloud based VIA applications.",
+   "passage": "p04",
+   "confidence": 0.9,
+   "notes": "Data-center share of total revenue ('about 75%'); data center markets include cloud and enterprise nearline and VIA, not AI-specific alone."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capex figures ($265 million fiscal 2025; 4-6% of revenue outlook for fiscal 2026) are given without any link to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 5326,
+  "output_tokens": 600,
+  "attempts": 1,
+  "task_sha": "5acf87653c559c41"
+ }
+}

@@ -1,0 +1,252 @@
+{
+ "accession": "0001996810-25-000011",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Power",
+   "table_id": "t0011",
+   "row_label": "Power",
+   "column_label": "2024",
+   "cell_text": "$18,127",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 18127000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Power",
+   "table_id": "t0011",
+   "row_label": "Power",
+   "column_label": "2023",
+   "cell_text": "$17,436",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 17436000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Power",
+   "table_id": "t0011",
+   "row_label": "Power",
+   "column_label": "2022",
+   "cell_text": "$16,124",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 16124000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Wind",
+   "table_id": "t0011",
+   "row_label": "Wind",
+   "column_label": "2024",
+   "cell_text": "9,701",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 9701000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Wind",
+   "table_id": "t0011",
+   "row_label": "Wind",
+   "column_label": "2023",
+   "cell_text": "9,826",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 9826000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Wind",
+   "table_id": "t0011",
+   "row_label": "Wind",
+   "column_label": "2022",
+   "cell_text": "8,905",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 8905000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Electrification",
+   "table_id": "t0011",
+   "row_label": "Electrification",
+   "column_label": "2024",
+   "cell_text": "7,550",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 7550000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Electrification",
+   "table_id": "t0011",
+   "row_label": "Electrification",
+   "column_label": "2023",
+   "cell_text": "6,378",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 6378000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Electrification",
+   "table_id": "t0011",
+   "row_label": "Electrification",
+   "column_label": "2022",
+   "cell_text": "5,076",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 5076000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and improvements",
+   "table_id": "t0042",
+   "row_label": "Land and improvements",
+   "column_label": "Original Cost | 2024",
+   "cell_text": "$337",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 337000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and improvements",
+   "table_id": "t0042",
+   "row_label": "Land and improvements",
+   "column_label": "Original Cost | 2023",
+   "cell_text": "$352",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 352000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings, structures, and related equipment",
+   "table_id": "t0042",
+   "row_label": "Buildings, structures, and related equipment",
+   "column_label": "Original Cost | 2024",
+   "cell_text": "3,171",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 3171000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings, structures, and related equipment",
+   "table_id": "t0042",
+   "row_label": "Buildings, structures, and related equipment",
+   "column_label": "Original Cost | 2023",
+   "cell_text": "3,278",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 3278000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0042",
+   "row_label": "Machinery and equipment(a)",
+   "column_label": "Original Cost | 2024",
+   "cell_text": "7,938",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 7938000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0042",
+   "row_label": "Machinery and equipment(a)",
+   "column_label": "Original Cost | 2023",
+   "cell_text": "7,763",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 7763000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold costs and manufacturing plant under construction",
+   "table_id": "t0042",
+   "row_label": "Leasehold costs and manufacturing plant under construction",
+   "column_label": "Original Cost | 2024",
+   "cell_text": "762",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 762000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold costs and manufacturing plant under construction",
+   "table_id": "t0042",
+   "row_label": "Leasehold costs and manufacturing plant under construction",
+   "column_label": "Original Cost | 2023",
+   "cell_text": "514",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 514000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0047",
+   "row_label": "Total finance lease liability",
+   "column_label": "2024",
+   "cell_text": "$266",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 266000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0047",
+   "row_label": "Total finance lease liability",
+   "column_label": "2023",
+   "cell_text": "$311",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 311000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment table reports revenue and Segment EBITDA only; no capital expenditures by segment are given"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or purchase-commitments table is among the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.0,
+  "input_tokens": 6098,
+  "output_tokens": 2523,
+  "attempts": 1,
+  "task_sha": "3eb097a1b5944a1b"
+ }
+}

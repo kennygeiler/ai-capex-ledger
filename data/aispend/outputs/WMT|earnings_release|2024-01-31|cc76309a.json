@@ -1,23 +1,27 @@
 {
  "accession": "WMT|earnings_release|2024-01-31|cc76309a",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the only capex statement is fiscal 2025 guidance of approximately 3.0% to 3.5% of net sales with no AI attribution (p02), and p01 is forward-looking boilerplate"
+   "reason": "capex guidance (approximately 3.0% to 3.5% of net sales for fiscal 2025) is not linked to AI in any sentence"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; operating expense appears only in forward-looking boilerplate (p01)"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a retailer; no sentence states AI's or data-center's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 12.4,
-  "input_tokens": 6812,
-  "output_tokens": 217,
+  "seconds": 3.3,
+  "input_tokens": 7115,
+  "output_tokens": 200,
   "attempts": 1,
-  "task_sha": "3d6c3deb6e07d220"
+  "task_sha": "72f85e4b56fd036e"
  }
 }

@@ -1,23 +1,37 @@
 {
  "accession": "IREN|earnings_release|2026-06-30|dc5db911",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 4000000000,
+   "amount_high": 4000000000,
+   "quote": "NEW YORK, July 20, 2026 (GLOBE NEWSWIRE) \u2013 IREN Limited (NASDAQ: IREN) (\u201cIREN\u201d) today announced that it has raised its year-end AI Cloud annualized run-rate revenue (\u201cARR\u201d) 1 target from $3.7bn to more than $4bn 2 , of which approximately 85% is now under contract following new multi-year cloud services contracts with leading AI developers representing $2.8bn in total contract value .",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "The figure is 'more than $4bn', recorded as a $4bn floor. It is an annualized run-rate (ARR) target at a point in time, not revenue recognized for a fiscal year. The sentence says 'year-end' without naming a year. p03 places it at calendar year-end 2026, which falls in IREN's fiscal 2027 because its fiscal year ends June 30, so fiscal_year is left null. The 85% is the share of that ARR under contract, not AI's share of revenue. The $2.8bn is total contract value across multiple years, so neither is recorded."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; p03 only defines customer prepayments as a percentage of estimated capital expenditure for deployments, without stating any capex amount, share or year, and p02 gives an ARR target and planned MW capacity, not spend"
+   "reason": "p04 mentions estimated capital expenditure for deployments only to define the prepayment metric; no sentence states a capex amount or links a capex figure to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; passages are a company description, footnotes on ARR and prepayments, and forward-looking-statement boilerplate"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.2,
-  "input_tokens": 5779,
-  "output_tokens": 362,
+  "seconds": 11.3,
+  "input_tokens": 6245,
+  "output_tokens": 1150,
   "attempts": 1,
-  "task_sha": "b66f075e7fc9ec2a"
+  "task_sha": "bfd4a9286438b1c2"
  }
 }

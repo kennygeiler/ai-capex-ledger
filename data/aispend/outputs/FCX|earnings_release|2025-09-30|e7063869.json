@@ -1,0 +1,27 @@
+{
+ "accession": "FCX|earnings_release|2025-09-30|e7063869",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex guidance ($4.5 billion for 2025) is for mining projects and PTFI's downstream processing facilities"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a copper, gold and molybdenum miner; no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 10510,
+  "output_tokens": 209,
+  "attempts": 1,
+  "task_sha": "13f6e13fb5fcba68"
+ }
+}

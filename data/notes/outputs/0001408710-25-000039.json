@@ -1,0 +1,213 @@
+{
+ "accession": "0001408710-25-000039",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Datacom",
+   "table_id": "t0013",
+   "row_label": "Datacom",
+   "column_label": "Year ended June 27, 2025",
+   "cell_text": "1,155,944",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 1155944000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Datacom",
+   "table_id": "t0013",
+   "row_label": "Datacom",
+   "column_label": "Year ended June 28, 2024",
+   "cell_text": "1,150,307",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 1150307000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Datacom",
+   "table_id": "t0013",
+   "row_label": "Datacom",
+   "column_label": "Year ended June 30, 2023",
+   "cell_text": "520,796",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 520796000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Telecom",
+   "table_id": "t0013",
+   "row_label": "Telecom",
+   "column_label": "Year ended June 27, 2025",
+   "cell_text": "1,463,411",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 1463411000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Telecom",
+   "table_id": "t0013",
+   "row_label": "Telecom",
+   "column_label": "Year ended June 28, 2024",
+   "cell_text": "1,138,708",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 1138708000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Telecom",
+   "table_id": "t0013",
+   "row_label": "Telecom",
+   "column_label": "Year ended June 30, 2023",
+   "cell_text": "1,487,551",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 1487551000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Automotive",
+   "table_id": "t0013",
+   "row_label": "Automotive",
+   "column_label": "Year ended June 27, 2025",
+   "cell_text": "464,369",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 464369000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Automotive",
+   "table_id": "t0013",
+   "row_label": "Automotive",
+   "column_label": "Year ended June 28, 2024",
+   "cell_text": "327,188",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 327188000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Automotive",
+   "table_id": "t0013",
+   "row_label": "Automotive",
+   "column_label": "Year ended June 30, 2023",
+   "cell_text": "368,581",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 368581000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Industrial laser",
+   "table_id": "t0013",
+   "row_label": "Industrial laser",
+   "column_label": "Year ended June 27, 2025",
+   "cell_text": "153,068",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 153068000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Industrial laser",
+   "table_id": "t0013",
+   "row_label": "Industrial laser",
+   "column_label": "Year ended June 28, 2024",
+   "cell_text": "122,722",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 122722000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Industrial laser",
+   "table_id": "t0013",
+   "row_label": "Industrial laser",
+   "column_label": "Year ended June 30, 2023",
+   "cell_text": "125,415",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 125415000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Others",
+   "table_id": "t0013",
+   "row_label": "Others",
+   "column_label": "Year ended June 27, 2025",
+   "cell_text": "182,535",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 182535000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Others",
+   "table_id": "t0013",
+   "row_label": "Others",
+   "column_label": "Year ended June 28, 2024",
+   "cell_text": "144,042",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 144042000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Others",
+   "table_id": "t0013",
+   "row_label": "Others",
+   "column_label": "Year ended June 30, 2023",
+   "cell_text": "142,894",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 142894000,
+   "confidence": 0.85
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note with capital expenditures by segment is among the tables; revenue is reported by market/product line only (Fabrinet reports a single reportable segment)"
+  },
+  {
+   "field": "ppe_category",
+   "reason": "no property-and-equipment note table by category is among the tables provided"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "the only lease table (t0045) gives cash-flow and ROU supplemental data; no finance lease liability balance is shown"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is among the tables provided"
+  }
+ ],
+ "notes": "segment_revenue taken from market/product-line table t0013 (t0026 is an identical duplicate). Leaf rows only; the 'Total revenue - Optical communications' and 'Total revenue - Non-optical communications' subtotals and the grand total were skipped. 'Others' is the non-optical-communications residual line, so confidence is lower. Geographic revenue (t0025) was not treated as segment/market revenue.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.0,
+  "input_tokens": 8231,
+  "output_tokens": 2588,
+  "attempts": 1,
+  "task_sha": "8ba1bac750b26c57"
+ }
+}

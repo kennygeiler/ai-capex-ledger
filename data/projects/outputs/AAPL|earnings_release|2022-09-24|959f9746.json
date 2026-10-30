@@ -1,0 +1,13 @@
+{
+ "accession": "AAPL|earnings_release|2022-09-24|959f9746",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.1,
+  "input_tokens": 5560,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "bce2c7b49253996f"
+ }
+}

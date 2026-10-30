@@ -1,0 +1,50 @@
+{
+ "accession": "DELL|earnings_release|2025-01-31|4dfd4803",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 6600000000,
+   "amount_high": 6600000000,
+   "quote": "Fourth-quarter Servers and Networking revenue: $6.6 billion, up 37%, driven by AI and traditional server demand",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Fourth quarter only, not the full year, and the Servers and Networking segment, not company total revenue. AI is named as a driver alongside traditional servers, but no AI part is stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 9000000000,
+   "amount_high": 9000000000,
+   "quote": "The deals we\u2019ve booked with xAI and others puts our AI server backlog at roughly $9 billion as of today.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "This is AI server backlog (booked orders not yet recognized), not reported revenue or formal guidance. No year or recognition timing is stated. 'Roughly' $9 billion."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.8,
+  "input_tokens": 4943,
+  "output_tokens": 1330,
+  "attempts": 1,
+  "task_sha": "50fd00518446fa0d"
+ }
+}

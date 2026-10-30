@@ -1,0 +1,272 @@
+{
+ "accession": "0001193125-25-297510",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0052",
+   "row_label": "Land",
+   "column_label": "As of September 30, | 2025",
+   "cell_text": "39,299",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 39299000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0052",
+   "row_label": "Land",
+   "column_label": "As of September 30, | 2024",
+   "cell_text": "32,190",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 32190000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land improvements",
+   "table_id": "t0052",
+   "row_label": "Land improvements",
+   "column_label": "As of September 30, | 2025",
+   "cell_text": "9,937",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 9937000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land improvements",
+   "table_id": "t0052",
+   "row_label": "Land improvements",
+   "column_label": "As of September 30, | 2024",
+   "cell_text": "5,449",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 5449000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building and improvements",
+   "table_id": "t0052",
+   "row_label": "Building and improvements",
+   "column_label": "As of September 30, | 2025",
+   "cell_text": "96,400",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 96400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building and improvements",
+   "table_id": "t0052",
+   "row_label": "Building and improvements",
+   "column_label": "As of September 30, | 2024",
+   "cell_text": "76,719",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 76719000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0052",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of September 30, | 2025",
+   "cell_text": "2,941",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 2941000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0052",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of September 30, | 2024",
+   "cell_text": "1,995",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 1995000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Miners",
+   "table_id": "t0052",
+   "row_label": "Miners",
+   "column_label": "As of September 30, | 2025",
+   "cell_text": "1,422,011",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 1422011000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Miners",
+   "table_id": "t0052",
+   "row_label": "Miners",
+   "column_label": "As of September 30, | 2024",
+   "cell_text": "1,035,128",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 1035128000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Mining equipment",
+   "table_id": "t0052",
+   "row_label": "Mining equipment",
+   "column_label": "As of September 30, | 2025",
+   "cell_text": "24,807",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 24807000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Mining equipment",
+   "table_id": "t0052",
+   "row_label": "Mining equipment",
+   "column_label": "As of September 30, | 2024",
+   "cell_text": "23,066",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 23066000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Infrastructure",
+   "table_id": "t0052",
+   "row_label": "Infrastructure",
+   "column_label": "As of September 30, | 2025",
+   "cell_text": "295,837",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 295837000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Infrastructure",
+   "table_id": "t0052",
+   "row_label": "Infrastructure",
+   "column_label": "As of September 30, | 2024",
+   "cell_text": "155,191",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 155191000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0052",
+   "row_label": "Machinery and equipment",
+   "column_label": "As of September 30, | 2025",
+   "cell_text": "16,978",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 16978000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0052",
+   "row_label": "Machinery and equipment",
+   "column_label": "As of September 30, | 2024",
+   "cell_text": "15,061",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 15061000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0052",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of September 30, | 2025",
+   "cell_text": "2,626",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 2626000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0052",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of September 30, | 2024",
+   "cell_text": "1,706",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 1706000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0052",
+   "row_label": "Construction in progress",
+   "column_label": "As of September 30, | 2025",
+   "cell_text": "12,788",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 12788000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0052",
+   "row_label": "Construction in progress",
+   "column_label": "As of September 30, | 2024",
+   "cell_text": "19,455",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 19455000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note table is provided; no per-segment capital expenditures appear in the tables"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "no segment note or revenue-by-segment/market table is provided"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "lease tables give only finance lease cost and cash flows; no finance lease liability balance at year-end is shown"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is provided"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.1,
+  "input_tokens": 5883,
+  "output_tokens": 2518,
+  "attempts": 1,
+  "task_sha": "7bab5e260cd4b790"
+ }
+}

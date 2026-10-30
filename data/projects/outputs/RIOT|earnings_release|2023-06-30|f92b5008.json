@@ -1,0 +1,70 @@
+{
+ "accession": "RIOT|earnings_release|2023-06-30|f92b5008",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "MicroBT miner purchase agreement",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "MicroBT",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "As part of the next phase of our growth, Riot signed a long-term purchase agreement with MicroBT to acquire 33,280 next generation miners, with an option to purchase an additional 66,560 miners on the same price and terms.",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "Midas Immersion cooling systems purchase",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Midas Immersion",
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We also announced an agreement with Midas Immersion to purchase 200 megawatts of immersion cooling systems, with an option to purchase an additional 400 megawatts.",
+   "passage": "p01",
+   "confidence": 0.7
+  },
+  {
+   "name": "Corsicana Facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Corsicana",
+   "counterparty": null,
+   "capacity_mw": 400,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Phase 1 of the Corsicana Facility development is comprised of the buildout of an initial 400 MW of immersion-cooled data center infrastructure.",
+   "passage": "p11",
+   "confidence": 0.8
+  },
+  {
+   "name": "Rockdale Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Rockdale",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The increase in Bitcoin Mining cost of revenues for the quarter was primarily due to the increase in mining capacity at the Rockdale Facility, which required more headcount and direct costs necessary to maintain and support the mining operations, and an increase in the average mining difficulty of 67% in the quarter relative to the same three-month period in 2022.",
+   "passage": "p04",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.3,
+  "input_tokens": 10292,
+  "output_tokens": 2226,
+  "attempts": 1,
+  "task_sha": "25a869b2b81c214d"
+ }
+}

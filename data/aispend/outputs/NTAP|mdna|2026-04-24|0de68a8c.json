@@ -1,0 +1,27 @@
+{
+ "accession": "NTAP|mdna|2026-04-24|0de68a8c",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are mentioned only in liquidity and funding language (facilities, equipment, leases, internal-use software); no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share; passages cover cash flows and liquidity only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.2,
+  "input_tokens": 5454,
+  "output_tokens": 231,
+  "attempts": 1,
+  "task_sha": "d0b49d2dccd859d0"
+ }
+}

@@ -1,23 +1,44 @@
 {
  "accession": "MSFT|earnings_release|2024-12-31|1148c56f",
- "prompt_version": "aispend@v3",
- "statements": [],
- "none_found": [
+ "prompt_version": "aispend@v4",
+ "statements": [
   {
-   "field": "capex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 13000000000,
+   "amount_high": 13000000000,
+   "quote": "Already, our AI business has surpassed an annual revenue run rate of $13 billion, up 175% year-over-year.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "The figure is an annualized revenue run rate as of the quarter ended 2024-12-31, not reported fiscal-year revenue. 'Surpassed' means the run rate is above $13 billion, so $13 billion is a floor. The sentence names no year, so code will default to the filing's fiscal year 2025."
   },
   {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We remain committed to balancing operational discipline with continued investments in our cloud and AI infrastructure.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Present-tense, forward-leaning commitment to continue investing in AI infrastructure. The sentence gives no amount. It is ambiguous whether this describes ongoing actual spend or an outlook, and it groups cloud with AI."
+  }
+ ],
+ "none_found": [
+  {
    "field": "opex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, headcount, infrastructure costs) to AI"
   }
  ],
  "_run": {
-  "model": null,
-  "seconds": 0.0,
-  "input_tokens": 0,
-  "output_tokens": 0,
-  "attempts": 0,
-  "task_sha": "b219223ef4b2945a"
+  "model": "claude-opus-5-5",
+  "seconds": 11.2,
+  "input_tokens": 4930,
+  "output_tokens": 1040,
+  "attempts": 1,
+  "task_sha": "4760fcd354b1b4f1"
  }
 }

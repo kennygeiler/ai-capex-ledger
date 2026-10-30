@@ -1,0 +1,72 @@
+{
+ "accession": "EQIX|earnings_release|2024-12-31|e477f632",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Paris 12",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Paris",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Since the Q3 earnings call, the joint ventures leased an incremental 31 megawatts across the Paris 12 and Paris 13 assets, bringing total xScale leasing to over 400 megawatts globally.",
+   "passage": "p02",
+   "confidence": 0.7
+  },
+  {
+   "name": "Paris 13",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Paris",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Since the Q3 earnings call, the joint ventures leased an incremental 31 megawatts across the Paris 12 and Paris 13 assets, bringing total xScale leasing to over 400 megawatts globally.",
+   "passage": "p02",
+   "confidence": 0.7
+  },
+  {
+   "name": "xScale joint venture with CPP Investments and GIC",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "multiple campuses across the U.S.",
+   "counterparty": "Canada Pension Plan Investment Board (CPP Investments) and GIC",
+   "amount_low": 15000000000,
+   "amount_high": 15000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2024-10",
+   "in_service": null,
+   "quote": "In October, Equinix announced plans to nearly triple the capital invested in its xScale data center portfolio with the formation of a greater than $15 billion joint venture with Canada Pension Plan Investment Board (CPP Investments) and GIC.",
+   "passage": "p03",
+   "confidence": 0.8
+  },
+  {
+   "name": "Singapore 6",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Singapore",
+   "counterparty": null,
+   "capacity_mw": 20,
+   "gpus": null,
+   "announced": "2024-11",
+   "in_service": null,
+   "quote": "In November, Equinix announced its Singapore 6 build, part of the country\u2019s pilot data center call for application, which will provide 20 megawatts of capacity for next-generation workloads such as AI in one of Asia-Pacific\u2019s fastest-growing digital economies.",
+   "passage": "p04",
+   "confidence": 0.9
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.4,
+  "input_tokens": 5552,
+  "output_tokens": 1485,
+  "attempts": 1,
+  "task_sha": "c9be4390a819d845"
+ }
+}

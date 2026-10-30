@@ -1,0 +1,13 @@
+{
+ "accession": "TXN|earnings_release|2021-12-31|a4b4644d",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 1.7,
+  "input_tokens": 4990,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "e5e92313a6fe46b5"
+ }
+}

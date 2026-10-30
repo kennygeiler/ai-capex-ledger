@@ -1,0 +1,84 @@
+{
+ "accession": "CORZ|mdna|2024-12-31|3d9b22c1",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Austin, Texas data center (CoreWeave 16 MW)",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Austin, Texas",
+   "counterparty": "CoreWeave, Inc.",
+   "capacity_mw": 16,
+   "gpus": null,
+   "announced": "2024-02-29",
+   "in_service": null,
+   "quote": "On February 29, 2024, the Company entered into a long-term contract with CoreWeave, Inc. (\u201cCoreWeave\u201d) to deliver 16 MW of infrastructure at the Company\u2019s Austin, Texas facility.",
+   "passage": "p03",
+   "confidence": 0.8
+  },
+  {
+   "name": "CoreWeave 200 MW HPC hosting contracts",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": "CoreWeave, Inc.",
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": "2024-06-03",
+   "in_service": "2025",
+   "quote": "Following the commencement of operations in the Austin, Texas facility, on June 3, 2024, the Company entered into a series of long-term contracts with CoreWeave to deliver approximately 200 MW of infrastructure to host CoreWeave\u2019s HPC operations, which will require the Company to modify multiple existing sites.",
+   "passage": "p03",
+   "confidence": 0.85
+  },
+  {
+   "name": "CoreWeave 70 MW option",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "CoreWeave, Inc.",
+   "capacity_mw": 70,
+   "gpus": null,
+   "announced": "2024-06-25",
+   "in_service": "2025",
+   "quote": "On June 25, 2024, the Company announced CoreWeave\u2019s execution of an option to secure an additional 70 MW of infrastructure to host its HPC operations.",
+   "passage": "p03",
+   "confidence": 0.85
+  },
+  {
+   "name": "CoreWeave 112 MW option",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "CoreWeave, Inc.",
+   "capacity_mw": 112,
+   "gpus": null,
+   "announced": "2024-08",
+   "in_service": null,
+   "quote": "In June and August 2024, the Company announced CoreWeave\u2019s execution of options to secure an additional 70 MW and 112 MW, respectively, of infrastructure to host its HPC operations.",
+   "passage": "p01",
+   "confidence": 0.8
+  },
+  {
+   "name": "CoreWeave 120 MW final option",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "CoreWeave, Inc.",
+   "capacity_mw": 120,
+   "gpus": null,
+   "announced": "2024-10-22",
+   "in_service": null,
+   "quote": "On October 22, 2024, the Company announced that CoreWeave had exercised its final option for an additional 120 MW of infrastructure.",
+   "passage": "p04",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 19.8,
+  "input_tokens": 9843,
+  "output_tokens": 1881,
+  "attempts": 1,
+  "task_sha": "254568f8a3ac99db"
+ }
+}

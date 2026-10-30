@@ -1,0 +1,56 @@
+{
+ "accession": "TLN|earnings_release|2024-09-30|9acef3a6",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "AWS data center campus",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": "AWS",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Progress at the AWS data center campus is accelerating, with our acquisition of TeraWulf\u2019s minority share of the Nautilus JV, enabling the campus to access power more quickly and easily.",
+   "passage": "p01",
+   "confidence": 0.7
+  },
+  {
+   "name": "Nautilus JV",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "TeraWulf",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Progress at the AWS data center campus is accelerating, with our acquisition of TeraWulf\u2019s minority share of the Nautilus JV, enabling the campus to access power more quickly and easily.",
+   "passage": "p01",
+   "confidence": 0.55
+  },
+  {
+   "name": "Susquehanna ISA",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We are obviously disappointed with the FERC\u2019s recent decision on the Susquehanna ISA.",
+   "passage": "p01",
+   "confidence": 0.45
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.8,
+  "input_tokens": 7005,
+  "output_tokens": 1266,
+  "attempts": 1,
+  "task_sha": "a949b14f8bf754c4"
+ }
+}

@@ -1,23 +1,27 @@
 {
  "accession": "ANET|earnings_release|2023-12-31|681cbb5a",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p02 cash flow table reports purchases of property, equipment and intangible assets ($34,434 thousand in 2023) with no AI attribution, and p01 mentions AI customers only as a description of whom the company sells to"
+   "reason": "no sentence links capital expenditures to AI; the cash flow table shows purchases of property, equipment and intangible assets of $34.4 million for 2023 with no AI attribution"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes research and development, infrastructure or headcount expenses to AI; the AI mention in p01 is a product/customer description, not spend"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only AI mention (p01) is a CFO remark about serving enterprise, cloud and AI customers, which is boilerplate; no sentence states AI or data-center revenue as an amount or share"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.9,
-  "input_tokens": 5464,
-  "output_tokens": 234,
+  "seconds": 3.1,
+  "input_tokens": 5769,
+  "output_tokens": 248,
   "attempts": 1,
-  "task_sha": "f7e94f49d4b4e180"
+  "task_sha": "3ebded7d59803fd7"
  }
 }

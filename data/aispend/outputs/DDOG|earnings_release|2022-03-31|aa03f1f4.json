@@ -1,0 +1,27 @@
+{
+ "accession": "DDOG|earnings_release|2022-03-31|aa03f1f4",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 is forward-looking boilerplate and p02 only gives untied cash-flow figures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; passages contain only boilerplate and cash-flow data"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 6058,
+  "output_tokens": 223,
+  "attempts": 1,
+  "task_sha": "892fece7601febe8"
+ }
+}

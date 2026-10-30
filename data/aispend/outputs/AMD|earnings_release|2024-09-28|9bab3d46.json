@@ -1,23 +1,37 @@
 {
  "accession": "AMD|earnings_release|2024-09-28|9bab3d46",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3500000000,
+   "amount_high": 3500000000,
+   "quote": "Record Data Center segment revenue of $3.5 billion was up 122% year-over-year and 25% sequentially primarily driven by the strong ramp of AMD Instinct\u2122 GPU shipments and growth in AMD EPYC\u2122 CPU sales.",
+   "passage": "p01",
+   "confidence": 0.85,
+   "notes": "Quarterly figure (Q3 fiscal 2024, quarter ended 2024-09-28), not full-year; sentence names no year. Data Center segment includes CPUs as well as AI accelerators. The segment table in p14 gives $3,549 million for the same quarter."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states capital expenditures or links them to AI; the ZT Systems acquisition (p02, p10) is an acquisition, not a capital expenditure, and no purchase price is given"
+   "reason": "no sentence states or attributes capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; the segment passages (p11, p12) mention higher operating expenses only as an offset to income, with no AI attribution, and p05 references the non-GAAP operating expense outlook only in cautionary boilerplate"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; segment opex increases are mentioned without an AI link or amount"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.1,
-  "input_tokens": 11168,
-  "output_tokens": 313,
+  "seconds": 7.1,
+  "input_tokens": 13197,
+  "output_tokens": 725,
   "attempts": 1,
-  "task_sha": "57cbddbcee9942ef"
+  "task_sha": "4874a314bd74dc02"
  }
 }

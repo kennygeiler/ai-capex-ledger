@@ -1,0 +1,200 @@
+{
+ "accession": "0001437749-23-004540",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0147",
+   "row_label": "Land",
+   "column_label": "December 31, | 2022",
+   "cell_text": "41,924",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 41924000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0147",
+   "row_label": "Land",
+   "column_label": "December 31, | 2021",
+   "cell_text": "38,872",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 38872000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Production equipment and software",
+   "table_id": "t0147",
+   "row_label": "Production equipment and software",
+   "column_label": "December 31, | 2022",
+   "cell_text": "254,882",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 254882000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Production equipment and software",
+   "table_id": "t0147",
+   "row_label": "Production equipment and software",
+   "column_label": "December 31, | 2021",
+   "cell_text": "233,398",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 233398000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0147",
+   "row_label": "Buildings and improvements",
+   "column_label": "December 31, | 2022",
+   "cell_text": "195,205",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 195205000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0147",
+   "row_label": "Buildings and improvements",
+   "column_label": "December 31, | 2021",
+   "cell_text": "202,901",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 202901000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Transportation equipment",
+   "table_id": "t0147",
+   "row_label": "Transportation equipment",
+   "column_label": "December 31, | 2022",
+   "cell_text": "28,612",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 28612000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Transportation equipment",
+   "table_id": "t0147",
+   "row_label": "Transportation equipment",
+   "column_label": "December 31, | 2021",
+   "cell_text": "28,608",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 28608000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0147",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, | 2022",
+   "cell_text": "17,389",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 17389000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0147",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, | 2021",
+   "cell_text": "8,990",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 8990000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0147",
+   "row_label": "Furniture and fixtures",
+   "column_label": "December 31, | 2022",
+   "cell_text": "11,378",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 11378000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0147",
+   "row_label": "Furniture and fixtures",
+   "column_label": "December 31, | 2021",
+   "cell_text": "10,738",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 10738000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0147",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, | 2022",
+   "cell_text": "1,908",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 1908000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0147",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, | 2021",
+   "cell_text": "11,333",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 11333000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the only segment-section table (t0110) is a consolidated income statement summary; no per-segment capital expenditures are given"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "t0110 reports only consolidated revenue; no revenue by segment, market or product line appears in the tables provided"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table is included in the tables provided"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included in the tables provided"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.5,
+  "input_tokens": 5402,
+  "output_tokens": 1835,
+  "attempts": 1,
+  "task_sha": "111d9c0411941c30"
+ }
+}

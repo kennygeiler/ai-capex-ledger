@@ -1,0 +1,84 @@
+{
+ "accession": "MARA|earnings_release|2025-12-31|4cd9c98a",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "MARA\u2013Starwood Digital Ventures joint venture",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": "Starwood Digital Ventures",
+   "capacity_mw": 1000,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The joint platform is expected to support more than 1 gigawatt (\u201cGW\u201d) of IT capacity in the initial development phase, with a development roadmap that could extend capacity beyond 2.5 GW over time.",
+   "passage": "p01",
+   "confidence": 0.8
+  },
+  {
+   "name": "Central Nebraska 42 MW data center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "central Nebraska",
+   "counterparty": null,
+   "capacity_mw": 42,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Acquired a 42 MW operational data center in central Nebraska, expected to lower our average mining costs at our Nebraska campus.",
+   "passage": "p03",
+   "confidence": 0.75
+  },
+  {
+   "name": "NGON gas-to-power operations",
+   "kind": "power",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "This includes our owned wind farm and our NGON gas-to-power operations, which doubled from 25 megawatts to 50 megawatts during the quarter.",
+   "passage": "p02",
+   "confidence": 0.65
+  },
+  {
+   "name": "Owned wind farm",
+   "kind": "power",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "This includes our owned wind farm and our NGON gas-to-power operations, which doubled from 25 megawatts to 50 megawatts during the quarter.",
+   "passage": "p02",
+   "confidence": 0.5
+  },
+  {
+   "name": "MPLX West Texas integrated power and data campuses",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "West Texas",
+   "counterparty": "MPLX",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "While we continue to advance discussions with MPLX regarding the development of integrated power and data campuses in West Texas, this remains a longer-term initiative that would require significant capital investment.",
+   "passage": "p02",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.5,
+  "input_tokens": 11109,
+  "output_tokens": 1816,
+  "attempts": 1,
+  "task_sha": "988f84a2419f637d"
+ }
+}

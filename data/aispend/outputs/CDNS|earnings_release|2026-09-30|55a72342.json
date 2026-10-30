@@ -1,0 +1,35 @@
+{
+ "accession": "CDNS|earnings_release|2026-09-30|55a72342",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u201cQ3 revenue grew 22% year-over-year, with strong double-digit growth across all product categories, driven by growing momentum from AI-driven designs,\u201d said John Wall, senior vice president and chief financial officer.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Quarterly (Q3 fiscal 2026) total revenue growth attributed in part to AI-driven designs; no AI revenue amount or share stated. The 22% is total growth, not an AI share, so it is not recorded as explicit_share. The year is not named in the sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; purchases of property, plant and equipment appear only in the cash-flow table without AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the R&D and AI mention is forward-looking risk boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.2,
+  "input_tokens": 7996,
+  "output_tokens": 905,
+  "attempts": 1,
+  "task_sha": "fe2d1359fa710f12"
+ }
+}

@@ -1,0 +1,68 @@
+{
+ "accession": "MOD|earnings_release|2023-09-30|8cfe68cc",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u201cOur second quarter results were once again ahead of our expectations, with strong revenue growth driven by data center sales, benefits from 80/20 initiatives, and favorable currency impacts,\u201d said Modine President and Chief Executive Officer, Neil D. Brinker.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "Q2 fiscal 2024 quarter, not the full year. Total revenue growth is attributed partly to data center sales. The year comes from the release's stated period; the sentence names no year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Our data center sales more than doubled compared to the prior year for the second consecutive quarter, supported by strong demand from both hyperscale and colocation customers.",
+   "passage": "p02",
+   "confidence": 0.85,
+   "notes": "Quarterly data center sales growth (more than 2x year over year). This is a growth rate, not an amount or a share of revenue, so it is qualitative. Data center demand, with no explicit mention of AI."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This increase was driven by higher sales of data center cooling products, partially offset by lower sales of heat transfer products and HVAC and \u2022 refrigeration products.",
+   "passage": "p03",
+   "confidence": 0.85,
+   "notes": "Climate Solutions segment Q2 sales ($275.8M) increase was driven by data center cooling products. The total is a segment total, not the data center part."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Volumes in our data center business have exceeded our expectations, but we are maintaining a cautious outlook based on current economic conditions and trends in our other end markets.",
+   "passage": "p04",
+   "confidence": 0.7,
+   "notes": "Data center business volume compared with expectations. This is a weak revenue statement, with no amount or share given."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI or data centers. Modine is a seller of data center cooling."
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence attributes operating expenses to AI. The SG&A increase is attributed to compensation, product development and professional fees, with no AI link."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.3,
+  "input_tokens": 6538,
+  "output_tokens": 1762,
+  "attempts": 1,
+  "task_sha": "bbb9bbcac46c0eef"
+ }
+}

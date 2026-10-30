@@ -1,23 +1,27 @@
 {
  "accession": "XOM|mdna|2025-12-31|0c3250e5",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the 2026 investment range of $27-29 billion (p03) gives no AI reason or driver, and 'low-carbon data centers' (p01, p06) appears only in forward-looking boilerplate and a business description"
+   "reason": "no sentence links capital expenditures to AI; the 2026 investment range of $27-29 billion (p03) is not attributed to AI, and 'low-carbon data centers' appears only in forward-looking-statement and business-description boilerplate (p01, p06)"
   },
   {
    "field": "opex",
    "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "an energy company; no sentence states revenue from AI or data-center demand"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.3,
-  "input_tokens": 6567,
-  "output_tokens": 277,
+  "seconds": 6.7,
+  "input_tokens": 6870,
+  "output_tokens": 318,
   "attempts": 1,
-  "task_sha": "5e0a4449ebb7d835"
+  "task_sha": "7cfb3fcdb2ad7b37"
  }
 }

@@ -1,0 +1,35 @@
+{
+ "accession": "SMCI|earnings_release|2025-06-30|8f4997ea",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u201cWe made solid progress in FY25 by growing our AI solution leadership in Neoclouds, CSPs, Enterprises, and Sovereign entities, which fueled our 47% annual growth,\u201d said Charles Liang, Founder, President and CEO of Supermicro.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "The sentence credits AI solution leadership with fueling 47% annual growth, which is a total growth rate and not AI's share of revenue, so this is qualitative with scope total. It does not explicitly say the growth is revenue growth."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "Purchases of property, plant and equipment ($127.2 million in FY25) appear only in the cash flow table, and no sentence links capital expenditures to AI."
+  },
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 7197,
+  "output_tokens": 743,
+  "attempts": 1,
+  "task_sha": "5966c109640f2581"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "SNPS|earnings_release|2024-10-31|9d575810",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links Synopsys's capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes Synopsys's operating expenses to AI; 'AI-driven reinvention of compute is accelerating ... technology R&D' describes customers' R&D and market opportunity, not Synopsys's own spend"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI or data-center share or amount of revenue; the CEO's AI remark is general market commentary about expanding opportunity"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 4881,
+  "output_tokens": 343,
+  "attempts": 1,
+  "task_sha": "216f80f053e8039d"
+ }
+}

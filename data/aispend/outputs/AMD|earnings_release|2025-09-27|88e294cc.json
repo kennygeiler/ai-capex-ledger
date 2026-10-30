@@ -1,23 +1,44 @@
 {
  "accession": "AMD|earnings_release|2025-09-27|88e294cc",
- "prompt_version": "aispend@v3",
- "statements": [],
- "none_found": [
+ "prompt_version": "aispend@v4",
+ "statements": [
   {
-   "field": "capex",
-   "reason": "no sentence states or links capital expenditures to AI; passages cover revenue, product announcements and customer partnerships (e.g., OpenAI, Oracle GPU deployments), which are sales, not AMD's own spend"
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 4300000000,
+   "amount_high": 4300000000,
+   "quote": "Data Center segment revenue was $4.3 billion, up 22% year-over-year primarily driven by strong demand for 5 th Gen AMD EPYC\u2122 processors and AMD Instinct MI350 Series GPUs.",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "Quarterly figure (Q3 2025, quarter ended 2025-09-27), not full-year; segment total $4,341 million per p22. The segment also includes server CPUs and other non-AI data-center products."
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; the only opex mention (p18 'higher operating expenses') is not linked to AI, and 'continued investments in AI' in p11 sits in the forward-looking-statements safe-harbor list"
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Our continued investments in AI and high-performance computing are driving significant growth and position AMD to deliver long-term value creation.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "CFO statement on 'investments in AI'. It does not say whether these are operating expenses or capital spending; read here as R&D/opex. No amount is given."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.3,
-  "input_tokens": 11161,
-  "output_tokens": 312,
+  "seconds": 9.3,
+  "input_tokens": 12997,
+  "output_tokens": 1025,
   "attempts": 1,
-  "task_sha": "9be142ee1ec3af6a"
+  "task_sha": "5417e586a634983e"
  }
 }

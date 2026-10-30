@@ -1,23 +1,27 @@
 {
  "accession": "AMZN|earnings_release|2024-03-31|240be97f",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the $10 billion Mississippi data center investment (p02) is not attributed to AI, names no fiscal year, and is a multi-year project announcement rather than period capex"
+   "reason": "no sentence links capital expenditures to AI; the $10 billion Mississippi data center investment (p03) is not attributed to AI in the sentence, and attributing it would be inference"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; p01 and p03 describe customer migrations and product collaborations, not spend"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the sentence in p01 credits AI capabilities with AWS's growth and gives AWS's $100 billion run rate, but AWS is a buyer's cloud segment, not AI revenue, and no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.2,
-  "input_tokens": 4902,
-  "output_tokens": 313,
+  "seconds": 7.7,
+  "input_tokens": 5661,
+  "output_tokens": 593,
   "attempts": 1,
-  "task_sha": "10d68c35047cfa72"
+  "task_sha": "c29a5ffc281e45de"
  }
 }

@@ -1,0 +1,30 @@
+{
+ "accession": "NVDA|cfo_commentary|2026-07-26|9ff917c7",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "PORTS-Pike Technology Campus",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Ohio",
+   "counterparty": "SB Energy; OpenAI",
+   "amount_low": 105000000000,
+   "amount_high": 105000000000,
+   "capacity_mw": 4250,
+   "gpus": null,
+   "announced": "2026-08",
+   "in_service": null,
+   "quote": "In August 2026, we entered into guarantees to provide credit support on the land, power, and shell buildout to secure approximately 4.25 gigawatts (GW) at SB Energy's PORTS-Pike Technology Campus in Ohio, which will exclusively host NVIDIA infrastructure under 20-year leases to OpenAI, subject to limited exceptions.",
+   "passage": "p03",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.4,
+  "input_tokens": 8359,
+  "output_tokens": 738,
+  "attempts": 1,
+  "task_sha": "5b7723315ae909e9"
+ }
+}

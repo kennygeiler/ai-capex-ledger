@@ -1,0 +1,27 @@
+{
+ "accession": "SLNH|earnings_release|2022-03-31|c472a1c2",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only boilerplate company description; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "only boilerplate company description; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "only a description of what the company builds (data centers for crypto mining, AI and machine learning); no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 4931,
+  "output_tokens": 208,
+  "attempts": 1,
+  "task_sha": "d287cee77bdad068"
+ }
+}

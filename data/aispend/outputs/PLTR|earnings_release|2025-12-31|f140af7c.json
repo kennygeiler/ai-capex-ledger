@@ -1,0 +1,27 @@
+{
+ "accession": "PLTR|earnings_release|2025-12-31|f140af7c",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the passage gives U.S. and U.S. commercial revenue growth rates and a 2026 total revenue growth guide of 61%, but no sentence states an AI revenue amount or share, or names AI as the driver of revenue; the AI sentence describes strategy only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.1,
+  "input_tokens": 4939,
+  "output_tokens": 411,
+  "attempts": 1,
+  "task_sha": "91403b32f148cb9f"
+ }
+}

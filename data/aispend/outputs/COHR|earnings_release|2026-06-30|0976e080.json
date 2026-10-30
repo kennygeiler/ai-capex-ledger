@@ -1,0 +1,35 @@
+{
+ "accession": "COHR|earnings_release|2026-06-30|0976e080",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Revenue Growth Acceleration and Gross Margin Expansion Driven by Datacenter Demand",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "Slide headline, not a full prose sentence. It attributes the Q4 FY26 total revenue growth to datacenter demand. The Datacenter and Communications segment revenue ($1,615M in Q4, 79% of the mix) appears only in bar-graph data, not in a quotable sentence. That segment also includes communications, so it is not recorded as an explicit AI or data-center amount."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the CFO's capital allocation sentence prioritizes investment in manufacturing capacity but does not tie capital expenditures to AI or state an amount"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D and SG&A appear only in reconciliation tables; no sentence attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.6,
+  "input_tokens": 49742,
+  "output_tokens": 1158,
+  "attempts": 1,
+  "task_sha": "6792f150f63b4e69"
+ }
+}

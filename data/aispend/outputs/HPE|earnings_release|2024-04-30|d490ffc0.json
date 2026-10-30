@@ -1,0 +1,35 @@
+{
+ "accession": "HPE|earnings_release|2024-04-30|d490ffc0",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "AI systems revenue more than doubled from the prior quarter, driven by our strong order book and better conversion from our supply chain,\u201d said Antonio Neri, president and CEO of Hewlett Packard Enterprise.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Quarterly (Q2 fiscal 2024) growth statement with no dollar amount or share of total revenue. No year is named, so the filing's reported year (2024) applies. The cumulative AI systems orders of $4.6 billion, and the enterprise share of more than 15% of those orders, are orders/backlog, not revenue, so they were not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in the free cash flow definition footnotes (p02, p05); no sentence links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "research and development expenditures appear only in the forward-looking-statements boilerplate (p03); no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.5,
+  "input_tokens": 6586,
+  "output_tokens": 893,
+  "attempts": 1,
+  "task_sha": "18f002b5eca64899"
+ }
+}

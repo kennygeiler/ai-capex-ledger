@@ -1,0 +1,150 @@
+{
+ "accession": "0001437749-26-005875",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0159",
+   "row_label": "Revenue, net",
+   "column_label": "Year ended December 31, | 2025",
+   "cell_text": "455,715",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 455715000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0159",
+   "row_label": "Revenue, net",
+   "column_label": "Year ended December 31, | 2024",
+   "cell_text": "249,365",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 249365000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0159",
+   "row_label": "Revenue, net",
+   "column_label": "Year ended December 31, | 2023",
+   "cell_text": "217,646",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 217646000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0159",
+   "row_label": "Cost of goods sold",
+   "column_label": "Year ended December 31, | 2025",
+   "cell_text": "318,802",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 318802000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0159",
+   "row_label": "Cost of goods sold",
+   "column_label": "Year ended December 31, | 2024",
+   "cell_text": "187,565",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 187565000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0159",
+   "row_label": "Cost of goods sold",
+   "column_label": "Year ended December 31, | 2023",
+   "cell_text": "158,725",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 158725000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0159",
+   "row_label": "Loss from operations",
+   "column_label": "Year ended December 31, | 2025",
+   "cell_text": "(54,602)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": -54602000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0159",
+   "row_label": "Loss from operations",
+   "column_label": "Year ended December 31, | 2024",
+   "cell_text": "(70,908)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": -70908000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0159",
+   "row_label": "Loss from operations",
+   "column_label": "Year ended December 31, | 2023",
+   "cell_text": "(41,349)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": -41349000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0162",
+   "row_label": "Purchase of property, plant and equipment",
+   "column_label": "Year ended December 31, | 2025",
+   "cell_text": "(179,148)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 179148000,
+   "confidence": 0.95,
+   "notes": "Separate 'Deposits and prepayment for equipment' and 'Purchase of intangible assets' lines exist in investing activities; per rules these were not added."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0162",
+   "row_label": "Purchase of property, plant and equipment",
+   "column_label": "Year ended December 31, | 2024",
+   "cell_text": "(43,406)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 43406000,
+   "confidence": 0.95,
+   "notes": "Separate 'Deposits and prepayment for equipment' and 'Purchase of intangible assets' lines exist in investing activities; per rules these were not added."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0162",
+   "row_label": "Purchase of property, plant and equipment",
+   "column_label": "Year ended December 31, | 2023",
+   "cell_text": "(9,079)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 9079000,
+   "confidence": 0.95,
+   "notes": "Separate 'Deposits and prepayment for equipment' and 'Purchase of intangible assets' lines exist in investing activities; per rules these were not added."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.8,
+  "input_tokens": 6679,
+  "output_tokens": 1488,
+  "attempts": 1,
+  "task_sha": "63b23a5642979665"
+ }
+}

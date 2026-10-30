@@ -1,0 +1,35 @@
+{
+ "accession": "MPWR|earnings_release|2026-03-31|ec48a682",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The sequential increase was driven by higher sales of our power management solutions for AI and server applications.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Attributes the sequential (Q4 2025 to Q1 2026) increase in Enterprise Data segment revenue ($262.8 million, 32.7% of total Q1 2026 revenue) to AI and server applications. It covers a quarter, not the full fiscal year. The Enterprise Data segment is not labeled as AI or data-center revenue, and AI is grouped with server applications. So no AI amount or share is recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.6,
+  "input_tokens": 5119,
+  "output_tokens": 780,
+  "attempts": 1,
+  "task_sha": "e057dc74ddf93140"
+ }
+}

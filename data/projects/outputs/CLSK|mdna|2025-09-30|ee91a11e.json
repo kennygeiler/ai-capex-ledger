@@ -1,0 +1,42 @@
+{
+ "accession": "CLSK|mdna|2025-09-30|ee91a11e",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Austin County, Texas data-center campus",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Austin County, Texas",
+   "counterparty": null,
+   "capacity_mw": 285,
+   "gpus": null,
+   "announced": "2025-10-27",
+   "in_service": null,
+   "quote": "On October 27, 2025, we acquired property in Austin County, Texas and executed long-term power supply agreements totaling 285 megawatts to support the development of a next-generation data-center campus.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Austin County, Texas long-term power supply agreements",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Austin County, Texas",
+   "counterparty": null,
+   "capacity_mw": 285,
+   "gpus": null,
+   "announced": "2025-10-27",
+   "in_service": null,
+   "quote": "On October 27, 2025, we acquired property in Austin County, Texas and executed long-term power supply agreements totaling 285 megawatts to support the development of a next-generation data-center campus.",
+   "passage": "p02",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 6347,
+  "output_tokens": 735,
+  "attempts": 1,
+  "task_sha": "e48e4e821ec54739"
+ }
+}

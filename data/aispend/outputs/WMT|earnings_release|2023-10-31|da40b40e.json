@@ -1,23 +1,27 @@
 {
  "accession": "WMT|earnings_release|2023-10-31|da40b40e",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the only capex statement is guidance of flat to up slightly vs. LY with no AI attribution"
+   "reason": "capex guidance (flat to up slightly vs. LY) is not linked to AI in any sentence"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; operating expense is mentioned only in forward-looking-statement boilerplate"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer/retailer; no sentence states AI or data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.5,
-  "input_tokens": 7072,
-  "output_tokens": 186,
+  "seconds": 2.5,
+  "input_tokens": 7373,
+  "output_tokens": 182,
   "attempts": 1,
-  "task_sha": "45eee19ee0168c96"
+  "task_sha": "7de560a2e659d12b"
  }
 }

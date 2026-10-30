@@ -1,0 +1,76 @@
+{
+ "accession": "FCX|earnings_release|2022-09-30|83958cf4",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Gresik greenfield smelter",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Gresik, Indonesia",
+   "counterparty": null,
+   "amount_low": 3000000000,
+   "amount_high": 3000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "The smelter construction is advancing and is expected to be completed as soon as feasible in 2024 at an estimated cost of $3.0 billion, including $2.8 billion for a construction contract (excluding capitalized interest, owner\u2019s costs and commissioning) and $0.2 billion for investment in a desalinization plant.",
+   "passage": "p05",
+   "confidence": 0.5
+  },
+  {
+   "name": "PT Smelting expansion",
+   "kind": "plant",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "majority owner of PT Smelting",
+   "amount_low": 250000000,
+   "amount_high": 250000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2021-11",
+   "in_service": "2023",
+   "quote": "Expansion of PT Smelting's capacity by 30 percent to 1.3 million metric tons of concentrate per year, which is expected to be completed by the end of 2023.",
+   "passage": "p06",
+   "confidence": 0.45
+  },
+  {
+   "name": "Precious metals refinery (PMR)",
+   "kind": "plant",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 400000000,
+   "amount_high": 400000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Construction of a precious metals refinery (PMR) to process gold and silver from the greenfield smelter and PT Smelting at an estimated cost of $400 million.",
+   "passage": "p08",
+   "confidence": 0.45
+  },
+  {
+   "name": "Grasberg dual-fuel power plant",
+   "kind": "power",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "For the year 2022, PT-FI's estimated capital spending on the Grasberg Block Cave and DMLZ underground projects, including construction of a dual-fuel power plant, is expected to approximate $1.0 billion, net of scheduled contributions from PT Indonesia Asahan Aluminium (Persero) (PT Inalum, also known as MIND ID).",
+   "passage": "p04",
+   "confidence": 0.35
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.7,
+  "input_tokens": 16877,
+  "output_tokens": 2127,
+  "attempts": 1,
+  "task_sha": "53bf795fead2a88b"
+ }
+}

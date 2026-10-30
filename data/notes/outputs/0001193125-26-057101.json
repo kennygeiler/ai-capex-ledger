@@ -1,0 +1,185 @@
+{
+ "accession": "0001193125-26-057101",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Computer software",
+   "table_id": "t0052",
+   "row_label": "Computer software",
+   "column_label": "As of December 31, | 2025",
+   "cell_text": "57,147",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 57147000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment",
+   "table_id": "t0052",
+   "row_label": "Computer equipment",
+   "column_label": "As of December 31, | 2025",
+   "cell_text": "41,005",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 41005000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0052",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of December 31, | 2025",
+   "cell_text": "36,343",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 36343000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery",
+   "table_id": "t0052",
+   "row_label": "Machinery",
+   "column_label": "As of December 31, | 2025",
+   "cell_text": "66,882",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 66882000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0052",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of December 31, | 2025",
+   "cell_text": "14,739",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 14739000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0052",
+   "row_label": "Construction in progress",
+   "column_label": "As of December 31, | 2025",
+   "cell_text": "7,413",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 7413000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer software",
+   "table_id": "t0052",
+   "row_label": "Computer software",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "44,745",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 44745000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment",
+   "table_id": "t0052",
+   "row_label": "Computer equipment",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "38,282",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 38282000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0052",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "31,973",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 31973000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery",
+   "table_id": "t0052",
+   "row_label": "Machinery",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "49,204",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 49204000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0052",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "14,164",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 14164000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0052",
+   "row_label": "Construction in progress",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "7,789",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 7789000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0023",
+   "row_label": "Total",
+   "column_label": "Total",
+   "cell_text": "40,228",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 40228000,
+   "confidence": 0.6
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note with capital expenditures by reportable segment appears in the tables provided"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "t0010 gives only percentages of revenue by revenue type (product, royalties, contract and other), not dollar revenue by segment or market"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note or finance lease liability line appears in the tables provided"
+  }
+ ],
+ "notes": "purchase_commitments: t0023 (duplicated as t0055) is a contractual-obligations table of software licenses and other obligations, not explicitly labelled purchase obligations; its 'Total' column is the multi-year total as of the 2025-12-31 year-end, so cited with confidence 0.6.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.9,
+  "input_tokens": 6258,
+  "output_tokens": 2250,
+  "attempts": 1,
+  "task_sha": "402bbc08fd189845"
+ }
+}

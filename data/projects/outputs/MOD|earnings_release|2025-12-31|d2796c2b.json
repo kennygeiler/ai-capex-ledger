@@ -1,0 +1,70 @@
+{
+ "accession": "MOD|earnings_release|2025-12-31|d2796c2b",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Leeds, UK chiller lines",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Leeds, UK",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Launched chiller lines in Leeds, UK, Grenada, MS and Jefferson City, MO",
+   "passage": "p08",
+   "confidence": 0.7
+  },
+  {
+   "name": "Grenada, MS chiller lines",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Grenada, MS",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Launched chiller lines in Leeds, UK, Grenada, MS and Jefferson City, MO",
+   "passage": "p08",
+   "confidence": 0.7
+  },
+  {
+   "name": "Jefferson City, MO chiller lines",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Jefferson City, MO",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Launched chiller lines in Leeds, UK, Grenada, MS and Jefferson City, MO",
+   "passage": "p08",
+   "confidence": 0.7
+  },
+  {
+   "name": "Franklin, WI production for AHUs and modular data centers",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Franklin, WI",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Launched production in Franklin, WI for AHUs and modular data centers",
+   "passage": "p08",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.8,
+  "input_tokens": 9700,
+  "output_tokens": 919,
+  "attempts": 1,
+  "task_sha": "65aa704ab846edb1"
+ }
+}

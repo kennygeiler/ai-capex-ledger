@@ -1,0 +1,84 @@
+{
+ "accession": "TSLA|earnings_release|2026-03-31|846c2492",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Cortex 2",
+   "kind": "gpu_cluster",
+   "status": "in_service",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Cortex 2 is now online and has started running training workloads.",
+   "passage": "p02",
+   "confidence": 0.9
+  },
+  {
+   "name": "Cortex 1",
+   "kind": "gpu_cluster",
+   "status": "in_service",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "S U P P O R T I N G I N F R A S T R U C T U R E Installed Annual Capacity Region Product Capacity Status AI Training Compute Texas Cortex 1 >100k H100e Production Cortex 2 >130k H100e Early Ramp Battery Manufacturing Nevada LFP 7 GWh Early Ramp Texas 4680 40 GWh Production Cathode Materials 10 GWh Early Ramp Lithium Refining 30 GWh Early Ramp capacity.",
+   "passage": "p02",
+   "confidence": 0.6
+  },
+  {
+   "name": "Optimus factory, Fremont",
+   "kind": "plant",
+   "status": "announced",
+   "location": "Fremont",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The first- generation line, designed for 1 million robots a year, will replace the Model S and Model X lines in Fremont.",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "Gigafactory Texas second-generation Optimus line",
+   "kind": "plant",
+   "status": "announced",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We are also preparing Gigafactory Texas for the second-generation line, which is being designed for long-term annual production capacity of 10 million robots.",
+   "passage": "p01",
+   "confidence": 0.7
+  },
+  {
+   "name": "Megafactory outside Houston",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "outside Houston",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Progress continued at the new Megafactory outside Houston, which will produce the Megapack 3 for Megablock.",
+   "passage": "p01",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.0,
+  "input_tokens": 5668,
+  "output_tokens": 1597,
+  "attempts": 1,
+  "task_sha": "9cc17d91c34317d8"
+ }
+}

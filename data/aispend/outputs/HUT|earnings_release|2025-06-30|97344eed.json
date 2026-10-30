@@ -1,0 +1,27 @@
+{
+ "accession": "HUT|earnings_release|2025-06-30|97344eed",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; p02 gives AI data center development capacity (430 MW), not a spend amount"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p03's $34.3 million combines Bitcoin Mining, GPU-as-a-Service and Data Center Cloud revenue, and is neither the AI part alone nor company total revenue; no sentence states AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.6,
+  "input_tokens": 6623,
+  "output_tokens": 595,
+  "attempts": 1,
+  "task_sha": "e410643ce8cacd3c"
+ }
+}

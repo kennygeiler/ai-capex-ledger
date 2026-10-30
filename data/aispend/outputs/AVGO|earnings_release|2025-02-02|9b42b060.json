@@ -1,23 +1,50 @@
 {
  "accession": "AVGO|earnings_release|2025-02-02|9b42b060",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 4100000000,
+   "amount_high": 4100000000,
+   "quote": "Q1 AI revenue grew 77% year-over-year to $4.1 billion and infrastructure software revenue grew 47% year-over-year to $6.7 billion,\u201d said Hock Tan, President and CEO of Broadcom Inc.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Quarterly figure (Q1 fiscal 2025), not full-year AI revenue."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 4400000000,
+   "amount_high": 4400000000,
+   "quote": "We expect continued strength in AI semiconductor revenue of $4.4 billion in Q2, as hyperscale partners continue to invest in AI XPUs and connectivity solutions for AI data centers.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Quarterly guidance (Q2 fiscal 2025), not full-year; fiscal year taken from the release's stated fiscal 2025 context since the sentence says only 'Q2'."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "purchases of property, plant and equipment ($100 million in Q1 fiscal 2025) appear only in cash flow tables with no sentence linking capital expenditures to AI; the AI references in p01 concern revenue and customers' (hyperscalers') investment, not Broadcom's own spend"
+   "reason": "capex appears only as purchases of property, plant and equipment in tables; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes research and development, infrastructure or headcount expense to AI; the only R&D mention is risk-factor boilerplate in p02"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; R&D mention in p02 is risk-factor boilerplate"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.8,
-  "input_tokens": 7105,
-  "output_tokens": 316,
+  "seconds": 9.4,
+  "input_tokens": 7408,
+  "output_tokens": 1193,
   "attempts": 1,
-  "task_sha": "3fa93a1947c5a1fb"
+  "task_sha": "a63cf64284ef1edb"
  }
 }

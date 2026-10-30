@@ -1,0 +1,150 @@
+{
+ "accession": "0001437749-26-006113",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0137",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "2,790,459",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 2790459000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0137",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, | 2024 (As Restated)",
+   "cell_text": "2,207,100",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 2207100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0137",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "1,821,072",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 1821072000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0137",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "1,250,718",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 1250718000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0137",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended December 31, | 2024 (As Restated)",
+   "cell_text": "986,230",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 986230000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0137",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "799,953",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 799953000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0137",
+   "row_label": "Operating income",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "728,636",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 728636000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0137",
+   "row_label": "Operating income",
+   "column_label": "Year Ended December 31, | 2024 (As Restated)",
+   "cell_text": "539,358",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 539358000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0137",
+   "row_label": "Operating income",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "481,736",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 481736000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0140",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(172,013)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 172013000,
+   "confidence": 1.0,
+   "notes": "Separate 'Purchases of intangible assets' line and financing-section 'Property and equipment purchased on extended payment terms' not added, per rules."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0140",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2024 (As Restated)",
+   "cell_text": "(146,118)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 146118000,
+   "confidence": 1.0,
+   "notes": "Separate 'Purchases of intangible assets' line and financing-section 'Property and equipment purchased on extended payment terms' not added, per rules."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0140",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(57,578)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 57578000,
+   "confidence": 1.0,
+   "notes": "Financing-section 'Property and equipment purchased on extended payment terms' not added, per rules."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.2,
+  "input_tokens": 6302,
+  "output_tokens": 1484,
+  "attempts": 1,
+  "task_sha": "957cdd774655a930"
+ }
+}

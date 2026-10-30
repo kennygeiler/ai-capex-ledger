@@ -1,0 +1,192 @@
+{
+ "accession": "0000813672-22-000012",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0037",
+   "row_label": "Total revenue",
+   "column_label": "2021",
+   "cell_text": "2,988,244",
+   "period_end": "2022-01-01",
+   "months": 12,
+   "value": 2988244000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0037",
+   "row_label": "Total revenue",
+   "column_label": "2020",
+   "cell_text": "2,682,891",
+   "period_end": "2021-01-02",
+   "months": 12,
+   "value": 2682891000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0037",
+   "row_label": "Total revenue",
+   "column_label": "2019",
+   "cell_text": "2,336,319",
+   "period_end": "2019-12-28",
+   "months": 12,
+   "value": 2336319000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0037",
+   "row_label": "Cost of product and maintenance",
+   "column_label": "2021",
+   "cell_text": "222,647",
+   "period_end": "2022-01-01",
+   "months": 12,
+   "value": 222647000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; this is the direct cost of delivering the 'Product and maintenance' revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0037",
+   "row_label": "Cost of product and maintenance",
+   "column_label": "2020",
+   "cell_text": "231,026",
+   "period_end": "2021-01-02",
+   "months": 12,
+   "value": 231026000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; this is the direct cost of delivering the 'Product and maintenance' revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0037",
+   "row_label": "Cost of product and maintenance",
+   "column_label": "2019",
+   "cell_text": "189,146",
+   "period_end": "2019-12-28",
+   "months": 12,
+   "value": 189146000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; this is the direct cost of delivering the 'Product and maintenance' revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0037",
+   "row_label": "Cost of services",
+   "column_label": "2021",
+   "cell_text": "84,359",
+   "period_end": "2022-01-01",
+   "months": 12,
+   "value": 84359000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; this is the direct cost of delivering the 'Services' revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0037",
+   "row_label": "Cost of services",
+   "column_label": "2020",
+   "cell_text": "74,472",
+   "period_end": "2021-01-02",
+   "months": 12,
+   "value": 74472000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; this is the direct cost of delivering the 'Services' revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0037",
+   "row_label": "Cost of services",
+   "column_label": "2019",
+   "cell_text": "77,211",
+   "period_end": "2019-12-28",
+   "months": 12,
+   "value": 77211000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; this is the direct cost of delivering the 'Services' revenue line."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0037",
+   "row_label": "Income from operations",
+   "column_label": "2021",
+   "cell_text": "779,089",
+   "period_end": "2022-01-01",
+   "months": 12,
+   "value": 779089000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0037",
+   "row_label": "Income from operations",
+   "column_label": "2020",
+   "cell_text": "645,552",
+   "period_end": "2021-01-02",
+   "months": 12,
+   "value": 645552000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0037",
+   "row_label": "Income from operations",
+   "column_label": "2019",
+   "cell_text": "491,796",
+   "period_end": "2019-12-28",
+   "months": 12,
+   "value": 491796000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0040",
+   "row_label": "Purchases of property, plant and equipment",
+   "column_label": "2021",
+   "cell_text": "(65,298)",
+   "period_end": "2022-01-01",
+   "months": 12,
+   "value": 65298000,
+   "confidence": 1.0,
+   "notes": "Separate 'Purchases of intangible assets' line not added, per rules."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0040",
+   "row_label": "Purchases of property, plant and equipment",
+   "column_label": "2020",
+   "cell_text": "(94,813)",
+   "period_end": "2021-01-02",
+   "months": 12,
+   "value": 94813000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0040",
+   "row_label": "Purchases of property, plant and equipment",
+   "column_label": "2019",
+   "cell_text": "(74,605)",
+   "period_end": "2019-12-28",
+   "months": 12,
+   "value": 74605000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "Income statement has no single total cost-of-revenue line; components reported as cost_of_revenue_part."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.3,
+  "input_tokens": 6322,
+  "output_tokens": 2162,
+  "attempts": 1,
+  "task_sha": "d1e3ec5853902e79"
+ }
+}

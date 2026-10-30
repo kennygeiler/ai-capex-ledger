@@ -1,23 +1,27 @@
 {
  "accession": "JPM|earnings_release|2026-06-30|da9ae8a6",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence links the company's capital expenditures to AI; 'AI-driven capital investment' refers to the broader U.S. economy, not JPM's own spend"
   },
   {
    "field": "opex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a bank and buyer of AI; no sentence states AI's or data-center demand's part of revenue"
   }
  ],
  "_run": {
-  "model": null,
-  "seconds": 0.0,
-  "input_tokens": 0,
-  "output_tokens": 0,
-  "attempts": 0,
-  "task_sha": "eeeeffd0b712585d"
+  "model": "claude-opus-5-5",
+  "seconds": 3.4,
+  "input_tokens": 5509,
+  "output_tokens": 218,
+  "attempts": 1,
+  "task_sha": "272534be4699644d"
  }
 }

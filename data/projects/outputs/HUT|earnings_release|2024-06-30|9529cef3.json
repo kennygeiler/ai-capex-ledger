@@ -1,0 +1,56 @@
+{
+ "accession": "HUT|earnings_release|2024-06-30|9529cef3",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Texas Panhandle site",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Texas Panhandle",
+   "counterparty": null,
+   "capacity_mw": 205,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Last month, we announced a new site in the Texas Panhandle with 205 megawatts of immediately available, low-cost, long- term power.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Salt Creek",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Restructuring and optimization initiatives, together with the energization of Salt Creek, enabled a 21% reduction in our energy cost per kilowatt-hour from $0.040 in Q1 2024 to $0.032 in Q2 2024.",
+   "passage": "p01",
+   "confidence": 0.55
+  },
+  {
+   "name": "King Mountain JV",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 280,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Energy capacity under management (mining) includes 180 MW of self-mining site capacity comprising Alpha, Medicine Hat, and Salt (5) Creek, as well as 280 MW of capacity under management at the King Mountain JV.",
+   "passage": "p06",
+   "confidence": 0.4
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.7,
+  "input_tokens": 5406,
+  "output_tokens": 1144,
+  "attempts": 1,
+  "task_sha": "ebe34e47c35793ed"
+ }
+}

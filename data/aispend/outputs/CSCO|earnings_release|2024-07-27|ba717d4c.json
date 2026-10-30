@@ -1,23 +1,27 @@
 {
  "accession": "CSCO|earnings_release|2024-07-27|ba717d4c",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is safe-harbor boilerplate; no sentence states or attributes capital expenditures to AI"
+   "reason": "no sentence states capital expenditures or links them to AI; the CFO's 'as we invest to win in AI, cloud and cybersecurity' names no spend category, amount or share"
   },
   {
    "field": "opex",
-   "reason": "the only passage is safe-harbor boilerplate; its mention of investing in AI, cloud and cybersecurity describes the topics of forward-looking statements and gives no amount, share, or link to an operating expense line"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the CFO's general 'invest to win in AI, cloud and cybersecurity' remark does not identify opex"
+  },
+  {
+   "field": "revenue",
+   "reason": "only total Q4 revenue of $13.6 billion is given; no sentence states AI or data-center revenue or its share of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.2,
-  "input_tokens": 5668,
-  "output_tokens": 273,
+  "seconds": 7.9,
+  "input_tokens": 6348,
+  "output_tokens": 786,
   "attempts": 1,
-  "task_sha": "0f5766465a569866"
+  "task_sha": "6a46a94f4de7e20e"
  }
 }

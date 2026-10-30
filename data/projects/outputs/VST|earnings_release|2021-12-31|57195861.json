@@ -1,0 +1,70 @@
+{
+ "accession": "VST|earnings_release|2021-12-31|57195861",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Moss Landing Energy Storage Facility Phase III expansion",
+   "kind": "power",
+   "status": "announced",
+   "location": "California",
+   "counterparty": null,
+   "capacity_mw": 350,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "California: 350 MW/1,400 MWh Phase III expansion of our Moss Landing Energy Storage Facility",
+   "passage": "p03",
+   "confidence": 0.8
+  },
+  {
+   "name": "Illinois Coal to Solar & Energy Storage Initiative",
+   "kind": "power",
+   "status": "announced",
+   "location": "central and southern Illinois",
+   "counterparty": null,
+   "capacity_mw": 450,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Illinois: 450 MW of utility-scale solar and energy storage projects to be located at nine retired or to-be-retired Vistra coal plant sites",
+   "passage": "p04",
+   "confidence": 0.75
+  },
+  {
+   "name": "Angus solar development project",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Bosque County, Texas",
+   "counterparty": null,
+   "capacity_mw": 110,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Texas: acquired the 110 MW Angus solar development project located in Bosque County",
+   "passage": "p05",
+   "confidence": 0.75
+  },
+  {
+   "name": "Moss Landing Energy Storage Facility",
+   "kind": "power",
+   "status": "in_service",
+   "location": "Moss Landing, California",
+   "counterparty": null,
+   "capacity_mw": 400,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The company owns and operates a 400-MW/1,600-MWh battery energy storage system in Moss Landing, California, the largest of its kind in the world.",
+   "passage": "p08",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.2,
+  "input_tokens": 8489,
+  "output_tokens": 1422,
+  "attempts": 1,
+  "task_sha": "2769ae0d35d330ca"
+ }
+}

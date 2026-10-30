@@ -1,0 +1,60 @@
+{
+ "accession": "DLR|earnings_release|2023-06-30|c3877ed5",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "AMS7",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Amsterdam",
+   "counterparty": null,
+   "amount_low": 18000000,
+   "amount_high": 18000000,
+   "capacity_mw": 15,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In Amsterdam during the second quarter, Digital Realty acquired the land and building shell of a previously leased 15 megawatts data center (AMS7) for \u20ac17 million or $18 million.",
+   "passage": "p06",
+   "confidence": 0.8
+  },
+  {
+   "name": "Amsterdam Schiphol campus land parcel",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Amsterdam Schiphol, Netherlands",
+   "counterparty": null,
+   "amount_low": 28000000,
+   "amount_high": 28000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Digital Realty also acquired a nine \u2010 acre land parcel located nearby AMS7 on its existing Amsterdam Schiphol campus for \u20ac26 million or $28 million.",
+   "passage": "p06",
+   "confidence": 0.75
+  },
+  {
+   "name": "NoVA development pipeline",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Ashburn, Northern Virginia",
+   "counterparty": null,
+   "capacity_mw": 24,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "518 MW DLR\u2019s in-place IT capacity in the world\u2019s largest data center market(2) By the end of 2025 in Ashburn, including 24 MW of capacity in the current NoVA development pipeline 96 MW Buildable Capacity (1) Northern Virginia Update Note: As of June 30, 2023.",
+   "passage": "p13",
+   "confidence": 0.45
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.8,
+  "input_tokens": 18577,
+  "output_tokens": 1586,
+  "attempts": 1,
+  "task_sha": "207c36b417b90501"
+ }
+}

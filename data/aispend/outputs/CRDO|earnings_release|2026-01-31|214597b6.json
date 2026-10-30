@@ -1,6 +1,6 @@
 {
  "accession": "CRDO|earnings_release|2026-01-31|214597b6",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "fe7527ad429419bb"
+  "task_sha": "3e708058abc6dc0d"
  }
 }

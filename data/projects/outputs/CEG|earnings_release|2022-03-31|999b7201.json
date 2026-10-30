@@ -1,0 +1,42 @@
+{
+ "accession": "CEG|earnings_release|2022-03-31|999b7201",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Sheetz Constellation Offsite Renewables (CORe) agreement",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Sheetz",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2022-02-16",
+   "in_service": null,
+   "quote": "On Feb. 16, 2022, and March 31, 2022, we announced agreements with Sheetz and Comcast, respectively, to purchase power and renewable energy certificates (RECs) to help avoid carbon emissions and meet their individual carbon goals.",
+   "passage": "p03",
+   "confidence": 0.5
+  },
+  {
+   "name": "Comcast Constellation Offsite Renewables (CORe) agreement",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Comcast",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2022-03-31",
+   "in_service": null,
+   "quote": "On Feb. 16, 2022, and March 31, 2022, we announced agreements with Sheetz and Comcast, respectively, to purchase power and renewable energy certificates (RECs) to help avoid carbon emissions and meet their individual carbon goals.",
+   "passage": "p03",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.9,
+  "input_tokens": 8207,
+  "output_tokens": 1037,
+  "attempts": 1,
+  "task_sha": "67687b13e2218fe8"
+ }
+}

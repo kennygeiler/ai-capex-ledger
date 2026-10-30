@@ -1,6 +1,6 @@
 {
  "accession": "0001769628-26-000104",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -150,23 +150,23 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the company reports a single segment; the segment note (t0008) shows consolidated revenue, expenses and operating income only, with no per-segment capital expenditures"
+   "reason": "the company reports a single segment; the segment note (t0008) shows only consolidated revenue, expenses and net loss, with no per-segment capital expenditures"
   },
   {
    "field": "segment_revenue",
-   "reason": "single reportable segment; t0008 gives only total consolidated revenue, with no breakdown by segment, market or product line"
+   "reason": "the company reports a single segment and the tables give only total revenue, with no breakdown by segment, market or product line"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no commitments or contractual-obligations table is included among the provided tables"
+   "reason": "no contractual-obligations or commitments table with total purchase obligations is included in the provided tables"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 13.8,
-  "input_tokens": 7547,
-  "output_tokens": 1730,
+  "seconds": 12.4,
+  "input_tokens": 7665,
+  "output_tokens": 1696,
   "attempts": 1,
-  "task_sha": "47023a0faacb948c"
+  "task_sha": "6a112af71e9d9839"
  }
 }

@@ -1,0 +1,150 @@
+{
+ "accession": "0001408710-25-000039",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0018",
+   "row_label": "Revenues",
+   "column_label": "Years Ended | June 27, 2025",
+   "cell_text": "3,419,327",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 3419327000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0018",
+   "row_label": "Revenues",
+   "column_label": "Years Ended | June 28, 2024",
+   "cell_text": "2,882,967",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 2882967000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0018",
+   "row_label": "Revenues",
+   "column_label": "Years Ended | June 30, 2023",
+   "cell_text": "2,645,237",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 2645237000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0018",
+   "row_label": "Cost of revenues",
+   "column_label": "Years Ended | June 27, 2025",
+   "cell_text": "(3,005,978)",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 3005978000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0018",
+   "row_label": "Cost of revenues",
+   "column_label": "Years Ended | June 28, 2024",
+   "cell_text": "(2,526,849)",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 2526849000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0018",
+   "row_label": "Cost of revenues",
+   "column_label": "Years Ended | June 30, 2023",
+   "cell_text": "(2,308,964)",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 2308964000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0018",
+   "row_label": "Operating income",
+   "column_label": "Years Ended | June 27, 2025",
+   "cell_text": "324,447",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 324447000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0018",
+   "row_label": "Operating income",
+   "column_label": "Years Ended | June 28, 2024",
+   "cell_text": "277,605",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 277605000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0018",
+   "row_label": "Operating income",
+   "column_label": "Years Ended | June 30, 2023",
+   "cell_text": "251,704",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 251704000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0020",
+   "row_label": "Purchase of property, plant and equipment",
+   "column_label": "Years Ended | June 27,2025",
+   "cell_text": "(121,078)",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 121078000,
+   "confidence": 1.0,
+   "notes": "Separate 'Purchase of intangibles' line not added, per rules."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0020",
+   "row_label": "Purchase of property, plant and equipment",
+   "column_label": "Years Ended | June 28,2024",
+   "cell_text": "(47,528)",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 47528000,
+   "confidence": 1.0,
+   "notes": "Separate 'Purchase of intangibles' line not added, per rules."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0020",
+   "row_label": "Purchase of property, plant and equipment",
+   "column_label": "Years Ended | June 30,2023",
+   "cell_text": "(61,360)",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 61360000,
+   "confidence": 1.0,
+   "notes": "Separate 'Purchase of intangibles' line not added, per rules."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.6,
+  "input_tokens": 6486,
+  "output_tokens": 1610,
+  "attempts": 1,
+  "task_sha": "036a784c0a67390b"
+ }
+}

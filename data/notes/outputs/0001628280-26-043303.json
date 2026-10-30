@@ -1,6 +1,6 @@
 {
  "accession": "0001628280-26-043303",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -132,30 +132,30 @@
    "period_end": "2026-05-02",
    "months": 0,
    "value": 359954000,
-   "confidence": 0.7,
-   "notes": "Table header appears mis-parsed (year-bucket values folded into column labels); the as-of date is not shown in the table and is assumed to be the fiscal year-end 2026-05-02. Total includes technology license fees (12,555) alongside manufacturing/foundry purchase commitments (337,746)."
+   "confidence": 0.7
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "Single reportable segment (t0060 reports one segment's revenue, expenses and net income); the segment note gives no capital expenditures by segment."
+   "reason": "Credo reports a single reportable segment; the segment note (t0060) shows consolidated revenue and expense items only, with no capital expenditures"
   },
   {
    "field": "segment_revenue",
-   "reason": "Single reportable segment; t0060 shows only consolidated revenue, and no revenue by market or product line appears in the tables."
+   "reason": "single reportable segment; t0060 gives only consolidated revenue and no revenue by segment, market or product line"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No lease table with finance lease liabilities is present in the provided tables."
+   "reason": "no lease table with finance lease liabilities is among the provided tables"
   }
  ],
+ "notes": "t0042 was parsed transposed: the column headers carry the per-category payment-period amounts, and the single row holds the totals. Cell [2] 359,954 is the grand total across purchase commitments to manufacturing vendors and foundry partners and technology license fees (346,058 + 11,046 + 2,850). It is taken as the total unconditional purchase commitments as of the 2026-05-02 year-end, so confidence is 0.7. If only manufacturing and foundry commitments are wanted, the value is 337,746 in column [0].",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 15.7,
-  "input_tokens": 5393,
-  "output_tokens": 1984,
+  "seconds": 19.2,
+  "input_tokens": 5519,
+  "output_tokens": 2102,
   "attempts": 1,
-  "task_sha": "6e8f0c86f3895b27"
+  "task_sha": "4e7fa096ba6ac2cf"
  }
 }

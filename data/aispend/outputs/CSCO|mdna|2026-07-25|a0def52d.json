@@ -1,7 +1,64 @@
 {
  "accession": "CSCO|mdna|2026-07-25|a0def52d",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.06,
+   "quote": "We saw demand in fiscal 2026 for AI infrastructure from our hyperscaler customers, which represented approximately 6% of total revenue in fiscal 2026 compared with less than 2% in fiscal 2025.",
+   "passage": "p01",
+   "confidence": 0.85,
+   "notes": "Covers AI infrastructure revenue from hyperscaler customers only, not all AI revenue. It is slightly unclear whether 'which' refers to the AI infrastructure demand from hyperscalers or to hyperscaler customers overall. Read here as AI infrastructure revenue from hyperscalers."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.02,
+   "quote": "We saw demand in fiscal 2026 for AI infrastructure from our hyperscaler customers, which represented approximately 6% of total revenue in fiscal 2026 compared with less than 2% in fiscal 2025.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "The filing says 'less than 2%', so 0.02 is an upper bound. Same scope ambiguity as the fiscal 2026 figure."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect this demand to remain a significant driver of our results in fiscal 2027, and we discuss the associated customer concentration and supply considerations in Part I, Item 1A. Risk Factors.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "'This demand' refers to AI infrastructure demand from hyperscalers, named as a driver of overall results. No number is given."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "From a product category perspective, the product revenue increase of 16% was driven by growth in Networking of 22%, particularly within our AI Infrastructure and Campus Networking solutions.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "The 16% and 22% are growth rates of product and Networking revenue, not AI's part of revenue. AI Infrastructure is named as a driver."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Revenue from the Networking product category increased by 22%, or $6.4 billion primarily driven by our AI Infrastructure solutions, which include Cisco Silicon One based systems and optics.",
+   "passage": "p05",
+   "confidence": 0.8,
+   "notes": "The $6.4 billion is the increase in Networking category revenue, not AI revenue. AI Infrastructure is the primary driver of that increase, but no AI amount is stated."
+  },
   {
    "field": "opex",
    "fiscal_year": null,
@@ -9,23 +66,23 @@
    "scope": "total",
    "class": "qualitative",
    "quote": "R&D expenses increased primarily due to higher headcount-related expenses reflecting our investments in AI, higher discretionary spending and higher share-based compensation expense, partially offset by lower acquisition-related costs and lower contracted services spending.",
-   "passage": "p03",
-   "confidence": 0.8,
-   "notes": "Describes total R&D expense; AI investments are given as the reason for higher headcount-related expenses, one of several drivers of the increase. No amount or share is stated. The sentence names no year, so it falls back to the filing year (fiscal 2026)."
+   "passage": "p06",
+   "confidence": 0.9,
+   "notes": "The R&D increase is attributed partly to AI-related headcount investment. No amount or share is stated."
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p04 mentions capital expenditures only as a generic liquidity requirement, and p01/p02 discuss AI infrastructure revenue, not spend"
+   "reason": "no sentence links capital expenditures to AI; p07 mentions capital expenditures only in generic liquidity boilerplate"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.8,
-  "input_tokens": 5162,
-  "output_tokens": 647,
+  "seconds": 20.8,
+  "input_tokens": 5847,
+  "output_tokens": 2534,
   "attempts": 1,
-  "task_sha": "757cea18821f214d"
+  "task_sha": "3ecf4a383be7480e"
  }
 }

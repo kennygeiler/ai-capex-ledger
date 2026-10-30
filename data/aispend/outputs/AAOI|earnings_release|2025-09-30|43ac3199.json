@@ -1,0 +1,35 @@
+{
+ "accession": "AAOI|earnings_release|2025-09-30|43ac3199",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Exceptionally strong demand in our CATV business more than offset our datacenter revenue, which came in a touch below our expectations, largely due to the timing of certain shipments at quarter end due to various shipping and receiving delays.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Mentions the quarter's datacenter revenue (seller side) only in words, with no amount or share. It is quarterly, not full-year. No year is named, so the filing year is assumed."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures; production capacity is described in units (800G transceivers per month), not as spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.1,
+  "input_tokens": 6111,
+  "output_tokens": 727,
+  "attempts": 1,
+  "task_sha": "6fb31a24471d3479"
+ }
+}

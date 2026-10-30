@@ -1,6 +1,6 @@
 {
  "accession": "CRWV|mdna|2025-12-31|afd31672",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -9,9 +9,9 @@
    "scope": "ai",
    "class": "qualitative",
    "quote": "Our capital investments in property and equipment consist primarily of technology and infrastructure, which consist of our investments in servers and network equipment for computing, storage, and networking requirements that collectively enable the development and deployment of AI models.",
-   "passage": "p08",
+   "passage": "p11",
    "confidence": 0.8,
-   "notes": "Present-tense description of what capex consists of, linked to AI model development and deployment; recorded as actual with fiscal_year null (code applies reported year 2025). Total cash paid for property and equipment of $10.3 billion for 2025 (p09) is not recorded because that sentence does not itself link the spend to AI."
+   "notes": "Describes capex as primarily AI compute infrastructure without a figure. The $10.3B cash paid for property and equipment (p12) is not recorded because that sentence does not link the amount to AI. The p12 outlook to increase infrastructure investment relative to 2025 is not recorded because that sentence does not mention AI."
   },
   {
    "field": "opex",
@@ -22,16 +22,21 @@
    "quote": "We plan to maintain our prioritization of investments in our engineering and product teams to continue to extend our technology leadership in AI infrastructure.",
    "passage": "p05",
    "confidence": 0.7,
-   "notes": "Headcount/engineering investment tied to AI infrastructure leadership; no amount or year stated. 'Investments' in teams read as operating expense (headcount/R&D), which is somewhat ambiguous."
+   "notes": "Links planned engineering/product headcount investment to AI infrastructure leadership. No amount is given, and the sentence does not clearly say these are operating expenses."
   }
  ],
- "none_found": [],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "CoreWeave is a cloud buyer/provider, not a chip or server seller. No sentence states an AI or data-center revenue figure or share. The p07 sentence beginning 'Approximately 85% of the' is cut off, so it cannot be quoted or interpreted."
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.6,
-  "input_tokens": 6288,
-  "output_tokens": 1245,
+  "seconds": 10.3,
+  "input_tokens": 7095,
+  "output_tokens": 1238,
   "attempts": 1,
-  "task_sha": "e339fa9dfc84d041"
+  "task_sha": "847d072b6c7bdc4b"
  }
 }

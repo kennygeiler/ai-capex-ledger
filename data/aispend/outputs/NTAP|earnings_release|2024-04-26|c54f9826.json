@@ -1,0 +1,27 @@
+{
+ "accession": "NTAP|earnings_release|2024-04-26|c54f9826",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only passage is an award mention"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the only passage is an award mention"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the only passage is a CRN AI 100 award recognition, which is boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 4766,
+  "output_tokens": 204,
+  "attempts": 1,
+  "task_sha": "bee805e34895d459"
+ }
+}

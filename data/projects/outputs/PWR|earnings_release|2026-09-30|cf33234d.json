@@ -1,0 +1,13 @@
+{
+ "accession": "PWR|earnings_release|2026-09-30|cf33234d",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 5595,
+  "output_tokens": 88,
+  "attempts": 1,
+  "task_sha": "ed66762b706e07e1"
+ }
+}

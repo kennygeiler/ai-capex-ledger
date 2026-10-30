@@ -1,0 +1,27 @@
+{
+ "accession": "EME|earnings_release|2023-12-31|18ede4a0",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is a cash flow table; purchases of property, plant, and equipment are reported with no sentence linking them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the passage is a cash flow table only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.8,
+  "input_tokens": 5529,
+  "output_tokens": 193,
+  "attempts": 1,
+  "task_sha": "88d8d7d36b81beee"
+ }
+}

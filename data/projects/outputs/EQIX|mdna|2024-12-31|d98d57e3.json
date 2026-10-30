@@ -1,0 +1,44 @@
+{
+ "accession": "EQIX|mdna|2024-12-31|d98d57e3",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "AMER 2 Joint Venture xScale data center",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Americas region",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In April, we sold the Silicon Valley 12 (\u201cSV12\u201d) data center site in connection with the formation of a new joint venture to develop and operate an xScale data center in the Americas region (the \u201cAMER 2 Joint Venture\u201d).",
+   "passage": "p01",
+   "confidence": 0.7
+  },
+  {
+   "name": "Philippines data centers acquisition from Total Information Management (TIM)",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Philippines",
+   "counterparty": "Total Information Management",
+   "amount_low": 180000000,
+   "amount_high": 180000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In July, we entered into an agreement to acquire three data centers in the Philippines from Total Information Management (\"TIM\") for a stated purchase price of $180 million subject to certain adjustments.",
+   "passage": "p02",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.2,
+  "input_tokens": 9534,
+  "output_tokens": 941,
+  "attempts": 1,
+  "task_sha": "b4071a0b05e93a5d"
+ }
+}

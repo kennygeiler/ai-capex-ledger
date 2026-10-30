@@ -1,0 +1,27 @@
+{
+ "accession": "ENTG|earnings_release|2026-03-28|c34f1ead",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is safe-harbor boilerplate; no sentence states or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is safe-harbor boilerplate; 'artificial intelligence' appears only as a listed risk factor, which is not a spend statement"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, data-center or AI-related revenue; the passage is forward-looking-statement boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 6409,
+  "output_tokens": 227,
+  "attempts": 1,
+  "task_sha": "ff36343c28a1da60"
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "accession": "RIOT|earnings_release|2025-03-31|c44b425b",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We are also further increasing the attractiveness of the site by acquiring additional development land near the Corsicana Facility, enhancing connectivity to the site through the addition of new fiber lines and expanding water access on site.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "The surrounding paragraph frames this as investment in the AI/HPC data center business, aimed at data center tenants, but this sentence does not name AI itself. The p06 capex table gives Corsicana Phase II capex of $27.0 million (Q1 2025) and $38.0 million (Q2-Q4 2025 forecast), plus Corsicana land and water spend of $0.7 million and ~$55.7 million. The table never labels these amounts as AI spend and has no complete sentence to quote, so they are not recorded as AI amounts."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Riot is making key hires to build AI / HPC data center development expertise and to expand internal capabilities",
+   "passage": "p09",
+   "confidence": 0.7,
+   "notes": "Slide text without terminal punctuation. Headcount spend linked to AI/HPC in words only, with no amount given."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "Riot reports Bitcoin mining revenue; no sentence states revenue from AI/HPC or data center tenants. A lease is still being pursued."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.0,
+  "input_tokens": 9978,
+  "output_tokens": 1789,
+  "attempts": 1,
+  "task_sha": "7f0c97fc3be72f39"
+ }
+}

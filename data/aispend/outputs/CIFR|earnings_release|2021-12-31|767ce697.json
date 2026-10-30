@@ -1,6 +1,6 @@
 {
  "accession": "CIFR|earnings_release|2021-12-31|767ce697",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "2baf8234a06f84cc"
+  "task_sha": "798d0371bddccdf0"
  }
 }

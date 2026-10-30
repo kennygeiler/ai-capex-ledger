@@ -1,0 +1,35 @@
+{
+ "accession": "SNPS|earnings_release|2024-01-31|4ba33364",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u201cThe first quarter marked an excellent start to the year with strong execution across the company as AI continues to drive our customers\u2019 investments in silicon and systems that position them for future growth,\u201d said Sassine Ghazi, president and CEO of Synopsys.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Links the quarter's results loosely to AI-driven customer investment. It does not state any AI portion of Synopsys revenue. The sentence names no year; it refers to Q1 of fiscal 2024 per the surrounding text."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence quantifies or attributes capital expenditures to AI; p02 mentions capex only in non-GAAP boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D or other operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.7,
+  "input_tokens": 5583,
+  "output_tokens": 862,
+  "attempts": 1,
+  "task_sha": "4d9829736c14b1ce"
+ }
+}

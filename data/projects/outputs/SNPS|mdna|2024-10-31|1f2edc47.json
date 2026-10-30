@@ -1,0 +1,13 @@
+{
+ "accession": "SNPS|mdna|2024-10-31|1f2edc47",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.6,
+  "input_tokens": 7173,
+  "output_tokens": 116,
+  "attempts": 1,
+  "task_sha": "a9519fa0cc30c1e3"
+ }
+}

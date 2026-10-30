@@ -1,0 +1,27 @@
+{
+ "accession": "PWR|earnings_release|2026-09-30|cf33234d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "passages only define free cash flow and net capital expenditures; no sentence states a capex amount or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data centers appear only in forward-looking-statement boilerplate (p01) listing project opportunities; no sentence states revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 9317,
+  "output_tokens": 220,
+  "attempts": 1,
+  "task_sha": "1be1392ba64c4ad3"
+ }
+}

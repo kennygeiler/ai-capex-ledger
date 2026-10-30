@@ -1,0 +1,76 @@
+{
+ "ticker": "CEG",
+ "prompt_version": "attribution@v2",
+ "model": "power@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The September 2024 earnings release and the FY2024 MD&A both say Microsoft will buy the output of the restarted Crane plant (former TMI Unit 1) to help power its PJM data centers. This is contracted power to a data-center customer, not AI revenue, and no dollar amount or share is stated; deliveries begin only with the restart, targeted for 2027.",
+   "confidence": 0.3
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no statement in the pack ties capex to a data-center project or PPA; no segment is by customer"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no statement in the pack ties capex to a data-center project or PPA; no segment is by customer"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "the Crane restart (~$1.6B over 2024-2027, Microsoft PPA) is not in the pack as a statement and no year's share is given; total capex of 2,565M is generation, fuel and maintenance, not AI"
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "the Crane restart spend for the year is not stated in the pack; total capex of 2,949M is not attributable; purchase commitments (4,698M) are not separated as AI or data-center in the note"
+  },
+  {
+   "field": "capex",
+   "reason": "no committed row: the purchase_commitments facts for FY2022-FY2025 are not broken out by project or counterparty, and the thesis does not treat them as AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the thesis allows only none for opex; no statement attributes operating expenses to AI or data centers"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "no data-center PPA revenue stated; no segment is a data-center line"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "no data-center PPA revenue stated; no segment is a data-center line"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "Microsoft Crane PPA signed but deliveries had not started; no data-center revenue stated"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "reason": "no actual revenue under data-center PPAs stated for the year; Crane (Microsoft) and Clinton (Meta, from June 2027) deliveries have not begun"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.7,
+  "input_tokens": 10388,
+  "output_tokens": 1372,
+  "attempts": 1,
+  "task_sha": "92e383df2a7c6635"
+ }
+}

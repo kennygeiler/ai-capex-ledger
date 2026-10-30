@@ -1,0 +1,79 @@
+{
+ "accession": "CLS|mdna|2025-12-31|358c3269",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 201200000,
+   "amount_high": 201200000,
+   "quote": "Our capital expenditures for 2025 were $201.2 million (2024 \u2014 $170.9 million; 2023 \u2014 $125.1 million), primarily to enhance our manufacturing capabilities in various geographies (including expansion of our Thailand, U.S. and Malaysia manufacturing facilities and our design centers), in support of our growth in AI/ML and HPS programs.",
+   "passage": "p18",
+   "confidence": 1.0,
+   "notes": "Total capex; AI/ML growth named as a driver alongside HPS programs. No AI-specific amount stated."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 1000000000,
+   "amount_high": 1000000000,
+   "quote": "As such, to support this anticipated growth in customer demand, we plan to invest higher levels of capital expenditures in 2026 (approximately $1 billion or 6% of currently anticipated revenue) and 2027 as compared to our historical range.",
+   "passage": "p07",
+   "confidence": 0.8,
+   "notes": "Approximate total capex. This sentence cites hyperscaler customer demand, not AI by name. The AI link for 2026 capital spending is in p20 ('in support of their large-scale investments in data center infrastructure and AI capabilities') and p08."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "As such, to support this anticipated growth in customer demand, we plan to invest higher levels of capital expenditures in 2026 (approximately $1 billion or 6% of currently anticipated revenue) and 2027 as compared to our historical range.",
+   "passage": "p07",
+   "confidence": 0.7,
+   "notes": "No 2027 amount is given, only 'higher levels' than the historical 1.5\u20132.0% of revenue. The driver is hyperscaler demand; the AI link is indirect (p20)."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Communications end market revenue for 2025 increased $3,179.7 million (81%) compared to 2024, driven by data center networking demand, including the ramping of our switch programs.",
+   "passage": "p13",
+   "confidence": 0.6,
+   "notes": "The dollar figure is an end-market revenue increase, not a stated data-center or AI revenue amount, so it is recorded as qualitative. Data center demand is named as the driver."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Enterprise end market revenue for 2025 decreased $481.7 million (19%) compared to 2024, driven by the technology transition in an AI/ML compute program with one of our hyperscaler customers.",
+   "passage": "p13",
+   "confidence": 0.6,
+   "notes": "Change in end-market revenue attributed to an AI/ML compute program. No AI revenue amount or share is stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, SG&A or other operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.9,
+  "input_tokens": 15202,
+  "output_tokens": 2684,
+  "attempts": 1,
+  "task_sha": "a8dda43f938fc745"
+ }
+}

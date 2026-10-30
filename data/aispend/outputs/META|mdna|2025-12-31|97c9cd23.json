@@ -1,17 +1,18 @@
 {
  "accession": "META|mdna|2025-12-31|97c9cd23",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
-   "field": "opex",
-   "fiscal_year": null,
-   "kind": "actual",
-   "scope": "ai",
-   "class": "qualitative",
-   "quote": "These efforts include significant investments in AI initiatives, including generative AI and superintelligence, to, among other things, recommend relevant content across our products, enhance our advertising tools, develop new products, and develop new features for existing products.",
-   "passage": "p01",
-   "confidence": 0.8,
-   "notes": "Refers to FoA investments (headcount, data centers, technical infrastructure) described in the preceding sentence; no year named in this sentence, and the spend is mostly opex but may also include capex."
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 115000000000,
+   "amount_high": 135000000000,
+   "quote": "We anticipate making capital expenditures of approximately $115 billion to $135 billion in 2026 to support our AI efforts and core business.",
+   "passage": "p09",
+   "confidence": 1.0
   },
   {
    "field": "capex",
@@ -22,7 +23,7 @@
    "quote": "In particular, we expect our AI initiatives will require significantly increased investment in infrastructure.",
    "passage": "p01",
    "confidence": 0.7,
-   "notes": "'Investment in infrastructure' most plausibly means capital expenditures, but it could also cover infrastructure operating costs; no year named."
+   "notes": "'Investment in infrastructure' is read as capex; the sentence does not say capital expenditures explicitly. No year is named."
   },
   {
    "field": "opex",
@@ -30,32 +31,35 @@
    "kind": "actual",
    "scope": "ai",
    "class": "qualitative",
-   "quote": "The increase was mostly due to higher employee compensation and infrastructure costs related to research and development, including our AI initiatives.",
-   "passage": "p05",
-   "confidence": 0.8,
-   "notes": "Attributes part of the 2025 R&D increase ($13.50 billion, stated in the prior sentence) to AI without quantifying the AI share; this sentence names no year."
+   "quote": "These efforts include significant investments in AI initiatives, including generative AI and superintelligence, to, among other things, recommend relevant content across our products, enhance our advertising tools, develop new products, and develop new features for existing products.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "The preceding sentence frames these as FoA expenses (headcount, data centers, technical infrastructure), so this is read as opex. Present tense with no year in the sentence."
   },
   {
-   "field": "capex",
-   "fiscal_year": 2026,
-   "kind": "outlook",
+   "field": "opex",
+   "fiscal_year": 2025,
+   "kind": "actual",
    "scope": "total",
-   "class": "explicit_amount",
-   "amount_low": 115000000000,
-   "amount_high": 135000000000,
-   "quote": "We anticipate making capital expenditures of approximately $115 billion to $135 billion in 2026 to support our AI efforts and core business.",
+   "class": "qualitative",
+   "quote": "The increase was mostly due to higher employee compensation and infrastructure costs related to research and development, including our AI initiatives.",
    "passage": "p07",
-   "confidence": 1.0,
-   "notes": "Total capex guidance; AI is named as a driver alongside the core business, so this is not an AI-specific amount."
+   "confidence": 0.8,
+   "notes": "Refers to the $13.50 billion increase in 2025 R&D expenses stated in the prior sentence. AI is named as one driver of the total increase; no AI amount is stated. The year comes from the prior sentence's context."
   }
  ],
- "none_found": [],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "Meta is a buyer of AI infrastructure; no sentence states AI's part of revenue. p04 attributes the RL revenue increase to sales of AI glasses, which is a consumer hardware product line rather than AI or data-center revenue, so it is skipped."
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 13.5,
-  "input_tokens": 5734,
-  "output_tokens": 1379,
+  "seconds": 13.6,
+  "input_tokens": 6254,
+  "output_tokens": 1523,
   "attempts": 1,
-  "task_sha": "94106037de783f00"
+  "task_sha": "7cfbdbfb65182f8a"
  }
 }

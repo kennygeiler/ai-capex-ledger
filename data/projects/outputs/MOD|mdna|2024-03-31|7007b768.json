@@ -1,0 +1,28 @@
+{
+ "accession": "MOD|mdna|2024-03-31|7007b768",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "U.K. data center cooling manufacturing site",
+   "kind": "plant",
+   "status": "announced",
+   "location": "U.K.",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We are growing our data center business and recently purchased a new manufacturing site in the U.K., where we plan to expand production capacity for data center cooling products.",
+   "passage": "p09",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.0,
+  "input_tokens": 6758,
+  "output_tokens": 484,
+  "attempts": 1,
+  "task_sha": "4eb3768c024a335a"
+ }
+}

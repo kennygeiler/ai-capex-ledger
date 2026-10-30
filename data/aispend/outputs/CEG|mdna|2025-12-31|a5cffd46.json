@@ -1,0 +1,27 @@
+{
+ "accession": "CEG|mdna|2025-12-31|a5cffd46",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure estimates ($5.7 billion for 2026, $4.7 billion for 2027, $3.9 billion growth capex including co-location infrastructure) are given, but no sentence links capital expenditures to AI or data centers; co-location infrastructure is not stated to be for AI and cannot be inferred"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only data-center mention concerns proposed PJM cost allocation to data centers and its potential impact on future revenues; no sentence states an amount or share of revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 6332,
+  "output_tokens": 402,
+  "attempts": 1,
+  "task_sha": "3ed7fc9348b13d75"
+ }
+}

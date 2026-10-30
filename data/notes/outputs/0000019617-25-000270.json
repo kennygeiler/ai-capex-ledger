@@ -1,6 +1,6 @@
 {
  "accession": "0000019617-25-000270",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -114,27 +114,27 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment tables report revenue, expense, income, equity and assets only; no capital expenditures per segment"
+   "reason": "the segment note (t0646) reports revenue, expense, income, equity and assets per segment but no capital expenditures"
   },
   {
    "field": "ppe_category",
-   "reason": "no property-and-equipment note table is among the tables provided"
+   "reason": "no property-and-equipment note table with gross amounts by category is included in the provided tables"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no lease note table is among the tables provided"
+   "reason": "no lease note table with finance lease liabilities is included in the provided tables"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or commitments table is among the tables provided"
+   "reason": "no contractual-obligations or commitments table with purchase obligations is included in the provided tables"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.6,
-  "input_tokens": 11815,
-  "output_tokens": 1633,
+  "seconds": 15.0,
+  "input_tokens": 11937,
+  "output_tokens": 1898,
   "attempts": 1,
-  "task_sha": "5d7ca2b644e49de8"
+  "task_sha": "f53e2064609da3ad"
  }
 }

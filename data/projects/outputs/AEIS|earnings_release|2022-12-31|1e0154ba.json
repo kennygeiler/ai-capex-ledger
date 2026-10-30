@@ -1,0 +1,13 @@
+{
+ "accession": "AEIS|earnings_release|2022-12-31|1e0154ba",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "0d8d34f523719652"
+ }
+}

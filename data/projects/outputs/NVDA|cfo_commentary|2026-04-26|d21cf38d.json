@@ -1,0 +1,30 @@
+{
+ "accession": "NVDA|cfo_commentary|2026-04-26|d21cf38d",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Multi-year cloud service commitments",
+   "kind": "cloud_commitment",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 30000000000,
+   "amount_high": 30000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Multi-year cloud service commitments were $30.0 billion, up from $27.0 billion sequentially, to support the growing needs of our research and development efforts.",
+   "passage": "p02",
+   "confidence": 0.45
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.5,
+  "input_tokens": 6258,
+  "output_tokens": 537,
+  "attempts": 1,
+  "task_sha": "02501d902be19204"
+ }
+}

@@ -1,23 +1,27 @@
 {
  "accession": "WMT|earnings_release|2026-01-31|5b93fbde",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the FY27 capex guidance (approximately 3.5% of net sales) in p01/p02 makes no mention of AI"
+   "reason": "capex guidance is given only as approximately 3.5% of net sales for FY27; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer/retailer; no sentence states AI's or data-center's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.8,
-  "input_tokens": 5415,
-  "output_tokens": 226,
+  "seconds": 4.6,
+  "input_tokens": 5716,
+  "output_tokens": 249,
   "attempts": 1,
-  "task_sha": "c4845c702a672a10"
+  "task_sha": "3ab0460136b7df36"
  }
 }

@@ -1,0 +1,46 @@
+{
+ "accession": "TMUS|mdna|2024-12-31|3ab19d62",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "600 MHz spectrum License Purchase Agreements (Channel 51 License Co and LB License Co)",
+   "kind": "network",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Channel 51 License Co LLC and LB License Co, LLC",
+   "amount_low": 3500000000,
+   "amount_high": 3500000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2022-08-08",
+   "in_service": null,
+   "quote": "On August 8, 2022, we entered into License Purchase Agreements to acquire spectrum in the 600 MHz band from Channel 51 License Co LLC and LB License Co, LLC in exchange for total cash consideration of $3.5 billion.",
+   "passage": "p05",
+   "confidence": 0.4
+  },
+  {
+   "name": "600 MHz spectrum License Purchase Agreement with Comcast",
+   "kind": "network",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Comcast",
+   "amount_low": 1200000000,
+   "amount_high": 3400000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2023-09-12",
+   "in_service": null,
+   "quote": "Subsequent to the amendment, the total cash consideration for the transaction is between $1.2 billion and $3.4 billion.",
+   "passage": "p05",
+   "confidence": 0.35
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.7,
+  "input_tokens": 5605,
+  "output_tokens": 1400,
+  "attempts": 1,
+  "task_sha": "65763ff1f356dff1"
+ }
+}

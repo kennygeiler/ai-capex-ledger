@@ -1,23 +1,70 @@
 {
  "accession": "MRVL|earnings_release|2024-05-04|96fac886",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 1161000000,
+   "amount_high": 1161000000,
+   "quote": "Marvell delivered first quarter fiscal 2025 revenue of $1.161 billion, above the mid-point of guidance, driven by stronger than forecasted demand from AI.",
+   "passage": "p01",
+   "confidence": 1.0,
+   "notes": "Total revenue for Q1 fiscal 2025 only (a quarter, not the full year); AI named as a driver, not quantified."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Our data center revenue grew 87% year over year, with the start of a ramp in our custom AI programs complementing our substantial base of electro-optics revenue",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Q1 fiscal 2025. The 87% is year-over-year growth, not a share of revenue and not an amount, so recorded as qualitative. The quote omits the sentence's trailing comma and closing quotation mark, which run into the attribution 'said Matt Murphy'."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "For the second quarter of fiscal 2025, we are guiding an 8% sequential increase in revenue at the mid- point, fueled by ramping custom AI silicon.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Q2 fiscal 2025 guidance. The 8% is sequential growth in total revenue, not an amount or share. Custom AI silicon is named as the driver."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We see a favorable setup for the second half of this fiscal year, driven by continued growth in data center and the beginning of a recovery in enterprise networking and carrier infrastructure.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "'This fiscal year' is fiscal 2025, which the previous sentence names. The driver is data center growth, which the sentence does not explicitly call AI, and no number is given."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the cash flow statement reports purchases of property and equipment ($91.5 million) with no AI attribution, and the AI mentions in p01 describe revenue and demand, not spend"
+   "reason": "Purchases of property and equipment ($91.5M) appear only in the cash flow table; no sentence links capital expenditures to AI."
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p03 is a product/end-market listing (boilerplate)"
+   "reason": "No sentence quantifies operating expenses or attributes them to AI."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.7,
-  "input_tokens": 5837,
-  "output_tokens": 278,
+  "seconds": 15.4,
+  "input_tokens": 6140,
+  "output_tokens": 1936,
   "attempts": 1,
-  "task_sha": "1b84529585325f7c"
+  "task_sha": "86b1544e91ad656c"
  }
 }

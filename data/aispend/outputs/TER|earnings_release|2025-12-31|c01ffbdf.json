@@ -1,0 +1,46 @@
+{
+ "accession": "TER|earnings_release|2025-12-31|c01ffbdf",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our Q4 results were above the high end of our guidance range, fueled by AI-related demand in compute, networking and memory within our Semi Test business.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Q4 2025 results attributed to AI-related demand; no AI revenue amount or share is stated. The same driver appears in the p01 headline bullet ('Q4 growth driven by strong AI-related demand in compute and memory')."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "In 2026, we expect year-over-year growth across all of our businesses, with strong momentum in compute driven by AI.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Expected 2026 growth with compute momentum driven by AI; no AI revenue figure is given."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.1,
+  "input_tokens": 5597,
+  "output_tokens": 1178,
+  "attempts": 1,
+  "task_sha": "d767de12639e04ec"
+ }
+}

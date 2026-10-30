@@ -1,0 +1,65 @@
+{
+ "accession": "0001050915-26-000006",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "capex",
+   "table_id": "t0022",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(609,154)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 609154000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0022",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(604,078)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 604078000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0022",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(434,803)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 434803000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "reason": "The tables supplied as the income statement are the wrong tables. t0023 is the statement of stockholders' equity and t0024 is the index to the notes. Neither has a revenue line. The income statement table appears to have been misidentified during parsing."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "There is no income statement among the tables supplied. t0023 is the equity statement and t0024 is the notes index, so there is no cost of revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "There is no income statement among the tables supplied, so there are no cost lines to itemize."
+  },
+  {
+   "field": "operating_income",
+   "reason": "There is no income statement among the tables supplied. t0023 is the equity statement and t0024 is the notes index, so there is no operating income line."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.2,
+  "input_tokens": 8157,
+  "output_tokens": 812,
+  "attempts": 1,
+  "task_sha": "01758e0c8fcfbc7a"
+ }
+}

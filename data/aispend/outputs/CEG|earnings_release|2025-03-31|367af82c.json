@@ -1,0 +1,27 @@
+{
+ "accession": "CEG|earnings_release|2025-03-31|367af82c",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links Constellation's own capital expenditures to AI; the capex figures in p02 are quoted from other companies (Google, Meta, Microsoft, Amazon) and are not Constellation's spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes Constellation's operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states the AI or data-center part of Constellation's revenue; p03 and p04 give third-party industry demand forecasts in GWs, not company revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.0,
+  "input_tokens": 6786,
+  "output_tokens": 347,
+  "attempts": 1,
+  "task_sha": "0a314174c036c7f5"
+ }
+}

@@ -1,0 +1,128 @@
+{
+ "accession": "0001137789-26-000159",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0028",
+   "row_label": "Land and land improvements",
+   "column_label": "July 3,2026",
+   "cell_text": "22",
+   "period_end": "2026-07-03",
+   "months": 0,
+   "value": 22000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0028",
+   "row_label": "Land and land improvements",
+   "column_label": "June 27,2025",
+   "cell_text": "18",
+   "period_end": "2025-06-27",
+   "months": 0,
+   "value": 18000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0028",
+   "row_label": "Equipment",
+   "column_label": "July 3,2026",
+   "cell_text": "8,661",
+   "period_end": "2026-07-03",
+   "months": 0,
+   "value": 8661000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0028",
+   "row_label": "Equipment",
+   "column_label": "June 27,2025",
+   "cell_text": "8,566",
+   "period_end": "2025-06-27",
+   "months": 0,
+   "value": 8566000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and leasehold improvements",
+   "table_id": "t0028",
+   "row_label": "Buildings and leasehold improvements",
+   "column_label": "July 3,2026",
+   "cell_text": "1,572",
+   "period_end": "2026-07-03",
+   "months": 0,
+   "value": 1572000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and leasehold improvements",
+   "table_id": "t0028",
+   "row_label": "Buildings and leasehold improvements",
+   "column_label": "June 27,2025",
+   "cell_text": "1,413",
+   "period_end": "2025-06-27",
+   "months": 0,
+   "value": 1413000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0028",
+   "row_label": "Construction in progress",
+   "column_label": "July 3,2026",
+   "cell_text": "421",
+   "period_end": "2026-07-03",
+   "months": 0,
+   "value": 421000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0028",
+   "row_label": "Construction in progress",
+   "column_label": "June 27,2025",
+   "cell_text": "333",
+   "period_end": "2025-06-27",
+   "months": 0,
+   "value": 333000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment capital expenditures table is provided; the company reports a single reportable segment"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "revenue by market (Data Center, Edge IoT) is given only as percentages of total revenue in t0010, not dollar amounts, so no dollar value can be cited"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table is included among the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included among the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.8,
+  "input_tokens": 4854,
+  "output_tokens": 1291,
+  "attempts": 1,
+  "task_sha": "ae7384291a5957bc"
+ }
+}

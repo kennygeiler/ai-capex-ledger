@@ -1,23 +1,27 @@
 {
  "accession": "AMZN|earnings_release|2022-09-30|9ef7d960",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage announces a product (Trn1 instances, Trainium chips) and customer savings; no sentence states or attributes capital expenditures to AI"
+   "reason": "the only passage is a product announcement (Trn1 instances, Trainium chips); no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes research and development, infrastructure, or headcount expenses to AI; the 50% figure is customer training-cost savings, not company spend"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the passage describes a product, which is boilerplate"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue; the 'up to 50%' figure is a customer cost saving, not a revenue share, and AWS as a cloud segment is not AI revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.1,
-  "input_tokens": 4551,
-  "output_tokens": 194,
+  "seconds": 4.2,
+  "input_tokens": 4854,
+  "output_tokens": 260,
   "attempts": 1,
-  "task_sha": "961c0677e28ba1cb"
+  "task_sha": "8a94476fca47ba89"
  }
 }

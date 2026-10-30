@@ -1,187 +1,95 @@
 {
  "ticker": "WMT",
- "prompt_version": "attribution@v1",
- "model": "other@v1",
- "rows": [
-  {
-   "field": "capex",
-   "period": "FY2022",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no company statement linking FY2022 capex to AI. Segment capex (Walmart U.S., International, Sam's Club) and PP&E categories are retail store, fulfillment and equipment lines, and the other@v1 model does not allow estimating from them.",
-   "confidence": 0.8
-  },
-  {
-   "field": "capex",
-   "period": "FY2023",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no company statement linking FY2023 capex to AI. Segment and PP&E category facts exist, but other@v1 does not allow estimating from them, and technology or fixtures spend is not AI capex.",
-   "confidence": 0.8
-  },
-  {
-   "field": "capex",
-   "period": "FY2024",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no company statement linking FY2024 capex to AI. Segment and PP&E category facts exist, but other@v1 does not allow estimating from them.",
-   "confidence": 0.8
-  },
-  {
-   "field": "capex",
-   "period": "FY2025",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no company statement linking FY2025 capex to AI. Segment and PP&E category facts exist, but other@v1 does not allow estimating from them.",
-   "confidence": 0.8
-  },
-  {
-   "field": "capex",
-   "period": "FY2026",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no company statement linking FY2026 capex to AI. Segment and PP&E category facts exist, but other@v1 does not allow estimating from them.",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
-   "period": "FY2022",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no statement or cost line attributing FY2022 operating expenses to AI.",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
-   "period": "FY2023",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no statement or cost line attributing FY2023 operating expenses to AI.",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
-   "period": "FY2024",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no statement or cost line attributing FY2024 operating expenses to AI.",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
-   "period": "FY2025",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no statement or cost line attributing FY2025 operating expenses to AI.",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
-   "period": "FY2026",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no statement or cost line attributing FY2026 operating expenses to AI.",
-   "confidence": 0.8
-  }
- ],
+ "prompt_version": "attribution@v2",
+ "model": "other@v3",
+ "rows": [],
  "none_found": [
   {
    "field": "capex",
    "period": "FY2022",
-   "reason": "no AI-scoped statement in the pack; other@v1 forbids segment or PP&E-category estimates"
+   "reason": "Total capex 13.106B is stores, supply chain and technology; no statement in the pack attributes any capex to AI, and the model forbids estimating from PP&E categories or segments."
   },
   {
    "field": "capex",
    "period": "FY2023",
-   "reason": "no AI-scoped statement in the pack; other@v1 forbids segment or PP&E-category estimates"
+   "reason": "Total capex 16.857B; no stated AI amount or share, and segment capex (Walmart U.S., International, Sam's Club) are not AI lines."
   },
   {
    "field": "capex",
    "period": "FY2024",
-   "reason": "no AI-scoped statement in the pack; other@v1 forbids segment or PP&E-category estimates"
+   "reason": "Total capex 20.606B; no stated AI amount or share; PP&E category growth (fixtures and equipment, construction in progress) is not an allowed basis for this model."
   },
   {
    "field": "capex",
    "period": "FY2025",
-   "reason": "no AI-scoped statement in the pack; other@v1 forbids segment or PP&E-category estimates"
+   "reason": "Total capex 23.783B; no stated AI amount or share in the pack."
   },
   {
    "field": "capex",
    "period": "FY2026",
-   "reason": "no AI-scoped statement in the pack; other@v1 forbids segment or PP&E-category estimates"
+   "reason": "Total capex 26.642B went to supply-chain automation, technology and customer-facing work per the thesis, but no AI amount is disclosed and the pack holds no company statement linking it to AI; technology or automation capex is not AI capex."
+  },
+  {
+   "field": "capex",
+   "reason": "No outlook row: the FY2027 guide of 25 to 27B is a capex total with no AI part stated, and the pack contains no outlook statement."
   },
   {
    "field": "opex",
    "period": "FY2022",
-   "reason": "no statement or cost line attributes opex to AI"
+   "reason": "Operating expenses 117.812B; no statement or cost line attributes any opex to AI."
   },
   {
    "field": "opex",
    "period": "FY2023",
-   "reason": "no statement or cost line attributes opex to AI"
+   "reason": "Operating expenses 127.140B; no AI cost line or statement."
   },
   {
    "field": "opex",
    "period": "FY2024",
-   "reason": "no statement or cost line attributes opex to AI"
+   "reason": "Operating expenses 130.971B; no AI cost line or statement."
   },
   {
    "field": "opex",
    "period": "FY2025",
-   "reason": "no statement or cost line attributes opex to AI"
+   "reason": "Operating expenses 139.884B; no AI cost line or statement."
   },
   {
    "field": "opex",
    "period": "FY2026",
-   "reason": "no statement or cost line attributes opex to AI"
+   "reason": "Operating expenses 147.943B; no AI cost line or statement."
   },
   {
-   "field": "capex",
-   "period": "outlook",
-   "reason": "no statements with kind: outlook in the pack"
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "Walmart is an AI adopter, not a seller; its segments (Walmart U.S., Walmart International, Sam's Club) are retail, not AI lines, and no AI revenue is stated."
   },
   {
-   "field": "opex",
-   "period": "outlook",
-   "reason": "no statements with kind: outlook in the pack"
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "Adopter with retail segments only; no AI revenue stated."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "Adopter with retail segments only; no AI revenue stated."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "reason": "Adopter with retail segments only; no AI revenue stated."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "reason": "Adopter with retail segments only; no AI revenue stated."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 15.4,
-  "input_tokens": 8424,
-  "output_tokens": 2023,
+  "seconds": 12.6,
+  "input_tokens": 14596,
+  "output_tokens": 1378,
   "attempts": 1,
-  "task_sha": "8bcb2bfda9cb9d2e"
+  "task_sha": "9e863b51f1836eec"
  }
 }

@@ -1,0 +1,230 @@
+{
+ "accession": "0001645590-23-000117",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0046",
+   "row_label": "Total net revenue",
+   "column_label": "For the fiscal years ended October 31, | 2023 | In millions, except per share amounts",
+   "cell_text": "29,135",
+   "period_end": "2023-10-31",
+   "months": 12,
+   "value": 29135000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0046",
+   "row_label": "Total net revenue",
+   "column_label": "For the fiscal years ended October 31, | 2022 | In millions, except per share amounts",
+   "cell_text": "28,496",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 28496000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0046",
+   "row_label": "Total net revenue",
+   "column_label": "For the fiscal years ended October 31, | 2021 | In millions, except per share amounts",
+   "cell_text": "27,784",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 27784000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0046",
+   "row_label": "Cost of products",
+   "column_label": "For the fiscal years ended October 31, | 2023 | In millions, except per share amounts",
+   "cell_text": "11,958",
+   "period_end": "2023-10-31",
+   "months": 12,
+   "value": 11958000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; cost of products is the direct cost of the Products revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0046",
+   "row_label": "Cost of products",
+   "column_label": "For the fiscal years ended October 31, | 2022 | In millions, except per share amounts",
+   "cell_text": "12,463",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 12463000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; cost of products is the direct cost of the Products revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0046",
+   "row_label": "Cost of products",
+   "column_label": "For the fiscal years ended October 31, | 2021 | In millions, except per share amounts",
+   "cell_text": "11,892",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 11892000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; cost of products is the direct cost of the Products revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0046",
+   "row_label": "Cost of services",
+   "column_label": "For the fiscal years ended October 31, | 2023 | In millions, except per share amounts",
+   "cell_text": "6,555",
+   "period_end": "2023-10-31",
+   "months": 12,
+   "value": 6555000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; cost of services is the direct cost of the Services revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0046",
+   "row_label": "Cost of services",
+   "column_label": "For the fiscal years ended October 31, | 2022 | In millions, except per share amounts",
+   "cell_text": "6,217",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 6217000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; cost of services is the direct cost of the Services revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0046",
+   "row_label": "Cost of services",
+   "column_label": "For the fiscal years ended October 31, | 2021 | In millions, except per share amounts",
+   "cell_text": "6,304",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 6304000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; cost of services is the direct cost of the Services revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0046",
+   "row_label": "Financing cost",
+   "column_label": "For the fiscal years ended October 31, | 2023 | In millions, except per share amounts",
+   "cell_text": "383",
+   "period_end": "2023-10-31",
+   "months": 12,
+   "value": 383000000,
+   "confidence": 0.85,
+   "notes": "Financing cost is the direct cost of the Financing income revenue line, which is included in Total net revenue; treated as cost of revenue for consistency with that revenue total."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0046",
+   "row_label": "Financing cost",
+   "column_label": "For the fiscal years ended October 31, | 2022 | In millions, except per share amounts",
+   "cell_text": "310",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 310000000,
+   "confidence": 0.85,
+   "notes": "Financing cost is the direct cost of the Financing income revenue line, which is included in Total net revenue; treated as cost of revenue for consistency with that revenue total."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0046",
+   "row_label": "Financing cost",
+   "column_label": "For the fiscal years ended October 31, | 2021 | In millions, except per share amounts",
+   "cell_text": "212",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 212000000,
+   "confidence": 0.85,
+   "notes": "Financing cost is the direct cost of the Financing income revenue line, which is included in Total net revenue; treated as cost of revenue for consistency with that revenue total."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0046",
+   "row_label": "Earnings from operations",
+   "column_label": "For the fiscal years ended October 31, | 2023 | In millions, except per share amounts",
+   "cell_text": "2,089",
+   "period_end": "2023-10-31",
+   "months": 12,
+   "value": 2089000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0046",
+   "row_label": "Earnings from operations",
+   "column_label": "For the fiscal years ended October 31, | 2022 | In millions, except per share amounts",
+   "cell_text": "782",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 782000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0046",
+   "row_label": "Earnings from operations",
+   "column_label": "For the fiscal years ended October 31, | 2021 | In millions, except per share amounts",
+   "cell_text": "1,132",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 1132000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0049",
+   "row_label": "Investment in property, plant and equipment",
+   "column_label": "For the fiscal years ended October 31, | 2023 | In millions",
+   "cell_text": "(2,828)",
+   "period_end": "2023-10-31",
+   "months": 12,
+   "value": 2828000000,
+   "confidence": 1.0,
+   "notes": "Gross cash paid for PP&E; proceeds from sale of PP&E not netted."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0049",
+   "row_label": "Investment in property, plant and equipment",
+   "column_label": "For the fiscal years ended October 31, | 2022 | In millions",
+   "cell_text": "(3,122)",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 3122000000,
+   "confidence": 1.0,
+   "notes": "Gross cash paid for PP&E; proceeds from sale of PP&E not netted."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0049",
+   "row_label": "Investment in property, plant and equipment",
+   "column_label": "For the fiscal years ended October 31, | 2021 | In millions",
+   "cell_text": "(2,502)",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 2502000000,
+   "confidence": 1.0,
+   "notes": "Gross cash paid for PP&E; proceeds from sale of PP&E not netted."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "The income statement has no single total cost-of-revenue line; component lines are given as cost_of_revenue_part."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 23.2,
+  "input_tokens": 6669,
+  "output_tokens": 2997,
+  "attempts": 1,
+  "task_sha": "6976f7b9d847b4b7"
+ }
+}

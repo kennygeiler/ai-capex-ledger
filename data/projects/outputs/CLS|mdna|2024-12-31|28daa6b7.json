@@ -1,0 +1,42 @@
+{
+ "accession": "CLS|mdna|2024-12-31|28daa6b7",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Thailand facility expansion",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Thailand",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our capital expenditures for 2024 were $170.9 million (2023 \u2014 $125.1 million), primarily to enhance our manufacturing capabilities in various geographies (including expansion of our Thailand and Malaysia facilities) and to support new customer programs.",
+   "passage": "p10",
+   "confidence": 0.4
+  },
+  {
+   "name": "Malaysia facility expansion",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Malaysia",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our capital expenditures for 2024 were $170.9 million (2023 \u2014 $125.1 million), primarily to enhance our manufacturing capabilities in various geographies (including expansion of our Thailand and Malaysia facilities) and to support new customer programs.",
+   "passage": "p10",
+   "confidence": 0.4
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.7,
+  "input_tokens": 11854,
+  "output_tokens": 788,
+  "attempts": 1,
+  "task_sha": "11afe3472dd48d91"
+ }
+}

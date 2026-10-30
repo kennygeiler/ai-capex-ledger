@@ -1,0 +1,57 @@
+{
+ "accession": "IRM|earnings_release|2025-09-30|cfc56850",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In 2025, we expect nearly 30% data center revenue growth",
+   "passage": "p11",
+   "confidence": 0.7,
+   "notes": "States a ~30% growth rate for data center revenue, not a revenue amount or a share of total revenue, so it is recorded as qualitative. The bullet has no closing period; the quote is the full bullet text. The Q3 2025 Global Data Center revenue of $204M (p13) appears only in a table row, not in a sentence, and is quarterly."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In 2026, we expect our current backlog will drive revenue growth of at least 25%, before any incremental new leasing",
+   "passage": "p11",
+   "confidence": 0.6,
+   "notes": "The data center context comes from the section heading. This is a growth rate (at least 25%), not an amount or a share of revenue."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In 2027 and beyond, we expect our current backlog to contribute approximately $250 million of growth, before any incremental new leasing",
+   "passage": "p11",
+   "confidence": 0.5,
+   "notes": "Approximately $250M is the incremental data center revenue expected from backlog in 2027 and beyond. It is not the level of data center revenue, so it is not recorded as explicit_amount, to avoid it being read as total data center revenue. 'and beyond' spans several years."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; growth capital is described only as data center development, with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the AI/ML mentions (DXP platform, forward-looking-statement risk) are product description or boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.2,
+  "input_tokens": 18889,
+  "output_tokens": 1694,
+  "attempts": 1,
+  "task_sha": "22b26631593bcf27"
+ }
+}

@@ -1,0 +1,173 @@
+{
+ "accession": "0001837240-25-000278",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Systems",
+   "table_id": "t0010",
+   "row_label": "Systems",
+   "column_label": "Year Ended | September 27, 2025",
+   "cell_text": "2,118,868",
+   "period_end": "2025-09-27",
+   "months": 12,
+   "value": 2118868000,
+   "confidence": 0.7
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Systems",
+   "table_id": "t0010",
+   "row_label": "Systems",
+   "column_label": "Year Ended | September 28, 2024",
+   "cell_text": "1,705,440",
+   "period_end": "2024-09-28",
+   "months": 12,
+   "value": 1705440000,
+   "confidence": 0.7
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Software maintenance and support",
+   "table_id": "t0010",
+   "row_label": "Software maintenance and support",
+   "column_label": "Year Ended | September 27, 2025",
+   "cell_text": "29,602",
+   "period_end": "2025-09-27",
+   "months": 12,
+   "value": 29602000,
+   "confidence": 0.7
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Software maintenance and support",
+   "table_id": "t0010",
+   "row_label": "Software maintenance and support",
+   "column_label": "Year Ended | September 28, 2024",
+   "cell_text": "14,173",
+   "period_end": "2024-09-28",
+   "months": 12,
+   "value": 14173000,
+   "confidence": 0.7
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Operation services",
+   "table_id": "t0010",
+   "row_label": "Operation services",
+   "column_label": "Year Ended | September 27, 2025",
+   "cell_text": "98,452",
+   "period_end": "2025-09-27",
+   "months": 12,
+   "value": 98452000,
+   "confidence": 0.7
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Operation services",
+   "table_id": "t0010",
+   "row_label": "Operation services",
+   "column_label": "Year Ended | September 28, 2024",
+   "cell_text": "68,566",
+   "period_end": "2024-09-28",
+   "months": 12,
+   "value": 68566000,
+   "confidence": 0.7
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment and software, furniture and fixtures, test equipment, and other equipment",
+   "table_id": "t0047",
+   "row_label": "Computer equipment and software, furniture and fixtures, test equipment, and other equipment",
+   "column_label": "Year Ended | September 27, 2025",
+   "cell_text": "151,729",
+   "period_end": "2025-09-27",
+   "months": 0,
+   "value": 151729000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment and software, furniture and fixtures, test equipment, and other equipment",
+   "table_id": "t0047",
+   "row_label": "Computer equipment and software, furniture and fixtures, test equipment, and other equipment",
+   "column_label": "Year Ended | September 28, 2024",
+   "cell_text": "114,515",
+   "period_end": "2024-09-28",
+   "months": 0,
+   "value": 114515000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Internal use software",
+   "table_id": "t0047",
+   "row_label": "Internal use software",
+   "column_label": "Year Ended | September 27, 2025",
+   "cell_text": "5,590",
+   "period_end": "2025-09-27",
+   "months": 0,
+   "value": 5590000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Internal use software",
+   "table_id": "t0047",
+   "row_label": "Internal use software",
+   "column_label": "Year Ended | September 28, 2024",
+   "cell_text": "7,141",
+   "period_end": "2024-09-28",
+   "months": 0,
+   "value": 7141000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0047",
+   "row_label": "Leasehold improvements",
+   "column_label": "Year Ended | September 27, 2025",
+   "cell_text": "10,641",
+   "period_end": "2025-09-27",
+   "months": 0,
+   "value": 10641000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0047",
+   "row_label": "Leasehold improvements",
+   "column_label": "Year Ended | September 28, 2024",
+   "cell_text": "9,576",
+   "period_end": "2024-09-28",
+   "months": 0,
+   "value": 9576000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note with capital expenditures by segment is among the tables; the company appears to report a single segment"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table is provided"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is provided"
+  }
+ ],
+ "notes": "segment_revenue taken from t0010, which is the statement of operations disaggregating revenue by type (Systems, Software maintenance and support, Operation services) rather than a segment note; treated as product-line revenue, confidence 0.7. t0011 is the same table as percentages of revenue and was not used.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.3,
+  "input_tokens": 5592,
+  "output_tokens": 2176,
+  "attempts": 1,
+  "task_sha": "c07a299e643c09df"
+ }
+}

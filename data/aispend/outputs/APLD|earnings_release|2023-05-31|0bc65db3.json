@@ -1,6 +1,6 @@
 {
  "accession": "APLD|earnings_release|2023-05-31|0bc65db3",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "31bd6dce758ef458"
+  "task_sha": "0fdfe7d5d5586f01"
  }
 }

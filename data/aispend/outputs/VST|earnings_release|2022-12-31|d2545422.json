@@ -1,0 +1,27 @@
+{
+ "accession": "VST|earnings_release|2022-12-31|d2545422",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capital expenditures appear only in forward-looking-statements boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states revenue from AI or data-center demand; passage is company description and cautionary boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 6284,
+  "output_tokens": 203,
+  "attempts": 1,
+  "task_sha": "d3d936a9259a34b8"
+ }
+}

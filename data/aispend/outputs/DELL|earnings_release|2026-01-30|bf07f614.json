@@ -1,0 +1,63 @@
+{
+ "accession": "DELL|earnings_release|2026-01-30|bf07f614",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 25000000000,
+   "amount_high": 25000000000,
+   "quote": "We closed more than $64 billion in AI- optimized server orders, shipped more than $25 billion throughout the year, and are entering FY27 with record backlog of $43 billion \u2014 powerful proof that our engineering leadership and differentiated AI solutions are winning.",
+   "passage": "p01",
+   "confidence": 0.75,
+   "notes": "'More than $25 billion' is a lower bound, recorded as 25000000000 for both low and high. The figure is AI-optimized server shipments, which are close to revenue but not labeled revenue. The $64 billion in orders and the $43 billion backlog are not revenue and are not recorded. The sentence names no year; 'throughout the year' refers to the reported year, fiscal 2026."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 9000000000,
+   "amount_high": 9000000000,
+   "quote": "Record quarterly AI-Optimized Servers revenue: $9.0 billion, up 342% year over year",
+   "passage": "p02",
+   "confidence": 0.85,
+   "notes": "This is a quarterly figure, not full-year: it covers the fourth quarter of fiscal 2026, the period ended 2026-01-30. The quote leaves out the leading bullet character."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 50000000000,
+   "amount_high": 50000000000,
+   "quote": "Full-year AI-Optimized Servers revenue expected to be roughly $50 billion, up 103% year over year",
+   "passage": "p03",
+   "confidence": 0.85,
+   "notes": "The amount is 'roughly' $50 billion. The sentence names no fiscal year, so the code's default of the year after the reported year (fiscal 2027) applies; p04 is consistent with fiscal 2027 guidance. The quote leaves out the leading bullet character."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.8,
+  "input_tokens": 5187,
+  "output_tokens": 1650,
+  "attempts": 1,
+  "task_sha": "cde404a0975f57bf"
+ }
+}

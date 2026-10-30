@@ -1,0 +1,42 @@
+{
+ "accession": "NRG|earnings_release|2026-06-30|acac524e",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Bring Your Own Power 1.2 GW combined cycle natural gas facility, Texas",
+   "kind": "power",
+   "status": "announced",
+   "location": "Texas",
+   "counterparty": "a leading global cloud and AI hyperscaler",
+   "capacity_mw": 1200,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The parties are aligned on principal commercial terms for the development of a 1.2 GW combined cycle natural gas generation facility in Texas and remains subject to final documentation and approvals.",
+   "passage": "p04",
+   "confidence": 0.85
+  },
+  {
+   "name": "T.H. Wharton facility",
+   "kind": "power",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 415,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026-05-26",
+   "quote": "On May 26, 2026, NRG achieved commercial operations at its first project, the 415 MW T.H. Wharton facility.",
+   "passage": "p05",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.3,
+  "input_tokens": 8251,
+  "output_tokens": 961,
+  "attempts": 1,
+  "task_sha": "28ff98eed7652914"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "DDOG|earnings_release|2021-12-31|ce9e6e1d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is forward-looking-statement boilerplate; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is forward-looking-statement boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's or data-center demand's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 4988,
+  "output_tokens": 204,
+  "attempts": 1,
+  "task_sha": "6ee6cd67fefdde5a"
+ }
+}

@@ -1,23 +1,35 @@
 {
  "accession": "IBM|earnings_release|2026-06-30|4d1b3e0e",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "As AI adoption moves from experimentation to enterprise-scale deployment, the company is also investing in more specialized technical and client-facing talent, including Forward Deployed Engineers.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Headcount investment is linked to AI deployment in words only. It is in the present tense, so it is recorded as actual with no year named. Ambiguous: the sentence could also describe ongoing or planned spending, and it gives no amount or share."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p01 mentions net capital expenditures only in the definition of free cash flow"
+   "reason": "no sentence links capital expenditures to AI; p03 only defines free cash flow"
   },
   {
-   "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue. The 4-5% growth guidance is total revenue with no AI driver given. The Power/Storage backlog and the strong performance of 'AI-ready' software are not stated as AI revenue."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.7,
-  "input_tokens": 4784,
-  "output_tokens": 168,
+  "seconds": 9.2,
+  "input_tokens": 5630,
+  "output_tokens": 854,
   "attempts": 1,
-  "task_sha": "483e429a375e1119"
+  "task_sha": "946245af7ce662f7"
  }
 }

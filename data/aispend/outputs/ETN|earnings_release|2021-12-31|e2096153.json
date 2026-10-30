@@ -1,0 +1,27 @@
+{
+ "accession": "ETN|earnings_release|2021-12-31|e2096153",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures of $575 million for 2021 appear only in the free cash flow reconciliation; no sentence links capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "the only R&D mention is continued investment in the eMobility segment; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data center is cited only as a driver of order growth in Electrical Americas and Electrical Global, and orders are not revenue; no sentence states AI or data-center revenue as an amount or share, or links revenue to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.1,
+  "input_tokens": 9495,
+  "output_tokens": 526,
+  "attempts": 1,
+  "task_sha": "a7dcfbe0f1ae87b8"
+ }
+}

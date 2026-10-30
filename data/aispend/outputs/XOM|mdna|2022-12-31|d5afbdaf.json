@@ -1,6 +1,6 @@
 {
  "accession": "XOM|mdna|2022-12-31|d5afbdaf",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "258cdcea63b6681f"
+  "task_sha": "56e67fcb973a7e4c"
  }
 }

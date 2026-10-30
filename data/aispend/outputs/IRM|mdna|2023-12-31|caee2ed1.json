@@ -1,0 +1,35 @@
+{
+ "accession": "IRM|mdna|2023-12-31|caee2ed1",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our organic storage rental revenue growth is primarily driven by revenue management in our Global RIM Business segment, where we expect volume to be relatively stable in the near term, as well as by growth in our Global Data Center Business segment, primarily driven by lease commencements.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Data-center segment named as one driver of organic storage rental revenue growth; no amount or share of data-center revenue stated. Present tense with mixed near-term expectation; recorded as actual with no named year. The similar bullet in p12 is not a separate statement."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the 2024 total capex guidance of about $1,500.0 million (p14) is not linked to AI or data centers, and no sentence quantifies or attributes capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.1,
+  "input_tokens": 9228,
+  "output_tokens": 1020,
+  "attempts": 1,
+  "task_sha": "353f14f86db30b9c"
+ }
+}

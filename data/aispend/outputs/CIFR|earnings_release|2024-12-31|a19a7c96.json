@@ -1,23 +1,27 @@
 {
  "accession": "CIFR|earnings_release|2024-12-31|a19a7c96",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; passages mention HPC/AI data center development, land acquisition and an MOU only as business activities, with no spend amount, share, or spend linkage"
+   "reason": "no sentence states or attributes capital expenditures to AI/HPC; passages mention HPC data center development, land acquisition and an MOU only as business/operational updates without any spend statement"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, HPC or data-center revenue; revenue references relate to bitcoin mining and power sales"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.3,
-  "input_tokens": 7767,
-  "output_tokens": 194,
+  "seconds": 5.8,
+  "input_tokens": 8455,
+  "output_tokens": 334,
   "attempts": 1,
-  "task_sha": "5ec742116fcf142a"
+  "task_sha": "ef7d461c43752d27"
  }
 }

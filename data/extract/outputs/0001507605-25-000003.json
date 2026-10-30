@@ -1,0 +1,112 @@
+{
+ "accession": "0001507605-25-000003",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0008",
+   "row_label": "Total revenues",
+   "column_label": "column 1",
+   "cell_text": "656,378",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 656378000,
+   "confidence": 0.8,
+   "notes": "Table t0008 is an MD&A key-metrics and non-GAAP reconciliation table, not the GAAP statement of operations. Its column labels carry no period. Column 1 is FY2024: the unit context reads '2024 2023 Favorable (Unfavorable)', column 3 equals column 1 minus column 2 (656,378 - 387,508 = 268,870), and Net income 541,008 matches the FY2024 cash-flow statement. The unit (thousands) was taken from text outside the table."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0008",
+   "row_label": "Total revenues",
+   "column_label": "column 2",
+   "cell_text": "387,508",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 387508000,
+   "confidence": 0.8,
+   "notes": "Column 2 is FY2023: its Net income 261,173 matches the FY2023 cash-flow statement. Same caveats as the FY2024 value about the table source and the unit."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0008",
+   "row_label": "Total cost of revenues",
+   "column_label": "column 1",
+   "cell_text": "(815,751)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 815751000,
+   "confidence": 0.8,
+   "notes": "Total line, which includes cost-of-revenue depreciation and amortization of 403,706. Column 1 is FY2024 by the same reasoning as revenue."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0008",
+   "row_label": "Total cost of revenues",
+   "column_label": "column 2",
+   "cell_text": "(402,851)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 402851000,
+   "confidence": 0.8,
+   "notes": "Total line, which includes cost-of-revenue depreciation and amortization of 179,513. Column 2 is FY2023."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0016",
+   "row_label": "Purchase of property and equipment",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(250,825)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 250825000,
+   "confidence": 1.0,
+   "notes": "Purchase of intangible assets (2,633) is a separate line and was not added."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0016",
+   "row_label": "Purchase of property and equipment",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(27,611)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 27611000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0016",
+   "row_label": "Purchase of property and equipment",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "(41,108)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 41108000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "operating_income",
+   "reason": "Table t0008 is an MD&A non-GAAP reconciliation with no operating income or income-from-operations row, and the GAAP statement of operations was not provided."
+  },
+  {
+   "field": "revenue",
+   "period_end": "2022-12-31",
+   "reason": "The income-statement table has no FY2022 column; column 3 is a 2024-vs-2023 variance, not a period."
+  },
+  {
+   "field": "cost_of_revenue",
+   "period_end": "2022-12-31",
+   "reason": "The income-statement table has no FY2022 column; column 3 is a 2024-vs-2023 variance, not a period."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.9,
+  "input_tokens": 7739,
+  "output_tokens": 2016,
+  "attempts": 1,
+  "task_sha": "deffc74c27d21c7e"
+ }
+}

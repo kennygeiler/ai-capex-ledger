@@ -1,0 +1,23 @@
+{
+ "accession": "LITE|earnings_release|2023-04-01|0a43ee0d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no passage in the text mentions AI next to spending"
+  },
+  {
+   "field": "opex",
+   "reason": "no passage in the text mentions AI next to spending"
+  }
+ ],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "7a075c98020397b5"
+ }
+}

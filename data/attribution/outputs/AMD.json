@@ -1,156 +1,192 @@
 {
  "ticker": "AMD",
- "prompt_version": "attribution@v1",
- "model": "chip_seller@v1",
+ "prompt_version": "attribution@v2",
+ "model": "chip_seller@v3",
  "rows": [
   {
-   "field": "capex",
-   "period": "FY2022",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "AMD states no AI amount or share of its own capex ($450M); a chip seller's capex funds design, test and R&D equipment, not AI infrastructure. Seller-side signal: Data Center segment revenue $6,043M (fact:AMD|segment_revenue|Data Center|FY2022), not counted as AI spend.",
-   "confidence": 0.8
-  },
-  {
-   "field": "capex",
+   "field": "revenue",
    "period": "FY2023",
    "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "AMD states no AI amount or share of its own capex ($546M); a chip seller's capex funds design, test and R&D equipment, not AI infrastructure. Seller-side signal: Data Center segment revenue $6,496M (fact:AMD|segment_revenue|Data Center|FY2023), not counted as AI spend.",
-   "confidence": 0.8
-  },
-  {
-   "field": "capex",
-   "period": "FY2024",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "AMD states no AI amount or share of its own capex ($636M); a chip seller's capex funds design, test and R&D equipment, not AI infrastructure. Seller-side signal: Data Center segment revenue $12,579M (fact:AMD|segment_revenue|Data Center|FY2024), not counted as AI spend.",
-   "confidence": 0.8
-  },
-  {
-   "field": "capex",
-   "period": "FY2025",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "AMD states no AI amount or share of its own capex ($974M); a chip seller's capex funds design, test and R&D equipment, not AI infrastructure. Seller-side signal: Data Center segment revenue $16,635M (fact:AMD|segment_revenue|Data Center|FY2025), not counted as AI spend.",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
-   "period": "FY2022",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "No statement in the pack attributes any FY2022 opex ($9,339M) to AI. Seller-side signal: Data Center segment revenue $6,043M (fact:AMD|segment_revenue|Data Center|FY2022), not counted as AI spend.",
+   "method": "segment",
+   "ai_amount": 6496000000,
+   "ai_share": 0.2864,
+   "inputs": [
+    {
+     "id": "fact:AMD|segment_revenue|Data Center|FY2023",
+     "value": 6496000000
+    }
+   ],
+   "basis": "Data Center segment revenue of $6,496M against total revenue of $22,680M. The segment includes EPYC server CPUs and adaptive SoCs as well as Instinct GPUs, so it is a data-center line rather than an AI line. No Instinct dollar figure was stated for 2023.",
    "confidence": 0.7
   },
   {
-   "field": "opex",
-   "period": "FY2023",
-   "kind": "actual",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "AMD says R&D rose to $5.9B (+$867M) 'primarily due to higher employee-related costs due to an increase in headcount to support increased investment in AI' and cites 'increased R&D investments in AI'; no AI amount or share is given, and the $5.9B total is the whole, not the AI part. Seller-side signal: Data Center segment revenue $6,496M (fact:AMD|segment_revenue|Data Center|FY2023).",
-   "confidence": 0.5
-  },
-  {
-   "field": "opex",
+   "field": "revenue",
    "period": "FY2024",
    "kind": "actual",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "AMD says R&D rose to $6.5B (+$584M) 'primarily due to higher employee-related costs due to an increase in headcount in support of our AI strategy' and cites 'increasing our strategic AI investments'; no AI amount or share is given, and the $6.5B total is the whole, not the AI part. Seller-side signal: Data Center segment revenue $12,579M (fact:AMD|segment_revenue|Data Center|FY2024).",
-   "confidence": 0.5
+   "method": "stated_amount",
+   "ai_amount": 5000000000,
+   "ai_share": 0.1939,
+   "inputs": [
+    {
+     "id": "stmt:AMD|earnings_release|2024-12-28|b30dad57|revenue|FY2024|actual|0",
+     "value": 5000000000
+    }
+   ],
+   "basis": "AMD stated 'more than $5 billion of AMD Instinct accelerator revenue' in 2024, so this is a floor. $5.0B / $25,785M total revenue. The wider Data Center segment was $12,579M (fact:AMD|segment_revenue|Data Center|FY2024), and the remainder is mostly EPYC CPUs.",
+   "confidence": 0.8
   },
   {
-   "field": "opex",
+   "field": "revenue",
    "period": "FY2025",
    "kind": "actual",
-   "method": "qualitative",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "AMD says R&D rose to $8.1B (+$1.6B) 'primarily due to higher employee-related costs from an increase in headcount in support of our continued focus on our AI strategy'; no AI amount or share is given, and the $8.1B total is the whole, not the AI part. Seller-side signal: Data Center segment revenue $16,635M (fact:AMD|segment_revenue|Data Center|FY2025).",
-   "confidence": 0.5
+   "method": "segment",
+   "ai_amount": 16635000000,
+   "ai_share": 0.4802,
+   "inputs": [
+    {
+     "id": "fact:AMD|segment_revenue|Data Center|FY2025",
+     "value": 16635000000
+    }
+   ],
+   "basis": "Data Center segment revenue of $16,635M (up 32%) against total revenue of $34,639M. It includes EPYC CPUs as well as Instinct GPUs. No full-year Instinct figure was stated; the only GPU figure is about $390M of MI308 sales to China in Q4, which is too partial to use.",
+   "confidence": 0.7
   },
   {
-   "field": "opex",
-   "period": "FY2024",
+   "field": "revenue",
+   "period": "FY2026",
    "kind": "outlook",
    "method": "qualitative",
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "AMD announced a $135M investment in Irish R&D operations for 'next generation AI, data center, networking and 6G' projects; the amount spans AI and non-AI work and is not split, nor is it stated as FY2024 opex, so no AI amount is attributed.",
+   "basis": "In the Q2 2026 release AMD said: 'We expect Data Center sales to accelerate in the second half of 2026'. No amount was given.",
+   "confidence": 0.3
+  },
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "A fabless chip seller's capex ($450M) funds test, design and office assets, not AI infrastructure, and AMD states no AI share of it. For reference, the seller-side signal was Data Center segment revenue of $6,043M (fact:AMD|segment_revenue|Data Center|FY2022).",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Capex of $546M is not AI spend in the ledger's sense, and no AI amount or share was stated. For reference, the seller-side signal was Data Center segment revenue of $6,496M (fact:AMD|segment_revenue|Data Center|FY2023).",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Capex of $636M is not AI spend in the ledger's sense, and no AI amount or share was stated. For reference, the seller-side signal was Data Center segment revenue of $12,579M (fact:AMD|segment_revenue|Data Center|FY2024), including more than $5B of Instinct.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Capex of $974M is not AI spend in the ledger's sense, and no AI amount or share was stated. For reference, the seller-side signal was Data Center segment revenue of $16,635M (fact:AMD|segment_revenue|Data Center|FY2025).",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "In the MD&A, AMD attributed the opex increase to 'higher employee-related costs due to an increase in headcount to support increased investment in AI'. Releases cite 'increased R&D investments in AI'. No amount or share was stated.",
+   "confidence": 0.3
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "AMD cited 'increasing our strategic AI investments'. The $6.5B R&D total is the whole, not an AI part. No AI amount or share was stated.",
+   "confidence": 0.3
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "outlook",
+   "method": "stated_amount",
+   "ai_amount": 135000000,
+   "ai_share": 0.0125,
+   "inputs": [
+    {
+     "id": "stmt:AMD|earnings_release|2023-07-01|df76c86e|opex|FY2024|outlook|2",
+     "value": 135000000
+    }
+   ],
+   "basis": "This is a planned $135M investment in Irish R&D for 'next generation AI, data center, networking and 6G'. The scope is mixed and the plan likely spans several years, so the figure overstates AI opex for the year. The share is $135M / $10,825M of FY2024 opex.",
+   "confidence": 0.3
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "AMD said 'Our continued investments in AI and high-performance computing are driving significant growth'. The $8.1B R&D total (up 25%) is the whole, not an AI part. No AI amount or share was stated.",
    "confidence": 0.3
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "period": "FY2022",
-   "reason": "no statement gives an AI amount or share of AMD's own capex; chip-seller capex is not AI infrastructure"
+   "reason": "No AI amount or share of AMD's own capex is stated for any year. Its purchase commitments ($8,610M FY2022, $4,594M FY2023, $4,968M FY2024) are foundry and supply obligations, not AI infrastructure, and none is reported for FY2025."
   },
   {
-   "field": "capex",
-   "period": "FY2023",
-   "reason": "no statement gives an AI amount or share of AMD's own capex; chip-seller capex is not AI infrastructure"
-  },
-  {
-   "field": "capex",
-   "period": "FY2024",
-   "reason": "no statement gives an AI amount or share of AMD's own capex; chip-seller capex is not AI infrastructure"
-  },
-  {
-   "field": "capex",
-   "period": "FY2025",
-   "reason": "no statement gives an AI amount or share of AMD's own capex; chip-seller capex is not AI infrastructure"
+   "field": "opex",
+   "reason": "No statement gives an AI amount or share of actual opex for FY2023 to FY2025. The R&D totals are company-wide."
   },
   {
    "field": "opex",
    "period": "FY2022",
-   "reason": "no statement in the pack attributes FY2022 opex or R&D to AI"
+   "reason": "There is no opex value in the pack for FY2022, and no statement attributes opex to AI."
   },
   {
-   "field": "opex",
-   "period": "FY2023",
-   "reason": "R&D growth is attributed to AI in words only; no AI amount or share stated"
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "There is no revenue value in the pack for FY2022. Data Center segment revenue was $6,043M, driven by EPYC CPUs."
   },
   {
-   "field": "opex",
-   "period": "FY2024",
-   "reason": "R&D growth is attributed to AI in words only; no AI amount or share stated"
-  },
-  {
-   "field": "opex",
-   "period": "FY2025",
-   "reason": "R&D growth is attributed to AI in words only; no AI amount or share stated"
+   "field": "revenue",
+   "period": "FY2026",
+   "reason": "The fiscal year is incomplete and has no annual value. The quarterly statements give Data Center at $5.8B in Q1 and $6.7B in Q2, which was 58% of Q2 revenue."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 19.5,
-  "input_tokens": 8692,
-  "output_tokens": 2767,
+  "seconds": 42.8,
+  "input_tokens": 24103,
+  "output_tokens": 4340,
   "attempts": 1,
-  "task_sha": "08cfbb9d0b082323"
+  "task_sha": "2780d49bbf2d16ce"
  }
 }

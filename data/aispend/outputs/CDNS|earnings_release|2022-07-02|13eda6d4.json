@@ -1,0 +1,27 @@
+{
+ "accession": "CDNS|earnings_release|2022-07-02|13eda6d4",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "purchases of property, plant and equipment appear only in the cash flow table with no link to AI; risk-factor mention of capital expenditure requirements is boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue or AI's share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 6711,
+  "output_tokens": 220,
+  "attempts": 1,
+  "task_sha": "3a2a630cb32726bd"
+ }
+}

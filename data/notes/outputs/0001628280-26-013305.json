@@ -1,6 +1,6 @@
 {
  "accession": "0001628280-26-013305",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -12,8 +12,7 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 65424000,
-   "confidence": 0.9,
-   "notes": "Revenue by line of business; the filing gives no separate segment note table, so revenue lines are used."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -25,8 +24,7 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 24378000,
-   "confidence": 0.9,
-   "notes": "Revenue by line of business."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -38,8 +36,7 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 229207000,
-   "confidence": 0.9,
-   "notes": "Revenue by line of business."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -51,8 +48,7 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 408740000,
-   "confidence": 0.9,
-   "notes": "Revenue by line of business."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -64,8 +60,7 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 24388000,
-   "confidence": 0.9,
-   "notes": "Revenue by line of business."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -77,8 +72,7 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 77554000,
-   "confidence": 0.9,
-   "notes": "Revenue by line of business."
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -202,7 +196,7 @@
   },
   {
    "field": "ppe_category",
-   "dimension": "Add: Construction in progress",
+   "dimension": "Construction in progress",
    "table_id": "t0037",
    "row_label": "Add: Construction in progress",
    "column_label": "December 31, 2025",
@@ -210,12 +204,11 @@
    "period_end": "2025-12-31",
    "months": 0,
    "value": 911066000,
-   "confidence": 0.9,
-   "notes": "Construction in progress is presented below the net subtotal rather than in the gross list, but is a gross PP&E category."
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
-   "dimension": "Add: Construction in progress",
+   "dimension": "Construction in progress",
    "table_id": "t0037",
    "row_label": "Add: Construction in progress",
    "column_label": "December 31, 2024",
@@ -223,43 +216,29 @@
    "period_end": "2024-12-31",
    "months": 0,
    "value": 111966000,
-   "confidence": 0.9,
-   "notes": "Construction in progress is presented below the net subtotal rather than in the gross list, but is a gross PP&E category."
-  },
-  {
-   "field": "finance_lease_liability",
-   "dimension": null,
-   "table_id": "t0042",
-   "row_label": "Finance lease liabilities, net of current portion",
-   "column_label": "December 31, 2025",
-   "cell_text": "$844",
-   "period_end": "2025-12-31",
-   "months": 0,
-   "value": 844000,
-   "confidence": 0.95,
-   "notes": "Current portion is $\u2014 (zero), so the non-current cell equals total finance lease liabilities."
+   "confidence": 0.9
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "No segment note with per-segment capital expenditures is among the tables; revenue is reported by line of business only."
+   "reason": "no segment note with capital expenditures by segment is among the tables; revenue is reported only by revenue line"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "December 31, 2024 total is not shown in a single cell: it is current 1,669 plus non-current 3 = $1,672 thousand (t0042), which cannot be cited to one cell."
+   "reason": "t0042 gives only 'Finance lease liabilities, current portion' and 'net of current portion' with no total line; the validator rejects current/non-current dimensions and cells may not be added, so no single citable value exists"
   },
   {
    "field": "purchase_commitments",
-   "reason": "No contractual-obligations or commitments table with purchase obligations is among the tables provided."
+   "reason": "no contractual-obligations or commitments table is among the tables"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 53.4,
-  "input_tokens": 15813,
-  "output_tokens": 7538,
+  "seconds": 49.1,
+  "input_tokens": 16017,
+  "output_tokens": 6972,
   "attempts": 2,
-  "task_sha": "91ebb9ff0f042779"
+  "task_sha": "47424a808043c766"
  }
 }

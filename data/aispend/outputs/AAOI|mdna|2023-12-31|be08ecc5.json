@@ -1,0 +1,47 @@
+{
+ "accession": "AAOI|mdna|2023-12-31|be08ecc5",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.649,
+   "quote": "In 2023, we earned 64.9% of our total revenue from the internet data center market and 27.5% of our total revenue from the CATV market.",
+   "passage": "p02",
+   "confidence": 1.0,
+   "notes": "Internet data center market share of total revenue. The table in p10 gives data center revenue of $141,213 thousand, but it is not a quotable sentence."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Based on customer forecasts and order backlog we believe that this elevated datacenter demand will likely continue into 2024.",
+   "passage": "p11",
+   "confidence": 0.8,
+   "notes": "Expects data-center demand to stay elevated in 2024, which the filing links to AI upgrades. It gives no figure or share."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D is described for data center and CATV products, but no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.0,
+  "input_tokens": 8440,
+  "output_tokens": 892,
+  "attempts": 1,
+  "task_sha": "16330093f0c4c860"
+ }
+}

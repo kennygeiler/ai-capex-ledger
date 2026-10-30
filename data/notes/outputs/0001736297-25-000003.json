@@ -1,6 +1,6 @@
 {
  "accession": "0001736297-25-000003",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -126,24 +126,24 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "The company reports a single segment (t0030 is a single-segment profit-and-loss disclosure), and the tables give no capital expenditures by segment."
+   "reason": "the company reports a single reportable segment; the segment note (t0030) shows consolidated revenue and expense items only, with no capital expenditures by segment"
   },
   {
    "field": "segment_revenue",
-   "reason": "The company has a single segment. The Revenue row in t0030 is the consolidated total, which is excluded, and no table breaks revenue down by market or product line."
+   "reason": "the company has a single reportable segment and the tables give only consolidated revenue (the total), with no revenue by segment, market or product line"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "None of the tables provided disclose finance lease liabilities."
+   "reason": "no lease note table with finance lease liabilities is included in the provided tables"
   }
  ],
- "notes": "Construction in progress as of 2023-12-31 is shown as '\u2014' (nil) and is omitted because values must be positive. The t0045 column header was parsed badly: the yearly payment amounts (11,957 + 7,527 + 8,000) were merged into the label. Their sum equals the 27,484 total, and the total is taken as of the 2024-12-31 report date. Confidence is 0.85 because the column carries no explicit date.",
+ "notes": "Construction in progress as of 2023-12-31 is shown as an em dash (nil) and was omitted rather than reported as a zero value. Table t0045's header was parsed malformed: the per-period payment amounts (11,957 + 7,527 + 8,000 = 27,484) landed in the column label. The total is assumed to be as of the 2024-12-31 report date, so confidence is 0.85.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 13.7,
-  "input_tokens": 5195,
-  "output_tokens": 1854,
+  "seconds": 17.6,
+  "input_tokens": 5323,
+  "output_tokens": 1952,
   "attempts": 1,
-  "task_sha": "959e2d854aa06830"
+  "task_sha": "7d122e9eec0130e6"
  }
 }

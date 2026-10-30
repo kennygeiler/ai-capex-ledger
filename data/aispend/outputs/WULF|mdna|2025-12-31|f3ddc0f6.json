@@ -1,6 +1,6 @@
 {
  "accession": "WULF|mdna|2025-12-31|f3ddc0f6",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -10,22 +10,33 @@
    "class": "qualitative",
    "quote": "While TeraWulf historically operated bitcoin mining facilities and leveraged flexible compute loads to support early infrastructure development, going forward the Company\u2019s capital allocation, development activities, and operating focus are centered on HPC data center development, long-term hosting arrangements, and infrastructure supporting AI-driven compute workloads.",
    "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Says capital allocation going forward is centered on HPC data centers and infrastructure for AI-driven compute. No amount or share is given. 'Capital allocation' is read as capex. 'Going forward' names no year, so fiscal_year is null."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "As contracted HPC capacity is delivered and energized under existing hosting arrangements, management expects the Company\u2019s revenue mix to continue shifting toward HPC leasing and away from legacy bitcoin mining operations.",
+   "passage": "p05",
    "confidence": 0.6,
-   "notes": "Says 'capital allocation', not 'capital expenditures', and links it to HPC data centers and AI-driven compute infrastructure together rather than to AI alone. 'Going forward' is forward-looking but names no year. p02 describes the same capital shift toward HPC data center development but does not mention AI, so it is not recorded."
+   "notes": "Seller-side revenue from data-center (HPC) leasing. The sentence does not say AI explicitly, but elsewhere the filing describes the HPC campuses as serving AI-driven compute. No amount or share is stated."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes research and development, infrastructure, or headcount operating expenses to AI"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 8.4,
-  "input_tokens": 5893,
-  "output_tokens": 832,
+  "seconds": 9.5,
+  "input_tokens": 6346,
+  "output_tokens": 1146,
   "attempts": 1,
-  "task_sha": "8e9faa666394a057"
+  "task_sha": "5eca0cef9e31fcde"
  }
 }

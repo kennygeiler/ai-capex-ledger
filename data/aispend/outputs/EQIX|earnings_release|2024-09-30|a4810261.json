@@ -1,0 +1,37 @@
+{
+ "accession": "EQIX|earnings_release|2024-09-30|a4810261",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 15000000000,
+   "amount_high": 15000000000,
+   "quote": "Accelerated pursuit of growing artificial intelligence (AI) demand in the U.S. with the signing of a greater than $15 billion joint venture, expected to nearly triple the capital invested in the company\u2019s xScale \u00ae data center portfolio once completed",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "'Greater than $15 billion' is a floor, so it is recorded as a single figure. This is the total capital of a joint venture with CPP Investments and GIC, not Equinix's own capex, and it covers xScale/hyperscale capacity with AI demand as the driver. The sentence names no year. Equinix's own 2024 capex guidance in p05 ($2.850\u2013$3.100 billion total) is not linked to AI, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the revenue guidance sentences (p04, p05) do not mention AI, and no sentence states an AI part or share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.0,
+  "input_tokens": 8399,
+  "output_tokens": 1118,
+  "attempts": 1,
+  "task_sha": "37eb1a4433ebfd45"
+ }
+}

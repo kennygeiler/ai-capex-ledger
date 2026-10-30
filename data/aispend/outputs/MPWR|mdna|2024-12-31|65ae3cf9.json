@@ -1,0 +1,35 @@
+{
+ "accession": "MPWR|mdna|2024-12-31|65ae3cf9",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "This increase was primarily due to higher sales of our power management solutions for AI applications.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Refers to the $393.3 million (121.8%) year-over-year increase in enterprise data market revenue, attributed primarily to AI power management sales. That figure is a change in segment revenue, not the level of AI revenue, so it is not recorded as an explicit_amount. No AI revenue figure or share is stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.7,
+  "input_tokens": 5134,
+  "output_tokens": 673,
+  "attempts": 1,
+  "task_sha": "6225f8c54bc02a33"
+ }
+}

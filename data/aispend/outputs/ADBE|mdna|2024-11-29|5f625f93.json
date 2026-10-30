@@ -1,0 +1,46 @@
+{
+ "accession": "ADBE|mdna|2024-11-29|5f625f93",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Research and development expenses consist primarily of compensation and contracted costs associated with software development, third-party hosting services and data center costs including AI training costs, related facilities costs and expenses associated with computer equipment and software used in development activities.",
+   "passage": "p02",
+   "confidence": 0.4,
+   "notes": "Definitional description of the R&D expense line, which includes AI training costs; it states no amount or share and does not say AI drove the spend. Close to boilerplate, so confidence is low. fiscal_year is null and resolves to the reported year, 2024."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Cost of subscription revenue consists of third-party hosting services and data center costs, including expenses related to operating our network infrastructure and AI inferencing costs.",
+   "passage": "p01",
+   "confidence": 0.35,
+   "notes": "Definitional description of cost of subscription revenue (infrastructure costs), which includes AI inferencing costs. This is cost of revenue rather than operating expense in the strict sense. It states no amount or share. Close to boilerplate, so confidence is low. fiscal_year is null and resolves to the reported year, 2024."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p04 mentions server hardware purchases without reference to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.7,
+  "input_tokens": 5371,
+  "output_tokens": 1183,
+  "attempts": 1,
+  "task_sha": "cb57680da3d5ce40"
+ }
+}

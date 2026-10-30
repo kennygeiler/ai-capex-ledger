@@ -1,0 +1,37 @@
+{
+ "accession": "VZ|earnings_release|2026-09-30|61f74eab",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 16000000000,
+   "amount_high": 16500000000,
+   "quote": "\u2022 Capital expenditures: $16.0 billion to $16.5 billion, inclusive of success- based investments for AI Connect.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "This is total capex guidance that includes AI Connect investments; no AI-specific amount is stated. The sentence names no year, so fiscal_year is null. The p02 table labels the same $16,000\u201316,500 million capex forecast as 'Full Year 2026', so the default of filing year + 1 for outlooks would give 2027, which is likely wrong. The intended year is 2026."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.8,
+  "input_tokens": 5019,
+  "output_tokens": 730,
+  "attempts": 1,
+  "task_sha": "3a6534debf348b15"
+ }
+}

@@ -1,0 +1,72 @@
+{
+ "accession": "SLNH|mdna|2022-12-31|feba6a6d",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Project Edith",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Washington",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We maintained our facility in Washington (Project Edith) and in 2021 added two new mining site operations in Murray, Kentucky (Project Sophie) and Calvert City, Kentucky (Project Marie), however only Project Edith and Project Sophie sites were operational in the first nine months of fiscal year 2021, and operations for Project Sophie site did not begin to ramp up until the fourth quarter of 2021.",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "Project Sophie",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Murray, Kentucky",
+   "counterparty": null,
+   "capacity_mw": 25,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2021",
+   "quote": "Megawatts deployed increased from approximately 2 megawatts at the beginning of 2021 and increased slowly in fiscal year 2021 to 20 megawatts for the Project Marie facility and 25 megawatts for the Project Sophie facility for the year ended December 31, 2022.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Project Marie",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Calvert City, Kentucky",
+   "counterparty": null,
+   "capacity_mw": 20,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2021",
+   "quote": "Megawatts deployed increased from approximately 2 megawatts at the beginning of 2021 and increased slowly in fiscal year 2021 to 20 megawatts for the Project Marie facility and 25 megawatts for the Project Sophie facility for the year ended December 31, 2022.",
+   "passage": "p01",
+   "confidence": 0.65
+  },
+  {
+   "name": "Project Dorothy",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": "Spring Lane",
+   "amount_low": 12500000,
+   "amount_high": 12500000,
+   "capacity_mw": 25,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In partial consideration of the amendment to the October notes discussed above, the investors agreed to release certain collateral covered by their security agreement to permit the Company to proceed forward with the initial first 25 MW phase of Project Dorothy, which has been extensively funded by Spring Lane, which the Company expects to complete in the near future.",
+   "passage": "p13",
+   "confidence": 0.75
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.4,
+  "input_tokens": 8735,
+  "output_tokens": 2209,
+  "attempts": 1,
+  "task_sha": "b273a72713466147"
+ }
+}

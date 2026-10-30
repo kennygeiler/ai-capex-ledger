@@ -1,6 +1,6 @@
 {
  "accession": "META|earnings_release|2023-03-31|880cc6ea",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -12,33 +12,26 @@
    "amount_high": 33000000000,
    "quote": "We expect capital expenditures to be in the range of $30-33 billion, unchanged from our prior estimate.",
    "passage": "p02",
-   "confidence": 0.8,
-   "notes": "This is total capex, not the AI portion. The AI link is in the next sentence ('This outlook reflects our ongoing build out of AI capacity...'). The sentence names no year, so fiscal_year is null. Coming from a Q1 2023 release, this guidance is very likely full-year 2023. The default rule (outlook with null year \u2192 reported year + 1 = 2024) would probably assign the wrong year, so a reviewer should check it."
-  },
-  {
-   "field": "capex",
-   "fiscal_year": null,
-   "kind": "outlook",
-   "scope": "total",
-   "class": "qualitative",
-   "quote": "This outlook reflects our ongoing build out of AI capacity to support ads, Feed and Reels, along with an increased investment in capacity for our generative AI initiatives.",
-   "passage": "p02",
-   "confidence": 0.75,
-   "notes": "Names AI as the driver of the total capex outlook in the previous sentence. It does not quantify the AI part. I kept it separate from the total-amount statement because it is the only AI attribution. Drop it if rule 3 is read as covering it. Year is null for the same reason as above and is likely 2023."
+   "confidence": 0.9,
+   "notes": "Total capex outlook, not the AI part. The AI link is in the next sentence, which says the outlook reflects AI capacity build-out and generative AI investment. The sentence names no year. Context suggests full-year 2023, but fiscal_year is left null per the rules."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 13.8,
-  "input_tokens": 4734,
-  "output_tokens": 1338,
+  "seconds": 6.7,
+  "input_tokens": 5033,
+  "output_tokens": 677,
   "attempts": 1,
-  "task_sha": "0b2b8e757852e6af"
+  "task_sha": "5b49936a771ab1d2"
  }
 }

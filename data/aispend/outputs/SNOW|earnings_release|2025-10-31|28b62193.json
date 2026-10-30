@@ -1,0 +1,27 @@
+{
+ "accession": "SNOW|earnings_release|2025-10-31|28b62193",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "product revenue of $1.16 billion is total product revenue, not stated as AI revenue; AI references (Snowflake Intelligence adoption, AI-driven capabilities) describe products and adoption without stating an AI part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 4983,
+  "output_tokens": 271,
+  "attempts": 1,
+  "task_sha": "9450ba177d8d71d1"
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "accession": "LRCX|mdna|2026-06-28|6cc7c974",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 4644,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "d7b91a6cc49074a2"
+ }
+}

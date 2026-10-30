@@ -1,23 +1,63 @@
 {
  "accession": "NVDA|earnings_release|2026-04-26|d882138e",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 75200000000,
+   "amount_high": 75200000000,
+   "quote": "Data Center revenue for the first quarter was a record $75.2 billion, up 92% from a year ago and up 21% sequentially, driven by the ramp of our Blackwell 300 products and demand for our InfiniBand, Spectrum-X\u2122 Ethernet, and NVLink\u2122 solutions.",
+   "passage": "p09",
+   "confidence": 0.9,
+   "notes": "Quarterly figure (Q1 fiscal 2027), not full-year. The same figure appears in the p01 bullet and is not recorded twice."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 60400000000,
+   "amount_high": 60400000000,
+   "quote": "Under the previous sub-markets, Data Center compute revenue was a record $60.4 billion, up 77% from a year ago and up 18% sequentially.",
+   "passage": "p04",
+   "confidence": 0.85,
+   "notes": "Q1 fiscal 2027 quarterly figure. This is a component of the $75.2B Data Center revenue, so do not add it to that total. The p10 sentence is identical and is not recorded twice."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 14800000000,
+   "amount_high": 14800000000,
+   "quote": "Data Center networking revenue was a record $14.8 billion, up 199% from a year ago and up 35% sequentially.",
+   "passage": "p04",
+   "confidence": 0.85,
+   "notes": "Q1 fiscal 2027 quarterly figure. This is a component of the $75.2B Data Center revenue, so do not add it to that total. The p10 sentence is identical and is not recorded twice."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states NVIDIA's own capital expenditures or links them to AI; the AI-factory and data center references describe customers' buildout and NVIDIA's revenue, not the company's spend"
+   "reason": "no sentence states capital expenditures or links them to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes NVIDIA's operating expenses (R&D, infrastructure, headcount) to AI; passages cover revenue, outlook revenue, segment reporting and product announcements only"
+   "reason": "no sentence quantifies operating expenses or attributes them to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.6,
-  "input_tokens": 5506,
-  "output_tokens": 227,
+  "seconds": 11.8,
+  "input_tokens": 6034,
+  "output_tokens": 1397,
   "attempts": 1,
-  "task_sha": "0c779783fffb5481"
+  "task_sha": "2cdb3ab11fe629af"
  }
 }

@@ -1,0 +1,27 @@
+{
+ "accession": "RIOT|earnings_release|2024-12-31|b21d10b9",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the 2025 key capital expenditures ($198 million total for the Corsicana substation, Kentucky infrastructure and miners) are not linked to AI in any sentence; the $80B, $65B and $75B AI capex figures in p06 are quotes from Microsoft, Meta and Alphabet, not Riot's own spend; p09 describes evaluating AI/HPC uses at Corsicana without attributing any spend to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "revenue is Bitcoin mining, engineering and other; the engineering division's 'demand in data center development' is not stated as an AI or data-center revenue figure or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 9098,
+  "output_tokens": 552,
+  "attempts": 1,
+  "task_sha": "edb0640c87be561e"
+ }
+}

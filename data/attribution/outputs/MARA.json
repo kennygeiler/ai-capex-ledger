@@ -1,0 +1,107 @@
+{
+ "ticker": "MARA",
+ "prompt_version": "attribution@v2",
+ "model": "miner_to_hpc@v3",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Capex of $41.1m with no AI or HPC segment, statement or PP&E category; mining only.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Capex of $27.6m with no AI or HPC segment, statement or PP&E category; mining only.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Capex of $250.8m with no AI or HPC segment and no GPU/HPC PP&E category. Mining rigs, containers and mining equipment are mining capex, not AI.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Consolidated capex of $407.1m with no AI or HPC segment and no GPU/HPC PP&E category. The company mentions 'early AI infrastructure investments' and ten AI inference racks at Granbury in words only, with no amount. Mining rigs, containers and mining equipment are not AI.",
+   "confidence": 0.7
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2025 earnings release says MARA will 'selectively convert capacity to higher-value workloads, including AI inference and high-performance compute' as demand emerges. It gives no amount and no timing. The Starwood JV (over 1 GW, up to 50% owned) is a project with no amount stated.",
+   "confidence": 0.2
+  }
+ ],
+ "none_found": [
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "reason": "No AI or HPC segment. Hosting services ($4.7m) is miner hosting, not AI, and the 10-K says MARA has 'not yet generated material revenue' from AI inference."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "Only mining and hosting services ($31.6m, miner hosting) revenue lines; no AI line."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "Only mining operator and participant revenue lines; no AI line."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "Only mining operator and participant revenue lines; no AI line."
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "No AI segment cost line. R&D 'to establish a presence in AI' and a Q3 2025 restructuring to support data center and sovereign AI initiatives are stated in words only, with no amount."
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "No AI segment cost line. R&D toward AI is mentioned in words only, with no amount."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "No segment capex, no stated AI amount, and no GPU/HPC PP&E category. AI racks and inference sites are mentioned without dollars."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 19.4,
+  "input_tokens": 19353,
+  "output_tokens": 1955,
+  "attempts": 1,
+  "task_sha": "5f9a9bb2a5a60e23"
+ }
+}

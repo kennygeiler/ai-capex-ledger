@@ -1,0 +1,132 @@
+{
+ "accession": "0001859392-26-000016",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0031",
+   "row_label": "Revenues",
+   "column_label": "For the years ended | December 31, 2025",
+   "cell_text": "60,406,728",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 60406728000,
+   "confidence": 0.85,
+   "notes": "Took 'Revenues' rather than 'Revenues and gains / (losses) from operations'; the latter adds gains from operations, which are not revenue."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0031",
+   "row_label": "Revenues",
+   "column_label": "For the years ended | December 31, 2024",
+   "cell_text": "42,596,673",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 42596673000,
+   "confidence": 0.85,
+   "notes": "Took 'Revenues' rather than 'Revenues and gains / (losses) from operations'; the latter adds gains from operations, which are not revenue."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0031",
+   "row_label": "Revenues",
+   "column_label": "For the years ended | December 31, 2023",
+   "cell_text": "51,626,779",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 51626779000,
+   "confidence": 0.85,
+   "notes": "Took 'Revenues' rather than 'Revenues and gains / (losses) from operations'; the latter adds gains from operations, which are not revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0031",
+   "row_label": "Transaction expenses",
+   "column_label": "For the years ended | December 31, 2025",
+   "cell_text": "60,175,832",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 60175832000,
+   "confidence": 0.75,
+   "notes": "There is no total cost-of-revenue line. Transaction expenses mainly cover the cost of digital assets sold, which mirrors the 'Revenues' line, and are the direct cost of delivering revenue. Impairment of digital assets is excluded because it is a valuation charge, not a cost of delivering revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0031",
+   "row_label": "Transaction expenses",
+   "column_label": "For the years ended | December 31, 2024",
+   "cell_text": "42,409,856",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 42409856000,
+   "confidence": 0.75,
+   "notes": "There is no total cost-of-revenue line. Transaction expenses mainly cover the cost of digital assets sold, which mirrors the 'Revenues' line, and are the direct cost of delivering revenue. Impairment of digital assets is excluded because it is a valuation charge, not a cost of delivering revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0031",
+   "row_label": "Transaction expenses",
+   "column_label": "For the years ended | December 31, 2023",
+   "cell_text": "51,494,083",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 51494083000,
+   "confidence": 0.75,
+   "notes": "There is no total cost-of-revenue line. Transaction expenses mainly cover the cost of digital assets sold, which mirrors the 'Revenues' line, and are the direct cost of delivering revenue. Impairment of digital assets is excluded because it is a valuation charge, not a cost of delivering revenue."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0036",
+   "row_label": "Purchase of property, equipment and intangible assets",
+   "column_label": "For the years ended | December 31, 2025",
+   "cell_text": "(1,192,534)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 1192534000,
+   "confidence": 0.9,
+   "notes": "This line also covers intangible assets. Noncash additions in the supplemental disclosure are not included."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0036",
+   "row_label": "Purchase of property, equipment and intangible assets",
+   "column_label": "For the years ended | December 31, 2024",
+   "cell_text": "(59,025)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 59025000,
+   "confidence": 0.9,
+   "notes": "This line also covers intangible assets. Noncash additions in the supplemental disclosure are not included."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0036",
+   "row_label": "Purchase of property, equipment and intangible assets",
+   "column_label": "For the years ended | December 31, 2023",
+   "cell_text": "(45,613)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 45613000,
+   "confidence": 0.9,
+   "notes": "This line also covers intangible assets. Noncash additions in the supplemental disclosure are not included."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "There is no single total cost-of-revenue or cost-of-sales line. Transaction expenses is reported as cost_of_revenue_part instead."
+  },
+  {
+   "field": "operating_income",
+   "reason": "The statement has no operating income or income-from-operations line. It goes from total operating expenses to other income/(expense) and then to net income before taxes. Deriving the figure would take arithmetic, which the rules don't allow."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.6,
+  "input_tokens": 7972,
+  "output_tokens": 2379,
+  "attempts": 1,
+  "task_sha": "f664559202590d89"
+ }
+}

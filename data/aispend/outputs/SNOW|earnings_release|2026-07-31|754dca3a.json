@@ -1,0 +1,48 @@
+{
+ "accession": "SNOW|earnings_release|2026-07-31|754dca3a",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Q2 marks our third consecutive quarter of product revenue growth acceleration, driven by strength in both our core data platform and a meaningful step-up in AI revenue",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "Quarterly (Q2 fiscal 2027) statement; AI revenue named as a growth driver but no amount or share stated. Quote stops before the closing quotation mark and speaker attribution."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 1490000000,
+   "amount_high": 1490000000,
+   "quote": "Snowflake delivered another strong quarter, with product revenue of $1.49 billion, up 37% year-over-year, as Snowflake continues to power the enterprise AI revolution",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Quarterly (Q2) product revenue, not full-year and not total revenue; AI is linked only loosely as context, not as the AI part. Recorded as scope total so it is not mistaken for AI revenue."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p03 mentions investments in new technologies only as risk-factor boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.5,
+  "input_tokens": 6168,
+  "output_tokens": 1228,
+  "attempts": 1,
+  "task_sha": "fc29234068956094"
+ }
+}

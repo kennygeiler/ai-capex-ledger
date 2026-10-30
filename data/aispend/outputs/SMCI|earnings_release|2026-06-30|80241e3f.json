@@ -1,0 +1,27 @@
+{
+ "accession": "SMCI|earnings_release|2026-06-30|80241e3f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "purchases of property, plant, and equipment appear only in the cash flow table, and no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the CEO quote mentions 'continued investment in technology leadership, manufacturing scale, and global compliance' but does not attribute or quantify operating expenses for AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no passage states AI, data-center or AI-server revenue as an amount or share; the '$60 billion in new orders' figure is orders and record backlog, not revenue, and it is not stated as AI-specific"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.6,
+  "input_tokens": 7273,
+  "output_tokens": 510,
+  "attempts": 1,
+  "task_sha": "261cefb8171f3d90"
+ }
+}

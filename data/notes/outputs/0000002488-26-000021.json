@@ -1,35 +1,35 @@
 {
  "accession": "0000002488-26-000021",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "no note tables were included in the prompt; the section that should list the parsed tables is empty, and no table files exist in the working directory"
+   "reason": "no note tables were included in the prompt (the table section after 'Task' is empty) and none were found in the working directory, so there is no cell to cite"
   },
   {
    "field": "segment_revenue",
-   "reason": "no note tables were included in the prompt; nothing to cite"
+   "reason": "no note tables were included in the prompt (the table section after 'Task' is empty) and none were found in the working directory, so there is no cell to cite"
   },
   {
    "field": "ppe_category",
-   "reason": "no note tables were included in the prompt; nothing to cite"
+   "reason": "no note tables were included in the prompt (the table section after 'Task' is empty) and none were found in the working directory, so there is no cell to cite"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no note tables were included in the prompt; nothing to cite"
+   "reason": "no note tables were included in the prompt (the table section after 'Task' is empty) and none were found in the working directory, so there is no cell to cite"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no note tables were included in the prompt; nothing to cite"
+   "reason": "no note tables were included in the prompt (the table section after 'Task' is empty) and none were found in the working directory, so there is no cell to cite"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 776.4,
-  "input_tokens": 99972,
-  "output_tokens": 128306,
+  "seconds": 797.0,
+  "input_tokens": 101426,
+  "output_tokens": 128497,
   "attempts": 1,
-  "task_sha": "e8d6b08512dee51e"
+  "task_sha": "a22e794267a6ace3"
  }
 }

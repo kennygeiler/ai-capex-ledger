@@ -1,6 +1,6 @@
 {
  "accession": "TSLA|earnings_release|2023-12-31|453ae1f8",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "122c2d41397a668c"
+  "task_sha": "811bf9b07ca6744f"
  }
 }

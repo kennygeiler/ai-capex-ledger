@@ -1,0 +1,30 @@
+{
+ "accession": "CRWV|earnings_release|2026-03-31|a44dfc5f",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Meta $21 billion commitment",
+   "kind": "cloud_commitment",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Meta",
+   "amount_low": 21000000000,
+   "amount_high": 21000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Executed multiple new agreements with Meta, including a new $21 billion commitment signed in March",
+   "passage": "p02",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 5186,
+  "output_tokens": 737,
+  "attempts": 1,
+  "task_sha": "7ec834aedcc43dc1"
+ }
+}

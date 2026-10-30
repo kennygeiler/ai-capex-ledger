@@ -1,6 +1,6 @@
 {
  "accession": "0000097476-25-000007",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -36,7 +36,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 947000000,
-   "confidence": 0.8
+   "confidence": 0.8,
+   "notes": "Other is shown alongside the reportable segments in the segment table but is not itself a reportable segment."
   },
   {
    "field": "segment_revenue",
@@ -48,7 +49,8 @@
    "period_end": "2023-12-31",
    "months": 12,
    "value": 13040000000,
-   "confidence": 0.8
+   "confidence": 0.7,
+   "notes": "t0014 does not name its segment; it is attributed to Analog because its 2024 revenue (12,161) and operating profit (4,608) match the Analog column of t0023 exactly."
   },
   {
    "field": "ppe_category",
@@ -60,7 +62,34 @@
    "period_end": "2024-12-31",
    "months": 0,
    "value": 113000000,
-   "confidence": 0.95
+   "confidence": 0.9,
+   "notes": "The column header is mis-parsed (it merges 'Depreciable Lives (Years)' with 2024), but the column is the 2024 year-end balance."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0064",
+   "row_label": "Buildings and improvements",
+   "column_label": "Depreciable Lives (Years) | 2024",
+   "cell_text": "6,424",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 6424000000,
+   "confidence": 0.9,
+   "notes": "The column header is mis-parsed (it merges 'Depreciable Lives (Years)' with 2024), but the column is the 2024 year-end balance."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0064",
+   "row_label": "Machinery and equipment",
+   "column_label": "Depreciable Lives (Years) | 2024",
+   "cell_text": "8,717",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 8717000000,
+   "confidence": 0.9,
+   "notes": "The column header is mis-parsed (it merges 'Depreciable Lives (Years)' with 2024), but the column is the 2024 year-end balance."
   },
   {
    "field": "ppe_category",
@@ -79,36 +108,12 @@
    "dimension": "Buildings and improvements",
    "table_id": "t0064",
    "row_label": "Buildings and improvements",
-   "column_label": "Depreciable Lives (Years) | 2024",
-   "cell_text": "6,424",
-   "period_end": "2024-12-31",
-   "months": 0,
-   "value": 6424000000,
-   "confidence": 0.95
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Buildings and improvements",
-   "table_id": "t0064",
-   "row_label": "Buildings and improvements",
    "column_label": "December 31, | 2023",
    "cell_text": "5,549",
    "period_end": "2023-12-31",
    "months": 0,
    "value": 5549000000,
    "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Machinery and equipment",
-   "table_id": "t0064",
-   "row_label": "Machinery and equipment",
-   "column_label": "Depreciable Lives (Years) | 2024",
-   "cell_text": "8,717",
-   "period_end": "2024-12-31",
-   "months": 0,
-   "value": 8717000000,
-   "confidence": 0.95
   },
   {
    "field": "ppe_category",
@@ -138,20 +143,19 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment table (t0023) reports revenue through operating profit only; capital expenditures appear only as a consolidated figure in the non-GAAP free cash flow table t0017"
+   "reason": "The segment table (t0023) reports revenue through operating profit only. The only capex figure is consolidated (t0017)."
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no lease table with finance lease liabilities is included among the provided tables"
+   "reason": "None of the tables provided contains a lease note or any finance lease liability line."
   }
  ],
- "notes": "Unit taken as millions per the stated unit line. 'Other' in t0023 is TI's residual category rather than a reportable segment, so confidence is 0.8. The 2023 Analog revenue comes from t0014. That table does not name the segment, but its 2024 revenue (12,161) and operating profit (4,608) match the Analog column of t0023, so it was identified as the Analog segment table (confidence 0.8). No 2023 Embedded Processing or Other revenue table was provided. In t0064, the 2024 column header is mislabeled 'Depreciable Lives (Years) | 2024', but it is plainly the December 31, 2024 balance, so confidence is 0.95.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 15.3,
-  "input_tokens": 5379,
-  "output_tokens": 2045,
+  "seconds": 17.6,
+  "input_tokens": 5507,
+  "output_tokens": 2355,
   "attempts": 1,
-  "task_sha": "f520f67236006eaa"
+  "task_sha": "b6fa48e4d2579d4b"
  }
 }

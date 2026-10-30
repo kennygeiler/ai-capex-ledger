@@ -1,0 +1,37 @@
+{
+ "accession": "SNDK|earnings_release|2026-07-03|ad13c582",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 5153000000,
+   "amount_high": 5153000000,
+   "quote": "Revenue ($ in millions) 2026 2025 Y/Y Datacenter $5,153 $960 up 437% Edge $12,160 $4,127 up 195% Consumer $2,935 $2,268 up 29% Total Revenue $20,248 $7,355 up 175%",
+   "passage": "p03",
+   "confidence": 0.85,
+   "notes": "Source is a flattened table row, not a prose sentence; quoted the whole passage. Datacenter revenue for fiscal 2026 was $5,153 million. The p01 sentence attributing revenue outperformance to Datacenter growth (up 437%) was skipped in favor of this figure. The Q4-only Datacenter figure in p02 ($2,977M) was also skipped because it covers a quarter, not the fiscal year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the free cash flow definition in p06 is boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.8,
+  "input_tokens": 6970,
+  "output_tokens": 905,
+  "attempts": 1,
+  "task_sha": "c676390db6b2fc51"
+ }
+}

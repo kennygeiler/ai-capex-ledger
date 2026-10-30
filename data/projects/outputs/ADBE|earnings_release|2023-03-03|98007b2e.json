@@ -1,0 +1,13 @@
+{
+ "accession": "ADBE|earnings_release|2023-03-03|98007b2e",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "f57f8e4a597c4f53"
+ }
+}

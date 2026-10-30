@@ -1,0 +1,58 @@
+{
+ "accession": "CEG|earnings_release|2023-12-31|f95d4c2a",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "South Texas Project Nuclear Generating Station",
+   "kind": "power",
+   "status": "in_service",
+   "location": "about 90 miles southwest of Houston",
+   "counterparty": null,
+   "amount_low": 1650000000,
+   "amount_high": 1650000000,
+   "capacity_mw": 2645,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We grew our nuclear fleet with our acquisition of an undivided ownership interest in the South Texas Project Nuclear Generating Station, a 2,645-megawatt, dual-unit nuclear plant located about 90 miles southwest of Houston, for $1.65 billion, further expanding our contribution to a carbon-free future.",
+   "passage": "p02",
+   "confidence": 0.8
+  },
+  {
+   "name": "Criterion wind facility repowering",
+   "kind": "power",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "During the year we also commenced our previously announced $350 million effort to increase the output and lifespan of our renewable energy portfolio, beginning with the repowering of our Criterion and Missouri wind facilities.",
+   "passage": "p02",
+   "confidence": 0.55
+  },
+  {
+   "name": "Missouri wind facilities repowering",
+   "kind": "power",
+   "status": "under_construction",
+   "location": "Missouri",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "During the year we also commenced our previously announced $350 million effort to increase the output and lifespan of our renewable energy portfolio, beginning with the repowering of our Criterion and Missouri wind facilities.",
+   "passage": "p02",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.1,
+  "input_tokens": 9704,
+  "output_tokens": 1001,
+  "attempts": 1,
+  "task_sha": "76120617cb3be2cb"
+ }
+}

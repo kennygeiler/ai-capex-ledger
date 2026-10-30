@@ -1,0 +1,150 @@
+{
+ "accession": "0001628280-25-056698",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0024",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended | November 1, 2025",
+   "cell_text": "4,769,507",
+   "period_end": "2025-11-01",
+   "months": 12,
+   "value": 4769507000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0024",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended | November 2, 2024",
+   "cell_text": "4,014,955",
+   "period_end": "2024-11-02",
+   "months": 12,
+   "value": 4014955000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0024",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended | October 28, 2023",
+   "cell_text": "4,386,549",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 4386549000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0024",
+   "row_label": "Total cost of goods sold",
+   "column_label": "Year Ended | November 1, 2025",
+   "cell_text": "2,764,590",
+   "period_end": "2025-11-01",
+   "months": 12,
+   "value": 2764590000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0024",
+   "row_label": "Total cost of goods sold",
+   "column_label": "Year Ended | November 2, 2024",
+   "cell_text": "2,295,365",
+   "period_end": "2024-11-02",
+   "months": 12,
+   "value": 2295365000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0024",
+   "row_label": "Total cost of goods sold",
+   "column_label": "Year Ended | October 28, 2023",
+   "cell_text": "2,507,698",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 2507698000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0024",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended | November 1, 2025",
+   "cell_text": "197,531",
+   "period_end": "2025-11-01",
+   "months": 12,
+   "value": 197531000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0024",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended | November 2, 2024",
+   "cell_text": "166,617",
+   "period_end": "2024-11-02",
+   "months": 12,
+   "value": 166617000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0024",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended | October 28, 2023",
+   "cell_text": "357,545",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 357545000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0027",
+   "row_label": "Payments for equipment, furniture, fixtures and intellectual property",
+   "column_label": "Year Ended | November 1, 2025",
+   "cell_text": "(140,801)",
+   "period_end": "2025-11-01",
+   "months": 12,
+   "value": 140801000,
+   "confidence": 0.9,
+   "notes": "Line also covers intellectual property (intangible assets); used as instructed."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0027",
+   "row_label": "Payments for equipment, furniture, fixtures and intellectual property",
+   "column_label": "Year Ended | November 2, 2024",
+   "cell_text": "(136,641)",
+   "period_end": "2024-11-02",
+   "months": 12,
+   "value": 136641000,
+   "confidence": 0.9,
+   "notes": "Line also covers intellectual property (intangible assets); used as instructed."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0027",
+   "row_label": "Payments for equipment, furniture, fixtures and intellectual property",
+   "column_label": "Year Ended | October 28, 2023",
+   "cell_text": "(106,197)",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 106197000,
+   "confidence": 0.9,
+   "notes": "Line also covers intellectual property (intangible assets); used as instructed."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.1,
+  "input_tokens": 7046,
+  "output_tokens": 1452,
+  "attempts": 1,
+  "task_sha": "f65b7235ee2f34b6"
+ }
+}

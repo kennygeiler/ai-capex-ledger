@@ -1,0 +1,150 @@
+{
+ "accession": "0001616533-25-000061",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0086",
+   "row_label": "Total net sales",
+   "column_label": "August 29,2025",
+   "cell_text": "1,368,794",
+   "period_end": "2025-08-29",
+   "months": 12,
+   "value": 1368794000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0086",
+   "row_label": "Total net sales",
+   "column_label": "August 30,2024",
+   "cell_text": "1,170,796",
+   "period_end": "2024-08-30",
+   "months": 12,
+   "value": 1170796000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0086",
+   "row_label": "Total net sales",
+   "column_label": "August 25,2023",
+   "cell_text": "1,441,250",
+   "period_end": "2023-08-25",
+   "months": 12,
+   "value": 1441250000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0086",
+   "row_label": "Total cost of sales",
+   "column_label": "August 29,2025",
+   "cell_text": "974,520",
+   "period_end": "2025-08-29",
+   "months": 12,
+   "value": 974520000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0086",
+   "row_label": "Total cost of sales",
+   "column_label": "August 30,2024",
+   "cell_text": "830,020",
+   "period_end": "2024-08-30",
+   "months": 12,
+   "value": 830020000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0086",
+   "row_label": "Total cost of sales",
+   "column_label": "August 25,2023",
+   "cell_text": "1,026,079",
+   "period_end": "2023-08-25",
+   "months": 12,
+   "value": 1026079000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0086",
+   "row_label": "Operating income",
+   "column_label": "August 29,2025",
+   "cell_text": "58,135",
+   "period_end": "2025-08-29",
+   "months": 12,
+   "value": 58135000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0086",
+   "row_label": "Operating income",
+   "column_label": "August 30,2024",
+   "cell_text": "18,295",
+   "period_end": "2024-08-30",
+   "months": 12,
+   "value": 18295000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0086",
+   "row_label": "Operating income",
+   "column_label": "August 25,2023",
+   "cell_text": "8,745",
+   "period_end": "2023-08-25",
+   "months": 12,
+   "value": 8745000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0092",
+   "row_label": "Capital expenditures and deposits on equipment",
+   "column_label": "August 29,2025",
+   "cell_text": "(9,012)",
+   "period_end": "2025-08-29",
+   "months": 12,
+   "value": 9012000,
+   "confidence": 0.9,
+   "notes": "Only capex line in investing section; it also includes deposits on equipment, so it may slightly exceed pure purchases of property and equipment."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0092",
+   "row_label": "Capital expenditures and deposits on equipment",
+   "column_label": "August 30,2024",
+   "cell_text": "(19,424)",
+   "period_end": "2024-08-30",
+   "months": 12,
+   "value": 19424000,
+   "confidence": 0.9,
+   "notes": "Only capex line in investing section; it also includes deposits on equipment, so it may slightly exceed pure purchases of property and equipment."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0092",
+   "row_label": "Capital expenditures and deposits on equipment",
+   "column_label": "August 25,2023",
+   "cell_text": "(39,421)",
+   "period_end": "2023-08-25",
+   "months": 12,
+   "value": 39421000,
+   "confidence": 0.9,
+   "notes": "Only capex line in investing section; it also includes deposits on equipment, so it may slightly exceed pure purchases of property and equipment."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.1,
+  "input_tokens": 7498,
+  "output_tokens": 1614,
+  "attempts": 1,
+  "task_sha": "8f1a1f86eba548c3"
+ }
+}

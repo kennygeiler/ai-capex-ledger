@@ -1,6 +1,6 @@
 {
  "accession": "0000097476-24-000007",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -85,7 +85,7 @@
    "months": 12,
    "value": 1111000000,
    "confidence": 0.8,
-   "notes": "Other is a residual category alongside the two reportable segments (Analog, Embedded Processing), not a reportable segment itself; included because it is a separate revenue line, not the total."
+   "notes": "Other is an all-other category rather than a reportable segment, but it is reported as its own revenue line in the segment table"
   },
   {
    "field": "segment_revenue",
@@ -98,7 +98,7 @@
    "months": 12,
    "value": 1408000000,
    "confidence": 0.8,
-   "notes": "Other is a residual category alongside the two reportable segments (Analog, Embedded Processing), not a reportable segment itself; included because it is a separate revenue line, not the total."
+   "notes": "Other is an all-other category rather than a reportable segment, but it is reported as its own revenue line in the segment table"
   },
   {
    "field": "segment_revenue",
@@ -111,7 +111,7 @@
    "months": 12,
    "value": 1245000000,
    "confidence": 0.8,
-   "notes": "Other is a residual category alongside the two reportable segments (Analog, Embedded Processing), not a reportable segment itself; included because it is a separate revenue line, not the total."
+   "notes": "Other is an all-other category rather than a reportable segment, but it is reported as its own revenue line in the segment table"
   },
   {
    "field": "ppe_category",
@@ -124,7 +124,7 @@
    "months": 0,
    "value": 150000000,
    "confidence": 0.9,
-   "notes": "2023 column header is mis-merged with the 'Depreciable Lives (Years)' header; values and the total (13,268) indicate the December 31, 2023 balances."
+   "notes": "Column header is garbled (Depreciable Lives header merged with the year); read as the December 31, 2023 balance"
   },
   {
    "field": "ppe_category",
@@ -149,7 +149,7 @@
    "months": 0,
    "value": 5549000000,
    "confidence": 0.9,
-   "notes": "2023 column header is mis-merged with the 'Depreciable Lives (Years)' header; values and the total (13,268) indicate the December 31, 2023 balances."
+   "notes": "Column header is garbled (Depreciable Lives header merged with the year); read as the December 31, 2023 balance"
   },
   {
    "field": "ppe_category",
@@ -174,7 +174,7 @@
    "months": 0,
    "value": 7569000000,
    "confidence": 0.9,
-   "notes": "2023 column header is mis-merged with the 'Depreciable Lives (Years)' header; values and the total (13,268) indicate the December 31, 2023 balances."
+   "notes": "Column header is garbled (Depreciable Lives header merged with the year); read as the December 31, 2023 balance"
   },
   {
    "field": "ppe_category",
@@ -198,26 +198,25 @@
    "period_end": "2023-12-31",
    "months": 0,
    "value": 1868000000,
-   "confidence": 0.95,
-   "notes": "Table columns are payment years 2024 onward, so the Total is as of the December 31, 2023 year-end."
+   "confidence": 1.0
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "The segment table (t0023) reports revenue and operating profit only; the only capex figure (t0017) is consolidated."
+   "reason": "the segment note reports revenue and operating profit by segment only; the capital expenditures in t0017 are consolidated"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No lease table with finance lease liabilities is among the provided tables."
+   "reason": "no lease table with finance lease liabilities is among the provided tables"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 18.9,
-  "input_tokens": 5331,
-  "output_tokens": 2788,
+  "seconds": 18.5,
+  "input_tokens": 5455,
+  "output_tokens": 2746,
   "attempts": 1,
-  "task_sha": "e37dc3ea80c120ca"
+  "task_sha": "709daae72c7b8bca"
  }
 }

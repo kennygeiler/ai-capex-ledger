@@ -1,0 +1,27 @@
+{
+ "accession": "WDC|earnings_release|2022-07-01|a57d8af8",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage defines free cash flow and mentions purchases of property, plant and equipment without linking capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, data-center or AI-related revenue; the passage is a non-GAAP definition only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 4847,
+  "output_tokens": 202,
+  "attempts": 1,
+  "task_sha": "982e8fade941c028"
+ }
+}

@@ -1,0 +1,198 @@
+{
+ "accession": "0001104659-26-022322",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Bitcoin Mining",
+   "table_id": "t0164",
+   "row_label": "Segment revenue",
+   "column_label": "\u200b | Bitcoin Mining",
+   "cell_text": "576,276",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 576276000,
+   "confidence": 0.9,
+   "notes": "Segment revenue row chosen (includes intersegment revenue; Bitcoin Mining has none). Table has no year column; only the FY2025 segment table is provided."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Engineering",
+   "table_id": "t0164",
+   "row_label": "Segment revenue",
+   "column_label": "\u200b | Engineering",
+   "cell_text": "94,442",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 94442000,
+   "confidence": 0.85,
+   "notes": "Segment revenue row chosen; includes 29,754 intersegment revenue. External-customer revenue is 64,688. Table has no year column; attributed to FY2025."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and building improvements",
+   "table_id": "t0122",
+   "row_label": "Buildings and building improvements",
+   "column_label": "\u200b | December 31, | 2025",
+   "cell_text": "803,027",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 803027000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and building improvements",
+   "table_id": "t0122",
+   "row_label": "Buildings and building improvements",
+   "column_label": "\u200b | December 31, | 2024",
+   "cell_text": "715,862",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 715862000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land rights and land improvements",
+   "table_id": "t0122",
+   "row_label": "Land rights and land improvements",
+   "column_label": "\u200b | December 31, | 2025",
+   "cell_text": "160,333",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 160333000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land rights and land improvements",
+   "table_id": "t0122",
+   "row_label": "Land rights and land improvements",
+   "column_label": "\u200b | December 31, | 2024",
+   "cell_text": "10,904",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 10904000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Miners and mining equipment",
+   "table_id": "t0122",
+   "row_label": "Miners and mining equipment",
+   "column_label": "\u200b | December 31, | 2025",
+   "cell_text": "945,700",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 945700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Miners and mining equipment",
+   "table_id": "t0122",
+   "row_label": "Miners and mining equipment",
+   "column_label": "\u200b | December 31, | 2024",
+   "cell_text": "927,866",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 927866000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and facility equipment",
+   "table_id": "t0122",
+   "row_label": "Machinery and facility equipment",
+   "column_label": "\u200b | December 31, | 2025",
+   "cell_text": "54,948",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 54948000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and facility equipment",
+   "table_id": "t0122",
+   "row_label": "Machinery and facility equipment",
+   "column_label": "\u200b | December 31, | 2024",
+   "cell_text": "44,377",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 44377000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office and computer equipment",
+   "table_id": "t0122",
+   "row_label": "Office and computer equipment",
+   "column_label": "\u200b | December 31, | 2025",
+   "cell_text": "4,132",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 4132000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office and computer equipment",
+   "table_id": "t0122",
+   "row_label": "Office and computer equipment",
+   "column_label": "\u200b | December 31, | 2024",
+   "cell_text": "3,081",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 3081000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0122",
+   "row_label": "Construction in progress",
+   "column_label": "\u200b | December 31, | 2025",
+   "cell_text": "165,621",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 165621000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0122",
+   "row_label": "Construction in progress",
+   "column_label": "\u200b | December 31, | 2024",
+   "cell_text": "82,965",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 82965000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment note (t0164) reports revenue, expense items and segment gross profit only; no capital expenditures by segment"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "the lease table (t0135) shows only new right-of-use assets associated with finance leases; no finance lease liability balance is given"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included in the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.1,
+  "input_tokens": 7756,
+  "output_tokens": 2289,
+  "attempts": 1,
+  "task_sha": "380e91fedd7b8591"
+ }
+}

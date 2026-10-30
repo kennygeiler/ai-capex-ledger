@@ -1,0 +1,27 @@
+{
+ "accession": "SYM|earnings_release|2026-06-27|0e033c68",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; free cash flow mentions are definitions only"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; adjusted R&D appears only as a non-GAAP definition"
+  },
+  {
+   "field": "revenue",
+   "reason": "AI references describe the company's AI-powered automation products (boilerplate); no sentence states an AI or data-center revenue amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.4,
+  "input_tokens": 9678,
+  "output_tokens": 243,
+  "attempts": 1,
+  "task_sha": "434728ce73df7ac4"
+ }
+}

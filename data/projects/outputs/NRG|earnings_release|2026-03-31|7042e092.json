@@ -1,0 +1,70 @@
+{
+ "accession": "NRG|earnings_release|2026-03-31|7042e092",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "T.H. Wharton facility",
+   "kind": "power",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 415,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026-05",
+   "quote": "The Company expects commercial operations at its first project, the 415 MW T.H. Wharton facility, by the end of May 2026.",
+   "passage": "p04",
+   "confidence": 0.85
+  },
+  {
+   "name": "Texas Energy Fund projects",
+   "kind": "power",
+   "status": "under_construction",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 1500,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "All three of NRG's TEF projects, totaling 1.5 GW of new generation, remain on track and on budget.",
+   "passage": "p04",
+   "confidence": 0.75
+  },
+  {
+   "name": "Texas residential VPP program",
+   "kind": "power",
+   "status": "in_service",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Texas residential VPP program surpassed 200 MW; on track for 1 GW by 2035",
+   "passage": "p02",
+   "confidence": 0.5
+  },
+  {
+   "name": "Acquisition of generation assets and CPower from LS Power",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "LS Power",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Total liquidity was $3.3 billion, which was $6.4 billion lower than December 31, 2025, primarily driven by the use of cash and borrowings under the revolving credit facility to fund the acquisition of generation assets and CPower from LS Power.",
+   "passage": "p06",
+   "confidence": 0.4
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.0,
+  "input_tokens": 7904,
+  "output_tokens": 1362,
+  "attempts": 1,
+  "task_sha": "8d72888eb5a7a5cf"
+ }
+}

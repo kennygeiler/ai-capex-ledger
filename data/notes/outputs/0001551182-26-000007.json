@@ -1,0 +1,276 @@
+{
+ "accession": "0001551182-26-000007",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Electrical Americas",
+   "table_id": "t0089",
+   "row_label": "Electrical Americas",
+   "column_label": "2025",
+   "cell_text": "13,276",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 13276000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Electrical Global",
+   "table_id": "t0089",
+   "row_label": "Electrical Global",
+   "column_label": "2025",
+   "cell_text": "6,815",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 6815000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Aerospace",
+   "table_id": "t0089",
+   "row_label": "Aerospace",
+   "column_label": "2025",
+   "cell_text": "4,249",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 4249000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Vehicle",
+   "table_id": "t0089",
+   "row_label": "Vehicle",
+   "column_label": "2025",
+   "cell_text": "2,505",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 2505000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "eMobility",
+   "table_id": "t0089",
+   "row_label": "eMobility",
+   "column_label": "2025",
+   "cell_text": "604",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 604000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Electrical Americas",
+   "table_id": "t0089",
+   "row_label": "Electrical Americas",
+   "column_label": "2024",
+   "cell_text": "11,436",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 11436000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Electrical Global",
+   "table_id": "t0089",
+   "row_label": "Electrical Global",
+   "column_label": "2024",
+   "cell_text": "6,248",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 6248000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Aerospace",
+   "table_id": "t0089",
+   "row_label": "Aerospace",
+   "column_label": "2024",
+   "cell_text": "3,744",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 3744000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Vehicle",
+   "table_id": "t0089",
+   "row_label": "Vehicle",
+   "column_label": "2024",
+   "cell_text": "2,790",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 2790000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "eMobility",
+   "table_id": "t0089",
+   "row_label": "eMobility",
+   "column_label": "2024",
+   "cell_text": "662",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 662000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Electrical Americas",
+   "table_id": "t0089",
+   "row_label": "Electrical Americas",
+   "column_label": "2023",
+   "cell_text": "10,098",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 10098000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Electrical Global",
+   "table_id": "t0089",
+   "row_label": "Electrical Global",
+   "column_label": "2023",
+   "cell_text": "6,084",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 6084000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Aerospace",
+   "table_id": "t0089",
+   "row_label": "Aerospace",
+   "column_label": "2023",
+   "cell_text": "3,413",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 3413000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Vehicle",
+   "table_id": "t0089",
+   "row_label": "Vehicle",
+   "column_label": "2023",
+   "cell_text": "2,965",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 2965000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "eMobility",
+   "table_id": "t0089",
+   "row_label": "eMobility",
+   "column_label": "2023",
+   "cell_text": "636",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 636000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and buildings",
+   "table_id": "t0025",
+   "row_label": "Land and buildings",
+   "column_label": "December 31 | 2025",
+   "cell_text": "2,361",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 2361000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0025",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31 | 2025",
+   "cell_text": "7,667",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 7667000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and buildings",
+   "table_id": "t0025",
+   "row_label": "Land and buildings",
+   "column_label": "December 31 | 2024",
+   "cell_text": "2,239",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 2239000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0025",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31 | 2024",
+   "cell_text": "6,823",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 6823000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0039",
+   "row_label": "Total finance lease liabilities",
+   "column_label": "December 31 | 2025",
+   "cell_text": "25",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 25000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0039",
+   "row_label": "Total finance lease liabilities",
+   "column_label": "December 31 | 2024",
+   "cell_text": "28",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 28000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment tables provided report net sales, other segment items and operating profit only; no capital expenditures by segment"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table with purchase obligations is among the tables provided"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 21.7,
+  "input_tokens": 8875,
+  "output_tokens": 3118,
+  "attempts": 1,
+  "task_sha": "d00428bff15c6265"
+ }
+}

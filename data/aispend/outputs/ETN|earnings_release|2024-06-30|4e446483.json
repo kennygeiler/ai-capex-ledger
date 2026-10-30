@@ -1,0 +1,27 @@
+{
+ "accession": "ETN|earnings_release|2024-06-30|4e446483",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are given only as table figures (p02, p03) with no sentence linking them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 only describes the data center as one of the markets Eaton serves (boilerplate); no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.6,
+  "input_tokens": 5125,
+  "output_tokens": 204,
+  "attempts": 1,
+  "task_sha": "75193c5b5102c0a5"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "UBER|mdna|2025-12-31|b966d49f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capex mention is a generic liquidity statement; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.7,
+  "input_tokens": 4936,
+  "output_tokens": 189,
+  "attempts": 1,
+  "task_sha": "77fd7ad2db5cc0f4"
+ }
+}

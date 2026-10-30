@@ -1,0 +1,46 @@
+{
+ "accession": "CLSK|mdna|2025-09-30|ee91a11e",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our expansion into HPC, data center and AI infrastructure development is expected to increase capital intensity and shift the timing of cash inflows relative to capital outlays.",
+   "passage": "p05",
+   "confidence": 0.6,
+   "notes": "Says AI infrastructure development (with HPC and data center) is expected to raise capital intensity. This links overall capital needs to AI and does not quantify an AI part. 'Capital intensity' is not literally capital expenditures. No year is named, so code applies the year after fiscal 2025."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "First, increased capital expenditure requirements for new HPC, data center and AI infrastructure projects may accelerate cash deployment and increase short-term liquidity needs.",
+   "passage": "p07",
+   "confidence": 0.6,
+   "notes": "Refers to capex for HPC, data center and AI infrastructure projects as a group, so the AI part is not separated. It is hedged ('may') and reads partly like a trends/uncertainties disclosure. No year is named."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or AI data-center revenue for fiscal 2025 or an outlook year. The only data-center revenue figure ($287, p03) is legacy hosting revenue for fiscal 2023, not AI, and the revenue discussed is from bitcoin mining."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.4,
+  "input_tokens": 6503,
+  "output_tokens": 1285,
+  "attempts": 1,
+  "task_sha": "a1754eb5073ced4a"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "JCI|earnings_release|2025-09-30|0c908219",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 mentions capital expenditures only in forward-looking-statement boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p02's mention of incorporating artificial intelligence is risk-factor boilerplate"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 cites technology leadership in data center cooling but states no data-center or AI revenue figure or share, and does not attribute revenue or backlog growth to AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 6400,
+  "output_tokens": 374,
+  "attempts": 1,
+  "task_sha": "c5c5c9b8b9625f82"
+ }
+}

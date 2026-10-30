@@ -1,0 +1,13 @@
+{
+ "accession": "ANET|earnings_release|2024-06-30|e8a17ec7",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "0dd20c44ee292c3c"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "ONTO|earnings_release|2023-09-30|0a32a7d9",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the passage is non-GAAP disclaimer, forward-looking-statement boilerplate and company description"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the passage contains only boilerplate and a description of products"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 6080,
+  "output_tokens": 209,
+  "attempts": 1,
+  "task_sha": "a3e8dc8bc52ff9b8"
+ }
+}

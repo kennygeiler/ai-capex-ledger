@@ -1,6 +1,6 @@
 {
  "accession": "0001018724-26-000004",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -12,7 +12,8 @@
    "period_end": "2023-12-31",
    "months": 12,
    "value": 352828000000,
-   "confidence": 0.8
+   "confidence": 0.85,
+   "notes": "First segment block has no visible header in the parsed table; it is the North America segment, inferred from the International/AWS/Consolidated structure."
   },
   {
    "field": "segment_revenue",
@@ -24,7 +25,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 387497000000,
-   "confidence": 0.8
+   "confidence": 0.85,
+   "notes": "First segment block has no visible header in the parsed table; it is the North America segment, inferred from the International/AWS/Consolidated structure."
   },
   {
    "field": "segment_revenue",
@@ -36,7 +38,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 426305000000,
-   "confidence": 0.8
+   "confidence": 0.85,
+   "notes": "First segment block has no visible header in the parsed table; it is the North America segment, inferred from the International/AWS/Consolidated structure."
   },
   {
    "field": "segment_revenue",
@@ -264,26 +267,26 @@
    "period_end": "2025-12-31",
    "months": 0,
    "value": 84772000000,
-   "confidence": 0.9
+   "confidence": 0.9,
+   "notes": "Took the unconditional purchase obligations row total rather than 'Total commitments', which also includes debt, leases, financing obligations and other commitments."
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment table t0069 reports net sales, operating expenses and operating income only; no per-segment capital expenditures appear in the tables"
+   "reason": "the segment table reports net sales, operating expenses and operating income only; no capital expenditures by segment are given"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no balance-sheet total of finance lease liabilities is shown; t0058 'Finance lease liabilities, including interest' (14,917 total) is an undiscounted future payment schedule including interest, not the recorded liability"
+   "reason": "no balance-sheet finance lease liability line appears; the commitments table shows only 'Finance lease liabilities, including interest' (undiscounted payments), which is not the liability balance"
   }
  ],
- "notes": "North America segment_revenue: the first block in t0069 has no segment header row in the parsed table; it is attributed to North America (Amazon's third reportable segment alongside International and AWS, and the three sum to the Consolidated net sales), hence confidence 0.8. purchase_commitments: taken from 'Unconditional purchase obligations (2)' total column, period_end set to the report date 2025-12-31; 'Other commitments (3)' excluded as not purchase obligations, hence confidence 0.9.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 21.2,
-  "input_tokens": 7854,
-  "output_tokens": 3197,
+  "seconds": 24.6,
+  "input_tokens": 9090,
+  "output_tokens": 3667,
   "attempts": 1,
-  "task_sha": "443edc6730f01820"
+  "task_sha": "45c3644cd6ae5e25"
  }
 }

@@ -1,0 +1,13 @@
+{
+ "accession": "QCOM|earnings_release|2025-12-28|d78f3993",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 4716,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "81965712d7ef78ae"
+ }
+}

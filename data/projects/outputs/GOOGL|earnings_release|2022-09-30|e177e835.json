@@ -1,0 +1,13 @@
+{
+ "accession": "GOOGL|earnings_release|2022-09-30|e177e835",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "3146e4e1e1db4c68"
+ }
+}

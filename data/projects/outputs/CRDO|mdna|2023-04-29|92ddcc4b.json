@@ -1,0 +1,13 @@
+{
+ "accession": "CRDO|mdna|2023-04-29|92ddcc4b",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.4,
+  "input_tokens": 4584,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "8195a0c81f162d06"
+ }
+}

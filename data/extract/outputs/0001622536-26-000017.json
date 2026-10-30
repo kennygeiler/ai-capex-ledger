@@ -1,0 +1,102 @@
+{
+ "accession": "0001622536-26-000017",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0029",
+   "row_label": "Operating Revenues (Note 3)",
+   "column_label": "Successor | Year Ended December 31, 2025",
+   "cell_text": "2,581",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 2581000000,
+   "confidence": 0.95,
+   "notes": "Total line summing energy, capacity and unrealized derivative revenue. The unit (millions) is not stated with the table; it was taken from elsewhere in the filing."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0029",
+   "row_label": "Operating Revenues (Note 3)",
+   "column_label": "Successor | Year Ended December 31, 2024",
+   "cell_text": "2,115",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 2115000000,
+   "confidence": 0.95,
+   "notes": "Total line summing energy, capacity and unrealized derivative revenue. The unit (millions) is not stated with the table; it was taken from elsewhere in the filing."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0029",
+   "row_label": "Energy Expenses",
+   "column_label": "Successor | Year Ended December 31, 2025",
+   "cell_text": "(1,066)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 1066000000,
+   "confidence": 0.7,
+   "notes": "There is no line labeled cost of revenue. 'Energy Expenses' is the single total of direct costs of producing the power sold: fuel and energy purchases, nuclear fuel amortization, and unrealized derivative gain or loss. 'Operation, maintenance and development' was left out because it is listed under Operating Expenses."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0029",
+   "row_label": "Energy Expenses",
+   "column_label": "Successor | Year Ended December 31, 2024",
+   "cell_text": "(797)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 797000000,
+   "confidence": 0.7,
+   "notes": "There is no line labeled cost of revenue. 'Energy Expenses' is the single total of direct costs of producing the power sold: fuel and energy purchases, nuclear fuel amortization, and unrealized derivative gain or loss. 'Operation, maintenance and development' was left out because it is listed under Operating Expenses."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0029",
+   "row_label": "Operating Income (Loss)",
+   "column_label": "Successor | Year Ended December 31, 2025",
+   "cell_text": "(90)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": -90000000,
+   "confidence": 0.95,
+   "notes": "The unit (millions) is not stated with the table; it was taken from elsewhere in the filing."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0029",
+   "row_label": "Operating Income (Loss)",
+   "column_label": "Successor | Year Ended December 31, 2024",
+   "cell_text": "226",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 226000000,
+   "confidence": 0.95,
+   "notes": "The unit (millions) is not stated with the table; it was taken from elsewhere in the filing."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "capex",
+   "reason": "The cash-flow statement section of the input is empty, so there is no capital expenditures line to cite."
+  },
+  {
+   "field": "revenue, cost_of_revenue, operating_income",
+   "column_label": "Predecessor | May 18 through December 31, 2023",
+   "reason": "This stub period runs about 7.5 months, which is not one of the allowed values for months (3, 6, 9, 12). The cells exist (revenue 1,344; Energy Expenses (535); operating income 160) but are not extracted. The column header also looks mislabeled: the period after emergence on May 17, 2023 would normally be Successor."
+  },
+  {
+   "field": "revenue, cost_of_revenue, operating_income",
+   "column_label": "Predecessor | January 1 through May 17, 2023",
+   "reason": "This stub period runs about 4.5 months, which is not one of the allowed values for months (3, 6, 9, 12). The cells exist (revenue 1,210; Energy Expenses (332); operating income (76)) but are not extracted."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.7,
+  "input_tokens": 5501,
+  "output_tokens": 2359,
+  "attempts": 1,
+  "task_sha": "27d773ec90b3baa9"
+ }
+}

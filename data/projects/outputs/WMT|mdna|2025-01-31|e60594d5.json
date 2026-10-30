@@ -1,0 +1,13 @@
+{
+ "accession": "WMT|mdna|2025-01-31|e60594d5",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.0,
+  "input_tokens": 4757,
+  "output_tokens": 49,
+  "attempts": 1,
+  "task_sha": "87d4816db032bea5"
+ }
+}

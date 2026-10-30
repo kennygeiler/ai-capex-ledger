@@ -1,0 +1,35 @@
+{
+ "accession": "NTAP|earnings_release|2026-01-23|ecb51b28",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u201cWe are pleased to announce another strong quarter with accelerating revenue and earnings growth, driven by a record quarter in all-flash array revenue, strong performance in first-party and marketplace cloud storage services, growing leadership in enterprise AI, and operational discipline,\u201d said George Kurian, Chief Executive Officer, NetApp.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "CEO names enterprise AI as one of several drivers of total revenue growth for the quarter (Q3 FY2026); no AI revenue amount or share is stated, and AI is listed among several drivers rather than as a primary one."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.2,
+  "input_tokens": 5511,
+  "output_tokens": 779,
+  "attempts": 1,
+  "task_sha": "9dd78c96f2040751"
+ }
+}

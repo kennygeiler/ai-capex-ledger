@@ -1,0 +1,35 @@
+{
+ "accession": "AAOI|earnings_release|2025-03-31|5bea5495",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Lastly, we began several new qualification efforts while supporting existing qualification efforts on 800G products with multiple large hyperscale customers and based on forecasts we are seeing, we have increased confidence in a second half of 2025 ramp in 800G sales.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Expects 800G transceiver sales to hyperscale (data-center) customers to ramp in 2H 2025. No amount or share is given, and the sentence does not say 'AI' or 'datacenter revenue' explicitly. The only datacenter revenue figure is the Q1 2025 table row in p04 ($32,049 thousand). That row is a quarterly figure in a table, not a sentence, so it is not recorded as a fiscal-year amount."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; manufacturing capacity expansion (800G units per month in the US and Taiwan) is described in units, with no spend figure and no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, headcount, infrastructure) to AI; R&D appears only as a total in the p04 table"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.2,
+  "input_tokens": 6720,
+  "output_tokens": 1420,
+  "attempts": 1,
+  "task_sha": "66e3584dcb8d8b89"
+ }
+}

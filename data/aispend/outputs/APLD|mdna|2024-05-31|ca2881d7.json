@@ -1,6 +1,6 @@
 {
  "accession": "APLD|mdna|2024-05-31|ca2881d7",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -9,23 +9,27 @@
    "scope": "total",
    "class": "qualitative",
    "quote": "We believe that the significant investments in property and equipment will remain throughout fiscal year 2025 as we continue construction of our HPC hosting facilities and acquire assets to support our Cloud Services Business.",
-   "passage": "p04",
-   "confidence": 0.5,
-   "notes": "The sentence ties continued significant property and equipment investment (capex) to HPC hosting facilities and the Cloud Services Business. It does not say 'AI'. The AI link rests on p01, which describes these businesses as serving HPC and AI. No amount or share is given, and the sentence describes overall capex, not an AI portion."
+   "passage": "p06",
+   "confidence": 0.6,
+   "notes": "Property and equipment investment is tied to HPC hosting facilities and the Cloud Services Business. p01 describes both as serving HPC and AI, but this sentence does not name AI, so confidence is reduced. It states no amount."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; p04 links the expected increase in G&A and operating expenditures only to general expansion of operations"
+   "reason": "the only opex sentence (p06) ties expense growth to general operational expansion, not to AI; the operating lease increase (p05) is for unused data center space and is not linked to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "segment revenue is reported for the Data Center Hosting Business (blockchain hosting, not AI) and the Cloud Services Business, but no sentence states that a revenue figure or share is AI revenue; treating Cloud Services revenue as AI would be inference"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 10.3,
-  "input_tokens": 5217,
-  "output_tokens": 763,
+  "seconds": 12.5,
+  "input_tokens": 5873,
+  "output_tokens": 1209,
   "attempts": 1,
-  "task_sha": "4339cdf46f6868f7"
+  "task_sha": "8847085b749fbc74"
  }
 }

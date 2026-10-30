@@ -1,0 +1,110 @@
+{
+ "accession": "COHR|earnings_release|2024-03-31|8bd51e31",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 200000000,
+   "amount_high": 200000000,
+   "quote": "Speaking to ongoing strength in demand and strong ramp in production, our 800G Datacom transceiver revenue increased sequentially by almost 80% to almost $200 million in the third quarter, which followed over 100% sequential growth in the preceding quarter.",
+   "passage": "p11",
+   "confidence": 0.75,
+   "notes": "Quarterly figure (Q3 FY2024), not full year; 'almost $200 million'. 800G revenue is described elsewhere as AI/ML-related but is 'the bulk but not all' of AI-related Datacom transceiver revenue (p10)."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 250000000,
+   "amount_high": 250000000,
+   "quote": "We expect well over 30% sequential growth to $250 million for our fourth quarter of fiscal 2024.",
+   "passage": "p11",
+   "confidence": 0.75,
+   "notes": "Quarterly outlook (Q4 FY2024) for 800G Datacom transceiver revenue, which the filing ties to AI/ML demand; p01 says 'on track to exceed $250M'."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.5,
+   "quote": "We continue to expect AI- related revenue to account for more than 50% of our Datacom transceiver revenue for all of fiscal 2024 and to enjoy strong growth in fiscal 2025 and beyond.",
+   "passage": "p10",
+   "confidence": 0.85,
+   "notes": "'More than 50%' recorded as 0.5 lower bound. Share is of Datacom transceiver revenue, not of total company revenue."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We continue to expect AI- related revenue to account for more than 50% of our Datacom transceiver revenue for all of fiscal 2024 and to enjoy strong growth in fiscal 2025 and beyond.",
+   "passage": "p10",
+   "confidence": 0.9,
+   "notes": "Expects strong growth in AI-related revenue for fiscal 2025 and beyond; no figure."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 463000000,
+   "amount_high": 463000000,
+   "quote": "Datacom revenue increased by almost 30% sequentially and by almost 60% year-over-year to $463 million or approximately 75% of our total Communications market revenue.",
+   "passage": "p19",
+   "confidence": 0.6,
+   "notes": "Quarterly (Q3 FY2024) Datacom revenue, treated as data-center revenue; Datacom includes non-AI products and is not solely AI."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 4620000000,
+   "amount_high": 4700000000,
+   "quote": "We are now guiding for $4.62 \u2013 4.70 billion versus our previous guidance of $4.55 \u2013 4.7 billion.",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "Total FY2024 revenue guidance; the AI-driven Datacom link is in the preceding heading/sentence of the same passage, not in this sentence itself."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The expected revenue growth is driven primarily by the strength in our AI-related Datacom transceiver and silicon carbide businesses.",
+   "passage": "p04",
+   "confidence": 0.85,
+   "notes": "Refers to expected Q4 FY2024 sequential revenue growth (5%); AI-related Datacom cited as a primary driver alongside silicon carbide."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capex totals and outlook ($365\u2013385 million for fiscal 2024) are given, but no sentence links capital expenditures to AI; the wafer-fab investment in p14 is tied to 800G/1.6T lasers without naming AI in that sentence"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p06 mentions adopting AI technology for efficiency, not spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 25.2,
+  "input_tokens": 12630,
+  "output_tokens": 3417,
+  "attempts": 1,
+  "task_sha": "0bf1cfcfc3d598be"
+ }
+}

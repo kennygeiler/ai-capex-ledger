@@ -1,0 +1,132 @@
+{
+ "ticker": "RIOT",
+ "prompt_version": "attribution@v2",
+ "model": "miner_to_hpc@v3",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Riot says it is buying development land near Corsicana and adding fiber and water to make the site more attractive, and its MD&A says part of the $148.4m land purchase was land intended for data center development. No AI or data-center amount is split out of consolidated capex of $201.4m; the Rockdale fit-out for AMD (revenue from January 2026) is not quantified for 2025, and miner purchases ($213.6m of miners and deposits) are excluded.",
+   "confidence": 0.2
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "stated_amount",
+   "ai_amount": 214000000,
+   "ai_share": null,
+   "inputs": [
+    {
+     "id": "stmt:RIOT|earnings_release|2025-09-30|39409c88|capex|FY2026|outlook|0",
+     "value": 214000000
+    }
+   ],
+   "basis": "Forecast capex of $214m over the 18 months from Q3 2025 for two data-center buildings, at $1.9m per critical IT MW. The window spans late 2025 into 2027, so it is not a clean fiscal-2026 figure.",
+   "confidence": 0.4
+  },
+  {
+   "field": "capex",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "stated_amount",
+   "ai_amount": 2200000000,
+   "ai_share": null,
+   "inputs": [
+    {
+     "id": "stmt:RIOT|earnings_release|2026-06-30|e5c929a6|capex|FY2027|outlook|3",
+     "value": 2200000000
+    }
+   ],
+   "basis": "Midpoint of the stated $2.1bn\u2013$2.3bn expected capex for the frontier AI lab lease buildout. It excludes the separately stated ~$81m for the second 25 MW (AMD), which would bring the total to about $2.28bn. Timing across years is not stated.",
+   "confidence": 0.45
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A links demand for Engineering-segment products to the growing interest in data center construction and to power demand. Engineering revenue is not split by end market, and AI is not named.",
+   "confidence": 0.15
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A links third-party demand for Engineering products ($94.4m segment revenue) to data center construction and power demand. There is no AI or data-center split; Bitcoin Mining ($576.3m) is excluded. The 10-K has no data center segment for 2025.",
+   "confidence": 0.15
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "Only mining and engineering are reported; there is no AI segment capex, statement or AI-specific PP&E category. Building and miner growth is bitcoin mining infrastructure."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "Only mining and engineering are reported; there is no AI segment capex, statement or AI-specific PP&E category."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "Only mining and engineering are reported; there is no AI segment capex, statement or AI-specific PP&E category. The large miners and buildings additions are the mining build-out."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "There is no AI segment cost line and no statement attributing opex to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "There is no AI segment cost line and no statement attributing opex to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "There is no AI segment cost line. The only statement is qualitative (key hires to build AI/HPC data center expertise), and the thesis allows only segment cost for opex."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "Data Center Hosting ($36.9m stated; $101.7m segment fact unresolved) was Whinstone's bitcoin miner hosting, with revenue share tied to bitcoin prices. That is not AI hosting."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "Data Center Hosting ($27.3m stated) was legacy bitcoin miner hosting, driven by bitcoin prices and hosting customers. That is not AI hosting."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "reason": "FY2026 is not in the pack's values. The stated Data Center segment revenue is quarterly only (Q1 $33.2m; Q2 $23.2m, of which $4.9m is lease revenue and $18.3m is AMD fit-out services), so there is no full-year figure yet."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2027",
+   "reason": "The $9.8bn (241 MW across leases) and $9.1bn (20-year lease through June 2048) figures are total contract values. They are project amounts, not revenue for the year."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 30.4,
+  "input_tokens": 22262,
+  "output_tokens": 3638,
+  "attempts": 1,
+  "task_sha": "d8c049493347bd36"
+ }
+}

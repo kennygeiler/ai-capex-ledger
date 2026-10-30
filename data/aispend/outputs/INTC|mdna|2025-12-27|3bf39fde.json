@@ -1,6 +1,6 @@
 {
  "accession": "INTC|mdna|2025-12-27|3bf39fde",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "c48125d03ed7c47d"
+  "task_sha": "1cc8a87b9840f98e"
  }
 }

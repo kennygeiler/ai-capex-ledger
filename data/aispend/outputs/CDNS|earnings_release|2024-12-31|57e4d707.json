@@ -1,0 +1,27 @@
+{
+ "accession": "CDNS|earnings_release|2024-12-31|57e4d707",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only passage is forward-looking-statement boilerplate; it mentions capital expenditure requirements as a risk factor but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D investment and AI opportunities appear only in risk-factor boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 5604,
+  "output_tokens": 228,
+  "attempts": 1,
+  "task_sha": "8c60f0f9bc100b61"
+ }
+}

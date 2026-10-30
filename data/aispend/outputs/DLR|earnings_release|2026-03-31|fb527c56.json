@@ -1,0 +1,35 @@
+{
+ "accession": "DLR|earnings_release|2026-03-31|fb527c56",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We are swiftly advancing hyperscale AI-oriented capacity in the U.S., growing our connectivity-rich portfolio across key global markets, and broadening our capital base to prudently extend Digital Realty\u2019s runway for growth.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "CEO quote; 'advancing AI-oriented capacity' implies development spend tied to AI but names no capital expenditure, amount or share. Present tense, no year named, so fiscal_year is null and code applies the reported year (2026)."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only revenue figure is total revenue of $1.6 billion, and that sentence does not state an AI or data-center share or name AI as a driver. Development capacity 'for growing Cloud and AI workloads' (p11) is a slide heading about capacity, not revenue."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.1,
+  "input_tokens": 16498,
+  "output_tokens": 1090,
+  "attempts": 1,
+  "task_sha": "21b62d0f62ca7d44"
+ }
+}

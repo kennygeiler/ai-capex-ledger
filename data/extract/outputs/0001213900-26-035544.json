@@ -1,0 +1,246 @@
+{
+ "accession": "0001213900-26-035544",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0166",
+   "row_label": "Total revenues",
+   "column_label": "For the Years Ended December 31, | 2025",
+   "cell_text": "113,560,320",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 113560320,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0166",
+   "row_label": "Total revenues",
+   "column_label": "For the Years Ended December 31, | 2024",
+   "cell_text": "108,050,720",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 108050720,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0166",
+   "row_label": "Total revenues",
+   "column_label": "For the Years Ended December 31, | 2023",
+   "cell_text": "44,916,131",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 44916131,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0166",
+   "row_label": "Digital asset mining",
+   "column_label": "For the Years Ended December 31, | 2025",
+   "cell_text": "(22,192,345)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 22192345,
+   "confidence": 0.95,
+   "notes": "Listed under the 'Cost of revenues (exclusive of depreciation shown below)' heading; this is the cost-section row, not the revenue row of the same name. No total cost-of-revenue line exists."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0166",
+   "row_label": "Digital asset mining",
+   "column_label": "For the Years Ended December 31, | 2024",
+   "cell_text": "(42,307,012)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 42307012,
+   "confidence": 0.95,
+   "notes": "Listed under the 'Cost of revenues (exclusive of depreciation shown below)' heading; cost-section row, not the revenue row of the same name."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0166",
+   "row_label": "Digital asset mining",
+   "column_label": "For the Years Ended December 31, | 2023",
+   "cell_text": "(29,505,783)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 29505783,
+   "confidence": 0.95,
+   "notes": "Listed under the 'Cost of revenues (exclusive of depreciation shown below)' heading; cost-section row, not the revenue row of the same name."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0166",
+   "row_label": "Cloud services",
+   "column_label": "For the Years Ended December 31, | 2025",
+   "cell_text": "(26,447,354)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 26447354,
+   "confidence": 0.95,
+   "notes": "Listed under the 'Cost of revenues' heading; cost of delivering cloud services revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0166",
+   "row_label": "Cloud services",
+   "column_label": "For the Years Ended December 31, | 2024",
+   "cell_text": "(19,508,252)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 19508252,
+   "confidence": 0.95,
+   "notes": "Listed under the 'Cost of revenues' heading; cost of delivering cloud services revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0166",
+   "row_label": "Colocation services",
+   "column_label": "For the Years Ended December 31, | 2025",
+   "cell_text": "(3,450,535)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 3450535,
+   "confidence": 0.95,
+   "notes": "Listed under the 'Cost of revenues' heading; cost of delivering colocation revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0166",
+   "row_label": "Colocation services",
+   "column_label": "For the Years Ended December 31, | 2024",
+   "cell_text": "(490,501)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 490501,
+   "confidence": 0.95,
+   "notes": "Listed under the 'Cost of revenues' heading; cost of delivering colocation revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0166",
+   "row_label": "ETH staking",
+   "column_label": "For the Years Ended December 31, | 2025",
+   "cell_text": "(298,099)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 298099,
+   "confidence": 0.95,
+   "notes": "Listed under the 'Cost of revenues' heading; cost of earning ETH staking revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0166",
+   "row_label": "ETH staking",
+   "column_label": "For the Years Ended December 31, | 2024",
+   "cell_text": "(72,067)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 72067,
+   "confidence": 0.95,
+   "notes": "Listed under the 'Cost of revenues' heading; cost of earning ETH staking revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0166",
+   "row_label": "ETH staking",
+   "column_label": "For the Years Ended December 31, | 2023",
+   "cell_text": "(50,802)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 50802,
+   "confidence": 0.95,
+   "notes": "Listed under the 'Cost of revenues' heading; cost of earning ETH staking revenue."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0166",
+   "row_label": "(Loss) income from operations",
+   "column_label": "For the Years Ended December 31, | 2025",
+   "cell_text": "(91,832,447)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": -91832447,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0166",
+   "row_label": "(Loss) income from operations",
+   "column_label": "For the Years Ended December 31, | 2024",
+   "cell_text": "27,563,264",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 27563264,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0166",
+   "row_label": "(Loss) income from operations",
+   "column_label": "For the Years Ended December 31, | 2023",
+   "cell_text": "(16,619,709)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": -16619709,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0169",
+   "row_label": "Purchases of and deposits made for property, plant and equipment",
+   "column_label": "For the Year Ended December 31, | 2025",
+   "cell_text": "(285,928,406)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 285928406,
+   "confidence": 0.9,
+   "notes": "Only capex line in investing section; it also includes deposits made for property, plant and equipment, not purchases alone."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0169",
+   "row_label": "Purchases of and deposits made for property, plant and equipment",
+   "column_label": "For the Year Ended December 31, | 2024",
+   "cell_text": "(94,002,806)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 94002806,
+   "confidence": 0.9,
+   "notes": "Only capex line in investing section; it also includes deposits made for property, plant and equipment."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0169",
+   "row_label": "Purchases of and deposits made for property, plant and equipment",
+   "column_label": "For the Year Ended December 31, | 2023",
+   "cell_text": "(66,659,602)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 66659602,
+   "confidence": 0.9,
+   "notes": "Only capex line in investing section; it also includes deposits made for property, plant and equipment. Excludes the non-cash 'Purchases of property and equipment in USDC' line."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "The income statement has no total cost-of-revenues line, only the 'Cost of revenues (exclusive of depreciation shown below)' heading with component rows; components given as cost_of_revenue_part."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Cloud services and Colocation services cost rows show '\u2014' for 2023, so no value exists for those lines in that column."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 23.0,
+  "input_tokens": 8589,
+  "output_tokens": 3085,
+  "attempts": 1,
+  "task_sha": "8e2db039df862089"
+ }
+}

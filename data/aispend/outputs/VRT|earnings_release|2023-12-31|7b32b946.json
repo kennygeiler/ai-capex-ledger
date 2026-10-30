@@ -1,0 +1,37 @@
+{
+ "accession": "VRT|earnings_release|2023-12-31|7b32b946",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 175000000,
+   "amount_high": 200000000,
+   "quote": "Additionally, we are increasing our capital expenditures plan for 2024 to $175 to $200 million to support the growth trajectory.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Total 2024 capex plan, not the AI part. The sentence names 'the growth trajectory' rather than AI; the AI link comes only from the preceding sentence about AI-driven data center demand, so the AI attribution is contextual."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, headcount, infrastructure costs) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "AI is described as driving data center market demand, but no sentence states an AI or data-center revenue amount or share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.2,
+  "input_tokens": 5040,
+  "output_tokens": 717,
+  "attempts": 1,
+  "task_sha": "d7dfa815f4e0a952"
+ }
+}

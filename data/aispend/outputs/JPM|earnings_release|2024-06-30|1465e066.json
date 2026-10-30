@@ -1,6 +1,6 @@
 {
  "accession": "JPM|earnings_release|2024-06-30|1465e066",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "8fce48a0974f29a3"
+  "task_sha": "33cfdcd5018f783e"
  }
 }

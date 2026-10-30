@@ -1,0 +1,30 @@
+{
+ "accession": "UBER|mdna|2024-12-31|761ec037",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "2022 Cloud Computing Service Agreements",
+   "kind": "cloud_commitment",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 2500000000,
+   "amount_high": 2500000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2022-11",
+   "in_service": null,
+   "quote": "As of December 31, 2024, we had $2.7 billion in non-cancelable commitments, this includes the $2.5 billion in 2022 Cloud Computing Service Agreements discussed above.",
+   "passage": "p03",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 4747,
+  "output_tokens": 592,
+  "attempts": 1,
+  "task_sha": "86072171f7b20670"
+ }
+}

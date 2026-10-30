@@ -1,0 +1,28 @@
+{
+ "accession": "CLSK|earnings_release|2022-06-30|a6507d94",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Washington, GA facility",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Washington, GA",
+   "counterparty": null,
+   "capacity_mw": 86,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Foremost, we have entered into an asset purchase agreement for the acquisition of a third wholly owned facility, located in Washington, GA.",
+   "passage": "p01",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.4,
+  "input_tokens": 4336,
+  "output_tokens": 382,
+  "attempts": 1,
+  "task_sha": "3135ba877a7abe64"
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "accession": "BE|mdna|2024-12-31|06b8f99f",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "1 GW utility supply agreement",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 1000,
+   "gpus": null,
+   "announced": "2024",
+   "in_service": null,
+   "quote": "We entered into multiple agreements with utilities in 2024, including a landmark 1 GW supply agreement with a customer that included a 100 MW order in 2024.",
+   "passage": "p01",
+   "confidence": 0.6
+  },
+  {
+   "name": "Project PPA (Alternative Project)",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 73,
+   "gpus": null,
+   "announced": "2022",
+   "in_service": "2027",
+   "quote": "During the fourth quarter of 2024, the end customer identified an alternative location to deploy the Project Servers (the \u201cAlternative Project\u201d) that is expected to be operational in 2027.",
+   "passage": "p02",
+   "confidence": 0.6
+  },
+  {
+   "name": "Fremont, California manufacturing facility expansion",
+   "kind": "plant",
+   "status": "announced",
+   "location": "Fremont, California",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We expect to continue to make capital investments over the next few quarters to expand production capacity at our new manufacturing facility in Fremont, California, which includes the purchase of new equipment and other tenant improvements.",
+   "passage": "p11",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.3,
+  "input_tokens": 11783,
+  "output_tokens": 1554,
+  "attempts": 1,
+  "task_sha": "af1b483b98ebac88"
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "accession": "AMZN|mdna|2024-12-31|49d12efd",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 5065,
+  "output_tokens": 205,
+  "attempts": 1,
+  "task_sha": "c06843480676da7b"
+ }
+}

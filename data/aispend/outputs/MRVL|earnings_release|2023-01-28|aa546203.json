@@ -1,23 +1,50 @@
 {
  "accession": "MRVL|earnings_release|2023-01-28|aa546203",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 1419000000,
+   "amount_high": 1419000000,
+   "quote": "In the fourth quarter of fiscal 2023, we achieved revenue of $1.419 billion, growing 6 percent year over year, above the midpoint of guidance, driven by better-than-forecasted results from our datacenter end market,",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Total revenue for Q4 fiscal 2023 only, not the full year; datacenter end market named as the driver. The datacenter portion itself is not stated. The quote ends at the comma before the attribution ('said Matt Murphy')."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 5920000000,
+   "amount_high": 5920000000,
+   "quote": "Marvell delivered record revenue of $5.92 billion in fiscal 2023, growing 33 percent year over year driven by strong growth from cloud, 5G, auto and enterprise networking.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Full-year total revenue. 'Cloud' is one of several drivers and stands in for data-center demand, but the sentence does not say 'data center' or 'AI'. The cloud portion is not stated."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; p01 discusses revenue and guidance, p02 is a product/end-market list"
+   "reason": "no sentence links capital expenditures to AI; the release is from a seller and gives no capex figures"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the only AI mention (p02) is a description of customer products, which is boilerplate"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.8,
-  "input_tokens": 5082,
-  "output_tokens": 196,
+  "seconds": 10.7,
+  "input_tokens": 5387,
+  "output_tokens": 1242,
   "attempts": 1,
-  "task_sha": "ef5e36def0b50e9b"
+  "task_sha": "dffebcbd21717ace"
  }
 }

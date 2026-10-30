@@ -1,0 +1,65 @@
+{
+ "accession": "0000866374-25-000027",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended March 31, | 2025",
+   "cell_text": "(438)",
+   "period_end": "2025-03-31",
+   "months": 12,
+   "value": 438000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended March 31, | 2024",
+   "cell_text": "(530)",
+   "period_end": "2024-03-31",
+   "months": 12,
+   "value": 530000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended March 31, | 2023",
+   "cell_text": "(635)",
+   "period_end": "2023-03-31",
+   "months": 12,
+   "value": 635000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "reason": "The consolidated statement of operations is not among the supplied tables. t0045 is the earnings-per-share note, and t0046 shows only discontinued operations (Nextracker), FY2024 and FY2023. Its 'Net sales (2)' row is not company total revenue."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "The consolidated statement of operations is not supplied. The 'Cost of sales (2)' row in t0046 covers only discontinued operations."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "No consolidated statement of operations is supplied, so no cost-of-revenue lines are available for the company."
+  },
+  {
+   "field": "operating_income",
+   "reason": "The consolidated statement of operations is not supplied. The 'Operating income' row in t0046 covers only discontinued operations, not company operating income."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.9,
+  "input_tokens": 6465,
+  "output_tokens": 849,
+  "attempts": 1,
+  "task_sha": "0aedcd57a7923031"
+ }
+}

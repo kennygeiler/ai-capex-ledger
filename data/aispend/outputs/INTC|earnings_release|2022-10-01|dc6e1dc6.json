@@ -1,23 +1,37 @@
 {
  "accession": "INTC|earnings_release|2022-10-01|dc6e1dc6",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 4200000000,
+   "amount_high": 4200000000,
+   "quote": "Datacenter and AI Group (DCAI) $4.2 billion down 27%",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Q3 2022 quarterly segment revenue (three months ended Oct 1, 2022), not full-year. The source is a table row, not a full sentence. The segment is data center plus AI, so this is data-center revenue rather than AI-only revenue. The p04 table gives the same figure more precisely: $4,209 million."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; passages contain segment revenue/operating income (Datacenter and AI Group is a segment name, not spend), forward-looking-statement boilerplate, and a product description of AXG"
+   "reason": "no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes R&D, infrastructure, or headcount spend to AI; AI mentions are a segment name and a product description (boilerplate)"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.0,
-  "input_tokens": 6528,
-  "output_tokens": 227,
+  "seconds": 7.5,
+  "input_tokens": 6908,
+  "output_tokens": 687,
   "attempts": 1,
-  "task_sha": "d976ee30ce28ebfb"
+  "task_sha": "176a9c48564a6637"
  }
 }

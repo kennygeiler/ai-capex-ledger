@@ -1,23 +1,27 @@
 {
  "accession": "CIFR|earnings_release|2026-03-31|9f3cfd42",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; p03 (sufficient capital to fund the equity component of the third data center campus) and p07/p08 ($2.0Bn Black Pearl bond issuance, $200MM revolver) describe financing and liquidity, not capital expenditures, and the AI data center lease mentions (p01, p02) say nothing about spend"
+   "reason": "no sentence states or attributes capital expenditures to AI; p03 (sufficient capital to fund the equity component of the third data center campus) and p07 ($2.0Bn bond financing for Black Pearl) describe liquidity and financing, not capex amounts"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; the only expense mentions (share-based compensation, depreciation, interest expense in p05) are non-GAAP boilerplate unrelated to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only figure is p06's '~$11.4 Bn Contracted Revenue', which is slide text rather than a sentence; it is multi-year contracted HPC lease revenue over 10-15 year terms, not revenue for fiscal 2026 or a specific outlook year"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.9,
-  "input_tokens": 9361,
-  "output_tokens": 596,
+  "seconds": 8.4,
+  "input_tokens": 9662,
+  "output_tokens": 705,
   "attempts": 1,
-  "task_sha": "8b1e5b793c49d9e8"
+  "task_sha": "c375b9783ce506d9"
  }
 }

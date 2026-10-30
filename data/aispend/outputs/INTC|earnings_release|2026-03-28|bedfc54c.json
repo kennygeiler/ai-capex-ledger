@@ -1,23 +1,37 @@
 {
  "accession": "INTC|earnings_release|2026-03-28|bedfc54c",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 5100000000,
+   "amount_high": 5100000000,
+   "quote": "Business Unit Revenue and Q1 20261 vs. Q1 2025 Trends Intel Products: Client Computing Group (CCG) $7.7 billion up 1% Data Center and AI (DCAI) 5.1 billion up 22% Total Intel Products revenue 12.8 billion up 9% Intel Foundry 5.4 billion up 16% All other 0.6 billion down 33% Intersegment eliminations (5.3) billion Total net revenue $13.6 billion up 7% 1Operating segment revenues include intersegment transactions and are presented as actual and rounded; as a result, totals may not sum.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Data Center and AI (DCAI) segment revenue for Q1 2026 only (quarter ended 2026-03-28), not a full fiscal year. The segment figure includes intersegment transactions. The quote is the whole table passage because the passage is not split into sentences."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p02 reports gross capital expenditures of $4,963 million for Q1 2026 in a reconciliation table with no AI attribution, and p01 only names the Data Center and AI segment in a revenue table"
+   "reason": "gross capital expenditures of $4,963 million appear only in the cash-flow table, and no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; passages contain only segment revenue and EPS/cash-flow reconciliation tables"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.8,
-  "input_tokens": 5144,
-  "output_tokens": 303,
+  "seconds": 8.3,
+  "input_tokens": 5445,
+  "output_tokens": 921,
   "attempts": 1,
-  "task_sha": "6474411a6579fbe6"
+  "task_sha": "bf2448dcf859aa2c"
  }
 }

@@ -1,0 +1,98 @@
+{
+ "accession": "GLXY|earnings_release|2025-12-31|618bd170",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Helios Data Center Campus",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Dickens County, West Texas",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 1600,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The Helios Data Center Campus is Galaxy\u2019s flagship facility that, at 1.6GW of approved grid capacity, is projected to be the largest known 100% front-of-the-meter data center campus.",
+   "passage": "p21",
+   "confidence": 0.9
+  },
+  {
+   "name": "Helios Phase I",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Dickens County, West Texas",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 133,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "Galaxy remains on track to deliver 133MW of critical IT load to CoreWeave in the first half of 2026 under the Phase I lease agreement, with the first data hall expected to be delivered in Q1 .",
+   "passage": "p04",
+   "confidence": 0.9
+  },
+  {
+   "name": "Helios Phase II",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Dickens County, West Texas",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 260,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2027",
+   "quote": "Will be completed in phases, with the full capacity for Phase I expected to be delivered by the end of the first half of 2026, Phase II expected throughout 2027 and Phase III expecting to commence in 2028.",
+   "passage": "p05",
+   "confidence": 0.75
+  },
+  {
+   "name": "Helios Phase III",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Dickens County, West Texas",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 133,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2028",
+   "quote": "Will be completed in phases, with the full capacity for Phase I expected to be delivered by the end of the first half of 2026, Phase II expected throughout 2027 and Phase III expecting to commence in 2028.",
+   "passage": "p05",
+   "confidence": 0.75
+  },
+  {
+   "name": "Helios additional 830 MW ERCOT-approved power capacity",
+   "kind": "power",
+   "status": "announced",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 830,
+   "gpus": null,
+   "announced": "2026-01-15",
+   "in_service": null,
+   "quote": "On January 15, 2026, Galaxy announced it received ERCOT approval for an additional 830 MW of power capacity, bringing Helios\u2019 total approved capacity to more than 1.6 gigawatts and positioning the campus to support continued multi-phase development in 2026 and beyond.",
+   "passage": "p04",
+   "confidence": 0.8
+  },
+  {
+   "name": "Helios 345 kV substation",
+   "kind": "power",
+   "status": "under_construction",
+   "location": "Helios campus, Texas",
+   "counterparty": null,
+   "capacity_mw": 900,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our privately owned 345 kV grid connected substation at the Helios campus supporting up to 900 MW of transformer capacity across various phases of the project.",
+   "passage": "p23",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 22.7,
+  "input_tokens": 15039,
+  "output_tokens": 2822,
+  "attempts": 1,
+  "task_sha": "0ace9427143a04fb"
+ }
+}

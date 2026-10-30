@@ -1,23 +1,27 @@
 {
  "accession": "ALAB|earnings_release|2026-06-30|a3881c3a",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p01 is forward-looking-statement boilerplate and p02 is a cash flow table (purchases of property and equipment) with no AI attribution"
+   "reason": "purchases of property and equipment appear only in the cash flow table (p03); no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI; p01 only lists R&D among forward-looking topics and p02 contains no operating expense attribution"
+   "reason": "no sentence quantifies or attributes research and development, infrastructure or headcount expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "record Q2 2026 revenue of $392.4 million is attributed to broad-based portfolio strength and Aries, not to AI or data-center demand; 'AI fabric infrastructure provider' describes the company's positioning, and no sentence states an AI or data-center revenue figure or share"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.2,
-  "input_tokens": 6275,
-  "output_tokens": 222,
+  "seconds": 6.9,
+  "input_tokens": 6833,
+  "output_tokens": 554,
   "attempts": 1,
-  "task_sha": "038a3580381e2136"
+  "task_sha": "29fd68a3d25acbb0"
  }
 }

@@ -1,0 +1,35 @@
+{
+ "accession": "MARA|earnings_release|2025-06-30|6aa5d6f0",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Our vertically integrated mining operations, large BTC treasury, budding international energy partnerships, and early AI infrastructure investments each contribute distinct and measurable value.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Mentions 'early AI infrastructure investments' without any amount. It is unclear whether these are capital expenditures, partnership commitments or operating spend; recorded as capex because 'infrastructure investments' most naturally reads as capital spending."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, headcount, infrastructure costs) to AI; the CPO hire and hackathon are not stated as AI spend"
+  },
+  {
+   "field": "revenue",
+   "reason": "revenue comes from bitcoin mining; no sentence states any AI, inference or HPC revenue (AI inference/HPC is described only as being explored)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.3,
+  "input_tokens": 10392,
+  "output_tokens": 784,
+  "attempts": 1,
+  "task_sha": "3b89e65f3db24f27"
+ }
+}

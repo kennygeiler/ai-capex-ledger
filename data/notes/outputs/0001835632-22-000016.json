@@ -1,6 +1,6 @@
 {
  "accession": "0001835632-22-000016",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -12,7 +12,8 @@
    "period_end": "2022-01-29",
    "months": 0,
    "value": 895309000,
-   "confidence": 0.9
+   "confidence": 0.9,
+   "notes": "Unit not stated with the table; taken as thousands from the filing-level unit line, which the subtotal arithmetic is consistent with."
   },
   {
    "field": "ppe_category",
@@ -24,7 +25,8 @@
    "period_end": "2021-01-30",
    "months": 0,
    "value": 693689000,
-   "confidence": 0.9
+   "confidence": 0.9,
+   "notes": "Unit not stated with the table; taken as thousands."
   },
   {
    "field": "ppe_category",
@@ -36,7 +38,8 @@
    "period_end": "2022-01-29",
    "months": 0,
    "value": 293579000,
-   "confidence": 0.9
+   "confidence": 0.9,
+   "notes": "Unit not stated with the table; taken as thousands."
   },
   {
    "field": "ppe_category",
@@ -48,7 +51,8 @@
    "period_end": "2021-01-30",
    "months": 0,
    "value": 284532000,
-   "confidence": 0.9
+   "confidence": 0.9,
+   "notes": "Unit not stated with the table; taken as thousands."
   },
   {
    "field": "ppe_category",
@@ -60,7 +64,8 @@
    "period_end": "2022-01-29",
    "months": 0,
    "value": 109135000,
-   "confidence": 0.9
+   "confidence": 0.9,
+   "notes": "Unit not stated with the table; taken as thousands."
   },
   {
    "field": "ppe_category",
@@ -72,7 +77,8 @@
    "period_end": "2021-01-30",
    "months": 0,
    "value": 103789000,
-   "confidence": 0.9
+   "confidence": 0.9,
+   "notes": "Unit not stated with the table; taken as thousands."
   },
   {
    "field": "ppe_category",
@@ -84,7 +90,8 @@
    "period_end": "2022-01-29",
    "months": 0,
    "value": 30136000,
-   "confidence": 0.9
+   "confidence": 0.9,
+   "notes": "Unit not stated with the table; taken as thousands."
   },
   {
    "field": "ppe_category",
@@ -96,7 +103,8 @@
    "period_end": "2021-01-30",
    "months": 0,
    "value": 26990000,
-   "confidence": 0.9
+   "confidence": 0.9,
+   "notes": "Unit not stated with the table; taken as thousands."
   },
   {
    "field": "purchase_commitments",
@@ -108,34 +116,30 @@
    "period_end": "2022-01-29",
    "months": 0,
    "value": 3175088000,
-   "confidence": 0.8
+   "confidence": 0.7,
+   "notes": "Table splits commitments into foundry/test & assembly purchase commitments (3,175,088) and technology license fees (687,791) with no combined total cell; cited the purchase-commitments column (its yearly amounts sum to the total) rather than adding cells. Year-end assumed to be the report period 2022-01-29."
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "Marvell operates as a single reportable segment; no per-segment capital expenditures are presented in the tables"
+   "reason": "No segment note table provided; Marvell reports a single reportable segment, and the only segment/market table (t0011) is an income statement expressed as percentages of net revenue."
   },
   {
    "field": "segment_revenue",
-   "reason": "the only segment-section table (t0011) is an income statement expressed as percentages of net revenue; no revenue by segment or end market is in the tables provided"
+   "reason": "No revenue-by-segment or by-end-market table provided; t0011 shows only consolidated income statement lines as percentages of net revenue."
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no lease note table with finance lease liabilities is included in the tables provided"
-  },
-  {
-   "field": "purchase_commitments",
-   "reason": "only the January 29, 2022 year-end commitments table is provided; no prior year-end (2021-01-30) total is available"
+   "reason": "No lease note table or finance lease liability line appears in the provided tables."
   }
  ],
- "notes": "ppe_category: the unit line for t0048 is not stated with the table and the 'found elsewhere' text is empty; values are scaled as thousands per the assigned unit ('In thousands'), consistent with Marvell's reporting, so confidence is 0.9. The unlabeled row (1,328,159 / 1,109,000) is the gross total and is skipped. purchase_commitments: t0065 is parsed with commitment types as columns and yearly payments folded into the column labels; the foundry/test & assembly column's total (3,175,088, which equals the sum of its yearly payments plus 'Thereafter') was taken. The Technology License Fees column (687,791) was excluded as license fees rather than purchase obligations; if the field should include them, the combined total would be 3,862,879 thousand, but no single cell shows it. Confidence is 0.8 for that reason.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 17.0,
-  "input_tokens": 5079,
-  "output_tokens": 2207,
+  "seconds": 17.6,
+  "input_tokens": 5203,
+  "output_tokens": 2276,
   "attempts": 1,
-  "task_sha": "93d2271ba9023d3a"
+  "task_sha": "0de77b7cb9bfd11d"
  }
 }

@@ -1,0 +1,13 @@
+{
+ "accession": "FIX|mdna|2024-12-31|9e45922f",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 5248,
+  "output_tokens": 49,
+  "attempts": 1,
+  "task_sha": "de668f23c038875b"
+ }
+}

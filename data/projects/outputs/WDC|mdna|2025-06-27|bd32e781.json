@@ -1,0 +1,13 @@
+{
+ "accession": "WDC|mdna|2025-06-27|bd32e781",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 1.9,
+  "input_tokens": 6357,
+  "output_tokens": 49,
+  "attempts": 1,
+  "task_sha": "7414728c4f6e7f0b"
+ }
+}

@@ -1,6 +1,6 @@
 {
  "accession": "TSLA|mdna|2025-12-31|d4653541",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -13,20 +13,7 @@
    "quote": "We currently expect our capital expenditures to be in excess of $20 billion in 2026, driven by our AI initiatives, including investments in compute infrastructure and data centers, the expansion and ramp of our manufacturing and R&D production lines and facilities, and growth in our fleet of company-operated AI-enabled assets and our retail, service and charging footprint.",
    "passage": "p02",
    "confidence": 0.9,
-   "notes": "'In excess of $20 billion' is a floor with no stated upper bound; recorded as 20000000000 for both low and high. This is total capex, with AI named as a driver; it is not the AI portion."
-  },
-  {
-   "field": "capex",
-   "fiscal_year": 2026,
-   "kind": "outlook",
-   "scope": "total",
-   "class": "explicit_amount",
-   "amount_low": 20000000000,
-   "amount_high": 20000000000,
-   "quote": "As discussed in and subject to the considerations referenced in Part II, Item 7, Management's Discussion and Analysis of Financial Condition and Results of Operations\u2014Management Opportunities, Challenges and Uncertainties and 2026 Outlook\u2014Cash Flow and Capital Expenditure Trends in this Annual Report on Form 10-K, we currently expect our capital expenditures to exceed $20 billion in 2026 driven by our AI initiatives, including investments in compute infrastructure and data centers, the expansion and ramp of our manufacturing and R&D production lines and facilities, and growth in our fleet of company-operated AI-enabled assets and our retail, service and charging footprint.",
-   "passage": "p06",
-   "confidence": 0.9,
-   "notes": "Repeats the p02 outlook. 'Exceed $20 billion' is a floor with no upper bound, recorded as 20000000000 for both low and high. This is total capex."
+   "notes": "Stated as 'in excess of $20 billion' with no upper bound, so both amounts are set to the $20B floor. This is total capex, with AI initiatives named as one driver among several. The same guidance is repeated in p06."
   },
   {
    "field": "capex",
@@ -39,18 +26,7 @@
    "quote": "Net cash flows from investing activities and their variability across each period related primarily to capital expenditures, which were $8.53 billion and $11.34 billion for the years ended December 31, 2025 and 2024, respectively, mainly for global AI and operational infrastructure and factory expansion, as well as machinery and equipment as we expand and enhance our product roadmap.",
    "passage": "p07",
    "confidence": 0.95,
-   "notes": "This is total 2025 capex, described as 'mainly for global AI and operational infrastructure and factory expansion'. The AI part is not separated. The 2024 figure ($11.34B) is a prior year and is not recorded."
-  },
-  {
-   "field": "capex",
-   "fiscal_year": null,
-   "kind": "actual",
-   "scope": "total",
-   "class": "qualitative",
-   "quote": "We are simultaneously developing and ramping new products, building or ramping manufacturing facilities on three continents, piloting the development and manufacture of new battery cell technologies, expanding our Supercharger network and investing in autonomy, robotics and other artificial intelligence enabled training and products and its supporting infrastructure, and the pace of our capital spend may vary depending on overall priority among projects, the pace at which we meet milestones, production adjustments to and among our various products, increased capital efficiencies and the addition of new projects.",
-   "passage": "p02",
-   "confidence": 0.6,
-   "notes": "Present tense. AI infrastructure is listed as one of several capital projects, with no weight given to it. This is a general description, so confidence is lower."
+   "notes": "This is total FY2025 capex. 'Global AI and operational infrastructure' is grouped together with factory expansion, so no AI-specific amount is stated. The prior-year figure ($11.34B for 2024) is not recorded."
   },
   {
    "field": "opex",
@@ -60,28 +36,22 @@
    "class": "qualitative",
    "quote": "R&D expense increased $1.87 billion, or 41%, in the year ended December 31, 2025 as compared to the year ended December 31, 2024, primarily due to increases in costs related to AI and other programs as we continue to expand our product roadmap and technologies and an increase in stock-based compensation of $500 million.",
    "passage": "p03",
-   "confidence": 0.85,
-   "notes": "The $1.87B is the year-over-year increase in total R&D. It is not an AI amount and not total opex. The increase is attributed 'primarily' to AI and other programs, with AI not separated out, so this is recorded as qualitative."
-  },
-  {
-   "field": "opex",
-   "fiscal_year": null,
-   "kind": "actual",
-   "scope": "total",
-   "class": "qualitative",
-   "quote": "We continue to ramp production and build and optimize our manufacturing capacity, expand our operations while focusing on further cost reductions and operational efficiencies to enable increased deliveries and deployments of our products, and invest in research and development to accelerate our AI, software and fleet-based profits for further revenue growth.",
-   "passage": "p01",
-   "confidence": 0.6,
-   "notes": "Present tense. It says R&D investment goes toward AI among other aims, with no amount or weight. This is a general strategic statement, so confidence is lower."
+   "confidence": 0.8,
+   "notes": "The $1.87B is the year-over-year increase in total R&D, not the AI part. AI is named as a primary driver together with 'other programs', and no AI amount is given, so this is recorded as qualitative."
   }
  ],
- "none_found": [],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "Tesla is a buyer of AI infrastructure; no sentence states AI or data-center revenue or AI's share of revenue"
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 20.7,
-  "input_tokens": 6086,
-  "output_tokens": 2781,
+  "seconds": 16.8,
+  "input_tokens": 6391,
+  "output_tokens": 1976,
   "attempts": 1,
-  "task_sha": "1bd414e1fc9d7e3b"
+  "task_sha": "cc128d953426fc00"
  }
 }

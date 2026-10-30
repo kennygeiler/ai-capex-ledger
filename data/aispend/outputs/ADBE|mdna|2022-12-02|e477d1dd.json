@@ -1,0 +1,27 @@
+{
+ "accession": "ADBE|mdna|2022-12-02|e477d1dd",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex is mentioned only generically as a use of cash and in liquidity sufficiency boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the cost of revenue increase is attributed to hosting, data center and compensation costs without any mention of AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue or its share of total revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.7,
+  "input_tokens": 5108,
+  "output_tokens": 231,
+  "attempts": 1,
+  "task_sha": "17221bdaa88e2a90"
+ }
+}

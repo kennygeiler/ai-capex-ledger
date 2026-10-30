@@ -1,0 +1,191 @@
+{
+ "accession": "0001868275-23-000014",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0080",
+   "row_label": "Total operating revenues",
+   "column_label": "For the Years Ended December 31, | 2022",
+   "cell_text": "24,440",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 24440000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0080",
+   "row_label": "Total operating revenues",
+   "column_label": "For the Years Ended December 31, | 2021",
+   "cell_text": "19,649",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 19649000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0080",
+   "row_label": "Total operating revenues",
+   "column_label": "For the Years Ended December 31, | 2020",
+   "cell_text": "17,603",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 17603000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0080",
+   "row_label": "Purchased power and fuel",
+   "column_label": "For the Years Ended December 31, | 2022",
+   "cell_text": "17,457",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 17457000000,
+   "confidence": 0.8,
+   "notes": "No total cost-of-revenue line. Purchased power and fuel is the direct cost of the electricity and gas sold, so it is a cost of revenue. Operating and maintenance was excluded because it mixes plant operating costs with general and administrative costs."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0080",
+   "row_label": "Purchased power and fuel",
+   "column_label": "For the Years Ended December 31, | 2021",
+   "cell_text": "12,157",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 12157000000,
+   "confidence": 0.8,
+   "notes": "No total cost-of-revenue line. Purchased power and fuel is the direct cost of the electricity and gas sold, so it is a cost of revenue. Operating and maintenance was excluded because it mixes plant operating costs with general and administrative costs."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0080",
+   "row_label": "Purchased power and fuel",
+   "column_label": "For the Years Ended December 31, | 2020",
+   "cell_text": "9,592",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 9592000000,
+   "confidence": 0.8,
+   "notes": "No total cost-of-revenue line. Purchased power and fuel is the direct cost of the electricity and gas sold, so it is a cost of revenue. Operating and maintenance was excluded because it mixes plant operating costs with general and administrative costs."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0080",
+   "row_label": "Purchased power and fuel from affiliates",
+   "column_label": "For the Years Ended December 31, | 2022",
+   "cell_text": "5",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 5000000,
+   "confidence": 0.8,
+   "notes": "Power and fuel bought from affiliates is a direct cost of the energy sold, so it is a cost of revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0080",
+   "row_label": "Purchased power and fuel from affiliates",
+   "column_label": "For the Years Ended December 31, | 2021",
+   "cell_text": "6",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 6000000,
+   "confidence": 0.8,
+   "notes": "Power and fuel bought from affiliates is a direct cost of the energy sold, so it is a cost of revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0080",
+   "row_label": "Purchased power and fuel from affiliates",
+   "column_label": "For the Years Ended December 31, | 2020",
+   "cell_text": "(7)",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 7000000,
+   "confidence": 0.6,
+   "notes": "Power and fuel bought from affiliates is a direct cost of the energy sold. Caution: in this expense section the cell (7) is a net credit that reduced 2020 expenses. The positive sign convention forces 7000000, but the economic value is -7000000. Adding it as positive overstates the 2020 cost-of-revenue sum by 14000000. Downstream code should review this."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0080",
+   "row_label": "Operating income (loss)",
+   "column_label": "For the Years Ended December 31, | 2022",
+   "cell_text": "495",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 495000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0080",
+   "row_label": "Operating income (loss)",
+   "column_label": "For the Years Ended December 31, | 2021",
+   "cell_text": "(346)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": -346000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0080",
+   "row_label": "Operating income (loss)",
+   "column_label": "For the Years Ended December 31, | 2020",
+   "cell_text": "256",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 256000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0081",
+   "row_label": "Capital expenditures",
+   "column_label": "For the Years Ended December 31, | 2022",
+   "cell_text": "(1,689)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 1689000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0081",
+   "row_label": "Capital expenditures",
+   "column_label": "For the Years Ended December 31, | 2021",
+   "cell_text": "(1,329)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 1329000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0081",
+   "row_label": "Capital expenditures",
+   "column_label": "For the Years Ended December 31, | 2020",
+   "cell_text": "(1,747)",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 1747000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "The income statement has no single total cost-of-revenue line. The component lines are reported as cost_of_revenue_part."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 36.3,
+  "input_tokens": 14549,
+  "output_tokens": 5158,
+  "attempts": 2,
+  "task_sha": "a3926687a64148fc"
+ }
+}

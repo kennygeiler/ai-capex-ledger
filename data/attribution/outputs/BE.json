@@ -1,0 +1,94 @@
+{
+ "ticker": "BE",
+ "prompt_version": "attribution@v2",
+ "model": "datacenter_build@v3",
+ "rows": [
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "stated_amount",
+   "ai_amount": 27200000,
+   "ai_share": 0.0529,
+   "inputs": [
+    {
+     "id": "stmt:BE|mdna|2025-12-31|cb2b161d|opex|FY2025|actual|0",
+     "value": 27200000
+    }
+   ],
+   "basis": "MD&A states consulting, advisory and professional services costs rose by $27.2M for AI data-center power programs; 27.2M \u00f7 514.6M opex = 5.3%. This is only the year-over-year increase in one cost line. It excludes any base-level AI program spend and any AI share of the $89.9M compensation increase, so it is a floor.",
+   "confidence": 0.6
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The earnings release says record revenue of $2.02B was 'driven by significant growth from the AI data center industry' alongside C&I demand. The $2.02B is the company total, not the AI part (rule 3), and Bloom reports no end-market segment, so no amount is given. Data center, not AI.",
+   "confidence": 0.3
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no statement ties capex to data-center or AI demand; PP&E categories (Energy Servers, machinery, CIP) are factory and fleet assets serving all customers"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no statement ties capex to data-center or AI demand; PP&E categories are not AI-specific"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "no statement ties capex to data-center or AI demand; PP&E categories are not AI-specific"
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "no statement ties the $56.8M of capex to data-center demand with a number; PP&E categories are not AI-specific. Finance lease liability ($5.2M) is not said to be AI, so no committed row"
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no statement attributes opex to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "no statement attributes opex to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "no statement attributes opex to AI or data centers"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "no data-center segment and no statement linking revenue to AI or data centers in the pack"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "no data-center segment and no statement linking revenue to AI or data centers in the pack"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "no data-center segment and no statement linking revenue to AI or data centers in the pack"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.3,
+  "input_tokens": 13318,
+  "output_tokens": 1414,
+  "attempts": 1,
+  "task_sha": "e60afd2594755833"
+ }
+}

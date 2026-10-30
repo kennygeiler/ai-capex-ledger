@@ -1,0 +1,27 @@
+{
+ "accession": "RMBS|mdna|2023-12-31|a8db805c",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p02 describes a strategic refocus on data center and AI via the PHY IP divestiture, not spend"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 is a business description; no sentence states an amount or share of revenue from AI or data center"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 5042,
+  "output_tokens": 270,
+  "attempts": 1,
+  "task_sha": "91eb02b539c51e19"
+ }
+}

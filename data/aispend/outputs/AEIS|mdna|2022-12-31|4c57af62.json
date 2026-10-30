@@ -1,0 +1,48 @@
+{
+ "accession": "AEIS|mdna|2022-12-31|4c57af62",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 327500000,
+   "amount_high": 327500000,
+   "quote": "Sales in the Data Center Computing market increased $56.5 million, or 20.9%, to $327.5 million, as compared to $270.9 million in the prior year.",
+   "passage": "p04",
+   "confidence": 0.9,
+   "notes": "Data Center Computing market revenue (seller side, power conversion products for data-center servers). This is data-center revenue, not AI-specific revenue. The prior-year figure ($270.9 million, fiscal 2021) is not recorded because it falls outside the reported and outlook years."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Although we expect lower overall demand in 2023 as cloud and enterprise customers slow investments to digest capacity investments, we continue to be supply constrained and our performance will be partially dependent on our ability to secure critical components and customers\u2019 timing of new programs.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Outlook for lower 2023 demand in the Data Center Computing market. The sentence speaks of demand, not revenue directly, and gives no number."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p05 mentions capital expenditures only as liquidity boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.4,
+  "input_tokens": 5967,
+  "output_tokens": 995,
+  "attempts": 1,
+  "task_sha": "85e95e1ca1ad26f8"
+ }
+}

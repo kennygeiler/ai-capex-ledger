@@ -1,23 +1,37 @@
 {
  "accession": "INTC|earnings_release|2022-07-02|b1f68596",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 4600000000,
+   "amount_high": 4600000000,
+   "quote": "Key Business Unit Revenue and Q2 2022 vs. Q2 2021 Trends Client Computing Group (CCG) $7.7 billion down 25% Datacenter and AI Group (DCAI) $4.6 billion down 16% Network and Edge Group (NEX) $2.3 billion up 11% Accelerated Computing Systems and $186 million up 5% Graphics Group (AXG) Mobileye $460 million up 41% Intel Foundry Services (IFS) $122 million down 54%",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Datacenter and AI Group segment revenue for the quarter (Q2 2022) only, not the full fiscal year; p06 gives the precise figure as $4,649 million. The segment mixes general data-center CPUs with AI, so it is data-center revenue rather than AI revenue alone. The quote is a table row, not a prose sentence."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or links capital expenditures to AI; 'Datacenter and AI Group' references are segment names and revenue figures, and p04 forward-looking boilerplate mentions investment plans without AI attribution"
+   "reason": "no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p06 segment operating income/loss for DCAI and AXG is not an AI spend statement, and p07 is a product description"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.3,
-  "input_tokens": 6723,
-  "output_tokens": 234,
+  "seconds": 12.9,
+  "input_tokens": 7103,
+  "output_tokens": 872,
   "attempts": 1,
-  "task_sha": "4664b9284f61d96d"
+  "task_sha": "6cbbb49d2be6ca20"
  }
 }

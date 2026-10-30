@@ -1,0 +1,46 @@
+{
+ "accession": "AAOI|earnings_release|2025-06-30|289f1112",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "During the quarter, we saw steady growth in our datacenter business, and we continued to see strong demand in our CATV business.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Seller of optical transceivers; datacenter business growth is stated in words only, with no amount or share. The period is the quarter ended 2025-06-30, but the sentence names no year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u201cOur performance continues to be driven by strength in both our datacenter and CATV businesses, underscoring the strategic value of our diversified revenue streams,\u201d said Dr. Stefan Murry, AOI\u2019s Chief Financial Officer and Chief Strategy Officer.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Overall performance is attributed to datacenter (and CATV) strength; this is a driver of the total, not a quantified datacenter part."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; the 800G production-capacity target (100,000 units/month) is a capacity figure, not a spend amount"
+  },
+  {
+   "field": "opex",
+   "reason": "the opex increase is attributed to R&D/SG&A for 800G and 1.6Tb transceiver qualification, but the sentence does not mention AI or datacenter; linking it to AI would be inference"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.3,
+  "input_tokens": 6444,
+  "output_tokens": 1543,
+  "attempts": 1,
+  "task_sha": "4d5832b3fd00ea87"
+ }
+}

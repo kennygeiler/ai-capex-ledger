@@ -1,0 +1,27 @@
+{
+ "accession": "EQIX|mdna|2022-12-31|780a6888",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions AI; capital expenditure references (p11, p13, p14) concern IBX data center construction, recurring capex and expansion generally, not AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence mentions AI; the bullets in p03-p05 give incremental revenues from IBX data center expansions for a colocation provider (all of whose revenue is data-center based), not AI or AI-driven data-center demand, and name no period"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.5,
+  "input_tokens": 12058,
+  "output_tokens": 494,
+  "attempts": 1,
+  "task_sha": "a0998b1fe36011f9"
+ }
+}

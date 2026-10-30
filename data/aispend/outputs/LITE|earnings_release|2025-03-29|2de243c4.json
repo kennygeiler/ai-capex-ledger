@@ -1,0 +1,27 @@
+{
+ "accession": "LITE|earnings_release|2025-03-29|2de243c4",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only passage is a CEO quote describing positioning and products for AI data centers; it states no AI or data-center revenue figure or share and does not attribute revenue to AI demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 4863,
+  "output_tokens": 205,
+  "attempts": 1,
+  "task_sha": "1b8e79e5f6a110f9"
+ }
+}

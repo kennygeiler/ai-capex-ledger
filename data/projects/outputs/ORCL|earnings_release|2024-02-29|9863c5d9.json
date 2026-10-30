@@ -1,0 +1,13 @@
+{
+ "accession": "ORCL|earnings_release|2024-02-29|9863c5d9",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.0,
+  "input_tokens": 4979,
+  "output_tokens": 53,
+  "attempts": 1,
+  "task_sha": "3bbb242085185f65"
+ }
+}

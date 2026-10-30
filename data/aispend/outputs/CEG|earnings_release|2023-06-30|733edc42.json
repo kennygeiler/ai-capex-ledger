@@ -1,0 +1,27 @@
+{
+ "accession": "CEG|earnings_release|2023-06-30|733edc42",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 mentions capital expenditures only in a non-GAAP definition (maintenance, nuclear fuel, separation, ERP)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 mentions an agreement to supply a Microsoft data center with nuclear environmental attributes, but no sentence states an amount, share or driver of revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.3,
+  "input_tokens": 6207,
+  "output_tokens": 382,
+  "attempts": 1,
+  "task_sha": "daad95e49d87a57f"
+ }
+}

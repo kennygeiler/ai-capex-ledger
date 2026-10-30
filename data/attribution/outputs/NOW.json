@@ -1,0 +1,120 @@
+{
+ "ticker": "NOW",
+ "prompt_version": "attribution@v2",
+ "model": "ai_software@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "stated_amount",
+   "ai_amount": 1700000000,
+   "ai_share": null,
+   "inputs": [
+    {
+     "id": "stmt:NOW|earnings_release|2026-09-30|337a7110|revenue|FY2026|outlook|0",
+     "value": 1700000000
+    }
+   ],
+   "basis": "ServiceNow raised its year-end 2026 target for AI annual contract value (ACV) from $1 billion to $1.7 billion. This is a contract-value target, not fiscal-year revenue, and FY2026 revenue is not in the pack, so no share is computed.",
+   "confidence": 0.4
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The CFO said Q2 2024 'GenAI contributions' exceeded expectations. No amount or share of revenue, ACV or bookings was given.",
+   "confidence": 0.2
+  },
+  {
+   "field": "revenue",
+   "period": "FY2030",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The May 2026 Analyst Day set a 2030 target of 30% of ACV from AI, alongside $30 billion+ of subscription revenue. Per the thesis, this is a plan for ACV mix, not a stated share of revenue, so no amount is derived.",
+   "confidence": 0.2
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "No statement attributes any capex to AI. The thesis allows only stated_amount/stated_share for capex. The gross Computer equipment increase (+380M) is not stated as AI."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "No statement attributes any capex to AI. The gross Computer equipment increase (+530M) is not stated as AI."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "No statement attributes any capex to AI. The gross Computer equipment increase (+561M) is not stated as AI."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "No statement attributes any capex to AI. The gross Computer equipment increase (+635M) is not stated as AI."
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "The Q3 2026 release says capex is being reduced under a 'capital-efficient model'. That covers total capex in words only, with no AI part stated."
+  },
+  {
+   "field": "capex",
+   "period": "FY2027",
+   "reason": "Same total-scope, words-only statement on reducing capex. No AI part is stated."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "No AI hosting, compute or R&D cost is stated, and no cloud purchase commitments are in the pack."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "No AI hosting, compute or R&D cost is stated, and no cloud purchase commitments are in the pack."
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "No AI hosting, compute or R&D cost is stated, and no cloud purchase commitments are in the pack."
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "No AI hosting, compute or R&D cost is stated, and no cloud purchase commitments are in the pack."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "No AI product revenue, ARR or ACV is stated."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "No AI product revenue, ARR or ACV is stated."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "reason": "The pack has no FY2025 statement of AI revenue, ACV or share. The $1B AI ACV milestone is from Q2 2026 and is not in the pack."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 19.4,
+  "input_tokens": 12075,
+  "output_tokens": 2120,
+  "attempts": 1,
+  "task_sha": "2b81a4b93fe35887"
+ }
+}

@@ -1,23 +1,27 @@
 {
  "accession": "WMT|earnings_release|2023-01-31|d26c02c9",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the FY24 capex guidance (flat to up slightly in total dollars) cites a focus on technology, supply chain, and customer-facing initiatives but does not mention AI"
+   "reason": "FY24 capital expenditure guidance ('flat to up slightly... with a focus on technology, supply chain, and customer-facing initiatives') names technology but no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; the FY24 opex guidance (increase slightly as a percentage of net sales) gives no AI driver"
+   "reason": "operating expense guidance ('increase slightly as a percentage of net sales') makes no mention of AI; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a retailer and buyer; no sentence states AI or data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.3,
-  "input_tokens": 9262,
-  "output_tokens": 260,
+  "seconds": 4.0,
+  "input_tokens": 9561,
+  "output_tokens": 303,
   "attempts": 1,
-  "task_sha": "53b1367a1065f52b"
+  "task_sha": "af3cfefcb46ee1ba"
  }
 }

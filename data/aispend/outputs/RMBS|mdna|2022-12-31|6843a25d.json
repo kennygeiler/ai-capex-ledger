@@ -1,0 +1,27 @@
+{
+ "accession": "RMBS|mdna|2022-12-31|6843a25d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; passage is a business description"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "only boilerplate describing products and markets (data center, AI workloads); no sentence states AI or data-center revenue as an amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 4900,
+  "output_tokens": 198,
+  "attempts": 1,
+  "task_sha": "f5c64e88a5034287"
+ }
+}

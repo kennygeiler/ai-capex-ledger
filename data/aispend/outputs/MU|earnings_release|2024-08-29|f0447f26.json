@@ -1,23 +1,48 @@
 {
  "accession": "MU|earnings_release|2024-08-29|f0447f26",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1000000000,
+   "amount_high": 1000000000,
+   "quote": "Our NAND revenue record was led by data center SSD sales, which exceeded $1 billion in quarterly revenue for the first time,\u201d said Micron Technology President and CEO Sanjay Mehrotra.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Quarterly (fiscal Q4 2024) figure, not full-year; 'exceeded $1 billion' is a lower bound recorded as $1B. Covers data center SSD revenue only, not all data center or AI revenue."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Micron delivered 93% year-over-year revenue growth in fiscal Q4, as robust AI demand drove a strong ramp of our data center DRAM products and our industry- leading high bandwidth memory.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "The 93% is total revenue growth for fiscal Q4 and is attributed to AI demand. It is not a share of revenue. The sentence gives no amount for data center DRAM or HBM revenue."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence mentions capital expenditures; AI references concern revenue demand (p01) and company description boilerplate (p02)"
+   "reason": "no sentence states or links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.7,
-  "input_tokens": 4858,
-  "output_tokens": 165,
+  "seconds": 11.4,
+  "input_tokens": 5163,
+  "output_tokens": 1313,
   "attempts": 1,
-  "task_sha": "101ccd5b1bd89dc6"
+  "task_sha": "b81d572c41a97d2f"
  }
 }

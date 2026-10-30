@@ -1,0 +1,155 @@
+{
+ "accession": "0000936395-24-000044",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0029",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended | November 2, 2024",
+   "cell_text": "4,014,955",
+   "period_end": "2024-11-02",
+   "months": 12,
+   "value": 4014955000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0029",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended | October 28, 2023",
+   "cell_text": "4,386,549",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 4386549000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0029",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended | October 29, 2022",
+   "cell_text": "3,632,661",
+   "period_end": "2022-10-29",
+   "months": 12,
+   "value": 3632661000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0029",
+   "row_label": "Total cost of goods sold",
+   "column_label": "Year Ended | November 2, 2024",
+   "cell_text": "2,295,365",
+   "period_end": "2024-11-02",
+   "months": 12,
+   "value": 2295365000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0029",
+   "row_label": "Total cost of goods sold",
+   "column_label": "Year Ended | October 28, 2023",
+   "cell_text": "2,507,698",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 2507698000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0029",
+   "row_label": "Total cost of goods sold",
+   "column_label": "Year Ended | October 29, 2022",
+   "cell_text": "2,072,317",
+   "period_end": "2022-10-29",
+   "months": 12,
+   "value": 2072317000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0029",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended | November 2, 2024",
+   "cell_text": "166,617",
+   "period_end": "2024-11-02",
+   "months": 12,
+   "value": 166617000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0029",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended | October 28, 2023",
+   "cell_text": "357,545",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 357545000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0029",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended | October 29, 2022",
+   "cell_text": "222,808",
+   "period_end": "2022-10-29",
+   "months": 12,
+   "value": 222808000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0032",
+   "row_label": "Payments for equipment, furniture, fixtures and intellectual property",
+   "column_label": "Year Ended | November 2, 2024",
+   "cell_text": "(136,641)",
+   "period_end": "2024-11-02",
+   "months": 12,
+   "value": 136641000,
+   "confidence": 0.9,
+   "notes": "Only property-and-equipment purchase line in investing section; it also covers intellectual property (intangible assets), used as instructed."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0032",
+   "row_label": "Payments for equipment, furniture, fixtures and intellectual property",
+   "column_label": "Year Ended | October 28, 2023",
+   "cell_text": "(106,197)",
+   "period_end": "2023-10-28",
+   "months": 12,
+   "value": 106197000,
+   "confidence": 0.9,
+   "notes": "Only property-and-equipment purchase line in investing section; it also covers intellectual property (intangible assets), used as instructed."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0032",
+   "row_label": "Payments for equipment, furniture, fixtures and intellectual property",
+   "column_label": "Year Ended | October 29, 2022",
+   "cell_text": "(90,818)",
+   "period_end": "2022-10-29",
+   "months": 12,
+   "value": 90818000,
+   "confidence": 0.9,
+   "notes": "Only property-and-equipment purchase line in investing section; it also covers intellectual property (intangible assets), used as instructed."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: statement has a total line 'Total cost of goods sold'."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.8,
+  "input_tokens": 7023,
+  "output_tokens": 1707,
+  "attempts": 1,
+  "task_sha": "615fec0029846c31"
+ }
+}

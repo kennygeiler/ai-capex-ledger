@@ -1,0 +1,35 @@
+{
+ "accession": "AEIS|earnings_release|2025-06-30|520e8b30",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u201cSecond quarter results were at the higher end of our guidance driven by strong customer demand for our AI data center solutions,\u201d said Steve Kelley, president and CEO of Advanced Energy.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Q2 2025 results (revenue and earnings) attributed to AI data center demand in words only; no AI or data-center revenue figure is stated. Fiscal year taken from the sentence's 'Second quarter' in the release for fiscal 2025."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.1,
+  "input_tokens": 5305,
+  "output_tokens": 624,
+  "attempts": 1,
+  "task_sha": "508d8ef6327264e9"
+ }
+}

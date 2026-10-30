@@ -1,6 +1,6 @@
 {
  "accession": "0000858877-26-000132",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -13,7 +13,7 @@
    "months": 0,
    "value": 4093000000,
    "confidence": 0.95,
-   "notes": "Unit not stated with the table and the elsewhere-found unit text is empty; millions assumed from the unit line and consistent with the totals."
+   "notes": "Unit not stated with the table; the filing-level unit (in millions) was applied."
   },
   {
    "field": "ppe_category",
@@ -26,7 +26,7 @@
    "months": 0,
    "value": 4045000000,
    "confidence": 0.95,
-   "notes": "Unit not stated with the table; millions assumed."
+   "notes": "Unit not stated with the table; the filing-level unit (in millions) was applied."
   },
   {
    "field": "ppe_category",
@@ -39,7 +39,7 @@
    "months": 0,
    "value": 5441000000,
    "confidence": 0.95,
-   "notes": "Unit not stated with the table; millions assumed."
+   "notes": "Unit not stated with the table; the filing-level unit (in millions) was applied."
   },
   {
    "field": "ppe_category",
@@ -52,7 +52,7 @@
    "months": 0,
    "value": 5178000000,
    "confidence": 0.95,
-   "notes": "Unit not stated with the table; millions assumed."
+   "notes": "Unit not stated with the table; the filing-level unit (in millions) was applied."
   },
   {
    "field": "ppe_category",
@@ -64,8 +64,8 @@
    "period_end": "2026-07-25",
    "months": 0,
    "value": 51000000,
-   "confidence": 0.85,
-   "notes": "Gross category within property and equipment, but it is a leased-asset line; millions assumed."
+   "confidence": 0.8,
+   "notes": "Operating lease assets appear as a gross category within property and equipment and are included in the gross total. The table has no stated unit, so millions was applied."
   },
   {
    "field": "ppe_category",
@@ -77,8 +77,8 @@
    "period_end": "2025-07-26",
    "months": 0,
    "value": 51000000,
-   "confidence": 0.85,
-   "notes": "Gross category within property and equipment, but it is a leased-asset line; millions assumed."
+   "confidence": 0.8,
+   "notes": "Operating lease assets appear as a gross category within property and equipment and are included in the gross total. The table has no stated unit, so millions was applied."
   },
   {
    "field": "ppe_category",
@@ -91,7 +91,7 @@
    "months": 0,
    "value": 287000000,
    "confidence": 0.95,
-   "notes": "Unit not stated with the table; millions assumed."
+   "notes": "Unit not stated with the table; the filing-level unit (in millions) was applied."
   },
   {
    "field": "ppe_category",
@@ -104,7 +104,7 @@
    "months": 0,
    "value": 316000000,
    "confidence": 0.95,
-   "notes": "Unit not stated with the table; millions assumed."
+   "notes": "Unit not stated with the table; the filing-level unit (in millions) was applied."
   },
   {
    "field": "purchase_commitments",
@@ -117,29 +117,29 @@
    "months": 0,
    "value": 17165000000,
    "confidence": 0.7,
-   "notes": "The table has no combined purchase-obligations total. This row was chosen as the purchase-commitments line. A separate row, 'Other purchase obligations', totals 7,044 (millions). The combined 24,209 cannot be cited to a single cell. Period assumed to be the report date of the fiscal year-end."
+   "notes": "The table has no single purchase-obligations total. This row is the filing's labeled 'purchase commitments'. A separate 'Other purchase obligations' row (7,044) is not added, because adding cells is not allowed. The table is assumed to be as of the fiscal year-end 2026-07-25."
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "No segment note table with capital expenditures by segment is among the tables provided; t0021 and t0033 report only consolidated results."
+   "reason": "No segment note with per-segment capital expenditures is in the tables. The tables give only consolidated results."
   },
   {
    "field": "segment_revenue",
-   "reason": "The tables provided show only consolidated revenue (t0021). No revenue breakdown by segment, geography or product category is present."
+   "reason": "The tables give only consolidated revenue (t0021). No per-segment or per-market revenue breakdown is present."
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No lease note table or finance lease liability line appears in the tables provided. The commitments table lists only operating leases."
+   "reason": "No lease note table with finance lease liabilities is present. The commitments table lists only operating leases."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 17.4,
-  "input_tokens": 5997,
-  "output_tokens": 2224,
+  "seconds": 17.7,
+  "input_tokens": 6121,
+  "output_tokens": 2384,
   "attempts": 1,
-  "task_sha": "6d68f7b0b0bac79f"
+  "task_sha": "0d8613e49779895a"
  }
 }

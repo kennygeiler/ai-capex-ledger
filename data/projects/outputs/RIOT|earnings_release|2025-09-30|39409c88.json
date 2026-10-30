@@ -1,0 +1,102 @@
+{
+ "accession": "RIOT|earnings_release|2025-09-30|39409c88",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Corsicana Data Center Campus - Core & Shell Development (first two buildings)",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Corsicana",
+   "counterparty": null,
+   "amount_low": 214000000,
+   "amount_high": 214000000,
+   "capacity_mw": 112,
+   "gpus": null,
+   "announced": "2025-10-30",
+   "in_service": "2027",
+   "quote": "This progress has culminated in announcing today the initiation of the core and shell development of the first two buildings at our Corsicana data center campus, representing 112 MW of total critical IT capacity.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Corsicana Data Center Campus",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Corsicana",
+   "counterparty": null,
+   "capacity_mw": 1000,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Long-term plan to transform the entire site into a 1 GW utility-load data center campus",
+   "passage": "p03",
+   "confidence": 0.75
+  },
+  {
+   "name": "Corsicana 600MW Substation",
+   "kind": "power",
+   "status": "under_construction",
+   "location": "Corsicana",
+   "counterparty": null,
+   "capacity_mw": 600,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Includes capex for a 600 MW substation development and other long-lead items",
+   "passage": "p16",
+   "confidence": 0.6
+  },
+  {
+   "name": "Corsicana 67-acre parcel acquisition",
+   "kind": "other",
+   "status": "contracted",
+   "location": "Corsicana",
+   "counterparty": null,
+   "amount_low": 40000000,
+   "amount_high": 40000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2025-09",
+   "in_service": null,
+   "quote": "In September 2025, Riot entered a contract to acquire an additional 67-acre parcel contiguous with the existing 265-acre Corsicana site for $40 million1",
+   "passage": "p07",
+   "confidence": 0.7
+  },
+  {
+   "name": "Second 400 MW Auto Transformer",
+   "kind": "power",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 400,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Second 400 MW Auto Transformer on site and being installed",
+   "passage": "p04",
+   "confidence": 0.55
+  },
+  {
+   "name": "Corbert Water Line project",
+   "kind": "other",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "Corbert Water Line project expected to be completed Q2 \u201826",
+   "passage": "p16",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 22.7,
+  "input_tokens": 12165,
+  "output_tokens": 2308,
+  "attempts": 1,
+  "task_sha": "996b948cfe1b85c6"
+ }
+}

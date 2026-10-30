@@ -1,23 +1,57 @@
 {
  "accession": "MU|mdna|2026-09-03|7829e821",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In 2026, we continued to benefit from substantial improvements in pricing and margins, reflecting strong demand growth, driven in large part by the continued advancement of AI.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Links 2026 pricing, margins and demand growth to AI, but does not name revenue explicitly or quantify the AI part."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "CMBU revenue increased 257% primarily due to increases in DRAM bit shipments and average selling prices driven by accelerating AI demand in cloud server markets for HBM, high-capacity dual in-line memory modules (\u201cDIMMS\u201d), and low-power server DRAM.",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "257% is a growth rate for the Cloud Memory Business Unit, not a share of total revenue or an amount, so the class is qualitative. The sentence names no year; it is the reported-year comparison (presumably fiscal 2026)."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "CDBU revenue increased 45% primarily due to increases in average selling prices for both data center DRAM and NAND and NAND bit shipments due to increased demand for data center SSDs.",
+   "passage": "p04",
+   "confidence": 0.65,
+   "notes": "Attributes segment revenue growth to data-center demand, not explicitly to AI. 45% is a growth rate, not a share. The sentence names no year."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "capital expenditure figures are given ($30.71 billion of PP&E expenditures in 2026 in p06; approximately $11.5 billion for Q1 2027 and $25 billion for the first six months of 2027 in p05), but no sentence attributes capex to AI or names AI as a driver; AI is cited only as a driver of demand, pricing, revenue and operating income (p01\u2013p04)"
+   "reason": "capex figures (2026 actual of $30.71 billion and 2027 outlook of ~$11.5 billion for Q1 and ~$25 billion for the first half) are given without any link to AI"
   },
   {
    "field": "opex",
-   "reason": "the only opex mention is 'higher R&D expenses' offsetting CMBU operating income (p04), and that sentence does not link the R&D expense to AI; no other sentence quantifies or attributes operating expenses to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the higher R&D expense in p05 is not linked to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.1,
-  "input_tokens": 6529,
-  "output_tokens": 495,
+  "seconds": 19.1,
+  "input_tokens": 6896,
+  "output_tokens": 1674,
   "attempts": 1,
-  "task_sha": "e6a31cebda859cbe"
+  "task_sha": "70b461134dc0bd25"
  }
 }

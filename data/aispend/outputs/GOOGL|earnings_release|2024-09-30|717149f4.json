@@ -1,6 +1,6 @@
 {
  "accession": "GOOGL|earnings_release|2024-09-30|717149f4",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "opex",
@@ -9,23 +9,27 @@
    "scope": "ai",
    "class": "qualitative",
    "quote": "These costs primarily include AI-focused shared R&D activities, including development costs of our general AI models; corporate initiatives such as our philanthropic activities; corporate shared costs such as certain finance, human resource, and legal costs, including certain fines and settlements.",
-   "passage": "p01",
+   "passage": "p03",
    "confidence": 0.6,
-   "notes": "The sentence describes which costs are not allocated to segments (Alphabet-level activities). It names AI-focused shared R&D, including development of general AI models, as one component. It gives no amount or share, and 'primarily' refers to the whole list of unallocated costs, not to AI alone. It names no year, so fiscal_year is null and code will apply the reported year (2024). Confidence is lowered because this is a cost-allocation description and could be read as boilerplate rather than a statement about spend."
+   "notes": "Describes the composition of unallocated Alphabet-level costs (AI-focused shared R&D, general AI model development) rather than a spend figure; links part of R&D opex to AI in words only, and is close to recurring segment-reporting boilerplate."
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI"
+   "reason": "no sentence states or links capital expenditures to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; Google Cloud revenue ($11.4 billion) is a cloud segment total, and no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 8.0,
-  "input_tokens": 4594,
-  "output_tokens": 878,
+  "seconds": 9.3,
+  "input_tokens": 5085,
+  "output_tokens": 989,
   "attempts": 1,
-  "task_sha": "28a746b1f7e4452c"
+  "task_sha": "2d3af6215a532ea5"
  }
 }

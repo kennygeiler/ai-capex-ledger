@@ -1,23 +1,27 @@
 {
  "accession": "CSCO|earnings_release|2023-04-29|51630767",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "only passage is safe-harbor boilerplate; AI is mentioned as a technology expected to scale, but no sentence links capital expenditures to AI"
+   "reason": "no sentence states or links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "only passage is safe-harbor boilerplate; no sentence quantifies or attributes research and development, infrastructure or headcount spend to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "AI is mentioned only as a technology trend in the CEO quote and forward-looking boilerplate; no sentence states AI or data-center revenue or AI's share of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.3,
-  "input_tokens": 5656,
-  "output_tokens": 184,
+  "seconds": 3.2,
+  "input_tokens": 6348,
+  "output_tokens": 199,
   "attempts": 1,
-  "task_sha": "e49b5548a314208c"
+  "task_sha": "37e4b7ddf4d6d0c3"
  }
 }

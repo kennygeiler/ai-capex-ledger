@@ -1,23 +1,63 @@
 {
  "accession": "APLD|earnings_release|2025-05-31|c94dfb20",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 7000000000,
+   "amount_high": 7000000000,
+   "quote": "These signed lease agreements are expected to generate approximately $7 billion in contracted revenue over the approximate 15-year lease terms.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "Cumulative contracted revenue from the 250 MW CoreWeave AI data center leases over about 15 years, not a single-year figure. Do not assign it to one fiscal year. The CoreWeave option for 150 MW more would add about $4 billion (total about $11 billion), but that lease is not yet signed, so it is not recorded."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 38000000,
+   "amount_high": 38000000,
+   "quote": "During the three months ended May 31, 2025, the Company generated $38.0 million in revenue from the Data Center Hosting Business segment, representing an increase of 41% compared to the $26.9 million during the three months ended May 31, 2024.",
+   "passage": "p08",
+   "confidence": 0.5,
+   "notes": "Covers fiscal Q4 2025 only (three months), not the full fiscal year. This is Data Center Hosting segment revenue. The passages do not say whether the hosted workloads are AI/HPC; the segment's existing facilities may serve non-AI hosting customers."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 144200000,
+   "amount_high": 144200000,
+   "quote": "Total revenues increased $7.6 million, or 6%, from $136.6 million for the fiscal year ended May 31, 2024 to $144.2 million for the fiscal year ended May 31, 2025 which was primarily due revenue increasing by $20.4 million due to our 180 MW Data Center Hosting Facility in Ellendale, ND operating at full capacity during the current year as opposed to the prior year when that facility experienced a power outage during the second half of fiscal year 2024.",
+   "passage": "p11",
+   "confidence": 0.8,
+   "notes": "Company total fiscal 2025 revenue. The growth is attributed to a data center hosting facility, which is not explicitly described as AI. This is not the AI part of revenue."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; passages describe lease revenue ($7 billion / $11 billion contracted), facility construction timelines, and project financing plans without stating any capital expenditure amount, share, or AI-linked spend; the $2.7 billion figure is a hypothetical customer cost saving, not company spend; p08 is forward-looking-statement boilerplate"
+   "reason": "no sentence states capital expenditures or links them to AI; construction of Polaris Forge 1 is described without amounts"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; cost of revenues is attributed only to data center hosting capacity"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 7.7,
-  "input_tokens": 6464,
-  "output_tokens": 412,
+  "seconds": 17.2,
+  "input_tokens": 7303,
+  "output_tokens": 2047,
   "attempts": 1,
-  "task_sha": "0b726f94a1ddfc2c"
+  "task_sha": "65132dbae9801cf1"
  }
 }

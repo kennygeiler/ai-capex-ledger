@@ -1,0 +1,27 @@
+{
+ "accession": "PWR|earnings_release|2025-09-30|78e34b7e",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in forward-looking-statement boilerplate (p01) and free cash flow definitions (p02, p03); no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p04 cites electricity demand driven by data centers only as context for a platform announcement, and p01 lists data center projects in safe-harbor boilerplate; no sentence states AI's or data centers' part of Quanta's revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.3,
+  "input_tokens": 7943,
+  "output_tokens": 353,
+  "attempts": 1,
+  "task_sha": "20655db4fb8330bc"
+ }
+}

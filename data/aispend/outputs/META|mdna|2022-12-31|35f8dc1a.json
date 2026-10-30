@@ -1,23 +1,27 @@
 {
  "accession": "META|mdna|2022-12-31|35f8dc1a",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the 2023 capex outlook of $30\u201333 billion (p11) and the data center and server investments (p02) are not attributed to AI"
+   "reason": "no sentence links capital expenditures to AI; 2022 net purchases of property and equipment ($31.19 billion, p13) and the 2023 capex outlook ($30\u201333 billion, p14) are tied to servers, data centers and network infrastructure, with no mention of AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; expense growth is attributed to data centers, servers, network infrastructure, headcount, and metaverse/RL efforts without mention of AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; expense growth is attributed to headcount, data centers, technical infrastructure and metaverse/RL investments, not AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.5,
-  "input_tokens": 6978,
-  "output_tokens": 268,
+  "seconds": 4.4,
+  "input_tokens": 7765,
+  "output_tokens": 360,
   "attempts": 1,
-  "task_sha": "c7fe30168b8536e7"
+  "task_sha": "efc30024e156864e"
  }
 }

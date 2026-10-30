@@ -1,23 +1,37 @@
 {
  "accession": "IBM|earnings_release|2024-09-30|fefe69e4",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3000000000,
+   "amount_high": 3000000000,
+   "quote": "Our generative AI book of business now stands at more than $3 billion, up more than $1 billion quarter to quarter",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "The filing says 'more than $3 billion', so this is a lower bound. 'Book of business' is IBM's cumulative inception-to-date measure (software transactional revenue, SaaS annual contract value and consulting signings). It is not revenue recognized in fiscal 2024, so do not treat it as annual AI revenue. No year is stated; it is a cumulative figure as of Q3 2024."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p01 only defines free cash flow, which deducts net capital expenditures"
+   "reason": "the only capital-expenditure mention is the boilerplate definition of free cash flow; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies operating expenses or attributes them to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.9,
-  "input_tokens": 4632,
-  "output_tokens": 165,
+  "seconds": 8.7,
+  "input_tokens": 5182,
+  "output_tokens": 896,
   "attempts": 1,
-  "task_sha": "eed922ec8f27d5e8"
+  "task_sha": "1d77836a565396c3"
  }
 }

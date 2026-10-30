@@ -1,0 +1,77 @@
+{
+ "accession": "MOD|earnings_release|2026-03-31|f9d20baf",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 400000000,
+   "amount_high": 400000000,
+   "quote": "Data Centers revenue exceeded $400 million in Q4, despite losing 20 shifts due to severe weather",
+   "passage": "p08",
+   "confidence": 0.8,
+   "notes": "Fourth quarter of fiscal 2026 only, not the full year. 'Exceeded $400 million' is a lower bound, recorded as $400 million. The quote is a slide bullet, not a full sentence."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase was driven by higher sales in the Climate Solutions segment, with particularly strong growth in sales of data center products, and $119.1 million in incremental sales from acquisitions.",
+   "passage": "p03",
+   "confidence": 0.9,
+   "notes": "Explains growth in total fiscal 2026 net sales ($3,181.1 million). Data center products are named as a driver but not quantified. The $119.1 million is acquisition sales, not data-center revenue."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Sales growth was driven by higher sales in the Climate Solutions segment, driven primarily by strong demand from data center customers and sales from acquired businesses.",
+   "passage": "p01",
+   "confidence": 0.85,
+   "notes": "Refers to Q4 fiscal 2026 total net sales ($954.4 million). Data center demand is named as a driver only."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Expecting Data Center sales to grow 60-80% this year including above market growth in North America",
+   "passage": "p11",
+   "confidence": 0.75,
+   "notes": "Data Centers revenue outlook for fiscal 2027, given as a growth rate (60-80%) rather than an amount or a share of revenue, so recorded as qualitative. The quote is a slide bullet; 'this year' is fiscal 2027 per the slide heading."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "This decrease was due to an increase in working capital and higher capital expenditures, both associated with the rapid growth of our Data Centers business.",
+   "passage": "p04",
+   "confidence": 0.6,
+   "notes": "Links higher fiscal 2026 capex to the Data Centers business, which means data-center cooling capacity, not AI specifically. No capex amount is stated. The fiscal 2027 capex estimate of $150-200 million (p12) is not tied to data centers in its sentence, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, SG&A or headcount spending to AI or data centers. The data-center capacity-expansion costs cited are cost of sales and gross margin items."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 24.4,
+  "input_tokens": 12105,
+  "output_tokens": 2968,
+  "attempts": 1,
+  "task_sha": "e4311e390fda3c10"
+ }
+}

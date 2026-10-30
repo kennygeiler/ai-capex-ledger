@@ -1,0 +1,27 @@
+{
+ "accession": "WDC|earnings_release|2026-10-02|de480de1",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "passages give only cash-flow table figures for purchases of property, plant and equipment; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; only a non-GAAP operating expense adjustment line in a table"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, data-center or cloud revenue; passages are cash-flow and non-GAAP reconciliation tables and a guidance disclaimer"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 6036,
+  "output_tokens": 239,
+  "attempts": 1,
+  "task_sha": "af2ae2d5f943248e"
+ }
+}

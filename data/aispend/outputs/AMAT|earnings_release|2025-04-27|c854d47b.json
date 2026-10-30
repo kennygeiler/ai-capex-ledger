@@ -1,0 +1,23 @@
+{
+ "accession": "AMAT|earnings_release|2025-04-27|c854d47b",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no passage in the text mentions AI next to spending"
+  },
+  {
+   "field": "opex",
+   "reason": "no passage in the text mentions AI next to spending"
+  }
+ ],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "1b5446cef7766b86"
+ }
+}

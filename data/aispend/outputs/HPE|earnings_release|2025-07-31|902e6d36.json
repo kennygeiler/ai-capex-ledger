@@ -1,0 +1,27 @@
+{
+ "accession": "HPE|earnings_release|2025-07-31|902e6d36",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p04 only defines free cash flow using net capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p02 mentions optimizing the cost structure without linking it to AI spend"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share; p01-p03 describe segment reorganization, strategic priorities and the AI-native networking portfolio only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 5316,
+  "output_tokens": 292,
+  "attempts": 1,
+  "task_sha": "ae501f0e8d0e155e"
+ }
+}

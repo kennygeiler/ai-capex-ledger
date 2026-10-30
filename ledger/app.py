@@ -31,6 +31,7 @@ from .extract import OUTPUTS
 from .evidence import load_all
 from .hq import snapshot
 from . import api, resolutions, views
+from .publish import NotPublishable
 from .release import RELEASES, releases
 from .review import decisions, latest, open_items
 from .rules import load as load_rules
@@ -524,6 +525,8 @@ class Handler(BaseHTTPRequestHandler):
             self._json({"error": str(e)}, HTTPStatus.SERVICE_UNAVAILABLE)
         except (KeyError, ValueError) as e:
             self._json({"error": str(e).strip("'")}, HTTPStatus.BAD_REQUEST)
+        except NotPublishable as e:  # ?release= on an unsigned release
+            self._json({"error": str(e)}, HTTPStatus.BAD_REQUEST)
 
     def do_GET(self):
         u = urlparse(self.path)

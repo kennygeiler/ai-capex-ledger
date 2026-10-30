@@ -1,0 +1,35 @@
+{
+ "accession": "EME|earnings_release|2024-09-30|01f10837",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our impressive execution and performance were driven by excellent field leadership and a commitment to continuous innovation, coupled with a favorable mix of work including data centers and semi-conductor plants, other high-tech and traditional manufacturing projects, and growing demand within the institutional, healthcare, and water and wastewater sectors.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Names data centers as one of several drivers of segment performance (record revenues and margins). It does not tie the data-center work specifically to revenue, gives no amount or share, and does not mention AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "purchases of property, plant, and equipment ($57.2 million) are reported with no link to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 5638,
+  "output_tokens": 698,
+  "attempts": 1,
+  "task_sha": "7680a25c870c6204"
+ }
+}

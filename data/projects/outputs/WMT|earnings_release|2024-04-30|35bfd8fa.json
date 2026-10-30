@@ -1,0 +1,13 @@
+{
+ "accession": "WMT|earnings_release|2024-04-30|35bfd8fa",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.5,
+  "input_tokens": 4519,
+  "output_tokens": 53,
+  "attempts": 1,
+  "task_sha": "9fe42d16c7b9fe81"
+ }
+}

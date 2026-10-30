@@ -1,0 +1,46 @@
+{
+ "accession": "IRM|mdna|2024-12-31|4f9b34bf",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "organic storage rental revenue growth driven by increased volume in faster growing markets and our Global Data Center Business segment and revenue management.",
+   "passage": "p09",
+   "confidence": 0.6,
+   "notes": "Total storage rental revenue growth attributed partly to the Global Data Center Business segment. No AI or data-center revenue figure is stated. The sentence is a bullet fragment under a 'STORAGE RENTAL REVENUE' heading and names no year; the context is the fiscal 2024 vs 2023 comparison."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u2022Our organic storage rental revenue growth is primarily driven by revenue management in our Global RIM Business segment, where we expect volume to be relatively stable in the near term, as well as by growth in our Global Data Center Business segment, primarily driven by lease commencements.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "General trend statement written in the present tense. Data center growth is cited as one driver of total storage rental revenue growth. No amount or share is given, and there is no explicit AI link."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "Total 2025 capex guidance of approximately $1,950.0 million (p11) is given, but no sentence links capital expenditures to AI or data-center buildout."
+  },
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies operating expenses for AI or attributes them to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.1,
+  "input_tokens": 7962,
+  "output_tokens": 1252,
+  "attempts": 1,
+  "task_sha": "bfa7efcb3de349d0"
+ }
+}

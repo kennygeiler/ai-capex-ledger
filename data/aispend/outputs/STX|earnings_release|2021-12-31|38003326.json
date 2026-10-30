@@ -1,0 +1,35 @@
+{
+ "accession": "STX|earnings_release|2021-12-31|38003326",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The calendar year was capped by strong December quarter performance including our highest revenue level in over 6-years, supported by cloud data center demand for our high capacity nearline products.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Total quarterly revenue (December quarter, Q2 of fiscal 2022) attributed in words to cloud data-center demand. No AI or data-center revenue amount or share is stated. The sentence names no fiscal year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.2,
+  "input_tokens": 4857,
+  "output_tokens": 595,
+  "attempts": 1,
+  "task_sha": "759fe0db82010668"
+ }
+}

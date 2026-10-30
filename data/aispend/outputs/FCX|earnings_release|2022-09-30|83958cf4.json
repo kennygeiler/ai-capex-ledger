@@ -1,0 +1,27 @@
+{
+ "accession": "FCX|earnings_release|2022-09-30|83958cf4",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "copper miner; capital expenditures are for mining projects and Indonesia smelter projects, and no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states revenue from AI or data-center demand; revenue is from copper, gold and molybdenum sales"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.1,
+  "input_tokens": 12830,
+  "output_tokens": 214,
+  "attempts": 1,
+  "task_sha": "7e5058adf6cd0bd2"
+ }
+}

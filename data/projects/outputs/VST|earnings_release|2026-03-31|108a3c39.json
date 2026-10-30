@@ -1,0 +1,42 @@
+{
+ "accession": "VST|earnings_release|2026-03-31|108a3c39",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Meta power purchase agreements",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Meta",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The ranges exclude any potential benefits from the pending acquisition of Cogentrix and the recently signed power purchase agreements with Meta, part of which are expected to begin contributing to our Adjusted EBITDA in 2027.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Cogentrix acquisition",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Cogentrix",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The ranges exclude any potential benefits from the pending acquisition of Cogentrix and the recently signed power purchase agreements with Meta, part of which are expected to begin contributing to our Adjusted EBITDA in 2027.",
+   "passage": "p02",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.0,
+  "input_tokens": 6121,
+  "output_tokens": 918,
+  "attempts": 1,
+  "task_sha": "12c8fddd65ec9a70"
+ }
+}

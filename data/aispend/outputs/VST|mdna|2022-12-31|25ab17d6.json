@@ -1,0 +1,27 @@
+{
+ "accession": "VST|mdna|2022-12-31|25ab17d6",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the 2023 capex estimate (p04) is not attributed to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "power generator; no sentence states revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.9,
+  "input_tokens": 5515,
+  "output_tokens": 184,
+  "attempts": 1,
+  "task_sha": "a52f5359d660db30"
+ }
+}

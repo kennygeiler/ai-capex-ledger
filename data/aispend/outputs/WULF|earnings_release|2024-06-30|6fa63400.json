@@ -1,6 +1,6 @@
 {
  "accession": "WULF|earnings_release|2024-06-30|6fa63400",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -9,9 +9,9 @@
    "scope": "ai",
    "class": "qualitative",
    "quote": "During the second quarter, the Company purchased a 128-GPU cluster from NVIDIA, financed by a leading OEM.",
-   "passage": "p02",
+   "passage": "p03",
    "confidence": 0.8,
-   "notes": "GPU cluster purchase for the HPC/AI project. No dollar amount is stated. The sentence names no year, so the default reported year applies. It is financed by an OEM, so whether it counts as capex is slightly ambiguous."
+   "notes": "The release reports a GPU purchase for the HPC/AI project but gives no dollar amount. It was OEM-financed, so it may not appear as cash capex. The sentence names no year, so code applies the filing year."
   },
   {
    "field": "capex",
@@ -20,9 +20,9 @@
    "scope": "ai",
    "class": "qualitative",
    "quote": "To support this project, the Company has upgraded the internet interconnection at the Lake Mariner Facility to meet the bandwidth requirements of AI, designed a closed- loop liquid cooling system, and ensured power supply redundancy for 100% reliability.",
-   "passage": "p02",
-   "confidence": 0.7,
-   "notes": "Infrastructure upgrades made for the AI/HPC project. No amount is stated. The sentence implies capital spend but does not say capital expenditures. '100%' refers to reliability, not a share of spend."
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "This describes AI-related infrastructure work with no amount. 'Designed' a cooling system may not be spend yet. The '100%' refers to reliability and is not a share of spend."
   },
   {
    "field": "capex",
@@ -31,23 +31,27 @@
    "scope": "ai",
    "class": "qualitative",
    "quote": "Reflects TeraWulf\u2019s 30% equity contribution for construction of CB-1, a liquid-cooled, redundant, and high- power density 20 MW (gross) HPC/AI infrastructure expected to be substantially complete by year-end.",
-   "passage": "p03",
+   "passage": "p04",
    "confidence": 0.6,
-   "notes": "Footnote to a cash bridge chart. The 30% is TeraWulf's equity share in the CB-1 joint venture, not a share of capex going to AI, so this is recorded as qualitative. No dollar amount appears in the sentence. 'By year-end' names no year."
+   "notes": "This is a slide footnote, not a full sentence with a subject. The 30% is TeraWulf's equity stake in the CB-1 joint venture, not AI's share of capex, so it is recorded as qualitative. The dollar figure appears only in the chart graphics and is not stated in the text. 'By year-end' is not a named year."
   }
  ],
  "none_found": [
   {
    "field": "opex",
    "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "revenue comes from bitcoin mining; no sentence states AI, HPC or data-center revenue. The revenue-per-MW figures on p05 are illustrative business-model ranges, not reported or guided company revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 22.3,
-  "input_tokens": 7905,
-  "output_tokens": 1531,
+  "seconds": 17.2,
+  "input_tokens": 9991,
+  "output_tokens": 1746,
   "attempts": 1,
-  "task_sha": "c3c7a21ca34a6d49"
+  "task_sha": "7d722e6ff6d6174c"
  }
 }

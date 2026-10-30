@@ -1,0 +1,53 @@
+{
+ "accession": "MARA|mdna|2025-12-31|5b315f60",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "While Bitcoin mining remains the foundation of our platform, we have expanded our footprint in energy generation and are investing in research and development to establish a presence in AI and adjacent markets, creating additional revenue opportunities over the long term.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "R&D spending is linked to AI 'and adjacent markets' in words only, with no amount. The sentence is present tense and names no year, so fiscal_year is null."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "To support this shift, we are developing inference-dedicated sites and forging partnerships that reflect our vision.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "Developing AI inference sites implies capital spending, but the sentence does not say 'capital expenditures' or give an amount. Confidence is low because this is an inference."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "During the third quarter of 2025, management committed to and initiated a restructuring plan in order to support data center initiatives and sovereign AI solutions, by reallocating our technology resources.",
+   "passage": "p04",
+   "confidence": 0.6,
+   "notes": "The restructuring is tied to AI and data center initiatives. The $23.8 million restructuring cost appears in the next sentence, which does not mention AI, so that amount is not attributed to AI (rule 4). Restructuring may also not count as AI operating spend."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; hosting services revenue ($4.7M) is Bitcoin miner hosting and is not linked to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.0,
+  "input_tokens": 5894,
+  "output_tokens": 1367,
+  "attempts": 1,
+  "task_sha": "68dc934c5a883846"
+ }
+}

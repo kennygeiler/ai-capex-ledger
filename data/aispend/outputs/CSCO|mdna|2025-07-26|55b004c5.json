@@ -1,7 +1,29 @@
 {
  "accession": "CSCO|mdna|2025-07-26|55b004c5",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The revenue increase in our service provider and cloud market was driven by AI infrastructure revenue from webscale customers.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Names AI infrastructure revenue as the driver of growth in one customer market (service provider and cloud). It gives no AI revenue figure or share of total revenue."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The growth in the service provider and cloud market was driven by AI infrastructure revenue from webscale customers.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Covers only the Americas segment's service provider and cloud market product revenue. It gives no AI revenue figure."
+  },
   {
    "field": "opex",
    "fiscal_year": null,
@@ -9,23 +31,23 @@
    "scope": "total",
    "class": "qualitative",
    "quote": "R&D expenses increased primarily due to higher headcount-related expenses reflecting our investments in AI, share-based compensation expense, cash compensation expenses from acquisitions, and discretionary spending.",
-   "passage": "p01",
-   "confidence": 0.8,
-   "notes": "Says the increase in total R&D expense was driven partly by AI-related headcount. AI is one of four listed drivers, and no AI amount or share is given. The sentence names no year, so fiscal_year is null and code will apply the reported year (fiscal 2025)."
+   "passage": "p03",
+   "confidence": 0.9,
+   "notes": "Names AI investment as one of several drivers of the R&D expense increase. It gives no AI amount or share."
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p02 mentions capital expenditures only in generic liquidity boilerplate"
+   "reason": "no sentence links capital expenditures to AI; capex is mentioned only as a general liquidity requirement in p04"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.5,
-  "input_tokens": 4733,
-  "output_tokens": 500,
+  "seconds": 8.2,
+  "input_tokens": 5433,
+  "output_tokens": 855,
   "attempts": 1,
-  "task_sha": "bc6be8009a2ccb84"
+  "task_sha": "147a092ccacb541c"
  }
 }

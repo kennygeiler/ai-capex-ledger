@@ -1,0 +1,30 @@
+{
+ "accession": "CORZ|earnings_release|2025-06-30|55e654d7",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Denton, Texas colocation data center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Denton, Texas",
+   "counterparty": null,
+   "amount_low": null,
+   "amount_high": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "The increase was due to the expansion of colocation operations into Denton, Texas during the second quarter of 2025.",
+   "passage": "p01",
+   "confidence": 0.75
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.5,
+  "input_tokens": 7222,
+  "output_tokens": 661,
+  "attempts": 1,
+  "task_sha": "b6bf4226234c7cb4"
+ }
+}

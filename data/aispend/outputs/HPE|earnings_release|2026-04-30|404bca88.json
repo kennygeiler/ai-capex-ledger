@@ -1,0 +1,27 @@
+{
+ "accession": "HPE|earnings_release|2026-04-30|404bca88",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in the free cash flow definition (p01, p07); no sentence links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI; p02 mentions AI and R&D only in forward-looking-statement boilerplate"
+  },
+  {
+   "field": "revenue",
+   "reason": "AI or data-center revenue appears only in segment tables, not in quotable sentences. The 'Cloud & AI' segment (p03-p05) combines Server, Storage, Financial Services and Other, so its revenue is not AI revenue. 'Data Center Networking' revenue of $764M for the six months ended April 30, 2026 (p05) is a table row, not a sentence, and covers a partial year. No sentence states AI's share or amount of revenue."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.7,
+  "input_tokens": 7789,
+  "output_tokens": 641,
+  "attempts": 1,
+  "task_sha": "a57445bd64e0ffff"
+ }
+}

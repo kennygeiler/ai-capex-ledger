@@ -1,0 +1,27 @@
+{
+ "accession": "EQIX|earnings_release|2024-03-31|8fcbf013",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure guidance (total $2.780\u2013$3.030 billion for 2024; recurring and non-recurring/xScale ranges) is given, but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the CEO's AI remark (p01) describes AI as a catalyst creating 'immense potential' but does not attribute any revenue to AI. The hyperscaler figure of more than $1.3 billion in annualized retail revenue (p02) is customer-segment revenue, not AI revenue. No sentence states AI's part of revenue."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.7,
+  "input_tokens": 8428,
+  "output_tokens": 639,
+  "attempts": 1,
+  "task_sha": "a44f54386183584b"
+ }
+}

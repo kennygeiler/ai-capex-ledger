@@ -1,6 +1,6 @@
 {
  "accession": "0001083301-26-000031",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -12,19 +12,7 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 151556000,
-   "confidence": 0.9
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Digital asset revenue",
-   "table_id": "t0012",
-   "row_label": "Digital asset revenue",
-   "column_label": "Year Ended December 31, | 2024",
-   "cell_text": "140,051",
-   "period_end": "2024-12-31",
-   "months": 12,
-   "value": 140051000,
-   "confidence": 0.9
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -36,7 +24,19 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 16899000,
-   "confidence": 0.9
+   "confidence": 0.8
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital asset revenue",
+   "table_id": "t0012",
+   "row_label": "Digital asset revenue",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "140,051",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 140051000,
+   "confidence": 0.8
   },
   {
    "field": "ppe_category",
@@ -180,51 +180,30 @@
    "period_end": "2024-12-31",
    "months": 0,
    "value": 53913000,
-   "confidence": 0.9
-  },
-  {
-   "field": "finance_lease_liability",
-   "dimension": null,
-   "table_id": "t0019",
-   "row_label": "Finance lease liability, net of current portion",
-   "column_label": "December 31, 2025",
-   "cell_text": "289",
-   "period_end": "2025-12-31",
-   "months": 0,
-   "value": 289000,
-   "confidence": 0.7,
-   "notes": "No total finance lease liability line; cited the non-current portion. The current portion (2 thousand, same table) brings the total to 291,000."
-  },
-  {
-   "field": "finance_lease_liability",
-   "dimension": null,
-   "table_id": "t0019",
-   "row_label": "Finance lease liability, net of current portion",
-   "column_label": "December 31, 2024",
-   "cell_text": "292",
-   "period_end": "2024-12-31",
-   "months": 0,
-   "value": 292000,
-   "confidence": 0.7,
-   "notes": "No total finance lease liability line; cited the non-current portion. The current portion (2 thousand, same table) brings the total to 294,000."
+   "confidence": 1.0
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "The company reports a single reportable segment (t0058 shows one 'Reportable segment profit' line), and no per-segment capital expenditures are given."
+   "reason": "the company has a single reportable segment; the segment note reports segment profit only and no capital expenditures"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no total finance lease liabilities line is given; the balance sheet (t0019) shows only 'Current portion of finance lease liability' (2 and 2) and 'Finance lease liability, net of current portion' (289 and 292), which require current/non-current dimensions that the schema rejects for this field, and cells may not be added"
   },
   {
    "field": "purchase_commitments",
-   "reason": "No contractual-obligations or purchase-commitments table is among the provided tables."
+   "reason": "no contractual-obligations or commitments table with total purchase obligations is included in the tables provided"
   }
  ],
+ "notes": "segment_revenue is taken from the revenue-by-type table t0012 (digital asset vs. HPC lease revenue) since the company reports one segment; confidence 0.8 because these are revenue streams, not reportable segments. HPC lease revenue for 2024 is '\u2014' and is omitted. t0040 (leased property, plant and equipment) is excluded from ppe_category to avoid duplicating the gross PP&E categories in t0034.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 43.4,
-  "input_tokens": 14332,
-  "output_tokens": 5978,
+  "seconds": 43.1,
+  "input_tokens": 14491,
+  "output_tokens": 5819,
   "attempts": 2,
-  "task_sha": "532bf6139658e8fd"
+  "task_sha": "58f238837039e5e0"
  }
 }

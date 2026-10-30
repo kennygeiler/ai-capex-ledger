@@ -1,6 +1,6 @@
 {
  "accession": "0000723125-23-000054",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -12,7 +12,7 @@
    "period_end": "2023-08-31",
    "months": 12,
    "value": 5710000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -24,7 +24,7 @@
    "period_end": "2022-09-01",
    "months": 12,
    "value": 13693000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -36,7 +36,7 @@
    "period_end": "2021-09-02",
    "months": 12,
    "value": 12280000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -48,7 +48,7 @@
    "period_end": "2023-08-31",
    "months": 12,
    "value": 3630000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -60,7 +60,7 @@
    "period_end": "2022-09-01",
    "months": 12,
    "value": 7260000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -72,7 +72,7 @@
    "period_end": "2021-09-02",
    "months": 12,
    "value": 7203000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -84,7 +84,7 @@
    "period_end": "2023-08-31",
    "months": 12,
    "value": 3637000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -96,7 +96,7 @@
    "period_end": "2022-09-01",
    "months": 12,
    "value": 5235000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -108,7 +108,7 @@
    "period_end": "2021-09-02",
    "months": 12,
    "value": 4209000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -120,7 +120,7 @@
    "period_end": "2023-08-31",
    "months": 12,
    "value": 2553000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -132,7 +132,7 @@
    "period_end": "2022-09-01",
    "months": 12,
    "value": 4553000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -144,43 +144,7 @@
    "period_end": "2021-09-02",
    "months": 12,
    "value": 3973000000,
-   "confidence": 0.95
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "All Other",
-   "table_id": "t0057",
-   "row_label": "All Other",
-   "column_label": "2023",
-   "cell_text": "10",
-   "period_end": "2023-08-31",
-   "months": 12,
-   "value": 10000000,
-   "confidence": 0.7
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "All Other",
-   "table_id": "t0057",
-   "row_label": "All Other",
-   "column_label": "2022",
-   "cell_text": "17",
-   "period_end": "2022-09-01",
-   "months": 12,
-   "value": 17000000,
-   "confidence": 0.7
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "All Other",
-   "table_id": "t0057",
-   "row_label": "All Other",
-   "column_label": "2021",
-   "cell_text": "40",
-   "period_end": "2021-09-02",
-   "months": 12,
-   "value": 40000000,
-   "confidence": 0.7
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -306,24 +270,23 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment table (t0057) reports revenue and operating income by business unit only; no capital expenditures per segment"
+   "reason": "the segment table (t0057) reports revenue and operating income by business unit only; no capital expenditures per segment are given"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "lease tables show finance lease cash flows, ROU assets, terms and discount rates, and current operating lease liabilities only; no finance lease liability balance"
+   "reason": "the lease tables give finance lease right-of-use assets, cash flows, terms and rates, and only current operating lease liabilities; no finance lease liability line appears"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or commitments table is included among the tables provided"
+   "reason": "no contractual-obligations or commitments table is included among the provided tables"
   }
  ],
- "notes": "Units taken as millions per the unit line. Revenue rows in t0057 are the first CNBU/MBU/EBU/SBU/All Other block (above the 15,540 / 30,758 / 27,705 total matching consolidated revenue in t0011); the second block with the same labels is operating income and was not used. 'All Other' is not a reportable segment but is reported as its own revenue line, included at confidence 0.7. Fiscal 2021 year-end taken as 2021-09-02 (Micron's fiscal year ends on the Thursday closest to August 31; consistent with 2022-09-01 and 2023-08-31).",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 24.5,
-  "input_tokens": 6500,
-  "output_tokens": 3645,
+  "seconds": 20.3,
+  "input_tokens": 7331,
+  "output_tokens": 3018,
   "attempts": 1,
-  "task_sha": "801d437a744a5f9b"
+  "task_sha": "a447a68ebd0ce2f2"
  }
 }

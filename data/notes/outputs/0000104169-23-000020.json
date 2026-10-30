@@ -1,6 +1,6 @@
 {
  "accession": "0000104169-23-000020",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_capex",
@@ -228,7 +228,7 @@
    "period_end": "2023-01-31",
    "months": 0,
    "value": 19317000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -240,7 +240,7 @@
    "period_end": "2023-01-31",
    "months": 0,
    "value": 104554000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -252,7 +252,7 @@
    "period_end": "2023-01-31",
    "months": 0,
    "value": 65235000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -264,7 +264,7 @@
    "period_end": "2023-01-31",
    "months": 0,
    "value": 2462000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -276,7 +276,7 @@
    "period_end": "2023-01-31",
    "months": 0,
    "value": 10802000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -339,23 +339,22 @@
    "confidence": 1.0
   }
  ],
- "notes": "segment_capex/segment_revenue: 'Corporate and support' is not a reportable segment and the 'Consolidated' column is the total, so both are skipped. t0083 repeats the same row labels for each fiscal year; the period comes from the 'Fiscal Year Ended January 31, \u2026' section header above each block. ppe_category 2023 column: the parsed header reads 'Estimated Useful Lives | 2023' (a header-merge artifact); the values are the January 31, 2023 balances, hence confidence 0.95.",
  "not_found": [
   {
    "field": "finance_lease_liability",
-   "reason": "No table has a single total finance lease liabilities cell. Balance sheet t0051 shows only the components: 'Finance lease obligations due within one year' (567 for 2023, 511 for 2022) and 'Long-term finance lease obligations' (4,843 for 2023, 4,243 for 2022). These sum to $5,410M and $4,754M, but no one cell can be cited for the total."
+   "reason": "No total finance lease liabilities line in the tables; only 'Finance lease obligations due within one year' (567 / 511) and 'Long-term finance lease obligations' (4,843 / 4,243) in t0051. The prompt says to cite these with dimension 'current' / 'non-current', but the validator rejects any dimension on finance_lease_liability, and citing both with a null dimension would put two cells on one dimension, so no value is cited. The prompt and the schema conflict here."
   },
   {
    "field": "purchase_commitments",
-   "reason": "None of the tables provided contain a contractual-obligations or purchase-commitments table."
+   "reason": "No contractual-obligations or purchase-commitments table is among the tables provided."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 61.4,
-  "input_tokens": 18643,
-  "output_tokens": 9297,
+  "seconds": 64.3,
+  "input_tokens": 18781,
+  "output_tokens": 8906,
   "attempts": 2,
-  "task_sha": "492d222f712d0071"
+  "task_sha": "97959232f1c63079"
  }
 }

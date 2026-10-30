@@ -1,0 +1,28 @@
+{
+ "accession": "FN|mdna|2023-06-30|fe7d3973",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Chonburi campus new manufacturing building",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Chonburi",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-07",
+   "quote": "The increase was primarily due to (1) lower interest expense capitalized of $0.9 million following the completion of a new manufacturing building at our Chonburi campus in July 2022, and (2) lower amortization of the fair value of interest rate swaps of $0.3 million during fiscal year 2023; offset by lower interest expense due to a decrease in the amount of outstanding long-term loans.",
+   "passage": "p02",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.8,
+  "input_tokens": 5059,
+  "output_tokens": 556,
+  "attempts": 1,
+  "task_sha": "0d89693a8990bcd3"
+ }
+}

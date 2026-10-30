@@ -1,0 +1,37 @@
+{
+ "accession": "HUT|earnings_release|2024-09-30|20b3b3bf",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3400000,
+   "amount_high": 3400000,
+   "quote": "Revenue for the three months ended September 30, 2024 was $43.7 million compared to $21.7 million in the prior year period, and consisted of $11.6 million in Digital Asset Mining revenue, $20.8 million in Managed Services revenue, $3.4 million in High Performance Computing \u2013 Colocation and Cloud revenue, and $7.9 million in Other revenue.",
+   "passage": "p04",
+   "confidence": 0.7,
+   "notes": "Figure covers only Q3 2024 (three months ended September 30, 2024), not the full fiscal year. The High Performance Computing \u2013 Colocation and Cloud segment is treated here as data-center/AI revenue. GPU-as-a-Service revenue is separately folded into 'Other' and is not broken out."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, headcount or other operating expenses to AI; the $2.6 million Q3 cost of revenue for High Performance Computing \u2013 Colocation and Cloud is cost of revenue, not operating expense"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.6,
+  "input_tokens": 7998,
+  "output_tokens": 1128,
+  "attempts": 1,
+  "task_sha": "675608ca4658cb20"
+ }
+}

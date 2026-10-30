@@ -1,0 +1,27 @@
+{
+ "accession": "CLSK|mdna|2024-09-30|7d8d1ab0",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are mentioned only as a general liquidity need (p03); no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only data-center revenue ($287, likely in thousands, unit not stated in the passage) is for fiscal 2023, a prior-year comparison and not the reported fiscal year. It is hosting revenue from operations that ceased September 30, 2023 when capacity was diverted to bitcoin mining. No data-center or AI revenue is stated for fiscal 2024 or any outlook year."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.1,
+  "input_tokens": 5080,
+  "output_tokens": 566,
+  "attempts": 1,
+  "task_sha": "e52b667e66a72a00"
+ }
+}

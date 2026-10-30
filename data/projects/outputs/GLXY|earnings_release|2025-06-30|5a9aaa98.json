@@ -1,0 +1,98 @@
+{
+ "accession": "GLXY|earnings_release|2025-06-30|5a9aaa98",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Helios data center campus",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Dickens County, TX",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 800,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Construction at the Helios campus is progressing on schedule, with major interior demolition for Phase I complete and site work underway to install key electrical, mechanical, and backup power infrastructure.",
+   "passage": "p05",
+   "confidence": 0.9
+  },
+  {
+   "name": "Helios CoreWeave lease (526 MW critical IT, three phases)",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Dickens County, TX",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 526,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "CoreWeave, as our anchor tenant, has committed to a total of 526 MW of critical IT capacity for a period of 15 years, generating an anticipated average annual revenue of over $1B for the combined three phases.",
+   "passage": "p15",
+   "confidence": 0.85
+  },
+  {
+   "name": "Helios Phase I",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Dickens County, TX",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 133,
+   "gpus": null,
+   "announced": "2025-03-28",
+   "in_service": "2026",
+   "quote": "This additional capacity would be structured on terms similar to those outlined in the previously announced 15-year, 133 MW lease agreement from March 28, 2025.",
+   "passage": "p05",
+   "confidence": 0.85
+  },
+  {
+   "name": "Helios Phase II",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Dickens County, TX",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 260,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2027",
+   "quote": "Will be completed in phases, with the full capacity for Phase I expected to be delivered by the end of the first half of 2026, Phase II throughout 2027, and Phase III starting in 2028.",
+   "passage": "p15",
+   "confidence": 0.7
+  },
+  {
+   "name": "Helios Phase III",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Dickens County, TX",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 133,
+   "gpus": null,
+   "announced": "2025",
+   "in_service": "2028",
+   "quote": "In the third quarter, CoreWeave exercised its final option to access an additional 133 MW of incremental critical IT load for its AI and HPC operations at Galaxy's Helios data center campus.",
+   "passage": "p05",
+   "confidence": 0.8
+  },
+  {
+   "name": "Helios campus land and 1 GW interconnection acquisition",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "adjacent to the Helios campus",
+   "counterparty": null,
+   "capacity_mw": 1000,
+   "gpus": null,
+   "announced": "2025",
+   "in_service": null,
+   "quote": "Also in the third quarter, Galaxy entered into a definitive purchase and sale agreement to acquire 160 acres of land and a 1 GW load interconnection request adjacent to the Helios campus.",
+   "passage": "p05",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 21.5,
+  "input_tokens": 10627,
+  "output_tokens": 2351,
+  "attempts": 1,
+  "task_sha": "438c0ce2775fd9ec"
+ }
+}

@@ -1,0 +1,353 @@
+{
+ "accession": "0001543151-25-000008",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Mobility",
+   "table_id": "t0021",
+   "row_label": "Mobility",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "19,832",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 19832000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Mobility",
+   "table_id": "t0021",
+   "row_label": "Mobility",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "25,087",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 25087000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Delivery",
+   "table_id": "t0021",
+   "row_label": "Delivery",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "12,204",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 12204000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Delivery",
+   "table_id": "t0021",
+   "row_label": "Delivery",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "13,750",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 13750000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Freight",
+   "table_id": "t0021",
+   "row_label": "Freight",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "5,245",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 5245000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Freight",
+   "table_id": "t0021",
+   "row_label": "Freight",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "5,141",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 5141000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Mobility",
+   "table_id": "t0082",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, 2022 | Mobility",
+   "cell_text": "14,029",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 14029000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Delivery",
+   "table_id": "t0082",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, 2022 | Delivery",
+   "cell_text": "10,901",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 10901000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Freight",
+   "table_id": "t0082",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, 2022 | Freight",
+   "cell_text": "6,947",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 6947000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0048",
+   "row_label": "Land",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "65",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 65000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0048",
+   "row_label": "Land",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "65",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 65000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building and site improvements",
+   "table_id": "t0048",
+   "row_label": "Building and site improvements",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "739",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 739000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building and site improvements",
+   "table_id": "t0048",
+   "row_label": "Building and site improvements",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "739",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 739000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0048",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "658",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 658000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0048",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "670",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 670000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment",
+   "table_id": "t0048",
+   "row_label": "Computer equipment",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "542",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 542000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment",
+   "table_id": "t0048",
+   "row_label": "Computer equipment",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "436",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 436000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leased computer equipment",
+   "table_id": "t0048",
+   "row_label": "Leased computer equipment",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "683",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 683000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leased computer equipment",
+   "table_id": "t0048",
+   "row_label": "Leased computer equipment",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "641",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 641000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Motor vehicles and other equipment",
+   "table_id": "t0048",
+   "row_label": "Motor vehicles and other equipment",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "2",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 2000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Motor vehicles and other equipment",
+   "table_id": "t0048",
+   "row_label": "Motor vehicles and other equipment",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "51",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 51000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Internal-use software",
+   "table_id": "t0048",
+   "row_label": "Internal-use software",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "488",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 488000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Internal-use software",
+   "table_id": "t0048",
+   "row_label": "Internal-use software",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "650",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 650000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0048",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "94",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 94000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0048",
+   "row_label": "Furniture and fixtures",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "80",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 80000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0048",
+   "row_label": "Construction in progress",
+   "column_label": "As of December 31, | 2023",
+   "cell_text": "203",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 203000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0048",
+   "row_label": "Construction in progress",
+   "column_label": "As of December 31, | 2024",
+   "cell_text": "218",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 218000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment tables provided report revenue, direct costs and Segment Adjusted EBITDA only; no capital expenditures by segment"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no balance-sheet finance lease liability table is provided; the 'Finance lease liabilities' rows in t0036/t0050 are non-cash ROU assets obtained in exchange for new lease obligations during the year, not year-end balances"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included in the provided tables"
+  }
+ ],
+ "notes": "2022 segment revenue taken from the 'Revenue' row of segment table t0082, whose columns are fiscal year 2022 by segment; confidence 0.95 because the row label is generic and the segment comes from the column. The % change column in t0021 was skipped.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 30.9,
+  "input_tokens": 7904,
+  "output_tokens": 3720,
+  "attempts": 1,
+  "task_sha": "f75036785cb991b4"
+ }
+}

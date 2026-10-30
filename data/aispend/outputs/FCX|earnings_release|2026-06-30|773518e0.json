@@ -1,0 +1,27 @@
+{
+ "accession": "FCX|earnings_release|2026-06-30|773518e0",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures ($4.4 billion expected for 2026, including $3.0 billion for major mining projects) are tied to mining projects such as Grasberg underground development and El Abra leaching; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the cost commentary covers energy, sulfuric acid and inflation"
+  },
+  {
+   "field": "revenue",
+   "reason": "a copper, gold and molybdenum producer; p07 lists AI/data centers only as one driver of global copper demand in general and does not state any AI or data-center part of FCX revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.8,
+  "input_tokens": 12302,
+  "output_tokens": 439,
+  "attempts": 1,
+  "task_sha": "15b2dfbeef076f0f"
+ }
+}

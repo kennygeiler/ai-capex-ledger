@@ -1,0 +1,35 @@
+{
+ "accession": "FN|earnings_release|2024-12-27|fc3206d0",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our telecom performance was very strong and benefited from both increasing demand for datacenter interconnect products as well as early progress from recent systems wins.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Links telecom segment revenue (not total company revenue) to data-center interconnect demand in words only; datacenter interconnect is a telecom product line rather than explicitly AI or data-center revenue, and the quarter (Q2 fiscal 2025) is named without a year in the sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in the free cash flow definition and the cash flow statement (purchase of property, plant and equipment of $42.2 million for six months); no sentence links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.7,
+  "input_tokens": 5952,
+  "output_tokens": 694,
+  "attempts": 1,
+  "task_sha": "852a646612249916"
+ }
+}

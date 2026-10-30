@@ -1,40 +1,51 @@
 {
  "ticker": "ANET",
- "prompt_version": "attribution@v1",
- "model": "component_supplier@v1",
+ "prompt_version": "attribution@v2",
+ "model": "component_supplier@v3",
  "rows": [
   {
-   "field": "capex",
-   "period": "FY2022",
+   "field": "revenue",
+   "period": "FY2025",
    "kind": "actual",
-   "method": "none",
+   "method": "qualitative",
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "Under component_supplier@v1, Arista's own capex is small and not AI-driven; no statement in the pack attributes any of the 44.6M capex to AI. No data-center or segment revenue fact is in the pack to record as a seller-side signal; total revenue was 4.38B.",
-   "confidence": 0.8
+   "basis": "The earnings release says Arista 'exceeded both our AI networking and campus expansion goals' on revenue of $9 billion. The $9 billion is total revenue, not the AI part. The pack's 65% 'Core' share is a product category, not AI, so it is not used. The call's $3.25bn 2026 AI networking goal and the 48% cloud-and-AI-titans mix are not in the pack and are not revenue.",
+   "confidence": 0.3
   },
   {
-   "field": "capex",
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A says 'the focus on deployment of AI enabled solutions has driven increased demand for networking' and gives no amount. The 65% Core / 18% Cognitive Adjacencies / 17% software split is by product category, not an AI share.",
+   "confidence": 0.25
+  },
+  {
+   "field": "revenue",
    "period": "FY2023",
    "kind": "actual",
    "method": "none",
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "Under component_supplier@v1, Arista's own capex is small and not AI-driven; no statement in the pack attributes any of the 34.4M capex to AI. No segment revenue fact in the pack; total revenue was 5.86B.",
-   "confidence": 0.8
+   "basis": "No statement in the pack links FY2023 revenue to AI, and Arista has no AI segment.",
+   "confidence": 0.0
   },
   {
-   "field": "capex",
-   "period": "FY2024",
+   "field": "revenue",
+   "period": "FY2022",
    "kind": "actual",
    "method": "none",
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "Under component_supplier@v1, Arista's own capex is small and not AI-driven; no statement in the pack attributes any of the 32.0M capex to AI. No segment revenue fact in the pack; total revenue was 7.00B.",
-   "confidence": 0.8
+   "basis": "No statement in the pack links FY2022 revenue to AI, and Arista has no AI segment.",
+   "confidence": 0.0
   },
   {
    "field": "capex",
@@ -44,41 +55,41 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "Capex rose to 119.5M, mostly construction-in-process (8.2M to 107.9M gross), but nothing in the pack says what is being built or ties it to AI, so none is attributed. No segment revenue fact in the pack; total revenue was 9.01B.",
-   "confidence": 0.7
+   "basis": "The thesis sets Arista capex to none because it is small and not AI. Capex was $119.5m, mostly construction-in-process (up from $8.2m to $107.9m), and no statement ties it to AI. The seller-side signal is the AI networking goal Arista says it exceeded.",
+   "confidence": 0.0
   },
   {
-   "field": "opex",
-   "period": "FY2022",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "No segment cost line and no company statement in the pack attributes any of the 1.149B opex to AI.",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
-   "period": "FY2023",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "No segment cost line and no company statement in the pack attributes any of the 1.373B opex to AI.",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
+   "field": "capex",
    "period": "FY2024",
    "kind": "actual",
    "method": "none",
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "No segment cost line and no company statement in the pack attributes any of the 1.547B opex to AI.",
-   "confidence": 0.8
+   "basis": "The thesis sets Arista capex to none. Capex was $32.0m, and no statement ties it to AI.",
+   "confidence": 0.0
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The thesis sets Arista capex to none. Capex was $34.4m, and no statement ties it to AI.",
+   "confidence": 0.0
+  },
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The thesis sets Arista capex to none. Capex was $44.6m, and no statement ties it to AI.",
+   "confidence": 0.0
   },
   {
    "field": "opex",
@@ -88,68 +99,105 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "No segment cost line and no company statement in the pack attributes any of the 1.913B opex to AI.",
-   "confidence": 0.8
+   "basis": "No statement in the pack attributes any FY2025 operating expense ($1.91bn) to AI.",
+   "confidence": 0.0
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement in the pack attributes any FY2024 operating expense ($1.55bn) to AI.",
+   "confidence": 0.0
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement in the pack attributes any FY2023 operating expense to AI.",
+   "confidence": 0.0
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No statement in the pack attributes any FY2022 operating expense to AI.",
+   "confidence": 0.0
   }
  ],
  "none_found": [
   {
    "field": "capex",
    "period": "FY2022",
-   "reason": "model assigns none to Arista capex; no AI statement in the pack"
+   "reason": "Arista capex is small and not AI per the thesis, and no statement ties it to AI."
   },
   {
    "field": "capex",
    "period": "FY2023",
-   "reason": "model assigns none to Arista capex; no AI statement in the pack"
+   "reason": "Arista capex is small and not AI per the thesis, and no statement ties it to AI."
   },
   {
    "field": "capex",
    "period": "FY2024",
-   "reason": "model assigns none to Arista capex; no AI statement in the pack"
+   "reason": "Arista capex is small and not AI per the thesis, and no statement ties it to AI."
   },
   {
    "field": "capex",
    "period": "FY2025",
-   "reason": "model assigns none to Arista capex; construction-in-process jump is unexplained in the pack and not tied to AI"
+   "reason": "The construction-in-process jump has no stated AI purpose, and the thesis sets Arista capex to none."
   },
   {
    "field": "opex",
    "period": "FY2022",
-   "reason": "no segment cost line and no statement attributes opex to AI"
+   "reason": "There is no segment cost line and no statement attributing opex to AI."
   },
   {
    "field": "opex",
    "period": "FY2023",
-   "reason": "no segment cost line and no statement attributes opex to AI"
+   "reason": "There is no segment cost line and no statement attributing opex to AI."
   },
   {
    "field": "opex",
    "period": "FY2024",
-   "reason": "no segment cost line and no statement attributes opex to AI"
+   "reason": "There is no segment cost line and no statement attributing opex to AI."
   },
   {
    "field": "opex",
    "period": "FY2025",
-   "reason": "no segment cost line and no statement attributes opex to AI"
+   "reason": "There is no segment cost line and no statement attributing opex to AI."
   },
   {
-   "field": "capex",
-   "period": "outlook",
-   "reason": "no outlook statements in the pack"
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "There is no AI segment, no stated AI amount or share, and no AI statement in the pack."
   },
   {
-   "field": "opex",
-   "period": "outlook",
-   "reason": "no outlook statements in the pack"
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "There is no AI segment, no stated AI amount or share, and no AI statement in the pack."
+  },
+  {
+   "field": "revenue",
+   "reason": "Arista states no AI revenue amount or share. The 0.65 'share' statements are the Core product category, mislabeled as AI scope, and the 2026 $3.25bn AI networking figure is a goal from the call, not in the pack."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 14.3,
-  "input_tokens": 6441,
-  "output_tokens": 1819,
+  "seconds": 20.9,
+  "input_tokens": 17079,
+  "output_tokens": 2721,
   "attempts": 1,
-  "task_sha": "9c84a2a916110244"
+  "task_sha": "7ff937d99b431457"
  }
 }

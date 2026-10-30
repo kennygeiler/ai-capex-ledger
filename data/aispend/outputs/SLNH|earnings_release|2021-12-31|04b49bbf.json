@@ -1,0 +1,27 @@
+{
+ "accession": "SLNH|earnings_release|2021-12-31|04b49bbf",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capital expenditure figures (budget revised from about $300 million to $230-$250 million) are tied to the crypto ecosystem and equipment prices, not to AI; the AI mention in p01 is a boilerplate description of the company's data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states revenue from AI or data-center demand; p01 only describes what the company builds and sells"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.1,
+  "input_tokens": 5170,
+  "output_tokens": 362,
+  "attempts": 1,
+  "task_sha": "c92438a691315264"
+ }
+}

@@ -1,6 +1,6 @@
 {
  "accession": "WULF|earnings_release|2022-12-31|471980db",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "ca83c2bdc77b6ba7"
+  "task_sha": "bb6a6c78ce27c6d8"
  }
 }

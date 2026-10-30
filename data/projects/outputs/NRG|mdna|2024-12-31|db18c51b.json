@@ -1,0 +1,56 @@
+{
+ "accession": "NRG|mdna|2024-12-31|db18c51b",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "GE Vernova and TIC Project Development Agreement gas-fired combined cycle generation projects",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "GE Vernova; TIC (Kiewit subsidiary)",
+   "capacity_mw": 5400,
+   "gpus": null,
+   "announced": "2025-02-13",
+   "in_service": "2029",
+   "quote": "On February 13, 2025, NRG signed a strategic Project Development Agreement with GE Vernova (\u201cGEV\u201d) and Kiewit\u2019s subsidiary, TIC, to develop and construct up to 5.4 GW of new gas-fired, combined cycle generation projects.",
+   "passage": "p08",
+   "confidence": 0.85
+  },
+  {
+   "name": "GEV slot reservation agreement for 7HA gas turbines",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "GE Vernova",
+   "capacity_mw": 1200,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Additionally, NRG has entered into a slot reservation agreement with GEV for the procurement of 1.2 GW of 7HA gas turbines.",
+   "passage": "p08",
+   "confidence": 0.75
+  },
+  {
+   "name": "Renew Home VPP portfolio",
+   "kind": "power",
+   "status": "announced",
+   "location": null,
+   "counterparty": "Renew Home",
+   "capacity_mw": 1000,
+   "gpus": null,
+   "announced": "2024",
+   "in_service": null,
+   "quote": "Leveraging Google Cloud\u2019s AI and cloud platforms, NRG and Renew Home plan to develop a VPP portfolio of up to 1 GW of load management capacity, with instantaneous dispatch value during peak events and tight supply conditions.",
+   "passage": "p06",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.1,
+  "input_tokens": 8029,
+  "output_tokens": 1280,
+  "attempts": 1,
+  "task_sha": "d716538a397ea7cb"
+ }
+}

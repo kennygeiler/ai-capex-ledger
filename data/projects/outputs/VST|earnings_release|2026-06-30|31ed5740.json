@@ -1,0 +1,58 @@
+{
+ "accession": "VST|earnings_release|2026-06-30|31ed5740",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Helix Digital Infrastructure",
+   "kind": "other",
+   "status": "announced",
+   "location": null,
+   "counterparty": "KKR, KIA, and NVIDIA",
+   "amount_low": 1000000000,
+   "amount_high": 1000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Announced Helix Digital Infrastructure alongside KKR, KIA, and NVIDIA with an initial commitment from Vistra of up to $1.0 billion.",
+   "passage": "p01",
+   "confidence": 0.8
+  },
+  {
+   "name": "Meta power purchase agreements",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Meta",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The ranges exclude any potential benefits from the pending acquisition of Cogentrix and the signed power purchase agreements with Meta, part of which are expected to contribute to our Adjusted EBITDA in 2027.",
+   "passage": "p03",
+   "confidence": 0.85
+  },
+  {
+   "name": "Cogentrix acquisition",
+   "kind": "power",
+   "status": "announced",
+   "location": null,
+   "counterparty": "Cogentrix",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The ranges exclude any potential benefits from the pending acquisition of Cogentrix and the signed power purchase agreements with Meta, part of which are expected to contribute to our Adjusted EBITDA in 2027.",
+   "passage": "p03",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.5,
+  "input_tokens": 6338,
+  "output_tokens": 1209,
+  "attempts": 1,
+  "task_sha": "2df3cb08abd6e424"
+ }
+}

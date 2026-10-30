@@ -1,0 +1,13 @@
+{
+ "accession": "META|transcript|2022-03-31|f4d9db38",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 4156,
+  "output_tokens": 48,
+  "attempts": 1,
+  "task_sha": "14bb424d83d61686"
+ }
+}

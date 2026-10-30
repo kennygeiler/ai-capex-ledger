@@ -1,0 +1,150 @@
+{
+ "accession": "0001543151-26-000015",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0031",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "37,281",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 37281000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0031",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "43,978",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 43978000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0031",
+   "row_label": "Revenue",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "52,017",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 52017000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0031",
+   "row_label": "Cost of revenue, exclusive of depreciation and amortization shown separately below",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "22,457",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 22457000000,
+   "confidence": 0.9,
+   "notes": "Single total cost-of-revenue line; it excludes depreciation and amortization, which is reported separately. 'Operations and support' is not included."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0031",
+   "row_label": "Cost of revenue, exclusive of depreciation and amortization shown separately below",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "26,651",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 26651000000,
+   "confidence": 0.9,
+   "notes": "Single total cost-of-revenue line; it excludes depreciation and amortization, which is reported separately. 'Operations and support' is not included."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0031",
+   "row_label": "Cost of revenue, exclusive of depreciation and amortization shown separately below",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "31,338",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 31338000000,
+   "confidence": 0.9,
+   "notes": "Single total cost-of-revenue line; it excludes depreciation and amortization, which is reported separately. 'Operations and support' is not included."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0031",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "1,110",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 1110000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0031",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "2,799",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 2799000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0031",
+   "row_label": "Income from operations",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "5,565",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 5565000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0036",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(223)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 223000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0036",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(242)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 242000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0036",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(336)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 336000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.4,
+  "input_tokens": 6334,
+  "output_tokens": 1565,
+  "attempts": 1,
+  "task_sha": "f41d8c8ed37f729c"
+ }
+}

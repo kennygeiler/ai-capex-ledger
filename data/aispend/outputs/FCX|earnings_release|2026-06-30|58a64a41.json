@@ -1,0 +1,27 @@
+{
+ "accession": "FCX|earnings_release|2026-06-30|58a64a41",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure guidance ($4.3 billion for 2026) is tied to mining projects only; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "copper miner; mentions of data centers and AI (p07) describe general copper demand drivers, and no sentence states AI's or data centers' part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 12094,
+  "output_tokens": 227,
+  "attempts": 1,
+  "task_sha": "a9516110566b54d7"
+ }
+}

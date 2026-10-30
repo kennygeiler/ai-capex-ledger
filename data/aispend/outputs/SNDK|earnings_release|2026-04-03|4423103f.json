@@ -1,0 +1,37 @@
+{
+ "accession": "SNDK|earnings_release|2026-04-03|4423103f",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1467000000,
+   "amount_high": 1467000000,
+   "quote": "Datacenter $1,467 $440 up 233% $197 up 645%",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Fiscal Q3 2026 Datacenter segment revenue only, not the full year. The figure comes from a revenue table row rather than a prose sentence; the quote is that row copied verbatim. The table is stated in $ millions. p01 gives a qualitative link (Datacenter up 233%), which is skipped in favor of this number."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; p03 only defines free cash flow"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.4,
+  "input_tokens": 5413,
+  "output_tokens": 754,
+  "attempts": 1,
+  "task_sha": "0ab50b7191cd5022"
+ }
+}

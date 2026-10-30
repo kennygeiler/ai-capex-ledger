@@ -1,6 +1,6 @@
 {
  "accession": "CORZ|earnings_release|2024-12-31|a6cebf0f",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -11,23 +11,36 @@
    "amount_low": 104000000,
    "amount_high": 104000000,
    "quote": "For the additional 70MW expansion, Core Scientific is responsible for funding $104 million of capex ($1.5M per MW) for the powered core and shell with no capex credit associated with this new agreement.",
-   "passage": "p03",
-   "confidence": 0.7,
-   "notes": "Capex commitment for the 70 MW HPC hosting expansion at Denton, TX for CoreWeave. The sentence says HPC, not AI. p01 ties the HPC hosting conversions to artificial intelligence-related workloads. No year is named; the infrastructure delivery timeline in p03 spans 2025\u20132026. The separate ~$750 million build-out in the same passage is funded by CoreWeave and credited against hosting payments. It is not the company's own AI capex, so it is not recorded."
+   "passage": "p04",
+   "confidence": 0.75,
+   "notes": "Capex commitment for HPC hosting infrastructure built for CoreWeave, which p02 ties to AI-related workloads. Treated as AI capex because the facility is HPC/AI hosting. The sentence names no year, and the spend may fall across 2025 to 2026. The ~$750 million build-out funded by CoreWeave is the client's capex and is not recorded."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 850000000,
+   "amount_high": 850000000,
+   "quote": "~$850 million avg. annual run rate revenue",
+   "passage": "p04",
+   "confidence": 0.5,
+   "notes": "Slide fragment, not a full sentence. Footnote 1 says this is the estimated average annual revenue over the 12-year HPC hosting contract periods, not guidance for a specific fiscal year, so a default year of 2025 would be inaccurate. Multi-year contract totals ($8.7 billion and over $10 billion over the contract terms) and the ~$25 million Austin run rate are not recorded as fiscal-year figures. HPC hosting revenue for Q4 2024 is not stated; p01 gives only gross profit of $0.7 million."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "p01 describes the components of HPC hosting cost of revenue but no sentence quantifies or attributes operating expenses (R&D, headcount, infrastructure opex) to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.4,
-  "input_tokens": 5672,
-  "output_tokens": 1006,
+  "seconds": 16.9,
+  "input_tokens": 6446,
+  "output_tokens": 1772,
   "attempts": 1,
-  "task_sha": "cf40e6d0e52f2e08"
+  "task_sha": "f089dfee053ed525"
  }
 }

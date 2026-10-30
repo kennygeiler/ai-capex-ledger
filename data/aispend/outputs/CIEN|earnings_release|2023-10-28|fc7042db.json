@@ -1,0 +1,27 @@
+{
+ "accession": "CIEN|earnings_release|2023-10-28|fc7042db",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only passage is a slide listing megatrends driving network traffic growth"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the passage only lists 'AI & Cloud Data Center' as a traffic-growth megatrend (boilerplate)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.9,
+  "input_tokens": 4819,
+  "output_tokens": 220,
+  "attempts": 1,
+  "task_sha": "9c9235bbe60d3d07"
+ }
+}

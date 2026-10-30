@@ -1,0 +1,206 @@
+{
+ "accession": "0001013762-25-000307",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0150",
+   "row_label": "Total revenues",
+   "column_label": "For the Years Ended December 31, | 2024",
+   "cell_text": "108,050,720",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 108050720,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0150",
+   "row_label": "Total revenues",
+   "column_label": "For the Years Ended December 31, | 2023",
+   "cell_text": "44,916,131",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 44916131,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0150",
+   "row_label": "Total revenues",
+   "column_label": "For the Years Ended December 31, | 2022",
+   "cell_text": "32,296,593",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 32296593,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0150",
+   "row_label": "Digital asset mining",
+   "column_label": "For the Years Ended December 31, | 2024",
+   "cell_text": "(42,307,012)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 42307012,
+   "confidence": 0.95,
+   "notes": "Row under the 'Cost of revenues (exclusive of depreciation shown below)' header (the second 'Digital asset mining' row, not the revenue row); no total cost-of-revenue line exists."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0150",
+   "row_label": "Cloud services",
+   "column_label": "For the Years Ended December 31, | 2024",
+   "cell_text": "(19,508,252)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 19508252,
+   "confidence": 0.95,
+   "notes": "Row under the 'Cost of revenues (exclusive of depreciation shown below)' header (the cost row, not the revenue row); no total cost-of-revenue line exists."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0150",
+   "row_label": "Colocation services",
+   "column_label": "For the Years Ended December 31, | 2024",
+   "cell_text": "(490,501)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 490501,
+   "confidence": 0.95,
+   "notes": "Row under the 'Cost of revenues (exclusive of depreciation shown below)' header (the cost row, not the revenue row); no total cost-of-revenue line exists."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0150",
+   "row_label": "ETH staking",
+   "column_label": "For the Years Ended December 31, | 2024",
+   "cell_text": "(72,067)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 72067,
+   "confidence": 0.95,
+   "notes": "Row under the 'Cost of revenues (exclusive of depreciation shown below)' header (the cost row, not the revenue row); no total cost-of-revenue line exists."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0150",
+   "row_label": "Digital asset mining",
+   "column_label": "For the Years Ended December 31, | 2023",
+   "cell_text": "(29,505,783)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 29505783,
+   "confidence": 0.95,
+   "notes": "Row under the 'Cost of revenues (exclusive of depreciation shown below)' header; Cloud services and Colocation services cost cells are '-' for 2023."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0150",
+   "row_label": "ETH staking",
+   "column_label": "For the Years Ended December 31, | 2023",
+   "cell_text": "(50,802)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 50802,
+   "confidence": 0.95,
+   "notes": "Row under the 'Cost of revenues (exclusive of depreciation shown below)' header (the cost row, not the revenue row)."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0150",
+   "row_label": "Digital asset mining",
+   "column_label": "For the Years Ended December 31, | 2022",
+   "cell_text": "(20,374,633)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 20374633,
+   "confidence": 0.95,
+   "notes": "Row under the 'Cost of revenues (exclusive of depreciation shown below)' header; all other cost-of-revenue cells are '-' for 2022."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0150",
+   "row_label": "Income (loss) from operations",
+   "column_label": "For the Years Ended December 31, | 2024",
+   "cell_text": "27,563,264",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 27563264,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0150",
+   "row_label": "Income (loss) from operations",
+   "column_label": "For the Years Ended December 31, | 2023",
+   "cell_text": "(16,619,709)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": -16619709,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0150",
+   "row_label": "Income (loss) from operations",
+   "column_label": "For the Years Ended December 31, | 2022",
+   "cell_text": "(107,166,475)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": -107166475,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0152",
+   "row_label": "Purchases of and deposits made for property, plant and equipment",
+   "column_label": "For the Year Ended December 31, | 2024",
+   "cell_text": "(94,002,806)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 94002806,
+   "confidence": 0.9,
+   "notes": "Only investing-section purchase line for PP&E; it also includes deposits made toward PP&E, which the filing does not break out."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0152",
+   "row_label": "Purchases of and deposits made for property, plant and equipment",
+   "column_label": "For the Year Ended December 31, | 2023",
+   "cell_text": "(66,659,602)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 66659602,
+   "confidence": 0.9,
+   "notes": "Only investing-section purchase line for PP&E; it also includes deposits made toward PP&E. Non-cash USDC purchases of PP&E excluded."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0152",
+   "row_label": "Purchases of and deposits made for property, plant and equipment",
+   "column_label": "For the Year Ended December 31, | 2022",
+   "cell_text": "(19,333,310)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 19333310,
+   "confidence": 0.9,
+   "notes": "Only investing-section purchase line for PP&E; it also includes deposits made toward PP&E. Non-cash USDC purchases of PP&E excluded."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "No total cost-of-revenue line; the statement lists cost-of-revenue components under a header, reported as cost_of_revenue_part."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.6,
+  "input_tokens": 8164,
+  "output_tokens": 2745,
+  "attempts": 1,
+  "task_sha": "e3a1a072ca854cf6"
+ }
+}

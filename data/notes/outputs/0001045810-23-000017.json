@@ -1,79 +1,7 @@
 {
  "accession": "0001045810-23-000017",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
-  {
-   "field": "segment_revenue",
-   "dimension": "Compute & Networking",
-   "table_id": "t0055",
-   "row_label": "Revenue",
-   "column_label": "Compute & Networking",
-   "cell_text": "15,068",
-   "period_end": "2023-01-29",
-   "months": 12,
-   "value": 15068000000,
-   "confidence": 0.9
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Graphics",
-   "table_id": "t0055",
-   "row_label": "Revenue",
-   "column_label": "Graphics",
-   "cell_text": "11,906",
-   "period_end": "2023-01-29",
-   "months": 12,
-   "value": 11906000000,
-   "confidence": 0.9
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Compute & Networking",
-   "table_id": "t0055",
-   "row_label": "Revenue",
-   "column_label": "Compute & Networking",
-   "cell_text": "11,046",
-   "period_end": "2022-01-30",
-   "months": 12,
-   "value": 11046000000,
-   "confidence": 0.9
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Graphics",
-   "table_id": "t0055",
-   "row_label": "Revenue",
-   "column_label": "Graphics",
-   "cell_text": "15,868",
-   "period_end": "2022-01-30",
-   "months": 12,
-   "value": 15868000000,
-   "confidence": 0.9
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Compute & Networking",
-   "table_id": "t0055",
-   "row_label": "Revenue",
-   "column_label": "Compute & Networking",
-   "cell_text": "6,841",
-   "period_end": "2021-01-31",
-   "months": 12,
-   "value": 6841000000,
-   "confidence": 0.9
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Graphics",
-   "table_id": "t0055",
-   "row_label": "Revenue",
-   "column_label": "Graphics",
-   "cell_text": "9,834",
-   "period_end": "2021-01-31",
-   "months": 12,
-   "value": 9834000000,
-   "confidence": 0.9
-  },
   {
    "field": "segment_revenue",
    "dimension": "Data Center",
@@ -354,24 +282,23 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment table (t0055) reports revenue and operating income (loss) only; no capital expenditures by segment appear in the tables provided"
+   "reason": "the segment table (t0055) reports revenue and operating income only; no per-segment capital expenditures are given"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no lease note table was provided"
+   "reason": "no lease note table with finance lease liabilities is included in the provided tables"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or commitments table was provided"
+   "reason": "no contractual-obligations or commitments table is included in the provided tables"
   }
  ],
- "notes": "t0055 has columns by segment and years as row-group headers; the 'Revenue' row label repeats three times. The first block has no visible year header and is assigned to FY ended 2023-01-29, because the order is FY2023, FY2022, FY2021 and Consolidated 26,974 matches FY2023 total revenue in t0058. Confidence is 0.9 for that reason. 'All Other' revenue is '\u2014' in every year and is not recorded. t0058 is market-platform revenue, reported alongside the two reportable segments. Both are included under segment_revenue with distinct dimensions, so do not sum across tables.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 28.2,
-  "input_tokens": 6376,
-  "output_tokens": 4129,
+  "seconds": 23.0,
+  "input_tokens": 6504,
+  "output_tokens": 3439,
   "attempts": 1,
-  "task_sha": "829dcb8fd85901e3"
+  "task_sha": "fb2e79c218bd898e"
  }
 }

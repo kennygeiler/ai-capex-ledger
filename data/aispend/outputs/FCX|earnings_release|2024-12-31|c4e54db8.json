@@ -1,0 +1,27 @@
+{
+ "accession": "FCX|earnings_release|2024-12-31|c4e54db8",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are attributed to mining projects and PT-FI's downstream processing facilities; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a copper, gold and molybdenum miner; no sentence states revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.2,
+  "input_tokens": 11768,
+  "output_tokens": 206,
+  "attempts": 1,
+  "task_sha": "a7aff85479eff297"
+ }
+}

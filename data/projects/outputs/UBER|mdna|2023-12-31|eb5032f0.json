@@ -1,0 +1,30 @@
+{
+ "accession": "UBER|mdna|2023-12-31|eb5032f0",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "2022 Cloud Computing Service Agreements",
+   "kind": "cloud_commitment",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 2700000000,
+   "amount_high": 2700000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2022-11",
+   "in_service": null,
+   "quote": "In November 2022, we entered into commercial technology agreements with vendors for cloud computing services (\u201c2022 Cloud Computing Service Agreements\u201d).",
+   "passage": "p02",
+   "confidence": 0.75
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 4623,
+  "output_tokens": 518,
+  "attempts": 1,
+  "task_sha": "562df2dd0b1c288b"
+ }
+}

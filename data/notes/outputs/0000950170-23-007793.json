@@ -1,6 +1,6 @@
 {
  "accession": "0000950170-23-007793",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -114,27 +114,27 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the company reports a single segment (bitcoin mining); t0007 is the consolidated statement of operations, not a per-segment capex disclosure"
+   "reason": "the company reports a single segment (bitcoin mining); no per-segment capital expenditures are disclosed"
   },
   {
    "field": "segment_revenue",
-   "reason": "single segment; the only revenue line (Revenue - bitcoin mining) is the consolidated total in the statement of operations, not a per-segment or per-market breakdown"
+   "reason": "the company reports a single segment; the only revenue line is consolidated bitcoin mining revenue, with no segment or market breakdown"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no single cell shows total finance lease liabilities; the balance sheet (t0020) splits it into Finance lease liability, current portion (2,567) and Finance lease liability, non-current (12,229) as of December 31, 2022, totaling 14,796 thousand, which cannot be cited as one cell; 2021 shows '-' for both"
+   "reason": "no total finance lease liabilities line is given; the balance sheet (t0020) shows only a current portion (2,567) and a non-current line (12,229), which cannot be cited without a dimension and must not be summed"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or purchase-commitments table is among the provided tables"
+   "reason": "no contractual-obligations or commitments table with total purchase obligations is among the tables provided"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 33.0,
-  "input_tokens": 15062,
-  "output_tokens": 4006,
+  "seconds": 28.9,
+  "input_tokens": 15265,
+  "output_tokens": 3688,
   "attempts": 2,
-  "task_sha": "f4e7765a78389125"
+  "task_sha": "a71245509170c37c"
  }
 }

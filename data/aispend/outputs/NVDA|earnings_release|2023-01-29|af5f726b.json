@@ -1,7 +1,20 @@
 {
  "accession": "NVDA|earnings_release|2023-01-29|af5f726b",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 15005000000,
+   "amount_high": 15005000000,
+   "quote": "Data Center $15,005 $10,613 Up 41%",
+   "passage": "p04",
+   "confidence": 0.85,
+   "notes": "Taken from the revenue-by-market-platform table row rather than a full sentence; FY23 Data Center revenue $15,005 million, total revenue $26,974 million."
+  },
   {
    "field": "opex",
    "fiscal_year": null,
@@ -9,23 +22,23 @@
    "scope": "ai",
    "class": "qualitative",
    "quote": "We expect to use this capacity for our NVIDIA AI cloud service offerings and for research and development activities.",
-   "passage": "p06",
+   "passage": "p09",
    "confidence": 0.6,
-   "notes": "Refers to GPU capacity under multi-year cloud service agreements ($2.23 billion of purchase obligations, stated in the preceding sentence without any AI link, so no amount is recorded). Treated as opex (infrastructure/R&D) rather than capex, but the filing does not classify it. The capacity is shared between AI cloud service offerings and R&D, with no split given. No fiscal year is named in the sentence."
+   "notes": "Refers to GPU capacity from $2.23 billion of multi-year cloud service agreements (purchase obligations, not reported opex); the sentence links the use of that capacity to AI cloud services and R&D but states no amount for the AI part. The capacity is deployed through fiscal 2024 per the preceding sentence, but this sentence names no year."
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "capital expenditure guidance for Q1 and full-year fiscal 2024 ($1.10\u2013$1.30 billion) is given in p08, but no sentence links capital expenditures to AI"
+   "reason": "capital expenditure outlooks for Q1 and full-year fiscal 2024 ($1.10\u2013$1.30 billion) are given without any link to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 8.4,
-  "input_tokens": 6852,
-  "output_tokens": 899,
+  "seconds": 10.0,
+  "input_tokens": 7559,
+  "output_tokens": 1111,
   "attempts": 1,
-  "task_sha": "fd9f493cfff5620c"
+  "task_sha": "051f9555e3df9736"
  }
 }

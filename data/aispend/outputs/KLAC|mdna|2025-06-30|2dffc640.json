@@ -1,0 +1,35 @@
+{
+ "accession": "KLAC|mdna|2025-06-30|2dffc640",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase in total revenues by 24% in the fiscal year ended June 30, 2025 compared to the prior fiscal year is primarily attributable to the increase in our product revenues and is due to increased investments by leading edge foundries driven by the AI infrastructure buildout, strong customer adoption of our advanced packaging portfolio of products and strong demand for many of our products, especially those in our inspection portfolio, partially offset by a decrease of 4% in revenues from our customers in China.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "The 24% is total revenue growth, not AI's share of revenue. The sentence names the AI infrastructure buildout as one driver of foundry investment, so no AI amount or share is recorded. The p02 Taiwan sentence (27% of total revenues) gives a regional share that is partly attributed to AI demand; it is not an AI share and is not recorded separately."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.5,
+  "input_tokens": 5229,
+  "output_tokens": 774,
+  "attempts": 1,
+  "task_sha": "29c176f1d9156f7a"
+ }
+}

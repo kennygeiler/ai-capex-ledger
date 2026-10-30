@@ -1,0 +1,13 @@
+{
+ "accession": "INTC|earnings_release|2023-12-30|e2578acc",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 6324,
+  "output_tokens": 155,
+  "attempts": 1,
+  "task_sha": "4bd1d6a8e1e99ae9"
+ }
+}

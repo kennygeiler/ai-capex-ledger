@@ -1,0 +1,155 @@
+{
+ "accession": "0001104659-26-019392",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0206",
+   "row_label": "Total revenue",
+   "column_label": "\u200b | Twelve Months Ended | December 31, | 2025",
+   "cell_text": "235,118",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 235118000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0206",
+   "row_label": "Total revenue",
+   "column_label": "\u200b | Twelve Months Ended | December 31, | 2024",
+   "cell_text": "162,385",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 162385000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0206",
+   "row_label": "Total revenue",
+   "column_label": "\u200b | Six Months Ended | December 31, | 2023",
+   "cell_text": "59,869",
+   "period_end": "2023-12-31",
+   "months": 6,
+   "value": 59869000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0206",
+   "row_label": "Total cost of revenue",
+   "column_label": "\u200b | Twelve Months Ended | December 31, | 2025",
+   "cell_text": "107,774",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 107774000,
+   "confidence": 1.0,
+   "notes": "Cost of revenue is exclusive of depreciation and amortization, which is shown separately."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0206",
+   "row_label": "Total cost of revenue",
+   "column_label": "\u200b | Twelve Months Ended | December 31, | 2024",
+   "cell_text": "86,655",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 86655000,
+   "confidence": 1.0,
+   "notes": "Cost of revenue is exclusive of depreciation and amortization, which is shown separately."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0206",
+   "row_label": "Total cost of revenue",
+   "column_label": "\u200b | Six Months Ended | December 31, | 2023",
+   "cell_text": "33,700",
+   "period_end": "2023-12-31",
+   "months": 6,
+   "value": 33700000,
+   "confidence": 1.0,
+   "notes": "Cost of revenue is exclusive of depreciation and amortization, which is shown separately."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0206",
+   "row_label": "Operating (loss) income",
+   "column_label": "\u200b | Twelve Months Ended | December 31, | 2025",
+   "cell_text": "(321,994)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": -321994000,
+   "confidence": 1.0,
+   "notes": "Operating expenses include losses (gains) on digital assets."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0206",
+   "row_label": "Operating (loss) income",
+   "column_label": "\u200b | Twelve Months Ended | December 31, | 2024",
+   "cell_text": "460,539",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 460539000,
+   "confidence": 1.0,
+   "notes": "Operating expenses include losses (gains) on digital assets."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0206",
+   "row_label": "Operating (loss) income",
+   "column_label": "\u200b | Six Months Ended | December 31, | 2023",
+   "cell_text": "10,236",
+   "period_end": "2023-12-31",
+   "months": 6,
+   "value": 10236000,
+   "confidence": 1.0,
+   "notes": "Operating expenses include losses (gains) on digital assets."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0208",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "\u200b | Twelve Months Ended | December 31, | 2025",
+   "cell_text": "(202,928)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 202928000,
+   "confidence": 1.0,
+   "notes": "Separate lines for miner deposits, future-site deposits and intangible additions were not added, per rules."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0208",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "\u200b | Twelve Months Ended | December 31, | 2024",
+   "cell_text": "(123,991)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 123991000,
+   "confidence": 1.0,
+   "notes": "Separate lines for miner deposits and intangible additions were not added, per rules."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0208",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "\u200b | Six Months Ended | December 31, | 2023",
+   "cell_text": "(604)",
+   "period_end": "2023-12-31",
+   "months": 6,
+   "value": 604000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.5,
+  "input_tokens": 8513,
+  "output_tokens": 1653,
+  "attempts": 1,
+  "task_sha": "6e297ae43c547e3f"
+ }
+}

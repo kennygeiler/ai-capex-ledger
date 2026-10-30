@@ -1,0 +1,44 @@
+{
+ "accession": "INTC|earnings_release|2023-07-01|403541bf",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Wroc\u0142aw, Poland semiconductor assembly and test facility",
+   "kind": "plant",
+   "status": "announced",
+   "location": "Wroc\u0142aw, Poland",
+   "counterparty": null,
+   "amount_low": 4600000000,
+   "amount_high": 4600000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2023",
+   "in_service": null,
+   "quote": "Intel continues to strategically invest in manufacturing capacity to further advance IDM 2.0, and during the quarter announced the selection of Wroc\u0142aw, Poland, as the site of a new cutting-edge semiconductor assembly and test facility.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Magdeburg, Germany wafer fabrication site",
+   "kind": "fab",
+   "status": "announced",
+   "location": "Magdeburg, Germany",
+   "counterparty": "German federal government",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Additionally, Intel and the German federal government signed a revised letter of intent for Intel\u2019s planned leading-edge wafer fabrication site in Magdeburg, Germany.",
+   "passage": "p02",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.0,
+  "input_tokens": 6652,
+  "output_tokens": 929,
+  "attempts": 1,
+  "task_sha": "1180b56aca5ab327"
+ }
+}

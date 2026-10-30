@@ -1,0 +1,46 @@
+{
+ "accession": "IRM|earnings_release|2022-06-30|9d9c523a",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "VA-4",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Northern Virginia",
+   "counterparty": null,
+   "amount_low": null,
+   "amount_high": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Year to Date leasing of 118 megawatts; 83 megawatts in the second quarter including 72 megawatts on our Northern Virginia campus for VA-4 and VA-5",
+   "passage": "p04",
+   "confidence": 0.75
+  },
+  {
+   "name": "VA-5",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Northern Virginia",
+   "counterparty": null,
+   "amount_low": null,
+   "amount_high": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Year to Date leasing of 118 megawatts; 83 megawatts in the second quarter including 72 megawatts on our Northern Virginia campus for VA-4 and VA-5",
+   "passage": "p04",
+   "confidence": 0.75
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.3,
+  "input_tokens": 5873,
+  "output_tokens": 881,
+  "attempts": 1,
+  "task_sha": "16e62e26dec506c4"
+ }
+}

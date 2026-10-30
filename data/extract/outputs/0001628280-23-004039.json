@@ -1,0 +1,150 @@
+{
+ "accession": "0001628280-23-004039",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0052",
+   "row_label": "Revenues",
+   "column_label": "Years Ended December 31, | 2022",
+   "cell_text": "7,263,105",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 7263105000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0052",
+   "row_label": "Revenues",
+   "column_label": "Years Ended December 31, | 2021",
+   "cell_text": "6,635,537",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 6635537000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0052",
+   "row_label": "Revenues",
+   "column_label": "Years Ended December 31, | 2020",
+   "cell_text": "5,998,545",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 5998545000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0052",
+   "row_label": "Cost of revenues",
+   "column_label": "Years Ended December 31, | 2022",
+   "cell_text": "3,751,501",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 3751501000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0052",
+   "row_label": "Cost of revenues",
+   "column_label": "Years Ended December 31, | 2021",
+   "cell_text": "3,472,422",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 3472422000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0052",
+   "row_label": "Cost of revenues",
+   "column_label": "Years Ended December 31, | 2020",
+   "cell_text": "3,074,340",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 3074340000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0052",
+   "row_label": "Income from operations",
+   "column_label": "Years Ended December 31, | 2022",
+   "cell_text": "1,200,528",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 1200528000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0052",
+   "row_label": "Income from operations",
+   "column_label": "Years Ended December 31, | 2021",
+   "cell_text": "1,108,162",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 1108162000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0052",
+   "row_label": "Income from operations",
+   "column_label": "Years Ended December 31, | 2020",
+   "cell_text": "1,052,928",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 1052928000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0056",
+   "row_label": "Purchases of other property, plant and equipment",
+   "column_label": "Years Ended December 31, | 2022",
+   "cell_text": "(2,278,004)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 2278004000,
+   "confidence": 0.85,
+   "notes": "Chose 'Purchases of other property, plant and equipment' as the capex line. The separate 'Real estate acquisitions' line ((248,276)) is also property spending but was not added, per the rule against summing lines."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0056",
+   "row_label": "Purchases of other property, plant and equipment",
+   "column_label": "Years Ended December 31, | 2021",
+   "cell_text": "(2,751,512)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 2751512000,
+   "confidence": 0.85,
+   "notes": "Chose 'Purchases of other property, plant and equipment' as the capex line. The separate 'Real estate acquisitions' line ((201,837)) is also property spending but was not added, per the rule against summing lines."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0056",
+   "row_label": "Purchases of other property, plant and equipment",
+   "column_label": "Years Ended December 31, | 2020",
+   "cell_text": "(2,282,504)",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 2282504000,
+   "confidence": 0.85,
+   "notes": "Chose 'Purchases of other property, plant and equipment' as the capex line. The separate 'Real estate acquisitions' line ((200,182)) is also property spending but was not added, per the rule against summing lines."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.2,
+  "input_tokens": 6941,
+  "output_tokens": 1661,
+  "attempts": 1,
+  "task_sha": "3230cc7f33171c77"
+ }
+}

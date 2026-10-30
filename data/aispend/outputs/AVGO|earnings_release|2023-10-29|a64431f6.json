@@ -1,23 +1,37 @@
 {
  "accession": "AVGO|earnings_release|2023-10-29|a64431f6",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 35800000000,
+   "amount_high": 35800000000,
+   "quote": "\u201cBroadcom\u2019s fiscal year 2023 revenue grew 8% year-over-year to a record $35.8 billion, driven by investments in accelerators and network connectivity for AI by hyperscalers,\u201d said Hock Tan, President and CEO of Broadcom Inc.",
+   "passage": "p01",
+   "confidence": 1.0,
+   "notes": "Total company revenue with AI cited as a driver; the AI portion itself is not stated. The fiscal 2024 $50 billion revenue outlook is attributed to VMware, not AI, so it is not recorded."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is forward-looking-statement risk boilerplate; no sentence mentions capital expenditures or links them to AI"
+   "reason": "no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "the only passage is forward-looking-statement risk boilerplate; no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.7,
-  "input_tokens": 5459,
-  "output_tokens": 188,
+  "seconds": 6.0,
+  "input_tokens": 5953,
+  "output_tokens": 709,
   "attempts": 1,
-  "task_sha": "d06f5d3b5c9862f2"
+  "task_sha": "ed88360305b7a9b3"
  }
 }

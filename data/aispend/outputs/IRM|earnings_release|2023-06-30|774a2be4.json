@@ -1,0 +1,27 @@
+{
+ "accession": "IRM|earnings_release|2023-06-30|774a2be4",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only capex figures are recurring capital expenditures in the AFFO reconciliation (p05) and a risk-factor mention of funding capex (p03, p06)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI or data-center revenue amount or share of revenue; p07 gives only an 18% data center revenue growth rate for the quarter and leased megawatts, which is neither an amount nor a share of total revenue, and p02's Adjusted EBITDA sentence cites data center commencements only as a driver of EBITDA"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.9,
+  "input_tokens": 12847,
+  "output_tokens": 678,
+  "attempts": 1,
+  "task_sha": "7b304718e9e73c65"
+ }
+}

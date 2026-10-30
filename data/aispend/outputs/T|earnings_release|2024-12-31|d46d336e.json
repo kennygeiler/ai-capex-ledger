@@ -1,0 +1,27 @@
+{
+ "accession": "T|earnings_release|2024-12-31|d46d336e",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is a free cash flow definition that mentions capital expenditures without any link to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.1,
+  "input_tokens": 4795,
+  "output_tokens": 169,
+  "attempts": 1,
+  "task_sha": "8044e374c2e8f5c6"
+ }
+}

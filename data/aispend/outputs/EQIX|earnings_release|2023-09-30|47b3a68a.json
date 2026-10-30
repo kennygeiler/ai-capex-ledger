@@ -1,0 +1,35 @@
+{
+ "accession": "EQIX|earnings_release|2023-09-30|47b3a68a",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Company Delivers Quarterly Revenues Greater than $2 Billion as Enterprises and Service Providers Look to Integrate AI into their Strategies and Offerings",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Headline, not a full sentence. It links Q3 2023 total revenue to customer AI adoption, but it does not say that AI drove the revenue or how much came from AI. The $2B figure is quarterly total revenue (Q3 2023), not an annual or AI amount, so it is recorded as qualitative. As a colocation REIT, all of Equinix's revenue is data-center revenue; no sentence states an AI part."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capex guidance (total $2.675-$2.925B, recurring, non-recurring, xScale) is given without any link to AI; the liquid-cooling and AI-readiness text describes capabilities, not spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.5,
+  "input_tokens": 13339,
+  "output_tokens": 1269,
+  "attempts": 1,
+  "task_sha": "ee27ec98e87e2083"
+ }
+}

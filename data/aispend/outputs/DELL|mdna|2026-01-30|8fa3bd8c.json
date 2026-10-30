@@ -1,0 +1,48 @@
+{
+ "accession": "DELL|mdna|2026-01-30|8fa3bd8c",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 24683000000,
+   "amount_high": 24683000000,
+   "quote": "Fiscal Year Ended January 30, 2026 % Change January 31, 2025 % Change February 2, 2024 (in millions, except percentages) Net revenue: AI-optimized servers $ 24,683 166% $ 9,286 396% $ 1,873 Traditional servers and networking 19,512 9% 17,850 13% 15,751 Servers and networking 44,195 63% 27,136 54% 17,624 Storage 16,631 1% 16,457 1% 16,261 Total ISG net revenue $ 60,826 40% $ 43,593 29% $ 33,885 Operating income: ISG operating income $ 7,111 27% $ 5,579 30% $ 4,286 % of segment net revenue 11.7 % 12.8 % 12.6 %",
+   "passage": "p22",
+   "confidence": 0.9,
+   "notes": "Source is a table, not a sentence; the whole table row text is quoted. AI-optimized servers net revenue of $24,683 million for the fiscal year ended January 30, 2026 (Fiscal 2026); prior years $9,286 million (FY2025) and $1,873 million (FY2024) not recorded as outside the reported/outlook years."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect ISG net revenue growth will be driven by increased demand across our servers and networking offerings, largely in our AI-optimized servers offerings, and, to a lesser extent, our storage offerings.",
+   "passage": "p07",
+   "confidence": 0.9,
+   "notes": "Outlook for ISG segment revenue growth attributed largely to AI-optimized servers; no amount or share stated and no year named in the sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; component purchases in p09 relate to inventory, not capex"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; operating expense rate declines are attributed to revenue growth and cost management"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.4,
+  "input_tokens": 10130,
+  "output_tokens": 1532,
+  "attempts": 1,
+  "task_sha": "ad5e755d958f01bf"
+ }
+}

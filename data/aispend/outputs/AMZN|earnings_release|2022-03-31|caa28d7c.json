@@ -1,6 +1,6 @@
 {
  "accession": "AMZN|earnings_release|2022-03-31|caa28d7c",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "542d4ba9f98de2b1"
+  "task_sha": "f10c9b3b28300c27"
  }
 }

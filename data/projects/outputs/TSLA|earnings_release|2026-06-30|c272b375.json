@@ -1,0 +1,84 @@
+{
+ "accession": "TSLA|earnings_release|2026-06-30|c272b375",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Cortex 2",
+   "kind": "gpu_cluster",
+   "status": "in_service",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 115,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Cortex 2 supports the development of both vehicle and humanoid robot autonomy software and will ramp further over the rest of the year to ensure we have sufficient compute resources.",
+   "passage": "p03",
+   "confidence": 0.8
+  },
+  {
+   "name": "Cortex 1",
+   "kind": "gpu_cluster",
+   "status": "in_service",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 90,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We have more than doubled our onsite compute in Texas (in terms of MW of compute) during the first half of 2026.",
+   "passage": "p03",
+   "confidence": 0.5
+  },
+  {
+   "name": "Optimus production lines at Fremont Factory",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Fremont, California",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We have decommissioned the manufacturing lines for Models S & X at our Fremont Factory and are installing the first-generation lines for Optimus, where we expect to start production soon.",
+   "passage": "p02",
+   "confidence": 0.75
+  },
+  {
+   "name": "Optimus factory at Gigafactory Texas",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Gigafactory Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Additionally, we continued site development at Gigafactory Texas with building construction now in full swing.",
+   "passage": "p02",
+   "confidence": 0.6
+  },
+  {
+   "name": "Megafactory Texas",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "Megafactory Texas is nearing completion, with start of production planned for this year.",
+   "passage": "p01",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.7,
+  "input_tokens": 7410,
+  "output_tokens": 1812,
+  "attempts": 1,
+  "task_sha": "1f82f30247a972c7"
+ }
+}

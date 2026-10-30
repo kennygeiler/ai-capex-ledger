@@ -1,0 +1,13 @@
+{
+ "accession": "CRM|earnings_release|2022-10-31|409968f0",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 4256,
+  "output_tokens": 50,
+  "attempts": 1,
+  "task_sha": "03fd9a21b8a32885"
+ }
+}

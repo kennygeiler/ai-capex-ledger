@@ -1,0 +1,30 @@
+{
+ "accession": "AAOI|mdna|2023-12-31|be08ecc5",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Ningbo, China new factory",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Ningbo, China",
+   "counterparty": "Zhejiang Xinyu Construction Group Co., Ltd.",
+   "amount_low": 27500000,
+   "amount_high": 27500000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2018-02-08",
+   "in_service": "2024",
+   "quote": "On February 8, 2018, we entered into a construction contract with Zhejiang Xinyu Construction Group Co., Ltd. for the construction of a new factory and other facilities at our Ningbo, China location.",
+   "passage": "p10",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.4,
+  "input_tokens": 6120,
+  "output_tokens": 447,
+  "attempts": 1,
+  "task_sha": "cd56bb2163fa3470"
+ }
+}

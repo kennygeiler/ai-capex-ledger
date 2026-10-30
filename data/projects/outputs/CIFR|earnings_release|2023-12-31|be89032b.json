@@ -1,0 +1,84 @@
+{
+ "accession": "CIFR|earnings_release|2023-12-31|be89032b",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Bear JV data center 30 MW expansion",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": "WindHQ LLC",
+   "capacity_mw": 30,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "30 MW expansion at each of Bear and Chief JV data centers, delivering 1.25 EH/s of self-mining capacity, on track for Q2 2024 deployment",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "Chief JV data center 30 MW expansion",
+   "kind": "data_center",
+   "status": "announced",
+   "location": null,
+   "counterparty": "WindHQ LLC",
+   "capacity_mw": 30,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "30 MW expansion at each of Bear and Chief JV data centers, delivering 1.25 EH/s of self-mining capacity, on track for Q2 2024 deployment",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "Black Pearl facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 300,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "Closed the acquisition of the 300 MW Black Pearl facility and commenced construction work at the site for expected partial energization in Q2 2025",
+   "passage": "p02",
+   "confidence": 0.9
+  },
+  {
+   "name": "Odessa data center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Odessa",
+   "counterparty": null,
+   "capacity_mw": 207,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Odessa ~$8,579 All-in Electricity Cost per BTC(3) ~10.8 Daily BTC Mining Capacity(4) ~6.4 EH/s 207 MW Operating Capacity",
+   "passage": "p07",
+   "confidence": 0.6
+  },
+  {
+   "name": "Alborz data center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": "WindHQ LLC",
+   "capacity_mw": 40,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Alborz ~$7,237 All-in Electricity Cost per BTC(4) ~2.2 Daily BTC Mining Capacity(5) ~1.3 EH/s 40 MW Operating Capacity(2)",
+   "passage": "p08",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.5,
+  "input_tokens": 7907,
+  "output_tokens": 1843,
+  "attempts": 1,
+  "task_sha": "30154ce680fbdda4"
+ }
+}

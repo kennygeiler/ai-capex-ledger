@@ -1,23 +1,27 @@
 {
  "accession": "CRDO|earnings_release|2025-08-02|7c3a7da0",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence states or attributes capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the passage gives only quarterly total revenue ($223.1 million) and attributes growth to hyperscaler partnerships and connectivity demand; no sentence names AI or data-center revenue, and inferring AI from 'hyperscalers' would break rule 4"
   }
  ],
  "_run": {
-  "model": null,
-  "seconds": 0.0,
-  "input_tokens": 0,
-  "output_tokens": 0,
-  "attempts": 0,
-  "task_sha": "c2498911ce12d855"
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 4903,
+  "output_tokens": 483,
+  "attempts": 1,
+  "task_sha": "e582117575cd70af"
  }
 }

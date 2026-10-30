@@ -1,0 +1,86 @@
+{
+ "accession": "CIFR|earnings_release|2023-09-30|645ba563",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Black Pearl",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Texas",
+   "counterparty": null,
+   "amount_low": 7000000,
+   "amount_high": 7000000,
+   "capacity_mw": 300,
+   "gpus": null,
+   "announced": "2023-11",
+   "in_service": "2025",
+   "quote": "With this first phase of the Company\u2019s growth now complete, we are also delighted to announce that we have signed an agreement to acquire a new Texas-based, ERCOT-approved site, called \u201cBlack Pearl,\u201d with interconnection up to 300 MW.",
+   "passage": "p03",
+   "confidence": 0.85
+  },
+  {
+   "name": "Odessa facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Odessa",
+   "counterparty": null,
+   "capacity_mw": 207,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "\u201cWe are pleased to announce that we finalized the build-out of our Odessa facility and have achieved a self-mining capacity of up to 7.2 EH/s across our portfolio,\u201d said Tyler Page, CEO of Cipher.",
+   "passage": "p03",
+   "confidence": 0.75
+  },
+  {
+   "name": "Alborz data center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": "WindHQ LLC",
+   "capacity_mw": 40,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Continued progress on grid connection at Alborz data center, expected 1H 2024",
+   "passage": "p08",
+   "confidence": 0.55
+  },
+  {
+   "name": "Bear & Chief",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": "WindHQ LLC",
+   "capacity_mw": 20,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "~0.65 EH/s 20 MW Operating Capacity(2) ~421 BTC Mined YTD(3) Bear & Chief \u2013 4% of BTC Production(1)",
+   "passage": "p13",
+   "confidence": 0.5
+  },
+  {
+   "name": "Bitmain S21 mining rig purchase",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Bitmain",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "\u201cWe have also purchased ~1.2 EH/s worth of the latest generation S21 Bitmain mining rigs for $14/TH, using a payment schedule that extends until one year after the delivery of the last batch of miners,\u201d continued Mr. Page.",
+   "passage": "p05",
+   "confidence": 0.4
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.1,
+  "input_tokens": 8424,
+  "output_tokens": 2018,
+  "attempts": 1,
+  "task_sha": "f12479f68341e876"
+ }
+}

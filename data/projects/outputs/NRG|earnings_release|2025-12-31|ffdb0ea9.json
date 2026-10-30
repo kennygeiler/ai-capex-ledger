@@ -1,0 +1,56 @@
+{
+ "accession": "NRG|earnings_release|2025-12-31|ffdb0ea9",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "LS Power generation assets and CPower acquisition",
+   "kind": "power",
+   "status": "in_service",
+   "location": "nine states",
+   "counterparty": "LS Power",
+   "capacity_mw": 13000,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026-01-30",
+   "quote": "The transaction included 18 natural\u2011gas and dual fuel facilities totaling 13 GW across nine states and CPower's C&I demand response platform.",
+   "passage": "p05",
+   "confidence": 0.8
+  },
+  {
+   "name": "Greens Bayou generation facility",
+   "kind": "power",
+   "status": "under_construction",
+   "location": "Texas",
+   "counterparty": "Public Utility Commission of Texas",
+   "capacity_mw": 443,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2028",
+   "quote": "On November 20, 2025, NRG entered into a $370 million loan agreement with the Public Utility Commission of Texas (PUCT) under the TEF for a low-interest rate loan at 3% to support development of its 443 MW Greens Bayou generation facility.",
+   "passage": "p06",
+   "confidence": 0.8
+  },
+  {
+   "name": "T.H. Wharton",
+   "kind": "power",
+   "status": "under_construction",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026-06",
+   "quote": "The Company expects commercial operations at the first project, T.H. Wharton, in June 2026.",
+   "passage": "p07",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.9,
+  "input_tokens": 8390,
+  "output_tokens": 1149,
+  "attempts": 1,
+  "task_sha": "b389df2cf17059ca"
+ }
+}

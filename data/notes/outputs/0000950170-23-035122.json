@@ -1,6 +1,6 @@
 {
  "accession": "0000950170-23-035122",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -264,26 +264,22 @@
    "period_end": "2023-06-30",
    "months": 0,
    "value": 67818000000,
-   "confidence": 0.9,
-   "notes": "Total column of the contractual obligations table as of fiscal year-end 2023-06-30 (column headed 2024 is next year's payments). Construction commitments (13,455) are reported on a separate row and excluded."
+   "confidence": 0.95
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment note (t0076) reports revenue and operating income only; no capital expenditures by segment"
-  },
-  {
-   "field": "purchase_commitments",
-   "reason": "only the fiscal 2023 year-end total is given; no prior-year (2022) commitments table is present"
+   "reason": "the segment note (t0076) reports revenue and operating income by segment only; no capital expenditures per segment are given"
   }
  ],
+ "notes": "segment_revenue cited from the segment note t0076 rather than the MD&A duplicate t0014 (identical values). purchase_commitments uses the 'Total' column of the contractual obligations table t0021, which is as of fiscal year-end 2023-06-30 (first payment column is fiscal 2024); confidence 0.95 because the column is not itself dated.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 18.9,
-  "input_tokens": 7239,
-  "output_tokens": 2935,
+  "seconds": 17.6,
+  "input_tokens": 7365,
+  "output_tokens": 2795,
   "attempts": 1,
-  "task_sha": "97520907c413e6c9"
+  "task_sha": "33bc56beccd550d2"
  }
 }

@@ -1,0 +1,35 @@
+{
+ "accession": "FIX|mdna|2024-12-31|9e45922f",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase in demand has been particularly strong in the technology sector such as data centers and chip plants.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Links same-store revenue growth to data-center demand in words only; no data-center revenue amount or share is stated. The sentence speaks of demand (and backlog) rather than revenue directly, and names data centers, not AI specifically. Recorded as scope total because it describes a driver of total revenue growth, not a quantified data-center part. No year named; 2024 is implied by the surrounding passage."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 4880,
+  "output_tokens": 687,
+  "attempts": 1,
+  "task_sha": "9b2eace234c357d4"
+ }
+}

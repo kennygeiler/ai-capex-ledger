@@ -1,0 +1,27 @@
+{
+ "accession": "ADBE|mdna|2023-12-01|8c3b0348",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 mentions purchases of computer and server hardware for network infrastructure without reference to AI, and p03 lists capital expenditures only as a general use of commercial paper proceeds"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI or data-center share or amount of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 5193,
+  "output_tokens": 236,
+  "attempts": 1,
+  "task_sha": "92cdc75f2a83b5ee"
+ }
+}

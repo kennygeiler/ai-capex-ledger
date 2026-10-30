@@ -1,11 +1,25 @@
 {
  "accession": "IBM|earnings_release|2024-03-31|a398976a",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1000000000,
+   "amount_high": 1000000000,
+   "quote": "Our book of business for watsonx and generative AI again showed strong momentum, growing quarter over quarter, and has now eclipsed one billion dollars since we launched watsonx in mid-2023.",
+   "passage": "p01",
+   "confidence": 0.4,
+   "notes": "'Book of business' combines bookings/signings with revenue, so it is not recognized revenue. It is cumulative from mid-2023 through Q1 2024 and spans two fiscal years. 'Eclipsed one billion dollars' means more than $1 billion, recorded as a lower bound. The filing gives no fiscal year; do not treat this as fiscal 2024 AI revenue without review."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p01 only defines free cash flow, which deducts net capital expenditures"
+   "reason": "capital expenditures appear only in the boilerplate definition of free cash flow; no sentence links capex to AI or gives a capex figure"
   },
   {
    "field": "opex",
@@ -14,10 +28,10 @@
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.4,
-  "input_tokens": 4716,
-  "output_tokens": 163,
+  "seconds": 9.8,
+  "input_tokens": 5339,
+  "output_tokens": 1093,
   "attempts": 1,
-  "task_sha": "d476f30eaf6dc1d1"
+  "task_sha": "e079ebcc5a005697"
  }
 }

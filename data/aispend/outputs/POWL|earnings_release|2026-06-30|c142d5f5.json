@@ -1,0 +1,27 @@
+{
+ "accession": "POWL|earnings_release|2026-06-30|c142d5f5",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links Powell's capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the data center figure (a mega order exceeding $400 million) is a new order/booking, not revenue; p03 cites data center and AI capacity demand only as an end-market demand driver, without stating AI's or data center's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 5545,
+  "output_tokens": 538,
+  "attempts": 1,
+  "task_sha": "195de0e49fb84efb"
+ }
+}

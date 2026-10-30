@@ -1,7 +1,7 @@
 {
  "ticker": "AMZN",
- "prompt_version": "attribution@v1",
- "model": "hyperscaler@v2",
+ "prompt_version": "attribution@v2",
+ "model": "hyperscaler@v4",
  "rows": [
   {
    "field": "capex",
@@ -20,79 +20,19 @@
      "value": 113156000000
     }
    ],
-   "basis": "Growth in gross 'Servers and networking equipment' (172.492B \u2212 113.156B = 59.336B), about 45% of 131.819B capex. This counts all server and network growth, AI and non-AI, net of retirements. It may include finance-leased assets and excludes datacenter shells (Land and buildings) and construction in progress. The earnings release says the capex increase 'primarily reflects investments in artificial intelligence' but gives no amount.",
+   "basis": "Growth in gross 'Servers and networking equipment': 172,492m \u2212 113,156m = 59,336m, against 131,819m of cash purchases of property and equipment. This counts all server and network growth, not only AI, and excludes construction in progress (+25,109m), land and buildings, and finance leases. The earnings release says the capex increase 'primarily reflects investments in artificial intelligence', which supports the reading but gives no share. The 84,772m of purchase commitments at year end is not split by AI.",
    "confidence": 0.55
   },
   {
    "field": "capex",
-   "period": "FY2024",
-   "kind": "actual",
-   "method": "ppe_category",
-   "ai_amount": 33854000000,
-   "ai_share": 0.4079,
-   "inputs": [
-    {
-     "id": "fact:AMZN|ppe_category|Equipment|FY2024",
-     "value": 218893000000
-    },
-    {
-     "id": "fact:AMZN|ppe_category|Equipment|FY2023",
-     "value": 185039000000
-    }
-   ],
-   "basis": "Growth in gross 'Equipment' (218.893B \u2212 185.039B = 33.854B). Equipment is broader than servers: FY2024 Equipment equals Servers and networking 113.156B + Heavy equipment 52.228B + Other equipment 53.509B, so this includes fulfillment and logistics equipment. It is an upper bound on server growth, not an AI amount.",
-   "confidence": 0.35
-  },
-  {
-   "field": "capex",
-   "period": "FY2023",
-   "kind": "actual",
-   "method": "ppe_category",
-   "ai_amount": 27581000000,
-   "ai_share": 0.5231,
-   "inputs": [
-    {
-     "id": "fact:AMZN|ppe_category|Equipment|FY2023",
-     "value": 185039000000
-    },
-    {
-     "id": "fact:AMZN|ppe_category|Equipment|FY2022",
-     "value": 157458000000
-    }
-   ],
-   "basis": "Growth in gross 'Equipment' (185.039B \u2212 157.458B = 27.581B). It includes heavy and other fulfillment equipment as well as servers, and largely predates the AI buildout. It is all equipment growth, not an AI amount.",
-   "confidence": 0.25
-  },
-  {
-   "field": "capex",
-   "period": "FY2022",
-   "kind": "actual",
-   "method": "ppe_category",
-   "ai_amount": 28775000000,
-   "ai_share": 0.4521,
-   "inputs": [
-    {
-     "id": "fact:AMZN|ppe_category|Equipment|FY2022",
-     "value": 157458000000
-    },
-    {
-     "id": "fact:AMZN|ppe_category|Equipment|FY2021",
-     "value": 128683000000
-    }
-   ],
-   "basis": "Growth in gross 'Equipment' (157.458B \u2212 128.683B = 28.775B). It includes heavy and other fulfillment equipment as well as servers, and the year predates the generative-AI buildout. It is all equipment growth; the true AI share is likely much lower.",
-   "confidence": 0.2
-  },
-  {
-   "field": "capex",
    "period": "FY2026",
    "kind": "outlook",
    "method": "qualitative",
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "Amazon expects 'about $200 billion in capital expenditures across Amazon in 2026', citing AI, chips, robotics and satellites. That is total capex, not the AI part, and no AI split is given. Purchase commitments rose from 50.4B (FY2024) to 84.8B (FY2025), which is consistent with a larger buildout.",
-   "confidence": 0.25
+   "basis": "Amazon guided to about $200bn of 2026 capex in February 2026 and raised it to about $220bn in the Q2 2026 release. Both figures cover the whole company, 'AI, chips, robotics, and low earth orbit satellites', so neither is the AI part. Releases during 2026 repeat that the increase 'primarily reflects investments in artificial intelligence', with no amount.",
+   "confidence": 0.3
   },
   {
    "field": "opex",
@@ -102,43 +42,84 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The MD&A expects technology and infrastructure spending to increase 'as we continue to add infrastructure and employees, including to support our artificial intelligence and machine learning initiatives'. There is no amount or share.",
+   "basis": "The FY2025 MD&A expects technology and infrastructure spending to increase 'including to support our artificial intelligence and machine learning initiatives'. It gives no amount or share.",
    "confidence": 0.2
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The only AI revenue figure for FY2025 is Amazon Connect's $1bn annualized run rate (Q3 2025 release). That is a single product's run rate, not the year's AI revenue. AWS ($128,725m) is a cloud segment, not the AI line.",
+   "confidence": 0.2
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "stated_amount",
+   "ai_amount": 25000000000,
+   "ai_share": null,
+   "inputs": [
+    {
+     "id": "stmt:AMZN|earnings_release|2026-06-30|a371071e|revenue|FY2026|actual|1",
+     "value": 25000000000
+    }
+   ],
+   "basis": "Q2 2026 release: AWS's AI business 'exceeded a $25 billion annual revenue run rate', growing by triple digits. This is a run rate at mid-2026, not fiscal-year revenue; FY2026 is not complete, and the pack has no revenue total to compute a share against.",
+   "confidence": 0.4
   }
  ],
  "none_found": [
   {
-   "field": "opex",
+   "field": "capex",
    "period": "FY2022",
-   "reason": "no statement or segment cost line attributes opex to AI"
-  },
-  {
-   "field": "opex",
-   "period": "FY2023",
-   "reason": "no statement or segment cost line attributes opex to AI"
-  },
-  {
-   "field": "opex",
-   "period": "FY2024",
-   "reason": "no statement or segment cost line attributes opex to AI"
-  },
-  {
-   "field": "opex",
-   "period": "FY2025",
-   "reason": "no statement or segment cost line attributes opex to AI; the AI-related statements cover capex or the FY2026 outlook only"
+   "reason": "Servers and networking equipment is not broken out before FY2024 (it sat inside 'Equipment'), and no statement links FY2022 capex to AI."
   },
   {
    "field": "capex",
-   "period": "FY2026",
-   "reason": "no released FY2026 capex value; the quarterly earnings releases say only that the increase 'primarily reflects investments in artificial intelligence', with no amount"
+   "period": "FY2023",
+   "reason": "No server category in the pack (only the combined 'Equipment' line), and no statement links FY2023 capex to AI."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "Servers and networking equipment first appears at FY2024 (113,156m, split out of Equipment 218,893m), so there is no prior year to difference, and no FY2024 statement attributes capex to AI."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "No committed row: purchase commitments of 84,772m at year end are not separated into AI and non-AI, and finance lease liabilities are not in the pack."
+  },
+  {
+   "field": "opex",
+   "reason": "No opex values in the pack, and no statement quantifies AI in operating expenses for any year; AI shows up as depreciation and headcount, which are not split out."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "No AI revenue statement. AWS is a cloud segment, not the AI line."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "No AI revenue statement. AWS is a cloud segment, not the AI line."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "No AI revenue statement. AWS is a cloud segment, not the AI line."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 25.9,
-  "input_tokens": 8671,
-  "output_tokens": 3281,
+  "seconds": 30.5,
+  "input_tokens": 16261,
+  "output_tokens": 3590,
   "attempts": 1,
-  "task_sha": "2c4ddb5998ce461e"
+  "task_sha": "5fe4c30dce512a34"
  }
 }

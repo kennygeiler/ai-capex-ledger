@@ -1,0 +1,80 @@
+{
+ "accession": "0000831259-24-000011",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0031",
+   "row_label": "Revenuesa,b",
+   "column_label": "Years Ended December 31, | 2023",
+   "cell_text": "22,855",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 22855000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0031",
+   "row_label": "Revenuesa,b",
+   "column_label": "Years Ended December 31, | 2022",
+   "cell_text": "22,780",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 22780000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0031",
+   "row_label": "Operating incomea",
+   "column_label": "Years Ended December 31, | 2023",
+   "cell_text": "6,225",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 6225000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0031",
+   "row_label": "Operating incomea",
+   "column_label": "Years Ended December 31, | 2022",
+   "cell_text": "7,037",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 7037000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "The income statement tables (t0031, t0032) have no total cost-of-revenue or cost-of-sales line for any column."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "The income statement tables have no cost lines at all (t0032 shows only per-pound unit costs, not dollar amounts), so no parts can be cited."
+  },
+  {
+   "field": "capex",
+   "reason": "The cash-flow statement (t0060) splits capital expenditures into six segment lines under a 'Capital expenditures:' header with no total line, and the rules forbid adding lines together. A 'Capital expenditures' total (4,824 for 2023; 3,469 for 2022) appears only in t0031, a selected-financial-data summary table, not the cash-flow statement's investing section. It is shown there without parentheses, so it does not fit the validator's sign convention for capex. Reporting it as negative would contradict the prompt's rule that capex is positive, so it is left out rather than forced."
+  },
+  {
+   "field": "revenue",
+   "reason": "2021 column: present only in the cash-flow statement (t0060); the income statement tables have no 2021 column."
+  },
+  {
+   "field": "operating_income",
+   "reason": "2021 column: present only in the cash-flow statement (t0060); the income statement tables have no 2021 column."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 30.3,
+  "input_tokens": 13348,
+  "output_tokens": 3604,
+  "attempts": 2,
+  "task_sha": "3686ab59e08a804b"
+ }
+}

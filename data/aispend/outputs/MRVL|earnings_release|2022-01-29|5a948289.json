@@ -1,23 +1,27 @@
 {
  "accession": "MRVL|earnings_release|2022-01-29|5a948289",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is a product/end-market table listing AI systems as a customer application; no sentence links capital expenditures to AI"
+   "reason": "the only passage is an end-market table of customer products and applications; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "the only passage is a product/end-market table; no sentence quantifies or attributes operating expenses to AI"
+   "reason": "the only passage is an end-market table of customer products and applications; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the passage lists AI systems among data center end-market customer products (boilerplate description of what the company sells); no sentence states an AI or data-center revenue amount or share"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.9,
-  "input_tokens": 4843,
-  "output_tokens": 162,
+  "seconds": 3.2,
+  "input_tokens": 5146,
+  "output_tokens": 229,
   "attempts": 1,
-  "task_sha": "64819af49eac0c0b"
+  "task_sha": "92d9ecdf35387da5"
  }
 }

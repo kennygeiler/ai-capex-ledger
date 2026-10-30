@@ -1,6 +1,6 @@
 {
  "accession": "JPM|earnings_release|2022-12-31|9d377145",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "c03487308b56ccbc"
+  "task_sha": "e9ee90b594959bca"
  }
 }

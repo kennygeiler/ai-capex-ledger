@@ -1,0 +1,35 @@
+{
+ "accession": "HPE|mdna|2024-10-31|ac6a2646",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The HPC & AI business is growing at a very fast pace driven primarily by the AI demand from model builders, but as GPUs represent a large portion of the solutions, the pricing is very competitive and margins are limited.",
+   "passage": "p04",
+   "confidence": 0.6,
+   "notes": "Describes growth of the HPC & AI business driven by AI demand (seller side) but states no revenue figure or share; 'growing' is read as revenue growth, which the sentence does not say explicitly."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are mentioned only in liquidity and free-cash-flow context (lower net capex in fiscal 2024); no sentence links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.5,
+  "input_tokens": 6226,
+  "output_tokens": 576,
+  "attempts": 1,
+  "task_sha": "a1ae02d4838fc480"
+ }
+}

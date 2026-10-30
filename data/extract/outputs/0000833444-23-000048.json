@@ -1,0 +1,125 @@
+{
+ "accession": "0000833444-23-000048",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0029",
+   "row_label": "",
+   "column_label": "Year Ended September 30, | 2023",
+   "cell_text": "26,793",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": 26793000000,
+   "confidence": 0.9,
+   "notes": "Unlabeled total row summing 'Products and systems' (20,251) and 'Services' (6,542) net sales lines above it; row label is blank in the table."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0029",
+   "row_label": "",
+   "column_label": "Year Ended September 30, | 2022",
+   "cell_text": "25,299",
+   "period_end": "2022-09-30",
+   "months": 12,
+   "value": 25299000000,
+   "confidence": 0.9,
+   "notes": "Unlabeled total row summing 'Products and systems' and 'Services' net sales lines; row label is blank in the table."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0029",
+   "row_label": "",
+   "column_label": "Year Ended September 30, | 2021",
+   "cell_text": "23,668",
+   "period_end": "2021-09-30",
+   "months": 12,
+   "value": 23668000000,
+   "confidence": 0.9,
+   "notes": "Unlabeled total row summing 'Products and systems' and 'Services' net sales lines; row label is blank in the table."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0029",
+   "row_label": "",
+   "column_label": "Year Ended September 30, | 2023",
+   "cell_text": "17,822",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": 17822000000,
+   "confidence": 0.9,
+   "notes": "Unlabeled total row under the 'Cost of sales' header, summing 'Products and systems' (14,031) and 'Services' (3,791); row label is blank in the table."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0029",
+   "row_label": "",
+   "column_label": "Year Ended September 30, | 2022",
+   "cell_text": "16,956",
+   "period_end": "2022-09-30",
+   "months": 12,
+   "value": 16956000000,
+   "confidence": 0.9,
+   "notes": "Unlabeled total row under the 'Cost of sales' header; row label is blank in the table."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0029",
+   "row_label": "",
+   "column_label": "Year Ended September 30, | 2021",
+   "cell_text": "15,609",
+   "period_end": "2021-09-30",
+   "months": 12,
+   "value": 15609000000,
+   "confidence": 0.9,
+   "notes": "Unlabeled total row under the 'Cost of sales' header; row label is blank in the table."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0033",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended September 30, | 2023",
+   "cell_text": "(539)",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": 539000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0033",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended September 30, | 2022",
+   "cell_text": "(592)",
+   "period_end": "2022-09-30",
+   "months": 12,
+   "value": 592000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0033",
+   "row_label": "Capital expenditures",
+   "column_label": "Year Ended September 30, | 2021",
+   "cell_text": "(552)",
+   "period_end": "2021-09-30",
+   "months": 12,
+   "value": 552000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "operating_income",
+   "reason": "The income statement has no operating income or 'income from operations' line; it goes from gross profit through SG&A, restructuring, net financing charges and equity income directly to 'Income from continuing operations before income taxes'. Not derived by arithmetic per rules."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 26.9,
+  "input_tokens": 13478,
+  "output_tokens": 3355,
+  "attempts": 2,
+  "task_sha": "a67e3a24f7157544"
+ }
+}

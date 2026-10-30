@@ -1,0 +1,35 @@
+{
+ "accession": "VRT|earnings_release|2024-06-30|f514c13f",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We continue to see increased scaling of AI deployment and Vertiv has the capacity in place to seize this pivotal moment while continuing to invest in capacity for the future.",
+   "passage": "p01",
+   "confidence": 0.4,
+   "notes": "The CEO quote links continued investment in manufacturing capacity to rising AI deployment, but it does not say 'capital expenditures' or attribute any part of spend to AI. It may be too loose to count as a spend statement."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the release gives order growth (57% year-over-year) and an increased 2024 outlook but states no AI or data-center revenue figure or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.2,
+  "input_tokens": 5109,
+  "output_tokens": 875,
+  "attempts": 1,
+  "task_sha": "504080bfbc024b5d"
+ }
+}

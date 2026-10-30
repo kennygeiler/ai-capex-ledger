@@ -1,6 +1,6 @@
 {
  "accession": "0000050863-24-000010",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -12,8 +12,7 @@
    "period_end": "2023-12-30",
    "months": 12,
    "value": 10166000000,
-   "confidence": 0.8,
-   "notes": "Client Computing product line. The Client Computing subtotal row has no label, so Desktop/Notebook/Other are reported as written."
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -25,8 +24,7 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 10661000000,
-   "confidence": 0.8,
-   "notes": "Client Computing product line. The Client Computing subtotal row has no label."
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -38,8 +36,7 @@
    "period_end": "2021-12-25",
    "months": 12,
    "value": 12437000000,
-   "confidence": 0.8,
-   "notes": "Client Computing product line. The Client Computing subtotal row has no label."
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -51,8 +48,7 @@
    "period_end": "2023-12-30",
    "months": 12,
    "value": 16990000000,
-   "confidence": 0.8,
-   "notes": "Client Computing product line. The Client Computing subtotal row has no label."
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -64,8 +60,7 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 18781000000,
-   "confidence": 0.8,
-   "notes": "Client Computing product line. The Client Computing subtotal row has no label."
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -77,8 +72,7 @@
    "period_end": "2021-12-25",
    "months": 12,
    "value": 25443000000,
-   "confidence": 0.8,
-   "notes": "Client Computing product line. The Client Computing subtotal row has no label."
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -90,8 +84,7 @@
    "period_end": "2023-12-30",
    "months": 12,
    "value": 2102000000,
-   "confidence": 0.75,
-   "notes": "This is the 'Other' line within Client Computing (Desktop + Notebook + Other = unlabeled subtotal 29,258)."
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -103,8 +96,7 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 2331000000,
-   "confidence": 0.75,
-   "notes": "This is the 'Other' line within Client Computing."
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -116,8 +108,7 @@
    "period_end": "2021-12-25",
    "months": 12,
    "value": 3201000000,
-   "confidence": 0.75,
-   "notes": "This is the 'Other' line within Client Computing."
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -273,8 +264,7 @@
    "period_end": "2023-12-30",
    "months": 12,
    "value": 644000000,
-   "confidence": 0.8,
-   "notes": "'All other' is a reconciling category and not a reportable segment. It is included because it is not the total."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -286,8 +276,7 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 1089000000,
-   "confidence": 0.8,
-   "notes": "'All other' is a reconciling category and not a reportable segment."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -299,8 +288,7 @@
    "period_end": "2021-12-25",
    "months": 12,
    "value": 5771000000,
-   "confidence": 0.8,
-   "notes": "'All other' is a reconciling category and not a reportable segment."
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -378,23 +366,24 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "The segment note (t0180) reports only revenue and operating income by segment. Capex appears only as a consolidated figure in the cash flow statement (t0164)."
+   "reason": "the segment note (t0180) reports revenue and operating income only; capex appears only as a consolidated cash-flow line"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "The lease maturity table (t0264) gives undiscounted finance lease payments of 550. Its only present-value line is 978 in the Total column, which combines operating and finance leases. No table shows a finance lease liability on its own."
+   "reason": "t0264 gives only undiscounted finance lease payments; the present-value line (978) combines operating and finance leases, so no finance lease liability cell exists"
   },
   {
    "field": "purchase_commitments",
-   "reason": "The provided tables contain no contractual-obligations or purchase-commitments table."
+   "reason": "no contractual-obligations or commitments table is included among the tables provided"
   }
  ],
+ "notes": "The Client Computing revenue subtotal sits on an unlabeled row in t0180 and cannot be cited, so Client Computing revenue is reported through its product-line rows Desktop, Notebook and Other (confidence 0.8, since these are product lines within the segment, not the segment itself). 'All other' is a non-reportable grouping; confidence 0.9.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 33.8,
-  "input_tokens": 8597,
-  "output_tokens": 5057,
-  "attempts": 1,
-  "task_sha": "ed6ee0b710f46f3c"
+  "seconds": 55.2,
+  "input_tokens": 17593,
+  "output_tokens": 7850,
+  "attempts": 2,
+  "task_sha": "9b3bb6a87ace587a"
  }
 }

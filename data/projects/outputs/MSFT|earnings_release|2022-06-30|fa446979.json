@@ -1,0 +1,13 @@
+{
+ "accession": "MSFT|earnings_release|2022-06-30|fa446979",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 5184,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "88b66fc910cb6264"
+ }
+}

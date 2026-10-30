@@ -1,0 +1,98 @@
+{
+ "accession": "APLD|earnings_release|2022-11-30|2e918393",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Jamestown facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Jamestown, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 100,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Applied Digital\u2019s first facility is in Jamestown, North Dakota with capacity of 100MW.",
+   "passage": "p03",
+   "confidence": 0.9
+  },
+  {
+   "name": "Jamestown Energy Services Agreement",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Jamestown, North Dakota",
+   "counterparty": "local utility",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Additionally, the facility is powered through a five-year Energy Services Agreement (ESA) with a local utility, providing visibility into the cost structure as a stable pricing mechanism for energy costs has been negotiated.",
+   "passage": "p03",
+   "confidence": 0.75
+  },
+  {
+   "name": "Garden City facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Garden City, Texas",
+   "counterparty": null,
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Applied Digital\u2019s second facility is in Garden City, Texas, planned for capacity of 200MW and is co-located with a wind farm.",
+   "passage": "p04",
+   "confidence": 0.85
+  },
+  {
+   "name": "Ellendale facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Ellendale, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 180,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Applied Digital\u2019s third co-hosting facility is in Ellendale, North Dakota with planned capacity of 180MW.",
+   "passage": "p05",
+   "confidence": 0.9
+  },
+  {
+   "name": "Ellendale Energy Services Agreement",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Ellendale, North Dakota",
+   "counterparty": "utility partner",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The Company entered into a five-year ESA with a utility partner and broke ground on the site on September 8, 2022.",
+   "passage": "p05",
+   "confidence": 0.75
+  },
+  {
+   "name": "Jamestown 5MW specialized processing center",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Jamestown, North Dakota",
+   "counterparty": null,
+   "capacity_mw": 5,
+   "gpus": null,
+   "announced": "2022-12-14",
+   "in_service": "2023",
+   "quote": "On December 14, 2022, Applied Digital announced groundbreaking of a 5MW specialized processing center in Jamestown, North Dakota, adjacent to its existing 100MW facility.",
+   "passage": "p06",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.8,
+  "input_tokens": 6147,
+  "output_tokens": 1890,
+  "attempts": 1,
+  "task_sha": "27f30adc67d6ddc5"
+ }
+}

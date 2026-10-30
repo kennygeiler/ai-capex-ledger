@@ -1,115 +1,7 @@
 {
  "accession": "0000104169-26-000055",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
-  {
-   "field": "segment_revenue",
-   "dimension": "Walmart U.S.",
-   "table_id": "t0082",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2026",
-   "cell_text": "485,599",
-   "period_end": "2026-01-31",
-   "months": 12,
-   "value": 485599000000,
-   "confidence": 0.85
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Walmart U.S.",
-   "table_id": "t0082",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2025",
-   "cell_text": "465,009",
-   "period_end": "2025-01-31",
-   "months": 12,
-   "value": 465009000000,
-   "confidence": 0.85
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Walmart U.S.",
-   "table_id": "t0082",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2024",
-   "cell_text": "443,802",
-   "period_end": "2024-01-31",
-   "months": 12,
-   "value": 443802000000,
-   "confidence": 0.85
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Walmart International",
-   "table_id": "t0082",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2026",
-   "cell_text": "131,988",
-   "period_end": "2026-01-31",
-   "months": 12,
-   "value": 131988000000,
-   "confidence": 0.95
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Walmart International",
-   "table_id": "t0082",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2025",
-   "cell_text": "123,363",
-   "period_end": "2025-01-31",
-   "months": 12,
-   "value": 123363000000,
-   "confidence": 0.95
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Walmart International",
-   "table_id": "t0082",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2024",
-   "cell_text": "116,049",
-   "period_end": "2024-01-31",
-   "months": 12,
-   "value": 116049000000,
-   "confidence": 0.95
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Sam's Club U.S.",
-   "table_id": "t0082",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2026",
-   "cell_text": "95,540",
-   "period_end": "2026-01-31",
-   "months": 12,
-   "value": 95540000000,
-   "confidence": 0.95
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Sam's Club U.S.",
-   "table_id": "t0082",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2025",
-   "cell_text": "92,561",
-   "period_end": "2025-01-31",
-   "months": 12,
-   "value": 92561000000,
-   "confidence": 0.95
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Sam's Club U.S.",
-   "table_id": "t0082",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2024",
-   "cell_text": "88,230",
-   "period_end": "2024-01-31",
-   "months": 12,
-   "value": 88230000000,
-   "confidence": 0.95
-  },
   {
    "field": "segment_capex",
    "dimension": "Walmart U.S.",
@@ -120,7 +12,7 @@
    "period_end": "2026-01-31",
    "months": 12,
    "value": 20157000000,
-   "confidence": 0.85
+   "confidence": 0.9
   },
   {
    "field": "segment_capex",
@@ -132,7 +24,7 @@
    "period_end": "2025-01-31",
    "months": 12,
    "value": 16466000000,
-   "confidence": 0.85
+   "confidence": 0.9
   },
   {
    "field": "segment_capex",
@@ -144,7 +36,7 @@
    "period_end": "2024-01-31",
    "months": 12,
    "value": 13877000000,
-   "confidence": 0.85
+   "confidence": 0.9
   },
   {
    "field": "segment_capex",
@@ -217,6 +109,114 @@
    "months": 12,
    "value": 1041000000,
    "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Walmart U.S.",
+   "table_id": "t0082",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2026",
+   "cell_text": "485,599",
+   "period_end": "2026-01-31",
+   "months": 12,
+   "value": 485599000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Walmart U.S.",
+   "table_id": "t0082",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2025",
+   "cell_text": "465,009",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 465009000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Walmart U.S.",
+   "table_id": "t0082",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2024",
+   "cell_text": "443,802",
+   "period_end": "2024-01-31",
+   "months": 12,
+   "value": 443802000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Walmart International",
+   "table_id": "t0082",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2026",
+   "cell_text": "131,988",
+   "period_end": "2026-01-31",
+   "months": 12,
+   "value": 131988000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Walmart International",
+   "table_id": "t0082",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2025",
+   "cell_text": "123,363",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 123363000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Walmart International",
+   "table_id": "t0082",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2024",
+   "cell_text": "116,049",
+   "period_end": "2024-01-31",
+   "months": 12,
+   "value": 116049000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Sam's Club U.S.",
+   "table_id": "t0082",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2026",
+   "cell_text": "95,540",
+   "period_end": "2026-01-31",
+   "months": 12,
+   "value": 95540000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Sam's Club U.S.",
+   "table_id": "t0082",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2025",
+   "cell_text": "92,561",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 92561000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Sam's Club U.S.",
+   "table_id": "t0082",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2024",
+   "cell_text": "88,230",
+   "period_end": "2024-01-31",
+   "months": 12,
+   "value": 88230000000,
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -342,20 +342,19 @@
  "not_found": [
   {
    "field": "finance_lease_liability",
-   "reason": "no single total finance lease liabilities cell exists; t0048 (balance sheet) shows only 'Finance lease obligations due within one year' (856 / 800) and 'Long-term finance lease obligations' (5,905 / 5,923), whose sums (6,761 / 6,723 million) cannot be cited as one cell"
+   "reason": "no total finance lease liabilities line; the balance sheet (t0048) gives only 'Finance lease obligations due within one year' and 'Long-term finance lease obligations', and the schema rejects a current/non-current dimension, so neither line can be cited alone without adding cells"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or commitments table with purchase obligations is included in the provided tables"
+   "reason": "no contractual-obligations or commitments table is among the tables provided"
   }
  ],
- "notes": "Walmart U.S. segment block in t0082/t0083 has no visible header row; attributed as Walmart U.S. because it is the first of the three reportable segments and its figures match the Walmart U.S. MD&A table (t0029), hence confidence 0.85. Segment revenue uses 'Total revenues' (net sales plus membership and other income). Corporate and support is not a reportable segment and is excluded. The t0051 2026 column label is mis-parsed as 'Estimated Useful Lives | 2026' but holds the January 31, 2026 balances.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 70.5,
-  "input_tokens": 21846,
-  "output_tokens": 10193,
+  "seconds": 65.9,
+  "input_tokens": 21987,
+  "output_tokens": 9667,
   "attempts": 2,
-  "task_sha": "ac411378ef29ee1d"
+  "task_sha": "384f747721c3bf08"
  }
 }

@@ -1,0 +1,13 @@
+{
+ "accession": "CRM|mdna|2024-01-31|be5f5bfa",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 5029,
+  "output_tokens": 121,
+  "attempts": 1,
+  "task_sha": "35986a367ea33615"
+ }
+}

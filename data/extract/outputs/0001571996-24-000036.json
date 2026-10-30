@@ -1,0 +1,150 @@
+{
+ "accession": "0001571996-24-000036",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0028",
+   "row_label": "Total net revenue",
+   "column_label": "Fiscal Year Ended | February 2, 2024",
+   "cell_text": "88,425",
+   "period_end": "2024-02-02",
+   "months": 12,
+   "value": 88425000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0028",
+   "row_label": "Total net revenue",
+   "column_label": "Fiscal Year Ended | February 3, 2023",
+   "cell_text": "102,301",
+   "period_end": "2023-02-03",
+   "months": 12,
+   "value": 102301000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0028",
+   "row_label": "Total net revenue",
+   "column_label": "Fiscal Year Ended | January 28, 2022",
+   "cell_text": "101,197",
+   "period_end": "2022-01-28",
+   "months": 12,
+   "value": 101197000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0028",
+   "row_label": "Total cost of net revenue",
+   "column_label": "Fiscal Year Ended | February 2, 2024",
+   "cell_text": "67,556",
+   "period_end": "2024-02-02",
+   "months": 12,
+   "value": 67556000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0028",
+   "row_label": "Total cost of net revenue",
+   "column_label": "Fiscal Year Ended | February 3, 2023",
+   "cell_text": "79,615",
+   "period_end": "2023-02-03",
+   "months": 12,
+   "value": 79615000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0028",
+   "row_label": "Total cost of net revenue",
+   "column_label": "Fiscal Year Ended | January 28, 2022",
+   "cell_text": "79,306",
+   "period_end": "2022-01-28",
+   "months": 12,
+   "value": 79306000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0028",
+   "row_label": "Operating income",
+   "column_label": "Fiscal Year Ended | February 2, 2024",
+   "cell_text": "5,211",
+   "period_end": "2024-02-02",
+   "months": 12,
+   "value": 5211000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0028",
+   "row_label": "Operating income",
+   "column_label": "Fiscal Year Ended | February 3, 2023",
+   "cell_text": "5,771",
+   "period_end": "2023-02-03",
+   "months": 12,
+   "value": 5771000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0028",
+   "row_label": "Operating income",
+   "column_label": "Fiscal Year Ended | January 28, 2022",
+   "cell_text": "4,659",
+   "period_end": "2022-01-28",
+   "months": 12,
+   "value": 4659000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0030",
+   "row_label": "Capital expenditures and capitalized software development costs",
+   "column_label": "Fiscal Year Ended | February 2, 2024",
+   "cell_text": "(2,756)",
+   "period_end": "2024-02-02",
+   "months": 12,
+   "value": 2756000000,
+   "confidence": 0.9,
+   "notes": "Only capex line in investing section; it also includes capitalized software development costs (intangible), used as instructed."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0030",
+   "row_label": "Capital expenditures and capitalized software development costs",
+   "column_label": "Fiscal Year Ended | February 3, 2023",
+   "cell_text": "(3,003)",
+   "period_end": "2023-02-03",
+   "months": 12,
+   "value": 3003000000,
+   "confidence": 0.9,
+   "notes": "Only capex line in investing section; it also includes capitalized software development costs (intangible), used as instructed."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0030",
+   "row_label": "Capital expenditures and capitalized software development costs",
+   "column_label": "Fiscal Year Ended | January 28, 2022",
+   "cell_text": "(2,796)",
+   "period_end": "2022-01-28",
+   "months": 12,
+   "value": 2796000000,
+   "confidence": 0.9,
+   "notes": "Only capex line in investing section; it also includes capitalized software development costs (intangible), used as instructed."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.0,
+  "input_tokens": 6264,
+  "output_tokens": 1653,
+  "attempts": 1,
+  "task_sha": "614a6ba6d89eab89"
+ }
+}

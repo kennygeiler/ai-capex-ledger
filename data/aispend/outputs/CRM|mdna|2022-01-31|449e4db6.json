@@ -1,0 +1,27 @@
+{
+ "accession": "CRM|mdna|2022-01-31|449e4db6",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; infrastructure and data center investments are described for scaling, productivity and security, with no mention of AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, data center costs, headcount) to AI; increases are attributed to employee-related costs, stock-based expense, data center capacity and acquisitions"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer of data center capacity, not a seller; no sentence states AI's or data-center demand's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.1,
+  "input_tokens": 5465,
+  "output_tokens": 260,
+  "attempts": 1,
+  "task_sha": "a2ed5b6a96ccd0fa"
+ }
+}

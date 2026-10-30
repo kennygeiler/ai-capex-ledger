@@ -1,0 +1,13 @@
+{
+ "accession": "CRDO|earnings_release|2024-08-03|70e72159",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "35af279ee35368f3"
+ }
+}

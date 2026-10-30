@@ -1,7 +1,29 @@
 {
  "accession": "MU|earnings_release|2025-05-29|a1cf69af",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Micron delivered record revenue in fiscal Q3, driven by all-time-high DRAM revenue including nearly 50% sequential growth in HBM revenue.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Quarterly (fiscal Q3) figure, not full year. The ~50% is sequential HBM revenue growth, not a share of revenue, so the statement is qualitative. Opening quotation mark omitted from the quote."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Data center revenue more than doubled year-over-year and reached a quarterly record, and consumer-oriented end markets had strong sequential growth,",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Quarterly (fiscal Q3) data-center revenue. 'More than doubled' is year-over-year growth, not an amount or share, so the statement is qualitative. The sentence ends inside a quotation, so the quote ends at the comma."
+  },
   {
    "field": "capex",
    "fiscal_year": 2025,
@@ -11,21 +33,21 @@
    "quote": "We are on track to deliver record revenue with solid profitability and free cash flow in fiscal 2025, while we make disciplined investments to build on our technology leadership and manufacturing excellence to satisfy growing AI-driven memory demand.",
    "passage": "p01",
    "confidence": 0.5,
-   "notes": "The CEO quote links 'disciplined investments' to AI-driven memory demand but never says 'capital expenditures'. 'Manufacturing excellence' most plausibly means capex, so it is recorded as capex. The investments are framed as company-wide and driven by AI demand, so scope is total, not the AI part. Kind is outlook because fiscal 2025 was not complete at the Q3 release ('on track')."
+   "notes": "'Disciplined investments' to meet AI-driven demand likely refers to capex, but capital expenditures are not named and no amount is given."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expense to AI; 'technology leadership' investments in p01 may imply R&D, but that is too indirect to record"
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.1,
-  "input_tokens": 4860,
-  "output_tokens": 1023,
+  "seconds": 12.7,
+  "input_tokens": 5165,
+  "output_tokens": 1539,
   "attempts": 1,
-  "task_sha": "c188b9c60421f71d"
+  "task_sha": "448f27cd0f7c7c29"
  }
 }

@@ -1,0 +1,27 @@
+{
+ "accession": "EME|earnings_release|2023-09-30|e807d39d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "purchases of property, plant and equipment ($56,306 thousand) appear only in the cash flow table; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only data-center mention (p01: 'We continue to see resilient demand for our services especially in semiconductors, data centers, manufacturing re-shoring, healthcare and across the EV value chain.') lists data centers among several end markets; it gives no data-center or AI revenue figure or share and does not attribute revenue growth to it, so it is treated as general demand commentary, not an AI revenue statement"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 5979,
+  "output_tokens": 581,
+  "attempts": 1,
+  "task_sha": "89055644a88781a7"
+ }
+}

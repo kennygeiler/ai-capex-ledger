@@ -1,0 +1,46 @@
+{
+ "accession": "ADBE|mdna|2025-11-28|f31e0836",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Cost of subscription revenue consists primarily of third-party hosting services and data center costs, including expenses related to operating our network infrastructure and AI inferencing costs.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Describes what the cost line contains, including AI inferencing costs. It gives no magnitude, says nothing about AI's share and no change is attributed to AI. Recorded with low confidence because it borders on a description of the cost line."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Research and development expenses consist primarily of compensation and contracted costs associated with software development, third-party hosting services and data center costs including AI training costs, related facilities costs, and expenses associated with computer equipment and software used in development activities.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Describes what R&D contains, including AI training costs. It gives no amount or share. The fiscal 2025 R&D increase is attributed to compensation costs, not to AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p04 mentions purchases of computer and server hardware for network infrastructure with no AI attribution"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states how much of revenue comes from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.5,
+  "input_tokens": 5379,
+  "output_tokens": 1051,
+  "attempts": 1,
+  "task_sha": "a8d6c5469262f57e"
+ }
+}

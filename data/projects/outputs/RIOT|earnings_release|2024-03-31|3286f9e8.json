@@ -1,0 +1,70 @@
+{
+ "accession": "RIOT|earnings_release|2024-03-31|3286f9e8",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Corsicana Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Corsicana, Texas",
+   "counterparty": null,
+   "capacity_mw": 1000,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024-04-18",
+   "quote": "The Corsicana Facility will have a total capacity of 1 GW when fully developed, at which point it is expected to be the largest known Bitcoin mining facility in the world by developed capacity.",
+   "passage": "p03",
+   "confidence": 0.6
+  },
+  {
+   "name": "Corsicana Facility substation",
+   "kind": "power",
+   "status": "in_service",
+   "location": "Corsicana, Texas",
+   "counterparty": null,
+   "capacity_mw": 400,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024-04-18",
+   "quote": "On April 18, Riot announced the successful energization of the Corsicana Facility substation.",
+   "passage": "p03",
+   "confidence": 0.55
+  },
+  {
+   "name": "Rockdale Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Rockdale",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Bitcoin Mining revenue in excess of Bitcoin Mining cost of revenue for the quarter was $33.5 million (45% of mining revenue), as compared to $26.1 million (54% of mining revenue) for the same three-month period in 2023, an increase of $7.4 million driven by higher Bitcoin prices during the quarter and an increase in revenues from the expansion of Bitcoin mining capacity at the Rockdale Facility.",
+   "passage": "p02",
+   "confidence": 0.4
+  },
+  {
+   "name": "Second order of 66,560 miners for Corsicana",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025-04",
+   "quote": "Includes remaining $223 million on second order of 66,560 additional miners scheduled to be delivered through April 2025.",
+   "passage": "p10",
+   "confidence": 0.35
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 22.0,
+  "input_tokens": 10528,
+  "output_tokens": 1396,
+  "attempts": 1,
+  "task_sha": "6f19e8002192b807"
+ }
+}

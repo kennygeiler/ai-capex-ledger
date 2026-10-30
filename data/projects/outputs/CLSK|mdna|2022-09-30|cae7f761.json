@@ -1,0 +1,42 @@
+{
+ "accession": "CLSK|mdna|2022-09-30|cae7f761",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "ATL Data Center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2020-12",
+   "quote": "This increase was due to a full year of data center operations during the fiscal year ended September 30, 2022, whereas the prior fiscal year saw data center operations begin in December 2020 as the result of the ATL acquisition.",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "Coinmint co-location agreement",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Coinmint",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We also incurred hosting fees of $22,707,539 for the year ended September 30, 2022, an increase of $20,761,197 as compared to $1,946,342 for the year ended September 30, 2021, which was the result of our co-location agreement with Coinmint.",
+   "passage": "p02",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.5,
+  "input_tokens": 4746,
+  "output_tokens": 775,
+  "attempts": 1,
+  "task_sha": "f2230eeb6d6c2c18"
+ }
+}

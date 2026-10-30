@@ -1,0 +1,180 @@
+{
+ "accession": "0001558370-23-002006",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Ion implantation systems and services",
+   "table_id": "t0125",
+   "row_label": "Ion implantation systems and services",
+   "column_label": "\u200b | 2022",
+   "cell_text": "898,132",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 898132000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Ion implantation systems and services",
+   "table_id": "t0125",
+   "row_label": "Ion implantation systems and services",
+   "column_label": "\u200b | 2021",
+   "cell_text": "645,504",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 645504000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Ion implantation systems and services",
+   "table_id": "t0125",
+   "row_label": "Ion implantation systems and services",
+   "column_label": "\u200b | Year ended December 31, | 2020",
+   "cell_text": "456,788",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 456788000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Other systems and services",
+   "table_id": "t0125",
+   "row_label": "Other systems and services",
+   "column_label": "\u200b | 2022",
+   "cell_text": "21,866",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 21866000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Other systems and services",
+   "table_id": "t0125",
+   "row_label": "Other systems and services",
+   "column_label": "\u200b | 2021",
+   "cell_text": "16,924",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 16924000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Other systems and services",
+   "table_id": "t0125",
+   "row_label": "Other systems and services",
+   "column_label": "\u200b | Year ended December 31, | 2020",
+   "cell_text": "17,772",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 17772000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and buildings",
+   "table_id": "t0111",
+   "row_label": "Land and buildings",
+   "column_label": "\u200b | 2022",
+   "cell_text": "18,001",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 18001000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and buildings",
+   "table_id": "t0111",
+   "row_label": "Land and buildings",
+   "column_label": "\u200b | December 31, | 2021",
+   "cell_text": "15,881",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 15881000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0111",
+   "row_label": "Machinery and equipment",
+   "column_label": "\u200b | 2022",
+   "cell_text": "34,728",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 34728000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0111",
+   "row_label": "Machinery and equipment",
+   "column_label": "\u200b | December 31, | 2021",
+   "cell_text": "34,312",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 34312000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in process",
+   "table_id": "t0111",
+   "row_label": "Construction in process",
+   "column_label": "\u200b | 2022",
+   "cell_text": "10,189",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 10189000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in process",
+   "table_id": "t0111",
+   "row_label": "Construction in process",
+   "column_label": "\u200b | December 31, | 2021",
+   "cell_text": "6,852",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 6852000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0115",
+   "row_label": "Finance lease and operating lease obligations",
+   "column_label": "\u200b | Finance | Leases | 6,114 | 6,252 | 5,930 | 6,008 | 6,128",
+   "cell_text": "46,414",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 46414000,
+   "confidence": 0.8
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "Axcelis reports a single segment; the tables give no per-segment capital expenditures"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or purchase-commitments table is among the tables provided"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 42.7,
+  "input_tokens": 17281,
+  "output_tokens": 5682,
+  "attempts": 2,
+  "task_sha": "0a132ab97eeefd82"
+ }
+}

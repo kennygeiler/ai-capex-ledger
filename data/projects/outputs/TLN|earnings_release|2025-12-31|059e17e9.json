@@ -1,0 +1,60 @@
+{
+ "accession": "TLN|earnings_release|2025-12-31|059e17e9",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Amazon PPA",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Amazon",
+   "capacity_mw": 1920,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In the last year, we expanded the Amazon PPA to 1,920 megawatts (\u201cMW\u201d), announced, financed, and closed on the accretive Freedom and Guernsey acquisitions, and announced the Cornerstone Acquisition which is expected to further diversify our baseload generation cash flows.",
+   "passage": "p02",
+   "confidence": 0.9
+  },
+  {
+   "name": "Freedom and Guernsey acquisitions",
+   "kind": "power",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 3800000000,
+   "amount_high": 3800000000,
+   "capacity_mw": 2800,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025-11-25",
+   "quote": "On November 25, 2025, Talen consummated the Freedom and Guernsey acquisitions, which increases the Company\u2019s generating capacity by approximately 2.8 GW and provides efficient baseload generation and cash flow diversification.",
+   "passage": "p03",
+   "confidence": 0.6
+  },
+  {
+   "name": "Cornerstone Acquisition",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Ohio and Indiana",
+   "counterparty": "affiliates of ECP",
+   "amount_low": 3450000000,
+   "amount_high": 3450000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2026-01-15",
+   "in_service": null,
+   "quote": "On January 15, 2026, Talen entered into a definitive merger agreement (the \u201cCornerstone Merger Agreement\u201d) with affiliates of ECP to purchase (i) the 875 MW Waterford and 456 MW Darby assets, both located in Ohio, and the 1,120 MW Lawrenceburg asset located in Indiana, for an aggregate purchase price of $3.45 billion (subject to working capital and other customary adjustments) which consists of approximately of $2.55 billion in cash and 2,400,000 shares of Talen\u2019s common stock, valued at $900 million at the time of entry into the Cornerstone Merger Agreement.",
+   "passage": "p04",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.4,
+  "input_tokens": 7914,
+  "output_tokens": 1769,
+  "attempts": 1,
+  "task_sha": "4d0999717fa44433"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "WDC|earnings_release|2025-06-27|e072cea9",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 only defines free cash flow using purchases of property, plant and equipment"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; p01's 'AI-driven future' remark is a general product statement, not a revenue figure or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.4,
+  "input_tokens": 5130,
+  "output_tokens": 218,
+  "attempts": 1,
+  "task_sha": "6f185048135c13d7"
+ }
+}

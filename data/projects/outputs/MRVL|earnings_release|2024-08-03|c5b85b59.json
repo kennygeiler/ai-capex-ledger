@@ -1,0 +1,13 @@
+{
+ "accession": "MRVL|earnings_release|2024-08-03|c5b85b59",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "ad7e8d3396e89988"
+ }
+}

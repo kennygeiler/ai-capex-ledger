@@ -1,23 +1,27 @@
 {
  "accession": "CSCO|earnings_release|2025-10-25|5cd2377b",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "only passage is forward-looking-statements boilerplate; no sentence states or attributes capital expenditures to AI"
+   "reason": "no sentence links Cisco's capital expenditures to AI; the 'capital spending on Internet-based systems' mention in p03 is risk-factor boilerplate about customers"
   },
   {
    "field": "opex",
-   "reason": "only passage is forward-looking-statements boilerplate; mentions of AI and 'strategic investments' are risk-factor language, not statements of operating expense spend on AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; 'strategic investments to capture the significant opportunities ahead' (p02) does not name AI spend, and 'our development and use of artificial intelligence' (p03) is a risk-factor item"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue; p01 reports $1.3 billion of Q1 AI Infrastructure orders from hyperscaler customers, but orders are bookings, not recognized revenue, and the line is a quarterly bullet fragment, so it is not recorded"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.8,
-  "input_tokens": 5692,
-  "output_tokens": 183,
+  "seconds": 8.3,
+  "input_tokens": 6478,
+  "output_tokens": 640,
   "attempts": 1,
-  "task_sha": "28f8ce3face3fa78"
+  "task_sha": "cd6f4afaaec010bf"
  }
 }

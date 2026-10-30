@@ -1,6 +1,6 @@
 {
  "accession": "0000320193-23-000106",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -12,7 +12,7 @@
    "period_end": "2023-09-30",
    "months": 12,
    "value": 162560000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -24,7 +24,7 @@
    "period_end": "2022-09-24",
    "months": 12,
    "value": 169658000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -36,7 +36,7 @@
    "period_end": "2021-09-25",
    "months": 12,
    "value": 153306000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -48,7 +48,7 @@
    "period_end": "2023-09-30",
    "months": 12,
    "value": 94294000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -60,7 +60,7 @@
    "period_end": "2022-09-24",
    "months": 12,
    "value": 95118000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -72,7 +72,7 @@
    "period_end": "2021-09-25",
    "months": 12,
    "value": 89307000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -84,7 +84,7 @@
    "period_end": "2023-09-30",
    "months": 12,
    "value": 72559000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -96,7 +96,7 @@
    "period_end": "2022-09-24",
    "months": 12,
    "value": 74200000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -108,7 +108,7 @@
    "period_end": "2021-09-25",
    "months": 12,
    "value": 68366000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -120,7 +120,7 @@
    "period_end": "2023-09-30",
    "months": 12,
    "value": 24257000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -132,7 +132,7 @@
    "period_end": "2022-09-24",
    "months": 12,
    "value": 25977000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -144,7 +144,7 @@
    "period_end": "2021-09-25",
    "months": 12,
    "value": 28482000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -156,7 +156,7 @@
    "period_end": "2023-09-30",
    "months": 12,
    "value": 29615000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -168,7 +168,7 @@
    "period_end": "2022-09-24",
    "months": 12,
    "value": 29375000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -180,7 +180,7 @@
    "period_end": "2021-09-25",
    "months": 12,
    "value": 26356000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -258,24 +258,23 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "Apple's segment note (t0053/t0054) reports only net sales and operating income per geographic segment; no capital expenditures by segment are disclosed."
+   "reason": "the segment note reports net sales and operating income by geographic segment only; no capital expenditures by segment"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "Table t0044 has no total finance lease liability row; it shows only the components (2023: current 'Finance leases' 165 + non-current 'Other non-current liabilities' 859 = 1,024; 2022: 129 + 812 = 941, in millions). The sum cannot be cited to a single cell, and the non-current row label is duplicated with the operating-lease row."
+   "reason": "table t0044 gives no total finance lease liabilities line, only a current 'Finance leases' row (165 / 129) and a non-current 'Other non-current liabilities' row (859 / 812); the schema accepts no current/non-current dimension and cells may not be summed, so no single value can be cited"
   },
   {
    "field": "purchase_commitments",
-   "reason": "No contractual-obligations or commitments table was among the supplied tables."
+   "reason": "no contractual-obligations or commitments table is among the tables provided"
   }
  ],
- "notes": "Segment revenue taken from t0014, where each row is labeled with the segment name; t0053 repeats the same figures but its first segment header ('Americas:') was lost in parsing. Confidence 0.95 because t0014 may be the MD&A presentation rather than the segment note itself. Prior-year period_end dates follow Apple's last-Saturday-of-September fiscal calendar (2022-09-24, 2021-09-25); these dates are not shown in the tables.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 24.6,
-  "input_tokens": 5562,
-  "output_tokens": 3486,
-  "attempts": 1,
-  "task_sha": "8cf0b4af8d215397"
+  "seconds": 47.8,
+  "input_tokens": 11421,
+  "output_tokens": 6790,
+  "attempts": 2,
+  "task_sha": "7dd276248feab69b"
  }
 }

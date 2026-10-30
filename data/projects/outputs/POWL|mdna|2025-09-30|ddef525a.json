@@ -1,0 +1,44 @@
+{
+ "accession": "POWL|mdna|2025-09-30|ddef525a",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Jacintoport manufacturing facility expansion",
+   "kind": "plant",
+   "status": "announced",
+   "location": "Houston, Texas",
+   "counterparty": null,
+   "amount_low": 12400000,
+   "amount_high": 12400000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2025-08",
+   "in_service": null,
+   "quote": "In August 2025, we announced a $12.4 million investment to expand production capacity at our Jacintoport manufacturing facility in Houston, Texas.",
+   "passage": "p06",
+   "confidence": 0.7
+  },
+  {
+   "name": "Houston electrical products facility expansion and improvement project",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Houston",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Cash used in investing activities during Fiscal 2025 was primarily attributable to the Remsdaq acquisition and the capital spending on the facility expansion and improvement project at our electrical products facility in Houston.",
+   "passage": "p04",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 5882,
+  "output_tokens": 849,
+  "attempts": 1,
+  "task_sha": "978ce46788b300cf"
+ }
+}

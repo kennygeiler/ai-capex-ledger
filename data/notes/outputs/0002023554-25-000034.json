@@ -1,0 +1,280 @@
+{
+ "accession": "0002023554-25-000034",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Cloud",
+   "table_id": "t0015",
+   "row_label": "Cloud",
+   "column_label": "2025",
+   "cell_text": "960",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 960000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Cloud",
+   "table_id": "t0015",
+   "row_label": "Cloud",
+   "column_label": "2024",
+   "cell_text": "325",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 325000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Cloud",
+   "table_id": "t0015",
+   "row_label": "Cloud",
+   "column_label": "2023",
+   "cell_text": "500",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 500000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Client",
+   "table_id": "t0015",
+   "row_label": "Client",
+   "column_label": "2025",
+   "cell_text": "4,127",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 4127000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Client",
+   "table_id": "t0015",
+   "row_label": "Client",
+   "column_label": "2024",
+   "cell_text": "4,069",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 4069000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Client",
+   "table_id": "t0015",
+   "row_label": "Client",
+   "column_label": "2023",
+   "cell_text": "3,637",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 3637000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Consumer",
+   "table_id": "t0015",
+   "row_label": "Consumer",
+   "column_label": "2025",
+   "cell_text": "2,268",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 2268000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Consumer",
+   "table_id": "t0015",
+   "row_label": "Consumer",
+   "column_label": "2024",
+   "cell_text": "2,269",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 2269000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Consumer",
+   "table_id": "t0015",
+   "row_label": "Consumer",
+   "column_label": "2023",
+   "cell_text": "1,949",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 1949000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0032",
+   "row_label": "Land",
+   "column_label": "2025",
+   "cell_text": "10",
+   "period_end": "2025-06-27",
+   "months": 0,
+   "value": 10000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0032",
+   "row_label": "Land",
+   "column_label": "2024",
+   "cell_text": "10",
+   "period_end": "2024-06-28",
+   "months": 0,
+   "value": 10000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0032",
+   "row_label": "Machinery and equipment",
+   "column_label": "2025",
+   "cell_text": "1,480",
+   "period_end": "2025-06-27",
+   "months": 0,
+   "value": 1480000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0032",
+   "row_label": "Machinery and equipment",
+   "column_label": "2024",
+   "cell_text": "2,340",
+   "period_end": "2024-06-28",
+   "months": 0,
+   "value": 2340000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0032",
+   "row_label": "Buildings and improvements",
+   "column_label": "2025",
+   "cell_text": "390",
+   "period_end": "2025-06-27",
+   "months": 0,
+   "value": 390000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0032",
+   "row_label": "Buildings and improvements",
+   "column_label": "2024",
+   "cell_text": "397",
+   "period_end": "2024-06-28",
+   "months": 0,
+   "value": 397000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment and software",
+   "table_id": "t0032",
+   "row_label": "Computer equipment and software",
+   "column_label": "2025",
+   "cell_text": "176",
+   "period_end": "2025-06-27",
+   "months": 0,
+   "value": 176000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment and software",
+   "table_id": "t0032",
+   "row_label": "Computer equipment and software",
+   "column_label": "2024",
+   "cell_text": "123",
+   "period_end": "2024-06-28",
+   "months": 0,
+   "value": 123000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0032",
+   "row_label": "Furniture and fixtures",
+   "column_label": "2025",
+   "cell_text": "18",
+   "period_end": "2025-06-27",
+   "months": 0,
+   "value": 18000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0032",
+   "row_label": "Furniture and fixtures",
+   "column_label": "2024",
+   "cell_text": "16",
+   "period_end": "2024-06-28",
+   "months": 0,
+   "value": 16000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction-in-process",
+   "table_id": "t0032",
+   "row_label": "Construction-in-process",
+   "column_label": "2025",
+   "cell_text": "51",
+   "period_end": "2025-06-27",
+   "months": 0,
+   "value": 51000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction-in-process",
+   "table_id": "t0032",
+   "row_label": "Construction-in-process",
+   "column_label": "2024",
+   "cell_text": "108",
+   "period_end": "2024-06-28",
+   "months": 0,
+   "value": 108000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the company reports a single reportable segment (t0041 is a single-segment P&L) and no per-segment capital expenditures are given"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note or finance lease liability table is included in the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or purchase commitments table is included in the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.6,
+  "input_tokens": 6922,
+  "output_tokens": 2634,
+  "attempts": 1,
+  "task_sha": "8fa62183a154cfd3"
+ }
+}

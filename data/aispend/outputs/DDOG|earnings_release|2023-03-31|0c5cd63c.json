@@ -1,0 +1,27 @@
+{
+ "accession": "DDOG|earnings_release|2023-03-31|0c5cd63c",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is forward-looking-statements boilerplate; it mentions capital expenditures generically but states no amount and does not link them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is forward-looking-statements boilerplate; research and development expenses are mentioned generically with no amount and no link to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the passage is safe-harbor boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 5060,
+  "output_tokens": 227,
+  "attempts": 1,
+  "task_sha": "99636dda85ca966d"
+ }
+}

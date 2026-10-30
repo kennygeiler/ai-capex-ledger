@@ -1,0 +1,74 @@
+{
+ "accession": "EQIX|earnings_release|2021-12-31|dca2ba09",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "MainOne acquisition",
+   "kind": "other",
+   "status": "contracted",
+   "location": "Nigeria, Ghana and C\u00f4te d'Ivoire",
+   "counterparty": "MainOne",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In December, Equinix announced its expansion into Africathrough its intended acquisition of MainOne, a leading West African data center and connectivity solutions provider with operations in Nigeria, Ghana and C\u00f4te d'Ivoire.",
+   "passage": "p02",
+   "confidence": 0.7
+  },
+  {
+   "name": "xScale Australia joint venture",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Australia",
+   "counterparty": "PGIM Real Estate",
+   "amount_low": 575000000,
+   "amount_high": 575000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In October, Equinix announced an agreement to form a new $575 million joint venture with PGIM Real Estate to extend its xScale\u2122data center program into Australia, and in January Equinix announced the signing of an agreement to form a $525 million joint venture with GIC to develop and operate two xScale data centers in Seoul, Korea.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "xScale Seoul joint venture",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Seoul, Korea",
+   "counterparty": "GIC",
+   "amount_low": 525000000,
+   "amount_high": 525000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In October, Equinix announced an agreement to form a new $575 million joint venture with PGIM Real Estate to extend its xScale\u2122data center program into Australia, and in January Equinix announced the signing of an agreement to form a $525 million joint venture with GIC to develop and operate two xScale data centers in Seoul, Korea.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Texas virtual Power Purchase Agreement",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "This adjusted EBITDA includes a negative foreign currency impact of $22 million when compared to the average FX rates in 2021 and includes approximately 130 basis points of year-over-year margin headwind due to the temporarily inflated power rates in Singapore and the lapping of the favorable Texas virtual Power Purchase Agreement settlements from 2021.",
+   "passage": "p02",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.5,
+  "input_tokens": 13776,
+  "output_tokens": 1729,
+  "attempts": 1,
+  "task_sha": "a639224e8d2233e0"
+ }
+}

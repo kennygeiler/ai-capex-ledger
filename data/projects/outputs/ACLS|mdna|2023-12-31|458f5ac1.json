@@ -1,0 +1,13 @@
+{
+ "accession": "ACLS|mdna|2023-12-31|458f5ac1",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "b4f526dcdd9845d4"
+ }
+}

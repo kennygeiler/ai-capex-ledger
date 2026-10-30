@@ -1,155 +1,76 @@
 {
  "ticker": "AAPL",
- "prompt_version": "attribution@v1",
- "model": "other@v1",
- "rows": [
-  {
-   "field": "capex",
-   "period": "FY2022",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack contains no company statement linking FY2022 capex to AI. The other@v1 model forbids estimating from PP&E categories or segments, so the machinery/internal-use software increase is not used.",
-   "confidence": 0.9
-  },
-  {
-   "field": "capex",
-   "period": "FY2023",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack contains no company statement linking FY2023 capex to AI. PP&E category changes are not a permitted basis under other@v1.",
-   "confidence": 0.9
-  },
-  {
-   "field": "capex",
-   "period": "FY2024",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack contains no company statement linking FY2024 capex to AI. PP&E category changes are not a permitted basis under other@v1.",
-   "confidence": 0.9
-  },
-  {
-   "field": "capex",
-   "period": "FY2025",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack contains no company statement linking FY2025 capex to AI. Total capex rose to 12.715B, but under other@v1 that rise is not attributable to AI without a stated AI amount or share.",
-   "confidence": 0.9
-  },
-  {
-   "field": "opex",
-   "period": "FY2022",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no AI-scoped statement or cost line for FY2022 opex. R&D and headcount spend are not quantified as AI.",
-   "confidence": 0.9
-  },
-  {
-   "field": "opex",
-   "period": "FY2023",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no AI-scoped statement or cost line for FY2023 opex.",
-   "confidence": 0.9
-  },
-  {
-   "field": "opex",
-   "period": "FY2024",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no AI-scoped statement or cost line for FY2024 opex.",
-   "confidence": 0.9
-  },
-  {
-   "field": "opex",
-   "period": "FY2025",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack has no AI-scoped statement or cost line for FY2025 opex.",
-   "confidence": 0.9
-  }
- ],
+ "prompt_version": "attribution@v2",
+ "model": "other@v3",
+ "rows": [],
  "none_found": [
   {
    "field": "capex",
    "period": "FY2022",
-   "reason": "no company statement in the pack; other@v1 forbids ppe_category and segment estimates"
+   "reason": "No statement in the pack gives an AI capex amount or share, and Apple reports no AI segment. The other@v3 thesis forbids estimating from PP&E categories, so the machinery, equipment and internal-use software increase is not used."
   },
   {
    "field": "capex",
    "period": "FY2023",
-   "reason": "no company statement in the pack; other@v1 forbids ppe_category and segment estimates"
+   "reason": "No statement in the pack gives an AI capex amount or share, and Apple reports no AI segment. PP&E category deltas are not allowed for this industry."
   },
   {
    "field": "capex",
    "period": "FY2024",
-   "reason": "no company statement in the pack; other@v1 forbids ppe_category and segment estimates"
+   "reason": "No statement in the pack gives an AI capex amount or share, and Apple reports no AI segment. PP&E category deltas are not allowed for this industry."
   },
   {
    "field": "capex",
    "period": "FY2025",
-   "reason": "no company statement in the pack; other@v1 forbids ppe_category and segment estimates"
+   "reason": "No statement in the pack gives an AI capex amount or share. The Houston Apple Intelligence server plant began shipping in 2025, but its cost is not disclosed. The $600B US investment commitment is a program total across suppliers, data centers, facilities and content, not AI capex."
   },
   {
    "field": "opex",
    "period": "FY2022",
-   "reason": "no AI cost line and no statement attributes opex to AI"
+   "reason": "No statement attributes any operating expense to AI, and there is no AI segment cost line."
   },
   {
    "field": "opex",
    "period": "FY2023",
-   "reason": "no AI cost line and no statement attributes opex to AI"
+   "reason": "No statement attributes any operating expense to AI, and there is no AI segment cost line."
   },
   {
    "field": "opex",
    "period": "FY2024",
-   "reason": "no AI cost line and no statement attributes opex to AI"
+   "reason": "No statement attributes any operating expense to AI, and there is no AI segment cost line."
   },
   {
    "field": "opex",
    "period": "FY2025",
-   "reason": "no AI cost line and no statement attributes opex to AI"
+   "reason": "No statement attributes any operating expense to AI, and there is no AI segment cost line."
   },
   {
-   "field": "capex",
-   "period": "outlook",
-   "reason": "no statements with kind: outlook in the pack"
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "Apple's segments are geographic and its product lines (iPhone, Mac, iPad, Wearables, Services) are not AI lines. No AI revenue or AI share of revenue is stated."
   },
   {
-   "field": "opex",
-   "period": "outlook",
-   "reason": "no statements with kind: outlook in the pack"
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "Geographic segments and product lines are not AI lines, and no AI revenue is stated."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "Geographic segments and product lines are not AI lines, and no AI revenue is stated."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "reason": "Geographic segments and product lines are not AI lines, and no AI revenue is stated. Apple is an adopter, not an AI seller."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.9,
-  "input_tokens": 7704,
-  "output_tokens": 1598,
+  "seconds": 9.8,
+  "input_tokens": 13872,
+  "output_tokens": 1114,
   "attempts": 1,
-  "task_sha": "9758fb82039232dc"
+  "task_sha": "39a277370d72a367"
  }
 }

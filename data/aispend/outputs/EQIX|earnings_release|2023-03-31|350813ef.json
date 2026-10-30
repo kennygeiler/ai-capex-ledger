@@ -1,0 +1,27 @@
+{
+ "accession": "EQIX|earnings_release|2023-03-31|350813ef",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure guidance ($2.708-$2.958 billion total for 2023) is given, but no sentence mentions AI or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence mentions AI or states an AI or AI-driven data-center part of revenue; revenue figures are company totals for a data-center operator with no AI attribution"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.2,
+  "input_tokens": 12992,
+  "output_tokens": 344,
+  "attempts": 1,
+  "task_sha": "ef975827ee34db48"
+ }
+}

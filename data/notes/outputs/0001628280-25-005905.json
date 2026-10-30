@@ -1,0 +1,232 @@
+{
+ "accession": "0001628280-25-005905",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Americas",
+   "table_id": "t0069",
+   "row_label": "Net Sales",
+   "column_label": "Year Ended December 31, 2024 | Americas",
+   "cell_text": "4,500.6",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 4500600000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Asia Pacific",
+   "table_id": "t0069",
+   "row_label": "Net Sales",
+   "column_label": "Year Ended December 31, 2024 | Asia Pacific",
+   "cell_text": "1,717.8",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 1717800000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Europe, Middle East & Africa",
+   "table_id": "t0069",
+   "row_label": "Net Sales",
+   "column_label": "Year Ended December 31, 2024 | Europe, Middle East & Africa",
+   "cell_text": "1,793.4",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 1793400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Americas",
+   "table_id": "t0070",
+   "row_label": "Net Sales",
+   "column_label": "Year Ended December 31, 2023 | Americas",
+   "cell_text": "3,844.5",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 3844500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Asia Pacific",
+   "table_id": "t0070",
+   "row_label": "Net Sales",
+   "column_label": "Year Ended December 31, 2023 | Asia Pacific",
+   "cell_text": "1,527.8",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 1527800000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Europe, Middle East & Africa",
+   "table_id": "t0070",
+   "row_label": "Net Sales",
+   "column_label": "Year Ended December 31, 2023 | Europe, Middle East & Africa",
+   "cell_text": "1,490.9",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 1490900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Americas",
+   "table_id": "t0071",
+   "row_label": "Net Sales",
+   "column_label": "Year Ended December 31, 2022 | Americas",
+   "cell_text": "2,728.6",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 2728600000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Asia Pacific",
+   "table_id": "t0071",
+   "row_label": "Net Sales",
+   "column_label": "Year Ended December 31, 2022 | Asia Pacific",
+   "cell_text": "1,601.3",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 1601300000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Europe, Middle East & Africa",
+   "table_id": "t0071",
+   "row_label": "Net Sales",
+   "column_label": "Year Ended December 31, 2022 | Europe, Middle East & Africa",
+   "cell_text": "1,361.6",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 1361600000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0029",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31, 2024",
+   "cell_text": "570.1",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 570100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0029",
+   "row_label": "Buildings",
+   "column_label": "December 31, 2024",
+   "cell_text": "362.1",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 362100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0029",
+   "row_label": "Land",
+   "column_label": "December 31, 2024",
+   "cell_text": "39.4",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 39400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0029",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, 2024",
+   "cell_text": "87.5",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 87500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0029",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31, 2023",
+   "cell_text": "479.7",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 479700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0029",
+   "row_label": "Buildings",
+   "column_label": "December 31, 2023",
+   "cell_text": "343.6",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 343600000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0029",
+   "row_label": "Land",
+   "column_label": "December 31, 2023",
+   "cell_text": "41.3",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 41300000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0029",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, 2023",
+   "cell_text": "67.5",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 67500000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment tables (t0069-t0071) report sales, segment expenses and operating profit only; no capital expenditures by segment are given"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table is included among the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included among the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 21.3,
+  "input_tokens": 9058,
+  "output_tokens": 2961,
+  "attempts": 1,
+  "task_sha": "f66992a805aeef85"
+ }
+}

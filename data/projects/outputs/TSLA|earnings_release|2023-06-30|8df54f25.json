@@ -1,0 +1,28 @@
+{
+ "accession": "TSLA|earnings_release|2023-06-30|8df54f25",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Dojo training computers",
+   "kind": "gpu_cluster",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our commitment to being at the forefront of AI development entered a new chapter with the start of production of Dojo training computers.",
+   "passage": "p01",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.5,
+  "input_tokens": 5506,
+  "output_tokens": 395,
+  "attempts": 1,
+  "task_sha": "918728cdf9851a81"
+ }
+}

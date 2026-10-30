@@ -1,0 +1,86 @@
+{
+ "accession": "WULF|earnings_release|2023-09-30|ecfb26a4",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Lake Mariner facility Building 3",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "New York",
+   "counterparty": null,
+   "capacity_mw": 43,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "\u201cFrom a growth perspective, during the third quarter, we significantly advanced construction of Building 3 at our Lake Mariner facility, which when completed, will add 43 MW of infrastructure capacity,\u201d commented Nazar Khan, Chief Operating Officer of the Company.",
+   "passage": "p02",
+   "confidence": 0.8
+  },
+  {
+   "name": "Lake Mariner facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "New York",
+   "counterparty": null,
+   "capacity_mw": 110,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "TeraWulf is currently expanding mining operations at its wholly owned Lake Mariner facility in New York with the addition of Building 3, which is expected to increase the facility\u2019s bitcoin mining infrastructure capacity from its current 110 MW to 153 MW by year-end 2023.",
+   "passage": "p03",
+   "confidence": 0.7
+  },
+  {
+   "name": "Nautilus Cryptomine facility phase one",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Pennsylvania",
+   "counterparty": null,
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "As of September 30, 2023, the Company\u2019s stake in phase one of the Nautilus Cryptomine facility \u2013 50 MW and 1.9 EH/s \u2013 was fully operational.",
+   "passage": "p03",
+   "confidence": 0.75
+  },
+  {
+   "name": "Nautilus Cryptomine facility future phases",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Pennsylvania",
+   "counterparty": null,
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "TeraWulf has the option to add an additional 50 MW of bitcoin mining capacity at the Nautilus Cryptomine facility, for a total of 100 MW, which TeraWulf plans to deploy in future phases pending capital availability.",
+   "passage": "p03",
+   "confidence": 0.6
+  },
+  {
+   "name": "BITMAIN Antminer S19j XP miner order",
+   "kind": "other",
+   "status": "contracted",
+   "location": "Lake Mariner facility",
+   "counterparty": "BITMAIN",
+   "amount_low": 75400000,
+   "amount_high": 75400000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2023-07",
+   "in_service": "2023-12",
+   "quote": "Announced order of 18,500 Antminer S19j XP bitcoin miners for a total price of $75.4 million.",
+   "passage": "p01",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 21.6,
+  "input_tokens": 10009,
+  "output_tokens": 2527,
+  "attempts": 1,
+  "task_sha": "3f204c31febe4bfe"
+ }
+}

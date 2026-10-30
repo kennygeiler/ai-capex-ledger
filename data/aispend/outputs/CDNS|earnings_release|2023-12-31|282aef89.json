@@ -1,0 +1,27 @@
+{
+ "accession": "CDNS|earnings_release|2023-12-31|282aef89",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only a cash-flow line for purchases of property, plant and equipment and forward-looking boilerplate; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "AI appears only in risk-factor boilerplate about realizing benefits of R&D investments; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue; passages are forward-looking boilerplate and cash-flow figures"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 7059,
+  "output_tokens": 244,
+  "attempts": 1,
+  "task_sha": "055b34a00ba39a15"
+ }
+}

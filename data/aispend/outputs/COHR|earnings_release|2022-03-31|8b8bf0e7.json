@@ -1,0 +1,35 @@
+{
+ "accession": "COHR|earnings_release|2022-03-31|8b8bf0e7",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This was driven by strength in our datacom networking business, for large enterprises, as well as for hyperscale datacenters and supercomputing clusters that underpin the growth of cloud and the metaverse.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Refers to fiscal Q3 2022 consolidated revenue of $828 million, which is stated in the preceding sentence and is a quarterly total, not an AI or data-center figure. The sentence names hyperscale datacenters among several drivers, not AI specifically, and gives no data-center amount or share."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; 'substantial investments in innovation and scale' gives no capex figure and does not mention AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.3,
+  "input_tokens": 5834,
+  "output_tokens": 939,
+  "attempts": 1,
+  "task_sha": "db0021cb96fa38fd"
+ }
+}

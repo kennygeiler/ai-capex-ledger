@@ -1,0 +1,35 @@
+{
+ "accession": "EQIX|earnings_release|2024-12-31|e477f632",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Through this joint venture, Equinix expects to build new state-of-the-art xScale facilities on multiple campuses across the U.S., each with multi-hundred megawatts of capacity, to support larger AI and hyperscale workloads.",
+   "passage": "p03",
+   "confidence": 0.5,
+   "notes": "Links planned xScale construction to AI and hyperscale workloads in words only. The building is done through a >$15 billion joint venture with CPP Investments and GIC, so it is not purely Equinix's own capex. The $15 billion figure is in the preceding sentence, which does not mention AI. The FY2025 total capex guidance ($3.222\u20133.472 billion, p06) is not linked to AI in its sentence, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI or AI-driven share or amount of revenue; total revenue figures and guidance are not attributed to AI, and the CEO's 'growing AI opportunity' remark is qualitative positioning, not a revenue attribution"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.5,
+  "input_tokens": 8613,
+  "output_tokens": 981,
+  "attempts": 1,
+  "task_sha": "f87ff0710046119a"
+ }
+}

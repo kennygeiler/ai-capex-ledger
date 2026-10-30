@@ -1,23 +1,27 @@
 {
  "accession": "AMZN|earnings_release|2023-12-31|71cca348",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or links capital expenditures to AI; p02 describes an AWS\u2013NVIDIA collaboration and p04 mentions server depreciation, but neither states capex spend"
+   "reason": "no sentence states capital expenditures or links them to AI; the server depreciation note in p05 concerns useful-life accounting, not AI capex"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; passages describe customer deals and product launches, and p04's operating income guidance is not an AI opex statement"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p05 gives operating income guidance only"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; passages describe customer agreements and product launches (boilerplate) and no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.4,
-  "input_tokens": 5045,
-  "output_tokens": 222,
+  "seconds": 4.3,
+  "input_tokens": 5534,
+  "output_tokens": 279,
   "attempts": 1,
-  "task_sha": "1bb8790ff7f0f332"
+  "task_sha": "574a409823d3e9a7"
  }
 }

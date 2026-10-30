@@ -1,0 +1,78 @@
+{
+ "accession": "SMCI|mdna|2025-06-30|5d7ef788",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Net sales increased by 46.6% in fiscal year 2025 as compared to fiscal year 2024. driven by an increase in demand from customers for GPU servers, HPC and rack-scale solutions which have higher average selling prices, primarily due to large enterprise and data center customers from the United States, Asia, and Europe where we experienced significant growth.",
+   "passage": "p04",
+   "confidence": 0.8,
+   "notes": "The source splits this into two fragments with a stray period. 46.6% is year-over-year growth in total net sales, not AI's share of revenue. The growth is attributed to GPU servers and data center demand."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The year-over-year increase in net sales of server and storage systems was primarily due to the strong demand and increased billings for GPU & Super Racks of $5,804.0 million or 52% compared to prior year, including liquid-cooled and air-cooled servers which are generally more complex and of higher value, primarily related to our H200, H100, and B200 systems, resulting in an increase of average selling price of 34%.",
+   "passage": "p05",
+   "confidence": 0.6,
+   "notes": "$5,804.0 million (52%) is the year-over-year increase in GPU & Super Racks billings, not the level of GPU/AI revenue. It is recorded as qualitative so the increase is not mistaken for AI revenue. The paragraph refers to fiscal year 2025, but this sentence does not name a year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The year-over-year increase in total net sales is driven by an increase in demand from customers for GPU servers, HPC and rack-scale solutions which have higher average selling prices, especially from large enterprise and data center customers resulting in increased sales of 28.1% in the United States, 85.9% in Thailand and Japan, and 111.9% in the United Kingdom, Sweden, and Spain, where we have experienced significant growth.",
+   "passage": "p07",
+   "confidence": 0.8,
+   "notes": "The percentages are regional growth rates, not AI shares of revenue."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The growing use of AI, which requires enhanced datacenter capabilities, has substantially increased demand for our products.",
+   "passage": "p03",
+   "confidence": 0.8
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect this trend to continue, with further demand for datacenter expansion driven by the AI market.",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "This is an outlook on AI-driven demand rather than explicit revenue guidance."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "No sentence links capital expenditures to AI. FY2025 PP&E purchases of $127.2M were for servers, data centers and network infrastructure. FY2026 guidance of $180\u2013200M is for manufacturing, IT and facilities, with no AI attribution."
+  },
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies or attributes operating expenses to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.1,
+  "input_tokens": 6986,
+  "output_tokens": 2239,
+  "attempts": 1,
+  "task_sha": "1400c31596573699"
+ }
+}

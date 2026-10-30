@@ -30,3 +30,14 @@ class Reread(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class RunTogether(unittest.TestCase):
+    def test_a_cell_that_runs_several_values_together(self):
+        from ledger.evidence import same
+        self.assertTrue(same("(2,292)(2,367)(2,828)", "(2,367)"))
+        self.assertFalse(same("(2,292)(2,367)(2,828)", "(2,36)"))
+        self.assertTrue(same("$ 28,496", "28,496"))
+        self.assertTrue(same("(437)2,1902,089", "2,089"))
+        self.assertTrue(same("(437)2,1902,089", "2,190"))
+        self.assertFalse(same("(437)2,1902,089", "1,902"))

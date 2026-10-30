@@ -1,0 +1,13 @@
+{
+ "accession": "JPM|earnings_release|2025-12-31|66410c5d",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.2,
+  "input_tokens": 5091,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "bd80963c37ce68bc"
+ }
+}

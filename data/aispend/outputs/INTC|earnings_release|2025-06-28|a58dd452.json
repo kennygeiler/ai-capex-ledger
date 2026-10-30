@@ -1,23 +1,37 @@
 {
  "accession": "INTC|earnings_release|2025-06-28|a58dd452",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3900000000,
+   "amount_high": 3900000000,
+   "quote": "Business Unit Revenue and Q2 20253 vs. Q2 2024 Trends Intel Products: Client Computing Group (CCG) $7.9 billion down 3% Data Center and AI (DCAI) $3.9 billion up 4% Total Intel Products revenue $11.8 billion down 1% Intel Foundry $4.4 billion up 3% All Other $1.1 billion up 20% Intersegment Eliminations $(4.4) billion Total net revenue $12.9 billion flat 3Numbers are presented as actual and rounded; as a result, totals may not sum.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Quarterly figure (Q2 2025, period ended 2025-06-28), not full-year. The Data Center and AI (DCAI) segment includes Xeon server CPUs as well as AI products, so this is data-center segment revenue rather than AI-only revenue. The quote is a table rendered as text, not a prose sentence."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the full-year 2025 gross capex outlook (~$18.0 billion) and the Q2 capex figures appear only in tables, with no AI attribution"
+   "reason": "gross and net capital expenditure figures (Q2 2025 actuals; about $18.0 billion gross for full-year 2025) are given, but no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; the operating expense outlook for 2025 and 2026 appears only in a reconciliation table, with no AI attribution, and the AI mentions (DCAI segment revenue, Xeon 6 launches) describe products and revenue, not spend"
+   "reason": "GAAP and non-GAAP operating expense outlooks for 2025 and 2026 are given, but no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.2,
-  "input_tokens": 6492,
-  "output_tokens": 302,
+  "seconds": 9.5,
+  "input_tokens": 6793,
+  "output_tokens": 955,
   "attempts": 1,
-  "task_sha": "158dd90bbbcdbe52"
+  "task_sha": "a1c0a9b249862ae7"
  }
 }

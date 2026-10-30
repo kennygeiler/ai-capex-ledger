@@ -1,0 +1,84 @@
+{
+ "accession": "VST|earnings_release|2022-12-31|d2545422",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Moss Landing battery storage expansion",
+   "kind": "power",
+   "status": "under_construction",
+   "location": "Moss Landing",
+   "counterparty": null,
+   "capacity_mw": 350,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "We also made significant progress on other projects, including an additional 350 MW of battery storage at our Moss Landing facility, which is expected to come online in mid-2023.",
+   "passage": "p02",
+   "confidence": 0.8
+  },
+  {
+   "name": "Moss Landing battery energy storage system",
+   "kind": "power",
+   "status": "in_service",
+   "location": "Moss Landing, California",
+   "counterparty": null,
+   "capacity_mw": 400,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The company owns and operates the 400-MW/1,600-MWhbattery energy storage system in Moss Landing, California, the largest of its kind in the world.",
+   "passage": "p06",
+   "confidence": 0.6
+  },
+  {
+   "name": "Comanche Peak",
+   "kind": "power",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 2400,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Vistra has 3,408 MW of zero-emission generation and energy storage online (including our 2,400 MW nuclear facility, Comanche Peak), with additional renewable generation and energy storage developments in the near-term pipeline.",
+   "passage": "p03",
+   "confidence": 0.6
+  },
+  {
+   "name": "Comanche Peak license extension",
+   "kind": "power",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Recently, Comanche Peak applied to extend its licenses through 2050 and 2053 for the two-unit facility, an additional 20 years beyond the original licenses.",
+   "passage": "p03",
+   "confidence": 0.4
+  },
+  {
+   "name": "Texas zero-carbon generation and storage",
+   "kind": "power",
+   "status": "in_service",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 418,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022",
+   "quote": "2022, Vistra brought online 418 MW of zero-carbongeneration and storage in Texas, while also retiring approximately 2,900 MW of fossil generation in Ohio and Illinois.",
+   "passage": "p02",
+   "confidence": 0.35
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.8,
+  "input_tokens": 9562,
+  "output_tokens": 1697,
+  "attempts": 1,
+  "task_sha": "297403e24c708357"
+ }
+}

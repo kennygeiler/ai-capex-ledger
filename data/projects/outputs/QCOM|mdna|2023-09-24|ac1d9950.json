@@ -1,0 +1,13 @@
+{
+ "accession": "QCOM|mdna|2023-09-24|ac1d9950",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 4409,
+  "output_tokens": 79,
+  "attempts": 1,
+  "task_sha": "c7a4facfabfe495c"
+ }
+}

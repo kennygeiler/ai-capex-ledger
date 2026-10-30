@@ -1,0 +1,46 @@
+{
+ "accession": "EME|mdna|2023-12-31|ba975b4b",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Excluding the impact of acquisitions, revenues of this segment increased by $262.1 million as a result of an increase in revenues within many of the market sectors in which we operate, most notably including: (a) the network and communications market sector, predominantly due to our data center projects, (b) the manufacturing and industrial market sector, from contracts with our energy sector customers, including those for renewable energy projects, (c) the healthcare market sector, as a result of greater activity throughout certain of the regions in which we operate, (d) the hospitality and entertainment market sector, given an increase in projects within the Western region of the United States, and (e) the high-tech manufacturing market sector, due to an increase in projects for various biotech, life-sciences, and pharmaceutical customers as well as certain semiconductor manufacturers.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "The $262.1 million is the US electrical segment's organic revenue increase across several sectors. Data center projects are named as one driver, and no data-center amount or share is stated. The statement is not about AI specifically."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The year-over-year increase in this segment\u2019s revenues was primarily attributable to revenue growth within: (a) the high-tech manufacturing market sector, as a result of increased demand for our mechanical construction and/or fire protection services by certain customers: (i) engaged in either the design and manufacturing of semiconductors or the production and development of electric vehicles and/or lithium batteries, and (ii) within the biotech, life-sciences, and pharmaceutical industries, (b) the network and communications market sector, due to increased data center project activity, and (c) the manufacturing and industrial market sector, due in part to continued re-shoring of critical supply chain by certain of our customers.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Increased data center project activity is one of three drivers of the US mechanical segment's revenue growth. No data-center amount or share is stated. The statement is not about AI specifically."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the capex increase is attributed to organic growth"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.5,
+  "input_tokens": 5863,
+  "output_tokens": 1315,
+  "attempts": 1,
+  "task_sha": "0d0d67f054c81cf5"
+ }
+}

@@ -1,0 +1,257 @@
+{
+ "accession": "0000950170-24-020150",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Systems and software",
+   "table_id": "t0054",
+   "row_label": "Systems and software",
+   "column_label": "Year Ended | December 30, 2023",
+   "cell_text": "683,316",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 683316000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Systems and software",
+   "table_id": "t0054",
+   "row_label": "Systems and software",
+   "column_label": "Year Ended | December 31, 2022",
+   "cell_text": "865,707",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 865707000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Systems and software",
+   "table_id": "t0054",
+   "row_label": "Systems and software",
+   "column_label": "Year Ended | January 1, 2022",
+   "cell_text": "669,114",
+   "period_end": "2022-01-01",
+   "months": 12,
+   "value": 669114000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Parts",
+   "table_id": "t0054",
+   "row_label": "Parts",
+   "column_label": "Year Ended | December 30, 2023",
+   "cell_text": "74,604",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 74604000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Parts",
+   "table_id": "t0054",
+   "row_label": "Parts",
+   "column_label": "Year Ended | December 31, 2022",
+   "cell_text": "84,266",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 84266000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Parts",
+   "table_id": "t0054",
+   "row_label": "Parts",
+   "column_label": "Year Ended | January 1, 2022",
+   "cell_text": "72,753",
+   "period_end": "2022-01-01",
+   "months": 12,
+   "value": 72753000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Services",
+   "table_id": "t0054",
+   "row_label": "Services",
+   "column_label": "Year Ended | December 30, 2023",
+   "cell_text": "57,948",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 57948000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Services",
+   "table_id": "t0054",
+   "row_label": "Services",
+   "column_label": "Year Ended | December 31, 2022",
+   "cell_text": "55,210",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 55210000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Services",
+   "table_id": "t0054",
+   "row_label": "Services",
+   "column_label": "Year Ended | January 1, 2022",
+   "cell_text": "47,032",
+   "period_end": "2022-01-01",
+   "months": 12,
+   "value": 47032000,
+   "confidence": 0.85
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and building",
+   "table_id": "t0037",
+   "row_label": "Land and building",
+   "column_label": "December 30, | 2023",
+   "cell_text": "47,889",
+   "period_end": "2023-12-30",
+   "months": 0,
+   "value": 47889000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and building",
+   "table_id": "t0037",
+   "row_label": "Land and building",
+   "column_label": "December 31, | 2022",
+   "cell_text": "50,344",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 50344000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0037",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 30, | 2023",
+   "cell_text": "69,828",
+   "period_end": "2023-12-30",
+   "months": 0,
+   "value": 69828000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0037",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31, | 2022",
+   "cell_text": "56,924",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 56924000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0037",
+   "row_label": "Furniture and fixtures",
+   "column_label": "December 30, | 2023",
+   "cell_text": "3,921",
+   "period_end": "2023-12-30",
+   "months": 0,
+   "value": 3921000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0037",
+   "row_label": "Furniture and fixtures",
+   "column_label": "December 31, | 2022",
+   "cell_text": "2,949",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 2949000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment and software",
+   "table_id": "t0037",
+   "row_label": "Computer equipment and software",
+   "column_label": "December 30, | 2023",
+   "cell_text": "17,790",
+   "period_end": "2023-12-30",
+   "months": 0,
+   "value": 17790000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment and software",
+   "table_id": "t0037",
+   "row_label": "Computer equipment and software",
+   "column_label": "December 31, | 2022",
+   "cell_text": "15,415",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 15415000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0037",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 30, | 2023",
+   "cell_text": "22,089",
+   "period_end": "2023-12-30",
+   "months": 0,
+   "value": 22089000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0037",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, | 2022",
+   "cell_text": "18,539",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 18539000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the company reports a single reportable segment and the tables give no capital expenditures by segment"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities is among the tables provided"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no commitments or contractual-obligations table is among the tables provided"
+  }
+ ],
+ "notes": "segment_revenue taken from the revenue-by-product-line table t0054 (Systems and software, Parts, Services) because the company has one segment; confidence 0.85 since these are product lines, not segments. Percentage columns in t0054 and the geographic percentage table t0011 were skipped. t0054 repeats each column label for the amount and percent columns; the amount column (first of each pair) is cited.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.0,
+  "input_tokens": 5878,
+  "output_tokens": 2990,
+  "attempts": 1,
+  "task_sha": "98ea2e2b90196560"
+ }
+}

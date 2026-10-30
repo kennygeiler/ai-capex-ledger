@@ -1,6 +1,6 @@
 {
  "accession": "MSFT|earnings_release|2022-09-30|5b863878",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "6a871fa2ddaafe88"
+  "task_sha": "7d4f91f9ece14014"
  }
 }

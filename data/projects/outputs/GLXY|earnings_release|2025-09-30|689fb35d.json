@@ -1,0 +1,86 @@
+{
+ "accession": "GLXY|earnings_release|2025-09-30|689fb35d",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Helios Data Center Campus",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Dickens County, West Texas",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 800,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our 800 MW Helios campus in Texas, which has an additional 2.7 GW of power under study, positions Galaxy among the largest and fastest-growing data center developments in North America.",
+   "passage": "p09",
+   "confidence": 0.9
+  },
+  {
+   "name": "Helios Phase I",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Dickens County, West Texas",
+   "counterparty": "CoreWeave",
+   "amount_low": 1700000000,
+   "amount_high": 1700000000,
+   "capacity_mw": 133,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "Galaxy secured a $1.4 billion project financing facility, fully funding the $1.7 billion Phase I build at Helios.",
+   "passage": "p05",
+   "confidence": 0.85
+  },
+  {
+   "name": "Helios Phase II",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Dickens County, West Texas",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 260,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2027",
+   "quote": "Executed a lease agreement with CoreWeave for Phase II of the Helios data center development.",
+   "passage": "p05",
+   "confidence": 0.85
+  },
+  {
+   "name": "Helios Phase III",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Dickens County, West Texas",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 133,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2028",
+   "quote": "CoreWeave also exercised its final option to access an additional 133 MW of critical IT load for its AI and HPC operations, bringing its total commitment to the full 800 MW of approved power capacity at Helios.",
+   "passage": "p05",
+   "confidence": 0.8
+  },
+  {
+   "name": "Helios campus expansion (land acquisition)",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Dickens County, West Texas",
+   "counterparty": null,
+   "capacity_mw": 2700,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Galaxy expanded the Helios campus through a strategic land acquisition, increasing the total site to over 1,500 acres and 2.7 GW of additional potential power capacity, which remains under study by ERCOT.",
+   "passage": "p05",
+   "confidence": 0.65
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.4,
+  "input_tokens": 13335,
+  "output_tokens": 2336,
+  "attempts": 1,
+  "task_sha": "9911dd9e7ad10e76"
+ }
+}

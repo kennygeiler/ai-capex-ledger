@@ -1,0 +1,27 @@
+{
+ "accession": "ETN|earnings_release|2022-06-30|25c2ae64",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures of $139 million appear only in a cash flow table with no link to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; Tripp Lite's data-center products are a business description, not a revenue figure"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.6,
+  "input_tokens": 5861,
+  "output_tokens": 199,
+  "attempts": 1,
+  "task_sha": "5a549557325e1b39"
+ }
+}

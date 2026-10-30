@@ -1,0 +1,189 @@
+{
+ "accession": "0001013762-25-000307",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Miners for Bitcoin",
+   "table_id": "t0184",
+   "row_label": "Miners for Bitcoin",
+   "column_label": "December 31, 2024",
+   "cell_text": "37,484,751",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 37484751,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Miners for Bitcoin",
+   "table_id": "t0184",
+   "row_label": "Miners for Bitcoin",
+   "column_label": "December 31, 2023",
+   "cell_text": "50,853,637",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 50853637,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Cloud service equipment",
+   "table_id": "t0184",
+   "row_label": "Cloud service equipment",
+   "column_label": "December 31, 2024",
+   "cell_text": "63,360,624",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 63360624,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Colocation service equipment",
+   "table_id": "t0184",
+   "row_label": "Colocation service equipment",
+   "column_label": "December 31, 2024",
+   "cell_text": "12,509,288",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 12509288,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Purchased software and internal-use software development costs",
+   "table_id": "t0184",
+   "row_label": "Purchased software and internal-use software development costs",
+   "column_label": "December 31, 2024",
+   "cell_text": "495,285",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 495285,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0184",
+   "row_label": "Land",
+   "column_label": "December 31, 2024",
+   "cell_text": "3,502,539",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 3502539,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building",
+   "table_id": "t0184",
+   "row_label": "Building",
+   "column_label": "December 31, 2024",
+   "cell_text": "19,474,743",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 19474743,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold Improvements",
+   "table_id": "t0184",
+   "row_label": "Leasehold Improvements",
+   "column_label": "December 31, 2024",
+   "cell_text": "2,032,691",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 2032691,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Vehicles",
+   "table_id": "t0184",
+   "row_label": "Vehicles",
+   "column_label": "December 31, 2024",
+   "cell_text": "235,576",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 235576,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Vehicles",
+   "table_id": "t0184",
+   "row_label": "Vehicles",
+   "column_label": "December 31, 2023",
+   "cell_text": "235,576",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 235576,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other property and equipment",
+   "table_id": "t0184",
+   "row_label": "Other property and equipment",
+   "column_label": "December 31, 2024",
+   "cell_text": "29,066",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 29066,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0184",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, 2024",
+   "cell_text": "5,124,657",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 5124657,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0184",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, 2023",
+   "cell_text": "51,030,667",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 51030667,
+   "confidence": 0.9
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note table provided; the tables under the segment heading are USDC and BTC digital-asset rollforwards, not segment data"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "no segment or market revenue table provided; the tables under the segment heading are digital-asset rollforwards"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table provided"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no commitments or contractual-obligations table provided"
+  }
+ ],
+ "notes": "Unit taken as whole US dollars per the table's unit line. Cells shown as '-' for December 31, 2023 were not cited as values. Construction in progress is listed below the net-of-depreciation subtotal rather than with the gross categories, so its confidence is 0.9; it is still a gross PP&E category. The unlabeled subtotal row, accumulated depreciation and the net line were skipped.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.2,
+  "input_tokens": 5944,
+  "output_tokens": 2128,
+  "attempts": 1,
+  "task_sha": "cdb417466f8fca84"
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "accession": "GLXY|mdna|2025-12-31|cac8ea4f",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Helios data center campus",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "panhandle region of West Texas",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 133,
+   "gpus": null,
+   "announced": "2025-04",
+   "in_service": "2026",
+   "quote": "The retrofit of Helios will be completed in phases, with the full 133 MW of critical IT load expected to be delivered by the end of the first half of 2026.",
+   "passage": "p02",
+   "confidence": 0.9
+  },
+  {
+   "name": "Helios Phase II Lease",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Helios data center campus",
+   "counterparty": "CoreWeave",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2025-08",
+   "in_service": null,
+   "quote": "In August 2025 and January 2026, Galaxy and CoreWeave entered into the Phase II Lease and Phase III Lease, respectively, which together are expected to increase CoreWeave\u2019s contracted capacity at the Helios data center campus to 526 MW of critical IT load by 2028.",
+   "passage": "p03",
+   "confidence": 0.8
+  },
+  {
+   "name": "Helios Phase III Lease",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Helios data center campus",
+   "counterparty": "CoreWeave",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2026-01",
+   "in_service": null,
+   "quote": "In August 2025 and January 2026, Galaxy and CoreWeave entered into the Phase II Lease and Phase III Lease, respectively, which together are expected to increase CoreWeave\u2019s contracted capacity at the Helios data center campus to 526 MW of critical IT load by 2028.",
+   "passage": "p03",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.6,
+  "input_tokens": 7837,
+  "output_tokens": 1675,
+  "attempts": 1,
+  "task_sha": "56a83352e93834a9"
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "accession": "AAOI|earnings_release|2026-03-31|56f3f045",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 81404000,
+   "amount_high": 81404000,
+   "quote": "Datacenter 81,404 32,049",
+   "passage": "p04",
+   "confidence": 0.7,
+   "notes": "Table row, not a full sentence. Figures are in thousands of dollars: $81,404 thousand of datacenter revenue for the three months ended March 31, 2026 (Q1 only, not the full year). AOI sells transceivers into AI datacenters."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Looking ahead, we continue to anticipate a strong volume ramp of our 800G products starting in Q2 and we anticipate sequential revenue growth throughout this year, with significantly larger growth expected starting in Q3 as additional capacity comes online.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "The sentence says 'this year' without naming a year, so fiscal_year is null. It ties total revenue growth to the 800G ramp, and the surrounding text links 800G to AI-driven datacenter investment. The link to AI is indirect."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; 'additional capacity comes online' gives no spend figure or attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D and other operating expenses appear only as table totals; no sentence attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.4,
+  "input_tokens": 6668,
+  "output_tokens": 1297,
+  "attempts": 1,
+  "task_sha": "c2a595da23750791"
+ }
+}

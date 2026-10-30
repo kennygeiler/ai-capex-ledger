@@ -1,0 +1,46 @@
+{
+ "accession": "POWL|mdna|2024-09-30|8b568e68",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Houston products factory facility expansion",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Houston",
+   "counterparty": null,
+   "amount_low": 11000000,
+   "amount_high": 11000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We have planned capital spending of approximately $11 million on a facility expansion project at our products factory in Houston.",
+   "passage": "p04",
+   "confidence": 0.75
+  },
+  {
+   "name": "Houston, Texas land and buildings purchase",
+   "kind": "plant",
+   "status": "contracted",
+   "location": "Houston, Texas",
+   "counterparty": null,
+   "amount_low": 5600000,
+   "amount_high": 5600000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2024-07",
+   "in_service": null,
+   "quote": "In July 2024, we made a cash purchase of land and buildings in Houston, Texas for $5.6 million to help further facilitate executing the current backlog as well as planning for modest future volume growth.",
+   "passage": "p03",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.9,
+  "input_tokens": 5097,
+  "output_tokens": 896,
+  "attempts": 1,
+  "task_sha": "fec2a2e5163e8878"
+ }
+}

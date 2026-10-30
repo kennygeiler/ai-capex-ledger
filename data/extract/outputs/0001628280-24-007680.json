@@ -1,0 +1,140 @@
+{
+ "accession": "0001628280-24-007680",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0010",
+   "row_label": "Total revenues",
+   "column_label": "Years ended December 31, | 2022",
+   "cell_text": "117,753",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 117753000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0010",
+   "row_label": "Total revenues",
+   "column_label": "Years ended December 31, | 2021",
+   "cell_text": "159,163",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 159163000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0010",
+   "row_label": "Total cost of revenues",
+   "column_label": "Years ended December 31, | 2022",
+   "cell_text": "(151,424)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 151424000,
+   "confidence": 1.0,
+   "notes": "Total line includes cost of revenues - depreciation and amortization."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0010",
+   "row_label": "Total cost of revenues",
+   "column_label": "Years ended December 31, | 2021",
+   "cell_text": "(42,396)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 42396000,
+   "confidence": 1.0,
+   "notes": "Total line includes cost of revenues - depreciation and amortization."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0010",
+   "row_label": "Operating loss",
+   "column_label": "Years ended December 31, | 2022",
+   "cell_text": "(673,543)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": -673543000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0010",
+   "row_label": "Operating loss",
+   "column_label": "Years ended December 31, | 2021",
+   "cell_text": "(2,988)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": -2988000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0017",
+   "row_label": "Purchase of property and equipment",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(27,611)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 27611000,
+   "confidence": 1.0,
+   "notes": "Advances to vendors (largely mining equipment deposits) is a separate line and is not added, per instructions."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0017",
+   "row_label": "Purchase of property and equipment",
+   "column_label": "Year Ended December 31, | 2022",
+   "cell_text": "(41,108)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 41108000,
+   "confidence": 1.0,
+   "notes": "Advances to vendors is a separate line and is not added, per instructions."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0017",
+   "row_label": "Purchase of property and equipment",
+   "column_label": "Year Ended December 31, | 2021",
+   "cell_text": "(273,851)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 273851000,
+   "confidence": 1.0,
+   "notes": "Advances to vendors is a separate line and is not added, per instructions."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "period_end": "2023-12-31",
+   "reason": "Income statement table t0010 has columns only for 2022 and 2021 (plus a variance column); no FY2023 column. The table appears to be a prior-year MD&A comparison rather than the FY2023 consolidated statement of operations."
+  },
+  {
+   "field": "cost_of_revenue",
+   "period_end": "2023-12-31",
+   "reason": "No FY2023 column in table t0010."
+  },
+  {
+   "field": "operating_income",
+   "period_end": "2023-12-31",
+   "reason": "No FY2023 column in table t0010."
+  },
+  {
+   "field": "revenue",
+   "column_label": "Favorable | (Unfavorable)",
+   "reason": "Column [2] of t0010 is a year-over-year variance, not a reporting period; no values extracted from it for any field."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.8,
+  "input_tokens": 7132,
+  "output_tokens": 1849,
+  "attempts": 1,
+  "task_sha": "dd289d7eab2e6316"
+ }
+}

@@ -1,0 +1,70 @@
+{
+ "accession": "WULF|mdna|2024-12-31|fd4d9380",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Core42 HPC Leases, Lake Mariner Facility",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Lake Mariner Facility, Barker, New York",
+   "counterparty": "Core42",
+   "capacity_mw": 72.5,
+   "gpus": null,
+   "announced": "2024-12-22",
+   "in_service": "2025",
+   "quote": "A key milestone in this transition occurred on December 22, 2024, when we signed a multi-year data center lease agreement with Core42, securing 72.5 MW of HPC hosting capacity at the Lake Mariner Facility for GPU compute workloads.",
+   "passage": "p02",
+   "confidence": 0.92
+  },
+  {
+   "name": "Core42 HPC expansion option, Lake Mariner Facility",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Lake Mariner Facility, Barker, New York",
+   "counterparty": "Core42",
+   "capacity_mw": 135,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "This agreement includes an option to expand by an additional 135 MW through March 31, 2025, enabling total deployments to Core42 of up to 72.5 MW in 2025 and 135 MW in 2026.",
+   "passage": "p02",
+   "confidence": 0.7
+  },
+  {
+   "name": "Lake Mariner Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Barker, New York",
+   "counterparty": null,
+   "capacity_mw": 195,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-03",
+   "quote": "As of December 31, 2024, the facility was operating 195 MW of bitcoin mining capacity, with an additional 50 MW under construction and expected to come online in the first half of 2025.",
+   "passage": "p03",
+   "confidence": 0.6
+  },
+  {
+   "name": "NYPA PPA, Lake Mariner Facility",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "NYPA",
+   "capacity_mw": 90,
+   "gpus": null,
+   "announced": "2022-02",
+   "in_service": null,
+   "quote": "The Company has a PPA with NYPA, securing 90 MW of high-load factor power to support its bitcoin mining operations.",
+   "passage": "p04",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.6,
+  "input_tokens": 9713,
+  "output_tokens": 1913,
+  "attempts": 1,
+  "task_sha": "f033d4e302d4dce0"
+ }
+}

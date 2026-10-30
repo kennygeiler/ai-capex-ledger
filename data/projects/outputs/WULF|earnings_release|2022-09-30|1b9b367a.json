@@ -1,0 +1,70 @@
+{
+ "accession": "WULF|earnings_release|2022-09-30|1b9b367a",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Lake Mariner Building 1",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "New York",
+   "counterparty": null,
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-08",
+   "quote": "This follows the August 2022 full energization of Building 1 (50 MW) at the Company\u2019s Lake Mariner facility in New York, bringing online capacity to 60 MW.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Lake Mariner Building 2",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "New York",
+   "counterparty": null,
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "Construction activities on Building 2 \u2013 also 50 MW \u2013 are substantially complete and the Company expects to achieve total capacity of 110 MW at the Lake Mariner facility in the first quarter of 2023.",
+   "passage": "p01",
+   "confidence": 0.8
+  },
+  {
+   "name": "Nautilus Cryptomine",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Pennsylvania",
+   "counterparty": "Talen Energy Corp.",
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-12",
+   "quote": "The Nautilus Cryptomine facility in Pennsylvania, which has access to an initial 200 MW of mining capacity from Talen\u2019s 2.3 GW Susquehanna Nuclear Station, with an option for an incremental 100 MW, is in the final stages of construction and is projected to begin mining in December 2022.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Nautilus Cryptomine contracted power from Susquehanna Nuclear Station",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Pennsylvania",
+   "counterparty": "Talen Energy Corp.",
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Reached agreement with a subsidiary of Talen Energy Corp. (\u201cTalen\u201d) to amend their joint venture agreement for the 200 MW Nautilus Cryptomine facility in Pennsylvania, bringing TeraWulf\u2019s stake in the facility to 25% and right-sizing TeraWulf\u2019s miners and infrastructure to enable maximum utilization of its 50 MW share of contracted power at $0.02 per kilowatt hour.",
+   "passage": "p01",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.6,
+  "input_tokens": 8288,
+  "output_tokens": 1905,
+  "attempts": 1,
+  "task_sha": "1332078ade0fb317"
+ }
+}

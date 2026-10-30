@@ -1,0 +1,37 @@
+{
+ "accession": "HUT|earnings_release|2025-09-30|7fd2a755",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 70000000,
+   "amount_high": 70000000,
+   "quote": "Generated $70.0 million in third quarter revenue from Bitcoin Mining (primarily through the Company\u2019s majority-owned subsidiary, American - Bitcoin Corp. (\u201cAmerican Bitcoin\u201d)), GPU-as-a-Service (through the Company\u2019s wholly owned Highrise AI subsidiary), and Data Center Cloud solutions (delivered under the High Performance Computing brand).",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Third-quarter (not full-year) total revenue across Bitcoin mining, GPU-as-a-Service (Highrise AI) and Data Center Cloud; the sentence does not state the AI/GPU or data-center part separately, so it is recorded as scope total."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.6,
+  "input_tokens": 5499,
+  "output_tokens": 678,
+  "attempts": 1,
+  "task_sha": "b50303bd5c49a3f9"
+ }
+}

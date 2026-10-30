@@ -1,0 +1,84 @@
+{
+ "accession": "WULF|earnings_release|2024-09-30|c7422e2b",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "WULF Den",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Lake Mariner",
+   "counterparty": null,
+   "capacity_mw": 2.5,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Notable milestones include the successful completion of a 2.5 MW HPC proof-of- concept project, specifically designed to support both current and next- generation GPU technologies.",
+   "passage": "p03",
+   "confidence": 0.85
+  },
+  {
+   "name": "CB-1",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Lake Mariner",
+   "counterparty": null,
+   "capacity_mw": 20,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "The construction of CB-1, a 20 MW Tier 3-grade HPC hosting facility, is progressing on schedule and is expected to be completed by Q1 2025.",
+   "passage": "p03",
+   "confidence": 0.95
+  },
+  {
+   "name": "CB-2",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Lake Mariner",
+   "counterparty": null,
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "Preparations for CB-2, a 50 MW HPC hosting facility, are also well advanced, with key components already secured, positioning the Company for a timely launch by the end of Q2 2025.",
+   "passage": "p03",
+   "confidence": 0.9
+  },
+  {
+   "name": "Lake Mariner ground lease",
+   "kind": "other",
+   "status": "contracted",
+   "location": "Lake Mariner",
+   "counterparty": null,
+   "capacity_mw": 750,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Securing an expanded ground lease with exclusive rights to 750 MW of infrastructure capacity is a significant milestone in our growth strategy.",
+   "passage": "p03",
+   "confidence": 0.8
+  },
+  {
+   "name": "Lake Mariner Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Western New York",
+   "counterparty": null,
+   "capacity_mw": 195,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "TeraWulf's current operational Bitcoin mining capacity includes approximately 195 MW at the Lake Mariner Facility.",
+   "passage": "p03",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.7,
+  "input_tokens": 15947,
+  "output_tokens": 1831,
+  "attempts": 1,
+  "task_sha": "52ae82ee31707f17"
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "accession": "PENG|earnings_release|2026-08-28|6cb93dcc",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Norway AI factory",
+   "kind": "gpu_cluster",
+   "status": "contracted",
+   "location": "Norway",
+   "counterparty": "neocloud customer",
+   "capacity_mw": null,
+   "gpus": 36000,
+   "announced": null,
+   "in_service": null,
+   "quote": "The customer selected Penguin to deploy and operate a 36,000-GPU AI factory in Norway.",
+   "passage": "p02",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.0,
+  "input_tokens": 4300,
+  "output_tokens": 507,
+  "attempts": 1,
+  "task_sha": "e00c711cfc87d158"
+ }
+}

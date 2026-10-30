@@ -1,0 +1,230 @@
+{
+ "accession": "0001104659-26-022322",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0104",
+   "row_label": "Total revenue",
+   "column_label": "\u200b | 2025",
+   "cell_text": "647,435",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 647435000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0104",
+   "row_label": "Total revenue",
+   "column_label": "\u200b | 2024",
+   "cell_text": "376,658",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 376658000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0104",
+   "row_label": "Total revenue",
+   "column_label": "\u200b | Years Ended December 31, | 2023",
+   "cell_text": "280,678",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 280678000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0104",
+   "row_label": "Bitcoin Mining",
+   "column_label": "\u200b | 2025",
+   "cell_text": "339,011",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 339011000,
+   "confidence": 0.9,
+   "notes": "Row under the 'Cost of revenue (excludes depreciation and amortization presented below):' header. This is the second 'Bitcoin Mining' row; the first is revenue. No total cost-of-revenue line exists."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0104",
+   "row_label": "Bitcoin Mining",
+   "column_label": "\u200b | 2024",
+   "cell_text": "189,224",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 189224000,
+   "confidence": 0.9,
+   "notes": "Row under the 'Cost of revenue (excludes depreciation and amortization presented below):' header. This is the second 'Bitcoin Mining' row; the first is revenue. No total cost-of-revenue line exists."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0104",
+   "row_label": "Bitcoin Mining",
+   "column_label": "\u200b | Years Ended December 31, | 2023",
+   "cell_text": "96,597",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 96597000,
+   "confidence": 0.9,
+   "notes": "Row under the 'Cost of revenue (excludes depreciation and amortization presented below):' header. This is the second 'Bitcoin Mining' row; the first is revenue. No total cost-of-revenue line exists."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0104",
+   "row_label": "Engineering",
+   "column_label": "\u200b | 2025",
+   "cell_text": "50,893",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 50893000,
+   "confidence": 0.9,
+   "notes": "Row under the 'Cost of revenue (excludes depreciation and amortization presented below):' header. This is the second 'Engineering' row; the first is revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0104",
+   "row_label": "Engineering",
+   "column_label": "\u200b | 2024",
+   "cell_text": "41,731",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 41731000,
+   "confidence": 0.9,
+   "notes": "Row under the 'Cost of revenue (excludes depreciation and amortization presented below):' header. This is the second 'Engineering' row; the first is revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0104",
+   "row_label": "Engineering",
+   "column_label": "\u200b | Years Ended December 31, | 2023",
+   "cell_text": "60,614",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 60614000,
+   "confidence": 0.9,
+   "notes": "Row under the 'Cost of revenue (excludes depreciation and amortization presented below):' header. This is the second 'Engineering' row; the first is revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0104",
+   "row_label": "Other",
+   "column_label": "\u200b | 2025",
+   "cell_text": "11,971",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 11971000,
+   "confidence": 0.9,
+   "notes": "Row under the 'Cost of revenue (excludes depreciation and amortization presented below):' header. This is the second 'Other' row; the first is revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0104",
+   "row_label": "Other",
+   "column_label": "\u200b | 2024",
+   "cell_text": "31,800",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 31800000,
+   "confidence": 0.9,
+   "notes": "Row under the 'Cost of revenue (excludes depreciation and amortization presented below):' header. This is the second 'Other' row; the first is revenue."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0104",
+   "row_label": "Other",
+   "column_label": "\u200b | Years Ended December 31, | 2023",
+   "cell_text": "97,122",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 97122000,
+   "confidence": 0.9,
+   "notes": "Row under the 'Cost of revenue (excludes depreciation and amortization presented below):' header. This is the second 'Other' row; the first is revenue."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0104",
+   "row_label": "Operating income (loss)",
+   "column_label": "\u200b | 2025",
+   "cell_text": "(622,166)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": -622166000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0104",
+   "row_label": "Operating income (loss)",
+   "column_label": "\u200b | 2024",
+   "cell_text": "153,590",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 153590000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0104",
+   "row_label": "Operating income (loss)",
+   "column_label": "\u200b | Years Ended December 31, | 2023",
+   "cell_text": "(63,047)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": -63047000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0107",
+   "row_label": "Purchases of property and equipment, including construction in progress",
+   "column_label": "\u200b | 2025",
+   "cell_text": "(201,382)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 201382000,
+   "confidence": 0.95,
+   "notes": "Line includes construction in progress. The separate 'Deposits on equipment' line was not added, per the single-line rule."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0107",
+   "row_label": "Purchases of property and equipment, including construction in progress",
+   "column_label": "\u200b | 2024",
+   "cell_text": "(240,340)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 240340000,
+   "confidence": 0.95,
+   "notes": "Line includes construction in progress. The separate 'Deposits on equipment' line was not added, per the single-line rule."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0107",
+   "row_label": "Purchases of property and equipment, including construction in progress",
+   "column_label": "\u200b | Years Ended December 31, | 2023",
+   "cell_text": "(193,704)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 193704000,
+   "confidence": 0.95,
+   "notes": "Line includes construction in progress. The separate 'Deposits on equipment' line was not added, per the single-line rule."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "The statement has no total cost-of-revenue line. Cost of revenue is shown only as the Bitcoin Mining, Engineering and Other component rows, which are reported as cost_of_revenue_part."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 21.3,
+  "input_tokens": 7671,
+  "output_tokens": 3081,
+  "attempts": 1,
+  "task_sha": "7e6bd507368ad14b"
+ }
+}

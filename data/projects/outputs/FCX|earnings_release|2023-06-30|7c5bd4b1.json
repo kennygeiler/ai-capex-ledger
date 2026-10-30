@@ -1,0 +1,62 @@
+{
+ "accession": "FCX|earnings_release|2023-06-30|7c5bd4b1",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Manyar smelter",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Gresik, Indonesia",
+   "counterparty": null,
+   "amount_low": 3000000000,
+   "amount_high": 3000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "Construction is approximately 75% complete, with estimated construction completion in mid-2024 at an estimated cost of $3.0 billion, including $2.8 billion for a construction contract (excluding capitalized interest, owner\u2019s costs and commissioning) and $0.2 billion for investment in a desalinization plant.",
+   "passage": "p05",
+   "confidence": 0.6
+  },
+  {
+   "name": "PT Smelting expansion",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": "PT Smelting",
+   "amount_low": 250000000,
+   "amount_high": 250000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "PT-FI is funding the cost of the expansion, estimated to approximate $250 million, with a loan that will convert to equity and increase PT-FI\u2019s ownership in PT Smelting to a majority ownership interest, which is expected to occur in 2024.",
+   "passage": "p06",
+   "confidence": 0.45
+  },
+  {
+   "name": "PMR",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 525000000,
+   "amount_high": 525000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "Construction is in progress with commissioning expected during 2024 at an estimated cost of $525 million.",
+   "passage": "p07",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.1,
+  "input_tokens": 19305,
+  "output_tokens": 1617,
+  "attempts": 1,
+  "task_sha": "66b979d479d9b48d"
+ }
+}

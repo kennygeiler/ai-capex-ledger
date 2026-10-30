@@ -1,0 +1,76 @@
+{
+ "accession": "EQIX|mdna|2022-12-31|780a6888",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "MainOne",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "West Africa",
+   "counterparty": "MainOne Cable Company Ltd.",
+   "amount_low": 278400000,
+   "amount_high": 278400000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We acquired MainOne and its assets for a total purchase consideration of $278.4 million.",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "Asia-Pacific 3 Joint Venture",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Seoul, Korea",
+   "counterparty": "GIC",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In April, we entered into a joint venture in the form of a limited liability partnership with GIC, to develop and operate two xScale data centers in Seoul, Korea (the \"Asia-Pacific 3 Joint Venture\").",
+   "passage": "p02",
+   "confidence": 0.7
+  },
+  {
+   "name": "Entel Chile data centers",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Chile",
+   "counterparty": "Empresa Nacional De Telecomunicaciones S.A. (Entel)",
+   "amount_low": 638300000,
+   "amount_high": 638300000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In May, we completed the acquisition of four data centers in Chile from Empresa Nacional De Telecomunicaciones S.A. (\"Entel\") for a total purchase consideration of $638.3 million at the exchange rate in effect on May 2, 2022.",
+   "passage": "p03",
+   "confidence": 0.75
+  },
+  {
+   "name": "Entel Peru data center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Peru",
+   "counterparty": "Entel",
+   "amount_low": 80300000,
+   "amount_high": 80300000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In August, we completed the acquisition of a data center in Peru from Entel for a purchase consideration of $80.3 million at the exchange rate in effect on August 1, 2022.",
+   "passage": "p04",
+   "confidence": 0.75
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.5,
+  "input_tokens": 8689,
+  "output_tokens": 1992,
+  "attempts": 1,
+  "task_sha": "ecf6234cd1d05cdd"
+ }
+}

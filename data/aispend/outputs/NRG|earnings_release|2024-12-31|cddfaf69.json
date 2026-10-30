@@ -1,0 +1,35 @@
+{
+ "accession": "NRG|earnings_release|2024-12-31|cddfaf69",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Targeting 400 MW of retail supply in the initial phase, these arrangements have the potential to scale to 6.5 GW, with work expected to start in 2026.",
+   "passage": "p01",
+   "confidence": 0.4,
+   "notes": "Data-center demand for NRG's retail power supply under non-binding LOIs. Quantified only in MW/GW, not in dollars or share of revenue, so recorded as qualitative. 2026 is the stated start of work, not necessarily of revenue."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 is a definition of free cash flow before growth"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.6,
+  "input_tokens": 4945,
+  "output_tokens": 696,
+  "attempts": 1,
+  "task_sha": "de22fa5957684019"
+ }
+}

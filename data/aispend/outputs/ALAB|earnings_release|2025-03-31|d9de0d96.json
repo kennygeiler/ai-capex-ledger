@@ -1,31 +1,35 @@
 {
  "accession": "ALAB|earnings_release|2025-03-31|d9de0d96",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "opex",
    "fiscal_year": null,
    "kind": "outlook",
-   "scope": "ai",
+   "scope": "total",
    "class": "qualitative",
    "quote": "These factors and new opportunities for scale-up interconnects boost our confidence in accelerating R&D development to further strengthen our connectivity platform and to deliver results that outpace industry growth.",
    "passage": "p01",
    "confidence": 0.5,
-   "notes": "Plans to accelerate R&D. The link to AI is indirect: 'These factors' refers to the preceding sentences on AI platform design wins and demand for AI rack connectivity. No amount or share is given and no year is named. The sentence comes from a CEO quote in an earnings release, not MD&A."
+   "notes": "The planned R&D acceleration is tied to AI only indirectly. 'These factors' refers to the previous sentences about design wins across AI platforms and demand in custom ASIC and GPU-based platforms. No amount or AI share of R&D is stated, and no year is named."
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence mentions capital expenditures or links them to AI"
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "total Q1 revenue growth (13% sequential, 144% year-over-year) is given without an amount and without linking it to AI; the sentence on strong demand for PCIe scale-up and Ethernet scale-out solutions in custom ASIC platforms describes demand, not revenue; no sentence states AI or data-center revenue as an amount or share"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 7.0,
-  "input_tokens": 6635,
-  "output_tokens": 713,
+  "seconds": 12.9,
+  "input_tokens": 6940,
+  "output_tokens": 1244,
   "attempts": 1,
-  "task_sha": "a76af1e435ab82e7"
+  "task_sha": "0878dda558aeaaf4"
  }
 }

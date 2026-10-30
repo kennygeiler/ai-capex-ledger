@@ -1,0 +1,27 @@
+{
+ "accession": "TMUS|earnings_release|2024-06-30|ffef6b27",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capex guidance of $8.7-9.1 billion for 2024 is given (p01, p03, p05), but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; passages cover only cash flow and EBITDA guidance"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 5533,
+  "output_tokens": 218,
+  "attempts": 1,
+  "task_sha": "3b526f0edda69ac0"
+ }
+}

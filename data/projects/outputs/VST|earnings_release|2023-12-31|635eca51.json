@@ -1,0 +1,56 @@
+{
+ "accession": "VST|earnings_release|2023-12-31|635eca51",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Energy Harbor acquisition",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 4000,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In February 2024, FERC approved Vistra\u2018s acquisition of Energy Harbor, which will add more than 4,000 MW of nuclear generation to its portfolio along with approximately 1 million additional retail customers.",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "Comanche Peak nuclear power plant",
+   "kind": "power",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 2400,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Together with Vistra\u2019s existing 2,400 MW Comanche Peak nuclear power plant, this acquisition will bring Vistra\u2019s nuclear capacity to more than 6,400 MW at the transaction\u2019s closing, which is expected to occur on March 1, 2024.",
+   "passage": "p01",
+   "confidence": 0.5
+  },
+  {
+   "name": "Coal-to-Solar and Energy Storage Initiative (Illinois solar and energy storage projects)",
+   "kind": "power",
+   "status": "announced",
+   "location": "Illinois",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Vistra expects to start construction this spring on its three larger Illinois solar and energy storage projects, part of the Coal-to-Solarand Energy Storage Initiative.",
+   "passage": "p01",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.2,
+  "input_tokens": 7570,
+  "output_tokens": 1480,
+  "attempts": 1,
+  "task_sha": "24de8dd32eea66c1"
+ }
+}

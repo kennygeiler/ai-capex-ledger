@@ -1,0 +1,27 @@
+{
+ "accession": "BE|earnings_release|2024-03-31|ed61b8b8",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the cash-flow table's purchase of property, plant and equipment is not tied to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the CEO quote names data centers and AI hardware supply chain industries only as a market growth opportunity; no sentence states an amount or share of revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 6998,
+  "output_tokens": 238,
+  "attempts": 1,
+  "task_sha": "9b3312f8cf3e0962"
+ }
+}

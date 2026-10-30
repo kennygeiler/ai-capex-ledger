@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|mdna|2023-12-31|0e063ffb",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are reported ($3.3 billion actual for 2023; $2.0\u20132.5 billion development outlook for 2024), but no sentence links them to AI; they are attributed to development programs and customer demand for data center space"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI or data-center revenue figure or share; passages discuss leasing demand, rental rates and joint-venture proceeds only, and none mention AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.9,
+  "input_tokens": 8066,
+  "output_tokens": 353,
+  "attempts": 1,
+  "task_sha": "3ac126fada3004b8"
+ }
+}

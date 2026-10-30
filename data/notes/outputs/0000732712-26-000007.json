@@ -1,0 +1,289 @@
+{
+ "accession": "0000732712-26-000007",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Consumer",
+   "table_id": "t0167",
+   "row_label": "Total Operating Revenues(3)",
+   "column_label": "Consumer",
+   "cell_text": "106,807",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 106807000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Business",
+   "table_id": "t0167",
+   "row_label": "Total Operating Revenues(3)",
+   "column_label": "Business",
+   "cell_text": "29,069",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 29069000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Consumer",
+   "table_id": "t0168",
+   "row_label": "Total Operating Revenues(3)",
+   "column_label": "Consumer",
+   "cell_text": "102,904",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 102904000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Business",
+   "table_id": "t0168",
+   "row_label": "Total Operating Revenues(3)",
+   "column_label": "Business",
+   "cell_text": "29,531",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 29531000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Consumer",
+   "table_id": "t0169",
+   "row_label": "Total Operating Revenues(3)",
+   "column_label": "Consumer",
+   "cell_text": "101,626",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 101626000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Business",
+   "table_id": "t0169",
+   "row_label": "Total Operating Revenues(3)",
+   "column_label": "Business",
+   "cell_text": "30,122",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 30122000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0103",
+   "row_label": "Land",
+   "column_label": "2025",
+   "cell_text": "743",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 743000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0103",
+   "row_label": "Land",
+   "column_label": "2024",
+   "cell_text": "740",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 740000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and equipment",
+   "table_id": "t0103",
+   "row_label": "Buildings and equipment",
+   "column_label": "2025",
+   "cell_text": "40,872",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 40872000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and equipment",
+   "table_id": "t0103",
+   "row_label": "Buildings and equipment",
+   "column_label": "2024",
+   "cell_text": "39,130",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 39130000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Central office and other network equipment",
+   "table_id": "t0103",
+   "row_label": "Central office and other network equipment",
+   "column_label": "2025",
+   "cell_text": "180,506",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 180506000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Central office and other network equipment",
+   "table_id": "t0103",
+   "row_label": "Central office and other network equipment",
+   "column_label": "2024",
+   "cell_text": "176,680",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 176680000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Antennas, cable, conduit, poles and towers",
+   "table_id": "t0103",
+   "row_label": "Antennas, cable, conduit, poles and towers",
+   "column_label": "2025",
+   "cell_text": "86,221",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 86221000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Antennas, cable, conduit, poles and towers",
+   "table_id": "t0103",
+   "row_label": "Antennas, cable, conduit, poles and towers",
+   "column_label": "2024",
+   "cell_text": "82,810",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 82810000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0103",
+   "row_label": "Leasehold improvements",
+   "column_label": "2025",
+   "cell_text": "11,099",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 11099000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0103",
+   "row_label": "Leasehold improvements",
+   "column_label": "2024",
+   "cell_text": "10,562",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 10562000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Work in progress",
+   "table_id": "t0103",
+   "row_label": "Work in progress",
+   "column_label": "2025",
+   "cell_text": "8,493",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 8493000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Work in progress",
+   "table_id": "t0103",
+   "row_label": "Work in progress",
+   "column_label": "2024",
+   "cell_text": "9,424",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 9424000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, vehicles and other",
+   "table_id": "t0103",
+   "row_label": "Furniture, vehicles and other",
+   "column_label": "2025",
+   "cell_text": "10,057",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 10057000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, vehicles and other",
+   "table_id": "t0103",
+   "row_label": "Furniture, vehicles and other",
+   "column_label": "2024",
+   "cell_text": "12,060",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 12060000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0107",
+   "row_label": "Total Finance lease liabilities",
+   "column_label": "2025",
+   "cell_text": "2,511",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 2511000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0107",
+   "row_label": "Total Finance lease liabilities",
+   "column_label": "2024",
+   "cell_text": "2,349",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 2349000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment tables report revenue, operating expenses and operating income by segment but no capital expenditures per segment"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or purchase-commitments table is among the provided tables"
+  }
+ ],
+ "notes": "Segment revenue tables t0167/t0168/t0169 have segment columns, not year columns; years were assigned as 2025/2024/2023 by matching segment operating income to t0050/t0053 (Consumer 29,628 / 29,484; Business 2,532 / 2,058) and the 2023 reportable-segment total 31,077 to t0173. Hence confidence below 1.0. Segment totals include intersegment revenues as reported. Business sub-lines (Enterprise and Public Sector, Business Markets and Other, Wholesale) were not cited separately because Verizon reports revenue by segment.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 25.3,
+  "input_tokens": 9930,
+  "output_tokens": 3740,
+  "attempts": 1,
+  "task_sha": "ea7fcca9cec43009"
+ }
+}

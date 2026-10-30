@@ -1,0 +1,155 @@
+{
+ "accession": "0001640147-25-000052",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0026",
+   "row_label": "Revenue",
+   "column_label": "Fiscal Year Ended January 31, | 2025",
+   "cell_text": "3,626,396",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 3626396000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0026",
+   "row_label": "Revenue",
+   "column_label": "Fiscal Year Ended January 31, | 2024",
+   "cell_text": "2,806,489",
+   "period_end": "2024-01-31",
+   "months": 12,
+   "value": 2806489000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0026",
+   "row_label": "Revenue",
+   "column_label": "Fiscal Year Ended January 31, | 2023",
+   "cell_text": "2,065,659",
+   "period_end": "2023-01-31",
+   "months": 12,
+   "value": 2065659000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0026",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Year Ended January 31, | 2025",
+   "cell_text": "1,214,673",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 1214673000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0026",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Year Ended January 31, | 2024",
+   "cell_text": "898,558",
+   "period_end": "2024-01-31",
+   "months": 12,
+   "value": 898558000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0026",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Year Ended January 31, | 2023",
+   "cell_text": "717,540",
+   "period_end": "2023-01-31",
+   "months": 12,
+   "value": 717540000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0026",
+   "row_label": "Operating loss",
+   "column_label": "Fiscal Year Ended January 31, | 2025",
+   "cell_text": "(1,456,010)",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": -1456010000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0026",
+   "row_label": "Operating loss",
+   "column_label": "Fiscal Year Ended January 31, | 2024",
+   "cell_text": "(1,094,773)",
+   "period_end": "2024-01-31",
+   "months": 12,
+   "value": -1094773000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0026",
+   "row_label": "Operating loss",
+   "column_label": "Fiscal Year Ended January 31, | 2023",
+   "cell_text": "(842,267)",
+   "period_end": "2023-01-31",
+   "months": 12,
+   "value": -842267000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0029",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended January 31, | 2025",
+   "cell_text": "(46,279)",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 46279000,
+   "confidence": 0.95,
+   "notes": "Took 'Purchases of property and equipment' only; separate lines for capitalized internal-use software and purchases of intangible assets were not added, per the rule against combining lines."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0029",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended January 31, | 2024",
+   "cell_text": "(35,086)",
+   "period_end": "2024-01-31",
+   "months": 12,
+   "value": 35086000,
+   "confidence": 0.95,
+   "notes": "Took 'Purchases of property and equipment' only; separate lines for capitalized internal-use software and purchases of intangible assets were not added, per the rule against combining lines."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0029",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended January 31, | 2023",
+   "cell_text": "(25,128)",
+   "period_end": "2023-01-31",
+   "months": 12,
+   "value": 25128000,
+   "confidence": 0.95,
+   "notes": "Took 'Purchases of property and equipment' only; separate lines for capitalized internal-use software and purchases of intangible assets were not added, per the rule against combining lines."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the income statement has a single total 'Cost of revenue' line."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.1,
+  "input_tokens": 6232,
+  "output_tokens": 1721,
+  "attempts": 1,
+  "task_sha": "950e9d56a57cf6af"
+ }
+}

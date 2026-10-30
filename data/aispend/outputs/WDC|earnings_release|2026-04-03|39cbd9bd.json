@@ -1,0 +1,27 @@
+{
+ "accession": "WDC|earnings_release|2026-04-03|39cbd9bd",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 only defines free cash flow in terms of purchases of property, plant and equipment"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 reports revenue growth across end markets and describes AI workloads as a demand driver for HDDs, but no sentence states an AI or data-center revenue amount or share, or attributes revenue to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 5337,
+  "output_tokens": 407,
+  "attempts": 1,
+  "task_sha": "d2e2f3ee9ab9f051"
+ }
+}

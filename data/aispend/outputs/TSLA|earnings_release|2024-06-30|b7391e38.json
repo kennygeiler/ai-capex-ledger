@@ -1,10 +1,10 @@
 {
  "accession": "TSLA|earnings_release|2024-06-30|b7391e38",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
-   "fiscal_year": null,
+   "fiscal_year": 2024,
    "kind": "actual",
    "scope": "ai",
    "class": "explicit_amount",
@@ -13,27 +13,32 @@
    "quote": "The sequential increase of $3.9B was a result of positive free cash flow of $1.3B, driven by an inventory decrease of $1.8B and partially offset by AI infrastructure capex of $0.6B in Q2.",
    "passage": "p02",
    "confidence": 0.9,
-   "notes": "The amount is for Q2 2024 only, not the full fiscal year. The sentence names a quarter but no year, so fiscal_year is null. The same $0.6B figure appears parenthetically in p01."
+   "notes": "Amount is AI infrastructure capex for Q2 2024 only, not the full fiscal year; the sentence names Q2 but no year, and fiscal 2024 comes from the filing period (quarter ended 2024-06-30). The same figure appears in p01."
   },
   {
    "field": "opex",
-   "fiscal_year": null,
+   "fiscal_year": 2024,
    "kind": "actual",
-   "scope": "ai",
+   "scope": "total",
    "class": "qualitative",
-   "quote": "YoY, operating income was primarily impacted by the following items: - reduced S3XY vehicle ASP as noted above - restructuring charges - increase in operating expenses largely driven by AI projects - decline in S3XY vehicle deliveries + higher regulatory credit revenue + growth in Energy Generation and Storage gross profit + lower cost per vehicle, including lower raw material costs, freight and duties + lower cost of production ramp of 4680 cells and other related charges",
+   "quote": "YoY, operating income was primarily impacted by the following items: - reduced S3XY vehicle ASP as noted above - restructuring charges - increase in operating expenses largely driven by AI projects - decline in S3XY vehicle deliveries + higher regulatory credit revenue + growth in Energy Generation and Storage gross profit + lower cost per vehicle, including lower raw material costs, freight and duties + lower cost of production ramp of 4680 cells and other related charges Cash Quarter-end cash, cash equivalents and investments in Q2 was $30.7B.",
    "passage": "p02",
-   "confidence": 0.8,
-   "notes": "The source is a bullet list without a terminal period; the quote is the verbatim span through the end of the list. It attributes the year-over-year increase in operating expenses (Q2) 'largely' to AI projects. No amount or share is given. It refers to the Q2 period, with no year named."
+   "confidence": 0.85,
+   "notes": "Bullet list with no sentence punctuation, so the quote runs to the next period. The sentence says the YoY increase in operating expenses was 'largely driven by AI projects' in Q2 2024 but gives no amount."
   }
  ],
- "none_found": [],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "no sentence states an amount or share of revenue from AI; FSD monetization is mentioned without figures"
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 13.6,
-  "input_tokens": 8500,
-  "output_tokens": 1643,
+  "seconds": 18.2,
+  "input_tokens": 9402,
+  "output_tokens": 1629,
   "attempts": 1,
-  "task_sha": "da3cf6cd999b7dc2"
+  "task_sha": "cdc269466e481467"
  }
 }

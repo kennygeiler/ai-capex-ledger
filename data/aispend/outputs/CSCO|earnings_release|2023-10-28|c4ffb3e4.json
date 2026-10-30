@@ -1,23 +1,27 @@
 {
  "accession": "CSCO|earnings_release|2023-10-28|c4ffb3e4",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is safe-harbor boilerplate; it mentions AI growth opportunities and Cisco's development and use of AI as risk factors, but no sentence links capital expenditures to AI"
+   "reason": "no sentence states capital expenditures or links them to AI"
   },
   {
    "field": "opex",
-   "reason": "the only passage is safe-harbor boilerplate; references to investments in sales, engineering and other activities are generic risk factors and no sentence quantifies or attributes operating expenses to AI"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p02 mentions 'our development and use of artificial intelligence' only as a risk factor"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; p01 says only that future growth opportunities are 'fueled by AI, Security, Cloud, and Observability', a general outlook that does not name AI's part of revenue, and p02 references the data center market only as a competition risk factor"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.1,
-  "input_tokens": 5626,
-  "output_tokens": 217,
+  "seconds": 5.1,
+  "input_tokens": 6337,
+  "output_tokens": 459,
   "attempts": 1,
-  "task_sha": "fa0e9d52aca5ded0"
+  "task_sha": "f015983303caa93c"
  }
 }

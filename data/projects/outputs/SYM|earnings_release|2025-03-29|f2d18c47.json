@@ -1,0 +1,13 @@
+{
+ "accession": "SYM|earnings_release|2025-03-29|f2d18c47",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 4920,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "2d6eff57e9ec5f8e"
+ }
+}

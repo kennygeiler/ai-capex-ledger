@@ -1,0 +1,50 @@
+{
+ "accession": "DELL|earnings_release|2023-08-04|bddfb0f3",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 4300000000,
+   "amount_high": 4300000000,
+   "quote": "Servers and networking revenue was $4.3 billion, with continued demand growth in AI- optimized servers.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Second-quarter fiscal 2024 servers and networking revenue for the Infrastructure Solutions Group segment, not the company total. AI-optimized servers are named as a demand driver only. The AI part is not stated, so this is not AI revenue."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 10600000000,
+   "amount_high": 10600000000,
+   "quote": "Commercial client revenue was $10.6 billion, with demand growth in workstations, which help organizations run complex AI workloads locally.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "Second-quarter fiscal 2024 commercial client revenue for the Client Solutions Group segment. The link to AI is indirect: workstations are the demand driver, and the sentence describes them as used for AI workloads. The AI part is not stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.9,
+  "input_tokens": 5111,
+  "output_tokens": 1284,
+  "attempts": 1,
+  "task_sha": "18d9db98e85c6371"
+ }
+}

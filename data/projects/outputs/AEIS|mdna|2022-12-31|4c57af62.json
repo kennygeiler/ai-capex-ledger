@@ -1,0 +1,13 @@
+{
+ "accession": "AEIS|mdna|2022-12-31|4c57af62",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.2,
+  "input_tokens": 5981,
+  "output_tokens": 50,
+  "attempts": 1,
+  "task_sha": "3fa2fbdd88f385b3"
+ }
+}

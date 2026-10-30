@@ -1,0 +1,37 @@
+{
+ "accession": "GLXY|earnings_release|2025-12-31|618bd170",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1000000000,
+   "amount_high": 1000000000,
+   "quote": "CoreWeave, as our anchor tenant, has leased a total of 526 MW of critical IT capacity for a period of 15 years, generating an anticipated average annual revenue of over $1B for the combined three phases.",
+   "passage": "p14",
+   "confidence": 0.6,
+   "notes": "\"Over $1B\" is a lower bound, recorded as $1B. It is an average annual AI/HPC data-center lease revenue over the 15-year term once all three phases are operational, not guidance for a specific fiscal year. Phases are delivered 1H26 through 2028, so the default of the year after the reported year would overstate near-term revenue. FY25 Data Centers segment revenue of $7.2M (p01, p08) appears only in tables, with no quotable sentence, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes Galaxy's own capital expenditures to AI. The only capex figure is industry hyperscaler capex (p12), which is not the company's spend. The footnotes mention 'internal estimates for capital expenditures' without an amount."
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.8,
+  "input_tokens": 16647,
+  "output_tokens": 1254,
+  "attempts": 1,
+  "task_sha": "5d1b0788c2eef100"
+ }
+}

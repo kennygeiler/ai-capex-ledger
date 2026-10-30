@@ -1,6 +1,6 @@
 {
  "accession": "0000034088-26-000045",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_capex",
@@ -12,8 +12,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 15872000000,
-   "confidence": 0.7,
-   "notes": "Parsed header repeats 'Non-U.S.' and appears geography-shifted: in t0192 this column holds the 2024 Pioneer additions (a U.S. acquisition), so this column is likely Upstream U.S. Dimension kept verbatim per rule 4."
+   "confidence": 0.5,
+   "notes": "Segment-table column headers look misaligned: [0] is labelled Non-U.S. and [1] U.S., but 2024 column [0] holds the Pioneer additions (94,649), which are U.S. Columns [6] and [7] are both labelled 'Specialty Products | Non-U.S.', so their cells cannot be cited unambiguously. Specialty Products is omitted for both years. No segment total per segment exists (only U.S./Non-U.S. splits), and cells were not summed. Year comes from the table's 'As of December 31, 2025' row, not the column label."
   },
   {
    "field": "segment_capex",
@@ -25,8 +25,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 9490000000,
-   "confidence": 0.7,
-   "notes": "Header geography appears shifted; likely Upstream Non-U.S. Dimension kept verbatim."
+   "confidence": 0.5,
+   "notes": "Column header likely shifted; see first value."
   },
   {
    "field": "segment_capex",
@@ -38,8 +38,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 703000000,
-   "confidence": 0.7,
-   "notes": "Header geography appears shifted; likely Energy Products U.S. Dimension kept verbatim."
+   "confidence": 0.5,
+   "notes": "Column header likely shifted; see first value."
   },
   {
    "field": "segment_capex",
@@ -51,8 +51,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 1251000000,
-   "confidence": 0.7,
-   "notes": "Header geography appears shifted; likely Energy Products Non-U.S. Dimension kept verbatim."
+   "confidence": 0.5,
+   "notes": "Column header likely shifted; see first value."
   },
   {
    "field": "segment_capex",
@@ -64,8 +64,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 800000000,
-   "confidence": 0.7,
-   "notes": "Header geography appears shifted; likely Chemical Products U.S. Dimension kept verbatim."
+   "confidence": 0.5,
+   "notes": "Column header likely shifted; see first value."
   },
   {
    "field": "segment_capex",
@@ -77,21 +77,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 522000000,
-   "confidence": 0.7,
-   "notes": "Header geography appears shifted; likely Chemical Products Non-U.S. Dimension kept verbatim."
-  },
-  {
-   "field": "segment_capex",
-   "dimension": "Specialty Products | Non-U.S.",
-   "table_id": "t0190",
-   "row_label": "Additions to property, plant, and equipment (3)",
-   "column_label": "Specialty Products | Non-U.S.",
-   "cell_text": "368",
-   "period_end": "2025-12-31",
-   "months": 12,
-   "value": 368000000,
-   "confidence": 0.6,
-   "notes": "First of two columns both labeled 'Specialty Products | Non-U.S.'; likely Specialty Products U.S. Dimension kept verbatim."
+   "confidence": 0.5,
+   "notes": "Column header likely shifted; see first value."
   },
   {
    "field": "segment_capex",
@@ -103,8 +90,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 94649000000,
-   "confidence": 0.7,
-   "notes": "Includes Pioneer acquisition additions (U.S.), indicating header geography is shifted; likely Upstream U.S. Dimension kept verbatim."
+   "confidence": 0.5,
+   "notes": "Includes non-cash Pioneer acquisition additions. This cell is almost certainly U.S. despite the label; see first value."
   },
   {
    "field": "segment_capex",
@@ -116,8 +103,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 8371000000,
-   "confidence": 0.7,
-   "notes": "Header geography appears shifted; likely Upstream Non-U.S. Dimension kept verbatim."
+   "confidence": 0.5,
+   "notes": "Column header likely shifted; see first value."
   },
   {
    "field": "segment_capex",
@@ -129,8 +116,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 589000000,
-   "confidence": 0.7,
-   "notes": "Header geography appears shifted; likely Energy Products U.S. Dimension kept verbatim."
+   "confidence": 0.5,
+   "notes": "Column header likely shifted; see first value."
   },
   {
    "field": "segment_capex",
@@ -142,8 +129,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 1450000000,
-   "confidence": 0.7,
-   "notes": "Header geography appears shifted; likely Energy Products Non-U.S. Dimension kept verbatim."
+   "confidence": 0.5,
+   "notes": "Column header likely shifted; see first value."
   },
   {
    "field": "segment_capex",
@@ -155,8 +142,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 474000000,
-   "confidence": 0.7,
-   "notes": "Header geography appears shifted; likely Chemical Products U.S. Dimension kept verbatim."
+   "confidence": 0.5,
+   "notes": "Column header likely shifted; see first value."
   },
   {
    "field": "segment_capex",
@@ -168,21 +155,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 1161000000,
-   "confidence": 0.7,
-   "notes": "Header geography appears shifted; likely Chemical Products Non-U.S. Dimension kept verbatim."
-  },
-  {
-   "field": "segment_capex",
-   "dimension": "Specialty Products | Non-U.S.",
-   "table_id": "t0192",
-   "row_label": "Additions to property, plant, and equipment (3)",
-   "column_label": "Specialty Products | Non-U.S.",
-   "cell_text": "230",
-   "period_end": "2024-12-31",
-   "months": 12,
-   "value": 230000000,
-   "confidence": 0.6,
-   "notes": "First of two columns both labeled 'Specialty Products | Non-U.S.'; likely Specialty Products U.S. Dimension kept verbatim."
+   "confidence": 0.5,
+   "notes": "Column header likely shifted; see first value."
   },
   {
    "field": "segment_revenue",
@@ -194,8 +168,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 25396000000,
-   "confidence": 0.65,
-   "notes": "Third-party sales line chosen over 'Segment revenues and other income' (which includes intersegment revenue). Header geography appears shifted; likely Upstream U.S."
+   "confidence": 0.5,
+   "notes": "Used external 'Sales and other operating revenue' rather than 'Segment revenues and other income', which includes intersegment revenue and other income. Column header issues and the Specialty omission are the same as for segment_capex."
   },
   {
    "field": "segment_revenue",
@@ -207,8 +181,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 13993000000,
-   "confidence": 0.65,
-   "notes": "Third-party sales line. Header geography appears shifted; likely Upstream Non-U.S."
+   "confidence": 0.5,
+   "notes": "See first segment_revenue value."
   },
   {
    "field": "segment_revenue",
@@ -220,8 +194,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 99073000000,
-   "confidence": 0.65,
-   "notes": "Third-party sales line. Header geography appears shifted; likely Energy Products U.S."
+   "confidence": 0.5,
+   "notes": "See first segment_revenue value."
   },
   {
    "field": "segment_revenue",
@@ -233,8 +207,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 145378000000,
-   "confidence": 0.65,
-   "notes": "Third-party sales line. Header geography appears shifted; likely Energy Products Non-U.S."
+   "confidence": 0.5,
+   "notes": "See first segment_revenue value."
   },
   {
    "field": "segment_revenue",
@@ -246,8 +220,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 7594000000,
-   "confidence": 0.65,
-   "notes": "Third-party sales line. Header geography appears shifted; likely Chemical Products U.S."
+   "confidence": 0.5,
+   "notes": "See first segment_revenue value."
   },
   {
    "field": "segment_revenue",
@@ -259,21 +233,8 @@
    "period_end": "2025-12-31",
    "months": 12,
    "value": 14615000000,
-   "confidence": 0.65,
-   "notes": "Third-party sales line. Header geography appears shifted; likely Chemical Products Non-U.S."
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Specialty Products | Non-U.S.",
-   "table_id": "t0190",
-   "row_label": "Sales and other operating revenue",
-   "column_label": "Specialty Products | Non-U.S.",
-   "cell_text": "5,502",
-   "period_end": "2025-12-31",
-   "months": 12,
-   "value": 5502000000,
-   "confidence": 0.6,
-   "notes": "Third-party sales line. First of two columns both labeled 'Specialty Products | Non-U.S.'; likely Specialty Products U.S."
+   "confidence": 0.5,
+   "notes": "See first segment_revenue value."
   },
   {
    "field": "segment_revenue",
@@ -285,8 +246,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 22929000000,
-   "confidence": 0.65,
-   "notes": "Third-party sales line. Header geography appears shifted; likely Upstream U.S."
+   "confidence": 0.5,
+   "notes": "See first segment_revenue value."
   },
   {
    "field": "segment_revenue",
@@ -298,8 +259,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 14202000000,
-   "confidence": 0.65,
-   "notes": "Third-party sales line. Header geography appears shifted; likely Upstream Non-U.S."
+   "confidence": 0.5,
+   "notes": "See first segment_revenue value."
   },
   {
    "field": "segment_revenue",
@@ -311,8 +272,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 101325000000,
-   "confidence": 0.65,
-   "notes": "Third-party sales line. Header geography appears shifted; likely Energy Products U.S."
+   "confidence": 0.5,
+   "notes": "See first segment_revenue value."
   },
   {
    "field": "segment_revenue",
@@ -324,8 +285,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 159531000000,
-   "confidence": 0.65,
-   "notes": "Third-party sales line. Header geography appears shifted; likely Energy Products Non-U.S."
+   "confidence": 0.5,
+   "notes": "See first segment_revenue value."
   },
   {
    "field": "segment_revenue",
@@ -337,8 +298,8 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 8558000000,
-   "confidence": 0.65,
-   "notes": "Third-party sales line. Header geography appears shifted; likely Chemical Products U.S."
+   "confidence": 0.5,
+   "notes": "See first segment_revenue value."
   },
   {
    "field": "segment_revenue",
@@ -350,51 +311,30 @@
    "period_end": "2024-12-31",
    "months": 12,
    "value": 14338000000,
-   "confidence": 0.65,
-   "notes": "Third-party sales line. Header geography appears shifted; likely Chemical Products Non-U.S."
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Specialty Products | Non-U.S.",
-   "table_id": "t0192",
-   "row_label": "Sales and other operating revenue",
-   "column_label": "Specialty Products | Non-U.S.",
-   "cell_text": "5,790",
-   "period_end": "2024-12-31",
-   "months": 12,
-   "value": 5790000000,
-   "confidence": 0.6,
-   "notes": "Third-party sales line. First of two columns both labeled 'Specialty Products | Non-U.S.'; likely Specialty Products U.S."
+   "confidence": 0.5,
+   "notes": "See first segment_revenue value."
   }
  ],
  "not_found": [
   {
-   "field": "segment_capex",
-   "reason": "Second Specialty Products column in t0190/t0192 (cells 227 for 2025 and 227 for 2024) carries the same parsed label 'Specialty Products | Non-U.S.' as the first, so it cannot be cited unambiguously; the parsed header is defective (likely the Non-U.S. column). 2023 segment capex is not in the provided tables."
-  },
-  {
-   "field": "segment_revenue",
-   "reason": "Second Specialty Products column in t0190/t0192 (12,269 for 2025, 12,463 for 2024) shares the label 'Specialty Products | Non-U.S.' with the first column and cannot be cited unambiguously. 2023 segment revenue is not in the provided tables."
-  },
-  {
    "field": "ppe_category",
-   "reason": "No property, plant and equipment table by category is among the provided tables; t0084 gives only net PP&E ('Property, plant, and equipment, less allowances')."
+   "reason": "No property, plant and equipment note with gross amounts by category is among the tables; only net PP&E totals appear (t0084)."
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No lease note table is among the provided tables."
+   "reason": "No lease note table is among the tables provided."
   },
   {
    "field": "purchase_commitments",
-   "reason": "No contractual obligations or commitments table is among the provided tables."
+   "reason": "No contractual obligations or commitments table is among the tables provided."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 97.6,
-  "input_tokens": 43674,
-  "output_tokens": 14510,
-  "attempts": 2,
-  "task_sha": "5bfb79cea6cdae01"
+  "seconds": 828.8,
+  "input_tokens": 136576,
+  "output_tokens": 133098,
+  "attempts": 1,
+  "task_sha": "9b980986e9520217"
  }
 }

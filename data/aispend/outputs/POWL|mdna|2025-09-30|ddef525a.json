@@ -1,0 +1,27 @@
+{
+ "accession": "POWL|mdna|2025-09-30|ddef525a",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 and p03 discuss general capital allocation and property, plant and equipment spending only"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes research, infrastructure or headcount expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 describes market growth from data-center expansion and AI investment as an end-market trend, but no sentence states a data-center or AI revenue amount or share, or attributes revenue to that demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.9,
+  "input_tokens": 5172,
+  "output_tokens": 538,
+  "attempts": 1,
+  "task_sha": "09f8e309f0cd421b"
+ }
+}

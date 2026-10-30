@@ -1,0 +1,13 @@
+{
+ "accession": "AAPL|mdna|2024-09-28|79c8ddcc",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.4,
+  "input_tokens": 4206,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "f61e689561163262"
+ }
+}

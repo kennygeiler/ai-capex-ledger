@@ -1,0 +1,50 @@
+{
+ "accession": "DELL|earnings_release|2024-05-03|0da31c0c",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1700000000,
+   "amount_high": 1700000000,
+   "quote": "Servers and networking hit record revenue in Q1, with our AI-optimized server orders increasing sequentially to $2.6 billion, shipments up more than 100% to $1.7 billion, and backlog growing more than 30% to $3.8 billion.",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "The amount is Q1 fiscal 2025 AI-optimized server shipments, not a full-year figure. Shipments are recorded as AI server revenue, but the sentence says 'shipments', not 'revenue'. Orders ($2.6B) and backlog ($3.8B) are not revenue and were not recorded."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 5500000000,
+   "amount_high": 5500000000,
+   "quote": "Servers and networking revenue was a record $5.5 billion, up 42%, with demand strength across AI and traditional servers.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "This is Q1 fiscal 2025 servers and networking revenue, which covers both AI and traditional servers, so it is a total. AI is named as a driver only; this is not the AI amount."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.2,
+  "input_tokens": 5258,
+  "output_tokens": 1320,
+  "attempts": 1,
+  "task_sha": "32226a32806eb12e"
+ }
+}

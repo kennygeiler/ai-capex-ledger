@@ -1,23 +1,27 @@
 {
  "accession": "ANET|earnings_release|2024-06-30|e8a17ec7",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the only capex figure is the purchases of property and equipment line in the cash flow table (p04), which carries no AI attribution, and the AI mentions (p01-p03) describe products and partnerships"
+   "reason": "only the cash flow table gives purchases of property and equipment; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the AI mentions (p01-p03) are product descriptions and a technology demonstration announcement"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "AI and data center mentions are company-description boilerplate or a product announcement; no sentence states an AI or data-center revenue amount or share"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.8,
-  "input_tokens": 5597,
-  "output_tokens": 240,
+  "seconds": 4.1,
+  "input_tokens": 5902,
+  "output_tokens": 269,
   "attempts": 1,
-  "task_sha": "f9233019ca2016d3"
+  "task_sha": "46ddd45d963516c5"
  }
 }

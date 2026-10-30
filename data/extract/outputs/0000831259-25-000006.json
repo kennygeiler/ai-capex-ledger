@@ -1,0 +1,86 @@
+{
+ "accession": "0000831259-25-000006",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0032",
+   "row_label": "Revenuesa,b",
+   "column_label": "Years Ended December 31, | 2024",
+   "cell_text": "25,455",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 25455000000,
+   "confidence": 0.9,
+   "notes": "Taken from the selected financial data table (t0032); a full consolidated income statement was not provided. The row label carries footnote markers a,b."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0032",
+   "row_label": "Revenuesa,b",
+   "column_label": "Years Ended December 31, | 2023",
+   "cell_text": "22,855",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 22855000000,
+   "confidence": 0.9,
+   "notes": "Taken from the selected financial data table (t0032); a full consolidated income statement was not provided. The row label carries footnote markers a,b."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0032",
+   "row_label": "Operating incomea,c",
+   "column_label": "Years Ended December 31, | 2024",
+   "cell_text": "6,864",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 6864000000,
+   "confidence": 0.9,
+   "notes": "Taken from the selected financial data table (t0032). The row label carries footnote markers a,c."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0032",
+   "row_label": "Operating incomea,c",
+   "column_label": "Years Ended December 31, | 2023",
+   "cell_text": "6,225",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 6225000000,
+   "confidence": 0.9,
+   "notes": "Taken from the selected financial data table (t0032). The row label carries footnote markers a,c."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "period_end": "2022-12-31",
+   "reason": "The income statement tables provided (t0032, t0033) cover only 2024 and 2023. No 2022 revenue cell exists."
+  },
+  {
+   "field": "operating_income",
+   "period_end": "2022-12-31",
+   "reason": "The income statement tables provided (t0032, t0033) cover only 2024 and 2023. No 2022 operating income cell exists."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "The provided income statement tables contain no total cost-of-revenue or cost-of-sales line. Table t0033 shows only per-pound unit costs, which are not statement line items."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "The provided tables contain no individual cost-of-revenue lines in dollar amounts."
+  },
+  {
+   "field": "capex",
+   "reason": "The investing section of the cash-flow statement (t0061) splits capital expenditures into segment lines (North America copper mines, South America operations, Indonesia operations, Molybdenum mines, Other) and has no total line. The rules forbid adding lines together. The 'Capital expenditures' row in t0032 (4,808 for 2024, 4,824 for 2023) is from a selected financial data table, not the cash-flow investing section, and is shown as a positive figure, which does not match the capex sign convention for a cash-flow citation. Capex is therefore not reported for 2024, 2023 or 2022."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 32.9,
+  "input_tokens": 13214,
+  "output_tokens": 3632,
+  "attempts": 2,
+  "task_sha": "38adc3c9fea9d650"
+ }
+}

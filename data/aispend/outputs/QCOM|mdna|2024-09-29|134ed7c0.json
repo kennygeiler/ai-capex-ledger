@@ -1,23 +1,27 @@
 {
  "accession": "QCOM|mdna|2024-09-29|134ed7c0",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the stated capex figures ($1.0 billion in fiscal 2024, $1.5 billion in fiscal 2023) and the expected near-term increase are attributed to production and testing needs for growth and diversification initiatives, not AI"
+   "reason": "capital expenditures are stated ($1.0 billion in fiscal 2024, expected to increase) but no sentence links them to AI; the stated driver is production and testing needs for growth and diversification initiatives"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no passage states AI or data-center revenue or AI's share of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.6,
-  "input_tokens": 4721,
-  "output_tokens": 279,
+  "seconds": 3.4,
+  "input_tokens": 5018,
+  "output_tokens": 274,
   "attempts": 1,
-  "task_sha": "e12067bb737bb9ff"
+  "task_sha": "bf60806066e57487"
  }
 }

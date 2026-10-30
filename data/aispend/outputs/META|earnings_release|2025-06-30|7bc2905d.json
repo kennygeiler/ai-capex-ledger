@@ -1,6 +1,6 @@
 {
  "accession": "META|earnings_release|2025-06-30|7bc2905d",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -12,8 +12,8 @@
    "amount_high": 72000000000,
    "quote": "We currently expect 2025 capital expenditures, including principal payments on finance leases, to be in the range of $66-72 billion, narrowed from our prior outlook of $64-72 billion and up approximately $30 billion year-over-year at the mid-point.",
    "passage": "p01",
-   "confidence": 0.6,
-   "notes": "Total capex outlook, not AI spend. This sentence does not mention AI; the AI link comes from the next sentence in p01, which refers to 2026. Recorded as scope total so the total is not mistaken for the AI part. Confidence is lowered because the sentence itself does not name AI as a driver."
+   "confidence": 0.7,
+   "notes": "Total capex outlook, not AI spend. This sentence does not name AI. The link to AI efforts is in the next sentence of the same passage, which concerns 2026. Recorded as scope total so the total is not mistaken for the AI part."
   },
   {
    "field": "capex",
@@ -24,21 +24,25 @@
    "quote": "While the infrastructure planning process remains highly dynamic, we currently expect another year of similarly significant capital expenditures dollar growth in 2026 as we continue aggressively pursuing opportunities to bring additional capacity online to meet the needs of our artificial intelligence efforts and business operations.",
    "passage": "p01",
    "confidence": 0.9,
-   "notes": "Names AI as a driver of total capex growth in 2026 alongside business operations. It gives no amount or share, and the dollar growth is not derived from the 2025 figure."
+   "notes": "The sentence gives no amount for 2026, only 'similarly significant' dollar growth. The growth is attributed to both AI efforts and business operations, so it is total capex with AI as a driver."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies operating expenses or attributes them to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "Meta is a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 10.1,
-  "input_tokens": 4767,
-  "output_tokens": 1036,
+  "seconds": 10.9,
+  "input_tokens": 5072,
+  "output_tokens": 1010,
   "attempts": 1,
-  "task_sha": "8b6cffb22f50af20"
+  "task_sha": "2d0c881a169d4392"
  }
 }

@@ -1,23 +1,27 @@
 {
  "accession": "ORCL|mdna|2022-05-31|56d74a0c",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p02 and p03/p04 mention capex only in connection with data center capacity, customer demand, and working capital/cash uses, with no AI reference"
+   "reason": "no sentence links capital expenditures to AI; p02 ties expected fiscal 2023 capex to expanding data center capacity for customer demand without mentioning AI, and it is a sentence fragment"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; p01 mentions R&D investment in hardware products only, with no AI reference"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; p01 mentions R&D investment in hardware products only"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; p01 gives hardware business share of total revenues (7%), which is not AI or data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.0,
-  "input_tokens": 5509,
-  "output_tokens": 202,
+  "seconds": 4.2,
+  "input_tokens": 5812,
+  "output_tokens": 347,
   "attempts": 1,
-  "task_sha": "bb56258f6c9bc120"
+  "task_sha": "670770f2067befb0"
  }
 }

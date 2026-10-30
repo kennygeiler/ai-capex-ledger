@@ -1,0 +1,27 @@
+{
+ "accession": "NRG|mdna|2023-12-31|55641809",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex mentions concern environmental compliance, liquidity sources and budgeting"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.4,
+  "input_tokens": 5488,
+  "output_tokens": 185,
+  "attempts": 1,
+  "task_sha": "aef3febbba305280"
+ }
+}

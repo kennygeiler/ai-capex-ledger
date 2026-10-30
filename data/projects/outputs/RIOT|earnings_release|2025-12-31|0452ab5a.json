@@ -1,0 +1,28 @@
+{
+ "accession": "RIOT|earnings_release|2025-12-31|0452ab5a",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "AMD data center lease",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": "AMD",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026-01",
+   "quote": "We have successfully commenced operations on the first phase of the lease with AMD, generating revenue for Riot, as of January 2026.",
+   "passage": "p01",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.8,
+  "input_tokens": 4776,
+  "output_tokens": 574,
+  "attempts": 1,
+  "task_sha": "832b3c3aee07aeb2"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "CRM|earnings_release|2024-04-30|f0044b73",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the passage is a cash flow table showing total capital expenditures (-163) with no sentence linking capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the passage is a cash flow table only"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue; the passage is a cash flow table only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.0,
+  "input_tokens": 5192,
+  "output_tokens": 204,
+  "attempts": 1,
+  "task_sha": "24277b595afd4be2"
+ }
+}

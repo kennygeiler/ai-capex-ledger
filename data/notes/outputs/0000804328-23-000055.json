@@ -1,6 +1,6 @@
 {
  "accession": "0000804328-23-000055",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -12,7 +12,7 @@
    "period_end": "2023-09-24",
    "months": 12,
    "value": 22570000000,
-   "confidence": 0.85
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -24,7 +24,7 @@
    "period_end": "2022-09-25",
    "months": 12,
    "value": 28815000000,
-   "confidence": 0.85
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -36,7 +36,7 @@
    "period_end": "2023-09-24",
    "months": 12,
    "value": 1872000000,
-   "confidence": 0.85
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -48,7 +48,7 @@
    "period_end": "2022-09-25",
    "months": 12,
    "value": 1509000000,
-   "confidence": 0.85
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -60,7 +60,7 @@
    "period_end": "2023-09-24",
    "months": 12,
    "value": 5940000000,
-   "confidence": 0.85
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -72,7 +72,7 @@
    "period_end": "2022-09-25",
    "months": 12,
    "value": 7353000000,
-   "confidence": 0.85
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -246,24 +246,24 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "no segment note table with capital expenditures by segment is provided; t0019 reports QCT revenue by market and EBT only"
+   "reason": "no table provided reports capital expenditures by segment; the segment/market table gives revenues and EBT only"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no lease note table is provided among the parsed tables"
+   "reason": "no lease note table was provided"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or commitments table is provided among the parsed tables"
+   "reason": "no contractual-obligations or commitments table was provided"
   }
  ],
- "notes": "segment_revenue values in t0019 are QCT revenues by market (Handsets, Automotive, IoT), not reportable segments (QCT/QTL/QSI); taken as market-level revenue per the field definition, hence confidence 0.85. Fiscal 2022 year-end 2022-09-25 taken from t0041 column. Unlabeled total and net rows in t0041 skipped.",
+ "notes": "segment_revenue confidence 0.9: table t0019 breaks down revenue by market (Handsets, Automotive, IoT) \u2014 appears to be QCT revenue by end market rather than Qualcomm's reportable segments (QCT, QTL, QSI); taken as per-market revenue per the field definition. Total revenues and EBT rows skipped. PPE unlabeled total rows and accumulated depreciation skipped.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 17.8,
-  "input_tokens": 4659,
-  "output_tokens": 2695,
+  "seconds": 22.2,
+  "input_tokens": 4785,
+  "output_tokens": 2729,
   "attempts": 1,
-  "task_sha": "a2cf71fbe144f850"
+  "task_sha": "f8952ff6afa19d1d"
  }
 }

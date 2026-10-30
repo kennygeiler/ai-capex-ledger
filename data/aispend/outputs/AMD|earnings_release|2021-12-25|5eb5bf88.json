@@ -1,23 +1,35 @@
 {
  "accession": "AMD|earnings_release|2021-12-25|5eb5bf88",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2021,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Each of our businesses performed extremely well, with data center revenue doubling year-over-year driven by growing adoption of AMD EPYC processors across cloud and enterprise customers.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "States data center revenue doubled year-over-year but gives no dollar amount or share of total revenue; growth rate is not a share, so recorded as qualitative. Data center here is driven by EPYC CPUs, not explicitly AI."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; passages cover revenue, gross margin outlook, the Xilinx acquisition and product descriptions"
+   "reason": "no sentence states or attributes capital expenditures to AI or data center"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; mentions of AMD Instinct accelerators and accelerated computing describe products, not spend"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.9,
-  "input_tokens": 5124,
-  "output_tokens": 214,
+  "seconds": 7.4,
+  "input_tokens": 5427,
+  "output_tokens": 801,
   "attempts": 1,
-  "task_sha": "1ad7fc8603d7bd0d"
+  "task_sha": "2e5953e4277f89b3"
  }
 }

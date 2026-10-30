@@ -1,0 +1,116 @@
+{
+ "ticker": "ONTO",
+ "prompt_version": "attribution@v2",
+ "model": "chip_equipment@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "stated_amount",
+   "ai_amount": 20000000,
+   "ai_share": 0.0245,
+   "inputs": [
+    {
+     "id": "stmt:ONTO|earnings_release|2023-07-01|034c93e5|revenue|FY2023|actual|0",
+     "value": 20000000
+    }
+   ],
+   "basis": "The company stated inspection revenue for HBM and heterogeneous packaging of advanced logic for AI applications was over $20M in the quarter ended 1 Jul 2023. This is one quarter only, so it is a floor for FY2023 AI revenue, not the full year. Share is 20.0M \u00f7 815.9M FY2023 revenue.",
+   "confidence": 0.4
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "MD&A attributes the 21% FY2024 revenue increase and the $167.1M rise in systems and software revenue mainly to Dragonfly inspection units for advanced packaging of AI chips. The quarterly figures ($229M, $242M and $252M total revenue, and $164M specialty and advanced packaging in Q2) are totals or lines broader than AI, so they are not AI amounts.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The Q2 2023 release anticipated significant growth over the next several quarters in inspection revenue for HBM and AI heterogeneous packaging. It gave no figure.",
+   "confidence": 0.2
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "MD&A says systems and software revenue fell $2.6M in FY2025, mainly because fewer inspection units shipped for AI advanced packaging, partly offset by Advanced Nodes metrology and SiC. AI is named as a demand driver with no figure.",
+   "confidence": 0.25
+  }
+ ],
+ "none_found": [
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "No statement links FY2022 revenue to AI. The Systems and software, Parts and Services lines are product types, not AI lines."
+  },
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "The company states no AI part of its own capex. Its capex goes to tool factories and labs, and PP&E category changes are not attributable to AI under the thesis."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "The company states no AI part of its own capex. Seller-side signal: over $20M of quarterly AI packaging inspection revenue in Q2 2023, which belongs to revenue only."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "The company states no AI part of its own capex. Seller-side signal: FY2024 revenue growth was driven by AI advanced-packaging inspection, in words only. Purchase commitments of $438.2M are not identified as AI."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "The company states no AI part of its own capex. Purchase commitments of $256.4M are not identified as AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "No segment cost line and no statement attributes opex to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "No segment cost line and no statement attributes opex to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "No segment cost line and no statement attributes opex to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "No segment cost line and no statement attributes opex to AI."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "reason": "The approximately 80% advanced-packaging growth outlook and the 'nearly half of Q2 revenue' share are in the thesis but not in the data pack. Even so, the growth rate has no stated base and the share covers a line broader than AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 24.9,
+  "input_tokens": 15476,
+  "output_tokens": 2693,
+  "attempts": 1,
+  "task_sha": "1c2ae7c9b54f3c5d"
+ }
+}

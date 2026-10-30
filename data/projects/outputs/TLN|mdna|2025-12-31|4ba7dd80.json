@@ -1,0 +1,56 @@
+{
+ "accession": "TLN|mdna|2025-12-31|4ba7dd80",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Waterford Energy Center",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Ohio",
+   "counterparty": "Energy Capital Partners (ECP)",
+   "capacity_mw": 875,
+   "gpus": null,
+   "announced": "2026-01-15",
+   "in_service": null,
+   "quote": "On January 15, 2026, we entered into the Cornerstone Merger Agreement to acquire from affiliates of Energy Capital Partners (\u201cECP\u201d) the 875 MW Waterford Energy Center and 456 MW Darby Generating Station, both located in Ohio, and the 1,120 MW Lawrenceburg Power Plant located in Indiana, for an aggregate purchase price of $3.45 billion, consisting of $2.55 billion in cash, subject to working capital and other customary adjustments, and 2,400,000 shares of Talen common stock, valued at approximately $900 million at the time of the entry into the Cornerstone Merger Agreement.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Darby Generating Station",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Ohio",
+   "counterparty": "Energy Capital Partners (ECP)",
+   "capacity_mw": 456,
+   "gpus": null,
+   "announced": "2026-01-15",
+   "in_service": null,
+   "quote": "On January 15, 2026, we entered into the Cornerstone Merger Agreement to acquire from affiliates of Energy Capital Partners (\u201cECP\u201d) the 875 MW Waterford Energy Center and 456 MW Darby Generating Station, both located in Ohio, and the 1,120 MW Lawrenceburg Power Plant located in Indiana, for an aggregate purchase price of $3.45 billion, consisting of $2.55 billion in cash, subject to working capital and other customary adjustments, and 2,400,000 shares of Talen common stock, valued at approximately $900 million at the time of the entry into the Cornerstone Merger Agreement.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Lawrenceburg Power Plant",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Indiana",
+   "counterparty": "Energy Capital Partners (ECP)",
+   "capacity_mw": 1120,
+   "gpus": null,
+   "announced": "2026-01-15",
+   "in_service": null,
+   "quote": "On January 15, 2026, we entered into the Cornerstone Merger Agreement to acquire from affiliates of Energy Capital Partners (\u201cECP\u201d) the 875 MW Waterford Energy Center and 456 MW Darby Generating Station, both located in Ohio, and the 1,120 MW Lawrenceburg Power Plant located in Indiana, for an aggregate purchase price of $3.45 billion, consisting of $2.55 billion in cash, subject to working capital and other customary adjustments, and 2,400,000 shares of Talen common stock, valued at approximately $900 million at the time of the entry into the Cornerstone Merger Agreement.",
+   "passage": "p01",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.2,
+  "input_tokens": 6915,
+  "output_tokens": 1643,
+  "attempts": 1,
+  "task_sha": "78330c32557fa128"
+ }
+}

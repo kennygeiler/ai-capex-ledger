@@ -1,0 +1,13 @@
+{
+ "accession": "SITM|mdna|2025-12-31|fe919b04",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.4,
+  "input_tokens": 4536,
+  "output_tokens": 134,
+  "attempts": 1,
+  "task_sha": "eb3539a9d61e7544"
+ }
+}

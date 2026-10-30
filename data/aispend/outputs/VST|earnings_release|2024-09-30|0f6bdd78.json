@@ -1,0 +1,27 @@
+{
+ "accession": "VST|earnings_release|2024-09-30|0f6bdd78",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only as a cash-flow line item ($1,648 million, nine months) with no link to AI; forward-looking boilerplate mentions capital expenditures and large load centers but attributes no spend to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; 'potential large load center opportunities' appears only in forward-looking-statement boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 6766,
+  "output_tokens": 244,
+  "attempts": 1,
+  "task_sha": "b9db298841d299af"
+ }
+}

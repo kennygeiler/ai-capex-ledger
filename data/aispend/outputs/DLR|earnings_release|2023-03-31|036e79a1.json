@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|earnings_release|2023-03-31|036e79a1",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states a capital expenditure amount or links capital expenditures to AI; capex mentions are only in non-GAAP definitions and forward-looking boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "AI is never mentioned; total revenue of $1.3 billion for 1Q23 is reported without any AI or data-center attribution, and 'Data Center Revenue' appears only as a definition and in year-over-year growth rates, with no stated amount or share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.2,
+  "input_tokens": 15598,
+  "output_tokens": 548,
+  "attempts": 1,
+  "task_sha": "3ed464365a1602a5"
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "accession": "RIOT|earnings_release|2022-06-30|8414b97a",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Whinstone Facility 400 MW expansion",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 400,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "Continued to make significant progress on the Company\u2019s 400 megawatt (\u201cMW\u201d) \u2022 expansion at its Whinstone Facility.",
+   "passage": "p04",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.6,
+  "input_tokens": 4996,
+  "output_tokens": 650,
+  "attempts": 1,
+  "task_sha": "fb1936b72dd7eb00"
+ }
+}

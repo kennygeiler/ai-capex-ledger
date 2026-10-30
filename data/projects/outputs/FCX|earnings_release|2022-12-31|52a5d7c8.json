@@ -1,0 +1,62 @@
+{
+ "accession": "FCX|earnings_release|2022-12-31|52a5d7c8",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Greenfield smelter in Gresik, Indonesia",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Gresik, Indonesia",
+   "counterparty": null,
+   "amount_low": 3000000000,
+   "amount_high": 3000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "Smelter construction was approximately 50% complete at December 31, 2022, and is expected to be commissioned during 2024 at an estimated cost of $3.0 billion, including $2.8 billion for a construction contract (excluding capitalized interest, owner\u2019s costs and commissioning) and $0.2 billion for investment in a desalinization plant.",
+   "passage": "p06",
+   "confidence": 0.6
+  },
+  {
+   "name": "PT Smelting capacity expansion",
+   "kind": "plant",
+   "status": "announced",
+   "location": null,
+   "counterparty": "PT Smelting",
+   "amount_low": 250000000,
+   "amount_high": 250000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "PT-FI is funding the cost of the expansion, estimated to approximate $250 million, with a loan that will convert to equity, increasing ownership in PT Smelting from PT-FI's current 39.5% ownership interest to a majority ownership interest upon project completion.",
+   "passage": "p07",
+   "confidence": 0.5
+  },
+  {
+   "name": "Precious metals refinery (PMR)",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 400000000,
+   "amount_high": 400000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "Construction of a precious metals refinery (PMR) to process gold and silver from the greenfield smelter and PT Smelting at an estimated cost of $400 million.",
+   "passage": "p08",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.4,
+  "input_tokens": 17579,
+  "output_tokens": 1778,
+  "attempts": 1,
+  "task_sha": "21ae646f925407ec"
+ }
+}

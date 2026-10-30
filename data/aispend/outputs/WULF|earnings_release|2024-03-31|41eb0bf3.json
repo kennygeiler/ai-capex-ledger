@@ -1,23 +1,35 @@
 {
  "accession": "WULF|earnings_release|2024-03-31|41eb0bf3",
- "prompt_version": "aispend@v3",
- "statements": [],
- "none_found": [
+ "prompt_version": "aispend@v4",
+ "statements": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; p01 describes an HPC/AI project design, a committed 2 MW power block, and facility upgrades (interconnection, liquid cooling, redundant power) without mentioning spend, cost, or capital expenditures; p02 is industry market commentary on data center power demand"
-  },
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The Company has upgraded the internet interconnection at the Lake Mariner Facility to align with bandwidth requirements of AI, designed closed loop liquid cooling, and power supply for 100% redundancy in support of the project.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Describes completed infrastructure work for the HPC/AI project, which implies capital spending, but the sentence does not say 'capital expenditures' and gives no amount or year."
+  }
+ ],
+ "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the p02 revenue-per-MW and build-cost-per-MW figures are illustrative business-model economics, not reported or guided company revenue or spend"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 7.0,
-  "input_tokens": 5077,
-  "output_tokens": 487,
+  "seconds": 6.4,
+  "input_tokens": 6044,
+  "output_tokens": 659,
   "attempts": 1,
-  "task_sha": "59a6f0355f836f42"
+  "task_sha": "b97c14cd9bb7da1d"
  }
 }

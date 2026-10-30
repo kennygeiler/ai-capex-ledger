@@ -1,0 +1,13 @@
+{
+ "accession": "GOOGL|mdna|2024-12-31|93c87b23",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 4466,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "6b0f004b2af90c89"
+ }
+}

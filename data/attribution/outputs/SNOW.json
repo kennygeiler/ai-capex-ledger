@@ -1,0 +1,163 @@
+{
+ "ticker": "SNOW",
+ "prompt_version": "attribution@v2",
+ "model": "ai_software@v3",
+ "rows": [
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2025 MD&A says third-party cloud infrastructure expenses rose $92.7M, 'including with respect to GPUs to develop AI Technology'. The $92.7M is the increase in all cloud infrastructure cost, not the AI part, so no AI amount is taken. Snowflake rents its compute; its $6B five-year AWS commitment (27 May 2026) is committed spend, not in this year's opex, and is not in the pack as a fact.",
+   "confidence": 0.35
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2026 MD&A attributes cost growth mainly to a $248.1M rise in third-party cloud infrastructure expenses, 'including those related to AI inference', driven by customer consumption. The figure is the total cloud cost increase, not an AI amount.",
+   "confidence": 0.35
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2024 MD&A says Snowflake will continue to invest significantly in R&D, including AI and machine learning. There is no amount.",
+   "confidence": 0.25
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2025 MD&A says Snowflake will continue to invest significantly in R&D, including data science and AI Technology. There is no amount.",
+   "confidence": 0.25
+  },
+  {
+   "field": "opex",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2026 MD&A says R&D investment in AI Technology will continue. It also says costs for GPUs and AI inference are incurred ahead of revenue and could affect gross margin. There is no amount. The FY2027 product gross margin guide of 74.0% is the visible trace. The $6B five-year AWS commitment is the committed AI compute, but it is not spend in the year.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2027",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The Q2 FY2027 release cites 'a meaningful step-up in AI revenue' and the Q1 release cites 'AI-driven acceleration' and 'growing adoption of our first-party AI products', with no dollar figure or share. The $1.49B product revenue for the quarter is total, not AI. FY2027 is in progress and has no full-year value in the pack.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2028",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The Q1 FY2027 release raises full-year product revenue guidance on momentum in the 'core platform business and AI business', with no AI amount. The pack tags this FY2028, but the guidance likely refers to fiscal 2027 (product revenue guide $6,070M, total).",
+   "confidence": 0.2
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "No statement attributes capex to AI. Snowflake rents hyperscaler compute and has not said it buys its own GPUs."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "No statement attributes capex to AI. Snowflake rents hyperscaler compute and has not said it buys its own GPUs."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "No statement attributes capex to AI. Snowflake rents hyperscaler compute and has not said it buys its own GPUs."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "No statement attributes capex to AI. The PP&E categories (software, leasehold, equipment) are not AI-specific."
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "No statement attributes capex to AI. The PP&E categories (software, leasehold, equipment) are not AI-specific."
+  },
+  {
+   "field": "capex",
+   "reason": "No committed row is possible: the $6B five-year AWS commitment (27 May 2026) is not in the pack as a purchase_commitments fact."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "No statement links opex or cloud cost to AI for this year."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "No statement links opex or cloud cost to AI for this year."
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "No statement links opex or cloud cost to AI for this year."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "No AI revenue, ARR or share is stated, and there is no AI segment."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "No AI revenue, ARR or share is stated, and there is no AI segment."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "No AI revenue, ARR or share is stated, and there is no AI segment."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "reason": "No AI revenue, ARR or share is stated, and there is no AI segment."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "reason": "No AI revenue, ARR or share is stated in the pack for this year, and there is no AI segment."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 22.4,
+  "input_tokens": 13353,
+  "output_tokens": 2985,
+  "attempts": 1,
+  "task_sha": "9c67abf99c10dbc8"
+ }
+}

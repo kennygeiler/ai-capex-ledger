@@ -1,6 +1,6 @@
 {
  "accession": "0000804328-22-000021",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -12,7 +12,7 @@
    "period_end": "2022-09-25",
    "months": 12,
    "value": 25027000000,
-   "confidence": 0.9
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -24,7 +24,7 @@
    "period_end": "2021-09-26",
    "months": 12,
    "value": 16830000000,
-   "confidence": 0.9
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -36,7 +36,7 @@
    "period_end": "2022-09-25",
    "months": 12,
    "value": 4330000000,
-   "confidence": 0.9
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -48,7 +48,7 @@
    "period_end": "2021-09-26",
    "months": 12,
    "value": 4158000000,
-   "confidence": 0.9
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -60,7 +60,7 @@
    "period_end": "2022-09-25",
    "months": 12,
    "value": 1372000000,
-   "confidence": 0.9
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -72,7 +72,7 @@
    "period_end": "2021-09-26",
    "months": 12,
    "value": 975000000,
-   "confidence": 0.9
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -84,7 +84,7 @@
    "period_end": "2022-09-25",
    "months": 12,
    "value": 6948000000,
-   "confidence": 0.9
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -96,7 +96,7 @@
    "period_end": "2021-09-26",
    "months": 12,
    "value": 5056000000,
-   "confidence": 0.9
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -270,24 +270,23 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "no segment note table with capital expenditures by segment is provided; t0019 reports revenues and EBT only"
+   "reason": "no segment capital expenditures table is provided; the segment table reports revenues by product line and EBT only"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no lease note table is provided"
+   "reason": "no lease note table is provided among the tables"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no commitments or contractual-obligations table is provided"
+   "reason": "no commitments or contractual-obligations table is provided among the tables"
   }
  ],
- "notes": "segment_revenue confidence 0.9: t0019 breaks out revenue by market (Handsets, RFFE, Automotive, IoT), which sums to the QCT total of 37,677; these are QCT revenue streams rather than reportable segments, and QTL revenue is not in the provided tables. 2021 period_end 2021-09-26 taken from the t0042 column date. Unlabeled rows in t0042 (gross total 11,770/10,454 and net 5,168/4,559) skipped as totals.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 20.5,
-  "input_tokens": 4690,
+  "seconds": 19.8,
+  "input_tokens": 4814,
   "output_tokens": 3043,
   "attempts": 1,
-  "task_sha": "ce72d902191781d5"
+  "task_sha": "0e28a7b6050547f7"
  }
 }

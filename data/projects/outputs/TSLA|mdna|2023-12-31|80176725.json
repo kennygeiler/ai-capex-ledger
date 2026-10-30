@@ -1,0 +1,30 @@
+{
+ "accession": "TSLA|mdna|2023-12-31|80176725",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Gigafactory New York",
+   "kind": "plant",
+   "status": "contracted",
+   "location": "State of New York",
+   "counterparty": "SUNY Foundation",
+   "amount_low": 5000000000,
+   "amount_high": 5000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In connection with our operations at Gigafactory New York, we have an agreement to spend or incur $5.00 billion in combined capital, operational expenses, costs of goods sold and other costs in the State of New York through December 31, 2029 (pursuant to a deferral of our required timelines to meet such obligations that was granted in April 2021, and which was memorialized in an amendment to our agreement with the SUNY Foundation in August 2021).",
+   "passage": "p02",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.9,
+  "input_tokens": 4784,
+  "output_tokens": 509,
+  "attempts": 1,
+  "task_sha": "070f7162ca2019d2"
+ }
+}

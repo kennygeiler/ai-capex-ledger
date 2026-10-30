@@ -1,0 +1,35 @@
+{
+ "accession": "COHR|earnings_release|2024-12-31|3ac698de",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We delivered strong growth in the December quarter on both a sequential and year-over-year basis, resulting in record revenue, driven by another quarter of strong AI-relatedData Center demand as well as growth in our Telecom business.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Refers to fiscal Q2 2025 (quarter ended December 31, 2024), not the full fiscal year. Record total revenue is attributed partly to AI-related Data Center demand, but no AI or data-center revenue figure or share is stated. The '58% Data Center & Communications' figure in p03 is year-over-year growth in a slide fragment, not a share of revenue, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; 'Industry-leading investments in R&D' is product-positioning boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.7,
+  "input_tokens": 6042,
+  "output_tokens": 861,
+  "attempts": 1,
+  "task_sha": "cb24680cfb9bb665"
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "accession": "POWL|mdna|2024-09-30|8b568e68",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We have experienced strong growth in these end markets driven by a mix of factors including increased investment in commercial and light industrial facilities for the production of various goods, the expansion of data centers and cloud computing, as well as the growing demand in industrial applications to support new technologies driving the energy transition.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Describes growth in the commercial and other industrial end markets, with data-center expansion as one of several drivers. It does not explicitly say this is company revenue or state an AI or data-center share. The following sentence about AI-driven data center growth is a cautious market outlook with no figure, so it is not recorded separately."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital spending (Houston facility expansion, land and buildings purchase) is tied to backlog execution and volume growth, not linked to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.2,
+  "input_tokens": 5237,
+  "output_tokens": 833,
+  "attempts": 1,
+  "task_sha": "0f333ca5a7bd7065"
+ }
+}

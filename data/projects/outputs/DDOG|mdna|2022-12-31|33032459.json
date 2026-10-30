@@ -1,0 +1,13 @@
+{
+ "accession": "DDOG|mdna|2022-12-31|33032459",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.8,
+  "input_tokens": 4999,
+  "output_tokens": 99,
+  "attempts": 1,
+  "task_sha": "f6558cd073dd841a"
+ }
+}

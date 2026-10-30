@@ -1,0 +1,13 @@
+{
+ "accession": "EME|earnings_release|2025-06-30|9bba9943",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 5622,
+  "output_tokens": 50,
+  "attempts": 1,
+  "task_sha": "078d4a2053496d4a"
+ }
+}

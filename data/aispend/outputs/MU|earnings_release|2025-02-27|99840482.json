@@ -1,23 +1,57 @@
 {
  "accession": "MU|earnings_release|2025-02-27|99840482",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Strong execution and robust AI demand drives record data center DRAM revenue",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Headline, not a full sentence. It attributes record data center DRAM revenue to AI demand but gives no amount or share. No year is named; the period is fiscal Q2 2025."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "\u201cMicron delivered fiscal Q2 EPS above guidance and data center revenue tripled from a year ago,\u201d said Sanjay Mehrotra, Chairman, President and CEO of Micron Technology.",
+   "passage": "p02",
+   "confidence": 0.85,
+   "notes": "'Tripled' is year-over-year growth, not a dollar amount or a share of revenue, so the class is qualitative. The period is fiscal Q2 (of fiscal 2025), but the sentence names no fiscal year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect record quarterly revenue in fiscal Q3, with DRAM and NAND demand growth in both data center and consumer-oriented markets, and we are on track for record revenue and significantly improved profitability in fiscal 2025.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Total revenue outlook, citing data center demand as one of the drivers. It does not quantify the AI or data center part. Fiscal 2025 is named in the sentence; the fiscal Q3 part is in the same fiscal year."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or links capital expenditures to AI; passages discuss AI demand driving revenue and boilerplate company description only"
+   "reason": "no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; AI mentions concern customer demand and product description"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.5,
-  "input_tokens": 4851,
-  "output_tokens": 178,
+  "seconds": 14.1,
+  "input_tokens": 5154,
+  "output_tokens": 1376,
   "attempts": 1,
-  "task_sha": "507fba9c7d2a1914"
+  "task_sha": "a445900172611070"
  }
 }

@@ -1,23 +1,27 @@
 {
  "accession": "CRDO|earnings_release|2026-05-02|60adc237",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or links capital expenditures to AI; p01 discusses revenue, net income and customer GPU utilization, not the company's own capex"
+   "reason": "no sentence states or links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the mention of reducing infrastructure operating costs refers to customers' costs, not Credo's spend"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "total fiscal 2026 revenue of $1.3 billion is stated, but no sentence quantifies AI or data-center revenue or names AI as its driver; the GPU-utilization reference describes the product (boilerplate)"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.9,
-  "input_tokens": 4627,
-  "output_tokens": 210,
+  "seconds": 5.1,
+  "input_tokens": 4930,
+  "output_tokens": 355,
   "attempts": 1,
-  "task_sha": "3a00006caad19e86"
+  "task_sha": "65287a1e29e5fa53"
  }
 }

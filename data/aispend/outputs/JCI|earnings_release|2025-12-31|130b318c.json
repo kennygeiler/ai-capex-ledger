@@ -1,0 +1,35 @@
+{
+ "accession": "JCI|earnings_release|2025-12-31|130b318c",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase in backlog and orders was primarily due to demand led by customers' accelerated investments in data center projects.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "The sentence attributes growth in orders and backlog, not recognized revenue, to data-center demand. The $13.3 billion backlog in the preceding sentence is total backlog and is not stated as the data-center part, so no amount is recorded. Confidence is lowered because orders and backlog are a leading indicator of revenue, not revenue itself."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's own capital expenditures to AI; p02 mentions capital expenditures only in forward-looking-statement boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the AI mention in p02 is risk-factor boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.2,
+  "input_tokens": 6340,
+  "output_tokens": 740,
+  "attempts": 1,
+  "task_sha": "86ed83d76ca78e24"
+ }
+}

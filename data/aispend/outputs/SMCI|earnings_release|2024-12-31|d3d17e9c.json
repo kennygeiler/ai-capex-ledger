@@ -1,0 +1,50 @@
+{
+ "accession": "SMCI|earnings_release|2024-12-31|d3d17e9c",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 23500000000,
+   "amount_high": 25000000000,
+   "quote": "We anticipate this technology transition sets a strong foundation for us now, resulting in FY25 revenue in the range of $23.5 billion to $25 billion, paving the way for $40 billion revenue in FY26.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "This is total revenue guidance, not AI revenue. It is linked to AI only through 'this technology transition', which the preceding sentences describe as DLC and NVIDIA Blackwell AI infrastructure design wins."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 40000000000,
+   "amount_high": 40000000000,
+   "quote": "We anticipate this technology transition sets a strong foundation for us now, resulting in FY25 revenue in the range of $23.5 billion to $25 billion, paving the way for $40 billion revenue in FY26.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "This is a total revenue target, not AI revenue. It is linked to AI only through 'this technology transition' (DLC and AI infrastructure based on NVIDIA Blackwell)."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies operating expenses or attributes them to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.7,
+  "input_tokens": 6097,
+  "output_tokens": 914,
+  "attempts": 1,
+  "task_sha": "84003a8ee939d672"
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "accession": "ONTO|earnings_release|2024-06-29|b0e9c137",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 242000000,
+   "amount_high": 242000000,
+   "quote": "Revenue of $242 million, exceeding the high end of guidance, driven by additional pilot line expansions for high-performance computing using gate-all- around transistor architecture and high bandwidth memory (HBM) supporting AI market growth.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Quarterly total revenue for the quarter ended 2024-06-29, not full-year. AI/HBM is named as a driver, but the AI part is not stated. The sentence names no year, so code falls back to the filing year (2024)."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 164000000,
+   "amount_high": 164000000,
+   "quote": "Revenue from specialty and advanced packaging customers set another quarterly record of $164 million aided by AI packaging customers.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Quarterly revenue from the specialty and advanced packaging customer group. This is a segment figure, not company total; recorded as scope total because AI customers are a contributor and the AI part is not stated. Not AI revenue."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "an equipment seller; no sentence links the company's own capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.0,
+  "input_tokens": 5993,
+  "output_tokens": 1049,
+  "attempts": 1,
+  "task_sha": "af7e81b38db6718b"
+ }
+}

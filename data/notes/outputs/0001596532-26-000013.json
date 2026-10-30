@@ -1,6 +1,6 @@
 {
  "accession": "0001596532-26-000013",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -150,27 +150,27 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "Arista reports a single operating segment; no per-segment capital expenditures are presented in the tables provided"
+   "reason": "no segment capex table is provided; the only segment-area table (t0052) is revenue by geographic region, consistent with a single reportable segment"
   },
   {
    "field": "segment_revenue",
-   "reason": "the only revenue table (t0052) breaks revenue down by geographic region (Americas, EMEA, Asia Pacific), not by reportable segment or by market/product line; Arista has one segment"
+   "reason": "t0052 disaggregates revenue by geographic region (Americas, EMEA, Asia Pacific), not by reportable segment or market/product line; no segment or product-line revenue table is provided"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no lease note table was provided; finance lease liabilities do not appear in the tables given"
+   "reason": "no lease note table is provided"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no commitments or contractual-obligations table was provided"
+   "reason": "no commitments or contractual-obligations table is provided"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 15.7,
-  "input_tokens": 4648,
-  "output_tokens": 1984,
+  "seconds": 15.6,
+  "input_tokens": 4774,
+  "output_tokens": 2012,
   "attempts": 1,
-  "task_sha": "640d5c99656c2b10"
+  "task_sha": "731ec55bd95f6de7"
  }
 }

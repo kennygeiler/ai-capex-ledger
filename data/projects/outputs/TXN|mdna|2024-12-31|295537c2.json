@@ -1,0 +1,42 @@
+{
+ "accession": "TXN|mdna|2024-12-31|295537c2",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Sherman, Texas 300mm wafer fab",
+   "kind": "fab",
+   "status": "under_construction",
+   "location": "Sherman, Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "This includes the ITC for qualified U.S. manufacturing investments and direct funding of up to $1.6 billion for our three large-scale 300mm wafer fabs currently under construction in Sherman, Texas, and Lehi, Utah.",
+   "passage": "p03",
+   "confidence": 0.75
+  },
+  {
+   "name": "Lehi, Utah 300mm wafer fab",
+   "kind": "fab",
+   "status": "under_construction",
+   "location": "Lehi, Utah",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "This includes the ITC for qualified U.S. manufacturing investments and direct funding of up to $1.6 billion for our three large-scale 300mm wafer fabs currently under construction in Sherman, Texas, and Lehi, Utah.",
+   "passage": "p03",
+   "confidence": 0.75
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.7,
+  "input_tokens": 4667,
+  "output_tokens": 794,
+  "attempts": 1,
+  "task_sha": "ca9304164d40b75c"
+ }
+}

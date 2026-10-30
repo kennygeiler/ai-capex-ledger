@@ -1,0 +1,13 @@
+{
+ "accession": "FLEX|earnings_release|2025-09-26|02cf4088",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.9,
+  "input_tokens": 4203,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "12d01e85bcc9aa9d"
+ }
+}

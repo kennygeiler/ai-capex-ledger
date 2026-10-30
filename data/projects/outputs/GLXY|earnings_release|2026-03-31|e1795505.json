@@ -1,0 +1,84 @@
+{
+ "accession": "GLXY|earnings_release|2026-03-31|e1795505",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Helios Data Center Campus",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Dickens County, West Texas",
+   "counterparty": null,
+   "capacity_mw": 1600,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The Helios Data Center Campus is Galaxy\u2019s flagship facility that, at 1.6GW of approved grid capacity, is projected to be the largest known 100% front-of-the-meter data center campus.",
+   "passage": "p17",
+   "confidence": 0.85
+  },
+  {
+   "name": "Helios Phase I",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Dickens County, West Texas",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 133,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "Galaxy delivered the first data hall to CoreWeave and remains on budget and on schedule to deliver substantially all 133 megawatts of critical IT load under the Phase I lease agreement by the end of Q2 2026.",
+   "passage": "p05",
+   "confidence": 0.8
+  },
+  {
+   "name": "Helios Phase II",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Dickens County, West Texas",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 260,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Greenfield development for the 260 megawatt Phase II build is underway, with civil and structural work advancing .",
+   "passage": "p05",
+   "confidence": 0.85
+  },
+  {
+   "name": "Helios CoreWeave Leases (Phases I+II+III)",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Dickens County, West Texas",
+   "counterparty": "CoreWeave",
+   "capacity_mw": 526,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "CoreWeave has leased 526 MW of critical IT capacity for a period of 15 years, generating anticipated average annual revenue of over $1B for the combined three phases.",
+   "passage": "p18",
+   "confidence": 0.85
+  },
+  {
+   "name": "Helios additional 830 MW ERCOT power capacity",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Dickens County, West Texas",
+   "counterparty": "ERCOT",
+   "capacity_mw": 830,
+   "gpus": null,
+   "announced": "2026-01-15",
+   "in_service": null,
+   "quote": "On January 15, 2026 Galaxy announced the completion of ERCOT Interconnection Studies and the approval for additional 830 MW at Helios.",
+   "passage": "p18",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.3,
+  "input_tokens": 13665,
+  "output_tokens": 2221,
+  "attempts": 1,
+  "task_sha": "56584a41518b7269"
+ }
+}

@@ -1,6 +1,6 @@
 {
  "accession": "ORCL|earnings_release|2022-05-31|e7b9b0b6",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "201d5703d37e5fb0"
+  "task_sha": "81deaafd37447035"
  }
 }

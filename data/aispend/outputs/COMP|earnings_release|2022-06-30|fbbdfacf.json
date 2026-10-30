@@ -1,6 +1,6 @@
 {
  "accession": "COMP|earnings_release|2022-06-30|fbbdfacf",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "b4d938aeb9b8420b"
+  "task_sha": "a5e9700c26132243"
  }
 }

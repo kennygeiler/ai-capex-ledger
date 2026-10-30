@@ -1,6 +1,6 @@
 {
  "accession": "0000858877-22-000013",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -12,21 +12,7 @@
    "period_end": "2022-07-30",
    "months": 0,
    "value": 4219000000,
-   "confidence": 0.95,
-   "notes": "Unit not stated with the table; millions inferred from the filing-level unit and confirmed because the rows sum to Total gross property and equipment (10,165)."
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Land, buildings, and building and leasehold improvements",
-   "table_id": "t0078",
-   "row_label": "Land, buildings, and building and leasehold improvements",
-   "column_label": "July 31, 2021",
-   "cell_text": "4,304",
-   "period_end": "2021-07-31",
-   "months": 0,
-   "value": 4304000000,
-   "confidence": 0.95,
-   "notes": "Unit not stated with the table; millions confirmed because the rows sum to the gross total (10,918)."
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -38,21 +24,7 @@
    "period_end": "2022-07-30",
    "months": 0,
    "value": 779000000,
-   "confidence": 0.95,
-   "notes": "Unit inferred, as above."
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Computer equipment and related software",
-   "table_id": "t0078",
-   "row_label": "Computer equipment and related software",
-   "column_label": "July 31, 2021",
-   "cell_text": "858",
-   "period_end": "2021-07-31",
-   "months": 0,
-   "value": 858000000,
-   "confidence": 0.95,
-   "notes": "Unit inferred, as above."
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -64,21 +36,7 @@
    "period_end": "2022-07-30",
    "months": 0,
    "value": 4647000000,
-   "confidence": 0.95,
-   "notes": "Unit inferred, as above."
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Production, engineering, and other equipment",
-   "table_id": "t0078",
-   "row_label": "Production, engineering, and other equipment",
-   "column_label": "July 31, 2021",
-   "cell_text": "5,106",
-   "period_end": "2021-07-31",
-   "months": 0,
-   "value": 5106000000,
-   "confidence": 0.95,
-   "notes": "Unit inferred, as above."
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -90,21 +48,8 @@
    "period_end": "2022-07-30",
    "months": 0,
    "value": 185000000,
-   "confidence": 0.85,
-   "notes": "This is Cisco-owned equipment leased to customers, carried within gross PP&E. It is not a right-of-use asset. It is included because it is a component of Total gross property and equipment. Unit inferred."
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Operating lease assets",
-   "table_id": "t0078",
-   "row_label": "Operating lease assets",
-   "column_label": "July 31, 2021",
-   "cell_text": "273",
-   "period_end": "2021-07-31",
-   "months": 0,
-   "value": 273000000,
-   "confidence": 0.85,
-   "notes": "This is equipment leased to customers within gross PP&E. Unit inferred."
+   "confidence": 0.9,
+   "notes": "Equipment leased to customers under operating leases, carried as a gross PP&E category; included because it sits inside total gross property and equipment."
   },
   {
    "field": "ppe_category",
@@ -116,8 +61,56 @@
    "period_end": "2022-07-30",
    "months": 0,
    "value": 335000000,
-   "confidence": 0.95,
-   "notes": "Unit inferred, as above."
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land, buildings, and building and leasehold improvements",
+   "table_id": "t0078",
+   "row_label": "Land, buildings, and building and leasehold improvements",
+   "column_label": "July 31, 2021",
+   "cell_text": "4,304",
+   "period_end": "2021-07-31",
+   "months": 0,
+   "value": 4304000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment and related software",
+   "table_id": "t0078",
+   "row_label": "Computer equipment and related software",
+   "column_label": "July 31, 2021",
+   "cell_text": "858",
+   "period_end": "2021-07-31",
+   "months": 0,
+   "value": 858000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Production, engineering, and other equipment",
+   "table_id": "t0078",
+   "row_label": "Production, engineering, and other equipment",
+   "column_label": "July 31, 2021",
+   "cell_text": "5,106",
+   "period_end": "2021-07-31",
+   "months": 0,
+   "value": 5106000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Operating lease assets",
+   "table_id": "t0078",
+   "row_label": "Operating lease assets",
+   "column_label": "July 31, 2021",
+   "cell_text": "273",
+   "period_end": "2021-07-31",
+   "months": 0,
+   "value": 273000000,
+   "confidence": 0.9,
+   "notes": "Equipment leased to customers under operating leases, carried as a gross PP&E category; included because it sits inside total gross property and equipment."
   },
   {
    "field": "ppe_category",
@@ -129,8 +122,7 @@
    "period_end": "2021-07-31",
    "months": 0,
    "value": 377000000,
-   "confidence": 0.95,
-   "notes": "Unit inferred, as above."
+   "confidence": 1.0
   },
   {
    "field": "purchase_commitments",
@@ -142,8 +134,8 @@
    "period_end": "2022-07-30",
    "months": 0,
    "value": 12964000000,
-   "confidence": 0.75,
-   "notes": "This covers only commitments with contract manufacturers and suppliers. It matches the t0048 row 'Purchase commitments with contract manufacturers and suppliers' (Total 12,964). t0048 also lists 'Other purchase obligations' of 2,601, which is excluded. No single cell gives the combined total of 15,565."
+   "confidence": 0.8,
+   "notes": "Purchase commitments with contract manufacturers and suppliers (matches t0048 Total of 12,964); excludes 'Other purchase obligations' of 2,601 in t0048, which is not summed since no combined total cell exists."
   },
   {
    "field": "purchase_commitments",
@@ -155,8 +147,8 @@
    "period_end": "2021-07-31",
    "months": 0,
    "value": 10254000000,
-   "confidence": 0.7,
-   "notes": "This covers inventory purchase commitments only. Other purchase obligations for this date are not given in these tables."
+   "confidence": 0.8,
+   "notes": "Inventory purchase commitments only; other purchase obligations for this year-end are not shown in the tables."
   },
   {
    "field": "purchase_commitments",
@@ -168,30 +160,30 @@
    "period_end": "2020-07-25",
    "months": 0,
    "value": 4406000000,
-   "confidence": 0.7,
-   "notes": "This covers inventory purchase commitments only. Other purchase obligations for this date are not given in these tables."
+   "confidence": 0.8,
+   "notes": "Inventory purchase commitments only; other purchase obligations for this year-end are not shown in the tables."
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "No segment table with capital expenditures by segment appears in the provided tables. Cisco's geographic segment note is not included."
+   "reason": "No segment note table reporting capital expenditures by segment is among the provided tables."
   },
   {
    "field": "segment_revenue",
-   "reason": "The provided tables give only total revenue (t0022). No revenue by segment (Americas/EMEA/APJC) or by product category appears."
+   "reason": "The provided tables report only consolidated revenue; no revenue by segment (Americas/EMEA/APJC) or product category table is included."
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No finance lease liability table or line is in the provided tables. t0048 lists operating leases only."
+   "reason": "No lease note table with finance lease liabilities is among the provided tables; the commitments table lists operating leases only."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 21.6,
-  "input_tokens": 7550,
-  "output_tokens": 2912,
+  "seconds": 22.6,
+  "input_tokens": 7678,
+  "output_tokens": 3091,
   "attempts": 1,
-  "task_sha": "aa0e173ba45bdcd6"
+  "task_sha": "7c813f9ff267f86a"
  }
 }

@@ -1,0 +1,70 @@
+{
+ "accession": "FCX|mdna|2025-12-31|07fc7b56",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Gas-fired combined cycle facility, Grasberg minerals district",
+   "kind": "power",
+   "status": "announced",
+   "location": "Grasberg minerals district",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "a.Includes $1.4 billion for planned projects, primarily associated with underground mine development, supporting mill and power capital costs and a portion of spending on a new gas-fired combined cycle facility in the Grasberg minerals district, and potential U.S. expansion projects, and $1.6 billion for discretionary growth projects, primarily in the Grasberg minerals district for the development of Kucing Liar and at the Bagdad mine for tailings infrastructure.",
+   "passage": "p05",
+   "confidence": 0.35
+  },
+  {
+   "name": "Kucing Liar",
+   "kind": "other",
+   "status": "under_construction",
+   "location": "Grasberg minerals district",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Since 2022, PTFI has conducted long-term mine development activities at its Kucing Liar deposit in the Grasberg minerals district.",
+   "passage": "p24",
+   "confidence": 0.3
+  },
+  {
+   "name": "Bagdad mine tailings infrastructure",
+   "kind": "other",
+   "status": "announced",
+   "location": "Bagdad mine",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "a.Includes $1.4 billion for planned projects, primarily associated with underground mine development, supporting mill and power capital costs and a portion of spending on a new gas-fired combined cycle facility in the Grasberg minerals district, and potential U.S. expansion projects, and $1.6 billion for discretionary growth projects, primarily in the Grasberg minerals district for the development of Kucing Liar and at the Bagdad mine for tailings infrastructure.",
+   "passage": "p05",
+   "confidence": 0.25
+  },
+  {
+   "name": "PTFI downstream processing facilities",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Capitalized interest, which primarily related to our mining operations\u2019 capital projects, including construction and development of PTFI\u2019s downstream processing facilities, totaled $342 million in 2025 and $391 million in 2024.",
+   "passage": "p16",
+   "confidence": 0.3
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.3,
+  "input_tokens": 10999,
+  "output_tokens": 1786,
+  "attempts": 1,
+  "task_sha": "b8b9192d816a11f0"
+ }
+}

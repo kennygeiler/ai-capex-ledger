@@ -1,0 +1,13 @@
+{
+ "accession": "FIX|earnings_release|2025-03-31|fe62a43a",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 5466,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "e7837331330546c6"
+ }
+}

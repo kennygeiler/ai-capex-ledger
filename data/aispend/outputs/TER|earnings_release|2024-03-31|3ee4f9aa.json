@@ -1,0 +1,27 @@
+{
+ "accession": "TER|earnings_release|2024-03-31|3ee4f9aa",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is a cash flow statement; purchases of property, plant and equipment are reported with no sentence linking capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the passage is a cash flow table only"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, data-center, AI-server or HBM revenue; the passage is a cash flow table with no revenue breakdown"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 5525,
+  "output_tokens": 229,
+  "attempts": 1,
+  "task_sha": "f6fd00ae3cd592c7"
+ }
+}

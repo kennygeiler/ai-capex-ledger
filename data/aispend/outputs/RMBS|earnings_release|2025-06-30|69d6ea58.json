@@ -1,0 +1,27 @@
+{
+ "accession": "RMBS|earnings_release|2025-06-30|69d6ea58",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures of $10.4 million paid in the quarter are reported without any link to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "GAAP and non-GAAP operating expenses are reported without any attribution to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI or data-center revenue figure or share; product revenue of $81.3 million is not attributed to AI, the CEO's statement about being 'well positioned to capitalize on the accelerating demand for high- performance computing and AI infrastructure' is forward-looking positioning, not attribution of revenue, and p03 is company-description boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.8,
+  "input_tokens": 5912,
+  "output_tokens": 655,
+  "attempts": 1,
+  "task_sha": "fdd04c951daf9982"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "HPE|earnings_release|2024-01-31|bb3fc2df",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage describes a segment reorganization; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the passage mentions combining the Compute and HPC & AI segments into a Server segment but states no AI revenue amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 4838,
+  "output_tokens": 201,
+  "attempts": 1,
+  "task_sha": "96601e06e16dc3c3"
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "accession": "SMCI|mdna|2022-06-30|1def870b",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Green Computing Park",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "San Jose",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Net cash used in investing activities was $46.3 million, $58.0 million and $43.6 million for fiscal years 2022, 2021 and 2020, respectively, as we invested in our Green Computing Park in San Jose to expand our capacity and office space we purchased and expanded our Bade Facility in Taiwan and made purchases of property, plant and equipment.",
+   "passage": "p05",
+   "confidence": 0.6
+  },
+  {
+   "name": "Bade Facility",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Taiwan",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Net cash used in investing activities was $46.3 million, $58.0 million and $43.6 million for fiscal years 2022, 2021 and 2020, respectively, as we invested in our Green Computing Park in San Jose to expand our capacity and office space we purchased and expanded our Bade Facility in Taiwan and made purchases of property, plant and equipment.",
+   "passage": "p05",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.2,
+  "input_tokens": 5741,
+  "output_tokens": 727,
+  "attempts": 1,
+  "task_sha": "96166e8ac7d7d120"
+ }
+}

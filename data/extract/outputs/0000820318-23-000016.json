@@ -1,0 +1,119 @@
+{
+ "accession": "0000820318-23-000016",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0034",
+   "row_label": "Revenues",
+   "column_label": "2023",
+   "cell_text": "5,160,100",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 5160100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0034",
+   "row_label": "Revenues",
+   "column_label": "2022",
+   "cell_text": "3,316,616",
+   "period_end": "2022-06-30",
+   "months": 12,
+   "value": 3316616000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0034",
+   "row_label": "Revenues",
+   "column_label": "2021",
+   "cell_text": "3,105,891",
+   "period_end": "2021-06-30",
+   "months": 12,
+   "value": 3105891000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0034",
+   "row_label": "Cost of goods sold",
+   "column_label": "2023",
+   "cell_text": "3,541,817",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 3541817000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0034",
+   "row_label": "Cost of goods sold",
+   "column_label": "2022",
+   "cell_text": "2,051,120",
+   "period_end": "2022-06-30",
+   "months": 12,
+   "value": 2051120000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0034",
+   "row_label": "Cost of goods sold",
+   "column_label": "2021",
+   "cell_text": "1,928,432",
+   "period_end": "2021-06-30",
+   "months": 12,
+   "value": 1928432000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0037",
+   "row_label": "Additions to property, plant & equipment",
+   "column_label": "2023",
+   "cell_text": "(436,060)",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 436060000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0037",
+   "row_label": "Additions to property, plant & equipment",
+   "column_label": "2022",
+   "cell_text": "(314,332)",
+   "period_end": "2022-06-30",
+   "months": 12,
+   "value": 314332000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0037",
+   "row_label": "Additions to property, plant & equipment",
+   "column_label": "2021",
+   "cell_text": "(146,337)",
+   "period_end": "2021-06-30",
+   "months": 12,
+   "value": 146337000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "operating_income",
+   "reason": "The income statement has no operating income or income (loss) from operations line; interest expense and other expense (income) are grouped with operating costs, and the first subtotal is 'Earnings (Loss) Before Income Taxes'. Not derived by arithmetic per rule 4."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.5,
+  "input_tokens": 6580,
+  "output_tokens": 1162,
+  "attempts": 1,
+  "task_sha": "920b132dc8fa7a11"
+ }
+}

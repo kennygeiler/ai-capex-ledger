@@ -1,23 +1,27 @@
 {
  "accession": "META|transcript|2024-09-30|b338505d",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "capital expenditures are quantified (full-year 2024 outlook of $38-40 billion in p01) and discussed in p03-p04, but no sentence links capex to AI, either as an AI share or as an AI driver of the total"
+   "reason": "no sentence links capital expenditures to AI; the full-year 2024 capex outlook of $38-40 billion (p01), the Q4 server and data center step-up (p03) and the infrastructure investment growth (p04) are stated without naming AI as a reason or driver"
   },
   {
    "field": "opex",
-   "reason": "infrastructure expense and headcount are discussed (p01, p02, p05), but no sentence quantifies or attributes operating expenses to AI; the AI references in p02 and p05 concern training data and internal productivity, not spend"
+   "reason": "no sentence quantifies or attributes operating expenses, R&D or headcount to AI; p02 on training Gen AI models on public content is a description of practice, not spend, and p05 is an analyst question"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.7,
-  "input_tokens": 5012,
-  "output_tokens": 408,
+  "seconds": 7.0,
+  "input_tokens": 5313,
+  "output_tokens": 673,
   "attempts": 1,
-  "task_sha": "4d73f7d7278d6217"
+  "task_sha": "ead372f227bc81dc"
  }
 }

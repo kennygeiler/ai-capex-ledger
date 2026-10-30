@@ -1,0 +1,27 @@
+{
+ "accession": "ACLS|earnings_release|2026-06-30|4a95253e",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links the company's capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data center appears only as one of several end markets driving customers' engagement and utilization in General Mature; the revenue-growth outlook sentence gives no amount or share and does not itself attribute revenue to AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 4957,
+  "output_tokens": 474,
+  "attempts": 1,
+  "task_sha": "e5384927ea2708b9"
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "accession": "SLNH|earnings_release|2026-03-31|318fec29",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 53000000,
+   "amount_high": 53000000,
+   "quote": "Acquired 150 MW Briscoe Wind Farm for $53 Million \u2013 Soluna acquired the Briscoe Wind Farm, achieving full vertical integration at Project Dorothy and securing the energy foundation \u25cf for the planned 300 MW Dorothy 3 AI campus.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "This is an acquisition, not reported capital expenditures. The $53M is the whole wind farm purchase. AI (the planned Dorothy 3 AI campus) is given as one purpose, and Project Dorothy also hosts Bitcoin mining, so scope is total, not the AI part. No year is named in the sentence; the release covers Q1 fiscal 2026."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the projected $20.0\u201324.4M annualized revenue is from the wind farm acquisition, not AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.0,
+  "input_tokens": 6254,
+  "output_tokens": 1004,
+  "attempts": 1,
+  "task_sha": "a1cab77eaece25b7"
+ }
+}

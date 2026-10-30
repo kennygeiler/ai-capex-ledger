@@ -1,39 +1,141 @@
 {
  "ticker": "MRVL",
- "prompt_version": "attribution@v1",
- "model": "chip_seller@v1",
+ "prompt_version": "attribution@v2",
+ "model": "chip_seller@v3",
  "rows": [
   {
-   "field": "capex",
-   "period": "FY2022",
+   "field": "revenue",
+   "period": "FY2026",
    "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "No statement attributes any amount or share of Marvell's own capex (169.2M) to AI. A chip seller's capex funds test, R&D equipment and facilities, not AI infrastructure. No data-center end-market revenue fact is in the pack, so the seller-side signal cannot be cited.",
-   "confidence": 0.8
+   "method": "stated_share",
+   "ai_amount": 6064004000,
+   "ai_share": 0.74,
+   "inputs": [
+    {
+     "id": "stmt:MRVL|earnings_release|2025-08-02|5521bf8b|revenue|FY2026|actual|0",
+     "value": 0.74
+    },
+    {
+     "id": "value:MRVL|revenue|FY2026",
+     "value": 8194600000
+    }
+   ],
+   "basis": "0.74 \u00d7 8,194.6M = 6,064.0M. The 74% is the data-center end market's share of revenue in Q2 FY2026, applied to the full year. The thesis cites the 10-K full-year data-center line at 6,100.3M (74%), which is not in the pack as a fact. The data-center line includes non-AI cloud and enterprise data-center products; it is not a stated AI share.",
+   "confidence": 0.6
   },
   {
-   "field": "capex",
-   "period": "FY2023",
+   "field": "revenue",
+   "period": "FY2025",
    "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "No statement attributes any amount or share of Marvell's own capex (206.2M) to AI. A chip seller's capex funds test, R&D equipment and facilities, not AI infrastructure. No data-center end-market revenue fact is in the pack, so the seller-side signal cannot be cited.",
-   "confidence": 0.8
+   "method": "stated_share",
+   "ai_amount": 3979437000,
+   "ai_share": 0.69,
+   "inputs": [
+    {
+     "id": "stmt:MRVL|earnings_release|2024-08-03|c5b85b59|revenue|FY2025|actual|0",
+     "value": 0.69
+    },
+    {
+     "id": "value:MRVL|revenue|FY2025",
+     "value": 5767300000
+    }
+   ],
+   "basis": "0.69 \u00d7 5,767.3M = 3,979.4M, using the Q2 FY2025 data-center share applied to the full year. This likely understates the year: the thesis cites the full-year data-center line at 4,164.2M (72%), and data center ramped in the second half on custom AI silicon. The share is of the data-center end market, not AI specifically.",
+   "confidence": 0.45
   },
   {
-   "field": "capex",
+   "field": "revenue",
    "period": "FY2024",
    "kind": "actual",
+   "method": "stated_share",
+   "ai_amount": 1872618000,
+   "ai_share": 0.34,
+   "inputs": [
+    {
+     "id": "stmt:MRVL|earnings_release|2023-07-29|7e40bcc1|revenue|FY2024|actual|0",
+     "value": 0.34
+    },
+    {
+     "id": "value:MRVL|revenue|FY2024",
+     "value": 5507700000
+    }
+   ],
+   "basis": "0.34 \u00d7 5,507.7M = 1,872.6M, using the Q2 FY2024 data-center share applied to the full year. This understates the year: data-center revenue grew over 20% sequentially in Q3 and 38% in Q4, so the second-half share was higher. The data-center line includes non-AI storage and cloud products.",
+   "confidence": 0.35
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "stated_share",
+   "ai_amount": 2486232000,
+   "ai_share": 0.42,
+   "inputs": [
+    {
+     "id": "stmt:MRVL|earnings_release|2022-07-30|a6bcbafa|revenue|FY2023|actual|0",
+     "value": 0.42
+    },
+    {
+     "id": "value:MRVL|revenue|FY2023",
+     "value": 5919600000
+    }
+   ],
+   "basis": "0.42 \u00d7 5,919.6M = 2,486.2M, using the Q2 FY2023 data-center share applied to the full year; Q1 was 44%. In FY2023 the data-center line was mostly cloud storage and networking, before the AI ramp, so it is a data-center figure and only loosely AI.",
+   "confidence": 0.4
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2022 MD&A says data-center end-market revenue rose 71% on fiscal 2021. The pack has no share or amount for the year, and the statement makes no AI attribution.",
+   "confidence": 0.2
+  },
+  {
+   "field": "revenue",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The company expects revenue growth to accelerate each quarter of fiscal 2027 on data-center strength and 'exceptional AI-related bookings', and significantly raised its FY2027 outlook (May 2026 release). No AI dollar amount or share is stated.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2028",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The May 2026 release says 'exceptional AI-related bookings' led the company to significantly raise its fiscal 2028 revenue outlook. No amount is stated.",
+   "confidence": 0.3
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2025 MD&A describes a restructuring, begun in Q3 FY2025, to shift R&D investment toward the data-center end market and cancel some other products. No AI amount or share of opex is stated, and the shift is to data center rather than to AI explicitly.",
+   "confidence": 0.2
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "actual",
    "method": "none",
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "No statement attributes any amount or share of Marvell's own capex (336.3M) to AI. A chip seller's capex funds test, R&D equipment and facilities, not AI infrastructure. No data-center end-market revenue fact is in the pack, so the seller-side signal cannot be cited.",
+   "basis": "A chip seller's capex (354.1M) funds test equipment, software and facilities, not AI infrastructure, and no AI share is stated. The seller-side signal is data-center revenue of about 6.1B (74% of revenue), recorded in the revenue row.",
    "confidence": 0.8
   },
   {
@@ -44,134 +146,84 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "No statement attributes any amount or share of Marvell's own capex (284.6M) to AI. A chip seller's capex funds test, R&D equipment and facilities, not AI infrastructure. No data-center end-market revenue fact is in the pack, so the seller-side signal cannot be cited.",
+   "basis": "Capex of 284.6M funds equipment and facilities, not AI infrastructure, and no AI share is stated. The seller-side signal is data-center revenue of about 4.2B (72%), recorded in the revenue row.",
    "confidence": 0.8
   },
   {
    "field": "capex",
-   "period": "FY2026",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "No statement attributes any amount or share of Marvell's own capex (354.1M) to AI. A chip seller's capex funds test, R&D equipment and facilities, not AI infrastructure. No data-center end-market revenue fact is in the pack, so the seller-side signal cannot be cited.",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
-   "period": "FY2022",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "No statement in the pack gives an AI amount or share of opex (2,411.9M), and none describes R&D as AI-driven. Data-center revenue, which would show buyers' AI spend arriving, is not in the pack.",
-   "confidence": 0.7
-  },
-  {
-   "field": "opex",
-   "period": "FY2023",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "No statement in the pack gives an AI amount or share of opex (2,749.5M), and none describes R&D as AI-driven. Data-center revenue, which would show buyers' AI spend arriving, is not in the pack.",
-   "confidence": 0.7
-  },
-  {
-   "field": "opex",
    "period": "FY2024",
    "kind": "actual",
    "method": "none",
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "No statement in the pack gives an AI amount or share of opex (2,861.3M), and none describes R&D as AI-driven. Data-center revenue, which would show buyers' AI spend arriving, is not in the pack.",
-   "confidence": 0.7
+   "basis": "Capex of 336.3M funds equipment and facilities, not AI infrastructure, and no AI share is stated. The seller-side signal is data-center revenue (34% of Q2 revenue, rising through the year on AI), recorded in the revenue row.",
+   "confidence": 0.8
   },
   {
-   "field": "opex",
-   "period": "FY2025",
+   "field": "capex",
+   "period": "FY2023",
    "kind": "actual",
    "method": "none",
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "No statement in the pack gives an AI amount or share of opex (3,102.5M), and none describes R&D as AI-driven. Data-center revenue, which would show buyers' AI spend arriving, is not in the pack.",
-   "confidence": 0.7
+   "basis": "Capex of 206.2M funds equipment and facilities, not AI infrastructure, and no AI share is stated. The seller-side signal is the data-center end market (42\u201344% of quarterly revenue), recorded in the revenue row.",
+   "confidence": 0.8
   },
   {
-   "field": "opex",
-   "period": "FY2026",
+   "field": "capex",
+   "period": "FY2022",
    "kind": "actual",
    "method": "none",
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "No statement in the pack gives an AI amount or share of opex (2,857.8M), and none describes R&D as AI-driven. Data-center revenue, which would show buyers' AI spend arriving, is not in the pack.",
-   "confidence": 0.7
+   "basis": "Capex of 169.2M funds equipment and facilities, not AI infrastructure, and no AI share is stated. Data-center revenue grew 71% in the year (MD&A).",
+   "confidence": 0.8
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "period": "FY2022",
-   "reason": "chip seller; no stated AI amount or share of own capex; the pack has no company statements"
-  },
-  {
-   "field": "capex",
-   "period": "FY2023",
-   "reason": "chip seller; no stated AI amount or share of own capex; the pack has no company statements"
-  },
-  {
-   "field": "capex",
-   "period": "FY2024",
-   "reason": "chip seller; no stated AI amount or share of own capex; the pack has no company statements"
-  },
-  {
-   "field": "capex",
-   "period": "FY2025",
-   "reason": "chip seller; no stated AI amount or share of own capex; the pack has no company statements"
-  },
-  {
-   "field": "capex",
-   "period": "FY2026",
-   "reason": "chip seller; no stated AI amount or share of own capex; the pack has no company statements"
+   "reason": "No statement attributes any capex to AI; a chip seller's capex is test equipment and facilities. The purchase commitments (3.18B in FY2022 to 1.64B in FY2025) are foundry and supply obligations, not AI capex."
   },
   {
    "field": "opex",
    "period": "FY2022",
-   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no company statements"
+   "reason": "no stated AI share or amount of opex, and no statement calling R&D AI-driven"
   },
   {
    "field": "opex",
    "period": "FY2023",
-   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no company statements"
+   "reason": "no stated AI share or amount of opex, and no statement calling R&D AI-driven"
   },
   {
    "field": "opex",
    "period": "FY2024",
-   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no company statements"
+   "reason": "no stated AI share or amount of opex, and no statement calling R&D AI-driven"
   },
   {
    "field": "opex",
    "period": "FY2025",
-   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no company statements"
+   "reason": "No stated AI share or amount of opex. The Q3 FY2025 restructuring toward data-center R&D is recorded as a qualitative FY2026 outlook row."
   },
   {
    "field": "opex",
    "period": "FY2026",
-   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no company statements"
+   "reason": "No stated AI share or amount of actual opex; only the qualitative data-center R&D shift."
+  },
+  {
+   "field": "revenue",
+   "reason": "The pack has no segment_revenue fact for the data-center end market, so the segment method is unavailable. Revenue rows use quarterly data-center shares applied to annual revenue, and the company states no AI-specific share. FY2027 statements exist, but FY2027 is not a completed year in the values."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 17.2,
-  "input_tokens": 6771,
-  "output_tokens": 2403,
+  "seconds": 43.7,
+  "input_tokens": 21598,
+  "output_tokens": 5354,
   "attempts": 1,
-  "task_sha": "fe48f76a91a5c215"
+  "task_sha": "75388ebf0946975e"
  }
 }

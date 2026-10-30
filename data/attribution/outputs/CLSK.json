@@ -1,0 +1,68 @@
+{
+ "ticker": "CLSK",
+ "prompt_version": "attribution@v2",
+ "model": "miner_to_hpc@v3",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2025 MD&A says capital needs for new HPC, data center and AI infrastructure projects may speed up cash deployment and raise capital intensity. It gives no dollar amount, and no FY2026 capex total is in the pack.",
+   "confidence": 0.25
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "Mining only: there is no HPC/AI segment and no AI capex statement. The PP&E categories (Miners, Mining equipment, Infrastructure and others) are mining or general, with no GPU/HPC category, so the 19.29M of capex is not attributable."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "Mining only: there is no HPC/AI segment, no AI capex statement and no GPU/HPC PP&E category, so the 61.46M of capex is not attributable."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "Mining only: there is no HPC/AI segment, no AI capex statement and no GPU/HPC PP&E category, so the 66.10M of capex is not attributable. The land growth (4.1M to 32.2M) is not tied to HPC in any filing."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "There is no HPC/AI segment, and the only segment label is digital currency mining. The 144.66M of capex is not split out. The 285 MW and 271 acres in Austin County intended for future HPC carry no stated capex. Infrastructure PP&E growth (155.2M to 295.8M) is mining infrastructure, not an HPC category."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "No AI segment cost line, and no statement attributes opex to AI. The 128.16M of opex is mining and corporate."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "Revenue is bitcoin mining. The 524,759 of 'other services' revenue from 'data center operations' is legacy hosting, not AI/HPC hosting; the thesis treats hosting as miner hosting unless defined otherwise. CleanSpark states it has had no material AI/HPC revenue."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "No revenue value in the pack for FY2023. The 287,000 of data center 'other services' revenue is legacy hosting, not AI."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "reason": "Bitcoin mining revenue 766.3M and other services 0 per the thesis; the 10-K says there is no material revenue from AI and HPC services. No revenue value in the pack for this year."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.4,
+  "input_tokens": 19240,
+  "output_tokens": 1804,
+  "attempts": 1,
+  "task_sha": "b0898d315c70474e"
+ }
+}

@@ -1,23 +1,47 @@
 {
  "accession": "MRVL|earnings_release|2022-04-30|883939bc",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.44,
+   "quote": "Data center 44 % 43 % 33 %",
+   "passage": "p04",
+   "confidence": 0.7,
+   "notes": "Table row, not a prose sentence. Data center end market was 44% of total net revenue for the three months ended April 30, 2022 (Q1 fiscal 2023 only, not the full year). 43% and 33% are the comparison quarters ended January 29, 2022 and May 1, 2021."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Revenue exceeded the midpoint of guidance, driven by higher-than- forecasted results from the datacenter end market.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Q1 fiscal 2023 total revenue ($1.45 billion) outperformance attributed to the datacenter end market. Total revenue is not the data-center part. The quarter is inferred from the surrounding text, since the sentence names no year."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p02 reports purchases of property and equipment as a cash flow table line with no AI attribution"
+   "reason": "Purchases of property and equipment ($36.9M) appear only in the cash flow table; no sentence links capital expenditures to AI."
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p03 mentions AI only as a customer end-market product category, which is boilerplate"
+   "reason": "No sentence quantifies or attributes operating expenses to AI."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.2,
-  "input_tokens": 5691,
-  "output_tokens": 202,
+  "seconds": 9.5,
+  "input_tokens": 6174,
+  "output_tokens": 1048,
   "attempts": 1,
-  "task_sha": "12693f3b0e58582f"
+  "task_sha": "c972c966fbaaaa01"
  }
 }

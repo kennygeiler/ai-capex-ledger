@@ -1,0 +1,35 @@
+{
+ "accession": "LITE|earnings_release|2024-06-29|7b9c3abb",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We are making significant progress executing our strategy to broaden our cloud and AI customer base, which will lead to accelerated growth in calendar year 2025.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Links expected overall growth to cloud and AI customers but gives no AI revenue figure or share. The year is calendar 2025, not a fiscal year; Lumentum's fiscal year ends in June, so this does not map cleanly to fiscal 2025. A separate sentence on record datacom chip orders for data center applications describes orders, not revenue, so it was not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.1,
+  "input_tokens": 4856,
+  "output_tokens": 877,
+  "attempts": 1,
+  "task_sha": "97c234f02d9a8249"
+ }
+}

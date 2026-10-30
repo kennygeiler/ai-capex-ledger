@@ -1,6 +1,6 @@
 {
  "accession": "WULF|earnings_release|2023-03-31|794bce39",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "fdef8767a8357545"
+  "task_sha": "edc408b75f6af02b"
  }
 }

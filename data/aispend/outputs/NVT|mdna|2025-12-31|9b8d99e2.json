@@ -1,0 +1,57 @@
+{
+ "accession": "NVT|mdna|2025-12-31|9b8d99e2",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The converging megatrends of the electrification of everything, sustainability and digitalization, including the increased use of artificial intelligence, have led to sales growth, particularly in the infrastructure vertical, which includes our data centers business that is primarily in our Systems Protection segment.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "AI is one of several named megatrends driving overall sales growth; no AI or data-center revenue figure is stated. No year is named, so code applies the reported year (2025)."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect these megatrends to continue and drive sales growth in 2026 and beyond.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "'These megatrends' refers back to the prior sentence, which includes AI. The sentence gives a sales-growth outlook with no AI or data-center amount."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "organic sales growth contribution of approximately 16.0% from our infrastructure business in 2025 from 2024, which includes selective increases in selling prices and growth in the data centers business.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "The 16.0% is the infrastructure business's organic growth contribution, not a share of revenue from AI or data centers. Data-center growth is named only as one component, so this is recorded as qualitative with no share. The quote is a bullet fragment, not a full sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are mentioned only for liquidity and impairment valuation; no sentence links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "research and development is mentioned only generically in the liquidity discussion; no sentence links operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.7,
+  "input_tokens": 5558,
+  "output_tokens": 1233,
+  "attempts": 1,
+  "task_sha": "f9a82dd04b7ca400"
+ }
+}

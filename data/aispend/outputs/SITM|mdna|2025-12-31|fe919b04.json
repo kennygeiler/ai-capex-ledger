@@ -1,0 +1,35 @@
+{
+ "accession": "SITM|mdna|2025-12-31|fe919b04",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Revenue increased by $124.0 million, or 61%, for 2025 compared to 2024 primarily driven by demand for our products in AI and datacenter applications.",
+   "passage": "p04",
+   "confidence": 0.8,
+   "notes": "$124.0 million is the year-over-year increase in total revenue, not total revenue or the AI part. It is attributed 'primarily' to AI and datacenter demand, so it is recorded as qualitative with no amount. The similar statement in p02 ('benefitted from the strong growth in AI datacenter deployments') is covered by this one."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p03 and p05 describe capex for supply chain, cost and general growth only"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.6,
+  "input_tokens": 5800,
+  "output_tokens": 702,
+  "attempts": 1,
+  "task_sha": "0d9f2679ecdba5f8"
+ }
+}

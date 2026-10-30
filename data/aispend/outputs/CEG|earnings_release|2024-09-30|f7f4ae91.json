@@ -1,0 +1,35 @@
+{
+ "accession": "CEG|earnings_release|2024-09-30|f7f4ae91",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Under the agreement, Microsoft will purchase the output generated from the renewed plant as part of its goal to help power its data centers in PJM with clean energy.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Seller side: future PPA revenue from the restarted Crane plant is tied to a buyer's data-center demand. No amount or share is stated. The sentence names no year; the plant's estimated in-service date of 2028 appears only in a different sentence, so fiscal_year is null. Confidence is lowered because this is a contract description, not a statement of reported revenue."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "The only capex figure is approximately $1.6 billion to restart the Crane plant (p01). That sentence does not mention AI or data centers. The data-center link is in a separate sentence, so attributing this capex to AI would be inference."
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.6,
+  "input_tokens": 6104,
+  "output_tokens": 917,
+  "attempts": 1,
+  "task_sha": "30ea844fe06de740"
+ }
+}

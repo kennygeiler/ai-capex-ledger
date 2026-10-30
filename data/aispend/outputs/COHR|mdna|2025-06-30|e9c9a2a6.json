@@ -1,0 +1,79 @@
+{
+ "accession": "COHR|mdna|2025-06-30|e9c9a2a6",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The increase in the number of hyperscale and other cloud customers building AI datacenters and in the number and size of their AI datacenter buildouts drove demand for our datacenter transceivers.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Links demand for datacenter transceivers to AI datacenter buildouts but does not state revenue or an amount. The year comes from the preceding sentence ('Throughout fiscal 2025'), so the null default to the reported year matches."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Revenues increased $1,162 million, or 51%, in the communications market, with increases in datacom driven primarily by ongoing strong AI datacenter demand and growth in our telecom revenue due to higher demand in the data center interconnect and the telecom transport markets.",
+   "passage": "p04",
+   "confidence": 0.9,
+   "notes": "$1,162 million is the increase in communications-market revenue, not the AI part, so it is not recorded as an AI amount. AI datacenter demand is named as the primary driver of datacom growth. The sentence names no year; the context is fiscal 2025 versus 2024."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "From a segment perspective, Networking revenues increased $1,126 million year-over-year, due to strong AI datacenter demand in our communications market and the growth in telecom.",
+   "passage": "p05",
+   "confidence": 0.9,
+   "notes": "$1,126 million is the increase in Networking segment revenue, attributed to AI datacenter demand and telecom growth. The AI part is not stated. The sentence names no year; the context is fiscal 2025."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The increase in revenues of $1,125 million during fiscal 2025 was primarily due to increased AI datacenter related revenue in our communications market resulting from increased volumes in the datacom vertical and growth in the telecom vertical due to increased demand in data center interconnect and the telecom transport market.",
+   "passage": "p06",
+   "confidence": 0.9,
+   "notes": "$1,125 million is the total increase in Networking segment revenue; the sentence says it was 'primarily' due to AI datacenter related revenue but does not quantify the AI part."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The decrease in revenues of $45 million during fiscal 2024 was primarily due to decreased volumes year-over-year in the telecom vertical as our communications service provider customers continue to work down their inventory levels with reduced capital spending, partially offset by increases in the datacom vertical driven by increased AI-related datacom transceivers shipments, both within the communications market.",
+   "passage": "p08",
+   "confidence": 0.85,
+   "notes": "Prior-year (fiscal 2024) comparison. AI-related datacom transceiver shipments partially offset the decline; no AI amount is stated. A similar fiscal 2024 sentence in p07 was skipped because it names no year and would default to fiscal 2025."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 21.9,
+  "input_tokens": 6213,
+  "output_tokens": 2586,
+  "attempts": 1,
+  "task_sha": "7b523e910311ccd0"
+ }
+}

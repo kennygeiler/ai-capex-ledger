@@ -1,0 +1,304 @@
+{
+ "accession": "0000796343-26-000003",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital Media",
+   "table_id": "t0013",
+   "row_label": "Digital Media",
+   "column_label": "2025",
+   "cell_text": "17,649",
+   "period_end": "2025-11-28",
+   "months": 12,
+   "value": 17649000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital Media",
+   "table_id": "t0013",
+   "row_label": "Digital Media",
+   "column_label": "2024",
+   "cell_text": "15,864",
+   "period_end": "2024-11-29",
+   "months": 12,
+   "value": 15864000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital Media",
+   "table_id": "t0013",
+   "row_label": "Digital Media",
+   "column_label": "2023",
+   "cell_text": "14,216",
+   "period_end": "2023-12-01",
+   "months": 12,
+   "value": 14216000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital Experience",
+   "table_id": "t0013",
+   "row_label": "Digital Experience",
+   "column_label": "2025",
+   "cell_text": "5,864",
+   "period_end": "2025-11-28",
+   "months": 12,
+   "value": 5864000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital Experience",
+   "table_id": "t0013",
+   "row_label": "Digital Experience",
+   "column_label": "2024",
+   "cell_text": "5,366",
+   "period_end": "2024-11-29",
+   "months": 12,
+   "value": 5366000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital Experience",
+   "table_id": "t0013",
+   "row_label": "Digital Experience",
+   "column_label": "2023",
+   "cell_text": "4,893",
+   "period_end": "2023-12-01",
+   "months": 12,
+   "value": 4893000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Publishing and Advertising",
+   "table_id": "t0013",
+   "row_label": "Publishing and Advertising",
+   "column_label": "2025",
+   "cell_text": "256",
+   "period_end": "2025-11-28",
+   "months": 12,
+   "value": 256000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Publishing and Advertising",
+   "table_id": "t0013",
+   "row_label": "Publishing and Advertising",
+   "column_label": "2024",
+   "cell_text": "275",
+   "period_end": "2024-11-29",
+   "months": 12,
+   "value": 275000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Publishing and Advertising",
+   "table_id": "t0013",
+   "row_label": "Publishing and Advertising",
+   "column_label": "2023",
+   "cell_text": "300",
+   "period_end": "2023-12-01",
+   "months": 12,
+   "value": 300000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computers and other equipment",
+   "table_id": "t0046",
+   "row_label": "Computers and other equipment",
+   "column_label": "2025",
+   "cell_text": "1,346",
+   "period_end": "2025-11-28",
+   "months": 0,
+   "value": 1346000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computers and other equipment",
+   "table_id": "t0046",
+   "row_label": "Computers and other equipment",
+   "column_label": "2024",
+   "cell_text": "1,405",
+   "period_end": "2024-11-29",
+   "months": 0,
+   "value": 1405000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0046",
+   "row_label": "Buildings",
+   "column_label": "2025",
+   "cell_text": "1,060",
+   "period_end": "2025-11-28",
+   "months": 0,
+   "value": 1060000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0046",
+   "row_label": "Buildings",
+   "column_label": "2024",
+   "cell_text": "1,067",
+   "period_end": "2024-11-29",
+   "months": 0,
+   "value": 1067000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building improvements",
+   "table_id": "t0046",
+   "row_label": "Building improvements",
+   "column_label": "2025",
+   "cell_text": "586",
+   "period_end": "2025-11-28",
+   "months": 0,
+   "value": 586000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building improvements",
+   "table_id": "t0046",
+   "row_label": "Building improvements",
+   "column_label": "2024",
+   "cell_text": "561",
+   "period_end": "2024-11-29",
+   "months": 0,
+   "value": 561000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0046",
+   "row_label": "Leasehold improvements",
+   "column_label": "2025",
+   "cell_text": "250",
+   "period_end": "2025-11-28",
+   "months": 0,
+   "value": 250000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0046",
+   "row_label": "Leasehold improvements",
+   "column_label": "2024",
+   "cell_text": "222",
+   "period_end": "2024-11-29",
+   "months": 0,
+   "value": 222000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0046",
+   "row_label": "Land",
+   "column_label": "2025",
+   "cell_text": "161",
+   "period_end": "2025-11-28",
+   "months": 0,
+   "value": 161000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0046",
+   "row_label": "Land",
+   "column_label": "2024",
+   "cell_text": "163",
+   "period_end": "2024-11-29",
+   "months": 0,
+   "value": 163000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0046",
+   "row_label": "Furniture and fixtures",
+   "column_label": "2025",
+   "cell_text": "161",
+   "period_end": "2025-11-28",
+   "months": 0,
+   "value": 161000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0046",
+   "row_label": "Furniture and fixtures",
+   "column_label": "2024",
+   "cell_text": "146",
+   "period_end": "2024-11-29",
+   "months": 0,
+   "value": 146000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Capital projects in-progress",
+   "table_id": "t0046",
+   "row_label": "Capital projects in-progress",
+   "column_label": "2025",
+   "cell_text": "37",
+   "period_end": "2025-11-28",
+   "months": 0,
+   "value": 37000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Capital projects in-progress",
+   "table_id": "t0046",
+   "row_label": "Capital projects in-progress",
+   "column_label": "2024",
+   "cell_text": "27",
+   "period_end": "2024-11-29",
+   "months": 0,
+   "value": 27000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment tables report revenue, cost of revenue and gross profit only; no capital expenditures by segment are given"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities is included in the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included in the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.4,
+  "input_tokens": 5228,
+  "output_tokens": 2874,
+  "attempts": 1,
+  "task_sha": "0ee8db6865d934b5"
+ }
+}

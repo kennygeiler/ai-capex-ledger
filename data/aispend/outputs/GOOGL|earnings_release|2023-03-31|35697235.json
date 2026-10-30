@@ -1,6 +1,6 @@
 {
  "accession": "GOOGL|earnings_release|2023-03-31|35697235",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "opex",
@@ -11,21 +11,25 @@
    "quote": "After the segment reporting changes noted in items (iii) and (iv) above, unallocated corporate costs primarily include AI-focused shared R&D activities; corporate initiatives such as our philanthropic activities; and corporate shared costs such as finance, certain human resource costs, and legal, including certain fines and settlements.",
    "passage": "p02",
    "confidence": 0.6,
-   "notes": "Describes the composition of the unallocated corporate costs bucket rather than reporting spend. 'Primarily' is a list of several items, so it does not say AI R&D is the majority. The sentence describes the reporting structure in present tense with no year; the year defaults to the reported year (2023)."
+   "notes": "This sentence describes how costs are reported. It says AI-focused shared R&D is a component of unallocated corporate costs, but gives no amount or share. 'Primarily' covers a list of several cost types, so it does not mean AI R&D is the majority. The present tense describes the reporting structure that applies from fiscal 2023, so this is treated as actual with fiscal_year null. It may be borderline boilerplate, so confidence is reduced."
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p01 covers a change in server useful life and its depreciation effect, with no reference to AI"
+   "reason": "No sentence links capital expenditures to AI. The server useful-life change in p01 is about depreciation and does not mention AI."
+  },
+  {
+   "field": "revenue",
+   "reason": "No sentence states AI's part of revenue. Revenue appears only in a hedging gains (losses) reference."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 7.6,
-  "input_tokens": 4767,
-  "output_tokens": 787,
+  "seconds": 8.6,
+  "input_tokens": 5072,
+  "output_tokens": 881,
   "attempts": 1,
-  "task_sha": "065ef80d829cb749"
+  "task_sha": "3eb95bccb26c4f8f"
  }
 }

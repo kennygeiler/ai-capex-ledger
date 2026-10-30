@@ -1,0 +1,48 @@
+{
+ "accession": "GLXY|earnings_release|2025-03-31|6679bd84",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 700000000,
+   "amount_high": 700000000,
+   "quote": "Upon energization of the full 393 MW, we expect to generate more than $700 million in revenue in the first 12 months.",
+   "passage": "p05",
+   "confidence": 0.75,
+   "notes": "'More than $700 million' is recorded as a floor of $700M. This is Data Centers leasing revenue from CoreWeave's AI/HPC capacity at Helios. The sentence names no fiscal year; the 'first 12 months' start once the full 393 MW is energized, which is expected after the Phase II delivery in 2027. The sentence does not restate that the revenue is AI-related; that link comes from the surrounding passages."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Galaxy expects to begin generating Data Centers leasing revenue in the first half of 2026, when it starts delivering critical IT capacity to CoreWeave under Phase I of its lease agreement.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "This is the start of Data Centers leasing revenue from CoreWeave, whose capacity elsewhere in the release is for AI/HPC operations. The sentence gives no amount for 2026 and does not itself say 'AI'."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes an amount of capital expenditures to AI; capex is mentioned only as an input to internal estimates in a table footnote"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.3,
+  "input_tokens": 9614,
+  "output_tokens": 1279,
+  "attempts": 1,
+  "task_sha": "16092249b6393d5f"
+ }
+}

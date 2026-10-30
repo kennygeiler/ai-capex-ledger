@@ -1,0 +1,152 @@
+{
+ "accession": "0000105634-25-000015",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0020",
+   "row_label": "Revenues",
+   "column_label": "2024",
+   "cell_text": "14,566,116",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 14566116000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0020",
+   "row_label": "Revenues",
+   "column_label": "2023",
+   "cell_text": "12,582,873",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 12582873000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0020",
+   "row_label": "Revenues",
+   "column_label": "2022",
+   "cell_text": "11,076,120",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 11076120000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0020",
+   "row_label": "Cost of sales",
+   "column_label": "2024",
+   "cell_text": "11,801,065",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 11801065000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0020",
+   "row_label": "Cost of sales",
+   "column_label": "2023",
+   "cell_text": "10,493,534",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 10493534000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0020",
+   "row_label": "Cost of sales",
+   "column_label": "2022",
+   "cell_text": "9,472,526",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 9472526000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0020",
+   "row_label": "Operating income",
+   "column_label": "2024",
+   "cell_text": "1,344,863",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 1344863000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0020",
+   "row_label": "Operating income",
+   "column_label": "2023",
+   "cell_text": "875,756",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 875756000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0020",
+   "row_label": "Operating income",
+   "column_label": "2022",
+   "cell_text": "564,877",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 564877000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0022",
+   "row_label": "Purchases of property, plant, and equipment",
+   "column_label": "2024",
+   "cell_text": "(74,950)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 74950000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0022",
+   "row_label": "Purchases of property, plant, and equipment",
+   "column_label": "2023",
+   "cell_text": "(78,404)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 78404000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0022",
+   "row_label": "Purchases of property, plant, and equipment",
+   "column_label": "2022",
+   "cell_text": "(49,289)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 49289000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the income statement has a single total 'Cost of sales' line, reported as cost_of_revenue."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.4,
+  "input_tokens": 6452,
+  "output_tokens": 1262,
+  "attempts": 1,
+  "task_sha": "6785dfea849472b9"
+ }
+}

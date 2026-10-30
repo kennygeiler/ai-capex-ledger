@@ -1,0 +1,58 @@
+{
+ "accession": "IRM|mdna|2022-12-31|f1400b2b",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Iron Mountain Data Centers Virginia 4/5",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Virginia",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2022-10-31",
+   "in_service": null,
+   "quote": "On October 31, 2022, Iron Mountain Data Centers Virginia 4/5 Subsidiary, LLC, a wholly owned subsidiary of Iron Mountain Data Centers Virginia 4/5 JV, LP, entered into a credit agreement (the \"Virginia Credit Agreement\") in order to finance the construction of two data center facilities in Virginia.",
+   "passage": "p19",
+   "confidence": 0.75
+  },
+  {
+   "name": "XData Properties data center acquisition, Spain",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Spain",
+   "counterparty": "XData Properties S.L.U.",
+   "amount_low": 78200000,
+   "amount_high": 78200000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2022-10-05",
+   "in_service": null,
+   "quote": "On October 5, 2022, in order to further expand our data center operations in Europe, we completed the acquisition of XData Properties S.L.U., a data center colocation space and solutions provider with a data center in Spain, which we accounted for as an asset acquisition, for (i) cash consideration of 78.9 million Euros (or approximately $78.2 million, based upon the exchange rate between the Euro and the United States dollar on the closing date of this acquisition), subject to adjustments, and (ii) up to 10.0 million Euros (or approximately $9.9 million, based upon the exchange rate between the Euro and the United States dollar on the closing date of this acquisition) of additional consideration, payable based on the achievement of certain power connection milestones through December 2024.",
+   "passage": "p23",
+   "confidence": 0.7
+  },
+  {
+   "name": "Web Werks JV",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "India",
+   "counterparty": "Web Werks India Private Limited",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2021-04",
+   "in_service": null,
+   "quote": "In April 2021, we closed on an agreement to form a joint venture (the \"Web Werks JV\") with the shareholders of Web Werks India Private Limited, a colocation data center provider in India.",
+   "passage": "p24",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.7,
+  "input_tokens": 11853,
+  "output_tokens": 1636,
+  "attempts": 1,
+  "task_sha": "dc90c068c8ebbb04"
+ }
+}

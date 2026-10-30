@@ -1,23 +1,27 @@
 {
  "accession": "META|earnings_release|2022-03-31|113190d3",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p01 gives a 2022 total capex outlook of $29-34 billion but names no AI reason or driver"
+   "reason": "p01 gives a total 2022 capital expenditure outlook ($29-34 billion) but no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
    "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.0,
-  "input_tokens": 4648,
-  "output_tokens": 228,
+  "seconds": 3.9,
+  "input_tokens": 4945,
+  "output_tokens": 280,
   "attempts": 1,
-  "task_sha": "8e32cde3af923d39"
+  "task_sha": "78f18d765b378d3b"
  }
 }

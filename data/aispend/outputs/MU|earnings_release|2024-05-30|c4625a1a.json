@@ -1,23 +1,68 @@
 {
  "accession": "MU|earnings_release|2024-05-30|c4625a1a",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "AI demand drives 50% sequential data center revenue growth and record high data center revenue mix",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Headline, not a full sentence. 50% is sequential growth, not a share of revenue, so the class is qualitative. The period is fiscal Q3 (fiscal 2024), but the sentence names no year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u201cRobust AI demand and strong execution enabled Micron to drive 17% sequential revenue growth, exceeding our guidance range in fiscal Q3,\u201d said Sanjay Mehrotra, President and CEO of Micron Technology.",
+   "passage": "p02",
+   "confidence": 0.85,
+   "notes": "Total revenue growth attributed partly to AI demand. 17% is a growth rate, not an AI share. Fiscal Q3 is named without a year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We are gaining share in high- margin products like High Bandwidth Memory (HBM), and our data center SSD revenue hit a record high, demonstrating the strength of our AI product portfolio across DRAM and NAND.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "HBM share gains and record data center SSD revenue are tied to the AI portfolio. No amount or share of revenue is stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We are excited about the expanding AI-driven opportunities ahead, and are well positioned to deliver a substantial revenue record in fiscal 2025.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Outlook for total revenue, with AI-driven opportunities as the driver. No figure is given."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; passages discuss AI-driven revenue and product portfolio only"
+   "reason": "no sentence mentions capital expenditures"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p03 is company-description boilerplate"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.5,
-  "input_tokens": 4881,
-  "output_tokens": 183,
+  "seconds": 12.2,
+  "input_tokens": 5182,
+  "output_tokens": 1503,
   "attempts": 1,
-  "task_sha": "7764a09fabc3ab42"
+  "task_sha": "1f811a86398a7afc"
  }
 }

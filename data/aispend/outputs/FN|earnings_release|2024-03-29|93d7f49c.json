@@ -1,0 +1,35 @@
+{
+ "accession": "FN|earnings_release|2024-03-29|93d7f49c",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Our results were driven by record datacom revenue from continued demand for high-data-rate products, and sequential growth in telecom revenue, primarily from datacenter interconnect products.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Attributes the quarter's sequential telecom revenue growth primarily to datacenter interconnect products; no amount or share is stated. Datacom 'high-data-rate products' is not explicitly tied to AI or data centers. The statement covers the third fiscal quarter, not the full year, and the sentence names no year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only as a cash-flow line (purchase of property, plant and equipment) and in the free cash flow definition; no sentence links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.9,
+  "input_tokens": 6045,
+  "output_tokens": 749,
+  "attempts": 1,
+  "task_sha": "9d9f3c2c74a61968"
+ }
+}

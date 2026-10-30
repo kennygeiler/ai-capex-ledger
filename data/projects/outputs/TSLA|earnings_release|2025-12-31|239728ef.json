@@ -1,0 +1,13 @@
+{
+ "accession": "TSLA|earnings_release|2025-12-31|239728ef",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "ca74d397c092ca35"
+ }
+}

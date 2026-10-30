@@ -1,0 +1,35 @@
+{
+ "accession": "JCI|earnings_release|2026-06-30|76be11ad",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase in orders and backlog was supported by sustained demand from data centers and other mission-critical environments.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "The sentence is about orders and backlog, not recognized revenue. It names data-center demand as a driver alongside 'other mission-critical environments' and gives no data-center figure or share. The 37% and $15.9 billion figures are total orders and backlog, not the data-center part, so they are not recorded as amounts. No year is named, so code applies the filing's reported year (2026)."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 mentions capital expenditures only as forward-looking-statement boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the artificial intelligence mention in p02 is risk-factor boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.0,
+  "input_tokens": 6333,
+  "output_tokens": 692,
+  "attempts": 1,
+  "task_sha": "5d584d0d24adbdba"
+ }
+}

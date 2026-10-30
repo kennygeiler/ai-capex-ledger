@@ -1,0 +1,27 @@
+{
+ "accession": "RMBS|earnings_release|2025-09-30|5e2f1e2b",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capex figure ($8.4 million paid for capital expenditures in p02) is not linked to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "operating expense figures in p02 are given without any attribution to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI or data-center share or amount of revenue; p01's 'well positioned amid strong secular trends in data center and AI' is general positioning, and product revenue ($93.3 million) is not identified as AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 5753,
+  "output_tokens": 480,
+  "attempts": 1,
+  "task_sha": "5afb2d287861e890"
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "accession": "RIOT|earnings_release|2023-12-31|a3387bed",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 27300000,
+   "amount_high": 27300000,
+   "quote": "Total revenue for the year ended December 31, 2023, was $280.7 million, and consisted of $189.0 million in Bitcoin Mining revenue, $27.3 million in Data Center Hosting revenue, $64.3 million in Engineering revenue, and $0.1 million in other revenue.",
+   "passage": "p02",
+   "confidence": 0.4,
+   "notes": "Data Center Hosting revenue is literally data-center revenue, but it comes from hosting third-party bitcoin miners, not AI demand. It is recorded because the prompt counts data-center revenue as scope ai; downstream review may exclude it. The same figure appears in p01."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures in p09 (Corsicana build-out, miner purchases) are for bitcoin mining; no sentence links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.5,
+  "input_tokens": 8949,
+  "output_tokens": 1157,
+  "attempts": 1,
+  "task_sha": "ea6e0956f9397c14"
+ }
+}

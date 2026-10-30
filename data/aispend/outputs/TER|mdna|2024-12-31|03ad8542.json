@@ -1,0 +1,27 @@
+{
+ "accession": "TER|mdna|2024-12-31|03ad8542",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02/p03 report purchases of property, plant and equipment ($198.1M in 2024, $159.6M in 2023) with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence in the passages states AI, data-center or AI-related revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 5348,
+  "output_tokens": 210,
+  "attempts": 1,
+  "task_sha": "5c40f7f7fcbf81b6"
+ }
+}

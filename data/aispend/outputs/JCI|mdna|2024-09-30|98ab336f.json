@@ -1,0 +1,27 @@
+{
+ "accession": "JCI|mdna|2024-09-30|98ab336f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex mentions (p02, p03, p04) are generic liquidity and funding boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 lists the data center sector among demand drivers as a business description only; no sentence states an amount or share of revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 5953,
+  "output_tokens": 242,
+  "attempts": 1,
+  "task_sha": "18225488c3eb2f52"
+ }
+}

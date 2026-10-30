@@ -1,23 +1,37 @@
 {
  "accession": "ALAB|earnings_release|2024-03-31|899a8681",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 65300000,
+   "amount_high": 65300000,
+   "quote": "Record quarterly revenue of $65.3 million driven by expanding AI infrastructure build-out, up 29% QoQ and up 269% YoY",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Q1 FY2024 quarterly total revenue, not full-year; AI infrastructure build-out named as driver but the AI part is not separately stated. The p02 CEO quote says the same thing in words only, so it is skipped under the prefer-the-specific rule."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes the company's own capital expenditures to AI; the only capital investment mentioned (p01) is hyperscalers' spending, not Astera Labs'"
+   "reason": "no sentence states or attributes the company's own capital expenditures to AI; the reference to hyperscalers' increased capital investment describes customers, not Astera Labs"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes the company's operating expenses (R&D, infrastructure, headcount) to AI; 'lower system development costs' in p02 refers to customers' costs, and the remaining passages are product descriptions"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.5,
-  "input_tokens": 5287,
-  "output_tokens": 280,
+  "seconds": 7.5,
+  "input_tokens": 5691,
+  "output_tokens": 670,
   "attempts": 1,
-  "task_sha": "a6c9255b616b6b58"
+  "task_sha": "1527e97689ac638e"
  }
 }

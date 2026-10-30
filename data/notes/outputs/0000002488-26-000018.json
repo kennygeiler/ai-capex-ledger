@@ -1,6 +1,6 @@
 {
  "accession": "0000002488-26-000018",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -49,7 +49,7 @@
    "months": 12,
    "value": 10640000000,
    "confidence": 0.9,
-   "notes": "Market line within the Client and Gaming segment; taken at market level instead of the 'Total Client and Gaming' subtotal to avoid double counting."
+   "notes": "Client is a market within the Client and Gaming segment; cited the Client and Gaming market lines instead of the 'Total Client and Gaming' subtotal to avoid double counting."
   },
   {
    "field": "segment_revenue",
@@ -62,7 +62,7 @@
    "months": 12,
    "value": 7054000000,
    "confidence": 0.9,
-   "notes": "Market line within the Client and Gaming segment; taken at market level instead of the 'Total Client and Gaming' subtotal to avoid double counting."
+   "notes": "Client is a market within the Client and Gaming segment; cited the Client and Gaming market lines instead of the 'Total Client and Gaming' subtotal to avoid double counting."
   },
   {
    "field": "segment_revenue",
@@ -75,7 +75,7 @@
    "months": 12,
    "value": 4651000000,
    "confidence": 0.9,
-   "notes": "Market line within the Client and Gaming segment; taken at market level instead of the 'Total Client and Gaming' subtotal to avoid double counting."
+   "notes": "Client is a market within the Client and Gaming segment; cited the Client and Gaming market lines instead of the 'Total Client and Gaming' subtotal to avoid double counting."
   },
   {
    "field": "segment_revenue",
@@ -88,7 +88,7 @@
    "months": 12,
    "value": 3910000000,
    "confidence": 0.9,
-   "notes": "Market line within the Client and Gaming segment; taken at market level instead of the 'Total Client and Gaming' subtotal to avoid double counting."
+   "notes": "Gaming is a market within the Client and Gaming segment; cited the Client and Gaming market lines instead of the 'Total Client and Gaming' subtotal to avoid double counting."
   },
   {
    "field": "segment_revenue",
@@ -101,7 +101,7 @@
    "months": 12,
    "value": 2595000000,
    "confidence": 0.9,
-   "notes": "Market line within the Client and Gaming segment; taken at market level instead of the 'Total Client and Gaming' subtotal to avoid double counting."
+   "notes": "Gaming is a market within the Client and Gaming segment; cited the Client and Gaming market lines instead of the 'Total Client and Gaming' subtotal to avoid double counting."
   },
   {
    "field": "segment_revenue",
@@ -114,7 +114,7 @@
    "months": 12,
    "value": 6212000000,
    "confidence": 0.9,
-   "notes": "Market line within the Client and Gaming segment; taken at market level instead of the 'Total Client and Gaming' subtotal to avoid double counting."
+   "notes": "Gaming is a market within the Client and Gaming segment; cited the Client and Gaming market lines instead of the 'Total Client and Gaming' subtotal to avoid double counting."
   },
   {
    "field": "segment_revenue",
@@ -228,23 +228,23 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "The segment tables report net revenue, cost of sales and operating expenses, and operating income by segment only; no capital expenditures by segment are given."
+   "reason": "the segment tables report revenue, cost of sales and operating expenses, and operating income only; no capital expenditures by segment are given"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No lease note table was provided; no finance lease liability figure appears in the tables."
+   "reason": "no lease note table is included in the provided tables"
   },
   {
    "field": "purchase_commitments",
-   "reason": "No contractual-obligations or commitments table was provided; no purchase obligation total appears in the tables."
+   "reason": "no contractual-obligations or commitments table is included in the provided tables"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 22.7,
-  "input_tokens": 5703,
-  "output_tokens": 3341,
+  "seconds": 23.9,
+  "input_tokens": 5833,
+  "output_tokens": 3505,
   "attempts": 1,
-  "task_sha": "5c0b8d4eb0ac71e6"
+  "task_sha": "8212045f2c2de39f"
  }
 }

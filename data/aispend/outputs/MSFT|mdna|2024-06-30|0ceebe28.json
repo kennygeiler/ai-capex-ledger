@@ -1,6 +1,6 @@
 {
  "accession": "MSFT|mdna|2024-06-30|0ceebe28",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -9,9 +9,9 @@
    "scope": "total",
    "class": "qualitative",
    "quote": "We expect capital expenditures to increase in coming years to support growth in our cloud offerings and our investments in AI infrastructure and training.",
-   "passage": "p05",
-   "confidence": 0.9,
-   "notes": "Names AI infrastructure and training as a driver of the expected increase in total capex, alongside cloud growth. It gives no amount and no specific year ('coming years')."
+   "passage": "p07",
+   "confidence": 1.0,
+   "notes": "Total capex expected to increase in coming years, with AI infrastructure and training named as a driver alongside cloud growth. No amount is given and no specific year is named."
   },
   {
    "field": "opex",
@@ -21,17 +21,22 @@
    "class": "qualitative",
    "quote": "The investments we are making in cloud and AI infrastructure and devices will continue to increase our operating costs and may decrease our operating margins.",
    "passage": "p01",
-   "confidence": 0.8,
-   "notes": "Ties expected increases in total operating costs to cloud, AI infrastructure and devices investments together. The AI share is not separated. Forward-looking ('will continue to increase'), with no year named."
+   "confidence": 0.7,
+   "notes": "Links rising operating costs to cloud and AI infrastructure investments, together with devices. The wording is forward-looking and close to risk-factor language. It also covers operating costs broadly, including cost of revenue, rather than R&D or headcount specifically."
   }
  ],
- "none_found": [],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue (Azure and Microsoft Cloud mentions are gross-margin commentary, not AI revenue)"
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 7.1,
-  "input_tokens": 5316,
-  "output_tokens": 761,
+  "seconds": 9.3,
+  "input_tokens": 5867,
+  "output_tokens": 818,
   "attempts": 1,
-  "task_sha": "e7fce0259f18e291"
+  "task_sha": "9013ff50efb114a7"
  }
 }

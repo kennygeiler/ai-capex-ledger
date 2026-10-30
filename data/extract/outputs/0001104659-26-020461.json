@@ -1,0 +1,150 @@
+{
+ "accession": "0001104659-26-020461",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0110",
+   "row_label": "Total revenue",
+   "column_label": "\u200b | 2025",
+   "cell_text": "839,048",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 839048000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0110",
+   "row_label": "Total revenue",
+   "column_label": "\u200b | Twelve months ended | December 31, | 2024",
+   "cell_text": "1,017,865",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 1017865000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0110",
+   "row_label": "Total revenue",
+   "column_label": "\u200b | 2023",
+   "cell_text": "1,130,604",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 1130604000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0110",
+   "row_label": "Total cost of revenue",
+   "column_label": "\u200b | 2025",
+   "cell_text": "462,200",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 462200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0110",
+   "row_label": "Total cost of revenue",
+   "column_label": "\u200b | Twelve months ended | December 31, | 2024",
+   "cell_text": "563,211",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 563211000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0110",
+   "row_label": "Total cost of revenue",
+   "column_label": "\u200b | 2023",
+   "cell_text": "639,303",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 639303000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0110",
+   "row_label": "Income from operations",
+   "column_label": "\u200b | 2025",
+   "cell_text": "119,315",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 119315000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0110",
+   "row_label": "Income from operations",
+   "column_label": "\u200b | Twelve months ended | December 31, | 2024",
+   "cell_text": "210,794",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 210794000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0110",
+   "row_label": "Income from operations",
+   "column_label": "\u200b | 2023",
+   "cell_text": "265,795",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 265795000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0114",
+   "row_label": "Expenditures for property, plant and equipment and capitalized software",
+   "column_label": "\u200b | 2025",
+   "cell_text": "(11,295)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 11295000,
+   "confidence": 0.95,
+   "notes": "Line also covers capitalized software (intangible); used as-is per instructions."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0114",
+   "row_label": "Expenditures for property, plant and equipment and capitalized software",
+   "column_label": "\u200b | 2024",
+   "cell_text": "(12,181)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 12181000,
+   "confidence": 0.95,
+   "notes": "Line also covers capitalized software (intangible); used as-is per instructions."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0114",
+   "row_label": "Expenditures for property, plant and equipment and capitalized software",
+   "column_label": "\u200b | Twelve months ended | December 31, | 2023",
+   "cell_text": "(20,656)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 20656000,
+   "confidence": 0.95,
+   "notes": "Line also covers capitalized software (intangible); used as-is per instructions."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.8,
+  "input_tokens": 6326,
+  "output_tokens": 1742,
+  "attempts": 1,
+  "task_sha": "bdc911f2aab263d0"
+ }
+}

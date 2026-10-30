@@ -1,0 +1,194 @@
+{
+ "accession": "0001283699-26-000010",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0030",
+   "row_label": "Total revenues",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "88,309",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 88309000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0030",
+   "row_label": "Total revenues",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "81,400",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 81400000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0030",
+   "row_label": "Total revenues",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "78,558",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 78558000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0030",
+   "row_label": "Cost of services, exclusive of depreciation and amortization shown separately below",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "11,497",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 11497000000,
+   "confidence": 0.9,
+   "notes": "No total cost-of-revenue line. Cost of services is the direct cost of delivering service revenues (network operations). It excludes D&A, which is shown separately."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0030",
+   "row_label": "Cost of services, exclusive of depreciation and amortization shown separately below",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "10,771",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 10771000000,
+   "confidence": 0.9,
+   "notes": "No total cost-of-revenue line. Cost of services is the direct cost of delivering service revenues. It excludes D&A."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0030",
+   "row_label": "Cost of services, exclusive of depreciation and amortization shown separately below",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "11,655",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 11655000000,
+   "confidence": 0.9,
+   "notes": "No total cost-of-revenue line. Cost of services is the direct cost of delivering service revenues. It excludes D&A."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0030",
+   "row_label": "Cost of equipment sales, exclusive of depreciation and amortization shown separately below",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "21,277",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 21277000000,
+   "confidence": 0.9,
+   "notes": "No total cost-of-revenue line. Cost of equipment sales is the cost of devices sold, which generate equipment revenues. It excludes D&A."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0030",
+   "row_label": "Cost of equipment sales, exclusive of depreciation and amortization shown separately below",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "18,882",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 18882000000,
+   "confidence": 0.9,
+   "notes": "No total cost-of-revenue line. Cost of equipment sales is the cost of devices sold, which generate equipment revenues. It excludes D&A."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0030",
+   "row_label": "Cost of equipment sales, exclusive of depreciation and amortization shown separately below",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "18,533",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 18533000000,
+   "confidence": 0.9,
+   "notes": "No total cost-of-revenue line. Cost of equipment sales is the cost of devices sold, which generate equipment revenues. It excludes D&A."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0030",
+   "row_label": "Operating income",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "18,279",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 18279000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0030",
+   "row_label": "Operating income",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "18,010",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 18010000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0030",
+   "row_label": "Operating income",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "14,266",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 14266000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0031",
+   "row_label": "Purchases of property and equipment, including capitalized interest of $(43), $(34) and $(104)",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(9,955)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 9955000000,
+   "confidence": 1.0,
+   "notes": "Line includes capitalized interest. Spectrum and other intangible purchases are a separate line and were not added."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0031",
+   "row_label": "Purchases of property and equipment, including capitalized interest of $(43), $(34) and $(104)",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(8,840)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 8840000000,
+   "confidence": 1.0,
+   "notes": "Line includes capitalized interest. Spectrum and other intangible purchases are a separate line and were not added."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0031",
+   "row_label": "Purchases of property and equipment, including capitalized interest of $(43), $(34) and $(104)",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(9,801)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 9801000000,
+   "confidence": 1.0,
+   "notes": "Line includes capitalized interest. Spectrum and other intangible purchases are a separate line and were not added."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "The income statement has no single total cost-of-revenue line. The components are given as cost_of_revenue_part (cost of services and cost of equipment sales)."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.1,
+  "input_tokens": 6915,
+  "output_tokens": 2646,
+  "attempts": 1,
+  "task_sha": "c37d7741d4f27a9a"
+ }
+}

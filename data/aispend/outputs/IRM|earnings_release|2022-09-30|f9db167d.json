@@ -1,0 +1,35 @@
+{
+ "accession": "IRM|earnings_release|2022-09-30|f9db167d",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Organic storage rental revenue growth of 9.7%, reflecting continued benefit of pricing combined with positive volume trends and data center growth",
+   "passage": "p07",
+   "confidence": 0.6,
+   "notes": "Bullet fragment from the Q3 accomplishments slide. It cites data center growth as one driver of storage rental revenue growth, but states no data center revenue figure or share. 9.7% is a growth rate of storage rental revenue, not an AI or data-center share. Period is Q3 of fiscal 2022, but the sentence names no year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only recurring capital expenditures ($38,972 thousand in Q3 2022) are given; no sentence links capital expenditures to AI or data-center buildout"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.9,
+  "input_tokens": 13034,
+  "output_tokens": 774,
+  "attempts": 1,
+  "task_sha": "0ea9da96c08392ee"
+ }
+}

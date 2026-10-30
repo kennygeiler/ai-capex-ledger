@@ -1,23 +1,37 @@
 {
  "accession": "INTC|earnings_release|2022-12-31|93120f19",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 19200000000,
+   "amount_high": 19200000000,
+   "quote": "Data Center $4.3 down 33% $19.2 down 15% and AI billion billion (DCAI)",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Garbled extraction of a segment table, not a prose sentence. The columns read as Q4 2022 revenue ($4.3B) and full-year 2022 revenue ($19.2B) for the Data Center and AI (DCAI) segment. The full-year figure is recorded. The table units read as 'billion' for both. Confidence is lowered because the table layout was reconstructed from flattened text, and because the DCAI segment includes general-purpose server CPUs, not only AI."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; passages cover segment revenue, process roadmap, AXG product launches and reorganization, forward-looking-statement boilerplate, and a product description mentioning AI"
+   "reason": "no sentence states or links capital expenditures to AI; the release excerpt gives no capex figures"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes R&D, infrastructure, or headcount spending to AI; the only AI mentions are the DCAI segment name and a description of AXG's GPU target workloads (boilerplate)"
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount spending to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.5,
-  "input_tokens": 6695,
-  "output_tokens": 227,
+  "seconds": 8.6,
+  "input_tokens": 7117,
+  "output_tokens": 836,
   "attempts": 1,
-  "task_sha": "cf7abf964f09d4ca"
+  "task_sha": "42f2188d50bba7f0"
  }
 }

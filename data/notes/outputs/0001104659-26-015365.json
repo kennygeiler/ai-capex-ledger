@@ -1,0 +1,177 @@
+{
+ "accession": "0001104659-26-015365",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0324",
+   "row_label": "Land",
+   "column_label": "\u200b | As of December 31, 2025",
+   "cell_text": "1,247,624",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 1247624000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0324",
+   "row_label": "Land",
+   "column_label": "\u200b | As of December 31, 2024",
+   "cell_text": "1,108,251",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 1108251000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Acquired ground lease",
+   "table_id": "t0324",
+   "row_label": "Acquired ground lease",
+   "column_label": "\u200b | As of December 31, 2025",
+   "cell_text": "97",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 97000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Acquired ground lease",
+   "table_id": "t0324",
+   "row_label": "Acquired ground lease",
+   "column_label": "\u200b | As of December 31, 2024",
+   "cell_text": "86",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 86000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0324",
+   "row_label": "Buildings and improvements",
+   "column_label": "\u200b | As of December 31, 2025",
+   "cell_text": "29,152,994",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 29152994000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0324",
+   "row_label": "Buildings and improvements",
+   "column_label": "\u200b | As of December 31, 2024",
+   "cell_text": "25,567,155",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 25567155000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Tenant improvements",
+   "table_id": "t0324",
+   "row_label": "Tenant improvements",
+   "column_label": "\u200b | As of December 31, 2025",
+   "cell_text": "958,583",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 958583000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Tenant improvements",
+   "table_id": "t0324",
+   "row_label": "Tenant improvements",
+   "column_label": "\u200b | As of December 31, 2024",
+   "cell_text": "883,502",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 883502000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress and space held for development",
+   "table_id": "t0324",
+   "row_label": "Construction in progress and space held for development",
+   "column_label": "\u200b | As of December 31, 2025",
+   "cell_text": "4,976,785",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 4976785000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress and space held for development",
+   "table_id": "t0324",
+   "row_label": "Construction in progress and space held for development",
+   "column_label": "\u200b | As of December 31, 2024",
+   "cell_text": "5,164,334",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 5164334000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land held for future development",
+   "table_id": "t0324",
+   "row_label": "Land held for future development",
+   "column_label": "\u200b | As of December 31, 2025",
+   "cell_text": "91,130",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 91130000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land held for future development",
+   "table_id": "t0324",
+   "row_label": "Land held for future development",
+   "column_label": "\u200b | As of December 31, 2024",
+   "cell_text": "38,785",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 38785000,
+   "confidence": 0.9
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "DLR reports a single reportable segment; table t0250 splits capital expenditures by type (development, enhancement, recurring), not by segment"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "only a geographic split (inside/outside the United States) is given in t0420; that is neither a reportable segment nor a market/product line, and the company has one segment"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities is included in the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included in the provided tables"
+  }
+ ],
+ "notes": "Construction in progress and land held for future development appear below the net operating-properties line in t0324 (they are not depreciated) but are gross property categories, so they are included at confidence 0.9. Column labels begin with a zero-width space as shown in the parsed table.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.5,
+  "input_tokens": 5043,
+  "output_tokens": 2226,
+  "attempts": 1,
+  "task_sha": "fa49135ca6c4ea95"
+ }
+}

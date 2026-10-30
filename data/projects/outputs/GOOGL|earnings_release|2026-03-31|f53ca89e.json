@@ -1,0 +1,13 @@
+{
+ "accession": "GOOGL|earnings_release|2026-03-31|f53ca89e",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.2,
+  "input_tokens": 4930,
+  "output_tokens": 54,
+  "attempts": 1,
+  "task_sha": "da5eb04aeefef6cf"
+ }
+}

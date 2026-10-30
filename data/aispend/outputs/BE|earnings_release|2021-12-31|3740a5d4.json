@@ -1,0 +1,27 @@
+{
+ "accession": "BE|earnings_release|2021-12-31|3740a5d4",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the cash flow statement gives purchases of property, plant and equipment of $49,810 thousand with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "fuel-cell Energy Server seller; no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.9,
+  "input_tokens": 6836,
+  "output_tokens": 208,
+  "attempts": 1,
+  "task_sha": "efc8f1431e59ceac"
+ }
+}

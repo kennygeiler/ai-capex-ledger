@@ -1,0 +1,27 @@
+{
+ "accession": "KLAC|earnings_release|2022-03-31|39fb452f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the passage is the company description and forward-looking-statement boilerplate; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, data-center, AI-server or HBM revenue; the only revenue mention is a generic forward-looking reference to total revenues"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 6064,
+  "output_tokens": 227,
+  "attempts": 1,
+  "task_sha": "dc677b356bce2826"
+ }
+}

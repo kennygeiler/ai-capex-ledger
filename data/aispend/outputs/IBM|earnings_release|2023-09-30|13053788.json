@@ -1,6 +1,6 @@
 {
  "accession": "IBM|earnings_release|2023-09-30|13053788",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "opex",
@@ -11,21 +11,25 @@
    "quote": "That cash generation has enabled us to increase our investment in R&D and acquisitions, strengthening our future AI and hybrid cloud capabilities, while supporting continued shareholder returns through our dividend.",
    "passage": "p01",
    "confidence": 0.6,
-   "notes": "CFO quote says R&D investment increased in part to strengthen AI capabilities, alongside hybrid cloud. AI is one driver of total R&D, not a quantified AI portion. The sentence names no year; the present-perfect 'has enabled us to increase' is read as a completed period. The investment also covers acquisitions, which are not opex."
+   "notes": "The CFO links increased R&D investment (and acquisitions) to future AI and hybrid cloud capabilities. No amount or AI share is given. AI is one of two stated purposes, and acquisitions are not opex, so the link to AI opex is loose. No year is named, so the filing's reported year applies."
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "capital expenditures appear only in the free cash flow definition (p02); no sentence links capital expenditures to AI"
+   "reason": "no sentence links capital expenditures to AI; p02 mentions net capital expenditures only in the definition of free cash flow"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's or data center's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.0,
-  "input_tokens": 5253,
-  "output_tokens": 733,
+  "seconds": 15.1,
+  "input_tokens": 5556,
+  "output_tokens": 719,
   "attempts": 1,
-  "task_sha": "e2ea8ccda0d2fd5d"
+  "task_sha": "6655afbce14f8d64"
  }
 }

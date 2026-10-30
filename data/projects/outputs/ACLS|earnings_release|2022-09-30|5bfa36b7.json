@@ -1,0 +1,13 @@
+{
+ "accession": "ACLS|earnings_release|2022-09-30|5bfa36b7",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 4826,
+  "output_tokens": 54,
+  "attempts": 1,
+  "task_sha": "dafc4012771b63f4"
+ }
+}

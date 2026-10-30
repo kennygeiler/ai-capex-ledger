@@ -1,0 +1,35 @@
+{
+ "accession": "POWL|earnings_release|2026-03-31|00d01af3",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We remain optimistic that the ongoing investment cycle to support data center build outs and AI capacity growth, in addition to addressing future power demand, will remain supportive of overall activity in our commercial and electric utility end markets.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "Links expected market activity (seller-side demand) to data center and AI build-outs in words only; speaks of 'activity' rather than revenue explicitly, hence lower confidence. The sentence names no year (the preceding sentence refers to Fiscal 2026, but the year is not in the quoted sentence). Data center mega orders in p01 (>$75 million; >$400 million subsequent to quarter end) are bookings, not revenue, so they are not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.8,
+  "input_tokens": 5155,
+  "output_tokens": 923,
+  "attempts": 1,
+  "task_sha": "c0f97d695c80966d"
+ }
+}

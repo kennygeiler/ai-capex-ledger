@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|earnings_release|2022-06-30|1d1bd32c",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; land acquisitions in p03 are quarterly purchases with no AI attribution and no annual capex figure or outlook is given"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a data center REIT; the only revenue figure is total second-quarter 2022 revenue of $1.1 billion (p02), which is a quarterly total with no AI attribution, and no sentence states AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.3,
+  "input_tokens": 11473,
+  "output_tokens": 486,
+  "attempts": 1,
+  "task_sha": "86400577f09362b1"
+ }
+}

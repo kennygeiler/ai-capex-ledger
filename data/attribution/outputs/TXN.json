@@ -1,7 +1,7 @@
 {
  "ticker": "TXN",
- "prompt_version": "attribution@v1",
- "model": "chip_seller@v1",
+ "prompt_version": "attribution@v2",
+ "model": "chip_seller@v3",
  "rows": [
   {
    "field": "capex",
@@ -11,7 +11,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "No statement attributes any of TXN's FY2022 capex (2.797B) to AI. A chip seller's capex funds fabs, test and equipment, not AI infrastructure. Seller-side signal: TXN reports no data-center or AI segment; its segments are Analog (15.359B), Embedded Processing (3.261B) and Other (1.408B), so AI buyer revenue cannot be isolated.",
+   "basis": "No statement attributes any of the $2,797M capex to AI. A chip seller's capex funds fabs, wafer capacity and test, not AI infrastructure.",
    "confidence": 0.8
   },
   {
@@ -22,7 +22,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "No statement attributes any of TXN's FY2023 capex (5.071B) to AI. A chip seller's capex funds fabs, test and equipment, not AI infrastructure. Seller-side signal: TXN reports no data-center or AI segment; its segments are Analog (13.040B), Embedded Processing (3.368B) and Other (1.111B).",
+   "basis": "No statement attributes any of the $5,071M capex to AI. A chip seller's capex funds fabs, wafer capacity and test, not AI infrastructure.",
    "confidence": 0.8
   },
   {
@@ -33,7 +33,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "No statement attributes any of TXN's FY2024 capex (4.820B) to AI. A chip seller's capex funds fabs, test and equipment, not AI infrastructure. Seller-side signal: TXN reports no data-center or AI segment; its segments are Analog (12.161B), Embedded Processing (2.533B) and Other (0.947B).",
+   "basis": "No statement attributes any of the $4,820M capex to AI. A chip seller's capex funds fabs, wafer capacity and test, not AI infrastructure.",
    "confidence": 0.8
   },
   {
@@ -44,112 +44,73 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "No statement attributes any of TXN's FY2025 capex (4.550B) to AI. A chip seller's capex funds fabs, test and equipment, not AI infrastructure. Seller-side signal: TXN reports no data-center or AI segment; its segments are Analog (14.006B), Embedded Processing (2.697B) and Other (0.979B).",
+   "basis": "No statement attributes any of the $4,550M capex to AI; it funds 300mm analog fabs, not AI infrastructure. Seller-side signal: the Q4 2025 call put the data center end market at about $1.5B (9% of revenue, up 64%), but that figure is not in the pack and is not capex.",
    "confidence": 0.8
   },
   {
-   "field": "opex",
-   "period": "FY2022",
+   "field": "revenue",
+   "period": "FY2026",
    "kind": "actual",
-   "method": "none",
+   "method": "qualitative",
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The pack contains no statement giving an AI amount or share of FY2022 opex (3.631B). It also contains no statement that R&D is AI-driven.",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
-   "period": "FY2023",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack contains no statement giving an AI amount or share of FY2023 opex (3.688B). It also contains no statement that R&D is AI-driven.",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
-   "period": "FY2024",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack contains no statement giving an AI amount or share of FY2024 opex (3.629B). It also contains no statement that R&D is AI-driven.",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
-   "period": "FY2025",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack contains no statement giving an AI amount or share of FY2025 opex (4.060B). It also contains no statement that R&D is AI-driven.",
-   "confidence": 0.8
+   "basis": "The Q1, Q2 and Q3 2026 earnings releases name data center among the end markets leading growth ('growth led by industrial and data center'; 'broad growth led by industrial, data center and automotive'; 'continued broad growth in industrial, automotive and data center'). They give no dollar amount, and data center is not the same as AI.",
+   "confidence": 0.3
   }
  ],
  "none_found": [
   {
-   "field": "capex",
-   "period": "FY2022",
-   "reason": "No AI statement. Chip-seller capex is fabs and test, not AI infrastructure. No data-center segment."
-  },
-  {
-   "field": "capex",
-   "period": "FY2023",
-   "reason": "No AI statement. Chip-seller capex is fabs and test, not AI infrastructure. No data-center segment."
-  },
-  {
-   "field": "capex",
-   "period": "FY2024",
-   "reason": "No AI statement. Chip-seller capex is fabs and test, not AI infrastructure. No data-center segment."
-  },
-  {
-   "field": "capex",
+   "field": "revenue",
    "period": "FY2025",
-   "reason": "No AI statement. Chip-seller capex is fabs and test, not AI infrastructure. No data-center segment."
+   "reason": "The thesis cites a Q4 2025 call figure ('Data center was $1.5 billion, up 64% year on year and was 9% of revenue'), but the pack has no statement for it. TI's segments (Analog, Embedded Processing, Other) are not data-center lines, so neither stated_amount nor segment can be used."
   },
   {
-   "field": "opex",
-   "period": "FY2022",
-   "reason": "No stated AI amount or share of opex, and no statement that R&D is AI-driven."
-  },
-  {
-   "field": "opex",
-   "period": "FY2023",
-   "reason": "No stated AI amount or share of opex, and no statement that R&D is AI-driven."
-  },
-  {
-   "field": "opex",
+   "field": "revenue",
    "period": "FY2024",
-   "reason": "No stated AI amount or share of opex, and no statement that R&D is AI-driven."
+   "reason": "No AI or data-center revenue line or statement in the pack; the Analog and Embedded Processing segments are not AI-specific."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "No AI or data-center revenue line or statement in the pack; the Analog and Embedded Processing segments are not AI-specific."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "No AI or data-center revenue line or statement in the pack; the Analog and Embedded Processing segments are not AI-specific."
   },
   {
    "field": "opex",
    "period": "FY2025",
-   "reason": "No stated AI amount or share of opex, and no statement that R&D is AI-driven."
-  },
-  {
-   "field": "capex",
-   "period": "outlook",
-   "reason": "The pack has no statements with kind outlook."
+   "reason": "No statement attributes opex or R&D to AI."
   },
   {
    "field": "opex",
-   "period": "outlook",
-   "reason": "The pack has no statements with kind outlook."
+   "period": "FY2024",
+   "reason": "No statement attributes opex or R&D to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "No statement attributes opex or R&D to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "No statement attributes opex or R&D to AI."
+  },
+  {
+   "field": "capex",
+   "reason": "There are no committed rows. The purchase commitments ($1,442M at FY2025 year end) are TI's own supply and equipment obligations; the thesis does not treat them as AI. No capex outlook statement is in the pack, so the call's 2026 guidance of $2B to $3B cannot be cited."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 16.0,
-  "input_tokens": 6912,
-  "output_tokens": 2060,
+  "seconds": 17.8,
+  "input_tokens": 16017,
+  "output_tokens": 2125,
   "attempts": 1,
-  "task_sha": "f5258d289c4d6130"
+  "task_sha": "41e60bd749d80070"
  }
 }

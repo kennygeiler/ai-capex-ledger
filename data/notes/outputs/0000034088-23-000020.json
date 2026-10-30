@@ -1,6 +1,6 @@
 {
  "accession": "0000034088-23-000020",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_capex",
@@ -12,8 +12,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 5940000000,
-   "confidence": 0.9,
-   "notes": "Row label repeats in three year blocks; first block is undated but its Corporate Total (18,338) matches 2022 in t0060. Dimension is the segment | geography column header verbatim."
+   "confidence": 0.8,
+   "notes": "Segment note splits each segment into U.S./Non-U.S.; each geographic cell cited separately, not summed. First (unlabeled) block is 2022; its total column 18,338 matches t0060 2022."
   },
   {
    "field": "segment_capex",
@@ -25,8 +25,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 6441000000,
-   "confidence": 0.9,
-   "notes": "First (undated) block; total ties to 2022."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; first (unlabeled) block is 2022."
   },
   {
    "field": "segment_capex",
@@ -38,8 +38,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 1141000000,
-   "confidence": 0.9,
-   "notes": "First (undated) block; total ties to 2022."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; first (unlabeled) block is 2022."
   },
   {
    "field": "segment_capex",
@@ -51,8 +51,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 964000000,
-   "confidence": 0.9,
-   "notes": "First (undated) block; total ties to 2022."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; first (unlabeled) block is 2022."
   },
   {
    "field": "segment_capex",
@@ -64,8 +64,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 1026000000,
-   "confidence": 0.9,
-   "notes": "First (undated) block; total ties to 2022."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; first (unlabeled) block is 2022."
   },
   {
    "field": "segment_capex",
@@ -77,8 +77,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 1692000000,
-   "confidence": 0.9,
-   "notes": "First (undated) block; total ties to 2022."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; first (unlabeled) block is 2022."
   },
   {
    "field": "segment_capex",
@@ -90,8 +90,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 37000000,
-   "confidence": 0.9,
-   "notes": "First (undated) block; total ties to 2022."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; first (unlabeled) block is 2022."
   },
   {
    "field": "segment_capex",
@@ -103,8 +103,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 200000000,
-   "confidence": 0.9,
-   "notes": "First (undated) block; total ties to 2022."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; first (unlabeled) block is 2022."
   },
   {
    "field": "segment_capex",
@@ -116,8 +116,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 3308000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2021'; row label repeats across blocks."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; row is in the block headed 'As of December 31, 2021'."
   },
   {
    "field": "segment_capex",
@@ -129,8 +129,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 5308000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2021'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2021 block."
   },
   {
    "field": "segment_capex",
@@ -142,8 +142,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 979000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2021'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2021 block."
   },
   {
    "field": "segment_capex",
@@ -155,8 +155,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 874000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2021'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2021 block."
   },
   {
    "field": "segment_capex",
@@ -168,8 +168,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 538000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2021'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2021 block."
   },
   {
    "field": "segment_capex",
@@ -181,8 +181,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 712000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2021'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2021 block."
   },
   {
    "field": "segment_capex",
@@ -194,8 +194,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 28000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2021'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2021 block."
   },
   {
    "field": "segment_capex",
@@ -207,8 +207,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 136000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2021'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2021 block."
   },
   {
    "field": "segment_capex",
@@ -220,8 +220,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 5726000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2020'; row label repeats across blocks."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; row is in the block headed 'As of December 31, 2020'."
   },
   {
    "field": "segment_capex",
@@ -233,8 +233,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 4418000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2020'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2020 block."
   },
   {
    "field": "segment_capex",
@@ -246,8 +246,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 2937000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2020'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2020 block."
   },
   {
    "field": "segment_capex",
@@ -259,8 +259,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 1446000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2020'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2020 block."
   },
   {
    "field": "segment_capex",
@@ -272,8 +272,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 1158000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2020'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2020 block."
   },
   {
    "field": "segment_capex",
@@ -285,8 +285,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 546000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2020'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2020 block."
   },
   {
    "field": "segment_capex",
@@ -298,8 +298,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 109000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2020'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2020 block."
   },
   {
    "field": "segment_capex",
@@ -311,8 +311,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 331000000,
-   "confidence": 0.9,
-   "notes": "Block headed 'As of December 31, 2020'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2020 block."
   },
   {
    "field": "segment_revenue",
@@ -324,8 +324,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 14579000000,
-   "confidence": 0.85,
-   "notes": "Third-party sales; excludes the separate Intersegment revenue row. First (undated) block; total 398,675 ties to 2022."
+   "confidence": 0.8,
+   "notes": "Third-party 'Sales and other operating revenue' chosen over 'Intersegment revenue'; segment split by geography, cells not summed. First (unlabeled) block is 2022; total 398,675 matches t0060 2022."
   },
   {
    "field": "segment_revenue",
@@ -337,8 +337,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 30585000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; first block = 2022."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2022 block."
   },
   {
    "field": "segment_revenue",
@@ -350,8 +350,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 117824000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; first block = 2022."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2022 block."
   },
   {
    "field": "segment_revenue",
@@ -363,8 +363,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 188153000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; first block = 2022."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2022 block."
   },
   {
    "field": "segment_revenue",
@@ -376,8 +376,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 10670000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; first block = 2022."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2022 block."
   },
   {
    "field": "segment_revenue",
@@ -389,8 +389,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 16949000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; first block = 2022."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2022 block."
   },
   {
    "field": "segment_revenue",
@@ -402,8 +402,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 6152000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; first block = 2022."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2022 block."
   },
   {
    "field": "segment_revenue",
@@ -415,8 +415,8 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 13727000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; first block = 2022."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2022 block."
   },
   {
    "field": "segment_revenue",
@@ -428,8 +428,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 8883000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; block headed 'As of December 31, 2021'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2021 block."
   },
   {
    "field": "segment_revenue",
@@ -441,8 +441,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 12914000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; 2021 block."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2021 block."
   },
   {
    "field": "segment_revenue",
@@ -454,8 +454,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 78500000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; 2021 block."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2021 block."
   },
   {
    "field": "segment_revenue",
@@ -467,8 +467,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 130406000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; 2021 block."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2021 block."
   },
   {
    "field": "segment_revenue",
@@ -480,8 +480,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 11995000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; 2021 block."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2021 block."
   },
   {
    "field": "segment_revenue",
@@ -493,8 +493,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 16633000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; 2021 block."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2021 block."
   },
   {
    "field": "segment_revenue",
@@ -506,8 +506,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 4858000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; 2021 block."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2021 block."
   },
   {
    "field": "segment_revenue",
@@ -519,8 +519,8 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 12473000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; 2021 block."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2021 block."
   },
   {
    "field": "segment_revenue",
@@ -532,8 +532,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 5876000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; block headed 'As of December 31, 2020'."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2020 block."
   },
   {
    "field": "segment_revenue",
@@ -545,8 +545,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 8673000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; 2020 block."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2020 block."
   },
   {
    "field": "segment_revenue",
@@ -558,8 +558,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 46401000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; 2020 block."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2020 block."
   },
   {
    "field": "segment_revenue",
@@ -571,8 +571,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 86966000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; 2020 block."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2020 block."
   },
   {
    "field": "segment_revenue",
@@ -584,8 +584,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 6391000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; 2020 block."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2020 block."
   },
   {
    "field": "segment_revenue",
@@ -597,8 +597,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 11243000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; 2020 block."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2020 block."
   },
   {
    "field": "segment_revenue",
@@ -610,8 +610,8 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 3993000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; 2020 block."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2020 block."
   },
   {
    "field": "segment_revenue",
@@ -623,38 +623,30 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 8993000000,
-   "confidence": 0.85,
-   "notes": "Excludes intersegment revenue; 2020 block."
+   "confidence": 0.8,
+   "notes": "Segment split by geography; 2020 block."
   }
  ],
  "not_found": [
   {
    "field": "ppe_category",
-   "reason": "No property, plant and equipment note with gross amounts by category is among the tables; only net PP&E appears in t0060 (selected financial data)."
+   "reason": "No property, plant and equipment table by gross category is among the provided tables; only net PP&E appears (t0060)."
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No lease note table is included in the provided tables."
+   "reason": "No lease note table is among the provided tables."
   },
   {
    "field": "purchase_commitments",
-   "reason": "No contractual-obligations or commitments table is included in the provided tables."
-  },
-  {
-   "field": "segment_capex",
-   "reason": "Excluded t0154 column 'Corporate and Financing | Non-U.S.' (corporate, not a reportable segment; header geography appears mis-parsed) and 'Corporate Total | Non-U.S.' (consolidated total)."
-  },
-  {
-   "field": "segment_revenue",
-   "reason": "Excluded t0154 'Corporate and Financing | Non-U.S.' (not a reportable segment) and 'Corporate Total | Non-U.S.' (consolidated total). t0164/t0165 Upstream results-of-operations revenue by geography is a supplemental oil and gas disclosure, not segment revenue, and was not used."
+   "reason": "No contractual-obligations or commitments table is among the provided tables."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 58.3,
-  "input_tokens": 20230,
-  "output_tokens": 8693,
+  "seconds": 55.1,
+  "input_tokens": 20358,
+  "output_tokens": 8620,
   "attempts": 1,
-  "task_sha": "15a486ec83e8447f"
+  "task_sha": "cec6b31ee29c5e80"
  }
 }

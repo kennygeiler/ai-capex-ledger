@@ -1,0 +1,27 @@
+{
+ "accession": "JBL|earnings_release|2022-08-31|53a41f5d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage defines adjusted free cash flow using net capital expenditures; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.8,
+  "input_tokens": 4789,
+  "output_tokens": 181,
+  "attempts": 1,
+  "task_sha": "1c64fe111e261a06"
+ }
+}

@@ -1,0 +1,155 @@
+{
+ "accession": "0000106040-25-000038",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0030",
+   "row_label": "Revenue, net",
+   "column_label": "Year Ended | June 27,2025",
+   "cell_text": "9,520",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 9520000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0030",
+   "row_label": "Revenue, net",
+   "column_label": "Year Ended | June 28,2024",
+   "cell_text": "6,317",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 6317000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0030",
+   "row_label": "Revenue, net",
+   "column_label": "Year Ended | June 30,2023",
+   "cell_text": "6,255",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 6255000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0030",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended | June 27,2025",
+   "cell_text": "5,828",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 5828000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0030",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended | June 28,2024",
+   "cell_text": "4,544",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 4544000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0030",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended | June 30,2023",
+   "cell_text": "4,864",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 4864000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0030",
+   "row_label": "Operating income (loss)",
+   "column_label": "Year Ended | June 27,2025",
+   "cell_text": "2,334",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 2334000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0030",
+   "row_label": "Operating income (loss)",
+   "column_label": "Year Ended | June 28,2024",
+   "cell_text": "(403)",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": -403000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0030",
+   "row_label": "Operating income (loss)",
+   "column_label": "Year Ended | June 30,2023",
+   "cell_text": "(548)",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": -548000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0032",
+   "row_label": "Purchases of property, plant and equipment",
+   "column_label": "Year Ended | June 27,2025",
+   "cell_text": "(412)",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 412000000,
+   "confidence": 1.0,
+   "notes": "Cash-flow statement starts from total net income (including discontinued operations, i.e. the Sandisk flash business), so capex likely includes discontinued operations while the income-statement fields are continuing operations only."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0032",
+   "row_label": "Purchases of property, plant and equipment",
+   "column_label": "Year Ended | June 28,2024",
+   "cell_text": "(487)",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 487000000,
+   "confidence": 1.0,
+   "notes": "Cash-flow statement starts from total net income (including discontinued operations), so capex likely includes discontinued operations while the income-statement fields are continuing operations only."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0032",
+   "row_label": "Purchases of property, plant and equipment",
+   "column_label": "Year Ended | June 30,2023",
+   "cell_text": "(821)",
+   "period_end": "2023-06-30",
+   "months": 12,
+   "value": 821000000,
+   "confidence": 1.0,
+   "notes": "Cash-flow statement starts from total net income (including discontinued operations), so capex likely includes discontinued operations while the income-statement fields are continuing operations only."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the income statement has a total 'Cost of revenue' line."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.6,
+  "input_tokens": 6658,
+  "output_tokens": 1801,
+  "attempts": 1,
+  "task_sha": "b530fbbdff9d9642"
+ }
+}

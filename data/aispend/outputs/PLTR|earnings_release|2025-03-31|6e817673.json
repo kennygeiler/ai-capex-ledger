@@ -1,0 +1,27 @@
+{
+ "accession": "PLTR|earnings_release|2025-03-31|6e817673",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's amount or share of revenue; the passage gives only total and U.S. revenue growth rates (55%, 71%, full-year guidance of 36% and 68%), and the reference to 'the era of AI' is a product description in a separate sentence, not a statement that AI drives or makes up revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.1,
+  "input_tokens": 4950,
+  "output_tokens": 521,
+  "attempts": 1,
+  "task_sha": "3e3dac0e378fe388"
+ }
+}

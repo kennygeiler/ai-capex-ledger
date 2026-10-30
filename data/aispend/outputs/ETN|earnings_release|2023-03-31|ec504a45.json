@@ -1,0 +1,27 @@
+{
+ "accession": "ETN|earnings_release|2023-03-31|ec504a45",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures of $126 million are reported (p02) but no sentence links capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "the only operating-expense mention is eMobility research and development and start-up costs; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data center is cited only as a source of strength in rolling twelve-month orders for Electrical Americas and Electrical Global, not revenue; no sentence states an AI or data-center revenue amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 7095,
+  "output_tokens": 468,
+  "attempts": 1,
+  "task_sha": "e6acc49529957b1c"
+ }
+}

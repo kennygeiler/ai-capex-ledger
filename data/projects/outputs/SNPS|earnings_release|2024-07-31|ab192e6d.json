@@ -1,0 +1,13 @@
+{
+ "accession": "SNPS|earnings_release|2024-07-31|ab192e6d",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "3db62e0d2ed581cf"
+ }
+}

@@ -1,6 +1,6 @@
 {
  "accession": "COMP|mdna|2024-12-31|5f1ca69f",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -9,15 +9,19 @@
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue or AI's share of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.7,
-  "input_tokens": 4492,
-  "output_tokens": 179,
+  "seconds": 3.1,
+  "input_tokens": 4803,
+  "output_tokens": 204,
   "attempts": 1,
-  "task_sha": "dcbe552e8a66bb40"
+  "task_sha": "6a4920beaae54edf"
  }
 }

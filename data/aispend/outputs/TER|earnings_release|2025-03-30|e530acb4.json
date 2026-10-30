@@ -1,0 +1,27 @@
+{
+ "accession": "TER|earnings_release|2025-03-30|e530acb4",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "purchases of property, plant and equipment appear only in the cash flow table (p02); no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "segment revenue is given by Semiconductor Test, Robotics and Product Test, with SOC/Mobile named as the growth driver; the only AI mention ('well positioned for the long-term demand drivers of AI') is a general positioning statement that states no AI or data-center revenue figure, share or attribution"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 6019,
+  "output_tokens": 415,
+  "attempts": 1,
+  "task_sha": "e701dbcdce9869b2"
+ }
+}

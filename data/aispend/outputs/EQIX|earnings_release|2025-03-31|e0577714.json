@@ -1,0 +1,35 @@
+{
+ "accession": "EQIX|earnings_release|2025-03-31|e0577714",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Equinix continues to expand its global data center footprint to accommodate the demand for AI and cloud services.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Expansion of the data center footprint implies capital spending but the sentence does not name capital expenditures; AI is one of two stated drivers (AI and cloud). Present tense, no year named. The 2025 total capex guidance in p03 ($3.426-$3.676 billion) is not linked to AI in its sentence, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI or AI-driven share or amount of revenue; revenue guidance is total only and not attributed to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.7,
+  "input_tokens": 8202,
+  "output_tokens": 665,
+  "attempts": 1,
+  "task_sha": "4b7a55a6f5dd9391"
+ }
+}

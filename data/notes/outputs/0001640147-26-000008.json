@@ -1,0 +1,176 @@
+{
+ "accession": "0001640147-26-000008",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0043",
+   "row_label": "Leasehold improvements",
+   "column_label": "January 31, 2026",
+   "cell_text": "133,374",
+   "period_end": "2026-01-31",
+   "months": 0,
+   "value": 133374000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0043",
+   "row_label": "Leasehold improvements",
+   "column_label": "January 31, 2025",
+   "cell_text": "97,324",
+   "period_end": "2025-01-31",
+   "months": 0,
+   "value": 97324000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computers, equipment, and software",
+   "table_id": "t0043",
+   "row_label": "Computers, equipment, and software",
+   "column_label": "January 31, 2026",
+   "cell_text": "69,213",
+   "period_end": "2026-01-31",
+   "months": 0,
+   "value": 69213000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computers, equipment, and software",
+   "table_id": "t0043",
+   "row_label": "Computers, equipment, and software",
+   "column_label": "January 31, 2025",
+   "cell_text": "49,575",
+   "period_end": "2025-01-31",
+   "months": 0,
+   "value": 49575000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0043",
+   "row_label": "Furniture and fixtures",
+   "column_label": "January 31, 2026",
+   "cell_text": "32,548",
+   "period_end": "2026-01-31",
+   "months": 0,
+   "value": 32548000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0043",
+   "row_label": "Furniture and fixtures",
+   "column_label": "January 31, 2025",
+   "cell_text": "25,473",
+   "period_end": "2025-01-31",
+   "months": 0,
+   "value": 25473000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Capitalized software development costs",
+   "table_id": "t0043",
+   "row_label": "Capitalized software development costs",
+   "column_label": "January 31, 2026",
+   "cell_text": "231,131",
+   "period_end": "2026-01-31",
+   "months": 0,
+   "value": 231131000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Capitalized software development costs",
+   "table_id": "t0043",
+   "row_label": "Capitalized software development costs",
+   "column_label": "January 31, 2025",
+   "cell_text": "209,684",
+   "period_end": "2025-01-31",
+   "months": 0,
+   "value": 209684000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress\u2014capitalized software development costs",
+   "table_id": "t0043",
+   "row_label": "Construction in progress\u2014capitalized software development costs",
+   "column_label": "January 31, 2026",
+   "cell_text": "4,973",
+   "period_end": "2026-01-31",
+   "months": 0,
+   "value": 4973000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress\u2014capitalized software development costs",
+   "table_id": "t0043",
+   "row_label": "Construction in progress\u2014capitalized software development costs",
+   "column_label": "January 31, 2025",
+   "cell_text": "28,672",
+   "period_end": "2025-01-31",
+   "months": 0,
+   "value": 28672000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress\u2014other",
+   "table_id": "t0043",
+   "row_label": "Construction in progress\u2014other",
+   "column_label": "January 31, 2026",
+   "cell_text": "17,274",
+   "period_end": "2026-01-31",
+   "months": 0,
+   "value": 17274000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress\u2014other",
+   "table_id": "t0043",
+   "row_label": "Construction in progress\u2014other",
+   "column_label": "January 31, 2025",
+   "cell_text": "39,106",
+   "period_end": "2025-01-31",
+   "months": 0,
+   "value": 39106000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "Snowflake reports a single operating segment; the segment note (t0031) shows consolidated revenue and expenses only, with no per-segment capital expenditures"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "single reportable segment; the tables give only total revenue, with no breakdown by segment, market or product line"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities is among the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is among the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.5,
+  "input_tokens": 6412,
+  "output_tokens": 1687,
+  "attempts": 1,
+  "task_sha": "e36c147409659483"
+ }
+}

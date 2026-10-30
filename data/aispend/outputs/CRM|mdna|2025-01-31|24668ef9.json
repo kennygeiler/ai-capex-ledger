@@ -1,0 +1,46 @@
+{
+ "accession": "CRM|mdna|2025-01-31|24668ef9",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect that research and development expenses will likely remain consistent as a percentage of revenue over time as we continue to invest in technology to support the development of new, and improve existing, technologies, including AI, agents and our Data Cloud service offerings, and the integration of acquired technologies.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "R&D expense outlook (as a share of revenue) names AI as one of several investment areas; it does not state an AI amount or share. No year is named, so it defaults to the year after fiscal 2025."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The timing of these expenses, which also includes the use of AI and agents, may cause our cost of revenues as a percentage of revenues to fluctuate over time due to changes in demand for our service offerings.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Expected infrastructure (cost of revenues) investment is said to include the use of AI and agents. The link is loose and gives no number. No year is named."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the lease and infrastructure commitments in p05 are not attributed to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's or data-center demand's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.5,
+  "input_tokens": 5336,
+  "output_tokens": 961,
+  "attempts": 1,
+  "task_sha": "18e848116b1f984d"
+ }
+}

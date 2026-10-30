@@ -1,23 +1,27 @@
 {
  "accession": "AMD|earnings_release|2022-03-26|dddceb43",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states capital expenditures or links them to AI; passages cover revenue, gross margin guidance, segment results and product highlights only"
+   "reason": "no sentence states or attributes capital expenditures to AI; the Pensando acquisition (~$1.9 billion, 'to drive data center solution capabilities') is an acquisition, not capex, and is not tied to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; AI mentions in p03 and p04 describe products and strategy (ROCm 5 software, 'innovation in cloud, enterprise, AI') and are boilerplate, not spend"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the ROCm 5 launch targeting HPC and AI applications is a product highlight, not a spend statement"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share; revenue outlooks ($6.5 billion Q2, $26.3 billion FY2022) cite Xilinx and higher server, semi-custom and client revenue as drivers, but never name AI or data center; the 'lower mix of data center GPUs' mention gives no figure and is not a revenue statement"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.1,
-  "input_tokens": 5996,
-  "output_tokens": 229,
+  "seconds": 8.2,
+  "input_tokens": 6650,
+  "output_tokens": 804,
   "attempts": 1,
-  "task_sha": "0408f578530f2eb7"
+  "task_sha": "392346f0bae0ef62"
  }
 }

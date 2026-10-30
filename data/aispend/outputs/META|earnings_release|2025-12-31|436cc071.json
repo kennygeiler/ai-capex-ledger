@@ -1,6 +1,6 @@
 {
  "accession": "META|earnings_release|2025-12-31|436cc071",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -12,8 +12,8 @@
    "amount_high": 135000000000,
    "quote": "We anticipate 2026 capital expenditures, including principal payments on finance leases, to be in the range of $115-135 billion, with year-over-year growth driven by increased investment to support our Meta Superintelligence Labs efforts and core business.",
    "passage": "p02",
-   "confidence": 0.95,
-   "notes": "Total capex guidance including finance lease principal payments. AI is named as a growth driver through Meta Superintelligence Labs, so this is not the AI portion. Confidence is below 1.0 only because the AI link is made through the MSL name rather than the word 'AI'."
+   "confidence": 0.9,
+   "notes": "Total capex guidance, including finance lease principal payments. The sentence names Meta Superintelligence Labs (Meta's AI effort) as a growth driver but does not say AI by name and gives no AI-specific amount."
   },
   {
    "field": "opex",
@@ -23,17 +23,22 @@
    "class": "qualitative",
    "quote": "This includes 2026 hires to support our priority areas, particularly AI, as well as a full year of expenses from 2025 hires.",
    "passage": "p01",
-   "confidence": 0.7,
-   "notes": "Says employee compensation, the second-largest contributor to total expense growth, includes 2026 hires for AI. There is no amount or share. Recorded as an outlook because it describes hires and expense growth for 2026, but the sentence itself uses present tense and the preceding guidance sentence is not quoted, so the kind is somewhat ambiguous."
+   "confidence": 0.8,
+   "notes": "Headcount (employee compensation) expense growth is linked to AI hiring in words only. The sentence describes a driver of total expense growth, not a quantified AI part."
   }
  ],
- "none_found": [],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "Meta is a buyer; no sentence states AI's part of revenue"
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.0,
-  "input_tokens": 4746,
-  "output_tokens": 986,
+  "seconds": 7.9,
+  "input_tokens": 5051,
+  "output_tokens": 893,
   "attempts": 1,
-  "task_sha": "ce3f1c2a3e8dca96"
+  "task_sha": "082fa522804b569f"
  }
 }

@@ -1,0 +1,13 @@
+{
+ "accession": "SNDK|mdna|2026-07-03|a5dc97e4",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.9,
+  "input_tokens": 5843,
+  "output_tokens": 162,
+  "attempts": 1,
+  "task_sha": "36952b8abfd00609"
+ }
+}

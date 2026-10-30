@@ -1,0 +1,27 @@
+{
+ "accession": "NOW|earnings_release|2025-12-31|8e081fa3",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "subscription revenue and cRPO are reported without an AI share or AI revenue figure; 'no AI company in the enterprise better positioned' is positioning, not a revenue statement, and the p02 data-center mention is risk-factor boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.9,
+  "input_tokens": 5789,
+  "output_tokens": 236,
+  "attempts": 1,
+  "task_sha": "c707f36fe104c999"
+ }
+}

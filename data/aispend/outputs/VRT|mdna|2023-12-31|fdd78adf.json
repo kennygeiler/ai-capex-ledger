@@ -1,0 +1,42 @@
+{
+ "accession": "VRT|mdna|2023-12-31|fdd78adf",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The Company has invested in developing new product, services, and solutions to serve this industry trend, is increasing capacity to support additional demand for AI infrastructure as necessary and we will continue to invest to support additional growth driven by AI.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Capacity increases and continued investment to support AI-driven growth imply capital spending, but the sentence does not say 'capital expenditures'. No amount or share is given. The capex totals in p03 ($134.6M actual 2023; $175-200M outlook 2024, figures in millions) are not linked to AI, so they are not recorded."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The Company has invested in developing new product, services, and solutions to serve this industry trend, is increasing capacity to support additional demand for AI infrastructure as necessary and we will continue to invest to support additional growth driven by AI.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "'Invested in developing new product, services, and solutions' for the AI trend suggests R&D spend. The sentence does not name operating expenses or R&D explicitly, and it gives no amount."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "no sentence states an amount or share of revenue from AI or data-center demand; p01 only says AI 'could lead to increased demand'"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.6,
+  "input_tokens": 5562,
+  "output_tokens": 1123,
+  "attempts": 1,
+  "task_sha": "6ca632cce14f2923"
+ }
+}

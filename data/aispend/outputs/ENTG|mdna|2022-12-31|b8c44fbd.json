@@ -1,0 +1,27 @@
+{
+ "accession": "ENTG|mdna|2022-12-31|b8c44fbd",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the 2023 capex outlook of approximately $500.0 million (p03) is attributed to growth capacity and new manufacturing facilities in Taiwan and Colorado, not AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue or AI's share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 5192,
+  "output_tokens": 226,
+  "attempts": 1,
+  "task_sha": "d0de4d8bd1905116"
+ }
+}

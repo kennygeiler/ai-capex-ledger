@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|earnings_release|2025-12-31|4ed936e0",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; the '>$15B of Capital Available For Hyperscale Development' (p11) is available capital, not capex, and is not tied to AI; the 'Development Capacity For Growing Cloud and AI Workloads' slide (p09) gives megawatt capacity, not spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only revenue figure is total Q4 2025 revenue of $1.6 billion (p01), which is quarterly and not linked to AI; the CEO's mention of supporting customers' 'cloud and AI roadmaps' states no revenue amount, share or driver; no sentence states AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.2,
+  "input_tokens": 16560,
+  "output_tokens": 739,
+  "attempts": 1,
+  "task_sha": "2cb816ef13492840"
+ }
+}

@@ -1,0 +1,232 @@
+{
+ "accession": "0001193125-22-268383",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Land and improvements",
+   "table_id": "t0079",
+   "row_label": "Land and improvements",
+   "column_label": "August 31, 2022",
+   "cell_text": "108",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 108000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and improvements",
+   "table_id": "t0079",
+   "row_label": "Land and improvements",
+   "column_label": "August 31, 2021",
+   "cell_text": "143",
+   "period_end": "2021-08-31",
+   "months": 0,
+   "value": 143000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0079",
+   "row_label": "Buildings",
+   "column_label": "August 31, 2022",
+   "cell_text": "1,191",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 1191000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0079",
+   "row_label": "Buildings",
+   "column_label": "August 31, 2021",
+   "cell_text": "1,216",
+   "period_end": "2021-08-31",
+   "months": 0,
+   "value": 1216000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0079",
+   "row_label": "Leasehold improvements",
+   "column_label": "August 31, 2022",
+   "cell_text": "1,362",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 1362000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0079",
+   "row_label": "Leasehold improvements",
+   "column_label": "August 31, 2021",
+   "cell_text": "1,249",
+   "period_end": "2021-08-31",
+   "months": 0,
+   "value": 1249000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0079",
+   "row_label": "Machinery and equipment",
+   "column_label": "August 31, 2022",
+   "cell_text": "5,627",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 5627000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0079",
+   "row_label": "Machinery and equipment",
+   "column_label": "August 31, 2021",
+   "cell_text": "5,216",
+   "period_end": "2021-08-31",
+   "months": 0,
+   "value": 5216000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures and office equipment",
+   "table_id": "t0079",
+   "row_label": "Furniture, fixtures and office equipment",
+   "column_label": "August 31, 2022",
+   "cell_text": "241",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 241000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures and office equipment",
+   "table_id": "t0079",
+   "row_label": "Furniture, fixtures and office equipment",
+   "column_label": "August 31, 2021",
+   "cell_text": "234",
+   "period_end": "2021-08-31",
+   "months": 0,
+   "value": 234000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer hardware and software",
+   "table_id": "t0079",
+   "row_label": "Computer hardware and software",
+   "column_label": "August 31, 2022",
+   "cell_text": "860",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 860000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer hardware and software",
+   "table_id": "t0079",
+   "row_label": "Computer hardware and software",
+   "column_label": "August 31, 2021",
+   "cell_text": "819",
+   "period_end": "2021-08-31",
+   "months": 0,
+   "value": 819000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Transportation equipment",
+   "table_id": "t0079",
+   "row_label": "Transportation equipment",
+   "column_label": "August 31, 2022",
+   "cell_text": "10",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 10000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Transportation equipment",
+   "table_id": "t0079",
+   "row_label": "Transportation equipment",
+   "column_label": "August 31, 2021",
+   "cell_text": "9",
+   "period_end": "2021-08-31",
+   "months": 0,
+   "value": 9000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0079",
+   "row_label": "Construction in progress",
+   "column_label": "August 31, 2022",
+   "cell_text": "179",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 179000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0079",
+   "row_label": "Construction in progress",
+   "column_label": "August 31, 2021",
+   "cell_text": "222",
+   "period_end": "2021-08-31",
+   "months": 0,
+   "value": 222000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0051",
+   "row_label": "Non-cancelable purchase order obligations(4)",
+   "column_label": "Total",
+   "cell_text": "759",
+   "period_end": "2022-08-31",
+   "months": 0,
+   "value": 759000000,
+   "confidence": 0.9
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note table with capital expenditures by segment is among the tables provided"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "only consolidated net revenue is shown; no revenue by segment or market table is provided"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "lease table t0081 gives only current (120 / 96) and non-current (198 / 223) finance lease liability lines with no total line; the schema rejects current/non-current dimensions and citing both cells under a null dimension would cite two cells for one dimension, so no value is cited"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 40.1,
+  "input_tokens": 15971,
+  "output_tokens": 5401,
+  "attempts": 2,
+  "task_sha": "d6c9d8fe3b933290"
+ }
+}

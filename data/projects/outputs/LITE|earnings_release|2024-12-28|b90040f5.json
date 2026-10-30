@@ -1,0 +1,13 @@
+{
+ "accession": "LITE|earnings_release|2024-12-28|b90040f5",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "8dda09c9e280df4f"
+ }
+}

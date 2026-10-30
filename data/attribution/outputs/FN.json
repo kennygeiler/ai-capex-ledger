@@ -1,0 +1,110 @@
+{
+ "ticker": "FN",
+ "prompt_version": "attribution@v2",
+ "model": "component_supplier@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 2225081000,
+   "ai_share": 0.4794,
+   "inputs": [
+    {
+     "id": "fact:FN|segment_revenue|Data center|FY2026",
+     "value": 2225081000
+    }
+   ],
+   "basis": "Revenue of the Data center category, 47.9% of 4,641,097,000; the MD&A states the same $2,225.1 million for data center products. It is a data-center line, not an AI one, so it includes non-AI data-center optics. Communications infrastructure and Automotive, industrial and other are excluded.",
+   "confidence": 0.6
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 1579915000,
+   "ai_share": 0.4621,
+   "inputs": [
+    {
+     "id": "fact:FN|segment_revenue|Data center|FY2025",
+     "value": 1579915000
+    }
+   ],
+   "basis": "Revenue of the Data center category under the recast categories, 1,579,915,000 of 3,419,327,000. It is a data-center line that includes non-AI products. Communications infrastructure, including datacenter interconnect sold as telecom, is excluded.",
+   "confidence": 0.6
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 1529693000,
+   "ai_share": 0.5306,
+   "inputs": [
+    {
+     "id": "fact:FN|segment_revenue|Data center|FY2024",
+     "value": 1529693000
+    }
+   ],
+   "basis": "Revenue of the Data center category under the recast categories, 1,529,693,000 of 2,882,967,000. The MD&A ties datacom growth that year 'primarily' to AI applications but gives no AI amount. The line includes non-AI data-center products.",
+   "confidence": 0.6
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 520796000,
+   "ai_share": 0.1969,
+   "inputs": [
+    {
+     "id": "fact:FN|segment_revenue|Datacom|FY2023",
+     "value": 520796000
+    }
+   ],
+   "basis": "Revenue of the pre-recast Datacom category, 520,796,000 of 2,645,237,000, taken as the data-center line before the fiscal 2026 recast. It is not comparable with the later Data center category: FY2024 Datacom was 1.15bn against Data center 1.53bn. Datacom includes non-AI cloud optics.",
+   "confidence": 0.35
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 361306000,
+   "ai_share": 0.1597,
+   "inputs": [
+    {
+     "id": "fact:FN|segment_revenue|Datacom|FY2022",
+     "value": 361306000
+    }
+   ],
+   "basis": "Revenue of the pre-recast Datacom category, 361,306,000 of 2,262,224,000. It is not comparable with the later Data center category, and no statement ties that year's datacom revenue to AI, so it is mostly non-AI cloud optics.",
+   "confidence": 0.3
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "No expansion is stated as being for AI demand with an amount, and the thesis gives none for Fabrinet in any year FY2022\u2013FY2026. The FY2026 capex increase to 252.5M is not attributed to AI in the pack."
+  },
+  {
+   "field": "opex",
+   "reason": "There is no segment cost line, and no statement attributes opex to AI in any year FY2022\u2013FY2026."
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "There are no purchase commitment or finance lease facts in the pack, so there is no committed row."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.3,
+  "input_tokens": 17424,
+  "output_tokens": 2088,
+  "attempts": 1,
+  "task_sha": "19154ce96b2bde88"
+ }
+}

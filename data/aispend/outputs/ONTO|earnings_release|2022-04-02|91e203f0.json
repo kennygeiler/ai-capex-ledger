@@ -1,0 +1,27 @@
+{
+ "accession": "ONTO|earnings_release|2022-04-02|91e203f0",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only passage is forward-looking-statements boilerplate; no sentence links the company's capital expenditures to AI (mentions of customer capital spending are risk-factor boilerplate)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; passage is safe-harbor boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 5463,
+  "output_tokens": 216,
+  "attempts": 1,
+  "task_sha": "8ac4c6d2e7551e04"
+ }
+}

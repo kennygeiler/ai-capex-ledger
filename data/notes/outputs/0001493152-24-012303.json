@@ -1,0 +1,233 @@
+{
+ "accession": "0001493152-24-012303",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Cryptocurrency mining revenue",
+   "table_id": "t0272",
+   "row_label": "Cryptocurrency mining revenue",
+   "column_label": "2023 | Years Ended December 31,",
+   "cell_text": "10,602",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 10602000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Cryptocurrency mining revenue",
+   "table_id": "t0272",
+   "row_label": "Cryptocurrency mining revenue",
+   "column_label": "2022 | Years Ended December 31,",
+   "cell_text": "24,409",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 24409000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Data hosting revenue",
+   "table_id": "t0272",
+   "row_label": "Data hosting revenue",
+   "column_label": "2023 | Years Ended December 31,",
+   "cell_text": "10,196",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 10196000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Data hosting revenue",
+   "table_id": "t0272",
+   "row_label": "Data hosting revenue",
+   "column_label": "2022 | Years Ended December 31,",
+   "cell_text": "4,138",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 4138000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Demand response service revenue",
+   "table_id": "t0272",
+   "row_label": "Demand response service revenue",
+   "column_label": "2023 | Years Ended December 31,",
+   "cell_text": "268",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 268000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0202",
+   "row_label": "Land and land improvements",
+   "column_label": "December 31, 2023",
+   "cell_text": "1,538",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 1538000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0202",
+   "row_label": "Land and land improvements",
+   "column_label": "December 31, 2022",
+   "cell_text": "540",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 540000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and leasehold improvements",
+   "table_id": "t0202",
+   "row_label": "Buildings and leasehold improvements",
+   "column_label": "December 31, 2023",
+   "cell_text": "25,369",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 25369000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and leasehold improvements",
+   "table_id": "t0202",
+   "row_label": "Buildings and leasehold improvements",
+   "column_label": "December 31, 2022",
+   "cell_text": "6,410",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 6410000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computers and related software",
+   "table_id": "t0202",
+   "row_label": "Computers and related software",
+   "column_label": "December 31, 2023",
+   "cell_text": "11,764",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 11764000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computers and related software",
+   "table_id": "t0202",
+   "row_label": "Computers and related software",
+   "column_label": "December 31, 2022",
+   "cell_text": "7,248",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 7248000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0202",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31, 2023",
+   "cell_text": "9,054",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 9054000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0202",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31, 2022",
+   "cell_text": "3,310",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 3310000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office furniture and fixtures",
+   "table_id": "t0202",
+   "row_label": "Office furniture and fixtures",
+   "column_label": "December 31, 2023",
+   "cell_text": "28",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 28000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office furniture and fixtures",
+   "table_id": "t0202",
+   "row_label": "Office furniture and fixtures",
+   "column_label": "December 31, 2022",
+   "cell_text": "22",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 22000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0202",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, 2023",
+   "cell_text": "1,111",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 1111000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0202",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, 2022",
+   "cell_text": "26,175",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 26175000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment note (t0272) reports only a single consolidated capital expenditures line, not capex per reportable segment"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities is included in the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included in the provided tables"
+  }
+ ],
+ "notes": "segment_revenue taken from t0272, the segment note whose revenue rows sum to 'Total segment and consolidated revenue'; the revenue lines are by revenue type, which the note treats as the reportable segments, hence confidence 0.9. Demand response service revenue for 2022 is shown as '-' and is not cited. t0265 was not used: its figures are far smaller than consolidated revenue and appear to describe a discontinued or sub-component operation rather than segment revenue.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 21.7,
+  "input_tokens": 5838,
+  "output_tokens": 2591,
+  "attempts": 1,
+  "task_sha": "c0662998accc6f73"
+ }
+}

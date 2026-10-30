@@ -1,0 +1,84 @@
+{
+ "accession": "IREN|earnings_release|2025-12-31|01d8c123",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Oklahoma data center campus",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Oklahoma",
+   "counterparty": null,
+   "capacity_mw": 1600,
+   "gpus": null,
+   "announced": "2026-02-05",
+   "in_service": "2028",
+   "quote": "New 1.6GW data center campus in Oklahoma o Increases secured grid-connected power to >4.5GW o Grid-studies complete, with power scheduled to ramp from 2028 o Large scale site (2,000 acres) with low latency network connectivity",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Microsoft contract",
+   "kind": "cloud_commitment",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Microsoft",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "ARR of $3.4bn represents expected $1.94bn average annual revenue under Microsoft contract plus estimated $1.5bn ARR from ~63k GPU deployment at British Columbia sites, based on internal company assumptions regarding GPU models, utilization and pricing.",
+   "passage": "p03",
+   "confidence": 0.8
+  },
+  {
+   "name": "Horizon 1-4",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Horizon 1-4 construction progressing to schedule",
+   "passage": "p01",
+   "confidence": 0.8
+  },
+  {
+   "name": "British Columbia AI Cloud expansion",
+   "kind": "gpu_cluster",
+   "status": "under_construction",
+   "location": "British Columbia",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": 63000,
+   "announced": null,
+   "in_service": null,
+   "quote": "ARR of $3.4bn represents expected $1.94bn average annual revenue under Microsoft contract plus estimated $1.5bn ARR from ~63k GPU deployment at British Columbia sites, based on internal company assumptions regarding GPU models, utilization and pricing.",
+   "passage": "p03",
+   "confidence": 0.7
+  },
+  {
+   "name": "140k GPU expansion",
+   "kind": "gpu_cluster",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": 140000,
+   "announced": null,
+   "in_service": null,
+   "quote": "Targeted 140k GPU expansion on track to deliver $3.4bn ARR by end of CY262 o Horizon 1-4 construction progressing to schedule",
+   "passage": "p01",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.8,
+  "input_tokens": 6082,
+  "output_tokens": 1877,
+  "attempts": 1,
+  "task_sha": "203b97a0b9348050"
+ }
+}

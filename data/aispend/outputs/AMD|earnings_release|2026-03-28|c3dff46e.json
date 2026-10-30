@@ -1,23 +1,50 @@
 {
  "accession": "AMD|earnings_release|2026-03-28|c3dff46e",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 5800000000,
+   "amount_high": 5800000000,
+   "quote": "Data Center segment revenue was $5.8 billion, up 57% year-over-year, driven by strong demand for AMD EPYC\u2122 processors and the continued ramp of AMD Instinct\u2122 GPU shipments.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "Quarterly figure (Q1 fiscal 2026, three months ended 2026-03-28), not full-year. The sentence names no year, so code will assign the reported year 2026. Data Center segment revenue includes EPYC server CPUs as well as Instinct AI GPUs."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 10300000000,
+   "amount_high": 10300000000,
+   "quote": "Revenue of $10.3 billion increased 38% y/y Driven primarily by strong growth in our Data Center and Client and Gaming segments and a return to growth in the Embedded segment",
+   "passage": "p16",
+   "confidence": 0.75,
+   "notes": "Total Q1 2026 quarterly revenue, with Data Center named as a driver. This is not the AI part. The slide text has no sentence punctuation, so the sentence boundary is inferred. Q1 2026 appears in the slide header, not in the quoted text."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the cash flow statement (p08) reports purchases of property and equipment of $389 million with no AI attribution"
+   "reason": "capital expenditures ($389 million in the p10 table) are reported, but no sentence links them to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; segment commentary (p14, p15) cites higher operating expenses without linking them to AI, and the AI mentions describe products, customer demand or partnerships, not spend"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.9,
-  "input_tokens": 12137,
-  "output_tokens": 329,
+  "seconds": 12.0,
+  "input_tokens": 14121,
+  "output_tokens": 1456,
   "attempts": 1,
-  "task_sha": "d76ca26aa680e8d3"
+  "task_sha": "5ec702bc0a7760f7"
  }
 }

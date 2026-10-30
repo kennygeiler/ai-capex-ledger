@@ -1,0 +1,13 @@
+{
+ "accession": "AMAT|mdna|2025-10-26|d98ced0f",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.0,
+  "input_tokens": 4375,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "736ff2066df5931c"
+ }
+}

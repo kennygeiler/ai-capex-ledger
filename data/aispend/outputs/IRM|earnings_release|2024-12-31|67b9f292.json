@@ -1,0 +1,37 @@
+{
+ "accession": "IRM|earnings_release|2024-12-31|67b9f292",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 620000000,
+   "amount_high": 620000000,
+   "quote": "$620 million 2024 Revenue, +25% vs. LY",
+   "passage": "p09",
+   "confidence": 0.8,
+   "notes": "Slide fragment, not a full sentence. It appears on the DATA CENTER slide, so it is read as data-center revenue. That attribution comes from the slide heading, not the fragment itself."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex appears only as recurring capex in the AFFO reconciliation and in forward-looking boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.1,
+  "input_tokens": 16525,
+  "output_tokens": 769,
+  "attempts": 1,
+  "task_sha": "99be3f11a50214e6"
+ }
+}

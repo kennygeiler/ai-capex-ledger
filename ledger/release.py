@@ -4,6 +4,7 @@ import hashlib
 import io
 import json
 import random
+import re
 from pathlib import Path
 
 from .config import GOLDEN_SEED
@@ -40,11 +41,26 @@ def to_check(values) -> dict:
             **{k(v): "spot_check" for v in random.Random(GOLDEN_SEED).sample(agree, min(SPOT_CHECKS, len(agree)))}}
 
 
+ID_START = re.compile(r"^\d{10}-\d{2}-\d{6}\|")
+
+
+def split_ids(joined: str) -> list[str]:
+    """extraction_ids are comma-joined, and a cost-line label may itself hold a comma ("Fuel, purchased power costs, and
+    delivery fees"); a piece that does not start with an accession belongs to the id before it (type 66)."""
+    out = []
+    for piece in joined.split(","):
+        if out and ID_START.match(out[-1]) and not ID_START.match(piece):
+            out[-1] += "," + piece
+        else:
+            out.append(piece)
+    return out
+
+
 def gates(values, open_items, handcheck, confirmed=frozenset()) -> dict:
     """{gate: [failing items]}; empty lists mean the gate passes. confirmed: extraction ids the rendered-10-K re-read
     found at their current cell text."""
     checked = {(h["ticker"], h["field"], h["period"]): h for h in (handcheck or {}).get("values", [])}
-    machine = lambda v: bool(v["extraction_ids"]) and set(v["extraction_ids"].split(",")) <= set(confirmed)
+    machine = lambda v: bool(v["extraction_ids"]) and set(split_ids(v["extraction_ids"])) <= set(confirmed)
     need = [v for v in values if (v["ticker"], v["field"], v["period"]) in to_check(values) and not machine(v)]
     return {
         "G1": [e["exception_id"] for e in open_items if e["rule_id"] == "extraction_failed"],

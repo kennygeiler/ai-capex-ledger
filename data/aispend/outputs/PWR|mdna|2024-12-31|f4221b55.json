@@ -1,0 +1,27 @@
+{
+ "accession": "PWR|mdna|2024-12-31|f4221b55",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure guidance for 2025 ($500 million to $550 million) is given only as meeting anticipated demand for services; no sentence links capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data center projects are mentioned only as a higher-margin project type; no sentence states the amount or share of revenue from AI or data-center work"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.2,
+  "input_tokens": 5731,
+  "output_tokens": 335,
+  "attempts": 1,
+  "task_sha": "94a58a6a22ed67dd"
+ }
+}

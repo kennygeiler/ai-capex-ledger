@@ -1,0 +1,76 @@
+{
+ "ticker": "PLTR",
+ "prompt_version": "attribution@v2",
+ "model": "ai_software@v3",
+ "rows": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no statement of an AI part of capex and no stated purchase of own GPUs; under ai_software@v3 the 'Computer equipment, software, and other' PP&E category is not an AI line, so ppe_category is not used"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no statement of an AI part of capex and no stated purchase of own GPUs; PP&E categories are not AI lines for this industry"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "no statement of an AI part of capex and no stated purchase of own GPUs; PP&E categories are not AI lines for this industry"
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "no statement of an AI part of capex and no stated purchase of own GPUs; PP&E categories are not AI lines for this industry"
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no AI hosting or compute cost figure and no statement attributing cost of revenue or gross margin to AI in the pack; purchase commitments of 1,275,377,000 (fact:PLTR|purchase_commitments||FY2022) are total commitments, not separated as AI cloud compute, and are committed rather than spent in the year"
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "no AI hosting or compute cost figure or AI-attributed cost statement in the pack; purchase commitments stepped up to 2,082,992,000 (fact:PLTR|purchase_commitments||FY2023), but the note does not separate AI cloud compute and commitments are not the year's spend"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "no AI hosting or compute cost figure or AI-attributed cost statement in the pack; purchase commitments of 2,001,637,000 (fact:PLTR|purchase_commitments||FY2024, unresolved against XBRL) are not separated as AI and are not the year's spend"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "no AI hosting or compute cost figure or AI-attributed cost statement in the pack; purchase commitments fell to 1,758,951,000 (fact:PLTR|purchase_commitments||FY2025), not separated as AI and not the year's spend"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "no stated AI product revenue, ARR or share in the pack; the Commercial and Government segments are not AI lines and may not be summed as AI revenue"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "no stated AI product revenue, ARR or share in the pack; the Commercial and Government segments are not AI lines and may not be summed as AI revenue"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "no stated AI product revenue, ARR or share in the pack and no segment facts for the year; the thesis's qualitative AIP attribution comes from the Q2 2026 release, which is outside the pack's years and has no quote here"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "reason": "no stated AI product revenue, ARR or share in the pack and no segment facts for the year; the pack has no verbatim statements attributing growth to AIP, so even a qualitative row has no basis"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.6,
+  "input_tokens": 11500,
+  "output_tokens": 1646,
+  "attempts": 1,
+  "task_sha": "04da9c7644021b94"
+ }
+}

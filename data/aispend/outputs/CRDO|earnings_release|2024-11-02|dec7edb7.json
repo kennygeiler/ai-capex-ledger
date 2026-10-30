@@ -1,23 +1,35 @@
 {
  "accession": "CRDO|earnings_release|2024-11-02|dec7edb7",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "I am pleased to share that this turning point has arrived, and we are experiencing even greater demand than initially projected, driven by AI deployments and deepening customer relationships.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Names AI deployments as a driver of demand and revenue but gives no AI revenue figure or share. The $72.0 million record revenue in the preceding sentence is quarterly total revenue for Q2 fiscal 2025, and that sentence does not mention AI, so it is not recorded. The sentence names no year; the context refers to the second half of fiscal 2025."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence mentions capital expenditures"
   },
   {
    "field": "opex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence quantifies operating expenses or attributes them to AI"
   }
  ],
  "_run": {
-  "model": null,
-  "seconds": 0.0,
-  "input_tokens": 0,
-  "output_tokens": 0,
-  "attempts": 0,
-  "task_sha": "ae407f482f1241b7"
+  "model": "claude-opus-5-5",
+  "seconds": 10.1,
+  "input_tokens": 4928,
+  "output_tokens": 739,
+  "attempts": 1,
+  "task_sha": "583d696e15a48b53"
  }
 }

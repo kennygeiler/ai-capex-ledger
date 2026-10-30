@@ -1,6 +1,6 @@
 {
  "accession": "TSLA|earnings_release|2024-03-31|abd54a2f",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -12,8 +12,8 @@
    "amount_high": 1000000000,
    "quote": "The sequential decrease of $2.2B was a result of negative free cash flow of $2.5B, driven by an inventory increase of $2.7B and AI infrastructure capex of $1.0B in Q1.",
    "passage": "p02",
-   "confidence": 0.95,
-   "notes": "Quarterly figure (Q1 only), not full fiscal year. The same $1.0B AI infrastructure capex also appears in p01 as a parenthetical fragment, '(AI infrastructure capex was $1.0B in Q1)'; the p02 full sentence is used instead. The sentence names Q1 but no year; the release covers the quarter ended 2024-03-31."
+   "confidence": 0.9,
+   "notes": "Quarterly figure (Q1 of fiscal 2024), not full-year. The sentence names no year. The same $1.0B AI infrastructure capex figure also appears in p01."
   },
   {
    "field": "capex",
@@ -25,8 +25,19 @@
    "amount_high": 2800000000,
    "quote": "While many are pulling back on their investments, we are investing in future growth \u2013 including our AI infrastructure, production capacity, our Supercharger and service networks and new products infrastructure \u2013 with $2.8B of capital expenditures in Q1.",
    "passage": "p01",
-   "confidence": 0.95,
-   "notes": "Total Q1 capex, with AI infrastructure as one of several purposes. This is not AI spend. Quarterly figure only; the sentence names Q1 but no year."
+   "confidence": 0.9,
+   "notes": "Total Q1 capex (quarterly, not full-year). AI infrastructure is listed as one of several purposes. The sentence names no year."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "To further improve our end- to-end training capability, we will continue to increase our core AI infrastructure capacity in the coming months.",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "The sentence states an expansion of AI infrastructure capacity but does not say 'capital expenditures'; it is read as a capex outlook. 'In the coming months' likely refers to the rest of 2024, but the sentence names no year."
   },
   {
    "field": "opex",
@@ -37,27 +48,21 @@
    "quote": "increase in operating expenses partly driven by AI, cell advancements and other R&D projects",
    "passage": "p02",
    "confidence": 0.8,
-   "notes": "This is a bullet item in a list of YoY operating income drivers, not a standalone punctuated sentence. It attributes part of the YoY increase in total operating expenses to AI and gives no amount."
-  },
-  {
-   "field": "capex",
-   "fiscal_year": null,
-   "kind": "outlook",
-   "scope": "ai",
-   "class": "qualitative",
-   "quote": "To further improve our end- to-end training capability, we will continue to increase our core AI infrastructure capacity in the coming months.",
-   "passage": "p03",
-   "confidence": 0.6,
-   "notes": "The sentence describes expanding AI infrastructure capacity rather than spend explicitly. It is linked to capex because the release reports AI infrastructure as capex elsewhere. 'In the coming months' gives no fiscal year."
+   "notes": "This is a bullet item inside a long run-on list rather than a standalone sentence, so the quote is the item itself. It is a Q1 year-over-year increase in total opex, partly attributed to AI."
   }
  ],
- "none_found": [],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "Tesla is an AI buyer, not an AI or data-center seller. FSD revenue recognition is mentioned only qualitatively as an automotive software item, and no sentence states AI or data-center revenue."
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 18.6,
-  "input_tokens": 8443,
-  "output_tokens": 1909,
+  "seconds": 21.3,
+  "input_tokens": 9363,
+  "output_tokens": 2016,
   "attempts": 1,
-  "task_sha": "acee0b983d6055e2"
+  "task_sha": "8f71d89c2788f9e8"
  }
 }

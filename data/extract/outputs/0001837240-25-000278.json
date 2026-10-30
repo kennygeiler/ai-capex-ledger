@@ -1,0 +1,150 @@
+{
+ "accession": "0001837240-25-000278",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0032",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended | September 27, 2025",
+   "cell_text": "2,246,922",
+   "period_end": "2025-09-27",
+   "months": 12,
+   "value": 2246922000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0032",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended | September 28, 2024",
+   "cell_text": "1,788,179",
+   "period_end": "2024-09-28",
+   "months": 12,
+   "value": 1788179000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0032",
+   "row_label": "Total revenue",
+   "column_label": "Year Ended | September 30, 2023",
+   "cell_text": "1,176,891",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": 1176891000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0032",
+   "row_label": "Total cost of revenue",
+   "column_label": "Year Ended | September 27, 2025",
+   "cell_text": "1,824,312",
+   "period_end": "2025-09-27",
+   "months": 12,
+   "value": 1824312000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0032",
+   "row_label": "Total cost of revenue",
+   "column_label": "Year Ended | September 28, 2024",
+   "cell_text": "1,542,513",
+   "period_end": "2024-09-28",
+   "months": 12,
+   "value": 1542513000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0032",
+   "row_label": "Total cost of revenue",
+   "column_label": "Year Ended | September 30, 2023",
+   "cell_text": "987,152",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": 987152000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0032",
+   "row_label": "Operating loss",
+   "column_label": "Year Ended | September 27, 2025",
+   "cell_text": "(115,006)",
+   "period_end": "2025-09-27",
+   "months": 12,
+   "value": -115006000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0032",
+   "row_label": "Operating loss",
+   "column_label": "Year Ended | September 28, 2024",
+   "cell_text": "(116,725)",
+   "period_end": "2024-09-28",
+   "months": 12,
+   "value": -116725000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0032",
+   "row_label": "Operating loss",
+   "column_label": "Year Ended | September 30, 2023",
+   "cell_text": "(223,230)",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": -223230000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0036",
+   "row_label": "Purchases of property and equipment and capitalization of internal use software development costs",
+   "column_label": "Year Ended | September 27, 2025",
+   "cell_text": "(79,030)",
+   "period_end": "2025-09-27",
+   "months": 12,
+   "value": 79030000,
+   "confidence": 0.95,
+   "notes": "Line combines purchases of property and equipment with capitalized internal-use software development costs (an intangible asset); used as the single capex line per instructions."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0036",
+   "row_label": "Purchases of property and equipment and capitalization of internal use software development costs",
+   "column_label": "Year Ended | September 28, 2024",
+   "cell_text": "(44,374)",
+   "period_end": "2024-09-28",
+   "months": 12,
+   "value": 44374000,
+   "confidence": 0.95,
+   "notes": "Line combines purchases of property and equipment with capitalized internal-use software development costs (an intangible asset); used as the single capex line per instructions."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0036",
+   "row_label": "Purchases of property and equipment and capitalization of internal use software development costs",
+   "column_label": "Year Ended | September 30, 2023",
+   "cell_text": "(21,326)",
+   "period_end": "2023-09-30",
+   "months": 12,
+   "value": 21326000,
+   "confidence": 0.95,
+   "notes": "Line combines purchases of property and equipment with capitalized internal-use software development costs (an intangible asset); used as the single capex line per instructions."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.2,
+  "input_tokens": 6222,
+  "output_tokens": 1524,
+  "attempts": 1,
+  "task_sha": "f1586a0ccb5e82eb"
+ }
+}

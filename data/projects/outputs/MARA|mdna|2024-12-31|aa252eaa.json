@@ -1,0 +1,112 @@
+{
+ "accession": "MARA|mdna|2024-12-31|aa252eaa",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Granbury, TX data center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Granbury, TX",
+   "counterparty": null,
+   "capacity_mw": 290,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We believe our state-of-the-art 290 MW nameplate capacity data center in Granbury is one of the largest containerized liquid immersion-cooled sites worldwide.",
+   "passage": "p03",
+   "confidence": 0.85
+  },
+  {
+   "name": "Kearney, NE bitcoin mining site",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Kearney, NE",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In January 2024, we acquired two operational bitcoin mining sites totaling 390 MW of nameplate capacity.",
+   "passage": "p03",
+   "confidence": 0.7
+  },
+  {
+   "name": "Garden City, TX bitcoin mining site",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Garden City, TX",
+   "counterparty": null,
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In April 2024, we acquired an operational bitcoin mining site with 132 megawatts of operational capacity and 200 MW of nameplate capacity.",
+   "passage": "p04",
+   "confidence": 0.85
+  },
+  {
+   "name": "Hannibal and Hopedale, OH data centers",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Hannibal and Hopedale, OH",
+   "counterparty": null,
+   "capacity_mw": 222,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In November 2024, we acquired two operational data centers with 222 MW of interconnect-approved capacity.",
+   "passage": "p05",
+   "confidence": 0.65
+  },
+  {
+   "name": "Findlay, Ohio greenfield data center",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Findlay, Ohio",
+   "counterparty": null,
+   "capacity_mw": 150,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In addition to the acquired data centers, we began developing a 150 MW greenfield operational data center in Findlay, Ohio.",
+   "passage": "p05",
+   "confidence": 0.85
+  },
+  {
+   "name": "Hansford County, TX wind farm",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Hansford County, TX",
+   "counterparty": null,
+   "capacity_mw": 114,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In February 2025, we acquired a wind farm with 240 MW of interconnection capacity and 114 MW of nameplate wind capacity.",
+   "passage": "p06",
+   "confidence": 0.75
+  },
+  {
+   "name": "Micro data center initiative at wellheads in Texas and North Dakota",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Texas and North Dakota",
+   "counterparty": null,
+   "capacity_mw": 25,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "\u2022We launched a 25 MW micro data center initiative at wellheads in Texas and North Dakota, converting excess flared gas into power for our operations.",
+   "passage": "p07",
+   "confidence": 0.75
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.5,
+  "input_tokens": 6852,
+  "output_tokens": 2184,
+  "attempts": 1,
+  "task_sha": "1b503b5d3818c72d"
+ }
+}

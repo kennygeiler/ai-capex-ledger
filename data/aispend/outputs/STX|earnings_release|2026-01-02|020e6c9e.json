@@ -1,0 +1,35 @@
+{
+ "accession": "STX|earnings_release|2026-01-02|020e6c9e",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This performance highlights our team\u2019s strong operational execution, the durability of data center demand, and the ongoing ramp of our HAMR-based Mozaic products,\u201d said Dave Mosley, Seagate\u2019s chair and chief executive officer.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "December-quarter results (top line) attributed in part to data center demand; no amount or share of data-center revenue stated. Quarter falls in fiscal 2026 but the sentence names no year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.6,
+  "input_tokens": 4975,
+  "output_tokens": 807,
+  "attempts": 1,
+  "task_sha": "7251877c67f36cee"
+ }
+}

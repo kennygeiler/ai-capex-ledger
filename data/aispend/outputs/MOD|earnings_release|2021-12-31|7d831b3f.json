@@ -1,0 +1,35 @@
+{
+ "accession": "MOD|earnings_release|2021-12-31|7d831b3f",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This increase was driven primarily by higher sales to data center and commercial HVAC customers.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Refers to the increase in BHVAC segment sales ($90.6M vs $73.7M), not total company revenue. Data center sales are named as a driver alongside commercial HVAC, and no data-center amount or share is stated. The sentence names no year; it is the third quarter of fiscal 2022."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are mentioned only as higher than the prior year, with no link to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 5578,
+  "output_tokens": 539,
+  "attempts": 1,
+  "task_sha": "a8f7f824aa515445"
+ }
+}

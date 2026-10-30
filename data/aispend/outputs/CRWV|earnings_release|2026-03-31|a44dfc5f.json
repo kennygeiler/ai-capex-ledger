@@ -1,23 +1,27 @@
 {
  "accession": "CRWV|earnings_release|2026-03-31|a44dfc5f",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is forward-looking-statements boilerplate; 'continued demand for AI infrastructure' is a risk factor, and no sentence links capital expenditures to AI or states any capex amount or share"
+   "reason": "no sentence states capital expenditures or links them to AI; the 8 GW by 2030 remark is a power-capacity goal, not a spend figure"
   },
   {
    "field": "opex",
-   "reason": "the only passage is forward-looking-statements boilerplate; no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only figure is revenue backlog (~$100 billion), which is contracted future revenue, not reported or guided revenue for a fiscal year; other AI mentions describe the business or are risk-factor boilerplate"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.9,
-  "input_tokens": 5021,
-  "output_tokens": 215,
+  "seconds": 4.7,
+  "input_tokens": 5561,
+  "output_tokens": 423,
   "attempts": 1,
-  "task_sha": "b1ec36f148234d2a"
+  "task_sha": "05088ff522090efb"
  }
 }

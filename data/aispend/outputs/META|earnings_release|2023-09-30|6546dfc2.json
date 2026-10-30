@@ -1,6 +1,6 @@
 {
  "accession": "META|earnings_release|2023-09-30|6546dfc2",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -12,22 +12,26 @@
    "amount_high": 35000000000,
    "quote": "We anticipate our full-year 2024 capital expenditures will be in the range of $30-35 billion, with growth driven by investments in servers, including both non-artificial intelligence (AI) and AI hardware, and data centers as we ramp up construction on sites with the new data center architecture we announced late last year.",
    "passage": "p04",
-   "confidence": 0.9,
-   "notes": "Total capex guidance; AI hardware is named as one driver of growth alongside non-AI servers and data centers. No AI-specific amount is stated."
+   "confidence": 1.0,
+   "notes": "Total capex outlook; AI hardware is named as one driver of growth alongside non-AI servers and data centers. The AI part is not quantified. The 2023 capex outlook in p03 ($27-29 billion) is not recorded because that sentence makes no link to AI."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; the 2024 total expense outlook in p02 does not mention AI"
+   "reason": "the 2024 total expense outlook in p02 ($94-99 billion) is not linked to AI in the sentence, and no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "Meta is a buyer of AI hardware; no sentence states AI's or data center's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.6,
-  "input_tokens": 5021,
-  "output_tokens": 578,
+  "seconds": 5.7,
+  "input_tokens": 5324,
+  "output_tokens": 619,
   "attempts": 1,
-  "task_sha": "f22230315872f5b7"
+  "task_sha": "3247ca008c4a775f"
  }
 }

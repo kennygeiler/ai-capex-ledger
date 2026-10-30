@@ -1,0 +1,46 @@
+{
+ "accession": "HUT|mdna|2024-12-31|307ae500",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1800000,
+   "amount_high": 1800000,
+   "quote": "This $15.8 million increase was primarily driven by (i) a $7.3 million increase in Bitcoin Mining revenue, largely due to an increase in the average revenue per Bitcoin mined from $30,398 to $60,436, partially offset by a decrease in Bitcoin mined, due to an increase in network difficulty and the Halving event (we mined 1,184 Bitcoin during the twelve months ended December 31, 2024 versus 2,138 Bitcoin mined during the twelve months ended December 31, 2023), (ii) a $6.7 million increase in recurring Data Center Cloud revenue, reflecting a full year of Data Center Cloud operations during twelve months ended December 31, 2024 compared to one month of Data Center Cloud operations following the Business Combination, and (iii) a $1.8 million contribution from our GPU-as-a-Service offering, which launched in September 2024.",
+   "passage": "p06",
+   "confidence": 0.8,
+   "notes": "$1.8M is stated as the GPU-as-a-Service (Highrise AI, NVIDIA H100) contribution to the year-over-year increase; since the offering launched in September 2024, this is effectively its full-year revenue. AI attribution rests on the GPU-as-a-Service / Highrise AI label. The $6.7M Data Center Cloud figure is an increase in CPU colocation revenue, not a revenue level, and was not recorded."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1000000,
+   "amount_high": 1000000,
+   "quote": "This $2.4 million increase was primarily driven by (i) a $5.5 million increase in Data Center Cloud costs, reflecting a full year of Data Center Cloud operations during twelve months ended December 31, 2024 compared to one month of Data Center Cloud operations during twelve months ended December 31, 2023 following the Business Combination, and (ii) a $1.0 million increase in costs related to our new GPU-as-a-Service offering, launched in September 2024.",
+   "passage": "p07",
+   "confidence": 0.6,
+   "notes": "Cost of revenue, not operating expense proper. Stated as an increase, but the offering is new (launched September 2024), so it equals its 2024 costs. AI attribution rests on the GPU-as-a-Service label."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; the Vega data center construction (p01, p04) gives no amount and is not linked to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.0,
+  "input_tokens": 6225,
+  "output_tokens": 1655,
+  "attempts": 1,
+  "task_sha": "13082f6a37e641d0"
+ }
+}

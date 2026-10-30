@@ -1,0 +1,46 @@
+{
+ "accession": "FCX|earnings_release|2026-06-30|773518e0",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Bagdad expansion",
+   "kind": "plant",
+   "status": "announced",
+   "location": "northwest Arizona",
+   "counterparty": null,
+   "amount_low": 4500000000,
+   "amount_high": 4500000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Current estimates, which remain under review, indicate future incremental capital costs for a new concentrator, mining equipment and expanded infrastructure to approximate $4.5 billion.",
+   "passage": "p07",
+   "confidence": 0.6
+  },
+  {
+   "name": "El Abra expansion",
+   "kind": "plant",
+   "status": "announced",
+   "location": "Chile",
+   "counterparty": null,
+   "amount_low": 7500000000,
+   "amount_high": 7500000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Preliminary estimates, which remain under review, indicate project capital costs of approximately $7.5 billion (based on estimates prepared in 2024) with project economics supported using an incentive copper price of less than $4.00 per pound.",
+   "passage": "p09",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.6,
+  "input_tokens": 12887,
+  "output_tokens": 994,
+  "attempts": 1,
+  "task_sha": "cbced68f22a4ce98"
+ }
+}

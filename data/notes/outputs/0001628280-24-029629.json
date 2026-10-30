@@ -1,6 +1,6 @@
 {
  "accession": "0001628280-24-029629",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -108,7 +108,7 @@
    "period_end": "2024-04-27",
    "months": 0,
    "value": 534000,
-   "confidence": 0.9
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -120,7 +120,7 @@
    "period_end": "2023-04-29",
    "months": 0,
    "value": 632000,
-   "confidence": 0.9
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -157,29 +157,29 @@
    "months": 0,
    "value": 91797000,
    "confidence": 0.7,
-   "notes": "Chose the Total column of the 'Total unconditional purchase commitments' row, which includes technology license fees (17,735). Purchase commitments to manufacturing vendors alone are 74,062 (column [0]). The table's as-of date is not shown; assumed to be the fiscal year-end 2024-04-27. Column headers appear to have absorbed per-year payment rows during parsing."
+   "notes": "Table header was mis-parsed (year-by-year payments merged into column labels) and carries no as-of date; assumed to be as of the fiscal 2024 year-end. Chose the grand total (manufacturing-vendor purchase commitments 74,062 plus technology license fees 17,735) since the row is labeled 'Total unconditional purchase commitments'; the manufacturing-vendor-only figure would be 74,062."
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "No segment note with capital expenditures by segment appears in the tables; the company appears to report a single segment."
+   "reason": "No segment note in the tables; the company reports a single segment, so there is no per-segment capital expenditure."
   },
   {
    "field": "segment_revenue",
-   "reason": "The only revenue table (t0013) shows revenue by type (product sales, product engineering services, IP license) as percentages of total revenue, not dollar amounts per segment or market."
+   "reason": "The only revenue breakdown (t0013) is by revenue type (product sales, product engineering services, IP license) expressed as percentages of total revenue, not dollar amounts by segment or market."
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No lease table with finance lease liabilities is present in the provided tables."
+   "reason": "No lease note table is provided and no finance lease liability line appears in any table."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
   "seconds": 16.8,
-  "input_tokens": 5386,
-  "output_tokens": 2201,
+  "input_tokens": 5514,
+  "output_tokens": 2357,
   "attempts": 1,
-  "task_sha": "7ec7491e3eb3fc3b"
+  "task_sha": "4a55a2434c747e82"
  }
 }

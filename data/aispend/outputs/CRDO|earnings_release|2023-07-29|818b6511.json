@@ -1,6 +1,6 @@
 {
  "accession": "CRDO|earnings_release|2023-07-29|818b6511",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "b5059b353e3138cf"
+  "task_sha": "4b7f101077051fc6"
  }
 }

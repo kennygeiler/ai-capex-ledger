@@ -1,7 +1,7 @@
 {
  "ticker": "META",
- "prompt_version": "attribution@v1",
- "model": "hyperscaler@v2",
+ "prompt_version": "attribution@v2",
+ "model": "hyperscaler@v4",
  "rows": [
   {
    "field": "capex",
@@ -20,7 +20,7 @@
      "value": 25584000000
     }
    ],
-   "basis": "Growth in gross 'Servers and network assets': 34.330B \u2212 25.584B = 8.746B. This counts all server and network growth, AI and non-AI, net of disposals, and excludes datacenter shells (Buildings, CIP) and finance-lease assets; the company said the capex step-up was server spend 'including for our AI infrastructure'.",
+   "basis": "Growth in gross 'Servers and network assets', 34,330M \u2212 25,584M = 8,746M, against purchases of property and equipment of 31,186M (excluding finance lease principal). This counts all server growth, AI and non-AI, net of any disposals; management said the 2022 step-up in capex was 'largely due to building out our AI infrastructure', but gave no share.",
    "confidence": 0.5
   },
   {
@@ -40,7 +40,7 @@
      "value": 34330000000
     }
    ],
-   "basis": "Growth in gross 'Servers and network assets': 46.838B \u2212 34.330B = 12.508B. This counts all server and network growth, AI and non-AI, net of disposals; buildings, CIP, and finance leases are excluded.",
+   "basis": "Growth in gross 'Servers and network assets', 46,838M \u2212 34,330M = 12,508M, against purchases of property and equipment of 27,045M. This counts all server growth, not only AI. It excludes buildings and construction in progress, which is the shell for the new data center architecture that supports both AI and non-AI workloads.",
    "confidence": 0.5
   },
   {
@@ -60,7 +60,7 @@
      "value": 46838000000
     }
    ],
-   "basis": "Growth in gross 'Servers and network assets': 68.397B \u2212 46.838B = 21.559B. The company said server investment included 'both AI and non-AI hardware', so this is an upper-bound proxy for AI compute; it excludes datacenter shells and finance leases.",
+   "basis": "Growth in gross 'Servers and network assets', 68,397M \u2212 46,838M = 21,559M, against purchases of property and equipment of 37,256M. This counts all server growth; Meta said the 2024 server growth included 'both AI and non-AI hardware'.",
    "confidence": 0.5
   },
   {
@@ -69,7 +69,7 @@
    "kind": "actual",
    "method": "ppe_category",
    "ai_amount": 29643000000,
-   "ai_share": 0.4253,
+   "ai_share": 0.4254,
    "inputs": [
     {
      "id": "fact:META|ppe_category|Servers and network assets|FY2025",
@@ -80,8 +80,8 @@
      "value": 68397000000
     }
    ],
-   "basis": "Growth in gross 'Servers and network assets': 98.040B \u2212 68.397B = 29.643B, covering all servers (core, gen-AI, and non-AI), net of disposals. It excludes the 23.7B jump in construction in progress (training-cluster datacenters), finance-lease assets, and the off-balance-sheet Hyperion JV.",
-   "confidence": 0.5
+   "basis": "Growth in gross 'Servers and network assets', 98,040M \u2212 68,397M = 29,643M, against purchases of property and equipment of 69,691M. Meta's own 72.22B capex figure, which includes finance lease principal, is not used. This counts all server growth: Meta said the majority of 2025 capex went to the core business, and its GPUs can serve generative AI and core AI alike. Construction in progress rose from 26.8B to 50.5B, which is the shell and is excluded.",
+   "confidence": 0.45
   },
   {
    "field": "capex",
@@ -91,8 +91,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "Guidance of $115-135B, later narrowed to $130-145B including finance-lease principal, is total capex 'to support our AI efforts and core business'. The 10-K says AI 'will require significantly increased investment in infrastructure', but no AI amount or share is given.",
-   "confidence": 0.3
+   "basis": "Guidance for 2026 capex, including finance lease principal, is a total: 115\u2013135B in January, 125\u2013145B in April, then 130\u2013145B in July 2026, 'to support our AI efforts and core business' and Meta Superintelligence Labs. That is the whole, not the AI part, so no amount is taken. Forward signals not in the pack: 131.05B of contractual commitments, mostly third-party cloud capacity, and about 103.77B of leases not yet commenced.",
+   "confidence": 0.25
   },
   {
    "field": "opex",
@@ -102,7 +102,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The 10-K MD&A cites 'significant investments in AI initiatives' within R&D; no amount or share is given.",
+   "basis": "The MD&A says efforts include 'significant investments in AI initiatives' for recommendations, ad tools and generative AI features. No amount or share is given.",
    "confidence": 0.2
   },
   {
@@ -113,8 +113,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The 10-K MD&A cites 'significant investments in AI initiatives'. Management called AI the 'biggest investment area in 2024 -- both in engineering and compute', but gave no amount.",
-   "confidence": 0.25
+   "basis": "The MD&A repeats 'significant investments in AI initiatives'. No amount or share of the 64,960M of costs is attributed to AI.",
+   "confidence": 0.2
   },
   {
    "field": "opex",
@@ -124,8 +124,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The FY2025 opex increase was 'mostly due to higher employee compensation and infrastructure costs related to research and development, including our AI initiatives', with compensation growth 'particularly AI talent' (MSL hires). No amount is given.",
-   "confidence": 0.3
+   "basis": "Meta says the cost increase was 'mostly due to higher employee compensation and infrastructure costs related to research and development, including our AI initiatives', and that compensation growth came 'particularly' from AI talent. None of the 81,515M is quantified as AI.",
+   "confidence": 0.2
   },
   {
    "field": "opex",
@@ -135,33 +135,78 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "Expense growth in 2026 is attributed to infrastructure costs, then employee compensation including a full year of 2025 AI-talent hires and 2026 hires 'particularly AI'. No amount is given.",
-   "confidence": 0.25
+   "basis": "The 2026 expense outlook cites infrastructure costs and a full year of compensation for 2025 AI hires, plus new hires 'particularly AI'. No AI amount is given.",
+   "confidence": 0.15
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Meta has no AI segment; Family of Apps (198,759M) and Reality Labs (2,207M) are not AI lines. Video generation tools reached a combined 10B revenue run rate in Q4 2025, and 'a meaningful percent' of ad revenue comes from campaigns using generative AI features. These are run rates and usage of ad tools, not fiscal-year AI revenue.",
+   "confidence": 0.15
+  },
+  {
+   "field": "revenue",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "In Q3 2026, management said AI 'is going to become a meaningful source of revenue diversification over time', with no amount or timing.",
+   "confidence": 0.1
   }
  ],
  "none_found": [
   {
+   "field": "capex",
+   "reason": "No stated AI share or amount of capex in any year; all dollar guidance is total capex. The server-category growth used above counts non-AI servers too."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "No committed row: the pack has no purchase_commitments or finance_lease_liability facts. The thesis's 131.05B of commitments and 103.77B of leases not yet commenced are not pack items."
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "No actual row: FY2026 capex is not in the pack's values; only statements and guidance exist."
+  },
+  {
    "field": "opex",
    "period": "FY2022",
-   "reason": "no statement in the pack attributes FY2022 operating expenses to AI, and there is no segment cost split for AI"
+   "reason": "No statement attributes FY2022 opex to AI, and there is no segment cost line."
   },
   {
-   "field": "capex",
-   "period": "FY2022-FY2026",
-   "reason": "no stated AI share or AI dollar amount exists for any year; all explicit amounts are total-capex guidance, and the FY2025 split ('majority of capex directed to core business') is unquantified"
+   "field": "opex",
+   "reason": "No segment cost line and no quantified AI depreciation or headcount cost in any year."
   },
   {
-   "field": "capex",
-   "period": "FY2023-FY2025 outlook",
-   "reason": "outlook statements for these years give only total-capex ranges or qualitative AI language, and are superseded by the actual rows"
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "No AI segment and no statement on AI revenue."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "No AI segment and no statement on AI revenue."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "No AI segment and no statement on AI revenue."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 24.8,
-  "input_tokens": 19042,
-  "output_tokens": 3154,
+  "seconds": 28.8,
+  "input_tokens": 28089,
+  "output_tokens": 3753,
   "attempts": 1,
-  "task_sha": "347381e033320b30"
+  "task_sha": "922ac91d8db83053"
  }
 }

@@ -1,23 +1,27 @@
 {
  "accession": "CIFR|earnings_release|2023-12-31|be89032b",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; capex discussed (data center expansions, equipment purchases) relates to bitcoin mining, not AI"
+   "reason": "no sentence links capital expenditures to AI; data center expansion and equipment purchases are for bitcoin mining"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; the release does not mention AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "bitcoin miner; revenue is from bitcoin mining and power sales, no sentence states AI or AI data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.1,
-  "input_tokens": 9220,
-  "output_tokens": 173,
+  "seconds": 3.5,
+  "input_tokens": 9864,
+  "output_tokens": 211,
   "attempts": 1,
-  "task_sha": "0427d36abedf0726"
+  "task_sha": "a462331b0cb8a852"
  }
 }

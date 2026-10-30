@@ -1,0 +1,13 @@
+{
+ "accession": "STX|earnings_release|2024-12-27|eb774219",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "8e1c7d6636726cb0"
+ }
+}

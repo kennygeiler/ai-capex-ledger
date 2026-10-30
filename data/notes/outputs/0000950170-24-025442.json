@@ -1,33 +1,7 @@
 {
  "accession": "0000950170-24-025442",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
-  {
-   "field": "segment_revenue",
-   "dimension": "Revenue - bitcoin mining",
-   "table_id": "t0008",
-   "row_label": "Revenue - bitcoin mining",
-   "column_label": "Years ended December 31, | 2023",
-   "cell_text": "126,842",
-   "period_end": "2023-12-31",
-   "months": 12,
-   "value": 126842000,
-   "confidence": 0.7,
-   "notes": "Single reportable segment (bitcoin mining); this row is both the segment and the consolidated revenue"
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Revenue - bitcoin mining",
-   "table_id": "t0008",
-   "row_label": "Revenue - bitcoin mining",
-   "column_label": "Years ended December 31, | 2022",
-   "cell_text": "3,037",
-   "period_end": "2022-12-31",
-   "months": 12,
-   "value": 3037000,
-   "confidence": 0.7,
-   "notes": "Single reportable segment (bitcoin mining); this row is both the segment and the consolidated revenue"
-  },
   {
    "field": "ppe_category",
    "dimension": "Miners and mining equipment",
@@ -38,6 +12,66 @@
    "period_end": "2023-12-31",
    "months": 0,
    "value": 163523000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0032",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, 2023",
+   "cell_text": "138,883",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 138883000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office and computer equipment",
+   "table_id": "t0032",
+   "row_label": "Office and computer equipment",
+   "column_label": "December 31, 2023",
+   "cell_text": "279",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 279000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Autos",
+   "table_id": "t0032",
+   "row_label": "Autos",
+   "column_label": "December 31, 2023",
+   "cell_text": "73",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 73000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0032",
+   "row_label": "Furniture and fixtures",
+   "column_label": "December 31, 2023",
+   "cell_text": "88",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 88000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction-in-progress",
+   "table_id": "t0032",
+   "row_label": "Construction-in-progress",
+   "column_label": "December 31, 2023",
+   "cell_text": "49",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 49000,
    "confidence": 1.0
   },
   {
@@ -57,18 +91,6 @@
    "dimension": "Leasehold improvements",
    "table_id": "t0032",
    "row_label": "Leasehold improvements",
-   "column_label": "December 31, 2023",
-   "cell_text": "138,883",
-   "period_end": "2023-12-31",
-   "months": 0,
-   "value": 138883000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Leasehold improvements",
-   "table_id": "t0032",
-   "row_label": "Leasehold improvements",
    "column_label": "December 31, 2022",
    "cell_text": "94,807",
    "period_end": "2022-12-31",
@@ -81,18 +103,6 @@
    "dimension": "Office and computer equipment",
    "table_id": "t0032",
    "row_label": "Office and computer equipment",
-   "column_label": "December 31, 2023",
-   "cell_text": "279",
-   "period_end": "2023-12-31",
-   "months": 0,
-   "value": 279000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Office and computer equipment",
-   "table_id": "t0032",
-   "row_label": "Office and computer equipment",
    "column_label": "December 31, 2022",
    "cell_text": "88",
    "period_end": "2022-12-31",
@@ -105,35 +115,11 @@
    "dimension": "Autos",
    "table_id": "t0032",
    "row_label": "Autos",
-   "column_label": "December 31, 2023",
-   "cell_text": "73",
-   "period_end": "2023-12-31",
-   "months": 0,
-   "value": 73000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Autos",
-   "table_id": "t0032",
-   "row_label": "Autos",
    "column_label": "December 31, 2022",
    "cell_text": "73",
    "period_end": "2022-12-31",
    "months": 0,
    "value": 73000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Furniture and fixtures",
-   "table_id": "t0032",
-   "row_label": "Furniture and fixtures",
-   "column_label": "December 31, 2023",
-   "cell_text": "88",
-   "period_end": "2023-12-31",
-   "months": 0,
-   "value": 88000,
    "confidence": 1.0
   },
   {
@@ -153,18 +139,6 @@
    "dimension": "Construction-in-progress",
    "table_id": "t0032",
    "row_label": "Construction-in-progress",
-   "column_label": "December 31, 2023",
-   "cell_text": "49",
-   "period_end": "2023-12-31",
-   "months": 0,
-   "value": 49000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Construction-in-progress",
-   "table_id": "t0032",
-   "row_label": "Construction-in-progress",
    "column_label": "December 31, 2022",
    "cell_text": "20,437",
    "period_end": "2022-12-31",
@@ -176,23 +150,27 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "The company has a single reportable segment (bitcoin mining); the segment table reports revenue and expenses only, with no per-segment capital expenditures"
+   "reason": "the company reports a single segment (bitcoin mining); no per-segment capital expenditures are given"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "the company reports a single segment; t0008 shows only consolidated bitcoin mining revenue, with no per-segment or per-market split"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No single cell reports total finance lease liabilities. The balance sheet (t0020) splits them into 'Finance lease liability, current portion' (3,404 / 2,567) and non-current 'Finance lease liability' (11,128 / 12,229), which sum to 14,532 (2023-12-31) and 14,796 (2022-12-31) in thousands; no table shows a total line to cite, and citing either component alone would understate the total"
+   "reason": "the tables give no total finance lease liabilities line, only current (t0020 'Finance lease liability, current portion') and non-current (t0020 'Finance lease liability') lines; the prompt says to cite these with dimension 'current' and 'non-current', but the validator rejects any dimension on this field, and citing both cells with a null dimension or adding them would break the rules, so no value is reported"
   },
   {
    "field": "purchase_commitments",
-   "reason": "No contractual-obligations or commitments table is included among the provided tables"
+   "reason": "no contractual-obligations or commitments table with total purchase obligations appears in the tables provided"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 42.4,
-  "input_tokens": 15760,
-  "output_tokens": 5758,
+  "seconds": 34.1,
+  "input_tokens": 15913,
+  "output_tokens": 4491,
   "attempts": 2,
-  "task_sha": "bd942528974856e8"
+  "task_sha": "f56cdd2d0a107646"
  }
 }

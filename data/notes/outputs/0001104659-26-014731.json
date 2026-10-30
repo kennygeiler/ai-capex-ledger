@@ -1,0 +1,292 @@
+{
+ "accession": "0001104659-26-014731",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Semiconductor Equipment",
+   "table_id": "t0108",
+   "row_label": "Semiconductor Equipment",
+   "column_label": "\u200b | 2025",
+   "cell_text": "839.9",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 839900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Data Center Computing",
+   "table_id": "t0108",
+   "row_label": "Data Center Computing",
+   "column_label": "\u200b | 2025",
+   "cell_text": "587.3",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 587300000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Industrial and Medical",
+   "table_id": "t0108",
+   "row_label": "Industrial and Medical",
+   "column_label": "\u200b | 2025",
+   "cell_text": "282.3",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 282300000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Telecom and Networking",
+   "table_id": "t0108",
+   "row_label": "Telecom and Networking",
+   "column_label": "\u200b | 2025",
+   "cell_text": "89.3",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 89300000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Semiconductor Equipment",
+   "table_id": "t0108",
+   "row_label": "Semiconductor Equipment",
+   "column_label": "\u200b | 2024",
+   "cell_text": "792.5",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 792500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Data Center Computing",
+   "table_id": "t0108",
+   "row_label": "Data Center Computing",
+   "column_label": "\u200b | 2024",
+   "cell_text": "284.2",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 284200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Industrial and Medical",
+   "table_id": "t0108",
+   "row_label": "Industrial and Medical",
+   "column_label": "\u200b | 2024",
+   "cell_text": "316.2",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 316200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Telecom and Networking",
+   "table_id": "t0108",
+   "row_label": "Telecom and Networking",
+   "column_label": "\u200b | 2024",
+   "cell_text": "89.1",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 89100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Semiconductor Equipment",
+   "table_id": "t0108",
+   "row_label": "Semiconductor Equipment",
+   "column_label": "\u200b | Years Ended December 31, | 2023",
+   "cell_text": "743.8",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 743800000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Data Center Computing",
+   "table_id": "t0108",
+   "row_label": "Data Center Computing",
+   "column_label": "\u200b | Years Ended December 31, | 2023",
+   "cell_text": "249.9",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 249900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Industrial and Medical",
+   "table_id": "t0108",
+   "row_label": "Industrial and Medical",
+   "column_label": "\u200b | Years Ended December 31, | 2023",
+   "cell_text": "474.4",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 474400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Telecom and Networking",
+   "table_id": "t0108",
+   "row_label": "Telecom and Networking",
+   "column_label": "\u200b | Years Ended December 31, | 2023",
+   "cell_text": "187.7",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 187700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings, machinery, and equipment",
+   "table_id": "t0113",
+   "row_label": "Buildings, machinery, and equipment",
+   "column_label": "\u200b | December 31, | 2025",
+   "cell_text": "241.4",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 241400000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Software",
+   "table_id": "t0113",
+   "row_label": "Software",
+   "column_label": "\u200b | December 31, | 2025",
+   "cell_text": "40.7",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 40700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment, furniture, fixtures, and vehicles",
+   "table_id": "t0113",
+   "row_label": "Computer equipment, furniture, fixtures, and vehicles",
+   "column_label": "\u200b | December 31, | 2025",
+   "cell_text": "31.0",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 31000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0113",
+   "row_label": "Leasehold improvements",
+   "column_label": "\u200b | December 31, | 2025",
+   "cell_text": "101.0",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 101000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Capital projects in process",
+   "table_id": "t0113",
+   "row_label": "Capital projects in process",
+   "column_label": "\u200b | December 31, | 2025",
+   "cell_text": "82.5",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 82500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings, machinery, and equipment",
+   "table_id": "t0113",
+   "row_label": "Buildings, machinery, and equipment",
+   "column_label": "\u200b | December 31, | 2024",
+   "cell_text": "196.6",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 196600000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Software",
+   "table_id": "t0113",
+   "row_label": "Software",
+   "column_label": "\u200b | December 31, | 2024",
+   "cell_text": "35.6",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 35600000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment, furniture, fixtures, and vehicles",
+   "table_id": "t0113",
+   "row_label": "Computer equipment, furniture, fixtures, and vehicles",
+   "column_label": "\u200b | December 31, | 2024",
+   "cell_text": "26.0",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 26000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0113",
+   "row_label": "Leasehold improvements",
+   "column_label": "\u200b | December 31, | 2024",
+   "cell_text": "93.0",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 93000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Capital projects in process",
+   "table_id": "t0113",
+   "row_label": "Capital projects in process",
+   "column_label": "\u200b | December 31, | 2024",
+   "cell_text": "35.4",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 35400000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment capital expenditure table is provided; the tables report revenue by market only, with no per-segment capex"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table is included among the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included among the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 22.6,
+  "input_tokens": 6481,
+  "output_tokens": 3408,
+  "attempts": 1,
+  "task_sha": "1b6647fb39cee8de"
+ }
+}

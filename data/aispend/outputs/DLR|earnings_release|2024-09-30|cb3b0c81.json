@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|earnings_release|2024-09-30|cb3b0c81",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; capex mentions are only in non-GAAP definitions and forward-looking-statement boilerplate (p05, p09, p10)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "total revenue of $1.4 billion (p01) is not linked to AI; 'data center revenue' appears only as a base for backlog share ('over 20% of annualized in-place data center revenue', p01) and as sequential growth ('5% Sequential Growth in Data Center Revenue', p07), neither of which states a data-center or AI revenue amount or share of total revenue; AI is mentioned only in forward-looking boilerplate (p10)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 15308,
+  "output_tokens": 656,
+  "attempts": 1,
+  "task_sha": "f00d6d2f264c770f"
+ }
+}

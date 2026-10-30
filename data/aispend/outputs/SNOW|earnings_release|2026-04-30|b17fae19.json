@@ -1,0 +1,46 @@
+{
+ "accession": "SNOW|earnings_release|2026-04-30|b17fae19",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We are seeing strong momentum from both AI-driven acceleration of our core platform and growing adoption of our first-party AI products, positioning Snowflake to lead in this new era.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "CEO names AI as a driver of the core platform and of first-party AI product adoption for Q1 fiscal 2027. The sentence states no AI revenue amount or share. The $1.33 billion product revenue in the preceding sentence is total product revenue and is not tied to AI in that sentence."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Given the strong momentum across both our core platform business and AI business, we are raising our full-year product revenue guidance.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "The raised full-year product revenue guidance is attributed in part to the AI business. The guidance figure is not in the passages. 'Full-year' implies fiscal 2027, but the sentence does not name the year, so fiscal_year is null."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "Purchases of property and equipment appear only in the cash flow table; no sentence links capital expenditures to AI."
+  },
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI. The Natoma acquisition is an AI-related purchase, but it is not stated as operating expense."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.5,
+  "input_tokens": 6011,
+  "output_tokens": 1479,
+  "attempts": 1,
+  "task_sha": "909f83d42625553b"
+ }
+}

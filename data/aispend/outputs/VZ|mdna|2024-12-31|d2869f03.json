@@ -1,0 +1,27 @@
+{
+ "accession": "VZ|mdna|2024-12-31|d2869f03",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex discussion concerns wireless, FWA and fiber networks (Frontier acquisition)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 5086,
+  "output_tokens": 186,
+  "attempts": 1,
+  "task_sha": "82c0067e7800ef00"
+ }
+}

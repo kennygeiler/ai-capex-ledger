@@ -1,23 +1,69 @@
 {
  "accession": "MRVL|earnings_release|2026-05-02|680b4c90",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.76,
+   "quote": "Data center 76 % 74 % 76 %",
+   "passage": "p05",
+   "confidence": 0.7,
+   "notes": "Table row, not a prose sentence. Data center was 76% of total net revenue for the three months ended May 2, 2026 (Q1 fiscal 2027), not the full fiscal year. The other columns are 74% (quarter ended Jan 31, 2026) and 76% (quarter ended May 3, 2025)."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect revenue growth to continue accelerating each quarter throughout fiscal 2027, driven by continued strength in our data center business,\u201d said Matt Murphy, Marvell\u2019s Chairman and CEO.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Total revenue growth outlook attributed to data center strength; no AI or data-center amount stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2027,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We are seeing exceptional AI-related bookings, and as a result, we are significantly raising Marvell\u2019s revenue outlook for both fiscal 2027 and fiscal 2028 compared with the guidance we provided last quarter.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Raised total revenue outlook driven by AI-related bookings; no figure given."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2028,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We are seeing exceptional AI-related bookings, and as a result, we are significantly raising Marvell\u2019s revenue outlook for both fiscal 2027 and fiscal 2028 compared with the guidance we provided last quarter.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Same sentence as above, recorded separately for the fiscal 2028 outlook."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the cash flow table (p03) reports purchases of property and equipment without any AI attribution, and the AI references in p01 concern bookings and revenue, not spend"
+   "reason": "Only purchases of property and equipment appear, in the cash flow table. No sentence links capital expenditures to AI."
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; AI mentions are about revenue/bookings (p01), risk-factor boilerplate (p02), or product/end-market descriptions (p04)"
+   "reason": "No sentence quantifies operating expenses or attributes them to AI."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.0,
-  "input_tokens": 7781,
-  "output_tokens": 293,
+  "seconds": 15.6,
+  "input_tokens": 8207,
+  "output_tokens": 1765,
   "attempts": 1,
-  "task_sha": "787cd17a3a5123ae"
+  "task_sha": "73e6ce13e0c75ee0"
  }
 }

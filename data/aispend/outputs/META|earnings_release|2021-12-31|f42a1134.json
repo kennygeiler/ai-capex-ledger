@@ -1,31 +1,48 @@
 {
  "accession": "META|earnings_release|2021-12-31|f42a1134",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2022,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 29000000000,
+   "amount_high": 34000000000,
+   "quote": "We expect 2022 capital expenditures, including principal payments on finance leases, to be in the range of $29-34 billion, unchanged from our prior estimate.",
+   "passage": "p01",
+   "confidence": 1.0,
+   "notes": "Total capex guidance including finance lease principal payments; the following sentences attribute part of it to AI/ML, but this is not the AI amount."
+  },
   {
    "field": "capex",
    "fiscal_year": null,
    "kind": "outlook",
-   "scope": "total",
+   "scope": "ai",
    "class": "qualitative",
    "quote": "As we discussed previously, this range reflects a significant increase in our artificial intelligence and machine learning investments, which will support a number of areas across our Family of Apps.",
    "passage": "p01",
-   "confidence": 0.8,
-   "notes": "'This range' refers to the 2022 total capex guidance of $29-34 billion in the preceding sentence. That sentence does not mention AI, so it was not recorded separately. This sentence names no year, so fiscal_year is null and code will default the outlook to fiscal 2022. It attributes part of the total range to AI in words only and quantifies no AI amount or share."
+   "confidence": 0.9,
+   "notes": "The sentence refers to 'this range' (the 2022 capex guidance) but does not name the year itself, so fiscal_year is null and code will assign the outlook year. It states no AI amount or share."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "Meta is a buyer of AI infrastructure; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 10.5,
-  "input_tokens": 4866,
-  "output_tokens": 844,
+  "seconds": 7.8,
+  "input_tokens": 5173,
+  "output_tokens": 854,
   "attempts": 1,
-  "task_sha": "440a01c37b59ab1a"
+  "task_sha": "40e39d3ec7142bd0"
  }
 }

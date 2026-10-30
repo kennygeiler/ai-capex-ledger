@@ -1,0 +1,27 @@
+{
+ "accession": "NOW|earnings_release|2024-09-30|24544248",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the Milan/Rome data center launch (p02) is tied to regional demand for data center infrastructure, not AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the $1.5 billion UK investment (p03) is a cumulative five-year business investment, not stated as capex or opex, and the sentence giving the amount does not mention AI (the following sentence lists 'AI skills programs' only as one component, with no amount)"
+  },
+  {
+   "field": "revenue",
+   "reason": "only total subscription revenue is given (p01); 'the AI platform for business transformation' is a company description, and no sentence states AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.7,
+  "input_tokens": 5522,
+  "output_tokens": 593,
+  "attempts": 1,
+  "task_sha": "1d7261d693610c6b"
+ }
+}

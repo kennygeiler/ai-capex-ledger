@@ -1,0 +1,13 @@
+{
+ "accession": "ENTG|earnings_release|2025-06-28|7a7d1858",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.0,
+  "input_tokens": 5578,
+  "output_tokens": 53,
+  "attempts": 1,
+  "task_sha": "8a58462df66c6d47"
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "accession": "SLNH|earnings_release|2025-12-31|7ded04f8",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The significant cash infusion enabled us to expand our pipeline, optimize our current Bitcoin assets, and initiate a launch into AI.",
+   "passage": "p04",
+   "confidence": 0.5,
+   "notes": "Describes use of 2025 capital raised, partly to launch into AI; does not explicitly say capital expenditures, and states no AI amount. The cash-flow purchases of PP&E ($28.1M) are not linked to AI in the text."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "SG&A and cost-of-revenue drivers (stock comp, people costs, Kati financing legal fees, HPE contract termination, power) are not attributed to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "2025 revenue ($29.7M) is described as Bitcoin/hashprice-driven; no sentence states an AI or data-center AI revenue figure or share, and Kati 2 AI campus is development-stage with no revenue stated"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.0,
+  "input_tokens": 8797,
+  "output_tokens": 916,
+  "attempts": 1,
+  "task_sha": "8a31947473a1a149"
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "accession": "PENG|mdna|2025-08-29|67030f7a",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.3,
+  "input_tokens": 5630,
+  "output_tokens": 49,
+  "attempts": 1,
+  "task_sha": "1b4b2a4df6e9c1bc"
+ }
+}

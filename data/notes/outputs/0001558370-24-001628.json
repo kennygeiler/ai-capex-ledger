@@ -1,0 +1,187 @@
+{
+ "accession": "0001558370-24-001628",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Ion implantation systems and services",
+   "table_id": "t0135",
+   "row_label": "Ion implantation systems and services",
+   "column_label": "\u200b | 2023",
+   "cell_text": "1,111,278",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 1111278000,
+   "confidence": 0.9,
+   "notes": "Single reportable segment; revenue is reported by product line."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Ion implantation systems and services",
+   "table_id": "t0135",
+   "row_label": "Ion implantation systems and services",
+   "column_label": "\u200b | 2022",
+   "cell_text": "898,132",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 898132000,
+   "confidence": 0.9,
+   "notes": "Single reportable segment; revenue is reported by product line."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Ion implantation systems and services",
+   "table_id": "t0135",
+   "row_label": "Ion implantation systems and services",
+   "column_label": "\u200b | Year ended December 31, | 2021",
+   "cell_text": "645,504",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 645504000,
+   "confidence": 0.9,
+   "notes": "Single reportable segment; revenue is reported by product line."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Other systems and services",
+   "table_id": "t0135",
+   "row_label": "Other systems and services",
+   "column_label": "\u200b | 2023",
+   "cell_text": "19,326",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 19326000,
+   "confidence": 0.9,
+   "notes": "Single reportable segment; revenue is reported by product line."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Other systems and services",
+   "table_id": "t0135",
+   "row_label": "Other systems and services",
+   "column_label": "\u200b | 2022",
+   "cell_text": "21,866",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 21866000,
+   "confidence": 0.9,
+   "notes": "Single reportable segment; revenue is reported by product line."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Other systems and services",
+   "table_id": "t0135",
+   "row_label": "Other systems and services",
+   "column_label": "\u200b | Year ended December 31, | 2021",
+   "cell_text": "16,924",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 16924000,
+   "confidence": 0.9,
+   "notes": "Single reportable segment; revenue is reported by product line."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and buildings",
+   "table_id": "t0121",
+   "row_label": "Land and buildings",
+   "column_label": "\u200b | 2023",
+   "cell_text": "21,802",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 21802000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and buildings",
+   "table_id": "t0121",
+   "row_label": "Land and buildings",
+   "column_label": "\u200b | December 31, | 2022",
+   "cell_text": "18,001",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 18001000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0121",
+   "row_label": "Machinery and equipment",
+   "column_label": "\u200b | 2023",
+   "cell_text": "41,547",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 41547000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0121",
+   "row_label": "Machinery and equipment",
+   "column_label": "\u200b | December 31, | 2022",
+   "cell_text": "34,728",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 34728000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in process",
+   "table_id": "t0121",
+   "row_label": "Construction in process",
+   "column_label": "\u200b | 2023",
+   "cell_text": "17,055",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 17055000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in process",
+   "table_id": "t0121",
+   "row_label": "Construction in process",
+   "column_label": "\u200b | December 31, | 2022",
+   "cell_text": "10,189",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 10189000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0125",
+   "row_label": "Finance lease and operating lease obligations",
+   "column_label": "\u200b | Finance | Leases | 6,252 | 5,930 | 6,008 | 6,128 | 6,251",
+   "cell_text": "45,185",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 45185000,
+   "confidence": 0.8,
+   "notes": "Finance-lease column of the maturity table gives total finance lease obligations at 2023-12-31; equals current 1,511 + non-current 43,674 in t0123. No total finance lease liability cell exists for 2022-12-31 (only current and non-current lines), so 2022 is not cited."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the company reports a single segment; the segment note gives revenue by product line only, with no capital expenditures by segment"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table with purchase obligations is among the tables provided"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 47.4,
+  "input_tokens": 17243,
+  "output_tokens": 5902,
+  "attempts": 2,
+  "task_sha": "22197229c675f68d"
+ }
+}

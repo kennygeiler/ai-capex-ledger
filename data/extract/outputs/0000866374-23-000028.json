@@ -1,0 +1,65 @@
+{
+ "accession": "0000866374-23-000028",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended March 31, | 2023",
+   "cell_text": "(635)",
+   "period_end": "2023-03-31",
+   "months": 12,
+   "value": 635000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended March 31, | 2022",
+   "cell_text": "(443)",
+   "period_end": "2022-03-31",
+   "months": 12,
+   "value": 443000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended March 31, | 2021",
+   "cell_text": "(351)",
+   "period_end": "2021-03-31",
+   "months": 12,
+   "value": 351000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "reason": "The tables labeled as the income statement (t0047, t0048) are the earnings-per-share note and supplemental cash-flow disclosures. They have no revenue or net sales row."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "No cost of sales or cost of revenue row appears in the provided tables. The actual income statement table was not included in the parse."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "No cost-of-revenue component lines appear in the provided tables."
+  },
+  {
+   "field": "operating_income",
+   "reason": "No operating income or income from operations row appears in the provided tables. t0047 starts at net income."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.1,
+  "input_tokens": 6188,
+  "output_tokens": 722,
+  "attempts": 1,
+  "task_sha": "fc0972672140ac7c"
+ }
+}

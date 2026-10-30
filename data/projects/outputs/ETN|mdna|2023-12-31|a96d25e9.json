@@ -1,0 +1,13 @@
+{
+ "accession": "ETN|mdna|2023-12-31|a96d25e9",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "afc307b2836267c6"
+ }
+}

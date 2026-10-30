@@ -1,6 +1,6 @@
 {
  "accession": "0000950170-25-100235",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -12,8 +12,8 @@
    "period_end": "2025-06-30",
    "months": 12,
    "value": 120810000000,
-   "confidence": 0.7,
-   "notes": "The first segment's header row is missing from the parsed table. The name is inferred from MSFT's segment structure as the segment listed before Intelligent Cloud."
+   "confidence": 0.8,
+   "notes": "First segment block has no header row in the parsed table; segment name inferred as Microsoft's first reportable segment (Productivity and Business Processes), and the row label 'Revenue' repeats across segments."
   },
   {
    "field": "segment_revenue",
@@ -25,8 +25,8 @@
    "period_end": "2024-06-30",
    "months": 12,
    "value": 106820000000,
-   "confidence": 0.7,
-   "notes": "The first segment's header row is missing from the parsed table. The name is inferred from MSFT's segment structure as the segment listed before Intelligent Cloud."
+   "confidence": 0.8,
+   "notes": "First segment block has no header row in the parsed table; segment name inferred as Productivity and Business Processes."
   },
   {
    "field": "segment_revenue",
@@ -38,8 +38,8 @@
    "period_end": "2023-06-30",
    "months": 12,
    "value": 94151000000,
-   "confidence": 0.7,
-   "notes": "The first segment's header row is missing from the parsed table. The name is inferred from MSFT's segment structure as the segment listed before Intelligent Cloud."
+   "confidence": 0.8,
+   "notes": "First segment block has no header row in the parsed table; segment name inferred as Productivity and Business Processes."
   },
   {
    "field": "segment_revenue",
@@ -51,7 +51,8 @@
    "period_end": "2025-06-30",
    "months": 12,
    "value": 106265000000,
-   "confidence": 1.0
+   "confidence": 0.95,
+   "notes": "Row label 'Revenue' repeats; this is the Revenue row under the Intelligent Cloud header."
   },
   {
    "field": "segment_revenue",
@@ -63,7 +64,8 @@
    "period_end": "2024-06-30",
    "months": 12,
    "value": 87464000000,
-   "confidence": 1.0
+   "confidence": 0.95,
+   "notes": "Row label 'Revenue' repeats; this is the Revenue row under the Intelligent Cloud header."
   },
   {
    "field": "segment_revenue",
@@ -75,7 +77,8 @@
    "period_end": "2023-06-30",
    "months": 12,
    "value": 72944000000,
-   "confidence": 1.0
+   "confidence": 0.95,
+   "notes": "Row label 'Revenue' repeats; this is the Revenue row under the Intelligent Cloud header."
   },
   {
    "field": "segment_revenue",
@@ -87,7 +90,8 @@
    "period_end": "2025-06-30",
    "months": 12,
    "value": 54649000000,
-   "confidence": 1.0
+   "confidence": 0.95,
+   "notes": "Row label 'Revenue' repeats; this is the Revenue row under the More Personal Computing header."
   },
   {
    "field": "segment_revenue",
@@ -99,7 +103,8 @@
    "period_end": "2024-06-30",
    "months": 12,
    "value": 50838000000,
-   "confidence": 1.0
+   "confidence": 0.95,
+   "notes": "Row label 'Revenue' repeats; this is the Revenue row under the More Personal Computing header."
   },
   {
    "field": "segment_revenue",
@@ -111,7 +116,8 @@
    "period_end": "2023-06-30",
    "months": 12,
    "value": 44820000000,
-   "confidence": 1.0
+   "confidence": 0.95,
+   "notes": "Row label 'Revenue' repeats; this is the Revenue row under the More Personal Computing header."
   },
   {
    "field": "ppe_category",
@@ -268,25 +274,21 @@
    "months": 0,
    "value": 109953000000,
    "confidence": 0.95,
-   "notes": "The contractual obligations table is as of the filing's report period, 2025-06-30. The Total column sums all future years. The row label includes the footnote mark (d)."
+   "notes": "Contractual obligations table has no year-end column; the Total column is the total as of the report period end 2025-06-30."
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "The segment tables report revenue, cost of revenue, operating expenses and operating income only. No capital expenditures per segment are given."
-  },
-  {
-   "field": "purchase_commitments",
-   "reason": "No purchase commitment total is given as of 2024-06-30. The commitments table covers only the current year-end."
+   "reason": "the segment note reports revenue, cost of revenue, operating expenses and operating income only; no capital expenditures by segment"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 21.6,
-  "input_tokens": 6990,
-  "output_tokens": 3205,
+  "seconds": 23.5,
+  "input_tokens": 7118,
+  "output_tokens": 3325,
   "attempts": 1,
-  "task_sha": "4ee82762bd46dc25"
+  "task_sha": "5256e7debcb81735"
  }
 }

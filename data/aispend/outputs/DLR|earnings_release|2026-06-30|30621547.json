@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|earnings_release|2026-06-30|30621547",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capital-expenditure mentions are non-GAAP definitional boilerplate (p08, p14) and forward-looking-statement lists (p15), and the p10 slide heading 'Development Capacity For Growing Digital Transformation, Cloud and AI Workloads' states megawatt capacity, not spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue; the p05 customer table listing a 'Leading AI Chip Maker' at 1.6% of annualized recurring revenue is a tenant concentration figure in a table, not a sentence about AI revenue, and p03's mention of AI is company-description boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.3,
+  "input_tokens": 17178,
+  "output_tokens": 585,
+  "attempts": 1,
+  "task_sha": "e8ab30f89b0554de"
+ }
+}

@@ -1,6 +1,6 @@
 {
  "accession": "0001835632-25-000057",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -12,7 +12,7 @@
    "period_end": "2025-02-01",
    "months": 0,
    "value": 1570200000,
-   "confidence": 0.95
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -24,7 +24,7 @@
    "period_end": "2024-02-03",
    "months": 0,
    "value": 1376200000,
-   "confidence": 0.95
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -36,7 +36,7 @@
    "period_end": "2025-02-01",
    "months": 0,
    "value": 306600000,
-   "confidence": 0.95
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -48,7 +48,7 @@
    "period_end": "2024-02-03",
    "months": 0,
    "value": 312400000,
-   "confidence": 0.95
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -60,7 +60,7 @@
    "period_end": "2025-02-01",
    "months": 0,
    "value": 126400000,
-   "confidence": 0.95
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -72,7 +72,7 @@
    "period_end": "2024-02-03",
    "months": 0,
    "value": 116500000,
-   "confidence": 0.95
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -84,7 +84,7 @@
    "period_end": "2025-02-01",
    "months": 0,
    "value": 34300000,
-   "confidence": 0.95
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -96,7 +96,7 @@
    "period_end": "2024-02-03",
    "months": 0,
    "value": 31700000,
-   "confidence": 0.95
+   "confidence": 0.9
   },
   {
    "field": "purchase_commitments",
@@ -114,24 +114,24 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "Marvell reports a single reportable segment (t0060 shows one segment's revenue and expenses); there is no per-segment capex"
+   "reason": "Marvell reports a single reportable segment; the segment note (t0060) shows consolidated revenue and expenses only, with no per-segment capital expenditures"
   },
   {
    "field": "segment_revenue",
-   "reason": "single reportable segment; t0060 gives only total net revenue, and no end-market revenue table is among the tables provided"
+   "reason": "single reportable segment; no per-segment or per-market revenue table is present among the provided tables, and the consolidated total is excluded"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no lease table or finance lease liability line appears in the tables provided"
+   "reason": "no lease note table with finance lease liabilities is present in the provided tables"
   }
  ],
- "notes": "t0065: the unit is not stated with the table. Millions is assumed from the filing-level unit line; confidence is 0.95 for that reason. t0065's '(no label)' row (2,037.5 / 1,836.8) is the gross total and is skipped. t0041: the parsed table puts the commitment types in the columns. Its total row gives 1,638.4 for foundry/test/assembly purchase commitments, which is reported here. Its total row also gives 821.4 for technology services and license fees. The combined unconditional purchase commitments of 2,459.8 have no cell of their own and are not reported. The 1,638.4 is a choice between two columns, so confidence is 0.6. The table has no prior-year column, so purchase_commitments is reported for 2025-02-01 only.",
+ "notes": "t0065: unit not stated with the table; millions assumed from the filing-level unit line, hence confidence 0.9. t0041: the table header is mangled (per-year payments parsed into column labels) and there is no grand-total column; the cited total covers only foundry/test/assembly purchase commitments (sums to 1,638.4 across years). Technology services and license fees (821.4) are a separate unconditional purchase commitment column and are not added; confidence 0.6. The table's as-of date is not shown and is assumed to be the fiscal year-end 2025-02-01.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 18.1,
-  "input_tokens": 5539,
-  "output_tokens": 2321,
+  "seconds": 18.6,
+  "input_tokens": 5663,
+  "output_tokens": 2205,
   "attempts": 1,
-  "task_sha": "f8dbbc20185f4e4b"
+  "task_sha": "8051d12bc10f354c"
  }
 }

@@ -1,0 +1,46 @@
+{
+ "accession": "MOD|earnings_release|2023-12-31|68a4eea0",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We are experiencing rapid sales growth to the data center market, supported by robust demand from both hyperscale and colocation customers.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Seller-side data-center demand stated in words only; no figure or share given. Present tense in a Q3 fiscal 2024 release, and the sentence names no year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "This decrease was driven by lower sales of heat transfer products, partially offset by higher sales of data center cooling products and HVAC and refrigeration products.",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Climate Solutions Q3 fiscal 2024 segment commentary. It cites higher data center cooling sales with no amount. The figure is quarterly, not full-year, and the sentence names no year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "SG&A increase attributed to compensation; no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.1,
+  "input_tokens": 5768,
+  "output_tokens": 837,
+  "attempts": 1,
+  "task_sha": "60141e472b8702dd"
+ }
+}

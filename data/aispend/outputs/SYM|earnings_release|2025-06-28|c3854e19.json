@@ -1,0 +1,27 @@
+{
+ "accession": "SYM|earnings_release|2025-06-28|c3854e19",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are mentioned only in forward-looking-statement boilerplate and the free cash flow definition; no sentence links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D figures ('$1B+ Cumulative R&D Spend', '$100+ Million Annual R&D Budget') are slide fragments not tied to AI; AI mentions describe the product platform (boilerplate), not spend"
+  },
+  {
+   "field": "revenue",
+   "reason": "Symbotic sells 'AI-powered' warehouse automation, but no sentence states an AI, data-center, AI-server or HBM revenue figure or share; total revenue growth and backlog are not AI revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 10439,
+  "output_tokens": 418,
+  "attempts": 1,
+  "task_sha": "7ca9a089ee121881"
+ }
+}

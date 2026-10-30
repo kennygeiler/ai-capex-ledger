@@ -1,0 +1,13 @@
+{
+ "accession": "STX|mdna|2025-06-27|5cb01400",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 4824,
+  "output_tokens": 48,
+  "attempts": 1,
+  "task_sha": "460c482baefc2ca6"
+ }
+}

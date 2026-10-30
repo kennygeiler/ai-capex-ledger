@@ -1,0 +1,70 @@
+{
+ "accession": "COHR|earnings_release|2023-09-30|0ba3786f",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 4500000000,
+   "amount_high": 4700000000,
+   "quote": "Underlying our unchanged $4.5 \u2013 4.7 billion revenue guidance for full year fiscal 2024, the first quarter reinforced our confidence and outlook for our Datacom transceiver business driven by AI- relateddata center builds by Webscale, other Cloud Internet Content Providers, and companies that supply them; at the same time, we saw unchanged soft end market demand for most of our other markets, including most prominently in our Industrial, Electronics and Instrumentation markets, driven primarily by ongoing macroeconomic weakness that has resulted in lower industrial manufacturing output, telecom inventory digestion, weaker demand in the consumer electronics market vertical and related post-Covid inventory digestion in our",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "Total revenue guidance; AI-related data center builds cited as a driver of the Datacom business, not an AI revenue figure. The sentence continues into p03 ('Life Sciences vertical.'), so the quote is truncated at the passage boundary."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We are forecasting 11% second half over first half improvement in revenue in the second-half of our fiscal 2024 (at the midpoint of guidance) driven primarily by the strength in our AI-relatedDatacom transceiver market and successful 800G NPI ramps along with modest recovery in some of our market verticals including Telecom and all of our Industrial verticals .",
+   "passage": "p03",
+   "confidence": 0.9,
+   "notes": "11% is half-over-half growth in total revenue, not AI's share of revenue; AI-related Datacom is named as the primary driver."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Starting in the second-half of fiscal 2024, we expect a return to year-over-year Datacom revenue growth based on our order book together with strong 1. customer engagements for AI-related data center buildouts and a return to revenue growth for our lower speed Datacom transceivers for non-AI deployments driven by inventory normalization.",
+   "passage": "p12",
+   "confidence": 0.8,
+   "notes": "Datacom vertical revenue growth attributed partly to AI-related data center buildouts; no AI amount is stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our Datacom components enjoyed very strong revenue growth \u2022 in the first quarter, 30% sequentially and 27% year-over-year, largely driven by strength in VCSELs and passives for AI applications.",
+   "passage": "p15",
+   "confidence": 0.8,
+   "notes": "Growth rates for Datacom components revenue, attributed largely to AI applications; these are not AI's share of revenue. The period is Q1 FY2024."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "Q1 capital expenditures of $62 million are attributed about half to silicon carbide, not AI. p09 cites a substantial increase in wafer-fab investment for 800G/1.6T lasers, but that sentence does not itself link the investment to AI."
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 25.6,
+  "input_tokens": 10618,
+  "output_tokens": 3398,
+  "attempts": 1,
+  "task_sha": "26fe1b77a57c5200"
+ }
+}

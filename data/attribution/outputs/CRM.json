@@ -1,0 +1,173 @@
+{
+ "ticker": "CRM",
+ "prompt_version": "attribution@v2",
+ "model": "ai_software@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "stated_amount",
+   "ai_amount": 900000000,
+   "ai_share": 0.0237,
+   "inputs": [
+    {
+     "id": "stmt:CRM|earnings_release|2025-01-31|dae9ecdb|revenue|FY2025|actual|0",
+     "value": 900000000
+    }
+   ],
+   "basis": "Stated Data Cloud & AI annual recurring revenue of $900M at fiscal year end. This is ARR, a run-rate measure that includes Data Cloud, not AI product revenue recognised in the year; the share is ARR against FY2025 revenue of $37.895B.",
+   "confidence": 0.4
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "stated_amount",
+   "ai_amount": 800000000,
+   "ai_share": 0.0193,
+   "inputs": [
+    {
+     "id": "stmt:CRM|earnings_release|2026-01-31|b9ab16fc|revenue|FY2026|actual|0",
+     "value": 800000000
+    }
+   ],
+   "basis": "Year-end Agentforce ARR of $800M, up 169%. This is ARR, not fiscal-year revenue, and it covers Agentforce alone. The broader Data Cloud and AI ARR was over $1.2B at Q2. The year-end Agentforce and Data 360 ARR of over $2.9B includes $1.1B of acquired Informatica and is not in the pack. Share is against FY2026 revenue of $41.525B.",
+   "confidence": 0.45
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "MD&A says that at the end of fiscal 2024 Salesforce began investing in incremental AI resources and that R&D headcount rose 5%. No dollar amount is attributed to AI.",
+   "confidence": 0.3
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "MD&A expects R&D to stay consistent as a percentage of revenue while investing in technologies including AI and Data Cloud. The statement covers total R&D, not an AI part.",
+   "confidence": 0.2
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "MD&A expects R&D to stay consistent as a percentage of revenue with investment in AI, agents and Data Cloud. It also says the use of AI and agents may make cost of revenues fluctuate. Both statements concern total expense and give no AI amount.",
+   "confidence": 0.2
+  },
+  {
+   "field": "opex",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "MD&A: 'continue to invest additional resources in our AI, agentic and cloud services'. R&D is expected to stay consistent as a percentage of revenue. No AI amount is given.",
+   "confidence": 0.25
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No AI part of the $594M capex is stated, and Salesforce does not say it buys its own GPUs. The AI compute sits in the 10-K's roughly $16.7B of commitments under enforceable agreements, $3.7B within 12 months and $13.0B thereafter. Those commitments cover all infrastructure service providers, not AI alone, and are not in the pack as a fact. They are committed, not spent in the year.",
+   "confidence": 0.6
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no statement attributes any capex to AI; PP&E category changes are offices and equipment, not AI-specific"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no statement attributes any capex to AI"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "no statement attributes any capex to AI"
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "no statement attributes any capex to AI"
+  },
+  {
+   "field": "capex",
+   "reason": "finance lease liabilities are not identified as AI by the thesis or the filing; infrastructure purchase commitments ($16.7B at FY2026 year end) are not in the pack as a fact and cover all providers, not AI alone"
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "no actual-year AI hosting or compute cost figure; only outlook wording on total R&D"
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "reason": "no actual-year AI hosting or compute cost figure; only wording on total R&D and cost of revenues"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "no AI revenue, ARR or share stated"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "no AI revenue, ARR or share stated"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "no AI revenue, ARR or share stated"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2027",
+   "reason": "Q1 FY2027 statements give Agentforce ARR over $1B and combined AI and data ARR of $3.4B, but FY2027 has no revenue value in the pack and the year is not complete"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2030",
+   "reason": "the $63B FY30 target is total company revenue, not an AI part"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 24.2,
+  "input_tokens": 13671,
+  "output_tokens": 3092,
+  "attempts": 1,
+  "task_sha": "551a8209fcb85a77"
+ }
+}

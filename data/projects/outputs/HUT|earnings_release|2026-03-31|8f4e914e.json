@@ -1,0 +1,44 @@
+{
+ "accession": "HUT|earnings_release|2026-03-31|8f4e914e",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "River Bend AI data center campus",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "West Feliciana Parish, Louisiana",
+   "counterparty": "Fluidstack",
+   "capacity_mw": 330,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2027",
+   "quote": "Advanced construction at River Bend, the Company\u2019s 330 MW AI data center campus in West Feliciana Parish, Louisiana.",
+   "passage": "p09",
+   "confidence": 0.85
+  },
+  {
+   "name": "Beacon Point",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 9800000000,
+   "amount_high": 9800000000,
+   "capacity_mw": 352,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Commercialized the first phase of Beacon Point, the second AI data center - campus originated under Hut 8\u2019s power-first, greenfield model, through a 15-year, $9.8 billion lease for 352 MW of IT capacity with a high-investment-grade tenant.",
+   "passage": "p10",
+   "confidence": 0.9
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.9,
+  "input_tokens": 6880,
+  "output_tokens": 1057,
+  "attempts": 1,
+  "task_sha": "f95ed4c254f2502f"
+ }
+}

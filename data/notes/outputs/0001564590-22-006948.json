@@ -1,0 +1,265 @@
+{
+ "accession": "0001564590-22-006948",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Systems and software",
+   "table_id": "t0220",
+   "row_label": "Systems and software",
+   "column_label": "Year Ended | January 1, 2022",
+   "cell_text": "669,114",
+   "period_end": "2022-01-01",
+   "months": 12,
+   "value": 669114000,
+   "confidence": 0.9,
+   "notes": "Product-line revenue (single reportable segment); column label is duplicated for the dollar and percent columns, dollar column [0] cited; unit taken from the filing-level line"
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Systems and software",
+   "table_id": "t0220",
+   "row_label": "Systems and software",
+   "column_label": "Year Ended | December 26, 2020",
+   "cell_text": "450,459",
+   "period_end": "2020-12-26",
+   "months": 12,
+   "value": 450459000,
+   "confidence": 0.9,
+   "notes": "Product-line revenue; dollar column [2] cited (label shared with percent column [3])"
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Systems and software",
+   "table_id": "t0220",
+   "row_label": "Systems and software",
+   "column_label": "Year Ended | December 31, 2019",
+   "cell_text": "255,723",
+   "period_end": "2019-12-31",
+   "months": 12,
+   "value": 255723000,
+   "confidence": 0.9,
+   "notes": "Product-line revenue; dollar column [4] cited (label shared with percent column [5])"
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Parts",
+   "table_id": "t0220",
+   "row_label": "Parts",
+   "column_label": "Year Ended | January 1, 2022",
+   "cell_text": "72,753",
+   "period_end": "2022-01-01",
+   "months": 12,
+   "value": 72753000,
+   "confidence": 0.9,
+   "notes": "Product-line revenue; dollar column [0] cited (label shared with percent column [1])"
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Parts",
+   "table_id": "t0220",
+   "row_label": "Parts",
+   "column_label": "Year Ended | December 26, 2020",
+   "cell_text": "65,444",
+   "period_end": "2020-12-26",
+   "months": 12,
+   "value": 65444000,
+   "confidence": 0.9,
+   "notes": "Product-line revenue; dollar column [2] cited (label shared with percent column [3])"
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Parts",
+   "table_id": "t0220",
+   "row_label": "Parts",
+   "column_label": "Year Ended | December 31, 2019",
+   "cell_text": "34,892",
+   "period_end": "2019-12-31",
+   "months": 12,
+   "value": 34892000,
+   "confidence": 0.9,
+   "notes": "Product-line revenue; dollar column [4] cited (label shared with percent column [5])"
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Services",
+   "table_id": "t0220",
+   "row_label": "Services",
+   "column_label": "Year Ended | January 1, 2022",
+   "cell_text": "47,032",
+   "period_end": "2022-01-01",
+   "months": 12,
+   "value": 47032000,
+   "confidence": 0.9,
+   "notes": "Product-line revenue; dollar column [0] cited (label shared with percent column [1])"
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Services",
+   "table_id": "t0220",
+   "row_label": "Services",
+   "column_label": "Year Ended | December 26, 2020",
+   "cell_text": "40,593",
+   "period_end": "2020-12-26",
+   "months": 12,
+   "value": 40593000,
+   "confidence": 0.9,
+   "notes": "Product-line revenue; dollar column [2] cited (label shared with percent column [3])"
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Services",
+   "table_id": "t0220",
+   "row_label": "Services",
+   "column_label": "Year Ended | December 31, 2019",
+   "cell_text": "15,281",
+   "period_end": "2019-12-31",
+   "months": 12,
+   "value": 15281000,
+   "confidence": 0.9,
+   "notes": "Product-line revenue; dollar column [4] cited (label shared with percent column [5])"
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and building",
+   "table_id": "t0196",
+   "row_label": "Land and building",
+   "column_label": "January 1, | 2022",
+   "cell_text": "48,297",
+   "period_end": "2022-01-01",
+   "months": 0,
+   "value": 48297000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and building",
+   "table_id": "t0196",
+   "row_label": "Land and building",
+   "column_label": "December 26, | 2020",
+   "cell_text": "47,544",
+   "period_end": "2020-12-26",
+   "months": 0,
+   "value": 47544000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0196",
+   "row_label": "Machinery and equipment",
+   "column_label": "January 1, | 2022",
+   "cell_text": "50,226",
+   "period_end": "2022-01-01",
+   "months": 0,
+   "value": 50226000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0196",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 26, | 2020",
+   "cell_text": "52,833",
+   "period_end": "2020-12-26",
+   "months": 0,
+   "value": 52833000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0196",
+   "row_label": "Furniture and fixtures",
+   "column_label": "January 1, | 2022",
+   "cell_text": "2,534",
+   "period_end": "2022-01-01",
+   "months": 0,
+   "value": 2534000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0196",
+   "row_label": "Furniture and fixtures",
+   "column_label": "December 26, | 2020",
+   "cell_text": "4,013",
+   "period_end": "2020-12-26",
+   "months": 0,
+   "value": 4013000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment and software",
+   "table_id": "t0196",
+   "row_label": "Computer equipment and software",
+   "column_label": "January 1, | 2022",
+   "cell_text": "13,856",
+   "period_end": "2022-01-01",
+   "months": 0,
+   "value": 13856000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer equipment and software",
+   "table_id": "t0196",
+   "row_label": "Computer equipment and software",
+   "column_label": "December 26, | 2020",
+   "cell_text": "15,549",
+   "period_end": "2020-12-26",
+   "months": 0,
+   "value": 15549000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0196",
+   "row_label": "Leasehold improvements",
+   "column_label": "January 1, | 2022",
+   "cell_text": "13,710",
+   "period_end": "2022-01-01",
+   "months": 0,
+   "value": 13710000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0196",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 26, | 2020",
+   "cell_text": "12,927",
+   "period_end": "2020-12-26",
+   "months": 0,
+   "value": 12927000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "Onto reports a single segment; the tables give no capital expenditures by segment"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities is among the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is among the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 23.1,
+  "input_tokens": 5901,
+  "output_tokens": 3239,
+  "attempts": 1,
+  "task_sha": "24196d9a2105ec6c"
+ }
+}

@@ -1,6 +1,6 @@
 {
  "accession": "0000019617-23-000231",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -150,31 +150,27 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment tables (t0105, t0612) report revenue, expense, income, equity and assets only; no capital expenditures by segment"
+   "reason": "the segment note (t0612) reports revenue, expense, income, equity and assets per segment but no capital expenditures"
   },
   {
    "field": "ppe_category",
-   "reason": "no property-and-equipment note table is among the tables provided"
+   "reason": "no property-and-equipment note table with gross categories is among the provided tables"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no lease note table is among the tables provided"
+   "reason": "no lease note table is among the provided tables"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or commitments table is among the tables provided"
-  },
-  {
-   "field": "segment_revenue",
-   "reason": "Corporate (t0160) is not a reportable business segment and its total net revenue is negative in 2021 and 2020, so it was excluded; sub-line-of-business revenue (t0112, t0123, t0142, t0149) was not taken because the segment note t0612 reports the four reportable segments"
+   "reason": "no contractual-obligations or commitments table is among the provided tables"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 17.0,
-  "input_tokens": 11740,
-  "output_tokens": 2283,
+  "seconds": 17.7,
+  "input_tokens": 11866,
+  "output_tokens": 2163,
   "attempts": 1,
-  "task_sha": "5df07786190d5f09"
+  "task_sha": "5a3e3a85e6b93069"
  }
 }

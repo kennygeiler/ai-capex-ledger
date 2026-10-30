@@ -1,0 +1,13 @@
+{
+ "accession": "STX|earnings_release|2023-03-31|51975e13",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "329c2a74be79ee6f"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "TLN|earnings_release|2024-09-30|9acef3a6",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p03 mentions capital expenditures only in forward-looking-statement boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "power producer; p01 and p02 describe data-center demand as a growth driver and opportunity in general terms only, with no sentence stating an amount or share of revenue from AI or data centers"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.6,
+  "input_tokens": 5674,
+  "output_tokens": 235,
+  "attempts": 1,
+  "task_sha": "49233ba253205bcd"
+ }
+}

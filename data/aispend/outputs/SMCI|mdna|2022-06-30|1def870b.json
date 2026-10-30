@@ -1,0 +1,35 @@
+{
+ "accession": "SMCI|mdna|2022-06-30|1def870b",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "During fiscal year 2022 we experienced increased revenue from server and storage systems, particularly from our large enterprise and datacenter customers.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Attributes revenue growth partly to datacenter customers in words only; no data-center or AI revenue figure or share is stated, and AI is not mentioned."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure outlook ($21.2 million for fiscal 2023) relates to manufacturing, IT and facilities; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.5,
+  "input_tokens": 5927,
+  "output_tokens": 678,
+  "attempts": 1,
+  "task_sha": "64e872fd04fc1aa5"
+ }
+}

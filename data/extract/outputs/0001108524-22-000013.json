@@ -1,0 +1,147 @@
+{
+ "accession": "0001108524-22-000013",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0030",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Year Ended January 31, | 2022",
+   "cell_text": "26,492",
+   "period_end": "2022-01-31",
+   "months": 12,
+   "value": 26492000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0030",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Year Ended January 31, | 2021",
+   "cell_text": "21,252",
+   "period_end": "2021-01-31",
+   "months": 12,
+   "value": 21252000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0030",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Year Ended January 31, | 2020",
+   "cell_text": "17,098",
+   "period_end": "2020-01-31",
+   "months": 12,
+   "value": 17098000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0030",
+   "row_label": "Total cost of revenues",
+   "column_label": "Fiscal Year Ended January 31, | 2022",
+   "cell_text": "7,026",
+   "period_end": "2022-01-31",
+   "months": 12,
+   "value": 7026000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0030",
+   "row_label": "Total cost of revenues",
+   "column_label": "Fiscal Year Ended January 31, | 2021",
+   "cell_text": "5,438",
+   "period_end": "2021-01-31",
+   "months": 12,
+   "value": 5438000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0030",
+   "row_label": "Total cost of revenues",
+   "column_label": "Fiscal Year Ended January 31, | 2020",
+   "cell_text": "4,235",
+   "period_end": "2020-01-31",
+   "months": 12,
+   "value": 4235000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0030",
+   "row_label": "Income from operations",
+   "column_label": "Fiscal Year Ended January 31, | 2022",
+   "cell_text": "548",
+   "period_end": "2022-01-31",
+   "months": 12,
+   "value": 548000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0030",
+   "row_label": "Income from operations",
+   "column_label": "Fiscal Year Ended January 31, | 2021",
+   "cell_text": "455",
+   "period_end": "2021-01-31",
+   "months": 12,
+   "value": 455000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0030",
+   "row_label": "Income from operations",
+   "column_label": "Fiscal Year Ended January 31, | 2020",
+   "cell_text": "297",
+   "period_end": "2020-01-31",
+   "months": 12,
+   "value": 297000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0035",
+   "row_label": "Capital expenditures",
+   "column_label": "Fiscal Year Ended January 31, | 2022",
+   "cell_text": "(717)",
+   "period_end": "2022-01-31",
+   "months": 12,
+   "value": 717000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0035",
+   "row_label": "Capital expenditures",
+   "column_label": "Fiscal Year Ended January 31, | 2021",
+   "cell_text": "(710)",
+   "period_end": "2021-01-31",
+   "months": 12,
+   "value": 710000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0035",
+   "row_label": "Capital expenditures",
+   "column_label": "Fiscal Year Ended January 31, | 2020",
+   "cell_text": "(643)",
+   "period_end": "2020-01-31",
+   "months": 12,
+   "value": 643000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.2,
+  "input_tokens": 6223,
+  "output_tokens": 1353,
+  "attempts": 1,
+  "task_sha": "61ef2e66be3b54f3"
+ }
+}

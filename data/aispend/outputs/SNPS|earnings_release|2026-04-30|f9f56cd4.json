@@ -1,0 +1,35 @@
+{
+ "accession": "SNPS|earnings_release|2026-04-30|f9f56cd4",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "AI is scaling semiconductor demand, architectural diversity and complexity of chips and the systems they power\u2014driving demand across our portfolio.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "CEO remark naming AI as a driver of demand across the portfolio, read as a driver of total revenue (Q2 FY2026 revenue $2.276B is stated in a separate sentence). The sentence does not say 'revenue' and gives no AI share or amount."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p02 mentions capital expenditures only in non-GAAP boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses or R&D to AI; p03 is company-description boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.5,
+  "input_tokens": 5557,
+  "output_tokens": 807,
+  "attempts": 1,
+  "task_sha": "ab5f3ee15437b947"
+ }
+}

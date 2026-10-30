@@ -1,56 +1,161 @@
 {
  "ticker": "COMP",
- "prompt_version": "attribution@v1",
- "model": "other@v1",
- "rows": [],
+ "prompt_version": "attribution@v2",
+ "model": "other@v3",
+ "rows": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement attributing any of the 70.1M capex to AI. Under the thesis, PP&E categories (computer equipment, software) are technology and not AI, so none is used.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement attributing any of the 11.2M capex to AI. Under the thesis, technology and software capex is not AI capex.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement attributing any of the 15.7M capex to AI. The thesis does not allow PP&E-category estimates for this layer.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no company statement attributing any of the 13.4M capex to AI. The thesis does not allow PP&E-category estimates for this layer.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no statement quantifying AI opex. Technology and development expense is not AI.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no statement quantifying AI opex. Technology and development expense is not AI.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no statement quantifying AI opex. Technology and development expense is not AI.",
+   "confidence": 0.8
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The pack has no statement quantifying AI opex. The AI Assistant used by agents has no stated cost.",
+   "confidence": 0.8
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Compass is a real-estate brokerage, an AI adopter, with no AI revenue line or statement. Brokerage revenue is not an AI line.",
+   "confidence": 0.85
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Compass is a real-estate brokerage, an AI adopter, with no AI revenue line or statement. Brokerage revenue is not an AI line.",
+   "confidence": 0.85
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Compass is a real-estate brokerage, an AI adopter, with no AI revenue line or statement. Brokerage revenue is not an AI line.",
+   "confidence": 0.85
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Compass is a real-estate brokerage, an AI adopter, with no AI revenue line or statement. Brokerage revenue is not an AI line.",
+   "confidence": 0.85
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "period": "FY2022",
-   "reason": "No company statement attributes any capex to AI (the pack has no quotes). The other@v1 model forbids estimating from PP&E categories, and computer equipment and software are technology spend, not AI spend."
-  },
-  {
-   "field": "capex",
-   "period": "FY2023",
-   "reason": "No company statement attributes any capex to AI. The other@v1 model forbids PP&E-category or segment estimates."
-  },
-  {
-   "field": "capex",
-   "period": "FY2024",
-   "reason": "No company statement attributes any capex to AI. The other@v1 model forbids PP&E-category or segment estimates."
-  },
-  {
-   "field": "capex",
-   "period": "FY2025",
-   "reason": "No company statement attributes any capex to AI. The other@v1 model forbids PP&E-category or segment estimates."
+   "reason": "The pack has no company statement giving an AI capex amount or share for any year. Computer equipment and software PP&E is technology, not AI, and the thesis bars PP&E estimates. Purchase commitments (FY2022 to FY2025) are not identified as AI, so no committed row is given."
   },
   {
    "field": "opex",
-   "period": "FY2022",
-   "reason": "No company statement quantifies or describes AI-related operating expense. Purchase commitments are not tied to AI."
+   "reason": "No statement quantifies AI opex for any year. Technology and development expense is not AI spend. The AI Assistant has no disclosed cost."
   },
   {
-   "field": "opex",
-   "period": "FY2023",
-   "reason": "No company statement quantifies or describes AI-related operating expense. Purchase commitments are not tied to AI."
-  },
-  {
-   "field": "opex",
-   "period": "FY2024",
-   "reason": "No company statement quantifies or describes AI-related operating expense. Purchase commitments are not tied to AI."
-  },
-  {
-   "field": "opex",
-   "period": "FY2025",
-   "reason": "No company statement quantifies or describes AI-related operating expense. Purchase commitments are not tied to AI."
+   "field": "revenue",
+   "reason": "Compass is an adopter with brokerage revenue only. It has no AI segment or AI revenue statement in any year, and the thesis disallows segment or whole_business revenue for Compass."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.3,
-  "input_tokens": 6015,
-  "output_tokens": 705,
+  "seconds": 16.6,
+  "input_tokens": 12185,
+  "output_tokens": 1927,
   "attempts": 1,
-  "task_sha": "3efa82cb53d2ca31"
+  "task_sha": "8c31887ade77b541"
  }
 }

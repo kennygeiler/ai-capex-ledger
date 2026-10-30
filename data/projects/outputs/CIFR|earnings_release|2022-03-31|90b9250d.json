@@ -1,0 +1,84 @@
+{
+ "accession": "CIFR|earnings_release|2022-03-31|90b9250d",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Odessa",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 205,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Alborz \u2013 40 MW Bear (1) \u2013 10 MW Chief (1) \u2013 10 MW Odessa \u2013 205 MW PBJ \u2013 80 MW",
+   "passage": "p04",
+   "confidence": 0.6
+  },
+  {
+   "name": "Alborz",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 40,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Alborz \u2013 40 MW Bear (1) \u2013 10 MW Chief (1) \u2013 10 MW Odessa \u2013 205 MW PBJ \u2013 80 MW",
+   "passage": "p04",
+   "confidence": 0.6
+  },
+  {
+   "name": "Bear",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 10,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Alborz \u2013 40 MW Bear (1) \u2013 10 MW Chief (1) \u2013 10 MW Odessa \u2013 205 MW PBJ \u2013 80 MW",
+   "passage": "p04",
+   "confidence": 0.55
+  },
+  {
+   "name": "Chief",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 10,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Alborz \u2013 40 MW Bear (1) \u2013 10 MW Chief (1) \u2013 10 MW Odessa \u2013 205 MW PBJ \u2013 80 MW",
+   "passage": "p04",
+   "confidence": 0.55
+  },
+  {
+   "name": "PBJ",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 80,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Alborz \u2013 40 MW Bear (1) \u2013 10 MW Chief (1) \u2013 10 MW Odessa \u2013 205 MW PBJ \u2013 80 MW",
+   "passage": "p04",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.6,
+  "input_tokens": 6391,
+  "output_tokens": 1319,
+  "attempts": 1,
+  "task_sha": "6a138e9c94284c68"
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "accession": "CIEN|earnings_release|2026-01-31|3029d645",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Grew both revenue and shipments of RLS more than 80% YoY fueled by ongoing AI-driven Cloud expansion",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "Bullet point, not a full sentence; quoted verbatim. It attributes growth in RLS product revenue to AI-driven cloud expansion but states no AI revenue amount or share (80% is a growth rate, not a share of revenue). The bullet names no year; its section header reads Q1 FY 2026. The 'Direct Cloud Provider revenue ... 42% of total revenue' bullet was not recorded because it does not identify that revenue as AI or data-center revenue."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D or other operating expenses to AI; the R&D headcount figure in p01 is not linked to AI spend"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.4,
+  "input_tokens": 5709,
+  "output_tokens": 1077,
+  "attempts": 1,
+  "task_sha": "8c0a15476a25014b"
+ }
+}

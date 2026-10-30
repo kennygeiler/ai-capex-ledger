@@ -1,0 +1,27 @@
+{
+ "accession": "SNOW|mdna|2023-01-31|9dd7c3b9",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; p01 mentions capital expenditure requirements only in a general liquidity statement"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue or AI's share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.3,
+  "input_tokens": 5136,
+  "output_tokens": 208,
+  "attempts": 1,
+  "task_sha": "4be9dfdce0d9eca7"
+ }
+}

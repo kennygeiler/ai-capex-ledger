@@ -1,0 +1,42 @@
+{
+ "accession": "NVT|earnings_release|2025-09-30|74ab10df",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We also launched a number of new products, expanded capacity in several facilities to support data center and power utility growth, and executed on our acquisition integration playbook",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Capacity expansion implies capital spending, but the sentence never says 'capital expenditures'. It links that spending to data center and power utility growth, not to AI explicitly. No amount or share is given. The sentence ends with a comma inside the CEO's quotation, so the quote is cut before the closing quotation mark."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our portfolio transformation is driving success, and we are raising our full-year sales and EPS guidance to reflect our record third quarter performance and our significant momentum in data centers.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "The raised full-year sales guidance is a total-revenue outlook that cites data center momentum as a driver. No data center revenue figure or share is stated. 'Full-year' refers to the current fiscal year (2025), but the sentence names no year, so fiscal_year is null; the default rule would assign 2026, which would be wrong here."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI or data centers"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.5,
+  "input_tokens": 4912,
+  "output_tokens": 1225,
+  "attempts": 1,
+  "task_sha": "c6894618b97715f7"
+ }
+}

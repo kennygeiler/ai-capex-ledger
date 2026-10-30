@@ -1,0 +1,13 @@
+{
+ "accession": "SITM|earnings_release|2022-03-31|556fdf2c",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 4808,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "d955cad26f73fe12"
+ }
+}

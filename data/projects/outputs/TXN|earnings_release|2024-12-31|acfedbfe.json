@@ -1,0 +1,13 @@
+{
+ "accession": "TXN|earnings_release|2024-12-31|acfedbfe",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.1,
+  "input_tokens": 4899,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "8c96a8d2ced209b7"
+ }
+}

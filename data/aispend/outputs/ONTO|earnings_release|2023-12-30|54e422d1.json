@@ -1,0 +1,27 @@
+{
+ "accession": "ONTO|earnings_release|2023-12-30|54e422d1",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the passage is non-GAAP and forward-looking boilerplate plus a company description; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, data-center or AI-related revenue; the 'About Onto Innovation' product description is boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 6079,
+  "output_tokens": 225,
+  "attempts": 1,
+  "task_sha": "eb8fafcc324ebea9"
+ }
+}

@@ -1,0 +1,152 @@
+{
+ "accession": "0001375365-26-000022",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0020",
+   "row_label": "Net sales (including related party sales of $29,781, $42,259, and $69,791 in fiscal years 2026, 2025, and 2024, respectively)",
+   "column_label": "Years Ended June 30, | 2026",
+   "cell_text": "39,063,072",
+   "period_end": "2026-06-30",
+   "months": 12,
+   "value": 39063072000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0020",
+   "row_label": "Net sales (including related party sales of $29,781, $42,259, and $69,791 in fiscal years 2026, 2025, and 2024, respectively)",
+   "column_label": "Years Ended June 30, | 2025",
+   "cell_text": "21,972,042",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 21972042000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0020",
+   "row_label": "Net sales (including related party sales of $29,781, $42,259, and $69,791 in fiscal years 2026, 2025, and 2024, respectively)",
+   "column_label": "Years Ended June 30, | 2024",
+   "cell_text": "14,989,251",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 14989251000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0020",
+   "row_label": "Cost of sales (including related party purchases of $725,694, $650,658, and $552,136 in fiscal years 2026, 2025, and 2024, respectively)",
+   "column_label": "Years Ended June 30, | 2026",
+   "cell_text": "34,835,821",
+   "period_end": "2026-06-30",
+   "months": 12,
+   "value": 34835821000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0020",
+   "row_label": "Cost of sales (including related party purchases of $725,694, $650,658, and $552,136 in fiscal years 2026, 2025, and 2024, respectively)",
+   "column_label": "Years Ended June 30, | 2025",
+   "cell_text": "19,542,120",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 19542120000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0020",
+   "row_label": "Cost of sales (including related party purchases of $725,694, $650,658, and $552,136 in fiscal years 2026, 2025, and 2024, respectively)",
+   "column_label": "Years Ended June 30, | 2024",
+   "cell_text": "12,927,841",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 12927841000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0020",
+   "row_label": "Income from operations",
+   "column_label": "Years Ended June 30, | 2026",
+   "cell_text": "2,770,486",
+   "period_end": "2026-06-30",
+   "months": 12,
+   "value": 2770486000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0020",
+   "row_label": "Income from operations",
+   "column_label": "Years Ended June 30, | 2025",
+   "cell_text": "1,252,994",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 1252994000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0020",
+   "row_label": "Income from operations",
+   "column_label": "Years Ended June 30, | 2024",
+   "cell_text": "1,210,774",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 1210774000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0024",
+   "row_label": "Purchases of property, plant, and equipment (including payments to related parties of $12,567, $17,677, and $10,625 in fiscal years 2026, 2025, and 2024, respectively)",
+   "column_label": "Years Ended June 30, | 2026",
+   "cell_text": "(161,999)",
+   "period_end": "2026-06-30",
+   "months": 12,
+   "value": 161999000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0024",
+   "row_label": "Purchases of property, plant, and equipment (including payments to related parties of $12,567, $17,677, and $10,625 in fiscal years 2026, 2025, and 2024, respectively)",
+   "column_label": "Years Ended June 30, | 2025",
+   "cell_text": "(127,214)",
+   "period_end": "2025-06-30",
+   "months": 12,
+   "value": 127214000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0024",
+   "row_label": "Purchases of property, plant, and equipment (including payments to related parties of $12,567, $17,677, and $10,625 in fiscal years 2026, 2025, and 2024, respectively)",
+   "column_label": "Years Ended June 30, | 2024",
+   "cell_text": "(124,279)",
+   "period_end": "2024-06-30",
+   "months": 12,
+   "value": 124279000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the statement has a single total 'Cost of sales' line, extracted as cost_of_revenue."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.8,
+  "input_tokens": 6602,
+  "output_tokens": 2012,
+  "attempts": 1,
+  "task_sha": "abba46007b42de51"
+ }
+}

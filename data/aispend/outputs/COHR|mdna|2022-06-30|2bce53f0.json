@@ -1,0 +1,27 @@
+{
+ "accession": "COHR|mdna|2022-06-30|2bce53f0",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are mentioned only in forward-looking-statement boilerplate and a liquidity sufficiency statement; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "research and development is mentioned only as a funding need in a liquidity statement; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 5169,
+  "output_tokens": 232,
+  "attempts": 1,
+  "task_sha": "0f7098e17b26c5c2"
+ }
+}

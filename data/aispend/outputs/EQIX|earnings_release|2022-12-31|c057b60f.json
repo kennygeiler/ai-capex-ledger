@@ -1,0 +1,27 @@
+{
+ "accession": "EQIX|earnings_release|2022-12-31|c057b60f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure guidance for 2023 (non-recurring $2.511-$2.741 billion, recurring $197-$217 million, xScale $131-$181 million) is given, but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "revenue figures ($7.263 billion for 2022; $8.145-$8.245 billion guided for 2023) are company totals with no sentence attributing any part to AI or labeling it data-center revenue; AI is not mentioned anywhere in the release"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 12767,
+  "output_tokens": 497,
+  "attempts": 1,
+  "task_sha": "e0094e67098bb0df"
+ }
+}

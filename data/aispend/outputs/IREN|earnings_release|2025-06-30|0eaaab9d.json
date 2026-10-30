@@ -1,6 +1,6 @@
 {
  "accession": "IREN|earnings_release|2025-06-30|0eaaab9d",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "a6d276189c705719"
+  "task_sha": "34f25ded9d8165d5"
  }
 }

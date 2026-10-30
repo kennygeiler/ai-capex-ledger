@@ -1,0 +1,200 @@
+{
+ "accession": "0001692819-26-000006",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0057",
+   "row_label": "Operating revenues",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "17,738",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 17738000000,
+   "confidence": 0.95,
+   "notes": "Unit not stated with the income statement. Millions inferred because net income (944 / 2,812 / 1,492) matches the cash-flow statement, which is stated in millions."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0057",
+   "row_label": "Operating revenues",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "17,224",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 17224000000,
+   "confidence": 0.95,
+   "notes": "Unit inferred as millions; see 2025 note."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0057",
+   "row_label": "Operating revenues",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "14,779",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 14779000000,
+   "confidence": 0.95,
+   "notes": "Unit inferred as millions; see 2025 note."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0057",
+   "row_label": "Fuel, purchased power costs, and delivery fees",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(9,101)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 9101000000,
+   "confidence": 0.9,
+   "notes": "Direct cost of generating and delivering the power sold: fuel, purchased power and delivery fees. There is no total cost-of-revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0057",
+   "row_label": "Fuel, purchased power costs, and delivery fees",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(7,285)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 7285000000,
+   "confidence": 0.9,
+   "notes": "Direct cost of generating and delivering the power sold. There is no total cost-of-revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0057",
+   "row_label": "Fuel, purchased power costs, and delivery fees",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(7,557)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 7557000000,
+   "confidence": 0.9,
+   "notes": "Direct cost of generating and delivering the power sold. There is no total cost-of-revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0057",
+   "row_label": "Operating costs",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(2,803)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 2803000000,
+   "confidence": 0.7,
+   "notes": "For this generator, 'Operating costs' means plant operations and maintenance, a cost of producing the electricity sold. It is listed separately from SG&A, D&A and impairment, which are excluded. Confidence is lower because the label is generic."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0057",
+   "row_label": "Operating costs",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(2,414)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 2414000000,
+   "confidence": 0.7,
+   "notes": "Plant operations and maintenance cost of producing the power sold. Separate from SG&A, D&A and impairment. The label is generic."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0057",
+   "row_label": "Operating costs",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(1,702)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 1702000000,
+   "confidence": 0.7,
+   "notes": "Plant operations and maintenance cost of producing the power sold. Separate from SG&A, D&A and impairment. The label is generic."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0057",
+   "row_label": "Operating income",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "1,906",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 1906000000,
+   "confidence": 0.95,
+   "notes": "Unit inferred as millions; see revenue note."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0057",
+   "row_label": "Operating income",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "4,081",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 4081000000,
+   "confidence": 0.95,
+   "notes": "Unit inferred as millions; see revenue note."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0057",
+   "row_label": "Operating income",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "2,661",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 2661000000,
+   "confidence": 0.95,
+   "notes": "Unit inferred as millions; see revenue note."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0061",
+   "row_label": "Capital expenditures, including nuclear fuel purchases and LTSA prepayments",
+   "column_label": "Year Ended December 31, | 2025",
+   "cell_text": "(2,752)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 2752000000,
+   "confidence": 0.8,
+   "notes": "This is the only capital-expenditure line. It also includes nuclear fuel purchases and long-term service agreement prepayments, so it is broader than pure PP&E purchases."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0061",
+   "row_label": "Capital expenditures, including nuclear fuel purchases and LTSA prepayments",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "(2,078)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 2078000000,
+   "confidence": 0.8,
+   "notes": "This line also includes nuclear fuel purchases and LTSA prepayments."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0061",
+   "row_label": "Capital expenditures, including nuclear fuel purchases and LTSA prepayments",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "(1,676)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 1676000000,
+   "confidence": 0.8,
+   "notes": "This line also includes nuclear fuel purchases and LTSA prepayments."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "The income statement has no total cost-of-revenue or cost-of-sales line. Expenses are listed by nature, so the costs are given as cost_of_revenue_part (fuel/purchased power/delivery fees and operating costs) instead."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.1,
+  "input_tokens": 7672,
+  "output_tokens": 2969,
+  "attempts": 1,
+  "task_sha": "e5760b1b210e29aa"
+ }
+}

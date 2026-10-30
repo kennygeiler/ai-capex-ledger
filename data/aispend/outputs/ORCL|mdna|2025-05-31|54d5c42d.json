@@ -1,23 +1,27 @@
 {
  "accession": "ORCL|mdna|2025-05-31|54d5c42d",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states capital expenditures or links them to AI; p02's data center expansion is described under expenses, not capex, and does not mention AI"
+   "reason": "no sentence states capital expenditures or links them to AI; p02's data center capacity expansion is described as an expense trend and is not tied to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence links operating expenses to AI; the $1.6 billion infrastructure expense increase and the fiscal 2026 expense growth outlook are attributed to cloud services revenue and data center capacity, not AI, and p01's R&D sentence concerns hardware products"
+   "reason": "p02 attributes the $1.6 billion infrastructure expense increase and the expected fiscal 2026 growth to cloud services and data center capacity for customer demand, but no sentence mentions AI; p01's R&D sentence concerns hardware products and is not linked to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; p01 gives only hardware's share of total revenues (5% and 6%), which is not AI revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.9,
-  "input_tokens": 5142,
-  "output_tokens": 228,
+  "seconds": 9.4,
+  "input_tokens": 5447,
+  "output_tokens": 395,
   "attempts": 1,
-  "task_sha": "029b56406250082b"
+  "task_sha": "e03fcf6ecb861b42"
  }
 }

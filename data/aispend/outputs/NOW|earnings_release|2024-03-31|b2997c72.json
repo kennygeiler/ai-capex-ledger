@@ -1,0 +1,27 @@
+{
+ "accession": "NOW|earnings_release|2024-03-31|b2997c72",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only a cash-flow table line for purchases of property and equipment; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "passages are forward-looking-statement boilerplate and a cash-flow table; no sentence states AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 5690,
+  "output_tokens": 204,
+  "attempts": 1,
+  "task_sha": "9c734a40b0127d7c"
+ }
+}

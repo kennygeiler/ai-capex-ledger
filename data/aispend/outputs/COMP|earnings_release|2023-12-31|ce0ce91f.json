@@ -1,23 +1,27 @@
 {
  "accession": "COMP|earnings_release|2023-12-31|ce0ce91f",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "capital expenditures of $11.2 million appear only in the cash flow table (p02) with no sentence linking them to AI"
+   "reason": "capital expenditures of $11.2 million appear only in the cash flow table with no link to AI"
   },
   {
    "field": "opex",
-   "reason": "p01 mentions investing in the technology platform and adding 'Compass AI enhancements' as product features, but no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "the only AI mention lists 'Compass AI enhancements' among platform features added in 2023; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "real estate brokerage; no sentence states revenue from AI or data-center demand"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.7,
-  "input_tokens": 5643,
-  "output_tokens": 360,
+  "seconds": 4.9,
+  "input_tokens": 5946,
+  "output_tokens": 419,
   "attempts": 1,
-  "task_sha": "43ad0e4253abd2f4"
+  "task_sha": "0acf0f6e2d7b0dfb"
  }
 }

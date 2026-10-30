@@ -1,0 +1,42 @@
+{
+ "accession": "VRT|earnings_release|2025-03-31|a983b351",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The company continues to invest in ER&D and capacity expansion to support the growing needs of the industry, particularly in AI infrastructure deployments.",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "ER&D (engineering R&D) investment is linked to AI infrastructure in words only ('particularly'); present tense with no year, so fiscal_year is null and the filing's reported year (2025) applies."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The company continues to invest in ER&D and capacity expansion to support the growing needs of the industry, particularly in AI infrastructure deployments.",
+   "passage": "p03",
+   "confidence": 0.65,
+   "notes": "Capacity expansion is taken as capex and is linked to AI infrastructure in words only. The $275 million 2025 capex forecast in p02 is attributed to 'the strong growth trajectory', not to AI, so it is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI or data-center revenue figure or share; 'strong AI-driven demand' describes pipeline and market momentum, not revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.1,
+  "input_tokens": 5805,
+  "output_tokens": 1051,
+  "attempts": 1,
+  "task_sha": "425b7841cfc538ff"
+ }
+}

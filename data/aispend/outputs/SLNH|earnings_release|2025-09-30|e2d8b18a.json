@@ -1,0 +1,27 @@
+{
+ "accession": "SLNH|earnings_release|2025-09-30|e2d8b18a",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "purchases of property, plant, and equipment appear only in the cash flow table; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "revenue growth is reported only in total; AI appears only in boilerplate descriptions of the business, and no sentence states AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 6859,
+  "output_tokens": 296,
+  "attempts": 1,
+  "task_sha": "e5e50601855261d0"
+ }
+}

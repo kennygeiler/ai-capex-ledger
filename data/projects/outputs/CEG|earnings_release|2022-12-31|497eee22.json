@@ -1,0 +1,90 @@
+{
+ "accession": "CEG|earnings_release|2022-12-31|497eee22",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Commercial-scale hydrogen project",
+   "kind": "plant",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 900000000,
+   "amount_high": 900000000,
+   "capacity_mw": 250,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "Hydrogen facility will initially use ~250 MWs and produce ~33,450 TPA hydrogen, with the ability to expand to 400 MWs",
+   "passage": "p21",
+   "confidence": 0.75
+  },
+  {
+   "name": "Nuclear uprates at Byron and Braidwood",
+   "kind": "power",
+   "status": "announced",
+   "location": "Byron and Braidwood",
+   "counterparty": null,
+   "amount_low": 200000000,
+   "amount_high": 200000000,
+   "capacity_mw": 135,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "Increasing nuclear output by ~135 MWs at Byron and Braidwood",
+   "passage": "p21",
+   "confidence": 0.7
+  },
+  {
+   "name": "Wind repower and refurbishment program",
+   "kind": "power",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 350000000,
+   "amount_high": 350000000,
+   "capacity_mw": 315,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "315 MWs in initial scope of repowering program",
+   "passage": "p21",
+   "confidence": 0.65
+  },
+  {
+   "name": "Six long-term PPAs with new build renewable generators",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 824,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Entered into six long-term power purchase agreements with new build renewable generators across three ISOs, with total nameplate capacity of 824 MWs",
+   "passage": "p15",
+   "confidence": 0.6
+  },
+  {
+   "name": "Nine Mile Point hydrogen production pilot",
+   "kind": "plant",
+   "status": "announced",
+   "location": "Nine Mile Point",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Pilot program to begin hydrogen production at Nine Mile Point",
+   "passage": "p13",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 17.4,
+  "input_tokens": 18995,
+  "output_tokens": 2195,
+  "attempts": 1,
+  "task_sha": "d0d7e5429a96662c"
+ }
+}

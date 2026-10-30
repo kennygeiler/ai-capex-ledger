@@ -1,0 +1,42 @@
+{
+ "accession": "VST|earnings_release|2023-06-30|438cdad7",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Moss Landing Energy Storage Facility Phase III expansion",
+   "kind": "power",
+   "status": "in_service",
+   "location": "Moss Landing, California",
+   "counterparty": null,
+   "capacity_mw": 350,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "The 350-megawattPhase III expansion of our Moss Landing Energy Storage Facility achieved commercial operation during the second quarter, ahead of schedule and on budget, bringing our Vistra Zero portfolio currently online to approximately 3,750 MW, including our nuclear facility Comanche Peak.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Energy Harbor acquisition",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Energy Harbor Corp.",
+   "capacity_mw": 4000,
+   "gpus": null,
+   "announced": "2023-03",
+   "in_service": null,
+   "quote": "In March 2023, Vistra announced the execution of a definitive agreement to acquire Energy Harbor, which will add more than 4,000 MW of nuclear generation to its portfolio along with approximately one million additional retail customers.",
+   "passage": "p03",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.5,
+  "input_tokens": 7204,
+  "output_tokens": 1357,
+  "attempts": 1,
+  "task_sha": "fc2f25bf2654920c"
+ }
+}

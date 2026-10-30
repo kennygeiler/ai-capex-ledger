@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|earnings_release|2021-12-31|aae2ea44",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; development and acquisition figures (land, Teraco, Digital Core REIT) are not described as AI-related"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only revenue figure is fourth-quarter 2021 total revenue of $1.1 billion, a quarterly total with no AI or data-center attribution; no sentence states an AI or data-center revenue amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.1,
+  "input_tokens": 13030,
+  "output_tokens": 412,
+  "attempts": 1,
+  "task_sha": "6cc0eada4c041ffb"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "CEG|earnings_release|2026-03-31|aa069eaf",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only capital figure (~$335M) is for share repurchases"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data center powered-land deals are described in MW and as an EPS impact ($0.20-$0.50 per 1,000 MWs), and 'unlock data center contracting opportunities' is a slide highlight; no sentence states a data-center or AI revenue amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.4,
+  "input_tokens": 6337,
+  "output_tokens": 511,
+  "attempts": 1,
+  "task_sha": "4c7fc8209744b2dd"
+ }
+}

@@ -1,23 +1,27 @@
 {
  "accession": "WULF|earnings_release|2025-12-31|b67074df",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; passages contain only a company description (p01) and safe-harbor boilerplate (p02, p03)"
+   "reason": "no sentence states or links capital expenditures to AI; p01 is a company description and p02/p03 are safe-harbor boilerplate"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; passages contain only a company description (p01) and safe-harbor boilerplate (p02, p03)"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only revenue figure is the slide fragment '~$13B CONTRACTED REVENUE' in p04, which is not a complete sentence and is multi-year lease backlog (10-25Y terms), not revenue for fiscal 2025 or a named outlook year; no sentence states AI/HPC revenue for a fiscal year"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.7,
-  "input_tokens": 6609,
-  "output_tokens": 197,
+  "seconds": 4.9,
+  "input_tokens": 7332,
+  "output_tokens": 447,
   "attempts": 1,
-  "task_sha": "7a62987ca161149a"
+  "task_sha": "7619e249d8c58683"
  }
 }

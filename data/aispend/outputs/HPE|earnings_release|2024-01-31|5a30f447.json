@@ -1,0 +1,27 @@
+{
+ "accession": "HPE|earnings_release|2024-01-31|5a30f447",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in the FCF definition (p02, p05); no sentence links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "research and development expenditures are mentioned only in forward-looking-statement boilerplate (p03); no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "Server revenue of $3.4 billion (p01) is for the merged Server segment, which combines general Compute with HPC & AI; no sentence states the AI or AI-server part of revenue, and the figure is for the quarter, not the fiscal year"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.2,
+  "input_tokens": 6442,
+  "output_tokens": 433,
+  "attempts": 1,
+  "task_sha": "719deefd1d24afb0"
+ }
+}

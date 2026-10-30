@@ -1,0 +1,289 @@
+{
+ "accession": "0001628280-25-056742",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_capex",
+   "dimension": "Semiconductor Systems",
+   "table_id": "t0061",
+   "row_label": "Capital expenditures",
+   "column_label": "Semiconductor Systems",
+   "cell_text": "507",
+   "period_end": "2025-10-26",
+   "months": 12,
+   "value": 507000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Applied Global Services",
+   "table_id": "t0061",
+   "row_label": "Capital expenditures",
+   "column_label": "Applied Global Services",
+   "cell_text": "57",
+   "period_end": "2025-10-26",
+   "months": 12,
+   "value": 57000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Semiconductor Systems",
+   "table_id": "t0062",
+   "row_label": "Capital expenditures",
+   "column_label": "Semiconductor Systems",
+   "cell_text": "425",
+   "period_end": "2024-10-27",
+   "months": 12,
+   "value": 425000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Applied Global Services",
+   "table_id": "t0062",
+   "row_label": "Capital expenditures",
+   "column_label": "Applied Global Services",
+   "cell_text": "35",
+   "period_end": "2024-10-27",
+   "months": 12,
+   "value": 35000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Semiconductor Systems",
+   "table_id": "t0063",
+   "row_label": "Capital expenditures",
+   "column_label": "Semiconductor Systems",
+   "cell_text": "381",
+   "period_end": "2023-10-29",
+   "months": 12,
+   "value": 381000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_capex",
+   "dimension": "Applied Global Services",
+   "table_id": "t0063",
+   "row_label": "Capital expenditures",
+   "column_label": "Applied Global Services",
+   "cell_text": "39",
+   "period_end": "2023-10-29",
+   "months": 12,
+   "value": 39000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Semiconductor Systems",
+   "table_id": "t0061",
+   "row_label": "Net revenue",
+   "column_label": "Semiconductor Systems",
+   "cell_text": "20,798",
+   "period_end": "2025-10-26",
+   "months": 12,
+   "value": 20798000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Applied Global Services",
+   "table_id": "t0061",
+   "row_label": "Net revenue",
+   "column_label": "Applied Global Services",
+   "cell_text": "6,385",
+   "period_end": "2025-10-26",
+   "months": 12,
+   "value": 6385000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Semiconductor Systems",
+   "table_id": "t0062",
+   "row_label": "Net revenue",
+   "column_label": "Semiconductor Systems",
+   "cell_text": "19,911",
+   "period_end": "2024-10-27",
+   "months": 12,
+   "value": 19911000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Applied Global Services",
+   "table_id": "t0062",
+   "row_label": "Net revenue",
+   "column_label": "Applied Global Services",
+   "cell_text": "6,225",
+   "period_end": "2024-10-27",
+   "months": 12,
+   "value": 6225000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Semiconductor Systems",
+   "table_id": "t0063",
+   "row_label": "Net revenue",
+   "column_label": "Semiconductor Systems",
+   "cell_text": "19,698",
+   "period_end": "2023-10-29",
+   "months": 12,
+   "value": 19698000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Applied Global Services",
+   "table_id": "t0063",
+   "row_label": "Net revenue",
+   "column_label": "Applied Global Services",
+   "cell_text": "5,732",
+   "period_end": "2023-10-29",
+   "months": 12,
+   "value": 5732000000,
+   "confidence": 0.85
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and improvements",
+   "table_id": "t0040",
+   "row_label": "Land and improvements",
+   "column_label": "October 26,2025 | (In years)",
+   "cell_text": "558",
+   "period_end": "2025-10-26",
+   "months": 0,
+   "value": 558000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0040",
+   "row_label": "Buildings and improvements",
+   "column_label": "October 26,2025 | (In years)",
+   "cell_text": "2,930",
+   "period_end": "2025-10-26",
+   "months": 0,
+   "value": 2930000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Demonstration and manufacturing equipment",
+   "table_id": "t0040",
+   "row_label": "Demonstration and manufacturing equipment",
+   "column_label": "October 26,2025 | (In years)",
+   "cell_text": "2,708",
+   "period_end": "2025-10-26",
+   "months": 0,
+   "value": 2708000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures and other equipment",
+   "table_id": "t0040",
+   "row_label": "Furniture, fixtures and other equipment",
+   "column_label": "October 26,2025 | (In years)",
+   "cell_text": "855",
+   "period_end": "2025-10-26",
+   "months": 0,
+   "value": 855000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0040",
+   "row_label": "Construction in progress",
+   "column_label": "October 26,2025 | (In years)",
+   "cell_text": "1,460",
+   "period_end": "2025-10-26",
+   "months": 0,
+   "value": 1460000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and improvements",
+   "table_id": "t0040",
+   "row_label": "Land and improvements",
+   "column_label": "October 27,2024 | (In years)",
+   "cell_text": "492",
+   "period_end": "2024-10-27",
+   "months": 0,
+   "value": 492000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0040",
+   "row_label": "Buildings and improvements",
+   "column_label": "October 27,2024 | (In years)",
+   "cell_text": "2,359",
+   "period_end": "2024-10-27",
+   "months": 0,
+   "value": 2359000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Demonstration and manufacturing equipment",
+   "table_id": "t0040",
+   "row_label": "Demonstration and manufacturing equipment",
+   "column_label": "October 27,2024 | (In years)",
+   "cell_text": "2,578",
+   "period_end": "2024-10-27",
+   "months": 0,
+   "value": 2578000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures and other equipment",
+   "table_id": "t0040",
+   "row_label": "Furniture, fixtures and other equipment",
+   "column_label": "October 27,2024 | (In years)",
+   "cell_text": "782",
+   "period_end": "2024-10-27",
+   "months": 0,
+   "value": 782000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0040",
+   "row_label": "Construction in progress",
+   "column_label": "October 27,2024 | (In years)",
+   "cell_text": "898",
+   "period_end": "2024-10-27",
+   "months": 0,
+   "value": 898000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities is included in the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included in the provided tables"
+  }
+ ],
+ "notes": "Segment tables t0061/t0062/t0063 carry no year in their column labels; years were assigned by matching each table's Total net revenue to t0010 (28,368 = FY2025, 27,176 = FY2024) and by filing order for t0063 (26,517 = FY2023, fiscal year-end 2023-10-29), hence confidence below 1.0. 'Corporate and Other' is a reconciling column, not a reportable segment, so it was excluded from segment_capex and segment_revenue.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 24.7,
+  "input_tokens": 6559,
+  "output_tokens": 3644,
+  "attempts": 1,
+  "task_sha": "b12b686125326d3e"
+ }
+}

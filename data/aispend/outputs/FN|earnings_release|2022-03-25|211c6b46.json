@@ -1,0 +1,27 @@
+{
+ "accession": "FN|earnings_release|2022-03-25|211c6b46",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only a cash flow table with purchase of property, plant and equipment; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "passage is a cash flow statement; no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 5756,
+  "output_tokens": 187,
+  "attempts": 1,
+  "task_sha": "58f904db180ec211"
+ }
+}

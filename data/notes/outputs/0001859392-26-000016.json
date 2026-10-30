@@ -1,0 +1,209 @@
+{
+ "accession": "0001859392-26-000016",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital Assets",
+   "table_id": "t0103",
+   "row_label": "Revenues",
+   "column_label": "Digital Assets",
+   "cell_text": "60,385,358",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 60385358000,
+   "confidence": 0.85,
+   "notes": "Segment columns carry no year; table assigned to FY2025 because its Totals column (60,406,728) matches FY2025 total revenues in t0041/t0111."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Data Centers",
+   "table_id": "t0103",
+   "row_label": "Revenues",
+   "column_label": "Data Centers",
+   "cell_text": "8,433",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 8433000,
+   "confidence": 0.85,
+   "notes": "Segment columns carry no year; table assigned to FY2025 because its Totals column matches FY2025 total revenues."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital Assets",
+   "table_id": "t0104",
+   "row_label": "Revenues",
+   "column_label": "Digital Assets",
+   "cell_text": "42,497,063",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 42497063000,
+   "confidence": 0.85,
+   "notes": "Segment columns carry no year; table assigned to FY2024 because its Totals column (42,596,673) matches FY2024 total revenues. Data Centers shows '\u2014' for this year and was not cited."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Digital Assets",
+   "table_id": "t0105",
+   "row_label": "Revenues",
+   "column_label": "Digital Assets",
+   "cell_text": "51,565,491",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 51565491000,
+   "confidence": 0.85,
+   "notes": "Segment columns carry no year; table assigned to FY2023 because its Totals column (51,626,779) matches FY2023 total revenues. Data Centers shows '\u2014' for this year and was not cited."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Corporate assets",
+   "table_id": "t0076",
+   "row_label": "Corporate assets (1)",
+   "column_label": "December 31, 2025",
+   "cell_text": "15,084",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 15084000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Mining equipment",
+   "table_id": "t0076",
+   "row_label": "Mining equipment",
+   "column_label": "December 31, 2025",
+   "cell_text": "79,250",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 79250000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Data center infrastructure",
+   "table_id": "t0076",
+   "row_label": "Data center infrastructure (2)",
+   "column_label": "December 31, 2025",
+   "cell_text": "67,669",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 67669000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0076",
+   "row_label": "Land",
+   "column_label": "December 31, 2025",
+   "cell_text": "35,272",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 35272000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "WIP / Construction in progress",
+   "table_id": "t0076",
+   "row_label": "WIP / Construction in progress (3)",
+   "column_label": "December 31, 2025",
+   "cell_text": "1,344,211",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 1344211000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Corporate assets",
+   "table_id": "t0076",
+   "row_label": "Corporate assets (1)",
+   "column_label": "December 31, 2024",
+   "cell_text": "11,093",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 11093000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Mining equipment",
+   "table_id": "t0076",
+   "row_label": "Mining equipment",
+   "column_label": "December 31, 2024",
+   "cell_text": "172,572",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 172572000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Data center infrastructure",
+   "table_id": "t0076",
+   "row_label": "Data center infrastructure (2)",
+   "column_label": "December 31, 2024",
+   "cell_text": "113,710",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 113710000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0076",
+   "row_label": "Land",
+   "column_label": "December 31, 2024",
+   "cell_text": "12,809",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 12809000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "WIP / Construction in progress",
+   "table_id": "t0076",
+   "row_label": "WIP / Construction in progress (3)",
+   "column_label": "December 31, 2024",
+   "cell_text": "35,777",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 35777000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0028",
+   "row_label": "Data center commitments",
+   "column_label": "Payments Due by Period | Total",
+   "cell_text": "529,775",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 529775000,
+   "confidence": 0.6,
+   "notes": "No row is labelled purchase obligations; 'Data center commitments' is the closest purchase-commitment line. The table total also includes debt, loans, leases and a legal settlement, so it was not used. The table's unit (thousands) is not stated with the table."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment note tables report revenues, expenses and net income by segment but no capital expenditures"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table with finance lease liabilities is provided; the commitments table shows only aggregate 'Lease obligations'"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 25.7,
+  "input_tokens": 12071,
+  "output_tokens": 3331,
+  "attempts": 1,
+  "task_sha": "5e6ab5630db42341"
+ }
+}

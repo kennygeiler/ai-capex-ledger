@@ -1,0 +1,63 @@
+{
+ "accession": "DELL|earnings_release|2024-08-02|34309122",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 7700000000,
+   "amount_high": 7700000000,
+   "quote": "Servers and networking revenue was a record $7.7 billion, up 80%, with demand growth across AI and traditional servers.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Second-quarter (Q2 FY2025) servers and networking revenue, which includes both AI and traditional servers. AI is named as a driver, but the AI portion is not stated. The sentence names no year, so the code assigns the filing's year (fiscal 2025)."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3200000000,
+   "amount_high": 3200000000,
+   "quote": "AI-optimized server demand was $3.2 billion, up 23% sequentially, and $5.8 billion year to date.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Q2 FY2025 figure. This is 'demand' (orders), not recognized revenue, so confidence is lower. The sentence names no year, so the code assigns the filing's year (fiscal 2025)."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 5800000000,
+   "amount_high": 5800000000,
+   "quote": "AI-optimized server demand was $3.2 billion, up 23% sequentially, and $5.8 billion year to date.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Year-to-date (first half of FY2025) AI-optimized server demand, meaning orders rather than recognized revenue. This uses the same sentence as the Q2 statement."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 20.3,
+  "input_tokens": 4981,
+  "output_tokens": 2356,
+  "attempts": 1,
+  "task_sha": "311c401f91a39bd4"
+ }
+}

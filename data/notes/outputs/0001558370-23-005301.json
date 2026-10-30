@@ -1,6 +1,6 @@
 {
  "accession": "0001558370-23-005301",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -85,7 +85,7 @@
    "months": 0,
    "value": 57626000,
    "confidence": 0.8,
-   "notes": "Deposits on miners are prepayments for equipment not yet received; included because the filing lists them as a component of gross property and equipment (they sum into the 198,188 total)."
+   "notes": "Deposits on miners are prepayments included in the gross PP&E total rather than an in-service asset category; included because the filing lists them as a line in the gross schedule."
   },
   {
    "field": "ppe_category",
@@ -98,37 +98,33 @@
    "months": 0,
    "value": 70560000,
    "confidence": 0.8,
-   "notes": "Deposits on miners are prepayments for equipment not yet received; included because the filing lists them as a component of gross property and equipment (they sum into the 91,446 total)."
+   "notes": "Deposits on miners are prepayments included in the gross PP&E total rather than an in-service asset category; included because the filing lists them as a line in the gross schedule."
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "No segment note table was provided; only the property and equipment table is available."
+   "reason": "no segment note table was provided; only the property and equipment table is present"
   },
   {
    "field": "segment_revenue",
-   "reason": "No segment note or revenue disaggregation table was provided."
+   "reason": "no segment or revenue-by-market table was provided"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No lease note table was provided."
+   "reason": "no lease note table was provided"
   },
   {
    "field": "purchase_commitments",
-   "reason": "No commitments or contractual-obligations table was provided."
-  },
-  {
-   "field": "ppe_category",
-   "reason": "Miners and Leasehold improvements at December 31, 2021 show '\u2014' (nil); no positive value to extract, so they were omitted."
+   "reason": "no commitments or contractual-obligations table was provided"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 10.4,
-  "input_tokens": 4338,
-  "output_tokens": 1436,
+  "seconds": 12.9,
+  "input_tokens": 4466,
+  "output_tokens": 1386,
   "attempts": 1,
-  "task_sha": "97b2e793feb8a272"
+  "task_sha": "e707ff990b0f6ba0"
  }
 }

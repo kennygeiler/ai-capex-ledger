@@ -1,0 +1,47 @@
+{
+ "accession": "AAOI|mdna|2025-12-31|b27ffbab",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.429,
+   "quote": "In 2025, we earned 53.8% of our total revenue from the CATV market and 42.9% of our total revenue from the internet data center market.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "Internet data center revenue share for 2025. The p11 table gives Data Center revenue of $195,651 thousand (42.9%), but it is a table row, not a quotable sentence. The p08 table swaps the labels (Data Center 53.8%, CATV 42.9%), which contradicts p02, p03 and p11; 42.9% follows the majority."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Based on customer forecasts and order backlog we believe that this elevated data center demand will likely continue into 2026.",
+   "passage": "p04",
+   "confidence": 0.7,
+   "notes": "Expects elevated data-center demand, which the prior sentence ties partly to AI, to continue in 2026. No figure is given. The same sentence appears in p12."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "company is a seller; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D increase (p13) is attributed to 800G/1.6T data center products, but no sentence links operating expenses to AI explicitly; linking it via p05 would be inference"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.6,
+  "input_tokens": 8380,
+  "output_tokens": 1385,
+  "attempts": 1,
+  "task_sha": "3ad49ee133bc34d1"
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "accession": "MARA|earnings_release|2024-12-31|8fcef932",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In conjunction with our emerging technology business, we are taking steps today, including investing in research and development, to establish our presence in AI and adjacent markets, which we expect will create additional revenue opportunities over the long term.",
+   "passage": "p10",
+   "confidence": 0.6,
+   "notes": "Present-tense statement that R&D investment goes toward establishing a presence in AI; no amount or share given. The spend also covers 'adjacent markets', not only AI, and the sentence gives no year, so code uses fiscal 2024 for this actual."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes MARA's capital expenditures to AI; p05 says MARA took a strategic pause from high-capex AI/HPC build-outs, and the 30 MW 2PIC deployment in p07 is capacity, not spend"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states MARA's AI or data-center revenue; AI revenue is mentioned only as a future opportunity and as third-party industry forecasts (p04)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.3,
+  "input_tokens": 7242,
+  "output_tokens": 784,
+  "attempts": 1,
+  "task_sha": "66041163daa18bdb"
+ }
+}

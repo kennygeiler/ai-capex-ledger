@@ -1,0 +1,30 @@
+{
+ "accession": "EQIX|earnings_release|2023-09-30|47b3a68a",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "MB4",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Mumbai",
+   "counterparty": null,
+   "amount_low": 42000000,
+   "amount_high": 42000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "To support India's growing digital economy, which is expected to reach $1 trillion by 2026 2, Equinix announced an investment of $42 million for its fourth International Business Exchange\u2122 (IBX \u00ae) data center in Mumbai, called MB4.",
+   "passage": "p01",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.2,
+  "input_tokens": 13598,
+  "output_tokens": 795,
+  "attempts": 1,
+  "task_sha": "725a46d997c90c22"
+ }
+}

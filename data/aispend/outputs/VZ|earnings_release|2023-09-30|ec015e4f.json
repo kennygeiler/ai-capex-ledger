@@ -1,0 +1,27 @@
+{
+ "accession": "VZ|earnings_release|2023-09-30|ec015e4f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capex sentence gives 2023 total capital spending guidance ($18.25-19.25 billion, higher end) without linking it to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.2,
+  "input_tokens": 4758,
+  "output_tokens": 280,
+  "attempts": 1,
+  "task_sha": "63de35ade4848fb7"
+ }
+}

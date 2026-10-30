@@ -1,0 +1,13 @@
+{
+ "accession": "VZ|earnings_release|2022-09-30|32b7a606",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.8,
+  "input_tokens": 5009,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "aadf4fd5c0e0b891"
+ }
+}

@@ -1,0 +1,58 @@
+{
+ "accession": "MARA|mdna|2023-12-31|f36309d1",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "GC Data Center Equity Holdings acquisition (two bitcoin mining sites)",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 179000000,
+   "amount_high": 179000000,
+   "capacity_mw": 390,
+   "gpus": null,
+   "announced": "2024-01-12",
+   "in_service": null,
+   "quote": "On January 12, 2024, the Company, through its wholly owned subsidiary MARA USA Corporation, completed the acquisition of 100% of the issued and outstanding equity interests (the \u201cTransaction\u201d) of GC Data Center Equity Holdings, LLC, pursuant to which, the Company acquired two operational bitcoin mining sites, for an aggregate 390 megawatts of operational capacity for $179.0 million cash consideration plus customary working capital adjustments.",
+   "passage": "p04",
+   "confidence": 0.85
+  },
+  {
+   "name": "Abu Dhabi joint venture (two mining sites)",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Abu Dhabi, United Arab Emirates",
+   "counterparty": null,
+   "capacity_mw": 250,
+   "gpus": null,
+   "announced": "2023",
+   "in_service": null,
+   "quote": "In 2023, the Company launched a joint venture in Abu Dhabi, United Arab Emirates, that operates two sites with a total capacity of 250 megawatts, of which the Company owns 20%.",
+   "passage": "p02",
+   "confidence": 0.8
+  },
+  {
+   "name": "Paraguay joint venture project",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Paraguay",
+   "counterparty": null,
+   "capacity_mw": 20,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The Company also has a 20 megawatts joint venture project in Paraguay that is currently underway.",
+   "passage": "p02",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.7,
+  "input_tokens": 7578,
+  "output_tokens": 1441,
+  "attempts": 1,
+  "task_sha": "fb8eb356a14562f3"
+ }
+}

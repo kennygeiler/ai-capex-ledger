@@ -1,0 +1,13 @@
+{
+ "accession": "ALAB|earnings_release|2024-03-31|899a8681",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 4731,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "7fa9d03c3621f455"
+ }
+}

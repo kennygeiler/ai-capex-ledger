@@ -1,0 +1,27 @@
+{
+ "accession": "CEG|earnings_release|2024-03-31|662466ca",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the passage only defines non-GAAP measures (FCFbG) that reference capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; only the definition of Adjusted O&M appears"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the passage only defines adjusted operating revenues and gross margin"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 5730,
+  "output_tokens": 223,
+  "attempts": 1,
+  "task_sha": "a7b88d7fc8c623e1"
+ }
+}

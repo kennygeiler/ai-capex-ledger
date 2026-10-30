@@ -1,0 +1,27 @@
+{
+ "accession": "GEV|earnings_release|2024-06-30|398796d5",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage mentions capital expenditures solely as timing uncertainty for a free cash flow reconciliation; no amount, share, or link to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 4798,
+  "output_tokens": 191,
+  "attempts": 1,
+  "task_sha": "6a879e1daceb5103"
+ }
+}

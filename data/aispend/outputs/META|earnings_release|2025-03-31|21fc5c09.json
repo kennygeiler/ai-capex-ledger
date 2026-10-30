@@ -1,6 +1,6 @@
 {
  "accession": "META|earnings_release|2025-03-31|21fc5c09",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -12,44 +12,37 @@
    "amount_high": 72000000000,
    "quote": "We anticipate our full year 2025 capital expenditures, including principal payments on finance leases, will be in the range of $64-72 billion, increased from our prior outlook of $60-65 billion.",
    "passage": "p01",
-   "confidence": 0.8,
-   "notes": "This is total capex guidance, not AI spend. The sentence itself does not mention AI. The link to AI is in the next sentence of p01 ('This updated outlook reflects additional data center investments to support our artificial intelligence efforts'). It is recorded as scope total so the total is not mistaken for the AI part."
+   "confidence": 0.9,
+   "notes": "Total capex outlook including finance lease principal payments, not the AI part. The AI link is in the next sentence, not this one. The superseded prior outlook of $60-65 billion is not recorded separately."
   },
   {
    "field": "capex",
    "fiscal_year": null,
    "kind": "outlook",
-   "scope": "total",
+   "scope": "ai",
    "class": "qualitative",
    "quote": "This updated outlook reflects additional data center investments to support our artificial intelligence efforts as well as an increase in the expected cost of infrastructure hardware.",
    "passage": "p01",
-   "confidence": 0.7,
-   "notes": "The sentence names no year, so fiscal_year is null as required. It refers to the full-year 2025 outlook in the preceding sentence, so the default of filing year + 1 (2026) would be wrong here; the correct year is 2025. AI is one of two drivers of the increase over the prior outlook. No AI amount is stated."
-  },
-  {
-   "field": "capex",
-   "fiscal_year": 2025,
-   "kind": "outlook",
-   "scope": "total",
-   "class": "qualitative",
-   "quote": "The majority of our capital expenditures in 2025 will continue to be directed to our core business.",
-   "passage": "p01",
-   "confidence": 0.6,
-   "notes": "This says the majority of 2025 capex goes to the core business. That indirectly implies the AI-specific share is under half, but the sentence states no AI share, so no number is recorded. Note that META's core business itself includes AI-driven ranking and recommendation work, so this cannot be read as a non-AI share."
+   "confidence": 0.8,
+   "notes": "The sentence names no year, so fiscal_year is null. 'This updated outlook' refers to the full-year 2025 outlook in the preceding sentence. Code's default of the year after the reported year would wrongly give 2026. The following sentence says the majority of 2025 capex will go to the core business. That implies AI is less than half, but no AI share is stated, so none is recorded."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; p02 is non-GAAP free cash flow boilerplate"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 14.9,
-  "input_tokens": 4731,
-  "output_tokens": 1431,
+  "seconds": 11.4,
+  "input_tokens": 5032,
+  "output_tokens": 1258,
   "attempts": 1,
-  "task_sha": "aa68a49dd0920599"
+  "task_sha": "be338824616c7083"
  }
 }

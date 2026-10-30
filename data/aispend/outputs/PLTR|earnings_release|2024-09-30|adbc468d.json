@@ -1,0 +1,27 @@
+{
+ "accession": "PLTR|earnings_release|2024-09-30|adbc468d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is forward-looking-statements boilerplate; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is forward-looking-statements boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only passage is forward-looking-statements boilerplate; the mention of artificial intelligence is a risk factor, and no sentence states AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 5806,
+  "output_tokens": 232,
+  "attempts": 1,
+  "task_sha": "0fc2a59706a3b114"
+ }
+}

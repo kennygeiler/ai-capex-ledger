@@ -1,0 +1,13 @@
+{
+ "accession": "SYM|mdna|2024-09-28|d4c2c0fd",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 4189,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "bcf4a4f8ea503e29"
+ }
+}

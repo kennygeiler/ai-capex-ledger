@@ -1,0 +1,13 @@
+{
+ "accession": "STX|earnings_release|2025-06-27|7439fc4c",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 4262,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "ed34e912296a890f"
+ }
+}

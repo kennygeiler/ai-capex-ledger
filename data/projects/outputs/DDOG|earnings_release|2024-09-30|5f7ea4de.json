@@ -1,0 +1,13 @@
+{
+ "accession": "DDOG|earnings_release|2024-09-30|5f7ea4de",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "34a111d9ac210639"
+ }
+}

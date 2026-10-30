@@ -1,0 +1,28 @@
+{
+ "accession": "COHR|earnings_release|2026-06-30|0976e080",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Sherman, TX manufacturing facility modernization and expansion",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Sherman, TX",
+   "counterparty": "NVIDIA",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Groundbreaking ceremony in Sherman, TX celebrated the modernization and expansion of Coherent\u2019s manufacturing facility",
+   "passage": "p06",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.3,
+  "input_tokens": 51005,
+  "output_tokens": 816,
+  "attempts": 1,
+  "task_sha": "31767ff78def8118"
+ }
+}

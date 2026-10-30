@@ -1,0 +1,27 @@
+{
+ "accession": "NRG|earnings_release|2025-12-31|ffdb0ea9",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure figures (2026 maintenance and environmental capex guidance in p02) are not linked to AI or data centers; the CEO's statement about adding new capacity for data centers (p01) states no spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states revenue from AI or data-center demand; p01 mentions data centers only as a future customer strategy, with no revenue figure or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.3,
+  "input_tokens": 5419,
+  "output_tokens": 533,
+  "attempts": 1,
+  "task_sha": "7d84a47cb9cbba56"
+ }
+}

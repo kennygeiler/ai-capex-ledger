@@ -1,6 +1,6 @@
 {
  "accession": "META|mdna|2023-12-31|beadbb47",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "opex",
@@ -9,23 +9,27 @@
    "scope": "ai",
    "class": "qualitative",
    "quote": "These efforts include significant investments in AI initiatives, including to recommend relevant content across our products, enhance our advertising tools, develop new products, and develop new features for existing products using generative AI.",
-   "passage": "p01",
+   "passage": "p02",
    "confidence": 0.7,
-   "notes": "'These efforts' refers to FoA investments described in the prior sentence as expenses (headcount, data centers, technical infrastructure), so recorded as opex. The sentence is in present tense and names no year, so fiscal_year is null. Classified as actual because it describes current spending rather than a forecast. Confidence is reduced because the field (opex vs. capex) is inferred from the surrounding sentence."
+   "notes": "The preceding sentence ties 'these efforts' to FoA expenses for headcount, data centers and technical infrastructure, so this is read as opex. The sentence names no year. It is present tense in a fiscal 2023 filing, so it is recorded as actual. No amount or share of AI spend is stated."
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p04 gives a 2024 total capex outlook of $30\u201337 billion but does not mention AI as a reason or driver"
+   "reason": "capital expenditures are given only as totals: $27.05 billion net purchases of property and equipment in 2023 (p06) and an outlook of $30 to $37 billion for 2024 (p07). Neither sentence links capex to AI. The data center and server investment in p06 is not tied to AI in the text, so no scope:total statement was recorded."
+  },
+  {
+   "field": "revenue",
+   "reason": "Meta is a buyer; no sentence states how much revenue comes from AI or data-center demand"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.7,
-  "input_tokens": 5196,
-  "output_tokens": 785,
+  "seconds": 8.2,
+  "input_tokens": 5892,
+  "output_tokens": 812,
   "attempts": 1,
-  "task_sha": "fb5e15719b28f7ac"
+  "task_sha": "45140f397a179412"
  }
 }

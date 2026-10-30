@@ -1,0 +1,49 @@
+{
+ "accession": "MPWR|earnings_release|2025-06-30|3b99c863",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 144000000,
+   "amount_high": 144000000,
+   "quote": "In our Enterprise Data market, second quarter 2025 revenue of $144.0 million increased 8.4% from the first quarter of 2025 from higher sales of our power management solutions for AI and server applications.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Quarterly figure (Q2 2025), not full-year. Enterprise Data is MPS's server/data-center end market and the sentence ties its growth to AI and server power solutions, but the segment is not explicitly named AI or data-center revenue."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.217,
+   "quote": "Enterprise Data revenue represented 21.7% of our total second quarter 2025 revenue compared with 20.8% in the first quarter of 2025.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Share of Q2 2025 total revenue, not full-year. Same caveat as above: Enterprise Data is a server/data-center segment, not labeled AI revenue explicitly."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; R&D mentions in p02 are forward-looking boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.2,
+  "input_tokens": 6839,
+  "output_tokens": 1031,
+  "attempts": 1,
+  "task_sha": "8f712da3fbccb6a4"
+ }
+}

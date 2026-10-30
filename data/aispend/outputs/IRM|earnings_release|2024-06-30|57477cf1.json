@@ -1,0 +1,27 @@
+{
+ "accession": "IRM|earnings_release|2024-06-30|57477cf1",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI or data-center buildout; the only capex figures are Recurring Capital Expenditures in the AFFO reconciliation table (p05), with no AI attribution"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the only AI mention is risk-factor boilerplate in the forward-looking statements (p03, p06)"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states data-center or AI revenue as an amount or as a share of total revenue; p02 says the rise in Adjusted EBITDA was 'driven by revenue increases in Global RIM, ALM, and data center', but that describes EBITDA growth, not data-center revenue, and data-center leasing (66 MW, 130 MW projection) is a capacity figure, not revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.4,
+  "input_tokens": 12842,
+  "output_tokens": 776,
+  "attempts": 1,
+  "task_sha": "175055133fe81db0"
+ }
+}

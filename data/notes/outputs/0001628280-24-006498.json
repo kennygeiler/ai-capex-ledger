@@ -1,0 +1,129 @@
+{
+ "accession": "0001628280-24-006498",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0030",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31, 2023",
+   "cell_text": "479.7",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 479700000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0030",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31, 2022",
+   "cell_text": "405.4",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 405400000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0030",
+   "row_label": "Buildings",
+   "column_label": "December 31, 2023",
+   "cell_text": "343.6",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 343600000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0030",
+   "row_label": "Buildings",
+   "column_label": "December 31, 2022",
+   "cell_text": "312.4",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 312400000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0030",
+   "row_label": "Land",
+   "column_label": "December 31, 2023",
+   "cell_text": "41.3",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 41300000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0030",
+   "row_label": "Land",
+   "column_label": "December 31, 2022",
+   "cell_text": "41.0",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 41000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0030",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, 2023",
+   "cell_text": "67.5",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 67500000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0030",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, 2022",
+   "cell_text": "41.5",
+   "period_end": "2022-12-31",
+   "months": 0,
+   "value": 41500000,
+   "confidence": 0.9
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the only segment table (t0009) reports net sales, operating profit and margin; no capital expenditures by segment are given"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "t0009 shows net sales for a single unnamed segment (likely one of Vertiv's geographic segments, but the segment name does not appear in the table), so the dimension cannot be cited verbatim; no other segment revenue rows are present"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table is included in the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included in the provided tables"
+  }
+ ],
+ "notes": "t0030 unit is not stated with the table; the filing-level unit 'Dollars in millions except for per share data' was applied, hence confidence 0.9 on ppe_category values. Totals, accumulated depreciation and net lines were skipped.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.9,
+  "input_tokens": 4700,
+  "output_tokens": 1563,
+  "attempts": 1,
+  "task_sha": "3cd6295972e69e53"
+ }
+}

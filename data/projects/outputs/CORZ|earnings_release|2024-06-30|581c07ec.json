@@ -1,0 +1,58 @@
+{
+ "accession": "CORZ|earnings_release|2024-06-30|581c07ec",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "CoreWeave HPC hosting contracts (382 MW)",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "CoreWeave",
+   "amount_low": 6700000000,
+   "amount_high": 6700000000,
+   "capacity_mw": 382,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Key achievements in and after the quarter include successfully navigating the April halving and emerging with favorable quarterly cash cost to mine of approximately $29,900 per bitcoin, converting $260 million in convertible notes during and shortly after the end of the quarter, commencing HPC hosting operations and revenue generation at our 16-megawatt Austin data center, and signing long-term contracts to host 382 megawatts of high-performance computing with our current client.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Austin data center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Austin, Texas",
+   "counterparty": null,
+   "capacity_mw": 16,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Key achievements in and after the quarter include successfully navigating the April halving and emerging with favorable quarterly cash cost to mine of approximately $29,900 per bitcoin, converting $260 million in convertible notes during and shortly after the end of the quarter, commencing HPC hosting operations and revenue generation at our 16-megawatt Austin data center, and signing long-term contracts to host 382 megawatts of high-performance computing with our current client.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Denton, Texas data center expansion",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Denton, Texas",
+   "counterparty": null,
+   "capacity_mw": 72,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Additional 72 megawatts of infrastructure completed at Denton, Texas data center, expanding operational infrastructure to approximately 830 megawatts",
+   "passage": "p04",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.4,
+  "input_tokens": 13008,
+  "output_tokens": 1919,
+  "attempts": 1,
+  "task_sha": "2d2bfadfb24865b4"
+ }
+}

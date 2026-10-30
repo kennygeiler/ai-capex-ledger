@@ -1,0 +1,13 @@
+{
+ "accession": "ONTO|earnings_release|2023-12-30|54e422d1",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 4517,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "594dbb39776f578a"
+ }
+}

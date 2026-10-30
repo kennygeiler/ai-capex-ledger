@@ -1,7 +1,115 @@
 {
  "accession": "0000104169-25-000021",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Walmart U.S.",
+   "table_id": "t0084",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2025",
+   "cell_text": "465,009",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 465009000000,
+   "confidence": 0.8
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Walmart U.S.",
+   "table_id": "t0084",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2024",
+   "cell_text": "443,802",
+   "period_end": "2024-01-31",
+   "months": 12,
+   "value": 443802000000,
+   "confidence": 0.8
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Walmart U.S.",
+   "table_id": "t0084",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2023",
+   "cell_text": "422,398",
+   "period_end": "2023-01-31",
+   "months": 12,
+   "value": 422398000000,
+   "confidence": 0.8
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Walmart International",
+   "table_id": "t0084",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2025",
+   "cell_text": "123,363",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 123363000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Walmart International",
+   "table_id": "t0084",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2024",
+   "cell_text": "116,049",
+   "period_end": "2024-01-31",
+   "months": 12,
+   "value": 116049000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Walmart International",
+   "table_id": "t0084",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2023",
+   "cell_text": "102,604",
+   "period_end": "2023-01-31",
+   "months": 12,
+   "value": 102604000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Sam's Club U.S.",
+   "table_id": "t0084",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2025",
+   "cell_text": "92,561",
+   "period_end": "2025-01-31",
+   "months": 12,
+   "value": 92561000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Sam's Club U.S.",
+   "table_id": "t0084",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2024",
+   "cell_text": "88,230",
+   "period_end": "2024-01-31",
+   "months": 12,
+   "value": 88230000000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Sam's Club U.S.",
+   "table_id": "t0084",
+   "row_label": "Total revenues",
+   "column_label": "Fiscal Years Ended January 31, | 2023",
+   "cell_text": "86,253",
+   "period_end": "2023-01-31",
+   "months": 12,
+   "value": 86253000000,
+   "confidence": 0.9
+  },
   {
    "field": "segment_capex",
    "dimension": "Walmart U.S.",
@@ -12,8 +120,7 @@
    "period_end": "2025-01-31",
    "months": 12,
    "value": 16466000000,
-   "confidence": 0.9,
-   "notes": "first block of t0085 has no segment header in the parsed table; it precedes Walmart International and is the Walmart U.S. segment"
+   "confidence": 0.8
   },
   {
    "field": "segment_capex",
@@ -25,8 +132,7 @@
    "period_end": "2024-01-31",
    "months": 12,
    "value": 13877000000,
-   "confidence": 0.9,
-   "notes": "first block of t0085 has no segment header in the parsed table; it is the Walmart U.S. segment"
+   "confidence": 0.8
   },
   {
    "field": "segment_capex",
@@ -38,8 +144,7 @@
    "period_end": "2023-01-31",
    "months": 12,
    "value": 11425000000,
-   "confidence": 0.9,
-   "notes": "first block of t0085 has no segment header in the parsed table; it is the Walmart U.S. segment"
+   "confidence": 0.8
   },
   {
    "field": "segment_capex",
@@ -112,123 +217,6 @@
    "months": 12,
    "value": 727000000,
    "confidence": 1.0
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Walmart U.S.",
-   "table_id": "t0084",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2025",
-   "cell_text": "465,009",
-   "period_end": "2025-01-31",
-   "months": 12,
-   "value": 465009000000,
-   "confidence": 0.9,
-   "notes": "first block of t0084 has no segment header in the parsed table; it is Walmart U.S. Took Total revenues (net sales plus membership and other income) rather than Net sales"
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Walmart U.S.",
-   "table_id": "t0084",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2024",
-   "cell_text": "443,802",
-   "period_end": "2024-01-31",
-   "months": 12,
-   "value": 443802000000,
-   "confidence": 0.9,
-   "notes": "unlabeled first block is Walmart U.S.; Total revenues chosen over Net sales"
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Walmart U.S.",
-   "table_id": "t0084",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2023",
-   "cell_text": "422,398",
-   "period_end": "2023-01-31",
-   "months": 12,
-   "value": 422398000000,
-   "confidence": 0.9,
-   "notes": "unlabeled first block is Walmart U.S.; Total revenues chosen over Net sales"
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Walmart International",
-   "table_id": "t0084",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2025",
-   "cell_text": "123,363",
-   "period_end": "2025-01-31",
-   "months": 12,
-   "value": 123363000000,
-   "confidence": 0.95,
-   "notes": "Total revenues chosen over Net sales"
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Walmart International",
-   "table_id": "t0084",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2024",
-   "cell_text": "116,049",
-   "period_end": "2024-01-31",
-   "months": 12,
-   "value": 116049000000,
-   "confidence": 0.95,
-   "notes": "Total revenues chosen over Net sales"
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Walmart International",
-   "table_id": "t0084",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2023",
-   "cell_text": "102,604",
-   "period_end": "2023-01-31",
-   "months": 12,
-   "value": 102604000000,
-   "confidence": 0.95,
-   "notes": "Total revenues chosen over Net sales"
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Sam's Club U.S.",
-   "table_id": "t0084",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2025",
-   "cell_text": "92,561",
-   "period_end": "2025-01-31",
-   "months": 12,
-   "value": 92561000000,
-   "confidence": 0.95,
-   "notes": "Total revenues chosen over Net sales"
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Sam's Club U.S.",
-   "table_id": "t0084",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2024",
-   "cell_text": "88,230",
-   "period_end": "2024-01-31",
-   "months": 12,
-   "value": 88230000000,
-   "confidence": 0.95,
-   "notes": "Total revenues chosen over Net sales"
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Sam's Club U.S.",
-   "table_id": "t0084",
-   "row_label": "Total revenues",
-   "column_label": "Fiscal Years Ended January 31, | 2023",
-   "cell_text": "86,253",
-   "period_end": "2023-01-31",
-   "months": 12,
-   "value": 86253000000,
-   "confidence": 0.95,
-   "notes": "Total revenues chosen over Net sales"
   },
   {
    "field": "ppe_category",
@@ -354,7 +342,7 @@
  "not_found": [
   {
    "field": "finance_lease_liability",
-   "reason": "no single cell gives total finance lease liabilities; the balance sheet (t0051) shows only 'Finance lease obligations due within one year' (800 / 725) and 'Long-term finance lease obligations' (5,923 / 5,709). The total (6,723 and 6,434 million at 2025-01-31 and 2024-01-31) is a sum of two cells and cannot be cited to one cell"
+   "reason": "no total finance lease liabilities line is given; only the balance sheet (t0051) shows 'Finance lease obligations due within one year' and 'Long-term finance lease obligations', and the schema rejects a dimension on this field, so the two cells cannot be cited separately without duplicating a null dimension"
   },
   {
    "field": "purchase_commitments",
@@ -363,10 +351,10 @@
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 73.7,
-  "input_tokens": 21780,
-  "output_tokens": 10912,
+  "seconds": 71.4,
+  "input_tokens": 21917,
+  "output_tokens": 10875,
   "attempts": 2,
-  "task_sha": "df7a12a2561857ac"
+  "task_sha": "761d09525fd284f5"
  }
 }

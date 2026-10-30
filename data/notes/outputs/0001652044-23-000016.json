@@ -1,6 +1,6 @@
 {
  "accession": "0001652044-23-000016",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -234,23 +234,23 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment table (t0159) reports revenue and operating income (loss) only; no capital expenditures by segment are given"
+   "reason": "the segment note (t0159) reports revenue and operating income (loss) by segment only; no capital expenditures by segment are given"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no lease table with total finance lease liabilities; the debt table t0123 has only 'Future finance lease payments, net and other', which combines finance lease obligations with other debt and so is not the field"
+   "reason": "no lease-note table with finance lease liabilities is provided; the only related line, 'Future finance lease payments, net and other' in the debt table t0123, combines finance lease payments with other debt items and is not a finance lease liability total"
   },
   {
    "field": "purchase_commitments",
-   "reason": "no contractual-obligations or commitments table is among the provided tables"
+   "reason": "no contractual-obligations or commitments table is included among the provided tables"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 20.3,
-  "input_tokens": 5960,
-  "output_tokens": 2890,
+  "seconds": 22.1,
+  "input_tokens": 6084,
+  "output_tokens": 2838,
   "attempts": 1,
-  "task_sha": "6e1849c3f408011c"
+  "task_sha": "f7ce03dfd0a2966a"
  }
 }

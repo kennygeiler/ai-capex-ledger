@@ -1,6 +1,6 @@
 {
  "accession": "QCOM|earnings_release|2024-12-29|61642095",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "d84724606088cc21"
+  "task_sha": "a966168bd58ec781"
  }
 }

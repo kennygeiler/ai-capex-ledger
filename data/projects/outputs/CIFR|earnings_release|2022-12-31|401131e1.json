@@ -1,0 +1,56 @@
+{
+ "accession": "CIFR|earnings_release|2022-12-31|401131e1",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Alborz",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": "WindHQ LLC",
+   "capacity_mw": 40,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Alborz ~$5,143 All- in Electricity Cost per BTC(3) ~3.98 Daily BTC Mining Capacity(4) ~1.3 EH/s 40 MW Operating Capacity(1) ~186 BTC Mined YTD(2) Alborz",
+   "passage": "p06",
+   "confidence": 0.75
+  },
+  {
+   "name": "Bear & Chief",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": "WindHQ LLC",
+   "capacity_mw": 20,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "~$6,293 All-in Electricity Cost per BTC(4) ~1.99 Daily BTC Mining Capacity(5) ~0.65 EH/s 20 MW Operating Capacity(1) ~111 BTC Mined YTD(2) Bear & Chief Expansion Capacity up to 270 MW(3)",
+   "passage": "p07",
+   "confidence": 0.7
+  },
+  {
+   "name": "Odessa",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Odessa",
+   "counterparty": null,
+   "capacity_mw": 143,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Data Centers Update Alborz \u2013 Complete ~$5,143 all-in electricity cost per BTC(1) Bear & Chief \u2013 Complete ~$6,293 all-in electricity cost per BTC(2) Odessa \u2013 Developing Capable of mining up to ~12.9 BTC daily(3)",
+   "passage": "p04",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.3,
+  "input_tokens": 7866,
+  "output_tokens": 1616,
+  "attempts": 1,
+  "task_sha": "53fffc6634833a6d"
+ }
+}

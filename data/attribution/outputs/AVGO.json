@@ -1,9 +1,85 @@
 {
  "ticker": "AVGO",
- "prompt_version": "attribution@v1",
- "model": "chip_seller@v1",
+ "prompt_version": "attribution@v2",
+ "model": "chip_seller@v3",
  "rows": [
   {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "stated_amount",
+   "ai_amount": 12200000000,
+   "ai_share": 0.237,
+   "inputs": [
+    {
+     "id": "stmt:AVGO|earnings_release|2024-11-03|551fe1e0|revenue|FY2024|actual|0",
+     "value": 12200000000
+    }
+   ],
+   "basis": "Fiscal 2024 AI revenue of $12.2 billion as stated in the Q4 FY2024 release; 12.2B \u00f7 total revenue 51,574M = 23.7%. It sits inside the Semiconductor solutions segment (30,096M), which also includes non-AI broadband, storage and wireless chips.",
+   "confidence": 0.9
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "outlook",
+   "method": "stated_amount",
+   "ai_amount": 12000000000,
+   "ai_share": 0.233,
+   "inputs": [
+    {
+     "id": "stmt:AVGO|earnings_release|2024-08-04|5631f62a|revenue|FY2024|outlook|0",
+     "value": 12000000000
+    }
+   ],
+   "basis": "Full-year fiscal 2024 AI revenue guided at $12 billion in the Q3 FY2024 release, from Ethernet networking and custom accelerators. 12.0B \u00f7 51,574M = 23.3%. The actual came in at $12.2 billion.",
+   "confidence": 0.85
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No full-year FY2025 AI revenue figure is in the pack. Releases state quarterly AI revenue: Q1 $4.1B, Q2 'over' $4.4B and Q3 $5.2B, which sum to $13.7B. Q4 is given only as +74% YoY, so the year cannot be summed. The call-coverage $20B figure is not a pack item. The Semiconductor solutions segment (36,858M) is not AI revenue.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2023 releases say total revenue of $35.8B was 'driven by investments in accelerators and network connectivity for AI by hyperscalers', and Q3 by AI networking demand. That is the company total, not an AI amount. Semiconductor solutions revenue was 28,182M.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Only quarterly AI semiconductor guidance was given: $4.4B for Q2 and $5.1B for Q3 FY2025. No full-year FY2025 AI outlook was stated.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Only quarterly AI semiconductor guidance was given: Q1 $8.2B, Q2 $10.7B and Q4 $21.7B (up 236%), alongside reported Q1\u2013Q3 actuals of $8.4B, $10.8B and $16.7B. No full-year FY2026 AI figure was stated. The $6.2B 'Q4' guide tagged FY2026 actually refers to Q4 FY2025.",
+   "confidence": 0.3
+  },
+  {
    "field": "capex",
    "period": "FY2022",
    "kind": "actual",
@@ -11,7 +87,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "No statement attributes any of capex (424M, value:AVGO|capex|FY2022) to AI; a chip seller's capex funds fabs, test and R&D equipment, not AI infrastructure. Seller-side signal: Semiconductor solutions segment revenue 25,818M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2022), which includes non-AI products. No AI semiconductor revenue figure is in the pack.",
+   "basis": "No statement attributes Broadcom's own capex (424M) to AI. A chip seller's capex funds test, facilities and equipment, not AI infrastructure. Seller-side signal: Semiconductor solutions revenue was 25,818M, with no AI figure stated.",
    "confidence": 0.8
   },
   {
@@ -22,7 +98,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "No statement attributes any of capex (452M, value:AVGO|capex|FY2023) to AI; a chip seller's capex funds fabs, test and R&D equipment, not AI infrastructure. Seller-side signal: Semiconductor solutions segment revenue 28,182M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2023), which includes non-AI products. No AI semiconductor revenue figure is in the pack.",
+   "basis": "No statement attributes capex (452M) to AI. A chip seller's capex funds test and facilities, not AI infrastructure. Seller-side signal: Semiconductor solutions revenue was 28,182M.",
    "confidence": 0.8
   },
   {
@@ -33,7 +109,7 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "No statement attributes any of capex (548M, value:AVGO|capex|FY2024) to AI; a chip seller's capex funds fabs, test and R&D equipment, not AI infrastructure. Seller-side signal: Semiconductor solutions segment revenue 30,096M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2024), which includes non-AI products. No AI semiconductor revenue figure is in the pack.",
+   "basis": "No statement attributes capex (548M) to AI. A chip seller's capex funds test and facilities, not AI infrastructure. Seller-side signal: AI revenue was $12.2B within Semiconductor solutions revenue of 30,096M.",
    "confidence": 0.8
   },
   {
@@ -44,112 +120,37 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "No statement attributes any of capex (623M, value:AVGO|capex|FY2025) to AI; a chip seller's capex funds fabs, test and R&D equipment, not AI infrastructure. Seller-side signal: Semiconductor solutions segment revenue 36,858M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2025), which includes non-AI products. No AI semiconductor revenue figure is in the pack.",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
-   "period": "FY2022",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack contains no company statements, so there is no stated AI amount or share of opex (7,870M, value:AVGO|opex|FY2022) and no claim that R&D is AI-driven. Seller-side signal: Semiconductor solutions revenue 25,818M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2022).",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
-   "period": "FY2023",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack contains no company statements, so there is no stated AI amount or share of opex (8,483M, value:AVGO|opex|FY2023) and no claim that R&D is AI-driven. Seller-side signal: Semiconductor solutions revenue 28,182M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2023).",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
-   "period": "FY2024",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack contains no company statements, so there is no stated AI amount or share of opex (19,046M, value:AVGO|opex|FY2024) and no claim that R&D is AI-driven. The jump from FY2023 coincides with Infrastructure software revenue rising from 7,637M to 21,478M (fact:AVGO|segment_revenue|Infrastructure software|FY2024). Seller-side signal: Semiconductor solutions revenue 30,096M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2024).",
-   "confidence": 0.8
-  },
-  {
-   "field": "opex",
-   "period": "FY2025",
-   "kind": "actual",
-   "method": "none",
-   "ai_amount": null,
-   "ai_share": null,
-   "inputs": [],
-   "basis": "The pack contains no company statements, so there is no stated AI amount or share of opex (17,810M, value:AVGO|opex|FY2025) and no claim that R&D is AI-driven. Seller-side signal: Semiconductor solutions revenue 36,858M (fact:AVGO|segment_revenue|Semiconductor solutions|FY2025).",
+   "basis": "No statement attributes capex (623M) to AI. A chip seller's capex funds test and facilities, not AI infrastructure. Seller-side signal: Semiconductor solutions revenue was 36,858M, and Q1\u2013Q3 AI revenue was $13.7B.",
    "confidence": 0.8
   }
  ],
  "none_found": [
   {
-   "field": "capex",
+   "field": "opex",
+   "reason": "No statement gives an AI amount or share of operating expenses for FY2022\u2013FY2025. The FY2024 opex jump (19,046M) reflects the VMware acquisition, not stated AI spend."
+  },
+  {
+   "field": "revenue",
    "period": "FY2022",
-   "reason": "chip seller; no stated AI amount or share of its own capex, and the pack has no statements"
+   "reason": "No statement in the pack names AI revenue or attributes FY2022 revenue to AI."
   },
   {
-   "field": "capex",
-   "period": "FY2023",
-   "reason": "chip seller; no stated AI amount or share of its own capex, and the pack has no statements"
+   "field": "revenue",
+   "period": "FY2026",
+   "reason": "The fiscal year has no released total in the values. Stated quarterly AI revenue (Q1 $8.4B, Q2 $10.8B, Q3 $16.7B) does not give a full-year actual."
   },
   {
-   "field": "capex",
-   "period": "FY2024",
-   "reason": "chip seller; no stated AI amount or share of its own capex, and the pack has no statements"
-  },
-  {
-   "field": "capex",
-   "period": "FY2025",
-   "reason": "chip seller; no stated AI amount or share of its own capex, and the pack has no statements"
-  },
-  {
-   "field": "opex",
-   "period": "FY2022",
-   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no statements"
-  },
-  {
-   "field": "opex",
-   "period": "FY2023",
-   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no statements"
-  },
-  {
-   "field": "opex",
-   "period": "FY2024",
-   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no statements"
-  },
-  {
-   "field": "opex",
-   "period": "FY2025",
-   "reason": "no stated AI share or amount of opex and no statement that R&D is AI-driven; the pack has no statements"
-  },
-  {
-   "field": "capex",
-   "period": "outlook",
-   "reason": "no statements with kind: outlook in the pack"
-  },
-  {
-   "field": "opex",
-   "period": "outlook",
-   "reason": "no statements with kind: outlook in the pack"
+   "field": "revenue",
+   "period": "FY2027",
+   "reason": "The only statement tagged FY2027 outlook is the $16.0B guide for Q3 of FY2026 (it was reported at $16.7B). No FY2027 AI outlook was stated."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 17.3,
-  "input_tokens": 6836,
-  "output_tokens": 2502,
+  "seconds": 33.0,
+  "input_tokens": 19166,
+  "output_tokens": 4096,
   "attempts": 1,
-  "task_sha": "36a169b988d5a308"
+  "task_sha": "7eaa404b5290e1b8"
  }
 }

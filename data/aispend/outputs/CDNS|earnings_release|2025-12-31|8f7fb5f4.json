@@ -1,0 +1,27 @@
+{
+ "accession": "CDNS|earnings_release|2025-12-31|8f7fb5f4",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "purchases of property, plant and equipment appear only in the cash flow table (p03) with no link to AI; capex mentions in p02/p04 are generic forward-looking risk boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D and AI appear together only in forward-looking risk boilerplate (p02/p04); no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the CEO quote (p01) cites demand for an AI-driven product portfolio but gives no AI revenue figure or share and does not say revenue was driven by AI; Cadence is an EDA software vendor with no data-center or AI revenue line in these passages"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.9,
+  "input_tokens": 8048,
+  "output_tokens": 559,
+  "attempts": 1,
+  "task_sha": "ec385be7005acc8f"
+ }
+}

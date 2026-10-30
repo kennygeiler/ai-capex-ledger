@@ -1,0 +1,27 @@
+{
+ "accession": "EME|earnings_release|2024-03-31|ccb54272",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is a cash flow table; purchases of property, plant, and equipment are reported with no sentence linking capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states revenue from AI or data-center demand; the passage contains only cash flow line items"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 5404,
+  "output_tokens": 201,
+  "attempts": 1,
+  "task_sha": "cd76a8b7fbaed68b"
+ }
+}

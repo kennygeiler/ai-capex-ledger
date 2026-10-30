@@ -1,0 +1,28 @@
+{
+ "accession": "VZ|mdna|2023-12-31|19d1d3b9",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Renewable energy purchase agreements (REPAs)",
+   "kind": "power",
+   "status": "contracted",
+   "location": "multiple states",
+   "counterparty": null,
+   "capacity_mw": 3500,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Under the REPAs, we plan to purchase up to an aggregate of approximately 3.5 gigawatts of capacity across multiple states.",
+   "passage": "p06",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.4,
+  "input_tokens": 5575,
+  "output_tokens": 491,
+  "attempts": 1,
+  "task_sha": "d4131808b09653b5"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "VZ|earnings_release|2024-09-30|05e3d241",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capex sentence gives total 2024 guidance ($17.0\u201317.5 billion) and does not mention AI as a driver or share"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 4755,
+  "output_tokens": 240,
+  "attempts": 1,
+  "task_sha": "646f7483ab0f6464"
+ }
+}

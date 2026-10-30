@@ -1,0 +1,76 @@
+{
+ "accession": "CRWV|earnings_release|2025-09-30|2932581a",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "OpenAI partnership",
+   "kind": "cloud_commitment",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "OpenAI",
+   "amount_low": 22400000000,
+   "amount_high": 22400000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Expanded the OpenAI partnership with an up to approximately $6.5 billion deal, bringing total commitments to up to approximately $22.4 billion",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "NVIDIA strategic collaboration",
+   "kind": "cloud_commitment",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "NVIDIA",
+   "amount_low": 6300000000,
+   "amount_high": 6300000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Agreed to a $6.3 billion strategic collaboration with NVIDIA to scale GPU infrastructure and accelerate AI innovation",
+   "passage": "p06",
+   "confidence": 0.8
+  },
+  {
+   "name": "Lancaster, Pennsylvania data center",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Lancaster, Pennsylvania",
+   "counterparty": null,
+   "amount_low": 6000000000,
+   "amount_high": 6000000000,
+   "capacity_mw": 100,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Announced intent to commit up to $6 billion to equip a state-of-the-art data center in Lancaster, Pennsylvania, with an initial 100 MW of capacity and expansion potential to 300 MW",
+   "passage": "p07",
+   "confidence": 0.9
+  },
+  {
+   "name": "UK investment commitment",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "UK",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Announced an incremental \u00a31.5 billion commitment in the UK, bringing the total investment to \u00a32.5 billion, to accelerate AI innovation and growth through sustainable computing",
+   "passage": "p08",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.8,
+  "input_tokens": 5346,
+  "output_tokens": 1312,
+  "attempts": 1,
+  "task_sha": "9b0fde82c71ecb9c"
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "accession": "INTC|mdna|2024-12-28|34deb24f",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "45a06f13618a865f"
+ }
+}

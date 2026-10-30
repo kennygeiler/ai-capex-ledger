@@ -1,0 +1,116 @@
+{
+ "accession": "0001645590-22-000071",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0016",
+   "row_label": "Net revenue",
+   "column_label": "For the fiscal years ended October 31, | 2022 | In millions, except per share amounts",
+   "cell_text": "28,496",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 28496000000,
+   "confidence": 0.95,
+   "notes": "Table t0016 looks like a summary table (it has margins, EPS, operating cash flow), not the full consolidated statement of earnings; the Net revenue row is still the company total."
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0016",
+   "row_label": "Net revenue",
+   "column_label": "For the fiscal years ended October 31, | 2021 | In millions, except per share amounts",
+   "cell_text": "27,784",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 27784000000,
+   "confidence": 0.95,
+   "notes": "Same summary-table caveat as the 2022 column."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0016",
+   "row_label": "Earnings from operations",
+   "column_label": "For the fiscal years ended October 31, | 2022 | In millions, except per share amounts",
+   "cell_text": "782",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 782000000,
+   "confidence": 0.95,
+   "notes": "Earnings from operations is HPE's label for operating income. Same summary-table caveat."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0016",
+   "row_label": "Earnings from operations",
+   "column_label": "For the fiscal years ended October 31, | 2021 | In millions, except per share amounts",
+   "cell_text": "1,132",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 1132000000,
+   "confidence": 0.95,
+   "notes": "Earnings from operations is HPE's label for operating income. Same summary-table caveat."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0049",
+   "row_label": "Investment in property, plant and equipment",
+   "column_label": "For the fiscal years ended October 31, | 2022 | In millions",
+   "cell_text": "(3,122)",
+   "period_end": "2022-10-31",
+   "months": 12,
+   "value": 3122000000,
+   "confidence": 0.95,
+   "notes": "Gross capital expenditure line in the investing section. Proceeds from sale of PP&E (602) is a separate line and is not netted."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0049",
+   "row_label": "Investment in property, plant and equipment",
+   "column_label": "For the fiscal years ended October 31, | 2021 | In millions",
+   "cell_text": "(2,502)",
+   "period_end": "2021-10-31",
+   "months": 12,
+   "value": 2502000000,
+   "confidence": 0.95,
+   "notes": "Gross capital expenditure line. Proceeds from sale of PP&E is not netted."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0049",
+   "row_label": "Investment in property, plant and equipment",
+   "column_label": "For the fiscal years ended October 31, | 2020 | In millions",
+   "cell_text": "(2,383)",
+   "period_end": "2020-10-31",
+   "months": 12,
+   "value": 2383000000,
+   "confidence": 0.95,
+   "notes": "Gross capital expenditure line. Proceeds from sale of PP&E is not netted."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "Table t0016 has no total cost of revenue or cost of sales line. It shows only Net revenue and Gross profit, and deriving cost from those would be arithmetic, which is not allowed."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Table t0016 has no component cost-of-delivery lines (no products, services or financing cost lines)."
+  },
+  {
+   "field": "revenue",
+   "reason": "There is no 2020 column for revenue: table t0016 covers only fiscal 2022 and 2021."
+  },
+  {
+   "field": "operating_income",
+   "reason": "There is no 2020 column for operating income: table t0016 covers only fiscal 2022 and 2021."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.7,
+  "input_tokens": 6010,
+  "output_tokens": 1688,
+  "attempts": 1,
+  "task_sha": "af415fbe8cc31f26"
+ }
+}

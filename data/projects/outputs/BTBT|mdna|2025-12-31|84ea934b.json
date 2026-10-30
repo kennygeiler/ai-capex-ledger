@@ -1,0 +1,72 @@
+{
+ "accession": "BTBT|mdna|2025-12-31|84ea934b",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "MTL-1",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Quebec",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The current portfolio includes facilities such as MTL-1, MTL-2, MTL-3 in Quebec and NC-1 in North Carolina, with a goal of reaching approximately 76 MW of total capacity by the end of 2026 and a broader development pipeline of roughly 1,500 MW under review.",
+   "passage": "p01",
+   "confidence": 0.7
+  },
+  {
+   "name": "MTL-2",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Quebec",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The current portfolio includes facilities such as MTL-1, MTL-2, MTL-3 in Quebec and NC-1 in North Carolina, with a goal of reaching approximately 76 MW of total capacity by the end of 2026 and a broader development pipeline of roughly 1,500 MW under review.",
+   "passage": "p01",
+   "confidence": 0.7
+  },
+  {
+   "name": "MTL-3",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Quebec",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The current portfolio includes facilities such as MTL-1, MTL-2, MTL-3 in Quebec and NC-1 in North Carolina, with a goal of reaching approximately 76 MW of total capacity by the end of 2026 and a broader development pipeline of roughly 1,500 MW under review.",
+   "passage": "p01",
+   "confidence": 0.65
+  },
+  {
+   "name": "NC-1",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "North Carolina",
+   "counterparty": null,
+   "amount_low": 865000000,
+   "amount_high": 865000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "During 2025, WhiteFiber prioritized projects with committed customer demand and long-term contracts, including a major services agreement at the NC-1 facility expected to generate approximately $865 million of contracted revenue over 10 years, with electricity and certain operating costs passed through to the customer.",
+   "passage": "p01",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.0,
+  "input_tokens": 12611,
+  "output_tokens": 1439,
+  "attempts": 1,
+  "task_sha": "cdf901dfcbd69a03"
+ }
+}

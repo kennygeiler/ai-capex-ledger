@@ -1,0 +1,27 @@
+{
+ "accession": "GEV|earnings_release|2026-09-30|f20e8968",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures ($0.6 billion in the quarter; $6 billion commitment 2025-2028) are tied to increasing production in Power and Electrification; no sentence links capex to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D spending ($0.4 billion in the quarter; $5 billion commitment 2025-2028) is tied to energy transition technologies; no sentence links operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data center customers are mentioned only in a CEO quote about developing solutions for utility and data center customers; no sentence quantifies or attributes any part of revenue to AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.8,
+  "input_tokens": 10739,
+  "output_tokens": 468,
+  "attempts": 1,
+  "task_sha": "21eaaedecc92edde"
+ }
+}

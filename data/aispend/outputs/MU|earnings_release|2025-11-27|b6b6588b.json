@@ -1,23 +1,27 @@
 {
  "accession": "MU|earnings_release|2025-11-27|b6b6588b",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage (p01) is boilerplate company description; no sentence states or links capital expenditures to AI"
+   "reason": "no sentence states capital expenditures or links them to AI; p01 is a business-unit results table and p02 is company-description boilerplate"
   },
   {
    "field": "opex",
-   "reason": "the only passage (p01) is boilerplate company description; no sentence quantifies or attributes operating expenses to AI"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 is a table, not a sentence. It gives quarterly (FQ1-26) business-unit revenue, including Core Data Center Business Unit $2,379M and Cloud Memory Business Unit $5,284M, but not a fiscal-year figure, and it contains no quotable sentence stating AI or data-center revenue. p02's AI mention is boilerplate describing what the company sells."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.6,
-  "input_tokens": 4635,
-  "output_tokens": 161,
+  "seconds": 7.8,
+  "input_tokens": 5289,
+  "output_tokens": 716,
   "attempts": 1,
-  "task_sha": "8db206e4c7670952"
+  "task_sha": "635ad86f472a8474"
  }
 }

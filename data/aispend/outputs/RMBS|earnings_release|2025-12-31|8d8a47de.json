@@ -1,0 +1,27 @@
+{
+ "accession": "RMBS|earnings_release|2025-12-31|8d8a47de",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capex figure ($8.6 million paid for capital expenditures in Q4 2025) is not linked to AI in any sentence"
+  },
+  {
+   "field": "opex",
+   "reason": "operating expense figures ($79.2 million GAAP, $103.2 million non-GAAP) are given without any attribution to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a seller, but no sentence states a data-center, AI or AI-related revenue figure or share; the CEO's reference to data center and AI secular trends is a positioning statement, and the p03 company description is boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.5,
+  "input_tokens": 5863,
+  "output_tokens": 445,
+  "attempts": 1,
+  "task_sha": "29ce121b30a21a24"
+ }
+}

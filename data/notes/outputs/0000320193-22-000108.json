@@ -1,6 +1,6 @@
 {
  "accession": "0000320193-22-000108",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -192,8 +192,7 @@
    "period_end": "2022-09-24",
    "months": 12,
    "value": 205489000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue; Apple's reportable segments are geographic, so this is a second, non-additive breakdown alongside t0015."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -205,8 +204,7 @@
    "period_end": "2021-09-25",
    "months": 12,
    "value": 191973000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue; non-additive with geographic segments."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -218,8 +216,7 @@
    "period_end": "2020-09-26",
    "months": 12,
    "value": 137781000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue; non-additive with geographic segments."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -231,8 +228,7 @@
    "period_end": "2022-09-24",
    "months": 12,
    "value": 40177000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue; non-additive with geographic segments."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -244,8 +240,7 @@
    "period_end": "2021-09-25",
    "months": 12,
    "value": 35190000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue; non-additive with geographic segments."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -257,8 +252,7 @@
    "period_end": "2020-09-26",
    "months": 12,
    "value": 28622000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue; non-additive with geographic segments."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -270,8 +264,7 @@
    "period_end": "2022-09-24",
    "months": 12,
    "value": 29292000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue; non-additive with geographic segments."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -283,8 +276,7 @@
    "period_end": "2021-09-25",
    "months": 12,
    "value": 31862000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue; non-additive with geographic segments."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -296,8 +288,7 @@
    "period_end": "2020-09-26",
    "months": 12,
    "value": 23724000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue; non-additive with geographic segments."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -309,8 +300,7 @@
    "period_end": "2022-09-24",
    "months": 12,
    "value": 41241000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue; non-additive with geographic segments."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -322,8 +312,7 @@
    "period_end": "2021-09-25",
    "months": 12,
    "value": 38367000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue; non-additive with geographic segments."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -335,8 +324,7 @@
    "period_end": "2020-09-26",
    "months": 12,
    "value": 30620000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue; non-additive with geographic segments."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -348,8 +336,7 @@
    "period_end": "2022-09-24",
    "months": 12,
    "value": 78129000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue; non-additive with geographic segments."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -361,8 +348,7 @@
    "period_end": "2021-09-25",
    "months": 12,
    "value": 68425000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue; non-additive with geographic segments."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -374,8 +360,7 @@
    "period_end": "2020-09-26",
    "months": 12,
    "value": 53768000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue; non-additive with geographic segments."
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -453,23 +438,23 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "The segment note (t0051, t0052) reports net sales and operating income by geographic segment only; no per-segment capital expenditures are shown."
+   "reason": "the segment note (t0051, t0052) reports net sales and operating income only; no capital expenditures by segment"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "Table t0042 has no total finance lease liability line; it shows only the current portion ('Finance leases' 129 / 79) and a non-current portion under an ambiguous duplicated label ('Other non-current liabilities' 812 / 769). That would sum to 941 (2022) and 848 (2021), but no single cell carries the total."
+   "reason": "t0042 has no total finance lease liabilities line, only a current 'Finance leases' row and an ambiguous duplicate 'Other non-current liabilities' row; the schema rejects current/non-current dimensions and citing two cells under a null dimension is not allowed"
   },
   {
    "field": "purchase_commitments",
-   "reason": "No contractual-obligations or purchase-commitments table is included among the provided tables."
+   "reason": "no contractual-obligations or commitments table is included among the provided tables"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 35.6,
-  "input_tokens": 5826,
-  "output_tokens": 5265,
-  "attempts": 1,
-  "task_sha": "44b1e2264b718649"
+  "seconds": 57.4,
+  "input_tokens": 11959,
+  "output_tokens": 8616,
+  "attempts": 2,
+  "task_sha": "cf02453e8703eba3"
  }
 }

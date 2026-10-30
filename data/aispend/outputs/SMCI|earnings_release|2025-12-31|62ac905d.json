@@ -1,0 +1,27 @@
+{
+ "accession": "SMCI|earnings_release|2025-12-31|62ac905d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the cash flow table reports purchases of property, plant and equipment, but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the passages give no AI, data-center or AI-server revenue figure or share; the CEO quote's AI references describe positioning and demand only, and the company description is boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 6931,
+  "output_tokens": 416,
+  "attempts": 1,
+  "task_sha": "4c1c2e1ba74126f1"
+ }
+}

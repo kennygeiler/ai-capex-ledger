@@ -1,0 +1,27 @@
+{
+ "accession": "EQIX|earnings_release|2026-09-30|6472bba4",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "total 2026 capital expenditures of $5-6 billion are guided (p01), but the sentence does not link capex to AI; the atNorth investment (p02) is an equity investment described as AI-ready infrastructure, not a stated capex amount or share for AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "total 2026 revenue guidance (p01) is not linked to AI, and no sentence states AI's part of revenue; p03 is a company description (boilerplate)"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.4,
+  "input_tokens": 5720,
+  "output_tokens": 487,
+  "attempts": 1,
+  "task_sha": "fa170caba4de8a37"
+ }
+}

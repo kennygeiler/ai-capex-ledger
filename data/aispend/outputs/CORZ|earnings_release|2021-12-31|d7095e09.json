@@ -1,23 +1,27 @@
 {
  "accession": "CORZ|earnings_release|2021-12-31|d7095e09",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p01 is boilerplate company description about blockchain infrastructure and digital asset mining, and p02 is a cash flow table (purchases of property, plant and equipment of $365,210 thousand) with no AI attribution"
+   "reason": "no sentence links capital expenditures to AI; purchases of property, plant and equipment relate to bitcoin self-mining and hosting data centers, not AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; passages concern blockchain hosting and digital asset mining only"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; cost increases are attributed to digital asset mining equipment, power and data-center operations for blockchain"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or AI data-center revenue; the company's data centers serve blockchain hosting and digital asset mining, not AI demand"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.0,
-  "input_tokens": 5568,
-  "output_tokens": 232,
+  "seconds": 5.4,
+  "input_tokens": 6128,
+  "output_tokens": 262,
   "attempts": 1,
-  "task_sha": "efc68819347d6bfc"
+  "task_sha": "a12f2e5da9fdc0b9"
  }
 }

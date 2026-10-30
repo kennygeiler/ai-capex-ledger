@@ -1,0 +1,27 @@
+{
+ "accession": "CIEN|earnings_release|2022-10-29|a715ec08",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures or links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D is given as 17.2% of total revenue but no sentence attributes any operating expense to AI; 'WaveLogic Ai' is a product name, not artificial intelligence"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; non-telco share (38%) is not AI or data-center revenue, and 'WaveLogic Ai' wins are product customer counts"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.4,
+  "input_tokens": 5219,
+  "output_tokens": 243,
+  "attempts": 1,
+  "task_sha": "1d1e770997004cf6"
+ }
+}

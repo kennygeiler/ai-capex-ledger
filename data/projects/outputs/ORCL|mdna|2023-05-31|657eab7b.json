@@ -1,0 +1,13 @@
+{
+ "accession": "ORCL|mdna|2023-05-31|657eab7b",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.1,
+  "input_tokens": 4424,
+  "output_tokens": 50,
+  "attempts": 1,
+  "task_sha": "79e0479a075bfb86"
+ }
+}

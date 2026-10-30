@@ -1,0 +1,193 @@
+{
+ "accession": "0001628280-26-008608",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Systems Protection",
+   "table_id": "t0078",
+   "row_label": "Net sales",
+   "column_label": "2025 | Systems Protection",
+   "cell_text": "2,592.9",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 2592900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Electrical Connections",
+   "table_id": "t0078",
+   "row_label": "Net sales",
+   "column_label": "2025 | Electrical Connections",
+   "cell_text": "1,300.2",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 1300200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Systems Protection",
+   "table_id": "t0017",
+   "row_label": "Net sales",
+   "column_label": "Years ended December 31 | 2024",
+   "cell_text": "1,823.3",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 1823300000,
+   "confidence": 0.8
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Electrical Connections",
+   "table_id": "t0020",
+   "row_label": "Net sales",
+   "column_label": "Years ended December 31 | 2024",
+   "cell_text": "1,182.8",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 1182800000,
+   "confidence": 0.8
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0055",
+   "row_label": "Land and land improvements",
+   "column_label": "December 31 | 2025",
+   "cell_text": "28.3",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 28300000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land and land improvements",
+   "table_id": "t0055",
+   "row_label": "Land and land improvements",
+   "column_label": "December 31 | 2024",
+   "cell_text": "21.5",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 21500000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and leasehold improvements",
+   "table_id": "t0055",
+   "row_label": "Buildings and leasehold improvements",
+   "column_label": "December 31 | 2025",
+   "cell_text": "220.0",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 220000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and leasehold improvements",
+   "table_id": "t0055",
+   "row_label": "Buildings and leasehold improvements",
+   "column_label": "December 31 | 2024",
+   "cell_text": "177.1",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 177100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0055",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31 | 2025",
+   "cell_text": "651.1",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 651100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0055",
+   "row_label": "Machinery and equipment",
+   "column_label": "December 31 | 2024",
+   "cell_text": "565.6",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 565600000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0055",
+   "row_label": "Construction in progress",
+   "column_label": "December 31 | 2025",
+   "cell_text": "65.7",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 65700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0055",
+   "row_label": "Construction in progress",
+   "column_label": "December 31 | 2024",
+   "cell_text": "47.2",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 47200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0094",
+   "row_label": "Total lease liabilities",
+   "column_label": "2025",
+   "cell_text": "17.8",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 17800000,
+   "confidence": 0.9
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0094",
+   "row_label": "Total lease liabilities",
+   "column_label": "2024",
+   "cell_text": "18.0",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 18000000,
+   "confidence": 0.9
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment tables report net sales, costs and segment income only; no capital expenditures by segment are given"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or purchase-commitments table is among the provided tables"
+  }
+ ],
+ "notes": "2024 segment revenue comes from the MD&A segment tables t0017 and t0020, which do not name the segment; they were attributed to Systems Protection and Electrical Connections because their 2025 net sales (2,592.9 and 1,300.2) match the named columns in t0078 (confidence 0.8). The finance lease totals in t0094 share the row label 'Total lease liabilities' with the operating-lease total; the cited cells are the ones under the 'Finance Leases' header (17.8 and 18.0), so confidence is 0.9.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 19.1,
+  "input_tokens": 7711,
+  "output_tokens": 2685,
+  "attempts": 1,
+  "task_sha": "e80b30d8d14280d6"
+ }
+}

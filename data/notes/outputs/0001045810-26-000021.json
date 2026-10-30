@@ -1,85 +1,7 @@
 {
  "accession": "0001045810-26-000021",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
-  {
-   "field": "segment_revenue",
-   "dimension": "Compute & Networking",
-   "table_id": "t0052",
-   "row_label": "Revenue",
-   "column_label": "Compute & Networking",
-   "cell_text": "193,479",
-   "period_end": "2026-01-25",
-   "months": 12,
-   "value": 193479000000,
-   "confidence": 0.9,
-   "notes": "Table t0052 has three 'Revenue' rows. This is the first block, which has no sub-header. It is the fiscal 2026 block because the column total of 215,938 matches the FY2026 revenue in t0055."
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Graphics",
-   "table_id": "t0052",
-   "row_label": "Revenue",
-   "column_label": "Graphics",
-   "cell_text": "22,459",
-   "period_end": "2026-01-25",
-   "months": 12,
-   "value": 22459000000,
-   "confidence": 0.9,
-   "notes": "Table t0052 has three 'Revenue' rows. This is the first block, which has no sub-header. It is the fiscal 2026 block because the column total of 215,938 matches the FY2026 revenue in t0055."
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Compute & Networking",
-   "table_id": "t0052",
-   "row_label": "Revenue",
-   "column_label": "Compute & Networking",
-   "cell_text": "116,193",
-   "period_end": "2025-01-26",
-   "months": 12,
-   "value": 116193000000,
-   "confidence": 0.9,
-   "notes": "This 'Revenue' row is a repeated label. It sits under the 'Year Ended Jan 26, 2025' sub-header."
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Graphics",
-   "table_id": "t0052",
-   "row_label": "Revenue",
-   "column_label": "Graphics",
-   "cell_text": "14,304",
-   "period_end": "2025-01-26",
-   "months": 12,
-   "value": 14304000000,
-   "confidence": 0.9,
-   "notes": "This 'Revenue' row is a repeated label. It sits under the 'Year Ended Jan 26, 2025' sub-header."
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Compute & Networking",
-   "table_id": "t0052",
-   "row_label": "Revenue",
-   "column_label": "Compute & Networking",
-   "cell_text": "47,405",
-   "period_end": "2024-01-28",
-   "months": 12,
-   "value": 47405000000,
-   "confidence": 0.9,
-   "notes": "This 'Revenue' row is a repeated label. It sits under the 'Year Ended Jan 28, 2024' sub-header."
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Graphics",
-   "table_id": "t0052",
-   "row_label": "Revenue",
-   "column_label": "Graphics",
-   "cell_text": "13,517",
-   "period_end": "2024-01-28",
-   "months": 12,
-   "value": 13517000000,
-   "confidence": 0.9,
-   "notes": "This 'Revenue' row is a repeated label. It sits under the 'Year Ended Jan 28, 2024' sub-header."
-  },
   {
    "field": "segment_revenue",
    "dimension": "Data Center",
@@ -115,84 +37,6 @@
    "months": 12,
    "value": 47525000000,
    "confidence": 1.0
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Compute",
-   "table_id": "t0055",
-   "row_label": "Compute",
-   "column_label": "Year Ended | Jan 25, 2026",
-   "cell_text": "162,361",
-   "period_end": "2026-01-25",
-   "months": 12,
-   "value": 162361000000,
-   "confidence": 0.8,
-   "notes": "This is a sub-line of Data Center, so it overlaps with the Data Center value. Do not add it to Data Center."
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Compute",
-   "table_id": "t0055",
-   "row_label": "Compute",
-   "column_label": "Year Ended | Jan 26, 2025",
-   "cell_text": "102,196",
-   "period_end": "2025-01-26",
-   "months": 12,
-   "value": 102196000000,
-   "confidence": 0.8,
-   "notes": "This is a sub-line of Data Center, so it overlaps with the Data Center value. Do not add it to Data Center."
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Compute",
-   "table_id": "t0055",
-   "row_label": "Compute",
-   "column_label": "Year Ended | Jan 28, 2024",
-   "cell_text": "38,950",
-   "period_end": "2024-01-28",
-   "months": 12,
-   "value": 38950000000,
-   "confidence": 0.8,
-   "notes": "This is a sub-line of Data Center, so it overlaps with the Data Center value. Do not add it to Data Center."
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Networking",
-   "table_id": "t0055",
-   "row_label": "Networking",
-   "column_label": "Year Ended | Jan 25, 2026",
-   "cell_text": "31,376",
-   "period_end": "2026-01-25",
-   "months": 12,
-   "value": 31376000000,
-   "confidence": 0.8,
-   "notes": "This is a sub-line of Data Center, so it overlaps with the Data Center value. Do not add it to Data Center."
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Networking",
-   "table_id": "t0055",
-   "row_label": "Networking",
-   "column_label": "Year Ended | Jan 26, 2025",
-   "cell_text": "12,990",
-   "period_end": "2025-01-26",
-   "months": 12,
-   "value": 12990000000,
-   "confidence": 0.8,
-   "notes": "This is a sub-line of Data Center, so it overlaps with the Data Center value. Do not add it to Data Center."
-  },
-  {
-   "field": "segment_revenue",
-   "dimension": "Networking",
-   "table_id": "t0055",
-   "row_label": "Networking",
-   "column_label": "Year Ended | Jan 28, 2024",
-   "cell_text": "8,575",
-   "period_end": "2024-01-28",
-   "months": 12,
-   "value": 8575000000,
-   "confidence": 0.8,
-   "notes": "This is a sub-line of Data Center, so it overlaps with the Data Center value. Do not add it to Data Center."
   },
   {
    "field": "segment_revenue",
@@ -438,23 +282,23 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "The segment tables (t0052, t0053) report only revenue, other segment items and operating income. There are no capital expenditures per segment."
+   "reason": "the segment tables (t0052, t0053) report revenue, other segment items and operating income only; no capital expenditures per segment are given"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "None of the tables provided is a lease note, and none shows finance lease liabilities."
+   "reason": "no lease note table with finance lease liabilities is included in the provided tables"
   },
   {
    "field": "purchase_commitments",
-   "reason": "None of the tables provided is a commitments or contractual-obligations table, and none shows a total for purchase obligations."
+   "reason": "no contractual-obligations or purchase-commitments table is included in the provided tables"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 37.0,
-  "input_tokens": 6738,
-  "output_tokens": 5818,
+  "seconds": 28.6,
+  "input_tokens": 6864,
+  "output_tokens": 4084,
   "attempts": 1,
-  "task_sha": "bf6a95d4e700386f"
+  "task_sha": "e3e2916bf094cadc"
  }
 }

@@ -1,0 +1,112 @@
+{
+ "accession": "EQIX|earnings_release|2022-03-31|c1b39514",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Chile data centers acquisition from Entel",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Chile",
+   "counterparty": "Empresa Nacional De Telecomunicaciones S.A. (Entel)",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2022-03",
+   "in_service": null,
+   "quote": "In March, Equinix announced its planned expansion into Chile through the intended acquisition of multiple data centers from Empresa Nacional De Telecomunicaciones S.A. (\"Entel\"), a leading Chilean telecommunications provider.",
+   "passage": "p01",
+   "confidence": 0.8
+  },
+  {
+   "name": "MainOne acquisition",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "West Africa (Nigeria, Ghana, Ivory Coast)",
+   "counterparty": "MainOne Cable Company Ltd.",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-04",
+   "quote": "In April, Equinix formally entered the African continent with the acquisition of MainOne, a data center and connectivity solutions provider in West Africa, with operations in Nigeria, Ghana and Ivory Coast.",
+   "passage": "p01",
+   "confidence": 0.65
+  },
+  {
+   "name": "xScale Australian joint venture with PGIM",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Sydney",
+   "counterparty": "PGIM",
+   "capacity_mw": 55,
+   "gpus": null,
+   "announced": "2022-03",
+   "in_service": null,
+   "quote": "Equinix continued the expansion of its xScale TMprogram with the completion of its Australian joint venture with PGIM in March, which is expected to provide more than 55 megawatts of capacity in the Sydney market when fully built out.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "xScale South Korean joint venture with GIC",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Seoul",
+   "counterparty": "GIC",
+   "capacity_mw": 45,
+   "gpus": null,
+   "announced": "2022-04",
+   "in_service": null,
+   "quote": "In April, Equinix completed its South Korean joint venture with GIC, which is expected to provide more than 45 megawatts of capacity to the Seoul market.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "Co-Innovation Facility (CIF), DC15 IBX, Equinix Ashburn Campus",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Ashburn Campus, Washington, D.C. area",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2022-01",
+   "in_service": "2022-01",
+   "quote": "In January, Equinix announced the opening of its first Co- Innovation Facility (CIF), located in its DC15 International Business Exchange TM(IBX \u00ae) data center at the Equinix Ashburn Campus in the Washington, D.C. area.",
+   "passage": "p01",
+   "confidence": 0.6
+  },
+  {
+   "name": "PA10 IBX heat recovery project",
+   "kind": "other",
+   "status": "announced",
+   "location": "Paris",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Equinix continued to develop IBX data centers with sustainable features, including a heat recovery technology project at the PA10 IBX in Paris to recover energy from customer equipment and transfer it to the urban heating network.",
+   "passage": "p01",
+   "confidence": 0.5
+  },
+  {
+   "name": "MU4 IBX",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Munich",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Equinix also recently opened its MU4 IBX in Munich, which has a green fa\u00e7ade and partially planted roof that acts as additional natural insulation and cooling, and allows the building to blend into the cityscape.",
+   "passage": "p01",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.9,
+  "input_tokens": 14944,
+  "output_tokens": 2435,
+  "attempts": 1,
+  "task_sha": "33bfa041bb05bcf0"
+ }
+}

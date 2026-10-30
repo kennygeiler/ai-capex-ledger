@@ -1,0 +1,65 @@
+{
+ "accession": "0000866374-26-000012",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended March 31, | 2026",
+   "cell_text": "(633)",
+   "period_end": "2026-03-31",
+   "months": 12,
+   "value": 633000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended March 31, | 2025",
+   "cell_text": "(438)",
+   "period_end": "2025-03-31",
+   "months": 12,
+   "value": 438000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Fiscal Year Ended March 31, | 2024",
+   "cell_text": "(530)",
+   "period_end": "2024-03-31",
+   "months": 12,
+   "value": 530000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "reason": "The consolidated income statement is not among the tables provided. t0046 is the earnings-per-share computation and has no net sales line. t0047 shows 'Net sales (2)' of 1,664 for fiscal 2024, but that table covers only the discontinued operations (Nextracker), not total company revenue, so it was not used."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "The consolidated income statement is not provided. 'Cost of sales (2)' in t0047 belongs to discontinued operations only. t0046 has no cost line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "The consolidated income statement is not provided, so there are no consolidated cost-of-revenue lines to extract."
+  },
+  {
+   "field": "operating_income",
+   "reason": "The consolidated income statement is not provided. 'Operating income' of 321 in t0047 is for discontinued operations only (fiscal 2024). t0046 starts at net income from continuing operations."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.9,
+  "input_tokens": 6278,
+  "output_tokens": 874,
+  "attempts": 1,
+  "task_sha": "225c21b2aad7575f"
+ }
+}

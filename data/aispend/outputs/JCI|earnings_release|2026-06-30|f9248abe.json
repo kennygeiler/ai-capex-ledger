@@ -1,0 +1,27 @@
+{
+ "accession": "JCI|earnings_release|2026-06-30|f9248abe",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI; p02 mentions capital expenditures only in forward-looking-statement boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 attributes the increase in orders (58%) and backlog ($17.8 billion) to data-center demand, but orders and backlog are not revenue and no sentence states a data-center or AI revenue amount or share; p02 data-center mention is risk-factor boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.7,
+  "input_tokens": 6404,
+  "output_tokens": 579,
+  "attempts": 1,
+  "task_sha": "0cbd20e2deaa7b59"
+ }
+}

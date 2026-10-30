@@ -1,0 +1,35 @@
+{
+ "accession": "JBL|earnings_release|2026-02-28|82216c7c",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our better-than-expected performance in the quarter was broad-based, reflecting the strength of our diversified portfolio and was led by continued momentum in Intelligent Infrastructure, where demand remains robust across cloud and data center infrastructure, networking and communications, and capital equipment.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Quarterly (Q2 fiscal 2026) results attributed in part to cloud and data-center demand in the Intelligent Infrastructure segment. No AI or data-center revenue figure or share is stated. The sentence names no year, so fiscal_year is null and code will apply the filing's reported year (2026). Confidence is reduced because data-center demand is one of several drivers named and the statement concerns overall quarterly performance, not an AI-specific revenue line."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in the adjusted free cash flow definition and forward-looking-statement boilerplate; no sentence links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.3,
+  "input_tokens": 6523,
+  "output_tokens": 825,
+  "attempts": 1,
+  "task_sha": "60c5d9f327edcd10"
+ }
+}

@@ -1,6 +1,6 @@
 {
  "accession": "0000804328-24-000075",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -12,8 +12,7 @@
    "period_end": "2024-09-29",
    "months": 12,
    "value": 24863000000,
-   "confidence": 0.85,
-   "notes": "Product-line revenue within the QCT segment, not a top-level reportable segment (QCT/QTL/QSI not shown); included under the market/product-line allowance."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -25,8 +24,7 @@
    "period_end": "2023-09-24",
    "months": 12,
    "value": 22570000000,
-   "confidence": 0.85,
-   "notes": "QCT product line; period end taken from the property-and-equipment table's September 24, 2023 year-end."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -38,8 +36,7 @@
    "period_end": "2024-09-29",
    "months": 12,
    "value": 2910000000,
-   "confidence": 0.85,
-   "notes": "QCT product line, not a top-level reportable segment."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -51,8 +48,7 @@
    "period_end": "2023-09-24",
    "months": 12,
    "value": 1872000000,
-   "confidence": 0.85,
-   "notes": "QCT product line, not a top-level reportable segment."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -64,8 +60,7 @@
    "period_end": "2024-09-29",
    "months": 12,
    "value": 5423000000,
-   "confidence": 0.85,
-   "notes": "QCT product line, not a top-level reportable segment."
+   "confidence": 0.9
   },
   {
    "field": "segment_revenue",
@@ -77,8 +72,7 @@
    "period_end": "2023-09-24",
    "months": 12,
    "value": 5940000000,
-   "confidence": 0.85,
-   "notes": "QCT product line, not a top-level reportable segment."
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -252,23 +246,24 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "No segment capital expenditure table is provided; the segment/market table reports revenues and EBT only."
+   "reason": "no segment capital expenditure table is provided; the segment table reports revenues and EBT only"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "No lease note table is included among the provided tables."
+   "reason": "no lease note table is provided among the tables"
   },
   {
    "field": "purchase_commitments",
-   "reason": "No commitments or contractual-obligations table is included among the provided tables."
+   "reason": "no commitments or contractual-obligations table is provided among the tables"
   }
  ],
+ "notes": "segment_revenue confidence 0.9: t0019 rows (Handsets, Automotive, IoT) are QCT revenue by end market rather than reportable segments; taken as market/product-line revenue per the field definition. The 'Change' column is not a fiscal year and was skipped.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 18.1,
-  "input_tokens": 4660,
-  "output_tokens": 2784,
+  "seconds": 17.2,
+  "input_tokens": 4782,
+  "output_tokens": 2643,
   "attempts": 1,
-  "task_sha": "f78f100c24131115"
+  "task_sha": "af6ad78c0afbf12c"
  }
 }

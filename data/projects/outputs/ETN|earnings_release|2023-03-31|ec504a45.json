@@ -1,0 +1,13 @@
+{
+ "accession": "ETN|earnings_release|2023-03-31|ec504a45",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.5,
+  "input_tokens": 7635,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "365bbf59bbdb134c"
+ }
+}

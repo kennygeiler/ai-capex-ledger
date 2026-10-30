@@ -1,0 +1,27 @@
+{
+ "accession": "LITE|earnings_release|2024-12-28|b90040f5",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; passages are CEO-appointment quotes"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "passages mention 'momentum in our cloud/AI data center strategy' and enabling connectivity in AI data centers, but no sentence states AI or data-center revenue as an amount, a share, or a driver of revenue; this is strategic/descriptive boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.6,
+  "input_tokens": 5161,
+  "output_tokens": 350,
+  "attempts": 1,
+  "task_sha": "9ee1a43c79f90aae"
+ }
+}

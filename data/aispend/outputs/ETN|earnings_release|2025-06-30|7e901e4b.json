@@ -1,0 +1,27 @@
+{
+ "accession": "ETN|earnings_release|2025-06-30|7e901e4b",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capital expenditure figure ($202 million for the quarter, p02) is not linked to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 links orders (not revenue) to data center momentum without stating a data-center amount or share; p03 gives Fibrebond's total sales across data center, industrial, utility and communications customers, not a data-center revenue figure"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.5,
+  "input_tokens": 5010,
+  "output_tokens": 442,
+  "attempts": 1,
+  "task_sha": "06ab5282abcdd0aa"
+ }
+}

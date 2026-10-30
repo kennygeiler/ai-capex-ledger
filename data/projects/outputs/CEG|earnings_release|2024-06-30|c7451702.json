@@ -1,0 +1,13 @@
+{
+ "accession": "CEG|earnings_release|2024-06-30|c7451702",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.7,
+  "input_tokens": 16378,
+  "output_tokens": 308,
+  "attempts": 1,
+  "task_sha": "cf2fe5555a9ff22a"
+ }
+}

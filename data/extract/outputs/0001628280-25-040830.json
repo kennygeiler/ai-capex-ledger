@@ -1,0 +1,151 @@
+{
+ "accession": "0001628280-25-040830",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Net revenue",
+   "column_label": "Years Ended | June 28, 2025",
+   "cell_text": "1,645.0",
+   "period_end": "2025-06-28",
+   "months": 12,
+   "value": 1645000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Net revenue",
+   "column_label": "Years Ended | June 29, 2024",
+   "cell_text": "1,359.2",
+   "period_end": "2024-06-29",
+   "months": 12,
+   "value": 1359200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Net revenue",
+   "column_label": "Years Ended | July 1, 2023",
+   "cell_text": "1,767.0",
+   "period_end": "2023-07-01",
+   "months": 12,
+   "value": 1767000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Cost of sales",
+   "column_label": "Years Ended | June 28, 2025",
+   "cell_text": "1,102.9",
+   "period_end": "2025-06-28",
+   "months": 12,
+   "value": 1102900000,
+   "confidence": 0.9,
+   "notes": "Took the 'Cost of sales' line. 'Amortization of acquired developed intangibles' is shown separately above gross profit and is excluded, because the rules exclude amortization. The statement has no combined total line."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Cost of sales",
+   "column_label": "Years Ended | June 29, 2024",
+   "cell_text": "1,023.8",
+   "period_end": "2024-06-29",
+   "months": 12,
+   "value": 1023800000,
+   "confidence": 0.9,
+   "notes": "Took the 'Cost of sales' line. 'Amortization of acquired developed intangibles' is shown separately above gross profit and is excluded, because the rules exclude amortization. The statement has no combined total line."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Cost of sales",
+   "column_label": "Years Ended | July 1, 2023",
+   "cell_text": "1,113.6",
+   "period_end": "2023-07-01",
+   "months": 12,
+   "value": 1113600000,
+   "confidence": 0.9,
+   "notes": "Took the 'Cost of sales' line. 'Amortization of acquired developed intangibles' is shown separately above gross profit and is excluded, because the rules exclude amortization. The statement has no combined total line."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0022",
+   "row_label": "Loss from operations",
+   "column_label": "Years Ended | June 28, 2025",
+   "cell_text": "(180.1)",
+   "period_end": "2025-06-28",
+   "months": 12,
+   "value": -180100000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0022",
+   "row_label": "Loss from operations",
+   "column_label": "Years Ended | June 29, 2024",
+   "cell_text": "(434.0)",
+   "period_end": "2024-06-29",
+   "months": 12,
+   "value": -434000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0022",
+   "row_label": "Loss from operations",
+   "column_label": "Years Ended | July 1, 2023",
+   "cell_text": "(115.7)",
+   "period_end": "2023-07-01",
+   "months": 12,
+   "value": -115700000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0025",
+   "row_label": "Payments for acquisition of property, plant and equipment",
+   "column_label": "Years Ended | June 28, 2025",
+   "cell_text": "(231.0)",
+   "period_end": "2025-06-28",
+   "months": 12,
+   "value": 231000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0025",
+   "row_label": "Payments for acquisition of property, plant and equipment",
+   "column_label": "Years Ended | June 29, 2024",
+   "cell_text": "(133.0)",
+   "period_end": "2024-06-29",
+   "months": 12,
+   "value": 133000000,
+   "confidence": 1.0,
+   "notes": "The separate 'Payment for acquisition of intangible assets' line of (4.0) is not added, per the rules."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0025",
+   "row_label": "Payments for acquisition of property, plant and equipment",
+   "column_label": "Years Ended | July 1, 2023",
+   "cell_text": "(128.5)",
+   "period_end": "2023-07-01",
+   "months": 12,
+   "value": 128500000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.9,
+  "input_tokens": 6388,
+  "output_tokens": 1899,
+  "attempts": 1,
+  "task_sha": "df8cd8f5ba44b8e5"
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "accession": "WULF|earnings_release|2025-06-30|97e185b1",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Cayuga Ground Lease",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Cayuga site, Lansing, New York",
+   "counterparty": "Cayuga Operating Company LLC",
+   "capacity_mw": 400,
+   "gpus": null,
+   "announced": "2025-08-14",
+   "in_service": "2026",
+   "quote": "The lease provides TeraWulf with exclusive rights to develop up to 400 MW of digital infrastructure capacity, with 138 MW of low-cost, predominantly zero-carbon power expected to be ready for service in 2026.",
+   "passage": "p01",
+   "confidence": 0.9
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.9,
+  "input_tokens": 5011,
+  "output_tokens": 716,
+  "attempts": 1,
+  "task_sha": "23ea7444d7640bc5"
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "accession": "CSCO|earnings_release|2025-10-25|5cd2377b",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 4549,
+  "output_tokens": 53,
+  "attempts": 1,
+  "task_sha": "20ef595a8b5670f0"
+ }
+}

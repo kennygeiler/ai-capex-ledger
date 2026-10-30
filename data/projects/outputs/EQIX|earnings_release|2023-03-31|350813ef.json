@@ -1,0 +1,58 @@
+{
+ "accession": "EQIX|earnings_release|2023-03-31|350813ef",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Barcelona IBX data center (second)",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Barcelona",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2023-02",
+   "in_service": null,
+   "quote": "In February, Equinix announcedplans to build its second International Business Exchange\u2122 (IBX \u00ae) data center in Barcelona.",
+   "passage": "p01",
+   "confidence": 0.8
+  },
+  {
+   "name": "Montreal IBX data center",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Montreal",
+   "counterparty": null,
+   "amount_low": 50000000,
+   "amount_high": 50000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2023-04",
+   "in_service": "2023",
+   "quote": "In April, Equinix invested$50 million toward a new state-of-the-art IBX data center expected to open in Montreal in the second half of 2023.",
+   "passage": "p01",
+   "confidence": 0.65
+  },
+  {
+   "name": "Spain renewable Power Purchase Agreements",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Spain",
+   "counterparty": null,
+   "capacity_mw": 345,
+   "gpus": null,
+   "announced": "2023",
+   "in_service": null,
+   "quote": "Year to date, Equinix has significantly increased its commitment to renewable power projects by signing a number of new long-term Power Purchase Agreements (PPAs) in Spain totaling 345 megawatts (MW).",
+   "passage": "p01",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.8,
+  "input_tokens": 14808,
+  "output_tokens": 1090,
+  "attempts": 1,
+  "task_sha": "c95a019fdf2041cf"
+ }
+}

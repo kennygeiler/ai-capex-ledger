@@ -1,0 +1,27 @@
+{
+ "accession": "BE|mdna|2024-12-31|06b8f99f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures (p08: $58.8 million cash used in investing; planned Fremont capacity expansion) are not linked to AI in any sentence"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes research and development, infrastructure or headcount expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "passages describe market-wide power demand driven by AI and data centers (p01-p03, p06) but no sentence states an amount, share or attribution of the company's own revenue to AI or data-center customers"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 7155,
+  "output_tokens": 445,
+  "attempts": 1,
+  "task_sha": "fe68033e3224c114"
+ }
+}

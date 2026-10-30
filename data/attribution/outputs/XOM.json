@@ -1,7 +1,7 @@
 {
  "ticker": "XOM",
- "prompt_version": "attribution@v1",
- "model": "other@v1",
+ "prompt_version": "attribution@v2",
+ "model": "other@v3",
  "rows": [
   {
    "field": "capex",
@@ -11,8 +11,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The pack has no company statement that names an AI amount or share, or ties capex to AI in words. Segment capex (Upstream, Energy, Chemical, Specialty Products) is oil, gas and chemicals spend, and other@v1 does not allow segment estimates.",
-   "confidence": 0.9
+   "basis": "The pack has no ExxonMobil statement giving an AI or data-center capex amount or share. The segment capex lines (Upstream, Energy, Chemical and Specialty Products by U.S. and Non-U.S.) are oil, gas and chemicals, not AI, and the thesis forbids building an AI number from them.",
+   "confidence": 0.85
   },
   {
    "field": "capex",
@@ -22,8 +22,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The pack has no company statement that names an AI amount or share, or ties capex to AI in words. Segment capex covers hydrocarbon and chemical operations, and other@v1 does not allow segment estimates.",
-   "confidence": 0.9
+   "basis": "The pack has no statement of AI or data-center capex. Segment capex is oil, gas and chemicals and is not an AI line.",
+   "confidence": 0.85
   },
   {
    "field": "capex",
@@ -33,8 +33,8 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The pack has no company statement that names an AI amount or share, or ties capex to AI in words. Pack note: Upstream Non-U.S. segment capex of 94.649B is larger than total capex of 24.306B and looks like an extraction error. It does not affect this row.",
-   "confidence": 0.9
+   "basis": "The pack has no statement of AI or data-center capex. The data-center gas power plant with carbon capture (announced December 2024) has no size, site or cost disclosed, and it has no statement in the pack. Note: the pack's Upstream Non-U.S. FY2024 segment capex of 94.649B exceeds total capex of 24.306B and looks like a data error. It was not used.",
+   "confidence": 0.85
   },
   {
    "field": "capex",
@@ -44,58 +44,78 @@
    "ai_amount": null,
    "ai_share": null,
    "inputs": [],
-   "basis": "The pack has no company statement that names an AI amount or share, or ties capex to AI in words. Segment capex covers hydrocarbon and chemical operations, and other@v1 does not allow segment estimates.",
-   "confidence": 0.9
+   "basis": "The pack has no statement of AI or data-center capex. The data-center power plant is still undisclosed in amount, and segment capex is not AI.",
+   "confidence": 0.85
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No AI or data-center revenue is stated. Energy, Chemical, Specialty and Upstream segments are not AI lines.",
+   "confidence": 0.85
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No AI or data-center revenue is stated. The segments are not AI lines.",
+   "confidence": 0.85
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No AI or data-center revenue is stated. The planned data-center power plant has no revenue and no statement in the pack.",
+   "confidence": 0.85
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No AI or data-center revenue is stated. The segments are not AI lines.",
+   "confidence": 0.85
   }
  ],
  "none_found": [
   {
    "field": "capex",
-   "period": "FY2022",
-   "reason": "no statement attributes any capex to AI; segments are oil, gas and chemicals, and other@v1 does not allow segment or PP&E estimates"
+   "reason": "no statement in the pack gives an AI or data-center capex amount or share; the data-center gas plant has no disclosed size, site or cost, and segment capex is oil, gas and chemicals"
+  },
+  {
+   "field": "opex",
+   "reason": "no opex value in the pack and no statement attributes any operating expense to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no AI or data-center revenue is stated; segments are oil, gas and chemicals, and the data-center power plant is in early development with no revenue"
   },
   {
    "field": "capex",
-   "period": "FY2023",
-   "reason": "no statement attributes any capex to AI; segments are oil, gas and chemicals, and other@v1 does not allow segment or PP&E estimates"
-  },
-  {
-   "field": "capex",
-   "period": "FY2024",
-   "reason": "no statement attributes any capex to AI; segments are oil, gas and chemicals, and other@v1 does not allow segment or PP&E estimates"
-  },
-  {
-   "field": "capex",
-   "period": "FY2025",
-   "reason": "no statement attributes any capex to AI; segments are oil, gas and chemicals, and other@v1 does not allow segment or PP&E estimates"
-  },
-  {
-   "field": "opex",
-   "period": "FY2022",
-   "reason": "the pack has no opex value and no statement attributing opex to AI"
-  },
-  {
-   "field": "opex",
-   "period": "FY2023",
-   "reason": "the pack has no opex value and no statement attributing opex to AI"
-  },
-  {
-   "field": "opex",
-   "period": "FY2024",
-   "reason": "the pack has no opex value and no statement attributing opex to AI"
-  },
-  {
-   "field": "opex",
-   "period": "FY2025",
-   "reason": "the pack has no opex value and no statement attributing opex to AI"
+   "reason": "no outlook or committed rows: the pack has no outlook statements and no purchase-commitment or finance-lease facts tied to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 12.2,
-  "input_tokens": 9459,
-  "output_tokens": 1502,
+  "seconds": 13.5,
+  "input_tokens": 15427,
+  "output_tokens": 1646,
   "attempts": 1,
-  "task_sha": "321a6e230eb25270"
+  "task_sha": "c3e9d2fa55eaee08"
  }
 }

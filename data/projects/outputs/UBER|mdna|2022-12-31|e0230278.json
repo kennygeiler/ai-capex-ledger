@@ -1,0 +1,30 @@
+{
+ "accession": "UBER|mdna|2022-12-31|e0230278",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "2022 Cloud Computing Service Agreements",
+   "kind": "cloud_commitment",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 2900000000,
+   "amount_high": 2900000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2022-11",
+   "in_service": null,
+   "quote": "We are committed to spend an aggregate of at least $2.9 billion through November 2029, of which $160 million is short-term.",
+   "passage": "p05",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.6,
+  "input_tokens": 5322,
+  "output_tokens": 489,
+  "attempts": 1,
+  "task_sha": "7f643a0eaefcabdf"
+ }
+}

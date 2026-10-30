@@ -1,0 +1,13 @@
+{
+ "accession": "AEIS|earnings_release|2022-03-31|a8ecdeb0",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.0,
+  "input_tokens": 5378,
+  "output_tokens": 55,
+  "attempts": 1,
+  "task_sha": "3330ddd9f7956c81"
+ }
+}

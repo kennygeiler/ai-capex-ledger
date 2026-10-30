@@ -1,0 +1,27 @@
+{
+ "accession": "ONTO|mdna|2023-12-30|335ba673",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures of $22.6 million are stated but no sentence links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 5084,
+  "output_tokens": 170,
+  "attempts": 1,
+  "task_sha": "be9814f53a336ef7"
+ }
+}

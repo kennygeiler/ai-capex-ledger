@@ -1,23 +1,35 @@
 {
  "accession": "TXN|earnings_release|2026-03-31|c3503469",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Revenue increased 9% sequentially and 19% from the same quarter a year ago with growth led by industrial and data center.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Gives total revenue growth (quarter ended 2026-03-31) with data center named as a driver alongside industrial. The 9% and 19% are growth rates of total revenue, not a data-center share. No data-center revenue amount or share is stated. Confidence is lowered because 'data center' demand is not explicitly tied to AI."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is a cash flow statement table reporting total capital expenditures ($676 million for Q1 2026) with no sentence linking capital expenditures to AI"
+   "reason": "capital expenditures ($676M) appear only in the cash flow table; no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the passage is a cash flow table with no narrative text"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.1,
-  "input_tokens": 5089,
-  "output_tokens": 194,
+  "seconds": 7.2,
+  "input_tokens": 5434,
+  "output_tokens": 694,
   "attempts": 1,
-  "task_sha": "1ef78173f5f9730c"
+  "task_sha": "79b7ea97fc987f06"
  }
 }

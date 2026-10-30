@@ -1,0 +1,27 @@
+{
+ "accession": "NTAP|mdna|2025-04-25|9bc57e2d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the fiscal 2026 capex outlook ($175M-$225M) and capex funding discussion do not mention AI; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue or AI's share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 5483,
+  "output_tokens": 277,
+  "attempts": 1,
+  "task_sha": "7645a45d9059e3a9"
+ }
+}

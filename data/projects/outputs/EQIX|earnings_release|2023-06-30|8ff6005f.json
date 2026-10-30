@@ -1,0 +1,98 @@
+{
+ "accession": "EQIX|earnings_release|2023-06-30|8ff6005f",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "xScale builds",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 90,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The company currently has 53 major projects underway across 40 metros in 24 countries, including 11 xScale builds that are expected to deliver approximately 90 megawatts of capacity once opened.",
+   "passage": "p01",
+   "confidence": 0.6
+  },
+  {
+   "name": "Lisbon IBX data center build",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Lisbon",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In Q2, Equinix added 12 new projects including new International Business Exchange\u2122 (IBX \u00ae) data center builds in Lisbon, Monterrey and Mumbai\u2014in addition to the company's first build in Kuala Lumpur, one of the most strategic markets in Asia.",
+   "passage": "p01",
+   "confidence": 0.65
+  },
+  {
+   "name": "Monterrey IBX data center build",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Monterrey",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In Q2, Equinix added 12 new projects including new International Business Exchange\u2122 (IBX \u00ae) data center builds in Lisbon, Monterrey and Mumbai\u2014in addition to the company's first build in Kuala Lumpur, one of the most strategic markets in Asia.",
+   "passage": "p01",
+   "confidence": 0.65
+  },
+  {
+   "name": "Mumbai IBX data center build",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Mumbai",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In Q2, Equinix added 12 new projects including new International Business Exchange\u2122 (IBX \u00ae) data center builds in Lisbon, Monterrey and Mumbai\u2014in addition to the company's first build in Kuala Lumpur, one of the most strategic markets in Asia.",
+   "passage": "p01",
+   "confidence": 0.65
+  },
+  {
+   "name": "Kuala Lumpur data center build",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Kuala Lumpur",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In Q2, Equinix added 12 new projects including new International Business Exchange\u2122 (IBX \u00ae) data center builds in Lisbon, Monterrey and Mumbai\u2014in addition to the company's first build in Kuala Lumpur, one of the most strategic markets in Asia.",
+   "passage": "p01",
+   "confidence": 0.65
+  },
+  {
+   "name": "Singapore data center capacity build",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Singapore",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Equinix was selected to build incremental data center capacity in Singapore in response to the Singapore Government's Data Center Call for Application process.",
+   "passage": "p01",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 16.2,
+  "input_tokens": 13081,
+  "output_tokens": 1878,
+  "attempts": 1,
+  "task_sha": "d904b629077c1d1a"
+ }
+}

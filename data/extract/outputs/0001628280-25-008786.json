@@ -1,0 +1,118 @@
+{
+ "accession": "0001628280-25-008786",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0031",
+   "row_label": "Operating Revenues (Note 6)",
+   "column_label": "Successor | Year Ended December 31, 2024",
+   "cell_text": "2,115",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 2115000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0031",
+   "row_label": "Operating Revenues (Note 6)",
+   "column_label": "Predecessor | Year Ended December 31, 2022",
+   "cell_text": "3,089",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 3089000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0031",
+   "row_label": "Energy Expenses",
+   "column_label": "Successor | Year Ended December 31, 2024",
+   "cell_text": "(797)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 797000000,
+   "confidence": 0.6,
+   "notes": "No line is labeled cost of revenue. 'Energy Expenses' is the subtotal of fuel and energy purchases, nuclear fuel amortization and derivative gains/losses, which are the direct costs of generating the power sold. It is presented separately from Operating Expenses (O&M, G&A, D&A). Some readers would also count O&M as a cost of revenue, so confidence is lower."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0031",
+   "row_label": "Energy Expenses",
+   "column_label": "Predecessor | Year Ended December 31, 2022",
+   "cell_text": "(1,084)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 1084000000,
+   "confidence": 0.6,
+   "notes": "Same reasoning as the 2024 column: 'Energy Expenses' is the subtotal of the direct generation costs. It is used as the cost-of-revenue total."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0031",
+   "row_label": "Operating Income (Loss)",
+   "column_label": "Successor | Year Ended December 31, 2024",
+   "cell_text": "226",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 226000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0031",
+   "row_label": "Operating Income (Loss)",
+   "column_label": "Predecessor | Year Ended December 31, 2022",
+   "cell_text": "241",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 241000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "column_label": "Successor | May 18 through December 31, 2023",
+   "reason": "This is a stub period of about 7.5 months (fresh-start Successor period), so months cannot be 3, 6, 9 or 12. Cell is 1,344 but the value is omitted."
+  },
+  {
+   "field": "revenue",
+   "column_label": "Predecessor | January 1 through May 17, 2023",
+   "reason": "This is a stub period of about 4.5 months (Predecessor period before emergence), so months cannot be 3, 6, 9 or 12. Cell is 1,210 but the value is omitted."
+  },
+  {
+   "field": "cost_of_revenue",
+   "column_label": "Successor | May 18 through December 31, 2023",
+   "reason": "Stub period of about 7.5 months, outside the allowed month values. Energy Expenses cell is (535)."
+  },
+  {
+   "field": "cost_of_revenue",
+   "column_label": "Predecessor | January 1 through May 17, 2023",
+   "reason": "Stub period of about 4.5 months, outside the allowed month values. Energy Expenses cell is (332)."
+  },
+  {
+   "field": "operating_income",
+   "column_label": "Successor | May 18 through December 31, 2023",
+   "reason": "Stub period of about 7.5 months, outside the allowed month values. Cell is 160."
+  },
+  {
+   "field": "operating_income",
+   "column_label": "Predecessor | January 1 through May 17, 2023",
+   "reason": "Stub period of about 4.5 months, outside the allowed month values. Cell is (76)."
+  },
+  {
+   "field": "capex",
+   "reason": "The cash-flow statement table was not provided in the input (the section is empty), so there is no cell to cite for any column."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 44.1,
+  "input_tokens": 11094,
+  "output_tokens": 4903,
+  "attempts": 2,
+  "task_sha": "04945d65b1a202da"
+ }
+}

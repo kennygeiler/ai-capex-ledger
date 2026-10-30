@@ -1,23 +1,27 @@
 {
  "accession": "AVGO|earnings_release|2022-07-31|97d16e55",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence mentions the company's capital expenditures or links them to AI; the only passage describes customer demand and customer investment in data centers, not Broadcom's own spend"
+   "reason": "no sentence states or attributes Broadcom's own capital expenditures to AI; the reference to 'continued investment by our customers of next generation technologies in data centers' describes customers' spending, not Broadcom's capex"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes the company's operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI or data-center revenue amount or share; the CEO quote attributes record results to broad demand across cloud, service providers and enterprise, and expects continued demand from customer investment in data centers, broadband and wireless, without isolating or linking any revenue figure to AI or data-center demand"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.7,
-  "input_tokens": 4536,
-  "output_tokens": 188,
+  "seconds": 8.6,
+  "input_tokens": 4837,
+  "output_tokens": 611,
   "attempts": 1,
-  "task_sha": "38d560c500c5d978"
+  "task_sha": "a2b7e619ec925371"
  }
 }

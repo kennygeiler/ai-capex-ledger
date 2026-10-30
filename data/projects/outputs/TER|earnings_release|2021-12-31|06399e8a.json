@@ -1,0 +1,13 @@
+{
+ "accession": "TER|earnings_release|2021-12-31|06399e8a",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.3,
+  "input_tokens": 6160,
+  "output_tokens": 50,
+  "attempts": 1,
+  "task_sha": "440788f4df1b9f43"
+ }
+}

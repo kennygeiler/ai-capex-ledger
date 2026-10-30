@@ -1,0 +1,46 @@
+{
+ "accession": "VRT|earnings_release|2024-09-30|3f645a68",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Vertiv\u2019s strong performance in the third quarter was driven by robust underlying demand for our critical digital infrastructure products and services, our continued and unrelenting focus on strong operational execution and Vertiv\u2019s unique market position in enabling artificial intelligence and other critical applications for the data center",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "CEO quote attributes Q3 'performance' partly to AI enablement for data centers; 'performance' is not explicitly revenue, and AI is one of several drivers. Quote omits the surrounding quotation marks and trailing comma, which are part of the attribution."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "There are clear indications of an acceleration in AI development that is truly encouraging, and which is driving demand across our entire AI-enabling portfolio of power, thermal, IT systems, infrastructure solutions and services.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "Links demand for the AI-enabling portfolio to AI development; speaks of demand rather than recognized revenue, and gives no figure."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures ($175\u2013200 million 2024 forecast; 2.5\u20133.0% of sales framework) are tied to customer demand and capacity, and no sentence links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.1,
+  "input_tokens": 5868,
+  "output_tokens": 1509,
+  "attempts": 1,
+  "task_sha": "0486511c459565c9"
+ }
+}

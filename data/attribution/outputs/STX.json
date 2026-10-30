@@ -1,0 +1,111 @@
+{
+ "ticker": "STX",
+ "prompt_version": "attribution@v2",
+ "model": "component_supplier@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The release credits the December 2021 quarter to 'cloud data center demand for our high capacity nearline products'. That is cloud demand in words, with no AI line or amount.",
+   "confidence": 0.2
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Seller-side signal: the data center markets were about 75% of fiscal 2025 revenue (nearline to cloud and enterprise customers, plus VIA). That is a market share, not an AI share, so no AI amount is attributed.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Seller-side signal: the MD&A gives Data Center at 80% of fiscal 2026 revenue (about $9.8bn of $12.195bn), up from 75%, and the release cites 'robust cloud data center demand'. This is a market share, not an AI share, so no AI amount is attributed.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The CEO expects cloud data center momentum 'continuing in 2027'. No amount is given and there is no AI-specific figure.",
+   "confidence": 0.2
+  }
+ ],
+ "none_found": [
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "no statement on data center or AI demand in the pack for FY2024"
+  },
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no statement ties capex to AI; under the thesis, supplier capex other than Micron's and Coherent's is none unless an expansion is stated as for AI with an amount"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no statement ties capex to AI"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "no statement ties capex to AI"
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "no statement ties capex to AI"
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "capex more than doubled to $569m, but nothing in the pack attributes it to AI (e.g. HAMR/Mozaic capacity for AI) and no amount is split out; the PP&E category changes are not AI-specific"
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.6,
+  "input_tokens": 17136,
+  "output_tokens": 1785,
+  "attempts": 1,
+  "task_sha": "26c9bfa948053e7e"
+ }
+}

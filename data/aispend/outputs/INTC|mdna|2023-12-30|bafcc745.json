@@ -1,6 +1,6 @@
 {
  "accession": "INTC|mdna|2023-12-30|bafcc745",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "f9f1eb585fecf45b"
+  "task_sha": "8ae855e827bdc0ec"
  }
 }

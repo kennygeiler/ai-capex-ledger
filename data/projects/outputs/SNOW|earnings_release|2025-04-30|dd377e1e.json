@@ -1,0 +1,13 @@
+{
+ "accession": "SNOW|earnings_release|2025-04-30|dd377e1e",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 4999,
+  "output_tokens": 53,
+  "attempts": 1,
+  "task_sha": "0addd4930f16f38c"
+ }
+}

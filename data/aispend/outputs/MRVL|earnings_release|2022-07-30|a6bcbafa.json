@@ -1,23 +1,36 @@
 {
  "accession": "MRVL|earnings_release|2022-07-30|a6bcbafa",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.42,
+   "quote": "Data center 42 % 44 % 40 %",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Table row, not a full sentence. 42% is data center's share of total net revenue for the three months ended July 30, 2022 (Q2 fiscal 2023), a quarter rather than the full year. The 44% (Q1 FY2023) and 40% (Q2 FY2022) in the same row are not recorded separately."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is an end-market product table listing AI systems as a customer application; no sentence links capital expenditures to AI"
+   "reason": "no passage mentions capital expenditures"
   },
   {
    "field": "opex",
-   "reason": "the only passage is an end-market product table; no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+   "reason": "no passage quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.0,
-  "input_tokens": 4844,
-  "output_tokens": 183,
+  "seconds": 7.5,
+  "input_tokens": 5323,
+  "output_tokens": 596,
   "attempts": 1,
-  "task_sha": "344d338e035c3c82"
+  "task_sha": "183c3796693e9c38"
  }
 }

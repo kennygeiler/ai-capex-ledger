@@ -1,0 +1,27 @@
+{
+ "accession": "RMBS|mdna|2024-12-31|c6a11e74",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes R&D or other operating expenses to AI; p05 describes a divestiture to focus development on data center and AI but states no spend"
+  },
+  {
+   "field": "revenue",
+   "reason": "p04 reports total product revenue of $246.8 million but does not state it as AI, data-center or HBM revenue; p01-p03 are business-description boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 5533,
+  "output_tokens": 365,
+  "attempts": 1,
+  "task_sha": "6eca9486387b3bf5"
+ }
+}

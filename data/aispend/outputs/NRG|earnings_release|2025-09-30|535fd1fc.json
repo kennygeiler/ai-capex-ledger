@@ -1,0 +1,27 @@
+{
+ "accession": "NRG|earnings_release|2025-09-30|535fd1fc",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures ($849 million for the nine months) appear only in the cash flow table; no sentence links capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 describes data center retail power agreements in megawatts (150 MW added, 445 MW total) with powering from 2028; no sentence states a revenue amount or share from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.6,
+  "input_tokens": 6095,
+  "output_tokens": 453,
+  "attempts": 1,
+  "task_sha": "5fd9fb3bbf085d28"
+ }
+}

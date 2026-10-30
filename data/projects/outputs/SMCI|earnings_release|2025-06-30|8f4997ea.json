@@ -1,0 +1,13 @@
+{
+ "accession": "SMCI|earnings_release|2025-06-30|8f4997ea",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.2,
+  "input_tokens": 6037,
+  "output_tokens": 53,
+  "attempts": 1,
+  "task_sha": "12cdd9566f2a007c"
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "accession": "AAOI|earnings_release|2022-03-31|4be9ed27",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 21415000,
+   "amount_high": 21415000,
+   "quote": "Datacenter $ 21,415 $ 25,939",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "Taken from the income-statement revenue table, not a prose sentence. The figure is for the three months ended March 31, 2022 (Q1 of fiscal 2022), not the full fiscal year. The table is in thousands, so $21,415 thousand is $21,415,000. The $25,939 thousand figure is the prior-year quarter (Q1 2021) and is not recorded separately."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI or data-center investment"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D and other operating expenses appear only as totals in the income-statement table; no sentence attributes any operating expense to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.0,
+  "input_tokens": 6309,
+  "output_tokens": 764,
+  "attempts": 1,
+  "task_sha": "c4a7a98dcf26fd37"
+ }
+}

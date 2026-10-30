@@ -1,0 +1,27 @@
+{
+ "accession": "JCI|earnings_release|2023-03-31|cb6974d2",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only passage is forward-looking-statements boilerplate; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.8,
+  "input_tokens": 5318,
+  "output_tokens": 175,
+  "attempts": 1,
+  "task_sha": "3bb9e85eb1a4d4fd"
+ }
+}

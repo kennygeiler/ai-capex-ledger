@@ -1,0 +1,27 @@
+{
+ "accession": "CLSK|earnings_release|2026-06-30|dd3786d9",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; p01 mentions Sandersville project equity funding without an amount or AI link, and p02 is forward-looking-statement boilerplate"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, HPC or data-center revenue as an amount or share; the AI/HPC references in p02 are safe-harbor boilerplate about business strategy and risks"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.8,
+  "input_tokens": 5600,
+  "output_tokens": 264,
+  "attempts": 1,
+  "task_sha": "ff7f167069775c45"
+ }
+}

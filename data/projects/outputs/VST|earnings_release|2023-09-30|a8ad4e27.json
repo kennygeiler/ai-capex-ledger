@@ -1,0 +1,56 @@
+{
+ "accession": "VST|earnings_release|2023-09-30|a8ad4e27",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Energy Harbor acquisition",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 4000,
+   "gpus": null,
+   "announced": "2023-03",
+   "in_service": null,
+   "quote": "In March 2023, Vistra announced the execution of a definitive agreement to acquire Energy Harbor, which will add more than 4,000 MW of nuclear generation to its portfolio along with approximately 1 million additional retail customers.",
+   "passage": "p02",
+   "confidence": 0.8
+  },
+  {
+   "name": "Illinois Coal to Solar and Energy Storage Initiative",
+   "kind": "power",
+   "status": "announced",
+   "location": "Illinois",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Vistra expects to start construction on its three largest combined solar and energy storage projects, part of the Illinois Coal to Solar and Energy Storage Initiative, in the spring of 2024.",
+   "passage": "p02",
+   "confidence": 0.75
+  },
+  {
+   "name": "Comanche Peak license extension",
+   "kind": "power",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2022",
+   "in_service": null,
+   "quote": "Further, in 2022, Comanche Peak applied to extend its licenses through 2050 and 2053 for the two-unitfacility, an additional 20 years beyond the original licenses.",
+   "passage": "p02",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.8,
+  "input_tokens": 6775,
+  "output_tokens": 1065,
+  "attempts": 1,
+  "task_sha": "6c852b1c251309fd"
+ }
+}

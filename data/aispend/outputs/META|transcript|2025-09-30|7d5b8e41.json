@@ -1,7 +1,20 @@
 {
  "accession": "META|transcript|2025-09-30|7d5b8e41",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 70000000000,
+   "amount_high": 72000000000,
+   "quote": "We currently expect 2025 capital expenditures, including principal payments on finance leases, to be in the range of $70-72 billion, increased from our prior outlook of $66-72 billion.",
+   "passage": "p05",
+   "confidence": 0.7,
+   "notes": "Total capex guidance for 2025 including finance lease principal payments; the sentence itself does not name AI as a driver. It is recorded as scope total so it is not read as AI spend."
+  },
   {
    "field": "opex",
    "fiscal_year": null,
@@ -9,9 +22,9 @@
    "scope": "total",
    "class": "qualitative",
    "quote": "Second, employee compensation growth accelerated, driven by technical hires, particularly AI talent.",
-   "passage": "p01",
+   "passage": "p03",
    "confidence": 0.9,
-   "notes": "Total employee compensation growth attributed to technical hires, particularly AI talent. No year is named in the sentence, so code applies the reported year (2025)."
+   "notes": "Q3 2025 compensation growth is attributed partly to AI hires. No amount or share is given."
   },
   {
    "field": "opex",
@@ -20,9 +33,9 @@
    "scope": "total",
    "class": "qualitative",
    "quote": "Employee compensation costs will be the second largest contributor to growth, as we recognize a full year of compensation for employees hired throughout 2025, particularly AI talent, and add technical talent in priority areas.",
-   "passage": "p03",
-   "confidence": 0.8,
-   "notes": "Forward-looking expense growth driven partly by AI talent compensation. The preceding sentence places the growth in 2026, but this sentence names only 2025, as the hiring year. fiscal_year is left null, so code applies the year after the reported year (2026)."
+   "passage": "p06",
+   "confidence": 0.85,
+   "notes": "Expense growth outlook. The surrounding text refers to 2026, but the sentence names no outlook year, so fiscal_year is null and code defaults it to the year after the filing year. Compensation growth is attributed partly to AI talent; no number is given."
   },
   {
    "field": "opex",
@@ -31,29 +44,29 @@
    "scope": "ai",
    "class": "qualitative",
    "quote": "In terms of the core AI pipeline, I think we talked about -- last year when we were going into the 2025 budget process, we had a roadmap of resource investments across both headcount and compute that we thought would pay off in 2026.",
-   "passage": "p04",
-   "confidence": 0.5,
-   "notes": "Describes headcount and compute investments for the core AI pipeline in the 2025 budget. The wording is a budget roadmap rather than a clear report of spend, so the actual/outlook choice is uncertain."
+   "passage": "p07",
+   "confidence": 0.6,
+   "notes": "Describes 2025 budget investments in headcount and compute for the core AI pipeline. It is not clear whether this was budgeted or actually spent. The compute part could be capex or cloud opex. No amount is given."
   },
   {
-   "field": "capex",
-   "fiscal_year": 2025,
+   "field": "revenue",
+   "fiscal_year": null,
    "kind": "actual",
-   "scope": "ai",
+   "scope": "total",
    "class": "qualitative",
-   "quote": "In terms of the core AI pipeline, I think we talked about -- last year when we were going into the 2025 budget process, we had a roadmap of resource investments across both headcount and compute that we thought would pay off in 2026.",
-   "passage": "p04",
-   "confidence": 0.4,
-   "notes": "'Compute' investment may be capex (servers, data centers) or cloud opex; the sentence does not specify. Budget-roadmap wording makes the kind ambiguous."
+   "quote": "Aside from this, strong AI glasses revenue also contributed to revenue growth in Q3.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Names AI glasses revenue as a driver of Reality Labs revenue growth in Q3 2025. It is consumer hardware, not AI or data-center revenue in the seller sense, and no amount is stated."
   }
  ],
  "none_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 17.0,
-  "input_tokens": 4917,
-  "output_tokens": 2099,
+  "seconds": 18.1,
+  "input_tokens": 5723,
+  "output_tokens": 2254,
   "attempts": 1,
-  "task_sha": "9f6c3659e9f09b73"
+  "task_sha": "00fb596cebd9808e"
  }
 }

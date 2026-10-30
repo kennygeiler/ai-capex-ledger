@@ -1,0 +1,13 @@
+{
+ "accession": "MRVL|mdna|2022-01-29|9c7adc24",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.1,
+  "input_tokens": 5733,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "70d01fb1b41adef2"
+ }
+}

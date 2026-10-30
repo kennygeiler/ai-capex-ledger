@@ -1,0 +1,89 @@
+{
+ "accession": "0001013871-23-000004",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0056",
+   "row_label": "Revenues(a)",
+   "column_label": "For the Year Ended December 31, 2022",
+   "cell_text": "27,682",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 27682000000,
+   "confidence": 0.8,
+   "notes": "Row label clearly is total revenues, but the confidence is lowered because this table may not be the consolidated statement of operations. It has only one column and a footnote marker (a). Its Net Income (1,247) also differs from the cash-flow statement's net income (1,221), which suggests a summary, segment or recast presentation."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0056",
+   "row_label": "Operating income(b)",
+   "column_label": "For the Year Ended December 31, 2022",
+   "cell_text": "1,954",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 1954000000,
+   "confidence": 0.8,
+   "notes": "Row label clearly is operating income, but the confidence is lowered for the same reason as revenue: the table may be a summary rather than the consolidated statement. Net income here (1,247) does not match the cash-flow statement (1,221), and the row carries footnote (b)."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0069",
+   "row_label": "Capital expenditures",
+   "column_label": "For the Year Ended December 31, | 2022",
+   "cell_text": "(367)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 367000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0069",
+   "row_label": "Capital expenditures",
+   "column_label": "For the Year Ended December 31, | 2021",
+   "cell_text": "(269)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 269000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0069",
+   "row_label": "Capital expenditures",
+   "column_label": "For the Year Ended December 31, | 2020",
+   "cell_text": "(230)",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 230000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "The income statement table t0056 has no total cost of revenue, cost of sales or cost of operations line. Its only rows are Revenues, Operating income, Total other expense, pre-tax income and Net Income."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Table t0056 shows no individual cost lines, so no cost-of-revenue components can be cited."
+  },
+  {
+   "field": "revenue",
+   "reason": "There is no value for 2021 or 2020. The income statement table t0056 has only the 2022 column."
+  },
+  {
+   "field": "operating_income",
+   "reason": "There is no value for 2021 or 2020. The income statement table t0056 has only the 2022 column."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.4,
+  "input_tokens": 6207,
+  "output_tokens": 1307,
+  "attempts": 1,
+  "task_sha": "f07779d20cfacccc"
+ }
+}

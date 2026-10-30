@@ -1,23 +1,69 @@
 {
  "accession": "MRVL|earnings_release|2024-08-03|c5b85b59",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.69,
+   "quote": "Data center 69 % 70 % 34 %",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "Table row, not a sentence. Data center was 69% of total net revenue for the three months ended August 3, 2024 (Q2 fiscal 2025). It was 70% for the quarter ended May 4, 2024 and 34% for the quarter ended July 29, 2023. This is a quarterly share, not a full-year share. The data center end market includes non-AI products such as general-purpose servers and storage."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Marvell\u2019s second quarter revenue grew 10% sequentially, above the mid-point of guidance driven by strong demand from AI.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Total quarterly revenue growth (Q2 fiscal 2025) attributed to AI demand. The 10% is a growth rate, not a share of revenue, so it is recorded as qualitative."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Next quarter, we expect our combined enterprise networking and carrier end markets to return to growth, while our data center end market growth accelerates.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Outlook for Q3 fiscal 2025 data center revenue growth. No amount is stated. The year is not named in the sentence, though the next sentence says the third quarter of fiscal 2025."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "As a result, for the third quarter of fiscal 2025, we expect all our end markets to grow sequentially, with consolidated revenue forecasted to grow 14% sequentially at the mid-point, accompanied by a significant increase in operating leverage.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Total revenue growth outlook for Q3 fiscal 2025. 'As a result' links it to accelerating data center growth from the prior sentence. The 14% is a growth rate, not an amount or share."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or links capital expenditures to AI; p01 discusses revenue growth driven by AI demand and p02 is a product/end-market description"
+   "reason": "no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; the 'operating leverage' mention in p01 does not link opex to AI spend"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the mention of operating leverage does not concern AI spend"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.7,
-  "input_tokens": 5072,
-  "output_tokens": 186,
+  "seconds": 17.5,
+  "input_tokens": 5555,
+  "output_tokens": 1743,
   "attempts": 1,
-  "task_sha": "1f2167adc060bce3"
+  "task_sha": "9490ca46147b20fa"
  }
 }

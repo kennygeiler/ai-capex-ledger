@@ -1,7 +1,20 @@
 {
  "accession": "META|transcript|2022-12-31|98984581",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "explicit_amount",
+   "amount_low": 30000000000,
+   "amount_high": 33000000000,
+   "quote": "We expect capital expenditures to be in the range of $30-33 billion, lowered from our prior estimate of $34-37 billion.",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "Total capex guidance; the sentence itself names neither a year nor AI. The next sentence attributes the reduced outlook to an architecture that supports AI and non-AI workloads and refers to 2023. Recorded as scope total; this is not AI spend."
+  },
   {
    "field": "capex",
    "fiscal_year": 2023,
@@ -9,9 +22,9 @@
    "scope": "total",
    "class": "qualitative",
    "quote": "The reduced outlook reflects our updated plans for lower data center construction spend in 2023 as we shift to a new data center architecture that is more cost efficient and can support both AI and non-AI workloads.",
-   "passage": "p02",
-   "confidence": 0.6,
-   "notes": "Links the 2023 total capex outlook to a data center architecture that supports AI and non-AI workloads. It does not say how much capex goes to AI. The $30-33 billion total is in the preceding sentence, which does not mention AI, so it is not recorded here."
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "Links the total capex outlook to an AI-capable data center architecture; does not quantify an AI part."
   },
   {
    "field": "capex",
@@ -20,23 +33,38 @@
    "scope": "ai",
    "class": "qualitative",
    "quote": "We're still planning to grow AI capacity significantly, and that connects, I think, to a lot of the things that Mark was describing earlier in his question.",
-   "passage": "p04",
-   "confidence": 0.7,
-   "notes": "'Grow AI capacity' is read as AI infrastructure capex because the passage discusses data center capital outlay. The sentence does not say 'capital expenditures' outright. It names no year."
+   "passage": "p05",
+   "confidence": 0.75,
+   "notes": "Says that AI capacity will grow significantly. Read as AI capex, although the sentence does not say 'capital expenditures'."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our intention is still to bring CapEx as a percent of revenue down, but capital intensity in the nearest term is really going to depend, in part, on the revenue outlook and our needs to further build AI capacity for future demand.",
+   "passage": "p06",
+   "confidence": 0.85,
+   "notes": "Names the need to build AI capacity as a driver of near-term capital intensity."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the depreciation remark in p05 concerns non-AI servers' useful lives, not AI spend"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the cost-of-revenue and depreciation remarks cover infrastructure in general and non-AI servers"
+  },
+  {
+   "field": "revenue",
+   "reason": "Meta is a buyer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.9,
-  "input_tokens": 5126,
-  "output_tokens": 1266,
+  "seconds": 15.0,
+  "input_tokens": 5590,
+  "output_tokens": 1888,
   "attempts": 1,
-  "task_sha": "a62b0723bd5e1d65"
+  "task_sha": "f57f8dd62397248f"
  }
 }

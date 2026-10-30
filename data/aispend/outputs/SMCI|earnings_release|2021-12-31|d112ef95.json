@@ -1,0 +1,35 @@
+{
+ "accession": "SMCI|earnings_release|2021-12-31|d112ef95",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our Q2 performance significantly outperformed the industry growth rate again and was driven by strong design win momentum and record high shipments to our key global customers in the large enterprise, cloud, AI, and 5G/Telco markets.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Q2 results credited partly to shipments to AI customers, alongside enterprise, cloud and 5G/Telco; AI is one of four markets named and no AI revenue figure or share is given. The sentence names no fiscal year, so fiscal_year is null."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 5898,
+  "output_tokens": 617,
+  "attempts": 1,
+  "task_sha": "ff92fcbf532c398a"
+ }
+}

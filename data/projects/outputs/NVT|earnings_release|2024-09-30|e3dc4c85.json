@@ -1,0 +1,13 @@
+{
+ "accession": "NVT|earnings_release|2024-09-30|e3dc4c85",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.3,
+  "input_tokens": 4737,
+  "output_tokens": 53,
+  "attempts": 1,
+  "task_sha": "2144a5e80c75316e"
+ }
+}

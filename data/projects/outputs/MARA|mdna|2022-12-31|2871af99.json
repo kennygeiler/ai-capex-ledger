@@ -1,0 +1,44 @@
+{
+ "accession": "MARA|mdna|2022-12-31|2871af99",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "ADGM Entity Abu Dhabi digital asset mining sites",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Abu Dhabi",
+   "counterparty": "FSI",
+   "amount_low": 406000000,
+   "amount_high": 406000000,
+   "capacity_mw": 250,
+   "gpus": null,
+   "announced": "2023-01-27",
+   "in_service": null,
+   "quote": "The initial project by the ADGM Entity shall consist of two digital asset mining sites comprising 250 MW in Abu Dhabi, and the initial equity ownership in the ADGM Entity shall be 80% FSI and 20% the Company, and capital contributions will be made, subject to the satisfaction or waiver of certain conditions, during the 2023 development period in those proportions, consisting of both cash and in kind, in amounts of approximately $406,000 thousand in aggregate.",
+   "passage": "p09",
+   "confidence": 0.85
+  },
+  {
+   "name": "Hardin, MT facility",
+   "kind": "data_center",
+   "status": "cancelled",
+   "location": "Hardin, MT",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "This increase was primarily due to the depreciation acceleration of $36,032 thousand related to our exit of the Hardin, MT facility and increased depreciation costs of $27,773 thousand associated with a higher number of mining rigs in operation.",
+   "passage": "p01",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.2,
+  "input_tokens": 6324,
+  "output_tokens": 1013,
+  "attempts": 1,
+  "task_sha": "8ae6c4f687252034"
+ }
+}

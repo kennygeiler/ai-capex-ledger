@@ -1,0 +1,151 @@
+{
+ "accession": "0001193125-26-057101",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0027",
+   "row_label": "Total revenue",
+   "column_label": "Years Ended December 31, | 2025",
+   "cell_text": "707,630",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 707630000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0027",
+   "row_label": "Total revenue",
+   "column_label": "Years Ended December 31, | 2024",
+   "cell_text": "556,624",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 556624000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0027",
+   "row_label": "Total revenue",
+   "column_label": "Years Ended December 31, | 2023",
+   "cell_text": "461,117",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 461117000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0027",
+   "row_label": "Total cost of revenue",
+   "column_label": "Years Ended December 31, | 2025",
+   "cell_text": "144,415",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 144415000,
+   "confidence": 1.0,
+   "notes": "Total line as reported; it includes amortization of acquired intangible assets (6,878) within cost of revenue."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0027",
+   "row_label": "Total cost of revenue",
+   "column_label": "Years Ended December 31, | 2024",
+   "cell_text": "110,107",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 110107000,
+   "confidence": 1.0,
+   "notes": "Total line as reported; it includes amortization of acquired intangible assets (11,204) within cost of revenue."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0027",
+   "row_label": "Total cost of revenue",
+   "column_label": "Years Ended December 31, | 2023",
+   "cell_text": "103,422",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 103422000,
+   "confidence": 1.0,
+   "notes": "Total line as reported; it includes amortization of acquired intangible assets (13,524) within cost of revenue."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0027",
+   "row_label": "Operating income",
+   "column_label": "Years Ended December 31, | 2025",
+   "cell_text": "260,218",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 260218000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0027",
+   "row_label": "Operating income",
+   "column_label": "Years Ended December 31, | 2024",
+   "cell_text": "183,009",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 183009000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0027",
+   "row_label": "Operating income",
+   "column_label": "Years Ended December 31, | 2023",
+   "cell_text": "153,639",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 153639000,
+   "confidence": 1.0,
+   "notes": "2023 operating income includes a 90,784 gain on divestiture recorded within operating expenses."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0030",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Years Ended December 31, | 2025",
+   "cell_text": "(26,842)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 26842000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0030",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Years Ended December 31, | 2024",
+   "cell_text": "(30,697)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 30697000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0030",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "Years Ended December 31, | 2023",
+   "cell_text": "(23,240)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 23240000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.9,
+  "input_tokens": 6825,
+  "output_tokens": 1465,
+  "attempts": 1,
+  "task_sha": "8aaed6b171715da9"
+ }
+}

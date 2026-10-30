@@ -1,23 +1,35 @@
 {
  "accession": "WULF|mdna|2024-12-31|fd4d9380",
- "prompt_version": "aispend@v3",
- "statements": [],
- "none_found": [
+ "prompt_version": "aispend@v4",
+ "statements": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the only capex sentence (p03) concerns miner acquisition costs, and the HPC data center development described in p02, p04 and p05 is not stated as capital expenditure or tied to an AI spend amount, share or attribution"
-  },
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Additionally, the Company is developing HPC data centers at the Lake Mariner Facility to provide HPC hosting services for Core42, supporting up to 72.5 MW of data center infrastructure dedicated to GPU compute workloads.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "The sentence describes building GPU/HPC data-center infrastructure, which implies capital investment tied to AI-type compute. It does not explicitly mention spending or AI (only HPC/GPU). 72.5 MW is capacity, not a dollar amount. Kind and year are ambiguous because development is ongoing (present tense)."
+  }
+ ],
+ "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; AI is mentioned only as a customer description (p04) and a strategic market (p05)"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the HPC leases had not commenced as of the filing; no sentence states AI, HPC or data-center revenue as an amount or share"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 5.7,
-  "input_tokens": 5615,
-  "output_tokens": 524,
+  "seconds": 9.5,
+  "input_tokens": 5916,
+  "output_tokens": 852,
   "attempts": 1,
-  "task_sha": "ea2f260d9977d601"
+  "task_sha": "1e5bd16eb2310a9c"
  }
 }

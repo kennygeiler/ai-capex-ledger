@@ -1,0 +1,30 @@
+{
+ "accession": "FN|mdna|2026-06-26|83fdca4b",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Chonburi campus new manufacturing facility",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Chonburi, Thailand",
+   "counterparty": null,
+   "amount_low": 132500000,
+   "amount_high": 132500000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2025-02",
+   "in_service": null,
+   "quote": "In February 2025, we began construction of a new manufacturing facility of approximately 2.0 million square feet at our Chonburi campus.",
+   "passage": "p06",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.6,
+  "input_tokens": 6056,
+  "output_tokens": 550,
+  "attempts": 1,
+  "task_sha": "96bf936b81fb0f95"
+ }
+}

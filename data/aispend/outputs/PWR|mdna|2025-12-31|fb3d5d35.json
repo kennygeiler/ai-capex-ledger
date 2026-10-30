@@ -1,0 +1,46 @@
+{
+ "accession": "PWR|mdna|2025-12-31|fb3d5d35",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Our acquisition of Cupertino Electric, Inc. (CEI) during 2024 also resulted in increased demand for our critical path electrical design and installation solutions from the technology and data center industry, as well as our utility scale solar and battery storage solutions.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Seller-side link to data-center demand; describes demand rather than revenue directly and gives no amount or share. No year stated for the demand itself (2024 refers to the acquisition), so fiscal_year is null."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We see strong demand for these services by data center, manufacturing, semiconductor and other large load facilities and believe there are also opportunities to provide these services to other core end markets.",
+   "passage": "p02",
+   "confidence": 0.5,
+   "notes": "Data-center demand for Dynamic Systems services is listed alongside other end markets; it describes demand, not revenue, and gives no figure."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the 2026 capex outlook of $750 million to $800 million (p04) is tied to anticipated demand for services generally; no sentence links capital expenditures to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.4,
+  "input_tokens": 6122,
+  "output_tokens": 1013,
+  "attempts": 1,
+  "task_sha": "72526e5fe9e0e9e9"
+ }
+}

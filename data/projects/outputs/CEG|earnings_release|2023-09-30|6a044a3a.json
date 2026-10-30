@@ -1,0 +1,74 @@
+{
+ "accession": "CEG|earnings_release|2023-09-30|6a044a3a",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "South Texas Project Nuclear Generating Station",
+   "kind": "power",
+   "status": "in_service",
+   "location": "about 90 miles southwest of Houston",
+   "counterparty": null,
+   "amount_low": 1750000000,
+   "amount_high": 1750000000,
+   "capacity_mw": 2645,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In alignment with our capital and strategic plan, on November 1, 2023 we completed our acquisition of a 44% undivided ownership interest in the South Texas Project Nuclear Generating Station, a 2,645-megawatt, dual-unit nuclear plant located about 90 miles southwest of Houston, for $1.75 billion .",
+   "passage": "p03",
+   "confidence": 0.8
+  },
+  {
+   "name": "LaSalle Clean Energy Center nuclear-powered clean hydrogen production facility (MachH2)",
+   "kind": "plant",
+   "status": "announced",
+   "location": "LaSalle Clean Energy Center in Illinois",
+   "counterparty": "Department of Energy",
+   "amount_low": 900000000,
+   "amount_high": 900000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We estimate the facility will cost approximately $900 million, with a portion of the MachH2 award offsetting the project\u2019s cost.",
+   "passage": "p04",
+   "confidence": 0.75
+  },
+  {
+   "name": "Microsoft Virginia data center carbon-free nuclear energy agreement",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Virginia",
+   "counterparty": "Microsoft",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2023",
+   "in_service": null,
+   "quote": "This agreement follows a similar deal between Constellation and Microsoft announced in the second quarter of 2023 to power one of its Virginia data centers with nearly 100 percent carbon-free nuclear energy.",
+   "passage": "p05",
+   "confidence": 0.7
+  },
+  {
+   "name": "ComEd hourly carbon-free nuclear energy matching agreement",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Commonwealth Edison (ComEd)",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We signed a historic agreement with Commonwealth Edison (ComEd) to power its 54 metered facilities with locally produced carbon-free nuclear energy, every hour of every day.",
+   "passage": "p05",
+   "confidence": 0.45
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 19.1,
+  "input_tokens": 18273,
+  "output_tokens": 2005,
+  "attempts": 1,
+  "task_sha": "f1929aff8f8465ed"
+ }
+}

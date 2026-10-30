@@ -1,0 +1,150 @@
+{
+ "accession": "0001558370-23-001757",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0050",
+   "row_label": "REVENUE",
+   "column_label": "\u200b | Year Ended December 31, | 2022",
+   "cell_text": "4,140,364",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 4140364000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0050",
+   "row_label": "REVENUE",
+   "column_label": "\u200b | Year Ended December 31, | 2021",
+   "cell_text": "3,073,636",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 3073636000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0050",
+   "row_label": "REVENUE",
+   "column_label": "\u200b | Year Ended December 31, | 2020",
+   "cell_text": "2,856,659",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 2856659000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0050",
+   "row_label": "COST OF SERVICES",
+   "column_label": "\u200b | Year Ended December 31, | 2022",
+   "cell_text": "3,398,756",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 3398756000,
+   "confidence": 0.95,
+   "notes": "Cost of services is the single total cost line above Gross profit (Revenue minus Cost of services equals Gross profit)."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0050",
+   "row_label": "COST OF SERVICES",
+   "column_label": "\u200b | Year Ended December 31, | 2021",
+   "cell_text": "2,510,429",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 2510429000,
+   "confidence": 0.95,
+   "notes": "Cost of services is the single total cost line above Gross profit (Revenue minus Cost of services equals Gross profit)."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0050",
+   "row_label": "COST OF SERVICES",
+   "column_label": "\u200b | Year Ended December 31, | 2020",
+   "cell_text": "2,309,676",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 2309676000,
+   "confidence": 0.95,
+   "notes": "Cost of services is the single total cost line above Gross profit (Revenue minus Cost of services equals Gross profit)."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0050",
+   "row_label": "Operating income",
+   "column_label": "\u200b | Year Ended December 31, | 2022",
+   "cell_text": "253,849",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 253849000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0050",
+   "row_label": "Operating income",
+   "column_label": "\u200b | Year Ended December 31, | 2021",
+   "cell_text": "188,438",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 188438000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0050",
+   "row_label": "Operating income",
+   "column_label": "\u200b | Year Ended December 31, | 2020",
+   "cell_text": "190,651",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 190651000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0053",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "\u200b | 2022",
+   "cell_text": "(48,359)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 48359000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0053",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "\u200b | Year Ended December 31, | 2021",
+   "cell_text": "(22,330)",
+   "period_end": "2021-12-31",
+   "months": 12,
+   "value": 22330000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0053",
+   "row_label": "Purchases of property and equipment",
+   "column_label": "\u200b | 2020",
+   "cell_text": "(24,131)",
+   "period_end": "2020-12-31",
+   "months": 12,
+   "value": 24131000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.0,
+  "input_tokens": 6583,
+  "output_tokens": 1573,
+  "attempts": 1,
+  "task_sha": "82eb0cedf75fd8e1"
+ }
+}

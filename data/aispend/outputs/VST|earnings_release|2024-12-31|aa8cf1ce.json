@@ -1,0 +1,27 @@
+{
+ "accession": "VST|earnings_release|2024-12-31|aa8cf1ce",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only passage is forward-looking-statements boilerplate; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "mention of potential large load center opportunities is boilerplate; no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 5743,
+  "output_tokens": 195,
+  "attempts": 1,
+  "task_sha": "0a285cbf99c02a11"
+ }
+}

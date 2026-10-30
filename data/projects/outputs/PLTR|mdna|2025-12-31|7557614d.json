@@ -1,0 +1,13 @@
+{
+ "accession": "PLTR|mdna|2025-12-31|7557614d",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.1,
+  "input_tokens": 4517,
+  "output_tokens": 49,
+  "attempts": 1,
+  "task_sha": "bb197182d1979a0a"
+ }
+}

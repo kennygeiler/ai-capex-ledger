@@ -1,0 +1,56 @@
+{
+ "accession": "INTC|earnings_release|2025-06-28|a58dd452",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Germany planned project",
+   "kind": "fab",
+   "status": "cancelled",
+   "location": "Germany",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "As part of this effort, Intel will no longer move forward with planned projects in Germany and Poland.",
+   "passage": "p01",
+   "confidence": 0.75
+  },
+  {
+   "name": "Poland planned project",
+   "kind": "plant",
+   "status": "cancelled",
+   "location": "Poland",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "As part of this effort, Intel will no longer move forward with planned projects in Germany and Poland.",
+   "passage": "p01",
+   "confidence": 0.7
+  },
+  {
+   "name": "Ohio construction",
+   "kind": "fab",
+   "status": "under_construction",
+   "location": "Ohio",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "In addition, Intel will further slow the pace of construction in Ohio to ensure spending is aligned with market demand.",
+   "passage": "p01",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.9,
+  "input_tokens": 7098,
+  "output_tokens": 903,
+  "attempts": 1,
+  "task_sha": "9216c400db12d979"
+ }
+}

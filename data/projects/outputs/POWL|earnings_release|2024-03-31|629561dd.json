@@ -1,0 +1,42 @@
+{
+ "accession": "POWL|earnings_release|2024-03-31|629561dd",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Gulf Coast fabrication yard expansion",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Gulf Coast",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Our capacity initiatives focused on servicing current and future backlog remain on track and are progressing as planned, with our Gulf Coast fabrication yard expansion now fully utilized and helping to support the execution of our $1.3 billion backlog.",
+   "passage": "p01",
+   "confidence": 0.6
+  },
+  {
+   "name": "Houston products factory capacity expansion",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Houston",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We expect to complete the current capacity expansion initiative at our products factory in Houston by mid-Fiscal 2025, which will help to enable our initiatives to facilitate future growth.",
+   "passage": "p01",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.7,
+  "input_tokens": 4859,
+  "output_tokens": 565,
+  "attempts": 1,
+  "task_sha": "5cbe3f40f9efab90"
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "accession": "LITE|earnings_release|2023-12-30|48ca0dd1",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Given the surging bandwidth demands of AI data centers, and our strong traction on new transceiver opportunities, we are strategically expanding our leading-edge transceiver manufacturing capacity.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Capacity expansion (Thailand production lines, per the following sentence) is attributed to AI data-center demand, but the word 'capital expenditures' never appears and no amount is given. It is recorded as an outlook because the expansion is in progress, and the ramp is expected 'this summer'. No year is named, so fiscal_year is null."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue as an amount or share; the passage mentions AI data-center demand and transceiver traction only"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.1,
+  "input_tokens": 4975,
+  "output_tokens": 773,
+  "attempts": 1,
+  "task_sha": "212b47e0a6df44cc"
+ }
+}

@@ -1,6 +1,6 @@
 {
  "accession": "INTC|mdna|2022-12-31|4e273078",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
@@ -18,6 +18,6 @@
   "input_tokens": 0,
   "output_tokens": 0,
   "attempts": 0,
-  "task_sha": "fbb72d648e58003b"
+  "task_sha": "86a9fbc8a46980da"
  }
 }

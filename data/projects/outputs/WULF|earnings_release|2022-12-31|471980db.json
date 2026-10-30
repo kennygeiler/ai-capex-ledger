@@ -1,0 +1,84 @@
+{
+ "accession": "WULF|earnings_release|2022-12-31|471980db",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Lake Mariner facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "New York",
+   "counterparty": null,
+   "capacity_mw": 60,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-03",
+   "quote": "Commenced mining at the Company\u2019s wholly owned Lake Mariner facility in March 2022, with operational capacity of 60 MW and a fleet of 18,000 miners, comprised of 13,000 self-miners and 5,000 hosted miners, as of February 28, 2023.",
+   "passage": "p02",
+   "confidence": 0.6
+  },
+  {
+   "name": "Lake Mariner Building 1",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "New York",
+   "counterparty": null,
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2022-08",
+   "quote": "The increase is attributable to the significant increase in mining operations at the Lake Mariner facility following the August 2022 energization of Building 1 (50 MW), bringing online capacity at Lake Mariner from 10 MW to 60 MW and the introduction of a profit share component to short- term hosting agreements.",
+   "passage": "p02",
+   "confidence": 0.55
+  },
+  {
+   "name": "Lake Mariner Building 2",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "New York",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "TeraWulf is currently expanding mining operations at its wholly owned Lake Mariner facility in New York with the addition of Building 2, which is expected to increase the facility\u2019s operational capacity from 60 MW currently to 110 MW in Q2 2023.",
+   "passage": "p02",
+   "confidence": 0.55
+  },
+  {
+   "name": "Nautilus Cryptomine facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Pennsylvania",
+   "counterparty": "Cumulus Coin, LLC",
+   "capacity_mw": 25,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023-02",
+   "quote": "Commenced mining at the Nautilus Cryptomine facility in February 2023, a joint venture with Cumulus Coin, LLC and the first behind the meter bitcoin mining facility powered by 100% nuclear power in the U.S., with operational capacity of 25 MW and a fleet of 8,000 self-miners as of February 28, 2023.",
+   "passage": "p02",
+   "confidence": 0.6
+  },
+  {
+   "name": "Bitmain miner purchase agreements",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Bitmain",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Restructured miner purchase agreements with Bitmain, unlocking substantial deposits and completing the procurement of miners needed to fully utilize 160 MW of mining capacity.",
+   "passage": "p02",
+   "confidence": 0.4
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.7,
+  "input_tokens": 10775,
+  "output_tokens": 1891,
+  "attempts": 1,
+  "task_sha": "e02b0f19b0a60711"
+ }
+}

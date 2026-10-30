@@ -1,0 +1,13 @@
+{
+ "accession": "JBL|earnings_release|2022-05-31|488057d6",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.4,
+  "input_tokens": 5503,
+  "output_tokens": 50,
+  "attempts": 1,
+  "task_sha": "36dd7459ae9756b6"
+ }
+}

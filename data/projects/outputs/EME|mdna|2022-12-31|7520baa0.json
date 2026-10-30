@@ -1,0 +1,13 @@
+{
+ "accession": "EME|mdna|2022-12-31|7520baa0",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 12516,
+  "output_tokens": 48,
+  "attempts": 1,
+  "task_sha": "20806269ed7ed07b"
+ }
+}

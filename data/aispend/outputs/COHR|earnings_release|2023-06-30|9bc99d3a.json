@@ -1,0 +1,57 @@
+{
+ "accession": "COHR|earnings_release|2023-06-30|9bc99d3a",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Not included in our full year fiscal 2024 revenue guidance is several hundred million dollars of additional \u2022 revenue related to the recent surge in demand for Datacom transceivers for AI-driven data center buildouts as the supply chain ramps incremental capacity to address industry demand.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "'Several hundred million dollars' is not a stated amount or range, so it is recorded as qualitative. It is upside excluded from guidance, not a guided figure."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "As previously noted, the significant increase in AI/ML-related Datacom Transceiver orders during the quarter should help offset an expected decline in fiscal 2024 revenue from our two largest customers (one just above and one just below 10% revenue) in fiscal 2023.",
+   "passage": "p05",
+   "confidence": 0.8,
+   "notes": "Expected AI/ML-related revenue contribution, stated in words only. The same point appears in p03."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We expect AI/ML datacenter buildouts by webscale and other cloud companies to drive \u2022 significant revenue growth in our Datacom transceiver business and contribute to our overall revenue growth and profitability for many years to come.",
+   "passage": "p09",
+   "confidence": 0.9,
+   "notes": "No year is named; this is a multi-year outlook."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "Capex of $93 million is attributed to silicon carbide, not AI. No sentence links capital expenditures to AI."
+  },
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies or attributes operating expenses to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.7,
+  "input_tokens": 8250,
+  "output_tokens": 1631,
+  "attempts": 1,
+  "task_sha": "a036417438d36995"
+ }
+}

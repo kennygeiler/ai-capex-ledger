@@ -1,0 +1,35 @@
+{
+ "accession": "JBL|mdna|2025-08-31|f5828f1c",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Specifically, the Intelligent Infrastructure segment net revenue increased 34% primarily due to: (i) a 30% increase in revenues from existing customers within our cloud and data center infrastructure business and (ii) a 10% increase in revenues from existing customers within our capital equipment business.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Attributes segment revenue growth to cloud and data center infrastructure demand. The 30% and 34% figures are year-over-year growth rates, not a dollar amount or a share of total revenue, so it is recorded as qualitative. Cloud/data center is a proxy for AI demand; the sentence does not say AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capex is described only in total (FY2026 outlook of 1.5%-2.0% of net revenue) and by segment for maintenance and capabilities; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.1,
+  "input_tokens": 5857,
+  "output_tokens": 936,
+  "attempts": 1,
+  "task_sha": "16b977f286f55830"
+ }
+}

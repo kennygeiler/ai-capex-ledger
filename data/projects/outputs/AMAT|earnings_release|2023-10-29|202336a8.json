@@ -1,0 +1,13 @@
+{
+ "accession": "AMAT|earnings_release|2023-10-29|202336a8",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 1.8,
+  "input_tokens": 4572,
+  "output_tokens": 51,
+  "attempts": 1,
+  "task_sha": "7d04ce03f1ec722a"
+ }
+}

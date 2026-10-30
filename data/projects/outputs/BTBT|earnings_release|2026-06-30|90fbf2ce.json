@@ -1,0 +1,28 @@
+{
+ "accession": "BTBT|earnings_release|2026-06-30|90fbf2ce",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "NC-1 data center campus",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 40,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Initial billing has commenced at NC-1, with full contracted run-rate billing across 40 megawatts of contracted IT load expected later this month.",
+   "passage": "p03",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.1,
+  "input_tokens": 4615,
+  "output_tokens": 544,
+  "attempts": 1,
+  "task_sha": "d325c40701c9e20f"
+ }
+}

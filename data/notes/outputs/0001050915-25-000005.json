@@ -1,0 +1,288 @@
+{
+ "accession": "0001050915-25-000005",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Electric Power",
+   "table_id": "t0011",
+   "row_label": "Electric Power",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "11,166,495",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 11166495000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Renewable Energy",
+   "table_id": "t0011",
+   "row_label": "Renewable Energy",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "7,845,884",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 7845884000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Underground and Infrastructure",
+   "table_id": "t0011",
+   "row_label": "Underground and Infrastructure",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "4,660,416",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 4660416000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Electric Power",
+   "table_id": "t0011",
+   "row_label": "Electric Power",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "9,696,897",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 9696897000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Renewable Energy",
+   "table_id": "t0011",
+   "row_label": "Renewable Energy",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "6,170,301",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 6170301000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Underground and Infrastructure",
+   "table_id": "t0011",
+   "row_label": "Underground and Infrastructure",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "5,015,008",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 5015008000,
+   "confidence": 1.0
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Electric Power",
+   "table_id": "t0030",
+   "row_label": "Revenues",
+   "column_label": "Electric Power",
+   "cell_text": "8,940,276",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 8940276000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Renewable Energy",
+   "table_id": "t0030",
+   "row_label": "Revenues",
+   "column_label": "Renewable Energy (4)",
+   "cell_text": "3,778,560",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 3778560000,
+   "confidence": 0.9
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Underground and Infrastructure",
+   "table_id": "t0030",
+   "row_label": "Revenues",
+   "column_label": "Underground and Infrastructure",
+   "cell_text": "4,355,067",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 4355067000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0066",
+   "row_label": "Land",
+   "column_label": "Estimated Useful | 2024",
+   "cell_text": "134,590",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 134590000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and leasehold improvements",
+   "table_id": "t0066",
+   "row_label": "Buildings and leasehold improvements",
+   "column_label": "Estimated Useful | 2024",
+   "cell_text": "514,888",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 514888000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Operating machinery, equipment and vehicles",
+   "table_id": "t0066",
+   "row_label": "Operating machinery, equipment and vehicles",
+   "column_label": "Estimated Useful | 2024",
+   "cell_text": "3,347,871",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 3347871000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office equipment, furniture and fixtures and information technology systems",
+   "table_id": "t0066",
+   "row_label": "Office equipment, furniture and fixtures and information technology systems",
+   "column_label": "Estimated Useful | 2024",
+   "cell_text": "298,878",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 298878000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction work in progress",
+   "table_id": "t0066",
+   "row_label": "Construction work in progress",
+   "column_label": "Estimated Useful | 2024",
+   "cell_text": "125,676",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 125676000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Finance lease assets and lease financing transactions",
+   "table_id": "t0066",
+   "row_label": "Finance lease assets and lease financing transactions",
+   "column_label": "Estimated Useful | 2024",
+   "cell_text": "239,806",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 239806000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0066",
+   "row_label": "Land",
+   "column_label": "December 31, | 2023",
+   "cell_text": "102,839",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 102839000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and leasehold improvements",
+   "table_id": "t0066",
+   "row_label": "Buildings and leasehold improvements",
+   "column_label": "December 31, | 2023",
+   "cell_text": "456,004",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 456004000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Operating machinery, equipment and vehicles",
+   "table_id": "t0066",
+   "row_label": "Operating machinery, equipment and vehicles",
+   "column_label": "December 31, | 2023",
+   "cell_text": "3,069,882",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 3069882000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office equipment, furniture and fixtures and information technology systems",
+   "table_id": "t0066",
+   "row_label": "Office equipment, furniture and fixtures and information technology systems",
+   "column_label": "December 31, | 2023",
+   "cell_text": "290,687",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 290687000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction work in progress",
+   "table_id": "t0066",
+   "row_label": "Construction work in progress",
+   "column_label": "December 31, | 2023",
+   "cell_text": "73,018",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 73018000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Finance lease assets and lease financing transactions",
+   "table_id": "t0066",
+   "row_label": "Finance lease assets and lease financing transactions",
+   "column_label": "December 31, | 2023",
+   "cell_text": "165,923",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 165923000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0048",
+   "row_label": "Total",
+   "column_label": "As of December 31, 2024 | Finance Leases | 13,225 | 12,244 | 10,847 | 8,707 | 7,291",
+   "cell_text": "47,993",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 47993000,
+   "confidence": 0.9
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment note reports revenues, operating expenses, depreciation and operating income per segment but no capital expenditures"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "the contractual obligations table gives separate 'Equipment purchase commitments' and 'Other purchase commitments' lines with no total purchase commitments line, and only as of December 31, 2024"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 68.7,
+  "input_tokens": 21039,
+  "output_tokens": 9131,
+  "attempts": 2,
+  "task_sha": "436181a38c82da62"
+ }
+}

@@ -1,23 +1,35 @@
 {
  "accession": "MRVL|mdna|2024-02-03|b8351f29",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The overall decrease in net revenue of 7% for fiscal 2024 was primarily driven by lower unit shipments related to storage products, partially offset by higher average selling prices for certain products as well as an increase in demand for our optical products, driven by AI applications.",
+   "passage": "p05",
+   "confidence": 0.7,
+   "notes": "Describes the change in total net revenue and names AI-driven optical demand as a partial offset. No AI revenue amount or share is stated. Elsewhere data center sales are given only as a year-over-year change (-8%), not as an amount or share of revenue, so those sentences are not recorded."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "capital expenditures are mentioned only as an estimation input in impairment and business-combination accounting policy text (p01, p02); no sentence links capital expenditures to AI"
+   "reason": "capital expenditures appear only in critical-accounting-estimate boilerplate (p02, p03); no sentence links capex to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; IPR&D mentions in p02 are acquisition accounting boilerplate"
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.0,
-  "input_tokens": 5163,
-  "output_tokens": 210,
+  "seconds": 6.8,
+  "input_tokens": 5912,
+  "output_tokens": 683,
   "attempts": 1,
-  "task_sha": "af4e65184e66fde2"
+  "task_sha": "7f1ab91d75389617"
  }
 }

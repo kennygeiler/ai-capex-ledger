@@ -1,0 +1,194 @@
+{
+ "accession": "0001996810-26-000015",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0033",
+   "row_label": "Total revenues",
+   "column_label": "2025",
+   "cell_text": "38,068",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 38068000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0033",
+   "row_label": "Total revenues",
+   "column_label": "2024",
+   "cell_text": "34,935",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 34935000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0033",
+   "row_label": "Total revenues",
+   "column_label": "2023",
+   "cell_text": "33,239",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 33239000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0033",
+   "row_label": "Cost of equipment",
+   "column_label": "2025",
+   "cell_text": "18,759",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 18759000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line. Cost of equipment is the direct cost of the 'Sales of equipment' revenue line; together with Cost of services it is subtracted from Total revenues to reach Gross profit."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0033",
+   "row_label": "Cost of services",
+   "column_label": "2025",
+   "cell_text": "11,774",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 11774000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line. Cost of services is the direct cost of the 'Sales of services' revenue line; together with Cost of equipment it is subtracted from Total revenues to reach Gross profit."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0033",
+   "row_label": "Cost of equipment",
+   "column_label": "2024",
+   "cell_text": "17,989",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 17989000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line. Cost of equipment is the direct cost of the 'Sales of equipment' revenue line; together with Cost of services it is subtracted from Total revenues to reach Gross profit."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0033",
+   "row_label": "Cost of services",
+   "column_label": "2024",
+   "cell_text": "10,861",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 10861000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line. Cost of services is the direct cost of the 'Sales of services' revenue line; together with Cost of equipment it is subtracted from Total revenues to reach Gross profit."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0033",
+   "row_label": "Cost of equipment",
+   "column_label": "2023",
+   "cell_text": "18,705",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 18705000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line. Cost of equipment is the direct cost of the 'Sales of equipment' revenue line; together with Cost of services it is subtracted from Total revenues to reach Gross profit."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0033",
+   "row_label": "Cost of services",
+   "column_label": "2023",
+   "cell_text": "9,716",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 9716000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line. Cost of services is the direct cost of the 'Sales of services' revenue line; together with Cost of equipment it is subtracted from Total revenues to reach Gross profit."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0033",
+   "row_label": "Operating income (loss)",
+   "column_label": "2025",
+   "cell_text": "1,388",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 1388000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0033",
+   "row_label": "Operating income (loss)",
+   "column_label": "2024",
+   "cell_text": "471",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 471000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0033",
+   "row_label": "Operating income (loss)",
+   "column_label": "2023",
+   "cell_text": "(923)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": -923000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0035",
+   "row_label": "Additions to property, plant, and equipment and internal-use software",
+   "column_label": "2025",
+   "cell_text": "(1,277)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 1277000000,
+   "confidence": 0.95,
+   "notes": "Line also covers internal-use software (an intangible asset); used as the single capex line per instructions."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0035",
+   "row_label": "Additions to property, plant, and equipment and internal-use software",
+   "column_label": "2024",
+   "cell_text": "(883)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 883000000,
+   "confidence": 0.95,
+   "notes": "Line also covers internal-use software (an intangible asset); used as the single capex line per instructions."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0035",
+   "row_label": "Additions to property, plant, and equipment and internal-use software",
+   "column_label": "2023",
+   "cell_text": "(744)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 744000000,
+   "confidence": 0.95,
+   "notes": "Line also covers internal-use software (an intangible asset); used as the single capex line per instructions."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "Income statement has no single total cost-of-revenue line; Cost of equipment and Cost of services reported as cost_of_revenue_part instead."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.7,
+  "input_tokens": 6306,
+  "output_tokens": 2281,
+  "attempts": 1,
+  "task_sha": "a55166cba930b2e6"
+ }
+}

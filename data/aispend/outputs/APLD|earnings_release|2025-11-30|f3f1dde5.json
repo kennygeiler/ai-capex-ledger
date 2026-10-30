@@ -1,23 +1,37 @@
 {
  "accession": "APLD|earnings_release|2025-11-30|f3f1dde5",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 85000000,
+   "amount_high": 85000000,
+   "quote": "Approximately $85.0 million of the increase was due to revenue generated related to our HPC Hosting Business, with approximately $73.0 million related to tenant fit-out services and $12.0 million related to rental revenues as ELN-02 at Polaris Forge 1 fully energized during the current quarter.",
+   "passage": "p12",
+   "confidence": 0.6,
+   "notes": "Quarterly figure for fiscal Q2 2026 (three months ended 2025-11-30), not full-year fiscal 2026. HPC Hosting is the AI/HPC data-center lease business for CoreWeave. The sentence states it as part of the year-over-year increase, but the prior-year quarter had no HPC revenue. $73.0M of it is tenant fit-out services and $12.0M is lease revenue. The legacy Data Center Hosting Business revenue ($41.6M, blockchain hosting) is excluded as not AI. The ~$5B (p02/p05) and ~$16B (p05) prospective lease revenue figures span multi-year lease terms with no fiscal year, so they are not recorded."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes the company's capital expenditures to AI for a fiscal year; the $400 billion figure in p05 is hyperscalers' capex, not Applied Digital's; the $3 billion in p07 is the total cost of the Polaris Forge 2 campus, not capex for a named year, and the sentence does not tie it to AI; the $15 million in p02 is an equity investment in Corintis, not capex; the $73.0 million in p04 is a customer payment for tenant fit-out, not company spend"
+   "reason": "No sentence states capital expenditures for a fiscal year. p09 calls Polaris Forge 2 a '$3 billion, 200 MW data center campus', but that is a project cost with no period, not fiscal-year capex. p07's $400B is hyperscalers' capex, not the company's own."
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "No sentence quantifies or attributes R&D, infrastructure or headcount operating expenses to AI. The $69.5M tenant fit-out expense in p13 is quarterly cost of revenues for services billed to the tenant, not opex."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.1,
-  "input_tokens": 7334,
-  "output_tokens": 798,
+  "seconds": 16.6,
+  "input_tokens": 8445,
+  "output_tokens": 1806,
   "attempts": 1,
-  "task_sha": "95b9532f55954c74"
+  "task_sha": "8bb07fec6fd8689e"
  }
 }

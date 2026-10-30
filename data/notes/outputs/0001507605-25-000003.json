@@ -1,0 +1,220 @@
+{
+ "accession": "0001507605-25-000003",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Mining",
+   "table_id": "t0007",
+   "row_label": "Mining",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "624,740",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 624740000,
+   "confidence": 0.8
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Mining",
+   "table_id": "t0007",
+   "row_label": "Mining",
+   "column_label": "Year Ended December 31, | 2023",
+   "cell_text": "387,508",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 387508000,
+   "confidence": 0.8
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "Hosting services",
+   "table_id": "t0007",
+   "row_label": "Hosting services",
+   "column_label": "Year Ended December 31, | 2024",
+   "cell_text": "31,638",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 31638000,
+   "confidence": 0.8
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0033",
+   "row_label": "Land (1)",
+   "column_label": "December 31, 2024",
+   "cell_text": "3,510",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 3510000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land improvements",
+   "table_id": "t0033",
+   "row_label": "Land improvements",
+   "column_label": "December 31, 2024",
+   "cell_text": "26,530",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 26530000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Building and improvements",
+   "table_id": "t0033",
+   "row_label": "Building and improvements",
+   "column_label": "December 31, 2024",
+   "cell_text": "86,877",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 86877000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Mining rigs",
+   "table_id": "t0033",
+   "row_label": "Mining rigs",
+   "column_label": "December 31, 2024",
+   "cell_text": "1,705,648",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 1705648000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Containers",
+   "table_id": "t0033",
+   "row_label": "Containers",
+   "column_label": "December 31, 2024",
+   "cell_text": "106,784",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 106784000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0033",
+   "row_label": "Equipment",
+   "column_label": "December 31, 2024",
+   "cell_text": "124,900",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 124900000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Software and hardware",
+   "table_id": "t0033",
+   "row_label": "Software and hardware",
+   "column_label": "December 31, 2024",
+   "cell_text": "3,316",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 3316000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Asset retirement obligation",
+   "table_id": "t0033",
+   "row_label": "Asset retirement obligation",
+   "column_label": "December 31, 2024",
+   "cell_text": "7,879",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 7879000,
+   "confidence": 0.9
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0033",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, 2024",
+   "cell_text": "71,396",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 71396000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other",
+   "table_id": "t0033",
+   "row_label": "Other",
+   "column_label": "December 31, 2024",
+   "cell_text": "6,335",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 6335000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Mining rigs",
+   "table_id": "t0033",
+   "row_label": "Mining rigs",
+   "column_label": "December 31, 2023",
+   "cell_text": "862,055",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 862055000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Containers",
+   "table_id": "t0033",
+   "row_label": "Containers",
+   "column_label": "December 31, 2023",
+   "cell_text": "5,676",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 5676000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other",
+   "table_id": "t0033",
+   "row_label": "Other",
+   "column_label": "December 31, 2023",
+   "cell_text": "242",
+   "period_end": "2023-12-31",
+   "months": 0,
+   "value": 242000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note with capital expenditures by segment is among the tables; revenue by line (Mining, Hosting services) appears only in the results-of-operations table"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "the lease note (t0057) and balance sheet (t0012) give only a current (168) and a long-term (3,709) finance lease liability at 2024-12-31 and no total finance lease line; the validator rejects current/non-current dimensions and citing both cells with a null dimension would put two cells on one dimension, so no value is cited"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or purchase-commitments table is among the tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 39.7,
+  "input_tokens": 19647,
+  "output_tokens": 5763,
+  "attempts": 2,
+  "task_sha": "1e2cee45a82714ee"
+ }
+}

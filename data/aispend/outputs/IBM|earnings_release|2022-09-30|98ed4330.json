@@ -1,23 +1,27 @@
 {
  "accession": "IBM|earnings_release|2022-09-30|98ed4330",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p01 only defines free cash flow as net of capital expenditures"
+   "reason": "p02 defines free cash flow as net of capital expenditures but gives no capex amount and does not link capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI"
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 gives only growth rates for the Data & AI software category (down 1 percent, up 4 percent at constant currency), not a revenue amount or a share of total revenue. Data & AI is a broader data-management and analytics line, not purely AI revenue."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.8,
-  "input_tokens": 4777,
-  "output_tokens": 146,
+  "seconds": 6.5,
+  "input_tokens": 5274,
+  "output_tokens": 586,
   "attempts": 1,
-  "task_sha": "d426f3b9c8146527"
+  "task_sha": "0e71d737d20f4db7"
  }
 }

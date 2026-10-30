@@ -1,0 +1,50 @@
+{
+ "accession": "CRM|earnings_release|2026-04-30|98fe143b",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3400000000,
+   "amount_high": 3400000000,
+   "quote": "With more than $1 billion in Agentforce ARR, $3.4 billion in combined AI and data ARR, and 3.8 billion Agentic Work Units delivered for our customers, Salesforce has never been more essential.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Annual recurring revenue (a run-rate at quarter end), not recognized revenue for a period; the figure also combines AI with data products, so it overstates the AI part alone."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1000000000,
+   "amount_high": 1000000000,
+   "quote": "With more than $1 billion in Agentforce ARR, $3.4 billion in combined AI and data ARR, and 3.8 billion Agentic Work Units delivered for our customers, Salesforce has never been more essential.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "'More than $1 billion' is recorded as a floor of $1 billion. It is Agentforce ARR, a run-rate rather than recognized revenue, and is a subset of the $3.4 billion combined AI and data ARR in the same sentence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "The FY27 guidance table (p02) gives capex of about 1.5% of revenue, and the cash flow statement (p03) reports capital expenditures. Neither links capex to AI."
+  },
+  {
+   "field": "opex",
+   "reason": "No sentence quantifies operating expenses or attributes them to AI."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.2,
+  "input_tokens": 5739,
+  "output_tokens": 1197,
+  "attempts": 1,
+  "task_sha": "ce7130c20368f694"
+ }
+}

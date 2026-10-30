@@ -1,0 +1,49 @@
+{
+ "accession": "MPWR|earnings_release|2026-06-30|51b1391b",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 506700000,
+   "amount_high": 506700000,
+   "quote": "Third quarter Enterprise Data revenue of $506.7 million increased 33.2% from the second quarter.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "This is a quarterly figure (third quarter), not a full fiscal year. Enterprise Data is MPWR's segment for AI and server power management, treated here as data-center revenue. The segment may include some non-data-center enterprise products. The sentence names no year. The task metadata gives the period as ended 2026-06-30, but the text says third quarter, which is inconsistent."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.421,
+   "quote": "Enterprise Data revenue represented 42.1% of our total third quarter revenue compared with 38.8% in the second quarter of 2026.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "This is a share of third-quarter revenue, not full-year revenue. The year 2026 is taken from the sentence's reference to the second quarter of 2026. The second-quarter share of 38.8% is not recorded separately. Enterprise Data is treated as AI/data-center revenue; see the note on the first statement."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.4,
+  "input_tokens": 4854,
+  "output_tokens": 1034,
+  "attempts": 1,
+  "task_sha": "fa79147de9a3d22a"
+ }
+}

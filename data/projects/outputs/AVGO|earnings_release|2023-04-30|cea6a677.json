@@ -1,0 +1,13 @@
+{
+ "accession": "AVGO|earnings_release|2023-04-30|cea6a677",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.5,
+  "input_tokens": 5358,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "30a86ec63a072f0e"
+ }
+}

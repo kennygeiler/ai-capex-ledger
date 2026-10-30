@@ -1,23 +1,27 @@
 {
  "accession": "CSCO|earnings_release|2024-10-26|8c781bdf",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "only passage is safe-harbor boilerplate; no sentence states or attributes the company's capital expenditures to AI (references to customers' AI infrastructure investments and capital spending on Internet-based systems describe customer/industry spend, not Cisco's)"
+   "reason": "no sentence states or links Cisco's capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "only passage is safe-harbor boilerplate; mentions of 'strategic investments to drive innovation' and 'our development and use of artificial intelligence' are risk-factor language and do not quantify or attribute operating expenses to AI"
+   "reason": "'strategic investments to drive innovation and growth' is not tied to AI and is not quantified; no sentence attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the CEO quote describes customers investing in infrastructure for AI, but no sentence states Cisco's AI or data-center revenue, or says AI drove the $13.8 billion total revenue; the passage p02 mentions are forward-looking boilerplate"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.5,
-  "input_tokens": 5639,
-  "output_tokens": 255,
+  "seconds": 5.5,
+  "input_tokens": 6279,
+  "output_tokens": 412,
   "attempts": 1,
-  "task_sha": "0c1943ac7117f0de"
+  "task_sha": "f100feb05771c379"
  }
 }

@@ -1,0 +1,119 @@
+{
+ "accession": "0001551182-26-000007",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0023",
+   "row_label": "Net sales",
+   "column_label": "Year ended December 31 | 2025",
+   "cell_text": "27,448",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 27448000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0023",
+   "row_label": "Net sales",
+   "column_label": "Year ended December 31 | 2024",
+   "cell_text": "24,878",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 24878000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0023",
+   "row_label": "Net sales",
+   "column_label": "Year ended December 31 | 2023",
+   "cell_text": "23,196",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 23196000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0023",
+   "row_label": "Cost of products sold",
+   "column_label": "Year ended December 31 | 2025",
+   "cell_text": "17,131",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 17131000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0023",
+   "row_label": "Cost of products sold",
+   "column_label": "Year ended December 31 | 2024",
+   "cell_text": "15,375",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 15375000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0023",
+   "row_label": "Cost of products sold",
+   "column_label": "Year ended December 31 | 2023",
+   "cell_text": "14,762",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 14762000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Capital expenditures for property, plant and equipment",
+   "column_label": "Year ended December 31 | 2025",
+   "cell_text": "(919)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 919000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Capital expenditures for property, plant and equipment",
+   "column_label": "Year ended December 31 | 2024",
+   "cell_text": "(808)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 808000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0026",
+   "row_label": "Capital expenditures for property, plant and equipment",
+   "column_label": "Year ended December 31 | 2023",
+   "cell_text": "(757)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 757000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "operating_income",
+   "reason": "The income statement (t0023) has no operating income or 'income (loss) from operations' line; it goes from expense lines (including interest expense - net and other expense (income) - net) directly to 'Income before income taxes'. Deriving it would require arithmetic, which the rules forbid."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.3,
+  "input_tokens": 6037,
+  "output_tokens": 1216,
+  "attempts": 1,
+  "task_sha": "126a8468256f7065"
+ }
+}

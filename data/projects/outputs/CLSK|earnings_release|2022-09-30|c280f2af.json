@@ -1,0 +1,28 @@
+{
+ "accession": "CLSK|earnings_release|2022-09-30|c280f2af",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Lancium west Texas clean campuses",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "west Texas",
+   "counterparty": "Lancium",
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "As part of the agreement, Lancium agreed to build clean campuses in west Texas to host 200 MW, or about 6.6 EH/s.",
+   "passage": "p01",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.2,
+  "input_tokens": 4449,
+  "output_tokens": 607,
+  "attempts": 1,
+  "task_sha": "0241f7a72cebf4df"
+ }
+}

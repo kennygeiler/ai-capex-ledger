@@ -1,23 +1,46 @@
 {
  "accession": "AVGO|earnings_release|2023-07-30|6a069ec3",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Broadcom\u2019s third quarter results were driven by demand for next generation networking technologies as hyperscale customers scale out and network their AI clusters within data centers,\u201d said Hock Tan, President and CEO of Broadcom Inc.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Quarterly (Q3) results, not full-year; 'results' read as revenue. AI networking demand is named as the driver, but no AI revenue figure or share is stated. No year named in the sentence; the period is Q3 fiscal 2023."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our fourth quarter outlook projects year-over-year growth, reflecting continued leadership in networking for generative AI.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Q4 outlook links growth to generative-AI networking, with no number. The sentence names no year, but context makes it Q4 fiscal 2023, the current year, not the year after. Defaulting the null fiscal_year to the following year would be wrong here."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the passage describes revenue drivers (customer demand for AI networking), not the company's own spend"
+   "reason": "no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the passage concerns results and revenue outlook only"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.0,
-  "input_tokens": 4530,
-  "output_tokens": 188,
+  "seconds": 9.6,
+  "input_tokens": 4835,
+  "output_tokens": 1160,
   "attempts": 1,
-  "task_sha": "ff5d54ebd14a69f7"
+  "task_sha": "a53bac4124f2f040"
  }
 }

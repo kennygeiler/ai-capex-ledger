@@ -1,0 +1,27 @@
+{
+ "accession": "NOW|mdna|2023-12-31|2e79fbf5",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; data center equipment useful-life change and capacity expansion are not attributed to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; cost increases are attributed to headcount, subscription growth and regulated-market support"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue; subscription revenue and renewal rate are not attributed to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 5438,
+  "output_tokens": 234,
+  "attempts": 1,
+  "task_sha": "6bbe0348d2a729ab"
+ }
+}

@@ -1,0 +1,65 @@
+{
+ "accession": "0001101302-26-000012",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "capex",
+   "table_id": "t0045",
+   "row_label": "Acquisition of property and equipment",
+   "column_label": "Year ended December 31, 2025",
+   "cell_text": "(299.2)",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 299200000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0045",
+   "row_label": "Acquisition of property and equipment",
+   "column_label": "Year ended December 31, 2024",
+   "cell_text": "(315.6)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 315600000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0045",
+   "row_label": "Acquisition of property and equipment",
+   "column_label": "Year ended December 31, 2023",
+   "cell_text": "(456.8)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 456800000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "revenue",
+   "reason": "The provided income-statement tables are the statement of comprehensive income (t0043) and statement of equity (t0044); neither contains a net sales or revenue line. The consolidated statement of operations was not among the parsed tables."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "No cost of sales line in the provided tables; the consolidated statement of operations was not among the parsed tables."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "No cost-of-revenue component lines in the provided tables; the consolidated statement of operations was not among the parsed tables."
+  },
+  {
+   "field": "operating_income",
+   "reason": "No operating income line in the provided tables; t0043 starts at net income. The consolidated statement of operations was not among the parsed tables."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 8265,
+  "output_tokens": 639,
+  "attempts": 1,
+  "task_sha": "e886f5fae229c90f"
+ }
+}

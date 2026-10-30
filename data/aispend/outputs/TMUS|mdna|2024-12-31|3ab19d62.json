@@ -1,0 +1,27 @@
+{
+ "accession": "TMUS|mdna|2024-12-31|3ab19d62",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capex drivers named are spectrum, network infrastructure, Sprint integration and IT platforms"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "wireless carrier, not an AI or data-center seller; no sentence states AI's part of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.8,
+  "input_tokens": 5756,
+  "output_tokens": 205,
+  "attempts": 1,
+  "task_sha": "9bcb86b051f59ed1"
+ }
+}

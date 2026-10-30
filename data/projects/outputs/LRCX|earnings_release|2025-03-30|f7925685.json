@@ -1,0 +1,13 @@
+{
+ "accession": "LRCX|earnings_release|2025-03-30|f7925685",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "58a000114c10f54d"
+ }
+}

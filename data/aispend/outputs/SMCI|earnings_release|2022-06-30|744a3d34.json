@@ -1,0 +1,27 @@
+{
+ "accession": "SMCI|earnings_release|2022-06-30|744a3d34",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the $5.2 billion annual revenue figure is total revenue and the sentence does not name AI as a driver; AI appears only in a list of market segments and in company boilerplate, with no AI or data-center revenue figure or share stated"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.6,
+  "input_tokens": 5921,
+  "output_tokens": 328,
+  "attempts": 1,
+  "task_sha": "b16f71f49c9eb1ed"
+ }
+}

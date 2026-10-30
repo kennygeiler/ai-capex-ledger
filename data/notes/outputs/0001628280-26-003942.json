@@ -1,6 +1,6 @@
 {
  "accession": "0001628280-26-003942",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -205,7 +205,7 @@
    "months": 0,
    "value": 8187000000,
    "confidence": 0.9,
-   "notes": "Included because it is a component of property and equipment, gross in this table, though it is a right-of-use asset rather than owned property."
+   "notes": "Right-of-use assets are reported as a component of gross property and equipment, though not a traditional owned-asset category."
   },
   {
    "field": "ppe_category",
@@ -218,7 +218,7 @@
    "months": 0,
    "value": 5384000000,
    "confidence": 0.9,
-   "notes": "Included because it is a component of property and equipment, gross in this table, though it is a right-of-use asset rather than owned property."
+   "notes": "Right-of-use assets are reported as a component of gross property and equipment, though not a traditional owned-asset category."
   },
   {
    "field": "ppe_category",
@@ -248,23 +248,23 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "The segment tables (t0006, t0064) report revenue, employee compensation, other costs and expenses, and income (loss) from operations only. No capital expenditures are given per segment."
+   "reason": "the segment note (t0064) reports revenue, employee compensation, other costs and expenses, and income (loss) from operations only; no capital expenditures by segment"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "The lease tables give only weighted-average discount rates and terms (t0043) and lease cash flows and new ROU liabilities (t0045). No finance lease liability balance appears."
+   "reason": "the lease tables provided show only discount rates/remaining terms and cash-flow items; no finance lease liability balance lines are present"
   },
   {
    "field": "purchase_commitments",
-   "reason": "No contractual-obligations or commitments table is included among the tables provided."
+   "reason": "no contractual-obligations or commitments table is included among the provided tables"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 24.7,
-  "input_tokens": 6615,
-  "output_tokens": 3389,
+  "seconds": 28.6,
+  "input_tokens": 6743,
+  "output_tokens": 3418,
   "attempts": 1,
-  "task_sha": "f9edc51eaa055a3d"
+  "task_sha": "06ba2546a20c2e66"
  }
 }

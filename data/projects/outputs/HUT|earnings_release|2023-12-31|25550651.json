@@ -1,0 +1,13 @@
+{
+ "accession": "HUT|earnings_release|2023-12-31|25550651",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 4911,
+  "output_tokens": 107,
+  "attempts": 1,
+  "task_sha": "33ba887c94b027ba"
+ }
+}

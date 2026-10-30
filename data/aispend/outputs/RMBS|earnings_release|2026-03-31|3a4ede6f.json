@@ -1,0 +1,27 @@
+{
+ "accession": "RMBS|earnings_release|2026-03-31|3a4ede6f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capex figure ($17.0 million paid for capital expenditures in Q1) is not linked to AI in any sentence"
+  },
+  {
+   "field": "opex",
+   "reason": "operating expenses are reported ($81.9 million GAAP, $104.6 million non-GAAP) but no sentence quantifies or attributes them to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI, data-center or HBM revenue figure or share; the CEO quote says AI inference workloads drive demand for memory bandwidth but does not attribute any revenue to AI, and product revenue ($88.0 million) is not described as AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 5819,
+  "output_tokens": 586,
+  "attempts": 1,
+  "task_sha": "6d3732752db42ff5"
+ }
+}

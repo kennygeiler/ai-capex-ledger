@@ -1,23 +1,27 @@
 {
  "accession": "APLD|earnings_release|2022-02-28|213257cc",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the passage describes datacenters for computing power and a cryptocurrency-hosting JV (1.5GW capacity), with no capital expenditure amount and no mention of AI"
+   "reason": "no sentence states or attributes capital expenditures to AI; the passage describes datacenter buildout for cryptocurrency co-hosting without any capex figure or AI link"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; the passage describes the business model and a crypto-mining co-hosting JV, not revenue from AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.2,
-  "input_tokens": 4628,
-  "output_tokens": 202,
+  "seconds": 2.9,
+  "input_tokens": 4931,
+  "output_tokens": 233,
   "attempts": 1,
-  "task_sha": "5dd08013f41c811f"
+  "task_sha": "bccb3af95478fb41"
  }
 }

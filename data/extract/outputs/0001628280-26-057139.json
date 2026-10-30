@@ -1,0 +1,152 @@
+{
+ "accession": "0001628280-26-057139",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0029",
+   "row_label": "Revenue, net",
+   "column_label": "Year Ended | July 3,2026",
+   "cell_text": "12,919",
+   "period_end": "2026-07-03",
+   "months": 12,
+   "value": 12919000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0029",
+   "row_label": "Revenue, net",
+   "column_label": "Year Ended | June 27,2025",
+   "cell_text": "9,520",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 9520000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0029",
+   "row_label": "Revenue, net",
+   "column_label": "Year Ended | June 28,2024",
+   "cell_text": "6,317",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 6317000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0029",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended | July 3,2026",
+   "cell_text": "6,608",
+   "period_end": "2026-07-03",
+   "months": 12,
+   "value": 6608000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0029",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended | June 27,2025",
+   "cell_text": "5,828",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 5828000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0029",
+   "row_label": "Cost of revenue",
+   "column_label": "Year Ended | June 28,2024",
+   "cell_text": "4,544",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 4544000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0029",
+   "row_label": "Operating income (loss)",
+   "column_label": "Year Ended | July 3,2026",
+   "cell_text": "4,453",
+   "period_end": "2026-07-03",
+   "months": 12,
+   "value": 4453000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0029",
+   "row_label": "Operating income (loss)",
+   "column_label": "Year Ended | June 27,2025",
+   "cell_text": "2,334",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 2334000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0029",
+   "row_label": "Operating income (loss)",
+   "column_label": "Year Ended | June 28,2024",
+   "cell_text": "(403)",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": -403000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0031",
+   "row_label": "Purchases of property, plant and equipment",
+   "column_label": "Year Ended | July 3,2026",
+   "cell_text": "(418)",
+   "period_end": "2026-07-03",
+   "months": 12,
+   "value": 418000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0031",
+   "row_label": "Purchases of property, plant and equipment",
+   "column_label": "Year Ended | June 27,2025",
+   "cell_text": "(412)",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 412000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0031",
+   "row_label": "Purchases of property, plant and equipment",
+   "column_label": "Year Ended | June 28,2024",
+   "cell_text": "(487)",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 487000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "Not applicable: the income statement has a single total 'Cost of revenue' line."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.4,
+  "input_tokens": 6852,
+  "output_tokens": 1370,
+  "attempts": 1,
+  "task_sha": "b3d01c3948fb4dd9"
+ }
+}

@@ -3,105 +3,6 @@
  "prompt_version": "statements@v2",
  "values": [
   {
-   "field": "revenue",
-   "table_id": "t0019",
-   "row_label": "Revenue",
-   "column_label": "September 1,2022",
-   "cell_text": "30,758",
-   "period_end": "2022-09-01",
-   "months": 12,
-   "value": 30758000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "revenue",
-   "table_id": "t0019",
-   "row_label": "Revenue",
-   "column_label": "September 2,2021",
-   "cell_text": "27,705",
-   "period_end": "2021-09-02",
-   "months": 12,
-   "value": 27705000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "revenue",
-   "table_id": "t0019",
-   "row_label": "Revenue",
-   "column_label": "September 3,2020",
-   "cell_text": "21,435",
-   "period_end": "2020-09-03",
-   "months": 12,
-   "value": 21435000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "cost_of_revenue",
-   "table_id": "t0019",
-   "row_label": "Cost of goods sold",
-   "column_label": "September 1,2022",
-   "cell_text": "16,860",
-   "period_end": "2022-09-01",
-   "months": 12,
-   "value": 16860000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "cost_of_revenue",
-   "table_id": "t0019",
-   "row_label": "Cost of goods sold",
-   "column_label": "September 2,2021",
-   "cell_text": "17,282",
-   "period_end": "2021-09-02",
-   "months": 12,
-   "value": 17282000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "cost_of_revenue",
-   "table_id": "t0019",
-   "row_label": "Cost of goods sold",
-   "column_label": "September 3,2020",
-   "cell_text": "14,883",
-   "period_end": "2020-09-03",
-   "months": 12,
-   "value": 14883000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "operating_income",
-   "table_id": "t0019",
-   "row_label": "Operating income",
-   "column_label": "September 1,2022",
-   "cell_text": "9,702",
-   "period_end": "2022-09-01",
-   "months": 12,
-   "value": 9702000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "operating_income",
-   "table_id": "t0019",
-   "row_label": "Operating income",
-   "column_label": "September 2,2021",
-   "cell_text": "6,283",
-   "period_end": "2021-09-02",
-   "months": 12,
-   "value": 6283000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "operating_income",
-   "table_id": "t0019",
-   "row_label": "Operating income",
-   "column_label": "September 3,2020",
-   "cell_text": "3,003",
-   "period_end": "2020-09-03",
-   "months": 12,
-   "value": 3003000000,
-   "confidence": 1.0
-  },
-  {
    "field": "capex",
    "table_id": "t0023",
    "row_label": "Expenditures for property, plant, and equipment",
@@ -110,7 +11,8 @@
    "period_end": "2022-09-01",
    "months": 12,
    "value": 12067000000,
-   "confidence": 1.0
+   "confidence": 1.0,
+   "notes": "Investing-section capex line. 'Payments on equipment purchase contracts' is in financing and is not added."
   },
   {
    "field": "capex",
@@ -121,7 +23,8 @@
    "period_end": "2021-09-02",
    "months": 12,
    "value": 10030000000,
-   "confidence": 1.0
+   "confidence": 1.0,
+   "notes": "Investing-section capex line. 'Payments on equipment purchase contracts' is in financing and is not added."
   },
   {
    "field": "capex",
@@ -132,16 +35,34 @@
    "period_end": "2020-09-03",
    "months": 12,
    "value": 8223000000,
-   "confidence": 1.0
+   "confidence": 1.0,
+   "notes": "Investing-section capex line. 'Payments on equipment purchase contracts' is in financing and is not added."
   }
  ],
- "not_found": [],
+ "not_found": [
+  {
+   "field": "revenue",
+   "reason": "The table given as the income statement (t0022) is the statement of changes in equity, and t0023 is the cash-flow statement. Neither has a revenue line."
+  },
+  {
+   "field": "cost_of_revenue",
+   "reason": "The table given as the income statement (t0022) is the statement of changes in equity, and t0023 is the cash-flow statement. Neither has a cost-of-revenue line."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "reason": "No income statement is in the material given, so there are no cost-of-revenue component lines."
+  },
+  {
+   "field": "operating_income",
+   "reason": "The table given as the income statement (t0022) is the statement of changes in equity, and t0023 is the cash-flow statement. Neither has an operating income line."
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.6,
-  "input_tokens": 6124,
-  "output_tokens": 1245,
+  "seconds": 9.3,
+  "input_tokens": 9053,
+  "output_tokens": 932,
   "attempts": 1,
-  "task_sha": "cf2b1eeaf46274a6"
+  "task_sha": "f910b45f0aa581d0"
  }
 }

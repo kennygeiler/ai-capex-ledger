@@ -1,0 +1,35 @@
+{
+ "accession": "CDNS|earnings_release|2025-03-31|a0bd09aa",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "\u2022 Semiconductor IP revenue grew 40% year-over-year in Q1 as it continued to benefit from market opportunities offered by AI, chiplet-based architectures, and foundry ecosystem buildout.",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Names AI as one driver of Semiconductor IP segment revenue growth in Q1. It does not state an AI revenue amount or share. The 40% is year-over-year growth, not AI's share. The scope is a segment, not total company revenue. No year is named, though the release covers Q1 of fiscal 2025."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "only purchases of property, plant and equipment appear in the cash flow table; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "R&D investment and AI appear only in forward-looking-statement boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.8,
+  "input_tokens": 7684,
+  "output_tokens": 921,
+  "attempts": 1,
+  "task_sha": "9ddf80b172a70c21"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "EQIX|earnings_release|2025-06-30|41aba40f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "total capital expenditure guidance for 2025 ($3.792\u2013$4.292 billion) and Q3 recurring capex are given, but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's part of revenue; p03 attributes interconnection additions (a unit count, not revenue) to cloud and AI expansion, and the interconnection revenue figure is not linked to AI; customer AI deployments in p01/p02 are descriptive"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.8,
+  "input_tokens": 7612,
+  "output_tokens": 631,
+  "attempts": 1,
+  "task_sha": "9f20662eba8945d5"
+ }
+}

@@ -1,23 +1,35 @@
 {
  "accession": "ALAB|earnings_release|2025-09-30|93e22622",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "During the quarter, we saw robust demand and upside across our signal conditioning, smart cable module (SCM), and switch fabric portfolios as new AI platforms ramped up production.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Q3 fiscal 2025 demand across product portfolios is attributed to AI platform ramps in words only. The $230.6 million record Q3 revenue appears in the preceding sentence, which does not mention AI, so it is not recorded as AI revenue. The sentence names no year, so fiscal_year is null and resolves to the reported year, 2025."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the cash flow table (p03) reports purchases of property and equipment of $18,855 thousand for the nine months ended September 30, 2025, with no AI attribution"
+   "reason": "purchases of property and equipment ($18.9 million for nine months) appear only in the cash flow table and no sentence links them to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; p01 describes product collaborations and p02 is forward-looking-statement boilerplate"
+   "reason": "no sentence quantifies or attributes operating expenses or R&D to AI; the R&D mention in p03 is forward-looking boilerplate"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.7,
-  "input_tokens": 6525,
-  "output_tokens": 310,
+  "seconds": 9.5,
+  "input_tokens": 7094,
+  "output_tokens": 931,
   "attempts": 1,
-  "task_sha": "e211039dd3037d51"
+  "task_sha": "49cca20317ac99af"
  }
 }

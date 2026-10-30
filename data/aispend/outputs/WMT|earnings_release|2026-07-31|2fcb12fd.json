@@ -1,23 +1,27 @@
 {
  "accession": "WMT|earnings_release|2026-07-31|2fcb12fd",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "capital expenditure guidance (approximately 4.0% of net sales for fiscal 2027, raised from 3.5%) is given as a share of net sales, and no sentence links capital expenditures to AI; the only AI mentions are in forward-looking-statement risk boilerplate (p01, p03)"
+   "reason": "capex guidance (approximately 4.0% of net sales for fiscal 2027) is not linked to AI in any sentence; AI appears only in risk-factor boilerplate"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses, R&D, infrastructure costs or headcount to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a retailer; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.2,
-  "input_tokens": 9617,
-  "output_tokens": 257,
+  "seconds": 9.2,
+  "input_tokens": 9916,
+  "output_tokens": 210,
   "attempts": 1,
-  "task_sha": "e277d06bbc43b2fb"
+  "task_sha": "6ac8d529de124944"
  }
 }

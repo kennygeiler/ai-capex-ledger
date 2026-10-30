@@ -1,0 +1,70 @@
+{
+ "accession": "CORZ|earnings_release|2024-03-31|0447c95e",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "16 MW high-performance compute hosting data center",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 16,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Expanded hosting offering by delivering 16 MW of infrastructure to high- performance compute customer more than 30 days ahead of schedule",
+   "passage": "p04",
+   "confidence": 0.7
+  },
+  {
+   "name": "Pecos, Texas site 21 MW expansion",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Pecos, Texas",
+   "counterparty": null,
+   "capacity_mw": 21,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Expanded operational infrastructure by 21 MW at Pecos, Texas site",
+   "passage": "p05",
+   "confidence": 0.6
+  },
+  {
+   "name": "Denton, TX 72 MW expansion",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Denton, TX",
+   "counterparty": null,
+   "capacity_mw": 72,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "72 MW expansion underway",
+   "passage": "p11",
+   "confidence": 0.55
+  },
+  {
+   "name": "Pecos, TX (Cottonwood) 200 MW expansion",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Pecos, TX",
+   "counterparty": null,
+   "capacity_mw": 200,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2027",
+   "quote": "200 MW expansion planned for 2025-2027; includes 21MW for opportunistic mining using prior generation miners",
+   "passage": "p11",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.4,
+  "input_tokens": 9293,
+  "output_tokens": 1691,
+  "attempts": 1,
+  "task_sha": "10a94ee7adb2aa83"
+ }
+}

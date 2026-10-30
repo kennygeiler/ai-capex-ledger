@@ -1,0 +1,46 @@
+{
+ "accession": "COHR|earnings_release|2024-06-30|d99643ea",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Fourth quarter fiscal 2024 revenue increased by 9% on a sequential basis primarily driven by ongoing AI-relatedstrength in our Datacom transceiver business.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Total Q4 revenue growth attributed primarily to AI-related Datacom transceiver strength; the 9% is sequential growth of total revenue, not an AI share."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Revenue Growth: In the fourth quarter, Coherent delivered 10% \u25cf sequential revenue growth in its Communications market driven by strong sequential growth in 800G AI-related Datacom transceiver revenue.",
+   "passage": "p02",
+   "confidence": 0.75,
+   "notes": "The 10% is sequential growth of the Communications segment, not an AI amount or share; AI-related 800G Datacom transceiver revenue is described only qualitatively as growing strongly. Scope set to ai because the sentence speaks to the AI-related revenue line, though the figure given is for the segment."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses or R&D to AI; R&D mentions are boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.5,
+  "input_tokens": 7994,
+  "output_tokens": 1156,
+  "attempts": 1,
+  "task_sha": "bd76ee9d4dec7801"
+ }
+}

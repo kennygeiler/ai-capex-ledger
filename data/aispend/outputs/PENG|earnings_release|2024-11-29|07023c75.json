@@ -1,0 +1,35 @@
+{
+ "accession": "PENG|earnings_release|2024-11-29|07023c75",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "\u201cOur strong performance this quarter, highlighted by a 49% year-over-year increase in Advanced Computing revenue, reflects the continued execution of our strategy to support customers navigating the complexities of AI infrastructure implementation,\u201d said Mark Adams, CEO of Penguin Solutions.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "The sentence links Advanced Computing segment revenue growth to customers' AI infrastructure work, but it does not say that the segment is AI revenue. The 49% is year-over-year growth, not a share of revenue, so it is not recorded as explicit_share. The figure is for the first quarter of fiscal 2025 only, not the full year. The sentence names no year, so fiscal_year is null."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.4,
+  "input_tokens": 4898,
+  "output_tokens": 887,
+  "attempts": 1,
+  "task_sha": "3ad0f2b3d851a421"
+ }
+}

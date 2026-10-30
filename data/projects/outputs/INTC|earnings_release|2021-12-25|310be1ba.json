@@ -1,0 +1,30 @@
+{
+ "accession": "INTC|earnings_release|2021-12-25|310be1ba",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Ohio leading-edge chip factories (Silicon Heartland campus)",
+   "kind": "fab",
+   "status": "announced",
+   "location": "Ohio",
+   "counterparty": null,
+   "amount_low": 20000000000,
+   "amount_high": 20000000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Announced initial investment of more than $20 billion to build two new leading-edge chip factories in Ohio, where we are establishing the first advanced semiconductor campus in the \u201cSilicon Heartland\u201d of the Midwest.",
+   "passage": "p02",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.6,
+  "input_tokens": 6041,
+  "output_tokens": 513,
+  "attempts": 1,
+  "task_sha": "c49e8d81482a9958"
+ }
+}

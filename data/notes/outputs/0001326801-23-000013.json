@@ -1,6 +1,6 @@
 {
  "accession": "0001326801-23-000013",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -204,8 +204,7 @@
    "period_end": "2022-12-31",
    "months": 0,
    "value": 3353000000,
-   "confidence": 0.8,
-   "notes": "Included as a gross PP&E category because it sums into 'Property and equipment, gross'; it is a right-of-use asset rather than owned property."
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -217,8 +216,7 @@
    "period_end": "2021-12-31",
    "months": 0,
    "value": 2840000000,
-   "confidence": 0.8,
-   "notes": "Included as a gross PP&E category because it sums into 'Property and equipment, gross'; it is a right-of-use asset rather than owned property."
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -248,23 +246,24 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "The segment tables (t0007, t0071) report revenue and income (loss) from operations only; no capital expenditures by segment."
+   "reason": "the segment note (t0071) reports revenue and income (loss) from operations only; no capital expenditures by segment"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "The lease tables provided show only discount rates/remaining terms (t0053) and cash flows/new lease liabilities (t0055); no total finance lease liability balance appears."
+   "reason": "the lease tables provided give discount rates, remaining terms and cash flows only; no finance lease liability balance table is included"
   },
   {
    "field": "purchase_commitments",
-   "reason": "No contractual-obligations or commitments table is included in the provided tables."
+   "reason": "no contractual-obligations or commitments table is included in the tables provided"
   }
  ],
+ "notes": "Segment revenue cited from the segment note t0071 (also repeated in t0007, t0019, t0039); Advertising and Other revenue are sub-lines of Family of Apps, not segments, and were not cited. Finance lease right-of-use assets included as a gross PP&E category because the filing lists it within property and equipment, gross; confidence 0.9 since it is a lease asset rather than an owned-asset category.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 20.3,
-  "input_tokens": 6384,
-  "output_tokens": 2947,
+  "seconds": 20.2,
+  "input_tokens": 6508,
+  "output_tokens": 2903,
   "attempts": 1,
-  "task_sha": "6a7a6e8b061c877d"
+  "task_sha": "59173b7ec53a91ff"
  }
 }

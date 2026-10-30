@@ -1,0 +1,47 @@
+{
+ "accession": "CIEN|earnings_release|2025-08-02|704c6bfc",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.4,
+   "quote": "Direct Cloud Provider revenue grew 94% YoY and represented 40% of total revenue",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Quarterly figure (Q3 FY2025), not full year. 'Direct Cloud Provider revenue' is revenue from cloud/data-center customers, a proxy for data-center demand; it is not labelled AI or data-center revenue. The quote is a slide bullet, not a full sentence."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "WL6e deployments continue to ramp driven by AI network buildouts with 11 new customers in the quarter, including a neoscaler in the top three",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Links product deployments (and so revenue) to AI network buildouts, but states no revenue figure. The quote is a slide bullet."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.4,
+  "input_tokens": 5193,
+  "output_tokens": 1017,
+  "attempts": 1,
+  "task_sha": "cb584335db359f17"
+ }
+}

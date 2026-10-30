@@ -1,0 +1,27 @@
+{
+ "accession": "VZ|earnings_release|2025-09-30|9f07339f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure guidance of $17.5 billion to $18.5 billion for 2025 is given (p01, p02) but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 4973,
+  "output_tokens": 205,
+  "attempts": 1,
+  "task_sha": "6a12d3612aae3571"
+ }
+}

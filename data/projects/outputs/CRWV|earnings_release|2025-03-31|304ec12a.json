@@ -1,0 +1,13 @@
+{
+ "accession": "CRWV|earnings_release|2025-03-31|304ec12a",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.6,
+  "input_tokens": 4919,
+  "output_tokens": 77,
+  "attempts": 1,
+  "task_sha": "21686db6eeead41c"
+ }
+}

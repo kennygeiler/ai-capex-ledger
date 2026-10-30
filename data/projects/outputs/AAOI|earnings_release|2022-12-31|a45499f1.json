@@ -1,0 +1,13 @@
+{
+ "accession": "AAOI|earnings_release|2022-12-31|a45499f1",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.1,
+  "input_tokens": 4796,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "5bbba9c65df0d5b2"
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "accession": "AEIS|earnings_release|2022-03-31|a8ecdeb0",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2022,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 76238000,
+   "amount_high": 76238000,
+   "quote": "Data Center \u200b 76,238 \u200b 59,154 \u200b 80,081 Computing",
+   "passage": "p02",
+   "confidence": 0.6,
+   "notes": "Table row, not a sentence. Data Center Computing net sales were $76,238 thousand for the three months ended March 31, 2022 (Q1 only, not the full fiscal year). The table extraction is garbled: the row label is split around the figures, and the other two columns are Q1 2021 ($59,154K) and Q4 2021 ($80,081K)."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the only capital spending mention is boilerplate about end-users' capital spending in the risk factors"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; research and development appears only in the COVID-19 risk-factor boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.4,
+  "input_tokens": 5981,
+  "output_tokens": 1025,
+  "attempts": 1,
+  "task_sha": "87f0bc761e8bab91"
+ }
+}

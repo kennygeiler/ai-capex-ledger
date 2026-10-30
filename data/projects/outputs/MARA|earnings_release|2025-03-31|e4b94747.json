@@ -1,0 +1,84 @@
+{
+ "accession": "MARA|earnings_release|2025-03-31|e4b94747",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Texas wind farm",
+   "kind": "power",
+   "status": "contracted",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": 114,
+   "gpus": null,
+   "announced": "2025-02",
+   "in_service": null,
+   "quote": "In February, we closed the acquisition of a 114 MW wind farm in Texas.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Texas wind farm data center",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Texas",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We expect to build the data center for $150-250/kWh, approximately 60% less than a potential new site build.",
+   "passage": "p02",
+   "confidence": 0.7
+  },
+  {
+   "name": "North Dakota and Texas gas-to-power operations",
+   "kind": "power",
+   "status": "in_service",
+   "location": "North Dakota and Texas",
+   "counterparty": null,
+   "capacity_mw": 25,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "We fully energized our 25 MW gas-to-power operations across wellheads in North Dakota and Texas.",
+   "passage": "p03",
+   "confidence": 0.85
+  },
+  {
+   "name": "Ohio data center 50 MW expansion",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Ohio",
+   "counterparty": null,
+   "capacity_mw": 50,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "Lastly, we completed a 50 MW expansion at our fully owned data center in Ohio, bringing total operational capacity to 100 MW, \u25cf with the site designed to scale up to 200 MW.",
+   "passage": "p04",
+   "confidence": 0.85
+  },
+  {
+   "name": "2PIC two-phase immersion cooling pilot",
+   "kind": "other",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 30,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "A 30 MW pilot is underway, and we remain on track to share market feedback on 2PIC\u2019s performance and optimizing mining efficiency in the second half of the year.",
+   "passage": "p05",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.9,
+  "input_tokens": 5519,
+  "output_tokens": 1529,
+  "attempts": 1,
+  "task_sha": "a7b550c93eff50e9"
+ }
+}

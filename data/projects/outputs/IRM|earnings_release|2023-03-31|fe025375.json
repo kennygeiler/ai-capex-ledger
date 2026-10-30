@@ -1,0 +1,13 @@
+{
+ "accession": "IRM|earnings_release|2023-03-31|fe025375",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.5,
+  "input_tokens": 10998,
+  "output_tokens": 115,
+  "attempts": 1,
+  "task_sha": "3ad1346d64062cfd"
+ }
+}

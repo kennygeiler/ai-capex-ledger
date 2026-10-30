@@ -1,0 +1,27 @@
+{
+ "accession": "SYM|earnings_release|2022-09-24|50a27284",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures, to AI or otherwise"
+  },
+  {
+   "field": "opex",
+   "reason": "the only spend reference ('continued investments in innovation and scaling of our business') does not link operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "revenue figures ($244.4M Q4, $593.3M FY2022, $170\u2013200M Q1 FY2023 outlook) are total company revenue, and no sentence ties revenue to AI or data-center demand; 'a leader in A.I.-enabled robotics technology' describes what the company sells and is boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.2,
+  "input_tokens": 5760,
+  "output_tokens": 385,
+  "attempts": 1,
+  "task_sha": "2f9db6b5e4f7b2d2"
+ }
+}

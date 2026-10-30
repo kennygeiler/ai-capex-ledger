@@ -1,23 +1,27 @@
 {
  "accession": "CIFR|mdna|2024-12-31|7e1c2b4c",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; passages mention evaluating sites for bitcoin mining or HPC but state no spend amount, share, or AI-driven capex"
+   "reason": "no sentence states capital expenditures or links them to AI; passages only describe evaluating sites for bitcoin mining or HPC without any spend figure or AI attribution"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, HPC or data-center revenue; the data centers described are bitcoin mining facilities and HPC is mentioned only as a possible future site use"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.4,
-  "input_tokens": 5882,
-  "output_tokens": 222,
+  "seconds": 3.6,
+  "input_tokens": 6189,
+  "output_tokens": 246,
   "attempts": 1,
-  "task_sha": "2870250cc54046fe"
+  "task_sha": "800e1c2a8aa7f275"
  }
 }

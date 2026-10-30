@@ -1,0 +1,35 @@
+{
+ "accession": "JBL|mdna|2026-08-31|c938d4f4",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "AI-related revenue growth across these end markets was primarily driven by strong demand for certain AI infrastructure programs.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "States AI-related revenue grew, driven by AI infrastructure programs, but gives no AI revenue amount or share of total revenue. The surrounding growth rates (45% segment growth, 33% cloud and data center growth) are year-over-year increases, not AI revenue figures or shares, so they are not recorded. No year is named in the sentence; the context is fiscal 2026."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are described only as supporting maintenance and growth across all three segments (fiscal 2027 outlook of 1.5% to 2.0% of net revenue); no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.6,
+  "input_tokens": 5866,
+  "output_tokens": 827,
+  "attempts": 1,
+  "task_sha": "996e643be8e1101a"
+ }
+}

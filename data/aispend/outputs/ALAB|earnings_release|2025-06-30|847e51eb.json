@@ -1,23 +1,35 @@
 {
  "accession": "ALAB|earnings_release|2025-06-30|847e51eb",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Astera Labs is at the forefront of an AI infrastructure transformation, and we are accelerating our investments to realize our vision of rack-scale connectivity in next-generation AI systems.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "The CEO's 'accelerating our investments' does not name the line item. It is read as operating spend (R&D/headcount) for AI rack-scale connectivity, but it could also cover capex. It is present tense, so no year is named, and it could be read as ongoing or forward-looking."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p02 reports purchases of property and equipment only as a cash-flow line item with no AI attribution, and p01 is forward-looking-statement boilerplate"
+   "reason": "Only the cash-flow line for purchases of property and equipment ($6.6M, six months) appears; no sentence links capital expenditures to AI."
   },
   {
-   "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; p01 mentions R&D plans and AI infrastructure only as safe-harbor boilerplate"
+   "field": "revenue",
+   "reason": "A seller of AI connectivity chips, but no sentence states an AI or data-center revenue amount or share. The 20% sequential revenue growth is total revenue, with no AI attribution of the figure."
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.2,
-  "input_tokens": 6271,
-  "output_tokens": 215,
+  "seconds": 9.1,
+  "input_tokens": 6868,
+  "output_tokens": 929,
   "attempts": 1,
-  "task_sha": "e720055f1e076ca1"
+  "task_sha": "63061a0cc11bc13c"
  }
 }

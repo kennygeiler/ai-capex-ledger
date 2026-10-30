@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|earnings_release|2023-12-31|6f1abb5d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes capital expenditures to AI; the CEO's remark about evolving the portfolio to capture opportunities created by AI (p01) names no capital expenditure, and the joint venture and land figures (p02, p03) are investment transactions not linked to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the only revenue figure is total fourth-quarter 2023 revenue of $1.4 billion (p01), a single quarter that the sentence does not link to AI; 'AI lifts demand' (p10) is a slide fragment about bookings with no revenue amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.2,
+  "input_tokens": 17182,
+  "output_tokens": 681,
+  "attempts": 1,
+  "task_sha": "1210a82b9279219b"
+ }
+}

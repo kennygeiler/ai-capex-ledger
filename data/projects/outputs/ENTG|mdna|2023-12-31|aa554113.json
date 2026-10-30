@@ -1,0 +1,56 @@
+{
+ "accession": "ENTG|mdna|2023-12-31|aa554113",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "New manufacturing facility in Taiwan",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Taiwan",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The decrease in MC\u2019s profit in 2023 was primarily due to increased costs associated with the ramp up of our new manufacturing facility in Taiwan and increased investment in research and development.",
+   "passage": "p05",
+   "confidence": 0.6
+  },
+  {
+   "name": "KSP site",
+   "kind": "plant",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Capital expenditures in 2023 generally reflected more spending related to growth capacity, including our previously announced investment in our KSP site and new facility in Colorado Springs, Colorado.",
+   "passage": "p06",
+   "confidence": 0.55
+  },
+  {
+   "name": "New manufacturing facility in Colorado Springs, Colorado",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Colorado Springs, Colorado",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We expect capital expenditure spending to be approximately $350.0 million in 2024 for growth capacity investments and the construction of our new manufacturing facility in Colorado.",
+   "passage": "p12",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.6,
+  "input_tokens": 6745,
+  "output_tokens": 1282,
+  "attempts": 1,
+  "task_sha": "5b93142d20d442cb"
+ }
+}

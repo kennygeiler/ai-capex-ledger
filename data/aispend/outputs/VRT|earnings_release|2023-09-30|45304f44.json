@@ -1,0 +1,27 @@
+{
+ "accession": "VRT|earnings_release|2023-09-30|45304f44",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's capital expenditures to AI; the passage describes industry demand for data center infrastructure"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a seller of data center infrastructure, but no sentence states AI or data-center revenue as an amount, share or driver; the passage is general commentary on industry AI demand and company positioning"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.1,
+  "input_tokens": 4907,
+  "output_tokens": 329,
+  "attempts": 1,
+  "task_sha": "d844ed2c51a28178"
+ }
+}

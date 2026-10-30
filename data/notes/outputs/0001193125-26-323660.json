@@ -1,6 +1,6 @@
 {
  "accession": "0001193125-26-323660",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "segment_revenue",
@@ -12,7 +12,8 @@
    "period_end": "2026-06-30",
    "months": 12,
    "value": 139996000000,
-   "confidence": 0.7
+   "confidence": 0.7,
+   "notes": "The first segment block in t0074 has no heading row in the parsed table. The name comes from the filing's known segment structure, not from the table."
   },
   {
    "field": "segment_revenue",
@@ -24,7 +25,8 @@
    "period_end": "2025-06-30",
    "months": 12,
    "value": 120810000000,
-   "confidence": 0.7
+   "confidence": 0.7,
+   "notes": "The first segment block in t0074 has no heading row in the parsed table. The name comes from the filing's known segment structure, not from the table."
   },
   {
    "field": "segment_revenue",
@@ -36,7 +38,8 @@
    "period_end": "2024-06-30",
    "months": 12,
    "value": 106820000000,
-   "confidence": 0.7
+   "confidence": 0.7,
+   "notes": "The first segment block in t0074 has no heading row in the parsed table. The name comes from the filing's known segment structure, not from the table."
   },
   {
    "field": "segment_revenue",
@@ -48,7 +51,7 @@
    "period_end": "2026-06-30",
    "months": 12,
    "value": 137791000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -60,7 +63,7 @@
    "period_end": "2025-06-30",
    "months": 12,
    "value": 106265000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -72,7 +75,7 @@
    "period_end": "2024-06-30",
    "months": 12,
    "value": 87464000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -84,7 +87,7 @@
    "period_end": "2026-06-30",
    "months": 12,
    "value": 54052000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -96,7 +99,7 @@
    "period_end": "2025-06-30",
    "months": 12,
    "value": 54649000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "segment_revenue",
@@ -108,7 +111,7 @@
    "period_end": "2024-06-30",
    "months": 12,
    "value": 50838000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -264,30 +267,21 @@
    "period_end": "2026-06-30",
    "months": 0,
    "value": 194060000000,
-   "confidence": 0.95
+   "confidence": 1.0
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment note (t0074) reports revenue, cost of revenue, operating expenses and operating income only; no per-segment capital expenditures"
-  },
-  {
-   "field": "purchase_commitments",
-   "reason": "no prior-year-end (2025-06-30) commitments table is provided; only the 2026 year-end contractual obligations table t0021"
+   "reason": "The segment note (t0074) reports revenue, cost of revenue, operating expenses and operating income per segment only. No table gives capital expenditures by segment."
   }
- ],
- "notes": [
-  "Productivity and Business Processes revenue: the first segment block in t0013/t0074 has no header row in the parsed table (the Intelligent Cloud and More Personal Computing blocks do). Its name is inferred from Microsoft's reportable-segment structure, not read from the table, so confidence is 0.7. Every segment's row label is the bare 'Revenue', so the segment is identified by block position.",
-  "Segment revenue cited from the segment note t0074 (three fiscal years) rather than the MD&A table t0013, which repeats the 2026 and 2025 figures.",
-  "purchase_commitments: t0021 column labels are payment periods ('2027', 'Thereafter', 'Total'). The 'Total' column is the full obligation as of the filing's fiscal year-end, 2026-06-30. Construction commitments (b), 34,566, are listed separately and are not included."
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 23.7,
-  "input_tokens": 7077,
-  "output_tokens": 3342,
+  "seconds": 23.9,
+  "input_tokens": 7201,
+  "output_tokens": 3465,
   "attempts": 1,
-  "task_sha": "f18dfe19a4d40ad3"
+  "task_sha": "9b40304fe3eacfdf"
  }
 }

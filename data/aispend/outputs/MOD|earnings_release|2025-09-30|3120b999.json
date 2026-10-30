@@ -1,0 +1,83 @@
+{
+ "accession": "MOD|earnings_release|2025-09-30|3120b999",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2028,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 2000000000,
+   "amount_high": 2000000000,
+   "quote": "Our expanded capacity positions us to meet growing demand for data center products, and keeps us on track to achieve our target of more than $2 billion in Data Centers revenue by fiscal 2028.",
+   "passage": "p03",
+   "confidence": 0.9,
+   "notes": "'more than $2 billion' recorded as a floor of $2B for both low and high. This is Data Centers revenue (data-center cooling demand), not AI-labeled revenue. The same target is repeated in a p04 bullet."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Expecting Climate Solutions data center sales to grow more than 60% this year, with 90% growth in the second half",
+   "passage": "p08",
+   "confidence": 0.7,
+   "notes": "This is a growth rate, not an amount or share of revenue, so it is recorded as qualitative. 'This year' is read as fiscal 2026, the year the release reports. The quote is a slide bullet, not a full sentence."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Data center sales increased 42 percent from the prior year, and HVAC Technologies sales increased 25 percent, including $28.1 million of incremental sales from acquired businesses.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "The 42% is growth for Q2 FY26, not a share of revenue, so no number is recorded. No year is named in the sentence, so code applies fiscal 2026."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Sales growth was driven by higher sales in the Climate Solutions segment, driven by strong demand from data center customers and sales from acquired businesses, partially offset by lower sales in the Performance Technologies segment, primarily related to on-going market weakness.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Names data-center demand as a driver of total net sales."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "This decrease was due to an increase in working capital, primarily related to higher inventory balances in Climate Solutions, and higher capital expenditures to support growth in Data Centers.",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "Attributes the increase in capex to Data Centers growth, but states no amount. The $59M YTD capex figure appears only in a table (p07) and is not tied to data centers in a sentence. Data centers here means data-center cooling capacity, not explicitly AI."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The decrease in gross margin was primarily driven by lower gross margin in the Climate Solutions segment, which resulted from increased costs related to the capacity expansion for data center products.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "These costs are cost of sales (capacity ramp inefficiencies), not R&D, SG&A or headcount. They are recorded only as a weak link between costs and data-center expansion."
+  }
+ ],
+ "none_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 24.5,
+  "input_tokens": 8273,
+  "output_tokens": 2768,
+  "attempts": 1,
+  "task_sha": "a05b4050c68b790d"
+ }
+}

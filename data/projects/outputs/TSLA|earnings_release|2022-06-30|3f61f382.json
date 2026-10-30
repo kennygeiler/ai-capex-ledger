@@ -1,0 +1,56 @@
+{
+ "accession": "TSLA|earnings_release|2022-06-30|3f61f382",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Gigafactory Berlin-Brandenburg",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Berlin-Brandenburg",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Gigafactory Berlin-Brandenburg reached an important milestone of over 1,000 cars produced in a single week while achieving positive gross margin during the quarter.",
+   "passage": "p01",
+   "confidence": 0.4
+  },
+  {
+   "name": "Austin factory",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Austin",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "From our Austin factory, the first vehicles with Tesla-made 4680 cells and structural battery packs were delivered to our U.S. customers.",
+   "passage": "p01",
+   "confidence": 0.4
+  },
+  {
+   "name": "Megapack factory",
+   "kind": "plant",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We are in the process of ramping production at our dedicated Megapack factory to address the growing demand.",
+   "passage": "p02",
+   "confidence": 0.35
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.2,
+  "input_tokens": 5201,
+  "output_tokens": 971,
+  "attempts": 1,
+  "task_sha": "cb76c544b8309049"
+ }
+}

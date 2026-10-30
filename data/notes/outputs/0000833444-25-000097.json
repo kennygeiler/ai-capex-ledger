@@ -1,0 +1,185 @@
+{
+ "accession": "0000833444-25-000097",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "Americas",
+   "table_id": "t0094",
+   "row_label": "Net sales",
+   "column_label": "Year Ended September 30, 2025 | Americas",
+   "cell_text": "15,831",
+   "period_end": "2025-09-30",
+   "months": 12,
+   "value": 15831000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "EMEA",
+   "table_id": "t0094",
+   "row_label": "Net sales",
+   "column_label": "Year Ended September 30, 2025 | EMEA",
+   "cell_text": "4,968",
+   "period_end": "2025-09-30",
+   "months": 12,
+   "value": 4968000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "APAC",
+   "table_id": "t0094",
+   "row_label": "Net sales",
+   "column_label": "Year Ended September 30, 2025 | APAC",
+   "cell_text": "2,797",
+   "period_end": "2025-09-30",
+   "months": 12,
+   "value": 2797000000,
+   "confidence": 0.95
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0043",
+   "row_label": "Buildings and improvements",
+   "column_label": "September 30, | 2025",
+   "cell_text": "1,095",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 1095000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0043",
+   "row_label": "Buildings and improvements",
+   "column_label": "September 30, | 2024",
+   "cell_text": "1,033",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 1033000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Subscriber systems",
+   "table_id": "t0043",
+   "row_label": "Subscriber systems",
+   "column_label": "September 30, | 2025",
+   "cell_text": "989",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 989000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Subscriber systems",
+   "table_id": "t0043",
+   "row_label": "Subscriber systems",
+   "column_label": "September 30, | 2024",
+   "cell_text": "973",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 973000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0043",
+   "row_label": "Machinery and equipment",
+   "column_label": "September 30, | 2025",
+   "cell_text": "3,597",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 3597000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0043",
+   "row_label": "Machinery and equipment",
+   "column_label": "September 30, | 2024",
+   "cell_text": "3,374",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 3374000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0043",
+   "row_label": "Construction in progress",
+   "column_label": "September 30, | 2025",
+   "cell_text": "382",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 382000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0043",
+   "row_label": "Construction in progress",
+   "column_label": "September 30, | 2024",
+   "cell_text": "418",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 418000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0043",
+   "row_label": "Land",
+   "column_label": "September 30, | 2025",
+   "cell_text": "47",
+   "period_end": "2025-09-30",
+   "months": 0,
+   "value": 47000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0043",
+   "row_label": "Land",
+   "column_label": "September 30, | 2024",
+   "cell_text": "48",
+   "period_end": "2024-09-30",
+   "months": 0,
+   "value": 48000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment tables provided report net sales, costs, EBITA and EBIT per segment but no capital expenditures"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table was provided"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table was provided"
+  }
+ ],
+ "notes": "Segment revenue appears identically in t0016 and t0094; cited t0094 as the later (likely segment-note) table. Segment dimension is taken from the column header since segments are columns; only fiscal 2025 is broken out by segment, so no 2024 segment revenue is available. Confidence 0.95 reflects the choice between duplicate tables.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.5,
+  "input_tokens": 5268,
+  "output_tokens": 1975,
+  "attempts": 1,
+  "task_sha": "cc360907724a7e5a"
+ }
+}

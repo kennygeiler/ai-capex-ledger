@@ -1,0 +1,220 @@
+{
+ "accession": "0001628280-26-006516",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Vehicles, machinery and equipment",
+   "table_id": "t0114",
+   "row_label": "Vehicles, machinery and equipment",
+   "column_label": "December 31, | 2025",
+   "cell_text": "203,731",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 203731000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Vehicles, machinery and equipment",
+   "table_id": "t0114",
+   "row_label": "Vehicles, machinery and equipment",
+   "column_label": "December 31, | 2024",
+   "cell_text": "200,004",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 200004000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Energy Server systems",
+   "table_id": "t0114",
+   "row_label": "Energy Server systems",
+   "column_label": "December 31, | 2025",
+   "cell_text": "165,629",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 165629000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Energy Server systems",
+   "table_id": "t0114",
+   "row_label": "Energy Server systems",
+   "column_label": "December 31, | 2024",
+   "cell_text": "165,629",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 165629000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0114",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, | 2025",
+   "cell_text": "129,665",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 129665000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0114",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31, | 2024",
+   "cell_text": "122,413",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 122413000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction-in-progress",
+   "table_id": "t0114",
+   "row_label": "Construction-in-progress",
+   "column_label": "December 31, | 2025",
+   "cell_text": "83,067",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 83067000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction-in-progress",
+   "table_id": "t0114",
+   "row_label": "Construction-in-progress",
+   "column_label": "December 31, | 2024",
+   "cell_text": "86,731",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 86731000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0114",
+   "row_label": "Buildings",
+   "column_label": "December 31, | 2025",
+   "cell_text": "53,156",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 53156000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0114",
+   "row_label": "Buildings",
+   "column_label": "December 31, | 2024",
+   "cell_text": "53,221",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 53221000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computers, software and hardware",
+   "table_id": "t0114",
+   "row_label": "Computers, software and hardware",
+   "column_label": "December 31, | 2025",
+   "cell_text": "34,761",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 34761000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computers, software and hardware",
+   "table_id": "t0114",
+   "row_label": "Computers, software and hardware",
+   "column_label": "December 31, | 2024",
+   "cell_text": "33,910",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 33910000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0114",
+   "row_label": "Furniture and fixtures",
+   "column_label": "December 31, | 2025",
+   "cell_text": "11,090",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 11090000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures",
+   "table_id": "t0114",
+   "row_label": "Furniture and fixtures",
+   "column_label": "December 31, | 2024",
+   "cell_text": "10,943",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 10943000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0127",
+   "row_label": "Total finance lease liabilities",
+   "column_label": "Years EndedDecember 31, | 2025",
+   "cell_text": "(5,218)",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 5218000,
+   "confidence": 1.0
+  },
+  {
+   "field": "finance_lease_liability",
+   "dimension": null,
+   "table_id": "t0127",
+   "row_label": "Total finance lease liabilities",
+   "column_label": "Years EndedDecember 31, | 2024",
+   "cell_text": "(3,431)",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 3431000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "no segment note with per-segment capital expenditures is provided; the company reports as a single segment"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "table t0104 disaggregates revenue by revenue type (product, installation, service, electricity), not by segment or market; the company has a single reportable segment"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or purchase-commitments table is included in the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.3,
+  "input_tokens": 5918,
+  "output_tokens": 2424,
+  "attempts": 1,
+  "task_sha": "b5112fa57adad6a6"
+ }
+}

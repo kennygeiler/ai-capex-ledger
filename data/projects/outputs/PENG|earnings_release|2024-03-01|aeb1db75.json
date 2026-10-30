@@ -1,0 +1,13 @@
+{
+ "accession": "PENG|earnings_release|2024-03-01|aeb1db75",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.0,
+  "input_tokens": 4809,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "ef95b22eb97960fd"
+ }
+}

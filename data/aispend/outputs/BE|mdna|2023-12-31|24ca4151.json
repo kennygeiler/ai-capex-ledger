@@ -1,0 +1,27 @@
+{
+ "accession": "BE|mdna|2023-12-31|24ca4151",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are tied to production capacity at the Fremont facility; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, headcount, infrastructure) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data center customers are mentioned only as a source of longer sales cycles and a delayed project; no sentence states an amount or share of revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.6,
+  "input_tokens": 7561,
+  "output_tokens": 232,
+  "attempts": 1,
+  "task_sha": "8193f81e2ffeaf71"
+ }
+}

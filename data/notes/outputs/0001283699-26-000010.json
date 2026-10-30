@@ -1,0 +1,208 @@
+{
+ "accession": "0001283699-26-000010",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0047",
+   "row_label": "Land",
+   "column_label": "December 31,2025",
+   "cell_text": "100",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 100000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0047",
+   "row_label": "Land",
+   "column_label": "December 31,2024",
+   "cell_text": "69",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 69000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and equipment",
+   "table_id": "t0047",
+   "row_label": "Buildings and equipment",
+   "column_label": "December 31,2025",
+   "cell_text": "4,521",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 4521000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and equipment",
+   "table_id": "t0047",
+   "row_label": "Buildings and equipment",
+   "column_label": "December 31,2024",
+   "cell_text": "4,377",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 4377000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Wireless communications systems",
+   "table_id": "t0047",
+   "row_label": "Wireless communications systems",
+   "column_label": "December 31,2025",
+   "cell_text": "70,653",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 70653000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Wireless communications systems",
+   "table_id": "t0047",
+   "row_label": "Wireless communications systems",
+   "column_label": "December 31,2024",
+   "cell_text": "65,778",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 65778000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0047",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31,2025",
+   "cell_text": "2,750",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 2750000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0047",
+   "row_label": "Leasehold improvements",
+   "column_label": "December 31,2024",
+   "cell_text": "2,588",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 2588000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Capitalized software",
+   "table_id": "t0047",
+   "row_label": "Capitalized software",
+   "column_label": "December 31,2025",
+   "cell_text": "21,762",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 21762000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Capitalized software",
+   "table_id": "t0047",
+   "row_label": "Capitalized software",
+   "column_label": "December 31,2024",
+   "cell_text": "18,566",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 18566000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leased wireless devices",
+   "table_id": "t0047",
+   "row_label": "Leased wireless devices",
+   "column_label": "December 31,2025",
+   "cell_text": "30",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 30000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leased wireless devices",
+   "table_id": "t0047",
+   "row_label": "Leased wireless devices",
+   "column_label": "December 31,2024",
+   "cell_text": "145",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 145000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0047",
+   "row_label": "Construction in progress",
+   "column_label": "December 31,2025",
+   "cell_text": "2,329",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 2329000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0047",
+   "row_label": "Construction in progress",
+   "column_label": "December 31,2024",
+   "cell_text": "3,377",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 3377000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "purchase_commitments",
+   "dimension": null,
+   "table_id": "t0081",
+   "row_label": "Purchase commitments (1)",
+   "column_label": "Total",
+   "cell_text": "17,054",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 17054000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "TMUS has a single reportable segment; the segment note (t0066) reports consolidated revenue, expenses and segment net income only, with no per-segment capital expenditures"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "single reportable segment; t0066 shows only consolidated total revenues, and t0011 is the consolidated MD&A results table breaking revenue into service/equipment lines rather than segments or markets"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no total finance lease liabilities line exists; the balance sheet (t0029) shows only 'Short-term financing lease liabilities' and non-current 'Financing lease liabilities', which require current/non-current dimensions that the schema rejects, and the t0028 figure (2,369) includes imputed interest so is not the liability"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 45.6,
+  "input_tokens": 21815,
+  "output_tokens": 5734,
+  "attempts": 2,
+  "task_sha": "85bbaba04722220a"
+ }
+}

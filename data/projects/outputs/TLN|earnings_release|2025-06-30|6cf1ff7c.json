@@ -1,0 +1,44 @@
+{
+ "accession": "TLN|earnings_release|2025-06-30|6cf1ff7c",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Amazon (AWS) expanded PPA",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Amazon Web Services (AWS)",
+   "capacity_mw": 1920,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2032",
+   "quote": "Under the expanded PPA, at the full contract quantity, Talen expects to provide AWS with up to 1,920 MWs of \u201cfront-of-the-meter\u201d power through 2042, with options to further extend its duration.",
+   "passage": "p04",
+   "confidence": 0.9
+  },
+  {
+   "name": "Freedom and Guernsey acquisition",
+   "kind": "power",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 3500000000,
+   "amount_high": 3800000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The net acquisition price is $3.5 billion after adjusting for estimated tax benefits, or approximately $3.8 billion gross.",
+   "passage": "p05",
+   "confidence": 0.75
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.1,
+  "input_tokens": 8487,
+  "output_tokens": 982,
+  "attempts": 1,
+  "task_sha": "d38d4991a47968e2"
+ }
+}

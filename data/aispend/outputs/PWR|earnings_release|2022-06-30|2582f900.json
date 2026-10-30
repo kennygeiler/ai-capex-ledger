@@ -1,0 +1,27 @@
+{
+ "accession": "PWR|earnings_release|2022-06-30|2582f900",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; passages only define free cash flow and net capital expenditures and list forward-looking topics"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; passages are safe-harbor boilerplate and non-GAAP reconciliation definitions"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.4,
+  "input_tokens": 9338,
+  "output_tokens": 227,
+  "attempts": 1,
+  "task_sha": "3ec66566e3aa5bf9"
+ }
+}

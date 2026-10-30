@@ -1,0 +1,150 @@
+{
+ "accession": "0001137789-26-000159",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Revenue",
+   "column_label": "Fiscal Years Ended | July 3,2026",
+   "cell_text": "12,195",
+   "period_end": "2026-07-03",
+   "months": 12,
+   "value": 12195000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Revenue",
+   "column_label": "Fiscal Years Ended | June 27,2025",
+   "cell_text": "9,097",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 9097000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0022",
+   "row_label": "Revenue",
+   "column_label": "Fiscal Years Ended | June 28,2024",
+   "cell_text": "6,551",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 6551000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Years Ended | July 3,2026",
+   "cell_text": "6,637",
+   "period_end": "2026-07-03",
+   "months": 12,
+   "value": 6637000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Years Ended | June 27,2025",
+   "cell_text": "5,897",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 5897000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0022",
+   "row_label": "Cost of revenue",
+   "column_label": "Fiscal Years Ended | June 28,2024",
+   "cell_text": "5,015",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 5015000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0022",
+   "row_label": "Income from operations",
+   "column_label": "Fiscal Years Ended | July 3,2026",
+   "cell_text": "4,094",
+   "period_end": "2026-07-03",
+   "months": 12,
+   "value": 4094000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0022",
+   "row_label": "Income from operations",
+   "column_label": "Fiscal Years Ended | June 27,2025",
+   "cell_text": "1,890",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 1890000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0022",
+   "row_label": "Income from operations",
+   "column_label": "Fiscal Years Ended | June 28,2024",
+   "cell_text": "452",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 452000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0023",
+   "row_label": "Acquisition of property, equipment and leasehold improvements",
+   "column_label": "Fiscal Years Ended | July 3,2026",
+   "cell_text": "(569)",
+   "period_end": "2026-07-03",
+   "months": 12,
+   "value": 569000000,
+   "confidence": 1.0,
+   "notes": "Only investing-section line for cash paid for property and equipment; leasehold improvements are part of PP&E, no intangibles included."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0023",
+   "row_label": "Acquisition of property, equipment and leasehold improvements",
+   "column_label": "Fiscal Years Ended | June 27,2025",
+   "cell_text": "(265)",
+   "period_end": "2025-06-27",
+   "months": 12,
+   "value": 265000000,
+   "confidence": 1.0,
+   "notes": "Only investing-section line for cash paid for property and equipment; leasehold improvements are part of PP&E, no intangibles included."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0023",
+   "row_label": "Acquisition of property, equipment and leasehold improvements",
+   "column_label": "Fiscal Years Ended | June 28,2024",
+   "cell_text": "(254)",
+   "period_end": "2024-06-28",
+   "months": 12,
+   "value": 254000000,
+   "confidence": 1.0,
+   "notes": "Only investing-section line for cash paid for property and equipment; leasehold improvements are part of PP&E, no intangibles included."
+  }
+ ],
+ "not_found": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.4,
+  "input_tokens": 6319,
+  "output_tokens": 1623,
+  "attempts": 1,
+  "task_sha": "c297b87e4a88d220"
+ }
+}

@@ -1,23 +1,46 @@
 {
  "accession": "CRDO|earnings_release|2024-04-27|00859ce8",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The Company\u2019s success in fiscal 2024 was primarily driven by our customers\u2019 AI deployments.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "Credo is a seller of connectivity products. 'Success' most plausibly refers to the record fiscal 2024 revenue stated in the previous sentence, but this sentence does not name revenue explicitly. The $193.0M figure is total revenue, and its sentence does not link it to AI, so it is not recorded."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Looking forward, we anticipate accelerating demand for AI infrastructure.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "The sentence speaks of demand for AI infrastructure, not Credo's revenue directly; it implies AI-driven revenue growth for the seller. No year is named, so code applies the year after fiscal 2024."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
-  "model": null,
-  "seconds": 0.0,
-  "input_tokens": 0,
-  "output_tokens": 0,
-  "attempts": 0,
-  "task_sha": "ce86bb45d7fd0887"
+  "model": "claude-opus-5-5",
+  "seconds": 10.4,
+  "input_tokens": 4928,
+  "output_tokens": 995,
+  "attempts": 1,
+  "task_sha": "f62f75b308bb00c4"
  }
 }

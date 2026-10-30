@@ -1,23 +1,46 @@
 {
  "accession": "CORZ|mdna|2024-12-31|3d9b22c1",
- "prompt_version": "aispend@v3",
- "statements": [],
- "none_found": [
+ "prompt_version": "aispend@v4",
+ "statements": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the capex sentences (p14 PP&E purchases of $95.2 million; p15 and p16 contractual commitment of approximately $1.14 billion, $899.3 million reimbursable, for converting data centers to HPC hosting, expected over the next year) refer to HPC hosting, not AI. AI appears only in strategy and business descriptions (p03, p05, p09), so attributing the HPC capex to AI would be an inference."
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 1140000000,
+   "amount_high": 1140000000,
+   "quote": "As of December 31, 2024, the Company was contractually committed for approximately $1.14 billion of capital expenditures, primarily related to infrastructure modifications, equipment procurement, and labor associated with the conversion of a significant portion of its data centers to deliver hosting services for HPC.",
+   "passage": "p18",
+   "confidence": 0.6,
+   "notes": "Contractual capex commitment for HPC data-center conversion. The following sentence says it is expected to occur over the next year, so fiscal_year is null and code will assign the year after fiscal 2024. HPC hosting is tied to machine learning and AI only in p03, not in this sentence. The figure is 'primarily' HPC-related, so it may include some non-HPC capex. $899.3 million is reimbursable by the customer, so the company's net capex is lower."
   },
   {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 24400000,
+   "amount_high": 24400000,
+   "quote": "Total HPC hosting revenue was $24.4 million for the year ended December 31, 2024, compared to nil for the same period in the prior year due to the initiation of HPC hosting operations at our Austin, Texas data center during the quarter ended June 30, 2024.",
+   "passage": "p11",
+   "confidence": 0.7,
+   "notes": "HPC data-center hosting revenue, treated as data-center/AI-demand revenue. The sentence does not say AI; p03 attributes the HPC hosting expansion to cloud computing, machine learning and AI demand. The figure includes power costs passed through to the customer with no markup."
+  }
+ ],
+ "none_found": [
+  {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; p10 describes the cost of HPC hosting services (facility operations, power fees, payroll) without linking it to AI"
+   "reason": "no sentence quantifies or attributes R&D, infrastructure or headcount operating expenses to AI; cost of HPC hosting services is described only by its components, with no amount"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 9.0,
-  "input_tokens": 7724,
-  "output_tokens": 884,
+  "seconds": 13.5,
+  "input_tokens": 8324,
+  "output_tokens": 1347,
   "attempts": 1,
-  "task_sha": "67df22bd4a1bb44a"
+  "task_sha": "d159b9af71c58897"
  }
 }

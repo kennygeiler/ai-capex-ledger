@@ -1,6 +1,6 @@
 {
  "accession": "0000858877-23-000023",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -12,7 +12,7 @@
    "period_end": "2023-07-29",
    "months": 0,
    "value": 4229000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -24,7 +24,7 @@
    "period_end": "2022-07-30",
    "months": 0,
    "value": 4219000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -36,7 +36,7 @@
    "period_end": "2023-07-29",
    "months": 0,
    "value": 744000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -48,7 +48,7 @@
    "period_end": "2022-07-30",
    "months": 0,
    "value": 779000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -60,7 +60,7 @@
    "period_end": "2023-07-29",
    "months": 0,
    "value": 4611000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -72,7 +72,7 @@
    "period_end": "2022-07-30",
    "months": 0,
    "value": 4647000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -84,7 +84,7 @@
    "period_end": "2023-07-29",
    "months": 0,
    "value": 135000000,
-   "confidence": 0.8
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -96,7 +96,7 @@
    "period_end": "2022-07-30",
    "months": 0,
    "value": 185000000,
-   "confidence": 0.8
+   "confidence": 0.9
   },
   {
    "field": "ppe_category",
@@ -108,7 +108,7 @@
    "period_end": "2023-07-29",
    "months": 0,
    "value": 339000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "ppe_category",
@@ -120,7 +120,7 @@
    "period_end": "2022-07-30",
    "months": 0,
    "value": 335000000,
-   "confidence": 0.95
+   "confidence": 1.0
   },
   {
    "field": "purchase_commitments",
@@ -132,7 +132,7 @@
    "period_end": "2023-07-29",
    "months": 0,
    "value": 7253000000,
-   "confidence": 0.7
+   "confidence": 0.8
   },
   {
    "field": "purchase_commitments",
@@ -144,7 +144,7 @@
    "period_end": "2022-07-30",
    "months": 0,
    "value": 12964000000,
-   "confidence": 0.7
+   "confidence": 0.8
   },
   {
    "field": "purchase_commitments",
@@ -156,30 +156,30 @@
    "period_end": "2021-07-31",
    "months": 0,
    "value": 10254000000,
-   "confidence": 0.7
+   "confidence": 0.8
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "no segment table in the provided tables reports capital expenditures by segment"
+   "reason": "no segment note table reporting capital expenditures by segment is among the tables provided"
   },
   {
    "field": "segment_revenue",
-   "reason": "the provided tables give only consolidated revenue (t0020); no table breaks revenue down by geographic segment or product category"
+   "reason": "the only revenue table (t0020) is consolidated; no revenue-by-segment or by-product table is provided"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no lease table in the provided tables reports finance lease liabilities; the contractual obligations table (t0046) lists operating leases only"
+   "reason": "no finance lease liability line appears in the tables provided"
   }
  ],
- "notes": "ppe_category: t0076 unit is not stated with the table and the referenced source text is empty. Millions was assumed because the filing uses millions elsewhere and the total of 10,058 is consistent with Cisco's scale, so confidence is 0.95. 'Operating lease assets' in t0076 are Cisco's equipment leased to customers under operating leases (lessor assets) included in gross PP&E; included as a gross category at 0.8. purchase_commitments: no single total purchase obligations row exists. t0046 splits 'Purchase commitments with contract manufacturers and suppliers' (7,253) and 'Other purchase obligations' (2,476); their sum of 9,729 is not a cell. The 'Inventory purchase commitments' row from t0040 was used because it gives one value per fiscal year-end and matches the t0046 contract-manufacturer total for 2023 (7,253). It excludes other purchase obligations, hence confidence 0.7.",
+ "notes": "ppe_category 'Operating lease assets' (t0076) is equipment Cisco leases to customers and is included in total gross property and equipment, so it is treated as a PP&E category (confidence 0.9). purchase_commitments uses t0040 'Inventory purchase commitments' because it gives a total per year-end; for July 29, 2023 it matches 'Purchase commitments with contract manufacturers and suppliers' in t0046 (7,253). t0046 also lists 'Other purchase obligations' of 2,476, but the table has no combined purchase-obligation total and cells are not added, so the value may understate total purchase obligations (confidence 0.8).",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 20.4,
-  "input_tokens": 6979,
-  "output_tokens": 2798,
+  "seconds": 18.7,
+  "input_tokens": 7109,
+  "output_tokens": 2574,
   "attempts": 1,
-  "task_sha": "68415f87c2851721"
+  "task_sha": "299065e798c62d34"
  }
 }

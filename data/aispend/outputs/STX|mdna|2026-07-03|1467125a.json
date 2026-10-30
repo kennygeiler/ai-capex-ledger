@@ -1,0 +1,36 @@
+{
+ "accession": "STX|mdna|2026-07-03|1467125a",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.8,
+   "quote": "Revenues by Market (%) Data Center 80% 75%",
+   "passage": "p02",
+   "confidence": 0.85,
+   "notes": "Taken from a table, not a prose sentence; the quote is a verbatim row fragment. The first column is fiscal 2026 (80%) and the second is fiscal 2025 (75%), per the column headers. This is data-center market revenue, not specifically AI revenue. p01 qualitatively attributes data-center demand partly to AI-related applications; that statement is skipped in favor of this figure."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capex outlook (p03) is attributed to the HAMR hard-drive volume ramp, not to AI; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.4,
+  "input_tokens": 5249,
+  "output_tokens": 845,
+  "attempts": 1,
+  "task_sha": "0332e4f6dcbe1054"
+ }
+}

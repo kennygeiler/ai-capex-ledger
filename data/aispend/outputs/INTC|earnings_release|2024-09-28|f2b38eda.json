@@ -1,23 +1,37 @@
 {
  "accession": "INTC|earnings_release|2024-09-28|f2b38eda",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 3300000000,
+   "amount_high": 3300000000,
+   "quote": "Data Center and AI (DCAI) $3.3 billion up 9%",
+   "passage": "p02",
+   "confidence": 0.7,
+   "notes": "Quarterly (Q3 2024) segment revenue, not full-year. Taken from a table row, not a prose sentence. The segment combines data center and AI and is not AI-only revenue. p03 gives the unrounded figure of $3,349 million."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; capex figures appear only in the outlook table (p07: gross capex ~$25.0B FY2024, $20.0-23.0B FY2025) and the cost reduction plan (p01), neither of which mentions AI"
+   "reason": "capex figures appear (gross capex ~$25.0B for 2024, $20\u201323B outlook for 2025 in p07) but no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; R&D and MG&A appear only in the p07 table and headcount/opex reductions in p01 without any AI link; 'Data Center and AI' appears only as a segment name in revenue and operating income tables"
+   "reason": "R&D and MG&A totals and the cost-reduction and headcount plan are given, but no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.5,
-  "input_tokens": 7526,
-  "output_tokens": 355,
+  "seconds": 8.0,
+  "input_tokens": 7827,
+  "output_tokens": 792,
   "attempts": 1,
-  "task_sha": "ca7118449a040d6f"
+  "task_sha": "a51a6af67315656f"
  }
 }

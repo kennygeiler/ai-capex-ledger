@@ -1,0 +1,209 @@
+{
+ "ticker": "CLS",
+ "prompt_version": "attribution@v2",
+ "model": "component_supplier@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 9188500000,
+   "ai_share": 0.7416,
+   "inputs": [
+    {
+     "id": "fact:CLS|segment_revenue|Communications|FY2025",
+     "value": 7126400000
+    },
+    {
+     "id": "fact:CLS|segment_revenue|Enterprise|FY2025",
+     "value": 2062100000
+    }
+   ],
+   "basis": "CCS revenue = Communications 7,126.4M + Enterprise 2,062.1M = 9,188.5M of 12,390.9M total; ATS is excluded. CCS is the hyperscaler data-center line (800G switches, AI/ML compute), not purely AI. Communications grew 81% on data-center networking and Enterprise fell 19% on an AI/ML compute program transition.",
+   "confidence": 0.6
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "stated_share",
+   "ai_amount": 2797340000,
+   "ai_share": 0.29,
+   "inputs": [
+    {
+     "id": "stmt:CLS|mdna|2024-12-31|28daa6b7|revenue|FY2024|actual|1",
+     "value": 0.29
+    },
+    {
+     "id": "value:CLS|revenue|FY2024",
+     "value": 9646000000
+    }
+   ],
+   "basis": "The MD&A states HPS was 29% of 2024 revenue (about $2.8B): 0.29 \u00d7 9,646M = 2,797.3M, driven by hyperscaler networking demand. HPS is hyperscaler hardware, not strictly AI. It is narrower than the CCS line used for the other years (CCS = Communications 3,946.7M + Enterprise 2,543.8M = 6,490.5M).",
+   "confidence": 0.55
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 4641200000,
+   "ai_share": 0.583,
+   "inputs": [
+    {
+     "id": "fact:CLS|segment_revenue|Communications|FY2023",
+     "value": 2675600000
+    },
+    {
+     "id": "fact:CLS|segment_revenue|Enterprise|FY2023",
+     "value": 1965600000
+    }
+   ],
+   "basis": "CCS revenue = Communications 2,675.6M + Enterprise 1,965.6M = 4,641.2M of 7,961M total; ATS is excluded. This is a data-center and communications line, not AI-specific. Pre-10-K year, so the figures are not cross-checked against XBRL.",
+   "confidence": 0.5
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 4271000000,
+   "ai_share": 0.5891,
+   "inputs": [
+    {
+     "id": "fact:CLS|segment_revenue|Communications|FY2022",
+     "value": 2865000000
+    },
+    {
+     "id": "fact:CLS|segment_revenue|Enterprise|FY2022",
+     "value": 1406000000
+    }
+   ],
+   "basis": "CCS revenue = Communications 2,865M + Enterprise 1,406M = 4,271M of 7,250M total; ATS is excluded. It predates the AI ramp and includes telecom and non-AI enterprise hardware.",
+   "confidence": 0.4
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The Q4 2024 release calls data-center hardware demand robust and cites new AI program awards, including the second and third 1.6T wins. It gives no AI amount.",
+   "confidence": 0.3
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The company expects $17.0B of total 2026 revenue as demand for AI-related data-center technologies strengthens. That is the whole company, not the AI part, and no AI split is given.",
+   "confidence": 0.3
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A says the total 2025 capex of $201.2M went to expanding the Thailand, U.S. and Malaysia sites and design centers 'in support of our growth in AI/ML and HPS programs'. That is the whole capex justified by AI, with no AI amount split out.",
+   "confidence": 0.3
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2024 MD&A says intended 2025 capital spending was geared to capacity expansion for AI/ML compute and HPS programs. No amount was given.",
+   "confidence": 0.3
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "Total 2026 capex is planned at about $1B (about 6% of revenue) to support growth in customer demand, which the release ties to AI data-center investment. This is the company total, and no AI share is stated.",
+   "confidence": 0.3
+  },
+  {
+   "field": "capex",
+   "period": "FY2027",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A plans higher-than-historical capex in 2027 to support growth in customer demand. No amount and no AI split are given.",
+   "confidence": 0.2
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The release refers to proprietary R&D investments in AI/ML servers, 1.6T switches and liquid cooling. No amount or share of opex is given.",
+   "confidence": 0.2
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "no statement ties capex to AI and the thesis allows no segment or PP&E method for Celestica"
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "no statement attributes 2023 capex to AI; the FY2025 MD&A only lists the 2023 amount"
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "no statement attributes 2024 capex to AI with an amount; the purpose is stated only for 2025 spending"
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "purchase commitments (9,782M) and finance lease liabilities (58M) are not stated or held by the thesis to be AI, so there is no committed row"
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 29.8,
+  "input_tokens": 18655,
+  "output_tokens": 4010,
+  "attempts": 1,
+  "task_sha": "7daf56902d93cfb4"
+ }
+}

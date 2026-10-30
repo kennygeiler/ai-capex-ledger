@@ -1,0 +1,56 @@
+{
+ "accession": "HUT|earnings_release|2024-09-30|20b3b3bf",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Vega site",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": "BITMAIN",
+   "capacity_mw": 205,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "Vega Site: The Company continued groundwork at the 205 MW Vega site, which is expected to house the ~15 EH/s colocation deployment of the \u25cf BITMAIN U3S21EXPH.",
+   "passage": "p03",
+   "confidence": 0.85
+  },
+  {
+   "name": "Highrise AI GPU-as-a-Service cluster, Chicago",
+   "kind": "gpu_cluster",
+   "status": "in_service",
+   "location": "Chicago, Illinois",
+   "counterparty": "AI cloud services provider",
+   "capacity_mw": null,
+   "gpus": 1000,
+   "announced": null,
+   "in_service": null,
+   "quote": "The cluster comprises multiple Hewlett Packard Enterprise Cray supercomputers powered by 1,000 NVIDIA H100 GPUs.",
+   "passage": "p04",
+   "confidence": 0.85
+  },
+  {
+   "name": "ASIC Fleet Upgrade",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "BITMAIN",
+   "capacity_mw": 111,
+   "gpus": null,
+   "announced": "2024-11-06",
+   "in_service": "2025",
+   "quote": "ASIC Fleet Upgrade: The Company signed a purchase agreement with BITMAIN on November 6, 2024 to upgrade approximately 111 MW of self-mining capacity across its existing fleet in Q1 2025.",
+   "passage": "p02",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.1,
+  "input_tokens": 8182,
+  "output_tokens": 1386,
+  "attempts": 1,
+  "task_sha": "edd0605de82c870a"
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "accession": "CIEN|mdna|2025-11-01|b5b02d75",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Our industry has been experiencing unprecedented increases in demand, in particular as a result of expenditures related to AI and other cloud-based applications.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Links industry demand, which drives Ciena's order and revenue growth, to AI spending. It speaks of industry demand, not Ciena's revenue directly. The revenue sentence ($4.8 billion, +19%) does not itself mention AI, so it is not recorded as scope total."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "In particular, in an effort to capture certain market opportunities created by the impact of AI on networks, we continued to increase the performance of, and enhance the capabilities for our leading WaveLogicTM coherent modem technology, through which we seek to extend our leadership in optical networking, and leverage it to expand our addressable market, including inside and around the data center.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Ties R&D effort to AI opportunities in words only. The $848.3 million fiscal 2025 R&D figure is in a separate sentence that does not mention AI, so no AI amount is stated."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capex sentence ($140.8 million in fiscal 2025) does not link capital expenditures to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 11.8,
+  "input_tokens": 5769,
+  "output_tokens": 1394,
+  "attempts": 1,
+  "task_sha": "d54b9e2bfb0ac891"
+ }
+}

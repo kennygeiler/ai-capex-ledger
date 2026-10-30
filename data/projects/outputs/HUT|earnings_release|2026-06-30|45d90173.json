@@ -1,0 +1,72 @@
+{
+ "accession": "HUT|earnings_release|2026-06-30|45d90173",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "River Bend campus",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": "Fluidstack",
+   "capacity_mw": 330,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2027",
+   "quote": "Advanced the buildout of River Bend, targeted for initial data hall delivery in the second quarter of 2027.",
+   "passage": "p07",
+   "confidence": 0.85
+  },
+  {
+   "name": "Beacon Point Phase 1",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2027",
+   "quote": "Commenced the buildout of Beacon Point, with construction of Phase 1 and the campus substation underway, targeted for - initial energization in the first quarter of 2027 and initial data hall delivery in the third quarter of 2027.",
+   "passage": "p07",
+   "confidence": 0.85
+  },
+  {
+   "name": "Beacon Point Phase 2",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "amount_low": 9800000000,
+   "amount_high": 9800000000,
+   "capacity_mw": 352,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Completed the commercialization of Hut 8's first gigawatt-scale AI data center campus, signing, subsequent to quarter-end, a second 15-year, 352 MW IT lease at Beacon Point with the same high-investment-grade tenant as in Beacon Point Phase 1, representing approximately $9.8 billion in expected - base-term contract value and approximately $655.0 million of expected average annual NOI on a triple-net, take-or-pay basis and bringing total base-term contract value across the campus to approximately $19.6 billion and expected average annual NOI to approximately $1.3 billion.",
+   "passage": "p07",
+   "confidence": 0.9
+  },
+  {
+   "name": "King Mountain Joint Venture",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "An additional $27.0 million of Colocation revenue, including - reimbursements, from the Company\u2019s share of the unconsolidated King Mountain Joint Venture is recognized in the \u201cEquity in earnings of unconsolidated joint venture\u201d line item.",
+   "passage": "p07",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 15.8,
+  "input_tokens": 6306,
+  "output_tokens": 1997,
+  "attempts": 1,
+  "task_sha": "6343e32d228e392c"
+ }
+}

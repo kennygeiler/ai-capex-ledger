@@ -1,0 +1,194 @@
+{
+ "accession": "0001996810-25-000011",
+ "prompt_version": "statements@v2",
+ "values": [
+  {
+   "field": "revenue",
+   "table_id": "t0032",
+   "row_label": "Total revenues",
+   "column_label": "2024",
+   "cell_text": "34,935",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 34935000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0032",
+   "row_label": "Total revenues",
+   "column_label": "2023",
+   "cell_text": "33,239",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 33239000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0032",
+   "row_label": "Total revenues",
+   "column_label": "2022",
+   "cell_text": "29,654",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 29654000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0032",
+   "row_label": "Cost of equipment",
+   "column_label": "2024",
+   "cell_text": "17,989",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 17989000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; cost of equipment is the direct cost of 'Sales of equipment' and sits above Gross profit."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0032",
+   "row_label": "Cost of equipment",
+   "column_label": "2023",
+   "cell_text": "18,705",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 18705000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; cost of equipment is the direct cost of 'Sales of equipment' and sits above Gross profit."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0032",
+   "row_label": "Cost of equipment",
+   "column_label": "2022",
+   "cell_text": "16,972",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 16972000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; cost of equipment is the direct cost of 'Sales of equipment' and sits above Gross profit."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0032",
+   "row_label": "Cost of services",
+   "column_label": "2024",
+   "cell_text": "10,861",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 10861000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; cost of services is the direct cost of 'Sales of services' and sits above Gross profit."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0032",
+   "row_label": "Cost of services",
+   "column_label": "2023",
+   "cell_text": "9,716",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 9716000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; cost of services is the direct cost of 'Sales of services' and sits above Gross profit."
+  },
+  {
+   "field": "cost_of_revenue_part",
+   "table_id": "t0032",
+   "row_label": "Cost of services",
+   "column_label": "2022",
+   "cell_text": "9,224",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 9224000000,
+   "confidence": 1.0,
+   "notes": "No total cost-of-revenue line; cost of services is the direct cost of 'Sales of services' and sits above Gross profit."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0032",
+   "row_label": "Operating income (loss)",
+   "column_label": "2024",
+   "cell_text": "471",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 471000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0032",
+   "row_label": "Operating income (loss)",
+   "column_label": "2023",
+   "cell_text": "(923)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": -923000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0032",
+   "row_label": "Operating income (loss)",
+   "column_label": "2022",
+   "cell_text": "(2,881)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": -2881000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "capex",
+   "table_id": "t0034",
+   "row_label": "Additions to property, plant, and equipment and internal-use software",
+   "column_label": "2024",
+   "cell_text": "(883)",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 883000000,
+   "confidence": 0.95,
+   "notes": "Line also includes internal-use software (an intangible asset); used as reported per prompt rules."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0034",
+   "row_label": "Additions to property, plant, and equipment and internal-use software",
+   "column_label": "2023",
+   "cell_text": "(744)",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 744000000,
+   "confidence": 0.95,
+   "notes": "Line also includes internal-use software (an intangible asset); used as reported per prompt rules."
+  },
+  {
+   "field": "capex",
+   "table_id": "t0034",
+   "row_label": "Additions to property, plant, and equipment and internal-use software",
+   "column_label": "2022",
+   "cell_text": "(513)",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 513000000,
+   "confidence": 0.95,
+   "notes": "Line also includes internal-use software (an intangible asset); used as reported per prompt rules."
+  }
+ ],
+ "not_found": [
+  {
+   "field": "cost_of_revenue",
+   "reason": "Statement has no single total cost-of-revenue line; reported as cost_of_revenue_part (Cost of equipment, Cost of services)."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.0,
+  "input_tokens": 6307,
+  "output_tokens": 2073,
+  "attempts": 1,
+  "task_sha": "5f7dc0a0eb17f6c8"
+ }
+}

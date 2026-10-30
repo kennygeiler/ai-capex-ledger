@@ -1,0 +1,27 @@
+{
+ "accession": "CLS|earnings_release|2026-03-31|51ffd7ab",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's own capital expenditures to AI; p05 gives Q1 2026 purchases of property, plant and equipment of $229.5 million with no AI attribution, and p02's 'capital expenditure investments by leading hyperscaler, AI, and data center customers' refers to customers' capex in a forward-looking assumptions list (boilerplate)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "a seller of data center infrastructure, but the passages give no AI, data-center or AI/ML compute revenue figure or share; mentions of data center customers and AI/ML compute programs appear only in the company description (p01) and forward-looking assumptions/risk lists (p02, p03), which are boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 7165,
+  "output_tokens": 544,
+  "attempts": 1,
+  "task_sha": "f44515e376fb162d"
+ }
+}

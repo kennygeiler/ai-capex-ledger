@@ -1,0 +1,53 @@
+{
+ "accession": "LITE|earnings_release|2024-03-30|fc3cf170",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Our third-quarter revenue and EPS exceeded guidance midpoints, with data center revenues achieving a record quarter.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "Data center revenue described as a record quarter (fiscal Q3 2024) with no figure; the sentence names no year."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We are making significant strides in developing new products and customer programs, and expanding production capacity to capitalize on exciting opportunities that we expect will meaningfully increase calendar 2025 revenue and beyond.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "The sentence says 'calendar 2025', not fiscal 2025. The AI and cloud data center link comes from the preceding sentence in the same quote, not from this sentence. This is total revenue, not the AI part."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We are making significant strides in developing new products and customer programs, and expanding production capacity to capitalize on exciting opportunities that we expect will meaningfully increase calendar 2025 revenue and beyond.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "'Expanding production capacity' implies capital spending but does not say capital expenditures. The AI data center driver is stated in the preceding sentence, not in this one."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, headcount) to AI; 'developing new products' is too general to count"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.5,
+  "input_tokens": 4977,
+  "output_tokens": 1440,
+  "attempts": 1,
+  "task_sha": "3abfaf06fd72f9bd"
+ }
+}

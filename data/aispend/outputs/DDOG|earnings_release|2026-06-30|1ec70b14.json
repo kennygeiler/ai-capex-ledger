@@ -1,0 +1,27 @@
+{
+ "accession": "DDOG|earnings_release|2026-06-30|1ec70b14",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are mentioned only in forward-looking boilerplate and the free cash flow definition; no sentence links capex to AI or states an amount"
+  },
+  {
+   "field": "opex",
+   "reason": "research and development expenses are mentioned only in forward-looking boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the CEO quote says customers use the platform for AI-enabled solutions but no sentence states AI's amount or share of revenue or attributes revenue growth to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.7,
+  "input_tokens": 5542,
+  "output_tokens": 260,
+  "attempts": 1,
+  "task_sha": "8734bffc6a962814"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "ETN|earnings_release|2022-12-31|9002069b",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures of $598 million for 2022 are reported in p02, but no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only operating-expense mention is eMobility research and development and start-up costs; no sentence links operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "data center is cited only as a source of strength in order growth for Electrical Americas and Electrical Global; no sentence states an amount or share of revenue from AI or data centers, or attributes revenue to that demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.8,
+  "input_tokens": 9054,
+  "output_tokens": 403,
+  "attempts": 1,
+  "task_sha": "141bff99add44973"
+ }
+}

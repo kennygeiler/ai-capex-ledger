@@ -1,23 +1,27 @@
 {
  "accession": "COMP|earnings_release|2026-06-30|78022381",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "the only passage is a cash flow table listing capital expenditures (-22 and -9) with no sentence linking capital expenditures to AI"
+   "reason": "the only passage is a cash flow table; capital expenditures of $22 million appear with no link to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the passage is a cash flow table only"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 2.8,
-  "input_tokens": 5146,
-  "output_tokens": 179,
+  "seconds": 4.5,
+  "input_tokens": 5453,
+  "output_tokens": 177,
   "attempts": 1,
-  "task_sha": "9aa93962d312d40a"
+  "task_sha": "c465e9b5c08c5459"
  }
 }

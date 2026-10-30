@@ -1,23 +1,35 @@
 {
  "accession": "NVDA|mdna|2022-01-30|73a04d89",
- "prompt_version": "aispend@v3",
- "statements": [],
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Data Center revenue was up 58% from a year ago primarily driven by sales of NVIDIA Ampere architecture GPUs across both training and inference for cloud computing and AI workloads such as natural language processing and deep recommender models.",
+   "passage": "p05",
+   "confidence": 0.8,
+   "notes": "58% is year-over-year growth, not a share of total revenue or an amount, so recorded as qualitative; no dollar figure for Data Center revenue is stated. Sentence names no year; code applies the filing's reported year (fiscal 2022)."
+  }
+ ],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the only capex sentence (p09, approximately $1.4 billion for property and equipment in fiscal 2023) names no AI reason or driver"
+   "reason": "the only capex sentence (p12, ~$1.4 billion for fiscal 2023 property and equipment) does not link capital expenditures to AI"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; AI mentions describe products, revenue drivers or announcements"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.0,
-  "input_tokens": 6401,
-  "output_tokens": 277,
+  "seconds": 7.6,
+  "input_tokens": 7070,
+  "output_tokens": 629,
   "attempts": 1,
-  "task_sha": "6c9d7067e5fa1075"
+  "task_sha": "de72ed3cf90ebf7e"
  }
 }

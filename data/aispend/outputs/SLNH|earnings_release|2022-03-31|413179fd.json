@@ -1,0 +1,27 @@
+{
+ "accession": "SLNH|earnings_release|2022-03-31|413179fd",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capex sentence (p02, total revised to ~$180-$210 million) ties the change to crypto prices and equipment costs, not AI; p01's mention of AI is a description of what the data centers serve"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI's or data-center AI demand's part of revenue; p01 is boilerplate describing the business"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 5110,
+  "output_tokens": 328,
+  "attempts": 1,
+  "task_sha": "c2ba370ebf0735c7"
+ }
+}

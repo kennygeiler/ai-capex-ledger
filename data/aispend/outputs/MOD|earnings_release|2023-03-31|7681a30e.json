@@ -1,0 +1,46 @@
+{
+ "accession": "MOD|earnings_release|2023-03-31|7681a30e",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase was driven by higher sales in both segments, with particularly strong gains in sales of data center products, heat transfer products and air- and liquid-cooled products to the off-highway, automotive and commercial vehicle markets.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "Total fiscal 2023 net sales ($2,297.9 million) increase attributed in part to data center products; no data-center revenue amount or share stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2023,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This increase was driven by higher sales of data center cooling products, partially offset by lower sales of heat transfer and HVAC and refrigeration \u2022 products.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Refers to the Climate Solutions segment's fourth-quarter sales ($263.0 million), not full-year company revenue; data center cooling named as driver with no amount."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI or data-center demand"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.3,
+  "input_tokens": 6038,
+  "output_tokens": 957,
+  "attempts": 1,
+  "task_sha": "f048aae1480ef247"
+ }
+}

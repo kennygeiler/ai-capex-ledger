@@ -1,0 +1,27 @@
+{
+ "accession": "SLNH|mdna|2023-12-31|51fe68bc",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditure sentences (p04, p05, p06) concern data centers and Bitcoin mining build-outs generally; no sentence links capex amounts or shares to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "AI is mentioned only as an industry trend and expected demand (p03); no sentence states AI or AI data-center revenue as an amount or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.9,
+  "input_tokens": 6484,
+  "output_tokens": 331,
+  "attempts": 1,
+  "task_sha": "9a94d4dba375ca04"
+ }
+}

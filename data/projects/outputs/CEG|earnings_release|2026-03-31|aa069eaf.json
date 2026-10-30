@@ -1,0 +1,112 @@
+{
+ "accession": "CEG|earnings_release|2026-03-31|aa069eaf",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Pin Oak Creek Energy Center",
+   "kind": "power",
+   "status": "in_service",
+   "location": "Texas (ERCOT)",
+   "counterparty": null,
+   "capacity_mw": 460,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026-04-30",
+   "quote": "On April 30, 2026, our Pin Oak Creek Energy Center achieved commercial operation.",
+   "passage": "p03",
+   "confidence": 0.9
+  },
+  {
+   "name": "Pastoria Solar Project",
+   "kind": "power",
+   "status": "in_service",
+   "location": null,
+   "counterparty": "California Department of Water Resources (DWR)",
+   "capacity_mw": 105,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026-04-16",
+   "quote": "On April 16, 2026 we celebrated the commissioning of the 105 MW Pastoria Solar Project, the largest renewable energy project contracted by the California Department of Water Resources (DWR) to date in its mission to fully decarbonize its operations by 2035.",
+   "passage": "p02",
+   "confidence": 0.85
+  },
+  {
+   "name": "Pastoria Battery Energy Storage System",
+   "kind": "power",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 80,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "Also, co-located with the Pastoria Solar Project is the 80 MW/320 MWh Battery Energy Storage System, which will be coming online during the spring/summer of 2026.",
+   "passage": "p02",
+   "confidence": 0.7
+  },
+  {
+   "name": "Pastoria Power Bank power purchase agreement",
+   "kind": "power",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Pacific Gas and Electric Company",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The Pastoria Power Bank is contracted and supported by a 15-year power purchase agreement with Pacific Gas and Electric Company.",
+   "passage": "p02",
+   "confidence": 0.75
+  },
+  {
+   "name": "Freestone Energy Center CyrusOne data center",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Freestone County, Texas",
+   "counterparty": "CyrusOne",
+   "capacity_mw": 380,
+   "gpus": null,
+   "announced": "2026-02",
+   "in_service": null,
+   "quote": "In February we signed a 380 MW agreement with Dallas-based CyrusOne, a leading global data center developer and operator, to connect and serve a new data center adjacent to the Freestone Energy Center, in Freestone County, Texas.",
+   "passage": "p04",
+   "confidence": 0.9
+  },
+  {
+   "name": "Freestone Energy Center CyrusOne data center Phase 2",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Freestone County, Texas",
+   "counterparty": "CyrusOne",
+   "capacity_mw": 380,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We also entered into an exclusive agreement to provide power, grid connectivity and site infrastructure for Phase 2, which will be an additional 380 MW.",
+   "passage": "p04",
+   "confidence": 0.8
+  },
+  {
+   "name": "Data Center at Thad Hill Energy Center",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Data Center at Thad Hill Energy Center 780 MWs have been signed to-date with exclusivity for an incremental 380 MWs",
+   "passage": "p13",
+   "confidence": 0.45
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 21.3,
+  "input_tokens": 18439,
+  "output_tokens": 2657,
+  "attempts": 1,
+  "task_sha": "d7a3164fc323f6ba"
+ }
+}

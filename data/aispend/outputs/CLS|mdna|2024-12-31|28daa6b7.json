@@ -1,0 +1,56 @@
+{
+ "accession": "CLS|mdna|2024-12-31|28daa6b7",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 2800000000,
+   "amount_high": 2800000000,
+   "quote": "HPS revenue for 2024 increased 63% (to $2.8 billion) compared to 2023, and accounted for 29% of our total 2024 revenue (compared to 21% of our total 2023 revenue), driven by strong demand for networking products from hyperscaler customers.",
+   "passage": "p06",
+   "confidence": 0.7,
+   "notes": "HPS (Hardware Platform Solutions) is data-center infrastructure (networking switches, compute and storage) sold to hyperscalers. It is treated as data-center revenue. The filing does not label it AI revenue."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2024,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_share",
+   "share": 0.29,
+   "quote": "HPS revenue for 2024 increased 63% (to $2.8 billion) compared to 2023, and accounted for 29% of our total 2024 revenue (compared to 21% of our total 2023 revenue), driven by strong demand for networking products from hyperscaler customers.",
+   "passage": "p06",
+   "confidence": 0.7,
+   "notes": "Same sentence as the amount statement. HPS is treated as data-center revenue, which is not explicitly AI."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": 2025,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Our intended 2025 capital spending is geared towards capacity expansion at certain sites in support of demand for AI/ML compute and HPS programs.",
+   "passage": "p11",
+   "confidence": 0.9,
+   "notes": "The total 2025 capex is guided at 1.5% to 2.0% of revenue in the preceding sentence, which does not mention AI. This sentence links the total to AI/ML compute without quantifying the AI part."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI; the higher Q4 R&D is attributed to the HPS business, not explicitly to AI, and is quarterly"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.2,
+  "input_tokens": 12240,
+  "output_tokens": 1592,
+  "attempts": 1,
+  "task_sha": "e3994214f5da649d"
+ }
+}

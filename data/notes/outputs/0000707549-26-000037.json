@@ -1,0 +1,152 @@
+{
+ "accession": "0000707549-26-000037",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "ppe_category",
+   "dimension": "Manufacturing and engineering equipment",
+   "table_id": "t0049",
+   "row_label": "Manufacturing and engineering equipment",
+   "column_label": "June 28,2026",
+   "cell_text": "2,559,970",
+   "period_end": "2026-06-28",
+   "months": 0,
+   "value": 2559970000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Manufacturing and engineering equipment",
+   "table_id": "t0049",
+   "row_label": "Manufacturing and engineering equipment",
+   "column_label": "June 29,2025",
+   "cell_text": "2,219,207",
+   "period_end": "2025-06-29",
+   "months": 0,
+   "value": 2219207000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0049",
+   "row_label": "Buildings and improvements",
+   "column_label": "June 28,2026",
+   "cell_text": "2,289,208",
+   "period_end": "2026-06-28",
+   "months": 0,
+   "value": 2289208000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings and improvements",
+   "table_id": "t0049",
+   "row_label": "Buildings and improvements",
+   "column_label": "June 29,2025",
+   "cell_text": "1,914,570",
+   "period_end": "2025-06-29",
+   "months": 0,
+   "value": 1914570000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer and computer-related equipment",
+   "table_id": "t0049",
+   "row_label": "Computer and computer-related equipment",
+   "column_label": "June 28,2026",
+   "cell_text": "192,354",
+   "period_end": "2026-06-28",
+   "months": 0,
+   "value": 192354000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Computer and computer-related equipment",
+   "table_id": "t0049",
+   "row_label": "Computer and computer-related equipment",
+   "column_label": "June 29,2025",
+   "cell_text": "182,439",
+   "period_end": "2025-06-29",
+   "months": 0,
+   "value": 182439000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0049",
+   "row_label": "Land",
+   "column_label": "June 28,2026",
+   "cell_text": "264,507",
+   "period_end": "2026-06-28",
+   "months": 0,
+   "value": 264507000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0049",
+   "row_label": "Land",
+   "column_label": "June 29,2025",
+   "cell_text": "166,207",
+   "period_end": "2025-06-29",
+   "months": 0,
+   "value": 166207000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office equipment, furniture and fixtures",
+   "table_id": "t0049",
+   "row_label": "Office equipment, furniture and fixtures",
+   "column_label": "June 28,2026",
+   "cell_text": "114,797",
+   "period_end": "2026-06-28",
+   "months": 0,
+   "value": 114797000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Office equipment, furniture and fixtures",
+   "table_id": "t0049",
+   "row_label": "Office equipment, furniture and fixtures",
+   "column_label": "June 29,2025",
+   "cell_text": "92,740",
+   "period_end": "2025-06-29",
+   "months": 0,
+   "value": 92740000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the company has a single reportable segment; the segment note (t0062) reports revenue, COGS and gross margin only, with no capital expenditures"
+  },
+  {
+   "field": "segment_revenue",
+   "reason": "the company has a single reportable segment, so the only revenue row in t0062 is the consolidated total; no per-segment or per-market revenue breakdown is given in these tables"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no finance lease liability line is given; the balance sheet (t0029) combines finance lease obligations with long-term debt, and t0055 shows only cash flows and right-of-use additions"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included in the provided tables"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.8,
+  "input_tokens": 6477,
+  "output_tokens": 1821,
+  "attempts": 1,
+  "task_sha": "6fa6bd1b9eebf14a"
+ }
+}

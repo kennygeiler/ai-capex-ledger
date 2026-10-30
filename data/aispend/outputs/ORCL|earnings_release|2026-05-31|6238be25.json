@@ -1,6 +1,6 @@
 {
  "accession": "ORCL|earnings_release|2026-05-31|6238be25",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -11,21 +11,32 @@
    "quote": "Oracle\u2019s capital investment program supports the pursuit of unprecedented opportunities in AI Cloud Infrastructure as described at our most recent Financial Analyst Meeting.",
    "passage": "p01",
    "confidence": 0.7,
-   "notes": "Present tense with no year. Read as describing the ongoing capital program, so recorded as actual for the reporting year; it could also be read as forward-looking. No capex amount is stated anywhere in the passages. The debt and equity financing figures ($43B and $5B raised in FY2026, about $40B expected in FY2027) are funding, not capex, so they are not recorded. The $75B of prepaid or customer-supplied GPUs is part of contract value, not Oracle capex, so it is not recorded either."
+   "notes": "Present tense with no year and no amount. It describes the overall capital investment program as supporting AI cloud infrastructure, not a quantified AI part. Recorded as actual for the reported year (fiscal 2026), though it could also be read as forward-looking."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The large increases in Oracle\u2019s RPO and revenue are driven by the growing demand for cloud infrastructure for AI training and inferencing.",
+   "passage": "p01",
+   "confidence": 0.8,
+   "notes": "AI demand is named as the driver of total revenue growth. No AI revenue amount or share is stated. The IaaS revenue figures are not recorded because the filing does not state them as AI revenue."
   }
  ],
  "none_found": [
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes research and development, infrastructure or headcount operating expenses to AI; 'operating efficiency actions' is not linked to AI"
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 13.4,
-  "input_tokens": 8812,
-  "output_tokens": 977,
+  "seconds": 12.6,
+  "input_tokens": 9117,
+  "output_tokens": 1254,
   "attempts": 1,
-  "task_sha": "88de8fa8d013ed96"
+  "task_sha": "e32ba18b1ae61b04"
  }
 }

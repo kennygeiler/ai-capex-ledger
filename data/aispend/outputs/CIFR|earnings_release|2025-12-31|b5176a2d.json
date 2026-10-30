@@ -1,23 +1,27 @@
 {
  "accession": "CIFR|earnings_release|2025-12-31|b5176a2d",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence states or attributes capital expenditures to AI; the $2.0Bn and $1.4Bn figures are high-yield bond financings for the Black Pearl and Barber Lake data center developments, not reported or guided capital expenditures, and the HPC lease and capacity items describe contracts and megawatts, not spend"
+   "reason": "no sentence states capital expenditures or links them to AI; the $2.0Bn (Black Pearl) and $1.4Bn (Barber Lake) figures are bond financings for HPC data center development, not stated capex amounts"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure costs, headcount) to AI; the only expense references are non-GAAP boilerplate about share-based compensation and depreciation"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue for fiscal 2025 or a specific outlook year; the only figure is '~$9.3 Bn Contracted Revenue' (p04), slide text with no complete sentence, describing total contracted HPC lease revenue over 10-15 year lease terms rather than a single fiscal year"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 6.3,
-  "input_tokens": 7856,
-  "output_tokens": 333,
+  "seconds": 6.5,
+  "input_tokens": 8365,
+  "output_tokens": 656,
   "attempts": 1,
-  "task_sha": "4088b34b8265d52a"
+  "task_sha": "c1709d0381540800"
  }
 }

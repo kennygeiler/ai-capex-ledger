@@ -1,6 +1,6 @@
 {
  "accession": "0001083301-24-000072",
- "prompt_version": "notes@v2",
+ "prompt_version": "notes@v3",
  "values": [
   {
    "field": "ppe_category",
@@ -108,7 +108,8 @@
    "period_end": "2023-12-31",
    "months": 0,
    "value": 104000,
-   "confidence": 1.0
+   "confidence": 1.0,
+   "notes": "The December 31, 2022 cell is shown as \"\u2014\" with no value, so it is not cited."
   },
   {
    "field": "ppe_category",
@@ -120,7 +121,8 @@
    "period_end": "2023-12-31",
    "months": 0,
    "value": 36469000,
-   "confidence": 0.8
+   "confidence": 0.8,
+   "notes": "Deposits on miners are prepayments, not a physical asset category. They are included because the filing lists them as a line within gross property and equipment, before accumulated depreciation."
   },
   {
    "field": "ppe_category",
@@ -132,34 +134,34 @@
    "period_end": "2022-12-31",
    "months": 0,
    "value": 57626000,
-   "confidence": 0.8
+   "confidence": 0.8,
+   "notes": "Deposits on miners are prepayments, not a physical asset category. They are included because the filing lists them as a line within gross property and equipment, before accumulated depreciation."
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "no segment note table provided; only the property and equipment table is present"
+   "reason": "No segment note table was provided. Only the property and equipment table (t0028) is present."
   },
   {
    "field": "segment_revenue",
-   "reason": "no segment note table provided; only the property and equipment table is present"
+   "reason": "No segment note or revenue disaggregation table was provided. Only the property and equipment table (t0028) is present."
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no lease note table provided"
+   "reason": "No lease note table was provided. Only the property and equipment table (t0028) is present."
   },
   {
    "field": "purchase_commitments",
-   "reason": "no commitments or contractual-obligations table provided"
+   "reason": "No commitments or contractual obligations table was provided. Only the property and equipment table (t0028) is present."
   }
  ],
- "notes": "Vehicles at December 31, 2022 shows '\u2014' (nil) and is omitted. 'Deposits on miners' is included at 0.8 confidence: it is an advance payment rather than a placed-in-service asset class, but the filing lists it as a line within gross property and equipment and it sums into the 240,268 / 198,188 gross totals. Unlabeled total rows and accumulated depreciation are skipped.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 12.0,
-  "input_tokens": 4362,
-  "output_tokens": 1638,
+  "seconds": 14.3,
+  "input_tokens": 4492,
+  "output_tokens": 1939,
   "attempts": 1,
-  "task_sha": "465f1e114e5c5904"
+  "task_sha": "fd92d1a51c786550"
  }
 }

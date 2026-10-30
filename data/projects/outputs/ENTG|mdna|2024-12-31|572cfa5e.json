@@ -1,0 +1,70 @@
+{
+ "accession": "ENTG|mdna|2024-12-31|572cfa5e",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Colorado Springs, Colorado manufacturing facility",
+   "kind": "plant",
+   "status": "under_construction",
+   "location": "Colorado Springs, Colorado",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We expect capital expenditure spending to be approximately $325.0 million in 2025 and includes spending for construction of, and tools and equipment in our new manufacturing facility in Colorado Springs, Colorado.",
+   "passage": "p14",
+   "confidence": 0.8
+  },
+  {
+   "name": "Colorado Springs, Colorado manufacturing facility",
+   "kind": "plant",
+   "status": "contracted",
+   "location": "Colorado Springs, Colorado",
+   "counterparty": "U.S. Department of Commerce",
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2024-12-03",
+   "in_service": null,
+   "quote": "On December 3, 2024, the Company and the U.S. Department of Commerce entered into a definitive agreement providing for up to $77.0 million in direct funding to the Company under the CHIPS and Science Act of 2022.",
+   "passage": "p01",
+   "confidence": 0.6
+  },
+  {
+   "name": "Taiwan manufacturing facility",
+   "kind": "plant",
+   "status": "in_service",
+   "location": "Taiwan",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The decrease in APS\u2019s profit in 2024 was primarily due to increased costs associated with the ramp up of our new manufacturing facility in Taiwan and higher operating expenses.",
+   "passage": "p05",
+   "confidence": 0.7
+  },
+  {
+   "name": "KSP site",
+   "kind": "plant",
+   "status": "announced",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Capital expenditures in 2024 included spending related to our previously announced investment in our KSP site and new manufacturing facility in Colorado Springs, Colorado.",
+   "passage": "p07",
+   "confidence": 0.6
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.2,
+  "input_tokens": 6336,
+  "output_tokens": 1205,
+  "attempts": 1,
+  "task_sha": "93dee0d90087fb70"
+ }
+}

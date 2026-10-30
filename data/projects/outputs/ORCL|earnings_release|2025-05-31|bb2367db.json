@@ -1,0 +1,42 @@
+{
+ "accession": "ORCL|earnings_release|2025-05-31|bb2367db",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "MultiCloud datacenters",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We currently have 23 MultiCloud datacenters live with 47 more being built over the next 12 months.",
+   "passage": "p01",
+   "confidence": 0.45
+  },
+  {
+   "name": "Oracle Cloud@Customer dedicated datacenters",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "We have 29 Oracle Cloud@Customer dedicated datacenters live with another 30 being built in FY26.",
+   "passage": "p01",
+   "confidence": 0.4
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.3,
+  "input_tokens": 7048,
+  "output_tokens": 790,
+  "attempts": 1,
+  "task_sha": "7ca1c6dc68626134"
+ }
+}

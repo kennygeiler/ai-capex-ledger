@@ -1,0 +1,27 @@
+{
+ "accession": "DLR|earnings_release|2022-12-31|ec8eebc5",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states capital expenditures or links them to AI; capex appears only in non-GAAP definitions and forward-looking boilerplate (p07, p11, p12)"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence mentions AI; the only revenue figure is total Q4 2022 revenue of $1.2 billion with no AI driver (p02), and 'Data Center Revenue' in p10 is a defined non-GAAP measure (total revenue less tenant reimbursements) given only as growth rates, with no amount and no AI link"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.9,
+  "input_tokens": 16022,
+  "output_tokens": 659,
+  "attempts": 1,
+  "task_sha": "5cf3c82567e56c77"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "NRG|earnings_release|2026-06-30|acac524e",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in cash flow and guidance tables (total, maintenance, environmental) with no sentence linking them to AI or data centers; the CEO's mention of the Bring Your Own Power data center strategy states no spend"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses, R&D or headcount to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "power producer/retailer; no sentence states revenue from AI or data-center customers, and the data center strategy mention gives no revenue figure or share"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.7,
+  "input_tokens": 8424,
+  "output_tokens": 355,
+  "attempts": 1,
+  "task_sha": "5a2a728e8c1a7523"
+ }
+}

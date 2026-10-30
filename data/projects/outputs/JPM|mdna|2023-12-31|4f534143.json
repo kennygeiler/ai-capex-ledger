@@ -1,0 +1,13 @@
+{
+ "accession": "JPM|mdna|2023-12-31|4f534143",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.7,
+  "input_tokens": 12037,
+  "output_tokens": 48,
+  "attempts": 1,
+  "task_sha": "1c456c1e7412b223"
+ }
+}

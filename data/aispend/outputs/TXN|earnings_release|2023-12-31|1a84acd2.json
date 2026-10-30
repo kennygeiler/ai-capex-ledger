@@ -1,23 +1,27 @@
 {
  "accession": "TXN|earnings_release|2023-12-31|1a84acd2",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the only mention of capital expenditures is a footnote defining free cash flow"
+   "reason": "no sentence links capital expenditures to AI; capex is mentioned only in the free cash flow definition"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the passage covers only revenue, EPS and tax-rate outlook"
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the revenue outlook is total revenue with no AI or data-center attribution; no sentence states AI's part of revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.4,
-  "input_tokens": 4525,
-  "output_tokens": 193,
+  "seconds": 4.5,
+  "input_tokens": 4830,
+  "output_tokens": 198,
   "attempts": 1,
-  "task_sha": "9e5f2d5d91ffc470"
+  "task_sha": "9e58703f0f489af6"
  }
 }

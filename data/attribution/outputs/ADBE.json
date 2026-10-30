@@ -1,0 +1,109 @@
+{
+ "ticker": "ADBE",
+ "prompt_version": "attribution@v2",
+ "model": "ai_software@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "stated_amount",
+   "ai_amount": 250000000,
+   "ai_share": 0.0105,
+   "inputs": [
+    {
+     "id": "stmt:ADBE|earnings_release|2025-08-29|d7b6a129|revenue|FY2025|actual|1",
+     "value": 250000000
+    }
+   ],
+   "basis": "AI-first ARR stated as 'already exceeding' $250 million in the Q3 FY2025 release. This is an annual run rate at a point in time, not fiscal-year revenue, and the figure is a floor; the share is 250M \u00f7 FY2025 revenue of 23,769M. The separate $5 billion of 'AI-influenced' ARR counts deals that include AI rather than AI revenue, so it is not used. No segment (Digital Media, Digital Experience, Publishing and Advertising) is an AI line.",
+   "confidence": 0.4
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2024 MD&A names AI training costs within R&D and AI inferencing costs within cost of subscription revenue, as parts of third-party hosting and data-center costs, but gives no amount. No cloud purchase commitments are in the pack.",
+   "confidence": 0.3
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The FY2025 MD&A repeats the FY2024 wording, with AI training costs in R&D and AI inferencing costs in cost of subscription revenue, and gives no amount. No cloud purchase commitments are in the pack.",
+   "confidence": 0.3
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "Adobe does not state any AI part of capex or any purchase of its own GPUs. Under the thesis, capex is not attributed from PP&E categories."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "Adobe does not state any AI part of capex. The jump in buildings PP&E is real estate and is not stated as AI."
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "reason": "Adobe does not state any AI part of capex or any purchase of its own GPUs."
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "reason": "Adobe does not state any AI part of capex or any purchase of its own GPUs."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "No statement in the pack attributes FY2022 costs to AI."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "No statement in the pack attributes FY2023 costs to AI."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "No AI revenue, ARR or share is stated, and the segments are not AI lines."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "No AI revenue, ARR or share is stated, and the segments are not AI lines."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "reason": "No AI revenue, ARR or share is stated, and the segments are not AI lines."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "reason": "FY2026 is not a closed year in the pack's values. The FY2026 releases give only qualitative AI statements: AI-first ARR 'more than tripling' in Q1, and 'AI-driven demand' alongside total Q2 revenue of $6.62B. No dollar figure for AI is given."
+  },
+  {
+   "field": "opex",
+   "reason": "No cloud purchase commitments or finance lease facts are in the pack, so no committed AI compute can be recorded for any year."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.7,
+  "input_tokens": 13637,
+  "output_tokens": 2178,
+  "attempts": 1,
+  "task_sha": "d7e0670ed425c54d"
+ }
+}

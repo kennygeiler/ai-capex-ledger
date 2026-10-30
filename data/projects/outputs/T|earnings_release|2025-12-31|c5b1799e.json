@@ -1,0 +1,13 @@
+{
+ "accession": "T|earnings_release|2025-12-31|c5b1799e",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.2,
+  "input_tokens": 4925,
+  "output_tokens": 50,
+  "attempts": 1,
+  "task_sha": "7f339a50d4da18c6"
+ }
+}

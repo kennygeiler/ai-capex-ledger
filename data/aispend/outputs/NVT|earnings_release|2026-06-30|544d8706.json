@@ -1,0 +1,42 @@
+{
+ "accession": "NVT|earnings_release|2026-06-30|544d8706",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "We saw significant data center growth and new products contributed more than 30 points to sales growth.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Says data center sales grew significantly in the quarter but gives no amount or share. The '30 points' figure is about new products, not data center, so it is not recorded as a data center share. The sentence names no year; it describes the second quarter of fiscal 2026."
+  },
+  {
+   "field": "capex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Today we announced another manufacturing expansion for liquid cooling to meet continued data center demand.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "A planned manufacturing expansion, which implies capital spending, is tied to data center demand. The sentence does not mention capital expenditures or a dollar amount, and it says data center rather than AI."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI or data center"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.4,
+  "input_tokens": 4902,
+  "output_tokens": 887,
+  "attempts": 1,
+  "task_sha": "9cf84badc31c8c84"
+ }
+}

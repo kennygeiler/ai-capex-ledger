@@ -1,0 +1,27 @@
+{
+ "accession": "FLEX|earnings_release|2026-06-26|2b48122a",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is company-description boilerplate; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is company-description boilerplate; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the passage describes data center offerings in general terms (boilerplate) but states no AI or data-center revenue figure, share, or attribution"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 4.5,
+  "input_tokens": 4898,
+  "output_tokens": 217,
+  "attempts": 1,
+  "task_sha": "48f9a8d0af0a8d0b"
+ }
+}

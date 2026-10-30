@@ -1,0 +1,28 @@
+{
+ "accession": "TMUS|mdna|2025-12-31|079985e2",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Nationwide 5G network",
+   "kind": "network",
+   "status": "under_construction",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "$10.0 billion in Purchases of property and equipment, including capitalized interest, from the continued build-out of our nationwide 5G network, including increased greenfield site builds, and incremental capital expenditures following the acquisition of UScellular;",
+   "passage": "p01",
+   "confidence": 0.4
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 13.5,
+  "input_tokens": 5910,
+  "output_tokens": 600,
+  "attempts": 1,
+  "task_sha": "8d00b8d06ee2ca63"
+ }
+}

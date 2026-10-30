@@ -1,23 +1,27 @@
 {
  "accession": "ORCL|earnings_release|2023-08-31|3a371641",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence mentions capital expenditures or links them to AI"
   },
   {
    "field": "opex",
-   "reason": "no passage in the text mentions AI next to spending"
+   "reason": "no sentence quantifies or attributes operating expenses to AI; 'continued expense discipline' is not linked to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; Oracle Cloud Infrastructure and total cloud services revenue are cloud segments, not stated as AI revenue"
   }
  ],
  "_run": {
-  "model": null,
-  "seconds": 0.0,
-  "input_tokens": 0,
-  "output_tokens": 0,
-  "attempts": 0,
-  "task_sha": "e8df148fdfb17ebd"
+  "model": "claude-opus-5-5",
+  "seconds": 3.0,
+  "input_tokens": 4951,
+  "output_tokens": 223,
+  "attempts": 1,
+  "task_sha": "25b2aef396ed4bfb"
  }
 }

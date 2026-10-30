@@ -1,0 +1,37 @@
+{
+ "accession": "HUT|earnings_release|2024-03-31|4910c8cc",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 20000000,
+   "amount_high": 20000000,
+   "quote": "We expect to begin generating revenue in the second half of the year at a forecasted annual rate of approximately $20 million.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Revenue from the new AI GPU-as-a-service vertical (previous sentence). 'The year' is not named; from context it means the current year (2024), but fiscal_year is left null per rule 4, so the code default (year after the reported year) would not match. $20M is a forecast annualized run rate starting H2, not a full-year revenue figure."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; the depreciation in p02 relates to Bitcoin mining equipment"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.7,
+  "input_tokens": 6316,
+  "output_tokens": 791,
+  "attempts": 1,
+  "task_sha": "8ab57ab34452991f"
+ }
+}

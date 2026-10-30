@@ -1,23 +1,27 @@
 {
  "accession": "IBM|earnings_release|2023-06-30|1dcd9b9b",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; the passage only defines free cash flow as net of capital expenditures"
+   "reason": "the only capital-expenditure mention defines free cash flow (net capital expenditures, including investment in software); no sentence links capital expenditures to AI"
   },
   {
    "field": "opex",
    "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "passage covers non-GAAP measure definitions and free cash flow; no sentence states AI or data-center revenue"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 3.1,
-  "input_tokens": 5136,
-  "output_tokens": 164,
+  "seconds": 2.9,
+  "input_tokens": 5439,
+  "output_tokens": 229,
   "attempts": 1,
-  "task_sha": "5365671788e0c6e2"
+  "task_sha": "d38cd74f640f985a"
  }
 }

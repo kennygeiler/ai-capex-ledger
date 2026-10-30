@@ -1,0 +1,197 @@
+{
+ "accession": "0000866374-25-000027",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "FAS",
+   "table_id": "t0069",
+   "row_label": "Net Sales",
+   "column_label": "FAS",
+   "cell_text": "14,074",
+   "period_end": "2025-03-31",
+   "months": 12,
+   "value": 14074000000,
+   "confidence": 0.8
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "FRS",
+   "table_id": "t0069",
+   "row_label": "Net Sales",
+   "column_label": "FRS",
+   "cell_text": "11,739",
+   "period_end": "2025-03-31",
+   "months": 12,
+   "value": 11739000000,
+   "confidence": 0.8
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0030",
+   "row_label": "Machinery and equipment",
+   "column_label": "As of March 31, | 2025",
+   "cell_text": "3,978",
+   "period_end": "2025-03-31",
+   "months": 0,
+   "value": 3978000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Machinery and equipment",
+   "table_id": "t0030",
+   "row_label": "Machinery and equipment",
+   "column_label": "As of March 31, | 2024",
+   "cell_text": "3,960",
+   "period_end": "2024-03-31",
+   "months": 0,
+   "value": 3960000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0030",
+   "row_label": "Buildings",
+   "column_label": "As of March 31, | 2025",
+   "cell_text": "1,342",
+   "period_end": "2025-03-31",
+   "months": 0,
+   "value": 1342000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings",
+   "table_id": "t0030",
+   "row_label": "Buildings",
+   "column_label": "As of March 31, | 2024",
+   "cell_text": "1,212",
+   "period_end": "2024-03-31",
+   "months": 0,
+   "value": 1212000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0030",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of March 31, | 2025",
+   "cell_text": "669",
+   "period_end": "2025-03-31",
+   "months": 0,
+   "value": 669000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0030",
+   "row_label": "Leasehold improvements",
+   "column_label": "As of March 31, | 2024",
+   "cell_text": "651",
+   "period_end": "2024-03-31",
+   "months": 0,
+   "value": 651000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures, computer equipment and software, and other",
+   "table_id": "t0030",
+   "row_label": "Furniture, fixtures, computer equipment and software, and other",
+   "column_label": "As of March 31, | 2025",
+   "cell_text": "564",
+   "period_end": "2025-03-31",
+   "months": 0,
+   "value": 564000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture, fixtures, computer equipment and software, and other",
+   "table_id": "t0030",
+   "row_label": "Furniture, fixtures, computer equipment and software, and other",
+   "column_label": "As of March 31, | 2024",
+   "cell_text": "549",
+   "period_end": "2024-03-31",
+   "months": 0,
+   "value": 549000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0030",
+   "row_label": "Land",
+   "column_label": "As of March 31, | 2025",
+   "cell_text": "126",
+   "period_end": "2025-03-31",
+   "months": 0,
+   "value": 126000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0030",
+   "row_label": "Land",
+   "column_label": "As of March 31, | 2024",
+   "cell_text": "123",
+   "period_end": "2024-03-31",
+   "months": 0,
+   "value": 123000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction-in-progress",
+   "table_id": "t0030",
+   "row_label": "Construction-in-progress",
+   "column_label": "As of March 31, | 2025",
+   "cell_text": "271",
+   "period_end": "2025-03-31",
+   "months": 0,
+   "value": 271000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction-in-progress",
+   "table_id": "t0030",
+   "row_label": "Construction-in-progress",
+   "column_label": "As of March 31, | 2024",
+   "cell_text": "214",
+   "period_end": "2024-03-31",
+   "months": 0,
+   "value": 214000000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "the segment table (t0069) reports net sales, cost components and segment income only; no capital expenditures by segment appear in the provided tables"
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "no lease note table is included in the provided tables"
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "no contractual-obligations or commitments table is included in the provided tables"
+  }
+ ],
+ "notes": "segment_revenue: t0069 columns are segments (FAS, FRS, Corporate & Other, Total) rather than fiscal years; its total net sales (25,813) matches FY2025 in t0023, so the values were assigned to the fiscal year ended 2025-03-31 (confidence 0.8). The table unit was not stated with the table and was assumed to be millions, consistent with t0023. Corporate & Other net sales is '\u2014' and was skipped. No FY2024 segment revenue table was provided. ppe_category: the unlabeled total row and the accumulated depreciation and net rows were excluded, and the depreciable-life column [0] was ignored.",
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.5,
+  "input_tokens": 8150,
+  "output_tokens": 2469,
+  "attempts": 1,
+  "task_sha": "7ebc194411f2b5bc"
+ }
+}

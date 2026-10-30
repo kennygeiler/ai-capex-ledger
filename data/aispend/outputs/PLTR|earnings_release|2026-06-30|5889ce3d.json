@@ -1,0 +1,27 @@
+{
+ "accession": "PLTR|earnings_release|2026-06-30|5889ce3d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence mentions capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "the passage gives growth rates for U.S. commercial and total revenue but no sentence states an AI revenue amount or share, or attributes revenue to AI demand; the AI sovereignty remarks are general commentary, not revenue attribution"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.3,
+  "input_tokens": 4939,
+  "output_tokens": 374,
+  "attempts": 1,
+  "task_sha": "f379796c1820928f"
+ }
+}

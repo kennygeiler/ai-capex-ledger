@@ -1,0 +1,46 @@
+{
+ "accession": "ETN|earnings_release|2025-09-30|846f65a6",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Fibrebond Corporation acquisition",
+   "kind": "other",
+   "status": "in_service",
+   "location": null,
+   "counterparty": "Fibrebond Corporation",
+   "amount_low": 1450000000,
+   "amount_high": 1450000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025-04-01",
+   "quote": "On April 1, 2025, Eaton acquired Fibrebond Corporation (Fibrebond) for $1.45 billion, net of cash acquired.",
+   "passage": "p03",
+   "confidence": 0.4
+  },
+  {
+   "name": "Boyd Thermal acquisition",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Boyd Thermal",
+   "amount_low": 9500000000,
+   "amount_high": 9500000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2025-11-02",
+   "in_service": null,
+   "quote": "Under the terms of the agreement, Eaton will pay $9.5 billion for Boyd Thermal.",
+   "passage": "p06",
+   "confidence": 0.4
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 12.4,
+  "input_tokens": 6111,
+  "output_tokens": 1127,
+  "attempts": 1,
+  "task_sha": "7ca2a35b7b63d4ed"
+ }
+}

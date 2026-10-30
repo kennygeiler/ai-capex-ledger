@@ -1,0 +1,35 @@
+{
+ "accession": "SITM|earnings_release|2025-06-30|4f9d00ad",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Revenue from our Communications, Enterprise, and Data Center market (CED) grew 137% year over year, fueled by AI that created strong demand for our Precision Timing solutions.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Attributes growth in CED segment revenue (which includes data center) to AI demand. 137% is a growth rate, not an amount or share of revenue, so the class is qualitative. CED also covers communications and enterprise, so it is broader than data-center revenue alone. The period is the quarter ended 2025-06-30, not a full fiscal year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.7,
+  "input_tokens": 4838,
+  "output_tokens": 798,
+  "attempts": 1,
+  "task_sha": "393b5c7309cf76ef"
+ }
+}

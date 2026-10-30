@@ -1,0 +1,27 @@
+{
+ "accession": "ONTO|earnings_release|2026-01-03|27d60a09",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "passage is forward-looking-statement boilerplate and a company description; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI, data-center, or AI-related revenue as an amount or share; only safe-harbor boilerplate and a product description"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.5,
+  "input_tokens": 5894,
+  "output_tokens": 207,
+  "attempts": 1,
+  "task_sha": "66c736e4b79970df"
+ }
+}

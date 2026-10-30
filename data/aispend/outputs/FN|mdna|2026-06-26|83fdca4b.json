@@ -1,0 +1,37 @@
+{
+ "accession": "FN|mdna|2026-06-26|83fdca4b",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "explicit_amount",
+   "amount_low": 2225100000,
+   "amount_high": 2225100000,
+   "quote": "Revenues from data center products, which represented $2,225.1 million, or 47.9%, of our revenues for fiscal year 2026, increased by $645.2 million, or 40.8%, compared to the prior fiscal year.",
+   "passage": "p03",
+   "confidence": 1.0,
+   "notes": "The same sentence states a share of 47.9% of total revenue. The p02 table gives the exact figure of $2,225,081 thousand. Fiscal 2025 data center revenue ($1,579.9 million, p04) is a prior year and is not recorded."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capex discussion (p05) cites manufacturing buildings and capacity expansion in Thailand and California; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.1,
+  "input_tokens": 6186,
+  "output_tokens": 862,
+  "attempts": 1,
+  "task_sha": "5dbc2bf15b7c1b2a"
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "accession": "MRVL|mdna|2026-01-31|3c6794d2",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Celestial AI acquisition",
+   "kind": "other",
+   "status": "contracted",
+   "location": null,
+   "counterparty": "Celestial AI, Inc.",
+   "amount_low": 1300000000,
+   "amount_high": 1300000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026-02-02",
+   "quote": "At acquisition close, we paid approximately $1.3 billion in cash (or $1.0 billion, net of cash acquired of approximately $300.0 million) and issued approximately 24.5 million shares of our common stock.",
+   "passage": "p02",
+   "confidence": 0.45
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.6,
+  "input_tokens": 4966,
+  "output_tokens": 634,
+  "attempts": 1,
+  "task_sha": "cdf7cd38d38cd44f"
+ }
+}

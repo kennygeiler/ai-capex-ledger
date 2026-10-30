@@ -1,0 +1,27 @@
+{
+ "accession": "FLEX|earnings_release|2025-03-31|16481791",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage covers customer related asset impairments; no sentence states or links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue or AI's share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 3.3,
+  "input_tokens": 5023,
+  "output_tokens": 196,
+  "attempts": 1,
+  "task_sha": "87a338ba78c14894"
+ }
+}

@@ -1,30 +1,74 @@
 {
- "at": "2026-10-29T21:42:52+00:00",
+ "at": "2026-10-30T07:21:42+00:00",
  "scope": "stage3",
- "changed": 2,
+ "changed": 6,
  "new": 0,
- "removed": 6,
+ "removed": 24,
  "rows": [
   {
-   "key": "GOOGL|capex|FY2024|actual",
+   "key": "LITE|revenue|FY2023|actual",
    "before": [
-    "qualitative",
-    null
+    "segment",
+    1322500000
    ],
    "after": [
-    "ppe_category",
-    29348000000
+    "qualitative",
+    null
    ]
   },
   {
-   "key": "GOOGL|capex|FY2025|actual",
+   "key": "LITE|revenue|FY2024|actual",
    "before": [
+    "segment",
+    1084900000
+   ],
+   "after": [
     "qualitative",
+    null
+   ]
+  },
+  {
+   "key": "LITE|revenue|FY2025|actual",
+   "before": [
+    "segment",
+    1410800000
+   ],
+   "after": [
+    "qualitative",
+    null
+   ]
+  },
+  {
+   "key": "RIOT|revenue|FY2024|actual",
+   "before": [
+    "none",
     null
    ],
    "after": [
-    "ppe_category",
-    61827000000
+    "qualitative",
+    null
+   ]
+  },
+  {
+   "key": "RIOT|revenue|FY2025|actual",
+   "before": [
+    "none",
+    null
+   ],
+   "after": [
+    "qualitative",
+    null
+   ]
+  },
+  {
+   "key": "TLN|revenue|FY2025|actual",
+   "before": [
+    "none",
+    null
+   ],
+   "after": [
+    "qualitative",
+    null
    ]
   }
  ]

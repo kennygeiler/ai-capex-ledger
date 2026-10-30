@@ -1,0 +1,27 @@
+{
+ "accession": "AEIS|earnings_release|2026-03-31|e0a3035d",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only passage is a revenue-by-market table; no sentence mentions capital expenditures"
+  },
+  {
+   "field": "opex",
+   "reason": "the only passage is a revenue-by-market table; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no complete sentence states data-center or AI revenue; p01 is a garbled quarterly table whose 'Data Center Computing' row shows 194.2 for the quarter ended March 31, 2026 (vs 96.2 and 177.9). The units (presumably $ millions) and the column-to-period mapping are not stated in a sentence, and the figure is quarterly, not fiscal-year, so it is not recorded as a statement"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 9.6,
+  "input_tokens": 5015,
+  "output_tokens": 1013,
+  "attempts": 1,
+  "task_sha": "a6e7ee5ff504d31f"
+ }
+}

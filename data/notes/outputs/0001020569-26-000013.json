@@ -1,0 +1,298 @@
+{
+ "accession": "0001020569-26-000013",
+ "prompt_version": "notes@v3",
+ "values": [
+  {
+   "field": "segment_revenue",
+   "dimension": "GLOBAL RIM BUSINESS",
+   "table_id": "t0348",
+   "row_label": "Total Revenues",
+   "column_label": "GLOBAL RIM BUSINESS",
+   "cell_text": "5,291,481",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 5291481000,
+   "confidence": 0.9,
+   "notes": "Segments are columns; the year comes from the first row block. That block has no header shown, so it is inferred to be FY2025 (its totals tie to the 6,901,737 consolidated revenue). Segment-level revenue was chosen over the t0355 product lines to avoid double counting. Corporate and Other is excluded because it is not a reportable segment."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "GLOBAL DATA CENTER BUSINESS",
+   "table_id": "t0348",
+   "row_label": "Total Revenues",
+   "column_label": "GLOBAL DATA CENTER BUSINESS",
+   "cell_text": "803,429",
+   "period_end": "2025-12-31",
+   "months": 12,
+   "value": 803429000,
+   "confidence": 0.9,
+   "notes": "Year inferred from the first row block, which has no header (ties to consolidated 2025 revenue). Segment view chosen over the t0355 product lines."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "GLOBAL RIM BUSINESS",
+   "table_id": "t0348",
+   "row_label": "Total Revenues",
+   "column_label": "GLOBAL RIM BUSINESS",
+   "cell_text": "4,979,438",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 4979438000,
+   "confidence": 0.9,
+   "notes": "Row label repeats in each year block; year taken from the 'As of and for the Year Ended December 31, 2024' section header."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "GLOBAL DATA CENTER BUSINESS",
+   "table_id": "t0348",
+   "row_label": "Total Revenues",
+   "column_label": "GLOBAL DATA CENTER BUSINESS",
+   "cell_text": "620,028",
+   "period_end": "2024-12-31",
+   "months": 12,
+   "value": 620028000,
+   "confidence": 0.9,
+   "notes": "Row label repeats in each year block; year taken from the 2024 section header."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "GLOBAL RIM BUSINESS",
+   "table_id": "t0348",
+   "row_label": "Total Revenues",
+   "column_label": "GLOBAL RIM BUSINESS",
+   "cell_text": "4,661,776",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 4661776000,
+   "confidence": 0.9,
+   "notes": "Row label repeats in each year block; year taken from the 'As of and for the Year Ended December 31, 2023' section header."
+  },
+  {
+   "field": "segment_revenue",
+   "dimension": "GLOBAL DATA CENTER BUSINESS",
+   "table_id": "t0348",
+   "row_label": "Total Revenues",
+   "column_label": "GLOBAL DATA CENTER BUSINESS",
+   "cell_text": "495,026",
+   "period_end": "2023-12-31",
+   "months": 12,
+   "value": 495026000,
+   "confidence": 0.9,
+   "notes": "Row label repeats in each year block; year taken from the 2023 section header."
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0194",
+   "row_label": "Land",
+   "column_label": "DECEMBER 31, | 2025",
+   "cell_text": "724,386",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 724386000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Land",
+   "table_id": "t0194",
+   "row_label": "Land",
+   "column_label": "DECEMBER 31, | 2024",
+   "cell_text": "670,529",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 670529000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings, building improvements and data center infrastructure",
+   "table_id": "t0194",
+   "row_label": "Buildings, building improvements and data center infrastructure",
+   "column_label": "DECEMBER 31, | 2025",
+   "cell_text": "6,461,346",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 6461346000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Buildings, building improvements and data center infrastructure",
+   "table_id": "t0194",
+   "row_label": "Buildings, building improvements and data center infrastructure",
+   "column_label": "DECEMBER 31, | 2024",
+   "cell_text": "4,768,835",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 4768835000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0194",
+   "row_label": "Leasehold improvements",
+   "column_label": "DECEMBER 31, | 2025",
+   "cell_text": "1,665,589",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 1665589000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Leasehold improvements",
+   "table_id": "t0194",
+   "row_label": "Leasehold improvements",
+   "column_label": "DECEMBER 31, | 2024",
+   "cell_text": "1,536,919",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 1536919000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Racking structures",
+   "table_id": "t0194",
+   "row_label": "Racking structures",
+   "column_label": "DECEMBER 31, | 2025",
+   "cell_text": "2,057,544",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 2057544000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Racking structures",
+   "table_id": "t0194",
+   "row_label": "Racking structures",
+   "column_label": "DECEMBER 31, | 2024",
+   "cell_text": "1,978,923",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 1978923000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Warehouse equipment/vehicles",
+   "table_id": "t0194",
+   "row_label": "Warehouse equipment/vehicles",
+   "column_label": "DECEMBER 31, | 2025",
+   "cell_text": "760,256",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 760256000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Warehouse equipment/vehicles",
+   "table_id": "t0194",
+   "row_label": "Warehouse equipment/vehicles",
+   "column_label": "DECEMBER 31, | 2024",
+   "cell_text": "644,340",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 644340000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures and computer hardware",
+   "table_id": "t0194",
+   "row_label": "Furniture and fixtures and computer hardware",
+   "column_label": "DECEMBER 31, | 2025",
+   "cell_text": "387,754",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 387754000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Furniture and fixtures and computer hardware",
+   "table_id": "t0194",
+   "row_label": "Furniture and fixtures and computer hardware",
+   "column_label": "DECEMBER 31, | 2024",
+   "cell_text": "331,856",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 331856000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Software",
+   "table_id": "t0194",
+   "row_label": "Software",
+   "column_label": "DECEMBER 31, | 2025",
+   "cell_text": "569,987",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 569987000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Software",
+   "table_id": "t0194",
+   "row_label": "Software",
+   "column_label": "DECEMBER 31, | 2024",
+   "cell_text": "465,689",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 465689000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0194",
+   "row_label": "Construction in progress",
+   "column_label": "DECEMBER 31, | 2025",
+   "cell_text": "1,830,473",
+   "period_end": "2025-12-31",
+   "months": 0,
+   "value": 1830473000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0194",
+   "row_label": "Construction in progress",
+   "column_label": "DECEMBER 31, | 2024",
+   "cell_text": "1,588,906",
+   "period_end": "2024-12-31",
+   "months": 0,
+   "value": 1588906000,
+   "confidence": 1.0
+  }
+ ],
+ "not_found": [
+  {
+   "field": "segment_capex",
+   "reason": "The segment note (t0348) reports revenue, Adjusted EBITDA and total assets only. t0138 is an MD&A capital-spend table split into growth and recurring categories (Data Center, Real Estate, Innovation and Other, Non-Real Estate), not by reportable segment. 'Data Center' appears twice there, so no single cell maps to a segment."
+  },
+  {
+   "field": "finance_lease_liability",
+   "reason": "No lease note table was provided among the parsed tables."
+  },
+  {
+   "field": "purchase_commitments",
+   "reason": "No contractual-obligations or commitments table was provided among the parsed tables."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 30.3,
+  "input_tokens": 9093,
+  "output_tokens": 4459,
+  "attempts": 1,
+  "task_sha": "21c80584b31eb82d"
+ }
+}

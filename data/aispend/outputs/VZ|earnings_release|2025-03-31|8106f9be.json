@@ -1,0 +1,27 @@
+{
+ "accession": "VZ|earnings_release|2025-03-31|8106f9be",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "the only capex figure (forecast of $17.5\u201318.5 billion for 2025) is a table row with no link to AI; no sentence ties capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.7,
+  "input_tokens": 4860,
+  "output_tokens": 195,
+  "attempts": 1,
+  "task_sha": "3e9f922bd91264b1"
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "accession": "NVT|mdna|2022-12-31|31709ee7",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 1.9,
+  "input_tokens": 4802,
+  "output_tokens": 49,
+  "attempts": 1,
+  "task_sha": "6ebf02b75c8245e8"
+ }
+}

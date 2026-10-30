@@ -1,0 +1,57 @@
+{
+ "accession": "SNOW|mdna|2026-01-31|8387fcd6",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We will continue to invest significantly in research and development to improve our platform, including in the areas of data science and AI Technology.",
+   "passage": "p01",
+   "confidence": 0.9,
+   "notes": "Total R&D investment, with AI Technology named as one focus area; no amount or share is given for the AI part."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Some of these investments, including costs associated with GPUs and AI inference, certain support costs and costs of expanding our business internationally, are incurred in advance of generating revenue, and either the failure to generate anticipated revenue or fluctuations in the timing of revenue could affect our gross margin from period to period.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "Names GPU and AI inference costs as part of continued platform infrastructure investment. The wording is partly descriptive or risk-like, so confidence is lower."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The increase was primarily due to an increase of $248.1 million in third-party cloud infrastructure expenses (including those related to AI inference), mainly as a result of increased customer consumption of our platform.",
+   "passage": "p05",
+   "confidence": 0.7,
+   "notes": "The $248.1 million is a year-over-year increase in total third-party cloud infrastructure expense, not total spend and not the AI part. AI inference is named only as a component. Recorded as qualitative to avoid treating the increase as an amount."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links capital expenditures to AI; capital expenditure is mentioned only generically in liquidity discussion"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states an AI amount or share of revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.7,
+  "input_tokens": 7484,
+  "output_tokens": 1560,
+  "attempts": 1,
+  "task_sha": "75dab8cd8dd9ea69"
+ }
+}

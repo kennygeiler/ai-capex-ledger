@@ -1,0 +1,27 @@
+{
+ "accession": "DDOG|earnings_release|2026-03-31|3668109f",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are mentioned only in forward-looking boilerplate and the free cash flow definition; no sentence links capex to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "research and development expenses are mentioned only in forward-looking boilerplate and non-GAAP definitions; no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "total revenue growth (32%) is stated but no sentence states an AI part of revenue; AI mentions are product descriptions (GPU Monitoring, MCP Server, Bits AI) and boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.4,
+  "input_tokens": 5872,
+  "output_tokens": 276,
+  "attempts": 1,
+  "task_sha": "eac5e0b1c6817d31"
+ }
+}

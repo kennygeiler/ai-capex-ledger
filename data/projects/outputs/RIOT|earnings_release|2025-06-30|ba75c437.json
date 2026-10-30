@@ -1,0 +1,98 @@
+{
+ "accession": "RIOT|earnings_release|2025-06-30|ba75c437",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Rockdale Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Rockdale, Texas",
+   "counterparty": null,
+   "capacity_mw": 700,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "700 MW Rockdale Facility - Rockdale, Texas",
+   "passage": "p03",
+   "confidence": 0.75
+  },
+  {
+   "name": "Corsicana Phase II",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Corsicana",
+   "counterparty": null,
+   "capacity_mw": 600,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Includes capex for a 600 MW substation development and other long-lead items",
+   "passage": "p05",
+   "confidence": 0.65
+  },
+  {
+   "name": "Corsicana Facility",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Corsicana",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": "2025-07",
+   "in_service": null,
+   "quote": "In July 2025, Riot acquired an additional 238 acre parcel contiguous with existing 355 acre parcel in close proximity to existing Corsicana site",
+   "passage": "p07",
+   "confidence": 0.6
+  },
+  {
+   "name": "Corbert Water Line project",
+   "kind": "other",
+   "status": "under_construction",
+   "location": "Corsicana",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2026",
+   "quote": "Corbert Water Line project expected to be completed Q2 2026",
+   "passage": "p05",
+   "confidence": 0.55
+  },
+  {
+   "name": "Commerce expansion",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Commerce, Kentucky",
+   "counterparty": null,
+   "capacity_mw": 32,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Includes infrastructure capex for 32 MW expansion at Commerce and 30 MW expansion at Blue Steel, growing total Kentucky power capacity from 65 MW to 127 MW",
+   "passage": "p05",
+   "confidence": 0.55
+  },
+  {
+   "name": "Blue Steel expansion",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Blue Steel, Kentucky",
+   "counterparty": null,
+   "capacity_mw": 30,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Includes infrastructure capex for 32 MW expansion at Commerce and 30 MW expansion at Blue Steel, growing total Kentucky power capacity from 65 MW to 127 MW",
+   "passage": "p05",
+   "confidence": 0.55
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.1,
+  "input_tokens": 7985,
+  "output_tokens": 2282,
+  "attempts": 1,
+  "task_sha": "0b0839ce4e32b8e6"
+ }
+}

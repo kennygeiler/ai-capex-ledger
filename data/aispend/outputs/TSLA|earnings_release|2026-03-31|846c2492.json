@@ -1,17 +1,17 @@
 {
  "accession": "TSLA|earnings_release|2026-03-31|846c2492",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
-   "field": "opex",
+   "field": "capex",
    "fiscal_year": null,
    "kind": "actual",
-   "scope": "total",
+   "scope": "ai",
    "class": "qualitative",
-   "quote": "increase in operating expenses driven by AI and other R&D projects, 2025 CEO award SBC and SG&A",
-   "passage": "p03",
-   "confidence": 0.8,
-   "notes": "Bullet fragment from the YoY operating income bridge, not a full sentence. It attributes part of the Q1 2026 (not full-year) operating expense increase to AI alongside other R&D, SBC and SG&A. No AI amount is stated."
+   "quote": "We continued to make meaningful progress on the build out of the infrastructure and AI software that underpins our Robotaxi and future robotics businesses in Q1.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Refers to Q1 (no year named) build-out of infrastructure and AI software; spending is implied by 'build out' rather than stated as capital expenditures; AI software portion may be opex."
   },
   {
    "field": "capex",
@@ -21,17 +21,33 @@
    "class": "qualitative",
    "quote": "We continue to ramp our onsite training infrastructure to ensure sufficient compute resources for the development of our AI products and services.",
    "passage": "p02",
-   "confidence": 0.5,
-   "notes": "Describes an AI training infrastructure build-out (Cortex 2), which implies capital spending. The sentence does not use the words capex, spend or investment, so it is low confidence. Present tense with no year named."
+   "confidence": 0.7,
+   "notes": "Present tense, no year named; describes ongoing AI training-compute build-out (Cortex 2) without naming capital expenditures or an amount."
+  },
+  {
+   "field": "opex",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "increase in operating expenses driven by AI and other R&D projects, 2025 CEO award SBC and SG&A",
+   "passage": "p03",
+   "confidence": 0.8,
+   "notes": "Bullet fragment in a list of YoY operating-income drivers for the quarter, not a full sentence; AI is one of several drivers of the total operating expense increase, and no AI amount is stated."
   }
  ],
- "none_found": [],
+ "none_found": [
+  {
+   "field": "revenue",
+   "reason": "an automaker; FSD sales and subscriptions are mentioned as a revenue driver, but no sentence states AI, data-center, AI-server or HBM revenue"
+  }
+ ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 12.5,
-  "input_tokens": 8935,
-  "output_tokens": 1319,
+  "seconds": 15.3,
+  "input_tokens": 9242,
+  "output_tokens": 1561,
   "attempts": 1,
-  "task_sha": "d8f9ad011f136b7f"
+  "task_sha": "85d250063c9af58a"
  }
 }

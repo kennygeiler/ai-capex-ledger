@@ -1,0 +1,13 @@
+{
+ "accession": "UBER|earnings_release|2022-03-31|1b6f0bfd",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": null,
+  "seconds": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "attempts": 0,
+  "task_sha": "e0757c5966362a73"
+ }
+}

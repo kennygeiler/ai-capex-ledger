@@ -1,0 +1,120 @@
+{
+ "ticker": "SLNH",
+ "prompt_version": "attribution@v2",
+ "model": "miner_to_hpc@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 16000,
+   "ai_share": 0.00042,
+   "inputs": [
+    {
+     "id": "fact:SLNH|segment_revenue|High-Performance Computing Services|FY2024",
+     "value": 16000
+    }
+   ],
+   "basis": "Revenue of the High-Performance Computing Services segment, the only AI line: 16,000 of 38,021,000 total revenue. It excludes Data Center Hosting (18,838,000, which is bitcoin miner hosting) and Cryptocurrency Mining (17,027,000). The MD&A says HPC revenue was first recognized in December 2024.",
+   "confidence": 0.75
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The MD&A says the company continues to develop a 2 MW AI/HPC data center at the Project Dorothy windfarm, still in concept design. Consolidated capex of 8,853,000 is not split by segment, and no AI amount is stated.",
+   "confidence": 0.15
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The earnings release says a cash infusion let the company 'initiate a launch into AI'. Consolidated capex of 28,065,000 is not split by segment and is mostly bitcoin hosting and mining, and no AI amount is stated.",
+   "confidence": 0.15
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "outlook",
+   "method": "qualitative",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "The Q3 2024 release announced Project Grace, a planned 2 MW AI data center next to Project Dorothy. No dollar amount was given.",
+   "confidence": 0.15
+  }
+ ],
+ "none_found": [
+  {
+   "field": "revenue",
+   "period": "FY2022",
+   "reason": "Only cryptocurrency mining and data hosting (bitcoin miner hosting) revenue; there is no HPC segment line."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "reason": "Only cryptocurrency mining, data hosting (bitcoin miner hosting) and demand response revenue; there is no HPC segment line."
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "reason": "The pack has no FY2025 segment_revenue fact for High-Performance Computing Services. The thesis cites 28 thousand from the 10-K, but that number is not in the pack, and Data Center Hosting is bitcoin hosting."
+  },
+  {
+   "field": "capex",
+   "period": "FY2022",
+   "reason": "No segment capex, no AI statement, and no GPU/HPC-specific PP&E category; capex was bitcoin mining and hosting."
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "reason": "No segment capex, no AI statement, and no GPU/HPC-specific PP&E category; capex was bitcoin mining and hosting."
+  },
+  {
+   "field": "capex",
+   "reason": "No ppe_category isolates GPUs or HPC. 'Computers and related software' mixes mining hardware with anything else, so it cannot support a ppe_category row in any year."
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "reason": "The 53,000,000 Briscoe Wind Farm acquisition is a power asset for the planned Dorothy 3 AI campus, not AI capex. FY2026 is also not among the pack's fiscal-year values."
+  },
+  {
+   "field": "opex",
+   "period": "FY2022",
+   "reason": "No HPC segment cost of revenue is stated."
+  },
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "No HPC segment cost of revenue is stated."
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "No HPC segment cost of revenue is stated."
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "No HPC segment cost of revenue is stated. The release reports a $28.6 million loss on terminating the HPE GPU-as-a-Service contract in March 2025, but that is a one-off loss on contract, not segment cost of revenue. The pack's extracted amount (28,600,000,000) is also mis-scaled by 1,000x against the quoted '$28.6 million', so it cannot be used as a stated_amount input."
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 24.6,
+  "input_tokens": 19766,
+  "output_tokens": 2953,
+  "attempts": 1,
+  "task_sha": "8d5fc606bd10445c"
+ }
+}

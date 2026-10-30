@@ -1,6 +1,6 @@
 {
  "accession": "TSLA|earnings_release|2026-09-30|ba661fbe",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [
   {
    "field": "capex",
@@ -10,8 +10,8 @@
    "class": "qualitative",
    "quote": "We continue to invest in the future through R&D and Capex spend across our businesses, including SI, robotics and energy.",
    "passage": "p01",
-   "confidence": 0.6,
-   "notes": "SI (Super Intelligence) is the company's AI term. It is listed as one of several areas the capex supports, alongside robotics and energy, so AI is a driver of total capex, not a quantified part of it. The present tense 'continue to invest' is read as ongoing actual spend."
+   "confidence": 0.7,
+   "notes": "Present tense with no year. Capex spend is described across all businesses, with SI (Super Intelligence) named as one area. No AI-specific amount or share is given."
   },
   {
    "field": "opex",
@@ -21,17 +21,28 @@
    "class": "qualitative",
    "quote": "We continue to invest in the future through R&D and Capex spend across our businesses, including SI, robotics and energy.",
    "passage": "p01",
-   "confidence": 0.6,
-   "notes": "Covers R&D opex. SI (Super Intelligence) is one of several areas listed, so this is a qualitative link to total R&D, not an AI-specific amount. The present tense is read as ongoing actual spend."
+   "confidence": 0.7,
+   "notes": "Same sentence as the capex statement. R&D spend is described across all businesses, with SI named as one area. No AI-specific amount or share is given."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "We expect rising data center demand to continue driving demand for our products.",
+   "passage": "p01",
+   "confidence": 0.5,
+   "notes": "Seller-side link between data-center demand and demand for Tesla products, in context Energy Storage. The sentence speaks of product demand rather than revenue and states no data-center revenue figure or share, so confidence is low."
   }
  ],
  "none_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 11.9,
-  "input_tokens": 7634,
-  "output_tokens": 715,
+  "seconds": 17.6,
+  "input_tokens": 7935,
+  "output_tokens": 937,
   "attempts": 1,
-  "task_sha": "89fb372e59666e9f"
+  "task_sha": "d6e773a3a6e7668f"
  }
 }

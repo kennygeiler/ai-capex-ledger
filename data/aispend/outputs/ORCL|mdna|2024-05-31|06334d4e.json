@@ -1,23 +1,27 @@
 {
  "accession": "ORCL|mdna|2024-05-31|06334d4e",
- "prompt_version": "aispend@v3",
+ "prompt_version": "aispend@v4",
  "statements": [],
  "none_found": [
   {
    "field": "capex",
-   "reason": "no sentence links capital expenditures to AI; p03 mentions increasing data center capacity to meet customer demand but does not mention AI"
+   "reason": "no sentence links capital expenditures to AI; p03 mentions expanding data center capacity but does not mention AI or state capital expenditures"
   },
   {
    "field": "opex",
-   "reason": "no sentence quantifies or attributes operating expenses to AI; p03 attributes expense growth to technology infrastructure for cloud and license revenues, and p01 mentions hardware R&D, but neither mentions AI"
+   "reason": "no sentence attributes operating expenses to AI; p03 ties higher technology infrastructure and cloud services expenses to cloud and license revenue growth and customer demand, not AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "no sentence states AI or data-center revenue; hardware is 6% of total revenues with no AI attribution, and the Ampere passage concerns an equity investment"
   }
  ],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 4.3,
-  "input_tokens": 5224,
-  "output_tokens": 209,
+  "seconds": 4.0,
+  "input_tokens": 5527,
+  "output_tokens": 325,
   "attempts": 1,
-  "task_sha": "a5f96c844c08f65d"
+  "task_sha": "e1fb70e37fd16dea"
  }
 }

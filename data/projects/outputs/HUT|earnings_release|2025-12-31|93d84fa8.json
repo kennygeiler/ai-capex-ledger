@@ -1,0 +1,86 @@
+{
+ "accession": "HUT|earnings_release|2025-12-31|93d84fa8",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "River Bend campus",
+   "kind": "data_center",
+   "status": "contracted",
+   "location": "Louisiana",
+   "counterparty": "Fluidstack",
+   "amount_low": 7000000000,
+   "amount_high": 7000000000,
+   "capacity_mw": 245,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2027",
+   "quote": "Signed a 15-year, $7.0 billion lease with Fluidstack for 245 MW of IT capacity at River Bend, with the lease payments and related pass-through - obligations for the base term financially backstopped by Google.",
+   "passage": "p09",
+   "confidence": 0.95
+  },
+  {
+   "name": "River Bend expansion phases",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Louisiana",
+   "counterparty": "Fluidstack",
+   "capacity_mw": 1000,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "The agreement grants Fluidstack a Right of First Offer for up to an additional 1,000 MW of IT capacity at future expansion phases at River Bend, subject to the expansion of power at the site.",
+   "passage": "p09",
+   "confidence": 0.75
+  },
+  {
+   "name": "Anthropic and Fluidstack AI infrastructure partnership",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "United States",
+   "counterparty": "Anthropic and Fluidstack",
+   "capacity_mw": 2295,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Launched a partnership with Anthropic and Fluidstack to accelerate the - deployment of hyperscale AI infrastructure in the United States, under which Hut 8 will develop and deliver at least 245 MW and up to 2,295 MW of AI data center infrastructure.",
+   "passage": "p08",
+   "confidence": 0.8
+  },
+  {
+   "name": "Four new United States sites",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "United States",
+   "counterparty": null,
+   "capacity_mw": 1500,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Announced plans to develop four new sites with more than 1,500 MW of total capacity across the United States, including 330 MW of utility - capacity at the Company\u2019s River Bend campus in Louisiana.",
+   "passage": "p07",
+   "confidence": 0.7
+  },
+  {
+   "name": "Vega",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": null,
+   "counterparty": null,
+   "capacity_mw": 205,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Energized Vega, a 205 MW data center that commercializes a next-generation Tier 1 form factor for ASIC compute, featuring a - proprietary, rack-based, direct-to-chip liquid cooling system designed by Hut 8 to support ASIC deployments at densities of up to 180 kilowatts (\u201ckW\u201d) per rack.",
+   "passage": "p10",
+   "confidence": 0.7
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 18.4,
+  "input_tokens": 6704,
+  "output_tokens": 2206,
+  "attempts": 1,
+  "task_sha": "b427ad2383b341d9"
+ }
+}

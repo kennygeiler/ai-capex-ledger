@@ -1,0 +1,27 @@
+{
+ "accession": "FN|earnings_release|2025-09-26|ca6d0651",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in the cash flow table and free cash flow definition; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "passages contain only cash flow data; no sentence states AI or data-center revenue"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.5,
+  "input_tokens": 5849,
+  "output_tokens": 196,
+  "attempts": 1,
+  "task_sha": "cd278cece83691be"
+ }
+}

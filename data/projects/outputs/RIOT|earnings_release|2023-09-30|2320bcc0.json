@@ -1,0 +1,44 @@
+{
+ "accession": "RIOT|earnings_release|2023-09-30|2320bcc0",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Corsicana Facility",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Corsicana",
+   "counterparty": null,
+   "amount_low": 333000000,
+   "amount_high": 333000000,
+   "capacity_mw": 400,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Phase 1 of the Corsicana Facility development is comprised of the buildout of an initial 400 MW of immersion-cooled data center infrastructure.",
+   "passage": "p09",
+   "confidence": 0.7
+  },
+  {
+   "name": "Rockdale Facility",
+   "kind": "data_center",
+   "status": "in_service",
+   "location": "Rockdale",
+   "counterparty": null,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": null,
+   "quote": "Bitcoin Mining revenue in excess of Bitcoin Mining cost of revenue for the quarter was $6.8 million (22% of mining revenue), as compared to $7.4 million (33% of mining revenue) for the same three-month period in 2022, a decrease of $0.6 million driven by higher labor costs due to the expansion of the Rockdale facility.",
+   "passage": "p03",
+   "confidence": 0.5
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.3,
+  "input_tokens": 10008,
+  "output_tokens": 1338,
+  "attempts": 1,
+  "task_sha": "d444e14a071a7fca"
+ }
+}

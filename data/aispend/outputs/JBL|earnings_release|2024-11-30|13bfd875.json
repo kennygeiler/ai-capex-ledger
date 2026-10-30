@@ -1,0 +1,35 @@
+{
+ "accession": "JBL|earnings_release|2024-11-30|13bfd875",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "I am very pleased with our first fiscal quarter results, which came in stronger than we anticipated driven by incremental strength in our Cloud, Data Center Infrastructure, and Digital Commerce end-markets.",
+   "passage": "p01",
+   "confidence": 0.6,
+   "notes": "Quarterly results (Q1 FY2025, not the full year) attributed in part to Cloud and Data Center Infrastructure demand. No AI or data-center revenue figure is stated. The sentence names no year; it refers to the first fiscal quarter of fiscal 2025. Results are not explicitly revenue, which lowers confidence."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures appear only in the adjusted free cash flow definition and the forward-looking risk boilerplate; no sentence links them to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 8.1,
+  "input_tokens": 6151,
+  "output_tokens": 825,
+  "attempts": 1,
+  "task_sha": "750673650c79cdb8"
+ }
+}

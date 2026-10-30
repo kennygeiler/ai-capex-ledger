@@ -1,0 +1,46 @@
+{
+ "accession": "EQIX|earnings_release|2022-09-30|f4ff247d",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "Jakarta IBX data center",
+   "kind": "data_center",
+   "status": "announced",
+   "location": "Jakarta, Indonesia",
+   "counterparty": null,
+   "amount_low": 74000000,
+   "amount_high": 74000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2024",
+   "quote": "A $74 million expansion to Indonesia with plans for an International Business Exchange\u2122 (IBX \u00ae) data center in the heart of Jakarta, scheduled to open by the second half of 2024.",
+   "passage": "p01",
+   "confidence": 0.85
+  },
+  {
+   "name": "BG2",
+   "kind": "data_center",
+   "status": "under_construction",
+   "location": "Bogot\u00e1, Colombia",
+   "counterparty": null,
+   "amount_low": 45000000,
+   "amount_high": 45000000,
+   "capacity_mw": null,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2023",
+   "quote": "A $45 million investment in Colombia for the construction of BG2, Equinix's second IBX data center in Bogot\u00e1, scheduled to open in the first half of 2023.",
+   "passage": "p01",
+   "confidence": 0.8
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 7.6,
+  "input_tokens": 13303,
+  "output_tokens": 775,
+  "attempts": 1,
+  "task_sha": "e928982d82530288"
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "accession": "BE|earnings_release|2024-09-30|ddb31991",
+ "prompt_version": "projects@v1",
+ "projects": [
+  {
+   "name": "SK Eternix 80 MW fuel cell power project",
+   "kind": "power",
+   "status": "announced",
+   "location": null,
+   "counterparty": "SK Eternix",
+   "capacity_mw": 80,
+   "gpus": null,
+   "announced": null,
+   "in_service": "2025",
+   "quote": "\u201cToday we are announcing an 80 MW power project using Bloom Energy fuel cells\u201d said KR Sridhar, Founder, Chairman and CEO of Bloom Energy.",
+   "passage": "p01",
+   "confidence": 0.85
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 6.1,
+  "input_tokens": 6254,
+  "output_tokens": 636,
+  "attempts": 1,
+  "task_sha": "d77b4156188eb373"
+ }
+}

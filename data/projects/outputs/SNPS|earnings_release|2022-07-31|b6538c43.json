@@ -1,0 +1,13 @@
+{
+ "accession": "SNPS|earnings_release|2022-07-31|b6538c43",
+ "prompt_version": "projects@v1",
+ "projects": [],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.1,
+  "input_tokens": 4526,
+  "output_tokens": 52,
+  "attempts": 1,
+  "task_sha": "7c6912e22e8cbde1"
+ }
+}

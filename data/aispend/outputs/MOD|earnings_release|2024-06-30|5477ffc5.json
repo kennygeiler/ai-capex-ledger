@@ -1,0 +1,57 @@
+{
+ "accession": "MOD|earnings_release|2024-06-30|5477ffc5",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "The steps we\u2019ve taken to both diversify and improve our business portfolio are producing significant benefits, as revenue growth in data centers and other key markets are more than offsetting the impact of market declines or exits in select other parts of the business.",
+   "passage": "p01",
+   "confidence": 0.7,
+   "notes": "Data-center revenue growth is grouped with 'other key markets', so it is not isolated, and no amount is stated. Data-center demand is not explicitly tied to AI. No year is named; the context is Q1 fiscal 2025."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "This increase was driven by higher sales of data center cooling products, which were partially offset by lower sales of \u2022 heat transfer products.",
+   "passage": "p02",
+   "confidence": 0.8,
+   "notes": "The sentence attributes the Climate Solutions segment's organic sales increase to data center cooling sales. No data-center amount is stated, and the segment total ($357.3M) appears in a separate sentence. No year is named; the context is Q1 fiscal 2025."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": null,
+   "kind": "outlook",
+   "scope": "ai",
+   "class": "qualitative",
+   "quote": "Our business momentum in our high-growth, high-margin areas \u2013 including data centers and stationary power generation \u2013 remains strong and should help offset some further softness in the automotive, agriculture and construction equipment markets.",
+   "passage": "p03",
+   "confidence": 0.6,
+   "notes": "This is forward-looking momentum in data centers, grouped with stationary power generation. No amount is given and AI is not named. The surrounding context refers to fiscal 2025, but the sentence itself names no year."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital expenditures are mentioned only as 'higher capital expenditures' affecting free cash flow; no sentence links capex to AI or data centers"
+  },
+  {
+   "field": "opex",
+   "reason": "SG&A increases are attributed to compensation, an acquisition and amortization; no sentence attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 14.4,
+  "input_tokens": 6830,
+  "output_tokens": 1602,
+  "attempts": 1,
+  "task_sha": "06a80e6309f62b1a"
+ }
+}

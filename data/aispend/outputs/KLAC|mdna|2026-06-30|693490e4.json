@@ -1,0 +1,46 @@
+{
+ "accession": "KLAC|mdna|2026-06-30|693490e4",
+ "prompt_version": "aispend@v4",
+ "statements": [
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "The 12% increase in total revenues in the fiscal year ended June 30, 2026 compared to the prior fiscal year was primarily driven by higher product revenues resulting from increased leading-edge customer investments in foundry/logic, memory and advanced packaging technologies, supported by strong demand associated with AI and HPC applications.",
+   "passage": "p02",
+   "confidence": 0.9,
+   "notes": "12% is the growth rate of total revenue, not AI's share of revenue. AI/HPC demand is cited as a supporting driver, and no AI revenue figure is stated."
+  },
+  {
+   "field": "revenue",
+   "fiscal_year": 2026,
+   "kind": "actual",
+   "scope": "total",
+   "class": "qualitative",
+   "quote": "Revenue from our Semiconductor Process Control segment increased 12% in fiscal 2026 compared to fiscal 2025, primarily due to increased revenue from foundry/logic and memory customers, driven by continued leading-edge investment supporting AI and HPC applications.",
+   "passage": "p03",
+   "confidence": 0.7,
+   "notes": "Segment revenue (Semiconductor Process Control), not company total. The 12% is growth, not an AI share. AI is cited as a driver of customer investment."
+  }
+ ],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence links the company's own capital expenditures to AI. The investment mentioned is customers' and industry investment."
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 10.3,
+  "input_tokens": 5648,
+  "output_tokens": 996,
+  "attempts": 1,
+  "task_sha": "60ef13a2b3bff345"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "accession": "KLAC|earnings_release|2026-03-31|dec08869",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "no sentence states or attributes KLA's capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses (R&D, infrastructure, headcount) to AI; the R&D mention in p02 is a risk-factor item about government funding audits"
+  },
+  {
+   "field": "revenue",
+   "reason": "p01 says KLA benefits from the AI infrastructure buildout but states no AI or data-center revenue figure or share and does not link revenue to AI explicitly; 'risks related to artificial intelligence' in p02 is boilerplate"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 5.2,
+  "input_tokens": 6446,
+  "output_tokens": 450,
+  "attempts": 1,
+  "task_sha": "972864eb008866f5"
+ }
+}

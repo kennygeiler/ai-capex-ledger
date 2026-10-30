@@ -1,0 +1,150 @@
+{
+ "ticker": "SNDK",
+ "prompt_version": "attribution@v2",
+ "model": "component_supplier@v3",
+ "rows": [
+  {
+   "field": "revenue",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 5153000000,
+   "ai_share": 0.25,
+   "inputs": [
+    {
+     "id": "fact:SNDK|segment_revenue|Datacenter|FY2026",
+     "value": 5153000000
+    }
+   ],
+   "basis": "Datacenter end-market revenue, 5,153M of 20,248M total, up 437% (quarters 269M + 440M + 1,467M + 2,977M). Datacenter is a data-center line, not an AI one: it includes non-AI enterprise SSD. Edge and Consumer are excluded.",
+   "confidence": 0.6
+  },
+  {
+   "field": "revenue",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 960000000,
+   "ai_share": 0.13,
+   "inputs": [
+    {
+     "id": "fact:SNDK|segment_revenue|Datacenter|FY2025",
+     "value": 960000000
+    }
+   ],
+   "basis": "Datacenter end-market revenue, 960M of 7,355M. The MD&A ties the increase to enterprise SSD shipments to data center customers but gives no AI split. Edge and Consumer are excluded.",
+   "confidence": 0.55
+  },
+  {
+   "field": "revenue",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 325000000,
+   "ai_share": 0.05,
+   "inputs": [
+    {
+     "id": "fact:SNDK|segment_revenue|Datacenter|FY2024",
+     "value": 325000000
+    }
+   ],
+   "basis": "Datacenter end-market revenue, 325M of 6,663M. It is a data-center line that includes non-AI enterprise SSD. Edge and Consumer are excluded.",
+   "confidence": 0.5
+  },
+  {
+   "field": "revenue",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "segment",
+   "ai_amount": 500000000,
+   "ai_share": 0.08,
+   "inputs": [
+    {
+     "id": "fact:SNDK|segment_revenue|Cloud|FY2023",
+     "value": 500000000
+    }
+   ],
+   "basis": "Revenue of the Cloud end market, 500M of 6,086M. Cloud is the predecessor name of Datacenter, with identical values in FY2024 and FY2025. No Datacenter fact exists for FY2023. Client and Consumer are excluded. This is a data-center line, not an AI one.",
+   "confidence": 0.4
+  },
+  {
+   "field": "capex",
+   "period": "FY2026",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No capex expansion is stated as being for AI demand, with or without an amount. The seller-side signal is Datacenter revenue of 5,153M, which is not capex.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2025",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No capex is stated as being for AI. The seller-side signal is Datacenter revenue of 960M, which is not capex.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2024",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No capex is stated as being for AI. The seller-side signal is Datacenter revenue of 325M, which is not capex.",
+   "confidence": 0.8
+  },
+  {
+   "field": "capex",
+   "period": "FY2023",
+   "kind": "actual",
+   "method": "none",
+   "ai_amount": null,
+   "ai_share": null,
+   "inputs": [],
+   "basis": "No capex is stated as being for AI. The seller-side signal is Cloud revenue of 500M, which is not capex.",
+   "confidence": 0.8
+  }
+ ],
+ "none_found": [
+  {
+   "field": "opex",
+   "period": "FY2023",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2024",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2025",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "opex",
+   "period": "FY2026",
+   "reason": "no segment cost line and no statement attributes opex to AI"
+  },
+  {
+   "field": "revenue",
+   "period": "FY2027",
+   "reason": "a quarterly Datacenter figure of 4,802M is tagged FY2027, but no FY2027 value or outlook statement exists, so no row was made"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 22.5,
+  "input_tokens": 18226,
+  "output_tokens": 2779,
+  "attempts": 1,
+  "task_sha": "64e2f79b168eb603"
+ }
+}

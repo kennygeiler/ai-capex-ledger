@@ -1,0 +1,27 @@
+{
+ "accession": "VZ|mdna|2022-12-31|916af9fc",
+ "prompt_version": "aispend@v4",
+ "statements": [],
+ "none_found": [
+  {
+   "field": "capex",
+   "reason": "capital spending is discussed only in relation to 4G LTE, 5G and C-Band network buildout; no sentence links capital expenditures to AI"
+  },
+  {
+   "field": "opex",
+   "reason": "no sentence quantifies or attributes operating expenses to AI"
+  },
+  {
+   "field": "revenue",
+   "reason": "telecom carrier; no sentence states revenue from AI or data-center demand"
+  }
+ ],
+ "_run": {
+  "model": "claude-opus-5-5",
+  "seconds": 2.9,
+  "input_tokens": 5623,
+  "output_tokens": 197,
+  "attempts": 1,
+  "task_sha": "7f7a32a0eb9f8efe"
+ }
+}
