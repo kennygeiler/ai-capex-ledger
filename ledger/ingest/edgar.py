@@ -66,6 +66,10 @@ def _get(url: str, retries: int = 4) -> bytes:
     raise RuntimeError("unreachable")
 
 
+class Offline(RuntimeError):
+    """A read-only copy asked for a document it does not hold."""
+
+
 def _cached(url: str, path: Path, refresh: bool, max_age_h: float) -> tuple[bytes, dict]:
     meta_path = path.with_suffix(".meta.json")
     fresh = path.exists() and meta_path.exists() and (time.time() - path.stat().st_mtime) < max_age_h * 3600
@@ -73,6 +77,8 @@ def _cached(url: str, path: Path, refresh: bool, max_age_h: float) -> tuple[byte
         meta = json.loads(meta_path.read_text())
         LOG.append({"url": url, "at": _now(), "attempt": 1, "source": "cache", "status": 200, "ms": 0, "bytes": meta["bytes"], "fetched_at": meta["fetched_at"]})
         return path.read_bytes(), meta | {"cache": "hit"}
+    if os.environ.get("LEDGER_READONLY") == "1":  # a hosted DATAHQ serves what it has; it never reaches the SEC
+        raise Offline(f"not in the cache and this copy is read-only: {url}")
     body = _get(url)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(body)

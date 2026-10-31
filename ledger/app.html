@@ -860,6 +860,7 @@ async function route() {
 }
 window.addEventListener('hashchange', route);
 route();
+hq().then((d) => { if (d.readonly) $('#me').closest('span').replaceWith(h('span', {class: 'badge bg-azure-lt', title: 'Every page reads; decisions, views and prompts change in a checkout of the repository'}, 'read-only copy')); }).catch(() => {});
 </script>
 </body>
 </html>

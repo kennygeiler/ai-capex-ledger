@@ -306,6 +306,9 @@ def job() -> dict | None:
     return {**meta, "running": running, "exit": code, "steps": steps, "tail": lines[-4:]}
 
 
+READONLY = os.environ.get("LEDGER_READONLY") == "1"  # a hosted copy: every page reads, no POST lands (decisions, views and prompts change only in a checkout)
+
+
 class Handler(BaseHTTPRequestHandler):
     def _send(self, code, body: bytes, kind="application/json"):
         self.send_response(code)
@@ -407,7 +410,7 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(HTTPStatus.OK, api.to_csv(out["rows"]).encode(), "text/csv; charset=utf-8") if fmt == "csv" else self._json(out)
         if len(parts) != 1:
             return self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
-        if name in ("theses", "views"):
+        if name == "views":
             rows = api.apply(api.fetch(None, name), q)
         else:
             con = _con()
@@ -422,12 +425,14 @@ class Handler(BaseHTTPRequestHandler):
     def _hq(self):
         con = _con()
         try:
-            return snapshot(con, STAGE)
+            return {**snapshot(con, STAGE), "readonly": READONLY}
         finally:
             con.close()
 
     def do_POST(self):
         u = urlparse(self.path)
+        if READONLY:
+            return self._json({"error": "this copy of DATAHQ is read-only; decisions, views and prompts change in a checkout of the repository"}, HTTPStatus.FORBIDDEN)
         try:
             body = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))) or b"{}")
         except json.JSONDecodeError:
@@ -467,9 +472,9 @@ class Handler(BaseHTTPRequestHandler):
         pass
 
 
-def serve(port: int) -> None:
-    srv = ThreadingHTTPServer(("127.0.0.1", port), Handler)
-    print(f"DATAHQ on http://127.0.0.1:{port}  (Ctrl-C to stop)", flush=True)
+def serve(port: int, host: str = "127.0.0.1") -> None:
+    srv = ThreadingHTTPServer((host, port), Handler)
+    print(f"DATAHQ on http://{host}:{port}" + ("  (read-only)" if READONLY else "") + "  (Ctrl-C to stop)", flush=True)
     try:
         srv.serve_forever()
     except KeyboardInterrupt:

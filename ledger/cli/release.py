@@ -51,7 +51,11 @@ def main(argv=None) -> int:
     for name in api.RELEASE_LISTS:
         rows = [r for r in api.fetch(con, name) if r.get("ticker", "") in want or name == "companies"]
         files[f"{name}.csv"] = api.to_csv(rows)
-    files["theses.json"] = json.dumps(api.theses(), indent=1, sort_keys=True)
+    if prev_dir:  # the shape of the packet is part of the diff
+        before = set(json.loads((prev_dir / "manifest.json").read_text())["files"]) - {"manifest.json", "SIGNOFF.json"}
+        gone, new = sorted(before - set(files)), sorted(set(files) - before)
+        if gone or new:
+            files["DIFF.md"] += "\n".join(["", "## Files"] + [f"- added `{f}`" for f in new] + [f"- removed `{f}`" for f in gone] + [""])
     h = content_hash(files)
     out = RELEASES / a.version
     if out.exists():

@@ -17,10 +17,9 @@ from pathlib import Path
 from .release import RELEASES, content_hash
 
 ROOT = Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[1]
-TABLES = {"values": "ledger_values", "facts": "ledger_facts", "ai_spend": "ledger_ai_spend", "attribution": "ledger_attribution",
-          "companies": "ledger_companies", "statements": "ledger_statements", "plans": "ledger_plans", "projects": "ledger_projects"}  # one shape: the API's lists (C7)
-NUMERIC = {"value", "xbrl_value", "first_reported", "amount_low", "amount_high", "share", "confidence", "amount_mid",
-           "plan_low", "plan_high", "plan_mid", "actual", "gap", "gap_share", "capacity_mw", "gpus"}
+TABLES = {"values": "ledger_values", "facts": "ledger_facts", "ai_spend": "ledger_ai_spend", "companies": "ledger_companies",
+          "statements": "ledger_statements", "projects": "ledger_projects", "taxonomy": "ledger_taxonomy"}  # one shape: the API's lists (C7); a release without a file skips it
+NUMERIC = {"value", "value_high", "xbrl_value", "first_reported", "amount_low", "amount_high", "share", "amount_mid", "capacity_mw", "sic"}
 DATE = {"period_end"}
 
 

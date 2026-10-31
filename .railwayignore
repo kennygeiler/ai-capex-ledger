@@ -1,0 +1,12 @@
+.git
+.env
+.venv
+data/raw
+data/jobs
+data/*/tasks
+data/*/dryrun
+__pycache__
+**/__pycache__
+.claude
+tests
+!data/ledger.duckdb

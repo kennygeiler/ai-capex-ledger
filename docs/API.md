@@ -1,6 +1,6 @@
 # The read API: /api/v1
 
-Served by DATAHQ (`ledger app`, http://127.0.0.1:3610) from the working database. What the pipeline holds now;
+Served by DATAHQ (`ledger app`, http://127.0.0.1:3610; hosted read-only at https://datahq-production.up.railway.app) from the working database. What the pipeline holds now;
 the production Postgres holds what was signed (`ledger publish`, `docs/HANDOFF.md`). Read-only except views.
 JSON by default; CSV with `?format=csv` or a `.csv` suffix. No authentication: it binds to localhost. Put it
 behind a proxy that authenticates before exposing it.

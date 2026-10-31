@@ -154,7 +154,13 @@ def readme(version, rows, ai_spend=()) -> str:
         f"Revenue, capex and opex for {len(companies)} companies, fiscal years {years[0]}–{years[-1]}, read from their 10-K filings. "
         "Every value points at the exact cell of the filing it came from, was re-read on the filing as rendered, and was compared with the company's own XBRL data. "
         "A person reviewed what code could not settle and signed this release.", "",
+        "Nothing here is estimated. `taxonomy.csv` is the dataset in one shape: each row an instance of a published standard concept (us-gaap for spent, committed and derived; "
+        "Regulation S-K for planned), the company's own label beside it, and for AI only what the company itself stated, quoted. See docs/TAXONOMY.md in the repository.", "",
         "## Files", "",
+        "- `taxonomy.csv`: one row per company, fiscal year, measure (spent, committed, derived, planned, company_stated_ai) and category; `standard_concept` names the standard, `reported_name` the company's label, `check` how the number was verified, `proven` whether the company is in the proven set.",
+        "- `companies.csv`: the tracked companies with layer, role and the SEC's SIC code.",
+        "- `statements.csv`: guidance and AI statements, quoted, with the source document and date.",
+        "- `projects.csv`: named projects the filings and releases mention, verbatim.",
         "- `values.csv`: one row per company, field and fiscal year.",
         "- `facts.csv`: facts from the notes: capex and revenue per segment, property and equipment by category, finance lease liabilities, purchase commitments; `xbrl` says whether the filing's own tagged fact agrees.",
         "- `ai_spend.csv`: what each 10-K's MD&A says about AI's part of capex and opex, one row per company, field, fiscal year and kind, with the sentence quoted.",

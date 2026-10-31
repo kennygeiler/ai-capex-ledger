@@ -55,7 +55,7 @@ around it; a person lists the links).
 ```bash
 uv run python -m ledger run --ticker NVDA        # every step for one company, agents included, then the scorecard
 uv run python -m ledger run --stage 3            # all 31 (about 30 minutes on a fresh clone, mostly fetching and Chrome)
-LEDGER_CLAUDE="$(which claude)" uv run python -m ledger app   # DATAHQ at http://127.0.0.1:3610
+uv run python -m ledger app                      # DATAHQ at http://127.0.0.1:3610 (LEDGER_CLAUDE="$(which claude)" only to start runs from it)
 uv run python -m ledger golden --check           # the proven six rebuilt from frozen inputs, every table compared
 uv run python -m ledger release v1.5.0 --stage 3 # refuses while a gate fails; then signoff, by the owner only
 uv run python -m ledger publish v1.5.0           # a signed release to the production Postgres; --status lists what is there
@@ -80,6 +80,15 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 | releases | plain files whose content hash a person signs | `releases/v*/` | release `README.md` |
 | production | the signed releases, one table per release file plus `ledger_releases`; `current_*` views follow the highest version | Postgres at `DATABASE_URL`, `ledger/publish.py` | this file |
 | companies | the 100 companies by supply-chain layer (`group`, a reading aid); the proven set in `config.PROVEN` | `data/companies.json`, `ledger/config.py` | `docs/COMPANIES.md`, `docs/PROOF.md` |
+
+## The hosted copy
+
+https://datahq-production.up.railway.app is DATAHQ read-only: the same pages and read API, from a snapshot of the working database,
+the evidence screenshots and the signed releases. Nothing writes there (every POST is refused; the header says "read-only copy")
+and it never reaches the SEC (`ledger/ingest/edgar.py` raises `Offline` instead of fetching). It is what to send someone who should
+look without a checkout. Redeploy after a run or a release: `railway up --service datahq` from this directory (the `Dockerfile`;
+`.railwayignore` re-includes `data/ledger.duckdb`, which git ignores). The signed releases also sit in the production Postgres,
+`DATABASE_READONLY_URL` in `.env`, the only connection string to hand out.
 
 ## How to do the common things
 

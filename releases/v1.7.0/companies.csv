@@ -1,0 +1,101 @@
+ticker,name,layer,group,role,note,sic,sic_description,proven
+NVDA,Nvidia,chip_seller,AI trade,seller,,3674,Semiconductors & Related Devices,True
+MSFT,Microsoft,hyperscaler,AI trade,buyer,,7372,Services-Prepackaged Software,True
+GOOGL,Alphabet,hyperscaler,AI trade,buyer,,7370,"Services-Computer Programming, Data Processing, Etc.",True
+AMZN,Amazon,hyperscaler,AI trade,buyer,,5961,Retail-Catalog & Mail-Order Houses,True
+META,Meta,hyperscaler,AI trade,buyer,,7370,"Services-Computer Programming, Data Processing, Etc.",False
+ORCL,Oracle,hyperscaler,AI trade,buyer,,7372,Services-Prepackaged Software,False
+TSLA,Tesla,other,AI trade,buyer,,3711,Motor Vehicles & Passenger Car Bodies,False
+MU,Micron,component_supplier,AI trade,seller,,3674,Semiconductors & Related Devices,False
+AMD,AMD,chip_seller,AI trade,seller,,3674,Semiconductors & Related Devices,True
+SPCX,SpaceX,other,AI trade,buyer,Nasdaq IPO June 2026,,,False
+CRWV,CoreWeave,neocloud,"Nasdaq, not S&P 500",buyer,IPO March 2025,7372,Services-Prepackaged Software,False
+MRVL,Marvell,chip_seller,"Nasdaq, not S&P 500",seller,,3674,Semiconductors & Related Devices,False
+ALAB,Astera Labs,chip_seller,"Nasdaq, not S&P 500",seller,IPO March 2024,3674,Semiconductors & Related Devices,False
+CRDO,Credo,chip_seller,"Nasdaq, not S&P 500",seller,,3674,Semiconductors & Related Devices,False
+IREN,IREN,miner_to_hpc,"Nasdaq, not S&P 500",buyer,Moved from 20-F to 10-K in 2025,6199,Finance Services,False
+APLD,Applied Digital,miner_to_hpc,"Nasdaq, not S&P 500",buyer,,7374,Services-Computer Processing & Data Preparation,True
+CIFR,Cipher Digital,miner_to_hpc,"Nasdaq, not S&P 500",buyer,,6199,Finance Services,False
+WULF,TeraWulf,miner_to_hpc,"Nasdaq, not S&P 500",buyer,,6199,Finance Services,False
+CORZ,Core Scientific,miner_to_hpc,"Nasdaq, not S&P 500",buyer,,6199,Finance Services,False
+ANET,Arista Networks,component_supplier,Added in DATAHQ,seller,,3576,Computer Communications Equipment,False
+COMP,Compass,other,Added in DATAHQ,other,,6531,Real Estate Agents & Managers (For Others),False
+AAPL,Apple,other,S&P 500 majors,other,,3571,Electronic Computers,False
+AVGO,Broadcom,chip_seller,S&P 500 majors,seller,,3674,Semiconductors & Related Devices,False
+INTC,Intel,chip_seller,S&P 500 majors,seller,,3674,Semiconductors & Related Devices,False
+QCOM,Qualcomm,chip_seller,S&P 500 majors,seller,,3663,Radio & Tv Broadcasting & Communications Equipment,False
+TXN,Texas Instruments,chip_seller,S&P 500 majors,seller,,3674,Semiconductors & Related Devices,False
+CSCO,Cisco Systems,component_supplier,S&P 500 majors,other,,3576,Computer Communications Equipment,False
+IBM,IBM,other,S&P 500 majors,other,,3570,Computer & office Equipment,False
+WMT,Walmart,other,S&P 500 majors,other,,5331,Retail-Variety Stores,False
+XOM,ExxonMobil,other,S&P 500 majors,other,,2911,Petroleum Refining,False
+JPM,JPMorgan Chase,other,S&P 500 majors,other,,6021,National Commercial Banks,False
+NBIS,Nebius Group N.V,neocloud,Scale to 100,,,,,False
+HUT,Hut 8,miner_to_hpc,Scale to 100,,,6199,Finance Services,False
+RIOT,Riot Platforms,miner_to_hpc,Scale to 100,,,6199,Finance Services,False
+MARA,Mara,miner_to_hpc,Scale to 100,,,6199,Finance Services,False
+CLSK,Cleanspark,miner_to_hpc,Scale to 100,,,6199,Finance Services,False
+BTBT,Bit Digital,miner_to_hpc,Scale to 100,,,6199,Finance Services,False
+SLNH,Soluna,miner_to_hpc,Scale to 100,,,6199,Finance Services,False
+GLXY,Galaxy Digital,miner_to_hpc,Scale to 100,,,6211,"Security Brokers, Dealers & Flotation Companies",False
+BTDR,Bitdeer Technologies Group,miner_to_hpc,Scale to 100,,,,,False
+ARM,Arm   /Uk,chip_seller,Scale to 100,,,,,False
+MPWR,Monolithic Power Systems,chip_seller,Scale to 100,,,3674,Semiconductors & Related Devices,False
+RMBS,Rambus,chip_seller,Scale to 100,,,3674,Semiconductors & Related Devices,False
+SITM,Sitime,chip_seller,Scale to 100,,,3674,Semiconductors & Related Devices,False
+SNPS,Synopsys,chip_seller,Scale to 100,,,7372,Services-Prepackaged Software,False
+CDNS,Cadence Design Systems,chip_seller,Scale to 100,,,7372,Services-Prepackaged Software,False
+LRCX,Lam Research,chip_equipment,Scale to 100,,,3559,"Special Industry Machinery, NEC",False
+AMAT,Applied Materials  /De,chip_equipment,Scale to 100,,,3674,Semiconductors & Related Devices,False
+KLAC,Kla,chip_equipment,Scale to 100,,,3827,Optical Instruments & Lenses,False
+TER,Teradyne,chip_equipment,Scale to 100,,,3825,Instruments For Meas & Testing of  Electricity & Elec Signals,False
+ENTG,Entegris,chip_equipment,Scale to 100,,,3089,"Plastics Products, NEC",False
+ONTO,Onto Innovation,chip_equipment,Scale to 100,,,3829,"Measuring & Controlling Devices, NEC",False
+AEIS,Advanced Energy Industries,chip_equipment,Scale to 100,,,3679,"Electronic Components, NEC",False
+ACLS,Axcelis Technologies,chip_equipment,Scale to 100,,,3559,"Special Industry Machinery, NEC",False
+WDC,Western Digital,component_supplier,Scale to 100,,,3572,Computer Storage Devices,False
+STX,Seagate Technology,component_supplier,Scale to 100,,,3572,Computer Storage Devices,False
+SNDK,Sandisk,component_supplier,Scale to 100,,,3572,Computer Storage Devices,False
+SMCI,Super Micro Computer,component_supplier,Scale to 100,,,3571,Electronic Computers,False
+DELL,Dell Technologies,component_supplier,Scale to 100,,,3571,Electronic Computers,False
+HPE,Hewlett Packard Enterprise,component_supplier,Scale to 100,,,3570,Computer & office Equipment,False
+NTAP,Netapp,component_supplier,Scale to 100,,,3572,Computer Storage Devices,False
+CIEN,Ciena,component_supplier,Scale to 100,,,3661,Telephone & Telegraph Apparatus,False
+COHR,Coherent,component_supplier,Scale to 100,,,3827,Optical Instruments & Lenses,False
+LITE,Lumentum,component_supplier,Scale to 100,,,3669,"Communications Equipment, NEC",False
+AAOI,Applied Optoelectronics,component_supplier,Scale to 100,,,3674,Semiconductors & Related Devices,False
+FN,Fabrinet,component_supplier,Scale to 100,,,3661,Telephone & Telegraph Apparatus,False
+JBL,Jabil,component_supplier,Scale to 100,,,3672,Printed Circuit Boards,False
+FLEX,Flex,component_supplier,Scale to 100,,,3672,Printed Circuit Boards,False
+CLS,Celestica,component_supplier,Scale to 100,,,3672,Printed Circuit Boards,False
+PENG,Penguin Solutions,component_supplier,Scale to 100,,,3674,Semiconductors & Related Devices,False
+VRT,Vertiv,datacenter_build,Scale to 100,,,3679,"Electronic Components, NEC",False
+ETN,Eaton,datacenter_build,Scale to 100,,,3590,Misc Industrial & Commercial Machinery & Equipment,False
+NVT,Nvent Electric,datacenter_build,Scale to 100,,,3550,Special Industry Machinery (No Metalworking Machinery),False
+MOD,Modine Manufacturing,datacenter_build,Scale to 100,,,3714,Motor Vehicle Parts & Accessories,False
+JCI,Johnson Controls International,datacenter_build,Scale to 100,,,3585,Air-Cond & Warm Air Heatg Equip & Comm & Indl Refrig Equip,False
+PWR,Quanta Services,datacenter_build,Scale to 100,,,1731,Electrical Work,False
+FIX,Comfort Systems Usa,datacenter_build,Scale to 100,,,1731,Electrical Work,False
+EME,Emcor Group,datacenter_build,Scale to 100,,,1731,Electrical Work,False
+GEV,Ge Vernova,datacenter_build,Scale to 100,,,3600,Electronic & Other Electrical Equipment (No Computer Equip),False
+POWL,Powell Industries,datacenter_build,Scale to 100,,,3613,Switchgear & Switchboard Apparatus,False
+BE,Bloom Energy,datacenter_build,Scale to 100,,,3620,Electrical Industrial Apparatus,False
+EQIX,Equinix,datacenter_landlord,Scale to 100,,,6798,Real Estate Investment Trusts,False
+DLR,Digital Realty Trust,datacenter_landlord,Scale to 100,,,6798,Real Estate Investment Trusts,False
+IRM,Iron Mountain,datacenter_landlord,Scale to 100,,,6798,Real Estate Investment Trusts,False
+VST,Vistra,power,Scale to 100,,,4911,Electric Services,False
+CEG,Constellation Energy,power,Scale to 100,,,4911,Electric Services,False
+NRG,Nrg Energy,power,Scale to 100,,,4911,Electric Services,False
+TLN,Talen Energy,power,Scale to 100,,,4911,Electric Services,False
+CRM,Salesforce,ai_software,Scale to 100,,,7372,Services-Prepackaged Software,False
+NOW,Servicenow,ai_software,Scale to 100,,,7372,Services-Prepackaged Software,False
+ADBE,Adobe,ai_software,Scale to 100,,,7372,Services-Prepackaged Software,False
+SNOW,Snowflake,ai_software,Scale to 100,,,7372,Services-Prepackaged Software,False
+PLTR,Palantir Technologies,ai_software,Scale to 100,,,7372,Services-Prepackaged Software,False
+DDOG,Datadog,ai_software,Scale to 100,,,7372,Services-Prepackaged Software,False
+UBER,Uber Technologies,other,Scale to 100,,,7389,"Services-Business Services, NEC",False
+SYM,Symbotic,other,Scale to 100,,,3569,"General Industrial Machinery & Equipment, NEC",False
+VZ,Verizon Communications,other,Scale to 100,,,4813,Telephone Communications (No Radiotelephone),False
+T,At&T,other,Scale to 100,,,4813,Telephone Communications (No Radiotelephone),False
+TMUS,T-Mobile Us,other,Scale to 100,,,4812,Radiotelephone Communications,False
+FCX,Freeport-Mcmoran,other,Scale to 100,,,1000,Metal Mining,False
