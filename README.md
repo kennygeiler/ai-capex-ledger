@@ -8,7 +8,7 @@ New here, person or agent? Read [docs/HANDOFF.md](docs/HANDOFF.md) first: what a
 
 *Updated with every commit. The diary of earlier entries is in `docs/archive/README-status-diary.md`.*
 
-**Last done (1 Nov 2026, late):** **v1.7.0 built, DATAHQ hosted.** `releases/v1.7.0` is the first packet in the taxonomy shape: `taxonomy.csv` added, `attribution.csv`, `plans.csv`, `theses.json`, `EVALUATION.md` gone (DIFF.md now lists files that came and went); not signed yet, Kenny signs. `ledger/publish.py` publishes `taxonomy` as `ledger_taxonomy`. DATAHQ runs read-only at https://datahq-production.up.railway.app (`Dockerfile`, `LEDGER_READONLY=1`: every POST refused, no SEC fetch, `Offline` in `edgar._cached`; Railway service `datahq` in the `ai-capex-ledger` project, `railway up --service datahq` to redeploy). Also fixed: `ledger release` crashed on the removed `api.theses`.
+**Last done (1 Nov 2026, late):** **v1.7.0 signed and published.** Kenny signed (hash 91d4f02a190f); published to the production Postgres (6,700 taxonomy rows in `ledger_taxonomy`, `current_*` views point at v1.7.0; the read-only role reads it); DATAHQ redeployed with the signed packet. Before that: **v1.7.0 built, DATAHQ hosted.** `releases/v1.7.0` is the first packet in the taxonomy shape: `taxonomy.csv` added, `attribution.csv`, `plans.csv`, `theses.json`, `EVALUATION.md` gone (DIFF.md now lists files that came and went); not signed yet, Kenny signs. `ledger/publish.py` publishes `taxonomy` as `ledger_taxonomy`. DATAHQ runs read-only at https://datahq-production.up.railway.app (`Dockerfile`, `LEDGER_READONLY=1`: every POST refused, no SEC fetch, `Offline` in `edgar._cached`; Railway service `datahq` in the `ai-capex-ledger` project, `railway up --service datahq` to redeploy). Also fixed: `ledger release` crashed on the removed `api.theses`.
 
 **Before that (1 Nov 2026, late):** **Tables page in DATAHQ.** Kenny: the raw data, in tables. `#tables/<list>` shows every list the read API serves (taxonomy, values, facts, statements, projects, companies) as raw rows: every column, sortable, a company filter, find-in-rows, a row opens to every field, CSV and JSON links to the same `/api/v1/<list>` call. Nothing new in the data; the page reads what the API already returned. DATAHQ is seven pages.
 
@@ -23,7 +23,7 @@ New here, person or agent? Read [docs/HANDOFF.md](docs/HANDOFF.md) first: what a
 1. Widen the proven set one company at a time (Micron, Tesla, Iron Mountain, Equinix), golden green at each step. Nothing runs across 100 until then.
 2. Put "unreferenced" on the Proof board as its own column; grow the reference set with a sourced, scoped figure per proven company-year.
 3. Kenny confirms the replication decisions (`decisions/resolutions.jsonl`), all marked for him.
-4. Kenny signs v1.7.0 (`ledger signoff v1.7.0 --by "Kenny Geiler"`), then `ledger publish v1.7.0`, then redeploy DATAHQ; then send Arctal the repo (grant access), https://datahq-production.up.railway.app, the packet and `DATABASE_READONLY_URL`.
+4. Send Arctal: repo access (their GitHub handles, or public), https://datahq-production.up.railway.app, `releases/v1.7.0` and `DATABASE_READONLY_URL`.
 4. Send to Arctal: the repo, the v1.6.0 packet, DATAHQ, `DATABASE_READONLY_URL`.
 
 **Critical notes:**
