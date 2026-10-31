@@ -84,4 +84,4 @@ Nothing is inferred. The attribution methods that estimated an AI share, and the
 - **Reconcile**: judgement on open items, which should be nearly empty; a judgement that would be made twice becomes a definition.
 - **Dataset**: the grid for a consumer, marks per cell (✓ traced, ≠ differs from SEC data, ✗ disagrees with a stated figure, ! above the total, a decision as a badge), CSV export.
 - **Explore**: charts on the API lists, share as a value, saved views as queries.
-- The releases table and the golden test's last run sit on Proof; the guards, the asset-type mappings and the readers on Rules; the raw rows of every list on Tables. Seven pages, one file, `ledger/app.html`.
+- The releases table and the golden test's last run sit on Proof; the guards, the asset-type mappings and the readers on Rules; the dataset on Dataset, as a grid by year or as the raw rows of every list. Six pages, one file, `ledger/app.html`.

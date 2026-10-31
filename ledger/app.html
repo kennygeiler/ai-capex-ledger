@@ -150,7 +150,6 @@
       <a class="nav-link px-2" href="#reconcile" data-nav="reconcile">Reconcile</a>
       <a class="nav-link px-2" href="#data" data-nav="data">Dataset</a>
       <a class="nav-link px-2" href="#explore" data-nav="explore">Explore</a>
-      <a class="nav-link px-2" href="#tables" data-nav="tables">Tables</a>
     </div>
     <div class="d-flex align-items-center gap-3">
       <input class="form-control form-control-sm" id="jump" name="jump" type="text" list="tickers" placeholder="Ticker or company…" aria-label="Jump to a company" autocomplete="off" spellcheck="false" style="width:13rem">
@@ -267,8 +266,12 @@ const ALL_KINDS = Object.keys(KINDS);
 const parseQ = (s) => Object.fromEntries(new URLSearchParams(s));
 const CHECK = {agree: 'agrees with XBRL', definition_gap: 'definition gap, explained', unresolved: 'differs from XBRL', no_reference: 'no tagged counterpart', not_reported: 'not reported'};
 
+const dataSwitch = (q, which) => h('div', {class: 'btn-group', role: 'group', 'aria-label': 'View'},
+  h('a', {href: '#data?' + new URLSearchParams(Object.fromEntries(Object.entries({t: q.t || q.ticker, f: q.f, k: q.k}).filter(([, v]) => v))).toString(), class: 'btn btn-sm' + (which === 'grid' ? ' active' : ''), 'aria-current': which === 'grid' ? 'page' : null}, 'Grid'),
+  h('a', {href: '#data?' + new URLSearchParams(Object.fromEntries(Object.entries({view: 'rows', list: q.list, ticker: q.ticker || (q.t && !q.t.includes(',') ? q.t : '')}).filter(([, v]) => v))).toString(), class: 'btn btn-sm' + (which === 'rows' ? ' active' : ''), 'aria-current': which === 'rows' ? 'page' : null}, 'Rows'));
 async function dataPage(view, qs) {
   const q = parseQ(qs || '');
+  if (q.view === 'rows') return rowsView(view, q);
   const [hqd, meta] = await Promise.all([hq(), api('/api/data?t=&f=')]);
   const H = hqd.health[0];
   const all = Object.keys(meta.names).sort();
@@ -360,7 +363,7 @@ async function dataPage(view, qs) {
   }
 
   view.append(h('div', {class: 'stack', style: 'gap:1rem'},
-    h('div', {class: 'hrow'}, fieldSel, groupSel, kindSel, h('button', {type: 'button', class: 'btn', onclick: exportCsv}, 'Export CSV'),
+    h('div', {class: 'hrow'}, dataSwitch(q, 'grid'), fieldSel, groupSel, kindSel, h('button', {type: 'button', class: 'btn', onclick: exportCsv}, 'Export CSV'),
       h('span', {class: 'muted small'}, `${list.length} rows in USD. ✓ traced to the SEC's data, ≠ differs from it, fix / ok / expl: a person’s decision.`)),
     grid));
 }
@@ -769,7 +772,7 @@ async function rulesPage(view) {
   view.append(head, tbl, h('h2', {class: 'mt-4 mb-2'}, `Open on the proven set: ${int(r.open)}`), ...open.map((x) => h('div', {class: 'mb-3'}, x)), h('div', {class: 'mt-4'}, agents));
 }
 
-// ── Tables: the raw rows of every list, as the read API and the release files carry them ─────
+// ── Dataset, rows view: the raw rows of every list, as the read API and the release files carry them ──
 const TABLES = [
   ['taxonomy', 'Taxonomy rows', 'one shape for spent, committed, derived, planned and company-stated AI; docs/TAXONOMY.md'],
   ['values', 'Values', 'the cash-flow and income lines read from each 10-K, with the check against XBRL'],
@@ -779,23 +782,22 @@ const TABLES = [
   ['companies', 'Companies', 'the tracked set with layer, role and the SEC’s SIC code'],
 ];
 const RAW_NUM = new Set(['value', 'value_high', 'share', 'amount_low', 'amount_high', 'amount_mid', 'xbrl', 'capacity_mw', 'sic']);
-async function tablesPage(view, arg, qs) {
-  const q = parseQ(qs || '');
-  const name = TABLES.some(([k]) => k === arg) ? arg : 'taxonomy';
+async function rowsView(view, q) {
+  const name = TABLES.some(([k]) => k === q.list) ? q.list : 'taxonomy';
   const ticker = (q.ticker || '').toUpperCase();
-  const setQ = (patch) => { const p = {ticker, ...patch}; go(`tables/${patch.name || name}` + (Object.entries(p).some(([k, v]) => k !== 'name' && v) ? '?' + new URLSearchParams(Object.fromEntries(Object.entries(p).filter(([k, v]) => k !== 'name' && v))).toString() : '')); };
+  const setQ = (patch) => { const p = {view: 'rows', list: name, ticker, ...patch}; go('data?' + new URLSearchParams(Object.fromEntries(Object.entries(p).filter(([, v]) => v))).toString()); };
   const d = await api(`/api/v1/${name}` + (ticker ? `?ticker=${encodeURIComponent(ticker)}` : ''));
   const cols = [...new Set(d.rows.flatMap((r) => Object.keys(r)))];
   const csv = `/api/v1/${name}.csv` + (ticker ? `?ticker=${encodeURIComponent(ticker)}` : '');
 
   const side = h('div', {class: 'list-group list-group-transparent mb-3'}, TABLES.map(([k, label, what]) =>
-    h('a', {href: `#tables/${k}` + (ticker ? `?ticker=${ticker}` : ''), class: 'list-group-item list-group-item-action d-block' + (k === name ? ' active' : '')}, h('div', {}, label), h('div', {class: 'text-secondary small brk'}, what))));
+    h('a', {href: `#data?view=rows&list=${k}` + (ticker ? `&ticker=${ticker}` : ''), class: 'list-group-item list-group-item-action d-block' + (k === name ? ' active' : '')}, h('div', {}, label), h('div', {class: 'text-secondary small brk'}, what))));
   const tickSel = h('select', {'aria-label': 'Company', onchange: (e) => setQ({ticker: e.target.value})},
     h('option', {value: ''}, 'Every company'), Object.entries(NAMES).map(([t, n]) => h('option', {value: t, selected: t === ticker || null}, `${n} ${t}`)));
   const search = h('input', {type: 'text', placeholder: 'Find in rows', 'aria-label': 'Find in rows', style: 'width:16rem'});
   const count = h('span', {class: 'text-secondary small'});
   const head = h('div', {class: 'page-header mb-3'}, h('div', {class: 'row align-items-center g-2'},
-    h('div', {class: 'col'}, h('h1', {class: 'page-title'}, TABLES.find(([k]) => k === name)[1]), h('div', {class: 'text-secondary small'}, 'Raw rows, as /api/v1/', name, ' returns them and as the release file carries them. Values in USD. Click a row for every field.')),
+    h('div', {class: 'col'}, h('div', {class: 'hrow mb-2'}, dataSwitch({...q, list: name, ticker}, 'rows'), h('h2', {class: 'm-0'}, TABLES.find(([k]) => k === name)[1])), h('div', {class: 'text-secondary small'}, 'Raw rows, as /api/v1/', name, ' returns them and as the release file carries them. Values in USD. Click a row for every field.')),
     h('div', {class: 'col-auto'}, h('a', {href: csv, class: 'btn btn-outline-secondary btn-sm'}, 'CSV'), ' ', h('a', {href: `/api/v1/${name}` + (ticker ? `?ticker=${ticker}` : ''), target: '_blank', rel: 'noopener', class: 'btn btn-outline-secondary btn-sm'}, 'JSON'))));
   const controls = h('div', {class: 'hrow mb-2', style: 'gap:.5rem;align-items:center'}, tickSel, search, count);
 
@@ -838,10 +840,10 @@ async function route() {
   const raw = location.hash.slice(1) || 'proof';
   const [path, qs] = raw.split('?');
   const [page, arg] = path.split('/');
-  const tab = {company: 'data', views: 'explore', flow: 'proof', status: 'proof', golden: 'proof', releases: 'proof', agents: 'rules', attribution: 'rules', run: 'proof'}[page] || page;
+  const tab = {company: 'data', tables: 'data', views: 'explore', flow: 'proof', status: 'proof', golden: 'proof', releases: 'proof', agents: 'rules', attribution: 'rules', run: 'proof'}[page] || page;
   document.querySelectorAll('header [data-nav]').forEach((a) => a.classList.toggle('active', a.dataset.nav === tab));
   const view = $('#view');
-  view.replaceChildren(h('h1', {class: 'sr'}, `DATAHQ, ${({proof: 'Proof', rules: 'Rules', reconcile: 'Reconcile', data: 'Dataset', company: 'Company', explore: 'Explore', tables: 'Tables'})[page] || 'Data'}`));
+  view.replaceChildren(h('h1', {class: 'sr'}, `DATAHQ, ${({proof: 'Proof', rules: 'Rules', reconcile: 'Reconcile', data: 'Dataset', company: 'Company', explore: 'Explore'})[page] || 'Data'}`));
   try {
     if (page === 'proof' && arg) await trailPage(view, arg);
     else if (page === 'proof') await proofPage(view);
@@ -850,7 +852,7 @@ async function route() {
     else if (page === 'reconcile') await reconcilePage(view, qs);
     else if (page === 'views' || page === 'explore') await explorePage(view, arg, qs);
     else if (page === 'data' || page === 'insights') await dataPage(view, qs);
-    else if (page === 'tables') await tablesPage(view, arg, qs);
+    else if (page === 'tables') { go('data?' + new URLSearchParams({view: 'rows', list: arg || 'taxonomy', ...parseQ(qs || '')}).toString()); return; }
     else await proofPage(view);
   } catch (e) {
     view.replaceChildren(h('p', {class: 'msg bad'}, e.message));
