@@ -19,7 +19,7 @@ import duckdb
 
 ROOT = Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[1]  # LEDGER_ROOT: the golden harness runs the pipeline in a copy of the repo layout
 DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
-SCHEMA_VERSION = 9  # v9: projects table
+SCHEMA_VERSION = 10  # v10: ai_spend.ai_amount dropped (a share × our value is computed, not stated); v9: projects table
 
 FIELDS = ("revenue", "cost_of_revenue", "cost_of_revenue_part", "operating_income", "capex", "opex")
 KINDS = ("accept", "override", "reject")  # what a person can decide about an exception
@@ -146,7 +146,7 @@ SCHEMA: tuple[Table, ...] = (
         _c("prompt_version", "VARCHAR", "Prompt file and version, e.g. aispend@v1."),
         _c("run_id", "VARCHAR", "Run that produced it."),
     ), key=("statement_id",)),
-    Table("ai_spend", "Table B for AI spend: per company, field, fiscal year and kind, the most specific statement from the newest filing, and an AI dollar amount only where the filing supports one.", (
+    Table("ai_spend", "Table B for AI spend: per company, field, fiscal year and kind, the most specific statement from the newest filing, as stated: an amount range, a share, or words only.", (
         TICKER,
         _c("field", "VARCHAR", "capex, opex or revenue.", enum=("capex", "opex", "revenue")),
         PERIOD,
@@ -156,7 +156,6 @@ SCHEMA: tuple[Table, ...] = (
         _c("amount_low", "BIGINT", "As stated.", nullable=True),
         _c("amount_high", "BIGINT", "As stated.", nullable=True),
         _c("share", "DOUBLE", "As stated.", nullable=True),
-        _c("ai_amount", "BIGINT", "AI dollars: the midpoint of an explicit AI amount, or an explicit AI share × our value for that year. Null when the filing gives only words or only a total.", nullable=True),
         _c("quote", "VARCHAR", "The sentence behind the row."),
         _c("text_id", "VARCHAR", "The text the quote comes from (texts)."),
         _c("source", "VARCHAR", "mdna, earnings_release, transcript or cfo_commentary.", enum=("mdna", "earnings_release", "transcript", "cfo_commentary")),
@@ -289,6 +288,8 @@ def init(path: Path | str = DEFAULT_DB) -> duckdb.DuckDBPyConnection:
     if have and int(have[0]) < 7:  # v7 reshaped the AI-spend tables (text_id, source); they are rebuilt by `ledger aispend --load`
         for t in ("ai_statements", "ai_spend"):
             con.execute(f'DROP TABLE IF EXISTS "{t}"')
+    if have and int(have[0]) < 10:  # v10 dropped the computed column; the rows are rebuilt by `ledger aispend --load`
+        con.execute('DROP TABLE IF EXISTS "ai_spend"')
     for t in SCHEMA:
         con.execute(_ddl(t))
     con.execute("CREATE TABLE IF NOT EXISTS _meta (k VARCHAR PRIMARY KEY, v VARCHAR)")

@@ -19,7 +19,7 @@ from .release import RELEASES, content_hash
 ROOT = Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[1]
 TABLES = {"values": "ledger_values", "facts": "ledger_facts", "ai_spend": "ledger_ai_spend", "attribution": "ledger_attribution",
           "companies": "ledger_companies", "statements": "ledger_statements", "plans": "ledger_plans", "projects": "ledger_projects"}  # one shape: the API's lists (C7)
-NUMERIC = {"value", "xbrl_value", "first_reported", "amount_low", "amount_high", "share", "ai_amount", "ai_share", "confidence", "amount_mid",
+NUMERIC = {"value", "xbrl_value", "first_reported", "amount_low", "amount_high", "share", "confidence", "amount_mid",
            "plan_low", "plan_high", "plan_mid", "actual", "gap", "gap_share", "capacity_mw", "gpus"}
 DATE = {"period_end"}
 

@@ -119,11 +119,10 @@ def main(argv=None) -> int:
         runs.append({"run_id": run_id, "step": "aispend", "subject": d["text_id"], "started_at": run_id[8:], "seconds": round(time.monotonic() - t0, 3),
                      "outcome": "ok", "versions": json.dumps({"prompt": pv, "model": meta.get("model")}),
                      "detail": json.dumps({"statements": len(obj["statements"]), "none_found": obj["none_found"], **meta})})
-    vals = {(t, f, p): v for t, f, p, v in con.execute('select ticker, field, period, value from "values" where ticker in (select unnest(?))', [tickers]).fetchall()}
     spend = []
     for t in tickers:
         mine = [r for r in rows if r["ticker"] == t]
-        spend += spend_rows(t, mine, {(f, p): v for (tt, f, p), v in vals.items() if tt == t and v is not None}, filed)
+        spend += spend_rows(t, mine, filed)
     for tbl in ("ai_statements", "ai_spend"):
         con.execute(f"DELETE FROM {tbl} WHERE ticker IN (SELECT unnest(?))", [tickers])
     con.execute("DELETE FROM exceptions WHERE rule_id = 'ai_extraction_failed' AND ticker IN (SELECT unnest(?))", [tickers])
@@ -131,7 +130,7 @@ def main(argv=None) -> int:
     store.write(con, "ai_spend", spend)
     store.write(con, "exceptions", excs, replace=True)
     store.write(con, "runs", runs, replace=True)
-    print(f"{name}: {len(rows)} statements from {len(docs)} texts; {len(spend)} AI-spend rows ({sum(r['ai_amount'] is not None for r in spend)} with an AI amount); {len(excs)} failed")
+    print(f"{name}: {len(rows)} statements from {len(docs)} texts; {len(spend)} AI-spend rows; {len(excs)} failed")
     for e in excs:
         print("  FAILED", e["subject"], "-", e["message"])
     return 0

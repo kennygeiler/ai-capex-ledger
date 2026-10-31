@@ -159,7 +159,7 @@ RANK = {("ai", "explicit_amount"): 0, ("ai", "explicit_share"): 1, ("total", "ex
         ("ai", "qualitative"): 4, ("total", "qualitative"): 5}
 
 
-def spend_rows(ticker: str, statements: list[dict], values: dict, filed: dict) -> list[dict]:
+def spend_rows(ticker: str, statements: list[dict], filed: dict) -> list[dict]:
     """One row per (field, period, kind): the most specific statement across every text, the newest text breaking ties.
     values: (field, period) -> our released value, for turning a share into dollars. filed: text_id -> date."""
     by = {}
@@ -169,15 +169,10 @@ def spend_rows(ticker: str, statements: list[dict], values: dict, filed: dict) -
     for (f, period, kind), ss in sorted(by.items()):
         ss = sorted(ss, key=lambda s: (RANK[(s["scope"], s["class"])], -int(filed[s["text_id"]].replace("-", "")), -s["confidence"]))
         best = ss[0]
-        amount = None
-        if best["scope"] == "ai" and best["class"] == "explicit_amount":
-            amount = (best["amount_low"] + best["amount_high"]) // 2
-        elif best["scope"] == "ai" and best["class"] == "explicit_share" and kind == "actual" and values.get((f, period)):
-            amount = round(best["share"] * values[(f, period)])
         ids = [s["statement_id"] for s in ss]
-        h = hashlib.sha256(json.dumps([best["quote"], best["scope"], best["class"], amount, ids]).encode()).hexdigest()[:16]
+        h = hashlib.sha256(json.dumps([best["quote"], best["scope"], best["class"], ids]).encode()).hexdigest()[:16]
         out.append({"ticker": ticker, "field": f, "period": period, "kind": kind, "scope": best["scope"], "class": best["class"],
                     "amount_low": best.get("amount_low"), "amount_high": best.get("amount_high"), "share": best.get("share"),
-                    "ai_amount": amount, "quote": best["quote"], "text_id": best["text_id"], "source": best["source"], "accession": best["accession"],
+                    "quote": best["quote"], "text_id": best["text_id"], "source": best["source"], "accession": best["accession"],
                     "statement_ids": ",".join(ids), "input_hash": h})
     return out

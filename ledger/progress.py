@@ -54,8 +54,8 @@ def summary(con, cmd: str, extra: list[str], tickers: list[str], name: str, star
         return f"Read {len(fresh)} text{'s' * (len(fresh) != 1)}" if fresh else "Every text was already read"
     if cmd == "aispend":
         n, = one(f"select count(*) from ai_statements {t}")
-        rows, ai = one(f"select count(*), count(*) filter (where ai_amount is not null) from ai_spend {t}")
-        return f"{n} statements quoted; {rows} company-years speak to AI spend, {ai} with an AI dollar amount"
+        rows, ai = one(f"select count(*), count(*) filter (where scope = 'ai' and class <> 'qualitative') from ai_spend {t}")
+        return f"{n} statements quoted; {rows} company-years speak to AI spend, {ai} with a stated AI figure"
     if cmd == "notes" and extra == ["--run"]:
         since = datetime.fromisoformat(started_at).timestamp()
         outs = [NOTE_OUTPUTS / f"{a}.json" for (a,) in con.execute(f"select accession from documents {t}", [tickers]).fetchall()]

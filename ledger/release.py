@@ -75,10 +75,10 @@ def ai_spend_csv(rows: list[dict]) -> str:
     """What each 10-K says about AI's part of capex and opex: one row per company, field, fiscal year and kind."""
     buf = io.StringIO()
     w = csv.writer(buf, lineterminator="\n")
-    w.writerow(["ticker", "field", "period", "kind", "scope", "class", "amount_low", "amount_high", "share", "ai_amount", "source", "accession", "quote"])
+    w.writerow(["ticker", "field", "period", "kind", "scope", "class", "amount_low", "amount_high", "share", "source", "accession", "quote"])
     for a in sorted(rows, key=lambda a: (a["ticker"], a["field"], a["period"], a["kind"])):
         w.writerow([a["ticker"], a["field"], a["period"], a["kind"], a["scope"], a["class"], a["amount_low"] or "", a["amount_high"] or "",
-                    "" if a["share"] is None else a["share"], "" if a["ai_amount"] is None else a["ai_amount"], a["source"], a["accession"] or "", a["quote"]])
+                    "" if a["share"] is None else a["share"], a["source"], a["accession"] or "", a["quote"]])
     return buf.getvalue()
 
 
@@ -142,7 +142,7 @@ def facts_line(rows: list[dict]) -> str:
 def ai_line(rows: list[dict]) -> str:
     cos = {a["ticker"] for a in rows}
     return (f"AI spend (ai_spend.csv): {len(rows)} statements for {len(cos)} companies on what the 10-K's MD&A says about AI's part of capex and opex; "
-            f"{sum(a['ai_amount'] is not None for a in rows)} give an AI dollar amount, {sum(a['class'] == 'explicit_amount' and a['scope'] == 'total' for a in rows)} give the company's total with AI as a driver, "
+            f"{sum(a['scope'] == 'ai' and a['class'] != 'qualitative' for a in rows)} give a stated AI amount or share, {sum(a['class'] == 'explicit_amount' and a['scope'] == 'total' for a in rows)} give the company's total with AI as a driver, "
             f"{sum(a['class'] == 'qualitative' for a in rows)} are words only. Every row quotes its sentence.")
 
 
@@ -176,7 +176,6 @@ def readme(version, rows, ai_spend=()) -> str:
         "| `kind` | `actual`: the fiscal year the filing reports. `outlook`: a later year the filing speaks to. |",
         "| `scope` | `ai`: the figure is the AI part. `total`: the company's whole capex or opex, with AI named as a driver; **not** AI spend. |",
         "| `class` | `explicit_amount` (dollars in `amount_low`, `amount_high`), `explicit_share` (`share`, 0 to 1), or `qualitative` (words only). |",
-        "| `ai_amount` | AI dollars only where the filing supports one: the midpoint of an explicit AI amount, or an explicit AI share × the released value. Blank otherwise. |",
         "| `source` | `mdna` (10-K Item 7), `earnings_release` (8-K Exhibit 99.1), `transcript` or `cfo_commentary` (the company's investor page). |",
         "| `quote` | The sentence, verbatim from the source. |", "",
         "## Verify it yourself", "",

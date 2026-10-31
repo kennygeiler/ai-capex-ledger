@@ -1,6 +1,6 @@
 # Data dictionary
 
-Generated from `ledger/store.py` (schema version 9). Do not edit by hand: run `uv run python -m ledger.store`.
+Generated from `ledger/store.py` (schema version 10). Do not edit by hand: run `uv run python -m ledger.store`.
 
 Money is BIGINT US dollars, unscaled. Dates are `YYYY-MM-DD` strings; timestamps are UTC ISO 8601.
 
@@ -145,7 +145,7 @@ Key: `(statement_id)`
 
 ## `ai_spend`
 
-Table B for AI spend: per company, field, fiscal year and kind, the most specific statement from the newest filing, and an AI dollar amount only where the filing supports one.
+Table B for AI spend: per company, field, fiscal year and kind, the most specific statement from the newest filing, as stated: an amount range, a share, or words only.
 
 Key: `(ticker, field, period, kind)`
 
@@ -160,7 +160,6 @@ Key: `(ticker, field, period, kind)`
 | `amount_low` | BIGINT | no |  | As stated. |
 | `amount_high` | BIGINT | no |  | As stated. |
 | `share` | DOUBLE | no |  | As stated. |
-| `ai_amount` | BIGINT | no |  | AI dollars: the midpoint of an explicit AI amount, or an explicit AI share × our value for that year. Null when the filing gives only words or only a total. |
 | `quote` | VARCHAR | yes |  | The sentence behind the row. |
 | `text_id` | VARCHAR | yes |  | The text the quote comes from (texts). |
 | `source` | VARCHAR | yes | `mdna`, `earnings_release`, `transcript`, `cfo_commentary` | mdna, earnings_release, transcript or cfo_commentary. |

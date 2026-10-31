@@ -29,8 +29,8 @@ class Gate(unittest.TestCase):
 
 class Columns(unittest.TestCase):
     def test_types(self):
-        cols = dict(publish.columns(["ticker", "value", "period_end", "basis", "ai_share"]))
-        self.assertEqual(cols, {"ticker": "text", "value": "numeric", "period_end": "date", "basis": "text", "ai_share": "numeric"})
+        cols = dict(publish.columns(["ticker", "value", "period_end", "basis", "share"]))
+        self.assertEqual(cols, {"ticker": "text", "value": "numeric", "period_end": "date", "basis": "text", "share": "numeric"})
 
     def test_ddl_quotes_and_release_column(self):
         self.assertEqual(publish.ddl("ledger_values", ["ticker", "value"]),
