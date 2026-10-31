@@ -33,6 +33,9 @@
   .small { font-size: .8rem; }
   .mono { font-family: var(--tblr-font-monospace); font-size: .8rem; }
   .brk { white-space: pre-wrap; word-break: break-word; }
+  .raw td, .raw th { white-space: nowrap; max-width: 22rem; overflow: hidden; text-overflow: ellipsis; font-size: .8rem; }
+  .raw td.n { font-family: var(--tblr-font-monospace); font-weight: 400; }
+  .raw tr.detail td { white-space: normal; max-width: none; }
   .num, td.n, th.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
   td.n { font-weight: 500; }
   td.n .note { font-weight: 400; }
@@ -147,6 +150,7 @@
       <a class="nav-link px-2" href="#reconcile" data-nav="reconcile">Reconcile</a>
       <a class="nav-link px-2" href="#data" data-nav="data">Dataset</a>
       <a class="nav-link px-2" href="#explore" data-nav="explore">Explore</a>
+      <a class="nav-link px-2" href="#tables" data-nav="tables">Tables</a>
     </div>
     <div class="d-flex align-items-center gap-3">
       <input class="form-control form-control-sm" id="jump" name="jump" type="text" list="tickers" placeholder="Ticker or company…" aria-label="Jump to a company" autocomplete="off" spellcheck="false" style="width:13rem">
@@ -765,6 +769,53 @@ async function rulesPage(view) {
   view.append(head, tbl, h('h2', {class: 'mt-4 mb-2'}, `Open on the proven set: ${int(r.open)}`), ...open.map((x) => h('div', {class: 'mb-3'}, x)), h('div', {class: 'mt-4'}, agents));
 }
 
+// ── Tables: the raw rows of every list, as the read API and the release files carry them ─────
+const TABLES = [
+  ['taxonomy', 'Taxonomy rows', 'one shape for spent, committed, derived, planned and company-stated AI; docs/TAXONOMY.md'],
+  ['values', 'Values', 'the cash-flow and income lines read from each 10-K, with the check against XBRL'],
+  ['facts', 'Facts', 'segments, PP&E by asset type, finance leases and purchase commitments'],
+  ['statements', 'Statements', 'guidance and AI statements, quoted, with the source text'],
+  ['projects', 'Projects', 'named projects, the latest mention of each'],
+  ['companies', 'Companies', 'the tracked set with layer, role and the SEC’s SIC code'],
+];
+const RAW_NUM = new Set(['value', 'value_high', 'share', 'amount_low', 'amount_high', 'amount_mid', 'xbrl', 'capacity_mw', 'sic']);
+async function tablesPage(view, arg, qs) {
+  const q = parseQ(qs || '');
+  const name = TABLES.some(([k]) => k === arg) ? arg : 'taxonomy';
+  const ticker = (q.ticker || '').toUpperCase();
+  const setQ = (patch) => { const p = {ticker, ...patch}; go(`tables/${patch.name || name}` + (Object.entries(p).some(([k, v]) => k !== 'name' && v) ? '?' + new URLSearchParams(Object.fromEntries(Object.entries(p).filter(([k, v]) => k !== 'name' && v))).toString() : '')); };
+  const d = await api(`/api/v1/${name}` + (ticker ? `?ticker=${encodeURIComponent(ticker)}` : ''));
+  const cols = [...new Set(d.rows.flatMap((r) => Object.keys(r)))];
+  const csv = `/api/v1/${name}.csv` + (ticker ? `?ticker=${encodeURIComponent(ticker)}` : '');
+
+  const side = h('div', {class: 'list-group list-group-transparent mb-3'}, TABLES.map(([k, label, what]) =>
+    h('a', {href: `#tables/${k}` + (ticker ? `?ticker=${ticker}` : ''), class: 'list-group-item list-group-item-action d-block' + (k === name ? ' active' : '')}, h('div', {}, label), h('div', {class: 'text-secondary small brk'}, what))));
+  const tickSel = h('select', {'aria-label': 'Company', onchange: (e) => setQ({ticker: e.target.value})},
+    h('option', {value: ''}, 'Every company'), Object.entries(NAMES).map(([t, n]) => h('option', {value: t, selected: t === ticker || null}, `${n} ${t}`)));
+  const search = h('input', {type: 'text', placeholder: 'Find in rows', 'aria-label': 'Find in rows', style: 'width:16rem'});
+  const count = h('span', {class: 'text-secondary small'});
+  const head = h('div', {class: 'page-header mb-3'}, h('div', {class: 'row align-items-center g-2'},
+    h('div', {class: 'col'}, h('h1', {class: 'page-title'}, TABLES.find(([k]) => k === name)[1]), h('div', {class: 'text-secondary small'}, 'Raw rows, as /api/v1/', name, ' returns them and as the release file carries them. Values in USD. Click a row for every field.')),
+    h('div', {class: 'col-auto'}, h('a', {href: csv, class: 'btn btn-outline-secondary btn-sm'}, 'CSV'), ' ', h('a', {href: `/api/v1/${name}` + (ticker ? `?ticker=${ticker}` : ''), target: '_blank', rel: 'noopener', class: 'btn btn-outline-secondary btn-sm'}, 'JSON'))));
+  const controls = h('div', {class: 'hrow mb-2', style: 'gap:.5rem;align-items:center'}, tickSel, search, count);
+
+  const fmt = (k, v) => v == null || v === '' ? h('span', {class: 'text-secondary'}, '—') : typeof v === 'boolean' ? (v ? 'yes' : 'no') : typeof v === 'number' ? (Number.isInteger(v) ? v.toLocaleString('en-US') : v.toLocaleString('en-US', {maximumFractionDigits: 4})) : k === 'ticker' ? h('a', {href: `#proof/${v}`}, v) : /^https?:/.test(String(v)) ? h('a', {href: v, target: '_blank', rel: 'noopener'}, 'open') : String(v).length > 90 ? h('span', {title: String(v)}, String(v).slice(0, 90) + '…') : String(v);
+  const tcols = cols.map((k) => ({t: k, k, n: RAW_NUM.has(k) ? 1 : 0, f: (r) => fmt(k, r[k])}));
+  const detail = (r) => h('dl', {class: 'row mb-0 small'}, cols.flatMap((k) => [h('dt', {class: 'col-2 font-monospace text-secondary'}, k), h('dd', {class: 'col-10 brk'}, r[k] == null || r[k] === '' ? '—' : String(r[k]))]));
+  const holder = h('div', {});
+  const draw = () => {
+    const needle = search.value.trim().toLowerCase();
+    const rows = needle ? d.rows.filter((r) => JSON.stringify(r).toLowerCase().includes(needle)) : d.rows;
+    const shown = rows.slice(0, 2000);
+    count.textContent = `${int(rows.length)} rows${rows.length !== d.rows.length ? ` of ${int(d.rows.length)}` : ''}${shown.length < rows.length ? `, first ${int(shown.length)} shown; narrow the search or take the CSV` : ''}, ${cols.length} columns`;
+    const tbl = table(tcols, shown, {detail}); tbl.classList.add('raw');
+    holder.replaceChildren(rows.length ? tbl : h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'No rows.')));
+  };
+  let t; search.addEventListener('input', () => { clearTimeout(t); t = setTimeout(draw, 150); });
+  draw();
+  view.append(head, h('div', {class: 'row g-3'}, h('div', {class: 'col-12 col-md-3 col-xl-2'}, side), h('div', {class: 'col-12 col-md-9 col-xl-10', style: 'min-width:0'}, controls, holder)));
+}
+
 // ── Routing ─────────────────────────────────────────────────────────────────
 function go(hash) { location.hash = hash; }
 // the kit's theme follows the system; its classes land on every control the pages build by hand
@@ -790,7 +841,7 @@ async function route() {
   const tab = {company: 'data', views: 'explore', flow: 'proof', status: 'proof', golden: 'proof', releases: 'proof', agents: 'rules', attribution: 'rules', run: 'proof'}[page] || page;
   document.querySelectorAll('header [data-nav]').forEach((a) => a.classList.toggle('active', a.dataset.nav === tab));
   const view = $('#view');
-  view.replaceChildren(h('h1', {class: 'sr'}, `DATAHQ, ${({proof: 'Proof', rules: 'Rules', reconcile: 'Reconcile', data: 'Dataset', company: 'Company', explore: 'Explore'})[page] || 'Data'}`));
+  view.replaceChildren(h('h1', {class: 'sr'}, `DATAHQ, ${({proof: 'Proof', rules: 'Rules', reconcile: 'Reconcile', data: 'Dataset', company: 'Company', explore: 'Explore', tables: 'Tables'})[page] || 'Data'}`));
   try {
     if (page === 'proof' && arg) await trailPage(view, arg);
     else if (page === 'proof') await proofPage(view);
@@ -799,6 +850,7 @@ async function route() {
     else if (page === 'reconcile') await reconcilePage(view, qs);
     else if (page === 'views' || page === 'explore') await explorePage(view, arg, qs);
     else if (page === 'data' || page === 'insights') await dataPage(view, qs);
+    else if (page === 'tables') await tablesPage(view, arg, qs);
     else await proofPage(view);
   } catch (e) {
     view.replaceChildren(h('p', {class: 'msg bad'}, e.message));
