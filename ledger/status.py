@@ -232,9 +232,12 @@ def of_fact(f: dict, resolution: dict | None = None, restated: str | None = None
     return state(row)
 
 
-def of_exception(e: dict, resolution: dict | None = None, rows: list[dict] | None = None) -> dict:
+def of_exception(e: dict, resolution: dict | None = None, rows: list[dict] | None = None, explained_by: str | None = None) -> dict:
     """A rule's finding (an `exceptions` row): block → blocked; info → explained; warn → the worst state of the rows it
-    fired on (`rows`, already through of_value / of_fact), or open when it fired on nothing the dataset holds."""
+    fired on (`rows`, already through of_value / of_fact), or open when it fired on nothing the dataset holds.
+    `explained_by` (T36, rules.explained): the id of an info `explains` rule on file that names this finding; it
+    explains a warn finding whose rows are open, after a person's decision and never over a blocked or checked row
+    (the precedence above), and never one that fired on no value row."""
     sev = e.get("severity")
     if sev in ("block", "info"):
         return state({"rule": e.get("rule_id"), "severity": sev, "reason": (e.get("message") or "")[:200], "resolution": resolution})
@@ -246,6 +249,8 @@ def of_exception(e: dict, resolution: dict | None = None, rows: list[dict] | Non
     if rs in ("accept", "explain"):
         return keyed({"state": "explained", "reason": rreason, "by": rby})
     w = worst(rows or [])
+    if explained_by and w is not None and w["state"] == "open":  # a finding on no value row stays open: nothing the person saw
+        return state({"rule": explained_by, "severity": "info", "reason": f"rule {explained_by} explains this {e.get('rule_id')} finding"})
     if w:
         return keyed({**w, "reason": f"{e.get('rule_id')}: {w['reason']}"})
     return state({"rule": e.get("rule_id"), "severity": "warn", "reason": (e.get("message") or "")[:200]})
@@ -318,6 +323,8 @@ def evidence_gap(item: dict, ev: dict) -> str | None:
         sev = ev["rules"].get(ident)
         if sev is None:
             return f"{by}: no such rule in rules/*.yaml or proof.GUARDS"
+        if ident in (ev.get("explains_by") or {}) and not is_person(ev["explains_by"][ident]):
+            return f"{by}: an explains rule written by {ev['explains_by'][ident]!r}, not a person on config.PEOPLE"
         return None if sev == "info" else f"{by}: a {sev} rule explains nothing"
     if kind == "resolution":
         if ident not in ev["resolutions"]:

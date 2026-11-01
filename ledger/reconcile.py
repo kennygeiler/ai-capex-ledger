@@ -90,10 +90,10 @@ def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str |
             if label == "unresolved" and f == "opex" and "parts" in latest["cost_of_revenue"] and all(
                     _agrees(latest[p], reference.get((p, period))) for p in ("revenue", "operating_income")):
                 label = "definition_gap"  # the gap can only be which lines count as cost of revenue; a person confirms those once per company
-            if label == "unresolved" and f == "opex" and opex_gap_explained(defs or {}, ticker) and all(
+            if label == "unresolved" and f == "opex" and opex_gap_explained(defs or {}, ticker, period) and all(
                     _agrees(latest[p], reference.get((p, period))) for p in ("revenue", "operating_income")):
                 label = "definition_gap"  # the SEC's opex tag is wider than ours (it includes cost of sales); the definition says so
-            if label == "unresolved" and f == "revenue" and revenue_gap_explained(defs or {}, ticker):
+            if label == "unresolved" and f == "revenue" and revenue_gap_explained(defs or {}, ticker, period):
                 label = "definition_gap"  # the SEC's tag measures something wider than the sales line; the definition says so
             basis = "restated" if _restated(val(first), v, max(e["scale"] for e in used)) else "as_reported"
             out.append(_row(ticker, f, period, end, v, val(first), used, label, basis, docs))

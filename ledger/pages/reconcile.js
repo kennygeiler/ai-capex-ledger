@@ -195,6 +195,32 @@ async function reconcilePage(view, qs) {
     }}, (me || '').trim() ? `Write as ${me}` : 'Write'));
     return h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-12 col-xl-4'}, select), h('div', {class: 'col'}, h('div', {class: 'input-group input-group-sm'}, evidence, save)), h('div', {class: 'col-12 small text-secondary'}, `“${r.evidence.reported_name}” → the member, in taxonomy/asset_types.yaml with by and confirmed_by: ${me} and today’s date${r.evidence.mapping === 'to_confirm' ? ', replacing the proposal' : ''}; then rerun `, h('code', {}, 'ledger rules'), ' (or any taxonomy read) and the row shows mapped.'), h('div', {class: 'col-12'}, status));
   }
+  // T36: an explanation written once. The server decides what an item may become (row.encode, judgement.offers): a rule
+  // names the finding's rule, its field and the whole lines the company reads it from; a definition names the company and
+  // the kind. The page sends only the key, the reason and the name; POST /api/judgement writes rules/ or definitions/.
+  const canEncode = (r) => !!(r && r.encode && ['rule', 'definition'].some((k) => r.encode[k] && !r.encode[k].why_not));
+  function encodePanel(r, why) {
+    const E = r.encode, parts = [];
+    for (const as of ['rule', 'definition']) {
+      const o = E[as];
+      if (!o || o.why_not) continue;
+      const text = h('input', {type: 'text', class: 'form-control form-control-sm', autocomplete: 'off', 'aria-label': `Why, kept on the ${as}`, placeholder: as === 'rule' ? 'why these lines explain the finding, for every company' : 'why the field means this for the company', value: why || (r.resolution && r.resolution.reason) || '', onkeydown: (e) => { if (e.key === 'Enter') btn.click(); }});
+      const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
+      const what = as === 'rule'
+        ? ['A rule for every company: a ', h('code', {}, o.rule), ' finding on ', h('code', {}, o.field), ' is explained at every company that reads it from exactly these lines, no more and no fewer: ', o.row_labels.map((l, j) => [j ? ', ' : '', h('span', {class: 'fw-semibold'}, `“${l}”`)]), '.']
+        : ['A definition for ', h('span', {class: 'fw-semibold'}, r.ticker), ': ', h('code', {}, o.kind), o.lines ? [' is the sum of ', o.lines.map((l, j) => [j ? ', ' : '', h('span', {class: 'fw-semibold'}, `“${l}”`)])] : ` differs from the SEC’s tag by definition, in ${(o.periods || []).join(', ')} only`, '.'];
+      const btn = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: (me || '').trim() ? `Write to ${as === 'rule' ? `rules/${o.id}.yaml` : 'definitions/companies.yaml'} with by: ${me}, today` : 'type your name in the signer box first', onclick: async () => {
+        if (!text.value.trim()) { text.focus(); status.textContent = 'A reason is required.'; return; }
+        btn.disabled = true; status.classList.remove('text-red'); status.textContent = 'Writing…';
+        try {
+          const out = await api('/api/judgement', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({key: r.key, as, why: text.value, by: me})});
+          status.replaceChildren('Written to ', h('code', {}, out.file), '. Rerun ', h('code', {}, as === 'rule' ? 'ledger rules' : 'ledger reconcile'), ' to apply it everywhere, and commit the file.');
+        } catch (e) { status.textContent = `Couldn’t write: ${e.message}.`; status.classList.add('text-red'); btn.disabled = !(me || '').trim(); }
+      }}, as === 'rule' ? 'Make this a rule' : 'Make this a definition'));
+      parts.push(h('div', {class: 'col-12'}, h('div', {class: 'small mb-1'}, what), h('div', {class: 'input-group input-group-sm'}, text, btn), status));
+    }
+    return h('div', {class: 'row g-2'}, parts);
+  }
   function resolutionForm(r, many, done) {
     const items = many || [r];
     let state = r && r.resolution ? r.resolution.state : 'accept';
@@ -207,7 +233,10 @@ async function reconcilePage(view, qs) {
       try {
         if (many) await api('/api/resolve/bulk', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({items: items.map((x) => ({key: x.key, hash: x.hash})), state, reason: reason.value, by: me})});
         else await api('/api/resolve', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({key: r.key, hash: r.hash, state, reason: reason.value, by: me})});
-        status.classList.remove('text-red'); status.textContent = 'Saved.'; FOCUS_KEY = many ? items[0].key : r.key; if (done) done(); setTimeout(route, 250);
+        status.classList.remove('text-red'); FOCUS_KEY = many ? items[0].key : r.key; if (done) done();
+        if (!many && (state === 'accept' || state === 'explain') && canEncode(r)) {  // T36: offer to write it once before the row leaves the list
+          status.replaceChildren(h('div', {class: 'mb-2'}, 'Saved. The same cause elsewhere will ask again unless it is written once:'), encodePanel(r, reason.value), h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary mt-2', onclick: route}, 'Done'));
+        } else { status.textContent = 'Saved.'; setTimeout(route, 250); }
       } catch (e) { status.textContent = `Couldn’t save: ${e.message}. Try again.`; status.classList.add('text-red'); }
       finally { save.disabled = false; }
     }}, many ? `Save for ${items.length}` : 'Save');
@@ -283,7 +312,8 @@ async function reconcilePage(view, qs) {
     const decision = isAsset(r)
       ? h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Map it: the member and the note’s words, written under your name')), h('div', {class: 'card-body py-2'}, mappingForm(r))))
       : h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, toConfirm(r) ? 'Overturn: your own decision' : 'Decision'), r.resolution && !toConfirm(r) ? h('span', {class: 'ms-2 small text-secondary'}, `${RES_LABEL[r.resolution.state]} by ${r.resolution.by}, ${day(r.resolution.at)}: ${r.resolution.reason}`) : ''), h('div', {class: 'card-body py-2'}, resolutionForm(r))));
-    return h('div', {class: 'row g-3'}, cards, decision);
+    const once = canEncode(r) ? h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Write it once'), h('span', {class: 'ms-2 small text-secondary'}, 'a decision closes this item; a rule or a definition closes the cause on every run')), h('div', {class: 'card-body py-2'}, encodePanel(r)))) : '';
+    return h('div', {class: 'row g-3'}, cards, decision, once);
   }
   wrap.append(header, controls, bulk, ...(cards.length ? cards : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'Nothing open for this scope.'))]));
   if (trs.length) { cur = Math.max(0, trs.findIndex((t) => t.r.key === FOCUS_KEY)); paintCur(); if (FOCUS_KEY) { trs[cur].tr.focus({preventScroll: true}); trs[cur].tr.scrollIntoView({block: 'center'}); } FOCUS_KEY = null; }
