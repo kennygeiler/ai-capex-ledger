@@ -118,6 +118,10 @@ Nothing is inferred. The attribution methods that estimated an AI share, and the
 - **Rules**: every rule and definition, what it explains, how many items it closed in the latest run, and the
   failure type it came from. The open items of the five, grouped by what rule is missing. This is the work list.
 - **Reconcile**: judgement on open items, which should be nearly empty; a judgement that would be made twice becomes a definition.
+  The mapping stage's open items sit here too (the "asset types" group, T33): each unmapped reported PP&E category with the mapper
+  agent's proposed us-gaap member, the note's words and a confidence; a person's Approve or Edit writes `taxonomy/asset_types.yaml`
+  under their name, Reject logs the member. The stage's states do not change: a proposal is not a mapping, and the row stays open
+  until the entry is written.
 - **Dataset**: the grid for a consumer, marks per cell (✓ traced, ≠ differs from SEC data, ✗ disagrees with a stated figure, ! above the total, a decision as a badge), CSV export.
 - **Explore**: charts on the API lists, share as a value, saved views as queries.
 - **Release** (`#release`, the last page; `ledger/checklist.py`, T5–T8): the checklist a person signs from. One line per thing

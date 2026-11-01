@@ -57,6 +57,7 @@ uv run python -m ledger run --ticker NVDA        # every step for one company, a
 uv run python -m ledger run --stage 3            # all 31 (about 30 minutes on a fresh clone, mostly fetching and Chrome)
 uv run python -m ledger app                      # DATAHQ at http://127.0.0.1:3610 (LEDGER_CLAUDE="$(which claude)" only to start runs from it)
 uv run python -m ledger golden --check           # the proven six rebuilt from frozen inputs, every table compared
+uv run python -m ledger mapper MU                # the mapping assistant (T33): a us-gaap member proposed per unmapped PP&E category; approve on #reconcile?scope=MU
 uv run python -m ledger release v1.8.0           # the scope (config.SCOPE), a gate table per company; refuses on any failing row; then signoff, by the owner only
 uv run python -m ledger publish v1.5.0           # a signed release to the production Postgres; --status lists what is there
 ```
@@ -99,8 +100,14 @@ look without a checkout. Redeploy after a run or a release: `railway up --servic
 
 - **Add a company**: `ledger run --ticker X`. It joins stage 3. Give it an
   industry in `ledger/config.py` `INDUSTRIES`, or it gets the `other` model.
-- **Map a reported asset type**: Proof shows it open under Mapping; add the entry to `taxonomy/asset_types.yaml`
-  with the note's own words as evidence, who and when. A mapping is a classification, never a number.
+- **Map a reported asset type**: Proof shows it open under Mapping. `ledger mapper <TICKER>` (T33; `--dry-run` writes the
+  task only) asks the mapper agent for a us-gaap member per unmapped category with the note's words as evidence; the
+  proposals land in `decisions/mapping_proposals.jsonl` and on Reconcile's "asset types" group (`#reconcile?scope=<TICKER>`,
+  in scope or not), where Approve or Edit writes the entry to `taxonomy/asset_types.yaml` under your name (`POST
+  /api/mapping`: the one writer; a member off the header's list or a second entry for the same name is refused) and
+  Reject logs the member so the next run proposes another. Or write the entry by hand, with the note's own words as
+  evidence, who and when. Either way, rerun `ledger rules` (or any taxonomy read) and the row shows `mapped`. A mapping
+  is a classification, never a number; a proposal is nothing until a person approves it.
 - **Settle a disagreement with the SEC's data**: add a definition for the company in `definitions/companies.yaml`
   (who, why), rerun `reconcile` and `rules`. Never accept the same thing twice.
 - **Add a figure a company stated about AI**: `taxonomy/stated_figures.yaml`, verbatim, with the URL and the quote.

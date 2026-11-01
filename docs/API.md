@@ -30,6 +30,14 @@ and the open items by what is missing, `/api/v1/golden` the golden test's last r
 One screen's feed: `/api/v1/reconcile?scope=all|<layer>|<ticker>` is the Reconcile workbench's rows (`docs/PROOF.md`): one per open
 item with `ours`, `reference`, `delta`, `delta_pct`, `measure` (usd or share), the cause, the evidence (cell, screenshot, quote, inputs) and the
 resolution. `POST /api/resolve` records one decision `{key, hash, state, reason, by}`; `POST /api/resolve/bulk` takes `{items: [{key, hash}], state, reason, by}`.
+The feed also carries the mapping stage's open items (T33): one row per reported PP&E category with no entry in `taxonomy/asset_types.yaml`
+(cause `asset_types`, key `asset_types|<ticker>|<reported_name>`, `evidence: {reported_name, proposal, rejected, note}` where `proposal` is the
+mapper's latest standing line from `decisions/mapping_proposals.jsonl`: `standard_type`, `evidence`, `confidence`, `reason`, `prompt_version`,
+`model`, `at`), and `members`, the us-gaap members a mapping may use (the list in the header of `taxonomy/asset_types.yaml`).
+`POST /api/mapping` `{ticker, reported_name, standard_type, evidence, by}` writes that entry to `taxonomy/asset_types.yaml` under `by` with
+today's date (the one writer of the file): 400 when `standard_type` is not in `members`, when the (ticker, reported_name) already has an
+entry, or when a field is empty; the reply is the entry written. `POST /api/mapping/reject` `{ticker, reported_name, standard_type, by,
+reason}` appends a `rejected` line to the proposals log so the next `ledger mapper` run does not propose that member again.
 
 The Release page (`docs/PROOF.md`): `/api/v1/release/checklist` (optional `?version=vX.Y.Z`; default the minor bump of the last
 release folder) is the checklist as JSON: `version`, `previous`, `scope`, `hash` (of the packet built in memory), `ok`, `red` (the
