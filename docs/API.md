@@ -51,6 +51,14 @@ page on another site cannot write through the browser's permission to POST to lo
 JSON object with a numeric `Content-Length`: a list, a bare value or a bad length is 400 on every route. The sign's reply may also
 carry `record_error` when the publish's outcome could not be written into `SIGNOFF.json`; the publish itself stands as reported.
 
+The agents (`docs/TICKETS.md` T48, T49): `/api/agents` is every live agent with its charter, history and runs; `/api/agents/<id>/runs`
+(optional `?t=MSFT,NVDA`, default the proven set) is that agent's runs per company and its `score`: `{outputs, checked, explained, open,
+blocked, twin, faults, stage, companies, note}`, counts with their denominators and no shares (the page divides). `outputs` is the
+reader's rows in its Proof stage (`stage`) for those companies and the four states sum to it (`open` excludes `blocked` here); `twin`
+is `{agree, of}` over the rows XBRL tags, or null for a reader whose rows are quotes; `faults` is `{caught, planted, no_effect, escaped}`
+from the latest `ledger faults` run that covered each company, or null when the step has no fault test or no run covered them,
+with the reason in `note`.
+
 Two roll-ups, not lists: `/api/v1/coverage` (per layer and field: companies with an AI amount, words only, none,
 not run) and `/api/v1/cost` (agent calls, tokens, seconds, attempts, failures and an estimated price at list, per
 step and per company; `ledger cost` writes the same to `reports/cost.json`).

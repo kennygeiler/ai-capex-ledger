@@ -65,7 +65,7 @@ def report(con, tickers: list[str] | None = None) -> dict:
 
 def by_agent(con, agent_id: str, tickers: list[str]) -> dict:
     """One agent's runs per company (T48): calls, tokens, seconds, attempts and failures from the `runs` table, for
-    the given tickers in that order. The agent is derived from the step (STEP_AGENT); every `--load` re-records the
+    the given tickers in that order, and the agent's score over them (T49, `score.score`: counts with denominators). The agent is derived from the step (STEP_AGENT); every `--load` re-records the
     `_run` of each output, so only the latest row per subject counts, and a call is a subject whose latest load
     carried agent metadata or failed. Tokens include cache reads."""
     step = AGENT_STEP[agent_id]
@@ -95,7 +95,9 @@ def by_agent(con, agent_id: str, tickers: list[str]) -> dict:
         o["seconds"] = round(o["seconds"], 1)
     rows = [by[t] for t in want]
     total = {k: round(sum(o[k] for o in rows), 1) for k in ("read", "calls", "input_tokens", "output_tokens", "seconds", "attempts", "failed")}
-    return {"agent": agent_id, "step": step, "subject": AGENT_SUBJECT[agent_id], "companies": rows, "total": total,
+    from .score import AGENT_STAGE, score  # here, not at the top: score imports proof, which imports this module's neighbours
+    sc = score(con, agent_id, want) if agent_id in AGENT_STAGE else None  # the retired attributor owns no stage
+    return {"agent": agent_id, "step": step, "subject": AGENT_SUBJECT[agent_id], "companies": rows, "total": total, "score": sc,
             "note": f"step {step} in the runs table, the latest load of each {AGENT_SUBJECT[agent_id]}; the table has no agent column, the step names the agent; "
                     f"an output read before the headless runner metered calls counts as read, not as a call"}
 
