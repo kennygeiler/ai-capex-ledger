@@ -639,6 +639,19 @@ are listed at the end.
   v1.9.0's DIFF names them as breaking. Done when a test shows a packet that drops a column cannot sign as minor.
   About ½ day.
 
+- **T100 A late writer never overwrites a newer state.** [memory checklist's deletion test; Kenny: "Sure send it"] Three
+  places, from reading the code: (1) `extract`/`notes`/`aispend --load` never compare an output's `_run.task_sha` with the
+  current task file, so an answer to a repacked task (T65 re-pointed AMZN's income table) still loads, guarded only by
+  citation re-resolution; (2) `mapper.by_name`: the latest `proposed` line wins and a rejection clears a proposal only if it
+  came before it, so a delayed proposal of a member Kenny rejected becomes current again; (3) resolutions: the latest line per
+  key wins, so a run-written "to confirm" line after Kenny's decision supersedes it. Fix: every agent write carries the
+  fingerprint of what it was built from (task_sha; the asset-type entry's hash; the item hash plus the latest resolution id);
+  the loader refuses or routes to review on a mismatch and logs it; a proposal of a rejected member is never current and shows
+  as "re-proposed after rejection"; a run line never supersedes a person line (T69 author_kind; fold together if they share
+  files). Done when three tests pass: repack a task then load the old output → refused; reject a mapping then append a delayed
+  proposal of the same member → not current; Kenny decides a key then a run writes "to confirm" → Kenny's decision stands.
+  About half a day. Lanes: (1) ingest; (2) and (3) workbench after T63. Before Kenny approves and rejects during the batches.
+
 ### K2: before the call if a slot frees
 
 - **T73 The taxonomy file is the dataset's taxonomy.** [TX1, TX4] `taxonomy/taxonomy@v2.yaml` (a new file, as v1 says)
