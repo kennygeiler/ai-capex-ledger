@@ -143,7 +143,7 @@ def packet(con, version: str, stage: int = 3) -> dict:
     # the Release page's hash is the CLI's within one checkout.
     manifest = {"version": version, "stage": stage, "scope": list(SCOPE), "hash": h, "files": sorted(files), "prompt": prompt_version(), "parser": PARSER_VERSION,
                 "model": model(), "rules": {r["id"]: r["file_sha256"][:12] for r in load_rules()}, "decisions": len(ds),
-                "provenance": provenance(values, exts, facts, **_provenance_rows(con, tickers))}
+                "provenance": provenance([v for v in values if v.get("value") is not None], exts, facts, **_provenance_rows(con, tickers))}  # values.csv is api.fetch's set: value not null (C7)
     return {"version": version, "files": files, "hash": h, "manifest": manifest, "gates": g, "previous": prev_dir.name if prev_dir else None, "rows_diff": diff,
             "hand_check": hc_path.exists(), "values": len(values)}
 

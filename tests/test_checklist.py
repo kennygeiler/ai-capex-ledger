@@ -473,3 +473,25 @@ class Provenance(unittest.TestCase):
     def test_the_diff_names_the_correction_once_when_the_previous_manifest_has_no_provenance(self):
         note = checklist.provenance_note("v1.8.0", "v1.9.0")
         self.assertIn("v1.8.0's manifest named the versions in use at build time; from v1.9.0 the manifest names the versions that produced the rows", note)
+
+    def test_the_packet_notes_the_correction_once_against_a_previous_manifest_without_provenance_and_never_with(self):
+        """Packet-level: the real `packet` over mocked rows, into a temp releases folder whose previous release has a manifest
+        with or without `provenance`."""
+        tmp = Path(tempfile.mkdtemp(prefix="releases-"))
+        self.addCleanup(shutil.rmtree, tmp, True)
+        value = {"ticker": "NVDA", "field": "capex", "period": "FY2026", "period_end": "2026-01-25", "value": 5, "basis": "reported", "first_reported": None,
+                 "source": "agent", "label": "agree", "extraction_ids": None}
+        prev = tmp / "v1.0.0"
+        prev.mkdir()
+        (prev / "values.csv").write_text("ticker,field,period,period_end,value,basis,first_reported,source,xbrl,citations\nNVDA,capex,FY2026,2026-01-25,5,reported,,agent,agree,\n")
+        rows = lambda con, sql, p: [value] if '"values"' in sql else []
+        for manifest, times in (({"hash": "x", "files": ["values.csv"]}, 1), ({"hash": "x", "files": ["values.csv"], "provenance": {}}, 0)):
+            (prev / "manifest.json").write_text(json.dumps(manifest))
+            with mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(checklist, "_rows", side_effect=rows), mock.patch.object(checklist, "decisions", return_value=[]), \
+                    mock.patch.object(checklist, "load_all", return_value={}), mock.patch.object(checklist, "gates", return_value={}), mock.patch.object(checklist, "load_rules", return_value=[]), \
+                    mock.patch.object(checklist.api, "fetch", return_value=[]), mock.patch.object(checklist, "_provenance_rows", return_value={}), \
+                    mock.patch.object(checklist, "git_state", return_value=(None, None)), mock.patch.object(checklist, "input_hashes", return_value={}):
+                p = checklist.packet(mock.MagicMock(), "v1.1.0")
+            self.assertEqual(p["files"]["DIFF.md"].count("Provenance:"), times, manifest)
+            self.assertEqual(p["previous"], "v1.0.0")
+            self.assertIn("provenance", p["manifest"])

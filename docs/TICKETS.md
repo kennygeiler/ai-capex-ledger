@@ -476,7 +476,8 @@ the builder before fixing). Not new scope: each is a defect in approved work, fi
   parser tables@12 on all 28 documents in scope (database-wide 379 of 393 tables@12, 14 tables@15); models: claude-opus-5-5 only.
   DIFF.md says "Provenance: v1.8.0's manifest named the versions in use at build time; from v1.9.0 the manifest names the versions
   that produced the rows" when the previous manifest lacks `provenance`. Tests: `tests/test_checklist.py` `Provenance` (a packet
-  mixing statements@v1 and @v2, an unrecorded row, the file hashes, git mocked away → null). No golden change: no row moved.
+  mixing statements@v1 and @v2, an unrecorded row, the file hashes, git mocked away → null; the real `packet` over mocked rows into a temp releases folder: the DIFF note once
+  against a previous manifest without `provenance`, never with). The reader's rows are the value-not-null set `values.csv` ships (api.fetch, C7). No golden change: no row moved.
 - **T55b Older vintages reconciled against their own filing.** Only the newest vintage is checked against XBRL. AT&T revenue
   FY2022: value 120,741,000,000, first_reported 120,741,000, basis "restated": a 1000x misread, not a restatement, which an
   as_of=2023 query would serve as truth. T55 ships with every as-of row flagged `vintage_check` (unchecked unless it is the
