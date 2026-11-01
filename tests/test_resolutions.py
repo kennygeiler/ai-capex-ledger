@@ -33,7 +33,7 @@ class Keys(unittest.TestCase):
         produced = set(re.findall(r'queue\.append\(\{"kind": "([a-z_]+)"', src))
         self.assertEqual(produced - {"value_missing"}, set(resolutions.LIVE_KINDS))  # value_missing (T65) takes no resolution: the fix is a re-read, so it is never live
         self.assertIn("value_missing", produced)
-        self.assertEqual(len(re.findall(r'"key": resolutions\.key_for\(', src)), len(resolutions.LIVE_KINDS))  # every live kind keys through key_for
+        self.assertEqual(len(re.findall(r'"key": resolutions\.key_for\(', src)), len(resolutions.LIVE_KINDS) + 1)  # every live kind keys through key_for, and value_missing too (keyed, never live)
         self.assertNotIn("q_['where']}\"", src)  # never the display string
         self.assertTrue(resolutions.is_live(key_for("fact_differs", "IRM", "segment_capex", "FY2023", "X")))
         self.assertFalse(resolutions.is_live(key_for("value_missing", "AMD", "revenue", "FY2022")))

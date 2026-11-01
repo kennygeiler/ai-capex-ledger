@@ -59,6 +59,15 @@ class Citation(unittest.TestCase):
     def test_resolves(self):
         self.assertEqual(resolve(value(), parsed())["scale"], 1_000_000)
 
+    def test_a_table_with_no_unit_source_still_resolves(self):
+        """A citation of a table that is no longer a located statement (re-located since, T65) carries no unit_source:
+        it resolves with None there instead of crashing the citation rule."""
+        doc = parsed()
+        for k in ("income", "cash_flow"):
+            for t in doc["statements"][k] or []:
+                t.pop("unit_source", None)
+        self.assertIsNone(resolve(value(), doc)["unit_source"])
+
     def test_capex_sign_convention(self):
         v = value(field="capex", table_id="t0001", row_label="Purchases related to property and equipment and intangible assets",
                   column_label="Six Months Ended | Jul 26, 2026", cell_text="(4,434)", months=6, value=4434000000)
