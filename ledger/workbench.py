@@ -118,10 +118,32 @@ def to_confirm(tickers: list[str] | None, names: dict) -> list[dict]:
     return out
 
 
+ASSET_TYPES = "asset_types"
+UNMAPPED_REASON = "a reported PP&E category with no entry in taxonomy/asset_types.yaml"
+
+
+def asset_types(con, tickers: list[str] | None, names: dict) -> list[dict]:
+    """The mapping stage's open items as workbench rows (T33): every reported PP&E category in the scope with no entry in
+    taxonomy/asset_types.yaml, each with the mapper's proposal when one stands (standard_type, evidence, confidence,
+    reason, prompt version, model), the members a person already rejected for it, the note's words around it, and the
+    allowed member list. Approve or Edit writes the mapping (POST /api/mapping, by the person); Reject logs the member."""
+    from . import mapper
+    out = []
+    for p in mapper.pending(con, tickers):
+        st = status.state({"reason": UNMAPPED_REASON})
+        out.append({"key": f"{ASSET_TYPES}|{p['ticker']}|{p['reported_name']}", "hash": "", "cause": ASSET_TYPES, "cause_label": "Asset types: a reported PP&E category with no us-gaap member", "state": st["state"],
+                    "by": st["by"], "reason": st["reason"], "open": status.is_open(st), "ticker": p["ticker"], "name": names.get(p["ticker"], p["ticker"]), "layer": industry(p["ticker"]),
+                    "field": None, "period": None, "where": p["reported_name"], "measure": None, "ours": None, "ours_label": None, "reference": None, "ref_label": None,
+                    "relation": "eq", "delta": None, "delta_pct": None, "dollars": 0, "new": False, "action": "mapping", "impact": "the derived PP&E rows stay unmapped; the Release checklist requires 0", "resolution": None,
+                    "evidence": {"reported_name": p["reported_name"], "proposal": p["proposal"], "rejected": p["rejected"], "note": p["note"]}})
+    return out
+
+
 def items(con, flow: dict) -> dict:
     """One uniform row per queue item. `measure` is usd; `ours` and `reference` are in that measure; `delta` = ours - reference.
     Every row carries `state`, `by` and `reason` from status.state and `open` (open or blocked); `open` counts those.
-    The decisions a run left for a person to confirm come first as their own group (`to_confirm`, T3), counted apart."""
+    The decisions a run left for a person to confirm come first as their own group (`to_confirm`, T3), counted apart; the
+    unmapped asset types (`asset_types`, T33) are their own group too, with `members` the list a mapping may use."""
     names, rel = flow["names"], flow["release"]["last"]
     idx = resolutions.by_row()
     rows = []
@@ -168,8 +190,9 @@ def items(con, flow: dict) -> dict:
             except TypeError:
                 pass
         rows.append(row)
-    open_ = [r for r in rows if r["open"]]
     confirm = to_confirm(None if flow["scope"] in ("", "all") else flow["tickers"], names)
+    rows += asset_types(con, flow.get("tickers") or sorted(names), names)  # the scope's tickers: SCOPE for "all", a layer's, or the one ticker asked for
+    open_ = [r for r in rows if r["open"]]
     by_cause = {}
     for r in confirm + rows:
         by_cause.setdefault(r["cause"], {"cause": r["cause"], "label": r["cause_label"], "rows": 0, "open": 0, "dollars": 0})
@@ -177,5 +200,6 @@ def items(con, flow: dict) -> dict:
         by_cause[r["cause"]]["open"] += r["open"]
         by_cause[r["cause"]]["dollars"] += r["dollars"]
     causes = sorted(by_cause.values(), key=lambda c: (c["cause"] != TO_CONFIRM, -c["dollars"]))
+    from .mapper import members
     return {"scope": flow["scope"], "release": rel, "last_run": flow["changed"]["last_run"], "rows": confirm + rows, "open": len(open_), "to_confirm": len(confirm), "dollars": sum(r["dollars"] for r in open_),
-            "causes": causes, "names": names}
+            "causes": causes, "names": names, "members": members()}
