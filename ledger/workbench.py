@@ -6,6 +6,7 @@ from __future__ import annotations
 
 from . import resolutions, status, store
 from .config import industry
+from .rules import explain_key, explained
 
 EVIDENCE = store.ROOT / "reports" / "evidence"
 CAUSES = {"fact_differs": "Fact differs from the filing's XBRL tag", "fact_changed": "Fact changed since the signed release", "blocked": "Blocked: a definition is missing",
@@ -82,6 +83,30 @@ def _value_states(con, ticker: str, field: str | None, period: str | None, idx: 
                             {"reference": xref.get((r[0], r[1])), "looked_up": looked}) for r in rows]
 
 
+def _explained(con, tickers: list[str]) -> dict:
+    """rules.explained over the info findings of `tickers` (T36), {} when the table or the findings are absent."""
+    if not tickers or not con.execute("select count(*) from information_schema.tables where table_name = 'exceptions'").fetchone()[0]:
+        return {}
+    cur = con.execute("select * from exceptions where severity = 'info' and ticker in (select unnest(?))", [tickers])
+    rows = [dict(zip([c[0] for c in cur.description], r)) for r in cur.fetchall()]
+    return explained(rows) if rows else {}
+
+
+def _offers(con, key: str, enc: dict) -> dict | None:
+    """judgement.offers for one queue key (T36), or None where the database has no extractions table to name lines from."""
+    from . import judgement
+    from .definitions import load as load_defs
+    from .rules import load as load_rules
+    if not con.execute("select count(*) from information_schema.tables where table_name = 'extractions'").fetchone()[0]:
+        return None
+    k = resolutions.parse_key(key)
+    if not k:
+        return None
+    if not enc:
+        enc |= {"defs": load_defs(judgement.DEF_FILE), "rules": load_rules(judgement.RULES_DIR)}
+    return judgement.offers(con, k, enc["defs"], enc["rules"])
+
+
 def _has_reference(con) -> bool:
     return bool(con.execute("select count(*) from information_schema.tables where table_name = 'reference_values'").fetchone()[0])
 
@@ -92,15 +117,17 @@ def _fact_row(con, ticker: str, field: str | None, dimension: str | None, period
     return dict(zip(cols, r)) if r else None
 
 
-def _state(con, q: dict, idx: dict) -> dict:
-    """The queue item's state from the one definition (status.py): the same row gets the same answer on Proof."""
+def _state(con, q: dict, idx: dict, xp: dict | None = None) -> dict:
+    """The queue item's state from the one definition (status.py): the same row gets the same answer on Proof. `xp` is
+    rules.explained over the scope's exceptions (T36): an explains rule on file closes the finding it names."""
     d, res, t = q.get("detail") or {}, q.get("resolution"), q["ticker"]
     if q["kind"] in ("fact_differs", "fact_changed"):
         f = _fact_row(con, t, d.get("field"), d.get("dimension"), d.get("period")) or {"label": d.get("label")}
         from .proof import _restated
         return status.of_fact(f, res, _restated(con, t, f) if f.get("label") == "unresolved" and f.get("accession") else None)
     if q["kind"] == "finding_unconfirmed":
-        return status.of_exception({"rule_id": d.get("kind"), "severity": "warn", "message": d.get("message")}, res, _value_states(con, t, d.get("field"), d.get("period"), idx))
+        by_rule = (xp or {}).get(explain_key(d.get("rule"), t, d.get("field"), d.get("period"), d.get("subject")))
+        return status.of_exception({"rule_id": d.get("kind"), "severity": "warn", "message": d.get("message")}, res, _value_states(con, t, d.get("field"), d.get("period"), idx), by_rule)
     if q["kind"] == "blocked":
         return status.of_exception({"rule_id": d.get("rule"), "severity": "block", "message": d.get("message")}, res)
     if q["kind"] == "value_missing":  # T65: the value row itself, open by label:not_extracted; a resolution is not live for this kind
@@ -170,10 +197,12 @@ def items(con, flow: dict) -> dict:
     unmapped asset types (`asset_types`, T33) are their own group too, with `members` the list a mapping may use."""
     names, rel = flow["names"], flow["release"]["last"]
     idx = resolutions.by_row(items=flow["queue"])  # T62: a row with an unresolved sibling finding stays open
+    xp = _explained(con, sorted({q["ticker"] for q in flow["queue"]}))
+    enc = {}  # the definitions and rules on file, read once for every item's offers
     rows = []
     for q in flow["queue"]:
         d = q.get("detail") or {}
-        st = _state(con, q, idx)
+        st = _state(con, q, idx, xp)
         row = {"key": q["key"], "hash": q["hash"], "cause": q["kind"], "cause_label": CAUSES.get(q["kind"], q["kind"]), "state": st["state"], "by": st["by"], "reason": st["reason"], "open": status.is_open(st),
                "ticker": q["ticker"], "name": names.get(q["ticker"], q["ticker"]), "layer": industry(q["ticker"]), "field": None, "period": None, "where": q["where"], "measure": None,
                "ours": None, "ours_label": None, "reference": None, "ref_label": REF_LABEL.get(q["kind"]), "relation": "eq", "delta": None, "delta_pct": None,
@@ -212,6 +241,8 @@ def items(con, flow: dict) -> dict:
         elif q["kind"] == "new_filing":
             row |= {"period": d.get("period")}
             row["evidence"] = {"url": d.get("url"), "filed": d.get("filed"), "form": d.get("form")}
+        if q["kind"] in ("blocked", "finding_unconfirmed"):
+            row["encode"] = _offers(con, q["key"], enc)  # T36: what this item may be written as, once, for every company it applies to
         if row["ours"] is not None and row["reference"] is not None:
             try:
                 row["delta"] = row["ours"] - row["reference"]

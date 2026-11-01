@@ -9,7 +9,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -44,6 +44,7 @@ class Context:
     definitions: dict = field(default_factory=dict)   # per-company definitions (definitions/companies.yaml)
     documents: list[dict] = field(default_factory=list)  # rows of `documents` (accession, ticker, form, period, income_tables, cash_flow_tables)
     today: date = field(default_factory=date.today)   # coverage: a year whose 10-K isn't due yet isn't missing
+    rules: list = field(default_factory=list)          # the loaded rules; `explains` re-runs the rule it explains (run() fills it)
 
 
 def _days(e: dict) -> int:
@@ -380,28 +381,121 @@ def _outlier(ctx, p):
     return out
 
 
+# ── judgement encoded as a rule (T36) ──────────────────────────────────────────────────────────────────────────────
+EXPLAIN_CONDITIONS = ("row_labels",)  # the closed vocabulary of what an `explains` rule may test; each names rows exactly
+EXPLAIN_PARAMS = {"rule", "field", "condition"}
+
+
+def label_key(s: str) -> str:
+    """A row label as row_label_switch compares it: whitespace collapsed, lower case."""
+    return re.sub(r"\s+", " ", (s or "").strip().lower())
+
+
+def lines_read(extractions: list[dict], ticker: str, field_: str) -> list[str]:
+    """Every row label the company's `field_` was read from, across its filings, one per label_key, sorted."""
+    out = {}
+    for e in extractions:
+        if e["ticker"] == ticker and e["field"] == field_:
+            out.setdefault(label_key(e["row_label"]), e["row_label"].strip())
+    return sorted(out.values(), key=label_key)
+
+
+@check("explains")
+def _explains(ctx, p):
+    """A person's explanation, written once as a rule (T36): every finding of the warn rule `rule` on `field` whose
+    company reads that field only from lines named in `condition.row_labels` (exact labels, compared as label_key) is
+    explained. The finding is re-emitted with the same ticker, field, period and subject, so status joins it to the
+    finding it explains (`explained`). Never a pattern: a label is matched whole, so the rule names its rows exactly."""
+    target = next((r for r in ctx.rules if r["id"] == p["rule"]), None)
+    if target is None:
+        return []  # load() refuses a rule that names no rule on file; a hand-built list without it explains nothing
+    want = {label_key(l) for l in p["condition"]["row_labels"]}
+    out = []
+    for f in CHECKS[target["check"]](ctx, target["params"]):
+        if f.field != p["field"]:
+            continue
+        read = {label_key(l) for l in lines_read(ctx.extractions, f.ticker, f.field)}
+        if read and read <= want:
+            out.append(Finding(f.ticker, f"explains {p['rule']}: every line {f.field} is read from ({'; '.join(sorted(read))}) is one the rule names", f.field, f.period, f.subject))
+    return out
+
+
+def _check_explains(rules: list[dict]) -> None:
+    """An `explains` rule names exactly what it matches (T36): info severity; params rule, field and condition and
+    nothing else; `rule` a warn rule on file (an info finding is explained already, a block is never explained by a
+    note); `field` one field; a condition from EXPLAIN_CONDITIONS with a non-empty list of whole labels. Raises ValueError."""
+    by_id = {r["id"]: r for r in rules}
+    for r in rules:
+        if r["check"] != "explains":
+            continue
+        p, name = r["params"], f"{r['id']}.yaml"
+        if r["severity"] != "info":
+            raise ValueError(f"{name}: an explains rule is info severity")
+        if set(p) != EXPLAIN_PARAMS:
+            raise ValueError(f"{name}: an explains rule's params are exactly {sorted(EXPLAIN_PARAMS)}")
+        t = by_id.get(p["rule"])
+        if not t or t["check"] == "explains" or t["severity"] != "warn":
+            raise ValueError(f"{name}: params.rule must name a warn rule on file, not {p['rule']!r}")
+        if not isinstance(p["field"], str) or not p["field"].strip():
+            raise ValueError(f"{name}: params.field must name one field")
+        c = p["condition"]
+        if not isinstance(c, dict) or not c or set(c) - set(EXPLAIN_CONDITIONS):
+            raise ValueError(f"{name}: params.condition must be one of {EXPLAIN_CONDITIONS}")
+        labels = c.get("row_labels")
+        if not isinstance(labels, list) or not labels or not all(isinstance(l, str) and l.strip() for l in labels):
+            raise ValueError(f"{name}: condition.row_labels must be a non-empty list of whole labels")
+
+
+def explained(exceptions: list[dict], rules: list[dict] | None = None) -> dict:
+    """{(rule it explains, ticker, field, period, subject): the explains rule's id} over `exceptions` (rows of the
+    table), for the info findings of the explains rules on file. Proof's values stage and Reconcile's queue read it, so
+    one rule closes the same finding on both pages. None and '' are one key part."""
+    targets = {r["id"]: r["params"]["rule"] for r in (load() if rules is None else rules) if r["check"] == "explains"}
+    out = {}
+    for e in sorted(exceptions, key=lambda e: e["rule_id"]):
+        if e.get("severity") == "info" and e["rule_id"] in targets:
+            out.setdefault(explain_key(targets[e["rule_id"]], e["ticker"], e.get("field"), e.get("period"), e.get("subject")), e["rule_id"])
+    return out
+
+
+def explain_key(rule_id, ticker, field_, period, subject) -> tuple:
+    return (rule_id or "", ticker or "", field_ or "", period or "", subject or "")
+
+
 # ── engine ─────────────────────────────────────────────────────────────────────────────────────────────────────────
-def load(rules_dir: Path = RULES_DIR) -> list[dict]:
+def load(rules_dir: Path | None = None) -> list[dict]:
     rules = []
-    for f in sorted(rules_dir.glob("*.yaml")):
+    for f in sorted(Path(rules_dir or RULES_DIR).glob("*.yaml")):
         r = yaml.safe_load(f.read_text())
-        missing = [k for k in REQUIRED if not r.get(k)]
-        if missing:
-            raise ValueError(f"{f.name}: missing {missing}")
-        if r["severity"] not in ("block", "warn", "info"):
-            raise ValueError(f"{f.name}: severity must be block, warn or info")
-        if r["check"] not in CHECKS:
-            raise ValueError(f"{f.name}: unknown check '{r['check']}' (known: {sorted(CHECKS)})")
-        if r["id"] != f.stem:
-            raise ValueError(f"{f.name}: id '{r['id']}' must match the file name")
-        r["params"] = r.get("params") or {}
+        check_rule(r, f.name)
         r["file_sha256"] = hashlib.sha256(f.read_bytes()).hexdigest()
         rules.append(r)
+    _check_explains(rules)
     return rules
+
+
+def check_rule(r: dict, name: str) -> None:
+    """One rule file's own checks (load runs them on every file; the T36 writer on the file it is about to write).
+    Fills params with {} when absent. Raises ValueError naming the file."""
+    f = Path(name)
+    if not isinstance(r, dict):
+        raise ValueError(f"{f.name}: not a mapping")
+    missing = [k for k in REQUIRED if not r.get(k)]
+    if missing:
+        raise ValueError(f"{f.name}: missing {missing}")
+    if r["severity"] not in ("block", "warn", "info"):
+        raise ValueError(f"{f.name}: severity must be block, warn or info")
+    if r["check"] not in CHECKS:
+        raise ValueError(f"{f.name}: unknown check '{r['check']}' (known: {sorted(CHECKS)})")
+    if r["id"] != f.stem:
+        raise ValueError(f"{f.name}: id '{r['id']}' must match the file name")
+    r["params"] = r.get("params") or {}
 
 
 def run(ctx: Context, rules: list[dict]) -> list[dict]:
     """Every rule over the context. Returns exception rows, sorted, with stable ids."""
+    if not ctx.rules:
+        ctx = replace(ctx, rules=rules)
     rows = {}
     for r in rules:
         for fnd in CHECKS[r["check"]](ctx, r["params"]):

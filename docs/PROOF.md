@@ -170,7 +170,11 @@ from `/api/v1/failures` (types per cause class; types per catching check, `none`
 guards, 45 of 72 today) with the same numbers as tables; a bar counts types, never instances, and a null count seen stays null.
 
 Proven = zero open (blocked included), for every stage, for that company. A person's judgement enters as a definition
-or a rule, never as a click on a row; once written it applies every run and the item never comes back. A resolution is
+or a rule, never as a click on a row; once written it applies every run and the item never comes back. T36 makes the write
+one click from Reconcile: an explanation becomes an info `explains` rule (the warn rule, the field, and the whole lines
+the company reads the field from; `rules.explained` joins it to the finding on Proof and Reconcile alike, after a
+person's decision and never over a blocked or checked row) or a `definitions/companies.yaml` entry, through
+`ledger/judgement.py`, by a person on `config.PEOPLE`. A resolution is
 the exception for what nothing on file covers yet, and it holds only while the item's content is unchanged. It is keyed
 by the item (`resolutions.key_for`: `kind|ticker|field|period|dimension|rule_id|subject`, built from the item's fields,
 `%` escaped `%25` and `|` `%7C` inside a part, T62), so two findings on one field and year (two rules, or one rule on two filings) are two items with two resolutions; the

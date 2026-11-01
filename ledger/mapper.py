@@ -346,12 +346,13 @@ def _top_key(line: str):
     return next(iter(d)) if isinstance(d, dict) and len(d) == 1 else None
 
 
-def _ticker_line(lines: list[str], ticker: str) -> int | None:
+def _ticker_line(lines: list[str], ticker: str, what: str = "taxonomy/asset_types.yaml") -> int | None:
     """The index of the ticker's block header, None when the file has none; ValueError when it has more than one (PyYAML
-    keeps the last duplicate and silently drops the other block's entries) or a header that is not a plain block."""
+    keeps the last duplicate and silently drops the other block's entries) or a header that is not a plain block.
+    `what` names the file in the error (T36 writes definitions/companies.yaml through the same `_edit`)."""
     hits = [i for i, l in enumerate(lines) if _top_key(l) == ticker]
     if len(hits) > 1:
-        raise ValueError(f"taxonomy/asset_types.yaml has {len(hits)} blocks for {ticker}; merge them by hand, nothing written")
+        raise ValueError(f"{what} has {len(hits)} blocks for {ticker}; merge them by hand, nothing written")
     if hits:
         import yaml
         d = yaml.safe_load(lines[hits[0]])
@@ -380,7 +381,7 @@ def _entry_index(lines: list[str], ticker: str, reported_name: str) -> int:
 _MISSING = object()
 
 
-def _edit(p: Path, ticker: str, reported_name: str, change) -> bool:
+def _edit(p: Path, ticker: str, reported_name: str, change, what: str = "taxonomy/asset_types.yaml") -> bool:
     """The one way the file is written. Under an exclusive lock (fcntl, on a lock file beside it) read the file once,
     hand its lines and parsed content to `change(lines, data)`, which checks what it needs on that snapshot and returns
     None (nothing to write) or (new lines, the entry as it must now read, None for gone). The new text must parse, the
@@ -396,7 +397,7 @@ def _edit(p: Path, ticker: str, reported_name: str, change) -> bool:
         try:
             text = p.read_text() if p.exists() else ""
             lines = text.splitlines()
-            _ticker_line(lines, ticker)  # a duplicated or odd header is refused before anything is changed
+            _ticker_line(lines, ticker, what)  # a duplicated or odd header is refused before anything is changed
             before = yaml.safe_load(text) or {}
             got = change(lines, before)
             if got is None:
@@ -404,7 +405,7 @@ def _edit(p: Path, ticker: str, reported_name: str, change) -> bool:
             lines, want = got
             new_text = "\n".join(lines) + "\n"
             after = yaml.safe_load(new_text) or {}
-            _ticker_line(lines, ticker)
+            _ticker_line(lines, ticker, what)
             norm = lambda d: json.loads(json.dumps({t: (v or {}) for t, v in d.items()}, default=str, sort_keys=True))  # an emptied block reads None
             expect = norm(before)
             block = expect.setdefault(ticker, {})

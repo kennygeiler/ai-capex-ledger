@@ -523,6 +523,16 @@ class Handler(BaseHTTPRequestHandler):
             return self._guard(lambda: self._json(bulk()))
         if u.path == "/api/resolve":  # T69: a person's route, author_kind person; a `by` not on config.PEOPLE is refused (400)
             return self._guard(lambda: self._json(resolutions.resolve(body.get("key", ""), body.get("hash", ""), body.get("state", ""), body.get("reason", ""), body.get("by", ""), author_kind="person")))
+        if u.path == "/api/judgement":  # T36: an explanation written once as a definition or a rule; `by` on config.PEOPLE, what is written decided from the key and the database
+            from . import judgement
+
+            def do_encode():
+                con = _con()
+                try:
+                    return judgement.encode(con, str(body.get("key", "")), str(body.get("as", "")), str(body.get("why", "")), str(body.get("by", "")))
+                finally:
+                    con.close()
+            return self._guard(lambda: self._json(do_encode()))
         if u.path == "/api/mapping":  # T33: a person's approval is the one writer of taxonomy/asset_types.yaml; 400 on a member off the list or a duplicate
             from . import mapper
 

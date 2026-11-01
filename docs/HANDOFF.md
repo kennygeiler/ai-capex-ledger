@@ -121,6 +121,10 @@ counts those rows open while the local one counts them explained). The signed re
   group: Approve confirms its line, Edit replaces it confirmed, Reject removes it and logs the member.
 - **Settle a disagreement with the SEC's data**: add a definition for the company in `definitions/companies.yaml`
   (who, why), rerun `reconcile` and `rules`. Never accept the same thing twice.
+- **Write an explanation once (T36)**: on Reconcile, after Explain or Accept, "Make this a rule" (an info `explains` rule in
+  `rules/`, matching the finding's rule, field and the company's whole line labels, so it closes the same cause at every company
+  reading those lines) or "Make this a definition" (`definitions/companies.yaml`); `POST /api/judgement`, by a name on
+  `config.PEOPLE`. Rerun `ledger rules` (or `reconcile`), then commit the file.
 - **Add a figure a company stated about AI**: `taxonomy/stated_figures.yaml`, verbatim, with the URL and the quote.
 - **Release**: DATAHQ's Release page (`#release`) is the checklist: every line that could make a signature wrong, green or
   red with its count and the page that fixes it, and the packet built in memory. Its Sign button (enabled only when every

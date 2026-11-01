@@ -219,7 +219,7 @@ before scale is attempted; T35 measures it.
 - **T35 Company seven, measured.** Micron added to `SCOPE` through every stage with a stopwatch on each: agent minutes, person
   minutes, open items at each stage, rules fired, mapping proposals accepted. Written to `reports/company-cost.md`. The number
   decides whether a hundred is a week or a quarter. Done when the report exists and `PROVEN` has seven.
-- **T36 Resolve-by-rule.** When a person explains a difference, Reconcile offers "make this a definition" or "make this a
+- **T36 Resolve-by-rule.** *Done 2 Nov 2026 (`ledger/judgement.py`, `POST /api/judgement`, the `explains` check, `tests/test_judgement.py` on a synthetic database: company seven/eight not yet in scope).* When a person explains a difference, Reconcile offers "make this a definition" or "make this a
   rule" with the text prefilled from the reason; the definition file or rule yaml is written, versioned, and the next run closes
   the same cause everywhere. Done when one explanation on company seven closes the same cause on an eighth without a person.
 - **T37 Bulk by cause with preview.** Select-all-by-cause shows what each decision does to the dataset (rows that change

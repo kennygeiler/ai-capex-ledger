@@ -11,6 +11,7 @@ from __future__ import annotations
 from . import definitions, resolutions, status, store
 from .guards import part_year, program_words
 from .review import decisions, open_items
+from .rules import explain_key, explained
 from .taxonomy import asset_types, rows as taxonomy_rows
 from .config import PROVEN, PROVEN_WHY, SCOPE, industry, tracked
 
@@ -95,12 +96,14 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None)
         vstate[(v["field"], v["period"])] = st
         items.append(_item(f"{v['field']} {v['period']}" + (f": {v['label']}" if status.is_open(st) else ""), st, v["basis"] if st["by"].startswith("definition") else f"value {v['value']}" if status.is_open(st) else "", NEEDS["values"]))
     decided = {e["exception_id"] for e in exc} - {e["exception_id"] for e in open_items(exc, decisions())}
+    xp = explained(exc) if any(e["severity"] == "info" for e in exc) else {}  # T36: a person's explanation written as a rule, by the finding it names
     for e in exc:
         if e["severity"] != "warn" or e["exception_id"] in decided or e["rule_id"] in FAILURES:
             continue
         ef = {"cost_of_revenue": "opex", "operating_income": "opex"}.get(e["field"], e["field"])  # read to make opex: a finding on them is about opex
         rows = [s for (f, p), s in vstate.items() if f == (ef or f) and p == (e["period"] or p)]
-        st = status.of_exception(e, resolutions.resolution_of(idx, "values", t, e["field"] or "", "", e["period"] or ""), rows)
+        st = status.of_exception(e, resolutions.resolution_of(idx, "values", t, e["field"] or "", "", e["period"] or ""), rows,
+                                 xp.get(explain_key(e["rule_id"], t, e["field"], e["period"], e["subject"])))
         items.append(_item(f"{e['rule_id']}: {e['field'] or ''} {e['period'] or ''}".strip(), st, e["message"][:200], NEEDS["finding"]))
     stages["values"] = _stage(items)
 
