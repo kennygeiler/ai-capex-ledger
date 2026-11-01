@@ -98,9 +98,30 @@ def _state(con, q: dict, idx: dict) -> dict:
     return status.state({"reason": "a filing at the SEC the ledger has not read", "resolution": res})
 
 
+TO_CONFIRM = "to_confirm"
+
+
+def to_confirm(tickers: list[str] | None, names: dict) -> list[dict]:
+    """The decisions a run made for a person to confirm (resolutions.unconfirmed), as workbench rows: their own group,
+    first. None of them is a dataset row; each is a resolution a person has not yet made their own."""
+    out = []
+    for r in resolutions.unconfirmed():
+        kind, _, rest = r["key"].partition("|")
+        ticker, _, where = rest.partition("|")
+        if tickers is not None and ticker not in tickers:
+            continue
+        out.append({"key": r["key"], "hash": r["hash"], "cause": TO_CONFIRM, "cause_label": "To confirm: a decision a run made, for Kenny Geiler to confirm or overturn", "state": "to confirm",
+                    "by": f"resolution:{r.get('id', '')}", "reason": r["reason"], "open": False, "ticker": ticker, "name": names.get(ticker, ticker), "layer": industry(ticker),
+                    "field": None, "period": None, "where": f"{kind.replace('_', ' ')}: {where}", "measure": None, "ours": None, "ours_label": None, "reference": None, "ref_label": None,
+                    "relation": "eq", "delta": None, "delta_pct": None, "dollars": 0, "new": False, "action": "confirm", "impact": "the release refuses while it is unconfirmed",
+                    "resolution": {k: r.get(k) for k in ("id", "state", "by", "at", "reason")}, "evidence": {"message": r["reason"], "proposed": r["state"]}})
+    return out
+
+
 def items(con, flow: dict) -> dict:
     """One uniform row per queue item. `measure` is usd; `ours` and `reference` are in that measure; `delta` = ours - reference.
-    Every row carries `state`, `by` and `reason` from status.state and `open` (open or blocked); `open` counts those."""
+    Every row carries `state`, `by` and `reason` from status.state and `open` (open or blocked); `open` counts those.
+    The decisions a run left for a person to confirm come first as their own group (`to_confirm`, T3), counted apart."""
     names, rel = flow["names"], flow["release"]["last"]
     idx = resolutions.by_row()
     rows = []
@@ -148,11 +169,13 @@ def items(con, flow: dict) -> dict:
                 pass
         rows.append(row)
     open_ = [r for r in rows if r["open"]]
+    confirm = to_confirm(None if flow["scope"] in ("", "all") else flow["tickers"], names)
     by_cause = {}
-    for r in rows:
+    for r in confirm + rows:
         by_cause.setdefault(r["cause"], {"cause": r["cause"], "label": r["cause_label"], "rows": 0, "open": 0, "dollars": 0})
         by_cause[r["cause"]]["rows"] += 1
         by_cause[r["cause"]]["open"] += r["open"]
         by_cause[r["cause"]]["dollars"] += r["dollars"]
-    return {"scope": flow["scope"], "release": rel, "last_run": flow["changed"]["last_run"], "rows": rows, "open": len(open_), "dollars": sum(r["dollars"] for r in open_),
-            "causes": sorted(by_cause.values(), key=lambda c: -c["dollars"]), "noise": flow["noise"], "names": names}
+    causes = sorted(by_cause.values(), key=lambda c: (c["cause"] != TO_CONFIRM, -c["dollars"]))
+    return {"scope": flow["scope"], "release": rel, "last_run": flow["changed"]["last_run"], "rows": confirm + rows, "open": len(open_), "to_confirm": len(confirm), "dollars": sum(r["dollars"] for r in open_),
+            "causes": causes, "noise": flow["noise"], "names": names}

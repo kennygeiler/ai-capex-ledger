@@ -21,6 +21,15 @@ def _con():
 
 
 class Workbench(unittest.TestCase):
+    def setUp(self):  # the repo's own resolutions log stays out of these rows
+        import pathlib, tempfile
+        from ledger import resolutions
+        self._log, resolutions.LOG = resolutions.LOG, pathlib.Path(tempfile.mkdtemp()) / "resolutions.jsonl"
+
+    def tearDown(self):
+        from ledger import resolutions
+        resolutions.LOG = self._log
+
     def test_fact_differs_row_carries_cell_and_delta(self):
         q = {"kind": "fact_differs", "state": "disagrees", "ticker": "GOOGL", "where": "ppe_category Technical infrastructure FY2025", "impact": "x", "dollars": 0, "new": False, "action": "definition", "key": "k2", "hash": "h2",
              "resolution": {"state": "accept", "by": "Kenny", "at": "2026-10-30", "reason": "ok"},
@@ -74,3 +83,25 @@ class ChartViews(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ToConfirmGroup(unittest.TestCase):
+    def test_unconfirmed_decisions_come_first_as_their_own_group(self):
+        import json, pathlib, tempfile
+        from ledger import resolutions
+        old = resolutions.LOG
+        resolutions.LOG = pathlib.Path(tempfile.mkdtemp()) / "resolutions.jsonl"
+        resolutions.LOG.write_text(json.dumps({"id": "r9", "key": "reference_disagrees|GOOGL|AI capex FY2024", "hash": "h", "state": "explain", "reason": "a planning floor", "by": "Replication run (Claude), for Kenny Geiler to confirm", "at": "2026-10-30"}) + "\n"
+                                   + json.dumps({"id": "r8", "key": "finding_unconfirmed|LITE|operating_income", "hash": "h", "state": "accept", "reason": "harmless", "by": "Claude, for Kenny Geiler to confirm", "at": "2026-10-30"}) + "\n")
+        q = {"kind": "finding_unconfirmed", "state": "look", "ticker": "IRM", "where": "opex FY2024", "impact": "x", "action": "open", "key": "k3", "hash": "h3", "resolution": None,
+             "detail": {"field": "opex", "period": "FY2024", "kind": "restated", "before": 10e6, "after": 12e6, "size": 0.2, "message": "m"}}
+        try:
+            out = workbench.items(_con(), _flow([q]))
+            one = workbench.items(_con(), {**_flow([q]), "scope": "GOOGL", "tickers": ["GOOGL"]})
+        finally:
+            resolutions.LOG = old
+        self.assertEqual([r["cause"] for r in out["rows"]], ["to_confirm", "to_confirm", "finding_unconfirmed"])
+        self.assertEqual((out["to_confirm"], out["open"]), (2, 1))  # counted apart from open
+        self.assertEqual(out["causes"][0]["cause"], "to_confirm")
+        self.assertEqual((out["rows"][0]["state"], out["rows"][0]["by"], out["rows"][0]["evidence"]["proposed"]), ("to confirm", "resolution:r9", "explain"))
+        self.assertEqual([r["ticker"] for r in one["rows"] if r["cause"] == "to_confirm"], ["GOOGL"])  # a ticker scope shows its own

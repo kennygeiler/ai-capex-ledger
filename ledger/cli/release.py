@@ -9,6 +9,7 @@ from ..config import SCOPE, STAGES
 from ..extract import prompt_version
 from ..ingest.tables import PARSER_VERSION
 from ..release import GATES, RELEASES, build, content_hash, gates, releases, version_key
+from ..resolutions import unconfirmed
 from ..review import apply, decisions, open_items
 from ..rules import load
 from ..evidence import load_all
@@ -32,7 +33,7 @@ def main(argv=None) -> int:
     hc_path = store.ROOT / "golden" / f"stage{a.stage}-handcheck.json"
     cells = {e["extraction_id"]: e["cell_text"] for e in exts}
     confirmed = {i for i, r in load_all().items() if r["match"] and cells.get(i) == r["cell"]}
-    failing = gates(values, open_items(excs, ds), json.loads(hc_path.read_text()) if hc_path.exists() else None, confirmed)
+    failing = gates(values, open_items(excs, ds), json.loads(hc_path.read_text()) if hc_path.exists() else None, confirmed, unconfirmed())
     if any(failing.values()):
         print(f"{a.version} not built. Failing gates:")
         for g, items in failing.items():

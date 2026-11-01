@@ -4,6 +4,7 @@ decisions.jsonl (tracked: it is judgement, like definitions/), keyed by the item
 changed item comes back. The release gate counts `blocks`; `accept` and `explain` hide the item until its content
 changes. `by_row()` maps the latest state onto dataset rows so exports and the grid can carry it."""
 import json
+import re
 import uuid
 from datetime import datetime, timezone
 
@@ -71,3 +72,12 @@ def resolution_of(index: dict, table: str, ticker: str, field: str, dimension: s
 def status_of(index: dict, table: str, ticker: str, field: str, dimension: str = "", period: str = "", kind: str = "") -> str:
     r = resolution_of(index, table, ticker, field, dimension, period, kind)
     return r["status"] if r else ""
+
+
+TO_CONFIRM = re.compile(r"\bto confirm\b", re.I)
+
+
+def unconfirmed(rs: list[dict] | None = None) -> list[dict]:
+    """The latest resolutions a run made for a person to confirm (`by` or `reason` says "to confirm"), oldest first. They
+    stay here until that person records a resolution of their own on the same key; the release refuses while any remain."""
+    return sorted((r for r in latest(rs).values() if TO_CONFIRM.search(f"{r.get('by', '')} {r.get('reason', '')}")), key=lambda r: r["at"])

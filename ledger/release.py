@@ -18,6 +18,7 @@ GATES = {
     "G1": "Every filing ended in a valid output or a logged failure, and no failure is open",
     "G4": "No block exception without a current decision",
     "G5": "Every value XBRL can't vouch for, plus a random sample of those it can, confirmed on the filing at the value being released: by the re-read of the rendered 10-K, or by a person where it can't",
+    "G6": "No decision left by a run for a person to confirm (decisions/resolutions.jsonl, 'to confirm')",
 }
 
 
@@ -56,9 +57,9 @@ def split_ids(joined: str) -> list[str]:
     return out
 
 
-def gates(values, open_items, handcheck, confirmed=frozenset()) -> dict:
+def gates(values, open_items, handcheck, confirmed=frozenset(), unconfirmed=()) -> dict:
     """{gate: [failing items]}; empty lists mean the gate passes. confirmed: extraction ids the rendered-10-K re-read
-    found at their current cell text."""
+    found at their current cell text. unconfirmed: the resolutions a run left for a person to confirm (T3)."""
     checked = {(h["ticker"], h["field"], h["period"]): h for h in (handcheck or {}).get("values", [])}
     machine = lambda v: bool(v["extraction_ids"]) and set(split_ids(v["extraction_ids"])) <= set(confirmed)
     need = [v for v in values if (v["ticker"], v["field"], v["period"]) in to_check(values) and not machine(v)]
@@ -68,6 +69,7 @@ def gates(values, open_items, handcheck, confirmed=frozenset()) -> dict:
         "G5": ["no hand-check file"] if need and handcheck is None else
               [f"{v['ticker']} {v['field']} {v['period']}" for v in need
                if not (h := checked.get((v["ticker"], v["field"], v["period"]), {})).get("verified") or h.get("value") != v["value"]],
+        "G6": [r["key"] for r in unconfirmed],
     }
 
 
