@@ -12,7 +12,9 @@ which; Proof, Reconcile, the trail and the Release gates all read it, so no two 
 
 - **checked**: it agrees with an independent check. A value or a fact matches the SEC's XBRL. A statement or a
   planned row is a verbatim quote verified against its text. A filing's statement tables are located. A reported
-  asset type is mapped to a us-gaap member with the note's words (`taxonomy/asset_types.yaml`).
+  asset type is mapped to a us-gaap member with the note's words (`taxonomy/asset_types.yaml`) and a person's
+  `confirmed_by` on the entry (T63, `status.confirmed`, a field check). An entry without it is a proposal: open, by
+  `label:to_confirm`, and a G6 failure, until a person approves, edits or rejects it on Reconcile.
 - **explained**: it does not match, and something on file says why, by name: a definition
   (`definitions/companies.yaml`), an info-severity rule or a guard (`rules/*.yaml`, `proof.GUARDS`), a label reconcile
   wrote because the filing has no such line or XBRL no such tag (`not_reported`, `no_reference`), or a person's
@@ -96,9 +98,9 @@ company in the proven set.
 | Values | a value per field and year | the SEC's XBRL | a definition (cost lines, revenue line), a restatement rule, `not_reported` (no line, no tag) | `unresolved`, or `not_extracted` (no cell read while XBRL tags a value) |
 | Facts | a fact per segment or category and year | the filing's instance (concept and member named) | a restatement between filings, an untagged line | `unresolved` with no explanation |
 | Statements | a quote | the text it came from, verbatim | scope, period and part-year tags set by rule | a part-year or program statement without its tag |
-| Mapping | a reported asset type | the us-gaap member it maps to, with the note's words (`taxonomy/asset_types.yaml`) | the mapping is the explanation | a reported category with no mapping |
+| Mapping | a reported asset type | the us-gaap member it maps to, with the note's words and a person's `confirmed_by` (`taxonomy/asset_types.yaml`, T63) | nothing: a mapping is checked or open | a reported category with no mapping, or an entry no person confirmed (`label:to_confirm`, also a G6 failure) |
 | Planned | a guidance statement, a project | the text, verbatim | part-year and program tags (types 68, 69) | never: a verbatim row is what it is |
-| Release | the company's rows | the gates, per company (`release.gates`: G1 failures, G4 blocks, G5 hand-check, G6 decisions a run left to confirm) | resolutions written as definitions | any `blocks`, any gate row failing |
+| Release | the company's rows | the gates, per company (`release.gates`: G1 failures, G4 blocks, G5 hand-check, G6 decisions a run left to confirm and asset-type mappings no person confirmed) | resolutions written as definitions | any `blocks`, any gate row failing |
 
 ## The five
 
@@ -162,7 +164,10 @@ answer is derived from the same cells.
   The mapping stage's open items sit here too (the "asset types" group, T33): each unmapped reported PP&E category with the mapper
   agent's proposed us-gaap member, the note's words and a confidence; a person's Approve or Edit writes `taxonomy/asset_types.yaml`
   under their name, Reject logs the member. The stage's states do not change: a proposal is not a mapping, and the row stays open
-  until the entry is written.
+  until the entry is written. T63: an entry already in the file without `confirmed_by` is a proposal too and sits in the same group
+  ("to confirm", with the entry's member and who wrote it): Approve adds `confirmed_by` and `confirmed_at` to its line, Edit replaces
+  it with the person's member (confirmed), Reject removes the line and logs the member. Each row shows the member the filer itself
+  tagged for the category in its XBRL instance (`mapper.filer_members`) and flags a us-gaap member that differs from the proposal.
 - **Dataset**: the grid for a consumer, marks per cell (✓ traced, ≠ differs from SEC data, ✗ disagrees with a stated figure, ! above the total, a decision as a badge), CSV export.
 - **Explore**: charts on the API lists, share as a value, saved views as queries.
 - **Release** (`#release`, the last page; `ledger/checklist.py`, T5–T8): the checklist a person signs from. One line per thing

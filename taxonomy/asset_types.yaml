@@ -7,7 +7,15 @@
 # us-gaap members used: TechnologyEquipmentMember, ComputerEquipmentMember, SoftwareAndSoftwareDevelopmentCostsMember,
 # LandMember, LandAndBuildingMember, BuildingAndBuildingImprovementsMember, LeaseholdImprovementsMember,
 # ConstructionInProgressMember, FurnitureAndFixturesMember, MachineryAndEquipmentMember, LandImprovementsMember,
-# ElectricGenerationEquipmentMember, OtherMachineryAndEquipmentMember, PropertyPlantAndEquipmentOtherTypesMember.
+# ElectricGenerationEquipmentMember, OtherMachineryAndEquipmentMember, PropertyPlantAndEquipmentOtherTypesMember,
+# BuildingMember, BuildingImprovementsMember, EquipmentMember, OtherCapitalizedPropertyPlantAndEquipmentMember.
+#
+# The last four are the us-gaap members Amazon's FY2025 and Applied Digital's instances tag for categories mapped
+# otherwise below (T63), listed so a person can choose the filer's own member on Reconcile.
+#
+# T63: an entry is a person's only when it carries `confirmed_by` and `confirmed_at`: who stands behind it, and when.
+# An entry without them is a proposal: open on Proof as "to confirm" and a G6 failure until a person approves, edits
+# or rejects it on Reconcile, asset types (POST /api/mapping writes both fields; an agent never writes them).
 
 MSFT:
   "Computer equipment and software": {standard_type: TechnologyEquipmentMember, evidence: "the note's own category name: computer equipment and software, the line Microsoft renamed in fiscal 2025", by: Claude Fable 5.1, at: 2026-11-01}

@@ -244,3 +244,19 @@ def unmapped(con, tickers: list[str] | None = None) -> list[dict]:
     where = "where ticker in (select unnest(?))" if tickers else ""
     seen = _rows(con, f"select distinct ticker, dimension from facts {where + (' and' if where else 'where')} field = 'ppe_category' order by 1, 2", *([tickers] if tickers else []))
     return [{"ticker": s["ticker"], "reported_name": s["dimension"]} for s in seen if not (types.get(s["ticker"]) or {}).get(s["dimension"])]
+
+
+def to_confirm(con, tickers: list[str] | None = None) -> list[dict]:
+    """T63: reported asset types whose entry in taxonomy/asset_types.yaml has no `confirmed_by` (status.confirmed): a
+    proposal, open on Proof and Reconcile and a G6 failure until a person confirms it. The taxonomy rows still carry the
+    proposed member in `standard_type` (the column says what the entry says; Proof says who stands behind it)."""
+    from .status import confirmed
+    types = asset_types()
+    where = "where ticker in (select unnest(?))" if tickers else ""
+    seen = _rows(con, f"select distinct ticker, dimension from facts {where + (' and' if where else 'where')} field = 'ppe_category' order by 1, 2", *([tickers] if tickers else []))
+    out = []
+    for s in seen:
+        e = (types.get(s["ticker"]) or {}).get(s["dimension"])
+        if e and e.get("standard_type") and not confirmed(e):
+            out.append({"ticker": s["ticker"], "reported_name": s["dimension"], **{k: (str(v) if k == "at" and v is not None else v) for k, v in e.items()}})
+    return out

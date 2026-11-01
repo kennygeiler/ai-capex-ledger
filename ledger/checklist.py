@@ -118,7 +118,7 @@ def packet(con, version: str, stage: int = 3) -> dict:
     cells = {e["extraction_id"]: e["cell_text"] for e in exts}
     confirmed = {i for i, r in load_all().items() if r["match"] and cells.get(i) == r["cell"]}
     hc = json.loads(hc_path.read_text()) if hc_path.exists() else None
-    g = gates(values, open_items(excs, ds), hc, confirmed, resolutions.unconfirmed())
+    g = gates(values, open_items(excs, ds), hc, confirmed, resolutions.unconfirmed(), mappings=taxonomy.to_confirm(con, list(SCOPE)))
     prev_dir = previous_of(version)
     previous = list(csv.DictReader((prev_dir / "values.csv").open())) if prev_dir else None
     ai = _rows(con, "select * from ai_spend where ticker in (select unnest(?))", tickers)
@@ -339,8 +339,11 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     lines.append(_line("blocked", "Blocked items in scope", True, blocked, "pass" if blocked == 0 else "fail", "reconcile", "a block-severity rule or a person's decision refuses the release", [x for x in per_co if x["blocked"]]))
     # decisions a run left to confirm (T3)
     unc = resolutions.unconfirmed()
-    lines.append(_line("unconfirmed", "Decisions left to confirm", True, len(unc), "pass" if not unc else "fail", "reconcile?cause=to_confirm",
-                       "a run decided; a person confirms or overturns each (the same items G6 counts per company)", [{"key": r["key"], "state": r["state"], "reason": (r.get("reason") or "")[:160]} for r in unc]))
+    utc = taxonomy.to_confirm(con, list(SCOPE))  # T63: asset-type mappings no person confirmed count here as G6 counts them
+    lines.append(_line("unconfirmed", "Decisions left to confirm", True, len(unc) + len(utc), "pass" if not unc and not utc else "fail", "reconcile?cause=to_confirm" if unc or not utc else "reconcile?cause=asset_types",
+                       "a run decided; a person confirms or overturns each (the same items G6 counts per company)" + (f"; {len(utc)} of them asset-type mappings no person confirmed (Reconcile, asset types)" if utc else ""),
+                       [{"key": r["key"], "state": r["state"], "reason": (r.get("reason") or "")[:160]} for r in unc]
+                       + [{"key": f"asset_types|{m['ticker']}|{m['reported_name']}", "state": "to confirm", "reason": f"{m['standard_type']} proposed by {m.get('by')}"} for m in utc]))
     # unmapped asset types in scope (T14: 0 required)
     um = taxonomy.unmapped(con, list(SCOPE))
     lines.append(_line("unmapped", "Unmapped asset types in scope", True, len(um), "pass" if not um else "fail", "rules", "every reported PP&E category maps to a us-gaap member (taxonomy/asset_types.yaml)", um))
@@ -381,7 +384,7 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     required = [l for l in lines if l["required"]]
     return {"version": version, "previous": p["previous"], "scope": list(SCOPE), "stage": stage, "hash": p["hash"], "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "ok": all(l["ok"] for l in required), "red": [l["id"] for l in required if not l["ok"]], "lines": lines,
-            "gates": {"table": p["gates"], "failing": bad}, "open": open_, "blocked": blocked, "unconfirmed": len(unc), "unmapped": len(um),
+            "gates": {"table": p["gates"], "failing": bad}, "open": open_, "blocked": blocked, "unconfirmed": len(unc) + len(utc), "unmapped": len(um),
             "diff": d, "golden": g, "tests": t, "exists": exists, "signed": signed, "folder": fstate}
 
 

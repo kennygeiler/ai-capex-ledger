@@ -3,7 +3,14 @@ taxonomy/asset_types.yaml, an agent proposes the nearest us-gaap PropertyPlantAn
 note's own words as evidence and a confidence. A proposal is a proposal: it lands in decisions/mapping_proposals.jsonl
 (append-only) and on Reconcile's "asset types" group, where a person approves, edits or rejects it. Only the approval
 (`approve`, behind POST /api/mapping) writes taxonomy/asset_types.yaml, with `by` = the person. A rejection is a line
-in the same log, so the next run does not propose the same member again. Charter: agents/charters/mapper.md."""
+in the same log, so the next run does not propose the same member again. Charter: agents/charters/mapper.md.
+
+T63: an entry is a person's only when it carries `confirmed_by` (status.confirmed). `approve` writes `confirmed_by` and
+`confirmed_at` beside `by` and `at`, since a person clicked it; on an entry already in the file without them (the 47
+entries Claude Fable 5.1 wrote on 1 Nov 2026) Approve adds them to that line, Edit replaces the line with the person's
+member, also confirmed, and Reject removes the line and logs the member, so the category is unmapped again and the next
+mapper run proposes another. `filer_members` names the member the filer itself tagged for the category in its XBRL
+instance, so Reconcile can flag a proposal that differs from it."""
 from __future__ import annotations
 
 import json
@@ -14,7 +21,8 @@ from pathlib import Path
 
 from . import agents, store
 from .extract import render_statement
-from .taxonomy import ASSET_TYPES, asset_types, unmapped
+from .status import confirmed
+from .taxonomy import ASSET_TYPES, asset_types, to_confirm, unmapped
 
 ROOT = store.ROOT
 TASKS = ROOT / "data" / "mapper" / "tasks"
@@ -78,15 +86,31 @@ def by_name(ticker: str, lines: list[dict] | None = None) -> dict[str, dict]:
                 e["rejected"].append(l["standard_type"])
             if e["proposal"] and e["proposal"].get("standard_type") == l.get("standard_type"):
                 e["proposal"] = None
-        elif l.get("kind") == "approved":
+        elif l.get("kind") in ("approved", "confirmed"):
             e["approved"] = l
     return out
 
 
-def reject(ticker: str, reported_name: str, standard_type: str, by: str, reason: str = "", path: Path | None = None) -> dict:
+def reject(ticker: str, reported_name: str, standard_type: str, by: str, reason: str = "", path: Path | None = None, yaml_path: Path | None = None) -> dict:
+    """Log `standard_type` as rejected for the category. When taxonomy/asset_types.yaml holds an entry for it with that
+    member and no `confirmed_by` (a proposal, T63), the line is removed too, so it stops counting: the category is
+    unmapped again. A confirmed entry is a person's and is never removed here."""
     if not ticker.strip() or not reported_name.strip() or not standard_type.strip() or not by.strip():
         raise ValueError("a rejection needs the ticker, the reported name, the member rejected and a name")
-    return _append({"kind": "rejected", "ticker": ticker.upper(), "reported_name": reported_name, "standard_type": standard_type, "by": by, "reason": reason, "at": _now()}, path)
+    ticker, reported_name, standard_type, by = ticker.strip().upper(), reported_name.strip(), standard_type.strip(), by.strip()
+    y = yaml_path or ASSET_TYPES
+    entry = ((yaml_load(y).get(ticker) or {}) if y.exists() else {}).get(reported_name)
+    removed = False
+    if entry and entry.get("standard_type") == standard_type:
+        if confirmed(entry):
+            raise ValueError(f"{ticker} {reported_name!r} is mapped to {standard_type} and confirmed by {entry['confirmed_by']}; a confirmed mapping is not rejected here")
+        lines = y.read_text().splitlines()
+        i = _entry_index(lines, ticker, reported_name)
+        del lines[i]
+        _write_checked(y, lines, ticker, reported_name, None)
+        removed = True
+    return _append({"kind": "rejected", "ticker": ticker, "reported_name": reported_name, "standard_type": standard_type, "by": by, "reason": reason, "at": _now(),
+                    **({"removed_entry": {k: (str(v) if v is not None else v) for k, v in entry.items()}} if removed else {})}, path)
 
 
 # ── the task ──────────────────────────────────────────────────────────────────
@@ -195,9 +219,12 @@ def _scalar(s: str) -> str:
 
 def approve(ticker: str, reported_name: str, standard_type: str, evidence: str, by: str, path: Path | None = None, log: Path | None = None, at: str | None = None, con=None) -> dict:
     """Write one entry to taxonomy/asset_types.yaml, in the file's own format (one flow-mapping line under the ticker's
-    block; the comment header untouched); refuse a member off the header's list, a second entry for the same
-    (ticker, reported_name), and a name that is not one of the company's unmapped reported categories (taxonomy.unmapped
-    on `con`, the database read-only when none is given). Logged as an `approved` line in the proposals log."""
+    block; the comment header untouched), with `confirmed_by` and `confirmed_at` = the person and today (T63: a person
+    clicked it). Refuse a member off the header's list, a category already mapped and confirmed, and a name that is not
+    one of the company's reported categories with no mapping (taxonomy.unmapped) or with an unconfirmed one
+    (taxonomy.to_confirm), on `con` or on the database read-only when none is given. On an unconfirmed entry, the same
+    member adds `confirmed_by` and `confirmed_at` to its line (the proposer's `by`, `at` and evidence kept); a different
+    member replaces the line with the person's entry, confirmed. Logged as an `approved` or `confirmed` line."""
     p = path or ASSET_TYPES
     ticker, reported_name, standard_type, evidence, by = ticker.strip().upper(), reported_name.strip(), standard_type.strip(), " ".join(evidence.split()), by.strip()
     if not ticker or not reported_name or not evidence or not by:
@@ -206,12 +233,32 @@ def approve(ticker: str, reported_name: str, standard_type: str, evidence: str, 
     if standard_type not in allowed:
         raise ValueError(f"{standard_type!r} is not a member on the list in taxonomy/asset_types.yaml")
     current = (yaml_load(p).get(ticker) or {}) if p.exists() else {}
-    if reported_name in current:
-        raise ValueError(f"{ticker} {reported_name!r} is already mapped to {current[reported_name].get('standard_type')}")
+    day = at or date.today().isoformat()
+    lines = p.read_text().splitlines() if p.exists() else []
+    old = current.get(reported_name)
+    if old and confirmed(old):
+        raise ValueError(f"{ticker} {reported_name!r} is already mapped to {old.get('standard_type')} and confirmed by {old['confirmed_by']}")
+    if old:  # a proposal in the file (T63): confirm it, or replace it with the person's member
+        if reported_name not in {u["reported_name"] for u in _to_confirm(con, ticker)}:
+            raise ValueError(f"{ticker} {reported_name!r} is not one of the company's reported PP&E categories with an unconfirmed mapping; nothing written")
+        i = _entry_index(lines, ticker, reported_name)
+        if old.get("standard_type") == standard_type:
+            if not lines[i].rstrip().endswith("}"):
+                raise ValueError("the entry is not one flow-mapping line; confirm it by hand")
+            lines[i] = lines[i].rstrip()[:-1] + f", confirmed_by: {_scalar(by)}, confirmed_at: {day}}}"
+            entry = {"ticker": ticker, "reported_name": reported_name, **{k: (str(v) if v is not None else v) for k, v in old.items()}, "confirmed_by": by, "confirmed_at": day}
+            kind = "confirmed"
+        else:
+            lines[i] = _line(reported_name, standard_type, evidence, by, day)
+            entry = {"ticker": ticker, "reported_name": reported_name, "standard_type": standard_type, "evidence": evidence, "by": by, "at": day, "confirmed_by": by, "confirmed_at": day,
+                     "replaced": {k: (str(v) if v is not None else v) for k, v in old.items()}}
+            kind = "approved"
+        _write_checked(p, lines, ticker, reported_name, standard_type, confirmed_by=by)
+        _append({"kind": kind, **entry}, log)
+        return entry
     if reported_name not in {u["reported_name"] for u in _unmapped(con, ticker)}:
         raise ValueError(f"{ticker} {reported_name!r} is not one of the company's reported PP&E categories with no mapping; nothing written")
-    line = f"  {json.dumps(reported_name)}: {{standard_type: {standard_type}, evidence: {json.dumps(evidence)}, by: {_scalar(by)}, at: {at or date.today().isoformat()}}}"
-    lines = p.read_text().splitlines() if p.exists() else []
+    line = _line(reported_name, standard_type, evidence, by, day)
     starts = [i for i, l in enumerate(lines) if l == f"{ticker}:"]
     if starts:
         i = starts[0] + 1
@@ -222,15 +269,54 @@ def approve(ticker: str, reported_name: str, standard_type: str, evidence: str, 
         lines.insert(i, line)
     else:
         lines += [f"{ticker}:", line]
-    text = "\n".join(lines) + "\n"
-    import yaml
-    parsed = yaml.safe_load(text)  # the file must still parse, or nothing is written
-    if (parsed.get(ticker) or {}).get(reported_name, {}).get("standard_type") != standard_type:
-        raise ValueError("the entry did not land where expected; nothing written")
-    p.write_text(text)
-    entry = {"ticker": ticker, "reported_name": reported_name, "standard_type": standard_type, "evidence": evidence, "by": by, "at": at or date.today().isoformat()}
+    _write_checked(p, lines, ticker, reported_name, standard_type, confirmed_by=by)
+    entry = {"ticker": ticker, "reported_name": reported_name, "standard_type": standard_type, "evidence": evidence, "by": by, "at": day, "confirmed_by": by, "confirmed_at": day}
     _append({"kind": "approved", **entry}, log)
     return entry
+
+
+def _line(reported_name: str, standard_type: str, evidence: str, by: str, day: str) -> str:
+    """One entry as the file writes it: a person's approval is also their confirmation (T63)."""
+    return f"  {json.dumps(reported_name)}: {{standard_type: {standard_type}, evidence: {json.dumps(evidence)}, by: {_scalar(by)}, at: {day}, confirmed_by: {_scalar(by)}, confirmed_at: {day}}}"
+
+
+def _entry_index(lines: list[str], ticker: str, reported_name: str) -> int:
+    """The line of the entry for `reported_name` inside the ticker's block; ValueError when it is not one line there."""
+    import yaml
+    starts = [i for i, l in enumerate(lines) if l == f"{ticker}:"]
+    if starts:
+        i = starts[0] + 1
+        while i < len(lines) and (lines[i].startswith(" ") or not lines[i].strip()):
+            if lines[i].strip() and not lines[i].lstrip().startswith("#"):
+                try:
+                    if reported_name in (yaml.safe_load(lines[i].strip()) or {}):
+                        return i
+                except yaml.YAMLError:
+                    pass
+            i += 1
+    raise ValueError(f"{ticker} {reported_name!r}: no one-line entry in the ticker's block; nothing written")
+
+
+def _write_checked(p: Path, lines: list[str], ticker: str, reported_name: str, standard_type: str | None, confirmed_by: str | None = None) -> None:
+    """Write the file only if it still parses and the entry is what was meant (None: gone); otherwise nothing is written."""
+    import yaml
+    text = "\n".join(lines) + "\n"
+    e = ((yaml.safe_load(text) or {}).get(ticker) or {}).get(reported_name)
+    if (e or {}).get("standard_type") != standard_type or (confirmed_by is not None and str((e or {}).get("confirmed_by")) != confirmed_by):
+        raise ValueError("the entry did not land where expected; nothing written")
+    p.write_text(text)
+
+
+def _to_confirm(con, ticker: str) -> list[dict]:
+    """The company's reported categories whose entry has no confirmed_by (taxonomy.to_confirm), on `con` or read-only."""
+    if con is not None:
+        return to_confirm(con, [ticker])
+    import duckdb
+    c = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
+    try:
+        return to_confirm(c, [ticker])
+    finally:
+        c.close()
 
 
 def _unmapped(con, ticker: str) -> list[dict]:
@@ -253,19 +339,64 @@ def yaml_load(p: Path) -> dict:
 # ── what Reconcile shows ──────────────────────────────────────────────────────
 
 def pending(con, tickers: list[str] | None, lines: list[dict] | None = None) -> list[dict]:
-    """Every unmapped reported asset type in `tickers` (None: every company) with its latest proposal, if one stands, the
-    members a person rejected for it, and the note's words around it."""
+    """Every reported asset type in `tickers` (None: every company) a person has yet to stand behind: the unmapped ones
+    with the mapper's latest proposal, if one stands, and (T63) the ones whose entry in taxonomy/asset_types.yaml has no
+    confirmed_by, with that entry as the proposal (`source` "taxonomy/asset_types.yaml"). Each carries the members a
+    person rejected for it, the note's words around it, and the member the filer tagged for it (`filer`)."""
     out = []
-    um = unmapped(con, tickers)
-    by_t: dict[str, list[str]] = {}
-    for u in um:
-        by_t.setdefault(u["ticker"], []).append(u["reported_name"])
-    for t, names in by_t.items():
+    by_t: dict[str, list[tuple[str, dict | None]]] = {}
+    for u in unmapped(con, tickers):
+        by_t.setdefault(u["ticker"], []).append((u["reported_name"], None))
+    for e in to_confirm(con, tickers):
+        by_t.setdefault(e["ticker"], []).append((e["reported_name"], e))
+    for t, pairs in sorted(by_t.items()):
+        names = [n for n, _ in pairs]
         idx = by_name(t, lines)
         blocks = note_words(con, t, names)
-        for n in names:
+        filed = filer_members(con, t, names)
+        for n, entry in sorted(pairs, key=lambda x: (x[1] is not None, x[0])):
             e = idx.get(n) or {"proposal": None, "rejected": [], "approved": None}
             note = next((b for b in blocks if _norm(n) in _norm(b["table"])), blocks[0] if blocks else None)
-            out.append({"ticker": t, "reported_name": n, "proposal": e["proposal"], "rejected": e["rejected"],
+            proposal = e["proposal"] if entry is None else {"standard_type": entry["standard_type"], "evidence": entry.get("evidence"), "by": entry.get("by"), "at": entry.get("at"),
+                                                            "source": "taxonomy/asset_types.yaml", "confidence": None, "reason": None}
+            out.append({"ticker": t, "reported_name": n, "kind": "unmapped" if entry is None else "to_confirm", "proposal": proposal, "rejected": e["rejected"], "filer": filed.get(n, []),
                         "note": {"accession": note["accession"], "table_id": note["table_id"], "before": note["before"][-400:]} if note else None})
     return out
+
+
+def filer_members(con, ticker: str, names: list[str]) -> dict[str, list[str]]:
+    """Per reported name, the PropertyPlantAndEquipmentByTypeAxis members the filer itself tagged for that category: the
+    members whose PropertyPlantAndEquipmentGross fact in the filing's own instance (reference.dimensions.instance_facts)
+    has the category's value on its balance date. Empty for a name when no filing tags it (Microsoft and AMD tag none
+    with a single dimension) or the instances are not on disk. A member may be the filer's extension (amzn:, goog:)."""
+    if not names:
+        return {}
+    try:
+        cur = con.execute("""select f.dimension, f.period_end, f.value, f.reference, f.accession, d.cik from facts f join documents d on d.accession = f.accession
+                             where f.ticker = ? and f.field = 'ppe_category' and f.dimension in (select unnest(?))""", [ticker, names])
+        rows = cur.fetchall()
+    except Exception:
+        return {}
+    from .workbench import _instance
+    out: dict[str, set] = {}
+    for dim, pe, val, ref, acc, cik in rows:
+        want = set()
+        for x in (val, ref):
+            try:
+                if x not in (None, ""):
+                    want.add(round(float(x)))
+            except (TypeError, ValueError):
+                pass
+        try:
+            inst = _instance(int(cik), acc)
+        except Exception:
+            continue
+        out.setdefault(dim, set()).update(m for (c, m, e), v in inst.items() if c == "PropertyPlantAndEquipmentGross" and m and e == str(pe) and v in want)
+    return {k: sorted(v) for k, v in out.items()}
+
+
+def mismatch(member: str | None, filer: list[str]) -> bool:
+    """A proposal differs from the filer when the filer tagged the category with us-gaap members only and none is the
+    proposal's. A filer's extension member (amzn:, goog:, nvda:, apld:) is no us-gaap member to compare, so no flag."""
+    gaap = [m.split(":", 1)[1] for m in filer if m.startswith("us-gaap:")]
+    return bool(member) and bool(gaap) and len(gaap) == len(filer) and member not in gaap

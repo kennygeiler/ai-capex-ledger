@@ -46,7 +46,8 @@ async function reconcilePage(view, qs) {
   const setQ = (patch) => { const p = {scope, group, cause: fCause, layer: fLayer, field: fField, kind: q.kind || '', resolved: withResolved ? '1' : '', ...patch}; go('reconcile?' + new URLSearchParams(Object.fromEntries(Object.entries(p).filter(([, v]) => v))).toString()); };
   const isOpen = (r) => !!r.open;  // the server's word (row.open: open or blocked), never recomputed here
   const toConfirm = (r) => r.cause === 'to_confirm';
-  const isAsset = (r) => r.cause === 'asset_types';  // T33: an unmapped asset type with the mapper's proposal; Approve, Edit or Reject
+  const isAsset = (r) => r.cause === 'asset_types';  // T33: an unmapped asset type with the mapper's proposal; T63: or an entry no person confirmed. Approve, Edit or Reject
+  const filerNote = (r) => r.evidence.filer && r.evidence.filer.length ? h('div', {class: 'small ' + (r.evidence.mismatch ? 'text-red' : 'text-secondary'), title: r.evidence.mismatch ? 'the filer tagged this category with a different us-gaap member in its own XBRL' : 'the member the filer tagged in its own XBRL'}, (r.evidence.mismatch ? 'differs from the filer: ' : 'filer tags ') + r.evidence.filer.join(', ')) : '';
   let rows = d.rows.filter((r) => withResolved || isOpen(r) || toConfirm(r));
   if (fCause) rows = rows.filter((r) => r.cause === fCause);
   if (fLayer) rows = rows.filter((r) => r.layer === fLayer);
@@ -90,7 +91,7 @@ async function reconcilePage(view, qs) {
       const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field) : r.where, r.period ? ` ${r.period}` : ''), r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : r.cause === 'finding_unconfirmed' && r.measure == null ? h('div', {class: 'text-secondary small'}, r.cause_label) : isAsset(r) && r.evidence.note ? h('div', {class: 'text-secondary small'}, `${r.evidence.note.table_id}, filing ${r.evidence.note.accession}`) : ''];
       const res = toConfirm(r) ? confirmCell(r, i) : isAsset(r) ? mappingCell(r, i) : [stateCell(r), r.resolution && r.resolution.by ? h('div', {class: 'text-secondary small'}, `${RES_LABEL[r.resolution.state] || r.resolution.state} by ${r.resolution.by}, ${day(r.resolution.at)}`) : ''];
       const P = isAsset(r) ? r.evidence.proposal : null;
-      const ours = isAsset(r) ? [P ? [h('span', {class: 'font-monospace', style: 'font-size:.8rem;overflow-wrap:anywhere'}, P.standard_type), ' ', h('span', {class: 'text-secondary small', title: `the mapper's confidence: ${P.confidence}`}, P.confidence)] : h('span', {class: 'text-secondary small'}, 'no proposal yet'), P ? h('div', {class: 'text-secondary small'}, `“${P.evidence}”`) : ''] : [num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, r.ours_label) : ''];
+      const ours = isAsset(r) ? [P ? [h('span', {class: 'font-monospace', style: 'font-size:.8rem;overflow-wrap:anywhere'}, P.standard_type), ' ', P.confidence ? h('span', {class: 'text-secondary small', title: `the mapper's confidence: ${P.confidence}`}, P.confidence) : h('span', {class: 'badge bg-orange-lt', title: `in taxonomy/asset_types.yaml by ${P.by || 'nobody named'}, with no confirmed_by`}, 'to confirm')] : h('span', {class: 'text-secondary small'}, 'no proposal yet'), P ? h('div', {class: 'text-secondary small'}, `“${P.evidence}”`) : '', filerNote(r)] : [num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, r.ours_label) : ''];
       const tr = h('tr', {class: 'item', tabindex: 0, 'aria-expanded': 'false', onkeydown: (e) => keys(e, i), onclick: () => toggle(i), onfocus: () => { cur = i; paintCur(); }},
         h('td', {class: 'w-1'}, cb), h('td', {}, first), h('td', {}, where),
         h('td', {class: isAsset(r) ? '' : 'num'}, ours),
@@ -104,7 +105,7 @@ async function reconcilePage(view, qs) {
     const confirmGroup = group === 'cause' && toConfirm(list[0]);
     const assetGroup = group === 'cause' && isAsset(list[0]);
     cards.push(h('div', {class: 'card mb-3'},
-      h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, label), h('span', {class: 'ms-2 text-secondary small'}, confirmGroup ? `${int(list.length)} decisions a run made; the release refuses until each is confirmed or overturned` : assetGroup ? `${int(list.length)} reported ${list.length === 1 ? 'category' : 'categories'} with no us-gaap member, ${int(list.filter((r) => r.evidence.proposal).length)} proposed by the mapper; Approve writes taxonomy/asset_types.yaml under your name` : `${int(open.length)} open of ${int(list.length)}${list.some((r) => r.dollars) ? `, ${usd(list.reduce((s, r) => s + r.dollars, 0))} at stake` : ''}`),
+      h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, label), h('span', {class: 'ms-2 text-secondary small'}, confirmGroup ? `${int(list.length)} decisions a run made; the release refuses until each is confirmed or overturned` : assetGroup ? `${int(list.filter((r) => r.evidence.mapping === 'to_confirm').length)} mappings no person confirmed, ${int(list.filter((r) => r.evidence.mapping !== 'to_confirm').length)} with no us-gaap member, ${int(list.filter((r) => r.evidence.mismatch).length)} differing from the filer's tag; Approve writes taxonomy/asset_types.yaml with confirmed_by: your name` : `${int(open.length)} open of ${int(list.length)}${list.some((r) => r.dollars) ? `, ${usd(list.reduce((s, r) => s + r.dollars, 0))} at stake` : ''}`),
         open.length > 1 && !assetGroup ? h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary ms-auto', onclick: () => { for (const r of open) selected.add(r.key); paint(); }}, `Select all ${int(open.length)}`) : ''),
       h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table table-hover'},
         h('thead', {}, h('tr', {}, h('th', {class: 'w-1'}, h('span', {class: 'visually-hidden'}, 'Select')), h('th', {}, group === 'cause' ? 'Company' : 'Cause'), h('th', {}, 'Where'), h('th', {class: 'num'}, 'Ours'), h('th', {class: 'num'}, 'Reference'), h('th', {class: 'w-1'}, 'Gap'), h('th', {class: 'num'}, 'Delta'), h('th', {}, 'Decision'))),
@@ -160,12 +161,13 @@ async function reconcilePage(view, qs) {
     const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
     const btns = [];
     if (P) {
-      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: (me || '').trim() ? `Write ${P.standard_type} to taxonomy/asset_types.yaml as ${me}, with the mapper's evidence` : 'type your name in the signer box first', onclick: async (e) => {
+      const entry = r.evidence.mapping === 'to_confirm';
+      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: (me || '').trim() ? (entry ? `Confirm ${P.standard_type} in taxonomy/asset_types.yaml: confirmed_by ${me}, today` : `Write ${P.standard_type} to taxonomy/asset_types.yaml as ${me}, with the mapper's evidence`) : 'type your name in the signer box first', onclick: async (e) => {
         e.stopPropagation(); approve.disabled = true;
-        const ok = await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, evidence: P.evidence, by: me}, status, 'Mapped.');
+        const ok = await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, evidence: P.evidence || r.evidence.reported_name, by: me}, status, entry ? 'Confirmed.' : 'Mapped.');
         if (!ok) approve.disabled = !(me || '').trim();
       }}, 'Approve'));
-      const reject = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: `Log ${P.standard_type} as rejected for this category; the next mapper run proposes another`, onclick: async (e) => {
+      const reject = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: entry ? `Remove ${P.standard_type} from taxonomy/asset_types.yaml and log it as rejected; the category is unmapped again` : `Log ${P.standard_type} as rejected for this category; the next mapper run proposes another`, onclick: async (e) => {
         e.stopPropagation(); reject.disabled = true;
         const ok = await postMapping('/api/mapping/reject', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, by: me, reason: 'rejected on Reconcile'}, status, 'Rejected.');
         if (!ok) reject.disabled = false;
@@ -189,7 +191,7 @@ async function reconcilePage(view, qs) {
       await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: select.value, evidence: evidence.value, by: me}, status, 'Mapped.');
       save.disabled = !(me || '').trim();
     }}, (me || '').trim() ? `Write as ${me}` : 'Write'));
-    return h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-12 col-xl-4'}, select), h('div', {class: 'col'}, h('div', {class: 'input-group input-group-sm'}, evidence, save)), h('div', {class: 'col-12 small text-secondary'}, `“${r.evidence.reported_name}” → the member, in taxonomy/asset_types.yaml with by: ${me} and today’s date; then rerun `, h('code', {}, 'ledger rules'), ' (or any taxonomy read) and the row shows mapped.'), h('div', {class: 'col-12'}, status));
+    return h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-12 col-xl-4'}, select), h('div', {class: 'col'}, h('div', {class: 'input-group input-group-sm'}, evidence, save)), h('div', {class: 'col-12 small text-secondary'}, `“${r.evidence.reported_name}” → the member, in taxonomy/asset_types.yaml with by and confirmed_by: ${me} and today’s date${r.evidence.mapping === 'to_confirm' ? ', replacing the proposal' : ''}; then rerun `, h('code', {}, 'ledger rules'), ' (or any taxonomy read) and the row shows mapped.'), h('div', {class: 'col-12'}, status));
   }
   function resolutionForm(r, many, done) {
     const items = many || [r];
@@ -261,12 +263,16 @@ async function reconcilePage(view, qs) {
     } else if (isAsset(r)) {
       const P = E.proposal, N = E.note;
       const item = (title, ...body) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, title), h('div', {class: 'datagrid-content', style: 'overflow-wrap:anywhere'}, body));
-      cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0', style: 'overflow-wrap:anywhere'}, P ? `The mapper proposed ${P.standard_type}` : 'No proposal on file')),
-        h('div', {class: 'card-body py-2'}, P ? h('div', {class: 'datagrid'},
+      const filer = E.filer && E.filer.length ? item('The filer tags', h('span', {class: E.mismatch ? 'text-red' : ''}, E.filer.join(', ')), E.mismatch ? h('div', {class: 'small text-secondary'}, 'a different us-gaap member in the filer’s own XBRL; Edit to use it, or Approve if the proposal is right') : '') : item('The filer tags', h('span', {class: 'text-secondary'}, 'nothing for this category in its XBRL'));
+      cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0', style: 'overflow-wrap:anywhere'}, P ? (E.mapping === 'to_confirm' ? `${P.by || 'Someone'} wrote ${P.standard_type}; nobody confirmed it` : `The mapper proposed ${P.standard_type}`) : 'No proposal on file')),
+        h('div', {class: 'card-body py-2'}, P && E.mapping === 'to_confirm' ? h('div', {class: 'datagrid'},
+          item('Evidence', `“${P.evidence || ''}”`),
+          item('Written by', `${P.by || ''}, ${P.at || ''}, in taxonomy/asset_types.yaml with no confirmed_by`),
+          filer) : P ? h('div', {class: 'datagrid'},
           item('Evidence, the note’s words', `“${P.evidence}”`),
           item('Confidence', h('span', {class: 'text-secondary'}, P.confidence)),
           item('Reason', P.reason || ''),
-          item('Proposed by', `${P.model || ''} ${P.prompt_version || ''}, ${day(P.at)}`)) : h('p', {class: 'm-0 small text-secondary'}, 'Run ', h('code', {}, `uv run python -m ledger mapper ${r.ticker}`), ' for a proposal, or map it yourself below.'),
+          item('Proposed by', `${P.model || ''} ${P.prompt_version || ''}, ${day(P.at)}`), filer) : h('p', {class: 'm-0 small text-secondary'}, 'Run ', h('code', {}, `uv run python -m ledger mapper ${r.ticker}`), ' for a proposal, or map it yourself below.'),
           E.rejected && E.rejected.length ? h('p', {class: 'small text-secondary mt-2 mb-0'}, `Rejected before: ${E.rejected.join(', ')}`) : ''))));
       cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'The note’s words'), N ? h('span', {class: 'ms-2 small text-secondary'}, `${N.table_id}, filing ${N.accession}`) : ''),
         h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0 small'}, N && N.before ? `…${N.before}` : 'The parsed note is not on disk for this clone; the category name is all the note’s words we have.'), h('div', {class: 'mt-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'The company’s trail'))))));

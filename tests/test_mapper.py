@@ -21,7 +21,7 @@ HEADER = """# The company's own PP&E category, mapped to the nearest us-gaap Pro
 # ConstructionInProgressMember, MachineryAndEquipmentMember.
 
 MSFT:
-  "Land": {standard_type: LandMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01}
+  "Land": {standard_type: LandMember, evidence: "the note's own category name", by: Claude Fable 5.1, at: 2026-11-01, confirmed_by: A Tester, confirmed_at: 2026-11-02}
 AMD:
   "Equipment": {standard_type: MachineryAndEquipmentMember, evidence: "equipment", by: Claude Fable 5.1, at: 2026-11-01}
 """
@@ -37,9 +37,13 @@ class Writer(unittest.TestCase):
         self.um = mock.patch.object(mapper, "_unmapped", side_effect=lambda con, t: {"MU": [{"ticker": "MU", "reported_name": "Construction in progress"}, {"ticker": "MU", "reported_name": "Software"}],
                                                                                    "MSFT": [{"ticker": "MSFT", "reported_name": "Servers"}]}.get(t, []))
         self.um.start()
+        # T63: the company's reported categories whose entry no person confirmed, as taxonomy.to_confirm would report them
+        self.tc = mock.patch.object(mapper, "_to_confirm", side_effect=lambda con, t: {"AMD": [{"ticker": "AMD", "reported_name": "Equipment", "standard_type": "MachineryAndEquipmentMember"}]}.get(t, []))
+        self.tc.start()
 
     def tearDown(self):
         self.um.stop()
+        self.tc.stop()
         self.tmp.cleanup()
 
     def test_approve_refuses_a_name_the_company_does_not_report_unmapped(self):
@@ -62,10 +66,12 @@ class Writer(unittest.TestCase):
         text = self.path.read_text()
         self.assertTrue(text.startswith(HEADER.split("\n\nMSFT:")[0]))  # the comment header, byte for byte
         lines = text.splitlines()
-        self.assertEqual(lines[lines.index("MSFT:") + 2], '  "Servers": {standard_type: TechnologyEquipmentMember, evidence: "servers, \\"network\\" gear", by: Kenny Geiler, at: 2026-11-02}')
-        self.assertEqual(lines[-2:], ["MU:", '  "Construction in progress": {standard_type: ConstructionInProgressMember, evidence: "Construction in progress(2)", by: Kenny Geiler, at: 2026-11-02}'])
+        self.assertEqual(lines[lines.index("MSFT:") + 2], '  "Servers": {standard_type: TechnologyEquipmentMember, evidence: "servers, \\"network\\" gear", by: Kenny Geiler, at: 2026-11-02, confirmed_by: Kenny Geiler, confirmed_at: 2026-11-02}')
+        self.assertEqual(lines[-2:], ["MU:", '  "Construction in progress": {standard_type: ConstructionInProgressMember, evidence: "Construction in progress(2)", by: Kenny Geiler, at: 2026-11-02, confirmed_by: Kenny Geiler, confirmed_at: 2026-11-02}'])
         d = yaml.safe_load(text)
-        self.assertEqual({**d["MU"]["Construction in progress"], "at": str(d["MU"]["Construction in progress"]["at"])}, {"standard_type": "ConstructionInProgressMember", "evidence": "Construction in progress(2)", "by": "Kenny Geiler", "at": "2026-11-02"})  # yaml reads `at` as a date, as it does the existing entries
+        got = d["MU"]["Construction in progress"]
+        self.assertEqual({**got, "at": str(got["at"]), "confirmed_at": str(got["confirmed_at"])}, {"standard_type": "ConstructionInProgressMember", "evidence": "Construction in progress(2)", "by": "Kenny Geiler", "at": "2026-11-02",
+                                                                                            "confirmed_by": "Kenny Geiler", "confirmed_at": "2026-11-02"})  # yaml reads `at` as a date, as it does the existing entries; a person's approval is their confirmation (T63)
         self.assertEqual(d["MSFT"]["Servers"]["evidence"], 'servers, "network" gear')
         self.assertEqual(d["AMD"]["Equipment"]["standard_type"], "MachineryAndEquipmentMember")  # untouched
         self.assertEqual((e["ticker"], e2["ticker"]), ("MU", "MSFT"))
@@ -76,6 +82,7 @@ class Writer(unittest.TestCase):
         with self.assertRaises(ValueError) as c:
             mapper.approve("MSFT", "Land", "LandMember", "land", "Kenny", path=self.path, log=self.log)
         self.assertIn("already mapped", str(c.exception))
+        self.assertIn("confirmed by A Tester", str(c.exception))
         with self.assertRaises(ValueError) as c:
             mapper.approve("MU", "Software", "SoftwareAndSoftwareDevelopmentCostsMember", "software", "Kenny", path=self.path, log=self.log)
         self.assertIn("not a member on the list", str(c.exception))
@@ -83,6 +90,119 @@ class Writer(unittest.TestCase):
             mapper.approve("MU", "Software", "LandMember", "software", "", path=self.path, log=self.log)  # no name, no write
         self.assertEqual(self.path.read_text(), before)
         self.assertFalse(self.log.exists())
+
+
+class Confirm(unittest.TestCase):
+    """T63: an entry without confirmed_by is a proposal. Approve adds confirmed_by and confirmed_at to its line, Edit
+    replaces it with the person's member (confirmed), Reject removes it and logs the member; a confirmed entry stays."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.path = Path(self.tmp.name) / "asset_types.yaml"
+        self.path.write_text(HEADER)
+        self.log = Path(self.tmp.name) / "proposals.jsonl"
+        self.tc = mock.patch.object(mapper, "_to_confirm", side_effect=lambda con, t: {"AMD": [{"ticker": "AMD", "reported_name": "Equipment", "standard_type": "MachineryAndEquipmentMember"}]}.get(t, []))
+        self.tc.start()
+        self.patch = mock.patch.object(mapper, "ASSET_TYPES", self.path)
+        self.patch.start()
+
+    def tearDown(self):
+        self.tc.stop()
+        self.patch.stop()
+        self.tmp.cleanup()
+
+    def test_approve_confirms_the_line_in_place(self):
+        before = self.path.read_text().splitlines()
+        e = mapper.approve("AMD", "Equipment", "MachineryAndEquipmentMember", "equipment", "A Tester", path=self.path, log=self.log, at="2026-11-03")
+        after = self.path.read_text().splitlines()
+        self.assertEqual(after[-1], '  "Equipment": {standard_type: MachineryAndEquipmentMember, evidence: "equipment", by: Claude Fable 5.1, at: 2026-11-01, confirmed_by: A Tester, confirmed_at: 2026-11-03}')
+        self.assertEqual(after[:-1], before[:-1])  # nothing else moved
+        self.assertEqual((e["by"], e["confirmed_by"], e["confirmed_at"]), ("Claude Fable 5.1", "A Tester", "2026-11-03"))  # the proposer stays named
+        self.assertEqual([l["kind"] for l in mapper.load_proposals(self.log)], ["confirmed"])
+        from ledger import status
+        self.assertTrue(status.confirmed(yaml.safe_load(self.path.read_text())["AMD"]["Equipment"]))
+        with self.assertRaises(ValueError) as c:  # once confirmed, it is a person's: not confirmed twice, not replaced
+            mapper.approve("AMD", "Equipment", "LandMember", "equipment", "A Tester", path=self.path, log=self.log)
+        self.assertIn("already mapped", str(c.exception))
+
+    def test_edit_replaces_the_proposal_with_the_persons_member(self):
+        e = mapper.approve("AMD", "Equipment", "TechnologyEquipmentMember", "test equipment and computers", "A Tester", path=self.path, log=self.log, at="2026-11-03")
+        self.assertEqual(self.path.read_text().splitlines()[-1], '  "Equipment": {standard_type: TechnologyEquipmentMember, evidence: "test equipment and computers", by: A Tester, at: 2026-11-03, confirmed_by: A Tester, confirmed_at: 2026-11-03}')
+        self.assertEqual(e["replaced"]["standard_type"], "MachineryAndEquipmentMember")
+        self.assertEqual(mapper.load_proposals(self.log)[0]["kind"], "approved")
+
+    def test_approve_refuses_an_entry_the_company_does_not_report(self):
+        before = self.path.read_text()
+        with mock.patch.object(mapper, "_to_confirm", return_value=[]):
+            with self.assertRaises(ValueError) as c:
+                mapper.approve("AMD", "Equipment", "MachineryAndEquipmentMember", "equipment", "A Tester", path=self.path, log=self.log)
+        self.assertIn("unconfirmed mapping", str(c.exception))
+        self.assertEqual(self.path.read_text(), before)
+
+    def test_reject_removes_an_unconfirmed_entry_and_logs_the_member(self):
+        r = mapper.reject("AMD", "Equipment", "MachineryAndEquipmentMember", "A Tester", "the note says test equipment", path=self.log)
+        d = yaml.safe_load(self.path.read_text())
+        self.assertNotIn("Equipment", d.get("AMD") or {})
+        self.assertEqual(d["MSFT"]["Land"]["standard_type"], "LandMember")
+        self.assertEqual((r["kind"], r["removed_entry"]["by"]), ("rejected", "Claude Fable 5.1"))
+        self.assertEqual(mapper.by_name("AMD", mapper.load_proposals(self.log))["Equipment"]["rejected"], ["MachineryAndEquipmentMember"])  # the next run proposes another
+        self.assertTrue(self.path.read_text().startswith(HEADER.split("\n\nMSFT:")[0]))
+
+    def test_reject_never_removes_a_confirmed_entry(self):
+        before = self.path.read_text()
+        with self.assertRaises(ValueError) as c:
+            mapper.reject("MSFT", "Land", "LandMember", "A Tester", path=self.log)
+        self.assertIn("confirmed by A Tester", str(c.exception))
+        self.assertEqual(self.path.read_text(), before)
+        r = mapper.reject("MSFT", "Land", "LandAndBuildingMember", "A Tester", path=self.log)  # a different member: logged, the entry untouched
+        self.assertNotIn("removed_entry", r)
+        self.assertEqual(self.path.read_text(), before)
+
+
+class Confirmed(unittest.TestCase):
+    def test_confirmed_is_a_field_check(self):
+        from ledger import status
+        self.assertFalse(status.confirmed(None))
+        self.assertFalse(status.confirmed({"standard_type": "LandMember", "by": "Claude Fable 5.1"}))
+        self.assertFalse(status.confirmed({"standard_type": "LandMember", "by": "Kenny, confirmed", "evidence": "confirmed by a person"}))  # never a phrase
+        self.assertFalse(status.confirmed({"standard_type": "LandMember", "confirmed_by": "  "}))
+        self.assertTrue(status.confirmed({"standard_type": "LandMember", "confirmed_by": "A Tester"}))
+
+    def test_of_mapping(self):
+        from ledger import status
+        self.assertEqual({k: v for k, v in status.of_mapping({"standard_type": "LandMember", "confirmed_by": "A Tester"}).items() if k != "reason"}, {"state": "checked", "by": "mapping:LandMember", "keys": [], "key": None})
+        st = status.of_mapping({"standard_type": "LandMember", "by": "Claude Fable 5.1"})
+        self.assertEqual((st["state"], st["by"]), ("open", "label:to_confirm"))
+        self.assertIn("Claude Fable 5.1", st["reason"])
+        self.assertEqual(status.of_mapping(None)["state"], "open")
+
+    def test_an_unconfirmed_mapping_fails_g6_under_its_company(self):
+        from ledger.release import gates
+        g = gates([], [], {"values": []}, tickers=["NVDA"], mappings=[{"ticker": "NVDA", "reported_name": "Land"}, {"ticker": "TSLA", "reported_name": "Land"}])
+        self.assertEqual(g["G6"], {"NVDA": ["asset_types|NVDA|Land"], "TSLA": ["asset_types|TSLA|Land"]})
+
+    def test_the_taxonomy_lists_what_waits_for_a_person(self):
+        from ledger import taxonomy
+        types = {"MU": {"Land": {"standard_type": "LandMember", "by": "Claude Fable 5.1", "at": "2026-11-01"}, "Equipment": {"standard_type": "MachineryAndEquipmentMember", "by": "A Tester", "confirmed_by": "A Tester"}}}
+        with mock.patch.object(taxonomy, "asset_types", return_value=types):
+            got = taxonomy.to_confirm(_con(), ["MU"])
+        self.assertEqual([(g["ticker"], g["reported_name"], g["standard_type"]) for g in got], [("MU", "Land", "LandMember")])
+
+    def test_filer_member_and_mismatch(self):
+        con = _con()
+        con.execute("insert into facts values ('MU','ppe_category','Other equipment','FY2026',5e6,'agree','5000000','2026-09-03')")
+        con.execute("update facts set reference = reference")
+        con.execute("alter table facts add column accession text")
+        con.execute("update facts set accession = 'acc1'")
+        inst = {("PropertyPlantAndEquipmentGross", "us-gaap:EquipmentMember", "2026-09-03"): 5000000, ("PropertyPlantAndEquipmentGross", "us-gaap:LandMember", "2026-09-03"): 420000000,
+                ("PropertyPlantAndEquipmentGross", "", "2026-09-03"): 5000000}
+        with mock.patch("ledger.workbench._instance", return_value=inst):
+            got = mapper.filer_members(con, "MU", ["Other equipment", "Land", "Equipment"])
+        self.assertEqual(got, {"Other equipment": ["us-gaap:EquipmentMember"], "Land": ["us-gaap:LandMember"], "Equipment": []})  # the total (no member) never counts
+        self.assertTrue(mapper.mismatch("OtherMachineryAndEquipmentMember", ["us-gaap:EquipmentMember"]))
+        self.assertFalse(mapper.mismatch("EquipmentMember", ["us-gaap:EquipmentMember"]))
+        self.assertFalse(mapper.mismatch("TechnologyEquipmentMember", ["amzn:ServersAndNetworkingEquipmentMember"]))  # an extension member: nothing to compare
+        self.assertFalse(mapper.mismatch("LandMember", []))
 
 
 class Proposals(unittest.TestCase):
@@ -147,7 +267,7 @@ class Group(unittest.TestCase):
         with mock.patch.object(mapper, "load_proposals", return_value=lines), mock.patch("ledger.resolutions.unconfirmed", return_value=[]):
             out = workbench.items(_con(), flow)
         rows = [r for r in out["rows"] if r["cause"] == "asset_types"]
-        self.assertEqual([r["where"] for r in rows], ["Equipment", "Land"])  # MSFT's Land is mapped in the real file; MU's two are open
+        self.assertEqual([r["where"] for r in rows], ["Equipment", "Land"])  # MU has no entries in the real file; both are open
         eq = rows[0]
         self.assertEqual((eq["key"], eq["state"], eq["open"], eq["action"], eq["ticker"], eq["name"]), ("asset_types|MU|Equipment", "open", True, "mapping", "MU", "Micron"))
         self.assertEqual(eq["evidence"]["proposal"]["standard_type"], "MachineryAndEquipmentMember")
@@ -157,6 +277,21 @@ class Group(unittest.TestCase):
         self.assertIn("TechnologyEquipmentMember", out["members"])
         cause = next(c for c in out["causes"] if c["cause"] == "asset_types")
         self.assertEqual((cause["rows"], cause["open"]), (2, 2))
+        self.assertEqual(eq["evidence"]["mapping"], "unmapped")
+
+    def test_an_unconfirmed_entry_is_an_open_row_to_confirm(self):
+        """T63: MSFT's Land has an entry with no confirmed_by: an open row, by label:to_confirm, the entry as its proposal."""
+        from ledger import workbench
+        flow = {"scope": "MSFT", "tickers": ["MSFT"], "names": {"MSFT": "Microsoft"}, "release": {"last": None}, "changed": {"last_run": None}, "queue": []}
+        types = {"MSFT": {"Land": {"standard_type": "LandMember", "evidence": "the note's own category name", "by": "Claude Fable 5.1", "at": "2026-11-01"}}}
+        with mock.patch("ledger.taxonomy.asset_types", return_value=types), mock.patch.object(mapper, "load_proposals", return_value=[]), mock.patch("ledger.resolutions.unconfirmed", return_value=[]):
+            out = workbench.items(_con(), flow)
+            types["MSFT"]["Land"]["confirmed_by"] = "A Tester"
+            after = workbench.items(_con(), flow)
+        row = next(r for r in out["rows"] if r["cause"] == "asset_types")
+        self.assertEqual((row["where"], row["state"], row["open"], row["by"]), ("Land", "open", True, "label:to_confirm"))
+        self.assertEqual((row["evidence"]["mapping"], row["evidence"]["proposal"]["standard_type"], row["evidence"]["proposal"]["by"]), ("to_confirm", "LandMember", "Claude Fable 5.1"))
+        self.assertEqual([r for r in after["rows"] if r["cause"] == "asset_types"], [])  # confirmed: off the group
 
 
 class Route(unittest.TestCase):

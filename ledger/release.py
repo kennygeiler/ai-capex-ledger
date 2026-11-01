@@ -18,7 +18,7 @@ GATES = {
     "G1": "Every filing ended in a valid output or a logged failure, and no failure is open",
     "G4": "No block exception without a current decision",
     "G5": "Every value XBRL can't vouch for, plus a random sample of those it can, confirmed on the filing at the value being released: by the re-read of the rendered 10-K, or by the hand-check file (golden/stage<N>-handcheck.json) where the re-read did not confirm the cell",
-    "G6": "No decision left by a run for a person to confirm (decisions/resolutions.jsonl, 'to confirm')",
+    "G6": "No decision left by a run for a person to confirm (decisions/resolutions.jsonl, 'to confirm'), and no asset-type mapping without a person's confirmed_by (taxonomy/asset_types.yaml, T63)",
 }
 
 
@@ -57,16 +57,18 @@ def split_ids(joined: str) -> list[str]:
     return out
 
 
-def gates(values, open_items, handcheck, confirmed=frozenset(), unconfirmed=(), tickers=None) -> dict:
+def gates(values, open_items, handcheck, confirmed=frozenset(), unconfirmed=(), tickers=None, mappings=()) -> dict:
     """{gate: {ticker: [failing items]}}, one column per company in scope (config.SCOPE, or `tickers`): every company
     appears under every gate, an empty list where it passes (T4). confirmed: extraction ids the rendered-10-K re-read
     found at their current cell text. unconfirmed: the resolutions a run left for a person to confirm (T3); one on a
     company outside the scope still fails G6 under that company's ticker, so nothing is dropped. One whose cause kind
-    the pipeline no longer produces (resolutions.LIVE_KINDS) is stale and never a G6 failure."""
+    the pipeline no longer produces (resolutions.LIVE_KINDS) is stale and never a G6 failure. mappings: the asset-type
+    entries no person confirmed (taxonomy.to_confirm, T63), each a G6 failure under its company as
+    `asset_types|<ticker>|<reported name>`, exactly like a decision a run left."""
     from .resolutions import is_live
     unconfirmed = [r for r in unconfirmed if is_live(r["key"])]
     cos = list(SCOPE if tickers is None else tickers)
-    cos += sorted({r["key"].split("|")[1] for r in unconfirmed if "|" in r["key"]} - set(cos))
+    cos += sorted(({r["key"].split("|")[1] for r in unconfirmed if "|" in r["key"]} | {m["ticker"] for m in mappings}) - set(cos))
     checked = {(h["ticker"], h["field"], h["period"]): h for h in (handcheck or {}).get("values", [])}
     machine = lambda v: bool(v["extraction_ids"]) and set(split_ids(v["extraction_ids"])) <= set(confirmed)
     tc = to_check([v for v in values if v["ticker"] in cos])
@@ -84,6 +86,8 @@ def gates(values, open_items, handcheck, confirmed=frozenset(), unconfirmed=(), 
             out["G5"][v["ticker"]].append(f"{v['ticker']} {v['field']} {v['period']}")
     for r in unconfirmed:
         out["G6"][r["key"].split("|")[1] if "|" in r["key"] else cos[0]].append(r["key"])
+    for m in mappings:
+        out["G6"][m["ticker"]].append(f"asset_types|{m['ticker']}|{m['reported_name']}")
     return out
 
 

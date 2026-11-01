@@ -17,7 +17,7 @@ from ledger.config import PROVEN
 
 SCRIPT = """
 import json, duckdb
-from ledger import app, proof, store, workbench
+from ledger import app, proof, store, taxonomy, workbench
 from ledger.config import PROVEN
 con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
 b = proof.board(con)
@@ -27,7 +27,12 @@ print(json.dumps({"proof": {c["ticker"]: c["open"] for c in b["proven"]}, "proof
                   "keyed_items": {c["ticker"]: sum(1 for s in c["stages"].values() for i in s["all"] if i["key"]) for c in b["proven"]},
                   "reconcile": {t: sum(1 for r in it["rows"] if r["open"] and r["ticker"] == t) for t in PROVEN},
                   "states": sorted({r["state"] for r in it["rows"]}),
-                  "by": sorted({r["by"].split(":")[0] for r in it["rows"] if r["ticker"] in PROVEN})}))
+                  "by": sorted({r["by"].split(":")[0] for r in it["rows"] if r["ticker"] in PROVEN}),
+                  "mapping_open": {c["ticker"]: len(c["stages"]["mapping"]["open"]) for c in b["proven"]},
+                  "mapping_to_confirm": {c["ticker"]: sum(i["by"] == "label:to_confirm" for i in c["stages"]["mapping"]["open"]) for c in b["proven"]},
+                  "mapping_checked_unconfirmed": {c["ticker"]: sum(i["state"] == "checked" for i in c["stages"]["mapping"]["all"]) - sum(1 for e in (taxonomy.asset_types().get(c["ticker"]) or {}).values() if (e or {}).get("confirmed_by")) for c in b["proven"]},
+                  "waiting": {t: len(taxonomy.to_confirm(con, [t])) + len(taxonomy.unmapped(con, [t])) for t in PROVEN},
+                  "to_confirm": {t: len(taxonomy.to_confirm(con, [t])) for t in PROVEN}}))
 """
 
 
@@ -202,6 +207,11 @@ class ProofAgreesWithReconcile(unittest.TestCase):
         self.assertEqual(sorted(r["proof"]), sorted(PROVEN))
         self.assertEqual(r["proof"], r["reconcile"], f"Proof and Reconcile disagree on what is open: {r}")
         self.assertEqual(r["proof_total"], sum(r["reconcile"].values()))
+        # T63: the mapping stage counts a mapping as checked only when a person confirmed it; every entry without
+        # confirmed_by is open as to confirm, and with the unmapped ones that is exactly what waits for a person
+        self.assertEqual(r["mapping_open"], r["waiting"])
+        self.assertEqual(r["mapping_to_confirm"], r["to_confirm"])
+        self.assertTrue(all(n <= 0 for n in r["mapping_checked_unconfirmed"].values()), r["mapping_checked_unconfirmed"])  # never more checked than confirmed entries
         self.assertTrue(set(r["states"]) <= set(status.STATES) | {"to confirm"}, r["states"])  # "to confirm": T3's group, the decisions a run left for a person (decisions/ is in the root since T31)
         # T56: on the board, rows by key grade sum to the denominator, per company and in total; a keyed item is on its trail
         grades = (*status.KEY_GRADE, "none")
