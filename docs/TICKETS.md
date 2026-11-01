@@ -298,7 +298,15 @@ who changed it, a run ledger, and, after the call, a score.
   screenshotted at 1600px.
 - **T49 Per-agent score (after the call).** For each reader: the share of its outputs checked, explained and open (status.py),
   agreement with the twin where one exists, and the planted-fault catch rate of the checks behind it (`faults`), each with its
-  denominator. Done when the Agents section shows a score per live reader.
+  denominator. Done when the Agents section shows a score per live reader. *As built (1 Nov 2026):* `ledger/score.py` `score(con, agent_id, tickers)`,
+  carried as `score` in `cost.by_agent` and so in `/api/agents/<id>/runs` and `/api/agents`: counts and denominators only (outputs,
+  checked, explained, open, blocked; `twin: {agree, of}` or null; `faults: {caught, planted, no_effect, escaped}` or null with the
+  reason in `note`). The states come from `proof.company` (so from `status.state`): the reader's outputs are the Values stage's value
+  rows, the AI spend reader's the Statements stage, the notes reader's the Facts stage, the projects reader's the Planned stage's
+  project rows. A twin exists only for values and facts XBRL tags; a fault test exists only for the extract step (ledger/faults.py),
+  read from the report of the latest `faults` run in the `runs` table that covered each company; the other readers show "not
+  measured" with the reason, never a number. The Rules page shows the block under each live reader (ledger/pages/rules.js
+  `scoreBlock`); each charter's Score paragraph says what the three numbers mean. Tests: tests/test_score.py.
 - **T50 Charter before code.** The rule under G: a new source or agent starts with its charter file; the reviewer refuses a reader
   diff without one.
 - **T51 The name (Kenny decides).** After T48. Council advice given to Kenny: for this audience a name for the method beats a

@@ -90,7 +90,7 @@ class Charters(unittest.TestCase):
                 self.assertIn("retired", text.lower())
                 self.assertIn("2ee2e6f", text)
                 continue
-            for word in ("Owns", "Never touches", "Input", "Output", "Model and tools", "Prompts", "Checks that judge it", a["llm"]["model"], a["prompt"], "claude -p"):
+            for word in ("Owns", "Never touches", "Input", "Output", "Model and tools", "Prompts", "Checks that judge it", "Score", a["llm"]["model"], a["prompt"], "claude -p"):
                 self.assertIn(word, text, f"{aid}: {word}")
             for v in agents.versions(aid):
                 self.assertIn(v, text, f"{aid} charter must list {v}")
@@ -98,7 +98,7 @@ class Charters(unittest.TestCase):
     def test_charter_blocks_split_on_blank_lines_with_headings(self):
         blocks = agents.charter("reader")
         self.assertEqual(blocks[0], {"kind": "heading", "text": "Reader"})
-        self.assertEqual([b["text"] for b in blocks if b["kind"] == "heading"][1:], ["Owns", "Never touches", "Input", "Output", "Model and tools", "Prompts", "Checks that judge it"])
+        self.assertEqual([b["text"] for b in blocks if b["kind"] == "heading"][1:], ["Owns", "Never touches", "Input", "Output", "Model and tools", "Prompts", "Checks that judge it", "Score"])
         self.assertTrue(all("\n" not in b["text"] for b in blocks))
         for rule in ("citation_resolves", "xbrl_reconcile", "statement_tie"):
             self.assertIn(rule, " ".join(b["text"] for b in blocks))
