@@ -153,10 +153,13 @@ class OneMeaningPerColumn(unittest.TestCase):
         for name, rows in self.sets():
             for r in rows:
                 self.assertIsNotNone(r["source"], name)
-                if r["source_kind"] in ("10-K table", "10-K note"):
+                if r["source_kind"] in ("10-K table", "10-K note"):  # T12 done-when: every 10-K row has the filing at the row's words, and the parsed table
                     self.assertIsNotNone(r["accession"], name)
-                    self.assertIsNotNone(r["source_url"], name)
-                    self.assertIn("sec.gov", r["source_url"], name)
+                    self.assertIsNotNone(r["source_table"], name)
+                    self.assertRegex(r["source_url"], r"^https://www\.sec\.gov/.*#:~:text=", name)
+                    self.assertNotIn("?table=", r["source_url"], name)
+                else:
+                    self.assertIsNone(r["source_table"], name)
                 if r["source_kind"] == "gathered":
                     self.assertIsNone(r["accession"], name)
 

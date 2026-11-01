@@ -84,14 +84,14 @@ can read (T9–T18)". A reviewer agent reads the whole diff against the ticket l
   goes. Empty where a measure has no such thing. *As built (schema v11):* a project's kind is its own column, `project_kind`, so
   `kind` means one thing (a statement's actual / outlook); `forward_looking` is empty where the source does not say (projects,
   gathered figures), never a hard-coded value; a gathered figure also carries `relation` (eq / ge / le).
-- **T12 Follow the source.** Columns `accession`, `filed`, `source_url`, `source_kind` (10-K table, 10-K note, 8-K release,
-  transcript, gathered) on every row; `source` keeps the internal ids. Done when a row's `source_url` opens the filing at the
-  cited table for every spent and derived row. *As built:* `source_kind` also has `10-K MD&A` and `cfo commentary`, the two
-  text kinds the list had no word for. The rendered 10-K on sec.gov has no stable table anchors, so `source_url` guarantees
-  less than "at the cited table": it opens the filing with `?table=<id>` (the parsed table the cell was read from, which DATAHQ
-  can show) and a `#:~:text=<row label>,<number>` fragment that scrolls the browser to the first place the filing shows those
-  words, usually the row, sometimes prose. `filed` is the SEC filing date (10-K through `documents`, 8-K from the text's date);
-  empty for a transcript, CFO commentary or a gathered figure.
+- **T12 Follow the source.** Columns `accession`, `filed`, `source_url`, `source_table`, `source_kind` (10-K table, 10-K note,
+  10-K MD&A, 8-K release, transcript, cfo commentary, gathered) on every row; `source` keeps the internal ids. Done when
+  `source_url` opens the filing at the first place it shows the cited row label and number; `source_table` names the parsed
+  table DATAHQ shows; every spent and derived 10-K row has both. *Note:* the original wording ("opens the filing at the cited
+  table") asked for a table anchor sec.gov does not provide: the rendered 10-K has no stable table ids, and a query string is
+  ignored, so the link is the filing plus a `#:~:text=<row label>,<number>` fragment (usually the row, sometimes prose) and the
+  parser's table id lives in its own column. `filed` is the SEC filing date (10-K through `documents`, 8-K from the text's
+  date); empty for a transcript, CFO commentary or a gathered figure.
 - **T13 One `check` vocabulary.** `check` ∈ agree / explained / differs / no_reference / unmapped / verbatim, plus `check_method`
   (xbrl, rule:<id>, definition:<name>, resolution:<id>, quote, gathered). "verbatim (gathered)" goes. *As built:* `check_method`
   is an open vocabulary, `<kind>` or `<kind>:<id>`, the kinds in one place, `status.METHOD_KINDS` (xbrl, quote, gathered, located,

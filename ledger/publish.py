@@ -118,8 +118,11 @@ def publish(version: str, url: str | None = None) -> dict:
                 con.execute(ddl(table, header))
                 for stmt in adds(table, header):
                     con.execute(stmt)
-                for stmt in retypes(table, header, _types(con, table)):  # a column an older release published as text, typed boolean now
-                    con.execute(stmt)
+                fixes = retypes(table, header, _types(con, table))  # a column an older release published as text, typed boolean now
+                if fixes:
+                    con.execute(f"DROP VIEW IF EXISTS current_{stem}")  # the view depends on every column, so Postgres refuses the retype while it stands; recreated below
+                    for stmt in fixes:
+                        con.execute(stmt)
                 con.execute(f"DELETE FROM {table} WHERE release = %s", (version,))
                 cols = ", ".join(f'"{c}"' for c in header)
                 with con.cursor().copy(f"COPY {table} (release, {cols}) FROM STDIN") as cp:

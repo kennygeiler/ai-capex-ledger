@@ -89,17 +89,16 @@ def _row(**kw) -> dict:
     return base
 
 
-def deep_link(url: str | None, table_id: str | None, row_label: str | None, cell_text: str | None) -> str | None:
-    """The filing with the cited table named (`?table=<id>`, the parsed table DATAHQ can show; the rendered 10-K has no
-    stable anchors of its own) and a text fragment of the row label and the number, which scrolls the browser to the
-    first place the filing shows those words: usually the row, sometimes prose (reports/*-validation.html links the same way)."""
+def deep_link(url: str | None, row_label: str | None, cell_text: str | None) -> str | None:
+    """The filing with a text fragment of the row label and the number, which scrolls the browser to the first place the
+    filing shows those words: usually the row, sometimes prose (reports/*-validation.html links the same way). sec.gov
+    offers no table anchor; the parsed table's id goes in `source_table`."""
     if not url:
         return None
-    out = url + (f"?table={quote(table_id)}" if table_id else "")
     if not row_label:
-        return out
+        return url
     num = (cell_text or "").strip("()$ ").replace("—", "")
-    return out + "#:~:text=" + quote(row_label) + ("," + quote(num) if num else "")
+    return url + "#:~:text=" + quote(row_label) + ("," + quote(num) if num else "")
 
 
 def quote_link(url: str | None, text: str | None) -> str | None:
@@ -152,7 +151,7 @@ def rows(con, tickers: list[str] | None = None) -> list[dict]:
     def filing(accession: str | None, cell: dict | None, kind: str) -> dict:
         d = docs.get(accession) or {}
         c = cell or {}
-        return {"accession": accession, "filed": d.get("filed"), "source_url": deep_link(d.get("url"), c.get("table_id"), c.get("row_label"), c.get("cell_text")), "source_kind": kind}
+        return {"accession": accession, "filed": d.get("filed"), "source_table": c.get("table_id"), "source_url": deep_link(d.get("url"), c.get("row_label"), c.get("cell_text")), "source_kind": kind}
 
     def text_source(t: dict, text: str | None) -> dict:
         """A text's source columns: the 10-K's filing date through documents, an 8-K's from the text's date (its filing date);

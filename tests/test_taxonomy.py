@@ -18,7 +18,9 @@ def _con():
     con.execute("create table extractions (extraction_id text, ticker text, accession text, table_id text, row_label text, cell_text text)")
     con.execute(f"insert into extractions values ('{B}|capex|2025-01-01|2025-12-31','AMZN','{B}','t0035','Purchases of property and equipment','(131,819)'), ('{A}|capex|2024-01-01|2024-12-31','AMZN','{A}','t0033','Purchases of property and equipment','(83,000)')")
     con.execute("create table note_extractions (extraction_id text, ticker text, accession text, table_id text, row_label text, cell_text text)")
-    con.execute(f"insert into note_extractions values ('{B}|ppe|2025','AMZN','{B}','t0051','Servers and networking equipment','172,492'), ('{B}|ppe_category|{COMMA}|2025-12-31','AMZN','{B}','t0051','{COMMA}','9,000')")
+    con.execute(f"""insert into note_extractions values ('{B}|ppe|2025','AMZN','{B}','t0051','Servers and networking equipment','172,492'), ('{B}|ppe_category|{COMMA}|2025-12-31','AMZN','{B}','t0051','{COMMA}','9,000'),
+        ('{A}|ppe|2024','AMZN','{A}','t0049','Servers and networking equipment','113,156'), ('{B}|ppe|warp','AMZN','{B}','t0051','Warp drives','1'),
+        ('{B}|seg','AMZN','{B}','t0069','AWS','120,000'), ('{B}|seg2','AMZN','{B}','t0069','Other','5,000'), ('{B}|po','AMZN','{B}','t0080','Purchase commitments','84,772')""")
     con.execute("create table facts (ticker text, field text, dimension text, period text, period_end text, value double, label text, reference double, accession text, extraction_ids text)")
     con.execute(f"""insert into facts values
         ('AMZN','ppe_category','Servers and networking equipment','FY2024','2024-12-31',113156e6,'agree',113156e6,'{A}','{A}|ppe|2024'),
@@ -69,11 +71,12 @@ class Rows(unittest.TestCase):
         rows = taxonomy.rows(_con(), ["AMZN"])
         capex = next(r for r in rows if r["category"] == "capex" and r["fiscal_year"] == "FY2025")
         self.assertEqual((capex["source"], capex["source_kind"], capex["accession"], capex["filed"]), (f"{B}|capex|2025-01-01|2025-12-31", "10-K table", B, "2026-02-06"))
-        self.assertEqual(capex["source_url"], "https://www.sec.gov/b.htm?table=t0035#:~:text=Purchases%20of%20property%20and%20equipment,131%2C819")  # the filing, the parsed table named, the row as a text fragment
+        self.assertEqual((capex["source_table"], capex["source_url"]), ("t0035", "https://www.sec.gov/b.htm#:~:text=Purchases%20of%20property%20and%20equipment,131%2C819"))  # the parsed table in its own column; the filing at the row's words
         d = next(r for r in rows if r["measure"] == "derived" and r["fiscal_year"] == "FY2025" and r["reported_name"].startswith("Servers"))
-        self.assertEqual((d["source_kind"], d["accession"], d["source_url"]), ("10-K note", B, "https://www.sec.gov/b.htm?table=t0051#:~:text=Servers%20and%20networking%20equipment,172%2C492"))
+        self.assertEqual((d["source_kind"], d["accession"], d["source_table"], d["source_url"]), ("10-K note", B, "t0051", "https://www.sec.gov/b.htm#:~:text=Servers%20and%20networking%20equipment,172%2C492"))
         comma = next(r for r in rows if r["reported_name"] == COMMA)  # the extraction ids hold the comma of the dimension: the last id is still found
-        self.assertEqual(comma["source_url"], "https://www.sec.gov/b.htm?table=t0051#:~:text=Land%2C%20buildings%20and%20leasehold%20improvements,9%2C000")
+        self.assertEqual((comma["source_table"], comma["source_url"]), ("t0051", "https://www.sec.gov/b.htm#:~:text=Land%2C%20buildings%20and%20leasehold%20improvements,9%2C000"))
+        self.assertTrue(all(r["source_table"] is None for r in rows if r["source_kind"] not in ("10-K table", "10-K note")))
         g = next(r for r in rows if r["category"] == "guidance")
         self.assertEqual((g["source"], g["source_kind"], g["accession"], g["filed"]), ("t1", "8-K release", "0001018724-26-000005", "2026-02-05"))  # an 8-K's text date is its filing date
         self.assertTrue(g["source_url"].startswith("https://www.sec.gov/ex99.htm#:~:text=We%20expect%202026"))

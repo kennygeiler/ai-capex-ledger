@@ -192,7 +192,7 @@ def readme(version, rows, ai_spend=()) -> str:
         "Nothing here is estimated. `taxonomy.csv` is the dataset in one shape: each row an instance of a published standard concept (us-gaap for spent, committed and derived; "
         "Regulation S-K for planned), the company's own label beside it, and for AI only what the company itself stated, quoted. See docs/TAXONOMY.md in the repository.", "",
         "## Files", "",
-        "- `taxonomy.csv`: one row per company, fiscal year, measure (spent, committed, derived, planned, company_stated_ai) and category; `standard_concept` names the standard, `reported_name` the company's label, `check` and `check_method` how the number was verified, `source_url` the filing at the cited row, `proven` whether the company is in the proven set. Columns below.",
+        "- `taxonomy.csv`: one row per company, fiscal year, measure (spent, committed, derived, planned, company_stated_ai) and category; `standard_concept` names the standard, `reported_name` the company's label, `check` and `check_method` how the number was verified, `source_url` the filing at the cited row's words, `source_table` the parsed table, `proven` whether the company is in the proven set. Columns below.",
         "- `companies.csv`: the tracked companies with layer, role and the SEC's SIC code.",
         "- `statements.csv`: guidance and AI statements, quoted, with the source document and date.",
         "- `projects.csv`: named projects the filings and releases mention, verbatim.",
@@ -206,7 +206,7 @@ def readme(version, rows, ai_spend=()) -> str:
         "## Columns of taxonomy.csv", "",
         "One meaning per column (schema v11). Every amount is in whole units (`scale` 1) of US dollars (`currency` USD); `value_high` is only a range high, "
         "`change_from_prior` only the derived year-over-year change; a reported row carries its `period_end`, a verbatim row its `quote`; `source` is the internal id and "
-        "`accession`, `filed`, `source_url`, `source_kind` follow it to the filing. `layer` is the supply-chain layer the company was picked under, a reading aid, not a standard.", "",
+        "`accession`, `filed`, `source_table`, `source_url`, `source_kind` follow it to the filing. `layer` is the supply-chain layer the company was picked under, a reading aid, not a standard.", "",
         "| Column | Allowed values | Meaning |", "|---|---|---|",
         *[f"| `{c.name}` | {', '.join(f'`{e}`' for e in c.enum) if c.enum else ''} | {c.doc} |" for c in TAXONOMY.cols], "",
         "## Columns of values.csv", "",
