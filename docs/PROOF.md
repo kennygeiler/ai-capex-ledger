@@ -59,7 +59,9 @@ either, `no_reference` means XBRL has no value to compare. A label with an XBRL 
 happen, so it is a gap; a label whose row never asked XBRL is a gap too. Every other label (`not_extracted`,
 `to_confirm`, anything new) names a cause and explains nothing. One known way reconcile can still write `not_reported`
 over an XBRL value: a negative computed opex (operating income holding fair-value gains, type 65; T102 gives it its own
-label). No row of the six has it today; if one appears, the walk fails on it, which is the point.
+label, shown open, for a person to decide). No row of the six has it today. Since T81 `status.of_value` itself opens a
+`not_reported` row unless its `ref` says XBRL was looked up and is empty, so such a row is open, not a gap; the walk
+still fails any explained state over it that bypasses `of_value`.
 
 **Failures are never explanations.** The exceptions a loader writes when a stage failed (`extraction_failed`,
 `note_extraction_failed`, `ai_extraction_failed`, `projects_failed`, `proof.FAILURES`) name no rule on file. They sit
@@ -69,6 +71,49 @@ six today.
 
 On the six today the walk finds no gap (`tests/test_status.py`, on the golden fixtures, which the test requires to
 exist; the 47 mappings are open since T63, so none is checked).
+
+**Completeness against the answer key (T81, `proof.missing_from_dataset`).** The walk above judges the rows that exist;
+this asks about the ones that might not. A cell is a release field (`config.RELEASE_FIELDS`, the one list the
+`coverage` rule also reads) and fiscal year in the window, not before the company's first `values` row
+(`rules.first_periods`, which `coverage` and `no_10k_yet` read too), where XBRL (`reference_values`) holds a value. Its
+released value is the `values` row after the review decisions (an override fills it, a reject empties it). A cell with
+no released value is accounted for only when:
+
+- the value row is open or blocked (`not_extracted`; `not_reported` over an XBRL value; a person's fix), or an undecided
+  open finding names the cell (a `coverage` finding on a missing row). Both are on the Open line, so nothing is
+  counted twice;
+- a person's resolution on the value row explains it, or a person's review decision (accept, or a reject that emptied
+  it) on a finding for the cell decided it. "A person" is `proof.person_wrote`, the one test: `author_kind` person when
+  the line carries it (T69), else a `by` / `reviewer` on `config.PEOPLE` naming no model and no "to confirm".
+
+Anything else is a silent blank: no row at all with no finding on it, a checked label with no value, a run's
+resolution or decision. A ticker with no reference rows, or no `reference_values` table, is one entry, "no XBRL answer
+loaded": an absent answer key is no answer (T80's lookup marker). The Release checklist's required line "Answer-key
+values missing from the dataset" counts them and must read 0 to sign.
+
+One verdict per cell: since T81 `status.of_value` explains `not_reported` only when the row's `ref` says XBRL was looked
+up and holds nothing; over an XBRL value, or with no lookup, the row is open by `label:not_reported`, and the `coverage`
+finding on it is open with it. `coverage` fires on every cell the line counts: the same fields, from the same first year
+(a year before the company's first `values` row is left out by both; `no_10k_yet` names it). A year after the newest
+10-K that is not yet due is outside both too: XBRL holds no value for a 10-K not filed.
+
+Residual risk, authorship: resolutions and decisions written before T69 carry no `author_kind`, so a legacy line counts
+as a person's when its `by` (or `reviewer`) is a name on `config.PEOPLE`. Anyone who can write that name into the log can
+clear a blank; the log is in git and the name is checked against the list, never guessed.
+
+Where it runs: on `config.SCOPE` (the six). On the six it reads 0 (golden fixtures and the live database). A one-off
+reading on stage 3 (2 Nov 2026, this branch's database copy) gave 4, all "no XBRL answer loaded": SPCX, NBIS, BTDR and
+ARM, companies with no 10-K read and no values rows (foreign filers or not yet public). HUT and RIOT opex FY2024 (the
+negative computed opex) are no longer on the line: they are open by `label:not_reported` until T102. No test asserts
+the stage-3 figure: the fixtures hold the six only.
+
+Facts are not covered, decided. A fact's answer key is the filing's own instance, matched to the note's line by member
+name; the instance tags every member on every axis for the same concepts (geography, related party, product line,
+equity-method investees, corporate and eliminations). On the six, 76 of the 113 members tagged for the dimensioned
+fields have no fact row, nearly all of them scope choices (country revenue, related-party splits), not omissions.
+Counting them would need an axis filter and a member-to-line map per company, a classification a person would have to
+confirm, so the count would be noise, not a guard. A missing fact row is caught where it is caught today: the notes
+reader's `not_found` list and the mapping stage.
 
 Precedence when more than one applies: blocked, then checked, then a person's fix (open), then explained, then open. A
 warn-severity finding (a jump, a renamed line, an outlier) has no state of its own: it takes the worst state of the
@@ -218,7 +263,8 @@ answer is derived from the same cells.
 - **Release** (`#release`, the last page; `ledger/checklist.py`, T5–T8): the checklist a person signs from. One line per thing
   that could make the signature wrong, each green or red with its count and a link to the page that fixes it: the four
   gates per company (G1 G4 G5 G6, `release.gates`), open and blocked items in the scope (the Proof board's counts, the one
-  definition of open), decisions a run left to confirm, unmapped asset types (0 required), rows with no value by measure
+  definition of open), answer-key values missing from the dataset (T81, 0 required: an XBRL value with no released
+  value, nothing open and no person's decision; a company with no XBRL answer loaded counts once), decisions a run left to confirm, unmapped asset types (0 required), rows with no value by measure
   (informs), the rows added / removed / changed per list against the previous release (informs; `DIFF.md` carries the same
   table), the golden test (`reports/golden.json`, required equal) and the last test run (`reports/tests.json`, written
   by `ledger test`: count, failures, golden, commit; absent reads "not run" and does not block; failing is red; passed on

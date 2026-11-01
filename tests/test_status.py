@@ -73,7 +73,16 @@ class Definition(unittest.TestCase):
         self.assertEqual({k: st[k] for k in ("state", "reason", "by")}, {"state": "open", "reason": "the filing tags a value the reader did not extract", "by": "label:not_extracted"})
         self.assertEqual((st["keys"], st["key"]), ([], None))  # no answer key vouches for a missing cell (T56)
         self.assertTrue(status.is_open(st))
-        self.assertEqual(status.of_value({"field": "revenue", "period": "FY2025", "label": "not_reported"})["state"], "explained")
+        # T81: not_reported explains only when XBRL was looked up and holds nothing; over a value, or unasked, it is open
+        nr = {"field": "revenue", "period": "FY2025", "label": "not_reported"}
+        self.assertEqual(status.of_value(nr, None, {"reference": None, "looked_up": True})["state"], "explained")
+        over = status.of_value(nr, None, {"reference": 123, "looked_up": True})
+        self.assertEqual((over["state"], over["by"]), ("open", "label:not_reported"))
+        self.assertIn("XBRL holds 123", over["reason"])
+        self.assertEqual(status.of_value(nr)["state"], "open")  # no lookup marker: fail closed
+        self.assertEqual(status.of_value(nr, None, {"reference": None, "looked_up": False})["state"], "open")
+        self.assertEqual(status.of_value(nr, {"id": "r1", "state": "explain", "reason": "the tag is a different line"}, {"reference": 123, "looked_up": True})["by"], "resolution:r1")
+        self.assertEqual(status.of_exception({"rule_id": "coverage", "severity": "warn"}, None, [over])["state"], "open")  # one verdict: the coverage finding on it is open too
         acc = {"id": "r9", "state": "accept", "reason": "the line is not there"}
         self.assertEqual(status.of_value({"field": "revenue", "period": "FY2025", "label": "not_extracted"}, acc)["by"], "resolution:r9")  # a person may still resolve it
         jump = {"rule_id": "coverage", "severity": "warn", "message": "no revenue value for FY2025"}
@@ -227,16 +236,19 @@ class ALabelNeverCountsAsACheck(unittest.TestCase):
         self.assertIsNone(self.gap(status.state({"rule": "part_year"})))
         self.assertIsNone(self.gap(status.state({"rule": "definition_note", "severity": "info"})))
         self.assertIsNone(self.gap(status.state({"resolution": {"id": "r1", "state": "accept", "reason": "right"}})))
-        self.assertIsNone(self.gap(status.of_value({"label": "not_reported"}), {"reference": None, "looked_up": True}))  # looked up, and nothing there
+        looked = {"reference": None, "looked_up": True}
+        self.assertIsNone(self.gap(status.of_value({"label": "not_reported"}, None, looked), looked))  # looked up, and nothing there
         self.assertIsNone(self.gap(status.of_fact({"label": "no_reference"}), {"reference": None, "looked_up": True}))
         self.assertIsNone(self.gap(status.state({"rule": "jump", "severity": "warn"})))  # open claims nothing
         self.assertIsNone(self.gap(status.state({"rule": "sign", "severity": "block"})))
 
     def test_planted_bare_labels_fail(self):
         # (a) not_reported while XBRL holds a value; a blank whose XBRL lookup never ran (no marker, or marker false)
-        self.assertIn("XBRL holds 123", self.gap(status.of_value({"label": "not_reported"}), {"reference": 123, "looked_up": True}))
-        self.assertIn("not looked up", self.gap(status.of_value({"label": "not_reported"}), {"reference": None}))
-        self.assertIn("not looked up", self.gap(status.of_value({"label": "not_reported"}), {"reference": None, "looked_up": False}))
+        # of_value opens these itself since T81; the walk still fails a hand-made explained state over them
+        bare = status.state({"label": "not_reported"})
+        self.assertIn("XBRL holds 123", self.gap(bare, {"reference": 123, "looked_up": True}))
+        self.assertIn("not looked up", self.gap(bare, {"reference": None}))
+        self.assertIn("not looked up", self.gap(bare, {"reference": None, "looked_up": False}))
         self.assertIn("not looked up", self.gap(status.of_fact({"label": "no_reference"}), {"reference": None}))  # a fact whose instance is absent
         self.assertIn("XBRL holds", self.gap(status.of_fact({"label": "no_reference"}), {"reference": 7, "looked_up": True}))
         self.assertIn("no XBRL value", self.gap(status.of_value({"label": "agree"}), {"reference": 5}))  # a reference with no lookup marker
@@ -342,7 +354,7 @@ if plant in ("resolution", "gemini"):  # (c) a resolution not on file; one on fi
     if plant == "gemini":
         resolutions.load = lambda *a, **k: real_load(*a, **k) + [{"id": rid, "key": "x", "hash": "x", "state": "accept", "reason": "planted", "by": "Gemini", "at": ""}]
 if plant == "gate":  # a gate on the values stage
-    status.of_value = lambda v, r=None: status.state({"check": "gate"})
+    status.of_value = lambda v, r=None, ref=None: status.state({"check": "gate"})
 if plant in ("quote_variant", "quote_changed"):  # the same quote with curly quotes, a no-break space and upper case; or a changed one
     con = rw()
     sid, q = con.execute("select statement_id, quote from ai_statements where ticker = 'MSFT' and quote like '% %' order by 1 limit 1").fetchone()
@@ -353,6 +365,7 @@ con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
 cos = [proof.company(con, t) for t in proof.PROVEN]
 types = proof.asset_types()
 print(json.dumps({"gaps": proof.unevidenced(con, companies=cos),
+                  "nr_open": [[c["ticker"], i["what"], i["state"]] for c in cos for i in c["stages"]["values"]["all"] if i["by"] == "label:not_reported" and i["state"] != "explained"],
                   "walked": sum(1 for c in cos for s in c["stages"].values() for i in s["all"] if i["state"] in ("checked", "explained")),
                   "unconfirmed": sum(1 for c in cos for i in c["stages"]["mapping"]["all"] if ((types.get(c["ticker"]) or {}).get(i["name"]) or {}).get("standard_type")
                                      and not status.confirmed((types.get(c["ticker"]) or {}).get(i["name"])))}, default=str))
@@ -381,9 +394,10 @@ class EveryCheckedRowNamesItsEvidence(unittest.TestCase):
         self.assertEqual(r["gaps"], [], "checked or explained rows with no evidence on file")
 
     def test_planted_not_reported_with_an_xbrl_value(self):
-        gaps = self.walk("not_reported")["gaps"]
-        self.assertEqual([(g["ticker"], g["stage"], g["by"]) for g in gaps], [("MSFT", "values", "label:not_reported")], gaps)
-        self.assertIn("XBRL holds", gaps[0]["gap"])
+        r = self.walk("not_reported")  # T81: of_value opens it (one verdict with the completeness line), so it claims nothing
+        self.assertEqual(r["gaps"], [])
+        self.assertEqual([(t, st) for t, _, st in r["nr_open"]], [("MSFT", "open")], r["nr_open"])
+        self.assertIn("not_reported", r["nr_open"][0][1])
 
     def test_planted_no_reference_on_a_fact_xbrl_holds(self):
         gaps = self.walk("no_reference_fact")["gaps"]
@@ -391,10 +405,10 @@ class EveryCheckedRowNamesItsEvidence(unittest.TestCase):
         self.assertIn("XBRL holds", gaps[0]["gap"])
 
     def test_planted_xbrl_lookup_never_ran(self):
-        gaps = self.walk("no_lookup_values")["gaps"]
-        self.assertTrue(gaps and all(g["ticker"] == "MSFT" and g["stage"] == "values" for g in gaps), gaps)
-        self.assertTrue(any(g["by"] == "label:not_reported" and "not looked up" in g["gap"] for g in gaps), gaps)
-        self.assertTrue(any(g["by"] == "xbrl" for g in gaps), gaps)
+        r = self.walk("no_lookup_values")
+        gaps = r["gaps"]
+        self.assertTrue(gaps and all(g["ticker"] == "MSFT" and g["stage"] == "values" and g["by"] == "xbrl" for g in gaps), gaps)
+        self.assertTrue(r["nr_open"] and all(t == "MSFT" and st == "open" for t, _, st in r["nr_open"]), r["nr_open"])  # T81: unasked, not_reported is open
 
     def test_planted_fact_whose_instance_is_absent(self):
         r = self.walk("no_instance")

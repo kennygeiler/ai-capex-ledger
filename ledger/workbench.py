@@ -75,7 +75,15 @@ def _value_states(con, ticker: str, field: str | None, period: str | None, idx: 
         return []
     f = "opex" if field in ("cost_of_revenue", "operating_income") else field
     cur = con.execute('select field, period, label from "values" where ticker = ? and field = ?' + (" and period = ?" if period else ""), [ticker, f] + ([period] if period else []))
-    return [status.of_value({"field": r[0], "period": r[1], "label": r[2]}, resolutions.resolution_of(idx, "values", ticker, r[0], "", r[1])) for r in cur.fetchall()]
+    rows = cur.fetchall()
+    xref = dict(((r[0], r[1]), r[2]) for r in con.execute("select field, period, value from reference_values where ticker = ?", [ticker]).fetchall()) if _has_reference(con) else {}
+    looked = bool(xref)  # as Proof reads it (proof.company): the lookup ran when reference_values holds the ticker's rows
+    return [status.of_value({"field": r[0], "period": r[1], "label": r[2]}, resolutions.resolution_of(idx, "values", ticker, r[0], "", r[1]),
+                            {"reference": xref.get((r[0], r[1])), "looked_up": looked}) for r in rows]
+
+
+def _has_reference(con) -> bool:
+    return bool(con.execute("select count(*) from information_schema.tables where table_name = 'reference_values'").fetchone()[0])
 
 
 def _fact_row(con, ticker: str, field: str | None, dimension: str | None, period: str | None) -> dict | None:
