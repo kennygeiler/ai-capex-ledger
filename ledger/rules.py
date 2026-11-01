@@ -179,7 +179,16 @@ def _definition(ctx, p):
             for (t, f, label), n in found.items()]
 
 
-REVENUE_LIKE = re.compile(r"\b(revenues?|sales)\b", re.I)  # any revenue line, not only the total (APLD's "Hosting revenue")
+# Any revenue line, not only the total (APLD's "Hosting revenue"), but never an expense line that mentions sales ("Cost of
+# sales", "Sales and marketing", "Selling, general and administrative"). A bank's income statement has no revenue line:
+# its top lines are interest and noninterest income, which count.
+REVENUE_LIKE = re.compile(
+    r"^(?!.*\bcost of\b)(?!.*\bsales and marketing\b)(?!.*\bselling\b)(?!.*\bmarketing and sales\b).*\b(revenues?|sales)\b"
+    r"|\b(total |net )?interest income\b|\bnon-?interest income\b", re.I)
+
+
+def _tables(s: str) -> set[str]:
+    return {t.strip() for t in (s or "").split(",") if t.strip()}
 
 
 @check("statement_tables_distinct")
@@ -193,8 +202,10 @@ def _statement_tables(ctx, p):
         inc, cf = d.get("income_tables") or "", d.get("cash_flow_tables") or ""
         if not inc:
             continue
-        if inc == cf:
-            out.append(Finding(d["ticker"], f"{d.get('form')} {d.get('period')}: income_tables and cash_flow_tables are both {inc}: the income statement was not located", None, None, d["accession"]))
+        shared = _tables(inc) & _tables(cf)
+        if shared:  # the same table named for both statements, wholly or in part ("t0034,t0035" against "t0034")
+            both = ", ".join(sorted(shared))
+            out.append(Finding(d["ticker"], f"{d.get('form')} {d.get('period')}: income_tables and cash_flow_tables are both {both}: the income statement was not located", None, None, d["accession"]))
             continue
         if not cf and str(d.get("form", "")).endswith("/A"):
             continue

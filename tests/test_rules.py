@@ -180,6 +180,25 @@ class StatementTablesDistinct(unittest.TestCase):
         income[0]["rows"].insert(0, {"label": "Total net sales", "cells": []})
         self.assertEqual(run(ctx, [self.RULE]), [])
 
+    def test_a_partial_overlap_blocks(self):
+        found = run(Context(values=[], extractions=[], documents=[self.doc(income_tables="t0034,t0035", cash_flow_tables="t0034")]), [self.RULE])
+        self.assertEqual(len(found), 1)
+        self.assertIn("both t0034", found[0]["message"])
+
+    def _income(self, *labels):
+        income = [{"id": "t0035", "rows": [{"label": l, "cells": []} for l in labels]}]
+        return Context(values=[], extractions=[], documents=[self.doc()], parsed={"0001018724-26-000004": {"statements": {"income": income}}})
+
+    def test_expense_lines_that_mention_sales_are_not_revenue(self):
+        ctx = self._income("Cost of sales", "Sales and marketing", "Selling, general and administrative", "Operating income")
+        self.assertEqual(len(run(ctx, [self.RULE])), 1)
+
+    def test_a_bank_layout_passes(self):
+        self.assertEqual(run(self._income("Total interest income", "Net interest income", "Noninterest income", "Noninterest expense"), [self.RULE]), [])
+
+    def test_a_named_revenue_line_passes(self):
+        self.assertEqual(run(self._income("Hosting revenue", "Cost of revenues", "Operating loss"), [self.RULE]), [])
+
     def test_distinct_tables_with_a_revenue_row_pass_and_a_part_iii_amendment_is_not_its_case(self):
         ctx = Context(values=[], extractions=[], documents=[self.doc(), self.doc(accession="0000002488-26-000021", ticker="AMD", form="10-K/A", income_tables="t0005,t0006", cash_flow_tables=None)],
                       parsed={"0000002488-26-000021": {"statements": {"income": [{"id": "t0005", "rows": [{"label": "Salary", "cells": []}]}]}}})

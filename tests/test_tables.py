@@ -176,6 +176,13 @@ class EquityMethodIsNotABalanceSheetLine(unittest.TestCase):
         loc = locate(tables)
         self.assertEqual((loc["income"], loc["cash_flow"]), ([tables[1]["id"]], [tables[0]["id"]]))
 
+    def test_equity_in_earnings_is_not_a_balance_sheet_line_either(self):
+        from ledger.ingest.statements import BALANCE
+        for line in ("Equity in earnings of affiliates", "Equity in (losses) earnings of unconsolidated affiliates", "Equity earnings", "Equity income"):
+            self.assertIsNone(BALANCE.search(line), line)
+        for line in ("Total equity", "Total stockholders' equity", "Shareholders' equity", "Total assets", "Liabilities"):
+            self.assertIsNotNone(BALANCE.search(line), line)
+
 
 class QuarterlyNeverRaisesTheBar(unittest.TestCase):
     def test_quarterly_table_with_more_markers_loses_to_the_statement(self):

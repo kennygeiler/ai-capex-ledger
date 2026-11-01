@@ -50,8 +50,11 @@ def _mdna(tables: list[dict]) -> bool:
 SUMMARY = re.compile(r"snapshot|highlights|selected? (financial|items)|summary", re.I)
 PERCENT = re.compile(r"%|percent", re.I)
 # A balance-sheet total line. "Equity-method investment activity" (Amazon's income statement) is not one: with it, the
-# snapshot test took every Amazon income statement for a highlights table and the cash-flow table won (type 73).
-BALANCE = re.compile(r"^(total )?(assets|liabilities|(stockholders'|shareholders'|total )?equity)\b(?![ -]method)", re.I)
+# snapshot test took every Amazon income statement for a highlights table and the cash-flow table won (type 73). Nor is
+# any income line that starts with "Equity": "Equity in earnings (losses) of affiliates", "Equity earnings", "Equity
+# income".
+BALANCE = re.compile(r"^(total )?(assets|liabilities|(stockholders' |shareholders' |total )?equity)\b"
+                     r"(?![ -]method|\s+(in|earnings|losses|income|\(losses?\)|\(earnings?\))\b)", re.I)
 
 
 def _summary(tables: list[dict]) -> bool:
