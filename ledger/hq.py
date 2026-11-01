@@ -47,7 +47,8 @@ def snapshot(con, stage: int = 3, tickers: list[str] | None = None) -> dict:
     excs = rows(con, "select * from exceptions where ticker in (select unnest(?))", t)
     todo = open_items(excs, decisions())
     ev = load_all()
-    faults = json.loads((store.ROOT / "reports" / f"{name}-faults.json").read_text())
+    from .faults import rows_of  # the T67 report is a dict with `rows`; older reports are the bare list
+    faults = rows_of(json.loads((store.ROOT / "reports" / f"{name}-faults.json").read_text()))
     last_run = con.execute("select max(started_at) from runs").fetchone()[0]
     names = {c["ticker"]: c["name"] for c in companies_now}
     ai = Counter(r[0] for r in con.execute("select ticker from ai_spend where ticker in (select unnest(?))", t).fetchall())

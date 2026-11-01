@@ -41,13 +41,34 @@ function scoreBlock(sc) {
   // the twin's share with its Wilson 95% interval (T53), in text, computed on the page from agree / of (the same formula
   // as the API's `interval`, so the two never disagree after rounding); nothing when `of` is 0: no share, no interval
   const twin = sc.twin ? `agrees with the twin ${of(sc.twin.agree, sc.twin.of)}${shareText(sc.twin)}` : 'no twin for this reader';
-  // escaped is the number that matters most, so it is always written, zero included
-  const faults = sc.faults ? `caught ${of(sc.faults.caught, sc.faults.planted)} planted faults · ${int(sc.faults.escaped)} escaped` + (sc.faults.no_effect ? ` · ${int(sc.faults.no_effect)} reached no released value` : '')
+  // escaped is the number that matters most, so it is always written, zero included; with XBRL off (T67) the same
+  // trials ran without xbrl_reconcile, so the gap between the two caught counts is what the catch rate owes to XBRL
+  const f = sc.faults, off = f && f.xbrl_off;
+  const faults = f ? `caught ${of(f.caught, f.planted)} planted faults · ${int(f.escaped)} escaped` + (f.no_effect ? ` · ${int(f.no_effect)} reached no released value` : '')
+    + (off ? ` · with XBRL off: ${of(off.caught, off.planted)} caught, ${int(off.escaped)} escaped` : '')
     : (sc.faults_note || 'not measured');
   const item = (title, text) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, title), h('div', {class: 'datagrid-content'}, text));
   return h('div', {class: 'mb-3'}, h('h3', {class: 'mb-2'}, `Score on the ${sc.companies === 6 ? 'six' : int(sc.companies)}`),
     h('div', {class: 'datagrid'}, item(`Outputs, ${STAGE_LABEL_UI[sc.stage] || sc.stage} stage`, states), item('Twin', twin), item('Planted faults', faults)),
-    h('div', {class: 'text-secondary small mt-2'}, sc.note + (sc.faults ? `; faults: ${sc.faults_note}` : '')));
+    h('div', {class: 'text-secondary small mt-2'}, sc.note + (f ? `; faults: ${sc.faults_note}` : '')),
+    f && f.by_kind ? faultsByKind(f) : '');
+}
+
+// per fault kind (T67): planted, caught, escaped and no effect with XBRL counted, then caught and escaped with it off;
+// plain counts in the kit's table, every number next to its denominator (planted), a kind with no XBRL-off row shows —
+function faultsByKind(f) {
+  const off = f.xbrl_off && f.xbrl_off.by_kind ? f.xbrl_off.by_kind : {};
+  const kinds = Object.keys(f.by_kind);
+  const cell = (n) => h('td', {class: 'num'}, int(n));
+  const row = (k, c, o, cls) => h('tr', {class: cls || null}, h('td', {class: 'font-monospace small'}, k), cell(c.planted), cell(c.caught), cell(c.xbrl_only), cell(c.escaped), cell(c.no_effect),
+    cell(o ? o.caught : null), cell(o ? o.escaped : null));
+  const th = (t, num) => h('th', {class: num ? 'num' : null}, t);
+  return h('div', {class: 'card mt-3'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Planted faults by kind'),
+      h('span', {class: 'ms-auto text-secondary small'}, 'caught = a rule or XBRL fired; of which XBRL only = nothing but xbrl_reconcile fired; XBRL off = the same trials without that rule')),
+    h('div', {class: 'table-responsive'}, h('table', {class: 'table table-sm table-vcenter card-table'},
+      h('thead', {}, h('tr', {}, th('Kind'), th('Planted', 1), th('Caught', 1), th('of which XBRL only', 1), th('Escaped', 1), th('No effect', 1), th('XBRL off: caught', 1), th('XBRL off: escaped', 1))),
+      h('tbody', {}, kinds.map((k) => row(k, f.by_kind[k], off[k]))),
+      h('tfoot', {}, row('all kinds', f, f.xbrl_off, 'fw-semibold')))));
 }
 
 async function rulesPage(view) {

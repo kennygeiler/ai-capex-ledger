@@ -129,7 +129,9 @@ def resolve(v: dict, parsed: dict) -> dict:
     expected = (abs(shown) if capex_label else -shown) if v["field"] == "capex" else abs(shown) if v["field"].startswith("cost_of_revenue") else shown  # a positive cell is accepted only when its own label says capex (Freeport's summary table, type 57)
     if v["value"] != expected:
         raise Invalid(f"value {v['value']} != cell {v['cell_text']} × {t['scale']:,} = {expected} ({v['field']} sign convention)")
-    return {"unit_stated": t["unit_text"], "unit_source": t["unit_source"], "scale": t["scale"]}
+    # unit_source is set on located statement tables only; a citation of another table (an older read whose statement
+    # was re-located since, T65) still resolves, with no unit source to name
+    return {"unit_stated": t.get("unit_text"), "unit_source": t.get("unit_source"), "scale": t["scale"]}
 
 
 # ── period start from the company's own filing calendar ───────────────────────────────────────────────────────────
