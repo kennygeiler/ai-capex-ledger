@@ -14,3 +14,4 @@ data/notes/tasks/
 data/projects/tasks/
 data/mapper/tasks/
 taxonomy/.asset_types.yaml.lock
+gold/.*.lock

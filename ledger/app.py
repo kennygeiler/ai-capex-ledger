@@ -262,6 +262,45 @@ def _flow(scope: str) -> dict:
             "industries": sorted(INDUSTRIES) + ["other"], "scope_tickers": list(SCOPE), "names": {c["ticker"]: c["name"] for c in tracked()}}
 
 
+# ── T82: the gold set on the Proof page. Read: GET /api/v1/gold?t=; write: POST /api/gold/verdict (one writer, gold.record) ──
+def gold_view(ticker: str | None = None) -> dict:
+    """The gold set for the Proof page. With no ticker: the companies and their error rates, read from gold/ alone (no
+    database). With a ticker: its items with the live row beside each claim, that company's rows only. Error rates from
+    the verdicts carry n and a Wilson 95% interval. A file that does not read or validate is named in `problems`."""
+    from . import gold
+    from .config import PROVEN
+    docs, problems = gold.load_checked(expect=PROVEN)
+    t = (ticker or "").upper()
+    if t and t not in docs:
+        raise KeyError(f"no gold file for {t!r}")
+    items, live_ok = [], None
+    if t:
+        live, looked_up, xbrl, idx = {}, set(), {}, resolutions.by_row()
+        try:
+            con = _con()
+        except Busy:
+            con = None
+        if con is not None:
+            try:
+                vals = _rows(con, 'select ticker, field, period, value, label from "values" where ticker = ?', t)
+                facts = _rows(con, "select ticker, field, dimension, period, value, label from facts where ticker = ?", t)
+                ref = _rows(con, "select ticker, field, period, value from reference_values where ticker = ?", t)
+            finally:
+                con.close()
+            live = gold.live_index(vals, facts)
+            looked_up = {r["ticker"] for r in ref}
+            xbrl = {(r["ticker"], r["field"], r["period"]): gold.num(r["value"]) for r in ref}
+        live_ok = con is not None
+        for it in docs[t]["items"]:
+            row = live.get(it["id"])
+            items.append({**it, "live": None if con is None else {"value": gold.num(row["value"]) if row else None, "label": row and row.get("label"), "gone": row is None,
+                                                                 "open": gold.is_open(row, looked_up, xbrl, idx)},
+                          "cites": [{**c, "img": "/evidence/" + Path(c["screenshot"]).name if c.get("screenshot") else None} for c in it.get("cites", [])]})
+    return {"companies": [{"ticker": k, "release": d.get("release"), "seed": d.get("seed"), "note": d.get("note"), "rate": gold.error_rate(d["items"])} for k, d in docs.items()],
+            "all": gold.error_rate([i for d in docs.values() for i in d["items"]]), "ticker": t or None, "items": items, "problems": problems,
+            "verdicts": list(gold.VERDICTS), "live": live_ok}
+
+
 def packet(version: str) -> bytes | None:
     d = RELEASES / version
     if not re.fullmatch(r"v\d+\.\d+\.\d+", version) or not (d / "SIGNOFF.json").exists():
@@ -431,6 +470,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(proof.company(con, parts[1]) if len(parts) == 2 else proof.board(con))
             finally:
                 con.close()
+        if name == "gold":  # T82: the gold set, ?t=TICKER for its items; read-only, the verdict is a POST below
+            return self._guard(lambda: self._json(gold_view(q.get("t"))))
         if name == "failures":  # T54: the failure types as data (taxonomy/failures.yaml); counts are numbers of types, never instances
             from . import failures
             types = failures.load()
@@ -541,6 +582,11 @@ class Handler(BaseHTTPRequestHandler):
         if u.path.startswith("/api/v1/views/") and u.path.endswith("/delete"):
             vid = u.path[len("/api/v1/views/"):-len("/delete")]
             return self._guard(lambda: self._json((views.delete(vid, body.get("by", "")), {"ok": True})[1]))
+        # ── T82: a person's verdict on one gold item. Same guards as every write above (read-only copy, JSON, own Origin);
+        # gold.record refuses a `by` not on config.PEOPLE (400), a verdict off right/wrong/cant_say, and an unknown item.
+        if u.path == "/api/gold/verdict":
+            from . import gold
+            return self._guard(lambda: self._json(gold.record(str(body.get("ticker", "")), str(body.get("id", "")), str(body.get("verdict", "")), str(body.get("note", "")), str(body.get("by", "")))))
         parts = u.path.strip("/").split("/")  # api/agents/<id>/<prompt|use|model>, api/models/<industry>/<save|use>
         if len(parts) != 4 or parts[:2] != ["api", "agents"] or parts[2] not in agents.load() or agents.load()[parts[2]].get("retired"):
             return self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)

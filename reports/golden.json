@@ -1,7 +1,19 @@
 {
- "at": "2026-11-01T08:59:58+00:00",
+ "at": "2026-11-01T09:42:20+00:00",
  "ok": true,
  "failed_step": null,
+ "tables_ok": true,
+ "gold": {
+  "ok": true,
+  "state": "unverified",
+  "failures": [],
+  "checked": 0,
+  "right": 0,
+  "wrong": 0,
+  "cant_say": 0,
+  "unverified": 120,
+  "items": 120
+ },
  "diffs": {},
  "steps": [
   {

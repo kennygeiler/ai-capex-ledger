@@ -69,6 +69,36 @@ no agent asked, and compares every table column by column, row by row.
   `agents/agents.json`, every change logged with who made it. Every score can be traced to the prompt and model that
   produced it.
 
+## The gold set (T82)
+
+Golden is a regression test: it says nothing changed, and it froze the Amazon blanks as expected (docs/DISCIPLINES.md).
+`gold/<TICKER>.json` (`ledger/gold.py`) is the correctness test beside it: per proven company about 10 values and 10
+facts, stratified by field and year, untagged facts (no XBRL twin) oversampled to 6 of the 10, drawn with the seed
+`GOLDEN_SEED|<release version>|<ticker>` so the sample moves between releases. Each item holds the claim (ticker,
+field, dimension, period, value, the cited cells with deep link and screenshot) and a person's verdict: right, wrong or
+can't say, a note, `by` on `config.PEOPLE`, `at`.
+
+- `ledger gold --draw` writes the files and never overwrites or drops an item that has a verdict.
+- Verdicts are given on Proof, Gold set (`POST /api/gold/verdict`, the one writer `gold.record`: lock, temp file,
+  os.replace; a name not on `config.PEOPLE` is refused).
+- `ledger golden --check` compares every verdict with the tables the run produced, by value only: right must still
+  equal the gold value (a null gold value, a blank or a missing row fails); wrong must still be the same value on an
+  open row (or a blank): the same value shipped as checked fails, a different number fails as "changed since
+  verdict, re-verify", a missing row (a renamed dimension included) as "row gone, re-verify". A right item whose row
+  is open for another reason still passes: that is the Open line's job, not gold's.
+- Gold has its own state beside golden's tables: fail, unverified N of M, or pass. Equal tables with nothing verified
+  read "golden: equal" and "gold: unverified 120 of 120", never one green line; the exit code is 0 for unverified only
+  and 1 for any gold failure. A missing gold/ folder, a proven company with no file or no items, and a file that does
+  not read or validate (items a list, `value` present, `verdict` one of the three or null) fail, naming the file.
+- `ledger gold --draw` builds the sample without a lock, then re-reads, merges and replaces the file under the same
+  per-company lock `record` holds, so a verdict given during a draw is kept. Kept items keep their own release, seed
+  and drawn_at; the header says when a file mixes draws or holds more than 10 + 10. Rows with no value are not drawn.
+- Trust boundary: the verdict route trusts the local port. Anyone who reaches DATAHQ on 127.0.0.1 can post a verdict
+  under a name on `config.PEOPLE`, exactly as with resolutions and mapping approvals; the guards stop other web pages
+  (JSON content type, own Origin) and names off the list, not a local user. Real authentication is T6.
+- Error rate: wrong of (right + wrong), with n and a Wilson 95% interval (`gold.error_rate`); can't say is counted
+  beside it, not in the denominator.
+
 ## Planted errors
 
 `ledger/faults.py` corrupts one real extraction at a time, the way agents misread statements, and records what caught

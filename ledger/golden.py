@@ -131,6 +131,17 @@ def store_has(con, name: str) -> bool:
     return bool(con.execute("select count(*) from information_schema.tables where table_name = ?", [name]).fetchone()[0])
 
 
+def gold_check(con, gold_docs: dict | None = None) -> dict:
+    """T82: golden says nothing changed; gold says the numbers a person verified are still what ships. Every gold item
+    with a verdict (gold/<TICKER>.json) against the tables this run produced: right must still equal, wrong must differ
+    or be open. Items with no verdict are reported as unverified, never as a pass."""
+    from . import gold
+    try:
+        return gold.compare_db(con, gold_docs)
+    except Exception as e:  # never let gold stop golden.json being written: a failure that names itself
+        return {"ok": False, "state": "fail", "failures": [f"gold check raised {e.__class__.__name__}: {str(e)[:300]}"], "checked": 0, "right": 0, "wrong": 0, "cant_say": 0, "unverified": 0, "items": 0}
+
+
 def check(keep: bool = False, verbose: bool = False) -> dict:
     """Run the code stages on the fixtures in a temporary root and compare every table with fixtures/expected/."""
     seed = json.loads((FIXTURES / "seed.json").read_text())
@@ -170,8 +181,9 @@ def check(keep: bool = False, verbose: bool = False) -> dict:
                 only_got, only_want = sorted(set(g) - set(w)), sorted(set(w) - set(g))
                 diffs[name] = {"rows_got": max(0, len(g) - 1), "rows_want": max(0, len(w) - 1), "only_in_run": only_got[:5], "only_in_expected": only_want[:5],
                                "n_only_in_run": len(only_got), "n_only_in_expected": len(only_want)}
+        g_ = gold_check(con)
         con.close()
-        return {"ok": not diffs, "root": str(root), "log": log, "diffs": diffs}
+        return {"ok": not diffs and g_["ok"], "root": str(root), "log": log, "diffs": diffs, "gold": g_}
     finally:
         if not keep:
             shutil.rmtree(root, ignore_errors=True)
