@@ -85,6 +85,7 @@ class SignoffFile(unittest.TestCase):
                 got = json.loads((d / "SIGNOFF.json").read_text())
                 self.assertEqual(got["signed_by"], "Kenny Geiler")
                 self.assertEqual(got["checklist"]["scope"], ["MSFT", "NVDA"])
+                self.assertEqual(checklist.summary(got["checklist"]), {"open": 3, "unmapped": 3, "scope": ["MSFT", "NVDA"], "unconfirmed": 0, "at": "2026-11-02T00:00:00+00:00"})
                 self.assertEqual(signoff.main(["v9.9.0", "--by", "CLI"]), 0)
                 self.assertNotIn("checklist", json.loads((d / "SIGNOFF.json").read_text()))  # the command line signs without one
                 (d / "values.csv").write_text("ticker\nY\n")

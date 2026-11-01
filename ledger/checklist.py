@@ -186,6 +186,11 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
             "diff": d, "golden": g, "tests": t, "exists": exists, "signed": signed}
 
 
+def summary(cl: dict) -> dict:
+    """What a signature meant (T7): the counts Proof's releases table shows, from the checklist as it was at signing."""
+    return {"open": cl.get("open", 0) + cl.get("blocked", 0), "unmapped": cl.get("unmapped"), "scope": cl.get("scope") or [], "unconfirmed": cl.get("unconfirmed"), "at": cl.get("at")}
+
+
 def sign(con, version: str | None, by: str, stage: int = 3) -> dict:
     """The Sign button (T6): build the checklist; refuse (ValueError → 400) while any required line is red or no name is
     given; else write releases/<version>/, sign it as `by` with the checklist as it was, and publish. `by` is the page's

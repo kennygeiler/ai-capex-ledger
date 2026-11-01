@@ -69,6 +69,16 @@ open). Until these agree, no page can say whether a release is signable.
 - **T8 Release diff in rows.** `DIFF.md` lists rows added, removed and changed per list, not values alone; the page shows the
   same. Done when a changed `check` on one row appears in the diff.
 
+*As built (B, 2 Nov):* `ledger/checklist.py` holds the checklist and the sign; `ledger/pages/release.js` renders it and recomputes
+nothing; `ledger release` builds its packet through the same `checklist.packet`, so the page's hash is the command's. The signer is
+the name in the header's signer box, recorded as given: who may press the button is a later ticket (auth, production rails). The
+test-run line reads `reports/tests.json` `{ok, count, failures, at}` (T30 writes it); absent, it reads "not run" and does not block,
+so v1.8.0 can be signed before T30 lands; present and failing, it blocks. The rows diff keys `taxonomy.csv` on ticker + fiscal_year +
+measure + category + reported_name, which repeats (259 rows in v1.7.0: several statements under one category and name), so rows under
+one key are paired best-match-first on the columns both releases carry and only a real move counts as changed; a column only one
+release has is listed as added or removed, not as every row changed. `SIGNOFF.json` stores the checklist with the diff's counts, not
+its examples (`DIFF.md` has those).
+
 ## C. Columns: one shape that a stranger can read
 
 Audit of `taxonomy.csv` v1.7.0: 19 columns, 6,700 rows. `group` = `layer` on every row; `value_high` is a range high on planned

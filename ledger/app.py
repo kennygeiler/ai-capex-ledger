@@ -265,7 +265,9 @@ def outputs() -> dict:
     out = []
     for d in releases():
         sig = json.loads((d / "SIGNOFF.json").read_text()) if (d / "SIGNOFF.json").exists() else {}
+        from .checklist import summary
         out.append({"version": d.name, "signed_by": sig.get("signed_by"), "signed_at": sig.get("signed_at"), "packet": bool(sig) and (d / "README.md").exists(),
+                    "checklist": summary(sig["checklist"]) if sig.get("checklist") else None,  # T7: what the signature meant; None before the checklist existed
                     "rows": [{**r, "company": names.get(r["ticker"], r["ticker"])} for r in csv.DictReader((d / "values.csv").open())]})
     return {"releases": out}
 
