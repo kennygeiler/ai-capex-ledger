@@ -71,9 +71,14 @@ def _used(fs: dict, field: str) -> list[dict]:
 
 
 def as_of(con, day: str, tickers: list[str] | None = None) -> list[dict]:
-    """One row per (ticker, field, period) a filing filed on or before `day` reports: ticker, field, period, period_end,
-    value, accession, filed, extraction_ids, restated_later (a filing after the one answering changed the figure beyond
-    its rounding; the later filing may be after `day`), as_of. Columns used: extractions.ticker, field, period_start,
+    """One row per (ticker, field, period) the newest filing filed on or before `day` reports: ticker, field, period,
+    period_end, value, accession, filed, extraction_ids, restated_later (a filing after the one answering changed the figure
+    beyond its rounding; the later filing may be after `day`), as_of. As in values_for, every field of a year comes from
+    that one newest filing: when it lacks the line the field is absent at that date, even if an older filing had it.
+    `vintage_check`: only the newest vintage is reconciled against XBRL (reconcile.values_for); a row from the accession
+    `values` checked carries that label (agree, unresolved, …), every older vintage carries "unchecked": its figure is the
+    filing's cell as read, never compared with its own filing's tags (AT&T FY2022 revenue: the first 10-K's cell was read at
+    the wrong scale, $120,741,000 for $120.7bn, and `values` calls it restated; T55b in docs/TICKETS.md). Columns used: extractions.ticker, field, period_start,
     period_end, value, scale, accession, extraction_id joined to documents.accession for documents.filed; "values".ticker,
     period, period_end for the fiscal calendar."""
     day = parse_day(day)
@@ -81,23 +86,29 @@ def as_of(con, day: str, tickers: list[str] | None = None) -> list[dict]:
     p = [tickers] if tickers else []
     exts = _rows(con, f"""select e.extraction_id, e.ticker, e.field, e.period_start, e.period_end, e.value, e.scale, e.accession, d.filed
                           from extractions e join documents d on d.accession = e.accession {where}""", *p)
-    years = {(v["ticker"], v["period_end"]): v["period"] for v in _rows(con, f'select ticker, period, period_end from "values" {where.replace("e.", "")}', *p)}
+    vals = _rows(con, f'select ticker, field, period, period_end, label, extraction_ids from "values" {where.replace("e.", "")}', *p)
+    years = {(v["ticker"], v["period_end"]): v["period"] for v in vals}
+    checked = {(v["ticker"], v["field"], v["period"]): ((v["extraction_ids"] or "").split("|")[0], v["label"]) for v in vals}  # the accession values reconciled, and how it came out
     out = []
     for (ticker, end), fl in sorted(_filings(exts).items()):
         period = years.get((ticker, end))
         if period is None:
             continue  # a year values does not know: nothing to answer for it
+        by_day = [x for x in fl if x[0] <= day]
+        if not by_day:
+            continue
+        filed, acc, fs = by_day[-1]  # every field from the newest filing by `day`, as values_for: a year never mixes filings
         for field in RELEASE_FIELDS:
-            have = [(filed, acc, fs, _value(fs, field)) for filed, acc, fs in fl if _value(fs, field) is not None]
-            by_day = [x for x in have if x[0] <= day]
-            if not by_day:
-                continue
-            filed, acc, fs, v = by_day[-1]
-            later = have[len(by_day):]
+            v = _value(fs, field)
+            if v is None:
+                continue  # that filing has no such line: values says not_reported, the as-of row is absent (an older filing's line is not reached for)
+            later = [lv for lv in (_value(f2, field) for _, _, f2 in fl[len(by_day):]) if lv is not None]
             scale = max(e["scale"] for e in _used(fs, field))
+            chk_acc, label = checked.get((ticker, field, period), (None, None))
             out.append({"ticker": ticker, "field": field, "period": period, "period_end": end, "value": v, "accession": acc, "filed": filed,
                         "extraction_ids": ",".join(sorted(e["extraction_id"] for e in _used(fs, field))),
-                        "restated_later": any(_restated(v, lv, scale) for _, _, _, lv in later), "as_of": day})
+                        "restated_later": any(_restated(v, lv, scale) for lv in later),
+                        "vintage_check": label if acc == chk_acc and label else "unchecked", "as_of": day})
     return out
 
 

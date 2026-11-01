@@ -347,7 +347,21 @@ the file and off the calendar.
   Packet: no as-of file before v1.9.0 (the packet holds the signed dataset once; a derived file would need its own diff and dictionary);
   the packet README gained a "Point in time" paragraph naming the endpoint, so v1.9.0's hash differs from a packet built before this
   commit, by that text only. `tests/test_pit.py`: no lookahead at every filing date of the six, today equals `values`, the APLD flip
-  (144,193,000 → 228,569,000 on 2026-07-29), 400 on a bad date through the Handler, a synthetic pair.
+  (144,193,000 → 228,569,000 on 2026-07-29), 400 on a bad date through the Handler, a synthetic pair. Review fixes (same night): `as_of`
+  with `release=` is 400; every field of a year comes from the one newest filing by the day, as `values_for` does. *Vintage check (from the
+  vendor-methodology audit):* only the newest vintage is reconciled against XBRL. AT&T revenue FY2022: `values` 120,741,000,000,
+  `first_reported` 120,741,000, `basis` restated; the first 10-K's cell `120,741` was read against a `(000s)` unit line (scale 1,000) where the
+  later 10-Ks say `(000,000)`: a 1000× misread, not a restatement, and `as_of=2023-06-30` would serve $120.7m as truth. Tonight: every PIT row
+  carries `vintage_check` (the `values` label for the accession it checked; `unchecked` for every older vintage), `api.AS_OF_NOTE` is the
+  response note (the Handler does not add it yet: one line in `app.py`, another builder's file), and the no-lookahead test asserts every row
+  carries it and no row reads checked unless it is the newest filing's figure. No per-vintage reconciliation was invented tonight.
+- **T55b Per-vintage reconciliation.** Each older extraction checked against the XBRL facts of its own accession (companyfacts holds every
+  filing's tags under `accn`): `restated` only when both vintages agree with their own filing's tags; a vintage that disagrees with its own tags
+  is `misread`, an open item on Reconcile with the cell and the tag, and `basis` / `first_reported` on `values` follow (a misread first vintage
+  is not a restatement; the AT&T FY2022 revenue row above is the canonical case, and 45 `values` rows read `restated` today without this check).
+  PIT rows then carry the per-vintage outcome in `vintage_check` instead of `unchecked`. Touches reconcile.py (the reference per accession),
+  reference/, pit.py, the restated rule, status.py's keys (T56). Golden run required. Done when AT&T FY2022 reads `misread` on its first vintage
+  and no `values` row says restated on an unchecked older vintage.
 - **T56 Answer-key independence (folds into T40).** The four keys in `status.ANSWER_KEYS` get a grade: independent twin
   (XBRL / ESEF instance) > same-issuer second source (8-K: the same finance team can share the error) > arithmetic tie > later
   truth. `status` names the strongest key per row; Proof counts rows by key strength for the scope. Touches status.py, proof.py,

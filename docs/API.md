@@ -72,17 +72,29 @@ must not see a figure a later 10-K restated: that is lookahead. `?as_of=YYYY-MM-
 CSV, with the other filters) answers from `extractions` (every filing's cited cells are kept) joined to `documents.filed` (`ledger/pit.py`):
 the figure the newest filing filed on or before D gave, by the values builder's own arithmetic (one cell per field, opex from the three cells
 of the same 10-K column, cost-of-revenue lines summed when there is no total line, the newest filing by `filed` and on the same day the more
-complete one). A (company, field, year) no filing by D reports is absent, never null-filled. Overrides are not applied. A bad date, or
-`as_of` on any other list, is 400.
+complete one). Every field of a year comes from that one newest filing, as in `values`: when it lacks the line the field is absent at
+that date even if an older filing had it (`values` says not_reported there). A (company, field, year) no filing by D reports is absent,
+never null-filled. Overrides are not applied. A bad date, `as_of` on any other list, or `as_of` together with `release=` (a release is a
+fixed snapshot; the as-of answer reads the live cells) is 400.
 
 - `values?as_of=D`: ticker, field, period, period_end, value, accession, filed, restated_later (a later filing changed the figure beyond its
-  rounding, even one after D), basis, first_reported (both as `values` holds them today), source, extraction_ids, layer, proven, status, as_of.
-  No `check_label` or `flag`: the XBRL comparison was made on the newest figure, not this one.
+  rounding, even one after D), vintage_check, basis, first_reported (both as `values` holds them today), source, extraction_ids, layer, proven,
+  status, as_of. No `check_label` or `flag`: the XBRL comparison was made on the newest figure, not this one.
+- **Older vintages are not reconciled.** Only the newest filing's figure is compared with XBRL (`reconcile.values_for`). An as-of row from the
+  accession `values` checked carries that outcome in `vintage_check` (agree, unresolved, definition_gap, no_reference); every row from an older
+  filing carries `vintage_check: "unchecked"`: the figure is the cell as the agent read it, never compared with its own filing's tags. The case
+  that shows why this matters: AT&T revenue FY2022 is 120,741,000,000 in `values` with `first_reported` 120,741,000 and `basis` restated; the
+  first 10-K's cell `120,741` was read against a `(000s)` unit line (scale 1,000) where the later 10-Ks say `(000,000)`, so the "restatement" is a
+  1000× misread, and `as_of=2023-06-30` serves $120.7 million as what that filing said. The row says `unchecked`; it does not say right. The
+  per-vintage check is T55b (`docs/TICKETS.md`). A client that reads JSON should carry `api.AS_OF_NOTE` as a top-level `note` on every as-of
+  response (the Handler in `ledger/app.py` does not add it yet: one line, held by another builder).
 - `taxonomy?as_of=D`: the `spent` / `capex` rows are re-pointed at the newest filing filed by D (value, source, accession, filed, source_table,
   source_url; `check` reads `not_checked` with method `none` when that filing is not the one the live row was checked against). Every other
   row is kept only when its own `filed` is on or before D: a 10-K note, MD&A or 8-K figure filed after D is dropped, not replaced by an earlier
   filing's (`facts` holds the newest filing's note figures only); a row with no filing date (transcript, CFO commentary, gathered) is dropped.
-  So the taxonomy as-of is complete for capex and conservative (absent, never stale) for the rest.
+  So the taxonomy as-of is complete for capex and conservative (absent, never stale) for the rest: on the six today (1 Nov 2026) `as_of`
+  set to today returns 590 of the live list's 617 rows, the 27 undated transcript, CFO commentary and gathered rows dropped, so as-of today
+  is not the live taxonomy.
 
 The canonical case, APLD's FY2025 revenue (`period_end` 2025-05-31), which moved 58% between two 10-Ks: the FY2025 10-K
 (`0001144879-25-000021`, filed 2025-07-30) reported $144,193,000; the FY2026 10-K (`0001144879-26-000048`, filed 2026-07-29) restated it to

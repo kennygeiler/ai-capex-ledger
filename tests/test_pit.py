@@ -40,10 +40,12 @@ class Synthetic(unittest.TestCase):
         con = _synthetic()
         self.assertEqual(pit.as_of(con, "2025-01-31"), [])  # nothing filed yet: absent, not null
         first = pit.as_of(con, "2025-06-30")
-        self.assertEqual([(r["field"], r["value"], r["accession"], r["restated_later"]) for r in first], [("revenue", 100_000_000, "0000000001-25-000001", True)])
+        self.assertEqual([(r["field"], r["value"], r["accession"], r["restated_later"], r["vintage_check"]) for r in first],
+                         [("revenue", 100_000_000, "0000000001-25-000001", True, "unchecked")])  # the older vintage was never reconciled
         second = pit.as_of(con, "2026-02-01")
         self.assertEqual({(r["field"], r["value"]) for r in second}, {("revenue", 120_000_000), ("opex", 40_000_000)})  # opex only once its three cells exist
         self.assertFalse(any(r["restated_later"] for r in second))
+        self.assertEqual({r["field"]: r["vintage_check"] for r in second}, {"revenue": "agree", "opex": "unchecked"})  # values holds no opex row here
 
     def test_values_as_of_keeps_basis_and_first_reported_and_the_taxonomy_drops_rows_filed_after(self):
         con = _synthetic()
@@ -58,13 +60,24 @@ class Synthetic(unittest.TestCase):
         kept = pit.taxonomy_as_of(con, tax, "2025-06-30", ["X"])
         self.assertEqual([r["category"] for r in kept], ["finance_lease_liability"])  # no capex cell by then; the later note and the undated row are gone
 
-    def test_bad_dates_and_other_lists_are_value_errors(self):
+    def test_bad_dates_other_lists_and_a_release_are_value_errors(self):
         con = _synthetic()
         for bad in ("2025-13-01", "yesterday", "2025"):
             with self.assertRaises(ValueError):
                 api.query(con, "values", {"as_of": bad})
         with self.assertRaises(ValueError):
             api.query(con, "facts", {"as_of": "2025-06-30"})
+        with self.assertRaises(ValueError):  # a release is a fixed snapshot: as_of on it would present the released rows as an as-of answer
+            api.query(con, "values", {"as_of": "2025-06-30", "release": "v1.8.0"})
+
+    def test_every_field_comes_from_the_newest_filing_by_the_day(self):
+        """As values_for: a 10-K/A filed later that lacks the revenue line makes revenue absent from that day, not read from the older 10-K."""
+        con = _synthetic()
+        store.write(con, "documents", [{**DOC, "accession": "0000000001-26-000002", "ticker": "X", "form": "10-K/A", "period": "2024-12-31", "filed": "2026-03-01"}])
+        store.write(con, "extractions", [{**CELL, "extraction_id": "0000000001-26-000002|capex|2024-01-01|2024-12-31", "accession": "0000000001-26-000002", "ticker": "X", "field": "capex",
+                                          "period_start": "2024-01-01", "period_end": "2024-12-31", "value": 7_000_000}])
+        self.assertEqual({r["field"] for r in pit.as_of(con, "2026-02-28")}, {"revenue", "opex"})
+        self.assertEqual([(r["field"], r["accession"]) for r in pit.as_of(con, "2026-03-01")], [("capex", "0000000001-26-000002")])
 
 
 class Handler(unittest.TestCase):
@@ -73,13 +86,15 @@ class Handler(unittest.TestCase):
         srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         self.addCleanup(srv.shutdown)
+        base = f"http://127.0.0.1:{srv.server_address[1]}/api/v1/values"
         with mock.patch("ledger.app._con", return_value=mock.MagicMock()):
-            try:
-                request.urlopen(f"http://127.0.0.1:{srv.server_address[1]}/api/v1/values?as_of=2025-02-30")
-                self.fail("expected 400")
-            except error.HTTPError as e:
-                self.assertEqual(e.code, 400)
-                self.assertIn("as_of", json.loads(e.read())["error"])
+            for url, word in ((base + "?as_of=2025-02-30", "as_of"), (base + "?as_of=2025-06-30&release=v1.8.0", "fixed snapshot")):
+                try:
+                    request.urlopen(url)
+                    self.fail("expected 400")
+                except error.HTTPError as e:
+                    self.assertEqual(e.code, 400)
+                    self.assertIn(word, json.loads(e.read())["error"])
 
 
 @unittest.skipUnless(store.DEFAULT_DB.exists() and not os.environ.get("LEDGER_SKIP_DB"), "no data/ledger.duckdb")
@@ -98,12 +113,19 @@ class RealDatabase(unittest.TestCase):
     def test_no_lookahead_at_every_filing_date(self):
         days = [r[0] for r in self.con.execute("select distinct filed from documents where ticker in (select unnest(?)) order by 1", [self.six]).fetchall()]
         self.assertGreater(len(days), 10)
-        seen = 0
+        newest = {(v[0], v[1], v[2]): (v[3] or "").split("|")[0] for v in self.con.execute('select ticker, field, period, extraction_ids from "values" where ticker in (select unnest(?))', [self.six]).fetchall()}
+        seen = unchecked = 0
         for d in days:
             for r in pit.as_of(self.con, d, self.six):
                 self.assertLessEqual(r["filed"], d, r)
+                self.assertIn("vintage_check", r)  # only the newest vintage was reconciled against XBRL (T55b)
+                if r["vintage_check"] != "unchecked":
+                    self.assertEqual(r["accession"], newest[(r["ticker"], r["field"], r["period"])], r)
+                else:
+                    unchecked += 1
                 seen += 1
         self.assertGreater(seen, 0)
+        self.assertGreater(unchecked, 0)
 
     def test_today_equals_values(self):
         today = date.today().isoformat()
