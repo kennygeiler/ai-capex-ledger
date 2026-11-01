@@ -81,7 +81,11 @@ its examples (`DIFF.md` has those). *Review fixes (2 Nov):* every POST needs `Co
 the server's own (403 otherwise, before any route); the next version is the lowest unsigned folder after the last signed one;
 `releases/v1.8.0` was rebuilt through `checklist.packet` (the one main built predated the rows section); the sign checks the
 checklist again after the write, records the publish's outcome in `SIGNOFF.json`, runs under a lock, and a signature is never
-replaced; `ledger release` refuses on the page's checklist; `write` renames a whole folder into place.
+replaced; `ledger release` refuses on the page's checklist; `write` renames a whole folder into place. *Third review:* a broken
+folder before the version (no manifest, a manifest that is not an object with a str hash, no `values.csv`, not UTF-8) is a red
+required line, never a 500, and the diff runs against the last readable folder; folder names that are not versions are ignored;
+a failed `record` after a successful publish is `record_error` in the reply, never a `published: false`; every POST body must be a
+JSON object with a numeric Content-Length (400 otherwise).
 
 ## C. Columns: one shape that a stranger can read
 

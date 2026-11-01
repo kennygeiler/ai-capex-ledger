@@ -46,7 +46,9 @@ that stored checklist, or null for a release signed before it existed, and `publ
 
 Every POST (a decision, a view, a prompt, a signature) needs `Content-Type: application/json` and, when the browser sends an
 `Origin`, this server's own (`http://127.0.0.1:<port>` or `http://localhost:<port>`); anything else is 403 before any route, so a
-page on another site cannot write through the browser's permission to POST to localhost without a preflight.
+page on another site cannot write through the browser's permission to POST to localhost without a preflight. The body must be a
+JSON object with a numeric `Content-Length`: a list, a bare value or a bad length is 400 on every route. The sign's reply may also
+carry `record_error` when the publish's outcome could not be written into `SIGNOFF.json`; the publish itself stands as reported.
 
 Two roll-ups, not lists: `/api/v1/coverage` (per layer and field: companies with an AI amount, words only, none,
 not run) and `/api/v1/cost` (agent calls, tokens, seconds, attempts, failures and an estimated price at list, per

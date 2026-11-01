@@ -40,8 +40,23 @@ def _rows(con, sql, p):
 
 
 def _releases() -> list:
-    """Every release folder under RELEASES (this module's, so tests point it elsewhere), oldest version first."""
-    return sorted(RELEASES.glob("v*"), key=lambda p: version_key(p.name))
+    """Every release folder under RELEASES (this module's, so tests point it elsewhere) whose name is a version, oldest
+    first; a `v1.8.0-old` or a stray file is not a release and never blocks the next version."""
+    return sorted((p for p in RELEASES.glob("v*") if p.is_dir() and VERSION.match(p.name)), key=lambda p: version_key(p.name))
+
+
+def _manifest(d) -> dict | None:
+    """A folder's manifest.json as a dict with a str hash, or None when it is missing, unreadable or not that shape."""
+    try:
+        m = json.loads((d / "manifest.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError, UnicodeDecodeError, AttributeError):  # ValueError covers JSONDecodeError
+        return None
+    return m if isinstance(m, dict) and isinstance(m.get("hash"), str) else None
+
+
+def _readable(d) -> bool:
+    """A folder the checklist can diff against: a manifest of the right shape and a values.csv."""
+    return _manifest(d) is not None and (d / "values.csv").is_file()
 
 
 def next_version() -> str:
@@ -70,19 +85,24 @@ def folder_state(version: str, h: str) -> tuple[str, str]:
         return "signed", f"{version} is already signed; a shipped release is never edited. Use a new version."
     if not (d / "manifest.json").exists():
         return "broken", f"releases/{version}/ has no manifest.json: unsigned, broken; delete and rebuild"
-    try:
-        old = json.loads((d / "manifest.json").read_text()).get("hash")
-    except (json.JSONDecodeError, OSError):
-        return "broken", f"releases/{version}/manifest.json cannot be read: unsigned, broken; delete and rebuild"
-    if old != h:
+    m = _manifest(d)
+    if m is None:
+        return "broken", f"releases/{version}/manifest.json cannot be read as a manifest: unsigned, broken; delete and rebuild"
+    if m["hash"] != h:
         return "different", f"releases/{version}/ is unsigned, built before this release's checks; delete and rebuild"
     return "same", f"releases/{version}/ exists unchanged, unsigned"
 
 
 def previous_of(version: str):
-    """The release folder before `version` by number, or None."""
-    before = [p for p in _releases() if version_key(p.name) < version_key(version)]
+    """The last readable release folder before `version` by number (a manifest of the right shape and a values.csv,
+    signed or not), or None. A broken folder is skipped here and named by `broken_before` as a red line."""
+    before = [p for p in _releases() if version_key(p.name) < version_key(version) and _readable(p)]
     return before[-1] if before else None
+
+
+def broken_before(version: str) -> list[str]:
+    """The release folders before `version` the checklist cannot read: delete and rebuild each, or the diff lies."""
+    return [p.name for p in _releases() if version_key(p.name) < version_key(version) and not _readable(p)]
 
 
 def packet(con, version: str, stage: int = 3) -> dict:
@@ -108,7 +128,7 @@ def packet(con, version: str, stage: int = 3) -> dict:
         files[f"{name}.csv"] = api.to_csv(rows)
     diff = {}
     if prev_dir:  # the shape of the packet is part of the diff
-        before = set(json.loads((prev_dir / "manifest.json").read_text())["files"]) - {"manifest.json", "SIGNOFF.json"}
+        before = set(_manifest(prev_dir).get("files") or []) - {"manifest.json", "SIGNOFF.json"}
         gone, new = sorted(before - set(files)), sorted(set(files) - before)
         if gone or new:
             files["DIFF.md"] += "\n".join(["", "## Files"] + [f"- added `{f}`" for f in new] + [f"- removed `{f}`" for f in gone] + [""])
@@ -212,6 +232,11 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     lines.append(_line("tests", "Test run", t is not None, 0 if t is None else len(t.get("failures") or []), t_state, "proof",
                        "not run (reports/tests.json; T30 writes it)" if t is None else f"{t.get('count')} tests, {len(t.get('failures') or [])} failing, {t.get('at')}",
                        [{"test": f} for f in (t or {}).get("failures") or []]))
+    # a release folder before this one the checklist cannot read: the diff would lie, so it is a red line, not a 500
+    broken = broken_before(version)
+    lines.append(_line("previous", "Previous releases readable", True, len(broken), "fail" if broken else "pass", "release",
+                       "; ".join(f"previous release {v} is broken: delete and rebuild" for v in broken) if broken else f"diffed against {p['previous']}" if p["previous"] else "no previous release",
+                       [{"folder": v} for v in broken]))
     # the packet as it would be written
     fstate, fnote = folder_state(version, p["hash"])
     exists, signed = fstate != "none", fstate == "signed"
@@ -275,9 +300,15 @@ def sign(con, version: str | None, by: str, stage: int = 3) -> dict:
         s = _signoff(cl["version"], by.strip(), _compact(cl))
         out = {"version": cl["version"], "hash": p["hash"], "signed_by": s["signed_by"], "signed_at": s["signed_at"], "published": False, "rows": None, "publish_error": None}
         try:
-            out |= {"published": True, "rows": publish(cl["version"])["rows"], "published_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
-            record(cl["version"], published=True, published_at=out["published_at"], rows=out["rows"])
+            rows = publish(cl["version"])["rows"]
         except (NotPublishable, SystemExit, Exception) as e:  # psycopg errors included: the signature stands, the publish is retried with `ledger publish`
             out["publish_error"] = str(e) or e.__class__.__name__
-            record(cl["version"], published=False, publish_error=out["publish_error"])
+            fields = {"published": False, "publish_error": out["publish_error"]}
+        else:
+            out |= {"published": True, "rows": rows, "published_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+            fields = {"published": True, "published_at": out["published_at"], "rows": rows}
+        try:  # what happened is in the reply either way; a note that fails to land never undoes a publish that succeeded
+            record(cl["version"], **fields)
+        except Exception as e:
+            out["record_error"] = str(e) or e.__class__.__name__
     return out

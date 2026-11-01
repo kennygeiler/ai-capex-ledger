@@ -479,9 +479,14 @@ class Handler(BaseHTTPRequestHandler):
         if origin and origin.rstrip("/") not in self._own_origins():
             return self._json({"error": "a write is accepted from this DATAHQ's own pages only"}, HTTPStatus.FORBIDDEN)
         try:
-            body = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))) or b"{}")
-        except json.JSONDecodeError:
-            return self._json({"error": "send JSON"}, HTTPStatus.BAD_REQUEST)
+            n = int(self.headers.get("Content-Length") or 0)
+            if n < 0:
+                raise ValueError(n)
+            body = json.loads(self.rfile.read(n) or b"{}")
+        except ValueError:  # a Content-Length that is not a number, or a body that is not JSON (JSONDecodeError is one)
+            return self._json({"error": "send JSON with a numeric Content-Length"}, HTTPStatus.BAD_REQUEST)
+        if not isinstance(body, dict):
+            return self._json({"error": "send a JSON object"}, HTTPStatus.BAD_REQUEST)
         if u.path == "/api/release/sign":  # the Sign button (T6): refused 403 above on the read-only copy, 400 while any required line is red
             from .checklist import sign
 

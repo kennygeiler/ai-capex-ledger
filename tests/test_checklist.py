@@ -2,6 +2,7 @@
 the checklist and publishes, in that order, through the real write and signoff into a temporary releases folder; the
 read-only copy refuses with 403, a non-JSON or foreign-Origin POST with 403; the dry run on the real database refuses
 while any required line is red and touches nothing."""
+import http.client
 import json
 import os
 import shutil
@@ -128,6 +129,29 @@ class Sign(TempReleases):
         (d / "SIGNOFF.json").unlink()
         self.assertEqual(checklist.folder_state("v9.9.0", HASH), ("broken", "releases/v9.9.0/ has no manifest.json: unsigned, broken; delete and rebuild"))
 
+    def test_a_record_that_fails_after_a_successful_publish_is_reported_not_undone(self):
+        with mock.patch.object(checklist, "checklist", return_value=_cl(True)), mock.patch.object(checklist, "packet", return_value=_packet()), \
+                mock.patch("ledger.publish.publish", return_value={"rows": {"values": 1}}), mock.patch("ledger.cli.signoff.record", side_effect=OSError("disk full")) as rec:
+            r = checklist.sign(None, "v9.9.0", "K")
+        self.assertEqual((r["published"], r["rows"], r["record_error"]), (True, {"values": 1}, "disk full"))
+        self.assertEqual(rec.call_count, 1)
+        self.assertEqual(rec.call_args.kwargs["published"], True)  # never a record(published=False) after a publish that succeeded
+        s = self.signoff_json()
+        self.assertEqual(s["signed_by"], "K")
+        self.assertNotIn("published", s)  # the note did not land; the reply said so
+
+    def test_folder_state_reads_a_manifest_of_the_right_shape_only(self):
+        d = self.tmp / "v9.9.0"
+        d.mkdir()
+        (d / "manifest.json").write_text("[1, 2]")  # a list
+        self.assertEqual(checklist.folder_state("v9.9.0", HASH)[0], "broken")
+        (d / "manifest.json").write_text(json.dumps({"hash": 5}))  # not a str hash
+        self.assertEqual(checklist.folder_state("v9.9.0", HASH)[0], "broken")
+        (d / "manifest.json").write_bytes(b"\xff\xfe{")  # not UTF-8
+        self.assertEqual(checklist.folder_state("v9.9.0", HASH)[0], "broken")
+        (d / "manifest.json").write_text(json.dumps({"hash": HASH}))
+        self.assertEqual(checklist.folder_state("v9.9.0", HASH)[0], "same")
+
     def test_two_signatures_at_once_leave_one(self):
         results = []
         with mock.patch.object(checklist, "checklist", return_value=_cl(True)), mock.patch.object(checklist, "packet", return_value=_packet()), \
@@ -179,6 +203,8 @@ class Versions(TempReleases):
         self.assertEqual(checklist.next_version(), "v0.1.0")
         for v, signed in (("v1.7.0", True), ("v1.10.0", True)):
             (self.tmp / v).mkdir()
+            (self.tmp / v / "manifest.json").write_text(json.dumps({"hash": "h"}))
+            (self.tmp / v / "values.csv").write_text("ticker\n")
             if signed:
                 (self.tmp / v / "SIGNOFF.json").write_text("{}")
         self.assertEqual(checklist.next_version(), "v1.11.0")
@@ -189,6 +215,28 @@ class Versions(TempReleases):
         (self.tmp / "v1.11.0").mkdir()
         (self.tmp / "v1.12.0").mkdir()
         self.assertEqual(checklist.next_version(), "v1.11.0")  # two unsigned folders after the last signed: the lowest, so no selector is needed
+
+    def test_a_folder_that_is_not_a_version_never_blocks_the_next(self):
+        (self.tmp / "v1.7.0").mkdir()
+        (self.tmp / "v1.7.0" / "SIGNOFF.json").write_text("{}")
+        (self.tmp / "v1.8.0-old").mkdir()
+        (self.tmp / "v1.8.0.bak").write_text("")
+        self.assertEqual([p.name for p in checklist._releases()], ["v1.7.0"])
+        self.assertEqual(checklist.next_version(), "v1.8.0")
+
+    def test_a_broken_previous_folder_is_skipped_and_named(self):
+        good = self.tmp / "v1.6.0"
+        good.mkdir()
+        (good / "manifest.json").write_text(json.dumps({"hash": "h", "files": ["values.csv"]}))
+        (good / "values.csv").write_text("ticker\n")
+        (good / "SIGNOFF.json").write_text("{}")
+        for name, broken in (("v1.7.0", lambda d: None), ("v1.7.1", lambda d: (d / "manifest.json").write_text("[]")),
+                             ("v1.7.2", lambda d: (d / "manifest.json").write_text(json.dumps({"hash": "h"})))):  # no manifest; a list; no values.csv
+            (self.tmp / name).mkdir()
+            broken(self.tmp / name)
+        self.assertEqual(checklist.previous_of("v1.8.0").name, "v1.6.0")
+        self.assertEqual(checklist.broken_before("v1.8.0"), ["v1.7.0", "v1.7.1", "v1.7.2"])
+        self.assertEqual(checklist.broken_before("v1.7.0"), [])
 
     def test_a_bad_version_is_a_value_error(self):
         for v in ("bad", "1.8.0", 5):
@@ -263,6 +311,24 @@ class Endpoints(unittest.TestCase):
         self.assertEqual(code, 400)
         self.assertIn("name", body["error"])
 
+    def test_a_list_body_or_a_bad_content_length_is_400_on_every_route(self):
+        base = self._serve()
+        with mock.patch("ledger.checklist.sign") as s, mock.patch("ledger.resolutions.resolve") as r:
+            for path in ("/api/release/sign", "/api/resolve"):
+                code, body = self._post(base + path, [1, 2])
+                self.assertEqual((code, body["error"]), (400, "send a JSON object"))
+                c = http.client.HTTPConnection("127.0.0.1", self.port)
+                c.putrequest("POST", path)
+                c.putheader("Content-Type", "application/json")
+                c.putheader("Content-Length", "abc")
+                c.endheaders()
+                resp = c.getresponse()
+                self.assertEqual(resp.status, 400)
+                self.assertIn("Content-Length", json.loads(resp.read())["error"])
+                c.close()
+            s.assert_not_called()
+            r.assert_not_called()
+
     def test_checklist_get_is_not_the_v1_catch_all(self):
         base = self._serve()
         with mock.patch("ledger.app._con", return_value=mock.MagicMock()), mock.patch("ledger.checklist.checklist", return_value=_cl(True)):
@@ -315,7 +381,16 @@ class DryRun(unittest.TestCase):
         try:
             with mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(signoff, "RELEASES", tmp), mock.patch.object(store, "init", return_value=con):
                 cl = checklist.checklist(con)
-                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "unconfirmed", "unmapped", "no_value", "diff", "golden", "tests", "packet"])
+                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "unconfirmed", "unmapped", "no_value", "diff", "golden", "tests", "previous", "packet"])
+                self.assertTrue(next(l for l in cl["lines"] if l["id"] == "previous")["ok"])
+                broken = tmp / "v0.0.1"  # a broken folder before this version: a red required line, the page still renders
+                broken.mkdir()
+                (broken / "manifest.json").write_text("[]")
+                cl2 = checklist.checklist(con, cl["version"])
+                self.assertEqual(cl2["hash"], cl["hash"])
+                self.assertIn("previous", cl2["red"])
+                self.assertIn("previous release v0.0.1 is broken: delete and rebuild", next(l for l in cl2["lines"] if l["id"] == "previous")["note"])
+                shutil.rmtree(broken)
                 # into the temp folder the version is unseen, so the packet line is "built in memory"; the other lines are the repo's
                 code = cli.main([cl["version"]])
                 if (tmp / cl["version"] / "manifest.json").exists():

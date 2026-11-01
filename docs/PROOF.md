@@ -126,7 +126,10 @@ Nothing is inferred. The attribution methods that estimated an AI share, and the
   definition of open), decisions a run left to confirm, unmapped asset types (0 required), rows with no value by measure
   (informs), the rows added / removed / changed per list against the previous release (informs; `DIFF.md` carries the same
   table), the golden test (`reports/golden.json`, required equal) and the last test run (`reports/tests.json`:
-  `{ok, count, failures, at}`, written by T30; absent reads "not run" and does not block until it exists), and the packet as
+  `{ok, count, failures, at}`, written by T30; absent reads "not run" and does not block until it exists), the previous
+  release folders readable (a folder before this version without a manifest of the right shape or a `values.csv` is a red
+  line, "previous release vX is broken: delete and rebuild", and the diff runs against the last readable one; a folder whose
+  name is not a version is not a release), and the packet as
   `ledger release` would write it, built in memory with its files and hash. The version checked is the lowest unsigned
   release folder newer than the last signed one (a packet the CLI built and nobody signed is signed, not skipped; an
   unsigned folder older than a signed release was superseded and stays), else the minor bump of the last folder, or
