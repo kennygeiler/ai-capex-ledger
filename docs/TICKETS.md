@@ -23,7 +23,7 @@ get to 100 companies"; the Arctal call is 11/12 Nov). Before the call, three tra
    batches (7, 10, 25, 50, 100), golden green per batch, each batch run planned around the session limit (resets 1:30am ET).
 3. Source track: T40 vocabulary → T44 spike as the first step of T45 → T45 ASML in PROVEN as company eight.
 4. Agents track: T48 charters and section → T49 score per agent.
-Then T41, T42, T43 if time. After the call: T46, T47 as picked. T51 (the name) whenever Kenny names it, last.
+Then T41, T42, T43 if time. After the call: T45 (Kenny, 1 Nov: the spike plus a measured error rate before the call, the full source after), T46, T47 as picked. Group J (measured rigor, the judgement ledger) and the day-by-day rollout are at the end of the file. T51 (the name) whenever Kenny names it, last.
 The honest estimate against this order is at the end of F.
 
 Each ticket: why, done when, what it touches. Order within a group is the order to do them. A ticket is closed by a commit that
@@ -304,6 +304,79 @@ who changed it, a run ledger, and, after the call, a score.
 - **T51 The name (Kenny decides).** After T48. Council advice given to Kenny: for this audience a name for the method beats a
   personal name; his call. Change the page title, nav, README, HANDOFF and the hosted service label; redeploy the read-only copy.
   Done when the name appears everywhere and the hosted copy shows it.
+
+## J. Measured rigor and the judgement ledger (council round 2, 1 Nov; Kenny: yes)
+
+*Where this comes from.* Arctal's infra engineer role is filled; the data scientist runs the pipeline on new data and owns the
+judgement ("last line of defense", "validation logic that encodes your judgement"). Definitions belong to a domain expert; the
+data scientist builds the system that surfaces each question, routes it to the right stakeholder, records the answer and keeps
+it alive as new filings arrive. What the demo must show: (1) how wrong the data is, measured with denominators, and (2) the
+economics of human judgement (expert minutes per thousand data points). The weak spots today: 10-K data that is already XBRL
+("you checked easy data"), the retired 993/1,218 headline with no per-agent denominator, and a UI that pitches the filled role.
+The demo leads with measurement, not pages. Kenny accepted the trade (1 Nov): T45 ASML to the full bar moves after the call;
+the T44 spike plus a measured unkeyed error rate on it (T53) is the ASML deliverable before the call. Group D (pages) stays in
+the file and off the calendar.
+
+- **T53 Measured error rate, keyed and unkeyed.** Keyed: per reader and per field, agreement with the twin as a share with a
+  Wilson 95% interval and its denominator, computed on the page from the counts T49 already serves (`score.twin`); rules.js.
+  Unkeyed: a stratified random sample of cells from a source with no key, the ASML FY2025 ESEF report first (the KPI table, the
+  note roll-forwards, long tables oversampled), written to `reports/samples/asml-esef.json` with the page and the cell text; a
+  Reconcile group "audit" where a person records a verdict per cell (right / wrong / cannot say, with a note) to
+  `decisions/audit.jsonl`; the error rate with n and the interval on the Agents section, labelled "unkeyed, Kenny's verdicts".
+  Owner of the verdicts: Kenny (~100–150 cells, about an hour). Touches rules.js, workbench.py, reconcile.js (after T37),
+  ledger/spikes/esef.py for the sample. Done when the Agents section shows ASML's unkeyed error rate with n and the interval.
+- **T54 Failure types as data.** `docs/INGESTION.md`'s 72 types (prose table rows today, no class, no catching check named)
+  become `taxonomy/failures.yaml`: id, cause class (units / period / scope / locator / agent misread / document error), count
+  seen, the check that catches it or `none`, agent-or-document. A Pareto chart on Proof reads the file (proof.js; Plotly as
+  Explore uses it, `dataviz` skill loaded). Done when the chart reads from the file and every type has a class and a catching
+  check or `none` (a `none` is itself a finding, counted on the chart).
+- **T55 Point-in-time.** `?as_of=D` on `/api/v1/values` and `/api/v1/taxonomy`: the figure the newest filing filed on or
+  before D gave, from `extractions` (every filing's cells are kept) and `documents.filed`; `first_reported` / `basis` /
+  `original_value` stay as they are. A PIT export in the packet (`values-asof.csv` per fiscal year end, or the API alone if the
+  packet shape should not change before v1.9.0: decide in the ticket's first commit and say why). A test on the six that an
+  as-of query never returns a figure filed after D (no lookahead). Why: Arctal's buyers backtest; a restated figure in history is
+  lookahead bias. Touches api.py, release.py. Done when the API and the test exist on the six.
+- **T56 Answer-key independence (folds into T40).** The four keys in `status.ANSWER_KEYS` get a grade: independent twin
+  (XBRL / ESEF instance) > same-issuer second source (8-K: the same finance team can share the error) > arithmetic tie > later
+  truth. `status` names the strongest key per row; Proof counts rows by key strength for the scope. Touches status.py, proof.py,
+  proof.js. Done when Proof shows the count per key grade and a row's strongest key is on its trail.
+- **T57 Judgement ledger.** A question is grouped by cause, not by cell (workbench groups by cause already). *T57a:* a
+  resolution carries `owner_role` (data / expert / client) and `scope` (this company / this class / all companies); coverage =
+  the cells and companies the cause governs, shown on the group; Reconcile groups by owner role; Kenny plays each role,
+  labelled honestly ("Kenny as the expert"). Touches resolutions.py, workbench.py, reconcile.js (after T37). *T57b:* evidence[]
+  on a resolution, each item supports / contradicts with its source; new supporting evidence attaches quietly; contradicting
+  evidence re-opens the question and routes it to its owner role; out-of-scope evidence asks "extend?". Builds on the input-hash
+  expiry, T34, T36, T37. T57b needs a second source that does not exist yet: T42 (8-K Ex 99.1) first; ships only if T42 lands by
+  day 6. Done (a) when Reconcile groups by owner role with coverage per group; (b) when one decision on the six re-opens from
+  an 8-K figure with the evidence attached and the ranking of decisions by coverage is visible.
+- **T58 Series consistency (after the call unless a day frees).** A rule for scope drift across years: each year right on its
+  own, wrong as a series (the AMD class found in the replication run; the attribution layer that found it was removed in
+  2ee2e6f, so first check whether the fixtures still hold the case; if not, the ticket records that and builds the fixture
+  first). Done when the rule catches the archived AMD case from fixtures.
+- **T59 Week-one memo (no code).** `reports/arctal-week-one.md`: how Kenny would audit Arctal's Green & Transition CapEx on day
+  one: the sampling plan (T53's method), the failure classes to expect (T54's), key independence (T56), point-in-time (T55),
+  expert minutes per thousand data points (T35/T38). An agent drafts from the repo's own numbers; Kenny edits and owns it. Done
+  when Kenny has edited it.
+
+**Rollout to the call (agreed 1 Nov, both sessions; Kenny: yes).** One builder per file at a time: workbench.py + reconcile.js
+go T33 → T36 → T37 → T57a → T53 audit, strictly sequential; status.py T56 → T57a; proof.py/proof.js T56 → T54; rules.js T49 →
+T53; api.py/release.py T55 alone; resolutions.py T57a alone. Parallel lanes: the workbench lane, T55, T54, T42, the T52 batch runs.
+- Night 1 (1→2 Nov): merge T49, T30, T44, T33 after review; T56; T54; T55. Kenny in the morning: approve MU's asset-type
+  proposals (T35's stopwatch starts).
+- Day 2 (2 Nov): T36, T37, T53 keyed interval, T35 Micron → PROVEN 7, `reports/company-cost.md` first row.
+- Day 3 (3 Nov): T57a, T42, T52 batch to 10.
+- Day 4 (4 Nov): T53 unkeyed audit view + ASML sample; Kenny audits (~1 h); batch 25 (runs around the 1:30am ET limit).
+- Day 5 (5 Nov): T57b if T42 landed; T41 if slack.
+- Days 6–7 (6–7 Nov): batches 50 and 100 with honest states; cost curve in the report. Kenny: bulk approvals by cause, 2–3 h in
+  total with T37's preview.
+- Day 8 (8 Nov): T59 draft; T58 only if a day is free; feature freeze.
+- Day 9 (9 Nov): v1.9.0 built; Kenny confirms what is his and signs from the Release page; hosted redeploy; T59 edited.
+- Day 10 (10 Nov): rehearsal, buffer. Nothing new after day 9. Call 11/12 Nov.
+Kenny's minutes: MU mappings ~15 min, audit ~1 h, batch approvals 2–3 h spread over days 3–7, confirmations ~30 min, memo ~2 h,
+sign 5 min: about seven hours over nine days. What breaks: T57b depends on T42; batch runs over 25 need more than one session
+window; the proven count at 100 is 25–40 honest-proven with the rest open under named causes; the 993/1,218 headline is retired.
+Overnight rules: never sign v1.9.0, never publish, no paid API, no decision confirmed in Kenny's name (a "Kenny in the morning"
+list in the README status instead), two builders never hold one file.
 
 ## Order
 
