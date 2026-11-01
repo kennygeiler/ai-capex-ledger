@@ -19,8 +19,9 @@ from .release import RELEASES, content_hash
 ROOT = Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[1]
 TABLES = {"values": "ledger_values", "facts": "ledger_facts", "ai_spend": "ledger_ai_spend", "companies": "ledger_companies",
           "statements": "ledger_statements", "projects": "ledger_projects", "taxonomy": "ledger_taxonomy"}  # one shape: the API's lists (C7); a release without a file skips it
-NUMERIC = {"value", "value_high", "xbrl_value", "first_reported", "amount_low", "amount_high", "share", "amount_mid", "capacity_mw", "sic"}
-DATE = {"period_end"}
+NUMERIC = {"value", "value_high", "change_from_prior", "xbrl_value", "first_reported", "amount_low", "amount_high", "share", "amount_mid", "capacity_mw", "scale", "sic", "gpus"}
+DATE = {"period_end", "filed", "date"}
+BOOLEAN = {"mapped", "has_value", "forward_looking", "part_year", "program", "proven", "latest"}  # schema v11 (taxonomy.csv) and the lists' own flags
 
 
 def database_url() -> str:
@@ -56,7 +57,7 @@ def check(version: str) -> dict:
 
 
 def columns(header: list[str]) -> list[tuple[str, str]]:
-    return [(c, "numeric" if c in NUMERIC else "date" if c in DATE else "text") for c in header]
+    return [(c, "numeric" if c in NUMERIC else "date" if c in DATE else "boolean" if c in BOOLEAN else "text") for c in header]
 
 
 def ddl(name: str, header: list[str]) -> str:

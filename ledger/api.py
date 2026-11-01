@@ -12,7 +12,8 @@ from .config import INDUSTRIES, PROVEN, SCOPE, industry, tracked
 from . import resolutions as _resolutions
 from . import views as _views
 
-FILTERS = ("ticker", "layer", "period", "field", "kind", "method", "scope", "dimension", "source", "measure", "category", "fiscal_year", "standard_type", "check")  # the taxonomy rows carry `group` (the layer); filter it as layer
+FILTERS = ("ticker", "layer", "period", "field", "kind", "method", "scope", "dimension", "source", "measure", "category", "fiscal_year", "standard_type", "check",
+           "source_kind", "period_kind", "has_value", "mapped", "status")  # schema v11: the taxonomy rows' own columns; a boolean filter takes true / false
 SUM_COLS = {"values": "value", "facts": "value", "statements": "amount_mid", "projects": "amount", "taxonomy": "value"}
 LISTS = ("companies", "values", "facts", "statements", "projects", "views", "taxonomy")
 RELEASE_LISTS = ("companies", "values", "facts", "statements", "projects", "taxonomy")  # the files a release holds, one per list
@@ -100,7 +101,7 @@ def apply(rows: list[dict], q: dict) -> list[dict]:
 def release_rows(version: str, name: str) -> list[dict]:
     """A signed release's file for a list, typed back from CSV: the same shape the live API serves, unchanged."""
     import csv
-    from .publish import NUMERIC, check
+    from .publish import BOOLEAN, NUMERIC, check
     d = check(version)["dir"]
     f = d / f"{name}.csv"
     if name not in RELEASE_LISTS or not f.exists():
@@ -116,7 +117,7 @@ def release_rows(version: str, name: str) -> list[dict]:
                     r[k] = int(v) if re.fullmatch(r"-?\d+", v) else float(v)
                 except ValueError:
                     pass
-            elif v in ("True", "False"):
+            elif k in BOOLEAN or v in ("True", "False"):
                 r[k] = v == "True"
         r["release"] = version
     return rows
