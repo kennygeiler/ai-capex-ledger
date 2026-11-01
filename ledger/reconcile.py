@@ -7,7 +7,9 @@ the first 10-K's figure is kept as first_reported.
 Labels: agree (within the coarser rounding of the two sources), unresolved (they differ: the xbrl_reconcile rule
 raises it for a person), definition_gap (opex built from summed cost lines differs only because XBRL draws cost of
 revenue differently: revenue and operating income both agree, so code explains it and no person is asked),
-no_reference (no XBRL value), not_reported (the 10-K has no line to build it from).
+no_reference (no XBRL value), not_reported (the 10-K has no line to build it from, and XBRL tags no value either),
+not_extracted (no cell to build it from, while XBRL tags a value: the reader missed a line or the statement table was
+mislocated; open until it is read, never explained by the label; T65).
 """
 import hashlib
 import json
@@ -67,8 +69,11 @@ def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str |
         newest = fl[-1][1]  # every field of a company-year comes from the newest 10-K that reports it: one basis per year
         for f in RELEASE_FIELDS:
             parts = ("revenue", "cost_of_revenue", "operating_income") if f == "opex" else (f,)
-            if not all(p in newest for p in parts):  # the 10-K reports the year but has no such line (a bank's capex)
-                out.append(_row(ticker, f, period, end, None, None, [], "not_reported", "as_reported", docs))
+            if not all(p in newest for p in parts):  # no cell for it in the newest 10-K
+                # not_reported only when XBRL has no value either (a bank's capex); a value the filer tagged and the reader
+                # did not extract is not_extracted: open (AMZN's income statement located as its cash-flow table, T65)
+                label = "not_extracted" if reference.get((f, period)) is not None else "not_reported"
+                out.append(_row(ticker, f, period, end, None, None, [], label, "as_reported", docs))
                 continue
             val = lambda fs: fs["revenue"]["value"] - fs["cost_of_revenue"]["value"] - fs["operating_income"]["value"] if f == "opex" else fs[f]["value"]
             day0 = next(d for d, fs in fl if all(p in fs for p in parts))  # filings on the same day are one vintage:

@@ -108,7 +108,7 @@ SCHEMA: tuple[Table, ...] = (
         _c("value", "BIGINT", "US dollars, unscaled. Null when source is missing.", nullable=True),
         _c("source", "VARCHAR", "Where the shipped value comes from.", enum=("agent", "override", "missing")),
         _c("method", "VARCHAR", "reported (one cell), or computed (opex from three cells of the same 10-K column).", enum=("reported", "computed")),
-        _c("label", "VARCHAR", "Reconciliation against the reference; not_reported when the company has no such line.", enum=("agree", "agent_wrong", "xbrl_wrong", "definition_gap", "unresolved", "no_reference", "not_reported")),
+        _c("label", "VARCHAR", "Reconciliation against the reference; not_reported when the company has no such line and XBRL tags none either; not_extracted when the 10-K has no cell for it but XBRL tags a value (open: the reader missed it, or the statement table was mislocated).", enum=("agree", "agent_wrong", "xbrl_wrong", "definition_gap", "unresolved", "no_reference", "not_reported", "not_extracted")),
         _c("basis", "VARCHAR", "as_reported, or restated (a later 10-K changed the first-reported figure by more than 1%).", enum=("as_reported", "restated")),
         _c("first_reported", "BIGINT", "The figure in the first 10-K that reported this fiscal year.", nullable=True),
         _c("extraction_ids", "VARCHAR", "Extractions used, comma-separated.", nullable=True),
@@ -275,7 +275,7 @@ TABLES = {t.name: t for t in SCHEMA}
 # and the golden test freezes them (fixtures/expected/taxonomy.csv). Declared here so the dictionary, the packet README
 # and tests/test_columns.py read one definition. Schema v11 (T9–T17). `layer` and `proven` are added by the API.
 MEASURES = ("spent", "committed", "derived", "planned", "company_stated_ai")
-CHECKS = ("agree", "explained", "differs", "no_reference", "unmapped", "verbatim")
+CHECKS = ("agree", "explained", "differs", "no_reference", "not_extracted", "unmapped", "verbatim")
 SOURCE_KINDS = ("10-K table", "10-K note", "10-K MD&A", "8-K release", "transcript", "cfo commentary", "gathered")
 TAXONOMY = Table("taxonomy", "One row per company, fiscal year, measure and category: an instance of a published standard's concept with the company's own label beside it, "
                  "or a verbatim quote. Built by code from the tables above; no agent, nothing estimated.", (
@@ -315,7 +315,7 @@ TAXONOMY = Table("taxonomy", "One row per company, fiscal year, measure and cate
     _c("filed", "VARCHAR", "The date the source was filed with the SEC (documents.filed for a 10-K, the 8-K's filing date for a release). Empty for a transcript, CFO commentary or a gathered figure, which have no filing date.", nullable=True, pattern=DATE),
     _c("source_table", "VARCHAR", "For a 10-K cell: the id of the parsed table the cell was read from (e.g. t0035), the table DATAHQ shows; it is the parser's id, not an anchor on sec.gov. Empty elsewhere.", nullable=True, pattern=re.compile(r"^t\d{4}$")),
     _c("source_url", "VARCHAR", "A URL that opens the source. For a 10-K cell: the filing on sec.gov with a `#:~:text=<row label>,<number>` fragment that scrolls the browser to the first place the filing shows those words, usually the row, sometimes prose; sec.gov offers no table anchor. For a statement or project: the text with the quote's first words as the fragment. For a gathered figure: the page recorded with it.", nullable=True),
-    _c("check", "VARCHAR", "agree: matches the SEC's XBRL. explained: differs and something on file says why (check_method). differs: differs and nothing on file says why. no_reference: no XBRL fact to compare. unmapped: an asset type with no standard member. verbatim: a quote verified against its text.", enum=CHECKS),
+    _c("check", "VARCHAR", "agree: matches the SEC's XBRL. explained: differs and something on file says why (check_method). differs: differs and nothing on file says why. no_reference: no XBRL fact to compare. not_extracted: no cell read, while XBRL tags a value (open). unmapped: an asset type with no standard member. verbatim: a quote verified against its text.", enum=CHECKS),
     _c("check_method", "VARCHAR", "What established the check, as status.py names `by`: `<kind>` or `<kind>:<id>` with the kind one of status.METHOD_KINDS: xbrl, quote, gathered, "
        "none (nothing to compare against), rule:<id>, definition:<name>, resolution:<id>, label:<label>, mapping:<member>. An open vocabulary: a later answer key adds a kind there.",
        pattern=re.compile(r"^(" + "|".join(_status.METHOD_KINDS) + r")(:.+)?$")),

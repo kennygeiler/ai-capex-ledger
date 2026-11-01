@@ -150,6 +150,15 @@ class Coverage(unittest.TestCase):
         self.assertEqual(run(ctx(date(2026, 10, 28)), [RULES["coverage"] | {"params": {"fields": ["revenue"], "filing_days": 90}}]), [])
         self.assertTrue(run(ctx(date(2027, 4, 1)), [RULES["coverage"] | {"params": {"fields": ["revenue"], "filing_days": 90}}]))
 
+    def test_a_null_row_counts_as_present_only_with_a_stated_reason(self):
+        """T65: a not_reported row (no such line, no XBRL value) is a stated reason; a not_extracted row is a missing value."""
+        rule = RULES["coverage"] | {"params": {"fields": ["revenue"], "filing_days": 90}}
+        row = lambda label: {**val("revenue", "FY2024", None, label=label), "period_end": "2024-12-31"}
+        ctx = lambda label: Context(values=[row(label), {**val("revenue", "FY2025", 1), "period_end": "2025-12-31"}], extractions=[], years=["FY2024", "FY2025"], today=date(2026, 10, 28))
+        self.assertEqual(run(ctx("not_reported"), [rule]), [])
+        found = run(ctx("not_extracted"), [rule])
+        self.assertEqual([(f["field"], f["period"]) for f in found], [("revenue", "FY2024")])
+
 
 class StatementTie(unittest.TestCase):
     def test_operating_lines_outside_the_opex_block_count(self):  # Core Scientific's layout

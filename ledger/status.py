@@ -22,7 +22,7 @@ it on both pages, and a person's decision is needed only where nothing on file a
 
 `by` names what decided the state: xbrl | esef:<tag> | source:<doc> | actual:<period> | quote | located |
 mapping:<us-gaap member> | rule:<id> (a tie rule's id ends in _tie) | definition:<name> | label:<not_reported|no_reference> |
-resolution:<id>. Empty when the state is open and nothing applies.
+resolution:<id>. Empty when the state is open and nothing applies; label:not_extracted names an open value's cause (T65).
 
 Answer keys (T40, docs/PROOF.md): four kinds of independent check vouch for a number. A structured twin (xbrl, esef:
 the filer's own tagged number), a second source (source: another document by the same filer), an arithmetic tie
@@ -101,7 +101,8 @@ def state(row: dict) -> dict:
         return {"state": "explained", "reason": row.get("reason") or f"rule {rule} says why", "by": f"rule:{rule}"}
     if row.get("label") in ("not_reported", "no_reference"):
         return {"state": "explained", "reason": row.get("reason") or {"not_reported": "the company reports no such line", "no_reference": "no XBRL tag to compare"}[row["label"]], "by": f"label:{row['label']}"}
-    return {"state": "open", "reason": row.get("reason") or (f"rule {rule} fired and nothing on file says why" if rule else "neither checked nor explained"), "by": f"rule:{rule}" if rule else ""}
+    return {"state": "open", "reason": row.get("reason") or (f"rule {rule} fired and nothing on file says why" if rule else "neither checked nor explained"),
+            "by": f"rule:{rule}" if rule else f"label:{row['label']}" if row.get("label") else ""}
 
 
 def worst(states: list[dict]) -> dict | None:
@@ -116,7 +117,8 @@ def is_open(s: dict) -> bool:
 # ── how each kind of row maps onto `state` (one place, so Proof and Reconcile read the same thing) ──────────────────
 def of_value(v: dict, resolution: dict | None = None) -> dict:
     """A `values` row: label agree → checked by XBRL; definition_gap → the definition (cost lines for opex, the revenue
-    line otherwise); not_reported / no_reference → reconcile's label; unresolved → open unless a person resolved it."""
+    line otherwise); not_reported / no_reference → explained by reconcile's label; not_extracted → open, by the label
+    (the filing tags a value the reader did not extract); unresolved → open unless a person resolved it."""
     label = v.get("label")
     row = {"resolution": resolution}
     if label == "agree":
@@ -125,6 +127,8 @@ def of_value(v: dict, resolution: dict | None = None) -> dict:
         row["definition"] = "cost_lines" if v.get("field") == "opex" else "revenue"
     elif label in ("not_reported", "no_reference"):
         row["label"] = label
+    elif label == "not_extracted":  # T65: no cell read while XBRL tags a value; the label names the cause, it explains nothing
+        row |= {"label": label, "reason": "the filing tags a value the reader did not extract"}
     return state(row)
 
 
