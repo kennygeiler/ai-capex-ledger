@@ -309,7 +309,9 @@ def readme(version, rows, ai_spend=()) -> str:
         "- `ai_spend.csv`: what each 10-K's MD&A says about AI's part of capex and opex, one row per company, field, fiscal year and kind, with the sentence quoted.",
         "- `QUALITY.md`: how many values agree with XBRL, what a person checked, and every note on definitions and restatements.",
         "- `DIFF.md`: what changed since the previous release.",
-        "- `manifest.json`: the content hash, the prompt, parser and rule versions, and the number of decisions applied.",
+        "- `manifest.json`: the content hash, the rule versions, the number of decisions applied, and under `provenance` what produced the rows: "
+        "the prompt versions per reader and the models over the shipped rows, the parser versions over the filings in scope, rows whose run is unrecorded, "
+        "the commit built on, and the sha256 of the definitions, taxonomy and resolutions files. `provenance` is the record; the top-level `prompt`, `parser` and `model` name the versions in use when the packet was built.",
         "- `SIGNOFF.json`: who signed, when, and the hash they signed.", "",
         "## Columns of taxonomy.csv", "",
         "One meaning per column (schema v11). Every amount is in whole units (`scale` 1) of US dollars (`currency` USD); `value_high` is only a range high, "

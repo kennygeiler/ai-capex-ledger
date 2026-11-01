@@ -179,4 +179,8 @@ answer is derived from the same cells.
   and 400 while any required line is red. `ledger release` refuses on the same checklist, so the CLI never writes a folder
   the page cannot sign. Proof's releases table reads the stored checklist back: open, unmapped and the companies in scope at
   signing; a release signed before the checklist says so.
+  A release's `manifest.json` names what produced its rows (T66, `provenance`: the prompt versions per reader and the models over
+  the shipped rows, the parser versions over the filings in scope, rows whose run is unrecorded, the commit built on and whether
+  the tree was dirty, the sha256 of the definitions, taxonomy and resolutions files); v1.8.0 and earlier name the versions in use at
+  build time, and v1.9.0's DIFF.md says so. A shipped release is never edited.
 - The releases table and the golden test's last run sit on Proof; the guards, the asset-type mappings and the readers on Rules; the dataset on Dataset, as a grid by year or as the raw rows of every list. Seven pages, one file each under `ledger/pages/`, the shell in `ledger/app.html`.

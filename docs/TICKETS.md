@@ -515,6 +515,22 @@ the builder before fixing). Not new scope: each is a defect in approved work, fi
   distinct parser_version over the documents in scope, git HEAD plus a dirty flag, and sha256 of definitions/companies.yaml,
   taxonomy/*.yaml and decisions/resolutions.jsonl; a test with a packet that mixes prompt versions. v1.8.0 never edited;
   v1.9.0's DIFF.md notes the correction. checklist.py lane.
+  *As built (T66, 1 Nov):* `manifest.json` carries `provenance` `{prompts: {reader: [...]}, models, parser_versions, unrecorded:
+  {reader: n}, git: {head, dirty}, inputs: {path: sha256}}` (`checklist.provenance`), computed over the rows the packet writes: the
+  statement cells values.csv cites, the note cells facts.csv cites, every ai_statement and project in scope, the documents of the
+  companies in scope; a row's model is the `versions.model` of the run that wrote it (runs by run_id, step, subject); a row whose
+  prompt_version or model is not on record counts once under `unrecorded`, never guessed. Inputs: definitions/companies.yaml,
+  every taxonomy/*.yaml, decisions/resolutions.jsonl (null when absent). The manifest is not among the hashed files, so git and the
+  input hashes never move the packet's hash and the page's hash stays the CLI's (DryRun). The top-level `prompt`, `parser`, `model`
+  stay for compatibility; the release README says `provenance` is the record. In scope for v1.9.0 (the six): reader
+  statements@v1 + statements@v2 (96 distinct cited cells: 50 citations under v1 across 118; 72 of 258 in-scope extraction rows under v1,
+  against 84 of 4,346 database-wide), 59 of the 96 cited cells with no model on record (their extract run wrote `model: null`; 9 of 28
+  in-scope output files have no `_run.model`), notes@v3 (552 cited cells, all recorded), aispend@v4 (227), projects@v1 (182);
+  parser tables@12 on all 28 documents in scope (database-wide 379 of 393 tables@12, 14 tables@15); models: claude-opus-5-5 only.
+  DIFF.md says "Provenance: v1.8.0's manifest named the versions in use at build time; from v1.9.0 the manifest names the versions
+  that produced the rows" when the previous manifest lacks `provenance`. Tests: `tests/test_checklist.py` `Provenance` (a packet
+  mixing statements@v1 and @v2, an unrecorded row, the file hashes, git mocked away → null; the real `packet` over mocked rows into a temp releases folder: the DIFF note once
+  against a previous manifest without `provenance`, never with). The reader's rows are the value-not-null set `values.csv` ships (api.fetch, C7). No golden change: no row moved.
 - **T55b Older vintages reconciled against their own filing.** Only the newest vintage is checked against XBRL. AT&T revenue
   FY2022: value 120,741,000,000, first_reported 120,741,000, basis "restated": a 1000x misread, not a restatement, which an
   as_of=2023 query would serve as truth. T55 ships with every as-of row flagged `vintage_check` (unchecked unless it is the
