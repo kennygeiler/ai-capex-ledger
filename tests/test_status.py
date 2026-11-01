@@ -66,6 +66,46 @@ class Definition(unittest.TestCase):
         self.assertEqual(status.of_exception({**jump, "severity": "info"}, None, [])["state"], "explained")
         self.assertEqual(status.of_exception(jump, {"id": "r2", "state": "accept", "reason": "a real move"}, [unres])["by"], "resolution:r2")
 
+    def test_the_four_answer_keys_check_a_row_the_same_way(self):
+        """T40: esef:<tag>, source:<doc>, rule:<id>_tie and actual:<period> are checks like xbrl, through the one function."""
+        xbrl = status.state({"check": "xbrl"})
+        esef = status.state({"check": "esef:ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities"})
+        self.assertEqual((esef["state"], esef["by"]), ("checked", "esef:ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities"))
+        self.assertEqual({k: v for k, v in esef.items() if k != "reason"}, {**{k: v for k, v in xbrl.items() if k != "reason"}, "by": esef["by"]})  # same inputs, same state: a twin is a twin
+        src = status.state({"check": "source:0001652044-25-000014"})
+        self.assertEqual((src["state"], src["by"]), ("checked", "source:0001652044-25-000014"))
+        tie = status.state({"check": "rule:quarters_tie"})
+        self.assertEqual((tie["state"], tie["by"], tie["reason"]), ("checked", "rule:quarters_tie", "the tie holds"))
+        actual = status.state({"check": "actual:FY2025"})
+        self.assertEqual((actual["state"], actual["by"]), ("checked", "actual:FY2025"))
+        # a tie that fails is the rule's finding, not a check: open (warn) or blocked (block), never checked
+        self.assertEqual(status.state({"rule": "quarters_tie", "severity": "warn"}), {"state": "open", "reason": "rule quarters_tie fired and nothing on file says why", "by": "rule:quarters_tie"})
+        self.assertEqual(status.state({"rule": "statement_tie", "severity": "block"})["state"], "blocked")
+        self.assertEqual(status.state({"check": "rule:jump"})["state"], "open")  # a rule that is not a tie vouches for nothing
+        self.assertEqual(status.state({"check": "definition:revenue"})["state"], "open")  # an explanation is not a check
+        # precedence holds for the new kinds as for xbrl
+        blocks = {"id": "r9", "state": "blocks", "reason": "no"}
+        self.assertEqual(status.state({"check": "esef:x", "resolution": blocks})["state"], "blocked")
+        self.assertEqual(status.state({"check": "esef:x", "resolution": {**blocks, "state": "fix"}})["state"], "checked")
+        # a row through the same function in Proof's and Reconcile's shape agrees by construction: one call, one answer
+        self.assertEqual(status.of_exception({"rule_id": "jump", "severity": "warn"}, None, [esef])["state"], "checked")
+
+    def test_answer_key_for_every_method_kind(self):
+        """`answer_key` names one of four kinds, or None, for every kind in METHOD_KINDS; every ANSWER_KEYS kind is a METHOD_KIND."""
+        expect = {"xbrl": "twin", "esef": "twin", "source": "second_source", "actual": "later_truth", "rule": None,  # rule alone is not a tie
+                  "quote": None, "gathered": None, "located": None, "none": None, "mapping": None, "definition": None, "resolution": None, "label": None}
+        self.assertEqual(set(expect), set(status.METHOD_KINDS))
+        for kind, key in expect.items():
+            self.assertEqual(status.answer_key(kind), key, kind)
+            self.assertEqual(status.answer_key(f"{kind}:some-id"), key, kind)
+        self.assertEqual(status.answer_key("rule:quarters_tie"), "tie")
+        self.assertEqual(status.answer_key("rule:statement_tie"), "tie")
+        self.assertIsNone(status.answer_key("rule:restated_between_filings"))
+        self.assertIsNone(status.answer_key(""))
+        self.assertEqual(set(status.ANSWER_KEYS), {"twin", "second_source", "tie", "later_truth"})
+        for kinds in status.ANSWER_KEYS.values():
+            self.assertTrue(set(kinds) <= set(status.METHOD_KINDS), kinds)
+
     def test_fact_rows(self):
         self.assertEqual(status.of_fact({"label": "agree"})["by"], "xbrl")
         self.assertEqual(status.of_fact({"label": "no_reference"})["state"], "explained")
