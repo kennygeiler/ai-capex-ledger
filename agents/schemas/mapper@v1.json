@@ -1,0 +1,23 @@
+{
+  "$comment": "Output contract for one mapper task (T33): for each unmapped reported PP&E category, the proposed us-gaap PropertyPlantAndEquipmentByTypeAxis member (from the list in the header of taxonomy/asset_types.yaml, or none) with the note's words as evidence. A proposal; a person approves it on Reconcile.",
+  "type": "object",
+  "required": ["ticker", "prompt_version", "proposals"],
+  "properties": {
+    "ticker": {"type": "string"},
+    "prompt_version": {"type": "string", "const": "mapper@v1"},
+    "proposals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["reported_name", "standard_type", "evidence", "confidence", "reason"],
+        "properties": {
+          "reported_name": {"type": "string"},
+          "standard_type": {"type": "string", "description": "a member from the allowed list, or none"},
+          "evidence": {"type": "string", "minLength": 1, "description": "words copied verbatim from the task"},
+          "confidence": {"enum": ["high", "medium", "low"]},
+          "reason": {"type": "string"}
+        }
+      }
+    }
+  }
+}

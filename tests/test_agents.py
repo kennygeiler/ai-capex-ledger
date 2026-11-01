@@ -72,7 +72,7 @@ class Retired(unittest.TestCase):
         self.assertTrue((agents.PROMPTS / "attribution@v1.md").exists() and (agents.PROMPTS / "attribution@v2.md").exists())
         self.assertEqual([k for k, v in cfg.items() if v.get("retired")], ["attributor"])
         live = [k for k, v in cfg.items() if not v.get("retired")]
-        self.assertEqual(live, ["reader", "ai_reader", "notes_reader", "projects_reader"])
+        self.assertEqual(live, ["reader", "ai_reader", "notes_reader", "projects_reader", "mapper"])
 
 
 class Charters(unittest.TestCase):
