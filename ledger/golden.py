@@ -31,8 +31,9 @@ TABLES = {"values": ("run_id",), "facts": (), "ai_statements": ("run_id",), "ai_
           "extractions": ("run_id",), "note_extractions": ("run_id",), "exceptions": ("exception_id",)}
 STEPS = [["extract", "--pack"], ["extract", "--load"], ["reconcile"], ["aispend", "--pack"], ["aispend", "--load"], ["notes", "--pack"], ["notes", "--load"],
          ["projects", "--pack"], ["projects", "--load"], ["rules"]]  # pack rebuilds the task files the loaders check quotes against; the agents' answers are the frozen inputs
+LISTS = ("taxonomy",)  # computed lists frozen too (T31): the taxonomy rows the code builds from the tables, as taxonomy.csv in a release
 # what the temporary root needs besides data/: the config the stages read, as it is in the repo
-SHARED = ("agents", "definitions", "gold", "rules", "decisions.jsonl", "sources", ".env")  # .env: the SEC client checks the contact at import; nothing is fetched
+SHARED = ("agents", "definitions", "gold", "rules", "decisions.jsonl", "sources", "taxonomy", ".env")  # .env: the SEC client checks the contact at import; nothing is fetched. taxonomy/: the asset-type mappings and stated figures the taxonomy rows read. decisions/ (a person's resolutions) stays out: the golden proves the code stages, so a taxonomy row's check is what the labels, definitions and guards say
 
 
 def _rows(con, sql, *p):
@@ -106,7 +107,24 @@ def freeze(con, tickers: list[str] | None = None) -> dict:
     for name, skip in TABLES.items():
         rows = _rows(con, f'select * from "{name}" where ticker in (select unnest(?))', tickers) if store_has(con, name) else []
         (EXPECTED / f"{name}.csv").write_text(_csv(rows, skip))
+    (EXPECTED / "taxonomy.csv").write_text(taxonomy_csv(con, tickers))
     return {"tickers": tickers, "documents": len(docs), "texts": len(texts), "files": copied, "xbrl_facts": len(xbrl)}
+
+
+def taxonomy_csv(con, tickers: list[str] | None = None) -> str:
+    """The taxonomy rows (ledger/taxonomy.py) as the frozen CSV: every column of store.TAXONOMY, rows sorted."""
+    from .taxonomy import rows
+    return _csv(rows(con, tickers))
+
+
+def _taxonomy_in(root: Path, db: Path, tickers: list[str]) -> str:
+    """The taxonomy rows built in the temporary root: a subprocess with LEDGER_ROOT, so the asset-type mappings, the
+    stated figures, the resolutions and the distilled XBRL instances are read from there, like every other stage."""
+    code = "import sys, json; from ledger import golden, store; con = store.init(sys.argv[1]); sys.stdout.write(golden.taxonomy_csv(con, json.loads(sys.argv[2])))"
+    r = subprocess.run([sys.executable, "-c", code, str(db), json.dumps(tickers)], cwd=store.ROOT, env={**os.environ, "LEDGER_ROOT": str(root)}, capture_output=True, text=True)
+    if r.returncode:
+        raise RuntimeError(r.stderr[-2000:])
+    return r.stdout
 
 
 def store_has(con, name: str) -> bool:
@@ -143,8 +161,9 @@ def check(keep: bool = False, verbose: bool = False) -> dict:
                 return {"ok": False, "root": str(root), "log": log, "diffs": {}, "failed_step": " ".join(step)}
         con = store.init(db)
         diffs = {}
-        for name, skip in TABLES.items():
-            got = _csv(_rows(con, f'select * from "{name}"'), skip) if store_has(con, name) else ""
+        got_lists = {name: _taxonomy_in(root, db, seed["tickers"]) for name in LISTS}
+        for name, skip in {**TABLES, **{n: () for n in LISTS}}.items():
+            got = got_lists[name] if name in LISTS else _csv(_rows(con, f'select * from "{name}"'), skip) if store_has(con, name) else ""
             want = (EXPECTED / f"{name}.csv").read_text() if (EXPECTED / f"{name}.csv").exists() else ""
             if got != want:
                 g, w = got.splitlines(), want.splitlines()

@@ -79,7 +79,7 @@ def fixture_root() -> Path:
     the way the golden harness lays it out, without running the code stages. The caller removes it."""
     seed = json.loads((golden.FIXTURES / "seed.json").read_text())
     root = Path(tempfile.mkdtemp(prefix="ledger-status-"))
-    for name in golden.SHARED + ("taxonomy",):  # taxonomy/: the asset-type mappings the mapping stage reads
+    for name in golden.SHARED:  # taxonomy/ (the asset-type mappings the mapping stage reads) is in SHARED since T31
         if (store.ROOT / name).exists():
             os.symlink(store.ROOT / name, root / name)
     shutil.copytree(golden.FIXTURES / "data", root / "data")
