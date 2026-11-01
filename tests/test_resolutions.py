@@ -52,5 +52,6 @@ class ToConfirm(unittest.TestCase):
 
     def test_the_release_gate_fails_while_any_remain(self):
         from ledger.release import gates
-        self.assertEqual(gates([], [], {"values": []}, frozenset(), [{"key": "reference_disagrees|GOOGL|AI capex FY2024"}])["G6"], ["reference_disagrees|GOOGL|AI capex FY2024"])
-        self.assertEqual(gates([], [], {"values": []})["G6"], [])
+        g = gates([], [], {"values": []}, frozenset(), [{"key": "reference_disagrees|GOOGL|AI capex FY2024"}], tickers=["GOOGL"])
+        self.assertEqual(g["G6"], {"GOOGL": ["reference_disagrees|GOOGL|AI capex FY2024"]})
+        self.assertEqual(gates([], [], {"values": []}, tickers=["GOOGL"])["G6"], {"GOOGL": []})

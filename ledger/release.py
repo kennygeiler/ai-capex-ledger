@@ -7,7 +7,7 @@ import random
 import re
 from pathlib import Path
 
-from .config import GOLDEN_SEED
+from .config import GOLDEN_SEED, SCOPE
 from .store import ROOT
 
 RELEASES = ROOT / "releases"
@@ -57,20 +57,53 @@ def split_ids(joined: str) -> list[str]:
     return out
 
 
-def gates(values, open_items, handcheck, confirmed=frozenset(), unconfirmed=()) -> dict:
-    """{gate: [failing items]}; empty lists mean the gate passes. confirmed: extraction ids the rendered-10-K re-read
-    found at their current cell text. unconfirmed: the resolutions a run left for a person to confirm (T3)."""
+def gates(values, open_items, handcheck, confirmed=frozenset(), unconfirmed=(), tickers=None) -> dict:
+    """{gate: {ticker: [failing items]}}, one column per company in scope (config.SCOPE, or `tickers`): every company
+    appears under every gate, an empty list where it passes (T4). confirmed: extraction ids the rendered-10-K re-read
+    found at their current cell text. unconfirmed: the resolutions a run left for a person to confirm (T3); one on a
+    company outside the scope still fails G6 under that company's ticker, so nothing is dropped."""
+    cos = list(SCOPE if tickers is None else tickers)
+    cos += sorted({r["key"].split("|")[1] for r in unconfirmed if "|" in r["key"]} - set(cos))
     checked = {(h["ticker"], h["field"], h["period"]): h for h in (handcheck or {}).get("values", [])}
     machine = lambda v: bool(v["extraction_ids"]) and set(split_ids(v["extraction_ids"])) <= set(confirmed)
-    need = [v for v in values if (v["ticker"], v["field"], v["period"]) in to_check(values) and not machine(v)]
-    return {
-        "G1": [e["exception_id"] for e in open_items if e["rule_id"] == "extraction_failed"],
-        "G4": [e["exception_id"] for e in open_items if e["severity"] == "block"],
-        "G5": ["no hand-check file"] if need and handcheck is None else
-              [f"{v['ticker']} {v['field']} {v['period']}" for v in need
-               if not (h := checked.get((v["ticker"], v["field"], v["period"]), {})).get("verified") or h.get("value") != v["value"]],
-        "G6": [r["key"] for r in unconfirmed],
-    }
+    tc = to_check([v for v in values if v["ticker"] in cos])
+    need = [v for v in values if (v["ticker"], v["field"], v["period"]) in tc and not machine(v)]
+    out = {g: {t: [] for t in cos} for g in GATES}
+    for e in open_items:
+        if e["ticker"] in cos and e["rule_id"] == "extraction_failed":
+            out["G1"][e["ticker"]].append(e["exception_id"])
+        if e["ticker"] in cos and e["severity"] == "block":
+            out["G4"][e["ticker"]].append(e["exception_id"])
+    for v in need:
+        if handcheck is None:
+            out["G5"][v["ticker"]] = ["no hand-check file"]
+        elif not (h := checked.get((v["ticker"], v["field"], v["period"]), {})).get("verified") or h.get("value") != v["value"]:
+            out["G5"][v["ticker"]].append(f"{v['ticker']} {v['field']} {v['period']}")
+    for r in unconfirmed:
+        out["G6"][r["key"].split("|")[1] if "|" in r["key"] else cos[0]].append(r["key"])
+    return out
+
+
+def failing(g: dict) -> dict:
+    """{ticker: {gate: [items]}} for the rows that fail; empty when every company passes every gate."""
+    out = {}
+    for gate, by_t in g.items():
+        for t, items in by_t.items():
+            if items:
+                out.setdefault(t, {})[gate] = items
+    return out
+
+
+def table(g: dict) -> str:
+    """The per-company table `ledger release` prints: one row per company, one column per gate, the count of failing
+    items (· when it passes)."""
+    cos = list(next(iter(g.values()), {}))
+    w = max([6] + [len(t) for t in cos])
+    lines = ["company".ljust(w) + "".join(f"  {gate:>4}" for gate in g) + "  result"]
+    for t in cos:
+        cells = [len(g[gate][t]) for gate in g]
+        lines.append(t.ljust(w) + "".join(f"  {n if n else '·':>4}" for n in cells) + ("  FAILS" if any(cells) else "  passes"))
+    return "\n".join(lines)
 
 
 def ai_spend_csv(rows: list[dict]) -> str:

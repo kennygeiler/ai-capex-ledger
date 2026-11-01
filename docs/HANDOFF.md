@@ -57,7 +57,7 @@ uv run python -m ledger run --ticker NVDA        # every step for one company, a
 uv run python -m ledger run --stage 3            # all 31 (about 30 minutes on a fresh clone, mostly fetching and Chrome)
 uv run python -m ledger app                      # DATAHQ at http://127.0.0.1:3610 (LEDGER_CLAUDE="$(which claude)" only to start runs from it)
 uv run python -m ledger golden --check           # the proven six rebuilt from frozen inputs, every table compared
-uv run python -m ledger release v1.5.0 --stage 3 # refuses while a gate fails; then signoff, by the owner only
+uv run python -m ledger release v1.8.0           # the scope (config.SCOPE), a gate table per company; refuses on any failing row; then signoff, by the owner only
 uv run python -m ledger publish v1.5.0           # a signed release to the production Postgres; --status lists what is there
 ```
 
@@ -103,7 +103,7 @@ look without a checkout. Redeploy after a run or a release: `railway up --servic
 - **Settle a disagreement with the SEC's data**: add a definition for the company in `definitions/companies.yaml`
   (who, why), rerun `reconcile` and `rules`. Never accept the same thing twice.
 - **Add a figure a company stated about AI**: `taxonomy/stated_figures.yaml`, verbatim, with the URL and the quote.
-- **Release**: `ledger release vX.Y.Z --stage 3` (refuses while a gate fails), then `ledger signoff vX.Y.Z --by
+- **Release**: `ledger release vX.Y.Z` builds the packet for `config.SCOPE`, prints the gate table (one row per company, G1 G4 G5 G6) and refuses on any failing row; `--stage N` only names the hand-check file, then `ledger signoff vX.Y.Z --by
   "<name>"`. Signing is the one human act and belongs to the owner. Then `ledger publish vX.Y.Z` pushes the signed
   files to production; it refuses an unsigned release or one whose files no longer match the signed hash, and
   publishing the same version again replaces its rows in one transaction.

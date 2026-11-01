@@ -8,7 +8,7 @@ from ..agent import model
 from ..config import SCOPE, STAGES
 from ..extract import prompt_version
 from ..ingest.tables import PARSER_VERSION
-from ..release import GATES, RELEASES, build, content_hash, gates, releases, version_key
+from ..release import GATES, RELEASES, build, content_hash, failing, gates, releases, table, version_key
 from ..resolutions import unconfirmed
 from ..review import apply, decisions, open_items
 from ..rules import load
@@ -33,13 +33,15 @@ def main(argv=None) -> int:
     hc_path = store.ROOT / "golden" / f"stage{a.stage}-handcheck.json"
     cells = {e["extraction_id"]: e["cell_text"] for e in exts}
     confirmed = {i for i, r in load_all().items() if r["match"] and cells.get(i) == r["cell"]}
-    failing = gates(values, open_items(excs, ds), json.loads(hc_path.read_text()) if hc_path.exists() else None, confirmed, unconfirmed())
-    if any(failing.values()):
-        print(f"{a.version} not built. Failing gates:")
-        for g, items in failing.items():
-            if items:
-                print(f"  {g} {GATES[g]}: {len(items)} item(s), e.g. {items[0]}")
-        if failing["G5"] == ["no hand-check file"]:
+    g = gates(values, open_items(excs, ds), json.loads(hc_path.read_text()) if hc_path.exists() else None, confirmed, unconfirmed())
+    print(table(g))
+    bad = failing(g)
+    if bad:
+        print(f"{a.version} not built: {len(bad)} compan{'y' if len(bad) == 1 else 'ies'} fail{'s' if len(bad) == 1 else ''} a gate.")
+        for t, by_gate in bad.items():
+            for gate, items in by_gate.items():
+                print(f"  {t} {gate} {GATES[gate]}: {len(items)} item(s), e.g. {items[0]}")
+        if any(items == ["no hand-check file"] for items in g["G5"].values()):
             print(f"  (export the hand-check from reports/stage{a.stage}-validation.html to {hc_path.relative_to(store.ROOT)})")
         return 1
     prev_dir = ([p for p in releases() if version_key(p.name) < version_key(a.version)] or [None])[-1]

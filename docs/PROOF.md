@@ -43,7 +43,7 @@ company in the proven set.
 | Statements | a quote | the text it came from, verbatim | scope, period and part-year tags set by rule | a part-year or program statement without its tag |
 | Mapping | a reported asset type | the us-gaap member it maps to, with the note's words (`taxonomy/asset_types.yaml`) | the mapping is the explanation | a reported category with no mapping |
 | Planned | a guidance statement, a project | the text, verbatim | part-year and program tags (types 68, 69) | never: a verbatim row is what it is |
-| Release | the company's rows | the gates | resolutions written as definitions | any `blocks` |
+| Release | the company's rows | the gates, per company (`release.gates`: G1 failures, G4 blocks, G5 hand-check, G6 decisions a run left to confirm) | resolutions written as definitions | any `blocks`, any gate row failing |
 
 ## The five
 
