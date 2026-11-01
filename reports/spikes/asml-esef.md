@@ -1,4 +1,4 @@
-# T44 spike: ASML's EU Taxonomy capex KPI against its ESEF package (2 Nov 2026)
+# T44 spike: ASML's EU Taxonomy capex KPI against its ESEF package (1 Nov 2026)
 
 A spike, not proven. ASML is outside `SCOPE`, outside the packet, in no fixture. Everything below was read from the files
 named in Sources; the reader is `ledger/spikes/esef.py` (standard library, not wired in), its test `tests/test_esef_spike.py`.
@@ -23,7 +23,9 @@ Filing: ASML Holding N.V., LEI 724500Y6DUVHQD6OXN27, period end 2025-12-31, ESEF
 
 **Pages.** The ESEF xhtml is the whole annual report laid out page by page (`div class="pageView"`, 354 of them). Each page
 carries its printed header "ASML Annual Report 2025 NNN", and the page element's ordinal equals NNN on every page read here
-(199–203, 272, 275, 288–292). "p.NNN" below is that printed page number, so it is the PDF page too once the PDF is in hand.
+(199–203, 272, 275, 288–292). "p.NNN" below is that printed page number of the ESEF report. It is expected to equal the PDF
+page; unverified, the PDF was not obtained (403). The PDF-page part of the ticket's done-when stays open until a person
+supplies the PDF link.
 
 ## The numbers, with their page and tag
 
@@ -72,15 +74,15 @@ Prior years on the same tags, for the record: PP&E purchases 2,155.6 (2023), 2,0
 
 | Tie | Computation | Result |
 |---|---|---|
-| T1 aligned ≤ eligible ≤ total | 6.7 ≤ 0.87 × 2,811.3 = 2,445.8 ≤ 2,811.3 | **pass** (eligible is stated as a share only; the € amount is derived) |
-| T1a the KPI's parts sum | activity eligible shares 55.3 + 0.05 + 1.3 + 0.5 + 6.2 + 23.3 + 0.3 = 86.95% vs 87% stated; aligned 1.3 + 5.4 = 6.7 vs 6.7; capex breakdown 3.4 + 87.0 + 0.2 + 9.4 = 100.0% | **pass** to the shown rounding |
-| T1b aligned % against aligned € | 6.7 / 2,811.3 = 0.238%, which rounds to 0.24% (or 0.2%); ASML prints 0.25% = 0.05% + 0.2%, a sum of rounded activity shares | **within rounding, flag**: the printed share does not equal the printed amount over the printed total; a rule needs a tolerance of one unit in the last printed digit of each part |
-| T2 KPI total = cash-flow capex | 2,811.3 vs 1,573.6 (PP&E purchases) | **fail as a strict equality, expected**: the KPI is additions of PP&E + intangibles + ROU, the cash flow is cash paid for PP&E |
-| T2a reconciliation of the gap | 2,811.3 − 1,596.2 (PP&E additions, p.290) − 1,137.8 (intangibles additions, p.288) = **77.3** left for "additions to right-of-use assets and lease liabilities" (Note 14), which the note does not state as a number | **open**: two of three parts tie to the notes to the cent; the third is implied, not read. A full source would carry it as `derived` or leave the tie open until ASML's ESRS/lease disclosure gives the figure |
-| T2b PP&E additions vs cash purchases | 1,596.2 − 1,573.6 = 22.6; the statement's own bridge item (change in unpaid PP&E) is 22.3; 0.3 unexplained (disposals, grants netted, rounding) | within 0.3 of a tagged bridge item; not a pass |
-| T2c intangibles additions vs cash purchases | 1,137.8 − 1,136.8 = 1.0 | 1.0 unexplained ("net" in ASML's definition may absorb it; the note does not say) |
-| T3 twin: statement number = ESEF tag | p.275 "( 1,573.6 )" vs f-545 1,573,600,000 at scale 6: equal; "( 1,136.8 )" vs f-548: equal; "22.3" vs f-605: equal; p.272 7,893.8 / 5,396.3 / 341.0 vs f-122 / f-120 / f-124: equal | **pass** for every tagged number read here, to the unit's rounding (decimals −5: hundred-thousands) |
-| T3a the KPI table as twin | 2,811.3, 87%, 6.7, 0.25%, 74.1: none is inside an `ix:` element; no `esef_cor` or `asml` concept names a Taxonomy KPI | **untagged**: the KPI table has no structured twin in ESEF 2025 |
+| T1 aligned ≤ eligible ≤ total | 6.7 ≤ 0.87 × 2,811.3 = 2,445.8 ≤ 2,811.3 | **PASS** (eligible is stated as a share only; the € amount is derived) |
+| T1a the KPI's parts sum | activity eligible shares 55.3 + 0.05 + 1.3 + 0.5 + 6.2 + 23.3 + 0.3 = 86.95% vs 87% stated; aligned 1.3 + 5.4 = 6.7 vs 6.7; capex breakdown 3.4 + 87.0 + 0.2 + 9.4 = 100.0% | **PASS** to the shown rounding |
+| T1b aligned % against aligned € | 6.7 / 2,811.3 = 0.238%, which rounds to 0.24% (or 0.2%); ASML prints 0.25% = 0.05% + 0.2%, a sum of rounded activity shares | **OPEN**: within rounding; the printed share does not equal the printed amount over the printed total, and a rule needs a tolerance of one unit in the last printed digit of each part |
+| T2 KPI total = cash-flow capex | 2,811.3 vs 1,573.6 (PP&E purchases) | **FAIL** as a strict equality, expected: the KPI is additions of PP&E + intangibles + ROU, the cash flow is cash paid for PP&E |
+| T2a reconciliation of the gap | 2,811.3 − 1,596.2 (PP&E additions, p.290) − 1,137.8 (intangibles additions, p.288) = **77.3** left for "additions to right-of-use assets and lease liabilities" (Note 14), which the note does not state as a number | **OPEN**: two of three parts tie to the notes to the cent; the third is implied, not read. A full source would carry it as `derived` or leave the tie open until ASML's ESRS/lease disclosure gives the figure |
+| T2b PP&E additions vs cash purchases | 1,596.2 − 1,573.6 = 22.6; the statement's own bridge item (change in unpaid PP&E) is 22.3 | **OPEN**: 0.3 unexplained (disposals, grants netted, rounding) |
+| T2c intangibles additions vs cash purchases | 1,137.8 − 1,136.8 = 1.0 | **OPEN**: 1.0 unexplained ("net" in ASML's definition may absorb it; the note does not say) |
+| T3 twin: statement number = ESEF tag | p.275 "( 1,573.6 )" vs f-545 1,573,600,000 at scale 6: equal; "( 1,136.8 )" vs f-548: equal; "22.3" vs f-605: equal; p.272 7,893.8 / 5,396.3 / 341.0 vs f-122 / f-120 / f-124: equal | **PASS** for every tagged number read here, to the unit's rounding (decimals −5: hundred-thousands) |
+| T3a the KPI table as twin | 2,811.3, 87%, 6.7, 0.25%, 74.1: none is inside an `ix:` element; no `esef_cor` or `asml` concept names a Taxonomy KPI | **OPEN**: untagged, the KPI table has no structured twin in ESEF 2025 |
 
 ## What is tagged, and what is not
 
@@ -90,6 +92,10 @@ No `esef_cor` concept is used at all. Tagged: the four primary statements and a 
 line in Notes 12, 13, 14 (additions, disposals, depreciation by class), the EU Taxonomy KPI tables (pp.199, 201, 203), the
 ESRS datapoints. So the twin covers the cash-flow side of T2 and nothing on the KPI side; the KPI numbers have to come from
 the report's table, by page, and be tied by arithmetic (T1, T1a) and to the notes (T2a).
+
+Repeats: 25 of the 606 facts are tagged more than once (34 extra tags: a number shown again in the five-year summary or a
+note); `esef.facts` keeps the first and lists the rest under `duplicates`, and `esef.conflicts` finds none on ASML: every
+repeat carries the same value. No fact reads None (a dash without `ixt:fixed-zero`, an unknown format).
 
 Signs: outflows are tagged as positive numbers (the concept's balance says they are outflows) and shown in parentheses by
 the layout; 77 facts carry `sign="-"`. A reader must never read the parentheses.

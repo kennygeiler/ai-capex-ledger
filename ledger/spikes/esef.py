@@ -18,7 +18,7 @@ XBRLI = "{http://www.xbrl.org/2003/instance}"
 XBRLDI = "{http://xbrl.org/2006/xbrldi}"
 XHTML = "{http://www.w3.org/1999/xhtml}"
 
-KNOWN_FORMATS = {None, "ixt:num-dot-decimal", "ixt:fixed-zero", "ixt:num-dot-decimal.html", "ixt:fixedzero"}
+KNOWN_FORMATS = {None, "ixt:num-dot-decimal", "ixt:fixed-zero"}  # the two ixt 2022 names ASML's 2025 report uses
 
 
 def load(source) -> ET.Element:
@@ -58,12 +58,15 @@ def units(root: ET.Element) -> dict:
 
 
 def parse_number(text: str, fmt: str | None, scale: str | None, sign: str | None):
-    """The fact's value in whole units, or None when the format is not one the reader knows."""
+    """The fact's value in whole units, or None when the format is not one the reader knows. A dash or an empty text is
+    zero only when the filer says so with ixt:fixed-zero; otherwise it is None, never a made-up 0."""
     if fmt not in KNOWN_FORMATS:
         return None
-    t = text.strip()
-    if fmt in ("ixt:fixed-zero", "ixt:fixedzero") or t in ("", "-", "—", "–"):
+    if fmt == "ixt:fixed-zero":
         return Decimal(0)
+    t = text.strip()
+    if t in ("", "-", "—", "–"):
+        return None
     try:
         n = Decimal(t.replace(",", "").replace(" ", ""))
     except InvalidOperation:
@@ -73,23 +76,36 @@ def parse_number(text: str, fmt: str | None, scale: str | None, sign: str | None
 
 
 def facts(root: ET.Element) -> dict:
-    """{(concept, period, unit, members): {value, scale, decimals, text, id, context}} for every ix:nonFraction.
-    `value` is a Decimal in whole units with the sign applied (None when the format is unknown); `text` is as displayed."""
+    """{(concept, period, unit, members): {value, scale, decimals, text, id, context, duplicates}} for every ix:nonFraction.
+    `value` is a Decimal in whole units with the sign applied (None when the format is unknown); `text` is as displayed.
+    The same fact tagged more than once (a number shown on two pages) keeps the first and lists the others under
+    `duplicates` as (id, value); `conflicts(facts)` names the keys whose repeats disagree, so nothing is kept silently."""
     ctx, uni = contexts(root), units(root)
     out = {}
     for el in root.iter(f"{IX}nonFraction"):
         period, members = ctx[el.get("contextRef")]
         text = "".join(el.itertext())
         key = (el.get("name"), period, uni[el.get("unitRef")], members)
-        out.setdefault(key, {
-            "value": parse_number(text, el.get("format"), el.get("scale"), el.get("sign")),
+        value = parse_number(text, el.get("format"), el.get("scale"), el.get("sign"))
+        if key in out:
+            out[key]["duplicates"].append((el.get("id"), value))
+            continue
+        out[key] = {
+            "value": value,
             "scale": int(el.get("scale") or 0),
             "decimals": el.get("decimals"),
             "text": text,
             "id": el.get("id"),
             "context": el.get("contextRef"),
-        })
+            "duplicates": [],
+        }
     return out
+
+
+def conflicts(all_facts: dict) -> dict:
+    """{key: [(id, value), ...]} for every fact whose repeated tags do not all carry the kept value."""
+    return {k: [(f["id"], f["value"])] + f["duplicates"] for k, f in all_facts.items()
+            if any(v != f["value"] for _, v in f["duplicates"])}
 
 
 def fact_pages(root: ET.Element, page_class: str = "pageView") -> dict:

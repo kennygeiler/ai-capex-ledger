@@ -34,6 +34,13 @@ SNIPPET = """<?xml version="1.0" encoding="UTF-8"?>
   <span><ix:nonFraction unitRef="u-1" contextRef="c-9" decimals="-5" name="ifrs-full:PropertyPlantAndEquipment" format="ixt:num-dot-decimal" scale="6" id="f-201">6,421.1</ix:nonFraction></span>
   <span><ix:nonFraction unitRef="u-2" contextRef="c-3" decimals="2" name="ifrs-full:BasicEarningsLossPerShare" format="ixt:num-dot-decimal" scale="0" id="f-300">26.14</ix:nonFraction></span>
   <span><ix:nonFraction unitRef="u-1" contextRef="c-3" decimals="-5" name="asml:Odd" format="ixt:num-comma-decimal" scale="6" id="f-400">1.234,5</ix:nonFraction></span>
+  <span><ix:nonFraction unitRef="u-1" contextRef="c-3" decimals="-5" name="asml:BareDash" scale="6" id="f-401">—</ix:nonFraction></span>
+  <span><ix:nonFraction unitRef="u-1" contextRef="c-3" decimals="-5" name="asml:Empty" format="ixt:num-dot-decimal" scale="6" id="f-402"></ix:nonFraction></span>
+</div>
+<div class="pageView"><p>Five-year summary: the same facts again</p>
+  <span><ix:nonFraction unitRef="u-1" contextRef="c-3" decimals="-5" name="ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities"
+     format="ixt:num-dot-decimal" scale="6" id="f-900">1,573.6</ix:nonFraction></span>
+  <span><ix:nonFraction unitRef="u-1" contextRef="c-5" decimals="-5" name="ifrs-full:PropertyPlantAndEquipment" format="ixt:num-dot-decimal" scale="6" id="f-901">7,893.9</ix:nonFraction></span>
 </div>
 </body></html>"""
 
@@ -62,6 +69,21 @@ class EsefReader(unittest.TestCase):
     def test_fixed_zero_dash(self):
         self.assertEqual(esef.select(self.facts, "ifrs-full:GainsLossesOnDisposal", "2025-01-01/2025-12-31")["value"], Decimal(0))
 
+    def test_a_dash_or_empty_text_without_fixed_zero_is_not_zero(self):
+        self.assertIsNone(esef.select(self.facts, "asml:BareDash", "2025-01-01/2025-12-31")["value"])
+        self.assertIsNone(esef.select(self.facts, "asml:Empty", "2025-01-01/2025-12-31")["value"])
+        self.assertIsNone(esef.parse_number("", "ixt:num-dot-decimal", "6", None))
+        self.assertEqual(esef.parse_number("", "ixt:fixed-zero", "6", None), Decimal(0))
+
+    def test_a_fact_tagged_twice_is_recorded_and_a_disagreement_named(self):
+        same = esef.select(self.facts, "ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities", "2025-01-01/2025-12-31")
+        self.assertEqual((same["id"], same["duplicates"]), ("f-545", [("f-900", Decimal("1573600000"))]))
+        differs = esef.select(self.facts, "ifrs-full:PropertyPlantAndEquipment", "2025-12-31")
+        self.assertEqual(differs["duplicates"], [("f-901", Decimal("7893900000"))])
+        self.assertEqual(list(esef.conflicts(self.facts)), [("ifrs-full:PropertyPlantAndEquipment", "2025-12-31", "iso4217:EUR", ())])
+        self.assertEqual(esef.conflicts(self.facts)[("ifrs-full:PropertyPlantAndEquipment", "2025-12-31", "iso4217:EUR", ())],
+                         [("f-200", Decimal("7893800000")), ("f-901", Decimal("7893900000"))])
+
     def test_dimension_kept_apart_from_consolidated(self):
         self.assertEqual(esef.select(self.facts, "ifrs-full:PropertyPlantAndEquipment", "2025-12-31")["value"], Decimal("7893800000"))
         member = ("ifrs-full:ClassesOfPropertyPlantAndEquipmentAxis=ifrs-full:LandAndBuildingsMember",)
@@ -78,6 +100,7 @@ class EsefReader(unittest.TestCase):
         self.assertEqual(pages["f-545"], 1)
         self.assertEqual(pages["f-200"], 2)
         self.assertEqual(pages["f-400"], 2)
+        self.assertEqual(pages["f-900"], 3)
 
 
 if __name__ == "__main__":
