@@ -20,14 +20,15 @@ function scoreBlock(sc) {
   if (!sc) return '';
   const of = (a, n) => `${int(a)} of ${int(n)}`;
   const n = sc.outputs;
-  const states = [`checked ${of(sc.checked, n)}`, `explained ${of(sc.explained, n)}`, `open ${of(sc.open, n)}`].concat(sc.blocked ? [`blocked ${of(sc.blocked, n)}`] : []).join(' · ');
+  const states = [`checked ${of(sc.checked, n)}`, `explained ${of(sc.explained, n)}`, `open ${of(sc.open, n)}`, `blocked ${of(sc.blocked, n)}`].join(' · ');
   const twin = sc.twin ? `agrees with the twin ${of(sc.twin.agree, sc.twin.of)}` : 'no twin for this reader';
-  const faults = sc.faults ? `caught ${of(sc.faults.caught, sc.faults.planted)} planted faults` + (sc.faults.no_effect ? ` (${int(sc.faults.no_effect)} reached no released value)` : '') + (sc.faults.escaped ? `, ${int(sc.faults.escaped)} escaped` : '')
-    : (sc.note.split('faults: ')[1] || 'not measured');
+  // escaped is the number that matters most, so it is always written, zero included
+  const faults = sc.faults ? `caught ${of(sc.faults.caught, sc.faults.planted)} planted faults · ${int(sc.faults.escaped)} escaped` + (sc.faults.no_effect ? ` · ${int(sc.faults.no_effect)} reached no released value` : '')
+    : (sc.faults_note || 'not measured');
   const item = (title, text) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, title), h('div', {class: 'datagrid-content'}, text));
   return h('div', {class: 'mb-3'}, h('h3', {class: 'mb-2'}, `Score on the ${sc.companies === 6 ? 'six' : int(sc.companies)}`),
     h('div', {class: 'datagrid'}, item(`Outputs, ${STAGE_LABEL_UI[sc.stage] || sc.stage} stage`, states), item('Twin', twin), item('Planted faults', faults)),
-    h('div', {class: 'text-secondary small mt-2'}, sc.note));
+    h('div', {class: 'text-secondary small mt-2'}, sc.note + (sc.faults ? `; faults: ${sc.faults_note}` : '')));
 }
 
 async function rulesPage(view) {

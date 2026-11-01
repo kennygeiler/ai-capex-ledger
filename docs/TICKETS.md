@@ -306,7 +306,12 @@ who changed it, a run ledger, and, after the call, a score.
   project rows. A twin exists only for values and facts XBRL tags; a fault test exists only for the extract step (ledger/faults.py),
   read from the report of the latest `faults` run in the `runs` table that covered each company; the other readers show "not
   measured" with the reason, never a number. The Rules page shows the block under each live reader (ledger/pages/rules.js
-  `scoreBlock`); each charter's Score paragraph says what the three numbers mean. Tests: tests/test_score.py.
+  `scoreBlock`); each charter's Score paragraph says what the three numbers mean. Tests: tests/test_score.py. Known difference: the
+  Proof board's "Fault test" line (ledger/hq.py `snapshot`) counts caught = planted − escaped, so a fault that reached no released
+  value counts as caught there (1,283 of 1,283), while the score counts only a rule or the XBRL comparison firing (1,275 of 1,283,
+  8 no_effect, 0 escaped); reconciling hq.py to the score's definition is a follow-up, not done here. The faults report is a file
+  keyed by its name, rewritten by `ledger faults` without a runs row, so `faults_note` carries the file's written time next to the
+  run's date and says when the file is newer.
 - **T50 Charter before code.** The rule under G: a new source or agent starts with its charter file; the reviewer refuses a reader
   diff without one.
 - **T51 The name (Kenny decides).** After T48. Council advice given to Kenny: for this audience a name for the method beats a
