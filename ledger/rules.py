@@ -179,13 +179,15 @@ def _definition(ctx, p):
             for (t, f, label), n in found.items()]
 
 
+REVENUE_LIKE = re.compile(r"\b(revenues?|sales)\b", re.I)  # any revenue line, not only the total (APLD's "Hosting revenue")
+
+
 @check("statement_tables_distinct")
 def _statement_tables(ctx, p):
     """The locator named a different table for the income statement than for the cash-flow statement, and the income
     table it named has a revenue-like row. Amazon's four 10-Ks had income_tables == cash_flow_tables (type 73), so the
     reader was never shown the income statement. A 10-K/A whose only located table is not an income statement is the
     amendment guard's case (proof.amendment_without_statements), not this rule's."""
-    from .ingest.statements import INCOME_MARKERS
     out = []
     for d in ctx.documents:
         inc, cf = d.get("income_tables") or "", d.get("cash_flow_tables") or ""
@@ -198,7 +200,7 @@ def _statement_tables(ctx, p):
             continue
         tables = ((ctx.parsed.get(d["accession"]) or {}).get("statements") or {}).get("income") or []
         labels = [r["label"] for t in tables for r in t.get("rows", [])]
-        if tables and not any(INCOME_MARKERS["revenue"].search(l) for l in labels):
+        if tables and not any(REVENUE_LIKE.search(l) for l in labels):
             out.append(Finding(d["ticker"], f"{d.get('form')} {d.get('period')}: the located income statement ({inc}) has no revenue-like row", None, None, d["accession"]))
     return out
 
