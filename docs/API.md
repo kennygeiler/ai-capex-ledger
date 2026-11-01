@@ -10,7 +10,7 @@ behind a proxy that authenticates before exposing it.
 | Path | One row per | Columns |
 |---|---|---|
 | `/api/v1/companies` | company | ticker, name, layer, group, role, note |
-| `/api/v1/values` | company, field, fiscal year | ticker, field, period, period_end, value, check_label, basis, source, extraction_ids, layer, status, flag |
+| `/api/v1/values` | company, field, fiscal year, with a value | ticker, field, period, period_end, value, check_label, basis, first_reported, source, extraction_ids, accession, filed, citations, layer, proven, status, flag |
 | `/api/v1/facts` | company, note field, dimension, year | ticker, field, dimension, period, period_end, value, check_label, xbrl, accession, basis, layer, status, flag |
 | `/api/v1/statements` | statement an agent read | statement_id, ticker, field, period, kind, scope, class, amount_low, amount_high, amount_mid, share, quote, source, date, url, layer |
 | `/api/v1/projects` | named project | ticker, period, name, kind, location, amount_low, amount_high, status, announced, in_service, counterparty, quote, source, url, layer (empty until the projects reader has run) |
@@ -97,6 +97,13 @@ the same columns from a release as from the live API. A release holds one CSV pe
 runs once); older releases' rows keep their value, read as boolean.
 
 ## Point in time: `?as_of=D`
+
+`values` carries one row per (company, field, fiscal year) that has a value: a row the newest 10-K gives no figure for (`not_reported`
+in the database) is not a value and is not served or shipped (T64; the packet's QUALITY.md counts them). Beside the value: `first_reported`
+(the first 10-K's figure) and `basis` (`restated` when a later 10-K moved it by more than `config.RESTATEMENT_TOLERANCE`, half a rounding
+unit), `accession` and `filed` of the 10-K the value comes from (every cell behind a value is from that one filing), `extraction_ids` (the
+cited cells' ids) and `citations` (each cell spelled out: accession, table, row label, column label, cell text, joined by ` ; `). `releases/<v>/values.csv`
+is this list for the scope, with the same columns, and the release README's column tables are written from the headers that ship.
 
 `values` and `taxonomy` carry the newest filing's figure (with `first_reported` and `basis` beside it on values). A backtest run on day D
 must not see a figure a later 10-K restated: that is lookahead. `?as_of=YYYY-MM-DD` on `/api/v1/values` or `/api/v1/taxonomy` (JSON or

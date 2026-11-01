@@ -24,7 +24,7 @@ from .config import SCOPE
 from .evidence import load_all
 from .extract import prompt_version
 from .ingest.tables import PARSER_VERSION
-from .release import GATES, RELEASES, build, content_hash, failing, gates, rows_diff, rows_diff_md, version_key
+from .release import GATES, RELEASES, build, content_hash, failing, gates, readme, rows_diff, rows_diff_md, version_key
 from .review import apply, decisions, open_items
 from .rules import load as load_rules
 
@@ -117,16 +117,19 @@ def packet(con, version: str, stage: int = 3) -> dict:
     hc_path = store.ROOT / "golden" / f"stage{stage}-handcheck.json"
     cells = {e["extraction_id"]: e["cell_text"] for e in exts}
     confirmed = {i for i, r in load_all().items() if r["match"] and cells.get(i) == r["cell"]}
-    g = gates(values, open_items(excs, ds), json.loads(hc_path.read_text()) if hc_path.exists() else None, confirmed, resolutions.unconfirmed())
+    hc = json.loads(hc_path.read_text()) if hc_path.exists() else None
+    g = gates(values, open_items(excs, ds), hc, confirmed, resolutions.unconfirmed())
     prev_dir = previous_of(version)
     previous = list(csv.DictReader((prev_dir / "values.csv").open())) if prev_dir else None
     ai = _rows(con, "select * from ai_spend where ticker in (select unnest(?))", tickers)
     facts = _rows(con, "select * from facts where ticker in (select unnest(?))", tickers)
-    files = build(version, apply(values, excs, ds), exts, excs, previous, confirmed, ai, facts)
+    applied = apply(values, excs, ds)
+    files = build(version, applied, exts, excs, previous, confirmed, ai, facts, hc, str(hc_path.relative_to(store.ROOT)) if hc else None)
     want = set(tickers[0])
     for name in api.RELEASE_LISTS:  # one shape (C7): the release holds every list the API serves, as the API serves it
         rows = [r for r in api.fetch(con, name) if r.get("ticker", "") in want]
         files[f"{name}.csv"] = api.to_csv(rows)
+    files["README.md"] = readme(version, applied, ai, files)  # T64: the column tables come from the headers that ship, so after every CSV is in
     diff = {}
     if prev_dir:  # the shape of the packet is part of the diff
         prev_m = _manifest(prev_dir)

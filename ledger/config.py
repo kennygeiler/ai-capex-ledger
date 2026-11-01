@@ -127,6 +127,27 @@ MVP_YEARS = ["FY2022", "FY2023", "FY2024", "FY2025", "FY2026"]
 RELEASE_FIELDS = ["revenue", "capex", "opex"]  # what ships; opex = revenue − cost of revenue − operating income (docs/FIELDS.md)
 GOLDEN_SEED = 20261027  # seeds the random spot-checks a person (or the rendered-10-K re-read) confirms
 
+# One restatement threshold (T64). A later filing's figure is `restated` when it moves from the first-reported one by more
+# than this many rounding units of the figure: for a 10-K cell its stated scale (thousands, millions), for an XBRL fact
+# the unit it is rounded to (`rounding_unit`). Half a unit is the most that rounding alone can move a figure, so anything
+# beyond it is a change the filer made (Meta's 0.8% capex change counts; a same-day amendment that re-rounds does not).
+# Applied by reconcile.values_for (values.basis), notes (facts.basis), the `restated` rule and
+# reference.normalize.best_vintages (reference_values.restated); nothing else holds a threshold. Before T64 normalize used 0.1% of the first figure and
+# the dictionary said 1%; only the code's half-unit was ever enforced on a shipped row.
+RESTATEMENT_TOLERANCE = 0.5
+
+
+def rounding_unit(v: int) -> int:
+    """The unit a figure is rounded to: 1,000,000, 1,000 or 1, read from the figure itself."""
+    if v == 0:  # a zero says nothing about its rounding; never let it widen the tolerance
+        return 1
+    return 1_000_000 if v % 1_000_000 == 0 else 1_000 if v % 1_000 == 0 else 1
+
+
+def restated(first: int, latest: int, unit: int) -> bool:
+    """True when `latest` moved from `first` by more than RESTATEMENT_TOLERANCE rounding units of size `unit`."""
+    return abs(latest - first) > unit * RESTATEMENT_TOLERANCE
+
 # Named company sets: one company, then 5, then every tracked company. Stage 3 is read at call time, so a company
 # added in DATAHQ joins it without a restart.
 STAGES = (1, 2, 3)
