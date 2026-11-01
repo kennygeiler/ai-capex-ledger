@@ -67,3 +67,28 @@ class Failures(unittest.TestCase):
             load(p)
         p.write_text(f"1:\n  {base}  check: none\n  check_note: n\n  count: null\n  count_note: every filing\n")
         self.assertEqual(load(p)[0]["id"], 1)
+
+
+class Route(unittest.TestCase):
+    def test_the_failures_route_through_the_real_handler(self):
+        """GET /api/v1/failures (T54): the Pareto plus the types; by_class sums to total; a null count stays null."""
+        import json
+        import threading
+        from http.server import ThreadingHTTPServer
+        from urllib import request
+
+        from ledger import app
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        self.addCleanup(srv.shutdown)
+        with request.urlopen(f"http://127.0.0.1:{srv.server_address[1]}/api/v1/failures") as r:
+            d = json.loads(r.read())
+        types = load()
+        self.assertEqual(d["total"], len(types))
+        self.assertEqual(d["total"], 72)
+        self.assertEqual(sum(b["types"] for b in d["by_class"]), d["total"])
+        self.assertEqual(sum(b["types"] for b in d["by_check"]), d["total"])
+        self.assertEqual(d["none"], sum(1 for t in types if t["check"] == "none"))
+        self.assertEqual(len(d["types"]), d["total"])
+        self.assertEqual(set(d["types"][0]), {"id", "name", "class", "origin", "check", "count"})
+        self.assertEqual([t["count"] for t in d["types"]], [t.get("count") for t in types])  # nothing inferred

@@ -111,12 +111,15 @@ def quote_link(url: str | None, text: str | None) -> str | None:
 
 def _checked(label: str | None, resolution: dict | None, restated: str | None = None, definition: str | None = None) -> tuple[str, str]:
     """(check, check_method) for a reported row from its reconcile label and what is on file, the way status.state names
-    `by` (status.METHOD_KINDS): agree by xbrl; no_reference and not_reported by their label; a difference explained by
-    resolution:<id>, definition:<name> or rule:restated_between_filings; otherwise differs, compared with xbrl."""
+    `by` (status.METHOD_KINDS): agree by xbrl; no_reference and not_reported by their label; not_extracted (no cell while
+    XBRL tags a value) open by its label, the way unmapped is open; a difference explained by resolution:<id>,
+    definition:<name> or rule:restated_between_filings; otherwise differs, compared with xbrl."""
     if label == "agree":
         return "agree", "xbrl"
     if label in ("no_reference", "not_reported"):
         return ("no_reference", "label:no_reference") if label == "no_reference" else ("explained", "label:not_reported")
+    if label == "not_extracted":
+        return "not_extracted", "label:not_extracted"
     rid = (resolution or {}).get("id")
     if resolution and resolution.get("state") in ("accept", "explain"):
         return "explained", f"resolution:{rid}" if rid else "resolution"

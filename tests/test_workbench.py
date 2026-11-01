@@ -44,6 +44,21 @@ class Workbench(unittest.TestCase):
         self.assertEqual((r["state"], r["by"]), ("explained", "resolution"))  # the one definition (status.py): a person's accept explains it
         self.assertEqual([(y["period"], y["reference"]) for y in r["series"]], [("FY2024", 112504e6), ("FY2025", 139596e6)])
 
+    def test_a_not_extracted_value_is_an_open_row_with_its_cause(self):
+        """T65: a `values` row with no cell while XBRL tags one is on Reconcile exactly as on Proof: open, by label:not_extracted."""
+        con = _con()
+        con.execute("insert into \"values\" values ('AMD','revenue','FY2022',NULL,'not_extracted')")
+        q = {"kind": "value_missing", "state": "missing", "ticker": "AMD", "where": "revenue FY2022", "impact": "a released value is blank while the filing tags one", "action": "run",
+             "detail": {"ticker": "AMD", "field": "revenue", "period": "FY2022", "period_end": "2022-12-31", "label": "not_extracted", "reference": 23601000000},
+             "key": "value_missing|AMD|revenue FY2022", "hash": "h", "dollars": 0, "new": False}
+        r = next(x for x in workbench.items(con, _flow([q]))["rows"] if x["cause"] == "value_missing")
+        self.assertEqual((r["state"], r["open"], r["by"]), ("open", True, "label:not_extracted"))
+        self.assertEqual(r["reason"], "the filing tags a value the reader did not extract")
+        self.assertIn("Not extracted", r["cause_label"])
+        self.assertEqual((r["ours"], r["reference"], r["ref_label"]), (None, 23601000000, "XBRL tag"))
+        from ledger import resolutions
+        self.assertFalse(resolutions.is_live(r["key"]))  # closed by re-reading the filing, never by a decision
+
     def test_finding_rows_get_numbers_only_when_numeric(self):
         qs = [{"kind": "finding_unconfirmed", "state": "look", "ticker": "IRM", "where": "opex FY2024", "impact": "x", "action": "open", "key": "k3", "hash": "h3", "resolution": None,
                "detail": {"field": "opex", "period": "FY2024", "kind": "restated", "before": 10e6, "after": 12e6, "size": 0.2, "message": "m"}},
@@ -91,8 +106,8 @@ class ToConfirmGroup(unittest.TestCase):
         from ledger import resolutions
         old = resolutions.LOG
         resolutions.LOG = pathlib.Path(tempfile.mkdtemp()) / "resolutions.jsonl"
-        resolutions.LOG.write_text(json.dumps({"id": "r9", "key": "fact_differs|GOOGL|segment_capex Google Cloud FY2024", "hash": "h", "state": "explain", "reason": "a planning floor", "by": "Replication run (Claude), for Kenny Geiler to confirm", "at": "2026-10-30"}) + "\n"
-                                   + json.dumps({"id": "r8", "key": "finding_unconfirmed|LITE|operating_income", "hash": "h", "state": "accept", "reason": "harmless", "by": "Claude, for Kenny Geiler to confirm", "at": "2026-10-30"}) + "\n")
+        resolutions.LOG.write_text(json.dumps({"id": "r9", "key": "fact_differs|GOOGL|segment_capex|FY2024|Google Cloud||", "hash": "h", "state": "explain", "reason": "a planning floor", "by": "Replication run (Claude), for Kenny Geiler to confirm", "at": "2026-10-30"}) + "\n"
+                                   + json.dumps({"id": "r8", "key": "finding_unconfirmed|LITE|operating_income|||row_label_switch|", "hash": "h", "state": "accept", "reason": "harmless", "by": "Claude, for Kenny Geiler to confirm", "at": "2026-10-30"}) + "\n")
         q = {"kind": "finding_unconfirmed", "state": "look", "ticker": "IRM", "where": "opex FY2024", "impact": "x", "action": "open", "key": "k3", "hash": "h3", "resolution": None,
              "detail": {"field": "opex", "period": "FY2024", "kind": "restated", "before": 10e6, "after": 12e6, "size": 0.2, "message": "m"}}
         try:

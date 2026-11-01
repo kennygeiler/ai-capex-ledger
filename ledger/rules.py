@@ -42,6 +42,7 @@ class Context:
     tickers: list[str] = field(default_factory=list)  # every company asked for, including any with no 10-K
     ai_spend: list[dict] = field(default_factory=list)  # rows of `ai_spend` (what the MD&A says about AI's part)
     definitions: dict = field(default_factory=dict)   # per-company definitions (definitions/companies.yaml)
+    documents: list[dict] = field(default_factory=list)  # rows of `documents` (accession, ticker, form, period, income_tables, cash_flow_tables)
     today: date = field(default_factory=date.today)   # coverage: a year whose 10-K isn't due yet isn't missing
 
 
@@ -179,6 +180,43 @@ def _definition(ctx, p):
             for (t, f, label), n in found.items()]
 
 
+# Any revenue line, not only the total (APLD's "Hosting revenue"), but never an expense line that mentions sales ("Cost of
+# sales", "Sales and marketing", "Selling, general and administrative"). A bank's income statement has no revenue line:
+# its top lines are interest and noninterest income, which count.
+REVENUE_LIKE = re.compile(
+    r"^(?!.*\bcost of\b)(?!.*\bsales and marketing\b)(?!.*\bselling\b)(?!.*\bmarketing and sales\b).*\b(revenues?|sales)\b"
+    r"|\b(total |net )?interest income\b|\bnon-?interest income\b", re.I)
+
+
+def _tables(s: str) -> set[str]:
+    return {t.strip() for t in (s or "").split(",") if t.strip()}
+
+
+@check("statement_tables_distinct")
+def _statement_tables(ctx, p):
+    """The locator named a different table for the income statement than for the cash-flow statement, and the income
+    table it named has a revenue-like row. Amazon's four 10-Ks had income_tables == cash_flow_tables (type 73), so the
+    reader was never shown the income statement. A 10-K/A whose only located table is not an income statement is the
+    amendment guard's case (proof.amendment_without_statements), not this rule's."""
+    out = []
+    for d in ctx.documents:
+        inc, cf = d.get("income_tables") or "", d.get("cash_flow_tables") or ""
+        if not inc:
+            continue
+        shared = _tables(inc) & _tables(cf)
+        if shared:  # the same table named for both statements, wholly or in part ("t0034,t0035" against "t0034")
+            both = ", ".join(sorted(shared))
+            out.append(Finding(d["ticker"], f"{d.get('form')} {d.get('period')}: income_tables and cash_flow_tables are both {both}: the income statement was not located", None, None, d["accession"]))
+            continue
+        if not cf and str(d.get("form", "")).endswith("/A"):
+            continue
+        tables = ((ctx.parsed.get(d["accession"]) or {}).get("statements") or {}).get("income") or []
+        labels = [r["label"] for t in tables for r in t.get("rows", [])]
+        if tables and not any(REVENUE_LIKE.search(l) for l in labels):
+            out.append(Finding(d["ticker"], f"{d.get('form')} {d.get('period')}: the located income statement ({inc}) has no revenue-like row", None, None, d["accession"]))
+    return out
+
+
 # ── arithmetic checks, using independently read cells ──────────────────────────────────────────────────────────────
 
 
@@ -247,8 +285,10 @@ def _jump(ctx, p):
 @check("coverage")
 def _coverage(ctx, p):
     """A year after the company's newest 10-K is not missing while that 10-K isn't due yet: the fiscal year hasn't
-    ended, or ended less than `filing_days` ago."""
-    have = {(v["ticker"], v["field"], v["period"]) for v in ctx.values}
+    ended, or ended less than `filing_days` ago. A row counts as present when it carries a value or a stated reason
+    (`not_reported`: the company has no such line and XBRL none either); a null `not_extracted` row is a missing value
+    (T65: the finding then takes that row's state, open)."""
+    have = {(v["ticker"], v["field"], v["period"]) for v in ctx.values if v["value"] is not None or v.get("label") == "not_reported"}
     tickers = sorted({v["ticker"] for v in ctx.values} | {e["ticker"] for e in ctx.extractions})
     newest = {}
     for v in ctx.values:

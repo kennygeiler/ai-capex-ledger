@@ -92,7 +92,7 @@ class StatusAndFlag(unittest.TestCase):
         old = resolutions.LOG
         import tempfile, pathlib, json
         resolutions.LOG = pathlib.Path(tempfile.mkdtemp()) / "resolutions.jsonl"
-        resolutions.LOG.write_text(json.dumps({"key": "finding_unconfirmed|T|opex FY2022", "hash": "h", "state": "fix", "reason": "unit", "by": "k", "at": "2026-10-30"}) + "\n")
+        resolutions.LOG.write_text(json.dumps({"key": "finding_unconfirmed|T|opex|FY2022||jump|", "hash": "h", "state": "fix", "reason": "unit", "by": "k", "at": "2026-10-30"}) + "\n")
         try:
             rows = {(r["ticker"], r["period"]): r for r in api.fetch(con, "values")}
         finally:

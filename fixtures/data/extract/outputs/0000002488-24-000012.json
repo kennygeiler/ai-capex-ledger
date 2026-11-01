@@ -3,6 +3,108 @@
  "prompt_version": "statements@v2",
  "values": [
   {
+   "field": "revenue",
+   "table_id": "t0012",
+   "row_label": "Net revenue",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "22,680",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 22680000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0012",
+   "row_label": "Net revenue",
+   "column_label": "Year Ended | December 31,2022",
+   "cell_text": "23,601",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 23601000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "revenue",
+   "table_id": "t0012",
+   "row_label": "Net revenue",
+   "column_label": "Year Ended | December 25,2021",
+   "cell_text": "16,434",
+   "period_end": "2021-12-25",
+   "months": 12,
+   "value": 16434000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0012",
+   "row_label": "Total cost of sales",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "12,220",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 12220000000,
+   "confidence": 0.9,
+   "notes": "Took the 'Total cost of sales' line per the field rule. It includes 'Amortization of acquisition-related intangibles' (942) on top of 'Cost of sales' (11,278). Gross profit (10,460) is consistent with the total."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0012",
+   "row_label": "Total cost of sales",
+   "column_label": "Year Ended | December 31,2022",
+   "cell_text": "12,998",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 12998000000,
+   "confidence": 0.9,
+   "notes": "Took the 'Total cost of sales' line. It includes amortization of acquisition-related intangibles (1,448) on top of 'Cost of sales' (11,550)."
+  },
+  {
+   "field": "cost_of_revenue",
+   "table_id": "t0012",
+   "row_label": "Total cost of sales",
+   "column_label": "Year Ended | December 25,2021",
+   "cell_text": "8,505",
+   "period_end": "2021-12-25",
+   "months": 12,
+   "value": 8505000000,
+   "confidence": 0.95,
+   "notes": "Took the 'Total cost of sales' line. There is no amortization component in 2021, so it equals 'Cost of sales'."
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0012",
+   "row_label": "Operating income",
+   "column_label": "Year Ended | December 30,2023",
+   "cell_text": "401",
+   "period_end": "2023-12-30",
+   "months": 12,
+   "value": 401000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0012",
+   "row_label": "Operating income",
+   "column_label": "Year Ended | December 31,2022",
+   "cell_text": "1,264",
+   "period_end": "2022-12-31",
+   "months": 12,
+   "value": 1264000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "operating_income",
+   "table_id": "t0012",
+   "row_label": "Operating income",
+   "column_label": "Year Ended | December 25,2021",
+   "cell_text": "3,648",
+   "period_end": "2021-12-25",
+   "months": 12,
+   "value": 3648000000,
+   "confidence": 1.0
+  },
+  {
    "field": "capex",
    "table_id": "t0016",
    "row_label": "Purchases of property and equipment",
@@ -36,30 +138,13 @@
    "confidence": 1.0
   }
  ],
- "not_found": [
-  {
-   "field": "revenue",
-   "reason": "The consolidated statement of operations is not among the parsed tables. t0031 (single '2022' column, Net revenue 4,612) and t0032 (Net revenue 24,117 / 20,150 alongside Net income 2,311 / 8) do not match the cash-flow statement's consolidated figures and appear to be segment or pro forma (Xilinx acquisition) disclosures. Neither table has a 2023 column. They were not used."
-  },
-  {
-   "field": "cost_of_revenue",
-   "reason": "No cost of sales line appears in any provided income-statement table."
-  },
-  {
-   "field": "cost_of_revenue_part",
-   "reason": "No cost-of-revenue component lines appear in any provided income-statement table."
-  },
-  {
-   "field": "operating_income",
-   "reason": "The only Operating income row is in t0031, a single '2022' column whose Net revenue (4,612) is not the consolidated total. It appears to be a segment or acquired-business disclosure, not the consolidated statement of operations, so it was not used. No 2023 or 2021 figures are present."
-  }
- ],
+ "not_found": [],
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 12.3,
-  "input_tokens": 5551,
-  "output_tokens": 1248,
+  "seconds": 14.7,
+  "input_tokens": 6104,
+  "output_tokens": 1686,
   "attempts": 1,
-  "task_sha": "05618e2b8b9f273c"
+  "task_sha": "b6181dbafca592a5"
  }
 }

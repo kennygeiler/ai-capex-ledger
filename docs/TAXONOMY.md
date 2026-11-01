@@ -113,7 +113,7 @@ value, value_high (a range high only), change_from_prior (the derived change onl
 unit (USD|share, empty without a figure), scale (1), currency (USD),
 period_as_stated, quote, kind (actual|outlook), project_kind, status, location, capacity_mw, forward_looking, part_year, program   (verbatim rows; empty elsewhere)
 source (internal id), source_kind (10-K table|10-K note|10-K MD&A|8-K release|transcript|cfo commentary|gathered), accession, filed, source_table, source_url,
-check (agree|explained|differs|no_reference|unmapped|verbatim), check_method (<kind>[:<id>], kinds in status.METHOD_KINDS)
+check (agree|explained|differs|no_reference|not_extracted|unmapped|verbatim), check_method (<kind>[:<id>], kinds in status.METHOD_KINDS)
 ```
 
 `check` says whether the figure was verified and how it stands; `check_method` says what established that, in the

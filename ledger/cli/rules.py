@@ -15,12 +15,13 @@ from ..rules import Context, load, run
 
 def context(con, tickers) -> Context:
     q = lambda sql: [dict(zip([c[0] for c in con.execute(sql, [tickers]).description], r)) for r in con.execute(sql, [tickers]).fetchall()]
-    docs = q("select accession, tables_path from documents where ticker in (select unnest(?))")
+    docs = q("select accession, ticker, form, period, income_tables, cash_flow_tables, tables_path from documents where ticker in (select unnest(?))")
     return Context(values=q('select * from "values" where ticker in (select unnest(?))'),
                    extractions=q("select e.*, d.filed from extractions e join documents d using(accession) where e.ticker in (select unnest(?))"),
                    reference={(r["ticker"], r["field"], r["period"]): r for r in q("select * from reference_values where ticker in (select unnest(?))")},
                    parsed={d["accession"]: json.loads((store.ROOT / d["tables_path"]).read_text()) for d in docs},
                    ai_spend=q("select * from ai_spend where ticker in (select unnest(?))"),
+                   documents=[{k: v for k, v in d.items() if k != "tables_path"} for d in docs],
                    years=MVP_YEARS, tickers=list(tickers), definitions=load_definitions())
 
 

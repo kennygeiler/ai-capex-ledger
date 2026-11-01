@@ -7,11 +7,11 @@
   ],
   "cash_flow_score": 4,
   "income": [
-   "t0036"
+   "t0037"
   ],
   "income_score": 5
  },
- "parser_version": "tables@12",
+ "parser_version": "tables@15",
  "period": "2024-12-31",
  "sha256": "a88ca065dcffa4314ddd6df8340b02e77e2b37928c84160bf5f5fa489778af9a",
  "statements": {
@@ -653,37 +653,377 @@
   ],
   "income": [
    {
-    "before": "/s/ Ernst & Young LLP We have served as the Company\u2019s auditor since 1996. Seattle, Washington February 6, 2025 35 Table of Contents AMAZON.COM, INC. CONSOLIDATED STATEMENTS OF CASH FLOWS (in millions)",
+    "before": "See accompanying notes to consolidated financial statements. 36 Table of Contents AMAZON.COM, INC. CONSOLIDATED STATEMENTS OF OPERATIONS (in millions, except per share data)",
     "columns": [
      "Year Ended December 31, | 2022",
      "Year Ended December 31, | 2023",
      "Year Ended December 31, | 2024"
     ],
-    "id": "t0036",
+    "id": "t0037",
     "rows": [
      {
       "cells": [
        {
         "col": 0,
-        "text": "36,477",
-        "value": 36477.0
+        "text": "242,901",
+        "value": 242901.0
        },
        {
         "col": 1,
-        "text": "54,253",
-        "value": 54253.0
+        "text": "255,887",
+        "value": 255887.0
        },
        {
         "col": 2,
-        "text": "73,890",
-        "value": 73890.0
+        "text": "272,311",
+        "value": 272311.0
        }
       ],
-      "label": "CASH, CASH EQUIVALENTS, AND RESTRICTED CASH, BEGINNING OF PERIOD"
+      "label": "Net product sales"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "271,082",
+        "value": 271082.0
+       },
+       {
+        "col": 1,
+        "text": "318,898",
+        "value": 318898.0
+       },
+       {
+        "col": 2,
+        "text": "365,648",
+        "value": 365648.0
+       }
+      ],
+      "label": "Net service sales"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "513,983",
+        "value": 513983.0
+       },
+       {
+        "col": 1,
+        "text": "574,785",
+        "value": 574785.0
+       },
+       {
+        "col": 2,
+        "text": "637,959",
+        "value": 637959.0
+       }
+      ],
+      "label": "Total net sales"
      },
      {
       "cells": [],
-      "label": "OPERATING ACTIVITIES:"
+      "label": "Operating expenses:"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "288,831",
+        "value": 288831.0
+       },
+       {
+        "col": 1,
+        "text": "304,739",
+        "value": 304739.0
+       },
+       {
+        "col": 2,
+        "text": "326,288",
+        "value": 326288.0
+       }
+      ],
+      "label": "Cost of sales"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "84,299",
+        "value": 84299.0
+       },
+       {
+        "col": 1,
+        "text": "90,619",
+        "value": 90619.0
+       },
+       {
+        "col": 2,
+        "text": "98,505",
+        "value": 98505.0
+       }
+      ],
+      "label": "Fulfillment"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "73,213",
+        "value": 73213.0
+       },
+       {
+        "col": 1,
+        "text": "85,622",
+        "value": 85622.0
+       },
+       {
+        "col": 2,
+        "text": "88,544",
+        "value": 88544.0
+       }
+      ],
+      "label": "Technology and infrastructure"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "42,238",
+        "value": 42238.0
+       },
+       {
+        "col": 1,
+        "text": "44,370",
+        "value": 44370.0
+       },
+       {
+        "col": 2,
+        "text": "43,907",
+        "value": 43907.0
+       }
+      ],
+      "label": "Sales and marketing"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "11,891",
+        "value": 11891.0
+       },
+       {
+        "col": 1,
+        "text": "11,816",
+        "value": 11816.0
+       },
+       {
+        "col": 2,
+        "text": "11,359",
+        "value": 11359.0
+       }
+      ],
+      "label": "General and administrative"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "1,263",
+        "value": 1263.0
+       },
+       {
+        "col": 1,
+        "text": "767",
+        "value": 767.0
+       },
+       {
+        "col": 2,
+        "text": "763",
+        "value": 763.0
+       }
+      ],
+      "label": "Other operating expense (income), net"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "501,735",
+        "value": 501735.0
+       },
+       {
+        "col": 1,
+        "text": "537,933",
+        "value": 537933.0
+       },
+       {
+        "col": 2,
+        "text": "569,366",
+        "value": 569366.0
+       }
+      ],
+      "label": "Total operating expenses"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "12,248",
+        "value": 12248.0
+       },
+       {
+        "col": 1,
+        "text": "36,852",
+        "value": 36852.0
+       },
+       {
+        "col": 2,
+        "text": "68,593",
+        "value": 68593.0
+       }
+      ],
+      "label": "Operating income"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "989",
+        "value": 989.0
+       },
+       {
+        "col": 1,
+        "text": "2,949",
+        "value": 2949.0
+       },
+       {
+        "col": 2,
+        "text": "4,677",
+        "value": 4677.0
+       }
+      ],
+      "label": "Interest income"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(2,367)",
+        "value": -2367.0
+       },
+       {
+        "col": 1,
+        "text": "(3,182)",
+        "value": -3182.0
+       },
+       {
+        "col": 2,
+        "text": "(2,406)",
+        "value": -2406.0
+       }
+      ],
+      "label": "Interest expense"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(16,806)",
+        "value": -16806.0
+       },
+       {
+        "col": 1,
+        "text": "938",
+        "value": 938.0
+       },
+       {
+        "col": 2,
+        "text": "(2,250)",
+        "value": -2250.0
+       }
+      ],
+      "label": "Other income (expense), net"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(18,184)",
+        "value": -18184.0
+       },
+       {
+        "col": 1,
+        "text": "705",
+        "value": 705.0
+       },
+       {
+        "col": 2,
+        "text": "21",
+        "value": 21.0
+       }
+      ],
+      "label": "Total non-operating income (expense)"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(5,936)",
+        "value": -5936.0
+       },
+       {
+        "col": 1,
+        "text": "37,557",
+        "value": 37557.0
+       },
+       {
+        "col": 2,
+        "text": "68,614",
+        "value": 68614.0
+       }
+      ],
+      "label": "Income (loss) before income taxes"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "3,217",
+        "value": 3217.0
+       },
+       {
+        "col": 1,
+        "text": "(7,120)",
+        "value": -7120.0
+       },
+       {
+        "col": 2,
+        "text": "(9,265)",
+        "value": -9265.0
+       }
+      ],
+      "label": "Benefit (provision) for income taxes"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(3)",
+        "value": -3.0
+       },
+       {
+        "col": 1,
+        "text": "(12)",
+        "value": -12.0
+       },
+       {
+        "col": 2,
+        "text": "(101)",
+        "value": -101.0
+       }
+      ],
+      "label": "Equity-method investment activity, net of tax"
      },
      {
       "cells": [
@@ -706,585 +1046,93 @@
       "label": "Net income (loss)"
      },
      {
-      "cells": [],
-      "label": "Adjustments to reconcile net income (loss) to net cash from operating activities:"
+      "cells": [
+       {
+        "col": 0,
+        "text": "(0.27)",
+        "value": -0.27
+       },
+       {
+        "col": 1,
+        "text": "2.95",
+        "value": 2.95
+       },
+       {
+        "col": 2,
+        "text": "5.66",
+        "value": 5.66
+       }
+      ],
+      "label": "Basic earnings per share"
      },
      {
       "cells": [
        {
         "col": 0,
-        "text": "41,921",
-        "value": 41921.0
+        "text": "(0.27)",
+        "value": -0.27
        },
        {
         "col": 1,
-        "text": "48,663",
-        "value": 48663.0
+        "text": "2.90",
+        "value": 2.9
        },
        {
         "col": 2,
-        "text": "52,795",
-        "value": 52795.0
+        "text": "5.53",
+        "value": 5.53
        }
       ],
-      "label": "Depreciation and amortization of property and equipment and capitalized content costs, operating lease assets, and other"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "19,621",
-        "value": 19621.0
-       },
-       {
-        "col": 1,
-        "text": "24,023",
-        "value": 24023.0
-       },
-       {
-        "col": 2,
-        "text": "22,011",
-        "value": 22011.0
-       }
-      ],
-      "label": "Stock-based compensation"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "16,966",
-        "value": 16966.0
-       },
-       {
-        "col": 1,
-        "text": "(748)",
-        "value": -748.0
-       },
-       {
-        "col": 2,
-        "text": "2,012",
-        "value": 2012.0
-       }
-      ],
-      "label": "Non-operating expense (income), net"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "(8,148)",
-        "value": -8148.0
-       },
-       {
-        "col": 1,
-        "text": "(5,876)",
-        "value": -5876.0
-       },
-       {
-        "col": 2,
-        "text": "(4,648)",
-        "value": -4648.0
-       }
-      ],
-      "label": "Deferred income taxes"
+      "label": "Diluted earnings per share"
      },
      {
       "cells": [],
-      "label": "Changes in operating assets and liabilities:"
+      "label": "Weighted-average shares used in computation of earnings per share:"
      },
      {
       "cells": [
        {
         "col": 0,
-        "text": "(2,592)",
-        "value": -2592.0
+        "text": "10,189",
+        "value": 10189.0
        },
        {
         "col": 1,
-        "text": "1,449",
-        "value": 1449.0
+        "text": "10,304",
+        "value": 10304.0
        },
        {
         "col": 2,
-        "text": "(1,884)",
-        "value": -1884.0
+        "text": "10,473",
+        "value": 10473.0
        }
       ],
-      "label": "Inventories"
+      "label": "Basic"
      },
      {
       "cells": [
        {
         "col": 0,
-        "text": "(8,622)",
-        "value": -8622.0
+        "text": "10,189",
+        "value": 10189.0
        },
        {
         "col": 1,
-        "text": "(8,348)",
-        "value": -8348.0
+        "text": "10,492",
+        "value": 10492.0
        },
        {
         "col": 2,
-        "text": "(3,249)",
-        "value": -3249.0
+        "text": "10,721",
+        "value": 10721.0
        }
       ],
-      "label": "Accounts receivable, net and other"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "(13,275)",
-        "value": -13275.0
-       },
-       {
-        "col": 1,
-        "text": "(12,265)",
-        "value": -12265.0
-       },
-       {
-        "col": 2,
-        "text": "(14,483)",
-        "value": -14483.0
-       }
-      ],
-      "label": "Other assets"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "2,945",
-        "value": 2945.0
-       },
-       {
-        "col": 1,
-        "text": "5,473",
-        "value": 5473.0
-       },
-       {
-        "col": 2,
-        "text": "2,972",
-        "value": 2972.0
-       }
-      ],
-      "label": "Accounts payable"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "(1,558)",
-        "value": -1558.0
-       },
-       {
-        "col": 1,
-        "text": "(2,428)",
-        "value": -2428.0
-       },
-       {
-        "col": 2,
-        "text": "(2,904)",
-        "value": -2904.0
-       }
-      ],
-      "label": "Accrued expenses and other"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "2,216",
-        "value": 2216.0
-       },
-       {
-        "col": 1,
-        "text": "4,578",
-        "value": 4578.0
-       },
-       {
-        "col": 2,
-        "text": "4,007",
-        "value": 4007.0
-       }
-      ],
-      "label": "Unearned revenue"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "46,752",
-        "value": 46752.0
-       },
-       {
-        "col": 1,
-        "text": "84,946",
-        "value": 84946.0
-       },
-       {
-        "col": 2,
-        "text": "115,877",
-        "value": 115877.0
-       }
-      ],
-      "label": "Net cash provided by (used in) operating activities"
-     },
-     {
-      "cells": [],
-      "label": "INVESTING ACTIVITIES:"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "(63,645)",
-        "value": -63645.0
-       },
-       {
-        "col": 1,
-        "text": "(52,729)",
-        "value": -52729.0
-       },
-       {
-        "col": 2,
-        "text": "(82,999)",
-        "value": -82999.0
-       }
-      ],
-      "label": "Purchases of property and equipment"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "5,324",
-        "value": 5324.0
-       },
-       {
-        "col": 1,
-        "text": "4,596",
-        "value": 4596.0
-       },
-       {
-        "col": 2,
-        "text": "5,341",
-        "value": 5341.0
-       }
-      ],
-      "label": "Proceeds from property and equipment sales and incentives"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "(8,316)",
-        "value": -8316.0
-       },
-       {
-        "col": 1,
-        "text": "(5,839)",
-        "value": -5839.0
-       },
-       {
-        "col": 2,
-        "text": "(7,082)",
-        "value": -7082.0
-       }
-      ],
-      "label": "Acquisitions, net of cash acquired, non-marketable investments, and other"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "31,601",
-        "value": 31601.0
-       },
-       {
-        "col": 1,
-        "text": "5,627",
-        "value": 5627.0
-       },
-       {
-        "col": 2,
-        "text": "16,403",
-        "value": 16403.0
-       }
-      ],
-      "label": "Sales and maturities of marketable securities"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "(2,565)",
-        "value": -2565.0
-       },
-       {
-        "col": 1,
-        "text": "(1,488)",
-        "value": -1488.0
-       },
-       {
-        "col": 2,
-        "text": "(26,005)",
-        "value": -26005.0
-       }
-      ],
-      "label": "Purchases of marketable securities"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "(37,601)",
-        "value": -37601.0
-       },
-       {
-        "col": 1,
-        "text": "(49,833)",
-        "value": -49833.0
-       },
-       {
-        "col": 2,
-        "text": "(94,342)",
-        "value": -94342.0
-       }
-      ],
-      "label": "Net cash provided by (used in) investing activities"
-     },
-     {
-      "cells": [],
-      "label": "FINANCING ACTIVITIES:"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "(6,000)",
-        "value": -6000.0
-       },
-       {
-        "col": 1,
-        "text": "\u2014",
-        "value": 0.0
-       },
-       {
-        "col": 2,
-        "text": "\u2014",
-        "value": 0.0
-       }
-      ],
-      "label": "Common stock repurchased"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "41,553",
-        "value": 41553.0
-       },
-       {
-        "col": 1,
-        "text": "18,129",
-        "value": 18129.0
-       },
-       {
-        "col": 2,
-        "text": "5,142",
-        "value": 5142.0
-       }
-      ],
-      "label": "Proceeds from short-term debt, and other"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "(37,554)",
-        "value": -37554.0
-       },
-       {
-        "col": 1,
-        "text": "(25,677)",
-        "value": -25677.0
-       },
-       {
-        "col": 2,
-        "text": "(5,060)",
-        "value": -5060.0
-       }
-      ],
-      "label": "Repayments of short-term debt, and other"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "21,166",
-        "value": 21166.0
-       },
-       {
-        "col": 1,
-        "text": "\u2014",
-        "value": 0.0
-       },
-       {
-        "col": 2,
-        "text": "\u2014",
-        "value": 0.0
-       }
-      ],
-      "label": "Proceeds from long-term debt"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "(1,258)",
-        "value": -1258.0
-       },
-       {
-        "col": 1,
-        "text": "(3,676)",
-        "value": -3676.0
-       },
-       {
-        "col": 2,
-        "text": "(9,182)",
-        "value": -9182.0
-       }
-      ],
-      "label": "Repayments of long-term debt"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "(7,941)",
-        "value": -7941.0
-       },
-       {
-        "col": 1,
-        "text": "(4,384)",
-        "value": -4384.0
-       },
-       {
-        "col": 2,
-        "text": "(2,043)",
-        "value": -2043.0
-       }
-      ],
-      "label": "Principal repayments of finance leases"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "(248)",
-        "value": -248.0
-       },
-       {
-        "col": 1,
-        "text": "(271)",
-        "value": -271.0
-       },
-       {
-        "col": 2,
-        "text": "(669)",
-        "value": -669.0
-       }
-      ],
-      "label": "Principal repayments of financing obligations"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "9,718",
-        "value": 9718.0
-       },
-       {
-        "col": 1,
-        "text": "(15,879)",
-        "value": -15879.0
-       },
-       {
-        "col": 2,
-        "text": "(11,812)",
-        "value": -11812.0
-       }
-      ],
-      "label": "Net cash provided by (used in) financing activities"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "(1,093)",
-        "value": -1093.0
-       },
-       {
-        "col": 1,
-        "text": "403",
-        "value": 403.0
-       },
-       {
-        "col": 2,
-        "text": "(1,301)",
-        "value": -1301.0
-       }
-      ],
-      "label": "Foreign currency effect on cash, cash equivalents, and restricted cash"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "17,776",
-        "value": 17776.0
-       },
-       {
-        "col": 1,
-        "text": "19,637",
-        "value": 19637.0
-       },
-       {
-        "col": 2,
-        "text": "8,422",
-        "value": 8422.0
-       }
-      ],
-      "label": "Net increase (decrease) in cash, cash equivalents, and restricted cash"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "54,253",
-        "value": 54253.0
-       },
-       {
-        "col": 1,
-        "text": "73,890",
-        "value": 73890.0
-       },
-       {
-        "col": 2,
-        "text": "82,312",
-        "value": 82312.0
-       }
-      ],
-      "label": "CASH, CASH EQUIVALENTS, AND RESTRICTED CASH, END OF PERIOD"
+      "label": "Diluted"
      }
     ],
     "scale": 1000000,
     "unit_source": "table",
-    "unit_text": "(in millions)"
+    "unit_text": "(in millions, except per share data)"
    }
   ]
  },

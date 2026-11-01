@@ -2,7 +2,7 @@ import unittest
 
 import duckdb
 
-from ledger import taxonomy
+from ledger import store, taxonomy
 
 A, B = "0001018724-25-000004", "0001018724-26-000004"  # AMZN's FY2024 and FY2025 10-Ks
 COMMA = "Land, buildings and leasehold improvements"  # a dimension with a comma: its extraction id holds one too
@@ -62,6 +62,8 @@ class Rows(unittest.TestCase):
 
     def test_check_from_the_label(self):
         self.assertEqual(taxonomy._checked("not_reported", None), ("explained", "label:not_reported"))
+        self.assertEqual(taxonomy._checked("not_extracted", None), ("not_extracted", "label:not_extracted"))  # T65: open, like unmapped; in store.CHECKS
+        self.assertIn("not_extracted", store.CHECKS)
         self.assertEqual(taxonomy._checked("unresolved", {"state": "accept", "id": "ab12"}), ("explained", "resolution:ab12"))
         self.assertEqual(taxonomy._checked("unresolved", {"state": "explain"}), ("explained", "resolution"))  # an id-less resolution still names its kind, never "none"
         self.assertEqual(taxonomy._checked("unresolved", {"state": "fix", "id": "ab12"}), ("differs", "xbrl"))
