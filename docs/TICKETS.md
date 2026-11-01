@@ -455,6 +455,42 @@ the builder before fixing). Not new scope: each is a defect in approved work, fi
   the income table has no revenue-like row; (c) the failure type in INGESTION.md and failures.yaml; (d) AMZN re-located and
   re-extracted (headless agents); (e) a golden fixture for the AMZN case, re-frozen in its own commit. Done when the 10 cells
   read filled or open and QUALITY.md's count is true. The six's proven count moves; the README says so. v1.9.0's DIFF.md names it.
+
+  *As built (1 Nov, branch `t65-not-extracted`):* Confirmed first: all four AMZN 10-Ks had `income_tables == cash_flow_tables`
+  (t0035, t0036, t0036, t0034); AMZN revenue and opex FY2022–25 were null `not_reported` with XBRL values for every one;
+  database-wide 131 of 142 not_reported cells had an XBRL value. The cause: the locator's snapshot test (`_summary`) took
+  "Equity-method investment activity, net of tax" for a balance-sheet equity line, rejected every Amazon income statement as
+  a highlights table, and the cash-flow table (net income, deferred taxes: score 3) won once no unflagged table scored 4.
+  (a) `values.label` and the taxonomy `check` vocabulary gain `not_extracted`; `reconcile.values_for` writes it when the
+  newest 10-K has no cell for a field but the XBRL reference has a value (`not_reported` only when the reference is empty
+  too); `status.of_value` makes it open, by `label:not_extracted`, reason "the filing tags a value the reader did not
+  extract"; `rules._coverage` counts a null row as present only with a stated reason (`not_reported`), so a not_extracted
+  row is a missing value whose finding takes the row's open state; `taxonomy._checked` maps it to `check = not_extracted`,
+  open like `unmapped` (no taxonomy row carries it today: revenue and opex are not taxonomy rows). (b) block rule
+  `statement_tables_distinct` (`rules/statement_tables_distinct.yaml`, `rules.Context.documents` filled by `cli/rules`):
+  income_tables ≠ cash_flow_tables and the located income statement has a revenue or sales row; a 10-K/A with no
+  cash-flow table is the amendment guard's case. `BALANCE` excludes "equity-method". (c) type 73 in `docs/INGESTION.md`;
+  the failures.yaml entry follows on T54's branch. (d) `ledger ingest --ticker AMZN` relocated the four (income t0036 /
+  t0037 / t0037 / t0035), the reader re-read them headless (12 values each, 11–14 s), `extract --load`, `reconcile`:
+  the 8 cells filled, every one agree with XBRL (revenue 513,983 / 574,785 / 637,959 / 716,924 M; opex 212,904 /
+  233,194 / 243,078 / 280,535 M); `rules`: 0 findings for AMZN; the locator change relocates no other filing in the
+  database (checked over every documents row). (e) golden re-frozen in its own commit: values (AMZN 8 filled, AMD
+  revenue/opex FY2022 → not_extracted: XBRL tags 23,601 M and 9,339 M while AMD's FY2022–24 10-Ks' located income
+  statement is the Xilinx pro forma pair the reader refused, a second locator case left for its own ticket), exceptions
+  (+2 coverage warn on AMD FY2022), extractions (+36 AMZN income cells), facts (AMZN input_hash only); `--check` equal.
+  Proven count 6 of 6 → 5 of 6 (AMD open 7: the 2 values, their 2 coverage findings, 3 row_label_switch findings on
+  those fields). The v1.9.0 packet's QUALITY.md, built in memory: "81 values · 79 from agents · 2 missing · 78 agree with
+  XBRL · 0 blank because the company reports no such line" (was 10); `release.py` is T64's lane, so not_extracted has no
+  line of its own there yet (the 2 are the "missing"). Not done: the other 95 companies' values were not re-reconciled
+  (121 not_reported cells with an XBRL value remain outside the six until the next `reconcile --stage 3`); AMZN's notes
+  tasks changed sha (the income statement left the note candidates) and the notes reader was not re-asked, only reloaded;
+  `ledger run --ticker AMZN` re-asks it. Tests: reconcile, status, coverage, taxonomy, the rule on synthetic documents
+  rows, the Amazon layout in `test_tables`; `docs/DATA_DICTIONARY.md` regenerated. One test red on purpose, outside this
+  lane: `test_status.ProofAgreesWithReconcile` (Proof counts AMD open 7, Reconcile 5): Reconcile's queue (`app.flow`) lists
+  a value only when its label is `unresolved`, so the two `not_extracted` value rows have no queue item while Proof lists
+  them; the fix is one condition in `app.flow` (queue `not_extracted` values the way `unresolved` ones are queued), in
+  app.py's lane. Also pending: AMZN fails gate G5 ("no hand-check file") because its 8 new values have not been re-read
+  on the rendered 10-K (`ledger evidence --ticker AMZN`, Chrome) nor hand-checked; `ledger run --ticker AMZN` does both.
 - **T66 The manifest states what produced the rows.** checklist.py writes the current prompt_version(), PARSER_VERSION and
   model(), not what produced the shipped rows: v1.8.0 claims statements@v2 / tables@15 / claude-opus-5-5, while 84 shipped
   statement cells were read under statements@v1 and 379 of 393 filings were parsed with tables@12; 13 statement outputs have no
