@@ -516,15 +516,15 @@ class Handler(BaseHTTPRequestHandler):
                 finally:
                     con.close()
             return self._guard(lambda: self._json(do_sign()))
-        if u.path == "/api/resolve/bulk":  # one reason for many items, each logged on its own
+        if u.path == "/api/resolve/bulk":  # one reason for many items, each logged on its own; author_kind person, `by` on config.PEOPLE (T69)
             def bulk():
-                out = [resolutions.resolve(i.get("key", ""), i.get("hash", ""), body.get("state", ""), body.get("reason", ""), body.get("by", "")) for i in body.get("items") or []]
+                out = [resolutions.resolve(i.get("key", ""), i.get("hash", ""), body.get("state", ""), body.get("reason", ""), body.get("by", ""), author_kind="person") for i in body.get("items") or []]
                 if not out:
                     raise ValueError("no items")
                 return {"saved": len(out)}
             return self._guard(lambda: self._json(bulk()))
-        if u.path == "/api/resolve":
-            return self._guard(lambda: self._json(resolutions.resolve(body.get("key", ""), body.get("hash", ""), body.get("state", ""), body.get("reason", ""), body.get("by", ""))))
+        if u.path == "/api/resolve":  # T69: a person's route, author_kind person; a `by` not on config.PEOPLE is refused (400)
+            return self._guard(lambda: self._json(resolutions.resolve(body.get("key", ""), body.get("hash", ""), body.get("state", ""), body.get("reason", ""), body.get("by", ""), author_kind="person")))
         if u.path == "/api/mapping":  # T33: a person's approval is the one writer of taxonomy/asset_types.yaml; 400 on a member off the list or a duplicate
             from . import mapper
 

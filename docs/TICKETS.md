@@ -701,7 +701,7 @@ are listed at the end.
   correction policy and support contact. QUALITY.md says "re-read by machine" where no person checked and "independent
   reading" instead of "independent sources". Done when v1.9.0 carries `LIMITATIONS.md` and a checklist line counts
   entries with no mitigation. About ½ day.
-- **T69 Who made a decision, as a field.** [MR4] Every resolution has `author_kind` ∈ person / run, set by the route
+- **T69 Who made a decision, as a field.** [MR4] *Done 2 Nov 2026 (branch `t69-t100-authors-late-writers`): `author_kind` on every new line, set by the writer (`resolutions.resolve(..., author_kind=)` required; the person routes refuse a `by` not on `config.PEOPLE`); `unconfirmed()` and `proof.person_wrote` read the field, the phrase only on lines without it; no migration needed (legacy lines read by the old rule, none rewritten); `tests/test_resolutions.py`, class Authors.* Every resolution has `author_kind` ∈ person / run, set by the route
   (`/api/resolve` gives person; agent writers give run). `unconfirmed()` reads the field; the "to confirm" phrase is read
   only for lines written before the field existed (one append-only migration). Done when a test shows a run-written
   resolution without the phrase still fails G6. 2–3 hours.

@@ -108,8 +108,9 @@ PROVEN_WHY = {"MSFT": "PP&E growth method, a stated ceiling (at most 50%), softw
 
 
 # The people who may sign a release, confirm an asset-type mapping or write a resolution that counts as a person's (T80):
-# fail closed, so a name not on this list (a model, an agent, a run, a typo) never stands behind a row. T69 adds
-# `author_kind` to resolutions; until then the name is the check.
+# fail closed, so a name not on this list (a model, an agent, a run, a typo) never stands behind a row. T69: a resolution
+# carries `author_kind` (person from /api/resolve, which refuses a `by` not on this list; run from any agent writer); the
+# name is the check only for lines written before the field.
 PEOPLE = ["Kenny Geiler"]
 
 

@@ -11,12 +11,18 @@ the same rule on two filings) are two keys. Before T62 the key was kind|ticker|w
 "field period", so those findings shared one key and resolving the second un-resolved the first; `ledger resolutions
 migrate-keys` appends each such line again under its new key (`migrated_from` names the old one), copies the ones that
 map to no item or to several into decisions/archive/ with a note, and removes nothing: the log is append-only, so a
-legacy-shaped key is simply not live (not shown, not counted, not a gate failure), like a stale kind."""
+legacy-shaped key is simply not live (not shown, not counted, not a gate failure), like a stale kind.
+
+Who wrote a line (T69) is a field, `author_kind` person or run, set by the writer: the person's routes write person and
+refuse a `by` not on config.PEOPLE; an agent or replication writer writes run, and its line is "to confirm" (unconfirmed,
+gate G6) whatever its words say. Lines from before the field are read by the old rule (by_person, by_run), never
+rewritten. A run line never supersedes a person line on the same key and hash (T100, latest)."""
 import json
 import re
 import uuid
 from datetime import datetime, timezone
 
+from .status import is_person
 from .store import ROOT
 
 LOG = ROOT / "decisions" / "resolutions.jsonl"  # beside decisions.jsonl: the two append-only logs of judgement the app writes; definitions/ is the one a person edits
@@ -72,19 +78,58 @@ def load(path=None) -> list[dict]:
     return [json.loads(l) for l in p.read_text().splitlines() if l.strip()] if p.exists() else []
 
 
+TO_CONFIRM = re.compile(r"\bto confirm\b", re.I)
+AUTHOR_KINDS = ("person", "run")  # T69: who wrote a line, set by the writer: /api/resolve and bulk write person, an agent or replication run writes run
+
+
+def by_person(r: dict) -> bool:
+    """A line a person wrote, failing closed (T69, T80). A line with `author_kind` says so itself. A line written before
+    the field existed is read by the old rule: a `by` on config.PEOPLE that names no model, agent or run
+    (status.is_person) and no "to confirm" in `by` or `reason`. No migration: history is read as it was written."""
+    if "author_kind" in r:
+        return r["author_kind"] == "person"
+    by = str(r.get("by") or "").strip()
+    return is_person(by) and not TO_CONFIRM.search(f"{by} {r.get('reason') or ''}")
+
+
+def by_run(r: dict) -> bool:
+    """A line a run wrote for a person to confirm. With `author_kind`, the field alone decides: a run line counts whatever
+    its words say. Before the field, the old rule: "to confirm" in `by` or `reason`."""
+    if "author_kind" in r:
+        return r["author_kind"] == "run"
+    return bool(TO_CONFIRM.search(f"{r.get('by', '')} {r.get('reason', '')}"))
+
+
 def latest(rs: list[dict] | None = None) -> dict:
-    out = {}
+    """The line that stands per key. The newest line wins, except that a run line never supersedes a person line (T100):
+    when the newest line is not a person's and the newest person line on the key carries the same hash (the item has not
+    changed since the person decided), the person's line stands. A later person line supersedes an earlier one; a run
+    line on a changed item (a new hash) stands, since the person decided about content that is gone."""
+    out, person = {}, {}
     for r in rs if rs is not None else load():
         out[r["key"]] = r
+        if by_person(r):
+            person[r["key"]] = r
+    for k, r in out.items():
+        p = person.get(k)
+        if p is not None and p is not r and p.get("hash") == r.get("hash"):
+            out[k] = p
     return out
 
 
-def resolve(key: str, content_hash: str, state: str, reason: str, by: str) -> dict:
+def resolve(key: str, content_hash: str, state: str, reason: str, by: str, *, author_kind: str) -> dict:
+    """Append one resolution. `author_kind` is the writer's to set (T69): "person" from the routes a person uses
+    (/api/resolve, /api/resolve/bulk), where `by` must be on config.PEOPLE (status.is_person) or the line is refused;
+    "run" from any agent or replication writer, whose line waits for a person to confirm (unconfirmed, gate G6)."""
     if state not in STATES or not reason.strip() or not by.strip():
         raise ValueError("a resolution needs a state (accept, explain, fix, blocks), a reason and a name")
+    if author_kind not in AUTHOR_KINDS:
+        raise ValueError(f"author_kind must be one of {AUTHOR_KINDS}, not {author_kind!r}")
+    if author_kind == "person" and not is_person(by):
+        raise ValueError(f"{by.strip()!r} is not on config.PEOPLE, the people whose resolutions count as a person's; a run writes author_kind run")
     if not is_live(key):
         raise ValueError(f"not a queue item's key (kind|ticker|field|period|dimension|rule_id|subject, a live kind): {key!r}")
-    r = {"id": uuid.uuid4().hex[:12], "key": key, "hash": content_hash, "state": state, "reason": reason, "by": by,
+    r = {"id": uuid.uuid4().hex[:12], "key": key, "hash": content_hash, "state": state, "reason": reason, "by": by.strip(), "author_kind": author_kind,
          "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     LOG.parent.mkdir(parents=True, exist_ok=True)
     with LOG.open("a") as f:
@@ -149,14 +194,12 @@ def status_of(index: dict, table: str, ticker: str, field: str, dimension: str =
     return r["status"] if r else ""
 
 
-TO_CONFIRM = re.compile(r"\bto confirm\b", re.I)
-
-
 def unconfirmed(rs: list[dict] | None = None) -> list[dict]:
-    """The latest resolutions a run made for a person to confirm (`by` or `reason` says "to confirm"), oldest first. They
-    stay here until that person records a resolution of their own on the same key; the release refuses while any remain.
-    A key whose cause kind the pipeline no longer produces (LIVE_KINDS) is stale and left out, even if still on file."""
-    return sorted((r for r in latest(rs).values() if is_live(r["key"]) and TO_CONFIRM.search(f"{r.get('by', '')} {r.get('reason', '')}")), key=lambda r: r["at"])
+    """The standing resolutions (latest) a run made for a person to confirm, oldest first: `author_kind` run, or, on a
+    line from before the field (T69), "to confirm" in `by` or `reason` (by_run). They stay here until a person records
+    a resolution of their own on the same key; the release refuses while any remain. A key whose cause kind the
+    pipeline no longer produces (LIVE_KINDS) is stale and left out, even if still on file."""
+    return sorted((r for r in latest(rs).values() if is_live(r["key"]) and by_run(r)), key=lambda r: r["at"])
 
 
 # ── T62: the one-off from kind|ticker|where to key_for() ───────────────────────────────────────────────────────────
