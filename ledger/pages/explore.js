@@ -1,17 +1,17 @@
 // ── Explore: charts you can change. A measure, an x, a series, a type; Plotly for hover, zoom and legend toggles. ──
 const COLORS = ['#2f5bd3', '#d9822b', '#2a9d8f', '#c43d6b', '#7a5cc4', '#6b8e23', '#8c6d46', '#3d8fc4'];  // fixed order: a colour follows its entity
-const EXM = {taxonomy: {label: 'Taxonomy rows (spent, committed, derived, planned, company-stated AI)', value: (r) => r.value, alt: {change: (r) => r.value_high}, x: 'fiscal_year'},
+const EXM = {taxonomy: {label: 'Taxonomy rows (spent, committed, derived, planned, company-stated AI)', value: (r) => r.value, alt: {change: (r) => r.change_from_prior}, x: 'fiscal_year'},  // schema v11: the derived change has its own column
   values: {label: 'Values from the statements', value: (r) => r.value, fieldDefault: 'capex'},
   facts: {label: 'Facts from the notes', value: (r) => r.value, fieldDefault: 'segment_capex'},
   statements: {label: 'What companies said', value: (r) => r.amount_mid, fieldDefault: 'capex'},
   projects: {label: 'Named projects', value: (r) => (r.amount_low != null && r.amount_high != null ? (r.amount_low + r.amount_high) / 2 : null)}};
-const EX_AXES = {period: 'year', fiscal_year: 'fiscal year', ticker: 'company', layer: 'layer', group: 'group', field: 'field', measure: 'measure', category: 'category', standard_type: 'standard type', kind: 'kind', dimension: 'dimension', status: 'status', scope: 'scope', source: 'source'};
+const EX_AXES = {period: 'year', fiscal_year: 'fiscal year', ticker: 'company', layer: 'layer', field: 'field', measure: 'measure', category: 'category', standard_type: 'standard type', kind: 'kind', dimension: 'dimension', status: 'status', scope: 'scope', source: 'source', source_kind: 'source kind', period_kind: 'period kind', check: 'check'};
 const EX_TYPES = {bars: 'bars', stacked: 'stacked bars', lines: 'lines', share: 'share of total'};
 const colorReg = (() => { let m = {}; try { m = JSON.parse(localStorage.getItem('datahq-colors') || '{}'); } catch {} return (name) => { if (name === 'Other') return '#9aa39d'; if (m[name] == null) { m[name] = Object.keys(m).length; try { localStorage.setItem('datahq-colors', JSON.stringify(m)); } catch {} } return COLORS[m[name] % COLORS.length]; }; })();
 async function explorePage(view, arg, qs) {
   const {rows: saved} = await api('/api/v1/views');
   const q = parseQ(qs || '');
-  let st = {measure: 'taxonomy', field: '', kind: '', layer: '', ticker: '', tmeasure: 'spent', category: 'capex', standard_type: '', from: '', to: '', x: 'fiscal_year', series: 'group', type: 'stacked', value: ''};
+  let st = {measure: 'taxonomy', field: '', kind: '', layer: '', ticker: '', tmeasure: 'spent', category: 'capex', standard_type: '', from: '', to: '', x: 'fiscal_year', series: 'layer', type: 'stacked', value: ''};
   const current = arg ? saved.find((v) => v.id === arg) : null;
   if (current) st = {...st, measure: current.measure, field: current.filters.field || '', kind: current.filters.kind || '', layer: current.filters.layer || '', ticker: current.filters.ticker || '', tmeasure: current.filters.measure || '', category: current.filters.category || '', standard_type: current.filters.standard_type || '',
     ...(current.chart ? {x: current.chart.x, series: current.chart.series || '', type: current.chart.type, value: current.chart.value || ''} : {x: current.group || 'period', series: current.group ? '' : 'ticker', type: current.show === 'lines' ? 'lines' : 'bars'})};
@@ -80,8 +80,8 @@ async function explorePage(view, arg, qs) {
   if (!pts.length) { plot.replaceChildren(h('p', {class: 'msg'}, 'No rows match. Widen the filters, or run the step that fills this list.')); return; }
   const css = getComputedStyle(document.documentElement);
   const fg = css.getPropertyValue('--fg').trim(), muted = css.getPropertyValue('--muted').trim(), faint = css.getPropertyValue('--faint').trim(), bg = css.getPropertyValue('--bg').trim();
-  const xLabel = (x) => (st.x === 'layer' || st.x === 'group' ? INDUSTRY[x] || x : st.x === 'standard_type' ? x.replace('Member', '') : st.x === 'ticker' && NAMES[x] ? `${NAMES[x]} ${x}` : x);
-  const disp = (n) => (st.series === 'layer' || st.series === 'group' ? INDUSTRY[n] || n : st.series === 'standard_type' ? n.replace('Member', '') : st.series === 'ticker' && NAMES[n] ? `${NAMES[n]} ${n}` : n);
+  const xLabel = (x) => (st.x === 'layer' ? INDUSTRY[x] || x : st.x === 'standard_type' ? x.replace('Member', '') : st.x === 'ticker' && NAMES[x] ? `${NAMES[x]} ${x}` : x);
+  const disp = (n) => (st.series === 'layer' ? INDUSTRY[n] || n : st.series === 'standard_type' ? n.replace('Member', '') : st.series === 'ticker' && NAMES[n] ? `${NAMES[n]} ${n}` : n);
   const traces = seriesNames.map((n) => {
     const ys = xs.map((x) => { const c = cell[`${n}|${x}`]; if (!c) return null; return st.type === 'share' ? (totals[x] ? 100 * c.sum / totals[x] : null) : c.sum / unit; });
     const custom = xs.map((x) => { const c = cell[`${n}|${x}`]; return c ? [fmtv(c.sum), c.rows.length, totals[x] && !isShare ? pct(c.sum / totals[x]) : '—'] : ['—', 0, '—']; });
@@ -105,7 +105,7 @@ async function explorePage(view, arg, qs) {
   function showRows(list, title) {
     if (!list) { under.replaceChildren(h('p', {class: 'muted small', style: 'margin-top:.6rem'}, 'Click a bar or point for the rows behind it, or ', h('button', {type: 'button', class: 'small', onclick: () => showRows(pts, 'Every row')}, 'show every row'), '. Drag to zoom, double-click to reset, click a legend entry to hide a series.')); return; }
     const cols = [{t: 'Company', k: 'ticker', f: (r) => h('a', {href: `#proof/${r.ticker}`}, NAMES[r.ticker] || r.ticker)}, {t: 'Year', f: (r) => r.period || r.fiscal_year || '—'}];
-    for (const c of ['measure', 'category', 'reported_name', 'standard_type', 'field', 'kind', 'dimension', 'status', 'check', 'source']) if (list.some((r) => r[c] != null)) cols.push({t: c.replace('_', ' '), k: c, f: (r) => r[c] ?? '—'});
+    for (const c of ['measure', 'category', 'reported_name', 'standard_type', 'field', 'kind', 'dimension', 'status', 'check', 'check_method', 'source_kind', 'source']) if (list.some((r) => r[c] != null)) cols.push({t: c.replace('_', ' '), k: c, f: (r) => r[c] ?? '—'});
     cols.push({t: 'Value', n: 1, f: (r) => fmtv(val(r)), s: (r) => val(r)});
     if (list.some((r) => r.basis || r.quote)) cols.push({t: 'Basis', sort: false, f: (r) => h('span', {class: 'small brk'}, (r.basis || r.quote || '').slice(0, 160)), wide: 1});
     under.replaceChildren(h('div', {class: 'sechead', style: 'margin-top:1rem'}, h('h2', {}, title || 'Rows'), h('span', {class: 'muted small'}, `${int(list.length)} row${list.length === 1 ? '' : 's'}${list.length > 300 ? ', first 300 shown; the CSV has them all' : ''}`)), table(cols, list.slice(0, 300)));

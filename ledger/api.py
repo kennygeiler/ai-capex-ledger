@@ -79,7 +79,7 @@ def apply(rows: list[dict], q: dict) -> list[dict]:
     for k in FILTERS:
         if q.get(k):
             want = {x.upper() for x in _split(q[k])}
-            rows = [r for r in rows if k not in r or str(r.get(k) or "").upper() in want]
+            rows = [r for r in rows if k not in r or ("" if r.get(k) is None else str(r[k])).upper() in want]  # False is a value, not empty (has_value=false)
     g = q.get("group")
     if g:
         if g not in FILTERS:

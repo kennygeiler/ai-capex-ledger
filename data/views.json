@@ -2,7 +2,7 @@
  "views": [
   {
    "id": "capex-by-group",
-   "name": "Capex by group, by year",
+   "name": "Capex by layer, by year",
    "measure": "taxonomy",
    "filters": {
     "category": "capex"
@@ -11,11 +11,11 @@
    "show": "chart",
    "chart": {
     "x": "fiscal_year",
-    "series": "group",
+    "series": "layer",
     "type": "stacked",
     "value": ""
    },
-   "note": "the cash-flow line, us-gaap PaymentsToAcquirePropertyPlantAndEquipment, summed by supply-chain group",
+   "note": "the cash-flow line, us-gaap PaymentsToAcquirePropertyPlantAndEquipment, summed by supply-chain layer (schema v11 dropped the duplicate `group` column)",
    "by": "Claude Fable 5.1",
    "at": "2026-11-01T00:00:00+00:00"
   },
