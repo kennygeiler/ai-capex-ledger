@@ -97,12 +97,13 @@ FAIL = {
     "restated": lambda c: c.extractions.append({**c.extractions[2], "accession": "0001193125-26-000099", "value": 99999}),
     "xbrl_reconcile": lambda c: c.values[0].update(label="unresolved"),
     "outlier_vs_own_history": lambda c: c.values[1].update(value=150000000000),
+    "statement_tables_distinct": lambda c: c.documents.append({"accession": "0001018724-26-000004", "ticker": "AMZN", "form": "10-K", "period": "2025-12-31", "income_tables": "t0034", "cash_flow_tables": "t0034"}),
 }
 
 
 class Registry(unittest.TestCase):
     def test_every_rule_loads_with_rationale_and_owner(self):
-        self.assertEqual(len(RULES), 15)
+        self.assertEqual(len(RULES), 16)
         for r in RULES.values():
             self.assertTrue(r["rationale"].strip() and r["owner"].strip(), r["id"])
 
@@ -158,6 +159,31 @@ class Coverage(unittest.TestCase):
         self.assertEqual(run(ctx("not_reported"), [rule]), [])
         found = run(ctx("not_extracted"), [rule])
         self.assertEqual([(f["field"], f["period"]) for f in found], [("revenue", "FY2024")])
+
+
+class StatementTablesDistinct(unittest.TestCase):
+    """T65 / type 73: the locator named the cash-flow table as the income statement, or an income table with no revenue row."""
+    RULE = RULES["statement_tables_distinct"]
+
+    def doc(self, **kw):
+        return {"accession": "0001018724-26-000004", "ticker": "AMZN", "form": "10-K", "period": "2025-12-31", "income_tables": "t0035", "cash_flow_tables": "t0034", **kw}
+
+    def test_same_table_for_both_statements_blocks(self):
+        found = run(Context(values=[], extractions=[], documents=[self.doc(income_tables="t0034")]), [self.RULE])
+        self.assertEqual([(f["severity"], f["ticker"], f["subject"]) for f in found], [("block", "AMZN", "0001018724-26-000004")])
+        self.assertIn("both t0034", found[0]["message"])
+
+    def test_an_income_table_without_a_revenue_row_blocks(self):
+        income = [{"id": "t0035", "rows": [{"label": "Net income", "cells": []}, {"label": "Diluted earnings per share", "cells": []}]}]
+        ctx = Context(values=[], extractions=[], documents=[self.doc()], parsed={"0001018724-26-000004": {"statements": {"income": income}}})
+        self.assertEqual(len(run(ctx, [self.RULE])), 1)
+        income[0]["rows"].insert(0, {"label": "Total net sales", "cells": []})
+        self.assertEqual(run(ctx, [self.RULE]), [])
+
+    def test_distinct_tables_with_a_revenue_row_pass_and_a_part_iii_amendment_is_not_its_case(self):
+        ctx = Context(values=[], extractions=[], documents=[self.doc(), self.doc(accession="0000002488-26-000021", ticker="AMD", form="10-K/A", income_tables="t0005,t0006", cash_flow_tables=None)],
+                      parsed={"0000002488-26-000021": {"statements": {"income": [{"id": "t0005", "rows": [{"label": "Salary", "cells": []}]}]}}})
+        self.assertEqual(run(ctx, [self.RULE]), [])  # AMD's amendment: a compensation table, explained by proof.amendment_without_statements
 
 
 class StatementTie(unittest.TestCase):

@@ -41,6 +41,7 @@ class Context:
     tickers: list[str] = field(default_factory=list)  # every company asked for, including any with no 10-K
     ai_spend: list[dict] = field(default_factory=list)  # rows of `ai_spend` (what the MD&A says about AI's part)
     definitions: dict = field(default_factory=dict)   # per-company definitions (definitions/companies.yaml)
+    documents: list[dict] = field(default_factory=list)  # rows of `documents` (accession, ticker, form, period, income_tables, cash_flow_tables)
     today: date = field(default_factory=date.today)   # coverage: a year whose 10-K isn't due yet isn't missing
 
 
@@ -176,6 +177,30 @@ def _definition(ctx, p):
                 found[(e["ticker"], f, e["row_label"])] += 1
     return [Finding(t, f"{f} is read from '{label}' ({n} values), which differs from the field definition; note it when comparing companies", f)
             for (t, f, label), n in found.items()]
+
+
+@check("statement_tables_distinct")
+def _statement_tables(ctx, p):
+    """The locator named a different table for the income statement than for the cash-flow statement, and the income
+    table it named has a revenue-like row. Amazon's four 10-Ks had income_tables == cash_flow_tables (type 73), so the
+    reader was never shown the income statement. A 10-K/A whose only located table is not an income statement is the
+    amendment guard's case (proof.amendment_without_statements), not this rule's."""
+    from .ingest.statements import INCOME_MARKERS
+    out = []
+    for d in ctx.documents:
+        inc, cf = d.get("income_tables") or "", d.get("cash_flow_tables") or ""
+        if not inc:
+            continue
+        if inc == cf:
+            out.append(Finding(d["ticker"], f"{d.get('form')} {d.get('period')}: income_tables and cash_flow_tables are both {inc}: the income statement was not located", None, None, d["accession"]))
+            continue
+        if not cf and str(d.get("form", "")).endswith("/A"):
+            continue
+        tables = ((ctx.parsed.get(d["accession"]) or {}).get("statements") or {}).get("income") or []
+        labels = [r["label"] for t in tables for r in t.get("rows", [])]
+        if tables and not any(INCOME_MARKERS["revenue"].search(l) for l in labels):
+            out.append(Finding(d["ticker"], f"{d.get('form')} {d.get('period')}: the located income statement ({inc}) has no revenue-like row", None, None, d["accession"]))
+    return out
 
 
 # ── arithmetic checks, using independently read cells ──────────────────────────────────────────────────────────────

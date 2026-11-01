@@ -160,6 +160,23 @@ class PercentColumnsNeverWin(unittest.TestCase):
         self.assertEqual(tables[1]["scale"], 1_000)
 
 
+class EquityMethodIsNotABalanceSheetLine(unittest.TestCase):
+    def test_amazon_income_statement_is_not_a_snapshot(self):
+        """Type 73: "Equity-method investment activity, net of tax" matched the balance-sheet marker, so the snapshot test
+        rejected Amazon's income statement and the cash-flow table (with net income and tax lines) was located for both."""
+        html_ = """<html><body><p>CONSOLIDATED STATEMENTS OF CASH FLOWS (in millions)</p>
+        <table><tr><td></td><td>2024</td><td>2025</td></tr><tr><td>Net income</td><td>59,248</td><td>77,650</td></tr><tr><td>Deferred income taxes</td><td>(4,201)</td><td>(5,000)</td></tr>
+        <tr><td>Net cash provided by (used in) operating activities</td><td>115,877</td><td>130,000</td></tr><tr><td>Purchases of property and equipment</td><td>(83,004)</td><td>(131,819)</td></tr>
+        <tr><td>Net cash provided by (used in) investing activities</td><td>(94,342)</td><td>(120,000)</td></tr><tr><td>Net cash provided by (used in) financing activities</td><td>(11,812)</td><td>(10,000)</td></tr></table>
+        <p>CONSOLIDATED STATEMENTS OF OPERATIONS (in millions, except per share data)</p>
+        <table><tr><td></td><td>2024</td><td>2025</td></tr><tr><td>Total net sales</td><td>637,959</td><td>716,924</td></tr><tr><td>Cost of sales</td><td>326,288</td><td>350,000</td></tr>
+        <tr><td>Operating income</td><td>68,593</td><td>85,000</td></tr><tr><td>Provision for income taxes</td><td>(9,265)</td><td>(10,000)</td></tr><tr><td>Equity-method investment activity, net of tax</td><td>(101)</td><td>(50)</td></tr>
+        <tr><td>Net income</td><td>59,248</td><td>77,650</td></tr><tr><td>Diluted earnings per share</td><td>5.53</td><td>7.20</td></tr></table></body></html>"""
+        tables = parse_tables(html_)
+        loc = locate(tables)
+        self.assertEqual((loc["income"], loc["cash_flow"]), ([tables[1]["id"]], [tables[0]["id"]]))
+
+
 class QuarterlyNeverRaisesTheBar(unittest.TestCase):
     def test_quarterly_table_with_more_markers_loses_to_the_statement(self):
         html_ = """<html><body><p>Quarterly financial information (unaudited)</p>
