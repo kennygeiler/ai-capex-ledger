@@ -383,15 +383,30 @@ the file and off the calendar.
   expert minutes per thousand data points (T35/T38). An agent drafts from the repo's own numbers; Kenny edits and owns it. Done
   when Kenny has edited it.
 
+- **T60 Reader consistency (pass^k).** For a stratified sample of tasks per live reader (not every company: each run is a
+  subscription call), the same task runs k = 3 times at the production settings. Per reader and field: pass@k (at least one
+  run checked) and pass^k (every run agrees and is checked), each with n and k; a cell whose runs disagree is a finding in its
+  own right (an unstable cell), listed. Lands on the Agents section beside the T49 score; runs metered in `runs`. Sample sized
+  to one session window (~10 tasks per reader, ~120 calls), run around the 1:30am ET reset. Touches a new `ledger/consistency.py`,
+  `ledger/cli/`, score.py, rules.js (after T53). Done when every live reader shows pass^k with n and k and the unstable cells
+  are listed.
+- **T61 Prompt-change gate (paired).** When `save_prompt` creates a new version, `ledger eval-prompt <id> vN vM` runs both
+  versions on the same golden cells and reports a per-field paired comparison (McNemar, or a paired bootstrap interval on the
+  checked rate, from score.py's states); `use_prompt` refuses the promotion when any field regresses beyond its interval. The
+  result is written next to the prompt, `agents/evals/<id>@vN-vM.json`, and `agents.json`'s history line names it. Done when
+  promoting a prompt without a passing paired run is refused, shown on one real version pair (notes@v2 → v3 or aispend@v3 → v4).
+  Placed after T53 keyed (day 2, late). (Both from Kenny's evals checklist, 1 Nov: the other thirteen points are covered by
+  T54, golden, faults, the deterministic checks, the runs table, T53, T30, the watch, T38 and the failures-to-fixtures loop.)
+
 **Rollout to the call (agreed 1 Nov, both sessions; Kenny: yes).** One builder per file at a time: workbench.py + reconcile.js
 go T33 → T36 → T37 → T57a → T53 audit, strictly sequential; status.py T56 → T57a; proof.py/proof.js T56 → T54; rules.js T49 →
 T53; api.py/release.py T55 alone; resolutions.py T57a alone. Parallel lanes: the workbench lane, T55, T54, T42, the T52 batch runs.
 - Night 1 (1→2 Nov): merge T49, T30, T44, T33 after review; T56; T54; T55. Kenny in the morning: approve MU's asset-type
   proposals (T35's stopwatch starts).
-- Day 2 (2 Nov): T36, T37, T53 keyed interval, T35 Micron → PROVEN 7, `reports/company-cost.md` first row.
+- Day 2 (2 Nov): T36, T37, T53 keyed interval, T61 prompt gate, T35 Micron → PROVEN 7, `reports/company-cost.md` first row.
 - Day 3 (3 Nov): T57a, T42, T52 batch to 10.
 - Day 4 (4 Nov): T53 unkeyed audit view + ASML sample; Kenny audits (~1 h); batch 25 (runs around the 1:30am ET limit).
-- Day 5 (5 Nov): T57b if T42 landed; T41 if slack.
+- Day 5 (5 Nov): T57b if T42 landed; T60 pass^k sample (one session window); T41 if slack.
 - Days 6–7 (6–7 Nov): batches 50 and 100 with honest states; cost curve in the report. Kenny: bulk approvals by cause, 2–3 h in
   total with T37's preview.
 - Day 8 (8 Nov): T59 draft; T58 only if a day is free; feature freeze.
