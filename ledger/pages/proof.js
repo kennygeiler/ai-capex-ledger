@@ -46,7 +46,7 @@ async function proofPage(view) {
       h('pre', {class: 'raw'}, 'uv run python -m ledger golden --check\nuv run python -m ledger golden --freeze   # change the expectation on purpose, then commit with the reason'),
       g.steps ? h('div', {class: 'mt-2'}, dtable('Last run', [{t: 'Step', k: 'step'}, {t: 'Exit', num: 1, k: 'exit'}], g.steps)) : '',
       g.diffs && Object.keys(g.diffs).length ? h('div', {class: 'mt-2'}, dtable('Differences', [{t: 'Table', k: 'name'}, {t: 'Only in the run', num: 1, k: 'n_only_in_run'}, {t: 'Only in expected', num: 1, k: 'n_only_in_expected'}], Object.entries(g.diffs).map(([k, v]) => ({name: k, ...v})))) : ''));
-  view.append(head, table_, legend, h('div', {class: 'mt-3'}, keyTable), keyWhy, failureTypes(b), h('div', {class: 'mt-3'}, releases), golden);
+  view.append(head, table_, legend, h('div', {class: 'mt-3'}, keyTable), keyWhy, failureTypes(), h('div', {class: 'mt-3'}, releases), golden);
   failureTypes.draw();
 }
 // T54: the failure types as data. Two bar charts (one hue, a bar is a NUMBER OF TYPES, never instances) and the same numbers as tables,
@@ -59,12 +59,11 @@ function failureTypes() {
     try { f = await api('/api/v1/failures'); } catch (e) { wrap.append(h('p', {class: 'text-secondary small'}, `Failure types: ${e.message}`)); return; }
     const total = f.total;
     const ofTotal = (n) => `${int(n)} of ${int(total)}`;
-    const checkName = (c) => (c === 'none' ? 'none' : c.replace(/_/g, ' '));
     const head = h('div', {class: 'mb-2'}, h('h2', {class: 'h3 m-0'}, 'Failure types'),
       h('div', {class: 'text-secondary small'}, `${int(total)} failure types from docs/INGESTION.md, coded in taxonomy/failures.yaml; bar = number of types, not how often each was seen.`));
     const chart = (title, rows, key, label, aria) => {
       const plot = h('div', {class: 'plot', role: 'figure', 'aria-label': aria, style: `min-height:0;height:${28 * rows.length + 48}px`});
-      const tbl = dtable(title, [{t: label, f: (r) => (key === 'check' && r[key] === 'none' ? h('span', {title: NO_CHECK}, 'none') : key === 'check' ? h('code', {}, r[key]) : r[key])},
+      const tbl = dtable(title, [{t: label, f: (r) => (key === 'check' && r[key] === 'none' ? h('span', {title: NO_CHECK}, 'none (no check)') : key === 'check' ? h('code', {}, r[key]) : r[key])},
         {t: 'Types', num: 1, f: (r) => ofTotal(r.types)}, {t: 'Share', num: 1, f: (r) => pct(r.types / total)}], rows, {foot: ['All', ofTotal(total), pct(1)]});
       return {plot, tbl, node: h('div', {class: 'col-lg-6'}, h('div', {class: 'card'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'fw-semibold'}, title), plot)), h('div', {class: 'mt-2'}, tbl))};
     };
@@ -78,9 +77,9 @@ function failureTypes() {
     const why = h('p', {class: 'text-secondary small mt-2'}, h('b', {class: 'text-body'}, 'none'), `: ${NO_CHECK}. `, `${ofTotal(f.none)} types have no check in code today: a contract, the evidence re-read, a count or an eye caught them. Each is a finding; the list says which.`);
     wrap.append(head, h('div', {class: 'row g-3'}, byClass.node, byCheck.node), why, list);
     if (!window.Plotly) { for (const c of [byClass, byCheck]) c.plot.replaceChildren(h('p', {class: 'text-secondary small m-0'}, 'The chart library did not load (offline?). The numbers are in the table.')); return; }
-    const css = getComputedStyle(document.documentElement);
-    const fg = css.getPropertyValue('--fg').trim(), muted = css.getPropertyValue('--muted').trim(), faint = css.getPropertyValue('--faint').trim(), bg = css.getPropertyValue('--bg').trim(), accent = css.getPropertyValue('--accent').trim();
     const draw = (c, rows, key, nameOf) => {
+      const css = getComputedStyle(document.documentElement);  // read at draw time: a theme change redraws with the new ink
+      const fg = css.getPropertyValue('--fg').trim(), muted = css.getPropertyValue('--muted').trim(), faint = css.getPropertyValue('--faint').trim(), bg = css.getPropertyValue('--bg').trim(), accent = css.getPropertyValue('--accent').trim();
       const names = rows.map((r) => nameOf(r[key]));
       const trace = {type: 'bar', orientation: 'h', x: rows.map((r) => r.types), y: names, text: rows.map((r) => ofTotal(r.types)), textposition: 'outside', textfont: {color: fg, size: 11}, cliponaxis: false,
         marker: {color: accent}, hovertemplate: `%{y}: %{text} types<extra></extra>`};
@@ -90,7 +89,10 @@ function failureTypes() {
         hoverlabel: {bgcolor: bg, bordercolor: faint, font: {color: fg, family: css.getPropertyValue('--font')}}, dragmode: false};
       return Plotly.newPlot(c.plot, [trace], layout, {displayModeBar: false, responsive: true});
     };
-    await Promise.all([draw(byClass, f.by_class, 'class', (x) => x), draw(byCheck, f.by_check, 'check', (x) => (x === 'none' ? 'none (no check)' : checkName(x)))]);
+    // check ids as in code (period_length), the same in the bar and in the row, so a reader matches one to the other
+    const both = () => Promise.all([draw(byClass, f.by_class, 'class', (x) => x), draw(byCheck, f.by_check, 'check', (x) => (x === 'none' ? 'none (no check)' : x))]);
+    await both();
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (wrap.isConnected) both(); });  // the kit's theme follows the system; redraw with the new ink
   };
   return wrap;
 }
