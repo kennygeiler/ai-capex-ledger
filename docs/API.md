@@ -67,7 +67,8 @@ The agents (`docs/TICKETS.md` T48, T49): `/api/agents` is every live agent with 
 (optional `?t=MSFT,NVDA`, default the proven set) is that agent's runs per company and its `score`: `{outputs, checked, explained, open,
 blocked, twin, faults, stage, companies, note}`, counts with their denominators and no shares (the page divides). `outputs` is the
 reader's rows in its Proof stage (`stage`) for those companies and the four states sum to it (`open` excludes `blocked` here); `twin`
-is `{agree, of}` over the rows XBRL tags, or null for a reader whose rows are quotes; `faults` is `{caught, planted, no_effect, escaped}`
+is `{agree, of, interval}` over the rows XBRL tags, or null for a reader whose rows are quotes: `interval` is the Wilson 95% interval of
+`agree / of` as `[low, high]` fractions to 4 dp (T53, `ledger/stats.py`), derived from the two counts alone, null when `of` is 0; `faults` is `{caught, planted, no_effect, escaped}`
 from the latest `ledger faults` run that covered each company, or null when the step has no fault test or no run covered them,
 with the reason in `note`.
 

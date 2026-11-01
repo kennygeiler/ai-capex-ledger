@@ -42,8 +42,20 @@ class Synthetic(unittest.TestCase):
         self.assertEqual(sc["outputs"], 5)
         self.assertEqual(sc["checked"] + sc["explained"] + sc["open"] + sc["blocked"], sc["outputs"])
         self.assertEqual((sc["checked"], sc["explained"], sc["open"], sc["blocked"]), (2, 2, 1, 0))  # agree x2; definition_gap and not_reported explained; unresolved open
-        self.assertEqual(sc["twin"], {"agree": 2, "of": 4})  # not_reported has no twin; the three others XBRL tags
+        self.assertEqual(sc["twin"], {"agree": 2, "of": 4, "interval": [0.15, 0.85]})  # not_reported has no twin; the three others XBRL tags
         self.assertEqual(sc["stage"], "values")
+
+    def test_the_twin_interval_is_wilson_on_the_counts_and_none_without_a_denominator(self):
+        from ledger import stats
+        sc = score.score(self.con, "reader", ["MSFT"])
+        low, high = stats.wilson(sc["twin"]["agree"], sc["twin"]["of"])
+        self.assertEqual(sc["twin"]["interval"], [round(low, 4), round(high, 4)])
+        self.assertIn("Wilson 95%", sc["note"])
+        self.assertEqual(score.with_interval({"agree": 0, "of": 0}), {"agree": 0, "of": 0, "interval": None})
+        self.assertEqual(score.with_interval({"agree": 70, "of": 71})["interval"], [0.9244, 0.9975])
+        # a company with no values rows: of is 0, the interval is None, never a made-up share
+        store.write(self.con, "documents", [_doc("0000000000-25-000001", "NVDA", "2025-01-26")], replace=False)
+        self.assertEqual(score.score(self.con, "reader", ["NVDA"])["twin"], {"agree": 0, "of": 0, "interval": None})
 
     def test_the_values_stage_findings_are_not_the_readers_outputs(self):
         store.write(self.con, "exceptions", [{"exception_id": "e1", "rule_id": "jump", "severity": "warn", "ticker": "MSFT", "field": "capex", "period": "FY2025", "subject": "s", "message": "a jump", "input_hash": "h"}], replace=True)
@@ -55,7 +67,7 @@ class Synthetic(unittest.TestCase):
         self.assertEqual(sc["checked"], 1)
         self.assertEqual(sc["explained"], 1)  # no_reference: the label explains it
         self.assertEqual(sc["open"], 1)
-        self.assertEqual(sc["twin"], {"agree": 1, "of": 2})
+        self.assertEqual(sc["twin"], {"agree": 1, "of": 2, "interval": [0.0945, 0.9055]})
 
     def test_quote_readers_have_no_twin_and_no_fault_test(self):
         sc = score.score(self.con, "ai_reader", ["MSFT"])
@@ -146,11 +158,17 @@ const STAGE_LABEL_UI = {values: 'Values', facts: 'Facts', statements: 'Statement
         return subprocess.run(["node", "-e", harness, "--", json.dumps(sc)], capture_output=True, text=True, check=True).stdout
 
     def test_zero_blocked_and_zero_escaped_are_written(self):
-        sc = {"outputs": 81, "checked": 70, "explained": 11, "open": 0, "blocked": 0, "twin": {"agree": 70, "of": 71},
+        sc = {"outputs": 81, "checked": 70, "explained": 11, "open": 0, "blocked": 0, "twin": {"agree": 70, "of": 71, "interval": [0.9244, 0.9975]},
               "faults": {"caught": 1275, "planted": 1283, "no_effect": 8, "escaped": 0}, "faults_note": "reports/stage3-faults.json: run 2026-10-30", "stage": "values", "companies": 6, "note": "n"}
         out = self.render(sc)
         self.assertIn("checked 70 of 81 · explained 11 of 81 · open 0 of 81 · blocked 0 of 81", out)
-        self.assertIn("agrees with the twin 70 of 71", out)
+        self.assertIn("agrees with the twin 70 of 71 (98.6%, 95% interval 92.4–99.8%)", out)
+        # the page recomputes the same interval from the counts when the API has none (an older server)
+        del sc["twin"]["interval"]
+        self.assertIn("agrees with the twin 70 of 71 (98.6%, 95% interval 92.4–99.8%)", self.render(sc))
+        sc["twin"] = {"agree": 0, "of": 0, "interval": None}
+        self.assertIn("agrees with the twin 0 of 0", self.render(sc))
+        self.assertNotIn("interval", self.render(sc))
         self.assertIn("caught 1,275 of 1,283 planted faults · 0 escaped · 8 reached no released value", out)
         self.assertIn("faults: reports/stage3-faults.json: run 2026-10-30", out)
 

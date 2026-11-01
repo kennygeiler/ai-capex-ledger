@@ -370,6 +370,14 @@ the file and off the calendar.
   `decisions/audit.jsonl`; the error rate with n and the interval on the Agents section, labelled "unkeyed, Kenny's verdicts".
   Owner of the verdicts: Kenny (~100–150 cells, about an hour). Touches rules.js, workbench.py, reconcile.js (after T37),
   ledger/spikes/esef.py for the sample. Done when the Agents section shows ASML's unkeyed error rate with n and the interval.
+  *As built (keyed), 1 Nov:* `ledger/stats.py` (`wilson(k, n, z=1.96)`, `share(k, n)`, standard library, None when n is 0);
+  `score.twin` carries `interval: [low, high]` (fractions, 4 dp) from its own `agree` / `of`, one interval on the sum over the
+  companies; rules.js writes it in text under each reader ("agrees with the twin 70 of 71 (98.6%, 95% interval 92.4–99.8%)"),
+  recomputing from the counts when the API has none. On the six: reader 70 of 71, 92.4–99.8%; notes reader 180 of 185,
+  93.8–98.8%; the quote readers have no twin and no interval. Charters say what the interval does not cover (a twin exists
+  only where the filing tags the number). Not built: per field. The trail's items carry `what`, not `field`, and `proof.py`
+  belongs to another builder; when `proof.company` puts `field` on each item, `score.twin` can group the same counts by it
+  (`twin_by_field: {field: {agree, of, interval}}`). The unkeyed half (the ASML sample and the audit group) is still open.
 - **T54 Failure types as data.** `docs/INGESTION.md`'s 72 types (prose table rows today, no class, no catching check named)
   become `taxonomy/failures.yaml`: id, cause class (units / period / scope / locator / agent misread / document error), count
   seen, the check that catches it or `none`, agent-or-document. A Pareto chart on Proof reads the file (proof.js; Plotly as
