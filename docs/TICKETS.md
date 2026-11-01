@@ -417,6 +417,59 @@ the file and off the calendar.
   Placed after T53 keyed (day 2, late). (Both from Kenny's evals checklist, 1 Nov: the other thirteen points are covered by
   T54, golden, faults, the deterministic checks, the runs table, T53, T30, the watch, T38 and the failures-to-fixtures loop.)
 
+**Fixes found by the overnight audits (1 Nov night; verified in the code or the database by the planning session, confirmed by
+the builder before fixing). Not new scope: each is a defect in approved work, fixed before v1.9.0.**
+
+- **T62 One key per finding (was LB1).** `app.flow` builds the `finding_unconfirmed` key as kind|ticker|where, and `where` is
+  the display string "field period", so two findings on the same field and year share a key; `resolutions.latest()` keeps one
+  line per key, so resolving the second silently un-resolves the first. None on the six today; 21 unconfirmed findings share a
+  key across the tracked companies (HUT capex FY2023, RIOT opex FY2025, CEG cost_of_revenue_part), so it bites in the first T52
+  batch. Fix: the key for finding_unconfirmed and blocked items carries the rule id and is built from fields (ticker, field,
+  period, dimension, rule_id), not from `where`, in app.flow and resolutions._parse; live resolutions migrate to the new keys,
+  the unmappable ones go to decisions/archive/ with a note, never rewritten. Test: two findings on one field and year, both
+  resolved, both stay resolved. Workbench lane, before T57a. Done when that test passes and the stage-3 queue has no duplicate keys.
+- **T63 Mappings are proposals until a person confirms them.** All 47 entries in taxonomy/asset_types.yaml are `by: Claude
+  Fable 5.1` and nobody confirmed them; Proof counts an entry as checked, so the six's Mapping stage is proven on model
+  judgement alone, against the thesis. Fix, inside T33's design: an entry without `confirmed_by` is a proposal; the Reconcile
+  "asset types" group shows it with Approve / Edit / Reject (Approve writes `confirmed_by`, `confirmed_at`); the
+  asset_type_mapping guard and `status` count a mapping as checked only when confirmed, and as "to confirm" (G6, like a
+  decision) until then; the mapper's own proposals confirm the same way. If cheap: store and show the filer's own tagged member
+  (reference/dimensions.instance_facts reads it and discards it) beside each proposal and flag a mismatch (the audit reports
+  AMZN FY2025 EquipmentMember / OtherCapitalizedPropertyPlantAndEquipmentMember and APLD BuildingMember /
+  SoftwareAndSoftwareDevelopmentCostsMember differing from the yaml: verify against the instances first). The six's proven
+  count drops until Kenny confirms (~15 minutes, 47 clicks, on the morning list); the README says so. Workbench lane, after T62.
+- **T64 The packet says what ships, and one restatement threshold.** The packet README documents `first_reported` and
+  `citations` on values.csv, which v1.6.0–v1.8.0's values.csv does not carry (checklist.py's C7 loop writes api.fetch("values"),
+  which drops them and the null not_reported rows). Fix before v1.9.0: either api.fetch("values") gains first_reported, filed,
+  accession and citations, or the README generator describes the columns that ship (prefer the first: the columns exist and a
+  reader wants them); a test compares the README's column table with every CSV header in the packet. One restatement threshold
+  in config (store.py says 1%, reconcile half a rounding unit, normalize 0.1% today), named in the dictionary. v1.8.0 untouched;
+  v1.9.0's DIFF.md names the fix. After T55 (api.py) and T66 (checklist.py).
+- **T65 A missing field with an XBRL value is open, not "not reported" (AMZN).** documents.income_tables ==
+  cash_flow_tables for every AMZN 10-K (the 2026 income statement is t0035, recorded t0034), so AMZN revenue and opex FY2022–25
+  are blank; reconcile.values_for labels them not_reported without asking XBRL, status calls them explained, rules._coverage
+  counts null rows as present, and the gates passed; v1.8.0's values.csv has no AMZN revenue/opex rows and QUALITY.md says "10
+  blank because the company reports no such line" (AMD revenue/opex FY2022 too). Database-wide 131 of 142 not_reported cells
+  have an XBRL value. Fix: (a) a missing field whose XBRL reference exists gets the label `not_extracted` = open, and
+  `_coverage` stops counting null rows as present; (b) a locator rule that blocks when income_tables == cash_flow_tables or
+  the income table has no revenue-like row; (c) the failure type in INGESTION.md and failures.yaml; (d) AMZN re-located and
+  re-extracted (headless agents); (e) a golden fixture for the AMZN case, re-frozen in its own commit. Done when the 10 cells
+  read filled or open and QUALITY.md's count is true. The six's proven count moves; the README says so. v1.9.0's DIFF.md names it.
+- **T66 The manifest states what produced the rows.** checklist.py writes the current prompt_version(), PARSER_VERSION and
+  model(), not what produced the shipped rows: v1.8.0 claims statements@v2 / tables@15 / claude-opus-5-5, while 84 shipped
+  statement cells were read under statements@v1 and 379 of 393 filings were parsed with tables@12; 13 statement outputs have no
+  `_run`. Fix: the manifest lists the distinct prompt_version per reader and the distinct models over the shipped rows, the
+  distinct parser_version over the documents in scope, git HEAD plus a dirty flag, and sha256 of definitions/companies.yaml,
+  taxonomy/*.yaml and decisions/resolutions.jsonl; a test with a packet that mixes prompt versions. v1.8.0 never edited;
+  v1.9.0's DIFF.md notes the correction. checklist.py lane.
+- **T55b Older vintages reconciled against their own filing.** Only the newest vintage is checked against XBRL. AT&T revenue
+  FY2022: value 120,741,000,000, first_reported 120,741,000, basis "restated": a 1000x misread, not a restatement, which an
+  as_of=2023 query would serve as truth. T55 ships with every as-of row flagged `vintage_check` (unchecked unless it is the
+  checked newest figure) and a response note; T55b reconciles each older extraction against the XBRL facts of its own
+  accession (companyfacts lists facts by accn): "restated" only when both vintages agree with their own filing's tags, else
+  "misread" = open item; the no-lookahead test also asserts no as-of answer serves an unchecked vintage. Golden re-freeze in
+  its own commit.
+
 **Rollout to the call (agreed 1 Nov, both sessions; Kenny: yes).** One builder per file at a time: workbench.py + reconcile.js
 go T33 → T36 → T37 → T57a → T53 audit, strictly sequential; status.py T56 → T57a; proof.py/proof.js T56 → T54; rules.js T49 →
 T53; api.py/release.py T55 alone; resolutions.py T57a alone. Parallel lanes: the workbench lane, T55, T54, T42, the T52 batch runs.
