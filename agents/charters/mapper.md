@@ -29,3 +29,7 @@ In use: mapper@v1. On file: mapper@v1 (agents/prompts/). Versioned, never edited
 ## Checks that judge it
 
 At the call: the output schema (ledger/mapper.py `validate_output`: every reported_name one the task asked for, `standard_type` in the member list or `none`, `evidence` words present in the task, `confidence` one of high, medium, low). On the Proof board: guard asset_type_mapping (every reported PP&E category maps to a us-gaap member with the note's words as evidence, or is open; ledger/proof.py `GUARDS`). The guard counts a category mapped only once a person approved it: a proposal closes nothing. The write itself refuses a member outside the list and a second entry for the same (ticker, reported_name) (ledger/mapper.py `approve`). Measured by T35: company seven's asset types mapped in under fifteen minutes of a person's time.
+
+## Score
+
+Not on the Rules page yet: `ledger/score.py` (T49) scores the readers whose outputs are rows of a table; the mapper's outputs are proposals, and a proposal closes nothing. Its score, when T35 measures company seven, is approved / edited / rejected out of proposed (`decisions/mapping_proposals.jsonl`: `kind` proposed, approved, rejected per (ticker, reported_name)), with the person's minutes beside it. Until then the page says "not measured" for the mapper, and the number that matters is the asset_type_mapping guard on the Proof board: categories mapped by a person's approval out of categories reported.
