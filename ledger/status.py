@@ -28,7 +28,12 @@ Answer keys (T40, docs/PROOF.md): four kinds of independent check vouch for a nu
 the filer's own tagged number), a second source (source: another document by the same filer), an arithmetic tie
 (rule:<id>_tie: numbers that must sum or bound; a tie that holds is a check, a tie that fails is the rule's finding),
 a later truth (actual: the actual against the plan). `answer_key(by)` names the kind; quote, located, mapping and the
-explanations are not answer keys."""
+explanations are not answer keys.
+
+Key grades (T56): the four keys are not equally independent of the row they vouch for. KEY_GRADE ranks them, strongest
+first; `state()` carries `keys` (every answer key that agreed with the row) and `key` (the strongest of them), so Proof
+counts rows by the strength of what vouches for them and a trail names it. A row today carries one `by`, so `keys` holds
+at most one; T41–T43 add ties, second sources and later truths beside the twin without a change to the shape."""
 from __future__ import annotations
 
 STATES = ("checked", "explained", "open", "blocked")
@@ -40,6 +45,26 @@ METHOD_KINDS = ("xbrl", "esef", "source", "actual", "quote", "gathered", "locate
 # rule:statement_tie); any other rule:<id> explains or blocks, it is not an answer key.
 ANSWER_KEYS = {"twin": ("xbrl", "esef"), "second_source": ("source",), "tie": ("rule",), "later_truth": ("actual",)}
 TIE = "_tie"
+# The four keys in strength order (T56): how independent each is of the number it vouches for, strongest first.
+KEY_GRADE = ("twin", "second_source", "tie", "later_truth")
+KEY_WHY = {
+    "twin": "a separate preparer's machine-readable instance: the filer tagged the number for a different reader, by a different process, from the text the pipeline read",
+    "second_source": "the same issuer's other document: the same finance team wrote both, so an error upstream of both documents is shared",
+    "tie": "arithmetic inside the same document: the parts and the whole agree, which shows consistent reading, not a right number",
+    "later_truth": "a later period's actual against the plan: the actual can itself be restated, and it proves the plan, not the reading",
+}
+KEY_LABEL = {"twin": "twin", "second_source": "second source", "tie": "tie", "later_truth": "later truth"}
+
+
+def grade(key: str | None) -> int:
+    """The rank of an answer key, 0 strongest; len(KEY_GRADE) for no key, so min() over keys picks the strongest."""
+    return KEY_GRADE.index(key) if key in KEY_GRADE else len(KEY_GRADE)
+
+
+def strongest(keys) -> str | None:
+    """The strongest answer key among `keys` (a list of key names, Nones ignored), or None when none is a key."""
+    ks = [k for k in keys if k in KEY_GRADE]
+    return min(ks, key=grade) if ks else None
 
 
 def method_kind(by: str) -> str:
@@ -71,6 +96,13 @@ def _res(resolution: dict | None) -> tuple[str, str, str]:
     return resolution.get("state") or "", f"resolution:{rid}" if rid else "resolution", (resolution.get("reason") or "")[:200]
 
 
+def keyed(st: dict) -> dict:
+    """`st` with `keys` (every answer key that vouches for a checked row; a `by` carries one today) and `key` (the
+    strongest, KEY_GRADE). Only a checked row has keys: a failed tie's `rule:<id>_tie` is a finding, not a key."""
+    keys = [k for k in [answer_key(st.get("by") or "")] if k] if st.get("state") == "checked" else []
+    return {**st, "keys": keys, "key": strongest(keys)}
+
+
 def state(row: dict) -> dict:
     """The one function. `row` carries what is known about a dataset row, every key optional:
     check: xbrl | quote | located | mapping (what vouches for it); mapping_to: the us-gaap member when check is mapping;
@@ -80,7 +112,12 @@ def state(row: dict) -> dict:
     definition: the name of the definition on file that covers it
     label: a reconcile label (not_reported, no_reference) that explains it
     resolution: the person's latest resolution on it, {id, state, reason}
-    Returns {"state", "reason", "by"}."""
+    Returns {"state", "reason", "by", "keys", "key"}: keys = the answer keys that vouch for a checked row, key = the
+    strongest (T56); [] and None otherwise."""
+    return keyed(_state(row))
+
+
+def _state(row: dict) -> dict:
     rs, rby, rreason = _res(row.get("resolution"))
     rule, sev = row.get("rule"), row.get("severity") or ("info" if row.get("rule") in GUARD_IDS else None)
     if rs == "blocks":
@@ -150,12 +187,12 @@ def of_exception(e: dict, resolution: dict | None = None, rows: list[dict] | Non
         return state({"rule": e.get("rule_id"), "severity": sev, "reason": (e.get("message") or "")[:200], "resolution": resolution})
     rs, rby, rreason = _res(resolution)
     if rs == "blocks":
-        return {"state": "blocked", "reason": rreason, "by": rby}
+        return keyed({"state": "blocked", "reason": rreason, "by": rby})
     if rs == "fix":
-        return {"state": "open", "reason": rreason, "by": rby}
+        return keyed({"state": "open", "reason": rreason, "by": rby})
     if rs in ("accept", "explain"):
-        return {"state": "explained", "reason": rreason, "by": rby}
+        return keyed({"state": "explained", "reason": rreason, "by": rby})
     w = worst(rows or [])
     if w:
-        return {**w, "reason": f"{e.get('rule_id')}: {w['reason']}"}
+        return keyed({**w, "reason": f"{e.get('rule_id')}: {w['reason']}"})
     return state({"rule": e.get("rule_id"), "severity": "warn", "reason": (e.get("message") or "")[:200]})

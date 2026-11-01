@@ -25,7 +25,11 @@ The measures (`docs/TAXONOMY.md`) are the `taxonomy` list: spent, committed and 
 
 The proof pages (`docs/PROOF.md`): `/api/v1/proof` is the board (the proven set's stage counts and the rest in one line), `/api/v1/proof/<ticker>`
 a company's trail (per stage: checked, explained, open items with what they need), `/api/v1/rules` every rule, guard and definition with what it closed
-and the open items by what is missing, `/api/v1/golden` the golden test's last result.
+and the open items by what is missing, `/api/v1/golden` the golden test's last result. Answer keys (T56, `docs/PROOF.md`): the board, each company
+on it and each stage of a trail carry `keys`, `{twin, second_source, tie, later_truth, none, rows}`, rows counted once by the strongest key that vouches
+for them, `none` for a row no key vouches for (a quote, a mapping, an explanation, an open item), so the five sum to `rows`; the board also carries
+`key_grade`, the four in strength order with `label` and `why`. Every trail item carries `key` (the strongest answer key behind its `by`, or null) and
+`keys` (every key that vouches for it; one today).
 
 One screen's feed: `/api/v1/reconcile?scope=all|<layer>|<ticker>` is the Reconcile workbench's rows (`docs/PROOF.md`): one per open
 item with `ours`, `reference`, `delta`, `delta_pct`, `measure` (usd or share), the cause, the evidence (cell, screenshot, quote, inputs) and the

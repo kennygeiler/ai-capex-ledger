@@ -27,6 +27,13 @@ async function proofPage(view) {
       b.stages.map((s) => stageCell(c.stages[s.id])),
       h('td', {}, c.proven ? h('span', {class: 'badge bg-green-lt'}, 'proven') : h('span', {class: 'badge bg-red-lt'}, `${int(c.open)} open`))))))));
   const legend = h('p', {class: 'text-secondary small mt-2'}, 'Each cell: checked · explained · open, and blocked when any. Hover an explained count for what explained it. Click a company for its trail; open items say what rule or definition is missing.');
+  // T56: rows by the strongest answer key that vouches for them, graded by independence (status.KEY_GRADE); `none` is every row no key vouches for, so a row counts once
+  const grades = b.key_grade || [];
+  const keyCols = [{t: 'Company', f: (c) => c.ticker}, ...grades.map((g) => ({t: g.label, num: 1, f: (c) => h('span', {title: g.why}, int(c.keys[g.id]))})),
+    {t: 'no key', num: 1, f: (c) => h('span', {title: 'a quote, a located table, a mapping, an explanation or an open item: nothing independent vouches for the number'}, int(c.keys.none))}, {t: 'Rows', num: 1, f: (c) => int(c.keys.rows)}];
+  const keyRows = [...b.proven, {ticker: 'All', keys: b.keys}];
+  const keyTable = dtable('Rows by answer key', keyCols, keyRows, {note: 'strongest key per row, left is strongest'});
+  const keyWhy = h('p', {class: 'text-secondary small mt-2'}, grades.map((g, i) => [i ? ' ' : '', h('b', {class: 'text-body'}, g.label), ': ', g.why, '.']));
   const rel = await api('/api/outputs').catch(() => ({releases: []}));
   // T7: what a signature meant, from the checklist SIGNOFF.json carries; a release signed before the checklist says so
   const atSigning = (r, f, say = false) => (r.checklist ? f(r.checklist) : say ? h('span', {class: 'text-secondary'}, 'before the checklist') : h('span', {class: 'text-secondary'}, '—'));
@@ -38,5 +45,5 @@ async function proofPage(view) {
       h('pre', {class: 'raw'}, 'uv run python -m ledger golden --check\nuv run python -m ledger golden --freeze   # change the expectation on purpose, then commit with the reason'),
       g.steps ? h('div', {class: 'mt-2'}, dtable('Last run', [{t: 'Step', k: 'step'}, {t: 'Exit', num: 1, k: 'exit'}], g.steps)) : '',
       g.diffs && Object.keys(g.diffs).length ? h('div', {class: 'mt-2'}, dtable('Differences', [{t: 'Table', k: 'name'}, {t: 'Only in the run', num: 1, k: 'n_only_in_run'}, {t: 'Only in expected', num: 1, k: 'n_only_in_expected'}], Object.entries(g.diffs).map(([k, v]) => ({name: k, ...v})))) : ''));
-  view.append(head, table_, legend, h('div', {class: 'mt-3'}, releases), golden);
+  view.append(head, table_, legend, h('div', {class: 'mt-3'}, keyTable), keyWhy, h('div', {class: 'mt-3'}, releases), golden);
 }

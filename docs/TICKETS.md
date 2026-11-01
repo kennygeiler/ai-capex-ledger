@@ -261,6 +261,7 @@ in golden. Arctal's own products (Green & Transition CapEx, Labelled Bonds) are 
 - **T40 Answer-key vocabulary.** `status.state` and `check_method` gain `esef:<tag>`, `source:<doc>`, `rule:<tie_id>`,
   `actual:<period>` next to xbrl / quote / located / mapping / rule / definition / label / resolution; `docs/PROOF.md` lists the
   four kinds and what each proves. Done when tests assert each kind on a fixture row and Proof and Reconcile count it the same.
+  *As built (T56, 1 Nov, night):* the four keys are graded by independence, `status.KEY_GRADE`; see T56 in group J.
 - **T41 Quarters tie.** From the cached companyfacts 10-Q facts, rule `quarters_tie`: Q1 + Q2 + Q3 + derived Q4 = FY within
   tolerance for revenue, capex and opex on the six; a negative derived Q4 or a missing quarter is an open item, not a pass. Done
   when the six carry `rule:quarters_tie` and golden is re-frozen in its own commit saying why.
@@ -340,6 +341,18 @@ the file and off the calendar.
   (XBRL / ESEF instance) > same-issuer second source (8-K: the same finance team can share the error) > arithmetic tie > later
   truth. `status` names the strongest key per row; Proof counts rows by key strength for the scope. Touches status.py, proof.py,
   proof.js. Done when Proof shows the count per key grade and a row's strongest key is on its trail.
+  *As built (1 Nov, night, branch `t56-key-grades`):* `status.KEY_GRADE = ("twin", "second_source", "tie", "later_truth")`
+  with `KEY_WHY` (one line each on why it ranks there), `KEY_LABEL`, `grade(key)` and `strongest(keys)`; `status.state()` (and
+  `of_value`, `of_fact`, `of_exception`) returns `keys` and `key` beside state / reason / by: a checked row's answer keys and the
+  strongest; a row carries one `by` today so `keys` holds at most one, and the shape takes several when T41–T43 write them. A
+  failed tie carries none. `proof._item` carries `key` and `keys`; `proof.keys_of(items)` counts rows once by strongest key
+  with `none` and `rows` (the denominator); each stage, each company and the board carry `keys`, the board also `key_grade`.
+  proof.js: "Rows by answer key" table (dtable, kit only, no colours) under the board, per company and All, the why in a line
+  beneath; trail.js: a collapsed "N checked (N twin)" list per stage with the key word beside `by`, and the stage header names
+  the keyed count. Skills loaded before the page work: emil-design-eng, web-design-guidelines, dataviz. Tests in
+  `tests/test_status.py` (grade order, strongest, key per `by` kind, board grades sum to the denominator on the fixtures) and
+  `tests/test_proof.py` (`keys_of`). On the six: twin 260 of 875 rows, no key 615. Golden not run: taxonomy.py reads nothing
+  from status.py.
 - **T57 Judgement ledger.** A question is grouped by cause, not by cell (workbench groups by cause already). *T57a:* a
   resolution carries `owner_role` (data / expert / client) and `scope` (this company / this class / all companies); coverage =
   the cells and companies the cause governs, shown on the group; Reconcile groups by owner role; Kenny plays each role,

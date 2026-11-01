@@ -22,7 +22,9 @@ from ledger.config import PROVEN
 con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
 b = proof.board(con)
 it = workbench.items(con, app.flow("all"))
-print(json.dumps({"proof": {c["ticker"]: c["open"] for c in b["proven"]}, "proof_total": b["open"],
+print(json.dumps({"proof": {c["ticker"]: c["open"] for c in b["proven"]}, "proof_total": b["open"], "keys": b["keys"],
+                  "company_keys": {c["ticker"]: c["keys"] for c in b["proven"]}, "stage_rows": {c["ticker"]: sum(s["items"] for s in c["stages"].values()) for c in b["proven"]},
+                  "keyed_items": {c["ticker"]: sum(1 for s in c["stages"].values() for i in s["all"] if i["key"]) for c in b["proven"]},
                   "reconcile": {t: sum(1 for r in it["rows"] if r["open"] and r["ticker"] == t) for t in PROVEN},
                   "states": sorted({r["state"] for r in it["rows"]}),
                   "by": sorted({r["by"].split(":")[0] for r in it["rows"] if r["ticker"] in PROVEN})}))
@@ -34,17 +36,17 @@ class Definition(unittest.TestCase):
         self.assertEqual(status.state({"check": "xbrl"})["state"], "checked")
         self.assertEqual(status.state({"check": "quote"})["by"], "quote")
         self.assertEqual(status.state({"check": "mapping", "mapping_to": "us-gaap:EquipmentMember"})["by"], "mapping:us-gaap:EquipmentMember")
-        self.assertEqual(status.state({"definition": "cost_lines"}), {"state": "explained", "reason": "a definition on file: cost_lines", "by": "definition:cost_lines"})
+        self.assertEqual(status.state({"definition": "cost_lines"}), {"state": "explained", "reason": "a definition on file: cost_lines", "by": "definition:cost_lines", "keys": [], "key": None})
         self.assertEqual(status.state({"rule": "restated_between_filings"})["state"], "explained")  # a guard counts as info
         self.assertEqual(status.state({"rule": "definition_note", "severity": "info"})["by"], "rule:definition_note")
         self.assertEqual(status.state({"label": "not_reported"})["by"], "label:not_reported")
         self.assertEqual(status.state({"rule": "sign", "severity": "block"})["state"], "blocked")
         self.assertEqual(status.state({"rule": "jump", "severity": "warn"})["state"], "open")  # a warn rule alone explains nothing
-        self.assertEqual(status.state({}), {"state": "open", "reason": "neither checked nor explained", "by": ""})
+        self.assertEqual(status.state({}), {"state": "open", "reason": "neither checked nor explained", "by": "", "keys": [], "key": None})
 
     def test_a_person_resolves_what_nothing_on_file_covers(self):
         acc = {"id": "r1", "state": "accept", "reason": "right as is"}
-        self.assertEqual(status.state({"resolution": acc}), {"state": "explained", "reason": "right as is", "by": "resolution:r1"})
+        self.assertEqual(status.state({"resolution": acc}), {"state": "explained", "reason": "right as is", "by": "resolution:r1", "keys": [], "key": None})
         self.assertEqual(status.state({"resolution": {**acc, "state": "fix"}})["state"], "open")
         self.assertEqual(status.state({"resolution": {**acc, "state": "blocks"}})["state"], "blocked")
         # precedence: blocks beats a check; a check beats a fix; a fix beats a definition
@@ -79,7 +81,7 @@ class Definition(unittest.TestCase):
         actual = status.state({"check": "actual:FY2025"})
         self.assertEqual((actual["state"], actual["by"]), ("checked", "actual:FY2025"))
         # a tie that fails is the rule's finding, not a check: open (warn) or blocked (block), never checked
-        self.assertEqual(status.state({"rule": "quarters_tie", "severity": "warn"}), {"state": "open", "reason": "rule quarters_tie fired and nothing on file says why", "by": "rule:quarters_tie"})
+        self.assertEqual(status.state({"rule": "quarters_tie", "severity": "warn"}), {"state": "open", "reason": "rule quarters_tie fired and nothing on file says why", "by": "rule:quarters_tie", "keys": [], "key": None})  # a failed tie carries no key
         self.assertEqual(status.state({"rule": "statement_tie", "severity": "block"})["state"], "blocked")
         self.assertEqual(status.state({"check": "rule:jump"})["state"], "open")  # a rule that is not a tie vouches for nothing
         self.assertEqual(status.state({"check": "definition:revenue"})["state"], "open")  # an explanation is not a check
@@ -105,6 +107,37 @@ class Definition(unittest.TestCase):
         self.assertEqual(set(status.ANSWER_KEYS), {"twin", "second_source", "tie", "later_truth"})
         for kinds in status.ANSWER_KEYS.values():
             self.assertTrue(set(kinds) <= set(status.METHOD_KINDS), kinds)
+
+    def test_key_grades(self):
+        """T56: the four keys ranked by independence, strongest first; `strongest` picks over several keys per row."""
+        self.assertEqual(status.KEY_GRADE, ("twin", "second_source", "tie", "later_truth"))
+        self.assertEqual(set(status.KEY_GRADE), set(status.ANSWER_KEYS))
+        self.assertEqual(set(status.KEY_WHY), set(status.KEY_GRADE))
+        self.assertEqual(set(status.KEY_LABEL), set(status.KEY_GRADE))
+        self.assertTrue(status.grade("twin") < status.grade("second_source") < status.grade("tie") < status.grade("later_truth") < status.grade(None))
+        self.assertEqual(status.strongest(["later_truth", "tie", "second_source"]), "second_source")
+        self.assertEqual(status.strongest(["tie", "twin", "tie"]), "twin")
+        self.assertEqual(status.strongest(["later_truth"]), "later_truth")
+        self.assertIsNone(status.strongest([]))
+        self.assertIsNone(status.strongest([None, "quote"]))
+
+    def test_state_carries_the_strongest_key(self):
+        """T56: `state()` carries `keys` (every answer key that vouches for the row) and `key` (the strongest); a row today
+        carries one `by`, so keys holds at most one; a quote, a mapping, an explanation and an open row carry none."""
+        for by, key in (("xbrl", "twin"), ("esef:ifrs-full:Revenue", "twin"), ("source:0001652044-25-000014", "second_source"), ("rule:quarters_tie", "tie"), ("actual:FY2025", "later_truth")):
+            st = status.state({"check": by})
+            self.assertEqual((st["state"], st["keys"], st["key"]), ("checked", [key], key), by)
+        for row in ({"check": "quote"}, {"check": "located"}, {"check": "mapping", "mapping_to": "us-gaap:EquipmentMember"}, {"definition": "revenue"}, {"label": "no_reference"},
+                    {"rule": "jump", "severity": "warn"}, {"rule": "statement_tie", "severity": "block"}, {"resolution": {"id": "r1", "state": "accept", "reason": "ok"}}, {}):
+            st = status.state(row)
+            self.assertEqual((st["keys"], st["key"]), ([], None), row)
+        # the derived rows carry it too: a fact XBRL confirms, a warn finding on checked rows, a resolved finding
+        self.assertEqual(status.of_fact({"label": "agree"})["key"], "twin")
+        self.assertEqual(status.of_value({"field": "capex", "period": "FY2025", "label": "agree"})["key"], "twin")
+        agree = status.of_value({"field": "capex", "period": "FY2025", "label": "agree"})
+        self.assertEqual(status.of_exception({"rule_id": "jump", "severity": "warn"}, None, [agree])["key"], "twin")
+        self.assertIsNone(status.of_exception({"rule_id": "jump", "severity": "warn"}, {"id": "r2", "state": "accept", "reason": "a real move"}, [agree])["key"])
+        self.assertIn("keys", status.of_exception({"rule_id": "jump", "severity": "block"}, None, []))
 
     def test_fact_rows(self):
         self.assertEqual(status.of_fact({"label": "agree"})["by"], "xbrl")
@@ -157,7 +190,16 @@ class ProofAgreesWithReconcile(unittest.TestCase):
         self.assertEqual(sorted(r["proof"]), sorted(PROVEN))
         self.assertEqual(r["proof"], r["reconcile"], f"Proof and Reconcile disagree on what is open: {r}")
         self.assertEqual(r["proof_total"], sum(r["reconcile"].values()))
-        self.assertTrue(set(r["states"]) <= set(status.STATES) | {"to confirm"}, r["states"])  # "to confirm": T3's group, the decisions a run left for a person (decisions/ is in the root since T31)
+        self.assertTrue(set(r["states"]) <= set(status.STATES) | {"to confirm"}, r["states"])
+        # T56: on the board, rows by key grade sum to the denominator, per company and in total; a keyed item is on its trail
+        grades = (*status.KEY_GRADE, "none")
+        for t, k in r["company_keys"].items():
+            self.assertEqual(sum(k[g] for g in grades), k["rows"], (t, k))
+            self.assertEqual(k["rows"], r["stage_rows"][t], t)
+            self.assertEqual(k["rows"] - k["none"], r["keyed_items"][t], t)
+            self.assertGreater(k["twin"], 0, t)  # every proven company has rows XBRL confirms
+        for g in (*grades, "rows"):
+            self.assertEqual(r["keys"][g], sum(k[g] for k in r["company_keys"].values()), g)  # "to confirm": T3's group, the decisions a run left for a person (decisions/ is in the root since T31)
 
 
 if __name__ == "__main__":

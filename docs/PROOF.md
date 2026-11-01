@@ -49,6 +49,28 @@ one XBRL confirms. No row carries `esef:`, `source:` or `actual:` today (2 Nov 2
   row never changes; the gap is recorded beside it. It proves what the plan was worth, not whether the plan was read
   right (the quote does that).
 
+**The keys are graded by independence (T56, `status.KEY_GRADE`, `status.grade`, `status.strongest`).** They do not vouch
+equally, because each shares a different amount of its pedigree with the number it checks. Strongest first:
+
+1. **twin**: a separate preparer's machine-readable instance. The filer tagged the number for a different reader (the
+   SEC's or ESMA's machines), by a different process, from the text the pipeline read; the two agree only when both
+   read the same figure.
+2. **second source**: the same issuer's other document. An 8-K release and a 10-K are written by the same finance team
+   from the same ledger, so an error upstream of both documents is shared; it rules out one document's parsing or one
+   agent's reading, not the issuer's own mistake.
+3. **tie**: arithmetic inside the same document. Parts that sum to the whole show the pipeline read them consistently;
+   a wrong figure read consistently still ties.
+4. **later truth**: a later period's actual against the plan. The actual can itself be restated, and it proves what
+   the plan was worth, not that the plan was read right.
+
+`status.state` carries `keys` (every answer key that vouches for a checked row) and `key` (the strongest of them); a
+row carries one `by` today, so `keys` holds at most one, and T41–T43 add ties, second sources and later truths beside
+the twin without a change of shape. A failed tie carries no key: it is a finding. `proof.board()` counts the scope's
+rows by their strongest key (`keys`, with `none` for every row no key vouches for and `rows` the denominator, so the
+grades always sum to rows), per company and in total; Proof shows it as "Rows by answer key", and a company trail names
+the key in one word beside `by`. On the six today: twin 260 of 875 rows, no key 615, the other three grades 0 until
+T41–T43 write them.
+
 Proven = zero open (blocked included), for every stage, for that company. A person's judgement enters as a definition
 or a rule, never as a click on a row; once written it applies every run and the item never comes back. A resolution is
 the exception for what nothing on file covers yet, and it holds only while the item's content is unchanged.
