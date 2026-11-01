@@ -75,6 +75,7 @@ New here, person or agent? Read [docs/HANDOFF.md](docs/HANDOFF.md) first: what a
 4. Send to Arctal: the repo, the v1.6.0 packet, DATAHQ, `DATABASE_READONLY_URL`.
 
 **Critical notes:**
+- **Worktrees share `data/raw`, `data/docs` and `data/text` with the main checkout through symlinks.** A builder on an older base that runs `ledger ingest` rewrites the shared parses with old code: on 2 Nov the AMZN parses were found reverted to tables@12 with the cash-flow table as the income statement (fixed by re-ingesting on main). Run `ingest` only on current main, or give the worktree its own data copy; after any ingest, `cmp` fixtures/data/docs against data/docs for the six.
 - An asset-type mapping is a person's only with `confirmed_by` on the entry (T63); an agent never writes that field, and never in Kenny's name.
 - Never sign a release without Kenny's explicit OK for that release. Never run agents on a paid API; `claude -p` on the subscription (`LEDGER_CLAUDE`).
 - `ledger golden --check` before any commit that touches a parser, a rule, a loader or the taxonomy; `--freeze` only on purpose, in a commit that says why. Freeze copies the live DB's tables, so rerun `ledger rules` on the proven six first when a rule changed.
