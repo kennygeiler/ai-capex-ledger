@@ -69,6 +69,24 @@ open). Until these agree, no page can say whether a release is signable.
 - **T8 Release diff in rows.** `DIFF.md` lists rows added, removed and changed per list, not values alone; the page shows the
   same. Done when a changed `check` on one row appears in the diff.
 
+*As built (B, 2 Nov):* `ledger/checklist.py` holds the checklist and the sign; `ledger/pages/release.js` renders it and recomputes
+nothing; `ledger release` builds its packet through the same `checklist.packet`, so the page's hash is the command's. The signer is
+the name in the header's signer box, recorded as given: who may press the button is a later ticket (auth, production rails). The
+test-run line reads `reports/tests.json` `{ok, count, failures, at}` (T30 writes it); absent, it reads "not run" and does not block,
+so v1.8.0 can be signed before T30 lands; present and failing, it blocks. The rows diff keys `taxonomy.csv` on ticker + fiscal_year +
+measure + category + reported_name, which repeats (259 rows in v1.7.0: several statements under one category and name), so rows under
+one key are paired best-match-first on the columns both releases carry and only a real move counts as changed; a column only one
+release has is listed as added or removed, not as every row changed. `SIGNOFF.json` stores the checklist with the diff's counts, not
+its examples (`DIFF.md` has those). *Review fixes (2 Nov):* every POST needs `Content-Type: application/json` and, with an `Origin`,
+the server's own (403 otherwise, before any route); the next version is the lowest unsigned folder after the last signed one;
+`releases/v1.8.0` was rebuilt through `checklist.packet` (the one main built predated the rows section); the sign checks the
+checklist again after the write, records the publish's outcome in `SIGNOFF.json`, runs under a lock, and a signature is never
+replaced; `ledger release` refuses on the page's checklist; `write` renames a whole folder into place. *Third review:* a broken
+folder before the version (no manifest, a manifest that is not an object with a str hash, no `values.csv`, not UTF-8) is a red
+required line, never a 500, and the diff runs against the last readable folder; folder names that are not versions are ignored;
+a failed `record` after a successful publish is `record_error` in the reply, never a `published: false`; every POST body must be a
+JSON object with a numeric Content-Length (400 otherwise).
+
 ## C. Columns: one shape that a stranger can read
 
 Audit of `taxonomy.csv` v1.7.0: 19 columns, 6,700 rows. `group` = `layer` on every row; `value_high` is a range high on planned

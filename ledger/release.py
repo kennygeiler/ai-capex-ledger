@@ -170,6 +170,111 @@ def build(version, values, extractions, exceptions, previous, confirmed=frozense
 
 
 
+# ── T8: the diff in rows. Each list's CSV against the previous release's, by the row's natural key ──────────────
+ROW_KEYS = {"taxonomy": ("ticker", "fiscal_year", "measure", "category", "reported_name"), "values": ("ticker", "field", "period"),
+            "facts": ("ticker", "field", "dimension", "period"), "statements": ("statement_id",), "projects": ("project_id",), "companies": ("ticker",),
+            "ai_spend": ("ticker", "field", "period", "kind", "source", "quote")}
+DIFF_EXAMPLES = 25  # per list and kind, so DIFF.md stays readable when the scope changes
+
+
+def _keyed(text: str, key: tuple) -> tuple[list[str], dict]:
+    """{key: [rows]} from a CSV text. A key that repeats (two statements with one category and name) keeps every row, in
+    a stable order, and the rows are paired by position, so a repeat is never counted as a change of itself."""
+    rows = list(csv.DictReader(io.StringIO(text))) if text else []
+    header = list(rows[0].keys()) if rows else (text.splitlines()[0].split(",") if text else [])
+    out = {}
+    for r in rows:
+        out.setdefault(tuple(r.get(k) or "" for k in key), []).append(r)
+    return header, out
+
+
+def _pair(a: list[dict], b: list[dict], common: list[str]) -> list[tuple]:
+    """Pair old rows with new rows under one key: identical rows first, then the closest by the columns they share, so
+    a repeated key (several statements with one category and name) counts a change only where a row really moved.
+    Greedy by the count of equal columns, best pair first: exact where every row has one close match; where several old
+    rows are equally close to one new row the first by position wins, so a removed row and a changed row under one key
+    can swap places (the counts stay right, the named example may be the other row)."""
+    score = lambda r, q: sum((r.get(c) or "") == (q.get(c) or "") for c in common)
+    ranked = sorted(((score(r, q), i, j) for i, r in enumerate(a) for j, q in enumerate(b)), key=lambda x: (-x[0], x[1], x[2]))
+    taken_a, taken_b, pairs = set(), set(), []
+    for _, i, j in ranked:  # the best-matching pairs first, so a row that stayed is never paired with one that left
+        if i not in taken_a and j not in taken_b:
+            pairs.append((a[i], b[j]))
+            taken_a.add(i)
+            taken_b.add(j)
+    return pairs + [(a[i], None) for i in range(len(a)) if i not in taken_a] + [(None, b[j]) for j in range(len(b)) if j not in taken_b]
+
+
+def rows_diff(files: dict, previous: dict | None) -> dict:
+    """{list: {added, removed, changed, examples, columns_added, columns_removed, key}} per CSV list in `files` that the
+    previous release also has (`previous`: {name: text}). A row is changed when any column both releases carry differs;
+    a column only one release has is reported on its own, so a new column is not 6,700 changed rows. None when there
+    is no previous release."""
+    if previous is None:
+        return {}
+    out = {}
+    for name, key in ROW_KEYS.items():
+        fn = f"{name}.csv"
+        if fn not in files or fn not in previous:
+            continue
+        h_new, new = _keyed(files[fn], key)
+        h_old, old = _keyed(previous[fn], key)
+        common = [c for c in h_new if c in h_old]
+        d = {"key": list(key), "added": 0, "removed": 0, "changed": 0, "examples": {"added": [], "removed": [], "changed": []},
+             "columns_added": [c for c in h_new if c not in h_old], "columns_removed": [c for c in h_old if c not in h_new], "rows": sum(len(v) for v in new.values())}
+        for k in sorted(set(new) | set(old)):
+            a, b = old.get(k, []), new.get(k, [])
+            for r_old, r_new in _pair(a, b, common):
+                if r_old is None:
+                    d["added"] += 1
+                    if len(d["examples"]["added"]) < DIFF_EXAMPLES:
+                        d["examples"]["added"].append(list(k))
+                elif r_new is None:
+                    d["removed"] += 1
+                    if len(d["examples"]["removed"]) < DIFF_EXAMPLES:
+                        d["examples"]["removed"].append(list(k))
+                else:
+                    diffs = {c: (r_old.get(c) or "", r_new.get(c) or "") for c in common if (r_old.get(c) or "") != (r_new.get(c) or "")}
+                    if diffs:
+                        d["changed"] += 1
+                        if len(d["examples"]["changed"]) < DIFF_EXAMPLES:
+                            d["examples"]["changed"].append({"key": list(k), "columns": diffs})
+        out[name] = d
+    return out
+
+
+def rows_diff_md(d: dict) -> str:
+    """The "## Rows" section of DIFF.md: one table line per list, then the examples by key, a changed row naming the
+    columns that moved (old → new). Empty when there is no previous release."""
+    if not d:
+        return ""
+    lines = ["", "## Rows", "", "Against the previous release, by each list's row key (a row is changed when a column both releases carry differs).", "",
+             "| List | Rows | Added | Removed | Changed | Key |", "|---|---|---|---|---|---|"]
+    for name, x in d.items():
+        lines.append(f"| {name}.csv | {x['rows']} | {x['added']} | {x['removed']} | {x['changed']} | {' + '.join(x['key'])} |")
+    for name, x in d.items():
+        notes = []
+        if x["columns_added"]:
+            notes.append(f"columns added: {', '.join(f'`{c}`' for c in x['columns_added'])}")
+        if x["columns_removed"]:
+            notes.append(f"columns removed: {', '.join(f'`{c}`' for c in x['columns_removed'])}")
+        ex = x["examples"]
+        if not (notes or ex["added"] or ex["removed"] or ex["changed"]):
+            continue
+        lines += ["", f"### {name}.csv", ""]
+        lines += [f"- {n}" for n in notes]
+        more = lambda n, shown: f" … and {n - shown} more" if n > shown else ""
+        if ex["changed"]:
+            lines += [f"- changed ({x['changed']}):"]
+            lines += [f"  - {' '.join(e['key'])}: " + "; ".join(f"{c}: {a or 'empty'} → {b or 'empty'}" for c, (a, b) in e["columns"].items()) for e in ex["changed"]]
+            lines += [f"  -{more(x['changed'], len(ex['changed']))}"] if x["changed"] > len(ex["changed"]) else []
+        if ex["added"]:
+            lines += [f"- added ({x['added']}): " + ", ".join(" ".join(k) for k in ex["added"]) + more(x["added"], len(ex["added"]))]
+        if ex["removed"]:
+            lines += [f"- removed ({x['removed']}): " + ", ".join(" ".join(k) for k in ex["removed"]) + more(x["removed"], len(ex["removed"]))]
+    return "\n".join(lines) + "\n"
+
+
 def facts_line(rows: list[dict]) -> str:
     return (f"Facts from the notes (facts.csv): {len(rows)} values for {len({f['ticker'] for f in rows})} companies: "
             + ", ".join(f"{sum(f['field'] == k for f in rows)} {k}" for k in ("segment_capex", "segment_revenue", "ppe_category", "finance_lease_liability", "purchase_commitments"))

@@ -104,10 +104,15 @@ look without a checkout. Redeploy after a run or a release: `railway up --servic
 - **Settle a disagreement with the SEC's data**: add a definition for the company in `definitions/companies.yaml`
   (who, why), rerun `reconcile` and `rules`. Never accept the same thing twice.
 - **Add a figure a company stated about AI**: `taxonomy/stated_figures.yaml`, verbatim, with the URL and the quote.
-- **Release**: `ledger release vX.Y.Z` builds the packet for `config.SCOPE`, prints the gate table (one row per company, G1 G4 G5 G6) and refuses on any failing row; `--stage N` only names the hand-check file, then `ledger signoff vX.Y.Z --by
-  "<name>"`. Signing is the one human act and belongs to the owner. Then `ledger publish vX.Y.Z` pushes the signed
-  files to production; it refuses an unsigned release or one whose files no longer match the signed hash, and
-  publishing the same version again replaces its rows in one transaction.
+- **Release**: DATAHQ's Release page (`#release`) is the checklist: every line that could make a signature wrong, green or
+  red with its count and the page that fixes it, and the packet built in memory. Its Sign button (enabled only when every
+  required line is green) writes `releases/<version>/`, signs as the name in the signer box, stores the checklist as it
+  was in `SIGNOFF.json`, and publishes; that is the one place a release is signed (`docs/PROOF.md`). The command line
+  does the same in pieces: `ledger release vX.Y.Z` builds the packet for `config.SCOPE`, prints the gate table (one row
+  per company, G1 G4 G5 G6) and refuses on any failing row (`--stage N` only names the hand-check file); `ledger signoff
+  vX.Y.Z --by "<name>"` signs without a checklist; `ledger publish vX.Y.Z` pushes the signed files to production and
+  refuses an unsigned release or one whose files no longer match the signed hash; publishing the same version again
+  replaces its rows in one transaction. Signing is the one human act and belongs to the owner; agents never sign or publish.
 - **Find why something is wrong**: `docs/INGESTION.md` logs every failure type found so far (46), where it showed,
   what caught it, what fixed it. Add to it.
 

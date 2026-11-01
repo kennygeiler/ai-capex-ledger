@@ -31,6 +31,25 @@ One screen's feed: `/api/v1/reconcile?scope=all|<layer>|<ticker>` is the Reconci
 item with `ours`, `reference`, `delta`, `delta_pct`, `measure` (usd or share), the cause, the evidence (cell, screenshot, quote, inputs) and the
 resolution. `POST /api/resolve` records one decision `{key, hash, state, reason, by}`; `POST /api/resolve/bulk` takes `{items: [{key, hash}], state, reason, by}`.
 
+The Release page (`docs/PROOF.md`): `/api/v1/release/checklist` (optional `?version=vX.Y.Z`; default the minor bump of the last
+release folder) is the checklist as JSON: `version`, `previous`, `scope`, `hash` (of the packet built in memory), `ok`, `red` (the
+required lines that fail), `lines` (each `{id, label, required, count, state: pass|fail|info|not_run, ok, link, note, detail}`),
+`gates` (`table` per gate per company, `failing`), `diff` (per list: `rows`, `added`, `removed`, `changed`, `key`, `columns_added`,
+`columns_removed`, `examples`), `golden` and `tests` (the two report files as they are, `tests` from `reports/tests.json`
+`{ok, count, failures, at}`, null when not run). `POST /api/release/sign` `{version, by}` builds `releases/<version>/`, signs it as
+`by` with the checklist stored under `checklist` in `SIGNOFF.json`, and publishes; 403 on the read-only copy, 400 while any
+required line is red (checked twice: before the write and on the folder as written) or `by` is empty or not a string; one
+signature at a time. The reply says `published` and, when the publish failed after the signature landed, `publish_error`;
+`SIGNOFF.json` records the same (`published`, `published_at` and `rows` on success; `published: false` and `publish_error` on
+failure; rerun `ledger publish`). `/api/outputs` carries per release `checklist: {open, unmapped, scope, unconfirmed, at}` from
+that stored checklist, or null for a release signed before it existed, and `published` (false: signed, the publish failed).
+
+Every POST (a decision, a view, a prompt, a signature) needs `Content-Type: application/json` and, when the browser sends an
+`Origin`, this server's own (`http://127.0.0.1:<port>` or `http://localhost:<port>`); anything else is 403 before any route, so a
+page on another site cannot write through the browser's permission to POST to localhost without a preflight. The body must be a
+JSON object with a numeric `Content-Length`: a list, a bare value or a bad length is 400 on every route. The sign's reply may also
+carry `record_error` when the publish's outcome could not be written into `SIGNOFF.json`; the publish itself stands as reported.
+
 Two roll-ups, not lists: `/api/v1/coverage` (per layer and field: companies with an AI amount, words only, none,
 not run) and `/api/v1/cost` (agent calls, tokens, seconds, attempts, failures and an estimated price at list, per
 step and per company; `ledger cost` writes the same to `reports/cost.json`).
