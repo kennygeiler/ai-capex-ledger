@@ -210,6 +210,8 @@ def _flow(scope: str) -> dict:
         cites = {e["extraction_id"]: e for e in _rows(con, "select extraction_id, accession, table_id, row_label, column_label, cell_text from note_extractions where ticker in (select unnest(?))", tickers)}
         urls = {d["accession"]: d["url"] for d in _rows(con, "select accession, url from documents where ticker in (select unnest(?))", tickers)}
         fact_ref = {(f["ticker"], f["field"], f["dimension"], f["period"]): f for f in _rows(con, "select ticker, field, dimension, period, reference, extraction_ids from facts where ticker in (select unnest(?))", tickers)}
+        missing = _rows(con, 'select v.ticker, v.field, v.period, v.period_end, v.label, r.value as reference from "values" v left join reference_values r using (ticker, field, period) '
+                             "where v.label = 'not_extracted' and v.ticker in (select unnest(?)) order by v.ticker, v.field, v.period", tickers)
     finally:
         con.close()
     rel = latest_signed()
@@ -238,6 +240,9 @@ def _flow(scope: str) -> dict:
                           "impact": "a cited cell against the filing's tag", "dollars": abs((f["value"] or 0) - (float(fr["reference"]) if fr.get("reference") not in (None, "") else (f["value"] or 0))),
                           "new": key not in {"|".join(k) for k in rel_facts}, "action": "definition",
                           "detail": {**f, "reference": fr.get("reference"), "cite": cite, "url": urls.get((cite or {}).get("accession")), "release_value": rel_facts.get((f["ticker"], f["field"], f["dimension"], f["period"]))}})
+    for v in missing:  # T65: no cell read while XBRL tags a value; open on Proof by label:not_extracted, so open here too (closed by re-reading, never by a decision)
+        queue.append({"kind": "value_missing", "state": "missing", "ticker": v["ticker"], "where": f"{v['field']} {v['period']}", "impact": "a released value is blank while the filing tags one",
+                      "action": "run", "detail": v})
     for x in hqd["findings"]:
         if x["ticker"] in tickers and not x.get("confirmed", True):
             queue.append({"kind": "finding_unconfirmed", "key": resolutions.key_for("finding_unconfirmed", x["ticker"], x["field"], x["period"], rule_id=x.get("rule") or x["kind"], subject=x.get("subject")), "state": "look", "ticker": x["ticker"], "where": f"{x['field'] or ''} {x['period'] or ''}".strip(), "impact": "a value the SEC's data can't confirm", "action": "open", "detail": x})
@@ -248,7 +253,7 @@ def _flow(scope: str) -> dict:
         q_["resolution"] = r_ if r_ and r_["hash"] == q_["hash"] else None
         if q_["resolution"] and q_["resolution"]["state"] == "blocks":
             q_["state"] = "blocked"
-    order = {"blocked": 0, "disagrees": 1, "new": 2, "moved": 3, "look": 4}
+    order = {"blocked": 0, "disagrees": 1, "new": 2, "moved": 3, "look": 4, "missing": 5}
     queue.sort(key=lambda q_: (0 if q_["state"] == "blocked" else 1, -q_["dollars"], order[q_["state"]], q_["ticker"]))
     open_ = [q_ for q_ in queue if not q_["resolution"] or q_["resolution"]["state"] == "fix"]
     blocks = [q_ for q_ in queue if q_["state"] == "blocked"]

@@ -19,7 +19,9 @@ which; Proof, Reconcile, the trail and the Release gates all read it, so no two 
   resolution that says accept or explain (`decisions/resolutions.jsonl`).
 - **blocked**: a block-severity rule fired on it, or a person's resolution says blocks. Blocked is open that also
   refuses the release; every count of open includes it.
-- **open**: none of the above, or a person's resolution says fix. The only thing a person looks at.
+- **open**: none of the above, or a person's resolution says fix. The only thing a person looks at. A missing field whose
+  XBRL reference has a value (`not_extracted`, T65, type 73) is open: the label names the cause (the filing tags a value
+  the reader did not extract), it explains nothing; `not_reported` explains a blank only when XBRL tags nothing either.
 
 Precedence when more than one applies: blocked, then checked, then a person's fix (open), then explained, then open. A
 warn-severity finding (a jump, a renamed line, an outlier) has no state of its own: it takes the worst state of the
@@ -81,6 +83,8 @@ the exception for what nothing on file covers yet, and it holds only while the i
 by the item (`resolutions.key_for`: `kind|ticker|field|period|dimension|rule_id|subject`, built from the item's fields,
 `%` escaped `%25` and `|` `%7C` inside a part, T62), so two findings on one field and year (two rules, or one rule on two filings) are two items with two resolutions; the
 hash is the item's content without those key parts.
+A `not_extracted` value (Reconcile kind `value_missing`) takes no resolution at all: it is not in `resolutions.LIVE_KINDS`,
+because the fix is an extraction, not a decision; the row closes when the filing is re-read and the cell is found.
 `tests/test_status.py` asserts, on the frozen fixtures, that the Proof board's open count equals Reconcile's for every
 company in the proven set.
 
@@ -89,7 +93,7 @@ company in the proven set.
 | Stage | Item | Checked by | Explained by | Open when |
 |---|---|---|---|---|
 | Ingest | a filing | every statement and note table located, units from the document | a unit rule (type 48, 50, 56, 62) | a table or a unit is missing |
-| Values | a value per field and year | the SEC's XBRL | a definition (cost lines, revenue line), a restatement rule | `unresolved` |
+| Values | a value per field and year | the SEC's XBRL | a definition (cost lines, revenue line), a restatement rule, `not_reported` (no line, no tag) | `unresolved`, or `not_extracted` (no cell read while XBRL tags a value) |
 | Facts | a fact per segment or category and year | the filing's instance (concept and member named) | a restatement between filings, an untagged line | `unresolved` with no explanation |
 | Statements | a quote | the text it came from, verbatim | scope, period and part-year tags set by rule | a part-year or program statement without its tag |
 | Mapping | a reported asset type | the us-gaap member it maps to, with the note's words (`taxonomy/asset_types.yaml`) | the mapping is the explanation | a reported category with no mapping |

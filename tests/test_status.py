@@ -55,6 +55,18 @@ class Definition(unittest.TestCase):
         self.assertEqual(status.state({"definition": "revenue", "resolution": {**acc, "state": "fix"}})["state"], "open")
         self.assertTrue(status.is_open(status.state({"resolution": {**acc, "state": "blocks"}})))
 
+    def test_a_missing_cell_with_an_xbrl_value_is_open_by_its_label(self):
+        """T65: not_extracted explains nothing; the label names the cause so Proof and Reconcile show it."""
+        st = status.of_value({"field": "revenue", "period": "FY2025", "label": "not_extracted"})
+        self.assertEqual({k: st[k] for k in ("state", "reason", "by")}, {"state": "open", "reason": "the filing tags a value the reader did not extract", "by": "label:not_extracted"})
+        self.assertEqual((st["keys"], st["key"]), ([], None))  # no answer key vouches for a missing cell (T56)
+        self.assertTrue(status.is_open(st))
+        self.assertEqual(status.of_value({"field": "revenue", "period": "FY2025", "label": "not_reported"})["state"], "explained")
+        acc = {"id": "r9", "state": "accept", "reason": "the line is not there"}
+        self.assertEqual(status.of_value({"field": "revenue", "period": "FY2025", "label": "not_extracted"}, acc)["by"], "resolution:r9")  # a person may still resolve it
+        jump = {"rule_id": "coverage", "severity": "warn", "message": "no revenue value for FY2025"}
+        self.assertEqual(status.of_exception(jump, None, [st])["state"], "open")  # a coverage finding on it is open with it
+
     def test_a_warn_finding_takes_the_state_of_its_rows(self):
         jump = {"rule_id": "jump", "severity": "warn", "message": "capex moves 4×"}
         agree = status.of_value({"field": "capex", "period": "FY2025", "label": "agree"})

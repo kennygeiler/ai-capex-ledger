@@ -7,12 +7,11 @@
   ],
   "cash_flow_score": 4,
   "income": [
-   "t0031",
-   "t0032"
+   "t0012"
   ],
   "income_score": 5
  },
- "parser_version": "tables@12",
+ "parser_version": "tables@15",
  "period": "2023-12-30",
  "sha256": "3d2e7f6373e3ecf2256e3dcc9e8e5c1010541b4bdbccca040062e2f752dcbe64",
  "statements": {
@@ -770,56 +769,30 @@
   ],
   "income": [
    {
-    "before": "$ 1.2 billion, of which $ 275 million was included as a component of the purchase co nsideration and $ 951 million will be recognized as expense subsequent to the acquisition. The Consolidated Statements of Operations include the following revenue and operating income attributable to Xilinx in 2022:",
+    "before": "53 Table of Contents ITEM 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA Advanced Micro Devices, Inc. Consolidated Statements of Operations",
     "columns": [
-     "2022"
+     "Year Ended | December 30,2023",
+     "Year Ended | December 31,2022",
+     "Year Ended | December 25,2021"
     ],
-    "id": "t0031",
+    "id": "t0012",
     "rows": [
      {
       "cells": [
        {
         "col": 0,
-        "text": "4,612",
-        "value": 4612.0
-       }
-      ],
-      "label": "Net revenue"
-     },
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "2,247",
-        "value": 2247.0
-       }
-      ],
-      "label": "Operating income"
-     }
-    ],
-    "scale": 1000000,
-    "unit_source": "table",
-    "unit_text": "(In millions)"
-   },
-   {
-    "before": " Contents Supplemental Unaudited Pro Forma Information Following are the supplemental consolidated financial results of the Company, Xilinx and Pensando on an unaudited pro forma basis, as if the acquisitions had been consummated as of the beginning of the fiscal year 2021 (i.e., December 27, 2020).",
-    "columns": [
-     "December 31,2022",
-     "December 25,2021"
-    ],
-    "id": "t0032",
-    "rows": [
-     {
-      "cells": [
-       {
-        "col": 0,
-        "text": "24,117",
-        "value": 24117.0
+        "text": "22,680",
+        "value": 22680.0
        },
        {
         "col": 1,
-        "text": "20,150",
-        "value": 20150.0
+        "text": "23,601",
+        "value": 23601.0
+       },
+       {
+        "col": 2,
+        "text": "16,434",
+        "value": 16434.0
        }
       ],
       "label": "Net revenue"
@@ -828,21 +801,394 @@
       "cells": [
        {
         "col": 0,
-        "text": "2,311",
-        "value": 2311.0
+        "text": "11,278",
+        "value": 11278.0
+       },
+       {
+        "col": 1,
+        "text": "11,550",
+        "value": 11550.0
+       },
+       {
+        "col": 2,
+        "text": "8,505",
+        "value": 8505.0
+       }
+      ],
+      "label": "Cost of sales"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "942",
+        "value": 942.0
+       },
+       {
+        "col": 1,
+        "text": "1,448",
+        "value": 1448.0
+       },
+       {
+        "col": 2,
+        "text": "\u2014",
+        "value": 0.0
+       }
+      ],
+      "label": "Amortization of acquisition-related intangibles"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "12,220",
+        "value": 12220.0
+       },
+       {
+        "col": 1,
+        "text": "12,998",
+        "value": 12998.0
+       },
+       {
+        "col": 2,
+        "text": "8,505",
+        "value": 8505.0
+       }
+      ],
+      "label": "Total cost of sales"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "10,460",
+        "value": 10460.0
+       },
+       {
+        "col": 1,
+        "text": "10,603",
+        "value": 10603.0
+       },
+       {
+        "col": 2,
+        "text": "7,929",
+        "value": 7929.0
+       }
+      ],
+      "label": "Gross profit"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "5,872",
+        "value": 5872.0
+       },
+       {
+        "col": 1,
+        "text": "5,005",
+        "value": 5005.0
+       },
+       {
+        "col": 2,
+        "text": "2,845",
+        "value": 2845.0
+       }
+      ],
+      "label": "Research and development"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "2,352",
+        "value": 2352.0
+       },
+       {
+        "col": 1,
+        "text": "2,336",
+        "value": 2336.0
+       },
+       {
+        "col": 2,
+        "text": "1,448",
+        "value": 1448.0
+       }
+      ],
+      "label": "Marketing, general and administrative"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "1,869",
+        "value": 1869.0
+       },
+       {
+        "col": 1,
+        "text": "2,100",
+        "value": 2100.0
+       },
+       {
+        "col": 2,
+        "text": "\u2014",
+        "value": 0.0
+       }
+      ],
+      "label": "Amortization of acquisition-related intangibles"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(34)",
+        "value": -34.0
+       },
+       {
+        "col": 1,
+        "text": "(102)",
+        "value": -102.0
+       },
+       {
+        "col": 2,
+        "text": "(12)",
+        "value": -12.0
+       }
+      ],
+      "label": "Licensing gain"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "401",
+        "value": 401.0
+       },
+       {
+        "col": 1,
+        "text": "1,264",
+        "value": 1264.0
+       },
+       {
+        "col": 2,
+        "text": "3,648",
+        "value": 3648.0
+       }
+      ],
+      "label": "Operating income"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(106)",
+        "value": -106.0
+       },
+       {
+        "col": 1,
+        "text": "(88)",
+        "value": -88.0
+       },
+       {
+        "col": 2,
+        "text": "(34)",
+        "value": -34.0
+       }
+      ],
+      "label": "Interest expense"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "197",
+        "value": 197.0
        },
        {
         "col": 1,
         "text": "8",
         "value": 8.0
+       },
+       {
+        "col": 2,
+        "text": "55",
+        "value": 55.0
+       }
+      ],
+      "label": "Other income (expense), net"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "492",
+        "value": 492.0
+       },
+       {
+        "col": 1,
+        "text": "1,184",
+        "value": 1184.0
+       },
+       {
+        "col": 2,
+        "text": "3,669",
+        "value": 3669.0
+       }
+      ],
+      "label": "Income before income taxes and equity income"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "(346)",
+        "value": -346.0
+       },
+       {
+        "col": 1,
+        "text": "(122)",
+        "value": -122.0
+       },
+       {
+        "col": 2,
+        "text": "513",
+        "value": 513.0
+       }
+      ],
+      "label": "Income tax provision (benefit)"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "16",
+        "value": 16.0
+       },
+       {
+        "col": 1,
+        "text": "14",
+        "value": 14.0
+       },
+       {
+        "col": 2,
+        "text": "6",
+        "value": 6.0
+       }
+      ],
+      "label": "Equity income in investee"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "854",
+        "value": 854.0
+       },
+       {
+        "col": 1,
+        "text": "1,320",
+        "value": 1320.0
+       },
+       {
+        "col": 2,
+        "text": "3,162",
+        "value": 3162.0
        }
       ],
       "label": "Net income"
+     },
+     {
+      "cells": [],
+      "label": "Earnings per share"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "0.53",
+        "value": 0.53
+       },
+       {
+        "col": 1,
+        "text": "0.85",
+        "value": 0.85
+       },
+       {
+        "col": 2,
+        "text": "2.61",
+        "value": 2.61
+       }
+      ],
+      "label": "Basic"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "0.53",
+        "value": 0.53
+       },
+       {
+        "col": 1,
+        "text": "0.84",
+        "value": 0.84
+       },
+       {
+        "col": 2,
+        "text": "2.57",
+        "value": 2.57
+       }
+      ],
+      "label": "Diluted"
+     },
+     {
+      "cells": [],
+      "label": "Shares used in per share calculation"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "1,614",
+        "value": 1614.0
+       },
+       {
+        "col": 1,
+        "text": "1,561",
+        "value": 1561.0
+       },
+       {
+        "col": 2,
+        "text": "1,213",
+        "value": 1213.0
+       }
+      ],
+      "label": "Basic"
+     },
+     {
+      "cells": [
+       {
+        "col": 0,
+        "text": "1,625",
+        "value": 1625.0
+       },
+       {
+        "col": 1,
+        "text": "1,571",
+        "value": 1571.0
+       },
+       {
+        "col": 2,
+        "text": "1,229",
+        "value": 1229.0
+       }
+      ],
+      "label": "Diluted"
      }
     ],
     "scale": 1000000,
     "unit_source": "table",
-    "unit_text": "(in millions)"
+    "unit_text": "(In millions, except per share amounts)"
    }
   ]
  },

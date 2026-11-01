@@ -1,0 +1,15 @@
+id: statement_tables_distinct
+severity: block
+description: In every 10-K the located income statement is a different table from the located cash-flow statement, and it has a revenue-like row (total revenues, net sales).
+rationale: The reader is only asked about the tables the locator names. When the income statement is the cash-flow table
+  under another name (Amazon, every 10-K FY2022–FY2025, type 73), revenue and opex are never read, and until T65 the
+  blank rows shipped as "not reported" with XBRL values present. A mislocated statement blocks the release; it is
+  never a label.
+owner: Kenny Geiler
+check: statement_tables_distinct
+title: The income statement was not found.
+plain: The code that finds the income statement in a filing picked the wrong table (the same table it uses for the
+  cash-flow statement, or one with no revenue line). Nothing read from this filing's income statement can be trusted
+  until the locator is fixed.
+action: Fix the locator (ledger/ingest/statements.py) for this filing's layout, re-run ingest and extract for the
+  company, and log the failure type in docs/INGESTION.md. Never accept this finding.

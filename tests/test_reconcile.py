@@ -49,6 +49,16 @@ class Annual(unittest.TestCase):
         v = {r["field"]: r for r in values_for("ORCL", xs, {}, "0531", DOCS)}
         self.assertEqual((v["opex"]["value"], v["opex"]["label"], v["opex"]["source"]), (None, "not_reported", "missing"))
 
+    def test_a_missing_cell_with_an_xbrl_value_is_not_extracted(self):  # T65: AMZN's income statement located as its cash-flow table
+        xs = [x("capex", "2025-05-31", 131_819_000_000, "a", "2025-07-01")]
+        ref = {("revenue", "FY2025"): 716_924_000_000, ("opex", "FY2025"): 280_535_000_000, ("capex", "FY2025"): 131_819_000_000}
+        v = {r["field"]: r for r in values_for("AMZN", xs, ref, "0531", DOCS)}
+        self.assertEqual((v["revenue"]["value"], v["revenue"]["label"], v["revenue"]["source"]), (None, "not_extracted", "missing"))
+        self.assertEqual(v["opex"]["label"], "not_extracted")  # opex needs three cells; none read, XBRL has the derived value
+        self.assertEqual(v["capex"]["label"], "agree")
+        v = {r["field"]: r for r in values_for("AMZN", xs, {}, "0531", DOCS)}
+        self.assertEqual(v["revenue"]["label"], "not_reported")  # XBRL tags nothing either: the company reports no such line
+
     def test_a_same_day_partial_amendment_is_not_a_restatement(self):  # AMD: a 10-K/A filed with the 10-K
         xs = [x(f, "2025-05-31", v, "a", "2026-02-04") for f, v in (("revenue", 100_000_000), ("cost_of_revenue", 40_000_000), ("operating_income", 20_000_000), ("capex", 5_000_000))]
         xs += [x(f, "2025-05-31", v, "b", "2026-02-04") for f, v in (("revenue", 100_000_000), ("cost_of_revenue", 45_000_000), ("operating_income", 20_000_000))]
