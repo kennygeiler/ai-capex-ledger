@@ -92,3 +92,30 @@ class SplitIds(unittest.TestCase):
         j = "0001692819-26-000006|revenue|2023-01-01|2023-12-31,0001692819-26-000006|cost_of_revenue_part|2023-01-01|2023-12-31|Fuel, purchased power costs, and delivery fees,0001692819-26-000006|operating_income|2023-01-01|2023-12-31"
         self.assertEqual(len(split_ids(j)), 3)
         self.assertTrue(split_ids(j)[1].endswith("delivery fees"))
+
+
+class RowsDiff(unittest.TestCase):
+    """T8: DIFF.md lists rows added, removed and changed per list by the row's key, and a changed `check` names the column."""
+    OLD = "ticker,fiscal_year,measure,category,reported_name,value,check\nMSFT,FY2024,spent,capex,Additions,10,agree\nMSFT,FY2024,planned,guidance,Capex,,verbatim\nMSFT,FY2024,planned,guidance,Capex,5,verbatim\nAMD,FY2024,spent,capex,Additions,3,agree\n"
+    NEW = "ticker,fiscal_year,measure,category,reported_name,value,check,mapped\nMSFT,FY2024,spent,capex,Additions,10,explained,True\nMSFT,FY2024,planned,guidance,Capex,5,verbatim,True\nNVDA,FY2025,spent,capex,Additions,7,agree,True\n"
+
+    def test_added_removed_changed_by_key_and_a_changed_check_is_named(self):
+        from ledger.release import rows_diff, rows_diff_md
+        d = rows_diff({"taxonomy.csv": self.NEW, "values.csv": "ticker,field,period,value\n"}, {"taxonomy.csv": self.OLD})
+        t = d["taxonomy"]
+        self.assertEqual((t["added"], t["removed"], t["changed"], t["rows"]), (1, 2, 1, 3))  # NVDA added; AMD and one of the two MSFT guidance rows removed; MSFT capex check changed
+        self.assertEqual(t["examples"]["changed"], [{"key": ["MSFT", "FY2024", "spent", "capex", "Additions"], "columns": {"check": ("agree", "explained")}}])
+        self.assertEqual(t["columns_added"], ["mapped"])
+        self.assertNotIn("values", d)  # the previous release has no values.csv to compare
+        md = rows_diff_md(d)
+        self.assertIn("| taxonomy.csv | 3 | 1 | 2 | 1 |", md)
+        self.assertIn("MSFT FY2024 spent capex Additions: check: agree → explained", md)
+        self.assertIn("columns added: `mapped`", md)
+        self.assertEqual(rows_diff({"taxonomy.csv": self.NEW}, None), {})
+        self.assertEqual(rows_diff_md({}), "")
+
+    def test_a_repeated_key_pairs_the_closest_rows(self):
+        from ledger.release import rows_diff
+        t = "ticker,fiscal_year,measure,category,reported_name,value,source\n"
+        d = rows_diff({"taxonomy.csv": t + "A,FY1,planned,guidance,Capex,1,s1\nA,FY1,planned,guidance,Capex,2,s2\n"}, {"taxonomy.csv": t + "A,FY1,planned,guidance,Capex,2,s2\nA,FY1,planned,guidance,Capex,1,s1\n"})
+        self.assertEqual((d["taxonomy"]["added"], d["taxonomy"]["removed"], d["taxonomy"]["changed"]), (0, 0, 0))
