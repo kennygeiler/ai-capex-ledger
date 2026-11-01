@@ -88,7 +88,9 @@ https://datahq-production.up.railway.app is DATAHQ read-only: the same pages and
 the evidence screenshots and the signed releases. Nothing writes there (every POST is refused; the header says "read-only copy")
 and it never reaches the SEC (`ledger/ingest/edgar.py` raises `Offline` instead of fetching). It is what to send someone who should
 look without a checkout. Redeploy after a run or a release: `railway up --service datahq` from this directory (the `Dockerfile`;
-`.railwayignore` re-includes `data/ledger.duckdb`, which git ignores). The signed releases also sit in the production Postgres,
+`.railwayignore` and `.dockerignore` re-include `data/ledger.duckdb` and the distilled XBRL instances `data/raw/*/filings/*.facts.json`,
+which git ignores: without the instances the restatement guard (`proof._restated`) cannot name a tag's filing, and the hosted copy
+counts those rows open while the local one counts them explained). The signed releases also sit in the production Postgres,
 `DATABASE_READONLY_URL` in `.env`, the only connection string to hand out.
 
 ## The work
