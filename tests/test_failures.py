@@ -52,3 +52,18 @@ class Failures(unittest.TestCase):
             load(p)
         p.write_text(f"1:\n  {ok}  class: units\n  check: sign\n")
         self.assertEqual(load(p)[0]["check"], "sign")
+
+    def test_a_none_needs_a_note_a_null_count_needs_a_note_and_an_id_is_an_integer(self):
+        p = Path(tempfile.mkdtemp()) / "failures.yaml"
+        base = "name: x\n  class: units\n  origin: code\n  source: s\n  by: k\n  at: 2026-11-01\n"
+        p.write_text(f"1:\n  {base}  check: none\n  count: 1\n")  # none without check_note
+        with self.assertRaises(ValueError):
+            load(p)
+        p.write_text(f"1:\n  {base}  check: sign\n  count: null\n")  # null count without count_note
+        with self.assertRaises(ValueError):
+            load(p)
+        p.write_text(f"one:\n  {base}  check: sign\n  count: 1\n")  # id not an integer
+        with self.assertRaises(ValueError):
+            load(p)
+        p.write_text(f"1:\n  {base}  check: none\n  check_note: n\n  count: null\n  count_note: every filing\n")
+        self.assertEqual(load(p)[0]["id"], 1)

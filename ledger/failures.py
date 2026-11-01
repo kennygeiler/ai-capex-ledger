@@ -10,7 +10,7 @@ import yaml
 from .store import ROOT
 
 FILE = ROOT / "taxonomy" / "failures.yaml"
-CLASSES = ("units", "period", "scope", "locator", "agent misread", "document error")
+CLASSES = ("units", "period", "scope", "locator", "agent misread", "document error", "pipeline")
 ORIGINS = ("agent", "document", "code", "reference")
 REQUIRED = ("name", "class", "origin", "check", "source", "by", "at")
 

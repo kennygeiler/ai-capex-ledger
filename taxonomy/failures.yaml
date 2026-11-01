@@ -7,8 +7,10 @@
 #   class       the cause class, one of: units (thousands/millions/dollars), period (which year, vintage or length of
 #               period), scope (what a figure, tag, filing set or source covers; definitions), locator (which table was
 #               taken for the statement or note), agent misread (the reader cited or shaped the wrong thing), document
-#               error (a quirk of the filing's own text or layout: positioned text, a repeated label, a run of cells).
-#   class_note  only where the six classes fit badly (a pipeline bookkeeping defect, say): why this class was chosen.
+#               error (a quirk of the filing's own text or layout: positioned text, a repeated label, a run of cells),
+#               pipeline (a defect in the pipeline's own bookkeeping or contracts: a retry or stale check that missed a
+#               reader, a contract bound that excluded a right answer, an id list split on a comma).
+#   class_note  only where the class fits loosely: why this class was chosen.
 #   origin      where the cause sits: agent (the reader or attributor), document (the filing, the page, the company's
 #               own presentation), code (the pipeline's parser, locator, contract or bookkeeping), reference (the SEC's
 #               tag, CIK mapping or XBRL instance, or the key built from them).
@@ -16,12 +18,14 @@
 #               (ledger/proof.py GUARDS), a fault kind (ledger/faults.py FAULTS), or none. `none` is itself a finding:
 #               the type is caught by a pipeline step, a contract, a count or an eye, not by a named check. Never an id
 #               that does not exist in code; ledger/failures.py refuses one.
-#   check_note  with `none`: what caught it instead and what was looked for.
+#   check_note  with `none`: what caught it instead and what was looked for. With an id INGESTION's row does not name:
+#               says so ("id from code, not from the row").
 #   caught_by   INGESTION's own "Caught by" words, verbatim or near it, for the reader.
 #   count       how many distinct companies INGESTION names for the type (an integer), or null when the text gives
 #               no names ("every filing", "every hyperscaler"); count_note carries the text's own words either way
 #               when they say more than the number (filings, cells, company-years).
-#   first_seen  the date INGESTION gives for the run or section the type was found in, or null when it gives none.
+#   first_seen  the run or section date INGESTION gives, or the fix date the row gives (68, 71, 72); null when it gives
+#               none.
 #   source      the INGESTION.md section and a few of the row's own words, so a reader finds the line.
 #   by, at      who recorded the entry and when.
 #
@@ -95,7 +99,7 @@
   class: scope
   origin: code
   check: no_10k_yet
-  check_note: nothing caught it in the run; the fix made no_10k_yet name every requested company with no 10-K
+  check_note: id from code (rules/no_10k_yet.yaml), not from the row; nothing caught it in the run, the fix made no_10k_yet name every requested company with no 10-K
   caught_by: nothing (the gap)
   count: 1
   count_note: SPCX
@@ -108,9 +112,9 @@
   class: document error
   origin: document
   check: none
-  check_note: caught by the evidence re-read, not a rule; no rule compares cell text for invisible characters
+  check_note: the row names no catcher (the type surfaced in the re-read); no rule compares cell text for invisible characters
   caught_by: the re-read
-  count: 1
+  count: null
   count_note: one FY2022 10-K, company not named
   first_seen: 2026-10-28
   source: "M2 run 2 (28 Oct), type 7: A zero-width space inside a cell's text"
@@ -197,8 +201,8 @@
   class: scope
   class_note: what counts as a question for a person; the values were right, the presentation was wrong
   origin: code
-  check: jump
-  check_note: jump and outlier_vs_own_history (and row_label_switch) fire on these; the type is about how their findings are shown when XBRL agrees, not a misread
+  check: none
+  check_note: no rule catches the type; jump, outlier_vs_own_history and row_label_switch fire on the values, and the type is how their findings are shown when XBRL agrees
   caught_by: the audit (44 of 57 open warnings were jumps and outliers)
   count: null
   count_note: "all"
@@ -224,7 +228,7 @@
   class: locator
   origin: document
   check: coverage
-  check_note: ingest found no statements and the agent returned 0 values; coverage is the rule that then warns of the missing years
+  check_note: id from code (rules/coverage.yaml), not from the row; ingest found no statements and the agent returned 0 values, and coverage is the rule that then warns of the missing years
   caught_by: ingest (statements not located); the agent then returned 0 values
   count: 1
   count_note: IBM, all 4 years
@@ -510,7 +514,7 @@
   class: scope
   origin: document
   check: none
-  check_note: not listed; per-company work in sources/ir.yaml, nothing in code
+  check_note: not listed; per-company work in sources/ir.yaml, nothing in code. Looked for no_10k_yet and coverage, which count filings, not investor-page links
   caught_by: not listed
   count: 2
   count_note: GOOGL, MSFT
@@ -562,7 +566,7 @@
   class: period
   origin: document
   check: part_year
-  check_note: by design then; the part_year guard now tags a stated amount that covers a quarter
+  check_note: id from code (guards.py), not from the row; by design then, and the part_year guard now tags a stated amount that covers a quarter
   caught_by: by design
   count: 1
   count_note: TSLA FY2024
@@ -763,8 +767,7 @@
   at: 2026-11-01
 58:
   name: Only the statement reader's rejections were retried
-  class: scope
-  class_note: a pipeline bookkeeping defect; the retry's scope covered one reader of five. None of the six classes names it
+  class: pipeline
   origin: code
   check: none
   check_note: caught by reading the failure messages (no "(after 2 attempts)"); no rule
@@ -777,8 +780,7 @@
   at: 2026-11-01
 59:
   name: A project named in a table cell (short quote rejected)
-  class: scope
-  class_note: the contract's quote floor, meant for sentences, did not cover table cells; the document and the reader were right
+  class: pipeline
   origin: code
   check: none
   check_note: caught by the projects contract (rejected); not a rule id
@@ -791,8 +793,7 @@
   at: 2026-11-01
 60:
   name: A failed output was never re-asked
-  class: scope
-  class_note: a pipeline bookkeeping defect; the stale check's scope left out outputs that hold only an error. None of the six classes names it
+  class: pipeline
   origin: code
   check: none
   check_note: caught by reading the re-read list; no rule
@@ -805,8 +806,7 @@
   at: 2026-11-01
 61:
   name: A stated zero was rejected
-  class: scope
-  class_note: the contract's range (a positive amount) excluded a stated figure
+  class: pipeline
   origin: code
   check: none
   check_note: caught by the AI-spend contract (rejected, kept); not a rule id
@@ -868,8 +868,7 @@
   at: 2026-11-01
 66:
   name: A comma inside a cost-line label split the id list
-  class: document error
-  class_note: a label with a comma broke the pipeline's own comma-joined id list; the document is right, the bookkeeping was not
+  class: pipeline
   origin: code
   check: none
   check_note: caught by release gate G5 (release.gates), not a rule id
@@ -898,7 +897,8 @@
   class: period
   origin: agent
   check: part_year
-  caught_by: the replication run; now the part_year guard
+  check_note: id from code (guards.py), not from the row; the row names attribution._check_arithmetic, removed with the attribution layer in 2ee2e6f, and part_year is the substitute
+  caught_by: the replication run; attribution._check_arithmetic (removed)
   count: 1
   count_note: TSLA Q1 2024
   first_seen: 2026-10-31
