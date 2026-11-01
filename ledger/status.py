@@ -150,11 +150,23 @@ def _state(row: dict) -> dict:
             "by": f"rule:{rule}" if rule else f"label:{row['label']}" if row.get("label") else ""}
 
 
+NOT_A_PERSON = re.compile(r"\b(claude|fable|opus|sonnet|haiku|gemini|gpt|agent|run|replication|model|bot)\b", re.I)
+
+
+def is_person(name) -> bool:
+    """A name that stands behind a row (T80): on config.PEOPLE and naming no model, agent or run. Fail closed: a name
+    not on the list is not a person here, whatever it looks like."""
+    from .config import PEOPLE
+    n = str(name or "").strip()
+    return bool(n) and n in PEOPLE and not NOT_A_PERSON.search(n)
+
+
 def confirmed(entry: dict | None) -> bool:
-    """T63: an asset-type mapping (an entry of taxonomy/asset_types.yaml) is a person's only when it carries a non-empty
-    `confirmed_by`. A field check, never a phrase match: `by` says who wrote it (a model, for the 47 entries of 1 Nov
-    2026), `confirmed_by` who stands behind it."""
-    return bool(entry) and bool(str(entry.get("confirmed_by") or "").strip())
+    """T63: an asset-type mapping (an entry of taxonomy/asset_types.yaml) is a person's only when it carries a
+    `confirmed_by` that is a person (T80, `is_person`: on config.PEOPLE, no model or agent name; a hand edit
+    `confirmed_by: Claude` does not count). `by` says who wrote it (a model, for the 47 entries of 1 Nov 2026),
+    `confirmed_by` who stands behind it."""
+    return bool(entry) and is_person(entry.get("confirmed_by"))
 
 
 UNMAPPED = "a reported PP&E category with no entry in taxonomy/asset_types.yaml"
@@ -234,25 +246,29 @@ def of_exception(e: dict, resolution: dict | None = None, rows: list[dict] | Non
 
 
 # ── T80: a label never counts as a check ────────────────────────────────────────────────────────────────────────────
-EXPLAINING_LABELS = ("not_reported", "no_reference")  # the only labels that explain, and only when XBRL holds no value
+EXPLAINING_LABELS = ("not_reported", "no_reference")  # the only labels that explain, and only when XBRL was looked up and holds no value
+KEY_FIELD = {"esef": "esef", "source": "source", "actual": "actual", "rule": "tie"}  # each answer key's own value on `ref`; xbrl reads `reference`
 
 
 def evidence_gap(item: dict, ev: dict) -> str | None:
     """Why a checked or explained `item` (a state with `by` and `ref`, as proof.company makes it) is not backed by the
     record its `by` names, or None when it is (or when the item is open or blocked: an open row claims nothing).
 
-    `ref` is the record the check rests on: {reference} the answer-key value (None when XBRL tags nothing; the key
-    absent when nobody looked), {quote, text_id} a quote and its text, {income_tables, cash_flow_tables} a filing's
-    located tables, {blocks} the release stage's block items, {ticker, name} a reported asset type, {ticker} for a
-    definition. `ev` holds what is on file: definitions {ticker: {name: entry}}, rules {id: severity} (the rules/*.yaml
-    ids and the guards, info), resolutions {id: line}, person_ids (the resolution ids a person wrote), asset_types
-    {ticker: {name: entry}} and text(text_id) -> the text, normalised, or None.
+    `ref` is the record the check rests on: {reference, looked_up} the XBRL value and whether the lookup ran (True only
+    when the answer key was loaded for that row: reference_values for the ticker, the filing's instance for a fact);
+    {esef | source | actual | tie} the other answer keys' own values; {text_id} the text a quote must be in, with `ev`
+    supplying the quote; {income_tables, cash_flow_tables} a filing's located tables; {stage, blocks} the release
+    stage's block items; {ticker, name} a reported asset type; {ticker} for a definition. `ev` holds what is on file:
+    definitions {ticker: {name: entry}}, rules {id: severity} (the rules/*.yaml ids and the guards, info), resolutions
+    {id: line}, person_ids (the resolution ids a person wrote), asset_types {ticker: {name: entry}}, text(text_id) -> the
+    text normalised or None, and quote(item) -> the quotes on file for the item's row (a list).
 
-    What counts: xbrl / esef / source / actual / a tie: an answer-key value on the row; quote: the quote found in its
-    text, normalised; located: both statement tables named; gate: no block item; mapping:<member>: the entry has that
-    member and a non-empty confirmed_by; definition:<name>: the ticker's entry by that name; rule:<id>: a rule on file of
-    info severity, or a guard; resolution:<id>: a line with that id whose author is a person; label:not_reported or
-    label:no_reference: XBRL looked up and holding no value. Any other label explains nothing."""
+    What counts: checked by xbrl: an XBRL value on the row; by esef / source / actual / a tie: that key's own value,
+    never the XBRL one; quote: the quote found in its text, normalised; located: both statement tables named; gate:
+    the release stage with no block item; mapping:<member>: the entry has that member and a person's confirmed_by;
+    definition:<name>: the ticker's entry by that name; rule:<id>: a rule on file of info severity, or a guard;
+    resolution:<id>: a line with that id a person wrote; label:not_reported or label:no_reference: XBRL looked up and
+    holding no value. Any other label explains nothing, and a missing lookup marker is a gap, never an empty answer."""
     if item.get("state") not in ("checked", "explained"):
         return None
     by, ref = item.get("by") or "", item.get("ref") or {}
@@ -260,15 +276,25 @@ def evidence_gap(item: dict, ev: dict) -> str | None:
     if not by:
         return "names no evidence"
     if answer_key(by):
-        return None if ref.get("reference") is not None else f"{by}: no answer-key value on the row"
+        if item["state"] != "checked":
+            return f"{by}: an answer key checks, it does not explain"
+        if kind == "xbrl":
+            return None if ref.get("looked_up") and ref.get("reference") is not None else f"{by}: no XBRL value on the row"
+        field = KEY_FIELD.get(kind)
+        return None if field and ref.get(field) is not None else f"{by}: no {field or kind} value on the row"
     if kind == "quote":
         text = ev["text"](ref.get("text_id")) if ref.get("text_id") else None
         if text is None:
             return f"quote: no text on file for {ref.get('text_id')!r}"
-        return None if norm(ref.get("quote") or "") and norm(ref.get("quote") or "") in text else f"quote: not found in {ref['text_id']}"
+        qs = [norm(q or "") for q in ev["quote"](item) or []]
+        if not qs or not all(qs):
+            return f"quote: no quote on file for the row in {ref['text_id']}"
+        return None if all(q in text for q in qs) else f"quote: not found in {ref['text_id']}"
     if kind == "located":
         return None if ref.get("income_tables") and ref.get("cash_flow_tables") else "located: no income and cash-flow table named on the filing"
     if kind == "gate":
+        if ref.get("stage") != "release":
+            return f"gate: only the release stage has a gate, not {ref.get('stage') or 'an unnamed stage'}"
         return None if ref.get("blocks") == 0 else "gate: the release stage holds block items, or nobody counted them"
     if kind == "mapping":
         e = (ev["asset_types"].get(ref.get("ticker")) or {}).get(ref.get("name")) or {}
@@ -276,24 +302,26 @@ def evidence_gap(item: dict, ev: dict) -> str | None:
             return f"{by}: no entry for {ref.get('ticker')} {ref.get('name')!r} in taxonomy/asset_types.yaml"
         if e.get("standard_type") != ident:
             return f"{by}: the entry maps to {e.get('standard_type')}"
-        return None if str(e.get("confirmed_by") or "").strip() else f"{by}: the entry has no confirmed_by"
+        if not str(e.get("confirmed_by") or "").strip():
+            return f"{by}: the entry has no confirmed_by"
+        return None if is_person(e["confirmed_by"]) else f"{by}: confirmed_by {e['confirmed_by']!r} is not a person on config.PEOPLE"
     if kind == "definition":
         return None if ident in (ev["definitions"].get(ref.get("ticker")) or {}) else f"{by}: no such definition for {ref.get('ticker')} in definitions/companies.yaml"
     if kind == "rule":
         sev = ev["rules"].get(ident)
         if sev is None:
             return f"{by}: no such rule in rules/*.yaml or proof.GUARDS"
-        return None if sev == "info" or item["state"] == "checked" and by.endswith(TIE) else f"{by}: a {sev} rule explains nothing"
+        return None if sev == "info" else f"{by}: a {sev} rule explains nothing"
     if kind == "resolution":
         if ident not in ev["resolutions"]:
             return f"{by}: no such resolution in decisions/resolutions.jsonl"
-        return None if ident in ev["person_ids"] else f"{by}: written by {ev['resolutions'][ident].get('by')!r}, not a person"
+        return None if ident in ev["person_ids"] else f"{by}: written by {ev['resolutions'][ident].get('by')!r}, not a person on config.PEOPLE"
     if kind == "label":
         if ident not in EXPLAINING_LABELS:
             return f"{by}: a bare label explains nothing"
-        if "reference" not in ref:
-            return f"{by}: nobody asked XBRL"
-        return None if ref["reference"] is None else f"{by}: XBRL holds {ref['reference']}"
+        if not ref.get("looked_up"):
+            return f"{by}: XBRL was not looked up for this row"
+        return None if ref.get("reference") is None else f"{by}: XBRL holds {ref['reference']}"
     return f"{by}: not a kind of evidence"
 
 

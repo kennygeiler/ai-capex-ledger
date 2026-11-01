@@ -230,15 +230,18 @@ def _scalar(s: str) -> str:
     return json.dumps(s)
 
 
-NOT_A_PERSON = re.compile(r"\b(claude|fable|opus|sonnet|haiku|agent|run|replication)\b", re.I)
+from .status import NOT_A_PERSON, is_person  # T80: one name check, in status, for confirmed_by and resolutions
 
 
 def person(by: str) -> str:
     """T63: the name written into confirmed_by. A name that names a model, an agent or a run is refused; it is not a
-    person standing behind the mapping. (Who may confirm at all is T6, auth.)"""
+    person standing behind the mapping. T80: so is any name not on config.PEOPLE (status.is_person, fail closed), since
+    status.confirmed would not count it. (Who may press the button is T6, auth.)"""
     by = by.strip()
     if not by or NOT_A_PERSON.search(by):
         raise ValueError(f"{by!r} is not a person's name: a model, an agent or a run never confirms a mapping")
+    if not is_person(by):
+        raise ValueError(f"{by!r} is not on config.PEOPLE, the people who may confirm a mapping")
     return by
 
 
