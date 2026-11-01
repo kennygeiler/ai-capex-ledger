@@ -61,7 +61,10 @@ def gates(values, open_items, handcheck, confirmed=frozenset(), unconfirmed=(), 
     """{gate: {ticker: [failing items]}}, one column per company in scope (config.SCOPE, or `tickers`): every company
     appears under every gate, an empty list where it passes (T4). confirmed: extraction ids the rendered-10-K re-read
     found at their current cell text. unconfirmed: the resolutions a run left for a person to confirm (T3); one on a
-    company outside the scope still fails G6 under that company's ticker, so nothing is dropped."""
+    company outside the scope still fails G6 under that company's ticker, so nothing is dropped. One whose cause kind
+    the pipeline no longer produces (resolutions.LIVE_KINDS) is stale and never a G6 failure."""
+    from .resolutions import is_live
+    unconfirmed = [r for r in unconfirmed if is_live(r["key"])]
     cos = list(SCOPE if tickers is None else tickers)
     cos += sorted({r["key"].split("|")[1] for r in unconfirmed if "|" in r["key"]} - set(cos))
     checked = {(h["ticker"], h["field"], h["period"]): h for h in (handcheck or {}).get("values", [])}
