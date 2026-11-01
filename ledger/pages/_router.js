@@ -25,4 +25,12 @@ async function route() {
 }
 window.addEventListener('hashchange', route);
 route();
-hq().then((d) => { if (d.readonly) $('#me').closest('span').replaceWith(h('span', {class: 'badge bg-azure-lt', title: 'Every page reads; decisions, views and prompts change in a checkout of the repository'}, 'read-only copy')); }).catch(() => {});
+// T29, the first line: what this copy shows. Scope, the last run, read-only or local; one line under the nav.
+hq().then((d) => {
+  if (d.readonly) $('#me').closest('span').replaceWith(h('span', {class: 'badge bg-azure-lt', title: 'Every page reads; decisions, views and prompts change in a checkout of the repository'}, 'read-only copy'));
+  const hl = (d.health && d.health[0]) || {};
+  const n = hl.companies != null ? hl.companies : (SCOPE.length || null);
+  const line = h('div', {class: 'container-xl text-secondary small py-1', id: 'scopeline'},
+    h('a', {href: '#data', class: 'text-reset'}, `Scope: ${n == null ? '…' : `${int(n)} companies`}`), ' · ', `data as of ${day(hl.run_at)}`, ' · ', d.readonly ? 'read-only copy' : 'local');
+  $('header').after(line);
+}).catch(() => {});

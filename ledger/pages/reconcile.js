@@ -1,10 +1,16 @@
 // ── Reconcile: the workbench, on Tabler (dashboard UI kit) inside its own shadow root so the kit's reset touches nothing else. ──
 // One card per cause; one row per item with ours, reference, a gap bar, delta and decision; Enter opens the evidence as
 // aligned diff tables (this year, the computation, every year) with a status badge per line, and the decision form.
-const CAUSE_ORDER = ['blocked', 'fact_differs', 'fact_changed', 'finding_unconfirmed', 'new_filing'];
+const CAUSE_ORDER = ['to_confirm', 'blocked', 'fact_differs', 'fact_changed', 'finding_unconfirmed', 'new_filing'];
 const RES_LABEL = {accept: 'Accept', explain: 'Explain', fix: 'Fix', blocks: 'Blocks'};
 const RES_HELP = {accept: 'the number is right as it stands', explain: 'right, with the reason kept beside it', fix: 'wrong, stays open until a run fixes it', blocks: 'nothing ships until this is settled'};
 const RES_BADGE = {accept: 'bg-green-lt', explain: 'bg-azure-lt', fix: 'bg-yellow-lt', blocks: 'bg-red-lt'};
+// the one definition of open (status.state, docs/PROOF.md): every row carries state and by; the page only shows them
+const STATE_BADGE = {checked: 'bg-green-lt', explained: 'bg-azure-lt', open: 'bg-yellow-lt', blocked: 'bg-red-lt', 'to confirm': 'bg-orange-lt'};
+const STATE_HELP = {checked: 'agrees with an independent check', explained: 'something on file says why, by name', open: 'nothing on file applies; a person decides', blocked: 'refuses the release until settled', 'to confirm': 'a run decided; a person confirms or overturns'};
+const BY_WORD = {rule: 'rule', definition: 'definition', label: 'label', resolution: 'resolution', mapping: 'mapping', xbrl: 'XBRL', quote: 'quote', located: 'located'};
+const byText = (by) => { if (!by) return ''; const [k, ...rest] = by.split(':'); const v = rest.join(':'); return v ? `${BY_WORD[k] || k}: ${v}` : BY_WORD[k] || k; };
+const stateCell = (r) => [h('span', {class: 'badge ' + (STATE_BADGE[r.state] || 'bg-secondary-lt'), title: STATE_HELP[r.state] || r.state}, r.state), r.by ? h('div', {class: 'text-secondary small font-monospace', style: 'font-size:.72rem'}, byText(r.by)) : ''];
 let FOCUS_KEY = null;  // the row to focus after a save re-renders the page
 const num = (r, v) => (v == null ? '—' : r.measure === 'share' ? pct(v) : usd(v));
 const signed = (r, v) => (v == null ? '—' : (v < 0 ? '−' : '+') + (r.measure === 'share' ? `${(100 * Math.abs(v)).toFixed(1)} pts` : usd(Math.abs(v))));
@@ -33,12 +39,13 @@ async function reconcilePage(view, qs) {
   const wrap = h('div', {class: 'stack', style: 'gap:.75rem'});
   view.append(wrap);
   const setQ = (patch) => { const p = {scope, group, cause: fCause, layer: fLayer, field: fField, kind: q.kind || '', resolved: withResolved ? '1' : '', ...patch}; go('reconcile?' + new URLSearchParams(Object.fromEntries(Object.entries(p).filter(([, v]) => v))).toString()); };
-  const isOpen = (r) => !r.resolution || r.resolution.state === 'fix' || r.resolution.state === 'blocks';
-  let rows = d.rows.filter((r) => withResolved || isOpen(r));
+  const isOpen = (r) => !!r.open;  // the server's word (row.open: open or blocked), never recomputed here
+  const toConfirm = (r) => r.cause === 'to_confirm';
+  let rows = d.rows.filter((r) => withResolved || isOpen(r) || toConfirm(r));
   if (fCause) rows = rows.filter((r) => r.cause === fCause);
   if (fLayer) rows = rows.filter((r) => r.layer === fLayer);
   if (fField) rows = rows.filter((r) => (r.field || '') === fField);
-  const hidden = d.rows.length - d.rows.filter(isOpen).length;
+  const hidden = d.rows.filter((r) => !isOpen(r) && !toConfirm(r)).length;
   const fKind = q.kind || '';
   if (fKind) rows = rows.filter((r) => (r.evidence && r.evidence.kind) === fKind);
   const kinds = [...new Set(d.rows.map((r) => r.evidence && r.evidence.kind).filter(Boolean))].sort();
@@ -46,8 +53,9 @@ async function reconcilePage(view, qs) {
   const causes = CAUSE_ORDER.filter((c) => d.rows.some((r) => r.cause === c)), layers = [...new Set(d.rows.map((r) => r.layer))].sort(), fields = [...new Set(d.rows.map((r) => r.field).filter(Boolean))].sort();
   const sel = (label, value, opts, key) => h('select', {class: 'form-select form-select-sm', 'aria-label': label, onchange: (e) => setQ({[key]: e.target.value})}, opts.map(([v, t]) => h('option', {value: v, selected: v === value || null}, t)));
   const openRows = rows.filter(isOpen);
+  const nState = (s) => d.rows.filter((r) => r.state === s).length;
   const header = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
-    h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'text-secondary small'}, `${int(openRows.filter((r) => !r.resolution).length)} open, ${int(openRows.filter((r) => r.resolution && r.resolution.state === 'fix').length)} fix pending, ${int(openRows.filter((r) => r.resolution && r.resolution.state === 'blocks').length)} blocking, ${usd(openRows.reduce((s, r) => s + (r.dollars || 0), 0))} at stake. Last run ${day(d.last_run)}${d.release ? `, signed ${d.release}` : ''}. Keys: j k move, Enter opens, a e f b decide, space selects.`))));
+    h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'text-secondary small'}, `${int(d.to_confirm)} to confirm, ${int(nState('open'))} open, ${int(nState('blocked'))} blocked, ${int(nState('explained'))} explained, ${usd(openRows.reduce((s, r) => s + (r.dollars || 0), 0))} at stake. Last run ${day(d.last_run)}${d.release ? `, signed ${d.release}` : ''}. Keys: j k move, Enter opens, a e f b decide, space selects.`))));
   const controls = h('div', {class: 'card mb-3'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'},
     h('div', {class: 'col-auto'}, sel('Scope', scope, [['all', 'All companies'], ...layers.map((l) => [l, INDUSTRY[l] || l]), ...Object.keys(d.names).sort().map((t) => [t, `${d.names[t]} (${t})`])], 'scope')),
     h('div', {class: 'col-auto'}, sel('Group by', group, [['cause', 'Grouped by cause'], ['company', 'Grouped by company']], 'group')),
@@ -74,7 +82,7 @@ async function reconcilePage(view, qs) {
       const cb = h('input', {class: 'form-check-input m-0', type: 'checkbox', 'aria-label': `Select ${r.name} ${r.where}`, checked: selected.has(r.key) || null, onclick: (e) => { e.stopPropagation(); e.target.checked ? selected.add(r.key) : selected.delete(r.key); paint(); }});
       const first = group === 'cause' ? [h('a', {href: `#proof/${r.ticker}`, onclick: (e) => e.stopPropagation()}, r.name), ' ', h('span', {class: 'text-secondary small'}, r.ticker)] : [r.cause_label.replace(/:.*$/, '')];
       const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field) : r.where, r.period ? ` ${r.period}` : ''), r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : r.cause === 'finding_unconfirmed' && r.measure == null ? h('div', {class: 'text-secondary small'}, r.cause_label) : ''];
-      const res = r.resolution ? [badge(RES_LABEL[r.resolution.state], RES_BADGE[r.resolution.state]), h('div', {class: 'text-secondary small'}, `${r.resolution.by}, ${day(r.resolution.at)}`)] : badge('open', 'bg-secondary-lt');
+      const res = toConfirm(r) ? confirmCell(r, i) : [stateCell(r), r.resolution && r.resolution.by ? h('div', {class: 'text-secondary small'}, `${RES_LABEL[r.resolution.state] || r.resolution.state} by ${r.resolution.by}, ${day(r.resolution.at)}`) : ''];
       const tr = h('tr', {class: 'item', tabindex: 0, 'aria-expanded': 'false', onkeydown: (e) => keys(e, i), onclick: () => toggle(i), onfocus: () => { cur = i; paintCur(); }},
         h('td', {class: 'w-1'}, cb), h('td', {}, first), h('td', {}, where),
         h('td', {class: 'num'}, num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, r.ours_label) : ''),
@@ -85,8 +93,9 @@ async function reconcilePage(view, qs) {
       trs.push({tr, r, detail: null});
       tbody.append(tr);
     }
+    const confirmGroup = group === 'cause' && toConfirm(list[0]);
     cards.push(h('div', {class: 'card mb-3'},
-      h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, label), h('span', {class: 'ms-2 text-secondary small'}, `${int(open.length)} open of ${int(list.length)}${list.some((r) => r.dollars) ? `, ${usd(list.reduce((s, r) => s + r.dollars, 0))} at stake` : ''}`),
+      h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, label), h('span', {class: 'ms-2 text-secondary small'}, confirmGroup ? `${int(list.length)} decisions a run made; the release refuses until each is confirmed or overturned` : `${int(open.length)} open of ${int(list.length)}${list.some((r) => r.dollars) ? `, ${usd(list.reduce((s, r) => s + r.dollars, 0))} at stake` : ''}`),
         open.length > 1 ? h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary ms-auto', onclick: () => { for (const r of open) selected.add(r.key); paint(); }}, `Select all ${int(open.length)}`) : ''),
       h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table table-hover'},
         h('thead', {}, h('tr', {}, h('th', {class: 'w-1'}, h('span', {class: 'visually-hidden'}, 'Select')), h('th', {}, group === 'cause' ? 'Company' : 'Cause'), h('th', {}, 'Where'), h('th', {class: 'num'}, 'Ours'), h('th', {class: 'num'}, 'Reference'), h('th', {class: 'w-1'}, 'Gap'), h('th', {class: 'num'}, 'Delta'), h('th', {}, 'Decision'))),
@@ -110,6 +119,21 @@ async function reconcilePage(view, qs) {
     else if (k === ' ') { e.preventDefault(); const r = trs[i].r; selected.has(r.key) ? selected.delete(r.key) : selected.add(r.key); paint(); }
     else if (k === 'Escape' && trs[i].detail) { toggle(i); }
     else if ('aefb'.includes(k) && k) { e.preventDefault(); toggle(i, true); const btn = trs[i].detail.querySelector(`[data-state=${({a: 'accept', e: 'explain', f: 'fix', b: 'blocks'})[k]}]`); btn.click(); trs[i].detail.querySelector('input[type=text]').focus(); }
+  }
+  // T3: a decision a run made. Confirm records the proposed state on the same key, by me, reason "confirmed";
+  // Overturn opens the normal decide flow (the evidence row with the form).
+  function confirmCell(r, i) {
+    const proposed = (r.evidence && r.evidence.proposed) || (r.resolution && r.resolution.state) || 'explain';
+    const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
+    const confirm = h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: `Record ${RES_LABEL[proposed] || proposed} on this item as ${me}`, onclick: async (e) => {
+      e.stopPropagation(); confirm.disabled = true; status.textContent = 'Saving…';
+      try {
+        await api('/api/resolve', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({key: r.key, hash: r.hash, state: proposed, reason: 'confirmed', by: me})});
+        status.textContent = 'Confirmed.'; FOCUS_KEY = r.key; setTimeout(route, 250);
+      } catch (err) { status.textContent = `Couldn’t save: ${err.message}.`; status.classList.add('text-red'); confirm.disabled = false; }
+    }}, `Confirm ${RES_LABEL[proposed] || proposed}`);
+    const overturn = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Decide differently: opens the decision form', onclick: (e) => { e.stopPropagation(); toggle(i, true); const f = trs[i].detail.querySelector('input[type=text]'); if (f) f.focus(); }}, 'Overturn');
+    return [h('div', {class: 'btn-list flex-nowrap'}, confirm, overturn), h('div', {class: 'text-secondary small mt-1'}, byText(r.by), r.resolution && r.resolution.at ? `, ${day(r.resolution.at)}` : ''), status];
   }
   function resolutionForm(r, many, done) {
     const items = many || [r];
@@ -171,10 +195,15 @@ async function reconcilePage(view, qs) {
       }
       if (S.length > 1) { const maxY = Math.max(1e-9, ...S.map((s) => Math.abs(s.value || 0))); cards.push(col(4, dtable(`${LABEL[r.field] || r.field} by year`, [{t: 'Year', k: 'period', w: '4rem'}, {t: 'Value', num: 1, f: (s) => (s.value == null ? '—' : [bar(s.value, maxY), usd(s.value)])}, {t: '', f: (s) => checkBadge(s.label)}], S.map((s) => ({...s, _cls: s.period === r.period ? 'table-active' : null}))))); }
       cards.push(col(4, h('details', {class: 'words', open: true}, h('summary', {}, 'The finding, in words'), h('div', {class: 'small'}, E.message || '')), h('div', {class: 'mt-2'}, h('a', {href: `#data?view=grid&t=${r.ticker}&f=${r.field || 'capex'},capex`, class: 'small'}, 'The dataset, with every citation'))));
+    } else if (toConfirm(r)) {
+      const p = r.resolution || {};
+      cards.push(col(8, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, `The run proposed: ${RES_LABEL[E.proposed] || E.proposed}`), h('span', {class: 'ms-2 small text-secondary'}, `${p.by || ''}, ${day(p.at)}`)),
+        h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0'}, E.message || p.reason || ''), h('p', {class: 'text-secondary small mt-2 mb-0'}, 'Confirm records the same state under your name; a different decision below overturns it. Either way the item leaves this group and the release gate G6 counts one fewer.')),
+        h('div', {class: 'card-footer py-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'The company\'s trail')))));
     } else if (r.cause === 'new_filing') {
       cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-body'}, `${E.form} filed ${day(E.filed)}. `, h('a', {href: E.url, target: '_blank', rel: 'noopener'}, 'Open at the SEC'), ' · ', h('a', {href: '#run'}, 'Run it')))));
     }
-    const decision = h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Decision'), r.resolution ? h('span', {class: 'ms-2 small text-secondary'}, `${RES_LABEL[r.resolution.state]} by ${r.resolution.by}, ${day(r.resolution.at)}: ${r.resolution.reason}`) : ''), h('div', {class: 'card-body py-2'}, resolutionForm(r))));
+    const decision = h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, toConfirm(r) ? 'Overturn: your own decision' : 'Decision'), r.resolution && !toConfirm(r) ? h('span', {class: 'ms-2 small text-secondary'}, `${RES_LABEL[r.resolution.state]} by ${r.resolution.by}, ${day(r.resolution.at)}: ${r.resolution.reason}`) : ''), h('div', {class: 'card-body py-2'}, resolutionForm(r))));
     return h('div', {class: 'row g-3'}, cards, decision);
   }
   wrap.append(header, controls, bulk, ...(cards.length ? cards : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'Nothing open for this scope.'))]),

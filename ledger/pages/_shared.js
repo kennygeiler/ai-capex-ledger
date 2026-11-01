@@ -31,9 +31,10 @@ let me = 'Kenny Geiler';
 try { me = localStorage.getItem('datahq-me') || me; } catch {}
 $('#me').value = me;
 $('#me').addEventListener('input', (e) => { me = e.target.value; try { localStorage.setItem('datahq-me', me); } catch {} });
-let NAMES = {};
-api('/api/data?t=&f=none').then((d) => { NAMES = d.names; $('#tickers').replaceChildren(...Object.entries(NAMES).map(([t, n]) => h('option', {value: t}, n))); });
-$('#jump').addEventListener('change', (e) => { const v = e.target.value.trim().toUpperCase(); const t = NAMES[v] ? v : Object.keys(NAMES).find((k) => NAMES[k].toUpperCase() === v); if (t) { e.target.value = ''; go(`data?ticker=${t}`); } });
+let NAMES = {}, SCOPE = [];
+// the jump box offers the scope only (T2); a ticker typed from outside it still navigates, an explicit ask
+api('/api/data?t=&f=none').then((d) => { SCOPE = d.scope || Object.keys(d.names); NAMES = Object.fromEntries(SCOPE.filter((t) => d.names[t]).map((t) => [t, d.names[t]])); $('#tickers').replaceChildren(...Object.entries(NAMES).map(([t, n]) => h('option', {value: t}, n))); });
+$('#jump').addEventListener('change', (e) => { const v = e.target.value.trim().toUpperCase(); const t = NAMES[v] ? v : Object.keys(NAMES).find((k) => NAMES[k].toUpperCase() === v) || (/^[A-Z.\-]{1,6}$/.test(v) ? v : null); if (t) { e.target.value = ''; go(`data?ticker=${t}`); } });
 
 function table(cols, rows, {key, onRow, detail} = {}) {
   const tb = h('tbody');
