@@ -6,7 +6,7 @@ import csv
 import re
 import unittest
 
-from ledger import golden, store, taxonomy
+from ledger import golden, status, store, taxonomy
 try:
     from test_taxonomy import _con  # unittest discover -s tests
 except ImportError:
@@ -114,13 +114,21 @@ class OneMeaningPerColumn(unittest.TestCase):
                 if r["category"] == "guidance":
                     self.assertTrue(r["forward_looking"], name)
 
+    def test_check_method_is_a_known_kind(self):
+        """An open vocabulary: `<kind>` or `<kind>:<id>`, the kind in status.METHOD_KINDS (one place; a new answer key is one entry there)."""
+        for name, rows in self.sets():
+            for r in rows:
+                self.assertIn(status.method_kind(r["check_method"]), status.METHOD_KINDS, f"{name}: {r['check_method']}")
+
     def test_check_and_its_method_agree(self):
         for name, rows in self.sets():
             for r in rows:
                 c, m = r["check"], r["check_method"]
                 if c == "agree" or c == "differs":
                     self.assertEqual(m, "xbrl", name)
-                if c == "no_reference" or c == "unmapped":
+                if c == "no_reference":
+                    self.assertEqual(m, "label:no_reference", name)
+                if c == "unmapped":
                     self.assertEqual(m, "none", name)
                 if c == "explained":
                     self.assertRegex(m, r"^(rule|definition|resolution):", name)

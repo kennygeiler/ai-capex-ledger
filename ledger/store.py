@@ -17,6 +17,8 @@ from pathlib import Path
 
 import duckdb
 
+from . import status as _status  # METHOD_KINDS: the check_method vocabulary, one place
+
 ROOT = Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[1]  # LEDGER_ROOT: the golden harness runs the pipeline in a copy of the repo layout
 DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
 SCHEMA_VERSION = 11  # v11: the taxonomy rows take one shape (T9–T17: group dropped, change_from_prior, tags unpacked, the source followed, one check vocabulary, mapped, has_value, periods, units); they are computed by ledger/taxonomy.py, not stored, so nothing migrates: the bump marks the packet shape. v10: ai_spend.ai_amount dropped; v9: projects table
@@ -311,8 +313,9 @@ TAXONOMY = Table("taxonomy", "One row per company, fiscal year, measure and cate
     _c("filed", "VARCHAR", "The date the source was filed or published.", nullable=True, pattern=DATE),
     _c("source_url", "VARCHAR", "A URL that opens the source: the filing on sec.gov at the cited row (a text fragment) for a 10-K cell, the text at the quote for a statement or project, the gathered figure's page.", nullable=True),
     _c("check", "VARCHAR", "agree: matches the SEC's XBRL. explained: differs and something on file says why (check_method). differs: differs and nothing on file says why. no_reference: no XBRL fact to compare. unmapped: an asset type with no standard member. verbatim: a quote verified against its text.", enum=CHECKS),
-    _c("check_method", "VARCHAR", "What established the check: xbrl, rule:<id>, definition:<name>, resolution:<id>, quote, gathered, or none (nothing to compare against).",
-       pattern=re.compile(r"^(xbrl|rule:[a-z_]+|definition:[a-z_]+|resolution:[0-9a-f]+|quote|gathered|none)$")),
+    _c("check_method", "VARCHAR", "What established the check, as status.py names `by`: `<kind>` or `<kind>:<id>` with the kind one of status.METHOD_KINDS: xbrl, quote, gathered, "
+       "none (nothing to compare against), rule:<id>, definition:<name>, resolution:<id>, label:<label>, mapping:<member>. An open vocabulary: a later answer key adds a kind there.",
+       pattern=re.compile(r"^(" + "|".join(_status.METHOD_KINDS) + r")(:.+)?$")),
 ), key=("ticker", "fiscal_year", "measure", "category", "reported_name", "source"))
 TAXONOMY_COLUMNS = tuple(c.name for c in TAXONOMY.cols)
 

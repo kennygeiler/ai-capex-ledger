@@ -25,6 +25,13 @@ label:<not_reported|no_reference> | resolution:<id>. Empty when the state is ope
 from __future__ import annotations
 
 STATES = ("checked", "explained", "open", "blocked")
+# The kinds of `by`, and of the taxonomy rows' `check_method` (store.TAXONOMY): an open vocabulary of `<kind>` or
+# `<kind>:<id>`. A later answer key (esef:<tag>, source:<doc>, actual:<period>) is one entry here.
+METHOD_KINDS = ("xbrl", "quote", "gathered", "located", "none", "mapping", "rule", "definition", "resolution", "label")
+
+
+def method_kind(by: str) -> str:
+    return by.partition(":")[0]
 ORDER = {"blocked": 0, "open": 1, "explained": 2, "checked": 3}  # worst first
 CHECKS = ("xbrl", "quote", "located", "mapping")
 GUARD_IDS = ("part_year", "program_words", "asset_type_mapping", "restated_between_filings", "amendment_without_statements")  # proof.GUARDS: info by nature

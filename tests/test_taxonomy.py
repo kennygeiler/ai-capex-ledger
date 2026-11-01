@@ -44,7 +44,7 @@ class Rows(unittest.TestCase):
         seg = by[("spent", "segment_revenue", "AWS", "FY2025")]
         self.assertIn("StatementBusinessSegmentsAxis", seg["standard_concept"])
         po = by[("committed", "purchase_obligations", "purchase commitments", "FY2025")]
-        self.assertEqual((po["check"], po["check_method"]), ("no_reference", "none"))
+        self.assertEqual((po["check"], po["check_method"]), ("no_reference", "label:no_reference"))
         self.assertEqual((by[("spent", "segment_revenue", "Other", "FY2025")]["check"], by[("spent", "segment_revenue", "Other", "FY2025")]["check_method"]), ("differs", "xbrl"))
         self.assertNotIn("revenue", [r["category"] for r in rows if r["measure"] == "spent"])  # revenue is not spend
         self.assertTrue(all(tuple(r) == taxonomy.COLUMNS for r in rows))  # every row carries every column, in the declared order

@@ -107,13 +107,13 @@ def quote_link(url: str | None, text: str | None) -> str | None:
 
 
 def _checked(label: str | None, resolution: dict | None, restated: str | None = None, definition: str | None = None) -> tuple[str, str]:
-    """(check, check_method) for a reported row from its reconcile label and what is on file, the way status.state reads it:
-    agree by XBRL; no_reference with nothing to compare; a difference explained by a person's resolution, a definition or
-    the restatement guard; otherwise differs, compared with XBRL."""
+    """(check, check_method) for a reported row from its reconcile label and what is on file, the way status.state names
+    `by` (status.METHOD_KINDS): agree by xbrl; no_reference by label:no_reference; a difference explained by resolution:<id>,
+    definition:<name> or rule:restated_between_filings; otherwise differs, compared with xbrl."""
     if label == "agree":
         return "agree", "xbrl"
     if label == "no_reference":
-        return "no_reference", "none"
+        return "no_reference", "label:no_reference"
     rid = (resolution or {}).get("id")
     if resolution and resolution.get("state") in ("accept", "explain"):
         return "explained", f"resolution:{rid}" if rid else "none"
