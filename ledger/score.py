@@ -135,7 +135,7 @@ def faults(con, agent_id: str, tickers: list[str]) -> tuple[dict | None, str]:
         return None, "not measured: no `ledger faults` run in the runs table"
     acc = {r["accession"]: r["ticker"] for r in _rows(con, "select accession, ticker from documents where ticker in (select unnest(?))", tickers)}
     on, off = [], []
-    covered, used, off_missing = [], {}, []
+    covered, used, off_missing, stale_off = [], {}, [], []
     for t in tickers:
         mine = {a for a, tk in acc.items() if tk == t}
         for run in runs:
@@ -145,8 +145,10 @@ def faults(con, agent_id: str, tickers: list[str]) -> tuple[dict | None, str]:
                 on += rows
                 covered.append(t)
                 used[run["subject"]] = (run["started_at"] or "", _ended(run), written or "")
-                xo, _ = _report(run["subject"], xbrl=False)
+                xo, xwritten = _report(run["subject"], xbrl=False)
                 xrows = [x for x in xo or [] if x["extraction_id"].split("|")[0] in mine]
+                if xrows and (xwritten or "")[:19] < (run["started_at"] or "")[:19]:
+                    xrows, stale_off = [], stale_off + [t]  # an XBRL-off file older than the normal run pairs two different runs
                 off += xrows
                 if not xrows:
                     off_missing.append(t)
@@ -160,10 +162,16 @@ def faults(con, agent_id: str, tickers: list[str]) -> tuple[dict | None, str]:
         if written[:19] > ended:
             p += " (report newer than its run: the numbers are the file's)"
         parts.append(p)
-    tot = {**tally(on), "xbrl_off": tally(off) if off else None}
+    # the XBRL-off tally only over exactly the companies the normal tally covers, so the two numbers share a denominator
+    same = bool(off) and not off_missing
+    tot = {**tally(on), "xbrl_off": tally(off) if same else None}
     note = "; ".join(parts) + "; caught = a rule or the XBRL comparison fired, xbrl_only = only the XBRL comparison fired; no_effect = the fault reached no released value"
-    if off:
-        note += f"; XBRL off: the same trials with xbrl_reconcile removed (reports/<name>-faults-xbrl-off.json)" + (f", no such file covers {', '.join(off_missing)}" if off_missing else "")
+    if same:
+        note += "; XBRL off: the same trials with xbrl_reconcile removed (reports/<name>-faults-xbrl-off.json), over the same companies"
+    elif off:
+        note += f"; XBRL off not shown: it would cover fewer companies than the headline ({', '.join(off_missing)} missing" + (f"; older than the normal run for {', '.join(stale_off)}" if stale_off else "") + ")"
+    elif stale_off:
+        note += f"; XBRL off not shown: its report is older than the normal run for {', '.join(stale_off)}"
     else:
         note += "; no XBRL-off report (reports/<name>-faults-xbrl-off.json) covers these companies"
     if missing:

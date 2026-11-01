@@ -183,6 +183,53 @@ class Score(unittest.TestCase):
         self.assertIn("report newer than its run", note)
 
 
+    def test_a_stale_xbrl_off_report_is_not_shown(self):
+        rep = json.loads((self.reports / "six-faults-xbrl-off.json").read_text())
+        rep["written"] = "2020-01-01T00:00:00+00:00"  # older than the normal run: a different run's numbers
+        (self.reports / "six-faults-xbrl-off.json").write_text(json.dumps(rep))
+        fl, note = score.faults(self.con, "reader", ["MSFT"])
+        self.assertIsNone(fl["xbrl_off"])
+        self.assertIn("older than the normal run for MSFT", note)
+
+    def test_an_xbrl_off_report_over_fewer_companies_is_not_shown(self):
+        store.write(self.con, "documents", [_doc("0001045810-25-000001", "NVDA", "2025-01-26")])
+        rep = json.loads((self.reports / "six-faults.json").read_text())
+        rep["rows"] = rep["rows"] + [{"fault": "sign_flip", "extraction_id": "0001045810-25-000001|capex|x|y", "outcome": "rule", "caught_by": ["sign"]}]
+        (self.reports / "six-faults.json").write_text(json.dumps(rep))
+        fl, note = score.faults(self.con, "reader", ["MSFT", "NVDA"])
+        self.assertIsNone(fl["xbrl_off"])  # the off file covers MSFT only: never a smaller denominator beside the headline
+        self.assertIn("XBRL off not shown", note)
+
+
+class InjectXbrlOff(unittest.TestCase):
+    """inject(): a fault only the XBRL comparison sees reads xbrl_only with every rule, escaped with XBRL off."""
+
+    def test_xbrl_only_becomes_escaped_without_the_rule(self):
+        from ledger import faults as F
+        from ledger.rules import Context
+        rules = load()
+        xbrl_hit = {"exception_id": "x1", "input_hash": "h", "rule_id": XBRL_RULE, "severity": "block"}
+        def fake_run(ctx, rs):  # the XBRL rule fires on the corrupted set only, and only when it is in the rule set
+            on = any(r["id"] == XBRL_RULE for r in rs)
+            return [xbrl_hit] if on and ctx.extractions and ctx.extractions[0].get("value") == -1 else []
+        base = [{"field": "revenue", "period": "FY2025", "value": 1}]
+        bad = [{"field": "revenue", "period": "FY2025", "value": -1}]
+        ctx = Context(values=[], extractions=[{"value": 1}], parsed={})
+        with mock.patch.object(F, "run", fake_run), \
+             mock.patch.object(F, "trials", lambda xs, parsed: iter([("sign_flip", [{"value": -1}], {"extraction_id": "a|b"})])), \
+             mock.patch.object(F, "values_for", lambda t, xs, *a: bad if xs and xs[0]["value"] == -1 else base):
+            on = F.inject("MSFT", [{"value": 1}], {}, None, {}, ctx, rules)
+            off = F.inject("MSFT", [{"value": 1}], {}, None, {}, ctx, rule_set(rules, xbrl=False))
+        self.assertEqual([r["outcome"] for r in on], ["xbrl_only"])
+        self.assertEqual([r["outcome"] for r in off], ["escaped"])
+
+    def test_trials_leave_the_input_list_unchanged(self):
+        xs = [REV]
+        before = json.dumps(xs, sort_keys=True, default=str)
+        list(trials(xs, {ACC: DOC}))
+        self.assertEqual(json.dumps(xs, sort_keys=True, default=str), before)
+
+
 class SystematicOf(unittest.TestCase):
     def test_the_variants_are_one_cell_kinds(self):
         for v in SYSTEMATIC_OF:

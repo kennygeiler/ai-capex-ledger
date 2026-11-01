@@ -51,7 +51,7 @@ def main(argv=None) -> int:
     rep = report(name, xbrl, rules, rows)
     out = report_path(name, xbrl)
     out.write_text(json.dumps(rep, indent=1))
-    store.write(con, "runs", [{"run_id": f"faults-{started}", "step": "faults", "subject": name, "started_at": started,
+    store.write(con, "runs", [{"run_id": f"faults-{started}", "step": "faults", "subject": name if xbrl else f"{name}-xbrl-off", "started_at": started,
                                "seconds": round(time.monotonic() - t0, 1), "outcome": "ok", "versions": json.dumps({}),
                                "detail": json.dumps({"exit_code": 0, "xbrl": xbrl, "report": str(out.relative_to(store.ROOT))})}], replace=True)
     print(f"{out.relative_to(store.ROOT)} ({'xbrl_reconcile counted' if xbrl else 'XBRL off: xbrl_reconcile removed'})")

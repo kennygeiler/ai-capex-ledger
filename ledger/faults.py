@@ -89,9 +89,10 @@ def omission(e, doc):
     the company-year is built without it (a blank labelled not_reported, or an older filing's value where one exists).
     Simulates a reader that skipped a line, or a locator whose table had no such row (the AMZN revenue and opex blanks,
     T65). No cell changes, so citation, sign, period and tie rules see nothing wrong; the XBRL comparison reads values
-    that exist and cannot see one that is missing. What should catch it: the coverage rule where the year is left with
-    no row at all, and the completeness check against the answer key (T81: XBRL holds a value where the dataset has
-    none), which is not built yet."""
+    that exist and cannot see one that is missing. Since T65 the blank is labelled `not_extracted` (open) wherever XBRL
+    tags the value, but that is a label, not a rule finding, so this report counts it as escaped; year-comparing rules
+    (row_label_switch, jump, outlier) catch some omissions incidentally when an older filing's value fills the year. The
+    intended catcher is the completeness check against the answer key (T81), not built yet."""
     return OMIT
 
 
@@ -100,8 +101,9 @@ def wrong_table(e, doc):
     the same position (or a cash-flow citation at the income statement's), in the column with the same label where
     the other table has it, else the same position, so the cited cell exists and the citation resolves. Simulates
     `documents.income_tables == cash_flow_tables` (T65: AMZN), a locator that returned one table for both statements.
-    What should catch it: the T65 locator rule (not built yet); until then the statement tie, the sign rule and the
-    XBRL comparison, each only where the swapped cell happens to break them."""
+    In practice `row_label_switch` catches most of these (the swapped row's label differs from other years'), then the
+    statement tie, sign and the XBRL comparison where the swapped cell breaks them. The T65 locator rule
+    (`statement_tables_distinct`) guards the cause at ingest, on `documents`, which these trials do not change.""" 
     other = "cash_flow" if e["field"] in INCOME_FIELDS else "income"
     tables = doc["statements"].get(other) or []
     if not tables:
@@ -120,9 +122,10 @@ def wrong_table(e, doc):
 
 def systematic(extractions, parsed):
     """The same mistake in every year of a company: one of wrong_row, wrong_column or wrong_scale applied to every
-    extraction of one field at once, across all its filings, so no rule that compares years (jump, row_label_switch,
-    outlier_vs_own_history, restated) can see a step; only a check that looks at each cell alone (citation, column,
-    period, sign, tie) or at an outside answer key (XBRL) can catch it. Simulates a reader that misreads a statement the
+    extraction of one field at once, across all its filings, so a rule that compares years (jump, row_label_switch,
+    outlier_vs_own_history, restated) sees a step only where a filing could not take the same mistake (a fallback, counted
+    in the trial's detail as `fallbacks`); otherwise only a check that looks at each cell alone (citation, column, period,
+    sign, tie) or an outside answer key (XBRL) can catch it. Simulates a reader that misreads a statement the
     same way every time, the error DISCIPLINES.md's model-risk audit named as the one a bank fears most. One trial per
     (field, variant), needing at least SYSTEMATIC_MIN years moved; for wrong_row the first filing's neighbouring line names
     the line read in every other filing (where that filing has it; else its own neighbour). Yields (extractions, detail)."""
@@ -131,17 +134,19 @@ def systematic(extractions, parsed):
         by_field.setdefault(e["field"], []).append(i)
     for f, idx in sorted(by_field.items()):
         for name in SYSTEMATIC_OF:
-            xs, moved, label = list(extractions), [], None
+            xs, moved, label, fallbacks = list(extractions), [], None, 0
             for i in idx:
                 e, doc = extractions[i], parsed[extractions[i]["accession"]]
                 bad = (_same_row(e, doc, label) if label else None) if name == "wrong_row" else None
+                if name == "wrong_row" and label and bad is None:
+                    fallbacks += 1  # this filing has no line called `label`: it takes its own neighbour, not the same line
                 bad = bad if bad is not None else FAULTS[name](e, doc)
                 if bad is not None and bad is not OMIT:
                     xs[i] = bad
                     moved.append(e["extraction_id"])
                     label = label or bad["row_label"]  # the first filing's wrong line names the line for every other filing
             if len(moved) >= SYSTEMATIC_MIN:
-                yield xs, {"extraction_id": moved[0], "variant": name, "field": f, "n": len(moved)}
+                yield xs, {"extraction_id": moved[0], "variant": name, "field": f, "n": len(moved), "fallbacks": fallbacks}
 
 
 def _same_row(e, doc, label):

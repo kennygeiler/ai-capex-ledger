@@ -1,14 +1,14 @@
 .env
 __pycache__/
-data/raw/
+data/raw
 .venv/
 data/ledger.duckdb*
-data/docs/
+data/docs
 data/extract/tasks/
 data/snapshots/
 data/watch.json
 data/jobs/
-data/text/
+data/text
 data/aispend/tasks/
 data/notes/tasks/
 data/projects/tasks/
