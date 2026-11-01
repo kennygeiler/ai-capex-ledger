@@ -158,7 +158,8 @@ def validate_output(obj: dict, ticker: str, names: list[str], task: str, allowed
         raise Invalid(f"prompt_version {obj['prompt_version']!r}, expected one of {known}")
     if not isinstance(obj["proposals"], list):
         raise Invalid("'proposals' must be a list")
-    task_n, seen = _norm(task), set()
+    notes = _norm(task.partition("## The note's words")[2]) + " " + " ".join(_norm(n) for n in names)  # the note's words and the category names: never the headings or the member list
+    seen = set()
     for i, p in enumerate(obj["proposals"]):
         missing = [k for k in ("reported_name", "standard_type", "evidence", "confidence", "reason") if k not in p]
         if missing:
@@ -170,8 +171,8 @@ def validate_output(obj: dict, ticker: str, names: list[str], task: str, allowed
         seen.add(p["reported_name"])
         if p["standard_type"] != NONE and p["standard_type"] not in allowed:
             raise Invalid(f"proposals[{i}].standard_type {p['standard_type']!r} is not on the allowed list (or none)")
-        if not isinstance(p["evidence"], str) or not p["evidence"].strip() or _norm(p["evidence"]) not in task_n:
-            raise Invalid(f"proposals[{i}].evidence is not words from the task: {str(p['evidence'])[:80]!r}")
+        if not isinstance(p["evidence"], str) or not p["evidence"].strip() or not re.search(r"(?<!\S)" + re.escape(_norm(p["evidence"])) + r"(?!\S)", notes):
+            raise Invalid(f"proposals[{i}].evidence is not whole words of the note: {str(p['evidence'])[:80]!r}")
         if p["confidence"] not in CONFIDENCES:
             raise Invalid(f"proposals[{i}].confidence must be one of {CONFIDENCES}")
     left = [n for n in names if n not in seen]
@@ -192,10 +193,11 @@ def _scalar(s: str) -> str:
     return s if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9 .\-']*", s) else json.dumps(s)
 
 
-def approve(ticker: str, reported_name: str, standard_type: str, evidence: str, by: str, path: Path | None = None, log: Path | None = None, at: str | None = None) -> dict:
+def approve(ticker: str, reported_name: str, standard_type: str, evidence: str, by: str, path: Path | None = None, log: Path | None = None, at: str | None = None, con=None) -> dict:
     """Write one entry to taxonomy/asset_types.yaml, in the file's own format (one flow-mapping line under the ticker's
-    block; the comment header untouched); refuse a member off the header's list and a second entry for the same
-    (ticker, reported_name). Logged as an `approved` line in the proposals log."""
+    block; the comment header untouched); refuse a member off the header's list, a second entry for the same
+    (ticker, reported_name), and a name that is not one of the company's unmapped reported categories (taxonomy.unmapped
+    on `con`, the database read-only when none is given). Logged as an `approved` line in the proposals log."""
     p = path or ASSET_TYPES
     ticker, reported_name, standard_type, evidence, by = ticker.strip().upper(), reported_name.strip(), standard_type.strip(), " ".join(evidence.split()), by.strip()
     if not ticker or not reported_name or not evidence or not by:
@@ -206,6 +208,8 @@ def approve(ticker: str, reported_name: str, standard_type: str, evidence: str, 
     current = (yaml_load(p).get(ticker) or {}) if p.exists() else {}
     if reported_name in current:
         raise ValueError(f"{ticker} {reported_name!r} is already mapped to {current[reported_name].get('standard_type')}")
+    if reported_name not in {u["reported_name"] for u in _unmapped(con, ticker)}:
+        raise ValueError(f"{ticker} {reported_name!r} is not one of the company's reported PP&E categories with no mapping; nothing written")
     line = f"  {json.dumps(reported_name)}: {{standard_type: {standard_type}, evidence: {json.dumps(evidence)}, by: {_scalar(by)}, at: {at or date.today().isoformat()}}}"
     lines = p.read_text().splitlines() if p.exists() else []
     starts = [i for i, l in enumerate(lines) if l == f"{ticker}:"]
@@ -227,6 +231,18 @@ def approve(ticker: str, reported_name: str, standard_type: str, evidence: str, 
     entry = {"ticker": ticker, "reported_name": reported_name, "standard_type": standard_type, "evidence": evidence, "by": by, "at": at or date.today().isoformat()}
     _append({"kind": "approved", **entry}, log)
     return entry
+
+
+def _unmapped(con, ticker: str) -> list[dict]:
+    """The company's reported categories with no mapping (taxonomy.unmapped), on `con` or on the database read-only."""
+    if con is not None:
+        return unmapped(con, [ticker])
+    import duckdb
+    c = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
+    try:
+        return unmapped(c, [ticker])
+    finally:
+        c.close()
 
 
 def yaml_load(p: Path) -> dict:

@@ -2,7 +2,10 @@
 // One card per cause; one row per item with ours, reference, a gap bar, delta and decision; Enter opens the evidence as
 // aligned diff tables (this year, the computation, every year) with a status badge per line, and the decision form.
 const CAUSE_ORDER = ['to_confirm', 'blocked', 'fact_differs', 'fact_changed', 'finding_unconfirmed', 'new_filing', 'asset_types'];
-const CONF_BADGE = {high: 'bg-green-lt', medium: 'bg-yellow-lt', low: 'bg-orange-lt'};
+// T33: Approve and "Write as" need a name in the signer box, as Sign does; one listener keeps every such button in step
+const NEEDS_ME = new Set();  // the page lives in a shadow root, so the buttons are kept here, not queried from the document
+const needsMe = (btn) => { btn.disabled = !(me || '').trim(); NEEDS_ME.add(btn); return btn; };
+document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const b of NEEDS_ME) b.disabled = !(me || '').trim(); });
 const RES_LABEL = {accept: 'Accept', explain: 'Explain', fix: 'Fix', blocks: 'Blocks'};
 const RES_HELP = {accept: 'the number is right as it stands', explain: 'right, with the reason kept beside it', fix: 'wrong, stays open until a run fixes it', blocks: 'nothing ships until this is settled'};
 const RES_BADGE = {accept: 'bg-green-lt', explain: 'bg-azure-lt', fix: 'bg-yellow-lt', blocks: 'bg-red-lt'};
@@ -34,6 +37,7 @@ const badge = (text, cls) => h('span', {class: 'badge ' + (cls || 'bg-secondary-
 const checkBadge = (label) => (label == null ? '' : label === 'agree' ? badge('SEC agrees', 'bg-green-lt') : label === 'not_reported' ? badge('not reported', 'bg-secondary-lt') : label === 'no_reference' ? badge('no tag', 'bg-secondary-lt') : label === 'definition_gap' ? badge('explained', 'bg-azure-lt') : badge('differs from SEC', 'bg-yellow-lt'));
 const bar = (v, max, cls) => h('span', {class: 'bar ' + (cls || ''), style: `width:${Math.max(2, 44 * Math.abs(v || 0) / (max || 1)).toFixed(0)}px`});
 async function reconcilePage(view, qs) {
+  NEEDS_ME.clear();  // the last render's buttons are gone with it
   const q = parseQ(qs || '');
   const scope = q.scope || q.t || 'all', group = q.group || 'cause', fCause = q.cause || '', fLayer = q.layer || '', fField = q.field || '', withResolved = q.resolved === '1';  // ?t=MU is ?scope=MU: any one ticker the database holds, in scope or not
   const d = await api('/api/v1/reconcile?scope=' + encodeURIComponent(scope));
@@ -86,7 +90,7 @@ async function reconcilePage(view, qs) {
       const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field) : r.where, r.period ? ` ${r.period}` : ''), r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : r.cause === 'finding_unconfirmed' && r.measure == null ? h('div', {class: 'text-secondary small'}, r.cause_label) : isAsset(r) && r.evidence.note ? h('div', {class: 'text-secondary small'}, `${r.evidence.note.table_id}, filing ${r.evidence.note.accession}`) : ''];
       const res = toConfirm(r) ? confirmCell(r, i) : isAsset(r) ? mappingCell(r, i) : [stateCell(r), r.resolution && r.resolution.by ? h('div', {class: 'text-secondary small'}, `${RES_LABEL[r.resolution.state] || r.resolution.state} by ${r.resolution.by}, ${day(r.resolution.at)}`) : ''];
       const P = isAsset(r) ? r.evidence.proposal : null;
-      const ours = isAsset(r) ? [P ? [h('span', {class: 'font-monospace', style: 'font-size:.8rem'}, P.standard_type), ' ', h('span', {class: 'badge ' + (CONF_BADGE[P.confidence] || 'bg-secondary-lt'), title: `the mapper's confidence: ${P.confidence}`}, P.confidence)] : h('span', {class: 'text-secondary small'}, 'no proposal yet'), P ? h('div', {class: 'text-secondary small'}, `“${P.evidence}”`) : ''] : [num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, r.ours_label) : ''];
+      const ours = isAsset(r) ? [P ? [h('span', {class: 'font-monospace', style: 'font-size:.8rem;overflow-wrap:anywhere'}, P.standard_type), ' ', h('span', {class: 'text-secondary small', title: `the mapper's confidence: ${P.confidence}`}, P.confidence)] : h('span', {class: 'text-secondary small'}, 'no proposal yet'), P ? h('div', {class: 'text-secondary small'}, `“${P.evidence}”`) : ''] : [num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, r.ours_label) : ''];
       const tr = h('tr', {class: 'item', tabindex: 0, 'aria-expanded': 'false', onkeydown: (e) => keys(e, i), onclick: () => toggle(i), onfocus: () => { cur = i; paintCur(); }},
         h('td', {class: 'w-1'}, cb), h('td', {}, first), h('td', {}, where),
         h('td', {class: isAsset(r) ? '' : 'num'}, ours),
@@ -156,11 +160,11 @@ async function reconcilePage(view, qs) {
     const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
     const btns = [];
     if (P) {
-      const approve = h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: `Write ${P.standard_type} to taxonomy/asset_types.yaml as ${me}, with the mapper's evidence`, onclick: async (e) => {
+      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: (me || '').trim() ? `Write ${P.standard_type} to taxonomy/asset_types.yaml as ${me}, with the mapper's evidence` : 'type your name in the signer box first', onclick: async (e) => {
         e.stopPropagation(); approve.disabled = true;
         const ok = await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, evidence: P.evidence, by: me}, status, 'Mapped.');
-        if (!ok) approve.disabled = false;
-      }}, 'Approve');
+        if (!ok) approve.disabled = !(me || '').trim();
+      }}, 'Approve'));
       const reject = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: `Log ${P.standard_type} as rejected for this category; the next mapper run proposes another`, onclick: async (e) => {
         e.stopPropagation(); reject.disabled = true;
         const ok = await postMapping('/api/mapping/reject', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, by: me, reason: 'rejected on Reconcile'}, status, 'Rejected.');
@@ -179,12 +183,12 @@ async function reconcilePage(view, qs) {
     if (P && !members.includes(P.standard_type) && d.members.includes(P.standard_type)) select.prepend(h('option', {value: P.standard_type, selected: true}, P.standard_type));
     const evidence = h('input', {type: 'text', class: 'form-control form-control-sm', name: 'evidence', autocomplete: 'off', 'aria-label': 'Evidence: the note’s words', placeholder: 'the note’s own words for what the category holds', value: P ? P.evidence : r.evidence.reported_name, onkeydown: (e) => { if (e.key === 'Enter') save.click(); }});
     const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
-    const save = h('button', {type: 'button', class: 'btn btn-sm btn-primary', onclick: async () => {
+    const save = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: (me || '').trim() ? '' : 'type your name in the signer box first', onclick: async () => {
       if (!evidence.value.trim()) { evidence.focus(); status.textContent = 'The evidence is required: the note’s words.'; return; }
       save.disabled = true;
       await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: select.value, evidence: evidence.value, by: me}, status, 'Mapped.');
-      save.disabled = false;
-    }}, `Write as ${me}`);
+      save.disabled = !(me || '').trim();
+    }}, (me || '').trim() ? `Write as ${me}` : 'Write'));
     return h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-12 col-xl-4'}, select), h('div', {class: 'col'}, h('div', {class: 'input-group input-group-sm'}, evidence, save)), h('div', {class: 'col-12 small text-secondary'}, `“${r.evidence.reported_name}” → the member, in taxonomy/asset_types.yaml with by: ${me} and today’s date; then rerun `, h('code', {}, 'ledger rules'), ' (or any taxonomy read) and the row shows mapped.'), h('div', {class: 'col-12'}, status));
   }
   function resolutionForm(r, many, done) {
@@ -256,11 +260,13 @@ async function reconcilePage(view, qs) {
       cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-body'}, `${E.form} filed ${day(E.filed)}. `, h('a', {href: E.url, target: '_blank', rel: 'noopener'}, 'Open at the SEC')))));
     } else if (isAsset(r)) {
       const P = E.proposal, N = E.note;
-      cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, P ? `The mapper proposed ${P.standard_type}` : 'No proposal on file'), P ? h('span', {class: 'ms-2 small text-secondary'}, `${P.model || ''} ${P.prompt_version || ''}, ${day(P.at)}`) : ''),
+      const item = (title, ...body) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, title), h('div', {class: 'datagrid-content', style: 'overflow-wrap:anywhere'}, body));
+      cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0', style: 'overflow-wrap:anywhere'}, P ? `The mapper proposed ${P.standard_type}` : 'No proposal on file')),
         h('div', {class: 'card-body py-2'}, P ? h('div', {class: 'datagrid'},
-          h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Evidence, the note’s words'), h('div', {class: 'datagrid-content'}, `“${P.evidence}”`)),
-          h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Confidence'), h('div', {class: 'datagrid-content'}, h('span', {class: 'badge ' + (CONF_BADGE[P.confidence] || 'bg-secondary-lt')}, P.confidence))),
-          h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Reason'), h('div', {class: 'datagrid-content'}, P.reason || ''))) : h('p', {class: 'm-0 small text-secondary'}, 'Run ', h('code', {}, `uv run python -m ledger mapper ${r.ticker}`), ' for a proposal, or map it yourself below.'),
+          item('Evidence, the note’s words', `“${P.evidence}”`),
+          item('Confidence', h('span', {class: 'text-secondary'}, P.confidence)),
+          item('Reason', P.reason || ''),
+          item('Proposed by', `${P.model || ''} ${P.prompt_version || ''}, ${day(P.at)}`)) : h('p', {class: 'm-0 small text-secondary'}, 'Run ', h('code', {}, `uv run python -m ledger mapper ${r.ticker}`), ' for a proposal, or map it yourself below.'),
           E.rejected && E.rejected.length ? h('p', {class: 'small text-secondary mt-2 mb-0'}, `Rejected before: ${E.rejected.join(', ')}`) : ''))));
       cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'The note’s words'), N ? h('span', {class: 'ms-2 small text-secondary'}, `${N.table_id}, filing ${N.accession}`) : ''),
         h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0 small'}, N && N.before ? `…${N.before}` : 'The parsed note is not on disk for this clone; the category name is all the note’s words we have.'), h('div', {class: 'mt-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'The company’s trail'))))));

@@ -508,7 +508,14 @@ class Handler(BaseHTTPRequestHandler):
             return self._guard(lambda: self._json(resolutions.resolve(body.get("key", ""), body.get("hash", ""), body.get("state", ""), body.get("reason", ""), body.get("by", ""))))
         if u.path == "/api/mapping":  # T33: a person's approval is the one writer of taxonomy/asset_types.yaml; 400 on a member off the list or a duplicate
             from . import mapper
-            return self._guard(lambda: self._json(mapper.approve(str(body.get("ticker", "")), str(body.get("reported_name", "")), str(body.get("standard_type", "")), str(body.get("evidence", "")), str(body.get("by", "")))))
+
+            def do_approve():
+                con = _con()
+                try:
+                    return mapper.approve(str(body.get("ticker", "")), str(body.get("reported_name", "")), str(body.get("standard_type", "")), str(body.get("evidence", "")), str(body.get("by", "")), con=con)
+                finally:
+                    con.close()
+            return self._guard(lambda: self._json(do_approve()))
         if u.path == "/api/mapping/reject":  # the member proposed is logged as rejected; the next mapper run does not propose it again
             from . import mapper
             return self._guard(lambda: self._json(mapper.reject(str(body.get("ticker", "")), str(body.get("reported_name", "")), str(body.get("standard_type", "")), str(body.get("by", "")), str(body.get("reason", "")))))

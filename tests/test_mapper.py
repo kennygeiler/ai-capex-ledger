@@ -33,9 +33,23 @@ class Writer(unittest.TestCase):
         self.path = Path(self.tmp.name) / "asset_types.yaml"
         self.path.write_text(HEADER)
         self.log = Path(self.tmp.name) / "proposals.jsonl"
+        # the company's unmapped categories, as taxonomy.unmapped would report them from the database
+        self.um = mock.patch.object(mapper, "_unmapped", side_effect=lambda con, t: {"MU": [{"ticker": "MU", "reported_name": "Construction in progress"}, {"ticker": "MU", "reported_name": "Software"}],
+                                                                                   "MSFT": [{"ticker": "MSFT", "reported_name": "Servers"}]}.get(t, []))
+        self.um.start()
 
     def tearDown(self):
+        self.um.stop()
         self.tmp.cleanup()
+
+    def test_approve_refuses_a_name_the_company_does_not_report_unmapped(self):
+        before = self.path.read_text()
+        for ticker, name in (("ZZZZ", "Not a category"), ("MU", "Land")):  # an unknown company; a name the notes never reported for it
+            with self.assertRaises(ValueError) as c:
+                mapper.approve(ticker, name, "LandMember", "land", "Kenny", path=self.path, log=self.log)
+            self.assertIn("not one of the company's reported PP&E categories with no mapping", str(c.exception))
+        self.assertEqual(self.path.read_text(), before)
+        self.assertFalse(self.log.exists())
 
     def test_members_come_from_the_header(self):
         self.assertEqual(mapper.members(self.path), ["TechnologyEquipmentMember", "LandMember", "ConstructionInProgressMember", "MachineryAndEquipmentMember"])
@@ -99,7 +113,11 @@ class Proposals(unittest.TestCase):
         mapper.validate_output(ok, "MU", ["Equipment", "Land"], task, ["LandMember", "MachineryAndEquipmentMember"])
         bad = [({**ok, "proposals": ok["proposals"][:1]}, "no proposal for"),
                ({**ok, "proposals": [{**ok["proposals"][0], "standard_type": "ServersMember"}, ok["proposals"][1]]}, "not on the allowed list"),
-               ({**ok, "proposals": [{**ok["proposals"][0], "evidence": "servers and GPUs"}, ok["proposals"][1]]}, "not words from the task"),
+               ({**ok, "proposals": [{**ok["proposals"][0], "evidence": "servers and GPUs"}, ok["proposals"][1]]}, "not whole words of the note"),
+               ({**ok, "proposals": [{**ok["proposals"][0], "evidence": "Allowed members"}, ok["proposals"][1]]}, "not whole words of the note"),  # a heading of the task, not the note
+               ({**ok, "proposals": [{**ok["proposals"][0], "evidence": "Categories to map"}, ok["proposals"][1]]}, "not whole words of the note"),
+               ({**ok, "proposals": [{**ok["proposals"][0], "evidence": "MachineryAndEquipmentMember"}, ok["proposals"][1]]}, "not whole words of the note"),  # a member name from the list
+               ({**ok, "proposals": [{**ok["proposals"][0], "evidence": "quipment(1"}, ok["proposals"][1]]}, "not whole words of the note"),  # part of a word
                ({**ok, "proposals": [{**ok["proposals"][0], "confidence": 0.9}, ok["proposals"][1]]}, "confidence"),
                ({**ok, "proposals": [{**ok["proposals"][0], "reported_name": "Buildings"}, ok["proposals"][1]]}, "not one of the categories"),
                ({**ok, "ticker": "AMD"}, "ticker")]
@@ -168,10 +186,14 @@ class Route(unittest.TestCase):
                 code, d = self._post(base + "/api/mapping", body)
             self.assertEqual(code, 403)
             self.assertIn("read-only", d["error"])
-            with mock.patch.object(mapper, "ASSET_TYPES", path), mock.patch.object(mapper, "PROPOSALS", log):
+            um = [{"ticker": "MU", "reported_name": "Land"}, {"ticker": "MU", "reported_name": "Equipment"}]
+            with mock.patch.object(mapper, "ASSET_TYPES", path), mock.patch.object(mapper, "PROPOSALS", log), mock.patch.object(mapper, "unmapped", return_value=um), mock.patch("ledger.app._con", return_value=mock.MagicMock()):
                 code, d = self._post(base + "/api/mapping", {**body, "standard_type": "SoftwareAndSoftwareDevelopmentCostsMember"})
                 self.assertEqual(code, 400)
                 self.assertIn("not a member on the list", d["error"])
+                code, d = self._post(base + "/api/mapping", {**body, "ticker": "ZZZZ", "reported_name": "Not a category"})  # not an unmapped category of any company
+                self.assertEqual(code, 400)
+                self.assertIn("not one of the company's reported PP&E categories", d["error"])
                 self.assertEqual(path.read_text(), HEADER)
                 code, d = self._post(base + "/api/mapping", body)
                 self.assertEqual(code, 200)
