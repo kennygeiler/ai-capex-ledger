@@ -13,7 +13,11 @@ from . import resolutions as _resolutions
 from . import views as _views
 
 FILTERS = ("ticker", "layer", "period", "field", "kind", "method", "scope", "dimension", "source", "measure", "category", "fiscal_year", "standard_type", "check",
-           "source_kind", "period_kind", "has_value", "mapped", "status")  # schema v11: the taxonomy rows' own columns; a boolean filter takes true / false
+           "source_kind", "period_kind", "has_value", "mapped", "status",
+           "as_of")  # schema v11: the taxonomy rows' own columns; a boolean filter takes true / false. as_of (T55): a date; the rows carry it back
+AS_OF_LISTS = ("values", "taxonomy")  # the lists that answer ?as_of=D (ledger/pit.py): the figure the newest filing filed by D gave
+AS_OF_NOTE = ("only the newest vintage of each figure is reconciled against XBRL; an as-of row from an older filing carries vintage_check "
+              "'unchecked': its figure is the cell as read, not compared with its own filing's tags (docs/API.md, T55b)")  # for the response's top-level note
 SUM_COLS = {"values": "value", "facts": "value", "statements": "amount_mid", "projects": "amount", "taxonomy": "value"}
 LISTS = ("companies", "values", "facts", "statements", "projects", "views", "taxonomy")
 RELEASE_LISTS = ("companies", "values", "facts", "statements", "projects", "taxonomy")  # the files a release holds, one per list
@@ -128,9 +132,36 @@ def in_scope(rows: list[dict], q: dict) -> list[dict]:
     return rows if q.get("ticker") else [r for r in rows if "ticker" not in r or r["ticker"] in SCOPE]
 
 
+def as_of_rows(con, name: str, day: str, q: dict) -> list[dict]:
+    """The list on `day` (T55, ledger/pit.py): values re-pointed at the newest filing filed by `day` (first_reported and
+    basis stay as `values` holds them; check_label and flag are left off, the XBRL comparison was made on the newest
+    figure); the taxonomy through pit.taxonomy_as_of. A bad date or a list that has no history is a ValueError (400)."""
+    from . import pit
+    if name not in AS_OF_LISTS:
+        raise ValueError(f"as_of applies to {' and '.join(AS_OF_LISTS)}, not {name}")
+    day = pit.parse_day(day)
+    tickers = sorted(_split(q["ticker"])) if q.get("ticker") else list(SCOPE)
+    if name == "taxonomy":
+        return pit.taxonomy_as_of(con, fetch(con, name), day, tickers)
+    live = {(v["ticker"], v["field"], v["period"]): v for v in _rows(con, 'select ticker, field, period, basis, first_reported from "values"')}
+    idx = _resolutions.by_row()
+    out = []
+    for r in pit.as_of(con, day, tickers):
+        v = live.get((r["ticker"], r["field"], r["period"])) or {}
+        out.append({"ticker": r["ticker"], "field": r["field"], "period": r["period"], "period_end": r["period_end"], "value": r["value"], "accession": r["accession"],
+                    "filed": r["filed"], "restated_later": r["restated_later"], "vintage_check": r["vintage_check"], "basis": v.get("basis"), "first_reported": v.get("first_reported"), "source": "agent",
+                    "extraction_ids": r["extraction_ids"], "layer": industry(r["ticker"]), "proven": r["ticker"] in PROVEN,
+                    "status": _resolutions.status_of(idx, "values", r["ticker"], r["field"], "", r["period"]), "as_of": day})
+    return out
+
+
 def query(con, name: str, q: dict) -> list[dict]:
+    if q.get("release") and q.get("as_of"):
+        raise ValueError("as_of reads the live cells; a release is a fixed snapshot: ask for one or the other")
     if q.get("release"):
         return apply(in_scope(release_rows(q["release"], name), q), q)
+    if q.get("as_of"):
+        return apply(in_scope(as_of_rows(con, name, q["as_of"], q), q), q)
     return apply(in_scope(fetch(con, name), q), q)
 
 

@@ -11,7 +11,7 @@
   "checked_by": [
    "Every citation must resolve to the exact cell in the parsed table, or the answer is rejected and asked again once",
    "Chrome re-reads every cited cell on the rendered 10-K",
-   "16 rules, the SEC's XBRL answer key, and a fault test of planted mistakes"
+   "15 rules, the SEC's XBRL answer key, and a fault test of planted mistakes"
   ],
   "llm": {
    "model": "claude-opus-5-5",

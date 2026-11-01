@@ -452,7 +452,7 @@ class Handler(BaseHTTPRequestHandler):
                 con.close()
         if fmt == "csv":
             return self._send(HTTPStatus.OK, api.to_csv(rows).encode(), "text/csv; charset=utf-8")
-        return self._json({"list": name, "count": len(rows), "filters": {k: v for k, v in q.items() if k in api.FILTERS or k == "group"}, "rows": rows})
+        return self._json({"list": name, "count": len(rows), "filters": {k: v for k, v in q.items() if k in api.FILTERS or k == "group"}, **({"note": api.AS_OF_NOTE} if q.get("as_of") else {}), "rows": rows})
 
     def _hq(self):
         con = _con()

@@ -124,6 +124,8 @@ counts those rows open while the local one counts them explained). The signed re
   vX.Y.Z --by "<name>"` signs without a checklist; `ledger publish vX.Y.Z` pushes the signed files to production and
   refuses an unsigned release or one whose files no longer match the signed hash; publishing the same version again
   replaces its rows in one transaction. Signing is the one human act and belongs to the owner; agents never sign or publish.
+- **Ask what a filing said on a date** (a backtest, no lookahead): `/api/v1/values?as_of=YYYY-MM-DD` or `/api/v1/taxonomy?as_of=…`
+  (`ledger/pit.py`, `docs/API.md`): the newest filing filed by that day, with its accession; absent where nothing was filed yet.
 - **Find why something is wrong**: `docs/INGESTION.md` logs every failure type found so far (46), where it showed,
   what caught it, what fixed it. Add to it.
 
@@ -146,7 +148,7 @@ counts those rows open while the local one counts them explained). The signed re
 
 ## If you are an AI agent
 
-Read in this order: this file, README Status, `docs/PROOF.md`, `docs/EVALS.md` (how the pipeline is measured: golden, faults, scores, gates), `docs/TAXONOMY.md`, `docs/INGESTION.md` (skim the tables), then the
+Read in this order: this file, README Status, `docs/PROOF.md`, `docs/EVALS.md` (how the pipeline is measured: golden, faults, scores, gates), `docs/DISCIPLINES.md` (seven discipline audits against the code, with the proposed tickets T67–T79 awaiting Kenny), `docs/TAXONOMY.md`, `docs/INGESTION.md` (skim the tables), then the
 module you will change. Run the tests before and after. The invariants that must hold:
 
 - Every value in `values` resolves to a cell in a parsed table; `extract --load` rejects anything else.
