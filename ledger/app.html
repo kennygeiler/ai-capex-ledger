@@ -198,7 +198,7 @@ $('#me').value = me;
 $('#me').addEventListener('input', (e) => { me = e.target.value; try { localStorage.setItem('datahq-me', me); } catch {} });
 let NAMES = {};
 api('/api/data?t=&f=none').then((d) => { NAMES = d.names; $('#tickers').replaceChildren(...Object.entries(NAMES).map(([t, n]) => h('option', {value: t}, n))); });
-$('#jump').addEventListener('change', (e) => { const v = e.target.value.trim().toUpperCase(); const t = NAMES[v] ? v : Object.keys(NAMES).find((k) => NAMES[k].toUpperCase() === v); if (t) { e.target.value = ''; go(`data?t=${t}&f=capex`); } });
+$('#jump').addEventListener('change', (e) => { const v = e.target.value.trim().toUpperCase(); const t = NAMES[v] ? v : Object.keys(NAMES).find((k) => NAMES[k].toUpperCase() === v); if (t) { e.target.value = ''; go(`data?ticker=${t}`); } });
 
 function table(cols, rows, {key, onRow, detail} = {}) {
   const tb = h('tbody');
@@ -266,19 +266,20 @@ const ALL_KINDS = Object.keys(KINDS);
 const parseQ = (s) => Object.fromEntries(new URLSearchParams(s));
 const CHECK = {agree: 'agrees with XBRL', definition_gap: 'definition gap, explained', unresolved: 'differs from XBRL', no_reference: 'no tagged counterpart', not_reported: 'not reported'};
 
+// Dataset: Rows is the page (every list, every row, every company by default); Grid is the company-by-year view of one field
 const dataSwitch = (q, which) => h('div', {class: 'btn-group', role: 'group', 'aria-label': 'View'},
-  h('a', {href: '#data?' + new URLSearchParams(Object.fromEntries(Object.entries({t: q.t || q.ticker, f: q.f, k: q.k}).filter(([, v]) => v))).toString(), class: 'btn btn-sm' + (which === 'grid' ? ' active' : ''), 'aria-current': which === 'grid' ? 'page' : null}, 'Grid'),
-  h('a', {href: '#data?' + new URLSearchParams(Object.fromEntries(Object.entries({view: 'rows', list: q.list, ticker: q.ticker || (q.t && !q.t.includes(',') ? q.t : '')}).filter(([, v]) => v))).toString(), class: 'btn btn-sm' + (which === 'rows' ? ' active' : ''), 'aria-current': which === 'rows' ? 'page' : null}, 'Rows'));
+  h('a', {href: '#data' + (q.list || q.ticker || (q.t && !q.t.includes(',')) ? '?' + new URLSearchParams(Object.fromEntries(Object.entries({list: q.list, ticker: q.ticker || (q.t && !q.t.includes(',') ? q.t : '')}).filter(([, v]) => v))).toString() : ''), class: 'btn btn-sm' + (which === 'rows' ? ' active' : ''), 'aria-current': which === 'rows' ? 'page' : null}, 'Rows'),
+  h('a', {href: '#data?' + new URLSearchParams(Object.fromEntries(Object.entries({view: 'grid', t: q.t || q.ticker, f: q.f, k: q.k}).filter(([, v]) => v))).toString(), class: 'btn btn-sm' + (which === 'grid' ? ' active' : ''), 'aria-current': which === 'grid' ? 'page' : null}, 'Grid'));
 async function dataPage(view, qs) {
   const q = parseQ(qs || '');
-  if (q.view === 'rows') return rowsView(view, q);
+  if (q.view !== 'grid') return rowsView(view, q);
   const [hqd, meta] = await Promise.all([hq(), api('/api/data?t=&f=')]);
   const H = hqd.health[0];
   const all = Object.keys(meta.names).sort();
   const sel = {
     t: q.t ? q.t.split(',') : all.filter((t) => (!q.role || meta.roles[t] === q.role) && (!q.ind || meta.industries[t] === q.ind)),
     f: (q.f || 'capex').split(','), k: q.k ? q.k.split(',') : ALL_KINDS, y: q.y ? q.y.split(',') : null, wide: !!q.wide, eval: !!q.eval};
-  const setQ = () => { const p = new URLSearchParams(); p.set('t', sel.t.join(',')); p.set('f', sel.f.join(',')); if (sel.y) p.set('y', sel.y.join(',')); if (sel.k.length < ALL_KINDS.length) p.set('k', sel.k.join(',')); if (sel.wide) p.set('wide', 1); if (sel.eval) p.set('eval', 1); location.hash = 'data?' + p.toString(); };
+  const setQ = () => { const p = new URLSearchParams(); p.set('view', 'grid'); p.set('t', sel.t.join(',')); p.set('f', sel.f.join(',')); if (sel.y) p.set('y', sel.y.join(',')); if (sel.k.length < ALL_KINDS.length) p.set('k', sel.k.join(',')); if (sel.wide) p.set('wide', 1); if (sel.eval) p.set('eval', 1); location.hash = 'data?' + p.toString(); };
 
   // one line of controls: field, companies (a group or a custom list), kind, years hidden unless set
   const GROUPS = [['all', 'All companies'], ['buyer', 'Buyers'], ['seller', 'Sellers'], ...Object.keys(INDUSTRY).map((k) => ['ind:' + k, INDUSTRY[k]]), ['custom', 'Custom…']];
@@ -340,7 +341,7 @@ async function dataPage(view, qs) {
   // grid
   const grid = h('div', {class: 'scroll'}, h('table', {class: 'heat'},
     h('thead', {}, h('tr', {}, h('th', {}, 'Entity'), sel.f.length > 1 ? h('th', {}, 'Field') : '', list.some((s) => s.dimension) ? h('th', {}, 'Segment / category') : '', years.map((y) => h('th', {class: 'n'}, y.slice(2))))),
-    h('tbody', {}, list.map((s) => h('tr', {}, h('td', {}, h('a', {href: `#data?t=${s.ticker}&f=${sel.f.join(',')}`}, d.names[s.ticker]), ' ', h('span', {class: 'muted small'}, s.ticker)),
+    h('tbody', {}, list.map((s) => h('tr', {}, h('td', {}, h('a', {href: `#data?view=grid&t=${s.ticker}&f=${sel.f.join(',')}`}, d.names[s.ticker]), ' ', h('span', {class: 'muted small'}, s.ticker)),
       sel.f.length > 1 ? h('td', {class: 'muted small'}, FIELDS[s.field] || s.field) : '', list.some((x) => x.dimension) ? h('td', {class: 'small'}, s.dimension || '') : '',
       years.map((y) => {
         const r = s.y[y];
@@ -567,7 +568,7 @@ async function reconcilePage(view, qs) {
         cards.push(col(4, dtable(r.cause_label.replace(/:.*$/, ''), [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Delta' ? [signed(r, x.value), E.kind === 'jump' && E.size != null ? h('span', {class: 'text-secondary small'}, ` ${Number(E.size).toFixed(1)}×`) : ''] : [bar(x.value, maxL, x.what === r.ours_label ? '' : 'ref'), usd(x.value)])}], [{what: r.ref_label || 'before', value: r.reference}, {what: r.ours_label || 'after', value: r.ours, _cls: 'fw-semibold'}, {what: 'Delta', value: r.delta, _cls: 'text-red'}])));
       }
       if (S.length > 1) { const maxY = Math.max(1e-9, ...S.map((s) => Math.abs(s.value || 0))); cards.push(col(4, dtable(`${LABEL[r.field] || r.field} by year`, [{t: 'Year', k: 'period', w: '4rem'}, {t: 'Value', num: 1, f: (s) => (s.value == null ? '—' : [bar(s.value, maxY), usd(s.value)])}, {t: '', f: (s) => checkBadge(s.label)}], S.map((s) => ({...s, _cls: s.period === r.period ? 'table-active' : null}))))); }
-      cards.push(col(4, h('details', {class: 'words', open: true}, h('summary', {}, 'The finding, in words'), h('div', {class: 'small'}, E.message || '')), h('div', {class: 'mt-2'}, h('a', {href: `#data?t=${r.ticker}&f=${r.field || 'capex'},capex`, class: 'small'}, 'The dataset, with every citation'))));
+      cards.push(col(4, h('details', {class: 'words', open: true}, h('summary', {}, 'The finding, in words'), h('div', {class: 'small'}, E.message || '')), h('div', {class: 'mt-2'}, h('a', {href: `#data?view=grid&t=${r.ticker}&f=${r.field || 'capex'},capex`, class: 'small'}, 'The dataset, with every citation'))));
     } else if (r.cause === 'new_filing') {
       cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-body'}, `${E.form} filed ${day(E.filed)}. `, h('a', {href: E.url, target: '_blank', rel: 'noopener'}, 'Open at the SEC'), ' · ', h('a', {href: '#run'}, 'Run it')))));
     }
@@ -745,7 +746,7 @@ async function trailPage(view, ticker) {
   const c = await api('/api/v1/proof/' + encodeURIComponent(ticker));
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, c.name, h('span', {class: 'text-secondary ms-2 fw-normal'}, c.ticker)), h('div', {class: 'text-secondary small'}, `${INDUSTRY[c.layer] || c.layer}. ${c.why || ''} ${c.in_proven_set ? '' : 'Not in the proven set.'}`)),
-    h('div', {class: 'col-auto'}, c.proven ? h('span', {class: 'badge bg-green-lt'}, 'proven') : h('span', {class: 'badge bg-red-lt'}, `${int(c.open)} open`), ' ', h('a', {href: `#data?t=${c.ticker}&f=capex`, class: 'small ms-2'}, 'Dataset'), h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-2'}, 'Reconcile'))));
+    h('div', {class: 'col-auto'}, c.proven ? h('span', {class: 'badge bg-green-lt'}, 'proven') : h('span', {class: 'badge bg-red-lt'}, `${int(c.open)} open`), ' ', h('a', {href: `#data?ticker=${c.ticker}`, class: 'small ms-2'}, 'Dataset'), h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-2'}, 'Reconcile'))));
   const cards = Object.entries(c.stages).map(([id, st]) => {
     const extra = id === 'mapping' ? ` ${int(st.derived_rows)} derived rows, ${int(st.committed_rows)} committed rows, ${int(st.company_stated_ai)} company-stated AI figures.` : id === 'planned' ? ` ${int(st.guidance)} guidance statements, ${int(st.projects)} projects.` : '';
     const body = [];
@@ -784,14 +785,14 @@ const TABLES = [
 const RAW_NUM = new Set(['value', 'value_high', 'share', 'amount_low', 'amount_high', 'amount_mid', 'xbrl', 'capacity_mw', 'sic']);
 async function rowsView(view, q) {
   const name = TABLES.some(([k]) => k === q.list) ? q.list : 'taxonomy';
-  const ticker = (q.ticker || '').toUpperCase();
-  const setQ = (patch) => { const p = {view: 'rows', list: name, ticker, ...patch}; go('data?' + new URLSearchParams(Object.fromEntries(Object.entries(p).filter(([, v]) => v))).toString()); };
+  const ticker = (q.ticker || (q.t && !q.t.includes(',') ? q.t : '') || '').toUpperCase();
+  const setQ = (patch) => { const p = {list: name, ticker, ...patch}; go('data?' + new URLSearchParams(Object.fromEntries(Object.entries(p).filter(([, v]) => v))).toString()); };
   const d = await api(`/api/v1/${name}` + (ticker ? `?ticker=${encodeURIComponent(ticker)}` : ''));
   const cols = [...new Set(d.rows.flatMap((r) => Object.keys(r)))];
   const csv = `/api/v1/${name}.csv` + (ticker ? `?ticker=${encodeURIComponent(ticker)}` : '');
 
   const side = h('div', {class: 'list-group list-group-transparent mb-3'}, TABLES.map(([k, label, what]) =>
-    h('a', {href: `#data?view=rows&list=${k}` + (ticker ? `&ticker=${ticker}` : ''), class: 'list-group-item list-group-item-action d-block' + (k === name ? ' active' : '')}, h('div', {}, label), h('div', {class: 'text-secondary small brk'}, what))));
+    h('a', {href: `#data?list=${k}` + (ticker ? `&ticker=${ticker}` : ''), class: 'list-group-item list-group-item-action d-block' + (k === name ? ' active' : '')}, h('div', {}, label), h('div', {class: 'text-secondary small brk'}, what))));
   const tickSel = h('select', {'aria-label': 'Company', onchange: (e) => setQ({ticker: e.target.value})},
     h('option', {value: ''}, 'Every company'), Object.entries(NAMES).map(([t, n]) => h('option', {value: t, selected: t === ticker || null}, `${n} ${t}`)));
   const search = h('input', {type: 'text', placeholder: 'Find in rows', 'aria-label': 'Find in rows', style: 'width:16rem'});
@@ -808,9 +809,8 @@ async function rowsView(view, q) {
   const draw = () => {
     const needle = search.value.trim().toLowerCase();
     const rows = needle ? d.rows.filter((r) => JSON.stringify(r).toLowerCase().includes(needle)) : d.rows;
-    const shown = rows.slice(0, 2000);
-    count.textContent = `${int(rows.length)} rows${rows.length !== d.rows.length ? ` of ${int(d.rows.length)}` : ''}${shown.length < rows.length ? `, first ${int(shown.length)} shown; narrow the search or take the CSV` : ''}, ${cols.length} columns`;
-    const tbl = table(tcols, shown, {detail}); tbl.classList.add('raw');
+    count.textContent = `${int(rows.length)} rows${rows.length !== d.rows.length ? ` of ${int(d.rows.length)}` : ''}, ${cols.length} columns`;
+    const tbl = table(tcols, rows, {detail}); tbl.classList.add('raw');
     holder.replaceChildren(rows.length ? tbl : h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'No rows.')));
   };
   let t; search.addEventListener('input', () => { clearTimeout(t); t = setTimeout(draw, 150); });
@@ -848,11 +848,11 @@ async function route() {
     if (page === 'proof' && arg) await trailPage(view, arg);
     else if (page === 'proof') await proofPage(view);
     else if (page === 'rules') await rulesPage(view);
-    else if (page === 'company') await dataPage(view, `t=${arg || ''}&f=capex`);
+    else if (page === 'company') await dataPage(view, `ticker=${arg || ''}`);
     else if (page === 'reconcile') await reconcilePage(view, qs);
     else if (page === 'views' || page === 'explore') await explorePage(view, arg, qs);
     else if (page === 'data' || page === 'insights') await dataPage(view, qs);
-    else if (page === 'tables') { go('data?' + new URLSearchParams({view: 'rows', list: arg || 'taxonomy', ...parseQ(qs || '')}).toString()); return; }
+    else if (page === 'tables') { go('data?' + new URLSearchParams({list: arg || 'taxonomy', ...parseQ(qs || '')}).toString()); return; }
     else await proofPage(view);
   } catch (e) {
     view.replaceChildren(h('p', {class: 'msg bad'}, e.message));
