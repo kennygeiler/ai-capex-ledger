@@ -14,7 +14,7 @@ import json
 from collections import defaultdict
 from datetime import date, timedelta
 
-from ..config import CONCEPTS, FORMS_FALLBACK, FORMS_PRIMARY, PREDECESSORS, YEAR_DAYS
+from ..config import CONCEPTS, FORMS_FALLBACK, FORMS_PRIMARY, PREDECESSORS, YEAR_DAYS, restated, rounding_unit
 from ..ingest.edgar import fetch_json, fetch_tickers
 from .xbrl_instance import fill_gaps
 
@@ -52,7 +52,7 @@ def best_vintages(facts: list[dict]) -> dict[tuple, dict]:
         out[key] = chosen | {
             "vintages": len({f["accn"] for f in g}),
             "original": first["val"],
-            "restated": abs(chosen["val"] - first["val"]) > max(1, abs(first["val"]) * 0.001),
+            "restated": restated(first["val"], chosen["val"], max(rounding_unit(first["val"]), rounding_unit(chosen["val"]))),  # config.RESTATEMENT_TOLERANCE (T64): half the coarser rounding of the two vintages
             "fallback_form": chosen["form"] in FORMS_FALLBACK,
             "src": chosen.get("src", "companyfacts"),
         }

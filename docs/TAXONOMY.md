@@ -127,6 +127,13 @@ place the filing shows those words; sec.gov has no table anchors), for a stateme
 for a gathered figure its page; `source_table` is the parser's id of the table the cell came from, the one DATAHQ shows. No column holds a number the pipeline made up: `change_from_prior` is
 this year's reported balance minus last year's, and says so.
 
+One restatement threshold (T64): a figure is `restated` (values and facts `basis`, the rows' `rule:restated_between_filings`
+explanation, `reference_values.restated`) when a later filing moved the first-reported one by more than
+`config.RESTATEMENT_TOLERANCE`, half a rounding unit of the figure: the 10-K cell's stated scale, or for an XBRL fact the
+coarser unit the two vintages are rounded to. Half a unit is the most rounding alone can move a figure, so anything
+beyond it is a change the filer made (Meta's 0.8% capex change counts; a same-day amendment that re-rounds does not).
+Nothing else holds a threshold; `docs/DATA_DICTIONARY.md` names the constant on every `basis` and `restated` column.
+
 ## Open questions for Kenny
 
 1. ~~Keep `group` as a non-standard reading aid, or drop it?~~ Dropped in schema v11 (T9); `layer` stays as the reading aid.

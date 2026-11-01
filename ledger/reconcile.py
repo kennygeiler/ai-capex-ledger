@@ -15,7 +15,7 @@ import hashlib
 import json
 from datetime import date
 
-from .config import MVP_YEARS, RELEASE_FIELDS
+from .config import MVP_YEARS, RELEASE_FIELDS, restated, rounding_unit
 from .definitions import revenue_gap_explained, opex_gap_explained
 from .ingest.edgar import fetch_json
 from .ingest.filings import fetch_tickers
@@ -28,12 +28,13 @@ def fiscal_year_end(ticker: str) -> str | None:
 
 
 def _rounding(v: int) -> int:
-    return 1_000_000 if v % 1_000_000 == 0 else 1_000 if v % 1_000 == 0 else 1
+    return rounding_unit(v)
 
 
 def _restated(first: int, latest: int, scale: int) -> bool:
-    """Any change beyond rounding is a restatement (Meta's 0.8% capex change counts); how big it is shows beside it."""
-    return abs(latest - first) > scale // 2
+    """Any change beyond rounding is a restatement (Meta's 0.8% capex change counts); how big it is shows beside it.
+    The one threshold is config.RESTATEMENT_TOLERANCE (half a rounding unit, T64): here the unit is the cell's scale."""
+    return restated(first, latest, scale)
 
 
 def _agrees(e: dict, r: int | None) -> bool:

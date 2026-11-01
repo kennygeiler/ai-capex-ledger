@@ -44,7 +44,7 @@ Key: `(ticker, field, period)`
 | `period_start` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Fiscal period start. |
 | `period_end` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Fiscal period end. |
 | `accession` | VARCHAR | yes | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession number of the filing, e.g. 0001045810-26-000075. |
-| `restated` | BOOLEAN | yes |  | True if a later filing changed the value. |
+| `restated` | BOOLEAN | yes |  | True if a later filing moved the value by more than config.RESTATEMENT_TOLERANCE (half the unit the first figure is rounded to). |
 | `original_value` | BIGINT | no |  | First-filed value when restated. |
 
 ## `extractions`
@@ -90,7 +90,7 @@ Key: `(ticker, field, period)`
 | `source` | VARCHAR | yes | `agent`, `override`, `missing` | Where the shipped value comes from. |
 | `method` | VARCHAR | yes | `reported`, `computed` | reported (one cell), or computed (opex from three cells of the same 10-K column). |
 | `label` | VARCHAR | yes | `agree`, `agent_wrong`, `xbrl_wrong`, `definition_gap`, `unresolved`, `no_reference`, `not_reported`, `not_extracted` | Reconciliation against the reference; not_reported when the company has no such line and XBRL tags none either; not_extracted when the 10-K has no cell for it but XBRL tags a value (open: the reader missed it, or the statement table was mislocated). |
-| `basis` | VARCHAR | yes | `as_reported`, `restated` | as_reported, or restated (a later 10-K changed the first-reported figure by more than 1%). |
+| `basis` | VARCHAR | yes | `as_reported`, `restated` | as_reported, or restated: a later 10-K moved the first-reported figure by more than config.RESTATEMENT_TOLERANCE (half a rounding unit of the cell's scale). |
 | `first_reported` | BIGINT | no |  | The figure in the first 10-K that reported this fiscal year. |
 | `extraction_ids` | VARCHAR | no |  | Extractions used, comma-separated. |
 | `input_hash` | VARCHAR | yes |  | Hash of everything this value depends on; decisions re-apply only when it matches. |
@@ -210,7 +210,7 @@ Key: `(ticker, field, dimension, period)`
 | `period_end` | VARCHAR | yes | pattern `^\d{4}-\d{2}-\d{2}$` | Fiscal year end date. |
 | `value` | BIGINT | yes |  | US dollars, unscaled. |
 | `first_reported` | BIGINT | yes |  | The figure in the first 10-K that reported it. |
-| `basis` | VARCHAR | yes | `as_reported`, `restated` | as_reported, or restated when a later 10-K changed it. |
+| `basis` | VARCHAR | yes | `as_reported`, `restated` | as_reported, or restated when a later 10-K moved it by more than config.RESTATEMENT_TOLERANCE (half a rounding unit). |
 | `label` | VARCHAR | yes | `agree`, `unresolved`, `no_reference` | agree or unresolved against the XBRL instance member; no_reference when no tagged fact matches the dimension. |
 | `reference` | BIGINT | no |  | The XBRL value compared with, when any. |
 | `accession` | VARCHAR | yes | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession number of the filing, e.g. 0001045810-26-000075. |

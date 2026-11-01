@@ -15,6 +15,7 @@ from pathlib import Path
 
 import yaml
 
+from . import config
 from .store import ROOT
 
 RULES_DIR = ROOT / "rules"
@@ -330,8 +331,8 @@ def _restated(ctx, p):
         by.setdefault((e["ticker"], e["field"], e["period_start"], e["period_end"], line), []).append(e)
     out = []
     for (t, f, s, en, line), es in by.items():
-        tol = max(x["scale"] for x in es) // 2  # one filing in thousands, a later one in millions is rounding, not a restatement
-        if max(x["value"] for x in es) - min(x["value"] for x in es) > tol:
+        # one filing in thousands, a later one in millions is rounding, not a restatement (config.RESTATEMENT_TOLERANCE)
+        if config.restated(min(x["value"] for x in es), max(x["value"] for x in es), max(x["scale"] for x in es)):
             parts = ", ".join(f"{x['value']:,} ({x['accession']})" for x in sorted(es, key=lambda x: x["accession"]))
             what = f"{f} ({line})" if line else f
             fy = years.get((t, en))  # the fiscal year, so a person sees which year changed
