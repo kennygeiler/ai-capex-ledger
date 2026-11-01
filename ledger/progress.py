@@ -71,7 +71,8 @@ def summary(con, cmd: str, extra: list[str], tickers: list[str], name: str, star
         return f"{r} checks: {b} blocking, {w} warnings, {i} note{'s' * (i != 1)}"
     if cmd == "faults":
         f = store.ROOT / "reports" / f"{name}-faults.json"
-        rows = json.loads(f.read_text()) if f.exists() else []
+        from .faults import rows_of
+        rows = rows_of(json.loads(f.read_text())) if f.exists() else []
         return f"{len(rows):,} planted mistakes, {sum(r['outcome'] == 'escaped' for r in rows)} got through" if rows else "No faults planted"
     if cmd == "evidence":
         f = store.ROOT / "reports" / "evidence" / f"{name}.json"

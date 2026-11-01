@@ -1,8 +1,8 @@
 """Per-agent score (docs/TICKETS.md T49): for one live reader and the companies in scope, how many of its outputs are
 checked, explained, open and blocked (the states of `status.state`, read from the Proof trail stage the reader owns),
 how many agree with their structured twin where one exists (`status.answer_key(by) == "twin"`: the SEC's XBRL today),
-and how many planted faults the checks behind it caught (`ledger faults`, reports/<name>-faults.json), each count
-with its denominator. Counts only: the page computes the shares, so no number is shown without what it is out of.
+and how many planted faults the checks behind it caught (`ledger faults`, reports/<name>-faults.json), per fault kind
+and again with the XBRL comparison removed (reports/<name>-faults-xbrl-off.json, T67), each count with its denominator. Counts only: the page computes the shares, so no number is shown without what it is out of.
 Nothing is reimplemented: the states come from `proof.company` (which reads `status.state`), the twin from the rows'
 labels, the faults from the report named by the latest `faults` run in the `runs` table that covered each company.
 `note` says what the stage holds that is not counted, so the number reconciles with the Proof board; `faults_note`
@@ -10,16 +10,16 @@ says where the fault numbers come from, or why there are none."""
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from . import proof, status, store
+from .faults import rows_of, tally
 
 # which Proof stage holds each live reader's outputs (agents/charters/<id>.md says the same in words). The notes reader
 # also feeds the Mapping stage, but a mapping judges taxonomy/asset_types.yaml, not the reader; it is not counted here.
 AGENT_STAGE = {"reader": "values", "ai_reader": "statements", "notes_reader": "facts", "projects_reader": "planned"}
 # the one step with a fault test: `ledger faults` corrupts `extractions` (ledger/faults.py), the reader's rows
 FAULTED_STEP = "extract"
-FAULT_CAUGHT = ("rule", "xbrl_only")
 REPORTS = store.ROOT / "reports"
 
 
@@ -67,12 +67,14 @@ def twin(con, agent_id: str, ticker: str, items: list[dict]) -> dict | None:
     return {"agree": agree, "of": of}
 
 
-_REPORTS: dict = {}  # (path, mtime, size) -> rows: a rewritten report (ledger faults overwrites the file) is read again
+_REPORTS: dict = {}  # (path, mtime, size) -> content: a rewritten report (ledger faults overwrites the file) is read again
 
 
-def _report(name: str) -> tuple[list[dict] | None, str | None]:
-    """The report's rows and the time the file was written (UTC), or (None, None) when there is no readable file."""
-    path = REPORTS / f"{name}-faults.json"
+def _report(name: str, xbrl: bool = True) -> tuple[list[dict] | None, str | None]:
+    """The report's trial rows and the time it was written (UTC): the report's own `written` field (T67 shape), else the
+    file's mtime (older reports are a bare list of rows); (None, None) when there is no readable file. `xbrl=False`
+    reads the XBRL-off report beside it, reports/<name>-faults-xbrl-off.json."""
+    path = REPORTS / f"{name}-faults{'' if xbrl else '-xbrl-off'}.json"
     try:
         st = path.stat()
     except OSError:
@@ -83,50 +85,73 @@ def _report(name: str) -> tuple[list[dict] | None, str | None]:
             _REPORTS[key] = json.loads(path.read_text())
         except (OSError, ValueError):
             _REPORTS[key] = None
-    written = datetime.fromtimestamp(st.st_mtime, timezone.utc).isoformat(timespec="seconds")
-    return _REPORTS[key], written
+    rep = _REPORTS[key]
+    if rep is None:
+        return None, None
+    written = rep.get("written") if isinstance(rep, dict) and rep.get("written") else datetime.fromtimestamp(st.st_mtime, timezone.utc).isoformat(timespec="seconds")
+    return rows_of(rep), written
+
+
+def _ended(run: dict) -> str:
+    """When the run finished (started_at + seconds, UTC, to the second): a report written after that was rewritten."""
+    try:
+        t = datetime.fromisoformat(run["started_at"]) + timedelta(seconds=float(run.get("seconds") or 0))
+        return t.isoformat(timespec="seconds")[:19]
+    except (TypeError, ValueError):
+        return (run["started_at"] or "")[:19]
 
 
 def faults(con, agent_id: str, tickers: list[str]) -> tuple[dict | None, str]:
     """The planted-fault catch rate of the checks behind the reader: for each company, the rows of the report named by
     the latest `ledger faults` run (runs table, step faults, subject = the report name) whose file holds that company's
-    extractions; caught is an outcome of rule or xbrl_only, no_effect is a fault that reached no released value, escaped
-    is what got through. The report is a file keyed by its name, not by the run: `ledger faults` rewrites it without a
-    runs row, so the note carries the file's own written time next to the run's date and says when the file is newer.
-    (None, reason) when the step has no fault test or no run covered the companies: never a made-up number."""
+    extractions, tallied by `faults.tally`: {caught, planted, rule, xbrl_only, no_effect, escaped, by_kind: {kind:
+    {planted, caught, rule, xbrl_only, no_effect, escaped}}, xbrl_off}. caught is an outcome of rule or xbrl_only,
+    no_effect a fault that reached no released value, escaped what got through; xbrl_only is the part of caught that
+    only the XBRL comparison saw. `xbrl_off` is the same tally over reports/<name>-faults-xbrl-off.json (the pass with
+    xbrl_reconcile removed, T67) for the same companies, or None when no such file covers them; the note says which.
+    The report is a file keyed by its name: the note carries the file's written time next to the run's date and says
+    when the file was written after that run ended (started_at + seconds): the numbers are then the file's, not the run's. (None, reason) when the step has no fault test or no run covered the
+    companies: never a made-up number."""
     from .cost import AGENT_STEP
     step = AGENT_STEP[agent_id]
     if step != FAULTED_STEP:
         return None, f"not measured: `ledger faults` corrupts `extractions` only (ledger/faults.py); no fault test exists for the {step} step's outputs"
-    runs = _rows(con, "select subject, started_at from runs where step = 'faults' and outcome = 'ok' order by started_at desc")
+    runs = _rows(con, "select subject, started_at, seconds from runs where step = 'faults' and outcome = 'ok' order by started_at desc")
     if not runs:
         return None, "not measured: no `ledger faults` run in the runs table"
     acc = {r["accession"]: r["ticker"] for r in _rows(con, "select accession, ticker from documents where ticker in (select unnest(?))", tickers)}
-    tot = {"caught": 0, "planted": 0, "no_effect": 0, "escaped": 0}
-    covered, used = [], {}
+    on, off = [], []
+    covered, used, off_missing = [], {}, []
     for t in tickers:
         mine = {a for a, tk in acc.items() if tk == t}
         for run in runs:
             rep, written = _report(run["subject"])
             rows = [x for x in rep or [] if x["extraction_id"].split("|")[0] in mine]
             if rows:
-                tot["planted"] += len(rows)
-                tot["caught"] += sum(x["outcome"] in FAULT_CAUGHT for x in rows)
-                tot["no_effect"] += sum(x["outcome"] == "no_effect" for x in rows)
-                tot["escaped"] += sum(x["outcome"] == "escaped" for x in rows)
+                on += rows
                 covered.append(t)
-                used[run["subject"]] = (run["started_at"] or "", written or "")
+                used[run["subject"]] = (run["started_at"] or "", _ended(run), written or "")
+                xo, _ = _report(run["subject"], xbrl=False)
+                xrows = [x for x in xo or [] if x["extraction_id"].split("|")[0] in mine]
+                off += xrows
+                if not xrows:
+                    off_missing.append(t)
                 break
     if not covered:
         return None, "not measured: no `ledger faults` run covered these companies (reports/<name>-faults.json)"
     missing = [t for t in tickers if t not in covered]
     parts = []
-    for name, (ran, written) in sorted(used.items()):
+    for name, (ran, ended, written) in sorted(used.items()):
         p = f"reports/{name}-faults.json: run {ran[:10]}, file written {written[:10]}"
-        if written[:19] > ran[:19]:
-            p += " (report newer than its run: `ledger faults` rewrites the file without a runs row, so the numbers are the file's)"
+        if written[:19] > ended:
+            p += " (report newer than its run: the numbers are the file's)"
         parts.append(p)
-    note = "; ".join(parts) + "; caught = a rule or the XBRL comparison fired; no_effect = the fault reached no released value"
+    tot = {**tally(on), "xbrl_off": tally(off) if off else None}
+    note = "; ".join(parts) + "; caught = a rule or the XBRL comparison fired, xbrl_only = only the XBRL comparison fired; no_effect = the fault reached no released value"
+    if off:
+        note += f"; XBRL off: the same trials with xbrl_reconcile removed (reports/<name>-faults-xbrl-off.json)" + (f", no such file covers {', '.join(off_missing)}" if off_missing else "")
+    else:
+        note += "; no XBRL-off report (reports/<name>-faults-xbrl-off.json) covers these companies"
     if missing:
         note += f"; no run covered {', '.join(missing)}"
     return tot, note
