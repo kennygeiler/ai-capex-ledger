@@ -1,0 +1,680 @@
+{
+ "version": "v1.8.0",
+ "hash": "80d49eee5033140537bc529e2589dbe738aa756aa2c971d4887341c3b0d2bbb4",
+ "signed_by": "Kenny Geiler",
+ "signed_at": "2026-11-01T04:55:44+00:00",
+ "checklist": {
+  "version": "v1.8.0",
+  "previous": "v1.7.0",
+  "scope": [
+   "MSFT",
+   "GOOGL",
+   "AMZN",
+   "NVDA",
+   "APLD",
+   "AMD"
+  ],
+  "stage": 3,
+  "hash": "80d49eee5033140537bc529e2589dbe738aa756aa2c971d4887341c3b0d2bbb4",
+  "at": "2026-11-01T04:55:44+00:00",
+  "ok": true,
+  "red": [],
+  "lines": [
+   {
+    "id": "gate_G1",
+    "label": "G1: Every filing read, no failure open",
+    "required": true,
+    "count": 0,
+    "state": "pass",
+    "ok": true,
+    "link": "proof",
+    "note": "Every filing ended in a valid output or a logged failure, and no failure is open",
+    "detail": [
+     {
+      "ticker": "MSFT",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "GOOGL",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "AMZN",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "NVDA",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "APLD",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "AMD",
+      "items": 0,
+      "example": ""
+     }
+    ]
+   },
+   {
+    "id": "gate_G4",
+    "label": "G4: No block without a decision",
+    "required": true,
+    "count": 0,
+    "state": "pass",
+    "ok": true,
+    "link": "reconcile",
+    "note": "No block exception without a current decision",
+    "detail": [
+     {
+      "ticker": "MSFT",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "GOOGL",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "AMZN",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "NVDA",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "APLD",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "AMD",
+      "items": 0,
+      "example": ""
+     }
+    ]
+   },
+   {
+    "id": "gate_G5",
+    "label": "G5: Every value confirmed on the filing",
+    "required": true,
+    "count": 0,
+    "state": "pass",
+    "ok": true,
+    "link": "proof",
+    "note": "Every value XBRL can't vouch for, plus a random sample of those it can, confirmed on the filing at the value being released: by the re-read of the rendered 10-K, or by a person where it can't",
+    "detail": [
+     {
+      "ticker": "MSFT",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "GOOGL",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "AMZN",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "NVDA",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "APLD",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "AMD",
+      "items": 0,
+      "example": ""
+     }
+    ]
+   },
+   {
+    "id": "gate_G6",
+    "label": "G6: No decision left to confirm",
+    "required": true,
+    "count": 0,
+    "state": "pass",
+    "ok": true,
+    "link": "reconcile?cause=to_confirm",
+    "note": "No decision left by a run for a person to confirm (decisions/resolutions.jsonl, 'to confirm')",
+    "detail": [
+     {
+      "ticker": "MSFT",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "GOOGL",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "AMZN",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "NVDA",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "APLD",
+      "items": 0,
+      "example": ""
+     },
+     {
+      "ticker": "AMD",
+      "items": 0,
+      "example": ""
+     }
+    ]
+   },
+   {
+    "id": "open",
+    "label": "Open items in scope",
+    "required": true,
+    "count": 0,
+    "state": "pass",
+    "ok": true,
+    "link": "reconcile",
+    "note": "neither checked nor explained; needs a rule, a definition or a decision",
+    "detail": []
+   },
+   {
+    "id": "blocked",
+    "label": "Blocked items in scope",
+    "required": true,
+    "count": 0,
+    "state": "pass",
+    "ok": true,
+    "link": "reconcile",
+    "note": "a block-severity rule or a person's decision refuses the release",
+    "detail": []
+   },
+   {
+    "id": "unconfirmed",
+    "label": "Decisions left to confirm",
+    "required": true,
+    "count": 0,
+    "state": "pass",
+    "ok": true,
+    "link": "reconcile?cause=to_confirm",
+    "note": "a run decided; a person confirms or overturns each (the same items G6 counts per company)",
+    "detail": []
+   },
+   {
+    "id": "unmapped",
+    "label": "Unmapped asset types in scope",
+    "required": true,
+    "count": 0,
+    "state": "pass",
+    "ok": true,
+    "link": "rules",
+    "note": "every reported PP&E category maps to a us-gaap member (taxonomy/asset_types.yaml)",
+    "detail": []
+   },
+   {
+    "id": "no_value",
+    "label": "Rows with no value",
+    "required": false,
+    "count": 118,
+    "state": "info",
+    "ok": false,
+    "link": "data?list=taxonomy&has_value=false",
+    "note": "kept with value empty and has_value false; a project without an amount, a statement in words",
+    "detail": [
+     {
+      "measure": "planned",
+      "rows": 118
+     }
+    ]
+   },
+   {
+    "id": "diff",
+    "label": "Rows changed since v1.7.0",
+    "required": false,
+    "count": 14794,
+    "state": "info",
+    "ok": false,
+    "link": "data",
+    "note": "added + removed + changed across the lists; DIFF.md carries the same table and examples",
+    "detail": [
+     {
+      "list": "taxonomy",
+      "rows": 617,
+      "added": 0,
+      "removed": 6083,
+      "changed": 378,
+      "columns_added": [
+       "period_end",
+       "period_kind",
+       "mapped",
+       "change_from_prior",
+       "relation",
+       "has_value",
+       "scale",
+       "currency",
+       "kind",
+       "project_kind",
+       "status",
+       "location",
+       "capacity_mw",
+       "forward_looking",
+       "part_year",
+       "program",
+       "source_kind",
+       "accession",
+       "filed",
+       "source_table",
+       "source_url",
+       "check_method"
+      ],
+      "columns_removed": [
+       "tags",
+       "group"
+      ]
+     },
+     {
+      "list": "values",
+      "rows": 71,
+      "added": 0,
+      "removed": 1005,
+      "changed": 0,
+      "columns_added": [],
+      "columns_removed": []
+     },
+     {
+      "list": "facts",
+      "rows": 327,
+      "added": 0,
+      "removed": 4308,
+      "changed": 0,
+      "columns_added": [],
+      "columns_removed": []
+     },
+     {
+      "list": "statements",
+      "rows": 227,
+      "added": 0,
+      "removed": 997,
+      "changed": 0,
+      "columns_added": [],
+      "columns_removed": []
+     },
+     {
+      "list": "projects",
+      "rows": 182,
+      "added": 0,
+      "removed": 1524,
+      "changed": 0,
+      "columns_added": [],
+      "columns_removed": []
+     },
+     {
+      "list": "companies",
+      "rows": 6,
+      "added": 0,
+      "removed": 94,
+      "changed": 0,
+      "columns_added": [],
+      "columns_removed": []
+     },
+     {
+      "list": "ai_spend",
+      "rows": 71,
+      "added": 0,
+      "removed": 405,
+      "changed": 0,
+      "columns_added": [],
+      "columns_removed": []
+     }
+    ]
+   },
+   {
+    "id": "golden",
+    "label": "Golden test",
+    "required": true,
+    "count": 0,
+    "state": "pass",
+    "ok": true,
+    "link": "proof",
+    "note": "equal, 2026-11-01T01:39:58+00:00",
+    "detail": []
+   },
+   {
+    "id": "tests",
+    "label": "Test run",
+    "required": false,
+    "count": 0,
+    "state": "not_run",
+    "ok": false,
+    "link": "proof",
+    "note": "not run (reports/tests.json; T30 writes it)",
+    "detail": []
+   },
+   {
+    "id": "previous",
+    "label": "Previous releases readable",
+    "required": true,
+    "count": 0,
+    "state": "pass",
+    "ok": true,
+    "link": "release",
+    "note": "diffed against v1.7.0",
+    "detail": []
+   },
+   {
+    "id": "packet",
+    "label": "Packet v1.8.0",
+    "required": true,
+    "count": 10,
+    "state": "pass",
+    "ok": true,
+    "link": "data",
+    "note": "releases/v1.8.0/ exists unchanged, unsigned",
+    "detail": [
+     {
+      "file": "DIFF.md",
+      "bytes": 15917,
+      "rows": null
+     },
+     {
+      "file": "QUALITY.md",
+      "bytes": 3595,
+      "rows": null
+     },
+     {
+      "file": "README.md",
+      "bytes": 11593,
+      "rows": null
+     },
+     {
+      "file": "ai_spend.csv",
+      "bytes": 18036,
+      "rows": 71
+     },
+     {
+      "file": "companies.csv",
+      "bytes": 622,
+      "rows": 6
+     },
+     {
+      "file": "facts.csv",
+      "bytes": 44627,
+      "rows": 327
+     },
+     {
+      "file": "projects.csv",
+      "bytes": 90297,
+      "rows": 182
+     },
+     {
+      "file": "statements.csv",
+      "bytes": 94916,
+      "rows": 227
+     },
+     {
+      "file": "taxonomy.csv",
+      "bytes": 346171,
+      "rows": 617
+     },
+     {
+      "file": "values.csv",
+      "bytes": 12705,
+      "rows": 71
+     }
+    ]
+   }
+  ],
+  "gates": {
+   "table": {
+    "G1": {
+     "MSFT": [],
+     "GOOGL": [],
+     "AMZN": [],
+     "NVDA": [],
+     "APLD": [],
+     "AMD": []
+    },
+    "G4": {
+     "MSFT": [],
+     "GOOGL": [],
+     "AMZN": [],
+     "NVDA": [],
+     "APLD": [],
+     "AMD": []
+    },
+    "G5": {
+     "MSFT": [],
+     "GOOGL": [],
+     "AMZN": [],
+     "NVDA": [],
+     "APLD": [],
+     "AMD": []
+    },
+    "G6": {
+     "MSFT": [],
+     "GOOGL": [],
+     "AMZN": [],
+     "NVDA": [],
+     "APLD": [],
+     "AMD": []
+    }
+   },
+   "failing": {}
+  },
+  "open": 0,
+  "blocked": 0,
+  "unconfirmed": 0,
+  "unmapped": 0,
+  "diff": {
+   "taxonomy": {
+    "key": [
+     "ticker",
+     "fiscal_year",
+     "measure",
+     "category",
+     "reported_name"
+    ],
+    "added": 0,
+    "removed": 6083,
+    "changed": 378,
+    "columns_added": [
+     "period_end",
+     "period_kind",
+     "mapped",
+     "change_from_prior",
+     "relation",
+     "has_value",
+     "scale",
+     "currency",
+     "kind",
+     "project_kind",
+     "status",
+     "location",
+     "capacity_mw",
+     "forward_looking",
+     "part_year",
+     "program",
+     "source_kind",
+     "accession",
+     "filed",
+     "source_table",
+     "source_url",
+     "check_method"
+    ],
+    "columns_removed": [
+     "tags",
+     "group"
+    ],
+    "rows": 617
+   },
+   "values": {
+    "key": [
+     "ticker",
+     "field",
+     "period"
+    ],
+    "added": 0,
+    "removed": 1005,
+    "changed": 0,
+    "columns_added": [],
+    "columns_removed": [],
+    "rows": 71
+   },
+   "facts": {
+    "key": [
+     "ticker",
+     "field",
+     "dimension",
+     "period"
+    ],
+    "added": 0,
+    "removed": 4308,
+    "changed": 0,
+    "columns_added": [],
+    "columns_removed": [],
+    "rows": 327
+   },
+   "statements": {
+    "key": [
+     "statement_id"
+    ],
+    "added": 0,
+    "removed": 997,
+    "changed": 0,
+    "columns_added": [],
+    "columns_removed": [],
+    "rows": 227
+   },
+   "projects": {
+    "key": [
+     "project_id"
+    ],
+    "added": 0,
+    "removed": 1524,
+    "changed": 0,
+    "columns_added": [],
+    "columns_removed": [],
+    "rows": 182
+   },
+   "companies": {
+    "key": [
+     "ticker"
+    ],
+    "added": 0,
+    "removed": 94,
+    "changed": 0,
+    "columns_added": [],
+    "columns_removed": [],
+    "rows": 6
+   },
+   "ai_spend": {
+    "key": [
+     "ticker",
+     "field",
+     "period",
+     "kind",
+     "source",
+     "quote"
+    ],
+    "added": 0,
+    "removed": 405,
+    "changed": 0,
+    "columns_added": [],
+    "columns_removed": [],
+    "rows": 71
+   }
+  },
+  "golden": {
+   "at": "2026-11-01T01:39:58+00:00",
+   "ok": true,
+   "failed_step": null,
+   "diffs": {},
+   "steps": [
+    {
+     "step": "extract --pack",
+     "exit": 0
+    },
+    {
+     "step": "extract --load",
+     "exit": 0
+    },
+    {
+     "step": "reconcile",
+     "exit": 0
+    },
+    {
+     "step": "aispend --pack",
+     "exit": 0
+    },
+    {
+     "step": "aispend --load",
+     "exit": 0
+    },
+    {
+     "step": "notes --pack",
+     "exit": 0
+    },
+    {
+     "step": "notes --load",
+     "exit": 0
+    },
+    {
+     "step": "projects --pack",
+     "exit": 0
+    },
+    {
+     "step": "projects --load",
+     "exit": 0
+    },
+    {
+     "step": "rules",
+     "exit": 0
+    }
+   ],
+   "tickers": [
+    "MSFT",
+    "GOOGL",
+    "AMZN",
+    "NVDA",
+    "APLD",
+    "AMD"
+   ]
+  },
+  "tests": null,
+  "exists": true,
+  "signed": false,
+  "folder": "same"
+ },
+ "published": true,
+ "published_at": "2026-11-01T04:56:16+00:00",
+ "rows": {
+  "values": 71,
+  "facts": 327,
+  "ai_spend": 71,
+  "companies": 6,
+  "statements": 227,
+  "projects": 182,
+  "taxonomy": 617
+ }
+}
