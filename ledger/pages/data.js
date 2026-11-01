@@ -10,8 +10,8 @@ async function dataPage(view, qs) {
   const all = Object.keys(meta.names).sort();
   const sel = {
     t: q.t ? q.t.split(',') : all.filter((t) => (!q.role || meta.roles[t] === q.role) && (!q.ind || meta.industries[t] === q.ind)),
-    f: (q.f || 'capex').split(','), k: q.k ? q.k.split(',') : ALL_KINDS, y: q.y ? q.y.split(',') : null, wide: !!q.wide, eval: !!q.eval};
-  const setQ = () => { const p = new URLSearchParams(); p.set('view', 'grid'); p.set('t', sel.t.join(',')); p.set('f', sel.f.join(',')); if (sel.y) p.set('y', sel.y.join(',')); if (sel.k.length < ALL_KINDS.length) p.set('k', sel.k.join(',')); if (sel.wide) p.set('wide', 1); if (sel.eval) p.set('eval', 1); location.hash = 'data?' + p.toString(); };
+    f: (q.f || 'capex').split(','), k: q.k ? q.k.split(',') : ALL_KINDS, y: q.y ? q.y.split(',') : null};
+  const setQ = () => { const p = new URLSearchParams(); p.set('view', 'grid'); p.set('t', sel.t.join(',')); p.set('f', sel.f.join(',')); if (sel.y) p.set('y', sel.y.join(',')); if (sel.k.length < ALL_KINDS.length) p.set('k', sel.k.join(',')); location.hash = 'data?' + p.toString(); };
 
   // one line of controls: field, companies (a group or a custom list), kind, years hidden unless set
   const GROUPS = [['all', 'All companies'], ['buyer', 'Buyers'], ['seller', 'Sellers'], ...Object.keys(INDUSTRY).map((k) => ['ind:' + k, INDUSTRY[k]]), ['custom', 'Custom…']];
@@ -45,9 +45,7 @@ async function dataPage(view, qs) {
     const p = r.prov;
     const bits = [h('h3', {style: 'margin:0 0 .4rem'}, `${d.names[r.ticker]}, ${FIELDS[r.field] || r.field}${r.dimension ? ', ' + r.dimension : ''}, ${r.period}`),
       h('div', {class: 'figs', style: 'margin-bottom:1rem'}, fig('Value', usd(r.value), r.range ? `${usd(r.range[0])} – ${usd(r.range[1])}` : KINDS[r.kind]),
-        r.share != null ? fig('Share of capex', pct(r.share), `confidence ${pct(r.confidence)}`) : '',
-        fig('Method', r.method === 'cell' ? 'cell' : r.method, r.check ? CHECK[r.check] || r.check : p.source ? p.source.replace('_', ' ') : '')),
-      r.basis && r.method !== 'cell' ? h('p', {style: 'margin-bottom:.6rem'}, r.basis) : '',
+        fig('Check', r.check ? CHECK[r.check] || r.check : '—', `${p.table} table`)),
       p.inputs ? h('p', {class: 'muted small mono', style: 'margin-bottom:.6rem'}, p.inputs) : '',
       p.xbrl != null ? h('p', {class: 'muted small'}, `XBRL: ${usd(p.xbrl)}`) : '',
       p.url ? h('p', {class: 'small'}, h('a', {href: p.url, target: '_blank', rel: 'noopener'}, 'Open the Filing')) : ''];
@@ -65,7 +63,6 @@ async function dataPage(view, qs) {
     if (r.check === 'agree') { k = 't'; why = 'agrees with the SEC’s XBRL'; }
     else if (r.check === 'unresolved') { k = 'd'; why = 'differs from the SEC’s XBRL'; }
     else if (r.check === 'definition_gap') { k = 't'; why = 'differs from the SEC’s tag by a definition on file'; }
-    else if (r.method === 'stated') { k = 't'; why = 'quoted from the company, checked against the text'; }
     const marks = [h('span', {class: 'mk ' + k, title: why, 'aria-label': why}, k === 'x' ? '✗' : k === 'd' ? '≠' : '✓')];
     if (r.status) marks.push(h('span', {class: 'badge bg-' + ({fix_pending: 'yellow', accepted: 'green', explained: 'azure', blocks: 'red'})[r.status] + '-lt ms-1', title: r.status.replace('_', ' ')}, ({fix_pending: 'fix', accepted: 'ok', explained: 'expl', blocks: 'block'})[r.status]));
     return marks;
@@ -78,7 +75,7 @@ async function dataPage(view, qs) {
       years.map((y) => {
         const r = s.y[y];
         if (!r) return h('td', {class: 'n muted'}, '');
-        const c = h('td', {class: 'n c', role: 'button'}, h('div', {}, usd(r.value), mark(r)), r.share != null ? h('div', {class: 'note'}, pct(r.share)) : '');
+        const c = h('td', {class: 'n c', role: 'button'}, h('div', {}, usd(r.value), mark(r)));
         c.classList.add('cell'); c.tabIndex = 0;
         if (changed.has(`${r.ticker}|${r.field}|${r.period}`)) c.classList.add('moved');
         c.addEventListener('click', () => showProv(r));
@@ -87,9 +84,9 @@ async function dataPage(view, qs) {
 
 
   function exportCsv() {
-    const cols = ['ticker', 'company', 'field', 'dimension', 'period', 'kind', 'value', 'share', 'method', 'confidence', 'check', 'basis', 'source_url', 'provenance'];
+    const cols = ['ticker', 'company', 'field', 'dimension', 'period', 'kind', 'value', 'check', 'basis', 'source_url', 'provenance'];
     const esc = (v) => { const s = v == null ? '' : String(v); return /[",\n]/.test(s) ? '"' + s.replaceAll('"', '""') + '"' : s; };
-    const out = rows.filter((r) => years.includes(r.period)).map((r) => [r.ticker, d.names[r.ticker], r.field, r.dimension, r.period, r.kind, r.value, r.share ?? '', r.method, r.confidence ?? '', r.check ?? '', r.basis, r.prov.url ?? '', r.prov.inputs || r.prov.extractions || r.prov.text || '']);
+    const out = rows.filter((r) => years.includes(r.period)).map((r) => [r.ticker, d.names[r.ticker], r.field, r.dimension, r.period, r.kind, r.value, r.check ?? '', r.basis, r.prov.url ?? '', r.prov.inputs || r.prov.extractions || r.prov.text || '']);
     const csv = [cols.join(','), ...out.map((x) => x.map(esc).join(','))].join('\n') + '\n';
     const a = h('a', {href: URL.createObjectURL(new Blob([csv], {type: 'text/csv'})), download: `capex-ledger-${sel.f.join('-')}.csv`});
     document.body.append(a); a.click(); a.remove();

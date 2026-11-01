@@ -1,0 +1,3 @@
+# Attributor (retired)
+
+Retired 30 October 2026 with the inferred layer (commit 2ee2e6f): nothing in the dataset is a number the pipeline made up, and the attributor's whole job was to make one (an AI share of capex and opex per fiscal year from a money-flow model). Its prompts attribution@v1 and attribution@v2 and the money-flow models stay under agents/prompts/ for the record of past runs; its `runs` rows (step attribution) stay in the database; the `ai_spend.ai_amount` column it fed is dropped (schema v10). It is out of /api/agents, out of the Rules page and refused by the POST routes (agents.json `retired: true`). No `ledger` command runs step attribution today.

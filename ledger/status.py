@@ -20,20 +20,47 @@ the rows it fired on. A jump on a value XBRL confirms is checked; on a value a d
 unresolved value, open. So Proof and Reconcile count the same row the same way: a rule or a definition on file closes
 it on both pages, and a person's decision is needed only where nothing on file applies.
 
-`by` names what decided the state: xbrl | quote | located | mapping:<us-gaap member> | rule:<id> | definition:<name> |
-label:<not_reported|no_reference> | resolution:<id>. Empty when the state is open and nothing applies."""
+`by` names what decided the state: xbrl | esef:<tag> | source:<doc> | actual:<period> | quote | located |
+mapping:<us-gaap member> | rule:<id> (a tie rule's id ends in _tie) | definition:<name> | label:<not_reported|no_reference> |
+resolution:<id>. Empty when the state is open and nothing applies.
+
+Answer keys (T40, docs/PROOF.md): four kinds of independent check vouch for a number. A structured twin (xbrl, esef:
+the filer's own tagged number), a second source (source: another document by the same filer), an arithmetic tie
+(rule:<id>_tie: numbers that must sum or bound; a tie that holds is a check, a tie that fails is the rule's finding),
+a later truth (actual: the actual against the plan). `answer_key(by)` names the kind; quote, located, mapping and the
+explanations are not answer keys."""
 from __future__ import annotations
 
 STATES = ("checked", "explained", "open", "blocked")
 # The kinds of `by`, and of the taxonomy rows' `check_method` (store.TAXONOMY): an open vocabulary of `<kind>` or
-# `<kind>:<id>`. A later answer key (esef:<tag>, source:<doc>, actual:<period>) is one entry here.
-METHOD_KINDS = ("xbrl", "quote", "gathered", "located", "none", "mapping", "rule", "definition", "resolution", "label")
+# `<kind>:<id>`. esef:<tag>, source:<doc> and actual:<period> are the answer keys T41–T45 will write; no row carries
+# them yet (2 Nov 2026).
+METHOD_KINDS = ("xbrl", "esef", "source", "actual", "quote", "gathered", "located", "none", "mapping", "rule", "definition", "resolution", "label")
+# The four answer keys and the `by` kinds that carry each. A tie is a rule whose id ends in TIE (rule:quarters_tie,
+# rule:statement_tie); any other rule:<id> explains or blocks, it is not an answer key.
+ANSWER_KEYS = {"twin": ("xbrl", "esef"), "second_source": ("source",), "tie": ("rule",), "later_truth": ("actual",)}
+TIE = "_tie"
 
 
 def method_kind(by: str) -> str:
     return by.partition(":")[0]
+
+
+def answer_key(by: str) -> str | None:
+    """The answer-key kind behind a `by` (or a check_method): twin | second_source | tie | later_truth, or None when the
+    method is not an answer key (a quote, a located table, a mapping, an explanation, nothing)."""
+    kind = method_kind(by or "")
+    for key, kinds in ANSWER_KEYS.items():
+        if kind in kinds and (kind != "rule" or by.endswith(TIE)):
+            return key
+    return None
+
+
 ORDER = {"blocked": 0, "open": 1, "explained": 2, "checked": 3}  # worst first
-CHECKS = ("xbrl", "quote", "located", "mapping")
+CHECKS = ("xbrl", "quote", "located", "mapping")  # the bare checks; the keyed ones (esef:, source:, rule:*_tie, actual:) go through answer_key
+REASONS = {"xbrl": "agrees with the SEC's XBRL", "esef": "agrees with the filer's own ESEF tag", "source": "agrees with a second document by the same filer",
+           "rule": "the tie holds", "actual": "the actual for the period, against the plan", "quote": "a verbatim quote, verified against its text",
+           "located": "statement tables located in the filing", "mapping": "mapped to a us-gaap member with the note's words"}
 GUARD_IDS = ("part_year", "program_words", "asset_type_mapping", "restated_between_filings", "amendment_without_statements")  # proof.GUARDS: info by nature
 
 
@@ -46,7 +73,9 @@ def _res(resolution: dict | None) -> tuple[str, str, str]:
 
 def state(row: dict) -> dict:
     """The one function. `row` carries what is known about a dataset row, every key optional:
-    check: xbrl | quote | located | mapping (what vouches for it); mapping_to: the us-gaap member when check is mapping
+    check: xbrl | quote | located | mapping (what vouches for it); mapping_to: the us-gaap member when check is mapping;
+           or a keyed answer key that agreed: esef:<tag> | source:<doc> | rule:<id>_tie | actual:<period> (T40). A tie
+           that fails is not a check: it is the rule's finding (`rule`, `severity`), open until something explains it.
     rule, severity: the rule or guard that fired on it (block | warn | info; a guard counts as info)
     definition: the name of the definition on file that covers it
     label: a reconcile label (not_reported, no_reference) that explains it
@@ -58,10 +87,10 @@ def state(row: dict) -> dict:
         return {"state": "blocked", "reason": rreason or "a person's decision blocks the release", "by": rby}
     if rule and sev == "block":
         return {"state": "blocked", "reason": row.get("reason") or f"rule {rule} blocks the release", "by": f"rule:{rule}"}
-    check = row.get("check")
-    if check in CHECKS:
+    check = row.get("check") or ""
+    if check in CHECKS or answer_key(check):
         by = f"mapping:{row.get('mapping_to') or ''}" if check == "mapping" else check
-        return {"state": "checked", "reason": row.get("reason") or {"xbrl": "agrees with the SEC's XBRL", "quote": "a verbatim quote, verified against its text", "located": "statement tables located in the filing"}.get(check, "mapped to a us-gaap member with the note's words"), "by": by}
+        return {"state": "checked", "reason": row.get("reason") or REASONS[method_kind(check)], "by": by}
     if rs == "fix":
         return {"state": "open", "reason": rreason or "a person said fix; open until fixed", "by": rby}
     if rs in ("accept", "explain"):

@@ -24,8 +24,30 @@ which; Proof, Reconcile, the trail and the Release gates all read it, so no two 
 Precedence when more than one applies: blocked, then checked, then a person's fix (open), then explained, then open. A
 warn-severity finding (a jump, a renamed line, an outlier) has no state of its own: it takes the worst state of the
 rows it fired on, so a jump on a value XBRL confirms is checked, on a value a definition covers is explained, on an
-unresolved value is open. Every item carries `by`: `xbrl`, `quote`, `located`, `mapping:<member>`, `rule:<id>`,
-`definition:<name>`, `label:<label>` or `resolution:<id>`.
+unresolved value is open. Every item carries `by`: `xbrl`, `esef:<tag>`, `source:<doc>`, `actual:<period>`, `quote`,
+`located`, `mapping:<member>`, `rule:<id>`, `definition:<name>`, `label:<label>` or `resolution:<id>`.
+
+### The four answer keys (`status.ANSWER_KEYS`, `status.answer_key(by)`)
+
+XBRL is one kind of answer key. There are four, and `answer_key(by)` names which one a `by` (or a taxonomy row's
+`check_method`) is; a quote, a located table, a mapping and every explanation are not answer keys. One function,
+`status.state`, turns each into checked, so Proof and Reconcile count a row an ESEF tag confirms exactly as they count
+one XBRL confirms. No row carries `esef:`, `source:` or `actual:` today (2 Nov 2026); T41–T45 write them.
+
+- **A structured twin** (`xbrl`, `esef:<tag>`): the filer's own tagged number for the same concept and period, read
+  from the instance the filer signed (the SEC's XBRL, an ESEF package). It proves the number the pipeline read from the
+  document is the number the filer declared, to the unit and the sign. It cannot prove the filer is right.
+- **A second source** (`source:<doc>`): the same figure stated in another document by the same filer, cited by its
+  accession or id (an 8-K earnings release against the 10-K, a 20-F against the annual report). It proves the number
+  is not an artefact of one document's parsing or one agent's reading; a disagreement opens an item citing both.
+- **An arithmetic tie** (`rule:<id>_tie`): numbers that must sum or bound each other (quarters to the year, a
+  statement's lines to its total, aligned ≤ eligible ≤ total). A tie rule is a rule, written and versioned under
+  `rules/`, with an id ending in `_tie`; when it holds it is the check (`by` = `rule:quarters_tie`), when it fails it
+  is the rule's finding, open or blocked until something on file explains it, never checked. It proves the parts and
+  the whole were read consistently; it cannot say which one is wrong.
+- **A later truth** (`actual:<period>`): the actual for a period, against what the company planned for it. The planned
+  row never changes; the gap is recorded beside it. It proves what the plan was worth, not whether the plan was read
+  right (the quote does that).
 
 Proven = zero open (blocked included), for every stage, for that company. A person's judgement enters as a definition
 or a rule, never as a click on a row; once written it applies every run and the item never comes back. A resolution is

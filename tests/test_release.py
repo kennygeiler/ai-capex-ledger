@@ -54,8 +54,8 @@ class Gates(unittest.TestCase):
         self.assertEqual([l.endswith("FAILS") for l in t.splitlines()[1:]], [True, True])
 
     def test_an_unconfirmed_decision_fails_g6_under_its_company_even_outside_the_scope(self):
-        g = gates([], [], {"values": []}, tickers=["NVDA"], unconfirmed=[{"key": "reference_disagrees|TSLA|AI capex FY2024"}])
-        self.assertEqual(g["G6"], {"NVDA": [], "TSLA": ["reference_disagrees|TSLA|AI capex FY2024"]})
+        g = gates([], [], {"values": []}, tickers=["NVDA"], unconfirmed=[{"key": "finding_unconfirmed|TSLA|opex FY2024"}])
+        self.assertEqual(g["G6"], {"NVDA": [], "TSLA": ["finding_unconfirmed|TSLA|opex FY2024"]})
         self.assertEqual(list(failing(g)), ["TSLA"])
 
     def test_only_values_xbrl_cant_vouch_for_and_a_sample_need_a_person(self):

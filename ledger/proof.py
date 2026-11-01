@@ -163,14 +163,10 @@ def _restated(con, ticker: str, f: dict) -> str | None:
 
 
 def board(con) -> dict:
-    """The Proof home: every company in scope (config.SCOPE) with its stage counts, and the rest of the database in one line."""
+    """The Proof home: every company in scope (config.SCOPE) with its stage counts. The database keeps every company; the board shows the scope (T2)."""
     idx, defs = resolutions.by_row(), definitions.load()
     proven = [company(con, t, idx, defs) for t in SCOPE]
-    others = [c["ticker"] for c in tracked() if c["ticker"] not in SCOPE]
-    n_vals = con.execute('select count(*), sum(case when label = \'agree\' then 1 else 0 end) from "values" where ticker in (select unnest(?)) and value is not null', [others]).fetchone()
-    n_facts = con.execute("select count(*), sum(case when label = 'agree' then 1 else 0 end) from facts where ticker in (select unnest(?))", [others]).fetchone()
-    return {"stages": [{"id": s, "label": STAGE_LABEL[s]} for s in STAGES], "proven": proven, "scope": list(SCOPE), "open": sum(c["open"] for c in proven),
-            "others": {"companies": len(others), "values": n_vals[0], "values_agree": n_vals[1], "facts": n_facts[0], "facts_agree": n_facts[1], "note": "in the database, outside the scope: not shown, not released, widened one company at a time"}}
+    return {"stages": [{"id": s, "label": STAGE_LABEL[s]} for s in STAGES], "proven": proven, "scope": list(SCOPE), "open": sum(c["open"] for c in proven)}
 
 
 GUARDS = [

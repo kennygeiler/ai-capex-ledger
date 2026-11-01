@@ -73,6 +73,7 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 | taxonomy | one row shape for spent, committed, derived, planned and company-stated AI, every category a named standard's concept; built by code, no agent | `taxonomy/taxonomy.yaml`, `ledger/taxonomy.py`, `/api/v1/taxonomy`, `taxonomy.csv` (next release) | `docs/TAXONOMY.md` |
 | asset-type mappings | each company's reported PP&E category mapped to a us-gaap member, with the note's words as evidence; an unmapped one is open on Proof | `taxonomy/asset_types.yaml` | `docs/TAXONOMY.md` |
 | prompts | one per agent, versioned the same way | `agents/prompts/`, `agents/schemas/` | `agents/agents.json` |
+| charters | one per agent, live or retired: what it owns, what it never touches, its input and output files, model, tools, prompt versions, the checks that judge it, written from the code | `agents/charters/<id>.md`, path in `agents/agents.json` | the Rules page, `/api/agents` |
 | definitions | judgements made once per company and applied every run | `definitions/companies.yaml` | README Critical notes |
 | stated figures | figures companies stated about AI, gathered from releases, calls and press, verbatim with the source; `company_stated_ai` rows | `taxonomy/stated_figures.yaml` | `docs/TAXONOMY.md` |
 | rules, guards | the 15 checks, each with its rationale and owner; the two guards that tag part-year and program statements | `rules/*.yaml`, `ledger/rules.py`, `ledger/guards.py` | `docs/PROOF.md` |
@@ -96,7 +97,7 @@ look without a checkout. Redeploy after a run or a release: `railway up --servic
 
 ## How to do the common things
 
-- **Add a company**: DATAHQ, `#run`, type the ticker; or `ledger run --ticker X`. It joins stage 3. Give it an
+- **Add a company**: `ledger run --ticker X`. It joins stage 3. Give it an
   industry in `ledger/config.py` `INDUSTRIES`, or it gets the `other` model.
 - **Map a reported asset type**: Proof shows it open under Mapping; add the entry to `taxonomy/asset_types.yaml`
   with the note's own words as evidence, who and when. A mapping is a classification, never a number.
@@ -126,6 +127,10 @@ look without a checkout. Redeploy after a run or a release: `railway up --servic
 7. The SEC contact and the production database URL live only in `.env`. Never commit them, never print them.
 8. Never get around a bot check. Investor-page links are listed by a person.
 9. Prompts and models are never edited in place; a change is the next version, switched on as a second step.
+   Charter before code (T50): a new agent or source starts with `agents/charters/<id>.md`, written from the code it will
+   run under (what it owns, what it never touches, task and output file shapes, model, tools, prompt versions, the rule
+   and guard ids that judge it; "not stated in code" where the code does not say). A retired agent keeps its charter,
+   marked retired with why. The Rules page shows each live charter with the prompt history and the runs per company.
 10. The design rules for DATAHQ are in `docs/PROOF.md`; one thing per screen; numbers before words.
 
 ## If you are an AI agent

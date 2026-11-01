@@ -55,7 +55,7 @@ async function reconcilePage(view, qs) {
   const openRows = rows.filter(isOpen);
   const nState = (s) => d.rows.filter((r) => r.state === s).length;
   const header = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
-    h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'text-secondary small'}, `${int(d.to_confirm)} to confirm, ${int(nState('open'))} open, ${int(nState('blocked'))} blocked, ${int(nState('explained'))} explained, ${usd(openRows.reduce((s, r) => s + (r.dollars || 0), 0))} at stake. Last run ${day(d.last_run)}${d.release ? `, signed ${d.release}` : ''}. Keys: j k move, Enter opens, a e f b decide, space selects.`))));
+    h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'text-secondary small'}, `${int(d.to_confirm)} to confirm, ${int(nState('open'))} open, ${int(nState('blocked'))} blocked, ${int(nState('explained'))} explained${(() => { const s = openRows.reduce((a, r) => a + (r.dollars || 0), 0); return s ? `, ${usd(s)} at stake` : ''; })()}. Last run ${day(d.last_run)}${d.release ? `, signed ${d.release}` : ''}. Keys: j k move, Enter opens, a e f b decide, space selects.`))));
   const controls = h('div', {class: 'card mb-3'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'},
     h('div', {class: 'col-auto'}, sel('Scope', scope, [['all', 'All companies'], ...layers.map((l) => [l, INDUSTRY[l] || l]), ...Object.keys(d.names).sort().map((t) => [t, `${d.names[t]} (${t})`])], 'scope')),
     h('div', {class: 'col-auto'}, sel('Group by', group, [['cause', 'Grouped by cause'], ['company', 'Grouped by company']], 'group')),
@@ -201,12 +201,11 @@ async function reconcilePage(view, qs) {
         h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0'}, E.message || p.reason || ''), h('p', {class: 'text-secondary small mt-2 mb-0'}, 'Confirm records the same state under your name; a different decision below overturns it. Either way the item leaves this group and the release gate G6 counts one fewer.')),
         h('div', {class: 'card-footer py-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'The company\'s trail')))));
     } else if (r.cause === 'new_filing') {
-      cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-body'}, `${E.form} filed ${day(E.filed)}. `, h('a', {href: E.url, target: '_blank', rel: 'noopener'}, 'Open at the SEC'), ' · ', h('a', {href: '#run'}, 'Run it')))));
+      cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-body'}, `${E.form} filed ${day(E.filed)}. `, h('a', {href: E.url, target: '_blank', rel: 'noopener'}, 'Open at the SEC')))));
     }
     const decision = h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, toConfirm(r) ? 'Overturn: your own decision' : 'Decision'), r.resolution && !toConfirm(r) ? h('span', {class: 'ms-2 small text-secondary'}, `${RES_LABEL[r.resolution.state]} by ${r.resolution.by}, ${day(r.resolution.at)}: ${r.resolution.reason}`) : ''), h('div', {class: 'card-body py-2'}, resolutionForm(r))));
     return h('div', {class: 'row g-3'}, cards, decision);
   }
-  wrap.append(header, controls, bulk, ...(cards.length ? cards : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'Nothing open for this scope.'))]),
-    d.noise ? h('p', {class: 'text-secondary small'}, `${int(d.noise)} more facts differ from the filing’s tag but feed no attribution; they stay out of the queue.`) : '');
+  wrap.append(header, controls, bulk, ...(cards.length ? cards : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'Nothing open for this scope.'))]));
   if (trs.length) { cur = Math.max(0, trs.findIndex((t) => t.r.key === FOCUS_KEY)); paintCur(); if (FOCUS_KEY) { trs[cur].tr.focus({preventScroll: true}); trs[cur].tr.scrollIntoView({block: 'center'}); } FOCUS_KEY = null; }
 }

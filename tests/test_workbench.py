@@ -6,7 +6,7 @@ from ledger import views, workbench
 
 
 def _flow(queue):
-    return {"scope": "all", "names": {"GOOGL": "Alphabet", "IRM": "Iron Mountain"}, "release": {"last": "v1.5.0"}, "changed": {"last_run": "2026-10-30T00:00:00"}, "queue": queue, "noise": 2,
+    return {"scope": "all", "names": {"GOOGL": "Alphabet", "IRM": "Iron Mountain"}, "release": {"last": "v1.5.0"}, "changed": {"last_run": "2026-10-30T00:00:00"}, "queue": queue,
             "insight": {"evaluation": {"rows": [{"ticker": "GOOGL", "field": "capex", "period": "FY2025", "measure": "share", "relation": "eq", "reference": 0.6, "outcome": "disagree", "source": {"kind": "company_statement"}}]}}}
 
 
@@ -91,7 +91,7 @@ class ToConfirmGroup(unittest.TestCase):
         from ledger import resolutions
         old = resolutions.LOG
         resolutions.LOG = pathlib.Path(tempfile.mkdtemp()) / "resolutions.jsonl"
-        resolutions.LOG.write_text(json.dumps({"id": "r9", "key": "reference_disagrees|GOOGL|AI capex FY2024", "hash": "h", "state": "explain", "reason": "a planning floor", "by": "Replication run (Claude), for Kenny Geiler to confirm", "at": "2026-10-30"}) + "\n"
+        resolutions.LOG.write_text(json.dumps({"id": "r9", "key": "fact_differs|GOOGL|segment_capex Google Cloud FY2024", "hash": "h", "state": "explain", "reason": "a planning floor", "by": "Replication run (Claude), for Kenny Geiler to confirm", "at": "2026-10-30"}) + "\n"
                                    + json.dumps({"id": "r8", "key": "finding_unconfirmed|LITE|operating_income", "hash": "h", "state": "accept", "reason": "harmless", "by": "Claude, for Kenny Geiler to confirm", "at": "2026-10-30"}) + "\n")
         q = {"kind": "finding_unconfirmed", "state": "look", "ticker": "IRM", "where": "opex FY2024", "impact": "x", "action": "open", "key": "k3", "hash": "h3", "resolution": None,
              "detail": {"field": "opex", "period": "FY2024", "kind": "restated", "before": 10e6, "after": 12e6, "size": 0.2, "message": "m"}}

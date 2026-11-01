@@ -93,25 +93,23 @@ def company(ticker: str) -> dict:
 
 
 def agents_view() -> dict:
+    """Every live agent with its charter (agents/charters, as blocks), prompt history with `by`, every saved prompt,
+    and its runs per proven company from the `runs` table (T48). The retired attributor is left out."""
+    from .cost import by_agent
     cfg = agents.load()
     con = _con()
     try:
-        runs = _rows(con, "select r.subject as accession, d.ticker, d.period, r.started_at, r.outcome, r.versions, r.detail from runs r "
-                          "join documents d on d.accession = r.subject where r.step = 'extract' order by r.started_at desc")  # one row per filing read, not the step log
-    finally:
-        con.close()
-    for r in runs:
-        r["versions"], r["detail"] = json.loads(r["versions"] or "{}"), json.loads(r["detail"] or "{}")
-    con = _con()
-    try:
         h = snapshot(con, STAGE)["health"][0]
+        runs = {aid: by_agent(con, aid, SCOPE) for aid, a in cfg.items() if not a.get("retired")}
     finally:
         con.close()
     cost = h["per_company_minutes"] is not None and {"minutes": h["per_company_minutes"], "tokens": h["per_company_tokens"], "companies": h["measured_companies"]} or None
     out = {}
     for aid, a in cfg.items():
+        if a.get("retired"):
+            continue
         vs = agents.versions(aid)
-        out[aid] = {**a, "id": aid, "versions": vs, "prompts": {v: agents.prompt_text(v) for v in vs}, "runs": runs, "cost": cost}
+        out[aid] = {**a, "id": aid, "versions": vs, "prompts": {v: agents.prompt_text(v) for v in vs}, "charter_blocks": agents.charter(aid), "runs": runs[aid], "cost": cost}
     return out
 
 
@@ -137,10 +135,10 @@ def data(q: dict) -> dict:
         rows = []
         for v in _rows(con, 'select ticker, field, period, value, label, basis, extraction_ids, source from "values" where value is not null'):
             rows.append({"ticker": v["ticker"], "field": v["field"], "dimension": "", "period": v["period"], "kind": "spent", "value": v["value"], "unit": "usd",
-                         "check": v["label"], "method": "cell", "confidence": None, "basis": v["basis"], "prov": {"extractions": v["extraction_ids"], "table": "values"}})
+                         "check": v["label"], "basis": v["basis"], "prov": {"extractions": v["extraction_ids"], "table": "values"}})
         for f in _rows(con, "select ticker, field, dimension, period, value, label, reference, accession, extraction_ids, basis from facts"):
             rows.append({"ticker": f["ticker"], "field": f["field"], "dimension": f["dimension"], "period": f["period"], "kind": FIELD_KIND.get(f["field"], "spent"), "value": f["value"], "unit": "usd",
-                         "check": f["label"], "method": "cell", "confidence": None, "basis": f["basis"], "prov": {"extractions": f["extraction_ids"], "accession": f["accession"], "table": "facts", "xbrl": f["reference"]}})
+                         "check": f["label"], "basis": f["basis"], "prov": {"extractions": f["extraction_ids"], "accession": f["accession"], "table": "facts", "xbrl": f["reference"]}})
         urls = {d["accession"]: d["url"] for d in _rows(con, "select accession, url from documents")}
     finally:
         con.close()
@@ -245,7 +243,7 @@ def _flow(scope: str) -> dict:
     open_ = [q_ for q_ in queue if not q_["resolution"] or q_["resolution"]["state"] == "fix"]
     blocks = [q_ for q_ in queue if q_["state"] == "blocked"]
     release = {"last": rel.name if rel else None, "blocks": len(blocks), "unresolved": len(open_), "facts_changed": len(facts_changed)}
-    return {"scope": scope or "all", "tickers": tickers, "changed": changed, "queue": queue, "noise": 0, "release": release,
+    return {"scope": scope or "all", "tickers": tickers, "changed": changed, "queue": queue, "release": release,
             "industries": sorted(INDUSTRIES) + ["other"], "scope_tickers": list(SCOPE), "names": {c["ticker"]: c["name"] for c in tracked()}}
 
 
@@ -347,6 +345,20 @@ class Handler(BaseHTTPRequestHandler):
             return self._guard(lambda: self._json(company(q.get("t", ""))))
         if u.path == "/api/agents":
             return self._guard(lambda: self._json(agents_view()))
+        if u.path.startswith("/api/agents/") and u.path.endswith("/runs"):  # one live agent's runs per company (T48); ?t=MSFT,NVDA narrows, default the proven set
+            aid = u.path[len("/api/agents/"):-len("/runs")]
+
+            def agent_runs():
+                from .cost import by_agent
+                if aid not in agents.load() or agents.load()[aid].get("retired"):
+                    raise KeyError(aid)
+                tickers = [t for t in q.get("t", "").upper().split(",") if t] or SCOPE
+                con = _con()
+                try:
+                    return by_agent(con, aid, tickers)
+                finally:
+                    con.close()
+            return self._guard(lambda: self._json(agent_runs()))
         if u.path == "/api/job":
             return self._json(job())
         if u.path == "/api/flow":
@@ -481,7 +493,7 @@ class Handler(BaseHTTPRequestHandler):
             vid = u.path[len("/api/v1/views/"):-len("/delete")]
             return self._guard(lambda: self._json((views.delete(vid, body.get("by", "")), {"ok": True})[1]))
         parts = u.path.strip("/").split("/")  # api/agents/<id>/<prompt|use|model>, api/models/<industry>/<save|use>
-        if len(parts) != 4 or parts[:2] != ["api", "agents"] or parts[2] not in agents.load():
+        if len(parts) != 4 or parts[:2] != ["api", "agents"] or parts[2] not in agents.load() or agents.load()[parts[2]].get("retired"):
             return self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
         aid, what = parts[2], parts[3]
 

@@ -12,6 +12,23 @@ from .store import ROOT
 
 LOG = ROOT / "decisions" / "resolutions.jsonl"  # beside decisions.jsonl: the two append-only logs of judgement the app writes; definitions/ is the one a person edits
 STATES = ("accept", "explain", "fix", "blocks")
+# The cause kinds the pipeline produces today, each named by its producer (app.flow() builds the queue; the key is
+# kind|ticker|where). A resolution on any other kind is stale: its cause can no longer come back (reference_disagrees
+# and attribution_moved went with the inferred layer, 2ee2e6f), so it is not shown, not counted and not a gate failure.
+# Stale lines are moved to decisions/archive/, never rewritten in the live log.
+LIVE_KINDS = ("fact_differs",        # app.flow(): a fact whose label is unresolved against the filing's XBRL tag
+              "fact_changed",        # app.flow(): a fact that differs from the signed release
+              "finding_unconfirmed", # app.flow(): a rule's finding (hq findings) the SEC's data can't confirm
+              "blocked",             # app.flow(): a block-severity exception (hq questions)
+              "new_filing")          # app.flow(): a filing the watch found and the ledger has not read
+
+
+def kind_of(key: str) -> str:
+    return key.partition("|")[0]
+
+
+def is_live(key: str) -> bool:
+    return kind_of(key) in LIVE_KINDS
 STATUS = {"accept": "accepted", "explain": "explained", "fix": "fix_pending", "blocks": "blocks"}  # the word a row carries
 
 
@@ -38,14 +55,13 @@ def resolve(key: str, content_hash: str, state: str, reason: str, by: str) -> di
 
 
 def _parse(key: str):
-    """A queue key -> (table, ticker, field, dimension, period, kind) with '' for what the key does not say."""
+    """A queue key -> (table, ticker, field, dimension, period, kind) with '' for what the key does not say. None for a
+    kind the pipeline no longer produces (LIVE_KINDS) and for kinds that name no dataset row (new_filing)."""
     kind, _, rest = key.partition("|")
     ticker, _, where = rest.partition("|")
     words = where.split()
-    if kind == "reference_disagrees" and len(words) >= 3 and words[0] == "AI":
-        return ("attribution", ticker, words[1], "", words[2], "actual")
-    if kind == "attribution_moved" and len(words) == 3:
-        return ("attribution", ticker, words[0], "", words[1], words[2])
+    if kind not in LIVE_KINDS:
+        return None
     if kind in ("fact_differs", "fact_changed") and len(words) >= 2:
         return ("facts", ticker, words[0], " ".join(words[1:-1]), words[-1], "")
     if kind in ("finding_unconfirmed", "blocked") and words:
@@ -79,5 +95,6 @@ TO_CONFIRM = re.compile(r"\bto confirm\b", re.I)
 
 def unconfirmed(rs: list[dict] | None = None) -> list[dict]:
     """The latest resolutions a run made for a person to confirm (`by` or `reason` says "to confirm"), oldest first. They
-    stay here until that person records a resolution of their own on the same key; the release refuses while any remain."""
-    return sorted((r for r in latest(rs).values() if TO_CONFIRM.search(f"{r.get('by', '')} {r.get('reason', '')}")), key=lambda r: r["at"])
+    stay here until that person records a resolution of their own on the same key; the release refuses while any remain.
+    A key whose cause kind the pipeline no longer produces (LIVE_KINDS) is stale and left out, even if still on file."""
+    return sorted((r for r in latest(rs).values() if is_live(r["key"]) and TO_CONFIRM.search(f"{r.get('by', '')} {r.get('reason', '')}")), key=lambda r: r["at"])
