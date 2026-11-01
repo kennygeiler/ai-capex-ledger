@@ -491,6 +491,21 @@ the builder before fixing). Not new scope: each is a defect in approved work, fi
   them; the fix is one condition in `app.flow` (queue `not_extracted` values the way `unresolved` ones are queued), in
   app.py's lane. Also pending: AMZN fails gate G5 ("no hand-check file") because its 8 new values have not been re-read
   on the rendered 10-K (`ledger evidence --ticker AMZN`, Chrome) nor hand-checked; `ledger run --ticker AMZN` does both.
+  *Follow-up commit:* `app.flow` queues one `value_missing` item per `not_extracted` value (state from `status.of_value`,
+  key built like the other kinds, `value_missing|<ticker>|<field> <period>`); Reconcile shows it open with the cause "Not
+  extracted"; Proof 7 == Reconcile 7 on AMD. `value_missing` is not in `resolutions.LIVE_KINDS`: a person cannot resolve
+  it, the fix is an extraction (`docs/PROOF.md`).
+- **T101 AMD's located income statement is the Xilinx pro forma pair.** AMD's FY2022–FY2024 10-Ks (0000002488-23-000047
+  t0032,t0033; -24-000012 t0031,t0032; -25-000012 t0028,t0029) have as their located income statement a two-table pair
+  from the Xilinx acquisition note: a one-column partial table (Net revenue 4,612) and the unaudited pro forma results
+  (Net revenue 24,117 / 20,150, Net income 2,311 / 8). The reader refused it in all three outputs ("not the consolidated
+  statement of operations") and read only capex from them, so FY2023 and FY2024 come from the FY2025 10-K and FY2022
+  revenue and opex have no cell: `not_extracted` since T65 (XBRL tags 23,601 M and 9,339 M), AMD open 7, proven 5 of 6.
+  `statement_tables_distinct` does not catch it (the pair has revenue rows). Fix: a locator rule (a pro forma or
+  acquisition caption, a one-column table, a pair whose net income does not tie to the cash-flow statement's), or a
+  second candidate pass that re-scores when the reader refuses the statement; re-read AMD headless; golden re-frozen in
+  its own commit. Done when AMD FY2022 revenue and opex are filled and agree with XBRL and the six read 6 of 6. Not built
+  tonight (found by T65).
 - **T66 The manifest states what produced the rows.** checklist.py writes the current prompt_version(), PARSER_VERSION and
   model(), not what produced the shipped rows: v1.8.0 claims statements@v2 / tables@15 / claude-opus-5-5, while 84 shipped
   statement cells were read under statements@v1 and 379 of 393 filings were parsed with tables@12; 13 statement outputs have no

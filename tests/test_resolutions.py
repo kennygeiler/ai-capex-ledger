@@ -18,7 +18,9 @@ class Keys(unittest.TestCase):
         import re
         src = (resolutions.ROOT / "ledger" / "app.py").read_text()
         produced = set(re.findall(r'queue\.append\(\{"kind": "([a-z_]+)"', src))
-        self.assertEqual(produced, set(resolutions.LIVE_KINDS))
+        self.assertEqual(produced - {"value_missing"}, set(resolutions.LIVE_KINDS))  # value_missing (T65) takes no resolution: the fix is a re-read, so it is never live
+        self.assertIn("value_missing", produced)
+        self.assertFalse(resolutions.is_live("value_missing|AMD|revenue FY2022"))
         self.assertTrue(resolutions.is_live("fact_differs|IRM|segment_capex X FY2023"))
         self.assertFalse(resolutions.is_live("reference_disagrees|AMD|AI revenue FY2024"))
 

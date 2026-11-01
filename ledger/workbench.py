@@ -9,8 +9,8 @@ from .config import industry
 
 EVIDENCE = store.ROOT / "reports" / "evidence"
 CAUSES = {"fact_differs": "Fact differs from the filing's XBRL tag", "fact_changed": "Fact changed since the signed release", "blocked": "Blocked: a definition is missing",
-          "finding_unconfirmed": "SEC data can't confirm a value", "new_filing": "New filing at the SEC"}
-REF_LABEL = {"fact_differs": "XBRL tag", "fact_changed": "signed release", "blocked": None, "finding_unconfirmed": "XBRL tag", "new_filing": None}
+          "finding_unconfirmed": "SEC data can't confirm a value", "new_filing": "New filing at the SEC", "value_missing": "Not extracted: the filing tags a value no cell was read for"}
+REF_LABEL = {"fact_differs": "XBRL tag", "fact_changed": "signed release", "blocked": None, "finding_unconfirmed": "XBRL tag", "new_filing": None, "value_missing": "XBRL tag"}
 
 
 def _png(extraction_id: str | None) -> str | None:
@@ -95,6 +95,8 @@ def _state(con, q: dict, idx: dict) -> dict:
         return status.of_exception({"rule_id": d.get("kind"), "severity": "warn", "message": d.get("message")}, res, _value_states(con, t, d.get("field"), d.get("period"), idx))
     if q["kind"] == "blocked":
         return status.of_exception({"rule_id": d.get("rule"), "severity": "block", "message": d.get("message")}, res)
+    if q["kind"] == "value_missing":  # T65: the value row itself, open by label:not_extracted; a resolution is not live for this kind
+        return status.of_value({"field": d.get("field"), "period": d.get("period"), "label": d.get("label", "not_extracted")}, res)
     return status.state({"reason": "a filing at the SEC the ledger has not read", "resolution": res})
 
 
@@ -180,6 +182,11 @@ def items(con, flow: dict) -> dict:
         elif q["kind"] == "blocked":
             row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd" if d.get("value") is not None else None, "ours": d.get("value")}
             row["evidence"] = {"message": d.get("message"), "rule": d.get("rule")}
+        elif q["kind"] == "value_missing":
+            row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": None, "reference": _num(d.get("reference")), "ours_label": "no cell read"}
+            if d.get("field"):
+                row["series"] = _value_series(con, q["ticker"], d["field"])
+            row["evidence"] = {"label": d.get("label"), "reference": d.get("reference"), "period_end": d.get("period_end")}
         elif q["kind"] == "new_filing":
             row |= {"period": d.get("period")}
             row["evidence"] = {"url": d.get("url"), "filed": d.get("filed"), "form": d.get("form")}

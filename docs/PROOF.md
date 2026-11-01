@@ -53,7 +53,9 @@ one XBRL confirms. No row carries `esef:`, `source:` or `actual:` today (2 Nov 2
 
 Proven = zero open (blocked included), for every stage, for that company. A person's judgement enters as a definition
 or a rule, never as a click on a row; once written it applies every run and the item never comes back. A resolution is
-the exception for what nothing on file covers yet, and it holds only while the item's content is unchanged.
+the exception for what nothing on file covers yet, and it holds only while the item's content is unchanged. A
+`not_extracted` value (Reconcile kind `value_missing`) takes no resolution at all: it is not in `resolutions.LIVE_KINDS`,
+because the fix is an extraction, not a decision; the row closes when the filing is re-read and the cell is found.
 `tests/test_status.py` asserts, on the frozen fixtures, that the Proof board's open count equals Reconcile's for every
 company in the proven set.
 
