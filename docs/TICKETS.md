@@ -181,15 +181,17 @@ can read (T9–T18)". A reviewer agent reads the whole diff against the ticket l
 - **T30 Tests in the Release checklist.** `reports/tests.json` written by the test run (count, failures, golden ok, at), read by
   the Release page. Later the self-hosted runner writes it.
 
-  *As built (2 Nov):* `ledger test [--fast]` (`ledger/cli/test.py`, `ledger/testreport.py`) runs the unittest suite in process and
+  *As built (1 Nov):* `ledger test [--fast]` (`ledger/cli/test.py`, `ledger/testreport.py`) runs the unittest suite in process and
   writes `reports/tests.json`: `{ok, count, failures: ["test id: first line of the error"], skipped, golden: true|false|null,
   at, git: short sha|null, dirty, seconds}`; `--fast` sets `LEDGER_SKIP_GOLDEN=1` (golden null); exit 0 only when ok. The file
   is tracked, like `reports/golden.json`, so the hosted copy shows the last run. `checklist.tests_line` reads it: absent, "not
   run", grey, does not block (as before); ran and failed, red and required whatever commit it ran on; passed on this HEAD with a
   clean tree, green and required, the note naming count, golden and sha; passed on another commit or a dirty tree, "stale",
   informs, "run `ledger test`" (it neither blocks nor vouches: the code tested is not the code signed). Commits since the run
-  that changed only `reports/tests.json` are forgiven, so the commit that records the run keeps the line green; without git
-  on either side (the hosted copy ships no `.git`) the sha check is skipped. The runner (T-later) runs the same command.
+  that changed only `reports/tests.json` are forgiven, so the commit that records the run keeps the line green; an untracked
+  file under `ledger/ tests/ taxonomy/ fixtures/` counts as dirty. Without git on either side (the hosted copy ships no
+  `.git`) the commit cannot be compared: informs, "commit not compared: no git", never a verified pass. The runner (T-later)
+  runs the same command.
 - **T31 Golden covers the taxonomy rows.** `fixtures/expected/taxonomy.csv` frozen for the six; `golden --check` compares it.
 - **T32 A test per ticket in C.** Each column change has a test on the fixtures that asserts the column's vocabulary and that no
   row carries two meanings in one column.

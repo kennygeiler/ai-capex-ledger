@@ -43,7 +43,7 @@ echo 'DATABASE_URL="postgresql://…"' >> .env                 # production Post
 echo 'DATABASE_READONLY_URL="postgresql://…"' >> .env        # the arctal_reader string, SELECT only; the one to hand a consumer
 claude                                                      # then /login: the agents run on a Claude subscription, headless
 export LEDGER_CLAUDE="$(which claude)"                      # the claude binary the pipeline should use
-uv run python -m ledger test --fast                         # 239 tests, offline, seconds; writes reports/tests.json (drop --fast for golden too)
+uv run python -m ledger test --fast                         # 240 tests, offline, seconds; writes reports/tests.json (drop --fast for golden too)
 ```
 
 The `evidence` step drives the installed Google Chrome through Playwright. The `texts` step downloads PDFs from the

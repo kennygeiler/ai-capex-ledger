@@ -190,19 +190,22 @@ def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
     "stale", informs with the note "run `ledger test`"; it neither blocks nor vouches, since the code it tested is not
     the code being signed. One forgiveness: when every commit since the run changed only reports/tests.json (the commit
     that records the run), the code is the same and the line is green. Without git on either side (the hosted copy has
-    no .git), the sha check is skipped. `head` and `changed` are read from the checkout unless a test passes them."""
+    no .git) the commit cannot be compared: informs, "commit not compared: no git", never a verified pass.
+    `head` and `changed` are read from the checkout unless a test passes them."""
     if t is None:
         return _line("tests", "Test run", False, 0, "not_run", "proof", "not run (reports/tests.json; `ledger test` writes it)")
     fails = t.get("failures") or []
     golden = t.get("golden")
-    g_note = {True: "golden ok", False: "golden FAILED", None: "golden skipped"}.get(golden, "golden skipped")
+    g_note = {True: "golden ok", False: "golden FAILED"}.get(golden, "golden skipped, see the Golden line")
     sha = t.get("git")
     head = _head() if head is _LOOKUP else head
     base = f"{t.get('count')} tests, {len(fails)} failing, {g_note}, {t.get('at')}" + (f", on {sha}" if sha else "")
     detail = [{"test": f} for f in fails]
     if not t.get("ok"):
         return _line("tests", "Test run", True, len(fails), "fail", "proof", base, detail)
-    moved = bool(sha and head and sha != head)
+    if not sha or not head:  # no git on one side (the hosted copy ships no .git): the commit cannot be compared, so this is never a verified pass
+        return _line("tests", "Test run", False, 0, "info", "proof", f"commit not compared: no git; {base}", detail)
+    moved = sha != head
     if moved:
         ch = _changed_since(sha) if changed is _LOOKUP else changed
         moved = ch is None or any(p != "reports/tests.json" for p in ch)

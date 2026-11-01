@@ -121,13 +121,39 @@ class Line(unittest.TestCase):
         self.assertEqual((l["state"], l["required"], l["ok"]), ("pass", True, True))
         self.assertEqual(checklist.tests_line(_rep(git="0ld0000"), head="abc1234", changed=[])["state"], "pass")
 
-    def test_without_git_on_either_side_the_sha_check_is_skipped(self):
-        self.assertEqual(checklist.tests_line(_rep(git=None, dirty=None), head="abc1234")["state"], "pass")
-        self.assertEqual(checklist.tests_line(_rep(git="abc1234"), head=None)["state"], "pass")
+    def test_without_git_on_either_side_the_commit_is_not_compared_and_the_line_informs(self):
+        for t, head in ((_rep(git=None, dirty=None), "abc1234"), (_rep(git="abc1234"), None), (_rep(git=None, dirty=None), None)):
+            l = checklist.tests_line(t, head=head, changed=[])
+            self.assertEqual((l["state"], l["required"], l["ok"]), ("info", False, False))
+            self.assertIn("commit not compared: no git", l["note"])
         self.assertNotIn(", on ", checklist.tests_line(_rep(git=None, dirty=None), head=None)["note"])
+        self.assertEqual(checklist.tests_line(_rep(ok=False, failures=["t.a: x"], git=None), head=None)["state"], "fail")  # a failure is red even without git
 
-    def test_golden_skipped_reads_so_in_the_note(self):
-        self.assertIn("golden skipped", checklist.tests_line(_rep(golden=None), head="abc1234")["note"])
+    def test_golden_skipped_points_at_the_golden_line(self):
+        self.assertIn("golden skipped, see the Golden line", checklist.tests_line(_rep(golden=None), head="abc1234", changed=[])["note"])
+
+    def test_dirty_counts_untracked_files_under_the_code_folders_only(self):
+        import shutil
+        import subprocess
+        if not shutil.which("git"):
+            self.skipTest("no git")
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            run = lambda *a: subprocess.run(["git", *a], cwd=root, capture_output=True, text=True, check=True)
+            run("init", "-q"); run("config", "user.email", "t@t"); run("config", "user.name", "t")
+            (root / "ledger").mkdir(); (root / "ledger" / "a.py").write_text("x\n")
+            run("add", "."); run("commit", "-q", "-m", "one")
+            sha, dirty = testreport.git_state(root)
+            self.assertEqual((len(sha) >= 7, dirty), (True, False))
+            (root / "reports").mkdir(); (root / "reports" / "tests.json").write_text("{}")
+            (root / "scratch.txt").write_text("x")
+            self.assertFalse(testreport.git_state(root)[1])  # the report and a stray file do not count
+            (root / "tests").mkdir(); (root / "tests" / "test_new.py").write_text("x")
+            self.assertTrue(testreport.git_state(root)[1])  # an untracked test does
+            (root / "tests" / "test_new.py").unlink(); (root / "tests").rmdir()
+            (root / "ledger" / "a.py").write_text("y\n")
+            self.assertTrue(testreport.git_state(root)[1])  # a tracked change does
+        self.assertEqual(testreport.git_state(Path("/nonexistent-root-for-ledger-test")), (None, None))
 
     def test_checklist_reads_the_file_from_its_path(self):
         with tempfile.TemporaryDirectory() as d:

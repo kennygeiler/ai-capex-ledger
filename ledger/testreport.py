@@ -15,6 +15,7 @@ from . import store
 
 REPORT = store.ROOT / "reports" / "tests.json"
 GOLDEN_TEST = "tests.test_golden.Golden.test_code_stages_reproduce_the_expected_tables"
+CODE_DIRS = ("ledger/", "tests/", "taxonomy/", "fixtures/")  # an untracked file here makes the tree dirty: the suite ran on it, the commit lacks it
 
 
 class Result(unittest.TextTestResult):
@@ -43,18 +44,30 @@ class Result(unittest.TextTestResult):
 
 
 def git_state(root=None) -> tuple:
-    """(short sha of HEAD, dirty) from the working tree at `root`; (None, None) without git or a repository. The report
-    file itself never counts as dirty: writing it is what the run does; untracked files do not count either."""
+    """(short sha of HEAD, dirty) from the working tree at `root`; (None, None) without git or a repository. Dirty: any
+    tracked change but the report file itself (writing it is what the run does), or an untracked file under a folder the
+    tests cover (CODE_DIRS): a new module or fixture nobody committed is code the run tested and the commit lacks."""
     root = root or store.ROOT
     try:
         sha = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=root, capture_output=True, text=True, timeout=10)
         if sha.returncode:
             return None, None
-        st = subprocess.run(["git", "status", "--porcelain", "--untracked-files=no"], cwd=root, capture_output=True, text=True, timeout=10)
+        st = subprocess.run(["git", "status", "--porcelain", "--untracked-files=all"], cwd=root, capture_output=True, text=True, timeout=10)
     except (OSError, subprocess.SubprocessError):
         return None, None
-    changed = [l for l in st.stdout.splitlines() if l.strip() and not l[3:].strip().endswith("reports/tests.json")]
-    return sha.stdout.strip() or None, bool(changed) if st.returncode == 0 else None
+    return sha.stdout.strip() or None, any(_dirty_line(l) for l in st.stdout.splitlines()) if st.returncode == 0 else None
+
+
+def _dirty_line(line: str) -> bool:
+    """One `git status --porcelain` line: a tracked change other than reports/tests.json, or an untracked file under CODE_DIRS."""
+    if not line.strip():
+        return False
+    code, path = line[:2], line[3:].strip().split(" -> ")[-1]
+    if path == "reports/tests.json":
+        return False
+    if code == "??":
+        return any(path.startswith(d) for d in CODE_DIRS)
+    return True
 
 
 def changed_since(sha: str, root=None) -> list | None:
