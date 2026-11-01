@@ -341,3 +341,17 @@ What each company cost. `ledger run` prints this, and each validation page shows
     revenue check ignores expense lines that mention sales and accepts a bank's interest and noninterest income.
     Stored documents outside the six keep their old location until re-ingested.
 
+
+74. **An agent's answer to an older task, loaded as if current.** T65 re-located Amazon's income statement and T101
+    AMD's; the statement reader was re-asked, but the notes reader was not, and `notes --load` never compared an
+    output's `_run.task_sha` with the current task, so the answers to the old tasks (which still listed the income
+    statement among the note candidates) kept loading: AMZN 0001018724-23-000004, -24-000008, -25-000004, -26-000004
+    and AMD 0000002488-23-000047, -24-000012, -25-000012 (reconstructing the old tasks from the fixtures before
+    44d3e08 and 332a32b reproduces each output's task_sha). Their citations still resolve, which is all that guarded
+    them. Fix (2 Nov 2026, T100): `extract`, `notes` and `aispend --load` build the current task and refuse an output
+    whose task_sha differs (`agent.stale`), logged as the loader's failure class ("stale output: answered an older
+    task"); `ledger rules` no longer deletes `note_extraction_failed`, `ai_extraction_failed` and `projects_failed`
+    (it kept only `extraction_failed`, so a refused notes or AI-spend output vanished at the next rules run). The
+    seven stay refused until `ledger notes --run --ticker AMZN AMD` re-asks them. 13 statement outputs written by hand
+    before headless runs (no `_run`) carry no fingerprint: `--load` cannot judge them, and `extract --run` re-asks them
+    (review fix), as notes and aispend already re-ask an output without one. Found by the T100 ticket's reading.

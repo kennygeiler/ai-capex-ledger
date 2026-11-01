@@ -1,7 +1,9 @@
 """python -m ledger rules --stage N | --ticker X …
 
 Loads rules/*.yaml, builds the context for the stage's companies from the store, runs every rule, and replaces the
-stage's rule exceptions. (`extraction_failed` exceptions come from `extract --load` and are left alone.)
+stage's rule exceptions. (The loaders' failures, proof.FAILURES: `extraction_failed`, `note_extraction_failed`,
+`ai_extraction_failed`, `projects_failed`, come from `extract`, `notes`, `aispend` and `projects --load` and are left
+alone. Before T100 only `extraction_failed` was, so a refused notes or AI-spend output vanished at the next rules run.)
 """
 import argparse
 import json
@@ -10,6 +12,7 @@ from collections import Counter
 from .. import store
 from ..config import MVP_YEARS, add_scope, scope
 from ..definitions import load as load_definitions
+from ..proof import FAILURES
 from ..rules import Context, load, run
 
 
@@ -37,7 +40,7 @@ def main(argv=None) -> int:
     con.execute("DELETE FROM rules")
     store.write(con, "rules", [{"rule_id": r["id"], "severity": r["severity"], "description": r["description"], "rationale": r["rationale"],
                                 "check_name": r["check"], "params": json.dumps(r["params"], sort_keys=True), "file_sha256": r["file_sha256"]} for r in rules])
-    con.execute("DELETE FROM exceptions WHERE rule_id <> 'extraction_failed' AND ticker IN (SELECT unnest(?))", [tickers])
+    con.execute("DELETE FROM exceptions WHERE rule_id NOT IN (SELECT unnest(?)) AND ticker IN (SELECT unnest(?))", [list(FAILURES), tickers])
     store.write(con, "exceptions", excs)
     by = Counter((e["severity"], e["rule_id"]) for e in excs)
     print(f"{scope(a)[1]}: {len(rules)} rules, {len(excs)} exceptions "

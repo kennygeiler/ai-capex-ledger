@@ -98,3 +98,23 @@ def extract(task: str, parsed: dict) -> dict:
         if bad:
             raise Invalid("these citations don't match the tables: " + "; ".join(bad[:10]))
     return ask("reader", task, check)
+
+
+# ── T100: a late writer never overwrites a newer state ───────────────────────────────────────────────────────────────
+def task_sha(task_text: str) -> str:
+    """The fingerprint `--run` writes into an output's `_run.task_sha`: the task file's sha256, first 16 hex."""
+    import hashlib
+    return hashlib.sha256(task_text.encode()).hexdigest()[:16]
+
+
+def stale(obj: dict, task_text: str | None) -> str | None:
+    """Why an output may not load, or None: it carries `_run.task_sha` and that is not the current task's (the task was
+    repacked after the agent answered: a re-located table, a changed locator, a new prompt version). The loaders
+    (extract, notes, aispend --load) refuse such an output and log it as their failure class; `--run` re-asks it. An
+    output without `_run.task_sha` (written by hand before headless runs) predates the fingerprint and is not judged
+    here; nor is one when the current task cannot be built (`task_text` None)."""
+    was = (obj.get("_run") or {}).get("task_sha")
+    if not was or task_text is None:
+        return None
+    now = task_sha(task_text)
+    return None if was == now else f"stale output: answered an older task (task_sha {was}, the current task's is {now}); rerun --run to re-ask it"

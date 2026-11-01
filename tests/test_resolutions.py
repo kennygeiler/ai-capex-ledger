@@ -96,11 +96,11 @@ class Keys(unittest.TestCase):
 
     def test_resolve_refuses_a_key_that_is_not_a_queue_items(self):
         with self.assertRaises(ValueError):
-            resolutions.resolve("finding_unconfirmed|LITE|operating_income", "h", "accept", "r", "Kenny Geiler")  # legacy shape
+            resolutions.resolve("finding_unconfirmed|LITE|operating_income", "h", "accept", "r", "Kenny Geiler", author_kind="person")  # legacy shape
         with self.assertRaises(ValueError):
-            resolutions.resolve(key_for("reference_disagrees", "AMD", "AI revenue", "FY2024"), "h", "accept", "r", "Kenny Geiler")  # stale kind
+            resolutions.resolve(key_for("reference_disagrees", "AMD", "AI revenue", "FY2024"), "h", "accept", "r", "Kenny Geiler", author_kind="person")  # stale kind
         with self.assertRaises(ValueError):
-            resolutions.resolve("", "h", "accept", "r", "Kenny Geiler")
+            resolutions.resolve("", "h", "accept", "r", "Kenny Geiler", author_kind="person")
 
     def test_the_resolve_route_answers_400_to_a_bad_key(self):
         import threading
@@ -177,9 +177,6 @@ class MigrateKeys(unittest.TestCase):
             self.assertEqual((again["migrated"], again["archived"], len(again["untouched"])), ([], [], 5))
 
 
-if __name__ == "__main__":
-    unittest.main()
-
 
 class ToConfirm(unittest.TestCase):
     """T3: the decisions a run made for a person to confirm stay flagged until that person resolves the same key."""
@@ -231,3 +228,183 @@ class ToConfirm(unittest.TestCase):
         self.assertEqual(gates([], [], {"values": []}, tickers=["GOOGL"])["G6"], {"GOOGL": []})
         stale = gates([], [], {"values": []}, frozenset(), [{"key": key_for("reference_disagrees", "GOOGL", "AI capex", "FY2024")}], tickers=["GOOGL"])
         self.assertEqual(stale["G6"], {"GOOGL": []})  # a stale kind is never a G6 failure, and adds no company
+
+class Authors(unittest.TestCase):
+    """T69: who wrote a resolution is a field, `author_kind`, set by the writer. T100 (3): a run line never supersedes a
+    person line on the same key and hash."""
+    K = key_for("finding_unconfirmed", "GOOGL", "opex", "FY2024", rule_id="jump")
+
+    def _log(self):
+        import tempfile
+        from pathlib import Path
+        from unittest import mock
+        d = tempfile.mkdtemp()
+        self.addCleanup(__import__("shutil").rmtree, d, True)
+        p = Path(d) / "resolutions.jsonl"
+        m = mock.patch.object(resolutions, "LOG", p)
+        m.start()
+        self.addCleanup(m.stop)
+        return p
+
+    def test_a_run_line_without_the_phrase_still_fails_g6(self):
+        from ledger.release import gates
+        self._log()
+        r = resolutions.resolve(self.K, "h", "accept", "the jump is a one-off", "Replication run", author_kind="run")
+        self.assertEqual(r["author_kind"], "run")
+        self.assertNotRegex(f"{r['by']} {r['reason']}", resolutions.TO_CONFIRM)  # no "to confirm" anywhere: the field decides
+        unc = resolutions.unconfirmed()
+        self.assertEqual([u["id"] for u in unc], [r["id"]])
+        self.assertEqual(gates([], [], {"values": []}, frozenset(), unc, tickers=["GOOGL"])["G6"], {"GOOGL": [self.K]})
+        from ledger import proof
+        self.assertFalse(proof.person_wrote(r))
+        # even a run that writes a person's name is a run
+        self.assertTrue(resolutions.by_run({"key": self.K, "by": "Kenny Geiler", "reason": "fine", "author_kind": "run"}))
+        # a person's line written with the phrase in its reason is a person's: the field, not the words
+        p = resolutions.resolve(self.K, "h", "accept", "checked; nothing left to confirm", "Kenny Geiler", author_kind="person")
+        self.assertEqual(resolutions.unconfirmed(), [])
+        self.assertTrue(proof.person_wrote(p))
+
+    def test_legacy_lines_are_read_by_the_old_rule(self):
+        legacy_run = {"id": "a", "key": self.K, "hash": "h", "state": "fix", "reason": "x", "by": "Replication run (Claude), for Kenny to confirm", "at": "1"}
+        legacy_person = {"id": "b", "key": self.K, "hash": "h", "state": "accept", "reason": "confirmed", "by": "Kenny Geiler", "at": "2"}
+        self.assertTrue(resolutions.by_run(legacy_run) and not resolutions.by_person(legacy_run))
+        self.assertTrue(resolutions.by_person(legacy_person) and not resolutions.by_run(legacy_person))
+        self.assertFalse(resolutions.by_person({**legacy_person, "by": "Someone Else"}))  # not on config.PEOPLE: fail closed
+        self.assertEqual(resolutions.unconfirmed([legacy_run]), [legacy_run])
+        self.assertEqual(resolutions.unconfirmed([legacy_run, legacy_person]), [])
+        # the log on file has no author_kind yet (no migration: history is read as written) and nothing waits
+        self.assertFalse(any("author_kind" in r for r in resolutions.load()))
+
+    def test_a_person_line_by_someone_not_on_people_is_refused(self):
+        self._log()
+        for by in ("Claude", "Replication run", "Kenny", "Someone Else"):
+            with self.assertRaises(ValueError):
+                resolutions.resolve(self.K, "h", "accept", "r", by, author_kind="person")
+        with self.assertRaises(ValueError):
+            resolutions.resolve(self.K, "h", "accept", "r", "Kenny Geiler", author_kind="agent")
+        with self.assertRaises(TypeError):
+            resolutions.resolve(self.K, "h", "accept", "r", "Kenny Geiler")  # the writer must say who it is
+        self.assertEqual(resolutions.load(), [])
+
+    def test_the_routes_write_person_and_refuse_a_name_not_on_people(self):
+        import threading
+        from http.server import ThreadingHTTPServer
+        from urllib import error, request
+        from ledger import app
+        log = self._log()
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        self.addCleanup(srv.shutdown)
+        base = f"http://127.0.0.1:{srv.server_address[1]}"
+
+        def post(path, body):
+            req = request.Request(base + path, data=json.dumps(body).encode(), headers={"Content-Type": "application/json"}, method="POST")
+            try:
+                with request.urlopen(req) as r:
+                    return r.status, json.loads(r.read())
+            except error.HTTPError as e:
+                return e.code, json.loads(e.read())
+        for path, body in (("/api/resolve", {"key": self.K, "hash": "h", "state": "accept", "reason": "r", "by": "Claude"}),
+                           ("/api/resolve/bulk", {"items": [{"key": self.K, "hash": "h"}], "state": "accept", "reason": "r", "by": "Gemini, for Kenny"})):
+            code, out = post(path, body)
+            self.assertEqual(code, 400)
+            self.assertIn("config.PEOPLE", out["error"])
+        self.assertFalse(log.exists() and log.read_text().strip())
+        code, out = post("/api/resolve", {"key": self.K, "hash": "h", "state": "accept", "reason": "r", "by": "Kenny Geiler"})
+        self.assertEqual((code, out["author_kind"]), (200, "person"))
+        code, out = post("/api/resolve/bulk", {"items": [{"key": self.K, "hash": "h"}], "state": "explain", "reason": "r", "by": "Kenny Geiler"})
+        self.assertEqual(code, 200)
+        self.assertEqual([r["author_kind"] for r in resolutions.load()], ["person", "person"])
+
+    def test_a_run_line_never_supersedes_a_person_line(self):
+        """T100 done-when: Kenny decides a key, then a run writes "to confirm" on it: Kenny's decision stands."""
+        self._log()
+        mine = resolutions.resolve(self.K, "h", "blocks", "must not ship", "Kenny Geiler", author_kind="person")
+        late = resolutions.resolve(self.K, "h", "accept", "harmless, for Kenny Geiler to confirm", "Replication run (Claude), for Kenny Geiler to confirm", author_kind="run")
+        self.assertEqual(resolutions.latest()[self.K]["id"], mine["id"])
+        self.assertEqual(resolutions.unconfirmed(), [])
+        self.assertEqual(resolutions.status_of(resolutions.by_row(), "values", "GOOGL", "opex", "", "FY2024"), "blocks")
+        self.assertEqual(resolutions.by_row()[("values", "GOOGL", "opex", "", "FY2024", "")]["id"], mine["id"])
+        # a legacy run line (no field, the phrase) after a person's does not supersede it either
+        rs = resolutions.load() + [{"id": "z", "key": self.K, "hash": "h", "state": "accept", "reason": "x", "by": "Claude, for Kenny to confirm", "at": "9"}]
+        self.assertEqual(resolutions.latest(rs)[self.K]["id"], mine["id"])
+        # a later person line supersedes the earlier one
+        again = resolutions.resolve(self.K, "h", "accept", "fixed upstream", "Kenny Geiler", author_kind="person")
+        self.assertEqual(resolutions.latest()[self.K]["id"], again["id"])
+        # a run line on a changed item (a new hash) stands: the person decided about content that is gone, and it waits for them
+        moved = resolutions.resolve(self.K, "h2", "accept", "the new jump is fine", "Replication run", author_kind="run")
+        self.assertEqual(resolutions.latest()[self.K]["id"], moved["id"])
+        self.assertEqual([u["id"] for u in resolutions.unconfirmed()], [moved["id"]])
+        self.assertNotEqual(late["id"], mine["id"])
+
+    def test_a_run_line_never_supersedes_a_person_line_on_its_hash_whatever_came_between(self):
+        """Review: P1 (h1, blocks), P2 (h2, explain), R1 (h1, accept, run): P1 stands, not R1."""
+        p1 = {"id": "p1", "key": self.K, "hash": "h1", "state": "blocks", "reason": "no", "by": "Kenny Geiler", "author_kind": "person", "at": "2026-11-02T01:00:00+00:00"}
+        p2 = {"id": "p2", "key": self.K, "hash": "h2", "state": "explain", "reason": "ok", "by": "Kenny Geiler", "author_kind": "person", "at": "2026-11-02T02:00:00+00:00"}
+        r1 = {"id": "r1", "key": self.K, "hash": "h1", "state": "accept", "reason": "fine", "by": "Replication run", "author_kind": "run", "at": "2026-11-02T03:00:00+00:00"}
+        self.assertEqual(resolutions.latest([p1, p2, r1])[self.K]["id"], "p1")
+        self.assertEqual(resolutions.unconfirmed([p1, p2, r1]), [])
+        self.assertEqual(resolutions.latest([p1, p2])[self.K]["id"], "p2")  # a later person line still supersedes
+        self.assertEqual(resolutions.latest([p1, p2, {**r1, "hash": "h3"}])[self.K]["id"], "r1")  # a hash no person decided: the run line stands, and waits
+
+    def test_lines_are_ordered_by_at_so_a_migrated_copy_never_outranks_a_newer_person_line(self):
+        """Review: migrate-keys appends its copies at the end of the file with their original `at`; a stale legacy run
+        copy must not shadow the decision a person made after it."""
+        import tempfile
+        from pathlib import Path
+        new = key_for("finding_unconfirmed", "LITE", "operating_income", rule_id="row_label_switch")
+        queue = {"LITE": [{"kind": "finding_unconfirmed", "ticker": "LITE", "where": "operating_income", "hash": "h", "key": new}]}
+        mine = {"id": "k", "key": new, "hash": "h", "state": "blocks", "reason": "no", "by": "Kenny Geiler", "author_kind": "person", "at": "2026-11-01T10:00:00+00:00"}
+        legacy = {"id": "r", "key": "finding_unconfirmed|LITE|operating_income", "hash": "h", "state": "accept", "reason": "x", "by": "Claude, for Kenny to confirm", "at": "2026-10-30T00:00:00+00:00"}
+        with tempfile.TemporaryDirectory() as d:
+            log = Path(d) / "resolutions.jsonl"
+            log.write_text("".join(json.dumps(r) + "\n" for r in (legacy, mine)))
+            plan = resolutions.migrate_keys(resolutions.load(log), lambda t: queue[t])
+            self.assertEqual(plan["migrated"][0]["author_kind"], "run")  # the copy says who wrote the original
+            resolutions.write_migration(plan, log, Path(d) / "arch.jsonl")
+            rows = resolutions.load(log)
+            self.assertEqual(rows[-1]["migrated_from"], legacy["key"])  # appended last in the file
+            self.assertEqual(resolutions.latest(rows)[new]["id"], "k")  # but the person's newer line stands
+            self.assertEqual(resolutions.unconfirmed(rows), [])
+            # by `at`, even between two person lines: a copy of an older person line does not outrank a newer one
+            older = {**legacy, "id": "o", "by": "Kenny Geiler", "reason": "fine", "state": "explain"}
+            log.write_text("".join(json.dumps(r) + "\n" for r in (older, mine)))
+            resolutions.write_migration(resolutions.migrate_keys(resolutions.load(log), lambda t: queue[t]), log, Path(d) / "arch.jsonl")
+            rows = resolutions.load(log)
+            self.assertEqual(rows[-1]["author_kind"], "person")
+            self.assertEqual(resolutions.latest(rows)[new]["id"], "k")
+
+    def test_bulk_checks_every_item_before_writing_any(self):
+        log = self._log()
+        bad = [{"key": self.K, "hash": "h"}, {"key": "finding_unconfirmed|LITE|operating_income", "hash": "h"}]
+        with self.assertRaises(ValueError):
+            resolutions.resolve_many(bad, "accept", "r", "Kenny Geiler", author_kind="person")
+        self.assertFalse(log.exists() and log.read_text().strip())
+        for state, reason, by in (("maybe", "r", "Kenny Geiler"), ("accept", " ", "Kenny Geiler"), ("accept", "r", "Claude")):
+            with self.assertRaises(ValueError):
+                resolutions.resolve_many(bad[:1], state, reason, by, author_kind="person")
+        with self.assertRaises(ValueError):
+            resolutions.resolve_many([], "accept", "r", "Kenny Geiler", author_kind="person")
+        self.assertEqual(resolutions.load(), [])
+        out = resolutions.resolve_many([{"key": self.K, "hash": "h"}, {"key": key_for("blocked", "GOOGL", "opex", "FY2024", rule_id="r"), "hash": "g"}], "accept", "r", "Kenny Geiler", author_kind="person")
+        self.assertEqual([r["id"] for r in resolutions.load()], [r["id"] for r in out])
+
+    def test_the_bulk_route_writes_nothing_on_a_400(self):
+        import threading
+        from http.server import ThreadingHTTPServer
+        from urllib import error, request
+        from ledger import app
+        log = self._log()
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        self.addCleanup(srv.shutdown)
+        body = {"items": [{"key": self.K, "hash": "h"}, {"key": "not|a|key", "hash": "h"}], "state": "accept", "reason": "r", "by": "Kenny Geiler"}
+        req = request.Request(f"http://127.0.0.1:{srv.server_address[1]}/api/resolve/bulk", data=json.dumps(body).encode(), headers={"Content-Type": "application/json"}, method="POST")
+        with self.assertRaises(error.HTTPError) as cm:
+            request.urlopen(req)
+        self.assertEqual(cm.exception.code, 400)
+        cm.exception.close()
+        self.assertFalse(log.exists() and log.read_text().strip())
+
+if __name__ == "__main__":
+    unittest.main()

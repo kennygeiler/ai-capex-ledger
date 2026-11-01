@@ -228,26 +228,26 @@
    "period_end": "2024-12-28",
    "months": 0,
    "value": 4968000000,
-   "confidence": 0.8,
-   "notes": "Row plainly is the total purchase commitments, but the table's header was mis-parsed (year-by-year amounts absorbed into the column label); period_end assumed to be the filing's fiscal year-end 2024-12-28 since this is the only commitments table."
+   "confidence": 0.8
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment note reports revenue, cost of sales and operating expenses, and operating income by segment only; no capital expenditures by segment are given"
+   "reason": "the segment note reports net revenue, cost of sales and operating expenses, and operating income by segment only; no capital expenditures by segment are given"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "no lease note table with finance lease liabilities appears among the provided tables"
+   "reason": "no lease note table with finance lease liabilities is included in the provided tables"
   }
  ],
+ "notes": "Segment revenue cited from t0022 (three-year segment note) rather than the duplicate two-year t0008. t0028 (2022 net revenue 4,612) is not a reportable segment and was skipped. purchase_commitments confidence 0.8: t0058's header is mangled (yearly payment amounts parsed into the column label) and no year-end date is stated in the table; the total is taken as of the fiscal 2024 year-end, 2024-12-28.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 19.3,
-  "input_tokens": 6930,
-  "output_tokens": 2825,
+  "seconds": 20.7,
+  "input_tokens": 6240,
+  "output_tokens": 2786,
   "attempts": 1,
-  "task_sha": "1e69886a5545bf63"
+  "task_sha": "9e19617ede1858d6"
  }
 }

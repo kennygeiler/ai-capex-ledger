@@ -158,7 +158,7 @@ def asset_types(con, tickers: list[str] | None, names: dict) -> list[dict]:
                     "by": st["by"], "reason": st["reason"], "open": status.is_open(st), "ticker": p["ticker"], "name": names.get(p["ticker"], p["ticker"]), "layer": industry(p["ticker"]),
                     "field": None, "period": None, "where": p["reported_name"], "measure": None, "ours": None, "ours_label": None, "reference": None, "ref_label": None,
                     "relation": "eq", "delta": None, "delta_pct": None, "dollars": 0, "new": False, "action": "mapping", "impact": impact, "resolution": None,
-                    "evidence": {"reported_name": p["reported_name"], "mapping": p["kind"], "label": label, "proposal": P, "rejected": p["rejected"], "note": p["note"],
+                    "evidence": {"reported_name": p["reported_name"], "mapping": p["kind"], "label": label, "proposal": P, "rejected": p["rejected"], "reproposed": p.get("reproposed") or [], "note": p["note"],
                                  "filer": p["filer"], "mismatch": mapper.mismatch((P or {}).get("standard_type"), p["filer"])}})
     return out
 

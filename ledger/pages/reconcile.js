@@ -275,7 +275,8 @@ async function reconcilePage(view, qs) {
           item('Confidence', h('span', {class: 'text-secondary'}, P.confidence)),
           item('Reason', P.reason || ''),
           item('Proposed by', `${P.model || ''} ${P.prompt_version || ''}, ${day(P.at)}`), filer) : h('p', {class: 'm-0 small text-secondary'}, 'Run ', h('code', {}, `uv run python -m ledger mapper ${r.ticker}`), ' for a proposal, or map it yourself below.'),
-          E.rejected && E.rejected.length ? h('p', {class: 'small text-secondary mt-2 mb-0'}, `Rejected before: ${E.rejected.join(', ')}`) : ''))));
+          E.rejected && E.rejected.length ? h('p', {class: 'small text-secondary mt-2 mb-0'}, `Rejected before: ${E.rejected.join(', ')}`) : '',
+          E.reproposed && E.reproposed.length ? h('p', {class: 'small text-orange mt-1 mb-0', title: 'T100: a proposal of a member you already rejected is never current; approve or edit to decide afresh'}, `Re-proposed after rejection: ${E.reproposed.join(', ')} (not shown as the proposal; your decision is needed)`) : ''))));
       cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'The note’s words'), N ? h('span', {class: 'ms-2 small text-secondary'}, `${N.table_id}, filing ${N.accession}`) : ''),
         h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0 small'}, N && N.before ? `…${N.before}` : 'The parsed note is not on disk for this clone; the category name is all the note’s words we have.'), h('div', {class: 'mt-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'The company’s trail'))))));
     }

@@ -234,20 +234,20 @@
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "the segment note reports net revenue and operating income (loss) by segment only; no capital expenditures by segment are given"
+   "reason": "the segment note tables report net revenue and operating income (loss) by segment only; no capital expenditures by segment are shown"
   },
   {
    "field": "finance_lease_liability",
    "reason": "no lease note table with finance lease liabilities is included in the provided tables"
   }
  ],
- "notes": "segment_revenue cited from t0021 (segment note, three years); t0008 duplicates the 2023 and 2022 figures. t0061's column header was mis-parsed: annual payments 3,858/351/186/51/49 were absorbed into the label. They sum with the '2029 and thereafter' 99 to the 4,594 total, which supports reading it as the total as of fiscal year-end 2023-12-30. Confidence is 0.85 because the header is garbled. No prior-year purchase commitment total is shown.",
+ "notes": "segment_revenue cited from t0021 (three-year segment table; t0008 duplicates the 2023 and 2022 values). Row labels 'Data Center', 'Client', 'Gaming', 'Embedded' also appear under 'Operating income (loss):'; the cited cells are the revenue rows above 'Total net revenue'. purchase_commitments confidence 0.85 because t0061's column header was mis-parsed (yearly payment amounts merged into the label); the total row is assumed to be as of fiscal year-end 2023-12-30.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 19.9,
-  "input_tokens": 6823,
-  "output_tokens": 2696,
+  "seconds": 22.4,
+  "input_tokens": 6170,
+  "output_tokens": 2848,
   "attempts": 1,
-  "task_sha": "da8a4f72358966ed"
+  "task_sha": "4b78162901e54cc6"
  }
 }

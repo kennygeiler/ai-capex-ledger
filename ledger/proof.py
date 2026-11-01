@@ -255,13 +255,10 @@ def rules(con) -> dict:
 
 # ── T80: a label never counts as a check ────────────────────────────────────────────────────────────────────────────
 def person_wrote(line: dict) -> bool:
-    """A resolution a person wrote, failing closed: `author_kind` person when the line carries the field (T69); before
-    it, a `by` on config.PEOPLE that names no model, agent or run (status.is_person) and no "to confirm" in `by` or
-    `reason` (resolutions.unconfirmed). A name not on the list is not a person here."""
-    if "author_kind" in line:
-        return line["author_kind"] == "person"
-    by = str(line.get("by") or "").strip()
-    return status.is_person(by) and not resolutions.TO_CONFIRM.search(f"{by} {line.get('reason') or ''}")
+    """A resolution a person wrote, failing closed: `author_kind` person when the line carries the field (T69, set by
+    the route that wrote it); before it, a `by` on config.PEOPLE that names no model, agent or run (status.is_person)
+    and no "to confirm" in `by` or `reason`. One rule, in resolutions.by_person, which latest() also reads."""
+    return resolutions.by_person(line)
 
 
 def rule_severities(rules: list[dict]) -> dict:
