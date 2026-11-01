@@ -59,6 +59,8 @@ A person's attention is the scarcest input, so it goes only where code can't nam
 - **Faults:** 0 of 1,555 planted faults escaped.
 - **Clean on the first pass:** AMZN, GOOGL, META, MRVL, MU and TSLA (no code change, nothing for a person).
 
+The types are data in `taxonomy/failures.yaml` since 1 Nov 2026 (id, cause class, origin, the check in code that catches it or `none`, count seen; `ledger/failures.py` loads and tallies them); this file keeps the narrative.
+
 Every failure, by type:
 
 | # | Type | Where | Caught by | Fix |

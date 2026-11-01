@@ -1,0 +1,957 @@
+# The failure types docs/INGESTION.md has logged, as data (T54). INGESTION.md keeps the narrative (where each showed,
+# what fixed it); this file is the classification a chart or a test can read. One entry per type, keyed by INGESTION's
+# own type number; the numbering is kept, never renumbered, so a reader can find the row.
+#
+# Fields:
+#   name        a short name for the type (INGESTION's bold phrase, shortened).
+#   class       the cause class, one of: units (thousands/millions/dollars), period (which year, vintage or length of
+#               period), scope (what a figure, tag, filing set or source covers; definitions), locator (which table was
+#               taken for the statement or note), agent misread (the reader cited or shaped the wrong thing), document
+#               error (a quirk of the filing's own text or layout: positioned text, a repeated label, a run of cells).
+#   class_note  only where the six classes fit badly (a pipeline bookkeeping defect, say): why this class was chosen.
+#   origin      where the cause sits: agent (the reader or attributor), document (the filing, the page, the company's
+#               own presentation), code (the pipeline's parser, locator, contract or bookkeeping), reference (the SEC's
+#               tag, CIK mapping or XBRL instance, or the key built from them).
+#   check       the check in code that catches the type today: a rule id (rules/*.yaml, ledger/rules.py), a guard id
+#               (ledger/proof.py GUARDS), a fault kind (ledger/faults.py FAULTS), or none. `none` is itself a finding:
+#               the type is caught by a pipeline step, a contract, a count or an eye, not by a named check. Never an id
+#               that does not exist in code; ledger/failures.py refuses one.
+#   check_note  with `none`: what caught it instead and what was looked for.
+#   caught_by   INGESTION's own "Caught by" words, verbatim or near it, for the reader.
+#   count       how many distinct companies INGESTION names for the type (an integer), or null when the text gives
+#               no names ("every filing", "every hyperscaler"); count_note carries the text's own words either way
+#               when they say more than the number (filings, cells, company-years).
+#   first_seen  the date INGESTION gives for the run or section the type was found in, or null when it gives none.
+#   source      the INGESTION.md section and a few of the row's own words, so a reader finds the line.
+#   by, at      who recorded the entry and when.
+#
+# Recorded from docs/INGESTION.md as of 1 Nov 2026 by Claude Fable 5.1 (T54, first half): 72 numbered types, 1 to 72,
+# none missing, none added.
+
+1:
+  name: Re-read cannot see text in a positioned (Workiva) layout
+  class: document error
+  origin: document
+  check: none
+  check_note: caught by the evidence re-read (ledger evidence, step 6b), a pipeline step with no rule, guard or fault id
+  caught_by: evidence
+  count: 1
+  count_note: CORZ FY2025 10-K, 12 cells not confirmed
+  first_seen: 2026-10-28
+  source: "M2 blind run 1 (28 Oct), type 1: Re-read can't see text in Workiva's positioned layout"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+2:
+  name: Locator picks a quarterly table in a 10-K
+  class: locator
+  origin: code
+  check: period_length
+  caught_by: period_length (block)
+  count: 1
+  count_note: IREN FY2025 10-K, 12 quarterly values
+  first_seen: 2026-10-28
+  source: "M2 blind run 1 (28 Oct), type 2: Locator picks a quarterly table in a 10-K"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+3:
+  name: Answer key picks a narrower revenue tag
+  class: scope
+  origin: reference
+  check: xbrl_reconcile
+  caught_by: xbrl_reconcile (block)
+  count: 1
+  count_note: WULF FY2025 revenue and opex
+  first_seen: 2026-10-28
+  source: "M2 blind run 1 (28 Oct), type 3: The answer key picks a narrower revenue tag"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+4:
+  name: Statement tie assumes a layout
+  class: scope
+  class_note: lines outside the operating-expenses block change what opex covers; the rule assumed one layout
+  origin: code
+  check: statement_tie
+  caught_by: statement_tie (block)
+  count: 1
+  count_note: CORZ FY2022
+  first_seen: 2026-10-28
+  source: "M2 blind run 1 (28 Oct), type 4: Statement tie assumes a layout"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+5:
+  name: Fetch window does not reach the first year
+  class: period
+  origin: code
+  check: coverage
+  caught_by: coverage (warn)
+  count: 3
+  count_note: CIFR FY2022 (also APLD, CRWV)
+  first_seen: 2026-10-28
+  source: "M2 blind run 1 (28 Oct), type 5: The fetch window doesn't reach the first year"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+6:
+  name: A company with no 10-K is silent
+  class: scope
+  origin: code
+  check: no_10k_yet
+  check_note: nothing caught it in the run; the fix made no_10k_yet name every requested company with no 10-K
+  caught_by: nothing (the gap)
+  count: 1
+  count_note: SPCX
+  first_seen: 2026-10-28
+  source: "M2 blind run 1 (28 Oct), type 6: A company with no 10-K is silent"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+7:
+  name: A zero-width space inside a cell's text
+  class: document error
+  origin: document
+  check: none
+  check_note: caught by the evidence re-read, not a rule; no rule compares cell text for invisible characters
+  caught_by: the re-read
+  count: 1
+  count_note: one FY2022 10-K, company not named
+  first_seen: 2026-10-28
+  source: "M2 run 2 (28 Oct), type 7: A zero-width space inside a cell's text"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+8:
+  name: A row label repeats in one table
+  class: document error
+  origin: document
+  check: none
+  check_note: caught by the evidence re-read; row_label_switch compares labels across filings, not within one table
+  caught_by: the re-read
+  count: 1
+  count_note: ORCL FY2022 10-K
+  first_seen: 2026-10-28
+  source: "M2 run 2 (28 Oct), type 8: A row label repeats in one table (Oracle lists \"Services\" twice)"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+9:
+  name: The answer key mixed filings within a year
+  class: period
+  class_note: a vintage problem; the key took a tag from an older 10-K over the newest one for the same year
+  origin: reference
+  check: xbrl_reconcile
+  caught_by: the audit (the key's own opex was -$0.4M); the gap showed as xbrl_reconcile items a person was asked to decide
+  count: 1
+  count_note: APLD FY2024-25 revenue and opex
+  first_seen: 2026-10-28
+  source: "Audit fixes (28 Oct), type 9: The answer key mixed filings within a year"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+10:
+  name: 10-K/As were ignored
+  class: scope
+  origin: code
+  check: none
+  check_note: no rule notices an unread amendment; coverage counts years, not filings; restated only fires once a later 10-K repeats the change
+  caught_by: the audit
+  count: 6
+  count_note: AMD, APLD, CORZ, CRDO, TSLA, WULF
+  first_seen: 2026-10-28
+  source: "Audit fixes (28 Oct), type 10: 10-K/As were ignored"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+11:
+  name: "\"Explained by code\" had no size limit"
+  class: scope
+  origin: code
+  check: cost_lines_summed
+  caught_by: the audit; cost_lines_summed now blocks until a person confirms the lines
+  count: 2
+  count_note: ORCL, APLD
+  first_seen: 2026-10-28
+  source: "Audit fixes (28 Oct), type 11: \"Explained by code\" had no size limit"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+12:
+  name: Small restatements were labelled as reported
+  class: period
+  class_note: a vintage label (restated against the earlier filing) with a 1% threshold that hid real changes
+  origin: code
+  check: restated
+  caught_by: the audit; restated now labels any change beyond rounding
+  count: 2
+  count_note: META FY2022-23 capex (0.8%), TSLA
+  first_seen: 2026-10-28
+  source: "Audit fixes (28 Oct), type 12: Small restatements were labelled as reported"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+13:
+  name: Capex lines narrower or broader than the definition were not noted
+  class: scope
+  origin: document
+  check: definition_note
+  caught_by: the audit; definition_note now matches "net of", "excluding", "deposit", "prepayment"
+  count: 3
+  count_note: IREN (net of GPU prepayments), TSLA (excl. finance leases), WULF (deposits)
+  first_seen: 2026-10-28
+  source: "Audit fixes (28 Oct), type 13: Capex lines narrower or broader than the definition weren't noted"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+14:
+  name: Business signals were shown as chores
+  class: scope
+  class_note: what counts as a question for a person; the values were right, the presentation was wrong
+  origin: code
+  check: jump
+  check_note: jump and outlier_vs_own_history (and row_label_switch) fire on these; the type is about how their findings are shown when XBRL agrees, not a misread
+  caught_by: the audit (44 of 57 open warnings were jumps and outliers)
+  count: null
+  count_note: "all"
+  first_seen: 2026-10-28
+  source: "Audit fixes (28 Oct), type 14: Business signals were shown as chores"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+15:
+  name: Opex can exceed revenue
+  class: scope
+  origin: document
+  check: none
+  check_note: not a failure to catch; stated in FIELDS.md and beside each such year. sign does not fire (opex is positive); no rule compares opex with revenue
+  caught_by: the audit
+  count: 2
+  count_note: CORZ FY2022, CIFR FY2025; 12 company-years
+  first_seen: 2026-10-28
+  source: "Audit fixes (28 Oct), type 15: Opex can exceed revenue"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+16:
+  name: Financial statements kept in an exhibit
+  class: locator
+  origin: document
+  check: coverage
+  check_note: ingest found no statements and the agent returned 0 values; coverage is the rule that then warns of the missing years
+  caught_by: ingest (statements not located); the agent then returned 0 values
+  count: 1
+  count_note: IBM, all 4 years
+  first_seen: 2026-10-28
+  source: "Scale run (28 Oct), type 16: Financial statements kept in an exhibit"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+17:
+  name: A company reorganized under a new CIK
+  class: scope
+  origin: reference
+  check: no_10k_yet
+  check_note: no_10k_yet fired, wrongly (0 filings found); the fix walks the predecessor CIK
+  caught_by: no_10k_yet, wrongly
+  count: 1
+  count_note: ExxonMobil (0 filings found)
+  first_seen: 2026-10-28
+  source: "Scale run (28 Oct), type 17: A company reorganized under a new CIK"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+18:
+  name: A line the 10-K does not have left a hole, not a blank
+  class: scope
+  origin: code
+  check: coverage
+  caught_by: coverage (false alarm)
+  count: 2
+  count_note: JPMorgan (capex, opex), Intel (capex)
+  first_seen: 2026-10-28
+  source: "Scale run (28 Oct), type 18: A line the 10-K doesn't have left a hole, not a blank"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+19:
+  name: The locator picked an MD&A reconciliation
+  class: locator
+  origin: code
+  check: none
+  check_note: caught by the agent's not_found reason, a contract outcome, not a rule; no rule scores the located table against its introduction
+  caught_by: the agent's not_found reason
+  count: 1
+  count_note: Intel, all years
+  first_seen: 2026-10-28
+  source: "Scale run (28 Oct), type 19: The locator picked an MD&A reconciliation"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+20:
+  name: A unit phrased the other way round
+  class: units
+  origin: document
+  check: none
+  check_note: caught by the agent's not_found reason; unit_from_document warns only when a unit was found elsewhere, not when none was found
+  caught_by: the agent's not_found reason
+  count: 1
+  count_note: ExxonMobil, all years
+  first_seen: 2026-10-28
+  source: "Scale run (28 Oct), type 20: A unit phrased the other way round (\"(millions of dollars)\")"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+21:
+  name: A sub-header repeated under every year
+  class: document error
+  origin: document
+  check: none
+  check_note: caught by the evidence re-read (not confirmed); the values agreed with XBRL, so no rule fired
+  caught_by: evidence (not confirmed)
+  count: 1
+  count_note: Intel, 24 cells
+  first_seen: 2026-10-28
+  source: "Scale run (28 Oct), type 21: A sub-header repeated under every year"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+22:
+  name: The SEC's revenue tag is "total revenues and other income"
+  class: scope
+  origin: reference
+  check: xbrl_reconcile
+  caught_by: xbrl_reconcile (block, 4% gap)
+  count: 1
+  count_note: ExxonMobil, all 4 years
+  first_seen: 2026-10-28
+  source: "Scale run (28 Oct), type 22: The SEC's revenue tag is \"total revenues and other income\""
+  by: Claude Fable 5.1
+  at: 2026-11-01
+23:
+  name: A highlights table outscored the income statement
+  class: locator
+  origin: code
+  check: none
+  check_note: caught by the agent's not_found reasons; coverage would warn of the blank years but did not name the cause
+  caught_by: the agent's not_found reasons
+  count: 1
+  count_note: IBM, 3 filings
+  first_seen: 2026-10-28
+  source: "Scale run (28 Oct), type 23: A highlights table outscored the income statement"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+24:
+  name: No year in the sentence
+  class: period
+  origin: document
+  check: none
+  check_note: caught by the AI-spend output contract (ai_extraction_failed, written by cli/aispend.py), which is not a rule in rules/
+  caught_by: contract (ai_extraction_failed)
+  count: 3
+  count_note: 6 of 22 filings (MSFT x4, GOOGL, META)
+  first_seen: 2026-10-29
+  source: "AI spend from the MD&A (29 Oct), type 24: No year in the sentence"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+25:
+  name: A definition sentence read as a statement
+  class: agent misread
+  origin: agent
+  check: none
+  check_note: INGESTION says "nothing yet"; open, a prompt rule or a spend-verb check
+  caught_by: nothing yet (confidence 0.8)
+  count: 1
+  count_note: GOOGL FY2022 capex
+  first_seen: 2026-10-29
+  source: "AI spend from the MD&A (29 Oct), type 25: A definition sentence read as a statement"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+26:
+  name: Scope is loose for words-only statements
+  class: scope
+  origin: agent
+  check: none
+  check_note: caught by eye; open
+  caught_by: by eye
+  count: 2
+  count_note: GOOGL, META opex
+  first_seen: 2026-10-29
+  source: "AI spend from the MD&A (29 Oct), type 26: Scope is loose for words-only statements"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+27:
+  name: The numbers live elsewhere (releases and calls, not 10-K MD&A)
+  class: scope
+  origin: document
+  check: none
+  check_note: by design; a source gap, not a check's catch
+  caught_by: by design
+  count: null
+  count_note: every hyperscaler
+  first_seen: 2026-10-29
+  source: "AI spend from the MD&A (29 Oct), type 27: The numbers live elsewhere"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+28:
+  name: Note tables carry no unit of their own
+  class: units
+  origin: document
+  check: none
+  check_note: caught by a crash (KeyError); the fix inherits the statements' unit with unit_source document, which unit_from_document flags for statement extractions only
+  caught_by: crash (KeyError)
+  count: null
+  count_note: every filing
+  first_seen: 2026-10-29
+  source: "Facts from the notes (29 Oct), type 28: Note tables carry no unit of their own"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+29:
+  name: The answer key came from the wrong vintage
+  class: period
+  origin: reference
+  check: none
+  check_note: showed as facts.label = unresolved; xbrl_reconcile covers values, not facts, and no rule names a vintage mismatch on facts
+  caught_by: facts.label = unresolved
+  count: 2
+  count_note: MSFT segment revenue FY2021-24, APLD PP&E FY2024
+  first_seen: 2026-10-29
+  source: "Facts from the notes (29 Oct), type 29: The answer key came from the wrong vintage"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+30:
+  name: Column label shortened
+  class: agent misread
+  origin: agent
+  check: none
+  check_note: caught by the notes loader's citation check (ledger notes --load); citation_resolves runs over statement extractions only
+  caught_by: citation check (rejected)
+  count: 1
+  count_note: APLD FY2024, twice
+  first_seen: 2026-10-29
+  source: "Facts from the notes (29 Oct), type 30: Column label shortened"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+31:
+  name: Text after the JSON
+  class: agent misread
+  origin: agent
+  check: none
+  check_note: caught by agent._json (rejected after retry), a parser, not a rule
+  caught_by: _json (rejected after retry)
+  count: 1
+  count_note: APLD FY2026
+  first_seen: 2026-10-29
+  source: "Facts from the notes (29 Oct), type 31: Text after the JSON"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+32:
+  name: Segment capex is rarely tagged
+  class: scope
+  origin: reference
+  check: none
+  check_note: by design; every segment_capex is no_reference and the share of untagged facts is reported
+  caught_by: by design
+  count: 1
+  count_note: APLD
+  first_seen: 2026-10-29
+  source: "Facts from the notes (29 Oct), type 32: Segment capex is rarely tagged"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+33:
+  name: Capex in parentheses in a segment note
+  class: document error
+  class_note: the table prints a spend in parentheses; the resolver required the shown sign
+  origin: code
+  check: none
+  check_note: caught by the notes loader's citation check; citation_resolves covers statement extractions only, and sign_flip is a fault on statement values
+  caught_by: citation check
+  count: 1
+  count_note: APLD FY2026
+  first_seen: 2026-10-29
+  source: "Facts from the notes (29 Oct), type 33: Capex in parentheses in a segment note"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+34:
+  name: Purchase commitments are several definitions
+  class: scope
+  origin: reference
+  check: none
+  check_note: showed as facts.label = unresolved (differs); no rule or definition kind for this field yet; open
+  caught_by: facts.label = unresolved
+  count: 5
+  count_note: AMZN, IBM, COMP, CRDO, ALAB; 8 of 42 differ, 29 untagged
+  first_seen: 2026-10-29
+  source: "Facts from the notes (29 Oct), type 34: Purchase commitments are several definitions"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+35:
+  name: In-year guidance read as an actual
+  class: agent misread
+  origin: agent
+  check: none
+  check_note: caught by eye in ai_spend; the fix is prompt aispend@v3, no check in code
+  caught_by: by eye in ai_spend
+  count: 1
+  count_note: Meta releases, every year
+  first_seen: 2026-10-29
+  source: "More sources for AI spend (29 Oct), type 35: In-year guidance read as an actual"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+36:
+  name: Investor pages sit behind a bot check
+  class: scope
+  class_note: a source the pipeline may not reach; a person lists the links
+  origin: document
+  check: none
+  check_note: 0 links found, then the permission check; no rule, by rule of the house (never get around a bot check)
+  caught_by: 0 links found; then the permission check
+  count: 2
+  count_note: NVDA, META (Q4 Inc pages)
+  first_seen: 2026-10-29
+  source: "More sources for AI spend (29 Oct), type 36: Investor pages sit behind a bot check"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+37:
+  name: Only the current fiscal year is on the page
+  class: scope
+  origin: document
+  check: none
+  check_note: caught by counts (4 links, not 20); no check
+  caught_by: counts
+  count: 1
+  count_note: NVDA
+  first_seen: 2026-10-29
+  source: "More sources for AI spend (29 Oct), type 37: Only the current fiscal year is on the page"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+38:
+  name: Second click or no match on the investor page
+  class: scope
+  origin: document
+  check: none
+  check_note: not listed; per-company work in sources/ir.yaml, nothing in code
+  caught_by: not listed
+  count: 2
+  count_note: GOOGL, MSFT
+  first_seen: 2026-10-29
+  source: "More sources for AI spend (29 Oct), type 38: Second click or no match"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+39:
+  name: Multiple guidance for one year
+  class: period
+  origin: document
+  check: none
+  check_note: handled by guidance.spend_rows (the newest text wins), code, not a rule id
+  caught_by: spend_rows
+  count: 1
+  count_note: Meta, four releases
+  first_seen: 2026-10-29
+  source: "More sources for AI spend (29 Oct), type 39: Multiple guidance for one year"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+40:
+  name: Releases under the old CIK
+  class: scope
+  origin: code
+  check: none
+  check_note: "caught by counts (4 mdna, 0 releases); open: walk config.PREDECESSORS for 8-Ks"
+  caught_by: counts (4 mdna, 0 releases)
+  count: 1
+  count_note: XOM
+  first_seen: 2026-10-29
+  source: "More sources for AI spend (29 Oct), type 40: Releases under the old CIK"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+41:
+  name: Segment capex above cash capex
+  class: scope
+  origin: document
+  check: none
+  check_note: INGESTION names ai_amount_within_capex, a rule of the attribution layer removed in 2ee2e6f; not in rules/ today
+  caught_by: the attributor; ai_amount_within_capex (removed)
+  count: 1
+  count_note: APLD
+  first_seen: 2026-10-29
+  source: "Attribution (29 Oct), type 41: Segment capex above cash capex"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+42:
+  name: Quarterly AI figures not summed
+  class: period
+  origin: document
+  check: part_year
+  check_note: by design then; the part_year guard now tags a stated amount that covers a quarter
+  caught_by: by design
+  count: 1
+  count_note: TSLA FY2024
+  first_seen: 2026-10-29
+  source: "Attribution (29 Oct), type 42: Quarterly AI figures not summed"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+43:
+  name: Category renamed across years
+  class: scope
+  origin: document
+  check: none
+  check_note: nothing caught it; the agent bridged the rename in basis
+  caught_by: none
+  count: 1
+  count_note: MSFT
+  first_seen: 2026-10-29
+  source: "Attribution (29 Oct), type 43: Category renamed across years"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+44:
+  name: Alphabet stops at FY2023 (category missing from the pack)
+  class: locator
+  class_note: the renamed PP&E table was never seen by the notes reader (same cause as type 45)
+  origin: document
+  check: none
+  check_note: caught by counts; no rule says a category series ends early
+  caught_by: counts
+  count: 1
+  count_note: GOOGL
+  first_seen: 2026-10-29
+  source: "Attribution (29 Oct), type 44: Alphabet stops at FY2023"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+45:
+  name: A company renamed its PP&E categories
+  class: locator
+  origin: document
+  check: none
+  check_note: caught by the evaluation (no estimate), a report, not a rule
+  caught_by: the evaluation (no estimate)
+  count: 1
+  count_note: GOOGL FY2024-25
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 45: A company renamed its PP&E categories"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+46:
+  name: Server-category growth overstates the server share
+  class: scope
+  origin: code
+  check: none
+  check_note: caught by the evaluation (disagree); the method's error is stated, no check
+  caught_by: the evaluation (disagree)
+  count: 1
+  count_note: MSFT FY2025
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 46: Server-category growth overstates the server share"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+47:
+  name: A company files no 10-K (20-F, 40-F or nothing)
+  class: scope
+  origin: document
+  check: no_10k_yet
+  caught_by: no_10k_yet and coverage
+  count: 8
+  count_note: TSMC, ASML, SK hynix, Samsung; Nebius, Bitdeer, Arm, Celestica
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 47: A company files no 10-K"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+48:
+  name: A filer reports the notes in whole dollars
+  class: units
+  origin: document
+  check: none
+  check_note: caught by the notes loader's citation check (rejected, twice); citation_resolves covers statement extractions only
+  caught_by: citation check (rejected)
+  count: 1
+  count_note: BTBT FY2025
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 48: A filer reports the notes in whole dollars"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+49:
+  name: A 52/53-week fiscal year is named by the prior calendar year
+  class: period
+  origin: document
+  check: column_matches_period
+  caught_by: the rule (false block)
+  count: 1
+  count_note: CDNS, every year
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 49: A 52/53-week fiscal year is named by the prior calendar year"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+50:
+  name: The unit is written "($000)"
+  class: units
+  origin: document
+  check: citation_resolves
+  caught_by: citation check (rejected)
+  count: 1
+  count_note: COHR, every year, five filings
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 50: The unit is written \"($000)\""
+  by: Claude Fable 5.1
+  at: 2026-11-01
+51:
+  name: An MD&A analysis table located as the income statement
+  class: locator
+  origin: code
+  check: none
+  check_note: caught by reading the located tables; the values were right and cited the wrong table, which no rule sees
+  caught_by: reading the located tables
+  count: 1
+  count_note: COHR
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 51: An MD&A analysis table located as the income statement"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+52:
+  name: Current and non-current lease lines cited as two values for one year
+  class: agent misread
+  origin: agent
+  check: none
+  check_note: caught by the notes loader (two values for one dimension); the contract, not a rule id
+  caught_by: notes loader (two values)
+  count: 1
+  count_note: JBL FY2025, FY2026
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 52: Current and non-current lease lines cited as two values for one year"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+53:
+  name: A none_found / not_found entry in the wrong shape
+  class: agent misread
+  origin: agent
+  check: none
+  check_note: caught by the output contract (rejected); not a rule id
+  caught_by: contract (rejected)
+  count: 3
+  count_note: RMBS, STX, COHR
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 53: A `none_found` / `not_found` entry in the wrong shape"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+54:
+  name: A quarterly-data table won the income statement
+  class: locator
+  origin: code
+  check: period_length
+  caught_by: period_length (block)
+  count: 1
+  count_note: JCI FY2024
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 54: A quarterly-data table won the income statement"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+55:
+  name: The SEC's opex tag is wider than ours
+  class: scope
+  origin: reference
+  check: xbrl_reconcile
+  caught_by: xbrl_reconcile (block)
+  count: 1
+  count_note: IRM, every year (Digital Realty's and GE Vernova's cost lines defined in the same pass)
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 55: The SEC's opex tag is wider than ours"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+56:
+  name: The unit is written "(000,000)"
+  class: units
+  origin: document
+  check: citation_resolves
+  caught_by: citation check (rejected)
+  count: 1
+  count_note: T, every year, four filings
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 56: The unit is written \"(000,000)\""
+  by: Claude Fable 5.1
+  at: 2026-11-01
+57:
+  name: Capex only as sub-lines in the cash flow; the total is positive elsewhere
+  class: agent misread
+  class_note: the reader cited a summary table's positive total because the statement has none; the sign check in the citation contract rejected it
+  origin: agent
+  check: citation_resolves
+  check_note: the field's sign rule is part of extract.resolve, which citation_resolves runs over every statement extraction
+  caught_by: citation check (rejected)
+  count: 1
+  count_note: FCX FY2024, FY2025
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 57: Capex only as sub-lines in the cash flow; the total is positive elsewhere"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+58:
+  name: Only the statement reader's rejections were retried
+  class: scope
+  class_note: a pipeline bookkeeping defect; the retry's scope covered one reader of five. None of the six classes names it
+  origin: code
+  check: none
+  check_note: caught by reading the failure messages (no "(after 2 attempts)"); no rule
+  caught_by: reading the failure messages
+  count: 4
+  count_note: every reader but extract; Rambus, Seagate, Coherent FY2022 notes, Tesla's stated_amount row
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 58: Only the statement reader's rejections were retried"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+59:
+  name: A project named in a table cell (short quote rejected)
+  class: scope
+  class_note: the contract's quote floor, meant for sentences, did not cover table cells; the document and the reader were right
+  origin: code
+  check: none
+  check_note: caught by the projects contract (rejected); not a rule id
+  caught_by: projects contract (rejected)
+  count: 5
+  count_note: CIFR, CORZ, WULF x3; RIOT, WDC
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 59: A project named in a table cell"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+60:
+  name: A failed output was never re-asked
+  class: scope
+  class_note: a pipeline bookkeeping defect; the stale check's scope left out outputs that hold only an error. None of the six classes names it
+  origin: code
+  check: none
+  check_note: caught by reading the re-read list; no rule
+  caught_by: reading the re-read list
+  count: 3
+  count_note: COHR, T, FCX and every earlier failure
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 60: A failed output was never re-asked"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+61:
+  name: A stated zero was rejected
+  class: scope
+  class_note: the contract's range (a positive amount) excluded a stated figure
+  origin: code
+  check: none
+  check_note: caught by the AI-spend contract (rejected, kept); not a rule id
+  caught_by: AI-spend contract (rejected, kept)
+  count: 1
+  count_note: GLXY FY2025
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 61: A stated zero was rejected"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+62:
+  name: A filing states no unit anywhere
+  class: units
+  origin: document
+  check: none
+  check_note: caught by the notes loader's citation check ("table has no unit"); the statement tables of that year had no unit either and are a gap; citation_resolves covers statement extractions, and none were loaded
+  caught_by: citation check (rejected)
+  count: 1
+  count_note: CLSK FY2022
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 62: A filing states no unit anywhere"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+63:
+  name: A quarterly table named by dates
+  class: locator
+  origin: code
+  check: period_length
+  caught_by: period_length (block)
+  count: 1
+  count_note: MARA FY2022
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 63: A quarterly table named by dates"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+64:
+  name: A transition period judged as a fiscal year
+  class: period
+  origin: document
+  check: period_length
+  caught_by: period_length (block)
+  count: 1
+  count_note: HUT 2023 (10-KT, July to December)
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 64: A transition period judged as a fiscal year"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+65:
+  name: Negative opex
+  class: scope
+  origin: document
+  check: sign
+  caught_by: sign (block)
+  count: 2
+  count_note: HUT, RIOT FY2024
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 65: Negative opex"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+66:
+  name: A comma inside a cost-line label split the id list
+  class: document error
+  class_note: a label with a comma broke the pipeline's own comma-joined id list; the document is right, the bookkeeping was not
+  origin: code
+  check: none
+  check_note: caught by release gate G5 (release.gates), not a rule id
+  caught_by: release gate G5
+  count: 2
+  count_note: VST, TMUS; 8 values
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 66: A comma inside a cost-line label split the id list"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+67:
+  name: The rendered page runs three columns into one cell
+  class: document error
+  origin: document
+  check: none
+  check_note: caught by the evidence re-read; not a rule id
+  caught_by: evidence re-read
+  count: 1
+  count_note: HPE, every year
+  first_seen: 2026-10-29
+  source: "Evaluation (29 Oct), type 67: The rendered page runs three columns into one cell"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+68:
+  name: A quarter's stated amount used as the year's actual
+  class: period
+  origin: agent
+  check: part_year
+  caught_by: the replication run; now the part_year guard
+  count: 1
+  count_note: TSLA Q1 2024
+  first_seen: 2026-10-31
+  source: "Open, item 68: A quarter's stated amount used as the year's actual"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+69:
+  name: A multi-year program read as a year's guidance
+  class: period
+  origin: agent
+  check: program_words
+  caught_by: plans (a -$10.7B gap); now the program_words guard
+  count: 1
+  count_note: EQIX FY2025
+  first_seen: null
+  source: "Open, item 69: A multi-year program read as a year's guidance"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+70:
+  name: A PP&E category renamed with no restated comparative
+  class: scope
+  origin: document
+  check: none
+  check_note: nothing in code; the fix is hyperscaler thesis v5 (a model, since removed with the attribution layer in 2ee2e6f)
+  caught_by: reading the series (one year of growth)
+  count: 1
+  count_note: AMZN FY2025
+  first_seen: null
+  source: "Open, item 70: A PP&E category renamed with no restated comparative"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+71:
+  name: A fallback concept that measures a wider total
+  class: scope
+  origin: reference
+  check: none
+  check_note: found by the Proof board (open items); no rule or guard; the concept is off the key's list
+  caught_by: the Proof board
+  count: 1
+  count_note: AMZN FY2024, FY2025
+  first_seen: 2026-11-01
+  source: "Open, item 71: A fallback concept that measures a wider total"
+  by: Claude Fable 5.1
+  at: 2026-11-01
+72:
+  name: An amendment without financial statements
+  class: locator
+  origin: document
+  check: amendment_without_statements
+  caught_by: the Proof board; now the amendment_without_statements guard
+  count: 1
+  count_note: AMD 10-K/A of 27 Dec 2025
+  first_seen: 2026-11-01
+  source: "Open, item 72: An amendment without financial statements"
+  by: Claude Fable 5.1
+  at: 2026-11-01
