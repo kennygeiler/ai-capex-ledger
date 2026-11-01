@@ -5,8 +5,26 @@ signs a release from the app, and the app has shown them everything that could m
 works: the proven set only (`config.PROVEN`); the other companies stay in the database and leave the UI, the packet and the
 published tables. Scale after.*
 
+Decisions folded in (1 Nov, Kenny + review):
+- The scope is the six proven companies, AMD included: six are proven and golden-green, dropping to five discards finished work.
+- The other companies are hidden behind `SCOPE`, never deleted: re-ingesting them costs thirty minutes and agent time.
+- Order: A, then C, then B. The schema changes before the first release signed from the app, so no signature lands on a shape
+  that changes the week after.
+- C is one commit series: schema v11, every reader and writer, golden re-frozen once, dictionary regenerated, tests, v1.8.0.
+  Never scattered across unrelated commits. See "How C runs".
+- Company seven is measured before any promise of a hundred: F below.
+- A second reviewer is a ticket (T34). One person signing their own work stays a weakness until then.
+- Production rails (auth, decisions in Postgres, the self-hosted runner, the hosted copy on Postgres) start after T6.
+
 Each ticket: why, done when, what it touches. Order within a group is the order to do them. A ticket is closed by a commit that
 names it (`T12`) and updates the README status.
+
+## Zero. Make parallel work possible
+
+- **T0 Split `ledger/app.html`.** One file of 830 lines is why two agents cannot work on two pages at once. `ledger/app.html`
+  becomes a shell (head, nav, router, shared helpers) plus `ledger/pages/<page>.js` (proof, trail, rules, reconcile, data,
+  explore, release, docs), served by `app.py` from `/pages/<name>.js`; shared helpers in `ledger/pages/_shared.js`. No behaviour
+  change; every page screenshot before equals after at 1600px. Done when each page is its own file and the router imports them.
 
 ## A. One definition of open
 
@@ -47,6 +65,18 @@ Audit of `taxonomy.csv` v1.7.0: 19 columns, 6,700 rows. `group` = `layer` on eve
 rows and a year-over-year change on derived rows; `tags` packs kind, status, location, capacity_mw, forward_looking and part_year
 into one string; `source` is an extraction id on 6,674 rows with no accession, filing date or URL; `check` mixes three
 vocabularies; 2,404 rows unmapped; 1,029 rows with no value. Schema version 11, golden re-frozen on purpose, v1.8.0.
+
+**How C runs.** One agent, one branch `schema-v11`, one ordered series, nothing else on the branch:
+1. `store.py`: `SCHEMA_VERSION = 11`, the migration, column descriptions.
+2. `taxonomy.py`: the row shape (T9–T17), with `tests/test_taxonomy.py` updated in the same commit.
+3. `api.py`, `publish.py` (`NUMERIC`, `DATE`, tables), `release.py` (packet README columns), `app.py` (`FIELD_KIND`, `/api/data`).
+4. `ledger/pages/data.js`, `explore.js`, `trail.js`: the columns the pages read.
+5. `ledger rules` on the six, then `ledger golden --freeze` in its own commit whose message says which columns changed and why,
+   then `golden --check` equal.
+6. `python -m ledger.store` regenerates `docs/DATA_DICTIONARY.md`; `docs/TAXONOMY.md` and `docs/API.md` say the new columns.
+7. `ledger release v1.8.0 --stage 3`, unsigned, in its own commit; Kenny signs from the Release page (T6).
+Each commit passes the full test suite; the branch merges to main as one merge commit named "Schema v11: one shape a stranger
+can read (T9–T18)". A reviewer agent reads the whole diff against the ticket list before the merge.
 
 - **T9 Drop `group`.** `layer` stays, documented as the reading aid it is. Touches taxonomy.py, api.py, publish.py, docs.
 - **T10 `change_from_prior` column.** Derived rows put the year-over-year change there; `value_high` is a range high only.
@@ -111,7 +141,55 @@ vocabularies; 2,404 rows unmapped; 1,029 rows with no value. Schema version 11, 
 - **T32 A test per ticket in C.** Each column change has a test on the fixtures that asserts the column's vocabulary and that no
   row carries two meanings in one column.
 
+## F. Scale: the tools that make a hundred companies resolvable
+
+The six cost a person-day each at the mapping and reconcile stages. A hundred cannot. These tickets cut the per-company cost
+before scale is attempted; T35 measures it.
+
+- **T33 Mapping assistant.** For a company's unmapped asset types, an agent proposes the us-gaap member with the note's words as
+  evidence and a confidence; the person approves, edits or rejects each in Reconcile (a new group, "asset types"); approved
+  mappings land in `taxonomy/asset_types.yaml` with `by` and the evidence. The agent runs headless (`LEDGER_CLAUDE`), prompt
+  versioned under `agents/prompts/`. Done when company seven's asset types are mapped in under fifteen minutes of a person's time.
+- **T34 Second reviewer.** A resolution has `by` and `confirmed_by`; a release's checklist counts items confirmed by a second
+  person; `SCOPE` companies need one confirmer per company. The read-only copy stays read-only. Done when the Release page
+  shows "confirmed by" per company.
+- **T35 Company seven, measured.** Micron added to `SCOPE` through every stage with a stopwatch on each: agent minutes, person
+  minutes, open items at each stage, rules fired, mapping proposals accepted. Written to `reports/company-cost.md`. The number
+  decides whether a hundred is a week or a quarter. Done when the report exists and `PROVEN` has seven.
+- **T36 Resolve-by-rule.** When a person explains a difference, Reconcile offers "make this a definition" or "make this a
+  rule" with the text prefilled from the reason; the definition file or rule yaml is written, versioned, and the next run closes
+  the same cause everywhere. Done when one explanation on company seven closes the same cause on an eighth without a person.
+- **T37 Bulk by cause with preview.** Select-all-by-cause shows what each decision does to the dataset (rows that change
+  `check`, rows that leave the packet) before it is applied. Done when the preview counts equal the counts after.
+- **T38 Cost and time per stage on Proof.** Agent calls, tokens, wall time and person minutes per company per stage, from
+  `ledger/cost.py`, on the company trail. Done when the trail shows them for the six.
+
+## G. How the work runs: the swarm
+
+Agents build this, a person signs. The rules every agent follows, in the brief and checked by the reviewer:
+
+- **Roles.** *Investigator* (read-only: locates code, reports file:line, never fixes). *Builder* (one ticket or one ordered
+  series, one branch, tests in the same commit). *Reviewer* (reads the diff against the ticket's "done when" and these rules;
+  one line per finding; nothing merges with an open finding). *Designer* (D tickets only; loads `emil-design-eng`,
+  `web-design-guidelines` and `dataviz` before touching a page; screenshots at 1600px before and after).
+- **Files decide parallelism.** Two builders never hold the same file. Until T0 lands, one builder on `app.html` at a time.
+  After T0, one builder per page file. A, C and B are sequential series, each one builder. D runs in parallel per page. E runs
+  alongside anything.
+- **The bar, unchanged.** `ledger golden --check` before any commit that touches a parser, a rule, a loader, the taxonomy or the
+  schema; `--freeze` only on purpose, in its own commit saying why; `LEDGER_SKIP_GOLDEN=1` for the fast suite in between. The
+  README status block in every commit. `docs/HANDOFF.md` stays the start page. Nothing inferred: no column holds a number the
+  pipeline made up, no page shows a number without its check.
+- **Skills are mandatory, not optional.** A builder on a page loads the three design skills; a builder on a schema change
+  reads `docs/TAXONOMY.md` and `docs/PROOF.md` first; a builder on agents reads `agents/prompts/` and versions, never edits in
+  place. The reviewer refuses a diff whose brief did not name the skills it used.
+- **Headless only.** Agents that read filings run through `LEDGER_CLAUDE="$CLAUDE_CODE_EXECPATH"`; no API key, no paid calls.
+- **One signer, one place.** Only the Release page signs; agents never run `signoff` or `publish`.
+- **Phases.** 1: T0 (worktree) and A (main checkout) in parallel, merge, screenshots equal. 2: C on `schema-v11`, one builder,
+  one reviewer, merge. 3: B. 4: D per page in parallel, E alongside. 5: F, starting with T35, which decides the scale plan.
+  Production rails after phase 3.
+
 ## Order
 
-A first (T1–T4), then C (the schema), then B (the page that signs), then D in the order listed, E alongside. Production rails
-(auth, decisions in Postgres, the self-hosted runner, the hosted copy reading Postgres) come after T6 signs v1.8.0.
+T0 and A first, then C (the schema, one series), then B (the page that signs), then D per page in parallel with E
+alongside, then F. Production rails (auth, decisions in Postgres, the self-hosted runner, the hosted copy reading Postgres)
+come after T6 signs v1.8.0.
