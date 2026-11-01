@@ -32,6 +32,7 @@ class Workbench(unittest.TestCase):
         self.assertEqual(r["delta"], 2256e6)
         self.assertAlmostEqual(r["delta_pct"], 2256 / 139596)
         self.assertEqual(out["open"], 0)  # accepted: not open
+        self.assertEqual((r["state"], r["by"]), ("explained", "resolution"))  # the one definition (status.py): a person's accept explains it
         self.assertEqual([(y["period"], y["reference"]) for y in r["series"]], [("FY2024", 112504e6), ("FY2025", 139596e6)])
 
     def test_finding_rows_get_numbers_only_when_numeric(self):
@@ -39,8 +40,11 @@ class Workbench(unittest.TestCase):
                "detail": {"field": "opex", "period": "FY2024", "kind": "restated", "before": 10e6, "after": 12e6, "size": 0.2, "message": "m"}},
               {"kind": "finding_unconfirmed", "state": "look", "ticker": "IRM", "where": "cost_of_revenue", "impact": "x", "action": "open", "key": "k4", "hash": "h4", "resolution": None,
                "detail": {"field": "cost_of_revenue", "period": None, "kind": "row_switch", "before": None, "after": None, "size": 0, "message": "renamed"}}]
-        rows = workbench.items(_con(), _flow(qs))["rows"]
+        out = workbench.items(_con(), _flow(qs))
+        rows = out["rows"]
         self.assertEqual((rows[0]["ours"], rows[0]["reference"], rows[0]["measure"]), (12e6, 10e6, "usd"))
+        self.assertEqual([(r["state"], r["open"]) for r in rows], [("open", True), ("open", True)])  # IRM has no value rows here and no resolution: open on both pages
+        self.assertEqual(out["open"], 2)
         self.assertIn("Restated", rows[0]["cause_label"])
         self.assertIsNone(rows[1]["measure"])
         self.assertIn("renamed", rows[1]["cause_label"].lower())

@@ -5,19 +5,33 @@ ingestion and attribution. "The entire point of this pipeline is to manage those
 frame changes. Not a dataset across 100 companies with a review screen on top; a pipeline that proves every number
 it produces, shown first on five companies, widened only when the five are proven.
 
-## What proven means
+## What proven means: the one definition of open (`ledger/status.py`)
 
-For a company, every figure in the dataset is one of three things, and the pipeline says which:
+For a company, every row of the dataset is in exactly one of four states, and one function, `status.state`, says
+which; Proof, Reconcile, the trail and the Release gates all read it, so no two pages count the same row differently:
 
-- **checked**: it matches an independent check. A value matches the SEC's XBRL. A cited cell matches the rendered
-  10-K. An attributed amount matches what the company stated, within tolerance, same scope.
-- **explained**: it does not match, and a rule or a definition on file says why, by name. A definition names the
-  company's cost lines. A rule says a cell from a later 10-K against a tag from an earlier one is a restatement. A
-  comparability rule says a wider measure eight points above a narrower stated one is consistent.
-- **open**: neither. The only thing a person looks at.
+- **checked**: it agrees with an independent check. A value or a fact matches the SEC's XBRL. A statement or a
+  planned row is a verbatim quote verified against its text. A filing's statement tables are located. A reported
+  asset type is mapped to a us-gaap member with the note's words (`taxonomy/asset_types.yaml`).
+- **explained**: it does not match, and something on file says why, by name: a definition
+  (`definitions/companies.yaml`), an info-severity rule or a guard (`rules/*.yaml`, `proof.GUARDS`), a label reconcile
+  wrote because the filing has no such line or XBRL no such tag (`not_reported`, `no_reference`), or a person's
+  resolution that says accept or explain (`decisions/resolutions.jsonl`).
+- **blocked**: a block-severity rule fired on it, or a person's resolution says blocks. Blocked is open that also
+  refuses the release; every count of open includes it.
+- **open**: none of the above, or a person's resolution says fix. The only thing a person looks at.
 
-Proven = zero open, for every stage, for that company. A person's judgement enters as a definition or a rule,
-never as a click on a row; once written it applies every run and the item never comes back.
+Precedence when more than one applies: blocked, then checked, then a person's fix (open), then explained, then open. A
+warn-severity finding (a jump, a renamed line, an outlier) has no state of its own: it takes the worst state of the
+rows it fired on, so a jump on a value XBRL confirms is checked, on a value a definition covers is explained, on an
+unresolved value is open. Every item carries `by`: `xbrl`, `quote`, `located`, `mapping:<member>`, `rule:<id>`,
+`definition:<name>`, `label:<label>` or `resolution:<id>`.
+
+Proven = zero open (blocked included), for every stage, for that company. A person's judgement enters as a definition
+or a rule, never as a click on a row; once written it applies every run and the item never comes back. A resolution is
+the exception for what nothing on file covers yet, and it holds only while the item's content is unchanged.
+`tests/test_status.py` asserts, on the frozen fixtures, that the Proof board's open count equals Reconcile's for every
+company in the proven set.
 
 ## The stages, and what proven means at each
 

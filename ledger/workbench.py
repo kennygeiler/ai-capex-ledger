@@ -4,7 +4,7 @@ cell and its screenshot), and the resolution. Built from `app.flow()`; nothing i
 it is an estimate. `/api/v1/reconcile?scope=` serves it; `/api/resolve` records one resolution, `/api/resolve/bulk` many."""
 from __future__ import annotations
 
-from . import store
+from . import resolutions, status, store
 from .config import industry
 
 EVIDENCE = store.ROOT / "reports" / "evidence"
@@ -68,14 +68,47 @@ def _num(x):
         return None
 
 
+def _value_states(con, ticker: str, field: str | None, period: str | None, idx: dict) -> list[dict]:
+    """The states (status.of_value) of the value rows a finding fired on: the field (cost_of_revenue and operating_income
+    are read to make opex, so a finding on them is about opex) and the period, or every period when it names none."""
+    if not field:
+        return []
+    f = "opex" if field in ("cost_of_revenue", "operating_income") else field
+    cur = con.execute('select field, period, label from "values" where ticker = ? and field = ?' + (" and period = ?" if period else ""), [ticker, f] + ([period] if period else []))
+    return [status.of_value({"field": r[0], "period": r[1], "label": r[2]}, resolutions.resolution_of(idx, "values", ticker, r[0], "", r[1])) for r in cur.fetchall()]
+
+
+def _fact_row(con, ticker: str, field: str | None, dimension: str | None, period: str | None) -> dict | None:
+    cols = [c[0] for c in con.execute("select * from facts limit 0").description]
+    r = con.execute("select * from facts where ticker = ? and field = ? and coalesce(dimension, '') = ? and period = ?", [ticker, field or "", dimension or "", period or ""]).fetchone()
+    return dict(zip(cols, r)) if r else None
+
+
+def _state(con, q: dict, idx: dict) -> dict:
+    """The queue item's state from the one definition (status.py): the same row gets the same answer on Proof."""
+    d, res, t = q.get("detail") or {}, q.get("resolution"), q["ticker"]
+    if q["kind"] in ("fact_differs", "fact_changed"):
+        f = _fact_row(con, t, d.get("field"), d.get("dimension"), d.get("period")) or {"label": d.get("label")}
+        from .proof import _restated
+        return status.of_fact(f, res, _restated(con, t, f) if f.get("label") == "unresolved" and f.get("accession") else None)
+    if q["kind"] == "finding_unconfirmed":
+        return status.of_exception({"rule_id": d.get("kind"), "severity": "warn", "message": d.get("message")}, res, _value_states(con, t, d.get("field"), d.get("period"), idx))
+    if q["kind"] == "blocked":
+        return status.of_exception({"rule_id": d.get("rule"), "severity": "block", "message": d.get("message")}, res)
+    return status.state({"reason": "a filing at the SEC the ledger has not read", "resolution": res})
+
+
 def items(con, flow: dict) -> dict:
-    """One uniform row per queue item. `measure` is usd; `ours` and `reference` are in that measure; `delta` = ours - reference."""
+    """One uniform row per queue item. `measure` is usd; `ours` and `reference` are in that measure; `delta` = ours - reference.
+    Every row carries `state`, `by` and `reason` from status.state and `open` (open or blocked); `open` counts those."""
     names, rel = flow["names"], flow["release"]["last"]
+    idx = resolutions.by_row()
     rows = []
     for q in flow["queue"]:
         d = q.get("detail") or {}
-        row = {"key": q["key"], "hash": q["hash"], "cause": q["kind"], "cause_label": CAUSES.get(q["kind"], q["kind"]), "state": q["state"], "ticker": q["ticker"],
-               "name": names.get(q["ticker"], q["ticker"]), "layer": industry(q["ticker"]), "field": None, "period": None, "where": q["where"], "measure": None,
+        st = _state(con, q, idx)
+        row = {"key": q["key"], "hash": q["hash"], "cause": q["kind"], "cause_label": CAUSES.get(q["kind"], q["kind"]), "state": st["state"], "by": st["by"], "reason": st["reason"], "open": status.is_open(st),
+               "ticker": q["ticker"], "name": names.get(q["ticker"], q["ticker"]), "layer": industry(q["ticker"]), "field": None, "period": None, "where": q["where"], "measure": None,
                "ours": None, "ours_label": None, "reference": None, "ref_label": REF_LABEL.get(q["kind"]), "relation": "eq", "delta": None, "delta_pct": None,
                "dollars": q.get("dollars") or 0, "new": bool(q.get("new")), "action": q["action"], "impact": q["impact"], "resolution": q.get("resolution"),
                "evidence": {}}
@@ -114,12 +147,12 @@ def items(con, flow: dict) -> dict:
             except TypeError:
                 pass
         rows.append(row)
-    open_ = [r for r in rows if not r["resolution"] or r["resolution"]["state"] in ("fix", "blocks")]
+    open_ = [r for r in rows if r["open"]]
     by_cause = {}
     for r in rows:
         by_cause.setdefault(r["cause"], {"cause": r["cause"], "label": r["cause_label"], "rows": 0, "open": 0, "dollars": 0})
         by_cause[r["cause"]]["rows"] += 1
-        by_cause[r["cause"]]["open"] += r in open_
+        by_cause[r["cause"]]["open"] += r["open"]
         by_cause[r["cause"]]["dollars"] += r["dollars"]
     return {"scope": flow["scope"], "release": rel, "last_run": flow["changed"]["last_run"], "rows": rows, "open": len(open_), "dollars": sum(r["dollars"] for r in open_),
             "causes": sorted(by_cause.values(), key=lambda c: -c["dollars"]), "noise": flow["noise"], "names": names}

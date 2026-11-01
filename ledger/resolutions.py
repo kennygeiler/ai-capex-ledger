@@ -59,10 +59,15 @@ def by_row(rs: list[dict] | None = None) -> dict:
     for key, r in latest(rs).items():
         k = _parse(key)
         if k:
-            out[k] = {"state": r["state"], "status": STATUS[r["state"]], "by": r["by"], "at": r["at"], "reason": r["reason"]}
+            out[k] = {"id": r.get("id"), "state": r["state"], "status": STATUS[r["state"]], "by": r["by"], "at": r["at"], "reason": r["reason"]}
     return out
 
 
+def resolution_of(index: dict, table: str, ticker: str, field: str, dimension: str = "", period: str = "", kind: str = "") -> dict | None:
+    """The latest resolution on a dataset row (the record `status.state` reads), or None."""
+    return index.get((table, ticker, field, dimension or "", period, kind)) or (index.get((table, ticker, field, "", "", "")) if table == "values" else None)
+
+
 def status_of(index: dict, table: str, ticker: str, field: str, dimension: str = "", period: str = "", kind: str = "") -> str:
-    r = index.get((table, ticker, field, dimension or "", period, kind)) or (index.get((table, ticker, field, "", "", "")) if table == "values" else None)
+    r = resolution_of(index, table, ticker, field, dimension, period, kind)
     return r["status"] if r else ""
