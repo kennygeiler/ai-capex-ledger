@@ -1,22 +1,13 @@
-"""python -m ledger release <version>   ->  releases/<version>/ for the scope (config.SCOPE); refuses while a gate fails"""
+"""python -m ledger release <version>   ->  releases/<version>/ for the scope (config.SCOPE); refuses while a gate fails
+
+The packet is built by `checklist.packet`, the same code the Release page runs in memory, so the page's files and
+hash are the ones this command writes (T5, T8)."""
 import argparse
-import csv
-import json
 
 from .. import store
-from ..agent import model
+from ..checklist import packet, write
 from ..config import SCOPE, STAGES
-from ..extract import prompt_version
-from ..ingest.tables import PARSER_VERSION
-from ..release import GATES, RELEASES, build, content_hash, failing, gates, releases, table, version_key
-from ..resolutions import unconfirmed
-from ..review import apply, decisions, open_items
-from ..rules import load
-from ..evidence import load_all
-
-def _rows(con, sql, p):
-    cur = con.execute(sql, p)
-    return [dict(zip([c[0] for c in cur.description], r)) for r in cur.fetchall()]
+from ..release import GATES, failing, table
 
 
 def main(argv=None) -> int:
@@ -25,15 +16,9 @@ def main(argv=None) -> int:
     ap.add_argument("--stage", type=int, default=3, choices=STAGES, help="which hand-check file to read (golden/stage{N}-handcheck.json); the rows are always the scope")
     ap.add_argument("--db", default=str(store.DEFAULT_DB))
     a = ap.parse_args(argv)
-    con, tickers = store.init(a.db), [list(SCOPE)]  # the packet holds the scope and nothing else (T2)
-    values = _rows(con, 'select * from "values" where ticker in (select unnest(?))', tickers)
-    excs = _rows(con, "select * from exceptions where ticker in (select unnest(?))", tickers)
-    exts = _rows(con, "select * from extractions where ticker in (select unnest(?))", tickers)
-    ds = decisions()
-    hc_path = store.ROOT / "golden" / f"stage{a.stage}-handcheck.json"
-    cells = {e["extraction_id"]: e["cell_text"] for e in exts}
-    confirmed = {i for i, r in load_all().items() if r["match"] and cells.get(i) == r["cell"]}
-    g = gates(values, open_items(excs, ds), json.loads(hc_path.read_text()) if hc_path.exists() else None, confirmed, unconfirmed())
+    con = store.init(a.db)
+    p = packet(con, a.version, a.stage)
+    g = p["gates"]
     print(table(g))
     bad = failing(g)
     if bad:
@@ -42,34 +27,15 @@ def main(argv=None) -> int:
             for gate, items in by_gate.items():
                 print(f"  {t} {gate} {GATES[gate]}: {len(items)} item(s), e.g. {items[0]}")
         if any(items == ["no hand-check file"] for items in g["G5"].values()):
-            print(f"  (export the hand-check from reports/stage{a.stage}-validation.html to {hc_path.relative_to(store.ROOT)})")
+            print(f"  (export the hand-check from reports/stage{a.stage}-validation.html to golden/stage{a.stage}-handcheck.json)")
         return 1
-    prev_dir = ([p for p in releases() if version_key(p.name) < version_key(a.version)] or [None])[-1]
-    previous = list(csv.DictReader((prev_dir / "values.csv").open())) if prev_dir else None
-    ai = _rows(con, "select * from ai_spend where ticker in (select unnest(?))", tickers)
-    facts = _rows(con, "select * from facts where ticker in (select unnest(?))", tickers)
-    files = build(a.version, apply(values, excs, ds), exts, excs, previous, confirmed, ai, facts)
-    from .. import api  # one shape (C7): the release holds every list the API serves, as the API serves it
-    want = set(tickers[0])
-    for name in api.RELEASE_LISTS:
-        rows = [r for r in api.fetch(con, name) if r.get("ticker", "") in want]
-        files[f"{name}.csv"] = api.to_csv(rows)
-    if prev_dir:  # the shape of the packet is part of the diff
-        before = set(json.loads((prev_dir / "manifest.json").read_text())["files"]) - {"manifest.json", "SIGNOFF.json"}
-        gone, new = sorted(before - set(files)), sorted(set(files) - before)
-        if gone or new:
-            files["DIFF.md"] += "\n".join(["", "## Files"] + [f"- added `{f}`" for f in new] + [f"- removed `{f}`" for f in gone] + [""])
-    h = content_hash(files)
-    out = RELEASES / a.version
-    if out.exists():
-        old = json.loads((out / "manifest.json").read_text())["hash"]
-        print(f"{a.version} exists " + ("unchanged." if old == h else "with different content; a shipped release is never edited. Use a new version."))
-        return 0 if old == h else 1
-    out.mkdir(parents=True)
-    for name, text in files.items():
-        (out / name).write_text(text)
-    manifest = {"version": a.version, "stage": a.stage, "scope": list(SCOPE), "hash": h, "files": sorted(files), "prompt": prompt_version(), "parser": PARSER_VERSION, "model": model(),
-                "rules": {r["id"]: r["file_sha256"][:12] for r in load()}, "decisions": len(ds)}
-    (out / "manifest.json").write_text(json.dumps(manifest, indent=1))
-    print(f"built {a.version}: {len(values)} values, hash {h[:12]}. Sign with: python -m ledger signoff {a.version} --by \"<name>\"")
+    try:
+        w = write(p)
+    except ValueError as e:
+        print(e)
+        return 1
+    if not w["written"]:
+        print(f"{a.version} exists unchanged.")
+        return 0
+    print(f"built {a.version}: {p['values']} values, hash {p['hash'][:12]}. Sign from the Release page (#release), or: python -m ledger signoff {a.version} --by \"<name>\"")
     return 0

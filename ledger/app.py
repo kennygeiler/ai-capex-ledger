@@ -351,6 +351,16 @@ class Handler(BaseHTTPRequestHandler):
             return self._guard(lambda: self._json(flow(q.get("scope", "all"))))
         if u.path == "/api/data":
             return self._guard(lambda: self._json(data(q)))
+        if u.path == "/api/v1/release/checklist":  # the Release page (T5): the next version's checklist, or ?version=
+            from .checklist import checklist
+
+            def cl():
+                con = _con()
+                try:
+                    return checklist(con, q.get("version") or None, STAGE)
+                finally:
+                    con.close()
+            return self._guard(lambda: self._json(cl()))
         if u.path.startswith("/api/v1/"):  # the read API, docs/API.md
             return self._guard(lambda: self._v1(u.path[len("/api/v1/"):].strip("/"), q))
         if u.path.startswith("/packet/") and u.path.endswith(".zip"):
