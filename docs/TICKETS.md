@@ -352,7 +352,8 @@ the file and off the calendar.
   the keyed count. Skills loaded before the page work: emil-design-eng, web-design-guidelines, dataviz. Tests in
   `tests/test_status.py` (grade order, strongest, key per `by` kind, board grades sum to the denominator on the fixtures) and
   `tests/test_proof.py` (`keys_of`). On the six: twin 260 of 875 rows, no key 615. Golden not run: taxonomy.py reads nothing
-  from status.py.
+  from status.py. Review (MERGE, one WARN) fixed in a follow-up commit: "no key" explained in text under the table; the
+  key words read from `key_grade`, which `proof.KEY_GRADE` ships on the board and on a trail.
 - **T57 Judgement ledger.** A question is grouped by cause, not by cell (workbench groups by cause already). *T57a:* a
   resolution carries `owner_role` (data / expert / client) and `scope` (this company / this class / all companies); coverage =
   the cells and companies the cause governs, shown on the group; Reconcile groups by owner role; Kenny plays each role,

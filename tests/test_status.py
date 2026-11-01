@@ -190,7 +190,7 @@ class ProofAgreesWithReconcile(unittest.TestCase):
         self.assertEqual(sorted(r["proof"]), sorted(PROVEN))
         self.assertEqual(r["proof"], r["reconcile"], f"Proof and Reconcile disagree on what is open: {r}")
         self.assertEqual(r["proof_total"], sum(r["reconcile"].values()))
-        self.assertTrue(set(r["states"]) <= set(status.STATES) | {"to confirm"}, r["states"])
+        self.assertTrue(set(r["states"]) <= set(status.STATES) | {"to confirm"}, r["states"])  # "to confirm": T3's group, the decisions a run left for a person (decisions/ is in the root since T31)
         # T56: on the board, rows by key grade sum to the denominator, per company and in total; a keyed item is on its trail
         grades = (*status.KEY_GRADE, "none")
         for t, k in r["company_keys"].items():
@@ -199,7 +199,7 @@ class ProofAgreesWithReconcile(unittest.TestCase):
             self.assertEqual(k["rows"] - k["none"], r["keyed_items"][t], t)
             self.assertGreater(k["twin"], 0, t)  # every proven company has rows XBRL confirms
         for g in (*grades, "rows"):
-            self.assertEqual(r["keys"][g], sum(k[g] for k in r["company_keys"].values()), g)  # "to confirm": T3's group, the decisions a run left for a person (decisions/ is in the root since T31)
+            self.assertEqual(r["keys"][g], sum(k[g] for k in r["company_keys"].values()), g)
 
 
 if __name__ == "__main__":

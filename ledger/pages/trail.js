@@ -1,9 +1,9 @@
 // ── Company trail: one company's stages, open and explained items ────────────
-// T56: the strongest answer key behind a `by`, one word beside it (status.KEY_LABEL); nothing when no key vouches for the row
-const KEY_WORD = {twin: 'twin', second_source: 'second source', tie: 'tie', later_truth: 'later truth'};
-const byWithKey = (o) => [o.by, o.key ? h('span', {class: 'text-secondary'}, ` (${KEY_WORD[o.key] || o.key})`) : ''];
+// T56: the strongest answer key behind a `by`, one word beside it; the words come from the API's key_grade (status.KEY_LABEL), nothing when no key vouches for the row
 async function trailPage(view, ticker) {
   const c = await api('/api/v1/proof/' + encodeURIComponent(ticker));
+  const KEY_WORD = Object.fromEntries((c.key_grade || []).map((g) => [g.id, g.label]));  // the trail ships the same list the board does
+  const byWithKey = (o) => [o.by, o.key ? h('span', {class: 'text-secondary'}, ` (${KEY_WORD[o.key] || o.key})`) : ''];
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, c.name, h('span', {class: 'text-secondary ms-2 fw-normal'}, c.ticker)), h('div', {class: 'text-secondary small'}, `${INDUSTRY[c.layer] || c.layer}. ${c.why || ''} ${c.in_proven_set ? '' : 'Not in the proven set.'}`)),
     h('div', {class: 'col-auto'}, c.proven ? h('span', {class: 'badge bg-green-lt'}, 'proven') : h('span', {class: 'badge bg-red-lt'}, `${int(c.open)} open`), ' ', h('a', {href: `#data?ticker=${c.ticker}`, class: 'small ms-2'}, 'Dataset'), h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-2'}, 'Reconcile'))));

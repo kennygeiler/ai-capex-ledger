@@ -35,6 +35,9 @@ def _item(what: str, st: dict, detail: str = "", needs: str = "") -> dict:
     return {"what": what, "state": st["state"], "by": st["by"], "key": st.get("key"), "keys": st.get("keys") or [], "reason": st["reason"], "detail": detail, "needs": needs if status.is_open(st) else ""}
 
 
+KEY_GRADE = [{"id": k, "label": status.KEY_LABEL[k], "why": status.KEY_WHY[k]} for k in status.KEY_GRADE]  # the four, strongest first, for the pages
+
+
 def keys_of(items: list[dict]) -> dict:
     """Rows by the strongest answer key that vouches for them (T56): {twin, second_source, tie, later_truth, none, rows};
     `none` is every row no key vouches for (a quote, a located table, a mapping, an explanation, an open item), so the
@@ -144,7 +147,7 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None)
     keys = keys_of([i for s in stages.values() for i in s["all"]])
     name = next((c["name"] for c in tracked() if c["ticker"] == t), t)
     return {"ticker": t, "name": name, "layer": industry(t), "proven": open_total == 0, "open": open_total, "why": PROVEN_WHY.get(t, ""), "in_proven_set": t in PROVEN,
-            "stages": stages, "keys": keys, "definitions": sorted((defs or {}).get(t, {}).keys())}
+            "stages": stages, "keys": keys, "key_grade": KEY_GRADE, "definitions": sorted((defs or {}).get(t, {}).keys())}
 
 
 def amendment_without_statements(doc: dict) -> bool:
@@ -180,7 +183,7 @@ def board(con) -> dict:
     proven = [company(con, t, idx, defs) for t in SCOPE]
     keys = {k: sum(c["keys"][k] for c in proven) for k in (*status.KEY_GRADE, "none", "rows")}  # per company on each row; the total over the scope here
     return {"stages": [{"id": s, "label": STAGE_LABEL[s]} for s in STAGES], "proven": proven, "scope": list(SCOPE), "open": sum(c["open"] for c in proven),
-            "keys": keys, "key_grade": [{"id": k, "label": status.KEY_LABEL[k], "why": status.KEY_WHY[k]} for k in status.KEY_GRADE]}
+            "keys": keys, "key_grade": KEY_GRADE}
 
 
 GUARDS = [
