@@ -2,10 +2,14 @@
  "ticker": "AMD",
  "release": "v1.9.0",
  "seed": "20261027|v1.9.0|AMD",
- "drawn_at": "2026-11-01T09:22:05+00:00",
+ "drawn_at": "2026-11-01T09:39:44+00:00",
  "per_kind": 10,
  "untagged_share": 0.6,
- "how": "Values stratified by field and year; facts stratified by field and year with the untagged ones (no XBRL twin) oversampled. A verdict is right, wrong or cant_say, given on the Proof page (Gold set); `ledger gold --draw` never overwrites one.",
+ "draws": [
+  "v1.9.0"
+ ],
+ "note": null,
+ "how": "Values stratified by field and year; facts stratified by field and year with the untagged ones (no XBRL twin) oversampled; rows with no value are not drawn. A verdict is right, wrong or cant_say, given on the Proof page (Gold set); `ledger gold --draw` never overwrites one.",
  "items": [
   {
    "id": "value|AMD|revenue||FY2024",
@@ -34,7 +38,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|AMD|capex||FY2023",
@@ -63,7 +70,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|AMD|opex||FY2022",
@@ -114,7 +124,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|AMD|opex||FY2025",
@@ -165,7 +178,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|AMD|capex||FY2024",
@@ -194,7 +210,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|AMD|revenue||FY2025",
@@ -223,7 +242,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|AMD|opex||FY2023",
@@ -274,7 +296,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|AMD|revenue||FY2022",
@@ -303,7 +328,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|AMD|capex||FY2022",
@@ -332,7 +360,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|AMD|capex||FY2025",
@@ -361,7 +392,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|AMD|segment_revenue|Gaming|FY2025",
@@ -390,7 +424,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|AMD|ppe_category|Construction in progress|FY2023",
@@ -430,7 +467,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|AMD|ppe_category|Land, building and leasehold improvements|FY2022",
@@ -459,7 +499,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|AMD|segment_revenue|Embedded|FY2025",
@@ -488,7 +531,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|AMD|ppe_category|Construction in progress|FY2021",
@@ -517,7 +563,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|AMD|segment_revenue|Client|FY2025",
@@ -546,7 +595,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|AMD|segment_revenue|Client|FY2022",
@@ -597,7 +649,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|AMD|purchase_commitments||FY2023",
@@ -626,7 +681,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|AMD|segment_revenue|Embedded|FY2021",
@@ -666,7 +724,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|AMD|purchase_commitments||FY2024",
@@ -695,7 +756,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|AMD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   }
  ]
 }

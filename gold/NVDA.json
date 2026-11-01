@@ -2,10 +2,14 @@
  "ticker": "NVDA",
  "release": "v1.9.0",
  "seed": "20261027|v1.9.0|NVDA",
- "drawn_at": "2026-11-01T09:22:05+00:00",
+ "drawn_at": "2026-11-01T09:39:44+00:00",
  "per_kind": 10,
  "untagged_share": 0.6,
- "how": "Values stratified by field and year; facts stratified by field and year with the untagged ones (no XBRL twin) oversampled. A verdict is right, wrong or cant_say, given on the Proof page (Gold set); `ledger gold --draw` never overwrites one.",
+ "draws": [
+  "v1.9.0"
+ ],
+ "note": null,
+ "how": "Values stratified by field and year; facts stratified by field and year with the untagged ones (no XBRL twin) oversampled; rows with no value are not drawn. A verdict is right, wrong or cant_say, given on the Proof page (Gold set); `ledger gold --draw` never overwrites one.",
  "items": [
   {
    "id": "value|NVDA|opex||FY2024",
@@ -56,7 +60,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|NVDA|revenue||FY2026",
@@ -85,7 +92,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|NVDA|capex||FY2025",
@@ -114,7 +124,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|NVDA|opex||FY2023",
@@ -165,7 +178,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|NVDA|capex||FY2022",
@@ -194,7 +210,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|NVDA|revenue||FY2025",
@@ -223,7 +242,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|NVDA|capex||FY2026",
@@ -252,7 +274,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|NVDA|revenue||FY2024",
@@ -281,7 +306,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|NVDA|opex||FY2022",
@@ -332,7 +360,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|NVDA|revenue||FY2023",
@@ -361,7 +392,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|NVDA|ppe_category|Construction in process|FY2021",
@@ -390,7 +424,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|NVDA|ppe_category|Construction in process|FY2024",
@@ -430,7 +467,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|NVDA|ppe_category|Construction in process|FY2026",
@@ -459,7 +499,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|NVDA|ppe_category|Construction in process|FY2025",
@@ -499,7 +542,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|NVDA|ppe_category|Construction in process|FY2022",
@@ -539,7 +585,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|NVDA|ppe_category|Construction in process|FY2023",
@@ -579,7 +628,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|NVDA|ppe_category|Buildings, leasehold improvements, and furniture|FY2023",
@@ -619,7 +671,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|NVDA|segment_revenue|Data Center|FY2020",
@@ -648,7 +703,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|NVDA|segment_revenue|OEM & Other|FY2022",
@@ -688,7 +746,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|NVDA|ppe_category|Buildings, leasehold improvements, and furniture|FY2025",
@@ -728,7 +789,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|NVDA",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   }
  ]
 }

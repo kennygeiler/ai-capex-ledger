@@ -81,9 +81,21 @@ can't say, a note, `by` on `config.PEOPLE`, `at`.
 - `ledger gold --draw` writes the files and never overwrites or drops an item that has a verdict.
 - Verdicts are given on Proof, Gold set (`POST /api/gold/verdict`, the one writer `gold.record`: lock, temp file,
   os.replace; a name not on `config.PEOPLE` is refused).
-- `ledger golden --check` compares every verdict with the tables the run produced: right must still equal the gold
-  value (a blank or a missing row fails), wrong must differ or the row be open. Items without a verdict print as
-  "unverified: N", never as a pass.
+- `ledger golden --check` compares every verdict with the tables the run produced, by value only: right must still
+  equal the gold value (a null gold value, a blank or a missing row fails); wrong must still be the same value on an
+  open row (or a blank): the same value shipped as checked fails, a different number fails as "changed since
+  verdict, re-verify", a missing row (a renamed dimension included) as "row gone, re-verify". A right item whose row
+  is open for another reason still passes: that is the Open line's job, not gold's.
+- Gold has its own state beside golden's tables: fail, unverified N of M, or pass. Equal tables with nothing verified
+  read "golden: equal" and "gold: unverified 120 of 120", never one green line; the exit code is 0 for unverified only
+  and 1 for any gold failure. A missing gold/ folder, a proven company with no file or no items, and a file that does
+  not read or validate (items a list, `value` present, `verdict` one of the three or null) fail, naming the file.
+- `ledger gold --draw` builds the sample without a lock, then re-reads, merges and replaces the file under the same
+  per-company lock `record` holds, so a verdict given during a draw is kept. Kept items keep their own release, seed
+  and drawn_at; the header says when a file mixes draws or holds more than 10 + 10. Rows with no value are not drawn.
+- Trust boundary: the verdict route trusts the local port. Anyone who reaches DATAHQ on 127.0.0.1 can post a verdict
+  under a name on `config.PEOPLE`, exactly as with resolutions and mapping approvals; the guards stop other web pages
+  (JSON content type, own Origin) and names off the list, not a local user. Real authentication is T6.
 - Error rate: wrong of (right + wrong), with n and a Wilson 95% interval (`gold.error_rate`); can't say is counted
   beside it, not in the denominator.
 

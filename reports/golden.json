@@ -1,9 +1,11 @@
 {
- "at": "2026-11-01T09:27:04+00:00",
+ "at": "2026-11-01T09:42:20+00:00",
  "ok": true,
  "failed_step": null,
+ "tables_ok": true,
  "gold": {
   "ok": true,
+  "state": "unverified",
   "failures": [],
   "checked": 0,
   "right": 0,

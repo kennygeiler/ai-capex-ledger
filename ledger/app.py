@@ -264,38 +264,41 @@ def _flow(scope: str) -> dict:
 
 # ── T82: the gold set on the Proof page. Read: GET /api/v1/gold?t=; write: POST /api/gold/verdict (one writer, gold.record) ──
 def gold_view(ticker: str | None = None) -> dict:
-    """The gold items of one company (or every company) with the live row beside each claim, and the error rate from the
-    verdicts per company and overall (n and a Wilson 95% interval). Reading gold/ needs no database; the live column does."""
-    from . import gold, status
-    docs = gold.load_all()
+    """The gold set for the Proof page. With no ticker: the companies and their error rates, read from gold/ alone (no
+    database). With a ticker: its items with the live row beside each claim, that company's rows only. Error rates from
+    the verdicts carry n and a Wilson 95% interval. A file that does not read or validate is named in `problems`."""
+    from . import gold
+    from .config import PROVEN
+    docs, problems = gold.load_checked(expect=PROVEN)
     t = (ticker or "").upper()
     if t and t not in docs:
         raise KeyError(f"no gold file for {t!r}")
-    live, looked_up, xbrl, idx = {}, set(), {}, resolutions.by_row()
-    try:
-        con = _con()
-    except Busy:
-        con = None
-    if con is not None:
+    items, live_ok = [], None
+    if t:
+        live, looked_up, xbrl, idx = {}, set(), {}, resolutions.by_row()
         try:
-            ts = [t] if t else sorted(docs)
-            vals = _rows(con, 'select ticker, field, period, value, label from "values" where ticker in (select unnest(?))', ts)
-            facts = _rows(con, "select ticker, field, dimension, period, value, label from facts where ticker in (select unnest(?))", ts)
-            ref = _rows(con, "select ticker, field, period, value from reference_values where ticker in (select unnest(?))", ts)
-        finally:
-            con.close()
-        live = gold.live_index(vals, facts)
-        looked_up = {r["ticker"] for r in ref}
-        xbrl = {(r["ticker"], r["field"], r["period"]): gold.num(r["value"]) for r in ref}
-    items = []
-    for it in (docs[t]["items"] if t else []):
-        row = live.get(it["id"])
-        items.append({**it, "live": None if con is None else {"value": gold.num(row["value"]) if row else None, "label": row and row.get("label"),
-                                                             "open": gold.is_open(row, looked_up, xbrl, idx)},
-                      "cites": [{**c, "img": "/evidence/" + Path(c["screenshot"]).name if c.get("screenshot") else None} for c in it["cites"]]})
-    return {"companies": [{"ticker": k, "release": d["release"], "seed": d["seed"], "rate": gold.error_rate(d["items"])} for k, d in docs.items()],
-            "all": gold.error_rate([i for d in docs.values() for i in d["items"]]), "ticker": t or None, "items": items,
-            "verdicts": list(gold.VERDICTS), "live": con is not None}
+            con = _con()
+        except Busy:
+            con = None
+        if con is not None:
+            try:
+                vals = _rows(con, 'select ticker, field, period, value, label from "values" where ticker = ?', t)
+                facts = _rows(con, "select ticker, field, dimension, period, value, label from facts where ticker = ?", t)
+                ref = _rows(con, "select ticker, field, period, value from reference_values where ticker = ?", t)
+            finally:
+                con.close()
+            live = gold.live_index(vals, facts)
+            looked_up = {r["ticker"] for r in ref}
+            xbrl = {(r["ticker"], r["field"], r["period"]): gold.num(r["value"]) for r in ref}
+        live_ok = con is not None
+        for it in docs[t]["items"]:
+            row = live.get(it["id"])
+            items.append({**it, "live": None if con is None else {"value": gold.num(row["value"]) if row else None, "label": row and row.get("label"), "gone": row is None,
+                                                                 "open": gold.is_open(row, looked_up, xbrl, idx)},
+                          "cites": [{**c, "img": "/evidence/" + Path(c["screenshot"]).name if c.get("screenshot") else None} for c in it.get("cites", [])]})
+    return {"companies": [{"ticker": k, "release": d.get("release"), "seed": d.get("seed"), "note": d.get("note"), "rate": gold.error_rate(d["items"])} for k, d in docs.items()],
+            "all": gold.error_rate([i for d in docs.values() for i in d["items"]]), "ticker": t or None, "items": items, "problems": problems,
+            "verdicts": list(gold.VERDICTS), "live": live_ok}
 
 
 def packet(version: str) -> bytes | None:
@@ -468,7 +471,7 @@ class Handler(BaseHTTPRequestHandler):
             finally:
                 con.close()
         if name == "gold":  # T82: the gold set, ?t=TICKER for its items; read-only, the verdict is a POST below
-            return self._json(gold_view(q.get("t")))
+            return self._guard(lambda: self._json(gold_view(q.get("t"))))
         if name == "failures":  # T54: the failure types as data (taxonomy/failures.yaml); counts are numbers of types, never instances
             from . import failures
             types = failures.load()

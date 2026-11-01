@@ -2,10 +2,14 @@
  "ticker": "APLD",
  "release": "v1.9.0",
  "seed": "20261027|v1.9.0|APLD",
- "drawn_at": "2026-11-01T09:22:05+00:00",
+ "drawn_at": "2026-11-01T09:39:44+00:00",
  "per_kind": 10,
  "untagged_share": 0.6,
- "how": "Values stratified by field and year; facts stratified by field and year with the untagged ones (no XBRL twin) oversampled. A verdict is right, wrong or cant_say, given on the Proof page (Gold set); `ledger gold --draw` never overwrites one.",
+ "draws": [
+  "v1.9.0"
+ ],
+ "note": null,
+ "how": "Values stratified by field and year; facts stratified by field and year with the untagged ones (no XBRL twin) oversampled; rows with no value are not drawn. A verdict is right, wrong or cant_say, given on the Proof page (Gold set); `ledger gold --draw` never overwrites one.",
  "items": [
   {
    "id": "value|APLD|revenue||FY2024",
@@ -34,7 +38,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|APLD|capex||FY2022",
@@ -63,7 +70,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|APLD|opex||FY2026",
@@ -125,7 +135,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|APLD|revenue||FY2023",
@@ -154,7 +167,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|APLD|capex||FY2025",
@@ -183,7 +199,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|APLD|opex||FY2023",
@@ -234,7 +253,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|APLD|revenue||FY2026",
@@ -263,7 +285,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|APLD|opex||FY2022",
@@ -314,7 +339,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|APLD|capex||FY2024",
@@ -343,7 +371,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "value|APLD|opex||FY2025",
@@ -405,7 +436,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|APLD|segment_capex|Data Center Hosting Business|FY2025",
@@ -445,7 +479,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|APLD|ppe_category|Other equipment and fixtures|FY2023",
@@ -474,7 +511,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|APLD|segment_revenue|Cloud Services Business|FY2024",
@@ -503,7 +543,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|APLD|segment_capex|Data Center Hosting Business|FY2026",
@@ -532,7 +575,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|APLD|ppe_category|Other Equipment and Fixtures|FY2021",
@@ -561,7 +607,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|APLD|ppe_category|Information Systems and Software|FY2022",
@@ -601,7 +650,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|APLD|ppe_category|Building|FY2026",
@@ -630,7 +682,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|APLD|segment_revenue|Data Center Hosting Business|FY2025",
@@ -670,7 +725,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|APLD|finance_lease_liability||FY2022",
@@ -699,7 +757,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   },
   {
    "id": "fact|APLD|ppe_category|Land improvements|FY2023",
@@ -728,7 +789,10 @@
    "verdict": null,
    "note": "",
    "by": null,
-   "at": null
+   "at": null,
+   "release": "v1.9.0",
+   "seed": "20261027|v1.9.0|APLD",
+   "drawn_at": "2026-11-01T09:39:44+00:00"
   }
  ]
 }

@@ -17,6 +17,7 @@ cells) and a person's verdict: right, wrong or can't say, a note, `by` (on confi
   the denominator and counted beside it."""
 from __future__ import annotations
 
+import contextlib
 import json
 import math
 import os
@@ -115,9 +116,9 @@ def sample(cands: dict, version: str, ticker: str, per_kind: int = PER_KIND) -> 
     """The draw for one company: values stratified by field and year; facts with the untagged ones oversampled (at least
     UNTAGGED_SHARE of the facts when the company has that many), each part stratified by field and year."""
     rng = random.Random(seed(version, ticker))
-    vals = stratified(cands["values"], per_kind, rng)
-    untagged = [f for f in cands["facts"] if f["untagged"]]
-    tagged = [f for f in cands["facts"] if not f["untagged"]]
+    vals = stratified([v for v in cands["values"] if v["value"] is not None], per_kind, rng)  # a blank claims nothing a person can verify at a cell
+    untagged = [f for f in cands["facts"] if f["untagged"] and f["value"] is not None]
+    tagged = [f for f in cands["facts"] if not f["untagged"] and f["value"] is not None]
     k_un = min(len(untagged), max(math.ceil(per_kind * UNTAGGED_SHARE), per_kind - len(tagged)))
     facts = stratified(untagged, k_un, rng) + stratified(tagged, per_kind - k_un, rng)
     return vals + facts
@@ -133,9 +134,59 @@ def load(ticker: str, root: Path | None = None) -> dict | None:
 
 
 def load_all(root: Path | None = None) -> dict:
-    """{ticker: the gold file} for every gold/<TICKER>.json."""
+    """{ticker: the gold file} for every gold/<TICKER>.json that reads and validates; a bad file is left out (see `load_checked`)."""
+    return load_checked(root)[0]
+
+
+ITEM_KEYS = ("id", "kind", "ticker", "field", "period", "value", "verdict")
+
+
+def validate(doc, name: str) -> list[str]:
+    """What is wrong with a gold file's shape, [] when nothing: an object with `items` a list of objects, each with the
+    claim keys (the `value` key present even when it is null), `verdict` exactly one of VERDICTS or null, and a verdict
+    carrying a person's `by` and an `at`."""
+    if not isinstance(doc, dict) or not isinstance(doc.get("items"), list):
+        return [f"{name}: not a gold file (no items list)"]
+    out = []
+    for n, it in enumerate(doc["items"]):
+        if not isinstance(it, dict):
+            out.append(f"{name}: item {n} is not an object")
+            continue
+        missing = [k for k in ITEM_KEYS if k not in it]
+        if missing:
+            out.append(f"{name}: item {it.get('id', n)} lacks {', '.join(missing)}")
+        elif it["verdict"] is not None and it["verdict"] not in VERDICTS:
+            out.append(f"{name}: item {it['id']} has verdict {it['verdict']!r}, not one of {', '.join(VERDICTS)} or null")
+        elif it["verdict"] is not None and not (is_person(it.get("by")) and it.get("at")):
+            out.append(f"{name}: item {it['id']} has a verdict without a person's by and an at")
+    return out
+
+
+def load_checked(root: Path | None = None, expect: list[str] | None = None) -> tuple[dict, list[str]]:
+    """({ticker: doc} for the files that read and validate, [problems]). Each file is read on its own, so one corrupt file
+    names itself and the others still load. With `expect` (the proven set), a missing gold/ folder, a company with no
+    file and a file with no items are problems too: a gold set that is not there never passes."""
     d = root or GOLD
-    return {p.stem: json.loads(p.read_text()) for p in sorted(d.glob("*.json"))} if d.exists() else {}
+    docs, problems = {}, []
+    if not d.exists():
+        return {}, [f"no {d.name}/ folder: run `ledger gold --draw`"] if expect else []
+    for p in sorted(d.glob("*.json")):
+        try:
+            doc = json.loads(p.read_text())
+        except (OSError, ValueError) as e:
+            problems.append(f"{d.name}/{p.name}: does not read ({e.__class__.__name__}: {str(e)[:120]})")
+            continue
+        bad = validate(doc, f"{d.name}/{p.name}")
+        if bad:
+            problems.extend(bad)
+            continue
+        docs[p.stem] = doc
+    for t in expect or []:
+        if not path(t, d).exists():
+            problems.append(f"{d.name}/{t}.json: missing (every proven company has a gold file)")
+        elif t in docs and not docs[t]["items"]:
+            problems.append(f"{d.name}/{t}.json: no items")
+    return docs, problems
 
 
 def has_verdict(it: dict) -> bool:
@@ -143,30 +194,65 @@ def has_verdict(it: dict) -> bool:
 
 
 def merge(old: dict | None, drawn: list[dict]) -> list[dict]:
-    """The new draw, with every item that already carries a verdict kept as it is (claim and verdict), whether the new
-    draw picked it again or not. Items with no verdict are replaced by the draw."""
-    kept = {it["id"]: it for it in (old or {}).get("items", []) if has_verdict(it)}
+    """The new draw, with every item that already carries a verdict kept as it is (claim, verdict and the draw it came
+    from: release, seed, drawn_at), whether the new draw picked it again or not. Items with no verdict are replaced."""
+    kept = {it["id"]: it for it in (old or {}).get("items", []) if isinstance(it, dict) and has_verdict(it)}
     out = [kept.pop(it["id"], it) for it in drawn]
     return out + list(kept.values())
 
 
+@contextlib.contextmanager
+def _locked(p: Path):
+    """The per-company lock every writer of gold/<TICKER>.json holds (fcntl, a lock file beside it): `record` and `draw`."""
+    import fcntl
+    lock = p.with_name(f".{p.name}.lock")
+    with open(lock, "a") as fh:
+        fcntl.flock(fh, fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(fh, fcntl.LOCK_UN)
+
+
+def header(t: str, version: str, per_kind: int, items: list[dict], old: dict | None) -> dict:
+    """The file's header. `release`, `seed`, `drawn_at` are this draw's; each item carries its own, so a file whose
+    verdicted items come from earlier draws says so (`draws`, `note`), and a company past per_kind + per_kind says why."""
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    draws = sorted({i.get("release") for i in items if i.get("release")}, key=lambda v: [int(x) for x in v.lstrip("v").split(".")] if v[1:].replace(".", "").isdigit() else [0])
+    nv, nf = sum(i["kind"] == "value" for i in items), sum(i["kind"] == "fact" for i in items)
+    notes = []
+    if len(draws) > 1:
+        notes.append(f"mixes draws: {', '.join(draws)}; items with a verdict keep the draw they came from (release, seed, drawn_at on each item)")
+    if nv > per_kind or nf > per_kind:
+        notes.append(f"{nv} values and {nf} facts, past {per_kind} + {per_kind}: items with a verdict from an earlier draw are kept even when this draw did not pick them")
+    return {"ticker": t, "release": version, "seed": seed(version, t), "drawn_at": now, "per_kind": per_kind, "untagged_share": UNTAGGED_SHARE, "draws": draws,
+            "note": "; ".join(notes) or None,
+            "how": "Values stratified by field and year; facts stratified by field and year with the untagged ones (no XBRL twin) oversampled; rows with no value are not drawn. "
+                   "A verdict is right, wrong or cant_say, given on the Proof page (Gold set); `ledger gold --draw` never overwrites one.",
+            "items": items}
+
+
 def draw(con, version: str, tickers: list[str] | None = None, root: Path | None = None, per_kind: int = PER_KIND, evidence: dict | None = None) -> dict:
-    """Write gold/<TICKER>.json for each company: the sample for `version`, merged with the verdicts on file. A file whose
-    items would not change is left as it is. Returns {ticker: {items, values, facts, untagged, kept, written}}."""
+    """Write gold/<TICKER>.json for each company: the sample for `version`, merged with the verdicts on file. The sample is
+    built first (slow, no lock); then, under the same per-company lock `record` holds, the file is read again, merged and
+    replaced, so a verdict recorded while the sample was being built is kept. A file whose items would not change is
+    left as it is. Returns {ticker: {items, values, facts, untagged, kept, written}}."""
     d = root or GOLD
     d.mkdir(parents=True, exist_ok=True)
     out = {}
     for t in tickers or PROVEN:
-        old = load(t, d)
-        items = merge(old, sample(candidates(con, t, evidence), version, t, per_kind))
-        written = not old or old.get("items") != items or old.get("release") != version
-        if written:
-            doc = {"ticker": t, "release": version, "seed": seed(version, t), "drawn_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                   "per_kind": per_kind, "untagged_share": UNTAGGED_SHARE,
-                   "how": "Values stratified by field and year; facts stratified by field and year with the untagged ones (no XBRL twin) oversampled. "
-                          "A verdict is right, wrong or cant_say, given on the Proof page (Gold set); `ledger gold --draw` never overwrites one.",
-                   "items": items}
-            _write(path(t, d), doc)
+        now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        drawn = [{**i, "release": version, "seed": seed(version, t), "drawn_at": now} for i in sample(candidates(con, t, evidence), version, t, per_kind)]
+        p = path(t, d)
+        with _locked(p):
+            old = load(t, d)
+            if old is not None and validate(old, p.name):
+                raise ValueError(f"{p.name} does not validate ({'; '.join(validate(old, p.name))[:300]}); fix it before drawing, nothing written")
+            items = merge(old, drawn)
+            same = lambda xs: [{k: v for k, v in i.items() if k != "drawn_at"} for i in xs]  # a redraw of the same version changes nothing
+            written = not old or same(old.get("items", [])) != same(items) or old.get("release") != version
+            if written:
+                _write(p, header(t, version, per_kind, items, old))
         out[t] = {"items": len(items), "values": sum(i["kind"] == "value" for i in items), "facts": sum(i["kind"] == "fact" for i in items),
                   "untagged": sum(bool(i["untagged"]) for i in items), "kept": sum(has_verdict(i) for i in items), "written": written}
     return out
@@ -190,7 +276,6 @@ def record(ticker: str, iid: str, verdict: str, note: str, by: str, root: Path |
     read once, changed in that one item, written to a temporary file and moved into place. Refuses a verdict off
     VERDICTS, a `by` that is not a person (status.is_person: config.PEOPLE), a company with no gold file and an item not
     in it; nothing is written then (ValueError, KeyError)."""
-    import fcntl
     if verdict not in VERDICTS:
         raise ValueError(f"a verdict is one of {', '.join(VERDICTS)}, not {verdict!r}")
     by = str(by or "").strip()
@@ -199,21 +284,16 @@ def record(ticker: str, iid: str, verdict: str, note: str, by: str, root: Path |
     if verdict in ("wrong", "cant_say") and not str(note or "").strip():
         raise ValueError(f"a {VERDICT_WORD[verdict]!r} verdict needs a note: what the filing shows")
     p = path(str(ticker), root)
-    if not p.exists() or p.parent != (root or GOLD) or not str(ticker).isalnum():
+    if not str(ticker).isalnum() or p.parent != (root or GOLD) or not p.exists():
         raise KeyError(f"no gold file for {ticker!r}")
-    lock = p.with_name(f".{p.name}.lock")
-    with open(lock, "a") as fh:
-        fcntl.flock(fh, fcntl.LOCK_EX)
-        try:
-            doc = json.loads(p.read_text())
-            it = next((i for i in doc["items"] if i["id"] == iid), None)
-            if it is None:
-                raise KeyError(f"no gold item {iid!r} for {ticker}")
-            it.update({"verdict": verdict, "note": str(note or "").strip(), "by": by, "at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
-            _write(p, doc)
-            return it
-        finally:
-            fcntl.flock(fh, fcntl.LOCK_UN)
+    with _locked(p):
+        doc = json.loads(p.read_text())
+        it = next((i for i in doc["items"] if i["id"] == iid), None)
+        if it is None:
+            raise KeyError(f"no gold item {iid!r} for {ticker}")
+        it.update({"verdict": verdict, "note": str(note or "").strip(), "by": by, "at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
+        _write(p, doc)
+        return it
 
 
 # ── the error rate ─────────────────────────────────────────────────────────────────────────────────────────────────
@@ -265,15 +345,20 @@ def what(it: dict) -> str:
     return f"{it['ticker']} {it['field']}{' ' + it['dimension'] if it.get('dimension') else ''} {it['period']}"
 
 
-def compare(gold: dict, values: list[dict], facts: list[dict], reference: list[dict] = (), res_index: dict | None = None) -> dict:
-    """Every gold item with a verdict against the live tables. right: the live value must equal the gold value (a blank,
-    or a missing row, is not equal). wrong: the live value must differ from it, or the row must be open; a known-wrong
-    value that still ships is a failure. cant_say passes nothing and fails nothing. Items with no verdict are counted
-    as unverified, never as a pass. Returns {ok, failures: [str], checked, right, wrong, cant_say, unverified, items}."""
+def compare(gold: dict, values: list[dict], facts: list[dict], reference: list[dict] = (), res_index: dict | None = None, problems: list[str] = ()) -> dict:
+    """Every gold item with a verdict against the live tables, by value only (a row open for another reason is the Open
+    line's job, not gold's):
+    - right: the gold value must not be null, the row must be there, and its value must equal the gold value;
+    - wrong: the row must be there ("row gone, re-verify"); the same value is a failure unless the row is open (a
+      known-wrong value that still ships); a blank is open; a different number is "changed since verdict, re-verify",
+      a failure too, since nobody has said the new number is right;
+    - cant_say passes nothing and fails nothing; no verdict is unverified, never a pass.
+    `problems` (a missing or corrupt gold file, `load_checked`) are failures. `state`: fail (any failure), unverified
+    (nothing failed and nothing was checked, or some items have no verdict), pass (every item has a verdict, all hold)."""
     live = live_index(values, facts)
     looked_up = {r["ticker"] for r in reference}
     xbrl = {(r["ticker"], r["field"], r["period"]): num(r["value"]) for r in reference}
-    out = {"failures": [], "checked": 0, "right": 0, "wrong": 0, "cant_say": 0, "unverified": 0, "items": 0}
+    out = {"failures": list(problems), "checked": 0, "right": 0, "wrong": 0, "cant_say": 0, "unverified": 0, "items": 0}
     for t, doc in sorted(gold.items()):
         for it in doc.get("items", []):
             out["items"] += 1
@@ -285,31 +370,51 @@ def compare(gold: dict, values: list[dict], facts: list[dict], reference: list[d
             if v == "cant_say":
                 continue
             out["checked"] += 1
-            row = live.get(it["id"])
+            row, want = live.get(it["id"]), num(it.get("value"))
             got = num(row.get("value")) if row else None
-            if v == "right" and got != num(it["value"]):
-                out["failures"].append(f"{it['id']}: gold says right at {it['value']} (by {it.get('by')}), the live table has "
-                                       + ("no row" if row is None else f"{got if got is not None else 'a blank'} ({row.get('label')})"))
-            if v == "wrong" and got == num(it["value"]) and not is_open(row, looked_up, xbrl, res_index):
-                out["failures"].append(f"{it['id']}: gold says {it['value']} is wrong (by {it.get('by')}), and the live table still ships it ({row.get('label')}), not open")
+            who = f"(by {it.get('by')}, {str(it.get('at') or '')[:10]})"
+            if v == "right":
+                if want is None:
+                    out["failures"].append(f"{it['id']}: gold says right but holds no value {who}; re-verify")
+                elif row is None:
+                    out["failures"].append(f"{it['id']}: gold says right at {want} {who}, the live table has no such row (row gone, re-verify)")
+                elif got != want:
+                    out["failures"].append(f"{it['id']}: gold says right at {want} {who}, the live table has {got if got is not None else 'a blank'} ({row.get('label')})")
+            else:
+                if row is None:
+                    out["failures"].append(f"{it['id']}: gold says {want} is wrong {who}, and the row is gone (row gone, re-verify)")
+                elif got is None:
+                    pass  # blank: open, nothing ships
+                elif got == want:
+                    if not is_open(row, looked_up, xbrl, res_index):
+                        out["failures"].append(f"{it['id']}: gold says {want} is wrong {who}, and the live table still ships it ({row.get('label')}), not open")
+                else:
+                    out["failures"].append(f"{it['id']}: gold says {want} is wrong {who}, the live table now has {got} (changed since verdict, re-verify)")
     out["ok"] = not out["failures"]
+    out["state"] = "fail" if out["failures"] else "unverified" if out["unverified"] or not out["checked"] else "pass"
     return out
 
 
-def compare_db(con, gold: dict | None = None, res_index: dict | None = None) -> dict:
-    """`compare` against a database's values, facts and reference_values (the golden run's temporary one, or the working one)."""
+def compare_db(con, gold: dict | None = None, res_index: dict | None = None, problems: list[str] | None = None) -> dict:
+    """`compare` against a database's values, facts and reference_values (the golden run's temporary one, or the working
+    one). With no `gold` given, gold/ is loaded and checked against config.PROVEN: missing, empty or corrupt files fail."""
     from . import resolutions
-    gold = load_all() if gold is None else gold
+    if gold is None:
+        gold, problems = load_checked(expect=PROVEN)
     tickers = sorted(gold)
     q = lambda sql: [dict(zip([c[0] for c in cur.description], r)) for cur in [con.execute(sql, [tickers])] for r in cur.fetchall()]
     return compare(gold, q('select ticker, field, period, value, label from "values" where ticker in (select unnest(?))'),
                    q("select ticker, field, dimension, period, value, label from facts where ticker in (select unnest(?))"),
                    q("select ticker, field, period, value from reference_values where ticker in (select unnest(?))"),
-                   resolutions.by_row() if res_index is None else res_index)
+                   resolutions.by_row() if res_index is None else res_index, problems or ())
 
 
 def summary_line(c: dict) -> str:
-    if not c["items"]:
-        return "gold: no gold/ files"
-    head = f"gold: {c['checked']} verdicts checked against the live tables, {len(c['failures'])} failing; {c['cant_say']} can't say; unverified: {c['unverified']} of {c['items']}"
+    """The gold line the CLI prints, its own line beside golden's: fail, unverified N of M, or pass."""
+    if c["state"] == "fail":
+        head = f"gold: FAIL, {len(c['failures'])} failing; {c['checked']} verdicts checked, {c['cant_say']} can't say, unverified {c['unverified']} of {c['items']}"
+    elif c["state"] == "unverified":
+        head = f"gold: unverified {c['unverified']} of {c['items']} ({c['checked']} verdicts checked against the live tables, all hold; {c['cant_say']} can't say). Not a pass."
+    else:
+        head = f"gold: pass, {c['checked']} verdicts hold against the live tables, {c['cant_say']} can't say"
     return head + "".join(f"\n  FAIL {f}" for f in c["failures"])

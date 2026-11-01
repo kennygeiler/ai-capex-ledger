@@ -14,12 +14,17 @@ function stageCell(st) {
     open ? h('span', {class: 'badge bg-red-lt', title: 'open: needs a rule or a definition (blocked counted in)'}, int(open)) : h('span', {class: 'text-secondary', title: 'open'}, '0'),
     blocked ? [h('span', {class: 'text-secondary'}, ' · '), h('span', {class: 'badge bg-red-lt', title: 'blocked: refuses the release'}, `${int(blocked)} blocked`)] : '');
 }
+// T82: golden's tables and the gold verdicts are two lines, never one: equal tables with nothing verified is not a gold pass
+const tablesOk = (g) => (g.tables_ok != null ? g.tables_ok : g.ok && !(g.gold && g.gold.failures && g.gold.failures.length));
+const goldState = (x) => (!x ? 'not run' : x.state === 'fail' ? `${int(x.failures.length)} failing` : x.state === 'pass' ? `pass, ${int(x.checked)} verdicts hold` : `unverified ${int(x.unverified)} of ${int(x.items)}`);
+const goldBadge = (x) => h('a', {href: '#gold', class: 'badge ' + (!x ? 'bg-secondary-lt' : x.state === 'fail' ? 'bg-red-lt' : x.state === 'pass' ? 'bg-green-lt' : 'bg-yellow-lt'), title: x && x.failures && x.failures.length ? x.failures.slice(0, 5).join('\n') : 'the gold set: a person’s verdicts checked against the tables golden produced',
+  onclick: (e) => { e.preventDefault(); const el = document.getElementById('gold'); if (el) el.scrollIntoView(); }}, `gold: ${goldState(x)}`);
 async function proofPage(view) {
   const [b, g] = await Promise.all([api('/api/v1/proof'), api('/api/v1/golden').catch(() => ({ok: null}))]);
   const proven = b.proven.filter((c) => c.proven).length;
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'}, h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Proof'),
     h('div', {class: 'text-secondary small'}, h('b', {class: 'text-body'}, `${proven} of ${b.proven.length}`), ' proven. Every number is ', h('span', {class: 'text-green'}, 'checked'), ' against something independent, ', h('span', {class: 'text-azure'}, 'explained'), ' by a rule or a definition on file, or ', h('span', {class: 'text-red'}, 'open'), '. Proven means nothing open at any stage.')),
-    h('div', {class: 'col-auto'}, g.ok == null ? h('span', {class: 'badge bg-secondary-lt'}, 'golden: not run') : h('span', {class: 'badge ' + (g.ok ? 'bg-green-lt' : 'bg-red-lt')}, g.ok ? `golden: equal, ${day(g.at)}` : `golden: differs, ${day(g.at)}`))));
+    h('div', {class: 'col-auto'}, g.ok == null ? h('span', {class: 'badge bg-secondary-lt'}, 'golden: not run') : [h('span', {class: 'badge ' + (tablesOk(g) ? 'bg-green-lt' : 'bg-red-lt')}, tablesOk(g) ? `golden: equal, ${day(g.at)}` : `golden: differs, ${day(g.at)}`), ' ', goldBadge(g.gold)])));
   const table_ = h('div', {class: 'card'}, h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table'},
     h('thead', {}, h('tr', {}, h('th', {}, 'Company'), b.stages.map((s) => h('th', {class: 'num'}, s.label)), h('th', {}, ''))),
     h('tbody', {}, b.proven.map((c) => h('tr', {class: 'item', tabindex: 0, onclick: () => go('proof/' + c.ticker), onkeydown: (e) => { if (e.key === 'Enter') go('proof/' + c.ticker); }},
@@ -41,7 +46,7 @@ async function proofPage(view) {
   const releases = dtable('Releases', [{t: 'Version', k: 'version'}, {t: 'Signed', f: (r) => (r.signed_by ? [`${r.signed_by}, ${day(r.signed_at)}`, r.published === false ? h('span', {class: 'text-red'}, ', not published') : ''] : h('span', {class: 'text-secondary'}, 'not signed'))}, {t: 'Values', num: 1, f: (r) => int(r.rows.length)},
     {t: 'Open at signing', num: 1, f: (r) => atSigning(r, (c) => int(c.open), true)}, {t: 'No entry at signing', num: 1, f: (r) => atSigning(r, (c) => int(c.unmapped))}, {t: 'In scope', f: (r) => atSigning(r, (c) => `${int(c.scope.length)}: ${c.scope.join(', ')}`)},
     {t: 'Packet', f: (r) => (r.packet ? h('a', {href: `/packet/${r.version}.zip`}, 'zip') : '')}], [...rel.releases].reverse().slice(0, 6), {note: h('a', {href: '#release'}, 'the next release’s checklist')});
-  const golden = h('details', {class: 'card mt-3'}, h('summary', {class: 'card-header py-2', style: 'cursor:pointer'}, h('h3', {class: 'card-title m-0'}, 'Golden test'), h('span', {class: 'ms-3 text-secondary small'}, g.ok == null ? 'not run yet' : `${g.ok ? 'equal' : 'differs'}, ${when(g.at)}${g.tickers ? ', ' + g.tickers.join(', ') : ''}${g.gold ? `; gold: ${int(g.gold.checked)} verdicts checked, ${int(g.gold.failures.length)} failing, unverified ${int(g.gold.unverified)} of ${int(g.gold.items)}` : ''}`)),
+  const golden = h('details', {class: 'card mt-3'}, h('summary', {class: 'card-header py-2', style: 'cursor:pointer'}, h('h3', {class: 'card-title m-0'}, 'Golden test'), h('span', {class: 'ms-3 text-secondary small'}, g.ok == null ? 'not run yet' : `tables ${tablesOk(g) ? 'equal' : 'differ'}, ${when(g.at)}${g.tickers ? ', ' + g.tickers.join(', ') : ''}${g.gold ? `; gold ${goldState(g.gold)}` : ''}`)),
     h('div', {class: 'card-body py-2'}, h('p', {class: 'small text-secondary'}, 'The code stages run on the frozen inputs for the proven set and must reproduce the expected tables. Any change to a parser, a rule, a loader or the taxonomy has to pass it, or change the expectation on purpose.'),
       h('pre', {class: 'raw'}, 'uv run python -m ledger golden --check\nuv run python -m ledger golden --freeze   # change the expectation on purpose, then commit with the reason'),
       g.steps ? h('div', {class: 'mt-2'}, dtable('Last run', [{t: 'Step', k: 'step'}, {t: 'Exit', num: 1, k: 'exit'}], g.steps)) : '',
@@ -66,27 +71,29 @@ const goldRate = (r) => {
 function goldSet() {
   const wrap = h('div', {class: 'mt-3', id: 'gold'});
   goldSet.draw = async (ticker) => {
+    goldNeedsMe.clear();  // the buttons of the last draw are gone
     let g;
     try { g = await api('/api/v1/gold' + (ticker ? `?t=${encodeURIComponent(ticker)}` : '')); } catch (e) { wrap.replaceChildren(h('p', {class: 'text-secondary small'}, `Gold set: ${e.message}`)); return; }
-    if (!g.companies.length) { wrap.replaceChildren(h('p', {class: 'text-secondary small'}, 'Gold set: no gold/ files yet. ', h('code', {}, 'uv run python -m ledger gold --draw'))); return; }
+    const probs = (g.problems || []).length ? h('div', {class: 'text-red small mb-2'}, h('b', {}, 'Gold files with problems: '), g.problems.join('; ')) : '';
+    if (!g.companies.length) { wrap.replaceChildren(probs, h('p', {class: 'text-secondary small'}, 'Gold set: no gold/ files yet. ', h('code', {}, 'uv run python -m ledger gold --draw'))); return; }
     const t = g.ticker || null;
     const head = h('div', {class: 'mb-2'}, h('h2', {class: 'h3 m-0'}, 'Gold set'),
       h('div', {class: 'text-secondary small'}, 'About 10 values and 10 facts per company, drawn at random with the release version in the seed, untagged facts (no XBRL twin) oversampled. Open the filing at the row, compare, and give a verdict under your name. ',
-        h('code', {}, 'ledger golden --check'), ' fails when a “right” number changes or a “wrong” one still ships.'),
+        h('code', {}, 'ledger golden --check'), ' fails when a “right” number changes, a “wrong” one still ships or changes, or a row is gone; items with no verdict show as unverified, never as a pass.'),
       h('div', {class: 'small mt-1'}, h('b', {}, 'Error rate, all companies: '), goldRate(g.all), g.all.untagged.n ? `; untagged facts ${int(g.all.untagged.wrong)} wrong of ${int(g.all.untagged.n)}` : ''));
     const picker = h('div', {class: 'btn-group flex-wrap mb-2', role: 'group', 'aria-label': 'Company'}, g.companies.map((c) => {
       const done = c.rate.items - c.rate.unverified;
       return h('button', {type: 'button', class: 'btn btn-sm ' + (c.ticker === t ? 'btn-primary' : 'btn-outline-secondary'), 'aria-pressed': String(c.ticker === t), title: goldRate(c.rate) + `; drawn for ${c.release}`, onclick: () => goldSet.draw(c.ticker)},
         c.ticker, h('span', {class: 'ms-1 ' + (c.ticker === t ? '' : 'text-secondary')}, `${done}/${c.rate.items}`));
     }));
-    if (!t) { wrap.replaceChildren(head, picker, h('p', {class: 'text-secondary small'}, 'Pick a company to see its items.')); return; }
+    if (!t) { wrap.replaceChildren(head, probs, picker, h('p', {class: 'text-secondary small'}, 'Pick a company to see its items.')); return; }
     const co = g.companies.find((c) => c.ticker === t);
     const claim = (it) => h('div', {}, h('div', {class: 'fw-semibold'}, `${FIELDS[it.field] || it.field}${it.dimension ? ': ' + it.dimension : ''}`),
       h('div', {class: 'text-secondary small'}, it.period, ' · ', it.kind, it.untagged ? [' · ', h('span', {class: 'text-orange', title: 'no XBRL counterpart: nothing independent vouches for this number'}, 'untagged')] : it.xbrl != null ? ` · XBRL ${goldUsd(it.xbrl)}` : ''));
     const value = (it) => {
       const lv = it.live, moved = lv && lv.value !== it.value;
       return h('div', {}, h('div', {class: 'num text-nowrap'}, goldUsd(it.value)),
-        !lv ? h('div', {class: 'text-secondary small'}, 'live: database busy') : moved ? h('div', {class: 'text-red small'}, `live now ${goldUsd(lv.value)}`) : lv.open ? h('div', {class: 'text-yellow small'}, 'live: open') : '');
+        !lv ? h('div', {class: 'text-secondary small'}, 'live: database busy') : lv.gone ? h('div', {class: 'text-red small'}, 'live: row gone') : moved ? h('div', {class: 'text-red small'}, `live now ${goldUsd(lv.value)}`) : lv.open ? h('div', {class: 'text-yellow small'}, 'live: open') : '');
     };
     const cited = (it) => h('div', {}, it.cites.length ? it.cites.map((c) => h('div', {class: 'small'},
       h('b', {}, c.cell_text || '—'), ` in “${c.row || '?'}”, “${(c.column || '?').replaceAll(' | ', ' ')}”`,
@@ -113,7 +120,7 @@ function goldSet() {
     };
     const tbl = dtable(`${t}: ${int(co.rate.items)} items, drawn for ${co.release}`, [{t: 'Claim', f: claim}, {t: 'Value', num: 1, f: value}, {t: 'Cited cell', f: cited}, {t: 'Verdict', f: verdict}],
       g.items.map((it) => ({...it, _cls: it.live && it.live.value !== it.value ? 'table-danger' : null})), {note: goldRate(co.rate)});
-    wrap.replaceChildren(head, picker, tbl);
+    wrap.replaceChildren(head, probs, picker, co.note ? h('p', {class: 'text-secondary small'}, co.note) : '', tbl);
   };
   return wrap;
 }

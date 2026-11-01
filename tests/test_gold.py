@@ -84,6 +84,45 @@ class Draw(unittest.TestCase):
         self.assertEqual((kept["verdict"], kept["value"], kept["by"]), ("right", first["value"], "Kenny Geiler"))  # the claim as verified, not the live value
 
 
+    def test_a_verdict_recorded_while_the_draw_runs_survives(self):
+        con = _db()
+        gold.draw(con, "v1.9.0", ["AMZN"], root=self.dir, evidence={})
+        iid = gold.load("AMZN", self.dir)["items"][0]["id"]
+        real = gold.candidates
+
+        def slow(*a, **kw):  # the draw is building its sample; a person presses Right meanwhile
+            gold.record("AMZN", iid, "right", "", "Kenny Geiler", root=self.dir)
+            return real(*a, **kw)
+        with mock.patch.object(gold, "candidates", side_effect=slow):
+            gold.draw(con, "v1.10.0", ["AMZN"], root=self.dir, evidence={})
+        it = next(i for i in gold.load("AMZN", self.dir)["items"] if i["id"] == iid)
+        self.assertEqual((it["verdict"], it["by"]), ("right", "Kenny Geiler"))
+
+    def test_rows_with_no_value_are_not_drawn(self):
+        con = _db()
+        con.execute('update "values" set value = null where field = \'capex\'')
+        con.execute("update facts set value = null where field = 'ppe_category'")
+        gold.draw(con, "v1.9.0", ["AMZN"], root=self.dir, evidence={})
+        items = gold.load("AMZN", self.dir)["items"]
+        self.assertTrue(all(i["value"] is not None for i in items))
+        self.assertFalse(any(i["field"] in ("capex", "ppe_category") for i in items))
+
+    def test_kept_verdicts_keep_their_draw_and_the_header_says_the_file_mixes(self):
+        con = _db()
+        gold.draw(con, "v1.9.0", ["AMZN"], root=self.dir, evidence={})
+        first = gold.load("AMZN", self.dir)["items"][0]
+        gold.record("AMZN", first["id"], "right", "", "Kenny Geiler", root=self.dir)
+        con.execute('delete from "values" where field = ? and period = ?', [first["field"], first["period"]])  # the redraw cannot pick it again
+        gold.draw(con, "v1.10.0", ["AMZN"], root=self.dir, evidence={})
+        doc = gold.load("AMZN", self.dir)
+        kept = next(i for i in doc["items"] if i["id"] == first["id"])
+        self.assertEqual((kept["release"], kept["seed"], kept["drawn_at"]), (first["release"], first["seed"], first["drawn_at"]))
+        self.assertEqual(kept["release"], "v1.9.0")
+        self.assertEqual((doc["release"], doc["draws"]), ("v1.10.0", ["v1.9.0", "v1.10.0"]))
+        self.assertIn("mixes draws", doc["note"])
+        self.assertIn("11 values", doc["note"])
+
+
 class Check(unittest.TestCase):
     def doc(self, items):
         return {"AMZN": {"items": items}}
@@ -120,13 +159,41 @@ class Check(unittest.TestCase):
         shipped = gold.compare(g, [self.row(value=5, label="agree")], [], res_index={})
         self.assertFalse(shipped["ok"])
         self.assertIn("still ships", shipped["failures"][0])
-        self.assertTrue(gold.compare(g, [self.row(value=6)], [], res_index={})["ok"])  # fixed
         self.assertTrue(gold.compare(g, [self.row(value=5, label="not_extracted")], [], res_index={})["ok"])  # open: does not ship as checked
+        self.assertTrue(gold.compare(g, [self.row(value=None, label="not_extracted")], [], res_index={})["ok"])  # a blank ships nothing
+
+    def test_wrong_changed_since_the_verdict_fails_re_verify(self):
+        c = gold.compare(self.doc([self.item("wrong", value=5, note="the filing shows 6")]), [self.row(value=6)], [], res_index={})
+        self.assertFalse(c["ok"])
+        self.assertIn("changed since verdict, re-verify", c["failures"][0])
+
+    def test_wrong_with_the_row_gone_fails_re_verify(self):
+        c = gold.compare(self.doc([self.item("wrong", value=5, note="x")]), [], [], res_index={})
+        self.assertIn("row gone, re-verify", c["failures"][0])
+
+    def test_wrong_fact_whose_dimension_was_renamed_is_row_gone(self):
+        it = {"id": gold.item_id("fact", "AMZN", "segment_revenue", "AWS", "FY2024"), "ticker": "AMZN", "field": "segment_revenue", "dimension": "AWS", "period": "FY2024", "value": 7, "verdict": "wrong", "note": "x"}
+        f = {"ticker": "AMZN", "field": "segment_revenue", "dimension": "Amazon Web Services", "period": "FY2024", "value": 7, "label": "no_reference"}
+        c = gold.compare(self.doc([it]), [], [f], res_index={})
+        self.assertFalse(c["ok"])
+        self.assertIn("row gone, re-verify", c["failures"][0])
+
+    def test_right_fails_on_a_null_gold_value_and_a_missing_row(self):
+        self.assertIn("holds no value", gold.compare(self.doc([self.item("right", value=None)]), [self.row(value=None, label="not_reported")], [], res_index={})["failures"][0])
+        self.assertIn("row gone", gold.compare(self.doc([self.item("right")]), [], [], res_index={})["failures"][0])
+
+    def test_right_is_value_only(self):
+        """An open row whose value is unchanged passes gold: open for another reason is the Open line's job (EVALS.md)."""
+        self.assertTrue(gold.compare(self.doc([self.item("right")]), [self.row(label="unresolved")], [], res_index={})["ok"])
 
     def test_unverified_is_counted_never_a_pass(self):
         c = gold.compare(self.doc([self.item(None), self.item("cant_say", note="?")]), [self.row(value=1)], [])
         self.assertEqual((c["unverified"], c["cant_say"], c["checked"]), (1, 1, 0))
-        self.assertIn("unverified: 1 of 2", gold.summary_line(c))
+        self.assertEqual(c["state"], "unverified")
+        line = gold.summary_line(c)
+        self.assertIn("unverified 1 of 2", line)
+        self.assertNotIn("pass,", line)
+        self.assertEqual(gold.compare({}, [], [])["state"], "unverified")  # nothing checked is never a pass
 
     def test_facts_match_by_dimension(self):
         it = {"id": gold.item_id("fact", "AMZN", "segment_revenue", "AWS", "FY2024"), "ticker": "AMZN", "field": "segment_revenue", "dimension": "AWS", "period": "FY2024", "value": 7, "verdict": "right"}
@@ -146,6 +213,86 @@ class Check(unittest.TestCase):
         c = golden.gold_check(con, self.doc([it]))
         self.assertFalse(c["ok"])
         self.assertIn("value|AMZN|revenue||FY2022", c["failures"][0])
+
+
+class Vacuous(unittest.TestCase):
+    """A gold set that is not there, or does not read, never passes; golden.json is still written on every path."""
+    def setUp(self):
+        self.dir = Path(tempfile.mkdtemp()) / "gold"
+        self.addCleanup(shutil.rmtree, self.dir.parent, True)
+
+    def check(self):
+        from ledger import golden
+        with mock.patch.object(gold, "GOLD", self.dir):
+            return golden.gold_check(_db())
+
+    def test_no_folder_fails(self):
+        c = self.check()
+        self.assertFalse(c["ok"])
+        self.assertIn("no gold/ folder", c["failures"][0])
+
+    def test_a_proven_company_without_a_file_or_items_fails_naming_it(self):
+        gold.draw(_db(), "v1.9.0", ["AMZN"], root=self.dir, evidence={})
+        (self.dir / "MSFT.json").write_text(json.dumps({"items": []}))
+        c = self.check()
+        self.assertFalse(c["ok"])
+        self.assertTrue(any("gold/NVDA.json: missing" in f for f in c["failures"]))
+        self.assertTrue(any("gold/MSFT.json: no items" in f for f in c["failures"]))
+
+    def test_a_corrupt_or_malformed_file_fails_naming_the_file_and_the_rest_still_load(self):
+        for t in PROVEN:
+            gold.draw(_db(t), "v1.9.0", [t], root=self.dir, evidence={})
+        (self.dir / "AMD.json").write_text("{not json")
+        doc = json.loads((self.dir / "GOOGL.json").read_text())
+        doc["items"][0]["verdict"] = "Right"
+        (self.dir / "GOOGL.json").write_text(json.dumps(doc))
+        doc = json.loads((self.dir / "MSFT.json").read_text())
+        del doc["items"][0]["value"]
+        (self.dir / "MSFT.json").write_text(json.dumps(doc))
+        c = self.check()
+        self.assertFalse(c["ok"])
+        joined = " ".join(c["failures"])
+        for want in ("gold/AMD.json: does not read", "gold/GOOGL.json", "'Right'", "gold/MSFT.json", "lacks value"):
+            self.assertIn(want, joined)
+        self.assertEqual(c["items"], 60)  # AMZN, APLD, NVDA still loaded
+
+    def test_a_check_that_raises_is_a_named_failure_not_a_traceback(self):
+        from ledger import golden
+        with mock.patch.object(gold, "compare_db", side_effect=RuntimeError("boom")):
+            c = golden.gold_check(_db())
+        self.assertFalse(c["ok"])
+        self.assertIn("boom", c["failures"][0])
+
+
+class Cli(unittest.TestCase):
+    """`ledger golden --check`: equal tables and a gold failure exit 1; equal tables and only unverified items exit 0, and
+    both lines print, so the tables' "equal" never reads as a gold pass."""
+    def run_cli(self, g_):
+        import contextlib
+        import io
+        from ledger.cli import golden as cli
+        root = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, root, True)
+        r = {"ok": g_["ok"], "diffs": {}, "log": [], "gold": g_}
+        buf = io.StringIO()
+        with mock.patch.object(cli, "check", return_value=r), mock.patch.object(cli.store, "ROOT", root), contextlib.redirect_stdout(buf):
+            code = cli.main(["--check"])
+        return code, buf.getvalue(), json.loads((root / "reports" / "golden.json").read_text())
+
+    def test_gold_failure_with_equal_tables_exits_1(self):
+        g_ = gold.compare({"AMZN": {"items": [Check().item("right")]}}, [Check().row(value=1)], [])
+        code, out, rep = self.run_cli(g_)
+        self.assertEqual(code, 1)
+        self.assertIn("every table equals", out)
+        self.assertIn("gold: FAIL", out)
+        self.assertEqual((rep["tables_ok"], rep["ok"], rep["gold"]["state"]), (True, False, "fail"))
+
+    def test_unverified_only_exits_0_and_says_unverified(self):
+        g_ = gold.compare({"AMZN": {"items": [Check().item(None)]}}, [Check().row()], [])
+        code, out, rep = self.run_cli(g_)
+        self.assertEqual(code, 0)
+        self.assertIn("gold: unverified 1 of 1", out)
+        self.assertEqual(rep["gold"]["state"], "unverified")
 
 
 class Rate(unittest.TestCase):
@@ -173,6 +320,8 @@ class Verdict(unittest.TestCase):
             gold.record("AMZN", self.iid, "maybe", "", "Kenny Geiler", root=self.dir)
         with self.assertRaises(ValueError):
             gold.record("AMZN", self.iid, "wrong", " ", "Kenny Geiler", root=self.dir)
+        with self.assertRaises(ValueError):
+            gold.record("AMZN", self.iid, "cant_say", "", "Kenny Geiler", root=self.dir)
         with self.assertRaises(KeyError):
             gold.record("AMZN", "value|AMZN|nope||FY1999", "right", "", "Kenny Geiler", root=self.dir)
         with self.assertRaises(KeyError):
@@ -192,8 +341,10 @@ class Verdict(unittest.TestCase):
             threading.Thread(target=srv.serve_forever, daemon=True).start()
             self.addCleanup(srv.shutdown)
 
-            def post(body, ctype="application/json"):
-                req = request.Request(f"http://127.0.0.1:{srv.server_address[1]}/api/gold/verdict", data=json.dumps(body).encode(), headers={"Content-Type": ctype}, method="POST")
+            base = f"http://127.0.0.1:{srv.server_address[1]}"
+
+            def post(body, ctype="application/json", origin=None):
+                req = request.Request(f"{base}/api/gold/verdict", data=json.dumps(body).encode(), headers={"Content-Type": ctype, **({"Origin": origin} if origin else {})}, method="POST")
                 try:
                     with request.urlopen(req) as r:
                         return r.status, json.loads(r.read())
@@ -203,7 +354,16 @@ class Verdict(unittest.TestCase):
             code, out = post(body)
             self.assertEqual(code, 400)
             self.assertIn("config.PEOPLE", out["error"])
-            self.assertEqual(post({**body, "by": "Kenny Geiler"}, ctype="text/plain")[0], 403)  # the guard every write has
+            self.assertEqual(post({**body, "by": "Kenny Geiler"}, ctype="text/plain")[0], 403)  # the guards every write has
+            self.assertEqual(post({**body, "by": "Kenny Geiler"}, origin="https://evil.example")[0], 403)
+            with mock.patch.object(app, "_con", side_effect=AssertionError("no database work without a ticker")):
+                with request.urlopen(f"{base}/api/v1/gold") as r:
+                    self.assertEqual(json.loads(r.read())["companies"][0]["ticker"], "AMZN")
+            try:
+                request.urlopen(f"{base}/api/v1/gold?t=BOGUS")
+                self.fail("?t=BOGUS answered 200")
+            except error.HTTPError as e:
+                self.assertEqual(e.code, 400)
             self.assertIsNone(gold.load("AMZN", self.dir)["items"][0]["verdict"])
             code, out = post({**body, "by": "Kenny Geiler"})
             self.assertEqual((code, out["verdict"], out["by"]), (200, "right", "Kenny Geiler"))

@@ -136,7 +136,10 @@ def gold_check(con, gold_docs: dict | None = None) -> dict:
     with a verdict (gold/<TICKER>.json) against the tables this run produced: right must still equal, wrong must differ
     or be open. Items with no verdict are reported as unverified, never as a pass."""
     from . import gold
-    return gold.compare_db(con, gold_docs)
+    try:
+        return gold.compare_db(con, gold_docs)
+    except Exception as e:  # never let gold stop golden.json being written: a failure that names itself
+        return {"ok": False, "state": "fail", "failures": [f"gold check raised {e.__class__.__name__}: {str(e)[:300]}"], "checked": 0, "right": 0, "wrong": 0, "cant_say": 0, "unverified": 0, "items": 0}
 
 
 def check(keep: bool = False, verbose: bool = False) -> dict:
