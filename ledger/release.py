@@ -33,8 +33,8 @@ def releases() -> list[Path]:
 
 
 def to_check(values) -> dict:
-    """{(ticker, field, period): why} for the values a person checks. A value that agrees with XBRL is verified by two
-    independent sources; the rest, and a fixed random sample of the agreeing ones, go to a person."""
+    """{(ticker, field, period): why} for the values a person checks. A value that agrees with XBRL is verified by an
+    independent reading (the agent's read of the cell and the filer's XBRL, both the filer's); the rest, and a fixed random sample of the agreeing ones, go to a person."""
     k = lambda v: (v["ticker"], v["field"], v["period"])
     have = sorted((v for v in values if v["value"] is not None), key=k)
     agree = [v for v in have if v["label"] == "agree"]
@@ -140,7 +140,8 @@ def build(version, values, extractions, exceptions, previous, confirmed=frozense
     """Release files as {name: text}. No timestamps inside, so the same inputs give the same hash (G7). `values` is every
     row of the table in scope, null values included: values.csv ships the rows with a value (checklist.packet replaces it
     with api.fetch's, the same set with the same columns), QUALITY.md counts the rest. handcheck: the hand-check file's
-    content and name when there is one, so QUALITY.md says what a person checked, or that nobody did (T64)."""
+    content and name when there is one, so QUALITY.md says what a person checked, or that nobody did (T64). LIMITATIONS.md
+    says what the data can't support (T68)."""
     ext = {e["extraction_id"]: e for e in extractions}
     rows = sorted(values, key=lambda v: (v["ticker"], v["field"], v["period"]))
     buf = io.StringIO()
@@ -175,8 +176,16 @@ def build(version, values, extractions, exceptions, previous, confirmed=frozense
     body += ["", without_value_line(rows) + "."] if blank else []
     diff = "\n".join([f"# Changes in {version}", ""] + body + [""])
     files = {"values.csv": buf.getvalue(), "facts.csv": facts_csv(list(facts)), "ai_spend.csv": ai_spend_csv(list(ai_spend)), "QUALITY.md": quality, "DIFF.md": diff}
+    files["LIMITATIONS.md"] = limitations_md(version, files)
     files["README.md"] = readme(version, rows, list(ai_spend), files)
     return files
+
+
+def limitations_md(version: str, files: dict) -> str:
+    """LIMITATIONS.md from taxonomy/limitations.yaml (T68), its computed counts read from `files` where they count rows
+    of the packet; checklist.packet writes it again once every list is in, as it does README.md."""
+    from .limitations import markdown
+    return markdown(version, files)
 
 
 def without_value_line(values) -> str:
@@ -399,8 +408,10 @@ def readme(version, rows, ai_spend=(), files=None) -> str:
         + (f" ({len(blank)} in this release: {', '.join(f'{t} {n}' for t, n in sorted(_by_ticker(blank).items()))}; QUALITY.md counts them by label)" if blank else " (none in this release)") + ".",
         "- `facts.csv`: facts from the notes: capex and revenue per segment, property and equipment by category, finance lease liabilities, purchase commitments; `xbrl` is the filing's own tagged value it was compared with, when there is one, `check_label` says agree or unresolved, and `first_reported` keeps the first filing's figure beside a restated one.",
         "- `ai_spend.csv`: what each 10-K's MD&A says about AI's part of capex and opex, one row per company, field, fiscal year and kind, with the sentence quoted.",
-        "- `QUALITY.md`: how many values agree with XBRL, what a person checked, and every note on definitions and restatements.",
+        "- `QUALITY.md`: how many values agree with XBRL, what was checked by machine, what a person checked (or that nobody did), and every note on definitions and restatements.",
         "- `DIFF.md`: what changed since the previous release.",
+        "- `LIMITATIONS.md`: what the data is for and not for, every known weakness with the rows it affects, the mitigation and the ticket that would close it, "
+        "and how releases, corrections and support work.",
         "- `manifest.json`: the content hash, the rule versions, the number of decisions applied, and under `provenance` what produced the rows: "
         "the prompt versions per reader and the models over the shipped rows, the parser versions over the filings in scope, rows whose run is unrecorded, "
         "the commit built on, and the sha256 of the definitions, taxonomy and resolutions files. `provenance` is the record; the top-level `prompt`, `parser` and `model` name the versions in use when the packet was built.",

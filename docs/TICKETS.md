@@ -687,7 +687,7 @@ are listed at the end.
   removed, and report catch rate per kind with denominators on the Agents section. Done when the report shows how
   much of the catch rate depends on XBRL, every escape with XBRL off is a row in `taxonomy/limitations.yaml` (T68), and
   the omission and wrong-table kinds are caught (by T81 and the T65 locator rule). About 1 day.
-- **T68 Limitations and methodology in every release.** [MR2, VP7, DQ6] `taxonomy/limitations.yaml`: id, the weakness,
+- **T68 Limitations and methodology in every release.** [MR2, VP7, DQ6] *Done 2 Nov 2026 (branch `t68-limitations`): `taxonomy/limitations.yaml` holds 11 entries (id, weakness, rows, mitigation, closes; `ledger/limitations.py` refuses one missing a field), 8 of them with counts computed at build time from the fault reports, failures.yaml, asset_types.yaml, config and the packet's own CSVs; `release.build` and `checklist.packet` write `LIMITATIONS.md` (intended use and not for use, the table, cadence, corrections, support = the signer in SIGNOFF.json); the README lists it; the checklist's informational line "Limitations with no mitigation" reads 2 (survivor bias, monitoring). QUALITY.md's wording was already right after T64; the `to_check` docstring and the README's QUALITY.md line were fixed. v1.9.0 is not built here: it carries the file when Kenny signs.* `taxonomy/limitations.yaml`: id, the weakness,
   rows affected (count), mitigation, the ticket that would close it. Seed: T67's escapes, "the answer key comes from the
   same filer", "one person builds, decides and signs", "N companies not proven", "the universe is today's AI-relevant
   names, survivor-biased for backtests", "45 failure types have no catching check" (T54), "interpretive fields of
