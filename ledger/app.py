@@ -368,6 +368,10 @@ class Handler(BaseHTTPRequestHandler):
             f = EVIDENCE / u.path.removeprefix("/evidence/")
             if f.parent == EVIDENCE and f.suffix == ".png" and f.exists():
                 return self._send(HTTPStatus.OK, f.read_bytes(), mimetypes.guess_type(f.name)[0])
+        if u.path.startswith("/pages/"):  # the page scripts app.html loads: ledger/pages/<name>.js, one file per page (T0)
+            f = PAGE.parent / "pages" / u.path.removeprefix("/pages/")
+            if f.parent == PAGE.parent / "pages" and f.suffix == ".js" and f.is_file():
+                return self._send(HTTPStatus.OK, f.read_bytes(), "application/javascript; charset=utf-8")
         self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
 
     def _v1(self, path: str, q: dict):

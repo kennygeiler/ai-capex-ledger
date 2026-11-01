@@ -1,0 +1,32 @@
+// ── Proof: the pipeline proves every number it produces, shown on the proven set first (docs/PROOF.md) ──
+const cnt = (n, cls) => h('span', {class: 'badge ' + cls}, int(n));
+function stageCell(st) {
+  const open = st.open.length;
+  return h('td', {class: 'num'}, h('span', {class: 'text-green fw-semibold', title: 'checked'}, int(st.checked)), h('span', {class: 'text-secondary'}, ' · '),
+    h('span', {class: 'text-azure', title: 'explained by a rule, a definition or a decision'}, int(st.explained)), h('span', {class: 'text-secondary'}, ' · '),
+    open ? h('span', {class: 'badge bg-red-lt', title: 'open: needs a rule or a definition'}, int(open)) : h('span', {class: 'text-secondary', title: 'open'}, '0'));
+}
+async function proofPage(view) {
+  const [b, g] = await Promise.all([api('/api/v1/proof'), api('/api/v1/golden').catch(() => ({ok: null}))]);
+  const proven = b.proven.filter((c) => c.proven).length;
+  const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'}, h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Proof'),
+    h('div', {class: 'text-secondary small'}, h('b', {class: 'text-body'}, `${proven} of ${b.proven.length}`), ' proven. Every number is ', h('span', {class: 'text-green'}, 'checked'), ' against something independent, ', h('span', {class: 'text-azure'}, 'explained'), ' by a rule or a definition on file, or ', h('span', {class: 'text-red'}, 'open'), '. Proven means nothing open at any stage.')),
+    h('div', {class: 'col-auto'}, g.ok == null ? h('span', {class: 'badge bg-secondary-lt'}, 'golden: not run') : h('span', {class: 'badge ' + (g.ok ? 'bg-green-lt' : 'bg-red-lt')}, g.ok ? `golden: equal, ${day(g.at)}` : `golden: differs, ${day(g.at)}`))));
+  const table_ = h('div', {class: 'card'}, h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table'},
+    h('thead', {}, h('tr', {}, h('th', {}, 'Company'), b.stages.map((s) => h('th', {class: 'num'}, s.label)), h('th', {}, ''))),
+    h('tbody', {}, b.proven.map((c) => h('tr', {class: 'item', tabindex: 0, onclick: () => go('proof/' + c.ticker), onkeydown: (e) => { if (e.key === 'Enter') go('proof/' + c.ticker); }},
+      h('td', {}, h('div', {}, h('a', {href: '#proof/' + c.ticker, onclick: (e) => e.stopPropagation()}, c.name), ' ', h('span', {class: 'text-secondary small'}, c.ticker)), h('div', {class: 'text-secondary small'}, INDUSTRY[c.layer] || c.layer, '. ', c.why)),
+      b.stages.map((s) => stageCell(c.stages[s.id])),
+      h('td', {}, c.proven ? h('span', {class: 'badge bg-green-lt'}, 'proven') : h('span', {class: 'badge bg-red-lt'}, `${int(c.open)} open`))))))));
+  const legend = h('p', {class: 'text-secondary small mt-2'}, 'Each cell: checked · explained · open. Click a company for its trail; open items say what rule or definition is missing.');
+  const others = h('div', {class: 'card mt-3'}, h('div', {class: 'card-body py-2 d-flex align-items-center gap-3'}, h('span', {class: 'fw-semibold'}, `The other ${int(b.others.companies)}`), h('span', {class: 'text-secondary small'}, `${int(b.others.values_agree)} of ${int(b.others.values)} values and ${int(b.others.facts_agree)} of ${int(b.others.facts)} facts agree with the SEC's data. ${b.others.note}.`),
+    h('a', {href: '#data', class: 'ms-auto small'}, 'Dataset'), h('a', {href: '#reconcile', class: 'small'}, 'Reconcile')));
+  const rel = await api('/api/outputs').catch(() => ({releases: []}));
+  const releases = dtable('Releases', [{t: 'Version', k: 'version'}, {t: 'Signed', f: (r) => (r.signed_by ? `${r.signed_by}, ${day(r.signed_at)}` : h('span', {class: 'text-secondary'}, 'not signed'))}, {t: 'Values', num: 1, f: (r) => int(r.rows.length)}, {t: 'Packet', f: (r) => (r.packet ? h('a', {href: `/packet/${r.version}.zip`}, 'zip') : '')}], [...rel.releases].reverse().slice(0, 6));
+  const golden = h('details', {class: 'card mt-3'}, h('summary', {class: 'card-header py-2', style: 'cursor:pointer'}, h('h3', {class: 'card-title m-0'}, 'Golden test'), h('span', {class: 'ms-3 text-secondary small'}, g.ok == null ? 'not run yet' : `${g.ok ? 'equal' : 'differs'}, ${when(g.at)}${g.tickers ? ', ' + g.tickers.join(', ') : ''}`)),
+    h('div', {class: 'card-body py-2'}, h('p', {class: 'small text-secondary'}, 'The code stages run on the frozen inputs for the proven set and must reproduce the expected tables. Any change to a parser, a rule, a loader or a thesis has to pass it, or change the expectation on purpose.'),
+      h('pre', {class: 'raw'}, 'uv run python -m ledger golden --check\nuv run python -m ledger golden --freeze   # change the expectation on purpose, then commit with the reason'),
+      g.steps ? h('div', {class: 'mt-2'}, dtable('Last run', [{t: 'Step', k: 'step'}, {t: 'Exit', num: 1, k: 'exit'}], g.steps)) : '',
+      g.diffs && Object.keys(g.diffs).length ? h('div', {class: 'mt-2'}, dtable('Differences', [{t: 'Table', k: 'name'}, {t: 'Only in the run', num: 1, k: 'n_only_in_run'}, {t: 'Only in expected', num: 1, k: 'n_only_in_expected'}], Object.entries(g.diffs).map(([k, v]) => ({name: k, ...v})))) : ''));
+  view.append(head, table_, legend, others, h('div', {class: 'mt-3'}, releases), golden);
+}
