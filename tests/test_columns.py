@@ -131,12 +131,20 @@ class OneMeaningPerColumn(unittest.TestCase):
             for r in rows:
                 self.assertIn(status.method_kind(r["check_method"]), status.METHOD_KINDS, f"{name}: {r['check_method']}")
 
+    def test_check_method_pattern_accepts_the_answer_keys(self):
+        """T40: the column's pattern (built from METHOD_KINDS) takes esef:<tag>, source:<doc>, rule:<id>_tie, actual:<period>."""
+        col = next(c for c in store.TAXONOMY.cols if c.name == "check_method")
+        for m in ("xbrl", "esef:ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities", "source:0001652044-25-000014", "rule:quarters_tie", "actual:FY2025"):
+            self.assertRegex(m, col.pattern, m)
+            self.assertIn(status.method_kind(m), status.METHOD_KINDS, m)
+        self.assertNotRegex("twin:x", col.pattern)  # the answer-key names are not method kinds
+
     def test_check_and_its_method_agree(self):
         for name, rows in self.sets():
             for r in rows:
                 c, m = r["check"], r["check_method"]
                 if c == "agree" or c == "differs":
-                    self.assertEqual(m, "xbrl", name)
+                    self.assertEqual(status.answer_key(m), "twin", name)  # xbrl today; esef:<tag> is the same check (T40)
                 if c == "no_reference":
                     self.assertEqual(m, "label:no_reference", name)
                 if c == "unmapped":

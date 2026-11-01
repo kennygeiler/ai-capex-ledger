@@ -118,7 +118,9 @@ check (agree|explained|differs|no_reference|unmapped|verbatim), check_method (<k
 
 `check` says whether the figure was verified and how it stands; `check_method` says what established that, in the
 words `ledger/status.py` uses for `by`: `xbrl`, `quote`, `gathered`, `rule:<id>`, `definition:<name>`,
-`resolution:<id>`, `label:<label>`, `none`. `period_kind` is reported only when the company's fiscal calendar (the
+`resolution:<id>`, `label:<label>`, `none`, and the answer keys T40 named for later sources, `esef:<tag>`,
+`source:<doc>`, `actual:<period>` and a tie rule `rule:<id>_tie` (`status.ANSWER_KEYS`, docs/PROOF.md; no row carries
+the three new ones yet). `period_kind` is reported only when the company's fiscal calendar (the
 10-K that reports the year) knows the year's end and the source was written on or after it; otherwise planned.
 `source_url` opens the source: for a 10-K cell the filing with a text fragment of the row label and number (the first
 place the filing shows those words; sec.gov has no table anchors), for a statement or project the text at its quote,
