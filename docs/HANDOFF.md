@@ -80,7 +80,7 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 | stated figures | figures companies stated about AI, gathered from releases, calls and press, verbatim with the source; `company_stated_ai` rows | `taxonomy/stated_figures.yaml` | `docs/TAXONOMY.md` |
 | failure types | every failure type INGESTION.md logged, as data: id, cause class, origin, the check in code that catches it or `none`, count seen | `taxonomy/failures.yaml`, `ledger/failures.py` | `docs/INGESTION.md` |
 | rules, guards | the 15 checks, each with its rationale and owner; the two guards that tag part-year and program statements | `rules/*.yaml`, `ledger/rules.py`, `ledger/guards.py` | `docs/PROOF.md` |
-| resolutions | what a person decided about a queue item; `status` on exported rows | `decisions/resolutions.jsonl` (tracked, append-only) | `docs/PROOF.md`, `docs/API.md` |
+| resolutions | what a person decided about a queue item, keyed `kind|ticker|field|period|dimension|rule_id|subject` (`resolutions.key_for`); `status` on exported rows | `decisions/resolutions.jsonl` (tracked, append-only; `ledger resolutions migrate-keys` re-keys lines from before T62, archive under `decisions/archive/`) | `docs/PROOF.md`, `docs/API.md` |
 | releases | plain files whose content hash a person signs | `releases/v*/` | release `README.md` |
 | production | the signed releases, one table per release file plus `ledger_releases`; `current_*` views follow the highest version | Postgres at `DATABASE_URL`, `ledger/publish.py` | this file |
 | companies | the 100 companies by supply-chain layer (`group`, a reading aid); the proven set in `config.PROVEN` | `data/companies.json`, `ledger/config.py` | `docs/COMPANIES.md`, `docs/PROOF.md` |
@@ -104,6 +104,9 @@ counts those rows open while the local one counts them explained). The signed re
 
 - **Add a company**: `ledger run --ticker X`. It joins stage 3. Give it an
   industry in `ledger/config.py` `INDUSTRIES`, or it gets the `other` model.
+- **A resolution with a key from before T62** (`kind|ticker|where`, two pipes) is not live. `ledger resolutions migrate-keys
+  --dry-run` shows what each would become; without `--dry-run` it appends the re-keyed lines and copies the unmappable ones
+  to `decisions/archive/resolutions-keys-<date>.jsonl`; it removes nothing and a second run is a no-op.
 - **Map a reported asset type**: Proof shows it open under Mapping. `ledger mapper <TICKER>` (T33; `--dry-run` writes the
   task only) asks the mapper agent for a us-gaap member per unmapped category with the note's words as evidence; the
   proposals land in `decisions/mapping_proposals.jsonl` and on Reconcile's "asset types" group (`#reconcile?scope=<TICKER>`,

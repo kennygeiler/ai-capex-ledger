@@ -106,8 +106,9 @@ def to_confirm(tickers: list[str] | None, names: dict) -> list[dict]:
     first. None of them is a dataset row; each is a resolution a person has not yet made their own."""
     out = []
     for r in resolutions.unconfirmed():
-        kind, _, rest = r["key"].partition("|")
-        ticker, _, where = rest.partition("|")
+        k = resolutions.parse_key(r["key"])  # unconfirmed() gives live keys only, so this is never None (T62)
+        kind, ticker = k["kind"], k["ticker"]
+        where = " ".join(x for x in (k["field"], k["dimension"], k["period"], f"({k['rule_id']})" if k["rule_id"] else "") if x)
         if tickers is not None and ticker not in tickers:
             continue
         out.append({"key": r["key"], "hash": r["hash"], "cause": TO_CONFIRM, "cause_label": "To confirm: a decision a run made, for Kenny Geiler to confirm or overturn", "state": "to confirm",
@@ -145,7 +146,7 @@ def items(con, flow: dict) -> dict:
     The decisions a run left for a person to confirm come first as their own group (`to_confirm`, T3), counted apart; the
     unmapped asset types (`asset_types`, T33) are their own group too, with `members` the list a mapping may use."""
     names, rel = flow["names"], flow["release"]["last"]
-    idx = resolutions.by_row()
+    idx = resolutions.by_row(items=flow["queue"])  # T62: a row with an unresolved sibling finding stays open
     rows = []
     for q in flow["queue"]:
         d = q.get("detail") or {}

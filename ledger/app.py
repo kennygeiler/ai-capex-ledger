@@ -181,6 +181,17 @@ def flow(scope: str) -> dict:
     return _FLOW[key]
 
 
+# T62: the key names the item (resolutions.key_for, from its fields, never from `where`); the hash says what it holds. The
+# fields hq added for the key in T62 (a finding's rule and subject; a question's subject, questions carried rule before) are
+# left out, so every hash equals its pre-T62 value and no resolution expired on the change.
+ADDED_FOR_KEY = {"finding_unconfirmed": ("rule", "subject"), "blocked": ("subject",)}
+
+
+def content_hash(kind: str, detail: dict) -> str:
+    skip = ADDED_FOR_KEY.get(kind, ())
+    return hashlib.sha256(json.dumps({k: v for k, v in detail.items() if k not in skip}, sort_keys=True, default=str).encode()).hexdigest()[:12]
+
+
 def _flow(scope: str) -> dict:
     """The queue for a scope (all = config.SCOPE, a layer within it, or any one ticker the database holds): new filings,
     blocks, facts that differ from the filing's tag, facts that changed since the signed release, findings the SEC's data
@@ -211,29 +222,28 @@ def _flow(scope: str) -> dict:
     res = resolutions.latest()
     queue = []
     for f in changed["new_filings"]:
-        queue.append({"kind": "new_filing", "state": "new", "ticker": f["ticker"], "where": f"{f['form']} for the year ended {f['period']}", "impact": "values, facts and statements for the year", "action": "run", "detail": f})
+        queue.append({"kind": "new_filing", "key": resolutions.key_for("new_filing", f["ticker"], f["form"], f["period"]), "state": "new", "ticker": f["ticker"], "where": f"{f['form']} for the year ended {f['period']}", "impact": "values, facts and statements for the year", "action": "run", "detail": f})
     for e in hqd["questions"]:
         if e["ticker"] in tickers:
-            queue.append({"kind": "blocked", "state": "blocked", "ticker": e["ticker"], "where": f"{e['field'] or ''} {e['period'] or ''}".strip() or e["rule"], "impact": "blocks the release", "action": "definition", "detail": e})
+            queue.append({"kind": "blocked", "key": resolutions.key_for("blocked", e["ticker"], e["field"], e["period"], rule_id=e["rule"], subject=e.get("subject")), "state": "blocked", "ticker": e["ticker"], "where": f"{e['field'] or ''} {e['period'] or ''}".strip() or e["rule"], "impact": "blocks the release", "action": "definition", "detail": e})
     for f in facts_changed[:30]:
-        queue.append({"kind": "fact_changed", "state": "moved", "ticker": f["ticker"], "where": f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " "), "impact": "the next release", "dollars": 0, "new": True, "action": "release",
+        queue.append({"kind": "fact_changed", "key": resolutions.key_for("fact_changed", f["ticker"], f["field"], f["period"], f["dimension"]), "state": "moved", "ticker": f["ticker"], "where": f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " "), "impact": "the next release", "dollars": 0, "new": True, "action": "release",
                       "detail": {**f, "release_value": (lambda v: None if v in (None, "") else float(v))(rel_facts.get((f["ticker"], f["field"], f["dimension"], f["period"])))}})
     for f in facts:
         if f["label"] == "unresolved":
             fr = fact_ref.get((f["ticker"], f["field"], f["dimension"], f["period"]), {})
             cite = cites.get((fr.get("extraction_ids") or "").split(",")[-1])
             key = f"{f['ticker']}|{f['field']}|{f['dimension']}|{f['period']}"
-            queue.append({"kind": "fact_differs", "state": "disagrees", "ticker": f["ticker"], "where": f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " "),
+            queue.append({"kind": "fact_differs", "key": resolutions.key_for("fact_differs", f["ticker"], f["field"], f["period"], f["dimension"]), "state": "disagrees", "ticker": f["ticker"], "where": f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " "),
                           "impact": "a cited cell against the filing's tag", "dollars": abs((f["value"] or 0) - (float(fr["reference"]) if fr.get("reference") not in (None, "") else (f["value"] or 0))),
                           "new": key not in {"|".join(k) for k in rel_facts}, "action": "definition",
                           "detail": {**f, "reference": fr.get("reference"), "cite": cite, "url": urls.get((cite or {}).get("accession")), "release_value": rel_facts.get((f["ticker"], f["field"], f["dimension"], f["period"]))}})
     for x in hqd["findings"]:
         if x["ticker"] in tickers and not x.get("confirmed", True):
-            queue.append({"kind": "finding_unconfirmed", "state": "look", "ticker": x["ticker"], "where": f"{x['field'] or ''} {x['period'] or ''}".strip(), "impact": "a value the SEC's data can't confirm", "action": "open", "detail": x})
+            queue.append({"kind": "finding_unconfirmed", "key": resolutions.key_for("finding_unconfirmed", x["ticker"], x["field"], x["period"], rule_id=x.get("rule") or x["kind"], subject=x.get("subject")), "state": "look", "ticker": x["ticker"], "where": f"{x['field'] or ''} {x['period'] or ''}".strip(), "impact": "a value the SEC's data can't confirm", "action": "open", "detail": x})
     for q_ in queue:
         q_.setdefault("dollars", 0); q_.setdefault("new", False)
-        q_["key"] = f"{q_['kind']}|{q_['ticker']}|{q_['where']}"
-        q_["hash"] = hashlib.sha256(json.dumps(q_["detail"], sort_keys=True, default=str).encode()).hexdigest()[:12]
+        q_["hash"] = content_hash(q_["kind"], q_["detail"])
         r_ = res.get(q_["key"])
         q_["resolution"] = r_ if r_ and r_["hash"] == q_["hash"] else None
         if q_["resolution"] and q_["resolution"]["state"] == "blocks":

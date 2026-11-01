@@ -91,8 +91,8 @@ class ToConfirmGroup(unittest.TestCase):
         from ledger import resolutions
         old = resolutions.LOG
         resolutions.LOG = pathlib.Path(tempfile.mkdtemp()) / "resolutions.jsonl"
-        resolutions.LOG.write_text(json.dumps({"id": "r9", "key": "fact_differs|GOOGL|segment_capex Google Cloud FY2024", "hash": "h", "state": "explain", "reason": "a planning floor", "by": "Replication run (Claude), for Kenny Geiler to confirm", "at": "2026-10-30"}) + "\n"
-                                   + json.dumps({"id": "r8", "key": "finding_unconfirmed|LITE|operating_income", "hash": "h", "state": "accept", "reason": "harmless", "by": "Claude, for Kenny Geiler to confirm", "at": "2026-10-30"}) + "\n")
+        resolutions.LOG.write_text(json.dumps({"id": "r9", "key": "fact_differs|GOOGL|segment_capex|FY2024|Google Cloud||", "hash": "h", "state": "explain", "reason": "a planning floor", "by": "Replication run (Claude), for Kenny Geiler to confirm", "at": "2026-10-30"}) + "\n"
+                                   + json.dumps({"id": "r8", "key": "finding_unconfirmed|LITE|operating_income|||row_label_switch|", "hash": "h", "state": "accept", "reason": "harmless", "by": "Claude, for Kenny Geiler to confirm", "at": "2026-10-30"}) + "\n")
         q = {"kind": "finding_unconfirmed", "state": "look", "ticker": "IRM", "where": "opex FY2024", "impact": "x", "action": "open", "key": "k3", "hash": "h3", "resolution": None,
              "detail": {"field": "opex", "period": "FY2024", "kind": "restated", "before": 10e6, "after": 12e6, "size": 0.2, "message": "m"}}
         try:

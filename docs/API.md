@@ -34,6 +34,8 @@ for them, `none` for a row no key vouches for (a quote, a mapping, an explanatio
 One screen's feed: `/api/v1/reconcile?scope=all|<layer>|<ticker>` is the Reconcile workbench's rows (`docs/PROOF.md`): one per open
 item with `ours`, `reference`, `delta`, `delta_pct`, `measure` (usd or share), the cause, the evidence (cell, screenshot, quote, inputs) and the
 resolution. `POST /api/resolve` records one decision `{key, hash, state, reason, by}`; `POST /api/resolve/bulk` takes `{items: [{key, hash}], state, reason, by}`.
+A row's `key` is `kind|ticker|field|period|dimension|rule_id|subject` (T62; `resolutions.key_for`: '' for a part the item lacks, `%` inside a part
+escaped `%25` and `|` `%7C`), one per queue item, and `hash` is the item's content; a consumer treats both as opaque and sends them back as received.
 The feed also carries the mapping stage's open items (T33): one row per reported PP&E category with no entry in `taxonomy/asset_types.yaml`
 (cause `asset_types`, key `asset_types|<ticker>|<reported_name>`, `evidence: {reported_name, proposal, rejected, note}` where `proposal` is the
 mapper's latest standing line from `decisions/mapping_proposals.jsonl`: `standard_type`, `evidence`, `confidence`, `reason`, `prompt_version`,
