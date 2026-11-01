@@ -1,0 +1,11 @@
+{
+ "ok": true,
+ "count": 240,
+ "failures": [],
+ "skipped": 2,
+ "golden": true,
+ "at": "2026-11-01T05:53:39+00:00",
+ "git": "e55a776",
+ "dirty": false,
+ "seconds": 117.8
+}

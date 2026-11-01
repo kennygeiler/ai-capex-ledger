@@ -7,8 +7,9 @@ the diff in rows from the previous release (release.rows_diff), the golden test 
 (reports/golden.json, reports/tests.json), and the packet as `ledger release` would build it, built in memory and
 not written. `required` lines must pass before the Sign button enables; the rest inform.
 
-reports/tests.json (T30 writes it; read here already): {"ok": bool, "count": int, "failures": [str], "at": iso}.
-Absent means "not run": shown grey, and it does not block, until T30 lands and the runner writes it on every run."""
+reports/tests.json (`ledger test` writes it, testreport.py): {"ok", "count", "failures", "skipped", "golden", "at", "git", "dirty"}.
+Absent means "not run": grey, does not block. Failing: red. Passing on another commit or a dirty tree: stale, informs
+(tests_line)."""
 import csv
 import io
 import json
@@ -178,6 +179,54 @@ def _line(id_, label, required, count, state, link, note="", detail=None) -> dic
     return {"id": id_, "label": label, "required": required, "count": count, "state": state, "ok": state == "pass", "link": link, "note": note, "detail": detail or []}
 
 
+_LOOKUP = object()  # tests_line's default: read HEAD from this checkout; tests pass a sha or None instead
+
+
+def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
+    """The "Test run" line (T30) from reports/tests.json as `ledger test` writes it (testreport.py). Three cases:
+    absent or unreadable: "not run", grey, does not block (as before T30; the hosted copy before its first run).
+    Ran and failed: red, required, whatever commit it ran on: a known failure never signs.
+    Ran and passed on this HEAD with a clean tree: green, required. Passed on another commit, or on a dirty tree:
+    "stale", informs with the note "run `ledger test`"; it neither blocks nor vouches, since the code it tested is not
+    the code being signed. One forgiveness: when every commit since the run changed only reports/tests.json (the commit
+    that records the run), the code is the same and the line is green. Without git on either side (the hosted copy has
+    no .git) the commit cannot be compared: informs, "commit not compared: no git", never a verified pass.
+    `head` and `changed` are read from the checkout unless a test passes them."""
+    if t is None:
+        return _line("tests", "Test run", False, 0, "not_run", "proof", "not run (reports/tests.json; `ledger test` writes it)")
+    fails = t.get("failures") or []
+    golden = t.get("golden")
+    g_note = {True: "golden ok", False: "golden FAILED"}.get(golden, "golden skipped, see the Golden line")
+    sha = t.get("git")
+    head = _head() if head is _LOOKUP else head
+    base = f"{t.get('count')} tests, {len(fails)} failing, {g_note}, {t.get('at')}" + (f", on {sha}" if sha else "")
+    detail = [{"test": f} for f in fails]
+    if not t.get("ok"):
+        return _line("tests", "Test run", True, len(fails), "fail", "proof", base, detail)
+    if not sha or not head:  # no git on one side (the hosted copy ships no .git): the commit cannot be compared, so this is never a verified pass
+        return _line("tests", "Test run", False, 0, "info", "proof", f"commit not compared: no git; {base}", detail)
+    moved = sha != head
+    if moved:
+        ch = _changed_since(sha) if changed is _LOOKUP else changed
+        moved = ch is None or any(p != "reports/tests.json" for p in ch)
+    stale = moved or bool(t.get("dirty"))
+    if stale:
+        why = "dirty tree" if t.get("dirty") else f"HEAD is {head}"
+        return _line("tests", "Test run", False, 0, "info", "proof", f"stale ({why}): run `ledger test`; {base}", detail)
+    return _line("tests", "Test run", True, 0, "pass", "proof", base, detail)
+
+
+def _head() -> str | None:
+    """Short sha of this checkout's HEAD, or None without git (the hosted copy ships no .git)."""
+    from .testreport import git_state
+    return git_state()[0]
+
+
+def _changed_since(sha: str) -> list | None:
+    from .testreport import changed_since
+    return changed_since(sha)
+
+
 def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     """The checklist for `version` (default: the next version). JSON the page renders as it is."""
     version = version or next_version()
@@ -228,10 +277,7 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
                        "not run" if g is None else f"{'equal' if g.get('ok') else 'differs'}, {g.get('at')}" + (f", failed at {g['failed_step']}" if g and g.get("failed_step") else ""),
                        [{"table": k, "only_in_run": v.get("n_only_in_run"), "only_in_expected": v.get("n_only_in_expected")} for k, v in ((g or {}).get("diffs") or {}).items()]))
     t = _report(TESTS)
-    t_state = "not_run" if t is None else ("pass" if t.get("ok") else "fail")
-    lines.append(_line("tests", "Test run", t is not None, 0 if t is None else len(t.get("failures") or []), t_state, "proof",
-                       "not run (reports/tests.json; T30 writes it)" if t is None else f"{t.get('count')} tests, {len(t.get('failures') or [])} failing, {t.get('at')}",
-                       [{"test": f} for f in (t or {}).get("failures") or []]))
+    lines.append(tests_line(t))
     # a release folder before this one the checklist cannot read: the diff would lie, so it is a red line, not a 500
     broken = broken_before(version)
     lines.append(_line("previous", "Previous releases readable", True, len(broken), "fail" if broken else "pass", "release",
