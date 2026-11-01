@@ -428,6 +428,30 @@ the builder before fixing). Not new scope: each is a defect in approved work, fi
   period, dimension, rule_id), not from `where`, in app.flow and resolutions._parse; live resolutions migrate to the new keys,
   the unmappable ones go to decisions/archive/ with a note, never rewritten. Test: two findings on one field and year, both
   resolved, both stay resolved. Workbench lane, before T57a. Done when that test passes and the stage-3 queue has no duplicate keys.
+
+  *As built (1 Nov):* confirmed first over all 100 tracked companies: 21 duplicate keys, 151 of 2,833 queue items sharing one,
+  all `finding_unconfirmed`, 0 on the six; most pairs were the same rule on two filings (`unit_from_document`, `row_label_switch`
+  on CEG), the rest two rules on one field and year (HUT capex FY2023 jump + capex_intensity, RIOT opex FY2025 jump +
+  opex_over_revenue). One key function, `resolutions.key_for(kind, ticker, field, period, dimension, rule_id, subject)`
+  → `kind|ticker|field|period|dimension|rule_id|subject` ('' for what the item lacks; a `|` inside a part, as in XOM's
+  "Chemical Products | Non-U.S." or a rule's subject, is escaped `%7C`), used by `app.flow` for all five kinds; `hq.py`'s
+  findings and questions now carry `rule` (the exception's rule id; `restated` and `opex_over_revenue` for the two findings
+  that are not exceptions) and `subject` (the exception id's tail: the filing, the column), and `app.flow` leaves those two out
+  of the content hash so no resolution expired on the change. `resolutions.parse_key` / `_parse` read the shape; a legacy
+  key (two pipes) is not live: not shown, not counted, not a G6 failure. Migration `ledger resolutions migrate-keys [--dry-run]`
+  (`ledger/cli/resolutions.py`, logic in `resolutions.migrate_keys` / `write_migration`): the log is append-only (its
+  docstring), so each legacy line that matches exactly one queue item's legacy key is appended again under the new key with
+  `migrated_from`, `migrated_at` and `current` (hash kept, not recomputed, so an expired one stays expired), id, hash, state,
+  reason, by, at untouched; lines matching none or several are copied to `decisions/archive/resolutions-keys-<date>.jsonl`
+  behind a note and left in the log; nothing removed; a second run is a no-op. Run on 1 Nov: migrated 3, archived 0, untouched 0
+  (the three LITE operating_income lines → `finding_unconfirmed|LITE|operating_income|||row_label_switch|`, Kenny Geiler's
+  accept the latest, hash current). `unconfirmed()` on the six before and after: []; G6 all empty; LITE's item shows explained
+  by Kenny Geiler. After: 0 duplicate keys over the 100 companies and on `/api/v1/reconcile?scope=all|HUT|RIOT|T|LITE`. Tests
+  in `tests/test_resolutions.py` (round trip and escaping, two findings on one field and year both resolved, the queue over
+  every company has no duplicate key, the migration plan and write on a temp log: one mappable, one ambiguous, one orphan, one
+  already new, idempotent); the T3 and gate tests moved to the new shape. Fast suite 274 OK, golden equal. Reconcile's "to
+  confirm" rows now print `field period (rule)` from the parsed key. The `asset_types|ticker|name` rows (T33) keep their own
+  two-pipe key: not a queue item, not read by resolutions.
 - **T63 Mappings are proposals until a person confirms them.** All 47 entries in taxonomy/asset_types.yaml are `by: Claude
   Fable 5.1` and nobody confirmed them; Proof counts an entry as checked, so the six's Mapping stage is proven on model
   judgement alone, against the thesis. Fix, inside T33's design: an entry without `confirmed_by` is a proposal; the Reconcile

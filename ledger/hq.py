@@ -156,7 +156,7 @@ def snapshot(con, stage: int = 3, tickers: list[str] | None = None) -> dict:
                                for v in sorted(vals, key=lambda v: v["period"]) if v["ticker"] == e["ticker"] and v["label"] == "definition_gap"]}
         questions.append({"detail": detail, "exception_id": e["exception_id"], "ticker": e["ticker"], "company": names.get(e["ticker"], e["ticker"]), "rule": e["rule_id"], "severity": e["severity"],
                           "title": rule_text.get(e["rule_id"], {}).get("title", e["rule_id"]), "why": WHY.get(e["rule_id"], "Code can't decide this."),
-                          "field": e["field"], "period": e["period"], "message": e["message"]})
+                          "field": e["field"], "period": e["period"], "subject": e.get("subject"), "message": e["message"]})  # rule and subject: the queue's key (T62)
 
     # What happened at the companies: restatements, big moves the SEC's data confirms, opex above revenue.
     findings = []
@@ -164,9 +164,10 @@ def snapshot(con, stage: int = 3, tickers: list[str] | None = None) -> dict:
         if v["basis"] == "restated" and v["value"] is not None and v["first_reported"]:
             pct = (v["value"] - v["first_reported"]) / abs(v["first_reported"])
             findings.append({"kind": "restated", "ticker": v["ticker"], "company": names.get(v["ticker"]), "field": v["field"], "period": v["period"],
-                             "before": v["first_reported"], "after": v["value"], "size": abs(pct), "confirmed": v["label"] == "agree", "message": None})
+                             "before": v["first_reported"], "after": v["value"], "size": abs(pct), "confirmed": v["label"] == "agree", "message": None, "rule": "restated", "subject": None})
     for e in moves:
-        base = {"ticker": e["ticker"], "company": names.get(e["ticker"]), "field": e["field"], "period": e["period"], "confirmed": e["confirmed"], "message": e["message"]}
+        base = {"ticker": e["ticker"], "company": names.get(e["ticker"]), "field": e["field"], "period": e["period"], "confirmed": e["confirmed"], "message": e["message"],
+                "rule": e["rule_id"], "subject": e.get("subject")}  # T62: the finding's key is its rule and subject (the filing, the segment), not its kind; two of one kind on one field and year stay two
         if e["rule_id"] == "jump" and e["period"] in (s := series.get((e["ticker"], e["field"]), {})) and sorted(s).index(e["period"]):
             ks = sorted(s); prev = ks[ks.index(e["period"]) - 1]
             findings.append({**base, "kind": "jump", "before": s[prev], "after": s[e["period"]], "from": prev, "size": max(s[e["period"]] / s[prev], s[prev] / s[e["period"]])})
@@ -183,7 +184,7 @@ def snapshot(con, stage: int = 3, tickers: list[str] | None = None) -> dict:
                 r = series.get((t, "revenue"), {}).get(q)
                 if r and v > r:
                     findings.append({"kind": "opex_over_revenue", "ticker": t, "company": names.get(t), "field": "opex", "period": q,
-                                     "before": r, "after": v, "size": v / r, "confirmed": label.get((t, "opex", q)) == "agree", "message": None})
+                                     "before": r, "after": v, "size": v / r, "confirmed": label.get((t, "opex", q)) == "agree", "message": None, "rule": "opex_over_revenue", "subject": None})
     order = {"restated": 0, "jump": 1, "capex_intensity": 2, "opex_over_revenue": 3, "row_switch": 4, "other": 5}
     findings.sort(key=lambda x: (x.get("confirmed", True), order[x["kind"]], -x["size"]))  # what the SEC's data can't confirm comes first
 

@@ -20,6 +20,7 @@ COMMANDS = {
     "evidence": "Re-read every cited cell on the rendered 10-K and screenshot it, boxed.",
     "report": "Write the validation page (reports/<name>-validation.html).",
     "review": "List open items and record decisions.",
+    "resolutions": "The resolutions log: migrate-keys appends each legacy-keyed line (kind|ticker|where, before T62) under its key_for() key and archives the unmappable ones (--dry-run plans only).",
     "release": "Build a versioned release (refuses while any gate fails).",
     "signoff": "Record who signed a release.",
     "publish": "Push a signed release to the production database (DATABASE_URL in .env); --status lists what production holds.",

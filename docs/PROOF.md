@@ -51,7 +51,10 @@ one XBRL confirms. No row carries `esef:`, `source:` or `actual:` today (2 Nov 2
 
 Proven = zero open (blocked included), for every stage, for that company. A person's judgement enters as a definition
 or a rule, never as a click on a row; once written it applies every run and the item never comes back. A resolution is
-the exception for what nothing on file covers yet, and it holds only while the item's content is unchanged.
+the exception for what nothing on file covers yet, and it holds only while the item's content is unchanged. It is keyed
+by the item (`resolutions.key_for`: `kind|ticker|field|period|dimension|rule_id|subject`, built from the item's fields,
+T62), so two findings on one field and year (two rules, or one rule on two filings) are two items with two resolutions; the
+hash is the item's content without those key parts.
 `tests/test_status.py` asserts, on the frozen fixtures, that the Proof board's open count equals Reconcile's for every
 company in the proven set.
 
