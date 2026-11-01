@@ -194,12 +194,19 @@ def is_open(s: dict) -> bool:
 
 
 # ── how each kind of row maps onto `state` (one place, so Proof and Reconcile read the same thing) ──────────────────
-def of_value(v: dict, resolution: dict | None = None) -> dict:
+def of_value(v: dict, resolution: dict | None = None, ref: dict | None = None) -> dict:
     """A `values` row: label agree → checked by XBRL; definition_gap → the definition (cost lines for opex, the revenue
-    line otherwise); not_reported / no_reference → explained by reconcile's label; not_extracted → open, by the label
-    (the filing tags a value the reader did not extract); unresolved → open unless a person resolved it."""
+    line otherwise); no_reference → explained by reconcile's label; not_reported → explained only when `ref` says XBRL
+    was looked up and holds nothing ({reference: None, looked_up: True}, T80's marker), else open by label:not_reported
+    (T81: XBRL holds a value, or nobody asked; one verdict per cell with the completeness line and `coverage`);
+    not_extracted → open, by the label (the filing tags a value the reader did not extract); unresolved → open unless a
+    person resolved it."""
     label = v.get("label")
     row = {"resolution": resolution}
+    if label == "not_reported" and not (ref and ref.get("looked_up") and ref.get("reference") is None):
+        why = f"labelled not_reported while XBRL holds {ref['reference']}" if ref and ref.get("reference") is not None else "labelled not_reported, XBRL not looked up"
+        st = state({**row, "reason": why})
+        return {**st, "by": st["by"] or "label:not_reported"}
     if label == "agree":
         row["check"] = "xbrl"
     elif label == "definition_gap":

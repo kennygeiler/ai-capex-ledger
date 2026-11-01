@@ -24,6 +24,10 @@ class Synthetic(unittest.TestCase):
         store.write(self.con, "documents", [_doc("0000789019-25-000001", "MSFT", "2025-06-30")], replace=True)
         v = lambda field, period, label: {"ticker": "MSFT", "field": field, "period": period, "period_end": "2025-06-30", "value": 1, "source": "agent", "method": "reported", "label": label, "basis": "as_reported", "first_reported": None, "extraction_ids": "", "input_hash": ""}
         store.write(self.con, "values", [v("capex", "FY2024", "agree"), v("capex", "FY2025", "agree"), v("opex", "FY2025", "definition_gap"), v("revenue", "FY2025", "not_reported"), v("revenue", "FY2024", "unresolved")], replace=True)
+        # XBRL looked up for MSFT (T80's marker, T81: not_reported explains only then): every cell but revenue FY2025, the not_reported one
+        r = lambda field, period: {"ticker": "MSFT", "field": field, "period": period, "value": 1, "method": "reported", "concept": "us-gaap:X", "period_start": "2024-07-01",
+                                   "period_end": "2025-06-30", "accession": "0000789019-25-000001", "restated": False, "original_value": None}
+        store.write(self.con, "reference_values", [r("capex", "FY2024"), r("capex", "FY2025"), r("opex", "FY2025"), r("revenue", "FY2024")], replace=True)
         f = lambda field, dim, period, label: {"ticker": "MSFT", "field": field, "dimension": dim, "period": period, "period_end": "2025-06-30", "value": 1, "first_reported": 1, "basis": "as_reported", "label": label, "reference": 1, "accession": "0000789019-25-000001", "extraction_ids": "", "input_hash": ""}
         store.write(self.con, "facts", [f("segment_capex", "Cloud", "FY2025", "agree"), f("segment_capex", "Cloud", "FY2024", "no_reference"), f("ppe_category", "Land", "FY2025", "unresolved")], replace=True)
         s = lambda sid, kind, quote: {"statement_id": sid, "text_id": "x", "source": "mdna", "accession": "0000789019-25-000001", "ticker": "MSFT", "field": "capex", "period": "FY2026", "kind": kind, "scope": "total", "class": "explicit_amount",

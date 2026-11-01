@@ -381,7 +381,9 @@ class DryRun(unittest.TestCase):
         try:
             with mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(signoff, "RELEASES", tmp), mock.patch.object(store, "init", return_value=con):
                 cl = checklist.checklist(con)
-                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "unconfirmed", "unmapped", "no_value", "diff", "limitations", "golden", "tests", "previous", "packet"])
+                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "complete", "unconfirmed", "unmapped", "no_value", "diff", "limitations", "golden", "tests", "previous", "packet"])
+                comp = next(l for l in cl["lines"] if l["id"] == "complete")  # T81: required, and 0 on the six
+                self.assertEqual((comp["required"], comp["state"], comp["count"]), (True, "pass", 0), comp["detail"][:3])
                 lim = next(l for l in cl["lines"] if l["id"] == "limitations")  # T68: informs, never red
                 self.assertEqual((lim["required"], lim["state"], lim["count"]), (False, "info", 2))
                 self.assertEqual(sorted(d["id"] for d in lim["detail"]), ["no_monitoring_thresholds", "survivor_bias"])

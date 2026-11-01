@@ -5,11 +5,7 @@ rationale: A gap must carry a reason. It is never silently left out or filled.
 owner: Kenny Geiler
 check: coverage
 params:
-  fields:
-  - revenue
-  - capex
-  - opex
-  filing_days: 90
+  filing_days: 90  # the fields are config.RELEASE_FIELDS, the list the release checklist's completeness line reads (T81)
 title: A number is missing.
 plain: There is no value for this fiscal year. Usually the company wasn't public yet, or hasn't filed that year's
   10-K yet.
