@@ -274,6 +274,14 @@ in golden. Arctal's own products (Green & Transition CapEx, Labelled Bonds) are 
   (free API). Read the EU Taxonomy capex KPI table (total / eligible / aligned) and cash-flow capex. Ties: aligned ≤ eligible ≤
   total; KPI total = cash-flow capex; the ESEF tag as twin where tagged. Outside `SCOPE`, outside the packet. Done when
   `reports/spikes/asml-esef.md` shows every number with its PDF page, each tie's result, and what the full source would need.
+  *As built (2 Nov):* `reports/spikes/asml-esef.md` on ASML's FY2025 ESEF filing (filings.xbrl.org, published 2026-02-25, package
+  sha256 recorded); reader `ledger/spikes/esef.py` (stdlib, not wired in) with `tests/test_esef_spike.py`. Ties: aligned ≤ eligible
+  ≤ total passes (6.7 ≤ 2,445.8 ≤ 2,811.3, p.199); KPI total ≠ cash-flow PP&E purchases 1,573.6 (p.275) as expected, and the
+  reconciliation to the notes closes two of three parts (PP&E additions 1,596.2 p.290, intangibles 1,137.8 p.288) with 77.3 of
+  right-of-use additions implied, not disclosed; the ESEF twin equals every tagged statement number read; the KPI table itself is
+  untagged. The PDF was not obtained (asml.com bot check, stopped); pages are the ESEF report's own printed numbers. T45 needs a
+  page-table reader on the xhtml, an `esef` document kind with `fxo_id` in place of accession, EUR in `unit`/`currency`, v12 KPI
+  columns and four tie rules with a rounding tolerance; estimate 6.5 builder-days.
 - **T45 ESEF source (after the call).** New document kind (non-EDGAR PDF plus ESEF), schema v12 columns for the KPI (aligned /
   eligible / total under the Delegated Act annex), a PDF-table reader agent with a versioned prompt and a charter (T50), tie
   rules, golden frozen. Done when ASML is in `PROVEN` as company eight and golden is green.
