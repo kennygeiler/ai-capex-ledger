@@ -1,4 +1,4 @@
-"""The Release page's checklist (T5, docs/PROOF.md).
+"""The Release page's checklist (T5) and the one act that signs from it (T6, docs/PROOF.md).
 
 Every line is what could make a signature wrong, with its count and the page that fixes it: the gates per company
 (release.gates), open and blocked items in the scope (proof.board, the one definition of open), the decisions a run
@@ -184,3 +184,28 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
             "ok": all(l["ok"] for l in required), "red": [l["id"] for l in required if not l["ok"]], "lines": lines,
             "gates": {"table": p["gates"], "failing": bad}, "open": open_, "blocked": blocked, "unconfirmed": len(unc), "unmapped": len(um),
             "diff": d, "golden": g, "tests": t, "exists": exists, "signed": signed}
+
+
+def sign(con, version: str | None, by: str, stage: int = 3) -> dict:
+    """The Sign button (T6): build the checklist; refuse (ValueError → 400) while any required line is red or no name is
+    given; else write releases/<version>/, sign it as `by` with the checklist as it was, and publish. `by` is the page's
+    signer box today, recorded as given; who may press the button is a later ticket (auth). A publish that fails after
+    the signature lands is reported, not hidden: the release is signed and unpublished."""
+    from .cli.signoff import sign as _signoff
+    from .publish import NotPublishable, publish
+    if not (by or "").strip():
+        raise ValueError("a signature needs a name")
+    cl = checklist(con, version, stage)
+    if not cl["ok"]:
+        raise ValueError(f"{cl['version']} not signed: {', '.join(cl['red'])} " + ("is" if len(cl["red"]) == 1 else "are") + " red on the checklist")
+    p = packet(con, cl["version"], stage)
+    if p["hash"] != cl["hash"]:
+        raise ValueError("the data changed while the checklist was built; reload and sign again")
+    write(p)
+    s = _signoff(cl["version"], by.strip(), {**cl, "diff": {k: {kk: vv for kk, vv in x.items() if kk != "examples"} for k, x in cl["diff"].items()}})  # the counts, not the examples: DIFF.md has those
+    out = {"version": cl["version"], "hash": p["hash"], "signed_by": s["signed_by"], "signed_at": s["signed_at"], "published": False, "rows": None, "publish_error": None}
+    try:
+        out |= {"published": True, "rows": publish(cl["version"])["rows"]}
+    except (NotPublishable, SystemExit, Exception) as e:  # psycopg errors included: the signature stands, the publish is retried with `ledger publish`
+        out["publish_error"] = str(e) or e.__class__.__name__
+    return out

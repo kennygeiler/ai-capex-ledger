@@ -98,4 +98,17 @@ Nothing is inferred. The attribution methods that estimated an AI share, and the
 - **Reconcile**: judgement on open items, which should be nearly empty; a judgement that would be made twice becomes a definition.
 - **Dataset**: the grid for a consumer, marks per cell (✓ traced, ≠ differs from SEC data, ✗ disagrees with a stated figure, ! above the total, a decision as a badge), CSV export.
 - **Explore**: charts on the API lists, share as a value, saved views as queries.
-- The releases table and the golden test's last run sit on Proof; the guards, the asset-type mappings and the readers on Rules; the dataset on Dataset, as a grid by year or as the raw rows of every list. Six pages, one file, `ledger/app.html`.
+- **Release** (`#release`, the last page; `ledger/checklist.py`, T5–T8): the checklist a person signs from. One line per thing
+  that could make the signature wrong, each green or red with its count and a link to the page that fixes it: the four
+  gates per company (G1 G4 G5 G6, `release.gates`), open and blocked items in the scope (the Proof board's counts, the one
+  definition of open), decisions a run left to confirm, unmapped asset types (0 required), rows with no value by measure
+  (informs), the rows added / removed / changed per list against the previous release (informs; `DIFF.md` carries the same
+  table), the golden test (`reports/golden.json`, required equal) and the last test run (`reports/tests.json`:
+  `{ok, count, failures, at}`, written by T30; absent reads "not run" and does not block until it exists), and the packet as
+  `ledger release` would write it, built in memory with its files and hash. The version checked is the minor bump of the last
+  release folder, or `?version=`. The Sign button enables only when every required line is green; it writes
+  `releases/<version>/`, signs as the name in the header's signer box (recorded as given; who may press it is a later
+  ticket, auth), stores the checklist as it was in `SIGNOFF.json` under `checklist`, and publishes. Refused with 403 on the
+  read-only copy and 400 while any required line is red. Proof's releases table reads that stored checklist back: open,
+  unmapped and the companies in scope at signing; a release signed before the checklist says so.
+- The releases table and the golden test's last run sit on Proof; the guards, the asset-type mappings and the readers on Rules; the dataset on Dataset, as a grid by year or as the raw rows of every list. Seven pages, one file each under `ledger/pages/`, the shell in `ledger/app.html`.

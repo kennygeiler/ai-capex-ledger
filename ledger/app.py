@@ -454,6 +454,16 @@ class Handler(BaseHTTPRequestHandler):
             body = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))) or b"{}")
         except json.JSONDecodeError:
             return self._json({"error": "send JSON"}, HTTPStatus.BAD_REQUEST)
+        if u.path == "/api/release/sign":  # the Sign button (T6): refused 403 above on the read-only copy, 400 while any required line is red
+            from .checklist import sign
+
+            def do_sign():
+                con = _con()
+                try:
+                    return sign(con, body.get("version") or None, body.get("by", ""), STAGE)
+                finally:
+                    con.close()
+            return self._guard(lambda: self._json(do_sign()))
         if u.path == "/api/resolve/bulk":  # one reason for many items, each logged on its own
             def bulk():
                 out = [resolutions.resolve(i.get("key", ""), i.get("hash", ""), body.get("state", ""), body.get("reason", ""), body.get("by", "")) for i in body.get("items") or []]
