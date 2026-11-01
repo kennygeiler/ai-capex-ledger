@@ -139,7 +139,7 @@ counts those rows open while the local one counts them explained). The signed re
 
 ## If you are an AI agent
 
-Read in this order: this file, README Status, `docs/PROOF.md`, `docs/TAXONOMY.md`, `docs/INGESTION.md` (skim the tables), then the
+Read in this order: this file, README Status, `docs/PROOF.md`, `docs/EVALS.md` (how the pipeline is measured: golden, faults, scores, gates), `docs/TAXONOMY.md`, `docs/INGESTION.md` (skim the tables), then the
 module you will change. Run the tests before and after. The invariants that must hold:
 
 - Every value in `values` resolves to a cell in a parsed table; `extract --load` rejects anything else.
