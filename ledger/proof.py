@@ -11,13 +11,14 @@ from __future__ import annotations
 from . import definitions, resolutions, status, store
 from .guards import part_year, program_words
 from .review import decisions, open_items
-from .taxonomy import asset_types, rows as taxonomy_rows, unmapped
+from .taxonomy import asset_types, rows as taxonomy_rows
 from .config import PROVEN, PROVEN_WHY, SCOPE, industry, tracked
 
 STAGES = ("ingest", "values", "facts", "statements", "mapping", "planned", "release")
 STAGE_LABEL = {"ingest": "Ingest", "values": "Values", "facts": "Facts", "statements": "Statements", "mapping": "Mapping", "planned": "Planned", "release": "Release"}
 NEEDS = {"values": "a definition (which line the tag measures) or a unit rule", "facts": "a definition (which concept the table line is) once the tag is named",
          "finding": "a definition or a rule for what the finding found", "mapping": "a mapping to a us-gaap PropertyPlantAndEquipmentByTypeAxis member, with the note's words",
+         "mapping_confirm": "a person's confirmation of the proposed member (Reconcile, asset types: Approve, Edit or Reject)",
          "ingest": "a parser or unit rule", "locate": "a locator rule", "release": "a definition or a fix", "decision": "the fix the decision names"}
 
 
@@ -114,14 +115,22 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None)
             items.append(_item(what, status.state({"check": "quote"})))
     stages["statements"] = _stage(items)
 
-    # mapping: every reported asset type mapped to a standard us-gaap member (taxonomy/asset_types.yaml), or open
+    # mapping: every reported asset type mapped to a standard us-gaap member (taxonomy/asset_types.yaml) and confirmed by
+    # a person (T63, status.of_mapping); an entry without confirmed_by is a proposal, open as to confirm; no entry, open
     tax = taxonomy_rows(con, [t])
     derived = [r for r in tax if r["measure"] == "derived"]
-    um = unmapped(con, [t])
-    mapped = {r["reported_name"]: r["standard_type"] for r in derived if r["standard_type"]}
-    items = [_item(name, status.state({"check": "mapping", "mapping_to": member})) for name, member in sorted(mapped.items())]
-    items += [_item(f"{u['reported_name']}: no standard asset type", status.state({"reason": "a reported PP&E category with no entry in taxonomy/asset_types.yaml"}),
-                    "a reported PP&E category with no entry in taxonomy/asset_types.yaml", NEEDS["mapping"]) for u in um]
+    entries = asset_types().get(t) or {}
+    items = []
+    for name in sorted({r["reported_name"] for r in derived}):
+        e = entries.get(name)
+        st = status.of_mapping(e)
+        if st["state"] == "checked":
+            it = _item(name, st, f"by {e.get('by')}, confirmed by {e['confirmed_by']} {e.get('confirmed_at') or ''}".strip())
+        elif e and e.get("standard_type"):
+            it = _item(f"{name}: {e['standard_type']}, to confirm", st, f"proposed by {e.get('by')}; Reconcile, asset types: Approve, Edit or Reject", NEEDS["mapping_confirm"])
+        else:
+            it = _item(f"{name}: no standard asset type", st, status.UNMAPPED, NEEDS["mapping"])
+        items.append({**it, "name": name})  # the reported name itself, for the pages and the tests (`what` decorates it)
     stages["mapping"] = _stage(items, extra={"derived_rows": len(derived), "company_stated_ai": sum(r["measure"] == "company_stated_ai" for r in tax), "committed_rows": sum(r["measure"] == "committed" for r in tax)})
 
     # planned: guidance and projects, verbatim; a part-year or program statement carries its flag (taxonomy.part_year, .program)
@@ -189,7 +198,7 @@ def board(con) -> dict:
 GUARDS = [
     {"id": "part_year", "kind": "guard", "where": "planned", "what": "a stated amount that covers a quarter, a half or N months is tagged part-year, never a year's figure", "type": 68},
     {"id": "program_words", "kind": "guard", "where": "planned", "what": "an outlook statement with program words (joint venture, once completed, through 20XX) is tagged program, not a year's guidance", "type": 69},
-    {"id": "asset_type_mapping", "kind": "guard", "where": "mapping", "what": "every reported PP&E category maps to a us-gaap asset-type member with the note's words as evidence, or is open", "type": None},
+    {"id": "asset_type_mapping", "kind": "guard", "where": "mapping", "what": "every reported PP&E category maps to a us-gaap asset-type member with the note's words as evidence and a person's confirmed_by (T63), or is open", "type": None},
     {"id": "restated_between_filings", "kind": "guard", "where": "facts", "what": "a cell from a later 10-K against a tag from an earlier one is a restatement", "type": None},
     {"id": "amendment_without_statements", "kind": "guard", "where": "ingest", "what": "a 10-K/A with few tables and no statement table is a Part III amendment, not a filing to locate statements in", "type": 72},
 ]
@@ -210,7 +219,8 @@ def rules(con) -> dict:
     out += [{**g, "fired": closed.get(g["id"], 0)} for g in GUARDS]
     out += [{"id": f"{t}:{k}", "kind": "definition", "where": "values", "what": f"{t}: {k} ({(v.get('why') or '')[:120]})", "fired": 1, "by": v.get("by")} for t in SCOPE for k, v in (defs.get(t) or {}).items() if isinstance(v, dict)]
     types = asset_types()
-    out += [{"id": f"{t}:{name}", "kind": "mapping", "where": "mapping", "what": f"{t}: {name} → {m.get('standard_type')} ({(m.get('evidence') or '')[:100]})", "fired": 1, "by": m.get("by")} for t in SCOPE for name, m in (types.get(t) or {}).items()]
+    out += [{"id": f"{t}:{name}", "kind": "mapping", "where": "mapping", "what": f"{t}: {name} → {m.get('standard_type')} ({(m.get('evidence') or '')[:100]})", "fired": 1, "by": m.get("by"),
+             "confirmed_by": m.get("confirmed_by"), "confirmed": status.confirmed(m)} for t in SCOPE for name, m in (types.get(t) or {}).items()]
     missing = {}
     for c in cos:
         for s, st in c["stages"].items():

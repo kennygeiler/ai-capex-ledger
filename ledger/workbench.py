@@ -122,23 +122,36 @@ def to_confirm(tickers: list[str] | None, names: dict) -> list[dict]:
 
 
 ASSET_TYPES = "asset_types"
-UNMAPPED_REASON = "a reported PP&E category with no entry in taxonomy/asset_types.yaml"
+UNMAPPED_REASON = status.UNMAPPED
 
 
 def asset_types(con, tickers: list[str] | None, names: dict) -> list[dict]:
-    """The mapping stage's open items as workbench rows (T33): every reported PP&E category in the scope with no entry in
-    taxonomy/asset_types.yaml, each with the mapper's proposal when one stands (standard_type, evidence, confidence,
-    reason, prompt version, model), the members a person already rejected for it, the note's words around it, and the
-    allowed member list. Approve or Edit writes the mapping (POST /api/mapping, by the person); Reject logs the member."""
+    """The mapping stage's open items as workbench rows (T33, T63): every reported PP&E category in the scope with no
+    entry in taxonomy/asset_types.yaml, with the mapper's proposal when one stands (standard_type, evidence, confidence,
+    reason, prompt version, model), and every one whose entry has no confirmed_by, with that entry as the proposal. Each
+    carries the members a person already rejected for it, the note's words around it, the member the filer tagged
+    (`filer`) and whether the proposal differs from it (`mismatch`). The state is status.of_mapping's, so Proof counts
+    the row the same way. Approve or Edit writes the mapping, confirmed (POST /api/mapping, by the person); Reject logs
+    the member and removes an unconfirmed entry."""
     from . import mapper
     out = []
     for p in mapper.pending(con, tickers):
-        st = status.state({"reason": UNMAPPED_REASON})
-        out.append({"key": f"{ASSET_TYPES}|{p['ticker']}|{p['reported_name']}", "hash": "", "cause": ASSET_TYPES, "cause_label": "Asset types: a reported PP&E category with no us-gaap member", "state": st["state"],
+        P = p["proposal"]
+        st = status.of_mapping({"standard_type": P["standard_type"], "by": P.get("by")} if p["kind"] == "to_confirm" else None)
+        label = "Asset types: a mapping no person confirmed" if p["kind"] == "to_confirm" else "Asset types: a reported PP&E category with no us-gaap member"
+        from .config import SCOPE
+        if p["ticker"] not in SCOPE:
+            impact = "blocks nothing until the company is in scope (config.SCOPE)"
+        elif p["kind"] == "to_confirm":
+            impact = "the release refuses (G6) until a person confirms, edits or rejects it"
+        else:
+            impact = "the derived PP&E rows stay unmapped; the Release checklist requires 0"
+        out.append({"key": f"{ASSET_TYPES}|{p['ticker']}|{p['reported_name']}", "hash": "", "cause": ASSET_TYPES, "cause_label": "Asset types: a reported PP&E category no person has mapped and confirmed", "state": st["state"],
                     "by": st["by"], "reason": st["reason"], "open": status.is_open(st), "ticker": p["ticker"], "name": names.get(p["ticker"], p["ticker"]), "layer": industry(p["ticker"]),
                     "field": None, "period": None, "where": p["reported_name"], "measure": None, "ours": None, "ours_label": None, "reference": None, "ref_label": None,
-                    "relation": "eq", "delta": None, "delta_pct": None, "dollars": 0, "new": False, "action": "mapping", "impact": "the derived PP&E rows stay unmapped; the Release checklist requires 0", "resolution": None,
-                    "evidence": {"reported_name": p["reported_name"], "proposal": p["proposal"], "rejected": p["rejected"], "note": p["note"]}})
+                    "relation": "eq", "delta": None, "delta_pct": None, "dollars": 0, "new": False, "action": "mapping", "impact": impact, "resolution": None,
+                    "evidence": {"reported_name": p["reported_name"], "mapping": p["kind"], "label": label, "proposal": P, "rejected": p["rejected"], "note": p["note"],
+                                 "filer": p["filer"], "mismatch": mapper.mismatch((P or {}).get("standard_type"), p["filer"])}})
     return out
 
 

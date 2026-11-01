@@ -54,7 +54,14 @@ Asset types: the member the company tags. Where the company tags its own extensi
 the note, and maps it to the nearest standard `us-gaap` member (`TechnologyEquipmentMember`, `ComputerEquipmentMember`,
 `LandAndBuildingsMember`, `ConstructionInProgressMember`, ...) as a second column, `standard_type`, with the mapping
 written in `taxonomy/asset_types.yaml` and the note's own words as the evidence. A mapping is a classification
-against a published list, recorded; it is never a number.
+against a published list, recorded; it is never a number. It counts as checked only when a person confirmed it
+(`confirmed_by`, `confirmed_at` on the entry, T63); until then it is a proposal, open on Proof and a G6 failure, and
+its taxonomy rows read `mapped` false and `check` to_confirm (`check_method` label:to_confirm), with the proposed member
+in `standard_type`. An entry with no `standard_type` is no mapping: unmapped. The filer's own tagged member, where it tags a
+us-gaap one, is shown beside the proposal on Reconcile and a difference is flagged (on the six, 1 Nov 2026: Amazon tags
+`EquipmentMember` for "Other equipment" and `OtherCapitalizedPropertyPlantAndEquipmentMember` for "Other assets";
+Applied Digital tags `BuildingMember`, `BuildingImprovementsMember` and `SoftwareAndSoftwareDevelopmentCostsMember`
+for "Building", "Building improvements" and its two software-bearing lines; T74 stores it on the row).
 
 ### Committed (every one a `us-gaap` concept)
 
@@ -113,7 +120,7 @@ value, value_high (a range high only), change_from_prior (the derived change onl
 unit (USD|share, empty without a figure), scale (1), currency (USD),
 period_as_stated, quote, kind (actual|outlook), project_kind, status, location, capacity_mw, forward_looking, part_year, program   (verbatim rows; empty elsewhere)
 source (internal id), source_kind (10-K table|10-K note|10-K MD&A|8-K release|transcript|cfo commentary|gathered), accession, filed, source_table, source_url,
-check (agree|explained|differs|no_reference|not_extracted|unmapped|verbatim), check_method (<kind>[:<id>], kinds in status.METHOD_KINDS)
+check (agree|explained|differs|no_reference|not_extracted|unmapped|to_confirm|verbatim), check_method (<kind>[:<id>], kinds in status.METHOD_KINDS)
 ```
 
 `check` says whether the figure was verified and how it stands; `check_method` says what established that, in the

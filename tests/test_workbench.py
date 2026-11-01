@@ -1,4 +1,5 @@
 import unittest
+from unittest import mock
 
 import duckdb
 
@@ -8,6 +9,15 @@ from ledger import views, workbench
 def _flow(queue):
     return {"scope": "all", "names": {"GOOGL": "Alphabet", "IRM": "Iron Mountain"}, "release": {"last": "v1.5.0"}, "changed": {"last_run": "2026-10-30T00:00:00"}, "queue": queue,
             "insight": {"evaluation": {"rows": [{"ticker": "GOOGL", "field": "capex", "period": "FY2025", "measure": "share", "relation": "eq", "reference": 0.6, "outcome": "disagree", "source": {"kind": "company_statement"}}]}}}
+
+
+# T63: the real file's entries are proposals until a person confirms them; these rows test the queue, so GOOGL's one
+# category is mapped and confirmed here (a placeholder name, never a real confirmer) and adds no asset_types row
+CONFIRMED = {"GOOGL": {"Technical infrastructure": {"standard_type": "TechnologyEquipmentMember", "evidence": "technical infrastructure", "by": "a test", "at": "2026-11-01", "confirmed_by": "a test", "confirmed_at": "2026-11-01"}}}
+
+
+def _confirmed():
+    return mock.patch("ledger.taxonomy.asset_types", return_value=CONFIRMED)
 
 
 def _con():
@@ -25,10 +35,13 @@ class Workbench(unittest.TestCase):
         import pathlib, tempfile
         from ledger import resolutions
         self._log, resolutions.LOG = resolutions.LOG, pathlib.Path(tempfile.mkdtemp()) / "resolutions.jsonl"
+        self._types = _confirmed()
+        self._types.start()
 
     def tearDown(self):
         from ledger import resolutions
         resolutions.LOG = self._log
+        self._types.stop()
 
     def test_fact_differs_row_carries_cell_and_delta(self):
         q = {"kind": "fact_differs", "state": "disagrees", "ticker": "GOOGL", "where": "ppe_category Technical infrastructure FY2025", "impact": "x", "dollars": 0, "new": False, "action": "definition", "key": "k2", "hash": "h2",
@@ -111,8 +124,9 @@ class ToConfirmGroup(unittest.TestCase):
         q = {"kind": "finding_unconfirmed", "state": "look", "ticker": "IRM", "where": "opex FY2024", "impact": "x", "action": "open", "key": "k3", "hash": "h3", "resolution": None,
              "detail": {"field": "opex", "period": "FY2024", "kind": "restated", "before": 10e6, "after": 12e6, "size": 0.2, "message": "m"}}
         try:
-            out = workbench.items(_con(), _flow([q]))
-            one = workbench.items(_con(), {**_flow([q]), "scope": "GOOGL", "tickers": ["GOOGL"]})
+            with _confirmed():
+                out = workbench.items(_con(), _flow([q]))
+                one = workbench.items(_con(), {**_flow([q]), "scope": "GOOGL", "tickers": ["GOOGL"]})
         finally:
             resolutions.LOG = old
         self.assertEqual([r["cause"] for r in out["rows"]], ["to_confirm", "to_confirm", "finding_unconfirmed"])

@@ -73,7 +73,7 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 | facts | segment capex and revenue, PP&E by category, finance leases, purchase commitments, from the notes | tables `note_extractions`, `facts`, `facts.csv` | `docs/DATA_DICTIONARY.md` |
 | texts, statements | MD&A, 8-K releases, transcripts; what each says about AI's part of spend, as verbatim quotes | tables `texts`, `ai_statements`, `ai_spend`, `ai_spend.csv` | `docs/INGESTION.md` |
 | taxonomy | one row shape for spent, committed, derived, planned and company-stated AI, every category a named standard's concept; built by code, no agent | `taxonomy/taxonomy.yaml`, `ledger/taxonomy.py`, `/api/v1/taxonomy`, `taxonomy.csv` (next release) | `docs/TAXONOMY.md` |
-| asset-type mappings | each company's reported PP&E category mapped to a us-gaap member, with the note's words as evidence; an unmapped one is open on Proof | `taxonomy/asset_types.yaml` | `docs/TAXONOMY.md` |
+| asset-type mappings | each company's reported PP&E category mapped to a us-gaap member, with the note's words as evidence; an unmapped one is open on Proof, and so is one without a person's `confirmed_by` (T63: a proposal, to confirm) | `taxonomy/asset_types.yaml` | `docs/TAXONOMY.md` |
 | prompts | one per agent, versioned the same way | `agents/prompts/`, `agents/schemas/` | `agents/agents.json` |
 | charters | one per agent, live or retired: what it owns, what it never touches, its input and output files, model, tools, prompt versions, the checks that judge it, written from the code | `agents/charters/<id>.md`, path in `agents/agents.json` | the Rules page, `/api/agents` |
 | definitions | judgements made once per company and applied every run | `definitions/companies.yaml` | README Critical notes |
@@ -114,7 +114,10 @@ counts those rows open while the local one counts them explained). The signed re
   /api/mapping`: the one writer; a member off the header's list or a second entry for the same name is refused) and
   Reject logs the member so the next run proposes another. Or write the entry by hand, with the note's own words as
   evidence, who and when. Either way, rerun `ledger rules` (or any taxonomy read) and the row shows `mapped`. A mapping
-  is a classification, never a number; a proposal is nothing until a person approves it.
+  is a classification, never a number; a proposal is nothing until a person approves it. T63: an entry counts as checked
+  only with `confirmed_by` and `confirmed_at` (Approve writes both; an agent never does). One without them, like the 47
+  Claude Fable 5.1 wrote on 1 Nov 2026, is open on Proof as "to confirm", fails gate G6, and sits in the same Reconcile
+  group: Approve confirms its line, Edit replaces it confirmed, Reject removes it and logs the member.
 - **Settle a disagreement with the SEC's data**: add a definition for the company in `definitions/companies.yaml`
   (who, why), rerun `reconcile` and `rules`. Never accept the same thing twice.
 - **Add a figure a company stated about AI**: `taxonomy/stated_figures.yaml`, verbatim, with the URL and the quote.

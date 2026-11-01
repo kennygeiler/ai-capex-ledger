@@ -5,7 +5,8 @@ of four states:
 
   checked    it agrees with an independent check: the SEC's XBRL (values, facts), a quote verified against the text it
              came from (statements, planned rows), a statement table located in the filing (ingest), a reported asset
-             type mapped to a us-gaap member with the note's words as evidence (mapping).
+             type mapped to a us-gaap member with the note's words as evidence and confirmed by a person (mapping, T63:
+             an entry without `confirmed_by` is a proposal and stays open, `label:to_confirm`).
   explained  it does not match, and something on file says why, by name: a definition (definitions/companies.yaml), an
              info-severity rule or a guard (rules/*.yaml, proof.GUARDS), a label reconcile wrote because the filing has
              no such line or XBRL has no such tag (not_reported, no_reference; docs/FIELDS.md), or a person's resolution
@@ -140,6 +141,28 @@ def _state(row: dict) -> dict:
         return {"state": "explained", "reason": row.get("reason") or {"not_reported": "the company reports no such line", "no_reference": "no XBRL tag to compare"}[row["label"]], "by": f"label:{row['label']}"}
     return {"state": "open", "reason": row.get("reason") or (f"rule {rule} fired and nothing on file says why" if rule else "neither checked nor explained"),
             "by": f"rule:{rule}" if rule else f"label:{row['label']}" if row.get("label") else ""}
+
+
+def confirmed(entry: dict | None) -> bool:
+    """T63: an asset-type mapping (an entry of taxonomy/asset_types.yaml) is a person's only when it carries a non-empty
+    `confirmed_by`. A field check, never a phrase match: `by` says who wrote it (a model, for the 47 entries of 1 Nov
+    2026), `confirmed_by` who stands behind it."""
+    return bool(entry) and bool(str(entry.get("confirmed_by") or "").strip())
+
+
+UNMAPPED = "a reported PP&E category with no entry in taxonomy/asset_types.yaml"
+
+
+def of_mapping(entry: dict | None) -> dict:
+    """A reported asset type (the mapping stage, T63): checked by the mapping when a person confirmed it; open, by
+    `label:to_confirm`, when the entry is a proposal (no `confirmed_by`: Reconcile's asset types group, Approve / Edit /
+    Reject); open with nothing when there is no entry."""
+    member = (entry or {}).get("standard_type")
+    if not member:
+        return state({"reason": UNMAPPED})
+    if confirmed(entry):
+        return state({"check": "mapping", "mapping_to": member, "reason": f"mapped to {member} with the note's words, confirmed by {entry['confirmed_by']}"})
+    return state({"label": "to_confirm", "reason": f"{member} proposed by {entry.get('by') or 'nobody named'}; no person has confirmed it"})
 
 
 def worst(states: list[dict]) -> dict | None:

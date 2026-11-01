@@ -521,7 +521,7 @@ the builder before fixing). Not new scope: each is a defect in approved work, fi
   already new, idempotent); the T3 and gate tests moved to the new shape. Fast suite 274 OK, golden equal. Reconcile's "to
   confirm" rows now print `field period (rule)` from the parsed key. The `asset_types|ticker|name` rows (T33) keep their own
   two-pipe key: not a queue item, not read by resolutions.
-- **T63 Mappings are proposals until a person confirms them.** All 47 entries in taxonomy/asset_types.yaml are `by: Claude
+- **T63 Mappings are proposals until a person confirms them.** *Done 1 Nov 2026 (branch `t63-mappings-proposals`): `status.confirmed` (a field check on `confirmed_by`) and `status.of_mapping` decide the Mapping stage; the 47 entries are open as to confirm and fail G6 until Kenny confirms them on Reconcile, asset types; proven on the six went from 6 to 0 for that reason alone. The filer's tagged member is shown and a us-gaap mismatch flagged (6 of 47: AMZN 2, APLD 4; the audit's claim holds); storing it on the row is T74.* All 47 entries in taxonomy/asset_types.yaml are `by: Claude
   Fable 5.1` and nobody confirmed them; Proof counts an entry as checked, so the six's Mapping stage is proven on model
   judgement alone, against the thesis. Fix, inside T33's design: an entry without `confirmed_by` is a proposal; the Reconcile
   "asset types" group shows it with Approve / Edit / Reject (Approve writes `confirmed_by`, `confirmed_at`); the
