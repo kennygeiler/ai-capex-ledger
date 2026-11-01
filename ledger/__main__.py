@@ -13,6 +13,7 @@ COMMANDS = {
     "notes": "Read segment capex and revenue, PP&E by category, finance leases and purchase commitments from the notes (--run), check every cell and load (--load).",
     "aispend": "Read what each 10-K's MD&A says about AI's part of capex and opex (--run), check every quote and load it (--load).",
     "projects": "Read named projects (data centers, fabs, plants, power, GPU clusters, commitments) with size and stage from every text (--run), check every quote and load (--load).",
+    "mapper": "Propose a us-gaap member for each of a company's unmapped PP&E categories, with the note's words as evidence (T33); a person approves on Reconcile. --dry-run writes the task only.",
     "cost": "What the agents cost: tokens, seconds, attempts and an estimated price per step and per company (reports/cost.json).",
     "rules": "Run the rule registry and write exceptions.",
     "faults": "Corrupt real extractions one at a time and report what catches each fault.",

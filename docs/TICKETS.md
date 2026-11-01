@@ -205,6 +205,14 @@ before scale is attempted; T35 measures it.
   evidence and a confidence; the person approves, edits or rejects each in Reconcile (a new group, "asset types"); approved
   mappings land in `taxonomy/asset_types.yaml` with `by` and the evidence. The agent runs headless (`LEDGER_CLAUDE`), prompt
   versioned under `agents/prompts/`. Done when company seven's asset types are mapped in under fifteen minutes of a person's time.
+  *As built (branch `t33-mapping-assistant`):* charter `agents/charters/mapper.md`, prompt `mapper@v1`, schema `agents/schemas/mapper@v1.json`,
+  runner `ledger/mapper.py` + `ledger mapper <TICKER> [--dry-run]` (headless `claude -p`, step `mapper` in `runs`), proposals appended
+  to `decisions/mapping_proposals.jsonl` (`proposed`, `rejected`, `approved` lines); Reconcile group "asset types" (cause
+  `asset_types`, any `?scope=<ticker>` the database holds) with Approve / Edit / Reject; `POST /api/mapping` is the one writer of
+  `taxonomy/asset_types.yaml` (member must be on the header's list, one entry per ticker + name, `by` the signer box, `at` today);
+  `POST /api/mapping/reject` logs the member so the next run proposes another. Measured on MU: 5 unmapped categories, 5 proposals
+  in one call (7.3 s, 7,724 in / 717 out tokens, 1 attempt), 4 high and 1 medium (Equipment, the note's footnote is not in the
+  parsed table); a person's part is five Approve clicks. MU stays out of `SCOPE` and its yaml entries unwritten until T35.
 - **T34 Second reviewer.** A resolution has `by` and `confirmed_by`; a release's checklist counts items confirmed by a second
   person; `SCOPE` companies need one confirmer per company. The read-only copy stays read-only. Done when the Release page
   shows "confirmed by" per company.

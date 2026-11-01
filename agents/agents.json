@@ -156,6 +156,33 @@
    }
   ]
  },
+ "mapper": {
+  "name": "Mapper",
+  "charter": "agents/charters/mapper.md",
+  "job": "For a company's reported PP&E categories with no entry in taxonomy/asset_types.yaml, proposes the nearest us-gaap PropertyPlantAndEquipmentByTypeAxis member with the note's own words as evidence and a confidence; a person approves, edits or rejects each on Reconcile.",
+  "decides": [
+   "Which member on the allowed list is nearest to what the note says the category holds",
+   "Which words of the note are the evidence",
+   "How sure the note's words allow it to be: high, medium or low"
+  ],
+  "checked_by": [
+   "Every proposal names a category the task asked for, a member on the list (or none) and evidence that is words of the task, or the answer is rejected and asked again once",
+   "Nothing it proposes is a mapping until a person approves it; the approval refuses a member off the list and a duplicate entry",
+   "Guard asset_type_mapping on the Proof board counts a category mapped only after the approval"
+  ],
+  "llm": {
+   "model": "claude-opus-5-5",
+   "runs_on": "Claude Code on Kenny's subscription: claude -p, headless, no tools, no paid API"
+  },
+  "prompt": "mapper@v1",
+  "history": [
+   {
+    "at": "2026-11-01T00:00:00+00:00",
+    "by": "Claude Fable 5.1",
+    "change": "mapper@v1: first prompt (T33, the mapping assistant)"
+   }
+  ]
+ },
  "attributor": {
   "name": "Attributor",
   "charter": "agents/charters/attributor.md",

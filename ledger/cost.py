@@ -7,11 +7,11 @@ import json
 
 from .config import PRICES, industry
 
-AGENT_STEPS = ("extract", "aispend", "notes", "projects", "attribution")
+AGENT_STEPS = ("extract", "aispend", "notes", "projects", "attribution", "mapper")
 # `runs` has no agent column: the step names the agent (one loader per agent, ledger/cli/<step>.py), so by_agent derives it.
-STEP_AGENT = {"extract": "reader", "aispend": "ai_reader", "notes": "notes_reader", "projects": "projects_reader", "attribution": "attributor"}
+STEP_AGENT = {"extract": "reader", "aispend": "ai_reader", "notes": "notes_reader", "projects": "projects_reader", "attribution": "attributor", "mapper": "mapper"}
 AGENT_STEP = {a: s for s, a in STEP_AGENT.items()}
-AGENT_SUBJECT = {"reader": "filing", "notes_reader": "filing", "ai_reader": "text", "projects_reader": "text", "attributor": "company"}
+AGENT_SUBJECT = {"reader": "filing", "notes_reader": "filing", "ai_reader": "text", "projects_reader": "text", "attributor": "company", "mapper": "company"}
 
 
 def _rows(con, sql, *p):
