@@ -70,6 +70,28 @@ six today.
 On the six today the walk finds no gap (`tests/test_status.py`, on the golden fixtures, which the test requires to
 exist; the 47 mappings are open since T63, so none is checked).
 
+**Completeness against the answer key (T81, `proof.missing_from_dataset`).** The walk above judges the rows that exist;
+this asks about the ones that might not. For every company in scope, every release field (revenue, capex, opex) and
+fiscal year in the window where XBRL (`reference_values`) holds a value, the release must ship a value or carry an open
+item. The released value is the `values` row after the review decisions (an override fills it, a reject empties it). A
+blank is accounted for only when it is open or blocked (a `not_extracted` blank, a person's fix: the Open line counts
+it, so it is never counted twice), when a person's resolution explains it, or when a person's reject decision emptied
+it. Anything else is a silent blank: no row at all, `not_reported` over an XBRL value (the Amazon case before T65), a
+checked label with no value, a run's resolution, a reject by a name not on `config.PEOPLE`. The Release checklist's
+required line "Answer-key values missing from the dataset" counts them and must read 0 to sign. The `coverage` rule
+fires on every such cell too: since T81 it no longer takes `not_reported` as a stated reason when XBRL holds a value.
+Today: 0 on the six; 2 on stage 3 (HUT and RIOT opex FY2024, the negative computed opex T102 relabels; a rule-explained
+blank still counts here, so T102 needs a person's resolution or an open item on those two, or a decision to let an
+info rule account for a blank).
+
+Facts are not covered, decided. A fact's answer key is the filing's own instance, matched to the note's line by member
+name; the instance tags every member on every axis for the same concepts (geography, related party, product line,
+equity-method investees, corporate and eliminations). On the six, 76 of the 113 members tagged for the dimensioned
+fields have no fact row, nearly all of them scope choices (country revenue, related-party splits), not omissions.
+Counting them would need an axis filter and a member-to-line map per company, a classification a person would have to
+confirm, so the count would be noise, not a guard. A missing fact row is caught where it is caught today: the notes
+reader's `not_found` list and the mapping stage.
+
 Precedence when more than one applies: blocked, then checked, then a person's fix (open), then explained, then open. A
 warn-severity finding (a jump, a renamed line, an outlier) has no state of its own: it takes the worst state of the
 rows it fired on, so a jump on a value XBRL confirms is checked, on a value a definition covers is explained, on an
@@ -218,7 +240,8 @@ answer is derived from the same cells.
 - **Release** (`#release`, the last page; `ledger/checklist.py`, T5–T8): the checklist a person signs from. One line per thing
   that could make the signature wrong, each green or red with its count and a link to the page that fixes it: the four
   gates per company (G1 G4 G5 G6, `release.gates`), open and blocked items in the scope (the Proof board's counts, the one
-  definition of open), decisions a run left to confirm, unmapped asset types (0 required), rows with no value by measure
+  definition of open), answer-key values missing from the dataset (T81, 0 required: an XBRL value with no released
+  value and nothing open), decisions a run left to confirm, unmapped asset types (0 required), rows with no value by measure
   (informs), the rows added / removed / changed per list against the previous release (informs; `DIFF.md` carries the same
   table), the golden test (`reports/golden.json`, required equal) and the last test run (`reports/tests.json`, written
   by `ledger test`: count, failures, golden, commit; absent reads "not run" and does not block; failing is red; passed on

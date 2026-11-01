@@ -287,8 +287,10 @@ def _coverage(ctx, p):
     """A year after the company's newest 10-K is not missing while that 10-K isn't due yet: the fiscal year hasn't
     ended, or ended less than `filing_days` ago. A row counts as present when it carries a value or a stated reason
     (`not_reported`: the company has no such line and XBRL none either); a null `not_extracted` row is a missing value
-    (T65: the finding then takes that row's state, open)."""
-    have = {(v["ticker"], v["field"], v["period"]) for v in ctx.values if v["value"] is not None or v.get("label") == "not_reported"}
+    (T65: the finding then takes that row's state, open). `not_reported` over an XBRL value is no reason (T81: the
+    checklist's "Answer-key values missing from the dataset" counts the same cell), so the finding fires on it."""
+    have = {(v["ticker"], v["field"], v["period"]) for v in ctx.values if v["value"] is not None or (
+        v.get("label") == "not_reported" and (ctx.reference.get((v["ticker"], v["field"], v["period"])) or {}).get("value") is None)}
     tickers = sorted({v["ticker"] for v in ctx.values} | {e["ticker"] for e in ctx.extractions})
     newest = {}
     for v in ctx.values:

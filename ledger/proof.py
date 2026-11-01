@@ -317,3 +317,59 @@ def unevidenced(con, tickers=None, companies: list[dict] | None = None, ev: dict
         companies = [company(con, t, idx, defs) for t in tickers]
     return [{"ticker": c["ticker"], "stage": s, "what": i["what"], "state": i["state"], "by": i["by"], "gap": gap}
             for c in companies for s, st in c["stages"].items() for i in st["all"] if (gap := status.evidence_gap(i, ev))]
+
+
+# ── T81: completeness against the answer key ─────────────────────────────────────────────────────────────────────────
+
+def missing_from_dataset(con, tickers=None, idx: dict | None = None, ds: list[dict] | None = None) -> list[dict]:
+    """Every (company, field, fiscal year) of `tickers` (config.SCOPE by default) where XBRL (reference_values) holds a
+    value and the release would ship none, with nothing open to say so: [{ticker, field, period, reference, label, why}].
+    Empty is the rule held; the Release checklist's line "Answer-key values missing from the dataset" counts it (T81).
+
+    The released value is the `values` row after the review decisions (review.apply: an override fills it, a reject
+    empties it). A row with no released value is accounted for only when it is open or blocked (status.of_value: a
+    not_extracted blank, a person's fix; the Open line counts it), when a person's resolution explains it (proof.person_wrote),
+    or when a person's reject decision removed the value. Anything else is a silent blank: no row at all, a label
+    (not_reported over an XBRL value, the Amazon case before T65), a run's resolution, a reject by no one on config.PEOPLE.
+    Fields and years are config.RELEASE_FIELDS and config.MVP_YEARS, what a release ships. Facts are out of scope
+    (docs/PROOF.md, "Completeness")."""
+    from .config import MVP_YEARS, RELEASE_FIELDS
+    from .review import apply, latest
+    tickers = list(tickers or SCOPE)
+    if not _has(con, "reference_values"):
+        return []
+    refs = _rows(con, "select ticker, field, period, value from reference_values where ticker in (select unnest(?)) and value is not null "
+                      "and field in (select unnest(?)) and period in (select unnest(?)) order by ticker, field, period", tickers, list(RELEASE_FIELDS), list(MVP_YEARS))
+    vals = _rows(con, 'select * from "values" where ticker in (select unnest(?))', tickers)
+    excs = _rows(con, "select * from exceptions where ticker in (select unnest(?))", tickers) if _has(con, "exceptions") else []
+    ds = decisions() if ds is None else ds
+    idx = resolutions.by_row() if idx is None else idx
+    released = {(v["ticker"], v["field"], v["period"]): v for v in apply(vals, excs, ds)}
+    cur, rejected = latest(ds), {}
+    for e in excs:  # the decisions review.apply reads, to name who emptied a value
+        d = cur.get(e["exception_id"])
+        if d and d["input_hash"] == e["input_hash"] and d["kind"] == "reject" and e["period"]:
+            rejected[(e["ticker"], e["field"], e["period"])] = d
+    out = []
+    for r in refs:
+        k = (r["ticker"], r["field"], r["period"])
+        v = released.get(k)
+        row = {"ticker": k[0], "field": k[1], "period": k[2], "reference": r["value"], "label": (v or {}).get("label")}
+        if v is None:
+            out.append({**row, "why": "no row in values"})
+            continue
+        if v.get("value") is not None:
+            continue
+        if k in rejected:
+            who = rejected[k].get("reviewer")
+            if not status.is_person(who):
+                out.append({**row, "why": f"emptied by a reject decision of {who!r}, not a person on config.PEOPLE"})
+            continue
+        res = resolutions.resolution_of(idx, "values", *k[:2], "", k[2])
+        st = status.of_value(v, res)
+        if status.is_open(st):
+            continue  # an open item: the Open line counts it
+        if st["by"].startswith("resolution:") and res and person_wrote(res):
+            continue  # a person's resolution explains the blank
+        out.append({**row, "why": f"{st['state']} by {st['by'] or 'nothing'} with no value"})
+    return out

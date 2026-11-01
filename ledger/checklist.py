@@ -1,7 +1,8 @@
 """The Release page's checklist (T5) and the one act that signs from it (T6, docs/PROOF.md).
 
 Every line is what could make a signature wrong, with its count and the page that fixes it: the gates per company
-(release.gates), open and blocked items in the scope (proof.board, the one definition of open), the decisions a run
+(release.gates), open and blocked items in the scope (proof.board, the one definition of open), answer-key values missing
+from the dataset (proof.missing_from_dataset, T81: an XBRL value with no released value and nothing open), the decisions a run
 left to confirm (resolutions.unconfirmed), unmapped asset types (taxonomy.unmapped), rows with no value by measure,
 the diff in rows from the previous release (release.rows_diff), the limitations with no mitigation
 (taxonomy/limitations.yaml, T68), the golden test and the last test run
@@ -339,6 +340,11 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     per_co = [{"ticker": c["ticker"], "open": c["open"] - sum(s["blocked"] for s in c["stages"].values()), "blocked": sum(s["blocked"] for s in c["stages"].values())} for c in board["proven"]]
     lines.append(_line("open", "Open items in scope", True, open_, "pass" if open_ == 0 else "fail", "reconcile", "neither checked nor explained; needs a rule, a definition or a decision", [x for x in per_co if x["open"]]))
     lines.append(_line("blocked", "Blocked items in scope", True, blocked, "pass" if blocked == 0 else "fail", "reconcile", "a block-severity rule or a person's decision refuses the release", [x for x in per_co if x["blocked"]]))
+    # completeness against the answer key (T81): an XBRL value with no released value and nothing open is a silent blank
+    miss = proof.missing_from_dataset(con, SCOPE)
+    lines.append(_line("complete", "Answer-key values missing from the dataset", True, len(miss), "pass" if not miss else "fail", "reconcile",
+                       "company, field and year where XBRL holds a value, the release ships none, and no open item or person's decision says why",
+                       [{"ticker": m["ticker"], "field": m["field"], "period": m["period"], "reference": m["reference"], "why": m["why"]} for m in miss]))
     # decisions a run left to confirm (T3)
     unc = resolutions.unconfirmed()
     utc = taxonomy.to_confirm(con, list(SCOPE))  # T63: asset-type mappings no person confirmed count here as G6 counts them
