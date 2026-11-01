@@ -112,7 +112,8 @@ counts those rows open while the local one counts them explained). The signed re
   proposals land in `decisions/mapping_proposals.jsonl` and on Reconcile's "asset types" group (`#reconcile?scope=<TICKER>`,
   in scope or not), where Approve or Edit writes the entry to `taxonomy/asset_types.yaml` under your name (`POST
   /api/mapping`: the one writer; a member off the header's list or a second entry for the same name is refused) and
-  Reject logs the member so the next run proposes another. Or write the entry by hand, with the note's own words as
+  Reject logs the member so the next run proposes another (T100: a delayed proposal of a rejected member is never current;
+  Reconcile shows it as "re-proposed after rejection", and a proposal after an approval changes nothing). Or write the entry by hand, with the note's own words as
   evidence, who and when. Either way, rerun `ledger rules` (or any taxonomy read) and the row shows `mapped`. A mapping
   is a classification, never a number; a proposal is nothing until a person approves it. T63: an entry counts as checked
   only with `confirmed_by` and `confirmed_at` (Approve writes both; an agent never does). One without them, like the 47

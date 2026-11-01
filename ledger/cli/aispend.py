@@ -5,7 +5,8 @@ part of capex and opex (ledger/guidance.py).
 --pack  writes one task per text to data/aispend/tasks/: only the passages that mention AI next to spending.
 --run   packs, then runs the AI spend reader headless on every text whose task changed (--rerun: all), writing
         data/aispend/outputs/<text_id>.json; a text the agent can't answer gets {"error": reason}.
---load  validates each output (schema, then every quote against its passage), writes `ai_statements` (table A) and
+--load  refuses an output whose `_run.task_sha` is not the current task's (T100: stale, answered an older task),
+        validates each output (schema, then every quote against its passage), writes `ai_statements` (table A) and
         derives `ai_spend` (table B). A text with no valid output becomes an `ai_extraction_failed` exception.
 """
 import argparse
@@ -17,12 +18,20 @@ from datetime import datetime, timezone
 
 from .. import agent, store
 from ..config import add_scope, scope
-from ..guidance import OUTPUTS, Invalid, period_of, prompt_version, spend_rows, task_passages, validate_output, write_tasks
+from ..guidance import OUTPUTS, Invalid, make_task, passages, period_of, prompt_version, spend_rows, task_passages, validate_output, write_tasks
 
 
 def _exc(ticker, subject, message):
     return {"exception_id": f"ai_extraction_failed|{subject}", "rule_id": "ai_extraction_failed", "severity": "block", "ticker": ticker,
             "field": None, "period": None, "subject": subject, "message": message, "input_hash": hashlib.sha256(f"{subject}|{message}".encode()).hexdigest()[:16]}
+
+
+def _current_task(d: dict, task) -> str | None:
+    """The task as `--pack` would write it now (from the text on disk), else the task file, else None (nothing to compare)."""
+    src = store.ROOT / (d.get("path") or "")
+    if d.get("path") and src.exists():
+        return make_task(d, passages(src.read_text()))
+    return task.read_text() if task.exists() else None
 
 
 def main(argv=None) -> int:
@@ -101,6 +110,8 @@ def main(argv=None) -> int:
             obj = json.loads(out.read_text())
             if "error" in obj:
                 raise Invalid(f"the agent couldn't answer: {obj['error']}")
+            if why := agent.stale(obj, _current_task(d, task)):  # T100: an answer to a task repacked since never loads
+                raise Invalid(why)
             validate_output(obj, d["text_id"], task_passages(task.read_text()) if task.exists() else {})
         except (Invalid, json.JSONDecodeError) as e:
             excs.append(_exc(d["ticker"], d["text_id"], f"{d['kind']} {d['period_end']}: {getattr(e, 'reason', e)}"))

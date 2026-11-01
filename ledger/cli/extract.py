@@ -4,7 +4,8 @@
 --run   packs, then runs the agent headless (`claude -p`, ledger/agent.py) on every filing with no output yet
         (--rerun: all of them), writing data/extract/outputs/<accession>.json; a filing the agent can't answer
         gets {"error": reason} there, so the failure is recorded, not guessed.
---load  validates each output (schema, then citation), dates each period from the company's filing calendar, and
+--load  refuses an output whose `_run.task_sha` is not the current task's (T100: stale, answered an older task),
+        validates each output (schema, then citation), dates each period from the company's filing calendar, and
         writes `extractions`. A filing with no valid output, and each citation that doesn't resolve, becomes an
         `extraction_failed` exception: nothing is guessed.
 """
@@ -17,7 +18,7 @@ from datetime import datetime, timezone
 
 from .. import agent, store
 from ..config import add_scope, scope
-from ..extract import OUTPUTS, Invalid, period_start, prompt_version, resolve, validate_output, write_tasks
+from ..extract import OUTPUTS, Invalid, make_task, period_start, prompt_version, resolve, validate_output, write_tasks
 from ..ingest.filings import report_period_ends
 
 DOCS = store.ROOT / "data" / "docs"
@@ -100,6 +101,8 @@ def main(argv=None) -> int:
             obj = json.loads(out.read_text())
             if "error" in obj:
                 raise Invalid(f"the agent couldn't answer: {obj['error']}")
+            if why := agent.stale(obj, make_task(p)):  # T100: an answer to a task repacked since never loads
+                raise Invalid(why)
             validate_output(obj, p["accession"])
         except (Invalid, json.JSONDecodeError) as e:
             excs.append(_exc("extraction_failed", p["ticker"], p["accession"], f"{p['form']} {p['period']}: {getattr(e, 'reason', e)}"))

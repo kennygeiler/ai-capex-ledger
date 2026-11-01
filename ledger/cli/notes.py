@@ -5,7 +5,8 @@ purchase commitments.
 --pack  writes one task per filing to data/notes/tasks/: the candidate note tables, nothing else.
 --run   packs, then runs the Notes reader headless on every filing whose task changed (--rerun: all), writing
         data/notes/outputs/<accession>.json.
---load  validates each output (schema, then every citation against the parsed table), writes `note_extractions`
+--load  refuses an output whose `_run.task_sha` is not the current task's (T100: stale, answered an older task),
+        validates each output (schema, then every citation against the parsed table), writes `note_extractions`
         (table A) and derives `facts` (table B), labelled against each filing's XBRL instance where a member matches.
 """
 import argparse
@@ -18,7 +19,7 @@ from datetime import datetime, timezone
 from .. import agent, store
 from ..config import add_scope, scope
 from ..extract import Invalid
-from ..notes import DIMENSIONED, OUTPUTS, fact_rows, norm_dim, prompt_version, resolve_note, validate_output, write_tasks
+from ..notes import DIMENSIONED, OUTPUTS, fact_rows, make_task, norm_dim, prompt_version, resolve_note, validate_output, write_tasks
 from ..reconcile import fiscal_year_end
 from ..reference.dimensions import CONCEPTS, instance_facts
 from ..reference.normalize import fiscal_label
@@ -110,6 +111,8 @@ def main(argv=None) -> int:
             obj = json.loads(out.read_text())
             if "error" in obj:
                 raise Invalid(f"the agent couldn't answer: {obj['error']}")
+            if why := agent.stale(obj, make_task(p)):  # T100: an answer to a task repacked since never loads
+                raise Invalid(why)
             validate_output(obj, p["accession"])
         except (Invalid, json.JSONDecodeError) as e:
             excs.append(_exc(p["ticker"], p["accession"], f"{p['form']} {p['period']}: {getattr(e, 'reason', e)}"))

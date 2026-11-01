@@ -4,7 +4,7 @@ The mapping assistant (docs/TICKETS.md T33). One call per company, `ledger mappe
 
 ## Owns
 
-Proposals only: one line per (ticker, reported_name) appended to `decisions/mapping_proposals.jsonl` (ledger/mapper.py `propose`), each a us-gaap `PropertyPlantAndEquipmentByTypeAxis` member from the list in the header of taxonomy/asset_types.yaml (ledger/mapper.py `members`), the note's words as evidence, a confidence (high, medium, low) and a reason. A proposal is a proposal until a person approves it on Reconcile (the "asset types" group): Approve or Edit calls `POST /api/mapping`, which writes the entry to taxonomy/asset_types.yaml with `by` = the person's name; Reject appends a rejection line to the same log so the next run does not propose the same member again.
+Proposals only: one line per (ticker, reported_name) appended to `decisions/mapping_proposals.jsonl` (ledger/mapper.py `propose`), each a us-gaap `PropertyPlantAndEquipmentByTypeAxis` member from the list in the header of taxonomy/asset_types.yaml (ledger/mapper.py `members`), the note's words as evidence, a confidence (high, medium, low) and a reason. A proposal is a proposal until a person approves it on Reconcile (the "asset types" group): Approve or Edit calls `POST /api/mapping`, which writes the entry to taxonomy/asset_types.yaml with `by` = the person's name; Reject appends a rejection line to the same log so the next run does not propose the same member again; a proposal of a rejected member that arrives anyway (a delayed run) is never current and shows as "re-proposed after rejection" (T100, `by_name`), and a proposal after an approval changes nothing.
 
 ## Never touches
 

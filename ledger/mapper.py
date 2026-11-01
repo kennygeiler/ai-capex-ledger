@@ -72,22 +72,37 @@ def _now() -> str:
 
 
 def by_name(ticker: str, lines: list[dict] | None = None) -> dict[str, dict]:
-    """Per reported_name of `ticker`: {"proposal": the latest proposed line not rejected since, or None; "rejected": the members
-    a person rejected for it; "approved": the latest approval line, if any}."""
+    """Per reported_name of `ticker`: {"proposal": the current proposal or None; "rejected": the members a person rejected
+    for it; "reproposed": proposals of a member that arrived after a person rejected it (T100), never current; "late": proposals that arrived after a
+    person approved or confirmed the entry, never current; "approved": the latest approval line, if any}.
+
+    T100, a late writer never overwrites a newer state: a proposal of a member a person rejected for this name, whether
+    the rejection came before or after it in the log, is never current; it shows under `reproposed` ("re-proposed after
+    rejection") and needs a fresh decision from a person (Approve or Edit), with the rejected list beside it. A proposal
+    that arrives after a person's approval changes nothing: the approval stands. Before T100 the latest `proposed` line
+    won and a rejection cleared only a proposal written before it, so a delayed proposal of a rejected member came back."""
     out: dict[str, dict] = {}
+    seen: dict[str, list[dict]] = {}  # per name, the proposals since the last approval, in log order
     for l in lines if lines is not None else load_proposals():
         if l.get("ticker") != ticker:
             continue
-        e = out.setdefault(l["reported_name"], {"proposal": None, "rejected": [], "approved": None})
+        e = out.setdefault(l["reported_name"], {"proposal": None, "rejected": [], "reproposed": [], "late": [], "approved": None})
+        props = seen.setdefault(l["reported_name"], [])
         if l.get("kind") == "proposed":
-            e["proposal"] = l
+            if e["approved"]:
+                e["late"].append(l)
+            else:
+                props.append(l)
+                if l.get("standard_type") in e["rejected"]:
+                    e["reproposed"].append(l)  # a member a person already rejected: re-proposed after rejection
         elif l.get("kind") == "rejected":
             if l.get("standard_type") and l["standard_type"] not in e["rejected"]:
                 e["rejected"].append(l["standard_type"])
-            if e["proposal"] and e["proposal"].get("standard_type") == l.get("standard_type"):
-                e["proposal"] = None
         elif l.get("kind") in ("approved", "confirmed"):
             e["approved"] = l
+            props.clear()
+    for name, e in out.items():
+        e["proposal"] = next((p for p in reversed(seen.get(name) or []) if p.get("standard_type") not in e["rejected"]), None)
     return out
 
 
@@ -456,11 +471,12 @@ def pending(con, tickers: list[str] | None, lines: list[dict] | None = None) -> 
         blocks = note_words(con, t, names)
         filed = filer_members(con, t, names)
         for n, entry in sorted(pairs, key=lambda x: (x[1] is not None, x[0])):
-            e = idx.get(n) or {"proposal": None, "rejected": [], "approved": None}
+            e = idx.get(n) or {"proposal": None, "rejected": [], "reproposed": [], "late": [], "approved": None}
             note = next((b for b in blocks if _norm(n) in _norm(b["table"])), blocks[0] if blocks else None)
             proposal = e["proposal"] if entry is None else {"standard_type": entry["standard_type"], "evidence": entry.get("evidence"), "by": entry.get("by"), "at": entry.get("at"),
                                                             "source": "taxonomy/asset_types.yaml", "confidence": None, "reason": None}
-            out.append({"ticker": t, "reported_name": n, "kind": "unmapped" if entry is None else "to_confirm", "proposal": proposal, "rejected": e["rejected"], "filer": filed.get(n),
+            out.append({"ticker": t, "reported_name": n, "kind": "unmapped" if entry is None else "to_confirm", "proposal": proposal, "rejected": e["rejected"],
+                        "reproposed": [r["standard_type"] for r in e["reproposed"]] if entry is None else [], "filer": filed.get(n),
                         "note": {"accession": note["accession"], "table_id": note["table_id"], "before": note["before"][-400:]} if note else None})
     return out
 

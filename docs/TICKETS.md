@@ -724,7 +724,7 @@ are listed at the end.
   v1.9.0's DIFF names them as breaking. Done when a test shows a packet that drops a column cannot sign as minor.
   About ½ day.
 
-- **T100 A late writer never overwrites a newer state.** [memory checklist's deletion test; Kenny: "Sure send it"] Three
+- **T100 A late writer never overwrites a newer state.** [memory checklist's deletion test; Kenny: "Sure send it"] *Done 2 Nov 2026 (branch `t69-t100-authors-late-writers`): (1) the three loaders refuse an output whose task_sha is not the current task's (`agent.stale`), logged as their failure class, and `ledger rules` keeps those failures; (2) `mapper.by_name` never makes a re-proposed rejected member current (`reproposed`, shown on Reconcile) and ignores proposals after an approval (`late`); (3) `resolutions.latest` keeps a person line over a later run line on the same key and hash; tests in `tests/test_late_writers.py` and test_resolutions Authors. The check refused 7 stale AMZN/AMD notes outputs (INGESTION.md 74): golden red until `ledger notes --run --ticker AMZN AMD` and a re-freeze.* Three
   places, from reading the code: (1) `extract`/`notes`/`aispend --load` never compare an output's `_run.task_sha` with the
   current task file, so an answer to a repacked task (T65 re-pointed AMZN's income table) still loads, guarded only by
   citation re-resolution; (2) `mapper.by_name`: the latest `proposed` line wins and a rejection clears a proposal only if it
