@@ -69,7 +69,6 @@ Against the previous release, by each list's row key (a row is changed when a co
 
 ### companies.csv
 
-- columns removed: `sic`, `sic_description`
 - removed (94): AAOI, AAPL, ACLS, ADBE, AEIS, ALAB, AMAT, ANET, ARM, AVGO, BE, BTBT, BTDR, CDNS, CEG, CIEN, CIFR, CLS, CLSK, COHR, COMP, CORZ, CRDO, CRM, CRWV … and 69 more
 
 ### ai_spend.csv

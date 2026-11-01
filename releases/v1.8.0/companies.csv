@@ -1,7 +1,7 @@
-ticker,name,layer,group,role,note,proven
-NVDA,Nvidia,chip_seller,AI trade,seller,,True
-MSFT,Microsoft,hyperscaler,AI trade,buyer,,True
-GOOGL,Alphabet,hyperscaler,AI trade,buyer,,True
-AMZN,Amazon,hyperscaler,AI trade,buyer,,True
-AMD,AMD,chip_seller,AI trade,seller,,True
-APLD,Applied Digital,miner_to_hpc,"Nasdaq, not S&P 500",buyer,,True
+ticker,name,layer,group,role,note,sic,sic_description,proven
+NVDA,Nvidia,chip_seller,AI trade,seller,,3674,Semiconductors & Related Devices,True
+MSFT,Microsoft,hyperscaler,AI trade,buyer,,7372,Services-Prepackaged Software,True
+GOOGL,Alphabet,hyperscaler,AI trade,buyer,,7370,"Services-Computer Programming, Data Processing, Etc.",True
+AMZN,Amazon,hyperscaler,AI trade,buyer,,5961,Retail-Catalog & Mail-Order Houses,True
+AMD,AMD,chip_seller,AI trade,seller,,3674,Semiconductors & Related Devices,True
+APLD,Applied Digital,miner_to_hpc,"Nasdaq, not S&P 500",buyer,,7374,Services-Computer Processing & Data Preparation,True
