@@ -331,4 +331,11 @@ What each company cost. `ledger run` prints this, and each validation page shows
     filing whose income table is its cash-flow table or has no revenue-like row; the balance-sheet marker excludes
     "equity-method"; Amazon re-located and re-read headless. The failures.yaml entry (T54) follows on that branch.
     Found by the overnight audit of v1.8.0.
+    Review fix (2 Nov 2026): the same marker missed "Total stockholders' equity" (no space before equity) and matched
+    "Equity in earnings (losses) of affiliates"; re-running the locator over all 393 stored filings changed 33, every
+    one a correction (Micron's statement of equity + cash flow, AMD's Xilinx pro forma pair (T101), Cipher's
+    parent-only condensed table, Marathon's MD&A comparison, Entegris, Teradyne, Flex, Quanta, Freeport, NRG's
+    guarantor summary). `statement_tables_distinct` now blocks a partial overlap of the two table lists, and its
+    revenue check ignores expense lines that mention sales and accepts a bank's interest and noninterest income.
+    Stored documents outside the six keep their old location until re-ingested.
 

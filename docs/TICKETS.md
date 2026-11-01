@@ -495,7 +495,7 @@ the builder before fixing). Not new scope: each is a defect in approved work, fi
   key built like the other kinds, `value_missing|<ticker>|<field> <period>`); Reconcile shows it open with the cause "Not
   extracted"; Proof 7 == Reconcile 7 on AMD. `value_missing` is not in `resolutions.LIVE_KINDS`: a person cannot resolve
   it, the fix is an extraction (`docs/PROOF.md`).
-- **T101 AMD's located income statement is the Xilinx pro forma pair.** AMD's FY2022–FY2024 10-Ks (0000002488-23-000047
+- **T101 AMD's located income statement is the Xilinx pro forma pair.** *Done 2 Nov 2026 (b6027ca, 332a32b): the T65 review fix to the balance-sheet marker locates AMD's statement of operations (t0012); re-read headless, all 12 values agree with XBRL, AMD proven again.* AMD's FY2022–FY2024 10-Ks (0000002488-23-000047
   t0032,t0033; -24-000012 t0031,t0032; -25-000012 t0028,t0029) have as their located income statement a two-table pair
   from the Xilinx acquisition note: a one-column partial table (Net revenue 4,612) and the unaudited pro forma results
   (Net revenue 24,117 / 20,150, Net income 2,311 / 8). The reader refused it in all three outputs ("not the consolidated
