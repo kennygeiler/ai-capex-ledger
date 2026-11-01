@@ -65,10 +65,43 @@ the same columns from a release as from the live API. A release holds one CSV pe
 (`ALTER COLUMN … TYPE boolean USING (col = 'True' OR col = 'true')`, `publish.retypes`, guarded by the column's current type so it
 runs once); older releases' rows keep their value, read as boolean.
 
+## Point in time: `?as_of=D`
+
+`values` and `taxonomy` carry the newest filing's figure (with `first_reported` and `basis` beside it on values). A backtest run on day D
+must not see a figure a later 10-K restated: that is lookahead. `?as_of=YYYY-MM-DD` on `/api/v1/values` or `/api/v1/taxonomy` (JSON or
+CSV, with the other filters) answers from `extractions` (every filing's cited cells are kept) joined to `documents.filed` (`ledger/pit.py`):
+the figure the newest filing filed on or before D gave, by the values builder's own arithmetic (one cell per field, opex from the three cells
+of the same 10-K column, cost-of-revenue lines summed when there is no total line, the newest filing by `filed` and on the same day the more
+complete one). A (company, field, year) no filing by D reports is absent, never null-filled. Overrides are not applied. A bad date, or
+`as_of` on any other list, is 400.
+
+- `values?as_of=D`: ticker, field, period, period_end, value, accession, filed, restated_later (a later filing changed the figure beyond its
+  rounding, even one after D), basis, first_reported (both as `values` holds them today), source, extraction_ids, layer, proven, status, as_of.
+  No `check_label` or `flag`: the XBRL comparison was made on the newest figure, not this one.
+- `taxonomy?as_of=D`: the `spent` / `capex` rows are re-pointed at the newest filing filed by D (value, source, accession, filed, source_table,
+  source_url; `check` reads `not_checked` with method `none` when that filing is not the one the live row was checked against). Every other
+  row is kept only when its own `filed` is on or before D: a 10-K note, MD&A or 8-K figure filed after D is dropped, not replaced by an earlier
+  filing's (`facts` holds the newest filing's note figures only); a row with no filing date (transcript, CFO commentary, gathered) is dropped.
+  So the taxonomy as-of is complete for capex and conservative (absent, never stale) for the rest.
+
+The canonical case, APLD's FY2025 revenue (`period_end` 2025-05-31), which moved 58% between two 10-Ks: the FY2025 10-K
+(`0001144879-25-000021`, filed 2025-07-30) reported $144,193,000; the FY2026 10-K (`0001144879-26-000048`, filed 2026-07-29) restated it to
+$228,569,000. `values` holds 228,569,000 with `first_reported` 144,193,000 and `basis` restated.
+
+```
+/api/v1/values?ticker=APLD&field=revenue&period=FY2025&as_of=2025-07-29   → no row (nothing filed yet)
+/api/v1/values?ticker=APLD&field=revenue&period=FY2025&as_of=2026-07-28   → 144193000, accession 0001144879-25-000021, filed 2025-07-30, restated_later true
+/api/v1/values?ticker=APLD&field=revenue&period=FY2025&as_of=2026-07-29   → 228569000, accession 0001144879-26-000048, filed 2026-07-29, restated_later false
+```
+
+`tests/test_pit.py` proves on the six that for every filing date D the returned accession's `filed <= D`, that today's answer equals `values`,
+and the flip above. The release packet has no as-of file (T55: the packet holds the signed dataset once; the as-of answer is derived from the
+same cells); the packet README names this endpoint.
+
 ## Filters and grouping
 
 Every list takes `ticker`, `layer`, `period`, `field`, `kind`, `method`, `scope`, `dimension`, `source`, `measure`, `category`, `fiscal_year`, `standard_type`, `check`,
-`source_kind`, `period_kind`, `has_value`, `mapped`, `status` as comma-separated values, matched without regard to case; a boolean takes `true` or `false`
+`source_kind`, `period_kind`, `has_value`, `mapped`, `status` as comma-separated values (and values and taxonomy `as_of`, above), matched without regard to case; a boolean takes `true` or `false`
 (`has_value=false` is the rows the company named without a figure). `group=<column>` rolls the list up: one row per distinct
 value with `rows`, `amount` (the sum of the list's amount column: value, amount_mid or amount) and
 `with_amount`.

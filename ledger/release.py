@@ -333,6 +333,10 @@ def readme(version, rows, ai_spend=()) -> str:
         "| `class` | `explicit_amount` (dollars in `amount_low`, `amount_high`), `explicit_share` (`share`, 0 to 1), or `qualitative` (words only). |",
         "| `source` | `mdna` (10-K Item 7), `earnings_release` (8-K Exhibit 99.1), `transcript` or `cfo_commentary` (the company's investor page). |",
         "| `quote` | The sentence, verbatim from the source. |", "",
+        "## Point in time", "",
+        "`values.csv` carries the newest filing's figure per fiscal year, with `first_reported` beside it. A backtest must not see a figure restated after the day it is "
+        "testing: ask the read API with `?as_of=YYYY-MM-DD` on `/api/v1/values` or `/api/v1/taxonomy` (docs/API.md) for what the newest filing filed on or before that day "
+        "gave, with its accession and filing date. No as-of file is in the packet: the packet holds the signed dataset once, and the as-of answer is derived from the same cells.", "",
         "## Verify it yourself", "",
         "The hash in `manifest.json` is SHA-256 over the files it lists, so the packet can be checked against the signature. "
         "Each citation names a public filing on sec.gov; open the accession number, find the row and column, and the cell text should match.", "",

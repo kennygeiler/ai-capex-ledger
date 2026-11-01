@@ -109,6 +109,14 @@ the thesis in use); and the order of a value's cost-line extraction ids was not 
 
 Nothing is inferred. The attribution methods that estimated an AI share, and the theses that drove them, are archived under `docs/archive/theses/` (1 Nov 2026, "invent nothing").
 
+**Point in time, no lookahead (T55).** `values` ships the newest 10-K's figure per fiscal year and keeps the first 10-K's as `first_reported`;
+a buyer who backtests on day D must see only what was filed by D, or a restated figure leaks the future into history (APLD's FY2025 revenue
+moved 58% between its 10-Ks). `?as_of=D` on `/api/v1/values` and `/api/v1/taxonomy` (`ledger/pit.py`, `docs/API.md`) answers from the cells
+every filing left in `extractions` and `documents.filed`, with the values builder's own arithmetic, and names the accession and filing date it
+used; a year no filing by D reports is absent, never filled. `tests/test_pit.py` proves on the six that at every filing date the answer's
+`filed <= D` and that today's answer equals `values`. The packet carries no as-of file: the signed dataset is shipped once, and the as-of
+answer is derived from the same cells.
+
 ## DATAHQ
 
 - **Proof** (home): the five companies down, the stages across. Each cell: checked, explained, open, as counts.
