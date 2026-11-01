@@ -416,6 +416,10 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(proof.company(con, parts[1]) if len(parts) == 2 else proof.board(con))
             finally:
                 con.close()
+        if name == "failures":  # T54: the failure types as data (taxonomy/failures.yaml); counts are numbers of types, never instances
+            from . import failures
+            types = failures.load()
+            return self._json({**failures.pareto(types), "types": [{k: t.get(k) for k in ("id", "name", "class", "origin", "check", "count")} for t in types]})
         if name == "reconcile":  # the workbench, docs/DATAHQ.md
             from . import workbench
             f = flow(q.get("scope", "all"))

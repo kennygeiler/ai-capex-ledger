@@ -25,7 +25,7 @@ The measures (`docs/TAXONOMY.md`) are the `taxonomy` list: spent, committed and 
 
 The proof pages (`docs/PROOF.md`): `/api/v1/proof` is the board (the proven set's stage counts and the rest in one line), `/api/v1/proof/<ticker>`
 a company's trail (per stage: checked, explained, open items with what they need), `/api/v1/rules` every rule, guard and definition with what it closed
-and the open items by what is missing, `/api/v1/golden` the golden test's last result. Answer keys (T56, `docs/PROOF.md`): the board, each company
+and the open items by what is missing, `/api/v1/golden` the golden test's last result, `/api/v1/failures` the failure types as data (T54, `taxonomy/failures.yaml`): `total`, `by_class`, `by_origin` and `by_check` (each a list of `{<key>, types}` largest first, a bar being a number of types, never instances; `none` is a check of its own), `none` (how many types no check in code catches) and `types` (id, name, class, origin, check, count; a null count stays null). Answer keys (T56, `docs/PROOF.md`): the board, each company
 on it and each stage of a trail carry `keys`, `{twin, second_source, tie, later_truth, none, rows}`, rows counted once by the strongest key that vouches
 for them, `none` for a row no key vouches for (a quote, a mapping, an explanation, an open item), so the five sum to `rows`; the board and a trail also carry
 `key_grade`, the four in strength order with `id`, `label` and `why`. Every trail item carries `key` (the strongest answer key behind its `by`, or null) and
