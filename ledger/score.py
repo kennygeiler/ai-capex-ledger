@@ -22,6 +22,8 @@ AGENT_STAGE = {"reader": "values", "ai_reader": "statements", "notes_reader": "f
 # the one step with a fault test: `ledger faults` corrupts `extractions` (ledger/faults.py), the reader's rows
 FAULTED_STEP = "extract"
 FAULT_CAUGHT = ("rule", "xbrl_only")
+# the labels of rows with no twin, per stage: XBRL tags nothing for them, so they are not in the twin's denominator
+TWIN_WITHOUT = {"values": ("no_reference", "not_reported"), "facts": ("no_reference",)}
 REPORTS = store.ROOT / "reports"
 
 
@@ -60,13 +62,11 @@ def twin(con, agent_id: str, ticker: str, items: list[dict]) -> dict | None:
     stage = AGENT_STAGE[agent_id]
     if stage == "values":
         labels = [r["label"] for r in _rows(con, 'select label from "values" where ticker = ?', ticker)]
-        without = ("no_reference", "not_reported")
     elif stage == "facts":
         labels = [r["label"] for r in _rows(con, "select label from facts where ticker = ?", ticker)]
-        without = ("no_reference",)
     else:
         return None
-    of = sum(lab not in without for lab in labels)
+    of = sum(lab not in TWIN_WITHOUT[stage] for lab in labels)
     agree = sum(status.answer_key(i["by"] or "") == "twin" for i in items)
     return with_interval({"agree": agree, "of": of})
 
@@ -174,6 +174,6 @@ def score(con, agent_id: str, tickers: list[str]) -> dict:
             "statements": f"{n['outputs']} statement rows of the {label} stage",
             "planned": f"{n['outputs']} planned project rows of the {label} stage ({excluded.get('guidance_rows', 0)} guidance rows in the stage are the AI spend reader's and are not counted)"}[stage]
     note = (f"{what}; states from each company's Proof trail (status.state); open here excludes blocked, so checked + explained + open + blocked = outputs; "
-            + ("twin = the rows XBRL tags, agree = checked by it; the interval is Wilson 95% on agree / of and covers only the rows the filing tags"
+            + (f"twin = the rows XBRL tags (not {' / '.join(TWIN_WITHOUT[stage])} rows), agree = checked by it; the interval is Wilson 95% on agree / of and covers only those tagged rows"
                if tw is not None else "no twin: these rows are quotes"))
     return {**n, "twin": tw, "faults": fl, "faults_note": fnote, "stage": stage, "stage_rows": stage_rows, "excluded": excluded, "companies": len(want), "note": note}

@@ -373,7 +373,7 @@ the file and off the calendar.
   *As built (keyed), 1 Nov:* `ledger/stats.py` (`wilson(k, n, z=1.96)`, `share(k, n)`, standard library, None when n is 0);
   `score.twin` carries `interval: [low, high]` (fractions, 4 dp) from its own `agree` / `of`, one interval on the sum over the
   companies; rules.js writes it in text under each reader ("agrees with the twin 70 of 71 (98.6%, 95% interval 92.4–99.8%)"),
-  recomputing from the counts when the API has none. On the six: reader 70 of 71, 92.4–99.8%; notes reader 180 of 185,
+  computed on the page from the counts (the API's 4-dp `interval` is informational; one display path). On the six: reader 70 of 71, 92.4–99.8%; notes reader 180 of 185,
   93.8–98.8%; the quote readers have no twin and no interval. Charters say what the interval does not cover (a twin exists
   only where the filing tags the number). Not built: per field. The trail's items carry `what`, not `field`, and `proof.py`
   belongs to another builder; when `proof.company` puts `field` on each item, `score.twin` can group the same counts by it

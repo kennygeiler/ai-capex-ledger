@@ -51,6 +51,8 @@ class Synthetic(unittest.TestCase):
         low, high = stats.wilson(sc["twin"]["agree"], sc["twin"]["of"])
         self.assertEqual(sc["twin"]["interval"], [round(low, 4), round(high, 4)])
         self.assertIn("Wilson 95%", sc["note"])
+        self.assertIn("(not no_reference / not_reported rows)", sc["note"])
+        self.assertIn("(not no_reference rows)", score.score(self.con, "notes_reader", ["MSFT"])["note"])
         self.assertEqual(score.with_interval({"agree": 0, "of": 0}), {"agree": 0, "of": 0, "interval": None})
         self.assertEqual(score.with_interval({"agree": 70, "of": 71})["interval"], [0.9244, 0.9975])
         # a company with no values rows: of is 0, the interval is None, never a made-up share
@@ -163,8 +165,11 @@ const STAGE_LABEL_UI = {values: 'Values', facts: 'Facts', statements: 'Statement
         out = self.render(sc)
         self.assertIn("checked 70 of 81 · explained 11 of 81 · open 0 of 81 · blocked 0 of 81", out)
         self.assertIn("agrees with the twin 70 of 71 (98.6%, 95% interval 92.4–99.8%)", out)
-        # the page recomputes the same interval from the counts when the API has none (an older server)
+        # one display path: the page computes the interval from agree / of; the API's interval is informational, so a
+        # missing or a wrong one changes nothing on the page
         del sc["twin"]["interval"]
+        self.assertIn("agrees with the twin 70 of 71 (98.6%, 95% interval 92.4–99.8%)", self.render(sc))
+        sc["twin"]["interval"] = [0.1, 0.2]
         self.assertIn("agrees with the twin 70 of 71 (98.6%, 95% interval 92.4–99.8%)", self.render(sc))
         sc["twin"] = {"agree": 0, "of": 0, "interval": None}
         self.assertIn("agrees with the twin 0 of 0", self.render(sc))

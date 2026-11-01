@@ -16,7 +16,7 @@ def wilson(k: int, n: int, z: float = 1.96) -> tuple[float, float] | None:
     """The Wilson score interval for a binomial share k of n at confidence z (1.96 = 95%), as (low, high) fractions.
     Wilson, E. B. (1927), "Probable inference, the law of succession, and statistical inference", JASA 22: 209–212.
     Unlike the normal approximation it stays inside [0, 1] and does not collapse to a point at k == 0 or k == n, so
-    70 of 71 reads 0.925–0.995, not 0.986 ± 0.027. None when n == 0: there is no share to put an interval on."""
+    70 of 71 reads 0.924–0.998, not 0.986 ± 0.027. None when n == 0: there is no share to put an interval on."""
     if n <= 0:
         return None
     if k < 0 or k > n:

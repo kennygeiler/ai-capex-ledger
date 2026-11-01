@@ -27,7 +27,7 @@ const pct1 = (f) => `${(100 * f).toFixed(1)}%`;  // one decimal, unlike _shared'
 // " (98.6%, 95% interval 92.4–99.8%)" for {agree, of, interval?}; '' when of is 0
 function shareText(tw) {
   if (!tw.of) return '';
-  const iv = tw.interval || wilson(tw.agree, tw.of);
+  const iv = wilson(tw.agree, tw.of);  // always from the counts: the API's 4-dp `interval` is informational, one display path
   return ` (${pct1(tw.agree / tw.of)}, 95% interval ${(100 * iv[0]).toFixed(1)}–${pct1(iv[1])})`;
 }
 
@@ -38,8 +38,8 @@ function scoreBlock(sc) {
   const of = (a, n) => `${int(a)} of ${int(n)}`;
   const n = sc.outputs;
   const states = [`checked ${of(sc.checked, n)}`, `explained ${of(sc.explained, n)}`, `open ${of(sc.open, n)}`, `blocked ${of(sc.blocked, n)}`].join(' · ');
-  // the twin's share with its Wilson 95% interval (T53), in text: the API's `interval` when it is there, else the same
-  // formula from the two counts; nothing when `of` is 0, since there is no share to put an interval on
+  // the twin's share with its Wilson 95% interval (T53), in text, computed on the page from agree / of (the same formula
+  // as the API's `interval`, so the two never disagree after rounding); nothing when `of` is 0: no share, no interval
   const twin = sc.twin ? `agrees with the twin ${of(sc.twin.agree, sc.twin.of)}${shareText(sc.twin)}` : 'no twin for this reader';
   // escaped is the number that matters most, so it is always written, zero included
   const faults = sc.faults ? `caught ${of(sc.faults.caught, sc.faults.planted)} planted faults · ${int(sc.faults.escaped)} escaped` + (sc.faults.no_effect ? ` · ${int(sc.faults.no_effect)} reached no released value` : '')
