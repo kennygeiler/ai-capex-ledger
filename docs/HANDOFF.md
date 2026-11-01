@@ -90,6 +90,10 @@ look without a checkout. Redeploy after a run or a release: `railway up --servic
 `.railwayignore` re-includes `data/ledger.duckdb`, which git ignores). The signed releases also sit in the production Postgres,
 `DATABASE_READONLY_URL` in `.env`, the only connection string to hand out.
 
+## The work
+
+`docs/TICKETS.md`: the tickets for the sign-with-confidence flow, in order. Pick the first open one; close it with a commit that names it.
+
 ## How to do the common things
 
 - **Add a company**: DATAHQ, `#run`, type the ticker; or `ledger run --ticker X`. It joins stage 3. Give it an
