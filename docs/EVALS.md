@@ -69,6 +69,24 @@ no agent asked, and compares every table column by column, row by row.
   `agents/agents.json`, every change logged with who made it. Every score can be traced to the prompt and model that
   produced it.
 
+## The gold set (T82)
+
+Golden is a regression test: it says nothing changed, and it froze the Amazon blanks as expected (docs/DISCIPLINES.md).
+`gold/<TICKER>.json` (`ledger/gold.py`) is the correctness test beside it: per proven company about 10 values and 10
+facts, stratified by field and year, untagged facts (no XBRL twin) oversampled to 6 of the 10, drawn with the seed
+`GOLDEN_SEED|<release version>|<ticker>` so the sample moves between releases. Each item holds the claim (ticker,
+field, dimension, period, value, the cited cells with deep link and screenshot) and a person's verdict: right, wrong or
+can't say, a note, `by` on `config.PEOPLE`, `at`.
+
+- `ledger gold --draw` writes the files and never overwrites or drops an item that has a verdict.
+- Verdicts are given on Proof, Gold set (`POST /api/gold/verdict`, the one writer `gold.record`: lock, temp file,
+  os.replace; a name not on `config.PEOPLE` is refused).
+- `ledger golden --check` compares every verdict with the tables the run produced: right must still equal the gold
+  value (a blank or a missing row fails), wrong must differ or the row be open. Items without a verdict print as
+  "unverified: N", never as a pass.
+- Error rate: wrong of (right + wrong), with n and a Wilson 95% interval (`gold.error_rate`); can't say is counted
+  beside it, not in the denominator.
+
 ## Planted errors
 
 `ledger/faults.py` corrupts one real extraction at a time, the way agents misread statements, and records what caught

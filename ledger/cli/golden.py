@@ -32,7 +32,10 @@ def main(argv=None) -> int:
     from datetime import datetime, timezone
     rep = store.ROOT / "reports" / "golden.json"
     rep.parent.mkdir(parents=True, exist_ok=True)
+    from .. import gold
+    g_ = r.get("gold")
     rep.write_text(json.dumps({"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "ok": bool(r.get("ok")) and not r.get("failed_step"), "failed_step": r.get("failed_step"),
+                               "gold": g_ and {k: g_[k] for k in ("ok", "failures", "checked", "right", "wrong", "cant_say", "unverified", "items")},
                                "diffs": {k: {kk: vv for kk, vv in v.items()} for k, v in r.get("diffs", {}).items()}, "steps": [{"step": l["step"], "exit": l["exit"]} for l in r["log"]],
                                "tickers": json.loads((FIXTURES / "seed.json").read_text())["tickers"]}, indent=1))
     if r.get("failed_step"):
@@ -41,10 +44,14 @@ def main(argv=None) -> int:
             if l["exit"] not in (0, 2):
                 print(l["err"][-1500:] or l["out"][-1500:])
         return 1
-    if r["ok"]:
+    if not r["diffs"]:
         from ..golden import LISTS, TABLES
         print(f"golden: every table equals fixtures/expected ({', '.join((*TABLES, *LISTS))}).")
+    print(gold.summary_line(g_))
+    if r["ok"]:
         return 0
+    if not r["diffs"]:
+        return 1
     print("golden: differences")
     for name, d in r["diffs"].items():
         print(f"  {name}: run {d['rows_got']} rows, expected {d['rows_want']}; {d['n_only_in_run']} only in the run, {d['n_only_in_expected']} only in expected")

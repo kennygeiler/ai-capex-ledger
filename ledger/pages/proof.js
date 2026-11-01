@@ -41,13 +41,81 @@ async function proofPage(view) {
   const releases = dtable('Releases', [{t: 'Version', k: 'version'}, {t: 'Signed', f: (r) => (r.signed_by ? [`${r.signed_by}, ${day(r.signed_at)}`, r.published === false ? h('span', {class: 'text-red'}, ', not published') : ''] : h('span', {class: 'text-secondary'}, 'not signed'))}, {t: 'Values', num: 1, f: (r) => int(r.rows.length)},
     {t: 'Open at signing', num: 1, f: (r) => atSigning(r, (c) => int(c.open), true)}, {t: 'No entry at signing', num: 1, f: (r) => atSigning(r, (c) => int(c.unmapped))}, {t: 'In scope', f: (r) => atSigning(r, (c) => `${int(c.scope.length)}: ${c.scope.join(', ')}`)},
     {t: 'Packet', f: (r) => (r.packet ? h('a', {href: `/packet/${r.version}.zip`}, 'zip') : '')}], [...rel.releases].reverse().slice(0, 6), {note: h('a', {href: '#release'}, 'the next release’s checklist')});
-  const golden = h('details', {class: 'card mt-3'}, h('summary', {class: 'card-header py-2', style: 'cursor:pointer'}, h('h3', {class: 'card-title m-0'}, 'Golden test'), h('span', {class: 'ms-3 text-secondary small'}, g.ok == null ? 'not run yet' : `${g.ok ? 'equal' : 'differs'}, ${when(g.at)}${g.tickers ? ', ' + g.tickers.join(', ') : ''}`)),
+  const golden = h('details', {class: 'card mt-3'}, h('summary', {class: 'card-header py-2', style: 'cursor:pointer'}, h('h3', {class: 'card-title m-0'}, 'Golden test'), h('span', {class: 'ms-3 text-secondary small'}, g.ok == null ? 'not run yet' : `${g.ok ? 'equal' : 'differs'}, ${when(g.at)}${g.tickers ? ', ' + g.tickers.join(', ') : ''}${g.gold ? `; gold: ${int(g.gold.checked)} verdicts checked, ${int(g.gold.failures.length)} failing, unverified ${int(g.gold.unverified)} of ${int(g.gold.items)}` : ''}`)),
     h('div', {class: 'card-body py-2'}, h('p', {class: 'small text-secondary'}, 'The code stages run on the frozen inputs for the proven set and must reproduce the expected tables. Any change to a parser, a rule, a loader or the taxonomy has to pass it, or change the expectation on purpose.'),
       h('pre', {class: 'raw'}, 'uv run python -m ledger golden --check\nuv run python -m ledger golden --freeze   # change the expectation on purpose, then commit with the reason'),
       g.steps ? h('div', {class: 'mt-2'}, dtable('Last run', [{t: 'Step', k: 'step'}, {t: 'Exit', num: 1, k: 'exit'}], g.steps)) : '',
       g.diffs && Object.keys(g.diffs).length ? h('div', {class: 'mt-2'}, dtable('Differences', [{t: 'Table', k: 'name'}, {t: 'Only in the run', num: 1, k: 'n_only_in_run'}, {t: 'Only in expected', num: 1, k: 'n_only_in_expected'}], Object.entries(g.diffs).map(([k, v]) => ({name: k, ...v})))) : ''));
-  view.append(head, table_, legend, h('div', {class: 'mt-3'}, keyTable), keyWhy, failureTypes(), h('div', {class: 'mt-3'}, releases), golden);
+  view.append(head, table_, legend, h('div', {class: 'mt-3'}, keyTable), keyWhy, failureTypes(), h('div', {class: 'mt-3'}, releases), golden, goldSet());
   failureTypes.draw();
+  goldSet.draw();
+}
+// ── T82: the gold set. A hand-verified sample per proven company (gold/<TICKER>.json): golden says nothing changed, gold says
+// the numbers a person checked are still right. One verdict per item, written under the signer box's name (config.PEOPLE).
+const GOLD_WORD = {right: 'Right', wrong: 'Wrong', cant_say: 'Can’t say'};
+const GOLD_HELP = {right: 'the filing shows this number at this cell, for this field and year', wrong: 'the filing shows something else, or this is the wrong cell; say what in the note', cant_say: 'the filing does not settle it; say why in the note'};
+const GOLD_BADGE = {right: 'bg-green-lt', wrong: 'bg-red-lt', cant_say: 'bg-secondary-lt'};
+const goldNeedsMe = new Set();
+document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const b of goldNeedsMe) b.disabled = !(me || '').trim(); });
+const goldUsd = (n) => (n == null ? 'blank' : (n < 0 ? '−$' : '$') + int(Math.abs(n)));  // the exact figure, so it can be read against the cell (in thousands or millions)
+const goldRate = (r) => {
+  if (!r.n) return `no verdicts yet, ${int(r.unverified)} of ${int(r.items)} unverified`;
+  const [lo, hi] = r.interval;
+  return `${int(r.wrong)} wrong of ${int(r.n)} (${(100 * r.rate).toFixed(1)}%, 95% interval ${(100 * lo).toFixed(1)}–${(100 * hi).toFixed(1)}%), ${int(r.cant_say)} can’t say, ${int(r.unverified)} unverified`;
+};
+function goldSet() {
+  const wrap = h('div', {class: 'mt-3', id: 'gold'});
+  goldSet.draw = async (ticker) => {
+    let g;
+    try { g = await api('/api/v1/gold' + (ticker ? `?t=${encodeURIComponent(ticker)}` : '')); } catch (e) { wrap.replaceChildren(h('p', {class: 'text-secondary small'}, `Gold set: ${e.message}`)); return; }
+    if (!g.companies.length) { wrap.replaceChildren(h('p', {class: 'text-secondary small'}, 'Gold set: no gold/ files yet. ', h('code', {}, 'uv run python -m ledger gold --draw'))); return; }
+    const t = g.ticker || null;
+    const head = h('div', {class: 'mb-2'}, h('h2', {class: 'h3 m-0'}, 'Gold set'),
+      h('div', {class: 'text-secondary small'}, 'About 10 values and 10 facts per company, drawn at random with the release version in the seed, untagged facts (no XBRL twin) oversampled. Open the filing at the row, compare, and give a verdict under your name. ',
+        h('code', {}, 'ledger golden --check'), ' fails when a “right” number changes or a “wrong” one still ships.'),
+      h('div', {class: 'small mt-1'}, h('b', {}, 'Error rate, all companies: '), goldRate(g.all), g.all.untagged.n ? `; untagged facts ${int(g.all.untagged.wrong)} wrong of ${int(g.all.untagged.n)}` : ''));
+    const picker = h('div', {class: 'btn-group flex-wrap mb-2', role: 'group', 'aria-label': 'Company'}, g.companies.map((c) => {
+      const done = c.rate.items - c.rate.unverified;
+      return h('button', {type: 'button', class: 'btn btn-sm ' + (c.ticker === t ? 'btn-primary' : 'btn-outline-secondary'), 'aria-pressed': String(c.ticker === t), title: goldRate(c.rate) + `; drawn for ${c.release}`, onclick: () => goldSet.draw(c.ticker)},
+        c.ticker, h('span', {class: 'ms-1 ' + (c.ticker === t ? '' : 'text-secondary')}, `${done}/${c.rate.items}`));
+    }));
+    if (!t) { wrap.replaceChildren(head, picker, h('p', {class: 'text-secondary small'}, 'Pick a company to see its items.')); return; }
+    const co = g.companies.find((c) => c.ticker === t);
+    const claim = (it) => h('div', {}, h('div', {class: 'fw-semibold'}, `${FIELDS[it.field] || it.field}${it.dimension ? ': ' + it.dimension : ''}`),
+      h('div', {class: 'text-secondary small'}, it.period, ' · ', it.kind, it.untagged ? [' · ', h('span', {class: 'text-orange', title: 'no XBRL counterpart: nothing independent vouches for this number'}, 'untagged')] : it.xbrl != null ? ` · XBRL ${goldUsd(it.xbrl)}` : ''));
+    const value = (it) => {
+      const lv = it.live, moved = lv && lv.value !== it.value;
+      return h('div', {}, h('div', {class: 'num text-nowrap'}, goldUsd(it.value)),
+        !lv ? h('div', {class: 'text-secondary small'}, 'live: database busy') : moved ? h('div', {class: 'text-red small'}, `live now ${goldUsd(lv.value)}`) : lv.open ? h('div', {class: 'text-yellow small'}, 'live: open') : '');
+    };
+    const cited = (it) => h('div', {}, it.cites.length ? it.cites.map((c) => h('div', {class: 'small'},
+      h('b', {}, c.cell_text || '—'), ` in “${c.row || '?'}”, “${(c.column || '?').replaceAll(' | ', ' ')}”`,
+      h('div', {class: 'text-secondary'}, `table ${c.table || '?'}, ${c.accession}`, ' · ',
+        c.url ? h('a', {href: c.url, target: '_blank', rel: 'noopener'}, 'open the filing at this row') : 'no link',
+        c.img ? [' · ', h('a', {href: c.img, target: '_blank', rel: 'noopener', title: c.rendered_match ? 'the rendered 10-K shows the cited text here' : 'the rendered re-read did not confirm this cell'}, 'screenshot')] : ''))) : h('span', {class: 'text-secondary small'}, 'no citation'));
+    const verdict = (it) => {
+      const note = h('input', {type: 'text', class: 'form-control form-control-sm', placeholder: 'note (needed for wrong or can’t say)', value: it.note || '', 'aria-label': `Note on ${it.id}`});
+      const msg = h('div', {class: 'small', role: 'status'}, it.verdict ? h('span', {class: 'badge ' + GOLD_BADGE[it.verdict]}, `${GOLD_WORD[it.verdict]}, ${it.by}, ${day(it.at)}`) : h('span', {class: 'text-secondary'}, 'no verdict'));
+      const btns = g.verdicts.map((v) => {
+        const b = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary' + (it.verdict === v ? ' active' : ''), 'aria-pressed': String(it.verdict === v), title: (me || '').trim() ? GOLD_HELP[v] : 'type your name in the signer box first', onclick: async () => {
+          if (v !== 'right' && !note.value.trim()) { msg.replaceChildren(h('span', {class: 'text-red'}, `Say what the filing shows, then press ${GOLD_WORD[v]}.`)); note.focus(); return; }
+          btns.forEach((x) => { x.disabled = true; });
+          try {
+            const out = await api('/api/gold/verdict', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ticker: t, id: it.id, verdict: v, note: note.value, by: me})});
+            Object.assign(it, out);
+            await goldSet.draw(t);
+          } catch (e) { msg.replaceChildren(h('span', {class: 'text-red'}, e.message)); btns.forEach((x) => { x.disabled = !(me || '').trim(); }); }
+        }}, GOLD_WORD[v]);
+        b.disabled = !(me || '').trim(); goldNeedsMe.add(b);
+        return b;
+      });
+      return h('div', {style: 'min-width:16rem'}, h('div', {class: 'btn-group mb-1', role: 'group', 'aria-label': `Verdict on ${it.id}`}, btns), note, msg);
+    };
+    const tbl = dtable(`${t}: ${int(co.rate.items)} items, drawn for ${co.release}`, [{t: 'Claim', f: claim}, {t: 'Value', num: 1, f: value}, {t: 'Cited cell', f: cited}, {t: 'Verdict', f: verdict}],
+      g.items.map((it) => ({...it, _cls: it.live && it.live.value !== it.value ? 'table-danger' : null})), {note: goldRate(co.rate)});
+    wrap.replaceChildren(head, picker, tbl);
+  };
+  return wrap;
 }
 // T54: the failure types as data. Two bar charts (one hue, a bar is a NUMBER OF TYPES, never instances) and the same numbers as tables,
 // so the section reads without colour or without Plotly. `none` is a bar of its own: a known way to be wrong that nothing guards.

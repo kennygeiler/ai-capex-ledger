@@ -22,7 +22,7 @@ Tracked, so you have it on clone:
 - Code (`ledger/`), tests (`tests/`), the rules (`rules/*.yaml`), the agents' prompts (`agents/`), the taxonomy
   (`taxonomy/`: the categories and their standards, the asset-type mappings, the stated figures), per-company
   definitions (`definitions/companies.yaml`), the investor-page links (`sources/ir.yaml`), the hand-check (`golden/`),
-  the golden test's frozen inputs and expectation (`fixtures/`).
+  the golden test's frozen inputs and expectation (`fixtures/`), the gold set a person verifies (`gold/`, T82, docs/EVALS.md).
 - Every agent output, kept as evidence: `data/extract/outputs/` (statement cells), `data/notes/outputs/` (note
   facts), `data/aispend/outputs/` (AI statements), `data/projects/outputs/` (named projects). A rebuild reuses them;
   no agent runs unless a task changes.
@@ -56,7 +56,8 @@ around it; a person lists the links).
 uv run python -m ledger run --ticker NVDA        # every step for one company, agents included, then the scorecard
 uv run python -m ledger run --stage 3            # all 31 (about 30 minutes on a fresh clone, mostly fetching and Chrome)
 uv run python -m ledger app                      # DATAHQ at http://127.0.0.1:3610 (LEDGER_CLAUDE="$(which claude)" only to start runs from it)
-uv run python -m ledger golden --check           # the proven six rebuilt from frozen inputs, every table compared
+uv run python -m ledger golden --check           # the proven six rebuilt from frozen inputs, every table compared, plus every gold verdict
+uv run python -m ledger gold --status            # the gold set: verdicts, error rate with n and a Wilson interval (--draw writes the sample)
 uv run python -m ledger test                     # the whole suite, golden included; writes reports/tests.json, the Release page's test line (--fast skips golden)
 uv run python -m ledger mapper MU                # the mapping assistant (T33): a us-gaap member proposed per unmapped PP&E category; approve on #reconcile?scope=MU
 uv run python -m ledger release v1.8.0           # the scope (config.SCOPE), a gate table per company; refuses on any failing row; then signoff, by the owner only

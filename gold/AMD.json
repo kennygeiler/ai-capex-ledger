@@ -1,0 +1,701 @@
+{
+ "ticker": "AMD",
+ "release": "v1.9.0",
+ "seed": "20261027|v1.9.0|AMD",
+ "drawn_at": "2026-11-01T09:22:05+00:00",
+ "per_kind": 10,
+ "untagged_share": 0.6,
+ "how": "Values stratified by field and year; facts stratified by field and year with the untagged ones (no XBRL twin) oversampled. A verdict is right, wrong or cant_say, given on the Proof page (Gold set); `ledger gold --draw` never overwrites one.",
+ "items": [
+  {
+   "id": "value|AMD|revenue||FY2024",
+   "kind": "value",
+   "ticker": "AMD",
+   "field": "revenue",
+   "dimension": "",
+   "period": "FY2024",
+   "value": 25785000000,
+   "label": "agree",
+   "untagged": false,
+   "xbrl": 25785000000,
+   "cites": [
+    {
+     "extraction_id": "0000002488-26-000018|revenue|2023-12-31|2024-12-28",
+     "accession": "0000002488-26-000018",
+     "table": "t0010",
+     "row": "Net revenue",
+     "column": "Year Ended | December 28,2024",
+     "cell_text": "25,785",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm#:~:text=Net%20revenue,25%2C785",
+     "screenshot": null,
+     "rendered_match": true
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "value|AMD|capex||FY2023",
+   "kind": "value",
+   "ticker": "AMD",
+   "field": "capex",
+   "dimension": "",
+   "period": "FY2023",
+   "value": 546000000,
+   "label": "agree",
+   "untagged": false,
+   "xbrl": 546000000,
+   "cites": [
+    {
+     "extraction_id": "0000002488-26-000018|capex|2023-01-01|2023-12-30",
+     "accession": "0000002488-26-000018",
+     "table": "t0014",
+     "row": "Purchases of property and equipment",
+     "column": "Year Ended | December 30,2023",
+     "cell_text": "(546)",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm#:~:text=Purchases%20of%20property%20and%20equipment,546",
+     "screenshot": null,
+     "rendered_match": true
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "value|AMD|opex||FY2022",
+   "kind": "value",
+   "ticker": "AMD",
+   "field": "opex",
+   "dimension": "",
+   "period": "FY2022",
+   "value": 9339000000,
+   "label": "agree",
+   "untagged": false,
+   "xbrl": 9339000000,
+   "cites": [
+    {
+     "extraction_id": "0000002488-25-000012|cost_of_revenue|2021-12-26|2022-12-31",
+     "accession": "0000002488-25-000012",
+     "table": "t0012",
+     "row": "Total cost of sales",
+     "column": "Year Ended | December 31,2022",
+     "cell_text": "12,998",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248825000012/amd-20241228.htm#:~:text=Total%20cost%20of%20sales,12%2C998",
+     "screenshot": null,
+     "rendered_match": true
+    },
+    {
+     "extraction_id": "0000002488-25-000012|operating_income|2021-12-26|2022-12-31",
+     "accession": "0000002488-25-000012",
+     "table": "t0012",
+     "row": "Operating income",
+     "column": "Year Ended | December 31,2022",
+     "cell_text": "1,264",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248825000012/amd-20241228.htm#:~:text=Operating%20income,1%2C264",
+     "screenshot": null,
+     "rendered_match": true
+    },
+    {
+     "extraction_id": "0000002488-25-000012|revenue|2021-12-26|2022-12-31",
+     "accession": "0000002488-25-000012",
+     "table": "t0012",
+     "row": "Net revenue",
+     "column": "Year Ended | December 31,2022",
+     "cell_text": "23,601",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248825000012/amd-20241228.htm#:~:text=Net%20revenue,23%2C601",
+     "screenshot": "reports/evidence/240778caf666.png",
+     "rendered_match": true
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "value|AMD|opex||FY2025",
+   "kind": "value",
+   "ticker": "AMD",
+   "field": "opex",
+   "dimension": "",
+   "period": "FY2025",
+   "value": 13458000000,
+   "label": "agree",
+   "untagged": false,
+   "xbrl": 13458000000,
+   "cites": [
+    {
+     "extraction_id": "0000002488-26-000018|cost_of_revenue|2024-12-29|2025-12-27",
+     "accession": "0000002488-26-000018",
+     "table": "t0010",
+     "row": "Total cost of sales",
+     "column": "Year Ended | December 27,2025",
+     "cell_text": "17,487",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm#:~:text=Total%20cost%20of%20sales,17%2C487",
+     "screenshot": null,
+     "rendered_match": true
+    },
+    {
+     "extraction_id": "0000002488-26-000018|operating_income|2024-12-29|2025-12-27",
+     "accession": "0000002488-26-000018",
+     "table": "t0010",
+     "row": "Operating income",
+     "column": "Year Ended | December 27,2025",
+     "cell_text": "3,694",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm#:~:text=Operating%20income,3%2C694",
+     "screenshot": null,
+     "rendered_match": true
+    },
+    {
+     "extraction_id": "0000002488-26-000018|revenue|2024-12-29|2025-12-27",
+     "accession": "0000002488-26-000018",
+     "table": "t0010",
+     "row": "Net revenue",
+     "column": "Year Ended | December 27,2025",
+     "cell_text": "34,639",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm#:~:text=Net%20revenue,34%2C639",
+     "screenshot": null,
+     "rendered_match": true
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "value|AMD|capex||FY2024",
+   "kind": "value",
+   "ticker": "AMD",
+   "field": "capex",
+   "dimension": "",
+   "period": "FY2024",
+   "value": 636000000,
+   "label": "agree",
+   "untagged": false,
+   "xbrl": 636000000,
+   "cites": [
+    {
+     "extraction_id": "0000002488-26-000018|capex|2023-12-31|2024-12-28",
+     "accession": "0000002488-26-000018",
+     "table": "t0014",
+     "row": "Purchases of property and equipment",
+     "column": "Year Ended | December 28,2024",
+     "cell_text": "(636)",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm#:~:text=Purchases%20of%20property%20and%20equipment,636",
+     "screenshot": null,
+     "rendered_match": true
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "value|AMD|revenue||FY2025",
+   "kind": "value",
+   "ticker": "AMD",
+   "field": "revenue",
+   "dimension": "",
+   "period": "FY2025",
+   "value": 34639000000,
+   "label": "agree",
+   "untagged": false,
+   "xbrl": 34639000000,
+   "cites": [
+    {
+     "extraction_id": "0000002488-26-000018|revenue|2024-12-29|2025-12-27",
+     "accession": "0000002488-26-000018",
+     "table": "t0010",
+     "row": "Net revenue",
+     "column": "Year Ended | December 27,2025",
+     "cell_text": "34,639",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm#:~:text=Net%20revenue,34%2C639",
+     "screenshot": null,
+     "rendered_match": true
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "value|AMD|opex||FY2023",
+   "kind": "value",
+   "ticker": "AMD",
+   "field": "opex",
+   "dimension": "",
+   "period": "FY2023",
+   "value": 10059000000,
+   "label": "agree",
+   "untagged": false,
+   "xbrl": 10059000000,
+   "cites": [
+    {
+     "extraction_id": "0000002488-26-000018|cost_of_revenue|2023-01-01|2023-12-30",
+     "accession": "0000002488-26-000018",
+     "table": "t0010",
+     "row": "Total cost of sales",
+     "column": "Year Ended | December 30,2023",
+     "cell_text": "12,220",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm#:~:text=Total%20cost%20of%20sales,12%2C220",
+     "screenshot": null,
+     "rendered_match": true
+    },
+    {
+     "extraction_id": "0000002488-26-000018|operating_income|2023-01-01|2023-12-30",
+     "accession": "0000002488-26-000018",
+     "table": "t0010",
+     "row": "Operating income",
+     "column": "Year Ended | December 30,2023",
+     "cell_text": "401",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm#:~:text=Operating%20income,401",
+     "screenshot": null,
+     "rendered_match": true
+    },
+    {
+     "extraction_id": "0000002488-26-000018|revenue|2023-01-01|2023-12-30",
+     "accession": "0000002488-26-000018",
+     "table": "t0010",
+     "row": "Net revenue",
+     "column": "Year Ended | December 30,2023",
+     "cell_text": "22,680",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm#:~:text=Net%20revenue,22%2C680",
+     "screenshot": null,
+     "rendered_match": true
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "value|AMD|revenue||FY2022",
+   "kind": "value",
+   "ticker": "AMD",
+   "field": "revenue",
+   "dimension": "",
+   "period": "FY2022",
+   "value": 23601000000,
+   "label": "agree",
+   "untagged": false,
+   "xbrl": 23601000000,
+   "cites": [
+    {
+     "extraction_id": "0000002488-25-000012|revenue|2021-12-26|2022-12-31",
+     "accession": "0000002488-25-000012",
+     "table": "t0012",
+     "row": "Net revenue",
+     "column": "Year Ended | December 31,2022",
+     "cell_text": "23,601",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248825000012/amd-20241228.htm#:~:text=Net%20revenue,23%2C601",
+     "screenshot": "reports/evidence/240778caf666.png",
+     "rendered_match": true
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "value|AMD|capex||FY2022",
+   "kind": "value",
+   "ticker": "AMD",
+   "field": "capex",
+   "dimension": "",
+   "period": "FY2022",
+   "value": 450000000,
+   "label": "agree",
+   "untagged": false,
+   "xbrl": 450000000,
+   "cites": [
+    {
+     "extraction_id": "0000002488-25-000012|capex|2021-12-26|2022-12-31",
+     "accession": "0000002488-25-000012",
+     "table": "t0016",
+     "row": "Purchases of property and equipment",
+     "column": "Year Ended | December 31,2022",
+     "cell_text": "(450)",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248825000012/amd-20241228.htm#:~:text=Purchases%20of%20property%20and%20equipment,450",
+     "screenshot": null,
+     "rendered_match": true
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "value|AMD|capex||FY2025",
+   "kind": "value",
+   "ticker": "AMD",
+   "field": "capex",
+   "dimension": "",
+   "period": "FY2025",
+   "value": 974000000,
+   "label": "agree",
+   "untagged": false,
+   "xbrl": 974000000,
+   "cites": [
+    {
+     "extraction_id": "0000002488-26-000018|capex|2024-12-29|2025-12-27",
+     "accession": "0000002488-26-000018",
+     "table": "t0014",
+     "row": "Purchases of property and equipment",
+     "column": "Year Ended | December 27,2025",
+     "cell_text": "(974)",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm#:~:text=Purchases%20of%20property%20and%20equipment,974",
+     "screenshot": null,
+     "rendered_match": true
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "fact|AMD|segment_revenue|Gaming|FY2025",
+   "kind": "fact",
+   "ticker": "AMD",
+   "field": "segment_revenue",
+   "dimension": "Gaming",
+   "period": "FY2025",
+   "value": 3910000000,
+   "label": "no_reference",
+   "untagged": true,
+   "xbrl": null,
+   "cites": [
+    {
+     "extraction_id": "0000002488-26-000018|segment_revenue|Gaming|2025-12-27",
+     "accession": "0000002488-26-000018",
+     "table": "t0019",
+     "row": "Gaming",
+     "column": "Year Ended | December 27,2025",
+     "cell_text": "3,910",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm#:~:text=Gaming,3%2C910",
+     "screenshot": null,
+     "rendered_match": null
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "fact|AMD|ppe_category|Construction in progress|FY2023",
+   "kind": "fact",
+   "ticker": "AMD",
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "period": "FY2023",
+   "value": 209000000,
+   "label": "no_reference",
+   "untagged": true,
+   "xbrl": null,
+   "cites": [
+    {
+     "extraction_id": "0000002488-24-000012|ppe_category|Construction in progress|2023-12-30",
+     "accession": "0000002488-24-000012",
+     "table": "t0019",
+     "row": "Construction in progress",
+     "column": "December 30,2023",
+     "cell_text": "209",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248824000012/amd-20231230.htm#:~:text=Construction%20in%20progress,209",
+     "screenshot": null,
+     "rendered_match": null
+    },
+    {
+     "extraction_id": "0000002488-25-000012|ppe_category|Construction in progress|2023-12-30",
+     "accession": "0000002488-25-000012",
+     "table": "t0020",
+     "row": "Construction in progress",
+     "column": "December 30,2023",
+     "cell_text": "209",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248825000012/amd-20241228.htm#:~:text=Construction%20in%20progress,209",
+     "screenshot": null,
+     "rendered_match": null
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "fact|AMD|ppe_category|Land, building and leasehold improvements|FY2022",
+   "kind": "fact",
+   "ticker": "AMD",
+   "field": "ppe_category",
+   "dimension": "Land, building and leasehold improvements",
+   "period": "FY2022",
+   "value": 714000000,
+   "label": "no_reference",
+   "untagged": true,
+   "xbrl": null,
+   "cites": [
+    {
+     "extraction_id": "0000002488-24-000012|ppe_category|Land, building and leasehold improvements|2022-12-31",
+     "accession": "0000002488-24-000012",
+     "table": "t0019",
+     "row": "Land, building and leasehold improvements",
+     "column": "December 31,2022",
+     "cell_text": "714",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248824000012/amd-20231230.htm#:~:text=Land%2C%20building%20and%20leasehold%20improvements,714",
+     "screenshot": null,
+     "rendered_match": null
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "fact|AMD|segment_revenue|Embedded|FY2025",
+   "kind": "fact",
+   "ticker": "AMD",
+   "field": "segment_revenue",
+   "dimension": "Embedded",
+   "period": "FY2025",
+   "value": 3454000000,
+   "label": "no_reference",
+   "untagged": true,
+   "xbrl": null,
+   "cites": [
+    {
+     "extraction_id": "0000002488-26-000018|segment_revenue|Embedded|2025-12-27",
+     "accession": "0000002488-26-000018",
+     "table": "t0019",
+     "row": "Embedded",
+     "column": "Year Ended | December 27,2025",
+     "cell_text": "3,454",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm#:~:text=Embedded,3%2C454",
+     "screenshot": null,
+     "rendered_match": null
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "fact|AMD|ppe_category|Construction in progress|FY2021",
+   "kind": "fact",
+   "ticker": "AMD",
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "period": "FY2021",
+   "value": 96000000,
+   "label": "no_reference",
+   "untagged": true,
+   "xbrl": null,
+   "cites": [
+    {
+     "extraction_id": "0000002488-23-000047|ppe_category|Construction in progress|2021-12-25",
+     "accession": "0000002488-23-000047",
+     "table": "t0019",
+     "row": "Construction in progress",
+     "column": "December 25,2021",
+     "cell_text": "96",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248823000047/amd-20221231.htm#:~:text=Construction%20in%20progress,96",
+     "screenshot": null,
+     "rendered_match": null
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "fact|AMD|segment_revenue|Client|FY2025",
+   "kind": "fact",
+   "ticker": "AMD",
+   "field": "segment_revenue",
+   "dimension": "Client",
+   "period": "FY2025",
+   "value": 10640000000,
+   "label": "no_reference",
+   "untagged": true,
+   "xbrl": null,
+   "cites": [
+    {
+     "extraction_id": "0000002488-26-000018|segment_revenue|Client|2025-12-27",
+     "accession": "0000002488-26-000018",
+     "table": "t0019",
+     "row": "Client",
+     "column": "Year Ended | December 27,2025",
+     "cell_text": "10,640",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm#:~:text=Client,10%2C640",
+     "screenshot": null,
+     "rendered_match": null
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "fact|AMD|segment_revenue|Client|FY2022",
+   "kind": "fact",
+   "ticker": "AMD",
+   "field": "segment_revenue",
+   "dimension": "Client",
+   "period": "FY2022",
+   "value": 6201000000,
+   "label": "agree",
+   "untagged": false,
+   "xbrl": 6201000000,
+   "cites": [
+    {
+     "extraction_id": "0000002488-23-000047|segment_revenue|Client|2022-12-31",
+     "accession": "0000002488-23-000047",
+     "table": "t0022",
+     "row": "Client",
+     "column": "Year Ended | December 31,2022",
+     "cell_text": "6,201",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248823000047/amd-20221231.htm#:~:text=Client,6%2C201",
+     "screenshot": null,
+     "rendered_match": null
+    },
+    {
+     "extraction_id": "0000002488-24-000012|segment_revenue|Client|2022-12-31",
+     "accession": "0000002488-24-000012",
+     "table": "t0021",
+     "row": "Client",
+     "column": "Year Ended | December 31,2022",
+     "cell_text": "6,201",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248824000012/amd-20231230.htm#:~:text=Client,6%2C201",
+     "screenshot": null,
+     "rendered_match": null
+    },
+    {
+     "extraction_id": "0000002488-25-000012|segment_revenue|Client|2022-12-31",
+     "accession": "0000002488-25-000012",
+     "table": "t0022",
+     "row": "Client",
+     "column": "Year Ended | December 31,2022",
+     "cell_text": "6,201",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248825000012/amd-20241228.htm#:~:text=Client,6%2C201",
+     "screenshot": null,
+     "rendered_match": null
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "fact|AMD|purchase_commitments||FY2023",
+   "kind": "fact",
+   "ticker": "AMD",
+   "field": "purchase_commitments",
+   "dimension": "",
+   "period": "FY2023",
+   "value": 4594000000,
+   "label": "agree",
+   "untagged": false,
+   "xbrl": 4594000000,
+   "cites": [
+    {
+     "extraction_id": "0000002488-24-000012|purchase_commitments||2023-12-30",
+     "accession": "0000002488-24-000012",
+     "table": "t0061",
+     "row": "Total unconditional purchase commitments",
+     "column": "Year | 3,858 | 351 | 186 | 51 | 49",
+     "cell_text": "4,594",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248824000012/amd-20231230.htm#:~:text=Total%20unconditional%20purchase%20commitments,4%2C594",
+     "screenshot": null,
+     "rendered_match": null
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "fact|AMD|segment_revenue|Embedded|FY2021",
+   "kind": "fact",
+   "ticker": "AMD",
+   "field": "segment_revenue",
+   "dimension": "Embedded",
+   "period": "FY2021",
+   "value": 246000000,
+   "label": "agree",
+   "untagged": false,
+   "xbrl": 246000000,
+   "cites": [
+    {
+     "extraction_id": "0000002488-23-000047|segment_revenue|Embedded|2021-12-25",
+     "accession": "0000002488-23-000047",
+     "table": "t0022",
+     "row": "Embedded",
+     "column": "Year Ended | December 25,2021",
+     "cell_text": "246",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248823000047/amd-20221231.htm#:~:text=Embedded,246",
+     "screenshot": null,
+     "rendered_match": null
+    },
+    {
+     "extraction_id": "0000002488-24-000012|segment_revenue|Embedded|2021-12-25",
+     "accession": "0000002488-24-000012",
+     "table": "t0021",
+     "row": "Embedded",
+     "column": "Year Ended | December 25,2021",
+     "cell_text": "246",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248824000012/amd-20231230.htm#:~:text=Embedded,246",
+     "screenshot": null,
+     "rendered_match": null
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  },
+  {
+   "id": "fact|AMD|purchase_commitments||FY2024",
+   "kind": "fact",
+   "ticker": "AMD",
+   "field": "purchase_commitments",
+   "dimension": "",
+   "period": "FY2024",
+   "value": 4968000000,
+   "label": "agree",
+   "untagged": false,
+   "xbrl": 4968000000,
+   "cites": [
+    {
+     "extraction_id": "0000002488-25-000012|purchase_commitments||2024-12-28",
+     "accession": "0000002488-25-000012",
+     "table": "t0058",
+     "row": "Total unconditional purchase commitments",
+     "column": "Year | 4,501 | 274 | 46 | 45",
+     "cell_text": "4,968",
+     "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248825000012/amd-20241228.htm#:~:text=Total%20unconditional%20purchase%20commitments,4%2C968",
+     "screenshot": null,
+     "rendered_match": null
+    }
+   ],
+   "verdict": null,
+   "note": "",
+   "by": null,
+   "at": null
+  }
+ ]
+}
