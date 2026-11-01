@@ -77,7 +77,7 @@ class OneMeaningPerColumn(unittest.TestCase):
     def test_mapped_has_value_and_units_say_one_thing_each(self):
         for name, rows in self.sets():
             for r in rows:
-                self.assertEqual(r["mapped"], r["check"] != "unmapped", name)
+                self.assertEqual(r["mapped"], r["check"] not in ("unmapped", "to_confirm"), name)
                 self.assertEqual(r["has_value"], r["value"] is not None or r["share"] is not None, name)
                 self.assertEqual((r["scale"], r["currency"]), (1, "USD"), name)
                 self.assertEqual(r["unit"] == "share", r["share"] is not None, name)
@@ -149,6 +149,9 @@ class OneMeaningPerColumn(unittest.TestCase):
                     self.assertEqual(m, "label:no_reference", name)
                 if c == "unmapped":
                     self.assertEqual(m, "none", name)
+                if c == "to_confirm":  # T63: a proposed member, no person's confirmation
+                    self.assertEqual((m, r["measure"], r["mapped"]), ("label:to_confirm", "derived", False), name)
+                    self.assertIsNotNone(r["standard_type"], name)
                 if c == "explained":
                     self.assertRegex(m, r"^(rule|definition|resolution):", name)
                 if c == "verbatim":

@@ -139,7 +139,13 @@ def asset_types(con, tickers: list[str] | None, names: dict) -> list[dict]:
         P = p["proposal"]
         st = status.of_mapping({"standard_type": P["standard_type"], "by": P.get("by")} if p["kind"] == "to_confirm" else None)
         label = "Asset types: a mapping no person confirmed" if p["kind"] == "to_confirm" else "Asset types: a reported PP&E category with no us-gaap member"
-        impact = "the release refuses (G6) until a person confirms, edits or rejects it" if p["kind"] == "to_confirm" else "the derived PP&E rows stay unmapped; the Release checklist requires 0"
+        from .config import SCOPE
+        if p["ticker"] not in SCOPE:
+            impact = "blocks nothing until the company is in scope (config.SCOPE)"
+        elif p["kind"] == "to_confirm":
+            impact = "the release refuses (G6) until a person confirms, edits or rejects it"
+        else:
+            impact = "the derived PP&E rows stay unmapped; the Release checklist requires 0"
         out.append({"key": f"{ASSET_TYPES}|{p['ticker']}|{p['reported_name']}", "hash": "", "cause": ASSET_TYPES, "cause_label": "Asset types: a reported PP&E category no person has mapped and confirmed", "state": st["state"],
                     "by": st["by"], "reason": st["reason"], "open": status.is_open(st), "ticker": p["ticker"], "name": names.get(p["ticker"], p["ticker"]), "layer": industry(p["ticker"]),
                     "field": None, "period": None, "where": p["reported_name"], "measure": None, "ours": None, "ours_label": None, "reference": None, "ref_label": None,

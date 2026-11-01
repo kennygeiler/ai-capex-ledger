@@ -47,7 +47,9 @@ async function reconcilePage(view, qs) {
   const isOpen = (r) => !!r.open;  // the server's word (row.open: open or blocked), never recomputed here
   const toConfirm = (r) => r.cause === 'to_confirm';
   const isAsset = (r) => r.cause === 'asset_types';  // T33: an unmapped asset type with the mapper's proposal; T63: or an entry no person confirmed. Approve, Edit or Reject
-  const filerNote = (r) => r.evidence.filer && r.evidence.filer.length ? h('div', {class: 'small ' + (r.evidence.mismatch ? 'text-red' : 'text-secondary'), title: r.evidence.mismatch ? 'the filer tagged this category with a different us-gaap member in its own XBRL' : 'the member the filer tagged in its own XBRL'}, (r.evidence.mismatch ? 'differs from the filer: ' : 'filer tags ') + r.evidence.filer.join(', ')) : '';
+  // the filer's own tag (mapper.filer_members): null = not checked (no instance on disk), never shown as "tags nothing"
+  const filerText = (F) => !F ? 'not checked: the filer’s XBRL instance is not on disk' : !F.members.length ? 'nothing for this category in its XBRL' : (F.ambiguous ? 'ambiguous: ' : '') + F.members.join(', ');
+  const filerNote = (r) => { const F = r.evidence.filer; return F && F.members.length ? h('div', {class: 'small ' + (r.evidence.mismatch ? 'text-red' : 'text-secondary'), title: r.evidence.mismatch ? 'the filer tagged this category with a different us-gaap member in its own XBRL' : 'what the filer tagged in its own XBRL'}, (r.evidence.mismatch ? 'differs from the filer: ' : 'filer tags ') + filerText(F)) : ''; };
   let rows = d.rows.filter((r) => withResolved || isOpen(r) || toConfirm(r));
   if (fCause) rows = rows.filter((r) => r.cause === fCause);
   if (fLayer) rows = rows.filter((r) => r.layer === fLayer);
@@ -263,7 +265,7 @@ async function reconcilePage(view, qs) {
     } else if (isAsset(r)) {
       const P = E.proposal, N = E.note;
       const item = (title, ...body) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, title), h('div', {class: 'datagrid-content', style: 'overflow-wrap:anywhere'}, body));
-      const filer = E.filer && E.filer.length ? item('The filer tags', h('span', {class: E.mismatch ? 'text-red' : ''}, E.filer.join(', ')), E.mismatch ? h('div', {class: 'small text-secondary'}, 'a different us-gaap member in the filer’s own XBRL; Edit to use it, or Approve if the proposal is right') : '') : item('The filer tags', h('span', {class: 'text-secondary'}, 'nothing for this category in its XBRL'));
+      const filer = item('The filer tags', h('span', {class: E.mismatch ? 'text-red' : (E.filer && E.filer.members.length ? '' : 'text-secondary')}, filerText(E.filer)), E.mismatch ? h('div', {class: 'small text-secondary'}, 'a different us-gaap member in the filer’s own XBRL; Edit to use it, or Approve if the proposal is right') : '');
       cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0', style: 'overflow-wrap:anywhere'}, P ? (E.mapping === 'to_confirm' ? `${P.by || 'Someone'} wrote ${P.standard_type}; nobody confirmed it` : `The mapper proposed ${P.standard_type}`) : 'No proposal on file')),
         h('div', {class: 'card-body py-2'}, P && E.mapping === 'to_confirm' ? h('div', {class: 'datagrid'},
           item('Evidence', `“${P.evidence || ''}”`),

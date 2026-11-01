@@ -32,6 +32,13 @@ print(json.dumps({"proof": {c["ticker"]: c["open"] for c in b["proven"]}, "proof
                   "mapping_to_confirm": {c["ticker"]: sum(i["by"] == "label:to_confirm" for i in c["stages"]["mapping"]["open"]) for c in b["proven"]},
                   "mapping_checked_unconfirmed": {c["ticker"]: sum(i["state"] == "checked" for i in c["stages"]["mapping"]["all"]) - sum(1 for e in (taxonomy.asset_types().get(c["ticker"]) or {}).values() if (e or {}).get("confirmed_by")) for c in b["proven"]},
                   "waiting": {t: len(taxonomy.to_confirm(con, [t])) + len(taxonomy.unmapped(con, [t])) for t in PROVEN},
+                  "open_names": {c["ticker"]: sorted(i["name"] for i in c["stages"]["mapping"]["open"]) for c in b["proven"]},
+                  "waiting_names": {t: sorted([u["reported_name"] for u in taxonomy.to_confirm(con, [t])] + [u["reported_name"] for u in taxonomy.unmapped(con, [t])]) for t in PROVEN},
+                  "checked_names": {c["ticker"]: sorted(i["name"] for i in c["stages"]["mapping"]["all"] if i["state"] == "checked") for c in b["proven"]},
+                  "confirmed_names": {c["ticker"]: sorted(i["name"] for i in c["stages"]["mapping"]["all"] if (e := (taxonomy.asset_types().get(c["ticker"]) or {}).get(i["name"])) and e.get("standard_type") and e.get("confirmed_by")) for c in b["proven"]},
+                  "to_confirm_names": {t: sorted(u["reported_name"] for u in taxonomy.to_confirm(con, [t])) for t in PROVEN},
+                  "tax_to_confirm": {t: sorted({r["reported_name"] for r in taxonomy.rows(con, [t]) if r["check"] == "to_confirm" and not r["mapped"]}) for t in PROVEN},
+                  "tax_mapped_unconfirmed": sum(1 for t in PROVEN for r in taxonomy.rows(con, [t]) if r["measure"] == "derived" and r["mapped"] and not ((taxonomy.asset_types().get(t) or {}).get(r["reported_name"]) or {}).get("confirmed_by")),
                   "to_confirm": {t: len(taxonomy.to_confirm(con, [t])) for t in PROVEN}}))
 """
 
@@ -211,6 +218,10 @@ class ProofAgreesWithReconcile(unittest.TestCase):
         # confirmed_by is open as to confirm, and with the unmapped ones that is exactly what waits for a person
         self.assertEqual(r["mapping_open"], r["waiting"])
         self.assertEqual(r["mapping_to_confirm"], r["to_confirm"])
+        self.assertEqual(r["open_names"], r["waiting_names"])  # the same names, not just the same counts
+        self.assertEqual(r["checked_names"], r["confirmed_names"])
+        self.assertEqual(r["tax_to_confirm"], r["to_confirm_names"])  # T63: the taxonomy rows say to_confirm, mapped false, for exactly those entries
+        self.assertEqual(r["tax_mapped_unconfirmed"], 0)  # the exported rows never say mapped on an unconfirmed entry
         self.assertTrue(all(n <= 0 for n in r["mapping_checked_unconfirmed"].values()), r["mapping_checked_unconfirmed"])  # never more checked than confirmed entries
         self.assertTrue(set(r["states"]) <= set(status.STATES) | {"to confirm"}, r["states"])  # "to confirm": T3's group, the decisions a run left for a person (decisions/ is in the root since T31)
         # T56: on the board, rows by key grade sum to the denominator, per company and in total; a keyed item is on its trail

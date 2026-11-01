@@ -93,7 +93,7 @@ class Rows(unittest.TestCase):
         self.assertEqual([r["standard_type"] for r in d], ["TechnologyEquipmentMember", "TechnologyEquipmentMember"])
         self.assertEqual([r["change_from_prior"] for r in d], [None, 172492e6 - 113156e6])  # arithmetic on reported balances, in its own column (T10)
         self.assertEqual([r["value_high"] for r in d], [None, None])
-        self.assertTrue(all(r["mapped"] for r in d))
+        self.assertTrue(not any(r["mapped"] for r in d) and all(r["check"] == "to_confirm" for r in d))  # T63: the real file's entry is unconfirmed, so not mapped
         warp = next(r for r in rows if r["reported_name"] == "Warp drives")
         self.assertEqual((warp["standard_type"], warp["check"], warp["check_method"], warp["mapped"]), (None, "unmapped", "none", False))
         self.assertEqual(taxonomy.unmapped(_con(), ["AMZN"]), [{"ticker": "AMZN", "reported_name": COMMA}, {"ticker": "AMZN", "reported_name": "Warp drives"}])

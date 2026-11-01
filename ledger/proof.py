@@ -125,11 +125,12 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None)
         e = entries.get(name)
         st = status.of_mapping(e)
         if st["state"] == "checked":
-            items.append(_item(name, st, f"by {e.get('by')}, confirmed by {e['confirmed_by']} {e.get('confirmed_at') or ''}".strip()))
+            it = _item(name, st, f"by {e.get('by')}, confirmed by {e['confirmed_by']} {e.get('confirmed_at') or ''}".strip())
         elif e and e.get("standard_type"):
-            items.append(_item(f"{name}: {e['standard_type']}, to confirm", st, f"proposed by {e.get('by')}; Reconcile, asset types: Approve, Edit or Reject", NEEDS["mapping_confirm"]))
+            it = _item(f"{name}: {e['standard_type']}, to confirm", st, f"proposed by {e.get('by')}; Reconcile, asset types: Approve, Edit or Reject", NEEDS["mapping_confirm"])
         else:
-            items.append(_item(f"{name}: no standard asset type", st, status.UNMAPPED, NEEDS["mapping"]))
+            it = _item(f"{name}: no standard asset type", st, status.UNMAPPED, NEEDS["mapping"])
+        items.append({**it, "name": name})  # the reported name itself, for the pages and the tests (`what` decorates it)
     stages["mapping"] = _stage(items, extra={"derived_rows": len(derived), "company_stated_ai": sum(r["measure"] == "company_stated_ai" for r in tax), "committed_rows": sum(r["measure"] == "committed" for r in tax)})
 
     # planned: guidance and projects, verbatim; a part-year or program statement carries its flag (taxonomy.part_year, .program)

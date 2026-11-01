@@ -189,20 +189,137 @@ class Confirmed(unittest.TestCase):
         self.assertEqual([(g["ticker"], g["reported_name"], g["standard_type"]) for g in got], [("MU", "Land", "LandMember")])
 
     def test_filer_member_and_mismatch(self):
+        """Read from the distilled instance on disk only; a zero never matches; two members on one value are ambiguous;
+        no instance on disk is None (not checked), never 'tags nothing'."""
+        from ledger.ingest import edgar
         con = _con()
-        con.execute("insert into facts values ('MU','ppe_category','Other equipment','FY2026',5e6,'agree','5000000','2026-09-03')")
-        con.execute("update facts set reference = reference")
         con.execute("alter table facts add column accession text")
         con.execute("update facts set accession = 'acc1'")
-        inst = {("PropertyPlantAndEquipmentGross", "us-gaap:EquipmentMember", "2026-09-03"): 5000000, ("PropertyPlantAndEquipmentGross", "us-gaap:LandMember", "2026-09-03"): 420000000,
-                ("PropertyPlantAndEquipmentGross", "", "2026-09-03"): 5000000}
-        with mock.patch("ledger.workbench._instance", return_value=inst):
-            got = mapper.filer_members(con, "MU", ["Other equipment", "Land", "Equipment"])
-        self.assertEqual(got, {"Other equipment": ["us-gaap:EquipmentMember"], "Land": ["us-gaap:LandMember"], "Equipment": []})  # the total (no member) never counts
-        self.assertTrue(mapper.mismatch("OtherMachineryAndEquipmentMember", ["us-gaap:EquipmentMember"]))
-        self.assertFalse(mapper.mismatch("EquipmentMember", ["us-gaap:EquipmentMember"]))
-        self.assertFalse(mapper.mismatch("TechnologyEquipmentMember", ["amzn:ServersAndNetworkingEquipmentMember"]))  # an extension member: nothing to compare
-        self.assertFalse(mapper.mismatch("LandMember", []))
+        con.execute("insert into facts values ('MU','ppe_category','Other equipment','FY2026',5e6,'agree','5000000','2026-09-03','acc1'), ('MU','ppe_category','Leasehold','FY2026',7e6,'agree','7000000','2026-09-03','acc1'),"
+                    " ('MU','ppe_category','Empty','FY2026',0,'agree','0','2026-09-03','acc1'), ('MU','ppe_category','Elsewhere','FY2026',1e6,'agree','1000000','2026-09-03','acc2')")
+        con.execute("insert into documents values ('acc2','MU',723125,'2025-10-09','x','u')")
+        inst = {"PropertyPlantAndEquipmentGross\tus-gaap:EquipmentMember\t2026-09-03": 5000000, "PropertyPlantAndEquipmentGross\tus-gaap:LandMember\t2026-09-03": 420000000,
+                "PropertyPlantAndEquipmentGross\t\t2026-09-03": 5000000, "PropertyPlantAndEquipmentGross\tus-gaap:LeaseholdImprovementsMember\t2026-09-03": 7000000,
+                "PropertyPlantAndEquipmentGross\tus-gaap:BuildingMember\t2026-09-03": 7000000, "PropertyPlantAndEquipmentGross\tus-gaap:FurnitureAndFixturesMember\t2026-09-03": 0}
+        with tempfile.TemporaryDirectory() as tmp:
+            raw = Path(tmp)
+            (raw / "0000723125" / "filings").mkdir(parents=True)
+            (raw / "0000723125" / "filings" / "acc1.facts.json").write_text(json.dumps(inst))  # acc2 has no instance on disk
+            with mock.patch.object(edgar, "RAW", raw), mock.patch("ledger.reference.dimensions.instance_facts", side_effect=AssertionError("no fetch on a page read")):
+                got = mapper.filer_members(con, "MU", ["Other equipment", "Land", "Equipment", "Leasehold", "Empty", "Elsewhere"])
+        self.assertEqual(got["Other equipment"], {"members": ["us-gaap:EquipmentMember"], "ambiguous": False})  # the total (no member) never counts
+        self.assertEqual(got["Land"], {"members": ["us-gaap:LandMember"], "ambiguous": False})
+        self.assertEqual(got["Equipment"], {"members": [], "ambiguous": False})  # checked: nothing tagged with that value
+        self.assertEqual(got["Leasehold"], {"members": ["us-gaap:BuildingMember", "us-gaap:LeaseholdImprovementsMember"], "ambiguous": True})
+        self.assertEqual(got["Empty"], {"members": [], "ambiguous": False})  # a zero matches nothing
+        self.assertIsNone(got["Elsewhere"])  # no instance on disk: not checked
+        self.assertTrue(mapper.mismatch("OtherMachineryAndEquipmentMember", got["Other equipment"]))
+        self.assertFalse(mapper.mismatch("EquipmentMember", got["Other equipment"]))
+        self.assertFalse(mapper.mismatch("LandAndBuildingMember", got["Leasehold"]))  # ambiguous: never a mismatch
+        self.assertFalse(mapper.mismatch("TechnologyEquipmentMember", {"members": ["amzn:ServersAndNetworkingEquipmentMember"], "ambiguous": False}))  # extension: nothing to compare
+        self.assertFalse(mapper.mismatch("LandMember", None))
+
+    def test_filer_members_failure_is_not_checked(self):
+        con = duckdb.connect()  # no facts table: the query fails
+        self.assertEqual(mapper.filer_members(con, "MU", ["Land"]), {"Land": None})
+
+    def test_an_entry_with_no_member_is_unmapped(self):
+        from ledger import proof, status, taxonomy
+        types = {"MU": {"Land": {"evidence": "land", "by": "a test"}}}
+        with mock.patch.object(taxonomy, "asset_types", return_value=types):
+            self.assertEqual(taxonomy.unmapped(_con(), ["MU"]), [{"ticker": "MU", "reported_name": "Equipment"}, {"ticker": "MU", "reported_name": "Land"}])
+            self.assertEqual(taxonomy.to_confirm(_con(), ["MU"]), [])
+        self.assertEqual(status.of_mapping(types["MU"]["Land"])["reason"], status.UNMAPPED)
+
+    def test_the_taxonomy_rows_of_an_unconfirmed_entry_are_not_mapped(self):
+        """T63 review: the exported rows of an entry no person confirmed read mapped false, check to_confirm."""
+        from ledger import taxonomy
+        con = _con()
+        for t, cols in (("extractions", "extraction_id text, accession text, table_id text, row_label text, cell_text text, ticker text"),):
+            con.execute(f"create table {t} ({cols})")
+        con.execute("alter table facts add column accession text")
+        con.execute("alter table facts add column extraction_ids text")
+        con.execute("alter table \"values\" add column period_end text")
+        con.execute("alter table \"values\" add column extraction_ids text")
+        types = {"MU": {"Land": {"standard_type": "LandMember", "evidence": "land", "by": "Claude Fable 5.1"},
+                        "Equipment": {"standard_type": "MachineryAndEquipmentMember", "evidence": "equipment", "by": "a test", "confirmed_by": "a test", "confirmed_at": "2026-11-02"}}}
+        with mock.patch.object(taxonomy, "asset_types", return_value=types), mock.patch.object(taxonomy, "_restated", return_value=None):
+            rows = {r["reported_name"]: r for r in taxonomy.rows(con, ["MU"]) if r["measure"] == "derived"}
+        self.assertEqual((rows["Land"]["mapped"], rows["Land"]["check"], rows["Land"]["check_method"], rows["Land"]["standard_type"]), (False, "to_confirm", "label:to_confirm", "LandMember"))
+        self.assertEqual((rows["Equipment"]["mapped"], rows["Equipment"]["check"], rows["Equipment"]["check_method"]), (True, "agree", "xbrl"))
+
+
+class Hardening(unittest.TestCase):
+    """T63 review: one locked, atomic, whole-file-checked write; odd headers refused; names YAML would misread quoted;
+    a model's name never confirms."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.path = Path(self.tmp.name) / "asset_types.yaml"
+        self.log = Path(self.tmp.name) / "proposals.jsonl"
+        self.name = 'Land, buildings and "leasehold" improvements'
+        self.path.write_text(HEADER + f'MU:\n  {json.dumps(self.name)}: {{standard_type: ConstructionInProgressMember, evidence: "land", by: Claude Fable 5.1, at: 2026-11-01}}\n')
+        self.tc = mock.patch.object(mapper, "_to_confirm", return_value=[{"ticker": "MU", "reported_name": self.name}])
+        self.um = mock.patch.object(mapper, "_unmapped", return_value=[{"ticker": "MU", "reported_name": "No"}])
+        self.tc.start(); self.um.start()
+        self.patch = mock.patch.object(mapper, "ASSET_TYPES", self.path)
+        self.patch.start()
+
+    def tearDown(self):
+        self.tc.stop(); self.um.stop(); self.patch.stop()
+        self.tmp.cleanup()
+
+    def test_a_name_with_a_comma_and_quotes_through_approve_edit_and_reject(self):
+        mapper.approve("MU", self.name, "ConstructionInProgressMember", "land", "No", path=self.path, log=self.log, at="2026-11-03")  # a confirmer called No stays a string
+        e = yaml.safe_load(self.path.read_text())["MU"][self.name]
+        self.assertEqual((e["confirmed_by"], str(e["confirmed_at"]), e["by"]), ("No", "2026-11-03", "Claude Fable 5.1"))
+        self.path.write_text(self.path.read_text().replace(", confirmed_by: \"No\", confirmed_at: 2026-11-03", ""))  # back to a proposal
+        mapper.approve("MU", self.name, "LandMember", "land only", "A Tester", path=self.path, log=self.log, at="2026-11-03")
+        self.assertEqual(yaml.safe_load(self.path.read_text())["MU"][self.name]["standard_type"], "LandMember")
+        self.path.write_text(HEADER + f'MU:\n  {json.dumps(self.name)}: {{standard_type: ConstructionInProgressMember, evidence: "land", by: Claude Fable 5.1, at: 2026-11-01}}\n')
+        mapper.reject("MU", self.name, "ConstructionInProgressMember", "A Tester", path=self.log)
+        self.assertNotIn(self.name, yaml.safe_load(self.path.read_text())["MU"] or {})
+        mapper.approve("MU", "No", "LandMember", "no", "A Tester", path=self.path, log=self.log, at="2026-11-03")  # a name YAML would read as false
+        self.assertIn("No", yaml.safe_load(self.path.read_text())["MU"])
+
+    def test_a_duplicate_or_odd_ticker_header_is_refused(self):
+        for extra in ('"MU":\n  "Other": {standard_type: LandMember, evidence: "x", by: a, at: 2026-11-01, confirmed_by: a, confirmed_at: 2026-11-01}\n',
+                      'MU: # a second block\n'):
+            text = self.path.read_text().split("MU:\n")[0] + extra + "MU:\n" + self.path.read_text().split("MU:\n")[1]
+            self.path.write_text(text)
+            for call in (lambda: mapper.approve("MU", self.name, "ConstructionInProgressMember", "land", "A Tester", path=self.path, log=self.log),
+                         lambda: mapper.reject("MU", self.name, "ConstructionInProgressMember", "A Tester", path=self.log)):
+                with self.assertRaises(ValueError) as c:
+                    call()
+                self.assertIn("blocks for MU", str(c.exception))
+            self.assertEqual(self.path.read_text(), text)
+
+    def test_the_write_refuses_any_change_beyond_the_entry(self):
+        before = self.path.read_text()
+        with self.assertRaises(ValueError) as c:
+            mapper._edit(self.path, "MU", self.name, lambda lines, data: ([l for l in lines if "MSFT" not in l and '"Land": {' not in l], data["MU"][self.name]))
+        self.assertIn("more than the one entry", str(c.exception))
+        self.assertEqual(self.path.read_text(), before)
+        self.assertEqual(sorted(p.name for p in Path(self.tmp.name).iterdir() if p.suffix == ".tmp"), [])  # no temporary file left
+
+    def test_reject_sees_a_confirmation_written_after_its_caller_looked(self):
+        """The check and the removal are one snapshot under the lock: a line confirmed meanwhile is never removed."""
+        self.path.write_text(HEADER + f'MU:\n  {json.dumps(self.name)}: {{standard_type: ConstructionInProgressMember, evidence: "land", by: Claude Fable 5.1, at: 2026-11-01, confirmed_by: A Tester, confirmed_at: 2026-11-02}}\n')
+        before = self.path.read_text()
+        with self.assertRaises(ValueError) as c:
+            mapper.reject("MU", self.name, "ConstructionInProgressMember", "A Tester", path=self.log)
+        self.assertIn("confirmed by A Tester", str(c.exception))
+        self.assertEqual(self.path.read_text(), before)
+        self.assertFalse(self.log.exists())
+
+    def test_a_model_never_confirms(self):
+        before = self.path.read_text()
+        for who in ("Claude Fable 5.1", "claude", "Opus", "the mapper agent", "Replication run", "Sonnet 4", "HAIKU"):
+            with self.assertRaises(ValueError) as c:
+                mapper.approve("MU", self.name, "ConstructionInProgressMember", "land", who, path=self.path, log=self.log)
+            self.assertIn("not a person's name", str(c.exception))
+        self.assertEqual(self.path.read_text(), before)
+        self.assertEqual(mapper.person("Bruno Runyon"), "Bruno Runyon")  # whole words only
 
 
 class Proposals(unittest.TestCase):
@@ -330,6 +447,9 @@ class Route(unittest.TestCase):
                 self.assertEqual(code, 400)
                 self.assertIn("not one of the company's reported PP&E categories", d["error"])
                 self.assertEqual(path.read_text(), HEADER)
+                code, d = self._post(base + "/api/mapping", {**body, "by": "Claude Fable 5.1"})  # T63: a model never confirms
+                self.assertEqual(code, 400)
+                self.assertIn("not a person's name", d["error"])
                 code, d = self._post(base + "/api/mapping", body)
                 self.assertEqual(code, 200)
                 self.assertEqual((d["ticker"], d["standard_type"], d["by"]), ("MU", "LandMember", "Kenny Geiler"))
