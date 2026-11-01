@@ -16,6 +16,10 @@ Decisions folded in (1 Nov, Kenny + review):
 - A second reviewer is a ticket (T34). One person signing their own work stays a weakness until then.
 - Production rails (auth, decisions in Postgres, the self-hosted runner, the hosted copy on Postgres) start after T6.
 
+**Order against the calendar** (council of two sessions, Kenny approved 2 Nov; the Arctal call is 11/12 Nov):
+before the call, C merged and golden re-frozen → B (T5–T6, sign v1.8.0 from the app) → F (T35, T38, T36) → T40, T41, T42 →
+T44 spike → T48; T43 if time. After the call, T45 → T49 → T46 → T47 as picked. T51 (the name) whenever Kenny names it, last.
+
 Each ticket: why, done when, what it touches. Order within a group is the order to do them. A ticket is closed by a commit that
 names it (`T12`) and updates the README status.
 
@@ -182,14 +186,69 @@ Agents build this, a person signs. The rules every agent follows, in the brief a
 - **Skills are mandatory, not optional.** A builder on a page loads the three design skills; a builder on a schema change
   reads `docs/TAXONOMY.md` and `docs/PROOF.md` first; a builder on agents reads `agents/prompts/` and versions, never edits in
   place. The reviewer refuses a diff whose brief did not name the skills it used.
+- **Charter before code (T50).** A new source or agent starts with its charter file under `agents/charters/`; the reviewer
+  refuses a reader diff without one.
 - **Headless only.** Agents that read filings run through `LEDGER_CLAUDE="$CLAUDE_CODE_EXECPATH"`; no API key, no paid calls.
 - **One signer, one place.** Only the Release page signs; agents never run `signoff` or `publish`.
 - **Phases.** 1: T0 (worktree) and A (main checkout) in parallel, merge, screenshots equal. 2: C on `schema-v11`, one builder,
   one reviewer, merge. 3: B. 4: D per page in parallel, E alongside. 5: F, starting with T35, which decides the scale plan.
   Production rails after phase 3.
 
+## H. Answer keys and sources
+
+XBRL is one kind of answer key. There are four: a structured twin, a second source, an arithmetic tie, a later truth. Each
+extends `by` in `status.py` and `check_method` (T13); none is a redesign. A new source reaches the bar only when it is frozen
+in golden. Arctal's own products (Green & Transition CapEx, Labelled Bonds) are the targets of T44–T46.
+
+- **T40 Answer-key vocabulary.** `status.state` and `check_method` gain `esef:<tag>`, `source:<doc>`, `rule:<tie_id>`,
+  `actual:<period>` next to xbrl / quote / located / mapping / rule / definition / label / resolution; `docs/PROOF.md` lists the
+  four kinds and what each proves. Done when tests assert each kind on a fixture row and Proof and Reconcile count it the same.
+- **T41 Quarters tie.** From the cached companyfacts 10-Q facts, rule `quarters_tie`: Q1 + Q2 + Q3 + derived Q4 = FY within
+  tolerance for revenue, capex and opex on the six; a negative derived Q4 or a missing quarter is an open item, not a pass. Done
+  when the six carry `rule:quarters_tie` and golden is re-frozen in its own commit saying why.
+- **T42 8-K second source.** Revenue and capex read from each fiscal year's earnings release (Ex 99.1, already in `texts` as
+  earnings_release), compared with the 10-K value by rule `second_source`; a disagreement opens an item citing both documents.
+  Done when the six carry `source:<accession>` where a release states the figure, and golden is green.
+- **T43 Later truth.** Rule `actual_vs_planned`: every planned row (guidance, verbatim) whose period has passed is compared with
+  the spent row for that period and the gap recorded; the planned row never changes. Done when every past-period planned row on
+  the six carries `actual:<period>` and its gap.
+- **T44 ESEF spike (before the call; spike, not proven).** ASML: annual report PDF plus the ESEF package from filings.xbrl.org
+  (free API). Read the EU Taxonomy capex KPI table (total / eligible / aligned) and cash-flow capex. Ties: aligned ≤ eligible ≤
+  total; KPI total = cash-flow capex; the ESEF tag as twin where tagged. Outside `SCOPE`, outside the packet. Done when
+  `reports/spikes/asml-esef.md` shows every number with its PDF page, each tie's result, and what the full source would need.
+- **T45 ESEF source (after the call).** New document kind (non-EDGAR PDF plus ESEF), schema v12 columns for the KPI (aligned /
+  eligible / total under the Delegated Act annex), a PDF-table reader agent with a versioned prompt and a charter (T50), tie
+  rules, golden frozen. Done when ASML is in `PROVEN` as company eight and golden is green.
+- **T46 Labelled-bond allocation reports (later).** The instrument as an entity, allocated-by-use as a measure, ties: allocated ≤
+  issued (issued from the prospectus or 8-K) and allocation against capex. Candidates: Alphabet, Amazon, Equinix, Digital Realty.
+  Done when one issuer's report is at the bar.
+- **T47 Format backlog.** 20-F (TSMC, ASML; TSMC's monthly revenue on MOPS sums to the quarter), investor-day slides (vision,
+  against the release figure), call audio (local Whisper against the official transcript), state data-center incentive filings
+  (planned, against the announcement), sustainability MWh and PUE (against CDP). Each becomes its own ticket when picked; none
+  starts before T45.
+
+## I. Agents: one owner per method, shown
+
+Arctal hires a "super-IC managing a fleet of AI agents". The proof is legible: every agent has a charter, a prompt history with
+who changed it, a run ledger, and, after the call, a score.
+
+- **T48 Charters and the Agents section (absorbs T23).** `agents/charters/<id>.md` for each live reader (extract, notes,
+  statements, aispend, projects): what it owns, what it never touches, its input task file and output file, model, tools, prompt
+  versions, and the checks that judge it. The attribution agents are marked retired in `agents.json`, not deleted. The Agents
+  section moves to the top of Rules and shows per agent: the charter, the prompt history with `by`, and the runs table per
+  company (calls, input and output tokens, seconds, attempts, failures). Done when every live reader shows all three for the six,
+  screenshotted at 1600px.
+- **T49 Per-agent score (after the call).** For each reader: the share of its outputs checked, explained and open (status.py),
+  agreement with the twin where one exists, and the planted-fault catch rate of the checks behind it (`faults`), each with its
+  denominator. Done when the Agents section shows a score per live reader.
+- **T50 Charter before code.** The rule under G: a new source or agent starts with its charter file; the reviewer refuses a reader
+  diff without one.
+- **T51 The name (Kenny decides).** After T48. Council advice given to Kenny: for this audience a name for the method beats a
+  personal name; his call. Change the page title, nav, README, HANDOFF and the hosted service label; redeploy the read-only copy.
+  Done when the name appears everywhere and the hosted copy shows it.
+
 ## Order
 
-T0 and A first, then C (the schema, one series), then B (the page that signs), then D per page in parallel with E
-alongside, then F. Production rails (auth, decisions in Postgres, the self-hosted runner, the hosted copy reading Postgres)
+T0 and A first, then C (the schema, one series), then B (the page that signs), then F, then H and I as the calendar above
+says, with D per page in parallel and E alongside. Production rails (auth, decisions in Postgres, the self-hosted runner, the hosted copy reading Postgres)
 come after T6 signs v1.8.0.
