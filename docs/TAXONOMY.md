@@ -102,25 +102,28 @@ against a published list, recorded; it is never a number.
 
 ## What a row looks like (schema v11, T9–T17)
 
-One shape for all five measures, 34 columns, declared once in `ledger/store.py` (`TAXONOMY`) and described column by
+One shape for all five measures, 36 columns, declared once in `ledger/store.py` (`TAXONOMY`) and described column by
 column in `docs/DATA_DICTIONARY.md`; the API and the packet add `layer` and `proven`. One meaning per column:
 
 ```
 ticker, fiscal_year, period_end, period_kind (reported|planned),
 measure (spent|committed|derived|planned|company_stated_ai), category (taxonomy id),
 reported_name (the company's own label), standard_concept (us-gaap, Reg S-K, or none), standard_type (member, when an asset type), mapped,
-value, value_high (a range high only), change_from_prior (the derived change only), share, has_value,
-unit (USD|share|MW), scale (1), currency (USD),
-period_as_stated, quote, kind, status, location, capacity_mw, forward_looking, part_year, program   (verbatim rows; empty elsewhere)
+value, value_high (a range high only), change_from_prior (the derived change only), share, relation (eq|ge|le, gathered figures), has_value,
+unit (USD|share, empty without a figure), scale (1), currency (USD),
+period_as_stated, quote, kind (actual|outlook), project_kind, status, location, capacity_mw, forward_looking, part_year, program   (verbatim rows; empty elsewhere)
 source (internal id), source_kind (10-K table|10-K note|10-K MD&A|8-K release|transcript|cfo commentary|gathered), accession, filed, source_url,
 check (agree|explained|differs|no_reference|unmapped|verbatim), check_method (<kind>[:<id>], kinds in status.METHOD_KINDS)
 ```
 
 `check` says whether the figure was verified and how it stands; `check_method` says what established that, in the
 words `ledger/status.py` uses for `by`: `xbrl`, `quote`, `gathered`, `rule:<id>`, `definition:<name>`,
-`resolution:<id>`, `label:<label>`, `none`. `source_url` opens the source: a 10-K cell at its row (a text fragment on
-the filing), a statement or project at its quote, a gathered figure at its page. No column holds a number the pipeline
-made up: `change_from_prior` is this year's reported balance minus last year's, and says so.
+`resolution:<id>`, `label:<label>`, `none`. `period_kind` is reported only when the company's fiscal calendar (the
+10-K that reports the year) knows the year's end and the source was written on or after it; otherwise planned.
+`source_url` opens the source: a 10-K cell with the parsed table named (`?table=<id>`) and a text fragment of the row
+label and number (the first place the filing shows those words; sec.gov has no table anchors), a statement or project
+at its quote, a gathered figure at its page. No column holds a number the pipeline made up: `change_from_prior` is
+this year's reported balance minus last year's, and says so.
 
 ## Open questions for Kenny
 

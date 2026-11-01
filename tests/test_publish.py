@@ -48,6 +48,13 @@ class Ordinal(unittest.TestCase):
         self.assertLess(publish.ordinal("v1.10.0"), publish.ordinal("v2.0.0"))
 
 
+class Retypes(unittest.TestCase):
+    def test_text_boolean_column_is_converted_once(self):
+        stmts = publish.retypes("ledger_taxonomy", ["ticker", "proven", "mapped"], {"ticker": "text", "proven": "text"})  # v1.7.0 published proven as text; mapped is new (added as boolean)
+        self.assertEqual(stmts, ['ALTER TABLE ledger_taxonomy ALTER COLUMN "proven" TYPE boolean USING ("proven" = \'True\' OR "proven" = \'true\')'])
+        self.assertEqual(publish.retypes("ledger_taxonomy", ["ticker", "proven", "mapped"], {"ticker": "text", "proven": "boolean", "mapped": "boolean"}), [])
+
+
 class Adds(unittest.TestCase):
     def test_every_column_gets_an_add_if_missing(self):
         from ledger.publish import adds

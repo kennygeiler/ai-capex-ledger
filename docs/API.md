@@ -14,7 +14,7 @@ behind a proxy that authenticates before exposing it.
 | `/api/v1/facts` | company, note field, dimension, year | ticker, field, dimension, period, period_end, value, check_label, xbrl, accession, basis, layer, status, flag |
 | `/api/v1/statements` | statement an agent read | statement_id, ticker, field, period, kind, scope, class, amount_low, amount_high, amount_mid, share, quote, source, date, url, layer |
 | `/api/v1/projects` | named project | ticker, period, name, kind, location, amount_low, amount_high, status, announced, in_service, counterparty, quote, source, url, layer (empty until the projects reader has run) |
-| `/api/v1/taxonomy` | one row per measure, category, company and year (`docs/TAXONOMY.md`; schema v11, every column described in `docs/DATA_DICTIONARY.md`) | ticker, fiscal_year, period_end, period_kind, measure (spent, committed, derived, planned, company_stated_ai), category, reported_name, standard_concept, standard_type, mapped, value, value_high, change_from_prior, share, has_value, unit, scale, currency, period_as_stated, quote, kind, status, location, capacity_mw, forward_looking, part_year, program, source, source_kind, accession, filed, source_url, check, check_method, layer, proven |
+| `/api/v1/taxonomy` | one row per measure, category, company and year (`docs/TAXONOMY.md`; schema v11, every column described in `docs/DATA_DICTIONARY.md`) | ticker, fiscal_year, period_end, period_kind, measure (spent, committed, derived, planned, company_stated_ai), category, reported_name, standard_concept, standard_type, mapped, value, value_high, change_from_prior, share, relation, has_value, unit, scale, currency, period_as_stated, quote, kind, project_kind, status, location, capacity_mw, forward_looking, part_year, program, source, source_kind, accession, filed, source_url, check, check_method, layer, proven |
 | `/api/v1/views` | saved view | id, name, measure, filters, group, show, note, by, at |
 
 `proven` says whether the row's company is in the proven set (`docs/PROOF.md`): every number of a proven company is checked or
@@ -40,7 +40,11 @@ step and per company; `ledger cost` writes the same to `reports/cost.json`).
 `?release=vX.Y.Z` on any of companies, values, facts, statements, projects, taxonomy serves that signed
 release's file instead of the working database, typed back from CSV and with a `release` column, so a consumer gets
 the same columns from a release as from the live API. A release holds one CSV per list (`ledger release`), and
-`ledger publish` pushes those same files to Postgres as `ledger_<list>` tables with `current_<list>` views.
+`ledger publish` pushes those same files to Postgres as `ledger_<list>` tables with `current_<list>` views. Column types follow
+`publish.NUMERIC`, `DATE` and `BOOLEAN`; a column an older release published as text and schema v11 types boolean (`proven` in
+`ledger_taxonomy`, from v1.7.0) is converted in place the first time a release publishes after the change
+(`ALTER COLUMN … TYPE boolean USING (col = 'True' OR col = 'true')`, `publish.retypes`, guarded by the column's current type so it
+runs once); older releases' rows keep their value, read as boolean.
 
 ## Filters and grouping
 

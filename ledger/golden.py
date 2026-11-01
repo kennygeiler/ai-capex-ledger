@@ -33,7 +33,7 @@ STEPS = [["extract", "--pack"], ["extract", "--load"], ["reconcile"], ["aispend"
          ["projects", "--pack"], ["projects", "--load"], ["rules"]]  # pack rebuilds the task files the loaders check quotes against; the agents' answers are the frozen inputs
 LISTS = ("taxonomy",)  # computed lists frozen too (T31): the taxonomy rows the code builds from the tables, as taxonomy.csv in a release
 # what the temporary root needs besides data/: the config the stages read, as it is in the repo
-SHARED = ("agents", "definitions", "gold", "rules", "decisions.jsonl", "sources", "taxonomy", ".env")  # .env: the SEC client checks the contact at import; nothing is fetched. taxonomy/: the asset-type mappings and stated figures the taxonomy rows read. decisions/ (a person's resolutions) stays out: the golden proves the code stages, so a taxonomy row's check is what the labels, definitions and guards say
+SHARED = ("agents", "definitions", "gold", "rules", "decisions", "sources", "taxonomy", ".env")  # .env: the SEC client checks the contact at import; nothing is fetched. taxonomy/: the asset-type mappings and stated figures the taxonomy rows read. decisions/: a person's decisions and resolutions, read by freeze (from the repo) and check (from the root) alike, so a decision is part of the expectation and a new one shows as a diff
 
 
 def _rows(con, sql, *p):

@@ -117,7 +117,7 @@ class ProofAgreesWithReconcile(unittest.TestCase):
         self.assertEqual(sorted(r["proof"]), sorted(PROVEN))
         self.assertEqual(r["proof"], r["reconcile"], f"Proof and Reconcile disagree on what is open: {r}")
         self.assertEqual(r["proof_total"], sum(r["reconcile"].values()))
-        self.assertTrue(set(r["states"]) <= set(status.STATES), r["states"])
+        self.assertTrue(set(r["states"]) <= set(status.STATES) | {"to confirm"}, r["states"])  # "to confirm": T3's group, the decisions a run left for a person (decisions/ is in the root since T31)
 
 
 if __name__ == "__main__":

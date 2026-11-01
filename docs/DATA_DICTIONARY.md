@@ -329,8 +329,8 @@ Columns in this order, then `layer` and `proven` from the API. A row is identifi
 |---|---|---|---|---|
 | `ticker` | VARCHAR | yes | pattern `^[A-Z][A-Z0-9.\-]{0,9}$` | Company ticker, e.g. NVDA. |
 | `fiscal_year` | VARCHAR | yes | pattern `^FY\d{4}$` | The company's fiscal year label, e.g. FY2025. |
-| `period_end` | VARCHAR | no | pattern `^\d{4}-\d{2}-\d{2}$` | The fiscal period's last day on a reported row (period_kind = reported); empty on a planned row. |
-| `period_kind` | VARCHAR | yes | `reported`, `planned` | reported: the figure is for a period that has ended. planned: a figure for a period the company spoke of ahead of time. |
+| `period_end` | VARCHAR | no | pattern `^\d{4}-\d{2}-\d{2}$` | The fiscal period's last day, from the company's own fiscal calendar (the 10-K that reports that year), on every row whose period_kind is reported; empty on a planned row. |
+| `period_kind` | VARCHAR | yes | `reported`, `planned` | reported: the figure is for a fiscal period that had ended when the source was written. planned: the period's end is after the source's date, or the calendar does not know it yet. |
 | `measure` | VARCHAR | yes | `spent`, `committed`, `derived`, `planned`, `company_stated_ai` | spent, committed, derived (a reported balance and its arithmetic change), planned (verbatim) or company_stated_ai (verbatim). |
 | `category` | VARCHAR | yes |  | The taxonomy id (taxonomy/taxonomy.yaml): capex, segment_capex, segment_revenue, purchase_obligations, finance_lease_liability, ppe_gross_by_type, guidance, project, ai_capex, ai_opex, ai_revenue. |
 | `reported_name` | VARCHAR | yes |  | The company's own label: the line, segment, asset type, project or statement as written. |
@@ -341,23 +341,25 @@ Columns in this order, then `layer` and `proven` from the API. A row is identifi
 | `value_high` | BIGINT | no |  | The high end of a stated range, on planned and company_stated_ai rows only, and only when the range has two ends. Never anything else. |
 | `change_from_prior` | BIGINT | no |  | On derived rows only: this year's reported gross balance minus the prior year's, for the same asset type. Arithmetic on two reported figures; empty on the first year. |
 | `share` | DOUBLE | no |  | A share the company stated, 0 to 1, on company_stated_ai rows whose unit is share. Empty elsewhere. |
+| `relation` | VARCHAR | no | `eq`, `ge`, `le` | On a gathered figure: how the company's words relate to value or share: eq (the figure), ge (at least), le (at most). Empty elsewhere. |
 | `has_value` | BOOLEAN | yes |  | True when the row carries a figure (value or share). False on a project or statement the company named without an amount. |
-| `unit` | VARCHAR | yes | `USD`, `share`, `MW` | USD for a dollar amount; share for a stated share; MW for a project whose only stated size is capacity_mw. |
+| `unit` | VARCHAR | no | `USD`, `share` | USD for a dollar amount; share for a stated share. Empty when has_value is false. A project's capacity is in capacity_mw, in megawatts. |
 | `scale` | BIGINT | yes |  | Always 1: every amount is in whole units (whole dollars, a share of one, megawatts). |
 | `currency` | VARCHAR | yes | `USD` | Always USD: the currency of value, value_high and change_from_prior. |
 | `period_as_stated` | VARCHAR | no |  | On a verbatim row: the period the company named, as the reader labelled it (the fiscal year). Empty on reported rows. |
 | `quote` | VARCHAR | no |  | On a verbatim row: the sentence, as written in the source. Empty on reported rows. |
-| `kind` | VARCHAR | no | `actual`, `outlook`, `data_center`, `fab`, `plant`, `power`, `gpu_cluster`, `cloud_commitment`, `network`, `other` | On a company_stated_ai statement: actual or outlook. On a project: data_center, fab, plant, power, gpu_cluster, cloud_commitment, network or other. Empty elsewhere. |
+| `kind` | VARCHAR | no | `actual`, `outlook` | On a company_stated_ai statement read from a text: actual (the period the text reports) or outlook (a later period). Empty elsewhere. |
+| `project_kind` | VARCHAR | no | `data_center`, `fab`, `plant`, `power`, `gpu_cluster`, `cloud_commitment`, `network`, `other` | On a project: data_center, fab, plant, power, gpu_cluster, cloud_commitment, network or other. Empty elsewhere. |
 | `status` | VARCHAR | no | `announced`, `under_construction`, `in_service`, `contracted`, `cancelled` | On a project: announced, under_construction, in_service, contracted or cancelled, as stated. Empty elsewhere. |
 | `location` | VARCHAR | no |  | On a project: the place as stated. Empty elsewhere. |
 | `capacity_mw` | DOUBLE | no |  | On a project: megawatts when stated. Empty elsewhere. |
-| `forward_looking` | BOOLEAN | no |  | On a verbatim row: True for guidance and an outlook statement (a forward-looking statement under Regulation S-K), False for an actual figure, a project or a gathered figure. Empty on reported rows. |
+| `forward_looking` | BOOLEAN | no |  | On a statement read from a text: True for guidance and an outlook statement (a forward-looking statement under Regulation S-K), False for a figure the text reports as actual. Empty where the source does not say: spent, committed and derived rows, projects, gathered figures. |
 | `part_year` | BOOLEAN | no |  | On a statement read from a text: True when its words cover part of a year (a quarter, a half), by rules/guards; the figure is never turned into a year. Empty elsewhere. |
 | `program` | BOOLEAN | no |  | On a statement read from a text: True when its words describe a multi-year program rather than a year's figure, by rules/guards. Empty elsewhere. |
 | `source` | VARCHAR | yes |  | The internal id of what the row was read from: extraction ids (values), the fact's extraction ids (facts), a text id (statements, projects), or taxonomy/stated_figures.yaml. |
 | `source_kind` | VARCHAR | yes | `10-K table`, `10-K note`, `10-K MD&A`, `8-K release`, `transcript`, `cfo commentary`, `gathered` | Where the figure is written: a 10-K statement table, a 10-K note, the 10-K's MD&A, an 8-K earnings release, a transcript, CFO commentary, or gathered (a figure a person recorded with its URL and quote). |
 | `accession` | VARCHAR | no | pattern `^\d{10}-\d{2}-\d{6}$` | SEC accession number of the filing the row was read from. Empty when the source is not a filing. |
-| `filed` | VARCHAR | no | pattern `^\d{4}-\d{2}-\d{2}$` | The date the source was filed or published. |
-| `source_url` | VARCHAR | no |  | A URL that opens the source: the filing on sec.gov at the cited row (a text fragment) for a 10-K cell, the text at the quote for a statement or project, the gathered figure's page. |
+| `filed` | VARCHAR | no | pattern `^\d{4}-\d{2}-\d{2}$` | The date the source was filed with the SEC (documents.filed for a 10-K, the 8-K's filing date for a release). Empty for a transcript, CFO commentary or a gathered figure, which have no filing date. |
+| `source_url` | VARCHAR | no |  | A URL that opens the source. For a 10-K cell: the filing on sec.gov with `?table=<id>` (the parsed table the cell was read from, which DATAHQ can show) and a `#:~:text=<row label>,<number>` fragment that scrolls the browser to the first place the filing shows those words, which is usually the row but can be prose. For a statement or project: the text with the quote's first words as the fragment. For a gathered figure: the page recorded with it. |
 | `check` | VARCHAR | yes | `agree`, `explained`, `differs`, `no_reference`, `unmapped`, `verbatim` | agree: matches the SEC's XBRL. explained: differs and something on file says why (check_method). differs: differs and nothing on file says why. no_reference: no XBRL fact to compare. unmapped: an asset type with no standard member. verbatim: a quote verified against its text. |
 | `check_method` | VARCHAR | yes | pattern `^(xbrl|quote|gathered|located|none|mapping|rule|definition|resolution|label)(:.+)?$` | What established the check, as status.py names `by`: `<kind>` or `<kind>:<id>` with the kind one of status.METHOD_KINDS: xbrl, quote, gathered, none (nothing to compare against), rule:<id>, definition:<name>, resolution:<id>, label:<label>, mapping:<member>. An open vocabulary: a later answer key adds a kind there. |

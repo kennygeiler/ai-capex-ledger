@@ -81,8 +81,7 @@ class OneMeaningPerColumn(unittest.TestCase):
                 self.assertEqual(r["has_value"], r["value"] is not None or r["share"] is not None, name)
                 self.assertEqual((r["scale"], r["currency"]), (1, "USD"), name)
                 self.assertEqual(r["unit"] == "share", r["share"] is not None, name)
-                if r["unit"] == "MW":
-                    self.assertTrue(r["value"] is None and r["capacity_mw"] is not None and r["category"] == "project", name)
+                self.assertEqual(r["unit"] is None, not r["has_value"], f"{name}: no figure, no unit")
                 if r["unit"] == "share":
                     self.assertIsNone(r["value"], name)
 
@@ -94,6 +93,12 @@ class OneMeaningPerColumn(unittest.TestCase):
                     self.assertIsNotNone(r["period_end"], name)
                 if r["measure"] == "planned":
                     self.assertEqual((r["period_kind"], r["period_end"]), ("planned", None), name)
+                if r["measure"] == "company_stated_ai":  # reported only when the calendar knows the year's end and the source came after it
+                    self.assertEqual(r["period_kind"] == "reported", r["period_end"] is not None, f"{name}: {r['ticker']} {r['fiscal_year']}")
+                    if r["period_end"] and r["filed"]:
+                        self.assertLessEqual(r["period_end"], r["filed"], name)
+                    if r["kind"] == "outlook":
+                        self.assertEqual(r["period_kind"], "planned", name)
                 if r["period_kind"] == "planned":
                     self.assertIsNone(r["period_end"], name)
 
@@ -103,10 +108,16 @@ class OneMeaningPerColumn(unittest.TestCase):
                 verbatim = r["check"] == "verbatim"
                 self.assertEqual(verbatim, r["quote"] is not None or r["measure"] in ("planned", "company_stated_ai"), name)
                 if not verbatim:
-                    for c in ("kind", "status", "location", "capacity_mw", "forward_looking", "part_year", "program", "period_as_stated", "quote"):
+                    for c in ("kind", "project_kind", "relation", "status", "location", "capacity_mw", "forward_looking", "part_year", "program", "period_as_stated", "quote"):
                         self.assertIsNone(r[c], f"{name}: {c} on a reported row")
+                self.assertEqual(r["kind"] is not None, r["measure"] == "company_stated_ai" and r["source_kind"] != "gathered", name)  # one meaning: the statement's kind
+                self.assertEqual(r["project_kind"] is not None, r["category"] == "project", name)
+                self.assertEqual(r["relation"] is not None, r["source_kind"] == "gathered", name)
+                if r["category"] == "project" or r["source_kind"] == "gathered":
+                    self.assertIsNone(r["forward_looking"], f"{name}: the source does not say")
+                if r["check_method"] == "quote" and r["category"] != "project":
+                    self.assertIsNotNone(r["forward_looking"], name)
                 if r["category"] == "project":
-                    self.assertIsNotNone(r["kind"], name)
                     self.assertIsNotNone(r["status"], name)
                 else:
                     for c in ("status", "location", "capacity_mw"):
@@ -148,6 +159,23 @@ class OneMeaningPerColumn(unittest.TestCase):
                     self.assertIn("sec.gov", r["source_url"], name)
                 if r["source_kind"] == "gathered":
                     self.assertIsNone(r["accession"], name)
+
+
+class Filters(unittest.TestCase):
+    def test_a_boolean_filter_matches_false(self):
+        from ledger import api
+        rows = [{"ticker": "A", "has_value": True, "mapped": True}, {"ticker": "B", "has_value": False, "mapped": True}, {"ticker": "C", "has_value": None, "mapped": False}]
+        self.assertEqual([r["ticker"] for r in api.apply(rows, {"has_value": "false"})], ["B"])  # False is a value, not an empty cell
+        self.assertEqual([r["ticker"] for r in api.apply(rows, {"has_value": "true"})], ["A"])
+        self.assertEqual([r["ticker"] for r in api.apply(rows, {"mapped": "FALSE"})], ["C"])
+
+
+class GoldenRoot(unittest.TestCase):
+    def test_decisions_are_part_of_the_expectation(self):
+        """freeze reads the repo's decisions/ and check symlinks it into the root, so a person's resolution on a row is in the frozen check column and a new one shows as a diff."""
+        self.assertIn("decisions", golden.SHARED)
+        self.assertIn("taxonomy", golden.SHARED)
+        self.assertTrue((store.ROOT / "decisions" / "resolutions.jsonl").exists())
 
 
 if __name__ == "__main__":

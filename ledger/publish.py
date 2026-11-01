@@ -71,6 +71,18 @@ def adds(name: str, header: list[str]) -> list[str]:
     return [f'ALTER TABLE {name} ADD COLUMN IF NOT EXISTS "{c}" {t}' for c, t in columns(header)]
 
 
+def retypes(name: str, header: list[str], current: dict[str, str]) -> list[str]:
+    """One ALTER per column whose published type is text but whose declared type is now boolean (v1.7.0 published
+    `proven` as text; schema v11 types it boolean): the column is converted in place, 'True'/'true' to true, the rest
+    false, once. `current` is {column: data_type} from information_schema; a column already boolean gets nothing."""
+    return [f'ALTER TABLE {name} ALTER COLUMN "{c}" TYPE boolean USING ("{c}" = \'True\' OR "{c}" = \'true\')'
+            for c, t in columns(header) if t == "boolean" and current.get(c, "boolean") != "boolean"]
+
+
+def _types(con, name: str) -> dict[str, str]:
+    return {c: t for c, t in con.execute("SELECT column_name, data_type FROM information_schema.columns WHERE table_name = %s", (name,)).fetchall()}
+
+
 RELEASES_DDL = """CREATE TABLE IF NOT EXISTS ledger_releases (
   version text PRIMARY KEY, ordinal bigint NOT NULL, hash text NOT NULL, stage integer, prompt text, parser text, model text,
   signed_by text NOT NULL, signed_at timestamptz NOT NULL, published_at timestamptz NOT NULL, rows jsonb NOT NULL)"""
@@ -105,6 +117,8 @@ def publish(version: str, url: str | None = None) -> dict:
                 header, body = rows(d / f"{stem}.csv")
                 con.execute(ddl(table, header))
                 for stmt in adds(table, header):
+                    con.execute(stmt)
+                for stmt in retypes(table, header, _types(con, table)):  # a column an older release published as text, typed boolean now
                     con.execute(stmt)
                 con.execute(f"DELETE FROM {table} WHERE release = %s", (version,))
                 cols = ", ".join(f'"{c}"' for c in header)
