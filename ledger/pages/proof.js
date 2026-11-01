@@ -46,5 +46,51 @@ async function proofPage(view) {
       h('pre', {class: 'raw'}, 'uv run python -m ledger golden --check\nuv run python -m ledger golden --freeze   # change the expectation on purpose, then commit with the reason'),
       g.steps ? h('div', {class: 'mt-2'}, dtable('Last run', [{t: 'Step', k: 'step'}, {t: 'Exit', num: 1, k: 'exit'}], g.steps)) : '',
       g.diffs && Object.keys(g.diffs).length ? h('div', {class: 'mt-2'}, dtable('Differences', [{t: 'Table', k: 'name'}, {t: 'Only in the run', num: 1, k: 'n_only_in_run'}, {t: 'Only in expected', num: 1, k: 'n_only_in_expected'}], Object.entries(g.diffs).map(([k, v]) => ({name: k, ...v})))) : ''));
-  view.append(head, table_, legend, h('div', {class: 'mt-3'}, keyTable), keyWhy, h('div', {class: 'mt-3'}, releases), golden);
+  view.append(head, table_, legend, h('div', {class: 'mt-3'}, keyTable), keyWhy, failureTypes(b), h('div', {class: 'mt-3'}, releases), golden);
+  failureTypes.draw();
+}
+// T54: the failure types as data. Two bar charts (one hue, a bar is a NUMBER OF TYPES, never instances) and the same numbers as tables,
+// so the section reads without colour or without Plotly. `none` is a bar of its own: a known way to be wrong that nothing guards.
+const NO_CHECK = 'no check: a known way to be wrong that nothing guards';
+function failureTypes() {
+  const wrap = h('div', {class: 'mt-3'});  // width bounded by the page container, like the tables above
+  failureTypes.draw = async () => {
+    let f;
+    try { f = await api('/api/v1/failures'); } catch (e) { wrap.append(h('p', {class: 'text-secondary small'}, `Failure types: ${e.message}`)); return; }
+    const total = f.total;
+    const ofTotal = (n) => `${int(n)} of ${int(total)}`;
+    const checkName = (c) => (c === 'none' ? 'none' : c.replace(/_/g, ' '));
+    const head = h('div', {class: 'mb-2'}, h('h2', {class: 'h3 m-0'}, 'Failure types'),
+      h('div', {class: 'text-secondary small'}, `${int(total)} failure types from docs/INGESTION.md, coded in taxonomy/failures.yaml; bar = number of types, not how often each was seen.`));
+    const chart = (title, rows, key, label, aria) => {
+      const plot = h('div', {class: 'plot', role: 'figure', 'aria-label': aria, style: `min-height:0;height:${28 * rows.length + 48}px`});
+      const tbl = dtable(title, [{t: label, f: (r) => (key === 'check' && r[key] === 'none' ? h('span', {title: NO_CHECK}, 'none') : key === 'check' ? h('code', {}, r[key]) : r[key])},
+        {t: 'Types', num: 1, f: (r) => ofTotal(r.types)}, {t: 'Share', num: 1, f: (r) => pct(r.types / total)}], rows, {foot: ['All', ofTotal(total), pct(1)]});
+      return {plot, tbl, node: h('div', {class: 'col-lg-6'}, h('div', {class: 'card'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'fw-semibold'}, title), plot)), h('div', {class: 'mt-2'}, tbl))};
+    };
+    const byClass = chart('Types per cause class', f.by_class, 'class', 'Cause class', `${total} failure types by cause class, number of types per class`);
+    const byCheck = chart('What catches them: types per check', f.by_check, 'check', 'Check', `${total} failure types by the check that catches them; none is its own bar`);
+    const typeRows = [...f.types].sort((a, b) => (a.class === b.class ? a.id - b.id : (f.by_class.findIndex((x) => x.class === a.class) - f.by_class.findIndex((x) => x.class === b.class))));
+    const list = h('details', {class: 'mt-2'}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, `The ${int(total)} types, by cause class`),
+      h('div', {class: 'mt-2'}, dtable('Failure types', [{t: 'Id', num: 1, k: 'id'}, {t: 'Type', k: 'name'}, {t: 'Cause class', k: 'class'}, {t: 'Origin', k: 'origin'},
+        {t: 'Check', f: (r) => (r.check === 'none' ? h('span', {class: 'text-secondary', title: NO_CHECK}, 'none') : h('code', {}, r.check))},
+        {t: 'Companies seen', num: 1, f: (r) => (r.count == null ? h('span', {class: 'text-secondary', title: 'count seen is null in taxonomy/failures.yaml: not counted, not inferred'}, 'not counted') : int(r.count))}], typeRows, {note: 'count seen = companies named in INGESTION, as coded; null stays null'})));
+    const why = h('p', {class: 'text-secondary small mt-2'}, h('b', {class: 'text-body'}, 'none'), `: ${NO_CHECK}. `, `${ofTotal(f.none)} types have no check in code today: a contract, the evidence re-read, a count or an eye caught them. Each is a finding; the list says which.`);
+    wrap.append(head, h('div', {class: 'row g-3'}, byClass.node, byCheck.node), why, list);
+    if (!window.Plotly) { for (const c of [byClass, byCheck]) c.plot.replaceChildren(h('p', {class: 'text-secondary small m-0'}, 'The chart library did not load (offline?). The numbers are in the table.')); return; }
+    const css = getComputedStyle(document.documentElement);
+    const fg = css.getPropertyValue('--fg').trim(), muted = css.getPropertyValue('--muted').trim(), faint = css.getPropertyValue('--faint').trim(), bg = css.getPropertyValue('--bg').trim(), accent = css.getPropertyValue('--accent').trim();
+    const draw = (c, rows, key, nameOf) => {
+      const names = rows.map((r) => nameOf(r[key]));
+      const trace = {type: 'bar', orientation: 'h', x: rows.map((r) => r.types), y: names, text: rows.map((r) => ofTotal(r.types)), textposition: 'outside', textfont: {color: fg, size: 11}, cliponaxis: false,
+        marker: {color: accent}, hovertemplate: `%{y}: %{text} types<extra></extra>`};
+      const layout = {paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: {family: css.getPropertyValue('--font'), color: muted, size: 12}, margin: {l: 8, r: 56, t: 4, b: 28}, height: 28 * rows.length + 48, bargap: .45, showlegend: false,
+        xaxis: {gridcolor: faint, zerolinecolor: faint, tickfont: {color: muted}, range: [0, total], tickformat: ',d', fixedrange: true, title: {text: `number of types, of ${int(total)}`, font: {color: muted, size: 11}}},
+        yaxis: {type: 'category', autorange: 'reversed', automargin: true, tickfont: {color: fg}, fixedrange: true, ticksuffix: '  '},
+        hoverlabel: {bgcolor: bg, bordercolor: faint, font: {color: fg, family: css.getPropertyValue('--font')}}, dragmode: false};
+      return Plotly.newPlot(c.plot, [trace], layout, {displayModeBar: false, responsive: true});
+    };
+    await Promise.all([draw(byClass, f.by_class, 'class', (x) => x), draw(byCheck, f.by_check, 'check', (x) => (x === 'none' ? 'none (no check)' : checkName(x)))]);
+  };
+  return wrap;
 }

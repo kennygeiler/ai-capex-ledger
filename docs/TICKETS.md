@@ -384,7 +384,14 @@ the file and off the calendar.
   agent 10, reference 9; 45 of 72 have check `none` (contracts, the evidence re-read, counts and eyes caught them, no rule
   did); the checks that catch most are `period_length` 4, `xbrl_reconcile` 4, `citation_resolves` 3, `coverage` 3,
   `no_10k_yet` 3. Where the check is an id the INGESTION row does not name (6, 16, 42, 68), the `check_note` says so. The
-  chart (proof.js) is the second half, after T56.
+  chart (proof.js) is the second half, after T56. *As built (second half):* `GET /api/v1/failures` returns `pareto()`
+  (`total`, `by_class`, `by_origin`, `by_check` largest first, `none`) plus `types` (id, name, class, origin, check, count; a
+  null count stays null). Proof's "Failure types" section, under "Rows by answer key": two horizontal bar charts in one hue
+  (Plotly as Explore loads it), types per cause class (7 bars) and "what catches them", types per check (15 bars, `none` its own
+  bar, labelled "no check: a known way to be wrong that nothing guards"), every bar labelled `n of 72`; a bar is a NUMBER OF
+  TYPES, never instances, and the title says so. Under each chart the same numbers as a table (class or check, types of 72,
+  share), and a collapsed list of the 72 types (id, name, class, origin, check, companies seen or "not counted"), so it
+  reads without colour or without the chart library. `tests/test_failures.py` fetches the route through the real Handler.
 - **T55 Point-in-time.** `?as_of=D` on `/api/v1/values` and `/api/v1/taxonomy`: the figure the newest filing filed on or
   before D gave, from `extractions` (every filing's cells are kept) and `documents.filed`; `first_reported` / `basis` /
   `original_value` stay as they are. A PIT export in the packet (`values-asof.csv` per fiscal year end, or the API alone if the

@@ -71,6 +71,10 @@ grades always sum to rows), per company and in total; Proof shows it as "Rows by
 the key in one word beside `by`. On the six today: twin 260 of 875 rows, no key 615, the other three grades 0 until
 T41–T43 write them.
 
+Under it, "Failure types" (T54): the 72 types `docs/INGESTION.md` logged, as `taxonomy/failures.yaml` codes them, two bar charts
+from `/api/v1/failures` (types per cause class; types per catching check, `none` its own bar: a known way to be wrong that nothing
+guards, 45 of 72 today) with the same numbers as tables; a bar counts types, never instances, and a null count seen stays null.
+
 Proven = zero open (blocked included), for every stage, for that company. A person's judgement enters as a definition
 or a rule, never as a click on a row; once written it applies every run and the item never comes back. A resolution is
 the exception for what nothing on file covers yet, and it holds only while the item's content is unchanged.
