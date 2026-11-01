@@ -13,6 +13,8 @@ import csv
 import io
 import json
 import re
+import shutil
+import threading
 from datetime import datetime, timezone
 
 from . import api, proof, resolutions, store, taxonomy
@@ -21,7 +23,7 @@ from .config import SCOPE
 from .evidence import load_all
 from .extract import prompt_version
 from .ingest.tables import PARSER_VERSION
-from .release import GATES, RELEASES, build, content_hash, failing, gates, releases, rows_diff, rows_diff_md, version_key
+from .release import GATES, RELEASES, build, content_hash, failing, gates, rows_diff, rows_diff_md, version_key
 from .review import apply, decisions, open_items
 from .rules import load as load_rules
 
@@ -37,18 +39,49 @@ def _rows(con, sql, p):
     return [dict(zip([c[0] for c in cur.description], r)) for r in cur.fetchall()]
 
 
+def _releases() -> list:
+    """Every release folder under RELEASES (this module's, so tests point it elsewhere), oldest version first."""
+    return sorted(RELEASES.glob("v*"), key=lambda p: version_key(p.name))
+
+
 def next_version() -> str:
-    """The minor bump of the last release folder (v1.7.0 → v1.8.0); v0.1.0 when there is none."""
-    rel = releases()
+    """The version to sign next: the lowest unsigned release folder newer than the last signed one (a packet `ledger
+    release` built and nobody signed is signed, not skipped; an unsigned folder older than a signed release was
+    superseded and stays as it is), else the minor bump of the last folder (v1.7.0 → v1.8.0); v0.1.0 when there is none."""
+    rel = _releases()
+    signed = [p for p in rel if (p / "SIGNOFF.json").exists()]
+    last_signed = version_key(signed[-1].name) if signed else [-1]
+    unsigned = [p for p in rel if not (p / "SIGNOFF.json").exists() and version_key(p.name) > last_signed]
+    if unsigned:
+        return unsigned[0].name
     if not rel:
         return "v0.1.0"
     major, minor, _ = version_key(rel[-1].name)
     return f"v{major}.{minor + 1}.0"
 
 
+def folder_state(version: str, h: str) -> tuple[str, str]:
+    """What releases/<version>/ holds against the packet's hash: (state, note). state: none | same | different | signed |
+    broken (no manifest.json: half a write, or a hand-made folder)."""
+    d = RELEASES / version
+    if not d.exists():
+        return "none", ""
+    if (d / "SIGNOFF.json").exists():
+        return "signed", f"{version} is already signed; a shipped release is never edited. Use a new version."
+    if not (d / "manifest.json").exists():
+        return "broken", f"releases/{version}/ has no manifest.json: unsigned, broken; delete and rebuild"
+    try:
+        old = json.loads((d / "manifest.json").read_text()).get("hash")
+    except (json.JSONDecodeError, OSError):
+        return "broken", f"releases/{version}/manifest.json cannot be read: unsigned, broken; delete and rebuild"
+    if old != h:
+        return "different", f"releases/{version}/ is unsigned, built before this release's checks; delete and rebuild"
+    return "same", f"releases/{version}/ exists unchanged, unsigned"
+
+
 def previous_of(version: str):
     """The release folder before `version` by number, or None."""
-    before = [p for p in releases() if version_key(p.name) < version_key(version)]
+    before = [p for p in _releases() if version_key(p.name) < version_key(version)]
     return before[-1] if before else None
 
 
@@ -89,18 +122,27 @@ def packet(con, version: str, stage: int = 3) -> dict:
 
 
 def write(p: dict) -> dict:
-    """releases/<version>/ from a packet. A folder that exists with the same hash is left alone; one with different
-    content is refused: a shipped release is never edited."""
+    """releases/<version>/ from a packet, written whole: into a temporary folder beside it, then renamed into place, so
+    a folder that exists always has every file or none. One that exists with the same hash is left alone; a signed one,
+    a broken one or one with different content is refused with the reason `folder_state` gives."""
+    state, note = folder_state(p["version"], p["hash"])
+    if state == "same":
+        return {"written": False, "hash": p["hash"]}
+    if state != "none":
+        raise ValueError(note)
     out = RELEASES / p["version"]
-    if out.exists():
-        old = json.loads((out / "manifest.json").read_text())["hash"]
-        if old != p["hash"]:
-            raise ValueError(f"{p['version']} exists with different content; a shipped release is never edited. Use a new version.")
-        return {"written": False, "hash": old}
-    out.mkdir(parents=True)
-    for name, text in p["files"].items():
-        (out / name).write_text(text)
-    (out / "manifest.json").write_text(json.dumps(p["manifest"], indent=1))
+    tmp = RELEASES / f".{p['version']}.writing"
+    if tmp.exists():
+        shutil.rmtree(tmp)
+    tmp.mkdir(parents=True)
+    try:
+        for name, text in p["files"].items():
+            (tmp / name).write_text(text)
+        (tmp / "manifest.json").write_text(json.dumps(p["manifest"], indent=1))
+        tmp.rename(out)
+    except BaseException:
+        shutil.rmtree(tmp, ignore_errors=True)
+        raise
     return {"written": True, "hash": p["hash"]}
 
 
@@ -119,7 +161,7 @@ def _line(id_, label, required, count, state, link, note="", detail=None) -> dic
 def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     """The checklist for `version` (default: the next version). JSON the page renders as it is."""
     version = version or next_version()
-    if not VERSION.match(version):
+    if not isinstance(version, str) or not VERSION.match(version):
         raise ValueError(f"not a version: {version!r} (vMAJOR.MINOR.PATCH)")
     p = packet(con, version, stage)
     board = proof.board(con)
@@ -171,19 +213,24 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
                        "not run (reports/tests.json; T30 writes it)" if t is None else f"{t.get('count')} tests, {len(t.get('failures') or [])} failing, {t.get('at')}",
                        [{"test": f} for f in (t or {}).get("failures") or []]))
     # the packet as it would be written
-    exists = (RELEASES / version).exists()
-    same = exists and json.loads((RELEASES / version / "manifest.json").read_text()).get("hash") == p["hash"]
-    signed = exists and (RELEASES / version / "SIGNOFF.json").exists()
-    pk_state = "fail" if (exists and not same) or signed else "pass"
-    pk_note = (f"{version} is already signed" if signed else f"releases/{version}/ exists with different content; a shipped release is never edited" if exists and not same
-               else f"releases/{version}/ exists unchanged, unsigned" if exists else f"built in memory, not written; {p['values']} values, {len(tax)} taxonomy rows")
+    fstate, fnote = folder_state(version, p["hash"])
+    exists, signed = fstate != "none", fstate == "signed"
+    pk_state = "pass" if fstate in ("none", "same") else "fail"
+    pk_note = fnote or f"built in memory, not written; {p['values']} values, {len(tax)} taxonomy rows"
     lines.append(_line("packet", f"Packet {version}", True, len(p["files"]), pk_state, "data", pk_note,
                        [{"file": n, "bytes": len(text.encode()), "rows": max(0, text.count("\n") - 1) if n.endswith(".csv") else None} for n, text in sorted(p["files"].items())]))
     required = [l for l in lines if l["required"]]
     return {"version": version, "previous": p["previous"], "scope": list(SCOPE), "stage": stage, "hash": p["hash"], "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "ok": all(l["ok"] for l in required), "red": [l["id"] for l in required if not l["ok"]], "lines": lines,
             "gates": {"table": p["gates"], "failing": bad}, "open": open_, "blocked": blocked, "unconfirmed": len(unc), "unmapped": len(um),
-            "diff": d, "golden": g, "tests": t, "exists": exists, "signed": signed}
+            "diff": d, "golden": g, "tests": t, "exists": exists, "signed": signed, "folder": fstate}
+
+
+def checklist_table(cl: dict) -> str:
+    """The checklist as text, for `ledger release`: one line per check, state, count, label, note."""
+    w = max(len(l["label"]) for l in cl["lines"])
+    return "\n".join([f"{cl['version']} checklist: " + ("every required line green" if cl["ok"] else f"red on {', '.join(cl['red'])}")]
+                     + [f"  {l['state']:7} {l['count']:>6}  {l['label'].ljust(w)}  {l['note'][:70]}" for l in cl["lines"]])
 
 
 def summary(cl: dict) -> dict:
@@ -191,26 +238,46 @@ def summary(cl: dict) -> dict:
     return {"open": cl.get("open", 0) + cl.get("blocked", 0), "unmapped": cl.get("unmapped"), "scope": cl.get("scope") or [], "unconfirmed": cl.get("unconfirmed"), "at": cl.get("at")}
 
 
+_LOCK = threading.Lock()  # one signature at a time: two clicks never race the write, the signoff and the publish
+
+
+def _red(cl: dict) -> str:
+    return f"{cl['version']} not signed: {', '.join(cl['red'])} " + ("is" if len(cl["red"]) == 1 else "are") + " red on the checklist"
+
+
+def _compact(cl: dict) -> dict:
+    """The checklist as SIGNOFF.json stores it: the diff's counts, not its examples (DIFF.md has those)."""
+    return {**cl, "diff": {k: {kk: vv for kk, vv in x.items() if kk != "examples"} for k, x in cl["diff"].items()}}
+
+
 def sign(con, version: str | None, by: str, stage: int = 3) -> dict:
     """The Sign button (T6): build the checklist; refuse (ValueError → 400) while any required line is red or no name is
-    given; else write releases/<version>/, sign it as `by` with the checklist as it was, and publish. `by` is the page's
-    signer box today, recorded as given; who may press the button is a later ticket (auth). A publish that fails after
-    the signature lands is reported, not hidden: the release is signed and unpublished."""
-    from .cli.signoff import sign as _signoff
+    given; else write releases/<version>/, build the checklist again on what is now on disk and refuse if anything went
+    red meanwhile (the folder stays, unsigned, the next version to sign), sign it as `by` with that checklist, and publish.
+    `by` is the page's signer box today, recorded as given; who may press the button is a later ticket (auth). A publish
+    that fails after the signature lands is recorded in SIGNOFF.json (published false, publish_error) and reported, not
+    hidden: the release is signed and unpublished until `ledger publish` succeeds. Serialized: one signature at a time."""
+    from .cli.signoff import record, sign as _signoff
     from .publish import NotPublishable, publish
-    if not (by or "").strip():
+    if not isinstance(by, str) or not by.strip():
         raise ValueError("a signature needs a name")
-    cl = checklist(con, version, stage)
-    if not cl["ok"]:
-        raise ValueError(f"{cl['version']} not signed: {', '.join(cl['red'])} " + ("is" if len(cl["red"]) == 1 else "are") + " red on the checklist")
-    p = packet(con, cl["version"], stage)
-    if p["hash"] != cl["hash"]:
-        raise ValueError("the data changed while the checklist was built; reload and sign again")
-    write(p)
-    s = _signoff(cl["version"], by.strip(), {**cl, "diff": {k: {kk: vv for kk, vv in x.items() if kk != "examples"} for k, x in cl["diff"].items()}})  # the counts, not the examples: DIFF.md has those
-    out = {"version": cl["version"], "hash": p["hash"], "signed_by": s["signed_by"], "signed_at": s["signed_at"], "published": False, "rows": None, "publish_error": None}
-    try:
-        out |= {"published": True, "rows": publish(cl["version"])["rows"]}
-    except (NotPublishable, SystemExit, Exception) as e:  # psycopg errors included: the signature stands, the publish is retried with `ledger publish`
-        out["publish_error"] = str(e) or e.__class__.__name__
+    with _LOCK:
+        cl = checklist(con, version, stage)
+        if not cl["ok"]:
+            raise ValueError(_red(cl))
+        p = packet(con, cl["version"], stage)
+        if p["hash"] != cl["hash"]:
+            raise ValueError("the data changed while the checklist was built; reload and sign again")
+        write(p)
+        cl = checklist(con, cl["version"], stage)  # the second pass, on the folder as written
+        if not cl["ok"] or cl["hash"] != p["hash"]:
+            raise ValueError(_red(cl) if not cl["ok"] else "the data changed while the release was written; reload and sign again")
+        s = _signoff(cl["version"], by.strip(), _compact(cl))
+        out = {"version": cl["version"], "hash": p["hash"], "signed_by": s["signed_by"], "signed_at": s["signed_at"], "published": False, "rows": None, "publish_error": None}
+        try:
+            out |= {"published": True, "rows": publish(cl["version"])["rows"], "published_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+            record(cl["version"], published=True, published_at=out["published_at"], rows=out["rows"])
+        except (NotPublishable, SystemExit, Exception) as e:  # psycopg errors included: the signature stands, the publish is retried with `ledger publish`
+            out["publish_error"] = str(e) or e.__class__.__name__
+            record(cl["version"], published=False, publish_error=out["publish_error"])
     return out

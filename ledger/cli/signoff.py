@@ -15,6 +15,8 @@ def sign(version: str, by: str, checklist: dict | None = None) -> dict:
     d = RELEASES / version
     if not (d / "manifest.json").exists():
         raise ValueError(f"no release {version}")
+    if (d / "SIGNOFF.json").exists():
+        raise ValueError(f"{version} is already signed; a signature is never replaced")
     m = json.loads((d / "manifest.json").read_text())
     files = {n: (d / n).open(newline="").read() for n in m["files"]}  # exact bytes: the hash was taken before the write
     h = m["hash"]
@@ -24,6 +26,18 @@ def sign(version: str, by: str, checklist: dict | None = None) -> dict:
     if checklist is not None:
         s["checklist"] = checklist
     (d / "SIGNOFF.json").write_text(json.dumps(s, indent=1))
+    return s
+
+
+def record(version: str, **fields) -> dict:
+    """Add fields to a release's SIGNOFF.json after the signature: the publish's outcome (published, published_at, rows,
+    or publish_error). The signed fields and the checklist never change."""
+    f = RELEASES / version / "SIGNOFF.json"
+    s = json.loads(f.read_text())
+    for k in ("version", "hash", "signed_by", "signed_at", "checklist"):
+        fields.pop(k, None)
+    s.update(fields)
+    f.write_text(json.dumps(s, indent=1))
     return s
 
 

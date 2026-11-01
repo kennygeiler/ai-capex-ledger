@@ -38,9 +38,15 @@ required lines that fail), `lines` (each `{id, label, required, count, state: pa
 `columns_removed`, `examples`), `golden` and `tests` (the two report files as they are, `tests` from `reports/tests.json`
 `{ok, count, failures, at}`, null when not run). `POST /api/release/sign` `{version, by}` builds `releases/<version>/`, signs it as
 `by` with the checklist stored under `checklist` in `SIGNOFF.json`, and publishes; 403 on the read-only copy, 400 while any
-required line is red or `by` is empty; the reply says `published` and, when the publish failed after the signature landed,
-`publish_error` (rerun `ledger publish`). `/api/outputs` carries per release `checklist: {open, unmapped, scope, unconfirmed, at}`
-from that stored checklist, or null for a release signed before it existed.
+required line is red (checked twice: before the write and on the folder as written) or `by` is empty or not a string; one
+signature at a time. The reply says `published` and, when the publish failed after the signature landed, `publish_error`;
+`SIGNOFF.json` records the same (`published`, `published_at` and `rows` on success; `published: false` and `publish_error` on
+failure; rerun `ledger publish`). `/api/outputs` carries per release `checklist: {open, unmapped, scope, unconfirmed, at}` from
+that stored checklist, or null for a release signed before it existed, and `published` (false: signed, the publish failed).
+
+Every POST (a decision, a view, a prompt, a signature) needs `Content-Type: application/json` and, when the browser sends an
+`Origin`, this server's own (`http://127.0.0.1:<port>` or `http://localhost:<port>`); anything else is 403 before any route, so a
+page on another site cannot write through the browser's permission to POST to localhost without a preflight.
 
 Two roll-ups, not lists: `/api/v1/coverage` (per layer and field: companies with an AI amount, words only, none,
 not run) and `/api/v1/cost` (agent calls, tokens, seconds, attempts, failures and an estimated price at list, per

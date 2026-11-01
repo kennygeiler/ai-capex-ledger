@@ -127,10 +127,18 @@ Nothing is inferred. The attribution methods that estimated an AI share, and the
   (informs), the rows added / removed / changed per list against the previous release (informs; `DIFF.md` carries the same
   table), the golden test (`reports/golden.json`, required equal) and the last test run (`reports/tests.json`:
   `{ok, count, failures, at}`, written by T30; absent reads "not run" and does not block until it exists), and the packet as
-  `ledger release` would write it, built in memory with its files and hash. The version checked is the minor bump of the last
-  release folder, or `?version=`. The Sign button enables only when every required line is green; it writes
-  `releases/<version>/`, signs as the name in the header's signer box (recorded as given; who may press it is a later
-  ticket, auth), stores the checklist as it was in `SIGNOFF.json` under `checklist`, and publishes. Refused with 403 on the
-  read-only copy and 400 while any required line is red. Proof's releases table reads that stored checklist back: open,
-  unmapped and the companies in scope at signing; a release signed before the checklist says so.
+  `ledger release` would write it, built in memory with its files and hash. The version checked is the lowest unsigned
+  release folder newer than the last signed one (a packet the CLI built and nobody signed is signed, not skipped; an
+  unsigned folder older than a signed release was superseded and stays), else the minor bump of the last folder, or
+  `?version=`. A folder that exists with a different hash reads "unsigned, built before this release's checks; delete and
+  rebuild", one without `manifest.json` "unsigned, broken; delete and rebuild"; "a shipped release is never edited" is said
+  only of a signed one. The Sign button enables only when every required line is green; it writes `releases/<version>/`
+  whole (a temporary folder renamed into place), builds the checklist again on the folder as written and refuses if anything
+  went red, signs as the name in the header's signer box (recorded as given; who may press it is a later ticket, auth),
+  stores the checklist as it was in `SIGNOFF.json` under `checklist`, and publishes; a publish that fails after the signature
+  is recorded there (`published: false`, `publish_error`) and stays on screen, and Proof says "signed, not published" until
+  `ledger publish` succeeds. One signature at a time; a signature is never replaced. Refused with 403 on the read-only copy
+  and 400 while any required line is red. `ledger release` refuses on the same checklist, so the CLI never writes a folder
+  the page cannot sign. Proof's releases table reads the stored checklist back: open, unmapped and the companies in scope at
+  signing; a release signed before the checklist says so.
 - The releases table and the golden test's last run sit on Proof; the guards, the asset-type mappings and the readers on Rules; the dataset on Dataset, as a grid by year or as the raw rows of every list. Seven pages, one file each under `ledger/pages/`, the shell in `ledger/app.html`.

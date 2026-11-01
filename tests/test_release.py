@@ -82,10 +82,6 @@ class Build(unittest.TestCase):
         self.assertIn("-5 → 5", b["DIFF.md"])
 
 
-if __name__ == "__main__":
-    unittest.main()
-
-
 class SplitIds(unittest.TestCase):
     def test_commas_inside_labels(self):
         from ledger.release import split_ids
@@ -114,8 +110,21 @@ class RowsDiff(unittest.TestCase):
         self.assertEqual(rows_diff({"taxonomy.csv": self.NEW}, None), {})
         self.assertEqual(rows_diff_md({}), "")
 
+    def test_a_repeated_key_with_one_changed_and_one_removed(self):
+        from ledger.release import rows_diff
+        t = "ticker,fiscal_year,measure,category,reported_name,value,source,quote\n"
+        old = t + "A,FY1,planned,guidance,Capex,1,s1,one\nA,FY1,planned,guidance,Capex,2,s2,two\nA,FY1,planned,guidance,Capex,3,s3,three\n"
+        new = t + "A,FY1,planned,guidance,Capex,1,s1,one\nA,FY1,planned,guidance,Capex,9,s2,two\n"
+        d = rows_diff({"taxonomy.csv": new}, {"taxonomy.csv": old})["taxonomy"]
+        self.assertEqual((d["added"], d["removed"], d["changed"]), (0, 1, 1))
+        self.assertEqual(d["examples"]["changed"][0]["columns"], {"value": ("2", "9")})  # s2 moved; s3 left
+
     def test_a_repeated_key_pairs_the_closest_rows(self):
         from ledger.release import rows_diff
         t = "ticker,fiscal_year,measure,category,reported_name,value,source\n"
         d = rows_diff({"taxonomy.csv": t + "A,FY1,planned,guidance,Capex,1,s1\nA,FY1,planned,guidance,Capex,2,s2\n"}, {"taxonomy.csv": t + "A,FY1,planned,guidance,Capex,2,s2\nA,FY1,planned,guidance,Capex,1,s1\n"})
         self.assertEqual((d["taxonomy"]["added"], d["taxonomy"]["removed"], d["taxonomy"]["changed"]), (0, 0, 0))
+
+
+if __name__ == "__main__":
+    unittest.main()

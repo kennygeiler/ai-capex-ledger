@@ -266,6 +266,7 @@ def outputs() -> dict:
         from .checklist import summary
         out.append({"version": d.name, "signed_by": sig.get("signed_by"), "signed_at": sig.get("signed_at"), "packet": bool(sig) and (d / "README.md").exists(),
                     "checklist": summary(sig["checklist"]) if sig.get("checklist") else None,  # T7: what the signature meant; None before the checklist existed
+                    "published": sig.get("published"),  # False: signed from the page, the publish failed (SIGNOFF.json says why); None: signed before the page recorded it
                     "rows": [{**r, "company": names.get(r["ticker"], r["ticker"])} for r in csv.DictReader((d / "values.csv").open())]})
     return {"releases": out}
 
@@ -460,10 +461,23 @@ class Handler(BaseHTTPRequestHandler):
         finally:
             con.close()
 
+    def _own_origins(self) -> set:
+        port = self.server.server_address[1]
+        return {f"http://127.0.0.1:{port}", f"http://localhost:{port}", f"http://[::1]:{port}"}
+
     def do_POST(self):
         u = urlparse(self.path)
         if READONLY:
             return self._json({"error": "this copy of DATAHQ is read-only; decisions, views and prompts change in a checkout of the repository"}, HTTPStatus.FORBIDDEN)
+        # Every POST is a write (a decision, a view, a prompt, a signature). A page on any other site can send a text/plain
+        # POST to 127.0.0.1 without a preflight, so a write needs the JSON content type and, when the browser names an
+        # Origin, this server's own; anything else is refused before any route.
+        ctype = (self.headers.get("Content-Type") or "").split(";")[0].strip().lower()
+        if ctype != "application/json":
+            return self._json({"error": "a write needs Content-Type: application/json"}, HTTPStatus.FORBIDDEN)
+        origin = self.headers.get("Origin")
+        if origin and origin.rstrip("/") not in self._own_origins():
+            return self._json({"error": "a write is accepted from this DATAHQ's own pages only"}, HTTPStatus.FORBIDDEN)
         try:
             body = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))) or b"{}")
         except json.JSONDecodeError:

@@ -190,7 +190,10 @@ def _keyed(text: str, key: tuple) -> tuple[list[str], dict]:
 
 def _pair(a: list[dict], b: list[dict], common: list[str]) -> list[tuple]:
     """Pair old rows with new rows under one key: identical rows first, then the closest by the columns they share, so
-    a repeated key (several statements with one category and name) counts a change only where a row really moved."""
+    a repeated key (several statements with one category and name) counts a change only where a row really moved.
+    Greedy by the count of equal columns, best pair first: exact where every row has one close match; where several old
+    rows are equally close to one new row the first by position wins, so a removed row and a changed row under one key
+    can swap places (the counts stay right, the named example may be the other row)."""
     score = lambda r, q: sum((r.get(c) or "") == (q.get(c) or "") for c in common)
     ranked = sorted(((score(r, q), i, j) for i, r in enumerate(a) for j, q in enumerate(b)), key=lambda x: (-x[0], x[1], x[2]))
     taken_a, taken_b, pairs = set(), set(), []

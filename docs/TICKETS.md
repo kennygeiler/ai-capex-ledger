@@ -77,7 +77,11 @@ so v1.8.0 can be signed before T30 lands; present and failing, it blocks. The ro
 measure + category + reported_name, which repeats (259 rows in v1.7.0: several statements under one category and name), so rows under
 one key are paired best-match-first on the columns both releases carry and only a real move counts as changed; a column only one
 release has is listed as added or removed, not as every row changed. `SIGNOFF.json` stores the checklist with the diff's counts, not
-its examples (`DIFF.md` has those).
+its examples (`DIFF.md` has those). *Review fixes (2 Nov):* every POST needs `Content-Type: application/json` and, with an `Origin`,
+the server's own (403 otherwise, before any route); the next version is the lowest unsigned folder after the last signed one;
+`releases/v1.8.0` was rebuilt through `checklist.packet` (the one main built predated the rows section); the sign checks the
+checklist again after the write, records the publish's outcome in `SIGNOFF.json`, runs under a lock, and a signature is never
+replaced; `ledger release` refuses on the page's checklist; `write` renames a whole folder into place.
 
 ## C. Columns: one shape that a stranger can read
 

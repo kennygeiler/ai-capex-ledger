@@ -41,8 +41,8 @@ async function releasePage(view, qs) {
     try {
       const r = await api('/api/release/sign', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({version: cl.version, by: me})});
       status.replaceChildren(h('span', {class: 'text-green'}, `${r.version} signed by ${r.signed_by}, ${when(r.signed_at)} (${r.hash.slice(0, 12)})`), ' · ',
-        r.published ? `published: ${Object.entries(r.rows || {}).map(([k, v]) => `${int(v)} ${k}`).join(', ')}` : h('span', {class: 'text-red'}, `not published: ${r.publish_error}; run ledger publish ${r.version}`));
-      setTimeout(() => go('proof'), 2500);
+        r.published ? `published: ${Object.entries(r.rows || {}).map(([k, v]) => `${int(v)} ${k}`).join(', ')}` : h('span', {class: 'text-red'}, `not published: ${r.publish_error}; the signature stands, run ledger publish ${r.version}`));
+      if (r.published) setTimeout(() => go('proof'), 2500);  // a failed publish stays on screen
     } catch (e) {
       status.replaceChildren(h('span', {class: 'text-red'}, e.message));
       button.disabled = !canSign;
