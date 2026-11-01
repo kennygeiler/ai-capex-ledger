@@ -241,7 +241,7 @@ def _flow(scope: str) -> dict:
                           "new": key not in {"|".join(k) for k in rel_facts}, "action": "definition",
                           "detail": {**f, "reference": fr.get("reference"), "cite": cite, "url": urls.get((cite or {}).get("accession")), "release_value": rel_facts.get((f["ticker"], f["field"], f["dimension"], f["period"]))}})
     for v in missing:  # T65: no cell read while XBRL tags a value; open on Proof by label:not_extracted, so open here too (closed by re-reading, never by a decision)
-        queue.append({"kind": "value_missing", "state": "missing", "ticker": v["ticker"], "where": f"{v['field']} {v['period']}", "impact": "a released value is blank while the filing tags one",
+        queue.append({"kind": "value_missing", "key": resolutions.key_for("value_missing", v["ticker"], v["field"], v["period"]), "state": "missing", "ticker": v["ticker"], "where": f"{v['field']} {v['period']}", "impact": "a released value is blank while the filing tags one",
                       "action": "run", "detail": v})
     for x in hqd["findings"]:
         if x["ticker"] in tickers and not x.get("confirmed", True):
