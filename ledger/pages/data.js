@@ -105,10 +105,12 @@ async function dataPage(view, qs) {
 async function rowsView(view, q) {
   const name = TABLES.some(([k]) => k === q.list) ? q.list : 'taxonomy';
   const ticker = (q.ticker || (q.t && !q.t.includes(',') ? q.t : '') || '').toUpperCase();
-  const setQ = (patch) => { const p = {list: name, ticker, ...patch}; go('data?' + new URLSearchParams(Object.fromEntries(Object.entries(p).filter(([, v]) => v))).toString()); };
-  const d = await api(`/api/v1/${name}` + (ticker ? `?ticker=${encodeURIComponent(ticker)}` : ''));
+  const hasValue = name === 'taxonomy' && (q.has_value === 'true' || q.has_value === 'false') ? q.has_value : '';  // T15: the valueless rows under their own filter
+  const setQ = (patch) => { const p = {list: name, ticker, has_value: hasValue, ...patch}; go('data?' + new URLSearchParams(Object.fromEntries(Object.entries(p).filter(([, v]) => v))).toString()); };
+  const qs = new URLSearchParams(Object.fromEntries(Object.entries({ticker, has_value: hasValue}).filter(([, v]) => v))).toString();
+  const d = await api(`/api/v1/${name}` + (qs ? `?${qs}` : ''));
   const cols = [...new Set(d.rows.flatMap((r) => Object.keys(r)))];
-  const csv = `/api/v1/${name}.csv` + (ticker ? `?ticker=${encodeURIComponent(ticker)}` : '');
+  const csv = `/api/v1/${name}.csv` + (qs ? `?${qs}` : '');
 
   const side = h('div', {class: 'list-group list-group-transparent mb-3'}, TABLES.map(([k, label, what]) =>
     h('a', {href: `#data?list=${k}` + (ticker ? `&ticker=${ticker}` : ''), class: 'list-group-item list-group-item-action d-block' + (k === name ? ' active' : '')}, h('div', {}, label), h('div', {class: 'text-secondary small brk'}, what))));
@@ -118,8 +120,10 @@ async function rowsView(view, q) {
   const count = h('span', {class: 'text-secondary small'});
   const head = h('div', {class: 'page-header mb-3'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('div', {class: 'hrow mb-2'}, dataSwitch({...q, list: name, ticker}, 'rows'), h('h2', {class: 'm-0'}, TABLES.find(([k]) => k === name)[1])), h('div', {class: 'text-secondary small'}, 'Raw rows, as /api/v1/', name, ' returns them and as the release file carries them. Values in USD. Click a row for every field.')),
-    h('div', {class: 'col-auto'}, h('a', {href: csv, class: 'btn btn-outline-secondary btn-sm'}, 'CSV'), ' ', h('a', {href: `/api/v1/${name}` + (ticker ? `?ticker=${ticker}` : ''), target: '_blank', rel: 'noopener', class: 'btn btn-outline-secondary btn-sm'}, 'JSON'))));
-  const controls = h('div', {class: 'hrow mb-2', style: 'gap:.5rem;align-items:center'}, tickSel, search, count);
+    h('div', {class: 'col-auto'}, h('a', {href: csv, class: 'btn btn-outline-secondary btn-sm'}, 'CSV'), ' ', h('a', {href: `/api/v1/${name}` + (qs ? `?${qs}` : ''), target: '_blank', rel: 'noopener', class: 'btn btn-outline-secondary btn-sm'}, 'JSON'))));
+  const valueSel = name === 'taxonomy' ? h('select', {'aria-label': 'Rows with a value', onchange: (e) => setQ({has_value: e.target.value})},
+    [['', 'Every row'], ['true', 'With a value'], ['false', 'Without a value']].map(([v, t]) => h('option', {value: v, selected: v === hasValue || null}, t))) : '';
+  const controls = h('div', {class: 'hrow mb-2', style: 'gap:.5rem;align-items:center'}, tickSel, valueSel, search, count);
 
   const fmt = (k, v) => v == null || v === '' ? h('span', {class: 'text-secondary'}, '—') : typeof v === 'boolean' ? (v ? 'yes' : 'no') : typeof v === 'number' ? (Number.isInteger(v) ? v.toLocaleString('en-US') : v.toLocaleString('en-US', {maximumFractionDigits: 4})) : k === 'ticker' ? h('a', {href: `#proof/${v}`}, v) : /^https?:/.test(String(v)) ? h('a', {href: v, target: '_blank', rel: 'noopener'}, 'open') : String(v).length > 90 ? h('span', {title: String(v)}, String(v).slice(0, 90) + '…') : String(v);
   const tcols = cols.map((k) => ({t: k, k, n: RAW_NUM.has(k) ? 1 : 0, f: (r) => fmt(k, r[k])}));

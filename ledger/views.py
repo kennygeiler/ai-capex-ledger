@@ -18,7 +18,7 @@ FILE = ROOT / "data" / "views.json"
 MEASURES = ("taxonomy", "values", "facts", "statements", "projects")
 GROUPS = (None, "ticker", "layer", "period", "field", "method", "kind", "scope")
 SHOWS = ("grid", "bars", "lines", "shares", "chart")  # chart: the Explorer's spec in `chart` {x, series, type}
-CHART_AXES = ("period", "fiscal_year", "ticker", "layer", "group", "field", "category", "measure", "standard_type", "kind", "dimension", "status", "scope", "source")
+CHART_AXES = ("period", "fiscal_year", "ticker", "layer", "field", "category", "measure", "standard_type", "kind", "dimension", "status", "scope", "source", "source_kind", "period_kind", "check")  # schema v11: no `group`
 CHART_TYPES = ("bars", "stacked", "lines", "share")
 
 

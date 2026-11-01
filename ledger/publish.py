@@ -19,8 +19,9 @@ from .release import RELEASES, content_hash
 ROOT = Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[1]
 TABLES = {"values": "ledger_values", "facts": "ledger_facts", "ai_spend": "ledger_ai_spend", "companies": "ledger_companies",
           "statements": "ledger_statements", "projects": "ledger_projects", "taxonomy": "ledger_taxonomy"}  # one shape: the API's lists (C7); a release without a file skips it
-NUMERIC = {"value", "value_high", "xbrl_value", "first_reported", "amount_low", "amount_high", "share", "amount_mid", "capacity_mw", "sic"}
-DATE = {"period_end"}
+NUMERIC = {"value", "value_high", "change_from_prior", "xbrl_value", "first_reported", "amount_low", "amount_high", "share", "amount_mid", "capacity_mw", "scale", "sic", "gpus"}
+DATE = {"period_end", "filed", "date"}
+BOOLEAN = {"mapped", "has_value", "forward_looking", "part_year", "program", "proven", "latest"}  # schema v11 (taxonomy.csv) and the lists' own flags
 
 
 def database_url() -> str:
@@ -56,7 +57,7 @@ def check(version: str) -> dict:
 
 
 def columns(header: list[str]) -> list[tuple[str, str]]:
-    return [(c, "numeric" if c in NUMERIC else "date" if c in DATE else "text") for c in header]
+    return [(c, "numeric" if c in NUMERIC else "date" if c in DATE else "boolean" if c in BOOLEAN else "text") for c in header]
 
 
 def ddl(name: str, header: list[str]) -> str:
@@ -68,6 +69,18 @@ def adds(name: str, header: list[str]) -> list[str]:
     """One ALTER per column, so a release with a new column (v1.6.0 added status and flag) loads into a table an older
     release created; a column that exists is left alone, and older releases' rows carry NULL in the new one."""
     return [f'ALTER TABLE {name} ADD COLUMN IF NOT EXISTS "{c}" {t}' for c, t in columns(header)]
+
+
+def retypes(name: str, header: list[str], current: dict[str, str]) -> list[str]:
+    """One ALTER per column whose published type is text but whose declared type is now boolean (v1.7.0 published
+    `proven` as text; schema v11 types it boolean): the column is converted in place, 'True'/'true' to true, the rest
+    false, once. `current` is {column: data_type} from information_schema; a column already boolean gets nothing."""
+    return [f'ALTER TABLE {name} ALTER COLUMN "{c}" TYPE boolean USING ("{c}" = \'True\' OR "{c}" = \'true\')'
+            for c, t in columns(header) if t == "boolean" and current.get(c, "boolean") != "boolean"]
+
+
+def _types(con, name: str) -> dict[str, str]:
+    return {c: t for c, t in con.execute("SELECT column_name, data_type FROM information_schema.columns WHERE table_name = %s", (name,)).fetchall()}
 
 
 RELEASES_DDL = """CREATE TABLE IF NOT EXISTS ledger_releases (
@@ -105,6 +118,11 @@ def publish(version: str, url: str | None = None) -> dict:
                 con.execute(ddl(table, header))
                 for stmt in adds(table, header):
                     con.execute(stmt)
+                fixes = retypes(table, header, _types(con, table))  # a column an older release published as text, typed boolean now
+                if fixes:
+                    con.execute(f"DROP VIEW IF EXISTS current_{stem}")  # the view depends on every column, so Postgres refuses the retype while it stands; recreated below
+                    for stmt in fixes:
+                        con.execute(stmt)
                 con.execute(f"DELETE FROM {table} WHERE release = %s", (version,))
                 cols = ", ".join(f'"{c}"' for c in header)
                 with con.cursor().copy(f"COPY {table} (release, {cols}) FROM STDIN") as cp:

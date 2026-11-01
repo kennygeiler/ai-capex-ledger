@@ -91,18 +91,33 @@ can read (T9–T18)". A reviewer agent reads the whole diff against the ticket l
 - **T9 Drop `group`.** `layer` stays, documented as the reading aid it is. Touches taxonomy.py, api.py, publish.py, docs.
 - **T10 `change_from_prior` column.** Derived rows put the year-over-year change there; `value_high` is a range high only.
 - **T11 Unpack `tags`.** Columns `kind`, `status`, `location`, `capacity_mw`, `forward_looking`, `part_year`, `program`; `tags`
-  goes. Empty where a measure has no such thing.
-- **T12 Follow the source.** Columns `accession`, `filed`, `source_url`, `source_kind` (10-K table, 10-K note, 8-K release,
-  transcript, gathered) on every row; `source` keeps the internal ids. Done when a row's `source_url` opens the filing at the
-  cited table for every spent and derived row.
+  goes. Empty where a measure has no such thing. *As built (schema v11):* a project's kind is its own column, `project_kind`, so
+  `kind` means one thing (a statement's actual / outlook); `forward_looking` is empty where the source does not say (projects,
+  gathered figures), never a hard-coded value; a gathered figure also carries `relation` (eq / ge / le).
+- **T12 Follow the source.** Columns `accession`, `filed`, `source_url`, `source_table`, `source_kind` (10-K table, 10-K note,
+  10-K MD&A, 8-K release, transcript, cfo commentary, gathered) on every row; `source` keeps the internal ids. Done when
+  `source_url` opens the filing at the first place it shows the cited row label and number; `source_table` names the parsed
+  table DATAHQ shows; every spent and derived 10-K row has both. *Note:* the original wording ("opens the filing at the cited
+  table") asked for a table anchor sec.gov does not provide: the rendered 10-K has no stable table ids, and a query string is
+  ignored, so the link is the filing plus a `#:~:text=<row label>,<number>` fragment (usually the row, sometimes prose) and the
+  parser's table id lives in its own column. `filed` is the SEC filing date (10-K through `documents`, 8-K from the text's
+  date); empty for a transcript, CFO commentary or a gathered figure.
 - **T13 One `check` vocabulary.** `check` ∈ agree / explained / differs / no_reference / unmapped / verbatim, plus `check_method`
-  (xbrl, rule:<id>, definition:<name>, resolution:<id>, quote, gathered). "verbatim (gathered)" goes.
+  (xbrl, rule:<id>, definition:<name>, resolution:<id>, quote, gathered). "verbatim (gathered)" goes. *As built:* `check_method`
+  is an open vocabulary, `<kind>` or `<kind>:<id>`, the kinds in one place, `status.METHOD_KINDS` (xbrl, quote, gathered, located,
+  none, mapping, rule, definition, resolution, label), the same words `status.state` gives `by`; `no_reference` and `not_reported`
+  rows read `label:<label>`. A later answer key (esef:<tag>, source:<doc>, actual:<period>) is one entry there.
 - **T14 `mapped` boolean and 0 unmapped in scope.** Every derived row in scope has a `standard_type`; the Release page refuses
   otherwise. Done when the six have 0 unmapped (today 0 for the six; keep it so).
 - **T15 `has_value` and the valueless rows.** Projects without an amount keep their row with `value` empty and `has_value`
   false; the Dataset shows them under their own filter; counts on Proof say "N rows, M with a value".
 - **T16 Periods.** `period_end` (date) on every reported row; `period_kind` ∈ reported / planned; `fiscal_year` stays the label.
 - **T17 Units.** `unit` ∈ USD / share / MW; `scale` = 1 on every row (whole units), stated in the dictionary; `currency` = USD.
+  *As built:* `unit` ∈ USD / share and empty when `has_value` is false; a project's capacity is in `capacity_mw`, megawatts by
+  name, so no row's `value` is ever in MW.
+- **T16, as built:** `period_kind` is reported only when the company's fiscal calendar (the 10-K that reports the year) knows the
+  year's end and the source was written on or after it; planned when the end is later or unknown (NVDA FY2027 statements are
+  planned, whatever the reader called them).
 - **T18 Dictionary from the schema.** `docs/DATA_DICTIONARY.md` regenerated from `store.py` descriptions, every column of every
   release list described, the vocabularies of `check`, `measure`, `category`, `kind`, `status` enumerated with counts. The app
   reads it (T26).

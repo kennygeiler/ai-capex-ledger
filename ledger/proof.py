@@ -110,14 +110,14 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None)
                     "a reported PP&E category with no entry in taxonomy/asset_types.yaml", NEEDS["mapping"]) for u in um]
     stages["mapping"] = _stage(items, extra={"derived_rows": len(derived), "company_stated_ai": sum(r["measure"] == "company_stated_ai" for r in tax), "committed_rows": sum(r["measure"] == "committed" for r in tax)})
 
-    # planned: guidance and projects, verbatim; a part-year or program statement carries its tag
+    # planned: guidance and projects, verbatim; a part-year or program statement carries its flag (taxonomy.part_year, .program)
     planned = [r for r in tax if r["measure"] == "planned"]
     items = []
     for r in planned:
         what = f"{r['category']} {r['fiscal_year']}: {r['reported_name']}"
-        if "part_year" in r["tags"]:
+        if r["part_year"]:
             items.append(_item(what, status.state({"rule": "part_year", "reason": "part-year amount"}), (r["quote"] or "")[:160]))
-        elif "program" in r["tags"]:
+        elif r["program"]:
             items.append(_item(what, status.state({"rule": "program_words", "reason": "a program, not a year's guidance"}), (r["quote"] or "")[:160]))
         else:
             items.append(_item(what, status.state({"check": "quote"})))

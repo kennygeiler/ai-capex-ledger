@@ -14,7 +14,7 @@ behind a proxy that authenticates before exposing it.
 | `/api/v1/facts` | company, note field, dimension, year | ticker, field, dimension, period, period_end, value, check_label, xbrl, accession, basis, layer, status, flag |
 | `/api/v1/statements` | statement an agent read | statement_id, ticker, field, period, kind, scope, class, amount_low, amount_high, amount_mid, share, quote, source, date, url, layer |
 | `/api/v1/projects` | named project | ticker, period, name, kind, location, amount_low, amount_high, status, announced, in_service, counterparty, quote, source, url, layer (empty until the projects reader has run) |
-| `/api/v1/taxonomy` | one row per measure, category, company and year (`docs/TAXONOMY.md`) | ticker, fiscal_year, measure (spent, committed, derived, planned, company_stated_ai), category, reported_name, standard_concept, standard_type, value, value_high, share, unit, period_as_stated, quote, source, check, tags, group, layer, proven |
+| `/api/v1/taxonomy` | one row per measure, category, company and year (`docs/TAXONOMY.md`; schema v11, every column described in `docs/DATA_DICTIONARY.md`) | ticker, fiscal_year, period_end, period_kind, measure (spent, committed, derived, planned, company_stated_ai), category, reported_name, standard_concept, standard_type, mapped, value, value_high, change_from_prior, share, relation, has_value, unit, scale, currency, period_as_stated, quote, kind, project_kind, status, location, capacity_mw, forward_looking, part_year, program, source, source_kind, accession, filed, source_table, source_url, check, check_method, layer, proven |
 | `/api/v1/views` | saved view | id, name, measure, filters, group, show, note, by, at |
 
 `proven` says whether the row's company is in the proven set (`docs/PROOF.md`): every number of a proven company is checked or
@@ -40,12 +40,17 @@ step and per company; `ledger cost` writes the same to `reports/cost.json`).
 `?release=vX.Y.Z` on any of companies, values, facts, statements, projects, taxonomy serves that signed
 release's file instead of the working database, typed back from CSV and with a `release` column, so a consumer gets
 the same columns from a release as from the live API. A release holds one CSV per list (`ledger release`), and
-`ledger publish` pushes those same files to Postgres as `ledger_<list>` tables with `current_<list>` views.
+`ledger publish` pushes those same files to Postgres as `ledger_<list>` tables with `current_<list>` views. Column types follow
+`publish.NUMERIC`, `DATE` and `BOOLEAN`; a column an older release published as text and schema v11 types boolean (`proven` in
+`ledger_taxonomy`, from v1.7.0) is converted in place the first time a release publishes after the change
+(`ALTER COLUMN … TYPE boolean USING (col = 'True' OR col = 'true')`, `publish.retypes`, guarded by the column's current type so it
+runs once); older releases' rows keep their value, read as boolean.
 
 ## Filters and grouping
 
-Every list takes `ticker`, `layer`, `period`, `field`, `kind`, `method`, `scope`, `dimension`, `source`, `measure`, `category`, `fiscal_year`, `standard_type`, `check` as
-comma-separated values, matched without regard to case. `group=<column>` rolls the list up: one row per distinct
+Every list takes `ticker`, `layer`, `period`, `field`, `kind`, `method`, `scope`, `dimension`, `source`, `measure`, `category`, `fiscal_year`, `standard_type`, `check`,
+`source_kind`, `period_kind`, `has_value`, `mapped`, `status` as comma-separated values, matched without regard to case; a boolean takes `true` or `false`
+(`has_value=false` is the rows the company named without a figure). `group=<column>` rolls the list up: one row per distinct
 value with `rows`, `amount` (the sum of the list's amount column: value, amount_mid or amount) and
 `with_amount`.
 
@@ -53,6 +58,8 @@ value with `rows`, `amount` (the sum of the list's amount column: value, amount_
 /api/v1/taxonomy?measure=spent&category=capex&layer=hyperscaler
 /api/v1/taxonomy?category=ppe_gross_by_type&standard_type=TechnologyEquipmentMember&group=ticker
 /api/v1/taxonomy?measure=company_stated_ai&ticker=MSFT&format=csv
+/api/v1/taxonomy?check=differs,unmapped
+/api/v1/taxonomy?source_kind=8-K%20release&has_value=true
 /api/v1/facts?field=segment_capex&ticker=APLD
 ```
 
@@ -62,7 +69,7 @@ A JSON response is `{"list", "count", "filters", "rows"}`.
 
 A view is a saved question: `{id, name, measure, filters, group, show, note}` where `measure` is one of the lists
 above (taxonomy, values, facts, statements, projects), `filters` and `group` are as above, and `show` is
-`grid`, `bars` (one bar per group), `lines` (one line per company by year), `shares` (a share grid) or `chart`, the Explorer's spec in `chart: {x, series, type, value}` (x and series from period, ticker, layer, field, method, kind, dimension, status, scope, source; type bars, stacked, lines or share). Views live in `data/views.json`, tracked.
+`grid`, `bars` (one bar per group), `lines` (one line per company by year), `shares` (a share grid) or `chart`, the Explorer's spec in `chart: {x, series, type, value}` (x and series from period, fiscal_year, ticker, layer, field, category, measure, standard_type, kind, dimension, status, scope, source, source_kind, period_kind, check; type bars, stacked, lines or share; `value: "change"` plots `change_from_prior`). Views live in `data/views.json`, tracked.
 
 ```
 GET  /api/v1/views                 the saved views

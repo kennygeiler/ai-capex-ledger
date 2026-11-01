@@ -135,7 +135,7 @@ const TABLES = [
   ['projects', 'Projects', 'named projects, the latest mention of each'],
   ['companies', 'Companies', 'the tracked set with layer, role and the SEC’s SIC code'],
 ];
-const RAW_NUM = new Set(['value', 'value_high', 'share', 'amount_low', 'amount_high', 'amount_mid', 'xbrl', 'capacity_mw', 'sic']);
+const RAW_NUM = new Set(['value', 'value_high', 'change_from_prior', 'share', 'amount_low', 'amount_high', 'amount_mid', 'xbrl', 'capacity_mw', 'scale', 'sic', 'gpus']);
 
 // ── Navigation and the kit's theme ──────────────────────────────────────────
 function go(hash) { location.hash = hash; }

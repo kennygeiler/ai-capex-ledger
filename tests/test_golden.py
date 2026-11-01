@@ -21,7 +21,7 @@ class Golden(unittest.TestCase):
         seed = json.loads((golden.FIXTURES / "seed.json").read_text())
         self.assertEqual(seed["tickers"], PROVEN)
         self.assertTrue(any((golden.FIXTURES / "data" / "notes" / "outputs").glob("*.json")))
-        for name in golden.TABLES:
+        for name in (*golden.TABLES, *golden.LISTS):  # the stored tables and the computed taxonomy rows (T31)
             self.assertTrue((golden.EXPECTED / f"{name}.csv").exists(), name)
 
 

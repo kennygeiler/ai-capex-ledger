@@ -36,8 +36,9 @@ period as stated. Not a measure of ours. A label on a quote.
 ### Entity
 
 - `sic`: the SEC's SIC code and description for the filer (from EDGAR `submissions`). Standard.
-- `group` (kept, labelled non-standard): the supply-chain layer we used to pick companies (hyperscaler, neocloud,
-  ...). A grouping for reading the dataset, not a definition of anything. Shown as `group`, never as `industry`.
+- `layer` (non-standard, a reading aid): the supply-chain layer we used to pick companies (hyperscaler, neocloud,
+  ...), added to every row by the API and the packet. A grouping for reading the dataset, not a definition of
+  anything; never shown as `industry`. Schema v11 (T9) dropped `group`, which was the same value under a second name.
 
 ### Spent (every one a `us-gaap` concept)
 
@@ -99,20 +100,34 @@ against a published list, recorded; it is never a number.
   category mapped to a standard type, or open).
 - Spent, committed, planned as the three columns a buyer sees, each by standard concept, each cited.
 
-## What a row looks like after
+## What a row looks like (schema v11, T9–T17)
+
+One shape for all five measures, 37 columns, declared once in `ledger/store.py` (`TAXONOMY`) and described column by
+column in `docs/DATA_DICTIONARY.md`; the API and the packet add `layer` and `proven`. One meaning per column:
 
 ```
-ticker, fiscal_year, measure (spent|committed|planned|company_stated_ai), category (taxonomy id),
-reported_name (the company's own label), standard_concept (us-gaap), standard_type (member, when an asset type),
-value, unit, period_as_stated, quote (planned and company_stated_ai), source (accession or text id, cell or passage),
-check (agree|no_reference|differs), proven, status, flag
+ticker, fiscal_year, period_end, period_kind (reported|planned),
+measure (spent|committed|derived|planned|company_stated_ai), category (taxonomy id),
+reported_name (the company's own label), standard_concept (us-gaap, Reg S-K, or none), standard_type (member, when an asset type), mapped,
+value, value_high (a range high only), change_from_prior (the derived change only), share, relation (eq|ge|le, gathered figures), has_value,
+unit (USD|share, empty without a figure), scale (1), currency (USD),
+period_as_stated, quote, kind (actual|outlook), project_kind, status, location, capacity_mw, forward_looking, part_year, program   (verbatim rows; empty elsewhere)
+source (internal id), source_kind (10-K table|10-K note|10-K MD&A|8-K release|transcript|cfo commentary|gathered), accession, filed, source_table, source_url,
+check (agree|explained|differs|no_reference|unmapped|verbatim), check_method (<kind>[:<id>], kinds in status.METHOD_KINDS)
 ```
 
-One shape for all four. No column holds a number the pipeline made up.
+`check` says whether the figure was verified and how it stands; `check_method` says what established that, in the
+words `ledger/status.py` uses for `by`: `xbrl`, `quote`, `gathered`, `rule:<id>`, `definition:<name>`,
+`resolution:<id>`, `label:<label>`, `none`. `period_kind` is reported only when the company's fiscal calendar (the
+10-K that reports the year) knows the year's end and the source was written on or after it; otherwise planned.
+`source_url` opens the source: for a 10-K cell the filing with a text fragment of the row label and number (the first
+place the filing shows those words; sec.gov has no table anchors), for a statement or project the text at its quote,
+for a gathered figure its page; `source_table` is the parser's id of the table the cell came from, the one DATAHQ shows. No column holds a number the pipeline made up: `change_from_prior` is
+this year's reported balance minus last year's, and says so.
 
 ## Open questions for Kenny
 
-1. Keep `group` (the supply-chain layer) as a non-standard reading aid, or drop it and use SIC only?
+1. ~~Keep `group` as a non-standard reading aid, or drop it?~~ Dropped in schema v11 (T9); `layer` stays as the reading aid.
 2. `ppe_additions_by_type` reports the change in a gross balance. It is arithmetic on reported figures, not an estimate,
    but it is one step from a reported number. Keep as spent, or move to a `derived` measure?
 3. Projects: keep as planned rows (verbatim), or park until something verifies them?
