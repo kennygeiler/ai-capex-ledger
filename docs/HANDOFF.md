@@ -78,6 +78,7 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 | charters | one per agent, live or retired: what it owns, what it never touches, its input and output files, model, tools, prompt versions, the checks that judge it, written from the code | `agents/charters/<id>.md`, path in `agents/agents.json` | the Rules page, `/api/agents` |
 | definitions | judgements made once per company and applied every run | `definitions/companies.yaml` | README Critical notes |
 | stated figures | figures companies stated about AI, gathered from releases, calls and press, verbatim with the source; `company_stated_ai` rows | `taxonomy/stated_figures.yaml` | `docs/TAXONOMY.md` |
+| failure types | every failure type INGESTION.md logged, as data: id, cause class, origin, the check in code that catches it or `none`, count seen | `taxonomy/failures.yaml`, `ledger/failures.py` | `docs/INGESTION.md` |
 | rules, guards | the 15 checks, each with its rationale and owner; the two guards that tag part-year and program statements | `rules/*.yaml`, `ledger/rules.py`, `ledger/guards.py` | `docs/PROOF.md` |
 | resolutions | what a person decided about a queue item; `status` on exported rows | `decisions/resolutions.jsonl` (tracked, append-only) | `docs/PROOF.md`, `docs/API.md` |
 | releases | plain files whose content hash a person signs | `releases/v*/` | release `README.md` |
@@ -126,8 +127,8 @@ counts those rows open while the local one counts them explained). The signed re
   replaces its rows in one transaction. Signing is the one human act and belongs to the owner; agents never sign or publish.
 - **Ask what a filing said on a date** (a backtest, no lookahead): `/api/v1/values?as_of=YYYY-MM-DD` or `/api/v1/taxonomy?as_of=…`
   (`ledger/pit.py`, `docs/API.md`): the newest filing filed by that day, with its accession; absent where nothing was filed yet.
-- **Find why something is wrong**: `docs/INGESTION.md` logs every failure type found so far (46), where it showed,
-  what caught it, what fixed it. Add to it.
+- **Find why something is wrong**: `docs/INGESTION.md` logs every failure type found so far (72), where it showed,
+  what caught it, what fixed it; `taxonomy/failures.yaml` holds each as data with its class and catching check. Add to both.
 
 ## The rules of the house
 

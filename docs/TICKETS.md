@@ -374,7 +374,17 @@ the file and off the calendar.
   become `taxonomy/failures.yaml`: id, cause class (units / period / scope / locator / agent misread / document error), count
   seen, the check that catches it or `none`, agent-or-document. A Pareto chart on Proof reads the file (proof.js; Plotly as
   Explore uses it, `dataviz` skill loaded). Done when the chart reads from the file and every type has a class and a catching
-  check or `none` (a `none` is itself a finding, counted on the chart).
+  check or `none` (a `none` is itself a finding, counted on the chart). *As built (first half):* `taxonomy/failures.yaml`, all 72
+  types keyed by INGESTION's number, each with class, origin (agent / document / code / reference), the catching check or `none`
+  with a note saying what caught it instead, count of companies named, first-seen date and the INGESTION line it comes from;
+  `ledger/failures.py` `load` refuses a class, origin or check not in the vocabulary or not in code (rule ids, `proof.GUARDS`,
+  `faults.FAULTS`), `pareto` and `by_check` for the chart; `tests/test_failures.py`. A seventh class, `pipeline`, holds the
+  defects in the pipeline's own bookkeeping or contracts (types 58, 59, 60, 61, 66). The numbers (from `pareto()`): by class
+  scope 27, period 11, locator 10, agent misread 7, document error 6, units 6, pipeline 5; by origin document 31, code 22,
+  agent 10, reference 9; 45 of 72 have check `none` (contracts, the evidence re-read, counts and eyes caught them, no rule
+  did); the checks that catch most are `period_length` 4, `xbrl_reconcile` 4, `citation_resolves` 3, `coverage` 3,
+  `no_10k_yet` 3. Where the check is an id the INGESTION row does not name (6, 16, 42, 68), the `check_note` says so. The
+  chart (proof.js) is the second half, after T56.
 - **T55 Point-in-time.** `?as_of=D` on `/api/v1/values` and `/api/v1/taxonomy`: the figure the newest filing filed on or
   before D gave, from `extractions` (every filing's cells are kept) and `documents.filed`; `first_reported` / `basis` /
   `original_value` stay as they are. A PIT export in the packet (`values-asof.csv` per fiscal year end, or the API alone if the
