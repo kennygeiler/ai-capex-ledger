@@ -90,8 +90,8 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None)
     vstate = {}
     items = []
     for v in vals:
-        st = {**status.of_value(v, resolutions.resolution_of(idx, "values", t, v["field"], "", v["period"])),
-              "ref": {"ticker": t, "field": v["field"], "period": v["period"], "reference": xref.get((v["field"], v["period"])), "looked_up": looked}}
+        vref = {"ticker": t, "field": v["field"], "period": v["period"], "reference": xref.get((v["field"], v["period"])), "looked_up": looked}
+        st = {**status.of_value(v, resolutions.resolution_of(idx, "values", t, v["field"], "", v["period"]), vref), "ref": vref}
         vstate[(v["field"], v["period"])] = st
         items.append(_item(f"{v['field']} {v['period']}" + (f": {v['label']}" if status.is_open(st) else ""), st, v["basis"] if st["by"].startswith("definition") else f"value {v['value']}" if status.is_open(st) else "", NEEDS["values"]))
     decided = {e["exception_id"] for e in exc} - {e["exception_id"] for e in open_items(exc, decisions())}
@@ -321,55 +321,71 @@ def unevidenced(con, tickers=None, companies: list[dict] | None = None, ev: dict
 
 # ── T81: completeness against the answer key ─────────────────────────────────────────────────────────────────────────
 
-def missing_from_dataset(con, tickers=None, idx: dict | None = None, ds: list[dict] | None = None) -> list[dict]:
-    """Every (company, field, fiscal year) of `tickers` (config.SCOPE by default) where XBRL (reference_values) holds a
-    value and the release would ship none, with nothing open to say so: [{ticker, field, period, reference, label, why}].
-    Empty is the rule held; the Release checklist's line "Answer-key values missing from the dataset" counts it (T81).
+def _decision_by_person(d: dict) -> bool:
+    """A review decision (decisions/decisions.jsonl) a person made: person_wrote on its reviewer, the one test of a person."""
+    return person_wrote({"by": d.get("reviewer"), "reason": d.get("reason"), **({"author_kind": d["author_kind"]} if "author_kind" in d else {})})
 
-    The released value is the `values` row after the review decisions (review.apply: an override fills it, a reject
-    empties it). A row with no released value is accounted for only when it is open or blocked (status.of_value: a
-    not_extracted blank, a person's fix; the Open line counts it), when a person's resolution explains it (proof.person_wrote),
-    or when a person's reject decision removed the value. Anything else is a silent blank: no row at all, a label
-    (not_reported over an XBRL value, the Amazon case before T65), a run's resolution, a reject by no one on config.PEOPLE.
-    Fields and years are config.RELEASE_FIELDS and config.MVP_YEARS, what a release ships. Facts are out of scope
-    (docs/PROOF.md, "Completeness")."""
+
+def missing_from_dataset(con, tickers, ds: list[dict], idx: dict | None = None) -> list[dict]:
+    """The silent blanks of `tickers`: [{ticker, field, period, reference, label, why}]. Empty
+    is the rule held; the Release checklist's required line "Answer-key values missing from the dataset" counts it (T81).
+
+    A cell is a release field (config.RELEASE_FIELDS, the list `coverage` reads) and fiscal year in config.MVP_YEARS,
+    not before the company's first `values` row (rules.first_periods, as `coverage` and `no_10k_yet` read it), where
+    XBRL (reference_values) holds a value. Its released value is the `values` row after the review decisions
+    (review.apply: an override fills it, a reject empties it). A cell with no released value is accounted for when:
+      - the value row is open or blocked (status.of_value: not_extracted, not_reported over an XBRL value, a fix);
+      - an undecided open finding names the cell (review.open_items: a `coverage` finding on a missing row);
+      - a person's resolution on the value row explains it, or a person's review decision (accept or reject) on a
+        finding for the cell decided it (proof.person_wrote).
+    Those are on the Open line or decided by a person; anything else is silent. A ticker with no reference rows (or no
+    reference_values table) is one entry, "no XBRL answer loaded": an absent answer key is no answer (T80's looked_up).
+    `ds` is the review decisions (review.decisions()), passed in so nothing global is read for them. Facts are out of scope (docs/PROOF.md, "Completeness")."""
     from .config import MVP_YEARS, RELEASE_FIELDS
     from .review import apply, latest
-    tickers = list(tickers or SCOPE)
-    if not _has(con, "reference_values"):
-        return []
+    from .rules import first_periods
+    tickers = list(tickers)
+    has_ref = _has(con, "reference_values")
+    loaded = {r["ticker"] for r in _rows(con, "select distinct ticker from reference_values where ticker in (select unnest(?))", tickers)} if has_ref else set()
+    out = [{"ticker": t, "field": None, "period": None, "reference": None, "label": None, "why": "no XBRL answer loaded"} for t in tickers if t not in loaded]
+    if not loaded:
+        return out
     refs = _rows(con, "select ticker, field, period, value from reference_values where ticker in (select unnest(?)) and value is not null "
                       "and field in (select unnest(?)) and period in (select unnest(?)) order by ticker, field, period", tickers, list(RELEASE_FIELDS), list(MVP_YEARS))
     vals = _rows(con, 'select * from "values" where ticker in (select unnest(?))', tickers)
     excs = _rows(con, "select * from exceptions where ticker in (select unnest(?))", tickers) if _has(con, "exceptions") else []
-    ds = decisions() if ds is None else ds
     idx = resolutions.by_row() if idx is None else idx
+    first = first_periods(vals)
     released = {(v["ticker"], v["field"], v["period"]): v for v in apply(vals, excs, ds)}
-    cur, rejected = latest(ds), {}
-    for e in excs:  # the decisions review.apply reads, to name who emptied a value
+    pending = {(e["ticker"], e["field"], e["period"]) for e in open_items(excs, ds)}
+    cur, decided = latest(ds), {}
+    for e in excs:  # the current decisions on the findings of a cell, to name who decided it
         d = cur.get(e["exception_id"])
-        if d and d["input_hash"] == e["input_hash"] and d["kind"] == "reject" and e["period"]:
-            rejected[(e["ticker"], e["field"], e["period"])] = d
-    out = []
+        if d and d["input_hash"] == e["input_hash"] and e["period"]:
+            decided.setdefault((e["ticker"], e["field"], e["period"]), []).append(d)
     for r in refs:
         k = (r["ticker"], r["field"], r["period"])
+        if k[2] < first.get(k[0], k[2]):
+            continue  # before the company's first 10-K row: no_10k_yet names it, coverage skips it
         v = released.get(k)
+        if v is not None and v.get("value") is not None:
+            continue
+        if k in pending:
+            continue  # an open finding on the cell: the Open line counts it
+        if any(_decision_by_person(d) for d in decided.get(k, [])):
+            continue  # a person decided a finding on the cell
         row = {"ticker": k[0], "field": k[1], "period": k[2], "reference": r["value"], "label": (v or {}).get("label")}
         if v is None:
             out.append({**row, "why": "no row in values"})
             continue
-        if v.get("value") is not None:
-            continue
-        if k in rejected:
-            who = rejected[k].get("reviewer")
-            if not status.is_person(who):
-                out.append({**row, "why": f"emptied by a reject decision of {who!r}, not a person on config.PEOPLE"})
-            continue
         res = resolutions.resolution_of(idx, "values", *k[:2], "", k[2])
-        st = status.of_value(v, res)
+        st = status.of_value(v, res, {"reference": r["value"], "looked_up": True})
         if status.is_open(st):
-            continue  # an open item: the Open line counts it
+            continue  # an open value row: the Open line counts it
         if st["by"].startswith("resolution:") and res and person_wrote(res):
             continue  # a person's resolution explains the blank
+        if decided.get(k):
+            out.append({**row, "why": "emptied or decided by " + ", ".join(repr(d.get("reviewer")) for d in decided[k]) + ", not a person on config.PEOPLE"})
+            continue
         out.append({**row, "why": f"{st['state']} by {st['by'] or 'nothing'} with no value"})
     return out

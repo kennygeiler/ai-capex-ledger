@@ -282,10 +282,21 @@ def _jump(ctx, p):
     return out
 
 
+def first_periods(values: list[dict]) -> dict:
+    """{ticker: the earliest fiscal year any `values` row of it holds}: the year its 10-Ks start. A year before it is no
+    10-K's to show (`no_10k_yet` names it); `coverage` and the checklist's completeness line (proof.missing_from_dataset,
+    T81) both skip it, so they never disagree about such a year."""
+    first = {}
+    for v in values:
+        first[v["ticker"]] = min(first.get(v["ticker"], v["period"]), v["period"])
+    return first
+
+
 @check("coverage")
 def _coverage(ctx, p):
     """A year after the company's newest 10-K is not missing while that 10-K isn't due yet: the fiscal year hasn't
-    ended, or ended less than `filing_days` ago. A row counts as present when it carries a value or a stated reason
+    ended, or ended less than `filing_days` ago, nor a year before the company's first `values` row (first_periods). The
+    fields are config.RELEASE_FIELDS (params may narrow them in a test). A row counts as present when it carries a value or a stated reason
     (`not_reported`: the company has no such line and XBRL none either); a null `not_extracted` row is a missing value
     (T65: the finding then takes that row's state, open). `not_reported` over an XBRL value is no reason (T81: the
     checklist's "Answer-key values missing from the dataset" counts the same cell), so the finding fires on it."""
@@ -304,8 +315,9 @@ def _coverage(ctx, p):
         due = end.replace(year=end.year + int(q[2:]) - int(last[2:])) + timedelta(days=p.get("filing_days", 90))
         return due > ctx.today
 
-    first = {t: min(v["period"] for v in ctx.values if v["ticker"] == t) for t in {v["ticker"] for v in ctx.values}}
-    return [Finding(t, f"no {f} value for {q}", f, q) for t in tickers for f in p["fields"] for q in ctx.years
+    first = first_periods(ctx.values)
+    fields = p.get("fields") or config.RELEASE_FIELDS  # one list (T81): what a release ships, as the completeness line reads it; a test may narrow it
+    return [Finding(t, f"no {f} value for {q}", f, q) for t in tickers for f in fields for q in ctx.years
             if (t, f, q) not in have and not not_due(t, q) and q >= first.get(t, q)]
 
 
@@ -313,9 +325,7 @@ def _coverage(ctx, p):
 def _no_10k(ctx, p):
     """Years no 10-K can show, named by code: the company has filed no 10-K at all (newly public), or the year is
     before its first 10-K (it wasn't public, or filed a different annual form, such as a foreign issuer's 20-F)."""
-    first = {}
-    for v in ctx.values:
-        first[v["ticker"]] = min(first.get(v["ticker"], v["period"]), v["period"])
+    first = first_periods(ctx.values)
     out = [Finding(t, f"{t} has filed no 10-K for any year from {ctx.years[0]} on (it may be newly public)") for t in ctx.tickers if t not in first]
     for t, f in sorted(first.items()):
         out += [Finding(t, f"no 10-K shows {q}: the company's 10-Ks start at {f}", None, q) for q in ctx.years if q < f]

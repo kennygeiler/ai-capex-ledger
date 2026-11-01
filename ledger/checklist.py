@@ -341,9 +341,10 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     lines.append(_line("open", "Open items in scope", True, open_, "pass" if open_ == 0 else "fail", "reconcile", "neither checked nor explained; needs a rule, a definition or a decision", [x for x in per_co if x["open"]]))
     lines.append(_line("blocked", "Blocked items in scope", True, blocked, "pass" if blocked == 0 else "fail", "reconcile", "a block-severity rule or a person's decision refuses the release", [x for x in per_co if x["blocked"]]))
     # completeness against the answer key (T81): an XBRL value with no released value and nothing open is a silent blank
-    miss = proof.missing_from_dataset(con, SCOPE)
+    miss = proof.missing_from_dataset(con, SCOPE, decisions())
     lines.append(_line("complete", "Answer-key values missing from the dataset", True, len(miss), "pass" if not miss else "fail", "reconcile",
-                       "company, field and year where XBRL holds a value, the release ships none, and no open item or person's decision says why",
+                       "company, field and year (from its first 10-K) where XBRL holds a value and the release ships none, with no open item, "
+                       "no person's resolution and no person's review decision on it; a company with no XBRL answer loaded counts once",
                        [{"ticker": m["ticker"], "field": m["field"], "period": m["period"], "reference": m["reference"], "why": m["why"]} for m in miss]))
     # decisions a run left to confirm (T3)
     unc = resolutions.unconfirmed()
