@@ -1,4 +1,6 @@
 rule_id,severity,ticker,field,period,subject,message,input_hash
+coverage,warn,AMD,opex,FY2022,,no opex value for FY2022,78cd64718b8526b9
+coverage,warn,AMD,revenue,FY2022,,no revenue value for FY2022,bd21b91390b5ebdc
 definition_note,info,APLD,capex,,,"capex is read from 'Purchases of property and equipment and other assets' (10 values), which differs from the field definition; note it when comparing companies",0e1f086bd9ccbb4c
 definition_note,info,NVDA,capex,,,"capex is read from 'Purchases related to property and equipment and intangible assets' (15 values), which differs from the field definition; note it when comparing companies",13a83204e21b5404
 jump,warn,APLD,capex,FY2025,,"capex moves 4.81× from FY2024 (141,809,000) to FY2025 (681,603,000)",5687558f7b7fb727
