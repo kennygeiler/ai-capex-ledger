@@ -337,6 +337,74 @@ class Authors(unittest.TestCase):
         self.assertEqual([u["id"] for u in resolutions.unconfirmed()], [moved["id"]])
         self.assertNotEqual(late["id"], mine["id"])
 
+    def test_a_run_line_never_supersedes_a_person_line_on_its_hash_whatever_came_between(self):
+        """Review: P1 (h1, blocks), P2 (h2, explain), R1 (h1, accept, run): P1 stands, not R1."""
+        p1 = {"id": "p1", "key": self.K, "hash": "h1", "state": "blocks", "reason": "no", "by": "Kenny Geiler", "author_kind": "person", "at": "2026-11-02T01:00:00+00:00"}
+        p2 = {"id": "p2", "key": self.K, "hash": "h2", "state": "explain", "reason": "ok", "by": "Kenny Geiler", "author_kind": "person", "at": "2026-11-02T02:00:00+00:00"}
+        r1 = {"id": "r1", "key": self.K, "hash": "h1", "state": "accept", "reason": "fine", "by": "Replication run", "author_kind": "run", "at": "2026-11-02T03:00:00+00:00"}
+        self.assertEqual(resolutions.latest([p1, p2, r1])[self.K]["id"], "p1")
+        self.assertEqual(resolutions.unconfirmed([p1, p2, r1]), [])
+        self.assertEqual(resolutions.latest([p1, p2])[self.K]["id"], "p2")  # a later person line still supersedes
+        self.assertEqual(resolutions.latest([p1, p2, {**r1, "hash": "h3"}])[self.K]["id"], "r1")  # a hash no person decided: the run line stands, and waits
+
+    def test_lines_are_ordered_by_at_so_a_migrated_copy_never_outranks_a_newer_person_line(self):
+        """Review: migrate-keys appends its copies at the end of the file with their original `at`; a stale legacy run
+        copy must not shadow the decision a person made after it."""
+        import tempfile
+        from pathlib import Path
+        new = key_for("finding_unconfirmed", "LITE", "operating_income", rule_id="row_label_switch")
+        queue = {"LITE": [{"kind": "finding_unconfirmed", "ticker": "LITE", "where": "operating_income", "hash": "h", "key": new}]}
+        mine = {"id": "k", "key": new, "hash": "h", "state": "blocks", "reason": "no", "by": "Kenny Geiler", "author_kind": "person", "at": "2026-11-01T10:00:00+00:00"}
+        legacy = {"id": "r", "key": "finding_unconfirmed|LITE|operating_income", "hash": "h", "state": "accept", "reason": "x", "by": "Claude, for Kenny to confirm", "at": "2026-10-30T00:00:00+00:00"}
+        with tempfile.TemporaryDirectory() as d:
+            log = Path(d) / "resolutions.jsonl"
+            log.write_text("".join(json.dumps(r) + "\n" for r in (legacy, mine)))
+            plan = resolutions.migrate_keys(resolutions.load(log), lambda t: queue[t])
+            self.assertEqual(plan["migrated"][0]["author_kind"], "run")  # the copy says who wrote the original
+            resolutions.write_migration(plan, log, Path(d) / "arch.jsonl")
+            rows = resolutions.load(log)
+            self.assertEqual(rows[-1]["migrated_from"], legacy["key"])  # appended last in the file
+            self.assertEqual(resolutions.latest(rows)[new]["id"], "k")  # but the person's newer line stands
+            self.assertEqual(resolutions.unconfirmed(rows), [])
+            # by `at`, even between two person lines: a copy of an older person line does not outrank a newer one
+            older = {**legacy, "id": "o", "by": "Kenny Geiler", "reason": "fine", "state": "explain"}
+            log.write_text("".join(json.dumps(r) + "\n" for r in (older, mine)))
+            resolutions.write_migration(resolutions.migrate_keys(resolutions.load(log), lambda t: queue[t]), log, Path(d) / "arch.jsonl")
+            rows = resolutions.load(log)
+            self.assertEqual(rows[-1]["author_kind"], "person")
+            self.assertEqual(resolutions.latest(rows)[new]["id"], "k")
+
+    def test_bulk_checks_every_item_before_writing_any(self):
+        log = self._log()
+        bad = [{"key": self.K, "hash": "h"}, {"key": "finding_unconfirmed|LITE|operating_income", "hash": "h"}]
+        with self.assertRaises(ValueError):
+            resolutions.resolve_many(bad, "accept", "r", "Kenny Geiler", author_kind="person")
+        self.assertFalse(log.exists() and log.read_text().strip())
+        for state, reason, by in (("maybe", "r", "Kenny Geiler"), ("accept", " ", "Kenny Geiler"), ("accept", "r", "Claude")):
+            with self.assertRaises(ValueError):
+                resolutions.resolve_many(bad[:1], state, reason, by, author_kind="person")
+        with self.assertRaises(ValueError):
+            resolutions.resolve_many([], "accept", "r", "Kenny Geiler", author_kind="person")
+        self.assertEqual(resolutions.load(), [])
+        out = resolutions.resolve_many([{"key": self.K, "hash": "h"}, {"key": key_for("blocked", "GOOGL", "opex", "FY2024", rule_id="r"), "hash": "g"}], "accept", "r", "Kenny Geiler", author_kind="person")
+        self.assertEqual([r["id"] for r in resolutions.load()], [r["id"] for r in out])
+
+    def test_the_bulk_route_writes_nothing_on_a_400(self):
+        import threading
+        from http.server import ThreadingHTTPServer
+        from urllib import error, request
+        from ledger import app
+        log = self._log()
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        self.addCleanup(srv.shutdown)
+        body = {"items": [{"key": self.K, "hash": "h"}, {"key": "not|a|key", "hash": "h"}], "state": "accept", "reason": "r", "by": "Kenny Geiler"}
+        req = request.Request(f"http://127.0.0.1:{srv.server_address[1]}/api/resolve/bulk", data=json.dumps(body).encode(), headers={"Content-Type": "application/json"}, method="POST")
+        with self.assertRaises(error.HTTPError) as cm:
+            request.urlopen(req)
+        self.assertEqual(cm.exception.code, 400)
+        cm.exception.close()
+        self.assertFalse(log.exists() and log.read_text().strip())
 
 if __name__ == "__main__":
     unittest.main()

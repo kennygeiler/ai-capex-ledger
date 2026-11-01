@@ -36,7 +36,8 @@ item with `ours`, `reference`, `delta`, `delta_pct`, `measure` (usd or share), t
 resolution. `POST /api/resolve` records one decision `{key, hash, state, reason, by}`; `POST /api/resolve/bulk` takes `{items: [{key, hash}], state, reason, by}`.
 Both write `author_kind: person` (T69) and refuse (400) a `by` not on `config.PEOPLE`; an agent or replication writer calls
 `resolutions.resolve(..., author_kind="run")`, and its line waits on Reconcile's "to confirm" group and fails gate G6 until a person decides
-the key. A run line never supersedes a person's on the same key and hash (T100, `resolutions.latest`).
+the key. Bulk checks every item before writing any: one bad item is a 400 and nothing is written. A run line never supersedes a
+person's line with the same key and hash, whatever came between, and lines are ordered by `at`, not file position (T100, `resolutions.latest`).
 A row's `key` is `kind|ticker|field|period|dimension|rule_id|subject` (T62; `resolutions.key_for`: '' for a part the item lacks, `%` inside a part
 escaped `%25` and `|` `%7C`), one per queue item, and `hash` is the item's content; a consumer treats both as opaque and sends them back as received.
 The feed also carries the mapping stage's open items (T33): one row per reported PP&E category with no entry in `taxonomy/asset_types.yaml`

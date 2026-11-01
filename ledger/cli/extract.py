@@ -56,15 +56,14 @@ def main(argv=None) -> int:
     if a.pack:
         return 0
     if a.run:
-        def stale(p, path):  # no output, or a headless output that answered a different task (e.g. the locator changed)
+        def stale(p, path):  # no output, an output that answered a different task (e.g. the locator changed), or one with no task_sha
             out = OUTPUTS / f"{p['accession']}.json"
             if not out.exists():
                 return True
             o = json.loads(out.read_text())
             if "error" in o:
                 return True  # an errored output is always re-asked (type 60)
-            run = o.get("_run")
-            return bool(run) and run.get("task_sha") != hashlib.sha256(path.read_bytes()).hexdigest()[:16]
+            return (o.get("_run") or {}).get("task_sha") != hashlib.sha256(path.read_bytes()).hexdigest()[:16]  # T100: no fingerprint is stale too, as notes and aispend read it
 
         todo = [(p, path) for p, path in zip(docs, paths) if a.rerun or stale(p, path)]
 

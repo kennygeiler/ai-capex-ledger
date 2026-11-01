@@ -517,10 +517,8 @@ class Handler(BaseHTTPRequestHandler):
                     con.close()
             return self._guard(lambda: self._json(do_sign()))
         if u.path == "/api/resolve/bulk":  # one reason for many items, each logged on its own; author_kind person, `by` on config.PEOPLE (T69)
-            def bulk():
-                out = [resolutions.resolve(i.get("key", ""), i.get("hash", ""), body.get("state", ""), body.get("reason", ""), body.get("by", ""), author_kind="person") for i in body.get("items") or []]
-                if not out:
-                    raise ValueError("no items")
+            def bulk():  # every item checked before any is written (resolve_many): a 400 writes nothing
+                out = resolutions.resolve_many(body.get("items") or [], body.get("state", ""), body.get("reason", ""), body.get("by", ""), author_kind="person")
                 return {"saved": len(out)}
             return self._guard(lambda: self._json(bulk()))
         if u.path == "/api/resolve":  # T69: a person's route, author_kind person; a `by` not on config.PEOPLE is refused (400)

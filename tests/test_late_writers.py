@@ -132,5 +132,155 @@ class LateProposal(unittest.TestCase):
         self.assertNotIn("_edit(", inspect.getsource(mapper.propose))
 
 
+class RoundTrip(unittest.TestCase):
+    """Review: pack, run (the agent mocked), load: a fresh task is never refused; a stale one is, and the failure stays
+    through `ledger rules` until a re-run clears it."""
+
+    def setUp(self):
+        self.dir = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, self.dir, True)
+        for d in ("tasks", "outputs"):
+            (self.dir / d).mkdir()
+        self.db = self.dir / "ledger.duckdb"
+
+    def _con(self):
+        return store.init(self.db)
+
+    def _failures(self, rule):
+        con = self._con()
+        try:
+            return [r[0] for r in con.execute("select message from exceptions where rule_id = ?", [rule]).fetchall()]
+        finally:
+            con.close()
+
+    def _notes_doc(self):
+        from ledger.ingest.statements import assemble, locate
+        from ledger.ingest.tables import document_units, parse_tables
+        from tests.test_extract import FIX
+        doc = FIX.read_bytes()
+        t = parse_tables(doc)
+        loc, units = locate(t), document_units(doc)
+        p = {"accession": ACCN, "ticker": "NVDA", "form": "10-K", "period": "2026-07-26", "tables": t,
+             "statements": {k: assemble(t, loc[k], units) for k in ("income", "cash_flow")}}
+        tp = self.dir / "tables.json"
+        tp.write_text(json.dumps(p))
+        con = self._con()
+        con.execute("DELETE FROM documents")
+        store.write(con, "documents", [{"accession": ACCN, "ticker": "NVDA", "cik": 1045810, "form": "10-K", "period": "2026-07-26", "filed": "2026-08-27",
+                                        "url": "https://www.sec.gov/x", "sha256": "0" * 64, "bytes": 1, "parser_version": "t", "table_count": len(t), "tables_path": str(tp)}])
+        con.close()
+        return p, tp
+
+    def _notes(self, *flags, answer=None):
+        from ledger import notes
+        from ledger.cli import notes as cli
+        calls = []
+
+        def ask(agent_id, task, check):
+            calls.append(task)
+            obj = {"accession": ACCN, "prompt_version": notes.prompt_version(), "values": [], "not_found": [], "_run": {"model": "m", "seconds": 0.0, "attempts": 1}}
+            check(obj)
+            return obj
+        with mock.patch.object(notes, "TASKS", self.dir / "tasks"), mock.patch.object(cli, "OUTPUTS", self.dir / "outputs"), \
+                mock.patch.object(cli.agent, "ask", ask), mock.patch.object(cli, "fiscal_year_end", lambda t: "0126"), mock.patch.object(cli, "instance_facts", lambda c, a: {}):
+            cli.main(["--ticker", "NVDA", *flags, "--db", str(self.db)])
+        return calls
+
+    def test_notes_pack_run_load_is_never_refused_and_a_rerun_clears_a_stale_failure(self):
+        from ledger.cli import rules
+        p, tp = self._notes_doc()
+        self.assertEqual(len(self._notes("--run")), 1)  # packed, then asked once
+        self._notes("--load")
+        self.assertEqual(self._failures("note_extraction_failed"), [])  # the fingerprint --run wrote is the one --load rebuilds
+        self.assertEqual(self._notes("--run"), [])  # nothing changed: nothing re-asked
+        # repack: a statement re-located, so the note candidates change; the old answer is stale
+        p["statements"]["income"] = []
+        tp.write_text(json.dumps(p))
+        self._notes("--load")
+        self.assertEqual(len(self._failures("note_extraction_failed")), 1)
+        rules.main(["--ticker", "NVDA", "--db", str(self.db)])
+        self.assertIn("stale output", self._failures("note_extraction_failed")[0])  # rules keeps it
+        self.assertEqual(len(self._notes("--run")), 1)  # --run re-asks exactly the stale one
+        self._notes("--load")
+        rules.main(["--ticker", "NVDA", "--db", str(self.db)])
+        self.assertEqual(self._failures("note_extraction_failed"), [])  # the re-run cleared it, and rules does not bring it back
+
+    def _texts(self, path):
+        con = self._con()
+        con.execute("DELETE FROM texts")
+        store.write(con, "texts", [{"text_id": "NVDA|mdna|2026-01-25|abc", "ticker": "NVDA", "kind": "mdna", "accession": ACCN, "url": "https://www.sec.gov/x", "date": "2026-02-25",
+                                    "period_end": "2026-01-25", "fiscal_year": 2026, "path": str(path), "sha256": "0" * 64, "chars": 1}])
+        con.close()
+
+    def _aispend(self, *flags):
+        from ledger import guidance
+        from ledger.cli import aispend as cli
+        calls = []
+
+        def ask(agent_id, task, check):
+            calls.append(task)
+            obj = {"accession": "NVDA|mdna|2026-01-25|abc", "prompt_version": guidance.prompt_version(), "statements": [], "none_found": [{"field": "capex", "reason": "r"}],
+                   "_run": {"model": "m", "seconds": 0.0, "attempts": 1}}
+            check(obj)
+            return obj
+        with mock.patch.object(guidance, "TASKS", self.dir / "tasks"), mock.patch.object(cli, "OUTPUTS", self.dir / "outputs"), mock.patch.object(cli.agent, "ask", ask):
+            cli.main(["--ticker", "NVDA", *flags, "--db", str(self.db)])
+        return calls
+
+    def test_aispend_pack_run_load_is_never_refused_and_a_missing_text_is_a_failure(self):
+        text = self.dir / "mdna.txt"
+        text.write_text("Item 7.\n\nWe increased capital expenditures to build data centers for AI and accelerated computing, and expect capital expenditures to grow next year.\n")
+        self._texts(text)
+        self.assertEqual(len(self._aispend("--run")), 1)
+        self._aispend("--load")
+        self.assertEqual(self._failures("ai_extraction_failed"), [])
+        text.write_text(text.read_text() + "\nWe also spend on artificial intelligence research and development, with operating expenses up on AI headcount growth.\n")
+        self._aispend("--load")
+        self.assertIn("stale output", self._failures("ai_extraction_failed")[0])
+        text.unlink()  # the text gone: the check cannot be made, and the load says so instead of trusting the task file
+        self._aispend("--load")
+        msg = self._failures("ai_extraction_failed")[0]
+        self.assertIn("cannot rebuild the task", msg)
+        self.assertIn(ACCN, msg)
+
+    def test_extract_run_reasks_an_output_with_no_fingerprint(self):
+        from ledger import extract
+        from ledger.cli import extract as cli
+        p = parsed()
+        p["tables"] = []
+        tp = self.dir / "tables.json"
+        tp.write_text(json.dumps(p))
+        con = self._con()
+        store.write(con, "documents", [{"accession": ACCN, "ticker": "NVDA", "cik": 1045810, "form": "10-K", "period": "2026-07-26", "filed": "2026-08-27",
+                                        "url": "https://www.sec.gov/x", "sha256": "0" * 64, "bytes": 1, "parser_version": "t", "table_count": 0, "tables_path": str(tp)}])
+        con.close()
+        (self.dir / "outputs" / f"{ACCN}.json").write_text(json.dumps({"accession": ACCN, "prompt_version": "statements@v1", "values": [value()], "not_found": []}))  # by hand, no _run
+        calls = []
+
+        def ask(task, doc):
+            calls.append(task)
+            return {"accession": ACCN, "prompt_version": "statements@v1", "values": [value()], "not_found": [], "_run": {"model": "m", "seconds": 0.0, "attempts": 1}}
+        with mock.patch.object(extract, "TASKS", self.dir / "tasks"), mock.patch.object(cli, "OUTPUTS", self.dir / "outputs"), mock.patch.object(cli.agent, "extract", ask), \
+                mock.patch.object(store, "ROOT", self.dir):  # the CLI prints the task folder relative to the root
+            cli.main(["--ticker", "NVDA", "--run", "--db", str(self.db)])
+            self.assertEqual(len(calls), 1)
+            self.assertEqual(json.loads((self.dir / "outputs" / f"{ACCN}.json").read_text())["_run"]["task_sha"], agent.task_sha(make_task(p)))
+            cli.main(["--ticker", "NVDA", "--run", "--db", str(self.db)])
+            self.assertEqual(len(calls), 1)  # now fingerprinted and current: not asked again
+
+    def test_an_undone_approval_does_not_hide_later_proposals(self):
+        from ledger.mapper import by_name
+        ok = {"kind": "approved", "ticker": "MU", "reported_name": "Buildings", "standard_type": "LandMember", "by": "Kenny Geiler", "at": "2"}
+        later = {"kind": "proposed", "ticker": "MU", "reported_name": "Buildings", "standard_type": "BuildingMember", "evidence": "Buildings", "confidence": "high", "reason": "r", "at": "3"}
+        e = by_name("MU", [ok, later])["Buildings"]
+        self.assertIsNone(e["proposal"])  # the approval stands: the late proposal changes nothing
+        self.assertEqual([l["at"] for l in e["late"]], ["3"])
+        e = by_name("MU", [ok, later], {"Buildings"})["Buildings"]  # the entry is no longer confirmed in the yaml: the approval was undone
+        self.assertIsNone(e["approved"])
+        self.assertEqual(e["proposal"]["standard_type"], "BuildingMember")
+        import inspect
+        from ledger import mapper
+        self.assertIn("by_name(t, lines, set(names))", inspect.getsource(mapper.pending))  # pending passes its names: every one is unmapped or unconfirmed
+
 if __name__ == "__main__":
     unittest.main()

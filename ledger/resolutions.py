@@ -16,7 +16,8 @@ legacy-shaped key is simply not live (not shown, not counted, not a gate failure
 Who wrote a line (T69) is a field, `author_kind` person or run, set by the writer: the person's routes write person and
 refuse a `by` not on config.PEOPLE; an agent or replication writer writes run, and its line is "to confirm" (unconfirmed,
 gate G6) whatever its words say. Lines from before the field are read by the old rule (by_person, by_run), never
-rewritten. A run line never supersedes a person line on the same key and hash (T100, latest)."""
+rewritten. A run line never supersedes a person line on the same key and hash, and lines are ordered by `at`, not by
+their place in the file (T100, latest)."""
 import json
 import re
 import uuid
@@ -101,27 +102,31 @@ def by_run(r: dict) -> bool:
 
 
 def latest(rs: list[dict] | None = None) -> dict:
-    """The line that stands per key. The newest line wins, except that a run line never supersedes a person line (T100):
-    when the newest line is not a person's and the newest person line on the key carries the same hash (the item has not
-    changed since the person decided), the person's line stands. A later person line supersedes an earlier one; a run
-    line on a changed item (a new hash) stands, since the person decided about content that is gone."""
+    """The line that stands per key (T100). Lines are ordered by `at`, then by file order for a tie, never by file order
+    alone: `migrate-keys` appends its copies at the end with their original `at`, so a copy never outranks a line written
+    after the one it copies. The newest line stands, except that a run line never supersedes a person line with the same
+    key AND hash, whatever came between: when the newest line is not a person's and some person line carries its key and
+    hash, the newest such person line stands. So P1 (h1, blocks), P2 (h2, explain), R1 (h1, run) leaves P1 standing. A
+    later person line supersedes an earlier one; a run line on a hash no person decided stands (it waits, unconfirmed)."""
+    rows = list(rs if rs is not None else load())
+    order = sorted(range(len(rows)), key=lambda i: (str(rows[i].get("at") or ""), i))
     out, person = {}, {}
-    for r in rs if rs is not None else load():
+    for i in order:
+        r = rows[i]
         out[r["key"]] = r
         if by_person(r):
-            person[r["key"]] = r
+            person[(r["key"], r.get("hash"))] = r
     for k, r in out.items():
-        p = person.get(k)
-        if p is not None and p is not r and p.get("hash") == r.get("hash"):
+        p = person.get((k, r.get("hash")))
+        if p is not None and not by_person(r):
             out[k] = p
     return out
 
 
-def resolve(key: str, content_hash: str, state: str, reason: str, by: str, *, author_kind: str) -> dict:
-    """Append one resolution. `author_kind` is the writer's to set (T69): "person" from the routes a person uses
-    (/api/resolve, /api/resolve/bulk), where `by` must be on config.PEOPLE (status.is_person) or the line is refused;
-    "run" from any agent or replication writer, whose line waits for a person to confirm (unconfirmed, gate G6)."""
-    if state not in STATES or not reason.strip() or not by.strip():
+def _line(key: str, content_hash: str, state: str, reason: str, by: str, author_kind: str) -> dict:
+    """One resolution line, checked: a state, a reason and a name; author_kind person or run; a person's `by` on
+    config.PEOPLE; a live key. Raises ValueError; writes nothing."""
+    if state not in STATES or not str(reason or "").strip() or not str(by or "").strip():
         raise ValueError("a resolution needs a state (accept, explain, fix, blocks), a reason and a name")
     if author_kind not in AUTHOR_KINDS:
         raise ValueError(f"author_kind must be one of {AUTHOR_KINDS}, not {author_kind!r}")
@@ -129,12 +134,33 @@ def resolve(key: str, content_hash: str, state: str, reason: str, by: str, *, au
         raise ValueError(f"{by.strip()!r} is not on config.PEOPLE, the people whose resolutions count as a person's; a run writes author_kind run")
     if not is_live(key):
         raise ValueError(f"not a queue item's key (kind|ticker|field|period|dimension|rule_id|subject, a live kind): {key!r}")
-    r = {"id": uuid.uuid4().hex[:12], "key": key, "hash": content_hash, "state": state, "reason": reason, "by": by.strip(), "author_kind": author_kind,
-         "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    return {"id": uuid.uuid4().hex[:12], "key": key, "hash": content_hash, "state": state, "reason": reason, "by": by.strip(), "author_kind": author_kind,
+            "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+
+
+def _write(lines: list[dict]) -> None:
     LOG.parent.mkdir(parents=True, exist_ok=True)
     with LOG.open("a") as f:
-        f.write(json.dumps(r) + "\n")
+        f.write("".join(json.dumps(r) + "\n" for r in lines))
+
+
+def resolve(key: str, content_hash: str, state: str, reason: str, by: str, *, author_kind: str) -> dict:
+    """Append one resolution. `author_kind` is the writer's to set (T69): "person" from the routes a person uses
+    (/api/resolve, /api/resolve/bulk), where `by` must be on config.PEOPLE (status.is_person) or the line is refused;
+    "run" from any agent or replication writer, whose line waits for a person to confirm (unconfirmed, gate G6)."""
+    r = _line(key, content_hash, state, reason, by, author_kind)
+    _write([r])
     return r
+
+
+def resolve_many(items: list[dict], state: str, reason: str, by: str, *, author_kind: str) -> list[dict]:
+    """One decision on many items ([{key, hash}]), each its own line. Every item is checked first (`_line`); one bad
+    item refuses them all and nothing is written, so a 400 never leaves part of a bulk decision on file."""
+    if not items:
+        raise ValueError("no items")
+    lines = [_line(str(i.get("key", "")), str(i.get("hash", "")), state, reason, by, author_kind) for i in items]
+    _write(lines)
+    return lines
 
 
 def _parse(key: str):
@@ -236,7 +262,8 @@ def migrate_keys(lines: list[dict], queue_for, now: str | None = None, archived_
             queues[ticker] = queue_for(ticker)
         hits = [q for q in queues[ticker] if legacy_key(q) == r["key"]]
         if len(hits) == 1:
-            out["migrated"].append({**r, "key": hits[0]["key"], "migrated_from": r["key"], "migrated_at": now})
+            kind = r.get("author_kind") or ("person" if by_person(r) else "run" if by_run(r) else None)  # T100: the copy says who wrote the original
+            out["migrated"].append({**r, "key": hits[0]["key"], "migrated_from": r["key"], "migrated_at": now, **({"author_kind": kind} if kind else {})})
             out["current"][r.get("id")] = hits[0]["hash"] == r["hash"]
         else:
             why = "no queue item carries this key today" if not hits else f"{len(hits)} queue items carry this key: " + "; ".join(q["key"] for q in hits)

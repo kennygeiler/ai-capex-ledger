@@ -26,12 +26,13 @@ def _exc(ticker, subject, message):
             "field": None, "period": None, "subject": subject, "message": message, "input_hash": hashlib.sha256(f"{subject}|{message}".encode()).hexdigest()[:16]}
 
 
-def _current_task(d: dict, task) -> str | None:
-    """The task as `--pack` would write it now (from the text on disk), else the task file, else None (nothing to compare)."""
+def _current_task(d: dict) -> str:
+    """The task as `--pack` would write it now, from the text on disk. Raises Invalid when the text is not there: an
+    output is never judged against the task file's own sha (T100), so the load fails, naming the text and its accession."""
     src = store.ROOT / (d.get("path") or "")
-    if d.get("path") and src.exists():
-        return make_task(d, passages(src.read_text()))
-    return task.read_text() if task.exists() else None
+    if not d.get("path") or not src.is_file():
+        raise Invalid(f"cannot rebuild the task to check the output against: the text {d.get('path') or '(no path)'} of {d['text_id']} (accession {d.get('accession') or 'none'}) is not on disk")
+    return make_task(d, passages(src.read_text()))
 
 
 def main(argv=None) -> int:
@@ -110,7 +111,7 @@ def main(argv=None) -> int:
             obj = json.loads(out.read_text())
             if "error" in obj:
                 raise Invalid(f"the agent couldn't answer: {obj['error']}")
-            if why := agent.stale(obj, _current_task(d, task)):  # T100: an answer to a task repacked since never loads
+            if why := agent.stale(obj, _current_task(d)):  # T100: an answer to a task repacked since never loads
                 raise Invalid(why)
             validate_output(obj, d["text_id"], task_passages(task.read_text()) if task.exists() else {})
         except (Invalid, json.JSONDecodeError) as e:

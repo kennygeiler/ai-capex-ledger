@@ -71,30 +71,29 @@ def _now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-def by_name(ticker: str, lines: list[dict] | None = None) -> dict[str, dict]:
+def by_name(ticker: str, lines: list[dict] | None = None, unconfirmed: set[str] | frozenset = frozenset()) -> dict[str, dict]:
     """Per reported_name of `ticker`: {"proposal": the current proposal or None; "rejected": the members a person rejected
-    for it; "reproposed": proposals of a member that arrived after a person rejected it (T100), never current; "late": proposals that arrived after a
-    person approved or confirmed the entry, never current; "approved": the latest approval line, if any}.
+    for it; "reproposed": proposals of a member that arrived after a person rejected it (T100), never current; "late":
+    proposals that arrived after a person's approval, which hold no proposal current while the approval stands;
+    "approved": the latest approval line, if any}.
 
     T100, a late writer never overwrites a newer state: a proposal of a member a person rejected for this name, whether
     the rejection came before or after it in the log, is never current; it shows under `reproposed` ("re-proposed after
     rejection") and needs a fresh decision from a person (Approve or Edit), with the rejected list beside it. A proposal
-    that arrives after a person's approval changes nothing: the approval stands. Before T100 the latest `proposed` line
-    won and a rejection cleared only a proposal written before it, so a delayed proposal of a rejected member came back."""
+    that arrives after a person's approval changes nothing. `unconfirmed`: the names whose entry in
+    taxonomy/asset_types.yaml is no longer a person's (unmapped or unconfirmed: the approval was undone by hand); for
+    them the approval no longer stands (`approved` None) and the proposals after it count again."""
     out: dict[str, dict] = {}
-    seen: dict[str, list[dict]] = {}  # per name, the proposals since the last approval, in log order
+    since: dict[str, list[dict]] = {}  # per name, the proposals since the last approval, in log order
     for l in lines if lines is not None else load_proposals():
         if l.get("ticker") != ticker:
             continue
         e = out.setdefault(l["reported_name"], {"proposal": None, "rejected": [], "reproposed": [], "late": [], "approved": None})
-        props = seen.setdefault(l["reported_name"], [])
+        props = since.setdefault(l["reported_name"], [])
         if l.get("kind") == "proposed":
-            if e["approved"]:
-                e["late"].append(l)
-            else:
-                props.append(l)
-                if l.get("standard_type") in e["rejected"]:
-                    e["reproposed"].append(l)  # a member a person already rejected: re-proposed after rejection
+            props.append(l)
+            if l.get("standard_type") in e["rejected"]:
+                e["reproposed"].append(l)  # a member a person already rejected: re-proposed after rejection
         elif l.get("kind") == "rejected":
             if l.get("standard_type") and l["standard_type"] not in e["rejected"]:
                 e["rejected"].append(l["standard_type"])
@@ -102,7 +101,13 @@ def by_name(ticker: str, lines: list[dict] | None = None) -> dict[str, dict]:
             e["approved"] = l
             props.clear()
     for name, e in out.items():
-        e["proposal"] = next((p for p in reversed(seen.get(name) or []) if p.get("standard_type") not in e["rejected"]), None)
+        props = since.get(name) or []
+        if e["approved"] and name in unconfirmed:
+            e["approved"] = None  # the approval was undone: what came after it counts
+        if e["approved"]:
+            e["late"] = list(props)
+            continue
+        e["proposal"] = next((p for p in reversed(props) if p.get("standard_type") not in e["rejected"]), None)
     return out
 
 
@@ -467,7 +472,7 @@ def pending(con, tickers: list[str] | None, lines: list[dict] | None = None) -> 
         by_t.setdefault(e["ticker"], []).append((e["reported_name"], e))
     for t, pairs in sorted(by_t.items()):
         names = [n for n, _ in pairs]
-        idx = by_name(t, lines)
+        idx = by_name(t, lines, set(names))  # every name here is unmapped or unconfirmed: an approval on file for it was undone
         blocks = note_words(con, t, names)
         filed = filer_members(con, t, names)
         for n, entry in sorted(pairs, key=lambda x: (x[1] is not None, x[0])):

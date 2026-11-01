@@ -353,4 +353,5 @@ What each company cost. `ledger run` prints this, and each validation page shows
     task"); `ledger rules` no longer deletes `note_extraction_failed`, `ai_extraction_failed` and `projects_failed`
     (it kept only `extraction_failed`, so a refused notes or AI-spend output vanished at the next rules run). The
     seven stay refused until `ledger notes --run --ticker AMZN AMD` re-asks them. 13 statement outputs written by hand
-    before headless runs (no `_run`) carry no fingerprint and are not judged. Found by the T100 ticket's reading.
+    before headless runs (no `_run`) carry no fingerprint: `--load` cannot judge them, and `extract --run` re-asks them
+    (review fix), as notes and aispend already re-ask an output without one. Found by the T100 ticket's reading.
