@@ -4,7 +4,7 @@
 the documents and texts rows) into fixtures/ and writes the tables the code produces from them into
 fixtures/expected/. `check` rebuilds a repo layout in a temporary folder (LEDGER_ROOT), seeds a fresh database from
 the fixtures, runs every code stage (nothing is fetched, no agent is asked), and compares the tables it gets with
-fixtures/expected/, column by column, row by row. Any change to a parser, a rule, a loader or a thesis has to leave
+fixtures/expected/, column by column, row by row. Any change to a parser, a rule, a loader or the taxonomy has to leave
 the comparison equal or update the expectation on purpose.
 
 Agents are frozen here on purpose: their answers are inputs. The checks on those answers (XBRL, the rendered cell, the

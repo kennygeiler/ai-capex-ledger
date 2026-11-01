@@ -56,3 +56,20 @@ class Versions(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class Retired(unittest.TestCase):
+    """The attribution agent is retired with the inferred layer (2ee2e6f): marked in agents.json with a date, its prompts
+    kept on disk, left out of /api/agents and the Rules page (T48)."""
+
+    def test_the_attributor_is_marked_retired_not_deleted(self):
+        import json
+        cfg = json.loads((agents.ROOT / "agents" / "agents.json").read_text())
+        a = cfg["attributor"]
+        self.assertTrue(a["retired"])
+        self.assertEqual(a["retired_at"], "2026-10-30")
+        self.assertEqual(a["prompt"], "attribution@v2")
+        self.assertTrue((agents.PROMPTS / "attribution@v1.md").exists() and (agents.PROMPTS / "attribution@v2.md").exists())
+        self.assertEqual([k for k, v in cfg.items() if v.get("retired")], ["attributor"])
+        live = [k for k, v in cfg.items() if not v.get("retired")]
+        self.assertEqual(live, ["reader", "ai_reader", "notes_reader", "projects_reader"])

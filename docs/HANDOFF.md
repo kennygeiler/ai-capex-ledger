@@ -96,7 +96,7 @@ look without a checkout. Redeploy after a run or a release: `railway up --servic
 
 ## How to do the common things
 
-- **Add a company**: DATAHQ, `#run`, type the ticker; or `ledger run --ticker X`. It joins stage 3. Give it an
+- **Add a company**: `ledger run --ticker X`. It joins stage 3. Give it an
   industry in `ledger/config.py` `INDUSTRIES`, or it gets the `other` model.
 - **Map a reported asset type**: Proof shows it open under Mapping; add the entry to `taxonomy/asset_types.yaml`
   with the note's own words as evidence, who and when. A mapping is a classification, never a number.

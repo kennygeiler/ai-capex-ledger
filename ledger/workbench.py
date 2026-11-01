@@ -178,4 +178,4 @@ def items(con, flow: dict) -> dict:
         by_cause[r["cause"]]["dollars"] += r["dollars"]
     causes = sorted(by_cause.values(), key=lambda c: (c["cause"] != TO_CONFIRM, -c["dollars"]))
     return {"scope": flow["scope"], "release": rel, "last_run": flow["changed"]["last_run"], "rows": confirm + rows, "open": len(open_), "to_confirm": len(confirm), "dollars": sum(r["dollars"] for r in open_),
-            "causes": causes, "noise": flow["noise"], "names": names}
+            "causes": causes, "names": names}
