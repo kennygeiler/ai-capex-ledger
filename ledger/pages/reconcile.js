@@ -12,7 +12,7 @@ const RES_BADGE = {accept: 'bg-green-lt', explain: 'bg-azure-lt', fix: 'bg-yello
 // the one definition of open (status.state, docs/PROOF.md): every row carries state and by; the page only shows them
 const STATE_BADGE = {checked: 'bg-green-lt', explained: 'bg-azure-lt', open: 'bg-yellow-lt', blocked: 'bg-red-lt', 'to confirm': 'bg-orange-lt'};
 const STATE_HELP = {checked: 'agrees with an independent check', explained: 'something on file says why, by name', open: 'nothing on file applies; a person decides', blocked: 'refuses the release until settled', 'to confirm': 'a run decided; a person confirms or overturns'};
-const BY_WORD = {rule: 'rule', definition: 'definition', label: 'label', resolution: 'resolution', mapping: 'mapping', xbrl: 'XBRL', quote: 'quote', located: 'located'};
+const BY_WORD = {rule: 'rule', definition: 'definition', label: 'label', resolution: 'resolution', mapping: 'mapping', xbrl: 'XBRL', quote: 'quote', located: 'located', gate: 'gate'};
 const byText = (by) => { if (!by) return ''; const [k, ...rest] = by.split(':'); const v = rest.join(':'); return v ? `${BY_WORD[k] || k}: ${v}` : BY_WORD[k] || k; };
 const stateCell = (r) => [h('span', {class: 'badge ' + (STATE_BADGE[r.state] || 'bg-secondary-lt'), title: STATE_HELP[r.state] || r.state}, r.state), r.by ? h('div', {class: 'text-secondary small font-monospace', style: 'font-size:.72rem'}, byText(r.by)) : ''];
 let FOCUS_KEY = null;  // the row to focus after a save re-renders the page

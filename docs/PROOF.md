@@ -25,11 +25,56 @@ which; Proof, Reconcile, the trail and the Release gates all read it, so no two 
   XBRL reference has a value (`not_extracted`, T65, type 73) is open: the label names the cause (the filing tags a value
   the reader did not extract), it explains nothing; `not_reported` explains a blank only when XBRL tags nothing either.
 
+**A label never counts as a check (T80, `status.evidence_gap`, `proof.unevidenced`).** A checked or explained row must
+point at the record that makes it so; each Proof item carries `ref`, that record, and the walk fails on any item whose
+`by` names nothing, or names something not on file:
+
+| `by` | the record it must point at |
+|---|---|
+| `xbrl` (checked only) | an XBRL value on the row and the lookup marker (`ref.looked_up`) |
+| `esef:`, `source:`, `actual:`, `rule:<id>_tie` (checked only) | that key's own value on the row (`ref.esef`, `ref.source`, `ref.actual`, `ref.tie`), never the XBRL one; an answer key never explains |
+| `quote` | the quote on file for the row (the statement by its id, the planned row by ticker, text, category, year and name; the item carries ids, not the quote) found, normalised as the loaders do (curly quotes, no-break spaces, case), in the text its `text_id` names |
+| `located` | the filing's income and cash-flow tables both named |
+| `gate` | on the release stage only (`ref.stage`), with no block item; the stage's one item when nothing blocks (it said `located` before T80) |
+| `mapping:<member>` | the entry in `taxonomy/asset_types.yaml` with that member and a `confirmed_by` that is a person (`status.is_person`) |
+| `definition:<name>` | an entry by that name under the ticker in `definitions/companies.yaml` |
+| `rule:<id>` (explained) | a rule in `rules/*.yaml` of info severity, or a guard in `proof.GUARDS` (a guard fills an id no rule has; a rule id on file twice is an error) |
+| `resolution:<id>` | a line with that id in `decisions/resolutions.jsonl` that a person wrote: `author_kind` person when the line has the field (T69), else a `by` on `config.PEOPLE` and no "to confirm" |
+| `label:not_reported`, `label:no_reference` | XBRL looked up for that row and holding no value |
+
+**Who is a person (`status.is_person`).** Fail closed: a name on `config.PEOPLE` (the signers, today Kenny Geiler) that
+names no model, agent or run (`status.NOT_A_PERSON`). `status.confirmed` uses it, so a hand edit `confirmed_by: Claude`
+confirms nothing, and `mapper.person` refuses any other name on the write. T69 replaces the name with a field for
+resolutions.
+
+**The lookup marker (`ref.looked_up`).** An empty answer is only an answer when the question was asked. A value's
+marker is true only when `reference_values` holds rows for its ticker (reconcile reads the same table, and with none
+it writes `not_reported` over every blank); a fact's only when its filing's XBRL instance is on disk
+(`proof.instance_on_file`: `data/raw/<cik>/filings/<accession>.facts.json` or `.xml`, never fetched). No marker, no
+evidence: a blank whose lookup never ran is a gap, and so is an `xbrl` check.
+
+Which labels explain, decided: only `not_reported` and `no_reference`, and only with XBRL looked up and empty. That is
+reconcile's own definition (`ledger/reconcile.py`): `not_reported` means the 10-K has no line and XBRL tags no value
+either, `no_reference` means XBRL has no value to compare. A label with an XBRL value behind it is a check that did not
+happen, so it is a gap; a label whose row never asked XBRL is a gap too. Every other label (`not_extracted`,
+`to_confirm`, anything new) names a cause and explains nothing. One known way reconcile can still write `not_reported`
+over an XBRL value: a negative computed opex (operating income holding fair-value gains, type 65; T102 gives it its own
+label). No row of the six has it today; if one appears, the walk fails on it, which is the point.
+
+**Failures are never explanations.** The exceptions a loader writes when a stage failed (`extraction_failed`,
+`note_extraction_failed`, `ai_extraction_failed`, `projects_failed`, `proof.FAILURES`) name no rule on file. They sit
+on the ingest stage, blocked or open by their severity, and never take the state of other rows (before T80 a warn
+`projects_failed` with no field would have taken the worst state of every value on the values stage). None is on the
+six today.
+
+On the six today the walk finds no gap (`tests/test_status.py`, on the golden fixtures, which the test requires to
+exist; the 47 mappings are open since T63, so none is checked).
+
 Precedence when more than one applies: blocked, then checked, then a person's fix (open), then explained, then open. A
 warn-severity finding (a jump, a renamed line, an outlier) has no state of its own: it takes the worst state of the
 rows it fired on, so a jump on a value XBRL confirms is checked, on a value a definition covers is explained, on an
 unresolved value is open. Every item carries `by`: `xbrl`, `esef:<tag>`, `source:<doc>`, `actual:<period>`, `quote`,
-`located`, `mapping:<member>`, `rule:<id>`, `definition:<name>`, `label:<label>` or `resolution:<id>`.
+`located`, `gate`, `mapping:<member>`, `rule:<id>`, `definition:<name>`, `label:<label>` or `resolution:<id>`.
 
 ### The four answer keys (`status.ANSWER_KEYS`, `status.answer_key(by)`)
 

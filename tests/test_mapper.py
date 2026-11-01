@@ -15,6 +15,21 @@ import yaml
 
 from ledger import mapper
 
+
+_PEOPLE = None
+
+
+def setUpModule():  # T80: config.PEOPLE fails closed; these tests confirm as placeholder people, never a real confirmer
+    global _PEOPLE
+    from ledger import config
+    _PEOPLE = list(config.PEOPLE)
+    config.PEOPLE[:] = _PEOPLE + ["A Tester", "No", "Bruno Runyon", "Kenny", "a test"]
+
+
+def tearDownModule():
+    from ledger import config
+    config.PEOPLE[:] = _PEOPLE
+
 HEADER = """# The company's own PP&E category, mapped to the nearest us-gaap PropertyPlantAndEquipmentByTypeAxis member.
 #
 # us-gaap members used: TechnologyEquipmentMember, LandMember,
@@ -319,7 +334,12 @@ class Hardening(unittest.TestCase):
                 mapper.approve("MU", self.name, "ConstructionInProgressMember", "land", who, path=self.path, log=self.log)
             self.assertIn("not a person's name", str(c.exception))
         self.assertEqual(self.path.read_text(), before)
-        self.assertEqual(mapper.person("Bruno Runyon"), "Bruno Runyon")  # whole words only
+        self.assertEqual(mapper.person("Bruno Runyon"), "Bruno Runyon")  # whole words only (on config.PEOPLE for this test)
+        with self.assertRaises(ValueError) as c:
+            mapper.person("Gemini")
+        with self.assertRaises(ValueError) as c:
+            mapper.person("Somebody Else")  # T80: not on config.PEOPLE
+        self.assertIn("config.PEOPLE", str(c.exception))
 
 
 class Proposals(unittest.TestCase):

@@ -6,6 +6,21 @@ import duckdb
 from ledger import views, workbench
 
 
+
+_PEOPLE = None
+
+
+def setUpModule():  # T80: config.PEOPLE fails closed; these tests confirm as placeholder people, never a real confirmer
+    global _PEOPLE
+    from ledger import config
+    _PEOPLE = list(config.PEOPLE)
+    config.PEOPLE[:] = _PEOPLE + ["a test"]
+
+
+def tearDownModule():
+    from ledger import config
+    config.PEOPLE[:] = _PEOPLE
+
 def _flow(queue):
     return {"scope": "all", "names": {"GOOGL": "Alphabet", "IRM": "Iron Mountain"}, "release": {"last": "v1.5.0"}, "changed": {"last_run": "2026-10-30T00:00:00"}, "queue": queue,
             "insight": {"evaluation": {"rows": [{"ticker": "GOOGL", "field": "capex", "period": "FY2025", "measure": "share", "relation": "eq", "reference": 0.6, "outcome": "disagree", "source": {"kind": "company_statement"}}]}}}
