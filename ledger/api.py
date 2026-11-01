@@ -8,7 +8,7 @@ import csv
 import io
 import re
 
-from .config import INDUSTRIES, PROVEN, industry, tracked
+from .config import INDUSTRIES, PROVEN, SCOPE, industry, tracked
 from . import resolutions as _resolutions
 from . import views as _views
 
@@ -122,10 +122,15 @@ def release_rows(version: str, name: str) -> list[dict]:
     return rows
 
 
+def in_scope(rows: list[dict], q: dict) -> list[dict]:
+    """With no ticker filter a list shows the scope (config.SCOPE); `ticker=` asks for any company the database holds."""
+    return rows if q.get("ticker") else [r for r in rows if "ticker" not in r or r["ticker"] in SCOPE]
+
+
 def query(con, name: str, q: dict) -> list[dict]:
     if q.get("release"):
-        return apply(release_rows(q["release"], name), q)
-    return apply(fetch(con, name), q)
+        return apply(in_scope(release_rows(q["release"], name), q), q)
+    return apply(in_scope(fetch(con, name), q), q)
 
 
 def view_data(con, view_id: str) -> dict:

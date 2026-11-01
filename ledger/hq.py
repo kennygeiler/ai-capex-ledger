@@ -9,7 +9,7 @@ from collections import Counter
 from datetime import date, timedelta
 
 from . import store
-from .config import industry, stage_tickers, tracked
+from .config import SCOPE, industry, stage_tickers, tracked
 from .release import releases as release_dirs
 from .review import apply, decisions, open_items
 from .rules import load as load_rules
@@ -34,9 +34,11 @@ def rows(con, sql, p=()):
     return [dict(zip([c[0] for c in cur.description], r)) for r in cur.fetchall()]
 
 
-def snapshot(con, stage: int = 3) -> dict:
-    """Everything DATAHQ shows, from what the pipeline already wrote."""
-    companies_now = tracked()  # read fresh, so a company added in the app shows at once
+def snapshot(con, stage: int = 3, tickers: list[str] | None = None) -> dict:
+    """Everything DATAHQ shows, from what the pipeline already wrote, for the scope (config.SCOPE) unless `tickers` says
+    which companies. `stage` names the fault report the run wrote (reports/stage{N}-faults.json)."""
+    want = set(SCOPE if tickers is None else tickers)
+    companies_now = [c for c in tracked() if c["ticker"] in want]  # read fresh, so a company added to the scope shows at once
     tickers, name = [c["ticker"] for c in companies_now], f"stage{stage}"
     t = [tickers]
     docs = rows(con, "select * from documents where ticker in (select unnest(?))", t)
@@ -97,7 +99,7 @@ def snapshot(con, stage: int = 3) -> dict:
         m, s = json.loads((d / "manifest.json").read_text()), d / "SIGNOFF.json"
         sig = json.loads(s.read_text()) if s.exists() else {}
         vs = (d / "values.csv").read_text().splitlines()[1:]
-        releases.append({"version": m["version"], "companies": len(stage_tickers(m["stage"])), "values": len(vs),
+        releases.append({"version": m["version"], "companies": len(m["scope"]) if m.get("scope") else len(stage_tickers(m["stage"])), "values": len(vs),
                          "hash": m["hash"][:12], "signed_by": sig.get("signed_by"), "signed_at": sig.get("signed_at"),
                          "prompt": m["prompt"], "parser": m["parser"]})
 

@@ -25,7 +25,7 @@ import duckdb
 
 from . import agents, progress, store
 from .cli.report import build
-from .config import ADDED, INDUSTRIES, added, industry, stage_tickers, tracked
+from .config import ADDED, INDUSTRIES, SCOPE, added, industry, stage_tickers, tracked
 from .evidence import load_all
 from .hq import snapshot
 from . import api, resolutions, views
@@ -126,8 +126,9 @@ FIELD_KIND = {"revenue": "spent", "capex": "spent", "opex": "spent", "segment_ca
 
 def data(q: dict) -> dict:
     """The dataset in long format for the data screen: one row per entity, field, dimension, year and kind, with its
-    provenance ids. Filters: t (tickers, comma), f (fields, comma), y (years, comma), k (spent|committed|derived|planned)."""
-    want_t = set(q.get("t", "").upper().split(",")) - {""}
+    provenance ids. Filters: t (tickers, comma; the scope, config.SCOPE, when absent), f (fields, comma), y (years, comma),
+    k (spent|committed|derived|planned)."""
+    want_t = set(q.get("t", "").upper().split(",")) - {""} or set(SCOPE)
     want_f = set(q.get("f", "").split(",")) - {""}
     want_y = set(q.get("y", "").upper().split(",")) - {""}
     want_k = set(q.get("k", "").split(",")) - {""}
@@ -152,10 +153,11 @@ def data(q: dict) -> dict:
                        else resolutions.status_of(idx, "values", r["ticker"], r["field"], "", r["period"]) if t == "values" else "")
         r["flag"] = "differs_from_xbrl" if r.get("check") == "unresolved" else ""
     rows = [r for r in rows if (not want_t or r["ticker"] in want_t) and (not want_f or r["field"] in want_f) and (not want_y or r["period"] in want_y) and (not want_k or r["kind"] in want_k)]
-    names = {c["ticker"]: c["name"] for c in tracked()}
-    fields = sorted({r["field"] for r in rows} if want_t else set(FIELD_KIND))
-    return {"rows": rows, "names": names, "industries": {c["ticker"]: industry(c["ticker"]) for c in tracked()}, "roles": {c["ticker"]: c.get("role", "other") for c in tracked()},
-            "fields": fields, "kinds": ["spent", "committed", "derived", "planned"]}
+    cos = [c for c in tracked() if c["ticker"] in want_t]
+    names = {c["ticker"]: c["name"] for c in cos}
+    fields = sorted({r["field"] for r in rows} if q.get("t") else set(FIELD_KIND))
+    return {"rows": rows, "names": names, "industries": {c["ticker"]: industry(c["ticker"]) for c in cos}, "roles": {c["ticker"]: c.get("role", "other") for c in cos},
+            "scope": list(SCOPE), "fields": fields, "kinds": ["spent", "committed", "derived", "planned"]}
 
 
 def usd_(n) -> str:
@@ -182,18 +184,19 @@ def flow(scope: str) -> dict:
 
 
 def _flow(scope: str) -> dict:
-    """The queue for a scope (all, a layer, a ticker): new filings, blocks, facts that differ from the filing's tag, facts
-    that changed since the signed release, findings the SEC's data can't confirm. Nothing here is an estimate."""
+    """The queue for a scope (all = config.SCOPE, a layer within it, or any one ticker the database holds): new filings,
+    blocks, facts that differ from the filing's tag, facts that changed since the signed release, findings the SEC's data
+    can't confirm. Nothing here is an estimate."""
     present = {c["ticker"] for c in tracked()}
     if scope in INDUSTRIES or scope == "other":
-        tickers = sorted(t for t in present if industry(t) == scope)
+        tickers = sorted(t for t in SCOPE if industry(t) == scope)
     elif scope and scope != "all":
         tickers = [scope.upper()] if scope.upper() in present else []
     else:
-        tickers = sorted(present)
+        tickers = sorted(SCOPE)
     con = _con()
     try:
-        hqd = snapshot(con, STAGE)
+        hqd = snapshot(con, STAGE, tickers)
         facts = _rows(con, "select ticker, field, dimension, period, value, label from facts where ticker in (select unnest(?))", tickers)
         cites = {e["extraction_id"]: e for e in _rows(con, "select extraction_id, accession, table_id, row_label, column_label, cell_text from note_extractions where ticker in (select unnest(?))", tickers)}
         urls = {d["accession"]: d["url"] for d in _rows(con, "select accession, url from documents where ticker in (select unnest(?))", tickers)}
@@ -243,7 +246,7 @@ def _flow(scope: str) -> dict:
     blocks = [q_ for q_ in queue if q_["state"] == "blocked"]
     release = {"last": rel.name if rel else None, "blocks": len(blocks), "unresolved": len(open_), "facts_changed": len(facts_changed)}
     return {"scope": scope or "all", "tickers": tickers, "changed": changed, "queue": queue, "noise": 0, "release": release,
-            "industries": sorted(INDUSTRIES) + ["other"], "names": {c["ticker"]: c["name"] for c in tracked()}}
+            "industries": sorted(INDUSTRIES) + ["other"], "scope_tickers": list(SCOPE), "names": {c["ticker"]: c["name"] for c in tracked()}}
 
 
 def packet(version: str) -> bytes | None:

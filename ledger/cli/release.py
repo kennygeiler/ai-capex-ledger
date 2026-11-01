@@ -1,11 +1,11 @@
-"""python -m ledger release <version> --stage N   ->  releases/<version>/ (refuses while a gate fails)"""
+"""python -m ledger release <version>   ->  releases/<version>/ for the scope (config.SCOPE); refuses while a gate fails"""
 import argparse
 import csv
 import json
 
 from .. import store
 from ..agent import model
-from ..config import STAGES, stage_tickers
+from ..config import SCOPE, STAGES
 from ..extract import prompt_version
 from ..ingest.tables import PARSER_VERSION
 from ..release import GATES, RELEASES, build, content_hash, gates, releases, version_key
@@ -21,10 +21,10 @@ def _rows(con, sql, p):
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m ledger release")
     ap.add_argument("version")
-    ap.add_argument("--stage", type=int, default=1, choices=STAGES)
+    ap.add_argument("--stage", type=int, default=3, choices=STAGES, help="which hand-check file to read (golden/stage{N}-handcheck.json); the rows are always the scope")
     ap.add_argument("--db", default=str(store.DEFAULT_DB))
     a = ap.parse_args(argv)
-    con, tickers = store.init(a.db), [stage_tickers(a.stage)]
+    con, tickers = store.init(a.db), [list(SCOPE)]  # the packet holds the scope and nothing else (T2)
     values = _rows(con, 'select * from "values" where ticker in (select unnest(?))', tickers)
     excs = _rows(con, "select * from exceptions where ticker in (select unnest(?))", tickers)
     exts = _rows(con, "select * from extractions where ticker in (select unnest(?))", tickers)
@@ -49,7 +49,7 @@ def main(argv=None) -> int:
     from .. import api  # one shape (C7): the release holds every list the API serves, as the API serves it
     want = set(tickers[0])
     for name in api.RELEASE_LISTS:
-        rows = [r for r in api.fetch(con, name) if r.get("ticker", "") in want or name == "companies"]
+        rows = [r for r in api.fetch(con, name) if r.get("ticker", "") in want]
         files[f"{name}.csv"] = api.to_csv(rows)
     if prev_dir:  # the shape of the packet is part of the diff
         before = set(json.loads((prev_dir / "manifest.json").read_text())["files"]) - {"manifest.json", "SIGNOFF.json"}
@@ -65,7 +65,7 @@ def main(argv=None) -> int:
     out.mkdir(parents=True)
     for name, text in files.items():
         (out / name).write_text(text)
-    manifest = {"version": a.version, "stage": a.stage, "hash": h, "files": sorted(files), "prompt": prompt_version(), "parser": PARSER_VERSION, "model": model(),
+    manifest = {"version": a.version, "stage": a.stage, "scope": list(SCOPE), "hash": h, "files": sorted(files), "prompt": prompt_version(), "parser": PARSER_VERSION, "model": model(),
                 "rules": {r["id"]: r["file_sha256"][:12] for r in load()}, "decisions": len(ds)}
     (out / "manifest.json").write_text(json.dumps(manifest, indent=1))
     print(f"built {a.version}: {len(values)} values, hash {h[:12]}. Sign with: python -m ledger signoff {a.version} --by \"<name>\"")

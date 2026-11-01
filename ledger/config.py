@@ -107,6 +107,12 @@ PROVEN_WHY = {"MSFT": "PP&E growth method, a stated ceiling (at most 50%), softw
               "AMD": "one method per series: a one-year stated Instinct figure against the Data Center segment every year"}
 
 
+# The scope (docs/TICKETS.md T2): the companies DATAHQ, the read API with no ticker filter, the Proof board, Reconcile's
+# "all", `ledger release` and the published tables show. The proven set until widened one company at a time (T35);
+# every other company stays in the database and answers an explicit `?ticker=`. Never a subset of PROVEN.
+SCOPE = list(PROVEN)
+
+
 def added() -> list[dict]:
     return json.loads(ADDED.read_text()) if ADDED.exists() else []
 

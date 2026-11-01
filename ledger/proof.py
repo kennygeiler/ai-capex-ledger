@@ -12,7 +12,7 @@ from . import definitions, resolutions, status, store
 from .guards import part_year, program_words
 from .review import decisions, open_items
 from .taxonomy import asset_types, rows as taxonomy_rows, unmapped
-from .config import PROVEN, PROVEN_WHY, industry, tracked
+from .config import PROVEN, PROVEN_WHY, SCOPE, industry, tracked
 
 STAGES = ("ingest", "values", "facts", "statements", "mapping", "planned", "release")
 STAGE_LABEL = {"ingest": "Ingest", "values": "Values", "facts": "Facts", "statements": "Statements", "mapping": "Mapping", "planned": "Planned", "release": "Release"}
@@ -163,14 +163,14 @@ def _restated(con, ticker: str, f: dict) -> str | None:
 
 
 def board(con) -> dict:
-    """The Proof home: every proven-set company's stage counts, and the rest of the dataset in one line."""
+    """The Proof home: every company in scope (config.SCOPE) with its stage counts, and the rest of the database in one line."""
     idx, defs = resolutions.by_row(), definitions.load()
-    proven = [company(con, t, idx, defs) for t in PROVEN]
-    others = [c["ticker"] for c in tracked() if c["ticker"] not in PROVEN]
+    proven = [company(con, t, idx, defs) for t in SCOPE]
+    others = [c["ticker"] for c in tracked() if c["ticker"] not in SCOPE]
     n_vals = con.execute('select count(*), sum(case when label = \'agree\' then 1 else 0 end) from "values" where ticker in (select unnest(?)) and value is not null', [others]).fetchone()
     n_facts = con.execute("select count(*), sum(case when label = 'agree' then 1 else 0 end) from facts where ticker in (select unnest(?))", [others]).fetchone()
-    return {"stages": [{"id": s, "label": STAGE_LABEL[s]} for s in STAGES], "proven": proven, "open": sum(c["open"] for c in proven),
-            "others": {"companies": len(others), "values": n_vals[0], "values_agree": n_vals[1], "facts": n_facts[0], "facts_agree": n_facts[1], "note": "not yet proven: in the dataset as they are, widened only when the proven set is proven"}}
+    return {"stages": [{"id": s, "label": STAGE_LABEL[s]} for s in STAGES], "proven": proven, "scope": list(SCOPE), "open": sum(c["open"] for c in proven),
+            "others": {"companies": len(others), "values": n_vals[0], "values_agree": n_vals[1], "facts": n_facts[0], "facts_agree": n_facts[1], "note": "in the database, outside the scope: not shown, not released, widened one company at a time"}}
 
 
 GUARDS = [
@@ -183,11 +183,11 @@ GUARDS = [
 
 
 def rules(con) -> dict:
-    """Every rule, guard and definition with what it closed on the proven set, and the open items by what is missing."""
+    """Every rule, guard and definition with what it closed in scope, and the open items by what is missing."""
     from .rules import load as load_rules
     idx, defs = resolutions.by_row(), definitions.load()
-    cos = [company(con, t, idx, defs) for t in PROVEN]
-    exc = _rows(con, "select rule_id, severity, count(*) as n from exceptions where ticker in (select unnest(?)) group by 1, 2", PROVEN)
+    cos = [company(con, t, idx, defs) for t in SCOPE]
+    exc = _rows(con, "select rule_id, severity, count(*) as n from exceptions where ticker in (select unnest(?)) group by 1, 2", SCOPE)
     fired = {}
     for e in exc:
         fired[e["rule_id"]] = fired.get(e["rule_id"], 0) + e["n"]
@@ -195,9 +195,9 @@ def rules(con) -> dict:
     closed = {g["id"]: sum(1 for c in cos for s in c["stages"].values() for x in s["all"] if x["by"] == f"rule:{g['id']}") for g in GUARDS}
     closed["asset_type_mapping"] = sum(c["stages"]["mapping"]["checked"] for c in cos)
     out += [{**g, "fired": closed.get(g["id"], 0)} for g in GUARDS]
-    out += [{"id": f"{t}:{k}", "kind": "definition", "where": "values", "what": f"{t}: {k} ({(v.get('why') or '')[:120]})", "fired": 1, "by": v.get("by")} for t in PROVEN for k, v in (defs.get(t) or {}).items() if isinstance(v, dict)]
+    out += [{"id": f"{t}:{k}", "kind": "definition", "where": "values", "what": f"{t}: {k} ({(v.get('why') or '')[:120]})", "fired": 1, "by": v.get("by")} for t in SCOPE for k, v in (defs.get(t) or {}).items() if isinstance(v, dict)]
     types = asset_types()
-    out += [{"id": f"{t}:{name}", "kind": "mapping", "where": "mapping", "what": f"{t}: {name} → {m.get('standard_type')} ({(m.get('evidence') or '')[:100]})", "fired": 1, "by": m.get("by")} for t in PROVEN for name, m in (types.get(t) or {}).items()]
+    out += [{"id": f"{t}:{name}", "kind": "mapping", "where": "mapping", "what": f"{t}: {name} → {m.get('standard_type')} ({(m.get('evidence') or '')[:100]})", "fired": 1, "by": m.get("by")} for t in SCOPE for name, m in (types.get(t) or {}).items()]
     missing = {}
     for c in cos:
         for s, st in c["stages"].items():
