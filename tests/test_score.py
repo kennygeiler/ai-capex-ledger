@@ -101,7 +101,9 @@ class Synthetic(unittest.TestCase):
                                      {"fault": "wrong_row", "extraction_id": "0000789019-25-000001|capex|2024-07-01|2025-06-30", "outcome": "escaped", "caught_by": []},
                                      {"fault": "wrong_row", "extraction_id": "0000000000-25-000001|capex|2024-07-01|2025-06-30", "outcome": "rule", "caught_by": ["sign"]}]))  # another company
         fl, note = score.faults(self.con, "reader", ["MSFT", "NVDA"])
-        self.assertEqual(fl, {"caught": 1, "planted": 3, "no_effect": 1, "escaped": 1})
+        self.assertEqual({k: fl[k] for k in ("caught", "planted", "no_effect", "escaped")}, {"caught": 1, "planted": 3, "no_effect": 1, "escaped": 1})
+        self.assertEqual(fl["by_kind"]["wrong_row"]["escaped"], 1)  # T67: per kind, for this company only
+        self.assertIsNone(fl["xbrl_off"])  # no XBRL-off report beside this one
         self.assertIn("reports/nowhere-faults.json: run 2026-10-30, file written", note)
         self.assertIn("report newer than its run", note)  # the file was written now, the run says 2026-10-30
         self.assertIn("no run covered NVDA", note)
