@@ -159,9 +159,9 @@ def check(keep: bool = False, verbose: bool = False) -> dict:
                 print(f"== {' '.join(step)} (exit {r.returncode})\n{r.stdout.strip()[-800:]}\n{r.stderr.strip()[-800:]}")
             if r.returncode not in (0, 2):  # 2: a step found exceptions, which the expected tables carry too
                 return {"ok": False, "root": str(root), "log": log, "diffs": {}, "failed_step": " ".join(step)}
+        got_lists = {name: _taxonomy_in(root, db, seed["tickers"]) for name in LISTS}  # before this process opens the database: DuckDB takes one writer lock
         con = store.init(db)
         diffs = {}
-        got_lists = {name: _taxonomy_in(root, db, seed["tickers"]) for name in LISTS}
         for name, skip in {**TABLES, **{n: () for n in LISTS}}.items():
             got = got_lists[name] if name in LISTS else _csv(_rows(con, f'select * from "{name}"'), skip) if store_has(con, name) else ""
             want = (EXPECTED / f"{name}.csv").read_text() if (EXPECTED / f"{name}.csv").exists() else ""
