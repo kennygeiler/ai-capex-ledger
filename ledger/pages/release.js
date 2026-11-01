@@ -65,6 +65,6 @@ async function releasePage(view, qs) {
   const packet = dtable(`Packet ${cl.version}`, [{t: 'File', k: 'file'}, {t: 'Rows', num: 1, f: (r) => (r.rows == null ? '—' : int(r.rows))}, {t: 'Bytes', num: 1, f: (r) => int(r.bytes)}], files ? files.detail : [],
     {note: `hash ${cl.hash.slice(0, 12)}`});
   const checks = h('div', {class: 'row g-3 mt-1'}, h('div', {class: 'col-12 col-xl-7'}, gatesTable(cl.gates)), h('div', {class: 'col-12 col-xl-5'}, packet));
-  view.append(head, lines, h('p', {class: 'text-secondary small mt-2'}, 'A line opens to its items. Required lines must all pass before the Sign button enables; the rest inform. Golden reads reports/golden.json, the test run reports/tests.json ({ok, count, failures, at}); either absent reads "not run".'),
+  view.append(head, lines, h('p', {class: 'text-secondary small mt-2'}, 'A line opens to its items. Required lines must all pass before the Sign button enables; the rest inform. Golden reads reports/golden.json, the test run reports/tests.json (written by `ledger test`: count, failures, golden, commit); either absent reads "not run". A test run on another commit or a dirty tree reads "stale" and informs until `ledger test` runs again.'),
     checks, h('div', {class: 'mt-3'}, diffTable(cl)));
 }

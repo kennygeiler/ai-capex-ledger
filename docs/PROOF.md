@@ -125,8 +125,9 @@ Nothing is inferred. The attribution methods that estimated an AI share, and the
   gates per company (G1 G4 G5 G6, `release.gates`), open and blocked items in the scope (the Proof board's counts, the one
   definition of open), decisions a run left to confirm, unmapped asset types (0 required), rows with no value by measure
   (informs), the rows added / removed / changed per list against the previous release (informs; `DIFF.md` carries the same
-  table), the golden test (`reports/golden.json`, required equal) and the last test run (`reports/tests.json`:
-  `{ok, count, failures, at}`, written by T30; absent reads "not run" and does not block until it exists), the previous
+  table), the golden test (`reports/golden.json`, required equal) and the last test run (`reports/tests.json`, written
+  by `ledger test`: count, failures, golden, commit; absent reads "not run" and does not block; failing is red; passed on
+  another commit or a dirty tree reads "stale" and informs until `ledger test` runs again), the previous
   release folders readable (a folder before this version without a manifest of the right shape or a `values.csv` is a red
   line, "previous release vX is broken: delete and rebuild", and the diff runs against the last readable one; a folder whose
   name is not a version is not a release), and the packet as

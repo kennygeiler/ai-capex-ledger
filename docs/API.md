@@ -35,8 +35,9 @@ The Release page (`docs/PROOF.md`): `/api/v1/release/checklist` (optional `?vers
 release folder) is the checklist as JSON: `version`, `previous`, `scope`, `hash` (of the packet built in memory), `ok`, `red` (the
 required lines that fail), `lines` (each `{id, label, required, count, state: pass|fail|info|not_run, ok, link, note, detail}`),
 `gates` (`table` per gate per company, `failing`), `diff` (per list: `rows`, `added`, `removed`, `changed`, `key`, `columns_added`,
-`columns_removed`, `examples`), `golden` and `tests` (the two report files as they are, `tests` from `reports/tests.json`
-`{ok, count, failures, at}`, null when not run). `POST /api/release/sign` `{version, by}` builds `releases/<version>/`, signs it as
+`columns_removed`, `examples`), `golden` and `tests` (the two report files as they are, `tests` from `reports/tests.json` as `ledger test` writes it:
+`{ok, count, failures: ["test id: first line of the error"], skipped, golden: true|false|null, at, git, dirty, seconds}`, null when
+not run; the `tests` line is `pass` on this commit, `fail` on any failure, `info` with a "stale" note on another commit or a dirty tree). `POST /api/release/sign` `{version, by}` builds `releases/<version>/`, signs it as
 `by` with the checklist stored under `checklist` in `SIGNOFF.json`, and publishes; 403 on the read-only copy, 400 while any
 required line is red (checked twice: before the write and on the folder as written) or `by` is empty or not a string; one
 signature at a time. The reply says `published` and, when the publish failed after the signature landed, `publish_error`;

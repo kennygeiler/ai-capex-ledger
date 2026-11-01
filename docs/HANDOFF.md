@@ -43,7 +43,7 @@ echo 'DATABASE_URL="postgresql://…"' >> .env                 # production Post
 echo 'DATABASE_READONLY_URL="postgresql://…"' >> .env        # the arctal_reader string, SELECT only; the one to hand a consumer
 claude                                                      # then /login: the agents run on a Claude subscription, headless
 export LEDGER_CLAUDE="$(which claude)"                      # the claude binary the pipeline should use
-uv run python -m unittest -q                                # 114 tests, offline, seconds
+uv run python -m ledger test --fast                         # 239 tests, offline, seconds; writes reports/tests.json (drop --fast for golden too)
 ```
 
 The `evidence` step drives the installed Google Chrome through Playwright. The `texts` step downloads PDFs from the
@@ -57,6 +57,7 @@ uv run python -m ledger run --ticker NVDA        # every step for one company, a
 uv run python -m ledger run --stage 3            # all 31 (about 30 minutes on a fresh clone, mostly fetching and Chrome)
 uv run python -m ledger app                      # DATAHQ at http://127.0.0.1:3610 (LEDGER_CLAUDE="$(which claude)" only to start runs from it)
 uv run python -m ledger golden --check           # the proven six rebuilt from frozen inputs, every table compared
+uv run python -m ledger test                     # the whole suite, golden included; writes reports/tests.json, the Release page's test line (--fast skips golden)
 uv run python -m ledger release v1.8.0           # the scope (config.SCOPE), a gate table per company; refuses on any failing row; then signoff, by the owner only
 uv run python -m ledger publish v1.5.0           # a signed release to the production Postgres; --status lists what is there
 ```
@@ -107,7 +108,8 @@ look without a checkout. Redeploy after a run or a release: `railway up --servic
 - **Release**: DATAHQ's Release page (`#release`) is the checklist: every line that could make a signature wrong, green or
   red with its count and the page that fixes it, and the packet built in memory. Its Sign button (enabled only when every
   required line is green) writes `releases/<version>/`, signs as the name in the signer box, stores the checklist as it
-  was in `SIGNOFF.json`, and publishes; that is the one place a release is signed (`docs/PROOF.md`). The command line
+  was in `SIGNOFF.json`, and publishes; that is the one place a release is signed (`docs/PROOF.md`). Its test line reads
+  `reports/tests.json`, which `ledger test` writes: run it on the commit you sign, or the line reads stale. The command line
   does the same in pieces: `ledger release vX.Y.Z` builds the packet for `config.SCOPE`, prints the gate table (one row
   per company, G1 G4 G5 G6) and refuses on any failing row (`--stage N` only names the hand-check file); `ledger signoff
   vX.Y.Z --by "<name>"` signs without a checklist; `ledger publish vX.Y.Z` pushes the signed files to production and
