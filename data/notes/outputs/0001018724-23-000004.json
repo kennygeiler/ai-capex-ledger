@@ -12,8 +12,7 @@
    "period_end": "2020-12-31",
    "months": 12,
    "value": 236282000000,
-   "confidence": 0.8,
-   "notes": "The first block's segment header is missing from the parsed table. Amazon's first reported segment is North America, and the three segment blocks sum to the consolidated total."
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -25,8 +24,7 @@
    "period_end": "2021-12-31",
    "months": 12,
    "value": 279833000000,
-   "confidence": 0.8,
-   "notes": "The first block's segment header is missing from the parsed table. Amazon's first reported segment is North America, and the three segment blocks sum to the consolidated total."
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -38,8 +36,7 @@
    "period_end": "2022-12-31",
    "months": 12,
    "value": 315880000000,
-   "confidence": 0.8,
-   "notes": "The first block's segment header is missing from the parsed table. Amazon's first reported segment is North America, and the three segment blocks sum to the consolidated total."
+   "confidence": 0.8
   },
   {
    "field": "segment_revenue",
@@ -127,42 +124,6 @@
   },
   {
    "field": "ppe_category",
-   "dimension": "Equipment",
-   "table_id": "t0050",
-   "row_label": "Equipment",
-   "column_label": "December 31, | 2021",
-   "cell_text": "128,683",
-   "period_end": "2021-12-31",
-   "months": 0,
-   "value": 128683000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Other assets",
-   "table_id": "t0050",
-   "row_label": "Other assets",
-   "column_label": "December 31, | 2021",
-   "cell_text": "4,118",
-   "period_end": "2021-12-31",
-   "months": 0,
-   "value": 4118000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
-   "dimension": "Construction in progress",
-   "table_id": "t0050",
-   "row_label": "Construction in progress",
-   "column_label": "December 31, | 2021",
-   "cell_text": "24,895",
-   "period_end": "2021-12-31",
-   "months": 0,
-   "value": 24895000000,
-   "confidence": 1.0
-  },
-  {
-   "field": "ppe_category",
    "dimension": "Land and buildings",
    "table_id": "t0050",
    "row_label": "Land and buildings",
@@ -171,6 +132,18 @@
    "period_end": "2022-12-31",
    "months": 0,
    "value": 91650000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Equipment",
+   "table_id": "t0050",
+   "row_label": "Equipment",
+   "column_label": "December 31, | 2021",
+   "cell_text": "128,683",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 128683000000,
    "confidence": 1.0
   },
   {
@@ -190,11 +163,35 @@
    "dimension": "Other assets",
    "table_id": "t0050",
    "row_label": "Other assets",
+   "column_label": "December 31, | 2021",
+   "cell_text": "4,118",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 4118000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Other assets",
+   "table_id": "t0050",
+   "row_label": "Other assets",
    "column_label": "December 31, | 2022",
    "cell_text": "4,602",
    "period_end": "2022-12-31",
    "months": 0,
    "value": 4602000000,
+   "confidence": 1.0
+  },
+  {
+   "field": "ppe_category",
+   "dimension": "Construction in progress",
+   "table_id": "t0050",
+   "row_label": "Construction in progress",
+   "column_label": "December 31, | 2021",
+   "cell_text": "24,895",
+   "period_end": "2021-12-31",
+   "months": 0,
+   "value": 24895000000,
    "confidence": 1.0
   },
   {
@@ -219,26 +216,26 @@
    "period_end": "2022-12-31",
    "months": 0,
    "value": 34776000000,
-   "confidence": 0.95,
-   "notes": "This is the total of unconditional purchase obligations across all years. The separate 'Other commitments' row is excluded."
+   "confidence": 0.95
   }
  ],
  "not_found": [
   {
    "field": "segment_capex",
-   "reason": "The segment table (t0069) reports only net sales, operating expenses and operating income per segment. No per-segment capital expenditures appear in the tables provided."
+   "reason": "the segment table shown (t0069) reports net sales, operating expenses and operating income only; no per-segment capital expenditure rows appear in the provided tables"
   },
   {
    "field": "finance_lease_liability",
-   "reason": "The lease tables give no balance-sheet line for finance lease liabilities (total, current or non-current). The commitments table shows only undiscounted payments 'including interest', which is not the liability."
+   "reason": "no balance-sheet finance lease liability line (total or current/non-current) appears; t0060 gives only undiscounted future payments including interest, and the other lease tables give costs, cash flows and rates"
   }
  ],
+ "notes": "segment_revenue North America: the first block of t0069 has no segment header row in the parsed table (International and AWS headers follow it); it is attributed to North America, Amazon's third reportable segment, hence confidence 0.8. purchase_commitments: cited 'Unconditional purchase obligations' total as of 2022-12-31; 'Other commitments' and 'Total commitments' excluded as they are not purchase obligations, confidence 0.95.",
  "_run": {
   "model": "claude-opus-5-5",
-  "seconds": 22.5,
-  "input_tokens": 9865,
-  "output_tokens": 3267,
+  "seconds": 23.9,
+  "input_tokens": 8980,
+  "output_tokens": 2934,
   "attempts": 1,
-  "task_sha": "6ffc377cd3229522"
+  "task_sha": "e3a82abe4995530c"
  }
 }
