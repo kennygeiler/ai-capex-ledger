@@ -21,9 +21,14 @@ the rows it fired on. A jump on a value XBRL confirms is checked; on a value a d
 unresolved value, open. So Proof and Reconcile count the same row the same way: a rule or a definition on file closes
 it on both pages, and a person's decision is needed only where nothing on file applies.
 
-`by` names what decided the state: xbrl | esef:<tag> | source:<doc> | actual:<period> | quote | located |
+`by` names what decided the state: xbrl | esef:<tag> | source:<doc> | actual:<period> | quote | located | gate |
 mapping:<us-gaap member> | rule:<id> (a tie rule's id ends in _tie) | definition:<name> | label:<not_reported|no_reference> |
 resolution:<id>. Empty when the state is open and nothing applies; label:not_extracted names an open value's cause (T65).
+`gate` is the release stage's one item when no block rule fired and no decision blocks (T80: it used to say `located`).
+
+A label never counts as a check (T80, `evidence_gap`): a checked or explained row's `by` must name a record that exists
+and says so. The record a check rests on travels with the row as `ref` (proof.company sets it), and `evidence_gap`
+returns why it does not hold, or None.
 
 Answer keys (T40, docs/PROOF.md): four kinds of independent check vouch for a number. A structured twin (xbrl, esef:
 the filer's own tagged number), a second source (source: another document by the same filer), an arithmetic tie
@@ -37,11 +42,13 @@ counts rows by the strength of what vouches for them and a trail names it. A row
 at most one; T41–T43 add ties, second sources and later truths beside the twin without a change to the shape."""
 from __future__ import annotations
 
+import re
+
 STATES = ("checked", "explained", "open", "blocked")
 # The kinds of `by`, and of the taxonomy rows' `check_method` (store.TAXONOMY): an open vocabulary of `<kind>` or
 # `<kind>:<id>`. esef:<tag>, source:<doc> and actual:<period> are the answer keys T41–T45 will write; no row carries
 # them yet (2 Nov 2026).
-METHOD_KINDS = ("xbrl", "esef", "source", "actual", "quote", "gathered", "located", "none", "mapping", "rule", "definition", "resolution", "label")
+METHOD_KINDS = ("xbrl", "esef", "source", "actual", "quote", "gathered", "located", "gate", "none", "mapping", "rule", "definition", "resolution", "label")
 # The four answer keys and the `by` kinds that carry each. A tie is a rule whose id ends in TIE (rule:quarters_tie,
 # rule:statement_tie); any other rule:<id> explains or blocks, it is not an answer key.
 ANSWER_KEYS = {"twin": ("xbrl", "esef"), "second_source": ("source",), "tie": ("rule",), "later_truth": ("actual",)}
@@ -83,10 +90,10 @@ def answer_key(by: str) -> str | None:
 
 
 ORDER = {"blocked": 0, "open": 1, "explained": 2, "checked": 3}  # worst first
-CHECKS = ("xbrl", "quote", "located", "mapping")  # the bare checks; the keyed ones (esef:, source:, rule:*_tie, actual:) go through answer_key
+CHECKS = ("xbrl", "quote", "located", "gate", "mapping")  # the bare checks; the keyed ones (esef:, source:, rule:*_tie, actual:) go through answer_key
 REASONS = {"xbrl": "agrees with the SEC's XBRL", "esef": "agrees with the filer's own ESEF tag", "source": "agrees with a second document by the same filer",
            "rule": "the tie holds", "actual": "the actual for the period, against the plan", "quote": "a verbatim quote, verified against its text",
-           "located": "statement tables located in the filing", "mapping": "mapped to a us-gaap member with the note's words"}
+           "located": "statement tables located in the filing", "gate": "no block rule fired and no decision blocks", "mapping": "mapped to a us-gaap member with the note's words"}
 GUARD_IDS = ("part_year", "program_words", "asset_type_mapping", "restated_between_filings", "amendment_without_statements")  # proof.GUARDS: info by nature
 
 
@@ -223,3 +230,74 @@ def of_exception(e: dict, resolution: dict | None = None, rows: list[dict] | Non
     if w:
         return keyed({**w, "reason": f"{e.get('rule_id')}: {w['reason']}"})
     return state({"rule": e.get("rule_id"), "severity": "warn", "reason": (e.get("message") or "")[:200]})
+
+
+
+# ── T80: a label never counts as a check ────────────────────────────────────────────────────────────────────────────
+EXPLAINING_LABELS = ("not_reported", "no_reference")  # the only labels that explain, and only when XBRL holds no value
+
+
+def evidence_gap(item: dict, ev: dict) -> str | None:
+    """Why a checked or explained `item` (a state with `by` and `ref`, as proof.company makes it) is not backed by the
+    record its `by` names, or None when it is (or when the item is open or blocked: an open row claims nothing).
+
+    `ref` is the record the check rests on: {reference} the answer-key value (None when XBRL tags nothing; the key
+    absent when nobody looked), {quote, text_id} a quote and its text, {income_tables, cash_flow_tables} a filing's
+    located tables, {blocks} the release stage's block items, {ticker, name} a reported asset type, {ticker} for a
+    definition. `ev` holds what is on file: definitions {ticker: {name: entry}}, rules {id: severity} (the rules/*.yaml
+    ids and the guards, info), resolutions {id: line}, person_ids (the resolution ids a person wrote), asset_types
+    {ticker: {name: entry}} and text(text_id) -> the text, normalised, or None.
+
+    What counts: xbrl / esef / source / actual / a tie: an answer-key value on the row; quote: the quote found in its
+    text, normalised; located: both statement tables named; gate: no block item; mapping:<member>: the entry has that
+    member and a non-empty confirmed_by; definition:<name>: the ticker's entry by that name; rule:<id>: a rule on file of
+    info severity, or a guard; resolution:<id>: a line with that id whose author is a person; label:not_reported or
+    label:no_reference: XBRL looked up and holding no value. Any other label explains nothing."""
+    if item.get("state") not in ("checked", "explained"):
+        return None
+    by, ref = item.get("by") or "", item.get("ref") or {}
+    kind, _, ident = by.partition(":")
+    if not by:
+        return "names no evidence"
+    if answer_key(by):
+        return None if ref.get("reference") is not None else f"{by}: no answer-key value on the row"
+    if kind == "quote":
+        text = ev["text"](ref.get("text_id")) if ref.get("text_id") else None
+        if text is None:
+            return f"quote: no text on file for {ref.get('text_id')!r}"
+        return None if norm(ref.get("quote") or "") and norm(ref.get("quote") or "") in text else f"quote: not found in {ref['text_id']}"
+    if kind == "located":
+        return None if ref.get("income_tables") and ref.get("cash_flow_tables") else "located: no income and cash-flow table named on the filing"
+    if kind == "gate":
+        return None if ref.get("blocks") == 0 else "gate: the release stage holds block items, or nobody counted them"
+    if kind == "mapping":
+        e = (ev["asset_types"].get(ref.get("ticker")) or {}).get(ref.get("name")) or {}
+        if not e:
+            return f"{by}: no entry for {ref.get('ticker')} {ref.get('name')!r} in taxonomy/asset_types.yaml"
+        if e.get("standard_type") != ident:
+            return f"{by}: the entry maps to {e.get('standard_type')}"
+        return None if str(e.get("confirmed_by") or "").strip() else f"{by}: the entry has no confirmed_by"
+    if kind == "definition":
+        return None if ident in (ev["definitions"].get(ref.get("ticker")) or {}) else f"{by}: no such definition for {ref.get('ticker')} in definitions/companies.yaml"
+    if kind == "rule":
+        sev = ev["rules"].get(ident)
+        if sev is None:
+            return f"{by}: no such rule in rules/*.yaml or proof.GUARDS"
+        return None if sev == "info" or item["state"] == "checked" and by.endswith(TIE) else f"{by}: a {sev} rule explains nothing"
+    if kind == "resolution":
+        if ident not in ev["resolutions"]:
+            return f"{by}: no such resolution in decisions/resolutions.jsonl"
+        return None if ident in ev["person_ids"] else f"{by}: written by {ev['resolutions'][ident].get('by')!r}, not a person"
+    if kind == "label":
+        if ident not in EXPLAINING_LABELS:
+            return f"{by}: a bare label explains nothing"
+        if "reference" not in ref:
+            return f"{by}: nobody asked XBRL"
+        return None if ref["reference"] is None else f"{by}: XBRL holds {ref['reference']}"
+    return f"{by}: not a kind of evidence"
+
+
+def norm(s: str) -> str:
+    """Text normalised the way the loaders compare a quote with its passage (guidance._norm): quotes straightened,
+    whitespace collapsed, lower case."""
+    return re.sub(r"[\s\u00a0]+", " ", s.replace("\u2019", "'").replace("\u201c", '"').replace("\u201d", '"')).strip().lower()

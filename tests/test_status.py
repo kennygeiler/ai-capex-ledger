@@ -119,7 +119,7 @@ class Definition(unittest.TestCase):
     def test_answer_key_for_every_method_kind(self):
         """`answer_key` names one of four kinds, or None, for every kind in METHOD_KINDS; every ANSWER_KEYS kind is a METHOD_KIND."""
         expect = {"xbrl": "twin", "esef": "twin", "source": "second_source", "actual": "later_truth", "rule": None,  # rule alone is not a tie
-                  "quote": None, "gathered": None, "located": None, "none": None, "mapping": None, "definition": None, "resolution": None, "label": None}
+                  "quote": None, "gathered": None, "located": None, "gate": None, "none": None, "mapping": None, "definition": None, "resolution": None, "label": None}
         self.assertEqual(set(expect), set(status.METHOD_KINDS))
         for kind, key in expect.items():
             self.assertEqual(status.answer_key(kind), key, kind)
@@ -198,6 +198,124 @@ def fixture_root() -> Path:
     con.close()
     return root
 
+
+class ALabelNeverCountsAsACheck(unittest.TestCase):
+    """T80: a checked or explained row points at the record that makes it so; `evidence_gap` names what is missing."""
+
+    EV = {"definitions": {"APLD": {"cost_lines": {"by": "Kenny Geiler"}}}, "rules": {"definition_note": "info", "jump": "warn", "part_year": "info", "quarters_tie": "block"},
+          "resolutions": {"r1": {"id": "r1", "by": "Kenny Geiler"}, "r2": {"id": "r2", "by": "Replication run (Claude), for Kenny to confirm"}}, "person_ids": {"r1"},
+          "asset_types": {"MSFT": {"Servers": {"standard_type": "us-gaap:ComputerEquipmentMember", "by": "a model"},
+                                   "Land": {"standard_type": "us-gaap:LandMember", "by": "a model", "confirmed_by": "Kenny Geiler"}}},
+          "text": lambda tid: {"T1": status.norm("We expect capital expenditures of about $80 billion.")}.get(tid)}
+
+    def gap(self, st, ref=None):
+        return status.evidence_gap({**st, "ref": ref or {}}, self.EV)
+
+    def test_backed_rows_pass(self):
+        self.assertIsNone(self.gap(status.of_value({"label": "agree"}), {"reference": 5}))
+        self.assertIsNone(self.gap(status.state({"check": "rule:quarters_tie"}), {"reference": 5}))  # a tie that holds carries its numbers
+        self.assertIsNone(self.gap(status.state({"check": "quote"}), {"quote": "capital  expenditures of about $80 billion", "text_id": "T1"}))
+        self.assertIsNone(self.gap(status.state({"check": "located"}), {"income_tables": "t1", "cash_flow_tables": "t2"}))
+        self.assertIsNone(self.gap(status.state({"check": "gate"}), {"blocks": 0}))
+        self.assertIsNone(self.gap(status.of_mapping(self.EV["asset_types"]["MSFT"]["Land"]), {"ticker": "MSFT", "name": "Land"}))
+        self.assertIsNone(self.gap(status.of_value({"field": "opex", "label": "definition_gap"}), {"ticker": "APLD"}))
+        self.assertIsNone(self.gap(status.state({"rule": "part_year"})))
+        self.assertIsNone(self.gap(status.state({"rule": "definition_note", "severity": "info"})))
+        self.assertIsNone(self.gap(status.state({"resolution": {"id": "r1", "state": "accept", "reason": "right"}})))
+        self.assertIsNone(self.gap(status.of_value({"label": "not_reported"}), {"reference": None}))
+        self.assertIsNone(self.gap(status.of_fact({"label": "no_reference"}), {"reference": None}))
+        self.assertIsNone(self.gap(status.state({"rule": "jump", "severity": "warn"})))  # open claims nothing
+        self.assertIsNone(self.gap(status.state({"rule": "sign", "severity": "block"})))
+
+    def test_planted_bare_labels_fail(self):
+        # (a) not_reported while XBRL holds a value, and a label nobody checked against XBRL
+        self.assertIn("XBRL holds 123", self.gap(status.of_value({"label": "not_reported"}), {"reference": 123}))
+        self.assertIn("nobody asked XBRL", self.gap(status.of_value({"label": "not_reported"})))
+        self.assertIn("XBRL holds", self.gap(status.of_fact({"label": "no_reference"}), {"reference": 7}))
+        # (b) a mapping with no confirmed_by forced to checked, and one whose member is not the entry's
+        forced = status.state({"check": "mapping", "mapping_to": "us-gaap:ComputerEquipmentMember"})
+        self.assertIn("no confirmed_by", self.gap(forced, {"ticker": "MSFT", "name": "Servers"}))
+        self.assertIn("maps to us-gaap:LandMember", self.gap({**forced, "by": "mapping:us-gaap:BuildingsMember"}, {"ticker": "MSFT", "name": "Land"}))
+        self.assertIn("no entry", self.gap(forced, {"ticker": "MSFT", "name": "Racks"}))
+        # (c) a resolution id that does not exist, and one a run wrote
+        self.assertIn("no such resolution", self.gap(status.state({"resolution": {"id": "nope", "state": "accept", "reason": "ok"}})))
+        self.assertIn("not a person", self.gap(status.state({"resolution": {"id": "r2", "state": "explain", "reason": "ok"}})))
+        # and the rest: a definition the ticker lacks, a rule not on file, a warn rule forced to explain, a bare label,
+        # an answer key with no value, a quote not in its text, a gate nobody counted, no `by` at all
+        self.assertIn("no such definition", self.gap(status.of_value({"field": "opex", "label": "definition_gap"}), {"ticker": "MSFT"}))
+        self.assertIn("no such rule", self.gap(status.state({"rule": "made_up", "severity": "info"})))
+        self.assertIn("explains nothing", self.gap({"state": "explained", "by": "rule:jump"}))
+        self.assertIn("bare label", self.gap({"state": "explained", "by": "label:to_confirm"}))
+        self.assertIn("bare label", self.gap({"state": "explained", "by": "label:not_extracted"}))
+        self.assertIn("no answer-key value", self.gap(status.of_value({"label": "agree"}), {"reference": None}))
+        self.assertIn("not found", self.gap(status.state({"check": "quote"}), {"quote": "capital expenditures of about $90 billion", "text_id": "T1"}))
+        self.assertIn("no text", self.gap(status.state({"check": "quote"}), {"quote": "x", "text_id": "T9"}))
+        self.assertIn("no income", self.gap(status.state({"check": "located"}), {"income_tables": "t1", "cash_flow_tables": ""}))
+        self.assertIn("gate", self.gap(status.state({"check": "gate"})))
+        self.assertEqual(self.gap({"state": "checked", "by": ""}), "names no evidence")
+
+
+WALK = """
+import json, sys, duckdb
+from ledger import proof, resolutions, status, store
+plant = sys.argv[1]
+if plant == "not_reported":  # (a) blank a value XBRL holds and label it not_reported
+    con = duckdb.connect(str(store.DEFAULT_DB))
+    t, f, p = con.execute(\"select v.ticker, v.field, v.period from \\"values\\" v join reference_values r using (ticker, field, period) where v.label = 'agree' and v.ticker = 'MSFT' order by 2, 3 limit 1\").fetchone()
+    con.execute(\"update \\"values\\" set label = 'not_reported', value = null where ticker = ? and field = ? and period = ?\", [t, f, p])
+    con.close()
+if plant == "mapping":  # (b) every entry forced to checked, confirmed_by or not
+    status.of_mapping = lambda e: status.state({"check": "mapping", "mapping_to": e["standard_type"]}) if (e or {}).get("standard_type") else status.state({})
+if plant == "resolution":  # (c) a resolution id that is not on file, on a fact the label explained
+    con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
+    f, d, p = con.execute("select field, coalesce(dimension, ''), period from facts where ticker = 'MSFT' and label = 'no_reference' order by 1, 2, 3 limit 1").fetchone()
+    con.close()
+    real = resolutions.by_row
+    resolutions.by_row = lambda *a, **k: {**real(*a, **k), ("facts", "MSFT", f, d, p, ""): {"id": "not-on-file", "state": "accept", "status": "accepted", "by": "Kenny Geiler", "at": "", "reason": "planted"}}
+con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
+cos = [proof.company(con, t) for t in proof.PROVEN]
+print(json.dumps({"gaps": proof.unevidenced(con, companies=cos),
+                  "walked": sum(1 for c in cos for s in c["stages"].values() for i in s["all"] if i["state"] in ("checked", "explained")),
+                  "unconfirmed": sum(1 for c in cos for i in c["stages"]["mapping"]["all"] if not ((proof.asset_types().get(c["ticker"]) or {}).get(i["name"]) or {}).get("confirmed_by")
+                                     and ((proof.asset_types().get(c["ticker"]) or {}).get(i["name"]) or {}).get("standard_type"))}, default=str))
+"""
+
+
+@unittest.skipIf(not (golden.FIXTURES / "seed.json").exists(), "no fixtures")
+class EveryCheckedRowNamesItsEvidence(unittest.TestCase):
+    """T80 on the six: every checked or explained row of the frozen fixtures, through proof.company and status.state,
+    points at a record that exists; planting a bare label turns the walk red."""
+
+    def walk(self, plant: str) -> dict:
+        root = fixture_root()
+        try:
+            out = subprocess.run([sys.executable, "-c", WALK, plant], cwd=store.ROOT, env={**os.environ, "LEDGER_ROOT": str(root)}, capture_output=True, text=True)
+            self.assertEqual(out.returncode, 0, out.stderr[-2000:])
+            return json.loads(out.stdout.strip().splitlines()[-1])
+        finally:
+            shutil.rmtree(root, ignore_errors=True)
+
+    def test_the_six_as_they_are(self):
+        r = self.walk("none")
+        self.assertGreater(r["walked"], 800)  # the walk saw the rows, not an empty board
+        self.assertEqual(r["gaps"], [], "checked or explained rows with no evidence on file")
+
+    def test_planted_not_reported_with_an_xbrl_value(self):
+        gaps = self.walk("not_reported")["gaps"]
+        self.assertEqual(len(gaps), 1, gaps)
+        self.assertEqual((gaps[0]["ticker"], gaps[0]["stage"], gaps[0]["by"]), ("MSFT", "values", "label:not_reported"))
+        self.assertIn("XBRL holds", gaps[0]["gap"])
+
+    def test_planted_mapping_without_confirmed_by_forced_to_checked(self):
+        r = self.walk("mapping")
+        self.assertGreater(r["unconfirmed"], 0)
+        self.assertEqual(len(r["gaps"]), r["unconfirmed"], r["gaps"][:3])
+        self.assertTrue(all(g["stage"] == "mapping" and g["gap"].endswith("has no confirmed_by") for g in r["gaps"]), r["gaps"][:3])
+
+    def test_planted_resolution_that_does_not_exist(self):
+        gaps = self.walk("resolution")["gaps"]
+        self.assertEqual([(g["ticker"], g["stage"], g["by"]) for g in gaps], [("MSFT", "facts", "resolution:not-on-file")], gaps)
+        self.assertIn("no such resolution", gaps[0]["gap"])
 
 @unittest.skipIf(not (golden.FIXTURES / "seed.json").exists(), "no fixtures")
 class ProofAgreesWithReconcile(unittest.TestCase):

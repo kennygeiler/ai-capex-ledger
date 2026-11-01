@@ -25,11 +25,36 @@ which; Proof, Reconcile, the trail and the Release gates all read it, so no two 
   XBRL reference has a value (`not_extracted`, T65, type 73) is open: the label names the cause (the filing tags a value
   the reader did not extract), it explains nothing; `not_reported` explains a blank only when XBRL tags nothing either.
 
+**A label never counts as a check (T80, `status.evidence_gap`, `proof.unevidenced`).** A checked or explained row must
+point at the record that makes it so; each Proof item carries `ref`, that record, and the walk fails on any item whose
+`by` names nothing, or names something not on file:
+
+| `by` | the record it must point at |
+|---|---|
+| `xbrl`, `esef:`, `source:`, `actual:`, `rule:<id>_tie` (checked) | an answer-key value on the row (`ref.reference` not null) |
+| `quote` | the quote found, normalised as the loaders do, in the text its `text_id` names |
+| `located` | the filing's income and cash-flow tables both named |
+| `gate` | the release stage holds no block item (the stage's one item when nothing blocks; it said `located` before T80) |
+| `mapping:<member>` | the entry in `taxonomy/asset_types.yaml` with that member and a non-empty `confirmed_by` |
+| `definition:<name>` | an entry by that name under the ticker in `definitions/companies.yaml` |
+| `rule:<id>` (explained) | a rule in `rules/*.yaml` of info severity, or a guard in `proof.GUARDS` |
+| `resolution:<id>` | a line with that id in `decisions/resolutions.jsonl` whose author is a person: `author_kind` person when the line has the field (T69), else a `by` that names no model, agent or run (`mapper.NOT_A_PERSON`) and no "to confirm" |
+| `label:not_reported`, `label:no_reference` | XBRL looked up for that row and holding no value (`reference_values` for a value, the fact's `reference` for a fact) |
+
+Which labels explain, decided: only `not_reported` and `no_reference`, and only with XBRL looked up and empty. That is
+reconcile's own definition (`ledger/reconcile.py`): `not_reported` means the 10-K has no line and XBRL tags no value
+either, `no_reference` means XBRL has no value to compare. A label with an XBRL value behind it is a check that did not
+happen, so it is a gap; a label whose row never asked XBRL (no `reference` on the row) is a gap too. Every other label
+(`not_extracted`, `to_confirm`, anything new) names a cause and explains nothing. One known way reconcile can still write
+`not_reported` over an XBRL value: a negative computed opex (operating income holding fair-value gains, type 65). No
+row of the six has it today; if one appears, the walk fails on it, which is the point. On the six today the walk finds
+no gap (`tests/test_status.py`, on the golden fixtures; the 47 mappings are open since T63, so none is checked).
+
 Precedence when more than one applies: blocked, then checked, then a person's fix (open), then explained, then open. A
 warn-severity finding (a jump, a renamed line, an outlier) has no state of its own: it takes the worst state of the
 rows it fired on, so a jump on a value XBRL confirms is checked, on a value a definition covers is explained, on an
 unresolved value is open. Every item carries `by`: `xbrl`, `esef:<tag>`, `source:<doc>`, `actual:<period>`, `quote`,
-`located`, `mapping:<member>`, `rule:<id>`, `definition:<name>`, `label:<label>` or `resolution:<id>`.
+`located`, `gate`, `mapping:<member>`, `rule:<id>`, `definition:<name>`, `label:<label>` or `resolution:<id>`.
 
 ### The four answer keys (`status.ANSWER_KEYS`, `status.answer_key(by)`)
 

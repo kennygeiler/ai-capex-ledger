@@ -664,7 +664,7 @@ are listed at the end.
 
 ### K1: before the call
 
-- **T80 A label never counts as a check.** [root cause] Every row whose state is checked or explained points at the
+- **T80 A label never counts as a check.** [root cause] *Done 2 Nov 2026 (branch `t80-label-never-a-check`): every proof item carries `ref`, the record its check rests on; `status.evidence_gap` says why a checked or explained item is not backed, `proof.unevidenced` walks the proven set; `tests/test_status.py` walks the six on the golden fixtures (0 gaps over 828 checked or explained rows of 875) and plants a `not_reported` with an XBRL value, a mapping with no `confirmed_by` forced to checked, and a resolution id not on file, each red. One real mislabel fixed: the release stage's gate item said `by: located` with no filing behind it, now `by: gate`. Resolution authorship reads `author_kind` when present, else the `mapper.NOT_A_PERSON` name check and "to confirm" (T69 makes it a field).* Every row whose state is checked or explained points at the
   evidence that makes it so: an answer key value, a quote verified against its text, a person-confirmed mapping, a
   definition or rule by id, a resolution by id with `author_kind` person. A test walks every row of the six through
   `status.state` and fails on any checked or explained row whose `by` names no evidence record, or names one that does

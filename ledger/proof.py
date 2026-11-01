@@ -31,9 +31,12 @@ def _has(con, name):
     return bool(con.execute("select count(*) from information_schema.tables where table_name = ?", [name]).fetchone()[0])
 
 
-def _item(what: str, st: dict, detail: str = "", needs: str = "") -> dict:
-    """One trail item. `key` is the strongest answer key that vouches for it (status.KEY_GRADE), None when none does."""
-    return {"what": what, "state": st["state"], "by": st["by"], "key": st.get("key"), "keys": st.get("keys") or [], "reason": st["reason"], "detail": detail, "needs": needs if status.is_open(st) else ""}
+def _item(what: str, st: dict, detail: str = "", needs: str = "", ref: dict | None = None) -> dict:
+    """One trail item. `key` is the strongest answer key that vouches for it (status.KEY_GRADE), None when none does.
+    `ref` is the record its check rests on (T80, status.evidence_gap): given here, or carried on the state (a warn
+    finding takes the state, and the record, of the row it fired on)."""
+    return {"what": what, "state": st["state"], "by": st["by"], "key": st.get("key"), "keys": st.get("keys") or [], "reason": st["reason"], "detail": detail,
+            "needs": needs if status.is_open(st) else "", "ref": ref if ref is not None else st.get("ref") or {}}
 
 
 KEY_GRADE = [{"id": k, "label": status.KEY_LABEL[k], "why": status.KEY_WHY[k]} for k in status.KEY_GRADE]  # the four, strongest first, for the pages
@@ -64,7 +67,7 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None)
     for d in docs:
         what = f"{d['form']} {d['period']}"
         if (d["income_tables"] or "") and (d["cash_flow_tables"] or ""):
-            items.append(_item(what, status.state({"check": "located"}), f"{d['table_count']} tables parsed"))
+            items.append(_item(what, status.state({"check": "located"}), f"{d['table_count']} tables parsed", ref={"accession": d["accession"], "income_tables": d["income_tables"], "cash_flow_tables": d["cash_flow_tables"]}))
         elif amendment_without_statements(d):
             items.append(_item(what, status.state({"rule": "amendment_without_statements", "reason": "an amendment without financial statements (Part III only)"}), f"{d['table_count']} tables parsed"))
         else:
@@ -76,10 +79,12 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None)
 
     # values: agree with XBRL, or explained by a definition, a label or a decision; a warn finding takes the state of its rows
     vals = _rows(con, 'select field, period, value, label, basis, extraction_ids from "values" where ticker = ? order by field, period', t)
+    xref = {(r["field"], r["period"]): r["value"] for r in _rows(con, "select field, period, value from reference_values where ticker = ?", t)} if _has(con, "reference_values") else {}
     vstate = {}
     items = []
     for v in vals:
-        st = status.of_value(v, resolutions.resolution_of(idx, "values", t, v["field"], "", v["period"]))
+        st = {**status.of_value(v, resolutions.resolution_of(idx, "values", t, v["field"], "", v["period"])),
+              "ref": {"ticker": t, "field": v["field"], "period": v["period"], "value": v["value"], "reference": xref.get((v["field"], v["period"]))}}
         vstate[(v["field"], v["period"])] = st
         items.append(_item(f"{v['field']} {v['period']}" + (f": {v['label']}" if status.is_open(st) else ""), st, v["basis"] if st["by"].startswith("definition") else f"value {v['value']}" if status.is_open(st) else "", NEEDS["values"]))
     decided = {e["exception_id"] for e in exc} - {e["exception_id"] for e in open_items(exc, decisions())}
@@ -99,11 +104,12 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None)
         where = f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " ")
         res = resolutions.resolution_of(idx, "facts", t, f["field"], f["dimension"] or "", f["period"])
         st = status.of_fact(f, res, _restated(con, t, f) if f["label"] == "unresolved" else None)
-        items.append(_item(where + (": differs from the tag" if status.is_open(st) else ""), st, f"cell {f['value']}, tag {f['reference']}" if status.is_open(st) else "", NEEDS["facts"]))
+        items.append(_item(where + (": differs from the tag" if status.is_open(st) else ""), st, f"cell {f['value']}, tag {f['reference']}" if status.is_open(st) else "", NEEDS["facts"],
+                           ref={"ticker": t, "field": f["field"], "dimension": f["dimension"] or "", "period": f["period"], "value": f["value"], "reference": f["reference"]}))
     stages["facts"] = _stage(items)
 
     # statements: every quote verified at load; part-year and program statements carry their guard
-    stmts = _rows(con, "select field, period, kind, scope, class, quote from ai_statements where ticker = ?", t) if _has(con, "ai_statements") else []
+    stmts = _rows(con, "select field, period, kind, scope, class, quote, text_id from ai_statements where ticker = ?", t) if _has(con, "ai_statements") else []
     items = []
     for s in stmts:
         what = f"{s['field']} {s['period']} {s['kind']}"
@@ -112,7 +118,7 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None)
         elif s["kind"] == "outlook" and program_words(s["quote"]):
             items.append(_item(what, status.state({"rule": "program_words", "reason": "a program, not a year's guidance"}), s["quote"][:160]))
         else:
-            items.append(_item(what, status.state({"check": "quote"})))
+            items.append(_item(what, status.state({"check": "quote"}), ref={"quote": s["quote"], "text_id": s["text_id"]}))
     stages["statements"] = _stage(items)
 
     # mapping: every reported asset type mapped to a standard us-gaap member (taxonomy/asset_types.yaml) and confirmed by
@@ -123,9 +129,9 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None)
     items = []
     for name in sorted({r["reported_name"] for r in derived}):
         e = entries.get(name)
-        st = status.of_mapping(e)
+        st = {**status.of_mapping(e), "ref": {"ticker": t, "name": name}}
         if st["state"] == "checked":
-            it = _item(name, st, f"by {e.get('by')}, confirmed by {e['confirmed_by']} {e.get('confirmed_at') or ''}".strip())
+            it = _item(name, st, f"by {e.get('by')}, confirmed by {e.get('confirmed_by')} {e.get('confirmed_at') or ''}".strip())
         elif e and e.get("standard_type"):
             it = _item(f"{name}: {e['standard_type']}, to confirm", st, f"proposed by {e.get('by')}; Reconcile, asset types: Approve, Edit or Reject", NEEDS["mapping_confirm"])
         else:
@@ -143,14 +149,14 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None)
         elif r["program"]:
             items.append(_item(what, status.state({"rule": "program_words", "reason": "a program, not a year's guidance"}), (r["quote"] or "")[:160]))
         else:
-            items.append(_item(what, status.state({"check": "quote"})))
+            items.append(_item(what, status.state({"check": "quote"}), ref={"quote": r["quote"], "text_id": r.get("source")}))
     stages["planned"] = _stage(items, extra={"guidance": sum(r["category"] == "guidance" for r in planned), "projects": sum(r["category"] == "project" for r in planned)})
 
     # release: blocks from decisions and block-severity rules; the company's gate is one item
     items = [_item(f"{e['rule_id']}: {e['field'] or ''} {e['period'] or ''}".strip(), status.of_exception(e), e["message"][:200], NEEDS["release"])
              for e in exc if e["severity"] == "block" and e["rule_id"] not in ("extraction_failed", "note_extraction_failed") and e["exception_id"] not in decided]
     items += [_item(f"blocks: {' '.join(k[2:5]).strip()}", status.state({"resolution": r}), r["reason"][:200], NEEDS["decision"]) for k, r in idx.items() if k[1] == t and r["state"] == "blocks"]
-    stages["release"] = _stage(items or [_item("the release gate", status.state({"check": "located", "reason": "no block rule fired and no decision blocks"}))])
+    stages["release"] = _stage(items or [_item("the release gate", status.state({"check": "gate"}), ref={"blocks": len(items)})])
 
     open_total = sum(len(s["open"]) for s in stages.values())
     keys = keys_of([i for s in stages.values() for i in s["all"]])
@@ -227,3 +233,42 @@ def rules(con) -> dict:
             for o in st["open"]:
                 missing.setdefault(o["needs"], []).append({"ticker": c["ticker"], "stage": s, **o})
     return {"rules": out, "open_by_need": [{"needs": k, "items": v} for k, v in sorted(missing.items(), key=lambda kv: -len(kv[1]))], "open": sum(len(v) for v in missing.values())}
+
+
+# ── T80: a label never counts as a check ────────────────────────────────────────────────────────────────────────────
+def person_wrote(line: dict) -> bool:
+    """A resolution a person wrote: `author_kind` says person when the line carries the field (T69); before it, the
+    line's `by` names nobody that is a model, an agent or a run (mapper.NOT_A_PERSON, the name check `confirmed_by`
+    passes) and neither `by` nor `reason` leaves it "to confirm" (resolutions.unconfirmed)."""
+    from .mapper import NOT_A_PERSON
+    if "author_kind" in line:
+        return line["author_kind"] == "person"
+    by = str(line.get("by") or "").strip()
+    return bool(by) and not NOT_A_PERSON.search(by) and not resolutions.TO_CONFIRM.search(f"{by} {line.get('reason') or ''}")
+
+
+def evidence(con, defs: dict | None = None, log: list[dict] | None = None, types: dict | None = None) -> dict:
+    """What is on file, for status.evidence_gap: the definitions, the rules (rules/*.yaml with their severity, the guards
+    as info), the resolutions by id with the ids a person wrote, the asset-type entries, and the texts by id (read once,
+    normalised)."""
+    from .rules import load as load_rules
+    lines = {r["id"]: r for r in (resolutions.load() if log is None else log) if r.get("id")}
+    paths = {r["text_id"]: r["path"] for r in _rows(con, "select text_id, path from texts")} if _has(con, "texts") else {}
+    cache: dict = {}
+
+    def text(text_id):
+        if text_id not in cache:
+            p = paths.get(text_id) and store.ROOT / paths[text_id]
+            cache[text_id] = status.norm(p.read_text()) if p and p.exists() else None
+        return cache[text_id]
+    return {"definitions": definitions.load() if defs is None else defs, "rules": {r["id"]: r["severity"] for r in load_rules()} | {g["id"]: "info" for g in GUARDS},
+            "resolutions": lines, "person_ids": {i for i, r in lines.items() if person_wrote(r)}, "asset_types": asset_types() if types is None else types, "text": text}
+
+
+def unevidenced(con, tickers=None, companies: list[dict] | None = None, ev: dict | None = None) -> list[dict]:
+    """Every checked or explained item of `tickers` (the proven set by default) whose `by` names no evidence record,
+    or one that does not exist (status.evidence_gap): [{ticker, stage, what, state, by, gap}]. Empty is the rule held."""
+    ev = evidence(con) if ev is None else ev
+    cos = companies if companies is not None else [company(con, t) for t in (tickers or PROVEN)]
+    return [{"ticker": c["ticker"], "stage": s, "what": i["what"], "state": i["state"], "by": i["by"], "gap": gap}
+            for c in cos for s, st in c["stages"].items() for i in st["all"] if (gap := status.evidence_gap(i, ev))]
