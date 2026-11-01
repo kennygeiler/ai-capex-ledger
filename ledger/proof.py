@@ -59,10 +59,21 @@ def keys_of(items: list[dict]) -> dict:
     return out
 
 
-def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None) -> dict:
+def rules_on_file() -> tuple[list[dict], str | None]:
+    """(the rules in rules/*.yaml, None), or ([], why) when a file does not load (a hand edit that breaks a check): Proof
+    shows the error as an open item instead of failing, and nothing is explained by a rule until it is fixed."""
+    from .rules import load as load_rules
+    try:
+        return load_rules(), None
+    except (ValueError, OSError) as e:
+        return [], str(e)
+
+
+def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None, rset: tuple | None = None) -> dict:
     """One company's proof trail: per stage, every item with its state from `status.state`, counts, and the open items
-    with what they need."""
+    with what they need. `rset` is rules_on_file(), read once per request by the caller (board, rules, unevidenced)."""
     t = ticker.upper()
+    rset = rules_on_file() if rset is None else rset
     idx = resolutions.by_row() if idx is None else idx
     defs = definitions.load() if defs is None else defs
     stages = {}
@@ -96,7 +107,7 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None)
         vstate[(v["field"], v["period"])] = st
         items.append(_item(f"{v['field']} {v['period']}" + (f": {v['label']}" if status.is_open(st) else ""), st, v["basis"] if st["by"].startswith("definition") else f"value {v['value']}" if status.is_open(st) else "", NEEDS["values"]))
     decided = {e["exception_id"] for e in exc} - {e["exception_id"] for e in open_items(exc, decisions())}
-    xp = explained(exc) if any(e["severity"] == "info" for e in exc) else {}  # T36: a person's explanation written as a rule, by the finding it names
+    xp = explained(exc, rset[0]) if any(e["severity"] == "info" for e in exc) else {}  # T36: a person's explanation written as a rule, by the finding it names
     for e in exc:
         if e["severity"] != "warn" or e["exception_id"] in decided or e["rule_id"] in FAILURES:
             continue
@@ -167,6 +178,8 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None)
     items = [_item(f"{e['rule_id']}: {e['field'] or ''} {e['period'] or ''}".strip(), status.of_exception(e), e["message"][:200], NEEDS["release"])
              for e in exc if e["severity"] == "block" and e["rule_id"] not in FAILURES and e["exception_id"] not in decided]
     items += [_item(f"blocks: {' '.join(k[2:5]).strip()}", status.state({"resolution": r}), r["reason"][:200], NEEDS["decision"]) for k, r in idx.items() if k[1] == t and r["state"] == "blocks"]
+    if rset[1]:  # a rule file that does not load: open, never a crash, and no rule explains anything until it is fixed
+        items.append(_item("rules/ does not load", status.state({"reason": rset[1][:200]}), rset[1][:200], "a rule file that passes rules.load"))
     stages["release"] = _stage(items or [_item("the release gate", status.state({"check": "gate"}), ref={"stage": "release", "blocks": len(items)})])
 
     open_total = sum(len(s["open"]) for s in stages.values())
@@ -215,8 +228,8 @@ def _restated(con, ticker: str, f: dict) -> str | None:
 
 def board(con) -> dict:
     """The Proof home: every company in scope (config.SCOPE) with its stage counts. The database keeps every company; the board shows the scope (T2)."""
-    idx, defs = resolutions.by_row(), definitions.load()
-    proven = [company(con, t, idx, defs) for t in SCOPE]
+    idx, defs, rset = resolutions.by_row(), definitions.load(), rules_on_file()
+    proven = [company(con, t, idx, defs, rset) for t in SCOPE]
     keys = {k: sum(c["keys"][k] for c in proven) for k in (*status.KEY_GRADE, "none", "rows")}  # per company on each row; the total over the scope here
     return {"stages": [{"id": s, "label": STAGE_LABEL[s]} for s in STAGES], "proven": proven, "scope": list(SCOPE), "open": sum(c["open"] for c in proven),
             "keys": keys, "key_grade": KEY_GRADE}
@@ -233,14 +246,13 @@ GUARDS = [
 
 def rules(con) -> dict:
     """Every rule, guard and definition with what it closed in scope, and the open items by what is missing."""
-    from .rules import load as load_rules
-    idx, defs = resolutions.by_row(), definitions.load()
-    cos = [company(con, t, idx, defs) for t in SCOPE]
+    idx, defs, rset = resolutions.by_row(), definitions.load(), rules_on_file()
+    cos = [company(con, t, idx, defs, rset) for t in SCOPE]
     exc = _rows(con, "select rule_id, severity, count(*) as n from exceptions where ticker in (select unnest(?)) group by 1, 2", SCOPE)
     fired = {}
     for e in exc:
         fired[e["rule_id"]] = fired.get(e["rule_id"], 0) + e["n"]
-    out = [{"id": r["id"], "kind": "rule", "severity": r["severity"], "what": r["description"], "fired": fired.get(r["id"], 0)} for r in load_rules()]
+    out = [{"id": r["id"], "kind": "rule", "severity": r["severity"], "what": r["description"], "fired": fired.get(r["id"], 0)} for r in rset[0]]
     closed = {g["id"]: sum(1 for c in cos for s in c["stages"].values() for x in s["all"] if x["by"] == f"rule:{g['id']}") for g in GUARDS}
     closed["asset_type_mapping"] = sum(c["stages"]["mapping"]["checked"] for c in cos)
     out += [{**g, "fired": closed.get(g["id"], 0)} for g in GUARDS]
@@ -253,7 +265,7 @@ def rules(con) -> dict:
         for s, st in c["stages"].items():
             for o in st["open"]:
                 missing.setdefault(o["needs"], []).append({"ticker": c["ticker"], "stage": s, **o})
-    return {"rules": out, "open_by_need": [{"needs": k, "items": v} for k, v in sorted(missing.items(), key=lambda kv: -len(kv[1]))], "open": sum(len(v) for v in missing.values())}
+    return {"rules": out, "rules_error": rset[1], "open_by_need": [{"needs": k, "items": v} for k, v in sorted(missing.items(), key=lambda kv: -len(kv[1]))], "open": sum(len(v) for v in missing.values())}
 
 
 # ── T80: a label never counts as a check ────────────────────────────────────────────────────────────────────────────
@@ -279,8 +291,8 @@ def evidence(con, defs: dict | None = None, log: list[dict] | None = None, types
     """What is on file, for status.evidence_gap: the definitions, the rules with their severity (rule_severities), the
     resolutions by id with the ids a person wrote, the asset-type entries, the texts by id (read once, normalised) and
     the quotes of the statements and planned rows (the items carry ids, not quotes)."""
-    from .rules import load as load_rules
     tickers = list(tickers or PROVEN)
+    rset = rules_on_file()
     lines = {r["id"]: r for r in (resolutions.load() if log is None else log) if r.get("id")}
     paths = {r["text_id"]: r["path"] for r in _rows(con, "select text_id, path from texts")} if _has(con, "texts") else {}
     stmts = {r["statement_id"]: r["quote"] for r in _rows(con, "select statement_id, quote from ai_statements where ticker in (select unnest(?))", tickers)} if _has(con, "ai_statements") else {}
@@ -301,7 +313,8 @@ def evidence(con, defs: dict | None = None, log: list[dict] | None = None, types
         if ref.get("statement_id"):
             return [stmts.get(ref["statement_id"])]
         return planned.get((ref.get("ticker"), ref.get("text_id"), ref.get("category"), ref.get("fiscal_year"), ref.get("reported_name"))) or []
-    return {"definitions": definitions.load() if defs is None else defs, "rules": rule_severities(load_rules()), "resolutions": lines,
+    return {"definitions": definitions.load() if defs is None else defs, "rules": rule_severities(rset[0]), "resolutions": lines,
+            "explains_by": {r["id"]: r.get("by") for r in rset[0] if r["check"] == "explains"},
             "person_ids": {i for i, r in lines.items() if person_wrote(r)}, "asset_types": asset_types() if types is None else types, "text": text, "quote": quote}
 
 
@@ -313,8 +326,8 @@ def unevidenced(con, tickers=None, companies: list[dict] | None = None, ev: dict
     defs, types = definitions.load(), asset_types()
     ev = evidence(con, defs=defs, types=types, tickers=tickers) if ev is None else ev
     if companies is None:
-        idx = resolutions.by_row()
-        companies = [company(con, t, idx, defs) for t in tickers]
+        idx, rset = resolutions.by_row(), rules_on_file()
+        companies = [company(con, t, idx, defs, rset) for t in tickers]
     return [{"ticker": c["ticker"], "stage": s, "what": i["what"], "state": i["state"], "by": i["by"], "gap": gap}
             for c in companies for s, st in c["stages"].items() for i in st["all"] if (gap := status.evidence_gap(i, ev))]
 

@@ -384,6 +384,10 @@ def _outlier(ctx, p):
 # ── judgement encoded as a rule (T36) ──────────────────────────────────────────────────────────────────────────────
 EXPLAIN_CONDITIONS = ("row_labels",)  # the closed vocabulary of what an `explains` rule may test; each names rows exactly
 EXPLAIN_PARAMS = {"rule", "field", "condition"}
+# The warn rules an `explains` rule may target: only those whose finding is about which line was read (a label-driven
+# finding). A value-driven rule (jump, outlier_vs_own_history, coverage) is never explainable once for every year: one
+# explanation would close every future real spike. Widen this list on purpose, with a test.
+EXPLAINABLE = ("row_label_switch",)
 
 
 def label_key(s: str) -> str:
@@ -395,16 +399,17 @@ def lines_read(extractions: list[dict], ticker: str, field_: str) -> list[str]:
     """Every row label the company's `field_` was read from, across its filings, one per label_key, sorted."""
     out = {}
     for e in extractions:
-        if e["ticker"] == ticker and e["field"] == field_:
-            out.setdefault(label_key(e["row_label"]), e["row_label"].strip())
+        label = (e.get("row_label") or "").strip()
+        if e["ticker"] == ticker and e["field"] == field_ and label:  # a NULL or blank label names nothing
+            out.setdefault(label_key(label), label)
     return sorted(out.values(), key=label_key)
 
 
 @check("explains")
 def _explains(ctx, p):
     """A person's explanation, written once as a rule (T36): every finding of the warn rule `rule` on `field` whose
-    company reads that field only from lines named in `condition.row_labels` (exact labels, compared as label_key) is
-    explained. The finding is re-emitted with the same ticker, field, period and subject, so status joins it to the
+    company reads that field from exactly the lines named in `condition.row_labels` (the same set, compared as
+    label_key; a subset or a superset is a different cause) is explained. The finding is re-emitted with the same ticker, field, period and subject, so status joins it to the
     finding it explains (`explained`). Never a pattern: a label is matched whole, so the rule names its rows exactly."""
     target = next((r for r in ctx.rules if r["id"] == p["rule"]), None)
     if target is None:
@@ -415,27 +420,35 @@ def _explains(ctx, p):
         if f.field != p["field"]:
             continue
         read = {label_key(l) for l in lines_read(ctx.extractions, f.ticker, f.field)}
-        if read and read <= want:
-            out.append(Finding(f.ticker, f"explains {p['rule']}: every line {f.field} is read from ({'; '.join(sorted(read))}) is one the rule names", f.field, f.period, f.subject))
+        if read and read == want:
+            out.append(Finding(f.ticker, f"explains {p['rule']}: {f.field} is read from exactly the lines the rule names ({'; '.join(sorted(read))})", f.field, f.period, f.subject))
     return out
 
 
 def _check_explains(rules: list[dict]) -> None:
     """An `explains` rule names exactly what it matches (T36): info severity; params rule, field and condition and
-    nothing else; `rule` a warn rule on file (an info finding is explained already, a block is never explained by a
-    note); `field` one field; a condition from EXPLAIN_CONDITIONS with a non-empty list of whole labels. Raises ValueError."""
+    nothing else; `rule` a warn rule on file in EXPLAINABLE (an info finding is explained already, a block is never
+    explained by a note, a value-driven finding never once for every year); `field` one field; a condition from
+    EXPLAIN_CONDITIONS with a non-empty list of whole labels; `by` a person (status.is_person) and the same as `owner`.
+    A rule whose params have the explains shape (rule and condition) must have check explains, so a hand edit of
+    `check` cannot keep the shape and drop these checks. Raises ValueError."""
+    from .status import is_person
     by_id = {r["id"]: r for r in rules}
     for r in rules:
         if r["check"] != "explains":
+            if {"rule", "condition"} <= set(r["params"]):
+                raise ValueError(f"{r['id']}.yaml: params name a rule and a condition, the shape of an explains rule, but check is {r['check']!r}")
             continue
         p, name = r["params"], f"{r['id']}.yaml"
+        if not is_person(r.get("by")) or r.get("by") != r.get("owner"):
+            raise ValueError(f"{name}: an explains rule's by must be a person on config.PEOPLE and the same as owner, not {r.get('by')!r}")
         if r["severity"] != "info":
             raise ValueError(f"{name}: an explains rule is info severity")
         if set(p) != EXPLAIN_PARAMS:
             raise ValueError(f"{name}: an explains rule's params are exactly {sorted(EXPLAIN_PARAMS)}")
         t = by_id.get(p["rule"])
-        if not t or t["check"] == "explains" or t["severity"] != "warn":
-            raise ValueError(f"{name}: params.rule must name a warn rule on file, not {p['rule']!r}")
+        if not t or t["check"] == "explains" or t["severity"] != "warn" or p["rule"] not in EXPLAINABLE:
+            raise ValueError(f"{name}: params.rule must name a label-driven warn rule on file ({', '.join(EXPLAINABLE)}), not {p['rule']!r}")
         if not isinstance(p["field"], str) or not p["field"].strip():
             raise ValueError(f"{name}: params.field must name one field")
         c = p["condition"]

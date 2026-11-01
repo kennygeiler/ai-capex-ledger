@@ -35,9 +35,11 @@ def _ext(ticker, acc, label, end, value, field="capex"):
 
 
 def _company(ticker, labels):
-    """Two 10-Ks; capex read from labels[0] in the first and labels[1] in the second (a renamed line). FY2024 disagrees
-    with XBRL (unresolved), so the rename finding is one the SEC's data can't confirm."""
+    """Two 10-Ks; capex read from labels[0] in the first and labels[1] in the second (a renamed line), and labels[2] in an
+    older one when given. FY2024 disagrees with XBRL (unresolved), so the rename finding is one the SEC's data can't confirm."""
     xs = [_ext(ticker, f"{ticker}-1", labels[0], "2023-12-31", 100), _ext(ticker, f"{ticker}-2", labels[1], "2024-12-31", 140)]
+    if len(labels) > 2:
+        xs.append(_ext(ticker, f"{ticker}-0", labels[2], "2022-12-31", 90))
     vals = [{"ticker": ticker, "field": "capex", "period": "FY2023", "period_end": "2023-12-31", "value": 100_000_000, "source": "agent", "method": "reported", "label": "agree", "basis": "as_reported", "first_reported": None, "extraction_ids": xs[0]["extraction_id"], "input_hash": "h1"},
             {"ticker": ticker, "field": "capex", "period": "FY2024", "period_end": "2024-12-31", "value": 140_000_000, "source": "agent", "method": "reported", "label": "unresolved", "basis": "as_reported", "first_reported": None, "extraction_ids": xs[1]["extraction_id"], "input_hash": "h2"}]
     ref = [{"ticker": ticker, "field": "capex", "period": "FY2023", "value": 100_000_000}, {"ticker": ticker, "field": "capex", "period": "FY2024", "value": 150_000_000}]
@@ -88,17 +90,19 @@ class Propagation(unittest.TestCase):
         self.rules_dir = self.tmp / "rules"
         shutil.copytree(REPO_RULES, self.rules_dir)
         self.addCleanup(shutil.rmtree, self.tmp, True)
-        self.con = _db([_company("AAA", [OLD, NEW]), _company("BBB", [OLD.upper(), NEW]), _company("CCC", ["Purchases of intangible assets", NEW])])
+        self.con = _db([_company("AAA", [OLD, NEW]), _company("BBB", [OLD.upper(), NEW]), _company("CCC", ["Purchases of intangible assets", NEW]),
+                        _company("DDD", [OLD, NEW, "Purchases of intangible assets"])])  # DDD: a superset of AAA's lines, a different cause
 
     def states(self, xp):
         idx = {}
-        return {t: workbench._state(self.con, _finding_item(t)[1], idx, xp) for t in ("AAA", "BBB", "CCC")}
+        return {t: workbench._state(self.con, _finding_item(t)[1], idx, xp) for t in ("AAA", "BBB", "CCC", "DDD")}
 
     def test_one_explanation_closes_the_same_cause_on_another_company(self):
-        excs = _run_rules(self.con, ["AAA", "BBB", "CCC"], self.rules_dir)
-        self.assertEqual(sorted(e["ticker"] for e in excs if e["rule_id"] == "row_label_switch"), ["AAA", "BBB", "CCC"])
-        before = self.states(workbench._explained(self.con, ["AAA", "BBB", "CCC"]))
-        self.assertEqual({t: s["state"] for t, s in before.items()}, {"AAA": "open", "BBB": "open", "CCC": "open"})
+        T = ["AAA", "BBB", "CCC", "DDD"]
+        excs = _run_rules(self.con, T, self.rules_dir)
+        self.assertEqual(sorted(e["ticker"] for e in excs if e["rule_id"] == "row_label_switch"), T)
+        before = self.states(workbench._explained(self.con, T))
+        self.assertEqual({t: s["state"] for t, s in before.items()}, dict.fromkeys(T, "open"))
 
         # the person explains AAA's item in Reconcile, then writes it as a rule (the reason prefilled from the explanation)
         key, _ = _finding_item("AAA")
@@ -109,14 +113,14 @@ class Propagation(unittest.TestCase):
         self.assertEqual((written["severity"], written["check"], written["by"], written["why"], written["at"], written["source"]), ("info", "explains", "Kenny Geiler", why, "2026-11-01", key))
 
         # the next rules run: BBB closes with no person; CCC (a different line) stays open; AAA closes by the same rule
-        excs = _run_rules(self.con, ["AAA", "BBB", "CCC"], self.rules_dir)
-        self.assertEqual(sorted(e["ticker"] for e in excs if e["rule_id"] == out["id"]), ["AAA", "BBB"])
+        excs = _run_rules(self.con, T, self.rules_dir)
+        self.assertEqual(sorted(e["ticker"] for e in excs if e["rule_id"] == out["id"]), ["AAA", "BBB"])  # exact set: not CCC, not DDD (a superset)
         on_file = mock.patch.object(rules, "RULES_DIR", self.rules_dir)  # the rules on file are the temporary copy's
         on_file.start()
         self.addCleanup(on_file.stop)
-        after = self.states(workbench._explained(self.con, ["AAA", "BBB", "CCC"]))
+        after = self.states(workbench._explained(self.con, T))
         self.assertEqual((after["BBB"]["state"], after["BBB"]["by"]), ("explained", f"rule:{out['id']}"))
-        self.assertEqual(after["CCC"]["state"], "open")
+        self.assertEqual((after["CCC"]["state"], after["DDD"]["state"]), ("open", "open"))
         self.assertEqual(after["AAA"]["by"], f"rule:{out['id']}")
 
         # Proof reads the same: BBB's finding item on the values stage is explained by the rule, and T80's walk holds
@@ -126,15 +130,20 @@ class Propagation(unittest.TestCase):
             self.assertEqual((item["state"], item["by"]), ("explained", f"rule:{out['id']}"))
             value = next(i for i in co["stages"]["values"]["all"] if i["what"].startswith("capex FY2024"))
             self.assertEqual(value["state"], "open")  # the rule explains the rename, not the XBRL disagreement: one cause per rule
-            ev = {"definitions": {}, "rules": proof.rule_severities(rules.load(self.rules_dir)), "resolutions": {}, "person_ids": set(), "asset_types": {}, "text": lambda t: None, "quote": lambda i: []}
+            rs = rules.load(self.rules_dir)
+            ev = {"definitions": {}, "rules": proof.rule_severities(rs), "explains_by": {r["id"]: r["by"] for r in rs if r["check"] == "explains"},
+                  "resolutions": {}, "person_ids": set(), "asset_types": {}, "text": lambda t: None, "quote": lambda i: []}
             self.assertIsNone(status.evidence_gap(item, ev))
+            self.assertIn("not a person", status.evidence_gap(item, {**ev, "explains_by": {out["id"]: "Claude"}}))  # T80 walk: a rule's by must be a person
 
     def test_precedence_a_rule_never_explains_a_checked_or_blocked_row_or_overrides_a_fix(self):
         e = {"rule_id": "jump", "severity": "warn", "message": "m"}
         self.assertEqual(status.of_exception(e, None, [status.state({"check": "xbrl"})], "explains_x")["state"], "checked")
         self.assertEqual(status.of_exception(e, None, [status.state({"rule": "sign", "severity": "block"})], "explains_x")["state"], "blocked")
         self.assertEqual(status.of_exception(e, {"id": "r1", "state": "fix", "reason": "wrong"}, [], "explains_x")["state"], "open")
-        self.assertEqual(status.of_exception(e, None, [], "explains_x")["by"], "rule:explains_x")
+        self.assertEqual(status.of_exception(e, None, [status.state({})], "explains_x")["by"], "rule:explains_x")
+        self.assertEqual(status.of_exception(e, None, [], "explains_x")["state"], "open")  # a finding on no value row: nothing the person saw, stays open
+        self.assertEqual(status.of_exception(e, None, None, "explains_x")["state"], "open")
 
     def test_the_rule_writer_refuses(self):
         key, _ = _finding_item("AAA")
@@ -149,6 +158,14 @@ class Propagation(unittest.TestCase):
             judgement.write_rule("row_label_switch", "capex", [], "r", "Kenny Geiler", rules_dir=self.rules_dir)
         with self.assertRaises(ValueError):  # an info rule is explained already
             judgement.write_rule("restated", "capex", [OLD], "r", "Kenny Geiler", rules_dir=self.rules_dir)
+        with self.assertRaises(ValueError) as c:  # a value-driven warn rule: one explanation would close every year's real spike
+            judgement.write_rule("jump", "capex", [OLD], "r", "Kenny Geiler", rules_dir=self.rules_dir)
+        self.assertIn("label-driven", str(c.exception))
+        for t, f in (("row_label_switch", "capex/../x"), ("Row_label_switch", "capex"), ("row_label_switch", "")):
+            with self.assertRaises(ValueError):
+                judgement.write_rule(t, f, [OLD], "r", "Kenny Geiler", rules_dir=self.rules_dir)
+        with self.assertRaises(ValueError):
+            judgement.write_rule("row_label_switch", "capex", [OLD], "r", "Kenny Geiler", rules_dir=self.rules_dir, at="yesterday")
         with self.assertRaises(ValueError):
             judgement.encode(self.con, key, "rule", "   ", "Kenny Geiler", rules_dir=self.rules_dir)
         self.assertEqual(sorted(p.name for p in self.rules_dir.iterdir() if not p.name.startswith(".")), [n for n in snap if not n.startswith(".")])
@@ -158,11 +175,23 @@ class Propagation(unittest.TestCase):
         self.assertIn("already", str(c.exception))
 
     def test_the_loader_refuses_a_rule_that_does_not_name_its_rows(self):
-        base = {"id": "explains_bad", "severity": "info", "description": "d", "rationale": "r", "owner": "Kenny Geiler", "check": "explains", "title": "t", "plain": "p", "action": "a"}
+        base = {"id": "explains_bad", "severity": "info", "description": "d", "rationale": "r", "owner": "Kenny Geiler", "by": "Kenny Geiler", "check": "explains", "title": "t", "plain": "p", "action": "a"}
+        good = {"rule": "row_label_switch", "field": "capex", "condition": {"row_labels": [OLD]}}
+        (self.rules_dir / "explains_bad.yaml").write_text(yaml.safe_dump({**base, "params": good}))
+        self.assertIn("explains_bad", [r["id"] for r in rules.load(self.rules_dir)])  # the well-formed one loads
+        for extra, msg in (({"by": "Claude", "owner": "Claude"}, "a person"), ({"by": "Jane Doe", "owner": "Jane Doe"}, "a person"), ({"owner": "Someone Else"}, "same as owner"),
+                           ({"check": "jump"}, "shape of an explains rule"), ({"check": "row_label_switch", "severity": "warn"}, "shape of an explains rule")):
+            (self.rules_dir / "explains_bad.yaml").write_text(yaml.safe_dump({**base, **extra, "params": good}))
+            with self.assertRaises(ValueError) as c:
+                rules.load(self.rules_dir)
+            self.assertIn(msg, str(c.exception))
         for params, msg in (({"rule": "row_label_switch", "field": "capex", "condition": {"row_labels": []}}, "non-empty"),
                             ({"rule": "row_label_switch", "field": "capex", "condition": {"pattern": ".*"}}, "condition"),
                             ({"rule": "row_label_switch", "field": "", "condition": {"row_labels": [OLD]}}, "one field"),
                             ({"rule": "sign", "field": "capex", "condition": {"row_labels": [OLD]}}, "warn rule"),
+                            ({"rule": "jump", "field": "capex", "condition": {"row_labels": [OLD]}}, "label-driven"),
+                            ({"rule": "outlier_vs_own_history", "field": "capex", "condition": {"row_labels": [OLD]}}, "label-driven"),
+                            ({"rule": "coverage", "field": "capex", "condition": {"row_labels": [OLD]}}, "label-driven"),
                             ({"rule": "row_label_switch", "condition": {"row_labels": [OLD]}}, "exactly")):
             (self.rules_dir / "explains_bad.yaml").write_text(yaml.safe_dump({**base, "params": params}))
             with self.assertRaises(ValueError) as c:
@@ -173,6 +202,51 @@ class Propagation(unittest.TestCase):
             rules.load(self.rules_dir)
 
 
+class SafeWrite(unittest.TestCase):
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp())
+        self.rules_dir = self.tmp / "rules"
+        shutil.copytree(REPO_RULES, self.rules_dir)
+        self.addCleanup(shutil.rmtree, self.tmp, True)
+
+    def test_a_rule_set_that_changes_more_than_the_one_rule_is_rolled_back(self):
+        real = rules.load
+        calls = []
+
+        def load(d=None):
+            got = real(d)
+            calls.append(1)
+            return got if len(calls) == 1 else [{**r, "file_sha256": "changed"} for r in got]  # another file moved under the write
+        with mock.patch.object(judgement.rules_mod, "load", side_effect=load):
+            with self.assertRaises(ValueError) as c:
+                judgement.write_rule("row_label_switch", "capex", [OLD, NEW], "renamed", "Kenny Geiler", rules_dir=self.rules_dir)
+        self.assertIn("more than the one new rule", str(c.exception))
+        self.assertEqual(list(self.rules_dir.glob("explains_*")), [])
+        self.assertEqual([p.name for p in self.rules_dir.glob(".*.tmp")], [])
+
+    def test_a_leftover_tmp_file_is_not_a_rule(self):
+        ids = [r["id"] for r in rules.load(self.rules_dir)]
+        (self.rules_dir / ".explains_x.yaml.abc.tmp").write_text("id: broken\n")
+        self.assertEqual([r["id"] for r in rules.load(self.rules_dir)], ids)
+
+    def test_a_null_label_never_crashes(self):
+        self.assertEqual(rules.lines_read([{"ticker": "A", "field": "capex", "row_label": None}, {"ticker": "A", "field": "capex", "row_label": "  "},
+                                           {"ticker": "A", "field": "capex", "row_label": OLD}], "A", "capex"), [OLD])
+
+    def test_a_bad_rule_file_is_an_open_item_on_proof_not_a_crash(self):
+        (self.rules_dir / "explains_bad.yaml").write_text(yaml.safe_dump({"id": "explains_bad", "severity": "info", "description": "d", "rationale": "r", "owner": "Claude", "by": "Claude",
+                                                                          "check": "explains", "title": "t", "plain": "p", "action": "a", "params": {"rule": "row_label_switch", "field": "capex", "condition": {"row_labels": [OLD]}}}))
+        with mock.patch.object(rules, "RULES_DIR", self.rules_dir):
+            rs, err = proof.rules_on_file()
+        self.assertEqual(rs, [])
+        self.assertIn("a person", err)
+        con = _db([_company("AAA", [OLD, NEW])])
+        with mock.patch.object(proof, "asset_types", return_value={}), mock.patch.object(proof, "decisions", return_value=[]):
+            co = proof.company(con, "AAA", idx={}, defs={}, rset=(rs, err))
+        self.assertEqual([(i["what"], i["state"]) for i in co["stages"]["release"]["all"]], [("rules/ does not load", "open")])
+        self.assertFalse(co["proven"])
+
+
 class Definition(unittest.TestCase):
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
@@ -181,14 +255,15 @@ class Definition(unittest.TestCase):
         self.path.write_text(DEF_HEADER)
 
     def test_a_definition_is_written_in_the_files_format(self):
-        out = judgement.write_definition("msft", "opex", "Microsoft's OperatingExpenses tag includes cost of revenue: revenue and operating income agree", "Kenny Geiler", path=self.path, at="2026-11-01")
+        out = judgement.write_definition("msft", "opex", "Microsoft's OperatingExpenses tag includes cost of revenue: revenue and operating income agree", "Kenny Geiler", periods=["FY2024"], path=self.path, at="2026-11-01")
         self.assertEqual((out["ticker"], out["kind"], out["by"], out["at"]), ("MSFT", "opex", "Kenny Geiler", "2026-11-01"))
         text = self.path.read_text()
         self.assertTrue(text.startswith(DEF_HEADER.rstrip("\n")))  # the header and XOM's entry untouched
-        self.assertIn('\nMSFT:\n  opex:\n    why: "Microsoft\'s OperatingExpenses tag includes cost of revenue: revenue and operating income agree"\n    by: Kenny Geiler\n    at: 2026-11-01\n', text)
+        self.assertIn('\nMSFT:\n  opex:\n    periods: [FY2024]\n    why: "Microsoft\'s OperatingExpenses tag includes cost of revenue: revenue and operating income agree"\n    by: Kenny Geiler\n    at: 2026-11-01\n', text)
         d = definitions.load(self.path)
         self.assertEqual((d["MSFT"]["opex"]["by"], str(d["MSFT"]["opex"]["at"])), ("Kenny Geiler", "2026-11-01"))
-        self.assertTrue(definitions.opex_gap_explained(d, "MSFT"))
+        self.assertTrue(definitions.opex_gap_explained(d, "MSFT", "FY2024"))
+        self.assertFalse(definitions.opex_gap_explained(d, "MSFT", "FY2023"))  # T36: only the year the person saw
         # into an existing block, with lines
         judgement.write_definition("XOM", "cost_lines", "ExxonMobil reports no cost-of-revenue total", "Kenny Geiler", lines=["Crude oil purchases", 'Production, "manufacturing"'], path=self.path, at="2026-11-01")
         d = definitions.load(self.path)
@@ -199,22 +274,55 @@ class Definition(unittest.TestCase):
     def test_the_definition_writer_refuses(self):
         cases = ((("MSFT", "opex", "why", "Claude"), "not a person's name"), (("MSFT", "opex", "why", "Jane Doe"), "not on config.PEOPLE"),
                  (("XOM", "revenue", "again", "Kenny Geiler"), "already has a revenue definition"), (("MSFT", "capex", "why", "Kenny Geiler"), "a definition is one of"),
-                 (("MSFT", "opex", "  ", "Kenny Geiler"), "needs a reason"), (("MSFT", "cost_lines", "why", "Kenny Geiler"), "names the lines"))
+                 (("MSFT", "opex", "  ", "Kenny Geiler"), "needs a reason"), (("MSFT", "cost_lines", "why", "Kenny Geiler"), "names the lines"),
+                 (("MSFT", "opex", "why", "Kenny Geiler"), "names the fiscal years"))
         for args, msg in cases:
             with self.assertRaises(ValueError) as c:
-                judgement.write_definition(*args, path=self.path)
+                judgement.write_definition(*args, periods=None if args[1] == "cost_lines" or msg == "names the fiscal years" else ["FY2024"], path=self.path)
             self.assertIn(msg, str(c.exception))
         self.assertEqual(self.path.read_text(), DEF_HEADER)
 
+    def test_a_scoped_definition_leaves_other_years_open(self):
+        """Reconcile applies a revenue definition with periods to those years only; another year's disagreement stays
+        unresolved (open on Proof). An entry without periods (before T36) still applies to every year."""
+        from ledger import reconcile
+        def ext(end, value, acc):
+            return {"extraction_id": f"{acc}|revenue|{end}", "accession": acc, "ticker": "AAA", "field": "revenue", "period_start": f"{end[:4]}-01-01", "period_end": end,
+                    "value": value, "scale": 1_000_000, "filed": f"{int(end[:4]) + 1}-02-01", "row_label": "Sales"}
+        xs = [ext("2023-12-31", 100_000_000, "a1"), ext("2024-12-31", 200_000_000, "a2")]
+        ref = {("revenue", "FY2023"): 110_000_000, ("revenue", "FY2024"): 220_000_000}
+        docs = {"a1": ("s1", "p1"), "a2": ("s2", "p2")}
+        scoped = {"AAA": {"revenue": {"why": "w", "by": "Kenny Geiler", "periods": ["FY2024"]}}}
+        got = {v["period"]: v["label"] for v in reconcile.values_for("AAA", xs, ref, "1231", docs, scoped) if v["field"] == "revenue"}
+        self.assertEqual(got, {"FY2023": "unresolved", "FY2024": "definition_gap"})
+        st = status.of_value({"field": "revenue", "period": "FY2023", "label": got["FY2023"]})
+        self.assertEqual(st["state"], "open")
+        legacy = {"AAA": {"revenue": {"why": "w", "by": "Kenny Geiler"}}}
+        got = {v["period"]: v["label"] for v in reconcile.values_for("AAA", xs, ref, "1231", docs, legacy) if v["field"] == "revenue"}
+        self.assertEqual(got, {"FY2023": "definition_gap", "FY2024": "definition_gap"})
+        bad = self.tmp / "bad.yaml"
+        for periods in ("[]", "[2024]", "[FY2024, all]"):
+            bad.write_text(f"AAA:\n  revenue:\n    periods: {periods}\n    why: w\n    by: Kenny Geiler\n")
+            with self.assertRaises(ValueError):
+                definitions.load(bad)
+
     def test_offers_from_the_item(self):
         con = _db([_company("AAA", [OLD, NEW])])
+        con.execute("insert into exceptions values ('x1', 'xbrl_reconcile', 'block', 'AAA', 'opex', 'FY2024', null, 'agent vs XBRL', 'h')")
         defs, rs = {"XOM": {"revenue": {}}}, rules.load(REPO_RULES)
         o = judgement.offers(con, resolutions.parse_key(_finding_item("AAA")[0]), defs, rs)
         self.assertEqual((o["rule"]["rule"], o["rule"]["row_labels"]), ("row_label_switch", [NEW, OLD]))
         self.assertIn("why_not", o["definition"])
+        with mock.patch.object(judgement, "tracked", return_value=[{"ticker": "AAA"}]):
+            o = judgement.offers(con, resolutions.parse_key(resolutions.key_for("blocked", "AAA", "opex", "FY2024", rule_id="xbrl_reconcile")), defs, rs)
+            self.assertEqual(o["definition"], {"kind": "opex", "ticker": "AAA", "periods": ["FY2024"]})
+            self.assertIn("why_not", o["rule"])
+            o = judgement.offers(con, resolutions.parse_key(resolutions.key_for("blocked", "AAA", "opex", "FY2023", rule_id="xbrl_reconcile")), defs, rs)
+            self.assertIn("no xbrl_reconcile finding", o["definition"]["why_not"])  # a forged key: nothing on file for that year
         o = judgement.offers(con, resolutions.parse_key(resolutions.key_for("blocked", "AAA", "opex", "FY2024", rule_id="xbrl_reconcile")), defs, rs)
-        self.assertEqual(o["definition"], {"kind": "opex", "ticker": "AAA"})
-        self.assertIn("why_not", o["rule"])
+        self.assertIn("not a tracked company", o["definition"]["why_not"])
+        o = judgement.offers(con, resolutions.parse_key(resolutions.key_for("finding_unconfirmed", "AAA", "capex", "FY2024", rule_id="jump")), defs, rs)
+        self.assertIn("label-driven", o["rule"]["why_not"])
         o = judgement.offers(con, resolutions.parse_key(resolutions.key_for("blocked", "XOM", "revenue", "FY2024", rule_id="xbrl_reconcile")), defs, rs)
         self.assertIn("already has", o["definition"]["why_not"])
 
@@ -244,6 +352,7 @@ class Route(unittest.TestCase):
         shutil.copytree(REPO_RULES, rules_dir)
         defs.write_text(DEF_HEADER)
         con = _db([_company("AAA", [OLD, NEW])])
+        con.execute("insert into exceptions values ('x1', 'xbrl_reconcile', 'block', 'AAA', 'opex', 'FY2024', null, 'agent vs XBRL', 'h')")
         key = _finding_item("AAA")[0]
         body = {"key": key, "as": "rule", "why": "the same line, renamed", "by": "Kenny Geiler"}
         with mock.patch.object(app, "READONLY", True):
@@ -251,7 +360,8 @@ class Route(unittest.TestCase):
         self.assertEqual(code, 403)
         conn = mock.MagicMock(wraps=con)
         conn.close = lambda: None
-        with mock.patch.object(judgement, "RULES_DIR", rules_dir), mock.patch.object(judgement, "DEF_FILE", defs), mock.patch("ledger.app._con", return_value=conn):
+        with mock.patch.object(judgement, "RULES_DIR", rules_dir), mock.patch.object(judgement, "DEF_FILE", defs), mock.patch("ledger.app._con", return_value=conn), \
+                mock.patch.object(judgement, "tracked", return_value=[{"ticker": "AAA"}]):
             code, d = self._post(base + "/api/judgement", {**body, "by": "Jane Doe"})
             self.assertEqual(code, 400)
             self.assertIn("not on config.PEOPLE", d["error"])
@@ -261,10 +371,13 @@ class Route(unittest.TestCase):
             code, d = self._post(base + "/api/judgement", body)
             self.assertEqual(code, 200, d)
             self.assertTrue((rules_dir / f"{d['id']}.yaml").exists())
+            forged = resolutions.key_for("blocked", "AAA", "revenue", "FY2024", rule_id="xbrl_reconcile")  # no such finding on file
+            code, d = self._post(base + "/api/judgement", {"key": forged, "as": "definition", "why": "w", "by": "Kenny Geiler"})
+            self.assertEqual(code, 400)
             dkey = resolutions.key_for("blocked", "AAA", "opex", "FY2024", rule_id="xbrl_reconcile")
             code, d = self._post(base + "/api/judgement", {"key": dkey, "as": "definition", "why": "the tag includes cost of revenue", "by": "Kenny Geiler"})
             self.assertEqual(code, 200, d)
-            self.assertEqual(definitions.load(defs)["AAA"]["opex"]["by"], "Kenny Geiler")
+            self.assertEqual((definitions.load(defs)["AAA"]["opex"]["by"], definitions.load(defs)["AAA"]["opex"]["periods"]), ("Kenny Geiler", ["FY2024"]))
         self.assertEqual(defs.read_text().count("XOM:"), 1)
 
 

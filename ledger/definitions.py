@@ -3,6 +3,7 @@
 A definition replaces a question. Where the SEC's tag measures something wider than the ledger's field, or a company
 reports no cost-of-revenue total, the file says what the field means for that company, who decided and why; reconcile
 and the rules read it, and nobody is asked again."""
+import re
 from pathlib import Path
 
 import yaml
@@ -23,15 +24,29 @@ def load(path: Path = FILE) -> dict:
                 raise ValueError(f"definitions: {t}.{k} needs by and why")
             if k == "cost_lines" and not e.get("lines"):
                 raise ValueError(f"definitions: {t}.cost_lines needs lines")
+            if "periods" in e and (k == "cost_lines" or not isinstance(e["periods"], list) or not e["periods"]
+                                   or not all(isinstance(q, str) and PERIOD.fullmatch(q) for q in e["periods"])):
+                raise ValueError(f"definitions: {t}.{k}.periods must be a non-empty list of fiscal years (FY2024), on revenue or opex only")
     return defs or {}
 
 
-def revenue_gap_explained(defs: dict, ticker: str) -> bool:
-    return "revenue" in defs.get(ticker, {})
+PERIOD = re.compile(r"FY\d{4}")
 
 
-def opex_gap_explained(defs: dict, ticker: str) -> bool:
-    return "opex" in defs.get(ticker, {})
+def _applies(e: dict | None, period: str | None) -> bool:
+    """T36: an entry with `periods` applies only to those fiscal years (the item a person saw); one without applies to
+    every year of the company, as every entry written before T36 does. With no period asked, any entry counts."""
+    if e is None:
+        return False
+    return "periods" not in e or period is None or period in e["periods"]
+
+
+def revenue_gap_explained(defs: dict, ticker: str, period: str | None = None) -> bool:
+    return _applies(defs.get(ticker, {}).get("revenue"), period)
+
+
+def opex_gap_explained(defs: dict, ticker: str, period: str | None = None) -> bool:
+    return _applies(defs.get(ticker, {}).get("opex"), period)
 
 
 def cost_lines(defs: dict, ticker: str) -> set[str] | None:

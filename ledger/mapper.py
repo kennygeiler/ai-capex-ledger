@@ -382,51 +382,37 @@ _MISSING = object()
 
 
 def _edit(p: Path, ticker: str, reported_name: str, change, what: str = "taxonomy/asset_types.yaml") -> bool:
-    """The one way the file is written. Under an exclusive lock (fcntl, on a lock file beside it) read the file once,
-    hand its lines and parsed content to `change(lines, data)`, which checks what it needs on that snapshot and returns
-    None (nothing to write) or (new lines, the entry as it must now read, None for gone). The new text must parse, the
-    ticker's block must occur once, and the parsed file must equal the snapshot except that one entry; then it is
-    written to a temporary file and moved into place (os.replace), so a reader never sees half a file."""
-    import fcntl
-    import os
-    import tempfile
+    """The one way the file is written (safewrite.safe_write: an exclusive lock on a lock file beside it, a temporary file
+    moved into place). Under the lock read the file once, hand its lines and parsed content to `change(lines, data)`,
+    which checks what it needs on that snapshot and returns None (nothing to write) or (new lines, the entry as it must
+    now read, None for gone). The new text must parse, the ticker's block must occur once, and the parsed file must
+    equal the snapshot except that one entry, or nothing is written."""
     import yaml
-    lock = p.with_name(f".{p.name}.lock")
-    with open(lock, "a") as fh:
-        fcntl.flock(fh, fcntl.LOCK_EX)
-        try:
-            text = p.read_text() if p.exists() else ""
-            lines = text.splitlines()
-            _ticker_line(lines, ticker, what)  # a duplicated or odd header is refused before anything is changed
-            before = yaml.safe_load(text) or {}
-            got = change(lines, before)
-            if got is None:
-                return False
-            lines, want = got
-            new_text = "\n".join(lines) + "\n"
-            after = yaml.safe_load(new_text) or {}
-            _ticker_line(lines, ticker, what)
-            norm = lambda d: json.loads(json.dumps({t: (v or {}) for t, v in d.items()}, default=str, sort_keys=True))  # an emptied block reads None
-            expect = norm(before)
-            block = expect.setdefault(ticker, {})
-            if want is None:
-                block.pop(reported_name, None)
-            else:
-                block[reported_name] = norm({"_": want})["_"]
-            if norm(after) != expect:
-                raise ValueError("the file would change more than the one entry; nothing written")
-            fd, tmp = tempfile.mkstemp(dir=p.parent, prefix=f".{p.name}.", suffix=".tmp")
-            try:
-                with os.fdopen(fd, "w") as f:
-                    f.write(new_text)
-                os.replace(tmp, p)
-            except BaseException:
-                if os.path.exists(tmp):
-                    os.unlink(tmp)
-                raise
-            return True
-        finally:
-            fcntl.flock(fh, fcntl.LOCK_UN)
+    from .safewrite import safe_write
+
+    def mutate(text):
+        text = text or ""
+        lines = text.splitlines()
+        _ticker_line(lines, ticker, what)  # a duplicated or odd header is refused before anything is changed
+        before = yaml.safe_load(text) or {}
+        got = change(lines, before)
+        if got is None:
+            return None
+        lines, want = got
+        new_text = "\n".join(lines) + "\n"
+        after = yaml.safe_load(new_text) or {}
+        _ticker_line(lines, ticker, what)
+        norm = lambda d: json.loads(json.dumps({t: (v or {}) for t, v in d.items()}, default=str, sort_keys=True))  # an emptied block reads None
+        expect = norm(before)
+        block = expect.setdefault(ticker, {})
+        if want is None:
+            block.pop(reported_name, None)
+        else:
+            block[reported_name] = norm({"_": want})["_"]
+        if norm(after) != expect:
+            raise ValueError("the file would change more than the one entry; nothing written")
+        return new_text
+    return safe_write(p, p.with_name(f".{p.name}.lock"), mutate)
 
 
 def _to_confirm(con, ticker: str) -> list[dict]:

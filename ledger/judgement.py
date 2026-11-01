@@ -1,41 +1,66 @@
 """Resolve by rule (T36): a person's explanation in Reconcile, written once as a definition or a rule, so the next run
 closes the same cause without asking again.
 
-Two writers, one discipline. `write_definition` adds one entry to definitions/companies.yaml (company-level: what a
-field means for that company, the kinds definitions.load accepts) through mapper._edit, the T63 writer: an exclusive
-fcntl lock, the file read once, the whole file parsed before and after and compared so that only the one entry
-changes, a temporary file moved into place with os.replace. `write_rule` adds one file to rules/ (cross-company: an
-info-severity `explains` rule, rules._explains): under a lock on the directory the rule set is loaded before, the new
-file is checked with the loader's own checks and written to a temporary name the loader never globs, moved into place,
-and the set is loaded again; anything but exactly the one new rule, with every other file's hash unchanged, removes
-it and refuses. Both record `by` (a person on config.PEOPLE, mapper.person, fail closed), `why` and `at`; both files
-are tracked in git like every judgement file, and nothing here commits.
+Two writers, one discipline (ledger/safewrite.py: an exclusive fcntl lock, the change computed on what is on disk,
+a temporary file moved into place with os.replace). `write_definition` adds one entry to definitions/companies.yaml
+through mapper._edit, the T63 writer, which parses the whole file before and after and allows only that entry to
+change. `write_rule` adds one file to rules/ (cross-company: an info-severity `explains` rule, rules._explains): the
+rule set on file must load, the new file passes the loader's own checks before it is written, and the set is loaded
+again after; anything but exactly the one new rule, with every other file's hash unchanged, removes it and refuses.
+Both record `by` (a person on config.PEOPLE, mapper.person, fail closed), `why` and `at`; both files are tracked in
+git like every judgement file, and nothing here commits. `by` is the name typed in the signer box: until T6 (auth)
+it is a claim made on a trusted local machine, not proof of who pressed the button, as for resolutions and gold.
 
 What may be written is decided here, from the queue item's key and the database, never from what the page sends
-beyond the reason and the name (`offers`): a rule names the warn rule the finding came from, its field, and the whole
-labels the company's field is read from; a definition is offered only for the causes a definition settles (an XBRL
-disagreement on revenue or opex, a cost-of-revenue made of lines). A rule is never a pattern: it matches a finding
-only where every line the field is read from is one it names, so it cannot explain an unrelated row."""
+beyond the reason and the name (`offers`). A rule targets only a label-driven warn rule (rules.EXPLAINABLE:
+row_label_switch, a finding about which line was read) and names exactly the lines the company's field is read
+from; it explains a finding only where the company reads the field from that same set of lines, never a subset, a
+superset or a pattern. A definition is offered only for a cause a definition settles, found on file for a tracked
+company: an xbrl_reconcile block on revenue or opex in one year (the entry records `periods`, that year, and applies
+to no other), or a cost_lines_summed block (the entry names the lines)."""
 from __future__ import annotations
 
 import copy
 import hashlib
 import json
-import os
 import re
-import tempfile
 from datetime import date
 from pathlib import Path
 
 import yaml
 
 from . import definitions, resolutions, rules as rules_mod
+from .config import tracked
 from .mapper import _edit, _scalar, _ticker_line, person
+from .safewrite import safe_write
 
 DEF_FILE = definitions.FILE
 RULES_DIR = rules_mod.RULES_DIR
 DEFINITION_KINDS = ("revenue", "opex", "cost_lines")  # what definitions.load accepts
 TICKER = re.compile(r"[A-Z][A-Z0-9.\-]{0,9}")
+NAME = re.compile(r"[a-z][a-z0-9_]*")  # a rule id or a field, as it may stand in a file name
+
+
+def _day(at: str | None) -> str:
+    """Today, or `at` when it is an ISO date (tests pin it); anything else is refused."""
+    if at is None:
+        return date.today().isoformat()
+    try:
+        return date.fromisoformat(str(at)).isoformat()
+    except ValueError:
+        raise ValueError(f"at must be an ISO date, not {at!r}") from None
+
+
+def _finding_on_file(con, ticker: str, rule: str, field: str | None = None, period: str | None = None) -> bool:
+    """A finding of `rule` for the ticker (and field, and period when given) is in `exceptions`: the item exists."""
+    if not con.execute("select count(*) from information_schema.tables where table_name = 'exceptions'").fetchone()[0]:
+        return False
+    sql, args = "select count(*) from exceptions where ticker = ? and rule_id = ?", [ticker, rule]
+    if field:
+        sql, args = sql + " and field = ?", args + [field]
+    if period:
+        sql, args = sql + " and period = ?", args + [period]
+    return bool(con.execute(sql, args).fetchone()[0])
 
 
 def _one_line(s: str) -> str:
@@ -69,8 +94,8 @@ def offers(con, key: dict, defs: dict | None = None, rules: list[dict] | None = 
     target = by_id.get(rid)
     if kind != "finding_unconfirmed" or not f:
         out["rule"] = {"why_not": "only a rule's finding on a field can be written as a rule"}
-    elif not target or target["check"] == "explains" or target["severity"] != "warn":
-        out["rule"] = {"why_not": f"{rid or 'this finding'} is not a warn rule in rules/; only a warn finding is explained by a rule"}
+    elif not target or target["check"] == "explains" or target["severity"] != "warn" or rid not in rules_mod.EXPLAINABLE:
+        out["rule"] = {"why_not": f"{rid or 'this finding'} is not a label-driven warn rule ({', '.join(rules_mod.EXPLAINABLE)}); a rule never explains a value once for every year"}
     else:
         labels = _labels(con, t, f)
         if not labels:
@@ -80,17 +105,21 @@ def offers(con, key: dict, defs: dict | None = None, rules: list[dict] | None = 
             out["rule"] = {"id": nid, "rule": rid, "field": f, "row_labels": labels, "title": target.get("title") or rid}
             if nid in by_id:
                 out["rule"]["why_not"] = f"already on file: rules/{nid}.yaml; rerun ledger rules"
-    dk = None
-    if kind == "blocked" and rid == "xbrl_reconcile" and f in ("revenue", "opex"):
+    dk, period = None, key.get("period") or ""
+    if kind == "blocked" and rid == "xbrl_reconcile" and f in ("revenue", "opex") and period:
         dk = f
     elif kind == "blocked" and rid == "cost_lines_summed":
         dk = "cost_lines"
     if not dk:
-        out["definition"] = {"why_not": "a definition settles an XBRL disagreement on revenue or opex, or names the cost lines; this item is neither"}
+        out["definition"] = {"why_not": "a definition settles an XBRL disagreement on revenue or opex in a year, or names the cost lines; this item is neither"}
     elif dk in (defs.get(t) or {}):
         out["definition"] = {"kind": dk, "why_not": f"{t} already has a {dk} definition in definitions/companies.yaml; edit it by hand"}
+    elif t not in {c["ticker"] for c in tracked()}:
+        out["definition"] = {"kind": dk, "why_not": f"{t} is not a tracked company"}
+    elif not _finding_on_file(con, t, rid, f if dk != "cost_lines" else None, period if dk != "cost_lines" else None):
+        out["definition"] = {"kind": dk, "why_not": f"no {rid} finding for {t} {f} {period} on file; rerun ledger rules"}
     else:
-        out["definition"] = {"kind": dk, "ticker": t}
+        out["definition"] = {"kind": dk, "ticker": t} | ({"periods": [period]} if dk != "cost_lines" else {})
         if dk == "cost_lines":
             lines = _labels(con, t, "cost_of_revenue_part")
             out["definition"]["lines"] = lines
@@ -113,13 +142,16 @@ def encode(con, key: str, as_: str, why: str, by: str, defs_path: Path | None = 
         raise ValueError(o["why_not"])
     if as_ == "rule":
         return write_rule(o["rule"], o["field"], o["row_labels"], why, by, source=key, rules_dir=rules_dir, at=at)
-    return write_definition(k["ticker"], o["kind"], why, by, lines=o.get("lines"), path=defs_path, at=at)
+    return write_definition(k["ticker"], o["kind"], why, by, lines=o.get("lines"), periods=o.get("periods"), path=defs_path, at=at)
 
 
 # ── the definition writer ───────────────────────────────────────────────────────────────────────────────────────────
-def write_definition(ticker: str, kind: str, why: str, by: str, lines: list[str] | None = None, path: Path | None = None, at: str | None = None) -> dict:
-    """One entry in definitions/companies.yaml, in the file's own block format (`  <kind>:` then `    lines`, `why`,
-    `by`, `at`), at the end of the ticker's block or in a new block at the end of the file; the comment header and every
+def write_definition(ticker: str, kind: str, why: str, by: str, lines: list[str] | None = None, periods: list[str] | None = None,
+                     path: Path | None = None, at: str | None = None) -> dict:
+    """One entry in definitions/companies.yaml, in the file's own block format (`  <kind>:` then `    lines` or
+    `    periods`, `why`, `by`, `at`). A revenue or opex entry always records `periods`, the fiscal years of the item the
+    person saw, and reconcile applies it to those years only (definitions._applies); a cost_lines entry is scoped by
+    its lines. It goes at the end of the ticker's block or in a new block at the end of the file; the comment header and every
     other entry untouched (mapper._edit compares the whole parsed file). Refused: a name not on config.PEOPLE, a kind
     definitions.load does not accept, an empty reason, lines on anything but cost_lines (and none on it), an entry
     already there."""
@@ -137,9 +169,14 @@ def write_definition(ticker: str, kind: str, why: str, by: str, lines: list[str]
             raise ValueError("a cost_lines definition names the lines")
     elif lines:
         raise ValueError(f"only cost_lines names lines, not {kind}")
-    day = at or date.today().isoformat()
-    entry = ({"lines": lines} if kind == "cost_lines" else {}) | {"why": why, "by": by, "at": day}
-    text = [f"  {kind}:"] + ([f"    lines: [{', '.join(json.dumps(l) for l in lines)}]"] if kind == "cost_lines" else []) + [
+    if kind == "cost_lines" and periods:
+        raise ValueError("a cost_lines definition is scoped by its lines, not by periods")
+    if kind != "cost_lines" and (not periods or not all(isinstance(q, str) and definitions.PERIOD.fullmatch(q) for q in periods)):
+        raise ValueError(f"a {kind} definition names the fiscal years it was written for (periods: [FY2024]); it never applies to every year")
+    day = _day(at)
+    scope = {"lines": lines} if kind == "cost_lines" else {"periods": list(periods)}
+    entry = scope | {"why": why, "by": by, "at": day}
+    text = [f"  {kind}:"] + ([f"    lines: [{', '.join(json.dumps(l) for l in lines)}]"] if kind == "cost_lines" else [f"    periods: [{', '.join(periods)}]"]) + [
         f"    why: {_scalar(why)}", f"    by: {_scalar(by)}", f"    at: {day}"]
     what = "definitions/companies.yaml"
 
@@ -167,63 +204,55 @@ def write_definition(ticker: str, kind: str, why: str, by: str, lines: list[str]
 
 # ── the rule writer ─────────────────────────────────────────────────────────────────────────────────────────────────
 def write_rule(target: str, field: str, row_labels: list[str], why: str, by: str, source: str = "", rules_dir: Path | None = None, at: str | None = None) -> dict:
-    """One new file rules/<id>.yaml: an info `explains` rule naming the warn rule `target`, the `field` and the whole
-    `row_labels` (rules._explains). The loader's checks run on it before anything is written, and the rule set is
-    loaded before and after under one lock: the write must add exactly this rule and change no other file, or it is
-    removed and refused. `by` must be a person on config.PEOPLE; `why` is their reason, kept as the rule's rationale."""
+    """One new file rules/<id>.yaml: an info `explains` rule naming the label-driven warn rule `target`, the `field` and
+    exactly the `row_labels` (rules._explains). Through safewrite.safe_write under a lock on the directory: the rule set
+    on file must load, the loader's checks run on the new rule before anything is written, and after the write the set
+    is loaded again; anything but exactly this one new rule, with every other file's hash unchanged, removes it and
+    refuses. `by` must be a person on config.PEOPLE; `why` is their reason, kept as the rule's rationale."""
     d_ = Path(rules_dir or RULES_DIR)
     by, why = person(str(by or "")), _one_line(why)
+    target, field = str(target or ""), str(field or "")
+    if not NAME.fullmatch(target) or not NAME.fullmatch(field):
+        raise ValueError(f"a rule id and a field are lower-case names, not {target!r} and {field!r}")
     labels = sorted({_one_line(l): None for l in (row_labels or []) if _one_line(l)}, key=rules_mod.label_key)
     if not why:
         raise ValueError("a rule needs a reason: why these lines explain the finding")
     if not labels:
         raise ValueError("a rule names the lines it matches; with none it would match nothing, or everything")
     nid = rule_id(target, field, labels)
-    day = at or date.today().isoformat()
+    day = _day(at)
     rule = {"id": nid, "severity": "info",
-            "description": f"Explains a {target} finding on {field} wherever every line the field is read from is one this rule names.",
+            "description": f"Explains a {target} finding on {field} wherever the field is read from exactly the lines this rule names.",
             "rationale": why, "owner": by, "check": "explains",
             "params": {"rule": target, "field": field, "condition": {"row_labels": labels}},
             "title": "A person's explanation, written once as a rule.", "plain": why,
-            "action": "Nothing to decide: the explanation on file applies to every company whose lines it names.",
+            "action": "Nothing to decide: the explanation on file applies to every company that reads the field from exactly these lines.",
             "by": by, "why": why, "at": day, "source": source}
     text = yaml.safe_dump(rule, sort_keys=False, allow_unicode=True, width=120, default_flow_style=False)
     if yaml.safe_load(text) != rule:
         raise ValueError("the rule does not read back as written; nothing written")
-    import fcntl
-    lock = d_ / ".rules.lock"
-    with open(lock, "a") as fh:
-        fcntl.flock(fh, fcntl.LOCK_EX)
-        try:
-            before = rules_mod.load(d_)  # the set on file must load as it is
-            for r in before:
-                p = r["params"]
-                if r["check"] == "explains" and p["rule"] == target and p["field"] == field and \
-                        {rules_mod.label_key(l) for l in p["condition"]["row_labels"]} == {rules_mod.label_key(l) for l in labels}:
-                    raise ValueError(f"rules/{r['id']}.yaml already explains {target} on {field} for these lines; nothing written")
-            dest = d_ / f"{nid}.yaml"
-            if dest.exists():
-                raise ValueError(f"rules/{nid}.yaml exists; nothing written")
-            cand = copy.deepcopy(rule)
-            rules_mod.check_rule(cand, dest.name)
-            rules_mod._check_explains(before + [cand])
-            fd, tmp = tempfile.mkstemp(dir=d_, prefix=f".{nid}.", suffix=".tmp")  # never *.yaml: the loader does not see it
-            try:
-                with os.fdopen(fd, "w") as f:
-                    f.write(text)
-                os.replace(tmp, dest)
-            except BaseException:
-                if os.path.exists(tmp):
-                    os.unlink(tmp)
-                raise
-            try:
-                after = rules_mod.load(d_)
-                was, now = {r["id"]: r["file_sha256"] for r in before}, {r["id"]: r["file_sha256"] for r in after}
-                if set(now) != set(was) | {nid} or any(now[i] != h for i, h in was.items()):
-                    raise ValueError("the rule set would change more than the one new rule; nothing written")
-            except BaseException:
-                dest.unlink(missing_ok=True)
-                raise
-        finally:
-            fcntl.flock(fh, fcntl.LOCK_UN)
+    dest, state = d_ / f"{nid}.yaml", {}
+
+    def mutate(old):
+        if old is not None:
+            raise ValueError(f"rules/{nid}.yaml exists; nothing written")
+        before = rules_mod.load(d_)  # the set on file must load as it is
+        keys = {rules_mod.label_key(l) for l in labels}
+        for r in before:
+            p = r["params"]
+            if r["check"] == "explains" and p["rule"] == target and p["field"] == field and {rules_mod.label_key(l) for l in p["condition"]["row_labels"]} == keys:
+                raise ValueError(f"rules/{r['id']}.yaml already explains {target} on {field} for these lines; nothing written")
+        cand = copy.deepcopy(rule)
+        rules_mod.check_rule(cand, dest.name)
+        rules_mod._check_explains(before + [cand])
+        state["before"] = {r["id"]: r["file_sha256"] for r in before}
+        return text
+
+    def verify():
+        now = {r["id"]: r["file_sha256"] for r in rules_mod.load(d_)}
+        was = state["before"]
+        if set(now) != set(was) | {nid} or any(now[i] != h for i, h in was.items()):
+            raise ValueError("the rule set would change more than the one new rule; nothing written")
+
+    safe_write(dest, d_ / ".rules.lock", mutate, verify)
     return {"wrote": "rule", "file": f"rules/{nid}.yaml", "id": nid, "rule": target, "field": field, "row_labels": labels, "by": by, "why": why, "at": day}

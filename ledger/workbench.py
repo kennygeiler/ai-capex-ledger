@@ -89,7 +89,12 @@ def _explained(con, tickers: list[str]) -> dict:
         return {}
     cur = con.execute("select * from exceptions where severity = 'info' and ticker in (select unnest(?))", [tickers])
     rows = [dict(zip([c[0] for c in cur.description], r)) for r in cur.fetchall()]
-    return explained(rows) if rows else {}
+    if not rows:
+        return {}
+    try:
+        return explained(rows)
+    except (ValueError, OSError):
+        return {}  # a rule file that does not load explains nothing; Proof shows the error as an open item
 
 
 def _offers(con, key: str, enc: dict) -> dict | None:
@@ -103,7 +108,12 @@ def _offers(con, key: str, enc: dict) -> dict | None:
     if not k:
         return None
     if not enc:
-        enc |= {"defs": load_defs(judgement.DEF_FILE), "rules": load_rules(judgement.RULES_DIR)}
+        try:
+            enc |= {"defs": load_defs(judgement.DEF_FILE), "rules": load_rules(judgement.RULES_DIR)}
+        except (ValueError, OSError):
+            enc |= {"defs": None, "rules": None, "error": True}
+    if enc.get("error"):
+        return None  # nothing is offered while a definition or rule file does not load
     return judgement.offers(con, k, enc["defs"], enc["rules"])
 
 
