@@ -31,7 +31,21 @@ def _has(con, name):
 
 
 def _item(what: str, st: dict, detail: str = "", needs: str = "") -> dict:
-    return {"what": what, "state": st["state"], "by": st["by"], "reason": st["reason"], "detail": detail, "needs": needs if status.is_open(st) else ""}
+    """One trail item. `key` is the strongest answer key that vouches for it (status.KEY_GRADE), None when none does."""
+    return {"what": what, "state": st["state"], "by": st["by"], "key": st.get("key"), "keys": st.get("keys") or [], "reason": st["reason"], "detail": detail, "needs": needs if status.is_open(st) else ""}
+
+
+KEY_GRADE = [{"id": k, "label": status.KEY_LABEL[k], "why": status.KEY_WHY[k]} for k in status.KEY_GRADE]  # the four, strongest first, for the pages
+
+
+def keys_of(items: list[dict]) -> dict:
+    """Rows by the strongest answer key that vouches for them (T56): {twin, second_source, tie, later_truth, none, rows};
+    `none` is every row no key vouches for (a quote, a located table, a mapping, an explanation, an open item), so the
+    grades sum to `rows`, the denominator."""
+    out = {k: 0 for k in status.KEY_GRADE} | {"none": 0, "rows": len(items)}
+    for i in items:
+        out[i.get("key") or "none"] += 1
+    return out
 
 
 def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None) -> dict:
@@ -130,9 +144,10 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None)
     stages["release"] = _stage(items or [_item("the release gate", status.state({"check": "located", "reason": "no block rule fired and no decision blocks"}))])
 
     open_total = sum(len(s["open"]) for s in stages.values())
+    keys = keys_of([i for s in stages.values() for i in s["all"]])
     name = next((c["name"] for c in tracked() if c["ticker"] == t), t)
     return {"ticker": t, "name": name, "layer": industry(t), "proven": open_total == 0, "open": open_total, "why": PROVEN_WHY.get(t, ""), "in_proven_set": t in PROVEN,
-            "stages": stages, "definitions": sorted((defs or {}).get(t, {}).keys())}
+            "stages": stages, "keys": keys, "key_grade": KEY_GRADE, "definitions": sorted((defs or {}).get(t, {}).keys())}
 
 
 def amendment_without_statements(doc: dict) -> bool:
@@ -146,7 +161,7 @@ def _stage(items: list[dict], extra: dict | None = None) -> dict:
     """Counts per state, the open items (open and blocked), the explained items with what explained them."""
     return {"checked": sum(i["state"] == "checked" for i in items), "explained": sum(i["state"] == "explained" for i in items),
             "blocked": sum(i["state"] == "blocked" for i in items), "open": [i for i in items if i["state"] in ("open", "blocked")],
-            "items": len(items), "explained_items": [i for i in items if i["state"] == "explained"], "all": items, **(extra or {})}
+            "items": len(items), "explained_items": [i for i in items if i["state"] == "explained"], "keys": keys_of(items), "all": items, **(extra or {})}
 
 
 def _restated(con, ticker: str, f: dict) -> str | None:
@@ -166,7 +181,9 @@ def board(con) -> dict:
     """The Proof home: every company in scope (config.SCOPE) with its stage counts. The database keeps every company; the board shows the scope (T2)."""
     idx, defs = resolutions.by_row(), definitions.load()
     proven = [company(con, t, idx, defs) for t in SCOPE]
-    return {"stages": [{"id": s, "label": STAGE_LABEL[s]} for s in STAGES], "proven": proven, "scope": list(SCOPE), "open": sum(c["open"] for c in proven)}
+    keys = {k: sum(c["keys"][k] for c in proven) for k in (*status.KEY_GRADE, "none", "rows")}  # per company on each row; the total over the scope here
+    return {"stages": [{"id": s, "label": STAGE_LABEL[s]} for s in STAGES], "proven": proven, "scope": list(SCOPE), "open": sum(c["open"] for c in proven),
+            "keys": keys, "key_grade": KEY_GRADE}
 
 
 GUARDS = [
