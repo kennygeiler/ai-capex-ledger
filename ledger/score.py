@@ -2,7 +2,9 @@
 checked, explained, open and blocked (the states of `status.state`, read from the Proof trail stage the reader owns),
 how many agree with their structured twin where one exists (`status.answer_key(by) == "twin"`: the SEC's XBRL today),
 and how many planted faults the checks behind it caught (`ledger faults`, reports/<name>-faults.json), each count
-with its denominator. Counts only: the page computes the shares, so no number is shown without what it is out of.
+with its denominator. Counts first: the page computes the shares, so no number is shown without what it is out of. The
+twin's agreement also carries a Wilson 95% interval (T53, `ledger/stats.py`) derived from the same two counts, so the page
+can show it or recompute it; it says how much the share can move on this many rows, not whether a row is right.
 Nothing is reimplemented: the states come from `proof.company` (which reads `status.state`), the twin from the rows'
 labels, the faults from the report named by the latest `faults` run in the `runs` table that covered each company.
 `note` says what the stage holds that is not counted, so the number reconciles with the Proof board; `faults_note`
@@ -12,7 +14,7 @@ from __future__ import annotations
 import json
 from datetime import datetime, timezone
 
-from . import proof, status, store
+from . import proof, stats, status, store
 
 # which Proof stage holds each live reader's outputs (agents/charters/<id>.md says the same in words). The notes reader
 # also feeds the Mapping stage, but a mapping judges taxonomy/asset_types.yaml, not the reader; it is not counted here.
@@ -20,6 +22,8 @@ AGENT_STAGE = {"reader": "values", "ai_reader": "statements", "notes_reader": "f
 # the one step with a fault test: `ledger faults` corrupts `extractions` (ledger/faults.py), the reader's rows
 FAULTED_STEP = "extract"
 FAULT_CAUGHT = ("rule", "xbrl_only")
+# the labels of rows with no twin, per stage: XBRL tags nothing for them, so they are not in the twin's denominator
+TWIN_WITHOUT = {"values": ("no_reference", "not_reported"), "facts": ("no_reference",)}
 REPORTS = store.ROOT / "reports"
 
 
@@ -51,20 +55,28 @@ def outputs(con, agent_id: str, ticker: str) -> dict:
 
 def twin(con, agent_id: str, ticker: str, items: list[dict]) -> dict | None:
     """Agreement with the structured twin: among the reader's rows that have one (a value or a fact whose label is not
-    no_reference / not_reported: XBRL tags the concept), how many are checked by it (`answer_key(by) == "twin"`).
-    None for a reader whose rows have no twin (statements and projects are quotes)."""
+    no_reference / not_reported: XBRL tags the concept), how many are checked by it (`answer_key(by) == "twin"`), with
+    `interval`, the Wilson 95% interval of agree / of (`with_interval`). None for a reader whose rows have no twin
+    (statements and projects are quotes). Not per field: the trail's items carry `what` ("capex FY2025"), not `field`;
+    `proof.company` would have to put `field` on each item first (T53, keyed part, in docs/TICKETS.md)."""
     stage = AGENT_STAGE[agent_id]
     if stage == "values":
         labels = [r["label"] for r in _rows(con, 'select label from "values" where ticker = ?', ticker)]
-        without = ("no_reference", "not_reported")
     elif stage == "facts":
         labels = [r["label"] for r in _rows(con, "select label from facts where ticker = ?", ticker)]
-        without = ("no_reference",)
     else:
         return None
-    of = sum(lab not in without for lab in labels)
+    of = sum(lab not in TWIN_WITHOUT[stage] for lab in labels)
     agree = sum(status.answer_key(i["by"] or "") == "twin" for i in items)
-    return {"agree": agree, "of": of}
+    return with_interval({"agree": agree, "of": of})
+
+
+def with_interval(tw: dict) -> dict:
+    """The twin counts with `interval`: [low, high] of the Wilson 95% interval on agree / of as fractions to 4 dp, None
+    when `of` is 0 (no rows the twin tags, no share). Derived from the two counts and nothing else, so the page may
+    recompute it from them."""
+    iv = stats.wilson(tw["agree"], tw["of"])
+    return {"agree": tw["agree"], "of": tw["of"], "interval": [round(iv[0], 4), round(iv[1], 4)] if iv else None}
 
 
 _REPORTS: dict = {}  # (path, mtime, size) -> rows: a rewritten report (ledger faults overwrites the file) is read again
@@ -151,6 +163,8 @@ def score(con, agent_id: str, tickers: list[str]) -> dict:
         w = twin(con, agent_id, t, items)
         if w is not None:
             tw = {k: (tw or {}).get(k, 0) + w[k] for k in ("agree", "of")}
+    if tw is not None:
+        tw = with_interval(tw)  # one interval on the sum over the companies, not a sum of per-company intervals
     fl, fnote = faults(con, agent_id, want)
     stage = AGENT_STAGE[agent_id]
     label = proof.STAGE_LABEL[stage]
@@ -160,5 +174,6 @@ def score(con, agent_id: str, tickers: list[str]) -> dict:
             "statements": f"{n['outputs']} statement rows of the {label} stage",
             "planned": f"{n['outputs']} planned project rows of the {label} stage ({excluded.get('guidance_rows', 0)} guidance rows in the stage are the AI spend reader's and are not counted)"}[stage]
     note = (f"{what}; states from each company's Proof trail (status.state); open here excludes blocked, so checked + explained + open + blocked = outputs; "
-            + ("twin = the rows XBRL tags, agree = checked by it" if tw is not None else "no twin: these rows are quotes"))
+            + (f"twin = the rows XBRL tags (not {' / '.join(TWIN_WITHOUT[stage])} rows), agree = checked by it; the interval is Wilson 95% on agree / of and covers only those tagged rows"
+               if tw is not None else "no twin: these rows are quotes"))
     return {**n, "twin": tw, "faults": fl, "faults_note": fnote, "stage": stage, "stage_rows": stage_rows, "excluded": excluded, "companies": len(want), "note": note}

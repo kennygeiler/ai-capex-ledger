@@ -15,13 +15,32 @@ function agentCard(a) {
       h('div', {class: 'col-lg-6'}, score, runs, r.note ? h('div', {class: 'text-secondary small mt-2 mb-3'}, r.note) : '', h('div', {class: 'mt-3'}, history)))));
 }
 
-// the score (T49): counts with their denominators, in the kit's datagrid; the shares are the reader's to compute
+// Wilson score interval on k of n at 95% (z = 1.96), as [low, high] fractions; null when n is 0. The same formula as
+// ledger/stats.py wilson(), so the page can show a share's interval from the counts alone.
+function wilson(k, n, z = 1.96) {
+  if (!n) return null;
+  const p = k / n, z2 = z * z, d = 1 + z2 / n;
+  const c = (p + z2 / (2 * n)) / d, half = (z * Math.sqrt(p * (1 - p) / n + z2 / (4 * n * n))) / d;
+  return [Math.max(0, c - half), Math.min(1, c + half)];
+}
+const pct1 = (f) => `${(100 * f).toFixed(1)}%`;  // one decimal, unlike _shared's pct: the interval's ends need it
+// " (98.6%, 95% interval 92.4–99.8%)" for {agree, of, interval?}; '' when of is 0
+function shareText(tw) {
+  if (!tw.of) return '';
+  const iv = wilson(tw.agree, tw.of);  // always from the counts: the API's 4-dp `interval` is informational, one display path
+  return ` (${pct1(tw.agree / tw.of)}, 95% interval ${(100 * iv[0]).toFixed(1)}–${pct1(iv[1])})`;
+}
+
+// the score (T49): counts with their denominators, in the kit's datagrid; the shares are the reader's to compute,
+// but the twin's share is written with its interval (T53) so the number is never read as more exact than its n allows
 function scoreBlock(sc) {
   if (!sc) return '';
   const of = (a, n) => `${int(a)} of ${int(n)}`;
   const n = sc.outputs;
   const states = [`checked ${of(sc.checked, n)}`, `explained ${of(sc.explained, n)}`, `open ${of(sc.open, n)}`, `blocked ${of(sc.blocked, n)}`].join(' · ');
-  const twin = sc.twin ? `agrees with the twin ${of(sc.twin.agree, sc.twin.of)}` : 'no twin for this reader';
+  // the twin's share with its Wilson 95% interval (T53), in text, computed on the page from agree / of (the same formula
+  // as the API's `interval`, so the two never disagree after rounding); nothing when `of` is 0: no share, no interval
+  const twin = sc.twin ? `agrees with the twin ${of(sc.twin.agree, sc.twin.of)}${shareText(sc.twin)}` : 'no twin for this reader';
   // escaped is the number that matters most, so it is always written, zero included
   const faults = sc.faults ? `caught ${of(sc.faults.caught, sc.faults.planted)} planted faults · ${int(sc.faults.escaped)} escaped` + (sc.faults.no_effect ? ` · ${int(sc.faults.no_effect)} reached no released value` : '')
     : (sc.faults_note || 'not measured');
