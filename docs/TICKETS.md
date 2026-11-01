@@ -16,9 +16,15 @@ Decisions folded in (1 Nov, Kenny + review):
 - A second reviewer is a ticket (T34). One person signing their own work stays a weakness until then.
 - Production rails (auth, decisions in Postgres, the self-hosted runner, the hosted copy on Postgres) start after T6.
 
-**Order against the calendar** (council of two sessions, Kenny approved 2 Nov; the Arctal call is 11/12 Nov):
-before the call, C merged and golden re-frozen → B (T5–T6, sign v1.8.0 from the app) → F (T35, T38, T36) → T40, T41, T42 →
-T44 spike → T48; T43 if time. After the call, T45 → T49 → T46 → T47 as picked. T51 (the name) whenever Kenny names it, last.
+**Order against the calendar** (Kenny, 2 Nov: "build ASML to the full bar as company 8, add a score per agent, I want to
+get to 100 companies"; the Arctal call is 11/12 Nov). Before the call, three tracks in parallel after C and B:
+1. C merged and golden re-frozen → B (T5–T6, sign v1.8.0 from the app). Everything else branches from here.
+2. Scale track: T33 mapping assistant → T36 resolve-by-rule → T37 bulk with preview, each measured by T35/T38, then T52 in
+   batches (7, 10, 25, 50, 100), golden green per batch, each batch run planned around the session limit (resets 1:30am ET).
+3. Source track: T40 vocabulary → T44 spike as the first step of T45 → T45 ASML in PROVEN as company eight.
+4. Agents track: T48 charters and section → T49 score per agent.
+Then T41, T42, T43 if time. After the call: T46, T47 as picked. T51 (the name) whenever Kenny names it, last.
+The honest estimate against this order is at the end of F.
 
 Each ticket: why, done when, what it touches. Order within a group is the order to do them. A ticket is closed by a commit that
 names it (`T12`) and updates the README status.
@@ -167,6 +173,25 @@ before scale is attempted; T35 measures it.
   `check`, rows that leave the packet) before it is applied. Done when the preview counts equal the counts after.
 - **T38 Cost and time per stage on Proof.** Agent calls, tokens, wall time and person minutes per company per stage, from
   `ledger/cost.py`, on the company trail. Done when the trail shows them for the six.
+
+- **T52 A hundred companies in scope, each with its honest state.** `SCOPE` widens in batches (7, 10, 25, 50, 100), each batch
+  through every stage (the 94 are already ingested, extracted, read and stated; what each lacks is mapping, reconcile and
+  gates), golden expanded to freeze and check every company in scope, the Proof board showing each company proven or "N open"
+  with the causes, the packet carrying every company in scope with `proven` true only where it is. The proven count is pushed as
+  high as T33, T36 and T37 allow; nothing is labelled proven that is not. Each batch gets T35's stopwatch, and the curve across
+  batches is the report. Batch runs are planned around the session limit. Done when `SCOPE` has 100, golden is green on all
+  100, the Proof board is honest for each, and `reports/company-cost.md` shows the curve.
+
+**Estimate against the calendar (2 Nov, nine days to the call).** Fits: C and B (two days), T33 + T36 + T37 (three days,
+parallel with the source and agents tracks), T48 (one day), T49 (one to two days if `faults` and `status` give the numbers;
+they do), T52 to 100 in scope with honest states (the data is there; mapping and reconcile are the cost: with T33 at fifteen
+person-minutes per company that is a day of Kenny's time across the batches, plus agent runs around the session limit).
+Critical path: C → B → T33 → batches. Breaks: (1) T45 ASML to the full bar: a non-EDGAR PDF, an ESEF package reader, a new
+reader agent with a charter, schema v12, ties, golden; five to seven days of one builder with nothing else; it fits only if it
+starts the day B merges and nothing in the PDF or the ESEF package fights back; the T44 spike on day one tells us by day two.
+(2) The proven count at 100: honest expectation is 25 to 40 proven by the call, the rest open with named causes; a hundred
+proven is not a nine-day number. (3) Kenny's minutes: T52 and the 7 confirmations are his, not an agent's. (4) The session
+limit: batch runs of 25+ companies take more than one window.
 
 ## G. How the work runs: the swarm
 
