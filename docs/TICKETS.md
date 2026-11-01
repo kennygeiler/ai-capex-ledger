@@ -682,7 +682,7 @@ are listed at the end.
   where XBRL holds a value is either in the dataset or an open item; a silent blank is a release failure. A required
   checklist line counts "answer-key values missing from the dataset" and must read 0, open items aside. Builds on T65.
   Done when the line reads 0 on the six, and deleting one extracted value in a test turns it red. About ½ day.
-- **T82 A gold set separate from golden.** [root cause, LB4] Golden stays the regression snapshot ("nothing changed").
+- **T82 A gold set separate from golden.** [root cause, LB4] *Done 2 Nov 2026, infrastructure; verdicts pending (branch `t82-gold-set`): `ledger/gold.py`, `ledger gold --draw | --status`, `gold/<TICKER>.json` for the six (10 values + 10 facts each, 6 facts untagged, seed GOLDEN_SEED|v1.9.0|ticker), the Gold set section on Proof with Right / Wrong / Can’t say and a note (`POST /api/gold/verdict`, `by` on config.PEOPLE, lock + temp file + os.replace), `ledger golden --check` compares every verdict with the run's tables and reports the rest as unverified, error rate with n and a Wilson interval. `tests/test_gold.py`: a planted change fails, the frozen Amazon blank fails, the route refuses a non-person. Kenny's ~1 hour of verdicts is still to do.* Golden stays the regression snapshot ("nothing changed").
   `gold/` holds a hand-verified sample per proven company: about 10 values and 10 facts per company, stratified across
   fields, years and the untagged notes, each verified by Kenny against the filing with right / wrong / can't say and a
   note. `ledger golden --check` also compares the live tables with `gold/` and fails on any disagreement, so a frozen

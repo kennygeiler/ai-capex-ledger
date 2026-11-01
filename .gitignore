@@ -16,3 +16,4 @@ data/mapper/tasks/
 taxonomy/.asset_types.yaml.lock
 definitions/.companies.yaml.lock
 rules/.rules.lock
+gold/.*.lock
