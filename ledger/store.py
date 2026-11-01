@@ -19,7 +19,7 @@ import duckdb
 
 ROOT = Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[1]  # LEDGER_ROOT: the golden harness runs the pipeline in a copy of the repo layout
 DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
-SCHEMA_VERSION = 10  # v10: ai_spend.ai_amount dropped (a share × our value is computed, not stated); v9: projects table
+SCHEMA_VERSION = 11  # v11: the taxonomy rows take one shape (T9–T17: group dropped, change_from_prior, tags unpacked, the source followed, one check vocabulary, mapped, has_value, periods, units); they are computed by ledger/taxonomy.py, not stored, so nothing migrates: the bump marks the packet shape. v10: ai_spend.ai_amount dropped; v9: projects table
 
 FIELDS = ("revenue", "cost_of_revenue", "cost_of_revenue_part", "operating_income", "capex", "opex")
 KINDS = ("accept", "override", "reject")  # what a person can decide about an exception
@@ -268,6 +268,54 @@ SCHEMA: tuple[Table, ...] = (
 )
 TABLES = {t.name: t for t in SCHEMA}
 
+# The taxonomy rows (docs/TAXONOMY.md): the one shape of the dataset, `taxonomy.csv` in a release and /api/v1/taxonomy.
+# Not a stored table: ledger/taxonomy.py builds the rows from the tables above on every read, in this column order,
+# and the golden test freezes them (fixtures/expected/taxonomy.csv). Declared here so the dictionary, the packet README
+# and tests/test_columns.py read one definition. Schema v11 (T9–T17). `layer` and `proven` are added by the API.
+MEASURES = ("spent", "committed", "derived", "planned", "company_stated_ai")
+CHECKS = ("agree", "explained", "differs", "no_reference", "unmapped", "verbatim")
+SOURCE_KINDS = ("10-K table", "10-K note", "10-K MD&A", "8-K release", "transcript", "cfo commentary", "gathered")
+TAXONOMY = Table("taxonomy", "One row per company, fiscal year, measure and category: an instance of a published standard's concept with the company's own label beside it, "
+                 "or a verbatim quote. Built by code from the tables above; no agent, nothing estimated.", (
+    TICKER,
+    _c("fiscal_year", "VARCHAR", "The company's fiscal year label, e.g. FY2025.", pattern=YEAR),
+    _c("period_end", "VARCHAR", "The fiscal period's last day on a reported row (period_kind = reported); empty on a planned row.", nullable=True, pattern=DATE),
+    _c("period_kind", "VARCHAR", "reported: the figure is for a period that has ended. planned: a figure for a period the company spoke of ahead of time.", enum=("reported", "planned")),
+    _c("measure", "VARCHAR", "spent, committed, derived (a reported balance and its arithmetic change), planned (verbatim) or company_stated_ai (verbatim).", enum=MEASURES),
+    _c("category", "VARCHAR", "The taxonomy id (taxonomy/taxonomy.yaml): capex, segment_capex, segment_revenue, purchase_obligations, finance_lease_liability, ppe_gross_by_type, guidance, project, ai_capex, ai_opex, ai_revenue."),
+    _c("reported_name", "VARCHAR", "The company's own label: the line, segment, asset type, project or statement as written."),
+    _c("standard_concept", "VARCHAR", "The us-gaap concept (and axis) the row is an instance of; 'forward-looking statement (Reg S-K)' for guidance; 'none: ...' for a verbatim row with no standard."),
+    _c("standard_type", "VARCHAR", "For an asset type: the us-gaap PropertyPlantAndEquipmentByTypeAxis member it maps to (taxonomy/asset_types.yaml). Empty elsewhere, and on an unmapped asset type.", nullable=True),
+    _c("mapped", "BOOLEAN", "False exactly when check is unmapped: a reported asset type with no entry in taxonomy/asset_types.yaml. True on every other row."),
+    _c("value", "BIGINT", "The figure as reported or quoted, in `unit`: a dollar amount, or the low end of a stated range. Empty when the company gave no figure (has_value false) or stated a share instead.", nullable=True),
+    _c("value_high", "BIGINT", "The high end of a stated range, on planned and company_stated_ai rows only, and only when the range has two ends. Never anything else.", nullable=True),
+    _c("change_from_prior", "BIGINT", "On derived rows only: this year's reported gross balance minus the prior year's, for the same asset type. Arithmetic on two reported figures; empty on the first year.", nullable=True),
+    _c("share", "DOUBLE", "A share the company stated, 0 to 1, on company_stated_ai rows whose unit is share. Empty elsewhere.", nullable=True),
+    _c("has_value", "BOOLEAN", "True when the row carries a figure (value or share). False on a project or statement the company named without an amount."),
+    _c("unit", "VARCHAR", "USD for a dollar amount; share for a stated share; MW for a project whose only stated size is capacity_mw.", enum=("USD", "share", "MW")),
+    _c("scale", "BIGINT", "Always 1: every amount is in whole units (whole dollars, a share of one, megawatts)."),
+    _c("currency", "VARCHAR", "Always USD: the currency of value, value_high and change_from_prior.", enum=("USD",)),
+    _c("period_as_stated", "VARCHAR", "On a verbatim row: the period the company named, as the reader labelled it (the fiscal year). Empty on reported rows.", nullable=True),
+    _c("quote", "VARCHAR", "On a verbatim row: the sentence, as written in the source. Empty on reported rows.", nullable=True),
+    _c("kind", "VARCHAR", "On a company_stated_ai statement: actual or outlook. On a project: data_center, fab, plant, power, gpu_cluster, cloud_commitment, network or other. Empty elsewhere.", nullable=True,
+       enum=("actual", "outlook", "data_center", "fab", "plant", "power", "gpu_cluster", "cloud_commitment", "network", "other")),
+    _c("status", "VARCHAR", "On a project: announced, under_construction, in_service, contracted or cancelled, as stated. Empty elsewhere.", nullable=True, enum=("announced", "under_construction", "in_service", "contracted", "cancelled")),
+    _c("location", "VARCHAR", "On a project: the place as stated. Empty elsewhere.", nullable=True),
+    _c("capacity_mw", "DOUBLE", "On a project: megawatts when stated. Empty elsewhere.", nullable=True),
+    _c("forward_looking", "BOOLEAN", "On a verbatim row: True for guidance and an outlook statement (a forward-looking statement under Regulation S-K), False for an actual figure, a project or a gathered figure. Empty on reported rows.", nullable=True),
+    _c("part_year", "BOOLEAN", "On a statement read from a text: True when its words cover part of a year (a quarter, a half), by rules/guards; the figure is never turned into a year. Empty elsewhere.", nullable=True),
+    _c("program", "BOOLEAN", "On a statement read from a text: True when its words describe a multi-year program rather than a year's figure, by rules/guards. Empty elsewhere.", nullable=True),
+    _c("source", "VARCHAR", "The internal id of what the row was read from: extraction ids (values), the fact's extraction ids (facts), a text id (statements, projects), or taxonomy/stated_figures.yaml."),
+    _c("source_kind", "VARCHAR", "Where the figure is written: a 10-K statement table, a 10-K note, the 10-K's MD&A, an 8-K earnings release, a transcript, CFO commentary, or gathered (a figure a person recorded with its URL and quote).", enum=SOURCE_KINDS),
+    _c("accession", "VARCHAR", "SEC accession number of the filing the row was read from. Empty when the source is not a filing.", nullable=True, pattern=ACCESSION),
+    _c("filed", "VARCHAR", "The date the source was filed or published.", nullable=True, pattern=DATE),
+    _c("source_url", "VARCHAR", "A URL that opens the source: the filing on sec.gov at the cited row (a text fragment) for a 10-K cell, the text at the quote for a statement or project, the gathered figure's page.", nullable=True),
+    _c("check", "VARCHAR", "agree: matches the SEC's XBRL. explained: differs and something on file says why (check_method). differs: differs and nothing on file says why. no_reference: no XBRL fact to compare. unmapped: an asset type with no standard member. verbatim: a quote verified against its text.", enum=CHECKS),
+    _c("check_method", "VARCHAR", "What established the check: xbrl, rule:<id>, definition:<name>, resolution:<id>, quote, gathered, or none (nothing to compare against).",
+       pattern=re.compile(r"^(xbrl|rule:[a-z_]+|definition:[a-z_]+|resolution:[0-9a-f]+|quote|gathered|none)$")),
+), key=("ticker", "fiscal_year", "measure", "category", "reported_name", "source"))
+TAXONOMY_COLUMNS = tuple(c.name for c in TAXONOMY.cols)
+
 
 class ContractError(ValueError):
     pass
@@ -290,6 +338,8 @@ def init(path: Path | str = DEFAULT_DB) -> duckdb.DuckDBPyConnection:
             con.execute(f'DROP TABLE IF EXISTS "{t}"')
     if have and int(have[0]) < 10:  # v10 dropped the computed column; the rows are rebuilt by `ledger aispend --load`
         con.execute('DROP TABLE IF EXISTS "ai_spend"')
+    # v11 (T9–T17) reshaped the taxonomy rows, which are computed from the tables on every read (TAXONOMY above), so no
+    # stored table changes: the version bump records that a packet built from this schema carries the v11 columns.
     for t in SCHEMA:
         con.execute(_ddl(t))
     con.execute("CREATE TABLE IF NOT EXISTS _meta (k VARCHAR PRIMARY KEY, v VARCHAR)")
@@ -361,13 +411,20 @@ def data_dictionary() -> str:
            f"Generated from `ledger/store.py` (schema version {SCHEMA_VERSION}). Do not edit by hand: run `uv run python -m ledger.store`.", "",
            "Money is BIGINT US dollars, unscaled. Dates are `YYYY-MM-DD` strings; timestamps are UTC ISO 8601.", ""]
     for t in SCHEMA:
-        out += [f"## `{t.name}`", "", t.doc, "", f"Key: `({', '.join(t.key)})`", "",
-                "| Column | Type | Required | Allowed values | Meaning |", "|---|---|---|---|---|"]
-        for c in t.cols:
-            allowed = ", ".join(f"`{e}`" for e in c.enum) if c.enum else (f"pattern `{c.pattern.pattern}`" if c.pattern else "")
-            out.append(f"| `{c.name}` | {c.type} | {'no' if c.nullable else 'yes'} | {allowed} | {c.doc} |")
-        out.append("")
+        out += [f"## `{t.name}`", "", t.doc, "", f"Key: `({', '.join(t.key)})`", ""] + _columns_table(t)
+    out += ["## `taxonomy` (the release list, not a stored table)", "", TAXONOMY.doc, "",
+            f"Columns in this order, then `layer` and `proven` from the API. A row is identified by `({', '.join(TAXONOMY.key)})`. "
+            "Every amount is whole units (`scale` 1) in US dollars (`currency` USD); `value_high` is only a range high, `change_from_prior` only the derived change.", ""] + _columns_table(TAXONOMY)
     return "\n".join(out)
+
+
+def _columns_table(t: Table) -> list[str]:
+    out = ["| Column | Type | Required | Allowed values | Meaning |", "|---|---|---|---|---|"]
+    for c in t.cols:
+        allowed = ", ".join(f"`{e}`" for e in c.enum) if c.enum else (f"pattern `{c.pattern.pattern}`" if c.pattern else "")
+        out.append(f"| `{c.name}` | {c.type} | {'no' if c.nullable else 'yes'} | {allowed} | {c.doc} |")
+    out.append("")
+    return out
 
 
 if __name__ == "__main__":
