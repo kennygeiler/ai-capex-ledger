@@ -56,15 +56,16 @@ class ToConfirm(unittest.TestCase):
               {"id": "f", "key": "fact_changed|D|z FY2023", "hash": "h", "state": "accept", "reason": "yes", "by": "Kenny Geiler", "at": "2026-10-31T01:00:00"}]
         self.assertEqual([r["id"] for r in unconfirmed(rs)], ["c", "b"])  # k3 was a person's own; k4 was confirmed by a later resolution
 
-    def test_the_log_on_file_has_one_for_kenny_and_the_stale_ones_are_archived(self):
-        """After the 2 Nov sweep: the live log holds only live kinds (LITE operating_income, a finding_unconfirmed, is the
-        one decision left to confirm); the 12 stale lines sit under decisions/archive/ behind a note line."""
+    def test_the_log_on_file_is_live_and_confirmed_and_the_stale_ones_are_archived(self):
+        """After the 2 Nov sweep: the live log holds only live kinds; the one decision left (LITE operating_income, a
+        finding_unconfirmed) was confirmed by Kenny Geiler on 2 Nov, so nothing waits; the 12 stale lines sit under
+        decisions/archive/ behind a note line."""
         from ledger.resolutions import LOG, ROOT, is_live, load, unconfirmed
-        rs = unconfirmed()
-        self.assertEqual([r["key"] for r in rs], ["finding_unconfirmed|LITE|operating_income"])
-        self.assertTrue(all("to confirm" in (r["by"] + r["reason"]).lower() for r in rs))
-        self.assertTrue(all(is_live(r["key"]) for r in load()), "stale kinds belong in decisions/archive/")
-        self.assertEqual(len(load()), 2)
+        self.assertEqual(unconfirmed(), [])
+        rows = load()
+        self.assertTrue(all(is_live(r["key"]) for r in rows), "stale kinds belong in decisions/archive/")
+        lite = [r for r in rows if r["key"] == "finding_unconfirmed|LITE|operating_income"]
+        self.assertEqual((lite[-1]["by"], lite[-1]["state"]), ("Kenny Geiler", "accept"))
         arch = [json.loads(l) for l in (ROOT / "decisions" / "archive" / "resolutions-stale-2026-11-02.jsonl").read_text().splitlines() if l.strip()]
         self.assertIn("2ee2e6f", arch[0]["note"])
         self.assertEqual(len(arch) - 1, 12)
