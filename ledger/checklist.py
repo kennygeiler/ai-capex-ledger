@@ -129,17 +129,102 @@ def packet(con, version: str, stage: int = 3) -> dict:
         files[f"{name}.csv"] = api.to_csv(rows)
     diff = {}
     if prev_dir:  # the shape of the packet is part of the diff
-        before = set(_manifest(prev_dir).get("files") or []) - {"manifest.json", "SIGNOFF.json"}
+        prev_m = _manifest(prev_dir)
+        before = set(prev_m.get("files") or []) - {"manifest.json", "SIGNOFF.json"}
         gone, new = sorted(before - set(files)), sorted(set(files) - before)
         if gone or new:
             files["DIFF.md"] += "\n".join(["", "## Files"] + [f"- added `{f}`" for f in new] + [f"- removed `{f}`" for f in gone] + [""])
+        if "provenance" not in prev_m:  # T66: the previous manifest named the build-time versions, not what produced its rows
+            files["DIFF.md"] += provenance_note(prev_dir.name, version)
         diff = rows_diff(files, {f.name: f.open(newline="").read() for f in prev_dir.glob("*.csv")})
         files["DIFF.md"] += rows_diff_md(diff)
     h = content_hash(files)
+    # The manifest is not among the hashed files: git head/dirty and the input hashes never move the packet's hash (G7), so
+    # the Release page's hash is the CLI's within one checkout.
     manifest = {"version": version, "stage": stage, "scope": list(SCOPE), "hash": h, "files": sorted(files), "prompt": prompt_version(), "parser": PARSER_VERSION,
-                "model": model(), "rules": {r["id"]: r["file_sha256"][:12] for r in load_rules()}, "decisions": len(ds)}
+                "model": model(), "rules": {r["id"]: r["file_sha256"][:12] for r in load_rules()}, "decisions": len(ds),
+                "provenance": provenance(values, exts, facts, **_provenance_rows(con, tickers))}
     return {"version": version, "files": files, "hash": h, "manifest": manifest, "gates": g, "previous": prev_dir.name if prev_dir else None, "rows_diff": diff,
             "hand_check": hc_path.exists(), "values": len(values)}
+
+
+# ── T66: what produced the shipped rows. The top-level prompt / parser / model name the versions in use at build time and
+# stay for compatibility; `provenance` is the record. ─────────────────────────────────────────────────────────────────
+READERS = {"reader": "extract", "notes_reader": "notes", "ai_reader": "aispend", "projects_reader": "projects"}  # agents.json id → runs.step
+INPUT_FILES = ("definitions/companies.yaml", "decisions/resolutions.jsonl")  # plus every taxonomy/*.yaml
+
+
+def provenance_note(previous: str, version: str) -> str:
+    """The DIFF.md paragraph when the previous release's manifest has no `provenance`."""
+    return f"\nProvenance: {previous}'s manifest named the versions in use at build time; from {version} the manifest names the versions that produced the rows (`manifest.json` `provenance`).\n"
+
+
+def _provenance_rows(con, tickers: list) -> dict:
+    """The rows behind the packet's other lists, the same scope filter the packet applies: note_extractions (behind facts.csv),
+    ai_statements (statements.csv), projects (projects.csv), the documents of the companies in scope, and the runs' versions."""
+    return {"note_exts": _rows(con, "select extraction_id, accession, prompt_version, run_id from note_extractions where ticker in (select unnest(?))", tickers),
+            "statements": _rows(con, "select text_id, prompt_version, run_id from ai_statements where ticker in (select unnest(?))", tickers),
+            "projects": _rows(con, "select text_id, prompt_version, run_id from projects where ticker in (select unnest(?))", tickers),
+            "documents": _rows(con, "select accession, parser_version from documents where ticker in (select unnest(?))", tickers),
+            "runs": _rows(con, "select run_id, step, subject, versions from runs where step in ('extract', 'notes', 'aispend', 'projects')", [])}
+
+
+def _cited(rows: list[dict], by_id: dict) -> list[dict]:
+    """The distinct extraction rows a shipped list cites (values → extractions, facts → note_extractions)."""
+    from .release import split_ids
+    out = {}
+    for r in rows:
+        for i in split_ids(r.get("extraction_ids") or ""):
+            if i in by_id:
+                out[i] = by_id[i]
+    return list(out.values())
+
+
+def provenance(values, exts, facts, note_exts=(), statements=(), projects=(), documents=(), runs=(), git=None, inputs=None) -> dict:
+    """{prompts: {reader: [prompt_version...]}, models: [...], parser_versions: [...], unrecorded: {reader: n}, git: {head, dirty},
+    inputs: {path: sha256}} over the rows the packet writes: values' cited statement cells, facts' cited note cells, every
+    ai_statement and project in scope, the documents of the companies in scope. A row's model is the `versions.model` of the
+    run that wrote it (runs by run_id, step, subject). A row with no prompt_version or no model on record counts once under
+    `unrecorded` for its reader and is never guessed. `git` and `inputs` are read from the checkout unless passed."""
+    versions = {}
+    for r in runs:
+        try:
+            versions[(r["run_id"], r["step"], r["subject"])] = json.loads(r["versions"] or "{}")
+        except (ValueError, TypeError):
+            versions[(r["run_id"], r["step"], r["subject"])] = {}
+    sets = {"reader": (_cited(values, {e["extraction_id"]: e for e in exts}), "accession"),
+            "notes_reader": (_cited(facts, {e["extraction_id"]: e for e in note_exts}), "accession"),
+            "ai_reader": (list(statements), "text_id"), "projects_reader": (list(projects), "text_id")}
+    prompts, models, unrecorded = {}, set(), {}
+    for reader, (rows, subject) in sets.items():
+        step, seen, n = READERS[reader], set(), 0
+        for r in rows:
+            m = (versions.get((r.get("run_id"), step, r.get(subject))) or {}).get("model")
+            if r.get("prompt_version"):
+                seen.add(r["prompt_version"])
+            if m:
+                models.add(m)
+            if not r.get("prompt_version") or not m:
+                n += 1
+        prompts[reader], unrecorded[reader] = sorted(seen), n
+    head, dirty = git_state() if git is None else git
+    return {"prompts": prompts, "models": sorted(models), "parser_versions": sorted({d["parser_version"] for d in documents if d.get("parser_version")}),
+            "unrecorded": unrecorded, "git": {"head": head, "dirty": dirty}, "inputs": input_hashes() if inputs is None else inputs}
+
+
+def git_state() -> tuple:
+    """(short sha of HEAD, dirty) of this checkout; (None, None) without git (the hosted copy ships no .git)."""
+    from .testreport import git_state as _gs
+    return _gs()
+
+
+def input_hashes(root=None) -> dict:
+    """sha256 of the inputs a person edits between runs: definitions/companies.yaml, every taxonomy/*.yaml,
+    decisions/resolutions.jsonl; null for a file that does not exist (resolutions.jsonl is rebuilt, not tracked)."""
+    import hashlib
+    root = root or store.ROOT
+    paths = [INPUT_FILES[0]] + sorted(p.relative_to(root).as_posix() for p in (root / "taxonomy").glob("*.yaml")) + [INPUT_FILES[1]]
+    return {p: hashlib.sha256((root / p).read_bytes()).hexdigest() if (root / p).is_file() else None for p in paths}
 
 
 def write(p: dict) -> dict:

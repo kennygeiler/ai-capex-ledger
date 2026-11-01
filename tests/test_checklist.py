@@ -413,3 +413,63 @@ class DryRun(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class Provenance(unittest.TestCase):
+    """T66: the manifest names what produced the rows, not the versions in use at build time. A packet that mixes prompt
+    versions lists both; a row whose run has no model on record is counted as unrecorded, never guessed; the inputs are the
+    files' sha256; git is read from the checkout, null without git."""
+    RUNS = [{"run_id": "r1", "step": "extract", "subject": "A1", "versions": json.dumps({"prompt": "statements@v1", "model": "claude-opus-5-5"})},
+            {"run_id": "r2", "step": "extract", "subject": "A2", "versions": json.dumps({"prompt": "statements@v2", "model": None})},
+            {"run_id": "r3", "step": "aispend", "subject": "T1", "versions": json.dumps({"prompt": "aispend@v4", "model": "claude-sonnet-5"})}]
+    VALUES = [{"ticker": "X", "field": "revenue", "period": "FY2025", "extraction_ids": "0000000001-25-000001|revenue|a|b"},
+              {"ticker": "X", "field": "opex", "period": "FY2025", "extraction_ids": "0000000002-25-000001|revenue|a|b,0000000002-25-000001|cost_of_revenue_part|a|b|Fuel, purchased power"},
+              {"ticker": "X", "field": "capex", "period": "FY2025", "extraction_ids": None}]
+    EXTS = [{"extraction_id": "0000000001-25-000001|revenue|a|b", "accession": "A1", "prompt_version": "statements@v1", "run_id": "r1"},
+            {"extraction_id": "0000000002-25-000001|revenue|a|b", "accession": "A2", "prompt_version": "statements@v2", "run_id": "r2"},
+            {"extraction_id": "0000000002-25-000001|cost_of_revenue_part|a|b|Fuel, purchased power", "accession": "A2", "prompt_version": "statements@v2", "run_id": "r2"},
+            {"extraction_id": "A9|revenue|a|b", "accession": "A9", "prompt_version": "statements@v0", "run_id": "r9"}]  # not cited by a shipped value: not provenance
+
+    def test_mixed_prompt_versions_are_both_listed_and_an_unrecorded_row_is_counted(self):
+        p = checklist.provenance(self.VALUES, self.EXTS, [], statements=[{"text_id": "T1", "prompt_version": "aispend@v4", "run_id": "r3"}],
+                                 documents=[{"accession": "A1", "parser_version": "tables@12"}, {"accession": "A2", "parser_version": "tables@15"}, {"accession": "A3", "parser_version": "tables@12"}],
+                                 runs=self.RUNS, git=("abc1234", False), inputs={"definitions/companies.yaml": "x"})
+        self.assertEqual(p["prompts"], {"reader": ["statements@v1", "statements@v2"], "notes_reader": [], "ai_reader": ["aispend@v4"], "projects_reader": []})
+        self.assertEqual(p["models"], ["claude-opus-5-5", "claude-sonnet-5"])
+        self.assertEqual(p["parser_versions"], ["tables@12", "tables@15"])
+        self.assertEqual(p["unrecorded"], {"reader": 2, "notes_reader": 0, "ai_reader": 0, "projects_reader": 0})  # the two A2 cells: run r2 has no model
+        self.assertEqual(p["git"], {"head": "abc1234", "dirty": False})
+        self.assertEqual(p["inputs"], {"definitions/companies.yaml": "x"})
+
+    def test_inputs_are_the_files_sha256_and_a_missing_file_is_null(self):
+        import hashlib
+        root = Path(tempfile.mkdtemp(prefix="inputs-"))
+        self.addCleanup(shutil.rmtree, root, True)
+        (root / "definitions").mkdir(); (root / "taxonomy").mkdir(); (root / "decisions").mkdir()
+        (root / "definitions" / "companies.yaml").write_text("a: 1\n")
+        (root / "taxonomy" / "taxonomy.yaml").write_text("b: 2\n")
+        (root / "taxonomy" / "asset_types.yaml").write_text("c: 3\n")
+        h = checklist.input_hashes(root)
+        self.assertEqual(list(h), ["definitions/companies.yaml", "taxonomy/asset_types.yaml", "taxonomy/taxonomy.yaml", "decisions/resolutions.jsonl"])
+        self.assertEqual(h["definitions/companies.yaml"], hashlib.sha256(b"a: 1\n").hexdigest())
+        self.assertEqual(h["taxonomy/asset_types.yaml"], hashlib.sha256(b"c: 3\n").hexdigest())
+        self.assertIsNone(h["decisions/resolutions.jsonl"])
+        real = checklist.input_hashes()  # the checkout's own: every taxonomy/*.yaml, hashed as the file is
+        for path, digest in real.items():
+            f = store.ROOT / path
+            self.assertEqual(digest, hashlib.sha256(f.read_bytes()).hexdigest() if f.is_file() else None, path)
+        self.assertTrue(any(k.startswith("taxonomy/") for k in real))
+
+    def test_git_is_read_from_the_checkout_and_null_without_git(self):
+        import subprocess
+        with mock.patch.object(subprocess, "run", side_effect=OSError("no git")):
+            p = checklist.provenance([], [], [], inputs={})
+        self.assertEqual(p["git"], {"head": None, "dirty": None})
+        head, dirty = checklist.git_state()
+        if head is not None:
+            self.assertRegex(head, r"^[0-9a-f]{7,}$")
+            self.assertIsInstance(dirty, bool)
+
+    def test_the_diff_names_the_correction_once_when_the_previous_manifest_has_no_provenance(self):
+        note = checklist.provenance_note("v1.8.0", "v1.9.0")
+        self.assertIn("v1.8.0's manifest named the versions in use at build time; from v1.9.0 the manifest names the versions that produced the rows", note)

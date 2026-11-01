@@ -53,6 +53,16 @@ signature at a time. The reply says `published` and, when the publish failed aft
 failure; rerun `ledger publish`). `/api/outputs` carries per release `checklist: {open, unmapped, scope, unconfirmed, at}` from
 that stored checklist, or null for a release signed before it existed, and `published` (false: signed, the publish failed).
 
+A release's `manifest.json` (T66) carries `version`, `stage`, `scope`, `hash`, `files`, `rules` (rule id → sha256 prefix), `decisions`,
+and `provenance`: `{prompts: {reader: [prompt_version, ...]}, models: [...], parser_versions: [...], unrecorded: {reader: n}, git: {head,
+dirty}, inputs: {path: sha256}}`, computed over the rows the packet writes (the statement cells `values.csv` cites, the note cells
+`facts.csv` cites, every statement and project in scope, the filings of the companies in scope). Readers are the ids in
+`agents/agents.json` (`reader`, `notes_reader`, `ai_reader`, `projects_reader`); a row's model is the one its run recorded; a row
+whose prompt version or model is not on record counts once under `unrecorded`, never guessed. `git.head` and `git.dirty` are null
+without git (the hosted copy); `inputs` hashes `definitions/companies.yaml`, every `taxonomy/*.yaml` and `decisions/resolutions.jsonl`
+(null when absent). `provenance` is the record; the top-level `prompt`, `parser` and `model` name the versions in use when the
+packet was built and stay for older consumers. The manifest is not among the hashed files, so none of this moves `hash`.
+
 Every POST (a decision, a view, a prompt, a signature) needs `Content-Type: application/json` and, when the browser sends an
 `Origin`, this server's own (`http://127.0.0.1:<port>` or `http://localhost:<port>`); anything else is 403 before any route, so a
 page on another site cannot write through the browser's permission to POST to localhost without a preflight. The body must be a
