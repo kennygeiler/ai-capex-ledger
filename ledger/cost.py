@@ -8,6 +8,10 @@ import json
 from .config import PRICES, industry
 
 AGENT_STEPS = ("extract", "aispend", "notes", "projects", "attribution")
+# `runs` has no agent column: the step names the agent (one loader per agent, ledger/cli/<step>.py), so by_agent derives it.
+STEP_AGENT = {"extract": "reader", "aispend": "ai_reader", "notes": "notes_reader", "projects": "projects_reader", "attribution": "attributor"}
+AGENT_STEP = {a: s for s, a in STEP_AGENT.items()}
+AGENT_SUBJECT = {"reader": "filing", "notes_reader": "filing", "ai_reader": "text", "projects_reader": "text", "attributor": "company"}
 
 
 def _rows(con, sql, *p):
@@ -57,6 +61,43 @@ def report(con, tickers: list[str] | None = None) -> dict:
     return {"steps": {k: by_step[k] for k in AGENT_STEPS if k in by_step}, "companies": companies, "total": total, "per_company_usd": per_co,
             "models": sorted(models), "prices": {m: PRICES[m] for m in models if m in PRICES}, "unpriced_models": sorted(m for m in models if m not in PRICES),
             "note": "Estimated at list price; the agents ran on a Claude subscription. Tokens include cache reads at the input price."}
+
+
+def by_agent(con, agent_id: str, tickers: list[str]) -> dict:
+    """One agent's runs per company (T48): calls, tokens, seconds, attempts and failures from the `runs` table, for
+    the given tickers in that order. The agent is derived from the step (STEP_AGENT); every `--load` re-records the
+    `_run` of each output, so only the latest row per subject counts, and a call is a subject whose latest load
+    carried agent metadata or failed. Tokens include cache reads."""
+    step = AGENT_STEP[agent_id]
+    runs = _rows(con, "select subject, started_at, seconds, outcome, versions, detail from runs where step = ? "
+                      "qualify row_number() over (partition by subject order by started_at desc) = 1", step)
+    acc_t = {r["accession"]: r["ticker"] for r in _rows(con, "select accession, ticker from documents")}
+    txt_t = {r["text_id"]: r["ticker"] for r in _rows(con, "select text_id, ticker from texts")}
+    want = [t.upper() for t in tickers]
+    by = {t: {"ticker": t, "read": 0, "calls": 0, "input_tokens": 0, "output_tokens": 0, "seconds": 0.0, "attempts": 0, "failed": 0, "last_run": None} for t in want}
+    for r in runs:
+        d = json.loads(r["detail"] or "{}")
+        t = r["subject"] if step == "attribution" else (acc_t.get(r["subject"]) or txt_t.get(r["subject"]) or (r["subject"] or "").split("|")[0])
+        o = by.get(t)
+        if o is None:
+            continue
+        o["read"] += 1  # every subject the loader saw an output for
+        o["last_run"] = max(o["last_run"] or "", r["started_at"] or "")
+        if "input_tokens" not in d and r["outcome"] != "failed":
+            continue  # an output with no `_run`: read before the headless runner metered calls, so no tokens to count
+        o["calls"] += 1
+        o["input_tokens"] += int(d.get("input_tokens") or 0)
+        o["output_tokens"] += int(d.get("output_tokens") or 0)
+        o["seconds"] += float(d.get("seconds") or 0)
+        o["attempts"] += int(d.get("attempts") or 0)
+        o["failed"] += r["outcome"] == "failed"
+    for o in by.values():
+        o["seconds"] = round(o["seconds"], 1)
+    rows = [by[t] for t in want]
+    total = {k: round(sum(o[k] for o in rows), 1) for k in ("read", "calls", "input_tokens", "output_tokens", "seconds", "attempts", "failed")}
+    return {"agent": agent_id, "step": step, "subject": AGENT_SUBJECT[agent_id], "companies": rows, "total": total,
+            "note": f"step {step} in the runs table, the latest load of each {AGENT_SUBJECT[agent_id]}; the table has no agent column, the step names the agent; "
+                    f"an output read before the headless runner metered calls counts as read, not as a call"}
 
 
 def render(rep: dict) -> str:

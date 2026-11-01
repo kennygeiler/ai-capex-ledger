@@ -93,18 +93,14 @@ def company(ticker: str) -> dict:
 
 
 def agents_view() -> dict:
+    """Every live agent with its charter (agents/charters, as blocks), prompt history with `by`, every saved prompt,
+    and its runs per proven company from the `runs` table (T48). The retired attributor is left out."""
+    from .cost import by_agent
     cfg = agents.load()
     con = _con()
     try:
-        runs = _rows(con, "select r.subject as accession, d.ticker, d.period, r.started_at, r.outcome, r.versions, r.detail from runs r "
-                          "join documents d on d.accession = r.subject where r.step = 'extract' order by r.started_at desc")  # one row per filing read, not the step log
-    finally:
-        con.close()
-    for r in runs:
-        r["versions"], r["detail"] = json.loads(r["versions"] or "{}"), json.loads(r["detail"] or "{}")
-    con = _con()
-    try:
         h = snapshot(con, STAGE)["health"][0]
+        runs = {aid: by_agent(con, aid, SCOPE) for aid, a in cfg.items() if not a.get("retired")}
     finally:
         con.close()
     cost = h["per_company_minutes"] is not None and {"minutes": h["per_company_minutes"], "tokens": h["per_company_tokens"], "companies": h["measured_companies"]} or None
@@ -113,7 +109,7 @@ def agents_view() -> dict:
         if a.get("retired"):
             continue
         vs = agents.versions(aid)
-        out[aid] = {**a, "id": aid, "versions": vs, "prompts": {v: agents.prompt_text(v) for v in vs}, "runs": runs, "cost": cost}
+        out[aid] = {**a, "id": aid, "versions": vs, "prompts": {v: agents.prompt_text(v) for v in vs}, "charter_blocks": agents.charter(aid), "runs": runs[aid], "cost": cost}
     return out
 
 
@@ -347,6 +343,20 @@ class Handler(BaseHTTPRequestHandler):
             return self._guard(lambda: self._json(company(q.get("t", ""))))
         if u.path == "/api/agents":
             return self._guard(lambda: self._json(agents_view()))
+        if u.path.startswith("/api/agents/") and u.path.endswith("/runs"):  # one live agent's runs per company (T48); ?t=MSFT,NVDA narrows, default the proven set
+            aid = u.path[len("/api/agents/"):-len("/runs")]
+
+            def agent_runs():
+                from .cost import by_agent
+                if aid not in agents.load() or agents.load()[aid].get("retired"):
+                    raise KeyError(aid)
+                tickers = [t for t in q.get("t", "").upper().split(",") if t] or SCOPE
+                con = _con()
+                try:
+                    return by_agent(con, aid, tickers)
+                finally:
+                    con.close()
+            return self._guard(lambda: self._json(agent_runs()))
         if u.path == "/api/job":
             return self._json(job())
         if u.path == "/api/flow":

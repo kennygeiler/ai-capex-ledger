@@ -35,6 +35,24 @@ def prompt_text(version: str) -> str:
     return (PROMPTS / f"{version}.md").read_text()
 
 
+def charter(agent_id: str) -> list[dict]:
+    """The agent's charter (agents/charters/<id>.md, T48) as blocks the page can show without a markdown library:
+    {"kind": "heading"|"paragraph", "text"}. Split on blank lines; a line starting with '#' is a heading."""
+    path = ROOT / load()[agent_id].get("charter", f"agents/charters/{agent_id}.md")
+    if not path.exists():
+        return []
+    out = []
+    for block in re.split(r"\n\s*\n", path.read_text().strip()):
+        text = " ".join(line.strip() for line in block.splitlines()).strip()
+        if not text:
+            continue
+        if text.startswith("#"):
+            out.append({"kind": "heading", "text": text.lstrip("#").strip()})
+        else:
+            out.append({"kind": "paragraph", "text": text})
+    return out
+
+
 def save_prompt(agent_id: str, text: str, by: str, note: str) -> str:
     """Save `text` as the next version. It is not in use until `use_prompt`: a person switches it on, on purpose."""
     if not text.strip() or not by.strip() or not note.strip():
