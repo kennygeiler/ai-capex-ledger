@@ -7,13 +7,15 @@ the first 10-K's figure is kept as first_reported.
 Labels: agree (within the coarser rounding of the two sources), unresolved (they differ: the xbrl_reconcile rule
 raises it for a person), definition_gap (opex built from summed cost lines differs only because XBRL draws cost of
 revenue differently: revenue and operating income both agree, so code explains it and no person is asked),
-no_reference (no XBRL value), not_reported (the 10-K has no line to build it from).
+no_reference (no XBRL value), not_reported (the 10-K has no line to build it from, and XBRL tags no value either),
+not_extracted (no cell to build it from, while XBRL tags a value: the reader missed a line or the statement table was
+mislocated; open until it is read, never explained by the label; T65).
 """
 import hashlib
 import json
 from datetime import date
 
-from .config import MVP_YEARS, RELEASE_FIELDS
+from .config import MVP_YEARS, RELEASE_FIELDS, restated, rounding_unit
 from .definitions import revenue_gap_explained, opex_gap_explained
 from .ingest.edgar import fetch_json
 from .ingest.filings import fetch_tickers
@@ -26,12 +28,13 @@ def fiscal_year_end(ticker: str) -> str | None:
 
 
 def _rounding(v: int) -> int:
-    return 1_000_000 if v % 1_000_000 == 0 else 1_000 if v % 1_000 == 0 else 1
+    return rounding_unit(v)
 
 
 def _restated(first: int, latest: int, scale: int) -> bool:
-    """Any change beyond rounding is a restatement (Meta's 0.8% capex change counts); how big it is shows beside it."""
-    return abs(latest - first) > scale // 2
+    """Any change beyond rounding is a restatement (Meta's 0.8% capex change counts); how big it is shows beside it.
+    The one threshold is config.RESTATEMENT_TOLERANCE (half a rounding unit, T64): here the unit is the cell's scale."""
+    return restated(first, latest, scale)
 
 
 def _agrees(e: dict, r: int | None) -> bool:
@@ -67,8 +70,11 @@ def values_for(ticker: str, extractions: list[dict], reference: dict, fye: str |
         newest = fl[-1][1]  # every field of a company-year comes from the newest 10-K that reports it: one basis per year
         for f in RELEASE_FIELDS:
             parts = ("revenue", "cost_of_revenue", "operating_income") if f == "opex" else (f,)
-            if not all(p in newest for p in parts):  # the 10-K reports the year but has no such line (a bank's capex)
-                out.append(_row(ticker, f, period, end, None, None, [], "not_reported", "as_reported", docs))
+            if not all(p in newest for p in parts):  # no cell for it in the newest 10-K
+                # not_reported only when XBRL has no value either (a bank's capex); a value the filer tagged and the reader
+                # did not extract is not_extracted: open (AMZN's income statement located as its cash-flow table, T65)
+                label = "not_extracted" if reference.get((f, period)) is not None else "not_reported"
+                out.append(_row(ticker, f, period, end, None, None, [], label, "as_reported", docs))
                 continue
             val = lambda fs: fs["revenue"]["value"] - fs["cost_of_revenue"]["value"] - fs["operating_income"]["value"] if f == "opex" else fs[f]["value"]
             day0 = next(d for d, fs in fl if all(p in fs for p in parts))  # filings on the same day are one vintage:

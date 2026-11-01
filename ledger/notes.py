@@ -17,7 +17,7 @@ import json
 import re
 from pathlib import Path
 
-from . import agents
+from . import agents, config
 from .extract import Invalid, render_statement, resolve
 from .store import ROOT
 
@@ -152,7 +152,7 @@ def fact_rows(ticker: str, extractions: list[dict], reference: dict, fye_label, 
         ids = [x["extraction_id"] for x in es]
         h = hashlib.sha256(json.dumps([e["value"], ids, label, sorted({docs[x["accession"]] for x in es})]).encode()).hexdigest()[:16]
         out.append({"ticker": ticker, "field": f, "dimension": dim, "period": period, "period_end": e["period_end"], "value": e["value"],
-                    "first_reported": es[0]["value"], "basis": "restated" if abs(e["value"] - es[0]["value"]) > tol else "as_reported",
+                    "first_reported": es[0]["value"], "basis": "restated" if config.restated(es[0]["value"], e["value"], max(e["scale"], 1)) else "as_reported",
                     "label": label, "reference": r, "accession": e["accession"], "extraction_ids": ",".join(ids), "input_hash": h})
     return out
 

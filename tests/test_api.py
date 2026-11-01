@@ -83,12 +83,16 @@ class StatusAndFlag(unittest.TestCase):
         import duckdb
         from ledger import resolutions
         con = duckdb.connect()
-        con.execute('create table "values" (ticker text, field text, period text, period_end text, value double, label text, basis text, source text, extraction_ids text)')
-        con.execute("insert into \"values\" values ('T','opex','FY2022','2022-12-31',74.5e6,'unresolved','as_reported','agent','x'), ('MSFT','capex','FY2025','2025-06-30',64551e6,'agree','as_reported','agent','y')")
+        con.execute('create table "values" (ticker text, field text, period text, period_end text, value double, label text, basis text, first_reported double, source text, extraction_ids text)')
+        con.execute("insert into \"values\" values ('T','opex','FY2022','2022-12-31',74.5e6,'unresolved','as_reported',74.5e6,'agent','x'), ('MSFT','capex','FY2025','2025-06-30',64551e6,'agree','as_reported',64551e6,'agent','y')")
+        con.execute("create table extractions (extraction_id text, accession text, table_id text, row_label text, column_label text, cell_text text)")  # T64: the values list joins its cited cells
+        con.execute("insert into extractions values ('y','0000789019-25-000059','t0070','Additions to property and equipment','2025','(64,551)')")
+        con.execute("create table documents (accession text, filed text)")
+        con.execute("insert into documents values ('0000789019-25-000059','2025-07-30')")
         old = resolutions.LOG
         import tempfile, pathlib, json
         resolutions.LOG = pathlib.Path(tempfile.mkdtemp()) / "resolutions.jsonl"
-        resolutions.LOG.write_text(json.dumps({"key": "finding_unconfirmed|T|opex FY2022", "hash": "h", "state": "fix", "reason": "unit", "by": "k", "at": "2026-10-30"}) + "\n")
+        resolutions.LOG.write_text(json.dumps({"key": "finding_unconfirmed|T|opex|FY2022||jump|", "hash": "h", "state": "fix", "reason": "unit", "by": "k", "at": "2026-10-30"}) + "\n")
         try:
             rows = {(r["ticker"], r["period"]): r for r in api.fetch(con, "values")}
         finally:
@@ -96,3 +100,7 @@ class StatusAndFlag(unittest.TestCase):
         self.assertEqual((rows[("T", "FY2022")]["flag"], rows[("T", "FY2022")]["status"]), ("differs_from_xbrl", "fix_pending"))
         self.assertEqual((rows[("MSFT", "FY2025")]["flag"], rows[("MSFT", "FY2025")]["status"]), ("", ""))
         self.assertIn("status", api.to_csv(list(rows.values())).splitlines()[0])
+        m = rows[("MSFT", "FY2025")]  # T64: the cited cells spelled out, the filing and its date beside the value
+        self.assertEqual((m["accession"], m["filed"], m["first_reported"]), ("0000789019-25-000059", "2025-07-30", 64551e6))
+        self.assertEqual(m["citations"], "0000789019-25-000059 t0070 'Additions to property and equipment' / '2025' = (64,551)")
+        self.assertEqual((rows[("T", "FY2022")]["accession"], rows[("T", "FY2022")]["citations"]), (None, ""))  # a cited cell the table no longer has: nothing invented

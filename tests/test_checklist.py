@@ -397,6 +397,7 @@ class DryRun(unittest.TestCase):
                     self.assertEqual(code, 0)
                     self.assertEqual(json.loads((tmp / cl["version"] / "manifest.json").read_text())["hash"], cl["hash"])
                     self.assertEqual((tmp / cl["version"] / "DIFF.md").read_text(), checklist.packet(con, cl["version"])["files"]["DIFF.md"])
+                    assert_readme_matches_headers(self, {f.name: f.read_text() for f in (tmp / cl["version"]).iterdir() if f.suffix in (".csv", ".md")})  # T64
                 else:
                     self.assertEqual(code, 1)  # a red line the folder does not cause (gates, open, golden): the CLI refused too
             if cl["ok"]:
@@ -495,3 +496,88 @@ class Provenance(unittest.TestCase):
             self.assertEqual(p["files"]["DIFF.md"].count("Provenance:"), times, manifest)
             self.assertEqual(p["previous"], "v1.0.0")
             self.assertIn("provenance", p["manifest"])
+
+
+def assert_readme_matches_headers(tc: unittest.TestCase, files: dict):
+    """T64: the README's column tables are the CSV headers that ship, one table per CSV, every column in the file's order,
+    and no column in a table that the file does not carry."""
+    import re
+    readme = files["README.md"]
+    tables = {m.group(1): re.findall(r"^\| `([^`]+)` \|", m.group(2), re.M)
+              for m in re.finditer(r"^## Columns of (\S+\.csv)\n\n(.*?)(?=^## |\Z)", readme, re.M | re.S)}
+    csvs = {n for n in files if n.endswith(".csv")}
+    tc.assertEqual(set(tables), csvs, "one column table per CSV in the packet")
+    for name in sorted(csvs):
+        header = files[name].splitlines()[0].split(",") if files[name] else []
+        tc.assertEqual(tables[name], header, f"{name}: the README's table is the header that ships")
+
+
+class PacketColumns(unittest.TestCase):
+    """T64: values.csv ships the columns the README promises (first_reported, filed, accession, citations), the README's
+    column tables are written from the headers that ship, and a row without a value is not in values.csv but is counted."""
+
+    def _packet(self, tmp: Path, hc=None):
+        from ledger.store import TABLES, TAXONOMY
+        value = {"ticker": "NVDA", "field": "capex", "period": "FY2026", "period_end": "2026-01-25", "value": 5, "basis": "as_reported", "first_reported": 5,
+                 "source": "agent", "label": "agree", "extraction_ids": "0000000001-26-000001|capex|2025-01-27|2026-01-25"}
+        blank = {**value, "field": "opex", "value": None, "first_reported": None, "source": "missing", "label": "not_reported", "extraction_ids": None}
+        api_cols = {  # the columns the read API serves per list (ledger/api.py fetch), the columns a release ships
+            "values": ["ticker", "field", "period", "period_end", "value", "check_label", "basis", "first_reported", "source", "extraction_ids", "accession", "filed", "citations", "layer", "proven", "status", "flag"],
+            "facts": ["ticker", "field", "dimension", "period", "period_end", "value", "check_label", "xbrl", "accession", "basis", "layer", "proven", "status", "flag"],
+            "statements": ["statement_id", "ticker", "field", "period", "kind", "scope", "class", "amount_low", "amount_high", "amount_mid", "share", "quote", "source", "date", "url", "layer", "proven"],
+            "projects": [c.name for c in TABLES["projects"].cols] + ["layer", "proven"],
+            "companies": ["ticker", "name", "layer", "group", "role", "note", "sic", "sic_description", "proven"],
+            "taxonomy": [c.name for c in TAXONOMY.cols] + ["layer", "proven"]}
+        fetch = lambda con, name: [{c: ("NVDA" if c == "ticker" else "") for c in api_cols[name]}]
+        rows = lambda con, sql, p: [value, blank] if '"values"' in sql else []
+        with mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(checklist, "_rows", side_effect=rows), mock.patch.object(checklist, "decisions", return_value=[]), \
+                mock.patch.object(checklist, "load_all", return_value={}), mock.patch.object(checklist, "gates", return_value={}), mock.patch.object(checklist, "load_rules", return_value=[]), \
+                mock.patch.object(checklist.api, "fetch", side_effect=fetch), mock.patch.object(checklist, "_provenance_rows", return_value={}), \
+                mock.patch.object(checklist, "git_state", return_value=(None, None)), mock.patch.object(checklist, "input_hashes", return_value={}), \
+                mock.patch.object(checklist.store, "ROOT", tmp):
+            if hc is not None:
+                (tmp / "golden").mkdir(exist_ok=True)
+                (tmp / "golden" / "stage3-handcheck.json").write_text(json.dumps(hc))
+            return checklist.packet(mock.MagicMock(), "v1.1.0")
+
+    def test_every_csv_header_is_the_readme_table_and_values_carries_the_promised_columns(self):
+        tmp = Path(tempfile.mkdtemp(prefix="releases-"))
+        self.addCleanup(shutil.rmtree, tmp, True)
+        p = self._packet(tmp)
+        files = p["files"]
+        assert_readme_matches_headers(self, files)
+        header = files["values.csv"].splitlines()[0].split(",")
+        for col in ("first_reported", "filed", "accession", "citations", "check_label"):
+            self.assertIn(col, header)
+        self.assertNotIn("xbrl", header)  # the API's name is check_label; the old README named a column the file never had
+        self.assertIn("10-K gives no figure for is not a row here (1 in this release: NVDA 1", files["README.md"])
+        self.assertIn("1 rows without a value, not in values.csv (not_reported: 1)", files["QUALITY.md"])
+        self.assertIn("1 rows without a value, not in values.csv (not_reported: 1).", files["DIFF.md"])
+        self.assertNotIn("Added:", files["DIFF.md"])  # the blank row is not a value added (DC6)
+        self.assertIn("By a person: no hand-check for this release", files["QUALITY.md"])
+        self.assertNotIn("by a person where it can't", files["QUALITY.md"])
+        self.assertFalse(p["hand_check"])
+
+    def test_a_hand_check_file_is_named_with_its_count_and_a_previous_release_diffs_without_blank_rows(self):
+        tmp = Path(tempfile.mkdtemp(prefix="releases-"))
+        self.addCleanup(shutil.rmtree, tmp, True)
+        prev = tmp / "v1.0.0"
+        prev.mkdir()
+        (prev / "values.csv").write_text("ticker,field,period,period_end,value,basis,first_reported,source,xbrl,citations\n")  # no rows: NVDA capex is new
+        (prev / "manifest.json").write_text(json.dumps({"hash": "x", "files": ["values.csv"], "provenance": {}}))
+        hc = {"stage": 3, "values": [{"ticker": "NVDA", "field": "capex", "period": "FY2026", "value": 5, "verified": True},
+                                     {"ticker": "NVDA", "field": "revenue", "period": "FY2026", "value": 9, "verified": True}]}  # revenue is not a shipped row: not counted
+        p = self._packet(tmp, hc)
+        self.assertTrue(p["hand_check"])
+        self.assertIn("By a person: 1 values verified on the filing in golden/stage3-handcheck.json, at the value released", p["files"]["QUALITY.md"])
+        self.assertIn("Added: 1 values for NVDA.", p["files"]["DIFF.md"])  # the value, not the blank opex row
+        self.assertIn("1 rows without a value, not in values.csv (not_reported: 1).", p["files"]["DIFF.md"])
+
+    def test_an_undocumented_column_refuses_to_ship(self):
+        from ledger.release import column_doc, readme
+        with self.assertRaises(KeyError):
+            column_doc("values", "made_up")
+        with self.assertRaises(KeyError):
+            readme("v0.0.1", [{"ticker": "NVDA", "period": "FY2026", "value": 1}], [], {"values.csv": "ticker,made_up\nNVDA,1\n"})
+        self.assertEqual(column_doc("values", "field")[0], "`revenue`, `capex`, `opex`")  # the shipped set, not the table's enum
+        self.assertEqual(column_doc("taxonomy", "measure")[0], "`spent`, `committed`, `derived`, `planned`, `company_stated_ai`")

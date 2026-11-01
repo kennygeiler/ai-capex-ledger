@@ -113,7 +113,7 @@ value, value_high (a range high only), change_from_prior (the derived change onl
 unit (USD|share, empty without a figure), scale (1), currency (USD),
 period_as_stated, quote, kind (actual|outlook), project_kind, status, location, capacity_mw, forward_looking, part_year, program   (verbatim rows; empty elsewhere)
 source (internal id), source_kind (10-K table|10-K note|10-K MD&A|8-K release|transcript|cfo commentary|gathered), accession, filed, source_table, source_url,
-check (agree|explained|differs|no_reference|unmapped|verbatim), check_method (<kind>[:<id>], kinds in status.METHOD_KINDS)
+check (agree|explained|differs|no_reference|not_extracted|unmapped|verbatim), check_method (<kind>[:<id>], kinds in status.METHOD_KINDS)
 ```
 
 `check` says whether the figure was verified and how it stands; `check_method` says what established that, in the
@@ -126,6 +126,13 @@ the three new ones yet). `period_kind` is reported only when the company's fisca
 place the filing shows those words; sec.gov has no table anchors), for a statement or project the text at its quote,
 for a gathered figure its page; `source_table` is the parser's id of the table the cell came from, the one DATAHQ shows. No column holds a number the pipeline made up: `change_from_prior` is
 this year's reported balance minus last year's, and says so.
+
+One restatement threshold (T64): a figure is `restated` (values and facts `basis`, the rows' `rule:restated_between_filings`
+explanation, `reference_values.restated`) when a later filing moved the first-reported one by more than
+`config.RESTATEMENT_TOLERANCE`, half a rounding unit of the figure: the 10-K cell's stated scale, or for an XBRL fact the
+coarser unit the two vintages are rounded to. Half a unit is the most rounding alone can move a figure, so anything
+beyond it is a change the filer made (Meta's 0.8% capex change counts; a same-day amendment that re-rounds does not).
+Nothing else holds a threshold; `docs/DATA_DICTIONARY.md` names the constant on every `basis` and `restated` column.
 
 ## Open questions for Kenny
 

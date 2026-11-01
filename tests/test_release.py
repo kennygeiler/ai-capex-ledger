@@ -54,8 +54,8 @@ class Gates(unittest.TestCase):
         self.assertEqual([l.endswith("FAILS") for l in t.splitlines()[1:]], [True, True])
 
     def test_an_unconfirmed_decision_fails_g6_under_its_company_even_outside_the_scope(self):
-        g = gates([], [], {"values": []}, tickers=["NVDA"], unconfirmed=[{"key": "finding_unconfirmed|TSLA|opex FY2024"}])
-        self.assertEqual(g["G6"], {"NVDA": [], "TSLA": ["finding_unconfirmed|TSLA|opex FY2024"]})
+        g = gates([], [], {"values": []}, tickers=["NVDA"], unconfirmed=[{"key": "finding_unconfirmed|TSLA|opex|FY2024||jump|"}])
+        self.assertEqual(g["G6"], {"NVDA": [], "TSLA": ["finding_unconfirmed|TSLA|opex|FY2024||jump|"]})
         self.assertEqual(list(failing(g)), ["TSLA"])
 
     def test_only_values_xbrl_cant_vouch_for_and_a_sample_need_a_person(self):
@@ -80,6 +80,39 @@ class Build(unittest.TestCase):
         self.assertIn("First release.", a["DIFF.md"])
         b = build("v0.1.1", [{**VAL, "value": 5}], [], [EXC], [{"ticker": "NVDA", "field": "capex", "period": "FY2026", "value": "-5"}])
         self.assertIn("-5 → 5", b["DIFF.md"])
+
+
+class Headlines(unittest.TestCase):
+    """T64 / DC6: a row without a value is never counted as a value added; QUALITY.md says what was checked and by what."""
+
+    def test_a_blank_row_is_counted_on_its_own_line_not_as_a_value_added(self):
+        blank = {**VAL, "field": "opex", "value": None, "first_reported": None, "source": "missing", "label": "not_reported"}
+        b = build("v0.1.1", [VAL, blank], [], [], [{"ticker": "NVDA", "field": "revenue", "period": "FY2026", "value": "1"}])
+        self.assertIn("Added: 1 values for NVDA.", b["DIFF.md"])
+        self.assertIn("1 rows without a value, not in values.csv (not_reported: 1).", b["DIFF.md"])
+        self.assertTrue(b["QUALITY.md"].splitlines()[2].startswith("1 values in values.csv"))
+        self.assertIn("1 rows without a value, not in values.csv (not_reported: 1)", b["QUALITY.md"])
+        self.assertIn("## Columns of values.csv", b["README.md"])
+        self.assertIn("| `check_label` |", b["README.md"])
+
+    def test_rows_diff_counts_added_and_removed_rows_without_a_value_on_their_own(self):
+        from ledger.release import rows_diff, rows_diff_md
+        t = "ticker,field,period,value\n"
+        d = rows_diff({"values.csv": t + "A,capex,FY1,5\nA,opex,FY1,\n"}, {"values.csv": t + "B,capex,FY1,\n"})["values"]
+        self.assertEqual((d["added"], d["removed"], d["without_value"]), (2, 1, {"added": 1, "removed": 1}))
+        self.assertIn("rows without a value: 1 of the added, 1 of the removed", rows_diff_md({"values": d}))
+
+    def test_the_check_line_names_code_and_the_hand_check_file_or_its_absence(self):
+        from ledger.release import GATES, check_line
+        self.assertNotIn("by a person where it can't", GATES["G5"])
+        line = check_line([VAL], frozenset())
+        self.assertIn("By machine: the re-read of the rendered 10-K confirmed 0 of 0 cited cells", line)
+        self.assertIn("independent reading", line)
+        self.assertNotIn("two independent sources", line)
+        self.assertIn("By a person: no hand-check for this release", line)
+        hc = {"values": [{"ticker": "NVDA", "field": "capex", "period": "FY2026", "value": -5, "verified": True}, {"ticker": "NVDA", "field": "capex", "period": "FY2025", "value": 1, "verified": True}]}
+        self.assertIn("By a person: 1 values verified on the filing in golden/stage1-handcheck.json", check_line([VAL], frozenset(), hc, "golden/stage1-handcheck.json"))
+        self.assertIn("By a person: 0 values verified", check_line([VAL], frozenset(), {"values": [{**hc["values"][0], "value": 7}]}, "f"))  # a hand-check at another value does not count
 
 
 class SplitIds(unittest.TestCase):
@@ -128,3 +161,17 @@ class RowsDiff(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class OneThreshold(unittest.TestCase):
+    def test_zero_never_widens_the_tolerance(self):
+        from ledger import config
+        self.assertEqual(config.rounding_unit(0), 1)
+        self.assertTrue(config.restated(0, 400_000, config.rounding_unit(0)))
+
+    def test_every_site_moves_with_the_one_constant(self):
+        from unittest import mock
+        from ledger import config
+        with mock.patch.object(config, "RESTATEMENT_TOLERANCE", 10):
+            self.assertFalse(config.restated(100, 104, 1))
+        self.assertTrue(config.restated(100, 104, 1))

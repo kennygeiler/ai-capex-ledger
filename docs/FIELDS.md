@@ -11,7 +11,10 @@ What each released number means. The extraction prompt (`agents/prompts/`) and t
 | `opex` | Operating expenses: the costs below gross profit, such as R&D, sales, general and administrative, and depreciation. This is the standard analyst definition, and excludes cost of revenue. Because it is derived, it also includes everything else the company puts in its operating section: impairments, restructuring, and for bitcoin miners unrealized losses and fair-value changes. That is why opex can exceed revenue (Core Scientific FY2022, Cipher FY2025). | Revenue − cost of revenue − operating income, all three from the same 10-K column. If there is no total cost-of-revenue line, cost of revenue is the sum of the lines that are costs of delivering revenue (see below). |
 
 **One filing per company-year.** Every field of a company-year comes from the newest 10-K that reports that year. A year never mixes filings.
-- If that 10-K has no such line, the value is blank, labelled `not_reported`.
+- If that 10-K has no such line and XBRL tags no value for it either, the value is blank, labelled `not_reported`.
+- If no cell was read but XBRL does tag a value, the blank is labelled `not_extracted`: open, never explained, until the
+  cell is read (the reader missed a line, or the statement table was mislocated: Amazon, type 73, T65). The `coverage`
+  rule names it as a missing value; `statement_tables_distinct` blocks a filing whose income table is its cash-flow table.
 
 **No total cost-of-revenue line** (Oracle; Applied Digital's newer 10-Ks). As standard data tools do, cost of revenue is the sum of the lines that are costs of delivering revenue: for example cloud services, hardware, services or data-center costs, but never sales, R&D, admin, amortization or restructuring.
 - The agent classifies and cites each line (`cost_of_revenue_part`), and code adds them up.

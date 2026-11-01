@@ -9,8 +9,8 @@ from .config import industry
 
 EVIDENCE = store.ROOT / "reports" / "evidence"
 CAUSES = {"fact_differs": "Fact differs from the filing's XBRL tag", "fact_changed": "Fact changed since the signed release", "blocked": "Blocked: a definition is missing",
-          "finding_unconfirmed": "SEC data can't confirm a value", "new_filing": "New filing at the SEC"}
-REF_LABEL = {"fact_differs": "XBRL tag", "fact_changed": "signed release", "blocked": None, "finding_unconfirmed": "XBRL tag", "new_filing": None}
+          "finding_unconfirmed": "SEC data can't confirm a value", "new_filing": "New filing at the SEC", "value_missing": "Not extracted: the filing tags a value no cell was read for"}
+REF_LABEL = {"fact_differs": "XBRL tag", "fact_changed": "signed release", "blocked": None, "finding_unconfirmed": "XBRL tag", "new_filing": None, "value_missing": "XBRL tag"}
 
 
 def _png(extraction_id: str | None) -> str | None:
@@ -95,6 +95,8 @@ def _state(con, q: dict, idx: dict) -> dict:
         return status.of_exception({"rule_id": d.get("kind"), "severity": "warn", "message": d.get("message")}, res, _value_states(con, t, d.get("field"), d.get("period"), idx))
     if q["kind"] == "blocked":
         return status.of_exception({"rule_id": d.get("rule"), "severity": "block", "message": d.get("message")}, res)
+    if q["kind"] == "value_missing":  # T65: the value row itself, open by label:not_extracted; a resolution is not live for this kind
+        return status.of_value({"field": d.get("field"), "period": d.get("period"), "label": d.get("label", "not_extracted")}, res)
     return status.state({"reason": "a filing at the SEC the ledger has not read", "resolution": res})
 
 
@@ -106,8 +108,9 @@ def to_confirm(tickers: list[str] | None, names: dict) -> list[dict]:
     first. None of them is a dataset row; each is a resolution a person has not yet made their own."""
     out = []
     for r in resolutions.unconfirmed():
-        kind, _, rest = r["key"].partition("|")
-        ticker, _, where = rest.partition("|")
+        k = resolutions.parse_key(r["key"])  # unconfirmed() gives live keys only, so this is never None (T62)
+        kind, ticker = k["kind"], k["ticker"]
+        where = " ".join(x for x in (k["field"], k["dimension"], k["period"], f"({k['rule_id']})" if k["rule_id"] else "") if x)
         if tickers is not None and ticker not in tickers:
             continue
         out.append({"key": r["key"], "hash": r["hash"], "cause": TO_CONFIRM, "cause_label": "To confirm: a decision a run made, for Kenny Geiler to confirm or overturn", "state": "to confirm",
@@ -145,7 +148,7 @@ def items(con, flow: dict) -> dict:
     The decisions a run left for a person to confirm come first as their own group (`to_confirm`, T3), counted apart; the
     unmapped asset types (`asset_types`, T33) are their own group too, with `members` the list a mapping may use."""
     names, rel = flow["names"], flow["release"]["last"]
-    idx = resolutions.by_row()
+    idx = resolutions.by_row(items=flow["queue"])  # T62: a row with an unresolved sibling finding stays open
     rows = []
     for q in flow["queue"]:
         d = q.get("detail") or {}
@@ -180,6 +183,11 @@ def items(con, flow: dict) -> dict:
         elif q["kind"] == "blocked":
             row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd" if d.get("value") is not None else None, "ours": d.get("value")}
             row["evidence"] = {"message": d.get("message"), "rule": d.get("rule")}
+        elif q["kind"] == "value_missing":
+            row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": None, "reference": _num(d.get("reference")), "ours_label": "no cell read"}
+            if d.get("field"):
+                row["series"] = _value_series(con, q["ticker"], d["field"])
+            row["evidence"] = {"label": d.get("label"), "reference": d.get("reference"), "period_end": d.get("period_end")}
         elif q["kind"] == "new_filing":
             row |= {"period": d.get("period")}
             row["evidence"] = {"url": d.get("url"), "filed": d.get("filed"), "form": d.get("form")}

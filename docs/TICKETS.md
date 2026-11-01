@@ -370,6 +370,14 @@ the file and off the calendar.
   `decisions/audit.jsonl`; the error rate with n and the interval on the Agents section, labelled "unkeyed, Kenny's verdicts".
   Owner of the verdicts: Kenny (~100–150 cells, about an hour). Touches rules.js, workbench.py, reconcile.js (after T37),
   ledger/spikes/esef.py for the sample. Done when the Agents section shows ASML's unkeyed error rate with n and the interval.
+  *As built (keyed), 1 Nov:* `ledger/stats.py` (`wilson(k, n, z=1.96)`, `share(k, n)`, standard library, None when n is 0);
+  `score.twin` carries `interval: [low, high]` (fractions, 4 dp) from its own `agree` / `of`, one interval on the sum over the
+  companies; rules.js writes it in text under each reader ("agrees with the twin 70 of 71 (98.6%, 95% interval 92.4–99.8%)"),
+  computed on the page from the counts (the API's 4-dp `interval` is informational; one display path). On the six: reader 70 of 71, 92.4–99.8%; notes reader 180 of 185,
+  93.8–98.8%; the quote readers have no twin and no interval. Charters say what the interval does not cover (a twin exists
+  only where the filing tags the number). Not built: per field. The trail's items carry `what`, not `field`, and `proof.py`
+  belongs to another builder; when `proof.company` puts `field` on each item, `score.twin` can group the same counts by it
+  (`twin_by_field: {field: {agree, of, interval}}`). The unkeyed half (the ASML sample and the audit group) is still open.
 - **T54 Failure types as data.** `docs/INGESTION.md`'s 72 types (prose table rows today, no class, no catching check named)
   become `taxonomy/failures.yaml`: id, cause class (units / period / scope / locator / agent misread / document error), count
   seen, the check that catches it or `none`, agent-or-document. A Pareto chart on Proof reads the file (proof.js; Plotly as
@@ -384,7 +392,14 @@ the file and off the calendar.
   agent 10, reference 9; 45 of 72 have check `none` (contracts, the evidence re-read, counts and eyes caught them, no rule
   did); the checks that catch most are `period_length` 4, `xbrl_reconcile` 4, `citation_resolves` 3, `coverage` 3,
   `no_10k_yet` 3. Where the check is an id the INGESTION row does not name (6, 16, 42, 68), the `check_note` says so. The
-  chart (proof.js) is the second half, after T56.
+  chart (proof.js) is the second half, after T56. *As built (second half):* `GET /api/v1/failures` returns `pareto()`
+  (`total`, `by_class`, `by_origin`, `by_check` largest first, `none`) plus `types` (id, name, class, origin, check, count; a
+  null count stays null). Proof's "Failure types" section, under "Rows by answer key": two horizontal bar charts in one hue
+  (Plotly as Explore loads it), types per cause class (7 bars) and "what catches them", types per check (15 bars, `none` its own
+  bar, labelled "no check: a known way to be wrong that nothing guards"), every bar labelled `n of 72`; a bar is a NUMBER OF
+  TYPES, never instances, and the title says so. Under each chart the same numbers as a table (class or check, types of 72,
+  share), and a collapsed list of the 72 types (id, name, class, origin, check, companies seen or "not counted"), so it
+  reads without colour or without the chart library. `tests/test_failures.py` fetches the route through the real Handler.
 - **T55 Point-in-time.** `?as_of=D` on `/api/v1/values` and `/api/v1/taxonomy`: the figure the newest filing filed on or
   before D gave, from `extractions` (every filing's cells are kept) and `documents.filed`; `first_reported` / `basis` /
   `original_value` stay as they are. A PIT export in the packet (`values-asof.csv` per fiscal year end, or the API alone if the
@@ -478,6 +493,34 @@ the builder before fixing). Not new scope: each is a defect in approved work, fi
   period, dimension, rule_id), not from `where`, in app.flow and resolutions._parse; live resolutions migrate to the new keys,
   the unmappable ones go to decisions/archive/ with a note, never rewritten. Test: two findings on one field and year, both
   resolved, both stay resolved. Workbench lane, before T57a. Done when that test passes and the stage-3 queue has no duplicate keys.
+
+  *As built (1 Nov):* confirmed first over all 100 tracked companies: 21 duplicate keys, 151 of 2,833 queue items sharing one,
+  all `finding_unconfirmed`, 0 on the six; most pairs were the same rule on two filings (`unit_from_document`, `row_label_switch`
+  on CEG), the rest two rules on one field and year (HUT capex FY2023 jump + capex_intensity, RIOT opex FY2025 jump +
+  opex_over_revenue). One key function, `resolutions.key_for(kind, ticker, field, period, dimension, rule_id, subject)`
+  → `kind|ticker|field|period|dimension|rule_id|subject` ('' for what the item lacks; a `|` inside a part, as in XOM's
+  "Chemical Products | Non-U.S." or a rule's subject, is escaped `%7C`, and `%` `%25`), used by `app.flow` for all five kinds; `hq.py`'s
+  findings and questions now carry `rule` (the exception's rule id; `restated` and `opex_over_revenue` for the two findings
+  that are not exceptions) and `subject` (the exception id's tail: the filing, the column), and `app.flow`'s `content_hash`
+  leaves out only what T62 added per kind (a finding's rule and subject; a question's subject, questions carried `rule`
+  before), so every hash equals its pre-T62 value and no resolution expired. `resolutions.parse_key` / `_parse` read the shape; a legacy
+  key (two pipes) is not live: not shown, not counted, not a G6 failure. Migration `ledger resolutions migrate-keys [--dry-run]`
+  (`ledger/cli/resolutions.py`, logic in `resolutions.migrate_keys` / `write_migration`): the log is append-only (its
+  docstring), so each legacy line that matches exactly one queue item's legacy key is appended again under the new key with
+  `migrated_from` and `migrated_at` (hash kept, not recomputed, so an expired one stays expired; the CLI prints whether it is
+  current), id, hash, state, reason, by, at untouched; lines matching none or several are copied to
+  `decisions/archive/resolutions-keys-<date>.jsonl` behind a note and left in the log; nothing removed; a second run reads the
+  archive files too and is a no-op. `by_row` gives a row the worst of its items' latest resolutions (blocks > fix > explain >
+  accept) and, given the queue (Reconcile does), leaves a row open while one of its findings has no current resolution.
+  `resolve()` refuses a key that is not a live kind in the key_for shape (400 from `/api/resolve`). Run on 1 Nov: migrated 3, archived 0, untouched 0
+  (the three LITE operating_income lines → `finding_unconfirmed|LITE|operating_income|||row_label_switch|`, Kenny Geiler's
+  accept the latest, hash current). `unconfirmed()` on the six before and after: []; G6 all empty; LITE's item shows explained
+  by Kenny Geiler. After: 0 duplicate keys over the 100 companies and on `/api/v1/reconcile?scope=all|HUT|RIOT|T|LITE`. Tests
+  in `tests/test_resolutions.py` (round trip and escaping, two findings on one field and year both resolved, the queue over
+  every company has no duplicate key, the migration plan and write on a temp log: one mappable, one ambiguous, one orphan, one
+  already new, idempotent); the T3 and gate tests moved to the new shape. Fast suite 274 OK, golden equal. Reconcile's "to
+  confirm" rows now print `field period (rule)` from the parsed key. The `asset_types|ticker|name` rows (T33) keep their own
+  two-pipe key: not a queue item, not read by resolutions.
 - **T63 Mappings are proposals until a person confirms them.** All 47 entries in taxonomy/asset_types.yaml are `by: Claude
   Fable 5.1` and nobody confirmed them; Proof counts an entry as checked, so the six's Mapping stage is proven on model
   judgement alone, against the thesis. Fix, inside T33's design: an entry without `confirmed_by` is a proposal; the Reconcile
@@ -508,6 +551,57 @@ the builder before fixing). Not new scope: each is a defect in approved work, fi
   the income table has no revenue-like row; (c) the failure type in INGESTION.md and failures.yaml; (d) AMZN re-located and
   re-extracted (headless agents); (e) a golden fixture for the AMZN case, re-frozen in its own commit. Done when the 10 cells
   read filled or open and QUALITY.md's count is true. The six's proven count moves; the README says so. v1.9.0's DIFF.md names it.
+
+  *As built (1 Nov, branch `t65-not-extracted`):* Confirmed first: all four AMZN 10-Ks had `income_tables == cash_flow_tables`
+  (t0035, t0036, t0036, t0034); AMZN revenue and opex FY2022–25 were null `not_reported` with XBRL values for every one;
+  database-wide 131 of 142 not_reported cells had an XBRL value. The cause: the locator's snapshot test (`_summary`) took
+  "Equity-method investment activity, net of tax" for a balance-sheet equity line, rejected every Amazon income statement as
+  a highlights table, and the cash-flow table (net income, deferred taxes: score 3) won once no unflagged table scored 4.
+  (a) `values.label` and the taxonomy `check` vocabulary gain `not_extracted`; `reconcile.values_for` writes it when the
+  newest 10-K has no cell for a field but the XBRL reference has a value (`not_reported` only when the reference is empty
+  too); `status.of_value` makes it open, by `label:not_extracted`, reason "the filing tags a value the reader did not
+  extract"; `rules._coverage` counts a null row as present only with a stated reason (`not_reported`), so a not_extracted
+  row is a missing value whose finding takes the row's open state; `taxonomy._checked` maps it to `check = not_extracted`,
+  open like `unmapped` (no taxonomy row carries it today: revenue and opex are not taxonomy rows). (b) block rule
+  `statement_tables_distinct` (`rules/statement_tables_distinct.yaml`, `rules.Context.documents` filled by `cli/rules`):
+  income_tables ≠ cash_flow_tables and the located income statement has a revenue or sales row; a 10-K/A with no
+  cash-flow table is the amendment guard's case. `BALANCE` excludes "equity-method". (c) type 73 in `docs/INGESTION.md`;
+  the failures.yaml entry follows on T54's branch. (d) `ledger ingest --ticker AMZN` relocated the four (income t0036 /
+  t0037 / t0037 / t0035), the reader re-read them headless (12 values each, 11–14 s), `extract --load`, `reconcile`:
+  the 8 cells filled, every one agree with XBRL (revenue 513,983 / 574,785 / 637,959 / 716,924 M; opex 212,904 /
+  233,194 / 243,078 / 280,535 M); `rules`: 0 findings for AMZN; the locator change relocates no other filing in the
+  database (checked over every documents row). (e) golden re-frozen in its own commit: values (AMZN 8 filled, AMD
+  revenue/opex FY2022 → not_extracted: XBRL tags 23,601 M and 9,339 M while AMD's FY2022–24 10-Ks' located income
+  statement is the Xilinx pro forma pair the reader refused, a second locator case left for its own ticket), exceptions
+  (+2 coverage warn on AMD FY2022), extractions (+36 AMZN income cells), facts (AMZN input_hash only); `--check` equal.
+  Proven count 6 of 6 → 5 of 6 (AMD open 7: the 2 values, their 2 coverage findings, 3 row_label_switch findings on
+  those fields). The v1.9.0 packet's QUALITY.md, built in memory: "81 values · 79 from agents · 2 missing · 78 agree with
+  XBRL · 0 blank because the company reports no such line" (was 10); `release.py` is T64's lane, so not_extracted has no
+  line of its own there yet (the 2 are the "missing"). Not done: the other 95 companies' values were not re-reconciled
+  (121 not_reported cells with an XBRL value remain outside the six until the next `reconcile --stage 3`); AMZN's notes
+  tasks changed sha (the income statement left the note candidates) and the notes reader was not re-asked, only reloaded;
+  `ledger run --ticker AMZN` re-asks it. Tests: reconcile, status, coverage, taxonomy, the rule on synthetic documents
+  rows, the Amazon layout in `test_tables`; `docs/DATA_DICTIONARY.md` regenerated. One test red on purpose, outside this
+  lane: `test_status.ProofAgreesWithReconcile` (Proof counts AMD open 7, Reconcile 5): Reconcile's queue (`app.flow`) lists
+  a value only when its label is `unresolved`, so the two `not_extracted` value rows have no queue item while Proof lists
+  them; the fix is one condition in `app.flow` (queue `not_extracted` values the way `unresolved` ones are queued), in
+  app.py's lane. Also pending: AMZN fails gate G5 ("no hand-check file") because its 8 new values have not been re-read
+  on the rendered 10-K (`ledger evidence --ticker AMZN`, Chrome) nor hand-checked; `ledger run --ticker AMZN` does both.
+  *Follow-up commit:* `app.flow` queues one `value_missing` item per `not_extracted` value (state from `status.of_value`,
+  key built like the other kinds, `value_missing|<ticker>|<field> <period>`); Reconcile shows it open with the cause "Not
+  extracted"; Proof 7 == Reconcile 7 on AMD. `value_missing` is not in `resolutions.LIVE_KINDS`: a person cannot resolve
+  it, the fix is an extraction (`docs/PROOF.md`).
+- **T101 AMD's located income statement is the Xilinx pro forma pair.** *Done 2 Nov 2026 (b6027ca, 332a32b): the T65 review fix to the balance-sheet marker locates AMD's statement of operations (t0012); re-read headless, all 12 values agree with XBRL, AMD proven again.* AMD's FY2022–FY2024 10-Ks (0000002488-23-000047
+  t0032,t0033; -24-000012 t0031,t0032; -25-000012 t0028,t0029) have as their located income statement a two-table pair
+  from the Xilinx acquisition note: a one-column partial table (Net revenue 4,612) and the unaudited pro forma results
+  (Net revenue 24,117 / 20,150, Net income 2,311 / 8). The reader refused it in all three outputs ("not the consolidated
+  statement of operations") and read only capex from them, so FY2023 and FY2024 come from the FY2025 10-K and FY2022
+  revenue and opex have no cell: `not_extracted` since T65 (XBRL tags 23,601 M and 9,339 M), AMD open 7, proven 5 of 6.
+  `statement_tables_distinct` does not catch it (the pair has revenue rows). Fix: a locator rule (a pro forma or
+  acquisition caption, a one-column table, a pair whose net income does not tie to the cash-flow statement's), or a
+  second candidate pass that re-scores when the reader refuses the statement; re-read AMD headless; golden re-frozen in
+  its own commit. Done when AMD FY2022 revenue and opex are filled and agree with XBRL and the six read 6 of 6. Not built
+  tonight (found by T65).
 - **T66 The manifest states what produced the rows.** checklist.py writes the current prompt_version(), PARSER_VERSION and
   model(), not what produced the shipped rows: v1.8.0 claims statements@v2 / tables@15 / claude-opus-5-5, while 84 shipped
   statement cells were read under statements@v1 and 379 of 393 filings were parsed with tables@12; 13 statement outputs have no
@@ -623,6 +717,19 @@ are listed at the end.
   and refuses a lower one. `schema_version` in the manifest and `ledger_releases`. v1.7.0 and v1.8.0 stay as signed;
   v1.9.0's DIFF names them as breaking. Done when a test shows a packet that drops a column cannot sign as minor.
   About ½ day.
+
+- **T100 A late writer never overwrites a newer state.** [memory checklist's deletion test; Kenny: "Sure send it"] Three
+  places, from reading the code: (1) `extract`/`notes`/`aispend --load` never compare an output's `_run.task_sha` with the
+  current task file, so an answer to a repacked task (T65 re-pointed AMZN's income table) still loads, guarded only by
+  citation re-resolution; (2) `mapper.by_name`: the latest `proposed` line wins and a rejection clears a proposal only if it
+  came before it, so a delayed proposal of a member Kenny rejected becomes current again; (3) resolutions: the latest line per
+  key wins, so a run-written "to confirm" line after Kenny's decision supersedes it. Fix: every agent write carries the
+  fingerprint of what it was built from (task_sha; the asset-type entry's hash; the item hash plus the latest resolution id);
+  the loader refuses or routes to review on a mismatch and logs it; a proposal of a rejected member is never current and shows
+  as "re-proposed after rejection"; a run line never supersedes a person line (T69 author_kind; fold together if they share
+  files). Done when three tests pass: repack a task then load the old output → refused; reject a mapping then append a delayed
+  proposal of the same member → not current; Kenny decides a key then a run writes "to confirm" → Kenny's decision stands.
+  About half a day. Lanes: (1) ingest; (2) and (3) workbench after T63. Before Kenny approves and rejects during the batches.
 
 ### K2: before the call if a slot frees
 

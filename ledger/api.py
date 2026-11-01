@@ -46,9 +46,9 @@ def fetch(con, name: str) -> list[dict]:
         from .taxonomy import rows as _tax
         rows = _tax(con)
     elif name == "values":
-        rows = _rows(con, 'select ticker, field, period, period_end, value, label as check_label, basis, source, extraction_ids from "values" where value is not null order by ticker, field, period')
+        rows = _values(con)
     elif name == "facts":
-        rows = _rows(con, "select ticker, field, dimension, period, period_end, value, label as check_label, reference as xbrl, accession, basis from facts order by ticker, field, dimension, period")
+        rows = _rows(con, "select ticker, field, dimension, period, period_end, value, label as check_label, reference as xbrl, accession, basis, first_reported from facts order by ticker, field, dimension, period")
     elif name == "statements":
         rows = _rows(con, """select s.statement_id, s.ticker, s.field, s.period, s.kind, s.scope, s.class, s.amount_low, s.amount_high,
                                     case when s.amount_low is null then null else (s.amount_low + s.amount_high) // 2 end as amount_mid,
@@ -71,6 +71,24 @@ def fetch(con, name: str) -> list[dict]:
         elif name == "facts":
             r["status"] = _resolutions.status_of(idx, "facts", r["ticker"], r["field"], r.get("dimension") or "", r["period"])
             r["flag"] = "differs_from_xbrl" if r.get("check_label") == "unresolved" else ""
+    return rows
+
+
+def _values(con) -> list[dict]:
+    """The values list, one row per (ticker, field, fiscal year) with a value: a row whose value is null (the newest 10-K
+    has no such line, or the cell is not yet extracted) is not a value and does not ship (T64; QUALITY.md counts them).
+    Beside the value: `first_reported` (the first 10-K's figure), `accession` and `filed` of the filing the value comes
+    from, and `citations`, every cell behind it (accession, table, row label, column label, cell text)."""
+    from .release import split_ids
+    rows = _rows(con, 'select ticker, field, period, period_end, value, label as check_label, basis, first_reported, source, extraction_ids from "values" where value is not null order by ticker, field, period')
+    ids = sorted({i for r in rows for i in split_ids(r["extraction_ids"] or "")})
+    cells = {e["extraction_id"]: e for e in _rows(con, """select e.extraction_id, e.accession, d.filed, e.table_id, e.row_label, e.column_label, e.cell_text
+                                                          from extractions e left join documents d on d.accession = e.accession where e.extraction_id in (select unnest(?))""", ids)} if ids else {}
+    for r in rows:
+        used = [cells[i] for i in split_ids(r["extraction_ids"] or "") if i in cells]
+        r["accession"] = used[0]["accession"] if used else None  # every cell of a value comes from one filing (reconcile.values_for)
+        r["filed"] = used[0]["filed"] if used else None
+        r["citations"] = " ; ".join(f"{e['accession']} {e['table_id']} '{e['row_label']}' / '{e['column_label']}' = {e['cell_text']}" for e in used)
     return rows
 
 

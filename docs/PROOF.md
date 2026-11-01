@@ -19,7 +19,9 @@ which; Proof, Reconcile, the trail and the Release gates all read it, so no two 
   resolution that says accept or explain (`decisions/resolutions.jsonl`).
 - **blocked**: a block-severity rule fired on it, or a person's resolution says blocks. Blocked is open that also
   refuses the release; every count of open includes it.
-- **open**: none of the above, or a person's resolution says fix. The only thing a person looks at.
+- **open**: none of the above, or a person's resolution says fix. The only thing a person looks at. A missing field whose
+  XBRL reference has a value (`not_extracted`, T65, type 73) is open: the label names the cause (the filing tags a value
+  the reader did not extract), it explains nothing; `not_reported` explains a blank only when XBRL tags nothing either.
 
 Precedence when more than one applies: blocked, then checked, then a person's fix (open), then explained, then open. A
 warn-severity finding (a jump, a renamed line, an outlier) has no state of its own: it takes the worst state of the
@@ -71,9 +73,18 @@ grades always sum to rows), per company and in total; Proof shows it as "Rows by
 the key in one word beside `by`. On the six today: twin 260 of 875 rows, no key 615, the other three grades 0 until
 T41–T43 write them.
 
+Under it, "Failure types" (T54): the 72 types `docs/INGESTION.md` logged, as `taxonomy/failures.yaml` codes them, two bar charts
+from `/api/v1/failures` (types per cause class; types per catching check, `none` its own bar: a known way to be wrong that nothing
+guards, 45 of 72 today) with the same numbers as tables; a bar counts types, never instances, and a null count seen stays null.
+
 Proven = zero open (blocked included), for every stage, for that company. A person's judgement enters as a definition
 or a rule, never as a click on a row; once written it applies every run and the item never comes back. A resolution is
-the exception for what nothing on file covers yet, and it holds only while the item's content is unchanged.
+the exception for what nothing on file covers yet, and it holds only while the item's content is unchanged. It is keyed
+by the item (`resolutions.key_for`: `kind|ticker|field|period|dimension|rule_id|subject`, built from the item's fields,
+`%` escaped `%25` and `|` `%7C` inside a part, T62), so two findings on one field and year (two rules, or one rule on two filings) are two items with two resolutions; the
+hash is the item's content without those key parts.
+A `not_extracted` value (Reconcile kind `value_missing`) takes no resolution at all: it is not in `resolutions.LIVE_KINDS`,
+because the fix is an extraction, not a decision; the row closes when the filing is re-read and the cell is found.
 `tests/test_status.py` asserts, on the frozen fixtures, that the Proof board's open count equals Reconcile's for every
 company in the proven set.
 
@@ -82,7 +93,7 @@ company in the proven set.
 | Stage | Item | Checked by | Explained by | Open when |
 |---|---|---|---|---|
 | Ingest | a filing | every statement and note table located, units from the document | a unit rule (type 48, 50, 56, 62) | a table or a unit is missing |
-| Values | a value per field and year | the SEC's XBRL | a definition (cost lines, revenue line), a restatement rule | `unresolved` |
+| Values | a value per field and year | the SEC's XBRL | a definition (cost lines, revenue line), a restatement rule, `not_reported` (no line, no tag) | `unresolved`, or `not_extracted` (no cell read while XBRL tags a value) |
 | Facts | a fact per segment or category and year | the filing's instance (concept and member named) | a restatement between filings, an untagged line | `unresolved` with no explanation |
 | Statements | a quote | the text it came from, verbatim | scope, period and part-year tags set by rule | a part-year or program statement without its tag |
 | Mapping | a reported asset type | the us-gaap member it maps to, with the note's words (`taxonomy/asset_types.yaml`) | the mapping is the explanation | a reported category with no mapping |

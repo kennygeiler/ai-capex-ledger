@@ -10,7 +10,7 @@ behind a proxy that authenticates before exposing it.
 | Path | One row per | Columns |
 |---|---|---|
 | `/api/v1/companies` | company | ticker, name, layer, group, role, note |
-| `/api/v1/values` | company, field, fiscal year | ticker, field, period, period_end, value, check_label, basis, source, extraction_ids, layer, status, flag |
+| `/api/v1/values` | company, field, fiscal year, with a value | ticker, field, period, period_end, value, check_label, basis, first_reported, source, extraction_ids, accession, filed, citations, layer, proven, status, flag |
 | `/api/v1/facts` | company, note field, dimension, year | ticker, field, dimension, period, period_end, value, check_label, xbrl, accession, basis, layer, status, flag |
 | `/api/v1/statements` | statement an agent read | statement_id, ticker, field, period, kind, scope, class, amount_low, amount_high, amount_mid, share, quote, source, date, url, layer |
 | `/api/v1/projects` | named project | ticker, period, name, kind, location, amount_low, amount_high, status, announced, in_service, counterparty, quote, source, url, layer (empty until the projects reader has run) |
@@ -25,7 +25,7 @@ The measures (`docs/TAXONOMY.md`) are the `taxonomy` list: spent, committed and 
 
 The proof pages (`docs/PROOF.md`): `/api/v1/proof` is the board (the proven set's stage counts and the rest in one line), `/api/v1/proof/<ticker>`
 a company's trail (per stage: checked, explained, open items with what they need), `/api/v1/rules` every rule, guard and definition with what it closed
-and the open items by what is missing, `/api/v1/golden` the golden test's last result. Answer keys (T56, `docs/PROOF.md`): the board, each company
+and the open items by what is missing, `/api/v1/golden` the golden test's last result, `/api/v1/failures` the failure types as data (T54, `taxonomy/failures.yaml`): `total`, `by_class`, `by_origin` and `by_check` (each a list of `{<key>, types}` largest first, a bar being a number of types, never instances; `none` is a check of its own), `none` (how many types no check in code catches) and `types` (id, name, class, origin, check, count; a null count stays null). Answer keys (T56, `docs/PROOF.md`): the board, each company
 on it and each stage of a trail carry `keys`, `{twin, second_source, tie, later_truth, none, rows}`, rows counted once by the strongest key that vouches
 for them, `none` for a row no key vouches for (a quote, a mapping, an explanation, an open item), so the five sum to `rows`; the board and a trail also carry
 `key_grade`, the four in strength order with `id`, `label` and `why`. Every trail item carries `key` (the strongest answer key behind its `by`, or null) and
@@ -34,6 +34,8 @@ for them, `none` for a row no key vouches for (a quote, a mapping, an explanatio
 One screen's feed: `/api/v1/reconcile?scope=all|<layer>|<ticker>` is the Reconcile workbench's rows (`docs/PROOF.md`): one per open
 item with `ours`, `reference`, `delta`, `delta_pct`, `measure` (usd or share), the cause, the evidence (cell, screenshot, quote, inputs) and the
 resolution. `POST /api/resolve` records one decision `{key, hash, state, reason, by}`; `POST /api/resolve/bulk` takes `{items: [{key, hash}], state, reason, by}`.
+A row's `key` is `kind|ticker|field|period|dimension|rule_id|subject` (T62; `resolutions.key_for`: '' for a part the item lacks, `%` inside a part
+escaped `%25` and `|` `%7C`), one per queue item, and `hash` is the item's content; a consumer treats both as opaque and sends them back as received.
 The feed also carries the mapping stage's open items (T33): one row per reported PP&E category with no entry in `taxonomy/asset_types.yaml`
 (cause `asset_types`, key `asset_types|<ticker>|<reported_name>`, `evidence: {reported_name, proposal, rejected, note}` where `proposal` is the
 mapper's latest standing line from `decisions/mapping_proposals.jsonl`: `standard_type`, `evidence`, `confidence`, `reason`, `prompt_version`,
@@ -77,7 +79,8 @@ The agents (`docs/TICKETS.md` T48, T49): `/api/agents` is every live agent with 
 (optional `?t=MSFT,NVDA`, default the proven set) is that agent's runs per company and its `score`: `{outputs, checked, explained, open,
 blocked, twin, faults, stage, companies, note}`, counts with their denominators and no shares (the page divides). `outputs` is the
 reader's rows in its Proof stage (`stage`) for those companies and the four states sum to it (`open` excludes `blocked` here); `twin`
-is `{agree, of}` over the rows XBRL tags, or null for a reader whose rows are quotes; `faults` is `{caught, planted, no_effect, escaped}`
+is `{agree, of, interval}` over the rows XBRL tags, or null for a reader whose rows are quotes: `interval` is the Wilson 95% interval of
+`agree / of` as `[low, high]` fractions to 4 dp (T53, `ledger/stats.py`), derived from the two counts alone, null when `of` is 0 (the page recomputes it from the counts rather than reading it); `faults` is `{caught, planted, no_effect, escaped}`
 from the latest `ledger faults` run that covered each company, or null when the step has no fault test or no run covered them,
 with the reason in `note`.
 
@@ -97,6 +100,13 @@ the same columns from a release as from the live API. A release holds one CSV pe
 runs once); older releases' rows keep their value, read as boolean.
 
 ## Point in time: `?as_of=D`
+
+`values` carries one row per (company, field, fiscal year) that has a value: a row the newest 10-K gives no figure for (`not_reported`
+in the database) is not a value and is not served or shipped (T64; the packet's QUALITY.md counts them). Beside the value: `first_reported`
+(the first 10-K's figure) and `basis` (`restated` when a later 10-K moved it by more than `config.RESTATEMENT_TOLERANCE`, half a rounding
+unit), `accession` and `filed` of the 10-K the value comes from (every cell behind a value is from that one filing), `extraction_ids` (the
+cited cells' ids) and `citations` (each cell spelled out: accession, table, row label, column label, cell text, joined by ` ; `). `releases/<v>/values.csv`
+is this list for the scope, with the same columns, and the release README's column tables are written from the headers that ship.
 
 `values` and `taxonomy` carry the newest filing's figure (with `first_reported` and `basis` beside it on values). A backtest run on day D
 must not see a figure a later 10-K restated: that is lookahead. `?as_of=YYYY-MM-DD` on `/api/v1/values` or `/api/v1/taxonomy` (JSON or

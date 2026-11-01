@@ -112,8 +112,9 @@ files, its model and tools, its prompt versions, and the checks that judge it.
 
 ## Statistics
 
-- Intervals (T53). Every share gets a Wilson 95% interval. At 100 cells and 80% correct, the interval is about ±8
-  points, so a move from 80% to 83% is not a result.
+- Intervals (T53, built for the keyed share). Every share gets a Wilson 95% interval. At 100 cells and 80% correct, the interval is about ±8
+  points, so a move from 80% to 83% is not a result. `ledger/stats.py` computes it; `score.twin.interval` carries it per reader and the
+  Rules page writes it in text beside the share (reader 70 of 71, 92.4–99.8% on the six). Per field waits on `field` on the trail's items.
 - No answer key (T53). For a source with no structured twin (the ASML annual report's EU Taxonomy capex table is
   untagged), a person checks a stratified random sample of cells, oversampling the risky parts (the KPI table, note
   roll-forwards, long tables). The error rate is reported with its n and interval. This is how error is measured on

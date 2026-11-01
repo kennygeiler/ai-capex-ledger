@@ -319,3 +319,25 @@ What each company cost. `ledger run` prints this, and each validation page shows
     ten tables, no cash-flow statement) explains it as such; the locator had taken a compensation table in it for an
     income statement, so the income match cannot be the test. Found by widening the proven set to AMD.
 
+73. **The cash-flow table located as the income statement, and the hole labelled "not reported".** Amazon's four 10-Ks
+    (0001018724-23-000004, -24-000008, -25-000004, -26-000004) had `income_tables == cash_flow_tables` (t0035, t0036,
+    t0036, t0034): the snapshot test's balance-sheet marker matched "Equity-method investment activity, net of tax" as
+    an equity line, so every Amazon income statement was rejected as a highlights table, and the cash-flow table
+    (net income, deferred taxes) scored as the income statement. The reader was never shown the income statement, so
+    revenue and opex FY2022–25 had no cell; `reconcile.values_for` labelled the hole `not_reported` without asking
+    XBRL, status called it explained, `coverage` counted the null row as present, and v1.8.0 shipped with QUALITY.md
+    saying "10 blank because the company reports no such line" while the XBRL reference held every one of them
+    (database-wide, 131 of 142 not_reported cells had an XBRL value). Fix (1 Nov 2026, T65): a field with no cell
+    whose XBRL reference has a value is `not_extracted`, open by its label, never explained; `coverage` counts a null
+    row as present only with a stated reason (`not_reported`); the block rule `statement_tables_distinct` refuses a
+    filing whose income table is its cash-flow table or has no revenue-like row; the balance-sheet marker excludes
+    "equity-method"; Amazon re-located and re-read headless. The failures.yaml entry (T54) follows on that branch.
+    Found by the overnight audit of v1.8.0.
+    Review fix (2 Nov 2026): the same marker missed "Total stockholders' equity" (no space before equity) and matched
+    "Equity in earnings (losses) of affiliates"; re-running the locator over all 393 stored filings changed 33, every
+    one a correction (Micron's statement of equity + cash flow, AMD's Xilinx pro forma pair (T101), Cipher's
+    parent-only condensed table, Marathon's MD&A comparison, Entegris, Teradyne, Flex, Quanta, Freeport, NRG's
+    guarantor summary). `statement_tables_distinct` now blocks a partial overlap of the two table lists, and its
+    revenue check ignores expense lines that mention sales and accepts a bank's interest and noninterest income.
+    Stored documents outside the six keep their old location until re-ingested.
+
