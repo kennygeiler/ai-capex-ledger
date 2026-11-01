@@ -1,0 +1,126 @@
+# What the data can't support, as data (T68). release.build writes LIMITATIONS.md from this file into every packet, and
+# the Release checklist counts the entries whose mitigation is `none`. One entry per known weakness, keyed by a short id
+# that is never reused.
+#
+# Fields (every one required; ledger/limitations.py refuses an entry that lacks one):
+#   weakness    what the weakness is, in plain words.
+#   rows        the rows (or trials, companies, types) affected: an integer, `all`, or `computed: <name>`, a count code
+#               reads from the data at build time (ledger/limitations.py COMPUTED), so it is never typed by hand.
+#   mitigation  what is in place today, or `none`.
+#   closes      the ticket that would close it (docs/TICKETS.md), or `none`.
+
+systematic_without_xbrl:
+  weakness: >-
+    A systematic error (the same wrong row, column or scale in every year of a company) escapes every rule but the
+    XBRL comparison. With the XBRL comparison removed, the fault test (reports/stage3-faults-xbrl-off.json, T67) let
+    these trials through, so on a source with no structured twin (an ESEF filing without tags, a KPI table, a
+    transcript) such an error would pass.
+  rows:
+    computed: xbrl_off_systematic_escapes
+  mitigation: >-
+    Every company in this release files XBRL, and with the comparison on all but a few of these trials are caught
+    (reports/stage3-faults.json). Nothing replaces it on a source without tags.
+  closes: none
+
+omission_escapes:
+  weakness: >-
+    A field the reader returns nothing for is not always caught: in the fault test some planted omissions escape every
+    check, with or without the XBRL comparison (reports/stage3-faults-xbrl-off.json, kind omission).
+  rows:
+    computed: omission_escapes
+  mitigation: >-
+    The coverage rule catches most omissions, and a blank with an XBRL value is labelled not_extracted and is open
+    (T65).
+  closes: T81
+
+same_filer_answer_key:
+  weakness: >-
+    The answer key comes from the same filer. The XBRL data and the 10-K are both the company's own, so agreement is an
+    independent reading of one source, not independent sources: an error the company made in both passes.
+  rows:
+    computed: values_agreeing_with_xbrl
+  mitigation: >-
+    The reader reads the 10-K cell without seeing XBRL, and the rendered filing is re-read by machine to confirm the
+    cited cell; both still come from the filer.
+  closes: none
+
+one_person:
+  weakness: >-
+    One person builds the pipeline, decides the open items and signs the release. There is no independent validation
+    and no second reviewer.
+  rows: all
+  mitigation: >-
+    Every decision is logged with who made it (decisions/resolutions.jsonl), a decision a run left fails gate G6 until a
+    person confirms it, and the sign-off is refused while any required checklist line is red. The person who confirms
+    is still the person who built it.
+  closes: T34
+
+outside_proven_set:
+  weakness: >-
+    Companies the ledger tracks outside the proven set (config.PROVEN) are not proven: their numbers have not been
+    checked or explained end to end, and they are not in this release.
+  rows:
+    computed: companies_outside_proven
+  mitigation: >-
+    The release, the read API with no ticker and the published tables carry only the proven set (config.SCOPE); the
+    other companies answer only an explicit ?ticker= on the read API.
+  closes: T35
+
+survivor_bias:
+  weakness: >-
+    The universe is today's AI-relevant names, chosen in October 2026. A backtest over it is survivor-biased: it leaves
+    out the companies that looked relevant earlier and failed or dropped out. The as-of API dates the figures, not the
+    list of companies.
+  rows: all
+  mitigation: none
+  closes: none
+
+failure_types_without_check:
+  weakness: >-
+    Of the failure types logged in docs/INGESTION.md (taxonomy/failures.yaml, T54), these have no named check in code
+    that catches them; a pipeline step, a contract, a count or a person's eye caught them when they happened.
+  rows:
+    computed: failure_types_without_check
+  mitigation: >-
+    Each such type carries a check_note saying what caught it instead, and the fixes it led to are in the pipeline.
+  closes: none
+
+interpretive_fields:
+  weakness: >-
+    The fields read from AI statements and projects (kind, scope, fiscal year, amount versus share) are unmeasured:
+    only the quote is checked against the source text, not what the reader concluded from it.
+  rows:
+    computed: interpretive_rows
+  mitigation: >-
+    Every row quotes its sentence, so a reader can check the fields against the words.
+  closes: T86
+
+older_vintages_unchecked:
+  weakness: >-
+    Point-in-time rows from older filings are not checked against their own XBRL. A value read restated may be a
+    misread first vintage rather than a restatement, and an as-of answer would serve it as it was filed.
+  rows:
+    computed: restated_values
+  mitigation: >-
+    values.csv carries the newest filing's figure, which is checked against XBRL; as-of answers mark each older row
+    vintage_check unchecked.
+  closes: T55b
+
+asset_type_mappings_unconfirmed:
+  weakness: >-
+    The asset-type mappings in taxonomy/asset_types.yaml (a company's PP&E category to a us-gaap member) are model
+    proposals until a person confirms them.
+  rows:
+    computed: asset_types_unconfirmed
+  mitigation: >-
+    An unconfirmed mapping fails gate G6 and is open on Proof and Reconcile, and its taxonomy rows read mapped false,
+    check to_confirm.
+  closes: T63
+
+no_monitoring_thresholds:
+  weakness: >-
+    Monitoring has no thresholds: there is no floor on twin agreement or fault catch rate that would stop a release,
+    and the model can be swapped without a re-run against the previous one.
+  rows: all
+  mitigation: none
+  closes: T85

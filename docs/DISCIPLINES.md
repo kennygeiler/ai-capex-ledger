@@ -74,7 +74,7 @@ validator would write up:
   have. The 99% catch rate does not cover the error a bank fears most.
 - Nothing compares the pipeline with the obvious alternative, XBRL alone. The value the agents add (untagged facts,
   MD&A statements) is claimed, not measured.
-- The packet has no limitations section. QUALITY.md says values were confirmed "by a person where it can't"; for
+- The packet has no limitations section (since T68 it has: `LIMITATIONS.md` from `taxonomy/limitations.yaml`). QUALITY.md says values were confirmed "by a person where it can't"; for
   v1.8.0 no person checked one ✓. "Two independent sources" is an independent reading of two documents from the same
   filer.
 - Whether a decision came from a person or a run is told apart by the phrase "to confirm" in free text. A run that

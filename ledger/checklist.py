@@ -3,7 +3,8 @@
 Every line is what could make a signature wrong, with its count and the page that fixes it: the gates per company
 (release.gates), open and blocked items in the scope (proof.board, the one definition of open), the decisions a run
 left to confirm (resolutions.unconfirmed), unmapped asset types (taxonomy.unmapped), rows with no value by measure,
-the diff in rows from the previous release (release.rows_diff), the golden test and the last test run
+the diff in rows from the previous release (release.rows_diff), the limitations with no mitigation
+(taxonomy/limitations.yaml, T68), the golden test and the last test run
 (reports/golden.json, reports/tests.json), and the packet as `ledger release` would build it, built in memory and
 not written. `required` lines must pass before the Sign button enables; the rest inform.
 
@@ -18,13 +19,13 @@ import shutil
 import threading
 from datetime import datetime, timezone
 
-from . import api, proof, resolutions, store, taxonomy
+from . import api, limitations, proof, resolutions, store, taxonomy
 from .agent import model
 from .config import SCOPE
 from .evidence import load_all
 from .extract import prompt_version
 from .ingest.tables import PARSER_VERSION
-from .release import GATES, RELEASES, build, content_hash, failing, gates, readme, rows_diff, rows_diff_md, version_key
+from .release import GATES, RELEASES, build, content_hash, failing, gates, limitations_md, readme, rows_diff, rows_diff_md, version_key
 from .review import apply, decisions, open_items
 from .rules import load as load_rules
 
@@ -129,6 +130,7 @@ def packet(con, version: str, stage: int = 3) -> dict:
     for name in api.RELEASE_LISTS:  # one shape (C7): the release holds every list the API serves, as the API serves it
         rows = [r for r in api.fetch(con, name) if r.get("ticker", "") in want]
         files[f"{name}.csv"] = api.to_csv(rows)
+    files["LIMITATIONS.md"] = limitations_md(version, files)  # T68: counts over the lists as they ship
     files["README.md"] = readme(version, applied, ai, files)  # T64: the column tables come from the headers that ship, so after every CSV is in
     diff = {}
     if prev_dir:  # the shape of the packet is part of the diff
@@ -361,6 +363,11 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     lines.append(_line("diff", f"Rows changed since {p['previous']}" if p["previous"] else "First release", False, n_diff, "info", "data",
                        "added + removed + changed across the lists; DIFF.md carries the same table and examples",
                        [{"list": k, "rows": x["rows"], "added": x["added"], "removed": x["removed"], "changed": x["changed"], "columns_added": x["columns_added"], "columns_removed": x["columns_removed"]} for k, x in d.items()]))
+    # known weaknesses with no mitigation (T68: informational, never red)
+    lim = limitations.unmitigated(limitations.resolved(p["files"]))
+    lines.append(_line("limitations", "Limitations with no mitigation", False, len(lim), "info", "release",
+                       "entries of taxonomy/limitations.yaml whose mitigation is none; LIMITATIONS.md in the packet lists every entry",
+                       [{"id": e["id"], "closes": e["closes"]} for e in lim]))
     # golden and the last test run (T30)
     g = _report(GOLDEN)
     g_state = "fail" if g is None else ("pass" if g.get("ok") else "fail")

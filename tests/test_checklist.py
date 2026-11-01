@@ -381,7 +381,10 @@ class DryRun(unittest.TestCase):
         try:
             with mock.patch.object(checklist, "RELEASES", tmp), mock.patch.object(signoff, "RELEASES", tmp), mock.patch.object(store, "init", return_value=con):
                 cl = checklist.checklist(con)
-                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "unconfirmed", "unmapped", "no_value", "diff", "golden", "tests", "previous", "packet"])
+                self.assertEqual([l["id"] for l in cl["lines"]], ["gate_G1", "gate_G4", "gate_G5", "gate_G6", "open", "blocked", "unconfirmed", "unmapped", "no_value", "diff", "limitations", "golden", "tests", "previous", "packet"])
+                lim = next(l for l in cl["lines"] if l["id"] == "limitations")  # T68: informs, never red
+                self.assertEqual((lim["required"], lim["state"], lim["count"]), (False, "info", 2))
+                self.assertEqual(sorted(d["id"] for d in lim["detail"]), ["no_monitoring_thresholds", "survivor_bias"])
                 self.assertTrue(next(l for l in cl["lines"] if l["id"] == "previous")["ok"])
                 broken = tmp / "v0.0.1"  # a broken folder before this version: a red required line, the page still renders
                 broken.mkdir()
@@ -557,6 +560,9 @@ class PacketColumns(unittest.TestCase):
         self.assertIn("By a person: no hand-check for this release", files["QUALITY.md"])
         self.assertNotIn("by a person where it can't", files["QUALITY.md"])
         self.assertFalse(p["hand_check"])
+        self.assertIn("| `systematic_without_xbrl` |", files["LIMITATIONS.md"])  # T68: in every packet, counted over the shipped lists
+        self.assertIn("0 of 1 values in values.csv agree", files["LIMITATIONS.md"])  # the shipped values.csv (api.fetch's, mocked here with an empty check_label), not build's
+        self.assertIn("LIMITATIONS.md", p["manifest"]["files"])
 
     def test_a_hand_check_file_is_named_with_its_count_and_a_previous_release_diffs_without_blank_rows(self):
         tmp = Path(tempfile.mkdtemp(prefix="releases-"))
