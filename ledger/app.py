@@ -181,6 +181,17 @@ def flow(scope: str) -> dict:
     return _FLOW[key]
 
 
+# T62: the key names the item (resolutions.key_for, from its fields, never from `where`); the hash says what it holds. The
+# fields hq added for the key in T62 (a finding's rule and subject; a question's subject, questions carried rule before) are
+# left out, so every hash equals its pre-T62 value and no resolution expired on the change.
+ADDED_FOR_KEY = {"finding_unconfirmed": ("rule", "subject"), "blocked": ("subject",)}
+
+
+def content_hash(kind: str, detail: dict) -> str:
+    skip = ADDED_FOR_KEY.get(kind, ())
+    return hashlib.sha256(json.dumps({k: v for k, v in detail.items() if k not in skip}, sort_keys=True, default=str).encode()).hexdigest()[:12]
+
+
 def _flow(scope: str) -> dict:
     """The queue for a scope (all = config.SCOPE, a layer within it, or any one ticker the database holds): new filings,
     blocks, facts that differ from the filing's tag, facts that changed since the signed release, findings the SEC's data
@@ -232,9 +243,7 @@ def _flow(scope: str) -> dict:
             queue.append({"kind": "finding_unconfirmed", "key": resolutions.key_for("finding_unconfirmed", x["ticker"], x["field"], x["period"], rule_id=x.get("rule") or x["kind"], subject=x.get("subject")), "state": "look", "ticker": x["ticker"], "where": f"{x['field'] or ''} {x['period'] or ''}".strip(), "impact": "a value the SEC's data can't confirm", "action": "open", "detail": x})
     for q_ in queue:
         q_.setdefault("dollars", 0); q_.setdefault("new", False)
-        # T62: the key names the item (resolutions.key_for, from its fields, never from `where`); the hash says what it holds,
-        # so the key's own parts that hq added for T62 (rule, subject) are left out of it and no resolution expired on the change.
-        q_["hash"] = hashlib.sha256(json.dumps({k: v for k, v in q_["detail"].items() if k not in ("rule", "subject")}, sort_keys=True, default=str).encode()).hexdigest()[:12]
+        q_["hash"] = content_hash(q_["kind"], q_["detail"])
         r_ = res.get(q_["key"])
         q_["resolution"] = r_ if r_ and r_["hash"] == q_["hash"] else None
         if q_["resolution"] and q_["resolution"]["state"] == "blocks":

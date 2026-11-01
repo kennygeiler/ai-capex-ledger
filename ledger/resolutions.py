@@ -82,6 +82,8 @@ def latest(rs: list[dict] | None = None) -> dict:
 def resolve(key: str, content_hash: str, state: str, reason: str, by: str) -> dict:
     if state not in STATES or not reason.strip() or not by.strip():
         raise ValueError("a resolution needs a state (accept, explain, fix, blocks), a reason and a name")
+    if not is_live(key):
+        raise ValueError(f"not a queue item's key (kind|ticker|field|period|dimension|rule_id|subject, a live kind): {key!r}")
     r = {"id": uuid.uuid4().hex[:12], "key": key, "hash": content_hash, "state": state, "reason": reason, "by": by,
          "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     LOG.parent.mkdir(parents=True, exist_ok=True)
@@ -104,14 +106,36 @@ def _parse(key: str):
     return None
 
 
-def by_row(rs: list[dict] | None = None) -> dict:
-    """The latest decision per dataset row: {(table, ticker, field, dimension, period, kind): {state, status, by, at, reason}}.
-    A values key with no period applies to every period of that field."""
-    out = {}
-    for key, r in latest(rs).items():
+WORST = ("blocks", "fix", "explain", "accept")  # a row's state is the worst over its items' latest resolutions
+
+
+def by_row(rs: list[dict] | None = None, items: list[dict] | None = None) -> dict:
+    """The decision per dataset row: {(table, ticker, field, dimension, period, kind): {state, status, by, at, reason}}.
+    A row may carry several queue items (T62: two findings on one field and year); its state is the worst of their latest
+    resolutions, blocks > fix > explain > accept. With `items` (the queue, [{key, hash}]), a resolution whose item's hash
+    moved on no longer counts, and a row one of whose items has no current resolution reads as unresolved: it is left
+    out, so the row is open. A values key with no period applies to
+    every period of that field."""
+    lt = latest(rs)
+    unresolved, expired = set(), set()
+    for q in items or []:
+        k = _parse(q["key"])
+        r = lt.get(q["key"])
+        if k and not (r and r["hash"] == q["hash"]):
+            unresolved.add(k)
+            if r:
+                expired.add(q["key"])  # the item changed since: its resolution no longer counts, the item is back
+    per_row = {}
+    for key, r in lt.items():
         k = _parse(key)
-        if k:
-            out[k] = {"id": r.get("id"), "state": r["state"], "status": STATUS[r["state"]], "by": r["by"], "at": r["at"], "reason": r["reason"]}
+        if k and key not in expired:
+            per_row.setdefault(k, []).append(r)
+    out = {}
+    for k, rows in per_row.items():
+        r = min(rows, key=lambda r: WORST.index(r["state"]))
+        if r["state"] in ("explain", "accept") and k in unresolved:
+            continue
+        out[k] = {"id": r.get("id"), "state": r["state"], "status": STATUS[r["state"]], "by": r["by"], "at": r["at"], "reason": r["reason"]}
     return out
 
 
@@ -136,21 +160,30 @@ def unconfirmed(rs: list[dict] | None = None) -> list[dict]:
 
 
 # ── T62: the one-off from kind|ticker|where to key_for() ───────────────────────────────────────────────────────────
+ARCHIVE_DIR = ROOT / "decisions" / "archive"
+
+
+def archived_keys() -> list[dict]:
+    """The lines of every migrate-keys archive file (decisions/archive/resolutions-keys-*.jsonl), note lines left out."""
+    return [r for p in sorted(ARCHIVE_DIR.glob("resolutions-keys-*.jsonl")) for r in load(p) if "key" in r]
+
+
 def legacy_key(item: dict) -> str:
     """The key app.flow() built before T62 for a queue item: kind|ticker|where."""
     return f"{item['kind']}|{item['ticker']}|{item['where']}"
 
 
-def migrate_keys(lines: list[dict], queue_for, now: str | None = None) -> dict:
+def migrate_keys(lines: list[dict], queue_for, now: str | None = None, archived_before: list[dict] = ()) -> dict:
     """Plan the migration of `lines` (the log, in file order). `queue_for(ticker)` gives that company's queue items
     (app.flow). A legacy line that matches exactly one item's legacy key is migrated: the same line (id, hash, state,
     reason, by, at untouched) under the item's key, plus `migrated_from` and `migrated_at`; the hash is kept, not
     recomputed, so a resolution whose item changed since stays expired (`current` says whether it still matches).
-    One that matches no item or several is archived with a note. A line already in the new shape is untouched.
-    Returns {migrated: [...], archived: [...], untouched: [...]}; nothing is written."""
+    One that matches no item or several is archived with a note. A line already in the new shape, one migrated before
+    and one archived before (`archived_before`: the archive files' lines) is untouched, so a second run is a no-op.
+    Returns {migrated: [...], archived: [...], untouched: [...], current: {id: hash still the item's}}; nothing is written."""
     now = now or datetime.now(timezone.utc).isoformat(timespec="seconds")
-    out, queues = {"migrated": [], "archived": [], "untouched": []}, {}
-    done = {(r.get("migrated_from"), r.get("id")) for r in lines if r.get("migrated_from")}  # a second run changes nothing
+    out, queues = {"migrated": [], "archived": [], "untouched": [], "current": {}}, {}
+    done = {(r.get("migrated_from"), r.get("id")) for r in lines if r.get("migrated_from")} | {(r.get("key"), r.get("id")) for r in archived_before if r.get("key")}
     for r in lines:
         if parse_key(r["key"]) is not None or r["key"].count("|") != LEGACY_PIPES or (r["key"], r.get("id")) in done:
             out["untouched"].append(r)
@@ -160,7 +193,8 @@ def migrate_keys(lines: list[dict], queue_for, now: str | None = None) -> dict:
             queues[ticker] = queue_for(ticker)
         hits = [q for q in queues[ticker] if legacy_key(q) == r["key"]]
         if len(hits) == 1:
-            out["migrated"].append({**r, "key": hits[0]["key"], "migrated_from": r["key"], "migrated_at": now, "current": hits[0]["hash"] == r["hash"]})
+            out["migrated"].append({**r, "key": hits[0]["key"], "migrated_from": r["key"], "migrated_at": now})
+            out["current"][r.get("id")] = hits[0]["hash"] == r["hash"]
         else:
             why = "no queue item carries this key today" if not hits else f"{len(hits)} queue items carry this key: " + "; ".join(q["key"] for q in hits)
             out["archived"].append({**r, "note": f"not migrated by migrate-keys on {now[:10]}: {why}; the live line stays and is not live (legacy shape)"})
@@ -169,7 +203,7 @@ def migrate_keys(lines: list[dict], queue_for, now: str | None = None) -> dict:
 
 def write_migration(plan: dict, log=None, archive=None) -> None:
     """Append the migrated lines to the log and the archived ones, behind a note line, to the archive file. Removes nothing."""
-    log, archive = log or LOG, archive or (ROOT / "decisions" / "archive" / f"resolutions-keys-{datetime.now(timezone.utc):%Y-%m-%d}.jsonl")
+    log, archive = log or LOG, archive or ARCHIVE_DIR / f"resolutions-keys-{datetime.now(timezone.utc):%Y-%m-%d}.jsonl"
     if plan["migrated"]:
         with log.open("a") as f:
             for r in plan["migrated"]:

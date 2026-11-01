@@ -64,6 +64,57 @@ class Keys(unittest.TestCase):
         self.assertNotEqual(key_for("finding_unconfirmed", "CLSK", "capex", rule_id="unit_from_document", subject="0000950170-22-026564|capex|2020-10-01|2021-09-30"),
                             key_for("finding_unconfirmed", "CLSK", "capex", rule_id="unit_from_document", subject="0000950170-23-000001|capex|2021-10-01|2022-09-30"))
 
+    def test_a_row_takes_the_worst_of_its_findings_and_stays_open_with_an_unresolved_sibling(self):
+        """T62 review: HUT capex FY2023 carries a jump and a capex_intensity finding, two keys on one row."""
+        a, b = key_for("finding_unconfirmed", "HUT", "capex", "FY2023", rule_id="jump"), key_for("finding_unconfirmed", "HUT", "capex", "FY2023", rule_id="outlier_vs_own_history")
+        row = ("values", "HUT", "capex", "", "FY2023", "")
+        ra = {"id": "1", "key": a, "hash": "ha", "state": "accept", "reason": "r", "by": "Kenny Geiler", "at": "1"}
+        rb = {"id": "2", "key": b, "hash": "hb", "state": "fix", "reason": "r", "by": "Kenny Geiler", "at": "2"}
+        self.assertEqual(resolutions.by_row([ra, rb])[row]["status"], "fix_pending")  # worst wins, whatever the order
+        self.assertEqual(resolutions.by_row([rb, ra])[row]["status"], "fix_pending")
+        self.assertEqual(resolutions.by_row([ra, {**rb, "state": "blocks"}])[row]["status"], "blocks")
+        self.assertEqual(resolutions.by_row([ra, {**rb, "state": "explain"}])[row]["status"], "explained")
+        items = [{"key": a, "hash": "ha"}, {"key": b, "hash": "hb"}]
+        self.assertEqual(resolutions.by_row([ra, {**rb, "state": "accept"}], items)[row]["status"], "accepted")
+        self.assertNotIn(row, resolutions.by_row([ra], items))  # one accepted, one with no resolution: the row reads open
+        self.assertNotIn(row, resolutions.by_row([ra, {**rb, "hash": "stale"}], items))  # an expired sibling is unresolved too
+        self.assertEqual(resolutions.by_row([ra, {**rb, "hash": "stale"}], items[:1])[row]["status"], "fix_pending")  # a queue without the sibling: its hash cannot be judged, its resolution counts as written
+        self.assertIn(row, resolutions.by_row([ra], None))  # no queue given (exports): the resolutions alone
+
+    def test_the_hash_is_the_pre_t62_hash(self):
+        """T62 review: only the fields hq added for the key are left out, per kind, so no live resolution expired."""
+        import hashlib
+        from ledger.app import content_hash
+        pre = lambda d: hashlib.sha256(json.dumps(d, sort_keys=True, default=str).encode()).hexdigest()[:12]
+        q = {"detail": None, "exception_id": "cost_lines_summed|T|opex|FY2022|None", "ticker": "T", "company": "AT&T", "rule": "cost_lines_summed", "severity": "block", "title": "t", "why": "w", "field": "opex", "period": "FY2022", "message": "m"}
+        self.assertEqual(content_hash("blocked", {**q, "subject": None}), pre(q))  # a question carried `rule` before T62
+        f = {"ticker": "HUT", "company": "Hut 8", "field": "capex", "period": "FY2023", "confirmed": False, "message": "m", "kind": "jump", "before": 1, "after": 3, "from": "FY2022", "size": 3.0}
+        self.assertEqual(content_hash("finding_unconfirmed", {**f, "rule": "jump", "subject": None}), pre(f))
+        self.assertEqual(content_hash("fact_differs", f), pre(f))
+
+    def test_resolve_refuses_a_key_that_is_not_a_queue_items(self):
+        with self.assertRaises(ValueError):
+            resolutions.resolve("finding_unconfirmed|LITE|operating_income", "h", "accept", "r", "Kenny Geiler")  # legacy shape
+        with self.assertRaises(ValueError):
+            resolutions.resolve(key_for("reference_disagrees", "AMD", "AI revenue", "FY2024"), "h", "accept", "r", "Kenny Geiler")  # stale kind
+        with self.assertRaises(ValueError):
+            resolutions.resolve("", "h", "accept", "r", "Kenny Geiler")
+
+    def test_the_resolve_route_answers_400_to_a_bad_key(self):
+        import threading
+        from http.server import ThreadingHTTPServer
+        from urllib import error, request
+        from ledger import app
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        self.addCleanup(srv.shutdown)
+        req = request.Request(f"http://127.0.0.1:{srv.server_address[1]}/api/resolve", data=json.dumps({"key": "finding_unconfirmed|LITE|operating_income", "hash": "h", "state": "accept", "reason": "r", "by": "Kenny Geiler"}).encode(), headers={"Content-Type": "application/json"}, method="POST")
+        with self.assertRaises(error.HTTPError) as cm:
+            request.urlopen(req)
+        self.assertEqual(cm.exception.code, 400)
+        self.assertIn("not a queue item's key", json.loads(cm.exception.read())["error"])
+        self.assertEqual(resolutions.load()[-1]["by"], "Kenny Geiler")  # nothing appended: the last line is still the migrated one
+
     def test_the_stage3_queue_has_no_duplicate_keys(self):
         """T62 done-when: over every company the database holds (the 21 keys of 1 Nov were HUT, RIOT, CEG, T, VST, ...)."""
         from collections import Counter
@@ -95,7 +146,9 @@ class MigrateKeys(unittest.TestCase):
         plan = resolutions.migrate_keys(self.LINES, lambda t: self.QUEUE[t], now="2026-11-01T12:00:00+00:00")
         self.assertEqual([r["id"] for r in plan["migrated"]], ["a"])
         m = plan["migrated"][0]
-        self.assertEqual((m["key"], m["migrated_from"], m["by"], m["hash"], m["at"], m["current"]), (self.QUEUE["LITE"][0]["key"], "finding_unconfirmed|LITE|operating_income", "Kenny Geiler", "29c944176fef", "2026-11-01T02:01:26+00:00", True))
+        self.assertEqual((m["key"], m["migrated_from"], m["by"], m["hash"], m["at"]), (self.QUEUE["LITE"][0]["key"], "finding_unconfirmed|LITE|operating_income", "Kenny Geiler", "29c944176fef", "2026-11-01T02:01:26+00:00"))
+        self.assertNotIn("current", m)  # the CLI prints it; the log never carries it
+        self.assertEqual(plan["current"], {"a": True})
         self.assertEqual([r["id"] for r in plan["archived"]], ["b", "c"])
         self.assertIn("2 queue items carry this key", plan["archived"][0]["note"])
         self.assertIn("no queue item", plan["archived"][1]["note"])
@@ -117,8 +170,9 @@ class MigrateKeys(unittest.TestCase):
             a = resolutions.load(arch)
             self.assertIn("note", a[0])
             self.assertEqual([r["id"] for r in a[1:]], ["b", "c"])
-            # a second run finds nothing left to do
-            self.assertEqual(resolutions.migrate_keys(rows, lambda t: self.QUEUE[t])["migrated"], [])
+            # a second run, reading the archive too, finds nothing left to do
+            again = resolutions.migrate_keys(rows, lambda t: self.QUEUE[t], archived_before=[r for r in a if "key" in r])
+            self.assertEqual((again["migrated"], again["archived"], len(again["untouched"])), ([], [], 5))
 
 
 if __name__ == "__main__":

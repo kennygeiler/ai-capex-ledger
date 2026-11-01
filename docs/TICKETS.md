@@ -434,16 +434,20 @@ the builder before fixing). Not new scope: each is a defect in approved work, fi
   on CEG), the rest two rules on one field and year (HUT capex FY2023 jump + capex_intensity, RIOT opex FY2025 jump +
   opex_over_revenue). One key function, `resolutions.key_for(kind, ticker, field, period, dimension, rule_id, subject)`
   → `kind|ticker|field|period|dimension|rule_id|subject` ('' for what the item lacks; a `|` inside a part, as in XOM's
-  "Chemical Products | Non-U.S." or a rule's subject, is escaped `%7C`), used by `app.flow` for all five kinds; `hq.py`'s
+  "Chemical Products | Non-U.S." or a rule's subject, is escaped `%7C`, and `%` `%25`), used by `app.flow` for all five kinds; `hq.py`'s
   findings and questions now carry `rule` (the exception's rule id; `restated` and `opex_over_revenue` for the two findings
-  that are not exceptions) and `subject` (the exception id's tail: the filing, the column), and `app.flow` leaves those two out
-  of the content hash so no resolution expired on the change. `resolutions.parse_key` / `_parse` read the shape; a legacy
+  that are not exceptions) and `subject` (the exception id's tail: the filing, the column), and `app.flow`'s `content_hash`
+  leaves out only what T62 added per kind (a finding's rule and subject; a question's subject, questions carried `rule`
+  before), so every hash equals its pre-T62 value and no resolution expired. `resolutions.parse_key` / `_parse` read the shape; a legacy
   key (two pipes) is not live: not shown, not counted, not a G6 failure. Migration `ledger resolutions migrate-keys [--dry-run]`
   (`ledger/cli/resolutions.py`, logic in `resolutions.migrate_keys` / `write_migration`): the log is append-only (its
   docstring), so each legacy line that matches exactly one queue item's legacy key is appended again under the new key with
-  `migrated_from`, `migrated_at` and `current` (hash kept, not recomputed, so an expired one stays expired), id, hash, state,
-  reason, by, at untouched; lines matching none or several are copied to `decisions/archive/resolutions-keys-<date>.jsonl`
-  behind a note and left in the log; nothing removed; a second run is a no-op. Run on 1 Nov: migrated 3, archived 0, untouched 0
+  `migrated_from` and `migrated_at` (hash kept, not recomputed, so an expired one stays expired; the CLI prints whether it is
+  current), id, hash, state, reason, by, at untouched; lines matching none or several are copied to
+  `decisions/archive/resolutions-keys-<date>.jsonl` behind a note and left in the log; nothing removed; a second run reads the
+  archive files too and is a no-op. `by_row` gives a row the worst of its items' latest resolutions (blocks > fix > explain >
+  accept) and, given the queue (Reconcile does), leaves a row open while one of its findings has no current resolution.
+  `resolve()` refuses a key that is not a live kind in the key_for shape (400 from `/api/resolve`). Run on 1 Nov: migrated 3, archived 0, untouched 0
   (the three LITE operating_income lines → `finding_unconfirmed|LITE|operating_income|||row_label_switch|`, Kenny Geiler's
   accept the latest, hash current). `unconfirmed()` on the six before and after: []; G6 all empty; LITE's item shows explained
   by Kenny Geiler. After: 0 duplicate keys over the 100 companies and on `/api/v1/reconcile?scope=all|HUT|RIOT|T|LITE`. Tests

@@ -21,9 +21,10 @@ def main(argv=None) -> int:
     a = ap.parse_args(argv)
     from ..app import _flow
     lines = resolutions.load(a.log)
-    plan = resolutions.migrate_keys(lines, lambda t: _flow(t)["queue"])
+    before = resolutions.load(a.archive) if a.archive else resolutions.archived_keys()
+    plan = resolutions.migrate_keys(lines, lambda t: _flow(t)["queue"], archived_before=[r for r in before if "key" in r])
     for r in plan["migrated"]:
-        print(f"migrate  {r['migrated_from']}  ->  {r['key']}  ({r['state']}, by {r['by']}, hash {'current' if r['current'] else 'EXPIRED'})")
+        print(f"migrate  {r['migrated_from']}  ->  {r['key']}  ({r['state']}, by {r['by']}, hash {'current' if plan['current'][r.get('id')] else 'EXPIRED'})")
     for r in plan["archived"]:
         print(f"archive  {r['key']}  ({r['state']}, by {r['by']}): {r['note']}")
     if not a.dry_run:

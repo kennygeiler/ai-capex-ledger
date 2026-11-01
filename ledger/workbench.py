@@ -146,7 +146,7 @@ def items(con, flow: dict) -> dict:
     The decisions a run left for a person to confirm come first as their own group (`to_confirm`, T3), counted apart; the
     unmapped asset types (`asset_types`, T33) are their own group too, with `members` the list a mapping may use."""
     names, rel = flow["names"], flow["release"]["last"]
-    idx = resolutions.by_row()
+    idx = resolutions.by_row(items=flow["queue"])  # T62: a row with an unresolved sibling finding stays open
     rows = []
     for q in flow["queue"]:
         d = q.get("detail") or {}
