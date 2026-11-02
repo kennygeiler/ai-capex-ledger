@@ -503,3 +503,83 @@
   gaps:
     - Where a row came from is recorded per release, not per row; derived rows do not cite every input.
   ticket: T70
+
+- id: evidence_cell_located
+  claim: "Cell located · the stored 10-K shows the cited text under that row label and column header"
+  where: [ledger/pages/evidence.js, ledger/viewer.py, ledger/crops.py, /api/v1/evidence/<extraction_id>, /filing/<accession>]
+  shown: ["Cell located", "Cell not located", "Cell not located on this page", "Crop out of date", "Crop file missing", "No crop yet"]
+  backed_by:
+    functions: [ledger.crops.state, ledger.crops.crop_doc, ledger.evidence.same, ledger.evidence.runs_together, ledger.evidence.offline, ledger.viewer.script]
+    tests:
+      - tests.test_crops.Locator.test_found_and_not_found
+      - tests.test_crops.Locator.test_a_filing_that_differs_from_its_fingerprint_is_not_cropped
+      - tests.test_crops.Locator.test_the_viewer_banner_says_what_it_found
+      - tests.test_crops.State.test_located_only_while_the_filing_the_citation_and_the_code_are_unchanged
+      - tests.test_crops.State.test_nothing_on_record_is_never_located
+      - tests.test_crops.Consumers.test_the_viewer_runs_the_crops_locator_and_text_rule
+      - tests.test_crops.Consumers.test_the_crop_code_covers_both_copies_of_the_text_rule
+      - tests.test_crops.Locator.test_a_header_is_its_whole_text_and_two_columns_are_ambiguous
+      - tests.test_crops.State.test_the_stored_file_is_hashed_as_the_viewer_does
+      - tests.test_crops.Parity.test_the_pages_text_rule_is_pythons
+      - tests.test_crops.Offline.test_rendering_a_filing_fetches_nothing
+  status: partial
+  gaps:
+    - Located means the rendered page shows the cited text at that row and column; it does not check the scale, the sign or the period.
+    - A cell whose column label carries a neighbouring sub-header is not located, though the number is in the table.
+    - A cell that runs several values together is not located, though the cited value is one of them.
+  ticket: none
+
+- id: evidence_crop
+  claim: "The crop: the cited row, two rows either side and the column header, full table width, the cell boxed"
+  where: [ledger/pages/evidence.js, ledger/crops.py, reports/evidence/crops.json, /api/v1/evidence/<extraction_id>]
+  shown: ["Extracted", "Filing", "rows between header and cell folded", "not shown"]
+  backed_by:
+    functions: [ledger.crops.crop_doc, ledger.crops.merge, ledger.crops.run, ledger.crops.view, ledger.crops.located_images, ledger.evidence.load_all]
+    tests:
+      - tests.test_crops.Locator.test_found_and_not_found
+      - tests.test_crops.View.test_a_crop_url_only_when_located_and_current
+      - tests.test_crops.Merge.test_an_older_run_never_replaces_a_newer_one
+      - tests.test_crops.Run.test_one_run_at_a_time
+      - tests.test_crops.Run.test_every_entry_carries_the_runs_start_and_lands_per_filing
+      - tests.test_crops.State.test_a_changed_picture_is_missing
+      - tests.test_crops.Names.test_one_crop_file_per_extraction
+      - tests.test_crops.Consumers.test_the_rereads_loader_skips_the_crop_record
+  status: partial
+  gaps:
+    - Crops exist for the proven six only; another company needs `ledger evidence --crops --ticker`.
+    - The pictures are not in git; a clone or the hosted copy has none until `ledger evidence --crops` runs.
+    - Not yet shown on the trail rows or the gold set; the page is reached by its address.
+  ticket: none
+
+- id: evidence_compare
+  claim: "Two readings side by side · filing A | filing B, each with its accession and filed date"
+  where: [ledger/pages/evidence.js, /api/v1/evidence/<extraction_id>]
+  shown: ["Readings differ", "Readings agree"]
+  backed_by:
+    functions: [ledger.crops.view]
+    tests:
+      - tests.test_crops.View.test_the_compare_view_has_two_sides_each_with_its_filing
+  status: partial
+  gaps:
+    - Readings differ compares the two extracted values only; it does not say which filing is right.
+    - No link to it yet from Reconcile or the trail; the page is reached by its address.
+  ticket: none
+
+- id: evidence_open_in_filing
+  claim: "Open in filing (in-app) · the stored 10-K, scrolled to the cell, outlined in red"
+  where: [ledger/pages/evidence.js, ledger/viewer.py, ledger/app.py, /filing/<accession>]
+  shown: ["Open in filing", "Cell located", "Cell not located on this page"]
+  backed_by:
+    functions: [ledger.viewer.filing, ledger.viewer.script]
+    tests:
+      - tests.test_crops.Viewer.test_refuses_an_unknown_accession_and_traversal
+      - tests.test_crops.Viewer.test_refuses_a_stored_copy_that_differs_from_its_fingerprint
+      - tests.test_crops.Viewer.test_serves_the_filing_sandboxed_with_only_its_own_script
+      - tests.test_crops.View.test_only_an_sec_address_is_a_link
+      - tests.test_crops.Viewer.test_the_route
+      - tests.test_crops.Locator.test_the_viewer_banner_says_what_it_found
+  status: partial
+  gaps:
+    - The hosted copy ships no stored filings, so there it answers that the stored copy is missing.
+    - The trail's Open link still goes to sec.gov.
+  ticket: none

@@ -19,3 +19,6 @@ rules/.rules.lock
 gold/.*.lock
 rules/.*.tmp
 definitions/.*.tmp
+reports/evidence/.crops.json.lock
+reports/evidence/crops/*.png
+reports/evidence/.crops.json.run.lock

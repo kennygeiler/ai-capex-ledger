@@ -72,6 +72,15 @@
   .mk.x { color: var(--tblr-red); }
   .mk.d { color: var(--tblr-orange, #f76707); }
   .mk.o { color: var(--tblr-orange, #f76707); }
+  /* evidence: extracted | filing, or filing A | filing B */
+  .ev-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; align-items: start; margin-top: 1rem; }
+  .ev-grid:has(> section:first-child .ev-kv) { grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr); }
+  @media (max-width: 900px) { .ev-grid, .ev-grid:has(> section:first-child .ev-kv) { grid-template-columns: minmax(0, 1fr); } }
+  .ev-wide { width: min(calc(100vw - 64px), 112rem); position: relative; left: 50%; transform: translateX(-50%); }  /* two crops side by side: wider than the page column */
+  .ev-side { display: grid; gap: .6rem; }
+  .ev-value { font-size: 1.6rem; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums; }
+  .ev-kv { display: grid; gap: .05rem; }
+  .ev-crop { display: block; width: 100%; max-width: 64rem; height: auto; border-radius: 4px; box-shadow: 0 0 0 1px var(--tblr-border-color); background: #fff; }
   .src { display: grid; gap: .3rem; margin-bottom: .9rem; max-width: 60rem; }
   .src img { max-width: min(100%, 40rem); border-radius: 4px; margin-top: .3rem; border: 1px solid var(--tblr-border-color); }
   /* text controls that the kit does not reach */
@@ -174,6 +183,7 @@
 <script src="/pages/explore.js"></script>
 <script src="/pages/release.js"></script>
 <script src="/pages/gaps.js"></script>
+<script src="/pages/evidence.js"></script>
 <script src="/pages/_router.js"></script>
 </body>
 </html>

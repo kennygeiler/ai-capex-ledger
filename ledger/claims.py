@@ -412,7 +412,7 @@ def counts_line(c: dict) -> str:
 # ── the page scan ────────────────────────────────────────────────────────────────────────────────────────────────
 # Label maps whose display strings are claims (value strings, or the keys when every value is a CSS class).
 LABEL_MAPS = {"trail.js": ("TRAIL_TONE",), "reconcile.js": ("STATE_BADGE",), "release.js": ("LINE_STATE",), "_shared.js": ("XBRL", "CHECK"),
-              "proof.js": ("GOLD_WORD",)}
+              "proof.js": ("GOLD_WORD",), "evidence.js": ("EVIDENCE_STATE",)}
 # The text of an element styled as a status (a badge or a tone colour), literal or the static parts of a template.
 TONED = re.compile(r"""h\('[a-z0-9]+',\s*\{[^{}]*class:\s*'[^']*(?:badge|text-(?:green|red|orange|teal|azure|yellow))[^']*'[^{}]*\},\s*('[^']*'|`[^`]*`)""")
 # Strings a page shows that the two rules above cannot see (a class picked at run time, a heading).

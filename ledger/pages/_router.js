@@ -3,10 +3,10 @@ async function route() {
   const raw = location.hash.slice(1) || 'proof';
   const [path, qs] = raw.split('?');
   const [page, arg] = path.split('/');
-  const tab = {company: 'data', tables: 'data', views: 'explore', flow: 'proof', status: 'proof', golden: 'proof', releases: 'proof', agents: 'rules', attribution: 'rules', run: 'proof'}[page] || page;
+  const tab = {company: 'data', tables: 'data', views: 'explore', flow: 'proof', status: 'proof', golden: 'proof', releases: 'proof', agents: 'rules', attribution: 'rules', run: 'proof', evidence: 'proof'}[page] || page;
   document.querySelectorAll('header [data-nav]').forEach((a) => a.classList.toggle('active', a.dataset.nav === tab));
   const view = $('#view');
-  view.replaceChildren(h('h1', {class: 'sr'}, `Kenny's Data Emporium, ${({proof: 'Proof', rules: 'Rules', reconcile: 'Reconcile', data: 'Dataset', company: 'Company', explore: 'Explore', release: 'Release', gaps: 'Known gaps'})[page] || 'Data'}`));
+  view.replaceChildren(h('h1', {class: 'sr'}, `Kenny's Data Emporium, ${({proof: 'Proof', rules: 'Rules', reconcile: 'Reconcile', data: 'Dataset', company: 'Company', explore: 'Explore', release: 'Release', gaps: 'Known gaps', evidence: 'Evidence'})[page] || 'Data'}`));
   try {
     if (page === 'proof' && arg) await trailPage(view, arg);
     else if (page === 'proof') await proofPage(view);
@@ -17,6 +17,7 @@ async function route() {
     else if (page === 'data' || page === 'insights') await dataPage(view, qs);
     else if (page === 'release') await releasePage(view, qs);
     else if (page === 'gaps') await gapsPage(view);
+    else if (page === 'evidence') await evidencePage(view, arg, qs);
     else if (page === 'tables') { go('data?' + new URLSearchParams({list: arg || 'taxonomy', ...parseQ(qs || '')}).toString()); return; }
     else await proofPage(view);
   } catch (e) {
