@@ -32,7 +32,9 @@ point at the record that makes it so; each Proof item carries `ref`, that record
 | `by` | the record it must point at |
 |---|---|
 | `xbrl` (checked only) | an XBRL value on the row and the lookup marker (`ref.looked_up`) |
-| `esef:`, `source:`, `actual:`, `rule:<id>_tie` (checked only) | that key's own value on the row (`ref.esef`, `ref.source`, `ref.actual`, `ref.tie`), never the XBRL one; an answer key never explains |
+| `esef:`, `source:`, `actual:`, `rule:<id>_tie`, `reading:` (checked only) | that key's own value on the row (`ref.esef`, `ref.source`, `ref.actual`, `ref.tie`, `ref.readings`), never the XBRL one; an answer key never explains |
+| `rule:<id>_tie` on a fact (T92) | `ref.tie`: the filing's group (key, total, sum, tolerance, parts); the sum within the tolerance of the total, the fact's dimension among the parts, and the same group, holding, when the walk recomputes the groups from what is on file (`ev["ties"]`, `proof.ladder`) |
+| `reading:<accession>` (T92) | `ref.readings`: two or more readings from distinct filings that agree within `config.RESTATEMENT_TOLERANCE` of the coarsest rounding, and the same readings as on file (`ev["readings"]`) |
 | `quote` | the quote on file for the row (the statement by its id, the planned row by ticker, text, category, year and name; the item carries ids, not the quote) found, normalised as the loaders do (curly quotes, no-break spaces, case), in the text its `text_id` names |
 | `located` | the filing's income and cash-flow tables both named |
 | `gate` | on the release stage only (`ref.stage`), with no block item; the stage's one item when nothing blocks (it said `located` before T80) |
@@ -121,9 +123,9 @@ rows it fired on, so a jump on a value XBRL confirms is checked, on a value a de
 unresolved value is open. Every item carries `by`: `xbrl`, `esef:<tag>`, `source:<doc>`, `actual:<period>`, `quote`,
 `located`, `gate`, `mapping:<member>`, `rule:<id>`, `definition:<name>`, `label:<label>` or `resolution:<id>`.
 
-### The four answer keys (`status.ANSWER_KEYS`, `status.answer_key(by)`)
+### The answer keys (`status.ANSWER_KEYS`, `status.answer_key(by)`)
 
-XBRL is one kind of answer key. There are four, and `answer_key(by)` names which one a `by` (or a taxonomy row's
+XBRL is one kind of answer key. There are five (four since T40, the second reading since T92), and `answer_key(by)` names which one a `by` (or a taxonomy row's
 `check_method`) is; a quote, a located table, a mapping and every explanation are not answer keys. One function,
 `status.state`, turns each into checked, so Proof and Reconcile count a row an ESEF tag confirms exactly as they count
 one XBRL confirms. No row carries `esef:`, `source:` or `actual:` today (2 Nov 2026); T41–T45 write them.
@@ -142,6 +144,10 @@ one XBRL confirms. No row carries `esef:`, `source:` or `actual:` today (2 Nov 2
 - **A later truth** (`actual:<period>`): the actual for a period, against what the company planned for it. The planned
   row never changes; the gap is recorded beside it. It proves what the plan was worth, not whether the plan was read
   right (the quote does that).
+- **A second reading** (`reading:<accession>`, T92): an untagged note figure printed by two or more of the filer's 10-Ks
+  (the next 10-K repeats the year as its comparative column), every reading agreeing within half a rounding unit. It
+  proves the figure is not one reader's one-off misread of one table; it is the same filer and usually the same table
+  carried forward, so it says nothing upstream of the table.
 
 **The keys are graded by independence (T56, `status.KEY_GRADE`, `status.grade`, `status.strongest`).** They do not vouch
 equally, because each shares a different amount of its pedigree with the number it checks. Strongest first:
@@ -156,14 +162,61 @@ equally, because each shares a different amount of its pedigree with the number 
    a wrong figure read consistently still ties.
 4. **later truth**: a later period's actual against the plan. The actual can itself be restated, and it proves what
    the plan was worth, not that the plan was read right.
+5. **second reading**: the same filer's next 10-K printing the same figure. Decided (T92): it is a graded key and the row
+   is checked, not explained, because a second filing agreeing is a record that can disagree (two did, below), which a
+   label cannot; it ranks last, below the tie, because the comparative column is the same preparer's table carried
+   forward and read by the same reader, so it shares more pedigree with the row than any other key.
 
 `status.state` carries `keys` (every answer key that vouches for a checked row) and `key` (the strongest of them); a
 row carries one `by` today, so `keys` holds at most one, and T41–T43 add ties, second sources and later truths beside
-the twin without a change of shape. A failed tie carries no key: it is a finding. `proof.board()` counts the scope's
+the twin without a change of shape. A fact XBRL tags keeps `xbrl` even when its group also ties. A failed tie carries no key: it is a finding. `proof.board()` counts the scope's
 rows by their strongest key (`keys`, with `none` for every row no key vouches for and `rows` the denominator, so the
 grades always sum to rows), per company and in total; Proof shows it as "Rows by answer key", and a company trail names
-the key in one word beside `by`. On the six today: twin 260 of 875 rows, no key 615, the other three grades 0 until
-T41–T43 write them.
+the key in one word beside `by`. On the six since T92 (golden fixtures): twin 273 of 891 rows, tie 102, second reading
+17, no key 499; second source and later truth 0 until T41–T43 write them.
+
+### The ladder for the note figures (T92, `ledger/ties.py`)
+
+The SEC tags almost none of the untagged note figures (PP&E by category, segments a filer does not tag, purchase
+commitments), so before T92 every one read "citation only", and two that disagreed across filings passed silently as
+explained by the label `no_reference`: a label standing in for a check. A fact labelled `no_reference` now climbs a
+ladder, and `status.of_fact` takes the first rung that holds:
+
+1. **Readings differ: open.** Every 10-K that printed the figure is a reading (`facts.extraction_ids` → `note_extractions`,
+   one per filing). When they differ by more than `config.RESTATEMENT_TOLERANCE` of the coarsest rounding, the warn rule
+   `fact_readings_differ` fires and the fact is open by `rule:fact_readings_differ` ("readings differ across filings: $A in
+   <accession> (filed …) vs $B in …"), on Proof as the fact itself and on Reconcile as the finding, one item each. Only a
+   person's resolution explains it; no label or definition does (a fact has no definition kind today).
+2. **Ties to the reported total: checked, key tie.** The tie rules (`rules/ppe_categories_tie.yaml`,
+   `segment_revenue_tie.yaml`, `segment_capex_tie.yaml`, check `parts_tie`) group the parts one filing printed for a
+   field and a date, and compare their sum with the company total the same filing tags in its XBRL instance
+   (PropertyPlantAndEquipmentGross; the largest us-gaap revenue tag; the first us-gaap capex tag), read from the
+   distilled instance on disk (`data/raw/<cik>/filings/<accession>.facts.json`, never fetched). The same filing, so a
+   later 10-K's recast categories are compared with its own total, never with an older one. Tolerance: half a rounding
+   unit of the coarsest table among the parts, for each part and for the total (`ties.tolerance`: (n + 1) × unit × 0.5).
+   Only groups that ship a fact are judged (a comparative column a later 10-K replaced ships nothing), and a group
+   with no tagged total gets no tie. When the group ties, each untagged part is checked by `rule:<id>_tie` with
+   `ref.tie` (the total, the sum, the parts); when it does not, the rule's finding is open on the group (facts stage,
+   "parts against total"; Reconcile, the same finding), never checked, and the parts keep their own rung. A segment set
+   that leaves out a reconciling line (corporate, eliminations, hedging) fails honestly: nothing is added to force it.
+3. **Confirmed in two filings: checked, key second reading.** Two or more distinct filings read it and agree.
+4. **Citation only: explained, by `label:no_reference`** (XBRL looked up and holding nothing, T80).
+
+Tagged facts keep their own handling (the twin, the restatement guard). Why the instance and not companyfacts for the
+totals: companyfacts holds one figure per period per filing, copied from these same instances, and the golden fixtures
+carry the instances, so the tie reads the filing's own tagged total without a new store table or a fetch.
+
+On the six (2 Nov 2026, golden fixtures): 327 facts, 180 checked by the twin, 5 explained by the restatement guard, 142
+untagged. Of the 142: tie 102, second reading 17, citation only 21, open 2 (APLD "Other equipment and fixtures" FY2024,
+$9.6M in 0001144879-24-000216 vs $1.8M in 0001144879-25-000021, and FY2025, $2.1M vs $12.4M in 0001144879-26-000048; both
+sit in groups that tie, so the company moved amounts between lines and the old reading or the new one is the question).
+The ties judge 77 groups: 61 tie (31 PP&E, 30 segment revenue) and cover 104 untagged facts; 16 fail and are open: GOOGL
+PP&E FY2023 in the FY2024 10-K (its four lines, one of them "Add: assets not yet in service", sum to $201,803M against a tagged
+$166,667M; likely the tag is the in-service gross, unconfirmed); GOOGL segment revenue FY2020–FY2025 (the segments leave out hedging gains and
+losses, $−1,960M to $+127M); APLD segment revenue FY2024–FY2026 in the FY2026 10-K (one or two hosting segments against
+total revenue, $29M to $84M short); APLD segment capex FY2023–FY2026, six groups (segment capex is accrual and runs above
+cash capex, $14M to $304M). Six groups have no tagged total (GOOGL PP&E FY2024–FY2025 in its FY2025 10-K; AMZN PP&E FY2021–FY2023, and FY2024 in its
+FY2024 10-K): no tie.
 
 Under it, "Failure types" (T54): the 72 types `docs/INGESTION.md` logged, as `taxonomy/failures.yaml` codes them, two bar charts
 from `/api/v1/failures` (types per cause class; types per catching check, `none` its own bar: a known way to be wrong that nothing
@@ -193,7 +246,7 @@ company in the proven set.
 |---|---|---|---|---|
 | Ingest | a filing | every statement and note table located, units from the document | a unit rule (type 48, 50, 56, 62) | a table or a unit is missing |
 | Values | a value per field and year | the SEC's XBRL | a definition (cost lines, revenue line), a restatement rule, `not_reported` (no line, no tag) | `unresolved`, or `not_extracted` (no cell read while XBRL tags a value) |
-| Facts | a fact per segment or category and year | the filing's instance (concept and member named) | a restatement between filings, an untagged line | `unresolved` with no explanation |
+| Facts | a fact per segment or category and year | the filing's instance (concept and member named); for an untagged one, a tie to the filing's tagged total or a second filing agreeing (T92) | a restatement between filings, an untagged line read once | `unresolved` with no explanation; an untagged line whose readings differ across filings; a group of parts that does not tie to its total |
 | Statements | a quote | the text it came from, verbatim | scope, period and part-year tags set by rule | a part-year or program statement without its tag |
 | Mapping | a reported asset type | the us-gaap member it maps to, with the note's words and a person's `confirmed_by` (`taxonomy/asset_types.yaml`, T63) | nothing: a mapping is checked or open | a reported category with no mapping, or an entry no person confirmed (`label:to_confirm`, also a G6 failure) |
 | Planned | a guidance statement, a project | the text, verbatim | part-year and program tags (types 68, 69) | never: a verbatim row is what it is |

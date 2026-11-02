@@ -28,7 +28,7 @@ a company's trail (per stage: checked, explained, open items with what they need
 and the open items by what is missing, `/api/v1/golden` the golden test's last result, `/api/v1/failures` the failure types as data (T54, `taxonomy/failures.yaml`): `total`, `by_class`, `by_origin` and `by_check` (each a list of `{<key>, types}` largest first, a bar being a number of types, never instances; `none` is a check of its own), `none` (how many types no check in code catches) and `types` (id, name, class, origin, check, count; a null count stays null). Answer keys (T56, `docs/PROOF.md`): the board, each company
 on it and each stage of a trail carry `keys`, `{twin, second_source, tie, later_truth, none, rows}`, rows counted once by the strongest key that vouches
 for them, `none` for a row no key vouches for (a quote, a mapping, an explanation, an open item), so the five sum to `rows`; the board and a trail also carry
-`key_grade`, the four in strength order with `id`, `label` and `why`. Every trail item carries `key` (the strongest answer key behind its `by`, or null) and
+`key_grade`, the keys in strength order (five since T92: twin, second source, tie, later truth, second reading) with `id`, `label` and `why`. Every trail item carries `key` (the strongest answer key behind its `by`, or null) and
 `keys` (every key that vouches for it; one today).
 
 One screen's feed: `/api/v1/reconcile?scope=all|<layer>|<ticker>` is the Reconcile workbench's rows (`docs/PROOF.md`): one per open

@@ -1,0 +1,18 @@
+id: ppe_categories_tie
+severity: warn
+description: The PP&E categories one 10-K prints for a balance date sum to the gross PP&E the same filing tags in XBRL
+  (us-gaap PropertyPlantAndEquipmentGross), within half a rounding unit per category and for the total.
+rationale: The SEC tags almost none of the categories, so each one had only its citation. A sum that matches the
+  filing's own tagged total shows the categories were read consistently (T92); a sum that misses names a misread, a
+  missing line, or a table whose total is not the tagged one. It cannot say which category is wrong.
+owner: Kenny Geiler
+check: parts_tie
+params:
+  field: ppe_category
+  concepts: [PropertyPlantAndEquipmentGross]
+  pick: first
+title: The property categories don't add up to the reported total.
+plain: The categories read from the property note were added up and compared with the total property figure the
+  company reported to the SEC for the same date, in the same filing. They don't match.
+action: Open the filing's property note. If a category was misread or missed, tell the data owner. If the note's total
+  really is a different figure (for example assets not yet in service shown apart), explain it, saying which line.

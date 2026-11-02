@@ -24,6 +24,7 @@ DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
 SCHEMA_VERSION = 11  # v11: the taxonomy rows take one shape (T9–T17: group dropped, change_from_prior, tags unpacked, the source followed, one check vocabulary, mapped, has_value, periods, units); they are computed by ledger/taxonomy.py, not stored, so nothing migrates: the bump marks the packet shape. v10: ai_spend.ai_amount dropped; v9: projects table
 
 FIELDS = ("revenue", "cost_of_revenue", "cost_of_revenue_part", "operating_income", "capex", "opex")
+NOTE_FIELDS = ("segment_capex", "segment_revenue", "ppe_category", "finance_lease_liability", "purchase_commitments")  # ledger.notes.FIELDS
 KINDS = ("accept", "override", "reject")  # what a person can decide about an exception
 YEAR = re.compile(r"^FY\d{4}$")
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -240,7 +241,7 @@ SCHEMA: tuple[Table, ...] = (
         _c("rule_id", "VARCHAR", "Rule that fired."),
         _c("severity", "VARCHAR", "Copied from the rule at run time.", enum=("block", "warn", "info")),
         TICKER,
-        _c("field", "VARCHAR", "Line item, if the rule is field-level.", nullable=True, enum=FIELDS),
+        _c("field", "VARCHAR", "Line item, if the rule is field-level: a values field, or a note field (T92: the ties and readings of the facts).", nullable=True, enum=FIELDS + NOTE_FIELDS),
         _c("period", "VARCHAR", "Fiscal year, if year-level.", nullable=True, pattern=YEAR),
         _c("subject", "VARCHAR", "What it fired on when not a released value: an accession or extraction ID.", nullable=True),
         _c("message", "VARCHAR", "Plain-language explanation with the numbers."),

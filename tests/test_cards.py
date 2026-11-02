@@ -29,9 +29,26 @@ class How(unittest.TestCase):
         self.assertIn("Reconcile", wait["text"])
         self.assertEqual(self.how(state="open", by="label:not_extracted")["tone"], "bad")
 
+    def test_the_ladder_in_plain_words(self):
+        """T92: a tie and a second reading are corroborated, between Verified (SEC XBRL) and citation only; readings that
+        differ say both figures."""
+        tie = self.how(state="checked", by="rule:ppe_categories_tie", ref={"tie": {"total": 1_278_843_000}})
+        self.assertEqual(tie, {"tone": "corroborated", "text": "Ties to reported total: $1,278.8M (SEC XBRL)"})
+        two = self.how(state="checked", by="reading:a1", ref={"readings": [{"accession": "a1", "value": 1}, {"accession": "a2", "value": 1}]})
+        self.assertEqual(two, {"tone": "corroborated", "text": "Confirmed in 2 filings"})
+        differ = self.how(state="open", by="rule:fact_readings_differ", ref={"readings": [{"value": 9_552_000, "filed": "2024-08-30"}, {"value": 1_760_000, "filed": "2025-07-30"}]})
+        self.assertEqual(differ["tone"], "bad")
+        self.assertEqual(differ["text"], "Readings differ: $9.6M (2024-08-30) vs $1.8M (2025-07-30)")
+        fails = self.how(state="open", by="rule:segment_capex_tie", detail="2 parts sum to $985.8M; the filing tags $681.6M")
+        self.assertIn("Does not tie to the reported total: 2 parts", fails["text"])
+        self.assertEqual(self.how(state="checked", by="xbrl", ref={"reference": 5_000_000})["text"], "Matches SEC XBRL: $5M")
+        self.assertEqual(self.how(state="explained", by="label:no_reference")["text"], "No external source. Citation verified only.")
+
     def test_no_internal_words(self):
         for it in ({"state": "checked", "by": "xbrl", "ref": {"reference": 1}}, {"state": "checked", "by": "located"}, {"state": "checked", "by": "gate"},
-                   {"state": "explained", "by": "label:no_reference"}, {"state": "open", "by": "label:to_confirm"}):
+                   {"state": "explained", "by": "label:no_reference"}, {"state": "open", "by": "label:to_confirm"},
+                   {"state": "checked", "by": "rule:ppe_categories_tie", "ref": {"tie": {"total": 1}}}, {"state": "checked", "by": "reading:a", "ref": {"readings": [{"accession": "a"}, {"accession": "b"}]}},
+                   {"state": "open", "by": "rule:fact_readings_differ", "ref": {"readings": [{"value": 1}, {"value": 2}]}}):
             text = cards._how(it, "X", {})["text"].lower()
             for word in ("twin", "label:", "by:", "robot", "we "):
                 self.assertNotIn(word, text, (it, text))

@@ -21,7 +21,7 @@ the rows it fired on. A jump on a value XBRL confirms is checked; on a value a d
 unresolved value, open. So Proof and Reconcile count the same row the same way: a rule or a definition on file closes
 it on both pages, and a person's decision is needed only where nothing on file applies.
 
-`by` names what decided the state: xbrl | esef:<tag> | source:<doc> | actual:<period> | quote | located | gate |
+`by` names what decided the state: xbrl | esef:<tag> | source:<doc> | actual:<period> | reading:<accession> | quote | located | gate |
 mapping:<us-gaap member> | rule:<id> (a tie rule's id ends in _tie) | definition:<name> | label:<not_reported|no_reference> |
 resolution:<id>. Empty when the state is open and nothing applies; label:not_extracted names an open value's cause (T65).
 `gate` is the release stage's one item when no block rule fired and no decision blocks (T80: it used to say `located`).
@@ -30,13 +30,14 @@ A label never counts as a check (T80, `evidence_gap`): a checked or explained ro
 and says so. The record a check rests on travels with the row as `ref` (proof.company sets it), and `evidence_gap`
 returns why it does not hold, or None.
 
-Answer keys (T40, docs/PROOF.md): four kinds of independent check vouch for a number. A structured twin (xbrl, esef:
+Answer keys (T40, docs/PROOF.md): five kinds of independent check vouch for a number (the fifth, a second reading, T92). A structured twin (xbrl, esef:
 the filer's own tagged number), a second source (source: another document by the same filer), an arithmetic tie
 (rule:<id>_tie: numbers that must sum or bound; a tie that holds is a check, a tie that fails is the rule's finding),
-a later truth (actual: the actual against the plan). `answer_key(by)` names the kind; quote, located, mapping and the
+a later truth (actual: the actual against the plan), a second reading (reading:<accession>: an untagged note figure the
+filer's next 10-K prints the same, T92). `answer_key(by)` names the kind; quote, located, mapping and the
 explanations are not answer keys.
 
-Key grades (T56): the four keys are not equally independent of the row they vouch for. KEY_GRADE ranks them, strongest
+Key grades (T56): the keys are not equally independent of the row they vouch for. KEY_GRADE ranks them, strongest
 first; `state()` carries `keys` (every answer key that agreed with the row) and `key` (the strongest of them), so Proof
 counts rows by the strength of what vouches for them and a trail names it. A row today carries one `by`, so `keys` holds
 at most one; T41–T43 add ties, second sources and later truths beside the twin without a change to the shape."""
@@ -48,20 +49,23 @@ STATES = ("checked", "explained", "open", "blocked")
 # The kinds of `by`, and of the taxonomy rows' `check_method` (store.TAXONOMY): an open vocabulary of `<kind>` or
 # `<kind>:<id>`. esef:<tag>, source:<doc> and actual:<period> are the answer keys T41–T45 will write; no row carries
 # them yet (2 Nov 2026).
-METHOD_KINDS = ("xbrl", "esef", "source", "actual", "quote", "gathered", "located", "gate", "none", "mapping", "rule", "definition", "resolution", "label")
-# The four answer keys and the `by` kinds that carry each. A tie is a rule whose id ends in TIE (rule:quarters_tie,
+METHOD_KINDS = ("xbrl", "esef", "source", "actual", "reading", "quote", "gathered", "located", "gate", "none", "mapping", "rule", "definition", "resolution", "label")
+# The answer keys and the `by` kinds that carry each. A tie is a rule whose id ends in TIE (rule:quarters_tie,
 # rule:statement_tie); any other rule:<id> explains or blocks, it is not an answer key.
-ANSWER_KEYS = {"twin": ("xbrl", "esef"), "second_source": ("source",), "tie": ("rule",), "later_truth": ("actual",)}
+# T92: a second reading (reading:<accession>) is the same untagged note figure printed by another 10-K of the same filer
+# (the next 10-K's comparative column) and agreeing with it; the weakest key, below the tie (docs/PROOF.md, "The ladder").
+ANSWER_KEYS = {"twin": ("xbrl", "esef"), "second_source": ("source",), "tie": ("rule",), "later_truth": ("actual",), "second_reading": ("reading",)}
 TIE = "_tie"
-# The four keys in strength order (T56): how independent each is of the number it vouches for, strongest first.
-KEY_GRADE = ("twin", "second_source", "tie", "later_truth")
+# The keys in strength order (T56): how independent each is of the number it vouches for, strongest first.
+KEY_GRADE = ("twin", "second_source", "tie", "later_truth", "second_reading")
 KEY_WHY = {
     "twin": "a separate preparer's machine-readable instance: the filer tagged the number for a different reader, by a different process, from the text the pipeline read",
     "second_source": "the same issuer's other document: the same finance team wrote both, so an error upstream of both documents is shared",
     "tie": "arithmetic inside the same document: the parts and the whole agree, which shows consistent reading, not a right number",
     "later_truth": "a later period's actual against the plan: the actual can itself be restated, and it proves the plan, not the reading",
+    "second_reading": "the same filer's next 10-K printing the same figure: usually the table carried forward by the same preparer and read by the same reader, so it rules out a one-off misread, nothing upstream",
 }
-KEY_LABEL = {"twin": "twin", "second_source": "second source", "tie": "tie", "later_truth": "later truth"}
+KEY_LABEL = {"twin": "twin", "second_source": "second source", "tie": "tie", "later_truth": "later truth", "second_reading": "second reading"}
 
 
 def grade(key: str | None) -> int:
@@ -92,6 +96,7 @@ def answer_key(by: str) -> str | None:
 ORDER = {"blocked": 0, "open": 1, "explained": 2, "checked": 3}  # worst first
 CHECKS = ("xbrl", "quote", "located", "gate", "mapping")  # the bare checks; the keyed ones (esef:, source:, rule:*_tie, actual:) go through answer_key
 REASONS = {"xbrl": "agrees with the SEC's XBRL", "esef": "agrees with the filer's own ESEF tag", "source": "agrees with a second document by the same filer",
+           "reading": "read the same in two or more of the filer's 10-Ks",
            "rule": "the tie holds", "actual": "the actual for the period, against the plan", "quote": "a verbatim quote, verified against its text",
            "located": "statement tables located in the filing", "gate": "no block rule fired and no decision blocks", "mapping": "mapped to a us-gaap member with the note's words"}
 GUARD_IDS = ("part_year", "program_words", "asset_type_mapping", "restated_between_filings", "amendment_without_statements")  # proof.GUARDS: info by nature
@@ -218,13 +223,27 @@ def of_value(v: dict, resolution: dict | None = None, ref: dict | None = None) -
     return state(row)
 
 
-def of_fact(f: dict, resolution: dict | None = None, restated: str | None = None) -> dict:
-    """A `facts` row: label agree → checked by XBRL; no_reference → the label; unresolved → the restatement guard when
-    the cell and the tag come from different filings (`restated` is that finding's text), else open unless resolved."""
+DIFFER = "fact_readings_differ"  # the rule (rules/fact_readings_differ.yaml) whose finding opens an untagged fact read two ways
+
+
+def of_fact(f: dict, resolution: dict | None = None, restated: str | None = None, differ: str | None = None,
+            tie: str | None = None, reading: str | None = None) -> dict:
+    """A `facts` row: label agree → checked by XBRL; unresolved → the restatement guard when the cell and the tag come
+    from different filings (`restated` is that finding's text), else open unless resolved. no_reference (no XBRL value)
+    climbs the ladder (T92, ledger/ties.py): readings across filings that differ (`differ`, the finding's text) → open by
+    rule:fact_readings_differ, explained only by a person's resolution, never by the label; else a tie that holds for its
+    filing's group (`tie`, the rule id) → checked by rule:<id>_tie; else two or more filings agreeing (`reading`, the
+    other filing's accession) → checked by reading:<accession>; else the label, explained, citation only."""
     label = f.get("label")
     row = {"resolution": resolution}
     if label == "agree":
         row["check"] = "xbrl"
+    elif label == "no_reference" and differ:
+        row |= {"rule": DIFFER, "severity": "warn", "reason": differ}
+    elif label == "no_reference" and tie:
+        row |= {"check": f"rule:{tie}", "reason": "the parts sum to the filing's tagged total"}
+    elif label == "no_reference" and reading:
+        row |= {"check": f"reading:{reading}"}
     elif label == "no_reference":
         row["label"] = "no_reference"
     elif restated:
@@ -259,7 +278,7 @@ def of_exception(e: dict, resolution: dict | None = None, rows: list[dict] | Non
 
 # ── T80: a label never counts as a check ────────────────────────────────────────────────────────────────────────────
 EXPLAINING_LABELS = ("not_reported", "no_reference")  # the only labels that explain, and only when XBRL was looked up and holds no value
-KEY_FIELD = {"esef": "esef", "source": "source", "actual": "actual", "rule": "tie"}  # each answer key's own value on `ref`; xbrl reads `reference`
+KEY_FIELD = {"esef": "esef", "source": "source", "actual": "actual", "rule": "tie", "reading": "readings"}  # each answer key's own value on `ref`; xbrl reads `reference`
 
 
 def evidence_gap(item: dict, ev: dict) -> str | None:
@@ -293,7 +312,13 @@ def evidence_gap(item: dict, ev: dict) -> str | None:
         if kind == "xbrl":
             return None if ref.get("looked_up") and ref.get("reference") is not None else f"{by}: no XBRL value on the row"
         field = KEY_FIELD.get(kind)
-        return None if field and ref.get(field) is not None else f"{by}: no {field or kind} value on the row"
+        if not field or ref.get(field) is None:
+            return f"{by}: no {field or kind} value on the row"
+        if kind == "rule" and isinstance(ref["tie"], dict):
+            return _tie_gap(by, ident, ref, ev)
+        if kind == "reading":
+            return _reading_gap(by, ref, ev)
+        return None
     if kind == "quote":
         text = ev["text"](ref.get("text_id")) if ref.get("text_id") else None
         if text is None:
@@ -337,6 +362,46 @@ def evidence_gap(item: dict, ev: dict) -> str | None:
             return f"{by}: XBRL was not looked up for this row"
         return None if ref.get("reference") is None else f"{by}: XBRL holds {ref['reference']}"
     return f"{by}: not a kind of evidence"
+
+
+def _tie_gap(by: str, rule_id: str, ref: dict, ev: dict) -> str | None:
+    """T92: a tie checks a part only when its filing's group ties. `ref.tie` carries the group (key, total, sum,
+    tolerance, dimensions); the numbers must tie, the part must be in the group, and when `ev` holds the groups computed
+    from what is on file (`ev["ties"]`, proof.evidence), the group must be that one and hold there too."""
+    t = ref["tie"]
+    if t.get("rule") != rule_id:
+        return f"{by}: the tie on the row is {t.get('rule')!r}"
+    if t.get("total") is None or t.get("sum") is None or abs(t["sum"] - t["total"]) > (t.get("tolerance") or 0):
+        return f"{by}: the parts sum to {t.get('sum')} against a total of {t.get('total')}: the tie does not hold"
+    if (ref.get("dimension") or "") not in (t.get("dimensions") or []):
+        return f"{by}: {ref.get('dimension')!r} is not a part of the group"
+    groups = ev.get("ties")
+    if groups is not None:
+        g = groups.get(t.get("key"))
+        if not g:
+            return f"{by}: no group {t.get('key')!r} on file"
+        if g["rule"] != rule_id or not g["holds"]:
+            return f"{by}: on file the group's parts sum to {g['sum']} against {g['concept']} {g['total']}: it does not tie"
+        if (g["sum"], g["total"]) != (t["sum"], t["total"]) or (ref.get("dimension") or "") not in g["dimensions"]:
+            return f"{by}: the row's tie is not the group on file"
+    return None
+
+
+def _reading_gap(by: str, ref: dict, ev: dict) -> str | None:
+    """T92: a second reading needs two or more readings from distinct filings that agree (ties.corroborated), and,
+    when `ev` holds the readings on file (`ev["readings"]`, proof.evidence), the same readings."""
+    from .ties import corroborated
+    rs = ref["readings"]
+    if len({r.get("accession") for r in rs if r.get("accession")}) < 2:
+        return f"{by}: fewer than two filings read it"
+    if not corroborated(rs):
+        return f"{by}: the readings differ"
+    on_file = ev.get("readings")
+    if on_file is not None:
+        k = (ref.get("ticker"), ref.get("field"), ref.get("dimension") or "", ref.get("period"))
+        if [(r["accession"], r["value"]) for r in on_file.get(k) or []] != [(r.get("accession"), r.get("value")) for r in rs]:
+            return f"{by}: the readings on the row are not the ones on file"
+    return None
 
 
 def norm(s: str) -> str:

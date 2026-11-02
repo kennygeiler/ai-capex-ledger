@@ -5,7 +5,10 @@ The card is presentation only. It never changes an item's state: `status.state` 
 and the card says the same thing in a sentence a person can check by clicking. The internal words (`by`, `located`,
 `twin`, `reason`) stay in the API for the tests; the page shows the card.
 
-    card = {"found": str | None, "where": [{"label", "link", "shot"}], "how": {"tone": ok|info|wait|bad, "text": str}}
+    card = {"found": str | None, "where": [{"label", "link", "shot"}], "how": {"tone": ok|corroborated|info|wait|bad, "text": str}}
+
+The tones are the ladder (T92): ok, verified against SEC XBRL (twin); corroborated, a tie to the filing's tagged total or
+the same figure in two or more filings; info, citation only (or an explanation on file); wait and bad, needs review.
 """
 from __future__ import annotations
 
@@ -69,11 +72,20 @@ def _how(it: dict, name: str, defs: dict, found_value=None) -> dict:
             text = "Proposed category. Review in Reconcile."
         elif by == "label:not_extracted":
             text = "In SEC XBRL, not extracted. Re-read required."
+        elif by == "rule:fact_readings_differ" and len(ref.get("readings") or []) >= 2:
+            text = "Readings differ: " + " vs ".join(f"{money(r.get('value'))} ({str(r.get('filed') or '')[:10]})" for r in ref["readings"])
+        elif by.startswith("rule:") and by.endswith("_tie"):
+            text = f"Does not tie to the reported total: {it.get('detail') or it.get('reason') or ''}".rstrip(": ")
         return {"tone": "wait" if by == "label:to_confirm" else "bad", "text": text}
     if by == "xbrl":
         same = found_value is None or ref.get("reference") == found_value
         return {"tone": "ok", "text": f"Matches SEC XBRL: {money(ref.get('reference'))}" if same
                 else f"Matches SEC XBRL within rounding: {money(ref.get('reference'))}"}
+    if by.startswith("rule:") and by.endswith("_tie") and isinstance(ref.get("tie"), dict):
+        return {"tone": "corroborated", "text": f"Ties to reported total: {money(ref['tie'].get('total'))} (SEC XBRL)"}
+    if by.startswith("reading:"):
+        n = len({r.get("accession") for r in ref.get("readings") or []})
+        return {"tone": "corroborated", "text": f"Confirmed in {n} filings"}
     if by == "quote":
         return {"tone": "ok", "text": "Quote matches source"}
     if by == "located":
@@ -246,9 +258,11 @@ def status_line(con, trail: dict, newest: dict | None, watch: dict) -> dict:
         except ValueError:
             nxt = None
     stages = trail["stages"]
-    figures = [i for s in ("values", "facts") for i in stages.get(s, {}).get("all", []) if (i.get("ref") or {}).get("field")]
+    figures = [i for s in ("values", "facts") for i in stages.get(s, {}).get("all", []) if (i.get("ref") or {}).get("field") and not (i.get("ref") or {}).get("finding")]
     waiting = sum(len(st.get("open", [])) for st in stages.values())
-    matched = sum(i.get("by") == "xbrl" and i.get("state") == "checked" for i in figures)
+    matched = sum(i.get("key") == "twin" for i in figures)
+    tied = sum(i.get("key") == "tie" for i in figures)
+    second = sum(i.get("key") == "second_reading" for i in figures)
     reading = sum(i.get("state") == "explained" for i in figures)
     quotes = sum(1 for s in ("statements", "planned") for i in stages.get(s, {}).get("all", []) if i.get("state") == "checked")
     rel = last_release(trail["ticker"])
@@ -262,6 +276,6 @@ def status_line(con, trail: dict, newest: dict | None, watch: dict) -> dict:
     return {"as_of": datetime.now().strftime("%-d %b %Y, %H:%M"),
             "current_through": {"form": newest.get("form"), "period": str(newest.get("period") or "")[:10], "filed": str(newest.get("filed") or "")[:10]} if newest else None,
             "next_expected": nxt, "sec_checked_hours_ago": None if age is None else round(age),
-            "figures": len(figures), "matched": matched, "reading_only": reading, "waiting": waiting, "quotes": quotes,
+            "figures": len(figures), "matched": matched, "tied": tied, "second_reading": second, "reading_only": reading, "waiting": waiting, "quotes": quotes,
             "shipped": {k: rel[k] for k in ("version", "signed_by", "signed_at")} if rel else None,
             "since": since_release(con, trail["ticker"], rel)}

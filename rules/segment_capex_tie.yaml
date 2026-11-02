@@ -1,0 +1,18 @@
+id: segment_capex_tie
+severity: warn
+description: The segment capex one 10-K prints for a fiscal year sums to the capex the same filing tags in XBRL (the
+  first of the us-gaap capex concepts it tags), within half a rounding unit per part and for the total.
+rationale: Untagged segment capex had only its citation (T92). A sum that matches the tagged cash capex shows the
+  segments were read consistently. Segment capex reported on an accrual basis (Applied Digital) is larger than cash capex
+  and does not tie; the finding stays open until a person explains it.
+owner: Kenny Geiler
+check: parts_tie
+params:
+  field: segment_capex
+  concepts: [PaymentsToAcquirePropertyPlantAndEquipment, PaymentsToAcquireProductiveAssets, PaymentsToAcquireOtherPropertyPlantAndEquipment, PaymentsToAcquireOtherProductiveAssets]
+  pick: first
+title: Capex by segment doesn't add up to total capex.
+plain: The capex of each segment was added up and compared with the company's total capex in the same filing. They
+  don't match. Some companies report segment capex as spending incurred, not cash paid.
+action: Open the segment note. If the segments measure capex differently from the cash-flow line, explain it. If a
+  segment was misread or missed, tell the data owner.

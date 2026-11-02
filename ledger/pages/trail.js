@@ -12,10 +12,12 @@ const TRAIL_STAGE_HELP = {
   release: 'Items blocking release.'};
 const TRAIL_FIELD = {revenue: 'Revenue', capex: 'Capital spending', opex: 'Operating costs', cost_of_revenue: 'Cost of revenue', operating_income: 'Operating income',
   segment_capex: 'Capex by segment', segment_revenue: 'Revenue by segment', ppe_category: 'Property', finance_lease_liability: 'Finance leases', purchase_commitments: 'Purchase commitments'};
-const TRAIL_TONE = {ok: ['text-green', 'Verified'], info: ['text-azure', 'Unverified'], wait: ['text-orange', 'Needs review'], bad: ['text-red', 'Needs review']};
+// The ladder (T92): Verified against SEC XBRL; Corroborated by a tie to the reported total or a second filing; Unverified, citation only.
+const TRAIL_TONE = {ok: ['text-green', 'Verified'], corroborated: ['text-teal', 'Corroborated'], info: ['text-azure', 'Unverified'], wait: ['text-orange', 'Needs review'], bad: ['text-red', 'Needs review']};
 
 function trailWhat(it, stage) {
   const r = it.ref || {};
+  if (stage === 'facts' && r.finding) return [TRAIL_FIELD[r.field] || r.field, r.period, 'parts against total'].filter(Boolean).join(' · ');
   if ((stage === 'values' || stage === 'facts') && r.field) return [TRAIL_FIELD[r.field] || r.field, r.dimension, r.period].filter(Boolean).join(' · ');
   if (stage === 'mapping') return it.name || it.what;
   return it.what;
@@ -44,7 +46,8 @@ async function trailPage(view, ticker) {
   const c = await api('/api/v1/proof/' + encodeURIComponent(ticker));
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, c.name, h('span', {class: 'text-secondary ms-2 fw-normal'}, c.ticker)),
-      h('div', {class: 'small mt-1'}, h('span', {class: 'text-green'}, '● Verified'), h('span', {class: 'text-secondary'}, ' against an external source  '),
+      h('div', {class: 'small mt-1'}, h('span', {class: 'text-green'}, '● Verified'), h('span', {class: 'text-secondary'}, ' SEC XBRL or the quoted source  '),
+        h('span', {class: 'text-teal ms-2'}, '● Corroborated'), h('span', {class: 'text-secondary'}, ' ties to totals or confirmed in 2 filings  '),
         h('span', {class: 'text-azure ms-2'}, '● Unverified'), h('span', {class: 'text-secondary'}, ' citation only  '), h('span', {class: 'text-orange ms-2'}, '● Needs review'), c.in_proven_set ? '' : h('span', {class: 'text-secondary ms-2'}, '· Outside proven set'))),
     h('div', {class: 'col-auto'}, c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : h('span', {class: 'text-orange fw-medium'}, `${int(c.open)} to review`),
       h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-3'}, 'Reconcile'), h('a', {href: `#data?ticker=${c.ticker}`, class: 'small ms-2'}, 'Dataset'))));
@@ -70,7 +73,9 @@ async function trailPage(view, ticker) {
         s.unread && s.unread.length ? h('span', {class: 'text-orange fw-medium'}, `${int(s.unread.length)} new filing${s.unread.length === 1 ? '' : 's'} not ingested`) : '', fresh),
       tile('Verification',
         h('span', {}, h('b', {}, int(S.figures)), ' figures'),
-        h('span', {class: 'text-green'}, `${int(S.matched)} verified (SEC XBRL)`),
+        h('span', {class: 'text-green'}, `${int(S.matched)} XBRL`),
+        h('span', {class: 'text-teal'}, `${int(S.tied)} tie to totals`),
+        h('span', {class: 'text-teal'}, `${int(S.second_reading)} confirmed in 2 filings`),
         h('span', {class: 'text-azure'}, `${int(S.reading_only)} citation only`),
         h('span', {class: S.waiting ? 'text-orange' : 'text-secondary'}, `${int(S.waiting)} to review`),
         h('span', {class: 'text-secondary'}, `${int(S.quotes)} quotes verified`)),
@@ -83,7 +88,8 @@ async function trailPage(view, ticker) {
     const body = [];
     if (waiting.length) body.push(trailTable(waiting, id));
     if (rest.length) {
-      const sum = `${int(st.checked)} verified · ${int(st.explained)} unverified`;
+      const corr = rest.filter((i) => i.card && i.card.how && i.card.how.tone === 'corroborated').length;
+      const sum = `${int(st.checked - corr)} verified · ${corr ? `${int(corr)} corroborated · ` : ''}${int(st.explained)} unverified`;
       body.push(waiting.length || rest.length > 12
         ? h('details', {class: 'px-3 py-2'}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, `${sum}`), trailTable(rest, id))
         : trailTable(rest, id));

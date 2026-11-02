@@ -58,6 +58,36 @@ for x in GOOD.extractions[1:]:
     x["scale"] = 1
 
 
+# T92: the note figures. One filing (ACC) prints PP&E by category, segment revenue and segment capex that tie to its
+# tagged totals; an untagged category is read the same in two filings.
+OLD = "0000950170-25-087926"
+
+
+def nx(field, dim, end, value, accession=ACC, filed="2026-06-20", scale=1000):
+    return {"extraction_id": f"{accession}|{field}|{dim}|{end}", "accession": accession, "ticker": "ORCL", "field": field, "dimension": dim,
+            "period_end": end, "value": value, "scale": scale, "filed": filed}
+
+
+def fx(field, dim, period, end, value, ids, accession=ACC, label="no_reference"):
+    return {"ticker": "ORCL", "field": field, "dimension": dim, "period": period, "period_end": end, "value": value, "label": label, "accession": accession, "extraction_ids": ",".join(ids)}
+
+
+NOTES = [nx("ppe_category", "Land", "2026-05-31", 10_000_000), nx("ppe_category", "Buildings", "2026-05-31", 20_000_000),
+         nx("ppe_category", "Land", "2025-05-31", 9_000_000, OLD, "2025-06-20"), nx("ppe_category", "Land", "2025-05-31", 9_000_000),
+         nx("segment_revenue", "Cloud", "2026-05-31", 40_000_000_000, scale=1_000_000), nx("segment_revenue", "Hardware", "2026-05-31", 27_357_000_000, scale=1_000_000),
+         nx("segment_capex", "Cloud", "2026-05-31", 25_000_000_000, scale=1_000_000)]
+GOOD.note_extractions = NOTES
+GOOD.facts = [fx("ppe_category", "Land", "FY2026", "2026-05-31", 10_000_000, [NOTES[0]["extraction_id"]]),
+              fx("ppe_category", "Buildings", "FY2026", "2026-05-31", 20_000_000, [NOTES[1]["extraction_id"]]),
+              fx("ppe_category", "Land", "FY2025", "2025-05-31", 9_000_000, [NOTES[2]["extraction_id"], NOTES[3]["extraction_id"]]),
+              fx("segment_revenue", "Cloud", "FY2026", "2026-05-31", 40_000_000_000, [NOTES[4]["extraction_id"]], label="agree"),
+              fx("segment_revenue", "Hardware", "FY2026", "2026-05-31", 27_357_000_000, [NOTES[5]["extraction_id"]]),
+              fx("segment_capex", "Cloud", "FY2026", "2026-05-31", 25_000_000_000, [NOTES[6]["extraction_id"]])]
+GOOD.totals = {(ACC, "PropertyPlantAndEquipmentGross", "2026-05-31"): 30_000_000, (ACC, "Revenues", "2026-05-31"): 67_357_000_000,
+               (ACC, "RevenueFromContractWithCustomerExcludingAssessedTax", "2026-05-31"): 60_000_000_000,  # a component tag: the largest is the total
+               (ACC, "PaymentsToAcquirePropertyPlantAndEquipment", "2026-05-31"): 25_000_000_000}
+
+
 # The good fixture carries every field only for revenue; the coverage rule is checked on that field alone.
 PARAMS = {"coverage": {"fields": ["revenue"]}}
 
@@ -97,13 +127,17 @@ FAIL = {
     "restated": lambda c: c.extractions.append({**c.extractions[2], "accession": "0001193125-26-000099", "value": 99999}),
     "xbrl_reconcile": lambda c: c.values[0].update(label="unresolved"),
     "outlier_vs_own_history": lambda c: c.values[1].update(value=150000000000),
+    "ppe_categories_tie": lambda c: c.note_extractions[1].update(value=21_000_000),  # a misread category
+    "segment_revenue_tie": lambda c: c.note_extractions.pop(5),  # a segment missing from the read: the sum falls short of the total
+    "segment_capex_tie": lambda c: c.totals.update({(ACC, "PaymentsToAcquirePropertyPlantAndEquipment", "2026-05-31"): 20_000_000_000}),  # accrual segment capex above cash capex
+    "fact_readings_differ": lambda c: c.note_extractions[2].update(value=9_552_000),
     "statement_tables_distinct": lambda c: c.documents.append({"accession": "0001018724-26-000004", "ticker": "AMZN", "form": "10-K", "period": "2025-12-31", "income_tables": "t0034", "cash_flow_tables": "t0034"}),
 }
 
 
 class Registry(unittest.TestCase):
     def test_every_rule_loads_with_rationale_and_owner(self):
-        self.assertEqual(len(RULES), 16)
+        self.assertEqual(len(RULES), 20)
         for r in RULES.values():
             self.assertTrue(r["rationale"].strip() and r["owner"].strip(), r["id"])
 
@@ -113,6 +147,59 @@ class Registry(unittest.TestCase):
 
 class EachRule(unittest.TestCase):
     pass
+
+
+class NoteTies(unittest.TestCase):
+    """T92: the parts one filing prints against the total it tags; the readings of an untagged figure across filings."""
+
+    def test_within_rounding_ties_and_beyond_does_not(self):
+        # two parts in thousands: each can be half a thousand off, and the total too: 1,500 dollars of slack
+        close = bad(lambda c: c.note_extractions[1].update(value=20_001_000))
+        self.assertEqual(findings("ppe_categories_tie", close), [])
+        far = bad(lambda c: c.note_extractions[1].update(value=20_002_000))
+        f = findings("ppe_categories_tie", far)
+        self.assertEqual([(x.ticker, x.field, x.period, x.subject) for x in f], [("ORCL", "ppe_category", "FY2026", ACC)])
+        self.assertIn("$30.0M", f[0].message)
+
+    def test_a_segment_set_that_leaves_out_a_reconciling_line_fails_honestly(self):
+        """GOOGL's segments leave out hedging gains: the sum misses total revenue, and the finding names the gap, nothing is
+        added to force it."""
+        hedging = bad(lambda c: c.totals.update({(ACC, "Revenues", "2026-05-31"): 67_593_000_000}))
+        f = findings("segment_revenue_tie", hedging)
+        self.assertEqual(len(f), 1)
+        self.assertIn("gap −$236M", f[0].message)
+
+    def test_no_tagged_total_no_tie_and_only_shipped_groups(self):
+        none = bad(lambda c: c.totals.clear())
+        for rid in ("ppe_categories_tie", "segment_revenue_tie", "segment_capex_tie"):
+            self.assertEqual(findings(rid, none), [], rid)
+        # a comparative column a later 10-K replaced ships nothing: its group is not judged, however it sums
+        old = bad(lambda c: (c.note_extractions.append(nx("ppe_category", "Land", "2026-05-31", 1, OLD, "2025-06-20")),
+                             c.totals.update({(OLD, "PropertyPlantAndEquipmentGross", "2026-05-31"): 999})))
+        self.assertEqual(findings("ppe_categories_tie", old), [])
+
+    def test_groups_carry_the_evidence(self):
+        from ledger import ties
+        g = ties.groups("ppe_categories_tie", RULES["ppe_categories_tie"]["params"], GOOD.facts, GOOD.note_extractions, GOOD.totals)
+        self.assertEqual([(x["period"], x["sum"], x["total"], x["concept"], x["holds"], x["dimensions"]) for x in g],
+                         [("FY2026", 30_000_000, 30_000_000, "PropertyPlantAndEquipmentGross", True, ["Buildings", "Land"])])
+        rev = ties.groups("segment_revenue_tie", RULES["segment_revenue_tie"]["params"], GOOD.facts, GOOD.note_extractions, GOOD.totals)
+        self.assertEqual((rev[0]["concept"], rev[0]["total"]), ("Revenues", 67_357_000_000))  # the largest revenue tag, not the component
+
+    def test_readings(self):
+        from ledger import ties
+        by_id = {e["extraction_id"]: e for e in GOOD.note_extractions}
+        two = ties.readings_of(GOOD.facts[2], by_id)
+        self.assertEqual([r["accession"] for r in two], [OLD, ACC])  # oldest filing first
+        self.assertTrue(ties.corroborated(two))
+        self.assertFalse(ties.corroborated(two[:1]))  # one filing is no second reading
+        self.assertFalse(ties.corroborated([two[0], dict(two[0])]))  # nor is one filing counted twice
+        differ = [two[0], {**two[1], "value": 9_552_000}]
+        self.assertTrue(ties.differ(differ))
+        self.assertFalse(ties.corroborated(differ))
+        self.assertIn("$9M in 0000950170-25-087926 (filed 2025-06-20) vs $9.6M", ties.differ_message(differ))
+        tagged = bad(lambda c: (c.facts[2].update(label="agree"), c.note_extractions[2].update(value=9_552_000)))
+        self.assertEqual(findings("fact_readings_differ", tagged), [])  # a tagged fact has its tag and the restatement guard
 
 
 class Restated(unittest.TestCase):

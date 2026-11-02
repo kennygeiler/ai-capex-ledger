@@ -8,7 +8,8 @@ scope down, the stages across; `company()` is one company's trail; `rules()` is 
 closed, and the open items grouped by what is missing."""
 from __future__ import annotations
 
-from . import definitions, resolutions, status, store
+from . import definitions, resolutions, status, store, ties
+from .notes import FIELDS as NOTE_FIELDS
 from .guards import part_year, program_words
 from .review import decisions, open_items
 from .rules import explain_key, explained
@@ -20,6 +21,8 @@ STAGE_LABEL = {"ingest": "Ingest", "values": "Values", "facts": "Facts", "statem
 NEEDS = {"values": "a definition (which line the tag measures) or a unit rule", "facts": "a definition (which concept the table line is) once the tag is named",
          "finding": "a definition or a rule for what the finding found", "mapping": "a mapping to a us-gaap PropertyPlantAndEquipmentByTypeAxis member, with the note's words",
          "mapping_confirm": "a person's confirmation of the proposed member (Reconcile, asset types: Approve, Edit or Reject)",
+         "readings": "a person's resolution saying which reading is right, or a re-read (Reconcile)",
+         "tie": "a person's resolution naming the reconciling line, or a re-read of the parts (Reconcile)",
          "ingest": "a parser or unit rule", "locate": "a locator rule", "release": "a definition or a fix", "decision": "the fix the decision names"}
 
 
@@ -46,11 +49,11 @@ def _item(what: str, st: dict, detail: str = "", needs: str = "", ref: dict | No
             "needs": needs if status.is_open(st) else "", "ref": ref if ref is not None else st.get("ref") or {}}
 
 
-KEY_GRADE = [{"id": k, "label": status.KEY_LABEL[k], "why": status.KEY_WHY[k]} for k in status.KEY_GRADE]  # the four, strongest first, for the pages
+KEY_GRADE = [{"id": k, "label": status.KEY_LABEL[k], "why": status.KEY_WHY[k]} for k in status.KEY_GRADE]  # the keys, strongest first, for the pages
 
 
 def keys_of(items: list[dict]) -> dict:
-    """Rows by the strongest answer key that vouches for them (T56): {twin, second_source, tie, later_truth, none, rows};
+    """Rows by the strongest answer key that vouches for them (T56): {twin, second_source, tie, later_truth, second_reading, none, rows};
     `none` is every row no key vouches for (a quote, a located table, a mapping, an explanation, an open item), so the
     grades sum to `rows`, the denominator."""
     out = {k: 0 for k in status.KEY_GRADE} | {"none": 0, "rows": len(items)}
@@ -109,8 +112,8 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     decided = {e["exception_id"] for e in exc} - {e["exception_id"] for e in open_items(exc, decisions())}
     xp = explained(exc, rset[0]) if any(e["severity"] == "info" for e in exc) else {}  # T36: a person's explanation written as a rule, by the finding it names
     for e in exc:
-        if e["severity"] != "warn" or e["exception_id"] in decided or e["rule_id"] in FAILURES:
-            continue
+        if e["severity"] != "warn" or e["exception_id"] in decided or e["rule_id"] in FAILURES or e["field"] in NOTE_FIELDS:
+            continue  # a finding on a note field (a tie, two readings) sits on the facts stage
         ef = {"cost_of_revenue": "opex", "operating_income": "opex"}.get(e["field"], e["field"])  # read to make opex: a finding on them is about opex
         rows = [s for (f, p), s in vstate.items() if f == (ef or f) and p == (e["period"] or p)]
         st = status.of_exception(e, resolutions.resolution_of(idx, "values", t, e["field"] or "", "", e["period"] or ""), rows,
@@ -118,16 +121,39 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
         items.append(_item(f"{e['rule_id']}: {e['field'] or ''} {e['period'] or ''}".strip(), st, e["message"][:200], NEEDS["finding"]))
     stages["values"] = _stage(items)
 
-    # facts: agree with the instance, or explained by 'no tag', a restatement between filings, or a decision
+    # facts: agree with the instance; an untagged one climbs the ladder (T92, ledger/ties.py): readings that differ are
+    # open, a tie to the filing's tagged total or a second filing agreeing checks it, else the label explains it
     facts = _rows(con, "select field, dimension, period, value, label, reference, accession from facts where ticker = ? order by field, dimension, period", t)
     ciks = {d["accession"]: d["cik"] for d in _rows(con, "select accession, cik from documents where ticker = ?", t)}
+    lad = ladder(con, [t], rset[0])
     items = []
     for f in facts:
         where = f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " ")
-        res = resolutions.resolution_of(idx, "facts", t, f["field"], f["dimension"] or "", f["period"])
-        st = status.of_fact(f, res, _restated(con, t, f) if f["label"] == "unresolved" else None)
-        items.append(_item(where + (": differs from the tag" if status.is_open(st) else ""), st, f"cell {f['value']}, tag {f['reference']}" if status.is_open(st) else "", NEEDS["facts"],
-                           ref={"ticker": t, "field": f["field"], "dimension": f["dimension"] or "", "period": f["period"], "reference": f["reference"], "looked_up": instance_on_file(ciks.get(f["accession"]), f["accession"])}))
+        k = lad.get((t, f["field"], f["dimension"] or "", f["period"])) or {"readings": [], "tie": None}
+        rs, g = k["readings"], k["tie"]
+        ref = {"ticker": t, "field": f["field"], "dimension": f["dimension"] or "", "period": f["period"], "reference": f["reference"],
+               "looked_up": instance_on_file(ciks.get(f["accession"]), f["accession"])}
+        differs = f["label"] == "no_reference" and ties.differ(rs)
+        holds = g if f["label"] == "no_reference" and g and g["holds"] else None
+        second = f["label"] == "no_reference" and ties.corroborated(rs)
+        if len({r["accession"] for r in rs}) >= 2:
+            ref["readings"] = rs
+        if holds:
+            ref["tie"] = {k_: holds[k_] for k_ in ("rule", "key", "accession", "concept", "total", "sum", "tolerance", "dimensions")}
+        # a finding on the row (two readings) is the finding Reconcile shows: its resolution is keyed as a finding's
+        res = resolutions.resolution_of(idx, "values" if differs else "facts", t, f["field"], "" if differs else f["dimension"] or "", f["period"])
+        st = status.of_fact(f, res, _restated(con, t, f) if f["label"] == "unresolved" else None, differ=ties.differ_message(rs) if differs else None,
+                            tie=holds["rule"] if holds else None, reading=next((r["accession"] for r in rs if r["accession"] != f["accession"]), None) if second else None)
+        what = where + (": readings differ" if differs and status.is_open(st) else ": differs from the tag" if status.is_open(st) else "")
+        detail = ties.differ_message(rs) if differs else f"cell {f['value']}, tag {f['reference']}" if status.is_open(st) else ""
+        items.append(_item(what, st, detail, NEEDS["readings"] if differs else NEEDS["facts"], ref=ref))
+    for e in exc:  # a tie that fails (or two readings Proof did not see as a fact item): open on the group, never checked
+        if e["severity"] != "warn" or e["exception_id"] in decided or e["field"] not in NOTE_FIELDS or e["rule_id"] == status.DIFFER:
+            continue
+        st = status.of_exception(e, resolutions.resolution_of(idx, "values", t, e["field"] or "", "", e["period"] or ""), [],
+                                 xp.get(explain_key(e["rule_id"], t, e["field"], e["period"], e["subject"])))
+        items.append(_item(f"{e['rule_id']}: {e['field']} {e['period'] or ''} ({e['subject'] or ''})".strip(), st, e["message"][:300], NEEDS["tie"],
+                           ref={"ticker": t, "field": e["field"], "period": e["period"], "accession": e["subject"], "finding": e["rule_id"]}))
     stages["facts"] = _stage(items)
 
     # statements: every quote verified at load; part-year and program statements carry their guard
@@ -187,6 +213,12 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     name = next((c["name"] for c in tracked() if c["ticker"] == t), t)
     return {"ticker": t, "name": name, "layer": industry(t), "proven": open_total == 0, "open": open_total, "why": PROVEN_WHY.get(t, ""), "in_proven_set": t in PROVEN,
             "stages": stages, "keys": keys, "key_grade": KEY_GRADE, "definitions": sorted((defs or {}).get(t, {}).keys())}
+
+
+def ladder(con, tickers: list[str], rules: list[dict]) -> dict:
+    """The readings and the tie group behind every fact of `tickers` (ties.by_fact over ties.load): what the facts stage
+    climbs, and what the evidence walk recomputes. An empty answer when the note tables are absent."""
+    return ties.by_fact(ties.load(con, tickers, rules), rules)
 
 
 def instance_on_file(cik, accession: str | None) -> bool:
@@ -313,7 +345,9 @@ def evidence(con, defs: dict | None = None, log: list[dict] | None = None, types
         if ref.get("statement_id"):
             return [stmts.get(ref["statement_id"])]
         return planned.get((ref.get("ticker"), ref.get("text_id"), ref.get("category"), ref.get("fiscal_year"), ref.get("reported_name"))) or []
-    return {"definitions": definitions.load() if defs is None else defs, "rules": rule_severities(rset[0]), "resolutions": lines,
+    lad = ladder(con, tickers, rset[0])  # T92: the tie groups and the readings, recomputed from what is on file
+    return {"ties": lad["groups"], "readings": {k: v["readings"] for k, v in lad.items() if k != "groups"},
+            "definitions": definitions.load() if defs is None else defs, "rules": rule_severities(rset[0]), "resolutions": lines,
             "explains_by": {r["id"]: r.get("by") for r in rset[0] if r["check"] == "explains"},
             "person_ids": {i for i, r in lines.items() if person_wrote(r)}, "asset_types": asset_types() if types is None else types, "text": text, "quote": quote}
 
