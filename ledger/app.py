@@ -1,4 +1,4 @@
-"""DATAHQ, the ledger's web app: the morning dashboard, each company through every pipeline step, the named agents
+"""Kenny's Data Emporium, the ledger's web app: the morning dashboard, each company through every pipeline step, the named agents
 (model, prompt, every run), and an outputs explorer over the signed releases.
 
 Reads the database read-only on every request, so it always shows the latest run. It writes only three things, all
@@ -529,7 +529,7 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         u = urlparse(self.path)
         if READONLY:
-            return self._json({"error": "this copy of DATAHQ is read-only; decisions, views and prompts change in a checkout of the repository"}, HTTPStatus.FORBIDDEN)
+            return self._json({"error": "this copy of Kenny's Data Emporium is read-only; decisions, views and prompts change in a checkout of the repository"}, HTTPStatus.FORBIDDEN)
         # Every POST is a write (a decision, a view, a prompt, a signature). A page on any other site can send a text/plain
         # POST to 127.0.0.1 without a preflight, so a write needs the JSON content type and, when the browser names an
         # Origin, this server's own; anything else is refused before any route.
@@ -538,7 +538,7 @@ class Handler(BaseHTTPRequestHandler):
             return self._json({"error": "a write needs Content-Type: application/json"}, HTTPStatus.FORBIDDEN)
         origin = self.headers.get("Origin")
         if origin and origin.rstrip("/") not in self._own_origins():
-            return self._json({"error": "a write is accepted from this DATAHQ's own pages only"}, HTTPStatus.FORBIDDEN)
+            return self._json({"error": "a write is accepted from this Kenny's Data Emporium's own pages only"}, HTTPStatus.FORBIDDEN)
         try:
             n = int(self.headers.get("Content-Length") or 0)
             if n < 0:
@@ -621,7 +621,7 @@ class Handler(BaseHTTPRequestHandler):
 
 def serve(port: int, host: str = "127.0.0.1") -> None:
     srv = ThreadingHTTPServer((host, port), Handler)
-    print(f"DATAHQ on http://{host}:{port}" + ("  (read-only)" if READONLY else "") + "  (Ctrl-C to stop)", flush=True)
+    print(f"Kenny's Data Emporium on http://{host}:{port}" + ("  (read-only)" if READONLY else "") + "  (Ctrl-C to stop)", flush=True)
     try:
         srv.serve_forever()
     except KeyboardInterrupt:

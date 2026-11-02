@@ -1,7 +1,7 @@
 """python -m ledger watch [--stage N | --ticker X …] [--run]   ->  data/watch.json
 
 Asks the SEC what each company has filed (10-K and 10-K/A in the window) and lists every filing the ledger hasn't read
-yet. DATAHQ shows the result, so "nothing needs you" can't hide a filing that landed. --run reads them: `ledger run`
+yet. Kenny's Data Emporium shows the result, so "nothing needs you" can't hide a filing that landed. --run reads them: `ledger run`
 for each company with a new filing. Run it daily (cron or launchd); it makes one small request per company."""
 import argparse
 import json

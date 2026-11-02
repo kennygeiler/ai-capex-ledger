@@ -249,7 +249,7 @@ used; a year no filing by D reports is absent, never filled. `tests/test_pit.py`
 `filed <= D` and that today's answer equals `values`. The packet carries no as-of file: the signed dataset is shipped once, and the as-of
 answer is derived from the same cells.
 
-## DATAHQ
+## Kenny's Data Emporium
 
 - **Proof** (home): the five companies down, the stages across. Each cell: checked, explained, open, as counts.
   Proven companies read as one line. Below, the other 95 in one collapsed row with their counts.

@@ -18,7 +18,7 @@ except ImportError:  # Airflow 2
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-from ledger.steps import STEPS  # noqa: E402  the one list of steps, shared with `ledger run` and DATAHQ
+from ledger.steps import STEPS  # noqa: E402  the one list of steps, shared with `ledger run` and Kenny's Data Emporium
 
 with DAG(dag_id="capex_ledger", description="10-Ks to signed values: every ledger step on stage 3",
          schedule="@daily", start_date=datetime(2026, 10, 29), catchup=False, max_active_runs=1,

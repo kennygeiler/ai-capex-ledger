@@ -1,6 +1,6 @@
 # Tickets: the sign-with-confidence flow
 
-*Written 1 Nov 2026 from a page-by-page review of DATAHQ at 1600px and a column audit of the v1.7.0 packet. The goal: a person
+*Written 1 Nov 2026 from a page-by-page review of Kenny's Data Emporium at 1600px and a column audit of the v1.7.0 packet. The goal: a person
 signs a release from the app, and the app has shown them everything that could make the signature wrong. Scope until that
 works: the proven set only (`config.PROVEN`); the other companies stay in the database and leave the UI, the packet and the
 published tables. Scale after.*
@@ -115,7 +115,7 @@ can read (T9–T18)". A reviewer agent reads the whole diff against the ticket l
 - **T12 Follow the source.** Columns `accession`, `filed`, `source_url`, `source_table`, `source_kind` (10-K table, 10-K note,
   10-K MD&A, 8-K release, transcript, cfo commentary, gathered) on every row; `source` keeps the internal ids. Done when
   `source_url` opens the filing at the first place it shows the cited row label and number; `source_table` names the parsed
-  table DATAHQ shows; every spent and derived 10-K row has both. *Note:* the original wording ("opens the filing at the cited
+  table Kenny's Data Emporium shows; every spent and derived 10-K row has both. *Note:* the original wording ("opens the filing at the cited
   table") asked for a table anchor sec.gov does not provide: the rendered 10-K has no stable table ids, and a query string is
   ignored, so the link is the filing plus a `#:~:text=<row label>,<number>` fragment (usually the row, sometimes prose) and the
   parser's table id lives in its own column. `filed` is the SEC filing date (10-K through `documents`, 8-K from the text's
@@ -163,7 +163,7 @@ can read (T9–T18)". A reviewer agent reads the whole diff against the ticket l
 
 ### Dataset
 - **T25 Sticky header and ticker column; column descriptions on hover; per-column filter; a legend for `check`.** Rows view only.
-- **T26 Docs in the app, `#docs/<name>`.** `docs/*.md` rendered in DATAHQ (marked.js from cdnjs, pinned), left nav from the file
+- **T26 Docs in the app, `#docs/<name>`.** `docs/*.md` rendered in Kenny's Data Emporium (marked.js from cdnjs, pinned), left nav from the file
   list, TAXONOMY and DATA_DICTIONARY first; Dataset column hovers read the dictionary. The nav gets Docs.
 - **T27 Grid: totals and restatements.** A totals row per year; a renamed or split category shows the link between the old and
   new rows, not only a ≠.

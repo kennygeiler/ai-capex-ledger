@@ -1,4 +1,4 @@
-// DATAHQ: everything more than one page uses. Plain script, globals; app.html loads it first.
+// Kenny's Data Emporium: everything more than one page uses. Plain script, globals; app.html loads it first.
 const $ = (s, r = document) => r.querySelector(s);
 const h = (tag, attrs = {}, ...kids) => {
   const el = document.createElement(tag);

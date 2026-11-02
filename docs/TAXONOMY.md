@@ -131,7 +131,7 @@ the three new ones yet). `period_kind` is reported only when the company's fisca
 10-K that reports the year) knows the year's end and the source was written on or after it; otherwise planned.
 `source_url` opens the source: for a 10-K cell the filing with a text fragment of the row label and number (the first
 place the filing shows those words; sec.gov has no table anchors), for a statement or project the text at its quote,
-for a gathered figure its page; `source_table` is the parser's id of the table the cell came from, the one DATAHQ shows. No column holds a number the pipeline made up: `change_from_prior` is
+for a gathered figure its page; `source_table` is the parser's id of the table the cell came from, the one Kenny's Data Emporium shows. No column holds a number the pipeline made up: `change_from_prior` is
 this year's reported balance minus last year's, and says so.
 
 One restatement threshold (T64): a figure is `restated` (values and facts `basis`, the rows' `rule:restated_between_filings`

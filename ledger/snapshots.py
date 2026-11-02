@@ -1,4 +1,4 @@
-"""What the ledger looked like after each `ledger run`, so DATAHQ can say what changed since the last one.
+"""What the ledger looked like after each `ledger run`, so Kenny's Data Emporium can say what changed since the last one.
 
 A snapshot holds the filings read, every value with its basis, and the open review items. Kept in data/snapshots/
 next to the database (not in git): one small JSON file per run."""

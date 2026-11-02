@@ -1,4 +1,4 @@
-"""Where a `ledger run` stands, for DATAHQ's add-a-company page: data/jobs/progress.json.
+"""Where a `ledger run` stands, for Kenny's Data Emporium's add-a-company page: data/jobs/progress.json.
 
 `ledger run` writes it before the first step and after every step. Each step's one-line summary comes from what the
 step left behind (rows in the store, the fault and evidence reports), never from what it printed, so a changed print
@@ -11,7 +11,7 @@ from . import store
 from .extract import OUTPUTS
 from .guidance import OUTPUTS as AI_OUTPUTS
 from .notes import OUTPUTS as NOTE_OUTPUTS
-from .steps import STEPS  # noqa: F401  re-exported: `ledger run`, DATAHQ and the Airflow DAG all read it from here or from steps
+from .steps import STEPS  # noqa: F401  re-exported: `ledger run`, Kenny's Data Emporium and the Airflow DAG all read it from here or from steps
 
 FILE = store.ROOT / "data" / "jobs" / "progress.json"
 

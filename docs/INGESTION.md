@@ -91,7 +91,7 @@ Two more types surfaced, both in the re-read:
 
 ## Audit fixes (28 Oct): human in the loop used wisely
 
-A Monday-morning audit of DATAHQ and the pipeline found that the answer key backing "values accounted for" was itself
+A Monday-morning audit of Kenny's Data Emporium and the pipeline found that the answer key backing "values accounted for" was itself
 wrong in places, and that a person was being asked questions code could settle. Fixed by type:
 
 | # | Type | Where | Fix |
@@ -101,13 +101,13 @@ wrong in places, and that a person was being asked questions code could settle. 
 | 11 | **"Explained by code" had no size limit.** Opex from summed cost lines was excused whenever revenue and operating income agreed (ORCL 28–49% from the key, every year). | ORCL, APLD | `cost_lines_summed` now blocks release until a person confirms the lines, once per company, and its message shows the gap per year. |
 | 12 | **Small restatements were labelled as reported.** The restated label needed a 1% change. | META FY2022–23 capex (0.8%), TSLA | Any change beyond rounding is `restated`; the size shows beside it. |
 | 13 | **Capex lines narrower or broader than the definition weren't noted,** and XBRL agreed because the company tags the same line. | IREN (net of GPU prepayments), TSLA (excl. finance leases), WULF (deposits) | `definition_note` also matches "net of", "excluding", "deposit", "prepayment". |
-| 14 | **Business signals were shown as chores.** 44 of 57 open warnings were capex and opex jumps and outliers: the AI buildout itself. | all | A jump, outlier or renamed line on values that agree with XBRL can't be a misread (XBRL is an independent read), so DATAHQ shows it as a finding about the company, not a question. Questions for a person went from 57 to 3. |
+| 14 | **Business signals were shown as chores.** 44 of 57 open warnings were capex and opex jumps and outliers: the AI buildout itself. | all | A jump, outlier or renamed line on values that agree with XBRL can't be a misread (XBRL is an independent read), so Kenny's Data Emporium shows it as a finding about the company, not a question. Questions for a person went from 57 to 3. |
 | 15 | **Opex can exceed revenue** because it includes impairments and other operating items. | CORZ FY2022, CIFR FY2025, 12 company-years | Stated in FIELDS.md, in Outputs, and beside each such year. |
 
-Also: every step of `ledger run` is logged and the run saves a snapshot, so DATAHQ shows what changed since the last run;
+Also: every step of `ledger run` is logged and the run saves a snapshot, so Kenny's Data Emporium shows what changed since the last run;
 `ledger watch` asks the SEC for filings not yet read.
 
-## Scale run (28 Oct): 10 S&P majors added from DATAHQ, blind
+## Scale run (28 Oct): 10 S&P majors added from Kenny's Data Emporium, blind
 
 Apple, Broadcom, Intel, Qualcomm, Texas Instruments, Cisco, IBM, Walmart, ExxonMobil and JPMorgan: 38 filings, 7.5 agent-minutes, no code change
 before the run. Six were clean on the first pass (AAPL, AVGO, CSCO, QCOM, TXN, WMT: 78/78 values agree with XBRL, every cell confirmed). The
@@ -268,11 +268,11 @@ What each company cost. `ledger run` prints this, and each validation page shows
 | AMD | `ledger run`, unattended | 0.5 min (2 filings) | 16,302 | 0 | 0 (3 warnings: FY2026 not yet ended) | 12/12 |
 | AMZN, GOOGL, META, MRVL, MU, TSLA | blind run 1 | 2.5 min (13 filings) | 99,666 | 0 | 0 | 75/75 |
 | ALAB, CIFR, CORZ, CRDO, IREN, WULF, SPCX | blind run 1 | 3.5 min (13 filings) | 120,630 | types 1–6 above | 15 blocks (types 2–4) | 68/70 |
-| ANET (Arista Networks) | added in DATAHQ, unattended | 0.8 min (4 filings) | 31,774 | 0 | 0 (2 warnings, both confirmed by XBRL, shown as findings) | 12/12 |
+| ANET (Arista Networks) | added in Kenny's Data Emporium, unattended | 0.8 min (4 filings) | 31,774 | 0 | 0 (2 warnings, both confirmed by XBRL, shown as findings) | 12/12 |
 | all 19 | run 2, after the fixes | 11.5 min of agent time (all headless filings) | 488,543 | 2 (types 7–8) | 0 | 224/234 (6 explained by code, 4 decided) |
-| AAPL, AVGO, CSCO, QCOM, TXN, WMT | added in DATAHQ, blind | 4.9 min (26 filings) | 201,818 | 0 | 0 | 78/78 |
-| COMP (Compass) | added by Kenny in DATAHQ, blind | 1.2 min (4 filings) | 42,090 | 0 | 1 (cost lines: commissions) | 8/12 (4 opex definition gaps, explained by code) |
-| IBM, INTC, JPM, XOM | added in DATAHQ, blind | 3.7 min (16 filings) | 122,877 | types 16–21, 23 | 5 (XOM: 4 revenue definition, 1 cost lines) | see below |
+| AAPL, AVGO, CSCO, QCOM, TXN, WMT | added in Kenny's Data Emporium, blind | 4.9 min (26 filings) | 201,818 | 0 | 0 | 78/78 |
+| COMP (Compass) | added by Kenny in Kenny's Data Emporium, blind | 1.2 min (4 filings) | 42,090 | 0 | 1 (cost lines: commissions) | 8/12 (4 opex definition gaps, explained by code) |
+| IBM, INTC, JPM, XOM | added in Kenny's Data Emporium, blind | 3.7 min (16 filings) | 122,877 | types 16–21, 23 | 5 (XOM: 4 revenue definition, 1 cost lines) | see below |
 | all 31, attribution | `attribution`, `attribution@v1`, six models @v1 | 9.4 min (29 companies) | 330,402 | 0 | 0 (3 warnings: accrual segment capex above cash capex, explained) | 223 rows: 38 AI dollar amounts by server-category growth (22), whole business (6), stated amount (6), segment (4); 67 words only, 118 none |
 | all 31, texts + AI spend | `texts` + `aispend`, `aispend@v3` | 65.5 min (702 texts, 543 asked) | 4,120,870 | 1 (type 35) | 0 | 244 statements → 83 rows: 8 AI dollar amounts, 21 explicit totals, 62 words only; releases gave the most statements, transcripts the most words |
 | all 31, notes | `notes`, blind, `notes@v2` | 70.1 min (124 filings) | 1,879,685 | 4 (types 28–31, 33) | 0 | 1,436 facts: 522 agree with the filing's tags, 27 differ (purchase-commitment definitions, type 34), 887 untagged |

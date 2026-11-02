@@ -55,7 +55,7 @@ around it; a person lists the links).
 ```bash
 uv run python -m ledger run --ticker NVDA        # every step for one company, agents included, then the scorecard
 uv run python -m ledger run --stage 3            # all 31 (about 30 minutes on a fresh clone, mostly fetching and Chrome)
-uv run python -m ledger app                      # DATAHQ at http://127.0.0.1:3610 (LEDGER_CLAUDE="$(which claude)" only to start runs from it)
+uv run python -m ledger app                      # Kenny's Data Emporium at http://127.0.0.1:3610 (LEDGER_CLAUDE="$(which claude)" only to start runs from it)
 uv run python -m ledger golden --check           # the proven six rebuilt from frozen inputs, every table compared, plus every gold verdict
 uv run python -m ledger gold --status            # the gold set: verdicts, error rate with n and a Wilson interval (--draw writes the sample)
 uv run python -m ledger test                     # the whole suite, golden included; writes reports/tests.json, the Release page's test line (--fast skips golden)
@@ -88,7 +88,7 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 
 ## The hosted copy
 
-https://datahq-production.up.railway.app is DATAHQ read-only: the same pages and read API, from a snapshot of the working database,
+https://datahq-production.up.railway.app is Kenny's Data Emporium read-only: the same pages and read API, from a snapshot of the working database,
 the evidence screenshots and the signed releases. Nothing writes there (every POST is refused; the header says "read-only copy")
 and it never reaches the SEC (`ledger/ingest/edgar.py` raises `Offline` instead of fetching). It is what to send someone who should
 look without a checkout. Redeploy after a run or a release: `railway up --service datahq` from this directory (the `Dockerfile`;
@@ -130,7 +130,7 @@ counts those rows open while the local one counts them explained). The signed re
   `periods`, the year the person saw, and applies to no other. `by` is unauthenticated until T6 (the local trust
   boundary): a rule's or definition's `by` is a claim, not proof of a person, as for resolutions and gold.
 - **Add a figure a company stated about AI**: `taxonomy/stated_figures.yaml`, verbatim, with the URL and the quote.
-- **Release**: DATAHQ's Release page (`#release`) is the checklist: every line that could make a signature wrong, green or
+- **Release**: Kenny's Data Emporium's Release page (`#release`) is the checklist: every line that could make a signature wrong, green or
   red with its count and the page that fixes it, and the packet built in memory. Its Sign button (enabled only when every
   required line is green) writes `releases/<version>/`, signs as the name in the signer box, stores the checklist as it
   was in `SIGNOFF.json`, and publishes; that is the one place a release is signed (`docs/PROOF.md`). Its test line reads
@@ -160,7 +160,7 @@ counts those rows open while the local one counts them explained). The signed re
    run under (what it owns, what it never touches, task and output file shapes, model, tools, prompt versions, the rule
    and guard ids that judge it; "not stated in code" where the code does not say). A retired agent keeps its charter,
    marked retired with why. The Rules page shows each live charter with the prompt history and the runs per company.
-10. The design rules for DATAHQ are in `docs/PROOF.md`; one thing per screen; numbers before words.
+10. The design rules for Kenny's Data Emporium are in `docs/PROOF.md`; one thing per screen; numbers before words.
 
 ## If you are an AI agent
 

@@ -50,7 +50,7 @@ def main(argv=None) -> int:
     con = store.init(a.db)
     docs, pv = _parsed(con, tickers), prompt_version()
     if a.pack or a.run:
-        con.close()  # the agent run takes minutes; don't hold the database (DATAHQ reads it)
+        con.close()  # the agent run takes minutes; don't hold the database (Kenny's Data Emporium reads it)
         paths = write_tasks(docs)
         print(f"{len(paths)} tasks in {paths[0].parent.relative_to(store.ROOT)} ({pv})")
     if a.pack:

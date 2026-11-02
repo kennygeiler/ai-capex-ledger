@@ -48,7 +48,7 @@ def main(argv=None) -> int:
     docs = [json.loads((store.ROOT / m["tables_path"]).read_text()) for m in meta]
     pv = prompt_version()
     if a.pack or a.run:
-        con.close()  # the agent run takes minutes; don't hold the database (DATAHQ reads it)
+        con.close()  # the agent run takes minutes; don't hold the database (Kenny's Data Emporium reads it)
         paths = write_tasks(docs)
         print(f"{len(paths)} tasks in data/notes/tasks ({pv})")
     if a.pack:
