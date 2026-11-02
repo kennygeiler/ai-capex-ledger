@@ -65,7 +65,8 @@ class Workbench(unittest.TestCase):
         out = workbench.items(_con(), _flow([q]))
         r = out["rows"][0]
         self.assertEqual(r["evidence"]["cell"]["cell_text"], "141,852")
-        self.assertIsNone(r["evidence"]["png"])
+        self.assertEqual(r["evidence"]["crop"]["state"], "none")  # no extraction on file: crops.cells reads nothing, the row says No crop
+        self.assertIsNone(r["evidence"]["crop"]["url"])
         self.assertEqual(r["delta"], 2256e6)
         self.assertAlmostEqual(r["delta_pct"], 2256 / 139596)
         self.assertEqual(out["open"], 0)  # accepted: not open
@@ -83,7 +84,7 @@ class Workbench(unittest.TestCase):
         self.assertEqual((r["state"], r["open"], r["by"]), ("open", True, "label:not_extracted"))
         self.assertEqual(r["reason"], "the filing tags a value the reader did not extract")
         self.assertIn("Not extracted", r["cause_label"])
-        self.assertEqual((r["ours"], r["reference"], r["ref_label"]), (None, 23601000000, "XBRL tag"))
+        self.assertEqual((r["ours"], r["reference"], r["ref_label"]), (None, 23601000000, "SEC XBRL"))
         from ledger import resolutions
         self.assertFalse(resolutions.is_live(r["key"]))  # closed by re-reading the filing, never by a decision
 

@@ -17,13 +17,11 @@ from .taxonomy import asset_types, rows as taxonomy_rows
 from .config import PROVEN, PROVEN_WHY, SCOPE, industry, tracked
 
 STAGES = ("ingest", "values", "facts", "statements", "mapping", "planned", "release")
-STAGE_LABEL = {"ingest": "Ingest", "values": "Values", "facts": "Facts", "statements": "Statements", "mapping": "Mapping", "planned": "Planned", "release": "Release"}
-NEEDS = {"values": "a definition (which line the tag measures) or a unit rule", "facts": "a definition (which concept the table line is) once the tag is named",
-         "finding": "a definition or a rule for what the finding found", "mapping": "a mapping to a us-gaap PropertyPlantAndEquipmentByTypeAxis member, with the note's words",
-         "mapping_confirm": "a person's confirmation of the proposed member (Reconcile, asset types: Approve, Edit or Reject)",
-         "readings": "a person's resolution saying which reading is right, or a re-read (Reconcile)",
-         "tie": "a person's resolution naming the reconciling line, or a re-read of the parts (Reconcile)",
-         "ingest": "a parser or unit rule", "locate": "a locator rule", "release": "a definition or a fix", "decision": "the fix the decision names"}
+STAGE_LABEL = {"ingest": "Filings", "values": "Statement figures", "facts": "Note figures", "statements": "AI disclosures", "mapping": "Category mapping",
+               "planned": "Guidance and projects", "release": "Release"}
+NEEDS = {"values": "Definition or unit rule", "facts": "Definition", "finding": "Definition or rule", "mapping": "Category mapping",
+         "mapping_confirm": "Proposed category", "readings": "Readings differ", "tie": "Does not tie to total",
+         "ingest": "Parser or unit rule", "locate": "Locator rule", "release": "Definition or fix", "decision": "Fix named by the decision"}  # what an open item needs, as the Rules page groups it
 
 
 # The exceptions a loader writes when a stage failed (cli/extract, cli/notes, cli/aispend, cli/projects): failures, never
@@ -87,15 +85,17 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     items = []
     for d in docs:
         what = f"{d['form']} {d['period']}"
+        show = {"note": f"{d['form']} · FY ending {str(d['period'])[:10]}"}
         if (d["income_tables"] or "") and (d["cash_flow_tables"] or ""):
-            items.append(_item(what, status.state({"check": "located"}), f"{d['table_count']} tables parsed", ref={"accession": d["accession"], "income_tables": d["income_tables"], "cash_flow_tables": d["cash_flow_tables"]}))
+            items.append({**_item(what, status.state({"check": "located"}), f"{d['table_count']} tables parsed", ref={"accession": d["accession"], "income_tables": d["income_tables"], "cash_flow_tables": d["cash_flow_tables"]}), "show": show})
         elif amendment_without_statements(d):
-            items.append(_item(what, status.state({"rule": "amendment_without_statements", "reason": "an amendment without financial statements (Part III only)"}), f"{d['table_count']} tables parsed"))
+            items.append({**_item(what, status.state({"rule": "amendment_without_statements", "reason": "an amendment without financial statements (Part III only)"}), f"{d['table_count']} tables parsed"), "show": show})
         else:
-            items.append(_item(f"{what}: a statement table not located", status.state({"reason": "no income or cash-flow table located"}), f"{d['table_count']} tables parsed", NEEDS["locate"]))
+            items.append({**_item(f"{what}: a statement table not located", status.state({"reason": "no income or cash-flow table located"}), f"{d['table_count']} tables parsed", NEEDS["locate"]),
+                          "show": {"note": show["note"] + " · Statements not found"}})
     for e in exc:
         if e["rule_id"] in FAILURES:
-            items.append(_item(f"{e['rule_id'].replace('_', ' ')}: {e['subject']}", status.of_exception(e), e["message"][:200], NEEDS["ingest"]))
+            items.append({**_item(f"{e['rule_id'].replace('_', ' ')}: {e['subject']}", status.of_exception(e), e["message"][:200], NEEDS["ingest"]), "show": {"note": "Extraction failed", "accession": e["subject"]}})
     stages["ingest"] = _stage(items)
 
     # values: agree with XBRL, or explained by a definition, a label or a decision; a warn finding takes the state of its rows
@@ -118,7 +118,7 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
         rows = [s for (f, p), s in vstate.items() if f == (ef or f) and p == (e["period"] or p)]
         st = status.of_exception(e, resolutions.resolution_of(idx, "values", t, e["field"] or "", "", e["period"] or ""), rows,
                                  xp.get(explain_key(e["rule_id"], t, e["field"], e["period"], e["subject"])))
-        items.append(_item(f"{e['rule_id']}: {e['field'] or ''} {e['period'] or ''}".strip(), st, e["message"][:200], NEEDS["finding"]))
+        items.append({**_item(f"{e['rule_id']}: {e['field'] or ''} {e['period'] or ''}".strip(), st, e["message"][:200], NEEDS["finding"]), "show": {"rule": e["rule_id"]}})
     stages["values"] = _stage(items)
 
     # facts: agree with the instance; an untagged one climbs the ladder (T92, ledger/ties.py): readings that differ are
@@ -142,8 +142,11 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
         # keyed whole, by rule and subject (resolutions._parse): a resolution closes this finding and no other
         st = status.of_exception(e, resolutions.resolution_of(idx, "findings", t, e["field"] or "", e["subject"] or "", e["period"] or "", e["rule_id"]), [],
                                  xp.get(explain_key(e["rule_id"], t, e["field"], e["period"], e["subject"])))
+        g = lad["groups"].get(ties.key(t, e["field"], e["period"], e["subject"])) if e["rule_id"].endswith("_tie") else None
+        gap = {"sum": g["sum"], "total": g["total"], "gap": g["sum"] - g["total"], "tolerance": g["tolerance"], "parts": len(g["parts"]), "concept": g["concept"]} \
+            if g and g.get("sum") is not None and g.get("total") is not None else None  # the failing group's numbers, so the trail says them as values
         items.append(_item(f"{e['rule_id']}: {e['field']} {e['period'] or ''} ({e['subject'] or ''})".strip(), st, e["message"][:300], NEEDS["tie"],
-                           ref={"ticker": t, "field": e["field"], "period": e["period"], "accession": e["subject"], "finding": e["rule_id"]}))
+                           ref={"ticker": t, "field": e["field"], "period": e["period"], "accession": e["subject"], "finding": e["rule_id"], **({"tie_gap": gap} if gap else {})}))
     stages["facts"] = _stage(items)
 
     # statements: every quote verified at load; part-year and program statements carry their guard
@@ -151,12 +154,13 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     items = []
     for s in stmts:
         what = f"{s['field']} {s['period']} {s['kind']}"
+        show = {"field": s["field"], "period": s["period"], "kind": s["kind"]}  # what the pages name the item by
         if s["class"] == "explicit_amount" and s["kind"] == "actual" and part_year(s["quote"]):
-            items.append(_item(what, status.state({"rule": "part_year", "reason": "part-year amount, not the year's actual"}), s["quote"][:160]))
+            items.append({**_item(what, status.state({"rule": "part_year", "reason": "part-year amount, not the year's actual"}), s["quote"][:160]), "show": show})
         elif s["kind"] == "outlook" and program_words(s["quote"]):
-            items.append(_item(what, status.state({"rule": "program_words", "reason": "a program, not a year's guidance"}), s["quote"][:160]))
+            items.append({**_item(what, status.state({"rule": "program_words", "reason": "a program, not a year's guidance"}), s["quote"][:160]), "show": show})
         else:
-            items.append(_item(what, status.state({"check": "quote"}), ref={"statement_id": s["statement_id"], "text_id": s["text_id"]}))
+            items.append({**_item(what, status.state({"check": "quote"}), ref={"statement_id": s["statement_id"], "text_id": s["text_id"]}), "show": show})
     stages["statements"] = _stage(items)
 
     # mapping: every reported asset type mapped to a standard us-gaap member (taxonomy/asset_types.yaml) and confirmed by
@@ -187,12 +191,13 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     items = []
     for r in planned:
         what = f"{r['category']} {r['fiscal_year']}: {r['reported_name']}"
+        show = {"category": r["category"], "fiscal_year": r["fiscal_year"], "name": r["reported_name"]}
         if r["part_year"]:
-            items.append(_item(what, status.state({"rule": "part_year", "reason": "part-year amount"}), (r["quote"] or "")[:160]))
+            items.append({**_item(what, status.state({"rule": "part_year", "reason": "part-year amount"}), (r["quote"] or "")[:160]), "show": show})
         elif r["program"]:
-            items.append(_item(what, status.state({"rule": "program_words", "reason": "a program, not a year's guidance"}), (r["quote"] or "")[:160]))
+            items.append({**_item(what, status.state({"rule": "program_words", "reason": "a program, not a year's guidance"}), (r["quote"] or "")[:160]), "show": show})
         else:
-            items.append(_item(what, status.state({"check": "quote"}), ref={"text_id": r.get("source"), "ticker": t, "category": r["category"], "fiscal_year": r["fiscal_year"], "reported_name": r["reported_name"]}))
+            items.append({**_item(what, status.state({"check": "quote"}), ref={"text_id": r.get("source"), "ticker": t, "category": r["category"], "fiscal_year": r["fiscal_year"], "reported_name": r["reported_name"]}), "show": show})
     stages["planned"] = _stage(items, extra={"guidance": sum(r["category"] == "guidance" for r in planned), "projects": sum(r["category"] == "project" for r in planned)})
 
     # release: blocks from decisions and block-severity rules; the company's gate is one item
@@ -200,8 +205,8 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
              for e in exc if e["severity"] == "block" and e["rule_id"] not in FAILURES and e["exception_id"] not in decided]
     items += [_item(f"blocks: {' '.join(k[2:5]).strip()}", status.state({"resolution": r}), r["reason"][:200], NEEDS["decision"]) for k, r in idx.items() if k[1] == t and r["state"] == "blocks"]
     if rset[1]:  # a rule file that does not load: open, never a crash, and no rule explains anything until it is fixed
-        items.append(_item("rules/ does not load", status.state({"reason": rset[1][:200]}), rset[1][:200], "a rule file that passes rules.load"))
-    stages["release"] = _stage(items or [_item("the release gate", status.state({"check": "gate"}), ref={"stage": "release", "blocks": len(items)})])
+        items.append({**_item("rules/ does not load", status.state({"reason": rset[1][:200]}), rset[1][:200], "a rule file that passes rules.load"), "show": {"note": "Rule files failed to load"}})
+    stages["release"] = _stage(items or [{**_item("the release gate", status.state({"check": "gate"}), ref={"stage": "release", "blocks": len(items)}), "show": {"note": "Release gate"}}])
 
     open_total = sum(len(s["open"]) for s in stages.values())
     keys = keys_of([i for s in stages.values() for i in s["all"]])

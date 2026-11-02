@@ -1,20 +1,17 @@
 // ── Reconcile: the workbench, on Tabler (dashboard UI kit) inside its own shadow root so the kit's reset touches nothing else. ──
 // One card per cause; one row per item with ours, reference, a gap bar, delta and decision; Enter opens the evidence as
 // aligned diff tables (this year, the computation, every year) with a status badge per line, and the decision form.
-const CAUSE_ORDER = ['to_confirm', 'blocked', 'fact_differs', 'fact_changed', 'finding_unconfirmed', 'new_filing', 'asset_types'];
+const CAUSE_ORDER = ['to_confirm', 'blocked', 'fact_differs', 'fact_changed', 'value_missing', 'finding_unconfirmed', 'new_filing', 'asset_types'];
 // T33: Approve and "Write as" need a name in the signer box, as Sign does; one listener keeps every such button in step
 const NEEDS_ME = new Set();  // the page lives in a shadow root, so the buttons are kept here, not queried from the document
 const needsMe = (btn) => { btn.disabled = !(me || '').trim(); NEEDS_ME.add(btn); return btn; };
 document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const b of NEEDS_ME) b.disabled = !(me || '').trim(); });
-const RES_LABEL = {accept: 'Accept', explain: 'Explain', fix: 'Fix', blocks: 'Blocks'};
-const RES_HELP = {accept: 'the number is right as it stands', explain: 'right, with the reason kept beside it', fix: 'wrong, stays open until a run fixes it', blocks: 'nothing ships until this is settled'};
+const RES_LABEL = {accept: 'Accept', explain: 'Explain', fix: 'Fix', blocks: 'Block release'};
+const RES_HELP = {accept: 'Right as it stands', explain: 'Right, with the reason kept', fix: 'Wrong; stays open until re-read', blocks: 'Blocks release until settled'};
 const RES_BADGE = {accept: 'bg-green-lt', explain: 'bg-azure-lt', fix: 'bg-yellow-lt', blocks: 'bg-red-lt'};
 // the one definition of open (status.state, docs/PROOF.md): every row carries state and by; the page only shows them
-const STATE_BADGE = {checked: 'bg-green-lt', explained: 'bg-azure-lt', open: 'bg-yellow-lt', blocked: 'bg-red-lt', 'to confirm': 'bg-orange-lt'};
-const STATE_HELP = {checked: 'agrees with an independent check', explained: 'something on file says why, by name', open: 'nothing on file applies; a person decides', blocked: 'refuses the release until settled', 'to confirm': 'a run decided; a person confirms or overturns'};
-const BY_WORD = {rule: 'rule', definition: 'definition', label: 'label', resolution: 'resolution', mapping: 'mapping', xbrl: 'XBRL', quote: 'quote', located: 'located', gate: 'gate'};
-const byText = (by) => { if (!by) return ''; const [k, ...rest] = by.split(':'); const v = rest.join(':'); return v ? `${BY_WORD[k] || k}: ${v}` : BY_WORD[k] || k; };
-const stateCell = (r) => [h('span', {class: 'badge ' + (STATE_BADGE[r.state] || 'bg-secondary-lt'), title: STATE_HELP[r.state] || r.state}, r.state), r.by ? h('div', {class: 'text-secondary small font-monospace', style: 'font-size:.72rem'}, byText(r.by)) : ''];
+const STATE_BADGE = {checked: ['text-green', 'Verified'], explained: ['text-azure', 'Unverified'], open: ['text-orange', 'Needs review'], blocked: ['text-red', 'Blocks release'], 'to confirm': ['text-orange', 'Proposed']};
+const stateCell = (r) => { const [cls, word] = STATE_BADGE[r.state] || ['text-secondary', r.state]; return h('span', {class: cls + ' fw-medium text-nowrap'}, word); };
 let FOCUS_KEY = null;  // the row to focus after a save re-renders the page
 const num = (r, v) => (v == null ? '—' : r.measure === 'share' ? pct(v) : usd(v));
 const signed = (r, v) => (v == null ? '—' : (v < 0 ? '−' : '+') + (r.measure === 'share' ? `${(100 * Math.abs(v)).toFixed(1)} pts` : usd(Math.abs(v))));
@@ -34,7 +31,9 @@ function gapBar(r, large) {
   return el;
 }
 const badge = (text, cls) => h('span', {class: 'badge ' + (cls || 'bg-secondary-lt')}, text);
-const checkBadge = (label) => (label == null ? '' : label === 'agree' ? badge('SEC agrees', 'bg-green-lt') : label === 'not_reported' ? badge('not reported', 'bg-secondary-lt') : label === 'no_reference' ? badge('no tag', 'bg-secondary-lt') : label === 'definition_gap' ? badge('explained', 'bg-azure-lt') : badge('differs from SEC', 'bg-yellow-lt'));
+const memberWords = (m) => { if (!m) return ''; const w = m.split(':').pop().replace(/Member$/, '').replace(/([a-z0-9])([A-Z])|([A-Z])([A-Z][a-z])/g, '$1$3 $2$4').split(' '); return [w[0], ...w.slice(1).map((x) => (x.length > 1 && x === x.toUpperCase() ? x : x.toLowerCase()))].join(' '); };
+const tone = (text, cls) => h('span', {class: cls + ' small text-nowrap'}, text);
+const checkBadge = (label) => (label == null ? '' : label === 'agree' ? tone('Verified', 'text-green') : label === 'not_reported' ? tone('Not reported', 'text-secondary') : label === 'no_reference' ? tone('Not in SEC XBRL', 'text-secondary') : label === 'definition_gap' ? tone('Unverified', 'text-azure') : tone('Differs from SEC XBRL', 'text-orange'));
 const bar = (v, max, cls) => h('span', {class: 'bar ' + (cls || ''), style: `width:${Math.max(2, 44 * Math.abs(v || 0) / (max || 1)).toFixed(0)}px`});
 async function reconcilePage(view, qs) {
   NEEDS_ME.clear();  // the last render's buttons are gone with it
@@ -57,21 +56,25 @@ async function reconcilePage(view, qs) {
   const fKind = q.kind || '';
   if (fKind) rows = rows.filter((r) => (r.evidence && r.evidence.kind) === fKind);
   const kinds = [...new Set(d.rows.map((r) => r.evidence && r.evidence.kind).filter(Boolean))].sort();
-  const KINDL = {restated: 'Restated', jump: 'Big move', row_switch: 'Line renamed', capex_intensity: 'Capex vs revenue', opex_over_revenue: 'Opex above revenue'};
+  const KINDL = {restated: 'Restated', jump: 'Large year-over-year change', row_switch: 'Line renamed', capex_intensity: 'Capex high vs revenue', opex_over_revenue: 'Opex above revenue'};
   const causes = CAUSE_ORDER.filter((c) => d.rows.some((r) => r.cause === c)), layers = [...new Set(d.rows.map((r) => r.layer))].sort(), fields = [...new Set(d.rows.map((r) => r.field).filter(Boolean))].sort();
   const sel = (label, value, opts, key) => h('select', {class: 'form-select form-select-sm', 'aria-label': label, onchange: (e) => setQ({[key]: e.target.value})}, opts.map(([v, t]) => h('option', {value: v, selected: v === value || null}, t)));
   const openRows = rows.filter(isOpen);
   const nState = (s) => d.rows.filter((r) => r.state === s).length;
+  const stat = (label, n, cls, always) => (n || always ? h('span', {class: 'me-3'}, h('span', {class: 'text-secondary'}, label + ' '), h('span', {class: (cls || '') + ' fw-medium'}, int(n))) : '');
   const header = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
-    h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'text-secondary small'}, `${int(d.to_confirm)} to confirm, ${int(nState('open'))} open, ${int(nState('blocked'))} blocked, ${int(nState('explained'))} explained${(() => { const s = openRows.reduce((a, r) => a + (r.dollars || 0), 0); return s ? `, ${usd(s)} at stake` : ''; })()}. Last run ${day(d.last_run)}${d.release ? `, signed ${d.release}` : ''}. Keys: j k move, Enter opens, a e f b decide, space selects.`))));
+    h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Reconcile'), h('div', {class: 'small mt-1'},
+      stat('Needs review', nState('open'), 'text-orange', true), stat('Blocks release', nState('blocked'), 'text-red'), stat('Proposed', d.to_confirm, 'text-orange'), stat('Unverified', nState('explained'), 'text-azure'),
+      h('span', {class: 'text-secondary me-3'}, `Last run ${day(d.last_run)}`), d.release ? h('span', {class: 'text-secondary me-3'}, `Last release ${d.release}`) : '',
+      h('span', {class: 'text-secondary', title: 'j k move · Enter opens · a e f b decide · space selects'}, 'Keyboard')))));
   const controls = h('div', {class: 'card mb-3'}, h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'},
-    h('div', {class: 'col-auto'}, sel('Scope', scope, [['all', 'All companies'], ...layers.map((l) => [l, INDUSTRY[l] || l]), ...Object.keys(d.names).sort().map((t) => [t, `${d.names[t]} (${t})`])], 'scope')),
+    h('div', {class: 'col-auto'}, sel('Scope', scope, [['all', 'All companies'], ...layers.map((l) => [l, INDUSTRY[l] || l]), ...[...new Set([...(d.scope_tickers || []), ...(scope !== 'all' && d.names[scope] ? [scope] : [])])].sort().map((t) => [t, `${d.names[t] || t} (${t})`])], 'scope')),
     h('div', {class: 'col-auto'}, sel('Group by', group, [['cause', 'Grouped by cause'], ['company', 'Grouped by company']], 'group')),
     h('div', {class: 'col-auto'}, sel('Cause', fCause, [['', 'Every cause'], ...causes.map((c) => [c, d.causes.find((x) => x.cause === c)?.label || c])], 'cause')),
-    h('div', {class: 'col-auto'}, sel('Layer', fLayer, [['', 'Every layer'], ...layers.map((l) => [l, INDUSTRY[l] || l])], 'layer')),
+    h('div', {class: 'col-auto'}, sel('Industry', fLayer, [['', 'Every industry'], ...layers.map((l) => [l, INDUSTRY[l] || l])], 'layer')),
     h('div', {class: 'col-auto'}, sel('Field', fField, [['', 'Every field'], ...fields.map((f) => [f, LABEL[f] || f])], 'field')),
-    kinds.length ? h('div', {class: 'col-auto'}, sel('Finding kind', fKind, [['', 'Every finding kind'], ...kinds.map((k) => [k, KINDL[k] || k.replaceAll('_', ' ')])], 'kind')) : '',
-    h('div', {class: 'col-auto ms-auto'}, h('label', {class: 'form-check form-switch m-0'}, h('input', {class: 'form-check-input', type: 'checkbox', checked: withResolved || null, onchange: (e) => setQ({resolved: e.target.checked ? '1' : ''})}), h('span', {class: 'form-check-label small'}, `show ${int(hidden)} resolved`))))));
+    kinds.length ? h('div', {class: 'col-auto'}, sel('Check', fKind, [['', 'Every check'], ...kinds.map((k) => [k, KINDL[k] || k.replaceAll('_', ' ')])], 'kind')) : '',
+    h('div', {class: 'col-auto ms-auto'}, h('label', {class: 'form-check form-switch m-0'}, h('input', {class: 'form-check-input', type: 'checkbox', checked: withResolved || null, onchange: (e) => setQ({resolved: e.target.checked ? '1' : ''})}), h('span', {class: 'form-check-label small'}, `Show ${int(hidden)} settled`))))));
   const selected = new Set();
   let cur = -1;
   const trs = [];
@@ -82,23 +85,23 @@ async function reconcilePage(view, qs) {
   for (const r of ordered) groups.set(keyOf(r), [...(groups.get(keyOf(r)) || []), r]);
   const cards = [];
   for (const [g, list] of groups) {
-    const label = group === 'cause' ? list[0].cause_label.replace(/:.*$/, '') : `${list[0].name} ${list[0].ticker}`;
+    const label = group === 'cause' ? ((d.causes.find((x) => x.cause === g) || {}).label || list[0].cause_label) : `${list[0].name} ${list[0].ticker}`;
     const open = list.filter(isOpen);
     const tbody = h('tbody');
     for (const r of list) {
       const i = trs.length;
       const cb = isAsset(r) ? '' : h('input', {class: 'form-check-input m-0', type: 'checkbox', 'aria-label': `Select ${r.name} ${r.where}`, checked: selected.has(r.key) || null, onclick: (e) => { e.stopPropagation(); e.target.checked ? selected.add(r.key) : selected.delete(r.key); paint(); }});  // a mapping is approved one at a time, never in bulk
-      const first = group === 'cause' ? [h('a', {href: `#proof/${r.ticker}`, onclick: (e) => e.stopPropagation()}, r.name), ' ', h('span', {class: 'text-secondary small'}, r.ticker)] : [r.cause_label.replace(/:.*$/, '')];
-      const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field) : r.where, r.period ? ` ${r.period}` : ''), r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : r.cause === 'finding_unconfirmed' && r.measure == null ? h('div', {class: 'text-secondary small'}, r.cause_label) : isAsset(r) && r.evidence.note ? h('div', {class: 'text-secondary small'}, `${r.evidence.note.table_id}, filing ${r.evidence.note.accession}`) : ''];
-      const res = toConfirm(r) ? confirmCell(r, i) : isAsset(r) ? mappingCell(r, i) : [stateCell(r), r.resolution && r.resolution.by ? h('div', {class: 'text-secondary small'}, `${RES_LABEL[r.resolution.state] || r.resolution.state} by ${r.resolution.by}, ${day(r.resolution.at)}`) : ''];
+      const first = group === 'cause' ? [h('a', {href: `#proof/${r.ticker}`, onclick: (e) => e.stopPropagation()}, r.name), ' ', h('span', {class: 'text-secondary small'}, r.ticker)] : [r.cause_label];
+      const where = [h('div', {}, r.field ? (LABEL[r.field] || r.field) : r.where, r.period ? ` ${r.period}` : ''), r.evidence.dimension ? h('div', {class: 'text-secondary small'}, r.evidence.dimension) : r.cause === 'finding_unconfirmed' && group === 'company' ? '' : r.cause === 'finding_unconfirmed' ? h('div', {class: 'text-secondary small'}, r.cause_label) : ''];
+      const res = toConfirm(r) ? confirmCell(r, i) : isAsset(r) ? mappingCell(r, i) : [stateCell(r), r.resolution && r.resolution.by ? h('div', {class: 'text-secondary small'}, `${RES_LABEL[r.resolution.state] || r.resolution.state} · ${r.resolution.by} · ${day(r.resolution.at)}`) : ''];
       const P = isAsset(r) ? r.evidence.proposal : null;
-      const ours = isAsset(r) ? [P ? [h('span', {class: 'font-monospace', style: 'font-size:.8rem;overflow-wrap:anywhere'}, P.standard_type), ' ', r.evidence.mapping === 'verified' ? h('span', {class: 'small text-green', title: 'the company’s own XBRL tags the category’s value with this member in every extracted year'}, 'Matches company’s own tag') : P.confidence ? h('span', {class: 'text-secondary small', title: `the mapper's confidence: ${P.confidence}`}, P.confidence) : h('span', {class: 'badge bg-orange-lt', title: `in taxonomy/asset_types.yaml by ${P.by || 'nobody named'}, with no confirmed_by`}, 'to confirm')] : h('span', {class: 'text-secondary small'}, 'no proposal yet'), P ? h('div', {class: 'text-secondary small'}, `“${P.evidence}”`) : '', filerNote(r)] : [num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, r.ours_label) : ''];
+      const ours = isAsset(r) ? [P ? [h('span', {style: 'overflow-wrap:anywhere', title: P.standard_type}, memberWords(P.standard_type)), ' ', r.evidence.mapping === 'verified' ? h('span', {class: 'small text-green'}, 'Matches company’s own tag') : P.confidence ? h('span', {class: 'text-secondary small'}, `Confidence ${P.confidence}`) : h('span', {class: 'small text-orange'}, 'Proposed')] : h('span', {class: 'text-secondary small'}, 'No proposal'), P ? h('div', {class: 'text-secondary small'}, `“${P.evidence}”`) : '', filerNote(r)] : [num(r, r.ours), r.ours_label ? h('div', {class: 'text-secondary small'}, r.ours_label) : ''];
       const tr = h('tr', {class: 'item', tabindex: 0, 'aria-expanded': 'false', onkeydown: (e) => keys(e, i), onclick: () => toggle(i), onfocus: () => { cur = i; paintCur(); }},
         h('td', {class: 'w-1'}, cb), h('td', {}, first), h('td', {}, where),
         h('td', {class: isAsset(r) ? '' : 'num'}, ours),
         h('td', {class: 'num'}, r.reference == null ? h('span', {class: 'text-secondary'}, '—') : [({ge: '≥ ', le: '≤ '})[r.relation] || '', num(r, r.reference)], r.ref_label && r.reference != null ? h('div', {class: 'text-secondary small'}, r.ref_label) : ''),
         h('td', {class: 'w-1'}, r.ours != null && r.reference != null ? gapBar(r) : ''),
-        h('td', {class: 'num'}, r.delta == null ? h('span', {class: 'text-secondary'}, r.ours != null || r.reference != null ? 'one side' : '—') : [h('span', {class: 'fw-semibold' + (r.cause === 'fact_differs' ? ' text-red' : '')}, signed(r, r.delta)), r.delta_pct != null && r.measure !== 'share' ? h('div', {class: 'text-secondary small'}, pctSigned(r.delta_pct)) : r.measure === 'share' && r.dollars ? h('div', {class: 'text-secondary small'}, `${usd(r.dollars)} at stake`) : '']),
+        h('td', {class: 'num'}, r.delta == null ? h('span', {class: 'text-secondary'}, '—') : [h('span', {class: 'fw-semibold' + (r.cause === 'fact_differs' ? ' text-red' : '')}, signed(r, r.delta)), r.delta_pct != null && r.measure !== 'share' ? h('div', {class: 'text-secondary small'}, pctSigned(r.delta_pct)) : '']),
         h('td', {}, res));
       trs.push({tr, r, detail: null});
       tbody.append(tr);
@@ -106,10 +109,10 @@ async function reconcilePage(view, qs) {
     const confirmGroup = group === 'cause' && toConfirm(list[0]);
     const assetGroup = group === 'cause' && isAsset(list[0]);
     cards.push(h('div', {class: 'card mb-3'},
-      h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, label), h('span', {class: 'ms-2 text-secondary small'}, confirmGroup ? `${int(list.length)} decisions a run made; the release refuses until each is confirmed or overturned` : assetGroup ? `${int(list.filter((r) => r.evidence.mapping === 'to_confirm').length)} to confirm · ${int(list.filter((r) => r.evidence.mapping === 'unmapped').length)} unmapped · ${int(list.filter((r) => r.evidence.mismatch).length)} differ from company tag · ${int(list.filter((r) => r.evidence.mapping === 'verified').length)} match company tag` : `${int(open.length)} open of ${int(list.length)}${list.some((r) => r.dollars) ? `, ${usd(list.reduce((s, r) => s + r.dollars, 0))} at stake` : ''}`),
+      h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, label), h('span', {class: 'ms-2 text-secondary small'}, confirmGroup ? `${int(list.length)} proposed` : assetGroup ? `${int(list.filter((r) => r.evidence.mapping === 'to_confirm').length)} proposed · ${int(list.filter((r) => r.evidence.mapping === 'unmapped').length)} unmapped · ${int(list.filter((r) => r.evidence.mismatch).length)} differ from company tag · ${int(list.filter((r) => r.evidence.mapping === 'verified').length)} match company tag` : `${int(open.length)} to review of ${int(list.length)}`),
         open.length > 1 && !assetGroup ? h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary ms-auto', onclick: () => { for (const r of open) selected.add(r.key); paint(); }}, `Select all ${int(open.length)}`) : ''),
       h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table table-hover'},
-        h('thead', {}, h('tr', {}, h('th', {class: 'w-1'}, h('span', {class: 'visually-hidden'}, 'Select')), h('th', {}, group === 'cause' ? 'Company' : 'Cause'), h('th', {}, 'Where'), h('th', {class: 'num'}, 'Ours'), h('th', {class: 'num'}, 'Reference'), h('th', {class: 'w-1'}, 'Gap'), h('th', {class: 'num'}, 'Delta'), h('th', {}, 'Decision'))),
+        h('thead', {}, h('tr', {}, h('th', {class: 'w-1'}, h('span', {class: 'visually-hidden'}, 'Select')), h('th', {}, group === 'cause' ? 'Company' : 'Cause'), h('th', {}, 'Item'), h('th', {class: 'num'}, 'Dataset'), h('th', {class: 'num'}, 'SEC XBRL'), h('th', {class: 'w-1'}, 'Gap'), h('th', {class: 'num'}, 'Difference'), h('th', {}, 'Decision'))),
         tbody))));
   }
   function paint() { for (const t of trs) { const c = t.tr.querySelector('input[type=checkbox]'); if (c) c.checked = selected.has(t.r.key); } bulk.hidden = selected.size === 0; const selRows = [...selected].map((k) => trs.find((t) => t.r.key === k).r); bulk.replaceChildren(h('div', {class: 'card-body py-2'}, h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-12 small text-secondary'}, h('b', {class: 'text-body'}, int(selected.size)), ' selected: ', selRows.map((r) => `${r.ticker} ${r.where}`).join('; ')), h('div', {class: 'col'}, resolutionForm(null, [...selected].map((k) => trs.find((t) => t.r.key === k).r), () => { selected.clear(); paint(); })), h('div', {class: 'col-auto'}, h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary', onclick: () => { selected.clear(); paint(); }}, 'Clear'))))); }
@@ -136,15 +139,15 @@ async function reconcilePage(view, qs) {
   function confirmCell(r, i) {
     const proposed = (r.evidence && r.evidence.proposed) || (r.resolution && r.resolution.state) || 'explain';
     const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
-    const confirm = h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: `Record ${RES_LABEL[proposed] || proposed} on this item as ${me}`, onclick: async (e) => {
+    const confirm = h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: 'Confirm', onclick: async (e) => {
       e.stopPropagation(); confirm.disabled = true; status.textContent = 'Saving…';
       try {
         await api('/api/resolve', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({key: r.key, hash: r.hash, state: proposed, reason: 'confirmed', by: me})});
         status.textContent = 'Confirmed.'; FOCUS_KEY = r.key; setTimeout(route, 250);
       } catch (err) { status.textContent = `Couldn’t save: ${err.message}.`; status.classList.add('text-red'); confirm.disabled = false; }
     }}, `Confirm ${RES_LABEL[proposed] || proposed}`);
-    const overturn = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Decide differently: opens the decision form', onclick: (e) => { e.stopPropagation(); toggle(i, true); const f = trs[i].detail.querySelector('input[type=text]'); if (f) f.focus(); }}, 'Overturn');
-    return [h('div', {class: 'btn-list flex-nowrap'}, confirm, overturn), h('div', {class: 'text-secondary small mt-1'}, byText(r.by), r.resolution && r.resolution.at ? `, ${day(r.resolution.at)}` : ''), status];
+    const overturn = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Change decision', onclick: (e) => { e.stopPropagation(); toggle(i, true); const f = trs[i].detail.querySelector('input[type=text]'); if (f) f.focus(); }}, 'Overturn');
+    return [h('div', {class: 'btn-list flex-nowrap'}, confirm, overturn), h('div', {class: 'text-secondary small mt-1'}, r.resolution && r.resolution.by ? `${r.resolution.by} · ${day(r.resolution.at)}` : ''), status];
   }
   // T33: an unmapped asset type. Approve writes the proposed member with the mapper's evidence under my name; Edit opens the
   // form with the member select; Reject logs the proposed member so the next run proposes another. No animation: a
@@ -169,19 +172,19 @@ async function reconcilePage(view, qs) {
     const btns = [];
     if (P) {
       const entry = r.evidence.mapping !== 'unmapped';
-      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: (me || '').trim() ? (entry ? `Confirm ${P.standard_type} in taxonomy/asset_types.yaml: confirmed_by ${me}, today` : `Write ${P.standard_type} to taxonomy/asset_types.yaml as ${me}, with the mapper's evidence`) : 'type your name in the signer box first', onclick: async (e) => {
+      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: (me || '').trim() ? 'Approve this category' : 'Enter a signer name', onclick: async (e) => {
         e.stopPropagation(); approve.disabled = true;
         const ok = await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, evidence: P.evidence || r.evidence.reported_name, by: me, expected: expectedOf(r)}, status, entry ? 'Confirmed.' : 'Mapped.');
         if (!ok) approve.disabled = !(me || '').trim();
       }}, 'Approve'));
-      const reject = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: entry ? `Remove ${P.standard_type} from taxonomy/asset_types.yaml and log it as rejected; the category is unmapped again` : `Log ${P.standard_type} as rejected for this category; the next mapper run proposes another`, onclick: async (e) => {
+      const reject = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Reject this category', onclick: async (e) => {
         e.stopPropagation(); reject.disabled = true;
         const ok = await postMapping('/api/mapping/reject', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, by: me, reason: 'rejected on Reconcile'}, status, 'Rejected.');
         if (!ok) reject.disabled = false;
       }}, 'Reject');
       btns.push(approve, reject);
     }
-    const edit = h('button', {type: 'button', class: 'btn btn-sm ' + (P ? 'btn-outline-secondary' : 'btn-primary'), title: 'Choose another member: opens the decision card', onclick: (e) => { e.stopPropagation(); toggle(i, true); const s = trs[i].detail.querySelector('select'); if (s) s.focus(); }}, P ? 'Choose another' : 'Map');
+    const edit = h('button', {type: 'button', class: 'btn btn-sm ' + (P ? 'btn-outline-secondary' : 'btn-primary'), title: 'Choose a category', onclick: (e) => { e.stopPropagation(); toggle(i, true); const s = trs[i].detail.querySelector('select'); if (s) s.focus(); }}, P ? 'Choose another' : 'Map');
     btns.push(edit);
     return [h('div', {class: 'btn-list flex-nowrap'}, btns), status];
   }
@@ -192,23 +195,23 @@ async function reconcilePage(view, qs) {
     const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
     const rejected = r.evidence.rejected || [];
     const opts = (D.members || (d.members || []).map((m) => ({member: m, label: m}))).filter((m) => !rejected.includes(m.member) && (!P || m.member !== P.standard_type));
-    const select = h('select', {class: 'form-select form-select-sm', 'aria-label': 'Another us-gaap member'}, opts.map((m) => h('option', {value: m.member}, `${m.label} · ${m.member}`)));
+    const select = h('select', {class: 'form-select form-select-sm', 'aria-label': 'Standard category'}, opts.map((m) => h('option', {value: m.member, title: m.member}, m.label)));
     const evidence = (P && P.evidence) || r.evidence.reported_name;
     const btns = [];
     if (P) {
-      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: (me || '').trim() ? `${P.standard_type}, confirmed_by ${me}` : 'type your name in the signer box first', onclick: async () => {
+      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: (me || '').trim() ? 'Approve this category' : 'Enter a signer name', onclick: async () => {
         approve.disabled = true;
         if (!await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, evidence, by: me, expected: expectedOf(r)}, status, 'Confirmed.')) approve.disabled = !(me || '').trim();
       }}, 'Approve'));
       btns.push(approve);
     }
-    const choose = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: (me || '').trim() ? `the selected member, confirmed_by ${me}` : 'type your name in the signer box first', onclick: async () => {
+    const choose = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: (me || '').trim() ? 'Choose a category' : 'Enter a signer name', onclick: async () => {
       choose.disabled = true;
       if (!await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: select.value, evidence, by: me, expected: expectedOf(r)}, status, 'Mapped.')) choose.disabled = !(me || '').trim();
     }}, P ? 'Choose another' : 'Map'));
     btns.push(h('div', {class: 'input-group input-group-sm flex-nowrap', style: 'width:auto;max-width:30rem'}, select, choose));
     if (P) {
-      const reject = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: `${P.standard_type}: rejected`, onclick: async () => {
+      const reject = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: 'Reject this category', onclick: async () => {
         reject.disabled = true;
         if (!await postMapping('/api/mapping/reject', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, by: me, reason: 'rejected on Reconcile'}, status, 'Rejected.')) reject.disabled = false;
       }}, 'Reject');
@@ -225,17 +228,17 @@ async function reconcilePage(view, qs) {
     for (const as of ['rule', 'definition']) {
       const o = E[as];
       if (!o || o.why_not) continue;
-      const text = h('input', {type: 'text', class: 'form-control form-control-sm', autocomplete: 'off', 'aria-label': `Why, kept on the ${as}`, placeholder: as === 'rule' ? 'why these lines explain the finding, for every company' : 'why the field means this for the company', value: why || (r.resolution && r.resolution.reason) || '', onkeydown: (e) => { if (e.key === 'Enter') btn.click(); }});
+      const text = h('input', {type: 'text', class: 'form-control form-control-sm', autocomplete: 'off', 'aria-label': `Why, kept on the ${as}`, placeholder: as === 'rule' ? 'Reason (applies to every company)' : 'Reason (this company)', value: why || (r.resolution && r.resolution.reason) || '', onkeydown: (e) => { if (e.key === 'Enter') btn.click(); }});
       const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
       const what = as === 'rule'
-        ? ['A rule for every company: a ', h('code', {}, o.rule), ' finding on ', h('code', {}, o.field), ' is explained at every company that reads it from exactly these lines, no more and no fewer: ', o.row_labels.map((l, j) => [j ? ', ' : '', h('span', {class: 'fw-semibold'}, `“${l}”`)]), '.']
-        : ['A definition for ', h('span', {class: 'fw-semibold'}, r.ticker), ': ', h('code', {}, o.kind), o.lines ? [' is the sum of ', o.lines.map((l, j) => [j ? ', ' : '', h('span', {class: 'fw-semibold'}, `“${l}”`)])] : ` differs from the SEC’s tag by definition, in ${(o.periods || []).join(', ')} only`, '.'];
-      const btn = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: (me || '').trim() ? `Write to ${as === 'rule' ? `rules/${o.id}.yaml` : 'definitions/companies.yaml'} with by: ${me}, today` : 'type your name in the signer box first', onclick: async () => {
-        if (!text.value.trim()) { text.focus(); status.textContent = 'A reason is required.'; return; }
+        ? [h('span', {class: 'text-secondary'}, 'Applies to: '), 'every company reading ', o.row_labels.map((l, j) => [j ? ', ' : '', `“${l}”`])]
+        : [h('span', {class: 'text-secondary'}, 'Applies to: '), r.ticker, o.lines ? [' · ', o.lines.map((l, j) => [j ? ' + ' : '', `“${l}”`])] : ` · ${(o.periods || []).join(', ')}`];
+      const btn = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: (me || '').trim() ? (as === 'rule' ? 'Save as rule' : 'Save as definition') : 'Enter a signer name', onclick: async () => {
+        if (!text.value.trim()) { text.focus(); status.textContent = 'Reason required'; return; }
         btn.disabled = true; status.classList.remove('text-red'); status.textContent = 'Writing…';
         try {
           const out = await api('/api/judgement', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({key: r.key, as, why: text.value, by: me})});
-          status.replaceChildren('Written to ', h('code', {}, out.file), '. Rerun ', h('code', {}, as === 'rule' ? 'ledger rules' : 'ledger reconcile'), ' to apply it everywhere, and commit the file.');
+          status.textContent = `Saved to ${out.file}. Applies on the next run.`;
         } catch (e) { status.textContent = `Couldn’t write: ${e.message}.`; status.classList.add('text-red'); btn.disabled = !(me || '').trim(); }
       }}, as === 'rule' ? 'Make this a rule' : 'Make this a definition'));
       parts.push(h('div', {class: 'col-12'}, h('div', {class: 'small mb-1'}, what), h('div', {class: 'input-group input-group-sm'}, text, btn), status));
@@ -249,25 +252,19 @@ async function reconcilePage(view, qs) {
     const reason = h('input', {type: 'text', class: 'form-control form-control-sm', name: 'reason', autocomplete: 'off', placeholder: many ? `Why, for all ${items.length}, e.g. accrual capex, cash basis differs` : 'e.g. includes finance leases, note 7', 'aria-label': 'Reason', value: r && r.resolution ? r.resolution.reason : '', onkeydown: (e) => { if (e.key === 'Enter') save.click(); }});
     const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
     const save = h('button', {type: 'button', class: 'btn btn-sm btn-primary', onclick: async () => {
-      if (!reason.value.trim()) { reason.focus(); status.textContent = 'A reason is required.'; return; }
+      if (!reason.value.trim()) { reason.focus(); status.textContent = 'Reason required'; return; }
       save.disabled = true; status.textContent = 'Saving…';
       try {
         if (many) await api('/api/resolve/bulk', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({items: items.map((x) => ({key: x.key, hash: x.hash})), state, reason: reason.value, by: me})});
         else await api('/api/resolve', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({key: r.key, hash: r.hash, state, reason: reason.value, by: me})});
         status.classList.remove('text-red'); FOCUS_KEY = many ? items[0].key : r.key; if (done) done();
         if (!many && (state === 'accept' || state === 'explain') && canEncode(r)) {  // T36: offer to write it once before the row leaves the list
-          status.replaceChildren(h('div', {class: 'mb-2'}, 'Saved. The same cause elsewhere will ask again unless it is written once:'), encodePanel(r, reason.value), h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary mt-2', onclick: route}, 'Done'));
+          status.replaceChildren(h('div', {class: 'mb-2'}, 'Saved. Apply to every company?'), encodePanel(r, reason.value), h('button', {type: 'button', class: 'btn btn-sm btn-ghost-secondary mt-2', onclick: route}, 'Done'));
         } else { status.textContent = 'Saved.'; setTimeout(route, 250); }
       } catch (e) { status.textContent = `Couldn’t save: ${e.message}. Try again.`; status.classList.add('text-red'); }
       finally { save.disabled = false; }
     }}, many ? `Save for ${items.length}` : 'Save');
     return h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-auto'}, h('div', {class: 'btn-group', role: 'group', 'aria-label': 'Decision'}, btns)), h('div', {class: 'col'}, h('div', {class: 'input-group input-group-sm'}, reason, save)), h('div', {class: 'col-12'}, status));
-  }
-  function definitionDrawer(r) {
-    const E = r.evidence || {}, X = E.xbrl;
-    const yaml = `definitions/companies.yaml\n\n${r.ticker}:\n  ${r.field}:\n    dimension: "${E.dimension || ''}"\n    use: cell            # cell | tag\n    why: ${X ? `the tag ${X.concept}${X.member ? ' / ' + X.member : ''} measures a wider line than the table` : '…'}\n    by: ${me}\n    at: ${new Date().toISOString().slice(0, 10)}`;
-    drawer(h('h3', {}, 'Add a definition'), h('p', {class: 'small'}, 'A judgement made once per company and applied every run: which of the cell and the tag the dataset should carry for this fact, and why. Paste it into definitions/companies.yaml, then rerun notes and rules.'),
-      h('pre', {class: 'raw', style: 'margin-top:.8rem'}, yaml), h('button', {type: 'button', class: 'btn', style: 'margin-top:.8rem', onclick: (e) => { navigator.clipboard?.writeText(yaml).then(() => { e.target.textContent = 'Copied'; }, () => {}); }}, 'Copy'));
   }
   function evidence(r) {
     const E = r.evidence || {}, S = r.series || [], cards = [];
@@ -276,56 +273,57 @@ async function reconcilePage(view, qs) {
     if (r.cause === 'fact_differs') {
       const c = E.cell;
       const X = E.xbrl, cellAcc = c ? c.accession : null;
-      const lines = [{what: 'Cited cell', value: r.ours, src: c ? `${c.table_id}, “${c.row_label}”, filing ${c.accession}` : '', _cls: 'fw-semibold'},
-        {what: 'XBRL tag', value: r.reference, src: X ? [h('span', {class: 'font-monospace'}, X.concept), X.member ? [' / ', h('span', {class: 'font-monospace'}, X.member)] : '', ` as of ${X.date}, filing ${X.accession}`, cellAcc && X.accession !== cellAcc ? h('div', {class: 'text-body mt-1'}, h('span', {class: 'fw-semibold'}, 'Different filings: '), 'the cell is from a later 10-K than the tag; a restatement, not a disagreement.') : ''] : 'the filing’s own data; concept not found in the instance'}, E.release_value != null ? {what: `In ${d.release}`, value: Number(E.release_value), src: 'signed'} : null, {what: 'Delta', value: r.delta, src: pctSigned(r.delta_pct), _cls: 'text-red'}].filter(Boolean);
-      const maxL = Math.max(1, ...lines.filter((l) => l.what !== 'Delta').map((l) => Math.abs(l.value || 0)));
-      cards.push(col(4, dtable(`${r.period}: the cited cell against the filing’s tag`, [{t: '', f: (x) => [h('div', {}, x.what), x.src ? h('div', {class: 'text-secondary small fw-normal'}, x.src) : '']}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Delta' ? signed(r, x.value) : [bar(x.value, maxL, x.what === 'Cited cell' ? '' : 'ref'), usd(x.value)])}], lines),
-        h('div', {class: 'card mt-3'}, h('div', {class: 'card-body py-2'}, gapBar(r, true), h('div', {class: 'd-flex justify-content-between small text-secondary'}, h('span', {}, 'cell ', h('b', {class: 'text-primary'}, usd(r.ours))), h('span', {}, 'tag ', h('b', {}, usd(r.reference))))))));
-      cards.push(col(4, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'The cell')), h('div', {class: 'card-body py-2'}, c ? h('div', {class: 'datagrid'},
-          h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Cell'), h('div', {class: 'datagrid-content fw-semibold'}, c.cell_text)),
-          h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Row'), h('div', {class: 'datagrid-content'}, c.row_label)),
-          h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Column'), h('div', {class: 'datagrid-content'}, (c.column_label || '').replaceAll(' | ', ' '))),
-          h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Table'), h('div', {class: 'datagrid-content'}, c.table_id))) : h('p', {class: 'text-secondary small m-0'}, 'No citation on record.'),
-          E.png ? h('img', {src: E.png, alt: `Screenshot of the cited cell ${c ? c.cell_text : ''}`, loading: 'lazy', class: 'shot mt-2'}) : '',
-          h('div', {class: 'mt-2'}, E.url ? h('a', {href: E.url, target: '_blank', rel: 'noopener', class: 'small me-3'}, 'Open the 10-K') : '', h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'The company\'s trail')))),
-        
-        h('div', {class: 'mt-3'}, h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', onclick: () => definitionDrawer(r)}, 'Add a definition'))));
+      const lines = [{what: 'Cited', value: r.ours, src: c ? `“${c.row_label}”` : '', _cls: 'fw-semibold'},
+        {what: 'SEC XBRL', value: r.reference, src: X ? [h('span', {title: `${X.concept}${X.member ? ' / ' + X.member : ''} · ${X.accession}`}, [memberWords(X.concept), X.member ? memberWords(X.member) : '', X.date].filter(Boolean).join(' · ')), cellAcc && X.accession !== cellAcc ? h('div', {class: 'text-body mt-1'}, 'Restated in a later 10-K') : ''] : 'Not found in SEC XBRL'}, E.release_value != null ? {what: `In ${d.release}`, value: Number(E.release_value), src: 'Last release'} : null, {what: 'Difference', value: r.delta, src: pctSigned(r.delta_pct), _cls: 'text-red'}].filter(Boolean);
+      const maxL = Math.max(1, ...lines.filter((l) => l.what !== 'Difference').map((l) => Math.abs(l.value || 0)));
+      cards.push(col(4, dtable(`${r.period} · Cited vs SEC XBRL`, [{t: '', f: (x) => [h('div', {}, x.what), x.src ? h('div', {class: 'text-secondary small fw-normal'}, x.src) : '']}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Difference' ? signed(r, x.value) : [bar(x.value, maxL, x.what === 'Cited' ? '' : 'ref'), usd(x.value)])}], lines),
+        h('div', {class: 'card mt-3'}, h('div', {class: 'card-body py-2'}, gapBar(r, true), h('div', {class: 'd-flex justify-content-between small text-secondary'}, h('span', {}, 'Cited ', h('b', {class: 'text-primary'}, usd(r.ours))), h('span', {}, 'SEC XBRL ', h('b', {}, usd(r.reference))))))));
+      cards.push(col(4, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Source')), h('div', {class: 'card-body py-2'}, c ? h('div', {class: 'datagrid'},
+          h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Value'), h('div', {class: 'datagrid-content fw-semibold'}, c.cell_text)),
+          h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Line'), h('div', {class: 'datagrid-content'}, c.row_label)),
+          h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, 'Column'), h('div', {class: 'datagrid-content'}, (c.column_label || '').replaceAll(' | ', ' ')))) : h('p', {class: 'text-secondary small m-0'}, 'No citation'),
+          c && E.crop ? h('div', {class: 'cites mt-2'}, citeCell({crop: {state: E.crop.state, reason: E.crop.reason, url: E.crop.url}, viewer: E.crop.viewer, link: E.url, form: E.crop.form, filed: E.crop.filed, row: c.row_label, column: (c.column_label || '').replaceAll(' | ', ' '), cell: c.cell_text}, r.where)) : '',
+          h('div', {class: 'mt-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail')))),
+));
       const maxY = Math.max(1e-9, ...S.flatMap((s) => [Math.abs(s.value || 0), Math.abs(s.reference || 0)]));
-      cards.push(col(4, dtable('Every year, cell against tag', [{t: 'Year', k: 'period', w: '4rem'}, {t: 'Cell', num: 1, f: (s) => (s.value == null ? '—' : [bar(s.value, maxY), usd(s.value)])}, {t: 'Tag', num: 1, f: (s) => (s.reference == null ? h('span', {class: 'text-secondary'}, '—') : [bar(s.reference, maxY, 'ref'), usd(s.reference)])}, {t: 'Delta', num: 1, f: (s) => (s.reference == null || s.value == null ? '' : h('span', {class: s.label === 'unresolved' ? 'text-red' : ''}, signed({measure: 'usd'}, s.value - s.reference)))}, {t: '', f: (s) => checkBadge(s.label)}], S.map((s) => ({...s, _cls: s.period === r.period ? 'table-active' : null})))));
+      cards.push(col(4, dtable('By year', [{t: 'Year', k: 'period', w: '4rem'}, {t: 'Cited', num: 1, f: (s) => (s.value == null ? '—' : [bar(s.value, maxY), usd(s.value)])}, {t: 'SEC XBRL', num: 1, f: (s) => (s.reference == null ? h('span', {class: 'text-secondary'}, '—') : [bar(s.reference, maxY, 'ref'), usd(s.reference)])}, {t: 'Difference', num: 1, f: (s) => (s.reference == null || s.value == null ? '' : h('span', {class: s.label === 'unresolved' ? 'text-red' : ''}, signed({measure: 'usd'}, s.value - s.reference)))}, {t: '', f: (s) => checkBadge(s.label)}], S.map((s) => ({...s, _cls: s.period === r.period ? 'table-active' : null})))));
     } else if (r.cause === 'fact_changed') {
       const before = {what: E.release || 'Release', value: r.reference};
       const after = {what: 'Now', value: r.ours, _cls: 'fw-semibold'};
       const maxL = Math.max(1, Math.abs(before.value || 0), Math.abs(after.value || 0));
-      cards.push(col(5, dtable(`${r.period}: before and after`, [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Delta' ? signed(r, x.value) : [bar(x.value, maxL, x === before ? 'ref' : ''), usd(x.value)])}], [before, after, {what: 'Delta', value: r.delta, _cls: 'text-red'}])));
-      cards.push(col(3, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'The company\'s trail')));
+      cards.push(col(5, dtable(`${r.period} · Last release vs now`, [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Difference' ? signed(r, x.value) : [bar(x.value, maxL, x === before ? 'ref' : ''), usd(x.value)])}], [before, after, {what: 'Difference', value: r.delta, _cls: 'text-red'}])));
+      cards.push(col(3, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail')));
+    } else if (r.cause === 'value_missing') {
+      cards.push(col(5, dtable(`${r.period} · Not extracted`, [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.value == null ? '—' : usd(x.value))}], [{what: 'Cited', value: null}, {what: 'SEC XBRL', value: r.reference, _cls: 'fw-semibold'}])));
+      cards.push(col(3, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail')));
     } else if (r.cause === 'finding_unconfirmed' || r.cause === 'blocked') {
       if (r.measure) {
         const maxL = Math.max(1, Math.abs(r.ours || 0), Math.abs(r.reference || 0));
-        cards.push(col(4, dtable(r.cause_label.replace(/:.*$/, ''), [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Delta' ? [signed(r, x.value), E.kind === 'jump' && E.size != null ? h('span', {class: 'text-secondary small'}, ` ${Number(E.size).toFixed(1)}×`) : ''] : [bar(x.value, maxL, x.what === r.ours_label ? '' : 'ref'), usd(x.value)])}], [{what: r.ref_label || 'before', value: r.reference}, {what: r.ours_label || 'after', value: r.ours, _cls: 'fw-semibold'}, {what: 'Delta', value: r.delta, _cls: 'text-red'}])));
+        cards.push(col(4, dtable(r.cause_label, [{t: '', k: 'what'}, {t: 'Amount', num: 1, f: (x) => (x.what === 'Difference' ? [signed(r, x.value), E.kind === 'jump' && E.size != null ? h('span', {class: 'text-secondary small'}, ` ${Number(E.size).toFixed(1)}×`) : ''] : [bar(x.value, maxL, x.what === r.ours_label ? '' : 'ref'), usd(x.value)])}], [{what: r.ref_label || 'Before', value: r.reference}, {what: r.ours_label || 'After', value: r.ours, _cls: 'fw-semibold'}, {what: 'Difference', value: r.delta, _cls: 'text-red'}])));
       }
       if (S.length > 1) { const maxY = Math.max(1e-9, ...S.map((s) => Math.abs(s.value || 0))); cards.push(col(4, dtable(`${LABEL[r.field] || r.field} by year`, [{t: 'Year', k: 'period', w: '4rem'}, {t: 'Value', num: 1, f: (s) => (s.value == null ? '—' : [bar(s.value, maxY), usd(s.value)])}, {t: '', f: (s) => checkBadge(s.label)}], S.map((s) => ({...s, _cls: s.period === r.period ? 'table-active' : null}))))); }
-      cards.push(col(4, h('details', {class: 'words', open: true}, h('summary', {}, 'The finding, in words'), h('div', {class: 'small'}, E.message || '')), h('div', {class: 'mt-2'}, h('a', {href: `#data?view=grid&t=${r.ticker}&f=${r.field || 'capex'},capex`, class: 'small'}, 'The dataset, with every citation'))));
+      cards.push(col(4, h('details', {class: 'words', open: true}, h('summary', {}, 'Details'), h('div', {class: 'small'}, E.message || '')), h('div', {class: 'mt-2'}, h('a', {href: `#data?view=grid&t=${r.ticker}&f=${r.field || 'capex'},capex`, class: 'small'}, 'Open in Dataset'))));
     } else if (toConfirm(r)) {
       const p = r.resolution || {};
-      cards.push(col(8, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, `The run proposed: ${RES_LABEL[E.proposed] || E.proposed}`), h('span', {class: 'ms-2 small text-secondary'}, `${p.by || ''}, ${day(p.at)}`)),
-        h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0'}, E.message || p.reason || ''), h('p', {class: 'text-secondary small mt-2 mb-0'}, 'Confirm records the same state under your name; a different decision below overturns it. Either way the item leaves this group and the release gate G6 counts one fewer.')),
-        h('div', {class: 'card-footer py-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'The company\'s trail')))));
+      cards.push(col(8, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, `Proposed: ${RES_LABEL[E.proposed] || E.proposed}`), h('span', {class: 'ms-2 small text-secondary'}, `${p.by || ''}, ${day(p.at)}`)),
+        h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0'}, E.message || p.reason || '')),
+        h('div', {class: 'card-footer py-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail')))));
     } else if (r.cause === 'new_filing') {
-      cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-body'}, `${E.form} filed ${day(E.filed)}. `, h('a', {href: E.url, target: '_blank', rel: 'noopener'}, 'Open at the SEC')))));
+      cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-body'}, `${E.form} · Filed ${day(E.filed)} · `, h('a', {href: E.url, target: '_blank', rel: 'noopener'}, 'Open in EDGAR ↗')))));
     } else if (isAsset(r)) {
       const N = E.note;
       cards.push(col(8, h('div', {class: 'card'}, h('div', {class: 'card-body py-3'}, E.decision ? mappingDecision(E.decision, mappingActions(r)) : mappingActions(r),
-        E.rejected && E.rejected.length ? h('p', {class: 'small text-secondary mt-2 mb-0'}, `Rejected before: ${E.rejected.join(', ')}`) : '',
-        E.reproposed && E.reproposed.length ? h('p', {class: 'small text-orange mt-1 mb-0', title: 'T100: a proposal of a member you already rejected is never current; approve or edit to decide afresh'}, `Re-proposed after rejection: ${E.reproposed.join(', ')} (not shown as the proposal; your decision is needed)`) : ''))));
-      cards.push(col(4, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'The note’s words'), N ? h('span', {class: 'ms-2 small text-secondary'}, `${N.table_id}, filing ${N.accession}`) : ''),
-        h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0 small'}, N && N.before ? `…${N.before}` : 'The parsed note is not on disk for this clone; the category name is all the note’s words we have.'), h('div', {class: 'mt-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'The company’s trail'))))));
+        E.rejected && E.rejected.length ? h('p', {class: 'small text-secondary mt-2 mb-0'}, `Rejected: ${E.rejected.map(memberWords).join(', ')}`) : '',
+        E.reproposed && E.reproposed.length ? h('p', {class: 'small text-orange mt-1 mb-0'}, `Proposed again after rejection: ${E.reproposed.map(memberWords).join(', ')}`) : ''))));
+      cards.push(col(4, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Note wording')),
+        h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0 small'}, N && N.before ? `…${N.before}` : 'Note text unavailable'), h('div', {class: 'mt-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail'))))));
     }
     const decision = isAsset(r)
       ? ''
-      : h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, toConfirm(r) ? 'Overturn: your own decision' : 'Decision'), r.resolution && !toConfirm(r) ? h('span', {class: 'ms-2 small text-secondary'}, `${RES_LABEL[r.resolution.state]} by ${r.resolution.by}, ${day(r.resolution.at)}: ${r.resolution.reason}`) : ''), h('div', {class: 'card-body py-2'}, resolutionForm(r))));
-    const once = canEncode(r) ? h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Write it once'), h('span', {class: 'ms-2 small text-secondary'}, 'a decision closes this item; a rule or a definition closes the cause on every run')), h('div', {class: 'card-body py-2'}, encodePanel(r)))) : '';
+      : h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, toConfirm(r) ? 'Change decision' : 'Decision'), r.resolution && !toConfirm(r) ? h('span', {class: 'ms-2 small text-secondary'}, `${RES_LABEL[r.resolution.state]} · ${r.resolution.by} · ${day(r.resolution.at)} · ${r.resolution.reason}`) : ''), h('div', {class: 'card-body py-2'}, resolutionForm(r))));
+    const once = canEncode(r) ? h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Apply everywhere')), h('div', {class: 'card-body py-2'}, encodePanel(r)))) : '';
     return h('div', {class: 'row g-3'}, cards, decision, once);
   }
-  wrap.append(header, controls, bulk, ...(cards.length ? cards : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'Nothing open for this scope.'))]));
+  wrap.append(header, controls, bulk, ...(cards.length ? cards : [h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'No items to review'))]));
   if (trs.length) { cur = Math.max(0, trs.findIndex((t) => t.r.key === FOCUS_KEY)); paintCur(); if (FOCUS_KEY) { trs[cur].tr.focus({preventScroll: true}); trs[cur].tr.scrollIntoView({block: 'center'}); } FOCUS_KEY = null; }
 }

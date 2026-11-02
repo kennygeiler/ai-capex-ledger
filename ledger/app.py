@@ -281,11 +281,14 @@ def gold_view(ticker: str | None = None) -> dict:
             con = _con()
         except Busy:
             con = None
+        from . import crops  # the cited cells' crops, read the way the trail and Reconcile read them
+        cells = {}
         if con is not None:
             try:
                 vals = _rows(con, 'select ticker, field, period, value, label from "values" where ticker = ?', t)
                 facts = _rows(con, "select ticker, field, dimension, period, value, label from facts where ticker = ?", t)
                 ref = _rows(con, "select ticker, field, period, value from reference_values where ticker = ?", t)
+                cells = crops.cells(con, [c.get("extraction_id") for it in docs[t]["items"] for c in it.get("cites", [])])
             finally:
                 con.close()
             live = gold.live_index(vals, facts)
@@ -296,7 +299,7 @@ def gold_view(ticker: str | None = None) -> dict:
             row = live.get(it["id"])
             items.append({**it, "live": None if con is None else {"value": gold.num(row["value"]) if row else None, "label": row and row.get("label"), "gone": row is None,
                                                                  "open": gold.is_open(row, looked_up, xbrl, idx)},
-                          "cites": [{**c, "img": "/evidence/" + Path(c["screenshot"]).name if c.get("screenshot") else None} for c in it.get("cites", [])]})
+                          "cites": [{**c, "evidence": crops.brief(cells.get(c.get("extraction_id"))) if con is not None else None} for c in it.get("cites", [])]})
     return {"companies": [{"ticker": k, "release": d.get("release"), "seed": d.get("seed"), "note": d.get("note"), "rate": gold.error_rate(d["items"])} for k, d in docs.items()],
             "all": gold.error_rate([i for d in docs.values() for i in d["items"]]), "ticker": t or None, "items": items, "problems": problems,
             "verdicts": list(gold.VERDICTS), "live": live_ok}

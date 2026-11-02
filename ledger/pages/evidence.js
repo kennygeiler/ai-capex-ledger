@@ -1,15 +1,9 @@
 // ── Evidence: one cited cell, what we extracted next to the filing itself (a crop of the stored 10-K, the cell boxed),
 // or two readings of the same item from two filings side by side. The server computes every state (ledger/crops.py
-// state, /api/v1/evidence/<id>); the page renders it and never shows a crop that is not current. ────────────────────
-const EVIDENCE_STATE = {located: ['text-green', 'Cell located'], not_located: ['text-red', 'Cell not located'], stale: ['text-orange', 'Crop out of date'],
-  missing: ['text-orange', 'Crop file missing'], none: ['text-secondary', 'No crop yet']};
-const EV_FIELD = {revenue: 'Revenue', capex: 'Capital spending', opex: 'Operating costs', cost_of_revenue: 'Cost of revenue', operating_income: 'Operating income',
-  segment_capex: 'Capex by segment', segment_revenue: 'Revenue by segment', ppe_category: 'Property', finance_lease_liability: 'Finance leases', purchase_commitments: 'Purchase commitments'};
-
-const SEC_LINK = /^https:\/\/www\.sec\.gov\//;  // only an SEC address becomes a link
+// cells, /api/v1/evidence/<id>; the words are _shared.js CROP_STATE); the page never shows a crop that is not current. ────────────────────
 const evPeriod = (e) => (e.period_start ? `${day(e.period_start)} – ${day(e.period_end)}` : `${e.months ? e.months + ' months to ' : ''}${day(e.period_end)}`);
-const evWhat = (e) => [EV_FIELD[e.field] || e.field, e.dimension].filter(Boolean).join(' · ');
-const evState = (e) => { const [cls, word] = EVIDENCE_STATE[e.state] || EVIDENCE_STATE.none; return h('span', {class: cls + ' fw-medium'}, word); };
+const evWhat = (e) => [FIELDS[e.field] || e.field, e.dimension].filter(Boolean).join(' · ');
+const evState = (e) => { const [cls, word] = CROP_STATE[e.state] || CROP_STATE.none; return h('span', {class: cls + ' fw-medium'}, word); };
 const evKv = (k, v) => h('div', {class: 'ev-kv'}, h('div', {class: 'text-secondary small'}, k), h('div', {class: 'brk'}, v));
 
 function evFiling(e) {
@@ -18,8 +12,8 @@ function evFiling(e) {
     h('div', {class: 'hrow'}, evState(e), e.reason ? h('span', {class: 'text-secondary small'}, e.reason) : ''),
     e.state === 'located' && crop.url
       ? h('a', {href: e.viewer, target: '_blank', rel: 'noopener', title: 'Open in filing'}, h('img', {class: 'ev-crop', src: crop.url, alt: `${e.row_label}, ${e.column_label}: ${e.cell_text}, boxed in the filing`}))
-      : h('p', {class: 'msg'}, 'No crop'),
-    h('div', {class: 'small text-secondary'}, crop.at ? `Page shows ${crop.seen || '—'} · cropped ${when(crop.at)}` : '', crop.hidden ? ` · ${int(crop.hidden)} rows between header and cell folded` : ''),
+      : h('p', {class: 'msg'}, '—'),
+    h('div', {class: 'small text-secondary'}, crop.at ? `Page shows ${crop.seen || '—'} · cropped ${when(crop.at)}` : '', crop.hidden ? ` · ${int(crop.hidden)} rows folded` : ''),
     h('div', {class: 'hrow mt-1'}, h('a', {class: 'btn btn-primary btn-sm', href: e.viewer, target: '_blank', rel: 'noopener'}, 'Open in filing'),
       SEC_LINK.test(e.sec_url || '') ? h('a', {class: 'small', href: e.sec_url, target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗') : ''));
 }
@@ -38,7 +32,7 @@ async function evidencePage(view, arg, qs) {
   view.append(h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
       h('div', {class: 'col'}, h('h1', {class: 'page-title'}, evWhat(e), h('span', {class: 'text-secondary ms-2 fw-normal'}, e.ticker)),
         h('div', {class: 'text-secondary small mt-1'}, evPeriod(e))),
-      h('div', {class: 'col-auto'}, h('a', {href: `#proof/${e.ticker}`, class: 'small'}, 'Proof')))),
+      h('div', {class: 'col-auto'}, h('a', {href: `#proof/${e.ticker}`, class: 'small'}, 'Company trail')))),
     h('div', {class: 'ev-grid'}, h('section', {}, h('h2', {}, 'Extracted'), evExtracted(e)), h('section', {}, h('h2', {}, 'Filing'), evFiling(e))));
 }
 

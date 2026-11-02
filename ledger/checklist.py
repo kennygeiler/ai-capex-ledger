@@ -33,8 +33,8 @@ from .rules import load as load_rules
 VERSION = re.compile(r"^v\d+\.\d+\.\d+$")
 GOLDEN = store.ROOT / "reports" / "golden.json"
 TESTS = store.ROOT / "reports" / "tests.json"
-GATE_FIX = {"G1": "proof", "G4": "reconcile", "G5": "proof", "G6": "reconcile?cause=to_confirm"}  # the page that fixes each gate's items
-GATE_SHORT = {"G1": "Every filing read, no failure open", "G4": "No block without a decision", "G5": "Every value confirmed on the filing", "G6": "No decision left to confirm"}
+GATE_FIX = {"G1": "proof", "G4": "reconcile", "G5": "proof", "G6": "reconcile?cause=asset_types"}  # the page that fixes each gate's items
+GATE_SHORT = {"G1": "All filings read", "G4": "Every block has a decision", "G5": "Values confirmed on filing", "G6": "No proposal left to confirm"}
 
 
 def _rows(con, sql, p):
@@ -379,14 +379,14 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
         by_t = p["gates"][gid]
         n = sum(len(v) for v in by_t.values())
         detail = [{"ticker": t, "items": len(items), "example": items[0] if items else ""} for t, items in by_t.items()]
-        lines.append(_line(f"gate_{gid}", f"{gid}: {GATE_SHORT[gid]}", True, n, "pass" if n == 0 else "fail", GATE_FIX[gid],
+        lines.append(_line(f"gate_{gid}", GATE_SHORT[gid], True, n, "pass" if n == 0 else "fail", GATE_FIX[gid],
                            GATES[gid] + (f"; export the hand-check from reports/stage{stage}-validation.html to golden/stage{stage}-handcheck.json" if gid == "G5" and any(v == ["no hand-check file"] for v in by_t.values()) else ""), detail))
     # open and blocked in scope (T1): the one definition of open, from the Proof board
     blocked = sum(s["blocked"] for c in board["proven"] for s in c["stages"].values())
     open_ = board["open"] - blocked
     per_co = [{"ticker": c["ticker"], "open": c["open"] - sum(s["blocked"] for s in c["stages"].values()), "blocked": sum(s["blocked"] for s in c["stages"].values())} for c in board["proven"]]
-    lines.append(_line("open", "Open items in scope", True, open_, "pass" if open_ == 0 else "fail", "reconcile", "neither checked nor explained; needs a rule, a definition or a decision", [x for x in per_co if x["open"]]))
-    lines.append(_line("blocked", "Blocked items in scope", True, blocked, "pass" if blocked == 0 else "fail", "reconcile", "a block-severity rule or a person's decision refuses the release", [x for x in per_co if x["blocked"]]))
+    lines.append(_line("open", "Items to review", True, open_, "pass" if open_ == 0 else "fail", "reconcile", "Neither verified nor explained", [x for x in per_co if x["open"]]))
+    lines.append(_line("blocked", "Items blocking release", True, blocked, "pass" if blocked == 0 else "fail", "reconcile", "A block rule or a decision refuses the release", [x for x in per_co if x["blocked"]]))
     # completeness against the answer key (T81): an XBRL value with no released value and nothing open is a silent blank
     miss = proof.missing_from_dataset(con, SCOPE, decisions())
     lines.append(_line("complete", "Answer-key values missing from the dataset", True, len(miss), "pass" if not miss else "fail", "reconcile",

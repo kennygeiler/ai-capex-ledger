@@ -255,23 +255,48 @@ def viewer_url(e: dict) -> str:
     return f"/filing/{e['accession']}?" + urlencode({"t": e["table_id"], "row": e["row_label"], "col": e["column_label"], "cell": e["cell_text"]})
 
 
-def view(con, extraction_id: str, record: dict | None = None, img_dir: Path | None = None, root: Path | None = None) -> dict | None:
-    """/api/v1/evidence/<extraction_id>: the reading, its filing, the crop's url and state, the in-app viewer's url.
-    sec_url only when it is on www.sec.gov (it becomes a link)."""
+def _sec(url) -> str | None:
+    return url if isinstance(url, str) and url.startswith(SEC) else None
+
+
+def cells(con, ids: list[str], record: dict | None = None, img_dir: Path | None = None, root: Path | None = None) -> dict:
+    """{extraction_id: the cited cell as every page shows it}: the reading, its filing, the crop's state and reason
+    (`state`, the one function that decides it), the crop's url only while located, the in-app viewer's url, and the
+    sec.gov address only when it is on www.sec.gov. The trail, the gold set, Reconcile and /api/v1/evidence all read
+    this, so a cell never shows two states. An id with no extraction on file is left out."""
+    ids = [i for i in dict.fromkeys(ids or []) if i]
+    have = {r[0] for r in con.execute("select table_name from information_schema.tables").fetchall()}
+    if not ids or not {"extractions", "note_extractions", "documents"} <= have:  # a database without the cited cells: nothing to show, never a guess
+        return {}
     rows = _rows(con, f"""select x.*, d.cik, d.sha256 as document_sha256, d.filed, d.form, d.period as fiscal_period, d.url as sec_url
-                          from ({_STATEMENT} union all {_NOTE}) x join documents d using(accession) where x.extraction_id = ?""", [extraction_id])
-    if not rows:
-        return None
-    e = rows[0]
-    entry = (load() if record is None else record).get(extraction_id)
-    st = state(entry, e, e["document_sha256"], doc_path(e["cik"], e["accession"], root), img_dir)
-    sec = e["sec_url"] if isinstance(e["sec_url"], str) and e["sec_url"].startswith(SEC) else None
-    return {**{k: e[k] for k in ("extraction_id", "kind", "ticker", "field", "dimension", "period_start", "period_end", "months", "value", "scale",
-                                 "table_id", "row_label", "column_label", "cell_text", "accession", "filed", "form", "fiscal_period")},
-            "sec_url": sec, **st,
+                          from ({_STATEMENT} union all {_NOTE}) x join documents d using(accession) where x.extraction_id in (select unnest(?))""", [ids])
+    rec = load() if record is None else record
+    out = {}
+    for e in rows:
+        entry = rec.get(e["extraction_id"])
+        st = state(entry, e, e["document_sha256"], doc_path(e["cik"], e["accession"], root), img_dir)
+        out[e["extraction_id"]] = {
+            **{k: e[k] for k in ("extraction_id", "kind", "ticker", "field", "dimension", "period_start", "period_end", "months", "value", "scale",
+                                 "table_id", "row_label", "column_label", "cell_text", "accession", "form", "fiscal_period")},
+            "filed": str(e["filed"] or "")[:10] or None, "sec_url": _sec(e["sec_url"]), **st,
             "crop": entry and {"url": f"/evidence/crops/{entry['img']}" if st["state"] == "located" else None, "seen": entry.get("seen"),
                                "at": entry.get("at"), "code": entry.get("code"), "hidden": entry.get("hidden", 0)},
             "viewer": viewer_url(e)}
+    return out
+
+
+def brief(e: dict | None) -> dict:
+    """A cited cell (`cells`) as a page row shows it: state, reason, the crop url only while located, the in-app viewer,
+    sec.gov, the filing. No extraction on file is the state `none`, the same word everywhere."""
+    if not e:
+        return {"state": "none", "reason": "No crop", "url": None, "viewer": None, "sec_url": None, "filed": None, "form": None}
+    return {"state": e["state"], "reason": e["reason"], "url": (e.get("crop") or {}).get("url"), "viewer": e["viewer"], "sec_url": e["sec_url"],
+            "filed": e["filed"], "form": e["form"]}
+
+
+def view(con, extraction_id: str, record: dict | None = None, img_dir: Path | None = None, root: Path | None = None) -> dict | None:
+    """/api/v1/evidence/<extraction_id>: one cited cell (`cells`)."""
+    return cells(con, [extraction_id], record, img_dir, root).get(extraction_id)
 
 
 class Busy(RuntimeError):

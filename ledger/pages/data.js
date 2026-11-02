@@ -6,7 +6,6 @@ async function dataPage(view, qs) {
   const q = parseQ(qs || '');
   if (q.view !== 'grid') return rowsView(view, q);
   const [hqd, meta] = await Promise.all([hq(), api('/api/data?t=&f=')]);
-  const H = hqd.health[0];
   const all = Object.keys(meta.names).sort();
   const sel = {
     t: q.t ? q.t.split(',') : all.filter((t) => (!q.role || meta.roles[t] === q.role) && (!q.ind || meta.industries[t] === q.ind)),
@@ -45,10 +44,10 @@ async function dataPage(view, qs) {
     const p = r.prov;
     const bits = [h('h3', {style: 'margin:0 0 .4rem'}, `${d.names[r.ticker]}, ${FIELDS[r.field] || r.field}${r.dimension ? ', ' + r.dimension : ''}, ${r.period}`),
       h('div', {class: 'figs', style: 'margin-bottom:1rem'}, fig('Value', usd(r.value), r.range ? `${usd(r.range[0])} – ${usd(r.range[1])}` : KINDS[r.kind]),
-        fig('Check', r.check ? CHECK[r.check] || r.check : '—', `${p.table} table`)),
+        fig('Verification', r.check ? CHECK[r.check] || r.check : '—', `${p.table} table`)),
       p.inputs ? h('p', {class: 'muted small mono', style: 'margin-bottom:.6rem'}, p.inputs) : '',
-      p.xbrl != null ? h('p', {class: 'muted small'}, `XBRL: ${usd(p.xbrl)}`) : '',
-      p.url ? h('p', {class: 'small'}, h('a', {href: p.url, target: '_blank', rel: 'noopener'}, 'Open the Filing')) : ''];
+      p.xbrl != null ? h('p', {class: 'muted small'}, `SEC XBRL: ${usd(p.xbrl)}`) : '',
+      p.url ? h('p', {class: 'small'}, h('a', {href: p.url, target: '_blank', rel: 'noopener'}, 'Open in 10-K ↗')) : ''];
     const box = drawer(...bits);
     if (p.table === 'values') {  // the cell, the cleaning and the screenshot, from the company's own data
       const c = await api('/api/company?t=' + r.ticker);
@@ -59,17 +58,17 @@ async function dataPage(view, qs) {
 
   // the auditor's mark: traced (agrees with its source), untraced (checked, no source to agree with), differs
   function mark(r) {
-    let k = 'u', why = 'checked, no tagged counterpart to agree with';
-    if (r.check === 'agree') { k = 't'; why = 'agrees with the SEC’s XBRL'; }
-    else if (r.check === 'unresolved') { k = 'd'; why = 'differs from the SEC’s XBRL'; }
-    else if (r.check === 'definition_gap') { k = 't'; why = 'differs from the SEC’s tag by a definition on file'; }
-    const marks = [h('span', {class: 'mk ' + k, title: why, 'aria-label': why}, k === 'x' ? '✗' : k === 'd' ? '≠' : '✓')];
-    if (r.status) marks.push(h('span', {class: 'badge bg-' + ({fix_pending: 'yellow', accepted: 'green', explained: 'azure', blocks: 'red'})[r.status] + '-lt ms-1', title: r.status.replace('_', ' ')}, ({fix_pending: 'fix', accepted: 'ok', explained: 'expl', blocks: 'block'})[r.status]));
+    let k = 'u', why = 'Unverified · citation only';
+    if (r.check === 'agree') { k = 't'; why = 'Verified · matches SEC XBRL'; }
+    else if (r.check === 'unresolved') { k = 'd'; why = 'Differs from SEC XBRL'; }
+    else if (r.check === 'definition_gap') { k = 'u'; why = 'Unverified · definition'; }
+    const marks = [h('span', {class: 'mk ' + k, title: why, 'aria-label': why}, k === 'x' ? '✗' : k === 'd' ? '≠' : k === 'u' ? '○' : '✓')];
+    if (r.status) marks.push(h('span', {class: 'badge bg-' + ({fix_pending: 'yellow', accepted: 'green', explained: 'azure', blocks: 'red'})[r.status] + '-lt ms-1', title: ({fix_pending: 'Fix pending', accepted: 'Accepted', explained: 'Explained', blocks: 'Blocks release'})[r.status] || r.status}, ({fix_pending: 'Fix', accepted: 'Accepted', explained: 'Explained', blocks: 'Blocks release'})[r.status] || r.status));
     return marks;
   }
   // grid
   const grid = h('div', {class: 'scroll'}, h('table', {class: 'heat'},
-    h('thead', {}, h('tr', {}, h('th', {}, 'Entity'), sel.f.length > 1 ? h('th', {}, 'Field') : '', list.some((s) => s.dimension) ? h('th', {}, 'Segment / category') : '', years.map((y) => h('th', {class: 'n'}, y.slice(2))))),
+    h('thead', {}, h('tr', {}, h('th', {}, 'Company'), sel.f.length > 1 ? h('th', {}, 'Field') : '', list.some((s) => s.dimension) ? h('th', {}, 'Segment or category') : '', years.map((y) => h('th', {class: 'n'}, y.slice(2))))),
     h('tbody', {}, list.map((s) => h('tr', {}, h('td', {}, h('a', {href: `#data?view=grid&t=${s.ticker}&f=${sel.f.join(',')}`}, d.names[s.ticker]), ' ', h('span', {class: 'muted small'}, s.ticker)),
       sel.f.length > 1 ? h('td', {class: 'muted small'}, FIELDS[s.field] || s.field) : '', list.some((x) => x.dimension) ? h('td', {class: 'small'}, s.dimension || '') : '',
       years.map((y) => {
@@ -94,7 +93,7 @@ async function dataPage(view, qs) {
 
   view.append(h('div', {class: 'stack', style: 'gap:1rem'},
     h('div', {class: 'hrow'}, dataSwitch(q, 'grid'), fieldSel, groupSel, kindSel, h('button', {type: 'button', class: 'btn', onclick: exportCsv}, 'Export CSV'),
-      h('span', {class: 'muted small'}, `${list.length} rows in USD. ✓ traced to the SEC's data, ≠ differs from it, fix / ok / expl: a person’s decision.`)),
+      h('span', {class: 'muted small'}, `${list.length} rows · USD · ✓ Verified · ○ Unverified · ≠ Differs from SEC XBRL`)),
     grid));
 }
 
@@ -116,7 +115,7 @@ async function rowsView(view, q) {
   const search = h('input', {type: 'text', placeholder: 'Find in rows', 'aria-label': 'Find in rows', style: 'width:16rem'});
   const count = h('span', {class: 'text-secondary small'});
   const head = h('div', {class: 'page-header mb-3'}, h('div', {class: 'row align-items-center g-2'},
-    h('div', {class: 'col'}, h('div', {class: 'hrow mb-2'}, dataSwitch({...q, list: name, ticker}, 'rows'), h('h2', {class: 'm-0'}, TABLES.find(([k]) => k === name)[1])), h('div', {class: 'text-secondary small'}, 'Raw rows, as /api/v1/', name, ' returns them and as the release file carries them. Values in USD. Click a row for every field.')),
+    h('div', {class: 'col'}, h('div', {class: 'hrow mb-2'}, dataSwitch({...q, list: name, ticker}, 'rows'), h('h2', {class: 'm-0'}, TABLES.find(([k]) => k === name)[1])), h('div', {class: 'text-secondary small'}, `${int(d.rows.length)} rows · USD`)),
     h('div', {class: 'col-auto'}, h('a', {href: csv, class: 'btn btn-outline-secondary btn-sm'}, 'CSV'), ' ', h('a', {href: `/api/v1/${name}` + (qs ? `?${qs}` : ''), target: '_blank', rel: 'noopener', class: 'btn btn-outline-secondary btn-sm'}, 'JSON'))));
   const valueSel = name === 'taxonomy' ? h('select', {'aria-label': 'Rows with a value', onchange: (e) => setQ({has_value: e.target.value})},
     [['', 'Every row'], ['true', 'With a value'], ['false', 'Without a value']].map(([v, t]) => h('option', {value: v, selected: v === hasValue || null}, t))) : '';
@@ -129,7 +128,7 @@ async function rowsView(view, q) {
   const draw = () => {
     const needle = search.value.trim().toLowerCase();
     const rows = needle ? d.rows.filter((r) => JSON.stringify(r).toLowerCase().includes(needle)) : d.rows;
-    count.textContent = `${int(rows.length)} rows${rows.length !== d.rows.length ? ` of ${int(d.rows.length)}` : ''}, ${cols.length} columns`;
+    count.textContent = `${int(rows.length)} rows${rows.length !== d.rows.length ? ` of ${int(d.rows.length)}` : ''}`;
     const tbl = table(tcols, rows, {detail}); tbl.classList.add('raw');
     holder.replaceChildren(rows.length ? tbl : h('div', {class: 'card'}, h('div', {class: 'card-body text-secondary'}, 'No rows.')));
   };

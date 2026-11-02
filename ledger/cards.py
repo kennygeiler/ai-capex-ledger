@@ -1,11 +1,13 @@
 """Evidence cards for a company's trail: for every item, in plain words, what we found, where it is in the filing (a
-link that opens the filing at that row, and the screenshot of the rendered re-read when there is one), and how we know.
+link that opens the stored filing at that cell, and the crop of the cell with its state, crops.cells), and how we know.
 
 The card is presentation only. It never changes an item's state: `status.state` decides checked / explained / open,
 and the card says the same thing in a sentence a person can check by clicking. The internal words (`by`, `located`,
 `twin`, `reason`) stay in the API for the tests; the page shows the card.
 
-    card = {"found": str | None, "where": [{"label", "link", "shot"}], "how": {"tone": ok|corroborated|info|wait|bad, "text": str}}
+    card = {"found": str | None, "where": [{"label", "link", ...the cited cell (crops.cells): viewer, crop state, form, filed}],
+            "how": {"tone": ok|corroborated|info|wait|bad, "text": one short line, "detail": the long form or None},
+            "compare": {"a", "b"} extraction ids when two readings differ}
 
 The tones are the ladder (T92): ok, verified against SEC XBRL (twin); corroborated, a tie to the filing's tagged total or
 the same figure in two or more filings; info, citation only (or an explanation on file); wait and bad, needs review.
@@ -13,9 +15,9 @@ the same figure in two or more filings; info, citation only (or an explanation o
 from __future__ import annotations
 
 import json
-from pathlib import Path
+import re
 
-from . import evidence, status, store
+from . import status, store
 from .definitions import load as load_definitions
 from .taxonomy import deep_link, quote_link
 
@@ -45,81 +47,100 @@ def _rows(con, sql, *p):
     return [dict(zip([c[0] for c in cur.description], r)) for r in cur.fetchall()]
 
 
-def _shot(ev: dict, extraction_id: str, cell_text: str | None) -> str | None:
-    """The screenshot of the rendered re-read, served at /evidence/<file>, only while it shows the current cell."""
-    e = ev.get(extraction_id) or {}
-    if not e.get("img") or e.get("cell") not in (None, cell_text):
-        return None
-    return "/evidence/" + Path(e["img"]).name
+def member_label(member: str | None) -> str:
+    """A us-gaap member as words: us-gaap:BuildingAndBuildingImprovementsMember -> Building and building improvements."""
+    if not member:
+        return ""
+    m = re.sub(r"Member$", "", member.split(":")[-1])
+    words = re.sub(r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", " ", m).split()
+    return " ".join([words[0]] + [w if w.isupper() and len(w) > 1 else w.lower() for w in words[1:]]) if words else member
 
 
 def _cell(c: dict, docs: dict, ev: dict) -> dict:
+    """One cited cell as the trail shows it: the filing (form, filed), the cell, the in-app viewer, the crop's state
+    from crops.cells (the one reading the gold set, Reconcile and /api/v1/evidence share) and the sec.gov address."""
     d = docs.get(c["accession"]) or {}
     filed = str(d.get("filed") or "")[:10]
     col = " ".join((c.get("column_label") or "").replace("|", " ").split())
-    label = f"10-K {filed} · “{c['row_label']}” · {col} · {c['cell_text']}"
-    return {"label": label, "link": deep_link(d.get("url"), c.get("row_label"), c.get("cell_text")),
-            "shot": _shot(ev, c["extraction_id"], c.get("cell_text"))}
+    from .crops import brief
+    b = brief(ev.get(c["extraction_id"]))
+    return {"label": f"{d.get('form') or '10-K'} {filed}", "form": d.get("form") or "10-K", "filed": filed or None, "extraction_id": c["extraction_id"],
+            "row": c["row_label"], "column": col, "cell": c["cell_text"], "link": deep_link(d.get("url"), c.get("row_label"), c.get("cell_text")),
+            "viewer": b["viewer"], "crop": {k: b[k] for k in ("state", "reason", "url")}}
+
+
+RULE_TEXT = {"part_year": "Part-year amount", "restated_between_filings": "Restated in a later 10-K", "amendment_without_statements": "Amendment without statements",
+             "program_words": "Program, not annual guidance"}
 
 
 def _how(it: dict, name: str, defs: dict, found_value=None) -> dict:
-    """One plain sentence for the item's state and the evidence behind it."""
+    """The item's state and its evidence: one short line (`text`) and, when there is more, the long form (`detail`)."""
     by, state = it.get("by") or "", it.get("state")
     ref = it.get("ref") or {}
     if state in ("open", "blocked"):
-        text = it.get("needs") or it.get("reason") or "Needs a person."
+        more = it.get("detail") or it.get("reason") or None
         if by == "label:to_confirm":
-            text = "Proposed category. Review in Reconcile."
-        elif by == "label:not_extracted":
-            text = "In SEC XBRL, not extracted. Re-read required."
-        elif by == "rule:fact_readings_differ" and len(ref.get("readings") or []) >= 2:
-            text = "Readings differ: " + " vs ".join(f"{money(r.get('value'))} ({str(r.get('filed') or '')[:10]})" for r in ref["readings"])
-        elif by.startswith("rule:") and by.endswith("_tie"):
-            text = f"Does not tie to the reported total: {it.get('detail') or it.get('reason') or ''}".rstrip(": ")
-        return {"tone": "wait" if by == "label:to_confirm" else "bad", "text": text}
+            return {"tone": "wait", "text": "Proposed category. Review in Reconcile.", "detail": None}
+        if by == "label:not_extracted":
+            return {"tone": "bad", "text": "In SEC XBRL, not extracted. Re-read required.", "detail": None}
+        rs = ref.get("readings") or []
+        if by == "rule:fact_readings_differ" and len(rs) >= 2:
+            text = "Readings differ: " + " → ".join(money(r.get("value")) for r in (rs[0], rs[-1]))
+            return {"tone": "bad", "text": text, "detail": " · ".join(f"{r.get('form') or '10-K'} filed {str(r.get('filed') or '')[:10]}: {money(r.get('value'))}" for r in rs)}
+        if by.startswith("rule:") and by.endswith("_tie"):
+            g = ref.get("tie_gap")
+            if not g:
+                return {"tone": "bad", "text": "Does not tie to reported total", "detail": more}
+            text = f"Does not tie · gap {money(abs(g['gap']))}"
+            return {"tone": "bad", "text": text, "detail": f"Parts {money(g['sum'])} · total {money(g['total'])} (SEC XBRL) · {g['parts']} parts · tolerance ±{money(g['tolerance'])}"}
+        text = "Decide in Reconcile"
+        return {"tone": "bad", "text": text, "detail": more}
     if by == "xbrl":
         same = found_value is None or ref.get("reference") == found_value
-        return {"tone": "ok", "text": f"Matches SEC XBRL: {money(ref.get('reference'))}" if same
-                else f"Matches SEC XBRL within rounding: {money(ref.get('reference'))}"}
+        text = f"Matches SEC XBRL: {money(ref.get('reference'))}" if same else f"Matches SEC XBRL within rounding: {money(ref.get('reference'))}"
+        return {"tone": "ok", "text": text, "detail": None}
     if by.startswith("rule:") and by.endswith("_tie") and isinstance(ref.get("tie"), dict):
         t = ref["tie"]
         parts = t.get("parts") or [{"dimension": d} for d in t.get("dimensions") or []]
         members = "; ".join(f"{p.get('dimension') or 'total'} {money(p['value'])}" if p.get("value") is not None else (p.get("dimension") or "") for p in parts)
-        return {"tone": "corroborated", "text": f"Group sums to reported total: {money(t.get('total'))} (SEC XBRL) · tolerance ±{money(t.get('tolerance'))} · {len(parts)} parts"
-                + (f" ({members})" if members else "")}
+        text = f"Ties to reported total: {money(t.get('total'))} (SEC XBRL)"
+        return {"tone": "corroborated", "text": text, "detail": f"{len(parts)} parts · tolerance ±{money(t.get('tolerance'))}" + (f" · {members}" if members else "")}
     if by.startswith("reading:"):
         n = len({r.get("accession") for r in ref.get("readings") or []})
-        return {"tone": "corroborated", "text": f"Confirmed in {n} filings"}
+        return {"tone": "corroborated", "text": f"Confirmed in {n} filings", "detail": None}
     if by == "quote":
-        return {"tone": "ok", "text": "Quote matches source"}
+        return {"tone": "ok", "text": "Quote matches source", "detail": None}
     if by == "located":
-        return {"tone": "ok", "text": "Income statement and cash-flow statement located"}
+        return {"tone": "ok", "text": "Statements located", "detail": None}
     if by == "gate":
-        return {"tone": "ok", "text": "No blocking items"}
+        return {"tone": "ok", "text": "No blocking items", "detail": None}
     if by == "mapping:filer_tag":
         tag = ref.get("filer_tag") or {}
-        return {"tone": "ok", "text": f"Matches company's own tag: {tag.get('member') or ''}".rstrip(": ")}
+        return {"tone": "ok", "text": f"Matches company's own tag: {member_label(tag.get('member'))}".rstrip(": "), "detail": None}
     if by.startswith("mapping:"):
-        return {"tone": "ok", "text": f"Confirmed: {by.split(':', 1)[1]}"}
+        return {"tone": "ok", "text": f"Confirmed: {member_label(by.split(':', 1)[1])}", "detail": None}
     if by == "label:no_reference":
-        return {"tone": "info", "text": "No external source. Citation verified only."}
+        return {"tone": "info", "text": "Citation only", "detail": None}
     if by == "label:not_reported":
-        return {"tone": "info", "text": "Not reported (none in SEC XBRL)"}
+        return {"tone": "info", "text": "Not reported · none in SEC XBRL", "detail": None}
     if by.startswith("definition:"):
         why = ((defs or {}).get(by.split(":", 1)[1]) or {}).get("why") if isinstance(defs, dict) else None
-        return {"tone": "info", "text": "Definition differs from SEC XBRL" + (f": {why}" if why else "")}
+        return {"tone": "info", "text": "Definition differs from SEC XBRL", "detail": why or None}
     if by.startswith("resolution:"):
-        return {"tone": "info", "text": f"Reviewer decision: {it.get('reason') or ''}".strip(": ")}
+        return {"tone": "info", "text": "Decision on file", "detail": it.get("reason") or None}
     if by.startswith("rule:"):
-        return {"tone": "info", "text": f"Rule: {by.split(':', 1)[1].replace('_', ' ')}"}
-    return {"tone": "info", "text": it.get("reason") or ""}
+        rid = by.split(":", 1)[1]
+        text = RULE_TEXT.get(rid) or rid.replace("_", " ").capitalize()
+        return {"tone": "info", "text": text, "detail": None}
+    return {"tone": "info", "text": it.get("reason") or "", "detail": None}
 
 
 def add(con, trail: dict) -> dict:
     """Give every item of `trail` (proof.company's result) a `card`, in place, and return the trail."""
     t, name = trail["ticker"], trail.get("name") or trail["ticker"]
     docs = {d["accession"]: d for d in _rows(con, "select accession, form, period, filed, url from documents where ticker = ?", t)}
-    ev = evidence.load_all()
+    from . import crops
+    ev = crops.cells(con, [r[0] for r in con.execute("select extraction_id from extractions where ticker = ? union all select extraction_id from note_extractions where ticker = ?", [t, t]).fetchall()])
     defs = (load_definitions() or {}).get(t, {})
     stages = trail["stages"]
 
@@ -127,13 +148,13 @@ def add(con, trail: dict) -> dict:
     for it in stages.get("ingest", {}).get("all", []):
         acc = (it.get("ref") or {}).get("accession")
         d = docs.get(acc) or {}
-        it["card"] = {"found": f"{d.get('form', '10-K')} · FY ending {d.get('period')} · filed {str(d.get('filed') or '')[:10]}" if d else None,
-                      "where": [{"label": "sec.gov", "link": d.get("url"), "shot": None}] if d.get("url") else [],
+        it["card"] = {"found": None,
+                      "where": [{"label": f"{d.get('form') or '10-K'} filed {str(d.get('filed') or '')[:10]}", "link": d.get("url"), "viewer": f"/filing/{acc}"}] if d else [],
                       "how": _how(it, name, defs)}
 
     # main numbers: the value, the cells it was read from, the SEC's copy
     vals = {(v["field"], v["period"]): v for v in _rows(con, 'select field, period, value, extraction_ids from "values" where ticker = ?', t)}
-    ext = {e["extraction_id"]: e for e in _rows(con, "select extraction_id, accession, field, row_label, column_label, cell_text from extractions where ticker = ?", t)}
+    ext = {e["extraction_id"]: e for e in _rows(con, "select extraction_id, accession, field, table_id, row_label, column_label, cell_text from extractions where ticker = ?", t)}
     for it in stages.get("values", {}).get("all", []):
         ref = it.get("ref") or {}
         v = vals.get((ref.get("field"), ref.get("period")))
@@ -142,29 +163,34 @@ def add(con, trail: dict) -> dict:
             continue
         ids = [i for i in (v.get("extraction_ids") or "").split(",") if i in ext]
         cells = [_cell(ext[i], docs, ev) for i in ids]
-        found = money(v["value"]) if v["value"] is not None else "nothing (blank)"
-        if ref.get("field") == "opex" and len(ids) > 1:
-            found += " (revenue − cost of revenue − operating income)"
-        it["card"] = {"found": found, "where": cells, "how": _how(it, name, defs, v["value"])}
+        found = money(v["value"]) if v["value"] is not None else "Not reported"
+        it["card"] = {"found": found, "where": cells, "how": _how(it, name, defs, v["value"]),
+                      "formula": "Revenue − cost of revenue − operating income" if ref.get("field") == "opex" and len(ids) > 1 else None}
 
     # footnote numbers: the fact, its cells in the notes
     facts = {(f["field"], f["dimension"] or "", f["period"]): f for f in _rows(con, "select field, dimension, period, value, extraction_ids from facts where ticker = ?", t)}
-    notes = {e["extraction_id"]: e for e in _rows(con, "select extraction_id, accession, row_label, column_label, cell_text from note_extractions where ticker = ?", t)}
+    notes = {e["extraction_id"]: e for e in _rows(con, "select extraction_id, accession, table_id, row_label, column_label, cell_text from note_extractions where ticker = ?", t)}
     for it in stages.get("facts", {}).get("all", []):
         ref = it.get("ref") or {}
         f = facts.get((ref.get("field"), ref.get("dimension") or "", ref.get("period")))
         if not f:
-            it["card"] = {"found": None, "where": [], "how": _how(it, name, defs)}
+            d = docs.get(ref.get("accession")) or {}  # a finding on a group of parts (a tie): the filing it judged, opened whole
+            where = [{"label": f"{d.get('form') or '10-K'} {str(d.get('filed') or '')[:10]}", "form": d.get("form"), "filed": str(d.get("filed") or "")[:10] or None,
+                      "link": d.get("url"), "viewer": f"/filing/{ref['accession']}"}] if d else []
+            it["card"] = {"found": None, "where": where, "how": _how(it, name, defs)}
             continue
         ids = [i for i in (f.get("extraction_ids") or "").split(",") if i in notes]
-        it["card"] = {"found": money(f["value"]), "where": [_cell(notes[i], docs, ev) for i in ids], "how": _how(it, name, defs, f["value"])}
+        where = sorted((_cell(notes[i], docs, ev) for i in ids), key=lambda w: (w["filed"] or "", w["extraction_id"]))
+        it["card"] = {"found": money(f["value"]), "where": where, "how": _how(it, name, defs, f["value"])}
+        if it.get("by") == "rule:fact_readings_differ" and len(where) >= 2:  # the oldest and the newest reading, side by side on #evidence/compare
+            it["card"]["compare"] = {"a": where[0]["extraction_id"], "b": where[-1]["extraction_id"]}
 
     # AI quotes: the sentence, opened at its words
     stm = {s["statement_id"]: s for s in _rows(con, "select s.statement_id, s.quote, t.url, t.kind, t.date from ai_statements s join texts t on t.text_id = s.text_id where s.ticker = ?", t)}
     for it in stages.get("statements", {}).get("all", []):
         s = stm.get((it.get("ref") or {}).get("statement_id"))
         it["card"] = {"found": f"“{s['quote']}”" if s else None,
-                      "where": [{"label": f"{(s['kind'] or 'source').replace('_', ' ')} dated {str(s['date'] or '')[:10]}", "link": quote_link(s["url"], s["quote"]), "shot": None}] if s and s.get("url") else [],
+                      "where": [{"label": f"{(s['kind'] or 'source').replace('_', ' ').capitalize()} · {str(s['date'] or '')[:10]}", "link": quote_link(s["url"], s["quote"])}] if s and s.get("url") else [],
                       "how": _how(it, name, defs)}
 
     # category labels: the company's label and the proposed standard category, and the decision card (ledger/mapcard.py,
@@ -177,8 +203,8 @@ def add(con, trail: dict) -> dict:
     for it in mapping_items:
         e = entries.get(it.get("name")) or {}
         member = e.get("standard_type")
-        found = f"“{it.get('name')}” → {member}" if member else f"“{it.get('name')}” → unmapped"
-        where = [{"label": f"Basis: {e['evidence']}", "link": None, "shot": None}] if e.get("evidence") else []
+        found = f"“{it.get('name')}” → {member_label(member)}" if member else f"“{it.get('name')}” → Unmapped"
+        where = [{"label": f"Basis: {e['evidence']}", "link": None}] if e.get("evidence") else []
         it["card"] = {"found": found, "where": where, "how": _how(it, name, defs)}
         it["decision"] = dec.get(it.get("name"))
 
@@ -189,7 +215,7 @@ def add(con, trail: dict) -> dict:
         ref = it.get("ref") or {}
         r = planned.get((ref.get("category"), ref.get("fiscal_year"), ref.get("reported_name")))
         it["card"] = {"found": f"“{r['quote']}”" if r and r.get("quote") else None,
-                      "where": [{"label": "The source document", "link": r.get("source_url"), "shot": None}] if r and r.get("source_url") else [],
+                      "where": [{"label": "Source", "link": r.get("source_url")}] if r and r.get("source_url") else [],
                       "how": _how(it, name, defs)}
 
     # why you are here: the newest report read, and any report the SEC has that the ledger has not read yet

@@ -9,13 +9,13 @@ from .config import industry
 from .rules import explain_key, explained
 
 EVIDENCE = store.ROOT / "reports" / "evidence"
-CAUSES = {"fact_differs": "Fact differs from the filing's XBRL tag", "fact_changed": "Fact changed since the signed release", "blocked": "Blocked: a definition is missing",
-          "finding_unconfirmed": "SEC data can't confirm a value", "new_filing": "New filing at the SEC", "value_missing": "Not extracted: the filing tags a value no cell was read for"}
-REF_LABEL = {"fact_differs": "XBRL tag", "fact_changed": "signed release", "blocked": None, "finding_unconfirmed": "XBRL tag", "new_filing": None, "value_missing": "XBRL tag"}
-
-
-def _png(extraction_id: str | None) -> str | None:
-    return f"/evidence/{extraction_id}.png" if extraction_id and (EVIDENCE / f"{extraction_id}.png").exists() else None
+CAUSES = {"fact_differs": "Differs from SEC XBRL", "fact_changed": "Changed since last release", "blocked": "Blocks release",
+          "finding_unconfirmed": "Rule findings", "new_filing": "New SEC filing", "value_missing": "Not extracted"}
+REF_LABEL = {"fact_differs": "SEC XBRL", "fact_changed": "Last release", "blocked": None, "finding_unconfirmed": "SEC XBRL", "new_filing": None, "value_missing": "SEC XBRL"}
+# a rule's finding by the rule that fired (the queue carries kind "other" and the rule id for the note rules), one short label each
+FINDING_LABEL = {"restated": "Restated", "jump": "Large year-over-year change", "row_switch": "Line renamed", "capex_intensity": "Capex high vs revenue", "opex_over_revenue": "Opex above revenue",
+                 "segment_capex_tie": "Does not tie to reported total", "segment_revenue_tie": "Does not tie to reported total", "ppe_categories_tie": "Does not tie to reported total",
+                 "fact_readings_differ": "Readings differ across filings"}
 
 
 def xbrl_name(con, accession: str, period_end: str | None, value) -> dict | None:
@@ -164,7 +164,7 @@ def to_confirm(tickers: list[str] | None, names: dict) -> list[dict]:
         where = " ".join(x for x in (k["field"], k["dimension"], k["period"], f"({k['rule_id']})" if k["rule_id"] else "") if x)
         if tickers is not None and ticker not in tickers:
             continue
-        out.append({"key": r["key"], "hash": r["hash"], "cause": TO_CONFIRM, "cause_label": "To confirm: a decision a run made, for Kenny Geiler to confirm or overturn", "state": "to confirm",
+        out.append({"key": r["key"], "hash": r["hash"], "cause": TO_CONFIRM, "cause_label": "To confirm", "state": "to confirm",
                     "by": f"resolution:{r.get('id', '')}", "reason": r["reason"], "open": False, "ticker": ticker, "name": names.get(ticker, ticker), "layer": industry(ticker),
                     "field": None, "period": None, "where": f"{kind.replace('_', ' ')}: {where}", "measure": None, "ours": None, "ours_label": None, "reference": None, "ref_label": None,
                     "relation": "eq", "delta": None, "delta_pct": None, "dollars": 0, "new": False, "action": "confirm", "impact": "the release refuses while it is unconfirmed",
@@ -196,7 +196,7 @@ def asset_types(con, tickers: list[str] | None, names: dict) -> list[dict]:
         D = dec.get(p["ticker"], {}).get(p["reported_name"])
         st = (D or {}).get("state") or status.of_mapping(None)  # the card's state: status.of_mapping with the company's tag, as Proof reads it
         st = {"state": st["state"], "by": st["by"], "reason": st.get("reason") or ""}
-        label = {"to_confirm": "Asset types: a mapping no person confirmed", "verified": "Asset types: matches the company's own tag"}.get(p["kind"], "Asset types: a reported PP&E category with no us-gaap member")
+        label = {"to_confirm": "Proposed", "verified": "Matches company's own tag"}.get(p["kind"], "Unmapped")
         from .config import SCOPE
         if p["ticker"] not in SCOPE:
             impact = "blocks nothing until the company is in scope (config.SCOPE)"
@@ -206,7 +206,7 @@ def asset_types(con, tickers: list[str] | None, names: dict) -> list[dict]:
             impact = "the release refuses (G6) until a person confirms, edits or rejects it"
         else:
             impact = "the derived PP&E rows stay unmapped; the Release checklist requires 0"
-        out.append({"key": f"{ASSET_TYPES}|{p['ticker']}|{p['reported_name']}", "hash": "", "cause": ASSET_TYPES, "cause_label": "Asset types: a reported PP&E category no person has mapped and confirmed", "state": st["state"],
+        out.append({"key": f"{ASSET_TYPES}|{p['ticker']}|{p['reported_name']}", "hash": "", "cause": ASSET_TYPES, "cause_label": "Category mapping", "state": st["state"],
                     "by": st["by"], "reason": st["reason"], "open": status.is_open(st), "ticker": p["ticker"], "name": names.get(p["ticker"], p["ticker"]), "layer": industry(p["ticker"]),
                     "field": None, "period": None, "where": p["reported_name"], "measure": None, "ours": None, "ours_label": None, "reference": None, "ref_label": None,
                     "relation": "eq", "delta": None, "delta_pct": None, "dollars": 0, "new": False, "action": "mapping", "impact": impact, "resolution": None,
@@ -238,23 +238,25 @@ def items(con, flow: dict) -> dict:
                "evidence": {}}
         if q["kind"] == "fact_differs":
             c = d.get("cite") or {}
-            row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": d.get("value"), "reference": _num(d.get("reference")), "ours_label": "cited cell"}
+            row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": d.get("value"), "reference": _num(d.get("reference")), "ours_label": "Cited"}
             row["series"] = _fact_series(con, q["ticker"], d.get("field"), d.get("dimension") or "")
             pe = con.execute("select period_end from facts where ticker = ? and field = ? and coalesce(dimension, '') = ? and period = ?", [q["ticker"], d.get("field"), d.get("dimension") or "", d.get("period")]).fetchone()
-            row["evidence"] = {"cell": {k: c.get(k) for k in ("table_id", "row_label", "column_label", "cell_text", "accession")} if c else None, "png": _png(c.get("extraction_id")),
+            from .crops import brief, cells
+            row["evidence"] = {"cell": {k: c.get(k) for k in ("table_id", "row_label", "column_label", "cell_text", "accession")} if c else None,
+                               "crop": brief(cells(con, [c["extraction_id"]]).get(c["extraction_id"])) if c.get("extraction_id") else None,
                                "xbrl": xbrl_name(con, c.get("accession") or "", pe[0] if pe else None, d.get("reference")),
                                "url": d.get("url"), "release_value": d.get("release_value"), "dimension": d.get("dimension")}
         elif q["kind"] == "fact_changed":
-            row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": d.get("value"), "reference": d.get("release_value"), "ours_label": "now"}
+            row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": d.get("value"), "reference": d.get("release_value"), "ours_label": "Now"}
             row["evidence"] = {"dimension": d.get("dimension"), "release": rel}
         elif q["kind"] == "finding_unconfirmed":  # a rule's finding (restated, jump, row_switch, ...) the SEC's data can't confirm
             k = d.get("kind")
+            lk = d.get("rule") if k == "other" and d.get("rule") else k  # the label names the rule that fired; the state still reads kind, as Proof does
             numeric = k in ("restated", "jump", "opex_over_revenue") and d.get("before") is not None and d.get("after") is not None
             row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd" if numeric else None, "ours": d.get("after") if numeric else None,
-                    "reference": d.get("before") if numeric else None, "ours_label": {"restated": "newest filing", "jump": "this year", "opex_over_revenue": "opex"}.get(k),
-                    "ref_label": {"restated": "earlier filing", "jump": "year before", "opex_over_revenue": "revenue"}.get(k),
-                    "cause_label": {"restated": "Restated: the SEC's data can't confirm", "jump": "Big move: the SEC's data can't confirm", "row_switch": "Line renamed across filings",
-                                    "capex_intensity": "Capex high against revenue", "opex_over_revenue": "Opex above revenue"}.get(k, row["cause_label"])}
+                    "reference": d.get("before") if numeric else None, "ours_label": {"restated": "Latest 10-K", "jump": "This year", "opex_over_revenue": "Opex"}.get(k),
+                    "ref_label": {"restated": "Earlier 10-K", "jump": "Prior year", "opex_over_revenue": "Revenue"}.get(k),
+                    "cause_label": FINDING_LABEL.get(lk, row["cause_label"])}
             if d.get("field"):
                 row["series"] = _value_series(con, q["ticker"], d["field"])
             row["evidence"] = {"message": d.get("message"), "kind": k, "size": d.get("size")}
@@ -262,7 +264,7 @@ def items(con, flow: dict) -> dict:
             row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd" if d.get("value") is not None else None, "ours": d.get("value")}
             row["evidence"] = {"message": d.get("message"), "rule": d.get("rule")}
         elif q["kind"] == "value_missing":
-            row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": None, "reference": _num(d.get("reference")), "ours_label": "no cell read"}
+            row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": None, "reference": _num(d.get("reference")), "ours_label": "Not extracted"}
             if d.get("field"):
                 row["series"] = _value_series(con, q["ticker"], d["field"])
             row["evidence"] = {"label": d.get("label"), "reference": d.get("reference"), "period_end": d.get("period_end")}
@@ -283,7 +285,7 @@ def items(con, flow: dict) -> dict:
     open_ = [r for r in rows if r["open"]]
     by_cause = {}
     for r in confirm + rows:
-        by_cause.setdefault(r["cause"], {"cause": r["cause"], "label": r["cause_label"], "rows": 0, "open": 0, "dollars": 0})
+        by_cause.setdefault(r["cause"], {"cause": r["cause"], "label": CAUSES.get(r["cause"]) or r["cause_label"], "rows": 0, "open": 0, "dollars": 0})  # the group's own name, never its first row's
         by_cause[r["cause"]]["rows"] += 1
         by_cause[r["cause"]]["open"] += r["open"]
         by_cause[r["cause"]]["dollars"] += r["dollars"]

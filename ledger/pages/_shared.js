@@ -10,6 +10,7 @@ const h = (tag, attrs = {}, ...kids) => {
   return el;
 };
 const int = (n) => (n == null || n === '' ? '—' : Number(n).toLocaleString('en-US'));
+const plural = (n, one, many) => `${int(n)} ${n === 1 ? one : many || one + 's'}`;
 const usd = (n) => {
   if (n == null || n === '') return '—';
   const m = Number(n) / 1e6;
@@ -17,9 +18,10 @@ const usd = (n) => {
 };
 const day = (s) => (s ? new Date(String(s).slice(0, 10) + 'T00:00:00Z').toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'}) : '—');
 const when = (s) => (s ? new Date(s).toLocaleString('en-US', {month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'}) : '—');
-const compact = (n) => new Intl.NumberFormat('en', {notation: 'compact', maximumFractionDigits: 1}).format(n || 0);
-const LABEL = {revenue: 'Revenue', capex: 'Capex', opex: 'Opex', cost_of_revenue: 'Cost of revenue', cost_of_revenue_part: 'Cost line', operating_income: 'Operating income'};
-const XBRL = {agree: 'matches SEC data', definition_gap: 'differs from SEC data, explained by code', unresolved: 'differs from SEC data, decided by a person', not_reported: 'not reported'};
+// One name per field, every page (trail, Reconcile, Dataset, Explore, gold, evidence)
+const FIELDS = {revenue: 'Revenue', capex: 'Capex', opex: 'Opex', cost_of_revenue: 'Cost of revenue', operating_income: 'Operating income', segment_capex: 'Segment capex', segment_revenue: 'Segment revenue',
+  ppe_category: 'PP&E by category', finance_lease_liability: 'Finance lease liabilities', purchase_commitments: 'Purchase commitments'};
+const LABEL = {...FIELDS, cost_of_revenue_part: 'Cost line'};
 
 async function api(path, opts) {
   const r = await fetch(path, opts);
@@ -67,23 +69,20 @@ function table(cols, rows, {key, onRow, detail} = {}) {
   return h('div', {class: 'card'}, h('div', {class: 'table-responsive'}, h('table', {class: 'table table-sm table-vcenter card-table table-hover'}, h('thead', {}, head), tb)));
 }
 
-const FACT = {segment_capex: 'Segment capex', segment_revenue: 'Segment revenue', ppe_category: 'PP&E by category', finance_lease_liability: 'Finance lease liabilities', purchase_commitments: 'Purchase commitments'};
-const SOURCE = {mdna: '10-K MD&A', earnings_release: 'earnings release', transcript: 'call transcript', cfo_commentary: 'CFO commentary'};
-const AI_CLASS = {explicit_amount: 'amount', explicit_share: 'share', qualitative: 'words only'};
 
 function sources(v) {
   const wrap = h('div', {});
-  if (v.decision) wrap.append(h('div', {class: 'src'}, h('div', {}, `${v.decision.reviewer} decided: ${v.decision.kind}`), h('div', {class: 'muted'}, v.decision.reason)));
-  if (v.why) wrap.append(h('div', {class: 'src'}, h('div', {class: 'muted'}, 'The 10-K says: ', v.why.text.slice(0, 400)), h('a', {href: v.why.url, target: '_blank', rel: 'noopener'}, 'Open that passage')));
+  if (v.decision) wrap.append(h('div', {class: 'src'}, h('div', {}, `Decision: ${v.decision.kind} · ${v.decision.reviewer}`), h('div', {class: 'muted'}, v.decision.reason)));
+  if (v.why) wrap.append(h('div', {class: 'src'}, h('div', {class: 'muted'}, '10-K text: ', v.why.text.slice(0, 400)), h('a', {href: v.why.url, target: '_blank', rel: 'noopener'}, 'Open in 10-K ↗')));
   for (const s of v.sources) {
     wrap.append(h('div', {class: 'src'},
       h('div', {}, `${LABEL[s.field] || s.field}: `, h('b', {}, s.cell), ` in row “${s.row}”, column “${s.col.replaceAll(' | ', ' ')}”`),
       h('div', {class: 'muted small'}, `10-K filed ${day(s.filed)}, table ${s.table_id}, ${s.unit || 'unit from the document'}, prompt ${s.prompt}`, s.notes ? `, ${s.notes}` : ''),
-      h('div', {class: 'small' + (s.machine && !s.machine.match ? ' bad' : ' muted')}, s.machine ? (s.machine.match ? 'Confirmed on the rendered 10-K' : `Rendered 10-K shows ${s.machine.seen}`) : 'Not re-read'),
+      h('div', {class: 'small' + (s.machine && !s.machine.match ? ' bad' : ' muted')}, s.machine ? (s.machine.match ? 'Screenshot matches' : `Screenshot shows ${s.machine.seen}`) : 'No screenshot check'),
       s.machine?.img && h('img', {src: '/' + s.machine.img, alt: `Screenshot of the cited cell ${s.cell}`, loading: 'lazy'}),
-      h('a', {href: s.deep, target: '_blank', rel: 'noopener', class: 'small'}, 'Open the 10-K at This Row')));
+      h('a', {href: s.deep, target: '_blank', rel: 'noopener', class: 'small'}, 'Open in 10-K ↗')));
   }
-  if (!v.sources.length) wrap.append(h('p', {class: 'muted'}, 'No citation.'));
+  if (!v.sources.length) wrap.append(h('p', {class: 'muted'}, 'No citation'));
   return wrap;
 }
 
@@ -96,11 +95,10 @@ const INDUSTRY = {hyperscaler: 'Hyperscaler', neocloud: 'Neocloud', miner_to_hpc
 // ── Data-first pieces: a cell with intensity, a mini bar, year bars, a dot plot ──────────────────────────────────
 // One row per year: a dark AI part inside a light whole, labelled with both.
 // ── Data: the dataset as a grid, provenance one click deep ──────────────────
-const FIELDS = {capex: 'Capex', revenue: 'Revenue', opex: 'Opex', segment_capex: 'Segment capex', segment_revenue: 'Segment revenue', ppe_category: 'PP&E by category', finance_lease_liability: 'Finance lease liabilities', purchase_commitments: 'Purchase commitments'};
 const KINDS = {spent: 'spent', committed: 'committed', derived: 'derived', planned: 'planned'};
 const ALL_KINDS = Object.keys(KINDS);
 const parseQ = (s) => Object.fromEntries(new URLSearchParams(s));
-const CHECK = {agree: 'agrees with XBRL', definition_gap: 'definition gap, explained', unresolved: 'differs from XBRL', no_reference: 'no tagged counterpart', not_reported: 'not reported'};
+const CHECK = {agree: 'Verified', definition_gap: 'Unverified · definition', unresolved: 'Differs from SEC XBRL', no_reference: 'Unverified · citation only', not_reported: 'Not reported'};
 
 // the drawer
 let drawerOpener = null;
@@ -125,15 +123,16 @@ function dtable(title, cols, rows, {foot, note} = {}) {
   return h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, title), note ? h('span', {class: 'ms-auto text-secondary small'}, note) : ''), h('div', {class: 'table-responsive'}, tbl));
 }
 
-const STAGE_LABEL_UI = {ingest: 'Ingest', values: 'Values', facts: 'Facts', statements: 'Statements', mapping: 'Mapping', planned: 'Planned', release: 'Release'};
+// one name per stage, the Proof board and the trail alike (proof.STAGE_LABEL says the same)
+const STAGE_LABEL_UI = {ingest: 'Filings', values: 'Statement figures', facts: 'Note figures', statements: 'AI disclosures', mapping: 'Category mapping', planned: 'Guidance and projects', release: 'Release'};
 
 const TABLES = [
-  ['taxonomy', 'Taxonomy rows', 'one shape for spent, committed, derived, planned and company-stated AI; docs/TAXONOMY.md'],
-  ['values', 'Values', 'the cash-flow and income lines read from each 10-K, with the check against XBRL'],
-  ['facts', 'Facts', 'segments, PP&E by asset type, finance leases and purchase commitments'],
-  ['statements', 'Statements', 'guidance and AI statements, quoted, with the source text'],
-  ['projects', 'Projects', 'named projects, the latest mention of each'],
-  ['companies', 'Companies', 'the tracked set with layer, role and the SEC’s SIC code'],
+  ['taxonomy', 'All rows', 'All measures'],
+  ['values', 'Values', 'Income and cash-flow statement figures'],
+  ['facts', 'Facts', 'Note figures'],
+  ['statements', 'Statements', 'Quoted statements'],
+  ['projects', 'Projects', 'Named projects'],
+  ['companies', 'Companies', 'Companies, industry and SIC code'],
 ];
 const RAW_NUM = new Set(['value', 'value_high', 'change_from_prior', 'share', 'amount_low', 'amount_high', 'amount_mid', 'xbrl', 'capacity_mw', 'scale', 'sic', 'gpus']);
 
@@ -181,4 +180,55 @@ function mappingDecision(D, actions) {
       item('Alternatives', (D.alternatives || []).length ? D.alternatives.map(def) : h('span', {class: 'text-secondary'}, 'None')),
       item('Affects', D.affects ? D.affects.text : '—')),
     actions || '');
+}
+
+// ── A cited cell's crop (ledger/crops.py cells/brief): the server decides the state; every page says it with these words ──
+const CROP_STATE = {located: ['text-green', 'Cell located'], not_located: ['text-red', 'Cell not located'], stale: ['text-orange', 'Crop out of date'],
+  missing: ['text-orange', 'Crop file missing'], none: ['text-secondary', 'No crop']};
+const SEC_LINK = /^https:\/\/www\.sec\.gov\//;  // only an SEC address becomes a link
+const cropState = (c) => { const [cls, word] = CROP_STATE[c.state] || CROP_STATE.none; return h('span', {class: cls}, word, c.state === 'not_located' && c.reason ? h('span', {class: 'text-secondary'}, ` · ${c.reason}`) : ''); };
+// the crop, full size, over the page: the cell boxed in red, its filing, Open in filing; Esc or a click outside closes it
+function cropBox(src, caption, links) {
+  const close = () => { box.remove(); document.removeEventListener('keydown', esc); if (opener && opener.isConnected) opener.focus(); };
+  const esc = (e) => { if (e.key === 'Escape') close(); };
+  const opener = document.activeElement;
+  const box = h('div', {class: 'cropbox', role: 'dialog', 'aria-modal': 'true', 'aria-label': caption, onclick: (e) => { if (e.target === box) close(); }},
+    h('figure', {class: 'cropbox-fig'}, h('div', {class: 'd-flex align-items-baseline gap-3 mb-2'}, h('figcaption', {class: 'small'}, caption), h('span', {class: 'ms-auto d-flex gap-3 small'}, links),
+      h('button', {type: 'button', class: 'btn-close', 'aria-label': 'Close', onclick: close})), h('img', {src, alt: caption})));
+  document.addEventListener('keydown', esc);
+  document.body.append(box);
+  box.querySelector('.btn-close').focus();
+}
+// one cited cell in a row: the thumbnail (or the crop's state when there is no current crop) over one line, Form date · Open · sec.gov
+function citeCell(w, what) {
+  const c = w.crop || {state: 'none'};
+  const caption = [what, what && w.row && what.includes(w.row) ? '' : w.row, w.column, w.cell].filter(Boolean).join(' · ');
+  const links = [w.viewer ? h('a', {href: w.viewer, target: '_blank', rel: 'noopener', title: 'Open in filing, the cell outlined'}, 'Open') : '', SEC_LINK.test(w.link || '') ? h('a', {href: w.link, target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗') : ''];
+  const thumb = c.state === 'located' && c.url
+    ? h('button', {type: 'button', class: 'crop-thumb', title: caption, onclick: () => cropBox(c.url, caption, [w.viewer ? h('a', {href: w.viewer, target: '_blank', rel: 'noopener'}, 'Open in filing') : '', links[1] ? links[1].cloneNode(true) : ''])}, h('img', {src: c.url, alt: caption, loading: 'lazy', onload: (e) => focusCell(e.target)}))
+    : h('div', {class: 'crop-none small'}, cropState(c));
+  return h('div', {class: 'cite'}, thumb, h('div', {class: 'cite-line small'}, `${w.form || '10-K'} ${w.filed || ''}`.trim(), links.map((l) => (l ? [' · ', l] : ''))));
+}
+// the thumbnail shows the boxed cell, legible: find the red box in the picture (the crop draws it 3px #dc2626) and
+// scale the picture so the cell and its neighbours fill the frame; the full crop is one click away (cropBox)
+function focusCell(img) {
+  try {
+    const W = img.naturalWidth, H = img.naturalHeight, frame = img.parentElement, fw = frame.clientWidth, fh = frame.clientHeight;
+    if (!W || !H || !fw) return;
+    const k = Math.max(1, Math.floor(W / 600)), cw = Math.ceil(W / k), ch = Math.ceil(H / k);
+    const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
+    const g = cv.getContext('2d', {willReadFrequently: true}); g.drawImage(img, 0, 0, cw, ch);
+    const px = g.getImageData(0, 0, cw, ch).data;
+    let x0 = cw, y0 = ch, x1 = -1, y1 = -1;
+    for (let y = 0; y < ch; y++) for (let x = 0; x < cw; x++) {
+      const i = (y * cw + x) * 4;
+      if (px[i] > 190 && px[i + 1] < 80 && px[i + 2] < 80) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+    }
+    if (x1 < 0) return;  // no box found: the whole crop, contained
+    const bw = (x1 - x0 + 1) * k, bh = (y1 - y0 + 1) * k, cx = (x0 + x1) / 2 * k, cy = (y0 + y1) / 2 * k;
+    const region = Math.min(W, Math.max(bw * 2.4, bh * 2 * fw / fh, 360));  // the cell and its neighbours at a readable size
+    const sc = fw / region, iw = W * sc, ih = H * sc;
+    const left = Math.min(0, Math.max(fw - iw, fw / 2 - cx * sc)), top = Math.min(0, Math.max(fh - ih, fh / 2 - cy * sc));
+    Object.assign(img.style, {position: 'absolute', width: `${iw}px`, height: `${ih}px`, maxWidth: 'none', left: `${left}px`, top: `${top}px`, objectFit: 'fill'});
+  } catch (e) { /* a picture the canvas cannot read stays whole */ }
 }

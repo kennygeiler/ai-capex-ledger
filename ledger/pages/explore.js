@@ -1,9 +1,9 @@
 // ── Explore: charts you can change. A measure, an x, a series, a type; Plotly for hover, zoom and legend toggles. ──
 const COLORS = ['#2f5bd3', '#d9822b', '#2a9d8f', '#c43d6b', '#7a5cc4', '#6b8e23', '#8c6d46', '#3d8fc4'];  // fixed order: a colour follows its entity
-const EXM = {taxonomy: {label: 'Taxonomy rows (spent, committed, derived, planned, company-stated AI)', value: (r) => r.value, alt: {change: (r) => r.change_from_prior}, x: 'fiscal_year'},  // schema v11: the derived change has its own column
-  values: {label: 'Values from the statements', value: (r) => r.value, fieldDefault: 'capex'},
-  facts: {label: 'Facts from the notes', value: (r) => r.value, fieldDefault: 'segment_capex'},
-  statements: {label: 'What companies said', value: (r) => r.amount_mid, fieldDefault: 'capex'},
+const EXM = {taxonomy: {label: 'All measures', value: (r) => r.value, alt: {change: (r) => r.change_from_prior}, x: 'fiscal_year'},  // schema v11: the derived change has its own column
+  values: {label: 'Statement figures', value: (r) => r.value, fieldDefault: 'capex'},
+  facts: {label: 'Note figures', value: (r) => r.value, fieldDefault: 'segment_capex'},
+  statements: {label: 'Quoted statements', value: (r) => r.amount_mid, fieldDefault: 'capex'},
   projects: {label: 'Named projects', value: (r) => (r.amount_low != null && r.amount_high != null ? (r.amount_low + r.amount_high) / 2 : null)}};
 const EX_AXES = {period: 'year', fiscal_year: 'fiscal year', ticker: 'company', layer: 'layer', field: 'field', measure: 'measure', category: 'category', standard_type: 'standard type', kind: 'kind', dimension: 'dimension', status: 'status', scope: 'scope', source: 'source', source_kind: 'source kind', period_kind: 'period kind', check: 'check'};
 const EX_TYPES = {bars: 'bars', stacked: 'stacked bars', lines: 'lines', share: 'share of total'};
@@ -36,7 +36,7 @@ async function explorePage(view, arg, qs) {
   const years = distinct(st.measure === 'taxonomy' ? 'fiscal_year' : 'period');
   const controls = h('div', {class: 'hrow exc'},
     sel('Measure', 'measure', Object.entries(EXM).map(([k, m]) => [k, m.label])),
-    st.measure === 'taxonomy' ? [sel('Measure', 'tmeasure', distinct('measure').map((m) => [m, m.replace('_', ' ')]), {blank: 'every measure'}), sel('Category', 'category', distinct('category').map((c) => [c, c.replace(/_/g, ' ')]), {blank: 'every category'}), sel('Standard type', 'standard_type', distinct('standard_type').map((c) => [c, c.replace('Member', '')]), {blank: 'every asset type'})] : '',
+    st.measure === 'taxonomy' ? [sel('Measure', 'tmeasure', distinct('measure').map((m) => [m, m.replaceAll('_', ' ')]), {blank: 'every measure'}), sel('Category', 'category', distinct('category').map((c) => [c, c.replace(/_/g, ' ')]), {blank: 'every category'}), sel('Standard type', 'standard_type', distinct('standard_type').map((c) => [c, c.replace('Member', '')]), {blank: 'every asset type'})] : '',
     rows.some((r) => 'field' in r) ? sel('Field', 'field', distinct('field').map((f) => [f, LABEL[f] || f]), {blank: 'every field'}) : '',
     rows.some((r) => 'kind' in r) ? sel('Kind', 'kind', distinct('kind').map((k) => [k, k]), {blank: 'every kind'}) : '',
     EXM[st.measure].alt ? sel('Value', 'value', Object.keys(EXM[st.measure].alt).map((k) => [k, k === 'change' ? 'change from the prior year' : k]), {blank: 'the value as reported'}) : '',
@@ -75,9 +75,9 @@ async function explorePage(view, arg, qs) {
   const saveRow = h('div', {class: 'hrow', style: 'gap:1rem'}, h('span', {class: 'muted small'}, `${int(pts.length)} row${pts.length === 1 ? '' : 's'}${folded.size ? `, ${folded.size} smaller series folded into Other` : ''}`),
     h('a', {href: url, target: '_blank', rel: 'noopener', class: 'small'}, 'JSON'), h('a', {href: url + '&format=csv', class: 'small'}, 'CSV'),
     h('button', {type: 'button', class: 'btn', onclick: () => saveView()}, current ? 'Save changes' : 'Save as view'),
-    current ? h('button', {type: 'button', class: 'small', 'aria-live': 'polite', onclick: async (e) => { const b = e.currentTarget; if (b.dataset.armed) { await api(`/api/v1/views/${current.id}/delete`, {method: 'POST', body: JSON.stringify({by: me})}); go('#explore'); } else { b.dataset.armed = '1'; b.textContent = 'Click again to delete this view'; setTimeout(() => { delete b.dataset.armed; b.textContent = 'Delete'; }, 5000); } }}, 'Delete') : '');
+    current ? h('button', {type: 'button', class: 'small', 'aria-live': 'polite', onclick: async (e) => { const b = e.currentTarget; if (b.dataset.armed) { await api(`/api/v1/views/${current.id}/delete`, {method: 'POST', body: JSON.stringify({by: me})}); go('#explore'); } else { b.dataset.armed = '1'; b.textContent = 'Confirm delete'; setTimeout(() => { delete b.dataset.armed; b.textContent = 'Delete'; }, 5000); } }}, 'Delete') : '');
   body.append(saveRow, plot, under);
-  if (!pts.length) { plot.replaceChildren(h('p', {class: 'msg'}, 'No rows match. Widen the filters, or run the step that fills this list.')); return; }
+  if (!pts.length) { plot.replaceChildren(h('p', {class: 'msg'}, 'No rows match')); return; }
   const css = getComputedStyle(document.documentElement);
   const fg = css.getPropertyValue('--fg').trim(), muted = css.getPropertyValue('--muted').trim(), faint = css.getPropertyValue('--faint').trim(), bg = css.getPropertyValue('--bg').trim();
   const xLabel = (x) => (st.x === 'layer' ? INDUSTRY[x] || x : st.x === 'standard_type' ? x.replace('Member', '') : st.x === 'ticker' && NAMES[x] ? `${NAMES[x]} ${x}` : x);
@@ -94,28 +94,27 @@ async function explorePage(view, arg, qs) {
     yaxis: {gridcolor: faint, zerolinecolor: faint, tickprefix: st.type === 'share' || isShare ? '' : '$', ticksuffix: st.type === 'share' ? '%' : suffix, tickformat: ',.0f', fixedrange: false, rangemode: 'tozero',
       title: {text: st.type === 'share' ? 'share of the total, %' : `${st.measure === 'taxonomy' ? (st.category || st.tmeasure || 'taxonomy rows').replace(/_/g, ' ') + (st.value === 'change' ? ', change from the prior year' : '') : EXM[st.measure].label}${st.field ? ', ' + (LABEL[st.field] || st.field) : ''}, $${suffix === 'B' ? 'billion' : 'million'}`, font: {color: muted, size: 11}}},
     hoverlabel: {bgcolor: bg, bordercolor: faint, font: {color: fg, family: css.getPropertyValue('--font')}}, dragmode: 'zoom'};
-  if (!window.Plotly) { plot.replaceChildren(h('p', {class: 'msg bad'}, 'The chart library did not load (offline?). The rows are below.')); showRows(pts); return; }
+  if (!window.Plotly) { plot.replaceChildren(h('p', {class: 'msg bad'}, 'Chart unavailable')); showRows(pts); return; }
   await Plotly.newPlot(plot, traces, layout, {displayModeBar: 'hover', displaylogo: false, responsive: true, modeBarButtonsToRemove: ['lasso2d', 'select2d', 'autoScale2d', 'toImage'], scrollZoom: false});
   // the plotted numbers, as a table a person can copy
-  const numbers = h('details', {class: 'mt-2'}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'The numbers in the chart'),
+  const numbers = h('details', {class: 'mt-2'}, h('summary', {class: 'muted small', style: 'cursor:pointer'}, 'Data'),
     h('div', {class: 'mt-2'}, table([{t: st.series ? EX_AXES[st.series] : 'series', sort: false, f: (n) => disp(n)}, ...xs.map((x) => ({t: xLabel(x), n: 1, sort: false, f: (n) => { const c = cell[`${n}|${x}`]; return c ? (st.type === 'share' && totals[x] ? pct(c.sum / totals[x]) : fmtv(c.sum)) : '—'; }}))], seriesNames)));
   under.before(numbers);
   plot.on('plotly_click', (ev) => { const p = ev.points[0]; const n = seriesNames[p.curveNumber]; const c = cell[`${n}|${p.x}`]; if (c) showRows(c.rows, `${n === 'total' ? '' : disp(n) + ', '}${xLabel(p.x)}`); });
   showRows(null);
   function showRows(list, title) {
-    if (!list) { under.replaceChildren(h('p', {class: 'muted small', style: 'margin-top:.6rem'}, 'Click a bar or point for the rows behind it, or ', h('button', {type: 'button', class: 'small', onclick: () => showRows(pts, 'Every row')}, 'show every row'), '. Drag to zoom, double-click to reset, click a legend entry to hide a series.')); return; }
+    if (!list) { under.replaceChildren(h('p', {class: 'muted small', style: 'margin-top:.6rem'}, h('button', {type: 'button', class: 'small', title: 'Click a bar or point for its rows · drag to zoom · double-click to reset', onclick: () => showRows(pts, 'Every row')}, 'Show rows'))); return; }
     const cols = [{t: 'Company', k: 'ticker', f: (r) => h('a', {href: `#proof/${r.ticker}`}, NAMES[r.ticker] || r.ticker)}, {t: 'Year', f: (r) => r.period || r.fiscal_year || '—'}];
-    for (const c of ['measure', 'category', 'reported_name', 'standard_type', 'field', 'kind', 'project_kind', 'relation', 'dimension', 'status', 'check', 'check_method', 'source_kind', 'source']) if (list.some((r) => r[c] != null)) cols.push({t: c.replace('_', ' '), k: c, f: (r) => r[c] ?? '—'});
+    for (const c of ['measure', 'category', 'reported_name', 'standard_type', 'field', 'kind', 'project_kind', 'relation', 'dimension', 'status', 'check', 'check_method', 'source_kind', 'source']) if (list.some((r) => r[c] != null)) cols.push({t: c.replaceAll('_', ' '), k: c, f: (r) => r[c] ?? '—'});
     cols.push({t: 'Value', n: 1, f: (r) => fmtv(val(r)), s: (r) => val(r)});
     if (list.some((r) => r.basis || r.quote)) cols.push({t: 'Basis', sort: false, f: (r) => h('span', {class: 'small brk'}, (r.basis || r.quote || '').slice(0, 160)), wide: 1});
-    under.replaceChildren(h('div', {class: 'sechead', style: 'margin-top:1rem'}, h('h2', {}, title || 'Rows'), h('span', {class: 'muted small'}, `${int(list.length)} row${list.length === 1 ? '' : 's'}${list.length > 300 ? ', first 300 shown; the CSV has them all' : ''}`)), table(cols, list.slice(0, 300)));
+    under.replaceChildren(h('div', {class: 'sechead', style: 'margin-top:1rem'}, h('h2', {}, title || 'Rows'), h('span', {class: 'muted small'}, `${int(list.length)} row${list.length === 1 ? '' : 's'}${list.length > 300 ? ' · first 300' : ''}`)), table(cols, list.slice(0, 300)));
   }
   function saveView() {
-    const name = h('input', {type: 'text', name: 'view-name', autocomplete: 'off', value: current ? current.name : '', placeholder: 'e.g. AI capex by layer, 2022 to 2026'});
-    const note = h('input', {type: 'text', name: 'view-note', autocomplete: 'off', value: current ? current.note || '' : '', placeholder: 'e.g. hyperscalers carry nine tenths of it'});
+    const name = h('input', {type: 'text', name: 'view-name', autocomplete: 'off', value: current ? current.name : '', placeholder: 'e.g. Capex by industry, FY2022–FY2026'});
+    const note = h('input', {type: 'text', name: 'view-note', autocomplete: 'off', value: current ? current.note || '' : '', placeholder: 'e.g. Spent, cash-flow line'});
     const msg = h('p', {class: 'msg small'});
     drawer(h('h3', {}, current ? 'Save changes' : 'Save as view'), h('div', {class: 'form'}, h('label', {}, 'Name', name), h('label', {}, 'Note', note)),
-      h('p', {class: 'muted small', style: 'margin-top:.6rem'}, 'Saved views are queries another system can call: /api/v1/views/<id>/data.'),
       h('div', {class: 'hrow', style: 'margin-top:1rem'}, h('button', {type: 'button', class: 'btn', onclick: async () => {
         const filters = Object.fromEntries(['field', 'kind', 'layer', 'ticker'].filter((k) => st[k]).map((k) => [k, st[k]]));
     if (st.measure === 'taxonomy') for (const [k, q_] of [['tmeasure', 'measure'], ['category', 'category'], ['standard_type', 'standard_type']]) if (st[k]) filters[q_] = st[k];

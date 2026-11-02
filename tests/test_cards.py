@@ -23,7 +23,7 @@ class How(unittest.TestCase):
         self.assertIn("Quote matches source", self.how(state="checked", by="quote")["text"])
         nr = self.how(state="explained", by="label:no_reference")
         self.assertEqual(nr["tone"], "info")
-        self.assertIn("No external source", nr["text"])
+        self.assertEqual(nr["text"], "Citation only")
         wait = self.how(state="open", by="label:to_confirm")
         self.assertEqual(wait["tone"], "wait")
         self.assertIn("Reconcile", wait["text"])
@@ -34,17 +34,21 @@ class How(unittest.TestCase):
         differ say both figures."""
         tie = self.how(state="checked", by="rule:ppe_categories_tie", ref={"tie": {"total": 30_000_000, "tolerance": 1_500, "dimensions": ["Buildings", "Land"],
                                                                             "parts": [{"dimension": "Buildings", "value": 20_000_000}, {"dimension": "Land", "value": 10_000_000}]}})
-        # T92 review: the tie bounds the group's sum, so the card says so, with the bound and the members, once
-        self.assertEqual(tie, {"tone": "corroborated", "text": "Group sums to reported total: $30M (SEC XBRL) · tolerance ±$1,500 · 2 parts (Buildings $20M; Land $10M)"})
+        # T92 review: the tie bounds the group's sum; the line says the total, the bound and the members open under it
+        self.assertEqual(tie, {"tone": "corroborated", "text": "Ties to reported total: $30M (SEC XBRL)", "detail": "2 parts · tolerance ±$1,500 · Buildings $20M; Land $10M"})
         two = self.how(state="checked", by="reading:a1", ref={"readings": [{"accession": "a1", "value": 1}, {"accession": "a2", "value": 1}]})
-        self.assertEqual(two, {"tone": "corroborated", "text": "Confirmed in 2 filings"})
+        self.assertEqual(two, {"tone": "corroborated", "text": "Confirmed in 2 filings", "detail": None})
         differ = self.how(state="open", by="rule:fact_readings_differ", ref={"readings": [{"value": 9_552_000, "filed": "2024-08-30"}, {"value": 1_760_000, "filed": "2025-07-30"}]})
         self.assertEqual(differ["tone"], "bad")
-        self.assertEqual(differ["text"], "Readings differ: $9.6M (2024-08-30) vs $1.8M (2025-07-30)")
+        self.assertEqual(differ["text"], "Readings differ: $9.6M → $1.8M")  # old → new, one line
+        self.assertEqual(differ["detail"], "10-K filed 2024-08-30: $9.6M · 10-K filed 2025-07-30: $1.8M")
         fails = self.how(state="open", by="rule:segment_capex_tie", detail="2 parts sum to $985.8M; the filing tags $681.6M")
-        self.assertIn("Does not tie to the reported total: 2 parts", fails["text"])
+        self.assertEqual((fails["text"], fails["detail"]), ("Does not tie to reported total", "2 parts sum to $985.8M; the filing tags $681.6M"))
+        gap = self.how(state="open", by="rule:segment_capex_tie", ref={"tie_gap": {"sum": 985_800_000, "total": 681_600_000, "gap": 304_200_000, "tolerance": 1_500, "parts": 2, "concept": "X"}})
+        self.assertEqual(gap["text"], "Does not tie · gap $304.2M")  # a label with the gap; the parts, the total and the bound on expand
+        self.assertEqual(gap["detail"], "Parts $985.8M · total $681.6M (SEC XBRL) · 2 parts · tolerance ±$1,500")
         self.assertEqual(self.how(state="checked", by="xbrl", ref={"reference": 5_000_000})["text"], "Matches SEC XBRL: $5M")
-        self.assertEqual(self.how(state="explained", by="label:no_reference")["text"], "No external source. Citation verified only.")
+        self.assertEqual(self.how(state="explained", by="label:no_reference")["text"], "Citation only")
 
     def test_no_internal_words(self):
         for it in ({"state": "checked", "by": "xbrl", "ref": {"reference": 1}}, {"state": "checked", "by": "located"}, {"state": "checked", "by": "gate"},
@@ -70,9 +74,11 @@ class Add(unittest.TestCase):
         cards.add(con, trail)
         c = item["card"]
         self.assertEqual(c["found"], "$131,819M")
-        self.assertIn("Purchases of property and equipment", c["where"][0]["label"])
-        self.assertIn("Year 2025", c["where"][0]["label"])
-        self.assertIn("#:~:text=Purchases%20of%20property%20and%20equipment", c["where"][0]["link"])
+        w = c["where"][0]
+        self.assertEqual((w["label"], w["row"], w["column"], w["cell"]), ("10-K 2026-02-06", "Purchases of property and equipment", "Year 2025", "(131,819)"))
+        self.assertIn("#:~:text=Purchases%20of%20property%20and%20equipment", w["link"])
+        self.assertTrue(w["viewer"].startswith("/filing/A1?t=t1&row=Purchases"))  # Open lands on the cell in the stored filing
+        self.assertEqual(w["crop"]["state"], "none")  # no crop on record for this cell: the state, never a blank
         self.assertEqual((item["state"], item["by"]), ("checked", "xbrl"))  # the card never changes the state
 
 

@@ -28,6 +28,7 @@ _SCRIPT = """
   const show = () => {
     const q = new URLSearchParams(location.search), row = q.get("row") || "", col = q.get("col") || "", cell = q.get("cell") || "";
     const idx = parseInt((q.get("t") || "").slice(1), 10);
+    if (!row && !cell) return;  // the whole filing, no cell asked for: nothing to locate, no banner
     const bar = document.createElement("div");
     Object.assign(bar.style, { position: "fixed", top: "0", left: "0", right: "0", zIndex: 2147483647, padding: "8px 14px",
       font: "13px/1.4 -apple-system, system-ui, sans-serif", color: "#fff", background: "#1f2937", boxShadow: "0 1px 4px rgba(0,0,0,.25)" });

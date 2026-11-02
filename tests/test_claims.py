@@ -147,8 +147,8 @@ class Vacuous(unittest.TestCase):
     def test_the_scan_finds_the_label_maps_on_the_real_pages(self):
         sc = C.scan()
         self.assertGreaterEqual(sc["pages"], 9)
-        for w in ("Verified", "Corroborated", "Unverified", "Needs review", "passes", "fails", "not run", "to confirm", "EDGAR never checked",
-                  "Outside proven set", "Income statement and cash-flow statement located", "Rule", "Reviewer decision", "SEC data can't confirm a value"):
+        for w in ("Verified", "Corroborated", "Unverified", "Needs review", "Pass", "Fail", "Not run", "Proposed", "SEC never checked",
+                  "Not in scope", "Statements located", "Decision on file", "Cell located", "No crop", "Does not tie to reported total", "Readings differ across filings"):
             self.assertIn(w, sc["strings"])
 
 
