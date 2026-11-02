@@ -19,11 +19,11 @@ class How(unittest.TestCase):
 
     def test_each_kind_of_evidence_in_one_sentence(self):
         self.assertEqual(self.how(state="checked", by="xbrl", ref={"reference": 5_000_000})["tone"], "ok")
-        self.assertIn("SEC's own tagged copy: $5M", self.how(state="checked", by="xbrl", ref={"reference": 5_000_000})["text"])
-        self.assertIn("word for word", self.how(state="checked", by="quote")["text"])
+        self.assertIn("Matches SEC XBRL: $5M", self.how(state="checked", by="xbrl", ref={"reference": 5_000_000})["text"])
+        self.assertIn("Quote matches source", self.how(state="checked", by="quote")["text"])
         nr = self.how(state="explained", by="label:no_reference")
         self.assertEqual(nr["tone"], "info")
-        self.assertIn("nothing outside the filing confirms it", nr["text"])
+        self.assertIn("No external source", nr["text"])
         wait = self.how(state="open", by="label:to_confirm")
         self.assertEqual(wait["tone"], "wait")
         self.assertIn("Reconcile", wait["text"])
@@ -33,7 +33,7 @@ class How(unittest.TestCase):
         for it in ({"state": "checked", "by": "xbrl", "ref": {"reference": 1}}, {"state": "checked", "by": "located"}, {"state": "checked", "by": "gate"},
                    {"state": "explained", "by": "label:no_reference"}, {"state": "open", "by": "label:to_confirm"}):
             text = cards._how(it, "X", {})["text"].lower()
-            for word in ("xbrl", "located", "twin", "label:", "by:"):
+            for word in ("twin", "label:", "by:", "robot", "we "):
                 self.assertNotIn(word, text, (it, text))
 
 
@@ -52,7 +52,7 @@ class Add(unittest.TestCase):
         c = item["card"]
         self.assertEqual(c["found"], "$131,819M")
         self.assertIn("Purchases of property and equipment", c["where"][0]["label"])
-        self.assertIn("column “Year 2025”", c["where"][0]["label"])
+        self.assertIn("Year 2025", c["where"][0]["label"])
         self.assertIn("#:~:text=Purchases%20of%20property%20and%20equipment", c["where"][0]["link"])
         self.assertEqual((item["state"], item["by"]), ("checked", "xbrl"))  # the card never changes the state
 

@@ -54,7 +54,7 @@ def _cell(c: dict, docs: dict, ev: dict) -> dict:
     d = docs.get(c["accession"]) or {}
     filed = str(d.get("filed") or "")[:10]
     col = " ".join((c.get("column_label") or "").replace("|", " ").split())
-    label = f"10-K filed {filed}: row “{c['row_label']}”, column “{col}” shows {c['cell_text']}"
+    label = f"10-K {filed} · “{c['row_label']}” · {col} · {c['cell_text']}"
     return {"label": label, "link": deep_link(d.get("url"), c.get("row_label"), c.get("cell_text")),
             "shot": _shot(ev, c["extraction_id"], c.get("cell_text"))}
 
@@ -66,34 +66,33 @@ def _how(it: dict, name: str, defs: dict, found_value=None) -> dict:
     if state in ("open", "blocked"):
         text = it.get("needs") or it.get("reason") or "Needs a person."
         if by == "label:to_confirm":
-            text = "The robot proposed this category; approve or change it in Reconcile → Asset types."
+            text = "Proposed category. Review in Reconcile."
         elif by == "label:not_extracted":
-            text = "The SEC's copy has this number but the robot didn't read it from the filing. Needs a re-read."
+            text = "In SEC XBRL, not extracted. Re-read required."
         return {"tone": "wait" if by == "label:to_confirm" else "bad", "text": text}
     if by == "xbrl":
         same = found_value is None or ref.get("reference") == found_value
-        return {"tone": "ok", "text": f"Matches the SEC's own tagged copy: {money(ref.get('reference'))}." if same
-                else f"Within rounding of the SEC's own tagged copy: {money(ref.get('reference'))}."}
+        return {"tone": "ok", "text": f"Matches SEC XBRL: {money(ref.get('reference'))}" if same
+                else f"Matches SEC XBRL within rounding: {money(ref.get('reference'))}"}
     if by == "quote":
-        return {"tone": "ok", "text": "Found word for word in the source document."}
+        return {"tone": "ok", "text": "Quote matches source"}
     if by == "located":
-        return {"tone": "ok", "text": "The income statement and the cash-flow statement were both found in this report."}
+        return {"tone": "ok", "text": "Income statement and cash-flow statement located"}
     if by == "gate":
-        return {"tone": "ok", "text": "Nothing blocks this company's release."}
+        return {"tone": "ok", "text": "No blocking items"}
     if by.startswith("mapping:"):
-        return {"tone": "ok", "text": f"A person confirmed the category {by.split(':', 1)[1]}."}
+        return {"tone": "ok", "text": f"Confirmed: {by.split(':', 1)[1]}"}
     if by == "label:no_reference":
-        return {"tone": "info", "text": f"{name} publishes no machine-readable copy of this number, so nothing outside the filing confirms it. "
-                                        "Only the reading is checked: open the filing and look at the cell."}
+        return {"tone": "info", "text": "No external source. Citation verified only."}
     if by == "label:not_reported":
-        return {"tone": "info", "text": f"{name}'s report has no such line, and the SEC's copy has none either."}
+        return {"tone": "info", "text": "Not reported (none in SEC XBRL)"}
     if by.startswith("definition:"):
         why = ((defs or {}).get(by.split(":", 1)[1]) or {}).get("why") if isinstance(defs, dict) else None
-        return {"tone": "info", "text": "Differs from the SEC's copy on purpose, by a written definition" + (f": {why}" if why else ".")}
+        return {"tone": "info", "text": "Definition differs from SEC XBRL" + (f": {why}" if why else "")}
     if by.startswith("resolution:"):
-        return {"tone": "info", "text": f"Decided by a person: {it.get('reason') or ''}".strip()}
+        return {"tone": "info", "text": f"Reviewer decision: {it.get('reason') or ''}".strip(": ")}
     if by.startswith("rule:"):
-        return {"tone": "info", "text": f"Explained by a written rule ({by.split(':', 1)[1].replace('_', ' ')}): {it.get('reason') or ''}".strip()}
+        return {"tone": "info", "text": f"Rule: {by.split(':', 1)[1].replace('_', ' ')}"}
     return {"tone": "info", "text": it.get("reason") or ""}
 
 
@@ -109,8 +108,8 @@ def add(con, trail: dict) -> dict:
     for it in stages.get("ingest", {}).get("all", []):
         acc = (it.get("ref") or {}).get("accession")
         d = docs.get(acc) or {}
-        it["card"] = {"found": f"Annual report ({d.get('form', '10-K')}) for the year ending {d.get('period')}, filed {str(d.get('filed') or '')[:10]}" if d else None,
-                      "where": [{"label": "The report on sec.gov", "link": d.get("url"), "shot": None}] if d.get("url") else [],
+        it["card"] = {"found": f"{d.get('form', '10-K')} · FY ending {d.get('period')} · filed {str(d.get('filed') or '')[:10]}" if d else None,
+                      "where": [{"label": "sec.gov", "link": d.get("url"), "shot": None}] if d.get("url") else [],
                       "how": _how(it, name, defs)}
 
     # main numbers: the value, the cells it was read from, the SEC's copy
@@ -126,7 +125,7 @@ def add(con, trail: dict) -> dict:
         cells = [_cell(ext[i], docs, ev) for i in ids]
         found = money(v["value"]) if v["value"] is not None else "nothing (blank)"
         if ref.get("field") == "opex" and len(ids) > 1:
-            found += " = revenue − cost of revenue − operating income, from the cells below"
+            found += " (revenue − cost of revenue − operating income)"
         it["card"] = {"found": found, "where": cells, "how": _how(it, name, defs, v["value"])}
 
     # footnote numbers: the fact, its cells in the notes
@@ -155,8 +154,8 @@ def add(con, trail: dict) -> dict:
     for it in stages.get("mapping", {}).get("all", []):
         e = entries.get(it.get("name")) or {}
         member = e.get("standard_type")
-        found = f"{name} calls it “{it.get('name')}”" + (f" → standard category {member}" if member else " → no standard category yet")
-        where = [{"label": f"Evidence for the category: {e['evidence']}", "link": None, "shot": None}] if e.get("evidence") else []
+        found = f"“{it.get('name')}” → {member}" if member else f"“{it.get('name')}” → unmapped"
+        where = [{"label": f"Basis: {e['evidence']}", "link": None, "shot": None}] if e.get("evidence") else []
         it["card"] = {"found": found, "where": where, "how": _how(it, name, defs)}
 
     # plans and projects: the quote, opened at its words
