@@ -1,7 +1,8 @@
 """Open in filing (in-app): /filing/<accession>?t=<table>&row=<label>&col=<header>&cell=<text> serves the STORED 10-K
 (data/raw, fingerprinted in documents.sha256) with one script added: the same locator as the crops and the re-read
 (ledger/evidence.py _LOCATE) finds the cell by row label and column header, scrolls to it, outlines it in red and its
-row lightly, and a fixed banner says what it found. The script reads its parameters from the page's own URL, so
+row lightly, and a fixed banner says what this find saw ("Found on this page" / "Not found on this page"), never the
+crop's state, which only crops.state decides. The script reads its parameters from the page's own URL, so
 nothing a visitor types is written into the HTML. Only accessions in the documents table are served; the file must
 sit under data/raw and match its fingerprint."""
 from __future__ import annotations
@@ -16,8 +17,9 @@ from .crops import doc_path
 from .evidence import _LOCATE, _SAME
 
 ACCESSION = re.compile(r"\d{10}-\d{2}-\d{6}")
-LOCATED = "Cell located"
-NOT_LOCATED = "Cell not located on this page"
+# The banner is the live in-page find on the page as served, not the crop's state (crops.state): its own words
+FOUND = "Found on this page"
+NOT_FOUND = "Not found on this page"
 # Every answer from /filing/ carries a policy, the refusals too: a sandboxed page, nothing loaded, nothing framed.
 ERROR_CSP = "default-src 'none'; sandbox; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
 
@@ -28,6 +30,7 @@ _SCRIPT = """
   const show = () => {
     const q = new URLSearchParams(location.search), row = q.get("row") || "", col = q.get("col") || "", cell = q.get("cell") || "";
     const idx = parseInt((q.get("t") || "").slice(1), 10);
+    if (!row && !cell) return;  // the whole filing, no cell asked for: nothing to locate, no banner
     const bar = document.createElement("div");
     Object.assign(bar.style, { position: "fixed", top: "0", left: "0", right: "0", zIndex: 2147483647, padding: "8px 14px",
       font: "13px/1.4 -apple-system, system-ui, sans-serif", color: "#fff", background: "#1f2937", boxShadow: "0 1px 4px rgba(0,0,0,.25)" });
@@ -36,7 +39,7 @@ _SCRIPT = """
     try { r = row && col ? LOCATE([Number.isNaN(idx) ? -1 : idx, row, col, cell]) : null; } catch (e) { r = null; }
     const hit = !!(r && r.cell && SAME(r.seen, cell));
     if (hit) {
-      bar.textContent = %s + ": " + row + " · " + col.split("|").map((s) => s.trim()).join(" ") + " · " + cell;
+      bar.textContent = %s + " · " + row + " · " + col.split("|").map((s) => s.trim()).join(" ") + " · " + cell;
       bar.dataset.state = "located";
       document.querySelectorAll("[data-ledger=cell]").forEach((c) => { c.style.outline = "3px solid #dc2626"; c.style.outlineOffset = "1px"; });
       const tr = document.querySelector("tr[data-ledger=row]");
@@ -57,7 +60,7 @@ _SCRIPT = """
 def script() -> str:
     import json
     # ASCII only (\u escapes): a filing declares its own charset, often none, and must not garble the script's dashes and dots
-    return (_SCRIPT % (_LOCATE, _SAME, json.dumps(LOCATED), json.dumps(NOT_LOCATED))).encode("ascii", "backslashreplace").decode()
+    return (_SCRIPT % (_LOCATE, _SAME, json.dumps(FOUND), json.dumps(NOT_FOUND))).encode("ascii", "backslashreplace").decode()
 
 
 class Refused(Exception):

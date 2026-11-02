@@ -3,10 +3,10 @@ async function route() {
   const raw = location.hash.slice(1) || 'proof';
   const [path, qs] = raw.split('?');
   const [page, arg] = path.split('/');
-  const tab = {company: 'data', tables: 'data', views: 'explore', flow: 'proof', status: 'proof', golden: 'proof', releases: 'proof', agents: 'rules', attribution: 'rules', run: 'proof', evidence: 'proof'}[page] || page;
+  const tab = {company: 'data', tables: 'data', views: 'explore', evidence: 'proof'}[page] || page;
   document.querySelectorAll('header [data-nav]').forEach((a) => a.classList.toggle('active', a.dataset.nav === tab));
   const view = $('#view');
-  view.replaceChildren(h('h1', {class: 'sr'}, `Kenny's Data Emporium, ${({proof: 'Proof', rules: 'Rules', reconcile: 'Reconcile', data: 'Dataset', company: 'Company', explore: 'Explore', release: 'Release', gaps: 'Known gaps', evidence: 'Evidence'})[page] || 'Data'}`));
+  view.replaceChildren(h('h1', {class: 'sr'}, `Kenny's Data Emporium, ${page === 'proof' && arg ? `Company trail ${arg}` : ({proof: 'Proof', rules: 'Rules', reconcile: 'Reconcile', data: 'Dataset', company: 'Company', explore: 'Explore', release: 'Release', gaps: 'Known gaps', evidence: 'Evidence'})[page] || 'Data'}`));
   try {
     if (page === 'proof' && arg) await trailPage(view, arg);
     else if (page === 'proof') await proofPage(view);
@@ -14,7 +14,7 @@ async function route() {
     else if (page === 'company') await dataPage(view, `ticker=${arg || ''}`);
     else if (page === 'reconcile') await reconcilePage(view, qs);
     else if (page === 'views' || page === 'explore') await explorePage(view, arg, qs);
-    else if (page === 'data' || page === 'insights') await dataPage(view, qs);
+    else if (page === 'data') await dataPage(view, qs);
     else if (page === 'release') await releasePage(view, qs);
     else if (page === 'gaps') await gapsPage(view);
     else if (page === 'evidence') await evidencePage(view, arg, qs);
@@ -30,10 +30,10 @@ window.addEventListener('hashchange', route);
 route();
 // T29, the first line: what this copy shows. Scope, the last run, read-only or local; one line under the nav.
 hq().then((d) => {
-  if (d.readonly) $('#me').closest('span').replaceWith(h('span', {class: 'badge bg-azure-lt', title: 'Every page reads; decisions, views and prompts change in a checkout of the repository'}, 'read-only copy'));
+  if (d.readonly) $('#me').closest('span').replaceWith(h('span', {class: 'text-azure small'}, 'Read-only'));
   const hl = (d.health && d.health[0]) || {};
   const n = hl.companies != null ? hl.companies : (SCOPE.length || null);
   const line = h('div', {class: 'container-xl text-secondary small py-1', id: 'scopeline'},
-    h('a', {href: '#data', class: 'text-reset'}, `Scope: ${n == null ? '…' : `${int(n)} companies`}`), ' · ', `data as of ${day(hl.run_at)}`, ' · ', d.readonly ? 'read-only copy' : 'local');
+    h('a', {href: '#data', class: 'text-reset'}, n == null ? '…' : `${int(n)} companies`), ' · ', `Data as of ${day(hl.run_at)}`, d.readonly ? ' · Read-only' : '');
   $('header').after(line);
 }).catch(() => {});

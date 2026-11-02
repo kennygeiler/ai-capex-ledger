@@ -415,19 +415,18 @@ def counts_line(c: dict) -> str:
 
 # ── the page scan ────────────────────────────────────────────────────────────────────────────────────────────────
 # Label maps whose display strings are claims (value strings, or the keys when every value is a CSS class).
-LABEL_MAPS = {"trail.js": ("TRAIL_TONE",), "reconcile.js": ("STATE_BADGE",), "release.js": ("LINE_STATE",), "_shared.js": ("XBRL", "CHECK"),
-              "proof.js": ("GOLD_WORD",), "evidence.js": ("EVIDENCE_STATE",)}
+LABEL_MAPS = {"trail.js": ("TRAIL_TONE",), "reconcile.js": ("STATE_BADGE",), "release.js": ("LINE_STATE",), "_shared.js": ("CHECK", "CROP_STATE"),
+              "proof.js": ("GOLD_WORD",)}
 # The text of an element styled as a status (a badge or a tone colour), literal or the static parts of a template.
 TONED = re.compile(r"""h\('[a-z0-9]+',\s*\{[^{}]*class:\s*'[^']*(?:badge|text-(?:green|red|orange|teal|azure|yellow))[^']*'[^{}]*\},\s*('[^']*'|`[^`]*`)""")
 # Strings a page shows that the two rules above cannot see (a class picked at run time, a heading).
-WATCHED = ("'Proven'", "'proven'", "Proven · no items to review", "Outside proven set", "Next 10-K expected", "golden: equal", "golden: differs",
-           "golden: not run", "`gold: ${goldState(x)}`", "Error rate, all companies", "Gold set", "Nothing open on the proven set.", "quotes verified",
-           "95% interval", "planted faults", "agrees with the twin", "read-only copy", "Make this a rule", "Make this a definition", "`Sign ${cl.version}`",
-           "'Known gaps'")
+WATCHED = ("'Proven'", "Ready for release", "Not in scope", "Next 10-K expected", "Tables unchanged", "Tables changed", "Hand check: ", "'Hand check'",
+           "No items to review", "Quotes verified", "95% CI", "Planted errors", "Matches SEC XBRL", "Read-only", "Make this a rule", "Make this a definition",
+           "`Sign ${cl.version}`", "'Known gaps'", "Compare filings", "Open in filing")
 # The Python that feeds the pages: the cards' sentences and Reconcile's cause labels.
 PY_RULES = {"cards.py": (re.compile(r'(?:"text":\s*|\btext = )f?"([^"{]*)'),),
             "mapcard.py": (re.compile(r'(?:\breturn |"text":\s*)f?"([^"{]*)'),),
-            "workbench.py": (re.compile(r'CAUSES = \{(.*?)\}\n', re.S), re.compile(r'"cause_label": \{([^}]*)\}'))}
+            "workbench.py": (re.compile(r'CAUSES = \{(.*?)\}\n', re.S), re.compile(r'FINDING_LABEL = \{(.*?)\}\n', re.S), re.compile(r'"cause_label": \{([^}]*)\}'))}
 CSS = re.compile(r"^(bg|text|fw|ms|me|mt|mb)-")
 GAPS_OWN = frozenset(STATUSES) | {"high", "medium", "low"}  # the Gaps page's own chips: the register's vocabulary, not claims
 

@@ -276,7 +276,8 @@ class Viewer(unittest.TestCase):
         (cdir / "a.png").write_bytes(PNG)
         (cdir / "b.png").write_bytes(PNG)
         rec = self.tmp / "crops.json"
-        rec.write_text(json.dumps({"a": _entry(), "b": _entry(img="b.png", located=False)}))
+        rev = dict(table_id="t0000", row_label="Total revenues", column_label="Year Ended May 31, | 2026", cell_text="67,357")
+        rec.write_text(json.dumps({"a": _entry(document_sha256=SHA, **rev), "b": _entry(img="b.png", located=False), "c": _entry(img="c.png")}))  # c: on record, citation stale
         with mock.patch.object(app, "_con", side_effect=lambda: _db()), mock.patch.object(store, "ROOT", self.root), \
                 mock.patch.object(crops, "CROPS", cdir), mock.patch.object(crops, "RECORD", rec), mock.patch.object(app, "EVIDENCE", self.tmp):
             with request.urlopen(f"{base}/filing/{ACCN}?row=Total%20revenues") as r:
@@ -289,7 +290,8 @@ class Viewer(unittest.TestCase):
                 self.assertEqual(cm.exception.headers["Content-Security-Policy"], viewer.ERROR_CSP)
             with request.urlopen(f"{base}/evidence/crops/a.png") as r:
                 self.assertEqual(r.read(), PNG)
-            for name in ("b.png", "c.png"):  # not located; not on record
+            (cdir / "c.png").write_bytes(PNG)
+            for name in ("b.png", "c.png", "d.png"):  # not located; on record but stale (its citation changed); not on record
                 with self.assertRaises(error.HTTPError) as cm:
                     request.urlopen(f"{base}/evidence/crops/{name}")
                 self.assertEqual(cm.exception.code, 404, name)
@@ -364,12 +366,12 @@ class Locator(unittest.TestCase):
             try:
                 pg = b.new_page()
                 pg.goto(page_file.as_uri() + "?" + urlencode({"t": "t0000", "row": "Total revenues", "col": "Year Ended May 31, | 2026", "cell": "67,357"}))
-                self.assertEqual(pg.text_content("#ledger-banner"), "Cell located: Total revenues · Year Ended May 31, 2026 · 67,357")
+                self.assertEqual(pg.text_content("#ledger-banner"), "Found on this page · Total revenues · Year Ended May 31, 2026 · 67,357")
                 self.assertIn("solid 3px", pg.eval_on_selector("[data-ledger=cell]", "e => e.style.outline"))
                 pg.goto(page_file.as_uri() + "?" + urlencode({"row": "Total revenues", "col": "Year Ended May 31, | 2026", "cell": "67,358"}))
-                self.assertEqual(pg.text_content("#ledger-banner"), "Cell not located on this page · Page shows 67,357 · cited 67,358")
+                self.assertEqual(pg.text_content("#ledger-banner"), "Not found on this page · Page shows 67,357 · cited 67,358")
                 pg.goto(page_file.as_uri() + "?" + urlencode({"row": "Nothing", "col": "Year Ended May 31, | 2026", "cell": "1"}))
-                self.assertEqual(pg.text_content("#ledger-banner"), "Cell not located on this page")
+                self.assertEqual(pg.text_content("#ledger-banner"), "Not found on this page")
                 self.assertEqual(pg.eval_on_selector_all("*", "es => es.filter((e) => e.style.outline).length"), 0)  # nothing outlined
             finally:
                 b.close()
@@ -413,9 +415,173 @@ class Claims(unittest.TestCase):
         from ledger import claims
         ids = {e["id"] for e in claims.load()}
         self.assertLessEqual({"evidence_cell_located", "evidence_crop", "evidence_compare", "evidence_open_in_filing"}, ids)
-        found = claims.strings_in("evidence.js", (Path(crops.__file__).parent / "pages" / "evidence.js").read_text())
-        self.assertLessEqual({"Cell located", "Cell not located", "Crop out of date", "Crop file missing", "No crop yet", "Readings differ", "Readings agree"}, found)
+        pages = Path(crops.__file__).parent / "pages"
+        found = claims.strings_in("evidence.js", (pages / "evidence.js").read_text()) | claims.strings_in("_shared.js", (pages / "_shared.js").read_text())
+        self.assertLessEqual({"Cell located", "Cell not located", "Crop out of date", "Crop file missing", "No crop", "Readings differ", "Readings agree"}, found)
         self.assertEqual([p for p in claims.unregistered() if "evidence" in p["where"]], [])
+
+
+class RowEvidence(unittest.TestCase):
+    """The trail rows, the gold set, Reconcile's cited cell and /api/v1/evidence read a cell's crop through one function
+    (crops.cells / crops.brief over crops.state), so a row never shows a state another page contradicts (pattern 4). The
+    fixture: ORCL's stored 10-K, a revenue cell cropped and current ('a'), a PP&E cell read in two filings whose crops
+    are stale ('b', fingerprint changed) and absent ('c'), and a value whose extraction is not on file."""
+    OLD = "0001341439-25-000002"
+
+    def setUp(self):
+        from ledger import store
+        self.tmp = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, self.tmp)
+        self.root = _root(self.tmp / "root")
+        (self.root / "data" / "raw" / "0001341439" / "docs" / f"{self.OLD}.htm").write_bytes(FIX.read_bytes())
+        self.cdir = self.tmp / "crops"
+        self.cdir.mkdir()
+        (self.cdir / "a.png").write_bytes(PNG)
+        (self.cdir / "b.png").write_bytes(PNG)
+        self.rec = self.tmp / "crops.json"
+        rev = dict(table_id="t0000", row_label="Total revenues", column_label="Year Ended May 31, | 2026", cell_text="67,357")
+        self.rec.write_text(json.dumps({"a": _entry(document_sha256=SHA, **rev),
+                                        "b": _entry(img="b.png", document_sha256="old fingerprint", table_id="t0003", row_label="Land", column_label="May 31, 2025", cell_text="9")}))
+        self.db = self.tmp / "ledger.duckdb"
+        con = store.init(self.db)
+        for acc, filed in ((ACCN, "2026-06-20"), (self.OLD, "2025-06-20")):
+            con.execute("insert into documents (accession, ticker, cik, form, period, filed, url, sha256, bytes, parser_version, table_count, tables_path, income_tables, cash_flow_tables) "
+                        "values (?, 'ORCL', 1341439, '10-K', ?, ?, 'https://www.sec.gov/x.htm', ?, 1, 'p', 1, 'p', 't0', 't1')", [acc, filed[:4] + "-05-31", filed, SHA])
+        run = "'(in millions)', 'table', 0.9, 'v', 'r'"
+        con.execute("insert into extractions (extraction_id, accession, ticker, field, period_start, period_end, value, scale, table_id, row_label, column_label, cell_text, "
+                    f"unit_stated, unit_source, confidence, prompt_version, run_id) values ('a', ?, 'ORCL', 'revenue', '2025-06-01', '2026-05-31', 67357000000, 1000000, 't0000', "
+                    f"'Total revenues', 'Year Ended May 31, | 2026', '67,357', {run})", [ACCN])
+        for eid, acc, v, cell in (("b", self.OLD, 9000000, "9"), ("c", ACCN, 12000000, "12")):
+            con.execute("insert into note_extractions (extraction_id, accession, ticker, field, dimension, period_end, months, value, scale, table_id, row_label, column_label, cell_text, "
+                        f"unit_stated, unit_source, confidence, prompt_version, run_id) values (?, ?, 'ORCL', 'ppe_category', 'Land', '2025-05-31', 12, ?, 1000000, 't0003', 'Land', 'May 31, 2025', ?, {run})",
+                        [eid, acc, v, cell])
+        con.execute('insert into "values" (ticker, field, period, period_end, value, source, method, label, basis, extraction_ids, input_hash) values '
+                    "('ORCL', 'revenue', 'FY2026', '2026-05-31', 67357000000, 'agent', 'reported', 'agree', 'as_reported', 'a', 'h'), "
+                    "('ORCL', 'capex', 'FY2026', '2026-05-31', 5000000, 'agent', 'reported', 'agree', 'as_reported', 'gone', 'h')")
+        con.execute("insert into facts (ticker, field, dimension, period, period_end, value, first_reported, basis, label, accession, extraction_ids, input_hash) values "
+                    "('ORCL', 'ppe_category', 'Land', 'FY2025', '2025-05-31', 12000000, 12000000, 'as_reported', 'no_reference', ?, 'b,c', 'h')", [ACCN])
+        con.close()
+        self.patches = [mock.patch.object(crops, "RECORD", self.rec), mock.patch.object(crops, "CROPS", self.cdir), mock.patch.object(crops.store, "ROOT", self.root)]
+        for x in self.patches:
+            x.start()
+            self.addCleanup(x.stop)
+
+    def con(self):
+        return duckdb.connect(str(self.db))
+
+    def trail(self):
+        from ledger import cards
+        items = {"values": [{"what": "revenue FY2026", "state": "checked", "by": "xbrl", "ref": {"field": "revenue", "period": "FY2026", "reference": 67357000000}},
+                            {"what": "capex FY2026", "state": "checked", "by": "xbrl", "ref": {"field": "capex", "period": "FY2026", "reference": 5000000}}],
+                 "facts": [{"what": "ppe Land FY2025", "state": "open", "by": "rule:fact_readings_differ",
+                            "ref": {"field": "ppe_category", "dimension": "Land", "period": "FY2025", "readings": [{"value": 9000000, "filed": "2025-06-20"}, {"value": 12000000, "filed": "2026-06-20"}]}}]}
+        con = self.con()
+        try:
+            return cards.add(con, {"ticker": "ORCL", "name": "Oracle", "stages": {k: {"all": v} for k, v in items.items()}})["stages"]
+        finally:
+            con.close()
+
+    def trail_states(self):
+        return {w["extraction_id"]: w["crop"]["state"] for st in self.trail().values() for it in st["all"] for w in it["card"]["where"] if "crop" in w}
+
+    def gold_states(self):
+        from ledger import app, gold
+        doc = {"items": [{"id": "x", "kind": "fact", "ticker": "ORCL", "field": "ppe_category", "dimension": "Land", "period": "FY2025", "value": 12000000, "verdict": None,
+                          "cites": [{"extraction_id": i, "accession": ACCN, "url": "https://www.sec.gov/x.htm"} for i in ("a", "b", "c", "nope")]}]}
+        with mock.patch.object(gold, "load_checked", return_value=({"ORCL": doc}, [])), mock.patch.object(app, "_con", side_effect=self.con):
+            return {c["extraction_id"]: c["evidence"] for c in app.gold_view("ORCL")["items"][0]["cites"]}
+
+    def reconcile_crop(self, eid):
+        from ledger import workbench
+        q = {"kind": "fact_differs", "state": "disagrees", "ticker": "ORCL", "where": "ppe_category Land FY2025", "impact": "x", "dollars": 0, "new": False, "action": "definition", "key": "k", "hash": "h",
+             "detail": {"field": "ppe_category", "dimension": "Land", "period": "FY2025", "value": 12000000, "reference": 11000000, "cite": {"extraction_id": eid, "table_id": "t0003", "row_label": "Land", "column_label": "May 31, 2025", "cell_text": "9", "accession": self.OLD}, "url": "https://www.sec.gov/x.htm"}}
+        flow = {"scope": "ORCL", "tickers": ["ORCL"], "names": {"ORCL": "Oracle"}, "release": {"last": None}, "changed": {"last_run": "2026-11-02"}, "queue": [q]}
+        con = self.con()
+        try:
+            with mock.patch.object(workbench, "asset_types", return_value=[]), mock.patch.object(workbench, "to_confirm", return_value=[]):
+                return next(r for r in workbench.items(con, flow)["rows"] if r["cause"] == "fact_differs")["evidence"]["crop"]
+        finally:
+            con.close()
+
+    def test_trail_gold_reconcile_and_the_api_read_one_state(self):
+        api = {i: (crops.view(self.con(), i) or {}).get("state") for i in ("a", "b", "c")}
+        self.assertEqual(api, {"a": "located", "b": "stale", "c": "none"})
+        self.assertEqual(self.trail_states(), api)
+        self.assertEqual({k: v["state"] for k, v in self.gold_states().items() if k != "nope"}, api)
+        for i in ("a", "b", "c"):
+            self.assertEqual(self.reconcile_crop(i)["state"], api[i], i)
+
+    def test_a_stale_or_missing_crop_is_never_a_picture_on_any_row(self):
+        urls = {w["extraction_id"]: w["crop"]["url"] for st in self.trail().values() for it in st["all"] for w in it["card"]["where"] if "crop" in w}
+        self.assertEqual(urls, {"a": "/evidence/crops/a.png", "b": None, "c": None})
+        g = self.gold_states()
+        self.assertEqual((g["a"]["url"], g["b"]["url"], g["c"]["url"]), ("/evidence/crops/a.png", None, None))
+        self.assertIsNone(self.reconcile_crop("b")["url"])
+        (self.cdir / "a.png").write_bytes(b"changed")  # the picture is not the one written: missing everywhere, shown nowhere
+        self.assertEqual(self.trail_states()["a"], "missing")
+        self.assertEqual((self.gold_states()["a"]["state"], self.gold_states()["a"]["url"]), ("missing", None))
+
+    def test_no_extraction_on_file_is_no_crop_never_blank(self):
+        self.assertEqual(crops.brief(None), {"state": "none", "reason": "No crop", "url": None, "viewer": None, "sec_url": None, "filed": None, "form": None})
+        self.assertEqual(self.gold_states()["nope"]["state"], "none")
+        capex = next(i for i in self.trail()["values"]["all"] if i["ref"]["field"] == "capex")
+        self.assertEqual(capex["card"]["where"], [])  # its cell is not on file: no source line, and the page shows —, never an empty crop
+
+    def test_open_is_the_in_app_viewer_at_the_cell(self):
+        w = self.trail()["values"]["all"][0]["card"]["where"][0]
+        self.assertEqual(w["viewer"], crops.viewer_url({"accession": ACCN, "table_id": "t0000", "row_label": "Total revenues", "column_label": "Year Ended May 31, | 2026", "cell_text": "67,357"}))
+        self.assertTrue(w["viewer"].startswith(f"/filing/{ACCN}?t=t0000&row=Total+revenues&col="))
+        self.assertEqual(self.gold_states()["a"]["viewer"], w["viewer"])
+        js = (Path(crops.__file__).parent / "pages" / "_shared.js").read_text()
+        self.assertIn("h('a', {href: safeHref(w.viewer), target: '_blank', rel: 'noopener', title: 'Open in filing, the cell outlined'}, 'Open')", js)
+        self.assertIn("SEC_LINK.test(w.link || '')", js)  # sec.gov stays a second, guarded link
+
+    @unittest.skipUnless(shutil.which("node"), "no node")
+    def test_every_stored_link_goes_through_one_guard(self):
+        """safeHref lets through a web address, the in-app viewer or a page route; javascript: and the rest are no link.
+        Every href the pages build from stored data calls it."""
+        import re, subprocess
+        pages = Path(crops.__file__).parent / "pages"
+        line = next(l for l in (pages / "_shared.js").read_text().splitlines() if l.startswith("const safeHref"))
+        cases = ["javascript:alert(1)", "JavaScript:alert(1)", " javascript:x", "data:text/html,x", "//evil.example/x", "/api/v1/x", "/filing/../x",
+                 "https://www.sec.gov/x.htm", "http://example.com", "/filing/0001341439-26-000001?t=t0&row=a", "#evidence/compare?a=1&b=2"]
+        out = subprocess.run(["node", "-e", line + "\nprocess.stdout.write(JSON.stringify(JSON.parse(process.argv[1]).map(safeHref)))", "--", json.dumps(cases)], capture_output=True, text=True, check=True).stdout
+        got = dict(zip(cases, json.loads(out)))
+        self.assertEqual([c for c in cases if got[c] is not None], cases[7:])
+        raw = {f.name: re.findall(r"href: (?!safeHref\(|URL\.createObjectURL)([a-zA-Z_]+\.[a-zA-Z_.]+)", f.read_text()) for f in pages.glob("*.js")}
+        self.assertEqual({k: v for k, v in raw.items() if v}, {})  # no href from a stored field without the guard
+
+    @unittest.skipUnless(shutil.which("node"), "no node")
+    def test_the_trail_render_path_reaches_citecell(self):
+        """trailSource draws a cited cell with citeCell (the thumbnail or the crop's state); a filing line without a cell does not."""
+        import subprocess
+        pages = Path(crops.__file__).parent / "pages"
+        harness = """
+const h = (tag, attrs = {}, ...kids) => ({tag, attrs, kids: kids.flat(Infinity)});
+const safeHref = (u) => u; const SEC_LINK = /^https:\\/\\/www\\.sec\\.gov\\//; const int = (n) => String(n); const FIELDS = {}; const STAGE_LABEL_UI = {};
+const calls = []; const citeCell = (w, what) => { calls.push([w.crop.state, what]); return h('div', {class: 'cite'}); };
+""" + (pages / "trail.js").read_text() + """
+trailSource({where: [{crop: {state: 'located', url: '/evidence/crops/a.png'}, viewer: '/filing/x', link: 'https://www.sec.gov/x'}, {crop: {state: 'stale'}}, {label: '10-K filed 2026', viewer: '/filing/x'}]}, 'Revenue');
+process.stdout.write(JSON.stringify(calls));"""
+        out = subprocess.run(["node", "-e", harness], capture_output=True, text=True, check=True).stdout
+        self.assertEqual(json.loads(out), [["located", "Revenue"], ["stale", "Revenue"]])
+
+    def test_the_pages_read_one_label_map(self):
+        """Every page says a crop's state with _shared.js CROP_STATE; no page keeps its own copy."""
+        pages = Path(crops.__file__).parent / "pages"
+        own = [f.name for f in pages.glob("*.js") if f.name != "_shared.js" and ("'Cell located'" in f.read_text() or "Crop out of date" in f.read_text())]
+        self.assertEqual(own, [])
+        self.assertIn("CROP_STATE[e.state]", (pages / "evidence.js").read_text())
+        self.assertIn("citeCell(", (pages / "trail.js").read_text())
+        self.assertIn("citeCell(", (pages / "proof.js").read_text())
+        self.assertIn("citeCell(", (pages / "reconcile.js").read_text())
+
+    def test_readings_that_differ_link_the_oldest_and_newest_reading(self):
+        it = self.trail()["facts"]["all"][0]
+        self.assertEqual(it["card"]["compare"], {"a": "b", "b": "c"})  # filed 2025 then 2026: old → new
+        self.assertEqual(it["card"]["how"]["text"], "Readings differ: $9M → $12M")
+        self.assertEqual([w["filed"] for w in it["card"]["where"]], ["2025-06-20", "2026-06-20"])
+        self.assertIn("#evidence/compare?a=${encodeURIComponent(c.compare.a)}&b=${encodeURIComponent(c.compare.b)}", (Path(crops.__file__).parent / "pages" / "trail.js").read_text())
 
 
 if __name__ == "__main__":

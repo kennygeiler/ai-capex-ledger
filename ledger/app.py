@@ -27,6 +27,7 @@ from . import agents, progress, store
 from .cli.report import build
 from .config import ADDED, INDUSTRIES, SCOPE, added, industry, stage_tickers, tracked
 from .evidence import load_all
+from .workbench import FINDING_LABEL
 from .hq import snapshot
 from . import api, resolutions, views
 from .mapper import Stale
@@ -85,6 +86,16 @@ def company(ticker: str) -> dict:
         e["status"] = "note" if e["severity"] == "info" else "open" if e["exception_id"] in still else "decided"
         e["decision"] = d and d.get("input_hash") == e["input_hash"] and {k: d[k] for k in ("kind", "reason", "reviewer", "decided_at")} or None
         e["rule_title"] = rules.get(e["rule_id"], {}).get("title", e["rule_id"])
+    from . import crops  # each cited cell's crop, read the way the trail reads it; the legacy re-read screenshot is not shown
+    con = _con()
+    try:
+        cells = crops.cells(con, [s_["id"] for v in report["values"] for s_ in v["sources"]])
+    finally:
+        con.close()
+    for v in report["values"]:
+        for s_ in v["sources"]:
+            s_.pop("machine", None)
+            s_["crop"] = crops.brief(cells.get(s_["id"]))
     rel = releases()
     released = [r for r in csv.DictReader((rel[-1] / "values.csv").open()) if r["ticker"] == ticker] if rel else []
     info = next(c for c in tracked() if c["ticker"] == ticker)
@@ -246,7 +257,7 @@ def _flow(scope: str) -> dict:
                       "action": "run", "detail": v})
     for x in hqd["findings"]:
         if x["ticker"] in tickers and not x.get("confirmed", True):
-            queue.append({"kind": "finding_unconfirmed", "key": resolutions.key_for("finding_unconfirmed", x["ticker"], x["field"], x["period"], rule_id=x.get("rule") or x["kind"], subject=x.get("subject")), "state": "look", "ticker": x["ticker"], "where": f"{x['field'] or ''} {x['period'] or ''}".strip(), "impact": "a value the SEC's data can't confirm", "action": "open", "detail": x})
+            queue.append({"kind": "finding_unconfirmed", "key": resolutions.key_for("finding_unconfirmed", x["ticker"], x["field"], x["period"], rule_id=x.get("rule") or x["kind"], subject=x.get("subject")), "state": "look", "ticker": x["ticker"], "where": f"{x['field'] or ''} {x['period'] or ''}".strip(), "impact": FINDING_LABEL.get(x.get("rule") if x["kind"] == "other" else x["kind"]) or "a value SEC XBRL cannot confirm", "action": "open", "detail": x})
     for q_ in queue:
         q_.setdefault("dollars", 0); q_.setdefault("new", False)
         q_["hash"] = content_hash(q_["kind"], q_["detail"])
@@ -281,11 +292,14 @@ def gold_view(ticker: str | None = None) -> dict:
             con = _con()
         except Busy:
             con = None
+        from . import crops  # the cited cells' crops, read the way the trail and Reconcile read them
+        cells = {}
         if con is not None:
             try:
                 vals = _rows(con, 'select ticker, field, period, value, label from "values" where ticker = ?', t)
                 facts = _rows(con, "select ticker, field, dimension, period, value, label from facts where ticker = ?", t)
                 ref = _rows(con, "select ticker, field, period, value from reference_values where ticker = ?", t)
+                cells = crops.cells(con, [c.get("extraction_id") for it in docs[t]["items"] for c in it.get("cites", [])])
             finally:
                 con.close()
             live = gold.live_index(vals, facts)
@@ -296,7 +310,7 @@ def gold_view(ticker: str | None = None) -> dict:
             row = live.get(it["id"])
             items.append({**it, "live": None if con is None else {"value": gold.num(row["value"]) if row else None, "label": row and row.get("label"), "gone": row is None,
                                                                  "open": gold.is_open(row, looked_up, xbrl, idx)},
-                          "cites": [{**c, "img": "/evidence/" + Path(c["screenshot"]).name if c.get("screenshot") else None} for c in it.get("cites", [])]})
+                          "cites": [{**c, "evidence": crops.brief(cells.get(c.get("extraction_id"))) if con is not None else None} for c in it.get("cites", [])]})
     return {"companies": [{"ticker": k, "release": d.get("release"), "seed": d.get("seed"), "note": d.get("note"), "rate": gold.error_rate(d["items"])} for k, d in docs.items()],
             "all": gold.error_rate([i for d in docs.values() for i in d["items"]]), "ticker": t or None, "items": items, "problems": problems,
             "verdicts": list(gold.VERDICTS), "live": live_ok}
@@ -446,14 +460,19 @@ class Handler(BaseHTTPRequestHandler):
                 return self.wfile.write(z)
         if u.path == "/api/outputs":
             return self._guard(lambda: self._json(outputs()))
-        if u.path.startswith("/evidence/"):  # the re-read's screenshots, and the cell crops in evidence/crops/ (ledger/crops.py)
+        if u.path.startswith("/evidence/crops/"):  # a cell crop, served only while crops.state calls its entry located (ledger/crops.py)
             f = EVIDENCE / u.path.removeprefix("/evidence/")
-            if f.parent == EVIDENCE and f.suffix == ".png" and f.exists():
-                return self._send(HTTPStatus.OK, f.read_bytes(), mimetypes.guess_type(f.name)[0])
-            if f.parent == EVIDENCE / "crops":  # a crop is served only while it is a located entry's picture, unchanged
+            if f.parent == EVIDENCE / "crops" and f.suffix == ".png":
                 from . import crops
-                if f.name in crops.located_images():
-                    return self._send(HTTPStatus.OK, f.read_bytes(), "image/png")
+                eid = crops.extraction_of(f.name)
+                if eid:
+                    con = _con()
+                    try:
+                        e = crops.cells(con, [eid]).get(eid)
+                    finally:
+                        con.close()
+                    if e and e["state"] == "located" and (e.get("crop") or {}).get("url") == f"/evidence/crops/{f.name}":
+                        return self._send(HTTPStatus.OK, f.read_bytes(), "image/png")
         if u.path.startswith("/filing/"):  # Open in filing (in-app): the stored 10-K with the cell outlined (ledger/viewer.py)
             return self._guard(lambda: self._filing(u.path.removeprefix("/filing/")))
         if u.path.startswith("/pages/"):  # the page scripts app.html loads: ledger/pages/<name>.js, one file per page (T0)

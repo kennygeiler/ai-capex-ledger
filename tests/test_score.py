@@ -169,27 +169,27 @@ const STAGE_LABEL_UI = {values: 'Values', facts: 'Facts', statements: 'Statement
         sc = {"outputs": 81, "checked": 70, "explained": 11, "open": 0, "blocked": 0, "twin": {"agree": 70, "of": 71, "interval": [0.9244, 0.9975]},
               "faults": {"caught": 1275, "planted": 1283, "no_effect": 8, "escaped": 0}, "faults_note": "reports/stage3-faults.json: run 2026-10-30", "stage": "values", "companies": 6, "note": "n"}
         out = self.render(sc)
-        self.assertIn("checked 70 of 81 · explained 11 of 81 · open 0 of 81 · blocked 0 of 81", out)
-        self.assertIn("agrees with the twin 70 of 71 (98.6%, 95% interval 92.4–99.8%)", out)
+        self.assertIn("Verified 70 · Unverified 11 · Needs review 0 · Blocks release 0 (of 81)", out)
+        self.assertIn("Matches SEC XBRL 70 of 71 · 98.6% (95% CI 92.4–99.8%)", out)
         # one display path: the page computes the interval from agree / of; the API's interval is informational, so a
         # missing or a wrong one changes nothing on the page
         del sc["twin"]["interval"]
-        self.assertIn("agrees with the twin 70 of 71 (98.6%, 95% interval 92.4–99.8%)", self.render(sc))
+        self.assertIn("Matches SEC XBRL 70 of 71 · 98.6% (95% CI 92.4–99.8%)", self.render(sc))
         sc["twin"]["interval"] = [0.1, 0.2]
-        self.assertIn("agrees with the twin 70 of 71 (98.6%, 95% interval 92.4–99.8%)", self.render(sc))
+        self.assertIn("Matches SEC XBRL 70 of 71 · 98.6% (95% CI 92.4–99.8%)", self.render(sc))
         sc["twin"] = {"agree": 0, "of": 0, "interval": None}
-        self.assertIn("agrees with the twin 0 of 0", self.render(sc))
-        self.assertNotIn("interval", self.render(sc))
-        self.assertIn("caught 1,275 of 1,283 planted faults · 0 escaped · 8 reached no released value", out)
-        self.assertIn("faults: reports/stage3-faults.json: run 2026-10-30", out)
+        self.assertIn("Matches SEC XBRL 0 of 0", self.render(sc))
+        self.assertNotIn("95% CI", self.render(sc))  # no share, no interval
+        self.assertIn("Caught 1,275 of 1,283 · Missed 0 · No effect 8", out)
+        self.assertNotIn("reports/stage3-faults.json", out)  # file names stay in the API, off the page
 
-    def test_not_measured_comes_from_faults_note(self):
+    def test_not_measured_is_said_when_nothing_was_planted(self):
         sc = {"outputs": 3, "checked": 1, "explained": 1, "open": 0, "blocked": 1, "twin": None, "faults": None, "faults_note": "not measured: no fault test exists for the notes step's outputs", "stage": "facts", "companies": 1, "note": "n"}
         out = self.render(sc)
-        self.assertIn("blocked 1 of 3", out)
-        self.assertIn("no twin for this reader", out)
-        self.assertIn("not measured: no fault test exists for the notes step's outputs", out)
-        self.assertNotIn("faults: ", out)
+        self.assertIn("Blocks release 1 (of 3)", out)
+        self.assertIn("No SEC XBRL counterpart", out)
+        self.assertIn("Not measured", out)  # nothing planted: said, never a zero
+        self.assertNotIn("Caught", out)
 
 
 @unittest.skipUnless((store.DEFAULT_DB).exists(), "no working database")

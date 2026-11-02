@@ -288,9 +288,9 @@ Aggregate `state` is fail, unverified or pass (398). File problems: missing, emp
 **Transitions.** null → verdict, or verdict → another verdict: `POST /api/gold/verdict` → `record` (274-296; person
 **enforced** at 282; a note for wrong and can't say; a lock). A redraw keeps verdicted items (196-201, 235-258).
 Overwriting a verdict leaves no record in the file.
-**UI.** `GOLD_WORD` Right / Wrong / Can't say, `GOLD_BADGE` (proof.js:60-62), "no verdict" (105); "live: database busy" /
-"live: row gone" / "live now $X" / "live: open" (96); the rate line (66-69); the badge `gold: N failing | pass, N
-verdicts hold | unverified N of M | not run` (19-21); the Release Golden note (checklist.py:319-322); `summary_line`
+**UI** (rows-crops, 2 Nov 2026). `GOLD_WORD` Right / Wrong / Can't say in `GOLD_TONE` colours, "Unchecked"; "Current value
+unavailable" / "Removed from dataset" / "Now $X" / "Needs review"; the rate line `goldRate`; the Proof header "Hand check: N of M
+checked | pass | N wrong | not run" (`goldState`); each item's cited cell as the trail shows it (M14); the Release Golden note (checklist.py:319-322); `summary_line`
 (gold.py:418-426); claims `_gold` (claims.py:247-259).
 **Risks.** [MED] `live.open` ignores the ladder (app.py:297). [MED] A "right" whose value changed lacks the "changed
 since verdict" wording (gold.py:385-386 against 396). [LOW] No verdict history in the file. [HIGH, via M9] Verdicts
@@ -364,12 +364,30 @@ stale (378).
 and "Known gaps…" (checklist.py:348-353); docs/CLAIMS.md and LIMITATIONS.md ("checked live only").
 **Risks.** [MED] "proven" overloaded. [LOW] Golden is stale only when the file is missing; age is never checked.
 
+## M14. A cited cell's crop (rows-crops, 2 Nov 2026)
+
+**States.** none (no crop on record, or no extraction on file) · stale (the stored filing, its fingerprint, the citation or the
+crop code changed) · not_located (the locator did not find the cited text there; reason kept) · missing (the picture is gone
+or not the one written) · located (current). Computed on every read, never stored.
+**Who decides.** `crops.state` only. `crops.cells` reads it for a list of extraction ids and `crops.brief` shapes it for a
+row; the trail (`cards._cell`), the gold set (`app.gold_view`), Reconcile's cited cell (`workbench.items`, fact_differs) and
+`/api/v1/evidence/<id>` (`crops.view`) all go through `cells`. Test: `tests.test_crops.RowEvidence`.
+**Transitions.** `ledger evidence --crops` writes located or not_located (`crops.run`, `crops.merge`: an older run never
+replaces a newer one); any change to the filing, the citation or the code makes it stale; a changed picture makes it missing.
+**UI.** `_shared.js` `CROP_STATE`: Cell located · Cell not located (· reason) · Crop out of date · Crop file missing · No crop.
+A row shows the picture only when located (`citeCell`, the thumbnail zoomed on the red box, full size on click), else the
+state word, never a blank. Open goes to `/filing/<accession>?t=&row=&col=&cell=` (the in-app viewer); sec.gov is the second link.
+The picture route `/evidence/crops/<name>` serves a file only while `crops.state` calls its entry located (the record is
+indexed by picture name, `crops.extraction_of`). The viewer's banner is its own live find on the served page ("Found on
+this page" / "Not found on this page"), not this state. The Dataset drawer shows the same crop; the older re-read
+screenshots are no longer served.
+
 ## M12. Freshness of the monitoring inputs
 
 | Input | Fresh / stale rule | Read where | Not checked where |
 |---|---|---|---|
-| data/watch.json `checked_at` | ≤ 48 h (clock.age_hours) | trail (cards.py:275-276; trail.js:57-60 "EDGAR checked Nh ago", "· stale", "EDGAR never checked", "EDGAR check time <problem> · stale"); claims `_edgar` | **the Reconcile `new_filing` items and hq** use `watch.new` with no age (app.py:221; hq.py:192); `watch.new` is never reconciled with filings read since, only `watch --run` re-checks (cli/watch.py:38-41); "N new filings not ingested" (trail.js:74) lingers; no release line |
-| reports/golden.json | none (no commit) | — | the Golden line; the Proof badge "golden: equal, <date>" (proof.js:27) |
+| data/watch.json `checked_at` | ≤ 48 h (clock.age_hours) | trail (cards.status_line; trail.js "SEC checked Nh ago", "Nd ago · out of date", "SEC never checked", "SEC check failed"); claims `_edgar` | **the Reconcile `new_filing` items and hq** use `watch.new` with no age (app.py:221; hq.py:192); `watch.new` is never reconciled with filings read since, only `watch --run` re-checks (cli/watch.py:38-41); "N new filings not read" (trail.js) lingers; no release line |
+| reports/golden.json | none (no commit) | — | the Golden line; the Proof header "Regression test: pass · <date>" (proof.js) |
 | reports/tests.json | HEAD and dirty tree | the Test run line (checklist.py:276-307) | stale does not block |
 | claims/hosted.json | release and commit | claims `_hosted` | the release gate (M8); absent today |
 | `/api/hq` in the browser | — | — | `hqCache` (_shared.js:92) until a reload |
