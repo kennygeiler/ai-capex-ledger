@@ -24,7 +24,7 @@ const XBRL = {agree: 'matches SEC data', definition_gap: 'differs from SEC data,
 async function api(path, opts) {
   const r = await fetch(path, opts);
   const d = await r.json();
-  if (!r.ok) throw new Error(d.error || r.statusText);
+  if (!r.ok) { const e = new Error(d.error || r.statusText); e.status = r.status; throw e; }  // 409: the record changed since the page loaded
   return d;
 }
 let me = 'Kenny Geiler';

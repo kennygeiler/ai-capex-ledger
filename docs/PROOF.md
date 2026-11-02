@@ -265,18 +265,34 @@ company in the proven set.
 A category mapping ("Construction in progress" → `ConstructionInProgressMember`) is a classification. The filer's own
 XBRL instance often classifies the same balance: it tags `PropertyPlantAndEquipmentGross` on the balance date with a
 `PropertyPlantAndEquipmentByTypeAxis` member. When that member is exactly the one proposed, the mapping is checked by
-`mapping:filer_tag`, graded as a **twin** (`status.answer_key`): the filer's classification, in its separate
-machine-readable document. It leaves the person's queue (Reconcile, G6, the claims check) and needs no `confirmed_by`.
+`mapping:filer_tag` (shown as "Matches company's own tag"), graded as a **twin** (`status.answer_key`): the filer's classification, in its separate
+machine-readable document. It leaves the open items (Proof, Reconcile's open count, G6, the claims check) and needs no `confirmed_by`.
 
 Unambiguous means all of: every row of the category (every fiscal year it appears) has its own filing's instance on
 disk (never fetched on a read); no row is zero or missing (an empty prior-year column matches every empty member); in
 each row's instance exactly one member has the row's value on its balance date (the cell's value, never the reconcile
-reference; a total with no member never counts); that member is the same in every year; and it is a us-gaap member.
+reference; a total with no member never counts); that member is the same in every extracted year; and it is a us-gaap member.
 Anything else is shown and left to a person: a different us-gaap member is a conflict ("Company tags EquipmentMember"),
 a company member ("Company-specific tag"), two members on one value ("Ambiguous"), members by year ("Differs by year"),
 tagged some years only, not tagged, a zero, or not checked (no instance on disk). A person's confirmation comes first:
 it stands whatever the company tags. Nothing is written: the verdict is recomputed from disk on every read, so a new
 filing that tags differently sends the category back to the queue.
+
+The value itself: an untagged figure (`no_reference`) of a category the company's tag checks is in the company's own
+instance under the category's member on its date, so the one ladder (`ties.fact_state`, `status.of_fact(filer=True)`)
+checks it by `mapping:filer_tag` (a twin, after readings that differ and before a tie): the taxonomy row reads `agree`,
+`check_method` `mapping:filer_tag`, never "no XBRL to compare". Every derived row also carries `mapping_check` (schema
+v12): `mapping:filer_tag`, `mapping:<member>` (a person's confirmed_by), `label:to_confirm` or `none`.
+
+A category the company's tag checks still appears in Reconcile's asset types, after the open ones, checked and marked
+"Matches company's own tag", with Approve · Choose another · Reject: a person can always confirm or override it. Every
+write carries what the page showed (`expected`: the entry's member and date, or none); a write against an entry that
+changed meanwhile is refused with 409 and the page reloads (`mapper.Stale`).
+
+One count of the mappings that wait for a person, `filertag.tally`, feeds the claims check and every packet's
+limitations line; it equals the mapping stage's `label:to_confirm` items (tested on the fixtures). When the company tags
+cannot be read, nothing counts as matched and the line says "company tags not read". Instances are parsed once per file
+version (memoised by path, modification time and size).
 
 The trail item records what it rested on (`ref.filer_tag`: the member and each reading's accession, balance date, value
 and members). T80's walk (`status.evidence_gap` → `filertag.gap`) recomputes the verdict from the instances on disk and
@@ -284,12 +300,13 @@ refuses an item whose record is missing, names another member than the entry, or
 (tests: a forged record, a record left stale by an instance that changed).
 
 What it proves, and no more: the company tagged a figure of the same value on the same date with that member, in every
-year. It is the company's own classification, not an audit of it (claims register, `mapping_filer_tag`).
+extracted year. A value match against the company's own classification, not an audit of it (claims register,
+`mapping_filer_tag`). With no proposal, a company tag is its own status ("Company tags X · no proposal"), never "Differs".
 
 On the six (2 Nov 2026): of 47 mappings, 18 are checked by the company's tag (GOOGL 5, AMZN 3, NVDA 2, APLD 8), and the
 open mapping count drops 47 → 29. The other 29: 6 differ (AMZN "Other equipment", "Other assets"; APLD "Building",
 "Building improvements", "Information Systems and Software", "Networking equipment, electrical equipment, and
-software"), 7 carry a company member every year (AMZN "Servers and networking equipment", NVDA 2, APLD 4), 3 a company
+software"), 7 carry a company member in every extracted year (AMZN "Servers and networking equipment", NVDA 2, APLD 4), 3 a company
 member in FY2023 only (GOOGL "Technical infrastructure", "Office space", "Corporate and other assets", whose later cells
 differ from the tag), and 13 are not tagged with the value (all 6 MSFT, all 5 AMD, AMZN "Equipment", GOOGL "Add: assets
 not yet in service").

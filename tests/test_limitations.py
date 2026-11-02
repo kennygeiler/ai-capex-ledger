@@ -69,8 +69,11 @@ class ComputedCounts(unittest.TestCase):
         from ledger.failures import load as failures
         from ledger.taxonomy import asset_types
         self.assertEqual(_count("failure_types_without_check"), sum(t["check"] == "none" for t in failures()))
+        from ledger.filertag import tally
         entries = [e for b in asset_types().values() if isinstance(b, dict) for e in b.values()]
-        self.assertEqual(_count("asset_type_mappings_unconfirmed"), sum(not str((e or {}).get("confirmed_by") or "").strip() for e in entries))
+        c = tally()  # the one count (claims check, packet): neither confirmed_by nor the company's own tag
+        self.assertEqual(_count("asset_type_mappings_unconfirmed"), c["waiting"])
+        self.assertEqual(c["waiting"] + c["verified"], sum(not str((e or {}).get("confirmed_by") or "").strip() for e in entries))
         self.assertEqual(_count("outside_proven_set"), len({c["ticker"] for c in tracked()} - set(SCOPE)))
 
     def test_packet_counts_come_from_the_packets_csvs(self):

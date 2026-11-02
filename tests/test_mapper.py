@@ -453,7 +453,7 @@ class Route(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             path, log = Path(tmp) / "asset_types.yaml", Path(tmp) / "p.jsonl"
             path.write_text(HEADER)
-            body = {"ticker": "MU", "reported_name": "Land", "standard_type": "LandMember", "evidence": "Land", "by": "Kenny Geiler"}
+            body = {"ticker": "MU", "reported_name": "Land", "standard_type": "LandMember", "evidence": "Land", "by": "Kenny Geiler", "expected": None}
             with mock.patch.object(app, "READONLY", True):
                 code, d = self._post(base + "/api/mapping", body)
             self.assertEqual(code, 403)
@@ -470,11 +470,20 @@ class Route(unittest.TestCase):
                 code, d = self._post(base + "/api/mapping", {**body, "by": "Claude Fable 5.1"})  # T63: a model never confirms
                 self.assertEqual(code, 400)
                 self.assertIn("not a person's name", d["error"])
+                code, d = self._post(base + "/api/mapping", {k: v for k, v in body.items() if k != "expected"})  # the page must say what it showed
+                self.assertEqual(code, 400)
+                self.assertIn("expected", d["error"])
+                code, d = self._post(base + "/api/mapping", {**body, "expected": {"standard_type": "LandMember", "at": "2026-11-01"}})  # a stale Approve: an entry the file does not hold
+                self.assertEqual((code, d.get("stale")), (409, True))
+                self.assertEqual(path.read_text(), HEADER)
                 code, d = self._post(base + "/api/mapping", body)
                 self.assertEqual(code, 200)
                 self.assertEqual((d["ticker"], d["standard_type"], d["by"]), ("MU", "LandMember", "Kenny Geiler"))
                 self.assertEqual(yaml.safe_load(path.read_text())["MU"]["Land"]["standard_type"], "LandMember")
-                code, d = self._post(base + "/api/mapping", body)  # the same again: refused
+                code, d = self._post(base + "/api/mapping", body)  # the same again, from the page as loaded before: the entry changed, 409
+                self.assertEqual(code, 409)
+                on_file = yaml.safe_load(path.read_text())["MU"]["Land"]
+                code, d = self._post(base + "/api/mapping", {**body, "expected": {"standard_type": "LandMember", "at": str(on_file["at"])}})  # reloaded: refused, already confirmed
                 self.assertEqual(code, 400)
                 self.assertIn("already mapped", d["error"])
                 code, d = self._post(base + "/api/mapping/reject", {"ticker": "MU", "reported_name": "Equipment", "standard_type": "TechnologyEquipmentMember", "by": "Kenny Geiler"})

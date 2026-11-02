@@ -68,7 +68,9 @@ def twin(con, agent_id: str, ticker: str, items: list[dict]) -> dict | None:
         labels = [r["label"] for r in _rows(con, "select label from facts where ticker = ?", ticker)]
     else:
         return None
-    of = sum(lab not in TWIN_WITHOUT[stage] for lab in labels)
+    # an untagged PP&E figure whose value the company's own instance tags with its category's member has a twin too
+    # (mapping:filer_tag, ledger/filertag.py): it counts in both, so agree never exceeds of
+    of = sum(lab not in TWIN_WITHOUT[stage] for lab in labels) + sum(i["by"] == "mapping:filer_tag" for i in items)
     agree = sum(status.answer_key(i["by"] or "") == "twin" for i in items)
     return with_interval({"agree": agree, "of": of})
 

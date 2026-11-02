@@ -210,9 +210,16 @@ def rows(con, tickers: list[str] | None = None) -> list[dict]:
             change = f["value"] - prev[key] if key in prev and prev[key] is not None and f["value"] is not None else None
             if not st:
                 common.update(check="unmapped", check_method="none")
-            elif not confirmed(m) and not verified(m, tags.get(key)):  # T63: a proposal neither a person nor the company's own tag checks
+                basis = "none"
+            elif confirmed(m):
+                basis = f"mapping:{st}"  # a person's confirmed_by (T63)
+            elif verified(m, tags.get(key)):
+                basis = "mapping:filer_tag"  # the company's own tag, every extracted year (ledger/filertag.py)
+            else:  # T63: a proposal neither a person nor the company's own tag checks
                 common.update(check="to_confirm", check_method="label:to_confirm")
-            out.append(_row(measure="derived", category="ppe_gross_by_type", reported_name=f["dimension"], standard_concept=CONCEPT["ppe_category"], standard_type=st, change_from_prior=change, **common))
+                basis = "label:to_confirm"
+            out.append(_row(measure="derived", category="ppe_gross_by_type", reported_name=f["dimension"], standard_concept=CONCEPT["ppe_category"], standard_type=st, change_from_prior=change,
+                            mapping_check=basis, **common))
             prev[key] = f["value"]
     # statements: guidance (planned, scope total) and company-stated AI (any scope ai with a figure)
     if _has(con, "ai_statements"):

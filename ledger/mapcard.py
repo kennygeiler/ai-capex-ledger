@@ -106,10 +106,12 @@ def tag_text(cmp: str, tag: dict | None, doc: dict | None = None) -> str:
         return "Same as proposed"
     if cmp == "differs":
         return f"Differs: {name(m)}"
+    if cmp == "tagged_no_proposal":
+        return f"Company tags {name(m)} · no proposal"
     if cmp == "extension":
         return f"Company-specific tag: {m}"
     if cmp == "partial":
-        return (f"Company-specific tag: {m}" if not m.startswith("us-gaap:") else f"Tagged: {name(m)}") + " · not every year"
+        return (f"Company-specific tag: {m}" if not m.startswith("us-gaap:") else f"Tagged: {name(m)}") + " · not every extracted year"
     if cmp == "ambiguous":
         return "Ambiguous: " + ", ".join(m or [])
     if cmp == "inconsistent":
@@ -123,7 +125,7 @@ def tag_text(cmp: str, tag: dict | None, doc: dict | None = None) -> str:
 
 def state_label(st: dict, entry: dict | None) -> str:
     if st["by"] == filertag.FILER_TAG:
-        return "Verified · matches company's own tag"
+        return "Matches company's own tag"
     if st["state"] == "checked":
         return f"Confirmed · {entry.get('confirmed_by')}"
     if (entry or {}).get("standard_type"):
@@ -173,7 +175,7 @@ def decisions(con, ticker: str, names: list[str] | None = None) -> dict[str, dic
         tag_member = (tag or {}).get("member")
         out[name] = {
             "ticker": t, "name": name,
-            "state": {"state": st["state"], "by": st["by"], "label": state_label(st, e)},
+            "state": {"state": st["state"], "by": st["by"], "reason": st["reason"], "label": state_label(st, e)},
             "line": {"name": name, "latest": {"period": last["period"], "value": last["value"]} if last else None,
                      "series": [{"period": r["period"], "value": r["value"]} for r in rows], "link": link,
                      "accession": last.get("accession") if last else None, "filed": str((docs.get(last.get("accession")) or {}).get("filed") or "")[:10] if last else None},

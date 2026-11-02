@@ -195,7 +195,7 @@ def of_mapping(entry: dict | None, tag: dict | None = None) -> dict:
     if confirmed(entry):
         return state({"check": "mapping", "mapping_to": member, "reason": f"mapped to {member} with the note's words, confirmed by {entry['confirmed_by']}"})
     if verified(entry, tag):
-        return state({"check": "mapping", "mapping_to": "filer_tag", "reason": f"{member}: the company's own XBRL tags the category with it, every year, one member"})
+        return state({"check": "mapping", "mapping_to": "filer_tag", "reason": f"{member}: the company's own XBRL tags the category's value with it, one member, in every extracted year"})
     return state({"label": "to_confirm", "reason": f"{member} proposed by {entry.get('by') or 'nobody named'}; no person has confirmed it"})
 
 
@@ -237,11 +237,13 @@ DIFFER = "fact_readings_differ"  # ties.DIFFER; the rule (rules/fact_readings_di
 
 
 def of_fact(f: dict, resolution: dict | None = None, restated: str | None = None, differ: str | None = None,
-            tie: str | None = None, reading: str | None = None) -> dict:
+            tie: str | None = None, reading: str | None = None, filer: bool = False) -> dict:
     """A `facts` row: label agree → checked by XBRL; unresolved → the restatement guard when the cell and the tag come
     from different filings (`restated` is that finding's text), else open unless resolved. no_reference (no XBRL value)
     climbs the ladder (T92, ledger/ties.py): readings across filings that differ (`differ`, the finding's text) → open by
-    rule:fact_readings_differ, explained only by a person's resolution, never by the label; else a tie that holds for its
+    rule:fact_readings_differ, explained only by a person's resolution, never by the label; else, for a PP&E category
+    the company's own tag checks (`filer`, ledger/filertag.py), checked by mapping:filer_tag: the filing's instance tags
+    this very value with the category's member, a twin, so it is never "no XBRL to compare"; else a tie that holds for its
     filing's group (`tie`, the rule id) → checked by rule:<id>_tie; else two or more filings agreeing (`reading`, the
     other filing's accession) → checked by reading:<accession>; else the label, explained, citation only."""
     label = f.get("label")
@@ -250,6 +252,8 @@ def of_fact(f: dict, resolution: dict | None = None, restated: str | None = None
         row["check"] = "xbrl"
     elif label == "no_reference" and differ:
         row |= {"rule": DIFFER, "severity": "warn", "reason": differ}
+    elif label == "no_reference" and filer:  # the category's value is in the company's own instance under its mapped member
+        row |= {"check": "mapping", "mapping_to": "filer_tag", "reason": "the company's own XBRL tags this value with the category's member"}
     elif label == "no_reference" and tie:
         row |= {"check": f"rule:{tie}", "reason": "the parts sum to the filing's tagged total"}
     elif label == "no_reference" and reading:
@@ -324,8 +328,9 @@ def evidence_gap(item: dict, ev: dict) -> str | None:
         tags = ev.get("filer_tags")
         if tags is None:
             return f"{by}: no company tags on file to check against"
-        e = (ev["asset_types"].get(ref.get("ticker")) or {}).get(ref.get("name"))
-        return gap(ref, e, tags.get((ref.get("ticker"), ref.get("name"))))
+        name = ref.get("name") or ref.get("dimension")  # a mapping item, or a fact of the category (of_fact's filer)
+        e = (ev["asset_types"].get(ref.get("ticker")) or {}).get(name)
+        return gap(ref, e, tags.get((ref.get("ticker"), name)))
     if answer_key(by):
         if item["state"] != "checked":
             return f"{by}: an answer key checks, it does not explain"

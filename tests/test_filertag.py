@@ -206,7 +206,7 @@ class Card(Base):
         self.assertEqual(land["proposed"], {"member": "LandMember", "label": doc["members"]["LandMember"]["label"], "definition": doc["members"]["LandMember"]["definition"]})
         self.assertEqual(land["source"], doc["source"]["short"])
         self.assertEqual(land["source"], "FASB US GAAP 2025")
-        self.assertEqual(land["state"], {"state": "checked", "by": "mapping:filer_tag", "label": "Verified · matches company's own tag"})
+        self.assertEqual({k: v for k, v in land["state"].items() if k != "reason"}, {"state": "checked", "by": "mapping:filer_tag", "label": "Matches company's own tag"})
         self.assertEqual((land["tag"]["status"], land["tag"]["text"], land["tag"]["accession"], land["tag"]["period_end"]), ("same", "Same as proposed", "acc1", "2025-12-31"))
         self.assertEqual(land["line"]["latest"], {"period": "FY2025", "value": 120e6})
         self.assertEqual([s["period"] for s in land["line"]["series"]], ["FY2024", "FY2025"])
@@ -225,7 +225,7 @@ class Card(Base):
         self.assertEqual(c["Plain"]["tag"]["text"], "Not tagged")
         self.assertEqual(c["Zeroed"]["tag"]["text"], "Not compared: zero value")
         self.assertEqual(c["Drift"]["tag"]["text"], "Differs by year: us-gaap:EquipmentMember, us-gaap:MachineryAndEquipmentMember")
-        self.assertEqual(c["Half"]["tag"]["text"], "Tagged: Land Improvements (LandImprovementsMember) · not every year")
+        self.assertEqual(c["Half"]["tag"]["text"], "Tagged: Land Improvements (LandImprovementsMember) · not every extracted year")
         self.assertEqual(c["Servers"]["affects"]["text"], "1 figure · $80M FY2025")
 
     def test_every_allowed_member_has_its_fasb_words(self):
@@ -244,6 +244,102 @@ class Card(Base):
         self.assertTrue(all(a["why"] == "Shares words: equipment" for a in alts))
         self.assertNotIn("TechnologyEquipmentMember", [a["member"] for a in alts])  # never the proposal itself
         self.assertEqual(mapcard.alternatives("Add: assets not yet in service", "ConstructionInProgressMember", None, mapper.members(), doc), [])  # nothing shares a word: none offered
+
+
+class Guards(Base):
+    def test_non_numeric_and_non_finite_values_never_match_or_verify(self):
+        from ledger import filertag as F
+        for bad in (None, "", "n/a", float("nan"), float("inf"), "-inf", object()):
+            self.assertIsNone(F.whole(bad), bad)
+            self.assertEqual(F.members_at({(G, "us-gaap:LandMember", "2025-12-31"): 120_000_000}, "2025-12-31", bad), [])
+        con = _con()
+        con.execute("update facts set value = 'NaN'::double where dimension = 'Land' and period = 'FY2024'")
+        v = F.verdicts(con, ["MU"])[("MU", "Land")]
+        self.assertEqual(v["status"], "zero")  # a non-finite year stops the category: a person decides
+        self.assertFalse(F.verified(ENTRIES["MU"]["Land"], v))
+
+    def test_a_failed_query_is_not_read_never_zero_verified(self):
+        tags, ok = filertag.verdicts_ok(duckdb.connect(), ["MU"])
+        self.assertEqual((tags, ok), ({}, False))
+        from ledger import claims, limitations
+        with mock.patch.object(filertag, "verdicts_ok", return_value=({}, False)):
+            detail = claims._mappings({})[0][2]
+            count, of = limitations._asset_types(None)
+        self.assertIn("company tags not read", detail)
+        self.assertNotIn("match the company's own tag", detail)
+        self.assertIn("company tags not read", of)
+
+    def test_a_company_tag_with_no_proposal_is_its_own_status(self):
+        v = self.v[("MU", "Land")]
+        self.assertEqual(filertag.compare(None, v), "tagged_no_proposal")
+        self.assertEqual(mapcard.tag_text("tagged_no_proposal", v), "Company tags Land (LandMember) · no proposal")
+        self.assertFalse(filertag.verified({}, v))
+
+    def test_an_instance_is_parsed_once_per_file_version(self):
+        import os
+        filertag._PARSED.clear()
+        with mock.patch("ledger.filertag.json.loads", wraps=json.loads) as parse:
+            filertag.verdicts(self.con, ["MU"])
+            n = parse.call_count
+            filertag.verdicts(self.con, ["MU"])
+            self.assertEqual(parse.call_count, n)  # the second request parses nothing
+            p = self.raw / f"{CIK:010d}" / "filings" / "acc1.facts.json"
+            p.write_text(p.read_text() + " ")
+            os.utime(p, ns=(p.stat().st_atime_ns, p.stat().st_mtime_ns + 1_000_000))
+            filertag.verdicts(self.con, ["MU"])
+            self.assertEqual(parse.call_count, n + 1)  # a changed file is read again, never served stale
+
+    def test_filer_members_is_not_checked_when_any_year_was_not_read(self):
+        con = _con()
+        con.execute("update facts set accession = 'acc2' where dimension = 'Land' and period = 'FY2024'")  # one year's instance not on disk
+        self.assertIsNone(mapper.filer_members(con, "MU", ["Land"])["Land"])
+        self.assertEqual(filertag.verdicts(con, ["MU"])[("MU", "Land")]["status"], "not_checked")
+
+
+class Rows(Base):
+    def test_a_tag_matched_figure_is_checked_by_the_company_tag_and_the_row_says_so(self):
+        """The untagged figure of a category the company's tag checks is a value match in its own instance: agree by
+        mapping:filer_tag, never "no XBRL to compare"; the derived row records what checks its mapping."""
+        from ledger import ties
+        st = status.of_fact({"label": "no_reference"}, filer=True)
+        self.assertEqual((st["state"], st["by"], st["key"]), ("checked", "mapping:filer_tag", "twin"))
+        self.assertEqual(ties.check_columns(st), ("agree", "mapping:filer_tag"))
+        self.assertEqual(status.of_fact({"label": "no_reference"}, differ="read two ways", filer=True)["by"], "rule:fact_readings_differ")  # readings that differ stay open
+        con = _con()
+        con.execute('create table "values" (ticker text, field text, period text, period_end text, value double, label text, extraction_ids text)')
+        con.execute("create table extractions (extraction_id text, accession text, table_id text, row_label text, cell_text text, ticker text)")
+        with mock.patch.object(taxonomy, "asset_types", return_value=ENTRIES), mock.patch.object(taxonomy, "_restated", return_value=None):
+            rows = [r for r in taxonomy.rows(con, ["MU"]) if r["measure"] == "derived"]
+        land = [r for r in rows if r["reported_name"] == "Land"]
+        self.assertEqual({(r["check"], r["check_method"], r["mapping_check"], r["mapped"]) for r in land}, {("agree", "mapping:filer_tag", "mapping:filer_tag", True)})
+        other = [r for r in rows if r["reported_name"] == "Other"]
+        self.assertEqual({(r["check"], r["mapping_check"], r["mapped"]) for r in other}, {("to_confirm", "label:to_confirm", False)})
+
+
+class Override(Base):
+    def test_a_verified_category_is_listed_after_the_open_ones_for_a_person_to_override(self):
+        from ledger import workbench
+        with mock.patch.object(taxonomy, "asset_types", return_value=ENTRIES), mock.patch.object(mapcard, "asset_types", return_value=ENTRIES), \
+                mock.patch.object(mapper, "load_proposals", return_value=[]):
+            rows = workbench.asset_types(self.con, ["MU"], {"MU": "Micron"})
+        land = next(r for r in rows if r["where"] == "Land")
+        self.assertEqual((land["state"], land["by"], land["open"], land["evidence"]["mapping"]), ("checked", "mapping:filer_tag", False, "verified"))
+        self.assertEqual(land["evidence"]["decision"]["state"]["label"], "Matches company's own tag")
+        self.assertEqual(sum(r["open"] for r in rows), len(ENTRIES["MU"]) - 1)
+        self.assertEqual(sum(r["evidence"]["mismatch"] for r in rows), sum(r["evidence"]["decision"]["tag"]["status"] == "differs" for r in rows))
+
+    def test_a_stale_approve_is_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path, log = Path(tmp) / "asset_types.yaml", Path(tmp) / "p.jsonl"
+            path.write_text("# us-gaap members used: LandMember, LandAndBuildingMember.\n\nMU:\n  \"Land\": {standard_type: LandMember, evidence: land, by: Claude Fable 5.1, at: 2026-11-01}\n")
+            before = path.read_text()
+            with mock.patch.object(mapper, "_to_confirm", return_value=[{"reported_name": "Land"}]):
+                for exp in (None, {"standard_type": "LandAndBuildingMember", "at": "2026-11-01"}, {"standard_type": "LandMember", "at": "2026-10-01"}):
+                    with self.assertRaises(mapper.Stale):
+                        mapper.approve("MU", "Land", "LandMember", "land", "Kenny Geiler", path=path, log=log, expected=exp)
+                self.assertEqual(path.read_text(), before)  # nothing written
+                out = mapper.approve("MU", "Land", "LandMember", "land", "Kenny Geiler", path=path, log=log, expected={"standard_type": "LandMember", "at": "2026-11-01"})
+            self.assertEqual(out["confirmed_by"], "Kenny Geiler")
 
 
 if __name__ == "__main__":

@@ -308,31 +308,15 @@ def _hosted(ctx) -> list:
 
 
 def _mappings(ctx) -> list:
-    """Asset-type mappings neither a person confirmed nor the company's own tag checks (filertag.verified), counted the
-    way the mapping stage counts them. The company tags are read from the database and the instances on disk; when the
-    database does not open, every unconfirmed mapping counts and the detail says the tags were not read."""
-    from .filertag import verdicts, verified
-    from .status import confirmed
-    from .taxonomy import asset_types
-    types = asset_types()
-    pairs = [(t, n, e) for t, block in types.items() if isinstance(block, dict) for n, e in block.items()]
-    tags, read = {}, False
-    try:
-        import duckdb
-        con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
-        try:
-            tags, read = verdicts(con, sorted(types)), True
-        finally:
-            con.close()
-    except Exception:
-        pass
-    unconfirmed = [(t, n, e) for t, n, e in pairs if not confirmed(e)]
-    by_tag = sum(verified(e, tags.get((t, n))) for t, n, e in unconfirmed)
-    n = len(unconfirmed) - by_tag
-    if not n:
+    """Asset-type mappings neither a person confirmed nor the company's own tag checks: filertag.tally, the one count
+    every packet's limitations line reads too. When the company tags could not be read, nothing counts as verified and
+    the detail says so (never "0 verified")."""
+    from .filertag import tally
+    c = tally()
+    if not c["waiting"]:
         return []
-    how = f"; {by_tag} verified by the company's own tag" if read else "; company tags not read (no database)"
-    return [("partial", "category mappings unconfirmed", f"{n} of {len(pairs)} category mappings await a person's confirmation{how}")]
+    how = f"; {c['verified']} match the company's own tag" if c["read"] else "; company tags not read"
+    return [("partial", "category mappings unconfirmed", f"{c['waiting']} of {c['entries']} category mappings await a person's confirmation{how}")]
 
 
 def _golden(ctx) -> list:

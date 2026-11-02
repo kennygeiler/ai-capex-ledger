@@ -17,7 +17,7 @@ from ledger.config import PROVEN
 
 SCRIPT = """
 import json, duckdb
-from ledger import app, cards, filertag, proof, store, taxonomy, workbench
+from ledger import app, cards, claims, filertag, limitations, proof, store, taxonomy, workbench
 from ledger.config import PROVEN
 con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
 b = proof.board(con)
@@ -41,7 +41,12 @@ print(json.dumps({"proof": {c["ticker"]: c["open"] for c in b["proven"]}, "proof
                   "filer_names": {c["ticker"]: sorted(i["name"] for i in c["stages"]["mapping"]["all"] if i["by"] == "mapping:filer_tag") for c in b["proven"]},
                   "verified_names": {t: sorted(n for (tt, n) in tags if tt == t and ver(t, n)) for t in PROVEN},
                   "tax_filer_mapped": {t: sorted({r["reported_name"] for r in taxonomy.rows(con, [t]) if r["measure"] == "derived" and r["mapped"] and ver(t, r["reported_name"])}) for t in PROVEN},
-                  "reconcile_asset_names": {t: sorted(r["where"] for r in it["rows"] if r["cause"] == "asset_types" and r["ticker"] == t) for t in PROVEN},
+                  "reconcile_asset_names": {t: sorted(r["where"] for r in it["rows"] if r["cause"] == "asset_types" and r["ticker"] == t and r["open"]) for t in PROVEN},
+                  "reconcile_verified_names": {t: sorted(r["where"] for r in it["rows"] if r["cause"] == "asset_types" and r["ticker"] == t and r["evidence"]["mapping"] == "verified" and r["state"] == "checked" and not r["open"]) for t in PROVEN},
+                  "reconcile_differs": sum(1 for r in it["rows"] if r["cause"] == "asset_types" and r["ticker"] in PROVEN and r["evidence"]["mismatch"]),
+                  "card_differs": sum(1 for t in PROVEN for i in cards.add(con, proof.company(con, t))["stages"]["mapping"]["all"] if i["decision"]["tag"]["status"] == "differs"),
+                  "tally": filertag.tally(PROVEN), "limitations": limitations._asset_types(None)[0], "claims_detail": claims._mappings({}),
+                  "proof_waiting": sum(sum(1 for i in c["stages"]["mapping"]["open"] if i["by"] == "label:to_confirm") for c in b["proven"]),
                   "card_parity": (lambda trail_cards, rec_cards: {"compared": len(rec_cards), "differ": sorted(k for k in rec_cards if trail_cards.get(k) != rec_cards[k])})(
                       {(t, i["name"]): i["decision"] for t in PROVEN for i in cards.add(con, proof.company(con, t))["stages"]["mapping"]["all"]},
                       {(r["ticker"], r["where"]): r["evidence"]["decision"] for r in it["rows"] if r["cause"] == "asset_types" and r["ticker"] in PROVEN}),
@@ -578,8 +583,11 @@ class EveryCheckedRowNamesItsEvidence(unittest.TestCase):
 
     def test_a_stale_company_tag_is_refused_by_the_walk(self):
         gaps = self.walk("filer_stale")["gaps"]
-        self.assertEqual([(g["ticker"], g["stage"], g["by"]) for g in gaps], [("NVDA", "mapping", "mapping:filer_tag")], gaps)
-        self.assertIn("on file the company's tag is inconsistent", gaps[0]["gap"])  # FY2026 now reads BuildingMember: members differ by year
+        # the mapping item and every untagged figure of the category that rested on the tag: all refused, nothing else
+        self.assertEqual({(g["ticker"], g["by"]) for g in gaps}, {("NVDA", "mapping:filer_tag")}, gaps)
+        self.assertEqual(sorted({g["stage"] for g in gaps}), ["facts", "mapping"], gaps)
+        self.assertEqual(sum(g["stage"] == "mapping" for g in gaps), 1, gaps)
+        self.assertTrue(all("on file the company's tag is inconsistent" in g["gap"] for g in gaps), gaps)  # FY2026 now reads BuildingMember: members differ by year
 
     def test_planted_gate_on_another_stage(self):
         gaps = self.walk("gate")["gaps"]
@@ -707,6 +715,17 @@ class ProofAgreesWithReconcile(unittest.TestCase):
         self.assertEqual(r["reconcile_asset_names"], r["open_names"])
         self.assertTrue(all(not (set(r["verified_names"][t]) & set(r["waiting_names"][t])) for t in PROVEN))
         self.assertGreater(sum(len(v) for v in r["verified_names"].values()), 0)  # the fixtures hold verified categories: not a vacuous parity
+        # verified categories stay in Reconcile's asset types, checked, not open, for a person to confirm or override
+        self.assertEqual(r["reconcile_verified_names"], r["verified_names"])
+        # the card's "Differs" and Reconcile's "differ from company tag" are one count
+        self.assertEqual(r["reconcile_differs"], r["card_differs"])
+        self.assertGreater(r["card_differs"], 0)
+        # one count of mappings waiting for a person: the claims check, every packet's limitations line and Proof
+        self.assertTrue(r["tally"]["read"], r["tally"])
+        self.assertEqual(r["tally"]["waiting"], r["proof_waiting"])
+        self.assertEqual(r["limitations"], r["proof_waiting"])
+        self.assertIn(f"{r['proof_waiting']} of {r['tally']['entries']} category mappings await", r["claims_detail"][0][2])
+        self.assertEqual(r["tally"]["verified"], sum(len(v) for v in r["verified_names"].values()))
         # the decision card: the trail (Category mapping) and Reconcile (asset types) show the same card, from mapcard.decisions
         self.assertGreater(r["card_parity"]["compared"], 0)
         self.assertEqual(r["card_parity"]["differ"], [])

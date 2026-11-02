@@ -109,12 +109,13 @@ older_vintages_unchecked:
 asset_type_mappings_unconfirmed:
   weakness: >-
     The asset-type mappings in taxonomy/asset_types.yaml (a company's PP&E category to a us-gaap member) are model
-    proposals until a person confirms them.
+    proposals until a person confirms them, or the company's own XBRL tags the same member in every extracted year (a
+    value match against the company's classification, not an audit of it).
   rows:
     computed: asset_types_unconfirmed
   mitigation: >-
-    An unconfirmed mapping fails gate G6 and is open on Proof and Reconcile, and its taxonomy rows read mapped false,
-    check to_confirm.
+    A mapping neither confirms fails gate G6 and is open on Proof and Reconcile, and its taxonomy rows read mapped
+    false, check to_confirm, mapping_check label:to_confirm.
   closes: T63
 
 no_monitoring_thresholds:

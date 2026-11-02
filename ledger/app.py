@@ -29,6 +29,7 @@ from .config import ADDED, INDUSTRIES, SCOPE, added, industry, stage_tickers, tr
 from .evidence import load_all
 from .hq import snapshot
 from . import api, resolutions, views
+from .mapper import Stale
 from .publish import NotPublishable
 from .release import RELEASES, releases
 from .review import decisions, latest, open_items
@@ -384,6 +385,8 @@ class Handler(BaseHTTPRequestHandler):
             return fn()
         except Busy as e:
             self._json({"error": str(e)}, HTTPStatus.SERVICE_UNAVAILABLE)
+        except Stale as e:  # the entry changed since the page showed it: the page reloads
+            self._json({"error": str(e), "stale": True}, HTTPStatus.CONFLICT)
         except (KeyError, ValueError) as e:
             self._json({"error": str(e).strip("'")}, HTTPStatus.BAD_REQUEST)
         except NotPublishable as e:  # ?release= on an unsigned release
@@ -584,7 +587,13 @@ class Handler(BaseHTTPRequestHandler):
             def do_approve():
                 con = _con()
                 try:
-                    return mapper.approve(str(body.get("ticker", "")), str(body.get("reported_name", "")), str(body.get("standard_type", "")), str(body.get("evidence", "")), str(body.get("by", "")), con=con)
+                    if "expected" not in body:  # what the page showed for the entry: a write against a changed entry is refused (409)
+                        raise ValueError("the request must carry `expected`: the entry the page showed ({standard_type, at}, or null for none)")
+                    exp = body.get("expected")
+                    if exp is not None and not isinstance(exp, dict):
+                        raise ValueError("`expected` is {standard_type, at} or null")
+                    return mapper.approve(str(body.get("ticker", "")), str(body.get("reported_name", "")), str(body.get("standard_type", "")), str(body.get("evidence", "")), str(body.get("by", "")), con=con,
+                                          expected=exp)
                 finally:
                     con.close()
             return self._guard(lambda: self._json(do_approve()))
