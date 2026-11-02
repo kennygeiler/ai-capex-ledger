@@ -307,6 +307,53 @@ def tests_line(t: dict | None, head=_LOOKUP, changed=_LOOKUP) -> dict:
     return _line("tests", "Test run", True, 0, "pass", "proof", base, detail)
 
 
+def golden_line(g: dict | None) -> dict:
+    """"Golden test": required, green only when the tables are equal AND gold passes (every item has a verdict and every
+    verdict holds). Gold unverified (0 of N verdicts, or some missing) is red: "Not a pass" means not a pass, so Sign
+    stays disabled until a person gives the verdicts. A report from before T82's split (no tables_ok) is read strictly."""
+    if g is None:
+        return _line("golden", "Golden test", True, 1, "fail", "proof", "not run")
+    tables = bool(g.get("tables_ok") if "tables_ok" in g else g.get("ok")) and not g.get("failed_step")
+    gd = g.get("gold") or {}
+    state = gd.get("state") or "not run"
+    gold_word = {"pass": f"gold pass, {gd.get('checked')} verdicts hold", "fail": f"gold FAILS, {len(gd.get('failures') or [])} verdicts",
+                 "unverified": f"gold unverified {gd.get('unverified')} of {gd.get('items')}: give the verdicts on Proof"}.get(state, "gold not run")
+    ok = tables and state == "pass"
+    note = f"tables {'equal' if tables else 'differ'}" + (f", failed at {g['failed_step']}" if g.get("failed_step") else "") + f"; {gold_word}; {g.get('at')}"
+    detail = [{"table": k, "only_in_run": v.get("n_only_in_run"), "only_in_expected": v.get("n_only_in_expected")} for k, v in (g.get("diffs") or {}).items()] \
+        + [{"gold": f} for f in gd.get("failures") or []]
+    count = 0 if ok else (len(g.get("diffs") or {}) + len(gd.get("failures") or []) + (gd.get("unverified") or 0)) or 1
+    return _line("golden", "Golden test", True, count, "pass" if ok else "fail", "proof", note, detail)
+
+
+def claims_lines() -> list[dict]:
+    """"Claims register: every shown claim has a row" (required: red on any scanned string with no row, a row whose words
+    are not where it says, a built row with nothing to look for, a scan that read nothing, a findings log edited in an
+    earlier commit, or a register that does not load) and "Known gaps" (informs: stub, stale and open findings, now).
+    Anything the register raises reads red, never a crash."""
+    from . import claims
+    label = "Claims register: every shown claim has a row"
+    try:
+        es = claims.load()
+        fs = claims.findings(ids={e["id"] for e in es})
+        probs = claims.unregistered(es)
+        sc = claims.scan()
+        ao = claims.append_only()
+        rows = claims.computed(True, entries=es, fs=fs)
+    except Exception as e:
+        return [_line("claims", label, True, 1, "fail", "gaps", f"the register could not be read: {e.__class__.__name__}: {str(e)[:160]}", [{"problem": str(e)[:300]}])]
+    probs = probs + [{"kind": "append_only", "what": p, "where": "claims/findings.jsonl"} for p in ao["problems"]]
+    c = claims.counts(rows, fs)
+    scanned = f"scanned {sc['pages']} pages and {sc['files'] - sc['pages']} other files, {len(sc['strings'])} strings; {len(rows)} claims; {ao['note']}"
+    reg = _line("claims", label, True, len(probs), "pass" if not probs else "fail", "gaps",
+                scanned if not probs else f"{len(probs)} problems: a claim with no row, a row whose words moved, or an edited finding; {scanned}",
+                [{"kind": p["kind"], "what": p["what"], "where": p["where"]} for p in probs])
+    gaps = _line("known_gaps", f"Known gaps: {c['stub']} stub · {c['stale']} stale · {c['open_findings']} open findings", False,
+                 c["stub"] + c["stale"] + c["open_findings"], "info", "gaps", claims.counts_line(c) + "; LIMITATIONS.md lists the stub, stale and planned claims",
+                 [{"claim": r["claim"], "status": r["status"], "ticket": r["ticket"]} for r in rows if r["status"] in ("stub", "stale")])
+    return [reg, gaps]
+
+
 def _head() -> str | None:
     """Short sha of this checkout's HEAD, or None without git (the hosted copy ships no .git)."""
     from .testreport import git_state
@@ -375,12 +422,11 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     lines.append(_line("limitations", "Limitations with no mitigation", False, len(lim), "info", "release",
                        "entries of taxonomy/limitations.yaml whose mitigation is none; LIMITATIONS.md in the packet lists every entry",
                        [{"id": e["id"], "closes": e["closes"]} for e in lim]))
+    # the claims register (docs/BUILD.md): every claim a page shows has a row (required); what is not yet true (informs)
+    lines.extend(claims_lines())
     # golden and the last test run (T30)
     g = _report(GOLDEN)
-    g_state = "fail" if g is None else ("pass" if g.get("ok") else "fail")
-    lines.append(_line("golden", "Golden test", True, 0 if g_state == "pass" else len((g or {}).get("diffs") or {}) or 1, g_state, "proof",
-                       "not run" if g is None else f"{'equal' if g.get('ok') else 'differs'}, {g.get('at')}" + (f", failed at {g['failed_step']}" if g and g.get("failed_step") else ""),
-                       [{"table": k, "only_in_run": v.get("n_only_in_run"), "only_in_expected": v.get("n_only_in_expected")} for k, v in ((g or {}).get("diffs") or {}).items()]))
+    lines.append(golden_line(g))
     t = _report(TESTS)
     lines.append(tests_line(t))
     # a release folder before this one the checklist cannot read: the diff would lie, so it is a red line, not a 500

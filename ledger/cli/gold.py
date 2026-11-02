@@ -38,6 +38,6 @@ def main(argv=None) -> int:
         print(f"all: {gold.rate_line(gold.error_rate(items))}")
         c = gold.compare_db(con, docs)
         print(gold.summary_line(c))
-        return 0 if c["ok"] else 1
+        return 0 if not c["failures"] else 1  # unverified exits 0 and says "Not a pass"; a failing verdict exits 1
     finally:
         con.close()

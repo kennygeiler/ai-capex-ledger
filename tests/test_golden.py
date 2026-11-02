@@ -14,7 +14,8 @@ class Golden(unittest.TestCase):
     def test_code_stages_reproduce_the_expected_tables(self):
         r = golden.check()
         self.assertFalse(r.get("failed_step"), f"step failed: {r.get('failed_step')}\n" + "\n".join(l["err"][-600:] or l["out"][-600:] for l in r["log"] if l["exit"] not in (0, 2)))
-        self.assertTrue(r["ok"], "differences: " + "; ".join(f"{k}: {v['n_only_in_run']} only in the run, {v['n_only_in_expected']} only in expected" for k, v in r["diffs"].items()))
+        self.assertEqual(r["gold"]["failures"], [])  # a verdict that no longer holds; unverified items are not a failure here (the Release line blocks on them)
+        self.assertTrue(r["exit_ok"] and not r["diffs"], "differences: " + "; ".join(f"{k}: {v['n_only_in_run']} only in the run, {v['n_only_in_expected']} only in expected" for k, v in r["diffs"].items()))
 
     def test_fixtures_cover_the_proven_set(self):
         import json

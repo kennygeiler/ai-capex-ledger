@@ -36,7 +36,7 @@ G = testreport.GOLDEN_TEST
 class Writer(unittest.TestCase):
     def test_shape_on_a_passing_run_with_golden(self):
         rep = testreport.report(_result(run=5, started=["a", "b", G]), seconds=31.26, git=("abc1234", False))
-        self.assertEqual(set(rep), {"ok", "count", "failures", "skipped", "golden", "at", "git", "dirty", "seconds"})
+        self.assertEqual(set(rep), {"ok", "count", "failures", "skipped", "skipped_ids", "golden", "at", "git", "dirty", "seconds"})
         self.assertEqual((rep["ok"], rep["count"], rep["failures"], rep["skipped"], rep["golden"], rep["git"], rep["dirty"], rep["seconds"]),
                          (True, 5, [], 0, True, "abc1234", False, 31.3))
         self.assertTrue(rep["at"].endswith("+00:00"))

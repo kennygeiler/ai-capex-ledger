@@ -473,6 +473,9 @@ class Handler(BaseHTTPRequestHandler):
                 con.close()
         if name == "gold":  # T82: the gold set, ?t=TICKER for its items; read-only, the verdict is a POST below
             return self._guard(lambda: self._json(gold_view(q.get("t"))))
+        if name == "claims":  # the claims register (docs/BUILD.md): every claim, its computed status, the open findings
+            from . import claims
+            return self._guard(lambda: self._json(claims.payload()))
         if name == "failures":  # T54: the failure types as data (taxonomy/failures.yaml); counts are numbers of types, never instances
             from . import failures
             types = failures.load()

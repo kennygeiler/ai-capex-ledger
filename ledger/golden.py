@@ -139,7 +139,7 @@ def gold_check(con, gold_docs: dict | None = None) -> dict:
     try:
         return gold.compare_db(con, gold_docs)
     except Exception as e:  # never let gold stop golden.json being written: a failure that names itself
-        return {"ok": False, "state": "fail", "failures": [f"gold check raised {e.__class__.__name__}: {str(e)[:300]}"], "checked": 0, "right": 0, "wrong": 0, "cant_say": 0, "unverified": 0, "items": 0}
+        return {"ok": False, "holds": False, "state": "fail", "failures": [f"gold check raised {e.__class__.__name__}: {str(e)[:300]}"], "checked": 0, "right": 0, "wrong": 0, "cant_say": 0, "unverified": 0, "items": 0}
 
 
 def check(keep: bool = False, verbose: bool = False) -> dict:
@@ -183,7 +183,9 @@ def check(keep: bool = False, verbose: bool = False) -> dict:
                                "n_only_in_run": len(only_got), "n_only_in_expected": len(only_want)}
         g_ = gold_check(con)
         con.close()
-        return {"ok": not diffs and g_["ok"], "root": str(root), "log": log, "diffs": diffs, "gold": g_}
+        # ok: tables equal AND gold passes (every item verified, every verdict holds); exit_ok: tables equal and no gold
+        # verdict fails, so `golden --check` exits 0 on unverified-only while the Release line stays red until verdicts exist
+        return {"ok": not diffs and g_["state"] == "pass", "exit_ok": not diffs and not g_["failures"], "root": str(root), "log": log, "diffs": diffs, "gold": g_}
     finally:
         if not keep:
             shutil.rmtree(root, ignore_errors=True)

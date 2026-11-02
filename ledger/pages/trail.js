@@ -54,7 +54,8 @@ async function trailPage(view, ticker) {
   const waitingTotal = Object.values(c.stages).reduce((n, st) => n + (st.open || []).length, 0);
   const s = c.summary || {}, S = c.status || {};
   const hours = S.sec_checked_hours_ago;
-  const fresh = hours == null ? h('span', {class: 'text-orange'}, 'EDGAR never checked')
+  const fresh = S.sec_check_problem ? h('span', {class: 'text-orange'}, `EDGAR check time ${S.sec_check_problem} · stale`)
+    : hours == null ? h('span', {class: 'text-orange'}, 'EDGAR never checked')
     : hours <= 48 ? h('span', {class: 'text-secondary'}, `EDGAR checked ${hours}h ago`)
     : h('span', {class: 'text-orange'}, `EDGAR checked ${Math.round(hours / 24)}d ago · stale`);
   const tile = (title, ...lines) => h('div', {class: 'col-md-3'}, h('div', {class: 'text-secondary small text-uppercase mb-1'}, title), ...lines.map((l) => h('div', {class: 'small'}, l)));

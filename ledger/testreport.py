@@ -1,7 +1,7 @@
 """The test run as a report file (T30): `ledger test` runs the unittest suite and writes reports/tests.json, which the
 Release page's "Test run" line reads (checklist.py).
 
-Shape: {"ok": bool, "count": int, "failures": ["test id: first line of the error", ...], "skipped": int,
+Shape: {"ok": bool, "count": int, "failures": ["test id: first line of the error", ...], "skipped": int, "skipped_ids": [test ids],
         "golden": true | false | null (ran and passed | ran and failed | skipped, --fast or no fixtures),
         "at": ISO UTC, "git": short sha of HEAD or null (no git, as on the hosted copy), "dirty": bool | null}.
 The checklist compares `git` with its own HEAD: a run on another commit or a dirty tree is stale and informs, never signs."""
@@ -94,7 +94,7 @@ def report(result, seconds: float | None = None, git=None) -> dict:
     else:
         golden = GOLDEN_TEST not in failed_ids
     sha, dirty = git if git is not None else git_state()
-    rep = {"ok": result.wasSuccessful(), "count": result.testsRun, "failures": lines, "skipped": len(result.skipped), "golden": golden,
+    rep = {"ok": result.wasSuccessful(), "count": result.testsRun, "failures": lines, "skipped": len(result.skipped), "skipped_ids": sorted(skipped_ids), "golden": golden,
            "at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "git": sha, "dirty": dirty}
     if seconds is not None:
         rep["seconds"] = round(seconds, 1)
