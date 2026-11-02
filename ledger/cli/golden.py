@@ -1,9 +1,11 @@
 """python -m ledger golden --freeze | --check [--keep] [--verbose]
 
 The golden test (docs/PROOF.md): --freeze captures the proven set's inputs and the tables the code makes from them;
---check runs the code stages on those inputs in a temporary root and compares. Exit 1 on any difference."""
+--check runs the code stages on those inputs in a temporary root and compares. Exit 1 on any difference.
+--check is offline unless --online (LEDGER_OFFLINE=1: SEC reads from data/raw only, ledger/ingest/edgar.py)."""
 import argparse
 import json
+import os
 
 from .. import store
 from ..golden import FIXTURES, check, freeze
@@ -17,8 +19,11 @@ def main(argv=None) -> int:
     ap.add_argument("--ticker", nargs="+", help="with --freeze: a different set than config.PROVEN")
     ap.add_argument("--db", default=str(store.DEFAULT_DB))
     ap.add_argument("--keep", action="store_true", help="with --check: keep the temporary root for a look")
+    ap.add_argument("--online", action="store_true", help="with --check: let the stages reach the SEC (default: offline, the data/raw cache only)")
     ap.add_argument("--verbose", action="store_true")
     a = ap.parse_args(argv)
+    if a.check:
+        os.environ["LEDGER_OFFLINE"] = "0" if a.online else "1"  # inherited by every stage subprocess
     if a.freeze:
         import duckdb
         con = duckdb.connect(a.db, read_only=True)

@@ -20,7 +20,7 @@ from pathlib import Path
 import yaml
 
 from . import store
-from .ingest.edgar import RAW, _cached, fetch_json, fetch_tickers, user_agent
+from .ingest.edgar import RAW, _cached, fetch_json, fetch_tickers, refuse_if_offline, user_agent
 from .ingest.filings import FIRST_PERIOD, _rows
 from .reference.normalize import fiscal_label
 
@@ -30,6 +30,7 @@ KINDS = ("mdna", "earnings_release", "transcript", "cfo_commentary")
 
 
 def _identity():
+    refuse_if_offline("edgartools (8-K list, MD&A)")
     from edgar import set_identity
     set_identity(user_agent())
 
@@ -126,6 +127,7 @@ def _pdf_text(url: str, path: Path) -> str:
         return path.read_text()
     from io import BytesIO
     from pypdf import PdfReader
+    refuse_if_offline(url)
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (capex-ledger; " + user_agent() + ")"})
     with urllib.request.urlopen(req, timeout=120) as r:
         body = r.read()

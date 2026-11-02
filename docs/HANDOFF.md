@@ -43,8 +43,14 @@ echo 'DATABASE_URL="postgresql://…"' >> .env                 # production Post
 echo 'DATABASE_READONLY_URL="postgresql://…"' >> .env        # the arctal_reader string, SELECT only; the one to hand a consumer
 claude                                                      # then /login: the agents run on a Claude subscription, headless
 export LEDGER_CLAUDE="$(which claude)"                      # the claude binary the pipeline should use
-uv run python -m ledger test --fast                         # 240 tests, offline, seconds; writes reports/tests.json (drop --fast for golden too)
+uv run python -m ledger test --fast                         # about 615 tests, offline, a few minutes; writes reports/tests.json (drop --fast for golden too)
 ```
+
+**Offline mode** (`LEDGER_OFFLINE=1`, `ledger/ingest/edgar.py`): every SEC read is served from the `data/raw` cache whatever
+its age (under a temporary `LEDGER_ROOT`, from the checkout's own `data/raw`), and anything uncached raises `Offline`; the
+edgartools and investor-PDF paths refuse too. No `SEC_USER_AGENT` is needed. `ledger test` and `ledger golden --check` run
+offline unless `--online`, and `tests/__init__.py` sets it for a bare `python -m unittest`, so a worktree with no `.env`
+runs the whole suite. A test that needs a filing must find it in `data/raw` (symlinked in a worktree) or fail with `Offline`.
 
 The `evidence` step drives the installed Google Chrome through Playwright. The `texts` step downloads PDFs from the
 links in `sources/ir.yaml`; it never renders investor pages (they sit behind a bot check, and code must not get
