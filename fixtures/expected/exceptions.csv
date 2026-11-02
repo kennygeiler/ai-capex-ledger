@@ -1,6 +1,8 @@
 rule_id,severity,ticker,field,period,subject,message,input_hash
 definition_note,info,APLD,capex,,,"capex is read from 'Purchases of property and equipment and other assets' (10 values), which differs from the field definition; note it when comparing companies",0e1f086bd9ccbb4c
 definition_note,info,NVDA,capex,,,"capex is read from 'Purchases related to property and equipment and intangible assets' (15 values), which differs from the field definition; note it when comparing companies",13a83204e21b5404
+fact_readings_differ,warn,APLD,ppe_category,FY2024,Other equipment and fixtures,ppe_category Other equipment and fixtures FY2024: readings differ across filings: $9.6M in 0001144879-24-000216 (filed 2024-08-30) vs $1.8M in 0001144879-25-000021 (filed 2025-07-30),128a9c3cca8b5499
+fact_readings_differ,warn,APLD,ppe_category,FY2025,Other equipment and fixtures,ppe_category Other equipment and fixtures FY2025: readings differ across filings: $2.1M in 0001144879-25-000021 (filed 2025-07-30) vs $12.4M in 0001144879-26-000048 (filed 2026-07-29),b5ef59c3162c1f65
 jump,warn,APLD,capex,FY2025,,"capex moves 4.81× from FY2024 (141,809,000) to FY2025 (681,603,000)",5687558f7b7fb727
 jump,warn,APLD,capex,FY2026,,"capex moves 4.20× from FY2025 (681,603,000) to FY2026 (2,865,765,000)",83c88a6b9999cad0
 jump,warn,APLD,opex,FY2026,,"opex moves 4.69× from FY2025 (83,985,000) to FY2026 (394,144,000)",cd6ef978b7d7af5a
@@ -9,6 +11,7 @@ jump,warn,NVDA,capex,FY2025,,"capex moves 3.03× from FY2024 (1,069,000,000) to 
 outlier_vs_own_history,warn,APLD,capex,FY2022,,"capex ÷ revenue is 643.0% in FY2022, vs a median of 298.2% for the window",d3b0434b44516a0a
 outlier_vs_own_history,warn,APLD,capex,FY2024,,"capex ÷ revenue is 85.6% in FY2024, vs a median of 298.2% for the window",b2a5149f05b09414
 outlier_vs_own_history,warn,NVDA,capex,FY2023,,"capex ÷ revenue is 6.8% in FY2023, vs a median of 2.8% for the window",417bc03297d54445
+ppe_categories_tie,warn,GOOGL,ppe_category,FY2023,0001652044-25-000014,"4 parts in 0001652044-25-000014 sum to $201,803M; the filing tags PropertyPlantAndEquipmentGross $166,667M for 2023-12-31 (gap $35,136M, tolerance $2.5M)",6d3a001fbe68848c
 restated,info,AMD,cost_of_revenue,FY2024,2023-12-31..2024-12-28,"cost_of_revenue FY2024 2023-12-31..2024-12-28 differs between filings: 13,060,000,000 (0000002488-25-000012), 13,060,000,000 (0000002488-26-000018), 12,114,000,000 (0000002488-26-000021)",a6808434260463bb
 restated,info,AMD,cost_of_revenue,FY2025,2024-12-29..2025-12-27,"cost_of_revenue FY2025 2024-12-29..2025-12-27 differs between filings: 17,487,000,000 (0000002488-26-000018), 16,456,000,000 (0000002488-26-000021)",92859bf1d1de1a99
 restated,info,APLD,capex,FY2022,2021-06-01..2022-05-31,"capex FY2022 2021-06-01..2022-05-31 differs between filings: 54,974,000 (0001144879-23-000176), 58,251,000 (0001628280-22-023816)",aba8a7d25f1f0e66
@@ -25,3 +28,18 @@ row_label_switch,warn,AMD,revenue,,,revenue is read from different rows across f
 row_label_switch,warn,APLD,capex,,,capex is read from different rows across filings: 'purchases of property and equipment and other assets' in 10 filing(s); 'purchases of property and equipment' in 2 filing(s),c1c581f741105e35
 row_label_switch,warn,APLD,revenue,,,revenue is read from different rows across filings: 'total revenue' in 8 filing(s); 'hosting revenue' in 4 filing(s),9fb4a9da4b23a341
 row_label_switch,warn,NVDA,operating_income,,,operating_income is read from different rows across filings: 'operating income' in 9 filing(s); 'income from operations' in 6 filing(s),ef6d7f410f6afb0c
+segment_capex_tie,warn,APLD,segment_capex,FY2023,0001144879-24-000216,"3 parts in 0001144879-24-000216 sum to $146.1M; the filing tags PaymentsToAcquireProductiveAssets $131.3M for 2023-05-31 (gap $14.9M, tolerance $2,000)",a21e19f0dae742d5
+segment_capex_tie,warn,APLD,segment_capex,FY2023,0001144879-25-000021,"2 parts in 0001144879-25-000021 sum to $145.8M; the filing tags PaymentsToAcquireProductiveAssets $131.3M for 2023-05-31 (gap $14.5M, tolerance $1,500)",376eb5243c63d153
+segment_capex_tie,warn,APLD,segment_capex,FY2024,0001144879-24-000216,"3 parts in 0001144879-24-000216 sum to $325.6M; the filing tags PaymentsToAcquireProductiveAssets $141.8M for 2024-05-31 (gap $183.8M, tolerance $2,000)",a44e592ad2de2ca1
+segment_capex_tie,warn,APLD,segment_capex,FY2024,0001144879-26-000048,"2 parts in 0001144879-26-000048 sum to $245.6M; the filing tags PaymentsToAcquireProductiveAssets $141.8M for 2024-05-31 (gap $103.8M, tolerance $1,500)",859edd614a4edce0
+segment_capex_tie,warn,APLD,segment_capex,FY2025,0001144879-26-000048,"2 parts in 0001144879-26-000048 sum to $985.8M; the filing tags PaymentsToAcquireProductiveAssets $681.6M for 2025-05-31 (gap $304.2M, tolerance $1,500)",00cab0585d3ad3f9
+segment_capex_tie,warn,APLD,segment_capex,FY2026,0001144879-26-000048,"2 parts in 0001144879-26-000048 sum to $2,989.9M; the filing tags PaymentsToAcquireProductiveAssets $2,865.8M for 2026-05-31 (gap $124.2M, tolerance $1,500)",e8675d77ce74e2b1
+segment_revenue_tie,warn,APLD,segment_revenue,FY2024,0001144879-26-000048,"1 part in 0001144879-26-000048 sum to $136.6M; the filing tags Revenues $165.6M for 2024-05-31 (gap −$29.0M, tolerance $1,000)",5181f4b66b20865d
+segment_revenue_tie,warn,APLD,segment_revenue,FY2025,0001144879-26-000048,"1 part in 0001144879-26-000048 sum to $144.2M; the filing tags Revenues $228.6M for 2025-05-31 (gap −$84.4M, tolerance $1,000)",71c35e69045ed94f
+segment_revenue_tie,warn,APLD,segment_revenue,FY2026,0001144879-26-000048,"2 parts in 0001144879-26-000048 sum to $539.7M; the filing tags Revenues $611.3M for 2026-05-31 (gap −$71.6M, tolerance $1,500)",b2c78c80b09aa1e6
+segment_revenue_tie,warn,GOOGL,segment_revenue,FY2020,0001652044-23-000016,"3 parts in 0001652044-23-000016 sum to $182,351M; the filing tags RevenueFromContractWithCustomerExcludingAssessedTax $182,527M for 2020-12-31 (gap −$176M, tolerance $2M)",1439c7ba851f6455
+segment_revenue_tie,warn,GOOGL,segment_revenue,FY2021,0001652044-24-000022,"3 parts in 0001652044-24-000022 sum to $257,488M; the filing tags RevenueFromContractWithCustomerExcludingAssessedTax $257,637M for 2021-12-31 (gap −$149M, tolerance $2M)",f6cdf49bc02ebc9b
+segment_revenue_tie,warn,GOOGL,segment_revenue,FY2022,0001652044-25-000014,"3 parts in 0001652044-25-000014 sum to $280,876M; the filing tags RevenueFromContractWithCustomerExcludingAssessedTax $282,836M for 2022-12-31 (gap −$1,960M, tolerance $2M)",4f99d9fe48104037
+segment_revenue_tie,warn,GOOGL,segment_revenue,FY2023,0001652044-26-000018,"3 parts in 0001652044-26-000018 sum to $307,158M; the filing tags Revenues $307,394M for 2023-12-31 (gap −$236M, tolerance $2M)",d94118fff4deda99
+segment_revenue_tie,warn,GOOGL,segment_revenue,FY2024,0001652044-26-000018,"3 parts in 0001652044-26-000018 sum to $349,807M; the filing tags Revenues $350,018M for 2024-12-31 (gap −$211M, tolerance $2M)",7a7848a0e055155a
+segment_revenue_tie,warn,GOOGL,segment_revenue,FY2025,0001652044-26-000018,"3 parts in 0001652044-26-000018 sum to $402,963M; the filing tags Revenues $402,836M for 2025-12-31 (gap $127M, tolerance $2M)",915e84efcfcd8602
