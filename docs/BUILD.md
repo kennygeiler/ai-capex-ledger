@@ -21,6 +21,8 @@ ticket's "Done when" before the code exists. "Cannot happen" needs a reason, not
 | 7 | Wording that claims more than the check proves | The label promises more than the test shows | "The tie verifies each part": a tie bounds the sum, two offsetting misreads still tie |
 | 8 | Stale input that looks fresh | An old file or an old server is read as current | The EDGAR check was five days old while the page looked current; a server kept running old code after a merge |
 
+Before the pre-mortem, find the state machines the change touches in `docs/STATES.md` (states, transitions, who may cause each, the UI words each state produces) and name any state or transition the change adds.
+
 ## 2. The claims register
 
 `claims/claims.yaml` holds one row per claim the product makes: on a page, in the API, or in a release. Each row has the
