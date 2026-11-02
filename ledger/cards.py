@@ -177,6 +177,7 @@ def add(con, trail: dict) -> dict:
     except (OSError, ValueError):
         w = {}
     unread = [f for f in (w.get("new") or []) if f.get("ticker") == t]
+    trail["status"] = status_line(con, trail, newest, w)
     trail["summary"] = {"newest": {"form": newest.get("form"), "period": str(newest.get("period") or "")[:10], "filed": str(newest.get("filed") or "")[:10], "url": newest.get("url")} if newest else None,
                         "unread": [{"form": f.get("form"), "period": f.get("period"), "filed": f.get("filed")} for f in unread],
                         "watched_at": str(w.get("checked_at") or "")[:10] or None}
@@ -185,3 +186,83 @@ def add(con, trail: dict) -> dict:
         for it in st.get("all", []):
             it.setdefault("card", {"found": None, "where": [], "how": _how(it, name, defs)})
     return trail
+
+
+def _version_key(v: str):
+    return tuple(int(x) for x in v.lstrip("v").split(".") if x.isdigit())
+
+
+def last_release(ticker: str) -> dict | None:
+    """The newest signed release whose scope holds `ticker`: version, signer, date, and its values and facts for it."""
+    import csv
+    rel = store.ROOT / "releases"
+    for d in sorted((p for p in rel.iterdir() if p.is_dir() and p.name.startswith("v")), key=lambda p: _version_key(p.name), reverse=True) if rel.exists() else []:
+        sig = d / "SIGNOFF.json"
+        if not sig.exists():
+            continue
+        so = json.loads(sig.read_text())
+        if ticker not in ((so.get("checklist") or {}).get("scope") or []):
+            continue
+        read = lambda name: [r for r in csv.DictReader(open(d / name)) if r.get("ticker") == ticker] if (d / name).exists() else []
+        return {"version": so.get("version") or d.name, "signed_by": so.get("signed_by"), "signed_at": str(so.get("signed_at") or "")[:10],
+                "values": read("values.csv"), "facts": read("facts.csv")}
+    return None
+
+
+def _num(x):
+    try:
+        return int(float(x)) if x not in (None, "") else None
+    except ValueError:
+        return None
+
+
+def since_release(con, ticker: str, rel: dict | None) -> dict | None:
+    """What changed for `ticker` since its last signed release: figures added, changed, removed (values and facts)."""
+    if not rel:
+        return None
+    now_v = {(r["field"], r["period"]): r["value"] for r in _rows(con, 'select field, period, value from "values" where ticker = ? and value is not null', ticker)}
+    now_f = {(r["field"], r["dimension"] or "", r["period"]): r["value"] for r in _rows(con, "select field, dimension, period, value from facts where ticker = ?", ticker)}
+    was_v = {(r["field"], r["period"]): _num(r["value"]) for r in rel["values"] if _num(r.get("value")) is not None}
+    was_f = {(r["field"], r.get("dimension") or "", r["period"]): _num(r["value"]) for r in rel["facts"]}
+    out = {"added": [], "changed": [], "removed": []}
+    for now, was in ((now_v, was_v), (now_f, was_f)):
+        for k, v in now.items():
+            if k not in was:
+                out["added"].append(" · ".join(x for x in k if x) + f": {money(v)}")
+            elif was[k] != v:
+                out["changed"].append(" · ".join(x for x in k if x) + f": {money(was[k])} → {money(v)}")
+        out["removed"] += [" · ".join(x for x in k if x) for k in was if k not in now]
+    return out
+
+
+def status_line(con, trail: dict, newest: dict | None, watch: dict) -> dict:
+    """The company's state as of now: current through (newest report, next expected), SEC last checked, trust split,
+    shipped (last signed release) and what changed since."""
+    from datetime import date, datetime, timedelta, timezone
+    nxt = None
+    if newest and newest.get("period") and newest.get("filed"):
+        try:
+            p, f = date.fromisoformat(str(newest["period"])[:10]), date.fromisoformat(str(newest["filed"])[:10])
+            nxt = (p + timedelta(days=365) + (f - p)).isoformat()
+        except ValueError:
+            nxt = None
+    stages = trail["stages"]
+    figures = [i for s in ("values", "facts") for i in stages.get(s, {}).get("all", []) if (i.get("ref") or {}).get("field")]
+    waiting = sum(len(st.get("open", [])) for st in stages.values())
+    matched = sum(i.get("by") == "xbrl" and i.get("state") == "checked" for i in figures)
+    reading = sum(i.get("state") == "explained" for i in figures)
+    quotes = sum(1 for s in ("statements", "planned") for i in stages.get(s, {}).get("all", []) if i.get("state") == "checked")
+    rel = last_release(trail["ticker"])
+    checked_at = watch.get("checked_at")
+    age = None
+    if checked_at:
+        try:
+            age = (datetime.now(timezone.utc) - datetime.fromisoformat(checked_at)).total_seconds() / 3600
+        except ValueError:
+            age = None
+    return {"as_of": datetime.now().strftime("%-d %b %Y, %H:%M"),
+            "current_through": {"form": newest.get("form"), "period": str(newest.get("period") or "")[:10], "filed": str(newest.get("filed") or "")[:10]} if newest else None,
+            "next_expected": nxt, "sec_checked_hours_ago": None if age is None else round(age),
+            "figures": len(figures), "matched": matched, "reading_only": reading, "waiting": waiting, "quotes": quotes,
+            "shipped": {k: rel[k] for k in ("version", "signed_by", "signed_at")} if rel else None,
+            "since": since_release(con, trail["ticker"], rel)}

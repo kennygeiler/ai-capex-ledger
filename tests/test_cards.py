@@ -59,3 +59,18 @@ class Add(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SinceRelease(unittest.TestCase):
+    def test_added_changed_removed_against_the_signed_release(self):
+        con = store.init(":memory:")
+        con.execute("insert into \"values\" (ticker, field, period, period_end, value, source, method, label, basis, extraction_ids, input_hash) values "
+                    "('AMZN', 'revenue', 'FY2024', '2024-12-31', 100000000, 'agent', 'reported', 'agree', 'as_reported', 'x', 'h'), "
+                    "('AMZN', 'capex', 'FY2024', '2024-12-31', 7000000, 'agent', 'reported', 'agree', 'as_reported', 'y', 'h')")
+        rel = {"values": [{"ticker": "AMZN", "field": "capex", "period": "FY2024", "value": "5000000"},
+                          {"ticker": "AMZN", "field": "opex", "period": "FY2024", "value": "3000000"}], "facts": []}
+        out = cards.since_release(con, "AMZN", rel)
+        self.assertEqual(out["added"], ["revenue · FY2024: $100M"])
+        self.assertEqual(out["changed"], ["capex · FY2024: $5M → $7M"])
+        self.assertEqual(out["removed"], ["opex · FY2024"])
+        self.assertIsNone(cards.since_release(con, "AMZN", None))  # never shipped: nothing to compare with

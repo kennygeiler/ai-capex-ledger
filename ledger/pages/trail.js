@@ -50,16 +50,35 @@ async function trailPage(view, ticker) {
     h('div', {class: 'col-auto'}, c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : h('span', {class: 'text-red fw-medium'}, `${int(c.open)} waiting`),
       h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-3'}, 'Reconcile'), h('a', {href: `#data?ticker=${c.ticker}`, class: 'small ms-2'}, 'Dataset'))));
   const waitingTotal = Object.values(c.stages).reduce((n, st) => n + (st.open || []).length, 0);
-  const s = c.summary || {};
+  const s = c.summary || {}, S = c.status || {};
+  const hours = S.sec_checked_hours_ago;
+  const fresh = hours == null ? h('span', {class: 'text-orange'}, 'The SEC has not been checked for new reports.')
+    : hours <= 48 ? h('span', {class: 'text-secondary'}, `SEC checked ${hours} hour${hours === 1 ? '' : 's'} ago` + (s.unread && s.unread.length ? '.' : ', nothing new.'))
+    : h('span', {class: 'text-orange'}, `SEC last checked ${Math.round(hours / 24)} days ago: monitoring is behind.`);
+  const tile = (title, ...lines) => h('div', {class: 'col-md-3'}, h('div', {class: 'text-secondary small text-uppercase mb-1'}, title), ...lines.map((l) => h('div', {class: 'small'}, l)));
+  const since = S.since;
+  const sinceLines = !S.shipped ? ['Not in any signed release yet.'] : (since && (since.added.length + since.changed.length + since.removed.length))
+    ? [since.added.length ? `${int(since.added.length)} figure${since.added.length === 1 ? '' : 's'} added` : '', since.changed.length ? `${int(since.changed.length)} changed` : '', since.removed.length ? `${int(since.removed.length)} removed` : '',
+       h('details', {}, h('summary', {class: 'text-secondary', style: 'cursor:pointer'}, 'which'), h('div', {class: 'text-secondary'}, [...since.added.map((x) => '+ ' + x), ...since.changed.map((x) => '~ ' + x), ...since.removed.map((x) => '− ' + x)].map((x) => h('div', {}, x))))].filter(Boolean)
+    : ['Nothing has changed since it shipped.'];
   const why = h('div', {class: 'card mb-3'}, h('div', {class: 'card-body py-3'},
-    h('h3', {class: 'card-title mb-1'}, waitingTotal ? `${int(waitingTotal)} decision${waitingTotal === 1 ? '' : 's'} needed before ${c.name} can ship` : `${c.name} is proven: nothing is waiting`),
-    h('div', {class: 'text-secondary'}, 'This page is everything the ledger has read for ', c.name, ', with the evidence for each item, so you can stand behind it before a release. ',
-      waitingTotal ? 'The items waiting for you are at the top of each section below; decide them in ' : 'Spot-check any item by opening the filing at its row, or go to ',
-      h('a', {href: `#reconcile?scope=${c.ticker}`}, 'Reconcile'), '.'),
-    h('div', {class: 'small mt-2'},
-      s.newest ? ['Newest report read: ', s.newest.url ? h('a', {href: s.newest.url, target: '_blank', rel: 'noopener'}, `${s.newest.form} for the year ending ${s.newest.period}`) : `${s.newest.form} for the year ending ${s.newest.period}`, `, filed ${s.newest.filed}. `] : 'No report read yet. ',
-      s.unread && s.unread.length ? h('span', {class: 'text-orange fw-medium'}, `${int(s.unread.length)} newer report${s.unread.length === 1 ? '' : 's'} at the SEC not read yet (${s.unread.map((u) => `${u.form} ${u.period}`).join(', ')}). `) : '',
-      s.watched_at ? h('span', {class: 'text-secondary'}, `SEC last checked for new reports ${s.watched_at}.`) : h('span', {class: 'text-secondary'}, 'The SEC has not been checked for new reports.'))));
+    h('div', {class: 'd-flex align-items-baseline flex-wrap gap-2'}, h('h3', {class: 'card-title m-0'}, waitingTotal ? `${int(waitingTotal)} decision${waitingTotal === 1 ? '' : 's'} needed before ${c.name} can ship` : `${c.name} is proven: nothing is waiting`),
+      h('span', {class: 'text-secondary small'}, `as of ${S.as_of || ''}`)),
+    h('div', {class: 'text-secondary mb-3'}, 'Everything the ledger has read for ', c.name, ', with the evidence for each item, so you can stand behind it. ',
+      waitingTotal ? 'What is waiting is at the top of each section below; decide it in ' : 'Spot-check any item by opening the filing at its row, or go to ', h('a', {href: `#reconcile?scope=${c.ticker}`}, 'Reconcile'), '.'),
+    h('div', {class: 'row g-3'},
+      tile('Current through',
+        s.newest ? (s.newest.url ? h('a', {href: s.newest.url, target: '_blank', rel: 'noopener'}, `${s.newest.form}, year ending ${s.newest.period}`) : `${s.newest.form}, year ending ${s.newest.period}`) : 'No report read yet',
+        s.newest ? `filed ${s.newest.filed}` : '', S.next_expected ? `Next report expected around ${S.next_expected}` : '',
+        s.unread && s.unread.length ? h('span', {class: 'text-orange fw-medium'}, `${int(s.unread.length)} newer report${s.unread.length === 1 ? '' : 's'} at the SEC not read yet`) : '', fresh),
+      tile('How much rests on what',
+        h('span', {}, h('b', {}, int(S.figures)), ' figures'),
+        h('span', {class: 'text-green'}, `${int(S.matched)} matched to the SEC's own copy`),
+        h('span', {class: 'text-azure'}, `${int(S.reading_only)} rest on the reading alone`),
+        h('span', {class: S.waiting ? 'text-orange' : 'text-secondary'}, `${int(S.waiting)} waiting for a person`),
+        h('span', {class: 'text-secondary'}, `plus ${int(S.quotes)} quotes, each found word for word`)),
+      tile('Shipped', S.shipped ? `In ${S.shipped.version}` : 'Not shipped yet', S.shipped ? `signed by ${S.shipped.signed_by} on ${S.shipped.signed_at}` : ''),
+      tile('Since it shipped', ...sinceLines))));
   const order = (it) => ({open: 0, blocked: 0, explained: 1, checked: 2})[it.state] ?? 1;
   const cards = Object.entries(c.stages).map(([id, st]) => {
     const all = [...(st.all || [])].sort((a, b) => order(a) - order(b));
