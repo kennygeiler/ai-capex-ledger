@@ -19,7 +19,7 @@ from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 import zipfile
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 import duckdb
 
@@ -443,17 +443,58 @@ class Handler(BaseHTTPRequestHandler):
                 return self.wfile.write(z)
         if u.path == "/api/outputs":
             return self._guard(lambda: self._json(outputs()))
-        if u.path.startswith("/evidence/"):
+        if u.path.startswith("/evidence/"):  # the re-read's screenshots, and the cell crops in evidence/crops/ (ledger/crops.py)
             f = EVIDENCE / u.path.removeprefix("/evidence/")
             if f.parent == EVIDENCE and f.suffix == ".png" and f.exists():
                 return self._send(HTTPStatus.OK, f.read_bytes(), mimetypes.guess_type(f.name)[0])
+            if f.parent == EVIDENCE / "crops":  # a crop is served only while it is a located entry's picture, unchanged
+                from . import crops
+                if f.name in crops.located_images():
+                    return self._send(HTTPStatus.OK, f.read_bytes(), "image/png")
+        if u.path.startswith("/filing/"):  # Open in filing (in-app): the stored 10-K with the cell outlined (ledger/viewer.py)
+            return self._guard(lambda: self._filing(u.path.removeprefix("/filing/")))
         if u.path.startswith("/pages/"):  # the page scripts app.html loads: ledger/pages/<name>.js, one file per page (T0)
             f = PAGE.parent / "pages" / u.path.removeprefix("/pages/")
             if f.parent == PAGE.parent / "pages" and f.suffix == ".js" and f.is_file():
                 return self._send(HTTPStatus.OK, f.read_bytes(), "application/javascript; charset=utf-8")
         self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
 
+    def _filing(self, accession: str):
+        from . import viewer
+        con = _con()
+        try:
+            html, csp = viewer.filing(con, accession)
+        except viewer.Refused as e:
+            body = json.dumps({"error": str(e)}).encode()
+            self.send_response(e.code)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("Content-Security-Policy", viewer.ERROR_CSP)
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.end_headers()
+            return self.wfile.write(body)
+        finally:
+            con.close()
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", "text/html")
+        self.send_header("Content-Length", str(len(html)))
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Content-Security-Policy", csp)
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.end_headers()
+        self.wfile.write(html)
+
     def _v1(self, path: str, q: dict):
+        if path.startswith("evidence/"):  # one cited cell: the reading, its crop and state, the in-app viewer (ledger/crops.py view)
+            from . import crops
+            eid = unquote(path[len("evidence/"):])
+            con = _con()
+            try:
+                out = crops.view(con, eid)
+            finally:
+                con.close()
+            return self._json(out) if out else self._json({"error": f"no cited cell {eid!r}"}, HTTPStatus.NOT_FOUND)
         parts = path.split("/")
         name, fmt = parts[0], q.get("format", "json")
         if name.endswith(".csv"):

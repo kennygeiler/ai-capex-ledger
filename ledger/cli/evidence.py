@@ -1,7 +1,8 @@
 """python -m ledger evidence --stage N | --ticker X …   ->  reports/evidence/<name>.json and boxed screenshots
 
 Re-reads every cited cell from the 10-K as rendered in Chrome, and screenshots the cells of the values a person checks.
---faults also points each citation at a neighbouring row or column and reports how often the re-read notices."""
+--faults also points each citation at a neighbouring row or column and reports how often the re-read notices.
+--crops makes a picture of every cited cell, statements and notes (ledger/crops.py) -> reports/evidence/crops/ and crops.json."""
 import argparse
 import json
 
@@ -17,9 +18,21 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="python -m ledger evidence")
     add_scope(ap)
     ap.add_argument("--faults", action="store_true")
+    ap.add_argument("--crops", action="store_true", help="crop every cited cell, statements and notes, boxed")
     ap.add_argument("--db", default=str(store.DEFAULT_DB))
     a = ap.parse_args(argv)
-    con, (tickers, name) = store.init(a.db), scope(a)
+    tickers, name = scope(a)
+    if a.crops:  # reads only: the database stays open to the app while the crops run
+        import duckdb
+        con = duckdb.connect(a.db, read_only=True)
+        from ..crops import CROPS, run
+        res = run(con, tickers)
+        miss = {k: v for k, v in res.items() if not v["located"]}
+        size = sum(f.stat().st_size for f in CROPS.glob("*.png"))
+        print(f"{name}: {len(res) - len(miss)} of {len(res)} cited cells located and cropped; {len(miss)} not located; crops on disk {size / 1e6:.1f} MB"
+              + "".join(f"\n  not located: {k}: {v['reason']}" for k, v in sorted(miss.items())))
+        return 0
+    con = store.init(a.db)
     q = lambda sql: [dict(zip([c[0] for c in con.execute(sql, [tickers]).description], r)) for r in con.execute(sql, [tickers]).fetchall()]
     exts = q("select e.*, d.cik from extractions e join documents d using(accession) where e.ticker in (select unnest(?))")
     vals = q('select * from "values" where ticker in (select unnest(?))')
