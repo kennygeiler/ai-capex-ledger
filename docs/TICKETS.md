@@ -809,6 +809,18 @@ are listed at the end.
   in a generated `docs/DQ_RULES.md`. About 1½ days.
 - **T92 Cross-table ties.** [DQ7] `capex_segments_tie` (values capex against segment capex, APLD's accrual case
   explained by a definition) and `ppe_total_tie` (PP&E categories against the reported total). With T40/T41. About 1 day.
+  *Done (2 Nov 2026, branch `t92-ties-corroboration`):* three warn tie rules on the note figures, `ppe_categories_tie`,
+  `segment_revenue_tie`, `segment_capex_tie` (check `parts_tie`, `ledger/ties.py`), each against the total the same
+  filing tags in its XBRL instance; a tie that holds checks each untagged part (key tie), one that fails is open on the
+  group. Plus the ladder for untagged facts (docs/PROOF.md): `fact_readings_differ` opens readings that disagree across
+  filings (APLD's two), and a second reading (`reading:<accession>`, key second_reading, graded last) checks one two
+  filings agree on. APLD's accrual segment capex is open as the tie's finding, not explained: no definition kind covers a
+  fact today, so a person resolves it. Left: the taxonomy rows' `check` / `check_method` still say `no_reference` for a
+  tied or twice-read fact (a published-column change, its own ticket).
+  *Review fixes (2 Nov 2026, same branch):* that last item is done: one ladder (`ties.fact_state`) feeds Proof,
+  Reconcile, the taxonomy rows (`check` corroborated) and gold; note-finding resolutions keyed by rule and subject;
+  degenerate groups (one part, a total-labelled part, zeros) not judged; a scenario dimension is never a total; an
+  amendment is not a second reading; the tie's wording says it bounds the sum (limitations `tie_offsetting_errors`).
 - **T93 IFRS crosswalk.** [TX5] `taxonomy/crosswalk_ifrs.yaml` pairing every category and us-gaap member with its
   ifrs-full counterpart, relation and note, known non-pairs stated; T45 reads it for ASML. About 1 day.
 - **T94 EU Taxonomy eligibility candidates.** [TX6] The Annex I 1.1.2 additions concepts (PP&E, intangibles, ROU) as

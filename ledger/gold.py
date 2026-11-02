@@ -325,10 +325,11 @@ def live_index(values: list[dict], facts: list[dict]) -> dict:
     return out
 
 
-def is_open(row: dict | None, looked_up: set | frozenset = frozenset(), xbrl: dict | None = None, res_index: dict | None = None) -> bool:
+def is_open(row: dict | None, looked_up: set | frozenset = frozenset(), xbrl: dict | None = None, res_index: dict | None = None, ladder: dict | None = None) -> bool:
     """Whether a live row is open (status.state open or blocked), read the way Proof reads it: status.of_value or
     status.of_fact with the person's resolution on the row. No row, or a blank, is open: nothing ships there.
-    `looked_up`: tickers whose XBRL was looked up (reference_values holds rows), `xbrl`: {(ticker, field, period): value}."""
+    `looked_up`: tickers whose XBRL was looked up (reference_values holds rows), `xbrl`: {(ticker, field, period): value}.
+    `ladder` (ties.ladder, T92): a fact's state from the one ladder Proof reads (readings that differ are open)."""
     from . import resolutions, status
     if row is None or num(row.get("value")) is None:
         return True
@@ -337,6 +338,9 @@ def is_open(row: dict | None, looked_up: set | frozenset = frozenset(), xbrl: di
         res = resolutions.resolution_of(idx, "values", row["ticker"], row["field"], "", row["period"])
         ref = {"looked_up": row["ticker"] in looked_up, "reference": (xbrl or {}).get((row["ticker"], row["field"], row["period"]))}
         return status.is_open(status.of_value(row, res, ref))
+    if ladder is not None:
+        from .ties import fact_state
+        return status.is_open(fact_state(row, idx, ladder)[0])
     res = resolutions.resolution_of(idx, "facts", row["ticker"], row["field"], row.get("dimension") or "", row["period"])
     return status.is_open(status.of_fact(row, res))
 
@@ -345,7 +349,7 @@ def what(it: dict) -> str:
     return f"{it['ticker']} {it['field']}{' ' + it['dimension'] if it.get('dimension') else ''} {it['period']}"
 
 
-def compare(gold: dict, values: list[dict], facts: list[dict], reference: list[dict] = (), res_index: dict | None = None, problems: list[str] = ()) -> dict:
+def compare(gold: dict, values: list[dict], facts: list[dict], reference: list[dict] = (), res_index: dict | None = None, problems: list[str] = (), ladder: dict | None = None) -> dict:
     """Every gold item with a verdict against the live tables, by value only (a row open for another reason is the Open
     line's job, not gold's):
     - right: the gold value must not be null, the row must be there, and its value must equal the gold value;
@@ -386,7 +390,7 @@ def compare(gold: dict, values: list[dict], facts: list[dict], reference: list[d
                 elif got is None:
                     pass  # blank: open, nothing ships
                 elif got == want:
-                    if not is_open(row, looked_up, xbrl, res_index):
+                    if not is_open(row, looked_up, xbrl, res_index, ladder):
                         out["failures"].append(f"{it['id']}: gold says {want} is wrong {who}, and the live table still ships it ({row.get('label')}), not open")
                 else:
                     out["failures"].append(f"{it['id']}: gold says {want} is wrong {who}, the live table now has {got} (changed since verdict, re-verify)")
@@ -399,14 +403,15 @@ def compare_db(con, gold: dict | None = None, res_index: dict | None = None, pro
     """`compare` against a database's values, facts and reference_values (the golden run's temporary one, or the working
     one). With no `gold` given, gold/ is loaded and checked against config.PROVEN: missing, empty or corrupt files fail."""
     from . import resolutions
+    from .ties import ladder
     if gold is None:
         gold, problems = load_checked(expect=PROVEN)
     tickers = sorted(gold)
     q = lambda sql: [dict(zip([c[0] for c in cur.description], r)) for cur in [con.execute(sql, [tickers])] for r in cur.fetchall()]
     return compare(gold, q('select ticker, field, period, value, label from "values" where ticker in (select unnest(?))'),
-                   q("select ticker, field, dimension, period, value, label from facts where ticker in (select unnest(?))"),
+                   q("select * from facts where ticker in (select unnest(?))"),
                    q("select ticker, field, period, value from reference_values where ticker in (select unnest(?))"),
-                   resolutions.by_row() if res_index is None else res_index, problems or ())
+                   resolutions.by_row() if res_index is None else res_index, problems or (), ladder(con, tickers))
 
 
 def summary_line(c: dict) -> str:

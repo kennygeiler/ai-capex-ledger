@@ -1,0 +1,14 @@
+id: fact_readings_differ
+severity: warn
+description: A note figure the SEC does not tag, printed by two or more 10-Ks (the next 10-K repeats the year as its
+  comparative column), reads the same in each, within half a rounding unit.
+rationale: An untagged figure has no XBRL value to compare with, so a second filing is its only other reading. When the
+  readings differ, one of them is a misread or the company reclassified the line; the label "no XBRL tag" used to pass
+  it silently (T92, Applied Digital's "Other equipment and fixtures"). The newest filing still wins in the dataset.
+owner: Kenny Geiler
+check: readings_differ
+title: Two reports give different numbers for the same note figure.
+plain: The same figure, for the same year, reads differently in two annual reports, and the SEC has no tagged copy to
+  settle it. Either one was read wrong, or the company moved amounts between lines.
+action: Open both filings at the cited rows. If the company reclassified the line, explain it, saying so. If one reading
+  is wrong, tell the data owner.

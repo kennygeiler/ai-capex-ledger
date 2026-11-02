@@ -1,0 +1,20 @@
+id: segment_revenue_tie
+severity: warn
+description: The segment revenues one 10-K prints for a fiscal year sum to the total revenue the same filing tags in XBRL
+  (the largest of the us-gaap revenue concepts, as the reference does), within (n + 1) × half the coarsest rounding
+  unit on the sum (n parts and the total each rounded once). It bounds the sum, never a single part; groups of fewer than
+  two parts, a part labelled as a total, or all zeros are not judged.
+rationale: Untagged segments had only their citation (T92). A sum that matches the filing's tagged revenue shows the
+  segments' sum was read consistently (not each segment; offsetting misreads still tie, see tie_offsetting_errors). A segment set that legitimately leaves out corporate, eliminations or hedging does not
+  tie, and the finding stays open for a person; no reconciling line is invented to force the sum.
+owner: Kenny Geiler
+check: parts_tie
+params:
+  field: segment_revenue
+  concepts: [RevenueFromContractWithCustomerExcludingAssessedTax, Revenues, RevenueFromContractWithCustomerIncludingAssessedTax, SalesRevenueNet, RevenuesNetOfInterestExpense]
+  pick: largest
+title: The segments don't add up to total revenue.
+plain: The revenue of each segment was added up and compared with the company's total revenue in the same filing. They
+  don't match. Often the note shows a reconciling line (corporate, hedging, a business not in any segment).
+action: Open the segment note. If a reconciling line explains the gap, explain it, naming the line. If a segment was
+  misread or missed, tell the data owner.

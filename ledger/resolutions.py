@@ -32,6 +32,8 @@ STATES = ("accept", "explain", "fix", "blocks")
 # A resolution on any other kind is stale: its cause can no longer come back (reference_disagrees and attribution_moved
 # went with the inferred layer, 2ee2e6f), so it is not shown, not counted and not a gate failure. Stale lines are moved
 # to decisions/archive/, never rewritten in the live log.
+from .config import NOTE_FIELDS  # T92 review: a finding on a note field is keyed by rule and subject (_parse)
+
 LIVE_KINDS = ("fact_differs",        # app.flow(): a fact whose label is unresolved against the filing's XBRL tag
               "fact_changed",        # app.flow(): a fact that differs from the signed release
               "finding_unconfirmed", # app.flow(): a rule's finding (hq findings) the SEC's data can't confirm
@@ -172,6 +174,11 @@ def _parse(key: str):
         return None
     if k["kind"] in ("fact_differs", "fact_changed"):
         return ("facts", k["ticker"], k["field"], k["dimension"], k["period"], "")
+    if k["kind"] == "finding_unconfirmed" and k["field"] in NOTE_FIELDS:
+        # T92 review: a finding on a note figure (a tie on a filing's group, two readings of one fact) is keyed whole, by
+        # its rule and subject (the filing, or the fact's dimension), so a resolution closes only the item it was written
+        # for, never every finding on the field and year
+        return ("findings", k["ticker"], k["field"], k["subject"] or "", k["period"], k["rule_id"] or "")
     if k["kind"] in ("finding_unconfirmed", "blocked"):
         return ("values", k["ticker"], k["field"], "", k["period"], "")
     return None

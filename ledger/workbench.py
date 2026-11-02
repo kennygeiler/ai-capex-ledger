@@ -127,14 +127,20 @@ def _fact_row(con, ticker: str, field: str | None, dimension: str | None, period
     return dict(zip(cols, r)) if r else None
 
 
-def _state(con, q: dict, idx: dict, xp: dict | None = None) -> dict:
+def _state(con, q: dict, idx: dict, xp: dict | None = None, lad: dict | None = None) -> dict:
     """The queue item's state from the one definition (status.py): the same row gets the same answer on Proof. `xp` is
     rules.explained over the scope's exceptions (T36): an explains rule on file closes the finding it names."""
     d, res, t = q.get("detail") or {}, q.get("resolution"), q["ticker"]
     if q["kind"] in ("fact_differs", "fact_changed"):
-        f = _fact_row(con, t, d.get("field"), d.get("dimension"), d.get("period")) or {"label": d.get("label")}
+        f = _fact_row(con, t, d.get("field"), d.get("dimension"), d.get("period"))
         from .proof import _restated
-        return status.of_fact(f, res, _restated(con, t, f) if f.get("label") == "unresolved" and f.get("accession") else None)
+        if f is None:
+            return status.of_fact({"label": d.get("label")}, res)
+        # T92 review: the one ladder (ties.fact_state), as Proof reads the fact; the queue item's own resolution when it has one
+        from .ties import fact_state, ladder
+        lad = lad if lad is not None else ladder(con, [t])
+        index = {**idx, ("facts", t, f["field"], f["dimension"] or "", f["period"], ""): res} if res else idx
+        return fact_state(f, index, lad, _restated(con, t, f) if f.get("label") == "unresolved" and f.get("accession") else None)[0]
     if q["kind"] == "finding_unconfirmed":
         by_rule = (xp or {}).get(explain_key(d.get("rule"), t, d.get("field"), d.get("period"), d.get("subject")))
         return status.of_exception({"rule_id": d.get("kind"), "severity": "warn", "message": d.get("message")}, res, _value_states(con, t, d.get("field"), d.get("period"), idx), by_rule)
@@ -208,11 +214,13 @@ def items(con, flow: dict) -> dict:
     names, rel = flow["names"], flow["release"]["last"]
     idx = resolutions.by_row(items=flow["queue"])  # T62: a row with an unresolved sibling finding stays open
     xp = _explained(con, sorted({q["ticker"] for q in flow["queue"]}))
+    from .ties import ladder
+    lad = ladder(con, sorted({q["ticker"] for q in flow["queue"]}))  # T92: the facts' ladder, read once
     enc = {}  # the definitions and rules on file, read once for every item's offers
     rows = []
     for q in flow["queue"]:
         d = q.get("detail") or {}
-        st = _state(con, q, idx, xp)
+        st = _state(con, q, idx, xp, lad)
         row = {"key": q["key"], "hash": q["hash"], "cause": q["kind"], "cause_label": CAUSES.get(q["kind"], q["kind"]), "state": st["state"], "by": st["by"], "reason": st["reason"], "open": status.is_open(st),
                "ticker": q["ticker"], "name": names.get(q["ticker"], q["ticker"]), "layer": industry(q["ticker"]), "field": None, "period": None, "where": q["where"], "measure": None,
                "ours": None, "ours_label": None, "reference": None, "ref_label": REF_LABEL.get(q["kind"]), "relation": "eq", "delta": None, "delta_pct": None,

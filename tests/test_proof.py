@@ -25,9 +25,9 @@ class Keys(unittest.TestCase):
                  _item("plan", status.state({"check": "actual:FY2025"})), _item("quote", status.state({"check": "quote"})),
                  _item("gap", status.state({"definition": "revenue"})), _item("open", status.state({}))]
         k = keys_of(items)
-        self.assertEqual(k, {"twin": 2, "second_source": 1, "tie": 1, "later_truth": 1, "none": 3, "rows": 8})
+        self.assertEqual(k, {"twin": 2, "second_source": 1, "tie": 1, "later_truth": 1, "second_reading": 0, "none": 3, "rows": 8})
         self.assertEqual(sum(k[g] for g in (*status.KEY_GRADE, "none")), k["rows"])
-        self.assertEqual(keys_of([]), {"twin": 0, "second_source": 0, "tie": 0, "later_truth": 0, "none": 0, "rows": 0})
+        self.assertEqual(keys_of([]), {"twin": 0, "second_source": 0, "tie": 0, "later_truth": 0, "second_reading": 0, "none": 0, "rows": 0})
         self.assertEqual(items[0]["key"], "twin")
         self.assertEqual(items[0]["keys"], ["twin"])
         self.assertIsNone(items[-1]["key"])

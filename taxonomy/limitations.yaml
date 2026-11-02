@@ -124,3 +124,17 @@ no_monitoring_thresholds:
   rows: all
   mitigation: none
   closes: T85
+
+tie_offsetting_errors:
+  weakness: >-
+    A tie (ppe_categories_tie, segment_revenue_tie, segment_capex_tie, T92) proves that a filing's parts sum to the total
+    it tags in XBRL within (n + 1) × half a rounding unit, not that each part is right: two misreads that offset each
+    other inside one group (a figure read into the wrong line, the same amount taken from another) still tie, and the
+    parts read corroborated.
+  rows:
+    computed: tied_rows
+  mitigation: >-
+    A second reading (the next 10-K's comparative column) catches an offsetting misread that is not repeated, and the gold
+    sample (gold/, untagged facts oversampled) puts a person on a random draw of them. Nothing catches an offsetting
+    misread made the same way in both filings.
+  closes: none

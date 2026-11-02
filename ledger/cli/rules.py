@@ -16,7 +16,8 @@ from ..proof import FAILURES
 from ..rules import Context, load, run
 
 
-def context(con, tickers) -> Context:
+def context(con, tickers, rules: list | None = None) -> Context:
+    from ..ties import load as load_ties
     q = lambda sql: [dict(zip([c[0] for c in con.execute(sql, [tickers]).description], r)) for r in con.execute(sql, [tickers]).fetchall()]
     docs = q("select accession, ticker, form, period, income_tables, cash_flow_tables, tables_path from documents where ticker in (select unnest(?))")
     return Context(values=q('select * from "values" where ticker in (select unnest(?))'),
@@ -25,7 +26,8 @@ def context(con, tickers) -> Context:
                    parsed={d["accession"]: json.loads((store.ROOT / d["tables_path"]).read_text()) for d in docs},
                    ai_spend=q("select * from ai_spend where ticker in (select unnest(?))"),
                    documents=[{k: v for k, v in d.items() if k != "tables_path"} for d in docs],
-                   years=MVP_YEARS, tickers=list(tickers), definitions=load_definitions())
+                   years=MVP_YEARS, tickers=list(tickers), definitions=load_definitions(),
+                   **(lambda d: {"facts": d["facts"], "note_extractions": d["extractions"], "totals": d["totals"]})(load_ties(con, tickers, load() if rules is None else rules)))
 
 
 def main(argv=None) -> int:
@@ -36,7 +38,7 @@ def main(argv=None) -> int:
     con = store.init(a.db)
     tickers, name = scope(a)
     rules = load()
-    excs = run(context(con, tickers), rules)
+    excs = run(context(con, tickers, rules), rules)
     con.execute("DELETE FROM rules")
     store.write(con, "rules", [{"rule_id": r["id"], "severity": r["severity"], "description": r["description"], "rationale": r["rationale"],
                                 "check_name": r["check"], "params": json.dumps(r["params"], sort_keys=True), "file_sha256": r["file_sha256"]} for r in rules])

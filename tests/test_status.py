@@ -127,7 +127,7 @@ class Definition(unittest.TestCase):
 
     def test_answer_key_for_every_method_kind(self):
         """`answer_key` names one of four kinds, or None, for every kind in METHOD_KINDS; every ANSWER_KEYS kind is a METHOD_KIND."""
-        expect = {"xbrl": "twin", "esef": "twin", "source": "second_source", "actual": "later_truth", "rule": None,  # rule alone is not a tie
+        expect = {"xbrl": "twin", "esef": "twin", "source": "second_source", "actual": "later_truth", "reading": "second_reading", "rule": None,  # rule alone is not a tie
                   "quote": None, "gathered": None, "located": None, "gate": None, "none": None, "mapping": None, "definition": None, "resolution": None, "label": None}
         self.assertEqual(set(expect), set(status.METHOD_KINDS))
         for kind, key in expect.items():
@@ -137,17 +137,18 @@ class Definition(unittest.TestCase):
         self.assertEqual(status.answer_key("rule:statement_tie"), "tie")
         self.assertIsNone(status.answer_key("rule:restated_between_filings"))
         self.assertIsNone(status.answer_key(""))
-        self.assertEqual(set(status.ANSWER_KEYS), {"twin", "second_source", "tie", "later_truth"})
+        self.assertEqual(set(status.ANSWER_KEYS), {"twin", "second_source", "tie", "later_truth", "second_reading"})
         for kinds in status.ANSWER_KEYS.values():
             self.assertTrue(set(kinds) <= set(status.METHOD_KINDS), kinds)
 
     def test_key_grades(self):
         """T56: the four keys ranked by independence, strongest first; `strongest` picks over several keys per row."""
-        self.assertEqual(status.KEY_GRADE, ("twin", "second_source", "tie", "later_truth"))
+        self.assertEqual(status.KEY_GRADE, ("twin", "second_source", "tie", "later_truth", "second_reading"))  # T92: a second reading is the same filer's next 10-K, the weakest
         self.assertEqual(set(status.KEY_GRADE), set(status.ANSWER_KEYS))
         self.assertEqual(set(status.KEY_WHY), set(status.KEY_GRADE))
         self.assertEqual(set(status.KEY_LABEL), set(status.KEY_GRADE))
-        self.assertTrue(status.grade("twin") < status.grade("second_source") < status.grade("tie") < status.grade("later_truth") < status.grade(None))
+        self.assertTrue(status.grade("twin") < status.grade("second_source") < status.grade("tie") < status.grade("later_truth") < status.grade("second_reading") < status.grade(None))
+        self.assertEqual(status.strongest(["second_reading", "tie"]), "tie")  # a tie outranks a second reading
         self.assertEqual(status.strongest(["later_truth", "tie", "second_source"]), "second_source")
         self.assertEqual(status.strongest(["tie", "twin", "tie"]), "twin")
         self.assertEqual(status.strongest(["later_truth"]), "later_truth")
@@ -157,7 +158,8 @@ class Definition(unittest.TestCase):
     def test_state_carries_the_strongest_key(self):
         """T56: `state()` carries `keys` (every answer key that vouches for the row) and `key` (the strongest); a row today
         carries one `by`, so keys holds at most one; a quote, a mapping, an explanation and an open row carry none."""
-        for by, key in (("xbrl", "twin"), ("esef:ifrs-full:Revenue", "twin"), ("source:0001652044-25-000014", "second_source"), ("rule:quarters_tie", "tie"), ("actual:FY2025", "later_truth")):
+        for by, key in (("xbrl", "twin"), ("esef:ifrs-full:Revenue", "twin"), ("source:0001652044-25-000014", "second_source"), ("rule:quarters_tie", "tie"), ("actual:FY2025", "later_truth"),
+                        ("reading:0001144879-25-000021", "second_reading")):
             st = status.state({"check": by})
             self.assertEqual((st["state"], st["keys"], st["key"]), ("checked", [key], key), by)
         for row in ({"check": "quote"}, {"check": "located"}, {"check": "mapping", "mapping_to": "us-gaap:EquipmentMember"}, {"definition": "revenue"}, {"label": "no_reference"},
@@ -178,6 +180,25 @@ class Definition(unittest.TestCase):
         self.assertEqual(status.of_fact({"label": "unresolved"})["state"], "open")
         r = status.of_fact({"label": "unresolved"}, None, "cell from a, tag from b")
         self.assertEqual((r["state"], r["by"], r["reason"]), ("explained", "rule:restated_between_filings", "cell from a, tag from b"))
+
+    def test_the_ladder_of_an_untagged_fact(self):
+        """T92: an untagged fact (no_reference) whose readings differ is open, whatever else holds, and only a person's
+        resolution explains it; else a tie checks it, else a second reading, else the label explains it, citation only."""
+        nr = {"label": "no_reference"}
+        d = status.of_fact(nr, None, differ="readings differ across filings: $9.6M vs $1.8M", tie="ppe_categories_tie", reading="a")
+        self.assertEqual((d["state"], d["by"], d["key"]), ("open", "rule:fact_readings_differ", None))
+        self.assertIn("$9.6M vs $1.8M", d["reason"])
+        self.assertEqual(status.of_fact(nr, {"id": "r1", "state": "explain", "reason": "reclassified"}, differ="x")["by"], "resolution:r1")
+        self.assertEqual(status.of_fact(nr, {"id": "r1", "state": "fix", "reason": "re-read"}, differ="x")["state"], "open")
+        t = status.of_fact(nr, None, tie="ppe_categories_tie", reading="a")
+        self.assertEqual((t["state"], t["by"], t["key"]), ("checked", "rule:ppe_categories_tie", "tie"))
+        r = status.of_fact(nr, None, reading="0001144879-25-000021")
+        self.assertEqual((r["state"], r["by"], r["key"]), ("checked", "reading:0001144879-25-000021", "second_reading"))
+        self.assertEqual(status.of_fact(nr)["by"], "label:no_reference")
+        # a tagged fact keeps the twin: the ladder applies to no_reference only
+        self.assertEqual(status.of_fact({"label": "agree"}, None, tie="ppe_categories_tie")["by"], "xbrl")
+        self.assertEqual(status.of_fact({"label": "unresolved"}, None, None, differ="x", tie="ppe_categories_tie")["state"], "open")
+        self.assertEqual(status.of_fact({"label": "unresolved"}, None, None, differ="x", tie="ppe_categories_tie")["by"], "")
 
 
 def fixture_root() -> Path:
@@ -226,7 +247,7 @@ class ALabelNeverCountsAsACheck(unittest.TestCase):
 
     def test_backed_rows_pass(self):
         self.assertIsNone(self.gap(status.of_value({"label": "agree"}), {"reference": 5, "looked_up": True}))
-        self.assertIsNone(self.gap(status.state({"check": "rule:quarters_tie"}), {"tie": [1, 2, 3]}))  # a tie that holds carries its own numbers
+        self.assertIn("names no group", self.gap(status.state({"check": "rule:quarters_tie"}), {"tie": [1, 2, 3]}))  # T92 review: a tie names its group on file, never bare numbers
         self.assertIsNone(self.gap(status.state({"check": "esef:ifrs-full:Revenue"}), {"esef": 5}))
         self.assertIsNone(self.gap(status.state({"check": "quote"}), {"statement_id": "s1", "text_id": "T1"}))
         self.assertIsNone(self.gap(status.state({"check": "located"}), {"income_tables": "t1", "cash_flow_tables": "t2"}))
@@ -287,6 +308,41 @@ class ALabelNeverCountsAsACheck(unittest.TestCase):
         self.assertIn("no income", self.gap(status.state({"check": "located"}), {"income_tables": "t1", "cash_flow_tables": ""}))
         self.assertEqual(self.gap({"state": "checked", "by": ""}), "names no evidence")
 
+    def test_a_tie_and_a_second_reading_carry_their_numbers(self):
+        """T92: rule:<id>_tie checks a part only when its group ties on file (the groups are required, the tolerance is
+        the on-file group's); reading:<accession> needs two lineages that agree, the named accession among them, and the
+        same readings as on file."""
+        tie = {"rule": "ppe_categories_tie", "key": "APLD|ppe_category|FY2024|a2", "total": 100, "sum": 100, "tolerance": 2, "dimensions": ["Land", "Other"]}
+        group = {**tie, "concept": "PropertyPlantAndEquipmentGross", "holds": True}
+        part = {"ticker": "APLD", "field": "ppe_category", "dimension": "Land", "period": "FY2024", "tie": tie}
+        on_file = {**self.EV, "ties": {tie["key"]: group}}
+        gap = lambda st, ref, ev=on_file: status.evidence_gap({**st, "ref": ref}, ev)
+        checked = status.of_fact({"label": "no_reference"}, None, tie="ppe_categories_tie")
+        self.assertIsNone(gap(checked, part))
+        self.assertIn("no tie groups on file", self.gap(checked, part))  # the walk without the groups proves nothing
+        self.assertIn("not the group on file", gap(checked, {**part, "tie": {**tie, "sum": 90}}))
+        self.assertIn("not a part", gap(checked, {**part, "dimension": "Building"}))
+        self.assertIn("the tie on the row is", gap(checked, {**part, "tie": {**tie, "rule": "segment_capex_tie"}}))
+        # the tolerance is the on-file group's: a row that widens its own does not make a group tie
+        loose = {**self.EV, "ties": {tie["key"]: {**group, "sum": 90, "holds": False}}}
+        self.assertIn("does not tie", gap(checked, {**part, "tie": {**tie, "sum": 90, "tolerance": 50}}, loose))
+        self.assertIn("does not tie", gap(checked, part, {**self.EV, "ties": {tie["key"]: {**group, "sum": 97}}}))  # holds flag aside, the arithmetic is rechecked
+        self.assertIn("no group", gap(checked, part, {**self.EV, "ties": {}}))
+        r = lambda acc, period, value=1_760_000, form="10-K": {"accession": acc, "filed": period, "form": form, "period": period, "value": value, "scale": 1000}
+        two = [r("a1", "2024-05-31"), r("a2", "2025-05-31")]
+        second = status.of_fact({"label": "no_reference"}, None, reading="a1")
+        row = {"ticker": "APLD", "field": "ppe_category", "dimension": "Other", "period": "FY2024", "readings": two}
+        self.assertIsNone(self.gap(second, row))
+        self.assertIn("fewer than two", self.gap(second, {**row, "readings": two[:1]}))
+        self.assertIn("fewer than two", self.gap(second, {**row, "readings": [two[0], {**two[0]}]}))  # one filing read twice is one reading
+        self.assertIn("fewer than two", self.gap(second, {**row, "readings": [two[0], r("a1a", "2024-05-31", form="10-K/A")]}))  # an amendment is its original's lineage
+        self.assertIn("readings differ", self.gap(second, {**row, "readings": [two[0], r("a2", "2025-05-31", 9_552_000)]}))
+        self.assertIn("not one of the row's readings", self.gap({**second, "by": "reading:zz"}, row))
+        self.assertIn("no readings value", self.gap(second, {k: v for k, v in row.items() if k != "readings"}))
+        self.assertIn("not the ones on file", status.evidence_gap({**second, "ref": row}, {**self.EV, "readings": {}}))
+        self.assertIsNone(status.evidence_gap({**second, "ref": row}, {**self.EV, "readings": {("APLD", "ppe_category", "Other", "FY2024"): two}}))
+        self.assertIsNone(self.gap(second, {**row, "readings": [two[0], r("a2", "2025-05-31", 1_760_400)]}))  # within half a rounding unit (thousands)
+
     def test_a_person_is_on_the_list(self):
         """T80: fail closed. A resolution or a confirmed_by counts as a person's only by a name on config.PEOPLE."""
         from ledger import proof
@@ -344,13 +400,15 @@ if plant == "claude":  # (b) a hand edit confirmed_by: Claude on every entry, an
     proof.asset_types = lambda *a, **k: types
     print(json.dumps({"checked_by_claude": sum(status.of_mapping(e)["state"] == "checked" for es in types.values() for e in es.values())}))
     status.of_mapping = lambda e: status.state({"check": "mapping", "mapping_to": e["standard_type"]}) if (e or {}).get("standard_type") else status.state({})
-if plant in ("resolution", "gemini"):  # (c) a resolution not on file; one on file by a name off config.PEOPLE
+if plant in ("resolution", "gemini"):  # (c) a resolution not on file; one on file by a name off config.PEOPLE, on a fact only its citation backs (T92: a tie or a second reading would check it first)
     con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
-    f, d, p = con.execute("select field, coalesce(dimension, ''), period from facts where ticker = 'MSFT' and label = 'no_reference' order by 1, 2, 3 limit 1").fetchone()
+    r0 = next(i["ref"] for t in proof.PROVEN for i in proof.company(con, t)["stages"]["facts"]["all"] if i["by"] == "label:no_reference")
     con.close()
+    tk, f, d, p = r0["ticker"], r0["field"], r0["dimension"], r0["period"]
+    print(json.dumps({"planted_on": tk}))
     rid = "not-on-file" if plant == "resolution" else "planted-gemini"
     real, real_load = resolutions.by_row, resolutions.load
-    resolutions.by_row = lambda *a, **k: {**real(*a, **k), ("facts", "MSFT", f, d, p, ""): {"id": rid, "state": "accept", "status": "accepted", "by": "Gemini", "at": "", "reason": "planted"}}
+    resolutions.by_row = lambda *a, **k: {**real(*a, **k), ("facts", tk, f, d, p, ""): {"id": rid, "state": "accept", "status": "accepted", "by": "Gemini", "at": "", "reason": "planted"}}
     if plant == "gemini":
         resolutions.load = lambda *a, **k: real_load(*a, **k) + [{"id": rid, "key": "x", "hash": "x", "state": "accept", "reason": "planted", "by": "Gemini", "at": ""}]
 if plant == "gate":  # a gate on the values stage
@@ -363,7 +421,23 @@ if plant in ("quote_variant", "quote_changed"):  # the same quote with curly quo
     con.close()
 con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
 cos = [proof.company(con, t) for t in proof.PROVEN]
+if plant == "tie_on_untied":  # T92: a part checked by rule:ppe_categories_tie, forged to tie, whose filing's group does not tie on file
+    g = next(g for g in proof.ladder(con, proof.PROVEN, proof.rules_on_file()[0])["groups"].values() if g["rule"] == "ppe_categories_tie" and not g["holds"])
+    it = next(i for c in cos if c["ticker"] == g["ticker"] for i in c["stages"]["facts"]["all"]
+              if i["ref"].get("field") == g["field"] and i["ref"].get("period") == g["period"] and i["ref"].get("dimension") in g["dimensions"] and not i["ref"].get("finding"))
+    it.update(state="checked", by="rule:ppe_categories_tie", key="tie")
+    it["ref"]["tie"] = {"rule": "ppe_categories_tie", "key": g["key"], "accession": g["accession"], "concept": g["concept"], "total": g["total"], "sum": g["total"], "tolerance": g["tolerance"], "dimensions": g["dimensions"]}
+    print(json.dumps({"untied": [g["ticker"], g["key"]]}))
+if plant == "reading_once":  # T92: a second reading resting on one filing
+    it = next(i for c in cos for i in c["stages"]["facts"]["all"] if i["by"] == "label:no_reference")
+    it.update(state="checked", by="reading:0000000000-00-000000", key="second_reading")
+    it["ref"]["readings"] = [{"accession": "0000000000-00-000000", "filed": "2025-01-01", "value": 1, "scale": 1}]
 types = proof.asset_types()
+RUNGS = ("tie", "second_reading", "label:no_reference", "rule:fact_readings_differ")  # T92: the rungs an untagged fact can sit on
+rung = lambda i: i["key"] if i["key"] in RUNGS else i["by"]
+untagged = [(c["ticker"], i) for c in cos for i in c["stages"]["facts"]["all"] if not i["ref"].get("finding") and rung(i) in RUNGS]
+print(json.dumps({"untagged": len(untagged), "ladder": {k: sum(1 for _, i in untagged if rung(i) == k) for k in RUNGS},
+                  "differ": [[t, i["what"]] for t, i in untagged if i["by"] == "rule:fact_readings_differ"]}))
 print(json.dumps({"gaps": proof.unevidenced(con, companies=cos),
                   "nr_open": [[c["ticker"], i["what"], i["state"]] for c in cos for i in c["stages"]["values"]["all"] if i["by"] == "label:not_reported" and i["state"] != "explained"],
                   "walked": sum(1 for c in cos for s in c["stages"].values() for i in s["all"] if i["state"] in ("checked", "explained")),
@@ -428,14 +502,39 @@ class EveryCheckedRowNamesItsEvidence(unittest.TestCase):
         self.assertTrue(all(g["stage"] == "mapping" and "'Claude' is not a person" in g["gap"] for g in r["gaps"]), r["gaps"][:3])
 
     def test_planted_resolution_that_does_not_exist(self):
-        gaps = self.walk("resolution")["gaps"]
-        self.assertEqual([(g["ticker"], g["stage"], g["by"]) for g in gaps], [("MSFT", "facts", "resolution:not-on-file")], gaps)
+        r = self.walk("resolution")
+        gaps = r["gaps"]
+        self.assertEqual([(g["ticker"], g["stage"], g["by"]) for g in gaps], [(r["planted_on"], "facts", "resolution:not-on-file")], gaps)
         self.assertIn("no such resolution", gaps[0]["gap"])
 
     def test_planted_resolution_by_a_name_off_the_list(self):
-        gaps = self.walk("gemini")["gaps"]
-        self.assertEqual([(g["ticker"], g["stage"], g["by"]) for g in gaps], [("MSFT", "facts", "resolution:planted-gemini")], gaps)
+        r = self.walk("gemini")
+        gaps = r["gaps"]
+        self.assertEqual([(g["ticker"], g["stage"], g["by"]) for g in gaps], [(r["planted_on"], "facts", "resolution:planted-gemini")], gaps)
         self.assertIn("'Gemini', not a person", gaps[0]["gap"])
+
+    def test_planted_tie_on_a_group_that_does_not_tie(self):
+        """T92: the walk accepts rule:*_tie only when the item's group ties on file, not because the row says it does."""
+        r = self.walk("tie_on_untied")
+        gaps = r["gaps"]
+        self.assertEqual([(g["ticker"], g["stage"], g["by"]) for g in gaps], [(r["untied"][0], "facts", "rule:ppe_categories_tie")], gaps)
+        self.assertIn("does not tie", gaps[0]["gap"])
+
+    def test_planted_second_reading_on_one_filing(self):
+        gaps = self.walk("reading_once")["gaps"]
+        self.assertEqual([(g["stage"], g["by"]) for g in gaps], [("facts", "reading:0000000000-00-000000")], gaps)
+        self.assertIn("fewer than two filings", gaps[0]["gap"])
+
+    def test_the_ladder_on_the_six(self):
+        """T92 on the fixtures: every untagged fact sits on one rung (a tie, a second reading, citation only, or open
+        because its readings differ), and Applied Digital's two disagreeing readings are open, not explained."""
+        r = self.walk("none")
+        self.assertEqual(r["gaps"], [])
+        lad = r["ladder"]
+        self.assertEqual(sum(lad.values()), r["untagged"], lad)
+        self.assertGreater(lad["tie"], 0)
+        self.assertGreater(lad["second_reading"], 0)
+        self.assertEqual(sorted(r["differ"]), [["APLD", "ppe_category Other equipment and fixtures FY2024: readings differ"], ["APLD", "ppe_category Other equipment and fixtures FY2025: readings differ"]])
 
     def test_planted_gate_on_another_stage(self):
         gaps = self.walk("gate")["gaps"]
@@ -445,6 +544,93 @@ class EveryCheckedRowNamesItsEvidence(unittest.TestCase):
         self.assertEqual(self.walk("quote_variant")["gaps"], [])
         gaps = self.walk("quote_changed")["gaps"]
         self.assertEqual([(g["ticker"], g["stage"], g["by"]) for g in gaps], [("MSFT", "statements", "quote")], gaps)
+
+
+LADDER = r'''
+import json, sys, duckdb
+from ledger import app, gold, proof, resolutions, status, taxonomy, ties, workbench
+from ledger.config import PROVEN
+con = duckdb.connect(str(proof.store.DEFAULT_DB), read_only=True)
+idx = resolutions.by_row()
+lad = ties.ladder(con, PROVEN)
+mismatch, n = [], 0
+for t in PROVEN:
+    items = {(i["ref"]["field"], i["ref"]["dimension"], i["ref"]["period"]): i for i in proof.company(con, t)["stages"]["facts"]["all"] if not i["ref"].get("finding")}
+    tax = {(r["category"] if r["measure"] != "derived" else "ppe_category", r["reported_name"], r["fiscal_year"]): r for r in taxonomy.rows(con, [t]) if r["source_kind"] == "10-K note"}
+    for f in proof._rows(con, "select * from facts where ticker = ?", t):
+        n += 1
+        k = (f["field"], f["dimension"] or "", f["period"])
+        p = items[k]
+        tc = taxonomy.fact_check(con, f, idx, lad)  # the value check, before an asset type's mapping replaces it on a derived row
+        wb = workbench._state(con, {"kind": "fact_changed", "ticker": t, "detail": {"field": f["field"], "dimension": f["dimension"], "period": f["period"]}, "resolution": None}, idx, {}, lad)
+        go = gold.is_open({**f, "_kind": "fact"}, set(), {}, idx, lad)
+        row = tax.get((f["field"] if f["field"] != "ppe_category" else "ppe_category", f["dimension"] or f["field"].replace("_", " "), f["period"]))
+        want = ties.check_columns({"state": p["state"], "by": p["by"]})
+        shown = row and row["check"] not in ("unmapped", "to_confirm")
+        if (tc != want or (wb["state"], wb["by"]) != (p["state"], p["by"]) or go != status.is_open(p)
+                or (shown and (row["check"], row["check_method"]) != want)):
+            mismatch.append([t, *k, p["state"], p["by"], list(tc), wb["state"], wb["by"], go, [row["check"], row["check_method"]] if row else None])
+print(json.dumps({"facts": n, "mismatch": mismatch[:10], "n_mismatch": len(mismatch),
+                  "corroborated_published": sum(1 for t in PROVEN for r in taxonomy.rows(con, [t]) if r["check"] == "corroborated")}))
+'''
+
+RECONCILE_PATH = r'''
+import json, duckdb
+from ledger import app, proof, resolutions, workbench
+con = duckdb.connect(str(proof.store.DEFAULT_DB), read_only=True)
+q = app.flow("all")["queue"]
+pick = lambda rule, period, subj=None: next(x for x in q if x["kind"] == "finding_unconfirmed" and x["ticker"] == "APLD" and x["detail"].get("rule") == rule
+                                         and x["detail"].get("period") == period and (subj is None or x["detail"].get("subject") == subj))
+differ = pick("fact_readings_differ", "FY2024")
+tie = pick("segment_capex_tie", "FY2023", "0001144879-24-000216")
+lines = [{"id": f"r{i}", "key": x["key"], "hash": x["hash"], "state": "explain", "reason": "checked both filings", "by": "Kenny Geiler", "author_kind": "person", "at": "2026-11-02T00:00:00+00:00"}
+         for i, x in enumerate((differ, tie))]
+real = resolutions.load
+resolutions.load = lambda *a, **k: real(*a, **k) + lines
+app._FLOW.clear()
+it = workbench.items(con, app.flow("all"))
+rec = {(r["cause"], r["field"], r["period"], r["evidence"].get("message", "")[:120]): (r["state"], r["by"]) for r in it["rows"] if r["ticker"] == "APLD" and r["cause"] == "finding_unconfirmed"
+       and r["field"] in ("ppe_category", "segment_capex", "segment_revenue")}
+c = proof.company(con, "APLD")
+fa = c["stages"]["facts"]["all"]
+pf = {i["what"]: (i["state"], i["by"]) for i in fa}
+print(json.dumps({"proof": pf, "proof_open": c["open"], "reconcile_open": sum(1 for r in it["rows"] if r["open"] and r["ticker"] == "APLD"),
+                  "rec": [[*k, *v] for k, v in rec.items()]}))
+'''
+
+
+@unittest.skipIf(not (golden.FIXTURES / "seed.json").exists(), "no fixtures")
+class OneLadder(unittest.TestCase):
+    """T92 review: Proof, the taxonomy rows, Reconcile and gold read a fact through the one ladder (ties.fact_state), and a
+    resolution on a note finding closes only the item it was written for."""
+
+    def run_script(self, script):
+        root = fixture_root()
+        try:
+            out = subprocess.run([sys.executable, "-c", script], cwd=store.ROOT, env={**os.environ, "LEDGER_ROOT": str(root)}, capture_output=True, text=True)
+            self.assertEqual(out.returncode, 0, out.stderr[-3000:])
+            return json.loads(out.stdout.strip().splitlines()[-1])
+        finally:
+            shutil.rmtree(root, ignore_errors=True)
+
+    def test_every_fact_reads_the_same_on_every_page(self):
+        r = self.run_script(LADDER)
+        self.assertEqual(r["facts"], 327)
+        self.assertEqual(r["n_mismatch"], 0, r["mismatch"])
+        self.assertGreater(r["corroborated_published"], 0)  # the taxonomy check column now says corroborated where the ladder does
+
+    def test_a_reconcile_resolution_closes_only_its_item(self):
+        r = self.run_script(RECONCILE_PATH)
+        p = r["proof"]
+        self.assertEqual(p["ppe_category Other equipment and fixtures FY2024"][1].split(":")[0], "resolution")  # the readings-differ fact, closed from Reconcile
+        self.assertEqual(p["ppe_category Other equipment and fixtures FY2024"][0], "explained")
+        self.assertEqual(p["ppe_category Other equipment and fixtures FY2025: readings differ"], ["open", "rule:fact_readings_differ"])  # the other year is not
+        self.assertEqual(p["segment_capex_tie: segment_capex FY2023 (0001144879-24-000216)"][0], "explained")
+        self.assertEqual(p["segment_capex_tie: segment_capex FY2023 (0001144879-25-000021)"], ["open", "rule:segment_capex_tie"])  # two findings on one field and year, one resolution: one closes
+        self.assertTrue(all(v[0] == "open" for k, v in p.items() if k.startswith("segment_capex_tie") and "FY2023" not in k), p)
+        self.assertEqual(r["proof_open"], r["reconcile_open"])
+        rec_states = sorted(s for *_, s, _ in r["rec"])
+        self.assertEqual(rec_states.count("explained"), 2, r["rec"])
 
 
 @unittest.skipIf(not (golden.FIXTURES / "seed.json").exists(), "no fixtures")

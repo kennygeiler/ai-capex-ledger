@@ -26,8 +26,8 @@ def parse_instance(xml_bytes: bytes, accn: str, form: str, filed: str) -> dict[s
     root = ET.fromstring(xml_bytes)
     contexts = {}
     for ctx in root.iter(f"{XBRLI}context"):
-        if ctx.find(f"{XBRLI}entity/{XBRLI}segment") is not None:
-            continue  # dimensional (segment) context: not a company total
+        if ctx.find(f"{XBRLI}entity/{XBRLI}segment") is not None or ctx.find(f"{XBRLI}scenario") is not None:
+            continue  # dimensional (segment or scenario, T92 review) context: not a company total
         p = ctx.find(f"{XBRLI}period")
         s, e = p.find(f"{XBRLI}startDate"), p.find(f"{XBRLI}endDate")
         if s is not None and e is not None:

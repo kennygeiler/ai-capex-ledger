@@ -58,6 +58,39 @@ for x in GOOD.extractions[1:]:
     x["scale"] = 1
 
 
+# T92: the note figures. One filing (ACC) prints PP&E by category, segment revenue and segment capex that tie to its
+# tagged totals; an untagged category is read the same in two filings.
+OLD = "0000950170-25-087926"
+
+
+def nx(field, dim, end, value, accession=ACC, filed="2026-06-20", scale=1000):
+    return {"extraction_id": f"{accession}|{field}|{dim}|{end}", "accession": accession, "ticker": "ORCL", "field": field, "dimension": dim,
+            "period_end": end, "value": value, "scale": scale, "filed": filed}
+
+
+def fx(field, dim, period, end, value, ids, accession=ACC, label="no_reference"):
+    return {"ticker": "ORCL", "field": field, "dimension": dim, "period": period, "period_end": end, "value": value, "label": label, "accession": accession, "extraction_ids": ",".join(ids)}
+
+
+NOTES = [nx("ppe_category", "Land", "2026-05-31", 10_000_000), nx("ppe_category", "Buildings", "2026-05-31", 20_000_000),
+         nx("ppe_category", "Land", "2025-05-31", 9_000_000, OLD, "2025-06-20"), nx("ppe_category", "Land", "2025-05-31", 9_000_000),
+         nx("segment_revenue", "Cloud", "2026-05-31", 40_000_000_000, scale=1_000_000), nx("segment_revenue", "Hardware", "2026-05-31", 20_000_000_000, scale=1_000_000),
+         nx("segment_capex", "Cloud", "2026-05-31", 20_000_000_000, scale=1_000_000),
+         nx("segment_revenue", "Services", "2026-05-31", 7_357_000_000, scale=1_000_000), nx("segment_capex", "Hardware", "2026-05-31", 5_000_000_000, scale=1_000_000)]
+GOOD.note_extractions = NOTES
+GOOD.facts = [fx("ppe_category", "Land", "FY2026", "2026-05-31", 10_000_000, [NOTES[0]["extraction_id"]]),
+              fx("ppe_category", "Buildings", "FY2026", "2026-05-31", 20_000_000, [NOTES[1]["extraction_id"]]),
+              fx("ppe_category", "Land", "FY2025", "2025-05-31", 9_000_000, [NOTES[2]["extraction_id"], NOTES[3]["extraction_id"]]),
+              fx("segment_revenue", "Cloud", "FY2026", "2026-05-31", 40_000_000_000, [NOTES[4]["extraction_id"]], label="agree"),
+              fx("segment_revenue", "Hardware", "FY2026", "2026-05-31", 20_000_000_000, [NOTES[5]["extraction_id"]]),
+              fx("segment_capex", "Cloud", "FY2026", "2026-05-31", 20_000_000_000, [NOTES[6]["extraction_id"]]),
+              fx("segment_revenue", "Services", "FY2026", "2026-05-31", 7_357_000_000, [NOTES[7]["extraction_id"]]),
+              fx("segment_capex", "Hardware", "FY2026", "2026-05-31", 5_000_000_000, [NOTES[8]["extraction_id"]])]
+GOOD.totals = {(ACC, "PropertyPlantAndEquipmentGross", "2026-05-31"): 30_000_000, (ACC, "Revenues", "2026-05-31"): 67_357_000_000,
+               (ACC, "RevenueFromContractWithCustomerExcludingAssessedTax", "2026-05-31"): 60_000_000_000,  # a component tag: the largest is the total
+               (ACC, "PaymentsToAcquirePropertyPlantAndEquipment", "2026-05-31"): 25_000_000_000}
+
+
 # The good fixture carries every field only for revenue; the coverage rule is checked on that field alone.
 PARAMS = {"coverage": {"fields": ["revenue"]}}
 
@@ -97,13 +130,17 @@ FAIL = {
     "restated": lambda c: c.extractions.append({**c.extractions[2], "accession": "0001193125-26-000099", "value": 99999}),
     "xbrl_reconcile": lambda c: c.values[0].update(label="unresolved"),
     "outlier_vs_own_history": lambda c: c.values[1].update(value=150000000000),
+    "ppe_categories_tie": lambda c: c.note_extractions[1].update(value=21_000_000),  # a misread category
+    "segment_revenue_tie": lambda c: c.note_extractions.pop(7),  # a segment missing from the read: the sum falls short of the total
+    "segment_capex_tie": lambda c: c.totals.update({(ACC, "PaymentsToAcquirePropertyPlantAndEquipment", "2026-05-31"): 20_000_000_000}),  # accrual segment capex above cash capex
+    "fact_readings_differ": lambda c: c.note_extractions[2].update(value=9_552_000),
     "statement_tables_distinct": lambda c: c.documents.append({"accession": "0001018724-26-000004", "ticker": "AMZN", "form": "10-K", "period": "2025-12-31", "income_tables": "t0034", "cash_flow_tables": "t0034"}),
 }
 
 
 class Registry(unittest.TestCase):
     def test_every_rule_loads_with_rationale_and_owner(self):
-        self.assertEqual(len(RULES), 16)
+        self.assertEqual(len(RULES), 20)
         for r in RULES.values():
             self.assertTrue(r["rationale"].strip() and r["owner"].strip(), r["id"])
 
@@ -113,6 +150,141 @@ class Registry(unittest.TestCase):
 
 class EachRule(unittest.TestCase):
     pass
+
+
+class NoteTies(unittest.TestCase):
+    """T92: the parts one filing prints against the total it tags; the readings of an untagged figure across filings."""
+
+    def test_segment_capex_holds(self):
+        from ledger import ties
+        g = ties.groups("segment_capex_tie", RULES["segment_capex_tie"]["params"], GOOD.facts, GOOD.note_extractions, GOOD.totals)
+        self.assertEqual([(x["sum"], x["total"], x["holds"]) for x in g], [(25_000_000_000, 25_000_000_000, True)])
+
+    def test_degenerate_groups_are_not_judged(self):
+        """T92 review: one part equal to the total, a part labelled as a total, or all zeros prove nothing: no tie, no finding."""
+        from ledger import ties
+        p = RULES["ppe_categories_tie"]["params"]
+        one = bad(lambda c: (c.note_extractions.pop(1), c.totals.update({(ACC, "PropertyPlantAndEquipmentGross", "2026-05-31"): 10_000_000})))
+        self.assertEqual(ties.groups("ppe_categories_tie", p, one.facts, one.note_extractions, one.totals), [])
+        for label in ("Total", "Subtotal", "gross", "Net", "Total:"):
+            tot = bad(lambda c, label=label: c.note_extractions[1].update(dimension=label))
+            self.assertEqual(ties.groups("ppe_categories_tie", p, tot.facts, tot.note_extractions, tot.totals), [], label)
+        self.assertIsNone(ties.degenerate([{"dimension": "Total network equipment", "value": 1}, {"dimension": "Land", "value": 1}], 2))  # a word, not the whole label
+        zeros = bad(lambda c: (c.note_extractions[0].update(value=0), c.note_extractions[1].update(value=0), c.totals.update({(ACC, "PropertyPlantAndEquipmentGross", "2026-05-31"): 0})))
+        self.assertEqual(ties.groups("ppe_categories_tie", p, zeros.facts, zeros.note_extractions, zeros.totals), [])
+        self.assertEqual(findings("ppe_categories_tie", zeros), [])
+
+    def test_offsetting_misreads_tie_the_known_limitation(self):
+        """Pins taxonomy/limitations.yaml tie_offsetting_errors: two misreads that offset inside a group still tie. A tie
+        bounds the sum; the second reading and the gold sample are what catch this."""
+        swapped = bad(lambda c: (c.note_extractions[0].update(value=15_000_000), c.note_extractions[1].update(value=15_000_000)))
+        self.assertEqual(findings("ppe_categories_tie", swapped), [])
+
+    def test_the_largest_revenue_tag_is_named_on_the_finding(self):
+        f = findings("segment_revenue_tie", bad(FAIL["segment_revenue_tie"]))
+        self.assertIn("Revenues, the largest of 2 revenue tags it carries", f[0].message)
+
+    def test_instance_totals_reads_the_distilled_key_format(self):
+        """ties.instance_totals on a real .facts.json shape: "concept\tmember\tend" keys, the company total has no member."""
+        import json, tempfile
+        from unittest import mock
+        from ledger import ties
+        from ledger.ingest import edgar
+        d = Path(tempfile.mkdtemp())
+        (d / "0001144879" / "filings").mkdir(parents=True)
+        (d / "0001144879" / "filings" / "acc.facts.json").write_text(json.dumps({
+            "PropertyPlantAndEquipmentGross\t\t2025-05-31": 1278843000, "PropertyPlantAndEquipmentGross\tus-gaap:LandMember\t2025-05-31": 5000,
+            "Revenues\t\t2025-05-31": 1}))
+        with mock.patch.object(edgar, "RAW", d):
+            got = ties.instance_totals(1144879, "acc", {"PropertyPlantAndEquipmentGross"})
+            self.assertEqual(ties.instance_totals(1144879, "missing", {"PropertyPlantAndEquipmentGross"}), {})
+        self.assertEqual(got, {("acc", "PropertyPlantAndEquipmentGross", "2025-05-31"): 1278843000})
+
+    def test_a_scenario_dimension_is_never_a_company_total(self):
+        """T92 review: a context whose dimension sits under <scenario> is not a total, in the instance reader the ties
+        read (dimensions.instance_facts) and the reference's (xbrl_instance.parse_instance)."""
+        import tempfile
+        from unittest import mock
+        from ledger.reference import dimensions, xbrl_instance
+        xml = b"""<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" xmlns:us-gaap="http://fasb.org/us-gaap/2024">
+          <xbrli:context id="tot"><xbrli:entity><xbrli:identifier scheme="x">1</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2025-05-31</xbrli:instant></xbrli:period></xbrli:context>
+          <xbrli:context id="scn"><xbrli:entity><xbrli:identifier scheme="x">1</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:instant>2025-05-31</xbrli:instant></xbrli:period>
+            <xbrli:scenario><xbrldi:explicitMember dimension="srt:RestatementAxis">srt:ScenarioPreviouslyReportedMember</xbrldi:explicitMember></xbrli:scenario></xbrli:context>
+          <xbrli:context id="dur"><xbrli:entity><xbrli:identifier scheme="x">1</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:startDate>2024-06-01</xbrli:startDate><xbrli:endDate>2025-05-31</xbrli:endDate></xbrli:period>
+            <xbrli:scenario><xbrldi:explicitMember dimension="srt:RestatementAxis">srt:ScenarioPreviouslyReportedMember</xbrldi:explicitMember></xbrli:scenario></xbrli:context>
+          <xbrli:unit id="usd"><xbrli:measure>iso4217:USD</xbrli:measure></xbrli:unit>
+          <us-gaap:PropertyPlantAndEquipmentGross contextRef="tot" unitRef="usd">100</us-gaap:PropertyPlantAndEquipmentGross>
+          <us-gaap:PropertyPlantAndEquipmentGross contextRef="scn" unitRef="usd">90</us-gaap:PropertyPlantAndEquipmentGross>
+          <us-gaap:Revenues contextRef="dur" unitRef="usd">7</us-gaap:Revenues>
+        </xbrli:xbrl>"""
+        d = Path(tempfile.mkdtemp())
+        with mock.patch.object(dimensions, "RAW", d), mock.patch.object(dimensions, "_instance_name", lambda c, a: "u"), mock.patch.object(dimensions, "_cached", lambda *a: (xml, {})):
+            got = dimensions.instance_facts(1, "acc")
+        self.assertEqual(got[("PropertyPlantAndEquipmentGross", "", "2025-05-31")], 100)  # the plain total, not the previously reported one
+        self.assertEqual(got.get(("PropertyPlantAndEquipmentGross", "srt:ScenarioPreviouslyReportedMember", "2025-05-31")), 90)  # a member fact, never the total
+        self.assertNotIn(("Revenues", "", "2025-05-31"), got)
+        self.assertEqual(xbrl_instance.parse_instance(xml, "acc", "10-K", "2025-07-30").get("Revenues", []), [])
+
+    def test_an_amendment_is_not_a_second_reading(self):
+        """T92 review: a 10-K/A re-printing the year folds into its original 10-K; only a later fiscal year's 10-K (its
+        comparative column) is a second reading."""
+        from ledger import ties
+        orig = {"accession": "a1", "filed": "2025-07-30", "form": "10-K", "period": "2025-05-31", "value": 9_000_000, "scale": 1000}
+        amend = {**orig, "accession": "a1a", "filed": "2025-09-01", "form": "10-K/A"}
+        later = {**orig, "accession": "a2", "filed": "2026-07-30", "period": "2026-05-31"}
+        self.assertFalse(ties.corroborated([orig, amend]))
+        self.assertTrue(ties.corroborated([orig, amend, later]))
+        self.assertEqual(ties.second_accession([orig, amend, later], "a2"), "a1")
+        self.assertIsNone(ties.second_accession([orig, amend], "a1a"))
+
+    def test_within_rounding_ties_and_beyond_does_not(self):
+        # two parts in thousands: each can be half a thousand off, and the total too: 1,500 dollars of slack
+        close = bad(lambda c: c.note_extractions[1].update(value=20_001_000))
+        self.assertEqual(findings("ppe_categories_tie", close), [])
+        far = bad(lambda c: c.note_extractions[1].update(value=20_002_000))
+        f = findings("ppe_categories_tie", far)
+        self.assertEqual([(x.ticker, x.field, x.period, x.subject) for x in f], [("ORCL", "ppe_category", "FY2026", ACC)])
+        self.assertIn("$30.0M", f[0].message)
+
+    def test_a_segment_set_that_leaves_out_a_reconciling_line_fails_honestly(self):
+        """GOOGL's segments leave out hedging gains: the sum misses total revenue, and the finding names the gap, nothing is
+        added to force it."""
+        hedging = bad(lambda c: c.totals.update({(ACC, "Revenues", "2026-05-31"): 67_593_000_000}))
+        f = findings("segment_revenue_tie", hedging)
+        self.assertEqual(len(f), 1)
+        self.assertIn("gap −$236M", f[0].message)
+
+    def test_no_tagged_total_no_tie_and_only_shipped_groups(self):
+        none = bad(lambda c: c.totals.clear())
+        for rid in ("ppe_categories_tie", "segment_revenue_tie", "segment_capex_tie"):
+            self.assertEqual(findings(rid, none), [], rid)
+        # a comparative column a later 10-K replaced ships nothing: its group is not judged, however it sums
+        old = bad(lambda c: (c.note_extractions.append(nx("ppe_category", "Land", "2026-05-31", 1, OLD, "2025-06-20")),
+                             c.totals.update({(OLD, "PropertyPlantAndEquipmentGross", "2026-05-31"): 999})))
+        self.assertEqual(findings("ppe_categories_tie", old), [])
+
+    def test_groups_carry_the_evidence(self):
+        from ledger import ties
+        g = ties.groups("ppe_categories_tie", RULES["ppe_categories_tie"]["params"], GOOD.facts, GOOD.note_extractions, GOOD.totals)
+        self.assertEqual([(x["period"], x["sum"], x["total"], x["concept"], x["holds"], x["dimensions"]) for x in g],
+                         [("FY2026", 30_000_000, 30_000_000, "PropertyPlantAndEquipmentGross", True, ["Buildings", "Land"])])
+        rev = ties.groups("segment_revenue_tie", RULES["segment_revenue_tie"]["params"], GOOD.facts, GOOD.note_extractions, GOOD.totals)
+        self.assertEqual((rev[0]["concept"], rev[0]["total"]), ("Revenues", 67_357_000_000))  # the largest revenue tag, not the component
+
+    def test_readings(self):
+        from ledger import ties
+        by_id = {e["extraction_id"]: e for e in GOOD.note_extractions}
+        two = ties.readings_of(GOOD.facts[2], by_id)
+        self.assertEqual([r["accession"] for r in two], [OLD, ACC])  # oldest filing first
+        self.assertTrue(ties.corroborated(two))
+        self.assertFalse(ties.corroborated(two[:1]))  # one filing is no second reading
+        self.assertFalse(ties.corroborated([two[0], dict(two[0])]))  # nor is one filing counted twice
+        differ = [two[0], {**two[1], "value": 9_552_000}]
+        self.assertTrue(ties.differ(differ))
+        self.assertFalse(ties.corroborated(differ))
+        self.assertIn("$9M in 0000950170-25-087926 (filed 2025-06-20) vs $9.6M", ties.differ_message(differ))
+        tagged = bad(lambda c: (c.facts[2].update(label="agree"), c.note_extractions[2].update(value=9_552_000)))
+        self.assertEqual(findings("fact_readings_differ", tagged), [])  # a tagged fact has its tag and the restatement guard
 
 
 class Restated(unittest.TestCase):

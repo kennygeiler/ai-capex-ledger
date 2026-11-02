@@ -30,7 +30,7 @@ cannot come back silently.
 | Error analysis before metrics | The failure log, then failure classes and a ranked chart | Log built; classes T54 |
 | Versioned golden set | `ledger golden`, `fixtures/`, prompts versioned in `agents/prompts/` | Built |
 | Synthetic cases along dimensions | `ledger faults`: six kinds of planted error on real extractions | Built |
-| Deterministic assertions first | Schema, citation checks, 15 rules, four answer keys, a rendered second read | Built |
+| Deterministic assertions first | Schema, citation checks, 20 rules, five answer keys, a rendered second read | Built |
 | Trajectory and run logs | `runs` table: model, tokens, seconds, attempts per call | Built |
 | Score per agent | `ledger/score.py`: counts with their denominators | Built (T49, merged 1 Nov) |
 | Confidence intervals | Wilson 95% on every share | Planned (T53) |
