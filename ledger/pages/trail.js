@@ -1,11 +1,11 @@
 // ── Company trail: every number with what we found, where it is in the filing, and how we know ──────────────────────
 // The card comes from the API (ledger/cards.py); the page never shows the internal words (by, located, twin, reason).
-const TRAIL_STAGE = {ingest: 'Reports found', values: 'Main numbers', facts: 'Footnote numbers', statements: 'What the company said about AI',
+const TRAIL_STAGE = {ingest: 'Reports found', values: 'Figures from the financial statements', facts: 'Figures from the notes', statements: 'What the company said about AI',
   mapping: 'Category labels', planned: 'Plans and projects', release: 'Release'};
 const TRAIL_STAGE_HELP = {
   ingest: 'Each annual report downloaded from the SEC, and whether the income statement and cash-flow statement were found in it.',
-  values: 'Revenue, capital spending and operating costs for each year, each read from one cell of the report.',
-  facts: 'Numbers from the footnotes: spending by segment, property by category, leases and commitments.',
+  values: 'Each figure read from the primary financial statements (income statement, cash-flow statement), one cell of the report per figure, per year.',
+  facts: 'Each figure read from the notes to the financial statements (breakdowns by segment or category, leases, commitments), one cell per figure.',
   statements: 'Sentences where the company talks about AI spending, quoted word for word.',
   mapping: 'The company’s own names for its property categories, matched to a standard accounting category. A match counts only once a person confirms it.',
   planned: 'Guidance and named projects, quoted word for word.',
@@ -49,6 +49,17 @@ async function trailPage(view, ticker) {
         h('span', {class: 'text-orange'}, 'Waiting for you'), ' means a person has to decide.', c.in_proven_set ? '' : ' Not in the proven set.')),
     h('div', {class: 'col-auto'}, c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : h('span', {class: 'text-red fw-medium'}, `${int(c.open)} waiting`),
       h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-3'}, 'Reconcile'), h('a', {href: `#data?ticker=${c.ticker}`, class: 'small ms-2'}, 'Dataset'))));
+  const waitingTotal = Object.values(c.stages).reduce((n, st) => n + (st.open || []).length, 0);
+  const s = c.summary || {};
+  const why = h('div', {class: 'card mb-3'}, h('div', {class: 'card-body py-3'},
+    h('h3', {class: 'card-title mb-1'}, waitingTotal ? `${int(waitingTotal)} decision${waitingTotal === 1 ? '' : 's'} needed before ${c.name} can ship` : `${c.name} is proven: nothing is waiting`),
+    h('div', {class: 'text-secondary'}, 'This page is everything the ledger has read for ', c.name, ', with the evidence for each item, so you can stand behind it before a release. ',
+      waitingTotal ? 'The items waiting for you are at the top of each section below; decide them in ' : 'Spot-check any item by opening the filing at its row, or go to ',
+      h('a', {href: `#reconcile?scope=${c.ticker}`}, 'Reconcile'), '.'),
+    h('div', {class: 'small mt-2'},
+      s.newest ? ['Newest report read: ', s.newest.url ? h('a', {href: s.newest.url, target: '_blank', rel: 'noopener'}, `${s.newest.form} for the year ending ${s.newest.period}`) : `${s.newest.form} for the year ending ${s.newest.period}`, `, filed ${s.newest.filed}. `] : 'No report read yet. ',
+      s.unread && s.unread.length ? h('span', {class: 'text-orange fw-medium'}, `${int(s.unread.length)} newer report${s.unread.length === 1 ? '' : 's'} at the SEC not read yet (${s.unread.map((u) => `${u.form} ${u.period}`).join(', ')}). `) : '',
+      s.watched_at ? h('span', {class: 'text-secondary'}, `SEC last checked for new reports ${s.watched_at}.`) : h('span', {class: 'text-secondary'}, 'The SEC has not been checked for new reports.'))));
   const order = (it) => ({open: 0, blocked: 0, explained: 1, checked: 2})[it.state] ?? 1;
   const cards = Object.entries(c.stages).map(([id, st]) => {
     const all = [...(st.all || [])].sort((a, b) => order(a) - order(b));
@@ -67,5 +78,5 @@ async function trailPage(view, ticker) {
         h('span', {class: 'ms-3 small'}, `${int(st.items)} items · `, tally)), h('div', {class: 'text-secondary small mt-1'}, TRAIL_STAGE_HELP[id] || '')),
       body.length ? h('div', {class: 'card-body p-0'}, body) : '');
   });
-  view.append(head, ...cards);
+  view.append(head, why, ...cards);
 }

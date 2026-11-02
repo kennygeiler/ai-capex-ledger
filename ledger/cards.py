@@ -9,9 +9,10 @@ and the card says the same thing in a sentence a person can check by clicking. T
 """
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
-from . import evidence, status
+from . import evidence, status, store
 from .definitions import load as load_definitions
 from .taxonomy import deep_link, quote_link
 
@@ -167,6 +168,18 @@ def add(con, trail: dict) -> dict:
         it["card"] = {"found": f"“{r['quote']}”" if r and r.get("quote") else None,
                       "where": [{"label": "The source document", "link": r.get("source_url"), "shot": None}] if r and r.get("source_url") else [],
                       "how": _how(it, name, defs)}
+
+    # why you are here: the newest report read, and any report the SEC has that the ledger has not read yet
+    newest = max(docs.values(), key=lambda d: str(d.get("filed") or ""), default=None)
+    watch_file = store.ROOT / "data" / "watch.json"
+    try:
+        w = json.loads(watch_file.read_text()) if watch_file.exists() else {}
+    except (OSError, ValueError):
+        w = {}
+    unread = [f for f in (w.get("new") or []) if f.get("ticker") == t]
+    trail["summary"] = {"newest": {"form": newest.get("form"), "period": str(newest.get("period") or "")[:10], "filed": str(newest.get("filed") or "")[:10], "url": newest.get("url")} if newest else None,
+                        "unread": [{"form": f.get("form"), "period": f.get("period"), "filed": f.get("filed")} for f in unread],
+                        "watched_at": str(w.get("checked_at") or "")[:10] or None}
 
     for st in stages.values():  # anything not covered above (a finding, a release block) still says how in words
         for it in st.get("all", []):
