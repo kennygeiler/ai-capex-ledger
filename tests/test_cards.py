@@ -93,3 +93,43 @@ class SinceRelease(unittest.TestCase):
         self.assertEqual(out["changed"], ["capex · FY2024: $5M → $7M"])
         self.assertEqual(out["removed"], ["opex · FY2024"])
         self.assertIsNone(cards.since_release(con, "AMZN", None))  # never shipped: nothing to compare with
+
+
+class StatusLine(unittest.TestCase):
+    """The trail's tiles (cards.status_line): the EDGAR check's age through clock.age_hours, the next-10-K estimate,
+    and the Verification counts from the items. A time with no zone, in the future or unreadable is never fresh."""
+    from datetime import datetime as _dt, timezone as _tz
+    AT = _dt(2026, 11, 2, 12, tzinfo=_tz.utc)
+
+    def trail(self):
+        fig = lambda key, state="checked": {"key": key, "state": state, "ref": {"field": "capex"}}
+        return {"ticker": "ZZZZ", "stages": {
+            "values": {"all": [fig("twin"), fig("twin"), fig("tie"), fig(None, "explained")], "open": []},
+            "facts": {"all": [fig("second_reading"), {"key": "tie", "state": "open", "ref": {"field": "segment_capex", "finding": "x"}}], "open": [{"x": 1}]},
+            "statements": {"all": [{"state": "checked"}, {"state": "open"}], "open": [{"x": 1}]}}}
+
+    def line(self, checked_at, newest=None):
+        return cards.status_line(None, self.trail(), newest, {"checked_at": checked_at} if checked_at is not None else {}, at=self.AT)
+
+    def test_edgar_age_and_the_48_hour_threshold(self):
+        s = self.line("2026-10-31T11:00:00+00:00")
+        self.assertEqual((s["sec_checked_hours_ago"], s["sec_check_problem"]), (49, None))  # the page reads > 48 as stale
+        self.assertEqual(self.line("2026-10-31T13:00:00+00:00")["sec_checked_hours_ago"], 47)
+        never = self.line(None)
+        self.assertEqual((never["sec_checked_hours_ago"], never["sec_check_problem"]), (None, None))  # 'EDGAR never checked'
+        self.assertTrue(s["as_of"].endswith("UTC"))
+
+    def test_naive_future_and_unreadable_times_read_stale(self):
+        for ts, why in (("2026-11-02T11:00:00", "no zone"), ("2026-11-05T00:00:00+00:00", "in the future"), ("last tuesday", "unreadable")):
+            s = self.line(ts)
+            self.assertEqual((s["sec_checked_hours_ago"], s["sec_check_problem"]), (None, why), ts)
+
+    def test_next_10k_expected_is_a_year_after_the_period_plus_the_filing_lag(self):
+        s = self.line(None, {"form": "10-K", "period": "2025-12-31", "filed": "2026-02-06"})
+        self.assertEqual(s["next_expected"], "2027-02-06")
+        self.assertIsNone(self.line(None, {"form": "10-K", "period": "bad", "filed": "2026-02-06"})["next_expected"])
+        self.assertIsNone(self.line(None)["next_expected"])
+
+    def test_tile_counts_come_from_the_items(self):
+        s = self.line(None)
+        self.assertEqual((s["figures"], s["matched"], s["tied"], s["second_reading"], s["reading_only"], s["waiting"], s["quotes"]), (5, 2, 1, 1, 1, 2, 1))

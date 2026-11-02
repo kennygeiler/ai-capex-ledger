@@ -273,7 +273,7 @@ class Cli(unittest.TestCase):
         from ledger.cli import golden as cli
         root = Path(tempfile.mkdtemp())
         self.addCleanup(shutil.rmtree, root, True)
-        r = {"ok": g_["ok"], "diffs": {}, "log": [], "gold": g_}
+        r = {"ok": g_["state"] == "pass", "exit_ok": not g_["failures"], "diffs": {}, "log": [], "gold": g_}  # as golden.check builds it
         buf = io.StringIO()
         with mock.patch.object(cli, "check", return_value=r), mock.patch.object(cli.store, "ROOT", root), contextlib.redirect_stdout(buf):
             code = cli.main(["--check"])
@@ -293,6 +293,23 @@ class Cli(unittest.TestCase):
         self.assertEqual(code, 0)
         self.assertIn("gold: unverified 1 of 1", out)
         self.assertEqual(rep["gold"]["state"], "unverified")
+        # exit 0 is the tables' check only: the report never calls unverified ok, and the Release line is red on it
+        self.assertEqual((rep["ok"], rep["gold"]["ok"], rep["gold"]["holds"]), (False, False, True))
+        from ledger.checklist import golden_line
+        line = golden_line(rep)
+        self.assertEqual((line["state"], line["required"], line["ok"]), ("fail", True, False))
+        self.assertIn("gold unverified 1 of 1", line["note"])
+
+    def test_zero_verdicts_is_never_ok(self):
+        """The vacuous pass: 0 of N verdicts, nothing failing, used to read ok=true and turn the Release golden line green."""
+        g_ = gold.compare({"AMZN": {"items": [Check().item(None), Check().item(None)]}}, [Check().row()], [])
+        self.assertEqual((g_["ok"], g_["holds"], g_["state"], g_["checked"]), (False, True, "unverified", 0))
+        from ledger.checklist import golden_line
+        self.assertEqual(golden_line({"ok": False, "tables_ok": True, "gold": g_})["state"], "fail")
+        self.assertEqual(golden_line({"ok": True, "tables_ok": True, "gold": {**g_, "state": "pass", "unverified": 0}})["state"], "pass")
+        self.assertEqual(golden_line({"ok": True, "tables_ok": False, "gold": {**g_, "state": "pass"}})["state"], "fail")
+        self.assertEqual(golden_line(None)["state"], "fail")
+        self.assertEqual(golden_line({"ok": True, "at": "x"})["state"], "fail")  # a report from before gold: no gold state, never green
 
 
 class Rate(unittest.TestCase):

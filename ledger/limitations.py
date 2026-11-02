@@ -125,6 +125,12 @@ def _cell(s) -> str:
     return str(s).replace("|", "\\|").replace("\n", " ")
 
 
+def _claims_section() -> list[str]:
+    """The claims register's stub, stale and planned claims (ledger/claims.py, docs/BUILD.md)."""
+    from .claims import packet_section
+    return packet_section()
+
+
 def markdown(version: str, files=None, entries=None) -> str:
     """LIMITATIONS.md: intended use and not for use, the entries as a table, cadence, correction policy, support."""
     es = resolved(files, entries)
@@ -141,6 +147,7 @@ def markdown(version: str, files=None, entries=None) -> str:
         "Counts are computed from the data when the packet is built.", "",
         "| Id | Weakness | Affected | Mitigation | Would close it |", "|---|---|---|---|---|",
         *[f"| `{e['id']}` | {_cell(e['weakness'])} | {_cell(rows(e))} | {_cell(e['mitigation'])} | {_cell(e['closes'])} |" for e in es], "",
+        *_claims_section(),
         "## Cadence", "",
         "Releases are built on demand, when new filings arrive or a decision changes a row; there is no fixed schedule.", "",
         "## Corrections", "",

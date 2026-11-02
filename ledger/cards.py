@@ -250,10 +250,12 @@ def since_release(con, ticker: str, rel: dict | None) -> dict | None:
     return out
 
 
-def status_line(con, trail: dict, newest: dict | None, watch: dict) -> dict:
+def status_line(con, trail: dict, newest: dict | None, watch: dict, at=None) -> dict:
     """The company's state as of now: current through (newest report, next expected), SEC last checked, trust split,
-    shipped (last signed release) and what changed since."""
+    shipped (last signed release) and what changed since. The SEC check's age comes from clock.age_hours: a missing,
+    unreadable, zone-less or future time is `sec_check_problem` with no age, and the page reads it stale."""
     from datetime import date, datetime, timedelta, timezone
+    from .clock import age_hours
     nxt = None
     if newest and newest.get("period") and newest.get("filed"):
         try:
@@ -270,15 +272,11 @@ def status_line(con, trail: dict, newest: dict | None, watch: dict) -> dict:
     reading = sum(i.get("state") == "explained" for i in figures)
     quotes = sum(1 for s in ("statements", "planned") for i in stages.get(s, {}).get("all", []) if i.get("state") == "checked")
     rel = last_release(trail["ticker"])
-    checked_at = watch.get("checked_at")
-    age = None
-    if checked_at:
-        try:
-            age = (datetime.now(timezone.utc) - datetime.fromisoformat(checked_at)).total_seconds() / 3600
-        except ValueError:
-            age = None
-    return {"as_of": datetime.now().strftime("%-d %b %Y, %H:%M"),
+    age, problem = age_hours(watch.get("checked_at"), at)
+    problem = None if problem == "never" else problem  # never checked has its own words on the page
+    return {"as_of": (at or datetime.now(timezone.utc)).strftime("%-d %b %Y, %H:%M UTC"),
             "current_through": {"form": newest.get("form"), "period": str(newest.get("period") or "")[:10], "filed": str(newest.get("filed") or "")[:10]} if newest else None,
+            "sec_check_problem": problem,
             "next_expected": nxt, "sec_checked_hours_ago": None if age is None else round(age),
             "figures": len(figures), "matched": matched, "tied": tied, "second_reading": second, "reading_only": reading, "waiting": waiting, "quotes": quotes,
             "shipped": {k: rel[k] for k in ("version", "signed_by", "signed_at")} if rel else None,

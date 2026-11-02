@@ -91,7 +91,8 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 https://datahq-production.up.railway.app is Kenny's Data Emporium read-only: the same pages and read API, from a snapshot of the working database,
 the evidence screenshots and the signed releases. Nothing writes there (every POST is refused; the header says "read-only copy")
 and it never reaches the SEC (`ledger/ingest/edgar.py` raises `Offline` instead of fetching). It is what to send someone who should
-look without a checkout. Redeploy after a run or a release: `railway up --service datahq` from this directory (the `Dockerfile`;
+look without a checkout. Redeploy after a run or a release: `railway up --service datahq` from this directory, then
+`uv run python -m ledger.claims --deployed` and commit `claims/hosted.json` (without that record the Gaps page reads the hosted copy stale) (the `Dockerfile`;
 `.railwayignore` and `.dockerignore` re-include `data/ledger.duckdb` and the distilled XBRL instances `data/raw/*/filings/*.facts.json`,
 which git ignores: without the instances the restatement guard (`proof._restated`) cannot name a tag's filing, and the hosted copy
 counts those rows open while the local one counts them explained). The signed releases also sit in the production Postgres,
@@ -100,6 +101,10 @@ counts those rows open while the local one counts them explained). The signed re
 ## The work
 
 `docs/TICKETS.md`: the tickets for the sign-with-confidence flow, in order. Pick the first open one; close it with a commit that names it.
+
+Every ticket is built by `docs/BUILD.md`: a pre-mortem against eight failure patterns before code, one test per answer, and
+the claims register (`claims/claims.yaml`, `claims/findings.jsonl`) kept current. What is not yet true, and every review
+finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs/CLAIMS.md`.
 
 ## How to do the common things
 
@@ -134,7 +139,7 @@ counts those rows open while the local one counts them explained). The signed re
   red with its count and the page that fixes it, and the packet built in memory. Its Sign button (enabled only when every
   required line is green) writes `releases/<version>/`, signs as the name in the signer box, stores the checklist as it
   was in `SIGNOFF.json`, and publishes; that is the one place a release is signed (`docs/PROOF.md`). Its test line reads
-  `reports/tests.json`, which `ledger test` writes: run it on the commit you sign, or the line reads stale. The command line
+  `reports/tests.json`, which `ledger test` writes: run it on the commit you sign, or the line reads stale. Its Golden line is green only when the tables are equal AND gold passes (every gold item has a verdict and every verdict holds): with 0 of 120 verdicts it is red, so nothing signs until a person gives them (`ledger golden --check` itself still exits 0 on unverified-only). The command line
   does the same in pieces: `ledger release vX.Y.Z` builds the packet for `config.SCOPE`, prints the gate table (one row
   per company, G1 G4 G5 G6) and refuses on any failing row (`--stage N` only names the hand-check file); `ledger signoff
   vX.Y.Z --by "<name>"` signs without a checklist; `ledger publish vX.Y.Z` pushes the signed files to production and
@@ -164,7 +169,7 @@ counts those rows open while the local one counts them explained). The signed re
 
 ## If you are an AI agent
 
-Read in this order: this file, README Status, `docs/PROOF.md`, `docs/EVALS.md` (how the pipeline is measured: golden, faults, scores, gates), `docs/DISCIPLINES.md` (seven discipline audits against the code, with the proposed tickets T67–T79 awaiting Kenny), `docs/TAXONOMY.md`, `docs/INGESTION.md` (skim the tables), then the
+Read in this order: this file, README Status, `docs/BUILD.md` (how every ticket is built), `docs/PROOF.md`, `docs/EVALS.md` (how the pipeline is measured: golden, faults, scores, gates), `docs/DISCIPLINES.md` (seven discipline audits against the code, with the proposed tickets T67–T79 awaiting Kenny), `docs/TAXONOMY.md`, `docs/INGESTION.md` (skim the tables), then the
 module you will change. Run the tests before and after. The invariants that must hold:
 
 - Every value in `values` resolves to a cell in a parsed table; `extract --load` rejects anything else.

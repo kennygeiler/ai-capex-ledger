@@ -36,7 +36,7 @@ def main(argv=None) -> int:
     g_ = r.get("gold")
     rep.write_text(json.dumps({"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "ok": bool(r.get("ok")) and not r.get("failed_step"), "failed_step": r.get("failed_step"),
                                "tables_ok": not r.get("failed_step") and not r.get("diffs"),
-                               "gold": g_ and {k: g_.get(k) for k in ("ok", "state", "failures", "checked", "right", "wrong", "cant_say", "unverified", "items")},
+                               "gold": g_ and {k: g_.get(k) for k in ("ok", "holds", "state", "failures", "checked", "right", "wrong", "cant_say", "unverified", "items")},
                                "diffs": {k: {kk: vv for kk, vv in v.items()} for k, v in r.get("diffs", {}).items()}, "steps": [{"step": l["step"], "exit": l["exit"]} for l in r["log"]],
                                "tickers": json.loads((FIXTURES / "seed.json").read_text())["tickers"]}, indent=1))
     if r.get("failed_step"):
@@ -49,7 +49,7 @@ def main(argv=None) -> int:
         from ..golden import LISTS, TABLES
         print(f"golden: every table equals fixtures/expected ({', '.join((*TABLES, *LISTS))}).")
     print(gold.summary_line(g_))  # its own line: equal tables never read as a gold pass; unverified exits 0, a gold failure 1
-    if r["ok"]:
+    if r.get("exit_ok", r["ok"]):  # tables equal and no gold verdict fails; unverified-only exits 0 (golden.json "ok" stays false)
         return 0
     if not r["diffs"]:
         return 1

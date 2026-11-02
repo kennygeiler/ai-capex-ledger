@@ -394,8 +394,9 @@ def compare(gold: dict, values: list[dict], facts: list[dict], reference: list[d
                         out["failures"].append(f"{it['id']}: gold says {want} is wrong {who}, and the live table still ships it ({row.get('label')}), not open")
                 else:
                     out["failures"].append(f"{it['id']}: gold says {want} is wrong {who}, the live table now has {got} (changed since verdict, re-verify)")
-    out["ok"] = not out["failures"]
+    out["holds"] = not out["failures"]  # every verdict given still holds; says nothing about the items with none
     out["state"] = "fail" if out["failures"] else "unverified" if out["unverified"] or not out["checked"] else "pass"
+    out["ok"] = out["state"] == "pass"  # a pass only when every item has a verdict and every verdict holds: 0 of N is never ok
     return out
 
 
