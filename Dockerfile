@@ -1,4 +1,4 @@
-# A read-only DATAHQ: the pages, the live DuckDB, the distilled XBRL instances, the evidence screenshots and the signed releases. No agents, no Chrome, no writes.
+# A read-only Kenny's Data Emporium: the pages, the live DuckDB, the distilled XBRL instances, the evidence screenshots and the signed releases. No agents, no Chrome, no writes.
 FROM python:3.12-slim
 COPY --from=ghcr.io/astral-sh/uv:0.9.9 /uv /bin/uv
 WORKDIR /app

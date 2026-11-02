@@ -1,4 +1,4 @@
-"""DATAHQ's add-a-company progress comes from the file `ledger run` writes after each step, not from parsing its log."""
+"""Kenny's Data Emporium's add-a-company progress comes from the file `ledger run` writes after each step, not from parsing its log."""
 import json
 import shutil
 import tempfile

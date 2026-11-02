@@ -52,7 +52,7 @@ def main(argv=None) -> int:
     docs = [dict(zip([c[0] for c in cur.description], r)) for r in cur.fetchall()]  # one task per text
     pv = prompt_version()
     if a.pack or a.run:
-        con.close()  # the agent run takes minutes; don't hold the database (DATAHQ reads it)
+        con.close()  # the agent run takes minutes; don't hold the database (Kenny's Data Emporium reads it)
         paths = write_tasks(docs)
         print(f"{len(paths)} tasks in data/aispend/tasks ({pv})")
     if a.pack:

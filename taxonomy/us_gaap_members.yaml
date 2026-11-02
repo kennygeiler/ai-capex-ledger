@@ -1,0 +1,79 @@
+# Official FASB labels and definitions for the us-gaap PropertyPlantAndEquipmentByTypeAxis members that
+# taxonomy/asset_types.yaml may map to. Read once from the FASB's published 2025 taxonomy (URLs and sha256 below);
+# shown verbatim on the category-mapping decision card so a reviewer judges a mapping against the standard's own words.
+# Add a member here (from the same files) before allowing it in asset_types.yaml.
+source:
+  taxonomy: US GAAP Financial Reporting Taxonomy 2025 (FASB)
+  labels:
+    url: https://xbrl.fasb.org/us-gaap/2025/elts/us-gaap-lab-2025.xml
+    sha256: c10e9ec81f18676a2f047a5fd614baeec9a35b34a755d59d4b67bcd5349f69b0
+  definitions:
+    url: https://xbrl.fasb.org/us-gaap/2025/elts/us-gaap-doc-2025.xml
+    sha256: 27f1d4ba06b0dcb0c91225db2ac746d5adefc167518fa3948abbdfb944dab019
+  retrieved: '2026-11-02'
+members:
+  TechnologyEquipmentMember:
+    label: Technology Equipment
+    definition: Equipment used in the creation, maintenance and utilization of information systems which include computers
+      and peripherals.
+  ComputerEquipmentMember:
+    label: Computer Equipment
+    definition: Long lived, depreciable assets that are used in the creation, maintenance and utilization of information systems.
+  SoftwareAndSoftwareDevelopmentCostsMember:
+    label: Software and Software Development Costs
+    definition: Purchased software applications and internally developed software for sale, licensing or long-term internal
+      use.
+  LandMember:
+    label: Land
+    definition: Part of earth's surface not covered by water.
+  LandAndBuildingMember:
+    label: Land and Building
+    definition: Real estate held for productive use and structures used in the conduct of business, including but not limited
+      to, office, production, storage and distribution facilities.
+  BuildingAndBuildingImprovementsMember:
+    label: Building and Building Improvements
+    definition: Facility held for productive use including, but not limited to, office, production, storage and distribution
+      facilities and any addition, improvement, or renovation to the structure, for example, but not limited to, interior
+      masonry, interior flooring, electrical, and plumbing.
+  LeaseholdImprovementsMember:
+    label: Leasehold Improvements
+    definition: Additions or improvements to assets held under a lease arrangement.
+  ConstructionInProgressMember:
+    label: Construction in Progress
+    definition: Structure or a modification to a structure under construction. Includes recently completed structures or modifications
+      to structures that have not been placed into service.
+  FurnitureAndFixturesMember:
+    label: Furniture and Fixtures
+    definition: Equipment commonly used in offices and stores that have no permanent connection to the structure of a building
+      or utilities. Examples include, but are not limited to, desks, chairs, tables, and bookcases.
+  MachineryAndEquipmentMember:
+    label: Machinery and Equipment
+    definition: Tangible personal property used to produce goods and services, including, but is not limited to, tools, dies
+      and molds, computer and office equipment.
+  LandImprovementsMember:
+    label: Land Improvements
+    definition: Additions or improvements to real estate held.
+  ElectricGenerationEquipmentMember:
+    label: Electric Generation Equipment
+    definition: Equipment used for the primary purpose of generating electricity to be distributed to the consumer.
+  OtherMachineryAndEquipmentMember:
+    label: Other Machinery and Equipment
+    definition: Other tangible personal property, nonconsumable in nature, with finite lives used to produce goods and services.
+  PropertyPlantAndEquipmentOtherTypesMember:
+    label: Property, Plant and Equipment, Other Types
+    definition: Long-lived, physical assets used to produce goods and services and not intended for resale, classified as
+      other.
+  BuildingMember:
+    label: Building
+    definition: Facility held for productive use including, but not limited to, office, production, storage and distribution
+      facilities.
+  BuildingImprovementsMember:
+    label: Building Improvements
+    definition: Addition, improvement, or renovation to a facility held for productive use including, but not limited to,
+      office, production, storage and distribution facilities.
+  EquipmentMember:
+    label: Equipment
+    definition: Tangible personal property used to produce goods and services.
+  OtherCapitalizedPropertyPlantAndEquipmentMember:
+    label: Other Capitalized Property Plant and Equipment
+    definition: All other long term capitalized assets related to property plant and equipment not otherwise previously categorized.

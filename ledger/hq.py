@@ -1,4 +1,4 @@
-"""DATAHQ's numbers: what needs a person and why, what changed since the last run, what happened at the companies,
+"""Kenny's Data Emporium's numbers: what needs a person and why, what changed since the last run, what happened at the companies,
 pipeline health, the company scorecard and releases.
 
 Read only from what the pipeline already wrote: the database, the evidence and fault reports, and releases/.
@@ -35,7 +35,7 @@ def rows(con, sql, p=()):
 
 
 def snapshot(con, stage: int = 3, tickers: list[str] | None = None) -> dict:
-    """Everything DATAHQ shows, from what the pipeline already wrote, for the scope (config.SCOPE) unless `tickers` says
+    """Everything Kenny's Data Emporium shows, from what the pipeline already wrote, for the scope (config.SCOPE) unless `tickers` says
     which companies. `stage` names the fault report the run wrote (reports/stage{N}-faults.json)."""
     want = set(SCOPE if tickers is None else tickers)
     companies_now = [c for c in tracked() if c["ticker"] in want]  # read fresh, so a company added to the scope shows at once

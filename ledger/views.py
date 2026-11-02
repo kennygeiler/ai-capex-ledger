@@ -1,4 +1,4 @@
-"""Saved views: a question a person built in DATAHQ, kept as a query another system can call (docs/THESIS.md).
+"""Saved views: a question a person built in Kenny's Data Emporium, kept as a query another system can call (docs/THESIS.md).
 
 A view is {id, name, measure, filters, group, show, by, at, note}. `measure` is one of the API's lists
 (taxonomy, values, facts, statements, projects); `filters` are that list's filters (ticker, layer, period,

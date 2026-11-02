@@ -93,7 +93,7 @@ can't say, a note, `by` on `config.PEOPLE`, `at`.
 - `ledger gold --draw` builds the sample without a lock, then re-reads, merges and replaces the file under the same
   per-company lock `record` holds, so a verdict given during a draw is kept. Kept items keep their own release, seed
   and drawn_at; the header says when a file mixes draws or holds more than 10 + 10. Rows with no value are not drawn.
-- Trust boundary: the verdict route trusts the local port. Anyone who reaches DATAHQ on 127.0.0.1 can post a verdict
+- Trust boundary: the verdict route trusts the local port. Anyone who reaches Kenny's Data Emporium on 127.0.0.1 can post a verdict
   under a name on `config.PEOPLE`, exactly as with resolutions and mapping approvals; the guards stop other web pages
   (JSON content type, own Origin) and names off the list, not a local user. Real authentication is T6.
 - Error rate: wrong of (right + wrong), with n and a Wilson 95% interval (`gold.error_rate`); can't say is counted

@@ -93,7 +93,7 @@ YEAR_DAYS = (350, 380)
 
 # ── MVP (docs/PRD.md) ──────────────────────────────────────────────────────────
 # The AI set, 5 fiscal years from 10-K filings only.
-# Companies added in DATAHQ (or `ledger add`), kept in data/companies.json. They run through the same pipeline and
+# Companies added in Kenny's Data Emporium (or `ledger add`), kept in data/companies.json. They run through the same pipeline and
 # join the full set, so the next release includes them once a person signs it.
 ADDED = (Path(os.environ["LEDGER_ROOT"]).resolve() if os.environ.get("LEDGER_ROOT") else Path(__file__).resolve().parents[1]) / "data" / "companies.json"
 # The proven set (docs/PROOF.md): five companies, one per failure path the pipeline has met, on which every stage is
@@ -114,7 +114,7 @@ PROVEN_WHY = {"MSFT": "PP&E growth method, a stated ceiling (at most 50%), softw
 PEOPLE = ["Kenny Geiler"]
 
 
-# The scope (docs/TICKETS.md T2): the companies DATAHQ, the read API with no ticker filter, the Proof board, Reconcile's
+# The scope (docs/TICKETS.md T2): the companies Kenny's Data Emporium, the read API with no ticker filter, the Proof board, Reconcile's
 # "all", `ledger release` and the published tables show. The proven set until widened one company at a time (T35);
 # every other company stays in the database and answers an explicit `?ticker=`. Never a subset of PROVEN.
 SCOPE = list(PROVEN)
@@ -156,7 +156,7 @@ def restated(first: int, latest: int, unit: int) -> bool:
     return abs(latest - first) > unit * RESTATEMENT_TOLERANCE
 
 # Named company sets: one company, then 5, then every tracked company. Stage 3 is read at call time, so a company
-# added in DATAHQ joins it without a restart.
+# added in Kenny's Data Emporium joins it without a restart.
 STAGES = (1, 2, 3)
 _FIXED = {1: ["NVDA"], 2: ["NVDA", "MSFT", "CRWV", "ORCL", "APLD"]}
 

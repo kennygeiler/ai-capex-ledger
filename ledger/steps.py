@@ -1,5 +1,5 @@
 """The pipeline, in order: command, extra arguments, and what the step does in plain words. Imported by `ledger run`,
-DATAHQ and the Airflow DAG; nothing else, so it loads anywhere Python does."""
+Kenny's Data Emporium and the Airflow DAG; nothing else, so it loads anywhere Python does."""
 STEPS = [("ingest", [], "Find the 10-Ks at the SEC and locate the statements"),
          ("extract", ["--run"], "The Reader agent reads each filing and cites every cell"),
          ("extract", ["--load"], "Check every citation against the parsed table"),

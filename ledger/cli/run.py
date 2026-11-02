@@ -26,7 +26,7 @@ def main(argv=None) -> int:
     where = ["--ticker", *tickers] if a.ticker else ["--stage", str(a.stage or 1)]
     now = lambda: datetime.now(timezone.utc).isoformat(timespec="seconds")
     run_id, steps, t_run = f"run-{now()}", [], time.monotonic()
-    progress.write(run_id, name, tickers, steps, running=True)  # DATAHQ shows the run as it goes
+    progress.write(run_id, name, tickers, steps, running=True)  # Kenny's Data Emporium shows the run as it goes
     for cmd, extra, label in STEPS:
         print(f"\n== {cmd} {' '.join(extra)}", flush=True)
         t0, at = time.monotonic(), now()

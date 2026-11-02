@@ -1,6 +1,6 @@
-"""python -m ledger app [--port 3610] [--host 0.0.0.0]   ->  DATAHQ on http://127.0.0.1:3610
+"""python -m ledger app [--port 3610] [--host 0.0.0.0]   ->  Kenny's Data Emporium on http://127.0.0.1:3610
 
-LEDGER_READONLY=1 serves a read-only copy (a hosted DATAHQ): every page reads, no POST lands. PORT, when set, wins over --port."""
+LEDGER_READONLY=1 serves a read-only copy (a hosted Kenny's Data Emporium): every page reads, no POST lands. PORT, when set, wins over --port."""
 import argparse
 import os
 

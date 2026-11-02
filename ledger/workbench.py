@@ -1,4 +1,4 @@
-"""The reconcile workbench (DATAHQ, Reconcile tab): every open item of the queue as one row a person can judge
+"""The reconcile workbench (Kenny's Data Emporium, Reconcile tab): every open item of the queue as one row a person can judge
 without opening anything: ours, the reference, the delta, where each number came from, the evidence (the cited
 cell and its screenshot), and the resolution. Built from `app.flow()`; nothing is read from filings and nothing in
 it is an estimate. `/api/v1/reconcile?scope=` serves it; `/api/resolve` records one resolution, `/api/resolve/bulk` many."""

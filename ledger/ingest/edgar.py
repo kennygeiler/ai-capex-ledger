@@ -77,7 +77,7 @@ def _cached(url: str, path: Path, refresh: bool, max_age_h: float) -> tuple[byte
         meta = json.loads(meta_path.read_text())
         LOG.append({"url": url, "at": _now(), "attempt": 1, "source": "cache", "status": 200, "ms": 0, "bytes": meta["bytes"], "fetched_at": meta["fetched_at"]})
         return path.read_bytes(), meta | {"cache": "hit"}
-    if os.environ.get("LEDGER_READONLY") == "1":  # a hosted DATAHQ serves what it has; it never reaches the SEC
+    if os.environ.get("LEDGER_READONLY") == "1":  # a hosted Kenny's Data Emporium serves what it has; it never reaches the SEC
         raise Offline(f"not in the cache and this copy is read-only: {url}")
     body = _get(url)
     path.parent.mkdir(parents=True, exist_ok=True)

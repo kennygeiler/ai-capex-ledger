@@ -27,7 +27,7 @@ COMMANDS = {
     "test": "Run the unittest suite and write reports/tests.json for the Release page's test line (--fast skips the golden test).",
     "golden": "The golden test: --freeze the proven set's inputs and expected tables; --check runs the code stages on them and compares (docs/PROOF.md).",
     "gold": "The gold set (T82): --draw a hand-verified sample per proven company into gold/ (verdicts kept); --status the verdicts, error rate and comparison.",
-    "app": "DATAHQ web app: dashboard, each company's pipeline, the agents, and an outputs explorer (http://127.0.0.1:3610).",
+    "app": "Kenny's Data Emporium web app: dashboard, each company's pipeline, the agents, and an outputs explorer (http://127.0.0.1:3610).",
 }
 
 
