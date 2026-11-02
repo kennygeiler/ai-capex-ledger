@@ -24,6 +24,7 @@ COMMANDS = {
     "release": "Build a versioned release (refuses while any gate fails).",
     "signoff": "Record who signed a release.",
     "publish": "Push a signed release to the production database (DATABASE_URL in .env); --status lists what production holds.",
+    "claims": "Regenerate docs/CLAIMS.md from the claims register and findings (run after every merge); --check, --deployed.",
     "test": "Run the unittest suite and write reports/tests.json for the Release page's test line (--fast skips the golden test).",
     "golden": "The golden test: --freeze the proven set's inputs and expected tables; --check runs the code stages on them and compares (docs/PROOF.md).",
     "gold": "The gold set (T82): --draw a hand-verified sample per proven company into gold/ (verdicts kept); --status the verdicts, error rate and comparison.",

@@ -60,10 +60,10 @@ in `shown`; each string a row lists must be in one of the ledger/ files under it
 `shown` fails. The Release line "Claims register: every shown claim has a row" is red on any of these, on an edited
 finding, or when the scan read nothing.
 
-Where it shows: the Gaps page (`#gaps`), `/api/v1/claims`, `docs/CLAIMS.md` (written by `uv run python -m ledger.claims`;
+Where it shows: the Gaps page (`#gaps`), `/api/v1/claims`, `docs/CLAIMS.md` (written by `uv run python -m ledger claims`;
 a test fails when it is out of date), the Release checklist (the required line above and an informational "Known gaps"
 line), and every packet's LIMITATIONS.md (the stub, stale and planned claims). After a deploy of the hosted copy, commit,
-`railway up`, then `uv run python -m ledger.claims --deployed` (refused on a dirty tree; it records the commit, the
+`railway up`, then `uv run python -m ledger claims --deployed` (refused on a dirty tree; it records the commit, the
 release and which backing tests exist, since the image ships no tests/) and commit `claims/hosted.json`.
 
 ## 3. Done when
@@ -75,7 +75,7 @@ A ticket is done when:
 - every claim the change adds or changes has its register row, with the tests that back it;
 - every review finding not fixed in the ticket is a line in `claims/findings.jsonl`, never only in chat;
 - `ledger test` has run on the change, so reports/tests.json names the skipped tests the register reads;
-- `docs/CLAIMS.md` is regenerated, and the README's Status block says what was done.
+- `docs/CLAIMS.md` is regenerated (`uv run python -m ledger claims`), and the commit message says what was done and what is left open.
 
 ## Builder brief (copy into the ticket)
 
@@ -98,7 +98,7 @@ Done when:
  - one test per answer above, named here: <tests.module.Class.test_...>
  - claims/claims.yaml: the rows this changes or adds, with backed_by; docs/CLAIMS.md regenerated
  - claims/findings.jsonl: every finding left open
- - unit tests and golden --check green; README Status updated
+ - unit tests and golden --check green; commit message says what was done
 
 Reply with: commits, test counts, golden result, the pre-mortem with each test, the register rows touched, the
 findings added, anything left undone.

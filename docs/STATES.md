@@ -315,7 +315,7 @@ with a checklist, published true.
 | signed → re-signed | — | — | **enforced** refusal (cli/signoff.py:18-19) |
 | signed → published | the sign route, or `ledger publish` (publish.py:44-56,105) | person | signed and hash-matched |
 | published=false → published | `ledger publish` | person | **SIGNOFF.json not updated** (cli/publish.py:25-33 never calls `record`) |
-| published → hosted deployed | `railway up` + `ledger.claims --deployed` | person | **not part of signing**; only the informational "Known gaps" line (checklist.py:351-353) |
+| published → hosted deployed | `railway up` + `ledger claims --deployed` | person | **not part of signing**; only the informational "Known gaps" line (checklist.py:351-353) |
 | a signed release's files edited | file edit | anyone | caught at publish (hash) |
 
 **UI.** Proof releases table "<by>, <date>", plus ", not published" only when `published === false`, or "not signed"

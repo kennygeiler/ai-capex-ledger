@@ -27,7 +27,7 @@ Then T41, T42, T43 if time. After the call: T45 (Kenny, 1 Nov: the spike plus a 
 The honest estimate against this order is at the end of F.
 
 Each ticket: why, done when, what it touches. Order within a group is the order to do them. A ticket is closed by a commit that
-names it (`T12`) and updates the README status.
+names it (`T12`); the commit message says what was done and what is left open.
 
 ## Zero. Make parallel work possible
 
@@ -259,7 +259,7 @@ Agents build this, a person signs. The rules every agent follows, in the brief a
   alongside anything.
 - **The bar, unchanged.** `ledger golden --check` before any commit that touches a parser, a rule, a loader, the taxonomy or the
   schema; `--freeze` only on purpose, in its own commit saying why; `LEDGER_SKIP_GOLDEN=1` for the fast suite in between. The
-  README status block in every commit. `docs/HANDOFF.md` stays the start page. Nothing inferred: no column holds a number the
+  commit message is the record. `docs/HANDOFF.md` stays the start page. Nothing inferred: no column holds a number the
   pipeline made up, no page shows a number without its check.
 - **Skills are mandatory, not optional.** A builder on a page loads the three design skills; a builder on a schema change
   reads `docs/TAXONOMY.md` and `docs/PROOF.md` first; a builder on agents reads `agents/prompts/` and versions, never edits in
@@ -651,7 +651,7 @@ Kenny's minutes: MU mappings ~15 min, audit ~1 h, batch approvals 2–3 h spread
 sign 5 min: about seven hours over nine days. What breaks: T57b depends on T42; batch runs over 25 need more than one session
 window; the proven count at 100 is 25–40 honest-proven with the rest open under named causes; the 993/1,218 headline is retired.
 Overnight rules: never sign v1.9.0, never publish, no paid API, no decision confirmed in Kenny's name (a "Kenny in the morning"
-list in the README status instead), two builders never hold one file.
+list in the commit message instead), two builders never hold one file.
 
 ## K. The discipline audits' tickets (Kenny, 2 Nov: "fold everything we need to change into tickets")
 

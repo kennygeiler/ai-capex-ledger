@@ -172,6 +172,31 @@ class OneFindingOneItem(unittest.TestCase):
                 with self.assertRaises(ValueError, msg=str(change)):
                     C.findings(self.write(d, finding(), finding(**{**change, "status": "fixed"})), ids={"x", "y"})
 
+    def test_an_id_is_taken_once_and_a_close_needs_an_earlier_open(self):
+        """Merge friction: findings.jsonl merges by union, so two branches that pick one id must fail here, not land."""
+        with tempfile.TemporaryDirectory() as d:
+            with self.assertRaises(ValueError):  # the same id opened twice (two branches, same words)
+                C.findings(self.write(d, finding(id="F-AB1"), finding(id="F-AB1")), ids={"x"})
+            for closed in ("fixed", "wontfix"):  # a close with no open line before it
+                with self.assertRaises(ValueError):
+                    C.findings(self.write(d, finding(id="F-AB2", status=closed)), ids={"x"})
+            for bad in ("F31", "F-1", "X-1", "f-ab1"):  # a new plain F<n> past the legacy ones, or a malformed id
+                with self.assertRaises(ValueError, msg=bad):
+                    C.findings(self.write(d, finding(id=bad)), ids={"x"})
+            fs = C.findings(self.write(d, finding(id="F-AB3"), finding(id="F-AB3", status="fixed"), finding(id="F-AB3", status="open"), finding(id="S-1")), ids={"x"})
+            self.assertEqual({f["id"]: f["status"] for f in fs}, {"F-AB3": "open", "S-1": "open"})  # reopen after a fix is allowed
+
+    def test_the_real_log_has_unique_ids_by_first_appearance(self):
+        seen = set()
+        for n, line in enumerate(C.FINDINGS.read_text().splitlines(), 1):
+            if not line.strip():
+                continue
+            f = json.loads(line)
+            if f["id"] not in seen:
+                self.assertEqual(f["status"], "open", f"line {n}: {f['id']} first appears {f['status']}")
+                seen.add(f["id"])
+        C.findings(ids={e["id"] for e in C.load()})  # the loader's own rules hold on the committed log
+
     def test_a_finding_on_an_unknown_claim_or_with_a_bad_field_is_refused(self):
         with tempfile.TemporaryDirectory() as d:
             for bad in (finding(claim="nope"), finding(severity="urgent"), finding(status="done"), {"id": "F9"}, finding(ticket="soon"), ["a list"]):
@@ -420,7 +445,7 @@ class Stale(unittest.TestCase):
 
 class Doc(unittest.TestCase):
     def test_claims_md_is_current(self):
-        self.assertEqual(C.DOC.read_text(), C.markdown(), "docs/CLAIMS.md is stale: run uv run python -m ledger.claims")
+        self.assertEqual(C.DOC.read_text(), C.markdown(), "docs/CLAIMS.md is stale: run uv run python -m ledger claims")
 
 
 if __name__ == "__main__":

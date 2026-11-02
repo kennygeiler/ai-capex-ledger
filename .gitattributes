@@ -1,0 +1,10 @@
+# Merge friction (see docs/HANDOFF.md, Operating notes).
+# Append-only log: a merge keeps both sides' new lines. claims.findings() refuses a reused id or a close without an open.
+claims/findings.jsonl merge=union
+# Generated from the register: a union merge leaves it stale, tests.test_claims.Doc fails, `ledger claims` regenerates it.
+docs/CLAIMS.md merge=union
+# Test-run stamps, stale on any merge commit anyway: keep the checked-out side once a clone runs
+#   git config merge.ledger-report.driver true
+# (undefined, git merges them as text, as before). Then rerun `ledger test` on the merge commit.
+reports/tests.json merge=ledger-report
+reports/golden.json merge=ledger-report

@@ -1,7 +1,7 @@
 # Start here
 
-For a person, or an AI agent, who has just cloned this repository. Read this, then the README's Status block, then
-the document for whatever you are about to touch.
+For a person, or an AI agent, who has just cloned this repository. Read this, then `git log` for what changed
+lately, then the document for whatever you are about to touch.
 
 ## What this is, in four sentences
 
@@ -83,7 +83,7 @@ Every command takes `--stage 3` (every tracked company) or `--ticker X Y`. `pyth
 | asset-type mappings | each company's reported PP&E category mapped to a us-gaap member, with the note's words as evidence; an unmapped one is open on Proof, and so is one without a person's `confirmed_by` (T63: a proposal, to confirm) | `taxonomy/asset_types.yaml` | `docs/TAXONOMY.md` |
 | prompts | one per agent, versioned the same way | `agents/prompts/`, `agents/schemas/` | `agents/agents.json` |
 | charters | one per agent, live or retired: what it owns, what it never touches, its input and output files, model, tools, prompt versions, the checks that judge it, written from the code | `agents/charters/<id>.md`, path in `agents/agents.json` | the Rules page, `/api/agents` |
-| definitions | judgements made once per company and applied every run | `definitions/companies.yaml` | README Critical notes |
+| definitions | judgements made once per company and applied every run | `definitions/companies.yaml` | this file, Data conventions |
 | stated figures | figures companies stated about AI, gathered from releases, calls and press, verbatim with the source; `company_stated_ai` rows | `taxonomy/stated_figures.yaml` | `docs/TAXONOMY.md` |
 | failure types | every failure type INGESTION.md logged, as data: id, cause class, origin, the check in code that catches it or `none`, count seen | `taxonomy/failures.yaml`, `ledger/failures.py` | `docs/INGESTION.md` |
 | rules, guards | the 15 checks, each with its rationale and owner; the two guards that tag part-year and program statements | `rules/*.yaml`, `ledger/rules.py`, `ledger/guards.py` | `docs/PROOF.md` |
@@ -98,7 +98,7 @@ https://datahq-production.up.railway.app is Kenny's Data Emporium read-only: the
 the evidence screenshots and the signed releases. Nothing writes there (every POST is refused; the header says "read-only copy")
 and it never reaches the SEC (`ledger/ingest/edgar.py` raises `Offline` instead of fetching). It is what to send someone who should
 look without a checkout. Redeploy after a run or a release: `railway up --service datahq` from this directory, then
-`uv run python -m ledger.claims --deployed` and commit `claims/hosted.json` (without that record the Gaps page reads the hosted copy stale) (the `Dockerfile`;
+`uv run python -m ledger claims --deployed` and commit `claims/hosted.json` (without that record the Gaps page reads the hosted copy stale) (the `Dockerfile`;
 `.railwayignore` and `.dockerignore` re-include `data/ledger.duckdb` and the distilled XBRL instances `data/raw/*/filings/*.facts.json`,
 which git ignores: without the instances the restatement guard (`proof._restated`) cannot name a tag's filing, and the hosted copy
 counts those rows open while the local one counts them explained). The signed releases also sit in the production Postgres,
@@ -156,10 +156,50 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
 - **Find why something is wrong**: `docs/INGESTION.md` logs every failure type found so far (72), where it showed,
   what caught it, what fixed it; `taxonomy/failures.yaml` holds each as data with its class and catching check. Add to both.
 
+## Operating notes
+
+- **Worktrees share `data/raw`, `data/docs` and `data/text` with the main checkout through symlinks.** A builder on an
+  older base that runs `ledger ingest` rewrites the shared parses with old code (on 2 Nov the AMZN parses were found
+  reverted to tables@12). Run `ingest` only on current main, or give the worktree its own data copy; after any ingest,
+  `cmp` fixtures/data/docs against data/docs for the six. A worktree needs those three symlinks, the crop PNGs symlinked
+  (below), and a copy of `data/ledger.duckdb` and `data/watch.json`; tests run offline with no `.env`.
+- **The crop pictures are not in git** (the repository is public; 42 MB): `reports/evidence/crops/*.png` is ignored,
+  `reports/evidence/crops.json` is committed. After a clone, or when a crop reads "Crop file missing" or "Crop out of
+  date", run `uv run python -m ledger evidence --crops --ticker MSFT GOOGL AMZN NVDA APLD AMD` (Chrome, about 3 minutes,
+  offline; needs the stored filings in data/raw). The hosted copy has neither the filings nor the pictures (F-EV3, F-EV4).
+- **An agent output loads only if it answered the current task** (T100, `agent.stale`): after any change that repacks
+  tasks (a locator, a parser, a prompt version), run the step's `--run` before `--load`, or the loader refuses the old
+  answers as `*_failed` "stale output". 13 statement outputs carry no `_run.task_sha` (written by hand before headless
+  runs) and are re-asked on the next `extract --run`: APLD 0001144879-24-000216, -25-000021, -26-000048; CRWV
+  0001769628-26-000104; MSFT 0000950170-24-087843, 0000950170-25-100235, 0001193125-26-323660; NVDA
+  0001045810-24-000029, -25-000023, -26-000021; ORCL 0000950170-24-075605, 0000950170-25-087926, 0001193125-26-277521.
+  MSFT, NVDA and APLD are proven: check golden after that run.
+- **Golden**: `ledger golden --check` before any commit that touches a parser, a rule, a loader or the taxonomy; `--freeze`
+  only on purpose, in its own commit that says why. Freeze copies the live DB's tables, so rerun `ledger rules` on the
+  proven six first when a rule changed.
+- **After a merge** (`.gitattributes` keeps these from conflicting): `uv run python -m ledger claims` regenerates
+  `docs/CLAIMS.md` (a union merge leaves it stale and `tests.test_claims.Doc` fails until you do); `claims/findings.jsonl`
+  merges by union (both sides' lines kept); then `ledger test` on the merge commit, which rewrites `reports/tests.json` and
+  `reports/golden.json`. Those two keep the checked-out side on a merge once a clone runs
+  `git config merge.ledger-report.driver true` (without it they conflict as before; either side is stale on the merge
+  commit anyway and the Release page says so).
+- **Finding ids** are branch-prefixed, `F-<BRANCH CODE><n>` (`F-RC7`, `F-EV2`) or `S-<n>` for state findings; plain
+  `F<n>` ids stop at F30. `claims.findings()` refuses a first line that is not open, a second open line for an id, or a
+  new plain `F<n>` id.
+- An asset-type mapping is a person's only with `confirmed_by` on the entry (T63); an agent never writes that field, and
+  never in Kenny's name.
+- Release files are LF, hashed before the write, read back byte-exact; `publish` adds a release's new columns to existing tables.
+
+## Data conventions
+
+Dashes are zero; NVDA's capex includes intangibles; banks and oil majors are partly blank on purpose; old work is in tags
+(`takehome-xbrl-explorer`, `quarterly-v0.1`).
+
 ## The rules of the house
 
-1. After every commit, update the README Status block: last done, next, critical notes (`CLAUDE.md`).
-2. Only add what is needed. Remove stale files; old work lives in git tags.
+1. The commit message is the record: what changed, why, what is left open. Open review findings go in
+   `claims/findings.jsonl`. There is no status diary to update.
+2. Only add what is needed. Remove stale files; old work lives in git tags and history.
 3. Pipeline first: fix the failure type, not the instance, and log it in `docs/INGESTION.md`.
 4. A person sees only surprises and judgement calls, and each one says why code could not decide it.
 5. No paid API: the agents run on a Claude subscription through `claude -p`.
@@ -175,7 +215,7 @@ finding not yet fixed, is on the Gaps page (`#gaps`), `/api/v1/claims` and `docs
 
 ## If you are an AI agent
 
-Read in this order: this file, README Status, `docs/BUILD.md` (how every ticket is built), `docs/PROOF.md`, `docs/STATES.md` (every implicit state machine, its states, transitions and UI words), `docs/EVALS.md` (how the pipeline is measured: golden, faults, scores, gates), `docs/DISCIPLINES.md` (seven discipline audits against the code, with the proposed tickets T67–T79 awaiting Kenny), `docs/TAXONOMY.md`, `docs/INGESTION.md` (skim the tables), then the
+Read in this order: this file, `git log --first-parent main` (what landed lately), `docs/BUILD.md` (how every ticket is built), `docs/PROOF.md`, `docs/STATES.md` (every implicit state machine, its states, transitions and UI words), `docs/EVALS.md` (how the pipeline is measured: golden, faults, scores, gates), `docs/DISCIPLINES.md` (seven discipline audits against the code, with the proposed tickets T67–T79 awaiting Kenny), `docs/TAXONOMY.md`, `docs/INGESTION.md` (skim the tables), then the
 module you will change. Run the tests before and after. The invariants that must hold:
 
 - Every value in `values` resolves to a cell in a parsed table; `extract --load` rejects anything else.
