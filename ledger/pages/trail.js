@@ -1,25 +1,71 @@
-// ── Company trail: one company's stages, open and explained items ────────────
-// T56: the strongest answer key behind a `by`, one word beside it; the words come from the API's key_grade (status.KEY_LABEL), nothing when no key vouches for the row
+// ── Company trail: every number with what we found, where it is in the filing, and how we know ──────────────────────
+// The card comes from the API (ledger/cards.py); the page never shows the internal words (by, located, twin, reason).
+const TRAIL_STAGE = {ingest: 'Reports found', values: 'Main numbers', facts: 'Footnote numbers', statements: 'What the company said about AI',
+  mapping: 'Category labels', planned: 'Plans and projects', release: 'Release'};
+const TRAIL_STAGE_HELP = {
+  ingest: 'Each annual report downloaded from the SEC, and whether the income statement and cash-flow statement were found in it.',
+  values: 'Revenue, capital spending and operating costs for each year, each read from one cell of the report.',
+  facts: 'Numbers from the footnotes: spending by segment, property by category, leases and commitments.',
+  statements: 'Sentences where the company talks about AI spending, quoted word for word.',
+  mapping: 'The company’s own names for its property categories, matched to a standard accounting category. A match counts only once a person confirms it.',
+  planned: 'Guidance and named projects, quoted word for word.',
+  release: 'Anything that would stop this company from being released.'};
+const TRAIL_FIELD = {revenue: 'Revenue', capex: 'Capital spending', opex: 'Operating costs', cost_of_revenue: 'Cost of revenue', operating_income: 'Operating income',
+  segment_capex: 'Capex by segment', segment_revenue: 'Revenue by segment', ppe_category: 'Property', finance_lease_liability: 'Finance leases', purchase_commitments: 'Purchase commitments'};
+const TRAIL_TONE = {ok: ['text-green', 'Checked'], info: ['text-azure', 'Explained'], wait: ['text-orange', 'Waiting for you'], bad: ['text-red', 'Needs a person']};
+
+function trailWhat(it, stage) {
+  const r = it.ref || {};
+  if ((stage === 'values' || stage === 'facts') && r.field) return [TRAIL_FIELD[r.field] || r.field, r.dimension, r.period].filter(Boolean).join(' · ');
+  if (stage === 'mapping') return it.name || it.what;
+  return it.what;
+}
+
+function trailRow(it, stage) {
+  const c = it.card || {how: {tone: 'info', text: it.reason || ''}, where: []};
+  const [cls, word] = TRAIL_TONE[c.how.tone] || TRAIL_TONE.info;
+  const where = (c.where || []).map((w) => h('div', {class: 'small mb-1'}, w.label,
+    w.link ? h('a', {href: w.link, target: '_blank', rel: 'noopener', class: 'ms-2'}, 'open in the filing ↗') : '',
+    w.shot ? h('a', {href: w.shot, target: '_blank', rel: 'noopener', class: 'ms-2'}, 'screenshot ↗') : ''));
+  return h('tr', {},
+    h('td', {class: 'text-nowrap'}, h('span', {class: cls}, '● '), trailWhat(it, stage)),
+    h('td', {class: 'brk'}, c.found ? h('span', {class: 'fw-medium'}, c.found) : h('span', {class: 'text-secondary'}, '—')),
+    h('td', {class: 'brk'}, where.length ? where : h('span', {class: 'text-secondary small'}, '—')),
+    h('td', {class: 'brk small'}, h('span', {class: cls + ' fw-medium'}, word + '. '), c.how.text));
+}
+
+function trailTable(items, stage) {
+  return h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table'},
+    h('thead', {}, h('tr', {}, h('th', {}, 'What'), h('th', {}, 'We found'), h('th', {}, 'Where it is in the filing'), h('th', {}, 'How we know'))),
+    h('tbody', {}, items.map((it) => trailRow(it, stage)))));
+}
+
 async function trailPage(view, ticker) {
   const c = await api('/api/v1/proof/' + encodeURIComponent(ticker));
-  const KEY_WORD = Object.fromEntries((c.key_grade || []).map((g) => [g.id, g.label]));  // the trail ships the same list the board does
-  const byWithKey = (o) => [o.by, o.key ? h('span', {class: 'text-secondary'}, ` (${KEY_WORD[o.key] || o.key})`) : ''];
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'},
-    h('div', {class: 'col'}, h('h1', {class: 'page-title'}, c.name, h('span', {class: 'text-secondary ms-2 fw-normal'}, c.ticker)), h('div', {class: 'text-secondary small'}, `${INDUSTRY[c.layer] || c.layer}. ${c.why || ''} ${c.in_proven_set ? '' : 'Not in the proven set.'}`)),
-    h('div', {class: 'col-auto'}, c.proven ? h('span', {class: 'badge bg-green-lt'}, 'proven') : h('span', {class: 'badge bg-red-lt'}, `${int(c.open)} open`), ' ', h('a', {href: `#data?ticker=${c.ticker}`, class: 'small ms-2'}, 'Dataset'), h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-2'}, 'Reconcile'))));
+    h('div', {class: 'col'}, h('h1', {class: 'page-title'}, c.name, h('span', {class: 'text-secondary ms-2 fw-normal'}, c.ticker)),
+      h('div', {class: 'text-secondary small mt-1', style: 'max-width:60rem'}, 'Every number below shows what we found, where it is in the filing (open it and look), and how we know it is right. ',
+        h('span', {class: 'text-green'}, 'Checked'), ' means it matched something outside the filing. ', h('span', {class: 'text-azure'}, 'Explained'), ' means nothing outside confirms it and a written reason says why. ',
+        h('span', {class: 'text-orange'}, 'Waiting for you'), ' means a person has to decide.', c.in_proven_set ? '' : ' Not in the proven set.')),
+    h('div', {class: 'col-auto'}, c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : h('span', {class: 'text-red fw-medium'}, `${int(c.open)} waiting`),
+      h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-3'}, 'Reconcile'), h('a', {href: `#data?ticker=${c.ticker}`, class: 'small ms-2'}, 'Dataset'))));
+  const order = (it) => ({open: 0, blocked: 0, explained: 1, checked: 2})[it.state] ?? 1;
   const cards = Object.entries(c.stages).map(([id, st]) => {
-    const extra = id === 'mapping' ? ` ${int(st.derived_rows)} derived rows, ${int(st.committed_rows)} committed rows, ${int(st.company_stated_ai)} company-stated AI figures.` : id === 'planned' ? ` ${int(st.guidance)} guidance statements, ${int(st.projects)} projects.` : '';
+    const all = [...(st.all || [])].sort((a, b) => order(a) - order(b));
+    const waiting = all.filter((i) => order(i) === 0), rest = all.filter((i) => order(i) > 0);
     const body = [];
-    const checked = (st.all || []).filter((i) => i.state === 'checked');
-    const keyed = st.keys ? Object.entries(KEY_WORD).filter(([k]) => st.keys[k]).map(([k, w]) => `${int(st.keys[k])} ${w}`).join(', ') : '';
-    if (st.open.length) body.push(dtable('Open', [{t: 'What', k: 'what'}, {t: 'Detail', f: (o) => h('span', {class: 'text-secondary small brk'}, o.detail || '')}, {t: 'Needs', f: (o) => h('span', {class: 'badge bg-red-lt'}, o.needs)}], st.open));
-    if (st.explained_items && st.explained_items.length) body.push(h('details', {class: 'mt-2', open: st.open.length ? null : null}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, `${int(st.explained_items.length)} explained`),
-      h('div', {class: 'mt-2'}, dtable('Explained', [{t: 'What', k: 'what'}, {t: 'By', f: (o) => h('span', {class: 'badge bg-azure-lt'}, o.by)}, {t: 'Detail', f: (o) => h('span', {class: 'text-secondary small brk'}, o.detail || '')}], st.explained_items))));
-    if (checked.length) body.push(h('details', {class: 'mt-2'}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, `${int(checked.length)} checked${keyed ? ` (${keyed})` : ''}`),
-      h('div', {class: 'mt-2'}, dtable('Checked', [{t: 'What', k: 'what'}, {t: 'By', f: byWithKey}, {t: 'Reason', f: (o) => h('span', {class: 'text-secondary small brk'}, o.reason || '')}], checked))));
-    return h('div', {class: 'card mb-3'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, STAGE_LABEL_UI[id] || id), h('span', {class: 'ms-3 text-secondary small'}, `${int(st.items)} items: `, h('span', {class: 'text-green'}, `${int(st.checked)} checked`), keyed ? h('span', {class: 'text-secondary'}, ` (${keyed})`) : '', ', ', h('span', {class: 'text-azure'}, `${int(st.explained)} explained`), ', ', h('span', {class: st.open.length ? 'text-red' : 'text-secondary'}, `${int(st.open.length)} open`), '.', extra)),
-      body.length ? h('div', {class: 'card-body py-2'}, body) : '');
+    if (waiting.length) body.push(trailTable(waiting, id));
+    if (rest.length) {
+      const sum = `${int(st.checked)} checked, ${int(st.explained)} explained`;
+      body.push(waiting.length || rest.length > 12
+        ? h('details', {class: 'px-3 py-2'}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, `Show ${sum}`), trailTable(rest, id))
+        : trailTable(rest, id));
+    }
+    const tally = waiting.length ? h('span', {class: 'text-orange'}, `${int(waiting.length)} waiting`) : h('span', {class: 'text-green'}, 'nothing waiting');
+    return h('div', {class: 'card mb-3'},
+      h('div', {class: 'card-header py-2 d-block'}, h('div', {class: 'd-flex align-items-baseline'}, h('h3', {class: 'card-title m-0'}, TRAIL_STAGE[id] || id),
+        h('span', {class: 'ms-3 small'}, `${int(st.items)} items · `, tally)), h('div', {class: 'text-secondary small mt-1'}, TRAIL_STAGE_HELP[id] || '')),
+      body.length ? h('div', {class: 'card-body p-0'}, body) : '');
   });
-  const defs = c.definitions.length ? h('p', {class: 'text-secondary small'}, 'Definitions on file: ', c.definitions.join(', ')) : '';
-  view.append(head, defs, ...cards);
+  view.append(head, ...cards);
 }

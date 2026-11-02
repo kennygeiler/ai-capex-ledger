@@ -467,7 +467,8 @@ class Handler(BaseHTTPRequestHandler):
             try:
                 if name == "rules":
                     return self._json(proof.rules(con))
-                return self._json(proof.company(con, parts[1]) if len(parts) == 2 else proof.board(con))
+                from . import cards  # T-cards: what we found, where, how we know, per trail item
+                return self._json(cards.add(con, proof.company(con, parts[1])) if len(parts) == 2 else proof.board(con))
             finally:
                 con.close()
         if name == "gold":  # T82: the gold set, ?t=TICKER for its items; read-only, the verdict is a POST below
