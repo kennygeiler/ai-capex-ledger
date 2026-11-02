@@ -9,8 +9,10 @@ and the card says the same thing in a sentence a person can check by clicking. T
             "how": {"tone": ok|corroborated|info|wait|bad, "text": one short line, "detail": the long form or None},
             "compare": {"a", "b"} extraction ids when two readings differ}
 
-The tones are the ladder (T92): ok, verified against SEC XBRL (twin); corroborated, a tie to the filing's tagged total or
-the same figure in two or more filings; info, citation only (or an explanation on file); wait and bad, needs review.
+The tones are the ladder (T92): ok (Verified) only for an SEC XBRL match or a quote that matches its source; corroborated,
+a tie to the filing's tagged total or the same figure in two or more filings; company, a category the company's own XBRL
+tag matches; done, found or confirmed but not checked (statements located, no blocking items, a reviewer's confirmation);
+info, citation only (or an explanation on file); wait and bad, needs review. `VERIFIED_BY` lists what may read Verified.
 """
 from __future__ import annotations
 
@@ -69,6 +71,7 @@ def _cell(c: dict, docs: dict, ev: dict) -> dict:
             "viewer": b["viewer"], "crop": {k: b[k] for k in ("state", "reason", "url")}}
 
 
+VERIFIED_BY = ("xbrl", "quote")  # the only checks a page may call Verified (tests.test_cards.How.test_only_sec_xbrl_and_quotes_read_verified)
 RULE_TEXT = {"part_year": "Part-year amount", "restated_between_filings": "Restated in a later 10-K", "amendment_without_statements": "Amendment without statements",
              "program_words": "Program, not annual guidance"}
 
@@ -110,15 +113,15 @@ def _how(it: dict, name: str, defs: dict, found_value=None) -> dict:
         return {"tone": "corroborated", "text": f"Confirmed in {n} filings", "detail": None}
     if by == "quote":
         return {"tone": "ok", "text": "Quote matches source", "detail": None}
-    if by == "located":
-        return {"tone": "ok", "text": "Statements located", "detail": None}
+    if by == "located":  # found, not verified: nothing independent checks a located table
+        return {"tone": "done", "text": "Statements located", "detail": None}
     if by == "gate":
-        return {"tone": "ok", "text": "No blocking items", "detail": None}
-    if by == "mapping:filer_tag":
+        return {"tone": "done", "text": "No blocking items", "detail": None}
+    if by == "mapping:filer_tag":  # the company's own XBRL tag: a second reading by the same company, not SEC agreement on a value
         tag = ref.get("filer_tag") or {}
-        return {"tone": "ok", "text": f"Matches company's own tag: {member_label(tag.get('member'))}".rstrip(": "), "detail": None}
-    if by.startswith("mapping:"):
-        return {"tone": "ok", "text": f"Confirmed: {member_label(by.split(':', 1)[1])}", "detail": None}
+        return {"tone": "company", "text": member_label(tag.get("member")) or "Same member", "detail": None}
+    if by.startswith("mapping:"):  # a person confirmed the proposal: a decision, not a check
+        return {"tone": "done", "text": f"Confirmed: {member_label(by.split(':', 1)[1])}", "detail": None}
     if by == "label:no_reference":
         return {"tone": "info", "text": "Citation only", "detail": None}
     if by == "label:not_reported":

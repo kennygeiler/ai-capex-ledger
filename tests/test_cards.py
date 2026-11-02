@@ -50,6 +50,18 @@ class How(unittest.TestCase):
         self.assertEqual(self.how(state="checked", by="xbrl", ref={"reference": 5_000_000})["text"], "Matches SEC XBRL: $5M")
         self.assertEqual(self.how(state="explained", by="label:no_reference")["text"], "Citation only")
 
+    def test_only_sec_xbrl_and_quotes_read_verified(self):
+        """Verified (tone ok) is an SEC XBRL match or a quote that matches its source, nothing else: statements located and
+        no blocking items read Done, the company's own tag reads Matches company tag, a reviewer's confirmation reads Done."""
+        cases = {"xbrl": {"ref": {"reference": 1}}, "quote": {}, "located": {}, "gate": {}, "mapping:filer_tag": {"ref": {"filer_tag": {"member": "us-gaap:LandMember"}}},
+                 "mapping:us-gaap:LandMember": {}, "label:no_reference": {}, "reading:a": {"ref": {"readings": [{"accession": "a"}, {"accession": "b"}]}},
+                 "rule:ppe_categories_tie": {"ref": {"tie": {"total": 1}}}, "definition:x": {}, "resolution:r": {}, "rule:part_year": {}}
+        tones = {by: cards._how({"state": "checked" if not by.startswith(("label:", "definition:", "resolution:", "rule:part")) else "explained", "by": by, **kw}, "X", {})["tone"] for by, kw in cases.items()}
+        self.assertEqual({by for by, t in tones.items() if t == "ok"}, set(cards.VERIFIED_BY))
+        self.assertEqual((tones["located"], tones["gate"], tones["mapping:filer_tag"], tones["mapping:us-gaap:LandMember"]), ("done", "done", "company", "done"))
+        js = (store.ROOT / "ledger" / "pages" / "trail.js").read_text()
+        self.assertIn("company: ['text-cyan', 'Matches company tag'], done: ['text-secondary', 'Done']", js)  # their own words on the page
+
     def test_no_internal_words(self):
         for it in ({"state": "checked", "by": "xbrl", "ref": {"reference": 1}}, {"state": "checked", "by": "located"}, {"state": "checked", "by": "gate"},
                    {"state": "explained", "by": "label:no_reference"}, {"state": "open", "by": "label:to_confirm"},

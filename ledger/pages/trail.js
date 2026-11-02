@@ -10,7 +10,8 @@ const TRAIL_STAGE_HELP = {
   planned: 'Guidance and named projects, verbatim',
   release: 'Items blocking release'};
 // The ladder (T92): Verified against SEC XBRL; Corroborated by a tie to the reported total or a second filing; Unverified, citation only.
-const TRAIL_TONE = {ok: ['text-green', 'Verified'], corroborated: ['text-teal', 'Corroborated'], info: ['text-azure', 'Unverified'], wait: ['text-orange', 'Needs review'], bad: ['text-red', 'Needs review']};
+const TRAIL_TONE = {ok: ['text-green', 'Verified'], corroborated: ['text-teal', 'Corroborated'], company: ['text-cyan', 'Matches company tag'], done: ['text-secondary', 'Done'],
+  info: ['text-azure', 'Unverified'], wait: ['text-orange', 'Needs review'], bad: ['text-red', 'Needs review']};
 const TRAIL_RULE = {jump: 'Large year-over-year change', restated: 'Restated', row_switch: 'Line renamed', capex_intensity: 'Capex high vs revenue', opex_over_revenue: 'Opex above revenue'};
 
 function trailWhat(it, stage) {
@@ -31,8 +32,8 @@ function trailSource(c, what) {
   if (!where.length) return h('span', {class: 'text-secondary'}, '—');
   return h('div', {class: 'cites'}, where.map((w) => (w.crop
     ? citeCell(w, what)
-    : h('div', {class: 'cite-line small'}, w.viewer ? [w.label, ' · ', h('a', {href: w.viewer, target: '_blank', rel: 'noopener', title: 'Open in filing, the cell outlined'}, 'Open'), SEC_LINK.test(w.link || '') ? [' · ', h('a', {href: w.link, target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗')] : '']
-      : [w.label, w.link ? [' · ', h('a', {href: w.link, target: '_blank', rel: 'noopener noreferrer'}, 'Open ↗')] : '']))));
+    : h('div', {class: 'cite-line small'}, w.viewer ? [w.label, ' · ', h('a', {href: safeHref(w.viewer), target: '_blank', rel: 'noopener', title: 'Open in filing, the cell outlined'}, 'Open'), SEC_LINK.test(w.link || '') ? [' · ', h('a', {href: safeHref(w.link), target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗')] : '']
+      : [w.label, w.link ? [' · ', h('a', {href: safeHref(w.link), target: '_blank', rel: 'noopener noreferrer'}, 'Open ↗')] : '']))));
 }
 
 // Verification: the status word and one short line; the long form opens under it
@@ -77,6 +78,8 @@ async function trailPage(view, ticker) {
     h('div', {class: 'col'}, h('h1', {class: 'page-title'}, c.name, h('span', {class: 'text-secondary ms-2 fw-normal'}, c.ticker)),
       h('div', {class: 'small mt-1'}, h('span', {class: 'text-green'}, '● Verified'), h('span', {class: 'text-secondary'}, ' SEC XBRL or the quoted source'),
         h('span', {class: 'text-teal ms-3'}, '● Corroborated'), h('span', {class: 'text-secondary'}, ' ties to totals or confirmed in 2 filings'),
+        h('span', {class: 'text-cyan ms-3', title: 'The company’s own XBRL tags this category'}, '● Matches company tag'),
+        h('span', {class: 'text-secondary ms-3', title: 'Located or confirmed; not an independent check'}, '● Done'),
         h('span', {class: 'text-azure ms-3'}, '● Unverified'), h('span', {class: 'text-secondary'}, ' citation only'),
         h('span', {class: 'text-orange ms-3'}, '● Needs review'), h('span', {class: 'text-secondary'}, ' open item'), c.in_proven_set ? '' : h('span', {class: 'text-secondary ms-3'}, 'Not in scope'))),
     h('div', {class: 'col-auto'}, c.proven ? h('span', {class: 'text-green fw-medium'}, 'Proven') : h('span', {class: 'text-orange fw-medium'}, `${int(c.open)} to review`),
@@ -100,7 +103,7 @@ async function trailPage(view, ticker) {
       h('span', {class: 'text-secondary small'}, `As of ${S.as_of || ''}`), waitingTotal ? h('a', {href: `#reconcile?scope=${c.ticker}`, class: 'small ms-auto'}, 'Review in Reconcile →') : ''),
     h('div', {class: 'row g-3'},
       tile('Coverage',
-        s.newest ? (s.newest.url ? h('a', {href: s.newest.url, target: '_blank', rel: 'noopener'}, `Through ${s.newest.form} · FY ending ${s.newest.period}`) : `Through ${s.newest.form} · FY ending ${s.newest.period}`) : 'No filings',
+        s.newest ? (s.newest.url ? h('a', {href: safeHref(s.newest.url), target: '_blank', rel: 'noopener'}, `Through ${s.newest.form} · FY ending ${s.newest.period}`) : `Through ${s.newest.form} · FY ending ${s.newest.period}`) : 'No filings',
         s.newest ? `Filed ${s.newest.filed}` : '', S.next_expected ? `Next 10-K expected ~${S.next_expected}` : '',
         s.unread && s.unread.length ? h('span', {class: 'text-orange fw-medium'}, `${plural(s.unread.length, 'new filing')} not read`) : '', fresh),
       tile('Verification',
@@ -118,19 +121,22 @@ async function trailPage(view, ticker) {
       const list = (items) => h('div', {class: 'list-group list-group-flush'}, items.map((i) => h('div', {class: 'list-group-item py-3'}, i.decision ? mappingDecision(i.decision,
         order(i) === 0 || i.by === 'mapping:filer_tag' ? h('div', {class: 'mt-2'}, h('a', {href: `#reconcile?scope=${c.ticker}&cause=asset_types`, class: 'small'}, order(i) === 0 ? 'Decide in Reconcile →' : 'Confirm or override in Reconcile →')) : '') : trailTable([i], id, c.ticker))));
       if (waiting.length) body.push(list(waiting));
-      if (rest.length) body.push(waiting.length ? h('details', {class: 'px-3 py-2'}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, tallyLine(st.checked, 0, st.explained)), list(rest)) : list(rest));
+      if (rest.length) body.push(waiting.length ? h('details', {class: 'px-3 py-2'}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, tallyLine(rest)), list(rest)) : list(rest));
       return stageCard(id, st, waiting, body);
     }
     if (waiting.length) body.push(trailTable(waiting, id, c.ticker));
     if (rest.length) {
-      const corr = rest.filter((i) => i.card && i.card.how && i.card.how.tone === 'corroborated').length;
       body.push(waiting.length || rest.length > 12
-        ? h('details', {class: 'px-3 py-2'}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, tallyLine(st.checked - corr, corr, st.explained)), trailTable(rest, id, c.ticker))
+        ? h('details', {class: 'px-3 py-2'}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, tallyLine(rest)), trailTable(rest, id, c.ticker))
         : trailTable(rest, id, c.ticker));
     }
     return stageCard(id, st, waiting, body);
   });
   view.append(head, why, ...cards);
 }
-// "12 verified · 3 corroborated · 4 unverified", zero parts left out
-const tallyLine = (v, c, u) => [v ? `${int(v)} verified` : '', c ? `${int(c)} corroborated` : '', u ? `${int(u)} unverified` : ''].filter(Boolean).join(' · ');
+// "12 verified · 3 corroborated · 2 match company tag · 1 done · 4 unverified", by each item's tone, zero parts left out
+function tallyLine(items) {
+  const n = (tone) => items.filter((i) => ((i.card && i.card.how) || {}).tone === tone).length;
+  return [[n('ok'), 'verified'], [n('corroborated'), 'corroborated'], [n('company'), 'match company tag'], [n('done'), 'done'], [n('info'), 'unverified']]
+    .filter(([k]) => k).map(([k, w]) => `${int(k)} ${w}`).join(' · ');
+}

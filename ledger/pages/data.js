@@ -47,7 +47,7 @@ async function dataPage(view, qs) {
         fig('Verification', r.check ? CHECK[r.check] || r.check : '—', `${p.table} table`)),
       p.inputs ? h('p', {class: 'muted small mono', style: 'margin-bottom:.6rem'}, p.inputs) : '',
       p.xbrl != null ? h('p', {class: 'muted small'}, `SEC XBRL: ${usd(p.xbrl)}`) : '',
-      p.url ? h('p', {class: 'small'}, h('a', {href: p.url, target: '_blank', rel: 'noopener'}, 'Open in 10-K ↗')) : ''];
+      p.url ? h('p', {class: 'small'}, h('a', {href: safeHref(p.url), target: '_blank', rel: 'noopener'}, 'Open in 10-K ↗')) : ''];
     const box = drawer(...bits);
     if (p.table === 'values') {  // the cell, the cleaning and the screenshot, from the company's own data
       const c = await api('/api/company?t=' + r.ticker);

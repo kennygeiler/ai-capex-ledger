@@ -276,7 +276,8 @@ class Viewer(unittest.TestCase):
         (cdir / "a.png").write_bytes(PNG)
         (cdir / "b.png").write_bytes(PNG)
         rec = self.tmp / "crops.json"
-        rec.write_text(json.dumps({"a": _entry(), "b": _entry(img="b.png", located=False)}))
+        rev = dict(table_id="t0000", row_label="Total revenues", column_label="Year Ended May 31, | 2026", cell_text="67,357")
+        rec.write_text(json.dumps({"a": _entry(document_sha256=SHA, **rev), "b": _entry(img="b.png", located=False), "c": _entry(img="c.png")}))  # c: on record, citation stale
         with mock.patch.object(app, "_con", side_effect=lambda: _db()), mock.patch.object(store, "ROOT", self.root), \
                 mock.patch.object(crops, "CROPS", cdir), mock.patch.object(crops, "RECORD", rec), mock.patch.object(app, "EVIDENCE", self.tmp):
             with request.urlopen(f"{base}/filing/{ACCN}?row=Total%20revenues") as r:
@@ -289,7 +290,8 @@ class Viewer(unittest.TestCase):
                 self.assertEqual(cm.exception.headers["Content-Security-Policy"], viewer.ERROR_CSP)
             with request.urlopen(f"{base}/evidence/crops/a.png") as r:
                 self.assertEqual(r.read(), PNG)
-            for name in ("b.png", "c.png"):  # not located; not on record
+            (cdir / "c.png").write_bytes(PNG)
+            for name in ("b.png", "c.png", "d.png"):  # not located; on record but stale (its citation changed); not on record
                 with self.assertRaises(error.HTTPError) as cm:
                     request.urlopen(f"{base}/evidence/crops/{name}")
                 self.assertEqual(cm.exception.code, 404, name)
@@ -364,12 +366,12 @@ class Locator(unittest.TestCase):
             try:
                 pg = b.new_page()
                 pg.goto(page_file.as_uri() + "?" + urlencode({"t": "t0000", "row": "Total revenues", "col": "Year Ended May 31, | 2026", "cell": "67,357"}))
-                self.assertEqual(pg.text_content("#ledger-banner"), "Cell located: Total revenues · Year Ended May 31, 2026 · 67,357")
+                self.assertEqual(pg.text_content("#ledger-banner"), "Found on this page · Total revenues · Year Ended May 31, 2026 · 67,357")
                 self.assertIn("solid 3px", pg.eval_on_selector("[data-ledger=cell]", "e => e.style.outline"))
                 pg.goto(page_file.as_uri() + "?" + urlencode({"row": "Total revenues", "col": "Year Ended May 31, | 2026", "cell": "67,358"}))
-                self.assertEqual(pg.text_content("#ledger-banner"), "Cell not located on this page · Page shows 67,357 · cited 67,358")
+                self.assertEqual(pg.text_content("#ledger-banner"), "Not found on this page · Page shows 67,357 · cited 67,358")
                 pg.goto(page_file.as_uri() + "?" + urlencode({"row": "Nothing", "col": "Year Ended May 31, | 2026", "cell": "1"}))
-                self.assertEqual(pg.text_content("#ledger-banner"), "Cell not located on this page")
+                self.assertEqual(pg.text_content("#ledger-banner"), "Not found on this page")
                 self.assertEqual(pg.eval_on_selector_all("*", "es => es.filter((e) => e.style.outline).length"), 0)  # nothing outlined
             finally:
                 b.close()
@@ -531,8 +533,38 @@ class RowEvidence(unittest.TestCase):
         self.assertTrue(w["viewer"].startswith(f"/filing/{ACCN}?t=t0000&row=Total+revenues&col="))
         self.assertEqual(self.gold_states()["a"]["viewer"], w["viewer"])
         js = (Path(crops.__file__).parent / "pages" / "_shared.js").read_text()
-        self.assertIn("h('a', {href: w.viewer, target: '_blank', rel: 'noopener', title: 'Open in filing, the cell outlined'}, 'Open')", js)
+        self.assertIn("h('a', {href: safeHref(w.viewer), target: '_blank', rel: 'noopener', title: 'Open in filing, the cell outlined'}, 'Open')", js)
         self.assertIn("SEC_LINK.test(w.link || '')", js)  # sec.gov stays a second, guarded link
+
+    @unittest.skipUnless(shutil.which("node"), "no node")
+    def test_every_stored_link_goes_through_one_guard(self):
+        """safeHref lets through a web address, the in-app viewer or a page route; javascript: and the rest are no link.
+        Every href the pages build from stored data calls it."""
+        import re, subprocess
+        pages = Path(crops.__file__).parent / "pages"
+        line = next(l for l in (pages / "_shared.js").read_text().splitlines() if l.startswith("const safeHref"))
+        cases = ["javascript:alert(1)", "JavaScript:alert(1)", " javascript:x", "data:text/html,x", "//evil.example/x", "/api/v1/x", "/filing/../x",
+                 "https://www.sec.gov/x.htm", "http://example.com", "/filing/0001341439-26-000001?t=t0&row=a", "#evidence/compare?a=1&b=2"]
+        out = subprocess.run(["node", "-e", line + "\nprocess.stdout.write(JSON.stringify(JSON.parse(process.argv[1]).map(safeHref)))", "--", json.dumps(cases)], capture_output=True, text=True, check=True).stdout
+        got = dict(zip(cases, json.loads(out)))
+        self.assertEqual([c for c in cases if got[c] is not None], cases[7:])
+        raw = {f.name: re.findall(r"href: (?!safeHref\(|URL\.createObjectURL)([a-zA-Z_]+\.[a-zA-Z_.]+)", f.read_text()) for f in pages.glob("*.js")}
+        self.assertEqual({k: v for k, v in raw.items() if v}, {})  # no href from a stored field without the guard
+
+    @unittest.skipUnless(shutil.which("node"), "no node")
+    def test_the_trail_render_path_reaches_citecell(self):
+        """trailSource draws a cited cell with citeCell (the thumbnail or the crop's state); a filing line without a cell does not."""
+        import subprocess
+        pages = Path(crops.__file__).parent / "pages"
+        harness = """
+const h = (tag, attrs = {}, ...kids) => ({tag, attrs, kids: kids.flat(Infinity)});
+const safeHref = (u) => u; const SEC_LINK = /^https:\\/\\/www\\.sec\\.gov\\//; const int = (n) => String(n); const FIELDS = {}; const STAGE_LABEL_UI = {};
+const calls = []; const citeCell = (w, what) => { calls.push([w.crop.state, what]); return h('div', {class: 'cite'}); };
+""" + (pages / "trail.js").read_text() + """
+trailSource({where: [{crop: {state: 'located', url: '/evidence/crops/a.png'}, viewer: '/filing/x', link: 'https://www.sec.gov/x'}, {crop: {state: 'stale'}}, {label: '10-K filed 2026', viewer: '/filing/x'}]}, 'Revenue');
+process.stdout.write(JSON.stringify(calls));"""
+        out = subprocess.run(["node", "-e", harness], capture_output=True, text=True, check=True).stdout
+        self.assertEqual(json.loads(out), [["located", "Revenue"], ["stale", "Revenue"]])
 
     def test_the_pages_read_one_label_map(self):
         """Every page says a crop's state with _shared.js CROP_STATE; no page keeps its own copy."""

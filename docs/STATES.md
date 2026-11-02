@@ -377,6 +377,10 @@ replaces a newer one); any change to the filing, the citation or the code makes 
 **UI.** `_shared.js` `CROP_STATE`: Cell located · Cell not located (· reason) · Crop out of date · Crop file missing · No crop.
 A row shows the picture only when located (`citeCell`, the thumbnail zoomed on the red box, full size on click), else the
 state word, never a blank. Open goes to `/filing/<accession>?t=&row=&col=&cell=` (the in-app viewer); sec.gov is the second link.
+The picture route `/evidence/crops/<name>` serves a file only while `crops.state` calls its entry located (the record is
+indexed by picture name, `crops.extraction_of`). The viewer's banner is its own live find on the served page ("Found on
+this page" / "Not found on this page"), not this state. The Dataset drawer shows the same crop; the older re-read
+screenshots are no longer served.
 
 ## M12. Freshness of the monitoring inputs
 

@@ -327,6 +327,21 @@ class Definition(unittest.TestCase):
         self.assertIn("already has", o["definition"]["why_not"])
 
 
+    def test_the_old_add_a_definition_drawer_is_gone_and_make_this_a_definition_stays(self):
+        """F5: the drawer that pasted a definition the loader refused is removed; a definition is offered only where
+        judgement.offers allows it (no why_not), through encodePanel."""
+        js = (store.ROOT / "ledger" / "pages" / "reconcile.js").read_text()
+        for gone in ("Add a definition", "definitionDrawer", "use: cell"):
+            self.assertNotIn(gone, js)
+        self.assertIn("if (!o || o.why_not) continue;", js)  # what offers refuses is never offered
+        self.assertIn("as === 'rule' ? 'Make this a rule' : 'Make this a definition'", js)
+        con = _db([_company("AAA", [OLD, NEW])])
+        con.execute("insert into exceptions values ('x1', 'xbrl_reconcile', 'block', 'AAA', 'opex', 'FY2024', null, 'agent vs XBRL', 'h')")
+        with mock.patch.object(judgement, "tracked", return_value=[{"ticker": "AAA"}]):
+            o = judgement.offers(con, resolutions.parse_key(resolutions.key_for("blocked", "AAA", "opex", "FY2024", rule_id="xbrl_reconcile")), {}, rules.load(REPO_RULES))
+        self.assertNotIn("why_not", o["definition"])  # offered here, so the page shows Make this a definition
+
+
 class Route(unittest.TestCase):
     def _serve(self):
         from ledger import app

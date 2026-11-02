@@ -228,6 +228,8 @@ def items(con, flow: dict) -> dict:
     lad = ladder(con, sorted({q["ticker"] for q in flow["queue"]}))  # T92: the facts' ladder, read once
     enc = {}  # the definitions and rules on file, read once for every item's offers
     rows = []
+    from .crops import brief, cells
+    crop_of = cells(con, [((q.get("detail") or {}).get("cite") or {}).get("extraction_id") for q in flow["queue"] if q["kind"] == "fact_differs"])  # one read for every row
     for q in flow["queue"]:
         d = q.get("detail") or {}
         st = _state(con, q, idx, xp, lad)
@@ -241,9 +243,8 @@ def items(con, flow: dict) -> dict:
             row |= {"field": d.get("field"), "period": d.get("period"), "measure": "usd", "ours": d.get("value"), "reference": _num(d.get("reference")), "ours_label": "Cited"}
             row["series"] = _fact_series(con, q["ticker"], d.get("field"), d.get("dimension") or "")
             pe = con.execute("select period_end from facts where ticker = ? and field = ? and coalesce(dimension, '') = ? and period = ?", [q["ticker"], d.get("field"), d.get("dimension") or "", d.get("period")]).fetchone()
-            from .crops import brief, cells
             row["evidence"] = {"cell": {k: c.get(k) for k in ("table_id", "row_label", "column_label", "cell_text", "accession")} if c else None,
-                               "crop": brief(cells(con, [c["extraction_id"]]).get(c["extraction_id"])) if c.get("extraction_id") else None,
+                               "crop": brief(crop_of.get(c["extraction_id"])) if c.get("extraction_id") else None,
                                "xbrl": xbrl_name(con, c.get("accession") or "", pe[0] if pe else None, d.get("reference")),
                                "url": d.get("url"), "release_value": d.get("release_value"), "dimension": d.get("dimension")}
         elif q["kind"] == "fact_changed":

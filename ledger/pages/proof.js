@@ -18,14 +18,16 @@ function stageCell(st) {
 }
 // T82: the regression test's tables and the hand check's verdicts are two lines, never one: equal tables with nothing checked is not a pass
 const tablesOk = (g) => (g.tables_ok != null ? g.tables_ok : g.ok && !(g.gold && g.gold.failures && g.gold.failures.length));
-const goldState = (x) => (!x ? 'not run' : x.state === 'fail' ? `${int(x.failures.length)} wrong` : x.state === 'pass' ? 'pass' : `${int(x.items - x.unverified)} of ${int(x.items)} checked`);
+const goldState = (x) => (!x ? 'not run' : x.state === 'fail' ? `${int(x.failures.length)} failing` : x.state === 'pass' ? `all ${int(x.items)} hold` : `${int(x.items - x.unverified)} of ${int(x.items)} checked`);
 const goldTone = (x) => (!x ? 'text-secondary' : x.state === 'fail' ? 'text-red' : x.state === 'pass' ? 'text-green' : 'text-orange');
 const KEY_WORD = {twin: 'SEC XBRL', second_source: 'Other company document', tie: 'Ties to total', later_truth: 'Later actual', second_reading: 'Later filing'};
 async function proofPage(view) {
   const [b, g] = await Promise.all([api('/api/v1/proof'), api('/api/v1/golden').catch(() => ({ok: null}))]);
   const proven = b.proven.filter((c) => c.proven).length;
-  const regression = g.ok == null ? h('span', {class: 'text-secondary'}, 'Regression test: not run')
-    : h('span', {class: tablesOk(g) ? 'text-green' : 'text-red'}, `Regression test: ${tablesOk(g) ? 'pass' : 'fail'} · ${day(g.at)}`);
+  // the regression test says nothing changed since the freeze, never that a number is right; the hand check sits beside it
+  const FROZEN = 'Nothing changed since the freeze; not a correctness check';
+  const regression = g.ok == null ? h('span', {class: 'text-secondary', title: FROZEN}, 'Tables: not compared')
+    : h('span', {class: tablesOk(g) ? 'text-secondary' : 'text-red', title: FROZEN}, `${tablesOk(g) ? 'Tables unchanged' : 'Tables changed'} · ${day(g.at)}`);
   const hand = h('a', {href: '#gold', class: goldTone(g.gold), title: g.gold && g.gold.failures && g.gold.failures.length ? g.gold.failures.slice(0, 5).join('\n') : 'Hand-checked sample',
     onclick: (e) => { e.preventDefault(); const el = document.getElementById('gold'); if (el) el.scrollIntoView(); }}, `Hand check: ${goldState(g.gold)}`);
   const head = h('div', {class: 'page-header'}, h('div', {class: 'row align-items-center g-2'}, h('div', {class: 'col'}, h('h1', {class: 'page-title'}, 'Proof'),
@@ -51,7 +53,7 @@ async function proofPage(view) {
     {t: 'To review at signing', num: 1, f: (r) => atSigning(r, (c) => int(c.open))}, {t: 'Unmapped at signing', num: 1, f: (r) => atSigning(r, (c) => int(c.unmapped))}, {t: 'Companies', f: (r) => atSigning(r, (c) => `${int(c.scope.length)}: ${c.scope.join(', ')}`)},
     {t: 'Packet', f: (r) => (r.packet ? h('a', {href: `/packet/${r.version}.zip`}, 'Download') : '')}], [...rel.releases].reverse().slice(0, 6), {note: h('a', {href: '#release'}, 'Next release')});
   const golden = h('details', {class: 'card mt-3'}, h('summary', {class: 'card-header py-2', style: 'cursor:pointer'}, h('h3', {class: 'card-title m-0'}, 'Regression test'),
-      h('span', {class: 'ms-3 text-secondary small'}, g.ok == null ? 'Not run' : `${tablesOk(g) ? 'Pass' : 'Fail'} · ${when(g.at)}${g.gold ? ` · Hand check ${goldState(g.gold)}` : ''}`)),
+      h('span', {class: 'ms-3 text-secondary small', title: FROZEN}, g.ok == null ? 'Not compared' : `${tablesOk(g) ? 'Tables unchanged' : 'Tables changed'} · ${when(g.at)}${g.gold ? ` · Hand check: ${goldState(g.gold)}` : ''}`)),
     h('div', {class: 'card-body py-2'},
       g.steps ? dtable('Steps', [{t: 'Step', k: 'step'}, {t: 'Result', num: 1, f: (x) => (x.exit === 0 ? h('span', {class: 'text-green'}, 'Pass') : h('span', {class: 'text-red'}, `Fail (${x.exit})`))}], g.steps) : '',
       g.diffs && Object.keys(g.diffs).length ? h('div', {class: 'mt-2'}, dtable('Differences', [{t: 'Table', k: 'name'}, {t: 'Added', num: 1, k: 'n_only_in_run'}, {t: 'Missing', num: 1, k: 'n_only_in_expected'}], Object.entries(g.diffs).map(([k, v]) => ({name: k, ...v})))) : ''));
@@ -67,10 +69,12 @@ const GOLD_TONE = {right: 'text-green', wrong: 'text-red', cant_say: 'text-secon
 const goldNeedsMe = new Set();
 document.addEventListener('input', (e) => { if (e.target.id === 'me') for (const b of goldNeedsMe) b.disabled = !(me || '').trim(); });
 const goldUsd = (n) => (n == null ? 'Not reported' : (n < 0 ? '−$' : '$') + int(Math.abs(n)));  // the exact figure, so it can be read against the cell (in thousands or millions)
+// counts first; the error rate only once a verdict exists (n > 0), with its interval
 const goldRate = (r) => {
-  if (!r.n) return `${int(r.items - r.unverified)} of ${int(r.items)} checked`;
+  const counts = `${int(r.n - r.wrong)} right · ${int(r.wrong)} wrong · ${int(r.cant_say)} can’t say · ${int(r.unverified)} unchecked`;
+  if (!r.n) return counts;
   const [lo, hi] = r.interval;
-  return `Wrong ${int(r.wrong)} of ${int(r.n)} · ${(100 * r.rate).toFixed(1)}% (95% CI ${(100 * lo).toFixed(1)}–${(100 * hi).toFixed(1)}%) · Can’t say ${int(r.cant_say)} · Unchecked ${int(r.unverified)}`;
+  return `${counts} · error rate ${(100 * r.rate).toFixed(1)}% (95% CI ${(100 * lo).toFixed(1)}–${(100 * hi).toFixed(1)}%)`;
 };
 function goldSet() {
   const wrap = h('div', {class: 'mt-3', id: 'gold'});
@@ -83,7 +87,7 @@ function goldSet() {
     const t = g.ticker || null;
     const head = h('div', {class: 'mb-2'}, h('h2', {class: 'h3 m-0'}, 'Hand check'),
       h('div', {class: 'text-secondary small'}, '20 items per company · random sample · Unchecked never passes'),
-      h('div', {class: 'small mt-1'}, h('b', {}, 'Error rate: '), goldRate(g.all), g.all.untagged.n ? ` · Not in SEC XBRL: wrong ${int(g.all.untagged.wrong)} of ${int(g.all.untagged.n)}` : ''));
+      h('div', {class: 'small mt-1'}, goldRate(g.all), g.all.untagged.n ? ` · Not in SEC XBRL: wrong ${int(g.all.untagged.wrong)} of ${int(g.all.untagged.n)}` : ''));
     const picker = h('div', {class: 'btn-group flex-wrap mb-2', role: 'group', 'aria-label': 'Company'}, g.companies.map((c) => {
       const done = c.rate.items - c.rate.unverified;
       return h('button', {type: 'button', class: 'btn btn-sm ' + (c.ticker === t ? 'btn-primary' : 'btn-outline-secondary'), 'aria-pressed': String(c.ticker === t), title: goldRate(c.rate), onclick: () => goldSet.draw(c.ticker)},
@@ -102,7 +106,7 @@ function goldSet() {
     // the cited cell, as the trail shows it: the crop (cell boxed in red; click for full size) or its state, then Open in filing
     const cited = (it) => (it.cites.length ? h('div', {class: 'cites'}, it.cites.map((c) => {
       const E = c.evidence;
-      if (!E) return h('div', {class: 'cite-line small'}, h('span', {class: 'text-secondary'}, 'Crop unavailable'), SEC_LINK.test(c.url || '') ? [' · ', h('a', {href: c.url, target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗')] : '');
+      if (!E) return h('div', {class: 'cite-line small'}, h('span', {class: 'text-secondary'}, 'Crop unavailable'), SEC_LINK.test(c.url || '') ? [' · ', h('a', {href: safeHref(c.url), target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗')] : '');
       return citeCell({crop: {state: E.state, reason: E.reason, url: E.url}, viewer: E.viewer, link: c.url, form: E.form, filed: E.filed, row: c.row, column: (c.column || '').replaceAll(' | ', ' '), cell: c.cell_text}, claimName(it));
     })) : h('span', {class: 'text-secondary small'}, '—'));
     const verdict = (it) => {

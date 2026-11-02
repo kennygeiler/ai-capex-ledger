@@ -179,7 +179,7 @@ const STAGE_LABEL_UI = {values: 'Values', facts: 'Facts', statements: 'Statement
         self.assertIn("Matches SEC XBRL 70 of 71 · 98.6% (95% CI 92.4–99.8%)", self.render(sc))
         sc["twin"] = {"agree": 0, "of": 0, "interval": None}
         self.assertIn("Matches SEC XBRL 0 of 0", self.render(sc))
-        self.assertNotIn("CI", self.render(sc))
+        self.assertNotIn("95% CI", self.render(sc))  # no share, no interval
         self.assertIn("Caught 1,275 of 1,283 · Missed 0 · No effect 8", out)
         self.assertNotIn("reports/stage3-faults.json", out)  # file names stay in the API, off the page
 

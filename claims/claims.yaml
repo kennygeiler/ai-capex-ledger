@@ -36,16 +36,17 @@
   ticket: T86
 
 - id: verified_other
-  claim: "Verified · statements located, no blocking items"
+  claim: "Done · statements located, no blocking items (found, not an independent check)"
   where: [ledger/cards.py, ledger/pages/trail.js]
-  shown: ["Statements located", "No blocking items"]
+  shown: ["Statements located", "No blocking items", "Done"]
   backed_by:
     functions: [ledger.cards._how]
     tests:
       - tests.test_cards.How.test_each_kind_of_evidence_in_one_sentence
+      - tests.test_cards.How.test_only_sec_xbrl_and_quotes_read_verified
   status: partial
   gaps:
-    - Shares the green Verified mark with an SEC XBRL match, though it checks something else.
+    - Done covers a located table, no blocking items and a reviewer's confirmation; none of them checks a number.
   ticket: none
 
 - id: corroborated_tie
@@ -175,7 +176,7 @@
 - id: golden_equal
   claim: "Regression test"
   where: [ledger/pages/proof.js, ledger/golden.py, reports/golden.json]
-  shown: ["Regression test: ", "Pass", "Fail"]
+  shown: ["Tables unchanged", "Tables changed", "Pass", "Fail"]
   backed_by:
     functions: [ledger.golden.check, ledger.gold.compare_db, ledger.checklist.golden_line]
     tests:
@@ -192,7 +193,7 @@
 - id: gold_error_rate
   claim: "Hand-check error rate"
   where: [ledger/pages/proof.js, ledger/gold.py, /api/v1/gold]
-  shown: ["Hand check: ", "Error rate: ", "'Hand check'", "Right", "Wrong", "Can’t say", "Removed from dataset", "Now", "Note required"]
+  shown: ["Hand check: ", "'Hand check'", "Right", "Wrong", "Can’t say", "Removed from dataset", "Now", "Note required"]
   backed_by:
     functions: [ledger.gold.error_rate, ledger.gold.load_checked, ledger.stats.wilson]
     tests:
@@ -280,11 +281,12 @@
 - id: mapping_filer_tag
   claim: "Matches company's own tag"
   where: [ledger/mapcard.py, ledger/cards.py, ledger/filertag.py, ledger/status.py, ledger/taxonomy.py, ledger/store.py, ledger/pages/trail.js, ledger/pages/reconcile.js, ledger/limitations.py, ledger/claims.py, /api/v1/proof/<ticker>, /api/v1/reconcile]
-  shown: ["Matches company's own tag", "Matches company’s own tag", "Same as proposed", "def verified", "Confirm or override in Reconcile", "def tally", "mapping_check"]
+  shown: ["Matches company tag", "Matches company's own tag", "Matches company’s own tag", "Same as proposed", "def verified", "Confirm or override in Reconcile", "def tally", "mapping_check"]
   backed_by:
     functions: [ledger.filertag.verdicts, ledger.filertag.verdicts_ok, ledger.filertag.verified, ledger.filertag.gap, ledger.filertag.tally, ledger.status.of_mapping, ledger.status.of_fact, ledger.taxonomy.to_confirm, ledger.mapper.approve]
     tests:
       - tests.test_filertag.Verdict.test_one_member_every_year_is_verified
+      - tests.test_cards.How.test_only_sec_xbrl_and_quotes_read_verified
       - tests.test_filertag.Verdict.test_ambiguous_value_match_needs_a_person
       - tests.test_filertag.Verdict.test_a_zero_valued_category_needs_a_person
       - tests.test_filertag.Verdict.test_inconsistent_years_need_a_person
@@ -587,7 +589,7 @@
 - id: evidence_cell_located
   claim: "Cell located · the stored 10-K shows the cited text under that row label and column header"
   where: [ledger/pages/evidence.js, ledger/pages/_shared.js, ledger/viewer.py, ledger/crops.py, /api/v1/evidence/<extraction_id>, /filing/<accession>]
-  shown: ["Cell located", "Cell not located", "Cell not located on this page", "Crop out of date", "Crop file missing", "No crop"]
+  shown: ["Cell located", "Cell not located", "Crop out of date", "Crop file missing", "No crop"]
   backed_by:
     functions: [ledger.crops.state, ledger.crops.crop_doc, ledger.evidence.same, ledger.evidence.runs_together, ledger.evidence.offline, ledger.viewer.script]
     tests:
@@ -648,7 +650,7 @@
 - id: evidence_open_in_filing
   claim: "Open in filing (in-app) · the stored 10-K, scrolled to the cell, outlined in red"
   where: [ledger/pages/evidence.js, ledger/pages/_shared.js, ledger/viewer.py, ledger/app.py, /filing/<accession>]
-  shown: ["Open in filing", "Cell located", "Cell not located on this page"]
+  shown: ["Open in filing", "Found on this page", "Not found on this page"]
   backed_by:
     functions: [ledger.viewer.filing, ledger.viewer.script]
     tests:
@@ -676,9 +678,12 @@
       - tests.test_crops.RowEvidence.test_open_is_the_in_app_viewer_at_the_cell
       - tests.test_crops.RowEvidence.test_the_pages_read_one_label_map
       - tests.test_crops.RowEvidence.test_readings_that_differ_link_the_oldest_and_newest_reading
+      - tests.test_crops.RowEvidence.test_every_stored_link_goes_through_one_guard
+      - tests.test_crops.RowEvidence.test_the_trail_render_path_reaches_citecell
+      - tests.test_crops.Viewer.test_the_route
   status: partial
   gaps:
-    - The thumbnail is zoomed on the red box the crop draws; a filing that prints red text near the cell can pull the zoom off it (the full crop opens on click).
+    - The thumbnail folds the crop to the row label, the column header and the cell, found by the boxes the crop draws and the first run of dark text on the row; a filing that prints red text, or a label column split by a wide gap, can fold the wrong part (the full crop opens on click).
     - "Located says the cited text sits at that row and column; it does not check the scale, the sign or the period."
     - The pictures are not in git; a clone or the hosted copy shows the crop's state until `ledger evidence --crops` runs.
   ticket: none

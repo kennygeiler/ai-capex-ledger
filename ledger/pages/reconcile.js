@@ -309,7 +309,7 @@ async function reconcilePage(view, qs) {
         h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0'}, E.message || p.reason || '')),
         h('div', {class: 'card-footer py-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'Company trail')))));
     } else if (r.cause === 'new_filing') {
-      cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-body'}, `${E.form} · Filed ${day(E.filed)} · `, h('a', {href: E.url, target: '_blank', rel: 'noopener'}, 'Open in EDGAR ↗')))));
+      cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-body'}, `${E.form} · Filed ${day(E.filed)} · `, h('a', {href: safeHref(E.url), target: '_blank', rel: 'noopener'}, 'Open in EDGAR ↗')))));
     } else if (isAsset(r)) {
       const N = E.note;
       cards.push(col(8, h('div', {class: 'card'}, h('div', {class: 'card-body py-3'}, E.decision ? mappingDecision(E.decision, mappingActions(r)) : mappingActions(r),

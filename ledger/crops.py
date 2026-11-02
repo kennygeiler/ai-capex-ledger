@@ -222,6 +222,29 @@ def state(entry: dict | None, cite: dict, doc_sha: str | None, doc_file: Path | 
     return {"state": "located", "reason": None}
 
 
+_MEMO: dict = {}
+
+
+def record_now(path: Path | None = None) -> dict:
+    """The record as on disk, read once per change of crops.json (its size and mtime). Read-only: callers never mutate it."""
+    path = path or RECORD
+    try:
+        st = path.stat()
+        key = (str(path), st.st_size, st.st_mtime_ns)
+    except OSError:
+        return {}
+    if _MEMO.get("key") != key:
+        rec = load(path)
+        _MEMO.update(key=key, rec=rec, by_img={v["img"]: k for k, v in rec.items() if v.get("img")})
+    return _MEMO["rec"]
+
+
+def extraction_of(img: str, path: Path | None = None) -> str | None:
+    """The extraction id whose crop is this picture, from the record indexed by picture name (memoised with it)."""
+    record_now(path)
+    return (_MEMO.get("by_img") or {}).get(img)
+
+
 def located_images(record: dict | None = None, img_dir: Path | None = None) -> set[str]:
     """The picture names the app may serve: those of located entries whose file is the one written."""
     out = set()
@@ -270,7 +293,7 @@ def cells(con, ids: list[str], record: dict | None = None, img_dir: Path | None 
         return {}
     rows = _rows(con, f"""select x.*, d.cik, d.sha256 as document_sha256, d.filed, d.form, d.period as fiscal_period, d.url as sec_url
                           from ({_STATEMENT} union all {_NOTE}) x join documents d using(accession) where x.extraction_id in (select unnest(?))""", [ids])
-    rec = load() if record is None else record
+    rec = record_now() if record is None else record
     out = {}
     for e in rows:
         entry = rec.get(e["extraction_id"])

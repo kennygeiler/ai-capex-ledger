@@ -9,6 +9,8 @@ const h = (tag, attrs = {}, ...kids) => {
   for (const c of kids.flat(Infinity)) if (c != null && c !== false) el.append(c instanceof Node ? c : String(c));
   return el;
 };
+// every href built from stored data goes through this: a web address, the in-app viewer or a page route, else no link
+const safeHref = (u) => (typeof u === 'string' && (/^https?:\/\//i.test(u) || /^\/filing\/[0-9-]+(\?|$)/.test(u) || /^#[a-z]/.test(u)) ? u : null);
 const int = (n) => (n == null || n === '' ? '—' : Number(n).toLocaleString('en-US'));
 const plural = (n, one, many) => `${int(n)} ${n === 1 ? one : many || one + 's'}`;
 const usd = (n) => {
@@ -73,14 +75,13 @@ function table(cols, rows, {key, onRow, detail} = {}) {
 function sources(v) {
   const wrap = h('div', {});
   if (v.decision) wrap.append(h('div', {class: 'src'}, h('div', {}, `Decision: ${v.decision.kind} · ${v.decision.reviewer}`), h('div', {class: 'muted'}, v.decision.reason)));
-  if (v.why) wrap.append(h('div', {class: 'src'}, h('div', {class: 'muted'}, '10-K text: ', v.why.text.slice(0, 400)), h('a', {href: v.why.url, target: '_blank', rel: 'noopener'}, 'Open in 10-K ↗')));
+  if (v.why) wrap.append(h('div', {class: 'src'}, h('div', {class: 'muted'}, '10-K text: ', v.why.text.slice(0, 400)), h('a', {href: safeHref(v.why.url), target: '_blank', rel: 'noopener'}, 'Open in 10-K ↗')));
   for (const s of v.sources) {
     wrap.append(h('div', {class: 'src'},
-      h('div', {}, `${LABEL[s.field] || s.field}: `, h('b', {}, s.cell), ` in row “${s.row}”, column “${s.col.replaceAll(' | ', ' ')}”`),
-      h('div', {class: 'muted small'}, `10-K filed ${day(s.filed)}, table ${s.table_id}, ${s.unit || 'unit from the document'}, prompt ${s.prompt}`, s.notes ? `, ${s.notes}` : ''),
-      h('div', {class: 'small' + (s.machine && !s.machine.match ? ' bad' : ' muted')}, s.machine ? (s.machine.match ? 'Screenshot matches' : `Screenshot shows ${s.machine.seen}`) : 'No screenshot check'),
-      s.machine?.img && h('img', {src: '/' + s.machine.img, alt: `Screenshot of the cited cell ${s.cell}`, loading: 'lazy'}),
-      h('a', {href: s.deep, target: '_blank', rel: 'noopener', class: 'small'}, 'Open in 10-K ↗')));
+      h('div', {}, `${LABEL[s.field] || s.field}: `, h('b', {}, s.cell), ` · Line “${s.row}” · Column “${s.col.replaceAll(' | ', ' ')}”`),
+      h('div', {class: 'muted small'}, `10-K filed ${day(s.filed)} · ${s.unit || 'unit from the document'}`, s.notes ? ` · ${s.notes}` : ''),
+      // the cited cell's crop, the same picture rules as the trail (crops.brief over crops.state)
+      h('div', {class: 'cites', style: 'max-width:16rem'}, citeCell({crop: s.crop || {state: 'none'}, viewer: (s.crop || {}).viewer, link: s.deep, form: s.form, filed: String(s.filed || '').slice(0, 10), row: s.row, column: s.col.replaceAll(' | ', ' '), cell: s.cell}, LABEL[s.field] || s.field))));
   }
   if (!v.sources.length) wrap.append(h('p', {class: 'muted'}, 'No citation'));
   return wrap;
@@ -169,7 +170,7 @@ function mappingDecision(D, actions) {
       h('span', {class: (MAP_STATE[D.state.state] || 'text-secondary') + ' small fw-medium'}, D.state.label)),
     h('div', {class: 'datagrid', style: '--tblr-datagrid-item-width: 16rem'},
       item('Company line', L.latest ? [h('span', {class: 'fw-medium'}, usd(L.latest.value)), ` ${L.latest.period}`] : '—',
-        L.link ? h('a', {href: L.link, target: '_blank', rel: 'noopener', class: 'ms-2 small'}, 'Open ↗') : '',
+        L.link ? h('a', {href: safeHref(L.link), target: '_blank', rel: 'noopener', class: 'ms-2 small'}, 'Open ↗') : '',
         series ? h('div', {class: 'small text-secondary'}, series) : ''),
       item('Proposed', P ? [h('span', {class: 'fw-medium'}, P.label || P.member), ' ', h('span', {class: 'font-monospace small text-secondary'}, P.member),
         P.definition ? h('div', {class: 'small mt-1'}, P.definition) : '', P.definition ? h('div', {class: 'small text-secondary'}, `Source: ${D.source}`) : ''] : h('span', {class: 'text-secondary'}, 'None')),
@@ -203,32 +204,49 @@ function cropBox(src, caption, links) {
 function citeCell(w, what) {
   const c = w.crop || {state: 'none'};
   const caption = [what, what && w.row && what.includes(w.row) ? '' : w.row, w.column, w.cell].filter(Boolean).join(' · ');
-  const links = [w.viewer ? h('a', {href: w.viewer, target: '_blank', rel: 'noopener', title: 'Open in filing, the cell outlined'}, 'Open') : '', SEC_LINK.test(w.link || '') ? h('a', {href: w.link, target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗') : ''];
+  const links = [w.viewer ? h('a', {href: safeHref(w.viewer), target: '_blank', rel: 'noopener', title: 'Open in filing, the cell outlined'}, 'Open') : '', SEC_LINK.test(w.link || '') ? h('a', {href: safeHref(w.link), target: '_blank', rel: 'noopener noreferrer'}, 'sec.gov ↗') : ''];
   const thumb = c.state === 'located' && c.url
-    ? h('button', {type: 'button', class: 'crop-thumb', title: caption, onclick: () => cropBox(c.url, caption, [w.viewer ? h('a', {href: w.viewer, target: '_blank', rel: 'noopener'}, 'Open in filing') : '', links[1] ? links[1].cloneNode(true) : ''])}, h('img', {src: c.url, alt: caption, loading: 'lazy', onload: (e) => focusCell(e.target)}))
+    ? h('button', {type: 'button', class: 'crop-thumb', title: caption, onclick: () => cropBox(c.url, caption, [w.viewer ? h('a', {href: safeHref(w.viewer), target: '_blank', rel: 'noopener'}, 'Open in filing') : '', links[1] ? links[1].cloneNode(true) : ''])}, h('img', {src: c.url, alt: caption, loading: 'lazy', onload: (e) => focusCell(e.target)}))
     : h('div', {class: 'crop-none small'}, cropState(c));
   return h('div', {class: 'cite'}, thumb, h('div', {class: 'cite-line small'}, `${w.form || '10-K'} ${w.filed || ''}`.trim(), links.map((l) => (l ? [' · ', l] : ''))));
 }
-// the thumbnail shows the boxed cell, legible: find the red box in the picture (the crop draws it 3px #dc2626) and
-// scale the picture so the cell and its neighbours fill the frame; the full crop is one click away (cropBox)
+// the thumbnail: the row's label, the column header and the boxed cell, legible. The crop boxes the cell in red
+// (#dc2626) and the column header in blue (#2563eb); the label is the first run of dark text left of the cell on its row.
+// The columns and rows in between are folded out (a grey seam marks each fold); the full crop is one click away (cropBox).
 function focusCell(img) {
+  if (img.dataset.folded) return;
+  img.dataset.folded = '1';
   try {
     const W = img.naturalWidth, H = img.naturalHeight, frame = img.parentElement, fw = frame.clientWidth, fh = frame.clientHeight;
     if (!W || !H || !fw) return;
-    const k = Math.max(1, Math.floor(W / 600)), cw = Math.ceil(W / k), ch = Math.ceil(H / k);
+    const k = Math.max(1, Math.floor(W / 700)), cw = Math.ceil(W / k), ch = Math.ceil(H / k);
     const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
     const g = cv.getContext('2d', {willReadFrequently: true}); g.drawImage(img, 0, 0, cw, ch);
     const px = g.getImageData(0, 0, cw, ch).data;
-    let x0 = cw, y0 = ch, x1 = -1, y1 = -1;
-    for (let y = 0; y < ch; y++) for (let x = 0; x < cw; x++) {
-      const i = (y * cw + x) * 4;
-      if (px[i] > 190 && px[i + 1] < 80 && px[i + 2] < 80) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
-    }
-    if (x1 < 0) return;  // no box found: the whole crop, contained
-    const bw = (x1 - x0 + 1) * k, bh = (y1 - y0 + 1) * k, cx = (x0 + x1) / 2 * k, cy = (y0 + y1) / 2 * k;
-    const region = Math.min(W, Math.max(bw * 2.4, bh * 2 * fw / fh, 360));  // the cell and its neighbours at a readable size
-    const sc = fw / region, iw = W * sc, ih = H * sc;
-    const left = Math.min(0, Math.max(fw - iw, fw / 2 - cx * sc)), top = Math.min(0, Math.max(fh - ih, fh / 2 - cy * sc));
-    Object.assign(img.style, {position: 'absolute', width: `${iw}px`, height: `${ih}px`, maxWidth: 'none', left: `${left}px`, top: `${top}px`, objectFit: 'fill'});
+    const at = (x, y) => (y * cw + x) * 4;
+    const box = (test) => { let x0 = cw, y0 = ch, x1 = -1, y1 = -1; for (let y = 0; y < ch; y++) for (let x = 0; x < cw; x++) { const i = at(x, y); if (test(px[i], px[i + 1], px[i + 2])) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; } } return x1 < 0 ? null : {x0, y0, x1, y1}; };
+    const red = box((r, gg, b) => r > 190 && gg < 80 && b < 80);
+    if (!red) return;  // no box found: the whole crop, contained
+    const blue = box((r, gg, b) => r < 90 && gg > 70 && gg < 140 && b > 200);
+    // the label: dark columns on the cell's row, left of the box, split where a gap wider than ~15 px opens
+    const dark = [];
+    for (let x = 0; x < red.x0; x++) { let d = false; for (let y = red.y0 + 2; y <= red.y1 - 2 && !d; y++) { const i = at(x, y); d = px[i] + px[i + 1] + px[i + 2] < 330; } if (d) dark.push(x); }
+    let label = null;
+    if (dark.length) { let a = dark[0], b = a; for (const x of dark) { if (x - b > Math.ceil(30 / k)) break; b = x; } label = [a, b]; }
+    const merge = (bands) => bands.sort((p, q) => p[0] - q[0]).reduce((out, b) => { const l = out[out.length - 1]; if (l && b[0] <= l[1] + 4) l[1] = Math.max(l[1], b[1]); else out.push([...b]); return out; }, []);
+    const clampX = (v) => Math.max(0, Math.min(W, v)), clampY = (v) => Math.max(0, Math.min(H, v));
+    const pad = Math.max(16, (red.x1 - red.x0) * k * 0.3), rowH = (red.y1 - red.y0 + 1) * k;
+    const xs = merge([label ? [clampX(label[0] * k - 10), clampX(label[1] * k + 14)] : null, [clampX(red.x0 * k - pad), clampX((red.x1 + 1) * k + pad)]].filter(Boolean));
+    const ys = merge([[0, clampY(blue ? (blue.y1 + 1) * k + 6 : 0)], [clampY(red.y0 * k - rowH), clampY((red.y1 + 1) * k + rowH)]].filter((b) => b[1] > b[0]));
+    const gap = 10, CW = xs.reduce((n, b) => n + b[1] - b[0], 0) + gap * (xs.length - 1), CH = ys.reduce((n, b) => n + b[1] - b[0], 0) + gap * (ys.length - 1);
+    const out = document.createElement('canvas'); out.width = CW; out.height = CH;
+    const o = out.getContext('2d'); o.fillStyle = '#e5e7eb'; o.fillRect(0, 0, CW, CH);
+    let dy = 0;
+    for (const [y0, y1] of ys) { let dx = 0; for (const [x0, x1] of xs) { o.drawImage(img, x0, y0, x1 - x0, y1 - y0, dx, dy, x1 - x0, y1 - y0); dx += x1 - x0 + gap; } dy += y1 - y0 + gap; }
+    const sc = Math.min(fw / CW, fh / CH);
+    Object.assign(out.style, {display: 'block', width: `${CW * sc}px`, height: `${CH * sc}px`, margin: '0 auto'});
+    out.setAttribute('role', 'img'); out.setAttribute('aria-label', img.alt);
+    img.style.display = 'none';
+    frame.append(out);
   } catch (e) { /* a picture the canvas cannot read stays whole */ }
 }

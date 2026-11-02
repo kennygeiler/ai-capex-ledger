@@ -420,7 +420,7 @@ LABEL_MAPS = {"trail.js": ("TRAIL_TONE",), "reconcile.js": ("STATE_BADGE",), "re
 # The text of an element styled as a status (a badge or a tone colour), literal or the static parts of a template.
 TONED = re.compile(r"""h\('[a-z0-9]+',\s*\{[^{}]*class:\s*'[^']*(?:badge|text-(?:green|red|orange|teal|azure|yellow))[^']*'[^{}]*\},\s*('[^']*'|`[^`]*`)""")
 # Strings a page shows that the two rules above cannot see (a class picked at run time, a heading).
-WATCHED = ("'Proven'", "Ready for release", "Not in scope", "Next 10-K expected", "Regression test: ", "Hand check: ", "Error rate: ", "'Hand check'",
+WATCHED = ("'Proven'", "Ready for release", "Not in scope", "Next 10-K expected", "Tables unchanged", "Tables changed", "Hand check: ", "'Hand check'",
            "No items to review", "Quotes verified", "95% CI", "Planted errors", "Matches SEC XBRL", "Read-only", "Make this a rule", "Make this a definition",
            "`Sign ${cl.version}`", "'Known gaps'", "Compare filings", "Open in filing")
 # The Python that feeds the pages: the cards' sentences and Reconcile's cause labels.
