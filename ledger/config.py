@@ -143,6 +143,9 @@ GOLDEN_SEED = 20261027  # seeds the random spot-checks a person (or the rendered
 # the dictionary said 1%; only the code's half-unit was ever enforced on a shipped row.
 RESTATEMENT_TOLERANCE = 0.5
 
+# The note fields (ledger/notes.py FIELDS, store facts and exceptions): one definition (T92 review).
+NOTE_FIELDS = ("segment_capex", "segment_revenue", "ppe_category", "finance_lease_liability", "purchase_commitments")
+
 
 def rounding_unit(v: int) -> int:
     """The unit a figure is rounded to: 1,000,000, 1,000 or 1, read from the figure itself."""

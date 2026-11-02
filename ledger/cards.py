@@ -82,7 +82,11 @@ def _how(it: dict, name: str, defs: dict, found_value=None) -> dict:
         return {"tone": "ok", "text": f"Matches SEC XBRL: {money(ref.get('reference'))}" if same
                 else f"Matches SEC XBRL within rounding: {money(ref.get('reference'))}"}
     if by.startswith("rule:") and by.endswith("_tie") and isinstance(ref.get("tie"), dict):
-        return {"tone": "corroborated", "text": f"Ties to reported total: {money(ref['tie'].get('total'))} (SEC XBRL)"}
+        t = ref["tie"]
+        parts = t.get("parts") or [{"dimension": d} for d in t.get("dimensions") or []]
+        members = "; ".join(f"{p.get('dimension') or 'total'} {money(p['value'])}" if p.get("value") is not None else (p.get("dimension") or "") for p in parts)
+        return {"tone": "corroborated", "text": f"Group sums to reported total: {money(t.get('total'))} (SEC XBRL) · tolerance ±{money(t.get('tolerance'))} · {len(parts)} parts"
+                + (f" ({members})" if members else "")}
     if by.startswith("reading:"):
         n = len({r.get("accession") for r in ref.get("readings") or []})
         return {"tone": "corroborated", "text": f"Confirmed in {n} filings"}

@@ -32,8 +32,10 @@ class How(unittest.TestCase):
     def test_the_ladder_in_plain_words(self):
         """T92: a tie and a second reading are corroborated, between Verified (SEC XBRL) and citation only; readings that
         differ say both figures."""
-        tie = self.how(state="checked", by="rule:ppe_categories_tie", ref={"tie": {"total": 1_278_843_000}})
-        self.assertEqual(tie, {"tone": "corroborated", "text": "Ties to reported total: $1,278.8M (SEC XBRL)"})
+        tie = self.how(state="checked", by="rule:ppe_categories_tie", ref={"tie": {"total": 30_000_000, "tolerance": 1_500, "dimensions": ["Buildings", "Land"],
+                                                                            "parts": [{"dimension": "Buildings", "value": 20_000_000}, {"dimension": "Land", "value": 10_000_000}]}})
+        # T92 review: the tie bounds the group's sum, so the card says so, with the bound and the members, once
+        self.assertEqual(tie, {"tone": "corroborated", "text": "Group sums to reported total: $30M (SEC XBRL) · tolerance ±$1,500 · 2 parts (Buildings $20M; Land $10M)"})
         two = self.how(state="checked", by="reading:a1", ref={"readings": [{"accession": "a1", "value": 1}, {"accession": "a2", "value": 1}]})
         self.assertEqual(two, {"tone": "corroborated", "text": "Confirmed in 2 filings"})
         differ = self.how(state="open", by="rule:fact_readings_differ", ref={"readings": [{"value": 9_552_000, "filed": "2024-08-30"}, {"value": 1_760_000, "filed": "2025-07-30"}]})

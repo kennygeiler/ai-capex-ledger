@@ -129,28 +129,18 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     items = []
     for f in facts:
         where = f"{f['field']} {f['dimension'] or ''} {f['period']}".replace("  ", " ")
-        k = lad.get((t, f["field"], f["dimension"] or "", f["period"])) or {"readings": [], "tie": None}
-        rs, g = k["readings"], k["tie"]
+        st, extra = ties.fact_state({**f, "ticker": t}, idx, lad, _restated(con, t, f) if f["label"] == "unresolved" else None)
         ref = {"ticker": t, "field": f["field"], "dimension": f["dimension"] or "", "period": f["period"], "reference": f["reference"],
-               "looked_up": instance_on_file(ciks.get(f["accession"]), f["accession"])}
-        differs = f["label"] == "no_reference" and ties.differ(rs)
-        holds = g if f["label"] == "no_reference" and g and g["holds"] else None
-        second = f["label"] == "no_reference" and ties.corroborated(rs)
-        if len({r["accession"] for r in rs}) >= 2:
-            ref["readings"] = rs
-        if holds:
-            ref["tie"] = {k_: holds[k_] for k_ in ("rule", "key", "accession", "concept", "total", "sum", "tolerance", "dimensions")}
-        # a finding on the row (two readings) is the finding Reconcile shows: its resolution is keyed as a finding's
-        res = resolutions.resolution_of(idx, "values" if differs else "facts", t, f["field"], "" if differs else f["dimension"] or "", f["period"])
-        st = status.of_fact(f, res, _restated(con, t, f) if f["label"] == "unresolved" else None, differ=ties.differ_message(rs) if differs else None,
-                            tie=holds["rule"] if holds else None, reading=next((r["accession"] for r in rs if r["accession"] != f["accession"]), None) if second else None)
-        what = where + (": readings differ" if differs and status.is_open(st) else ": differs from the tag" if status.is_open(st) else "")
-        detail = ties.differ_message(rs) if differs else f"cell {f['value']}, tag {f['reference']}" if status.is_open(st) else ""
+               "looked_up": instance_on_file(ciks.get(f["accession"]), f["accession"]), **extra}
+        differs = st["by"] == f"rule:{ties.DIFFER}"
+        what = where + (": readings differ" if differs else ": differs from the tag" if status.is_open(st) else "")
+        detail = ties.differ_message(extra.get("readings") or []) if differs else f"cell {f['value']}, tag {f['reference']}" if status.is_open(st) else ""
         items.append(_item(what, st, detail, NEEDS["readings"] if differs else NEEDS["facts"], ref=ref))
-    for e in exc:  # a tie that fails (or two readings Proof did not see as a fact item): open on the group, never checked
-        if e["severity"] != "warn" or e["exception_id"] in decided or e["field"] not in NOTE_FIELDS or e["rule_id"] == status.DIFFER:
+    for e in exc:  # a tie that fails (the finding on a fact whose readings differ is that fact's own item): open on the group, never checked
+        if e["severity"] != "warn" or e["exception_id"] in decided or e["field"] not in NOTE_FIELDS or e["rule_id"] == ties.DIFFER:
             continue
-        st = status.of_exception(e, resolutions.resolution_of(idx, "values", t, e["field"] or "", "", e["period"] or ""), [],
+        # keyed whole, by rule and subject (resolutions._parse): a resolution closes this finding and no other
+        st = status.of_exception(e, resolutions.resolution_of(idx, "findings", t, e["field"] or "", e["subject"] or "", e["period"] or "", e["rule_id"]), [],
                                  xp.get(explain_key(e["rule_id"], t, e["field"], e["period"], e["subject"])))
         items.append(_item(f"{e['rule_id']}: {e['field']} {e['period'] or ''} ({e['subject'] or ''})".strip(), st, e["message"][:300], NEEDS["tie"],
                            ref={"ticker": t, "field": e["field"], "period": e["period"], "accession": e["subject"], "finding": e["rule_id"]}))
@@ -216,9 +206,9 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
 
 
 def ladder(con, tickers: list[str], rules: list[dict]) -> dict:
-    """The readings and the tie group behind every fact of `tickers` (ties.by_fact over ties.load): what the facts stage
-    climbs, and what the evidence walk recomputes. An empty answer when the note tables are absent."""
-    return ties.by_fact(ties.load(con, tickers, rules), rules)
+    """The readings and the tie group behind every fact of `tickers` (ties.ladder): what the facts stage climbs, what
+    Reconcile, the taxonomy rows and gold read through ties.fact_state, and what the evidence walk recomputes."""
+    return ties.ladder(con, tickers, rules)
 
 
 def instance_on_file(cik, accession: str | None) -> bool:

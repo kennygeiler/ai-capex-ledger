@@ -24,7 +24,7 @@ DEFAULT_DB = ROOT / "data" / "ledger.duckdb"
 SCHEMA_VERSION = 11  # v11: the taxonomy rows take one shape (T9–T17: group dropped, change_from_prior, tags unpacked, the source followed, one check vocabulary, mapped, has_value, periods, units); they are computed by ledger/taxonomy.py, not stored, so nothing migrates: the bump marks the packet shape. v10: ai_spend.ai_amount dropped; v9: projects table
 
 FIELDS = ("revenue", "cost_of_revenue", "cost_of_revenue_part", "operating_income", "capex", "opex")
-NOTE_FIELDS = ("segment_capex", "segment_revenue", "ppe_category", "finance_lease_liability", "purchase_commitments")  # ledger.notes.FIELDS
+from .config import NOTE_FIELDS  # noqa: E402  the note fields, one definition (config)
 KINDS = ("accept", "override", "reject")  # what a person can decide about an exception
 YEAR = re.compile(r"^FY\d{4}$")
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -169,7 +169,7 @@ SCHEMA: tuple[Table, ...] = (
     Table("note_extractions", "Table A for note facts: every cell the notes reader cited (segment capex and revenue, PP&E by category, finance lease liabilities, purchase commitments).", (
         _c("extraction_id", "VARCHAR", "Stable ID: accession|field|dimension|period_end."),
         ACCN, TICKER,
-        _c("field", "VARCHAR", "segment_capex, segment_revenue, ppe_category, finance_lease_liability or purchase_commitments.", enum=("segment_capex", "segment_revenue", "ppe_category", "finance_lease_liability", "purchase_commitments")),
+        _c("field", "VARCHAR", "segment_capex, segment_revenue, ppe_category, finance_lease_liability or purchase_commitments.", enum=NOTE_FIELDS),
         _c("dimension", "VARCHAR", "Segment, market or PP&E category, as written in the filing. Null for a company total.", nullable=True),
         _c("period_end", "VARCHAR", "Fiscal year end the column refers to.", pattern=DATE),
         _c("months", "INTEGER", "12 for a flow (capex, revenue); 0 for a balance at period_end."),
@@ -188,7 +188,7 @@ SCHEMA: tuple[Table, ...] = (
     ), key=("extraction_id",)),
     Table("facts", "Table B for note facts: one value per company, field, dimension and fiscal year from the newest filing, labelled against the filing's XBRL instance where the fact carries a matching member.", (
         TICKER,
-        _c("field", "VARCHAR", "As in note_extractions.", enum=("segment_capex", "segment_revenue", "ppe_category", "finance_lease_liability", "purchase_commitments")),
+        _c("field", "VARCHAR", "As in note_extractions.", enum=NOTE_FIELDS),
         _c("dimension", "VARCHAR", "Segment, market or category; empty string for a company total (part of the key).",),
         PERIOD,
         _c("period_end", "VARCHAR", "Fiscal year end date.", pattern=DATE),
@@ -276,7 +276,7 @@ TABLES = {t.name: t for t in SCHEMA}
 # and the golden test freezes them (fixtures/expected/taxonomy.csv). Declared here so the dictionary, the packet README
 # and tests/test_columns.py read one definition. Schema v11 (T9–T17). `layer` and `proven` are added by the API.
 MEASURES = ("spent", "committed", "derived", "planned", "company_stated_ai")
-CHECKS = ("agree", "explained", "differs", "no_reference", "not_extracted", "unmapped", "to_confirm", "verbatim")
+CHECKS = ("agree", "corroborated", "explained", "differs", "no_reference", "not_extracted", "unmapped", "to_confirm", "verbatim")
 SOURCE_KINDS = ("10-K table", "10-K note", "10-K MD&A", "8-K release", "transcript", "cfo commentary", "gathered")
 TAXONOMY = Table("taxonomy", "One row per company, fiscal year, measure and category: an instance of a published standard's concept with the company's own label beside it, "
                  "or a verbatim quote. Built by code from the tables above; no agent, nothing estimated.", (
@@ -316,7 +316,7 @@ TAXONOMY = Table("taxonomy", "One row per company, fiscal year, measure and cate
     _c("filed", "VARCHAR", "The date the source was filed with the SEC (documents.filed for a 10-K, the 8-K's filing date for a release). Empty for a transcript, CFO commentary or a gathered figure, which have no filing date.", nullable=True, pattern=DATE),
     _c("source_table", "VARCHAR", "For a 10-K cell: the id of the parsed table the cell was read from (e.g. t0035), the table Kenny's Data Emporium shows; it is the parser's id, not an anchor on sec.gov. Empty elsewhere.", nullable=True, pattern=re.compile(r"^t\d{4}$")),
     _c("source_url", "VARCHAR", "A URL that opens the source. For a 10-K cell: the filing on sec.gov with a `#:~:text=<row label>,<number>` fragment that scrolls the browser to the first place the filing shows those words, usually the row, sometimes prose; sec.gov offers no table anchor. For a statement or project: the text with the quote's first words as the fragment. For a gathered figure: the page recorded with it.", nullable=True),
-    _c("check", "VARCHAR", "agree: matches the SEC's XBRL. explained: differs and something on file says why (check_method). differs: differs and nothing on file says why. no_reference: no XBRL fact to compare. not_extracted: no cell read, while XBRL tags a value (open). unmapped: an asset type with no standard member. to_confirm: an asset type whose mapping no person has confirmed (no confirmed_by, T63; open, the value check not shown). verbatim: a quote verified against its text.", enum=CHECKS),
+    _c("check", "VARCHAR", "agree: matches the SEC's XBRL. corroborated: an untagged figure whose filing's group sums to the total it tags in XBRL (check_method rule:<id>_tie; the sum, not each part) or that two of the filer's 10-Ks read the same (reading:<accession>), T92. explained: differs and something on file says why (check_method). differs: differs and nothing on file says why. no_reference: no XBRL fact to compare. not_extracted: no cell read, while XBRL tags a value (open). unmapped: an asset type with no standard member. to_confirm: an asset type whose mapping no person has confirmed (no confirmed_by, T63; open, the value check not shown). verbatim: a quote verified against its text.", enum=CHECKS),
     _c("check_method", "VARCHAR", "What established the check, as status.py names `by`: `<kind>` or `<kind>:<id>` with the kind one of status.METHOD_KINDS: xbrl, quote, gathered, "
        "none (nothing to compare against), rule:<id>, definition:<name>, resolution:<id>, label:<label>, mapping:<member>. An open vocabulary: a later answer key adds a kind there.",
        pattern=re.compile(r"^(" + "|".join(_status.METHOD_KINDS) + r")(:.+)?$")),

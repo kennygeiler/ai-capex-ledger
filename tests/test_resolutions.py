@@ -53,6 +53,21 @@ class Keys(unittest.TestCase):
         self.assertFalse([k for k in idx if k[0] == "attribution"])  # a stale kind maps onto no row
         self.assertEqual(resolutions.status_of(idx, "values", "LITE", "operating_income", "", "FY2023"), "explained")  # no period in the key: every year
 
+    def test_a_note_finding_resolution_closes_only_its_item(self):
+        """T92 review: a finding on a note field is keyed whole (rule and subject), so one resolution on one tie group, or
+        on one fact whose readings differ, never closes another finding on the same field and year."""
+        tie1 = key_for("finding_unconfirmed", "APLD", "segment_capex", "FY2023", rule_id="segment_capex_tie", subject="0001144879-24-000216")
+        differ = key_for("finding_unconfirmed", "APLD", "ppe_category", "FY2024", rule_id="fact_readings_differ", subject="Other equipment and fixtures")
+        rs = [{"id": "1", "key": tie1, "hash": "h", "state": "explain", "reason": "accrual", "by": "Kenny Geiler", "at": "2026-11-02T00:00:00"},
+              {"id": "2", "key": differ, "hash": "h", "state": "explain", "reason": "reclassified", "by": "Kenny Geiler", "at": "2026-11-02T00:00:00"}]
+        idx = resolutions.by_row(rs)
+        self.assertEqual(resolutions.resolution_of(idx, "findings", "APLD", "segment_capex", "0001144879-24-000216", "FY2023", "segment_capex_tie")["id"], "1")
+        self.assertIsNone(resolutions.resolution_of(idx, "findings", "APLD", "segment_capex", "0001144879-25-000021", "FY2023", "segment_capex_tie"))  # the other filing's group
+        self.assertIsNone(resolutions.resolution_of(idx, "values", "APLD", "segment_capex", "", "FY2023"))  # nothing field-wide
+        self.assertEqual(resolutions.resolution_of(idx, "findings", "APLD", "ppe_category", "Other equipment and fixtures", "FY2024", "fact_readings_differ")["id"], "2")
+        self.assertIsNone(resolutions.resolution_of(idx, "findings", "APLD", "ppe_category", "Land", "FY2024", "fact_readings_differ"))
+        self.assertIsNone(resolutions.resolution_of(idx, "findings", "APLD", "ppe_category", "0001144879-25-000021", "FY2024", "ppe_categories_tie"))
+
     def test_two_findings_on_one_field_and_year_both_stay_resolved(self):
         """T62: a jump and an opex-over-revenue on RIOT opex FY2025 are two keys; resolving the second keeps the first."""
         a, b = key_for("finding_unconfirmed", "RIOT", "opex", "FY2025", rule_id="jump"), key_for("finding_unconfirmed", "RIOT", "opex", "FY2025", rule_id="opex_over_revenue")

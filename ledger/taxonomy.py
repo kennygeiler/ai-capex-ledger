@@ -132,6 +132,17 @@ def _checked(label: str | None, resolution: dict | None, restated: str | None = 
     return "differs", "xbrl"
 
 
+def fact_check(con, f: dict, idx: dict, lad: dict) -> tuple[str, str]:
+    """(check, check_method) for a fact from the one ladder (ties.fact_state, T92), the state Proof gives the same fact:
+    agree / xbrl; corroborated / rule:<id>_tie or reading:<accession>; no_reference / label:no_reference (citation only);
+    explained by a resolution or the restatement guard; differs (rule:fact_readings_differ, or xbrl for a cell against
+    its tag). An asset type's mapping check replaces it on a derived row while unmapped or unconfirmed (T63)."""
+    from .ties import check_columns, fact_state
+    res = resolutions.resolution_of(idx, "facts", f["ticker"], f["field"], f["dimension"] or "", f["period"])
+    restated = _restated(con, f) if f["label"] == "unresolved" and not res else None
+    return check_columns(fact_state(f, idx, lad, restated)[0])
+
+
 def _period(year_end: dict, ticker: str, fiscal_year: str, written: str | None) -> dict:
     """period_end and period_kind for a figure about `fiscal_year` written on `written`: reported when the company's fiscal
     calendar (the 10-K that reports the year) knows the year's end and it is not after the date it was written; planned
@@ -176,14 +187,14 @@ def rows(con, tickers: list[str] | None = None) -> list[dict]:
                             **filing((cell or {}).get("accession") or (ids[0].split("|")[0] if ids else None), cell, "10-K table")))
     # facts: segments, committed, and the gross balances by asset type
     facts = _rows(con, f"select ticker, field, dimension, period, period_end, value, label, reference, accession, extraction_ids from facts {where} order by ticker, field, dimension, period", *p)
+    from .ties import ladder
+    lad = ladder(con, sorted({f["ticker"] for f in facts}))  # T92: the one ladder, as Proof reads the facts
     prev = {}
     for f in facts:
         src = f["extraction_ids"] or f["accession"]
         ids = split_ids(f["extraction_ids"] or "")  # a dimension may hold a comma ("Land, buildings and leasehold improvements"): never split inside an id
         cell = notes.get(ids[-1]) if ids else None
-        res = resolutions.resolution_of(idx, "facts", f["ticker"], f["field"], f["dimension"] or "", f["period"])
-        restated = _restated(con, f) if f["label"] == "unresolved" and not res else None
-        check, how = _checked(f["label"], res, restated)
+        check, how = fact_check(con, f, idx, lad)
         common = dict(ticker=f["ticker"], fiscal_year=f["period"], period_end=f["period_end"], value=f["value"], source=src, check=check, check_method=how, **filing(f["accession"], cell, "10-K note"))
         if f["field"] in ("segment_capex", "segment_revenue"):
             out.append(_row(measure="spent", category=f["field"], reported_name=f["dimension"], standard_concept=CONCEPT[f["field"]], **common))

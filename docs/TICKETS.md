@@ -817,6 +817,10 @@ are listed at the end.
   filings agree on. APLD's accrual segment capex is open as the tie's finding, not explained: no definition kind covers a
   fact today, so a person resolves it. Left: the taxonomy rows' `check` / `check_method` still say `no_reference` for a
   tied or twice-read fact (a published-column change, its own ticket).
+  *Review fixes (2 Nov 2026, same branch):* that last item is done: one ladder (`ties.fact_state`) feeds Proof,
+  Reconcile, the taxonomy rows (`check` corroborated) and gold; note-finding resolutions keyed by rule and subject;
+  degenerate groups (one part, a total-labelled part, zeros) not judged; a scenario dimension is never a total; an
+  amendment is not a second reading; the tie's wording says it bounds the sum (limitations `tie_offsetting_errors`).
 - **T93 IFRS crosswalk.** [TX5] `taxonomy/crosswalk_ifrs.yaml` pairing every category and us-gaap member with its
   ifrs-full counterpart, relation and note, known non-pairs stated; T45 reads it for ASML. About 1 day.
 - **T94 EU Taxonomy eligibility candidates.** [TX6] The Annex I 1.1.2 additions concepts (PP&E, intangibles, ROU) as

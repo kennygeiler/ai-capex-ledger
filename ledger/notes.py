@@ -23,7 +23,7 @@ from .store import ROOT
 
 TASKS = ROOT / "data" / "notes" / "tasks"
 OUTPUTS = ROOT / "data" / "notes" / "outputs"
-FIELDS = ("segment_capex", "segment_revenue", "ppe_category", "finance_lease_liability", "purchase_commitments")
+FIELDS = config.NOTE_FIELDS
 DIMENSIONED = ("segment_capex", "segment_revenue", "ppe_category")
 BALANCES = ("ppe_category", "finance_lease_liability", "purchase_commitments")
 

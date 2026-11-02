@@ -11,7 +11,7 @@ from ledger import limitations
 from ledger.release import build
 
 SEEDED = ("systematic_without_xbrl", "omission_escapes", "same_filer_answer_key", "one_person", "outside_proven_set", "survivor_bias",
-          "failure_types_without_check", "interpretive_fields", "older_vintages_unchecked", "asset_type_mappings_unconfirmed", "no_monitoring_thresholds")
+          "failure_types_without_check", "interpretive_fields", "older_vintages_unchecked", "asset_type_mappings_unconfirmed", "no_monitoring_thresholds", "tie_offsetting_errors")
 VAL = {"ticker": "NVDA", "field": "capex", "period": "FY2026", "period_end": "2026-01-25", "value": 5, "source": "agent", "label": "agree", "basis": "as_reported",
        "first_reported": 5, "extraction_ids": ""}
 
@@ -52,6 +52,10 @@ class TheFile(unittest.TestCase):
 
 class ComputedCounts(unittest.TestCase):
     """Each computed count equals the data it is read from, recounted here another way."""
+
+    def test_tied_rows_count_the_taxonomy_rows_a_tie_checks(self):
+        files = {"taxonomy.csv": "check,check_method\ncorroborated,rule:ppe_categories_tie\ncorroborated,reading:a\nagree,xbrl\ncorroborated,rule:segment_revenue_tie\n"}
+        self.assertEqual(_count("tie_offsetting_errors", files), 2)
 
     def test_the_fault_test_escapes_are_the_reports(self):
         d = json.loads(limitations.FAULTS_XBRL_OFF.read_text())

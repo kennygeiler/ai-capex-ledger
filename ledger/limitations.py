@@ -95,9 +95,15 @@ def _asset_types(files) -> tuple:
     return sum(not confirmed(e) for e in entries), f"of {len(entries)} mappings have no confirmed_by"
 
 
+def _tied(files) -> tuple:
+    rows = _csv(files, "taxonomy.csv")
+    return sum(str(r.get("check_method") or "").startswith("rule:") and str(r.get("check_method") or "").endswith("_tie") for r in rows), \
+        f"of {len(rows)} taxonomy rows rest on a tie (check_method rule:<id>_tie)"
+
+
 COMPUTED = {"xbrl_off_systematic_escapes": lambda files: _escapes("systematic"), "omission_escapes": lambda files: _escapes("omission"),
             "values_agreeing_with_xbrl": _agree, "companies_outside_proven": _outside, "failure_types_without_check": _failure_types,
-            "interpretive_rows": _interpretive, "restated_values": _restated, "asset_types_unconfirmed": _asset_types}
+            "interpretive_rows": _interpretive, "restated_values": _restated, "asset_types_unconfirmed": _asset_types, "tied_rows": _tied}
 
 
 def resolved(files=None, entries=None) -> list[dict]:

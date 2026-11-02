@@ -223,7 +223,7 @@ def of_value(v: dict, resolution: dict | None = None, ref: dict | None = None) -
     return state(row)
 
 
-DIFFER = "fact_readings_differ"  # the rule (rules/fact_readings_differ.yaml) whose finding opens an untagged fact read two ways
+DIFFER = "fact_readings_differ"  # ties.DIFFER; the rule (rules/fact_readings_differ.yaml) whose finding opens an untagged fact read two ways
 
 
 def of_fact(f: dict, resolution: dict | None = None, restated: str | None = None, differ: str | None = None,
@@ -314,8 +314,8 @@ def evidence_gap(item: dict, ev: dict) -> str | None:
         field = KEY_FIELD.get(kind)
         if not field or ref.get(field) is None:
             return f"{by}: no {field or kind} value on the row"
-        if kind == "rule" and isinstance(ref["tie"], dict):
-            return _tie_gap(by, ident, ref, ev)
+        if kind == "rule":
+            return _tie_gap(by, ident, ref, ev) if isinstance(ref["tie"], dict) else f"{by}: the tie on the row names no group"
         if kind == "reading":
             return _reading_gap(by, ref, ev)
         return None
@@ -365,37 +365,39 @@ def evidence_gap(item: dict, ev: dict) -> str | None:
 
 
 def _tie_gap(by: str, rule_id: str, ref: dict, ev: dict) -> str | None:
-    """T92: a tie checks a part only when its filing's group ties. `ref.tie` carries the group (key, total, sum,
-    tolerance, dimensions); the numbers must tie, the part must be in the group, and when `ev` holds the groups computed
-    from what is on file (`ev["ties"]`, proof.evidence), the group must be that one and hold there too."""
+    """T92: a tie checks a part only when its filing's group ties on file. The groups on file (`ev["ties"]`,
+    proof.evidence recomputes them) are required; the row's `ref.tie` names its group, which must exist under the same
+    rule, hold there with the on-file tolerance (never the row's), carry the same sum and total, and hold the part."""
     t = ref["tie"]
+    groups = ev.get("ties")
+    if groups is None:
+        return f"{by}: no tie groups on file to check against"
     if t.get("rule") != rule_id:
         return f"{by}: the tie on the row is {t.get('rule')!r}"
-    if t.get("total") is None or t.get("sum") is None or abs(t["sum"] - t["total"]) > (t.get("tolerance") or 0):
-        return f"{by}: the parts sum to {t.get('sum')} against a total of {t.get('total')}: the tie does not hold"
-    if (ref.get("dimension") or "") not in (t.get("dimensions") or []):
+    g = groups.get(t.get("key"))
+    if not g:
+        return f"{by}: no group {t.get('key')!r} on file"
+    if g["rule"] != rule_id or abs(g["sum"] - g["total"]) > g["tolerance"] or not g["holds"]:
+        return f"{by}: on file the group's parts sum to {g['sum']} against {g['concept']} {g['total']}: it does not tie"
+    if (t.get("sum"), t.get("total")) != (g["sum"], g["total"]):
+        return f"{by}: the row's tie ({t.get('sum')} against {t.get('total')}) is not the group on file"
+    if (ref.get("dimension") or "") not in g["dimensions"]:
         return f"{by}: {ref.get('dimension')!r} is not a part of the group"
-    groups = ev.get("ties")
-    if groups is not None:
-        g = groups.get(t.get("key"))
-        if not g:
-            return f"{by}: no group {t.get('key')!r} on file"
-        if g["rule"] != rule_id or not g["holds"]:
-            return f"{by}: on file the group's parts sum to {g['sum']} against {g['concept']} {g['total']}: it does not tie"
-        if (g["sum"], g["total"]) != (t["sum"], t["total"]) or (ref.get("dimension") or "") not in g["dimensions"]:
-            return f"{by}: the row's tie is not the group on file"
     return None
 
 
 def _reading_gap(by: str, ref: dict, ev: dict) -> str | None:
-    """T92: a second reading needs two or more readings from distinct filings that agree (ties.corroborated), and,
-    when `ev` holds the readings on file (`ev["readings"]`, proof.evidence), the same readings."""
-    from .ties import corroborated
+    """T92: a second reading needs two or more lineages (a later fiscal year's 10-K; a 10-K/A folds into the 10-K it
+    amends) whose readings agree (ties.corroborated), the `by` accession among them, and, when `ev` holds the readings
+    on file (`ev["readings"]`, proof.evidence), the same readings."""
+    from .ties import corroborated, lineages
     rs = ref["readings"]
-    if len({r.get("accession") for r in rs if r.get("accession")}) < 2:
-        return f"{by}: fewer than two filings read it"
+    if len(lineages(rs)) < 2:
+        return f"{by}: fewer than two filings read it (an amendment is its original's filing)"
     if not corroborated(rs):
         return f"{by}: the readings differ"
+    if by.partition(":")[2] not in {r.get("accession") for r in rs}:
+        return f"{by}: the accession it names is not one of the row's readings"
     on_file = ev.get("readings")
     if on_file is not None:
         k = (ref.get("ticker"), ref.get("field"), ref.get("dimension") or "", ref.get("period"))

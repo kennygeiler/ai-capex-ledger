@@ -1,10 +1,13 @@
 id: ppe_categories_tie
 severity: warn
 description: The PP&E categories one 10-K prints for a balance date sum to the gross PP&E the same filing tags in XBRL
-  (us-gaap PropertyPlantAndEquipmentGross), within half a rounding unit per category and for the total.
+  (us-gaap PropertyPlantAndEquipmentGross), within (n + 1) × half the coarsest rounding unit
+  on the sum (n parts and the total each rounded once). It bounds the sum, never a single part; groups of fewer than two
+  parts, a part labelled as a total, or all zeros are not judged.
 rationale: The SEC tags almost none of the categories, so each one had only its citation. A sum that matches the
   filing's own tagged total shows the categories were read consistently (T92); a sum that misses names a misread, a
-  missing line, or a table whose total is not the tagged one. It cannot say which category is wrong.
+  missing line, or a table whose total is not the tagged one. It cannot say which category is wrong, and two misreads
+  that offset inside the bound still tie (taxonomy/limitations.yaml, tie_offsetting_errors).
 owner: Kenny Geiler
 check: parts_tie
 params:

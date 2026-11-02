@@ -38,10 +38,12 @@ def instance_facts(cik: int, accession: str) -> dict:
     root = ET.fromstring(body)
     contexts = {}
     for ctx in root.iter(f"{XBRLI}context"):
-        seg = ctx.find(f"{XBRLI}entity/{XBRLI}segment")
-        members = [m.text.strip() for m in seg.iter(f"{XBRLDI}explicitMember")] if seg is not None else []
-        if seg is not None and (len(members) != 1 or len(list(seg)) != 1):
-            continue  # typed or multi-dimensional: not a plain segment or category breakdown
+        # a dimension may sit under <segment> or <scenario> (T92 review): either way the context is not a company total
+        boxes = [b for b in (ctx.find(f"{XBRLI}entity/{XBRLI}segment"), ctx.find(f"{XBRLI}scenario")) if b is not None]
+        dims = [d for b in boxes for d in b]
+        members = [d.text.strip() for d in dims if d.tag == f"{XBRLDI}explicitMember" and d.text]
+        if dims and (len(members) != 1 or len(dims) != 1):
+            continue  # typed or multi-dimensional: not a plain segment or category breakdown, and never a total
         p = ctx.find(f"{XBRLI}period")
         inst, s, e = p.find(f"{XBRLI}instant"), p.find(f"{XBRLI}startDate"), p.find(f"{XBRLI}endDate")
         if inst is not None:

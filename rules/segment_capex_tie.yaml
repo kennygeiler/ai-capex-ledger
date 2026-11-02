@@ -1,9 +1,11 @@
 id: segment_capex_tie
 severity: warn
 description: The segment capex one 10-K prints for a fiscal year sums to the capex the same filing tags in XBRL (the
-  first of the us-gaap capex concepts it tags), within half a rounding unit per part and for the total.
+  first of the us-gaap capex concepts it tags), within (n + 1) × half the coarsest rounding
+  unit on the sum (n parts and the total each rounded once). It bounds the sum, never a single part; groups of fewer than
+  two parts, a part labelled as a total, or all zeros are not judged.
 rationale: Untagged segment capex had only its citation (T92). A sum that matches the tagged cash capex shows the
-  segments were read consistently. Segment capex reported on an accrual basis (Applied Digital) is larger than cash capex
+  segments' sum was read consistently (not each segment; offsetting misreads still tie, see tie_offsetting_errors). Segment capex reported on an accrual basis (Applied Digital) is larger than cash capex
   and does not tie; the finding stays open until a person explains it.
 owner: Kenny Geiler
 check: parts_tie

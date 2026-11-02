@@ -33,8 +33,8 @@ point at the record that makes it so; each Proof item carries `ref`, that record
 |---|---|
 | `xbrl` (checked only) | an XBRL value on the row and the lookup marker (`ref.looked_up`) |
 | `esef:`, `source:`, `actual:`, `rule:<id>_tie`, `reading:` (checked only) | that key's own value on the row (`ref.esef`, `ref.source`, `ref.actual`, `ref.tie`, `ref.readings`), never the XBRL one; an answer key never explains |
-| `rule:<id>_tie` on a fact (T92) | `ref.tie`: the filing's group (key, total, sum, tolerance, parts); the sum within the tolerance of the total, the fact's dimension among the parts, and the same group, holding, when the walk recomputes the groups from what is on file (`ev["ties"]`, `proof.ladder`) |
-| `reading:<accession>` (T92) | `ref.readings`: two or more readings from distinct filings that agree within `config.RESTATEMENT_TOLERANCE` of the coarsest rounding, and the same readings as on file (`ev["readings"]`) |
+| `rule:<id>_tie` on a fact (T92) | `ref.tie` names its group (key); the groups the walk recomputes from what is on file (`ev["ties"]`, required) hold that group under the same rule, its sum within the on-file tolerance of its total (the row's own tolerance is never read), the row's sum and total the group's, the fact's dimension among its parts |
+| `reading:<accession>` (T92) | `ref.readings`: two or more lineages (a later fiscal year's 10-K; a 10-K/A is its original's) whose readings agree within `config.RESTATEMENT_TOLERANCE` of the coarsest rounding, the `by` accession among them, and the same readings as on file (`ev["readings"]`) |
 | `quote` | the quote on file for the row (the statement by its id, the planned row by ticker, text, category, year and name; the item carries ids, not the quote) found, normalised as the loaders do (curly quotes, no-break spaces, case), in the text its `text_id` names |
 | `located` | the filing's income and cash-flow tables both named |
 | `gate` | on the release stage only (`ref.stage`), with no block item; the stage's one item when nothing blocks (it said `located` before T80) |
@@ -172,51 +172,71 @@ row carries one `by` today, so `keys` holds at most one, and T41–T43 add ties,
 the twin without a change of shape. A fact XBRL tags keeps `xbrl` even when its group also ties. A failed tie carries no key: it is a finding. `proof.board()` counts the scope's
 rows by their strongest key (`keys`, with `none` for every row no key vouches for and `rows` the denominator, so the
 grades always sum to rows), per company and in total; Proof shows it as "Rows by answer key", and a company trail names
-the key in one word beside `by`. On the six since T92 (golden fixtures): twin 273 of 891 rows, tie 102, second reading
-17, no key 499; second source and later truth 0 until T41–T43 write them.
+the key in one word beside `by`. On the six since T92 (golden fixtures): twin 273 of 889 rows, tie 101, second reading
+17, no key 498; second source and later truth 0 until T41–T43 write them.
 
 ### The ladder for the note figures (T92, `ledger/ties.py`)
 
 The SEC tags almost none of the untagged note figures (PP&E by category, segments a filer does not tag, purchase
 commitments), so before T92 every one read "citation only", and two that disagreed across filings passed silently as
 explained by the label `no_reference`: a label standing in for a check. A fact labelled `no_reference` now climbs a
-ladder, and `status.of_fact` takes the first rung that holds:
+ladder. One function, `ties.fact_state`, gives every fact its state, and Proof, Reconcile (`workbench._state`), the
+taxonomy rows (`taxonomy.fact_check`, the `check` / `check_method` columns) and gold (`gold.is_open`) all call it
+(`tests/test_status.py` OneLadder holds all four equal for the 327 facts of the six). The first rung that holds:
 
 1. **Readings differ: open.** Every 10-K that printed the figure is a reading (`facts.extraction_ids` → `note_extractions`,
    one per filing). When they differ by more than `config.RESTATEMENT_TOLERANCE` of the coarsest rounding, the warn rule
    `fact_readings_differ` fires and the fact is open by `rule:fact_readings_differ` ("readings differ across filings: $A in
    <accession> (filed …) vs $B in …"), on Proof as the fact itself and on Reconcile as the finding, one item each. Only a
-   person's resolution explains it; no label or definition does (a fact has no definition kind today).
-2. **Ties to the reported total: checked, key tie.** The tie rules (`rules/ppe_categories_tie.yaml`,
+   person's resolution on that finding explains it; no label or definition does (a fact has no definition kind today).
+2. **The group sums to the reported total: checked, key tie.** The tie rules (`rules/ppe_categories_tie.yaml`,
    `segment_revenue_tie.yaml`, `segment_capex_tie.yaml`, check `parts_tie`) group the parts one filing printed for a
    field and a date, and compare their sum with the company total the same filing tags in its XBRL instance
-   (PropertyPlantAndEquipmentGross; the largest us-gaap revenue tag; the first us-gaap capex tag), read from the
-   distilled instance on disk (`data/raw/<cik>/filings/<accession>.facts.json`, never fetched). The same filing, so a
-   later 10-K's recast categories are compared with its own total, never with an older one. Tolerance: half a rounding
-   unit of the coarsest table among the parts, for each part and for the total (`ties.tolerance`: (n + 1) × unit × 0.5).
-   Only groups that ship a fact are judged (a comparative column a later 10-K replaced ships nothing), and a group
-   with no tagged total gets no tie. When the group ties, each untagged part is checked by `rule:<id>_tie` with
-   `ref.tie` (the total, the sum, the parts); when it does not, the rule's finding is open on the group (facts stage,
-   "parts against total"; Reconcile, the same finding), never checked, and the parts keep their own rung. A segment set
-   that leaves out a reconciling line (corporate, eliminations, hedging) fails honestly: nothing is added to force it.
-3. **Confirmed in two filings: checked, key second reading.** Two or more distinct filings read it and agree.
+   (PropertyPlantAndEquipmentGross; the largest us-gaap revenue tag, named on the finding; the first us-gaap capex tag),
+   read from the distilled instance on disk (`data/raw/<cik>/filings/<accession>.facts.json`, never fetched). A context
+   with a dimension under `<segment>` or `<scenario>` is never a total (`reference/dimensions.py`). The same filing, so a
+   later 10-K's recast categories are compared with its own total. **What a tie proves: the sum.** The bound is on the
+   sum of the group, (n + 1) × half the coarsest table's rounding unit (n parts each rounded once, the total once more,
+   `ties.tolerance`); it does not prove any one part: two misreads that offset inside one group still tie
+   (`taxonomy/limitations.yaml`, `tie_offsetting_errors`; a second reading and the gold sample are what catch that, and
+   `tests/test_rules.py` pins it). Not judged: a group that ships no fact (a comparative column a later 10-K replaced),
+   one with no tagged total, one with fewer than two parts (one part equal to the total proves only a copy), one with a
+   part labelled as a total or subtotal ("Total", "Subtotal", "Gross", "Net" as the whole label), and one of zeros. When
+   the group ties, each untagged part is checked by `rule:<id>_tie` with `ref.tie` (the group's key, total, sum,
+   tolerance and parts); the card reads "Group sums to reported total: $X (SEC XBRL) · tolerance ±$Y · N parts (the
+   members)". When it does not, the rule's finding is open on the group (facts stage, "parts against total";
+   Reconcile, the same finding), never checked, and the parts keep their own rung. A segment set that leaves out a
+   reconciling line (corporate, eliminations, hedging) fails honestly: nothing is added to force it. The walk accepts a
+   tie only against the groups it recomputes from what is on file (`ev["ties"]` is required), with the on-file tolerance.
+3. **Confirmed in two filings: checked, key second reading.** Two or more lineages read it and agree: a later fiscal
+   year's 10-K (its comparative column) is a second reading; a 10-K/A re-printing the same year folds into the 10-K it
+   amends (same report period) and is not. `by` names the other lineage's accession, which the walk checks is a reading.
 4. **Citation only: explained, by `label:no_reference`** (XBRL looked up and holding nothing, T80).
+
+A resolution on a note finding is keyed whole (`resolutions._parse`: rule and subject, the filing for a tie, the
+dimension for two readings), so it closes the one item it was written for, never every finding on the field and year.
 
 Tagged facts keep their own handling (the twin, the restatement guard). Why the instance and not companyfacts for the
 totals: companyfacts holds one figure per period per filing, copied from these same instances, and the golden fixtures
 carry the instances, so the tie reads the filing's own tagged total without a new store table or a fetch.
 
-On the six (2 Nov 2026, golden fixtures): 327 facts, 180 checked by the twin, 5 explained by the restatement guard, 142
-untagged. Of the 142: tie 102, second reading 17, citation only 21, open 2 (APLD "Other equipment and fixtures" FY2024,
-$9.6M in 0001144879-24-000216 vs $1.8M in 0001144879-25-000021, and FY2025, $2.1M vs $12.4M in 0001144879-26-000048; both
-sit in groups that tie, so the company moved amounts between lines and the old reading or the new one is the question).
-The ties judge 77 groups: 61 tie (31 PP&E, 30 segment revenue) and cover 104 untagged facts; 16 fail and are open: GOOGL
-PP&E FY2023 in the FY2024 10-K (its four lines, one of them "Add: assets not yet in service", sum to $201,803M against a tagged
-$166,667M; likely the tag is the in-service gross, unconfirmed); GOOGL segment revenue FY2020–FY2025 (the segments leave out hedging gains and
-losses, $−1,960M to $+127M); APLD segment revenue FY2024–FY2026 in the FY2026 10-K (one or two hosting segments against
-total revenue, $29M to $84M short); APLD segment capex FY2023–FY2026, six groups (segment capex is accrual and runs above
-cash capex, $14M to $304M). Six groups have no tagged total (GOOGL PP&E FY2024–FY2025 in its FY2025 10-K; AMZN PP&E FY2021–FY2023, and FY2024 in its
-FY2024 10-K): no tie.
+The taxonomy rows say it too: `check` takes `corroborated` (check_method `rule:<id>_tie` or `reading:<accession>`) where the
+ladder checks an untagged fact, and `differs` / `rule:fact_readings_differ` where readings differ. A derived PP&E row
+whose asset-type mapping is unmapped or unconfirmed still shows the mapping check (T63), so on the six the published
+column moves for the segment and commitment rows; the PP&E rows move once their mappings are confirmed.
+
+On the six (2 Nov 2026, golden fixtures, after the review fixes): 327 facts, 180 checked by the twin, 5 explained by the
+restatement guard, 142 untagged. Of the 142: tie 101, second reading 17, citation only 22, open 2 (APLD "Other equipment
+and fixtures" FY2024, $9.6M in 0001144879-24-000216 vs $1.8M in 0001144879-25-000021, and FY2025, $2.1M vs $12.4M in
+0001144879-26-000048; both sit in groups that tie, so the company moved amounts between lines and the old reading or the
+new one is the question). The ties judge 73 groups: 59 tie (30 PP&E, 29 segment revenue) and cover 103 untagged facts;
+14 fail and are open: GOOGL PP&E FY2023 in the FY2024 10-K (its four lines, one of them "Add: assets not yet in service",
+sum to $201,803M against a tagged $166,667M; likely the tag is the in-service gross, unconfirmed); GOOGL segment revenue
+FY2020–FY2025 (the segments leave out hedging gains and losses, $−1,960M to $+127M); APLD segment revenue FY2026 (two
+hosting segments, $71.6M short of total revenue); APLD segment capex FY2023–FY2026, six groups (segment capex is
+accrual and runs above cash capex, $14M to $304M). Not judged: six groups with no tagged total (GOOGL PP&E FY2024–FY2025
+in its FY2025 10-K; AMZN PP&E FY2021–FY2023, and FY2024 in its FY2024 10-K) and four with one part (APLD PP&E FY2021,
+APLD segment revenue FY2023, and FY2024 and FY2025 in its FY2026 10-K).
 
 Under it, "Failure types" (T54): the 72 types `docs/INGESTION.md` logged, as `taxonomy/failures.yaml` codes them, two bar charts
 from `/api/v1/failures` (types per cause class; types per catching check, `none` its own bar: a known way to be wrong that nothing
