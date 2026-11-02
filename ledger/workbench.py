@@ -185,14 +185,23 @@ def asset_types(con, tickers: list[str] | None, names: dict) -> list[dict]:
     the row the same way. Approve or Edit writes the mapping, confirmed (POST /api/mapping, by the person); Reject logs
     the member and removes an unconfirmed entry."""
     from . import mapper
+    from .mapcard import decisions
     out = []
-    for p in mapper.pending(con, tickers):
+    pend = mapper.pending(con, tickers, with_verified=True)  # with the ones the company's own tag matches: listed after the open ones, a person may override
+    dec: dict = {}
+    for t in sorted({p["ticker"] for p in pend}):  # the decision card: the one function the trail reads too
+        dec[t] = decisions(con, t, [p["reported_name"] for p in pend if p["ticker"] == t])
+    for p in pend:
         P = p["proposal"]
-        st = status.of_mapping({"standard_type": P["standard_type"], "by": P.get("by")} if p["kind"] == "to_confirm" else None)
-        label = "Asset types: a mapping no person confirmed" if p["kind"] == "to_confirm" else "Asset types: a reported PP&E category with no us-gaap member"
+        D = dec.get(p["ticker"], {}).get(p["reported_name"])
+        st = (D or {}).get("state") or status.of_mapping(None)  # the card's state: status.of_mapping with the company's tag, as Proof reads it
+        st = {"state": st["state"], "by": st["by"], "reason": st.get("reason") or ""}
+        label = {"to_confirm": "Asset types: a mapping no person confirmed", "verified": "Asset types: matches the company's own tag"}.get(p["kind"], "Asset types: a reported PP&E category with no us-gaap member")
         from .config import SCOPE
         if p["ticker"] not in SCOPE:
             impact = "blocks nothing until the company is in scope (config.SCOPE)"
+        elif p["kind"] == "verified":
+            impact = "none: the company's own tag matches; a person may still confirm, choose another or reject"
         elif p["kind"] == "to_confirm":
             impact = "the release refuses (G6) until a person confirms, edits or rejects it"
         else:
@@ -202,7 +211,8 @@ def asset_types(con, tickers: list[str] | None, names: dict) -> list[dict]:
                     "field": None, "period": None, "where": p["reported_name"], "measure": None, "ours": None, "ours_label": None, "reference": None, "ref_label": None,
                     "relation": "eq", "delta": None, "delta_pct": None, "dollars": 0, "new": False, "action": "mapping", "impact": impact, "resolution": None,
                     "evidence": {"reported_name": p["reported_name"], "mapping": p["kind"], "label": label, "proposal": P, "rejected": p["rejected"], "reproposed": p.get("reproposed") or [], "note": p["note"],
-                                 "filer": p["filer"], "mismatch": mapper.mismatch((P or {}).get("standard_type"), p["filer"])}})
+                                 "filer": p["filer"], "mismatch": ((D or {}).get("tag") or {}).get("status") == "differs",  # the card's word: one count with the card
+                                 "decision": D}})
     return out
 
 

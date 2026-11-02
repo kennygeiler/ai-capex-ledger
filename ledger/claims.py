@@ -17,7 +17,7 @@ checks every entry:
     is stale (clock.age_hours);
   - hosted_copy: no deploy record (claims/hosted.json) is stale; one from an older release, or (live) from code other
     than HEAD (a descendant that changed only claims/hosted.json is the same code), is stale. Never proven from silence;
-  - mappings_confirmed: any asset-type mapping without confirmed_by is partial.
+  - mappings_confirmed: any asset-type mapping with no confirmed_by that the company's own tag does not check is partial.
 
 live=False (docs/CLAIMS.md and every packet's LIMITATIONS.md, both hashed or diffed) leaves out the clock and HEAD:
 what depends on them reads "checked live only", stale, so the same data gives the same text at any time on any commit.
@@ -163,7 +163,7 @@ def _git(*args, cwd: Path | None = None) -> subprocess.CompletedProcess | None:
 def append_only(path: Path = FINDINGS, rel: str = FINDINGS_REL, repo: Path | None = None) -> dict:
     """{enforced, commits, problems}: every committed version of the findings log must be a prefix of the working file.
     Without git (the hosted copy) nothing can be compared: enforced False, said so, never a silent pass."""
-    log = _git("log", "--format=%H", "--", rel, cwd=repo)
+    log = _git("log", "--first-parent", "--format=%H", "--", rel, cwd=repo)
     if log is None or log.returncode != 0:
         return {"enforced": False, "commits": 0, "problems": [], "note": "append-only not enforced here: no git"}
     now = path.read_text() if path.exists() else ""
@@ -308,11 +308,15 @@ def _hosted(ctx) -> list:
 
 
 def _mappings(ctx) -> list:
-    from .status import confirmed
-    from .taxonomy import asset_types
-    entries = [e for block in asset_types().values() if isinstance(block, dict) for e in block.values()]
-    n = sum(not confirmed(e) for e in entries)
-    return [("partial", "category mappings unconfirmed", f"{n} of {len(entries)} category mappings await a person's confirmation")] if n else []
+    """Asset-type mappings neither a person confirmed nor the company's own tag checks: filertag.tally, the one count
+    every packet's limitations line reads too. When the company tags could not be read, nothing counts as verified and
+    the detail says so (never "0 verified")."""
+    from .filertag import tally
+    c = tally()
+    if not c["waiting"]:
+        return []
+    how = f"; {c['verified']} match the company's own tag" if c["read"] else "; company tags not read"
+    return [("partial", "category mappings unconfirmed", f"{c['waiting']} of {c['entries']} category mappings await a person's confirmation{how}")]
 
 
 def _golden(ctx) -> list:
@@ -422,6 +426,7 @@ WATCHED = ("'Proven'", "'proven'", "Proven · no items to review", "Outside prov
            "'Known gaps'")
 # The Python that feeds the pages: the cards' sentences and Reconcile's cause labels.
 PY_RULES = {"cards.py": (re.compile(r'(?:"text":\s*|\btext = )f?"([^"{]*)'),),
+            "mapcard.py": (re.compile(r'(?:\breturn |"text":\s*)f?"([^"{]*)'),),
             "workbench.py": (re.compile(r'CAUSES = \{(.*?)\}\n', re.S), re.compile(r'"cause_label": \{([^}]*)\}'))}
 CSS = re.compile(r"^(bg|text|fw|ms|me|mt|mb)-")
 GAPS_OWN = frozenset(STATUSES) | {"high", "medium", "low"}  # the Gaps page's own chips: the register's vocabulary, not claims

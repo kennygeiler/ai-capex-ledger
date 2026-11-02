@@ -159,14 +159,17 @@ def fact_state(f: dict, idx: dict, lad: dict, restated: str | None = None) -> tu
     differs = untagged and differ(rs)
     holds = g if untagged and g and g["holds"] else None
     second = second_accession(rs, f.get("accession")) if untagged and corroborated(rs) else None
+    filer = k.get("filer_tag") if untagged and not differs and f["field"] == "ppe_category" else None
     ref = {}
+    if filer:
+        ref["filer_tag"] = filer
     if len(lineages(rs)) >= 2 or differs:
         ref["readings"] = rs
     if holds:
         ref["tie"] = {k_: holds[k_] for k_ in ("rule", "key", "accession", "concept", "total", "sum", "tolerance", "dimensions", "parts")}
     res = (resolutions.resolution_of(idx, "findings", t, f["field"], dim, f["period"], DIFFER) if differs
            else resolutions.resolution_of(idx, "facts", t, f["field"], dim, f["period"]))
-    st = status.of_fact(f, res, restated, differ=differ_message(rs) if differs else None, tie=holds["rule"] if holds else None, reading=second)
+    st = status.of_fact(f, res, restated, differ=differ_message(rs) if differs else None, tie=holds["rule"] if holds else None, reading=second, filer=bool(filer))
     return st, ref
 
 
@@ -176,7 +179,7 @@ def check_columns(st: dict) -> tuple[str, str]:
     when open (rule:fact_readings_differ for readings that differ, xbrl for a cell against its tag)."""
     by = st.get("by") or ""
     if st["state"] == "checked":
-        return ("agree", by) if by == "xbrl" else ("corroborated", by)
+        return ("agree", by) if by in ("xbrl", "mapping:filer_tag") else ("corroborated", by)  # the company's own tag is a twin: the value is in its instance
     if st["state"] == "explained":
         return ("no_reference", by) if by == "label:no_reference" else ("explained", by)
     return "differs", by if by.startswith("rule:") else "xbrl"
@@ -258,6 +261,17 @@ def ladder(con, tickers: list[str], rules: list[dict] | None = None) -> dict:
     for k, v in out.items():
         if k != "groups":
             v["restated"] = None
+            v["filer_tag"] = None
+    # the company's own tag (ledger/filertag.py): a PP&E fact whose category it checks carries the record, read once here
+    from .filertag import record, verdicts, verified
+    from .taxonomy import asset_types
+    types = asset_types()
+    tags = verdicts(con, list(tickers))
+    for (t, name), tag in tags.items():  # every fact of a category the tag checks, whatever load() could read
+        if verified((types.get(t) or {}).get(name), tag):
+            rec = record(tag)
+            for r in tag["readings"]:
+                out.setdefault((t, "ppe_category", name, r["period"]), {"readings": [], "tie": None, "restated": None})["filer_tag"] = rec
     for f in _rows(con, "select ticker, field, dimension, period, accession, reference from facts where ticker in (select unnest(?)) and label = 'unresolved'", list(tickers)) if len(out) > 1 else []:  # facts on file
         k = (f["ticker"], f["field"], f["dimension"] or "", f["period"])
         if k in out:

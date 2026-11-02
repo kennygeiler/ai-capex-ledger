@@ -5,7 +5,8 @@ is an instance of (`standard_concept`), the company's own label (`reported_name`
 us-gaap member it maps to (`standard_type`, from taxonomy/asset_types.yaml, with the note's words as evidence). A
 reported asset type with no mapping is a row with `standard_type` empty, `mapped` false and `check` = unmapped, which
 the Proof board shows as open. One whose entry no person confirmed (no `confirmed_by`, T63) carries the proposed member
-in `standard_type` with `mapped` false and `check` = to_confirm (`check_method` label:to_confirm): open too.
+in `standard_type` with `mapped` false and `check` = to_confirm (`check_method` label:to_confirm): open too, unless the
+company's own XBRL tags the category with that member (ledger/filertag.py, `mapping:filer_tag`): then the row is mapped.
 
 The columns are declared once, in store.TAXONOMY (schema v11, T9–T17), in the order every row carries them:
   one meaning per column: `value_high` is a range high (planned, company_stated_ai), `change_from_prior` the derived
@@ -189,6 +190,8 @@ def rows(con, tickers: list[str] | None = None) -> list[dict]:
     facts = _rows(con, f"select ticker, field, dimension, period, period_end, value, label, reference, accession, extraction_ids from facts {where} order by ticker, field, dimension, period", *p)
     from .ties import ladder
     lad = ladder(con, sorted({f["ticker"] for f in facts}))  # T92: the one ladder, as Proof reads the facts
+    from .filertag import verdicts, verified
+    tags = verdicts(con, sorted({f["ticker"] for f in facts if f["field"] == "ppe_category"}))  # the company's own tag, read from disk (ledger/filertag.py)
     prev = {}
     for f in facts:
         src = f["extraction_ids"] or f["accession"]
@@ -207,9 +210,16 @@ def rows(con, tickers: list[str] | None = None) -> list[dict]:
             change = f["value"] - prev[key] if key in prev and prev[key] is not None and f["value"] is not None else None
             if not st:
                 common.update(check="unmapped", check_method="none")
-            elif not confirmed(m):  # T63: the entry is a proposal; the row says so, never agree on the strength of a value check
+                basis = "none"
+            elif confirmed(m):
+                basis = f"mapping:{st}"  # a person's confirmed_by (T63)
+            elif verified(m, tags.get(key)):
+                basis = "mapping:filer_tag"  # the company's own tag, every extracted year (ledger/filertag.py)
+            else:  # T63: a proposal neither a person nor the company's own tag checks
                 common.update(check="to_confirm", check_method="label:to_confirm")
-            out.append(_row(measure="derived", category="ppe_gross_by_type", reported_name=f["dimension"], standard_concept=CONCEPT["ppe_category"], standard_type=st, change_from_prior=change, **common))
+                basis = "label:to_confirm"
+            out.append(_row(measure="derived", category="ppe_gross_by_type", reported_name=f["dimension"], standard_concept=CONCEPT["ppe_category"], standard_type=st, change_from_prior=change,
+                            mapping_check=basis, **common))
             prev[key] = f["value"]
     # statements: guidance (planned, scope total) and company-stated AI (any scope ai with a figure)
     if _has(con, "ai_statements"):
@@ -262,16 +272,20 @@ def unmapped(con, tickers: list[str] | None = None) -> list[dict]:
     return [{"ticker": s["ticker"], "reported_name": s["dimension"]} for s in seen if not ((types.get(s["ticker"]) or {}).get(s["dimension"]) or {}).get("standard_type")]  # an entry with no member is no mapping
 
 
-def to_confirm(con, tickers: list[str] | None = None) -> list[dict]:
-    """T63: reported asset types whose entry in taxonomy/asset_types.yaml has no `confirmed_by` (status.confirmed): a
-    proposal, open on Proof and Reconcile and a G6 failure until a person confirms it. Its taxonomy rows carry the
-    proposed member in `standard_type` with `mapped` false and `check` to_confirm."""
+def to_confirm(con, tickers: list[str] | None = None, with_verified: bool = False) -> list[dict]:
+    """T63: reported asset types whose entry in taxonomy/asset_types.yaml has no `confirmed_by` (status.confirmed) and
+    that the company's own tag does not check (filertag.verified): a proposal, open on Proof and Reconcile and a G6
+    failure until a person confirms it. Its taxonomy rows carry the proposed member in `standard_type` with `mapped`
+    false and `check` to_confirm. `with_verified`: also the ones the company's tag checks (no confirmed_by either), for
+    the writer, which lets a person confirm those too."""
+    from .filertag import verdicts, verified
     types = asset_types()
     where = "where ticker in (select unnest(?))" if tickers else ""
     seen = _rows(con, f"select distinct ticker, dimension from facts {where + (' and' if where else 'where')} field = 'ppe_category' order by 1, 2", *([tickers] if tickers else []))
+    tags = {} if with_verified else verdicts(con, sorted({s["ticker"] for s in seen}))
     out = []
     for s in seen:
         e = (types.get(s["ticker"]) or {}).get(s["dimension"])
-        if e and e.get("standard_type") and not confirmed(e):
+        if e and e.get("standard_type") and not confirmed(e) and not verified(e, tags.get((s["ticker"], s["dimension"]))):
             out.append({"ticker": s["ticker"], "reported_name": s["dimension"], **{k: (str(v) if k == "at" and v is not None else v) for k, v in e.items()}})
     return out

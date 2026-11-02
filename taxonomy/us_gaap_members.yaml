@@ -4,6 +4,7 @@
 # Add a member here (from the same files) before allowing it in asset_types.yaml.
 source:
   taxonomy: US GAAP Financial Reporting Taxonomy 2025 (FASB)
+  short: FASB US GAAP 2025
   labels:
     url: https://xbrl.fasb.org/us-gaap/2025/elts/us-gaap-lab-2025.xml
     sha256: c10e9ec81f18676a2f047a5fd614baeec9a35b34a755d59d4b67bcd5349f69b0

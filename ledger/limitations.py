@@ -89,10 +89,12 @@ def _restated(files) -> tuple:
 
 
 def _asset_types(files) -> tuple:
-    from .status import confirmed
-    from .taxonomy import asset_types
-    entries = [e for block in asset_types().values() if isinstance(block, dict) for e in block.values()]
-    return sum(not confirmed(e) for e in entries), f"of {len(entries)} mappings have no confirmed_by"
+    """The mappings that wait for a person: filertag.tally, the count the claims check reads (neither confirmed_by nor
+    the company's own tag)."""
+    from .filertag import tally
+    c = tally()
+    return c["waiting"], (f"of {c['entries']} mappings neither a person confirmed nor the company's own tag matches" if c["read"]
+                          else f"of {c['entries']} mappings have no confirmed_by (company tags not read)")
 
 
 def _tied(files) -> tuple:

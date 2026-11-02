@@ -265,7 +265,15 @@ def person(by: str) -> str:
     return by
 
 
-def approve(ticker: str, reported_name: str, standard_type: str, evidence: str, by: str, path: Path | None = None, log: Path | None = None, at: str | None = None, con=None) -> dict:
+class Stale(ValueError):
+    """The entry changed since the page showed it (the route answers 409 and the page reloads)."""
+
+
+_UNSET = object()
+
+
+def approve(ticker: str, reported_name: str, standard_type: str, evidence: str, by: str, path: Path | None = None, log: Path | None = None, at: str | None = None, con=None,
+            expected=_UNSET) -> dict:
     """Write one entry to taxonomy/asset_types.yaml, in the file's own format (one flow-mapping line under the ticker's
     block; the comment header untouched), with `confirmed_by` and `confirmed_at` = the person and today (T63: a person
     clicked it). Refuse a member off the header's list, a confirmer name that names a model or agent (`person`), a
@@ -273,7 +281,9 @@ def approve(ticker: str, reported_name: str, standard_type: str, evidence: str, 
     mapping (taxonomy.unmapped) or with an unconfirmed one (taxonomy.to_confirm), on `con` or on the database read-only
     when none is given. On an unconfirmed entry, the same member adds `confirmed_by` and `confirmed_at` to its line (the
     proposer's `by`, `at` and evidence kept); a different member replaces the line with the person's entry, confirmed.
-    The read, the checks and the write are one step under the file's lock (`_edit`). Logged as `approved` or `confirmed`."""
+    The read, the checks and the write are one step under the file's lock (`_edit`). Logged as `approved` or `confirmed`.
+    `expected` (the route always passes it): what the page showed for the entry, {standard_type, at} or None for no
+    entry; when the file holds something else on the snapshot, nothing is written and Stale is raised (a stale Approve)."""
     p = path or ASSET_TYPES
     ticker, reported_name, standard_type, evidence, by = ticker.strip().upper(), reported_name.strip(), standard_type.strip(), " ".join(evidence.split()), by.strip()
     if not ticker or not reported_name or not evidence or not by:
@@ -287,6 +297,11 @@ def approve(ticker: str, reported_name: str, standard_type: str, evidence: str, 
 
     def change(lines: list[str], data: dict):
         old = (data.get(ticker) or {}).get(reported_name)
+        if expected is not _UNSET:
+            now = {"standard_type": old.get("standard_type"), "at": str(old["at"]) if old.get("at") is not None else None} if old and old.get("standard_type") else None
+            want = {"standard_type": (expected or {}).get("standard_type"), "at": str((expected or {}).get("at")) if (expected or {}).get("at") is not None else None} if expected else None
+            if now != want:
+                raise Stale(f"{ticker} {reported_name!r} changed since the page was loaded: on file {now or 'no entry'}, the page showed {want or 'no entry'}; reload")
         if old and confirmed(old):
             raise ValueError(f"{ticker} {reported_name!r} is already mapped to {old.get('standard_type')} and confirmed by {old['confirmed_by']}")
         if old and old.get("standard_type"):  # a proposal in the file (T63): confirm it, or replace it with the person's member
@@ -416,13 +431,14 @@ def _edit(p: Path, ticker: str, reported_name: str, change, what: str = "taxonom
 
 
 def _to_confirm(con, ticker: str) -> list[dict]:
-    """The company's reported categories whose entry has no confirmed_by (taxonomy.to_confirm), on `con` or read-only."""
+    """The company's reported categories whose entry has no confirmed_by (taxonomy.to_confirm), on `con` or read-only;
+    with the ones the company's own tag checks, which a person may still confirm."""
     if con is not None:
-        return to_confirm(con, [ticker])
+        return to_confirm(con, [ticker], with_verified=True)
     import duckdb
     c = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
     try:
-        return to_confirm(c, [ticker])
+        return to_confirm(c, [ticker], with_verified=True)
     finally:
         c.close()
 
@@ -446,17 +462,20 @@ def yaml_load(p: Path) -> dict:
 
 # ── what Reconcile shows ──────────────────────────────────────────────────────
 
-def pending(con, tickers: list[str] | None, lines: list[dict] | None = None) -> list[dict]:
+def pending(con, tickers: list[str] | None, lines: list[dict] | None = None, with_verified: bool = False) -> list[dict]:
     """Every reported asset type in `tickers` (None: every company) a person has yet to stand behind: the unmapped ones
     with the mapper's latest proposal, if one stands, and (T63) the ones whose entry in taxonomy/asset_types.yaml has no
     confirmed_by, with that entry as the proposal (`source` "taxonomy/asset_types.yaml"). Each carries the members a
-    person rejected for it, the note's words around it, and the member the filer tagged for it (`filer`)."""
+    person rejected for it, the note's words around it, and the member the filer tagged for it (`filer`). `with_verified`:
+    also the entries the company's own tag matches (kind "verified"), which Reconcile lists after the open ones so a
+    person can still confirm, choose another or reject."""
     out = []
     by_t: dict[str, list[tuple[str, dict | None]]] = {}
     for u in unmapped(con, tickers):
         by_t.setdefault(u["ticker"], []).append((u["reported_name"], None))
-    for e in to_confirm(con, tickers):
-        by_t.setdefault(e["ticker"], []).append((e["reported_name"], e))
+    waiting = {(e["ticker"], e["reported_name"]) for e in to_confirm(con, tickers)}
+    for e in to_confirm(con, tickers, with_verified=with_verified):  # with_verified: also the ones the company's own tag matches, which a person may override
+        by_t.setdefault(e["ticker"], []).append((e["reported_name"], {**e, "_verified": (e["ticker"], e["reported_name"]) not in waiting}))
     for t, pairs in sorted(by_t.items()):
         names = [n for n, _ in pairs]
         idx = by_name(t, lines, set(names))  # every name here is unmapped or unconfirmed: an approval on file for it was undone
@@ -467,7 +486,7 @@ def pending(con, tickers: list[str] | None, lines: list[dict] | None = None) -> 
             note = next((b for b in blocks if _norm(n) in _norm(b["table"])), blocks[0] if blocks else None)
             proposal = e["proposal"] if entry is None else {"standard_type": entry["standard_type"], "evidence": entry.get("evidence"), "by": entry.get("by"), "at": entry.get("at"),
                                                             "source": "taxonomy/asset_types.yaml", "confidence": None, "reason": None}
-            out.append({"ticker": t, "reported_name": n, "kind": "unmapped" if entry is None else "to_confirm", "proposal": proposal, "rejected": e["rejected"],
+            out.append({"ticker": t, "reported_name": n, "kind": "unmapped" if entry is None else "verified" if entry.get("_verified") else "to_confirm", "proposal": proposal, "rejected": e["rejected"],
                         "reproposed": [r["standard_type"] for r in e["reproposed"]] if entry is None else [], "filer": filed.get(n),
                         "note": {"accession": note["accession"], "table_id": note["table_id"], "before": note["before"][-400:]} if note else None})
     return out
@@ -476,45 +495,25 @@ def pending(con, tickers: list[str] | None, lines: list[dict] | None = None) -> 
 def filer_members(con, ticker: str, names: list[str]) -> dict[str, dict | None]:
     """Per reported name, what the filer itself tagged for that category: {"members": [...], "ambiguous": bool}, the
     PropertyPlantAndEquipmentByTypeAxis members whose PropertyPlantAndEquipmentGross fact in the filing's own instance
-    has the category's value (or its XBRL reference) on its balance date. Read from disk only, the distilled instances
-    (data/raw/<cik>/filings/<accession>.facts.json, what reference.dimensions.instance_facts keeps): a page read never
-    reaches the SEC. None for a name when nothing could be checked (no instance on disk for any of its filings, or the
-    query failed), which the page shows as "not checked", never as "the filer tags nothing". A zero is never matched (an
-    empty prior-year column matches every empty member), and a value two members share, or members that differ across
+    has the category's value on its balance date, over every extracted year. A view over filertag.verdicts (one reader of the
+    instance, read from disk only: a page read never reaches the SEC). None for a name when nothing could be checked
+    (no instance on disk for any one of its filings, or the query failed), which the page shows as "not checked", never as
+    "the filer tags nothing". A zero is never matched, and a value two members share, or members that differ across
     years, make the answer ambiguous: shown, never a mismatch. Members may be the filer's extension (amzn:, goog:)."""
     if not names:
         return {}
-    from .ingest.edgar import RAW
-    try:
-        rows = con.execute("""select f.dimension, f.period_end, f.value, f.reference, f.accession, d.cik from facts f join documents d on d.accession = f.accession
-                              where f.ticker = ? and f.field = 'ppe_category' and f.dimension in (select unnest(?))""", [ticker, names]).fetchall()
-    except Exception:
-        return {n: None for n in names}
-    cache: dict = {}
-    out: dict[str, dict] = {}
-    for dim, pe, val, ref, acc, cik in rows:
-        key = (cik, acc)
-        if key not in cache:
-            try:
-                f = RAW / f"{int(cik):010d}" / "filings" / f"{acc}.facts.json"
-                cache[key] = {tuple(k.split("\t")): v for k, v in json.loads(f.read_text()).items()} if f.exists() else None
-            except Exception:
-                cache[key] = None
-        inst = cache[key]
-        if inst is None:
+    from .filertag import verdicts
+    vs = verdicts(con, [ticker])
+    out: dict[str, dict | None] = {}
+    for n in names:
+        v = vs.get((ticker, n))
+        read = (v or {}).get("readings") or []
+        if not read or any(r.get("members") is None for r in read):  # one year not read is not checked, as filertag.judge says
+            out[n] = None
             continue
-        want = set()
-        for x in (val, ref):
-            try:
-                if x not in (None, "") and round(float(x)) != 0:
-                    want.add(round(float(x)))
-            except (TypeError, ValueError):
-                pass
-        e = out.setdefault(dim, {"members": set(), "ambiguous": False})
-        hits = {m for (c, m, d), v in inst.items() if c == "PropertyPlantAndEquipmentGross" and m and d == str(pe) and v in want}
-        e["ambiguous"] |= len(hits) > 1
-        e["members"] |= hits
-    return {n: ({"members": sorted(out[n]["members"]), "ambiguous": out[n]["ambiguous"] or len(out[n]["members"]) > 1} if n in out else None) for n in names}
+        ms = sorted({m for r in read for m in r["members"]})
+        out[n] = {"members": ms, "ambiguous": any(len(r["members"]) > 1 for r in read) or len(ms) > 1}
+    return out
 
 
 def mismatch(member: str | None, filer: dict | None) -> bool:

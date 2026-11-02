@@ -7,7 +7,7 @@ const TRAIL_STAGE_HELP = {
   values: 'Income statement and cash-flow statement. One cited cell per figure.',
   facts: 'Notes to the financial statements: segments, asset categories, leases, commitments.',
   statements: 'Company statements on AI spending, quoted verbatim.',
-  mapping: 'Reported asset categories mapped to US GAAP members. Reviewer confirmation required.',
+  mapping: 'Reported asset categories mapped to US GAAP members. Verified by the company’s own XBRL tag, or confirmed by a reviewer.',
   planned: 'Forward-looking guidance and named projects, quoted verbatim.',
   release: 'Items blocking release.'};
 const TRAIL_FIELD = {revenue: 'Revenue', capex: 'Capital spending', opex: 'Operating costs', cost_of_revenue: 'Cost of revenue', operating_income: 'Operating income',
@@ -40,6 +40,14 @@ function trailTable(items, stage) {
   return h('div', {class: 'table-responsive'}, h('table', {class: 'table table-vcenter card-table'},
     h('thead', {}, h('tr', {}, h('th', {}, 'Item'), h('th', {}, 'Value'), h('th', {}, 'Source'), h('th', {}, 'Verification'))),
     h('tbody', {}, items.map((it) => trailRow(it, stage)))));
+}
+
+function stageCard(id, st, waiting, body) {
+  const tally = waiting.length ? h('span', {class: 'text-orange'}, `${int(waiting.length)} to review`) : h('span', {class: 'text-green'}, 'complete');
+  return h('div', {class: 'card mb-3'},
+    h('div', {class: 'card-header py-2 d-block'}, h('div', {class: 'd-flex align-items-baseline'}, h('h3', {class: 'card-title m-0'}, TRAIL_STAGE[id] || id),
+      h('span', {class: 'ms-3 small'}, `${int(st.items)} items · `, tally)), h('div', {class: 'text-secondary small mt-1'}, TRAIL_STAGE_HELP[id] || '')),
+    body.length ? h('div', {class: 'card-body p-0'}, body) : '');
 }
 
 async function trailPage(view, ticker) {
@@ -87,6 +95,13 @@ async function trailPage(view, ticker) {
     const all = [...(st.all || [])].sort((a, b) => order(a) - order(b));
     const waiting = all.filter((i) => order(i) === 0), rest = all.filter((i) => order(i) > 0);
     const body = [];
+    if (id === 'mapping') {  // one decision card per category (ledger/mapcard.py), the same card Reconcile shows with its actions
+      const list = (items) => h('div', {class: 'list-group list-group-flush'}, items.map((i) => h('div', {class: 'list-group-item py-3'}, i.decision ? mappingDecision(i.decision,
+        order(i) === 0 || i.by === 'mapping:filer_tag' ? h('div', {class: 'mt-2'}, h('a', {href: `#reconcile?scope=${c.ticker}&cause=asset_types`, class: 'small'}, order(i) === 0 ? 'Decide in Reconcile →' : 'Confirm or override in Reconcile →')) : '') : trailTable([i], id))));
+      if (waiting.length) body.push(list(waiting));
+      if (rest.length) body.push(waiting.length ? h('details', {class: 'px-3 py-2'}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, `${int(st.checked)} verified · ${int(st.explained)} unverified`), list(rest)) : list(rest));
+      return stageCard(id, st, waiting, body);
+    }
     if (waiting.length) body.push(trailTable(waiting, id));
     if (rest.length) {
       const corr = rest.filter((i) => i.card && i.card.how && i.card.how.tone === 'corroborated').length;
@@ -95,11 +110,7 @@ async function trailPage(view, ticker) {
         ? h('details', {class: 'px-3 py-2'}, h('summary', {class: 'text-secondary small', style: 'cursor:pointer'}, `${sum}`), trailTable(rest, id))
         : trailTable(rest, id));
     }
-    const tally = waiting.length ? h('span', {class: 'text-orange'}, `${int(waiting.length)} to review`) : h('span', {class: 'text-green'}, 'complete');
-    return h('div', {class: 'card mb-3'},
-      h('div', {class: 'card-header py-2 d-block'}, h('div', {class: 'd-flex align-items-baseline'}, h('h3', {class: 'card-title m-0'}, TRAIL_STAGE[id] || id),
-        h('span', {class: 'ms-3 small'}, `${int(st.items)} items · `, tally)), h('div', {class: 'text-secondary small mt-1'}, TRAIL_STAGE_HELP[id] || '')),
-      body.length ? h('div', {class: 'card-body p-0'}, body) : '');
+    return stageCard(id, st, waiting, body);
   });
   view.append(head, why, ...cards);
 }

@@ -22,7 +22,7 @@ unresolved value, open. So Proof and Reconcile count the same row the same way: 
 it on both pages, and a person's decision is needed only where nothing on file applies.
 
 `by` names what decided the state: xbrl | esef:<tag> | source:<doc> | actual:<period> | reading:<accession> | quote | located | gate |
-mapping:<us-gaap member> | rule:<id> (a tie rule's id ends in _tie) | definition:<name> | label:<not_reported|no_reference> |
+mapping:<us-gaap member> | mapping:filer_tag | rule:<id> (a tie rule's id ends in _tie) | definition:<name> | label:<not_reported|no_reference> |
 resolution:<id>. Empty when the state is open and nothing applies; label:not_extracted names an open value's cause (T65).
 `gate` is the release stage's one item when no block rule fired and no decision blocks (T80: it used to say `located`).
 
@@ -86,6 +86,8 @@ def method_kind(by: str) -> str:
 def answer_key(by: str) -> str | None:
     """The answer-key kind behind a `by` (or a check_method): twin | second_source | tie | later_truth, or None when the
     method is not an answer key (a quote, a located table, a mapping, an explanation, nothing)."""
+    if by == FILER_TAG:  # the company's own tag for a category mapping (ledger/filertag.py): the filer's instance, a twin
+        return "twin"
     kind = method_kind(by or "")
     for key, kinds in ANSWER_KEYS.items():
         if kind in kinds and (kind != "rule" or by.endswith(TIE)):
@@ -155,6 +157,9 @@ def _state(row: dict) -> dict:
             "by": f"rule:{rule}" if rule else f"label:{row['label']}" if row.get("label") else ""}
 
 
+FILER_TAG = "mapping:filer_tag"  # filertag.FILER_TAG: a mapping checked by the company's own tag
+
+
 NOT_A_PERSON = re.compile(r"\b(claude|fable|opus|sonnet|haiku|gemini|gpt|agent|run|replication|model|bot)\b", re.I)
 
 
@@ -177,15 +182,20 @@ def confirmed(entry: dict | None) -> bool:
 UNMAPPED = "a reported PP&E category with no entry in taxonomy/asset_types.yaml"
 
 
-def of_mapping(entry: dict | None) -> dict:
-    """A reported asset type (the mapping stage, T63): checked by the mapping when a person confirmed it; open, by
-    `label:to_confirm`, when the entry is a proposal (no `confirmed_by`: Reconcile's asset types group, Approve / Edit /
-    Reject); open with nothing when there is no entry."""
+def of_mapping(entry: dict | None, tag: dict | None = None) -> dict:
+    """A reported asset type (the mapping stage, T63): checked by the mapping when a person confirmed it; else checked by
+    `mapping:filer_tag` when the company's own XBRL tags the category with exactly the proposed member, unambiguously
+    (`tag` is filertag.verdicts' verdict for the category; filertag.verified); open, by `label:to_confirm`, when the entry
+    is a proposal neither confirms (Reconcile's asset types group, Approve / Choose another / Reject); open with nothing
+    when there is no entry. A person's confirmation comes first: it stands whatever the company tags."""
+    from .filertag import verified
     member = (entry or {}).get("standard_type")
     if not member:
         return state({"reason": UNMAPPED})
     if confirmed(entry):
         return state({"check": "mapping", "mapping_to": member, "reason": f"mapped to {member} with the note's words, confirmed by {entry['confirmed_by']}"})
+    if verified(entry, tag):
+        return state({"check": "mapping", "mapping_to": "filer_tag", "reason": f"{member}: the company's own XBRL tags the category's value with it, one member, in every extracted year"})
     return state({"label": "to_confirm", "reason": f"{member} proposed by {entry.get('by') or 'nobody named'}; no person has confirmed it"})
 
 
@@ -227,11 +237,13 @@ DIFFER = "fact_readings_differ"  # ties.DIFFER; the rule (rules/fact_readings_di
 
 
 def of_fact(f: dict, resolution: dict | None = None, restated: str | None = None, differ: str | None = None,
-            tie: str | None = None, reading: str | None = None) -> dict:
+            tie: str | None = None, reading: str | None = None, filer: bool = False) -> dict:
     """A `facts` row: label agree → checked by XBRL; unresolved → the restatement guard when the cell and the tag come
     from different filings (`restated` is that finding's text), else open unless resolved. no_reference (no XBRL value)
     climbs the ladder (T92, ledger/ties.py): readings across filings that differ (`differ`, the finding's text) → open by
-    rule:fact_readings_differ, explained only by a person's resolution, never by the label; else a tie that holds for its
+    rule:fact_readings_differ, explained only by a person's resolution, never by the label; else, for a PP&E category
+    the company's own tag checks (`filer`, ledger/filertag.py), checked by mapping:filer_tag: the filing's instance tags
+    this very value with the category's member, a twin, so it is never "no XBRL to compare"; else a tie that holds for its
     filing's group (`tie`, the rule id) → checked by rule:<id>_tie; else two or more filings agreeing (`reading`, the
     other filing's accession) → checked by reading:<accession>; else the label, explained, citation only."""
     label = f.get("label")
@@ -240,6 +252,8 @@ def of_fact(f: dict, resolution: dict | None = None, restated: str | None = None
         row["check"] = "xbrl"
     elif label == "no_reference" and differ:
         row |= {"rule": DIFFER, "severity": "warn", "reason": differ}
+    elif label == "no_reference" and filer:  # the category's value is in the company's own instance under its mapped member
+        row |= {"check": "mapping", "mapping_to": "filer_tag", "reason": "the company's own XBRL tags this value with the category's member"}
     elif label == "no_reference" and tie:
         row |= {"check": f"rule:{tie}", "reason": "the parts sum to the filing's tagged total"}
     elif label == "no_reference" and reading:
@@ -296,7 +310,8 @@ def evidence_gap(item: dict, ev: dict) -> str | None:
 
     What counts: checked by xbrl: an XBRL value on the row; by esef / source / actual / a tie: that key's own value,
     never the XBRL one; quote: the quote found in its text, normalised; located: both statement tables named; gate:
-    the release stage with no block item; mapping:<member>: the entry has that member and a person's confirmed_by;
+    the release stage with no block item; mapping:<member>: the entry has that member and a person's confirmed_by; mapping:filer_tag: the company tag recorded on the row
+    (`ref.filer_tag`) is the one recomputed from disk (`ev["filer_tags"]`) and is the entry's member (filertag.gap);
     definition:<name>: the ticker's entry by that name; rule:<id>: a rule on file of info severity, or a guard;
     resolution:<id>: a line with that id a person wrote; label:not_reported or label:no_reference: XBRL looked up and
     holding no value. Any other label explains nothing, and a missing lookup marker is a gap, never an empty answer."""
@@ -306,6 +321,16 @@ def evidence_gap(item: dict, ev: dict) -> str | None:
     kind, _, ident = by.partition(":")
     if not by:
         return "names no evidence"
+    if by == FILER_TAG:
+        if item["state"] != "checked":
+            return f"{by}: an answer key checks, it does not explain"
+        from .filertag import gap
+        tags = ev.get("filer_tags")
+        if tags is None:
+            return f"{by}: no company tags on file to check against"
+        name = ref.get("name") or ref.get("dimension")  # a mapping item, or a fact of the category (of_fact's filer)
+        e = (ev["asset_types"].get(ref.get("ticker")) or {}).get(name)
+        return gap(ref, e, tags.get((ref.get("ticker"), name)))
     if answer_key(by):
         if item["state"] != "checked":
             return f"{by}: an answer key checks, it does not explain"

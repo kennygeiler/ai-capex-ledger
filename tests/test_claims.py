@@ -291,6 +291,34 @@ class AppendOnly(unittest.TestCase):
             f.write_text('{"id":"F1","text":"rewritten"}\n{"id":"F2"}\n')
             self.assertEqual(len(C.append_only(f, "f.jsonl", repo)["problems"]), 2)
 
+    def test_a_merged_branch_is_checked_on_main_only(self):
+        """Two branches append in parallel; main's history (first parent) stays a prefix, an edit on main is still caught."""
+        with tempfile.TemporaryDirectory() as d:
+            repo = Path(d)
+            git = lambda *a: subprocess.run(["git", *a], cwd=repo, capture_output=True, text=True, check=True)
+            try:
+                git("init", "-q", "-b", "main")
+            except (OSError, subprocess.CalledProcessError):
+                self.skipTest("no git")
+            git("config", "user.email", "t@t")
+            git("config", "user.name", "t")
+            f = repo / "f.jsonl"
+            f.write_text('{"id":"F1"}\n')
+            git("add", "f.jsonl")
+            git("commit", "-qm", "one")
+            git("checkout", "-qb", "side")
+            f.write_text('{"id":"F1"}\n{"id":"S1"}\n')
+            git("commit", "-qam", "side")
+            git("checkout", "-q", "main")
+            f.write_text('{"id":"F1"}\n{"id":"M1"}\n')
+            git("commit", "-qam", "main")
+            subprocess.run(["git", "merge", "-q", "side"], cwd=repo, capture_output=True, text=True)
+            f.write_text('{"id":"F1"}\n{"id":"M1"}\n{"id":"S1"}\n')
+            git("commit", "-qam", "merge")
+            self.assertEqual(C.append_only(f, "f.jsonl", repo)["problems"], [])
+            f.write_text('{"id":"F1"}\n{"id":"S1"}\n')
+            self.assertEqual(len(C.append_only(f, "f.jsonl", repo)["problems"]), 2)
+
     def test_without_git_it_says_not_enforced(self):
         with mock.patch.object(C, "_git", return_value=None):
             a = C.append_only()

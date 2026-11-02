@@ -143,8 +143,13 @@ class OneMeaningPerColumn(unittest.TestCase):
         for name, rows in self.sets():
             for r in rows:
                 c, m = r["check"], r["check_method"]
-                if c == "agree" or c == "differs":
-                    self.assertEqual(status.answer_key(m), "twin", name)  # xbrl today; esef:<tag> is the same check (T40)
+                if c == "agree" or (c == "differs" and m != "rule:fact_readings_differ"):
+                    self.assertEqual(status.answer_key(m), "twin", name)  # xbrl, or mapping:filer_tag (the company's own instance); esef:<tag> is the same check (T40)
+                if r["measure"] == "derived":  # what checks the mapping, beside the value's own check
+                    self.assertEqual(r["mapping_check"] == "label:to_confirm", c == "to_confirm", (name, r["reported_name"]))
+                    self.assertEqual(r["mapping_check"] == "none", c == "unmapped", (name, r["reported_name"]))
+                else:
+                    self.assertIsNone(r["mapping_check"], name)
                 if c == "no_reference":
                     self.assertEqual(m, "label:no_reference", name)
                 if c == "unmapped":
@@ -159,6 +164,26 @@ class OneMeaningPerColumn(unittest.TestCase):
                     self.assertEqual(m == "gathered", r["source_kind"] == "gathered", name)
                 if c == "unmapped":
                     self.assertEqual((r["measure"], r["standard_type"]), ("derived", None), name)
+
+    def test_readings_differ_rows_have_two_differing_readings_and_stay_open(self):
+        """T92: a row whose check_method is rule:fact_readings_differ is a 10-K note figure read by two or more filings
+        with different values (the note extractions on file say so), and it is open (differs), never explained."""
+        f = golden.EXPECTED / "note_extractions.csv"
+        if not f.exists():
+            self.skipTest("no frozen note extractions")
+        with f.open(newline="") as fh:
+            ext = list(csv.DictReader(fh))
+        seen = 0
+        for r in frozen():
+            if r["check_method"] != "rule:fact_readings_differ":
+                continue
+            seen += 1
+            self.assertEqual((r["check"], r["source_kind"]), ("differs", "10-K note"), r)
+            field = "ppe_category" if r["category"] == "ppe_gross_by_type" else r["category"]
+            reads = [e for e in ext if (e["ticker"], e["field"], e["dimension"], e["period_end"]) == (r["ticker"], field, r["reported_name"], r["period_end"])]
+            self.assertGreaterEqual(len({e["accession"] for e in reads}), 2, r)
+            self.assertGreaterEqual(len({float(e["value"]) for e in reads}), 2, r)
+        self.assertGreater(seen, 0)  # the fixtures hold such rows (APLD "Other equipment and fixtures"): not a vacuous pass
 
     def test_the_source_is_followed(self):
         for name, rows in self.sets():
