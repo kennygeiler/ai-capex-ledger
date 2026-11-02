@@ -155,3 +155,30 @@ function skin(root) {
   root.querySelectorAll('section.card > h2:first-child').forEach((el) => { const head = h('div', {class: 'sechead'}); el.replaceWith(head); head.append(el); });
   root.querySelectorAll('section.card > .card').forEach((el) => { el.classList.remove('card'); el.classList.add('card-table-wrap'); });
 }
+
+// ── The category-mapping decision card (ledger/mapcard.py): the same on the trail and in Reconcile ──────────────
+// D is mapcard.decisions' card; `actions` (Reconcile only) is a node placed under it. Labels, values, statuses.
+const MAP_STATE = {checked: 'text-green', open: 'text-orange', blocked: 'text-red'};
+const MAP_TAG = {same: 'text-green', differs: 'text-red', ambiguous: 'text-orange', inconsistent: 'text-orange'};
+function mappingDecision(D, actions) {
+  const L = D.line || {}, P = D.proposed, T = D.tag || {};
+  const item = (title, ...body) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, title), h('div', {class: 'datagrid-content', style: 'overflow-wrap:anywhere'}, body));
+  const series = (L.series || []).map((s) => `${s.period} ${usd(s.value)}`).join(' · ');
+  const def = (m) => h('details', {class: 'mt-1'}, h('summary', {class: 'small', style: 'cursor:pointer', title: m.definition}, `${m.label} · `, h('span', {class: 'font-monospace small'}, m.member), h('span', {class: 'text-secondary'}, ` · ${m.why}`)), h('div', {class: 'small text-secondary mt-1'}, m.definition));
+  return h('div', {class: 'mapcard'},
+    h('div', {class: 'd-flex align-items-baseline flex-wrap gap-2 mb-2'}, h('span', {class: 'fw-semibold'}, D.name),
+      h('span', {class: (MAP_STATE[D.state.state] || 'text-secondary') + ' small fw-medium'}, D.state.label)),
+    h('div', {class: 'datagrid', style: '--tblr-datagrid-item-width: 16rem'},
+      item('Company line', L.latest ? [h('span', {class: 'fw-medium'}, usd(L.latest.value)), ` ${L.latest.period}`] : '—',
+        L.link ? h('a', {href: L.link, target: '_blank', rel: 'noopener', class: 'ms-2 small'}, 'Open ↗') : '',
+        series ? h('div', {class: 'small text-secondary'}, series) : ''),
+      item('Proposed', P ? [h('span', {class: 'fw-medium'}, P.label || P.member), ' ', h('span', {class: 'font-monospace small text-secondary'}, P.member),
+        P.definition ? h('div', {class: 'small mt-1'}, P.definition) : '', P.definition ? h('div', {class: 'small text-secondary'}, `Source: ${D.source}`) : ''] : h('span', {class: 'text-secondary'}, 'None')),
+      item('Company’s own tag', h('span', {class: MAP_TAG[T.status] || 'text-secondary'}, T.text),
+        T.definition && T.status === 'differs' ? h('div', {class: 'small mt-1'}, T.definition) : '',
+        T.accession ? h('div', {class: 'small text-secondary'}, `XBRL instance ${T.accession} · ${T.period_end}`) : ''),
+      item('Basis', D.basis ? `“${D.basis}”` : '—', h('div', {class: 'small text-secondary'}, [D.by, D.at].filter(Boolean).join(' · '), D.confirmed_by ? ` · confirmed ${D.confirmed_by} ${D.confirmed_at || ''}` : '')),
+      item('Alternatives', (D.alternatives || []).length ? D.alternatives.map(def) : h('span', {class: 'text-secondary'}, 'None')),
+      item('Affects', D.affects ? D.affects.text : '—')),
+    actions || '');
+}

@@ -17,7 +17,7 @@ checks every entry:
     is stale (clock.age_hours);
   - hosted_copy: no deploy record (claims/hosted.json) is stale; one from an older release, or (live) from code other
     than HEAD (a descendant that changed only claims/hosted.json is the same code), is stale. Never proven from silence;
-  - mappings_confirmed: any asset-type mapping without confirmed_by is partial.
+  - mappings_confirmed: any asset-type mapping with no confirmed_by that the company's own tag does not check is partial.
 
 live=False (docs/CLAIMS.md and every packet's LIMITATIONS.md, both hashed or diffed) leaves out the clock and HEAD:
 what depends on them reads "checked live only", stale, so the same data gives the same text at any time on any commit.
@@ -308,11 +308,31 @@ def _hosted(ctx) -> list:
 
 
 def _mappings(ctx) -> list:
+    """Asset-type mappings neither a person confirmed nor the company's own tag checks (filertag.verified), counted the
+    way the mapping stage counts them. The company tags are read from the database and the instances on disk; when the
+    database does not open, every unconfirmed mapping counts and the detail says the tags were not read."""
+    from .filertag import verdicts, verified
     from .status import confirmed
     from .taxonomy import asset_types
-    entries = [e for block in asset_types().values() if isinstance(block, dict) for e in block.values()]
-    n = sum(not confirmed(e) for e in entries)
-    return [("partial", "category mappings unconfirmed", f"{n} of {len(entries)} category mappings await a person's confirmation")] if n else []
+    types = asset_types()
+    pairs = [(t, n, e) for t, block in types.items() if isinstance(block, dict) for n, e in block.items()]
+    tags, read = {}, False
+    try:
+        import duckdb
+        con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
+        try:
+            tags, read = verdicts(con, sorted(types)), True
+        finally:
+            con.close()
+    except Exception:
+        pass
+    unconfirmed = [(t, n, e) for t, n, e in pairs if not confirmed(e)]
+    by_tag = sum(verified(e, tags.get((t, n))) for t, n, e in unconfirmed)
+    n = len(unconfirmed) - by_tag
+    if not n:
+        return []
+    how = f"; {by_tag} verified by the company's own tag" if read else "; company tags not read (no database)"
+    return [("partial", "category mappings unconfirmed", f"{n} of {len(pairs)} category mappings await a person's confirmation{how}")]
 
 
 def _golden(ctx) -> list:
@@ -422,6 +442,7 @@ WATCHED = ("'Proven'", "'proven'", "Proven · no items to review", "Outside prov
            "'Known gaps'")
 # The Python that feeds the pages: the cards' sentences and Reconcile's cause labels.
 PY_RULES = {"cards.py": (re.compile(r'(?:"text":\s*|\btext = )f?"([^"{]*)'),),
+            "mapcard.py": (re.compile(r'(?:\breturn |"text":\s*)f?"([^"{]*)'),),
             "workbench.py": (re.compile(r'CAUSES = \{(.*?)\}\n', re.S), re.compile(r'"cause_label": \{([^}]*)\}'))}
 CSS = re.compile(r"^(bg|text|fw|ms|me|mt|mb)-")
 GAPS_OWN = frozenset(STATUSES) | {"high", "medium", "low"}  # the Gaps page's own chips: the register's vocabulary, not claims

@@ -8,7 +8,7 @@ scope down, the stages across; `company()` is one company's trail; `rules()` is 
 closed, and the open items grouped by what is missing."""
 from __future__ import annotations
 
-from . import definitions, resolutions, status, store, ties
+from . import definitions, filertag, resolutions, status, store, ties
 from .notes import FIELDS as NOTE_FIELDS
 from .guards import part_year, program_words
 from .review import decisions, open_items
@@ -164,11 +164,16 @@ def company(con, ticker: str, idx: dict | None = None, defs: dict | None = None,
     tax = taxonomy_rows(con, [t])
     derived = [r for r in tax if r["measure"] == "derived"]
     entries = asset_types().get(t) or {}
+    tags = filertag.verdicts(con, [t])  # the company's own tag, read from disk: checks a proposal it matches (mapping:filer_tag)
     items = []
     for name in sorted({r["reported_name"] for r in derived}):
         e = entries.get(name)
-        st = {**status.of_mapping(e), "ref": {"ticker": t, "name": name}}
-        if st["state"] == "checked":
+        tag = tags.get((t, name))
+        st = status.of_mapping(e, tag)
+        st = {**st, "ref": {"ticker": t, "name": name, **({"filer_tag": filertag.record(tag)} if st["by"] == filertag.FILER_TAG else {})}}
+        if st["by"] == filertag.FILER_TAG:
+            it = _item(name, st, f"by {e.get('by')}; the company's own XBRL tags {tag['member']} in {len(tag['readings'])} filings' instances")
+        elif st["state"] == "checked":
             it = _item(name, st, f"by {e.get('by')}, confirmed by {e.get('confirmed_by')} {e.get('confirmed_at') or ''}".strip())
         elif e and e.get("standard_type"):
             it = _item(f"{name}: {e['standard_type']}, to confirm", st, f"proposed by {e.get('by')}; Reconcile, asset types: Approve, Edit or Reject", NEEDS["mapping_confirm"])
@@ -336,7 +341,7 @@ def evidence(con, defs: dict | None = None, log: list[dict] | None = None, types
             return [stmts.get(ref["statement_id"])]
         return planned.get((ref.get("ticker"), ref.get("text_id"), ref.get("category"), ref.get("fiscal_year"), ref.get("reported_name"))) or []
     lad = ladder(con, tickers, rset[0])  # T92: the tie groups and the readings, recomputed from what is on file
-    return {"ties": lad["groups"], "readings": {k: v["readings"] for k, v in lad.items() if k != "groups"},
+    return {"ties": lad["groups"], "readings": {k: v["readings"] for k, v in lad.items() if k != "groups"}, "filer_tags": filertag.verdicts(con, tickers),
             "definitions": definitions.load() if defs is None else defs, "rules": rule_severities(rset[0]), "resolutions": lines,
             "explains_by": {r["id"]: r.get("by") for r in rset[0] if r["check"] == "explains"},
             "person_ids": {i for i, r in lines.items() if person_wrote(r)}, "asset_types": asset_types() if types is None else types, "text": text, "quote": quote}

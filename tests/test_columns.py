@@ -143,8 +143,10 @@ class OneMeaningPerColumn(unittest.TestCase):
         for name, rows in self.sets():
             for r in rows:
                 c, m = r["check"], r["check_method"]
-                if c == "agree" or c == "differs":
+                if c == "agree" or (c == "differs" and m != "rule:fact_readings_differ"):
                     self.assertEqual(status.answer_key(m), "twin", name)  # xbrl today; esef:<tag> is the same check (T40)
+                if c == "differs" and m == "rule:fact_readings_differ":  # T92: an untagged figure read two ways (visible on a mapped row since the company's tag checks APLD's category)
+                    self.assertEqual(r["source_kind"], "10-K note", name)
                 if c == "no_reference":
                     self.assertEqual(m, "label:no_reference", name)
                 if c == "unmapped":

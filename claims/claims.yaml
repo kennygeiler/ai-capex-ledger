@@ -138,7 +138,7 @@
       - tests.test_mapper.Group.test_an_unconfirmed_entry_is_an_open_row_to_confirm
   status: partial
   gaps:
-    - "Checked covers three kinds of check: an SEC XBRL match, a tie, and a second filing."
+    - "Checked covers four kinds of check: an SEC XBRL match, a tie, a second filing, and (on a category mapping) the company's own tag."
   ticket: none
 
 - id: reconcile_causes
@@ -266,8 +266,8 @@
 
 - id: mapping_confirmed
   claim: "Category mapping confirmed"
-  where: [ledger/pages/trail.js, ledger/pages/reconcile.js, ledger/cards.py, taxonomy/asset_types.yaml]
-  shown: ["Confirmed", "Re-proposed after rejection", "not shown as the proposal; your decision is needed"]
+  where: [ledger/pages/trail.js, ledger/pages/reconcile.js, ledger/cards.py, ledger/mapcard.py, taxonomy/asset_types.yaml]
+  shown: ["Confirmed", "Re-proposed after rejection", "not shown as the proposal; your decision is needed", "To confirm", "Unmapped"]
   backed_by:
     functions: [ledger.status.confirmed, ledger.status.of_mapping, ledger.mapper.approve]
     tests:
@@ -278,6 +278,77 @@
   checks: [mappings_confirmed]
   gaps: []
   ticket: T63
+
+- id: mapping_filer_tag
+  claim: "Verified · matches company's own tag"
+  where: [ledger/mapcard.py, ledger/cards.py, ledger/filertag.py, ledger/status.py, ledger/pages/trail.js, /api/v1/proof/<ticker>, /api/v1/reconcile]
+  shown: ["Verified · matches company's own tag", "Matches company's own tag", "Same as proposed", "def verified"]
+  backed_by:
+    functions: [ledger.filertag.verdicts, ledger.filertag.verified, ledger.filertag.gap, ledger.status.of_mapping, ledger.taxonomy.to_confirm]
+    tests:
+      - tests.test_filertag.Verdict.test_one_member_every_year_is_verified
+      - tests.test_filertag.Verdict.test_ambiguous_value_match_needs_a_person
+      - tests.test_filertag.Verdict.test_a_zero_valued_category_needs_a_person
+      - tests.test_filertag.Verdict.test_inconsistent_years_need_a_person
+      - tests.test_filertag.Verdict.test_an_extension_member_needs_a_person
+      - tests.test_filertag.Verdict.test_no_instance_and_partial_and_untagged_need_a_person
+      - tests.test_filertag.Verdict.test_vacuous_inputs_never_verify
+      - tests.test_filertag.Verdict.test_only_one_verified_and_the_waiting_list_reads_it
+      - tests.test_filertag.Precedence.test_a_persons_confirmation_stands_over_the_tag
+      - tests.test_filertag.Walk.test_a_forged_filer_tag_is_rejected
+      - tests.test_filertag.Walk.test_a_tag_that_changed_on_disk_is_rejected
+      - tests.test_status.EveryCheckedRowNamesItsEvidence.test_the_company_tag_on_the_six_walks
+      - tests.test_status.EveryCheckedRowNamesItsEvidence.test_a_forged_company_tag_is_refused_by_the_walk
+      - tests.test_status.EveryCheckedRowNamesItsEvidence.test_a_stale_company_tag_is_refused_by_the_walk
+      - tests.test_status.ProofAgreesWithReconcile.test_open_counts_agree_on_the_fixtures
+  status: partial
+  gaps:
+    - "A match by value on the balance date: the company's own classification, not an audit of it; a company can tag the wrong member."
+  ticket: none
+
+- id: mapping_filer_tag_conflict
+  claim: "Company's own tag: differs, company-specific, ambiguous, by year, not tagged, not checked"
+  where: [ledger/mapcard.py, ledger/pages/reconcile.js, ledger/pages/_shared.js]
+  shown: ["Differs", "Company tags", "Differs by year", "Ambiguous", "Company-specific tag", "Not tagged", "Not compared: zero value",
+          "Not checked: instance not on file", "not every year"]
+  backed_by:
+    functions: [ledger.filertag.judge, ledger.filertag.compare, ledger.mapcard.tag_text]
+    tests:
+      - tests.test_filertag.Verdict.test_a_different_member_is_a_conflict_not_a_check
+      - tests.test_filertag.Card.test_the_card_facts_match_the_yaml_and_definitions
+  status: proven
+  gaps: []
+  ticket: none
+
+- id: mapping_fasb_definition
+  claim: "The FASB label and definition, verbatim · Source: FASB US GAAP 2025"
+  where: [ledger/pages/_shared.js, ledger/mapcard.py, taxonomy/us_gaap_members.yaml]
+  shown: ["`Source: ${D.source}`", "def member_info"]
+  backed_by:
+    functions: [ledger.mapcard.member_info, ledger.mapcard.fasb, ledger.mapcard.alternatives]
+    tests:
+      - tests.test_filertag.Card.test_the_card_facts_match_the_yaml_and_definitions
+      - tests.test_filertag.Card.test_every_allowed_member_has_its_fasb_words
+      - tests.test_filertag.Card.test_alternatives_are_the_company_tag_then_shared_words
+  status: partial
+  gaps:
+    - "Copied once from the FASB 2025 files (the sha256 of each is recorded); nothing re-reads the FASB files to check the copy."
+    - "Alternatives are a word-overlap heuristic on the FASB labels, plus the company's own tag; not a judgement."
+  ticket: none
+
+- id: mapping_affects
+  claim: "Affects N figures"
+  where: [ledger/pages/_shared.js, ledger/mapcard.py]
+  shown: ["'Affects'", "def decisions"]
+  backed_by:
+    functions: [ledger.mapcard.decisions]
+    tests:
+      - tests.test_filertag.Card.test_the_card_facts_match_the_yaml_and_definitions
+      - tests.test_status.ProofAgreesWithReconcile.test_open_counts_agree_on_the_fixtures
+  status: partial
+  gaps:
+    - "Counts the category's derived rows and shows the latest balance; it does not trace packets or charts that read the member."
+  ticket: none
 
 - id: answer_key_complete
   claim: "Answer-key values missing from the dataset = 0"

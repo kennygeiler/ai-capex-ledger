@@ -416,13 +416,14 @@ def _edit(p: Path, ticker: str, reported_name: str, change, what: str = "taxonom
 
 
 def _to_confirm(con, ticker: str) -> list[dict]:
-    """The company's reported categories whose entry has no confirmed_by (taxonomy.to_confirm), on `con` or read-only."""
+    """The company's reported categories whose entry has no confirmed_by (taxonomy.to_confirm), on `con` or read-only;
+    with the ones the company's own tag checks, which a person may still confirm."""
     if con is not None:
-        return to_confirm(con, [ticker])
+        return to_confirm(con, [ticker], with_verified=True)
     import duckdb
     c = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
     try:
-        return to_confirm(c, [ticker])
+        return to_confirm(c, [ticker], with_verified=True)
     finally:
         c.close()
 
@@ -476,45 +477,25 @@ def pending(con, tickers: list[str] | None, lines: list[dict] | None = None) -> 
 def filer_members(con, ticker: str, names: list[str]) -> dict[str, dict | None]:
     """Per reported name, what the filer itself tagged for that category: {"members": [...], "ambiguous": bool}, the
     PropertyPlantAndEquipmentByTypeAxis members whose PropertyPlantAndEquipmentGross fact in the filing's own instance
-    has the category's value (or its XBRL reference) on its balance date. Read from disk only, the distilled instances
-    (data/raw/<cik>/filings/<accession>.facts.json, what reference.dimensions.instance_facts keeps): a page read never
-    reaches the SEC. None for a name when nothing could be checked (no instance on disk for any of its filings, or the
-    query failed), which the page shows as "not checked", never as "the filer tags nothing". A zero is never matched (an
-    empty prior-year column matches every empty member), and a value two members share, or members that differ across
+    has the category's value on its balance date, over every year. A view over filertag.verdicts (one reader of the
+    instance, read from disk only: a page read never reaches the SEC). None for a name when nothing could be checked
+    (no instance on disk for any of its filings, or the query failed), which the page shows as "not checked", never as
+    "the filer tags nothing". A zero is never matched, and a value two members share, or members that differ across
     years, make the answer ambiguous: shown, never a mismatch. Members may be the filer's extension (amzn:, goog:)."""
     if not names:
         return {}
-    from .ingest.edgar import RAW
-    try:
-        rows = con.execute("""select f.dimension, f.period_end, f.value, f.reference, f.accession, d.cik from facts f join documents d on d.accession = f.accession
-                              where f.ticker = ? and f.field = 'ppe_category' and f.dimension in (select unnest(?))""", [ticker, names]).fetchall()
-    except Exception:
-        return {n: None for n in names}
-    cache: dict = {}
-    out: dict[str, dict] = {}
-    for dim, pe, val, ref, acc, cik in rows:
-        key = (cik, acc)
-        if key not in cache:
-            try:
-                f = RAW / f"{int(cik):010d}" / "filings" / f"{acc}.facts.json"
-                cache[key] = {tuple(k.split("\t")): v for k, v in json.loads(f.read_text()).items()} if f.exists() else None
-            except Exception:
-                cache[key] = None
-        inst = cache[key]
-        if inst is None:
+    from .filertag import verdicts
+    vs = verdicts(con, [ticker])
+    out: dict[str, dict | None] = {}
+    for n in names:
+        v = vs.get((ticker, n))
+        read = [r for r in (v or {}).get("readings") or [] if r.get("members") is not None]
+        if not read:
+            out[n] = None
             continue
-        want = set()
-        for x in (val, ref):
-            try:
-                if x not in (None, "") and round(float(x)) != 0:
-                    want.add(round(float(x)))
-            except (TypeError, ValueError):
-                pass
-        e = out.setdefault(dim, {"members": set(), "ambiguous": False})
-        hits = {m for (c, m, d), v in inst.items() if c == "PropertyPlantAndEquipmentGross" and m and d == str(pe) and v in want}
-        e["ambiguous"] |= len(hits) > 1
-        e["members"] |= hits
-    return {n: ({"members": sorted(out[n]["members"]), "ambiguous": out[n]["ambiguous"] or len(out[n]["members"]) > 1} if n in out else None) for n in names}
+        ms = sorted({m for r in read for m in r["members"]})
+        out[n] = {"members": ms, "ambiguous": any(len(r["members"]) > 1 for r in read) or len(ms) > 1}
+    return out
 
 
 def mismatch(member: str | None, filer: dict | None) -> bool:

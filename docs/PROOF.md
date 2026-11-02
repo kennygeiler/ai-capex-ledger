@@ -260,6 +260,47 @@ because the fix is an extraction, not a decision; the row closes when the filing
 `tests/test_status.py` asserts, on the frozen fixtures, that the Proof board's open count equals Reconcile's for every
 company in the proven set.
 
+### The company's own tag checks a category mapping (`mapping:filer_tag`, `ledger/filertag.py`)
+
+A category mapping ("Construction in progress" → `ConstructionInProgressMember`) is a classification. The filer's own
+XBRL instance often classifies the same balance: it tags `PropertyPlantAndEquipmentGross` on the balance date with a
+`PropertyPlantAndEquipmentByTypeAxis` member. When that member is exactly the one proposed, the mapping is checked by
+`mapping:filer_tag`, graded as a **twin** (`status.answer_key`): the filer's classification, in its separate
+machine-readable document. It leaves the person's queue (Reconcile, G6, the claims check) and needs no `confirmed_by`.
+
+Unambiguous means all of: every row of the category (every fiscal year it appears) has its own filing's instance on
+disk (never fetched on a read); no row is zero or missing (an empty prior-year column matches every empty member); in
+each row's instance exactly one member has the row's value on its balance date (the cell's value, never the reconcile
+reference; a total with no member never counts); that member is the same in every year; and it is a us-gaap member.
+Anything else is shown and left to a person: a different us-gaap member is a conflict ("Company tags EquipmentMember"),
+a company member ("Company-specific tag"), two members on one value ("Ambiguous"), members by year ("Differs by year"),
+tagged some years only, not tagged, a zero, or not checked (no instance on disk). A person's confirmation comes first:
+it stands whatever the company tags. Nothing is written: the verdict is recomputed from disk on every read, so a new
+filing that tags differently sends the category back to the queue.
+
+The trail item records what it rested on (`ref.filer_tag`: the member and each reading's accession, balance date, value
+and members). T80's walk (`status.evidence_gap` → `filertag.gap`) recomputes the verdict from the instances on disk and
+refuses an item whose record is missing, names another member than the entry, or differs from what is on file now
+(tests: a forged record, a record left stale by an instance that changed).
+
+What it proves, and no more: the company tagged a figure of the same value on the same date with that member, in every
+year. It is the company's own classification, not an audit of it (claims register, `mapping_filer_tag`).
+
+On the six (2 Nov 2026): of 47 mappings, 18 are checked by the company's tag (GOOGL 5, AMZN 3, NVDA 2, APLD 8), and the
+open mapping count drops 47 → 29. The other 29: 6 differ (AMZN "Other equipment", "Other assets"; APLD "Building",
+"Building improvements", "Information Systems and Software", "Networking equipment, electrical equipment, and
+software"), 7 carry a company member every year (AMZN "Servers and networking equipment", NVDA 2, APLD 4), 3 a company
+member in FY2023 only (GOOGL "Technical infrastructure", "Office space", "Corporate and other assets", whose later cells
+differ from the tag), and 13 are not tagged with the value (all 6 MSFT, all 5 AMD, AMZN "Equipment", GOOGL "Add: assets
+not yet in service").
+
+**The decision card** (`ledger/mapcard.py`, `decisions(con, ticker)`) is the one function the trail's Category mapping
+section and Reconcile's asset types group read: the company line (latest balance, the years, Open ↗ to the cell), the
+proposed member with its FASB label and definition verbatim from `taxonomy/us_gaap_members.yaml` ("Source: FASB US GAAP
+2025"), the company's own tag, the basis, up to three alternatives (the company's own us-gaap tag when it differs, then
+members whose FASB label shares words with the reported name, said as such), and what it affects (the category's derived
+rows and the latest balance). Reconcile adds Approve · Choose another · Reject through the T63 routes.
+
 ## The stages, and what proven means at each
 
 | Stage | Item | Checked by | Explained by | Open when |
@@ -268,7 +309,7 @@ company in the proven set.
 | Values | a value per field and year | the SEC's XBRL | a definition (cost lines, revenue line), a restatement rule, `not_reported` (no line, no tag) | `unresolved`, or `not_extracted` (no cell read while XBRL tags a value) |
 | Facts | a fact per segment or category and year | the filing's instance (concept and member named); for an untagged one, a tie to the filing's tagged total or a second filing agreeing (T92) | a restatement between filings, an untagged line read once | `unresolved` with no explanation; an untagged line whose readings differ across filings; a group of parts that does not tie to its total |
 | Statements | a quote | the text it came from, verbatim | scope, period and part-year tags set by rule | a part-year or program statement without its tag |
-| Mapping | a reported asset type | the us-gaap member it maps to, with the note's words and a person's `confirmed_by` (`taxonomy/asset_types.yaml`, T63) | nothing: a mapping is checked or open | a reported category with no mapping, or an entry no person confirmed (`label:to_confirm`, also a G6 failure) |
+| Mapping | a reported asset type | the us-gaap member it maps to, with the note's words and a person's `confirmed_by` (`taxonomy/asset_types.yaml`, T63), or the company's own XBRL tagging exactly that member, unambiguously (`mapping:filer_tag`, below) | nothing: a mapping is checked or open | a reported category with no mapping, or an entry neither a person nor the company's tag checks (`label:to_confirm`, also a G6 failure) |
 | Planned | a guidance statement, a project | the text, verbatim | part-year and program tags (types 68, 69) | never: a verbatim row is what it is |
 | Release | the company's rows | the gates, per company (`release.gates`: G1 failures, G4 blocks, G5 hand-check, G6 decisions a run left to confirm and asset-type mappings no person confirmed) | resolutions written as definitions | any `blocks`, any gate row failing |
 

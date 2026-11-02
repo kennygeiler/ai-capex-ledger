@@ -17,10 +17,12 @@ from ledger.config import PROVEN
 
 SCRIPT = """
 import json, duckdb
-from ledger import app, proof, store, taxonomy, workbench
+from ledger import app, cards, filertag, proof, store, taxonomy, workbench
 from ledger.config import PROVEN
 con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
 b = proof.board(con)
+tags = filertag.verdicts(con, PROVEN)
+ver = lambda t, n: filertag.verified((taxonomy.asset_types().get(t) or {}).get(n), tags.get((t, n))) and not ((taxonomy.asset_types().get(t) or {}).get(n) or {}).get("confirmed_by")
 it = workbench.items(con, app.flow("all"))
 print(json.dumps({"proof": {c["ticker"]: c["open"] for c in b["proven"]}, "proof_total": b["open"], "keys": b["keys"],
                   "company_keys": {c["ticker"]: c["keys"] for c in b["proven"]}, "stage_rows": {c["ticker"]: sum(s["items"] for s in c["stages"].values()) for c in b["proven"]},
@@ -30,15 +32,22 @@ print(json.dumps({"proof": {c["ticker"]: c["open"] for c in b["proven"]}, "proof
                   "by": sorted({r["by"].split(":")[0] for r in it["rows"] if r["ticker"] in PROVEN}),
                   "mapping_open": {c["ticker"]: len(c["stages"]["mapping"]["open"]) for c in b["proven"]},
                   "mapping_to_confirm": {c["ticker"]: sum(i["by"] == "label:to_confirm" for i in c["stages"]["mapping"]["open"]) for c in b["proven"]},
-                  "mapping_checked_unconfirmed": {c["ticker"]: sum(i["state"] == "checked" for i in c["stages"]["mapping"]["all"]) - sum(1 for e in (taxonomy.asset_types().get(c["ticker"]) or {}).values() if (e or {}).get("confirmed_by")) for c in b["proven"]},
+                  "mapping_checked_unconfirmed": {c["ticker"]: sum(i["state"] == "checked" for i in c["stages"]["mapping"]["all"]) - sum(1 for n, e in (taxonomy.asset_types().get(c["ticker"]) or {}).items() if (e or {}).get("confirmed_by") or ver(c["ticker"], n)) for c in b["proven"]},
                   "waiting": {t: len(taxonomy.to_confirm(con, [t])) + len(taxonomy.unmapped(con, [t])) for t in PROVEN},
                   "open_names": {c["ticker"]: sorted(i["name"] for i in c["stages"]["mapping"]["open"]) for c in b["proven"]},
                   "waiting_names": {t: sorted([u["reported_name"] for u in taxonomy.to_confirm(con, [t])] + [u["reported_name"] for u in taxonomy.unmapped(con, [t])]) for t in PROVEN},
                   "checked_names": {c["ticker"]: sorted(i["name"] for i in c["stages"]["mapping"]["all"] if i["state"] == "checked") for c in b["proven"]},
-                  "confirmed_names": {c["ticker"]: sorted(i["name"] for i in c["stages"]["mapping"]["all"] if (e := (taxonomy.asset_types().get(c["ticker"]) or {}).get(i["name"])) and e.get("standard_type") and e.get("confirmed_by")) for c in b["proven"]},
+                  "confirmed_names": {c["ticker"]: sorted(i["name"] for i in c["stages"]["mapping"]["all"] if (e := (taxonomy.asset_types().get(c["ticker"]) or {}).get(i["name"])) and e.get("standard_type") and (e.get("confirmed_by") or ver(c["ticker"], i["name"]))) for c in b["proven"]},
+                  "filer_names": {c["ticker"]: sorted(i["name"] for i in c["stages"]["mapping"]["all"] if i["by"] == "mapping:filer_tag") for c in b["proven"]},
+                  "verified_names": {t: sorted(n for (tt, n) in tags if tt == t and ver(t, n)) for t in PROVEN},
+                  "tax_filer_mapped": {t: sorted({r["reported_name"] for r in taxonomy.rows(con, [t]) if r["measure"] == "derived" and r["mapped"] and ver(t, r["reported_name"])}) for t in PROVEN},
+                  "reconcile_asset_names": {t: sorted(r["where"] for r in it["rows"] if r["cause"] == "asset_types" and r["ticker"] == t) for t in PROVEN},
+                  "card_parity": (lambda trail_cards, rec_cards: {"compared": len(rec_cards), "differ": sorted(k for k in rec_cards if trail_cards.get(k) != rec_cards[k])})(
+                      {(t, i["name"]): i["decision"] for t in PROVEN for i in cards.add(con, proof.company(con, t))["stages"]["mapping"]["all"]},
+                      {(r["ticker"], r["where"]): r["evidence"]["decision"] for r in it["rows"] if r["cause"] == "asset_types" and r["ticker"] in PROVEN}),
                   "to_confirm_names": {t: sorted(u["reported_name"] for u in taxonomy.to_confirm(con, [t])) for t in PROVEN},
                   "tax_to_confirm": {t: sorted({r["reported_name"] for r in taxonomy.rows(con, [t]) if r["check"] == "to_confirm" and not r["mapped"]}) for t in PROVEN},
-                  "tax_mapped_unconfirmed": sum(1 for t in PROVEN for r in taxonomy.rows(con, [t]) if r["measure"] == "derived" and r["mapped"] and not ((taxonomy.asset_types().get(t) or {}).get(r["reported_name"]) or {}).get("confirmed_by")),
+                  "tax_mapped_unconfirmed": sum(1 for t in PROVEN for r in taxonomy.rows(con, [t]) if r["measure"] == "derived" and r["mapped"] and not ((taxonomy.asset_types().get(t) or {}).get(r["reported_name"]) or {}).get("confirmed_by") and not ver(t, r["reported_name"])),
                   "to_confirm": {t: len(taxonomy.to_confirm(con, [t])) for t in PROVEN}}))
 """
 
@@ -393,13 +402,13 @@ if plant == "no_instance":  # a fact's filing instance absent: its no_reference 
         x.unlink()
     print(json.dumps({"accession": acc}))
 if plant == "mapping":  # (b) every entry forced to checked, confirmed_by or not
-    status.of_mapping = lambda e: status.state({"check": "mapping", "mapping_to": e["standard_type"]}) if (e or {}).get("standard_type") else status.state({})
+    status.of_mapping = lambda e, tag=None: status.state({"check": "mapping", "mapping_to": e["standard_type"]}) if (e or {}).get("standard_type") else status.state({})
 if plant == "claude":  # (b) a hand edit confirmed_by: Claude on every entry, and the stage forced to checked as well
     real_types = proof.asset_types
     types = {t: {n: {**e, "confirmed_by": "Claude"} for n, e in es.items()} for t, es in real_types().items()}
     proof.asset_types = lambda *a, **k: types
     print(json.dumps({"checked_by_claude": sum(status.of_mapping(e)["state"] == "checked" for es in types.values() for e in es.values())}))
-    status.of_mapping = lambda e: status.state({"check": "mapping", "mapping_to": e["standard_type"]}) if (e or {}).get("standard_type") else status.state({})
+    status.of_mapping = lambda e, tag=None: status.state({"check": "mapping", "mapping_to": e["standard_type"]}) if (e or {}).get("standard_type") else status.state({})
 if plant in ("resolution", "gemini"):  # (c) a resolution not on file; one on file by a name off config.PEOPLE, on a fact only its citation backs (T92: a tie or a second reading would check it first)
     con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
     r0 = next(i["ref"] for t in proof.PROVEN for i in proof.company(con, t)["stages"]["facts"]["all"] if i["by"] == "label:no_reference")
@@ -428,6 +437,22 @@ if plant == "tie_on_untied":  # T92: a part checked by rule:ppe_categories_tie, 
     it.update(state="checked", by="rule:ppe_categories_tie", key="tie")
     it["ref"]["tie"] = {"rule": "ppe_categories_tie", "key": g["key"], "accession": g["accession"], "concept": g["concept"], "total": g["total"], "sum": g["total"], "tolerance": g["tolerance"], "dimensions": g["dimensions"]}
     print(json.dumps({"untied": [g["ticker"], g["key"]]}))
+if plant == "filer_forged":  # a mapping the company's tag does not verify (it tags another member), forced to mapping:filer_tag with a made-up record
+    it = next(i for c in cos for i in c["stages"]["mapping"]["all"] if i["by"] == "label:to_confirm" and c["ticker"] == "AMZN" and i["name"] == "Other equipment")
+    member = types_now = proof.asset_types()["AMZN"]["Other equipment"]["standard_type"]
+    it.update(state="checked", by="mapping:filer_tag", key="twin")
+    it["ref"]["filer_tag"] = {"member": "us-gaap:" + member, "readings": [{"accession": "0001018724-26-000004", "period_end": "2025-12-31", "value": 63376000000, "members": ["us-gaap:" + member]}]}
+    it2 = next(i for c in cos for i in c["stages"]["mapping"]["all"] if i["by"] == "label:to_confirm" and c["ticker"] == "MSFT")  # no record at all
+    it2.update(state="checked", by="mapping:filer_tag", key="twin")
+if plant == "filer_stale":  # a verified mapping whose filing's instance on disk now tags another member: the row's record is stale
+    it = next(i for c in cos if c["ticker"] == "NVDA" for i in c["stages"]["mapping"]["all"] if i["name"] == "Construction in process")
+    assert it["by"] == "mapping:filer_tag", it["by"]
+    acc = it["ref"]["filer_tag"]["readings"][-1]["accession"]
+    from ledger.ingest.edgar import RAW
+    for f in RAW.glob(f"*/filings/{acc}.facts.json"):
+        d = json.loads(f.read_text())
+        d = {k.replace("us-gaap:ConstructionInProgressMember", "us-gaap:BuildingMember"): v for k, v in d.items()}
+        f.write_text(json.dumps(d))
 if plant == "reading_once":  # T92: a second reading resting on one filing
     it = next(i for c in cos for i in c["stages"]["facts"]["all"] if i["by"] == "label:no_reference")
     it.update(state="checked", by="reading:0000000000-00-000000", key="second_reading")
@@ -438,6 +463,7 @@ rung = lambda i: i["key"] if i["key"] in RUNGS else i["by"]
 untagged = [(c["ticker"], i) for c in cos for i in c["stages"]["facts"]["all"] if not i["ref"].get("finding") and rung(i) in RUNGS]
 print(json.dumps({"untagged": len(untagged), "ladder": {k: sum(1 for _, i in untagged if rung(i) == k) for k in RUNGS},
                   "differ": [[t, i["what"]] for t, i in untagged if i["by"] == "rule:fact_readings_differ"]}))
+print(json.dumps({"filer_tagged": sum(1 for c in cos for i in c["stages"]["mapping"]["all"] if i["by"] == "mapping:filer_tag")}))
 print(json.dumps({"gaps": proof.unevidenced(con, companies=cos),
                   "nr_open": [[c["ticker"], i["what"], i["state"]] for c in cos for i in c["stages"]["values"]["all"] if i["by"] == "label:not_reported" and i["state"] != "explained"],
                   "walked": sum(1 for c in cos for s in c["stages"].values() for i in s["all"] if i["state"] in ("checked", "explained")),
@@ -535,6 +561,25 @@ class EveryCheckedRowNamesItsEvidence(unittest.TestCase):
         self.assertGreater(lad["tie"], 0)
         self.assertGreater(lad["second_reading"], 0)
         self.assertEqual(sorted(r["differ"]), [["APLD", "ppe_category Other equipment and fixtures FY2024: readings differ"], ["APLD", "ppe_category Other equipment and fixtures FY2025: readings differ"]])
+
+    def test_the_company_tag_on_the_six_walks(self):
+        """mapping:filer_tag on the fixtures: every category the company's own tag checks has its record on the row and
+        the walk recomputes it from the instances on disk without a gap."""
+        r = self.walk("none")
+        self.assertEqual(r["gaps"], [])
+        self.assertGreater(r["filer_tagged"], 0)
+
+    def test_a_forged_company_tag_is_refused_by_the_walk(self):
+        gaps = self.walk("filer_forged")["gaps"]
+        self.assertEqual(sorted((g["ticker"], g["by"]) for g in gaps), [("AMZN", "mapping:filer_tag"), ("MSFT", "mapping:filer_tag")], gaps)
+        amzn = next(g for g in gaps if g["ticker"] == "AMZN")
+        self.assertIn("not the ones on file", amzn["gap"])  # on file the company tags EquipmentMember, not the forged member
+        self.assertIn("no company tag recorded", next(g for g in gaps if g["ticker"] == "MSFT")["gap"])
+
+    def test_a_stale_company_tag_is_refused_by_the_walk(self):
+        gaps = self.walk("filer_stale")["gaps"]
+        self.assertEqual([(g["ticker"], g["stage"], g["by"]) for g in gaps], [("NVDA", "mapping", "mapping:filer_tag")], gaps)
+        self.assertIn("on file the company's tag is inconsistent", gaps[0]["gap"])  # FY2026 now reads BuildingMember: members differ by year
 
     def test_planted_gate_on_another_stage(self):
         gaps = self.walk("gate")["gaps"]
@@ -655,7 +700,16 @@ class ProofAgreesWithReconcile(unittest.TestCase):
         self.assertEqual(r["open_names"], r["waiting_names"])  # the same names, not just the same counts
         self.assertEqual(r["checked_names"], r["confirmed_names"])
         self.assertEqual(r["tax_to_confirm"], r["to_confirm_names"])  # T63: the taxonomy rows say to_confirm, mapped false, for exactly those entries
-        self.assertEqual(r["tax_mapped_unconfirmed"], 0)  # the exported rows never say mapped on an unconfirmed entry
+        self.assertEqual(r["tax_mapped_unconfirmed"], 0)  # the exported rows never say mapped on an entry neither a person nor the company's tag checks
+        # the company's own tag (ledger/filertag.py): Proof, the taxonomy rows, the waiting list (G6) and Reconcile read one verdict
+        self.assertEqual(r["filer_names"], r["verified_names"])
+        self.assertEqual(r["tax_filer_mapped"], r["verified_names"])
+        self.assertEqual(r["reconcile_asset_names"], r["open_names"])
+        self.assertTrue(all(not (set(r["verified_names"][t]) & set(r["waiting_names"][t])) for t in PROVEN))
+        self.assertGreater(sum(len(v) for v in r["verified_names"].values()), 0)  # the fixtures hold verified categories: not a vacuous parity
+        # the decision card: the trail (Category mapping) and Reconcile (asset types) show the same card, from mapcard.decisions
+        self.assertGreater(r["card_parity"]["compared"], 0)
+        self.assertEqual(r["card_parity"]["differ"], [])
         self.assertTrue(all(n <= 0 for n in r["mapping_checked_unconfirmed"].values()), r["mapping_checked_unconfirmed"])  # never more checked than confirmed entries
         self.assertTrue(set(r["states"]) <= set(status.STATES) | {"to confirm"}, r["states"])  # "to confirm": T3's group, the decisions a run left for a person (decisions/ is in the root since T31)
         # T56: on the board, rows by key grade sum to the denominator, per company and in total; a keyed item is on its trail

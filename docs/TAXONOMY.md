@@ -54,8 +54,9 @@ Asset types: the member the company tags. Where the company tags its own extensi
 the note, and maps it to the nearest standard `us-gaap` member (`TechnologyEquipmentMember`, `ComputerEquipmentMember`,
 `LandAndBuildingsMember`, `ConstructionInProgressMember`, ...) as a second column, `standard_type`, with the mapping
 written in `taxonomy/asset_types.yaml` and the note's own words as the evidence. A mapping is a classification
-against a published list, recorded; it is never a number. It counts as checked only when a person confirmed it
-(`confirmed_by`, `confirmed_at` on the entry, T63); until then it is a proposal, open on Proof and a G6 failure, and
+against a published list, recorded; it is never a number. It counts as checked when a person confirmed it
+(`confirmed_by`, `confirmed_at` on the entry, T63), or when the company's own XBRL instance tags the category with exactly
+the proposed us-gaap member, unambiguously, every year (`mapping:filer_tag`, docs/PROOF.md); otherwise it is a proposal, open on Proof and a G6 failure, and
 its taxonomy rows read `mapped` false and `check` to_confirm (`check_method` label:to_confirm), with the proposed member
 in `standard_type`. An entry with no `standard_type` is no mapping: unmapped. The filer's own tagged member, where it tags a
 us-gaap one, is shown beside the proposal on Reconcile and a difference is flagged (on the six, 1 Nov 2026: Amazon tags

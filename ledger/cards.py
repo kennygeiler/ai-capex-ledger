@@ -96,6 +96,9 @@ def _how(it: dict, name: str, defs: dict, found_value=None) -> dict:
         return {"tone": "ok", "text": "Income statement and cash-flow statement located"}
     if by == "gate":
         return {"tone": "ok", "text": "No blocking items"}
+    if by == "mapping:filer_tag":
+        tag = ref.get("filer_tag") or {}
+        return {"tone": "ok", "text": f"Matches company's own tag: {tag.get('member') or ''}".rstrip(": ")}
     if by.startswith("mapping:"):
         return {"tone": "ok", "text": f"Confirmed: {by.split(':', 1)[1]}"}
     if by == "label:no_reference":
@@ -164,15 +167,20 @@ def add(con, trail: dict) -> dict:
                       "where": [{"label": f"{(s['kind'] or 'source').replace('_', ' ')} dated {str(s['date'] or '')[:10]}", "link": quote_link(s["url"], s["quote"]), "shot": None}] if s and s.get("url") else [],
                       "how": _how(it, name, defs)}
 
-    # category labels: the company's label and the proposed standard category
+    # category labels: the company's label and the proposed standard category, and the decision card (ledger/mapcard.py,
+    # the same function Reconcile's asset types group reads)
+    from .mapcard import decisions
     from .taxonomy import asset_types
     entries = asset_types().get(t) or {}
-    for it in stages.get("mapping", {}).get("all", []):
+    mapping_items = stages.get("mapping", {}).get("all", [])
+    dec = decisions(con, t, [it.get("name") for it in mapping_items]) if mapping_items else {}
+    for it in mapping_items:
         e = entries.get(it.get("name")) or {}
         member = e.get("standard_type")
         found = f"“{it.get('name')}” → {member}" if member else f"“{it.get('name')}” → unmapped"
         where = [{"label": f"Basis: {e['evidence']}", "link": None, "shot": None}] if e.get("evidence") else []
         it["card"] = {"found": found, "where": where, "how": _how(it, name, defs)}
+        it["decision"] = dec.get(it.get("name"))
 
     # plans and projects: the quote, opened at its words
     from .taxonomy import rows as taxonomy_rows

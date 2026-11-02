@@ -47,9 +47,8 @@ async function reconcilePage(view, qs) {
   const isOpen = (r) => !!r.open;  // the server's word (row.open: open or blocked), never recomputed here
   const toConfirm = (r) => r.cause === 'to_confirm';
   const isAsset = (r) => r.cause === 'asset_types';  // T33: an unmapped asset type with the mapper's proposal; T63: or an entry no person confirmed. Approve, Edit or Reject
-  // the filer's own tag (mapper.filer_members): null = not checked (no instance on disk), never shown as "tags nothing"
-  const filerText = (F) => !F ? 'not checked: the filer’s XBRL instance is not on disk' : !F.members.length ? 'nothing for this category in its XBRL' : (F.ambiguous ? 'ambiguous: ' : '') + F.members.join(', ');
-  const filerNote = (r) => { const F = r.evidence.filer; return F && F.members.length ? h('div', {class: 'small ' + (r.evidence.mismatch ? 'text-red' : 'text-secondary'), title: r.evidence.mismatch ? 'the filer tagged this category with a different us-gaap member in its own XBRL' : 'what the filer tagged in its own XBRL'}, (r.evidence.mismatch ? 'differs from the filer: ' : 'filer tags ') + filerText(F)) : ''; };
+  // the company's own tag (mapcard.decisions' card, ledger/filertag.py): a different us-gaap member is a conflict
+  const filerNote = (r) => { const T = (r.evidence.decision || {}).tag; if (!T) return ''; return T.status === 'differs' ? h('div', {class: 'small text-red', title: T.text}, `Company tags ${T.member.replace('us-gaap:', '')}`) : h('div', {class: 'small text-secondary'}, T.text); };
   let rows = d.rows.filter((r) => withResolved || isOpen(r) || toConfirm(r));
   if (fCause) rows = rows.filter((r) => r.cause === fCause);
   if (fLayer) rows = rows.filter((r) => r.layer === fLayer);
@@ -176,24 +175,40 @@ async function reconcilePage(view, qs) {
       }}, 'Reject');
       btns.push(approve, reject);
     }
-    const edit = h('button', {type: 'button', class: 'btn btn-sm ' + (P ? 'btn-outline-secondary' : 'btn-primary'), title: 'Choose the member yourself: opens the form', onclick: (e) => { e.stopPropagation(); toggle(i, true); const s = trs[i].detail.querySelector('select'); if (s) s.focus(); }}, P ? 'Edit' : 'Map');
+    const edit = h('button', {type: 'button', class: 'btn btn-sm ' + (P ? 'btn-outline-secondary' : 'btn-primary'), title: 'Choose another member: opens the decision card', onclick: (e) => { e.stopPropagation(); toggle(i, true); const s = trs[i].detail.querySelector('select'); if (s) s.focus(); }}, P ? 'Choose another' : 'Map');
     btns.push(edit);
     return [h('div', {class: 'btn-list flex-nowrap'}, btns), status];
   }
-  function mappingForm(r) {
-    const P = r.evidence.proposal;
-    const members = (d.members || []).filter((m) => !(r.evidence.rejected || []).includes(m));
-    const select = h('select', {class: 'form-select form-select-sm', 'aria-label': 'us-gaap member'}, members.map((m) => h('option', {value: m, selected: P && P.standard_type === m ? true : null}, m)));
-    if (P && !members.includes(P.standard_type) && d.members.includes(P.standard_type)) select.prepend(h('option', {value: P.standard_type, selected: true}, P.standard_type));
-    const evidence = h('input', {type: 'text', class: 'form-control form-control-sm', name: 'evidence', autocomplete: 'off', 'aria-label': 'Evidence: the note’s words', placeholder: 'the note’s own words for what the category holds', value: P ? P.evidence : r.evidence.reported_name, onkeydown: (e) => { if (e.key === 'Enter') save.click(); }});
+  // The decision card's actions (the card is mapcard.decisions', shared with the trail): Approve · Choose another · Reject,
+  // through the same routes as the row's buttons (POST /api/mapping, /api/mapping/reject); the person check is the server's.
+  function mappingActions(r) {
+    const P = r.evidence.proposal, D = r.evidence.decision || {};
     const status = h('span', {class: 'text-secondary small', 'aria-live': 'polite'});
-    const save = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: (me || '').trim() ? '' : 'type your name in the signer box first', onclick: async () => {
-      if (!evidence.value.trim()) { evidence.focus(); status.textContent = 'The evidence is required: the note’s words.'; return; }
-      save.disabled = true;
-      await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: select.value, evidence: evidence.value, by: me}, status, 'Mapped.');
-      save.disabled = !(me || '').trim();
-    }}, (me || '').trim() ? `Write as ${me}` : 'Write'));
-    return h('div', {class: 'row g-2 align-items-center'}, h('div', {class: 'col-12 col-xl-4'}, select), h('div', {class: 'col'}, h('div', {class: 'input-group input-group-sm'}, evidence, save)), h('div', {class: 'col-12 small text-secondary'}, `“${r.evidence.reported_name}” → the member, in taxonomy/asset_types.yaml with by and confirmed_by: ${me} and today’s date${r.evidence.mapping === 'to_confirm' ? ', replacing the proposal' : ''}; then rerun `, h('code', {}, 'ledger rules'), ' (or any taxonomy read) and the row shows mapped.'), h('div', {class: 'col-12'}, status));
+    const rejected = r.evidence.rejected || [];
+    const opts = (D.members || (d.members || []).map((m) => ({member: m, label: m}))).filter((m) => !rejected.includes(m.member) && (!P || m.member !== P.standard_type));
+    const select = h('select', {class: 'form-select form-select-sm', 'aria-label': 'Another us-gaap member'}, opts.map((m) => h('option', {value: m.member}, `${m.label} · ${m.member}`)));
+    const evidence = (P && P.evidence) || r.evidence.reported_name;
+    const btns = [];
+    if (P) {
+      const approve = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-primary', title: (me || '').trim() ? `${P.standard_type}, confirmed_by ${me}` : 'type your name in the signer box first', onclick: async () => {
+        approve.disabled = true;
+        if (!await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, evidence, by: me}, status, 'Confirmed.')) approve.disabled = !(me || '').trim();
+      }}, 'Approve'));
+      btns.push(approve);
+    }
+    const choose = needsMe(h('button', {type: 'button', class: 'btn btn-sm btn-outline-primary', title: (me || '').trim() ? `the selected member, confirmed_by ${me}` : 'type your name in the signer box first', onclick: async () => {
+      choose.disabled = true;
+      if (!await postMapping('/api/mapping', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: select.value, evidence, by: me}, status, 'Mapped.')) choose.disabled = !(me || '').trim();
+    }}, P ? 'Choose another' : 'Map'));
+    btns.push(h('div', {class: 'input-group input-group-sm flex-nowrap', style: 'width:auto;max-width:30rem'}, select, choose));
+    if (P) {
+      const reject = h('button', {type: 'button', class: 'btn btn-sm btn-outline-secondary', title: `${P.standard_type}: rejected`, onclick: async () => {
+        reject.disabled = true;
+        if (!await postMapping('/api/mapping/reject', {ticker: r.ticker, reported_name: r.evidence.reported_name, standard_type: P.standard_type, by: me, reason: 'rejected on Reconcile'}, status, 'Rejected.')) reject.disabled = false;
+      }}, 'Reject');
+      btns.push(reject);
+    }
+    return h('div', {class: 'mt-3'}, h('div', {class: 'd-flex flex-wrap align-items-center', style: 'gap:.5rem'}, btns), status);
   }
   // T36: an explanation written once. The server decides what an item may become (row.encode, judgement.offers): a rule
   // names the finding's rule, its field and the whole lines the company reads it from; a definition names the company and
@@ -292,25 +307,15 @@ async function reconcilePage(view, qs) {
     } else if (r.cause === 'new_filing') {
       cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-body'}, `${E.form} filed ${day(E.filed)}. `, h('a', {href: E.url, target: '_blank', rel: 'noopener'}, 'Open at the SEC')))));
     } else if (isAsset(r)) {
-      const P = E.proposal, N = E.note;
-      const item = (title, ...body) => h('div', {class: 'datagrid-item'}, h('div', {class: 'datagrid-title'}, title), h('div', {class: 'datagrid-content', style: 'overflow-wrap:anywhere'}, body));
-      const filer = item('The filer tags', h('span', {class: E.mismatch ? 'text-red' : (E.filer && E.filer.members.length ? '' : 'text-secondary')}, filerText(E.filer)), E.mismatch ? h('div', {class: 'small text-secondary'}, 'a different us-gaap member in the filer’s own XBRL; Edit to use it, or Approve if the proposal is right') : '');
-      cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0', style: 'overflow-wrap:anywhere'}, P ? (E.mapping === 'to_confirm' ? `${P.by || 'Someone'} wrote ${P.standard_type}; nobody confirmed it` : `The mapper proposed ${P.standard_type}`) : 'No proposal on file')),
-        h('div', {class: 'card-body py-2'}, P && E.mapping === 'to_confirm' ? h('div', {class: 'datagrid'},
-          item('Evidence', `“${P.evidence || ''}”`),
-          item('Written by', `${P.by || ''}, ${P.at || ''}, in taxonomy/asset_types.yaml with no confirmed_by`),
-          filer) : P ? h('div', {class: 'datagrid'},
-          item('Evidence, the note’s words', `“${P.evidence}”`),
-          item('Confidence', h('span', {class: 'text-secondary'}, P.confidence)),
-          item('Reason', P.reason || ''),
-          item('Proposed by', `${P.model || ''} ${P.prompt_version || ''}, ${day(P.at)}`), filer) : h('p', {class: 'm-0 small text-secondary'}, 'Run ', h('code', {}, `uv run python -m ledger mapper ${r.ticker}`), ' for a proposal, or map it yourself below.'),
-          E.rejected && E.rejected.length ? h('p', {class: 'small text-secondary mt-2 mb-0'}, `Rejected before: ${E.rejected.join(', ')}`) : '',
-          E.reproposed && E.reproposed.length ? h('p', {class: 'small text-orange mt-1 mb-0', title: 'T100: a proposal of a member you already rejected is never current; approve or edit to decide afresh'}, `Re-proposed after rejection: ${E.reproposed.join(', ')} (not shown as the proposal; your decision is needed)`) : ''))));
-      cards.push(col(6, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'The note’s words'), N ? h('span', {class: 'ms-2 small text-secondary'}, `${N.table_id}, filing ${N.accession}`) : ''),
+      const N = E.note;
+      cards.push(col(8, h('div', {class: 'card'}, h('div', {class: 'card-body py-3'}, E.decision ? mappingDecision(E.decision, mappingActions(r)) : mappingActions(r),
+        E.rejected && E.rejected.length ? h('p', {class: 'small text-secondary mt-2 mb-0'}, `Rejected before: ${E.rejected.join(', ')}`) : '',
+        E.reproposed && E.reproposed.length ? h('p', {class: 'small text-orange mt-1 mb-0', title: 'T100: a proposal of a member you already rejected is never current; approve or edit to decide afresh'}, `Re-proposed after rejection: ${E.reproposed.join(', ')} (not shown as the proposal; your decision is needed)`) : ''))));
+      cards.push(col(4, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'The note’s words'), N ? h('span', {class: 'ms-2 small text-secondary'}, `${N.table_id}, filing ${N.accession}`) : ''),
         h('div', {class: 'card-body py-2'}, h('p', {class: 'm-0 small'}, N && N.before ? `…${N.before}` : 'The parsed note is not on disk for this clone; the category name is all the note’s words we have.'), h('div', {class: 'mt-2'}, h('a', {href: `#proof/${r.ticker}`, class: 'small'}, 'The company’s trail'))))));
     }
     const decision = isAsset(r)
-      ? h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Map it: the member and the note’s words, written under your name')), h('div', {class: 'card-body py-2'}, mappingForm(r))))
+      ? ''
       : h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, toConfirm(r) ? 'Overturn: your own decision' : 'Decision'), r.resolution && !toConfirm(r) ? h('span', {class: 'ms-2 small text-secondary'}, `${RES_LABEL[r.resolution.state]} by ${r.resolution.by}, ${day(r.resolution.at)}: ${r.resolution.reason}`) : ''), h('div', {class: 'card-body py-2'}, resolutionForm(r))));
     const once = canEncode(r) ? h('div', {class: 'col-12'}, h('div', {class: 'card'}, h('div', {class: 'card-header py-2'}, h('h3', {class: 'card-title m-0'}, 'Write it once'), h('span', {class: 'ms-2 small text-secondary'}, 'a decision closes this item; a rule or a definition closes the cause on every run')), h('div', {class: 'card-body py-2'}, encodePanel(r)))) : '';
     return h('div', {class: 'row g-3'}, cards, decision, once);
