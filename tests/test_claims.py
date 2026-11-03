@@ -98,7 +98,11 @@ class Compute(unittest.TestCase):
 
     def test_the_real_register_today(self):
         rows = {r["id"]: r for r in C.computed(live=False)}
-        self.assertEqual(rows["gold_error_rate"]["status"], "stub")  # 0 of 120 verdicts
+        from ledger.review import gold
+        items = [i for d in gold.load_checked()[0].values() for i in d["items"]]
+        given = sum(gold.has_verdict(i) for i in items)  # Kenny gives verdicts over time: stub at 0, partial until all 120
+        self.assertEqual(rows["gold_error_rate"]["status"], "stub" if not given else "partial" if given < len(items) else rows["gold_error_rate"]["status"])
+        self.assertNotEqual(rows["gold_error_rate"]["status"], "proven" if given < len(items) else None)
         self.assertEqual(rows["hosted_copy"]["status"], "stale")     # no deploy record
         self.assertEqual(rows["edgar_checked"]["status"], "stale")   # freshness is checked live only
         self.assertNotEqual(rows["golden_equal"]["status"], "proven")  # gold unverified is never a golden pass
