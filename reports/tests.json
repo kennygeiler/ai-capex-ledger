@@ -1,14 +1,17 @@
 {
- "ok": true,
- "count": 696,
- "failures": [],
+ "ok": false,
+ "count": 697,
+ "failures": [
+  "tests.test_claims.Doc.test_a_stale_or_union_merged_claims_doc_blocks_signing: AssertionError: 'fail' != 'pass'",
+  "tests.test_claims.Doc.test_claims_md_is_current: AssertionError: '# Cl[536 chars]ial 33 \u00b7 stale 3 \u00b7 stub 2 \u00b7 planned 3 \u00b7 open f[27615 chars] |\\n' != '# Cl[536 chars]ial 35 \u00b7 stale 3 \u00b7 stub 0 \u00b7 planned 3 \u00b7 open f[27555 chars] |\\n'"
+ ],
  "skipped": 1,
  "skipped_ids": [
   "tests.test_publish_pg.RetypeUnderAView.test_text_column_becomes_boolean_although_current_view_depends_on_it"
  ],
  "golden": true,
- "at": "2026-11-03T02:07:14+00:00",
- "git": "0c4bf89",
+ "at": "2026-11-03T17:10:29+00:00",
+ "git": "821f923",
  "dirty": false,
- "seconds": 155.2
+ "seconds": 115.4
 }
