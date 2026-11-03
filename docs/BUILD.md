@@ -31,7 +31,7 @@ tests that prove it), a declared status, its gaps and the ticket that closes the
 
 - proven: built, tested, and the evidence walk passes.
 - partial: works, with the gaps listed.
-- stub: exists, not yet real (for example the gold error rate with 0 of 120 verdicts).
+- stub: exists, not yet real (for example a gold error rate with no verdicts given).
 - stale: depends on an input that is out of date (the EDGAR check, the hosted copy).
 - planned: not built.
 

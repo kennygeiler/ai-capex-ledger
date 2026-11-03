@@ -761,3 +761,20 @@
     - "Located says the cited text sits at that row and column; it does not check the scale, the sign or the period."
     - The pictures are not in git; a clone or the hosted copy shows the crop's state until `ledger evidence --crops` runs.
   ticket: none
+
+- id: docs_section
+  claim: "Docs · the repository's own documentation, read-only; the glossary and the rules page written from code"
+  where: [ledger/web/pages/docs.js, ledger/web/pages/_markdown.js, ledger/web/docs.py, ledger/web/app.html, ledger/web/app.py, /api/v1/docs, /docs/<NAME>.md, docs/OVERVIEW.md, docs/OPERATIONS.md]
+  shown: ["Docs pages", "Written from code on every request", "data-nav=\"docs\">Docs"]
+  backed_by:
+    functions: [ledger.web.docs.read, ledger.web.docs.glossary, ledger.web.docs.rules_page, ledger.web.docs.page]
+    tests:
+      - tests.test_docs.Http.test_every_sidebar_page_loads
+      - tests.test_docs.Http.test_doc_route_serves_top_level_md_only
+      - tests.test_docs.Links.test_overview_and_operations_links_resolve
+      - tests.test_docs.Glossary.test_every_state_word_is_defined
+      - tests.test_docs.Voice.test_shown_docs_carry_no_chat_voice
+  status: partial
+  gaps:
+    - The hand-written docs are checked for links and voice, not sentence by sentence against the code; a figure quoted in a doc is as of the commit that wrote it.
+  ticket: none

@@ -5,7 +5,7 @@ signs a release from the app, and the app has shown them everything that could m
 works: the proven set only (`config.PROVEN`); the other companies stay in the database and leave the UI, the packet and the
 published tables. Scale after.*
 
-Decisions folded in (1 Nov, Kenny + review):
+Decisions folded in (1 Nov, the owner + review):
 - The scope is the six proven companies, AMD included: six are proven and golden-green, dropping to five discards finished work.
 - The other companies are hidden behind `SCOPE`, never deleted: re-ingesting them costs thirty minutes and agent time.
 - Order: A, then C, then B. The schema changes before the first release signed from the app, so no signature lands on a shape
@@ -16,14 +16,14 @@ Decisions folded in (1 Nov, Kenny + review):
 - A second reviewer is a ticket (T34). One person signing their own work stays a weakness until then.
 - Production rails (auth, decisions in Postgres, the self-hosted runner, the hosted copy on Postgres) start after T6.
 
-**Order against the calendar** (Kenny, 2 Nov: "build ASML to the full bar as company 8, add a score per agent, I want to
-get to 100 companies"; the Arctal call is 11/12 Nov). Before the call, three tracks in parallel after C and B:
+**Order against the calendar** (the owner, 2 Nov: ASML built to the full bar as company 8, a score per agent, and the set widened to
+100 companies; the Arctal call is 11/12 Nov). Before the call, three tracks in parallel after C and B:
 1. C merged and golden re-frozen → B (T5–T6, sign v1.8.0 from the app). Everything else branches from here.
 2. Scale track: T33 mapping assistant → T36 resolve-by-rule → T37 bulk with preview, each measured by T35/T38, then T52 in
    batches (7, 10, 25, 50, 100), golden green per batch, each batch run planned around the session limit (resets 1:30am ET).
 3. Source track: T40 vocabulary → T44 spike as the first step of T45 → T45 ASML in PROVEN as company eight.
 4. Agents track: T48 charters and section → T49 score per agent.
-Then T41, T42, T43 if time. After the call: T45 (Kenny, 1 Nov: the spike plus a measured error rate before the call, the full source after), T46, T47 as picked. Group J (measured rigor, the judgement ledger) and the day-by-day rollout are at the end of the file. T51 (the name) whenever Kenny names it, last.
+Then T41, T42, T43 if time. After the call: T45 (the owner, 1 Nov: the spike plus a measured error rate before the call, the full source after), T46, T47 as picked. Group J (measured rigor, the judgement ledger) and the day-by-day rollout are at the end of the file. T51 (the name) whenever the owner names it, last.
 The honest estimate against this order is at the end of F.
 
 Each ticket: why, done when, what it touches. Order within a group is the order to do them. A ticket is closed by a commit that
@@ -50,7 +50,7 @@ open). Until these agree, no page can say whether a release is signable.
   table reads `SCOPE`; the jump box only offers scoped companies; "The other 94" line goes. The database keeps every company. Done
   when `/api/v1/*` with no filter returns scoped rows only and `#data` shows six companies.
 - **T3 The 7 unconfirmed decisions.** `decisions/resolutions.jsonl` has 7 rows "for Kenny Geiler to confirm" from the
-  replication run. Surface them on Reconcile as their own group, first; Kenny confirms or overturns each; the Release page
+  replication run. Surface them on Reconcile as their own group, first; the owner confirms or overturns each; the Release page
   blocks while any remain. Done when zero remain and the Release page shows the check.
 - **T4 Gates per company in scope.** `release.gates()` runs for every company in `SCOPE`, not the proven set alone, and reports
   per company. Done when `ledger release` prints a per-company table and refuses on any failing row.
@@ -102,7 +102,7 @@ vocabularies; 2,404 rows unmapped; 1,029 rows with no value. Schema version 11, 
 5. `ledger rules` on the six, then `ledger golden --freeze` in its own commit whose message says which columns changed and why,
    then `golden --check` equal.
 6. `python -m ledger.core.store` regenerates `docs/DATA_DICTIONARY.md`; `docs/TAXONOMY.md` and `docs/API.md` say the new columns.
-7. `ledger release v1.8.0 --stage 3`, unsigned, in its own commit; Kenny signs from the Release page (T6).
+7. `ledger release v1.8.0 --stage 3`, unsigned, in its own commit; the owner signs from the Release page (T6).
 Each commit passes the full test suite; the branch merges to main as one merge commit named "Schema v11: one shape a stranger
 can read (T9–T18)". A reviewer agent reads the whole diff against the ticket list before the merge.
 
@@ -157,7 +157,7 @@ can read (T9–T18)". A reviewer agent reads the whole diff against the ticket l
   prompt history opens inline.
 
 ### Reconcile
-- **T24 Plain causes and a real gap.** Cause names in words ("the filing renamed the category", "our cell is the segment, the
+- **T24 Plain causes and a real gap.** Cause names in words ("the filing renamed the category", "the ledger's cell is the segment, the
   tag is the total"); the gap bar gets a zero and a scale or goes; "at stake" names what it sums. Each item says what accepting,
   fixing, explaining or blocking does to the dataset.
 
@@ -238,12 +238,12 @@ before scale is attempted; T35 measures it.
 **Estimate against the calendar (2 Nov, nine days to the call).** Fits: C and B (two days), T33 + T36 + T37 (three days,
 parallel with the source and agents tracks), T48 (one day), T49 (one to two days if `faults` and `status` give the numbers;
 they do), T52 to 100 in scope with honest states (the data is there; mapping and reconcile are the cost: with T33 at fifteen
-person-minutes per company that is a day of Kenny's time across the batches, plus agent runs around the session limit).
+person-minutes per company that is a day of the owner's time across the batches, plus agent runs around the session limit).
 Critical path: C → B → T33 → batches. Breaks: (1) T45 ASML to the full bar: a non-EDGAR PDF, an ESEF package reader, a new
 reader agent with a charter, schema v12, ties, golden; five to seven days of one builder with nothing else; it fits only if it
-starts the day B merges and nothing in the PDF or the ESEF package fights back; the T44 spike on day one tells us by day two.
+starts the day B merges and nothing in the PDF or the ESEF package fights back; the T44 spike on day one settles it by day two.
 (2) The proven count at 100: honest expectation is 25 to 40 proven by the call, the rest open with named causes; a hundred
-proven is not a nine-day number. (3) Kenny's minutes: T52 and the 7 confirmations are his, not an agent's. (4) The session
+proven is not a nine-day number. (3) the owner's minutes: T52 and the 7 confirmations are his, not an agent's. (4) The session
 limit: batch runs of 25+ companies take more than one window.
 
 ## G. How the work runs: the swarm
@@ -346,11 +346,11 @@ who changed it, a run ledger, and, after the call, a score.
   run's date and says when the file is newer.
 - **T50 Charter before code.** The rule under G: a new source or agent starts with its charter file; the reviewer refuses a reader
   diff without one.
-- **T51 The name (Kenny decides).** After T48. Council advice given to Kenny: for this audience a name for the method beats a
+- **T51 The name (the owner decides).** After T48. Council advice given to the owner: for this audience a name for the method beats a
   personal name; his call. Change the page title, nav, README, HANDOFF and the hosted service label; redeploy the read-only copy.
   Done when the name appears everywhere and the hosted copy shows it.
 
-## J. Measured rigor and the judgement ledger (council round 2, 1 Nov; Kenny: yes)
+## J. Measured rigor and the judgement ledger (council round 2, 1 Nov; the owner: yes)
 
 *Where this comes from.* Arctal's infra engineer role is filled; the data scientist runs the pipeline on new data and owns the
 judgement ("last line of defense", "validation logic that encodes your judgement"). Definitions belong to a domain expert; the
@@ -358,7 +358,7 @@ data scientist builds the system that surfaces each question, routes it to the r
 it alive as new filings arrive. What the demo must show: (1) how wrong the data is, measured with denominators, and (2) the
 economics of human judgement (expert minutes per thousand data points). The weak spots today: 10-K data that is already XBRL
 ("you checked easy data"), the retired 993/1,218 headline with no per-agent denominator, and a UI that pitches the filled role.
-The demo leads with measurement, not pages. Kenny accepted the trade (1 Nov): T45 ASML to the full bar moves after the call;
+The demo leads with measurement, not pages. The owner accepted the trade (1 Nov): T45 ASML to the full bar moves after the call;
 the T44 spike plus a measured unkeyed error rate on it (T53) is the ASML deliverable before the call. Group D (pages) stays in
 the file and off the calendar.
 
@@ -367,8 +367,8 @@ the file and off the calendar.
   Unkeyed: a stratified random sample of cells from a source with no key, the ASML FY2025 ESEF report first (the KPI table, the
   note roll-forwards, long tables oversampled), written to `reports/samples/asml-esef.json` with the page and the cell text; a
   Reconcile group "audit" where a person records a verdict per cell (right / wrong / cannot say, with a note) to
-  `decisions/audit.jsonl`; the error rate with n and the interval on the Agents section, labelled "unkeyed, Kenny's verdicts".
-  Owner of the verdicts: Kenny (~100–150 cells, about an hour). Touches rules.js, workbench.py, reconcile.js (after T37),
+  `decisions/audit.jsonl`; the error rate with n and the interval on the Agents section, labelled "unkeyed, the owner's verdicts".
+  Owner of the verdicts: the owner (~100–150 cells, about an hour). Touches rules.js, workbench.py, reconcile.js (after T37),
   ledger/spikes/esef.py for the sample. Done when the Agents section shows ASML's unkeyed error rate with n and the interval.
   *As built (keyed), 1 Nov:* `ledger/core/stats.py` (`wilson(k, n, z=1.96)`, `share(k, n)`, standard library, None when n is 0);
   `score.twin` carries `interval: [low, high]` (fractions, 4 dp) from its own `agree` / `of`, one interval on the sum over the
@@ -421,10 +421,10 @@ the file and off the calendar.
   with `release=` is 400; every field of a year comes from the one newest filing by the day, as `values_for` does. *Vintage check (from the
   vendor-methodology audit):* only the newest vintage is reconciled against XBRL. AT&T revenue FY2022: `values` 120,741,000,000,
   `first_reported` 120,741,000, `basis` restated; the first 10-K's cell `120,741` was read against a `(000s)` unit line (scale 1,000) where the
-  later 10-Ks say `(000,000)`: a 1000× misread, not a restatement, and `as_of=2023-06-30` would serve $120.7m as truth. Tonight: every PIT row
+  later 10-Ks say `(000,000)`: a 1000× misread, not a restatement, and `as_of=2023-06-30` would serve $120.7m as truth. As built: every PIT row
   carries `vintage_check` (the `values` label for the accession it checked; `unchecked` for every older vintage), `api.AS_OF_NOTE` is the
   response note (added by the Handler at the merge), and the no-lookahead test asserts every row
-  carries it and no row reads checked unless it is the newest filing's figure. No per-vintage reconciliation was invented tonight.
+  carries it and no row reads checked unless it is the newest filing's figure. No per-vintage reconciliation was invented.
 - **T55b Per-vintage reconciliation.** Each older extraction checked against the XBRL facts of its own accession (companyfacts holds every
   filing's tags under `accn`): `restated` only when both vintages agree with their own filing's tags; a vintage that disagrees with its own tags
   is `misread`, an open item on Reconcile with the cell and the tag, and `basis` / `first_reported` on `values` follow (a misread first vintage
@@ -451,8 +451,8 @@ the file and off the calendar.
   key words read from `key_grade`, which `proof.KEY_GRADE` ships on the board and on a trail.
 - **T57 Judgement ledger.** A question is grouped by cause, not by cell (workbench groups by cause already). *T57a:* a
   resolution carries `owner_role` (data / expert / client) and `scope` (this company / this class / all companies); coverage =
-  the cells and companies the cause governs, shown on the group; Reconcile groups by owner role; Kenny plays each role,
-  labelled honestly ("Kenny as the expert"). Touches resolutions.py, workbench.py, reconcile.js (after T37). *T57b:* evidence[]
+  the cells and companies the cause governs, shown on the group; Reconcile groups by owner role; the owner plays each role,
+  labelled honestly ("the owner as the expert"). Touches resolutions.py, workbench.py, reconcile.js (after T37). *T57b:* evidence[]
   on a resolution, each item supports / contradicts with its source; new supporting evidence attaches quietly; contradicting
   evidence re-opens the question and routes it to its owner role; out-of-scope evidence asks "extend?". Builds on the input-hash
   expiry, T34, T36, T37. T57b needs a second source that does not exist yet: T42 (8-K Ex 99.1) first; ships only if T42 lands by
@@ -462,10 +462,10 @@ the file and off the calendar.
   own, wrong as a series (the AMD class found in the replication run; the attribution layer that found it was removed in
   2ee2e6f, so first check whether the fixtures still hold the case; if not, the ticket records that and builds the fixture
   first). Done when the rule catches the archived AMD case from fixtures.
-- **T59 Week-one memo (no code).** `reports/arctal-week-one.md`: how Kenny would audit Arctal's Green & Transition CapEx on day
+- **T59 Week-one memo (no code).** `reports/arctal-week-one.md`: how the owner would audit Arctal's Green & Transition CapEx on day
   one: the sampling plan (T53's method), the failure classes to expect (T54's), key independence (T56), point-in-time (T55),
-  expert minutes per thousand data points (T35/T38). An agent drafts from the repo's own numbers; Kenny edits and owns it. Done
-  when Kenny has edited it.
+  expert minutes per thousand data points (T35/T38). An agent drafts from the repo's own numbers; the owner edits and owns it. Done
+  when the owner has edited it.
 
 - **T60 Reader consistency (pass^k).** For a stratified sample of tasks per live reader (not every company: each run is a
   subscription call), the same task runs k = 3 times at the production settings. Per reader and field: pass@k (at least one
@@ -479,7 +479,7 @@ the file and off the calendar.
   checked rate, from score.py's states); `use_prompt` refuses the promotion when any field regresses beyond its interval. The
   result is written next to the prompt, `agents/evals/<id>@vN-vM.json`, and `agents.json`'s history line names it. Done when
   promoting a prompt without a passing paired run is refused, shown on one real version pair (notes@v2 → v3 or aispend@v3 → v4).
-  Placed after T53 keyed (day 2, late). (Both from Kenny's evals checklist, 1 Nov: the other thirteen points are covered by
+  Placed after T53 keyed (day 2, late). (Both from the owner's evals checklist, 1 Nov: the other thirteen points are covered by
   T54, golden, faults, the deterministic checks, the runs table, T53, T30, the watch, T38 and the failures-to-fixtures loop.)
 
 **Fixes found by the overnight audits (1 Nov night; verified in the code or the database by the planning session, confirmed by
@@ -521,7 +521,7 @@ the builder before fixing). Not new scope: each is a defect in approved work, fi
   already new, idempotent); the T3 and gate tests moved to the new shape. Fast suite 274 OK, golden equal. Reconcile's "to
   confirm" rows now print `field period (rule)` from the parsed key. The `asset_types|ticker|name` rows (T33) keep their own
   two-pipe key: not a queue item, not read by resolutions.
-- **T63 Mappings are proposals until a person confirms them.** *Done 1 Nov 2026 (branch `t63-mappings-proposals`): `status.confirmed` (a field check on `confirmed_by`) and `status.of_mapping` decide the Mapping stage; the 47 entries are open as to confirm and fail G6 until Kenny confirms them on Reconcile, asset types; proven on the six went from 6 to 0 for that reason alone. The filer's tagged member is shown and a us-gaap mismatch flagged (6 of 47: AMZN 2, APLD 4; the audit's claim holds); storing it on the row is T74.* All 47 entries in taxonomy/asset_types.yaml are `by: Claude
+- **T63 Mappings are proposals until a person confirms them.** *Done 1 Nov 2026 (branch `t63-mappings-proposals`): `status.confirmed` (a field check on `confirmed_by`) and `status.of_mapping` decide the Mapping stage; the 47 entries are open as to confirm and fail G6 until the owner confirms them on Reconcile, asset types; proven on the six went from 6 to 0 for that reason alone. The filer's tagged member is shown and a us-gaap mismatch flagged (6 of 47: AMZN 2, APLD 4; the audit's claim holds); storing it on the row is T74.* All 47 entries in taxonomy/asset_types.yaml are `by: Claude
   Fable 5.1` and nobody confirmed them; Proof counts an entry as checked, so the six's Mapping stage is proven on model
   judgement alone, against the thesis. Fix, inside T33's design: an entry without `confirmed_by` is a proposal; the Reconcile
   "asset types" group shows it with Approve / Edit / Reject (Approve writes `confirmed_by`, `confirmed_at`); the
@@ -530,7 +530,7 @@ the builder before fixing). Not new scope: each is a defect in approved work, fi
   (reference/dimensions.instance_facts reads it and discards it) beside each proposal and flag a mismatch (the audit reports
   AMZN FY2025 EquipmentMember / OtherCapitalizedPropertyPlantAndEquipmentMember and APLD BuildingMember /
   SoftwareAndSoftwareDevelopmentCostsMember differing from the yaml: verify against the instances first). The six's proven
-  count drops until Kenny confirms (~15 minutes, 47 clicks, on the morning list); the README says so. Workbench lane, after T62.
+  count drops until the owner confirms (~15 minutes, 47 clicks, on the morning list); the README says so. Workbench lane, after T62.
 - **T64 The packet says what ships, and one restatement threshold.** The packet README documents `first_reported` and
   `citations` on values.csv, which v1.6.0–v1.8.0's values.csv does not carry (checklist.py's C7 loop writes api.fetch("values"),
   which drops them and the null not_reported rows). Fix before v1.9.0: either api.fetch("values") gains first_reported, filed,
@@ -601,7 +601,7 @@ the builder before fixing). Not new scope: each is a defect in approved work, fi
   acquisition caption, a one-column table, a pair whose net income does not tie to the cash-flow statement's), or a
   second candidate pass that re-scores when the reader refuses the statement; re-read AMD headless; golden re-frozen in
   its own commit. Done when AMD FY2022 revenue and opex are filled and agree with XBRL and the six read 6 of 6. Not built
-  tonight (found by T65).
+  in the same pass (found by T65).
 - **T66 The manifest states what produced the rows.** checklist.py writes the current prompt_version(), PARSER_VERSION and
   model(), not what produced the shipped rows: v1.8.0 claims statements@v2 / tables@15 / claude-opus-5-5, while 84 shipped
   statement cells were read under statements@v1 and 379 of 393 filings were parsed with tables@12; 13 statement outputs have no
@@ -633,27 +633,27 @@ the builder before fixing). Not new scope: each is a defect in approved work, fi
   "misread" = open item; the no-lookahead test also asserts no as-of answer serves an unchecked vintage. Golden re-freeze in
   its own commit. Folded in: `misread` vs `restated` is the vocabulary (VP2); 45 `values` rows read restated today without this check.
 
-**Rollout to the call (agreed 1 Nov, both sessions; Kenny: yes).** One builder per file at a time: workbench.py + reconcile.js
+**Rollout to the call (agreed 1 Nov, both sessions; the owner: yes).** One builder per file at a time: workbench.py + reconcile.js
 go T33 → T36 → T37 → T57a → T53 audit, strictly sequential; status.py T56 → T57a; proof.py/proof.js T56 → T54; rules.js T49 →
 T53; api.py/release.py T55 alone; resolutions.py T57a alone. Parallel lanes: the workbench lane, T55, T54, T42, the T52 batch runs.
-- Night 1 (1→2 Nov): merge T49, T30, T44, T33 after review; T56; T54; T55. Kenny in the morning: approve MU's asset-type
+- Night 1 (1→2 Nov): merge T49, T30, T44, T33 after review; T56; T54; T55. The owner in the morning: approve MU's asset-type
   proposals (T35's stopwatch starts).
 - Day 2 (2 Nov): T36, T37, T53 keyed interval, T61 prompt gate, T35 Micron → PROVEN 7, `reports/company-cost.md` first row.
 - Day 3 (3 Nov): T57a, T42, T52 batch to 10.
-- Day 4 (4 Nov): T53 unkeyed audit view + ASML sample; Kenny audits (~1 h); batch 25 (runs around the 1:30am ET limit).
+- Day 4 (4 Nov): T53 unkeyed audit view + ASML sample; the owner audits (~1 h); batch 25 (runs around the 1:30am ET limit).
 - Day 5 (5 Nov): T57b if T42 landed; T60 pass^k sample (one session window); T41 if slack.
-- Days 6–7 (6–7 Nov): batches 50 and 100 with honest states; cost curve in the report. Kenny: bulk approvals by cause, 2–3 h in
+- Days 6–7 (6–7 Nov): batches 50 and 100 with honest states; cost curve in the report. The owner: bulk approvals by cause, 2–3 h in
   total with T37's preview.
 - Day 8 (8 Nov): T59 draft; T58 only if a day is free; feature freeze.
-- Day 9 (9 Nov): v1.9.0 built; Kenny confirms what is his and signs from the Release page; hosted redeploy; T59 edited.
+- Day 9 (9 Nov): v1.9.0 built; the owner confirms what is his and signs from the Release page; hosted redeploy; T59 edited.
 - Day 10 (10 Nov): rehearsal, buffer. Nothing new after day 9. Call 11/12 Nov.
-Kenny's minutes: MU mappings ~15 min, audit ~1 h, batch approvals 2–3 h spread over days 3–7, confirmations ~30 min, memo ~2 h,
+The owner's minutes: MU mappings ~15 min, audit ~1 h, batch approvals 2–3 h spread over days 3–7, confirmations ~30 min, memo ~2 h,
 sign 5 min: about seven hours over nine days. What breaks: T57b depends on T42; batch runs over 25 need more than one session
 window; the proven count at 100 is 25–40 honest-proven with the rest open under named causes; the 993/1,218 headline is retired.
-Overnight rules: never sign v1.9.0, never publish, no paid API, no decision confirmed in Kenny's name (a "Kenny in the morning"
+Overnight rules: never sign v1.9.0, never publish, no paid API, no decision confirmed in the owner's name (a "the owner in the morning"
 list in the commit message instead), two builders never hold one file.
 
-## K. The discipline audits' tickets (Kenny, 2 Nov: "fold everything we need to change into tickets")
+## K. The discipline audits' tickets (the owner, 2 Nov: "fold everything we need to change into tickets")
 
 *Copied from `docs/DISCIPLINES.md` (the audits and their root cause live there; this is the ticket list).*
 
@@ -682,20 +682,20 @@ are listed at the end.
   where XBRL holds a value is either in the dataset or an open item; a silent blank is a release failure. A required
   checklist line counts "answer-key values missing from the dataset" and must read 0, open items aside. Builds on T65.
   Done when the line reads 0 on the six, and deleting one extracted value in a test turns it red. About ½ day.
-- **T82 A gold set separate from golden.** [root cause, LB4] *Done 2 Nov 2026, infrastructure; verdicts pending (branch `t82-gold-set`): `ledger/review/gold.py`, `ledger gold --draw | --status`, `gold/<TICKER>.json` for the six (10 values + 10 facts each, 6 facts untagged, seed GOLDEN_SEED|v1.9.0|ticker), the Gold set section on Proof with Right / Wrong / Can’t say and a note (`POST /api/gold/verdict`, `by` on config.PEOPLE, lock + temp file + os.replace), `ledger golden --check` compares every verdict with the run's tables and reports the rest as unverified, error rate with n and a Wilson interval. `tests/test_gold.py`: a planted change fails, the frozen Amazon blank fails, the route refuses a non-person. Kenny's ~1 hour of verdicts is still to do.* Golden stays the regression snapshot ("nothing changed").
+- **T82 A gold set separate from golden.** [root cause, LB4] *Done 2 Nov 2026, infrastructure; verdicts pending (branch `t82-gold-set`): `ledger/review/gold.py`, `ledger gold --draw | --status`, `gold/<TICKER>.json` for the six (10 values + 10 facts each, 6 facts untagged, seed GOLDEN_SEED|v1.9.0|ticker), the Gold set section on Proof with Right / Wrong / Can’t say and a note (`POST /api/gold/verdict`, `by` on config.PEOPLE, lock + temp file + os.replace), `ledger golden --check` compares every verdict with the run's tables and reports the rest as unverified, error rate with n and a Wilson interval. `tests/test_gold.py`: a planted change fails, the frozen Amazon blank fails, the route refuses a non-person. The owner's ~1 hour of verdicts is still to do.* Golden stays the regression snapshot ("nothing changed").
   `gold/` holds a hand-verified sample per proven company: about 10 values and 10 facts per company, stratified across
-  fields, years and the untagged notes, each verified by Kenny against the filing with right / wrong / can't say and a
+  fields, years and the untagged notes, each verified by the owner against the filing with right / wrong / can't say and a
   note. `ledger golden --check` also compares the live tables with `gold/` and fails on any disagreement, so a frozen
   error cannot pass twice. The spot-check seed includes the release version, so the sample moves. Done when `gold/`
   covers the six, the check fails on a planted change to a gold value, and the frozen Amazon blank (before T65) would
-  have failed it. About ½ day of build plus about an hour of Kenny's verdicts.
+  have failed it. About ½ day of build plus about an hour of the owner's verdicts.
 - **T67 Faults that matter: omissions, wrong tables, systematic errors, XBRL off.** [MR1, root cause] Add fault kinds:
   the reader returns nothing for a field; the locator picks the wrong table (income ↔ cash flow); the same wrong row,
   column or scale in every year of a company. Run the full set twice, with `xbrl_reconcile` counted and with it
   removed, and report catch rate per kind with denominators on the Agents section. Done when the report shows how
   much of the catch rate depends on XBRL, every escape with XBRL off is a row in `taxonomy/limitations.yaml` (T68), and
   the omission and wrong-table kinds are caught (by T81 and the T65 locator rule). About 1 day.
-- **T68 Limitations and methodology in every release.** [MR2, VP7, DQ6] *Done 2 Nov 2026 (branch `t68-limitations`): `taxonomy/limitations.yaml` holds 11 entries (id, weakness, rows, mitigation, closes; `ledger/release/limitations.py` refuses one missing a field), 8 of them with counts computed at build time from the fault reports, failures.yaml, asset_types.yaml, config and the packet's own CSVs; `release.build` and `checklist.packet` write `LIMITATIONS.md` (intended use and not for use, the table, cadence, corrections, support = the signer in SIGNOFF.json); the README lists it; the checklist's informational line "Limitations with no mitigation" reads 2 (survivor bias, monitoring). QUALITY.md's wording was already right after T64; the `to_check` docstring and the README's QUALITY.md line were fixed. v1.9.0 is not built here: it carries the file when Kenny signs.* `taxonomy/limitations.yaml`: id, the weakness,
+- **T68 Limitations and methodology in every release.** [MR2, VP7, DQ6] *Done 2 Nov 2026 (branch `t68-limitations`): `taxonomy/limitations.yaml` holds 11 entries (id, weakness, rows, mitigation, closes; `ledger/release/limitations.py` refuses one missing a field), 8 of them with counts computed at build time from the fault reports, failures.yaml, asset_types.yaml, config and the packet's own CSVs; `release.build` and `checklist.packet` write `LIMITATIONS.md` (intended use and not for use, the table, cadence, corrections, support = the signer in SIGNOFF.json); the README lists it; the checklist's informational line "Limitations with no mitigation" reads 2 (survivor bias, monitoring). QUALITY.md's wording was already right after T64; the `to_check` docstring and the README's QUALITY.md line were fixed. v1.9.0 is not built here: it carries the file when the owner signs.* `taxonomy/limitations.yaml`: id, the weakness,
   rows affected (count), mitigation, the ticket that would close it. Seed: T67's escapes, "the answer key comes from the
   same filer", "one person builds, decides and signs", "N companies not proven", "the universe is today's AI-relevant
   names, survivor-biased for backtests", "45 failure types have no catching check" (T54), "interpretive fields of
@@ -712,7 +712,7 @@ are listed at the end.
   empty only with a stated reason ("output predates _run"). Derived rows add `source_prior` and `formula`, their `check`
   is the worse of the two balances', and a change across a gap year or a restated prior balance is flagged, never
   silently computed. Statements, facts and projects rows carry `prompt_version`. The proven companies' statement
-  filings with no `_run` are rerun or labelled (Kenny decides; a rerun costs subscription time). Done when the MSFT
+  filings with no `_run` are rerun or labelled (the owner decides; a rerun costs subscription time). Done when the MSFT
   "Buildings and improvements" FY2025 change can be followed from the CSV alone and a test plants a gap year. About 1 day.
 - **T71 One key per list, enforced.** [DQ2, DC4, DC3] A stable `row_id` (hash of the row's identity plus source and
   quote) on taxonomy and ai_spend; `statement_id` and `project_id` from content, not position; `release.ROW_KEYS`,
@@ -726,18 +726,18 @@ are listed at the end.
   v1.9.0's DIFF names them as breaking. Done when a test shows a packet that drops a column cannot sign as minor.
   About ½ day.
 
-- **T100 A late writer never overwrites a newer state.** [memory checklist's deletion test; Kenny: "Sure send it"] *Done 2 Nov 2026 (branch `t69-t100-authors-late-writers`): (1) the three loaders refuse an output whose task_sha is not the current task's (`agent.stale`), logged as their failure class, and `ledger rules` keeps those failures; (2) `mapper.by_name` never makes a re-proposed rejected member current (`reproposed`, shown on Reconcile) and ignores proposals after an approval (`late`); (3) `resolutions.latest` keeps a person line over a later run line on the same key and hash; tests in `tests/test_late_writers.py` and test_resolutions Authors. The check refused 7 stale AMZN/AMD notes outputs (INGESTION.md 74): golden red until `ledger notes --run --ticker AMZN AMD` and a re-freeze.* Three
+- **T100 A late writer never overwrites a newer state.** [memory checklist's deletion test; the owner: "Sure send it"] *Done 2 Nov 2026 (branch `t69-t100-authors-late-writers`): (1) the three loaders refuse an output whose task_sha is not the current task's (`agent.stale`), logged as their failure class, and `ledger rules` keeps those failures; (2) `mapper.by_name` never makes a re-proposed rejected member current (`reproposed`, shown on Reconcile) and ignores proposals after an approval (`late`); (3) `resolutions.latest` keeps a person line over a later run line on the same key and hash; tests in `tests/test_late_writers.py` and test_resolutions Authors. The check refused 7 stale AMZN/AMD notes outputs (INGESTION.md 74): golden red until `ledger notes --run --ticker AMZN AMD` and a re-freeze.* Three
   places, from reading the code: (1) `extract`/`notes`/`aispend --load` never compare an output's `_run.task_sha` with the
   current task file, so an answer to a repacked task (T65 re-pointed AMZN's income table) still loads, guarded only by
   citation re-resolution; (2) `mapper.by_name`: the latest `proposed` line wins and a rejection clears a proposal only if it
-  came before it, so a delayed proposal of a member Kenny rejected becomes current again; (3) resolutions: the latest line per
-  key wins, so a run-written "to confirm" line after Kenny's decision supersedes it. Fix: every agent write carries the
+  came before it, so a delayed proposal of a member the owner rejected becomes current again; (3) resolutions: the latest line per
+  key wins, so a run-written "to confirm" line after the owner's decision supersedes it. Fix: every agent write carries the
   fingerprint of what it was built from (task_sha; the asset-type entry's hash; the item hash plus the latest resolution id);
   the loader refuses or routes to review on a mismatch and logs it; a proposal of a rejected member is never current and shows
   as "re-proposed after rejection"; a run line never supersedes a person line (T69 author_kind; fold together if they share
   files). Done when three tests pass: repack a task then load the old output → refused; reject a mapping then append a delayed
-  proposal of the same member → not current; Kenny decides a key then a run writes "to confirm" → Kenny's decision stands.
-  About half a day. Lanes: (1) ingest; (2) and (3) workbench after T63. Before Kenny approves and rejects during the batches.
+  proposal of the same member → not current; the owner decides a key then a run writes "to confirm" → the owner's decision stands.
+  About half a day. Lanes: (1) ingest; (2) and (3) workbench after T63. Before the owner approves and rejects during the batches.
 
 ### K2: before the call if a slot frees
 
@@ -790,7 +790,7 @@ are listed at the end.
   re-validate). About 1½ days.
 - **T86 Interpretive fields sampled.** [MR7] About 60 AI-spend and projects rows from the six join the T53 audit:
   `kind`, `scope`, `fiscal_year`, amount vs share against the quote; error rate per field with n and interval. About
-  ½ day plus 45 minutes of Kenny's verdicts.
+  ½ day plus 45 minutes of the owner's verdicts.
 - **T87 Validation pack.** [MR8] `docs/VALIDATION.md` laid out like an SR 11-7 validation report, from T67–T86 and
   EVALS, stated as a self-validation, with the commands an independent validator would re-run. About 1 day.
 - **T88 Company master.** [VP4] `companies.csv` gains `cik`, `lei`, `fiscal_year_end` with history,

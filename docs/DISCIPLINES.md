@@ -3,7 +3,7 @@
 Written 2 Nov 2026 from seven read-only audits of the code, one per discipline, run with the `discipline-audit`
 skill (`~/.claude/skills/discipline-audit/`). Evals were done first and live in [EVALS.md](EVALS.md). Every "built"
 below was checked in the code; the claims repeated here that matter most were checked a second time by hand (marked
-✓). Tickets already raised from this work are T62–T66 and T55b; the rest are group K below (T67–T99), approved by Kenny on 2 Nov.
+✓). Tickets already raised from this work are T62–T66 and T55b; the rest are group K below (T67–T99), approved by the owner on 2 Nov.
 
 ## Why do this
 
@@ -45,21 +45,21 @@ existing cell at a time and never planted an omission, a wrong table, or the sam
 
 The rule from here: a label never counts as a check. T80–T82 make that a guard instead of five patches.
 
-## Fixed or being fixed tonight
+## Fixed or being fixed with the audit
 
 These were bugs in approved work, so they went straight to the builders:
 
 - **T62 Stable queue keys.** Two findings on the same field and year shared one key, so deciding one reopened the
   other. None on the six; 21 waiting in the wider set.
 - **T63 Mappings are proposals until a person confirms them.** The six companies' mapping stage was "proven" on model
-  judgement alone. The proven count drops until Kenny confirms (about 15 minutes, on the morning list).
+  judgement alone. The proven count drops until the owner confirms (about 15 minutes, on the morning list).
 - **T64 The packet README matches the files.** v1.6.0–v1.8.0 README lists `first_reported` and `citations`; values.csv
   has neither ✓. One restatement threshold instead of three.
 - **T65 A blank the SEC data contradicts is open, not explained.** The income-statement locator picked the cash-flow
   table for every Amazon 10-K ✓. 131 of 142 "not reported" cells in the database have an XBRL value ✓.
 - **T66 The manifest records what produced the rows.** v1.8.0 claims `statements@v2` and `tables@15`; most rows came
   from `statements@v1` and `tables@12`.
-- **T55b Every vintage checked before point-in-time serves it.** T55 ships tonight with older vintages flagged.
+- **T55b Every vintage checked before point-in-time serves it.** T55 ships with older vintages flagged.
 
 v1.8.0 stays as signed. Each fix lands in v1.9.0 and its DIFF.md says what changed.
 
@@ -186,11 +186,11 @@ are listed at the end.
   Done when the line reads 0 on the six, and deleting one extracted value in a test turns it red. About ½ day.
 - **T82 A gold set separate from golden.** [root cause, LB4] Golden stays the regression snapshot ("nothing changed").
   `gold/` holds a hand-verified sample per proven company: about 10 values and 10 facts per company, stratified across
-  fields, years and the untagged notes, each verified by Kenny against the filing with right / wrong / can't say and a
+  fields, years and the untagged notes, each verified by the owner against the filing with right / wrong / can't say and a
   note. `ledger golden --check` also compares the live tables with `gold/` and fails on any disagreement, so a frozen
   error cannot pass twice. The spot-check seed includes the release version, so the sample moves. Done when `gold/`
   covers the six, the check fails on a planted change to a gold value, and the frozen Amazon blank (before T65) would
-  have failed it. About ½ day of build plus about an hour of Kenny's verdicts.
+  have failed it. About ½ day of build plus about an hour of the owner's verdicts.
 - **T67 Faults that matter: omissions, wrong tables, systematic errors, XBRL off.** [MR1, root cause] Add fault kinds:
   the reader returns nothing for a field; the locator picks the wrong table (income ↔ cash flow); the same wrong row,
   column or scale in every year of a company. Run the full set twice, with `xbrl_reconcile` counted and with it
@@ -214,7 +214,7 @@ are listed at the end.
   empty only with a stated reason ("output predates _run"). Derived rows add `source_prior` and `formula`, their `check`
   is the worse of the two balances', and a change across a gap year or a restated prior balance is flagged, never
   silently computed. Statements, facts and projects rows carry `prompt_version`. The proven companies' statement
-  filings with no `_run` are rerun or labelled (Kenny decides; a rerun costs subscription time). Done when the MSFT
+  filings with no `_run` are rerun or labelled (the owner decides; a rerun costs subscription time). Done when the MSFT
   "Buildings and improvements" FY2025 change can be followed from the CSV alone and a test plants a gap year. About 1 day.
 - **T71 One key per list, enforced.** [DQ2, DC4, DC3] A stable `row_id` (hash of the row's identity plus source and
   quote) on taxonomy and ai_spend; `statement_id` and `project_id` from content, not position; `release.ROW_KEYS`,
@@ -279,7 +279,7 @@ are listed at the end.
   re-validate). About 1½ days.
 - **T86 Interpretive fields sampled.** [MR7] About 60 AI-spend and projects rows from the six join the T53 audit:
   `kind`, `scope`, `fiscal_year`, amount vs share against the quote; error rate per field with n and interval. About
-  ½ day plus 45 minutes of Kenny's verdicts.
+  ½ day plus 45 minutes of the owner's verdicts.
 - **T87 Validation pack.** [MR8] `docs/VALIDATION.md` laid out like an SR 11-7 validation report, from T67–T86 and
   EVALS, stated as a self-validation, with the commands an independent validator would re-run. About 1 day.
 - **T88 Company master.** [VP4] `companies.csv` gains `cik`, `lei`, `fiscal_year_end` with history,

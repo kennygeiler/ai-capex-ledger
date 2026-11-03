@@ -1,17 +1,17 @@
 # The implicit state machines
 
-This is the inventory of every implicit state machine in the code as of HEAD 16ddcfb (2 Nov 2026), and of every UI field
-born from one. Most bugs of the week were state-machine bugs in disguise: "not looked up" read as "looked up, nothing
+This is the inventory of every implicit state machine in the code (audited at commit 16ddcfb), and of every UI field
+born from one. Most defects found in review were state-machine bugs in disguise: "not looked up" read as "looked up, nothing
 there"; "unverified" gold read as "pass"; no "stale" state for the EDGAR check; a run's output overwriting a person's
 decision; two items sharing one resolution slot; a rejected mapping coming back as current; a release signed and
 published while the hosted copy stayed stale. Each machine below lists its states (with the code that produces them),
 its transitions (trigger, who may cause it, which are forbidden and whether code enforces that), the page words and API
-fields each state produces, and its risks. `ledger/core/states.py` declares the eight that reach a page (2 Nov 2026, branch `structure`): row (M1, the
+fields each state produces, and its risks. `ledger/core/states.py` declares the ones that reach a page (`states.MACHINES`), among them row (M1, the
 verification words), ladder (M1b), check (M1a), mapping (M5), crop (M14), gold (M7), line (M9) and edgar (M12), each with
 its states (unknown, stale and missing named, never folded into a good one), transitions, the one deciding function and
 the page word; pages read the words from `/pages/_states.js`, the claims scan from `states.words()`, agents from
 `/api/v1/states`; `tests/test_states.py` holds the three test kinds. The rest of the last section is still a proposal. The top risks are findings in `claims/findings.jsonl` (F14 to F30). Every claim was traced in code or data, read-only.
-Live counts: `values` labels agree 1003, not_extracted 119, definition_gap 66, not_reported 13, unresolved 10,
+Counts at the audit: `values` labels agree 1003, not_extracted 119, definition_gap 66, not_reported 13, unresolved 10,
 no_reference 7; `facts` labels no_reference 2800, agree 1742, unresolved 93 (no other label occurs on facts);
 `decisions/decisions.jsonl` 26 lines, all `accept`, 14 by "Kenny Geiler", 12 by "Claude Code, for Kenny Geiler to
 confirm", none with `author_kind`; `decisions/resolutions.jsonl` 6 lines; `mapping_proposals.jsonl` 5 `proposed`;
@@ -165,7 +165,7 @@ explained, fix_pending, blocks (76). Orthogonal:
 | a resolution on `value_missing` | — | — | **enforced** (not live) |
 | `accept` on `new_filing` (an unread filing becomes explained and leaves the queue) | `/api/resolve` | person | **not enforced** (LIVE_KINDS includes it, 42) |
 | a hash that is not the item's current one | `/api/resolve` | person | **not enforced** |
-| a key not in today's queue | `/api/resolve` | person | **not enforced** (key shape only, 135-136) |
+| a key not in the current queue | `/api/resolve` | person | **not enforced** (key shape only, 135-136) |
 | an edit or deletion (append-only) | file edit | anyone | **not enforced**: `claims.append_only` checks only findings.jsonl (claims.py:163; checklist.py:341) |
 | a run-written line | no writer in code sets `author_kind="run"` | agent editing the file | a hand-appended `author_kind: person` line by "Kenny Geiler" is a person line |
 
@@ -202,7 +202,7 @@ overrides or blanks released values (review.py:43-54; checklist.py:128). Only `p
 a person decided (proof.py:361-363,412).
 **Verified in the data:** 12 current `accept` decisions by "Claude Code, for Kenny Geiler to confirm" close **block**
 exceptions (`xbrl_reconcile` ×10, `statement_tie` ×2) for FCX, HUT, LITE, NRG, SYM, TLN and VST. They are outside SCOPE
-today; inside it they would pass G4 and vanish from Proof. G6 does not count them; it reads resolutions only.
+at the audit; inside it they would pass G4 and vanish from Proof. G6 does not count them; it reads resolutions only.
 
 **UI.** `/api/company` `status` "note" / "open" / "decided", and `decision {kind, reason, reviewer, decided_at}`
 (app.py:84-85). Values change silently in the packet.
@@ -291,7 +291,7 @@ Aggregate `state` is fail, unverified or pass (398). File problems: missing, emp
 **Transitions.** null → verdict, or verdict → another verdict: `POST /api/gold/verdict` → `record` (274-296; person
 **enforced** at 282; a note for wrong and can't say; a lock). A redraw keeps verdicted items (196-201, 235-258).
 Overwriting a verdict leaves no record in the file.
-**UI** (rows-crops, 2 Nov 2026). `GOLD_WORD` Right / Wrong / Can't say in `GOLD_TONE` colours, "Unchecked"; "Current value
+**UI**. `GOLD_WORD` Right / Wrong / Can't say in `GOLD_TONE` colours, "Unchecked"; "Current value
 unavailable" / "Removed from dataset" / "Now $X" / "Needs review"; the rate line `goldRate`; the Proof header "Hand check: N of M
 checked | pass | N wrong | not run" (`goldState`); each item's cited cell as the trail shows it (M14); the Release Golden note (checklist.py:319-322); `summary_line`
 (gold.py:418-426); claims `_gold` (claims.py:247-259).
@@ -367,7 +367,7 @@ stale (378).
 and "Known gaps…" (checklist.py:348-353); docs/CLAIMS.md and LIMITATIONS.md ("checked live only").
 **Risks.** [MED] "proven" overloaded. [LOW] Golden is stale only when the file is missing; age is never checked.
 
-## M14. A cited cell's crop (rows-crops, 2 Nov 2026)
+## M14. A cited cell's crop
 
 **States.** none (no crop on record, or no extraction on file) · stale (the stored filing, its fingerprint, the citation or the
 crop code changed) · not_located (the locator did not find the cited text there; reason kept) · missing (the picture is gone
@@ -418,7 +418,7 @@ its role (Revenue / Cost of revenue / Operating income).
 | data/watch.json `checked_at` | ≤ 48 h (clock.age_hours) | trail (cards.status_line; trail.js "SEC checked Nh ago", "Nd ago · out of date", "SEC never checked", "SEC check failed"); claims `_edgar` | **the Reconcile `new_filing` items and hq** use `watch.new` with no age (app.py:221; hq.py:192); `watch.new` is never reconciled with filings read since, only `watch --run` re-checks (cli/watch.py:38-41); "N new filings not read" (trail.js) lingers; no release line |
 | reports/golden.json | none (no commit) | — | the Golden line; the Proof header "Regression test: pass · <date>" (proof.js) |
 | reports/tests.json | HEAD and dirty tree | the Test run line (checklist.py:276-307) | stale does not block |
-| claims/hosted.json | release and commit | claims `_hosted` | the release gate (M8); absent today |
+| claims/hosted.json | release and commit | claims `_hosted` | the release gate (M8); absent at the audit |
 | `/api/hq` in the browser | — | — | `hqCache` (_shared.js:92) until a reload |
 | scope line "data as of <run_at>" (_router.js:36) | — | — | no age, no code version |
 
@@ -512,7 +512,7 @@ Next tier (F24 to F30):
 - "unchecked" and "not_checked" name one state.
 - resolutions.jsonl, decisions.jsonl and mapping_proposals.jsonl are not checked as append-only.
 
-## Proposed design: declare the machines in code (`ledger/core/states.py`; eight machines built, the writer hooks and replays below still planned)
+## Proposed design: declare the machines in code (`ledger/core/states.py`; the machines that reach a page built, the writer hooks and replays below still planned)
 
 ```python
 @dataclass(frozen=True)

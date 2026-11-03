@@ -163,6 +163,31 @@
   .btn:active { transform: scale(.98); }
   .btn-group .btn.active { background: var(--tblr-primary); color: #fff; border-color: var(--tblr-primary); }
   @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+  /* docs: the repository's markdown (pages/_markdown.js), the overview's flow diagram (pages/docs.js) */
+  .docs { grid-template-columns: 13rem minmax(0, 1fr); }
+  .docs .viewlist { position: sticky; top: 1rem; }
+  @media (max-width: 700px) { .docs { grid-template-columns: 1fr; } .docs .viewlist { position: static; flex-direction: row; flex-wrap: wrap; } }
+  .md { max-width: 62rem; line-height: 1.6; }
+  .md h2 { font-size: 1.05rem; margin: 1.75rem 0 .5rem; }
+  .md h3 { font-size: .95rem; margin: 1.25rem 0 .4rem; }
+  .md h4 { font-size: .875rem; margin: 1rem 0 .3rem; }
+  .md p, .md ul, .md ol, .md blockquote { margin: 0 0 .75rem; }
+  .md ul, .md ol { padding-left: 1.25rem; }
+  .md li { margin: .15rem 0; }
+  .md code { font-size: .8rem; overflow-wrap: anywhere; }
+  .md pre.raw code { font-size: inherit; }
+  .md .scroll { margin: 0 0 1rem; }
+  .md .table td, .md .table th { vertical-align: top; }
+  .md blockquote { padding-left: .9rem; box-shadow: inset 2px 0 0 var(--tblr-border-color); }
+  .flow-wrap { margin: .5rem 0 1.25rem; }
+  .flow { display: block; width: 100%; max-width: 60rem; height: auto; }
+  @media (max-width: 700px) { .flow { max-width: 9rem; margin: 0 auto; } }
+  .flow-box { fill: color-mix(in srgb, var(--tblr-primary) 9%, var(--tblr-bg-surface)); }
+  .flow a:hover .flow-box, .flow a:focus .flow-box { fill: color-mix(in srgb, var(--tblr-primary) 18%, var(--tblr-bg-surface)); }
+  .flow-label { font: 600 14px var(--tblr-font-sans-serif); fill: var(--tblr-body-color); }
+  .flow-sub { font: 11px var(--tblr-font-sans-serif); fill: var(--tblr-secondary); }
+  .flow-edge { stroke: var(--tblr-secondary); stroke-width: 1.5; }
+  .flow-head { fill: var(--tblr-secondary); }
 </style>
 </head>
 <body>
@@ -178,6 +203,7 @@
       <a class="nav-link px-2" href="#explore" data-nav="explore">Explore</a>
       <a class="nav-link px-2" href="#release" data-nav="release">Release</a>
       <a class="nav-link px-2" href="#gaps" data-nav="gaps">Known gaps</a>
+      <a class="nav-link px-2" href="#docs" data-nav="docs">Docs</a>
     </div>
     <div class="d-flex align-items-center gap-3">
       <input class="form-control form-control-sm" id="jump" name="jump" type="text" list="tickers" placeholder="Ticker or company…" aria-label="Jump to a company" autocomplete="off" spellcheck="false" style="width:10rem">
@@ -201,6 +227,8 @@
 <script src="/pages/release.js"></script>
 <script src="/pages/gaps.js"></script>
 <script src="/pages/evidence.js"></script>
+<script src="/pages/_markdown.js"></script>
+<script src="/pages/docs.js"></script>
 <script src="/pages/_router.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@ const CLAIM_STATE = {stub: 'text-red', stale: 'text-orange', partial: 'text-yell
 const CLAIM_WORD = {proven: 'Holds', partial: 'Partial', stub: 'Not built', stale: 'Out of date', planned: 'Planned'};
 const CLAIM_ORDER = {stub: 0, stale: 1, partial: 2, planned: 3, proven: 4};
 const SEVERITY = {high: ['text-red', 0], medium: ['text-orange', 1], low: ['text-secondary', 2]};
-const PAGE_WORD = {trail: 'Company trail', proof: 'Proof', reconcile: 'Reconcile', release: 'Release', rules: 'Rules', data: 'Dataset', explore: 'Explore', gaps: 'Known gaps', evidence: 'Evidence'};
+const PAGE_WORD = {trail: 'Company trail', proof: 'Proof', reconcile: 'Reconcile', release: 'Release', rules: 'Rules', data: 'Dataset', explore: 'Explore', gaps: 'Known gaps', docs: 'Docs', evidence: 'Evidence'};
 const pagesOnly = (where) => [...new Set(where.filter((w) => w.startsWith('ledger/web/pages/')).map((w) => w.replace('ledger/web/pages/', '').replace(/\.js$/, '')).filter((w) => PAGE_WORD[w]).map((w) => PAGE_WORD[w]))];
 
 function claimWhy(r) {

@@ -487,6 +487,12 @@ class Handler(BaseHTTPRequestHandler):
                         return self._send(HTTPStatus.OK, f.read_bytes(), "image/png")
         if u.path.startswith("/filing/"):  # Open in filing (in-app): the stored 10-K with the cell outlined (ledger/web/viewer.py)
             return self._guard(lambda: self._filing(u.path.removeprefix("/filing/")))
+        if u.path.startswith("/docs/"):  # a doc as plain text: docs/<NAME>.md only, top level, read by ledger/web/docs.py read()
+            from . import docs
+            text = docs.read(unquote(u.path.removeprefix("/docs/")))
+            if text is not None:
+                return self._send(HTTPStatus.OK, text.encode(), "text/plain; charset=utf-8")
+            return self._json({"error": "not found"}, HTTPStatus.NOT_FOUND)
         if u.path == "/pages/_states.js":  # the state words, written from ledger/core/states.py on every request: no copy on disk to go stale
             from ..core import states
             return self._send(HTTPStatus.OK, states.js().encode(), "application/javascript; charset=utf-8")
@@ -549,6 +555,12 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(cards.add(con, proof.company(con, parts[1])) if len(parts) == 2 else proof.board(con))
             finally:
                 con.close()
+        if name == "docs":  # the Docs section: the sidebar, or one page's markdown (ledger/web/docs.py)
+            from . import docs
+            if len(parts) == 1:
+                return self._json(docs.index())
+            pg = docs.page(parts[1]) if len(parts) == 2 else None
+            return self._json(pg) if pg else self._json({"error": "no such doc"}, HTTPStatus.NOT_FOUND)
         if name == "gold":  # T82: the gold set, ?t=TICKER for its items; read-only, the verdict is a POST below
             return self._guard(lambda: self._json(gold_view(q.get("t"))))
         if name == "states":  # the state machines that reach a page (ledger/core/states.py): states, kinds, words, the deciding function
