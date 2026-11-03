@@ -340,6 +340,7 @@ def _mappings(ctx) -> list:
 
 
 LIVE_ONLY = "see the Release page"  # what the static doc says where a fact is read live only
+TESTS_LIVE = "tests read live · see Release"  # the static view's Computed note on a row its backing tests decide live
 
 
 def _golden(ctx) -> list:
@@ -386,7 +387,7 @@ def compute(entry: dict, ctx: dict, open_by_claim: dict, run: dict) -> dict:
             if not test_exists(t):
                 reasons.append(("partial", "a backing test does not exist", t))
             elif not ctx["live"]:
-                continue  # the last run (reports/tests.json) is read live only: a run must never make the static doc stale (plumbing bug B)
+                continue  # the last run is read live only (plumbing bug B); the row is capped below instead, never lifted
             elif t in run["failed"]:
                 reasons.append(("stub", "a backing test failed", t))
             elif t in run["skipped"]:
@@ -409,9 +410,12 @@ def compute(entry: dict, ctx: dict, open_by_claim: dict, run: dict) -> dict:
                 got = [("stale", f"check {c} could not run", f"{e.__class__.__name__}: {str(e)[:120]}")]
             reasons.extend(got)
             facts.extend(d for _, _, d in got if d)
+    tests_live = entry["status"] != "planned" and not ctx["live"] and any(test_exists(t) for t in entry["backed_by"]["tests"])
+    if tests_live:  # the static view cannot see a failed or skipped backing test: never proven there, never above the declaration
+        reasons.append(("partial", TESTS_LIVE, ""))
     base = "proven" if entry["checks"] else entry["status"]  # with checks, the facts decide; without, the declaration is the ceiling
-    status = worst(base, *(r[0] for r in reasons))
-    return {**entry, "declared": entry["status"], "status": status, "worse": RANK[status] > RANK[entry["status"]],
+    status = worst(base, *(r[0] for r in reasons), *((entry["status"],) if tests_live else ()))
+    return {**entry, "declared": entry["status"], "status": status, "tests_live": tests_live, "worse": RANK[status] > RANK[entry["status"]],
             "better": RANK[status] < RANK[entry["status"]], "facts": facts,
             "reasons": [{"status": s, "phrase": p, "detail": d} for s, p, d in reasons],
             "open_findings": [f["id"] for f in open_by_claim.get(entry["id"], [])]}
@@ -586,9 +590,10 @@ def markdown() -> str:
              counts_line(c), "",
              "| Claim | Where | Declared | Computed | Why | Gaps | Ticket |", "|---|---|---|---|---|---|---|"]
     for r in rows:
-        why = "; ".join(x["phrase"] for x in r["reasons"] if x["phrase"] != "gaps listed")
+        why = "; ".join(x["phrase"] for x in r["reasons"] if x["phrase"] not in ("gaps listed", TESTS_LIVE))
         gaps = r["gaps"] + r["facts"]
-        lines.append(f"| {_cell(r['claim'])} (`{r['id']}`) | {_cell(', '.join(r['where']))} | {r['declared']} | **{r['status']}** | {_cell(why) or '—'} | "
+        comp = f"**{r['status']}**" + (f" · {TESTS_LIVE}" if r.get("tests_live") else "")
+        lines.append(f"| {_cell(r['claim'])} (`{r['id']}`) | {_cell(', '.join(r['where']))} | {r['declared']} | {comp} | {_cell(why) or '—'} | "
                      f"{_cell('; '.join(gaps)) or '—'} | {r['ticket']} |")
     lines += ["", "## Open findings", "", "| Id | Severity | Finding | Where | Claim | Ticket | Source | Since |", "|---|---|---|---|---|---|---|---|"]
     for f in sorted(open_findings(fs), key=lambda f: (SEVERITIES.index(f["severity"]), f["id"])):

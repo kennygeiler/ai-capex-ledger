@@ -101,7 +101,7 @@ class Compute(unittest.TestCase):
         from ledger.review import gold
         items = [i for d in gold.load_checked()[0].values() for i in d["items"]]
         given = sum(gold.has_verdict(i) for i in items)  # Kenny gives verdicts over time: stub at 0, partial until all 120
-        self.assertEqual(rows["gold_error_rate"]["status"], "stale")  # it checks the golden report, which the static view reads live only (plumbing bug B)
+        self.assertIn(rows["gold_error_rate"]["status"], ("stale", "stub"))  # the golden report is read live only, and tested rows never read above their declaration (stub) in the static view
         live = {r["id"]: r for r in C.computed(live=True)}
         self.assertNotEqual(live["gold_error_rate"]["status"], "proven" if given < len(items) else None)
         if not given:
@@ -491,6 +491,24 @@ class Doc(unittest.TestCase):
             self.assertEqual(docs[1], docs[2])
             self.assertIn("see the Release page", docs[0])
             self.assertNotEqual(live[0], live[1])  # the live register still reads the run and the golden report
+
+    def test_a_failing_backing_test_never_makes_the_doc_read_proven_or_above_its_declaration(self):
+        """Review HIGH: the static view skips the last run, so it must cap the row instead: a row backed by tests never
+        reads proven there and never better than declared, and its Computed cell says the tests are read live."""
+        failing = {**RAN, "failed": {REAL_TEST}}
+        with mock.patch.dict(C.CHECKS, {"gold": lambda ctx: []}):
+            for declared in ("partial", "proven", "stub", "stale"):
+                e = entry(status=declared, checks=["gold"])
+                live, static = run(e, ran=failing), run(e, live=False, ran=failing)
+                self.assertEqual(live["status"], "stub")
+                self.assertNotEqual(static["status"], "proven", declared)
+                self.assertGreaterEqual(C.RANK[static["status"]], C.RANK[declared], declared)
+                self.assertTrue(static["tests_live"])
+            with mock.patch.object(C, "load", return_value=[entry(status="partial", checks=["gold"])]), mock.patch.object(C, "findings", return_value=[]), \
+                    mock.patch.object(C, "test_run", return_value=failing):
+                doc = C.markdown()
+        self.assertIn(f"| **partial** · {C.TESTS_LIVE} |", doc)
+        self.assertNotIn("**proven**", doc)
 
     def test_claims_md_is_current(self):
         self.assertEqual(C.DOC.read_text(), C.markdown(), "docs/CLAIMS.md is stale: run uv run python -m ledger claims")

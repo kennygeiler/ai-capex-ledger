@@ -115,8 +115,9 @@ def bad(mutate):
 
 
 def _resegment(c):
-    """A re-segmentation: the newer 10-K (ACC) prints Cloud FY2025 differently from the older one (OLD), and FY2024 is
-    only in OLD, so the series ships FY2024 on the old basis and FY2025 on the new one."""
+    """A re-segmentation: the newer 10-K (ACC) prints Cloud FY2025 differently from the older one (OLD) and prints a
+    segment name OLD did not (Services, already in the good fixture), and FY2024 is only in OLD, so the series ships
+    FY2024 on the old segments and FY2025 on the new ones."""
     o24, o25 = nx("segment_revenue", "Cloud", "2024-05-31", 25_000_000_000, OLD, "2025-06-20", 1_000_000), nx("segment_revenue", "Cloud", "2025-05-31", 30_000_000_000, OLD, "2025-06-20", 1_000_000)
     n25 = nx("segment_revenue", "Cloud", "2025-05-31", 35_000_000_000, scale=1_000_000)
     c.note_extractions.extend([o24, o25, n25])

@@ -166,6 +166,15 @@ class Words(unittest.TestCase):
         for g, (_, members) in states.ROW.groups.items():  # the word Checked never covers a row nothing independent checked
             self.assertEqual(g == "checked", all(states.ROW.get(m).kind == states.GOOD for m in members), g)
 
+    def test_the_display_words_are_declared_listed_and_documented(self):
+        doc = (store.ROOT / "docs" / "STATES.md").read_text()
+        for k, (w, meaning) in states.DISPLAY.items():
+            self.assertEqual(states.words()[w], [("display", k)], w)  # one owner, never also a state word
+            self.assertIn(f"| {k} | {w} |", doc, w)
+            self.assertTrue(meaning, k)
+        self.assertEqual((states.RESTATED, states.SUPERSEDED, states.SOURCE_NOT_FOUND, states.SEGMENT_BASIS_MIXED),
+                         ("Restated", "Superseded", "Source reading not found", "Segment basis mixed"))
+
     def test_the_scan_reads_the_words_from_states_py(self):
         sc = claims.scan()
         for w in states.words():

@@ -782,7 +782,7 @@
 - id: restated_readings
   claim: "Restated: every figure the filings printed for one fact, as filed, oldest first, and the one the dataset uses; Superseded under each crop the dataset does not use; Compare filings for the pair. On the gold item, the trail row, the evidence page and Reconcile's drawer, whatever the row's state."
   where: [ledger/core/states.py, ledger/checks/ties.py, ledger/web/cards.py, ledger/web/app.py, ledger/review/workbench.py, ledger/web/pages/_shared.js, ledger/web/pages/trail.js, ledger/web/pages/proof.js, ledger/web/pages/evidence.js, ledger/web/pages/reconcile.js, /api/v1/proof/<ticker>, /api/v1/gold, /api/v1/evidence/<id>, /api/v1/reconcile]
-  shown: ["Restated", "Superseded", "dataset uses", "restatedLine"]
+  shown: ["Restated", "Superseded", "Source reading not found", "dataset uses", "restatedLine"]
   backed_by:
     functions: [ledger.checks.ties.restatement, ledger.checks.ties.restatements, ledger.checks.ties.of_reading, ledger.checks.ties.mark]
     tests:
@@ -799,7 +799,7 @@
 
 - id: segment_basis_mixed
   claim: "Segment basis mixed: a segment series whose release years come from filings on both sides of a re-segmentation (a later 10-K printed a segment figure differently) is a Reconcile item, one per field and year, for a person to decide; no value is changed"
-  where: [rules/segment_basis_mixed.yaml, ledger/checks/rules.py, ledger/checks/ties.py, ledger/checks/proof.py, ledger/web/cards.py, ledger/review/workbench.py, ledger/web/pages/trail.js, ledger/web/pages/reconcile.js, reports/segment-basis.md]
+  where: [ledger/core/states.py, rules/segment_basis_mixed.yaml, ledger/checks/rules.py, ledger/checks/ties.py, ledger/checks/proof.py, ledger/web/cards.py, ledger/review/workbench.py, ledger/web/pages/trail.js, ledger/web/pages/reconcile.js, reports/segment-basis.md]
   shown: ["Segment basis mixed", "Segment basis", "Before"]
   backed_by:
     functions: [ledger.checks.ties.segment_basis, ledger.checks.ties.basis_message, ledger.checks.rules._segment_basis]
@@ -822,14 +822,15 @@
     tests:
       - tests.test_checklist.Parity.test_each_line_counts_a_distinct_bucket_by_its_row_word
       - tests.test_checklist.Parity.test_release_lines_equal_reconcile_header_buckets_on_the_real_database
-  status: proven
-  gaps: []
+  status: partial
+  gaps:
+    - Gate G4 and the Blocks release line can both count one undecided block finding (F-RS3); the parity test proves Needs review, Proposed and Blocks release equal Reconcile's buckets, not that every line of the checklist is disjoint from every other.
   ticket: none
 
 - id: claims_doc_static
-  claim: "docs/CLAIMS.md does not change with a test run: the last run, the golden report and the gold verdict count read \"see the Release page\" there and are checked live"
+  claim: "docs/CLAIMS.md does not change with a test run: the last run, the golden report and the gold verdict count read \"see the Release page\" there and are checked live; a row backed by tests reads \"tests read live · see Release\" there, never proven and never above its declared status"
   where: [ledger/release/claims.py, docs/CLAIMS.md, /api/v1/claims]
-  shown: ["see the Release page"]
+  shown: ["see the Release page", "tests read live · see Release"]
   backed_by:
     functions: [ledger.release.claims.markdown, ledger.release.claims.computed]
     tests:

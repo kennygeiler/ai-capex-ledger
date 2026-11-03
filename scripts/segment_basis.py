@@ -57,7 +57,7 @@ def conclusion(t: str, mine: list[dict]) -> str:
             c = s["cutover"]
             after = sorted({r["period"] for r in s["years"] if not r["mixed"] and r["period"] in MVP_YEARS})
             parts.append(f"{s['field']} mixes definitions: {', '.join(rel) or 'no release year'} on segments from before {c['form']} {c['filed']}, "
-                         f"{', '.join(after)} on the restated ones (seen by `segment_basis_mixed`)" if rel else
+                         f"{', '.join(after)} on the restated ones ({c['why']}; seen by `segment_basis_mixed`)" if rel else
                          f"{s['field']}: a cutover at {c['form']} {c['filed']}, every release year on its basis")
         stray = [r for r in s["years"] if not r["mixed"] and r["accession"] != newest.get(r["period"], ("", "", ""))[2] and r["period"] in MVP_YEARS]
         if stray:
@@ -67,7 +67,7 @@ def conclusion(t: str, mine: list[dict]) -> str:
             parts.append(f"{s['field']} mixes vintages: {', '.join(dims)} in {', '.join(sorted({r['period'] for r in stray}))} come from a filing older than the newest one "
                          f"printing that year, which does not print them (a segment dropped or renamed; no figure printed two ways, so the rule does not see it)"
                          + (f"; the same figure under two names: {'; '.join(twins)}" if twins else ""))
-    return f"- **{t}**: " + ("; ".join(parts) if parts else "every release year of every segment series comes from the newest filing printing it, and no segment figure was printed two ways: one basis.")
+    return f"- **{t}**: " + ("; ".join(parts) if parts else "every release year of every segment series comes from the newest filing printing it, and no re-segmentation shows in the readings: one basis.")
 
 
 def main(argv: list[str]) -> int:
@@ -95,12 +95,15 @@ def main(argv: list[str]) -> int:
         for s in mine:
             c = s["cutover"]
             head = f"### {s['field']}"
-            cut = (f"Cutover: {c['form']} {c['filed']} ({c['accession']}) printed {len(c['changes'])} segment figures differently. "
+            cut = (f"Cutover (re-segmentation): {c['form']} {c['filed']} ({c['accession']}) printed {len(c['changes'])} segment figures differently; {c['why']}. "
                    f"Years on an earlier basis: {', '.join(s['mixed']) or 'none'}" + (f" (in release years: {', '.join(q for q in s['mixed'] if q in MVP_YEARS) or 'none'})." if s["mixed"] else ".")) \
-                if c else "No segment figure printed two ways: no re-segmentation seen in the readings."
+                if c else "No re-segmentation seen in the readings."
             if len(s["cutovers"]) > 1:
-                cut += " Earlier cutovers: " + "; ".join(f"{x['form']} {x['filed']} restated " + ", ".join(f"{y['dimension']} {y['period']} {y['before']} → {y['after']}" for y in x["changes"])
+                cut += " Earlier re-segmentations: " + "; ".join(f"{x['form']} {x['filed']} ({x['why']}) restated " + ", ".join(f"{y['dimension']} {y['period']} {y['before']} → {y['after']}" for y in x["changes"])
                                                          for x in s["cutovers"][:-1]) + "."
+            if s["corrections"]:
+                cut += " Corrections (figure printed differently in a later filing, same segments, no basis change): " + "; ".join(
+                    f"{x['form']} {x['filed']}: " + ", ".join(f"{y['dimension']} {y['period']} {y['before']} → {y['after']}" for y in x["changes"]) for x in s["corrections"]) + "."
             out += [head, "", cut, "", *table(s), ""]
     OUT.write_text("\n".join(out).rstrip() + "\n")
     print(f"wrote {OUT.relative_to(ROOT)}")

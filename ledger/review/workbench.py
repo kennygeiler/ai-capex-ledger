@@ -8,6 +8,7 @@ from . import resolutions
 from ..core import status, store
 from ..core.config import industry
 from ..checks.rules import explain_key, explained
+from ..core.states import SEGMENT_BASIS_MIXED
 
 EVIDENCE = store.ROOT / "reports" / "evidence"
 CAUSES = {"fact_differs": "Differs from SEC XBRL", "fact_changed": "Changed since last release", "blocked": "Blocks release",
@@ -16,7 +17,8 @@ REF_LABEL = {"fact_differs": "SEC XBRL", "fact_changed": "Last release", "blocke
 # a rule's finding by the rule that fired (the queue carries kind "other" and the rule id for the note rules), one short label each
 FINDING_LABEL = {"restated": "Restated", "jump": "Large year-over-year change", "row_switch": "Line renamed", "capex_intensity": "Capex high vs revenue", "opex_over_revenue": "Opex above revenue",
                  "segment_capex_tie": "Does not tie to reported total", "segment_revenue_tie": "Does not tie to reported total", "ppe_categories_tie": "Does not tie to reported total",
-                 "fact_readings_differ": "Readings differ across filings", "segment_basis_mixed": "Segment basis mixed"}
+                 "fact_readings_differ": "Readings differ across filings"}
+FINDING_LABEL["segment_basis_mixed"] = SEGMENT_BASIS_MIXED  # a display word declared in states.py (states.DISPLAY)
 
 
 def xbrl_name(con, accession: str, period_end: str | None, value) -> dict | None:

@@ -388,15 +388,32 @@ def _changed_since(sha: str) -> list | None:
     return changed_since(sha)
 
 
-def review_counts(board: dict, unconfirmed: list) -> dict:
-    """{bad, wait, blocked, per_company}: the Proof board's items by the row word every page shows (states.row), counted
-    with states.tally (Reconcile's header counts its rows the same way), plus a run's decisions to confirm under wait
-    (Reconcile's "To confirm" rows, Proposed there; no Proof item carries them, so nothing is counted twice)."""
+def review_counts(board: dict, unconfirmed: list, unmapped: list = ()) -> dict:
+    """{bad, wait, blocked, per_company, off_board}: the Proof board's items by the row word every page shows
+    (states.row), counted with states.tally (Reconcile's header counts its rows the same way), plus a run's decisions to
+    confirm under wait (Reconcile's "To confirm" rows, Proposed there; no Proof item carries them, so nothing is counted
+    twice), plus under bad every unmapped asset type (taxonomy.unmapped) the board has no mapping row for (`off_board`):
+    a name with no entry blocks whether or not a page lists it."""
     from ..core.states import row as row_word, tally
     words = {c["ticker"]: [row_word(i["state"], i.get("by")) for s in c["stages"].values() for i in s["all"]] for c in board["proven"]}
+    on_board = {(c["ticker"], i.get("name")) for c in board["proven"] for i in (c["stages"].get("mapping") or {}).get("all", [])}
+    off = [m for m in unmapped if (m["ticker"], m["reported_name"]) not in on_board]
     n = tally(w for ws in words.values() for w in ws)
-    return {"bad": n.get("bad", 0), "wait": n.get("wait", 0) + len(unconfirmed), "blocked": n.get("blocked", 0),
-            "per_company": [{"ticker": t, "open": ws.count("bad"), "proposed": ws.count("wait"), "blocked": ws.count("blocked")} for t, ws in words.items()]}
+    return {"bad": n.get("bad", 0) + len(off), "wait": n.get("wait", 0) + len(unconfirmed), "blocked": n.get("blocked", 0), "off_board": off,
+            "per_company": [{"ticker": t, "open": ws.count("bad") + sum(m["ticker"] == t for m in off), "proposed": ws.count("wait"), "blocked": ws.count("blocked")} for t, ws in words.items()]}
+
+
+def g6_link(unconfirmed: list, mappings: list) -> str:
+    """The page that fixes G6's items: Reconcile with every cause when it holds both a run's decisions and asset types,
+    else the one group that holds them."""
+    return "reconcile" if unconfirmed and mappings else "reconcile?cause=to_confirm" if unconfirmed else "reconcile?cause=asset_types"
+
+
+def g6_detail(unconfirmed: list, mappings: list) -> list[dict]:
+    """G6's items one per key: the key, its state, the reason and the page that fixes it."""
+    return ([{"key": r["key"], "state": r["state"], "reason": (r.get("reason") or "")[:160], "link": "reconcile?cause=to_confirm"} for r in unconfirmed]
+            + [{"key": f"asset_types|{m['ticker']}|{m['reported_name']}", "state": "to confirm", "reason": f"{m.get('standard_type')} proposed by {m.get('by')}",
+                "link": f"reconcile?scope={m['ticker']}&cause=asset_types"} for m in mappings])
 
 
 def checklist(con, version: str | None = None, stage: int = 3) -> dict:
@@ -411,11 +428,15 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     # gates per company (T4): one line per gate, the failing companies named. G6 is the Proposed bucket (a run's decisions
     # and asset-type mappings no person confirmed): its line carries Reconcile's word for it, and no other line counts it
     bad = failing(p["gates"])
+    unc = resolutions.unconfirmed()  # a run's decisions to confirm (T3): Reconcile's "To confirm" rows, Proposed there too
+    utc = taxonomy.to_confirm(con, list(SCOPE))  # T63: the asset-type mappings no person confirmed, the rest of G6
     for gid in GATES:
         by_t = p["gates"][gid]
         n = sum(len(v) for v in by_t.values())
         detail = [{"ticker": t, "items": len(items), "example": items[0] if items else ""} for t, items in by_t.items()]
-        lines.append(_line(f"gate_{gid}", word("row", "wait") if gid == "G6" else GATE_SHORT[gid], True, n, "pass" if n == 0 else "fail", GATE_FIX[gid],
+        if gid == "G6":  # the Proposed bucket: one row per key, as the line had before T-RS, each with its page
+            detail = g6_detail(unc, utc)
+        lines.append(_line(f"gate_{gid}", word("row", "wait") if gid == "G6" else GATE_SHORT[gid], True, n, "pass" if n == 0 else "fail", g6_link(unc, utc) if gid == "G6" else GATE_FIX[gid],
                            GATES[gid] + (f"; export the hand-check from reports/stage{stage}-validation.html to golden/stage{stage}-handcheck.json" if gid == "G5" and any(v == ["no hand-check file"] for v in by_t.values()) else ""), detail))
     # open, proposed and blocked in scope (T1): the one definition of open, from the Proof board, split by the row word every
     # page shows (states.row) and counted with states.tally, the function Reconcile's header counts with. Each line is a
@@ -423,9 +444,8 @@ def checklist(con, version: str | None = None, stage: int = 3) -> dict:
     # Proposed (the G6 line above: an asset-type mapping or a run's decision no person confirmed), Blocks release. Before,
     # "Items to review" counted Needs review and Proposed together, and "Decisions left to confirm" and G6 counted Proposed
     # twice more.
-    unc = resolutions.unconfirmed()  # a run's decisions to confirm (T3): Reconcile's "To confirm" rows, Proposed there too
-    um = taxonomy.unmapped(con, list(SCOPE))     # T14: the unmapped asset types among the Needs review items, named in the detail
-    rc = review_counts(board, unc)
+    um = taxonomy.unmapped(con, list(SCOPE))     # T14: the unmapped asset types, counted under Needs review whether or not the board lists them
+    rc = review_counts(board, unc, um)
     open_, blocked, per_co = rc["bad"], rc["blocked"], rc["per_company"]  # rc["wait"] is the G6 line's count (tests.test_checklist.Parity)
     lines.append(_line("open", word("row", "bad"), True, open_, "pass" if open_ == 0 else "fail", "reconcile",
                        "Neither verified nor explained, nothing proposed" + (f"; {len(um)} of them asset types with no entry (Reconcile, asset types)" if um else ""),

@@ -56,6 +56,22 @@ class Restatement(unittest.TestCase):
         self.assertEqual([s["cell_text"] for s in rec["steps"]], ["10", "12", "10"])
         self.assertEqual(rec["superseded"], [rs[1]["extraction_id"]])
 
+    def test_a_shipped_filing_with_no_reading_says_source_reading_not_found(self):
+        rs = [r(OLD, "2024-07-30", 105_362_000_000, "105,362"), r(MID, "2025-07-30", 87_464_000_000, "87,464")]
+        rec = ties.restatement(rs, NEW)  # the fact ships from NEW, which has no reading here: never the newest by default
+        self.assertTrue(rec["line"].endswith(f" · {states.SOURCE_NOT_FOUND}"), rec["line"])
+        self.assertNotIn("dataset uses", rec["line"])
+        self.assertEqual((rec["used"], rec["source"], rec["superseded"], rec["compare"]), (None, "not_found", [], None))
+        self.assertIsNone(ties.restatement(rs, None, 1)["used"])
+
+    def test_a_reading_whose_figure_is_not_the_dataset_value_is_not_the_source(self):
+        rs = [r(OLD, "2024-07-30", 105_362_000_000, "105,362"), r(NEW, "2026-07-29", 87_464_000_000, "87,464")]
+        self.assertEqual(ties.restatement(rs, NEW, 87_464_000_000)["source"], "found")
+        self.assertEqual(ties.restatement(rs, NEW, 87_464_400_000)["source"], "found")  # within half a million: the table's rounding
+        bad = ties.restatement(rs, NEW, 90_000_000_000)
+        self.assertEqual((bad["source"], bad["used"]), ("not_found", None))
+        self.assertIn(states.SOURCE_NOT_FOUND, bad["line"])
+
     def test_mark_puts_the_word_only_under_superseded_readings(self):
         rs = [r(OLD, "2024-07-30", 1_000_000, "1"), r(NEW, "2026-07-29", 2_000_000, "2")]
         rec = ties.restatement(rs, NEW)
@@ -69,6 +85,7 @@ class Restatement(unittest.TestCase):
         con = duckdb.connect(str(store.DEFAULT_DB), read_only=True)
         try:
             rec = ties.restatements(con, ["MSFT"])[MSFT_IC]
+            one = ties.restatements(con, ["MSFT"], f"{OLD}|segment_revenue|Intelligent Cloud|2024-06-30")
             seen = ties.of_reading(con, "MSFT", f"{OLD}|segment_revenue|Intelligent Cloud|2024-06-30")
             used = ties.of_reading(con, "MSFT", f"{NEW}|segment_revenue|Intelligent Cloud|2024-06-30")
         finally:
@@ -76,6 +93,8 @@ class Restatement(unittest.TestCase):
         self.assertEqual(rec["line"], "Restated: 105,362 (10-K 2024-07-30) → 87,464 (10-K 2025-07-30, 10-K 2026-07-29) · dataset uses 87,464 (10-K 2026-07-29)")
         self.assertEqual(rec["superseded"], [f"{OLD}|segment_revenue|Intelligent Cloud|2024-06-30"])
         self.assertEqual((seen["mark"], used["mark"]), (states.SUPERSEDED, None))
+        self.assertEqual(list(one), [MSFT_IC])  # the evidence lookup reads the one fact that cites the reading, not the company
+        self.assertEqual(rec["source"], "found")
         self.assertEqual(seen["restatement"]["line"], rec["line"])
 
 
@@ -156,29 +175,58 @@ def fx(dim, period, value, ids, acc, label="agree"):
 
 
 class SegmentBasis(unittest.TestCase):
-    def series(self, resegment=True):
-        M = 1_000_000
-        a22, a23 = nx("A", "2023-07-01", "Cloud", "2022-06-30", 70 * M, "70"), nx("A", "2023-07-01", "Cloud", "2023-06-30", 80 * M, "80")
-        b23, b24 = nx("B", "2024-07-01", "Cloud", "2023-06-30", (60 if resegment else 80) * M, "60" if resegment else "80"), nx("B", "2024-07-01", "Cloud", "2024-06-30", 90 * M, "90")
-        ext = [a22, a23, b23, b24]
-        facts = [fx("Cloud", "FY2022", 70 * M, [a22["extraction_id"]], "A"), fx("Cloud", "FY2023", b23["value"], [a23["extraction_id"], b23["extraction_id"]], "B"),
-                 fx("Cloud", "FY2024", 90 * M, [b24["extraction_id"]], "B")]
+    M = 1_000_000
+
+    def series(self, kind="names"):
+        """Two filings: A (FY2022, FY2023) and B (FY2023, FY2024). kind: "names" B restates Cloud FY2023 and prints a new
+        segment, AI; "moved" B moves 20 from Cloud to Ads in FY2023, the total unchanged; "correction" B prints Cloud
+        FY2023 differently with the same segments and a new total; "none" B agrees."""
+        M = self.M
+        cloud23 = {"names": 60, "moved": 60, "correction": 60, "none": 80}[kind]
+        ads23 = 40 if kind == "moved" else 20
+        ext = [nx("A", "2023-07-01", "Cloud", "2022-06-30", 70 * M, "70"), nx("A", "2023-07-01", "Cloud", "2023-06-30", 80 * M, "80"),
+               nx("A", "2023-07-01", "Ads", "2022-06-30", 15 * M, "15"), nx("A", "2023-07-01", "Ads", "2023-06-30", 20 * M, "20"),
+               nx("B", "2024-07-01", "Cloud", "2023-06-30", cloud23 * M, str(cloud23)), nx("B", "2024-07-01", "Cloud", "2024-06-30", 90 * M, "90"),
+               nx("B", "2024-07-01", "Ads", "2023-06-30", ads23 * M, str(ads23)), nx("B", "2024-07-01", "Ads", "2024-06-30", 25 * M, "25")]
+        if kind == "names":
+            ext += [nx("B", "2024-07-01", "AI", "2023-06-30", 5 * M, "5"), nx("B", "2024-07-01", "AI", "2024-06-30", 9 * M, "9")]
+        e = {(x["dimension"], x["accession"], x["period_end"][:4]): x["extraction_id"] for x in ext}
+        facts = [fx("Cloud", "FY2022", 70 * M, [e[("Cloud", "A", "2022")]], "A"), fx("Ads", "FY2022", 15 * M, [e[("Ads", "A", "2022")]], "A"),
+                 fx("Cloud", "FY2023", cloud23 * M, [e[("Cloud", "A", "2023")], e[("Cloud", "B", "2023")]], "B"),
+                 fx("Ads", "FY2023", ads23 * M, [e[("Ads", "A", "2023")], e[("Ads", "B", "2023")]], "B"),
+                 fx("Cloud", "FY2024", 90 * M, [e[("Cloud", "B", "2024")]], "B"), fx("Ads", "FY2024", 25 * M, [e[("Ads", "B", "2024")]], "B")]
+        if kind == "names":
+            facts += [fx("AI", "FY2023", 5 * M, [e[("AI", "B", "2023")]], "B"), fx("AI", "FY2024", 9 * M, [e[("AI", "B", "2024")]], "B")]
         return facts, ext
 
     def run_rule(self, facts, ext, years=("FY2022", "FY2023", "FY2024")):
         return CHECKS["segment_basis_mixed"](Context(values=[], extractions=[], facts=facts, note_extractions=ext, years=list(years)), {})
 
     def test_a_year_from_before_the_cutover_fires_once_keyed_by_the_cutover(self):
-        facts, ext = self.series()
+        facts, ext = self.series("names")
         s = ties.segment_basis(facts, ext)[0]
-        self.assertEqual((s["cutover"]["accession"], s["mixed"]), ("B", ["FY2022"]))
+        self.assertEqual((s["cutover"]["accession"], s["cutover"]["kind"], s["mixed"]), ("B", "segments", ["FY2022"]))
         got = self.run_rule(facts, ext)
         self.assertEqual([(f.ticker, f.field, f.period, f.subject) for f in got], [("T", "segment_revenue", "FY2022", "B")])
         self.assertIn("has no FY2022 reading", got[0].message)
+        self.assertIn("segment names differ: new AI", got[0].message)
         self.assertIn("Cloud FY2023 80 → 60", got[0].message)
 
+    def test_amounts_moved_between_segments_with_the_total_held_is_a_resegmentation(self):
+        facts, ext = self.series("moved")
+        s = ties.segment_basis(facts, ext)[0]
+        self.assertEqual((s["cutover"]["kind"], s["mixed"]), ("moved", ["FY2022"]))
+        self.assertIn("amounts moved between segments", self.run_rule(facts, ext)[0].message)
+
+    def test_a_correction_is_not_a_resegmentation_and_does_not_fire(self):
+        facts, ext = self.series("correction")
+        s = ties.segment_basis(facts, ext)[0]
+        self.assertIsNone(s["cutover"])
+        self.assertEqual([(c["accession"], c["kind"], c["why"]) for c in s["corrections"]], [("B", "correction", "Figure printed differently in a later filing")])
+        self.assertEqual(self.run_rule(facts, ext), [])
+
     def test_no_restated_figure_no_cutover_no_finding(self):
-        facts, ext = self.series(resegment=False)
+        facts, ext = self.series("none")
         self.assertIsNone(ties.segment_basis(facts, ext)[0]["cutover"])
         self.assertEqual(self.run_rule(facts, ext), [])
 
@@ -209,6 +257,7 @@ class SegmentBasis(unittest.TestCase):
             con.close()
         got = CHECKS["segment_basis_mixed"](ctx, next(r for r in rules if r["id"] == "segment_basis_mixed")["params"])
         self.assertEqual([(f.ticker, f.field, f.period, f.subject) for f in got], [("MSFT", "segment_revenue", "FY2022", MID)])
+        self.assertIn("re-segmented (amounts moved between segments, the total unchanged", got[0].message)  # MSFT kept its three names
         idx = resolutions.by_row()
         for f in ctx.facts:
             if f["ticker"] == "MSFT" and f["field"] == "segment_revenue" and f["period"] == "FY2022":

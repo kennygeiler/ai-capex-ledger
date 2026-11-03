@@ -85,7 +85,7 @@ def _cell(c: dict, docs: dict, ev: dict) -> dict:
             "viewer": b["viewer"], "crop": {k: b[k] for k in ("state", "reason", "url")}}
 
 
-from ..core.states import VERIFIED_BY  # the only checks a page may call Verified (tests.test_cards.How.test_only_sec_xbrl_and_quotes_read_verified)
+from ..core.states import SEGMENT_BASIS_MIXED, VERIFIED_BY  # the only checks a page may call Verified (tests.test_cards.How.test_only_sec_xbrl_and_quotes_read_verified)
 RULE_TEXT = {"part_year": "Part-year amount", "restated_between_filings": "Restated in a later 10-K", "amendment_without_statements": "Amendment without statements",
              "program_words": "Program, not annual guidance"}
 
@@ -113,7 +113,7 @@ def _words(it: dict, name: str, defs: dict, found_value=None) -> dict:
             text = "Readings differ: " + " → ".join(fmt(r.get("value")) for r in (rs[0], rs[-1]))
             return {"tone": "bad", "text": text, "detail": " · ".join(f"{r.get('form') or '10-K'} filed {str(r.get('filed') or '')[:10]}: {fmt(r.get('value'))}" for r in rs)}
         if by == "rule:segment_basis_mixed":
-            return {"tone": "bad", "text": "Segment basis mixed", "detail": more}
+            return {"tone": "bad", "text": SEGMENT_BASIS_MIXED, "detail": more}
         if by.startswith("rule:") and by.endswith("_tie"):
             g = ref.get("tie_gap")
             if not g:

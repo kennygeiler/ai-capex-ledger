@@ -6,18 +6,18 @@ Release years: FY2022, FY2023, FY2024, FY2025, FY2026.
 
 ## Conclusion
 
-- **MSFT**: segment_revenue mixes definitions: FY2022 on segments from before 10-K 2025-07-30, FY2023, FY2024, FY2025, FY2026 on the restated ones (seen by `segment_basis_mixed`)
-- **GOOGL**: every release year of every segment series comes from the newest filing printing it, and no segment figure was printed two ways: one basis.
-- **AMZN**: every release year of every segment series comes from the newest filing printing it, and no segment figure was printed two ways: one basis.
+- **MSFT**: segment_revenue mixes definitions: FY2022 on segments from before 10-K 2025-07-30, FY2023, FY2024, FY2025, FY2026 on the restated ones (amounts moved between segments, the total unchanged (FY2023, FY2024); seen by `segment_basis_mixed`)
+- **GOOGL**: every release year of every segment series comes from the newest filing printing it, and no re-segmentation shows in the readings: one basis.
+- **AMZN**: every release year of every segment series comes from the newest filing printing it, and no re-segmentation shows in the readings: one basis.
 - **NVDA**: segment_revenue mixes vintages: OEM & Other in FY2022, FY2023 come from a filing older than the newest one printing that year, which does not print them (a segment dropped or renamed; no figure printed two ways, so the rule does not see it); the same figure under two names: OEM & Other / OEM and Other FY2022 1,162; OEM & Other / OEM and Other FY2023 455
-- **AMD**: every release year of every segment series comes from the newest filing printing it, and no segment figure was printed two ways: one basis.
+- **AMD**: every release year of every segment series comes from the newest filing printing it, and no re-segmentation shows in the readings: one basis.
 - **APLD**: segment_capex mixes vintages: Cloud Services Business in FY2023, FY2024 come from a filing older than the newest one printing that year, which does not print them (a segment dropped or renamed; no figure printed two ways, so the rule does not see it); segment_revenue mixes vintages: Cloud Services Business in FY2024 come from a filing older than the newest one printing that year, which does not print them (a segment dropped or renamed; no figure printed two ways, so the rule does not see it)
 
 ## MSFT
 
 ### segment_revenue
 
-Cutover: 10-K 2025-07-30 (0000950170-25-100235) printed 6 segment figures differently. Years on an earlier basis: FY2020, FY2021, FY2022 (in release years: FY2022). Earlier cutovers: 10-K 2023-07-27 restated Intelligent Cloud FY2021 60,080 → 59,728, More Personal Computing FY2021 54,093 → 54,445, Intelligent Cloud FY2022 75,251 → 74,965, More Personal Computing FY2022 59,655 → 59,941.
+Cutover (re-segmentation): 10-K 2025-07-30 (0000950170-25-100235) printed 6 segment figures differently; amounts moved between segments, the total unchanged (FY2023, FY2024). Years on an earlier basis: FY2020, FY2021, FY2022 (in release years: FY2022). Earlier re-segmentations: 10-K 2023-07-27 (amounts moved between segments, the total unchanged (FY2021, FY2022)) restated Intelligent Cloud FY2021 60,080 → 59,728, More Personal Computing FY2021 54,093 → 54,445, Intelligent Cloud FY2022 75,251 → 74,965, More Personal Computing FY2022 59,655 → 59,941.
 
 | Segment | FY | Dataset value (as filed) | From | Newest filing printing the FY | Other readings | Basis |
 |---|---|---|---|---|---|---|
@@ -47,7 +47,7 @@ Cutover: 10-K 2025-07-30 (0000950170-25-100235) printed 6 segment figures differ
 
 ### segment_revenue
 
-No segment figure printed two ways: no re-segmentation seen in the readings.
+No re-segmentation seen in the readings.
 
 | Segment | FY | Dataset value (as filed) | From | Newest filing printing the FY | Other readings | Basis |
 |---|---|---|---|---|---|---|
@@ -74,7 +74,7 @@ No segment figure printed two ways: no re-segmentation seen in the readings.
 
 ### segment_revenue
 
-No segment figure printed two ways: no re-segmentation seen in the readings.
+No re-segmentation seen in the readings.
 
 | Segment | FY | Dataset value (as filed) | From | Newest filing printing the FY | Other readings | Basis |
 |---|---|---|---|---|---|---|
@@ -101,7 +101,7 @@ No segment figure printed two ways: no re-segmentation seen in the readings.
 
 ### segment_revenue
 
-No segment figure printed two ways: no re-segmentation seen in the readings.
+No re-segmentation seen in the readings.
 
 | Segment | FY | Dataset value (as filed) | From | Newest filing printing the FY | Other readings | Basis |
 |---|---|---|---|---|---|---|
@@ -147,7 +147,7 @@ No segment figure printed two ways: no re-segmentation seen in the readings.
 
 ### segment_revenue
 
-No segment figure printed two ways: no re-segmentation seen in the readings.
+No re-segmentation seen in the readings.
 
 | Segment | FY | Dataset value (as filed) | From | Newest filing printing the FY | Other readings | Basis |
 |---|---|---|---|---|---|---|
@@ -180,7 +180,7 @@ No segment figure printed two ways: no re-segmentation seen in the readings.
 
 ### segment_capex
 
-No segment figure printed two ways: no re-segmentation seen in the readings.
+No re-segmentation seen in the readings.
 
 | Segment | FY | Dataset value (as filed) | From | Newest filing printing the FY | Other readings | Basis |
 |---|---|---|---|---|---|---|
@@ -197,7 +197,7 @@ No segment figure printed two ways: no re-segmentation seen in the readings.
 
 ### segment_revenue
 
-No segment figure printed two ways: no re-segmentation seen in the readings.
+No re-segmentation seen in the readings.
 
 | Segment | FY | Dataset value (as filed) | From | Newest filing printing the FY | Other readings | Basis |
 |---|---|---|---|---|---|---|

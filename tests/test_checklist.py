@@ -431,7 +431,27 @@ class Parity(unittest.TestCase):
         rc = checklist.review_counts(board, [{"key": "k"}])
         self.assertEqual((rc["bad"], rc["wait"], rc["blocked"]), (2, 3 + 1, 1))  # 2 + 4 + 1 = 7: every open item once, the old line said 5 then 3 again
         self.assertEqual(rc["bad"] + rc["wait"] - 1 + rc["blocked"], board["open"])  # Proof's open (6) = bad + wait items + blocked; the run decision is not a Proof item
-        self.assertEqual(checklist.review_counts({"proven": []}, []), {"bad": 0, "wait": 0, "blocked": 0, "per_company": []})  # nothing to count is zero, per bucket
+        self.assertEqual(checklist.review_counts({"proven": []}, []), {"bad": 0, "wait": 0, "blocked": 0, "off_board": [], "per_company": []})  # nothing to count is zero, per bucket
+
+    def test_an_unmapped_name_no_board_row_lists_still_blocks(self):
+        item = lambda state, by, name=None: {"state": state, "by": by, **({"name": name} if name else {})}
+        board = {"proven": [{"ticker": "X", "stages": {"mapping": {"all": [item("open", "label:unmapped", "Land")]}}}]}
+        um = [{"ticker": "X", "reported_name": "Land"}, {"ticker": "X", "reported_name": "Servers"}]  # Servers has no board row
+        rc = checklist.review_counts(board, [], um)
+        self.assertEqual((rc["bad"], [m["reported_name"] for m in rc["off_board"]]), (2, ["Servers"]))  # Land once (on the board), Servers added
+        self.assertEqual(rc["per_company"][0]["open"], 2)
+        self.assertEqual(checklist.review_counts({"proven": []}, [], um)["bad"], 2)  # no board at all: every unmapped name still counts
+
+    def test_g6_links_to_the_page_that_holds_its_items_and_lists_every_key(self):
+        unc = [{"key": "finding_unconfirmed|X|capex|||jump|", "state": "explain", "reason": "a run decided"}]
+        utc = [{"ticker": "X", "reported_name": "Land", "standard_type": "us-gaap:LandMember", "by": "mapper"}]
+        self.assertEqual(checklist.g6_link(unc, utc), "reconcile")
+        self.assertEqual(checklist.g6_link(unc, []), "reconcile?cause=to_confirm")
+        self.assertEqual(checklist.g6_link([], utc), "reconcile?cause=asset_types")
+        d = checklist.g6_detail(unc, utc)
+        self.assertEqual([(x["key"], x["reason"], x["link"]) for x in d],
+                         [("finding_unconfirmed|X|capex|||jump|", "a run decided", "reconcile?cause=to_confirm"),
+                          ("asset_types|X|Land", "us-gaap:LandMember proposed by mapper", "reconcile?scope=X&cause=asset_types")])
 
     @unittest.skipUnless(store.DEFAULT_DB.exists() and not os.environ.get("LEDGER_SKIP_DB"), "no data/ledger.duckdb")
     def test_release_lines_equal_reconcile_header_buckets_on_the_real_database(self):
