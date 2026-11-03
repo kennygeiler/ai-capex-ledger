@@ -476,10 +476,10 @@
      "rendered_match": null
     }
    ],
-   "verdict": null,
+   "verdict": "right",
    "note": "",
-   "by": null,
-   "at": null,
+   "by": "Kenny Geiler",
+   "at": "2026-11-03T16:56:22+00:00",
    "release": "v1.9.0",
    "seed": "20261027|v1.9.0|APLD",
    "drawn_at": "2026-11-01T09:39:44+00:00"
